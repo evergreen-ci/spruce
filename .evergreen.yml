@@ -1,0 +1,52 @@
+stepback: true
+command_type: test
+ignore:
+    - "*.md"
+    - ".github/*"
+
+functions:
+  get-project:
+    command: git.get_project
+    type: setup
+    params:
+      directory: spruce
+
+  npm-install:
+    command: subprocess.exec
+    type: setup
+    params:
+      working_dir: ${workdir}/src/github.com/evergreen-ci/spruce
+      binary: npm
+      args: [install]
+  npm-test:
+    command: subprocess.exec
+    type: test
+    params:
+      working_dir: ${workdir}/src/github.com/evergreen-ci/spruce
+      binary: npm
+      args: [test, --, -u, -t="renders", --reporters="jest-junit"]
+      env:
+        CI: true
+  attach-results:
+    command: attach.xunit_results
+    params:
+      files:
+        - "./spruce/junit.xml"
+
+
+tasks:
+  - name: test
+    commands:
+      - func: get-project
+      - func: npm-install
+      - func: npm-test
+      - func: attach-results
+
+
+buildvariants:
+  - name: ubuntu1604
+    display_name: Ubuntu 16.04
+    run_on:
+      - ubuntu1604-test
+    tasks:
+      - name: test
