@@ -15,18 +15,20 @@ functions:
     command: subprocess.exec
     type: setup
     params:
-      working_dir: ${workdir}/src/github.com/evergreen-ci/spruce
+      working_dir: spruce
       binary: npm
       args: [install]
+
   npm-test:
     command: subprocess.exec
     type: test
     params:
-      working_dir: ${workdir}/src/github.com/evergreen-ci/spruce
+      working_dir: spruce
       binary: npm
-      args: [test, --, -u, -t="renders", --reporters="jest-junit"]
+      args: [test, --, -u, --reporters=default, --reporters=jest-junit]
       env:
-        CI: true
+        CI: "true"
+
   attach-results:
     command: attach.xunit_results
     params:
