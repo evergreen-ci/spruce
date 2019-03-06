@@ -14,7 +14,7 @@
     "test": "react-scripts-ts test --env=jsdom",
     "eject": "react-scripts-ts eject",
     "serve": "serve -s build",
-    "dist" : "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
+    "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
   },
   "devDependencies": {
     "@types/jest": "^24.0.9",
@@ -23,6 +23,7 @@
     "@types/react-dom": "^16.8.2",
     "@types/react-redux": "^7.0.1",
     "jest-junit": "^6.3.0",
+    "less": "^3.9.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "tar": "^4.4.8",
