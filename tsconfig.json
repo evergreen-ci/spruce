@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-      "paths": { "*": ["types/*"] },
+    "paths": { "*": ["types/*"] },
     "baseUrl": ".",
     "outDir": "build/dist",
     "module": "esnext",
@@ -16,7 +16,7 @@
     "noImplicitThis": true,
     "noImplicitAny": true,
     "importHelpers": true,
-    "strictNullChecks": true,
+    "strictNullChecks": false,
     "suppressImplicitAnyIndexErrors": true,
     "noUnusedLocals": true
   },

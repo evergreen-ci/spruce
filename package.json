@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "react": "^16.8.3",
-    "react-dom": "^16.8.3",
+    "@material-ui/core": "^3.9.3",
+    "@types/material-ui": "^0.21.6",
+    "@types/react-router-dom": "^4.3.2",
+    "evergreen.js": "^1.0.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
     "react-scripts-ts": "^4.0.8",
     "serve": "^10.1.2"
   },
@@ -12,22 +17,24 @@
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
+    "lint": "tslint -c tslint.json src/*.ts{x}",
     "eject": "react-scripts-ts eject",
     "serve": "serve -s build",
     "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
   },
   "devDependencies": {
-    "@types/jest": "^24.0.9",
-    "@types/node": "^11.9.6",
-    "@types/react": "^16.8.6",
-    "@types/react-dom": "^16.8.2",
-    "@types/react-redux": "^7.0.1",
+    "@types/jest": "^24.0.11",
+    "@types/node": "^11.13.4",
+    "@types/react": "^16.8.13",
+    "@types/react-dom": "^16.8.4",
+    "@types/react-redux": "^7.0.6",
+    "@types/tar": "^4.0.0",
     "jest-junit": "^6.3.0",
     "less": "^3.9.0",
     "react-redux": "^6.0.1",
     "redux": "^4.0.1",
     "tar": "^4.4.8",
-    "typescript": "^3.3.3333"
+    "typescript": "^3.4.3"
   },
   "browserslist": [
     ">0.2%",

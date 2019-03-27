@@ -1,0 +1,19 @@
+.root {
+    display: flex,
+}
+
+.drawer {
+    width: 240px;
+    flex-shrink: 0;
+}
+
+.content {
+    flex-grow: 1;
+    padding: 5px;
+}
+
+.save {
+    margin-top: 8px;
+    padding: 4px;
+    float: right;
+}
