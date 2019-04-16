@@ -7,11 +7,12 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import "./admin.css";
-import { Card, CardContent, CardHeader, TextField, Button } from '@material-ui/core';
 import {evergreen} from 'evergreen.js';
 import { models } from 'evergreen.js/lib/models';
+import { Button } from '@material-ui/core';
+import { BannerCard } from './banner';
 
-export interface Props {
+interface Props {
   APIClient: evergreen.client;
 }
 
@@ -31,7 +32,7 @@ export class Admin extends React.Component<Props, State> {
 
   public componentDidMount() {
     this.state.APIClient.getAdminConfig((err, resp, body) => {
-      if (err || resp.statusCode !== 200) {
+      if (err || resp.statusCode >= 300) {
         console.log("got error " + err + " with status " + status);
         return;
       }
@@ -73,23 +74,19 @@ export class Admin extends React.Component<Props, State> {
         </Drawer>
         <main className="content">
           <div />
-          <Card>
-            <CardHeader title="Announcements" />
-            <CardContent>
-              <TextField label="Banner Message" value={this.state.config.banner || ""} onChange={this.setBanner()}/>
-            </CardContent>
-          </Card>
+          <BannerCard banner={this.state.config.banner} onBannerTextChange={this.updateSingleConfigField("banner")} />
           <Button variant="contained" className="save" onClick={this.save()}>Save</Button>
         </main>
       </div>
     );
   };
 
-
-  private setBanner = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newState = Object.assign({}, this.state);
-    newState.config.banner = event.currentTarget.value;
-    this.setState(newState);
+  private updateSingleConfigField = (fieldName:string) => {
+    return (value:string) => {
+      const newState = Object.assign({}, this.state);
+      newState.config[fieldName] = value;
+      this.setState(newState);
+    }
   }
 
   private save = () => () => {
