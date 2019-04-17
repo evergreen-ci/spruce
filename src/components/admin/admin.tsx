@@ -9,7 +9,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import "./admin.css";
 import {evergreen} from 'evergreen.js';
 import { models } from 'evergreen.js/lib/models';
-import { Button } from '@material-ui/core';
+import { Button, Card, CardContent, CardActions, Grid } from '@material-ui/core';
 import { BannerCard } from './banner';
 
 interface Props {
@@ -74,8 +74,29 @@ export class Admin extends React.Component<Props, State> {
         </Drawer>
         <main className="content">
           <div />
-          <BannerCard banner={this.state.config.banner} onBannerTextChange={this.updateSingleConfigField("banner")} />
-          <Button variant="contained" className="save" onClick={this.save()}>Save</Button>
+
+          <Card>
+            
+            <CardContent>
+              <Grid container={true} spacing={24}>
+                <Grid item={true} xs={6}>
+                  <BannerCard banner={this.state.config.banner} onBannerTextChange={this.updateSingleConfigField("banner")} />
+                </Grid>
+                <Grid item={true} xs={6}>
+                  <Card>
+                    <CardContent>
+                      Some other component here
+                    </CardContent>
+                  </Card>
+                </Grid>
+              </Grid>
+            </CardContent>
+
+            <CardActions>
+              <Button variant="outlined" className="save" onClick={this.save()}>Save</Button>
+            </CardActions>
+          </Card>
+
         </main>
       </div>
     );
