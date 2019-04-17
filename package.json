@@ -128,11 +128,6 @@
       "^react-native$": "react-native-web",
       "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
     },
-    "globals": {
-      "ts-jest": {
-        "tsConfigFile": "/Users/johnliu/go/src/github.com/evergreen-ci/spruce/tsconfig.test.json"
-      }
-    },
     "moduleFileExtensions": [
       "web.ts",
       "ts",
