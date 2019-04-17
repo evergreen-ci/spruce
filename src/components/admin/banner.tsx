@@ -12,7 +12,7 @@ export class BannerCard extends React.Component<Props> {
             <Card>
                 <CardHeader title="Announcements" />
                 <CardContent>
-                    <TextField label="Banner Message" value={this.props.banner || ""} onChange={this.setBanner()}/>
+                    <TextField id="bannerText" label="Banner Message" value={this.props.banner || ""} onChange={this.setBanner()}/>
                 </CardContent>
             </Card>
         )
