@@ -73,6 +73,7 @@
     "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
   },
   "devDependencies": {
+    "@types/enzyme": "^3.9.1",
     "@types/jest": "^24.0.11",
     "@types/node": "^11.13.4",
     "@types/react": "^16.8.13",
@@ -80,9 +81,12 @@
     "@types/react-redux": "^7.0.6",
     "@types/tar": "^4.0.0",
     "@types/webpack": "^4.4.27",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "jest-junit": "^6.3.0",
     "less": "^3.9.0",
     "react-redux": "^6.0.1",
+    "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
     "tar": "^4.4.8",
     "typescript": "^3.4.3"
@@ -99,7 +103,9 @@
       "!**/*.d.ts"
     ],
     "setupFiles": [
-      "react-app-polyfill/jsdom"
+      "react-app-polyfill/jsdom",
+      "<rootDir>/src/test-shim.js",
+      "<rootDir>/src/test-setup.js"
     ],
     "testMatch": [
       "<rootDir>/src/**/__tests__/**/*.(j|t)s?(x)",
@@ -111,7 +117,8 @@
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.tsx?$": "<rootDir>/config/jest/typescriptTransform.js",
       "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(js|jsx|css|json)$)": "<rootDir>/config/jest/fileTransform.js",
+      "^.+\\.(ts|tsx)$": "<rootDir>/src/test-preprocessor.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
