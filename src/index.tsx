@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import Evergreen from './components/app/App';
-import './index.css';
+import './styles.css';
 import registerServiceWorker from './registerServiceWorker';
 
 ReactDOM.render(

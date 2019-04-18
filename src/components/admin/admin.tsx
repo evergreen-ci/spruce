@@ -6,7 +6,7 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import "./admin.css";
+import '../../styles.css';
 import {evergreen} from 'evergreen.js';
 import { models } from 'evergreen.js/lib/models';
 import { Button, Card, CardContent, CardActions, Grid } from '@material-ui/core';

@@ -66,10 +66,10 @@
     "workbox-webpack-plugin": "3.6.1"
   },
   "scripts": {
-    "start": "node scripts/start.js",
-    "build": "node scripts/build.js",
-    "test": "node scripts/test.js --env=jsdom",
-    "lint": "tslint -c tslint.json src/*.ts{x}",
+    "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
+    "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
+    "test": "lessc src/styles.less src/styles.css && node scripts/test.js --env=jsdom",
+    "lint": "lessc src/styles.less src/styles.css && tslint -c tslint.json src/*.ts{x}",
     "serve": "serve -s build",
     "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
   },

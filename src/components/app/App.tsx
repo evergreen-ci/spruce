@@ -1,5 +1,5 @@
 import * as React from 'react';
-import './App.css';
+import '../../styles.css';
 import {Admin} from "../admin/admin";
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import {evergreen} from 'evergreen.js';
