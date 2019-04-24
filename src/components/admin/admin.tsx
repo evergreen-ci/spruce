@@ -4,7 +4,6 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import '../../styles.css';
 import {evergreen} from 'evergreen.js';
@@ -55,22 +54,13 @@ export class Admin extends React.Component<Props, State> {
           <div />
           <Divider />
           <List>
-            {['section1', 'section2', 'section3', 'section4'].map((text, index) => (
-              <ListItem button={true} key={text}>
-                <ListItemIcon><div /></ListItemIcon>
+            {["Banner"].map((text, index) => (
+              <ListItem href="" button={true} key={text}>
                 <ListItemText primary={text} />
               </ListItem>
             ))}
           </List>
           <Divider />
-          <List>
-            {['section5', 'section6', 'section7'].map((text, index) => (
-              <ListItem button={true} key={text}>
-                <ListItemIcon><div /></ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
-          </List>
         </Drawer>
         <main className="content">
           <div />

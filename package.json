@@ -68,7 +68,7 @@
   "scripts": {
     "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
     "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
-    "test": "lessc src/styles.less src/styles.css && node scripts/test.js --env=jsdom",
+    "test": "lessc src/styles.less src/styles.css && jest",
     "lint": "lessc src/styles.less src/styles.css && tslint -c tslint.json src/*.ts{x}",
     "serve": "serve -s build",
     "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
