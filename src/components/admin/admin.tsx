@@ -6,18 +6,18 @@ import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import '../../styles.css';
-import {evergreen} from 'evergreen.js';
-import { models } from 'evergreen.js/lib/models';
+import {client as evergreenClient} from 'evergreen.js';
+import * as models from 'evergreen.js/lib/models';
 import { Button, Card, CardContent, CardActions, Grid } from '@material-ui/core';
 import { BannerCard } from './banner';
 
 interface Props {
-  APIClient: evergreen.client;
+  APIClient: evergreenClient;
 }
 
 interface State {
   config?: models.AdminSettings;
-  APIClient: evergreen.client;
+  APIClient: evergreenClient;
 }
 
 export class Admin extends React.Component<Props, State> {

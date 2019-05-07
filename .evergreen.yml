@@ -1,8 +1,8 @@
 stepback: true
 command_type: test
 ignore:
-    - "*.md"
-    - ".github/*"
+  - "*.md"
+  - ".github/*"
 
 functions:
   get-project:
@@ -27,6 +27,13 @@ functions:
       args: [test, --, -u, --reporters=default, --reporters=jest-junit]
       env:
         CI: "true"
+
+  npm-lint:
+    command: subprocess.exec
+    params:
+      working_dir: spruce
+      binary: npm
+      args: [run, lint]
 
   npm-build:
     command: subprocess.exec
@@ -65,24 +72,29 @@ functions:
 tasks:
   - name: test
     commands:
-      - func: get-project
-      - func: npm-install
-      - func: npm-test
-      - func: attach-results
+    - func: get-project
+    - func: npm-install
+    - func: npm-test
+    - func: attach-results
   - name: dist
     commands:
-      - func: get-project
-      - func: npm-install
-      - func: npm-build
-      - func: npm-dist
-      - func: upload-dist
-
+    - func: get-project
+    - func: npm-install
+    - func: npm-build
+    - func: npm-dist
+    - func: upload-dist
+  - name: lint
+    commands:
+    - func: get-project
+    - func: npm-install
+    - func: npm-lint
 
 buildvariants:
   - name: ubuntu1604
     display_name: Ubuntu 16.04
     run_on:
-      - ubuntu1604-test
+    - ubuntu1604-test
     tasks:
-      - name: test
-      - name: dist
+    - name: dist
+    - name: lint
+    - name: test
