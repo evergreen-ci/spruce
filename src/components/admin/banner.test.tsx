@@ -1,5 +1,5 @@
-import * as React from 'react';
 import * as enzyme from 'enzyme';
+import * as React from 'react';
 import { BannerCard } from './banner';
 
 describe("BannerCard", () => {

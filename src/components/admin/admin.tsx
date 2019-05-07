@@ -1,14 +1,14 @@
-import * as React from "react";
-import Drawer from '@material-ui/core/Drawer';
+import { Button, Card, CardActions, CardContent, Grid } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
+import Drawer from '@material-ui/core/Drawer';
+import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import '../../styles.css';
 import {client as evergreenClient} from 'evergreen.js';
 import * as models from 'evergreen.js/lib/models';
-import { Button, Card, CardContent, CardActions, Grid } from '@material-ui/core';
+import * as React from "react";
+import '../../styles.css';
 import { BannerCard } from './banner';
 
 interface Props {
