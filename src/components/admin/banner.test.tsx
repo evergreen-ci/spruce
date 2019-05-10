@@ -11,6 +11,10 @@ describe("BannerCard", () => {
         expect(wrapper.html()).toContain("Banner Message");
     })
 
+    it("matches snapshot", () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+
     it("typing in field calls onChange", () => {
         wrapper.find("#bannerText").simulate("change", { currentTarget: {value: "new banner"}});
         expect(onChange).toHaveBeenCalled();
