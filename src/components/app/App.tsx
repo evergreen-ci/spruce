@@ -1,13 +1,13 @@
 import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import * as MenuIcon from '@material-ui/icons/Menu';
-import {client as evergreenClient} from 'evergreen.js'
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 import {Admin} from "../admin/admin";
 
 interface State {
-  APIClient: evergreenClient;
+  APIClient: rest.Evergreen;
   MenuAnchor?: HTMLElement;
 }
 
@@ -19,7 +19,7 @@ export class Evergreen extends React.Component<Props, State> {
     super(props);
     // TODO: get the API client from some config
     this.state = {
-      APIClient: new evergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api")
+      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api")
     }
   }
 

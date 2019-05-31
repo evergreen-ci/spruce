@@ -5,19 +5,19 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import {client as evergreenClient} from 'evergreen.js';
 import * as models from 'evergreen.js/lib/models';
 import * as React from "react";
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { BannerCard } from './banner';
 
 interface Props {
-  APIClient: evergreenClient;
+  APIClient: rest.Evergreen;
 }
 
 interface State {
   config?: models.AdminSettings;
-  APIClient: evergreenClient;
+  APIClient: rest.Evergreen;
 }
 
 export class Admin extends React.Component<Props, State> {
