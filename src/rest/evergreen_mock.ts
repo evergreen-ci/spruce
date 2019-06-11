@@ -19,6 +19,14 @@ import * as request from "request";
         callback(null, this.dummySuccessResp(), {});
     }
 
+    public getRecentPatches(callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number)  {
+        callback(null, this.dummySuccessResp(), {});
+    }
+
+    public getToken(callback: request.RequestCallback, username?: string, password?: string) {
+        callback(null, this.dummySuccessResp(), {});
+    }
+
      public getAdminConfig(callback: request.RequestCallback) {
         callback(null, this.dummySuccessResp(), {});
     }
