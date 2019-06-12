@@ -32,11 +32,12 @@ export class Evergreen extends React.Component<Props, State> {
     return (
       <div className="App">
         <HashRouter>
-          <AppBar position="fixed" className="appBar">
+          <AppBar position="fixed" className="app-bar">
             <Toolbar>
               <Typography variant="h5" color="inherit" noWrap={true}>
                 Evergreen
-              </Typography> 
+              </Typography>
+              <div className="spacer" /> 
               <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
                 <MenuIcon.default />
               </IconButton>
@@ -55,7 +56,6 @@ export class Evergreen extends React.Component<Props, State> {
             <Route path="/admin" render={admin} />
           </div>
         </HashRouter>
-        <div className="searchBar">Insert search bar here</div>
         <PatchContainer client={this.state.APIClient} />
       </div>
     );
