@@ -1,12 +1,12 @@
-import { AppBar, Grid, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import * as MenuIcon from '@material-ui/icons/Menu';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import { Admin } from "../admin/admin";
-import { Login } from "../login/login";
-import { Patch } from "../patch/patch";
+import { Admin } from "../admin/Admin";
+import { Login } from "../login/Login";
+import { PatchContainer } from '../patch/PatchContainer';
 
 interface State {
   APIClient: rest.Evergreen;
@@ -57,10 +57,8 @@ export class Evergreen extends React.Component<Props, State> {
                 <MenuItem onClick={this.closeMenu}>
                   <NavLink to="/admin"> Admin page</NavLink>
                 </MenuItem>
-                <MenuItem>
-                  <Login/>
-                </MenuItem>
               </Menu>
+              <Login client={this.state.APIClient} />
             </Toolbar>
           </AppBar>
           <div className="App-intro">
@@ -68,14 +66,7 @@ export class Evergreen extends React.Component<Props, State> {
           </div>
         </HashRouter>
         <div className="searchBar">Insert search bar here</div>
-        <Grid className="patchContainer" container={true} spacing={24}>
-          <Grid item={true} xs={12}>
-          <Patch name="Patch 1" month="June" day={23} time="11:30 AM" project="Evergreen" patch="3d3faf"/>
-          </Grid>
-          <Grid item={true} xs={12}>
-            <Patch name="Patch 2" month="June" day={23} time="11:11 AM" project="Evergreen" patch="3d3fa0"/>
-          </Grid>  
-        </Grid>
+        <PatchContainer client={this.state.APIClient} />
       </div>
     );
   }

@@ -73,7 +73,8 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
     "serve": "serve -s build",
-    "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js"
+    "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js",
+    "update-snapshot": "jest --updateSnapshot"
   },
   "devDependencies": {
     "@types/enzyme": "^3.9.3",

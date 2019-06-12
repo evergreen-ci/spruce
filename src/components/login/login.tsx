@@ -4,7 +4,6 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 
 interface State {
-  APIClient: rest.Evergreen;
   open : boolean;
   submitted : boolean
   username : string
@@ -12,6 +11,7 @@ interface State {
 }
 
 class Props {
+  public client: rest.Evergreen;
 }
 
 export class Login extends React.Component<Props, State> {
@@ -22,7 +22,6 @@ export class Login extends React.Component<Props, State> {
     this.handleClickClose = this.handleClickClose.bind(this);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
     this.state = {
-      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api"),
       open : false,
       submitted : false,
       username : "",
@@ -30,20 +29,19 @@ export class Login extends React.Component<Props, State> {
     };
   }
 
-  public handleClickOpen() : any{
+  public handleClickOpen() : void {
     this.setState({
       open : true,
     });
   }
 
-  public handleClickClose(): any {
+  public handleClickClose(): void {
     this.setState({
       open : false,
     });
   }
 
-  public handleClickSubmit(): any {
-    console.log(this.state.username);
+  public handleClickSubmit(): void {
     this.setState({
       open : false,
       submitted : true,
@@ -53,10 +51,10 @@ export class Login extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen}>
+        <Button onClick={this.handleClickOpen} className="login-button">
           Log In
         </Button>
-        <Dialog open={this.state.open} onClose={this.handleClickClose} aria-labelledby="form-dialog-title">
+        <Dialog open={this.state.open} onClose={this.handleClickClose}>
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
             <DialogContentText>
