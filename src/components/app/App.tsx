@@ -11,7 +11,6 @@ import { PatchContainer } from '../patch/PatchContainer';
 interface State {
   APIClient: rest.Evergreen;
   MenuAnchor?: HTMLElement;
-  Patches: JSON;
 }
 
 class Props {
@@ -23,16 +22,7 @@ export class Evergreen extends React.Component<Props, State> {
     // TODO: get the API client from some config
     this.state = {
       APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api"),
-      Patches: null
     }
-  }
-
-  public getDummyData() {
-    this.state.APIClient.getRecentTasks(() => {
-      this.setState({
-        Patches: null
-      })
-    }, true, 20)
   }
 
   public render() {
@@ -44,10 +34,10 @@ export class Evergreen extends React.Component<Props, State> {
         <HashRouter>
           <AppBar position="fixed" className="appBar">
             <Toolbar>
-              <Typography variant="h5" className="title" noWrap={true}>
+              <Typography variant="h5" color="inherit" noWrap={true}>
                 Evergreen
-              </Typography>
-              <IconButton className="menu" id="mainAppIcon" onClick={this.openMenu}>
+              </Typography> 
+              <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
                 <MenuIcon.default />
               </IconButton>
               <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor} 

@@ -18,9 +18,6 @@ export class Login extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.handleClickOpen = this.handleClickOpen.bind(this);
-    this.handleClickClose = this.handleClickClose.bind(this);
-    this.handleClickSubmit = this.handleClickSubmit.bind(this);
     this.state = {
       open : false,
       submitted : false,
@@ -29,29 +26,10 @@ export class Login extends React.Component<Props, State> {
     };
   }
 
-  public handleClickOpen() : void {
-    this.setState({
-      open : true,
-    });
-  }
-
-  public handleClickClose(): void {
-    this.setState({
-      open : false,
-    });
-  }
-
-  public handleClickSubmit(): void {
-    this.setState({
-      open : false,
-      submitted : true,
-    });
-  }
-
   public render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen} className="login-button">
+        <Button onClick={this.handleClickOpen} color="inherit" className="login-button">
           Log In
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose}>
@@ -94,6 +72,27 @@ export class Login extends React.Component<Props, State> {
         </Dialog>
       </div>
     );
+  }
+
+  private handleClickOpen = () => {
+    this.setState({
+      open : true,
+    });
+  }
+
+  private handleClickClose = () => {
+    this.setState({
+      open : false,
+      username: "",
+      password: "",
+    });
+  }
+
+  private handleClickSubmit = () => {
+    this.setState({
+      open : false,
+      submitted : true,
+    });
   }
  
   private updateSingleField = (fieldName:string) => {

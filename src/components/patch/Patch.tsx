@@ -22,7 +22,7 @@ export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      name : "Patch 2", 
+      name : "Test Patch", 
       month : "June", 
       day : 23,
       time : "11:11 AM", 
