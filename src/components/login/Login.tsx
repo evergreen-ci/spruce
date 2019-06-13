@@ -46,7 +46,7 @@ export class Login extends React.Component<Props, State> {
               type="string"
               fullWidth={true}
               required={true}
-              onChange={this.updateSingleField("username")}
+              onChange={this.updateSingleField(this.state, "username")}
               value={this.state.username}
             />
             <TextField
@@ -57,7 +57,7 @@ export class Login extends React.Component<Props, State> {
               type="string"
               fullWidth={true}
               required={true}
-              onChange={this.updateSingleField("password")}
+              onChange={this.updateSingleField(this.state, "password")}
               value={this.state.password}
             />
           </DialogContent>
@@ -95,10 +95,10 @@ export class Login extends React.Component<Props, State> {
     });
   }
  
-  private updateSingleField = (fieldName:string) => {
+  private updateSingleField = <T, K extends keyof T>(state: T, key: K) => {
     return (value:React.ChangeEvent<HTMLInputElement>) => {
-      const newState = Object.assign({}, this.state);
-      newState[fieldName] = value.target.value;
+      const newState = Object.assign({}, state);
+      newState[key] = value.target.value as any;
       this.setState(newState);
     }
   }

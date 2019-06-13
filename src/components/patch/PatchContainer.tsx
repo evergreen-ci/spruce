@@ -17,7 +17,6 @@ export class PatchContainer extends React.Component<Props> {
     return (
       <div>
         <div className="patch-search-bar">Insert patch search bar here</div>
-        <div className="App-intro"/>
         <Grid className="patch-container" container={true} spacing={24}>
           <Grid item={true} xs={12}>
             <Patch client={this.props.client} />

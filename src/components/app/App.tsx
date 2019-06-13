@@ -27,6 +27,7 @@ export class Evergreen extends React.Component<Props, State> {
 
   public render() {
     const admin = () => <Admin APIClient={this.state.APIClient} />
+    const patches = () => <PatchContainer client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
@@ -48,15 +49,18 @@ export class Evergreen extends React.Component<Props, State> {
                 <MenuItem onClick={this.closeMenu}>
                   <NavLink to="/admin"> Admin page</NavLink>
                 </MenuItem>
+                <MenuItem>
+                  <NavLink to="/patches">My Patches</NavLink> 
+                </MenuItem>
               </Menu>
               <Login client={this.state.APIClient} />
             </Toolbar>
           </AppBar>
           <div className="App-intro">
             <Route path="/admin" render={admin} />
+            <Route path="/patches" render={patches} />
           </div>
         </HashRouter>
-        <PatchContainer client={this.state.APIClient} />
       </div>
     );
   }
