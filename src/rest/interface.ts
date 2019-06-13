@@ -9,6 +9,7 @@ import * as mock from "./evergreen_mock"
 
     getDistros: (callback: request.RequestCallback) => void;
     getRecentTasks: (callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number, status?: string) => void;
+    getToken: (callback: request.RequestCallback, username?: string, password?: string) => void;
     getAdminConfig: (callback: request.RequestCallback) => void;
     setAdminConfig: (callback: request.RequestCallback, settings: any) => void;
     getBanner: (callback: request.RequestCallback) => void;

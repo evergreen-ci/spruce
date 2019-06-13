@@ -4,7 +4,9 @@ import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import {Admin} from "../admin/admin";
+import { Admin } from "../admin/Admin";
+import { Login } from "../login/Login";
+import { PatchContainer } from '../patch/PatchContainer';
 
 interface State {
   APIClient: rest.Evergreen;
@@ -19,42 +21,44 @@ export class Evergreen extends React.Component<Props, State> {
     super(props);
     // TODO: get the API client from some config
     this.state = {
-      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api")
+      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api"),
     }
   }
 
   public render() {
-    const admin = () => <Admin APIClient={this.state.APIClient}/>
+    const admin = () => <Admin APIClient={this.state.APIClient} />
+    const patches = () => <PatchContainer client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
       <div className="App">
         <HashRouter>
-          <AppBar position="fixed" color="inherit" className="appBar">
+          <AppBar position="fixed" className="app-bar">
             <Toolbar>
               <Typography variant="h5" color="inherit" noWrap={true}>
                 Evergreen
               </Typography>
-              <IconButton className="menu" id="mainAppIcon" onClick={this.openMenu}>
+              <div className="spacer" /> 
+              <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
                 <MenuIcon.default />
               </IconButton>
-              <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor} anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  onClose={this.closeMenu}>
-                    <MenuItem onClick={this.closeMenu}>
-                      <NavLink to="/admin"> Admin page</NavLink>
-                    </MenuItem>
+              <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor} 
+                anchorOrigin={{vertical: 'top', horizontal: 'right',}}
+                transformOrigin={{vertical: 'top', horizontal: 'right',}}
+                onClose={this.closeMenu}>
+                <MenuItem onClick={this.closeMenu}>
+                  <NavLink to="/admin"> Admin Page</NavLink>
+                </MenuItem>
+                <MenuItem onClick={this.closeMenu}>
+                  <NavLink to="/patches">My Patches</NavLink> 
+                </MenuItem>
               </Menu>
+              <Login client={this.state.APIClient} />
             </Toolbar>
           </AppBar>
           <div className="App-intro">
             <Route path="/admin" render={admin} />
+            <Route path="/patches" render={patches} />
           </div>
         </HashRouter>
       </div>
@@ -62,11 +66,11 @@ export class Evergreen extends React.Component<Props, State> {
   }
 
   private openMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({MenuAnchor: event.currentTarget});
+    this.setState({ MenuAnchor: event.currentTarget });
   };
 
   private closeMenu = () => {
-    this.setState({MenuAnchor: null})
+    this.setState({ MenuAnchor: null })
   }
 }
 

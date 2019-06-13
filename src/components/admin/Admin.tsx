@@ -9,7 +9,7 @@ import * as models from 'evergreen.js/lib/models';
 import * as React from "react";
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import { BannerCard } from './banner';
+import { BannerCard } from './Banner';
 
 interface Props {
   APIClient: rest.Evergreen;

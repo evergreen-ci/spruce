@@ -1,6 +1,6 @@
 import * as enzyme from 'enzyme';
 import * as React from 'react';
-import { BannerCard } from './banner';
+import { BannerCard } from './Banner';
 
 describe("BannerCard", () => {
     const onChange = jest.fn((value:string) => expect(value).toBe("new banner"));
