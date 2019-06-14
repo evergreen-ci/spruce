@@ -29,10 +29,10 @@ export class Login extends React.Component<Props, State> {
   public render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen} color="inherit" className="login-button">
+        <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
           Log In
         </Button>
-        <Dialog open={this.state.open} onClose={this.handleClickClose}>
+        <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -89,6 +89,13 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickSubmit = () => {
+    this.props.client.getToken((err, resp, body) => {
+      if (err || resp.statusCode >= 300) {
+        console.log("got error " + err + " with status " + status);
+        return;
+      }
+      console.log(resp.request.response.rawHeaders);
+    }, this.state.username, this.state.password);
     this.setState({
       open : false,
       submitted : true,

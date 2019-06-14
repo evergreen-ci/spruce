@@ -39,14 +39,14 @@ import * as request from "request";
         callback(null, this.dummySuccessResp(), {});
     }
 
-     private dummySuccessResp(): request.Response {
+    private dummySuccessResp(): request.Response {
         const mockResp: mockResponse = {
             statusCode: 200,
             statusMessage: "",
             body: {},
         };
 
-         return mockResp as request.Response;
+        return mockResp as request.Response;
     }
 }
 
