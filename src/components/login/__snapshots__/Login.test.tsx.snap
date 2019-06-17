@@ -6,9 +6,9 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Login
     client={
       client {
-        "key": "e4f2c40463dcade5248d36434cb93bac",
-        "serverURL": "http://localhost:8080/api",
-        "username": "admin",
+        "key": "",
+        "serverURL": "",
+        "username": "",
       }
     }
   />,
@@ -79,12 +79,14 @@ ShallowWrapper {
           <WithStyles(DialogActions)>
             <WithStyles(Button)
               color="primary"
+              id="cancel-button"
               onClick={[Function]}
             >
               Cancel
             </WithStyles(Button)>
             <WithStyles(Button)
               color="primary"
+              id="submit-button"
               onClick={[Function]}
             >
               Submit
@@ -155,12 +157,14 @@ ShallowWrapper {
             <WithStyles(DialogActions)>
               <WithStyles(Button)
                 color="primary"
+                id="cancel-button"
                 onClick={[Function]}
               >
                 Cancel
               </WithStyles(Button)>
               <WithStyles(Button)
                 color="primary"
+                id="submit-button"
                 onClick={[Function]}
               >
                 Submit
@@ -288,12 +292,14 @@ ShallowWrapper {
               "children": Array [
                 <WithStyles(Button)
                   color="primary"
+                  id="cancel-button"
                   onClick={[Function]}
                 >
                   Cancel
                 </WithStyles(Button)>,
                 <WithStyles(Button)
                   color="primary"
+                  id="submit-button"
                   onClick={[Function]}
                 >
                   Submit
@@ -309,6 +315,7 @@ ShallowWrapper {
                 "props": Object {
                   "children": "Cancel",
                   "color": "primary",
+                  "id": "cancel-button",
                   "onClick": [Function],
                 },
                 "ref": null,
@@ -322,6 +329,7 @@ ShallowWrapper {
                 "props": Object {
                   "children": "Submit",
                   "color": "primary",
+                  "id": "submit-button",
                   "onClick": [Function],
                 },
                 "ref": null,
@@ -396,12 +404,14 @@ ShallowWrapper {
             <WithStyles(DialogActions)>
               <WithStyles(Button)
                 color="primary"
+                id="cancel-button"
                 onClick={[Function]}
               >
                 Cancel
               </WithStyles(Button)>
               <WithStyles(Button)
                 color="primary"
+                id="submit-button"
                 onClick={[Function]}
               >
                 Submit
@@ -472,12 +482,14 @@ ShallowWrapper {
               <WithStyles(DialogActions)>
                 <WithStyles(Button)
                   color="primary"
+                  id="cancel-button"
                   onClick={[Function]}
                 >
                   Cancel
                 </WithStyles(Button)>
                 <WithStyles(Button)
                   color="primary"
+                  id="submit-button"
                   onClick={[Function]}
                 >
                   Submit
@@ -605,12 +617,14 @@ ShallowWrapper {
                 "children": Array [
                   <WithStyles(Button)
                     color="primary"
+                    id="cancel-button"
                     onClick={[Function]}
                   >
                     Cancel
                   </WithStyles(Button)>,
                   <WithStyles(Button)
                     color="primary"
+                    id="submit-button"
                     onClick={[Function]}
                   >
                     Submit
@@ -626,6 +640,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Cancel",
                     "color": "primary",
+                    "id": "cancel-button",
                     "onClick": [Function],
                   },
                   "ref": null,
@@ -639,6 +654,7 @@ ShallowWrapper {
                   "props": Object {
                     "children": "Submit",
                     "color": "primary",
+                    "id": "submit-button",
                     "onClick": [Function],
                   },
                   "ref": null,

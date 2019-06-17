@@ -8,6 +8,7 @@ interface State {
   submitted : boolean
   username : string
   password : string
+  token : string
 }
 
 class Props {
@@ -23,6 +24,7 @@ export class Login extends React.Component<Props, State> {
       submitted : false,
       username : "",
       password : "",
+      token : "",
     };
   }
 
@@ -62,10 +64,10 @@ export class Login extends React.Component<Props, State> {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClickClose} color="primary">
+            <Button onClick={this.handleClickClose} color="primary" id="cancel-button">
               Cancel
             </Button>
-            <Button onClick={this.handleClickSubmit} color="primary">
+            <Button onClick={this.handleClickSubmit} color="primary" id="submit-button">
               Submit
             </Button>
           </DialogActions>
@@ -94,7 +96,6 @@ export class Login extends React.Component<Props, State> {
         console.log("got error " + err + " with status " + status);
         return;
       }
-      console.log(resp.request.response.rawHeaders);
     }, this.state.username, this.state.password);
     this.setState({
       open : false,

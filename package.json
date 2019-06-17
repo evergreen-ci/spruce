@@ -10,7 +10,6 @@
     "@svgr/webpack": "2.4.1",
     "@types/material-ui": "^0.21.6",
     "@types/react-router-dom": "^4.3.3",
-    "@types/request": "^2.48.1",
     "babel-core": "7.0.0-bridge.0",
     "babel-eslint": "9.0.0",
     "babel-jest": "23.6.0",
