@@ -8,6 +8,7 @@ interface State {
   submitted : boolean
   username : string
   password : string
+  token : string
 }
 
 class Props {
@@ -23,16 +24,17 @@ export class Login extends React.Component<Props, State> {
       submitted : false,
       username : "",
       password : "",
+      token : "",
     };
   }
 
   public render() {
     return (
       <div>
-        <Button onClick={this.handleClickOpen} color="inherit" className="login-button">
+        <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
           Log In
         </Button>
-        <Dialog open={this.state.open} onClose={this.handleClickClose}>
+        <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -62,10 +64,10 @@ export class Login extends React.Component<Props, State> {
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={this.handleClickClose} color="primary">
+            <Button onClick={this.handleClickClose} color="primary" id="cancel-button">
               Cancel
             </Button>
-            <Button onClick={this.handleClickSubmit} color="primary">
+            <Button onClick={this.handleClickSubmit} color="primary" id="submit-button">
               Submit
             </Button>
           </DialogActions>
@@ -89,6 +91,12 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickSubmit = () => {
+    this.props.client.getToken((err, resp, body) => {
+      if (err || resp.statusCode >= 300) {
+        console.log("got error " + err + " with status " + status);
+        return;
+      }
+    }, this.state.username, this.state.password);
     this.setState({
       open : false,
       submitted : true,

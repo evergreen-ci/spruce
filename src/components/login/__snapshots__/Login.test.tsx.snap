@@ -1,0 +1,702 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login matches snapshot 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Login
+    client={
+      client {
+        "key": "",
+        "serverURL": "",
+        "username": "",
+      }
+    }
+  />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <WithStyles(Button)
+          className="login-button"
+          color="inherit"
+          id="login-button"
+          onClick={[Function]}
+        >
+          Log In
+        </WithStyles(Button)>,
+        <WithStyles(Dialog)
+          id="login-modal"
+          onClose={[Function]}
+          open={false}
+        >
+          <WithStyles(DialogTitle)
+            id="form-dialog-title"
+          >
+            Log In
+          </WithStyles(DialogTitle)>
+          <WithStyles(DialogContent)>
+            <WithStyles(DialogContentText)>
+              Please enter your username and password.
+            </WithStyles(DialogContentText)>
+            <TextField
+              autoFocus={false}
+              fullWidth={true}
+              id="username"
+              label="username"
+              margin="dense"
+              onChange={[Function]}
+              required={true}
+              select={false}
+              type="string"
+              value=""
+              variant="standard"
+            />
+            <TextField
+              autoFocus={false}
+              fullWidth={true}
+              id="password"
+              label="password"
+              margin="dense"
+              onChange={[Function]}
+              required={true}
+              select={false}
+              type="string"
+              value=""
+              variant="standard"
+            />
+          </WithStyles(DialogContent)>
+          <WithStyles(DialogActions)>
+            <WithStyles(Button)
+              color="primary"
+              id="cancel-button"
+              onClick={[Function]}
+            >
+              Cancel
+            </WithStyles(Button)>
+            <WithStyles(Button)
+              color="primary"
+              id="submit-button"
+              onClick={[Function]}
+            >
+              Submit
+            </WithStyles(Button)>
+          </WithStyles(DialogActions)>
+        </WithStyles(Dialog)>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": "Log In",
+          "className": "login-button",
+          "color": "inherit",
+          "id": "login-button",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": "Log In",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "children": Array [
+            <WithStyles(DialogTitle)
+              id="form-dialog-title"
+            >
+              Log In
+            </WithStyles(DialogTitle)>,
+            <WithStyles(DialogContent)>
+              <WithStyles(DialogContentText)>
+                Please enter your username and password.
+              </WithStyles(DialogContentText)>
+              <TextField
+                autoFocus={false}
+                fullWidth={true}
+                id="username"
+                label="username"
+                margin="dense"
+                onChange={[Function]}
+                required={true}
+                select={false}
+                type="string"
+                value=""
+                variant="standard"
+              />
+              <TextField
+                autoFocus={false}
+                fullWidth={true}
+                id="password"
+                label="password"
+                margin="dense"
+                onChange={[Function]}
+                required={true}
+                select={false}
+                type="string"
+                value=""
+                variant="standard"
+              />
+            </WithStyles(DialogContent)>,
+            <WithStyles(DialogActions)>
+              <WithStyles(Button)
+                color="primary"
+                id="cancel-button"
+                onClick={[Function]}
+              >
+                Cancel
+              </WithStyles(Button)>
+              <WithStyles(Button)
+                color="primary"
+                id="submit-button"
+                onClick={[Function]}
+              >
+                Submit
+              </WithStyles(Button)>
+            </WithStyles(DialogActions)>,
+          ],
+          "id": "login-modal",
+          "onClose": [Function],
+          "open": false,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": "Log In",
+              "id": "form-dialog-title",
+            },
+            "ref": null,
+            "rendered": "Log In",
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <WithStyles(DialogContentText)>
+                  Please enter your username and password.
+                </WithStyles(DialogContentText)>,
+                <TextField
+                  autoFocus={false}
+                  fullWidth={true}
+                  id="username"
+                  label="username"
+                  margin="dense"
+                  onChange={[Function]}
+                  required={true}
+                  select={false}
+                  type="string"
+                  value=""
+                  variant="standard"
+                />,
+                <TextField
+                  autoFocus={false}
+                  fullWidth={true}
+                  id="password"
+                  label="password"
+                  margin="dense"
+                  onChange={[Function]}
+                  required={true}
+                  select={false}
+                  type="string"
+                  value=""
+                  variant="standard"
+                />,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Please enter your username and password.",
+                },
+                "ref": null,
+                "rendered": "Please enter your username and password.",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "autoFocus": false,
+                  "fullWidth": true,
+                  "id": "username",
+                  "label": "username",
+                  "margin": "dense",
+                  "onChange": [Function],
+                  "required": true,
+                  "select": false,
+                  "type": "string",
+                  "value": "",
+                  "variant": "standard",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "autoFocus": false,
+                  "fullWidth": true,
+                  "id": "password",
+                  "label": "password",
+                  "margin": "dense",
+                  "onChange": [Function],
+                  "required": true,
+                  "select": false,
+                  "type": "string",
+                  "value": "",
+                  "variant": "standard",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "children": Array [
+                <WithStyles(Button)
+                  color="primary"
+                  id="cancel-button"
+                  onClick={[Function]}
+                >
+                  Cancel
+                </WithStyles(Button)>,
+                <WithStyles(Button)
+                  color="primary"
+                  id="submit-button"
+                  onClick={[Function]}
+                >
+                  Submit
+                </WithStyles(Button)>,
+              ],
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Cancel",
+                  "color": "primary",
+                  "id": "cancel-button",
+                  "onClick": [Function],
+                },
+                "ref": null,
+                "rendered": "Cancel",
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "Submit",
+                  "color": "primary",
+                  "id": "submit-button",
+                  "onClick": [Function],
+                },
+                "ref": null,
+                "rendered": "Submit",
+                "type": [Function],
+              },
+            ],
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <WithStyles(Button)
+            className="login-button"
+            color="inherit"
+            id="login-button"
+            onClick={[Function]}
+          >
+            Log In
+          </WithStyles(Button)>,
+          <WithStyles(Dialog)
+            id="login-modal"
+            onClose={[Function]}
+            open={false}
+          >
+            <WithStyles(DialogTitle)
+              id="form-dialog-title"
+            >
+              Log In
+            </WithStyles(DialogTitle)>
+            <WithStyles(DialogContent)>
+              <WithStyles(DialogContentText)>
+                Please enter your username and password.
+              </WithStyles(DialogContentText)>
+              <TextField
+                autoFocus={false}
+                fullWidth={true}
+                id="username"
+                label="username"
+                margin="dense"
+                onChange={[Function]}
+                required={true}
+                select={false}
+                type="string"
+                value=""
+                variant="standard"
+              />
+              <TextField
+                autoFocus={false}
+                fullWidth={true}
+                id="password"
+                label="password"
+                margin="dense"
+                onChange={[Function]}
+                required={true}
+                select={false}
+                type="string"
+                value=""
+                variant="standard"
+              />
+            </WithStyles(DialogContent)>
+            <WithStyles(DialogActions)>
+              <WithStyles(Button)
+                color="primary"
+                id="cancel-button"
+                onClick={[Function]}
+              >
+                Cancel
+              </WithStyles(Button)>
+              <WithStyles(Button)
+                color="primary"
+                id="submit-button"
+                onClick={[Function]}
+              >
+                Submit
+              </WithStyles(Button)>
+            </WithStyles(DialogActions)>
+          </WithStyles(Dialog)>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": "Log In",
+            "className": "login-button",
+            "color": "inherit",
+            "id": "login-button",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Log In",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "children": Array [
+              <WithStyles(DialogTitle)
+                id="form-dialog-title"
+              >
+                Log In
+              </WithStyles(DialogTitle)>,
+              <WithStyles(DialogContent)>
+                <WithStyles(DialogContentText)>
+                  Please enter your username and password.
+                </WithStyles(DialogContentText)>
+                <TextField
+                  autoFocus={false}
+                  fullWidth={true}
+                  id="username"
+                  label="username"
+                  margin="dense"
+                  onChange={[Function]}
+                  required={true}
+                  select={false}
+                  type="string"
+                  value=""
+                  variant="standard"
+                />
+                <TextField
+                  autoFocus={false}
+                  fullWidth={true}
+                  id="password"
+                  label="password"
+                  margin="dense"
+                  onChange={[Function]}
+                  required={true}
+                  select={false}
+                  type="string"
+                  value=""
+                  variant="standard"
+                />
+              </WithStyles(DialogContent)>,
+              <WithStyles(DialogActions)>
+                <WithStyles(Button)
+                  color="primary"
+                  id="cancel-button"
+                  onClick={[Function]}
+                >
+                  Cancel
+                </WithStyles(Button)>
+                <WithStyles(Button)
+                  color="primary"
+                  id="submit-button"
+                  onClick={[Function]}
+                >
+                  Submit
+                </WithStyles(Button)>
+              </WithStyles(DialogActions)>,
+            ],
+            "id": "login-modal",
+            "onClose": [Function],
+            "open": false,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": "Log In",
+                "id": "form-dialog-title",
+              },
+              "ref": null,
+              "rendered": "Log In",
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <WithStyles(DialogContentText)>
+                    Please enter your username and password.
+                  </WithStyles(DialogContentText)>,
+                  <TextField
+                    autoFocus={false}
+                    fullWidth={true}
+                    id="username"
+                    label="username"
+                    margin="dense"
+                    onChange={[Function]}
+                    required={true}
+                    select={false}
+                    type="string"
+                    value=""
+                    variant="standard"
+                  />,
+                  <TextField
+                    autoFocus={false}
+                    fullWidth={true}
+                    id="password"
+                    label="password"
+                    margin="dense"
+                    onChange={[Function]}
+                    required={true}
+                    select={false}
+                    type="string"
+                    value=""
+                    variant="standard"
+                  />,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Please enter your username and password.",
+                  },
+                  "ref": null,
+                  "rendered": "Please enter your username and password.",
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "autoFocus": false,
+                    "fullWidth": true,
+                    "id": "username",
+                    "label": "username",
+                    "margin": "dense",
+                    "onChange": [Function],
+                    "required": true,
+                    "select": false,
+                    "type": "string",
+                    "value": "",
+                    "variant": "standard",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "autoFocus": false,
+                    "fullWidth": true,
+                    "id": "password",
+                    "label": "password",
+                    "margin": "dense",
+                    "onChange": [Function],
+                    "required": true,
+                    "select": false,
+                    "type": "string",
+                    "value": "",
+                    "variant": "standard",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "children": Array [
+                  <WithStyles(Button)
+                    color="primary"
+                    id="cancel-button"
+                    onClick={[Function]}
+                  >
+                    Cancel
+                  </WithStyles(Button)>,
+                  <WithStyles(Button)
+                    color="primary"
+                    id="submit-button"
+                    onClick={[Function]}
+                  >
+                    Submit
+                  </WithStyles(Button)>,
+                ],
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Cancel",
+                    "color": "primary",
+                    "id": "cancel-button",
+                    "onClick": [Function],
+                  },
+                  "ref": null,
+                  "rendered": "Cancel",
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "Submit",
+                    "color": "primary",
+                    "id": "submit-button",
+                    "onClick": [Function],
+                  },
+                  "ref": null,
+                  "rendered": "Submit",
+                  "type": [Function],
+                },
+              ],
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Map {},
+  Symbol(enzyme.__childContext__): null,
+}
+`;
