@@ -55,6 +55,6 @@ describe("Login", () => {
       // check that the modal is now closed
       expect(wrapper.state("open")).toBe(false);
       // TODO: check that cookie was included in the response
-      // should be mci-token, located in resp.request.response.rawHeaders
+      // should be mci-token, located in response.request.response.headers["set-cookie"]
     });
 })
