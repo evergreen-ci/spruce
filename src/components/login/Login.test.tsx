@@ -4,11 +4,11 @@ import * as rest from "../../rest/interface";
 import { Login } from "./Login";
 
 describe("Login", () => {
-    const wrapper = enzyme.mount(<Login client={rest.EvergreenClient("", "", "", "")} />);
+    const wrapper = enzyme.mount(<Login client={rest.EvergreenClient("", "", "", "", true)} />);
 
     it("matches snapshot", () => {
       // note: using enzyme.mount here (instead of enzyme.shallow) causes the test suite to hang, so this test needs its own shallow wrapper
-      const shallowWrapper = enzyme.shallow(<Login client={rest.EvergreenClient("", "", "", "")} />);
+      const shallowWrapper = enzyme.shallow(<Login client={rest.EvergreenClient("", "", "", "", true)} />);
       expect(shallowWrapper).toMatchSnapshot();
     })
 
