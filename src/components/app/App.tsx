@@ -2,9 +2,11 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@materi
 import * as MenuIcon from '@material-ui/icons/Menu';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
+import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
+import ConfigDrop from '../admin/ConfigDrop';
 import { Login } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
@@ -19,9 +21,8 @@ class Props {
 export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    // TODO: get the API client from some config
     this.state = {
-      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api"),
+      APIClient: null,
     }
   }
 
@@ -60,6 +61,7 @@ export class Evergreen extends React.Component<Props, State> {
             <Route path="/admin" render={admin} />
             <Route path="/patches" render={patches} />
           </div>
+          <ConfigDrop updateClientConfig={this.updateConfig}/>
         </HashRouter>
       </div>
     );
@@ -70,7 +72,13 @@ export class Evergreen extends React.Component<Props, State> {
   };
 
   private closeMenu = () => {
-    this.setState({ MenuAnchor: null })
+    this.setState({ MenuAnchor: null });
+  }
+
+  private updateConfig = (configObj: ClientConfig) => {
+    this.setState({
+      APIClient: rest.EvergreenClient(configObj.user, configObj.api_key, configObj.api_url, configObj.ui_url),
+    });
   }
 }
 
