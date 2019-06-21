@@ -93,7 +93,7 @@ export class Login extends React.Component<Props, State> {
   private handleClickSubmit = () => {
     this.props.client.getToken((err, resp, body) => {
       if (err || resp.statusCode >= 300) {
-        console.log("got error " + err + " with status " + status);
+        console.log("got error " + err + " with status code " + resp.statusCode);
         return;
       }
     }, this.state.username, this.state.password);
