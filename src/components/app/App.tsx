@@ -6,7 +6,7 @@ import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
-import ConfigDrop from '../admin/ConfigDrop';
+import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 

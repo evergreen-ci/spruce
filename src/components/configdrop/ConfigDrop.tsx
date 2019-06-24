@@ -1,6 +1,6 @@
 import { DropzoneArea } from 'material-ui-dropzone'
 import * as React from 'react';
-import {ClientConfig, ConvertToClientConfig} from '../../models/client_config';
+import { ClientConfig, ConvertToClientConfig } from '../../models/client_config';
 import '../../styles.css';
 
 class Props {
@@ -44,13 +44,15 @@ export class ConfigDrop extends React.Component<Props, State> {
 
   private upload = (file: File) => {
     const reader = new FileReader();
+    reader.onerror = () => {
+      console.log("Failed to read config file with error code: " + reader.error);
+    };
     reader.onload = () => {
       const raw = reader.result.toString();
       const configObj = ConvertToClientConfig(raw);
       this.props.updateClientConfig(configObj);
     };
     reader.readAsText(file);
-    
   }
 }
 
