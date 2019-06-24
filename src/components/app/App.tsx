@@ -21,7 +21,7 @@ export class Evergreen extends React.Component<Props, State> {
     super(props);
     // TODO: get the API client from some config
     this.state = {
-      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "http://localhost:8080/api"),
+      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "", "", true),
     }
   }
 
