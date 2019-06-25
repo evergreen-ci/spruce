@@ -25,7 +25,7 @@ describe("ConfigDrop", () => {
       // check that the config object in state is null initially
       expect(wrapper.state("newConfig")).toBeNull();
       // instantiate a new file object
-      const emptyFile = new File ([""], "config.json");
+      const emptyFile = new File (["{}"], "config.json");
       // find the dropzone and simulate dropping our new file in to that drop zone
       const drop = wrapper.find(DropzoneArea);
       drop.simulate("change", {target: {files: [emptyFile]}});
