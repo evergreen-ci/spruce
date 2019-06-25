@@ -6,7 +6,6 @@ import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
-import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
@@ -22,12 +21,12 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      APIClient: null,
+      APIClient: rest.EvergreenClient("", "", "", ""),
     }
   }
 
   public render() {
-    const admin = () => <Admin APIClient={this.state.APIClient} />
+    const admin = () => <Admin APIClient={this.state.APIClient} updateClientConfig={this.updateConfig}/>
     const patches = () => <PatchContainer client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
@@ -52,7 +51,7 @@ export class Evergreen extends React.Component<Props, State> {
                 </MenuItem>
                 <MenuItem onClick={this.closeMenu}>
                   <NavLink to="/patches">My Patches</NavLink> 
-                </MenuItem>
+                </MenuItem>           
               </Menu>
               <Login client={this.state.APIClient} />
             </Toolbar>
@@ -61,7 +60,6 @@ export class Evergreen extends React.Component<Props, State> {
             <Route path="/admin" render={admin} />
             <Route path="/patches" render={patches} />
           </div>
-          <ConfigDrop updateClientConfig={this.updateConfig}/>
         </HashRouter>
       </div>
     );

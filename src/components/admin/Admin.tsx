@@ -7,12 +7,15 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import * as models from 'evergreen.js/lib/models';
 import * as React from "react";
+import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
+import ConfigDrop from '../configdrop/ConfigDrop';
 import { BannerCard } from './Banner';
 
 interface Props {
   APIClient: rest.Evergreen;
+  updateClientConfig: (configObj: ClientConfig) => void;
 }
 
 interface State {
@@ -75,7 +78,7 @@ export class Admin extends React.Component<Props, State> {
                 <Grid item={true} xs={6}>
                   <Card>
                     <CardContent>
-                      Some other component here
+                      <ConfigDrop updateClientConfig={this.props.updateClientConfig}/>
                     </CardContent>
                   </Card>
                 </Grid>
