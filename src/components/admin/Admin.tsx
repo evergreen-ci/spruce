@@ -7,20 +7,16 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import * as models from 'evergreen.js/lib/models';
 import * as React from "react";
-import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import ConfigDrop from '../configdrop/ConfigDrop';
 import { BannerCard } from './Banner';
 
 interface Props {
   APIClient: rest.Evergreen;
-  updateClientConfig: (configObj: ClientConfig) => void;
 }
 
 interface State {
   config?: models.AdminSettings;
-  APIClient: rest.Evergreen;
 }
 
 export class Admin extends React.Component<Props, State> {
@@ -28,18 +24,16 @@ export class Admin extends React.Component<Props, State> {
     super(props);
     this.state = {
       config: new models.AdminSettings,
-      APIClient: props.APIClient
     };
   }
 
   public componentDidMount() {
-    this.state.APIClient.getAdminConfig((err, resp, body) => {
+    this.props.APIClient.getAdminConfig((err, resp, body) => {
       if (err || resp.statusCode >= 300) {
         console.log("got error " + err + " with status " + status);
         return;
       }
       this.setState({
-        APIClient: this.props.APIClient,
         config: models.ConvertToAdminSettings(body),
       });
     })
@@ -69,7 +63,6 @@ export class Admin extends React.Component<Props, State> {
           <div />
 
           <Card>
-            
             <CardContent>
               <Grid container={true} spacing={24}>
                 <Grid item={true} xs={6}>
@@ -78,13 +71,12 @@ export class Admin extends React.Component<Props, State> {
                 <Grid item={true} xs={6}>
                   <Card>
                     <CardContent>
-                      <ConfigDrop updateClientConfig={this.props.updateClientConfig}/>
+                      Some other component here
                     </CardContent>
                   </Card>
                 </Grid>
               </Grid>
             </CardContent>
-
             <CardActions>
               <Button variant="outlined" className="save" onClick={this.save()}>Save</Button>
             </CardActions>
@@ -95,8 +87,8 @@ export class Admin extends React.Component<Props, State> {
     );
   };
 
-  private updateSingleConfigField = (fieldName:string) => {
-    return (value:string) => {
+  private updateSingleConfigField = (fieldName: string) => {
+    return (value: string) => {
       const newState = Object.assign({}, this.state);
       newState.config[fieldName] = value;
       this.setState(newState);
@@ -104,7 +96,7 @@ export class Admin extends React.Component<Props, State> {
   }
 
   private save = () => () => {
-    this.state.APIClient.setAdminConfig((err, resp, body) => console.log(body), {banner: this.state.config.banner});
+    this.props.APIClient.setAdminConfig((err, resp, body) => console.log(body), { banner: this.state.config.banner });
   }
 }
 

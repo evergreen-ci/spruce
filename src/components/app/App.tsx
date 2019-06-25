@@ -6,6 +6,7 @@ import { ClientConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
+import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
@@ -26,8 +27,9 @@ export class Evergreen extends React.Component<Props, State> {
   }
 
   public render() {
-    const admin = () => <Admin APIClient={this.state.APIClient} updateClientConfig={this.updateConfig}/>
+    const admin = () => <Admin APIClient={this.state.APIClient} />
     const patches = () => <PatchContainer client={this.state.APIClient} />
+    const config = () => <ConfigDrop updateClientConfig={this.updateConfig}/>
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
@@ -52,12 +54,16 @@ export class Evergreen extends React.Component<Props, State> {
                 <MenuItem onClick={this.closeMenu}>
                   <NavLink to="/patches">My Patches</NavLink> 
                 </MenuItem>           
+                <MenuItem onClick={this.closeMenu}>
+                  <NavLink to="/config">Upload Config File</NavLink> 
+                </MenuItem>
               </Menu>
               <Login client={this.state.APIClient} />
             </Toolbar>
           </AppBar>
           <div className="App-intro">
             <Route path="/admin" render={admin} />
+            <Route path="/config" render={config} />
             <Route path="/patches" render={patches} />
           </div>
         </HashRouter>
