@@ -7,8 +7,8 @@ import { ConfigDrop } from "./ConfigDrop";
 describe("ConfigDrop", () => {
     const verifyConfig = (configObj: ClientConfig) => {
       if (configObj !== undefined) {
-        expect(configObj.user).toBe("domino.weir");
-        expect(configObj.api_key).toBe("e664f2097f08fbe40e3c16e77d0b5832");
+        expect(configObj.user).toBe("some.user");
+        expect(configObj.api_key).toBe("aczq3eG0gAgEV9uGZN5gCos1utnZPXIg");
         expect(configObj.api_url).toBe("https://evergreen.mongodb.com/api");
         expect(configObj.ui_url).toBe("https://evergreen.mongodb.com");
       }
@@ -38,8 +38,8 @@ describe("ConfigDrop", () => {
       expect(wrapper.state("newConfig")).toBeNull();
       // instantiate a new file object using a valid piece of json containing all required keys
       const validJSON = {
-        "user": "domino.weir",
-        "api_key": "e664f2097f08fbe40e3c16e77d0b5832",
+        "user": "some.user",
+        "api_key": "aczq3eG0gAgEV9uGZN5gCos1utnZPXIg",
         "api_url": "https://evergreen.mongodb.com/api", 
         "ui_url": "https://evergreen.mongodb.com"
       };
