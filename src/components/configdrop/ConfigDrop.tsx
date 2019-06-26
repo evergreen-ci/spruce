@@ -50,6 +50,7 @@ export class ConfigDrop extends React.Component<Props, State> {
   }
 
   private handleDropAreaChange = (fileArray: File[]) => {
+    console.log("Attempting to load");
     if (fileArray.length !== 0) {
       this.readConfig(fileArray[0]);
     } else {
