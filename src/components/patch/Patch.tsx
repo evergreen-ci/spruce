@@ -1,6 +1,6 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { UIPatch } from 'evergreen.js/lib/models';
+import { UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
 import '../../styles.css';
@@ -10,33 +10,30 @@ interface State {
   description: string;
   datetime: moment.Moment;
   project: string;
-  githash: string;
   author: string;
 }
 
 class Props {
-  public UIPatch: UIPatch;
+  public Patch: UIVersion;
 }
 
 export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const datetime = moment(String(this.props.UIPatch.Patch.CreateTime));
-    let description = this.props.UIPatch.Patch.Description;
+    const datetime = moment(String(this.props.Patch.Version.create_time));
+    let description = this.props.Patch.Version.message;
 
     if (description === undefined) {
-      description = "Patch from " + this.props.UIPatch.Patch.Author + " at " + datetime.format("MM/DD/YY h:mm a") +
-        " on project " + this.props.UIPatch.Patch.Project +
-        " applied to " + this.props.UIPatch.Patch.Githash.slice(0, 7);
+      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("MM/DD/YY h:mm a") +
+        " on project " + this.props.Patch.Version.identifier;
     }
 
     this.state = {
       description: description,
       datetime: datetime,
-      project: this.props.UIPatch.Patch.Project,
-      githash: this.props.UIPatch.Patch.Githash.slice(0, 7),
-      author: this.props.UIPatch.Patch.Author,
+      project: this.props.Patch.Version.identifier,
+      author: this.props.Patch.Version.author,
     };
   }
 
@@ -52,7 +49,7 @@ export class Patch extends React.Component<Props, State> {
             <Grid container={true} spacing={24}>
               <Grid item={true} xs={12}>
                 <Typography>
-                  {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project} applied to {this.state.githash}
+                  Applied at {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project}
                 </Typography>
               </Grid>
               <Grid item={true} xs={4}>
