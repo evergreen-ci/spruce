@@ -7,6 +7,7 @@ import { ConfigDrop } from "./ConfigDrop";
 describe("ConfigDrop", () => {
 
   const verifyValidConfig = jest.fn((configObj: ClientConfig) => {
+    expect(configObj).not.toBe(undefined);
     if (configObj !== undefined) {
       expect(configObj.user).toBe("some.user");
       expect(configObj.api_key).toBe("aczq3eG0gAgEV9uGZN5gCos1utnZPXIg");
