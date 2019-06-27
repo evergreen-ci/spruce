@@ -5,11 +5,6 @@ import { ClientConfig } from '../../models/client_config';
 import { ConfigDrop } from "./ConfigDrop";
 
 describe("ConfigDrop", () => {
-  /*
-  function sleep(ms: number) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-  */
 
   const verifyValidConfig = jest.fn((configObj: ClientConfig) => {
     if (configObj !== undefined) {
@@ -23,13 +18,13 @@ describe("ConfigDrop", () => {
   });
 
   const onInvalidLoadFinished = jest.fn(() => {
-    console.log("oninvalidloadfinished");
+    expect(invalidWrapper.state("newConfig")).toBeNull();
     expect(invalidWrapper.state("snackbarOpen")).toBe(true);
     expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
   });
   
   const onValidLoadFinished = jest.fn(() => {
-    console.log("onvalidloadfinished");
+    expect(verifyValidConfig).toHaveBeenCalled();
     expect(validWrapper.state("snackbarOpen")).toBe(false);
     expect(validWrapper.state("snackbarMessage")).toBe("");
   });
@@ -48,9 +43,6 @@ describe("ConfigDrop", () => {
     const emptyFile = new File(["{}"], "config.json");
     const drop = invalidWrapper.find(DropzoneArea);
     drop.prop("onChange")([emptyFile]);
-    expect(invalidWrapper.state("newConfig")).toBeNull();
-    expect(invalidWrapper.state("snackbarOpen")).toBe(true);
-    expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
   })
 
   it("check config state object is not updated with an invalid file", () => {
@@ -62,9 +54,6 @@ describe("ConfigDrop", () => {
     const invalidFile = new File([JSON.stringify(invalidJSON)], "config.json");
     const drop = invalidWrapper.find(DropzoneArea);
     drop.prop("onChange")([invalidFile]);
-    expect(invalidWrapper.state("newConfig")).toBeNull();
-    expect(invalidWrapper.state("snackbarOpen")).toBe(true);
-    expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
   })
 
   it("check config state object is updated with a valid file", () => {
@@ -78,6 +67,5 @@ describe("ConfigDrop", () => {
     const validFile = new File([JSON.stringify(validJSON)], "config.json");
     const drop = validWrapper.find(DropzoneArea);
     drop.prop("onChange")([validFile]);
-    expect(verifyValidConfig).toHaveBeenCalled();
   })
 })
