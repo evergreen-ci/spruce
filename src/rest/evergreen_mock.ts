@@ -3,12 +3,14 @@ import * as request from "request";
  export class client {
     public username: string;
     public key: string;
-    public serverURL: string;
+    public apiURL: string;
+    public uiURL: string;
 
-     constructor(username: string, key: string, serverURL: string) {
+     constructor(username: string, key: string, apiURL: string, uiURL: string) {
         this.username = username;
         this.key = key;
-        this.serverURL = serverURL;
+        this.apiURL = apiURL;
+        this.uiURL = uiURL;
     }
 
      public getDistros(callback: request.RequestCallback) {
@@ -24,6 +26,10 @@ import * as request from "request";
     }
 
     public getToken(callback: request.RequestCallback, username?: string, password?: string) {
+        callback(null, this.dummySuccessResp(), {});
+    }
+
+    public getPatches(callback: request.RequestCallback, username?: string) {
         callback(null, this.dummySuccessResp(), {});
     }
 

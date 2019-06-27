@@ -6,8 +6,9 @@ ShallowWrapper {
   Symbol(enzyme.__unrendered__): <Login
     client={
       client {
+        "apiURL": "",
         "key": "",
-        "serverURL": "",
+        "uiURL": "",
         "username": "",
       }
     }
