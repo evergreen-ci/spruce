@@ -29,7 +29,7 @@ export class Evergreen extends React.Component<Props, State> {
   public render() {
     const admin = () => <Admin APIClient={this.state.APIClient} />
     const patches = () => <PatchContainer client={this.state.APIClient} />
-    const config = () => <ConfigDrop updateClientConfig={this.updateConfig}/>
+    const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null}/>
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (

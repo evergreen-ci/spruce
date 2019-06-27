@@ -1,4 +1,4 @@
-import { Button, Card, CardActions, CardContent, IconButton, Snackbar } from '@material-ui/core';
+import { Card, CardContent, IconButton, Snackbar } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import { DropzoneArea } from 'material-ui-dropzone'
 import * as React from 'react';
@@ -7,6 +7,7 @@ import '../../styles.css';
 
 class Props {
   public updateClientConfig: (configObj: ClientConfig) => void;
+  public onLoadFinished: () => void;
 }
 
 interface State {
@@ -28,6 +29,13 @@ export class ConfigDrop extends React.Component<Props, State> {
     };
   }
 
+  public componentDidUpdate(prevProps: Props, prevState: State){
+    console.log("component did update");
+    if(prevState.newConfig !== this.state.newConfig) {
+      this.props.onLoadFinished();
+    }
+  }
+
   public render() {
     return (
       <div>
@@ -38,9 +46,6 @@ export class ConfigDrop extends React.Component<Props, State> {
               filesLimit={1}
               acceptedFiles={["application/json"]} />
           </CardContent>
-          <CardActions>
-            <Button variant="outlined" className="save" onClick={this.save()}>Save</Button>
-          </CardActions>
         </Card>
         <Snackbar open={this.state.snackbarOpen} message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left", }} onClose={this.onCloseSnackbar}
@@ -50,7 +55,6 @@ export class ConfigDrop extends React.Component<Props, State> {
   }
 
   private handleDropAreaChange = (fileArray: File[]) => {
-    console.log("Attempting to load");
     if (fileArray.length !== 0) {
       this.readConfig(fileArray[0]);
     } else {
@@ -76,6 +80,7 @@ export class ConfigDrop extends React.Component<Props, State> {
         this.setState({
           newConfig: configObj,
         });
+        this.props.updateClientConfig(configObj);
       } else {
         this.setState({
           snackbarMessage: "Config file does not contain all required properties.",
@@ -84,21 +89,6 @@ export class ConfigDrop extends React.Component<Props, State> {
       }
     };
     reader.readAsText(file);
-  }
-
-  private save = () => () => {
-    if (this.state.newConfig !== null) {
-      this.props.updateClientConfig(this.state.newConfig);
-      this.setState({
-        snackbarMessage: "Config file saved.",
-        snackbarOpen: true
-      });
-    } else {
-      this.setState({
-        snackbarMessage: "Please upload a valid config file before saving.",
-        snackbarOpen: true
-      });
-    }
   }
 
   private onCloseSnackbar = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {

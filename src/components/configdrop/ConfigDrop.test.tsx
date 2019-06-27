@@ -1,4 +1,3 @@
-import { Button } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import { DropzoneArea } from 'material-ui-dropzone';
 import * as React from "react";
@@ -6,6 +5,11 @@ import { ClientConfig } from '../../models/client_config';
 import { ConfigDrop } from "./ConfigDrop";
 
 describe("ConfigDrop", () => {
+  /*
+  function sleep(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+  */
 
   const verifyValidConfig = jest.fn((configObj: ClientConfig) => {
     if (configObj !== undefined) {
@@ -14,24 +18,36 @@ describe("ConfigDrop", () => {
       expect(configObj.api_url).toBe("https://evergreen.mongodb.com/api");
       expect(configObj.ui_url).toBe("https://evergreen.mongodb.com");
     }
+    expect(validWrapper.state("snackbarOpen")).toBe(true);
+    expect(validWrapper.state("snackbarMessage")).toBe("Config file saved.");
   });
 
-  const validWrapper = enzyme.mount(<ConfigDrop updateClientConfig={verifyValidConfig} />);
-  const invalidWrapper = enzyme.mount(<ConfigDrop updateClientConfig={jest.fn()} />);
+  const onInvalidLoadFinished = jest.fn(() => {
+    console.log("oninvalidloadfinished");
+    expect(invalidWrapper.state("snackbarOpen")).toBe(true);
+    expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
+  });
+  
+  const onValidLoadFinished = jest.fn(() => {
+    console.log("onvalidloadfinished");
+    expect(validWrapper.state("snackbarOpen")).toBe(false);
+    expect(validWrapper.state("snackbarMessage")).toBe("");
+  });
+
+  const validWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={verifyValidConfig} onLoadFinished={onValidLoadFinished} />);
+  const invalidWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={jest.fn()} onLoadFinished={onInvalidLoadFinished} />);
 
   it("matches snapshot", () => {
     // note: using enzyme.mount (instead of enzyme.shallow) causes the test suite to hang, so this test needs its own shallow wrapper
-    const shallowWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={jest.fn()} />);
+    const shallowWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={jest.fn()} onLoadFinished={null} />);
     expect(shallowWrapper).toMatchSnapshot();
   })
 
-  it("check config state object is not updated with an empty file", async () => {
+  it("check config state object is not updated with an empty file", () => {
     expect(invalidWrapper.state("newConfig")).toBeNull();
     const emptyFile = new File(["{}"], "config.json");
     const drop = invalidWrapper.find(DropzoneArea);
-    // const save = invalidWrapper.find(Button);
-    drop.simulate("change", { target: { files: [emptyFile] } });
-    // save.simulate("click");
+    drop.prop("onChange")([emptyFile]);
     expect(invalidWrapper.state("newConfig")).toBeNull();
     expect(invalidWrapper.state("snackbarOpen")).toBe(true);
     expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
@@ -45,9 +61,7 @@ describe("ConfigDrop", () => {
     };
     const invalidFile = new File([JSON.stringify(invalidJSON)], "config.json");
     const drop = invalidWrapper.find(DropzoneArea);
-    //const save = invalidWrapper.find(Button);
-    drop.simulate("change", { target: { files: [invalidFile] } });
-    //save.simulate("click");
+    drop.prop("onChange")([invalidFile]);
     expect(invalidWrapper.state("newConfig")).toBeNull();
     expect(invalidWrapper.state("snackbarOpen")).toBe(true);
     expect(invalidWrapper.state("snackbarMessage")).toBe("Config file does not contain all required properties.");
@@ -63,11 +77,7 @@ describe("ConfigDrop", () => {
     };
     const validFile = new File([JSON.stringify(validJSON)], "config.json");
     const drop = validWrapper.find(DropzoneArea);
-    const save = validWrapper.find(Button);
-    drop.simulate("change", { target: { files: [validFile] } });
-    save.simulate("click");
+    drop.prop("onChange")([validFile]);
     expect(verifyValidConfig).toHaveBeenCalled();
-    expect(validWrapper.state("snackbarOpen")).toBe(true);
-    expect(validWrapper.state("snackbarMessage")).toBe("Config file saved.");
   })
 })
