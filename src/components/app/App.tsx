@@ -22,11 +22,7 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-<<<<<<< HEAD
-      APIClient: rest.EvergreenClient("admin", "e4f2c40463dcade5248d36434cb93bac", "", "", true),
-=======
-      APIClient: null,
->>>>>>> master
+      APIClient: rest.EvergreenClient("", "", "", "", true),
     }
   }
 
