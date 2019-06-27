@@ -29,9 +29,8 @@ export class ConfigDrop extends React.Component<Props, State> {
     };
   }
 
-  public componentDidUpdate(prevProps: Props, prevState: State){
-    console.log("component did update");
-    if(prevState.newConfig !== this.state.newConfig) {
+  public componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.newConfig !== this.state.newConfig && this.props.onLoadFinished !== null) {
       this.props.onLoadFinished();
     }
   }
