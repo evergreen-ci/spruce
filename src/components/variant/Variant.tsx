@@ -5,7 +5,7 @@ import '../../styles.css';
 
 interface State {
   name: string,
-  statusCount: {[id: string]: number}
+  statusCount: { [id: string]: number }
 }
 
 class Props {
@@ -13,19 +13,6 @@ class Props {
 }
 
 export class Variant extends React.Component<Props, State> {
-
-  private displayPriority = {
-    "failed": 0,
-    "timed-out": 1,
-    "system-failed": 2,
-    "system-unresponsive": 3,
-    "setup-failed": 4,
-    "success": 5,
-    "started": 6,
-    "dispatched": 7,
-    "undispatched": 8,
-    "inactive": 9,
-  }
 
   constructor(props: Props) {
     super(props);
@@ -47,11 +34,11 @@ export class Variant extends React.Component<Props, State> {
 
     const VariantsByStatus = () => (
       <Grid container={true} spacing={8}>
-        {this.orderByPriority().map(status => (
-          <Grid item={true} xs={4} key={status}>
+        {this.orderByPriority().map(statusObj => (
+          <Grid item={true} xs={4} key={statusObj.status}>
             <Card>
-              <CardContent className={status}>
-                {this.state.statusCount[status]}
+              <CardContent className={statusObj.status}>
+                {statusObj.count}
               </CardContent>
             </Card>
           </Grid>
@@ -70,20 +57,34 @@ export class Variant extends React.Component<Props, State> {
   }
 
   private compareByPriority(a: any, b: any) {
-    return this.displayPriority[a] - this.displayPriority[b];
+    const displayPriority = {
+      "failed": 0,
+      "timed-out": 1,
+      "system-failed": 2,
+      "system-unresponsive": 3,
+      "setup-failed": 4,
+      "success": 5,
+      "started": 6,
+      "dispatched": 7,
+      "undispatched": 8,
+      "inactive": 9,
+    }
+    return displayPriority[a] > displayPriority[b] ? 1 : -1;
   }
 
   private orderByPriority() {
-    const sortedStatus = {[id: string]: number};
+    const sortedStatus = [];
     const asArray = [];
-    for(const key of this.state.statusCount) {
+    for (const key of Object.keys(this.state.statusCount)) {
       asArray[asArray.length] = key
     }
     asArray.sort(this.compareByPriority);
-    for(const sortedKey of asArray) {
-      sortedStatus.push({
-        sortedKey: this.state.statusCount[sortedKey]
-      });
+    for (const sortedKey of asArray) {
+      const statusObj = {
+        "status": sortedKey,
+        "count": this.state.statusCount[sortedKey]
+      };
+      sortedStatus.push(statusObj);
     }
     return sortedStatus;
   }
