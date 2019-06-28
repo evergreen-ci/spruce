@@ -49,7 +49,7 @@ export class Patch extends React.Component<Props, State> {
           </Typography>
         </Grid>
         {Object.keys(this.state.builds).map(index => (
-          <Grid item={true} xs={4} key={this.state.builds[index].Build._id}>
+          <Grid item={true} xs={3} key={this.state.builds[index].Build._id}>
             <Variant build={this.state.builds[index]} />
           </Grid>
         ))}
