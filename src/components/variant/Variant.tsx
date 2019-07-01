@@ -56,7 +56,7 @@ export class Variant extends React.Component<Props, State> {
     );
   }
 
-  private compareByPriority(a: any, b: any) {
+  private compareByPriority(a: string, b: string) {
     const displayPriority = {
       "failed": 0,
       "timed-out": 1,
