@@ -1,31 +1,39 @@
-.success {
-  background-color:#5cb85c;
-  color: white;
-}
-
-.failed {
-  background-color: #d9534f;
-}
-
-.started {
-  background-color: #ffb618;
-  color: black;
-}
-
-.unstarted {
-  background-color: #dee0e3;
-  color: black;
-}
-
-.system-failed {
-  background-color: #800080;
-}
-
 .variant-card {
   text-align: center;
+}
+.success {
+  background-color: #5cb85c;
   color: white;
 }
-
-.variant-title {
-  text-align: center;
+.failed,
+.test-timed-out {
+  background-color: #d9534f;
+  color: white;
+}
+.dispatched {
+  background-color: #ffb618;
+}
+.undispatched {
+  background-color: #bfbfbe;
+}
+.started {
+  background-color: #ffb618;
+}
+.system-failed,
+.system-unresponsive {
+  background-color: #800080;
+  color: white;
+}
+.setup-failed {
+  background-color: #C2A5CF;
+  color: white;
+}
+.unstarted {
+  background-color: #bfbfbe;
+}
+.created {
+  background-color: #bfbfbe;
+}
+.inactive {
+  background-color: #ebebed;
 }

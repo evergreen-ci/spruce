@@ -1,16 +1,17 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { UIVersion } from 'evergreen.js/lib/models';
+import { UIBuild, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
 import '../../styles.css';
-import Variant from '../variant/Variant';
+import { Variant } from '../variant/Variant';
 
 interface State {
   description: string;
   datetime: moment.Moment;
   project: string;
   author: string;
+  builds: UIBuild[]
 }
 
 class Props {
@@ -25,7 +26,7 @@ export class Patch extends React.Component<Props, State> {
     let description = this.props.Patch.Version.message;
 
     if (description === undefined) {
-      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("MM/DD/YY h:mm a") +
+      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("LLLL") +
         " on project " + this.props.Patch.Version.identifier;
     }
 
@@ -34,10 +35,26 @@ export class Patch extends React.Component<Props, State> {
       datetime: datetime,
       project: this.props.Patch.Version.identifier,
       author: this.props.Patch.Version.author,
+      builds: this.props.Patch.Builds
     };
   }
 
   public render() {
+
+    const Variants = () => (
+      <Grid container={true} spacing={24}>
+        <Grid item={true} xs={12}>
+          <Typography>
+            Created at {this.state.datetime.format("LLLL")} on {this.state.project}
+          </Typography>
+        </Grid>
+        {this.state.builds.map(obj => (
+          <Grid item={true} xs={3} key={obj.Build._id}>
+            <Variant build={obj} />
+          </Grid>
+        ))}
+      </Grid>
+    );
 
     return (
       <Grid>
@@ -46,22 +63,7 @@ export class Patch extends React.Component<Props, State> {
             <Typography className="patch-header" variant="h6">{this.state.description}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
-            <Grid container={true} spacing={24}>
-              <Grid item={true} xs={12}>
-                <Typography>
-                  Applied at {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project}
-                </Typography>
-              </Grid>
-              <Grid item={true} xs={4}>
-                <Variant name="Variant 1" />
-              </Grid>
-              <Grid item={true} xs={4}>
-                <Variant name="Variant 2" />
-              </Grid>
-              <Grid item={true} xs={4}>
-                <Variant name="Variant 3" />
-              </Grid>
-            </Grid>
+            <Variants />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
