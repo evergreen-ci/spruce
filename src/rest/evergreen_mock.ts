@@ -5975,7 +5975,6 @@ export class client {
               "finish_time": "2019-06-25T19:06:06.989Z",
               "revision": "9f1d3ae76bd74b15f6fd7f949f1b6930d62df502",
               "author": "domino.weir",
-              "message": "'evergreen-ci/spruce' pull request #3 by dominoweir: EVG-6306: Add config file dropzone (https://github.com/evergreen-ci/spruce/pull/3)",
               "status": "success",
               "order": 44,
               "ignored": false,

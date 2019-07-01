@@ -26,7 +26,7 @@ export class Patch extends React.Component<Props, State> {
     let description = this.props.Patch.Version.message;
 
     if (description === undefined) {
-      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("MM/DD/YY h:mm a") +
+      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("LLLL") +
         " on project " + this.props.Patch.Version.identifier;
     }
 
@@ -45,7 +45,7 @@ export class Patch extends React.Component<Props, State> {
       <Grid container={true} spacing={24}>
         <Grid item={true} xs={12}>
           <Typography>
-            Created at {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project}
+            Created at {this.state.datetime.format("LLLL")} on {this.state.project}
           </Typography>
         </Grid>
         {this.state.builds.map(obj => (
