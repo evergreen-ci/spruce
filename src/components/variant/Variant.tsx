@@ -6,6 +6,10 @@ import '../../styles.css';
 interface State {
   name: string,
   statusCount: { [id: string]: number }
+  sortedStatus: Array<{
+    "status": string,
+    "count": number
+  }>,
 }
 
 class Props {
@@ -27,6 +31,7 @@ export class Variant extends React.Component<Props, State> {
     this.state = {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
+      sortedStatus: this.orderByPriority(statusCount),
     };
   }
 
@@ -34,7 +39,7 @@ export class Variant extends React.Component<Props, State> {
 
     const VariantsByStatus = () => (
       <Grid container={true} spacing={8}>
-        {this.orderByPriority().map(statusObj => (
+        {this.state.sortedStatus.map(statusObj => (
           <Grid item={true} xs={4} key={statusObj.status}>
             <Card>
               <CardContent className={statusObj.status}>
@@ -72,17 +77,17 @@ export class Variant extends React.Component<Props, State> {
     return displayPriority[a] > displayPriority[b] ? 1 : -1;
   }
 
-  private orderByPriority() {
+  private orderByPriority(statusCount: {}) {
     const sortedStatus = [];
     const asArray = [];
-    for (const key of Object.keys(this.state.statusCount)) {
+    for (const key of Object.keys(statusCount)) {
       asArray.push(key);
     }
     asArray.sort(this.compareByPriority);
     for (const sortedKey of asArray) {
       const statusObj = {
         "status": sortedKey,
-        "count": this.state.statusCount[sortedKey]
+        "count": statusCount[sortedKey]
       };
       sortedStatus.push(statusObj);
     }
