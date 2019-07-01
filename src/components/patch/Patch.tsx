@@ -45,12 +45,12 @@ export class Patch extends React.Component<Props, State> {
       <Grid container={true} spacing={24}>
         <Grid item={true} xs={12}>
           <Typography>
-            Applied at {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project}
+            Created at {this.state.datetime.format("D MMM YYYY, h:mm a")} on {this.state.project}
           </Typography>
         </Grid>
-        {Object.keys(this.state.builds).map(index => (
-          <Grid item={true} xs={3} key={this.state.builds[index].Build._id}>
-            <Variant build={this.state.builds[index]} />
+        {this.state.builds.map(obj => (
+          <Grid item={true} xs={3} key={obj.Build._id}>
+            <Variant build={obj} />
           </Grid>
         ))}
       </Grid>
