@@ -3,9 +3,11 @@ import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import '../../styles.css';
 
+interface StatusCount { [id: string]: number };
+
 interface State {
   name: string,
-  statusCount: { [id: string]: number }
+  statusCount: StatusCount,
   sortedStatus: Array<{
     "status": string,
     "count": number
@@ -77,7 +79,7 @@ export class Variant extends React.Component<Props, State> {
     return displayPriority[a] > displayPriority[b] ? 1 : -1;
   }
 
-  private orderByPriority(statusCount: {}) {
+  private orderByPriority(statusCount: StatusCount) {
     const sortedStatus = [];
     const asArray = [];
     for (const key of Object.keys(statusCount)) {
