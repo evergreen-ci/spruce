@@ -11,3 +11,8 @@ export class ClientConfig {
   public api_url?: string;
   public ui_url?: string;
 }
+
+export function IsValidConfig(toCheck: object): boolean {
+  const config = toCheck as ClientConfig;
+  return config.api_url !== undefined && config.ui_url !== undefined;
+}

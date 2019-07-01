@@ -2,7 +2,7 @@ import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@materi
 import * as MenuIcon from '@material-ui/icons/Menu';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
-import { ClientConfig } from '../../models/client_config';
+import { ClientConfig, IsValidConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
@@ -24,6 +24,7 @@ export class Evergreen extends React.Component<Props, State> {
     this.state = {
       APIClient: rest.EvergreenClient("", "", "", "", true),
     }
+    this.tryLoadConfig();
   }
 
   public render() {
@@ -82,6 +83,20 @@ export class Evergreen extends React.Component<Props, State> {
   private updateConfig = (configObj: ClientConfig) => {
     this.setState({
       APIClient: rest.EvergreenClient(configObj.user, configObj.api_key, configObj.api_url, configObj.ui_url),
+    });
+  }
+
+  private tryLoadConfig = () => {
+    fetch("/config.json").then((resp: Response) => {
+        resp.json().then( (config: object) => {
+          if (IsValidConfig(config)) {
+            this.updateConfig(config as ClientConfig);
+          } else {
+            console.log("Config is missing required fields");
+          }
+        }, (reason: any) => {
+          console.log("Error parsing config. You may need to manually drop a config file. Error: " + reason);
+        });
     });
   }
 }

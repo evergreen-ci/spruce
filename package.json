@@ -2,6 +2,16 @@
   "name": "evergreen",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
+    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
+    "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
+    "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
+    "serve": "serve -s build",
+    "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
+    "test": "lessc src/styles.less src/styles.css && jest",
+    "update-snapshot": "jest --updateSnapshot"
+  },
   "dependencies": {
     "@babel/core": "7.1.0",
     "@material-ui/core": "^3.9.3",
@@ -68,16 +78,6 @@
     "webpack-manifest-plugin": "2.0.4",
     "workbox-webpack-plugin": "3.6.1"
   },
-  "scripts": {
-    "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
-    "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
-    "test": "lessc src/styles.less src/styles.css && jest",
-    "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
-    "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
-    "serve": "serve -s build",
-    "dist": "mkdir -p bin && tsc scripts/dist.ts && node scripts/dist.js && rm scripts/dist.js",
-    "update-snapshot": "jest --updateSnapshot"
-  },
   "devDependencies": {
     "@types/enzyme": "^3.10.0",
     "@types/jest": "^24.0.15",
@@ -94,7 +94,6 @@
     "react-redux": "^6.0.1",
     "react-test-renderer": "^16.8.6",
     "redux": "^4.0.1",
-    "tar": "^4.4.10",
     "typescript": "^3.5.2"
   },
   "browserslist": [
