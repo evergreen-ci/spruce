@@ -19,7 +19,7 @@ export class Variant extends React.Component<Props, State> {
     const statusCount = {};
     for (const task of this.props.build.Build.tasks) {
       if (statusCount[task.status]) {
-        statusCount[task.status] = statusCount[task.status] + 1;
+        statusCount[task.status]++;
       } else {
         statusCount[task.status] = 1;
       }
@@ -76,7 +76,7 @@ export class Variant extends React.Component<Props, State> {
     const sortedStatus = [];
     const asArray = [];
     for (const key of Object.keys(this.state.statusCount)) {
-      asArray[asArray.length] = key
+      asArray.push(key);
     }
     asArray.sort(this.compareByPriority);
     for (const sortedKey of asArray) {
