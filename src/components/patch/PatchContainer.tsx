@@ -1,4 +1,4 @@
-import { Grid, IconButton, InputBase, Paper } from '@material-ui/core';
+import { Grid, InputBase, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
@@ -45,9 +45,9 @@ export class PatchContainer extends React.Component<Props, State> {
       <div>
         <div className="search-container">
           <Paper>
-            <InputBase startAdornment={<IconButton><SearchIcon /></IconButton>}
+            <InputBase startAdornment={<SearchIcon />}
               className="search-input" fullWidth={true}
-              placeholder="Search Patch Descriptions..."
+              placeholder="Search Patch Descriptions"
               onChange={this.search}
             />
           </Paper>
@@ -77,22 +77,26 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private filterItems(query: string) {
     const filtered = {};
-    if(query === "") {
+    if (query === "") {
       return this.state.versions;
     }
     Object.keys(this.state.versions).map(versionId => {
       const patch = this.state.versions[versionId];
       let description = patch.Version.message;
       if (description === undefined) {
-        const datetime = moment(String(patch.Version.create_time));
-        description = "Patch from " + patch.Version.author + " at " + datetime.format("LLLL") +
-          " on project " + patch.Version.identifier;
+        description = this.getDefaultDescription(patch);
       }
       if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
         filtered[versionId] = patch;
       }
     });
     return filtered;
+  }
+
+  private getDefaultDescription(version: UIVersion) {
+    const datetime = moment(String(version.Version.create_time));
+    return "Patch from " + version.Version.author + " at " + datetime.format("LLLL") +
+      " on project " + version.Version.identifier;
   }
 }
 
