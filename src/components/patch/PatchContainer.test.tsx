@@ -31,7 +31,7 @@ describe("PatchContainer", () => {
     const patch = wrapper.findWhere(node => node.key() === "5d126fa93627e070b33dbbc0").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.state("description")).toBeDefined();
-    expect(patch.state("description")).toBe("Patch from domino.weir at Tuesday, June 25, 2019 3:02 PM on project spruce");
+    expect(patch.state("description")).toContain("Patch from domino.weir at ");
   })
 
   it("check that variant state is correct", () => {
