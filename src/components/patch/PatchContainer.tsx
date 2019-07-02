@@ -46,10 +46,13 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private loadPatches() {
+    const pageNum = 2;
     this.props.client.getPatches((err, resp, body) => {
-      const versions = ConvertToPatches(JSON.stringify(resp.body)).VersionsMap
-      this.setState({ versions: versions });
-    }, this.props.client.username);
+      const versions = ConvertToPatches(resp.body).VersionsMap;
+      this.setState({
+        versions: versions,
+      });
+    }, this.props.client.username, pageNum);
   }
 }
 
