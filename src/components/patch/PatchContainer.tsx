@@ -1,12 +1,14 @@
 import { Grid } from '@material-ui/core';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
+import * as moment from 'moment';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Patch from './Patch';
 
 interface State {
-  versions: Record<string, UIVersion>
+  pageNum: number
+  versions: UIVersion[]
 }
 
 class Props {
@@ -17,7 +19,8 @@ export class PatchContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      versions: {}
+      pageNum: 1,
+      versions: []
     };
   }
 
@@ -46,13 +49,23 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private loadPatches() {
-    const pageNum = 2;
     this.props.client.getPatches((err, resp, body) => {
       const versions = ConvertToPatches(resp.body).VersionsMap;
-      this.setState({
-        versions: versions,
+      const sortedVersions = this.state.versions;
+      Object.keys(versions).map(versionId => {
+        sortedVersions.push(versions[versionId]);
       });
-    }, this.props.client.username, pageNum);
+      sortedVersions.sort(this.compareByDate);
+      this.setState({
+        versions: sortedVersions
+      });
+    }, this.props.client.username, this.state.pageNum);
+  }
+
+  private compareByDate(a: UIVersion, b: UIVersion) {
+    const dateA = moment(String(a.Version.create_time));
+    const dateB = moment(String(b.Version.create_time));
+    return dateB.isAfter(dateA) ? 1 : -1;
   }
 }
 
