@@ -68,7 +68,7 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private search = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const query = event.target.value;
+    const query = event.currentTarget.value;
     const filteredPatches = this.filterItems(query);
     this.setState({
       visible: filteredPatches,

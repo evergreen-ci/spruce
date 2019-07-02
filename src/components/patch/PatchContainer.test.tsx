@@ -1,3 +1,4 @@
+import { InputBase } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import * as moment from 'moment';
 import * as React from "react";
@@ -43,5 +44,23 @@ describe("PatchContainer", () => {
     expect(variant.state("name")).toBe("Ubuntu 16.04");
     expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
     expect(variant.state("sortedStatus")).toEqual([{"count": 1, "status": "failed"}, {"count": 2, "status": "success"}]);
+  })
+
+  it("check that search returns correct results", () => {
+    // note: this test uses a shallow wrapper because simulating events on a wrapper instantiated with enzyme.mount doesn't really work
+    const shallowWrapper = enzyme.shallow(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} />);
+    const event = {currentTarget: { value: "pull request #2428" }};
+    const expectedResults = ["5d138b6b61837d77f9dda2a1", "5d1391b63e8e860e458573a5"];
+    const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
+    const input = shallowWrapper.find(InputBase);
+    expect(input).toHaveLength(1);
+    input.simulate("change", event);
+    const visibleIds = Object.keys(shallowWrapper.state("visible"));
+    for(const versionId of expectedResults) {
+      expect(visibleIds).toContain(versionId);
+    }
+    for(const versionId of notInResults) {
+      expect(visibleIds).not.toContain(versionId);
+    }
   })
 })
