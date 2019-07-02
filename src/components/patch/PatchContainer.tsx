@@ -44,9 +44,9 @@ export class PatchContainer extends React.Component<Props, State> {
     return (
       <div>
         <div className="search-container">
-          <Paper>
+          <Paper className="search-input" >
             <InputBase startAdornment={<SearchIcon />}
-              className="search-input" fullWidth={true}
+              fullWidth={true}
               placeholder="Search Patch Descriptions"
               onChange={this.search}
             />
