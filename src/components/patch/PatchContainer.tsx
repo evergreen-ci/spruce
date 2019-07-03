@@ -2,6 +2,7 @@ import { Grid } from '@material-ui/core';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
+import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Patch from './Patch';
@@ -41,10 +42,10 @@ export class PatchContainer extends React.Component<Props, State> {
     );
 
     return (
-      <div>
+      <InfiniteScroll loadMore={this.loadPatches}>
         <div className="patch-search-bar">Insert patch search bar here</div>
         <Patches />
-      </div>
+      </InfiniteScroll>
     );
   }
 
@@ -57,6 +58,7 @@ export class PatchContainer extends React.Component<Props, State> {
       });
       sortedVersions.sort(this.compareByDate);
       this.setState({
+        pageNum: this.state.pageNum + 1,
         versions: sortedVersions
       });
     }, this.props.client.username, this.state.pageNum);
