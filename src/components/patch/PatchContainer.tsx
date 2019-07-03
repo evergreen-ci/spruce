@@ -38,9 +38,9 @@ export class PatchContainer extends React.Component<Props, State> {
 
     const Patches = () => (
       <Grid className="patch-container" container={true} spacing={24}>
-        {Object.keys(this.state.visiblePatches).map(versionId => (
-          <Grid item={true} xs={12} key={versionId}>
-            <Patch Patch={this.state.allPatches[versionId]} />
+        {this.state.visiblePatches.map(patchObj => (
+          <Grid item={true} xs={12} key={patchObj.Version.id}>
+            <Patch Patch={patchObj} />
           </Grid>
         ))}
       </Grid>
