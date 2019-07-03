@@ -47,7 +47,6 @@ describe("PatchContainer", () => {
   })
 
   it("check that search returns correct results", () => {
-    // note: this test uses a shallow wrapper because simulating events on a wrapper instantiated with enzyme.mount doesn't really work
     const event = {currentTarget: { value: "pull request #2428" }};
     const expectedResults = ["5d138b6b61837d77f9dda2a1", "5d1391b63e8e860e458573a5"];
     const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
