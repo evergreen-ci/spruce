@@ -10,8 +10,9 @@ import Patch from './Patch';
 
 interface State {
   pageNum: number
-  versions: UIVersion[]
-  visible: UIVersion[]
+  hasMore: boolean
+  allPatches: UIVersion[]
+  visiblePatches: UIVersion[]
 }
 
 class Props {
@@ -22,9 +23,10 @@ export class PatchContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      pageNum: 1,
-      versions: [],
-      visible: []
+      hasMore: true,
+      pageNum: 0,
+      allPatches: [],
+      visiblePatches: []
     };
   }
 
@@ -36,16 +38,16 @@ export class PatchContainer extends React.Component<Props, State> {
 
     const Patches = () => (
       <Grid className="patch-container" container={true} spacing={24}>
-        {Object.keys(this.state.visible).map(versionId => (
+        {Object.keys(this.state.visiblePatches).map(versionId => (
           <Grid item={true} xs={12} key={versionId}>
-            <Patch Patch={this.state.versions[versionId]} />
+            <Patch Patch={this.state.allPatches[versionId]} />
           </Grid>
         ))}
       </Grid>
     );
 
     return (
-      <InfiniteScroll loadMore={this.loadPatches} threshold={500}>
+      <div>
         <div className="search-container">
           <Paper className="search-input" >
             <InputBase startAdornment={<SearchIcon />}
@@ -55,25 +57,35 @@ export class PatchContainer extends React.Component<Props, State> {
             />
           </Paper>
         </div>
-        <Patches />
-      </InfiniteScroll>
+        <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={false}>
+          <Patches />
+        </InfiniteScroll>
+      </div>
     );
   }
 
-  private loadPatches() {
-    this.props.client.getPatches((err, resp, body) => {
-      const versions = ConvertToPatches(resp.body).VersionsMap;
-      const sortedVersions = this.state.versions;
-      Object.keys(versions).map(versionId => {
-        sortedVersions.push(versions[versionId]);
-      });
-      sortedVersions.sort(this.compareByDate);
-      this.setState({
-        pageNum: this.state.pageNum + 1,
-        versions: sortedVersions,
-        visible: sortedVersions,
-      });
-    }, this.props.client.username, this.state.pageNum);
+  private loadPatches = () => {
+    if (this.state.hasMore) {
+      this.props.client.getPatches((err, resp, body) => {
+        const newPatches = ConvertToPatches(resp.body).VersionsMap;
+        if (Object.keys(newPatches).length === 0) {
+          this.setState({ 
+            hasMore: false 
+          });
+          return;
+        }
+        const sortedPatches = this.state.allPatches;
+        Object.keys(newPatches).map(versionId => {
+          sortedPatches.push(newPatches[versionId]);
+        });
+        sortedPatches.sort(this.compareByDate);
+        this.setState((prevState, props) => ({
+          pageNum: prevState.pageNum + 1,
+          allPatches: sortedPatches,
+          visiblePatches: sortedPatches,
+      })); 
+      }, this.props.client.username, this.state.pageNum);
+    }
   }
 
   private compareByDate(a: UIVersion, b: UIVersion) {
@@ -86,17 +98,17 @@ export class PatchContainer extends React.Component<Props, State> {
     const query = event.currentTarget.value;
     const filteredPatches = this.filterItems(query);
     this.setState({
-      visible: filteredPatches,
+      visiblePatches: filteredPatches,
     });
   }
 
   private filterItems(query: string) {
-    const filtered:UIVersion[] = [];
+    const filtered: UIVersion[] = [];
     if (query === "") {
-      return this.state.versions;
+      return this.state.allPatches;
     }
-    Object.keys(this.state.versions).map(versionId => {
-      const patch = this.state.versions[versionId];
+    Object.keys(this.state.allPatches).map(versionId => {
+      const patch = this.state.allPatches[versionId];
       const description = patch.Version.message;
       if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
         filtered.push(patch);
