@@ -18,6 +18,8 @@ interface State {
 class Props {
 }
 
+const configPath = "/config.json";
+
 export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
@@ -87,7 +89,7 @@ export class Evergreen extends React.Component<Props, State> {
   }
 
   private tryLoadConfig = () => {
-    fetch("/config.json").then((resp: Response) => {
+    fetch(configPath).then((resp: Response) => {
         resp.json().then( (config: object) => {
           if (IsValidConfig(config)) {
             this.updateConfig(config as ClientConfig);
