@@ -1,3 +1,4 @@
+import { InputBase } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import * as moment from 'moment';
 import * as React from "react";
@@ -30,7 +31,7 @@ describe("PatchContainer", () => {
     const patch = wrapper.findWhere(node => node.key() === "5d126fa93627e070b33dbbc0").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.state("description")).toBeDefined();
-    expect(patch.state("description")).toBe("Patch from domino.weir at Tuesday, June 25, 2019 3:02 PM on project spruce");
+    expect(patch.state("description")).toContain("Patch from domino.weir at ");
   })
 
   it("check that variant state is correct", () => {
@@ -43,5 +44,21 @@ describe("PatchContainer", () => {
     expect(variant.state("name")).toBe("Ubuntu 16.04");
     expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
     expect(variant.state("sortedStatus")).toEqual([{"count": 1, "status": "failed"}, {"count": 2, "status": "success"}]);
+  })
+
+  it("check that search returns correct results", () => {
+    const event = {currentTarget: { value: "pull request #2428" }};
+    const expectedResults = ["5d138b6b61837d77f9dda2a1", "5d1391b63e8e860e458573a5"];
+    const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
+    const input = wrapper.find(InputBase);
+    expect(input).toHaveLength(1);
+    input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
+    const visibleIds = Object.keys(wrapper.state("visible"));
+    for (const versionId of expectedResults) {
+      expect(visibleIds).toContain(versionId);
+    }
+    for (const versionId of notInResults) {
+      expect(visibleIds).not.toContain(versionId);
+    }
   })
 })
