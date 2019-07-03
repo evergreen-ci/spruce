@@ -42,32 +42,18 @@ functions:
       binary: npm
       args: [run, build]
 
-  npm-dist:
+  npm-build:
     command: subprocess.exec
     params:
       working_dir: spruce
       binary: npm
-      args: [run, dist]
+      args: [run, build]
 
   attach-results:
     command: attach.xunit_results
     params:
       files:
         - "./spruce/junit.xml"
-
-  upload-dist:
-    command: s3.put
-    type: system
-    params:
-      optional: true
-      aws_key: ${aws_key}
-      aws_secret: ${aws_secret}
-      local_file: spruce/bin/dist.tar.gz
-      remote_file: spruce/${build_id}-${build_variant}/spruce-${task_name}-${revision}.tar.gz
-      bucket: mciuploads
-      content_type: application/x-gzip
-      permissions: public-read
-      display_name: dist.tar.gz
 
 tasks:
   - name: test
@@ -76,13 +62,12 @@ tasks:
     - func: npm-install
     - func: npm-test
     - func: attach-results
-  - name: dist
+  - name: compile
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-build
-    - func: npm-dist
-    - func: upload-dist
+    - func: npm-build
   - name: lint
     commands:
     - func: get-project
@@ -95,6 +80,6 @@ buildvariants:
     run_on:
     - ubuntu1604-test
     tasks:
-    - name: dist
+    - name: compile
     - name: lint
     - name: test
