@@ -1,7 +1,6 @@
 import { Grid, InputBase, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
-import * as moment from 'moment';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -82,21 +81,12 @@ export class PatchContainer extends React.Component<Props, State> {
     }
     Object.keys(this.state.versions).map(versionId => {
       const patch = this.state.versions[versionId];
-      let description = patch.Version.message;
-      if (description === undefined) {
-        description = this.getDefaultDescription(patch);
-      }
+      const description = patch.Version.message;
       if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
         filtered[versionId] = patch;
       }
     });
     return filtered;
-  }
-
-  private getDefaultDescription(version: UIVersion) {
-    const datetime = moment(String(version.Version.create_time));
-    return "Patch from " + version.Version.author + " at " + datetime.format("LLLL") +
-      " on project " + version.Version.identifier;
   }
 }
 
