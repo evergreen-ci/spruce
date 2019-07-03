@@ -54,10 +54,10 @@ describe("PatchContainer", () => {
     expect(input).toHaveLength(1);
     input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
     const visibleIds = Object.keys(wrapper.state("visible"));
-    for(const versionId of expectedResults) {
+    for (const versionId of expectedResults) {
       expect(visibleIds).toContain(versionId);
     }
-    for(const versionId of notInResults) {
+    for (const versionId of notInResults) {
       expect(visibleIds).not.toContain(versionId);
     }
   })
