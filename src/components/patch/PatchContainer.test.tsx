@@ -52,7 +52,7 @@ describe("PatchContainer", () => {
     const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
     const input = wrapper.find(InputBase);
     expect(input).toHaveLength(1);
-    input.prop("onChange")(event);
+    input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
     const visibleIds = Object.keys(wrapper.state("visible"));
     for(const versionId of expectedResults) {
       expect(visibleIds).toContain(versionId);
