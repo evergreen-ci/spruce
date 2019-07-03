@@ -1,4 +1,5 @@
-import { Grid } from '@material-ui/core';
+import { Grid, InputBase, Paper } from '@material-ui/core';
+import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -10,6 +11,7 @@ import Patch from './Patch';
 interface State {
   pageNum: number
   versions: UIVersion[]
+  visible: UIVersion[]
 }
 
 class Props {
@@ -21,7 +23,8 @@ export class PatchContainer extends React.Component<Props, State> {
     super(props);
     this.state = {
       pageNum: 1,
-      versions: []
+      versions: [],
+      visible: []
     };
   }
 
@@ -33,7 +36,7 @@ export class PatchContainer extends React.Component<Props, State> {
 
     const Patches = () => (
       <Grid className="patch-container" container={true} spacing={24}>
-        {Object.keys(this.state.versions).map(versionId => (
+        {Object.keys(this.state.visible).map(versionId => (
           <Grid item={true} xs={12} key={versionId}>
             <Patch Patch={this.state.versions[versionId]} />
           </Grid>
@@ -42,8 +45,16 @@ export class PatchContainer extends React.Component<Props, State> {
     );
 
     return (
-      <InfiniteScroll loadMore={this.loadPatches}>
-        <div className="patch-search-bar">Insert patch search bar here</div>
+      <InfiniteScroll loadMore={this.loadPatches} threshold={500}>
+        <div className="search-container">
+          <Paper className="search-input" >
+            <InputBase startAdornment={<SearchIcon />}
+              fullWidth={true}
+              placeholder="Search Patch Descriptions"
+              onChange={this.search}
+            />
+          </Paper>
+        </div>
         <Patches />
       </InfiniteScroll>
     );
@@ -59,7 +70,8 @@ export class PatchContainer extends React.Component<Props, State> {
       sortedVersions.sort(this.compareByDate);
       this.setState({
         pageNum: this.state.pageNum + 1,
-        versions: sortedVersions
+        versions: sortedVersions,
+        visible: sortedVersions,
       });
     }, this.props.client.username, this.state.pageNum);
   }
@@ -68,6 +80,30 @@ export class PatchContainer extends React.Component<Props, State> {
     const dateA = moment(String(a.Version.create_time));
     const dateB = moment(String(b.Version.create_time));
     return dateB.isAfter(dateA) ? 1 : -1;
+  }
+
+  private search = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const query = event.currentTarget.value;
+    const filteredPatches = this.filterItems(query);
+    this.setState({
+      visible: filteredPatches,
+    });
+  }
+
+  private filterItems(query: string) {
+    const filtered:UIVersion[] = [];
+    if (query === "") {
+      return this.state.versions;
+    }
+    Object.keys(this.state.versions).map(versionId => {
+      const patch = this.state.versions[versionId];
+      const description = patch.Version.message;
+      if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+        filtered.push(patch);
+      }
+    });
+    filtered.sort(this.compareByDate);
+    return filtered;
   }
 }
 
