@@ -21,17 +21,13 @@ class Props {
 export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-
     const datetime = moment(String(this.props.Patch.Version.create_time));
-    let description = this.props.Patch.Version.message;
-
-    if (description === undefined) {
-      description = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("LLLL") +
+    if (this.props.Patch.Version.message === undefined) {
+      this.props.Patch.Version.message = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("LLLL") +
         " on project " + this.props.Patch.Version.identifier;
     }
-
     this.state = {
-      description: description,
+      description: this.props.Patch.Version.message,
       datetime: datetime,
       project: this.props.Patch.Version.identifier,
       author: this.props.Patch.Version.author,
