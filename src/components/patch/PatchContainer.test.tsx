@@ -1,5 +1,6 @@
 import { InputBase } from '@material-ui/core';
 import * as enzyme from "enzyme";
+import { UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from "react";
 import * as rest from "../../rest/interface";
@@ -53,7 +54,10 @@ describe("PatchContainer", () => {
     const input = wrapper.find(InputBase);
     expect(input).toHaveLength(1);
     input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
-    const visibleIds = Object.keys(wrapper.state("visible"));
+    const visibleIds:string[] = [];
+    (wrapper.state("visiblePatches") as UIVersion[]).map(patch => (
+      visibleIds.push(patch.Version.id)
+    ));
     for (const versionId of expectedResults) {
       expect(visibleIds).toContain(versionId);
     }

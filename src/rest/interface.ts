@@ -11,7 +11,7 @@ export interface Evergreen {
   getDistros: (callback: request.RequestCallback) => void;
   getRecentTasks: (callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number, status?: string) => void;
   getToken: (callback: request.RequestCallback, username?: string, password?: string) => void;
-  getPatches: (callback: request.RequestCallback, username?: string) => void;
+  getPatches: (callback: request.RequestCallback, username?: string, page?: number) => void;
   getAdminConfig: (callback: request.RequestCallback) => void;
   setAdminConfig: (callback: request.RequestCallback, settings: any) => void;
   getBanner: (callback: request.RequestCallback) => void;

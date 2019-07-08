@@ -2,13 +2,16 @@ import { Grid, InputBase, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
+import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Patch from './Patch';
 
 interface State {
-  versions: Record<string, UIVersion>
-  visible: Record<string, UIVersion>
+  pageNum: number
+  hasMore: boolean
+  allPatches: UIVersion[]
+  visiblePatches: UIVersion[]
 }
 
 class Props {
@@ -19,8 +22,10 @@ export class PatchContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      versions: {},
-      visible: {},
+      hasMore: true,
+      pageNum: 0,
+      allPatches: [],
+      visiblePatches: []
     };
   }
 
@@ -32,9 +37,9 @@ export class PatchContainer extends React.Component<Props, State> {
 
     const Patches = () => (
       <Grid className="patch-container" container={true} spacing={24}>
-        {Object.keys(this.state.visible).map(versionId => (
-          <Grid item={true} xs={12} key={versionId}>
-            <Patch Patch={this.state.versions[versionId]} />
+        {this.state.visiblePatches.map(patchObj => (
+          <Grid item={true} xs={12} key={patchObj.Version.id}>
+            <Patch Patch={patchObj} />
           </Grid>
         ))}
       </Grid>
@@ -51,39 +56,52 @@ export class PatchContainer extends React.Component<Props, State> {
             />
           </Paper>
         </div>
-        <Patches />
+        <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={false}>
+          <Patches />
+        </InfiniteScroll>
       </div>
     );
   }
 
-  private loadPatches() {
-    this.props.client.getPatches((err, resp, body) => {
-      const versions = ConvertToPatches(JSON.stringify(resp.body)).VersionsMap
-      this.setState({ 
-        versions: versions, 
-        visible: versions, 
-      });
-    }, this.props.client.username);
+  private loadPatches = () => {
+    if (this.state.hasMore) {
+      this.props.client.getPatches((err, resp, body) => {
+        const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
+        if (newPatches.length === 0) {
+          this.setState({ 
+            hasMore: false 
+          });
+          return;
+        }
+        // reorder the patches so that the newest element is at the front of the array
+        newPatches.reverse();
+        this.setState((prevState, props) => ({
+          pageNum: prevState.pageNum + 1,
+          allPatches: [... this.state.allPatches, ...newPatches],
+          visiblePatches: [... this.state.allPatches, ...newPatches],
+      })); 
+      }, this.props.client.username, this.state.pageNum);
+    }
   }
 
   private search = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value;
     const filteredPatches = this.filterItems(query);
     this.setState({
-      visible: filteredPatches,
+      visiblePatches: filteredPatches,
     });
   }
 
   private filterItems(query: string) {
-    const filtered = {};
+    const filtered: UIVersion[] = [];
     if (query === "") {
-      return this.state.versions;
+      return this.state.allPatches;
     }
-    Object.keys(this.state.versions).map(versionId => {
-      const patch = this.state.versions[versionId];
+    Object.keys(this.state.allPatches).map(versionId => {
+      const patch = this.state.allPatches[versionId];
       const description = patch.Version.message;
       if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
-        filtered[versionId] = patch;
+        filtered.push(patch);
       }
     });
     return filtered;
