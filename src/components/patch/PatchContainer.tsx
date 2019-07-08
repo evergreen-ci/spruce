@@ -1,7 +1,6 @@
 import { Grid, InputBase, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
-import * as moment from 'moment';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
@@ -85,12 +84,6 @@ export class PatchContainer extends React.Component<Props, State> {
     }
   }
 
-  private compareByDate(a: UIVersion, b: UIVersion) {
-    const dateA = moment(String(a.Version.create_time));
-    const dateB = moment(String(b.Version.create_time));
-    return dateB.isAfter(dateA) ? 1 : -1;
-  }
-
   private search = (event: React.ChangeEvent<HTMLInputElement>) => {
     const query = event.currentTarget.value;
     const filteredPatches = this.filterItems(query);
@@ -111,7 +104,6 @@ export class PatchContainer extends React.Component<Props, State> {
         filtered.push(patch);
       }
     });
-    filtered.sort(this.compareByDate);
     return filtered;
   }
 }
