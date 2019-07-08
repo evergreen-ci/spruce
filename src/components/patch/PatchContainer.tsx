@@ -67,22 +67,19 @@ export class PatchContainer extends React.Component<Props, State> {
   private loadPatches = () => {
     if (this.state.hasMore) {
       this.props.client.getPatches((err, resp, body) => {
-        const newPatches = ConvertToPatches(resp.body).VersionsMap;
-        if (Object.keys(newPatches).length === 0) {
+        const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
+        if (newPatches.length === 0) {
           this.setState({ 
             hasMore: false 
           });
           return;
         }
-        const sortedPatches = this.state.allPatches;
-        Object.keys(newPatches).map(versionId => {
-          sortedPatches.push(newPatches[versionId]);
-        });
-        sortedPatches.sort(this.compareByDate);
+        // reorder the patches so that the newest element is at the front of the array
+        newPatches.reverse();
         this.setState((prevState, props) => ({
           pageNum: prevState.pageNum + 1,
-          allPatches: sortedPatches,
-          visiblePatches: sortedPatches,
+          allPatches: [... this.state.allPatches, ...newPatches],
+          visiblePatches: [... this.state.allPatches, ...newPatches],
       })); 
       }, this.props.client.username, this.state.pageNum);
     }
