@@ -1,5 +1,6 @@
 import * as request from "request";
-import * as mock from "./mock_data";
+import * as MockData from "./mock_data";
+import * as MockLog from "./mock_log";
 
 export class client {
   public username: string;
@@ -30,6 +31,10 @@ export class client {
     callback(null, this.dummyPatchesResp(), {});
   }
 
+  public getLogs(callback: request.RequestCallback, id?: string, type?: string) {
+    callback(null, this.dummyLogResp(), {});
+  }
+
   public getAdminConfig(callback: request.RequestCallback) {
     callback(null, this.dummySuccessResp(), {});
   }
@@ -53,7 +58,17 @@ export class client {
   }
 
   private dummyPatchesResp(): request.Response {
-    const bodyAsString = JSON.stringify(mock.getMockData());
+    const bodyAsString = JSON.stringify(MockData.getMockData());
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyLogResp(): request.Response {
+    const bodyAsString = MockLog.getMockLog();
     const mockResp: mockResponse = {
       statusCode: 200,
       statusMessage: "",
