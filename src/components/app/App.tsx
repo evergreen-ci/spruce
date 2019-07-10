@@ -13,6 +13,7 @@ import { PatchContainer } from '../patch/PatchContainer';
 interface State {
   APIClient: rest.Evergreen;
   MenuAnchor?: HTMLElement;
+  username?: string;
 }
 
 class Props {
@@ -31,7 +32,7 @@ export class Evergreen extends React.Component<Props, State> {
 
   public render() {
     const admin = () => <Admin APIClient={this.state.APIClient} />
-    const patches = () => <PatchContainer client={this.state.APIClient} />
+    const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username}/>
     const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null}/>
     const menuOpen = Boolean(this.state.MenuAnchor);
 
@@ -61,7 +62,7 @@ export class Evergreen extends React.Component<Props, State> {
                   <NavLink to="/config">Upload Config File</NavLink> 
                 </MenuItem>
               </Menu>
-              <Login client={this.state.APIClient} />
+              <Login client={this.state.APIClient} updateUsername={this.updateUsername}/>
             </Toolbar>
           </AppBar>
           <div className="App-intro">
@@ -84,7 +85,13 @@ export class Evergreen extends React.Component<Props, State> {
 
   private updateConfig = (configObj: ClientConfig) => {
     this.setState({
-      APIClient: rest.EvergreenClient(configObj.user, configObj.api_key, configObj.api_url, configObj.ui_url),
+      APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url, configObj.user, configObj.api_key),
+    });
+  }
+
+  private updateUsername = (username: string) => {
+    this.setState({
+      username: username
     });
   }
 

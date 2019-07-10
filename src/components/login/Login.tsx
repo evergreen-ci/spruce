@@ -13,6 +13,7 @@ interface State {
 
 class Props {
   public client: rest.Evergreen;
+  public updateUsername: (username: string) => void;
 }
 
 export class Login extends React.Component<Props, State> {
@@ -56,7 +57,7 @@ export class Login extends React.Component<Props, State> {
               margin="dense"
               id="password"
               label="password"
-              type="string"
+              type="password"
               fullWidth={true}
               required={true}
               onChange={this.updateSingleField(this.state, "password")}
@@ -95,6 +96,8 @@ export class Login extends React.Component<Props, State> {
       if (err || resp.statusCode >= 300) {
         console.log("got error " + err + " with status code " + resp.statusCode);
         return;
+      } else {
+        this.props.updateUsername(this.state.username);
       }
     }, this.state.username, this.state.password);
     this.setState({

@@ -12,6 +12,7 @@ ShallowWrapper {
         "username": "",
       }
     }
+    updateUsername={[MockFunction]}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -72,7 +73,7 @@ ShallowWrapper {
               onChange={[Function]}
               required={true}
               select={false}
-              type="string"
+              type="password"
               value=""
               variant="standard"
             />
@@ -150,7 +151,7 @@ ShallowWrapper {
                 onChange={[Function]}
                 required={true}
                 select={false}
-                type="string"
+                type="password"
                 value=""
                 variant="standard"
               />
@@ -221,7 +222,7 @@ ShallowWrapper {
                   onChange={[Function]}
                   required={true}
                   select={false}
-                  type="string"
+                  type="password"
                   value=""
                   variant="standard"
                 />,
@@ -274,7 +275,7 @@ ShallowWrapper {
                   "onChange": [Function],
                   "required": true,
                   "select": false,
-                  "type": "string",
+                  "type": "password",
                   "value": "",
                   "variant": "standard",
                 },
@@ -397,7 +398,7 @@ ShallowWrapper {
                 onChange={[Function]}
                 required={true}
                 select={false}
-                type="string"
+                type="password"
                 value=""
                 variant="standard"
               />
@@ -475,7 +476,7 @@ ShallowWrapper {
                   onChange={[Function]}
                   required={true}
                   select={false}
-                  type="string"
+                  type="password"
                   value=""
                   variant="standard"
                 />
@@ -546,7 +547,7 @@ ShallowWrapper {
                     onChange={[Function]}
                     required={true}
                     select={false}
-                    type="string"
+                    type="password"
                     value=""
                     variant="standard"
                   />,
@@ -599,7 +600,7 @@ ShallowWrapper {
                     "onChange": [Function],
                     "required": true,
                     "select": false,
-                    "type": "string",
+                    "type": "password",
                     "value": "",
                     "variant": "standard",
                   },
