@@ -11,8 +11,8 @@ interface State {
   pageNum: number
   hasMore: boolean
   allPatches: UIVersion[]
-  visiblePatches: UIVersion[], 
-  expandedPatches: number[]
+  visiblePatches: UIVersion[],
+  expandedPatches: object
 }
 
 class Props {
@@ -27,7 +27,7 @@ export class PatchContainer extends React.Component<Props, State> {
       pageNum: 0,
       allPatches: [],
       visiblePatches: [],
-      expandedPatches: []
+      expandedPatches: {}
     };
   }
 
@@ -70,8 +70,8 @@ export class PatchContainer extends React.Component<Props, State> {
       this.props.client.getPatches((err, resp, body) => {
         const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
         if (newPatches.length === 0) {
-          this.setState({ 
-            hasMore: false 
+          this.setState({
+            hasMore: false
           });
           return;
         }
@@ -81,7 +81,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-      })); 
+        }));
       }, this.props.client.username, this.state.pageNum);
     }
   }
@@ -110,13 +110,11 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private updateOpenPatches = (patchObj: UIVersion) => {
-    let newExpanded = this.state.expandedPatches;
-    if (this.state.expandedPatches.indexOf(this.state.allPatches.indexOf(patchObj)) === -1) {
-      newExpanded.push(this.state.allPatches.indexOf(patchObj));
+    const newExpanded = this.state.expandedPatches;
+    if (patchObj.Version.id in this.state.expandedPatches) {
+      delete newExpanded[patchObj.Version.id];
     } else {
-        newExpanded = this.state.expandedPatches.filter((value, index, array) => {
-        return value !== this.state.allPatches.indexOf(patchObj);
-      });
+      newExpanded[patchObj.Version.id] = 1;
     }
     this.setState({
       expandedPatches: newExpanded
@@ -124,7 +122,7 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private isExpanded = (patchObj: UIVersion) => {
-    return this.state.expandedPatches.indexOf(this.state.allPatches.indexOf(patchObj)) === -1 ? false : true
+    return patchObj.Version.id in this.state.expandedPatches;
   }
 }
 
