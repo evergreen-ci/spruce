@@ -16,6 +16,8 @@ interface State {
 
 class Props {
   public Patch: UIVersion;
+  public expanded: boolean;
+  public updateOpenPatches: (patchObj: UIVersion) => void;
 }
 
 export class Patch extends React.Component<Props, State> {
@@ -54,8 +56,8 @@ export class Patch extends React.Component<Props, State> {
 
     return (
       <Grid>
-        <ExpansionPanel className="patch">
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1a-content" id="panel1a-header">
+        <ExpansionPanel className="patch" expanded={this.props.expanded} onChange={this.onExpandChange}>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography className="patch-header" variant="h6">{this.state.description}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
@@ -63,7 +65,11 @@ export class Patch extends React.Component<Props, State> {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-    );
+    );  
+  }
+
+  private onExpandChange = () => {
+    this.props.updateOpenPatches(this.props.Patch);
   }
 }
 

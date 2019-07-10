@@ -11,7 +11,8 @@ interface State {
   pageNum: number
   hasMore: boolean
   allPatches: UIVersion[]
-  visiblePatches: UIVersion[]
+  visiblePatches: UIVersion[], 
+  expandedPatches: number[]
 }
 
 class Props {
@@ -25,7 +26,8 @@ export class PatchContainer extends React.Component<Props, State> {
       hasMore: true,
       pageNum: 0,
       allPatches: [],
-      visiblePatches: []
+      visiblePatches: [],
+      expandedPatches: []
     };
   }
 
@@ -39,7 +41,7 @@ export class PatchContainer extends React.Component<Props, State> {
       <Grid className="patch-container" container={true} spacing={24}>
         {this.state.visiblePatches.map(patchObj => (
           <Grid item={true} xs={12} key={patchObj.Version.id}>
-            <Patch Patch={patchObj} />
+            <Patch Patch={patchObj} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
           </Grid>
         ))}
       </Grid>
@@ -105,6 +107,24 @@ export class PatchContainer extends React.Component<Props, State> {
       }
     });
     return filtered;
+  }
+
+  private updateOpenPatches = (patchObj: UIVersion) => {
+    let newExpanded = this.state.expandedPatches;
+    if (this.state.expandedPatches.indexOf(this.state.allPatches.indexOf(patchObj)) === -1) {
+      newExpanded.push(this.state.allPatches.indexOf(patchObj));
+    } else {
+        newExpanded = this.state.expandedPatches.filter((value, index, array) => {
+        return value !== this.state.allPatches.indexOf(patchObj);
+      });
+    }
+    this.setState({
+      expandedPatches: newExpanded
+    });
+  }
+
+  private isExpanded = (patchObj: UIVersion) => {
+    return this.state.expandedPatches.indexOf(this.state.allPatches.indexOf(patchObj)) === -1 ? false : true
   }
 }
 
