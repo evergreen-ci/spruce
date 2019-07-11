@@ -13,10 +13,9 @@ describe("PatchContainer", () => {
   const checkState = jest.fn(() => {
     wrapper.update();
     expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01");
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
     expect(patch).toHaveLength(1);
-    // tslint:disable-next-line: no-string-literal
-    expect(patch.props().children["props"]["expanded"]).toBe(true);
+    expect(patch.prop("expanded")).toBe(true);
     const expansionPanel = patch.find(ExpansionPanel);
     expect(expansionPanel).toHaveLength(1);
     expect(expansionPanel.prop("expanded")).toBe(true);
@@ -61,10 +60,9 @@ describe("PatchContainer", () => {
 
   it("check that expanded state persists on re-render", () => {
     expect(wrapper.state("expandedPatches")).toEqual({});
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01");
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
     expect(patch).toHaveLength(1);
-    // tslint:disable-next-line: no-string-literal
-    expect(patch.instance().props.children["props"]["expanded"]).toBe(false);
+    expect(patch.prop("expanded")).toBe(false);
     const expansionPanel = patch.find(ExpansionPanel);
     expect(expansionPanel).toHaveLength(1);
     expect(expansionPanel.prop("expanded")).toBe(false);
