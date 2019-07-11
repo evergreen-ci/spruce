@@ -9,6 +9,7 @@ interface State {
   username : string
   password : string
   token : string
+  buttonText: string
 }
 
 class Props {
@@ -26,6 +27,7 @@ export class Login extends React.Component<Props, State> {
       username : "",
       password : "",
       token : "",
+      buttonText: "Log In"
     };
   }
 
@@ -33,7 +35,7 @@ export class Login extends React.Component<Props, State> {
     return (
       <div>
         <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
-          Log In
+          {this.state.buttonText}
         </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
@@ -78,9 +80,16 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickOpen = () => {
-    this.setState({
-      open : true,
-    });
+    if (this.state.buttonText === "Log In") {
+      this.setState({
+        open : true,
+      });
+    } else {
+      this.setState({
+        buttonText: "Log In"
+      });
+      this.props.updateUsername("");
+    } 
   }
 
   private handleClickClose = () => {
@@ -103,6 +112,7 @@ export class Login extends React.Component<Props, State> {
     this.setState({
       open : false,
       submitted : true,
+      buttonText: "Log Out"
     });
   }
  
