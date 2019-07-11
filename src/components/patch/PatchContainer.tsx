@@ -11,11 +11,13 @@ interface State {
   pageNum: number
   hasMore: boolean
   allPatches: UIVersion[]
-  visiblePatches: UIVersion[]
+  visiblePatches: UIVersion[],
+  expandedPatches: object
 }
 
 class Props {
   public client: rest.Evergreen;
+  public onFinishStateUpdate: () => void;
 }
 
 export class PatchContainer extends React.Component<Props, State> {
@@ -25,7 +27,8 @@ export class PatchContainer extends React.Component<Props, State> {
       hasMore: true,
       pageNum: 0,
       allPatches: [],
-      visiblePatches: []
+      visiblePatches: [],
+      expandedPatches: {}
     };
   }
 
@@ -39,7 +42,7 @@ export class PatchContainer extends React.Component<Props, State> {
       <Grid className="patch-container" container={true} spacing={24}>
         {this.state.visiblePatches.map(patchObj => (
           <Grid item={true} xs={12} key={patchObj.Version.id}>
-            <Patch Patch={patchObj} />
+            <Patch Patch={patchObj} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
           </Grid>
         ))}
       </Grid>
@@ -68,8 +71,8 @@ export class PatchContainer extends React.Component<Props, State> {
       this.props.client.getPatches((err, resp, body) => {
         const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
         if (newPatches.length === 0) {
-          this.setState({ 
-            hasMore: false 
+          this.setState({
+            hasMore: false
           });
           return;
         }
@@ -79,7 +82,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-      })); 
+        }));
       }, this.props.client.username, this.state.pageNum);
     }
   }
@@ -105,6 +108,22 @@ export class PatchContainer extends React.Component<Props, State> {
       }
     });
     return filtered;
+  }
+
+  private updateOpenPatches = (patchObj: UIVersion) => {
+    const newExpanded = this.state.expandedPatches;
+    if (patchObj.Version.id in this.state.expandedPatches) {
+      delete newExpanded[patchObj.Version.id];
+    } else {
+      newExpanded[patchObj.Version.id] = 1;
+    }
+    this.setState({
+      expandedPatches: newExpanded
+    }, this.props.onFinishStateUpdate);
+  }
+
+  private isExpanded = (patchObj: UIVersion) => {
+    return patchObj.Version.id in this.state.expandedPatches;
   }
 }
 
