@@ -85,7 +85,7 @@ export class Evergreen extends React.Component<Props, State> {
 
   private updateConfig = (configObj: ClientConfig) => {
     this.setState({
-      APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url, configObj.user, configObj.api_key),
+      APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url),
     });
   }
 
