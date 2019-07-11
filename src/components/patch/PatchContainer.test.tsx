@@ -1,8 +1,9 @@
-import { InputBase } from '@material-ui/core';
+import { ExpansionPanel, InputBase } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import { UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from "react";
+import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import { Variant } from '../variant/Variant';
 import { Patch } from './Patch';
@@ -45,6 +46,24 @@ describe("PatchContainer", () => {
     expect(variant.state("name")).toBe("Ubuntu 16.04");
     expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
     expect(variant.state("sortedStatus")).toEqual([{"count": 1, "status": "failed"}, {"count": 2, "status": "success"}]);
+  })
+
+  it("check that expanded state persists on re-render", () => {
+    expect(wrapper.state("expandedPatches")).toEqual({});
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01");
+    expect(patch).toHaveLength(1);
+    // expect(patch.instance().props.children["props"]["expanded"]).toBe(false);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(false);
+    expect(expansionPanel.prop("onChange")).toBeDefined();
+    // expansionPanel.simulate("change");
+    // console.log(wrapper.state("visiblePatches"));
+    expansionPanel.prop("onChange")({} as React.ChangeEvent, true);
+    expect(wrapper.state("expandedPatches")).toEqual({"5d1385720305b932b1d50d01": 1});
+    // tslint:disable-next-line: no-string-literal
+    expect(patch.props().children["props"]["expanded"]).toBe(true);
+    // expect(expansionPanel.prop("expanded")).toBe(true);
   })
 
   it("check that search returns correct results", () => {

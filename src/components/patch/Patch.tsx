@@ -38,6 +38,7 @@ export class Patch extends React.Component<Props, State> {
   }
 
   public render() {
+    // console.log( this.props.Patch.Version.id + " is expanded: " + this.props.expanded)
 
     const Variants = () => (
       <Grid container={true} spacing={24}>
