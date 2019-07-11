@@ -10,18 +10,7 @@ import { PatchContainer } from "./PatchContainer";
 
 describe("PatchContainer", () => {
 
-  const checkState = jest.fn(() => {
-    wrapper.update();
-    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
-    expect(patch).toHaveLength(1);
-    expect(patch.prop("expanded")).toBe(true);
-    const expansionPanel = patch.find(ExpansionPanel);
-    expect(expansionPanel).toHaveLength(1);
-    expect(expansionPanel.prop("expanded")).toBe(true);
-  });
-
-  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} onFinishStateUpdate={checkState} />);
+  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} onFinishStateUpdate={null} />);
 
   it("check that patches loaded from mock data correctly", () => {
     expect(wrapper.find(Patch)).toHaveLength(4);
@@ -58,7 +47,19 @@ describe("PatchContainer", () => {
     expect(variant.state("sortedStatus")).toEqual([{ "count": 1, "status": "failed" }, { "count": 2, "status": "success" }]);
   })
 
+  const checkState = jest.fn(() => {
+    wrapper.update();
+    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
+    expect(patch).toHaveLength(1);
+    expect(patch.prop("expanded")).toBe(true);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(true);
+  });
+
   it("check that expanded state persists on re-render", () => {
+    wrapper.setProps({ onFinishStateUpdate: checkState });
     expect(wrapper.state("expandedPatches")).toEqual({});
     const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
     expect(patch).toHaveLength(1);
