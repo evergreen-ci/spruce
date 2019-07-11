@@ -17,6 +17,7 @@ interface State {
 
 class Props {
   public client: rest.Evergreen;
+  public onFinishStateUpdate: () => void;
 }
 
 export class PatchContainer extends React.Component<Props, State> {
@@ -118,7 +119,7 @@ export class PatchContainer extends React.Component<Props, State> {
     }
     this.setState({
       expandedPatches: newExpanded
-    });
+    }, this.props.onFinishStateUpdate);
   }
 
   private isExpanded = (patchObj: UIVersion) => {

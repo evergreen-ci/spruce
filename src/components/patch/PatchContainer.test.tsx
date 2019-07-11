@@ -3,7 +3,6 @@ import * as enzyme from "enzyme";
 import { UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from "react";
-import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import { Variant } from '../variant/Variant';
 import { Patch } from './Patch';
@@ -11,7 +10,19 @@ import { PatchContainer } from "./PatchContainer";
 
 describe("PatchContainer", () => {
 
-  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} />);
+  const checkState = jest.fn(() => {
+    wrapper.update();
+    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01");
+    expect(patch).toHaveLength(1);
+    // tslint:disable-next-line: no-string-literal
+    expect(patch.props().children["props"]["expanded"]).toBe(true);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(true);
+  });
+
+  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} onFinishStateUpdate={checkState} />);
 
   it("check that patches loaded from mock data correctly", () => {
     expect(wrapper.find(Patch)).toHaveLength(4);
@@ -45,35 +56,30 @@ describe("PatchContainer", () => {
     expect(failedBox).toHaveLength(1);
     expect(variant.state("name")).toBe("Ubuntu 16.04");
     expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
-    expect(variant.state("sortedStatus")).toEqual([{"count": 1, "status": "failed"}, {"count": 2, "status": "success"}]);
+    expect(variant.state("sortedStatus")).toEqual([{ "count": 1, "status": "failed" }, { "count": 2, "status": "success" }]);
   })
 
   it("check that expanded state persists on re-render", () => {
     expect(wrapper.state("expandedPatches")).toEqual({});
     const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01");
     expect(patch).toHaveLength(1);
-    // expect(patch.instance().props.children["props"]["expanded"]).toBe(false);
+    // tslint:disable-next-line: no-string-literal
+    expect(patch.instance().props.children["props"]["expanded"]).toBe(false);
     const expansionPanel = patch.find(ExpansionPanel);
     expect(expansionPanel).toHaveLength(1);
     expect(expansionPanel.prop("expanded")).toBe(false);
     expect(expansionPanel.prop("onChange")).toBeDefined();
-    // expansionPanel.simulate("change");
-    // console.log(wrapper.state("visiblePatches"));
     expansionPanel.prop("onChange")({} as React.ChangeEvent, true);
-    expect(wrapper.state("expandedPatches")).toEqual({"5d1385720305b932b1d50d01": 1});
-    // tslint:disable-next-line: no-string-literal
-    expect(patch.props().children["props"]["expanded"]).toBe(true);
-    // expect(expansionPanel.prop("expanded")).toBe(true);
   })
 
   it("check that search returns correct results", () => {
-    const event = {currentTarget: { value: "pull request #2428" }};
+    const event = { currentTarget: { value: "pull request #2428" } };
     const expectedResults = ["5d138b6b61837d77f9dda2a1", "5d1391b63e8e860e458573a5"];
     const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
     const input = wrapper.find(InputBase);
     expect(input).toHaveLength(1);
     input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
-    const visibleIds:string[] = [];
+    const visibleIds: string[] = [];
     (wrapper.state("visiblePatches") as UIVersion[]).map(patch => (
       visibleIds.push(patch.Version.id)
     ));
