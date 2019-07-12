@@ -10,7 +10,7 @@ interface State {
   password: string
   token: string
   buttonText: string
-  hideErrorMessage: boolean
+  errorText: string
 }
 
 class Props {
@@ -29,7 +29,7 @@ export class Login extends React.Component<Props, State> {
       password: "",
       token: "",
       buttonText: "Log In",
-      hideErrorMessage: true
+      errorText: ""
     };
   }
 
@@ -67,11 +67,9 @@ export class Login extends React.Component<Props, State> {
               onChange={this.updateSingleField(this.state, "password")}
               value={this.state.password}
             />
-            <div hidden={this.state.hideErrorMessage}>
               <Typography color="error">
-                Invalid username or password
+                {this.state.errorText}
               </Typography>
-            </div>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClickClose} color="primary" id="cancel-button">
@@ -104,7 +102,7 @@ export class Login extends React.Component<Props, State> {
       open: false,
       username: "",
       password: "",
-      hideErrorMessage: true
+      errorText: ""
     });
   }
 
@@ -113,7 +111,7 @@ export class Login extends React.Component<Props, State> {
       if (err || resp.statusCode >= 300) {
         if (resp.statusCode === 401) {
           this.setState({
-            hideErrorMessage: false
+            errorText: "Invalid username or password"
           });
         } else {
           console.log("got error " + err + " with status code " + resp.statusCode);
