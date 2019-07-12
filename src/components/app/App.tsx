@@ -62,9 +62,6 @@ export class Evergreen extends React.Component<Props, State> {
                 <MenuItem onClick={this.closeMenu}>
                   <NavLink to="/config">Upload Config File</NavLink> 
                 </MenuItem>
-                <MenuItem onClick={this.closeMenu}>
-                  <NavLink to="/task">Task View (Temp)</NavLink> 
-                </MenuItem>
               </Menu>
               <Login client={this.state.APIClient} />
             </Toolbar>

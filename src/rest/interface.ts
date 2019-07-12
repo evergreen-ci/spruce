@@ -12,7 +12,7 @@ export interface Evergreen {
   getRecentTasks: (callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number, status?: string) => void;
   getToken: (callback: request.RequestCallback, username?: string, password?: string) => void;
   getPatches: (callback: request.RequestCallback, username?: string, page?: number) => void;
-  getLogs: (callback: request.RequestCallback, id?: string, type?: string) => void;
+  getLogs: (callback: request.RequestCallback, id?: string, type?: string, executionNumber?: number) => void;
   getAdminConfig: (callback: request.RequestCallback) => void;
   setAdminConfig: (callback: request.RequestCallback, settings: any) => void;
   getBanner: (callback: request.RequestCallback) => void;

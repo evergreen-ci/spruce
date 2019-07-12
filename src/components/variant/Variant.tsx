@@ -1,6 +1,7 @@
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-ui/core';
 import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import '../../styles.css';
 
 interface StatusCount { [id: string]: number };
@@ -12,6 +13,7 @@ interface State {
     "status": string,
     "count": number
   }>,
+  toTask: boolean
 }
 
 class Props {
@@ -34,10 +36,15 @@ export class Variant extends React.Component<Props, State> {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
+      toTask: false,
     };
   }
 
   public render() {
+
+    if (this.state.toTask === true) {
+      return <Redirect to='/task' />
+    }
 
     const VariantsByStatus = () => (
       <Grid container={true} spacing={8}>
@@ -55,10 +62,12 @@ export class Variant extends React.Component<Props, State> {
 
     return (
       <Card className="variant-card">
-        <VariantsByStatus />
-        <Typography variant="body1" className="variant-title">
-          {this.state.name}
-        </Typography>
+        <CardActionArea onClick={this.redirectToTask}>
+          <VariantsByStatus />
+          <Typography variant="body1" className="variant-title">
+            {this.state.name}
+          </Typography>
+        </CardActionArea>
       </Card>
     );
   }
@@ -94,6 +103,12 @@ export class Variant extends React.Component<Props, State> {
       sortedStatus.push(statusObj);
     }
     return sortedStatus;
+  }
+
+  private redirectToTask = () => {
+    this.setState({
+      toTask: true
+    });
   }
 }
 

@@ -31,7 +31,7 @@ export class client {
     callback(null, this.dummyPatchesResp(), {});
   }
 
-  public getLogs(callback: request.RequestCallback, id?: string, type?: string) {
+  public getLogs(callback: request.RequestCallback, id?: string, type?: string, executionNumber?: number) {
     callback(null, this.dummyLogResp(), {});
   }
 
