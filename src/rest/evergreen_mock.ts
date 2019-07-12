@@ -8,7 +8,7 @@ export class client {
   public apiURL: string;
   public uiURL: string;
 
-  constructor(username: string, key: string, apiURL: string, uiURL: string) {
+  constructor(apiURL: string, uiURL: string, username?: string, key?: string) {
     this.username = username;
     this.key = key;
     this.apiURL = apiURL;
