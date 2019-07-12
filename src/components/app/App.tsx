@@ -39,7 +39,7 @@ export class Evergreen extends React.Component<Props, State> {
     return (
       <div className="App">
         <UserContextConsumer>
-          {props => {
+          {() => {
             return (
               <HashRouter>
                 <AppBar position="fixed" className="app-bar">
