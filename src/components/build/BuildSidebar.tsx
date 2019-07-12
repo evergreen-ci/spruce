@@ -11,7 +11,7 @@ class Props {
   public patch: UIVersion
 }
 
-export class TaskSidebar extends React.Component<Props, State> {
+export class BuildSidebar extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -43,4 +43,4 @@ export class TaskSidebar extends React.Component<Props, State> {
   }
 }
 
-export default TaskSidebar;
+export default BuildSidebar;

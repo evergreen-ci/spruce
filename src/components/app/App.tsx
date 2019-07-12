@@ -6,10 +6,10 @@ import { ClientConfig, IsValidConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
+import { BuildView } from '../build/BuildView';
 import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login, UserContextConsumer } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
-import { TaskView } from '../task/TaskView';
 
 interface State {
   APIClient: rest.Evergreen;
@@ -35,7 +35,7 @@ export class Evergreen extends React.Component<Props, State> {
     const admin = () => <Admin APIClient={this.state.APIClient} />
     const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username} onFinishStateUpdate={null} />
     const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
-    const task = () => <TaskView client={this.state.APIClient} />
+    const build = () => <BuildView client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
@@ -74,7 +74,7 @@ export class Evergreen extends React.Component<Props, State> {
                   <Route path="/admin" render={admin} />
                   <Route path="/config" render={config} />
                   <Route path="/patches" render={patches} />
-                  <Route path="/task" render={task} />
+                  <Route path="/task" render={build} />
                 </div>
               </HashRouter>
             )

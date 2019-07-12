@@ -13,7 +13,7 @@ interface State {
     "status": string,
     "count": number
   }>,
-  toTask: boolean
+  redirectToBuild: boolean
 }
 
 class Props {
@@ -36,14 +36,15 @@ export class Variant extends React.Component<Props, State> {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
-      toTask: false,
+      redirectToBuild: false,
     };
   }
 
   public render() {
 
-    if (this.state.toTask === true) {
-      return <Redirect to='/task' />
+    if (this.state.redirectToBuild === true) {
+      const url = '/build?id=' + this.props.build.Build._id; 
+      return <Redirect to={url}/>
     }
 
     const VariantsByStatus = () => (
@@ -107,7 +108,7 @@ export class Variant extends React.Component<Props, State> {
 
   private redirectToTask = () => {
     this.setState({
-      toTask: true
+      redirectToBuild: true
     });
   }
 }
