@@ -2,14 +2,17 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import { UserContext, UserContextConsumer } from '../app/App'
+
+export const UserContext = React.createContext({
+  username: "",
+});
+export const UserContextProvider = UserContext.Provider;
+export const UserContextConsumer = UserContext.Consumer;
 
 interface State {
   open: boolean;
-  submitted: boolean
   username: string
   password: string
-  token: string
   errorText: string
 }
 
@@ -24,29 +27,19 @@ export class Login extends React.Component<Props, State> {
     super(props);
     this.state = {
       open: false,
-      submitted: false,
       username: "",
       password: "",
-      token: "",
       errorText: ""
     };
   }
 
   public render() {
 
-    const LoginButton = () => (
-      <UserContextConsumer>
-        {userContext => userContext && (
-          <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
-            {userContext.username === "" ? "Log In" : "Log Out"}
-          </Button>
-        )}
-      </UserContextConsumer>
-    )
-
     return (
       <div>
-        <LoginButton />
+        <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
+          {this.context.username === "" ? "Log In" : "Log Out"}
+        </Button>
         <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
@@ -93,14 +86,17 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickOpen = () => {
-    const currentContext = this.context;
-    console.log(currentContext);
-    if (currentContext.username === "") {
+    if (this.context.username === "") {
       this.setState({
         open: true,
       });
     } else {
+      this.setState({
+        username: "",
+        password: ""
+      });
       this.props.updateUsername("");
+      this.context.username = "";
     }
   }
 
@@ -125,9 +121,9 @@ export class Login extends React.Component<Props, State> {
         }
       } else {
         this.props.updateUsername(this.state.username);
+        this.context.username = this.state.username;
         this.setState({
           open: false,
-          submitted: true,
         });
       }
     }, this.state.username, this.state.password);
@@ -140,10 +136,8 @@ export class Login extends React.Component<Props, State> {
       this.setState(newState);
     }
   }
-
 }
 
-console.log("logincontext " + JSON.stringify(UserContext));
 Login.contextType = UserContext;
 
 export default Login;
