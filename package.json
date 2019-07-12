@@ -62,7 +62,6 @@
     "react-dom": "^16.8.6",
     "react-infinite-scroller": "^1.2.4",
     "react-router-dom": "^5.0.1",
-    "react-sidebar": "^3.0.2",
     "resolve": "1.8.1",
     "sass-loader": "7.1.0",
     "serve": "^10.1.2",
