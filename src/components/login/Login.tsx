@@ -10,7 +10,8 @@ export const UserContextProvider = UserContext.Provider;
 export const UserContextConsumer = UserContext.Consumer;
 
 interface State {
-  open: boolean;
+  open: boolean
+  submitted: boolean
   username: string
   password: string
   errorText: string
@@ -27,6 +28,7 @@ export class Login extends React.Component<Props, State> {
     super(props);
     this.state = {
       open: false,
+      submitted: false,
       username: "",
       password: "",
       errorText: ""
@@ -124,6 +126,7 @@ export class Login extends React.Component<Props, State> {
         this.context.username = this.state.username;
         this.setState({
           open: false,
+          submitted: true
         });
       }
     }, this.state.username, this.state.password);

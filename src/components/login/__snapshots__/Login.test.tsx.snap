@@ -35,7 +35,7 @@ ShallowWrapper {
           id="login-button"
           onClick={[Function]}
         >
-          Log In
+          Log Out
         </WithStyles(Button)>,
         <WithStyles(Dialog)
           id="login-modal"
@@ -77,6 +77,11 @@ ShallowWrapper {
               value=""
               variant="standard"
             />
+            <WithStyles(Typography)
+              color="error"
+            >
+              
+            </WithStyles(Typography)>
           </WithStyles(DialogContent)>
           <WithStyles(DialogActions)>
             <WithStyles(Button)
@@ -104,14 +109,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": "Log In",
+          "children": "Log Out",
           "className": "login-button",
           "color": "inherit",
           "id": "login-button",
           "onClick": [Function],
         },
         "ref": null,
-        "rendered": "Log In",
+        "rendered": "Log Out",
         "type": [Function],
       },
       Object {
@@ -155,6 +160,11 @@ ShallowWrapper {
                 value=""
                 variant="standard"
               />
+              <WithStyles(Typography)
+                color="error"
+              >
+                
+              </WithStyles(Typography)>
             </WithStyles(DialogContent)>,
             <WithStyles(DialogActions)>
               <WithStyles(Button)
@@ -226,6 +236,11 @@ ShallowWrapper {
                   value=""
                   variant="standard"
                 />,
+                <WithStyles(Typography)
+                  color="error"
+                >
+                  
+                </WithStyles(Typography)>,
               ],
             },
             "ref": null,
@@ -281,6 +296,18 @@ ShallowWrapper {
                 },
                 "ref": null,
                 "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "",
+                  "color": "error",
+                },
+                "ref": null,
+                "rendered": "",
                 "type": [Function],
               },
             ],
@@ -360,7 +387,7 @@ ShallowWrapper {
             id="login-button"
             onClick={[Function]}
           >
-            Log In
+            Log Out
           </WithStyles(Button)>,
           <WithStyles(Dialog)
             id="login-modal"
@@ -402,6 +429,11 @@ ShallowWrapper {
                 value=""
                 variant="standard"
               />
+              <WithStyles(Typography)
+                color="error"
+              >
+                
+              </WithStyles(Typography)>
             </WithStyles(DialogContent)>
             <WithStyles(DialogActions)>
               <WithStyles(Button)
@@ -429,14 +461,14 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": "Log In",
+            "children": "Log Out",
             "className": "login-button",
             "color": "inherit",
             "id": "login-button",
             "onClick": [Function],
           },
           "ref": null,
-          "rendered": "Log In",
+          "rendered": "Log Out",
           "type": [Function],
         },
         Object {
@@ -480,6 +512,11 @@ ShallowWrapper {
                   value=""
                   variant="standard"
                 />
+                <WithStyles(Typography)
+                  color="error"
+                >
+                  
+                </WithStyles(Typography)>
               </WithStyles(DialogContent)>,
               <WithStyles(DialogActions)>
                 <WithStyles(Button)
@@ -551,6 +588,11 @@ ShallowWrapper {
                     value=""
                     variant="standard"
                   />,
+                  <WithStyles(Typography)
+                    color="error"
+                  >
+                    
+                  </WithStyles(Typography)>,
                 ],
               },
               "ref": null,
@@ -606,6 +648,18 @@ ShallowWrapper {
                   },
                   "ref": null,
                   "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "",
+                    "color": "error",
+                  },
+                  "ref": null,
+                  "rendered": "",
                   "type": [Function],
                 },
               ],
