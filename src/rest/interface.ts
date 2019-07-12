@@ -3,10 +3,10 @@ import * as request from "request";
 import * as mock from "./evergreen_mock"
 
 export interface Evergreen {
-  username: string;
-  key: string;
   apiURL: string;
   uiURL: string;
+  username?: string;
+  key?: string;
 
   getDistros: (callback: request.RequestCallback) => void;
   getRecentTasks: (callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number, status?: string) => void;
@@ -17,9 +17,9 @@ export interface Evergreen {
   getBanner: (callback: request.RequestCallback) => void;
 }
 
-export function EvergreenClient(username: string, key: string, apiURL: string, uiURL: string, isMock: boolean = false): Evergreen {
+export function EvergreenClient(apiURL: string, uiURL: string, username?: string, key?: string, isMock: boolean = false): Evergreen {
   if (isMock) {
-    return new mock.client(username, key, apiURL, uiURL);
+    return new mock.client(apiURL, uiURL, username, key);
   }
-  return new evergreen.client(username, key, apiURL, uiURL);
+  return new evergreen.client(apiURL, uiURL, username, key);
 }

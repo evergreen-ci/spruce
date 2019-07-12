@@ -74,8 +74,7 @@ export class ConfigDrop extends React.Component<Props, State> {
     reader.onload = () => {
       const raw = reader.result.toString();
       const configObj = ConvertToClientConfig(raw);
-      if (configObj.hasOwnProperty("user") && configObj.hasOwnProperty("api_key") &&
-        configObj.hasOwnProperty("ui_url") && configObj.hasOwnProperty("api_url")) {
+      if (configObj.hasOwnProperty("ui_url") && configObj.hasOwnProperty("api_url")) {
         this.setState({
           newConfig: configObj,
         });

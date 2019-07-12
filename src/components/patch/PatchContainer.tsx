@@ -17,6 +17,7 @@ interface State {
 
 class Props {
   public client: rest.Evergreen;
+  public username: string;
   public onFinishStateUpdate: () => void;
 }
 
@@ -82,8 +83,8 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-        }));
-      }, this.props.client.username, this.state.pageNum);
+      })); 
+      }, this.props.username, this.state.pageNum);
     }
   }
 

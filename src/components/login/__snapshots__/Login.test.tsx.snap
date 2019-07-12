@@ -12,6 +12,7 @@ ShallowWrapper {
         "username": "",
       }
     }
+    updateUsername={[MockFunction]}
   />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
@@ -34,7 +35,7 @@ ShallowWrapper {
           id="login-button"
           onClick={[Function]}
         >
-          Log In
+          Log Out
         </WithStyles(Button)>,
         <WithStyles(Dialog)
           id="login-modal"
@@ -72,10 +73,15 @@ ShallowWrapper {
               onChange={[Function]}
               required={true}
               select={false}
-              type="string"
+              type="password"
               value=""
               variant="standard"
             />
+            <WithStyles(Typography)
+              color="error"
+            >
+              
+            </WithStyles(Typography)>
           </WithStyles(DialogContent)>
           <WithStyles(DialogActions)>
             <WithStyles(Button)
@@ -103,14 +109,14 @@ ShallowWrapper {
         "key": undefined,
         "nodeType": "class",
         "props": Object {
-          "children": "Log In",
+          "children": "Log Out",
           "className": "login-button",
           "color": "inherit",
           "id": "login-button",
           "onClick": [Function],
         },
         "ref": null,
-        "rendered": "Log In",
+        "rendered": "Log Out",
         "type": [Function],
       },
       Object {
@@ -150,10 +156,15 @@ ShallowWrapper {
                 onChange={[Function]}
                 required={true}
                 select={false}
-                type="string"
+                type="password"
                 value=""
                 variant="standard"
               />
+              <WithStyles(Typography)
+                color="error"
+              >
+                
+              </WithStyles(Typography)>
             </WithStyles(DialogContent)>,
             <WithStyles(DialogActions)>
               <WithStyles(Button)
@@ -221,10 +232,15 @@ ShallowWrapper {
                   onChange={[Function]}
                   required={true}
                   select={false}
-                  type="string"
+                  type="password"
                   value=""
                   variant="standard"
                 />,
+                <WithStyles(Typography)
+                  color="error"
+                >
+                  
+                </WithStyles(Typography)>,
               ],
             },
             "ref": null,
@@ -274,12 +290,24 @@ ShallowWrapper {
                   "onChange": [Function],
                   "required": true,
                   "select": false,
-                  "type": "string",
+                  "type": "password",
                   "value": "",
                   "variant": "standard",
                 },
                 "ref": null,
                 "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "children": "",
+                  "color": "error",
+                },
+                "ref": null,
+                "rendered": "",
                 "type": [Function],
               },
             ],
@@ -359,7 +387,7 @@ ShallowWrapper {
             id="login-button"
             onClick={[Function]}
           >
-            Log In
+            Log Out
           </WithStyles(Button)>,
           <WithStyles(Dialog)
             id="login-modal"
@@ -397,10 +425,15 @@ ShallowWrapper {
                 onChange={[Function]}
                 required={true}
                 select={false}
-                type="string"
+                type="password"
                 value=""
                 variant="standard"
               />
+              <WithStyles(Typography)
+                color="error"
+              >
+                
+              </WithStyles(Typography)>
             </WithStyles(DialogContent)>
             <WithStyles(DialogActions)>
               <WithStyles(Button)
@@ -428,14 +461,14 @@ ShallowWrapper {
           "key": undefined,
           "nodeType": "class",
           "props": Object {
-            "children": "Log In",
+            "children": "Log Out",
             "className": "login-button",
             "color": "inherit",
             "id": "login-button",
             "onClick": [Function],
           },
           "ref": null,
-          "rendered": "Log In",
+          "rendered": "Log Out",
           "type": [Function],
         },
         Object {
@@ -475,10 +508,15 @@ ShallowWrapper {
                   onChange={[Function]}
                   required={true}
                   select={false}
-                  type="string"
+                  type="password"
                   value=""
                   variant="standard"
                 />
+                <WithStyles(Typography)
+                  color="error"
+                >
+                  
+                </WithStyles(Typography)>
               </WithStyles(DialogContent)>,
               <WithStyles(DialogActions)>
                 <WithStyles(Button)
@@ -546,10 +584,15 @@ ShallowWrapper {
                     onChange={[Function]}
                     required={true}
                     select={false}
-                    type="string"
+                    type="password"
                     value=""
                     variant="standard"
                   />,
+                  <WithStyles(Typography)
+                    color="error"
+                  >
+                    
+                  </WithStyles(Typography)>,
                 ],
               },
               "ref": null,
@@ -599,12 +642,24 @@ ShallowWrapper {
                     "onChange": [Function],
                     "required": true,
                     "select": false,
-                    "type": "string",
+                    "type": "password",
                     "value": "",
                     "variant": "standard",
                   },
                   "ref": null,
                   "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "children": "",
+                    "color": "error",
+                  },
+                  "ref": null,
+                  "rendered": "",
                   "type": [Function],
                 },
               ],

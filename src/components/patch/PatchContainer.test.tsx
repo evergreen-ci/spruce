@@ -10,7 +10,7 @@ import { PatchContainer } from "./PatchContainer";
 
 describe("PatchContainer", () => {
 
-  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} onFinishStateUpdate={null} />);
+  const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} username={"admin"} onFinishStateUpdate={null} />);
 
   it("check that patches loaded from mock data correctly", () => {
     expect(wrapper.find(Patch)).toHaveLength(4);
