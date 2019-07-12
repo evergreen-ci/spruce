@@ -10,6 +10,13 @@ import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
+export const UserContext = React.createContext({
+  username: "",
+});
+console.log("setting user context")
+export const UserContextProvider = UserContext.Provider;
+export const UserContextConsumer = UserContext.Consumer;
+
 interface State {
   APIClient: rest.Evergreen;
   MenuAnchor?: HTMLElement;

@@ -2,6 +2,7 @@ import { Button, Dialog, DialogActions, DialogContent, DialogContentText, Dialog
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
+import { UserContext, UserContextConsumer } from '../app/App'
 
 interface State {
   open: boolean;
@@ -9,7 +10,6 @@ interface State {
   username: string
   password: string
   token: string
-  buttonText: string
   errorText: string
 }
 
@@ -28,17 +28,25 @@ export class Login extends React.Component<Props, State> {
       username: "",
       password: "",
       token: "",
-      buttonText: "Log In",
       errorText: ""
     };
   }
 
   public render() {
+
+    const LoginButton = () => (
+      <UserContextConsumer>
+        {userContext => userContext && (
+          <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
+            {userContext.username === "" ? "Log In" : "Log Out"}
+          </Button>
+        )}
+      </UserContextConsumer>
+    )
+
     return (
       <div>
-        <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
-          {this.state.buttonText}
-        </Button>
+        <LoginButton />
         <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
@@ -67,9 +75,9 @@ export class Login extends React.Component<Props, State> {
               onChange={this.updateSingleField(this.state, "password")}
               value={this.state.password}
             />
-              <Typography color="error">
-                {this.state.errorText}
-              </Typography>
+            <Typography color="error">
+              {this.state.errorText}
+            </Typography>
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClickClose} color="primary" id="cancel-button">
@@ -85,14 +93,13 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickOpen = () => {
-    if (this.state.buttonText === "Log In") {
+    const currentContext = this.context;
+    console.log(currentContext);
+    if (currentContext.username === "") {
       this.setState({
         open: true,
       });
     } else {
-      this.setState({
-        buttonText: "Log In"
-      });
       this.props.updateUsername("");
     }
   }
@@ -121,7 +128,6 @@ export class Login extends React.Component<Props, State> {
         this.setState({
           open: false,
           submitted: true,
-          buttonText: "Log Out"
         });
       }
     }, this.state.username, this.state.password);
@@ -136,5 +142,8 @@ export class Login extends React.Component<Props, State> {
   }
 
 }
+
+console.log("logincontext " + JSON.stringify(UserContext));
+Login.contextType = UserContext;
 
 export default Login;
