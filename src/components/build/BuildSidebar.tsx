@@ -1,5 +1,7 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { APITask, Build } from 'evergreen.js/lib/models';
+import * as moment from 'moment';
 import * as React from 'react';
 import '../../styles.css';
 
@@ -26,7 +28,6 @@ export class BuildSidebar extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    console.log(this.props.build);
     this.state = {
       displayName: "",
       displayHash: "",
@@ -36,12 +37,10 @@ export class BuildSidebar extends React.Component<Props, State> {
 
   public render() {
 
-    console.log(this.props.build);
-
     const tasks = this.props.tasks.map(taskObj => (
       <Grid item={true} xs={12} key={taskObj.task_id}>
         <ExpansionPanel className="task-panel">
-          <ExpansionPanelSummary>
+          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
             <Typography>{taskObj.display_name}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
@@ -56,7 +55,12 @@ export class BuildSidebar extends React.Component<Props, State> {
         <Grid item={true} xs={12} />
         <Grid item={true} xs={12}>
           <Typography>Patch {this.props.build.order} on base commit {this.props.build.git_hash === undefined ? "" : this.props.build.git_hash.substr(0, 8)}</Typography>
+        </Grid>
+        <Grid item={true} xs={12}>
           <Typography>{this.props.build.display_name}</Typography>
+        </Grid>
+        <Grid item={true} xs={12}>
+          <Typography>Created on {moment(String(this.props.build.create_time)).format("LLLL")}</Typography>
         </Grid>
         {tasks}
       </Grid>
