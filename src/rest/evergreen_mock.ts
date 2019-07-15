@@ -1,6 +1,9 @@
 import * as request from "request";
+import * as MockBuild from "./mock_build"
 import * as MockData from "./mock_data";
 import * as MockLog from "./mock_log";
+import * as MockTasks from "./mock_tasks";
+import * as MockTests from "./mock_tests";
 
 export class client {
   public username: string;
@@ -33,6 +36,18 @@ export class client {
 
   public getLogs(callback: request.RequestCallback, id?: string, type?: string, executionNumber?: number) {
     callback(null, this.dummyLogResp(), {});
+  }
+
+  public getBuild(callback: request.RequestCallback, id: string) {
+    callback(null, this.dummyBuildResp(), {});
+  }
+
+  public getTasks(callback: request.RequestCallback, id: string) {
+    callback(null, this.dummyTasksResp(), {});
+  }
+
+  public getTests(callback: request.RequestCallback, id: string) {
+    callback(null, this.dummyTestsResp(), {});
   }
 
   public getAdminConfig(callback: request.RequestCallback) {
@@ -69,6 +84,36 @@ export class client {
 
   private dummyLogResp(): request.Response {
     const bodyAsString = MockLog.getMockLog();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyBuildResp(): request.Response {
+    const bodyAsString = MockBuild.getMockBuild();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyTasksResp(): request.Response {
+    const bodyAsString = MockTasks.getMockTasks();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyTestsResp(): request.Response {
+    const bodyAsString = MockTests.getMockTests();
     const mockResp: mockResponse = {
       statusCode: 200,
       statusMessage: "",

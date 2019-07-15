@@ -13,6 +13,9 @@ export interface Evergreen {
   getToken: (callback: request.RequestCallback, username?: string, password?: string) => void;
   getPatches: (callback: request.RequestCallback, username?: string, page?: number) => void;
   getLogs: (callback: request.RequestCallback, id?: string, type?: string, executionNumber?: number) => void;
+  getBuild: (callback: request.RequestCallback, id: string) => void;
+  getTasks: (callback: request.RequestCallback, id: string) => void;
+  getTests: (callback: request.RequestCallback, id: string) => void;
   getAdminConfig: (callback: request.RequestCallback) => void;
   setAdminConfig: (callback: request.RequestCallback, settings: any) => void;
   getBanner: (callback: request.RequestCallback) => void;
