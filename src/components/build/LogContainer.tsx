@@ -1,6 +1,6 @@
 import { Button, Grid, Typography } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
-import { UIVersion } from 'evergreen.js/lib/models';
+import { APITask } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -12,17 +12,24 @@ interface State {
 
 class Props {
   public client: rest.Evergreen;
-  public version: UIVersion;
+  public task: APITask;
 }
 
 export class LogContainer extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.state = {
-      id: this.props.version.Version.builds[0],
-      logText: "",
-    };
+    if (this.props.task) {
+      this.state = {
+        id: this.props.task.task_id,
+        logText: "",
+      };
+    } else {
+      this.state = {
+        id: "",
+        logText: "",
+      };
+    }
   }
 
   public render() {
@@ -41,7 +48,6 @@ export class LogContainer extends React.Component<Props, State> {
           <Button className="log-button" onClick={this.onButtonClick}>Task Logs</Button>
           <Button className="log-button" onClick={this.onButtonClick}>Agent Logs</Button>
           <Button className="log-button" onClick={this.onButtonClick}>System Logs</Button>
-          <Button className="log-button" onClick={this.onButtonClick}>Event Logs</Button>
         </Grid>
         <Grid item={true} xs={12}>
           <Typography>{this.state.logText}</Typography>

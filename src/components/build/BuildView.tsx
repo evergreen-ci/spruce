@@ -1,5 +1,5 @@
 import { Drawer } from '@material-ui/core';
-import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
+import { APITask, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -7,8 +7,10 @@ import BuildSidebar from './BuildSidebar';
 import LogContainer from './LogContainer';
 
 interface State {
-  id: string
-  patch: UIVersion
+  build_id: string
+  build: Build
+  apiTasks: APITask[]
+  currentTask: APITask
 }
 
 class Props {
@@ -19,30 +21,40 @@ export class BuildView extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+    const queryString = window.location.href.split("?")[1];
+    const idString = queryString.split("=")[1]
     this.state = {
-      id: "",
-      patch: {}
+      build_id: idString,
+      build: new Build,
+      apiTasks: [],
+      currentTask: new APITask
     };
   }
 
-  public componentWillMount() {
-    this.props.client.getPatches((err, resp, body) => {
-      const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
+  public componentDidMount() {
+    this.props.client.getTasks((err, resp, body) => {
+      const tasks = ConvertToAPITasks(body) as unknown as APITask[];
       this.setState({
-        patch: newPatches[2]
+        apiTasks: tasks,
+        currentTask: tasks[0],
       });
-    }, this.props.client.username, 0);
+    }, this.state.build_id);
+    this.props.client.getBuild((err, resp, body) => {
+      this.setState({
+        build: ConvertToBuild(body)
+      });
+    }, this.state.build_id);
   }
 
   public render() {
 
     return (
       <div>
-        <Drawer variant="permanent" className="sidebar-container" PaperProps={{square: true, elevation: 0}}>
-          <BuildSidebar patch={this.state.patch} />
+        <Drawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
+          <BuildSidebar build={this.state.build} tasks={this.state.apiTasks} />
         </Drawer>
         <main>
-          <LogContainer client={this.props.client} version={this.state.patch}/>
+          <LogContainer client={this.props.client} task={this.state.currentTask} />
         </main>
       </div>
     );

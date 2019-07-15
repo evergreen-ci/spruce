@@ -74,7 +74,7 @@ export class Evergreen extends React.Component<Props, State> {
                   <Route path="/admin" render={admin} />
                   <Route path="/config" render={config} />
                   <Route path="/patches" render={patches} />
-                  <Route path="/task" render={build} />
+                  <Route path="/build" render={build} />
                 </div>
               </HashRouter>
             )
