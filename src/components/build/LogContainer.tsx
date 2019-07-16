@@ -51,10 +51,10 @@ export class LogContainer extends React.Component<Props, State> {
         </Grid>
         <Grid item={true} xs={9} className="log-button-group">
           <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
-            <ToggleButton value="all">All Logs</ToggleButton>
-            <ToggleButton value="task">Task Logs</ToggleButton>
-            <ToggleButton value="agent">Agent Logs</ToggleButton>
-            <ToggleButton value="system">System Logs</ToggleButton>
+            <ToggleButton className="log-button" value="all">All Logs</ToggleButton>
+            <ToggleButton className="log-button" value="task">Task Logs</ToggleButton>
+            <ToggleButton className="log-button" value="agent">Agent Logs</ToggleButton>
+            <ToggleButton className="log-button" value="system">System Logs</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item={true} xs={12}>
@@ -67,7 +67,6 @@ export class LogContainer extends React.Component<Props, State> {
   }
 
   private handleLogChange = (event: object, newLogType: string) => {
-    console.log(newLogType);
     this.setState({
       logType: newLogType
     });
