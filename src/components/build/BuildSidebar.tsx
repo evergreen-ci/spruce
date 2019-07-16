@@ -1,14 +1,17 @@
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { Button, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { APITask, Build } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import '../../styles.css';
 
 interface State {
   displayName: string
   displayHash: string
   order: string
+  redirectToPatches: boolean
 }
 
 class Props {
@@ -32,10 +35,15 @@ export class BuildSidebar extends React.Component<Props, State> {
       displayName: "",
       displayHash: "",
       order: "",
+      redirectToPatches: false
     }
   }
 
   public render() {
+
+    if (this.state.redirectToPatches === true) {
+      return <Redirect to={"/patches"}/>
+    }
 
     const tasks = this.props.tasks.map(taskObj => (
       <Grid item={true} xs={12} key={taskObj.task_id}>
@@ -54,6 +62,12 @@ export class BuildSidebar extends React.Component<Props, State> {
       <Grid container={true} spacing={24} className="sidebar">
         <Grid item={true} xs={12} />
         <Grid item={true} xs={12}>
+          <Button onClick={this.setRedirect}>
+            <ArrowLeftIcon />
+            My Patches
+          </Button>
+        </Grid>
+        <Grid item={true} xs={12}>
           <Typography>Patch {this.props.build.order} on base commit {this.props.build.git_hash === undefined ? "" : this.props.build.git_hash.substr(0, 8)}</Typography>
         </Grid>
         <Grid item={true} xs={12}>
@@ -65,6 +79,12 @@ export class BuildSidebar extends React.Component<Props, State> {
         {tasks}
       </Grid>
     );
+  }
+
+  private setRedirect = () => {
+    this.setState({
+      redirectToPatches: true
+    })
   }
 }
 
