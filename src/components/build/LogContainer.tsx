@@ -2,7 +2,7 @@ import { Button, Grid, Typography } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import { APITask } from 'evergreen.js/lib/models';
 import * as React from 'react';
-import * as InfiniteScroll from 'react-infinite-scroller';
+import * as InfiniteScroll from 'react-infinite-scroller'
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
@@ -42,8 +42,8 @@ export class LogContainer extends React.Component<Props, State> {
           <Button className="log-button" onClick={this.onSystemLogsButtonClick}>System Logs</Button>
         </Grid>
         <Grid item={true} xs={12}>
-          <InfiniteScroll loadMore={null}>
-            <div dangerouslySetInnerHTML={{__html: this.state.logText}} />
+          <InfiniteScroll loadMore={null} className="log-scrollable">
+          {this.state.logText}
           </InfiniteScroll>
         </Grid>
       </Grid>
@@ -72,7 +72,6 @@ export class LogContainer extends React.Component<Props, State> {
         console.log("got error " + err + " with status " + status);
         return;
       } else {
-        console.log(body);
         this.setState({
           logText: body
         });
