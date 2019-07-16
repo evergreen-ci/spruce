@@ -48,12 +48,12 @@ export class Variant extends React.Component<Props, State> {
     }
 
     const VariantsByStatus = () => (
-      <Grid container={true} spacing={8}>
+      <Grid container={true} spacing={1}>
         {this.state.sortedStatus.map(statusObj => (
           <Grid item={true} xs={4} key={statusObj.status}>
             <Card>
               <CardContent className={statusObj.status}>
-                {statusObj.count}
+                <Typography variant="h5">{statusObj.count}</Typography>
               </CardContent>
             </Card>
           </Grid>
