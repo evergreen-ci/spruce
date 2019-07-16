@@ -51,7 +51,7 @@ export class BuildSidebar extends React.Component<Props, State> {
     ));
 
     return (
-      <Grid container={true} spacing={24} className="sidebar">
+      <Grid container={true} spacing={2} className="sidebar">
         <Grid item={true} xs={12} />
         <Grid item={true} xs={12}>
           <Button onClick={this.setRedirect}>
