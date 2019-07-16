@@ -21,14 +21,6 @@ class Props {
 
 export class BuildSidebar extends React.Component<Props, State> {
 
-  /*
-  ({
-          displayName: nextProps.build.display_name,
-          displayHash: nextProps.build.git_hash.substr(0, 8),
-          order: nextProps.build.order.toString(),
-        }) 
-  */
-
   constructor(props: Props) {
     super(props);
     this.state = {

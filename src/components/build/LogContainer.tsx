@@ -24,6 +24,16 @@ export class LogContainer extends React.Component<Props, State> {
     }
   }
 
+  public componentDidUpdate() {
+    if (this.props.task.logs !== undefined && this.state.logText === "") { 
+      this.props.client.getLogs((err, resp, body) => {
+        this.setState({
+          logText: body
+        });
+      }, this.props.task.logs.task_log)
+    }
+  }
+
   public render() {
 
     return (
