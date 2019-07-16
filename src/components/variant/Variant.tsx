@@ -65,7 +65,7 @@ export class Variant extends React.Component<Props, State> {
       <Card className="variant-card">
         <CardActionArea onClick={this.redirectToTask}>
           <VariantsByStatus />
-          <Typography variant="body1" className="variant-title">
+          <Typography variant="body1">
             {this.state.name}
           </Typography>
         </CardActionArea>

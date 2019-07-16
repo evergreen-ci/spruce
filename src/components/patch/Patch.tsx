@@ -42,7 +42,7 @@ export class Patch extends React.Component<Props, State> {
     const Variants = () => (
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
-          <Typography>
+          <Typography className="patch-description">
             Created at {this.state.datetime.format("LLLL")} on {this.state.project}
           </Typography>
         </Grid>
@@ -58,7 +58,7 @@ export class Patch extends React.Component<Props, State> {
       <Grid>
         <ExpansionPanel className="patch" expanded={this.props.expanded} onChange={this.onExpandChange}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography className="patch-header" variant="h6">{this.state.description}</Typography>
+            <Typography>{this.state.description}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Variants />
