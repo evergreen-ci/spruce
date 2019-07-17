@@ -59,9 +59,10 @@ export class Evergreen extends React.Component<Props, State> {
                 <HashRouter>
                   <AppBar position="fixed" className="app-bar">
                     <Toolbar>
+                      <img src={"https://evergreen.mongodb.com/static/img/evergreen_green.png"} className="app-icon" />
                       <Typography variant="h5" color="inherit" noWrap={true}>
                         Evergreen
-                    </Typography>
+                      </Typography>
                       <div className="spacer" />
                       <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
                         <MenuIcon.default />
