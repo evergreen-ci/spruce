@@ -40,14 +40,14 @@ export class Patch extends React.Component<Props, State> {
   public render() {
 
     const Variants = () => (
-      <Grid container={true} spacing={24}>
+      <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
           <Typography>
             Created at {this.state.datetime.format("LLLL")} on {this.state.project}
           </Typography>
         </Grid>
         {this.state.builds.map(obj => (
-          <Grid item={true} xs={3} key={obj.Build._id}>
+          <Grid item={true} xs={4} key={obj.Build._id}>
             <Variant build={obj} />
           </Grid>
         ))}

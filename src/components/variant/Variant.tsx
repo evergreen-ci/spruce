@@ -40,7 +40,7 @@ export class Variant extends React.Component<Props, State> {
   public render() {
 
     const VariantsByStatus = () => (
-      <Grid container={true} spacing={8}>
+      <Grid container={true} spacing={1}>
         {this.state.sortedStatus.map(statusObj => (
           <Grid item={true} xs={4} key={statusObj.status}>
             <Card>
