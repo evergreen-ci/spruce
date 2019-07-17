@@ -1,4 +1,4 @@
-import { Grid, Typography } from '@material-ui/core';
+import { Grid, Link, Typography } from '@material-ui/core';
 import FolderIcon from '@material-ui/icons/Folder';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
@@ -11,6 +11,8 @@ import '../../styles.css';
 interface State {
   logText: string
   logType: string
+  htmlLink: string
+  rawLink: string
 }
 
 class Props {
@@ -24,7 +26,9 @@ export class LogContainer extends React.Component<Props, State> {
     super(props);
     this.state = {
       logText: "",
-      logType: "task"
+      logType: "task",
+      htmlLink: "",
+      rawLink: "",
     }
   }
 
@@ -33,6 +37,8 @@ export class LogContainer extends React.Component<Props, State> {
       this.props.client.getLogs((err, resp, body) => {
         this.setState({
           logText: body,
+          htmlLink: this.props.task.logs.task_log,
+          rawLink: this.props.task.logs.task_log + "&text=true"
         });
       }, this.props.task.task_id, "T", this.props.task.execution)
     }
@@ -42,12 +48,12 @@ export class LogContainer extends React.Component<Props, State> {
 
     return (
       <Grid container={true} spacing={2} className="log-container">
-        <Grid item={true} xs={3}>
-          <div className="log-links">
-            <FolderIcon />
-            <Typography>Open Logs</Typography>
-            <Typography>HTML / Raw</Typography>
-          </div>
+        <Grid item={true} xs={3} className="log-links">
+            <FolderIcon className="log-link-item"/>
+            <Typography className="log-link-item">Open Logs </Typography>
+            <Link className="log-link-item" href={this.state.htmlLink} target="_blank">HTML</Link>
+            <Typography className="log-link-item"> / </Typography>
+            <Link className="log-link-item" href={this.state.rawLink} target="_blank">Raw</Link>
         </Grid>
         <Grid item={true} xs={9} className="log-button-group">
           <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
@@ -67,21 +73,38 @@ export class LogContainer extends React.Component<Props, State> {
   }
 
   private handleLogChange = (event: object, newLogType: string) => {
-    this.setState({
-      logType: newLogType
-    });
     switch (newLogType) {
       case "all":
         this.fetchLogs("ALL");
+        this.setState({
+          logType: newLogType,
+          htmlLink: this.props.task.logs.all_log,
+          rawLink: this.props.task.logs.all_log + "&text=true"
+        });
         break;
       case "task":
         this.fetchLogs("T");
+        this.setState({
+          logType: newLogType,
+          htmlLink: this.props.task.logs.task_log,
+          rawLink: this.props.task.logs.task_log + "&text=true"
+        });
         break;
       case "agent":
         this.fetchLogs("E");
+        this.setState({
+          logType: newLogType,
+          htmlLink: this.props.task.logs.agent_log,
+          rawLink: this.props.task.logs.agent_log + "&text=true"
+        });
         break;
       default:
-        this.fetchLogs("S ");
+        this.fetchLogs("S");
+        this.setState({
+          logType: newLogType,
+          htmlLink: this.props.task.logs.system_log,
+          rawLink: this.props.task.logs.system_log + "&text=true"
+        });
         break;
     }
   }
