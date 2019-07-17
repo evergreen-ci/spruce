@@ -1,4 +1,4 @@
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { UIBuild, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
@@ -11,7 +11,8 @@ interface State {
   datetime: moment.Moment;
   project: string;
   author: string;
-  builds: UIBuild[]
+  builds: UIBuild[];
+  reconfigureLink: string;
 }
 
 class Props {
@@ -33,7 +34,8 @@ export class Patch extends React.Component<Props, State> {
       datetime: datetime,
       project: this.props.Patch.Version.identifier,
       author: this.props.Patch.Version.author,
-      builds: this.props.Patch.Builds
+      builds: this.props.Patch.Builds,
+      reconfigureLink: "https://evergreen.mongodb.com/patch/" + this.props.Patch.Version.id
     };
   }
 
@@ -43,7 +45,11 @@ export class Patch extends React.Component<Props, State> {
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
           <Typography>
-            Created at {this.state.datetime.format("LLLL")} on {this.state.project}
+            Created at {this.state.datetime.format("LLLL")} on {this.state.project} [
+            <Link href={this.state.reconfigureLink}>
+              Reconfigure
+            </Link>
+            ]
           </Typography>
         </Grid>
         {this.state.builds.map(obj => (
@@ -65,7 +71,7 @@ export class Patch extends React.Component<Props, State> {
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-    );  
+    );
   }
 
   private onExpandChange = () => {
