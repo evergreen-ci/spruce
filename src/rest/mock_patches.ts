@@ -1,4 +1,4 @@
-export function getMockData() {
+export function getMockPatches() {
   return {
     "VersionsMap": {
       "5d138b6b61837d77f9dda2a1": {

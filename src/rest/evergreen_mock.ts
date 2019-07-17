@@ -1,7 +1,7 @@
 import * as request from "request";
 import * as MockBuild from "./mock_build"
-import * as MockData from "./mock_data";
 import * as MockLog from "./mock_log";
+import * as MockPatches from "./mock_patches";
 import * as MockTasks from "./mock_tasks";
 import * as MockTests from "./mock_tests";
 
@@ -73,7 +73,7 @@ export class client {
   }
 
   private dummyPatchesResp(): request.Response {
-    const bodyAsString = JSON.stringify(MockData.getMockData());
+    const bodyAsString = JSON.stringify(MockPatches.getMockPatches());
     const mockResp: mockResponse = {
       statusCode: 200,
       statusMessage: "",
