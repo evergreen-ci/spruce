@@ -1,5 +1,6 @@
-import { AppBar, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
+import { AppBar, createMuiTheme, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import * as MenuIcon from '@material-ui/icons/Menu';
+import { ThemeProvider } from '@material-ui/styles';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
 import { ClientConfig, IsValidConfig } from '../../models/client_config';
@@ -9,6 +10,19 @@ import { Admin } from "../admin/Admin";
 import ConfigDrop from '../configdrop/ConfigDrop';
 import { Login, UserContextConsumer } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
+
+const theme = createMuiTheme({
+  typography: {
+    fontFamily: [
+      "Akzidenz",
+      "Helvetica Neue",
+      "Helvetica",
+      "Arial",
+      "sans-serif"
+    ].join(','),
+    fontSize: 14
+  },
+});
 
 interface State {
   APIClient: rest.Evergreen;
@@ -37,47 +51,49 @@ export class Evergreen extends React.Component<Props, State> {
     const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
-      <div className="App">
-        <UserContextConsumer>
-          {() => {
-            return (
-              <HashRouter>
-                <AppBar position="fixed" className="app-bar">
-                  <Toolbar>
-                    <Typography variant="h5" color="inherit" noWrap={true}>
-                      Evergreen
+      <ThemeProvider theme={theme}>
+        <div className="App">
+          <UserContextConsumer>
+            {() => {
+              return (
+                <HashRouter>
+                  <AppBar position="fixed" className="app-bar">
+                    <Toolbar>
+                      <Typography variant="h5" color="inherit" noWrap={true}>
+                        Evergreen
                     </Typography>
-                    <div className="spacer" />
-                    <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
-                      <MenuIcon.default />
-                    </IconButton>
-                    <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor}
-                      anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
-                      transformOrigin={{ vertical: 'top', horizontal: 'right', }}
-                      onClose={this.closeMenu}>
-                      <MenuItem onClick={this.closeMenu}>
-                        <NavLink to="/admin"> Admin Page</NavLink>
-                      </MenuItem>
-                      <MenuItem onClick={this.closeMenu}>
-                        <NavLink to="/patches">My Patches</NavLink>
-                      </MenuItem>
-                      <MenuItem onClick={this.closeMenu}>
-                        <NavLink to="/config">Upload Config File</NavLink>
-                      </MenuItem>
-                    </Menu>
-                    <Login client={this.state.APIClient} updateUsername={this.updateUsername} />
-                  </Toolbar>
-                </AppBar>
-                <div className="App-intro">
-                  <Route path="/admin" render={admin} />
-                  <Route path="/config" render={config} />
-                  <Route path="/patches" render={patches} />
-                </div>
-              </HashRouter>
-            )
-          }}
-        </UserContextConsumer>
-      </div>
+                      <div className="spacer" />
+                      <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
+                        <MenuIcon.default />
+                      </IconButton>
+                      <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor}
+                        anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+                        transformOrigin={{ vertical: 'top', horizontal: 'right', }}
+                        onClose={this.closeMenu}>
+                        <MenuItem onClick={this.closeMenu}>
+                          <NavLink to="/admin"> Admin Page</NavLink>
+                        </MenuItem>
+                        <MenuItem onClick={this.closeMenu}>
+                          <NavLink to="/patches">My Patches</NavLink>
+                        </MenuItem>
+                        <MenuItem onClick={this.closeMenu}>
+                          <NavLink to="/config">Upload Config File</NavLink>
+                        </MenuItem>
+                      </Menu>
+                      <Login client={this.state.APIClient} updateUsername={this.updateUsername} />
+                    </Toolbar>
+                  </AppBar>
+                  <div className="App-intro">
+                    <Route path="/admin" render={admin} />
+                    <Route path="/config" render={config} />
+                    <Route path="/patches" render={patches} />
+                  </div>
+                </HashRouter>
+              )
+            }}
+          </UserContextConsumer>
+        </div>
+      </ThemeProvider>
     );
   }
 
