@@ -42,7 +42,7 @@ export class Login extends React.Component<Props, State> {
         <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
           {this.context.username === "" ? "Log In" : "Log Out"}
         </Button>
-        <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
+        <Dialog open={this.state.open} onClose={this.handleClickClose} onKeyPress={this.handleKeyPress} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -130,6 +130,12 @@ export class Login extends React.Component<Props, State> {
         });
       }
     }, this.state.username, this.state.password);
+  }
+
+  private handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      this.handleClickSubmit();
+    }
   }
 
   private updateSingleField = <T, K extends keyof T>(state: T, key: K) => {
