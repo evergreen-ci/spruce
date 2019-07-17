@@ -48,14 +48,14 @@ export class LogContainer extends React.Component<Props, State> {
 
     return (
       <Grid container={true} spacing={2} className="log-container">
-        <Grid item={true} xs={3} className="log-links">
+        <Grid item={true} xs={4} className="log-links">
             <FolderIcon className="log-link-item"/>
             <Typography className="log-link-item">Open Logs </Typography>
             <Link className="log-link-item" href={this.state.htmlLink} target="_blank">HTML</Link>
             <Typography className="log-link-item"> / </Typography>
             <Link className="log-link-item" href={this.state.rawLink} target="_blank">Raw</Link>
         </Grid>
-        <Grid item={true} xs={9} className="log-button-group">
+        <Grid item={true} xs={8} className="log-button-group">
           <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
             <ToggleButton className="log-button" value="all">All Logs</ToggleButton>
             <ToggleButton className="log-button" value="task">Task Logs</ToggleButton>
