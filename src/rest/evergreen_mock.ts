@@ -34,7 +34,7 @@ export class client {
     callback(null, this.dummyPatchesResp(), {});
   }
 
-  public getLogs(callback: request.RequestCallback, url: string) {
+  public getLogs(callback: request.RequestCallback, taskId: string, type: string, executionNumber: number) {
     callback(null, this.dummyLogResp(), {});
   }
 
@@ -42,11 +42,11 @@ export class client {
     callback(null, this.dummyBuildResp(), {});
   }
 
-  public getTasks(callback: request.RequestCallback, id: string) {
+  public getTasksForBuild(callback: request.RequestCallback, taskId: string) {
     callback(null, this.dummyTasksResp(), {});
   }
 
-  public getTests(callback: request.RequestCallback, id: string) {
+  public getTestsForTask(callback: request.RequestCallback, testId: string) {
     callback(null, this.dummyTestsResp(), {});
   }
 
