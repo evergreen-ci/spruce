@@ -32,7 +32,7 @@ export class BuildView extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.props.client.getTasks((err, resp, body) => {
+    this.props.client.getTasksForBuild((err, resp, body) => {
       const tasks = ConvertToAPITasks(body) as unknown as APITask[];
       this.setState({
         apiTasks: tasks,

@@ -32,9 +32,9 @@ export class LogContainer extends React.Component<Props, State> {
     if (this.props.task.logs !== undefined && this.state.logText === "") {
       this.props.client.getLogs((err, resp, body) => {
         this.setState({
-          logText: body
+          logText: body,
         });
-      }, this.props.task.logs.task_log)
+      }, this.props.task.task_id, "T", this.props.task.execution)
     }
   }
 
@@ -72,17 +72,21 @@ export class LogContainer extends React.Component<Props, State> {
     });
     switch (newLogType) {
       case "all":
-        this.fetchLogs(this.props.task.logs.all_log);
+        this.fetchLogs("ALL");
+        break;
       case "task":
-        this.fetchLogs(this.props.task.logs.task_log);
+        this.fetchLogs("T");
+        break;
       case "agent":
-        this.fetchLogs(this.props.task.logs.agent_log);
+        this.fetchLogs("E");
+        break;
       default:
-        this.fetchLogs(this.props.task.logs.system_log);
+        this.fetchLogs("S ");
+        break;
     }
   }
 
-  private fetchLogs = (url: string) => {
+  private fetchLogs = (logType: string) => {
     this.props.client.getLogs((err, resp, body) => {
       if (err || resp.statusCode >= 300) {
         console.log("got error " + err + " with status " + status);
@@ -92,7 +96,7 @@ export class LogContainer extends React.Component<Props, State> {
           logText: body
         });
       }
-    }, url);
+    }, this.props.task.task_id, logType, this.props.task.execution);
   }
 }
 
