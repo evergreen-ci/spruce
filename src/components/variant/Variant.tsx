@@ -66,7 +66,7 @@ export class Variant extends React.Component<Props, State> {
     return (
       <Card className="variant-card">
         <VariantsByStatus />
-        <Typography variant="body1" className="variant-title">
+        <Typography className="variant-title">
           {this.state.name}
         </Typography>
       </Card>
