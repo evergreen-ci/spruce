@@ -1,4 +1,5 @@
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { GridSize } from '@material-ui/core/Grid';
 import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import '../../styles.css';
@@ -12,6 +13,7 @@ interface State {
     "status": string,
     "count": number
   }>,
+  columnsPerStatus: number
 }
 
 class Props {
@@ -30,10 +32,18 @@ export class Variant extends React.Component<Props, State> {
         statusCount[task.status] = 1;
       }
     }
+    const uniqueStatusCount = Object.keys(statusCount).length;
+    let columnsPerStatus = 4;
+    if (uniqueStatusCount === 1) {
+      columnsPerStatus = 12;
+    } else if (uniqueStatusCount === 2) {
+      columnsPerStatus = 6;
+    }
     this.state = {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
+      columnsPerStatus: columnsPerStatus
     };
   }
 
@@ -42,7 +52,7 @@ export class Variant extends React.Component<Props, State> {
     const VariantsByStatus = () => (
       <Grid container={true} spacing={1}>
         {this.state.sortedStatus.map(statusObj => (
-          <Grid item={true} xs={4} key={statusObj.status}>
+          <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
             <Card>
               <CardContent className={statusObj.status}>
                 {statusObj.count}
