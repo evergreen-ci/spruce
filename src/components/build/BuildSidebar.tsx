@@ -11,7 +11,7 @@ interface State {
   displayName: string
   displayHash: string
   order: string
-  redirectToPatches: boolean
+  isShowingBuildView: boolean
 }
 
 class Props {
@@ -27,13 +27,13 @@ export class BuildSidebar extends React.Component<Props, State> {
       displayName: "",
       displayHash: "",
       order: "",
-      redirectToPatches: false
+      isShowingBuildView: true
     }
   }
 
   public render() {
 
-    if (this.state.redirectToPatches === true) {
+    if (!this.state.isShowingBuildView) {
       return <Redirect to={"/patches"}/>
     }
 
@@ -75,7 +75,7 @@ export class BuildSidebar extends React.Component<Props, State> {
 
   private setRedirect = () => {
     this.setState({
-      redirectToPatches: true
+      isShowingBuildView: false
     })
   }
 }

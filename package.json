@@ -49,7 +49,6 @@
     "html-webpack-plugin": "4.0.0-alpha.2",
     "identity-obj-proxy": "3.0.0",
     "jest": "23.6.0",
-    "material-ui": "^1.0.0-beta.47",
     "material-ui-dropzone": "^2.4.0",
     "mini-css-extract-plugin": "0.4.3",
     "moment": "^2.24.0",

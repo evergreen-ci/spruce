@@ -13,7 +13,7 @@ interface State {
     "status": string,
     "count": number
   }>,
-  redirectToBuild: boolean
+  variantHasBeenClicked: boolean
 }
 
 class Props {
@@ -36,13 +36,13 @@ export class Variant extends React.Component<Props, State> {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
-      redirectToBuild: false,
+      variantHasBeenClicked: false,
     };
   }
 
   public render() {
 
-    if (this.state.redirectToBuild === true) {
+    if (this.state.variantHasBeenClicked) {
       const url = '/build?id=' + this.props.build.Build._id; 
       return <Redirect to={url}/>
     }
@@ -108,7 +108,7 @@ export class Variant extends React.Component<Props, State> {
 
   private redirectToTask = () => {
     this.setState({
-      redirectToBuild: true
+      variantHasBeenClicked: true
     });
   }
 }

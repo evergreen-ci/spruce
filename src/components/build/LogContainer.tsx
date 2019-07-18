@@ -8,9 +8,16 @@ import * as InfiniteScroll from 'react-infinite-scroller'
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
+enum LogType {
+  all = "ALL",
+  task = "T",
+  agent = "E",
+  system = "S"
+};
+
 interface State {
   logText: string
-  logType: string
+  logType: LogType
   htmlLink: string
   rawLink: string
 }
@@ -26,7 +33,7 @@ export class LogContainer extends React.Component<Props, State> {
     super(props);
     this.state = {
       logText: "",
-      logType: "task",
+      logType: LogType.task,
       htmlLink: "",
       rawLink: "",
     }
@@ -40,7 +47,7 @@ export class LogContainer extends React.Component<Props, State> {
           htmlLink: this.props.task.logs.task_log,
           rawLink: this.props.task.logs.task_log + "&text=true"
         });
-      }, this.props.task.task_id, "T", this.props.task.execution)
+      }, this.props.task.task_id, LogType.task, this.props.task.execution)
     }
   }
 
@@ -49,18 +56,18 @@ export class LogContainer extends React.Component<Props, State> {
     return (
       <Grid container={true} spacing={2} className="log-container">
         <Grid item={true} xs={4} className="log-links">
-            <FolderIcon className="log-link-item"/>
-            <Typography className="log-link-item">Open Logs </Typography>
-            <Link className="log-link-item" href={this.state.htmlLink} target="_blank">HTML</Link>
-            <Typography className="log-link-item"> / </Typography>
-            <Link className="log-link-item" href={this.state.rawLink} target="_blank">Raw</Link>
+          <FolderIcon className="log-link-item" />
+          <Typography className="log-link-item">Open Logs </Typography>
+          <Link className="log-link-item" href={this.state.htmlLink} target="_blank">HTML</Link>
+          <Typography className="log-link-item"> / </Typography>
+          <Link className="log-link-item" href={this.state.rawLink} target="_blank">Raw</Link>
         </Grid>
         <Grid item={true} xs={8} className="log-button-group">
           <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
-            <ToggleButton className="log-button" value="all">All Logs</ToggleButton>
-            <ToggleButton className="log-button" value="task">Task Logs</ToggleButton>
-            <ToggleButton className="log-button" value="agent">Agent Logs</ToggleButton>
-            <ToggleButton className="log-button" value="system">System Logs</ToggleButton>
+            <ToggleButton className="log-button" value={LogType.all}>All Logs</ToggleButton>
+            <ToggleButton className="log-button" value={LogType.task}>Task Logs</ToggleButton>
+            <ToggleButton className="log-button" value={LogType.agent}>Agent Logs</ToggleButton>
+            <ToggleButton className="log-button" value={LogType.system}>System Logs</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item={true} xs={12}>
@@ -72,41 +79,13 @@ export class LogContainer extends React.Component<Props, State> {
     );
   }
 
-  private handleLogChange = (event: object, newLogType: string) => {
-    switch (newLogType) {
-      case "all":
-        this.fetchLogs("ALL");
-        this.setState({
-          logType: newLogType,
-          htmlLink: this.props.task.logs.all_log,
-          rawLink: this.props.task.logs.all_log + "&text=true"
-        });
-        break;
-      case "task":
-        this.fetchLogs("T");
-        this.setState({
-          logType: newLogType,
-          htmlLink: this.props.task.logs.task_log,
-          rawLink: this.props.task.logs.task_log + "&text=true"
-        });
-        break;
-      case "agent":
-        this.fetchLogs("E");
-        this.setState({
-          logType: newLogType,
-          htmlLink: this.props.task.logs.agent_log,
-          rawLink: this.props.task.logs.agent_log + "&text=true"
-        });
-        break;
-      default:
-        this.fetchLogs("S");
-        this.setState({
-          logType: newLogType,
-          htmlLink: this.props.task.logs.system_log,
-          rawLink: this.props.task.logs.system_log + "&text=true"
-        });
-        break;
-    }
+  private handleLogChange = (event: object, newLogType: LogType) => {
+    this.fetchLogs(newLogType);
+    this.setState({
+      logType: newLogType,
+      htmlLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType,
+      rawLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType + "&text=true"
+    });
   }
 
   private fetchLogs = (logType: string) => {

@@ -36,7 +36,7 @@ export class BuildView extends React.Component<Props, State> {
       const tasks = ConvertToAPITasks(body) as unknown as APITask[];
       this.setState({
         apiTasks: tasks,
-        currentTask: tasks[0],
+        currentTask: tasks.length === 0 ? new APITask : tasks[0],
       });
     }, this.state.build_id);
     this.props.client.getBuild((err, resp, body) => {
