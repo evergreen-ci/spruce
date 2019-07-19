@@ -2,6 +2,7 @@ import { Button } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import * as enzyme from "enzyme";
+import { APITask } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
@@ -41,25 +42,22 @@ describe("BuildView", () => {
     expect(window.location.pathname).toBe('/patches');
   })
 
-  const checkState = jest.fn(() => {
-    const logContainer = wrapper.find(LogContainer);
-    expect(logContainer).toHaveLength(1);
-    expect(logContainer.state("logType")).toBe(LogType.all);
-    const buttonGroup = logContainer.find(ToggleButtonGroup);
-    expect(buttonGroup).toHaveLength(1);
-    expect(buttonGroup.prop("value")).toBe(LogType.all);
-  })
-
   it("clicking LogContainer toggle button changes state", () => {
-    const logContainer = wrapper.find(LogContainer);
-    expect(logContainer).toHaveLength(1);
-    wrapper.setProps({ children: <LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={null} onFinishStateUpdate={checkState}/> })
-    const buttonGroup = logContainer.find(ToggleButtonGroup);
+
+    const logWrapper = enzyme.mount(<LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={new APITask} onFinishStateUpdate={null}/>);
+    expect(logWrapper).toHaveLength(1);
+    const buttonGroup = logWrapper.find(ToggleButtonGroup);
     expect(buttonGroup).toHaveLength(1);
     expect(buttonGroup.prop("value")).toBe(LogType.task);
     expect(buttonGroup.find(ToggleButton)).toHaveLength(4);
     const allButton = buttonGroup.find({ value: LogType.all }).find(ToggleButton);
     expect(allButton).toHaveLength(1);
-    buttonGroup.prop("onChange")({} as React.MouseEvent<HTMLElement>, LogType.all)
+    const checkState = jest.fn(() => {
+      expect(logWrapper).toHaveLength(1);
+      expect(logWrapper.state("logType")).toBe(LogType.all);
+      expect(buttonGroup).toHaveLength(1);
+    })
+    logWrapper.setProps({ onFinishStateUpdate: checkState });
+    buttonGroup.prop("onChange")({} as React.MouseEvent<HTMLElement>, LogType.all);
   })
 })
