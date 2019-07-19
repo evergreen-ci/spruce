@@ -64,7 +64,7 @@ export class Admin extends React.Component<Props, State> {
 
           <Card>
             <CardContent>
-              <Grid container={true} spacing={24}>
+              <Grid container={true} spacing={2}>
                 <Grid item={true} xs={6}>
                   <BannerCard banner={this.state.config.banner} onBannerTextChange={this.updateSingleConfigField("banner")} />
                 </Grid>
