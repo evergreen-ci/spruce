@@ -54,7 +54,7 @@ export class Evergreen extends React.Component<Props, State> {
 
     return (
       <ThemeProvider theme={theme}>
-        <div className="App">
+        <div className="app">
           <UserContextConsumer>
             {() => {
               return (
@@ -73,6 +73,7 @@ export class Evergreen extends React.Component<Props, State> {
                         anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
                         transformOrigin={{ vertical: 'top', horizontal: 'right', }}
                         onClose={this.closeMenu}>
+                        <MenuItem />
                         <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/admin"> Admin Page</NavLink>
                         </MenuItem>
@@ -86,7 +87,7 @@ export class Evergreen extends React.Component<Props, State> {
                       <Login client={this.state.APIClient} updateUsername={this.updateUsername} />
                     </Toolbar>
                   </AppBar>
-                  <div className="App-intro">
+                  <div className="app-intro">
                     <Route path="/admin" render={admin} />
                     <Route path="/config" render={config} />
                     <Route path="/patches" render={patches} />
