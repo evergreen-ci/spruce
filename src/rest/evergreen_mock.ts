@@ -1,5 +1,9 @@
 import * as request from "request";
-import * as mock from "./mock_data";
+import * as MockBuild from "./mock_build"
+import * as MockLog from "./mock_log";
+import * as MockPatches from "./mock_patches";
+import * as MockTasks from "./mock_tasks";
+import * as MockTests from "./mock_tests";
 
 export class client {
   public username: string;
@@ -30,6 +34,22 @@ export class client {
     callback(null, this.dummyPatchesResp(), {});
   }
 
+  public getLogs(callback: request.RequestCallback, taskId: string, type: string, executionNumber: number) {
+    callback(null, this.dummyLogResp(), JSON.stringify(this.dummyLogResp().body));
+  }
+
+  public getBuild(callback: request.RequestCallback, id: string) {
+    callback(null, this.dummyBuildResp(), JSON.stringify(this.dummyBuildResp().body));
+  }
+
+  public getTasksForBuild(callback: request.RequestCallback, taskId: string) {
+    callback(null, this.dummyTasksResp(), JSON.stringify(this.dummyTasksResp().body));
+  }
+
+  public getTestsForTask(callback: request.RequestCallback, testId: string) {
+    callback(null, this.dummyTestsResp(), {});
+  }
+
   public getAdminConfig(callback: request.RequestCallback) {
     callback(null, this.dummySuccessResp(), {});
   }
@@ -53,7 +73,47 @@ export class client {
   }
 
   private dummyPatchesResp(): request.Response {
-    const bodyAsString = JSON.stringify(mock.getMockData());
+    const bodyAsString = JSON.stringify(MockPatches.getMockPatches());
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyLogResp(): request.Response {
+    const bodyAsString = MockLog.getMockLog();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyBuildResp(): request.Response {
+    const bodyAsString = MockBuild.getMockBuild();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyTasksResp(): request.Response {
+    const bodyAsString = MockTasks.getMockTasks();
+    const mockResp: mockResponse = {
+      statusCode: 200,
+      statusMessage: "",
+      body: bodyAsString,
+    };
+    return mockResp as request.Response;
+  }
+
+  private dummyTestsResp(): request.Response {
+    const bodyAsString = MockTests.getMockTests();
     const mockResp: mockResponse = {
       statusCode: 200,
       statusMessage: "",

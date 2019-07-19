@@ -34,7 +34,11 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.loadPatches();
+    this.setState({
+      pageNum: 1
+    }, () => {
+      this.loadPatches();
+    })
   }
 
   public render() {
@@ -60,7 +64,7 @@ export class PatchContainer extends React.Component<Props, State> {
             />
           </Paper>
         </div>
-        <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={false}>
+        <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
         </InfiniteScroll>
       </div>

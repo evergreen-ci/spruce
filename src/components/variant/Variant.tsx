@@ -1,7 +1,8 @@
-import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-ui/core';
 import { GridSize } from '@material-ui/core/Grid';
 import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
+import { Redirect } from 'react-router-dom';
 import '../../styles.css';
 
 interface StatusCount { [id: string]: number };
@@ -14,6 +15,7 @@ interface State {
     "count": number
   }>,
   columnsPerStatus: number
+  variantHasBeenClicked: boolean
 }
 
 class Props {
@@ -43,11 +45,17 @@ export class Variant extends React.Component<Props, State> {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
-      columnsPerStatus: columnsPerStatus
+      columnsPerStatus: columnsPerStatus,
+      variantHasBeenClicked: false,
     };
   }
 
   public render() {
+
+    if (this.state.variantHasBeenClicked) {
+      const url = '/build?id=' + this.props.build.Build._id; 
+      return <Redirect to={url}/>
+    }
 
     const VariantsByStatus = () => (
       <Grid container={true} spacing={1}>
@@ -55,7 +63,7 @@ export class Variant extends React.Component<Props, State> {
           <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
             <Card>
               <CardContent className={statusObj.status}>
-                {statusObj.count}
+                <Typography variant="h5">{statusObj.count}</Typography>
               </CardContent>
             </Card>
           </Grid>
@@ -65,10 +73,12 @@ export class Variant extends React.Component<Props, State> {
 
     return (
       <Card className="variant-card">
-        <VariantsByStatus />
-        <Typography className="variant-title">
-          {this.state.name}
-        </Typography>
+        <CardActionArea onClick={this.redirectToBuild}>
+          <VariantsByStatus />
+          <Typography variant="body1">
+            {this.state.name}
+          </Typography>
+        </CardActionArea>
       </Card>
     );
   }
@@ -104,6 +114,12 @@ export class Variant extends React.Component<Props, State> {
       sortedStatus.push(statusObj);
     }
     return sortedStatus;
+  }
+
+  private redirectToBuild = () => {
+    this.setState({
+      variantHasBeenClicked: true
+    });
   }
 }
 
