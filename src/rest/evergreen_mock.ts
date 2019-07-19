@@ -35,15 +35,15 @@ export class client {
   }
 
   public getLogs(callback: request.RequestCallback, taskId: string, type: string, executionNumber: number) {
-    callback(null, this.dummyLogResp(), {});
+    callback(null, this.dummyLogResp(), JSON.stringify(this.dummyLogResp().body));
   }
 
   public getBuild(callback: request.RequestCallback, id: string) {
-    callback(null, this.dummyBuildResp(), {});
+    callback(null, this.dummyBuildResp(), JSON.stringify(this.dummyBuildResp().body));
   }
 
   public getTasksForBuild(callback: request.RequestCallback, taskId: string) {
-    callback(null, this.dummyTasksResp(), {});
+    callback(null, this.dummyTasksResp(), JSON.stringify(this.dummyTasksResp().body));
   }
 
   public getTestsForTask(callback: request.RequestCallback, testId: string) {

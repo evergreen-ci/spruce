@@ -8,7 +8,7 @@ import * as InfiniteScroll from 'react-infinite-scroller'
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
-enum LogType {
+export enum LogType {
   all = "ALL",
   task = "T",
   agent = "E",
@@ -25,6 +25,7 @@ interface State {
 class Props {
   public client: rest.Evergreen;
   public task: APITask;
+  public onFinishStateUpdate: () => void;
 }
 
 export class LogContainer extends React.Component<Props, State> {
@@ -64,19 +65,23 @@ export class LogContainer extends React.Component<Props, State> {
         </Grid>
         <Grid item={true} xs={8} className="log-button-group">
           <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
-            <ToggleButton className="log-button" value={LogType.all}>All Logs</ToggleButton>
-            <ToggleButton className="log-button" value={LogType.task}>Task Logs</ToggleButton>
-            <ToggleButton className="log-button" value={LogType.agent}>Agent Logs</ToggleButton>
-            <ToggleButton className="log-button" value={LogType.system}>System Logs</ToggleButton>
+            <ToggleButton className="log-button" key="all" value={LogType.all}>All Logs</ToggleButton>
+            <ToggleButton className="log-button" key="task" value={LogType.task}>Task Logs</ToggleButton>
+            <ToggleButton className="log-button" key="agent" value={LogType.agent}>Agent Logs</ToggleButton>
+            <ToggleButton className="log-button" key="system" value={LogType.system}>System Logs</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item={true} xs={12}>
-          <InfiniteScroll loadMore={null} className="log-scrollable">
-            {this.state.logText}
+          <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
+              {this.state.logText}
           </InfiniteScroll>
         </Grid>
       </Grid>
     );
+  }
+
+  private dummyLoadMore = () => {
+    return;
   }
 
   private handleLogChange = (event: object, newLogType: LogType) => {
@@ -85,7 +90,7 @@ export class LogContainer extends React.Component<Props, State> {
       logType: newLogType,
       htmlLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType,
       rawLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType + "&text=true"
-    });
+    }, this.props.onFinishStateUpdate);
   }
 
   private fetchLogs = (logType: string) => {

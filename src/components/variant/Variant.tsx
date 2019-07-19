@@ -63,7 +63,7 @@ export class Variant extends React.Component<Props, State> {
 
     return (
       <Card className="variant-card">
-        <CardActionArea onClick={this.redirectToTask}>
+        <CardActionArea onClick={this.redirectToBuild}>
           <VariantsByStatus />
           <Typography variant="body1">
             {this.state.name}
@@ -106,7 +106,7 @@ export class Variant extends React.Component<Props, State> {
     return sortedStatus;
   }
 
-  private redirectToTask = () => {
+  private redirectToBuild = () => {
     this.setState({
       variantHasBeenClicked: true
     });

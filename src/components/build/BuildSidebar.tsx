@@ -66,7 +66,7 @@ export class BuildSidebar extends React.Component<Props, State> {
           <Typography>{this.props.build.display_name}</Typography>
         </Grid>
         <Grid item={true} xs={12}>
-          <Typography>Created on {moment(String(this.props.build.create_time)).format("LLLL")}</Typography>
+          <Typography>Created on {moment(this.props.build.create_time).format("LLLL")}</Typography>
         </Grid>
         {tasks}
       </Grid>
