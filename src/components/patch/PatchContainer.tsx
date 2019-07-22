@@ -33,21 +33,13 @@ export class PatchContainer extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount() {
-    this.setState({
-      pageNum: 1
-    }, () => {
-      this.loadPatches();
-    })
-  }
-
   public render() {
 
     const Patches = () => (
-      <Grid className="patch-container" container={true} spacing={2}>
+      <Grid className="patch-container" container={true} spacing={3}>
         {this.state.visiblePatches.map(patchObj => (
           <Grid item={true} xs={12} key={patchObj.Version.id}>
-            <Patch Patch={patchObj} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
+            <Patch Patch={patchObj} client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
           </Grid>
         ))}
       </Grid>
@@ -87,7 +79,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-      })); 
+        }));
       }, this.props.username, this.state.pageNum);
     }
   }

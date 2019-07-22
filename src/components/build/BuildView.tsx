@@ -1,10 +1,17 @@
 import { Drawer } from '@material-ui/core';
+import { withStyles } from '@material-ui/styles';
 import { APITask, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import BuildSidebar from './BuildSidebar';
 import LogContainer from './LogContainer';
+
+const StyledDrawer = withStyles({
+  paper: {
+    top: "65px",
+  }
+})(Drawer);
 
 interface State {
   buildId: string
@@ -56,9 +63,9 @@ export class BuildView extends React.Component<Props, State> {
 
     return (
       <div>
-        <Drawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
+        <StyledDrawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
           <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} />
-        </Drawer>
+        </StyledDrawer>
         <main>
           <LogContainer client={this.props.client} task={this.state.currentTask} onFinishStateUpdate={null}/>
         </main>

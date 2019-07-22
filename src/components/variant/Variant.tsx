@@ -1,4 +1,5 @@
 import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-ui/core';
+import { GridSize } from '@material-ui/core/Grid';
 import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
@@ -13,6 +14,7 @@ interface State {
     "status": string,
     "count": number
   }>,
+  columnsPerStatus: number
   variantHasBeenClicked: boolean
 }
 
@@ -32,10 +34,18 @@ export class Variant extends React.Component<Props, State> {
         statusCount[task.status] = 1;
       }
     }
+    const uniqueStatusCount = Object.keys(statusCount).length;
+    let columnsPerStatus = 4;
+    if (uniqueStatusCount === 1) {
+      columnsPerStatus = 12;
+    } else if (uniqueStatusCount === 2) {
+      columnsPerStatus = 6;
+    }
     this.state = {
       name: this.props.build.Build.display_name,
       statusCount: statusCount,
       sortedStatus: this.orderByPriority(statusCount),
+      columnsPerStatus: columnsPerStatus,
       variantHasBeenClicked: false,
     };
   }
@@ -50,7 +60,7 @@ export class Variant extends React.Component<Props, State> {
     const VariantsByStatus = () => (
       <Grid container={true} spacing={1}>
         {this.state.sortedStatus.map(statusObj => (
-          <Grid item={true} xs={4} key={statusObj.status}>
+          <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
             <Card>
               <CardContent className={statusObj.status}>
                 <Typography variant="h5">{statusObj.count}</Typography>
