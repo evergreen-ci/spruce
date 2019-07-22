@@ -33,14 +33,6 @@ export class PatchContainer extends React.Component<Props, State> {
     };
   }
 
-  public componentDidMount() {
-    this.setState({
-      pageNum: 1
-    }, () => {
-      this.loadPatches();
-    })
-  }
-
   public render() {
 
     const Patches = () => (
@@ -87,7 +79,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-      })); 
+        }));
       }, this.props.username, this.state.pageNum);
     }
   }
