@@ -54,6 +54,16 @@ export class LogContainer extends React.Component<Props, State> {
 
   public render() {
 
+    const Logs = () => (
+      <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
+        {this.state.logText.split("\n").map(textLine => (
+          <Typography className={this.lineContainsError(textLine.toLowerCase()) ? "log-text-error" : "log-text-normal"}>
+            {textLine}
+          </Typography>
+        ))}
+      </InfiniteScroll>
+    );
+
     return (
       <Grid container={true} spacing={2} className="log-container">
         <Grid item={true} xs={4} className="log-links">
@@ -72,9 +82,7 @@ export class LogContainer extends React.Component<Props, State> {
           </ToggleButtonGroup>
         </Grid>
         <Grid item={true} xs={12}>
-          <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
-              {this.state.logText}
-          </InfiniteScroll>
+          <Logs />
         </Grid>
       </Grid>
     );
@@ -104,6 +112,11 @@ export class LogContainer extends React.Component<Props, State> {
         });
       }
     }, this.props.task.task_id, logType, this.props.task.execution);
+  }
+
+  private lineContainsError = (logLine: string) => {
+    const errorStrings = ["error", "warn", "fail"];
+    return errorStrings.some(str => logLine.includes(str));
   }
 }
 

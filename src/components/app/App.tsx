@@ -81,7 +81,6 @@ export class Evergreen extends React.Component<Props, State> {
                         anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
                         transformOrigin={{ vertical: 'top', horizontal: 'right', }}
                         onClose={this.closeMenu}>
-                        <MenuItem />
                         <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/admin"> Admin Page</NavLink>
                         </MenuItem>
