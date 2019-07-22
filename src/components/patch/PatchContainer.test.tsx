@@ -3,6 +3,7 @@ import * as enzyme from "enzyme";
 import { UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from "react";
+import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import { Variant } from '../variant/Variant';
 import { Patch } from './Patch';
@@ -11,6 +12,32 @@ import { PatchContainer } from "./PatchContainer";
 describe("PatchContainer", () => {
 
   const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} username={"admin"} onFinishStateUpdate={null} />);
+  const infiniteScroll = wrapper.find(InfiniteScroll);
+  infiniteScroll.prop("loadMore")(0);
+
+  const checkState = jest.fn(() => {
+    wrapper.update();
+    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
+    expect(patch).toHaveLength(1);
+    expect(patch.prop("expanded")).toBe(true);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(true);
+  })
+
+  it("check that expanded state persists on re-render", () => {
+    wrapper.setProps({ onFinishStateUpdate: checkState });
+    expect(wrapper.state("expandedPatches")).toEqual({});
+    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
+    expect(patch).toHaveLength(1);
+    expect(patch.prop("expanded")).toBe(false);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(false);
+    expect(expansionPanel.prop("onChange")).toBeDefined();
+    expansionPanel.prop("onChange")({} as React.ChangeEvent, true);
+  })
 
   it("check that patches loaded from mock data correctly", () => {
     expect(wrapper.find(Patch)).toHaveLength(4);
@@ -45,30 +72,6 @@ describe("PatchContainer", () => {
     expect(variant.state("name")).toBe("Ubuntu 16.04");
     expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
     expect(variant.state("sortedStatus")).toEqual([{ "count": 1, "status": "failed" }, { "count": 2, "status": "success" }]);
-  })
-
-  const checkState = jest.fn(() => {
-    wrapper.update();
-    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
-    expect(patch).toHaveLength(1);
-    expect(patch.prop("expanded")).toBe(true);
-    const expansionPanel = patch.find(ExpansionPanel);
-    expect(expansionPanel).toHaveLength(1);
-    expect(expansionPanel.prop("expanded")).toBe(true);
-  });
-
-  it("check that expanded state persists on re-render", () => {
-    wrapper.setProps({ onFinishStateUpdate: checkState });
-    expect(wrapper.state("expandedPatches")).toEqual({});
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
-    expect(patch).toHaveLength(1);
-    expect(patch.prop("expanded")).toBe(false);
-    const expansionPanel = patch.find(ExpansionPanel);
-    expect(expansionPanel).toHaveLength(1);
-    expect(expansionPanel.prop("expanded")).toBe(false);
-    expect(expansionPanel.prop("onChange")).toBeDefined();
-    expansionPanel.prop("onChange")({} as React.ChangeEvent, true);
   })
 
   it("check that search returns correct results", () => {

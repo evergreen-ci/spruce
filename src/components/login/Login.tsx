@@ -1,4 +1,5 @@
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField, Typography } from '@material-ui/core';
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Snackbar, TextField, Typography } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -15,6 +16,8 @@ interface State {
   username: string
   password: string
   errorText: string
+  snackbarOpen: boolean
+  snackbarMessage: string
 }
 
 class Props {
@@ -31,7 +34,9 @@ export class Login extends React.Component<Props, State> {
       submitted: false,
       username: "",
       password: "",
-      errorText: ""
+      errorText: "",
+      snackbarOpen: false,
+      snackbarMessage: ""
     };
   }
 
@@ -42,7 +47,7 @@ export class Login extends React.Component<Props, State> {
         <Button onClick={this.handleClickOpen} color="inherit" className="login-button" id="login-button">
           {this.context.username === "" ? "Log In" : "Log Out"}
         </Button>
-        <Dialog open={this.state.open} onClose={this.handleClickClose} id="login-modal">
+        <Dialog open={this.state.open} onClose={this.handleClickClose} onKeyPress={this.handleKeyPress} id="login-modal">
           <DialogTitle id="form-dialog-title">Log In</DialogTitle>
           <DialogContent>
             <DialogContentText>
@@ -83,6 +88,9 @@ export class Login extends React.Component<Props, State> {
             </Button>
           </DialogActions>
         </Dialog>
+        <Snackbar open={this.state.snackbarOpen} message={this.state.snackbarMessage}
+          anchorOrigin={{ vertical: "bottom", horizontal: "left", }} onClose={this.onCloseSnackbar}
+          action={[<IconButton key="close" color="inherit" onClick={this.onCloseSnackbar}><CloseIcon /></IconButton>]} />
       </div>
     );
   }
@@ -95,7 +103,9 @@ export class Login extends React.Component<Props, State> {
     } else {
       this.setState({
         username: "",
-        password: ""
+        password: "",
+        snackbarOpen: true,
+        snackbarMessage: "Log Out Successful"
       });
       this.props.updateUsername("");
       this.context.username = "";
@@ -126,10 +136,24 @@ export class Login extends React.Component<Props, State> {
         this.context.username = this.state.username;
         this.setState({
           open: false,
-          submitted: true
+          submitted: true,
+          snackbarOpen: true,
+          snackbarMessage: "Log In Successful"
         });
       }
     }, this.state.username, this.state.password);
+  }
+
+  private handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === "Enter") {
+      this.handleClickSubmit();
+    }
+  }
+
+  private onCloseSnackbar = (event: React.SyntheticEvent | React.MouseEvent, reason?: string) => {
+    this.setState({
+      snackbarOpen: false
+    });
   }
 
   private updateSingleField = <T, K extends keyof T>(state: T, key: K) => {

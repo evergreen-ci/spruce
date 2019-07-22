@@ -1,8 +1,9 @@
-import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { UIBuild, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Variant } from '../variant/Variant';
 
@@ -11,10 +12,12 @@ interface State {
   datetime: moment.Moment;
   project: string;
   author: string;
-  builds: UIBuild[]
+  builds: UIBuild[];
+  reconfigureLink: string;
 }
 
 class Props {
+  public client: rest.Evergreen;
   public Patch: UIVersion;
   public expanded: boolean;
   public updateOpenPatches: (patchObj: UIVersion) => void;
@@ -33,7 +36,8 @@ export class Patch extends React.Component<Props, State> {
       datetime: datetime,
       project: this.props.Patch.Version.identifier,
       author: this.props.Patch.Version.author,
-      builds: this.props.Patch.Builds
+      builds: this.props.Patch.Builds,
+      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.Patch.Version.id
     };
   }
 
@@ -42,13 +46,17 @@ export class Patch extends React.Component<Props, State> {
     const Variants = () => (
       <Grid container={true} spacing={2}>
         <Grid item={true} xs={12}>
-          <Typography className="patch-description">
-            Created at {this.state.datetime.format("LLLL")} on {this.state.project}
+          <Typography>
+            Created at {this.state.datetime.format("LLLL")} on {this.state.project} [
+            <Link href={this.state.reconfigureLink}>
+              Reconfigure
+            </Link>
+            ]
           </Typography>
         </Grid>
         {this.state.builds.map(obj => (
-          <Grid item={true} xs={3} key={obj.Build._id}>
-            <Variant build={obj}/>
+          <Grid item={true} xs={4} key={obj.Build._id}>
+            <Variant build={obj} />
           </Grid>
         ))}
       </Grid>
@@ -58,14 +66,14 @@ export class Patch extends React.Component<Props, State> {
       <Grid>
         <ExpansionPanel className="patch" expanded={this.props.expanded} onChange={this.onExpandChange}>
           <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{this.state.description}</Typography>
+            <Typography className="patch-header">{this.state.description}</Typography>
           </ExpansionPanelSummary>
           <ExpansionPanelDetails>
             <Variants />
           </ExpansionPanelDetails>
         </ExpansionPanel>
       </Grid>
-    );  
+    );
   }
 
   private onExpandChange = () => {
