@@ -23,6 +23,14 @@ const theme = createMuiTheme({
     ].join(','),
     fontSize: 14
   },
+  overrides: {
+    MuiAppBar: {
+      colorPrimary: {
+        backgroundColor: "#3E4347",
+        boxShadow: "none"
+      } 
+    }
+  }
 });
 
 interface State {
@@ -59,7 +67,7 @@ export class Evergreen extends React.Component<Props, State> {
             {() => {
               return (
                 <HashRouter>
-                  <AppBar position="fixed" className="app-bar">
+                  <AppBar className="app-bar" >
                     <Toolbar>
                       <img src={"https://evergreen.mongodb.com/static/img/evergreen_green.png"} className="app-icon" />
                       <Typography variant="h5" color="inherit" noWrap={true}>
