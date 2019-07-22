@@ -9,7 +9,7 @@ import LogContainer from './LogContainer';
 
 const StyledDrawer = withStyles({
   paper: {
-    top: 65,
+    top: "65px",
   }
 })(Drawer);
 
