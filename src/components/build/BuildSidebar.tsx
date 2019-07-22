@@ -1,10 +1,10 @@
-import { Button, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { Button, Grid, Typography } from '@material-ui/core';
 import ArrowLeftIcon from '@material-ui/icons/ArrowLeft';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { APITask, Build } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
 import { Redirect } from 'react-router-dom';
+import ( TaskPanel ) from './TaskPanel';
 import '../../styles.css';
 
 interface State {
@@ -39,14 +39,7 @@ export class BuildSidebar extends React.Component<Props, State> {
 
     const tasks = this.props.tasks.map(taskObj => (
       <Grid item={true} xs={12} key={taskObj.task_id}>
-        <ExpansionPanel className="task-panel">
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{taskObj.display_name}</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <Typography>No tests to show</Typography>
-          </ExpansionPanelDetails>
-        </ExpansionPanel>
+        <TaskPanel task={taskObj}/>
       </Grid>
     ));
 
