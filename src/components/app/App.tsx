@@ -3,6 +3,7 @@ import * as MenuIcon from '@material-ui/icons/Menu';
 import { ThemeProvider } from '@material-ui/styles';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
+import * as EvergreenIcon from "../../assets/evergreen_green.png"
 import { ClientConfig, IsValidConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -69,7 +70,7 @@ export class Evergreen extends React.Component<Props, State> {
                 <HashRouter>
                   <AppBar className="app-bar" >
                     <Toolbar>
-                      <img src={"https://evergreen.mongodb.com/static/img/evergreen_green.png"} className="app-icon" />
+                      <img src={EvergreenIcon} className="app-icon" />
                       <Typography variant="h5" color="inherit" noWrap={true}>
                         Evergreen
                       </Typography>

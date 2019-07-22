@@ -54,6 +54,8 @@ export class LogContainer extends React.Component<Props, State> {
 
   public render() {
 
+    // TODO: use Evergreen API to determine the severity of each log line (see example below)
+    // (https://evergreen.mongodb.com/json/task_log/spruce_ubuntu1604_lint_37ec5816d14e05bd02535788d114da8b97ed0231_19_07_11_18_09_18/0?type=T)
     const Logs = () => (
       <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
         {this.state.logText.split("\n").map(textLine => (

@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { UIBuild, UIVersion } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Variant } from '../variant/Variant';
 
@@ -16,6 +17,7 @@ interface State {
 }
 
 class Props {
+  public client: rest.Evergreen;
   public Patch: UIVersion;
   public expanded: boolean;
   public updateOpenPatches: (patchObj: UIVersion) => void;
@@ -35,7 +37,7 @@ export class Patch extends React.Component<Props, State> {
       project: this.props.Patch.Version.identifier,
       author: this.props.Patch.Version.author,
       builds: this.props.Patch.Builds,
-      reconfigureLink: "https://evergreen.mongodb.com/patch/" + this.props.Patch.Version.id
+      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.Patch.Version.id
     };
   }
 
