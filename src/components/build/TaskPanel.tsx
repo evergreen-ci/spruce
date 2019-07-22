@@ -83,27 +83,45 @@ export class TaskPanel extends React.Component<Props, State> {
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
           {this.state.otherTests.map(test => (
-              <Typography key={test.test_id}>
-                {test.test_id}
-              </Typography>
+            <Typography key={test.test_id}>
+              {test.test_id}
+            </Typography>
           ))}
         </ExpansionPanelDetails>
       </StyledExpansionPanel>
     );
 
-    return (
-      <Grid item={true} xs={12} key={this.props.task.task_id}>
-        <StyledExpansionPanel className="task-panel">
-          <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-            <Typography>{this.props.task.display_name}</Typography>
-          </ExpansionPanelSummary>
-          <ExpansionPanelDetails>
-            <FailedTests />
-            <OtherTests />
-          </ExpansionPanelDetails>
-        </StyledExpansionPanel>
-      </Grid>
-    );
+    if (this.state.hasFailingTests || this.state.hasOtherTests) {
+      return (
+        <Grid item={true} xs={12} key={this.props.task.task_id}>
+          <StyledExpansionPanel className="task-panel">
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography color={this.state.hasFailingTests ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <FailedTests />
+              <OtherTests />
+            </ExpansionPanelDetails>
+          </StyledExpansionPanel>
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item={true} xs={12} key={this.props.task.task_id}>
+          <StyledExpansionPanel className="task-panel">
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+              <Typography>{this.props.task.display_name}</Typography>
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails>
+              <Typography className="no-tests-text">
+                No tests to show.
+              </Typography>
+            </ExpansionPanelDetails>
+          </StyledExpansionPanel>
+        </Grid>
+      );
+    }
+
   }
 }
 
