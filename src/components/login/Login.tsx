@@ -90,7 +90,7 @@ export class Login extends React.Component<Props, State> {
         </Dialog>
         <Snackbar open={this.state.snackbarOpen} message={this.state.snackbarMessage}
           anchorOrigin={{ vertical: "bottom", horizontal: "left", }} onClose={this.onCloseSnackbar}
-          action={[<IconButton key="close" color="inherit" onClick={this.onCloseSnackbar}><CloseIcon /></IconButton>,]} />
+          action={[<IconButton key="close" color="inherit" onClick={this.onCloseSnackbar}><CloseIcon /></IconButton>]} />
       </div>
     );
   }
