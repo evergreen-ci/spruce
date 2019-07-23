@@ -6,7 +6,7 @@ import * as React from 'react';
 import { Redirect } from 'react-router-dom';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
-import { TaskPanel } from './TaskPanel';
+import { TaskPanel } from '../task/TaskPanel';
 
 interface State {
   displayName: string

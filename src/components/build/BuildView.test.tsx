@@ -6,9 +6,9 @@ import { APITask } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
+import { LogContainer, LogType } from '../log/LogContainer';
 import { BuildSidebar } from './BuildSidebar';
 import { BuildView } from "./BuildView";
-import { LogContainer, LogType } from './LogContainer';
 
 describe("BuildView", () => {
 

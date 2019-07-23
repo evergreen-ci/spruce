@@ -4,8 +4,8 @@ import { APITask, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
+import LogContainer from '../log/LogContainer';
 import BuildSidebar from './BuildSidebar';
-import LogContainer from './LogContainer';
 
 const StyledDrawer = withStyles({
   paper: {

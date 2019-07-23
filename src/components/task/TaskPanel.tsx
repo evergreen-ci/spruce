@@ -1,7 +1,8 @@
-import { ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, IconButton, Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/styles';
+// import clsx from 'clsx';
 import { APITask, APITest, ConvertToAPITests } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
@@ -13,6 +14,24 @@ const StyledExpansionPanel = withStyles({
     boxShadow: "none"
   }
 })(MuiExpansionPanel);
+
+// const useStyles = makeStyles((theme?: Theme) =>
+//   createStyles({
+//     card: {
+//       maxWidth: 345,
+//     },
+//     expand: {
+//       transform: 'rotate(0deg)',
+//       marginLeft: 'auto',
+//       transition: theme.transitions.create('transform', {
+//         duration: theme.transitions.duration.shortest,
+//       }),
+//     },
+//     expandOpen: {
+//       transform: 'rotate(180deg)',
+//     },
+//   }),
+// );
 
 interface State {
   hasFailingTests: boolean
@@ -87,29 +106,38 @@ export class TaskPanel extends React.Component<Props, State> {
       </Grid>
     );
 
+
+
     const OtherTests = () => (
-      <StyledExpansionPanel className="task-expansion-panel">
-        <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-          <Typography>Other Tests</Typography>
-        </ExpansionPanelSummary>
-        <ExpansionPanelDetails>
-          <Grid container={true}>
-            {this.state.otherTests.map(test => (
-              <Grid item={true} xs={12}>
-                <Typography key={test.test_file}>
-                  {test.test_file.split("/").pop()}
-                </Typography>
-              </Grid>
-            ))}
-          </Grid>
-        </ExpansionPanelDetails>
-      </StyledExpansionPanel>
+      <Card>
+        <CardActions>
+          <Typography>
+            Other Tests
+          </Typography>
+          <IconButton onClick={this.handleOtherTestsClick}>
+            <ExpandMoreIcon />
+          </IconButton>
+        </CardActions>
+        <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
+          <CardContent>
+            <Grid container={true}>
+              {this.state.otherTests.map(test => (
+                <Grid item={true} xs={12}>
+                  <Typography key={test.test_file}>
+                    {test.test_file.split("/").pop()}
+                  </Typography>
+                </Grid>
+              ))}
+            </Grid>
+          </CardContent>
+        </Collapse>
+      </Card>
     );
 
     if (this.state.hasFailingTests || this.state.hasOtherTests) {
       return (
-          <Grid item={true} xs={12} key={this.props.task.task_id}>
-          <StyledExpansionPanel className="task-panel"  expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
+        <Grid item={true} xs={12} key={this.props.task.task_id}>
+          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
@@ -128,7 +156,7 @@ export class TaskPanel extends React.Component<Props, State> {
       );
     } else {
       return (
-          <Grid item={true} xs={12} key={this.props.task.task_id}>
+        <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
@@ -160,6 +188,12 @@ export class TaskPanel extends React.Component<Props, State> {
 
   private handleTaskClick = () => {
     this.props.switchTask(this.props.task);
+  }
+
+  private handleOtherTestsClick = () => {
+    this.setState((prevState, props) => ({
+      isShowingOtherTests: !prevState.isShowingOtherTests
+    }));
   }
 }
 
