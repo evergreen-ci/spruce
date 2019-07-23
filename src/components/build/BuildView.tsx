@@ -50,7 +50,7 @@ export class BuildView extends React.Component<Props, State> {
       this.setState({
         apiTasks: tasks,
         currentTask: tasks.length === 0 ? new APITask : tasks[0],
-      }, () => { console.log(this.state.currentTask.display_name) });
+      });
     }, this.state.buildId);
     this.props.client.getBuild((err, resp, body) => {
       this.setState({

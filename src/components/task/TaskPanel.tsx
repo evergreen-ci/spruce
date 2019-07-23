@@ -187,7 +187,9 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   private handleTaskClick = () => {
-    this.props.switchTask(this.props.task);
+    if (!this.props.isCurrentTask) {
+      this.props.switchTask(this.props.task);
+    }  
   }
 
   private handleOtherTestsClick = () => {
