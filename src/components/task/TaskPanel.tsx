@@ -172,6 +172,7 @@ export class TaskPanel extends React.Component<Props, State> {
   private handleTaskClick = () => {
     if (!this.props.isCurrentTask) {
       this.props.switchTask(this.props.task);
+      this.props.onFinishStateUpdate();
     }  
   }
 

@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import * as enzyme from "enzyme";
-import { APITask } from 'evergreen.js/lib/models';
+import { APITask, ConvertToBuild, ConvertToAPITasks } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
@@ -35,7 +35,7 @@ describe("BuildView", () => {
   })
 
   it("clicking LogContainer toggle button changes state", () => {
-    const logWrapper = enzyme.mount(<LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={new APITask} onFinishStateUpdate={null}/>);
+    const logWrapper = enzyme.mount(<LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={new APITask} onFinishStateUpdate={null} />);
     expect(logWrapper).toHaveLength(1);
     const buttonGroup = logWrapper.find(ToggleButtonGroup);
     expect(buttonGroup).toHaveLength(1);
@@ -53,16 +53,50 @@ describe("BuildView", () => {
   })
 
   it("clicking on task panel loads new logs and updates state", () => {
-    const buildSidebar = wrapper.find(BuildSidebar);
+    const mockClient = rest.EvergreenClient("", "", "", "", true);
+    let build = null;
+    let tasks: APITask[] = [];
+    let currentTask = new APITask;
+    mockClient.getBuild((err, resp, body) => {
+      build = ConvertToBuild(body);
+    }, "someId");
+    mockClient.getTasksForBuild((err, resp, body) => {
+      tasks = ConvertToAPITasks(body) as unknown as APITask[];
+      currentTask = tasks[0];
+    }, "someId");
+
+    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} switchTask={null} currentTask={currentTask} onFinishStateUpdate={null} />);
     expect(buildSidebar).toHaveLength(1);
     expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
-    const compilePanel = wrapper.findWhere(node => node.key() === "compile").find(TaskPanel);
+    const compilePanel = buildSidebar.findWhere(node => node.key() === "compile").find(TaskPanel);
     expect(compilePanel).toHaveLength(1);
     expect(compilePanel.prop("isCurrentTask")).toBe(true);
-    const testPanel = wrapper.findWhere(node => node.key() === "test").find(TaskPanel);
+    const testPanel = buildSidebar.findWhere(node => node.key() === "test").find(TaskPanel);
     expect(testPanel).toHaveLength(1);
     expect(testPanel.prop("isCurrentTask")).toBe(false);
+
+    const switchTask = jest.fn(() => {
+      buildSidebar.setProps({
+        currentTask: tasks[2]
+      })
+    });
+    const checkState = jest.fn(() => {
+      buildSidebar.update();
+      expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
+      const checkTestPanel = buildSidebar.findWhere(node => node.key() === "test").find(TaskPanel);
+      expect(checkTestPanel).toHaveLength(1);
+      expect(checkTestPanel.prop("isCurrentTask")).toBe(true);
+      const checkCompilePanel = buildSidebar.findWhere(node => node.key() === "compile").find(TaskPanel);
+      expect(checkCompilePanel.prop("isCurrentTask")).toBe(false);
+      expect(checkCompilePanel).toHaveLength(1);
+    });
+    buildSidebar.setProps({ 
+      onFinishStateUpdate: checkState, 
+      switchTask: switchTask
+    });
+
     const expansionPanel = testPanel.find(StyledExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
     expansionPanel.prop("onClick")({} as React.MouseEvent<HTMLDivElement, MouseEvent>);
   })
 
