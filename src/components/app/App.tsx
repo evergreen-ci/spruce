@@ -9,8 +9,8 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
 import { BuildView } from '../build/BuildView';
-import ConfigDrop from '../configdrop/ConfigDrop';
-import { Login, UserContextConsumer } from "../login/Login";
+// import ConfigDrop from '../configdrop/ConfigDrop';
+import { /* Login, */ UserContextConsumer } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
 const theme = createMuiTheme({
@@ -57,7 +57,7 @@ export class Evergreen extends React.Component<Props, State> {
   public render() {
     const admin = () => <Admin APIClient={this.state.APIClient} />
     const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username} onFinishStateUpdate={null} />
-    const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
+    // const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
     const build = () => <BuildView client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
@@ -97,7 +97,7 @@ export class Evergreen extends React.Component<Props, State> {
                   </AppBar>
                   <div className="app-intro">
                     <Route path="/admin" render={admin} />
-                    <Route path="/config" render={config} />
+                    {/* <Route path="/config" render={config} /> */}
                     <Route path="/patches" render={patches} />
                     <Route path="/build" render={build} />
                   </div>
@@ -124,11 +124,11 @@ export class Evergreen extends React.Component<Props, State> {
     });
   }
 
-  private updateUsername = (username: string) => {
-    this.setState({
-      username: username
-    });
-  }
+  // private updateUsername = (username: string) => {
+  //   this.setState({
+  //     username: username
+  //   });
+  // }
 
   private tryLoadConfig = () => {
     fetch(configPath).then((resp: Response) => {
