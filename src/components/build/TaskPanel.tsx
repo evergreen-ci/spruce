@@ -22,8 +22,10 @@ interface State {
 }
 
 class Props {
-  public client: rest.Evergreen;
+  public client: rest.Evergreen
   public task: APITask
+  public status: string
+  public switchTask: (task: APITask) => void;
 }
 
 export class TaskPanel extends React.Component<Props, State> {
@@ -47,12 +49,11 @@ export class TaskPanel extends React.Component<Props, State> {
         if (element.status.includes("fail")) {
           failingTests.push(element);
         } else {
-          console.log(element.status);
           otherTests.push(element);
         }
       });
-      console.log(failingTests);
-      console.log(otherTests);
+      failingTests.sort(this.sortByTestFile);
+      otherTests.sort(this.sortByTestFile);
       this.setState({
         hasFailingTests: failingTests.length !== 0 ? true : false,
         hasOtherTests: otherTests.length !== 0 ? true : false,
@@ -65,14 +66,21 @@ export class TaskPanel extends React.Component<Props, State> {
   public render() {
 
     const FailedTests = () => (
-      <Grid container={true}>
-        {this.state.failingTests.map(test => (
-          <Grid item={true} xs={12} key={test.test_id}>
-            <Typography color="error">
-              {test.test_id}
+      <Grid container={true} direction="column">
+        {this.state.hasFailingTests === true ?
+          this.state.failingTests.map(test => (
+            <Grid item={true} xs={12} key={test.test_file}>
+              <Typography color="error">
+                {test.test_file.split("/").pop()}
+              </Typography>
+            </Grid>
+          )) :
+          <Grid item={true} xs={12}>
+            <Typography className="no-tests-text">
+              No failing tests
             </Typography>
           </Grid>
-        ))}
+        }
       </Grid>
     );
 
@@ -82,35 +90,48 @@ export class TaskPanel extends React.Component<Props, State> {
           <Typography>Other Tests</Typography>
         </ExpansionPanelSummary>
         <ExpansionPanelDetails>
-          {this.state.otherTests.map(test => (
-            <Typography key={test.test_id}>
-              {test.test_id}
-            </Typography>
-          ))}
+          <Grid container={true}>
+            {this.state.otherTests.map(test => (
+              <Grid item={true} xs={12}>
+                <Typography key={test.test_file}>
+                  {test.test_file.split("/").pop()}
+                </Typography>
+              </Grid>
+            ))}
+          </Grid>
         </ExpansionPanelDetails>
       </StyledExpansionPanel>
     );
 
     if (this.state.hasFailingTests || this.state.hasOtherTests) {
       return (
-        <Grid item={true} xs={12} key={this.props.task.task_id}>
+        <div onClick={this.handleTaskClick}>
+          <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel">
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography color={this.state.hasFailingTests ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
+              <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
-              <FailedTests />
-              <OtherTests />
+              <Grid container={true} spacing={2}>
+                <Grid item={true} xs={12}>
+                  <FailedTests />
+                </Grid>
+                <Grid item={true} xs={12}>
+                  <OtherTests />
+                </Grid>
+              </Grid>
             </ExpansionPanelDetails>
           </StyledExpansionPanel>
         </Grid>
+        </div>  
       );
     } else {
       return (
-        <Grid item={true} xs={12} key={this.props.task.task_id}>
+        <div onClick={this.handleTaskClick}>
+          <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel">
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
-              <Typography>{this.props.task.display_name}</Typography>
+              <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Typography className="no-tests-text">
@@ -119,9 +140,29 @@ export class TaskPanel extends React.Component<Props, State> {
             </ExpansionPanelDetails>
           </StyledExpansionPanel>
         </Grid>
+        </div>
       );
     }
 
+  }
+
+  private sortByTestFile(a: APITest, b: APITest) {
+    const testFileA = a.test_file.toUpperCase();
+    const testFileB = b.test_file.toUpperCase();
+
+    if (testFileA > testFileB) {
+      return 1;
+    } else if (testFileA < testFileB) {
+      return -1;
+    } else {
+      return 0;
+    }
+  }
+
+  private handleTaskClick = () => {
+    console.log(this.props);
+    const task = this.props.task;
+    this.props.switchTask(task);
   }
 }
 

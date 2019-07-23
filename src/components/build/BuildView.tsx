@@ -64,13 +64,20 @@ export class BuildView extends React.Component<Props, State> {
     return (
       <div>
         <StyledDrawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
-          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} />
+          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask}/>
         </StyledDrawer>
         <main>
           <LogContainer client={this.props.client} task={this.state.currentTask} onFinishStateUpdate={null}/>
         </main>
       </div>
     );
+  }
+
+  private switchCurentTask = (newTask: APITask) => {
+    console.log("click");
+    this.setState({
+      currentTask: newTask
+    });
   }
 }
 
