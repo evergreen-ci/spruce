@@ -49,7 +49,7 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      APIClient: rest.EvergreenClient("", "", "", "", true),
+      APIClient: rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")
     }
     this.tryLoadConfig();
   }
@@ -88,11 +88,11 @@ export class Evergreen extends React.Component<Props, State> {
                         <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/patches">My Patches</NavLink>
                         </MenuItem>
-                        <MenuItem onClick={this.closeMenu}>
+                        {/* <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/config">Upload Config File</NavLink>
-                        </MenuItem>
+                        </MenuItem> */}
                       </Menu>
-                      <Login client={this.state.APIClient} updateUsername={this.updateUsername} />
+                      {/* <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
                     </Toolbar>
                   </AppBar>
                   <div className="app-intro">
