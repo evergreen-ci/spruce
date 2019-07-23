@@ -16,6 +16,7 @@ export enum LogType {
 };
 
 interface State {
+  taskId: string
   logText: string
   logType: LogType
   htmlLink: string
@@ -33,6 +34,7 @@ export class LogContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
+      taskId: this.props.task.task_id,
       logText: "",
       logType: LogType.task,
       htmlLink: "",
@@ -41,21 +43,21 @@ export class LogContainer extends React.Component<Props, State> {
   }
 
   public componentDidUpdate() {
-    if (this.props.task.logs !== undefined && this.state.logText === "") {
+    if ((this.props.task.logs !== undefined && this.state.logText === "") || (this.props.task.task_id !== this.state.taskId)) {
       this.props.client.getLogs((err, resp, body) => {
         this.setState({
+          taskId: this.props.task.task_id,
           logText: body,
+          logType: LogType.task,
           htmlLink: this.props.task.logs.task_log,
           rawLink: this.props.task.logs.task_log + "&text=true"
         });
-      }, this.props.task.task_id, LogType.task, this.props.task.execution)
+      }, this.props.task.task_id, LogType.task, this.props.task.execution);
     }
   }
 
   public render() {
 
-    // TODO: use Evergreen API to determine the severity of each log line (see example below)
-    // (https://evergreen.mongodb.com/json/task_log/spruce_ubuntu1604_lint_37ec5816d14e05bd02535788d114da8b97ed0231_19_07_11_18_09_18/0?type=T)
     const Logs = () => (
       <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
         {this.state.logText.split("\n").map(textLine => (
@@ -116,6 +118,8 @@ export class LogContainer extends React.Component<Props, State> {
     }, this.props.task.task_id, logType, this.props.task.execution);
   }
 
+  // TODO: use Evergreen API to determine the severity of each log line (see example below)
+  // (https://evergreen.mongodb.com/json/task_log/spruce_ubuntu1604_lint_37ec5816d14e05bd02535788d114da8b97ed0231_19_07_11_18_09_18/0?type=T)
   private lineContainsError = (logLine: string) => {
     const errorStrings = ["error", "warn", "fail"];
     return errorStrings.some(str => logLine.includes(str));

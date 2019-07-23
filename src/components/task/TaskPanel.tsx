@@ -111,15 +111,15 @@ export class TaskPanel extends React.Component<Props, State> {
     const OtherTests = () => (
       <Card>
         <CardActions>
+        <IconButton onClick={this.handleOtherTestsClick}>
+            <ExpandMoreIcon />
+          </IconButton>
           <Typography>
             Other Tests
           </Typography>
-          <IconButton onClick={this.handleOtherTestsClick}>
-            <ExpandMoreIcon />
-          </IconButton>
         </CardActions>
         <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
-          <CardContent>
+          <CardContent className="other-tests-list">
             <Grid container={true}>
               {this.state.otherTests.map(test => (
                 <Grid item={true} xs={12}>
