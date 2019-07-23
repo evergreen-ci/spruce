@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import * as enzyme from "enzyme";
-import { APITask, ConvertToBuild, ConvertToAPITasks } from 'evergreen.js/lib/models';
+import { APITask, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
