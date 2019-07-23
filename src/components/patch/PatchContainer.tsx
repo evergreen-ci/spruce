@@ -11,8 +11,9 @@ interface State {
   pageNum: number
   hasMore: boolean
   allPatches: UIVersion[]
-  visiblePatches: UIVersion[],
+  visiblePatches: UIVersion[]
   expandedPatches: object
+  isSearching: boolean
 }
 
 class Props {
@@ -29,7 +30,8 @@ export class PatchContainer extends React.Component<Props, State> {
       pageNum: 0,
       allPatches: [],
       visiblePatches: [],
-      expandedPatches: {}
+      expandedPatches: {},
+      isSearching: false
     };
   }
 
@@ -64,7 +66,7 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private loadPatches = () => {
-    if (this.state.hasMore) {
+    if (this.state.hasMore && !this.state.isSearching) {
       this.props.client.getPatches((err, resp, body) => {
         const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
         if (newPatches.length === 0) {
@@ -85,6 +87,9 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private search = (event: React.ChangeEvent<HTMLInputElement>) => {
+    this.setState({
+      isSearching: true
+    });
     const query = event.currentTarget.value;
     const filteredPatches = this.filterItems(query);
     this.setState({
@@ -95,6 +100,9 @@ export class PatchContainer extends React.Component<Props, State> {
   private filterItems(query: string) {
     const filtered: UIVersion[] = [];
     if (query === "") {
+      this.setState({
+        isSearching: false
+      });
       return this.state.allPatches;
     }
     Object.keys(this.state.allPatches).map(versionId => {
