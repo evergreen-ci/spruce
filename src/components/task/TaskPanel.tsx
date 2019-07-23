@@ -48,8 +48,8 @@ export class TaskPanel extends React.Component<Props, State> {
   public componentDidMount() {
     this.props.client.getTestsForTask((err, resp, body) => {
       const tests = ConvertToAPITests(body) as unknown as APITest[];
-      const failingTests: APITest[] = [];
-      const otherTests: APITest[] = [];
+      let failingTests: APITest[] = [];
+      let otherTests: APITest[] = [];
       Array.from(tests).forEach(element => {
         if (element.status.includes("fail")) {
           failingTests.push(element);
@@ -57,8 +57,8 @@ export class TaskPanel extends React.Component<Props, State> {
           otherTests.push(element);
         }
       });
-      failingTests.sort(this.sortByTestFile);
-      otherTests.sort(this.sortByTestFile);
+      failingTests = failingTests.sort(this.sortByTestFile);
+      otherTests = otherTests.sort(this.sortByTestFile);
       this.setState({
         hasFailingTests: failingTests.length !== 0 ? true : false,
         hasOtherTests: otherTests.length !== 0 ? true : false,
@@ -71,7 +71,7 @@ export class TaskPanel extends React.Component<Props, State> {
   public render() {
 
     const FailedTests = () => (
-      <Grid container={true} direction="column">
+      <Grid container={true} direction="column" spacing={1}>
         {this.state.hasFailingTests === true ?
           this.state.failingTests.map(test => (
             <Grid item={true} xs={12} key={test.test_file}>
@@ -89,8 +89,6 @@ export class TaskPanel extends React.Component<Props, State> {
       </Grid>
     );
 
-
-
     const OtherTests = () => (
       <Card>
         <CardActions>
@@ -103,7 +101,7 @@ export class TaskPanel extends React.Component<Props, State> {
         </CardActions>
         <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
           <CardContent className="other-tests-list">
-            <Grid container={true}>
+            <Grid container={true} spacing={1}>
               {this.state.otherTests.map(test => (
                 <Grid item={true} xs={12} key={test.test_file}>
                   <Typography>
@@ -157,8 +155,8 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   private sortByTestFile(a: APITest, b: APITest) {
-    const testFileA = a.test_file.toUpperCase();
-    const testFileB = b.test_file.toUpperCase();
+    const testFileA = a.test_file.split("/").pop().toUpperCase();
+    const testFileB = b.test_file.split("/").pop().toUpperCase();
 
     if (testFileA > testFileB) {
       return 1;

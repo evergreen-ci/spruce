@@ -61,7 +61,7 @@ export class LogContainer extends React.Component<Props, State> {
     const Logs = () => (
       <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
         {this.state.logText.split("\n").map(textLine => (
-          <Typography className={this.lineContainsError(textLine.toLowerCase()) ? "log-text-error" : "log-text-normal"} key={textLine}>
+          <Typography className={this.lineContainsError(textLine.toLowerCase()) ? "log-text-error" : "log-text-normal"} key={new Date().getTime().toString()}>
             {textLine}
           </Typography>
         ))}
