@@ -1,5 +1,6 @@
 import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, IconButton, Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
+import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/styles';
 // import clsx from 'clsx';
@@ -112,7 +113,7 @@ export class TaskPanel extends React.Component<Props, State> {
       <Card>
         <CardActions>
         <IconButton onClick={this.handleOtherTestsClick}>
-            <ExpandMoreIcon />
+          {this.state.isShowingOtherTests ? <ExpandLessIcon/> : <ExpandMoreIcon />}
           </IconButton>
           <Typography>
             Other Tests

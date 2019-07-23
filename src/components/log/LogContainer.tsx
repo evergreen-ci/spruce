@@ -1,5 +1,5 @@
 import { Grid, Link, Typography } from '@material-ui/core';
-import FolderIcon from '@material-ui/icons/Folder';
+import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import { APITask } from 'evergreen.js/lib/models';
@@ -71,7 +71,7 @@ export class LogContainer extends React.Component<Props, State> {
     return (
       <Grid container={true} spacing={2} className="log-container">
         <Grid item={true} xs={4} className="log-links">
-          <FolderIcon className="log-link-item" />
+          <FolderOutlinedIcon className="log-link-item" />
           <Typography className="log-link-item">Open Logs </Typography>
           <Link className="log-link-item" href={this.state.htmlLink} target="_blank">HTML</Link>
           <Typography className="log-link-item"> / </Typography>
