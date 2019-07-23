@@ -50,7 +50,7 @@ export class BuildView extends React.Component<Props, State> {
       this.setState({
         apiTasks: tasks,
         currentTask: tasks.length === 0 ? new APITask : tasks[0],
-      });
+      }, () => { console.log(this.state.currentTask.display_name) });
     }, this.state.buildId);
     this.props.client.getBuild((err, resp, body) => {
       this.setState({
@@ -64,7 +64,7 @@ export class BuildView extends React.Component<Props, State> {
     return (
       <div>
         <StyledDrawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
-          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask}/>
+          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask} currentTask={this.state.currentTask}/>
         </StyledDrawer>
         <main>
           <LogContainer client={this.props.client} task={this.state.currentTask} onFinishStateUpdate={null}/>
@@ -74,7 +74,6 @@ export class BuildView extends React.Component<Props, State> {
   }
 
   private switchCurentTask = (newTask: APITask) => {
-    console.log("click");
     this.setState({
       currentTask: newTask
     });

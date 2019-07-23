@@ -19,13 +19,15 @@ interface State {
   hasOtherTests: boolean
   failingTests: APITest[]
   otherTests: APITest[]
+  isShowingOtherTests: boolean
 }
 
 class Props {
   public client: rest.Evergreen
   public task: APITask
   public status: string
-  public switchTask: (task: APITask) => void;
+  public switchTask: (task: APITask) => void
+  public isCurrentTask: boolean
 }
 
 export class TaskPanel extends React.Component<Props, State> {
@@ -36,7 +38,8 @@ export class TaskPanel extends React.Component<Props, State> {
       hasFailingTests: false,
       hasOtherTests: false,
       failingTests: [],
-      otherTests: []
+      otherTests: [],
+      isShowingOtherTests: false
     }
   }
 
@@ -105,9 +108,8 @@ export class TaskPanel extends React.Component<Props, State> {
 
     if (this.state.hasFailingTests || this.state.hasOtherTests) {
       return (
-        <div onClick={this.handleTaskClick}>
           <Grid item={true} xs={12} key={this.props.task.task_id}>
-          <StyledExpansionPanel className="task-panel">
+          <StyledExpansionPanel className="task-panel"  expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
@@ -123,13 +125,11 @@ export class TaskPanel extends React.Component<Props, State> {
             </ExpansionPanelDetails>
           </StyledExpansionPanel>
         </Grid>
-        </div>  
       );
     } else {
       return (
-        <div onClick={this.handleTaskClick}>
           <Grid item={true} xs={12} key={this.props.task.task_id}>
-          <StyledExpansionPanel className="task-panel">
+          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
@@ -140,7 +140,6 @@ export class TaskPanel extends React.Component<Props, State> {
             </ExpansionPanelDetails>
           </StyledExpansionPanel>
         </Grid>
-        </div>
       );
     }
 
@@ -160,9 +159,7 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   private handleTaskClick = () => {
-    console.log(this.props);
-    const task = this.props.task;
-    this.props.switchTask(task);
+    this.props.switchTask(this.props.task);
   }
 }
 
