@@ -64,7 +64,7 @@ export class BuildView extends React.Component<Props, State> {
     return (
       <div>
         <StyledDrawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
-          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask} currentTask={this.state.currentTask}/>
+          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask} currentTask={this.state.currentTask} onFinishStateUpdate={null} />
         </StyledDrawer>
         <main>
           <LogContainer client={this.props.client} task={this.state.currentTask} onFinishStateUpdate={null}/>

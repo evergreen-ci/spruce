@@ -21,6 +21,7 @@ class Props {
   public tasks: APITask[]
   public switchTask: (task: APITask) => void
   public currentTask: APITask
+  public onFinishStateUpdate: () => void;
 }
 
 export class BuildSidebar extends React.Component<Props, State> {
@@ -42,8 +43,8 @@ export class BuildSidebar extends React.Component<Props, State> {
     }
 
     const tasks = this.props.tasks.map(taskObj => (
-      <Grid item={true} xs={12} key={taskObj.task_id} >
-        <TaskPanel client={this.props.client} task={taskObj} status={taskObj.status} switchTask={this.props.switchTask} isCurrentTask={this.props.currentTask.task_id === taskObj.task_id}/>
+      <Grid item={true} xs={12} key={taskObj.display_name}>
+        <TaskPanel client={this.props.client} task={taskObj} status={taskObj.status} switchTask={this.props.switchTask} isCurrentTask={this.props.currentTask.task_id === taskObj.task_id} onFinishStateUpdate={this.props.onFinishStateUpdate}/>
       </Grid>
     ));
 

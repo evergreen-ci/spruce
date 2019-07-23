@@ -3,36 +3,17 @@ import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import { withStyles } from '@material-ui/styles';
-// import clsx from 'clsx';
 import { APITask, APITest, ConvertToAPITests } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
-const StyledExpansionPanel = withStyles({
+export const StyledExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
     boxShadow: "none"
   }
 })(MuiExpansionPanel);
-
-// const useStyles = makeStyles((theme?: Theme) =>
-//   createStyles({
-//     card: {
-//       maxWidth: 345,
-//     },
-//     expand: {
-//       transform: 'rotate(0deg)',
-//       marginLeft: 'auto',
-//       transition: theme.transitions.create('transform', {
-//         duration: theme.transitions.duration.shortest,
-//       }),
-//     },
-//     expandOpen: {
-//       transform: 'rotate(180deg)',
-//     },
-//   }),
-// );
 
 interface State {
   hasFailingTests: boolean
@@ -48,6 +29,7 @@ class Props {
   public status: string
   public switchTask: (task: APITask) => void
   public isCurrentTask: boolean
+  public onFinishStateUpdate: () => void;
 }
 
 export class TaskPanel extends React.Component<Props, State> {
@@ -123,8 +105,8 @@ export class TaskPanel extends React.Component<Props, State> {
           <CardContent className="other-tests-list">
             <Grid container={true}>
               {this.state.otherTests.map(test => (
-                <Grid item={true} xs={12}>
-                  <Typography key={test.test_file}>
+                <Grid item={true} xs={12} key={test.test_file}>
+                  <Typography>
                     {test.test_file.split("/").pop()}
                   </Typography>
                 </Grid>
