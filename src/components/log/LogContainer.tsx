@@ -42,8 +42,20 @@ export class LogContainer extends React.Component<Props, State> {
     }
   }
 
+  public componentDidMount() {
+    if (this.props.task.logs !== undefined && this.state.logText === "") {
+      this.props.client.getLogs((err, resp, body) => {
+        this.setState({
+          logText: body,
+          htmlLink: this.props.task.logs.task_log,
+          rawLink: this.props.task.logs.task_log + "&text=true"
+        });
+      }, this.props.task.task_id, LogType.task, this.props.task.execution);
+    }
+  }
+
   public componentDidUpdate() {
-    if ((this.props.task.logs !== undefined && this.state.logText === "") || (this.props.task.task_id !== this.state.taskId)) {
+    if (this.props.task.task_id !== this.state.taskId) {
       this.props.client.getLogs((err, resp, body) => {
         this.setState({
           taskId: this.props.task.task_id,
