@@ -16,8 +16,6 @@ export const StyledExpansionPanel = withStyles({
 })(MuiExpansionPanel);
 
 interface State {
-  hasFailingTests: boolean
-  hasOtherTests: boolean
   failingTests: APITest[]
   otherTests: APITest[]
   isShowingOtherTests: boolean
@@ -37,8 +35,6 @@ export class TaskPanel extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      hasFailingTests: false,
-      hasOtherTests: false,
       failingTests: [],
       otherTests: [],
       isShowingOtherTests: false
@@ -60,8 +56,6 @@ export class TaskPanel extends React.Component<Props, State> {
       failingTests = failingTests.sort(this.sortByTestFile);
       otherTests = otherTests.sort(this.sortByTestFile);
       this.setState({
-        hasFailingTests: failingTests.length !== 0 ? true : false,
-        hasOtherTests: otherTests.length !== 0 ? true : false,
         failingTests: failingTests,
         otherTests: otherTests
       })
@@ -72,7 +66,7 @@ export class TaskPanel extends React.Component<Props, State> {
 
     const FailedTests = () => (
       <Grid container={true} direction="column" spacing={1}>
-        {this.state.hasFailingTests === true ?
+        {this.state.failingTests.length !== 0 ?
           this.state.failingTests.map(test => (
             <Grid item={true} xs={12} key={test.test_file}>
               <Typography color="error">
@@ -92,8 +86,8 @@ export class TaskPanel extends React.Component<Props, State> {
     const OtherTests = () => (
       <Card>
         <CardActions>
-        <IconButton onClick={this.handleOtherTestsClick}>
-          {this.state.isShowingOtherTests ? <ExpandLessIcon/> : <ExpandMoreIcon />}
+          <IconButton onClick={this.handleOtherTestsClick}>
+            {this.state.isShowingOtherTests ? <ExpandLessIcon /> : <ExpandMoreIcon />}
           </IconButton>
           <Typography>
             Other Tests
@@ -101,21 +95,26 @@ export class TaskPanel extends React.Component<Props, State> {
         </CardActions>
         <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
           <CardContent className="other-tests-list">
-            <Grid container={true} spacing={1}>
-              {this.state.otherTests.map(test => (
-                <Grid item={true} xs={12} key={test.test_file}>
-                  <Typography>
-                    {test.test_file.split("/").pop()}
-                  </Typography>
-                </Grid>
-              ))}
-            </Grid>
+            {this.state.otherTests.length !== 0 ?
+              <Grid container={true} spacing={1}>
+                {this.state.otherTests.map(test => (
+                  <Grid item={true} xs={12} key={test.test_file}>
+                    <Typography>
+                      {test.test_file.split("/").pop()}
+                    </Typography>
+                  </Grid>
+                ))}
+              </Grid> :
+              <Typography className="no-tests-text">
+                No other tests
+              </Typography>
+            }
           </CardContent>
         </Collapse>
       </Card>
     );
 
-    if (this.state.hasFailingTests || this.state.hasOtherTests) {
+    if (this.state.failingTests.length !== 0 || this.state.otherTests.length !== 0) {
       return (
         <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
@@ -173,7 +172,7 @@ export class TaskPanel extends React.Component<Props, State> {
       if (this.props.onFinishStateUpdate !== null) {
         this.props.onFinishStateUpdate();
       }
-    }  
+    }
   }
 
   private handleOtherTestsClick = () => {
