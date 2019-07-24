@@ -68,10 +68,10 @@ describe("BuildView", () => {
     const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} switchTask={null} currentTask={currentTask} onFinishStateUpdate={null} />);
     expect(buildSidebar).toHaveLength(1);
     expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
-    const compilePanel = buildSidebar.findWhere(node => node.key() === "compile").find(TaskPanel);
+    const compilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
     expect(compilePanel).toHaveLength(1);
     expect(compilePanel.prop("isCurrentTask")).toBe(true);
-    const testPanel = buildSidebar.findWhere(node => node.key() === "test").find(TaskPanel);
+    const testPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
     expect(testPanel).toHaveLength(1);
     expect(testPanel.prop("isCurrentTask")).toBe(false);
 
@@ -83,10 +83,10 @@ describe("BuildView", () => {
     const checkState = jest.fn(() => {
       buildSidebar.update();
       expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
-      const checkTestPanel = buildSidebar.findWhere(node => node.key() === "test").find(TaskPanel);
+      const checkTestPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
       expect(checkTestPanel).toHaveLength(1);
       expect(checkTestPanel.prop("isCurrentTask")).toBe(true);
-      const checkCompilePanel = buildSidebar.findWhere(node => node.key() === "compile").find(TaskPanel);
+      const checkCompilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
       expect(checkCompilePanel.prop("isCurrentTask")).toBe(false);
       expect(checkCompilePanel).toHaveLength(1);
     });
