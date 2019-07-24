@@ -1,4 +1,4 @@
-import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, IconButton, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -17,6 +17,8 @@ export const StyledExpansionPanel = withStyles({
 
 interface State {
   failingTests: APITest[]
+  silentFailTests: APITest[]
+  skippedTests: APITest[]
   otherTests: APITest[]
   isShowingOtherTests: boolean
 }
@@ -36,6 +38,8 @@ export class TaskPanel extends React.Component<Props, State> {
     super(props);
     this.state = {
       failingTests: [],
+      silentFailTests: [],
+      skippedTests: [],
       otherTests: [],
       isShowingOtherTests: false
     }
@@ -45,18 +49,33 @@ export class TaskPanel extends React.Component<Props, State> {
     this.props.client.getTestsForTask((err, resp, body) => {
       const tests = ConvertToAPITests(body) as unknown as APITest[];
       let failingTests: APITest[] = [];
+      let silentFailTests: APITest[] = [];
+      let skippedTests: APITest[] = [];
       let otherTests: APITest[] = [];
       Array.from(tests).forEach(element => {
-        if (element.status.includes("fail")) {
-          failingTests.push(element);
-        } else {
-          otherTests.push(element);
+        switch (element.status) {
+          case "fail":
+            failingTests.push(element);
+            break;
+          case "silentfail":
+            silentFailTests.push(element);
+            break;
+          case "skip":
+            skippedTests.push(element);
+            break;
+          default:
+            otherTests.push(element);
+            break;
         }
       });
       failingTests = failingTests.sort(this.sortByTestFile);
+      silentFailTests = silentFailTests.sort(this.sortByTestFile);
+      skippedTests = skippedTests.sort(this.sortByTestFile);
       otherTests = otherTests.sort(this.sortByTestFile);
       this.setState({
         failingTests: failingTests,
+        silentFailTests: silentFailTests,
+        skippedTests: skippedTests,
         otherTests: otherTests
       })
     }, this.props.task.task_id);
@@ -86,17 +105,35 @@ export class TaskPanel extends React.Component<Props, State> {
     const OtherTests = () => (
       <Card>
         <CardActions>
-          <IconButton onClick={this.handleOtherTestsClick}>
-            {this.state.isShowingOtherTests ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </IconButton>
-          <Typography>
-            Other Tests
-          </Typography>
+          <Grid container={true} onClick={this.handleOtherTestsClick} spacing={3}>
+            <Grid item={true} xs={1}>
+              {this.state.isShowingOtherTests ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </Grid>
+            <Grid item={true} xs={11}>
+              <Typography>
+                Other Tests
+              </Typography>
+            </Grid>
+          </Grid>
         </CardActions>
         <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
           <CardContent className="other-tests-list">
-            {this.state.otherTests.length !== 0 ?
+            {this.state.otherTests.length !== 0 && this.state.skippedTests.length !== 0 && this.state.silentFailTests.length !== 0 ?
               <Grid container={true} spacing={1}>
+                {this.state.skippedTests.map(test => (
+                  <Grid item={true} xs={12} key={test.test_file}>
+                    <Typography className="skip">
+                      {test.test_file.split("/").pop()}
+                    </Typography>
+                  </Grid>
+                ))}
+                {this.state.silentFailTests.map(test => (
+                  <Grid item={true} xs={12} key={test.test_file}>
+                    <Typography className="silent-fail">
+                      {test.test_file.split("/").pop()}
+                    </Typography>
+                  </Grid>
+                ))}
                 {this.state.otherTests.map(test => (
                   <Grid item={true} xs={12} key={test.test_file}>
                     <Typography>
