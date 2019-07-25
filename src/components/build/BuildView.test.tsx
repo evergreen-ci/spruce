@@ -2,7 +2,7 @@ import { Button } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import * as enzyme from "enzyme";
-import { APITask, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
+import { APITask, APITest, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
@@ -35,7 +35,7 @@ describe("BuildView", () => {
   })
 
   it("clicking LogContainer toggle button changes state", () => {
-    const logWrapper = enzyme.mount(<LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={new APITask} onFinishStateUpdate={null} />);
+    const logWrapper = enzyme.mount(<LogContainer client={rest.EvergreenClient("", "", "", "", true)} task={new APITask} test={new APITest} shouldShowTestLogs={false} onFinishStateUpdate={null} />);
     expect(logWrapper).toHaveLength(1);
     const buttonGroup = logWrapper.find(ToggleButtonGroup);
     expect(buttonGroup).toHaveLength(1);
@@ -65,7 +65,7 @@ describe("BuildView", () => {
       currentTask = tasks[0];
     }, "someId");
 
-    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} switchTask={null} currentTask={currentTask} onFinishStateUpdate={null} />);
+    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} switchTask={null} switchTest={null} currentTask={currentTask} onFinishStateUpdate={null} />);
     expect(buildSidebar).toHaveLength(1);
     expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
     const compilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);

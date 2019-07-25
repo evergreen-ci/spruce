@@ -28,8 +28,9 @@ class Props {
   public task: APITask
   public status: string
   public switchTask: (task: APITask) => void
+  public switchTest: (test: APITest) => void
   public isCurrentTask: boolean
-  public onFinishStateUpdate: () => void;
+  public onFinishStateUpdate: () => void
 }
 
 export class TaskPanel extends React.Component<Props, State> {
@@ -86,9 +87,9 @@ export class TaskPanel extends React.Component<Props, State> {
     const FailedTests = () => (
       <Grid container={true} direction="column" spacing={1}>
         {this.state.failingTests.length !== 0 ?
-          this.state.failingTests.map(test => (
+          this.state.failingTests.map((test, index) => (
             <Grid item={true} xs={12} key={test.test_file}>
-              <Typography color="error">
+              <Typography color="error" onClick={this.handleTestClick} id={"failing-" + index}>
                 {test.test_file.split("/").pop()}
               </Typography>
             </Grid>
@@ -105,7 +106,7 @@ export class TaskPanel extends React.Component<Props, State> {
     const OtherTests = () => (
       <Card>
         <CardActions>
-          <Grid container={true} onClick={this.handleOtherTestsClick} spacing={3}>
+          <Grid container={true} onClick={this.handleExpandClick} spacing={3}>
             <Grid item={true} xs={1}>
               {this.state.isShowingOtherTests ? <ExpandLessIcon /> : <ExpandMoreIcon />}
             </Grid>
@@ -118,25 +119,25 @@ export class TaskPanel extends React.Component<Props, State> {
         </CardActions>
         <Collapse in={this.state.isShowingOtherTests} timeout="auto" unmountOnExit={true}>
           <CardContent className="other-tests-list">
-            {this.state.otherTests.length !== 0 && this.state.skippedTests.length !== 0 && this.state.silentFailTests.length !== 0 ?
+            {this.state.otherTests.length !== 0 || this.state.skippedTests.length !== 0 || this.state.silentFailTests.length !== 0 ?
               <Grid container={true} spacing={1}>
-                {this.state.skippedTests.map(test => (
+                {this.state.skippedTests.map((test, index) => (
                   <Grid item={true} xs={12} key={test.test_file}>
-                    <Typography className="skip">
+                    <Typography className="skip" onClick={this.handleTestClick} id={"skipped-" + index}>
                       {test.test_file.split("/").pop()}
                     </Typography>
                   </Grid>
                 ))}
-                {this.state.silentFailTests.map(test => (
+                {this.state.silentFailTests.map((test, index) => (
                   <Grid item={true} xs={12} key={test.test_file}>
-                    <Typography className="silent-fail">
+                    <Typography className="silent-fail" onClick={this.handleTestClick} id={"silent-" + index}>
                       {test.test_file.split("/").pop()}
                     </Typography>
                   </Grid>
                 ))}
-                {this.state.otherTests.map(test => (
+                {this.state.otherTests.map((test, index) => (
                   <Grid item={true} xs={12} key={test.test_file}>
-                    <Typography>
+                    <Typography onClick={this.handleTestClick} id={"other-" + index}>
                       {test.test_file.split("/").pop()}
                     </Typography>
                   </Grid>
@@ -154,8 +155,8 @@ export class TaskPanel extends React.Component<Props, State> {
     if (this.state.failingTests.length !== 0 || this.state.otherTests.length !== 0) {
       return (
         <Grid item={true} xs={12} key={this.props.task.task_id}>
-          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={this.handleTaskClick}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -174,8 +175,8 @@ export class TaskPanel extends React.Component<Props, State> {
     } else {
       return (
         <Grid item={true} xs={12} key={this.props.task.task_id}>
-          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask} onClick={this.handleTaskClick}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />}>
+          <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask}>
+            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={this.handleTaskClick}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
@@ -204,18 +205,35 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   private handleTaskClick = () => {
-    if (!this.props.isCurrentTask) {
-      this.props.switchTask(this.props.task);
-      if (this.props.onFinishStateUpdate !== null) {
-        this.props.onFinishStateUpdate();
-      }
+    this.props.switchTask(this.props.task);
+    if (this.props.onFinishStateUpdate !== null) {
+      this.props.onFinishStateUpdate();
     }
   }
 
-  private handleOtherTestsClick = () => {
+  private handleExpandClick = () => {
     this.setState((prevState, props) => ({
       isShowingOtherTests: !prevState.isShowingOtherTests
     }));
+  }
+
+  private handleTestClick = (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const testArray = event.currentTarget.id.split("-")[0]
+    const testIndex = event.currentTarget.id.split("-")[1];
+    switch (testArray) {
+      case "failing":
+        this.props.switchTest(this.state.failingTests[testIndex]);
+        break;
+      case "skipped":
+        this.props.switchTest(this.state.skippedTests[testIndex]);
+        break;
+      case "silent":
+        this.props.switchTest(this.state.silentFailTests[testIndex]);
+        break;
+      default:
+        this.props.switchTest(this.state.otherTests[testIndex]);
+        break;
+    }
   }
 }
 

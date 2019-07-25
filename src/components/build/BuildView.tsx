@@ -1,6 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
-import { APITask, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
+import { APITask, APITest, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -18,6 +18,8 @@ interface State {
   build: Build
   apiTasks: APITask[]
   currentTask: APITask
+  currentTest: APITest
+  shouldShowTestLogs: boolean
 }
 
 class Props {
@@ -40,7 +42,9 @@ export class BuildView extends React.Component<Props, State> {
       buildId: idString,
       build: new Build,
       apiTasks: [],
-      currentTask: new APITask
+      currentTask: new APITask,
+      currentTest: new APITest,
+      shouldShowTestLogs: false
     };
   }
 
@@ -64,10 +68,10 @@ export class BuildView extends React.Component<Props, State> {
     return (
       <div>
         <StyledDrawer variant="permanent" className="sidebar-container" PaperProps={{ square: true, elevation: 0 }}>
-          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask} currentTask={this.state.currentTask} onFinishStateUpdate={null} />
+          <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} switchTask={this.switchCurentTask} switchTest={this.switchCurrentTest} currentTask={this.state.currentTask} onFinishStateUpdate={null} />
         </StyledDrawer>
         <main>
-          <LogContainer client={this.props.client} task={this.state.currentTask} onFinishStateUpdate={null}/>
+          <LogContainer client={this.props.client} task={this.state.currentTask} test={this.state.currentTest} shouldShowTestLogs={this.state.shouldShowTestLogs} onFinishStateUpdate={null}/>
         </main>
       </div>
     );
@@ -75,7 +79,15 @@ export class BuildView extends React.Component<Props, State> {
 
   private switchCurentTask = (newTask: APITask) => {
     this.setState({
-      currentTask: newTask
+      currentTask: newTask,
+      shouldShowTestLogs: false
+    });
+  }
+
+  private switchCurrentTest = (newTest: APITest) => {
+    this.setState({
+      currentTest: newTest,
+      shouldShowTestLogs: true
     });
   }
 }

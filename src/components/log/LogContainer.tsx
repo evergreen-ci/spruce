@@ -2,9 +2,10 @@ import { Grid, Link, Typography } from '@material-ui/core';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
-import { APITask } from 'evergreen.js/lib/models';
+import { APITask, APITest } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller'
+import * as request from "request";
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
@@ -21,12 +22,15 @@ interface State {
   logType: LogType
   htmlLink: string
   rawLink: string
+  isShowingTestLogs: boolean
 }
 
 class Props {
   public client: rest.Evergreen;
   public task: APITask;
+  public test: APITest;
   public onFinishStateUpdate: () => void;
+  public shouldShowTestLogs: boolean;
 }
 
 export class LogContainer extends React.Component<Props, State> {
@@ -39,6 +43,7 @@ export class LogContainer extends React.Component<Props, State> {
       logType: LogType.task,
       htmlLink: "",
       rawLink: "",
+      isShowingTestLogs: false
     }
   }
 
@@ -55,16 +60,27 @@ export class LogContainer extends React.Component<Props, State> {
   }
 
   public componentDidUpdate() {
-    if (this.props.task.task_id !== this.state.taskId) {
+    if ((this.props.task.task_id !== this.state.taskId) || (this.state.isShowingTestLogs && !this.props.shouldShowTestLogs)) {
       this.props.client.getLogs((err, resp, body) => {
         this.setState({
           taskId: this.props.task.task_id,
           logText: body,
           logType: LogType.task,
           htmlLink: this.props.task.logs.task_log,
-          rawLink: this.props.task.logs.task_log + "&text=true"
+          rawLink: this.props.task.logs.task_log + "&text=true",
+          isShowingTestLogs: false
         });
       }, this.props.task.task_id, LogType.task, this.props.task.execution);
+    } else if (this.props.shouldShowTestLogs && this.state.rawLink !== this.props.test.logs.url_raw) {
+      request.get(this.props.test.logs.url_raw, (err, resp, body) => {
+        this.setState({
+          logText: body,
+          logType: LogType.all,
+          htmlLink: this.props.test.logs.url,
+          rawLink: this.props.test.logs.url_raw,
+          isShowingTestLogs: true
+        });
+      });
     }
   }
 
@@ -72,8 +88,8 @@ export class LogContainer extends React.Component<Props, State> {
 
     const Logs = () => (
       <InfiniteScroll loadMore={this.dummyLoadMore} className="log-scrollable">
-        {this.state.logText.split("\n").map(textLine => (
-          <Typography className={this.lineContainsError(textLine.toLowerCase()) ? "log-text-error" : "log-text-normal"} key={new Date().getTime().toString()}>
+        {this.state.logText.split("\n").map((textLine, index) => (
+          <Typography className={this.lineContainsError(textLine.toLowerCase()) ? "log-text-error" : "log-text-normal"} key={index}>
             {textLine}
           </Typography>
         ))}
@@ -90,11 +106,11 @@ export class LogContainer extends React.Component<Props, State> {
           <Link className="log-link-item" href={this.state.rawLink} target="_blank">Raw</Link>
         </Grid>
         <Grid item={true} xs={8} className="log-button-group">
-          <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogChange}>
+          <ToggleButtonGroup exclusive={true} value={this.state.logType} onChange={this.handleLogTypeChange}>
             <ToggleButton className="log-button" key="all" value={LogType.all}>All Logs</ToggleButton>
-            <ToggleButton className="log-button" key="task" value={LogType.task}>Task Logs</ToggleButton>
-            <ToggleButton className="log-button" key="agent" value={LogType.agent}>Agent Logs</ToggleButton>
-            <ToggleButton className="log-button" key="system" value={LogType.system}>System Logs</ToggleButton>
+            <ToggleButton className="log-button" key="task" value={LogType.task} disabled={this.state.isShowingTestLogs}>Task Logs</ToggleButton>
+            <ToggleButton className="log-button" key="agent" value={LogType.agent} disabled={this.state.isShowingTestLogs}>Agent Logs</ToggleButton>
+            <ToggleButton className="log-button" key="system" value={LogType.system} disabled={this.state.isShowingTestLogs}>System Logs</ToggleButton>
           </ToggleButtonGroup>
         </Grid>
         <Grid item={true} xs={12}>
@@ -108,26 +124,20 @@ export class LogContainer extends React.Component<Props, State> {
     return;
   }
 
-  private handleLogChange = (event: object, newLogType: LogType) => {
-    this.fetchLogs(newLogType);
-    this.setState({
-      logType: newLogType,
-      htmlLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType,
-      rawLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType + "&text=true"
-    }, this.props.onFinishStateUpdate);
-  }
-
-  private fetchLogs = (logType: string) => {
+  private handleLogTypeChange = (event: object, newLogType: LogType) => {
     this.props.client.getLogs((err, resp, body) => {
       if (err || resp.statusCode >= 300) {
         console.log("got error " + err + " with status " + status);
         return;
       } else {
         this.setState({
-          logText: body
-        });
+          logText: body,
+          logType: newLogType,
+          htmlLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType,
+          rawLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType + "&text=true"
+        }, this.props.onFinishStateUpdate);
       }
-    }, this.props.task.task_id, logType, this.props.task.execution);
+    }, this.props.task.task_id, newLogType, this.props.task.execution)
   }
 
   // TODO: use Evergreen API to determine the severity of each log line (see example below)
