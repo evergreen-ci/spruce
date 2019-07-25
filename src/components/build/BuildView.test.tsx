@@ -1,4 +1,4 @@
-import { Button } from '@material-ui/core';
+import { Button, ExpansionPanelSummary } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
 import * as enzyme from "enzyme";
@@ -7,7 +7,7 @@ import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
 import { LogContainer, LogType } from '../log/LogContainer';
-import { StyledExpansionPanel, TaskPanel } from '../task/TaskPanel';
+import { TaskPanel } from '../task/TaskPanel';
 import { BuildSidebar } from './BuildSidebar';
 import { BuildView } from "./BuildView";
 
@@ -95,7 +95,7 @@ describe("BuildView", () => {
       switchTask: switchTask
     });
 
-    const expansionPanel = testPanel.find(StyledExpansionPanel);
+    const expansionPanel = testPanel.find(ExpansionPanelSummary);
     expect(expansionPanel).toHaveLength(1);
     expansionPanel.prop("onClick")({} as React.MouseEvent<HTMLDivElement, MouseEvent>);
   })
