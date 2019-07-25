@@ -9,7 +9,7 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 import { Admin } from "../admin/Admin";
 import { BuildView } from '../build/BuildView';
-// import ConfigDrop from '../configdrop/ConfigDrop';
+import ConfigDrop from '../configdrop/ConfigDrop';
 import { /* Login, */ UserContextConsumer } from "../login/Login";
 import { PatchContainer } from '../patch/PatchContainer';
 
@@ -57,7 +57,7 @@ export class Evergreen extends React.Component<Props, State> {
   public render() {
     const admin = () => <Admin APIClient={this.state.APIClient} />
     const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username} onFinishStateUpdate={null} />
-    // const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
+    const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
     const build = () => <BuildView client={this.state.APIClient} />
     const menuOpen = Boolean(this.state.MenuAnchor);
 
@@ -88,16 +88,16 @@ export class Evergreen extends React.Component<Props, State> {
                         <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/patches">My Patches</NavLink>
                         </MenuItem>
-                        {/* <MenuItem onClick={this.closeMenu}>
+                        <MenuItem onClick={this.closeMenu}>
                           <NavLink to="/config">Upload Config File</NavLink>
-                        </MenuItem> */}
+                        </MenuItem>
                       </Menu>
                       {/* <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
                     </Toolbar>
                   </AppBar>
                   <div className="app-intro">
                     <Route path="/admin" render={admin} />
-                    {/* <Route path="/config" render={config} /> */}
+                    <Route path="/config" render={config} />
                     <Route path="/patches" render={patches} />
                     <Route path="/build" render={build} />
                   </div>
