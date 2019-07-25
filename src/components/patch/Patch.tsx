@@ -56,7 +56,7 @@ export class Patch extends React.Component<Props, State> {
         </Grid>
         {this.state.builds.map(obj => (
           <Grid item={true} xs={4} key={obj.Build._id}>
-            <Variant build={obj} />
+            <Variant build={obj} client={this.props.client}/>
           </Grid>
         ))}
       </Grid>
