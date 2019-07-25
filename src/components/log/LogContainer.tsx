@@ -72,15 +72,25 @@ export class LogContainer extends React.Component<Props, State> {
         });
       }, this.props.task.task_id, LogType.task, this.props.task.execution);
     } else if (this.props.shouldShowTestLogs && this.state.rawLink !== this.props.test.logs.url_raw) {
-      request.get(this.props.test.logs.url_raw, (err, resp, body) => {
+      if (this.props.test.logs.url_raw === "") {
         this.setState({
-          logText: body,
+          logText: "No logs to display for test.",
           logType: LogType.all,
           htmlLink: this.props.test.logs.url,
           rawLink: this.props.test.logs.url_raw,
           isShowingTestLogs: true
         });
-      });
+      } else {
+        request.get(this.props.test.logs.url_raw, (err, resp, body) => {
+          this.setState({
+            logText: body,
+            logType: LogType.all,
+            htmlLink: this.props.test.logs.url,
+            rawLink: this.props.test.logs.url_raw,
+            isShowingTestLogs: true
+          });
+        });
+      }
     }
   }
 
