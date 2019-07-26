@@ -1,4 +1,4 @@
-import { Grid, IconButton, InputBase, Link, Paper } from '@material-ui/core';
+import { Grid, InputBase, Link, Paper } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
@@ -38,7 +38,7 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: [],
       expandedPatches: {},
       isSearching: false,
-      bannerIsHidden: shouldHideBanner
+      bannerIsHidden: shouldHideBanner && false
     };
   }
 
@@ -63,15 +63,13 @@ export class PatchContainer extends React.Component<Props, State> {
                 <p className="vertical-center">
                   {"Welcome to the new patches page! You can opt out of this page or report bugs "}
                   <Link href={"https://evergreen.mongodb.com/settings"}>
-                     here
+                    here
                   </Link>
                   .
                 </p>
               </Grid>
               <Grid item={true} xs={1}>
-                <IconButton onClick={this.hideBanner}>
-                  <CloseIcon />
-                </IconButton>
+                <CloseIcon onClick={this.hideBanner} className="close-banner"/>
               </Grid>
             </Grid>
           </Paper>
