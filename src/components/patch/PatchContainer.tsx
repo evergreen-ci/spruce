@@ -68,13 +68,13 @@ export class PatchContainer extends React.Component<Props, State> {
   private loadPatches = () => {
     if (this.state.hasMore && !this.state.isSearching) {
       let username = this.props.username;
-      const urlParams = window.location.href.split("?");
-      if (urlParams.length > 1) {
-        const keyName = urlParams[1].split("=")[0];
-        if (keyName === "user") {
-          username = urlParams[1].split("=")[1]
+      const search = window.location.hash.split("?")[1];
+      if (search !== undefined) {
+        const urlParams = new URLSearchParams(search);
+        if (urlParams.has("user")) {
+          username = urlParams.get("user");
         }
-      } 
+      }
       this.props.client.getPatches((err, resp, body) => {
         const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
         if (newPatches.length === 0) {
