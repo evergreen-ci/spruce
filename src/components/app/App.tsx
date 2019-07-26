@@ -49,7 +49,7 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      APIClient: rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")
+      APIClient: rest.EvergreenClient("", "", "", "", true)
     }
     this.tryLoadConfig();
   }
