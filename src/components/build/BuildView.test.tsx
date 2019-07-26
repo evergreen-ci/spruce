@@ -65,7 +65,7 @@ describe("BuildView", () => {
       currentTask = tasks[0];
     }, "someId");
 
-    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} switchTask={null} switchTest={null} currentTask={currentTask} onFinishStateUpdate={null} />);
+    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} onSwitchTask={null} onSwitchTest={null} currentTask={currentTask} onFinishStateUpdate={null} />);
     expect(buildSidebar).toHaveLength(1);
     expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
     const compilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
@@ -92,7 +92,7 @@ describe("BuildView", () => {
     });
     buildSidebar.setProps({ 
       onFinishStateUpdate: checkState, 
-      switchTask: switchTask
+      onSwitchTask: switchTask
     });
 
     const expansionPanel = testPanel.find(ExpansionPanelSummary);

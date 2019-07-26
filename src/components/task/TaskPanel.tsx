@@ -27,8 +27,8 @@ class Props {
   public client: rest.Evergreen
   public task: APITask
   public status: string
-  public switchTask: (task: APITask) => void
-  public switchTest: (test: APITest) => void
+  public onSwitchTask: (task: APITask) => void
+  public onSwitchTest: (test: APITest) => void
   public isCurrentTask: boolean
   public onFinishStateUpdate: () => void
 }
@@ -205,7 +205,7 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   private handleTaskClick = () => {
-    this.props.switchTask(this.props.task);
+    this.props.onSwitchTask(this.props.task);
     if (this.props.onFinishStateUpdate !== null) {
       this.props.onFinishStateUpdate();
     }
@@ -222,16 +222,16 @@ export class TaskPanel extends React.Component<Props, State> {
     const testIndex = event.currentTarget.id.split("-")[1];
     switch (testArray) {
       case "failing":
-        this.props.switchTest(this.state.failingTests[testIndex]);
+        this.props.onSwitchTest(this.state.failingTests[testIndex]);
         break;
       case "skipped":
-        this.props.switchTest(this.state.skippedTests[testIndex]);
+        this.props.onSwitchTest(this.state.skippedTests[testIndex]);
         break;
       case "silent":
-        this.props.switchTest(this.state.silentFailTests[testIndex]);
+        this.props.onSwitchTest(this.state.silentFailTests[testIndex]);
         break;
       default:
-        this.props.switchTest(this.state.otherTests[testIndex]);
+        this.props.onSwitchTest(this.state.otherTests[testIndex]);
         break;
     }
   }

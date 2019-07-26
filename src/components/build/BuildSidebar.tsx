@@ -19,8 +19,8 @@ class Props {
   public client: rest.Evergreen;
   public build: Build
   public tasks: APITask[]
-  public switchTask: (task: APITask) => void
-  public switchTest: (test: APITest) => void
+  public onSwitchTask: (task: APITask) => void
+  public onSwitchTest: (test: APITest) => void
   public currentTask: APITask
   public onFinishStateUpdate: () => void;
 }
@@ -45,7 +45,7 @@ export class BuildSidebar extends React.Component<Props, State> {
 
     const tasks = this.props.tasks.map(taskObj => (
       <Grid item={true} xs={12} key={taskObj.task_id}>
-        <TaskPanel client={this.props.client} task={taskObj} status={taskObj.status} switchTask={this.props.switchTask} switchTest={this.props.switchTest} isCurrentTask={this.props.currentTask.task_id === taskObj.task_id} onFinishStateUpdate={this.props.onFinishStateUpdate}/>
+        <TaskPanel client={this.props.client} task={taskObj} status={taskObj.status} onSwitchTask={this.props.onSwitchTask} onSwitchTest={this.props.onSwitchTest} isCurrentTask={this.props.currentTask.task_id === taskObj.task_id} onFinishStateUpdate={this.props.onFinishStateUpdate}/>
       </Grid>
     ));
 
