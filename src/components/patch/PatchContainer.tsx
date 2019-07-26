@@ -67,6 +67,14 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private loadPatches = () => {
     if (this.state.hasMore && !this.state.isSearching) {
+      let username = this.props.username;
+      const search = window.location.hash.split("?")[1];
+      if (search !== undefined) {
+        const urlParams = new URLSearchParams(search);
+        if (urlParams.has("user")) {
+          username = urlParams.get("user");
+        }
+      }
       this.props.client.getPatches((err, resp, body) => {
         const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
         if (newPatches.length === 0) {
@@ -82,7 +90,7 @@ export class PatchContainer extends React.Component<Props, State> {
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
         }));
-      }, this.props.username, this.state.pageNum);
+      }, username, this.state.pageNum);
     }
   }
 
