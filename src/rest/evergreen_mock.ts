@@ -47,7 +47,7 @@ export class client {
   }
 
   public getTestsForTask(callback: request.RequestCallback, testId: string) {
-    callback(null, this.dummyTestsResp(), {});
+    callback(null, this.dummyTestsResp(), this.dummyTestsResp().body);
   }
 
   public getAdminConfig(callback: request.RequestCallback) {
@@ -113,7 +113,7 @@ export class client {
   }
 
   private dummyTestsResp(): request.Response {
-    const bodyAsString = MockTests.getMockTests();
+    const bodyAsString = JSON.stringify(MockTests.getMockTests());
     const mockResp: mockResponse = {
       statusCode: 200,
       statusMessage: "",
