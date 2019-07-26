@@ -1,8 +1,8 @@
-import { AppBar, createMuiTheme, IconButton, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
-import * as MenuIcon from '@material-ui/icons/Menu';
+import { AppBar, createMuiTheme, /* IconButton, Menu, MenuItem, */ Toolbar, Typography } from '@material-ui/core';
+// import * as MenuIcon from '@material-ui/icons/Menu';
 import { ThemeProvider } from '@material-ui/styles';
 import * as React from 'react';
-import { HashRouter, NavLink, Route } from 'react-router-dom';
+import { HashRouter, /* NavLink, */ Route } from 'react-router-dom';
 import * as EvergreenIcon from "../../assets/evergreen_green.png"
 import { ClientConfig, IsValidConfig } from '../../models/client_config';
 import * as rest from "../../rest/interface";
@@ -59,7 +59,7 @@ export class Evergreen extends React.Component<Props, State> {
     const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username} onFinishStateUpdate={null} />
     const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
     const build = () => <BuildView client={this.state.APIClient} />
-    const menuOpen = Boolean(this.state.MenuAnchor);
+    // const menuOpen = Boolean(this.state.MenuAnchor);
 
     return (
       <ThemeProvider theme={theme}>
@@ -75,7 +75,7 @@ export class Evergreen extends React.Component<Props, State> {
                         Evergreen
                       </Typography>
                       <div className="spacer" />
-                      <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
+                      {/* <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
                         <MenuIcon.default />
                       </IconButton>
                       <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor}
@@ -92,7 +92,7 @@ export class Evergreen extends React.Component<Props, State> {
                           <NavLink to="/config">Upload Config File</NavLink>
                         </MenuItem>
                       </Menu>
-                      {/* <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
+                      <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
                     </Toolbar>
                   </AppBar>
                   <div className="app-intro">
@@ -110,13 +110,13 @@ export class Evergreen extends React.Component<Props, State> {
     );
   }
 
-  private openMenu = (event: React.MouseEvent<HTMLElement>) => {
-    this.setState({ MenuAnchor: event.currentTarget });
-  };
+  // private openMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   this.setState({ MenuAnchor: event.currentTarget });
+  // };
 
-  private closeMenu = () => {
-    this.setState({ MenuAnchor: null });
-  }
+  // private closeMenu = () => {
+  //   this.setState({ MenuAnchor: null });
+  // }
 
   private updateConfig = (configObj: ClientConfig) => {
     this.setState({
