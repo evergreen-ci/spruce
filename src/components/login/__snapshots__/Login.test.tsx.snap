@@ -3666,16 +3666,6 @@ ShallowWrapper {
           "$$typeof": Symbol(react.forward_ref),
           "Naked": Object {
             "$$typeof": Symbol(react.forward_ref),
-            "defaultProps": Object {
-              "anchorOrigin": Object {
-                "horizontal": "center",
-                "vertical": "bottom",
-              },
-              "transitionDuration": Object {
-                "enter": 225,
-                "exit": 195,
-              },
-            },
             "propTypes": Object {
               "ClickAwayListenerProps": [Function],
               "ContentProps": [Function],
@@ -7629,16 +7619,6 @@ ShallowWrapper {
             "$$typeof": Symbol(react.forward_ref),
             "Naked": Object {
               "$$typeof": Symbol(react.forward_ref),
-              "defaultProps": Object {
-                "anchorOrigin": Object {
-                  "horizontal": "center",
-                  "vertical": "bottom",
-                },
-                "transitionDuration": Object {
-                  "enter": 225,
-                  "exit": 195,
-                },
-              },
               "propTypes": Object {
                 "ClickAwayListenerProps": [Function],
                 "ContentProps": [Function],
