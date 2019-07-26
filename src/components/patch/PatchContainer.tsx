@@ -1,4 +1,5 @@
-import { Grid, InputBase, Paper } from '@material-ui/core';
+import { Grid, IconButton, InputBase, Link, Paper } from '@material-ui/core';
+import CloseIcon from '@material-ui/icons/Close';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -14,6 +15,7 @@ interface State {
   visiblePatches: UIVersion[]
   expandedPatches: object
   isSearching: boolean
+  bannerIsHidden: boolean
 }
 
 class Props {
@@ -25,13 +27,18 @@ class Props {
 export class PatchContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    let shouldHideBanner = false;
+    if (localStorage.getItem("shouldHideBanner") !== null) {
+      shouldHideBanner = true;
+    }
     this.state = {
       hasMore: true,
       pageNum: 0,
       allPatches: [],
       visiblePatches: [],
       expandedPatches: {},
-      isSearching: false
+      isSearching: false,
+      bannerIsHidden: shouldHideBanner
     };
   }
 
@@ -49,6 +56,26 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
+        <div className="banner-container" hidden={this.state.bannerIsHidden}>
+          <Paper className="banner">
+            <Grid container={true}>
+              <Grid item={true} xs={11}>
+                <p className="vertical-center">
+                  {"Welcome to the new patches page! You can opt out of this page or report bugs "}
+                  <Link href={"https://evergreen.mongodb.com/settings"}>
+                     here
+                  </Link>
+                  .
+                </p>
+              </Grid>
+              <Grid item={true} xs={1}>
+                <IconButton onClick={this.hideBanner}>
+                  <CloseIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Paper>
+        </div>
         <div className="search-container">
           <Paper className="search-input" >
             <InputBase startAdornment={<SearchIcon />}
@@ -137,6 +164,13 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private isExpanded = (patchObj: UIVersion) => {
     return patchObj.Version.id in this.state.expandedPatches;
+  }
+
+  private hideBanner = () => {
+    this.setState({
+      bannerIsHidden: true
+    });
+    localStorage.setItem("shouldHideBanner", "true");
   }
 }
 
