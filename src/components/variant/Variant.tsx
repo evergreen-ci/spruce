@@ -1,8 +1,8 @@
-import { Card, CardActionArea, CardContent, Grid, Typography } from '@material-ui/core';
+import { Card, CardActionArea, CardContent, Grid, Link, Typography } from '@material-ui/core';
 import { GridSize } from '@material-ui/core/Grid';
 import { UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
-import { Redirect } from 'react-router-dom';
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 
 interface StatusCount { [id: string]: number };
@@ -20,6 +20,7 @@ interface State {
 
 class Props {
   public build: UIBuild;
+  public client: rest.Evergreen;
 }
 
 export class Variant extends React.Component<Props, State> {
@@ -52,10 +53,12 @@ export class Variant extends React.Component<Props, State> {
 
   public render() {
 
-    if (this.state.variantHasBeenClicked) {
-      const url = '/build?id=' + this.props.build.Build._id; 
-      return <Redirect to={url}/>
-    }
+    // if (this.state.variantHasBeenClicked) {
+    //   // const url = '/build?id=' + this.props.build.Build._id; 
+    //   const url = this.props.client.uiURL + "/build/" + this.props.build.Build._id;
+    //   window.location.href = url;
+    //   return null;
+    // }
 
     const VariantsByStatus = () => (
       <Grid container={true} spacing={1}>
@@ -72,14 +75,16 @@ export class Variant extends React.Component<Props, State> {
     );
 
     return (
-      <Card className="variant-card">
-        <CardActionArea onClick={this.redirectToBuild}>
-          <VariantsByStatus />
-          <Typography variant="body1">
-            {this.state.name}
-          </Typography>
-        </CardActionArea>
-      </Card>
+      <Link href={this.props.client.uiURL + "/build/" + this.props.build.Build._id} underline={"none"}>
+        <Card className="variant-card">
+          <CardActionArea onClick={this.redirectToBuild}>
+            <VariantsByStatus />
+            <Typography variant="body1">
+              {this.state.name}
+            </Typography>
+          </CardActionArea>
+        </Card>
+      </Link>
     );
   }
 
