@@ -14,10 +14,10 @@
   },
   "dependencies": {
     "@babel/core": "7.1.0",
-    "@material-ui/core": "^4.2.1",
+    "@material-ui/core": "^4.3.0",
     "@material-ui/icons": "^3.0.2",
-    "@material-ui/lab": "^4.0.0-alpha.20",
-    "@material-ui/styles": "^4.2.1",
+    "@material-ui/lab": "^4.0.0-alpha.21",
+    "@material-ui/styles": "^4.3.0",
     "@svgr/webpack": "2.4.1",
     "@types/material-ui": "^0.21.6",
     "@types/react-infinite-scroller": "^1.2.1",
@@ -90,7 +90,7 @@
     "@types/react-dom": "^16.8.5",
     "@types/react-redux": "^7.1.1",
     "@types/tar": "^4.0.3",
-    "@types/webpack": "^4.32.0",
+    "@types/webpack": "^4.32.1",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
     "jest-junit": "^6.4.0",
@@ -149,7 +149,7 @@
       "json",
       "node"
     ],
-    "setupTestFrameworkScriptFile":"<rootDir>/src/components/Banner/MockLocalStorage.tsx"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/components/Banner/MockLocalStorage.tsx"
   },
   "babel": {
     "presets": [
