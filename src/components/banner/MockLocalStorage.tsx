@@ -2,7 +2,7 @@ const localStorageMock = (() => {
   let store = {};
   return {
     getItem: (key: string) => {
-      return store[key];
+      return store[key] === undefined ? null : store[key];
     },
     setItem: (key: string, value: any) => {
       store[key] = value.toString();

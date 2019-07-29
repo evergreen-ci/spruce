@@ -17,7 +17,7 @@ describe("Banner", () => {
     expect(wrapper).toHaveLength(1);
     wrapper.setProps({ onFinishStateUpdate: checkState });
     wrapper.setState({ bannerIsHidden: false });
-    expect(localStorage.getItem("shouldHideBanner")).toBeUndefined();
+    expect(localStorage.getItem("shouldHideBanner")).toBe(null);
     expect(wrapper.state("bannerIsHidden")).toBe(false);
     const closeButton = wrapper.find(CloseIcon);
     expect(closeButton).toHaveLength(1);
