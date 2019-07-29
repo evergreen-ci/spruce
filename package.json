@@ -148,7 +148,8 @@
       "jsx",
       "json",
       "node"
-    ]
+    ],
+    "setupTestFrameworkScriptFile":"<rootDir>/src/components/Banner/MockLocalStorage.tsx"
   },
   "babel": {
     "presets": [

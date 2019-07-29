@@ -1,11 +1,11 @@
-import { Grid, InputBase, Link, Paper } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Grid, InputBase, Paper } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
+import Banner from '../banner/Banner';
 import Patch from './Patch';
 
 interface State {
@@ -15,7 +15,6 @@ interface State {
   visiblePatches: UIVersion[]
   expandedPatches: object
   isSearching: boolean
-  bannerIsHidden: boolean
 }
 
 class Props {
@@ -27,10 +26,6 @@ class Props {
 export class PatchContainer extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    let shouldHideBanner = false;
-    if (localStorage.getItem("shouldHideBanner") !== null) {
-      shouldHideBanner = true;
-    }
     this.state = {
       hasMore: true,
       pageNum: 0,
@@ -38,7 +33,6 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: [],
       expandedPatches: {},
       isSearching: false,
-      bannerIsHidden: shouldHideBanner && false
     };
   }
 
@@ -56,24 +50,7 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
-        <div className="banner-container" hidden={this.state.bannerIsHidden}>
-          <Paper className="banner">
-            <Grid container={true}>
-              <Grid item={true} xs={11}>
-                <p className="vertical-center">
-                  {"Welcome to the new patches page! You can opt out of this page or report bugs "}
-                  <Link href={"https://evergreen.mongodb.com/settings"}>
-                    here
-                  </Link>
-                  .
-                </p>
-              </Grid>
-              <Grid item={true} xs={1}>
-                <CloseIcon onClick={this.hideBanner} className="close-banner"/>
-              </Grid>
-            </Grid>
-          </Paper>
-        </div>
+        <Banner message={""} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>
         <div className="search-container">
           <Paper className="search-input" >
             <InputBase startAdornment={<SearchIcon />}
@@ -162,13 +139,6 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private isExpanded = (patchObj: UIVersion) => {
     return patchObj.Version.id in this.state.expandedPatches;
-  }
-
-  private hideBanner = () => {
-    this.setState({
-      bannerIsHidden: true
-    });
-    localStorage.setItem("shouldHideBanner", "true");
   }
 }
 
