@@ -130,8 +130,19 @@ export class PatchContainer extends React.Component<Props, State> {
     }
     Object.keys(this.state.allPatches).map(versionId => {
       const patch = this.state.allPatches[versionId];
-      const description = patch.Version.message;
-      if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+      let queryField = "";
+      switch (this.state.searchType) {
+        case SearchType.description: 
+          queryField = patch.Version.message;
+          break;
+        case SearchType.project:
+          queryField = patch.Version.project;
+          break;
+        default: 
+          queryField = patch.Version.status
+          break;
+      }
+      if (queryField.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
         filtered.push(patch);
       }
     });
