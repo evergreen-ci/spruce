@@ -1,4 +1,4 @@
-import { Grid, InputBase, Paper } from '@material-ui/core';
+import { Grid, InputBase, MenuItem, Paper, Select } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -7,6 +7,12 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Patch from './Patch';
 
+enum SearchType {
+  description = "Description",
+  project = "Project",
+  status = "Status",
+};
+
 interface State {
   pageNum: number
   hasMore: boolean
@@ -14,6 +20,7 @@ interface State {
   visiblePatches: UIVersion[]
   expandedPatches: object
   isSearching: boolean
+  searchType: SearchType
 }
 
 class Props {
@@ -31,7 +38,8 @@ export class PatchContainer extends React.Component<Props, State> {
       allPatches: [],
       visiblePatches: [],
       expandedPatches: {},
-      isSearching: false
+      isSearching: false,
+      searchType: SearchType.description
     };
   }
 
@@ -50,12 +58,19 @@ export class PatchContainer extends React.Component<Props, State> {
     return (
       <div>
         <div className="search-container">
-          <Paper className="search-input" >
+          <Paper className="search-input">
             <InputBase startAdornment={<SearchIcon />}
               fullWidth={true}
-              placeholder="Search Patch Descriptions"
+              placeholder="Search Patches"
               onChange={this.search}
             />
+            <div className="search-type">
+              <Select value={this.state.searchType} onChange={this.handleSearchTypeChange} variant={"outlined"}>
+                <MenuItem value={SearchType.description}>{SearchType.description}</MenuItem>
+                <MenuItem value={SearchType.project}>{SearchType.project}</MenuItem>
+                <MenuItem value={SearchType.status}>{SearchType.status}</MenuItem>
+              </Select>
+            </div>
           </Paper>
         </div>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
@@ -137,6 +152,12 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private isExpanded = (patchObj: UIVersion) => {
     return patchObj.Version.id in this.state.expandedPatches;
+  }
+
+  private handleSearchTypeChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+    this.setState({
+      searchType: event.target.value as SearchType
+    });
   }
 }
 
