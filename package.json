@@ -149,7 +149,7 @@
       "json",
       "node"
     ],
-    "setupTestFrameworkScriptFile": "<rootDir>/src/components/Banner/MockLocalStorage.tsx"
+    "setupTestFrameworkScriptFile": "<rootDir>/src/components/banner/MockLocalStorage.tsx"
   },
   "babel": {
     "presets": [
