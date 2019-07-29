@@ -16,14 +16,16 @@ describe("Banner", () => {
   it("check that clicking close hides banner", () => {
     expect(wrapper).toHaveLength(1);
     wrapper.setProps({ onFinishStateUpdate: checkState });
-    expect(wrapper.state("bannerIsHidden")).toBe(false);
+    wrapper.setState({ bannerIsHidden: false });
     expect(localStorage.getItem("shouldHideBanner")).toBeUndefined();
+    expect(wrapper.state("bannerIsHidden")).toBe(false);
     const closeButton = wrapper.find(CloseIcon);
     expect(closeButton).toHaveLength(1);
     closeButton.prop("onClick")({} as React.MouseEvent<SVGSVGElement, MouseEvent>);
   });
 
   it("check that local storage persists on refresh", () => {
+    expect(wrapper).toHaveLength(1);
     wrapper.update();
     expect(wrapper.state("bannerIsHidden")).toBe(true);
     expect(localStorage.getItem("shouldHideBanner")).toBeDefined();
