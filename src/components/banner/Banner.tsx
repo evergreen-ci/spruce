@@ -21,7 +21,7 @@ export class PatchContainer extends React.Component<Props, State> {
       shouldHideBanner = true;
     }
     this.state = {
-      bannerIsHidden: shouldHideBanner && false
+      bannerIsHidden: shouldHideBanner
     };
   }
 
