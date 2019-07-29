@@ -1,6 +1,7 @@
 import { Grid, Link, Paper } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import * as React from 'react';
+import * as rest from "../../rest/interface";
 import '../../styles.css';
 
 interface State {
@@ -8,6 +9,7 @@ interface State {
 }
 
 class Props {
+  public client: rest.Evergreen
   public message: any
   public storageKey: string
   public onFinishStateUpdate: () => void
@@ -34,7 +36,7 @@ export class PatchContainer extends React.Component<Props, State> {
             <Grid item={true} xs={11}>
               <p className="vertical-center">
                 {"Welcome to the new patches page! You can opt out of this page or report bugs "}
-                <Link href={"https://evergreen.mongodb.com/settings"}>here</Link>.
+                <Link href={this.props.client.uiURL + "/settings"}>here</Link>.
               </p>
             </Grid>
             <Grid item={true} xs={1}>

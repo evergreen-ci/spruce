@@ -50,7 +50,7 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
-        <Banner message={""} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>
+        <Banner client={this.props.client} message={""} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>
         <div className="search-container">
           <Paper className="search-input" >
             <InputBase startAdornment={<SearchIcon />}
