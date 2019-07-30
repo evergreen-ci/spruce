@@ -144,11 +144,9 @@ export class PatchContainer extends React.Component<Props, State> {
           break;
         case SearchType.project:
           queryField = patch.Patch.Project
-          console.log(queryField);
           break;
         default:
           queryField = patch.Patch.Status;
-          console.log(queryField);
           break;
       }
       if (queryField.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
