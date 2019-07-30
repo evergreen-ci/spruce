@@ -5,6 +5,7 @@ import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
+import Banner from '../banner/Banner';
 import Patch from './Patch';
 
 enum SearchType {
@@ -60,6 +61,8 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
+        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true} 
+          onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>
         <div className="search-container">
           <Paper className="search-input">
             <InputBase startAdornment={<SearchIcon />}
