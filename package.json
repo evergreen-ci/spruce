@@ -148,8 +148,7 @@
       "jsx",
       "json",
       "node"
-    ],
-    "setupFilesAfterEnv": ["<rootDir>/src/components/banner/MockLocalStorage.tsx"]
+    ]
   },
   "babel": {
     "presets": [
