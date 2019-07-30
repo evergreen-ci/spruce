@@ -52,8 +52,8 @@ export class PatchContainer extends React.Component<Props, State> {
       <Grid className="patch-container" container={true} spacing={3}>
         {this.state.visiblePatches.map(patchObj => (
           <Grid item={true} xs={12} key={patchObj.Patch.Id}>
-            <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id].Builds} 
-            client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
+            <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id].Builds}
+              client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
           </Grid>
         ))}
       </Grid>
@@ -61,8 +61,8 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
-        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true} 
-          onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>
+        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
+          onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
         <div className="search-container">
           <Paper className="search-input">
             <InputBase startAdornment={<SearchIcon />}
@@ -71,7 +71,7 @@ export class PatchContainer extends React.Component<Props, State> {
               onChange={this.search}
             />
             <div className="search-type">
-              <Select value={this.state.searchType} onChange={this.handleSearchTypeChange} variant={"outlined"}>
+              <Select value={this.state.searchType} onChange={this.handleSearchTypeChange}>
                 <MenuItem value={SearchType.description}>{SearchType.description}</MenuItem>
                 <MenuItem value={SearchType.project}>{SearchType.project}</MenuItem>
                 <MenuItem value={SearchType.status}>{SearchType.status}</MenuItem>
@@ -110,7 +110,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-          versionsMap: {... this.state.versionsMap, ...newVersions}
+          versionsMap: { ... this.state.versionsMap, ...newVersions }
         }));
       }, username, this.state.pageNum);
     }
@@ -139,14 +139,14 @@ export class PatchContainer extends React.Component<Props, State> {
       const patch = this.state.allPatches[versionId] as UIPatch;
       let queryField = "";
       switch (this.state.searchType) {
-        case SearchType.description: 
+        case SearchType.description:
           queryField = patch.Patch.Description
           break;
         case SearchType.project:
           queryField = patch.Patch.Project
           console.log(queryField);
           break;
-        default: 
+        default:
           queryField = patch.Patch.Status;
           console.log(queryField);
           break;
