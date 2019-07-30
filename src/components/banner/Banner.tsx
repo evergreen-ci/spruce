@@ -1,4 +1,4 @@
-import { Grid, Link, Paper } from '@material-ui/core';
+import { Grid, Link, Paper, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
@@ -12,6 +12,7 @@ class Props {
   public client: rest.Evergreen
   public message: any
   public storageKey: string
+  public showOptOut: boolean
   public onFinishStateUpdate: () => void
 }
 
@@ -29,15 +30,17 @@ export class PatchContainer extends React.Component<Props, State> {
 
   public render() {
 
+    const OptOutLink = () => (
+      <Typography>{"You can opt out of this page or report bugs "}<Link href={this.props.client.uiURL + "/settings"}>here</Link>.</Typography>
+    )
+
     return (
       <div className="banner-container" hidden={this.state.bannerIsHidden}>
         <Paper className="banner">
           <Grid container={true}>
             <Grid item={true} xs={11}>
-              <p className="vertical-center">
-                {"Welcome to the new patches page! You can opt out of this page or report bugs "}
-                <Link href={this.props.client.uiURL + "/settings"}>here</Link>.
-              </p>
+              <Typography>{this.props.message}</Typography>
+              {this.props.showOptOut ? <OptOutLink /> : null}
             </Grid>
             <Grid item={true} xs={1}>
               <CloseIcon onClick={this.hideBanner} className="close-banner" />

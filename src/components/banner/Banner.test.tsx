@@ -6,7 +6,7 @@ import Banner from './Banner'
 
 describe("Banner", () => {
 
-  const wrapper = enzyme.mount(<Banner client={rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")} message={""} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>);
+  const wrapper = enzyme.mount(<Banner client={rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")} message={""} showOptOut={true} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>);
 
   const checkState = jest.fn(() => {
     expect(wrapper.state("bannerIsHidden")).toBe(true);
