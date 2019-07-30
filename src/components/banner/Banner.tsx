@@ -10,7 +10,7 @@ interface State {
 
 class Props {
   public client: rest.Evergreen
-  public message: any
+  public message: string
   public storageKey: string
   public showOptOut: boolean
   public onFinishStateUpdate: () => void
