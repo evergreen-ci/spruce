@@ -106,13 +106,11 @@ export class PatchContainer extends React.Component<Props, State> {
           });
           return;
         }
-        // reorder the patches so that the newest element is at the front of the array
-        newPatches.reverse();
         this.setState((prevState, props) => ({
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-          versionsMap: newVersions
+          versionsMap: {... this.state.versionsMap, ...newVersions}
         }));
       }, username, this.state.pageNum);
     }
