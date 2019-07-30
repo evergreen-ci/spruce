@@ -1,6 +1,6 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { UIBuild, UIVersion } from 'evergreen.js/lib/models';
+import { UIBuild, UIPatch } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
@@ -12,32 +12,31 @@ interface State {
   datetime: moment.Moment;
   project: string;
   author: string;
-  builds: UIBuild[];
   reconfigureLink: string;
 }
 
 class Props {
-  public client: rest.Evergreen;
-  public Patch: UIVersion;
-  public expanded: boolean;
-  public updateOpenPatches: (patchObj: UIVersion) => void;
+  public client: rest.Evergreen
+  public patch: UIPatch
+  public builds: UIBuild[]
+  public expanded: boolean
+  public updateOpenPatches: (patchObj: UIPatch) => void
 }
 
 export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const datetime = moment(String(this.props.Patch.Version.create_time));
-    if (this.props.Patch.Version.message === undefined) {
-      this.props.Patch.Version.message = "Patch from " + this.props.Patch.Version.author + " at " + datetime.format("LLLL") +
-        " on project " + this.props.Patch.Version.identifier;
+    const datetime = moment(String(this.props.patch.Patch.CreateTime));
+    if (this.props.patch.Patch.Description === undefined) {
+      this.props.patch.Patch.Description = "Patch from " + this.props.patch.Patch.Author + " at " + datetime.format("LLLL") +
+        " on project " + this.props.patch.Patch.Project;
     }
     this.state = {
-      description: this.props.Patch.Version.message,
+      description: this.props.patch.Patch.Description,
       datetime: datetime,
-      project: this.props.Patch.Version.identifier,
-      author: this.props.Patch.Version.author,
-      builds: this.props.Patch.Builds,
-      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.Patch.Version.id
+      project: this.props.patch.Patch.Project,
+      author: this.props.patch.Patch.Author,
+      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.patch.Patch.Id
     };
   }
 
@@ -54,7 +53,7 @@ export class Patch extends React.Component<Props, State> {
             ]
           </Typography>
         </Grid>
-        {this.state.builds.map(obj => (
+        {this.props.builds.map(obj => (
           <Grid item={true} xs={4} key={obj.Build._id}>
             <Variant build={obj} client={this.props.client}/>
           </Grid>
@@ -77,7 +76,7 @@ export class Patch extends React.Component<Props, State> {
   }
 
   private onExpandChange = () => {
-    this.props.updateOpenPatches(this.props.Patch);
+    this.props.updateOpenPatches(this.props.patch);
   }
 }
 

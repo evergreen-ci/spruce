@@ -1,6 +1,6 @@
 import { Grid, InputBase, MenuItem, Paper, Select } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { ConvertToPatches, UIVersion } from 'evergreen.js/lib/models';
+import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as rest from "../../rest/interface";
@@ -16,11 +16,12 @@ enum SearchType {
 interface State {
   pageNum: number
   hasMore: boolean
-  allPatches: UIVersion[]
-  visiblePatches: UIVersion[]
+  allPatches: UIPatch[]
+  visiblePatches: UIPatch[]
   expandedPatches: object
   isSearching: boolean
   searchType: SearchType
+  versionsMap: Record<string, UIVersion>
 }
 
 class Props {
@@ -39,7 +40,8 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: [],
       expandedPatches: {},
       isSearching: false,
-      searchType: SearchType.description
+      searchType: SearchType.description,
+      versionsMap: {}
     };
   }
 
@@ -48,8 +50,9 @@ export class PatchContainer extends React.Component<Props, State> {
     const Patches = () => (
       <Grid className="patch-container" container={true} spacing={3}>
         {this.state.visiblePatches.map(patchObj => (
-          <Grid item={true} xs={12} key={patchObj.Version.id}>
-            <Patch Patch={patchObj} client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
+          <Grid item={true} xs={12} key={patchObj.Patch.Id}>
+            <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id].Builds} 
+            client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
           </Grid>
         ))}
       </Grid>
@@ -91,7 +94,9 @@ export class PatchContainer extends React.Component<Props, State> {
         }
       }
       this.props.client.getPatches((err, resp, body) => {
-        const newPatches = Object.values(ConvertToPatches(resp.body).VersionsMap);
+        const patches = ConvertToPatches(resp.body);
+        const newVersions = patches.VersionsMap;
+        const newPatches = patches.UIPatches;
         if (newPatches.length === 0) {
           this.setState({
             hasMore: false
@@ -104,6 +109,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
+          versionsMap: newVersions
         }));
       }, username, this.state.pageNum);
     }
@@ -121,7 +127,7 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private filterItems(query: string) {
-    const filtered: UIVersion[] = [];
+    const filtered: UIPatch[] = [];
     if (query === "") {
       this.setState({
         isSearching: false
@@ -129,17 +135,19 @@ export class PatchContainer extends React.Component<Props, State> {
       return this.state.allPatches;
     }
     Object.keys(this.state.allPatches).map(versionId => {
-      const patch = this.state.allPatches[versionId];
+      const patch = this.state.allPatches[versionId] as UIPatch;
       let queryField = "";
       switch (this.state.searchType) {
         case SearchType.description: 
-          queryField = patch.Version.message;
+          queryField = patch.Patch.Description
           break;
         case SearchType.project:
-          queryField = patch.Version.project;
+          queryField = patch.Patch.Project
+          console.log(queryField);
           break;
         default: 
-          queryField = patch.Version.status
+          queryField = patch.Patch.Status;
+          console.log(queryField);
           break;
       }
       if (queryField.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
@@ -149,20 +157,20 @@ export class PatchContainer extends React.Component<Props, State> {
     return filtered;
   }
 
-  private updateOpenPatches = (patchObj: UIVersion) => {
+  private updateOpenPatches = (patchObj: UIPatch) => {
     const newExpanded = this.state.expandedPatches;
-    if (patchObj.Version.id in this.state.expandedPatches) {
-      delete newExpanded[patchObj.Version.id];
+    if (patchObj.Patch.Id in this.state.expandedPatches) {
+      delete newExpanded[patchObj.Patch.Id];
     } else {
-      newExpanded[patchObj.Version.id] = 1;
+      newExpanded[patchObj.Patch.Id] = 1;
     }
     this.setState({
       expandedPatches: newExpanded
     }, this.props.onFinishStateUpdate);
   }
 
-  private isExpanded = (patchObj: UIVersion) => {
-    return patchObj.Version.id in this.state.expandedPatches;
+  private isExpanded = (patchObj: UIPatch) => {
+    return patchObj.Patch.Id in this.state.expandedPatches;
   }
 
   private handleSearchTypeChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
