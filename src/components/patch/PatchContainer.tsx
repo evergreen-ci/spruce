@@ -1,4 +1,4 @@
-import { Grid, InputBase, MenuItem, Paper, Select } from '@material-ui/core';
+import { Checkbox, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -8,10 +8,15 @@ import '../../styles.css';
 import Banner from '../banner/Banner';
 import Patch from './Patch';
 
-enum SearchType {
-  description = "Description",
-  project = "Project",
-  status = "Status",
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
 };
 
 interface State {
@@ -21,8 +26,11 @@ interface State {
   visiblePatches: UIPatch[]
   expandedPatches: object
   isSearching: boolean
-  searchType: SearchType
   versionsMap: Record<string, UIVersion>
+  allStatuses: string[]
+  selectedStatuses: string[]
+  allProjects: string[]
+  selectedProjects: string[]
 }
 
 class Props {
@@ -41,8 +49,11 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: [],
       expandedPatches: {},
       isSearching: false,
-      searchType: SearchType.description,
-      versionsMap: {}
+      versionsMap: {},
+      allStatuses: [],
+      selectedStatuses: [],
+      allProjects: [],
+      selectedProjects: []
     };
   }
 
@@ -59,26 +70,70 @@ export class PatchContainer extends React.Component<Props, State> {
       </Grid>
     );
 
+    const Search = () => (
+      <div className={"search-container"}>
+        <Paper className="search-input">
+          <Grid container={true}>
+            <Grid item={true} xs={12}>
+              <InputBase startAdornment={<SearchIcon />}
+                fullWidth={true}
+                placeholder=" Search Patch Descriptions"
+                onChange={this.search}
+              />
+              {/* <Button>
+                Advanced
+                <ExpandMoreIcon />
+              </Button> */}
+            </Grid>
+            <Grid item={true} xs={6} />
+            <Grid item={true} xs={3}>
+              <FormControl>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  multiple={true}
+                  value={this.state.selectedStatuses}
+                  onChange={this.onStatusSelectChange}
+                  input={<Input className="form-control" />}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.allStatuses.map(status => (
+                    <MenuItem key={status} value={status}>
+                      <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
+                      <ListItemText primary={status} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item={true} xs={3}>
+              <FormControl>
+                <InputLabel>Project</InputLabel>
+                <Select
+                  multiple={true}
+                  value={this.state.selectedProjects}
+                  onChange={this.onProjectSelectChange}
+                  input={<Input className="form-control" />}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.allProjects.map(project => (
+                    <MenuItem key={project} value={project}>
+                      <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
+                      <ListItemText primary={project} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+          </Grid>
+        </Paper>
+      </div>
+    );
+
     return (
       <div>
         <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
           onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
-        <div className="search-container">
-          <Paper className="search-input">
-            <InputBase startAdornment={<SearchIcon />}
-              fullWidth={true}
-              placeholder="Search Patches"
-              onChange={this.search}
-            />
-            <div className="search-type">
-              <Select value={this.state.searchType} onChange={this.handleSearchTypeChange}>
-                <MenuItem value={SearchType.description}>{SearchType.description}</MenuItem>
-                <MenuItem value={SearchType.project}>{SearchType.project}</MenuItem>
-                <MenuItem value={SearchType.status}>{SearchType.status}</MenuItem>
-              </Select>
-            </div>
-          </Paper>
-        </div>
+        <Search />
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
         </InfiniteScroll>
@@ -100,17 +155,32 @@ export class PatchContainer extends React.Component<Props, State> {
         const patches = ConvertToPatches(resp.body);
         const newVersions = patches.VersionsMap;
         const newPatches = patches.UIPatches;
+        const newStatuses: string[] = [];
+        const newProjects: string[] = [];
         if (newPatches.length === 0) {
           this.setState({
             hasMore: false
           });
           return;
+        } else {
+          newPatches.map(patch => {
+            const status = patch.Patch.Status;
+            const project = patch.Patch.Project;
+            if (!this.state.allStatuses.includes(status) && !newStatuses.includes(status)) {
+              newStatuses.push(status);
+            }
+            if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
+              newProjects.push(project);
+            }
+          });
         }
         this.setState((prevState, props) => ({
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.allPatches, ...newPatches],
-          versionsMap: { ... this.state.versionsMap, ...newVersions }
+          versionsMap: { ... this.state.versionsMap, ...newVersions },
+          allStatuses: [...this.state.allStatuses, ...newStatuses],
+          allProjects: [...this.state.allProjects, ...newProjects]
         }));
       }, username, this.state.pageNum);
     }
@@ -121,6 +191,7 @@ export class PatchContainer extends React.Component<Props, State> {
       isSearching: true
     });
     const query = event.currentTarget.value;
+    console.log(query);
     const filteredPatches = this.filterItems(query);
     this.setState({
       visiblePatches: filteredPatches,
@@ -137,19 +208,12 @@ export class PatchContainer extends React.Component<Props, State> {
     }
     Object.keys(this.state.allPatches).map(versionId => {
       const patch = this.state.allPatches[versionId] as UIPatch;
-      let queryField = "";
-      switch (this.state.searchType) {
-        case SearchType.description:
-          queryField = patch.Patch.Description
-          break;
-        case SearchType.project:
-          queryField = patch.Patch.Project
-          break;
-        default:
-          queryField = patch.Patch.Status;
-          break;
-      }
-      if (queryField.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
+      const description = patch.Patch.Description;
+      const status = patch.Patch.Status;
+      const project = patch.Patch.Project;
+      if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) && 
+      (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) && 
+      (description.toLowerCase().indexOf(query.toLowerCase()) !== -1)) {
         filtered.push(patch);
       }
     });
@@ -172,9 +236,17 @@ export class PatchContainer extends React.Component<Props, State> {
     return patchObj.Patch.Id in this.state.expandedPatches;
   }
 
-  private handleSearchTypeChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+  private onStatusSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+    const selectedValues = event.target.value as unknown as string[];
     this.setState({
-      searchType: event.target.value as SearchType
+      selectedStatuses: selectedValues
+    });
+  }
+
+  private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+    const selectedValues = event.target.value as unknown as string[];
+    this.setState({
+      selectedProjects: selectedValues
     });
   }
 }
