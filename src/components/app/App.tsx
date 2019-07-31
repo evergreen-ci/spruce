@@ -1,6 +1,9 @@
+import bugsnag, { Bugsnag } from '@bugsnag/js';
+import bugsnagReact from '@bugsnag/plugin-react';
 import { AppBar, createMuiTheme, /* IconButton, Menu, MenuItem, */ Toolbar, Typography } from '@material-ui/core';
 // import * as MenuIcon from '@material-ui/icons/Menu';
 import { ThemeProvider } from '@material-ui/styles';
+import * as models from 'evergreen.js/lib/models';
 import * as React from 'react';
 import { HashRouter, /* NavLink, */ Route } from 'react-router-dom';
 import * as EvergreenIcon from "../../assets/evergreen_green.png"
@@ -38,6 +41,7 @@ interface State {
   APIClient: rest.Evergreen;
   MenuAnchor?: HTMLElement;
   username?: string;
+  bugsnag?: Bugsnag.Client;
 }
 
 class Props {
@@ -59,55 +63,60 @@ export class Evergreen extends React.Component<Props, State> {
     const patches = () => <PatchContainer client={this.state.APIClient} username={this.state.username} onFinishStateUpdate={null} />
     const config = () => <ConfigDrop updateClientConfig={this.updateConfig} onLoadFinished={null} />
     const build = () => <BuildView client={this.state.APIClient} />
+    let ErrorHandler: any;
     // const menuOpen = Boolean(this.state.MenuAnchor);
+    let app =
+    <ThemeProvider theme={theme}>
+      <div className="app">
+        <UserContextConsumer>
+          {() => {
+            return (
+              <HashRouter>
+                <AppBar className="app-bar" >
+                  <Toolbar>
+                    <img src={EvergreenIcon} className="app-icon" />
+                    <Typography variant="h5" color="inherit" noWrap={true}>
+                      Evergreen
+                    </Typography>
+                    <div className="spacer" />
+                    {/* <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
+                      <MenuIcon.default />
+                    </IconButton>
+                    <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor}
+                      anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
+                      transformOrigin={{ vertical: 'top', horizontal: 'right', }}
+                      onClose={this.closeMenu}>
+                      <MenuItem onClick={this.closeMenu}>
+                        <NavLink to="/admin"> Admin Page</NavLink>
+                      </MenuItem>
+                      <MenuItem onClick={this.closeMenu}>
+                        <NavLink to="/patches">My Patches</NavLink>
+                      </MenuItem>
+                      <MenuItem onClick={this.closeMenu}>
+                        <NavLink to="/config">Upload Config File</NavLink>
+                      </MenuItem>
+                    </Menu>
+                    <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
+                  </Toolbar>
+                </AppBar>
+                <div className="app-intro">
+                  <Route path="/admin" render={admin} />
+                  <Route path="/config" render={config} />
+                  <Route path="/patches" render={patches} />
+                  <Route path="/build" render={build} />
+                </div>
+              </HashRouter>
+            )
+          }}
+        </UserContextConsumer>
+      </div>
+    </ThemeProvider>
+    if (this.state.bugsnag) {
+      ErrorHandler = this.state.bugsnag.getPlugin("react");
+      app = <ErrorHandler> {app} </ErrorHandler>
+    }
 
-    return (
-      <ThemeProvider theme={theme}>
-        <div className="app">
-          <UserContextConsumer>
-            {() => {
-              return (
-                <HashRouter>
-                  <AppBar className="app-bar" >
-                    <Toolbar>
-                      <img src={EvergreenIcon} className="app-icon" />
-                      <Typography variant="h5" color="inherit" noWrap={true}>
-                        Evergreen
-                      </Typography>
-                      <div className="spacer" />
-                      {/* <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
-                        <MenuIcon.default />
-                      </IconButton>
-                      <Menu id="mainAppMenu" open={menuOpen} anchorEl={this.state.MenuAnchor}
-                        anchorOrigin={{ vertical: 'top', horizontal: 'right', }}
-                        transformOrigin={{ vertical: 'top', horizontal: 'right', }}
-                        onClose={this.closeMenu}>
-                        <MenuItem onClick={this.closeMenu}>
-                          <NavLink to="/admin"> Admin Page</NavLink>
-                        </MenuItem>
-                        <MenuItem onClick={this.closeMenu}>
-                          <NavLink to="/patches">My Patches</NavLink>
-                        </MenuItem>
-                        <MenuItem onClick={this.closeMenu}>
-                          <NavLink to="/config">Upload Config File</NavLink>
-                        </MenuItem>
-                      </Menu>
-                      <Login client={this.state.APIClient} updateUsername={this.updateUsername} /> */}
-                    </Toolbar>
-                  </AppBar>
-                  <div className="app-intro">
-                    <Route path="/admin" render={admin} />
-                    <Route path="/config" render={config} />
-                    <Route path="/patches" render={patches} />
-                    <Route path="/build" render={build} />
-                  </div>
-                </HashRouter>
-              )
-            }}
-          </UserContextConsumer>
-        </div>
-      </ThemeProvider>
-    );
+    return app;
   }
 
   // private openMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -122,6 +131,21 @@ export class Evergreen extends React.Component<Props, State> {
     this.setState({
       APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url),
     });
+
+    this.state.APIClient.getAdminConfig((error, resp, body) => {
+      let bugsnagClient: Bugsnag.Client;
+      if (body) {
+        const settings = models.ConvertToAdminSettings(body)
+        if (settings.bugsnag) {
+          bugsnagClient = bugsnag(settings.bugsnag);
+          bugsnagClient.use(bugsnagReact, React);
+        }
+
+        this.setState({
+          bugsnag: bugsnagClient
+        })
+      }
+    })
   }
 
   // private updateUsername = (username: string) => {
