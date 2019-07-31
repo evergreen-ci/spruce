@@ -6,10 +6,11 @@ export function ConvertToClientConfig(raw: string): ClientConfig {
 
 /* tslint:disable:variable-name */
 export class ClientConfig {
+  public api_url: string;
+  public ui_url: string;
+
   public user?: string;
   public api_key?: string;
-  public api_url?: string;
-  public ui_url?: string;
 }
 
 export function IsValidConfig(toCheck: object): boolean {
