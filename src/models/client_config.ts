@@ -11,7 +11,6 @@ export class ClientConfig {
 
   public user?: string;
   public api_key?: string;
-  public bugsnag_key?: string;
 }
 
 export function IsValidConfig(toCheck: object): boolean {

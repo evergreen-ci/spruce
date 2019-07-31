@@ -3,6 +3,7 @@ import bugsnagReact from '@bugsnag/plugin-react';
 import { AppBar, createMuiTheme, /* IconButton, Menu, MenuItem, */ Toolbar, Typography } from '@material-ui/core';
 // import * as MenuIcon from '@material-ui/icons/Menu';
 import { ThemeProvider } from '@material-ui/styles';
+import * as models from 'evergreen.js/lib/models';
 import * as React from 'react';
 import { HashRouter, /* NavLink, */ Route } from 'react-router-dom';
 import * as EvergreenIcon from "../../assets/evergreen_green.png"
@@ -127,15 +128,24 @@ export class Evergreen extends React.Component<Props, State> {
   // }
 
   private updateConfig = (configObj: ClientConfig) => {
-    let bugsnagClient: Bugsnag.Client;
-    if (configObj.bugsnag_key) {
-      bugsnagClient = bugsnag(configObj.bugsnag_key);
-      bugsnagClient.use(bugsnagReact, React);
-    }
     this.setState({
       APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url),
-      bugsnag: bugsnagClient
     });
+
+    this.state.APIClient.getAdminConfig((error, resp, body) => {
+      let bugsnagClient: Bugsnag.Client;
+      if (body) {
+        const settings = models.ConvertToAdminSettings(body)
+        if (settings.bugsnag) {
+          bugsnagClient = bugsnag(settings.bugsnag);
+          bugsnagClient.use(bugsnagReact, React);
+        }
+
+        this.setState({
+          bugsnag: bugsnagClient
+        })
+      }
+    })
   }
 
   // private updateUsername = (username: string) => {
