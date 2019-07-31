@@ -27,7 +27,8 @@ export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     const datetime = moment(String(this.props.patch.Patch.CreateTime));
-    if (this.props.patch.Patch.Description === undefined) {
+    console.log(this.props.patch.Patch.Description);
+    if (this.props.patch.Patch.Description === "") {
       this.props.patch.Patch.Description = "Patch from " + this.props.patch.Patch.Author + " at " + datetime.format("LLLL") +
         " on project " + this.props.patch.Patch.Project;
     }
