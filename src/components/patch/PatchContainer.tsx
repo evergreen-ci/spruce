@@ -145,7 +145,7 @@ export class PatchContainer extends React.Component<Props, State> {
       }
       this.props.client.getPatches((err, resp, body) => {
         console.log("get patches");
-        if (resp.body === undefined ) {
+        if (resp === undefined ) {
           return;
         }
         const patches = ConvertToPatches(resp.body);
