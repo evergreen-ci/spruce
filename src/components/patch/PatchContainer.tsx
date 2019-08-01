@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select } from '@material-ui/core';
+import { Checkbox, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Select } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -7,17 +7,6 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Banner from '../banner/Banner';
 import Patch from './Patch';
-
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
-const MenuProps = {
-  PaperProps: {
-    style: {
-      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
-};
 
 interface State {
   pageNum: number
@@ -75,55 +64,51 @@ export class PatchContainer extends React.Component<Props, State> {
         <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
           onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
         <div className="search-container">
-          <Paper className="search-input">
-            <InputBase startAdornment={<SearchIcon className="search-icon" />}
-              fullWidth={true}
-              placeholder="Search Patch Descriptions"
-              onChange={this.search}
-            />
-            {/* <Button>
-                Advanced
-                <ExpandMoreIcon />
-              </Button> */}
-            <div className="advanced-search">
-              <FormControl>
-                <InputLabel>Status</InputLabel>
-                <Select
-                  multiple={true}
-                  value={this.state.selectedStatuses}
-                  onChange={this.onStatusSelectChange}
-                  input={<Input className="advanced-input" />}
-                  MenuProps={MenuProps}
-                  className="advanced-select"
-                >
-                  {this.state.allStatuses.map(status => (
-                    <MenuItem key={status} value={status}>
-                      <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
-                      <ListItemText primary={status} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <FormControl>
-                <InputLabel>Project</InputLabel>
-                <Select
-                  multiple={true}
-                  value={this.state.selectedProjects}
-                  onChange={this.onProjectSelectChange}
-                  input={<Input className="advanced-input" />}
-                  MenuProps={MenuProps}
-                  className="advanced-select"
-                >
-                  {this.state.allProjects.map(project => (
-                    <MenuItem key={project} value={project}>
-                      <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
-                      <ListItemText primary={project} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-            </div>
-          </Paper>
+          <ExpansionPanel>
+            <ExpansionPanelSummary className="search-input">
+              <InputBase startAdornment={<SearchIcon className="search-icon" />}
+                fullWidth={true}
+                placeholder="Search Patch Descriptions"
+                onChange={this.search}
+              />
+            </ExpansionPanelSummary>
+            <ExpansionPanelDetails className="advanced-search">
+              <div>
+                <FormControl className="advanced-select">
+                  <InputLabel>Status</InputLabel>
+                  <Select
+                    multiple={true}
+                    value={this.state.selectedStatuses}
+                    onChange={this.onStatusSelectChange}
+                    input={<Input className="advanced-input" />}
+                  >
+                    {this.state.allStatuses.map(status => (
+                      <MenuItem key={status} value={status}>
+                        <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
+                        <ListItemText primary={status} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <FormControl className="advanced-select">
+                  <InputLabel>Project</InputLabel>
+                  <Select
+                    multiple={true}
+                    value={this.state.selectedProjects}
+                    onChange={this.onProjectSelectChange}
+                    input={<Input className="advanced-input" />} 
+                  >
+                    {this.state.allProjects.map(project => (
+                      <MenuItem key={project} value={project}>
+                        <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
+                        <ListItemText primary={project} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </div>
+            </ExpansionPanelDetails>
+          </ExpansionPanel>
         </div>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
@@ -143,7 +128,7 @@ export class PatchContainer extends React.Component<Props, State> {
         }
       }
       this.props.client.getPatches((err, resp, body) => {
-        if (resp === undefined ) {
+        if (resp === undefined) {
           return;
         }
         const patches = ConvertToPatches(resp.body);
