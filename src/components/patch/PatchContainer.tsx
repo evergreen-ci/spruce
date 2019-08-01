@@ -1,4 +1,4 @@
-import { Checkbox, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Select } from '@material-ui/core';
+import { Checkbox, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -7,6 +7,17 @@ import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Banner from '../banner/Banner';
 import Patch from './Patch';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
+      width: 250,
+    },
+  },
+};
 
 interface State {
   pageNum: number
@@ -78,9 +89,11 @@ export class PatchContainer extends React.Component<Props, State> {
                   <InputLabel>Status</InputLabel>
                   <Select
                     multiple={true}
-                    value={this.state.selectedStatuses}
+                    value={this.state.selectedStatuses as string[]}
                     onChange={this.onStatusSelectChange}
+                    renderValue={this.renderSelection}
                     input={<Input className="advanced-input" />}
+                    MenuProps={MenuProps}
                   >
                     {this.state.allStatuses.map(status => (
                       <MenuItem key={status} value={status}>
@@ -96,7 +109,9 @@ export class PatchContainer extends React.Component<Props, State> {
                     multiple={true}
                     value={this.state.selectedProjects}
                     onChange={this.onProjectSelectChange}
+                    renderValue={this.renderSelection}
                     input={<Input className="advanced-input" />} 
+                    MenuProps={MenuProps}
                   >
                     {this.state.allProjects.map(project => (
                       <MenuItem key={project} value={project}>
@@ -226,6 +241,10 @@ export class PatchContainer extends React.Component<Props, State> {
     this.setState({
       selectedProjects: selectedValues
     });
+  }
+
+  private renderSelection = (value: string[]) => {
+    return ( <Typography>{value.join(", ")}</Typography>)
   }
 }
 
