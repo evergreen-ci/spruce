@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -84,6 +84,7 @@ export class PatchContainer extends React.Component<Props, State> {
           </Paper>
         </div>
         <div className="filter-container">
+          <FormLabel className="filter-label">Filter Patches</FormLabel>
           <FormControl className="advanced-select">
             <InputLabel>Status</InputLabel>
             <Select

@@ -1,4 +1,4 @@
-import { ExpansionPanel, ExpansionPanelSummary, InputBase } from '@material-ui/core';
+import { ExpansionPanel, InputBase } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import { UIPatch } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
@@ -79,7 +79,7 @@ describe("PatchContainer", () => {
     const event = { currentTarget: { value: "pull request #18" } };
     const expectedResults = ["5d432fc1e3c3317db456be9f", "5d4325c961837d1fdf407a4e", "5d4306f33e8e863bf3bfa63c", "5d430370850e6177128e0b11"];
     const notInResults = ["5d432ecbe3c3317db456ac59"];
-    const input = wrapper.find(ExpansionPanelSummary).find(InputBase);
+    const input = wrapper.find(".search-container").find(InputBase);
     expect(input).toHaveLength(1);
     input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
     const visibleIds: string[] = [];
