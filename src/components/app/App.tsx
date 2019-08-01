@@ -53,7 +53,7 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      APIClient: rest.EvergreenClient("", "", "", "", true)
+      APIClient: rest.EvergreenClient("", "", "", "")
     }
     this.tryLoadConfig();
   }
