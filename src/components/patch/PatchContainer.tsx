@@ -70,31 +70,31 @@ export class PatchContainer extends React.Component<Props, State> {
       </Grid>
     );
 
-    const Search = () => (
-      <div className={"search-container"}>
-        <Paper className="search-input">
-          <Grid container={true}>
-            <Grid item={true} xs={12}>
-              <InputBase startAdornment={<SearchIcon />}
-                fullWidth={true}
-                placeholder=" Search Patch Descriptions"
-                onChange={this.search}
-              />
-              {/* <Button>
+    return (
+      <div>
+        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
+          onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
+        <div className="search-container">
+          <Paper className="search-input">
+            <InputBase startAdornment={<SearchIcon className="search-icon" />}
+              fullWidth={true}
+              placeholder="Search Patch Descriptions"
+              onChange={this.search}
+            />
+            {/* <Button>
                 Advanced
                 <ExpandMoreIcon />
               </Button> */}
-            </Grid>
-            <Grid item={true} xs={6} />
-            <Grid item={true} xs={3}>
+            <div className="advanced-search">
               <FormControl>
                 <InputLabel>Status</InputLabel>
                 <Select
                   multiple={true}
                   value={this.state.selectedStatuses}
                   onChange={this.onStatusSelectChange}
-                  input={<Input className="form-control" />}
+                  input={<Input className="advanced-input" />}
                   MenuProps={MenuProps}
+                  className="advanced-select"
                 >
                   {this.state.allStatuses.map(status => (
                     <MenuItem key={status} value={status}>
@@ -104,16 +104,15 @@ export class PatchContainer extends React.Component<Props, State> {
                   ))}
                 </Select>
               </FormControl>
-            </Grid>
-            <Grid item={true} xs={3}>
               <FormControl>
                 <InputLabel>Project</InputLabel>
                 <Select
                   multiple={true}
                   value={this.state.selectedProjects}
                   onChange={this.onProjectSelectChange}
-                  input={<Input className="form-control" />}
+                  input={<Input className="advanced-input" />}
                   MenuProps={MenuProps}
+                  className="advanced-select"
                 >
                   {this.state.allProjects.map(project => (
                     <MenuItem key={project} value={project}>
@@ -123,17 +122,9 @@ export class PatchContainer extends React.Component<Props, State> {
                   ))}
                 </Select>
               </FormControl>
-            </Grid>
-          </Grid>
-        </Paper>
-      </div>
-    );
-
-    return (
-      <div>
-        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
-          onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
-        <Search />
+            </div>
+          </Paper>
+        </div>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
         </InfiniteScroll>
@@ -191,7 +182,6 @@ export class PatchContainer extends React.Component<Props, State> {
       isSearching: true
     });
     const query = event.currentTarget.value;
-    console.log(query);
     const filteredPatches = this.filterItems(query);
     this.setState({
       visiblePatches: filteredPatches,
@@ -211,9 +201,9 @@ export class PatchContainer extends React.Component<Props, State> {
       const description = patch.Patch.Description;
       const status = patch.Patch.Status;
       const project = patch.Patch.Project;
-      if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) && 
-      (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) && 
-      (description.toLowerCase().indexOf(query.toLowerCase()) !== -1)) {
+      if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
+        (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) &&
+        (description.toLowerCase().indexOf(query.toLowerCase()) !== -1)) {
         filtered.push(patch);
       }
     });
