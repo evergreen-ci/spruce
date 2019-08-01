@@ -53,7 +53,7 @@ export class Evergreen extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.state = {
-      APIClient: rest.EvergreenClient("", "", "", "", true)
+      APIClient: rest.EvergreenClient("", "", "", "")
     }
     this.tryLoadConfig();
   }
@@ -128,6 +128,7 @@ export class Evergreen extends React.Component<Props, State> {
   // }
 
   private updateConfig = (configObj: ClientConfig) => {
+    console.log("update config");
     this.setState({
       APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url),
     });
@@ -156,6 +157,7 @@ export class Evergreen extends React.Component<Props, State> {
 
   private tryLoadConfig = () => {
     fetch(configPath).then((resp: Response) => {
+      console.log("try load config");
       resp.json().then((config: object) => {
         if (IsValidConfig(config)) {
           this.updateConfig(config as ClientConfig);
