@@ -1,4 +1,4 @@
-import { Checkbox, ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Select, Typography } from '@material-ui/core';
+import { Checkbox, FormControl, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -75,55 +75,51 @@ export class PatchContainer extends React.Component<Props, State> {
         <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
           onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
         <div className="search-container">
-          <ExpansionPanel>
-            <ExpansionPanelSummary className="search-input">
-              <InputBase startAdornment={<SearchIcon className="search-icon" />}
-                fullWidth={true}
-                placeholder="Search Patch Descriptions"
-                onChange={this.search}
-              />
-            </ExpansionPanelSummary>
-            <ExpansionPanelDetails className="advanced-search">
-              <div>
-                <FormControl className="advanced-select">
-                  <InputLabel>Status</InputLabel>
-                  <Select
-                    multiple={true}
-                    value={this.state.selectedStatuses as string[]}
-                    onChange={this.onStatusSelectChange}
-                    renderValue={this.renderSelection}
-                    input={<Input className="advanced-input" />}
-                    MenuProps={MenuProps}
-                  >
-                    {this.state.allStatuses.map(status => (
-                      <MenuItem key={status} value={status}>
-                        <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
-                        <ListItemText primary={status} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <FormControl className="advanced-select">
-                  <InputLabel>Project</InputLabel>
-                  <Select
-                    multiple={true}
-                    value={this.state.selectedProjects}
-                    onChange={this.onProjectSelectChange}
-                    renderValue={this.renderSelection}
-                    input={<Input className="advanced-input" />} 
-                    MenuProps={MenuProps}
-                  >
-                    {this.state.allProjects.map(project => (
-                      <MenuItem key={project} value={project}>
-                        <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
-                        <ListItemText primary={project} />
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </div>
-            </ExpansionPanelDetails>
-          </ExpansionPanel>
+          <Paper className="search-input">
+            <InputBase startAdornment={<SearchIcon className="search-icon" />}
+              fullWidth={true}
+              placeholder="Search Patch Descriptions"
+              onChange={this.search}
+            />
+          </Paper>
+        </div>
+        <div className="filter-container">
+          <FormControl className="advanced-select">
+            <InputLabel>Status</InputLabel>
+            <Select
+              multiple={true}
+              value={this.state.selectedStatuses as string[]}
+              onChange={this.onStatusSelectChange}
+              renderValue={this.renderSelection}
+              input={<Input className="advanced-input" />}
+              MenuProps={MenuProps}
+            >
+              {this.state.allStatuses.map(status => (
+                <MenuItem key={status} value={status}>
+                  <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
+                  <ListItemText primary={status} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl className="advanced-select">
+            <InputLabel>Project</InputLabel>
+            <Select
+              multiple={true}
+              value={this.state.selectedProjects}
+              onChange={this.onProjectSelectChange}
+              renderValue={this.renderSelection}
+              input={<Input className="advanced-input" />}
+              MenuProps={MenuProps}
+            >
+              {this.state.allProjects.map(project => (
+                <MenuItem key={project} value={project}>
+                  <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
+                  <ListItemText primary={project} />
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </div>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
@@ -149,6 +145,7 @@ export class PatchContainer extends React.Component<Props, State> {
         const patches = ConvertToPatches(resp.body);
         const newVersions = patches.VersionsMap;
         const newPatches = patches.UIPatches;
+        const newVisiblePatches: UIPatch[] = [];
         const newStatuses: string[] = [];
         const newProjects: string[] = [];
         if (newPatches.length === 0) {
@@ -166,12 +163,16 @@ export class PatchContainer extends React.Component<Props, State> {
             if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
               newProjects.push(project);
             }
+            if((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
+              (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1)) {
+                newVisiblePatches.push(patch);
+            }
           });
         }
         this.setState((prevState, props) => ({
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
-          visiblePatches: [... this.state.allPatches, ...newPatches],
+          visiblePatches: [... this.state.visiblePatches, ...newVisiblePatches],
           versionsMap: { ... this.state.versionsMap, ...newVersions },
           allStatuses: [...this.state.allStatuses, ...newStatuses],
           allProjects: [...this.state.allProjects, ...newProjects]
@@ -202,11 +203,7 @@ export class PatchContainer extends React.Component<Props, State> {
     Object.keys(this.state.allPatches).map(versionId => {
       const patch = this.state.allPatches[versionId] as UIPatch;
       const description = patch.Patch.Description;
-      const status = patch.Patch.Status;
-      const project = patch.Patch.Project;
-      if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
-        (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) &&
-        (description.toLowerCase().indexOf(query.toLowerCase()) !== -1)) {
+      if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
         filtered.push(patch);
       }
     });
@@ -231,20 +228,46 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private onStatusSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
     const selectedValues = event.target.value as unknown as string[];
+    let filtered: UIPatch[] = [];
+    if (selectedValues.length === 0) {
+      filtered = this.state.allPatches;
+    } else {
+      Object.keys(this.state.allPatches).map(versionId => {
+        const patch = this.state.allPatches[versionId] as UIPatch;
+        const status = patch.Patch.Status;
+        if (selectedValues.indexOf(status.toLowerCase()) > -1) {
+          filtered.push(patch);
+        }
+      });
+    }
     this.setState({
+      visiblePatches: filtered,
       selectedStatuses: selectedValues
     });
   }
 
   private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
     const selectedValues = event.target.value as unknown as string[];
+    let filtered: UIPatch[] = [];
+    if (selectedValues.length === 0) {
+      filtered = this.state.allPatches;
+    } else {
+      Object.keys(this.state.allPatches).map(versionId => {
+        const patch = this.state.allPatches[versionId] as UIPatch;
+        const project = patch.Patch.Status;
+        if (selectedValues.indexOf(project.toLowerCase()) > -1) {
+          filtered.push(patch);
+        }
+      });
+    }
     this.setState({
+      visiblePatches: filtered,
       selectedProjects: selectedValues
     });
   }
 
   private renderSelection = (value: string[]) => {
-    return ( <Typography>{value.join(", ")}</Typography>)
+    return (<Typography>{value.join(", ")}</Typography>)
   }
 }
 
