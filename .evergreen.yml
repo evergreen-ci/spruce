@@ -49,6 +49,13 @@ functions:
       binary: npm
       args: [run, build]
 
+  npm-coverage:
+    command: subprocess.exec
+    params:
+      working_dir: spruce
+      binary: npm
+      args: [run, coverage]
+
   attach-results:
     command: attach.xunit_results
     params:
@@ -56,23 +63,28 @@ functions:
         - "./spruce/junit.xml"
 
 tasks:
-  - name: test
-    commands:
-    - func: get-project
-    - func: npm-install
-    - func: npm-test
-    - func: attach-results
   - name: compile
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-build
     - func: npm-build
+  - name: test
+    commands:
+    - func: get-project
+    - func: npm-install
+    - func: npm-test
+    - func: attach-results
   - name: lint
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-lint
+  - name: coverage
+    commands:
+    - func: get-project
+    - func: npm-install
+    - func: npm-coverage
 
 buildvariants:
   - name: ubuntu1604
@@ -81,5 +93,6 @@ buildvariants:
     - ubuntu1604-test
     tasks:
     - name: compile
-    - name: lint
     - name: test
+    - name: lint
+    - name: coverage

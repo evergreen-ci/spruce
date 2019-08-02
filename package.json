@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
+    "coverage": "lessc src/styles.less src/styles.css && jest --coverage",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
     "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
