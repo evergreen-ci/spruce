@@ -255,7 +255,7 @@ export class PatchContainer extends React.Component<Props, State> {
     } else {
       Object.keys(this.state.allPatches).map(versionId => {
         const patch = this.state.allPatches[versionId] as UIPatch;
-        const project = patch.Patch.Status;
+        const project = patch.Patch.Project;
         if (selectedValues.indexOf(project.toLowerCase()) > -1) {
           filtered.push(patch);
         }
