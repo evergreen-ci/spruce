@@ -1,4 +1,4 @@
-import { ExpansionPanel, InputBase } from '@material-ui/core';
+import { ExpansionPanel, InputBase, Select } from '@material-ui/core';
 import * as enzyme from "enzyme";
 import { UIPatch } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
@@ -15,7 +15,7 @@ describe("PatchContainer", () => {
   const infiniteScroll = wrapper.find(InfiniteScroll);
   infiniteScroll.prop("loadMore")(0);
 
-  const checkState = jest.fn(() => {
+  const checkExpandedState = jest.fn(() => {
     wrapper.update();
     expect(wrapper.state("expandedPatches")).toEqual({ "5d430370850e6177128e0b11": 1 });
     const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
@@ -27,7 +27,7 @@ describe("PatchContainer", () => {
   })
 
   it("check that expanded state persists on re-render", () => {
-    wrapper.setProps({ onFinishStateUpdate: checkState });
+    wrapper.setProps({ onFinishStateUpdate: checkExpandedState });
     expect(wrapper.state("expandedPatches")).toEqual({});
     const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
     expect(patch).toHaveLength(1);
@@ -92,5 +92,34 @@ describe("PatchContainer", () => {
     for (const versionId of notInResults) {
       expect(visibleIds).not.toContain(versionId);
     }
+  })
+
+  const checkFilteredState = jest.fn(() => {
+    expect(wrapper.state("selectedProjects")).toEqual([]);
+    expect(wrapper.state("selectedStatuses")).toEqual(["created"]);
+    const visibleIds: string[] = [];
+    const notInResults = ["5d432fc1e3c3317db456be9f", "5d4325c961837d1fdf407a4e", "5d4306f33e8e863bf3bfa63c", "5d430370850e6177128e0b11"];
+    const expectedResults = ["5d432ecbe3c3317db456ac59"];
+    (wrapper.state("visiblePatches") as UIPatch[]).map(patch => (
+      visibleIds.push(patch.Patch.Id)
+    ));
+    for (const versionId of expectedResults) {
+      expect(visibleIds).toContain(versionId);
+    }
+    for (const versionId of notInResults) {
+      expect(visibleIds).not.toContain(versionId);
+    }
+  })
+
+  it("check that filtering patches displays correct results", () => {
+    const event = { target: { value: ["created"] } };
+    wrapper.setProps({ onFinishStateUpdate: checkFilteredState });
+    expect(wrapper.state("allProjects")).toEqual(["spruce"]);
+    expect(wrapper.state("allStatuses")).toEqual(["failed", "created"]);
+    expect(wrapper.state("selectedProjects")).toEqual([]);
+    expect(wrapper.state("selectedStatuses")).toEqual([]);
+    const statusSelect = wrapper.findWhere(node => node.key() === "status").find(Select);
+    expect(statusSelect).toHaveLength(1);
+    statusSelect.prop("onChange")(event as unknown as React.ChangeEvent<HTMLInputElement>, null);
   })
 })

@@ -85,7 +85,7 @@ export class PatchContainer extends React.Component<Props, State> {
         </div>
         <div className="filter-container">
           <FormLabel className="filter-label">Filter Patches</FormLabel>
-          <FormControl className="advanced-select">
+          <FormControl className="advanced-select" key="status">
             <InputLabel>Status</InputLabel>
             <Select
               multiple={true}
@@ -103,7 +103,7 @@ export class PatchContainer extends React.Component<Props, State> {
               ))}
             </Select>
           </FormControl>
-          <FormControl className="advanced-select">
+          <FormControl className="advanced-select" key="project">
             <InputLabel>Project</InputLabel>
             <Select
               multiple={true}
@@ -244,7 +244,7 @@ export class PatchContainer extends React.Component<Props, State> {
     this.setState({
       visiblePatches: filtered,
       selectedStatuses: selectedValues
-    });
+    }, this.props.onFinishStateUpdate);
   }
 
   private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
@@ -264,7 +264,7 @@ export class PatchContainer extends React.Component<Props, State> {
     this.setState({
       visiblePatches: filtered,
       selectedProjects: selectedValues
-    });
+    }, this.props.onFinishStateUpdate);
   }
 
   private renderSelection = (value: string[]) => {
