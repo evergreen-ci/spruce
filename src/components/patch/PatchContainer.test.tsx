@@ -1,6 +1,6 @@
-import { ExpansionPanel, InputBase } from '@material-ui/core';
+import { ExpansionPanel, InputBase, Select } from '@material-ui/core';
 import * as enzyme from "enzyme";
-import { UIVersion } from 'evergreen.js/lib/models';
+import { UIPatch } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from "react";
 import * as InfiniteScroll from 'react-infinite-scroller';
@@ -15,10 +15,10 @@ describe("PatchContainer", () => {
   const infiniteScroll = wrapper.find(InfiniteScroll);
   infiniteScroll.prop("loadMore")(0);
 
-  const checkState = jest.fn(() => {
+  const checkExpandedState = jest.fn(() => {
     wrapper.update();
-    expect(wrapper.state("expandedPatches")).toEqual({ "5d1385720305b932b1d50d01": 1 });
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
+    expect(wrapper.state("expandedPatches")).toEqual({ "5d430370850e6177128e0b11": 1 });
+    const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.prop("expanded")).toBe(true);
     const expansionPanel = patch.find(ExpansionPanel);
@@ -27,9 +27,9 @@ describe("PatchContainer", () => {
   })
 
   it("check that expanded state persists on re-render", () => {
-    wrapper.setProps({ onFinishStateUpdate: checkState });
+    wrapper.setProps({ onFinishStateUpdate: checkExpandedState });
     expect(wrapper.state("expandedPatches")).toEqual({});
-    const patch = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Patch);
+    const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.prop("expanded")).toBe(false);
     const expansionPanel = patch.find(ExpansionPanel);
@@ -40,30 +40,31 @@ describe("PatchContainer", () => {
   })
 
   it("check that patches loaded from mock data correctly", () => {
-    expect(wrapper.find(Patch)).toHaveLength(4);
+    expect(wrapper.state("allPatches")).toHaveLength(5);
+    expect(wrapper.find(Patch)).toHaveLength(5);
   })
 
   it("check that patch state and number of variants are correct", () => {
-    const patch = wrapper.findWhere(node => node.key() === "5d138b6b61837d77f9dda2a1").find(Patch);
-    const variants = wrapper.findWhere(node => node.key() === "5d138b6b61837d77f9dda2a1").find(Variant);
+    const patch = wrapper.findWhere(node => node.key() === "5d4325c961837d1fdf407a4e").find(Patch);
+    const variants = wrapper.findWhere(node => node.key() === "5d4325c961837d1fdf407a4e").find(Variant);
     expect(patch).toHaveLength(1);
-    expect(variants).toHaveLength(3);
-    expect(patch.state("description")).toBe("'evergreen-ci/evergreen' pull request #2428 by ablack12: EVG-6269 persist parserProject (https://github.com/evergreen-ci/evergreen/pull/2428)");
-    expect(patch.state("author")).toBe("annie.black");
-    expect(patch.state("project")).toBe("evergreen");
-    expect(patch.state("builds")).toHaveLength(3);
-    expect(patch.state("datetime")).toEqual(moment("2019-06-26T15:12:44.161Z"));
+    expect(variants).toHaveLength(1);
+    expect(patch.state("description")).toBe("'evergreen-ci/spruce' pull request #18 by dominoweir: EVG-6407: add searching by patch attribute (https://github.com/evergreen-ci/spruce/pull/18)");
+    expect(patch.state("author")).toBe("domino.weir");
+    expect(patch.state("project")).toBe("spruce");
+    expect(patch.prop("builds")).toHaveLength(1);
+    expect(patch.state("datetime")).toEqual(moment("2019-08-01T17:47:52Z"));
   })
 
   it("check that patch with no description has the correct default description", () => {
-    const patch = wrapper.findWhere(node => node.key() === "5d126fa93627e070b33dbbc0").find(Patch);
+    const patch = wrapper.findWhere(node => node.key() === "5d432ecbe3c3317db456ac59").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.state("description")).toBeDefined();
     expect(patch.state("description")).toContain("Patch from domino.weir at ");
   })
 
   it("check that variant state is correct", () => {
-    const variant = wrapper.findWhere(node => node.key() === "5d1385720305b932b1d50d01").find(Variant);
+    const variant = wrapper.findWhere(node => node.key() === "5d4325c961837d1fdf407a4e").find(Variant);
     const failedBox = variant.findWhere(node => node.key() === "failed");
     const successBox = variant.findWhere(node => node.key() === "success");
     expect(variant).toHaveLength(1);
@@ -75,15 +76,15 @@ describe("PatchContainer", () => {
   })
 
   it("check that search returns correct results", () => {
-    const event = { currentTarget: { value: "pull request #2428" } };
-    const expectedResults = ["5d138b6b61837d77f9dda2a1", "5d1391b63e8e860e458573a5"];
-    const notInResults = ["5d1385720305b932b1d50d01", "5d126fa93627e070b33dbbc0"];
-    const input = wrapper.find(InputBase);
+    const event = { currentTarget: { value: "pull request #18" } };
+    const expectedResults = ["5d432fc1e3c3317db456be9f", "5d4325c961837d1fdf407a4e", "5d4306f33e8e863bf3bfa63c", "5d430370850e6177128e0b11"];
+    const notInResults = ["5d432ecbe3c3317db456ac59"];
+    const input = wrapper.find(".search-container").find(InputBase);
     expect(input).toHaveLength(1);
     input.prop("onChange")(event as React.ChangeEvent<HTMLInputElement>);
     const visibleIds: string[] = [];
-    (wrapper.state("visiblePatches") as UIVersion[]).map(patch => (
-      visibleIds.push(patch.Version.id)
+    (wrapper.state("visiblePatches") as UIPatch[]).map(patch => (
+      visibleIds.push(patch.Patch.Id)
     ));
     for (const versionId of expectedResults) {
       expect(visibleIds).toContain(versionId);
@@ -91,5 +92,34 @@ describe("PatchContainer", () => {
     for (const versionId of notInResults) {
       expect(visibleIds).not.toContain(versionId);
     }
+  })
+
+  const checkFilteredState = jest.fn(() => {
+    expect(wrapper.state("selectedProjects")).toEqual([]);
+    expect(wrapper.state("selectedStatuses")).toEqual(["created"]);
+    const visibleIds: string[] = [];
+    const notInResults = ["5d432fc1e3c3317db456be9f", "5d4325c961837d1fdf407a4e", "5d4306f33e8e863bf3bfa63c", "5d430370850e6177128e0b11"];
+    const expectedResults = ["5d432ecbe3c3317db456ac59"];
+    (wrapper.state("visiblePatches") as UIPatch[]).map(patch => (
+      visibleIds.push(patch.Patch.Id)
+    ));
+    for (const versionId of expectedResults) {
+      expect(visibleIds).toContain(versionId);
+    }
+    for (const versionId of notInResults) {
+      expect(visibleIds).not.toContain(versionId);
+    }
+  })
+
+  it("check that filtering patches displays correct results", () => {
+    const event = { target: { value: ["created"] } };
+    wrapper.setProps({ onFinishStateUpdate: checkFilteredState });
+    expect(wrapper.state("allProjects")).toEqual(["spruce"]);
+    expect(wrapper.state("allStatuses")).toEqual(["failed", "created"]);
+    expect(wrapper.state("selectedProjects")).toEqual([]);
+    expect(wrapper.state("selectedStatuses")).toEqual([]);
+    const statusSelect = wrapper.findWhere(node => node.key() === "status").find(Select);
+    expect(statusSelect).toHaveLength(1);
+    statusSelect.prop("onChange")(event as unknown as React.ChangeEvent<HTMLInputElement>, null);
   })
 })
