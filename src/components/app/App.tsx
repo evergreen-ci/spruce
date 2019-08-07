@@ -77,32 +77,32 @@ export class Evergreen extends React.Component<Props, State> {
                 <AppBar className="app-bar" >
                   <Toolbar>
                     <img src={EvergreenIcon} className="app-icon" />
-                    <Link href={this.state.APIClient.apiURL + "/waterfall"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/waterfall"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Waterfall
                       </Typography>
                     </Link>
-                    <Link href={this.state.APIClient.apiURL + "/timeline"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/timeline"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Timeline
                       </Typography>
                     </Link>
-                    <Link href={this.state.APIClient.apiURL + "/grid"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/grid"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Summary
                       </Typography>
                     </Link>
-                    <Link href={this.state.APIClient.apiURL + "/patches"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/patches"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Patches
                       </Typography>
                     </Link>
-                    <Link href={this.state.APIClient.apiURL + "/task_timing"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/task_timing"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Stats
                       </Typography>
                     </Link>
-                    <Link href={this.state.APIClient.apiURL + "/hosts"} underline="none">
+                    <Link href={this.state.APIClient.uiURL + "/hosts"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Hosts
                       </Typography>
@@ -115,14 +115,14 @@ export class Evergreen extends React.Component<Props, State> {
                       transformOrigin={{ vertical: 'bottom', horizontal: 'center', }}
                       onClose={this.closePluginMenu}>
                       <MenuItem onClick={this.closePluginMenu}>
-                        <Link href={this.state.APIClient.apiURL + "/perfdiscovery"} underline="none">
+                        <Link href={this.state.APIClient.uiURL + "/perfdiscovery"} underline="none">
                           <Typography noWrap={true}>
                             Performance Discovery
                           </Typography>
                         </Link>
                       </MenuItem>
                       <MenuItem onClick={this.closePluginMenu}>
-                        <Link href={this.state.APIClient.apiURL + "/perf-bb"} underline="none">
+                        <Link href={this.state.APIClient.uiURL + "/perf-bb"} underline="none">
                           <Typography noWrap={true}>
                             Performance Baron
                           </Typography>
