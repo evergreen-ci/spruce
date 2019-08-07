@@ -1,9 +1,14 @@
-import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Typography } from '@material-ui/core';
+import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
+import CalendarIcon from '@material-ui/icons/DateRangeOutlined';
+import ComputerIcon from '@material-ui/icons/DesktopMacOutlined';
 import ExpandLessIcon from '@material-ui/icons/ExpandLess';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import HourglassIcon from '@material-ui/icons/HourglassEmptyOutlined';
+import ClockIcon from '@material-ui/icons/ScheduleOutlined';
 import { withStyles } from '@material-ui/styles';
 import { APITask, APITest, ConvertToAPITests } from 'evergreen.js/lib/models';
+import * as moment from 'moment';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -84,6 +89,33 @@ export class TaskPanel extends React.Component<Props, State> {
 
   public render() {
 
+    const TaskDetails = () => (
+      <div>
+        <Typography>
+          <ClockIcon className="task-detail-icon" />
+          {this.stringifyNanoseconds(this.props.task.time_taken_ms * 1e6, true, true)}
+        </Typography>
+        <Typography>
+          <HourglassIcon className="task-detail-icon" />
+          {this.stringifyNanoseconds(this.props.task.expected_duration_ms * 1e6, true, true) + " on base commit"}
+        </Typography>
+        <Typography>
+          <ComputerIcon className="task-detail-icon" />
+          <Link href={this.props.client.uiURL + "/host/" + this.props.task.host_id}>
+            {this.props.task.host_id}
+          </Link>
+        </Typography>
+        <Typography>
+          <CalendarIcon className="task-detail-icon" />
+          {" Started on " + moment(this.props.task.start_time as Date).format("lll")}
+        </Typography>
+        <Typography>
+          <CalendarIcon className="task-detail-icon" />
+          {" Finished on " + moment(this.props.task.finish_time as Date).format("lll")}
+        </Typography>
+      </div>
+    );
+
     const FailedTests = () => (
       <Grid container={true} direction="column" spacing={1}>
         {this.state.failingTests.length !== 0 ?
@@ -162,6 +194,9 @@ export class TaskPanel extends React.Component<Props, State> {
             <ExpansionPanelDetails>
               <Grid container={true} spacing={2}>
                 <Grid item={true} xs={12}>
+                  <TaskDetails />
+                </Grid>
+                <Grid item={true} xs={12}>
                   <FailedTests />
                 </Grid>
                 <Grid item={true} xs={12}>
@@ -180,6 +215,7 @@ export class TaskPanel extends React.Component<Props, State> {
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
+              <TaskDetails />
               <Typography className="no-tests-text">
                 No tests to show.
               </Typography>
@@ -233,6 +269,42 @@ export class TaskPanel extends React.Component<Props, State> {
       default:
         this.props.onSwitchTest(this.state.otherTests[testIndex]);
         break;
+    }
+  }
+
+  // stringifyNanoseconds takes an integer count of nanoseconds and
+  // returns it formatted as a human readable string, like "1h32m40s"
+  // If skipDayMax is true, then durations longer than 1 day will be represented
+  // in hours. Otherwise, they will be displayed as '>=1 day'
+  private stringifyNanoseconds = (input: any, skipDayMax: boolean, skipSecMax: boolean) => {
+    const NS_PER_MS = 1000 * 1000; // 10^6
+    const NS_PER_SEC = NS_PER_MS * 1000
+    const NS_PER_MINUTE = NS_PER_SEC * 60;
+    const NS_PER_HOUR = NS_PER_MINUTE * 60;
+
+
+    if (input === 0) {
+      return "0 seconds";
+    } else if (input === "unknown" || input < 0) {
+      return "unknown";
+    } else if (input < NS_PER_MS) {
+      return "< 1 ms";
+    } else if (input < NS_PER_SEC) {
+      if (skipSecMax) {
+        return Math.floor(input / NS_PER_MS) + " ms";
+      } else {
+        return "< 1 second"
+      }
+    } else if (input < NS_PER_MINUTE) {
+      return Math.floor(input / NS_PER_SEC) + " seconds";
+    } else if (input < NS_PER_HOUR) {
+      return Math.floor(input / NS_PER_MINUTE) + "m " + Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC) + "s";
+    } else if (input < NS_PER_HOUR * 24 || skipDayMax) {
+      return Math.floor(input / NS_PER_HOUR) + "h " +
+        Math.floor((input % NS_PER_HOUR) / NS_PER_MINUTE) + "m " +
+        Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC) + "s";
+    } else {
+      return ">= 1 day";
     }
   }
 }
