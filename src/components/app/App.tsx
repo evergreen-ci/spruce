@@ -40,6 +40,7 @@ const theme = createMuiTheme({
 interface State {
   APIClient: rest.Evergreen;
   PluginMenuAnchor?: HTMLElement;
+  MenuAnchor?: HTMLElement;
   username?: string;
   bugsnag?: Bugsnag.Client;
 }
@@ -65,6 +66,7 @@ export class Evergreen extends React.Component<Props, State> {
     const build = () => <BuildView client={this.state.APIClient} />
     let ErrorHandler: any;
     const pluginMenuIsOpen = Boolean(this.state.PluginMenuAnchor);
+    // const menuIsOpen = Boolean(this.state.MenuAnchor);
     let app =
     <ThemeProvider theme={theme}>
       <div className="app">
@@ -75,52 +77,52 @@ export class Evergreen extends React.Component<Props, State> {
                 <AppBar className="app-bar" >
                   <Toolbar>
                     <img src={EvergreenIcon} className="app-icon" />
-                    <Link href="https://evergreen.mongodb.com/waterfall" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/waterfall"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Waterfall
                       </Typography>
                     </Link>
-                    <Link href="https://evergreen.mongodb.com/timeline" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/timeline"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Timeline
                       </Typography>
                     </Link>
-                    <Link href="https://evergreen.mongodb.com/grid" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/grid"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Summary
                       </Typography>
                     </Link>
-                    <Link href="https://evergreen.mongodb.com/patches" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/patches"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Patches
                       </Typography>
                     </Link>
-                    <Link href="https://evergreen.mongodb.com/task_timing" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/task_timing"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Stats
                       </Typography>
                     </Link>
-                    <Link href="https://evergreen.mongodb.com/hosts" underline="none">
+                    <Link href={this.state.APIClient.apiURL + "/hosts"} underline="none">
                       <Typography noWrap={true} className="menu-option">
                         Hosts
                       </Typography>
                     </Link>
-                    <Typography noWrap={true} className="menu-option" onClick={this.openMenu}>
+                    <Typography noWrap={true} className="menu-option" onClick={this.openPluginMenu}>
                       Plugins
                     </Typography>
                     <Menu id="mainAppMenu" open={pluginMenuIsOpen} anchorEl={this.state.PluginMenuAnchor}
                       anchorOrigin={{ vertical: 'bottom', horizontal: 'center', }}
                       transformOrigin={{ vertical: 'bottom', horizontal: 'center', }}
-                      onClose={this.closeMenu}>
-                      <MenuItem onClick={this.closeMenu}>
-                        <Link href="https://evergreen.mongodb.com/perfdiscovery" underline="none">
+                      onClose={this.closePluginMenu}>
+                      <MenuItem onClick={this.closePluginMenu}>
+                        <Link href={this.state.APIClient.apiURL + "/perfdiscovery"} underline="none">
                           <Typography noWrap={true}>
                             Performance Discovery
                           </Typography>
                         </Link>
                       </MenuItem>
-                      <MenuItem onClick={this.closeMenu}>
-                        <Link href="https://evergreen.mongodb.com/perf-bb" underline="none">
+                      <MenuItem onClick={this.closePluginMenu}>
+                        <Link href={this.state.APIClient.apiURL + "/perf-bb"} underline="none">
                           <Typography noWrap={true}>
                             Performance Baron
                           </Typography>
@@ -168,13 +170,21 @@ export class Evergreen extends React.Component<Props, State> {
     return app;
   }
 
-  private openMenu = (event: React.MouseEvent<HTMLElement>) => {
+  private openPluginMenu = (event: React.MouseEvent<HTMLElement>) => {
     this.setState({ PluginMenuAnchor: event.currentTarget });
   };
 
-  private closeMenu = () => {
+  private closePluginMenu = () => {
     this.setState({ PluginMenuAnchor: null });
   }
+
+  // private openMenu = (event: React.MouseEvent<HTMLElement>) => {
+  //   this.setState({ MenuAnchor: event.currentTarget });
+  // };
+
+  // private closeMenu = () => {
+  //   this.setState({ MenuAnchor: null });
+  // }
 
   private updateConfig = (configObj: ClientConfig) => {
     this.setState({
