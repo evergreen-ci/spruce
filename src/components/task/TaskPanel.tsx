@@ -189,7 +189,10 @@ export class TaskPanel extends React.Component<Props, State> {
         <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask}>
             <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={this.handleTaskClick}>
-              <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
+              <Typography className="task-detail-name">{this.props.task.display_name}</Typography>
+              <div className="task-detail-status-parent">
+                <Typography className={this.props.task.status + " task-detail-status-child"}>{this.props.task.status.toUpperCase()}</Typography>
+              </div>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
               <Grid container={true} spacing={2}>
