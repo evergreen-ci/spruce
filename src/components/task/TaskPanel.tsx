@@ -88,11 +88,11 @@ export class TaskPanel extends React.Component<Props, State> {
       <div>
         <Typography>
           <Icon.ScheduleOutlined className="task-detail-icon" />
-          {this.stringifyNanoseconds(this.props.task.time_taken_ms * 1e6, true, true)}
+          {this.stringifyMilliseconds(this.props.task.time_taken_ms, true, true)}
         </Typography>
         <Typography>
           <Icon.HourglassEmptyOutlined className="task-detail-icon" />
-          {this.stringifyNanoseconds(this.props.task.expected_duration_ms * 1e6, true, true) + " on base commit"}
+          {this.stringifyMilliseconds(this.props.task.expected_duration_ms, true, true) + " on base commit"}
         </Typography>
         <Typography>
           <Icon.DesktopMacOutlined className="task-detail-icon" />
@@ -274,37 +274,39 @@ export class TaskPanel extends React.Component<Props, State> {
   // returns it formatted as a human readable string, like "1h32m40s"
   // If skipDayMax is true, then durations longer than 1 day will be represented
   // in hours. Otherwise, they will be displayed as '>=1 day'
-  private stringifyNanoseconds = (input: any, skipDayMax: boolean, skipSecMax: boolean) => {
-    const NS_PER_MS = 1000 * 1000; // 10^6
-    const NS_PER_SEC = NS_PER_MS * 1000
-    const NS_PER_MINUTE = NS_PER_SEC * 60;
-    const NS_PER_HOUR = NS_PER_MINUTE * 60;
+  private stringifyMilliseconds = (input: string | number, skipDayMax: boolean, skipSecMax: boolean) => {
+    const MS_PER_SEC = 1000
+    const MS_PER_MINUTE = MS_PER_SEC * 60;
+    const MS_PER_HOUR = MS_PER_MINUTE * 60;
 
-
-    if (input === 0) {
-      return "0 seconds";
-    } else if (input === "unknown" || input < 0) {
+    if (typeof(input) === "string") {
       return "unknown";
-    } else if (input < NS_PER_MS) {
-      return "< 1 ms";
-    } else if (input < NS_PER_SEC) {
-      if (skipSecMax) {
-        return Math.floor(input / NS_PER_MS) + " ms";
+    } else if (typeof(input) === "number") {
+      if (input === 0) {
+        return "0 seconds";
+      } else if (input < 0) {
+        return "unknown";
+      } else if (input < MS_PER_SEC) {
+        if (skipSecMax) {
+          return input + " ms";
+        } else {
+          return "< 1 second"
+        }
+      } else if (input < MS_PER_MINUTE) {
+        return Math.floor(input / MS_PER_SEC) + " seconds";
+      } else if (input < MS_PER_HOUR) {
+        return Math.floor(input / MS_PER_MINUTE) + "m " + Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
+      } else if (input < MS_PER_HOUR * 24 || skipDayMax) {
+        return Math.floor(input / MS_PER_HOUR) + "h " +
+          Math.floor((input % MS_PER_HOUR) / MS_PER_MINUTE) + "m " +
+          Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
       } else {
-        return "< 1 second"
+        return ">= 1 day";
       }
-    } else if (input < NS_PER_MINUTE) {
-      return Math.floor(input / NS_PER_SEC) + " seconds";
-    } else if (input < NS_PER_HOUR) {
-      return Math.floor(input / NS_PER_MINUTE) + "m " + Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC) + "s";
-    } else if (input < NS_PER_HOUR * 24 || skipDayMax) {
-      return Math.floor(input / NS_PER_HOUR) + "h " +
-        Math.floor((input % NS_PER_HOUR) / NS_PER_MINUTE) + "m " +
-        Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC) + "s";
     } else {
-      return ">= 1 day";
+      return "unknown";
     }
-  }
+}
 }
 
 export default TaskPanel;
