@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -31,6 +31,7 @@ interface State {
   selectedStatuses: string[]
   allProjects: string[]
   selectedProjects: string[]
+  expandAllChecked: boolean
 }
 
 class Props {
@@ -53,7 +54,8 @@ export class PatchContainer extends React.Component<Props, State> {
       allStatuses: [],
       selectedStatuses: [],
       allProjects: [],
-      selectedProjects: []
+      selectedProjects: [],
+      expandAllChecked: false
     };
   }
 
@@ -83,45 +85,60 @@ export class PatchContainer extends React.Component<Props, State> {
             />
           </Paper>
         </div>
-        <div className="filter-container">
-          <FormLabel className="filter-label">Filter Patches</FormLabel>
-          <FormControl className="advanced-select" key="status">
-            <InputLabel>Status</InputLabel>
-            <Select
-              multiple={true}
-              value={this.state.selectedStatuses as string[]}
-              onChange={this.onStatusSelectChange}
-              renderValue={this.renderSelection}
-              input={<Input className="advanced-input" />}
-              MenuProps={MenuProps}
-            >
-              {this.state.allStatuses.map(status => (
-                <MenuItem key={status} value={status}>
-                  <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
-                  <ListItemText primary={status} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          <FormControl className="advanced-select" key="project">
-            <InputLabel>Project</InputLabel>
-            <Select
-              multiple={true}
-              value={this.state.selectedProjects}
-              onChange={this.onProjectSelectChange}
-              renderValue={this.renderSelection}
-              input={<Input className="advanced-input" />}
-              MenuProps={MenuProps}
-            >
-              {this.state.allProjects.map(project => (
-                <MenuItem key={project} value={project}>
-                  <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
-                  <ListItemText primary={project} />
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        </div>
+        <Grid container={true}>
+          <Grid item={true} xs={8}>
+            <div className="filter-container">
+              <FormLabel className="filter-label">Filter Patches</FormLabel>
+              <FormControl className="advanced-select" key="status">
+                <InputLabel>Status</InputLabel>
+                <Select
+                  multiple={true}
+                  value={this.state.selectedStatuses as string[]}
+                  onChange={this.onStatusSelectChange}
+                  renderValue={this.renderSelection}
+                  input={<Input className="advanced-input" />}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.allStatuses.map(status => (
+                    <MenuItem key={status} value={status}>
+                      <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
+                      <ListItemText primary={status} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <FormControl className="advanced-select" key="project">
+                <InputLabel>Project</InputLabel>
+                <Select
+                  multiple={true}
+                  value={this.state.selectedProjects}
+                  onChange={this.onProjectSelectChange}
+                  renderValue={this.renderSelection}
+                  input={<Input className="advanced-input" />}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.allProjects.map(project => (
+                    <MenuItem key={project} value={project}>
+                      <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
+                      <ListItemText primary={project} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
+          </Grid>
+          <Grid item={true} xs={4}>
+            <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.expandAllChecked}
+                onChange={this.onExpandAllChange}
+              />
+            }
+            label="Expand All"
+            />
+          </Grid>
+        </Grid>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Patches />
         </InfiniteScroll>
@@ -265,6 +282,24 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: filtered,
       selectedProjects: selectedValues
     }, this.props.onFinishStateUpdate);
+  }
+
+  private onExpandAllChange = () => {
+    if(this.state.expandAllChecked) {
+      this.setState({
+        expandAllChecked: !this.state.expandAllChecked,
+        expandedPatches: {}
+      });
+    } else {
+      const newExpanded = {}
+      this.state.allPatches.map((patchObj) => {
+        newExpanded[patchObj.Patch.Id] = 1;
+      })
+      this.setState({
+        expandAllChecked: !this.state.expandAllChecked,
+        expandedPatches: newExpanded
+      })
+    }
   }
 
   private renderSelection = (value: string[]) => {
