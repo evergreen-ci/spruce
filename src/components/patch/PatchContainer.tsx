@@ -85,9 +85,9 @@ export class PatchContainer extends React.Component<Props, State> {
             />
           </Paper>
         </div>
-        <Grid container={true}>
-          <Grid item={true} xs={8}>
-            <div className="filter-container">
+        <Grid container={true} className="filter-container">
+          <Grid item={true} xs={10}>
+            <div className="dropdown-container">
               <FormLabel className="filter-label">Filter Patches</FormLabel>
               <FormControl className="advanced-select" key="status">
                 <InputLabel>Status</InputLabel>
@@ -127,16 +127,18 @@ export class PatchContainer extends React.Component<Props, State> {
               </FormControl>
             </div>
           </Grid>
-          <Grid item={true} xs={4}>
-            <FormControlLabel
-            control={
-              <Checkbox
-                checked={this.state.expandAllChecked}
-                onChange={this.onExpandAllChange}
+          <Grid item={true} xs={2} className="expand-container">
+            <div className="expand">
+              <FormControlLabel
+              control={
+                <Checkbox
+                  checked={this.state.expandAllChecked}
+                  onChange={this.onExpandAllChange}
+                />
+              }
+              label="Expand All"
               />
-            }
-            label="Expand All"
-            />
+            </div>
           </Grid>
         </Grid>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
