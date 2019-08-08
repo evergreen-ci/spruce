@@ -1,11 +1,6 @@
 import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
-import CalendarIcon from '@material-ui/icons/DateRangeOutlined';
-import ComputerIcon from '@material-ui/icons/DesktopMacOutlined';
-import ExpandLessIcon from '@material-ui/icons/ExpandLess';
-import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import HourglassIcon from '@material-ui/icons/HourglassEmptyOutlined';
-import ClockIcon from '@material-ui/icons/ScheduleOutlined';
+import * as Icon from '@material-ui/icons';
 import { withStyles } from '@material-ui/styles';
 import { APITask, APITest, ConvertToAPITests } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
@@ -92,25 +87,25 @@ export class TaskPanel extends React.Component<Props, State> {
     const TaskDetails = () => (
       <div>
         <Typography>
-          <ClockIcon className="task-detail-icon" />
+          <Icon.ScheduleOutlined className="task-detail-icon" />
           {this.stringifyNanoseconds(this.props.task.time_taken_ms * 1e6, true, true)}
         </Typography>
         <Typography>
-          <HourglassIcon className="task-detail-icon" />
+          <Icon.HourglassEmptyOutlined className="task-detail-icon" />
           {this.stringifyNanoseconds(this.props.task.expected_duration_ms * 1e6, true, true) + " on base commit"}
         </Typography>
         <Typography>
-          <ComputerIcon className="task-detail-icon" />
+          <Icon.DesktopMacOutlined className="task-detail-icon" />
           <Link href={this.props.client.uiURL + "/host/" + this.props.task.host_id}>
             {this.props.task.host_id}
           </Link>
         </Typography>
         <Typography>
-          <CalendarIcon className="task-detail-icon" />
+          <Icon.DateRangeOutlined className="task-detail-icon" />
           {" Started on " + moment(this.props.task.start_time as Date).format("lll")}
         </Typography>
         <Typography>
-          <CalendarIcon className="task-detail-icon" />
+          <Icon.DateRangeOutlined className="task-detail-icon" />
           {" Finished on " + moment(this.props.task.finish_time as Date).format("lll")}
         </Typography>
       </div>
@@ -140,7 +135,7 @@ export class TaskPanel extends React.Component<Props, State> {
         <CardActions>
           <Grid container={true} onClick={this.handleExpandClick} spacing={3}>
             <Grid item={true} xs={1}>
-              {this.state.isShowingOtherTests ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+              {this.state.isShowingOtherTests ? <Icon.ExpandLess /> : <Icon.ExpandMore />}
             </Grid>
             <Grid item={true} xs={11}>
               <Typography>
@@ -188,7 +183,7 @@ export class TaskPanel extends React.Component<Props, State> {
       return (
         <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={this.handleTaskClick}>
+            <ExpansionPanelSummary expandIcon={<Icon.ExpandMore />} onClick={this.handleTaskClick}>
               <Typography className="task-detail-name">{this.props.task.display_name}</Typography>
               <div className="task-detail-status-parent">
                 <Typography className={this.props.task.status + " task-detail-status-child"}>{this.props.task.status.toUpperCase()}</Typography>
@@ -214,7 +209,7 @@ export class TaskPanel extends React.Component<Props, State> {
       return (
         <Grid item={true} xs={12} key={this.props.task.task_id}>
           <StyledExpansionPanel className="task-panel" expanded={this.props.isCurrentTask}>
-            <ExpansionPanelSummary expandIcon={<ExpandMoreIcon />} onClick={this.handleTaskClick}>
+            <ExpansionPanelSummary expandIcon={<Icon.ExpandMore />} onClick={this.handleTaskClick}>
               <Typography color={this.props.status === "failed" ? "error" : "textPrimary"}>{this.props.task.display_name}</Typography>
             </ExpansionPanelSummary>
             <ExpansionPanelDetails>
