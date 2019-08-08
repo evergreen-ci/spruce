@@ -8,6 +8,44 @@ import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
+// stringifyMilliseconds takes an integer count of nanoseconds and
+// returns it formatted as a human readable string, like "1h32m40s"
+// If skipDayMax is true, then durations longer than 1 day will be represented
+// in hours. Otherwise, they will be displayed as '>=1 day'
+export const stringifyMilliseconds = (input: string | number, skipDayMax: boolean, skipSecMax: boolean) => {
+  const MS_PER_SEC = 1000
+  const MS_PER_MINUTE = MS_PER_SEC * 60;
+  const MS_PER_HOUR = MS_PER_MINUTE * 60;
+
+  if (typeof (input) === "string") {
+    return "unknown";
+  } else if (typeof (input) === "number") {
+    if (input === 0) {
+      return "0 seconds";
+    } else if (input < 0) {
+      return "unknown";
+    } else if (input < MS_PER_SEC) {
+      if (skipSecMax) {
+        return input + " ms";
+      } else {
+        return "< 1 second"
+      }
+    } else if (input < MS_PER_MINUTE) {
+      return Math.floor(input / MS_PER_SEC) + " seconds";
+    } else if (input < MS_PER_HOUR) {
+      return Math.floor(input / MS_PER_MINUTE) + "m " + Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
+    } else if (input < MS_PER_HOUR * 24 || skipDayMax) {
+      return Math.floor(input / MS_PER_HOUR) + "h " +
+        Math.floor((input % MS_PER_HOUR) / MS_PER_MINUTE) + "m " +
+        Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
+    } else {
+      return ">= 1 day";
+    }
+  } else {
+    return "unknown";
+  }
+}
+
 export const StyledExpansionPanel = withStyles({
   root: {
     border: '1px solid rgba(0, 0, 0, .125)',
@@ -88,11 +126,11 @@ export class TaskPanel extends React.Component<Props, State> {
       <div>
         <Typography>
           <Icon.ScheduleOutlined className="task-detail-icon" />
-          {this.stringifyMilliseconds(this.props.task.time_taken_ms, true, true)}
+          {stringifyMilliseconds(this.props.task.time_taken_ms, true, true)}
         </Typography>
         <Typography>
           <Icon.HourglassEmptyOutlined className="task-detail-icon" />
-          {this.stringifyMilliseconds(this.props.task.expected_duration_ms, true, true) + " on base commit"}
+          {stringifyMilliseconds(this.props.task.expected_duration_ms, true, true) + " on base commit"}
         </Typography>
         <Typography>
           <Icon.DesktopMacOutlined className="task-detail-icon" />
@@ -269,44 +307,6 @@ export class TaskPanel extends React.Component<Props, State> {
         break;
     }
   }
-
-  // stringifyNanoseconds takes an integer count of nanoseconds and
-  // returns it formatted as a human readable string, like "1h32m40s"
-  // If skipDayMax is true, then durations longer than 1 day will be represented
-  // in hours. Otherwise, they will be displayed as '>=1 day'
-  private stringifyMilliseconds = (input: string | number, skipDayMax: boolean, skipSecMax: boolean) => {
-    const MS_PER_SEC = 1000
-    const MS_PER_MINUTE = MS_PER_SEC * 60;
-    const MS_PER_HOUR = MS_PER_MINUTE * 60;
-
-    if (typeof(input) === "string") {
-      return "unknown";
-    } else if (typeof(input) === "number") {
-      if (input === 0) {
-        return "0 seconds";
-      } else if (input < 0) {
-        return "unknown";
-      } else if (input < MS_PER_SEC) {
-        if (skipSecMax) {
-          return input + " ms";
-        } else {
-          return "< 1 second"
-        }
-      } else if (input < MS_PER_MINUTE) {
-        return Math.floor(input / MS_PER_SEC) + " seconds";
-      } else if (input < MS_PER_HOUR) {
-        return Math.floor(input / MS_PER_MINUTE) + "m " + Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
-      } else if (input < MS_PER_HOUR * 24 || skipDayMax) {
-        return Math.floor(input / MS_PER_HOUR) + "h " +
-          Math.floor((input % MS_PER_HOUR) / MS_PER_MINUTE) + "m " +
-          Math.floor((input % MS_PER_MINUTE) / MS_PER_SEC) + "s";
-      } else {
-        return ">= 1 day";
-      }
-    } else {
-      return "unknown";
-    }
-}
 }
 
 export default TaskPanel;
