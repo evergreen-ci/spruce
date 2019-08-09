@@ -168,6 +168,7 @@ export class PatchContainer extends React.Component<Props, State> {
         const newVisiblePatches: UIPatch[] = [];
         const newStatuses: string[] = [];
         const newProjects: string[] = [];
+        const newExpanded = {};
         if (newPatches.length === 0) {
           this.setState({
             hasMore: false
@@ -187,6 +188,9 @@ export class PatchContainer extends React.Component<Props, State> {
               (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1)) {
                 newVisiblePatches.push(patch);
             }
+            if(this.state.pageNum === 0) {
+              newExpanded[patch.Patch.Id] = 1;
+            }
           });
         }
         this.setState((prevState, props) => ({
@@ -195,7 +199,8 @@ export class PatchContainer extends React.Component<Props, State> {
           visiblePatches: [... this.state.visiblePatches, ...newVisiblePatches],
           versionsMap: { ... this.state.versionsMap, ...newVersions },
           allStatuses: [...this.state.allStatuses, ...newStatuses],
-          allProjects: [...this.state.allProjects, ...newProjects]
+          allProjects: [...this.state.allProjects, ...newProjects],
+          expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }));
       }, username, this.state.pageNum);
     }
