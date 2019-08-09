@@ -17,24 +17,35 @@ describe("PatchContainer", () => {
 
   const checkExpandedState = jest.fn(() => {
     wrapper.update();
-    expect(wrapper.state("expandedPatches")).toEqual({ "5d430370850e6177128e0b11": 1 });
-    const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
-    expect(patch).toHaveLength(1);
-    expect(patch.prop("expanded")).toBe(true);
-    const expansionPanel = patch.find(ExpansionPanel);
-    expect(expansionPanel).toHaveLength(1);
-    expect(expansionPanel.prop("expanded")).toBe(true);
-  })
-
-  it("check that expanded state persists on re-render", () => {
-    wrapper.setProps({ onFinishStateUpdate: checkExpandedState });
-    expect(wrapper.state("expandedPatches")).toEqual({});
+    expect(wrapper.state("expandedPatches")).toEqual( {
+      "5d4306f33e8e863bf3bfa63c": 1,
+      "5d4325c961837d1fdf407a4e": 1,
+      "5d432ecbe3c3317db456ac59": 1,
+      "5d432fc1e3c3317db456be9f": 1,
+    });
     const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
     expect(patch).toHaveLength(1);
     expect(patch.prop("expanded")).toBe(false);
     const expansionPanel = patch.find(ExpansionPanel);
     expect(expansionPanel).toHaveLength(1);
     expect(expansionPanel.prop("expanded")).toBe(false);
+  })
+
+  it("check that expanded state persists on re-render", () => {
+    wrapper.setProps({ onFinishStateUpdate: checkExpandedState });
+    expect(wrapper.state("expandedPatches")).toEqual( {
+      "5d430370850e6177128e0b11": 1,
+      "5d4306f33e8e863bf3bfa63c": 1,
+      "5d4325c961837d1fdf407a4e": 1,
+      "5d432ecbe3c3317db456ac59": 1,
+      "5d432fc1e3c3317db456be9f": 1,
+    });
+    const patch = wrapper.findWhere(node => node.key() === "5d430370850e6177128e0b11").find(Patch);
+    expect(patch).toHaveLength(1);
+    expect(patch.prop("expanded")).toBe(true);
+    const expansionPanel = patch.find(ExpansionPanel);
+    expect(expansionPanel).toHaveLength(1);
+    expect(expansionPanel.prop("expanded")).toBe(true);
     expect(expansionPanel.prop("onChange")).toBeDefined();
     expansionPanel.prop("onChange")({} as React.ChangeEvent, true);
   })
