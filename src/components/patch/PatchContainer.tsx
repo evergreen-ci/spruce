@@ -1,4 +1,4 @@
-import { Checkbox, FormControl, FormControlLabel, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
+import { Button, Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
@@ -31,7 +31,6 @@ interface State {
   selectedStatuses: string[]
   allProjects: string[]
   selectedProjects: string[]
-  expandAllChecked: boolean
 }
 
 class Props {
@@ -55,7 +54,6 @@ export class PatchContainer extends React.Component<Props, State> {
       selectedStatuses: [],
       allProjects: [],
       selectedProjects: [],
-      expandAllChecked: false
     };
   }
 
@@ -86,7 +84,7 @@ export class PatchContainer extends React.Component<Props, State> {
           </Paper>
         </div>
         <Grid container={true} className="filter-container">
-          <Grid item={true} xs={10}>
+          <Grid item={true} xs={9}>
             <div className="dropdown-container">
               <FormLabel className="filter-label">Filter Patches</FormLabel>
               <FormControl className="advanced-select" key="status">
@@ -127,17 +125,10 @@ export class PatchContainer extends React.Component<Props, State> {
               </FormControl>
             </div>
           </Grid>
-          <Grid item={true} xs={2} className="expand-container">
-            <div className="expand">
-              <FormControlLabel
-              control={
-                <Checkbox
-                  checked={this.state.expandAllChecked}
-                  onChange={this.onExpandAllChange}
-                />
-              }
-              label="Expand All"
-              />
+          <Grid item={true} xs={3}>
+            <div className="expand-container">
+              <Button className="expand-button" variant="outlined" onClick={this.onExpandAllClick}>Expand All</Button>
+              <Button className="expand-button" variant="outlined" onClick={this.onCollapseAllClick}>Collapse All</Button>
             </div>
           </Grid>
         </Grid>
@@ -184,11 +175,11 @@ export class PatchContainer extends React.Component<Props, State> {
             if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
               newProjects.push(project);
             }
-            if((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
+            if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
               (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1)) {
-                newVisiblePatches.push(patch);
+              newVisiblePatches.push(patch);
             }
-            if(this.state.pageNum === 0) {
+            if (this.state.pageNum === 0) {
               newExpanded[patch.Patch.Id] = 1;
             }
           });
@@ -291,22 +282,20 @@ export class PatchContainer extends React.Component<Props, State> {
     }, this.props.onFinishStateUpdate);
   }
 
-  private onExpandAllChange = () => {
-    if(this.state.expandAllChecked) {
-      this.setState({
-        expandAllChecked: !this.state.expandAllChecked,
-        expandedPatches: {}
-      });
-    } else {
-      const newExpanded = {}
-      this.state.allPatches.map((patchObj) => {
-        newExpanded[patchObj.Patch.Id] = 1;
-      })
-      this.setState({
-        expandAllChecked: !this.state.expandAllChecked,
-        expandedPatches: newExpanded
-      })
-    }
+  private onExpandAllClick = () => {
+    const newExpanded = {}
+    this.state.allPatches.map((patchObj) => {
+      newExpanded[patchObj.Patch.Id] = 1;
+    })
+    this.setState({
+      expandedPatches: newExpanded
+    });
+  }
+
+  private onCollapseAllClick = () => {
+    this.setState({
+      expandedPatches: {}
+    });
   }
 
   private renderSelection = (value: string[]) => {
