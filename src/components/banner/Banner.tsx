@@ -31,7 +31,7 @@ export class PatchContainer extends React.Component<Props, State> {
   public render() {
 
     const OptOutLink = () => (
-      <Typography>{"You can opt out of this page or report bugs "}<Link href={this.props.client.uiURL + "/settings"}>here</Link>.</Typography>
+      <Typography>{"You can go back to the old interface "}<Link href={this.props.client.uiURL + "/settings"}>here</Link>.</Typography>
     )
 
     return (
