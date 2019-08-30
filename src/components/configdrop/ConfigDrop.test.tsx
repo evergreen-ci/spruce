@@ -33,12 +33,6 @@ describe("ConfigDrop", () => {
   const validWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={verifyValidConfig} onLoadFinished={onValidLoadFinished} />);
   const invalidWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={jest.fn()} onLoadFinished={onInvalidLoadFinished} />);
 
-  it("matches snapshot", () => {
-    // note: using enzyme.mount (instead of enzyme.shallow) causes the test suite to hang, so this test needs its own shallow wrapper
-    const shallowWrapper = enzyme.shallow(<ConfigDrop updateClientConfig={jest.fn()} onLoadFinished={null} />);
-    expect(shallowWrapper).toMatchSnapshot();
-  })
-
   it("check config state object is not updated with an empty file", () => {
     expect(invalidWrapper.state("newConfig")).toBeNull();
     const emptyFile = new File(["{}"], "config.json");

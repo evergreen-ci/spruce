@@ -6,12 +6,6 @@ import { Login } from "./Login";
 describe("Login", () => {
     const wrapper = enzyme.mount(<Login client={rest.EvergreenClient("", "", "", "", true)} updateUsername={jest.fn()}/>);
 
-    it("matches snapshot", () => {
-      // note: using enzyme.mount here (instead of enzyme.shallow) causes the test suite to hang, so this test needs its own shallow wrapper
-      const shallowWrapper = enzyme.shallow(<Login client={rest.EvergreenClient("", "", "", "", true)} updateUsername={jest.fn()}/>);
-      expect(shallowWrapper).toMatchSnapshot();
-    })
-
     it("clicking login button opens login modal", () => {
       // check that the modal exists, and that it is not currently open
       expect(wrapper.exists("#login-modal")).toBe(true);

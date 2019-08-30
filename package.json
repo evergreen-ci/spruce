@@ -9,7 +9,7 @@
     "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
     "serve": "serve -s build",
-    "start": "lessc src/styles.less src/styles.css && SPRUCE_DEV=true node scripts/start.js",
+    "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
     "test": "lessc src/styles.less src/styles.css && jest",
     "update-snapshot": "jest --updateSnapshot"
   },

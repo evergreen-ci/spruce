@@ -103,6 +103,7 @@ describe("PatchContainer", () => {
     for (const versionId of notInResults) {
       expect(visibleIds).not.toContain(versionId);
     }
+    wrapper.setState({searchText: ""});
   })
 
   const checkFilteredState = jest.fn(() => {
@@ -111,9 +112,9 @@ describe("PatchContainer", () => {
     const visibleIds: string[] = [];
     const notInResults = ["5d432fc1e3c3317db456be9f", "5d4325c961837d1fdf407a4e", "5d4306f33e8e863bf3bfa63c", "5d430370850e6177128e0b11"];
     const expectedResults = ["5d432ecbe3c3317db456ac59"];
-    (wrapper.state("visiblePatches") as UIPatch[]).map(patch => (
-      visibleIds.push(patch.Patch.Id)
-    ));
+    (wrapper.state("visiblePatches") as UIPatch[]).map(patch => {
+      visibleIds.push(patch.Patch.Id);
+    });
     for (const versionId of expectedResults) {
       expect(visibleIds).toContain(versionId);
     }
@@ -132,5 +133,6 @@ describe("PatchContainer", () => {
     const statusSelect = wrapper.findWhere(node => node.key() === "status").find(Select);
     expect(statusSelect).toHaveLength(1);
     statusSelect.prop("onChange")(event as unknown as React.ChangeEvent<HTMLInputElement>, null);
+    expect(checkFilteredState).toHaveBeenCalled();
   })
 })

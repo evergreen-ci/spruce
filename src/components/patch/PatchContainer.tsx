@@ -3,6 +3,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
+import * as request from 'request';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Banner from '../banner/Banner';
@@ -26,6 +27,7 @@ interface State {
   visiblePatches: UIPatch[]
   expandedPatches: object
   isSearching: boolean
+  searchText?: string
   versionsMap: Record<string, UIVersion>
   allStatuses: string[]
   selectedStatuses: string[]
@@ -149,7 +151,7 @@ export class PatchContainer extends React.Component<Props, State> {
           username = urlParams.get("user");
         }
       }
-      this.props.client.getPatches((err, resp, body) => {
+      const getPatchesCallback = (err: any, resp: request.Response, body:any) => {
         if (resp === undefined) {
           return;
         }
@@ -192,8 +194,9 @@ export class PatchContainer extends React.Component<Props, State> {
           allStatuses: [...this.state.allStatuses, ...newStatuses],
           allProjects: [...this.state.allProjects, ...newProjects],
           expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
-        }));
-      }, username, this.state.pageNum);
+        }), () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, this.state.selectedProjects)});
+      }
+      this.props.client.getPatches(getPatchesCallback, username, this.state.pageNum);
     }
   }
 
@@ -202,28 +205,9 @@ export class PatchContainer extends React.Component<Props, State> {
       isSearching: true
     });
     const query = event.currentTarget.value;
-    const filteredPatches = this.filterItems(query);
     this.setState({
-      visiblePatches: filteredPatches,
-    });
-  }
-
-  private filterItems(query: string) {
-    const filtered: UIPatch[] = [];
-    if (query === "") {
-      this.setState({
-        isSearching: false
-      });
-      return this.state.allPatches;
-    }
-    Object.keys(this.state.allPatches).map(versionId => {
-      const patch = this.state.allPatches[versionId] as UIPatch;
-      const description = patch.Patch.Description;
-      if (description.toLowerCase().indexOf(query.toLowerCase()) !== -1) {
-        filtered.push(patch);
-      }
-    });
-    return filtered;
+      searchText: query
+    }, () => {this.applyFilters(query, this.state.selectedStatuses, this.state.selectedProjects)});
   }
 
   private updateOpenPatches = (patchObj: UIPatch) => {
@@ -243,42 +227,35 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private onStatusSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    const selectedValues = event.target.value as unknown as string[];
-    let filtered: UIPatch[] = [];
-    if (selectedValues.length === 0) {
-      filtered = this.state.allPatches;
-    } else {
-      Object.keys(this.state.allPatches).map(versionId => {
-        const patch = this.state.allPatches[versionId] as UIPatch;
-        const status = patch.Patch.Status;
-        if (selectedValues.indexOf(status.toLowerCase()) > -1) {
-          filtered.push(patch);
-        }
-      });
-    }
+    const selectedStatuses = event.target.value as unknown as string[];
     this.setState({
-      visiblePatches: filtered,
-      selectedStatuses: selectedValues
-    }, this.props.onFinishStateUpdate);
+      selectedStatuses: selectedStatuses
+    }, () => {this.applyFilters(this.state.searchText, selectedStatuses, this.state.selectedProjects)});
   }
 
   private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    const selectedValues = event.target.value as unknown as string[];
-    let filtered: UIPatch[] = [];
-    if (selectedValues.length === 0) {
-      filtered = this.state.allPatches;
-    } else {
-      Object.keys(this.state.allPatches).map(versionId => {
-        const patch = this.state.allPatches[versionId] as UIPatch;
-        const project = patch.Patch.Project;
-        if (selectedValues.indexOf(project.toLowerCase()) > -1) {
-          filtered.push(patch);
-        }
-      });
-    }
+    const selectedProjects = event.target.value as unknown as string[];
+    this.setState({
+      selectedProjects: selectedProjects
+    }, () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, selectedProjects)});
+  }
+
+  private applyFilters(description: string | undefined, statuses: string[] | undefined, projects: string[] | undefined) {
+    const filtered: UIPatch[] = [];
+    this.state.allPatches.map( patch => {
+      if (description && patch.Patch.Description.toLowerCase().indexOf(description.toLowerCase()) === -1) {
+        return;
+      }
+      if (statuses && statuses.length > 0 && statuses.indexOf(patch.Patch.Status.toLowerCase()) === -1) {
+        return;
+      }
+      if (projects && projects.length > 0 && projects.indexOf(patch.Patch.Project.toLowerCase()) === -1) {
+        return;
+      }
+      filtered.push(patch);
+    })
     this.setState({
       visiblePatches: filtered,
-      selectedProjects: selectedValues
     }, this.props.onFinishStateUpdate);
   }
 
