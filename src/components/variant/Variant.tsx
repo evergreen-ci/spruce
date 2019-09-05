@@ -1,18 +1,19 @@
 import { Card, CardActionArea, CardContent, Grid, Link, Typography } from '@material-ui/core';
+import {Tooltip} from "@material-ui/core"
 import { GridSize } from '@material-ui/core/Grid';
-import { UIBuild } from 'evergreen.js/lib/models';
+import { BuildTaskCache, UIBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
-interface StatusCount { [id: string]: number };
+class StatusCounts { [id: string]: { count: number, tasks: string[]} };
 
 interface State {
   name: string,
-  statusCount: StatusCount,
   sortedStatus: Array<{
     "status": string,
-    "count": number
+    "count": number,
+    "tasks": string[]
   }>,
   columnsPerStatus: number
   variantHasBeenClicked: boolean
@@ -27,15 +28,9 @@ export class Variant extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const statusCount = {};
-    for (const task of this.props.build.Build.tasks) {
-      if (statusCount[task.status]) {
-        statusCount[task.status]++;
-      } else {
-        statusCount[task.status] = 1;
-      }
-    }
-    const uniqueStatusCount = Object.keys(statusCount).length;
+
+    const statusCounts = this.computeStatuses(this.props.build.Build.tasks);
+    const uniqueStatusCount = Object.keys(statusCounts).length;
     let columnsPerStatus = 4;
     if (uniqueStatusCount === 1) {
       columnsPerStatus = 12;
@@ -44,8 +39,7 @@ export class Variant extends React.Component<Props, State> {
     }
     this.state = {
       name: this.props.build.Build.display_name,
-      statusCount: statusCount,
-      sortedStatus: this.orderByPriority(statusCount),
+      sortedStatus: this.orderByPriority(statusCounts),
       columnsPerStatus: columnsPerStatus,
       variantHasBeenClicked: false,
     };
@@ -64,11 +58,13 @@ export class Variant extends React.Component<Props, State> {
       <Grid container={true} spacing={1}>
         {this.state.sortedStatus.map(statusObj => (
           <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
-            <Card>
-              <CardContent className={statusObj.status}>
-                <Typography variant="h5">{statusObj.count}</Typography>
-              </CardContent>
-            </Card>
+            <Tooltip placement="bottom" title={ <div style={{whiteSpace: "pre-line"}}>{statusObj.tasks.join("\n")}</div> }>
+              <Card>
+                <CardContent className={statusObj.status}>
+                  <Typography variant="h5">{statusObj.count}</Typography>
+                </CardContent>
+              </Card>
+            </Tooltip>
           </Grid>
         ))}
       </Grid>
@@ -104,7 +100,7 @@ export class Variant extends React.Component<Props, State> {
     return displayPriority[a] > displayPriority[b] ? 1 : -1;
   }
 
-  private orderByPriority(statusCount: StatusCount) {
+  private orderByPriority(statusCount: StatusCounts) {
     const sortedStatus = [];
     const asArray = [];
     for (const key of Object.keys(statusCount)) {
@@ -114,7 +110,8 @@ export class Variant extends React.Component<Props, State> {
     for (const sortedKey of asArray) {
       const statusObj = {
         "status": sortedKey,
-        "count": statusCount[sortedKey]
+        "count": statusCount[sortedKey].count,
+        "tasks": statusCount[sortedKey].tasks
       };
       sortedStatus.push(statusObj);
     }
@@ -125,6 +122,19 @@ export class Variant extends React.Component<Props, State> {
     this.setState({
       variantHasBeenClicked: true
     });
+  }
+
+  private computeStatuses(tasks: BuildTaskCache[]):StatusCounts {
+    const statusCounts = new StatusCounts();
+    for (const task of tasks) {
+      if (statusCounts[task.status]) {
+        statusCounts[task.status].count++;
+        statusCounts[task.status].tasks.push(task.display_name);
+      } else {
+        statusCounts[task.status] = { count: 1, tasks: [ task.display_name ]};
+      }
+    }
+    return statusCounts
   }
 }
 
