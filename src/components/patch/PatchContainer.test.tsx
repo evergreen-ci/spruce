@@ -82,8 +82,7 @@ describe("PatchContainer", () => {
     expect(successBox).toHaveLength(1);
     expect(failedBox).toHaveLength(1);
     expect(variant.state("name")).toBe("Ubuntu 16.04");
-    expect(variant.state("statusCount")).toEqual({ success: 2, failed: 1 });
-    expect(variant.state("sortedStatus")).toEqual([{ "count": 1, "status": "failed" }, { "count": 2, "status": "success" }]);
+    expect(variant.state("sortedStatus")).toEqual([{ "count": 1, "status": "failed", "tasks": ["test"] }, { "count": 2, "status": "success", "tasks": ["compile", "lint"] }]);
   })
 
   it("check that search returns correct results", () => {
