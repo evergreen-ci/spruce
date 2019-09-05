@@ -60,18 +60,6 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   public render() {
-
-    const Patches = () => (
-      <Grid className="patch-container" container={true} spacing={3}>
-        {this.state.visiblePatches.map(patchObj => (
-          <Grid item={true} xs={12} key={patchObj.Patch.Id}>
-            <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id] === undefined ? [] : this.state.versionsMap[patchObj.Patch.Id].Builds}
-              client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
-          </Grid>
-        ))}
-      </Grid>
-    );
-
     return (
       <div>
         <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
@@ -135,7 +123,14 @@ export class PatchContainer extends React.Component<Props, State> {
           </Grid>
         </Grid>
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
-          <Patches />
+          <Grid className="patch-container" container={true} spacing={3}>
+          {this.state.visiblePatches.map(patchObj => (
+            <Grid item={true} xs={12} key={patchObj.Patch.Id}>
+              <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id] === undefined ? [] : this.state.versionsMap[patchObj.Patch.Id].Builds}
+                client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
+            </Grid>
+          ))}
+          </Grid>
         </InfiniteScroll>
       </div>
     );

@@ -40,6 +40,10 @@ export class Patch extends React.Component<Props, State> {
     };
   }
 
+  public shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>): boolean {
+    return nextProps.expanded !== this.props.expanded;
+  }
+
   public render() {
 
     const Variants = () => (
