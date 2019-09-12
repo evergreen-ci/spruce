@@ -200,11 +200,6 @@ export class PatchContainer extends React.Component<Props, State> {
             if (!this.state.allPatchTypes.includes(patchType) && !newPatchTypes.includes(patchType)) {
               newPatchTypes.push(patchType);
             }
-            if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
-              (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) && 
-              (this.state.selectedPatchTypes.length === 0 || this.state.selectedPatchTypes.indexOf(patchType) > -1)) {
-              newVisiblePatches.push(patch);
-            }
             if (this.state.pageNum === 0) {
               newExpanded[patch.id] = 1;
             }
@@ -316,10 +311,10 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private getPatchType(patchAlias: string): string {
     let patchType = "User Patch"
-    if(patchAlias === "__github") {
+    if (patchAlias === "__github") {
       patchType = "GitHub PR"
     }
-    if(patchAlias === "__commit_queue") {
+    if (patchAlias === "__commit_queue") {
       patchType = "Commit Queue Test"
     }
 
