@@ -33,6 +33,8 @@ interface State {
   selectedStatuses: string[]
   allProjects: string[]
   selectedProjects: string[]
+  allPatchTypes: string[]
+  selectedPatchTypes: string[]
 }
 
 class Props {
@@ -56,6 +58,8 @@ export class PatchContainer extends React.Component<Props, State> {
       selectedStatuses: [],
       allProjects: [],
       selectedProjects: [],
+      allPatchTypes: [],
+      selectedPatchTypes: [],
     };
   }
 
@@ -113,6 +117,24 @@ export class PatchContainer extends React.Component<Props, State> {
                   ))}
                 </Select>
               </FormControl>
+              <FormControl className="advanced-select" key="patchtype">
+                <InputLabel>Patch Type</InputLabel>
+                <Select
+                  multiple={true}
+                  value={this.state.selectedPatchTypes}
+                  onChange={this.onPatchTypeSelectChange}
+                  renderValue={this.renderSelection}
+                  input={<Input className="advanced-input" />}
+                  MenuProps={MenuProps}
+                >
+                  {this.state.allPatchTypes.map(patchType => (
+                    <MenuItem key={patchType} value={patchType}>
+                      <Checkbox checked={this.state.selectedPatchTypes.indexOf(patchType) > -1} />
+                      <ListItemText primary={patchType} />
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
             </div>
           </Grid>
           <Grid item={true} xs={3}>
@@ -156,6 +178,7 @@ export class PatchContainer extends React.Component<Props, State> {
         const newVisiblePatches: PatchInfo[] = [];
         const newStatuses: string[] = [];
         const newProjects: string[] = [];
+        const newPatchTypes: string[] = [];
         const newExpanded = {};
         if (newPatches.length === 0) {
           this.setState({
@@ -166,20 +189,26 @@ export class PatchContainer extends React.Component<Props, State> {
           newPatches.map(patch => {
             const status = patch.status;
             const project = patch.project;
+            const patchAlias = patch.alias;
             if (!this.state.allStatuses.includes(status) && !newStatuses.includes(status)) {
               newStatuses.push(status);
             }
             if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
               newProjects.push(project);
             }
+            const patchType = this.getPatchType(patchAlias)
+            if (!this.state.allPatchTypes.includes(patchType) && !newPatchTypes.includes(patchType)) {
+              newPatchTypes.push(patchType);
+            }
             if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
-              (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1)) {
+              (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) && 
+              (this.state.selectedPatchTypes.length === 0 || this.state.selectedPatchTypes.indexOf(patchType) > -1)) {
               newVisiblePatches.push(patch);
             }
             if (this.state.pageNum === 0) {
               newExpanded[patch.id] = 1;
             }
-          });
+          })
         }
         this.setState((prevState, props) => ({
           pageNum: prevState.pageNum + 1,
@@ -188,8 +217,9 @@ export class PatchContainer extends React.Component<Props, State> {
           buildsMap: { ... this.state.buildsMap, ...newBuilds },
           allStatuses: [...this.state.allStatuses, ...newStatuses],
           allProjects: [...this.state.allProjects, ...newProjects],
+          allPatchTypes: [...this.state.allPatchTypes, ...newPatchTypes],
           expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
-        }), () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, this.state.selectedProjects)});
+        }), () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, this.state.selectedProjects, this.state.selectedPatchTypes)});
       }
       this.props.client.getPatches(getPatchesCallback, username, this.state.pageNum);
     }
@@ -202,7 +232,7 @@ export class PatchContainer extends React.Component<Props, State> {
     const query = event.currentTarget.value;
     this.setState({
       searchText: query
-    }, () => {this.applyFilters(query, this.state.selectedStatuses, this.state.selectedProjects)});
+    }, () => {this.applyFilters(query, this.state.selectedStatuses, this.state.selectedProjects, this.state.selectedPatchTypes)});
   }
 
   private updateOpenPatches = (patchObj: PatchInfo) => {
@@ -225,17 +255,24 @@ export class PatchContainer extends React.Component<Props, State> {
     const selectedStatuses = event.target.value as unknown as string[];
     this.setState({
       selectedStatuses: selectedStatuses
-    }, () => {this.applyFilters(this.state.searchText, selectedStatuses, this.state.selectedProjects)});
+    }, () => {this.applyFilters(this.state.searchText, selectedStatuses, this.state.selectedProjects, this.state.selectedPatchTypes)});
   }
 
   private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
     const selectedProjects = event.target.value as unknown as string[];
     this.setState({
       selectedProjects: selectedProjects
-    }, () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, selectedProjects)});
+    }, () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, selectedProjects, this.state.selectedPatchTypes)});
   }
 
-  private applyFilters(description: string | undefined, statuses: string[] | undefined, projects: string[] | undefined) {
+  private onPatchTypeSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
+    const selectedPatchTypes = event.target.value as unknown as string[];
+    this.setState({
+      selectedPatchTypes: selectedPatchTypes
+    }, () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, this.state.selectedProjects, selectedPatchTypes)});
+  }
+
+  private applyFilters(description: string | undefined, statuses: string[] | undefined, projects: string[] | undefined, patchTypes: string[] | undefined) {
     const filtered: PatchInfo[] = [];
     this.state.allPatches.map( patch => {
       if (description && patch.description.toLowerCase().indexOf(description.toLowerCase()) === -1) {
@@ -245,6 +282,9 @@ export class PatchContainer extends React.Component<Props, State> {
         return;
       }
       if (projects && projects.length > 0 && projects.indexOf(patch.project.toLowerCase()) === -1) {
+        return;
+      }
+      if (patchTypes && patchTypes.length > 0 && patchTypes.indexOf(this.getPatchType(patch.alias)) === -1) {
         return;
       }
       filtered.push(patch);
@@ -272,6 +312,18 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private renderSelection = (value: string[]) => {
     return (<Typography>{value.join(", ")}</Typography>)
+  }
+
+  private getPatchType(patchAlias: string): string {
+    let patchType = "User Patch"
+    if(patchAlias === "__github") {
+      patchType = "GitHub PR"
+    }
+    if(patchAlias === "__commit_queue") {
+      patchType = "Commit Queue Test"
+    }
+
+    return patchType
   }
 }
 

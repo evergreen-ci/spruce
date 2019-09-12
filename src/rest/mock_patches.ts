@@ -404,7 +404,8 @@ export function getMockPatches() {
         "description": "",
         "githash": "c01401dec66d8b93c883df5844459b51041ad50f",
         "status": "failed",
-        "base_version_id": "mci_c01401dec66d8b93c883df5844459b51041ad50f"
+        "base_version_id": "mci_c01401dec66d8b93c883df5844459b51041ad50f",
+        "alias": "__github"
       },
       {
         "id": "5d7018929dbe325975f6a049",
@@ -415,7 +416,8 @@ export function getMockPatches() {
         "description": "busyb",
         "githash": "0752aa927d638bcb55205fa8b57dcc8f021a023f",
         "status": "created",
-        "base_version_id": "evergreen_0752aa927d638bcb55205fa8b57dcc8f021a023f"
+        "base_version_id": "evergreen_0752aa927d638bcb55205fa8b57dcc8f021a023f",
+        "alias": "__github"
       },
       {
         "id": "5d700fcb97b1d30d193967d0",
@@ -426,7 +428,8 @@ export function getMockPatches() {
         "description": "news",
         "githash": "176ac5c070160caee0c4ac73321901a6e1da1202",
         "status": "succeeded",
-        "base_version_id": "evergreen_176ac5c070160caee0c4ac73321901a6e1da1202"
+        "base_version_id": "evergreen_176ac5c070160caee0c4ac73321901a6e1da1202",
+        "alias": "__github"
       },
       {
         "id": "5d700d89b237361b480b8488",
@@ -437,7 +440,8 @@ export function getMockPatches() {
         "description": "change1",
         "githash": "531e32920256f0aa9a2e358b771eac9cd71bf332",
         "status": "succeeded",
-        "base_version_id": "evergreen_531e32920256f0aa9a2e358b771eac9cd71bf332"
+        "base_version_id": "evergreen_531e32920256f0aa9a2e358b771eac9cd71bf332",
+        "alias": "__github"
       },
       {
         "id": "5d6ffa6897b1d37d85dae0bd",
@@ -448,7 +452,8 @@ export function getMockPatches() {
         "description": "change",
         "githash": "c71f02f4d32e214a7267a65e62279a3b6ee7304f",
         "status": "succeeded",
-        "base_version_id": "evergreen_c71f02f4d32e214a7267a65e62279a3b6ee7304f"
+        "base_version_id": "evergreen_c71f02f4d32e214a7267a65e62279a3b6ee7304f",
+        "alias": "__github"
       },
       {
         "id": "5d6ff85e97b1d37d85dae045",
@@ -459,7 +464,8 @@ export function getMockPatches() {
         "description": "change",
         "githash": "4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b",
         "status": "succeeded",
-        "base_version_id": "evergreen_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b"
+        "base_version_id": "evergreen_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b",
+        "alias": "__github"
       },
       {
         "id": "5d6fe06e9dbe3237b4cb7c15",
@@ -470,7 +476,8 @@ export function getMockPatches() {
         "description": "add generate task",
         "githash": "307b5cba46dfc13b597ad7da3a0af2c56e5972a8",
         "status": "succeeded",
-        "base_version_id": "evergreen_307b5cba46dfc13b597ad7da3a0af2c56e5972a8"
+        "base_version_id": "evergreen_307b5cba46dfc13b597ad7da3a0af2c56e5972a8",
+        "alias": "__github"
       },
       {
         "id": "5d66f2e89dbe32552f1c91f5",
@@ -481,7 +488,8 @@ export function getMockPatches() {
         "description": "",
         "githash": "b0f5cd4077aa92e65072a93a896e000a619d2809",
         "status": "failed",
-        "base_version_id": "mci_b0f5cd4077aa92e65072a93a896e000a619d2809"
+        "base_version_id": "mci_b0f5cd4077aa92e65072a93a896e000a619d2809",
+        "alias": "__github"
       },
       {
         "id": "5d66f0fd9dbe32552f1c9166",
@@ -492,7 +500,8 @@ export function getMockPatches() {
         "description": "",
         "githash": "b0f5cd4077aa92e65072a93a896e000a619d2809",
         "status": "failed",
-        "base_version_id": "mci_b0f5cd4077aa92e65072a93a896e000a619d2809"
+        "base_version_id": "mci_b0f5cd4077aa92e65072a93a896e000a619d2809",
+        "alias": "__github"
       },
       {
         "id": "5d66d4aa97b1d3794298a82f",
