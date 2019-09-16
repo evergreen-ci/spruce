@@ -15,8 +15,9 @@ interface State {
     "count": number,
     "tasks": string[]
   }>,
-  columnsPerStatus: number
-  variantHasBeenClicked: boolean
+  columnsPerStatus: number,
+  variantHasBeenClicked: boolean,
+  isDevMode: boolean // TODO: put in context
 }
 
 class Props {
@@ -42,39 +43,30 @@ export class Variant extends React.Component<Props, State> {
       sortedStatus: this.orderByPriority(statusCounts),
       columnsPerStatus: columnsPerStatus,
       variantHasBeenClicked: false,
+      isDevMode: (process.env.NODE_ENV === "development")
     };
   }
 
   public render() {
-
-    // if (this.state.variantHasBeenClicked) {
-    //   // const url = '/build?id=' + this.props.build.Build._id; 
-    //   const url = this.props.client.uiURL + "/build/" + this.props.build.Build._id;
-    //   window.location.href = url;
-    //   return null;
-    // }
-
-    const VariantsByStatus = () => (
-      <Grid container={true} spacing={1}>
-        {this.state.sortedStatus.map(statusObj => (
-          <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
-            <Tooltip placement="bottom" title={ <div style={{whiteSpace: "pre-line"}}>{statusObj.tasks.join("\n")}</div> }>
-              <Card>
-                <CardContent className={statusObj.status}>
-                  <Typography variant="h5">{statusObj.count}</Typography>
-                </CardContent>
-              </Card>
-            </Tooltip>
-          </Grid>
-        ))}
-      </Grid>
-    );
+    const url = (this.state.isDevMode ? '/#/build?id=' + this.props.build.Build._id : this.props.client.uiURL + "/build/" + this.props.build.Build._id );
 
     return (
-      <Link href={this.props.client.uiURL + "/build/" + this.props.build.Build._id} underline={"none"}>
+      <Link href={url} underline={"none"}>
         <Card className="variant-card">
           <CardActionArea onClick={this.redirectToBuild}>
-            <VariantsByStatus />
+            <Grid container={true} spacing={1}>
+              {this.state.sortedStatus.map(statusObj => (
+                <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
+                  <Tooltip placement="bottom" title={ <div style={{whiteSpace: "pre-line"}}>{statusObj.tasks.join("\n")}</div> }>
+                    <Card>
+                      <CardContent className={statusObj.status}>
+                        <Typography variant="h5">{statusObj.count}</Typography>
+                      </CardContent>
+                    </Card>
+                  </Tooltip>
+                </Grid>
+              ))}
+            </Grid>
             <Typography variant="body1">
               {this.state.name}
             </Typography>
