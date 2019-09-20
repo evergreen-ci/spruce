@@ -1,6 +1,6 @@
 import { ExpansionPanel, ExpansionPanelDetails, ExpansionPanelSummary, Grid, Link, Typography } from '@material-ui/core';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { UIBuild, UIPatch } from 'evergreen.js/lib/models';
+import { BuildInfo, PatchInfo } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
@@ -17,26 +17,26 @@ interface State {
 
 class Props {
   public client: rest.Evergreen
-  public patch: UIPatch
-  public builds: UIBuild[]
+  public patch: PatchInfo
+  public builds: BuildInfo[]
   public expanded: boolean
-  public updateOpenPatches: (patchObj: UIPatch) => void
+  public updateOpenPatches: (patchObj: PatchInfo) => void
 }
 
 export class Patch extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    const datetime = moment(String(this.props.patch.Patch.CreateTime));
-    if (this.props.patch.Patch.Description === "") {
-      this.props.patch.Patch.Description = "Patch from " + this.props.patch.Patch.Author + " at " + datetime.format("LLLL") +
-        " on project " + this.props.patch.Patch.Project;
+    const datetime = moment(String(this.props.patch.create_time));
+    if (this.props.patch.description === "") {
+      this.props.patch.description = "Patch from " + this.props.patch.author + " at " + datetime.format("LLLL") +
+        " on project " + this.props.patch.project;
     }
     this.state = {
-      description: this.props.patch.Patch.Description,
+      description: this.props.patch.description,
       datetime: datetime,
-      project: this.props.patch.Patch.Project,
-      author: this.props.patch.Patch.Author,
-      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.patch.Patch.Id
+      project: this.props.patch.project,
+      author: this.props.patch.author,
+      reconfigureLink: this.props.client.uiURL + "/patch/" + this.props.patch.id
     };
   }
 
@@ -58,7 +58,7 @@ export class Patch extends React.Component<Props, State> {
           </Typography>
         </Grid>
         {this.props.builds.map(obj => (
-          <Grid item={true} xs={3} key={obj.Build._id}>
+          <Grid item={true} xs={3} key={obj.id}>
             <Variant build={obj} client={this.props.client}/>
           </Grid>
         ))}
