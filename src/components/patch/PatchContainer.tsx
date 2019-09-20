@@ -1,6 +1,6 @@
 import { Button, Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { ConvertToPatches, PatchInfo, BuildInfo } from 'evergreen.js/lib/models';
+import { BuildInfo, ConvertToPatches, PatchInfo } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as request from 'request';
@@ -153,7 +153,7 @@ export class PatchContainer extends React.Component<Props, State> {
         const patches = ConvertToPatches(resp.body);
         const newBuilds = patches.BuildsMap;
         const newPatches = patches.UIPatches;
-        const newVisiblePatches: UIPatch[] = [];
+        const newVisiblePatches: PatchInfo[] = [];
         const newStatuses: string[] = [];
         const newProjects: string[] = [];
         const newExpanded = {};

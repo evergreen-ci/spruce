@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardContent, Grid, Link, Typography } from '@material-ui/core';
 import {Tooltip} from "@material-ui/core"
 import { GridSize } from '@material-ui/core/Grid';
-import { TaskInfo, BuildInfo } from 'evergreen.js/lib/models';
+import { BuildInfo, TaskInfo } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
