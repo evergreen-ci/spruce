@@ -3,11 +3,11 @@ export function getMockPatches() {
     "BuildsMap": {
       "5d66d4aa97b1d3794298a82f": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec_5d66d4aa97b1d3794298a82f_19_08_28_19_24_07",
+          "id": "evergreen_commit_queue_merge_patch_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec_5d66d4aa97b1d3794298a82f_19_08_28_19_24_07",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec_5d66d4aa97b1d3794298a82f_19_08_28_19_24_07",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec_5d66d4aa97b1d3794298a82f_19_08_28_19_24_07",
               "display_name": "merge-patch",
               "status": "failed",
               "status_details": {
@@ -155,11 +155,11 @@ export function getMockPatches() {
       ],
       "5d6fe06e9dbe3237b4cb7c15": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
+          "id": "evergreen_commit_queue_merge_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -169,11 +169,11 @@ export function getMockPatches() {
           ]
         },
         {
-          "id": "yb_mci_ubuntu1604_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
+          "id": "evergreen_ubuntu1604_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
           "display_name": "Ubuntu 16.04",
           "tasks": [
             {
-              "id": "yb_mci_ubuntu1604_generate_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
+              "id": "evergreen_ubuntu1604_generate_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
               "display_name": "generate",
               "status": "success",
               "status_details": {
@@ -181,7 +181,7 @@ export function getMockPatches() {
               }
             },
             {
-              "id": "yb_mci_ubuntu1604_generated_task_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
+              "id": "evergreen_ubuntu1604_generated_task_patch_307b5cba46dfc13b597ad7da3a0af2c56e5972a8_5d6fe06e9dbe3237b4cb7c15_19_09_04_16_04_27",
               "display_name": "generated_task",
               "status": "success",
               "status_details": {
@@ -195,11 +195,11 @@ export function getMockPatches() {
       ],
       "5d6ff85e97b1d37d85dae045": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b_5d6ff85e97b1d37d85dae045_19_09_04_17_46_39",
+          "id": "evergreen_commit_queue_merge_patch_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b_5d6ff85e97b1d37d85dae045_19_09_04_17_46_39",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b_5d6ff85e97b1d37d85dae045_19_09_04_17_46_39",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b_5d6ff85e97b1d37d85dae045_19_09_04_17_46_39",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -211,11 +211,11 @@ export function getMockPatches() {
       ],
       "5d6ffa6897b1d37d85dae0bd": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
+          "id": "evergreen_commit_queue_merge_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -225,11 +225,11 @@ export function getMockPatches() {
           ]
         },
         {
-          "id": "yb_mci_ubuntu1604_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
+          "id": "evergreen_ubuntu1604_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
           "display_name": "Ubuntu 16.04",
           "tasks": [
             {
-              "id": "yb_mci_ubuntu1604_generate_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
+              "id": "evergreen_ubuntu1604_generate_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
               "display_name": "generate",
               "status": "success",
               "status_details": {
@@ -237,7 +237,7 @@ export function getMockPatches() {
               }
             },
             {
-              "id": "yb_mci_ubuntu1604_generated_task_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
+              "id": "evergreen_ubuntu1604_generated_task_patch_c71f02f4d32e214a7267a65e62279a3b6ee7304f_5d6ffa6897b1d37d85dae0bd_19_09_04_17_55_38",
               "display_name": "generated_task",
               "status": "success",
               "status_details": {
@@ -251,11 +251,11 @@ export function getMockPatches() {
       ],
       "5d700d89b237361b480b8488": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
+          "id": "evergreen_commit_queue_merge_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -265,11 +265,11 @@ export function getMockPatches() {
           ]
         },
         {
-          "id": "yb_mci_ubuntu1604_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
+          "id": "evergreen_ubuntu1604_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
           "display_name": "Ubuntu 16.04",
           "tasks": [
             {
-              "id": "yb_mci_ubuntu1604_generate_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
+              "id": "evergreen_ubuntu1604_generate_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
               "display_name": "generate",
               "status": "success",
               "status_details": {
@@ -277,7 +277,7 @@ export function getMockPatches() {
               }
             },
             {
-              "id": "yb_mci_ubuntu1604_generated_task_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
+              "id": "evergreen_ubuntu1604_generated_task_patch_531e32920256f0aa9a2e358b771eac9cd71bf332_5d700d89b237361b480b8488_19_09_04_19_17_17",
               "display_name": "generated_task",
               "status": "success",
               "status_details": {
@@ -291,11 +291,11 @@ export function getMockPatches() {
       ],
       "5d700fcb97b1d30d193967d0": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
+          "id": "evergreen_commit_queue_merge_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -305,11 +305,11 @@ export function getMockPatches() {
           ]
         },
         {
-          "id": "yb_mci_ubuntu1604_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
+          "id": "evergreen_ubuntu1604_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
           "display_name": "Ubuntu 16.04",
           "tasks": [
             {
-              "id": "yb_mci_ubuntu1604_generate_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
+              "id": "evergreen_ubuntu1604_generate_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
               "display_name": "generate",
               "status": "success",
               "status_details": {
@@ -317,7 +317,7 @@ export function getMockPatches() {
               }
             },
             {
-              "id": "yb_mci_ubuntu1604_generated_task_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
+              "id": "evergreen_ubuntu1604_generated_task_patch_176ac5c070160caee0c4ac73321901a6e1da1202_5d700fcb97b1d30d193967d0_19_09_04_19_26_16",
               "display_name": "generated_task",
               "status": "success",
               "status_details": {
@@ -331,11 +331,11 @@ export function getMockPatches() {
       ],
       "5d7018929dbe325975f6a049": [
         {
-          "id": "yb_mci_commit_queue_merge_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
+          "id": "evergreen_commit_queue_merge_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
           "display_name": "Commit Queue Merge",
           "tasks": [
             {
-              "id": "yb_mci_commit_queue_merge_merge_patch_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
+              "id": "evergreen_commit_queue_merge_merge_patch_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
               "display_name": "merge-patch",
               "status": "success",
               "status_details": {
@@ -345,11 +345,11 @@ export function getMockPatches() {
           ]
         },
         {
-          "id": "yb_mci_ubuntu1604_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
+          "id": "evergreen_ubuntu1604_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
           "display_name": "Ubuntu 16.04",
           "tasks": [
             {
-              "id": "yb_mci_ubuntu1604_generate_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
+              "id": "evergreen_ubuntu1604_generate_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
               "display_name": "generate",
               "status": "success",
               "status_details": {
@@ -357,7 +357,7 @@ export function getMockPatches() {
               }
             },
             {
-              "id": "yb_mci_ubuntu1604_generated_task_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
+              "id": "evergreen_ubuntu1604_generated_task_patch_0752aa927d638bcb55205fa8b57dcc8f021a023f_5d7018929dbe325975f6a049_19_09_04_20_03_53",
               "display_name": "generated_task",
               "status": "success",
               "status_details": {
@@ -398,7 +398,7 @@ export function getMockPatches() {
       {
         "id": "5d7148f497b1d36cde6c995e",
         "version": "5d7148f497b1d36cde6c995e",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-05T17:42:13.221Z",
         "project": "mci",
         "description": "",
@@ -409,73 +409,73 @@ export function getMockPatches() {
       {
         "id": "5d7018929dbe325975f6a049",
         "version": "5d7018929dbe325975f6a049",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T20:03:31.122Z",
-        "project": "yb_mci",
-        "description": "busyb\n",
+        "project": "evergreen",
+        "description": "busyb",
         "githash": "0752aa927d638bcb55205fa8b57dcc8f021a023f",
-        "status": "succeeded",
-        "base_version_id": "yb_mci_0752aa927d638bcb55205fa8b57dcc8f021a023f"
+        "status": "created",
+        "base_version_id": "evergreen_0752aa927d638bcb55205fa8b57dcc8f021a023f"
       },
       {
         "id": "5d700fcb97b1d30d193967d0",
         "version": "5d700fcb97b1d30d193967d0",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T19:26:03.584Z",
-        "project": "yb_mci",
-        "description": "news\n",
+        "project": "evergreen",
+        "description": "news",
         "githash": "176ac5c070160caee0c4ac73321901a6e1da1202",
         "status": "succeeded",
-        "base_version_id": "yb_mci_176ac5c070160caee0c4ac73321901a6e1da1202"
+        "base_version_id": "evergreen_176ac5c070160caee0c4ac73321901a6e1da1202"
       },
       {
         "id": "5d700d89b237361b480b8488",
         "version": "5d700d89b237361b480b8488",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T19:16:26.01Z",
-        "project": "yb_mci",
-        "description": "change1\n",
+        "project": "evergreen",
+        "description": "change1",
         "githash": "531e32920256f0aa9a2e358b771eac9cd71bf332",
         "status": "succeeded",
-        "base_version_id": "yb_mci_531e32920256f0aa9a2e358b771eac9cd71bf332"
+        "base_version_id": "evergreen_531e32920256f0aa9a2e358b771eac9cd71bf332"
       },
       {
         "id": "5d6ffa6897b1d37d85dae0bd",
         "version": "5d6ffa6897b1d37d85dae0bd",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T17:54:48.759Z",
-        "project": "yb_mci",
-        "description": "change\n",
+        "project": "evergreen",
+        "description": "change",
         "githash": "c71f02f4d32e214a7267a65e62279a3b6ee7304f",
         "status": "succeeded",
-        "base_version_id": "yb_mci_c71f02f4d32e214a7267a65e62279a3b6ee7304f"
+        "base_version_id": "evergreen_c71f02f4d32e214a7267a65e62279a3b6ee7304f"
       },
       {
         "id": "5d6ff85e97b1d37d85dae045",
         "version": "5d6ff85e97b1d37d85dae045",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T17:46:06.677Z",
-        "project": "yb_mci",
-        "description": "change\n",
+        "project": "evergreen",
+        "description": "change",
         "githash": "4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b",
         "status": "succeeded",
-        "base_version_id": "yb_mci_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b"
+        "base_version_id": "evergreen_4825f5012c3d5be3ccd5d5f1b9c12aca0f66763b"
       },
       {
         "id": "5d6fe06e9dbe3237b4cb7c15",
         "version": "5d6fe06e9dbe3237b4cb7c15",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-09-04T16:03:58.542Z",
-        "project": "yb_mci",
-        "description": "add generate task\n",
+        "project": "evergreen",
+        "description": "add generate task",
         "githash": "307b5cba46dfc13b597ad7da3a0af2c56e5972a8",
         "status": "succeeded",
-        "base_version_id": "yb_mci_307b5cba46dfc13b597ad7da3a0af2c56e5972a8"
+        "base_version_id": "evergreen_307b5cba46dfc13b597ad7da3a0af2c56e5972a8"
       },
       {
         "id": "5d66f2e89dbe32552f1c91f5",
         "version": "5d66f2e89dbe32552f1c91f5",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-08-28T21:32:24.733Z",
         "project": "mci",
         "description": "",
@@ -486,7 +486,7 @@ export function getMockPatches() {
       {
         "id": "5d66f0fd9dbe32552f1c9166",
         "version": "5d66f0fd9dbe32552f1c9166",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-08-28T21:24:13.729Z",
         "project": "mci",
         "description": "",
@@ -497,13 +497,13 @@ export function getMockPatches() {
       {
         "id": "5d66d4aa97b1d3794298a82f",
         "version": "5d66d4aa97b1d3794298a82f",
-        "author": "jonathan.brill",
+        "author": "baxter.hacker",
         "create_time": "2019-08-28T19:23:22.457Z",
-        "project": "yb_mci",
-        "description": "change 1.3\n",
+        "project": "evergreen",
+        "description": "change 1.3",
         "githash": "6e4917ecab22135a96a192d1a07fbe8c9e3f77ec",
         "status": "failed",
-        "base_version_id": "yb_mci_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec"
+        "base_version_id": "evergreen_6e4917ecab22135a96a192d1a07fbe8c9e3f77ec"
       }
     ],
     "PageNum": 0
