@@ -1,6 +1,6 @@
 import { Button, Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
-import { ConvertToPatches, UIPatch, UIVersion } from 'evergreen.js/lib/models';
+import { BuildInfo, ConvertToPatches, PatchInfo } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
 import * as request from 'request';
@@ -23,12 +23,12 @@ const MenuProps = {
 interface State {
   pageNum: number
   hasMore: boolean
-  allPatches: UIPatch[]
-  visiblePatches: UIPatch[]
+  allPatches: PatchInfo[]
+  visiblePatches: PatchInfo[]
   expandedPatches: object
   isSearching: boolean
   searchText?: string
-  versionsMap: Record<string, UIVersion>
+  buildsMap: Record<string, BuildInfo[]>
   allStatuses: string[]
   selectedStatuses: string[]
   allProjects: string[]
@@ -51,7 +51,7 @@ export class PatchContainer extends React.Component<Props, State> {
       visiblePatches: [],
       expandedPatches: {},
       isSearching: false,
-      versionsMap: {},
+      buildsMap: {},
       allStatuses: [],
       selectedStatuses: [],
       allProjects: [],
@@ -125,8 +125,8 @@ export class PatchContainer extends React.Component<Props, State> {
         <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
           <Grid className="patch-container" container={true} spacing={3}>
           {this.state.visiblePatches.map(patchObj => (
-            <Grid item={true} xs={12} key={patchObj.Patch.Id}>
-              <Patch patch={patchObj} builds={this.state.versionsMap[patchObj.Patch.Id] === undefined ? [] : this.state.versionsMap[patchObj.Patch.Id].Builds}
+            <Grid item={true} xs={12} key={patchObj.id}>
+              <Patch patch={patchObj} builds={this.state.buildsMap[patchObj.id] === undefined ? [] : this.state.buildsMap[patchObj.id]}
                 client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
             </Grid>
           ))}
@@ -151,9 +151,9 @@ export class PatchContainer extends React.Component<Props, State> {
           return;
         }
         const patches = ConvertToPatches(resp.body);
-        const newVersions = patches.VersionsMap;
+        const newBuilds = patches.BuildsMap;
         const newPatches = patches.UIPatches;
-        const newVisiblePatches: UIPatch[] = [];
+        const newVisiblePatches: PatchInfo[] = [];
         const newStatuses: string[] = [];
         const newProjects: string[] = [];
         const newExpanded = {};
@@ -164,8 +164,8 @@ export class PatchContainer extends React.Component<Props, State> {
           return;
         } else {
           newPatches.map(patch => {
-            const status = patch.Patch.Status;
-            const project = patch.Patch.Project;
+            const status = patch.status;
+            const project = patch.project;
             if (!this.state.allStatuses.includes(status) && !newStatuses.includes(status)) {
               newStatuses.push(status);
             }
@@ -177,7 +177,7 @@ export class PatchContainer extends React.Component<Props, State> {
               newVisiblePatches.push(patch);
             }
             if (this.state.pageNum === 0) {
-              newExpanded[patch.Patch.Id] = 1;
+              newExpanded[patch.id] = 1;
             }
           });
         }
@@ -185,7 +185,7 @@ export class PatchContainer extends React.Component<Props, State> {
           pageNum: prevState.pageNum + 1,
           allPatches: [... this.state.allPatches, ...newPatches],
           visiblePatches: [... this.state.visiblePatches, ...newVisiblePatches],
-          versionsMap: { ... this.state.versionsMap, ...newVersions },
+          buildsMap: { ... this.state.buildsMap, ...newBuilds },
           allStatuses: [...this.state.allStatuses, ...newStatuses],
           allProjects: [...this.state.allProjects, ...newProjects],
           expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
@@ -205,20 +205,20 @@ export class PatchContainer extends React.Component<Props, State> {
     }, () => {this.applyFilters(query, this.state.selectedStatuses, this.state.selectedProjects)});
   }
 
-  private updateOpenPatches = (patchObj: UIPatch) => {
+  private updateOpenPatches = (patchObj: PatchInfo) => {
     const newExpanded = this.state.expandedPatches;
-    if (patchObj.Patch.Id in this.state.expandedPatches) {
-      delete newExpanded[patchObj.Patch.Id];
+    if (patchObj.id in this.state.expandedPatches) {
+      delete newExpanded[patchObj.id];
     } else {
-      newExpanded[patchObj.Patch.Id] = 1;
+      newExpanded[patchObj.id] = 1;
     }
     this.setState({
       expandedPatches: newExpanded
     }, this.props.onFinishStateUpdate);
   }
 
-  private isExpanded = (patchObj: UIPatch) => {
-    return patchObj.Patch.Id in this.state.expandedPatches;
+  private isExpanded = (patchObj: PatchInfo) => {
+    return patchObj.id in this.state.expandedPatches;
   }
 
   private onStatusSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
@@ -236,15 +236,15 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private applyFilters(description: string | undefined, statuses: string[] | undefined, projects: string[] | undefined) {
-    const filtered: UIPatch[] = [];
+    const filtered: PatchInfo[] = [];
     this.state.allPatches.map( patch => {
-      if (description && patch.Patch.Description.toLowerCase().indexOf(description.toLowerCase()) === -1) {
+      if (description && patch.description.toLowerCase().indexOf(description.toLowerCase()) === -1) {
         return;
       }
-      if (statuses && statuses.length > 0 && statuses.indexOf(patch.Patch.Status.toLowerCase()) === -1) {
+      if (statuses && statuses.length > 0 && statuses.indexOf(patch.status.toLowerCase()) === -1) {
         return;
       }
-      if (projects && projects.length > 0 && projects.indexOf(patch.Patch.Project.toLowerCase()) === -1) {
+      if (projects && projects.length > 0 && projects.indexOf(patch.project.toLowerCase()) === -1) {
         return;
       }
       filtered.push(patch);
@@ -257,7 +257,7 @@ export class PatchContainer extends React.Component<Props, State> {
   private onExpandAllClick = () => {
     const newExpanded = {}
     this.state.allPatches.map((patchObj) => {
-      newExpanded[patchObj.Patch.Id] = 1;
+      newExpanded[patchObj.id] = 1;
     })
     this.setState({
       expandedPatches: newExpanded

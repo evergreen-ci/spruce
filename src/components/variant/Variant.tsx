@@ -1,7 +1,7 @@
 import { Card, CardActionArea, CardContent, Grid, Link, Typography } from '@material-ui/core';
 import {Tooltip} from "@material-ui/core"
 import { GridSize } from '@material-ui/core/Grid';
-import { BuildTaskCache, UIBuild } from 'evergreen.js/lib/models';
+import { BuildInfo, TaskInfo } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -21,7 +21,7 @@ interface State {
 }
 
 class Props {
-  public build: UIBuild;
+  public build: BuildInfo;
   public client: rest.Evergreen;
 }
 
@@ -30,7 +30,7 @@ export class Variant extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
-    const statusCounts = this.computeStatuses(this.props.build.Build.tasks);
+    const statusCounts = this.computeStatuses(this.props.build.tasks);
     const uniqueStatusCount = Object.keys(statusCounts).length;
     let columnsPerStatus = 4;
     if (uniqueStatusCount === 1) {
@@ -39,7 +39,7 @@ export class Variant extends React.Component<Props, State> {
       columnsPerStatus = 6;
     }
     this.state = {
-      name: this.props.build.Build.display_name,
+      name: this.props.build.display_name,
       sortedStatus: this.orderByPriority(statusCounts),
       columnsPerStatus: columnsPerStatus,
       variantHasBeenClicked: false,
@@ -48,7 +48,7 @@ export class Variant extends React.Component<Props, State> {
   }
 
   public render() {
-    const url = (this.state.isDevMode ? '/#/build?id=' + this.props.build.Build._id : this.props.client.uiURL + "/build/" + this.props.build.Build._id );
+    const url = (this.state.isDevMode ? '/#/build?id=' + this.props.build.id : this.props.client.uiURL + "/build/" + this.props.build.id );
 
     return (
       <Link href={url} underline={"none"}>
@@ -116,7 +116,7 @@ export class Variant extends React.Component<Props, State> {
     });
   }
 
-  private computeStatuses(tasks: BuildTaskCache[]):StatusCounts {
+  private computeStatuses(tasks: TaskInfo[]):StatusCounts {
     const statusCounts = new StatusCounts();
     for (const task of tasks) {
       if (statusCounts[task.status]) {
