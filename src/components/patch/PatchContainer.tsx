@@ -189,16 +189,20 @@ export class PatchContainer extends React.Component<Props, State> {
           newPatches.map(patch => {
             const status = patch.status;
             const project = patch.project;
-            const patchAlias = patch.alias;
+            const patchType = this.getPatchType(patch.alias)
             if (!this.state.allStatuses.includes(status) && !newStatuses.includes(status)) {
               newStatuses.push(status);
             }
             if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
               newProjects.push(project);
             }
-            const patchType = this.getPatchType(patchAlias)
             if (!this.state.allPatchTypes.includes(patchType) && !newPatchTypes.includes(patchType)) {
               newPatchTypes.push(patchType);
+            }
+            if ((this.state.selectedProjects.length === 0 || this.state.selectedProjects.indexOf(project) > -1) &&
+            (this.state.selectedStatuses.length === 0 || this.state.selectedStatuses.indexOf(status) > -1) &&
+            (this.state.selectedPatchTypes.length === 0 || this.state.selectedPatchTypes.indexOf(patchType) > -1)) {
+              newVisiblePatches.push(patch);
             }
             if (this.state.pageNum === 0) {
               newExpanded[patch.id] = 1;
