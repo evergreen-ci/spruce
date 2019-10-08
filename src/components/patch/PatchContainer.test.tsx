@@ -142,8 +142,10 @@ describe("PatchContainer", () => {
     wrapper.setProps({ onFinishStateUpdate: checkFilteredState });
     expect(wrapper.state("allProjects")).toEqual(["mci", "evergreen"]);
     expect(wrapper.state("allStatuses")).toEqual(["failed", "created", "succeeded"]);
+    expect(wrapper.state("allPatchTypes")).toEqual(["GitHub PR", "User Patch"]);
     expect(wrapper.state("selectedProjects")).toEqual([]);
     expect(wrapper.state("selectedStatuses")).toEqual([]);
+    expect(wrapper.state("selectedPatchTypes")).toEqual([]);
     const statusSelect = wrapper.findWhere(node => node.key() === "status").find(Select);
     expect(statusSelect).toHaveLength(1);
     statusSelect.prop("onChange")(event as unknown as React.ChangeEvent<HTMLInputElement>, null);
