@@ -2,10 +2,10 @@ import { Grid, Link, Typography } from '@material-ui/core';
 import FolderOutlinedIcon from '@material-ui/icons/FolderOutlined';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import axios, { AxiosResponse } from 'axios';
 import { APITask, APITest } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller'
-import * as request from "request";
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 
@@ -49,28 +49,30 @@ export class LogContainer extends React.Component<Props, State> {
 
   public componentDidMount() {
     if (this.props.task.logs !== undefined && this.state.logText === "") {
-      this.props.client.getLogs((err, resp, body) => {
-        this.setState({
-          logText: body,
-          htmlLink: this.props.task.logs.task_log,
-          rawLink: this.props.task.logs.task_log + "&text=true"
+      this.props.client.getLogs(this.props.task.task_id, LogType.task, this.props.task.execution)
+        .then((resp: AxiosResponse<any>) => {
+          this.setState({
+            logText: resp.data,
+            htmlLink: this.props.task.logs.task_log,
+            rawLink: this.props.task.logs.task_log + "&text=true"
+          });
         });
-      }, this.props.task.task_id, LogType.task, this.props.task.execution);
     }
   }
 
   public componentDidUpdate() {
     if ((this.props.task.task_id !== this.state.taskId) || (this.state.isShowingTestLogs && !this.props.shouldShowTestLogs)) {
-      this.props.client.getLogs((err, resp, body) => {
-        this.setState({
-          taskId: this.props.task.task_id,
-          logText: body,
-          logType: LogType.task,
-          htmlLink: this.props.task.logs.task_log,
-          rawLink: this.props.task.logs.task_log + "&text=true",
-          isShowingTestLogs: false
+      this.props.client.getLogs(this.props.task.task_id, LogType.task, this.props.task.execution)
+        .then((resp: AxiosResponse<any>) => {
+          this.setState({
+            taskId: this.props.task.task_id,
+            logText: resp.data,
+            logType: LogType.task,
+            htmlLink: this.props.task.logs.task_log,
+            rawLink: this.props.task.logs.task_log + "&text=true",
+            isShowingTestLogs: false
+          });
         });
-      }, this.props.task.task_id, LogType.task, this.props.task.execution);
     } else if (this.props.shouldShowTestLogs && this.state.rawLink !== this.props.test.logs.url_raw) {
       if (this.props.test.logs.url_raw === "") {
         this.setState({
@@ -81,9 +83,9 @@ export class LogContainer extends React.Component<Props, State> {
           isShowingTestLogs: true
         });
       } else {
-        request.get(this.props.test.logs.url_raw, (err, resp, body) => {
+        axios.get(this.props.test.logs.url_raw).then((resp: AxiosResponse<any>) => {
           this.setState({
-            logText: body,
+            logText: resp.data,
             logType: LogType.all,
             htmlLink: this.props.test.logs.url,
             rawLink: this.props.test.logs.url_raw,
@@ -135,19 +137,15 @@ export class LogContainer extends React.Component<Props, State> {
   }
 
   private handleLogTypeChange = (event: object, newLogType: LogType) => {
-    this.props.client.getLogs((err, resp, body) => {
-      if (err || resp.statusCode >= 300) {
-        console.log("got error " + err + " with status " + status);
-        return;
-      } else {
+    this.props.client.getLogs(this.props.task.task_id, newLogType, this.props.task.execution)
+      .then((resp: AxiosResponse<any>) => {
         this.setState({
-          logText: body,
+          logText: resp.data,
           logType: newLogType,
           htmlLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType,
           rawLink: this.props.client.uiURL + "/task_log_raw/" + this.props.task.task_id + "/" + this.props.task.execution + "?type=" + newLogType + "&text=true"
         }, this.props.onFinishStateUpdate);
-      }
-    }, this.props.task.task_id, newLogType, this.props.task.execution)
+      });
   }
 
   // TODO: use Evergreen API to determine the severity of each log line (see example below)

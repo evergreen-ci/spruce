@@ -5,6 +5,7 @@ import Drawer from '@material-ui/core/Drawer';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
+import { AxiosResponse } from 'axios';
 import * as models from 'evergreen.js/lib/models';
 import * as React from "react";
 import * as rest from "../../rest/interface";
@@ -28,13 +29,9 @@ export class Admin extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.props.APIClient.getAdminConfig((err, resp, body) => {
-      if (err || resp.statusCode >= 300) {
-        console.log("got error " + err + " with status " + status);
-        return;
-      }
+    this.props.APIClient.getAdminConfig().then((resp: AxiosResponse<any>) => {
       this.setState({
-        config: models.ConvertToAdminSettings(body),
+        config: models.ConvertToAdminSettings(resp.data),
       });
     })
   }
@@ -96,7 +93,8 @@ export class Admin extends React.Component<Props, State> {
   }
 
   private save = () => () => {
-    this.props.APIClient.setAdminConfig((err, resp, body) => console.log(body), { banner: this.state.config.banner });
+    this.props.APIClient.setAdminConfig({ banner: this.state.config.banner } as models.AdminSettings)
+      .then((resp: AxiosResponse<any>) => console.log(resp.data));
   }
 }
 

@@ -1,4 +1,5 @@
-import * as request from "request";
+import { AxiosPromise, AxiosResponse } from 'axios';
+import * as models from 'evergreen.js/lib/models';
 import * as MockBuild from "./mock_build"
 import * as MockLog from "./mock_log";
 import * as MockPatches from "./mock_patches";
@@ -18,113 +19,62 @@ export class client {
     this.uiURL = uiURL;
   }
 
-  public getDistros(callback: request.RequestCallback) {
-    callback(null, this.dummySuccessResp(), {});
+  public getDistros(): AxiosPromise<any> {
+    return this.wrapResponse(this.dummySuccessResp());
   }
 
-  public getRecentTasks(callback: request.RequestCallback, verbose?: boolean, lookbackMins?: number, status?: string) {
-    callback(null, this.dummySuccessResp(), {});
+  public getRecentTasks(verbose?: boolean, lookbackMins?: number, status?: string): AxiosPromise<any>  {
+    return this.wrapResponse(this.dummySuccessResp());
   }
 
-  public getToken(callback: request.RequestCallback, username?: string, password?: string) {
-    callback(null, this.dummySuccessResp(), {});
+  public getToken(username?: string, password?: string): AxiosPromise<any>  {
+    return this.wrapResponse(this.dummySuccessResp());
   }
 
-  public getPatches(callback: request.RequestCallback, username?: string) {
-    callback(null, this.dummyPatchesResp(), {});
+  public getPatches(username?: string): AxiosPromise<models.Patches>  {
+    return this.wrapResponse(MockPatches.getMockPatches());
   }
 
-  public getLogs(callback: request.RequestCallback, taskId: string, type: string, executionNumber: number) {
-    callback(null, this.dummyLogResp(), JSON.stringify(this.dummyLogResp().body));
+  public getLogs(taskId: string, type: string, executionNumber: number): AxiosPromise<string>  {
+    return this.wrapResponse(MockLog.getMockLog());
   }
 
-  public getBuild(callback: request.RequestCallback, id: string) {
-    callback(null, this.dummyBuildResp(), JSON.stringify(this.dummyBuildResp().body));
+  public getBuild(id: string): AxiosPromise<models.Build>  {
+    return this.wrapResponse(MockBuild.getMockBuild() as models.Build);
   }
 
-  public getTasksForBuild(callback: request.RequestCallback, taskId: string) {
-    callback(null, this.dummyTasksResp(), JSON.stringify(this.dummyTasksResp().body));
+  public getTasksForBuild(taskId: string): AxiosPromise<models.APITask[]>  {
+    return this.wrapResponse(MockTasks.getMockTasks() as models.APITask[]);
   }
 
-  public getTestsForTask(callback: request.RequestCallback, testId: string) {
-    callback(null, this.dummyTestsResp(), this.dummyTestsResp().body);
+  public getTestsForTask(testId: string): AxiosPromise<models.APITest[]> {
+    return this.wrapResponse(MockTests.getMockTests() as models.APITest[]);
   }
 
-  public getAdminConfig(callback: request.RequestCallback) {
-    callback(null, this.dummySuccessResp(), {});
+  public getAdminConfig(): AxiosPromise<models.AdminSettings> {
+    return this.wrapResponse(this.dummySuccessResp() as models.AdminSettings);
   }
 
-  public setAdminConfig(callback: request.RequestCallback, settings: any) {
-    callback(null, this.dummySuccessResp(), {});
+  public setAdminConfig(settings: models.AdminSettings): AxiosPromise<models.AdminSettings> {
+    return this.wrapResponse(this.dummySuccessResp() as models.AdminSettings);
   }
 
-  public getBanner(callback: request.RequestCallback) {
-    callback(null, this.dummySuccessResp(), {});
+  public getBanner(): AxiosPromise<any> {
+    return this.wrapResponse(this.dummySuccessResp());
   }
 
-  private dummySuccessResp(): request.Response {
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: {},
-    };
-
-    return mockResp as request.Response;
+  private wrapResponse<T = any>(resp: T): Promise<AxiosResponse<T>> {
+    return Promise.resolve({
+      config: null,
+      data: resp,
+      headers: null,
+      request: null,
+      status: 200,
+      statusText: "OK"
+    });
   }
 
-  private dummyPatchesResp(): request.Response {
-    const bodyAsString = JSON.stringify(MockPatches.getMockPatches());
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: bodyAsString,
-    };
-    return mockResp as request.Response;
+  private dummySuccessResp(): object {
+    return {};
   }
-
-  private dummyLogResp(): request.Response {
-    const bodyAsString = MockLog.getMockLog();
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: bodyAsString,
-    };
-    return mockResp as request.Response;
-  }
-
-  private dummyBuildResp(): request.Response {
-    const bodyAsString = MockBuild.getMockBuild();
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: bodyAsString,
-    };
-    return mockResp as request.Response;
-  }
-
-  private dummyTasksResp(): request.Response {
-    const bodyAsString = MockTasks.getMockTasks();
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: bodyAsString,
-    };
-    return mockResp as request.Response;
-  }
-
-  private dummyTestsResp(): request.Response {
-    const bodyAsString = JSON.stringify(MockTests.getMockTests());
-    const mockResp: mockResponse = {
-      statusCode: 200,
-      statusMessage: "",
-      body: bodyAsString,
-    };
-    return mockResp as request.Response;
-  }
-}
-
-class mockResponse {
-  public statusCode: number;
-  public statusMessage: string;
-  public body: any;
 }

@@ -1,9 +1,9 @@
 import { Button, Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
 import SearchIcon from '@material-ui/icons/Search';
+import { AxiosResponse } from 'axios';
 import { BuildInfo, ConvertToPatches, PatchInfo } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as InfiniteScroll from 'react-infinite-scroller';
-import * as request from 'request';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
 import Banner from '../banner/Banner';
@@ -168,11 +168,11 @@ export class PatchContainer extends React.Component<Props, State> {
           username = urlParams.get("user");
         }
       }
-      const getPatchesCallback = (err: any, resp: request.Response, body:any) => {
+      const getPatchesCallback = (resp: AxiosResponse<any>) => {
         if (resp === undefined) {
           return;
         }
-        const patches = ConvertToPatches(resp.body);
+        const patches = ConvertToPatches(resp.data);
         const newBuilds = patches.BuildsMap;
         const newPatches = patches.UIPatches;
         const newVisiblePatches: PatchInfo[] = [];
@@ -220,7 +220,7 @@ export class PatchContainer extends React.Component<Props, State> {
           expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }), () => {this.applyFilters(this.state.searchText, this.state.selectedStatuses, this.state.selectedProjects, this.state.selectedPatchTypes)});
       }
-      this.props.client.getPatches(getPatchesCallback, username, this.state.pageNum);
+      this.props.client.getPatches(username, this.state.pageNum).then(getPatchesCallback);
     }
   }
 

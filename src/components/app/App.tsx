@@ -3,6 +3,7 @@ import bugsnagReact from '@bugsnag/plugin-react';
 import { AppBar, createMuiTheme, IconButton, Link, Menu, MenuItem, Toolbar, Typography } from '@material-ui/core';
 import * as MenuIcon from '@material-ui/icons/Menu';
 import { ThemeProvider } from '@material-ui/styles';
+import { AxiosResponse } from 'axios';
 import * as models from 'evergreen.js/lib/models';
 import * as React from 'react';
 import { HashRouter, NavLink, Route } from 'react-router-dom';
@@ -69,7 +70,7 @@ export class Evergreen extends React.Component<Props, State> {
     let ErrorHandler: any;
     const pluginMenuIsOpen = Boolean(this.state.PluginMenuAnchor);
     const menuIsOpen = Boolean(this.state.MenuAnchor);
-    let mainAppMenu = <div/>;
+    let mainAppMenu = <div />;
     if (this.state.isDevMode) {
       mainAppMenu = (<div>
         <IconButton className="menu" color="inherit" id="mainAppIcon" onClick={this.openMenu}>
@@ -200,10 +201,10 @@ export class Evergreen extends React.Component<Props, State> {
       APIClient: rest.EvergreenClient(configObj.api_url, configObj.ui_url),
     });
 
-    this.state.APIClient.getAdminConfig((error, resp, body) => {
+    this.state.APIClient.getAdminConfig().then((resp: AxiosResponse<any>) => {
       let bugsnagClient: Bugsnag.Client;
-      if (body) {
-        const settings = models.ConvertToAdminSettings(body)
+      if (resp.data) {
+        const settings = models.ConvertToAdminSettings(resp.data)
         if (settings.bugsnag) {
           bugsnagClient = bugsnag(settings.bugsnag);
           bugsnagClient.use(bugsnagReact, React);
@@ -213,7 +214,7 @@ export class Evergreen extends React.Component<Props, State> {
           bugsnag: bugsnagClient
         })
       }
-    })
+    });
   }
 
   private updateUsername = (username: string) => {

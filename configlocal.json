@@ -1,0 +1,4 @@
+{
+    "api_url": "http://localhost:8080/api", 
+    "ui_url": "http://localhost:9090"
+}

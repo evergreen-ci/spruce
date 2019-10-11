@@ -1,5 +1,6 @@
 import { Drawer } from '@material-ui/core';
 import { withStyles } from '@material-ui/styles';
+import { AxiosResponse } from 'axios';
 import { APITask, APITest, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
@@ -49,18 +50,20 @@ export class BuildView extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.props.client.getTasksForBuild((err, resp, body) => {
-      const tasks = ConvertToAPITasks(body) as unknown as APITask[];
+    this.props.client.getTasksForBuild(this.state.buildId).then(
+      (resp: AxiosResponse<any>) => {
+        const tasks = ConvertToAPITasks(resp.data) as unknown as APITask[];
+        this.setState({
+          apiTasks: tasks,
+          currentTask: tasks.length === 0 ? new APITask : tasks[0],
+        });
+      }
+    );
+    this.props.client.getBuild(this.state.buildId).then((resp: AxiosResponse<any>) => {
       this.setState({
-        apiTasks: tasks,
-        currentTask: tasks.length === 0 ? new APITask : tasks[0],
+        build: ConvertToBuild(resp.data)
       });
-    }, this.state.buildId);
-    this.props.client.getBuild((err, resp, body) => {
-      this.setState({
-        build: ConvertToBuild(body)
-      });
-    }, this.state.buildId);
+    });
   }
 
   public render() {
@@ -71,7 +74,7 @@ export class BuildView extends React.Component<Props, State> {
           <BuildSidebar client={this.props.client} build={this.state.build} tasks={this.state.apiTasks} onSwitchTask={this.switchCurentTask} onSwitchTest={this.switchCurrentTest} currentTask={this.state.currentTask} onFinishStateUpdate={null} />
         </StyledDrawer>
         <main>
-          <LogContainer client={this.props.client} task={this.state.currentTask} test={this.state.currentTest} shouldShowTestLogs={this.state.shouldShowTestLogs} onFinishStateUpdate={null}/>
+          <LogContainer client={this.props.client} task={this.state.currentTask} test={this.state.currentTest} shouldShowTestLogs={this.state.shouldShowTestLogs} onFinishStateUpdate={null} />
         </main>
       </div>
     );

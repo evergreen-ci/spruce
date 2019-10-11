@@ -1,5 +1,6 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Snackbar, TextField, Typography } from '@material-ui/core';
 import CloseIcon from '@material-ui/icons/Close';
+import { AxiosResponse } from 'axios';
 import * as React from 'react';
 import * as rest from "../../rest/interface";
 import '../../styles.css';
@@ -122,26 +123,25 @@ export class Login extends React.Component<Props, State> {
   }
 
   private handleClickSubmit = () => {
-    this.props.client.getToken((err, resp, body) => {
-      if (err || resp.statusCode >= 300) {
-        if (resp.statusCode === 401) {
-          this.setState({
-            errorText: "Invalid username or password"
-          });
+    this.props.client.getToken(this.state.username, this.state.password)
+      .then((resp: AxiosResponse<any>) => {
+        if (resp.status >= 300) {
+          if (resp.status === 401) {
+            this.setState({
+              errorText: "Invalid username or password"
+            });
+          }
         } else {
-          console.log("got error " + err + " with status code " + resp.statusCode);
+          this.props.updateUsername(this.state.username);
+          this.context.username = this.state.username;
+          this.setState({
+            open: false,
+            submitted: true,
+            snackbarOpen: true,
+            snackbarMessage: "Log In Successful"
+          });
         }
-      } else {
-        this.props.updateUsername(this.state.username);
-        this.context.username = this.state.username;
-        this.setState({
-          open: false,
-          submitted: true,
-          snackbarOpen: true,
-          snackbarMessage: "Log In Successful"
-        });
-      }
-    }, this.state.username, this.state.password);
+      });
   }
 
   private handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {

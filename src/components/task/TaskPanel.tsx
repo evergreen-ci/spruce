@@ -2,6 +2,7 @@ import { Card, CardActions, CardContent, Collapse, ExpansionPanelDetails, Expans
 import MuiExpansionPanel from '@material-ui/core/ExpansionPanel';
 import * as Icon from '@material-ui/icons';
 import { withStyles } from '@material-ui/styles';
+import { AxiosResponse } from 'axios';
 import { APITask, APITest, ConvertToAPITests } from 'evergreen.js/lib/models';
 import * as moment from 'moment';
 import * as React from 'react';
@@ -85,8 +86,8 @@ export class TaskPanel extends React.Component<Props, State> {
   }
 
   public componentDidMount() {
-    this.props.client.getTestsForTask((err, resp, body) => {
-      const tests = ConvertToAPITests(body) as unknown as APITest[];
+    this.props.client.getTestsForTask(this.props.task.task_id).then((resp: AxiosResponse<any>) => {
+      const tests = ConvertToAPITests(resp.data) as unknown as APITest[]; // TODO fix siganture of ConvertToAPITests
       let failingTests: APITest[] = [];
       let silentFailTests: APITest[] = [];
       let skippedTests: APITest[] = [];
@@ -117,7 +118,7 @@ export class TaskPanel extends React.Component<Props, State> {
         skippedTests: skippedTests,
         otherTests: otherTests
       })
-    }, this.props.task.task_id);
+    });
   }
 
   public render() {

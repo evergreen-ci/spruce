@@ -1,8 +1,9 @@
 import { Button, ExpansionPanelSummary } from '@material-ui/core';
 import ToggleButton from '@material-ui/lab/ToggleButton';
 import ToggleButtonGroup from '@material-ui/lab/ToggleButtonGroup';
+import { AxiosResponse } from 'axios';
 import * as enzyme from "enzyme";
-import { APITask, APITest, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
+import { APITask, APITest, Build, ConvertToAPITasks, ConvertToBuild } from 'evergreen.js/lib/models';
 import * as React from "react";
 import { BrowserRouter as Router } from 'react-router-dom';
 import * as rest from "../../rest/interface";
@@ -27,7 +28,7 @@ describe("BuildView", () => {
     const logContainer = wrapper.find(LogContainer);
     expect(logContainer).toHaveLength(1);
     expect(logContainer.prop("task")).toBeDefined();
-    expect(logContainer.state("logText")).toBe("\"I'm a log!\"");
+    expect(logContainer.state("logText")).toBe("I'm a log!");
     expect(logContainer.state("logType")).toBe(LogType.task);
     const buildSidebar = wrapper.find(BuildSidebar);
     expect(buildSidebar).toHaveLength(1);
@@ -54,50 +55,54 @@ describe("BuildView", () => {
 
   it("clicking on task panel loads new logs and updates state", () => {
     const mockClient = rest.EvergreenClient("", "", "", "", true);
-    let build = null;
+    let build: Build = null;
     let tasks: APITask[] = [];
     let currentTask = new APITask;
-    mockClient.getBuild((err, resp, body) => {
-      build = ConvertToBuild(body);
-    }, "someId");
-    mockClient.getTasksForBuild((err, resp, body) => {
-      tasks = ConvertToAPITasks(body) as unknown as APITask[];
+    const buildPromise = mockClient.getBuild("someId").then((resp: AxiosResponse<any>) => {
+      build = ConvertToBuild(resp.data);
+    });
+    const taskPromise = mockClient.getTasksForBuild("someId").then((resp: AxiosResponse<any>) => {
+      tasks = ConvertToAPITasks(resp.data) as unknown as APITask[];
       currentTask = tasks[0];
-    }, "someId");
-
-    const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} onSwitchTask={null} onSwitchTest={null} currentTask={currentTask} onFinishStateUpdate={null} />);
-    expect(buildSidebar).toHaveLength(1);
-    expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
-    const compilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
-    expect(compilePanel).toHaveLength(1);
-    expect(compilePanel.prop("isCurrentTask")).toBe(true);
-    const testPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
-    expect(testPanel).toHaveLength(1);
-    expect(testPanel.prop("isCurrentTask")).toBe(false);
-
-    const switchTask = jest.fn(() => {
-      buildSidebar.setProps({
-        currentTask: tasks[2]
-      })
-    });
-    const checkState = jest.fn(() => {
-      buildSidebar.update();
-      expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
-      const checkTestPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
-      expect(checkTestPanel).toHaveLength(1);
-      expect(checkTestPanel.prop("isCurrentTask")).toBe(true);
-      const checkCompilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
-      expect(checkCompilePanel.prop("isCurrentTask")).toBe(false);
-      expect(checkCompilePanel).toHaveLength(1);
-    });
-    buildSidebar.setProps({ 
-      onFinishStateUpdate: checkState, 
-      onSwitchTask: switchTask
     });
 
-    const expansionPanel = testPanel.find(ExpansionPanelSummary);
-    expect(expansionPanel).toHaveLength(1);
-    expansionPanel.prop("onClick")({} as React.MouseEvent<HTMLDivElement, MouseEvent>);
+    Promise.all([buildPromise, taskPromise]).then(() => {
+      const buildSidebar = enzyme.mount(<BuildSidebar client={mockClient} build={build} tasks={tasks} onSwitchTask={null} onSwitchTest={null} currentTask={currentTask} onFinishStateUpdate={null} />);
+      expect(buildSidebar).toHaveLength(1);
+      expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
+      const compilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
+      expect(compilePanel).toHaveLength(1);
+      expect(compilePanel.prop("isCurrentTask")).toBe(true);
+      const testPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
+      expect(testPanel).toHaveLength(1);
+      expect(testPanel.prop("isCurrentTask")).toBe(false);
+  
+      const switchTask = jest.fn(() => {
+        buildSidebar.setProps({
+          currentTask: tasks[2]
+        })
+      });
+      const checkState = jest.fn(() => {
+        buildSidebar.update();
+        expect(buildSidebar.prop("currentTask").task_id).toBe("spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22");
+        const checkTestPanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_test_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
+        expect(checkTestPanel).toHaveLength(1);
+        expect(checkTestPanel.prop("isCurrentTask")).toBe(true);
+        const checkCompilePanel = buildSidebar.findWhere(node => node.key() === "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22").find(TaskPanel);
+        expect(checkCompilePanel.prop("isCurrentTask")).toBe(false);
+        expect(checkCompilePanel).toHaveLength(1);
+      });
+      buildSidebar.setProps({ 
+        onFinishStateUpdate: checkState, 
+        onSwitchTask: switchTask
+      });
+  
+      const expansionPanel = testPanel.find(ExpansionPanelSummary);
+      expect(expansionPanel).toHaveLength(1);
+      expansionPanel.prop("onClick")({} as React.MouseEvent<HTMLDivElement, MouseEvent>);
+      expect(checkState).toHaveBeenCalled();
+      expect(switchTask).toHaveBeenCalled();
+    })
   })
 
   it("clicking back button returns to patches page", () => {

@@ -30,7 +30,7 @@ describe("Login", () => {
       expect(wrapper.state("open")).toBe(false);
     });
     
-    it("clicking submit button closes login modal and saves token locally", () => {
+    it("clicking submit button closes login modal and saves token locally", (done) => {
       // find the login button and click it
       const loginButton = wrapper.find("#login-button").hostNodes();
       loginButton.simulate("click");
@@ -45,10 +45,13 @@ describe("Login", () => {
       const submitButton = wrapper.find("#submit-button").hostNodes();
       submitButton.simulate("click");
       // check that the state reflects the submit button click
-      expect(wrapper.state("submitted")).toBe(true);
-      // check that the modal is now closed
-      expect(wrapper.state("open")).toBe(false);
-      // TODO: check that cookie was included in the response
-      // should be mci-token, located in response.request.response.headers["set-cookie"]
+      setImmediate(() => {
+        expect(wrapper.state("submitted")).toBe(true);
+        // check that the modal is now closed
+        expect(wrapper.state("open")).toBe(false);
+        // TODO: check that cookie was included in the response
+        // should be mci-token, located in response.request.response.headers["set-cookie"]
+        done();
+      })
     });
 })
