@@ -53,7 +53,7 @@ describe("BuildView", () => {
     buttonGroup.prop("onChange")({} as React.MouseEvent<HTMLElement>, LogType.all);
   })
 
-  it("clicking on task panel loads new logs and updates state", () => {
+  it("clicking on task panel loads new logs and updates state", (done) => {
     const mockClient = rest.EvergreenClient("", "", "", "", true);
     let build: Build = null;
     let tasks: APITask[] = [];
@@ -102,6 +102,7 @@ describe("BuildView", () => {
       expansionPanel.prop("onClick")({} as React.MouseEvent<HTMLDivElement, MouseEvent>);
       expect(checkState).toHaveBeenCalled();
       expect(switchTask).toHaveBeenCalled();
+      done();
     })
   })
 
