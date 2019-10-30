@@ -15,7 +15,7 @@ interface State {
   reconfigureLink: string;
 }
 
-class Props {
+export class PatchProps {
   public client: rest.Evergreen
   public patch: PatchInfo
   public builds: BuildInfo[]
@@ -23,8 +23,8 @@ class Props {
   public updateOpenPatches: (patchObj: PatchInfo) => void
 }
 
-export class Patch extends React.Component<Props, State> {
-  constructor(props: Props) {
+export class Patch extends React.Component<PatchProps, State> {
+  constructor(props: PatchProps) {
     super(props);
     const datetime = moment(String(this.props.patch.create_time));
     if (this.props.patch.description === "") {
@@ -40,7 +40,7 @@ export class Patch extends React.Component<Props, State> {
     };
   }
 
-  public shouldComponentUpdate(nextProps: Readonly<Props>, nextState: Readonly<State>): boolean {
+  public shouldComponentUpdate(nextProps: Readonly<PatchProps>, nextState: Readonly<State>): boolean {
     return nextProps.expanded !== this.props.expanded;
   }
 
