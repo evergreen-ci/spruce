@@ -12,9 +12,9 @@ describe("PatchContainer", () => {
   const wrapper = enzyme.mount(<PatchContainer client={rest.EvergreenClient("", "", "", "", true)} username={"admin"} onFinishStateUpdate={null} />);
 
   const infiniteScroll = wrapper.find(InfiniteScroll);
-    infiniteScroll.prop("loadMore")(0);
+  infiniteScroll.prop("loadMore")(0);
 
-    const checkExpandedState = jest.fn(() => {
+  const checkExpandedState = jest.fn(() => {
     wrapper.update();
     expect(wrapper.state("expandedPatches")).toEqual( {
       "5d66d4aa97b1d3794298a82f": 1,
