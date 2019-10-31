@@ -1,14 +1,35 @@
-import { Link } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
+import { Link } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
 import * as enzyme from "enzyme";
 import * as React from "react";
 import * as rest from "../../rest/interface";
-import Banner from './Banner'
+import Banner from "./Banner";
 
 describe("Banner", () => {
-
-  const linkWrapper = enzyme.mount(<Banner client={rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")} message={""} showOptOut={true} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>);
-  const noLinkWrapper = enzyme.mount(<Banner client={rest.EvergreenClient("https://evergreen.mongodb.com/api", "https://evergreen.mongodb.com")} message={""} showOptOut={false} onFinishStateUpdate={null} storageKey={"shouldHideBanner"}/>);
+  const linkWrapper = enzyme.mount(
+    <Banner
+      client={rest.EvergreenClient(
+        "https://evergreen.mongodb.com/api",
+        "https://evergreen.mongodb.com"
+      )}
+      message={""}
+      showOptOut={true}
+      onFinishStateUpdate={null}
+      storageKey={"shouldHideBanner"}
+    />
+  );
+  const noLinkWrapper = enzyme.mount(
+    <Banner
+      client={rest.EvergreenClient(
+        "https://evergreen.mongodb.com/api",
+        "https://evergreen.mongodb.com"
+      )}
+      message={""}
+      showOptOut={false}
+      onFinishStateUpdate={null}
+      storageKey={"shouldHideBanner"}
+    />
+  );
 
   const checkState = jest.fn(() => {
     expect(linkWrapper.state("bannerIsHidden")).toBe(true);
@@ -24,7 +45,10 @@ describe("Banner", () => {
     expect(linkWrapper.state("bannerIsHidden")).toBe(false);
     const closeButton = linkWrapper.find(CloseIcon);
     expect(closeButton).toHaveLength(1);
-    closeButton.prop("onClick")({} as React.MouseEvent<SVGSVGElement, MouseEvent>);
+    closeButton.prop("onClick")({} as React.MouseEvent<
+      SVGSVGElement,
+      MouseEvent
+    >);
   });
 
   it("check that local storage persists on refresh", () => {
@@ -41,4 +65,4 @@ describe("Banner", () => {
     const link = noLinkWrapper.find(Link);
     expect(link).toHaveLength(0);
   });
-})
+});
