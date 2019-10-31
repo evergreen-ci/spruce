@@ -1,23 +1,32 @@
-import { Card, CardActionArea, CardContent, Grid, Link, Typography } from '@material-ui/core';
-import {Tooltip} from "@material-ui/core"
-import { GridSize } from '@material-ui/core/Grid';
-import { BuildInfo, TaskInfo } from 'evergreen.js/lib/models';
-import * as React from 'react';
+import {
+  Card,
+  CardActionArea,
+  CardContent,
+  Grid,
+  Link,
+  Typography
+} from "@material-ui/core";
+import { Tooltip } from "@material-ui/core";
+import { GridSize } from "@material-ui/core/Grid";
+import { BuildInfo, TaskInfo } from "evergreen.js/lib/models";
+import * as React from "react";
 import * as rest from "../../rest/interface";
-import '../../styles.css';
+import "../../styles.css";
 
-class StatusCounts { [id: string]: { count: number, tasks: string[]} };
+class StatusCounts {
+  [id: string]: { count: number; tasks: string[] };
+}
 
 interface State {
-  name: string,
+  name: string;
   sortedStatus: Array<{
-    "status": string,
-    "count": number,
-    "tasks": string[]
-  }>,
-  columnsPerStatus: number,
-  variantHasBeenClicked: boolean,
-  isDevMode: boolean // TODO: put in context
+    status: string;
+    count: number;
+    tasks: string[];
+  }>;
+  columnsPerStatus: number;
+  variantHasBeenClicked: boolean;
+  isDevMode: boolean; // TODO: put in context
 }
 
 class Props {
@@ -26,7 +35,6 @@ class Props {
 }
 
 export class Variant extends React.Component<Props, State> {
-
   constructor(props: Props) {
     super(props);
 
@@ -43,12 +51,14 @@ export class Variant extends React.Component<Props, State> {
       sortedStatus: this.orderByPriority(statusCounts),
       columnsPerStatus: columnsPerStatus,
       variantHasBeenClicked: false,
-      isDevMode: (process.env.NODE_ENV === "development")
+      isDevMode: process.env.NODE_ENV === "development"
     };
   }
 
   public render() {
-    const url = (this.state.isDevMode ? '/#/build?id=' + this.props.build.id : this.props.client.uiURL + "/build/" + this.props.build.id );
+    const url = this.state.isDevMode
+      ? "/#/build?id=" + this.props.build.id
+      : this.props.client.uiURL + "/build/" + this.props.build.id;
 
     return (
       <Link href={url} underline={"none"}>
@@ -56,8 +66,19 @@ export class Variant extends React.Component<Props, State> {
           <CardActionArea onClick={this.redirectToBuild}>
             <Grid container={true} spacing={1}>
               {this.state.sortedStatus.map(statusObj => (
-                <Grid item={true} xs={this.state.columnsPerStatus as GridSize} key={statusObj.status}>
-                  <Tooltip placement="bottom" title={ <div style={{whiteSpace: "pre-line"}}>{statusObj.tasks.join("\n")}</div> }>
+                <Grid
+                  item={true}
+                  xs={this.state.columnsPerStatus as GridSize}
+                  key={statusObj.status}
+                >
+                  <Tooltip
+                    placement="bottom"
+                    title={
+                      <div style={{ whiteSpace: "pre-line" }}>
+                        {statusObj.tasks.join("\n")}
+                      </div>
+                    }
+                  >
                     <Card>
                       <CardContent className={statusObj.status}>
                         <Typography variant="h5">{statusObj.count}</Typography>
@@ -67,9 +88,7 @@ export class Variant extends React.Component<Props, State> {
                 </Grid>
               ))}
             </Grid>
-            <Typography variant="body1">
-              {this.state.name}
-            </Typography>
+            <Typography variant="body1">{this.state.name}</Typography>
           </CardActionArea>
         </Card>
       </Link>
@@ -78,17 +97,17 @@ export class Variant extends React.Component<Props, State> {
 
   private compareByPriority(a: string, b: string) {
     const displayPriority = {
-      "failed": 0,
+      failed: 0,
       "timed-out": 1,
       "system-failed": 2,
       "system-unresponsive": 3,
       "setup-failed": 4,
-      "success": 5,
-      "started": 6,
-      "dispatched": 7,
-      "undispatched": 8,
-      "inactive": 9,
-    }
+      success: 5,
+      started: 6,
+      dispatched: 7,
+      undispatched: 8,
+      inactive: 9
+    };
     return displayPriority[a] > displayPriority[b] ? 1 : -1;
   }
 
@@ -101,9 +120,9 @@ export class Variant extends React.Component<Props, State> {
     asArray.sort(this.compareByPriority);
     for (const sortedKey of asArray) {
       const statusObj = {
-        "status": sortedKey,
-        "count": statusCount[sortedKey].count,
-        "tasks": statusCount[sortedKey].tasks
+        status: sortedKey,
+        count: statusCount[sortedKey].count,
+        tasks: statusCount[sortedKey].tasks
       };
       sortedStatus.push(statusObj);
     }
@@ -114,19 +133,19 @@ export class Variant extends React.Component<Props, State> {
     this.setState({
       variantHasBeenClicked: true
     });
-  }
+  };
 
-  private computeStatuses(tasks: TaskInfo[]):StatusCounts {
+  private computeStatuses(tasks: TaskInfo[]): StatusCounts {
     const statusCounts = new StatusCounts();
     for (const task of tasks) {
       if (statusCounts[task.status]) {
         statusCounts[task.status].count++;
         statusCounts[task.status].tasks.push(task.display_name);
       } else {
-        statusCounts[task.status] = { count: 1, tasks: [ task.display_name ]};
+        statusCounts[task.status] = { count: 1, tasks: [task.display_name] };
       }
     }
-    return statusCounts
+    return statusCounts;
   }
 }
 
