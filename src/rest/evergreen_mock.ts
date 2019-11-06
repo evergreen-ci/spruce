@@ -73,7 +73,7 @@ export class client {
     return this.wrapResponse(this.dummySuccessResp());
   }
 
-  private wrapResponse<T = any>(resp: T): Promise<AxiosResponse<T>> {
+  private wrapResponse<T = object | string>(resp: T): Promise<AxiosResponse<T>> {
     return Promise.resolve({
       config: null,
       data: resp,

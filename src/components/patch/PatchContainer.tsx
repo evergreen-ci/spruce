@@ -20,6 +20,7 @@ import {
   ConvertToPatches,
   PatchInfo
 } from "evergreen.js/lib/models";
+import { Patches } from 'evergreen.js/src/models';
 import * as React from "react";
 import * as InfiniteScroll from "react-infinite-scroller";
 import * as rest from "../../rest/interface";
@@ -229,7 +230,7 @@ export class PatchContainer extends React.Component<Props, State> {
           username = urlParams.get("user");
         }
       }
-      const getPatchesCallback = (resp: AxiosResponse<any>) => {
+      const getPatchesCallback = (resp: AxiosResponse<Patches>) => {
         if (resp === undefined) {
           return;
         }
