@@ -1,32 +1,27 @@
 import * as React from "react";
-import bugsnag, { Bugsnag } from "@bugsnag/js";
-import bugsnagReact from "@bugsnag/plugin-react";
 import * as rest from "../rest/interface";
-import * as models from "evergreen.js/lib/models";
-import { AxiosResponse } from "axios";
 import { ClientConfig, IsValidConfig } from "../models/client_config";
 
 const { createContext, useState } = React;
 
 const configPath = "/config.json";
 
-const UserContext = createContext({});
-
-type ApiClientContext = {
+interface ApiClientContextType {
   apiClient: rest.Evergreen;
   actions: {
     tryLoadConfig: () => void;
     updateConfig: (configObj: ClientConfig) => void;
   };
-};
+}
+
+const ApiClientContext = createContext({} as ApiClientContextType);
 
 const ApiClientProvider: React.FC = ({ children }) => {
-  const [bugsnag, setBugsnag] = useState(null);
   const [apiClient, setApiClient] = useState(
-    rest.EvergreenClient("", "", "", "")
+    rest.EvergreenClient("", "", "", "", true)
   );
 
-  const contextValue: ApiClientContext = {
+  const contextValue: ApiClientContextType = {
     apiClient,
     actions: {
       tryLoadConfig,
@@ -34,21 +29,13 @@ const ApiClientProvider: React.FC = ({ children }) => {
     }
   };
 
-  function updateConfig(configObj: ClientConfig) {
+  async function updateConfig(configObj: ClientConfig) {
     setApiClient(rest.EvergreenClient(configObj.api_url, configObj.ui_url));
-    apiClient.getAdminConfig().then((resp: AxiosResponse<any>) => {
-      let bugsnagClient: Bugsnag.Client;
-      if (resp.data) {
-        const settings = models.ConvertToAdminSettings(resp.data);
-        if (settings.bugsnag) {
-          bugsnagClient = bugsnag(settings.bugsnag);
-          bugsnagClient.use(bugsnagReact, React);
-        }
-        setBugsnag(bugsnagClient);
-      }
-    });
   }
 
+  // the configuration of Spruce's environment is currently accomplished by requesting a config file from S3
+  // that config file determines the api url and the ui url (which is just the domain)
+  // TODO: use env-cmd to configure arbitrary build environments instead of using the config file
   function tryLoadConfig() {
     fetch(configPath).then((resp: Response) => {
       resp.json().then(
@@ -70,7 +57,9 @@ const ApiClientProvider: React.FC = ({ children }) => {
   }
 
   return (
-    <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
+    <ApiClientContext.Provider value={contextValue as ApiClientContextType}>
+      {children}
+    </ApiClientContext.Provider>
   );
 };
 
