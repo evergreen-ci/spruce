@@ -4,25 +4,25 @@ import * as MenuIcon from "@material-ui/icons/Menu";
 import { NavLink } from "react-router-dom";
 import { Login } from "../login/Login";
 import { Evergreen } from "../../rest/interface";
+import { UserContext } from "../../context/user";
 
-const { useState } = React;
+const { useState, useContext } = React;
 
-type DevMenuProps = {
+interface DevMenuProps {
   apiClient: Evergreen;
-};
+}
 
 export const DevMenu: React.FC<DevMenuProps> = ({ apiClient }) => {
   const [anchorEl, setAnchorEl] = useState(null);
-  const [userName, setUserName] = useState("");
+  const {
+    actions: { setUsername }
+  } = useContext(UserContext);
 
   function handleOpenMenu(e: React.MouseEvent<HTMLElement>) {
     setAnchorEl(e.currentTarget);
   }
   function handleClose() {
     setAnchorEl(null);
-  }
-  function handleSetUsername(username: string) {
-    setUserName(username);
   }
 
   return (
@@ -53,7 +53,7 @@ export const DevMenu: React.FC<DevMenuProps> = ({ apiClient }) => {
           <NavLink to="/config">Upload Config File</NavLink>
         </MenuItem>
       </Menu>
-      <Login client={apiClient} updateUsername={handleSetUsername} />
+      <Login client={apiClient} updateUsername={setUsername} />
     </div>
   );
 };
