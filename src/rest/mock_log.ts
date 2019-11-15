@@ -1,3 +1,3 @@
 export function getMockLog() {
-  return "I'm a log!"
+  return "I'm a log!";
 }

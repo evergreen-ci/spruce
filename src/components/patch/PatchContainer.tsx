@@ -1,13 +1,32 @@
-import { Button, Checkbox, FormControl, FormLabel, Grid, Input, InputBase, InputLabel, ListItemText, MenuItem, Paper, Select, Typography } from '@material-ui/core';
-import SearchIcon from '@material-ui/icons/Search';
-import { AxiosResponse } from 'axios';
-import { BuildInfo, ConvertToPatches, PatchInfo } from 'evergreen.js/lib/models';
-import * as React from 'react';
-import * as InfiniteScroll from 'react-infinite-scroller';
+import {
+  Button,
+  Checkbox,
+  FormControl,
+  FormLabel,
+  Grid,
+  Input,
+  InputBase,
+  InputLabel,
+  ListItemText,
+  MenuItem,
+  Paper,
+  Select,
+  Typography
+} from "@material-ui/core";
+import SearchIcon from "@material-ui/icons/Search";
+import { AxiosResponse } from "axios";
+import {
+  BuildInfo,
+  ConvertToPatches,
+  PatchInfo
+} from "evergreen.js/lib/models";
+import { Patches } from 'evergreen.js/src/models';
+import * as React from "react";
+import * as InfiniteScroll from "react-infinite-scroller";
 import * as rest from "../../rest/interface";
-import '../../styles.css';
-import Banner from '../banner/Banner';
-import Patch from './Patch';
+import "../../styles.css";
+import Banner from "../banner/Banner";
+import Patch from "./Patch";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -15,25 +34,25 @@ const MenuProps = {
   PaperProps: {
     style: {
       maxHeight: ITEM_HEIGHT * 4.5 + ITEM_PADDING_TOP,
-      width: 250,
-    },
-  },
+      width: 250
+    }
+  }
 };
 
 interface State {
-  pageNum: number
-  hasMore: boolean
-  allPatches: PatchInfo[]
-  expandedPatches: object
-  isSearching: boolean
-  searchText?: string
-  buildsMap: Record<string, BuildInfo[]>
-  allStatuses: string[]
-  selectedStatuses: string[]
-  allProjects: string[]
-  selectedProjects: string[]
-  allPatchTypes: string[]
-  selectedPatchTypes: string[]
+  pageNum: number;
+  hasMore: boolean;
+  allPatches: PatchInfo[];
+  expandedPatches: object;
+  isSearching: boolean;
+  searchText?: string;
+  buildsMap: Record<string, BuildInfo[]>;
+  allStatuses: string[];
+  selectedStatuses: string[];
+  allProjects: string[];
+  selectedProjects: string[];
+  allPatchTypes: string[];
+  selectedPatchTypes: string[];
 }
 
 class Props {
@@ -57,7 +76,7 @@ export class PatchContainer extends React.Component<Props, State> {
       allProjects: [],
       selectedProjects: [],
       allPatchTypes: [],
-      selectedPatchTypes: [],
+      selectedPatchTypes: []
     };
   }
 
@@ -66,11 +85,17 @@ export class PatchContainer extends React.Component<Props, State> {
 
     return (
       <div>
-        <Banner client={this.props.client} message={"Welcome to the new patches page!"} showOptOut={true}
-          onFinishStateUpdate={null} storageKey={"shouldHideBanner"} />
+        <Banner
+          client={this.props.client}
+          message={"Welcome to the new patches page!"}
+          showOptOut={true}
+          onFinishStateUpdate={null}
+          storageKey={"shouldHideBanner"}
+        />
         <div className="search-container">
           <Paper className="search-input">
-            <InputBase startAdornment={<SearchIcon className="search-icon" />}
+            <InputBase
+              startAdornment={<SearchIcon className="search-icon" />}
               fullWidth={true}
               placeholder="Search Patch Descriptions"
               onChange={this.search}
@@ -93,7 +118,11 @@ export class PatchContainer extends React.Component<Props, State> {
                 >
                   {this.state.allStatuses.map(status => (
                     <MenuItem key={status} value={status}>
-                      <Checkbox checked={this.state.selectedStatuses.indexOf(status) > -1} />
+                      <Checkbox
+                        checked={
+                          this.state.selectedStatuses.indexOf(status) > -1
+                        }
+                      />
                       <ListItemText primary={status} />
                     </MenuItem>
                   ))}
@@ -111,7 +140,11 @@ export class PatchContainer extends React.Component<Props, State> {
                 >
                   {this.state.allProjects.map(project => (
                     <MenuItem key={project} value={project}>
-                      <Checkbox checked={this.state.selectedProjects.indexOf(project) > -1} />
+                      <Checkbox
+                        checked={
+                          this.state.selectedProjects.indexOf(project) > -1
+                        }
+                      />
                       <ListItemText primary={project} />
                     </MenuItem>
                   ))}
@@ -129,7 +162,11 @@ export class PatchContainer extends React.Component<Props, State> {
                 >
                   {this.state.allPatchTypes.map(patchType => (
                     <MenuItem key={patchType} value={patchType}>
-                      <Checkbox checked={this.state.selectedPatchTypes.indexOf(patchType) > -1} />
+                      <Checkbox
+                        checked={
+                          this.state.selectedPatchTypes.indexOf(patchType) > -1
+                        }
+                      />
                       <ListItemText primary={patchType} />
                     </MenuItem>
                   ))}
@@ -139,19 +176,44 @@ export class PatchContainer extends React.Component<Props, State> {
           </Grid>
           <Grid item={true} xs={3}>
             <div className="expand-container">
-              <Button className="expand-button" variant="outlined" onClick={this.onExpandAllClick}>Expand All</Button>
-              <Button className="expand-button" variant="outlined" onClick={this.onCollapseAllClick}>Collapse All</Button>
+              <Button
+                className="expand-button"
+                variant="outlined"
+                onClick={this.onExpandAllClick}
+              >
+                Expand All
+              </Button>
+              <Button
+                className="expand-button"
+                variant="outlined"
+                onClick={this.onCollapseAllClick}
+              >
+                Collapse All
+              </Button>
             </div>
           </Grid>
         </Grid>
-        <InfiniteScroll hasMore={this.state.hasMore} loadMore={this.loadPatches} initialLoad={true}>
+        <InfiniteScroll
+          hasMore={this.state.hasMore}
+          loadMore={this.loadPatches}
+          initialLoad={true}
+        >
           <Grid className="patch-container" container={true} spacing={3}>
-          {filteredPatches.map(patchObj => (
-            <Grid item={true} xs={12} key={patchObj.id}>
-              <Patch patch={patchObj} builds={this.state.buildsMap[patchObj.id] === undefined ? [] : this.state.buildsMap[patchObj.id]}
-                client={this.props.client} updateOpenPatches={this.updateOpenPatches} expanded={this.isExpanded(patchObj)} />
-            </Grid>
-          ))}
+            {filteredPatches.map(patchObj => (
+              <Grid item={true} xs={12} key={patchObj.id}>
+                <Patch
+                  patch={patchObj}
+                  builds={
+                    this.state.buildsMap[patchObj.id] === undefined
+                      ? []
+                      : this.state.buildsMap[patchObj.id]
+                  }
+                  client={this.props.client}
+                  updateOpenPatches={this.updateOpenPatches}
+                  expanded={this.isExpanded(patchObj)}
+                />
+              </Grid>
+            ))}
           </Grid>
         </InfiniteScroll>
       </div>
@@ -159,7 +221,6 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   private loadPatches = () => {
-
     if (this.state.hasMore && !this.state.isSearching) {
       let username = this.props.username;
       const search = window.location.hash.split("?")[1];
@@ -169,7 +230,7 @@ export class PatchContainer extends React.Component<Props, State> {
           username = urlParams.get("user");
         }
       }
-      const getPatchesCallback = (resp: AxiosResponse<any>) => {
+      const getPatchesCallback = (resp: AxiosResponse<Patches>) => {
         if (resp === undefined) {
           return;
         }
@@ -189,34 +250,46 @@ export class PatchContainer extends React.Component<Props, State> {
           newPatches.forEach(patch => {
             const status = patch.status;
             const project = patch.project;
-            const patchType = this.getPatchType(patch.alias)
-            if (!this.state.allStatuses.includes(status) && !newStatuses.includes(status)) {
+            const patchType = this.getPatchType(patch.alias);
+            if (
+              !this.state.allStatuses.includes(status) &&
+              !newStatuses.includes(status)
+            ) {
               newStatuses.push(status);
             }
-            if (!this.state.allProjects.includes(project) && !newProjects.includes(project)) {
+            if (
+              !this.state.allProjects.includes(project) &&
+              !newProjects.includes(project)
+            ) {
               newProjects.push(project);
             }
-            if (!this.state.allPatchTypes.includes(patchType) && !newPatchTypes.includes(patchType)) {
+            if (
+              !this.state.allPatchTypes.includes(patchType) &&
+              !newPatchTypes.includes(patchType)
+            ) {
               newPatchTypes.push(patchType);
             }
             if (this.state.pageNum === 0) {
               newExpanded[patch.id] = 1;
             }
-          })
+          });
         }
-        this.setState((prevState) => ({
+        this.setState(prevState => ({
           pageNum: prevState.pageNum + 1,
           allPatches: [...this.state.allPatches, ...newPatches],
-          buildsMap: {...this.state.buildsMap, ...newBuilds},
+          buildsMap: { ...this.state.buildsMap, ...newBuilds },
           allStatuses: [...this.state.allStatuses, ...newStatuses],
           allProjects: [...this.state.allProjects, ...newProjects],
           allPatchTypes: [...this.state.allPatchTypes, ...newPatchTypes],
-          expandedPatches: prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
+          expandedPatches:
+            prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }));
-      }
-      this.props.client.getPatches(username, this.state.pageNum).then(getPatchesCallback);
+      };
+      this.props.client
+        .getPatches(username, this.state.pageNum)
+        .then(getPatchesCallback);
     }
-  }
+  };
 
   private search = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({
@@ -226,7 +299,7 @@ export class PatchContainer extends React.Component<Props, State> {
     this.setState({
       searchText: query
     });
-  }
+  };
 
   private updateOpenPatches = (patchObj: PatchInfo) => {
     const newExpanded = this.state.expandedPatches;
@@ -235,85 +308,116 @@ export class PatchContainer extends React.Component<Props, State> {
     } else {
       newExpanded[patchObj.id] = 1;
     }
-    this.setState({
-      expandedPatches: newExpanded
-    }, this.props.onFinishStateUpdate);
-  }
+    this.setState(
+      {
+        expandedPatches: newExpanded
+      },
+      this.props.onFinishStateUpdate
+    );
+  };
 
   private isExpanded = (patchObj: PatchInfo) => {
     return patchObj.id in this.state.expandedPatches;
-  }
+  };
 
-  private onStatusSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    const selectedStatuses = event.target.value as unknown as string[];
+  private onStatusSelectChange = (
+    event: React.ChangeEvent<{ name?: string; value: string }>
+  ) => {
+    const selectedStatuses = (event.target.value as unknown) as string[];
     this.setState({
       selectedStatuses
     });
-  }
+  };
 
-  private onProjectSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    const selectedProjects = event.target.value as unknown as string[];
+  private onProjectSelectChange = (
+    event: React.ChangeEvent<{ name?: string; value: string }>
+  ) => {
+    const selectedProjects = (event.target.value as unknown) as string[];
     this.setState({
       selectedProjects
     });
-  }
+  };
 
-  private onPatchTypeSelectChange = (event: React.ChangeEvent<{ name?: string; value: string }>) => {
-    const selectedPatchTypes = event.target.value as unknown as string[];
+  private onPatchTypeSelectChange = (
+    event: React.ChangeEvent<{ name?: string; value: string }>
+  ) => {
+    const selectedPatchTypes = (event.target.value as unknown) as string[];
     this.setState({
       selectedPatchTypes
     });
-  }
+  };
 
   private filterPatches() {
-    const {searchText, selectedStatuses, selectedProjects, selectedPatchTypes} = this.state;
+    const {
+      searchText,
+      selectedStatuses,
+      selectedProjects,
+      selectedPatchTypes
+    } = this.state;
 
-    const noFilters = !searchText && !selectedStatuses.length && !selectedProjects.length && !selectedPatchTypes.length;
+    const noFilters =
+      !searchText &&
+      !selectedStatuses.length &&
+      !selectedProjects.length &&
+      !selectedPatchTypes.length;
 
     if (noFilters) {
-      return this.state.allPatches
+      return this.state.allPatches;
     }
 
-    return this.state.allPatches.filter(({description, status, project, alias}) => {
-      const matchesSearch = (searchText && description.toLowerCase().indexOf(searchText.toLowerCase()) > -1)
-      const hasStatus = (selectedStatuses && selectedStatuses.length > 0 && selectedStatuses.indexOf(status.toLowerCase()) > -1)
-      const isProject = (selectedProjects && selectedProjects.length > 0 && selectedProjects.indexOf(project.toLowerCase()) > -1)
-      const isPatchType = (selectedPatchTypes && selectedPatchTypes.length > 0 && selectedPatchTypes.indexOf(this.getPatchType(alias)) > -1)
-      
-      return matchesSearch || hasStatus || isProject || isPatchType
-    })
+    return this.state.allPatches.filter(
+      ({ description, status, project, alias }) => {
+        const matchesSearch =
+          searchText &&
+          description.toLowerCase().indexOf(searchText.toLowerCase()) > -1;
+        const hasStatus =
+          selectedStatuses &&
+          selectedStatuses.length > 0 &&
+          selectedStatuses.indexOf(status.toLowerCase()) > -1;
+        const isProject =
+          selectedProjects &&
+          selectedProjects.length > 0 &&
+          selectedProjects.indexOf(project.toLowerCase()) > -1;
+        const isPatchType =
+          selectedPatchTypes &&
+          selectedPatchTypes.length > 0 &&
+          selectedPatchTypes.indexOf(this.getPatchType(alias)) > -1;
+
+        return matchesSearch || hasStatus || isProject || isPatchType;
+      }
+    );
   }
 
   private onExpandAllClick = () => {
-    const newExpanded = {}
-    this.state.allPatches.map((patchObj) => {
+    const newExpanded = {};
+    this.state.allPatches.map(patchObj => {
       newExpanded[patchObj.id] = 1;
-    })
+    });
     this.setState({
       expandedPatches: newExpanded
     });
-  }
+  };
 
   private onCollapseAllClick = () => {
     this.setState({
       expandedPatches: {}
     });
-  }
+  };
 
   private renderSelection = (value: string[]) => {
-    return (<Typography>{value.join(", ")}</Typography>)
-  }
+    return <Typography>{value.join(", ")}</Typography>;
+  };
 
   private getPatchType(patchAlias: string): string {
-    let patchType = "User Patch"
+    let patchType = "User Patch";
     if (patchAlias === "__github") {
-      patchType = "GitHub PR"
+      patchType = "GitHub PR";
     }
     if (patchAlias === "__commit_queue") {
-      patchType = "Commit Queue Test"
+      patchType = "Commit Queue Test";
     }
 
-    return patchType
+    return patchType;
   }
 }
 

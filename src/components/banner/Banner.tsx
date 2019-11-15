@@ -1,19 +1,19 @@
-import { Grid, Link, Paper, Typography } from '@material-ui/core';
-import CloseIcon from '@material-ui/icons/Close';
-import * as React from 'react';
+import { Grid, Link, Paper, Typography } from "@material-ui/core";
+import CloseIcon from "@material-ui/icons/Close";
+import * as React from "react";
 import * as rest from "../../rest/interface";
-import '../../styles.css';
+import "../../styles.css";
 
 interface State {
-  bannerIsHidden: boolean
+  bannerIsHidden: boolean;
 }
 
 class Props {
-  public client: rest.Evergreen
-  public message: string
-  public storageKey: string
-  public showOptOut: boolean
-  public onFinishStateUpdate: () => void
+  public client: rest.Evergreen;
+  public message: string;
+  public storageKey: string;
+  public showOptOut: boolean;
+  public onFinishStateUpdate: () => void;
 }
 
 export class PatchContainer extends React.Component<Props, State> {
@@ -29,10 +29,12 @@ export class PatchContainer extends React.Component<Props, State> {
   }
 
   public render() {
-
     const OptOutLink = () => (
-      <Typography>{"You can go back to the old interface "}<Link href={this.props.client.uiURL + "/settings"}>here</Link>.</Typography>
-    )
+      <Typography>
+        {"You can go back to the old interface "}
+        <Link href={this.props.client.uiURL + "/settings"}>here</Link>.
+      </Typography>
+    );
 
     return (
       <div className="banner-container" hidden={this.state.bannerIsHidden}>
@@ -53,10 +55,13 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private hideBanner = () => {
     localStorage.setItem(this.props.storageKey, "true");
-    this.setState({
-      bannerIsHidden: true
-    }, this.props.onFinishStateUpdate);
-  }
+    this.setState(
+      {
+        bannerIsHidden: true
+      },
+      this.props.onFinishStateUpdate
+    );
+  };
 }
 
 export default PatchContainer;
