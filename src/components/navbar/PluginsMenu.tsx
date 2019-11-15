@@ -1,11 +1,11 @@
 import * as React from "react";
 import { Link, Menu, MenuItem, Typography } from "@material-ui/core";
 
-type PluginsMenuProps = {
+interface PluginsMenuProps {
   anchorEl: Element;
   handleClose: () => void;
   uiURL: string;
-};
+}
 
 export const PluginsMenu: React.FC<PluginsMenuProps> = ({
   anchorEl,
