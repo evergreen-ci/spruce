@@ -23,6 +23,7 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 
 const { useContext } = React;
+const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 const theme = createMuiTheme({
   typography: {
@@ -74,8 +75,6 @@ const Build = () => {
 };
 
 const App: React.FC = () => {
-  const ErrorBoundary = bugsnagClient.getPlugin("react");
-
   return (
     <ErrorBoundary>
       <ContextProvider>

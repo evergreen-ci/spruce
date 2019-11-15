@@ -9,7 +9,7 @@ interface UserContextValue {
   };
 }
 
-const UserContext = React.createContext({} as UserContextValue);
+const UserContext = React.createContext<UserContextValue | null>(null);
 
 const UserContextProvider: React.FC = ({ children }) => {
   const [username, setUsername] = useState("");

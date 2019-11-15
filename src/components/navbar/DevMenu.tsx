@@ -12,6 +12,9 @@ interface DevMenuProps {
   apiClient: Evergreen;
 }
 
+// The dev menu renders a dropdown menu that is only available in dev mode
+// It allows users to upload a config file which determines the environment
+// TODO: use env-cmd to set environment and then delete this component
 export const DevMenu: React.FC<DevMenuProps> = ({ apiClient }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const {

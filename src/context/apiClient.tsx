@@ -14,11 +14,11 @@ interface ApiClientContextType {
   };
 }
 
-const ApiClientContext = createContext({} as ApiClientContextType);
+const ApiClientContext = createContext<ApiClientContextType | null>(null);
 
 const ApiClientProvider: React.FC = ({ children }) => {
   const [apiClient, setApiClient] = useState(
-    rest.EvergreenClient("", "", "", "", true)
+    rest.EvergreenClient("", "", "", "")
   );
 
   const contextValue: ApiClientContextType = {
