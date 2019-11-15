@@ -1,18 +1,17 @@
 import * as React from "react";
 import { AppBar, Link, Toolbar, Typography } from "@material-ui/core";
-import * as rest from "../rest/interface";
 import * as EvergreenIcon from "../assets/evergreen_green.png";
 import { isDevelopment } from "../utils/isDevelopment";
 import { PluginsMenu } from "./navbar/PluginsMenu";
 import { DevMenu } from "./navbar/DevMenu";
+import { ApiClientContext } from "../context/apiClient";
 
-const { useState } = React;
-
-const APIClient = rest.EvergreenClient("", "", "", "", true);
-const { uiURL } = APIClient;
+const { useContext, useState } = React;
 
 export const Navbar: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState(null);
+  const { apiClient } = useContext(ApiClientContext);
+  const { uiURL } = apiClient;
 
   function handleClick(e: React.MouseEvent<HTMLElement>) {
     setAnchorEl(e.currentTarget);
@@ -64,7 +63,7 @@ export const Navbar: React.FC = () => {
           uiURL={uiURL}
         />
         <div className="spacer" />
-        {isDevelopment() && <DevMenu apiClient={APIClient} />}
+        {isDevelopment() && <DevMenu apiClient={apiClient} />}
       </Toolbar>
     </AppBar>
   );
