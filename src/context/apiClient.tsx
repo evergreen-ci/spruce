@@ -2,7 +2,7 @@ import * as React from "react";
 import * as rest from "../rest/interface";
 import { ClientConfig, IsValidConfig } from "../models/client_config";
 
-const { createContext, useState } = React;
+const { createContext, useState, useEffect } = React;
 
 const configPath = "/config.json";
 
@@ -20,6 +20,10 @@ const ApiClientProvider: React.FC = ({ children }) => {
   const [apiClient, setApiClient] = useState(
     rest.EvergreenClient("", "", "", "")
   );
+
+  useEffect(() => {
+    tryLoadConfig();
+  }, []);
 
   const contextValue: ApiClientContextType = {
     apiClient,
