@@ -35,25 +35,20 @@ const theme = createMuiTheme({
   }
 });
 
-interface ErrorBoundaryProps {}
-
 // Temporary ErrorBoundary to use before bugsnag API key is accessed via environment variables
 // TODO: delete this ErrorBoundary and replace with bugsnag ErrorBoundary
-class ErrorBoundary extends React.Component<
-  ErrorBoundaryProps,
-  { hasError: boolean }
-> {
-  constructor(props: ErrorBoundaryProps) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  static getDerivedStateFromError(error: React.ErrorInfo) {
+class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
+  public static getDerivedStateFromError() {
     // Update state so the next render will show the fallback UI.
     return { hasError: true };
   }
 
-  render() {
+  private constructor(props: any) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  public render() {
     if (this.state.hasError) {
       // You can render any custom fallback UI
       return <h1>Something went wrong.</h1>;
