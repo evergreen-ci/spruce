@@ -1,14 +1,4 @@
 import * as React from "react";
-import bugsnag from "@bugsnag/js";
-import bugsnagReact from "@bugsnag/plugin-react";
-
-// Bugsnag docs recommend instantiating the BugsnagClient as soon as possible and before the rest of the module's imports
-const bugsnagClient = bugsnag({
-  apiKey: "2d77ffd5445ab337cd3c996a2400438a",
-  notifyReleaseStages: ["production"]
-});
-bugsnagClient.use(bugsnagReact, React);
-
 import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { HashRouter, Route } from "react-router-dom";
@@ -23,7 +13,6 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 
 const { useContext } = React;
-const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 const theme = createMuiTheme({
   typography: {
@@ -45,6 +34,34 @@ const theme = createMuiTheme({
     }
   }
 });
+
+interface ErrorBoundaryProps {}
+
+// Temporary ErrorBoundary to use before bugsnag API key is accessed via environment variables
+// TODO: delete this ErrorBoundary and replace with bugsnag ErrorBoundary
+class ErrorBoundary extends React.Component<
+  ErrorBoundaryProps,
+  { hasError: boolean }
+> {
+  constructor(props: ErrorBoundaryProps) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError(error: React.ErrorInfo) {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // You can render any custom fallback UI
+      return <h1>Something went wrong.</h1>;
+    }
+
+    return this.props.children;
+  }
+}
 
 // These wrapper components are temporary components to pass their children the value of contexts using the useContext hook
 // TODO: refactor Admin, ConfigDrop, PatchContainer and BuildView to be functional components that consume their respective contexts
