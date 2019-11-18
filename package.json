@@ -111,6 +111,8 @@
     "not op_mini all"
   ],
   "jest": {
+    "browser": true,
+    "testEnvironment": "node",
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
       "!**/*.d.ts"

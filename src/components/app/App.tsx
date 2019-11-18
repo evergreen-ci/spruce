@@ -1,3 +1,4 @@
+import * as React from "react";
 import bugsnag from "@bugsnag/js";
 import bugsnagReact from "@bugsnag/plugin-react";
 
@@ -10,7 +11,6 @@ bugsnagClient.use(bugsnagReact, React);
 
 import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-import * as React from "react";
 import { HashRouter, Route } from "react-router-dom";
 import { ContextProvider } from "../../context/ContextProvider";
 import { ApiClientContext } from "../../context/apiClient";
