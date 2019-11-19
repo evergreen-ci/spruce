@@ -5,10 +5,7 @@ import { Login } from "./Login";
 
 describe("Login", () => {
   const wrapper = enzyme.mount(
-    <Login
-      client={rest.EvergreenClient("", "", "", "", true)}
-      updateUsername={jest.fn()}
-    />
+    <Login client={rest.EvergreenClient()} updateUsername={jest.fn()} />
   );
 
   it("clicking login button opens login modal", () => {

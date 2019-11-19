@@ -22,7 +22,7 @@ describe("BuildView", () => {
   const wrapper = enzyme.mount(
     <Router>
       <BuildView
-        client={rest.EvergreenClient("", "", "", "", true)}
+        client={rest.EvergreenClient()}
         buildId={
           "spruce_ubuntu1604_compile_patch_e44b6da8831497cdd4621daf4c62985f0c1c9ca9_5d28cfa05623434037b0294c_19_07_12_18_21_22"
         }
@@ -50,7 +50,7 @@ describe("BuildView", () => {
   it("clicking LogContainer toggle button changes state", () => {
     const logWrapper = enzyme.mount(
       <LogContainer
-        client={rest.EvergreenClient("", "", "", "", true)}
+        client={rest.EvergreenClient()}
         task={new APITask()}
         test={new APITest()}
         shouldShowTestLogs={false}
@@ -79,7 +79,7 @@ describe("BuildView", () => {
   });
 
   it("clicking on task panel loads new logs and updates state", done => {
-    const mockClient = rest.EvergreenClient("", "", "", "", true);
+    const mockClient = rest.EvergreenClient();
     let build: Build = null;
     let tasks: APITask[] = [];
     let currentTask = new APITask();
@@ -166,10 +166,9 @@ describe("BuildView", () => {
 
       const expansionPanel = testPanel.find(ExpansionPanelSummary);
       expect(expansionPanel).toHaveLength(1);
-      expansionPanel.prop("onClick")({} as React.MouseEvent<
-        HTMLDivElement,
-        MouseEvent
-      >);
+      expansionPanel.prop("onClick")(
+        {} as React.MouseEvent<HTMLDivElement, MouseEvent>
+      );
       expect(checkState).toHaveBeenCalled();
       expect(switchTask).toHaveBeenCalled();
       done();
