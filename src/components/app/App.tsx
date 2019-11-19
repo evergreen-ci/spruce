@@ -6,9 +6,7 @@ import { ContextProvider } from "../../context/ContextProvider";
 import { ApiClientContext } from "../../context/apiClient";
 import { UserContext } from "../../context/user";
 import "../../styles.css";
-import { Admin } from "../admin/Admin";
 import { BuildView } from "../build/BuildView";
-import ConfigDrop from "../configdrop/ConfigDrop";
 import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 
@@ -59,17 +57,7 @@ class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
 }
 
 // These wrapper components are temporary components to pass their children the value of contexts using the useContext hook
-// TODO: refactor Admin, ConfigDrop, PatchContainer and BuildView to be functional components that consume their respective contexts
-const AdminWrapper = () => {
-  const { apiClient } = useContext(ApiClientContext);
-  return <Admin APIClient={apiClient} />;
-};
-const Config = () => {
-  const {
-    actions: { updateConfig }
-  } = useContext(ApiClientContext);
-  return <ConfigDrop updateClientConfig={updateConfig} onLoadFinished={null} />;
-};
+// TODO: refactor PatchContainer and BuildView to be functional components that consume their respective contexts
 const Patches = () => {
   const { username } = useContext(UserContext);
   const { apiClient } = useContext(ApiClientContext);
@@ -95,12 +83,6 @@ const App: React.FC = () => {
             <HashRouter>
               <Navbar />
               <div className="app-intro">
-                <Route path="/admin">
-                  <AdminWrapper />
-                </Route>
-                <Route path="/config">
-                  <Config />
-                </Route>
                 <Route path="/patches">
                   <Patches />
                 </Route>
