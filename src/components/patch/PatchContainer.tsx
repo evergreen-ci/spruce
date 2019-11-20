@@ -292,8 +292,8 @@ export class PatchContainer extends React.Component<Props, State> {
       };
       if(projectName) {
         this.props.client.getProjectPatches(projectName, this.state.pageNum).then(getPatchesCallback);
-      } else if(username) {
-        this.props.client.getPatches(projectName, this.state.pageNum).then(getPatchesCallback)
+      } else {
+        this.props.client.getPatches(username, this.state.pageNum).then(getPatchesCallback)
       }
     }
   };
