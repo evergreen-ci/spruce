@@ -1,9 +1,5 @@
 {
-  "test": {
-    "REACT_APP_BUGSNAG_API_KEY": "i-am-a-fake-key"
-  },
   "staging": {
-    "REACT_APP_BUGSNAG_API_KEY": "i-am-a-fake-key",
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
   },

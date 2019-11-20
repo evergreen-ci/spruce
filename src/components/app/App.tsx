@@ -11,10 +11,11 @@ import "../../styles.css";
 import { BuildView } from "../build/BuildView";
 import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
+import { getBugsnagApiKey } from "../../utils";
 
 const { useContext } = React;
 
-const bugsnagClient = bugsnag(process.env.REACT_APP_BUGSNAG_API_KEY);
+const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
 const ErrorBoundary = bugsnagClient.getPlugin("react");
 
