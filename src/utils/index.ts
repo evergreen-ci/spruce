@@ -4,6 +4,6 @@ import {
   getBugsnagApiKey,
   isDevelopment,
   isTest
-} from "./getEnvironmetVariables";
+} from "./getEnvironmentVariables";
 
 export { getApiUrl, getUiUrl, isDevelopment, isTest, getBugsnagApiKey };

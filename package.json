@@ -4,7 +4,6 @@
   "private": true,
   "scripts": {
     "build": "lessc src/styles.less src/styles.css && node scripts/build.js",
-    "build:test": "env-cmd -e test -r .cmdrc.json npm run build",
     "build:staging": "env-cmd -e staging -r .cmdrc.json npm run build",
     "build:prod": "env-cmd -e prod -r .cmdrc.json npm run build",
     "coverage": "lessc src/styles.less src/styles.css && jest --coverage",
