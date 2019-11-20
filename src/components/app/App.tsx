@@ -70,7 +70,8 @@ const Config = () => {
   } = useContext(ApiClientContext);
   return <ConfigDrop updateClientConfig={updateConfig} onLoadFinished={null} />;
 };
-const Patches = () => {
+const Patches = (props: any) => {
+  const { params } = props.match;
   const { username } = useContext(UserContext);
   const { apiClient } = useContext(ApiClientContext);
   return (
@@ -78,6 +79,7 @@ const Patches = () => {
       client={apiClient}
       username={username}
       onFinishStateUpdate={null}
+      params={params}
     />
   );
 };
@@ -101,9 +103,10 @@ const App: React.FC = () => {
                 <Route path="/config">
                   <Config />
                 </Route>
-                <Route path="/patches">
-                  <Patches />
-                </Route>
+                <Route
+                  path="/patches/:project?/:projectName?"
+                  component={Patches}
+                />
                 <Route path="/build">
                   <Build />
                 </Route>

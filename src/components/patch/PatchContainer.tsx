@@ -20,7 +20,7 @@ import {
   ConvertToPatches,
   PatchInfo
 } from "evergreen.js/lib/models";
-import { Patches } from 'evergreen.js/src/models';
+import { Patches } from "evergreen.js/src/models";
 import * as React from "react";
 import * as InfiniteScroll from "react-infinite-scroller";
 import * as rest from "../../rest/interface";
@@ -55,9 +55,15 @@ interface State {
   selectedPatchTypes: string[];
 }
 
+interface paramsShape {
+  project: string;
+  projectName: string;
+}
+
 class Props {
   public client: rest.Evergreen;
   public username: string;
+  public params?: paramsShape;
   public onFinishStateUpdate: () => void;
 }
 
@@ -222,6 +228,7 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private loadPatches = () => {
     if (this.state.hasMore && !this.state.isSearching) {
+      const { params } = this.props;
       let username = this.props.username;
       const search = window.location.hash.split("?")[1];
       if (search !== undefined) {
@@ -229,11 +236,6 @@ export class PatchContainer extends React.Component<Props, State> {
         if (urlParams.has("user")) {
           username = urlParams.get("user");
         }
-      }
-      const pathname = window.location.hash.split("?")[0].split('/')
-      let projectName = ''
-      if(pathname.length === 4 && pathname[2] === 'project') {
-        projectName = pathname[3]
       }
       const getPatchesCallback = (resp: AxiosResponse<Patches>) => {
         if (resp === undefined) {
@@ -290,10 +292,14 @@ export class PatchContainer extends React.Component<Props, State> {
             prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }));
       };
-      if(projectName) {
-        this.props.client.getProjectPatches(projectName, this.state.pageNum).then(getPatchesCallback);
+      if (params.project === "project" && params.projectName) {
+        this.props.client
+          .getProjectPatches(params.projectName, this.state.pageNum)
+          .then(getPatchesCallback);
       } else {
-        this.props.client.getPatches(username, this.state.pageNum).then(getPatchesCallback)
+        this.props.client
+          .getPatches(username, this.state.pageNum)
+          .then(getPatchesCallback);
       }
     }
   };
