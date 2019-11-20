@@ -1,7 +1,9 @@
-import { getApiUrl } from "./getApiUrl";
-import { getUiUrl } from "./getUiUrl";
-import { isDevelopment } from "./isDevelopment";
-import { isTest } from "./isTest";
-import { getBugsnagApiKey } from "./getBugsnapApiKey";
+import {
+  getApiUrl,
+  getUiUrl,
+  getBugsnagApiKey,
+  isDevelopment,
+  isTest
+} from "./getEnvironmetVariables";
 
 export { getApiUrl, getUiUrl, isDevelopment, isTest, getBugsnagApiKey };

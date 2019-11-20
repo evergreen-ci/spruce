@@ -1,7 +1,7 @@
 import * as React from "react";
 import { AppBar, Link, Toolbar, Typography } from "@material-ui/core";
 import * as EvergreenIcon from "../assets/evergreen_green.png";
-import { isDevelopment } from "../utils/isDevelopment";
+import { isDevelopment } from "../utils";
 import { PluginsMenu } from "./navbar/PluginsMenu";
 import { DevMenu } from "./navbar/DevMenu";
 import { ApiClientContext } from "../context/apiClient";
