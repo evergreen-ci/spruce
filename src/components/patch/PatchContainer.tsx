@@ -230,6 +230,11 @@ export class PatchContainer extends React.Component<Props, State> {
           username = urlParams.get("user");
         }
       }
+      const pathname = window.location.hash.split("?")[0].split('/')
+      let projectName = ''
+      if(pathname.length === 4 && pathname[2] === 'project') {
+        projectName = pathname[3]
+      }
       const getPatchesCallback = (resp: AxiosResponse<Patches>) => {
         if (resp === undefined) {
           return;
@@ -285,9 +290,11 @@ export class PatchContainer extends React.Component<Props, State> {
             prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }));
       };
-      this.props.client
-        .getPatches(username, this.state.pageNum)
-        .then(getPatchesCallback);
+      if(projectName) {
+        this.props.client.getProjectPatches(projectName, this.state.pageNum).then(getPatchesCallback);
+      } else if(username) {
+        this.props.client.getPatches(projectName, this.state.pageNum).then(getPatchesCallback)
+      }
     }
   };
 
