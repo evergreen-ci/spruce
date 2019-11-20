@@ -1,0 +1,10 @@
+{
+  "staging": {
+    "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
+    "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
+  },
+  "prod": {
+    "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
+    "REACT_APP_UI_URL": "https://evergreen.mongodb.com"
+  }
+}
