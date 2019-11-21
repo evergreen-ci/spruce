@@ -130,7 +130,7 @@ describe("PatchContainer", () => {
     ]);
   });
 
-  describe("Filtering pathces", () => {
+  describe("Filtering patches", () => {
     let otherWrapper: enzyme.ReactWrapper;
 
     beforeEach(() => {
@@ -139,6 +139,7 @@ describe("PatchContainer", () => {
           client={rest.EvergreenClient()}
           username={"admin"}
           onFinishStateUpdate={null}
+          params={{ pageType: "user" }}
         />
       );
     });
