@@ -88,17 +88,6 @@ export class PatchContainer extends React.Component<Props, State> {
     };
   }
 
-  public componentDidUpdate(prevProps: Props) {
-    if (
-      prevProps.params.pageType === USER_PAGE &&
-      this.props.params.pageType === PROJECT_PAGE
-    ) {
-      this.setState({
-        selectedProjects: []
-      });
-    }
-  }
-
   public render() {
     const filteredPatches = this.filterPatches();
 
