@@ -8,10 +8,7 @@ import Banner from "./Banner";
 describe("Banner", () => {
   const linkWrapper = enzyme.mount(
     <Banner
-      client={rest.EvergreenClient(
-        "https://evergreen.mongodb.com/api",
-        "https://evergreen.mongodb.com"
-      )}
+      client={rest.EvergreenClient()}
       message={""}
       showOptOut={true}
       onFinishStateUpdate={null}
@@ -20,10 +17,7 @@ describe("Banner", () => {
   );
   const noLinkWrapper = enzyme.mount(
     <Banner
-      client={rest.EvergreenClient(
-        "https://evergreen.mongodb.com/api",
-        "https://evergreen.mongodb.com"
-      )}
+      client={rest.EvergreenClient()}
       message={""}
       showOptOut={false}
       onFinishStateUpdate={null}
@@ -45,10 +39,9 @@ describe("Banner", () => {
     expect(linkWrapper.state("bannerIsHidden")).toBe(false);
     const closeButton = linkWrapper.find(CloseIcon);
     expect(closeButton).toHaveLength(1);
-    closeButton.prop("onClick")({} as React.MouseEvent<
-      SVGSVGElement,
-      MouseEvent
-    >);
+    closeButton.prop("onClick")(
+      {} as React.MouseEvent<SVGSVGElement, MouseEvent>
+    );
   });
 
   it("check that local storage persists on refresh", () => {

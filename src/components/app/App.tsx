@@ -1,4 +1,6 @@
 import * as React from "react";
+import bugsnag from "@bugsnag/js";
+import bugsnagReact from "@bugsnag/plugin-react";
 import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
 import { HashRouter, Route } from "react-router-dom";
@@ -6,13 +8,16 @@ import { ContextProvider } from "../../context/ContextProvider";
 import { ApiClientContext } from "../../context/apiClient";
 import { UserContext } from "../../context/user";
 import "../../styles.css";
-import { Admin } from "../admin/Admin";
 import { BuildView } from "../build/BuildView";
-import ConfigDrop from "../configdrop/ConfigDrop";
 import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
+import { getBugsnagApiKey } from "../../utils";
 
 const { useContext } = React;
+
+const bugsnagClient = bugsnag(getBugsnagApiKey());
+bugsnagClient.use(bugsnagReact, React);
+const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 const theme = createMuiTheme({
   typography: {
@@ -35,41 +40,8 @@ const theme = createMuiTheme({
   }
 });
 
-// Temporary ErrorBoundary to use before bugsnag API key is accessed via environment variables
-// TODO: delete this ErrorBoundary and replace with bugsnag ErrorBoundary
-class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
-  public static getDerivedStateFromError() {
-    // Update state so the next render will show the fallback UI.
-    return { hasError: true };
-  }
-
-  private constructor(props: any) {
-    super(props);
-    this.state = { hasError: false };
-  }
-
-  public render() {
-    if (this.state.hasError) {
-      // You can render any custom fallback UI
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return this.props.children;
-  }
-}
-
 // These wrapper components are temporary components to pass their children the value of contexts using the useContext hook
-// TODO: refactor Admin, ConfigDrop, PatchContainer and BuildView to be functional components that consume their respective contexts
-const AdminWrapper = () => {
-  const { apiClient } = useContext(ApiClientContext);
-  return <Admin APIClient={apiClient} />;
-};
-const Config = () => {
-  const {
-    actions: { updateConfig }
-  } = useContext(ApiClientContext);
-  return <ConfigDrop updateClientConfig={updateConfig} onLoadFinished={null} />;
-};
+// TODO: refactor PatchContainer and BuildView to be functional components that consume their respective contexts
 const Patches = (props: any) => {
   const { params } = props.match;
   const { username } = useContext(UserContext);
@@ -97,12 +69,6 @@ const App: React.FC = () => {
             <HashRouter>
               <Navbar />
               <div className="app-intro">
-                <Route path="/admin">
-                  <AdminWrapper />
-                </Route>
-                <Route path="/config">
-                  <Config />
-                </Route>
                 <Route path="/patches/:pageType?/:owner?" component={Patches} />
                 <Route path="/build">
                   <Build />

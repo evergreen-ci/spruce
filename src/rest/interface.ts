@@ -2,6 +2,7 @@ import { AxiosPromise } from "axios";
 import * as evergreen from "evergreen.js";
 import * as models from "evergreen.js/lib/models";
 import * as mock from "./evergreen_mock";
+import { isDevelopment, getApiUrl, getUiUrl, isTest } from "../utils";
 
 export interface Evergreen {
   apiURL: string;
@@ -39,14 +40,19 @@ export interface Evergreen {
   getBanner: () => AxiosPromise<any>;
 }
 
-export function EvergreenClient(
-  apiURL: string,
-  uiURL: string,
-  username?: string,
-  key?: string,
-  isMock: boolean = false
-): Evergreen {
-  if (isMock) {
+interface EvergreenClientProps {
+  username?: string;
+  key?: string;
+}
+
+export function EvergreenClient({
+  username = "",
+  key = ""
+}: EvergreenClientProps = {}): Evergreen {
+  const apiURL = getApiUrl();
+  const uiURL = getUiUrl();
+
+  if (isDevelopment() || isTest()) {
     return new mock.client(apiURL, uiURL, username, key);
   }
   return new evergreen.client(apiURL, uiURL, username, key);

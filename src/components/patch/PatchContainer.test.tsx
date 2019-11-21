@@ -11,7 +11,7 @@ import { PatchContainer } from "./PatchContainer";
 describe("PatchContainer", () => {
   const wrapper = enzyme.mount(
     <PatchContainer
-      client={rest.EvergreenClient("", "", "", "", true)}
+      client={rest.EvergreenClient()}
       username={"admin"}
       onFinishStateUpdate={null}
     />
@@ -135,7 +135,7 @@ describe("PatchContainer", () => {
     beforeEach(() => {
       otherWrapper = enzyme.mount(
         <PatchContainer
-          client={rest.EvergreenClient("", "", "", "", true)}
+          client={rest.EvergreenClient()}
           username={"admin"}
           onFinishStateUpdate={null}
         />
