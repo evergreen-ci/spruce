@@ -13,6 +13,7 @@ describe("PatchContainer", () => {
     <PatchContainer
       client={rest.EvergreenClient()}
       username={"admin"}
+      params={{ pageType: "user" }}
       onFinishStateUpdate={null}
     />
   );
