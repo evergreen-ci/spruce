@@ -103,10 +103,7 @@ const App: React.FC = () => {
                 <Route path="/config">
                   <Config />
                 </Route>
-                <Route
-                  path="/patches/:project?/:projectName?"
-                  component={Patches}
-                />
+                <Route path="/patches/:pageType?/:owner?" component={Patches} />
                 <Route path="/build">
                   <Build />
                 </Route>
