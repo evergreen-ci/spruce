@@ -59,7 +59,7 @@ interface State {
 
 interface paramsShape {
   pageType: string;
-  owner: string;
+  owner?: string;
 }
 
 class Props {
