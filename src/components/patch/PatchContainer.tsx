@@ -57,7 +57,7 @@ interface State {
   selectedPatchTypes: string[];
 }
 
-interface paramsShape {
+interface RouterParamsShape {
   pageType: string;
   owner?: string;
 }
@@ -65,7 +65,7 @@ interface paramsShape {
 class Props {
   public client: rest.Evergreen;
   public username: string;
-  public params?: paramsShape;
+  public params?: RouterParamsShape;
   public onFinishStateUpdate: () => void;
 }
 
