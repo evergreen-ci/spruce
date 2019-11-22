@@ -13,6 +13,7 @@ describe("PatchContainer", () => {
     <PatchContainer
       client={rest.EvergreenClient()}
       username={"admin"}
+      params={{ pageType: "user" }}
       onFinishStateUpdate={null}
     />
   );
@@ -129,7 +130,7 @@ describe("PatchContainer", () => {
     ]);
   });
 
-  describe("Filtering pathces", () => {
+  describe("Filtering patches", () => {
     let otherWrapper: enzyme.ReactWrapper;
 
     beforeEach(() => {
@@ -138,11 +139,19 @@ describe("PatchContainer", () => {
           client={rest.EvergreenClient()}
           username={"admin"}
           onFinishStateUpdate={null}
+          params={{ pageType: "user" }}
         />
       );
     });
     afterEach(() => {
       otherWrapper.unmount();
+    });
+
+    it("renders project dropdown when pageType is user", () => {
+      const projectDropdown = otherWrapper.findWhere(
+        node => node.key() === "project"
+      );
+      expect(projectDropdown).toHaveLength(1);
     });
 
     it("filters patches by search input", () => {
@@ -173,6 +182,31 @@ describe("PatchContainer", () => {
         return props.patch.project === "evergreen";
       });
       expect(allPatchesAreEvergreen).toBe(true);
+    });
+  });
+
+  describe("Displaying project specific patches page", () => {
+    let otherWrapper: enzyme.ReactWrapper;
+
+    beforeEach(() => {
+      otherWrapper = enzyme.mount(
+        <PatchContainer
+          client={rest.EvergreenClient()}
+          username={"admin"}
+          onFinishStateUpdate={null}
+          params={{ pageType: "project", owner: "spruce" }}
+        />
+      );
+    });
+    afterEach(() => {
+      otherWrapper.unmount();
+    });
+
+    it("does not render the project dropdown when pageType is project", () => {
+      const projectDropdown = otherWrapper.findWhere(
+        node => node.key() === "project"
+      );
+      expect(projectDropdown).toHaveLength(0);
     });
   });
 });
