@@ -50,7 +50,7 @@ export const DevMenu: React.FC<DevMenuProps> = ({ apiClient }) => {
           <NavLink to="/admin"> Admin Page</NavLink>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <NavLink to="/patches/user">My Patches</NavLink>
+          <NavLink to="/patches">My Patches</NavLink>
         </MenuItem>
         <MenuItem onClick={handleClose}>
           <NavLink to="/config">Upload Config File</NavLink>
