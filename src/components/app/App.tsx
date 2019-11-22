@@ -3,7 +3,7 @@ import bugsnag from "@bugsnag/js";
 import bugsnagReact from "@bugsnag/plugin-react";
 import { createMuiTheme } from "@material-ui/core";
 import { ThemeProvider } from "@material-ui/styles";
-import { HashRouter, Route } from "react-router-dom";
+import { HashRouter, Route, RouteComponentProps } from "react-router-dom";
 import { ContextProvider } from "../../context/ContextProvider";
 import { ApiClientContext } from "../../context/apiClient";
 import { UserContext } from "../../context/user";
@@ -12,7 +12,7 @@ import { BuildView } from "../build/BuildView";
 import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
-
+import { PatchRouteParams } from "../../types";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
@@ -42,7 +42,8 @@ const theme = createMuiTheme({
 
 // These wrapper components are temporary components to pass their children the value of contexts using the useContext hook
 // TODO: refactor PatchContainer and BuildView to be functional components that consume their respective contexts
-const Patches = () => {
+const Patches = (props: RouteComponentProps<PatchRouteParams>) => {
+  const { params } = props.match;
   const { username } = useContext(UserContext);
   const { apiClient } = useContext(ApiClientContext);
   return (
@@ -50,6 +51,7 @@ const Patches = () => {
       client={apiClient}
       username={username}
       onFinishStateUpdate={null}
+      params={params}
     />
   );
 };
@@ -67,9 +69,7 @@ const App: React.FC = () => {
             <HashRouter>
               <Navbar />
               <div className="app-intro">
-                <Route path="/patches">
-                  <Patches />
-                </Route>
+                <Route path="/patches/:pageType?/:owner?" component={Patches} />
                 <Route path="/build">
                   <Build />
                 </Route>
