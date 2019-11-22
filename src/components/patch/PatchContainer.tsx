@@ -27,6 +27,7 @@ import * as rest from "../../rest/interface";
 import "../../styles.css";
 import Banner from "../banner/Banner";
 import Patch from "./Patch";
+import { PatchRouteParams } from "../../types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -57,15 +58,10 @@ interface State {
   selectedPatchTypes: string[];
 }
 
-interface RouterParams {
-  pageType: string;
-  owner?: string;
-}
-
 class Props {
   public client: rest.Evergreen;
   public username: string;
-  public params?: RouterParams;
+  public params: PatchRouteParams;
   public onFinishStateUpdate: () => void;
 }
 
