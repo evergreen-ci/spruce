@@ -39,10 +39,6 @@ export class client {
     return this.wrapResponse(MockPatches.getMockPatches());
   }
 
-  public getProjectPatches(projectName?: string): AxiosPromise<models.Patches> {
-    return this.wrapResponse(MockPatches.getMockPatches());
-  }
-
   public getLogs(
     taskId: string,
     type: string,
