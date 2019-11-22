@@ -5,11 +5,13 @@
 
 # production
 /build
-config.json
 
 # artifacts
 /bin
 /src/**/*.css
+
+#env variables
+.cmdrc.json
 
 # misc
 .DS_Store
