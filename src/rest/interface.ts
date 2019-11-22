@@ -21,6 +21,10 @@ export interface Evergreen {
     username?: string,
     page?: number
   ) => AxiosPromise<models.Patches>;
+  getProjectPatches: (
+    projectName?: string,
+    page?: number
+  ) => AxiosPromise<models.Patches>;
   getLogs: (
     taskId: string,
     type: string,

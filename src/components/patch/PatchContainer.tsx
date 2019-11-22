@@ -20,13 +20,14 @@ import {
   ConvertToPatches,
   PatchInfo
 } from "evergreen.js/lib/models";
-import { Patches } from 'evergreen.js/src/models';
+import { Patches } from "evergreen.js/src/models";
 import * as React from "react";
 import * as InfiniteScroll from "react-infinite-scroller";
 import * as rest from "../../rest/interface";
 import "../../styles.css";
 import Banner from "../banner/Banner";
 import Patch from "./Patch";
+import { PatchRouteParams } from "../../types";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -38,6 +39,8 @@ const MenuProps = {
     }
   }
 };
+const PROJECT_PAGE = "project";
+const USER_PAGE = "user";
 
 interface State {
   pageNum: number;
@@ -58,6 +61,7 @@ interface State {
 class Props {
   public client: rest.Evergreen;
   public username: string;
+  public params: PatchRouteParams;
   public onFinishStateUpdate: () => void;
 }
 
@@ -128,28 +132,30 @@ export class PatchContainer extends React.Component<Props, State> {
                   ))}
                 </Select>
               </FormControl>
-              <FormControl className="advanced-select" key="project">
-                <InputLabel>Project</InputLabel>
-                <Select
-                  multiple={true}
-                  value={this.state.selectedProjects}
-                  onChange={this.onProjectSelectChange}
-                  renderValue={this.renderSelection}
-                  input={<Input className="advanced-input" />}
-                  MenuProps={MenuProps}
-                >
-                  {this.state.allProjects.map(project => (
-                    <MenuItem key={project} value={project}>
-                      <Checkbox
-                        checked={
-                          this.state.selectedProjects.indexOf(project) > -1
-                        }
-                      />
-                      <ListItemText primary={project} />
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
+              {this.props.params.pageType === USER_PAGE && (
+                <FormControl className="advanced-select" key="project">
+                  <InputLabel>Project</InputLabel>
+                  <Select
+                    multiple={true}
+                    value={this.state.selectedProjects}
+                    onChange={this.onProjectSelectChange}
+                    renderValue={this.renderSelection}
+                    input={<Input className="advanced-input" />}
+                    MenuProps={MenuProps}
+                  >
+                    {this.state.allProjects.map(project => (
+                      <MenuItem key={project} value={project}>
+                        <Checkbox
+                          checked={
+                            this.state.selectedProjects.indexOf(project) > -1
+                          }
+                        />
+                        <ListItemText primary={project} />
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              )}
               <FormControl className="advanced-select" key="patchtype">
                 <InputLabel>Patch Type</InputLabel>
                 <Select
@@ -222,14 +228,9 @@ export class PatchContainer extends React.Component<Props, State> {
 
   private loadPatches = () => {
     if (this.state.hasMore && !this.state.isSearching) {
-      let username = this.props.username;
-      const search = window.location.hash.split("?")[1];
-      if (search !== undefined) {
-        const urlParams = new URLSearchParams(search);
-        if (urlParams.has("user")) {
-          username = urlParams.get("user");
-        }
-      }
+      const { pageType, owner } = this.props.params;
+      const { username } = this.props;
+
       const getPatchesCallback = (resp: AxiosResponse<Patches>) => {
         if (resp === undefined) {
           return;
@@ -248,8 +249,7 @@ export class PatchContainer extends React.Component<Props, State> {
           return;
         } else {
           newPatches.forEach(patch => {
-            const status = patch.status;
-            const project = patch.project;
+            const { status, project } = patch;
             const patchType = this.getPatchType(patch.alias);
             if (
               !this.state.allStatuses.includes(status) &&
@@ -285,9 +285,15 @@ export class PatchContainer extends React.Component<Props, State> {
             prevState.pageNum === 0 ? newExpanded : prevState.expandedPatches
         }));
       };
-      this.props.client
-        .getPatches(username, this.state.pageNum)
-        .then(getPatchesCallback);
+      if (pageType === PROJECT_PAGE && owner) {
+        this.props.client
+          .getProjectPatches(owner, this.state.pageNum)
+          .then(getPatchesCallback);
+      } else if (pageType === USER_PAGE) {
+        this.props.client
+          .getPatches(owner ? owner : username, this.state.pageNum)
+          .then(getPatchesCallback);
+      }
     }
   };
 
