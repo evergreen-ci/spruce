@@ -4,6 +4,7 @@
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
   },
   "prod": {
+    "REACT_APP_BUGSNAG_API_KEY": "2d77ffd5445ab337cd3c996a2400438a",
     "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen.mongodb.com"
   }
