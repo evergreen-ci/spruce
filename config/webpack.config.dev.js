@@ -137,6 +137,7 @@ module.exports = {
     // `web` extension prefixes have been added for better support
     // for React Native Web.
     extensions: [
+      ".mjs",
       ".web.ts",
       ".ts",
       ".web.tsx",
@@ -177,16 +178,6 @@ module.exports = {
         include: paths.appSrc
       },
       {
-        // `mjs` support is still in its infancy in the ecosystem, so we don't
-        // support it.
-        // Modules who define their `browser` or `module` key as `mjs` force
-        // the use of this extension, so we need to tell webpack to fall back
-        // to auto mode (ES Module interop, allows ESM to import CommonJS).
-        test: /\.mjs$/,
-        include: /node_modules/,
-        type: "javascript/auto"
-      },
-      {
         // "oneOf" will traverse all following loaders until one will
         // match the requirements. When no loader matches it will fall
         // back to the "file" loader at the end of the loader list.
@@ -218,7 +209,7 @@ module.exports = {
           // Process application JS with Babel.
           // The preset includes JSX, Flow, and some ESnext features.
           {
-            test: /\.(js|jsx)$/,
+            test: /\.(js|jsx|mjs)$/,
             include: paths.appSrc,
             use: [
               // This loader parallelizes code compilation, it is optional but
@@ -262,7 +253,7 @@ module.exports = {
           // Process any JS outside of the app with Babel.
           // Unlike the application JS, we only compile the standard ES features.
           {
-            test: /\.js$/,
+            test: /\.(js|mjs)$/,
             exclude: /@babel(?:\/|\\{1,2})runtime/,
             use: [
               // This loader parallelizes code compilation, it is optional but
@@ -354,7 +345,7 @@ module.exports = {
             // its runtime that would otherwise be processed through "file" loader.
             // Also exclude `html` and `json` extensions so they get processed
             // by webpacks internal loaders.
-            exclude: [/\.(js|jsx)$/, /\.html$/, /\.json$/],
+            exclude: [/\.(js|mjs|jsx)$/, /\.html$/, /\.json$/],
             loader: require.resolve("file-loader"),
             options: {
               name: "static/media/[name].[hash:8].[ext]"
