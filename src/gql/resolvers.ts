@@ -4,19 +4,8 @@ export default {
       return [
         {
           description: "foo",
-          id: "58d05bc79dbe327e79000002"
-        },
-        {
-          description: "foo",
-          id: "58d05bc79dbe327e79000002"
-        },
-        {
-          description: "foo",
-          id: "58d05bc79dbe327e79000002"
-        },
-        {
-          description: "foo",
-          id: "58d05bc79dbe327e79000002"
+          id: "58d05bc79dbe327e79000002",
+          alias: "stuff"
         }
       ];
     }
