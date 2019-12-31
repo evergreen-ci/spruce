@@ -2,25 +2,26 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import "./styles.css";
 import { ApolloClient } from "apollo-client";
+import { ApolloProvider } from "@apollo/react-hooks";
+import { GraphQLSchema } from "graphql/type";
 import { HttpLink } from "apollo-link-http";
-import { InMemoryCache } from "apollo-cache-inmemory";
+import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { introspectSchema, makeExecutableSchema } from "graphql-tools";
 import { isDevelopment, isTest, getSchemaString, getGQLUrl } from "./utils";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
 import Evergreen from "./components/app/App";
-import gql from "graphql-tag";
 import registerServiceWorker from "./registerServiceWorker";
 import resolvers from "./gql/resolvers";
 
-async function getClientLink() {
-  const gqlURI = getGQLUrl();
-  const httpLink = new HttpLink({
+async function getClientLink(): Promise<HttpLink | SchemaLink | null> {
+  const gqlURI: string = getGQLUrl();
+  const httpLink: HttpLink = new HttpLink({
     uri: gqlURI
   });
   if (isDevelopment() || isTest()) {
-    const schemaStr = getSchemaString();
-    let executableSchema;
+    const schemaStr: string = getSchemaString();
+    let executableSchema: GraphQLSchema | null = null;
     try {
       executableSchema = makeExecutableSchema({
         typeDefs: schemaStr
@@ -42,29 +43,22 @@ async function getClientLink() {
 }
 
 async function render() {
-  const cache = new InMemoryCache();
-  const link = await getClientLink();
-  if (!link) {
-    return;
-  }
-  const client = new ApolloClient({
-    link,
-    cache
-  });
-  client
-    .query({
-      query: gql`
-        {
-          userPatches(userId: "sam.kleinman") {
-            id
-            alias
-          }
-        }
-      `
-    })
-    .then(result => console.log(result));
-
-  ReactDOM.render(<Evergreen />, document.getElementById("root"));
+  const cache: InMemoryCache = new InMemoryCache();
+  const link: HttpLink | SchemaLink = await getClientLink();
+  const client: ApolloClient<NormalizedCacheObject> = link
+    ? new ApolloClient({
+        link,
+        cache
+      })
+    : null;
+  const App: JSX.Element = client ? (
+    <ApolloProvider client={client}>
+      <Evergreen />
+    </ApolloProvider>
+  ) : (
+    <Evergreen />
+  );
+  ReactDOM.render(App, document.getElementById("root"));
 }
 render();
 registerServiceWorker();
