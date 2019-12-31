@@ -20,7 +20,7 @@ if (process.env.npm_config_schemaPath) {
   try {
     schemaString = fs.readFileSync(process.env.npm_config_schemaPath, "utf8");
   } catch (e) {
-    console.error("could not load local schema", e);
+    console.error("Unable to load GQL schema from provided path", e);
   }
   if (schemaString) {
     process.env.REACT_APP_SCHEMA_STRING = schemaString;
