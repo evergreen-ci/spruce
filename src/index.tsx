@@ -58,7 +58,7 @@ async function render() {
   ) : (
     <Evergreen />
   );
-  ReactDOM.render(App, document.getElementById("root"));
+  ReactDOM.render(App, document.getElementById("root") as HTMLElement);
 }
 render();
 registerServiceWorker();
