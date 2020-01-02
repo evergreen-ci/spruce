@@ -123,6 +123,11 @@
   ],
   "jest": {
     "browser": true,
+    "globals": {
+      "ts-jest": {
+        "tsConfigFile": "tsconfig.test.json"
+      }
+    },
     "testEnvironment": "jsdom",
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
