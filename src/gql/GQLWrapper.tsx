@@ -18,7 +18,7 @@ interface ClientLinkParams {
 }
 
 interface Props extends ClientLinkParams {
-  children: React.ReactNode;
+  children?: React.ReactNode;
 }
 
 export async function getClientLink({
