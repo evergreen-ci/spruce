@@ -35,7 +35,12 @@ These steps will start a local development environment that uses mock data.
   "prod": {
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
     "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
-    "REACT_APP_UI_URL": "https://evergreen.mongodb.com"
+    "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
+    "REACT_APP_NEW_RELIC_ACCOUNT_ID": "dummy-new-relic-account-id",
+    "REACT_APP_NEW_RELIC_AGENT_ID": "dummy-new-relic-agent-id",
+    "REACT_APP_NEW_RELIC_APPLICATION_ID": "dummy-new-relic-application-id",
+    "REACT_APP_NEW_RELIC_LICENSE_KEY": "dummy-new-relic-license-key",
+    "REACT_APP_NEW_RELIC_TRUST_KEY": "dummy-new-relic-trust-key"
   }
 }
 ```

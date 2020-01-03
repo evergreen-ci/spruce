@@ -440,6 +440,13 @@ module.exports = {
         minifyJS: true,
         minifyCSS: true,
         minifyURLs: true
+      },
+      newRelic: {
+        accountID: process.env.REACT_APP_NEW_RELIC_ACCOUNT_ID,
+        trustKey: process.env.REACT_APP_NEW_RELIC_TRUST_KEY,
+        agentID: process.env.REACT_APP_NEW_RELIC_AGENT_ID,
+        licenseKey: process.env.REACT_APP_NEW_RELIC_LICENSE_KEY,
+        applicationID: process.env.REACT_APP_NEW_RELIC_APPLICATION_ID
       }
     }),
     // Inlines the webpack runtime script. This script is too small to warrant
