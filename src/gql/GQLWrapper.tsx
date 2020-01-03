@@ -27,7 +27,6 @@ async function getClientLink({
   isTest,
   schemaString
 }: EnvVars): Promise<HttpLink | SchemaLink> {
-  console.log("here....");
   const httpLink: HttpLink = new HttpLink({
     uri: gqlURL
   });
