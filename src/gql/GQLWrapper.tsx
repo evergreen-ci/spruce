@@ -41,20 +41,25 @@ async function getClientLink(): Promise<HttpLink | SchemaLink | null> {
 
 const cache: InMemoryCache = new InMemoryCache();
 
+export async function getGQLClient() {
+  const link: HttpLink | SchemaLink = await getClientLink();
+  const client: ApolloClient<NormalizedCacheObject> = link
+    ? new ApolloClient({
+        link,
+        cache
+      })
+    : null;
+  return client;
+}
+
 const GQLWrapper = ({ children }: { children: JSX.Element }) => {
   const [client, setClient] = useState(null);
   useEffect(() => {
-    async function setGQLClient() {
-      const link: HttpLink | SchemaLink = await getClientLink();
-      const client: ApolloClient<NormalizedCacheObject> = link
-        ? new ApolloClient({
-            link,
-            cache
-          })
-        : null;
-      setClient(client);
+    async function getAndSetClient() {
+      const gqlClient = await getGQLClient();
+      setClient(gqlClient);
     }
-    setGQLClient();
+    getAndSetClient();
   });
 
   return client ? (
