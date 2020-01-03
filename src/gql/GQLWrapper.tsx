@@ -21,7 +21,7 @@ interface Props extends EnvVars {
   children: React.ReactNode;
 }
 
-async function getClientLink({
+export async function getClientLink({
   gqlURL,
   isDevelopment,
   isTest,
