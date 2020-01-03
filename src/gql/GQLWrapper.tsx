@@ -11,10 +11,10 @@ import { useEffect, useState } from "react";
 import resolvers from "./resolvers";
 
 interface ClientLinkParams {
-  gqlURL: string;
-  isDevelopment: boolean;
-  isTest: boolean;
-  schemaString: string;
+  gqlURL?: string;
+  isDevelopment?: boolean;
+  isTest?: boolean;
+  schemaString?: string;
 }
 
 interface Props extends ClientLinkParams {
@@ -42,7 +42,7 @@ export async function getClientLink({
       });
     } catch (e) {
       console.log(
-        "Unable to create mock server. Provide valid value for REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables",
+        "Unable to create mock server. Provide a valid value for REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables.",
         e
       );
       return new HttpLink();
