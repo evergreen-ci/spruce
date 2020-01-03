@@ -11,13 +11,14 @@ import { SchemaLink } from "apollo-link-schema";
 import { useEffect, useState } from "react";
 import resolvers from "./resolvers";
 
-async function getClientLink(): Promise<HttpLink | SchemaLink | null> {
+async function getClientLink(): Promise<HttpLink | SchemaLink> {
   const gqlURI = getGQLUrl();
+  const schemaStr = getSchemaString();
   const httpLink: HttpLink = new HttpLink({
     uri: gqlURI
   });
+
   if (isDevelopment() || isTest()) {
-    const schemaStr = getSchemaString();
     let executableSchema: GraphQLSchema | null = null;
     try {
       executableSchema = makeExecutableSchema({
@@ -28,10 +29,10 @@ async function getClientLink(): Promise<HttpLink | SchemaLink | null> {
       });
     } catch (e) {
       console.log(
-        "Unable to create local gql schema. Provide valid value for REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables",
+        "Unable to create mock server. Provide valid value for REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables",
         e
       );
-      return null;
+      return new HttpLink();
     }
     return new SchemaLink({ schema: executableSchema });
   } else {
@@ -43,12 +44,10 @@ const cache: InMemoryCache = new InMemoryCache();
 
 export async function getGQLClient() {
   const link: HttpLink | SchemaLink = await getClientLink();
-  const client: ApolloClient<NormalizedCacheObject> = link
-    ? new ApolloClient({
-        link,
-        cache
-      })
-    : null;
+  const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+    link,
+    cache
+  });
   return client;
 }
 
@@ -57,7 +56,9 @@ const GQLWrapper = ({ children }: { children: JSX.Element }) => {
   useEffect(() => {
     async function getAndSetClient() {
       const gqlClient = await getGQLClient();
-      setClient(gqlClient);
+      if (!client) {
+        setClient(gqlClient);
+      }
     }
     getAndSetClient();
   });
@@ -65,7 +66,7 @@ const GQLWrapper = ({ children }: { children: JSX.Element }) => {
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   ) : (
-    <>{children}</>
+    <></>
   );
 };
 
