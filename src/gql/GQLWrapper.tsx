@@ -5,25 +5,39 @@ import { GraphQLSchema } from "graphql/type";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import { introspectSchema, makeExecutableSchema } from "graphql-tools";
-import { isDevelopment, isTest, getSchemaString, getGQLUrl } from "../utils";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
 import { useEffect, useState } from "react";
 import resolvers from "./resolvers";
 
-async function getClientLink(): Promise<HttpLink | SchemaLink> {
-  const gqlURI = getGQLUrl();
-  const schemaStr = getSchemaString();
+interface EnvVars {
+  gqlURL: string;
+  isDevelopment: boolean;
+  isTest: boolean;
+  schemaString: string;
+}
+
+interface Props extends EnvVars {
+  children: React.ReactNode;
+}
+
+async function getClientLink({
+  gqlURL,
+  isDevelopment,
+  isTest,
+  schemaString
+}: EnvVars): Promise<HttpLink | SchemaLink> {
+  console.log("here....");
   const httpLink: HttpLink = new HttpLink({
-    uri: gqlURI
+    uri: gqlURL
   });
 
-  if (isDevelopment() || isTest()) {
+  if (isDevelopment || isTest) {
     let executableSchema: GraphQLSchema | null = null;
     try {
       executableSchema = makeExecutableSchema({
-        typeDefs: schemaStr
-          ? schemaStr
+        typeDefs: schemaString
+          ? schemaString
           : printSchema(await introspectSchema(httpLink)),
         resolvers
       });
@@ -42,8 +56,18 @@ async function getClientLink(): Promise<HttpLink | SchemaLink> {
 
 const cache: InMemoryCache = new InMemoryCache();
 
-export async function getGQLClient() {
-  const link: HttpLink | SchemaLink = await getClientLink();
+export async function getGQLClient({
+  isTest,
+  isDevelopment,
+  schemaString,
+  gqlURL
+}: EnvVars) {
+  const link: HttpLink | SchemaLink = await getClientLink({
+    gqlURL,
+    isDevelopment,
+    isTest,
+    schemaString
+  });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     link,
     cache
@@ -51,17 +75,26 @@ export async function getGQLClient() {
   return client;
 }
 
-const GQLWrapper = ({ children }: { children: JSX.Element }) => {
+const GQLWrapper = ({
+  children,
+  gqlURL,
+  isDevelopment,
+  isTest,
+  schemaString
+}: Props) => {
   const [client, setClient] = useState(null);
   useEffect(() => {
     async function getAndSetClient() {
-      const gqlClient = await getGQLClient();
-      if (!client) {
-        setClient(gqlClient);
-      }
+      const gqlClient = await getGQLClient({
+        isTest,
+        isDevelopment,
+        schemaString,
+        gqlURL
+      });
+      setClient(gqlClient);
     }
     getAndSetClient();
-  });
+  }, []);
 
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>
