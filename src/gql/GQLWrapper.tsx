@@ -10,14 +10,14 @@ import { SchemaLink } from "apollo-link-schema";
 import { useEffect, useState } from "react";
 import resolvers from "./resolvers";
 
-interface EnvVars {
+interface ClientLinkParams {
   gqlURL: string;
   isDevelopment: boolean;
   isTest: boolean;
   schemaString: string;
 }
 
-interface Props extends EnvVars {
+interface Props extends ClientLinkParams {
   children: React.ReactNode;
 }
 
@@ -26,7 +26,7 @@ export async function getClientLink({
   isDevelopment,
   isTest,
   schemaString
-}: EnvVars): Promise<HttpLink | SchemaLink> {
+}: ClientLinkParams): Promise<HttpLink | SchemaLink> {
   const httpLink: HttpLink = new HttpLink({
     uri: gqlURL
   });
@@ -60,7 +60,7 @@ export async function getGQLClient({
   isDevelopment,
   schemaString,
   gqlURL
-}: EnvVars) {
+}: ClientLinkParams) {
   const link: HttpLink | SchemaLink = await getClientLink({
     gqlURL,
     isDevelopment,
