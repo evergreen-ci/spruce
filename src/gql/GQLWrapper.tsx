@@ -39,28 +39,28 @@ async function getClientLink(): Promise<HttpLink | SchemaLink | null> {
   }
 }
 
-export async function getGQLClient(setClient: Function) {
-  const cache: InMemoryCache = new InMemoryCache();
-  const link: HttpLink | SchemaLink = await getClientLink();
-  const client: ApolloClient<NormalizedCacheObject> = link
-    ? new ApolloClient({
-        link,
-        cache
-      })
-    : null;
-  setClient(client);
-}
+const cache: InMemoryCache = new InMemoryCache();
 
 const GQLWrapper = ({ children }: { children: JSX.Element }) => {
   const [client, setClient] = useState(null);
   useEffect(() => {
-    getGQLClient(setClient);
+    async function setGQLClient() {
+      const link: HttpLink | SchemaLink = await getClientLink();
+      const client: ApolloClient<NormalizedCacheObject> = link
+        ? new ApolloClient({
+            link,
+            cache
+          })
+        : null;
+      setClient(client);
+    }
+    setGQLClient();
   });
 
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   ) : (
-    children
+    <>{children}</>
   );
 };
 
