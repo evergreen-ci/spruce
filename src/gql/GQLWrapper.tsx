@@ -24,7 +24,7 @@ export const getClientLink = async ({
   schemaString,
   credentials
 }: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
-  const httpLink: HttpLink = new HttpLink({
+  const httpLink = new HttpLink({
     uri: gqlURL,
     credentials
   });

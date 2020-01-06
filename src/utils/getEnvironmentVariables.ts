@@ -9,7 +9,6 @@ export const isDevelopment = () => process.env.NODE_ENV === "development";
 
 export const isTest = () => process.env.NODE_ENV === "test";
 
-export const getSchemaString = (): string =>
-  process.env.REACT_APP_SCHEMA_STRING || "";
+export const getSchemaString = () => process.env.REACT_APP_SCHEMA_STRING || "";
 
-export const getGQLUrl = (): string => process.env.REACT_APP_GQL_URL || "";
+export const getGQLUrl = () => process.env.REACT_APP_GQL_URL || "";
