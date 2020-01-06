@@ -4,10 +4,13 @@ import { ApolloProvider } from "@apollo/react-hooks";
 import { GraphQLSchema } from "graphql/type";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
-import { introspectSchema, makeExecutableSchema } from "graphql-tools";
+import {
+  addMockFunctionsToSchema,
+  introspectSchema,
+  makeExecutableSchema
+} from "graphql-tools";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
-import resolvers from "./resolvers";
 
 interface ClientLinkParams {
   credentials?: string;
@@ -35,8 +38,7 @@ export const getClientLink = async ({
       executableSchema = makeExecutableSchema({
         typeDefs: schemaString
           ? schemaString
-          : printSchema(await introspectSchema(httpLink)),
-        resolvers
+          : printSchema(await introspectSchema(httpLink))
       });
     } catch (e) {
       console.log(
@@ -45,6 +47,7 @@ export const getClientLink = async ({
       );
       return new HttpLink();
     }
+    addMockFunctionsToSchema({ schema: executableSchema });
     return new SchemaLink({ schema: executableSchema });
   } else {
     return httpLink;

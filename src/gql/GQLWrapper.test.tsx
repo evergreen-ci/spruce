@@ -42,7 +42,7 @@ const schema = `
 `;
 
 describe("getClientLink when development mode is true", () => {
-  it("should return a SchemaLink when passed a valid schema string that matches the resolvers", async () => {
+  it("should return a SchemaLink when passed a valid schema string", async () => {
     const link = await getClientLink({
       gqlURL: "",
       isDevelopment: true,
@@ -64,7 +64,7 @@ describe("getClientLink when development mode is true", () => {
 });
 
 describe("getClientLink when test mode is true", () => {
-  it("should return a SchemaLink when passed a valid schema string that matches the resolvers", async () => {
+  it("should return a SchemaLink when passed a valid schema string", async () => {
     const link = await getClientLink({
       gqlURL: "",
       isDevelopment: false,
