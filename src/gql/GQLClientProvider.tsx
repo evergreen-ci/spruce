@@ -12,6 +12,7 @@ export const GQLClientProvider = ({
     isDevelopment={isDevelopment()}
     isTest={isTest()}
     schemaString={getSchemaString()}
+    credentials="include"
   >
     {children}
   </GQLWrapper>

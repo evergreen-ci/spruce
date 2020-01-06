@@ -15,6 +15,7 @@ interface ClientLinkParams {
   isDevelopment?: boolean;
   isTest?: boolean;
   schemaString?: string;
+  credentials?: string;
 }
 
 interface Props extends ClientLinkParams {
@@ -25,10 +26,12 @@ export async function getClientLink({
   gqlURL,
   isDevelopment,
   isTest,
-  schemaString
+  schemaString,
+  credentials
 }: ClientLinkParams): Promise<HttpLink | SchemaLink> {
   const httpLink: HttpLink = new HttpLink({
-    uri: gqlURL
+    uri: gqlURL,
+    credentials
   });
 
   if (isDevelopment || isTest) {
