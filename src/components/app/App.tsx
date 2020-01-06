@@ -13,7 +13,8 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
 import { PatchRouteParams } from "../../types";
-import GQLClientProvider from "../../gql/GQLClientProvider";
+import GQLWrapper from "../../gql/GQLWrapper";
+import { getGQLUrl, isDevelopment, isTest, getSchemaString } from "../../utils";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
@@ -64,7 +65,13 @@ const Build = () => {
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      <GQLClientProvider>
+      <GQLWrapper
+        gqlURL={getGQLUrl()}
+        isDevelopment={isDevelopment()}
+        isTest={isTest()}
+        schemaString={getSchemaString()}
+        credentials="include"
+      >
         <ContextProvider>
           <ThemeProvider theme={theme}>
             <div className="app">
@@ -83,7 +90,7 @@ const App: React.FC = () => {
             </div>
           </ThemeProvider>
         </ContextProvider>
-      </GQLClientProvider>
+      </GQLWrapper>
     </ErrorBoundary>
   );
 };
