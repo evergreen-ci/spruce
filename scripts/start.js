@@ -13,8 +13,17 @@ process.on("unhandledRejection", err => {
 
 // Ensure environment variables are read.
 require("../config/env");
-
 const fs = require("fs");
+
+if (process.env.npm_config_schemaPath) {
+  let schemaString;
+  try {
+    schemaString = fs.readFileSync(process.env.npm_config_schemaPath, "utf8");
+  } catch (e) {
+    console.error("Unable to load GQL schema from provided path", e);
+  }
+  process.env.REACT_APP_SCHEMA_STRING = schemaString || "";
+}
 const chalk = require("chalk");
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");

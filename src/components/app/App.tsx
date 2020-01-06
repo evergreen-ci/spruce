@@ -13,6 +13,8 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
 import { PatchRouteParams } from "../../types";
+import GQLWrapper from "../../gql/GQLWrapper";
+import { getGQLUrl, isDevelopment, isTest, getSchemaString } from "../../utils";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
@@ -63,21 +65,32 @@ const Build = () => {
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      <ContextProvider>
-        <ThemeProvider theme={theme}>
-          <div className="app">
-            <HashRouter>
-              <Navbar />
-              <div className="app-intro">
-                <Route path="/patches/:pageType?/:owner?" component={Patches} />
-                <Route path="/build">
-                  <Build />
-                </Route>
-              </div>
-            </HashRouter>
-          </div>
-        </ThemeProvider>
-      </ContextProvider>
+      <GQLWrapper
+        gqlURL={getGQLUrl()}
+        isDevelopment={isDevelopment()}
+        isTest={isTest()}
+        schemaString={getSchemaString()}
+        credentials="include"
+      >
+        <ContextProvider>
+          <ThemeProvider theme={theme}>
+            <div className="app">
+              <HashRouter>
+                <Navbar />
+                <div className="app-intro">
+                  <Route
+                    path="/patches/:pageType?/:owner?"
+                    component={Patches}
+                  />
+                  <Route path="/build">
+                    <Build />
+                  </Route>
+                </div>
+              </HashRouter>
+            </div>
+          </ThemeProvider>
+        </ContextProvider>
+      </GQLWrapper>
     </ErrorBoundary>
   );
 };

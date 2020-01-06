@@ -1,9 +1,19 @@
 import {
   getApiUrl,
-  getUiUrl,
   getBugsnagApiKey,
+  getGQLUrl,
+  getSchemaString,
+  getUiUrl,
   isDevelopment,
   isTest
 } from "./getEnvironmentVariables";
 
-export { getApiUrl, getUiUrl, isDevelopment, isTest, getBugsnagApiKey };
+export {
+  getApiUrl,
+  getBugsnagApiKey,
+  getGQLUrl,
+  getSchemaString,
+  getUiUrl,
+  isDevelopment,
+  isTest
+};
