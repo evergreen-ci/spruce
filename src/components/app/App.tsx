@@ -13,6 +13,7 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
 import { PatchRouteParams } from "../../types";
+import GQLClientProvider from "./gql/GQLClientProvider";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
@@ -63,21 +64,26 @@ const Build = () => {
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
-      <ContextProvider>
-        <ThemeProvider theme={theme}>
-          <div className="app">
-            <HashRouter>
-              <Navbar />
-              <div className="app-intro">
-                <Route path="/patches/:pageType?/:owner?" component={Patches} />
-                <Route path="/build">
-                  <Build />
-                </Route>
-              </div>
-            </HashRouter>
-          </div>
-        </ThemeProvider>
-      </ContextProvider>
+      <GQLClientProvider>
+        <ContextProvider>
+          <ThemeProvider theme={theme}>
+            <div className="app">
+              <HashRouter>
+                <Navbar />
+                <div className="app-intro">
+                  <Route
+                    path="/patches/:pageType?/:owner?"
+                    component={Patches}
+                  />
+                  <Route path="/build">
+                    <Build />
+                  </Route>
+                </div>
+              </HashRouter>
+            </div>
+          </ThemeProvider>
+        </ContextProvider>
+      </GQLClientProvider>
     </ErrorBoundary>
   );
 };
