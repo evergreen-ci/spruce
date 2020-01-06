@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
-import { GraphQLSchema } from "graphql/type";
 import { HttpLink } from "apollo-link-http";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
@@ -33,13 +32,14 @@ export const getClientLink = async ({
   });
 
   if (isDevelopment || isTest) {
-    let executableSchema: GraphQLSchema | null = null;
     try {
-      executableSchema = makeExecutableSchema({
+      const executableSchema = makeExecutableSchema({
         typeDefs: schemaString
           ? schemaString
           : printSchema(await introspectSchema(httpLink))
       });
+      addMockFunctionsToSchema({ schema: executableSchema });
+      return new SchemaLink({ schema: executableSchema });
     } catch (e) {
       console.log(
         "Unable to create mock server. Provide a valid value for REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables.",
@@ -47,14 +47,11 @@ export const getClientLink = async ({
       );
       return new HttpLink();
     }
-    addMockFunctionsToSchema({ schema: executableSchema });
-    return new SchemaLink({ schema: executableSchema });
-  } else {
-    return httpLink;
   }
+  return httpLink;
 };
 
-const cache: InMemoryCache = new InMemoryCache();
+const cache = new InMemoryCache();
 
 export const getGQLClient = async ({
   credentials,
