@@ -2,11 +2,7 @@ import * as React from "react";
 import GQLWrapper from "./GQLWrapper";
 import { getGQLUrl, isDevelopment, isTest, getSchemaString } from "../utils";
 
-export const GQLClientProvider = ({
-  children
-}: {
-  children: React.ReactNode;
-}) => (
+export const GQLClientProvider: React.FC = ({ children }) => (
   <GQLWrapper
     gqlURL={getGQLUrl()}
     isDevelopment={isDevelopment()}
