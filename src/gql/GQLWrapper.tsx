@@ -11,24 +11,20 @@ import { useEffect, useState } from "react";
 import resolvers from "./resolvers";
 
 interface ClientLinkParams {
+  credentials?: string;
   gqlURL?: string;
   isDevelopment?: boolean;
   isTest?: boolean;
   schemaString?: string;
-  credentials?: string;
 }
 
-interface Props extends ClientLinkParams {
-  children?: React.ReactNode;
-}
-
-export async function getClientLink({
+export const getClientLink = async ({
   gqlURL,
   isDevelopment,
   isTest,
   schemaString,
   credentials
-}: ClientLinkParams): Promise<HttpLink | SchemaLink> {
+}: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
   const httpLink: HttpLink = new HttpLink({
     uri: gqlURL,
     credentials
@@ -54,44 +50,48 @@ export async function getClientLink({
   } else {
     return httpLink;
   }
-}
+};
 
 const cache: InMemoryCache = new InMemoryCache();
 
-export async function getGQLClient({
-  isTest,
+export const getGQLClient = async ({
+  credentials,
+  gqlURL,
   isDevelopment,
-  schemaString,
-  gqlURL
-}: ClientLinkParams) {
+  isTest,
+  schemaString
+}: ClientLinkParams) => {
   const link: HttpLink | SchemaLink = await getClientLink({
+    credentials,
     gqlURL,
     isDevelopment,
     isTest,
     schemaString
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
-    link,
-    cache
+    cache,
+    link
   });
   return client;
-}
+};
 
-const GQLWrapper = ({
+const GQLWrapper: React.FC<ClientLinkParams> = ({
   children,
+  credentials,
   gqlURL,
   isDevelopment,
   isTest,
   schemaString
-}: Props) => {
+}) => {
   const [client, setClient] = useState(null);
   useEffect(() => {
     async function getAndSetClient() {
       const gqlClient = await getGQLClient({
-        isTest,
+        credentials,
+        gqlURL,
         isDevelopment,
-        schemaString,
-        gqlURL
+        isTest,
+        schemaString
       });
       setClient(gqlClient);
     }
