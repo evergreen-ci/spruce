@@ -13,7 +13,7 @@ import { PatchContainer } from "../patch/PatchContainer";
 import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
 import { PatchRouteParams } from "../../types";
-import GQLClientProvider from "./gql/GQLClientProvider";
+import GQLClientProvider from "../../gql/GQLClientProvider";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
