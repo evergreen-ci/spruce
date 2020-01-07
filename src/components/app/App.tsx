@@ -70,7 +70,7 @@ const App: React.FC = () => {
         isDevelopment={isDevelopment()}
         isTest={isTest()}
         schemaString={getSchemaString()}
-        credentials="include"
+        credentials={isDevelopment() || isTest() ? "" : "include"}
       >
         <ContextProvider>
           <ThemeProvider theme={theme}>
