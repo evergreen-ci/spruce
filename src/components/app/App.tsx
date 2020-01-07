@@ -14,7 +14,13 @@ import { Navbar } from "../Navbar";
 import { getBugsnagApiKey } from "../../utils";
 import { PatchRouteParams } from "../../types";
 import GQLWrapper from "../../gql/GQLWrapper";
-import { getGQLUrl, isDevelopment, isTest, getSchemaString } from "../../utils";
+import {
+  getGQLUrl,
+  getSchemaString,
+  isDevelopment,
+  isTest,
+  shouldEnableGQLMockServer
+} from "../../utils";
 const { useContext } = React;
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
@@ -71,6 +77,7 @@ const App: React.FC = () => {
         isTest={isTest()}
         schemaString={getSchemaString()}
         credentials={isDevelopment() || isTest() ? "" : "include"}
+        shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
       >
         <ContextProvider>
           <ThemeProvider theme={theme}>
