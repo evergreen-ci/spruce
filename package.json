@@ -12,7 +12,7 @@
     "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
     "serve": "serve -s build",
     "start": "lessc src/styles.less src/styles.css && node scripts/start.js",
-    "start:live": "env-cmd -e liveGQL -r .build-dev-cmdrc.json npm run start",
+    "start:dev-server": "env-cmd -e liveGQL -r .build-dev-cmdrc.json npm run start",
     "start:mock-live-schema": "env-cmd -e mockLiveSchema -r .build-dev-cmdrc.json npm run start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r .build-dev-cmdrc.json npm run start",
     "start:local-evergreen": "REACT_APP_UI_URL=localhost:9090 REACT_APP_API_URL=localhost:9090/api npm start",
