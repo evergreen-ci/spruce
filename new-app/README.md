@@ -1,44 +1,67 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-## Available Scripts
+Below you will find some information on how to perform common tasks.<br>
+You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
-In the project directory, you can run:
+## Table of Contents
 
-### `npm start`
+- [Getting Started](#getting-started)
+  - [Running Locally](#running-locally)
+  - [Environment Variables](#environment-variables)
+- [Deployment](#deployment)
+  - [Requirements](#requirements)
+  - [How to Deploy](#how-to-deploy)
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Getting Started
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+### Running Locally
 
-### `npm test`
+1. Clone the Spruce Github repository
+2. Run `npm install`
+3. To luanch the app, run one these three commands:
+   `npm run start:dev-server` will make requests to a GQL server at localhost:8080/query
+   `npm run start:mock-live-schema` will obtain a GQL schema via intropspection from localhost:8080/query and mock GQL responses
+   `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Environment Variables
 
-### `npm run build`
+[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production and staging environments. This file is git ignored because it contains API keys that we do not want to publish. The should be in the root of the project and named `.cmdrc.json`. This file is required to deploy Spruce to production and to staging. Ask a team member to send you their copy of the file, which should look like the following:
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```js
+{
+  "staging": {
+    "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
+    "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
+  },
+  "prod": {
+    "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
+    "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
+    "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
+    "REACT_APP_NEW_RELIC_ACCOUNT_ID": "dummy-new-relic-account-id",
+    "REACT_APP_NEW_RELIC_AGENT_ID": "dummy-new-relic-agent-id",
+    "REACT_APP_NEW_RELIC_APPLICATION_ID": "dummy-new-relic-application-id",
+    "REACT_APP_NEW_RELIC_LICENSE_KEY": "dummy-new-relic-license-key",
+    "REACT_APP_NEW_RELIC_TRUST_KEY": "dummy-new-relic-trust-key"
+  }
+}
+```
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+## Deployment
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Requirements
 
-### `npm run eject`
+A `.cmdrc.json` file is required to deploy Spruce to staging or production environments. See [Environment Variables](#environment-variables) section for more info about this file.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Having a `.cmdrc.json` file sets the API and UI URLs that the application needs in production and staging environments to point to the correct APIs.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### How to Deploy:
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+1. Build the application for the environment to which you wish to deploy
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+- For staging, run `npm run build:staging`
+- For production, run `npm run build:production`
 
-## Learn More
+2. Run `BUCKET=the-s3-bucket npm run deploy` and replace `the-s3-bucket` with the name of the S3 bucket
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Staging: evergreen-staging.spruce
+- Production: evergreen.spruce
