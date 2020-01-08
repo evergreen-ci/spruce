@@ -1,9 +1,9 @@
 {
   "liveGQL": {
-    "REACT_APP_GQL_URL": "http://localhost:8080/query"
+    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query"
   },
   "mockLiveSchema": {
-    "REACT_APP_GQL_URL": "http://localhost:8080/query",
+    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_ENABLE_GQL_MOCK_SERVER": "true"
   },
   "mockCustomSchema": {
