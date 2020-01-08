@@ -76,7 +76,7 @@ const App: React.FC = () => {
         isDevelopment={isDevelopment()}
         isTest={isTest()}
         schemaString={getSchemaString()}
-        credentials={isDevelopment() || isTest() ? "" : "include"}
+        credentials="include"
         shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
       >
         <ContextProvider>
