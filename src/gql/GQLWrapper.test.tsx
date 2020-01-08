@@ -57,7 +57,7 @@ describe("getClientLink when development mode is true", () => {
       gqlURL: "",
       isDevelopment: true,
       isTest: false,
-      schemaString: ""
+      schemaString: "arst"
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -79,19 +79,38 @@ describe("getClientLink when test mode is true", () => {
       gqlURL: "",
       isDevelopment: false,
       isTest: true,
-      schemaString: ""
+      schemaString: "arst"
+    });
+    expect(link).toBeInstanceOf(HttpLink);
+  });
+
+  it("should return an HttpLink when unable mock server flag is true but gqlURL is invalid", async () => {
+    const link = await getClientLink({
+      gqlURL: "fake",
+      isDevelopment: false,
+      isTest: true,
+      shouldEnableGQLMockServer: true
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
 });
 
 describe("getClientLink when development and test mode are false", () => {
-  it("should return an HttpLink", async () => {
+  it("should return an HttpLink if not provided a schema string", async () => {
+    const link = await getClientLink({
+      gqlURL: "",
+      isDevelopment: false,
+      isTest: false
+    });
+    expect(link).toBeInstanceOf(HttpLink);
+  });
+
+  it("should return a HttpLink when provided a valid schema string", async () => {
     const link = await getClientLink({
       gqlURL: "",
       isDevelopment: false,
       isTest: false,
-      schemaString: ""
+      schemaString: schema
     });
     expect(link).toBeInstanceOf(HttpLink);
   });

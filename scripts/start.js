@@ -22,8 +22,18 @@ if (process.env.npm_config_schemaPath) {
   } catch (e) {
     console.error("Unable to load GQL schema from provided path", e);
   }
-  process.env.REACT_APP_SCHEMA_STRING = schemaString || "";
+  if (schemaString) {
+    process.env.REACT_APP_SCHEMA_STRING = schemaString;
+  }
 }
+if (process.env.npm_config_enableGQLMockServer) {
+  process.env.REACT_APP_ENABLE_GQL_MOCK_SERVER =
+    process.env.npm_config_enableGQLMockServer;
+}
+if (process.env.npm_config_gqlURL) {
+  process.env.REACT_APP_GQL_URL = process.env.npm_config_gqlURL;
+}
+
 const chalk = require("chalk");
 const webpack = require("webpack");
 const WebpackDevServer = require("webpack-dev-server");

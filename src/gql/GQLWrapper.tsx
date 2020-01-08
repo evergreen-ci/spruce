@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import * as React from "react";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
@@ -10,6 +10,7 @@ import {
 } from "graphql-tools";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
+const { useState, useEffect } = React;
 
 interface ClientLinkParams {
   credentials?: string;
@@ -17,21 +18,26 @@ interface ClientLinkParams {
   isDevelopment?: boolean;
   isTest?: boolean;
   schemaString?: string;
+  shouldEnableGQLMockServer?: boolean;
 }
 
 export const getClientLink = async ({
+  credentials,
   gqlURL,
   isDevelopment,
   isTest,
   schemaString,
-  credentials
+  shouldEnableGQLMockServer
 }: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
   const httpLink = new HttpLink({
     uri: gqlURL,
     credentials
   });
 
-  if (isDevelopment || isTest) {
+  if (
+    (isDevelopment || isTest) &&
+    (schemaString || shouldEnableGQLMockServer)
+  ) {
     try {
       const executableSchema = makeExecutableSchema({
         typeDefs: schemaString
@@ -57,14 +63,16 @@ export const getGQLClient = async ({
   gqlURL,
   isDevelopment,
   isTest,
-  schemaString
+  schemaString,
+  shouldEnableGQLMockServer
 }: ClientLinkParams) => {
   const link: HttpLink | SchemaLink = await getClientLink({
     credentials,
     gqlURL,
     isDevelopment,
     isTest,
-    schemaString
+    schemaString,
+    shouldEnableGQLMockServer
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
@@ -79,7 +87,8 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
   gqlURL,
   isDevelopment,
   isTest,
-  schemaString
+  schemaString,
+  shouldEnableGQLMockServer
 }) => {
   const [client, setClient] = useState(null);
   useEffect(() => {
@@ -89,7 +98,8 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
         gqlURL,
         isDevelopment,
         isTest,
-        schemaString
+        schemaString,
+        shouldEnableGQLMockServer
       });
       setClient(gqlClient);
     }

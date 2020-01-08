@@ -12,3 +12,6 @@ export const isTest = () => process.env.NODE_ENV === "test";
 export const getSchemaString = () => process.env.REACT_APP_SCHEMA_STRING || "";
 
 export const getGQLUrl = () => process.env.REACT_APP_GQL_URL || "";
+
+export const shouldEnableGQLMockServer = () =>
+  process.env.REACT_APP_ENABLE_GQL_MOCK_SERVER === "true" ? true : false;

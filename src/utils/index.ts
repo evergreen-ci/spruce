@@ -5,7 +5,8 @@ import {
   getSchemaString,
   getUiUrl,
   isDevelopment,
-  isTest
+  isTest,
+  shouldEnableGQLMockServer
 } from "./getEnvironmentVariables";
 
 export {
@@ -15,5 +16,6 @@ export {
   getSchemaString,
   getUiUrl,
   isDevelopment,
-  isTest
+  isTest,
+  shouldEnableGQLMockServer
 };
