@@ -11,7 +11,7 @@ import {
   Typography
 } from "@material-ui/core";
 import CloseIcon from "@material-ui/icons/Close";
-import { AxiosResponse } from "axios";
+import axios from "axios";
 import * as React from "react";
 import * as rest from "../../rest/interface";
 import "../../styles.css";
@@ -106,11 +106,18 @@ export class Login extends React.Component<Props, State> {
               Cancel
             </Button>
             <Button
-              onClick={this.handleClickSubmit}
+              onClick={this.loginHandler}
               color="primary"
               id="submit-button"
             >
               Submit
+            </Button>
+            <Button
+              onClick={this.logoutHandler}
+              color="primary"
+              id="logout-button"
+            >
+              Logout
             </Button>
           </DialogActions>
         </Dialog>
@@ -159,32 +166,41 @@ export class Login extends React.Component<Props, State> {
     });
   };
 
-  private handleClickSubmit = () => {
-    this.props.client
-      .getToken(this.state.username, this.state.password)
-      .then((resp: AxiosResponse<any>) => {
-        if (resp.status >= 300) {
-          if (resp.status === 401) {
-            this.setState({
-              errorText: "Invalid username or password"
-            });
-          }
-        } else {
-          this.props.updateUsername(this.state.username);
-          this.context.username = this.state.username;
-          this.setState({
-            open: false,
-            submitted: true,
-            snackbarOpen: true,
-            snackbarMessage: "Log In Successful"
-          });
-        }
+  private loginHandler = async () => {
+    try {
+      const { username, password } = this.state;
+      await axios.post("/login", {
+        username,
+        password
       });
+      this.setState({
+        open: false
+      });
+    } catch (error) {
+      console.error(error);
+      this.setState({
+        errorText: "There was an error. Try Again"
+      });
+    }
+  };
+
+  private logoutHandler = async () => {
+    try {
+      await axios.get("/logout");
+      this.setState({
+        open: false
+      });
+    } catch (error) {
+      console.error(error);
+      this.setState({
+        errorText: "There was an error. Try Again"
+      });
+    }
   };
 
   private handleKeyPress = (event: React.KeyboardEvent<HTMLDivElement>) => {
     if (event.key === "Enter") {
-      this.handleClickSubmit();
+      this.loginHandler();
     }
   };
 
