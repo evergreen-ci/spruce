@@ -1,5 +1,5 @@
 import * as React from "react";
-import bugsnag from "@bugsnag/js";
+import bugsnag from "@bugsnag/browser";
 import bugsnagReact from "@bugsnag/plugin-react";
 import GQLWrapper from "./utils/gql/GQLWrapper";
 import {
