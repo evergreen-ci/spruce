@@ -18,10 +18,30 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 1. Clone the Spruce Github repository
 2. Run `npm install`
-3. To luanch the app, run one these three commands:
-   `npm run start:dev-server` will make requests to a GQL server at localhost:8080/query
-   `npm run start:mock-live-schema` will obtain a GQL schema via intropspection from localhost:8080/query and mock GQL responses
-   `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
+
+#### Develop against a local Evergreen server
+
+Run `npm run start:dev-server`
+
+This will set the GQL uri to `localhost:8080/query`. Run a local evergreen server with `make local-evergreen` and all queries will be made to this local server.
+
+##### Requirements to get this working
+
+After you run a local Evergreen server with `make local-evergreen`:
+
+1. Go to `localhost:9090`
+2. Login as admin user
+3. Go to Admin Settings
+4. In UI Config, add `localhost:3000` to CORS Origins
+5. Save changes
+
+After doing all steps above, you will be able to dev against a local evergreen server.
+
+#### Develop against a mock server
+
+Run `npm run start:mock-live-schema` to obtain a GQL schema via intropspection from the server.
+
+Run `npm run start:mock-custom-schema` to use a hardcoded schema.
 
 ### Environment Variables
 
