@@ -35,7 +35,9 @@
     "start:dev-server": "env-cmd -e devServer -r config/.cmdrc.json npm run start",
     "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json npm run start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
-    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json"
+    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
+    "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
+    "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -53,6 +55,9 @@
     ]
   },
   "devDependencies": {
-    "jest-junit": "^10.0.0"
+    "jest-junit": "^10.0.0",
+    "tslint": "^5.20.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-react": "^4.1.0"
   }
 }
