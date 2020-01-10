@@ -19,8 +19,8 @@ You can find the most recent version of this guide [here](https://github.com/fac
 1. Clone the Spruce Github repository
 2. Run `npm install`
 3. To launch the app, run one these three commands with .cmdrc.json file set described in the next section:
-   `npm run start:dev-server` will make requests to a GQL server at localhost:8080/query
-   `npm run start:mock-live-schema` will obtain a GQL schema via intropspection from localhost:8080/query and mock GQL responses
+   `npm run start:dev-server` will make requests to a GQL server at http://localhost:9090/graphql/query
+   `npm run start:mock-instrospect-schema` will obtain a GQL schema via intropspection from http://localhost:9090/graphql/query and mock GQL responses
    `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
 
 ### Environment Variables
