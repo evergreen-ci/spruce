@@ -27,7 +27,13 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "build:staging": "env-cmd -e staging -r config/.cmdrc.json npm run build",
+    "build:prod": "env-cmd -e prod -r config/.cmdrc.json npm run build",
+    "start:dev-server": "env-cmd -e devServer -r config/.cmdrc.json npm run start",
+    "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json npm run start",
+    "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
+    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json"
   },
   "eslintConfig": {
     "extends": "react-app"
