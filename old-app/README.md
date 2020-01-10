@@ -18,27 +18,17 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 1. Clone the Spruce Github repository
 2. Run `npm install`
-3. To launch the app, run one these three commands with .cmdrc.json file set described in the next section:
-   `npm run start:dev-server` will make requests to a GQL server at localhost:9090/query
-   `npm run start:mock-introspect-schema` will obtain a GQL schema via intropspection from localhost:900/query and mock GQL responses
+3. To luanch the app, run one these three commands:
+   `npm run start:dev-server` will make requests to a GQL server at localhost:8080/query
+   `npm run start:mock-live-schema` will obtain a GQL schema via intropspection from localhost:8080/query and mock GQL responses
    `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
 
 ### Environment Variables
 
-[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production, staging and development. This file is git ignored because it contains API keys that we do not want to publish. It should be named `.cmdrc.json` and placed in the config folder at the root of the project. This file is required to deploy Spruce to production and to staging. Ask a team member to send you their copy of the file, which should look like the following:
+[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production and staging environments. This file is git ignored because it contains API keys that we do not want to publish. The should be in the root of the project and named `.cmdrc.json`. This file is required to deploy Spruce to production and to staging. Ask a team member to send you their copy of the file, which should look like the following:
 
 ```js
 {
-  "devServer": {
-    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query"
-  },
-  "mockIntrospectSchema": {
-    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
-    "REACT_APP_ENABLE_GQL_MOCK_SERVER": "true"
-  },
-  "mockCustomSchema": {
-    "REACT_APP_SCHEMA_STRING": "type Patch {\n id: ID!\n description: String!\n project: String!\n githash: String!\n patchNumber: Int!\n author: String!\n version: String!\n status: String!\n createTime: Time!\n startTime: Time!\n finishTime: Time!\n variants: [String]!\n tasks: [String]!\n variantTasks: [VariantTask]!\n activated: Boolean!\n alias: String!\n }\n type Query {\n userPatches(userId: String!): [Patch]!\n }\n type StatusDetails {\n status: String!\n type: String!\n desc: String!\n }\n scalar Time\n type VariantTask {\n display_name: String!\n tasks: [String]!\n }\n"
-  },
   "staging": {
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
