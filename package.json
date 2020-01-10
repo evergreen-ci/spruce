@@ -38,16 +38,20 @@
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
     "lint": "tslint -c tslint.json 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.json 'src/**/*.ts?(x)'",
-    "coverage": "jest --coverage"
+    "coverage": "npm run test -- --coverage --watchAll=false"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
   },
   "jest": {
     "collectCoverageFrom": [
       "src/**/*.{js,jsx,ts,tsx}",
-      "!**/*.d.ts"
+      "!<rootDir>/node_modules/",
+      "!<rootDir>/src/{serviceWorker.ts,index.tsx,react-app-env.d.ts}"
+    ],
+    "coverageReporters": [
+      "text"
     ]
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
