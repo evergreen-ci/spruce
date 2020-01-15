@@ -4,12 +4,55 @@ ignore:
   - "*.md"
   - ".github/*"
 
+#######################################
+#              Functions              #
+#######################################
 functions:
   get-project:
     command: git.get_project
     type: setup
     params:
       directory: spruce
+
+  get-evergreen-project:
+    command: git.get_project
+    type: setup
+    params:
+      directory: gopath/src/github.com/evergreen-ci/evergreen
+      token: ${github_token}
+      revisions: # for each module include revision as <module_name> : ${<module_name>_rev}
+        evergreen: ${evergreen_rev}
+
+  run-make:
+    command: subprocess.exec
+    params:
+      working_dir: gopath/src/github.com/evergreen-ci/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
+      env:
+        ACL_ENABLED: ${acl_enabled}
+        AWS_KEY: ${aws_key}
+        AWS_SECRET: ${aws_secret}
+        CLIENT_URL: https://s3.amazonaws.com/mciuploads/evergreen/${task_id}/evergreen-ci/evergreen/clients/${goos}_${goarch}/evergreen
+        DEBUG_ENABLED: ${debug}
+        DISABLE_COVERAGE: ${disable_coverage}
+        DOCKER_HOST: ${docker_host}
+        EVERGREEN_ALL: "true"
+        GOARCH: ${goarch}
+        GO_BIN_PATH: ${gobin}
+        LEGACY_GO_BIN_PATH: ${legacyGobin}
+        GOOS: ${goos}
+        GOPATH: ${workdir}/gopath
+        GOROOT: ${goroot}
+        IS_DOCKER: ${is_docker}
+        KARMA_REPORTER: junit
+        NODE_BIN_PATH: ${nodebin}
+        RACE_DETECTOR: ${race_detector}
+        SETTINGS_OVERRIDE: creds.yml
+        TEST_TIMEOUT: ${test_timeout}
+        VENDOR_PKG: "github.com/${trigger_repo_owner}/${trigger_repo_name}"
+        VENDOR_REVISION: ${trigger_revision}
+        XC_BUILD: ${xc_build}
 
   npm-install:
     command: subprocess.exec
@@ -62,6 +105,37 @@ functions:
       files:
         - "./spruce/junit.xml"
 
+  setup-mongodb:
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: /opt/golang/go1.9/bin/go
+          MONGODB_URL: ${mongodb_url}
+          DECOMPRESS: ${decompress}
+        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
+        command: make get-mongodb
+    - command: subprocess.exec
+      type: setup
+      params:
+        background: true
+        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
+        command: make start-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: gopath/src/github.com/evergreen-ci/evergreen
+        command: make check-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
+        command: make init-rs
+
+#######################################
+#                Tasks                #
+#######################################
+
 tasks:
   - name: compile
     commands:
@@ -85,6 +159,16 @@ tasks:
     - func: get-project
     - func: npm-install
     - func: npm-coverage
+  - name: run-local-evergreen-server
+    commands:
+    - func: get-evergreen-project
+    - func: setup-mongodb
+    # - func: run-make
+    #   vars:
+    #     target: "local-evergreen"
+  - name: e2e_test
+    depends_on:
+    - name: run-local-evergreen-server
 
 buildvariants:
   - name: ubuntu1804
@@ -96,3 +180,8 @@ buildvariants:
     - name: test
     - name: lint
     - name: coverage
+
+modules:
+- name: evergreen
+  repo: git@github.com:evergreen-ci/evergreen.git
+  branch: master
