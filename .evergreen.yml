@@ -166,9 +166,9 @@ tasks:
     # - func: run-make
     #   vars:
     #     target: "local-evergreen"
-  - name: e2e_test
-    depends_on:
-    - name: run-local-evergreen-server
+  # - name: e2e_test
+  #   depends_on:
+  #   - name: run-local-evergreen-server
 
 buildvariants:
   - name: ubuntu1804
@@ -180,6 +180,7 @@ buildvariants:
     - name: test
     - name: lint
     - name: coverage
+    - name: run-local-evergreen-server
 
 modules:
 - name: evergreen
