@@ -4,6 +4,12 @@ ignore:
   - "*.md"
   - ".github/*"
 
+modules:
+- name: evergreen
+  repo: git@github.com:evergreen-ci/evergreen.git
+  branch: master
+  prefix: gopath/src/github.com/evergreen-ci
+
 #######################################
 #              Functions              #
 #######################################
@@ -18,15 +24,42 @@ functions:
     command: git.get_project
     type: setup
     params:
-      directory: gopath/src/github.com/evergreen-ci/evergreen
+      directory: spruce
       token: ${github_token}
-      revisions: # for each module include revision as <module_name> : ${<module_name>_rev}
+      revisions:
         evergreen: ${evergreen_rev}
+
+  setup-mongodb:
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: /opt/golang/go1.9/bin/go
+          MONGODB_URL: ${mongodb_url}
+          DECOMPRESS: ${decompress}
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make get-mongodb
+    - command: subprocess.exec
+      type: setup
+      params:
+        background: true
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make start-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make check-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make init-rs
 
   run-make:
     command: subprocess.exec
     params:
-      working_dir: gopath/src/github.com/evergreen-ci/evergreen
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
       env:
@@ -42,7 +75,7 @@ functions:
         GO_BIN_PATH: ${gobin}
         LEGACY_GO_BIN_PATH: ${legacyGobin}
         GOOS: ${goos}
-        GOPATH: ${workdir}/gopath
+        GOPATH: ${workdir}/spruce/gopath
         GOROOT: ${goroot}
         IS_DOCKER: ${is_docker}
         KARMA_REPORTER: junit
@@ -105,33 +138,6 @@ functions:
       files:
         - "./spruce/junit.xml"
 
-  setup-mongodb:
-    - command: subprocess.exec
-      type: setup
-      params:
-        env:
-          gobin: /opt/golang/go1.9/bin/go
-          MONGODB_URL: ${mongodb_url}
-          DECOMPRESS: ${decompress}
-        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
-        command: make get-mongodb
-    - command: subprocess.exec
-      type: setup
-      params:
-        background: true
-        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
-        command: make start-mongod
-    - command: subprocess.exec
-      type: setup
-      params:
-        working_dir: gopath/src/github.com/evergreen-ci/evergreen
-        command: make check-mongod
-    - command: subprocess.exec
-      type: setup
-      params:
-        working_dir: gopath/src/github.com/evergreen-ci/evergreen/
-        command: make init-rs
-
 #######################################
 #                Tasks                #
 #######################################
@@ -163,9 +169,9 @@ tasks:
     commands:
     - func: get-evergreen-project
     - func: setup-mongodb
-    # - func: run-make
-    #   vars:
-    #     target: "local-evergreen"
+    - func: run-make
+      vars:
+        target: "local-evergreen"
   # - name: e2e_test
   #   depends_on:
   #   - name: run-local-evergreen-server
@@ -175,14 +181,11 @@ buildvariants:
     display_name: Ubuntu 18.04
     run_on:
     - ubuntu1804-test
+    modules:
+      - evergreen
     tasks:
     - name: compile
     - name: test
     - name: lint
     - name: coverage
     - name: run-local-evergreen-server
-
-modules:
-- name: evergreen
-  repo: git@github.com:evergreen-ci/evergreen.git
-  branch: master
