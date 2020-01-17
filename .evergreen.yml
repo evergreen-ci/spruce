@@ -62,6 +62,7 @@ functions:
       working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
+      background: true
       env:
         ACL_ENABLED: ${acl_enabled}
         AWS_KEY: ${aws_key}
@@ -87,13 +88,20 @@ functions:
         VENDOR_REVISION: ${trigger_revision}
         XC_BUILD: ${xc_build}
 
-  npm-install:
+  npm-start:
     command: subprocess.exec
     type: setup
     params:
       working_dir: spruce
-      binary: npm
-      args: [install]
+      background: true
+      command: npm start
+
+  npm-install:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        npm install
 
   npm-test:
     command: subprocess.exec
@@ -132,6 +140,19 @@ functions:
       binary: npm
       args: [run, coverage]
 
+  run-cypress-tests:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        export NODEJS_HOME=${workdir}/mms/nodejs
+        export PATH=$NODEJS_HOME/bin:$PATH
+        export CYPRESS_CACHE_FOLDER=$(pwd)/node_modules/CypressCache \
+        echo CYPRESS_CACHE_FOLDER
+        node_modules/.bin/cypress cache path
+        node_modules/.bin/cypress install
+        npm run cypress:run
+
   attach-results:
     command: attach.xunit_results
     params:
@@ -149,32 +170,36 @@ tasks:
     - func: npm-install
     - func: npm-build
     - func: npm-build
+
   - name: test
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-test
     - func: attach-results
+
   - name: lint
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-lint
+
   - name: coverage
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-coverage
-  - name: run-local-evergreen-server
+
+  - name: e2e_test
     commands:
     - func: get-evergreen-project
     - func: setup-mongodb
     - func: run-make
       vars:
         target: "local-evergreen"
-  # - name: e2e_test
-  #   depends_on:
-  #   - name: run-local-evergreen-server
+    - func: npm-install
+    - func: npm-start
+    - func: run-cypress-tests
 
 buildvariants:
   - name: ubuntu1804
@@ -188,4 +213,4 @@ buildvariants:
     - name: test
     - name: lint
     - name: coverage
-    - name: run-local-evergreen-server
+    - name: e2e_test
