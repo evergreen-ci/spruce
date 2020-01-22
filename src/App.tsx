@@ -10,6 +10,7 @@ import {
   isTest,
   shouldEnableGQLMockServer
 } from "./utils/getEnvironmentVariables";
+import { HelloSpruceText } from "./styles/app";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -27,6 +28,7 @@ const App: React.FC = () => {
         shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
       >
         {/*add routes here*/}
+        <HelloSpruceText>Hello Spruce</HelloSpruceText>
       </GQLWrapper>
     </ErrorBoundary>
   );

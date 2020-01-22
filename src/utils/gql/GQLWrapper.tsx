@@ -104,7 +104,14 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
       setClient(gqlClient);
     }
     getAndSetClient();
-  }, []);
+  }, [
+    credentials,
+    gqlURL,
+    isDevelopment,
+    isTest,
+    schemaString,
+    shouldEnableGQLMockServer
+  ]);
 
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>
