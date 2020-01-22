@@ -145,7 +145,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npm run cypress:run
+        npm run cy:run --record --key ${cypress_record_key}
 
   attach-results:
     command: attach.xunit_results
