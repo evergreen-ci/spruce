@@ -145,9 +145,11 @@ functions:
     params:
       working_dir: spruce
       script: |
+        Xvfb :1 -screen 0 1280x800x24 &
+        export DISPLAY=:1
         npx cypress run --record --key ${cypress_record_key}
 
-  attach-results:
+  attach-results: 
     command: attach.xunit_results
     params:
       files:
@@ -196,10 +198,10 @@ tasks:
     - func: run-cypress-tests
 
 buildvariants:
-  - name: ubuntu1604
-    display_name: Ubuntu 16.04
+  - name: ubuntu1804
+    display_name: Ubuntu 18.04
     run_on:
-    - ubuntu1604-test
+    - ubuntu1804-test
     modules:
       - evergreen
     tasks:
