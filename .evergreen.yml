@@ -145,11 +145,6 @@ functions:
     params:
       working_dir: spruce
       script: |
-        export NODEJS_HOME=${workdir}/mms/nodejs
-        export PATH=$NODEJS_HOME/bin:$PATH
-        export CYPRESS_CACHE_FOLDER=$(pwd)/node_modules/CypressCache \
-        node_modules/.bin/cypress cache path
-        node_modules/.bin/cypress install
         npm run cypress:run
 
   attach-results:
@@ -201,10 +196,10 @@ tasks:
     - func: run-cypress-tests
 
 buildvariants:
-  - name: ubuntu1804
-    display_name: Ubuntu 18.04
+  - name: ubuntu1604
+    display_name: Ubuntu 16.04
     run_on:
-    - ubuntu1804-test
+    - ubuntu1604-test
     modules:
       - evergreen
     tasks:
