@@ -1,5 +1,6 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
+import { useAuthStateContext } from "../../context/auth";
 
 type PrivateRouteProps = {
   component: React.FC;
@@ -10,13 +11,13 @@ export const PrivateRoute = ({
   component: Component,
   ...rest
 }: PrivateRouteProps) => {
-  const auth = false;
+  const { isAuthenticated } = useAuthStateContext();
 
   return (
     <Route
       {...rest}
       render={props =>
-        auth ? (
+        isAuthenticated ? (
           <Component {...props} />
         ) : (
           <Redirect
