@@ -9,27 +9,32 @@ const defaultState: State = {
   isAuthenticated: true
 };
 
-type Action = { type: "set auth"; payload: boolean };
+type Action = { type: "authenticate" } | { type: "deauthenticate" };
 
-type Dispatch = (action: Action) => void;
+export type Dispatch = (action: Action) => void;
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
-    case "set auth":
+    case "authenticate":
       return {
         ...state,
-        isAuthenticated: action.payload
+        isAuthenticated: true
+      };
+    case "deauthenticate":
+      return {
+        ...state,
+        isAuthenticated: false
       };
     default:
       return state;
   }
 };
 
-// this won't work in prod bc it does not know to go to evergreen.mongo.com
+// TODO: this won't work in prod bc it does not know to go to evergreen.mongo.com
 const logout = async (dispatch: Dispatch) => {
   try {
     await axios.get("/logout");
-    dispatch({ type: "set auth", payload: false });
+    dispatch({ type: "deauthenticate" });
   } catch (error) {}
 };
 
@@ -43,7 +48,7 @@ const login = async (
 ) => {
   try {
     await axios.post("/login", { username, password });
-    dispatch({ type: "set auth", payload: true });
+    dispatch({ type: "authenticate" });
   } catch (error) {}
 };
 
