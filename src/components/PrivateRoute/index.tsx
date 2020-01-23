@@ -5,6 +5,7 @@ import { useAuthStateContext } from "../../context/auth";
 type PrivateRouteProps = {
   component: React.FC;
   path: string;
+  exact?: boolean;
 };
 
 export const PrivateRoute = ({

@@ -35,9 +35,8 @@ const App: React.FC = () => {
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
             <Navbar />
-            <Route exact path="/" component={Home} />
+            <PrivateRoute exact path="/" component={Home} />
             <Route path="/login" component={Login} />
-            <PrivateRoute path="/private" component={Home} />
           </GQLWrapper>
         </Router>
       </ContextProviders>
