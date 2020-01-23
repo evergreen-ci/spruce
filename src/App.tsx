@@ -15,6 +15,7 @@ import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ContextProviders } from "./context/Providers";
+import { Navbar } from "./components/Navbar";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -33,6 +34,7 @@ const App: React.FC = () => {
             credentials="include"
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
+            <Navbar />
             <Route exact path="/" component={Home} />
             <Route path="/login" component={Login} />
             <PrivateRoute path="/private" component={Home} />
