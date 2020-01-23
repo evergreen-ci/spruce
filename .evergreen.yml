@@ -25,7 +25,6 @@ functions:
     type: setup
     params:
       directory: spruce
-      token: ${github_token}
       revisions:
         evergreen: ${evergreen_rev}
 
