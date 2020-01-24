@@ -18,7 +18,9 @@ export const Navbar: React.FC = () => {
     <Wrapper>
       <InnerWrapper>
         {isAuthenticated && (
-          <LogoutButton onClick={logoutHandler}>Logout</LogoutButton>
+          <LogoutButton id="logout" onClick={logoutHandler}>
+            Logout
+          </LogoutButton>
         )}
       </InnerWrapper>
     </Wrapper>

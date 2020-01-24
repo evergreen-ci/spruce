@@ -21,6 +21,9 @@ const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
 const ErrorBoundary = bugsnagClient.getPlugin("react");
 
+// DELETE ME ONCE THERE ARE OTHER PRIVATE ROUTES
+const FakePrivateRoute = () => <div>I am private</div>;
+
 const App: React.FC = () => {
   return (
     <ErrorBoundary>
@@ -35,8 +38,9 @@ const App: React.FC = () => {
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
             <Navbar />
-            <PrivateRoute exact path="/" component={Home} />
             <Route path="/login" component={Login} />
+            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute path="/private" component={FakePrivateRoute} />
           </GQLWrapper>
         </Router>
       </ContextProviders>
