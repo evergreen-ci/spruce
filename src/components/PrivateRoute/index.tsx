@@ -1,17 +1,20 @@
 import React from "react";
-import { Route, Redirect, RouteComponentProps } from "react-router-dom";
+import {
+  Route,
+  Redirect,
+  RouteComponentProps,
+  RouteProps
+} from "react-router-dom";
 import { useAuthStateContext } from "../../context/auth";
 
-type PrivateRouteProps = {
+type PrivateRouteProps = RouteProps & {
   component: React.FC<RouteComponentProps>;
-  path: string;
-  exact?: boolean;
 };
 
-export const PrivateRoute = ({
+export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   component: Component,
   ...rest
-}: PrivateRouteProps) => {
+}) => {
   const { isAuthenticated } = useAuthStateContext();
 
   return (
