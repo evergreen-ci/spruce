@@ -1,5 +1,6 @@
 import React, { useContext, useReducer } from "react";
 import axios from "axios";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 type State = {
   isAuthenticated: boolean;
@@ -33,7 +34,7 @@ const reducer = (state: State, action: Action): State => {
 // TODO: this won't work in prod bc it does not know to go to evergreen.mongo.com
 const logout = async (dispatch: Dispatch) => {
   try {
-    await axios.get("/logout");
+    await axios.get(`${getUiUrl()}/logout`);
     dispatch({ type: "deauthenticate" });
   } catch (error) {}
 };
@@ -47,7 +48,7 @@ const login = async (
   { username, password }: LoginParams
 ) => {
   try {
-    await axios.post("/login", { username, password });
+    await axios.post(`${getUiUrl()}/login`, { username, password });
     dispatch({ type: "authenticate" });
   } catch (error) {}
 };
