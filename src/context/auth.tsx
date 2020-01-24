@@ -1,4 +1,4 @@
-import React, { useContext, useReducer } from "react";
+import React, { useContext, useReducer, useCallback } from "react";
 import axios from "axios";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 
@@ -12,7 +12,14 @@ const defaultState: State = {
 
 type Action = { type: "authenticate" } | { type: "deauthenticate" };
 
-export type Dispatch = (action: Action) => void;
+type Dispatch = (action: Action) => void;
+
+export type Logout = () => void;
+
+type DispatchContext = {
+  login: (LoginParams) => void;
+  logout: Logout;
+};
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -31,7 +38,6 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-// TODO: this won't work in prod bc it does not know to go to evergreen.mongo.com
 const logout = async (dispatch: Dispatch) => {
   try {
     await axios.get(`${getUiUrl()}/logout`);
@@ -53,14 +59,30 @@ const login = async (
   } catch (error) {}
 };
 
-const AuthDispatchContext = React.createContext<Dispatch | null>(null);
+const AuthDispatchContext = React.createContext<DispatchContext | null>(null);
 const AuthStateContext = React.createContext<State | null>(null);
 
 const AuthProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  const logoutHandler = useCallback(() => {
+    logout(dispatch);
+  }, [dispatch]);
+
+  const loginHandler = useCallback(
+    ({ username, password }: LoginParams) => {
+      login(dispatch, { username, password });
+    },
+    [dispatch]
+  );
+
+  const dispatchContext: DispatchContext = {
+    login: loginHandler,
+    logout: logoutHandler
+  };
+
   return (
-    <AuthDispatchContext.Provider value={dispatch}>
+    <AuthDispatchContext.Provider value={dispatchContext}>
       <AuthStateContext.Provider value={state}>
         {children}
       </AuthStateContext.Provider>

@@ -1,10 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
-import {
-  useAuthDispatchContext,
-  useAuthStateContext,
-  login
-} from "../context/auth";
+import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
@@ -20,11 +16,11 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
-  const dispatch = useAuthDispatchContext();
+  const { login } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
   const loginHandler = () => {
-    login(dispatch, { username, password });
+    login({ username, password });
   };
 
   if (isAuthenticated) {
