@@ -6,30 +6,29 @@ import {
   login
 } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
+import { Location } from "history";
 
-type LoginProps = RouteComponentProps & {
-  location: {
-    state: {
-      referer: string;
-    };
-  };
+const getReferer = (location: Location) => {
+  if (location && location.state && "referer" in location.state) {
+    const { referer } = location.state;
+    return referer;
+  }
+  return "/";
 };
 
-export const Login: React.FC<LoginProps> = ({ location }) => {
+export const Login: React.FC<RouteComponentProps> = ({ location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
-  const referer = location.state.referer || "/";
-
   const loginHandler = () => {
     login(dispatch, { username, password });
   };
 
   if (isAuthenticated) {
-    return <Redirect to={referer} />;
+    return <Redirect to={getReferer(location)} />;
   }
 
   return (
@@ -45,14 +44,16 @@ export const Login: React.FC<LoginProps> = ({ location }) => {
       />
       <label>Password</label>
       <input
-        type="text"
+        type="password"
         name="password"
         value={password}
         onChange={e => {
           setPassword(e.target.value);
         }}
       />
-      <button onClick={loginHandler}>Login</button>
+      <button id="login-submit" onClick={loginHandler}>
+        Login
+      </button>
     </Wrapper>
   );
 };
