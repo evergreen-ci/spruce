@@ -62,13 +62,13 @@ const cache = new InMemoryCache();
 
 const authLink = (dispatch: Dispatch) =>
   onError(({ networkError }) => {
-    // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
     if (
+      // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
       networkError &&
       "statusCode" in networkError &&
       networkError.statusCode === 401
     ) {
-      dispatch({ type: "deauthenticate" });
+      logout(dispatch);
     }
   });
 
