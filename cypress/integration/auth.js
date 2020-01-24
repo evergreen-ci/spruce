@@ -17,10 +17,8 @@ describe("Auth", function() {
     cy.url().should("include", "/private");
   });
 
-  it("User can logout", function() {
+  it("Redirects user to /login after logging out", function() {
     cy.get("div[id=logout]").click();
-
-    // should be redirected to login after logout
     cy.url().should("include", "/login");
   });
 
