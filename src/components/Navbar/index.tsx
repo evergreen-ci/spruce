@@ -1,19 +1,25 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import { logout, useAuthDispatchContext } from "../../context/auth";
+import {
+  logout,
+  useAuthDispatchContext,
+  useAuthStateContext
+} from "../../context/auth";
 
 export const Navbar: React.FC = () => {
   const dispatch = useAuthDispatchContext();
+  const { isAuthenticated } = useAuthStateContext();
 
   const logoutHandler = () => {
-    console.log("hello");
     logout(dispatch);
   };
 
   return (
     <Wrapper>
       <InnerWrapper>
-        <LogoutButton onClick={logoutHandler}>Logout</LogoutButton>
+        {isAuthenticated && (
+          <LogoutButton onClick={logoutHandler}>Logout</LogoutButton>
+        )}
       </InnerWrapper>
     </Wrapper>
   );
