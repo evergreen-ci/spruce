@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
@@ -23,6 +23,12 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
     login({ username, password });
   };
 
+  const inputChangeHandler = (cb: (value: string) => void) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    cb(e.target.value);
+  };
+
   if (isAuthenticated) {
     return <Redirect to={getReferer(location)} />;
   }
@@ -34,18 +40,14 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
         type="text"
         name="username"
         value={username}
-        onChange={e => {
-          setUsername(e.target.value);
-        }}
+        onChange={inputChangeHandler(setUsername)}
       />
       <label>Password</label>
       <input
         type="password"
         name="password"
         value={password}
-        onChange={e => {
-          setPassword(e.target.value);
-        }}
+        onChange={inputChangeHandler(setPassword)}
       />
       <button id="login-submit" onClick={loginHandler}>
         Login
