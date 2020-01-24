@@ -17,18 +17,14 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }) => {
   const { isAuthenticated } = useAuthStateContext();
 
-  return (
-    <Route
-      {...rest}
-      render={props =>
-        isAuthenticated ? (
-          <Component {...props} />
-        ) : (
-          <Redirect
-            to={{ pathname: "/login", state: { referer: props.location } }}
-          />
-        )
-      }
-    />
-  );
+  const render = props =>
+    isAuthenticated ? (
+      <Component {...props} />
+    ) : (
+      <Redirect
+        to={{ pathname: "/login", state: { referer: props.location } }}
+      />
+    );
+
+  return <Route {...rest} render={render} />;
 };

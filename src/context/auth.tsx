@@ -2,9 +2,9 @@ import React, { useContext, useReducer, useCallback } from "react";
 import axios from "axios";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 
-type State = {
+interface State {
   isAuthenticated: boolean;
-};
+}
 
 const defaultState: State = {
   isAuthenticated: false
@@ -16,10 +16,10 @@ type Dispatch = (action: Action) => void;
 
 export type Logout = () => void;
 
-type DispatchContext = {
+interface DispatchContext {
   login: (LoginParams) => void;
   logout: Logout;
-};
+}
 
 const reducer = (state: State, action: Action): State => {
   switch (action.type) {
@@ -47,10 +47,10 @@ const logout = async (dispatch: Dispatch) => {
   }
 };
 
-type LoginParams = {
+interface LoginParams {
   username: string;
   password: string;
-};
+}
 const login = async (
   dispatch: Dispatch,
   { username, password }: LoginParams

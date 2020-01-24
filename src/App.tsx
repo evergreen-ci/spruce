@@ -39,7 +39,7 @@ const App: React.FC = () => {
           >
             <Navbar />
             <Route path="/login" component={Login} />
-            <PrivateRoute exact path="/" component={Home} />
+            <PrivateRoute exact={true} path="/" component={Home} />
             <PrivateRoute path="/private" component={FakePrivateRoute} />
           </GQLWrapper>
         </Router>
