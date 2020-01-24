@@ -11,7 +11,7 @@ import {
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
 import { onError } from "apollo-link-error";
-import { useAuthDispatchContext, logout, Logout } from "../../context/auth";
+import { useAuthDispatchContext, Logout } from "../../context/auth";
 
 interface ClientLinkParams {
   credentials?: string;

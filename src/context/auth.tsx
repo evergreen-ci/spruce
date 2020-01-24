@@ -42,7 +42,9 @@ const logout = async (dispatch: Dispatch) => {
   try {
     await axios.get(`${getUiUrl()}/logout`);
     dispatch({ type: "deauthenticate" });
-  } catch (error) {}
+  } catch (error) {
+    // TODO: log errors
+  }
 };
 
 type LoginParams = {
@@ -56,7 +58,9 @@ const login = async (
   try {
     await axios.post(`${getUiUrl()}/login`, { username, password });
     dispatch({ type: "authenticate" });
-  } catch (error) {}
+  } catch (error) {
+    // TODO: log errors
+  }
 };
 
 const AuthDispatchContext = React.createContext<DispatchContext | null>(null);
@@ -110,10 +114,4 @@ const useAuthDispatchContext = () => {
   return authDispatch;
 };
 
-export {
-  AuthProvider,
-  useAuthStateContext,
-  useAuthDispatchContext,
-  logout,
-  login
-};
+export { AuthProvider, useAuthStateContext, useAuthDispatchContext };
