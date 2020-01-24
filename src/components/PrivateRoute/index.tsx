@@ -1,9 +1,9 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, RouteComponentProps } from "react-router-dom";
 import { useAuthStateContext } from "../../context/auth";
 
 type PrivateRouteProps = {
-  component: React.FC;
+  component: React.FC<RouteComponentProps>;
   path: string;
   exact?: boolean;
 };

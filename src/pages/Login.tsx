@@ -1,16 +1,36 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
-import { useAuthDispatchContext, login } from "../context/auth";
+import {
+  useAuthDispatchContext,
+  useAuthStateContext,
+  login
+} from "../context/auth";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 
-export const Login: React.FC = () => {
+type LoginProps = RouteComponentProps & {
+  location: {
+    state: {
+      referer: string;
+    };
+  };
+};
+
+export const Login: React.FC<LoginProps> = ({ location }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
   const dispatch = useAuthDispatchContext();
+  const { isAuthenticated } = useAuthStateContext();
+
+  const referer = location.state.referer || "/";
 
   const loginHandler = () => {
     login(dispatch, { username, password });
   };
+
+  if (isAuthenticated) {
+    return <Redirect to={referer} />;
+  }
 
   return (
     <Wrapper>
