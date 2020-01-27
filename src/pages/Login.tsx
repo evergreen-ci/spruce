@@ -5,7 +5,10 @@ import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
 const getReferrer = (location: Location<{ referrer?: string }>) => {
-  return location.state.referrer ?? "/";
+  if (location && location.state && "referrer" in location.state) {
+    return location.state.referrer;
+  }
+  return "/";
 };
 
 export const Login: React.FC<RouteComponentProps> = ({ location }) => {
