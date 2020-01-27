@@ -22,7 +22,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
       <Component {...props} />
     ) : (
       <Redirect
-        to={{ pathname: "/login", state: { referer: props.location } }}
+        to={{ pathname: "/login", state: { referrer: props.location } }}
       />
     );
 

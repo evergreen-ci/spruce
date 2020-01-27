@@ -1,15 +1,11 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
-const getReferer = (location: Location) => {
-  if (location && location.state && "referer" in location.state) {
-    const { referer } = location.state;
-    return referer;
-  }
-  return "/";
+const getReferrer = (location: Location<{ referrer?: string }>) => {
+  return location.state.referrer ?? "/";
 };
 
 export const Login: React.FC<RouteComponentProps> = ({ location }) => {
@@ -30,7 +26,7 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
   };
 
   if (isAuthenticated) {
-    return <Redirect to={getReferer(location)} />;
+    return <Redirect to={getReferrer(location)} />;
   }
 
   return (
