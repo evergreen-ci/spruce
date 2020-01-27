@@ -11,7 +11,7 @@ import {
   isTest,
   shouldEnableGQLMockServer
 } from "./utils/getEnvironmentVariables";
-import TaskPage from "pages/Task";
+import { Task } from "pages/Task";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
@@ -40,7 +40,7 @@ const App: React.FC = () => {
           >
             <Navbar />
             <Route path="/login" component={Login} />
-            <Route path="/task/:taskID" component={TaskPage} />
+            <Route path="/task/:taskID" component={Task} />
             <PrivateRoute exact={true} path="/" component={Home} />
             <PrivateRoute path="/private" component={FakePrivateRoute} />
           </GQLWrapper>

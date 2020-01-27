@@ -5,16 +5,14 @@ import { useParams, useHistory } from "react-router-dom";
 type Tab = "logs" | "tests" | "files" | "build-baron";
 const DEFAULT_TAB = "logs";
 
-const Task: React.FC<RouteComponentProps> = () => {
-  const params = useParams<{ tab?: Tab; taskID: string }>();
+export const Task: React.FC<RouteComponentProps> = () => {
+  const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
   const history = useHistory();
   useEffect(() => {
-    if (!params.tab) {
-      history.replace(`/task/${params.taskID}/${DEFAULT_TAB}`);
+    if (!tab) {
+      history.replace(`/task/${taskID}/${DEFAULT_TAB}`);
     }
-  }, [params.tab, params.taskID, history]);
+  }, [tab, taskID, history]);
 
   return <div>Task Page!!!!!!!!</div>;
 };
-
-export default Task;
