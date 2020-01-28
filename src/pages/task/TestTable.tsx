@@ -54,7 +54,7 @@ export const TestTable: React.FC = () => {
       const nextQueryParams = queryString.stringify(parsed);
       replace(`${pathname}?${nextQueryParams}`);
     }
-  }, [search]);
+  }, [search, pathname, replace]);
 
   return <div>Test table</div>;
 };
