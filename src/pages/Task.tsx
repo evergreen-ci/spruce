@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
-import { TestTable } from "pages/task/TestTable";
+import { TestsTable } from "pages/task/TestsTable";
 
 enum Tab {
   Logs = "logs",
@@ -10,7 +10,7 @@ enum Tab {
   BuildBaron = "build-baron"
 }
 const DEFAULT_TAB = Tab.Logs;
-        
+
 export const Task: React.FC<RouteComponentProps> = () => {
   const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
   const history = useHistory();
@@ -21,7 +21,7 @@ export const Task: React.FC<RouteComponentProps> = () => {
   }, [tab, taskID, history]);
 
   if (tab === Tab.Tests) {
-    return <TestTable />;
+    return <TestsTable />;
   }
 
   return <div>Task Page!!!!!!!!</div>;
