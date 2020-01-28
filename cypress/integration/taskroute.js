@@ -7,9 +7,9 @@ describe("Task Page Route", function() {
   });
 
   it("Browser history is placed when user lands on /task/{taskID}", function() {
-    cy.visit("/login");
+    cy.visit("/random");
     cy.visit("/task/taskID");
     cy.go("back");
-    cy.location("pathname").should("eq", "/login");
+    cy.location("pathname").should("eq", "/random");
   });
 });
