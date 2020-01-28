@@ -9,9 +9,8 @@ enum Tab {
   Files = "files",
   BuildBaron = "build-baron"
 }
-
 const DEFAULT_TAB = Tab.Logs;
-
+        
 export const Task: React.FC<RouteComponentProps> = () => {
   const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
   const history = useHistory();
