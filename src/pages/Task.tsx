@@ -3,8 +3,14 @@ import { RouteComponentProps } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 import { TestTable } from "pages/task/TestTable";
 
-type Tab = "logs" | "tests" | "files" | "build-baron";
-const DEFAULT_TAB = "logs";
+enum Tab {
+  Logs = "logs",
+  Tests = "tests",
+  Files = "files",
+  BuildBaron = "build-baron"
+}
+
+const DEFAULT_TAB = Tab.Logs;
 
 export const Task: React.FC<RouteComponentProps> = () => {
   const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
@@ -15,7 +21,7 @@ export const Task: React.FC<RouteComponentProps> = () => {
     }
   }, [tab, taskID, history]);
 
-  if (tab === "tests") {
+  if (tab === Tab.Tests) {
     return <TestTable />;
   }
 
