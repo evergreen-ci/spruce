@@ -3,7 +3,7 @@ import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
 import gql from "graphql-tag";
-import { Table } from "antd";
+import { Table, Tag } from "antd";
 import { duration, DurationInputArg1 } from "moment";
 
 function msToTime(ms: DurationInputArg1): String {
@@ -76,7 +76,17 @@ const columns = [
     title: "Status",
     dataIndex: "status",
     key: Categories.Status,
-    sorter: true
+    sorter: true,
+    render: tag => {
+      const color = tag === "pass" ? "green" : "geekblue";
+      return (
+        <span>
+          <Tag color={color} key={tag}>
+            {tag.toUpperCase()}
+          </Tag>
+        </span>
+      );
+    }
   },
   {
     title: "Time",
@@ -100,7 +110,7 @@ export const TestsTable: React.FC = () => {
       dir: parsed[RequiredQueryParams.Sort] === Sort.Asc ? "ASC" : "DESC",
       cat: parsed[RequiredQueryParams.Category]
         ? parsed[RequiredQueryParams.Category].toString()
-        : ""
+        : Categories.TestName
     }
   });
 
