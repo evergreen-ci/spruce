@@ -23,8 +23,8 @@ enum Sort {
 enum DefaultQueryParams {
   Sort = "1",
   Category = "TEST_NAME",
-  Page = 0,
-  Limit = 0
+  Page = "0",
+  Limit = "0"
 }
 
 export const TestsTable: React.FC = () => {
@@ -33,9 +33,17 @@ export const TestsTable: React.FC = () => {
 
   useEffect(() => {
     const parsed = queryString.parse(search);
-    const category = (parsed[RequiredQueryParams.Category] || "").toUpperCase();
-    const limitNum = parseInt(parsed[RequiredQueryParams.Limit]);
-    const pageNum = parseInt(parsed[RequiredQueryParams.Page]);
+    const category = (
+      JSON.stringify(parsed[RequiredQueryParams.Category]) || ""
+    ).toUpperCase();
+    const limitNum = parseInt(
+      JSON.stringify(parsed[RequiredQueryParams.Limit]),
+      10
+    );
+    const pageNum = parseInt(
+      JSON.stringify(parsed[RequiredQueryParams.Page]),
+      10
+    );
     const sort = parsed[RequiredQueryParams.Sort];
     if (
       (sort !== Sort.Desc && sort !== Sort.Asc) ||
