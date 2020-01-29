@@ -37,9 +37,13 @@ export const TestsTable: React.FC = () => {
       JSON.stringify(parsed[RequiredQueryParams.Category]) || ""
     ).toUpperCase();
     const limitNum = parseInt(
-      JSON.stringify(parsed[RequiredQueryParams.Limit])
+      JSON.stringify(parsed[RequiredQueryParams.Limit]),
+      10
     );
-    const pageNum = parseInt(JSON.stringify(parsed[RequiredQueryParams.Page]));
+    const pageNum = parseInt(
+      JSON.stringify(parsed[RequiredQueryParams.Page]),
+      10
+    );
     const sort = parsed[RequiredQueryParams.Sort];
     if (
       (sort !== Sort.Desc && sort !== Sort.Asc) ||
