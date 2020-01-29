@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState, useCallback } from "react";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
@@ -54,8 +54,19 @@ enum DefaultQueryParams {
 }
 
 const TESTS_QUERY = gql`
-  query GetStuff($dir: SortDirection, $id: String!, $cat: TaskSortCategory) {
-    taskTests(taskId: $id, sortCategory: $cat, sortDirection: $dir) {
+  query GetStuff(
+    $dir: SortDirection
+    $id: String!
+    $cat: TaskSortCategory
+    $pageNum: Int
+  ) {
+    taskTests(
+      taskId: $id
+      sortCategory: $cat
+      sortDirection: $dir
+      page: $pageNum
+      limit: 10
+    ) {
       id
       status
       testFile
@@ -100,6 +111,8 @@ const columns = [
 ];
 
 export const TestsTable: React.FC = () => {
+  const loadMore = useRef(null);
+  const [page, setPage] = useState(0);
   const { pathname, search } = useLocation();
   const { taskID } = useParams();
   const { replace } = useHistory();
@@ -110,9 +123,18 @@ export const TestsTable: React.FC = () => {
       dir: parsed[RequiredQueryParams.Sort] === Sort.Asc ? "ASC" : "DESC",
       cat: parsed[RequiredQueryParams.Category]
         ? parsed[RequiredQueryParams.Category].toString()
-        : Categories.TestName
+        : Categories.TestName,
+      pageNum: page
     }
   });
+
+  const handleScroll = useCallback(() => {
+    console.log("scrolling...");
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleScroll);
+  }, [handleScroll]);
 
   useEffect(() => {
     const parsed = queryString.parse(search);
@@ -184,7 +206,7 @@ export const TestsTable: React.FC = () => {
         dataSource={dataSource}
         columns={columns}
       />
-      ;
+      <div style={{ backgroundColor: "red" }} ref={loadMore}></div>
     </div>
   );
 };
