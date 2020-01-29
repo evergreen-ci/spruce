@@ -178,7 +178,13 @@ export const TestsTable: React.FC = () => {
 
   return (
     <div>
-      <Table onChange={onChange} dataSource={dataSource} columns={columns} />;
+      <Table
+        pagination={false}
+        onChange={onChange}
+        dataSource={dataSource}
+        columns={columns}
+      />
+      ;
     </div>
   );
 };
