@@ -1,6 +1,19 @@
 import React, { useEffect } from "react";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
+import gql from "graphql-tag";
+
+const TESTS_QUERY = gql`
+  query GetStuff($dir: SortDirection, $id: String!, $cat: TaskSortCategory) {
+    taskTests(taskId: $id, sortCategory: $cat, sortDirection: $dir) {
+      id
+      status
+      testFile
+      duration
+    }
+  }
+`;
 
 enum RequiredQueryParams {
   Sort = "sort",
@@ -29,8 +42,16 @@ enum DefaultQueryParams {
 
 export const TestsTable: React.FC = () => {
   const { pathname, search } = useLocation();
+  const { taskID } = useParams();
   const { replace } = useHistory();
 
+  const { loading, error, data } = useQuery(TESTS_QUERY, {
+    variables: {
+      id: taskID
+    }
+  });
+
+  console.log(loading, error, data);
   useEffect(() => {
     const parsed = queryString.parse(search);
     const category = (
