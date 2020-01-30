@@ -80,6 +80,7 @@ export const TestsTableCore: React.FC<{
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const [latestQueryTs, setLatestQueryTs] = useState(Date.now());
+  const [isLoading, setIsLoading] = useState(0);
   const { loading, error, data, fetchMore } = useQuery(TESTS_QUERY, {
     variables: {
       id: taskID,
@@ -94,7 +95,7 @@ export const TestsTableCore: React.FC<{
   const sort = parsed[RequiredQueryParams.Sort];
   useEffect(() => {
     const dispatchTs = Date.now();
-    setIsLoading(true);
+    setIsLoading(isLoading + 1);
     setLatestQueryTs(dispatchTs);
     fetchMore({
       variables: {
@@ -107,27 +108,27 @@ export const TestsTableCore: React.FC<{
         { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
       ) => {
         if (dispatchTs !== latestQueryTs) {
+          console.log("ignoring stale response from sorter");
           return data;
         }
         if (!fetchMoreResult) return prev;
         return fetchMoreResult;
       }
     }).then(v => {
-      setIsLoading(false);
+      setIsLoading(isLoading - 1);
     });
   }, [category, sort]);
 
   // need to jus loading from useQuery... this only changes from on => off once
   // so we need to listen to it
   useEffect(() => {
-    setIsLoading(loading);
+    setIsLoading(loading ? isLoading + 1 : isLoading - 1);
   }, [loading]);
 
-  const [isLoading, setIsLoading] = useState(loading);
   const dataSource = get(data, "taskTests", []);
   const onFetch = () => {
     if (!isLoading) {
-      setIsLoading(true);
+      setIsLoading(isLoading + 1);
       const dispatchTs = Date.now();
       setLatestQueryTs(dispatchTs);
       fetchMore({
@@ -142,6 +143,7 @@ export const TestsTableCore: React.FC<{
         ) => {
           // ignore out stale responses
           if (dispatchTs !== latestQueryTs) {
+            console.log("ignoring stale response from loader");
             return data;
           }
           if (!fetchMoreResult) {
@@ -152,7 +154,7 @@ export const TestsTableCore: React.FC<{
           });
         }
       }).then(v => {
-        setIsLoading(false);
+        setIsLoading(isLoading - 1);
       });
     }
   };
