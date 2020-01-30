@@ -3,8 +3,9 @@ import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
 import gql from "graphql-tag";
-import { Table, Tag } from "antd";
+import { Tag, Spin } from "antd";
 import { duration, DurationInputArg1 } from "moment";
+import { InfinityTable } from "antd-table-infinity";
 
 function msToTime(ms: DurationInputArg1): String {
   var diff = duration(ms, "milliseconds");
@@ -51,6 +52,17 @@ enum DefaultQueryParams {
   Category = "TEST_NAME",
   Page = "0",
   Limit = "0"
+}
+
+interface TaskTests {
+  id: String;
+  status: String;
+  testFile: String;
+  duration: Number;
+}
+
+interface UpdateQueryParam {
+  taskTests: [TaskTests];
 }
 
 const TESTS_QUERY = gql`
@@ -109,32 +121,37 @@ const columns = [
     }
   }
 ];
+const loadMoreContent = () => (
+  <div
+    style={{
+      textAlign: "center",
+      paddingTop: 40,
+      paddingBottom: 40,
+      border: "1px solid #e8e8e8"
+    }}
+  >
+    <Spin tip="Loading..." />
+  </div>
+);
 
 export const TestsTable: React.FC = () => {
-  const loadMore = useRef(null);
-  const [page, setPage] = useState(0);
   const { pathname, search } = useLocation();
   const { taskID } = useParams();
   const { replace } = useHistory();
+  const [isSet, setIsSet] = useState(false);
+
   const parsed = queryString.parse(search);
-  const { loading, error, data } = useQuery(TESTS_QUERY, {
+  const sortParam = parsed[RequiredQueryParams.Sort];
+
+  const { loading, error, data, fetchMore } = useQuery(TESTS_QUERY, {
     variables: {
       id: taskID,
-      dir: parsed[RequiredQueryParams.Sort] === Sort.Asc ? "ASC" : "DESC",
+      dir: "ASC",
       cat: parsed[RequiredQueryParams.Category]
         ? parsed[RequiredQueryParams.Category].toString()
-        : Categories.TestName,
-      pageNum: page
+        : Categories.TestName
     }
   });
-
-  const handleScroll = useCallback(() => {
-    console.log("scrolling...");
-  }, []);
-
-  useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
-  }, [handleScroll]);
 
   useEffect(() => {
     const parsed = queryString.parse(search);
@@ -168,7 +185,7 @@ export const TestsTable: React.FC = () => {
     }
   }, [search, pathname, replace]);
 
-  const dataSource = data && data.taskTests ? data.taskTests : null;
+  const dataSource = data && data.taskTests ? data.taskTests : [];
 
   const onChange = (pagination, filters, sorter, extra) => {
     const parsed = queryString.parse(search);
@@ -197,16 +214,42 @@ export const TestsTable: React.FC = () => {
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
+  const handleFetch = () => {
+    console.log("handle fetch");
+    const page = data && data.taskTests ? data.taskTests.length / 10 : 0;
+    console.log("nextPage", page);
+    fetchMore({
+      variables: {
+        page
+      },
+      updateQuery: (
+        prev: UpdateQueryParam,
+        { fetchMoreResult }: { fetchMoreResult: UpdateQueryParam }
+      ) => {
+        if (!fetchMoreResult) return prev;
+        console.log(prev, { fetchMoreResult });
+        return Object.assign({}, prev, {
+          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
+        });
+      }
+    });
+  };
 
   return (
     <div>
-      <Table
-        pagination={false}
-        onChange={onChange}
-        dataSource={dataSource}
+      <InfinityTable
+        key="key"
+        loading={loading}
+        onFetch={handleFetch}
+        pageSize={2000}
+        loadingIndicator={loadMoreContent()}
         columns={columns}
+        scroll={{ y: 300 }}
+        dataSource={dataSource}
+        onChange={onChange}
+        bordered
+        debug
       />
-      <div style={{ backgroundColor: "red" }} ref={loadMore}></div>
     </div>
   );
 };
