@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { TESTS_QUERY } from "utils/gql/queries";
 import { msToTime } from "utils/string";
 import { Tag, Spin } from "antd";
@@ -7,6 +7,18 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
 import { Categories, RequiredQueryParams, Sort } from "utils/enums";
+import get from "lodash.get";
+
+interface TaskTests {
+  id: String;
+  status: String;
+  testFile: String;
+  duration: Number;
+}
+
+interface UpdateQueryArg {
+  taskTests: [TaskTests];
+}
 
 const loadMoreContent = () => (
   <div
@@ -53,6 +65,7 @@ const columns = [
     }
   }
 ];
+
 export const TestsTableCore: React.FC<{
   sort: string | string[];
   category: string | string[];
@@ -69,11 +82,39 @@ export const TestsTableCore: React.FC<{
   const { loading, error, data, fetchMore } = useQuery(TESTS_QUERY, {
     variables: {
       id: taskID,
-      dir: sort === "1" ? "ASC" : "DESC",
+      dir: sort === Sort.Asc ? "ASC" : "DESC",
       cat: category
     }
   });
-  const dataSource = data && data.taskTests ? data.taskTests : [];
+  // need to jus loading from useQuery... this only changes from on => off once
+  // so we need to listen to it
+  useEffect(() => {
+    setIsLoading(loading);
+  }, [loading]);
+
+  const [isLoading, setIsLoading] = useState(loading);
+  const dataSource = get(data, "taskTests", []);
+  const onFetch = () => {
+    if (!isLoading) {
+      setIsLoading(true);
+      fetchMore({
+        variables: {
+          pageNum: dataSource.length / 10
+        },
+        updateQuery: (
+          prev: UpdateQueryArg,
+          { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+        ) => {
+          if (!fetchMoreResult) return prev;
+          return Object.assign({}, prev, {
+            taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
+          });
+        }
+      }).then(v => {
+        setIsLoading(false);
+      });
+    }
+  };
   const onChange = (pagination, filters, sorter, extra) => {
     const parsed = queryString.parse(search);
     const { order, columnKey } = sorter;
@@ -101,16 +142,16 @@ export const TestsTableCore: React.FC<{
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
+  // only need sort order set to reflect initial state in URL
   columns.find(({ key }) => key === category)["defaultSortOrder"] =
     sort === Sort.Asc ? "ascend" : "descend";
+
   return (
     <div>
       <InfinityTable
         key="key"
         loading={loading}
-        onFetch={() => {
-          console.log("handle fetch");
-        }}
+        onFetch={onFetch}
         pageSize={2000}
         loadingIndicator={loadMoreContent()}
         columns={columns}

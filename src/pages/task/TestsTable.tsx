@@ -1,8 +1,6 @@
-import React, { useEffect, useRef, useState, useCallback } from "react";
-import { useLocation, useHistory, useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import React, { useEffect, useState, useCallback } from "react";
+import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
-import { Tag, Spin } from "antd";
 import { TestsTableCore } from "pages/task/TestsTableCore";
 import { Categories, RequiredQueryParams, Sort } from "utils/enums";
 
@@ -11,17 +9,6 @@ enum DefaultQueryParams {
   Category = "TEST_NAME",
   Page = "0",
   Limit = "0"
-}
-
-interface TaskTests {
-  id: String;
-  status: String;
-  testFile: String;
-  duration: Number;
-}
-
-interface UpdateQueryParam {
-  taskTests: [TaskTests];
 }
 
 export const TestsTable: React.FC = () => {
