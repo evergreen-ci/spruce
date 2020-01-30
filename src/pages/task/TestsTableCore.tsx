@@ -67,25 +67,56 @@ const columns = [
 ];
 
 export const TestsTableCore: React.FC<{
-  sort: string | string[];
-  category: string | string[];
+  initialSort: string | string[];
+  initialCategory: string | string[];
 }> = ({
-  sort,
-  category
+  initialSort,
+  initialCategory
 }: {
-  sort: string | string[];
-  category: string | string[];
+  initialSort: string | string[];
+  initialCategory: string | string[];
 }) => {
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
+  const [latestQueryTs, setLatestQueryTs] = useState(Date.now());
   const { loading, error, data, fetchMore } = useQuery(TESTS_QUERY, {
     variables: {
       id: taskID,
-      dir: sort === Sort.Asc ? "ASC" : "DESC",
-      cat: category
+      dir: initialSort === Sort.Asc ? "ASC" : "DESC",
+      cat: initialCategory
     }
   });
+  const parsed = queryString.parse(search);
+  const category = (parsed[RequiredQueryParams.Category] || "")
+    .toString()
+    .toUpperCase();
+  const sort = parsed[RequiredQueryParams.Sort];
+  useEffect(() => {
+    const dispatchTs = Date.now();
+    setIsLoading(true);
+    setLatestQueryTs(dispatchTs);
+    fetchMore({
+      variables: {
+        cat: category,
+        dir: sort === Sort.Asc ? "ASC" : "DESC",
+        pageNum: 0
+      },
+      updateQuery: (
+        prev: UpdateQueryArg,
+        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+      ) => {
+        if (dispatchTs !== latestQueryTs) {
+          return data;
+        }
+        if (!fetchMoreResult) return prev;
+        return fetchMoreResult;
+      }
+    }).then(v => {
+      setIsLoading(false);
+    });
+  }, [category, sort]);
+
   // need to jus loading from useQuery... this only changes from on => off once
   // so we need to listen to it
   useEffect(() => {
@@ -97,15 +128,25 @@ export const TestsTableCore: React.FC<{
   const onFetch = () => {
     if (!isLoading) {
       setIsLoading(true);
+      const dispatchTs = Date.now();
+      setLatestQueryTs(dispatchTs);
       fetchMore({
         variables: {
-          pageNum: dataSource.length / 10
+          pageNum: dataSource.length / 10,
+          cat: category,
+          dir: sort === Sort.Asc ? "ASC" : "DESC"
         },
         updateQuery: (
           prev: UpdateQueryArg,
           { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
         ) => {
-          if (!fetchMoreResult) return prev;
+          // ignore out stale responses
+          if (dispatchTs !== latestQueryTs) {
+            return data;
+          }
+          if (!fetchMoreResult) {
+            return prev;
+          }
           return Object.assign({}, prev, {
             taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
           });
@@ -143,14 +184,14 @@ export const TestsTableCore: React.FC<{
     }
   };
   // only need sort order set to reflect initial state in URL
-  columns.find(({ key }) => key === category)["defaultSortOrder"] =
-    sort === Sort.Asc ? "ascend" : "descend";
+  columns.find(({ key }) => key === initialCategory)["defaultSortOrder"] =
+    initialSort === Sort.Asc ? "ascend" : "descend";
 
   return (
     <div>
       <InfinityTable
         key="key"
-        loading={loading}
+        loading={isLoading}
         onFetch={onFetch}
         pageSize={2000}
         loadingIndicator={loadMoreContent()}
@@ -162,5 +203,4 @@ export const TestsTableCore: React.FC<{
       />
     </div>
   );
-  return <div />;
 };

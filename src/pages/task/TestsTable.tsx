@@ -34,8 +34,8 @@ export const TestsTable: React.FC = () => {
       replace(`${pathname}?${nextQueryParams}`);
     } else if (!isSet) {
       setIsSet({
-        category: parsed[RequiredQueryParams.Category],
-        sort: parsed[RequiredQueryParams.Sort]
+        initialCategory: parsed[RequiredQueryParams.Category],
+        initialSort: parsed[RequiredQueryParams.Sort]
       });
     }
   }, [search, pathname, replace]);
