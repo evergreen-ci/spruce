@@ -27,6 +27,7 @@
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
     "graphql-tools": "^4.0.6",
+    "lodash.get": "^4.4.2",
     "moment": "^2.24.0",
     "query-string": "^6.10.1",
     "react": "^16.12.0",
