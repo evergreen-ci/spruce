@@ -12,9 +12,7 @@ import queryString from "query-string";
 
 enum DefaultQueryParams {
   Sort = "1",
-  Category = "TEST_NAME",
-  Page = "0",
-  Limit = "0"
+  Category = "TEST_NAME"
 }
 
 export const TestsTable: React.FC<Limit> = ({ limit }) => {
@@ -24,6 +22,7 @@ export const TestsTable: React.FC<Limit> = ({ limit }) => {
     ValidInitialQueryParams
   >();
 
+  // validate query params for tests table and replace them if necessary
   useEffect(() => {
     const parsed = queryString.parse(search);
     const category = (parsed[RequiredQueryParams.Category] || "")
@@ -47,6 +46,7 @@ export const TestsTable: React.FC<Limit> = ({ limit }) => {
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);
+
   if (!validInitialQueryParams) {
     return null;
   }
