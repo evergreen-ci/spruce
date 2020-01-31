@@ -46,10 +46,9 @@ export const TestsTable: React.FC<Limit> = ({ limit }) => {
         initialSort: parsed[RequiredQueryParams.Sort]
       });
     }
-  }, [search, pathname, replace]);
+  }, [search, pathname, replace, validInitialQueryParams]);
   if (!validInitialQueryParams) {
     return null;
   }
-  console.log("rerender");
   return <TestsTableCore {...validInitialQueryParams} limit={limit} />;
 };
