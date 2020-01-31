@@ -17,15 +17,27 @@ import {
 import get from "lodash.get";
 import queryString from "query-string";
 
-interface TaskTests {
+type Category = Categories.Duration | Categories.Status | Categories.TestName;
+
+interface TaskTestsData {
   id: string;
   status: string;
   testFile: string;
   duration: number;
 }
 
+type SortDir = "ASC" | "DESC";
+
+interface TakskTestsVars {
+  id: string;
+  dir: SortDir;
+  cat: Category;
+  pageNum: number;
+  limitNum: number;
+}
+
 interface UpdateQueryArg {
-  taskTests: [TaskTests];
+  taskTests: [TaskTestsData];
 }
 
 const loadMoreContent = (): JSX.Element => (
@@ -40,7 +52,7 @@ const loadMoreContent = (): JSX.Element => (
     <Spin tip="Loading..." />
   </div>
 );
-const columns: Array<ColumnProps<TaskTests>> = [
+const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
     dataIndex: "testFile",
@@ -83,11 +95,14 @@ export const TestsTableCore: React.FC<Props> = ({
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
-  const { data, fetchMore, networkStatus } = useQuery(TESTS_QUERY, {
+  const { data, fetchMore, networkStatus } = useQuery<
+    TaskTestsData,
+    TakskTestsVars
+  >(TESTS_QUERY, {
     variables: {
       id: taskID,
       dir: initialSort === Sort.Asc ? "ASC" : "DESC",
-      cat: initialCategory,
+      cat: initialCategory as Category,
       pageNum: 0,
       limitNum: limit
     },
@@ -134,7 +149,7 @@ export const TestsTableCore: React.FC<Props> = ({
       }
     });
   }
-  const dataSource: [TaskTests] = get(data, "taskTests", []);
+  const dataSource: [TaskTestsData] = get(data, "taskTests", []);
   const onFetch = () => {
     fetchMore({
       variables: {
@@ -157,7 +172,7 @@ export const TestsTableCore: React.FC<Props> = ({
     });
   };
 
-  const onChange: TableProps<TaskTests>["onChange"] = (...[, , sorter]) => {
+  const onChange: TableProps<TaskTestsData>["onChange"] = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
     let hasDiff = false;
