@@ -1,3 +1,8 @@
+export interface ValidInitialQueryParams {
+  initialCategory: string | string[];
+  initialSort: string | string[];
+}
+
 export enum Categories {
   TestName = "TEST_NAME",
   Duration = "DURATION",

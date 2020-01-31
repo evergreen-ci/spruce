@@ -1,7 +1,7 @@
 import { DurationInputArg1, duration } from "moment";
 
-export const msToTime = (ms: DurationInputArg1): String => {
-  var diff = duration(ms, "milliseconds");
+export const msToTime = (ms: DurationInputArg1): string => {
+  const diff = duration(ms, "milliseconds");
   const days = diff.asDays();
   const hours = diff.asHours();
   const minutes = diff.asMinutes();

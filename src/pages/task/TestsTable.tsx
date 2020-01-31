@@ -1,8 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useLocation, useHistory } from "react-router-dom";
-import queryString from "query-string";
 import { TestsTableCore } from "pages/task/TestsTableCore";
-import { Categories, RequiredQueryParams, Sort } from "utils/enums";
+import { useLocation, useHistory } from "react-router-dom";
+import {
+  Categories,
+  RequiredQueryParams,
+  Sort,
+  ValidInitialQueryParams
+} from "pages/task/types";
+import queryString from "query-string";
 
 enum DefaultQueryParams {
   Sort = "1",
@@ -14,7 +19,9 @@ enum DefaultQueryParams {
 export const TestsTable: React.FC = () => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const [isSet, setIsSet] = useState();
+  const [validInitialQueryParams, setValidInitialQueryParams] = useState<
+    ValidInitialQueryParams
+  >();
 
   useEffect(() => {
     const parsed = queryString.parse(search);
@@ -32,13 +39,15 @@ export const TestsTable: React.FC = () => {
       parsed[RequiredQueryParams.Sort] = DefaultQueryParams.Sort;
       const nextQueryParams = queryString.stringify(parsed);
       replace(`${pathname}?${nextQueryParams}`);
-    } else if (!isSet) {
-      setIsSet({
+    } else if (!validInitialQueryParams) {
+      setValidInitialQueryParams({
         initialCategory: parsed[RequiredQueryParams.Category],
         initialSort: parsed[RequiredQueryParams.Sort]
       });
     }
   }, [search, pathname, replace]);
-  if (!isSet) return null;
-  return <TestsTableCore {...isSet} />;
+  if (!validInitialQueryParams) {
+    return null;
+  }
+  return <TestsTableCore {...validInitialQueryParams} />;
 };
