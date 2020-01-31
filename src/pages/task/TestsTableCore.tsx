@@ -6,6 +6,7 @@ import { Tag, Spin } from "antd";
 import { TESTS_QUERY } from "utils/gql/queries";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import { usePrevious } from "utils/hooks";
 import {
   Categories,
   RequiredQueryParams,
@@ -82,7 +83,6 @@ export const TestsTableCore: React.FC<Props> = ({
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
-
   const { data, fetchMore, networkStatus } = useQuery(TESTS_QUERY, {
     variables: {
       id: taskID,
@@ -97,6 +97,8 @@ export const TestsTableCore: React.FC<Props> = ({
     .toString()
     .toUpperCase();
   const sort = parsed[RequiredQueryParams.Sort];
+  const prevCategory = usePrevious(category);
+  const prevSort = usePrevious(sort);
   useEffect(() => {
     const elements = document.querySelectorAll(
       "th.ant-table-column-has-actions.ant-table-column-has-sorters"
@@ -112,28 +114,25 @@ export const TestsTableCore: React.FC<Props> = ({
     }
   }, [networkStatus]);
 
-  useEffect(() => {
-    if (networkStatus >= 7) {
-      fetchMore({
-        variables: {
-          cat: category,
-          dir: sort === Sort.Asc ? "ASC" : "DESC",
-          pageNum: 0,
-          limit
-        },
-        updateQuery: (
-          prev: UpdateQueryArg,
-          { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-        ) => {
-          if (!fetchMoreResult) {
-            return prev;
-          }
-          return fetchMoreResult;
+  if ((sort !== prevSort || category !== prevCategory) && networkStatus >= 7) {
+    fetchMore({
+      variables: {
+        cat: category,
+        dir: sort === Sort.Asc ? "ASC" : "DESC",
+        pageNum: 0,
+        limit
+      },
+      updateQuery: (
+        prev: UpdateQueryArg,
+        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
         }
-      });
-    }
-  }, [category, sort]);
-
+        return fetchMoreResult;
+      }
+    });
+  }
   const dataSource: [TaskTests] = get(data, "taskTests", []);
   const onFetch = () => {
     fetchMore({
@@ -156,6 +155,7 @@ export const TestsTableCore: React.FC<Props> = ({
       }
     });
   };
+
   const onChange: TableProps<TaskTests>["onChange"] = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
