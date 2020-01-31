@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 export const TESTS_QUERY = gql`
-  query GetStuff(
+  query taskTests(
     $dir: SortDirection
     $id: String!
     $cat: TaskSortCategory
