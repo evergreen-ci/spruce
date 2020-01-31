@@ -5,13 +5,14 @@ export const TESTS_QUERY = gql`
     $id: String!
     $cat: TaskSortCategory
     $pageNum: Int
+    $limitNum: Int
   ) {
     taskTests(
       taskId: $id
       sortCategory: $cat
       sortDirection: $dir
       page: $pageNum
-      limit: 10
+      limit: $limitNum
     ) {
       id
       status
