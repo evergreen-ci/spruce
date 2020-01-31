@@ -50,7 +50,7 @@ const columns: Array<ColumnProps<TaskTests>> = [
     dataIndex: "status",
     key: Categories.Status,
     sorter: true,
-    render: tag => {
+    render: (tag: string): JSX.Element => {
       const color = tag === "pass" ? "green" : "geekblue";
       return (
         <span>
@@ -66,7 +66,7 @@ const columns: Array<ColumnProps<TaskTests>> = [
     dataIndex: "duration",
     key: Categories.Duration,
     sorter: true,
-    render: (text, record, index) => {
+    render: (text: number): string => {
       return msToTime(text.toFixed());
     }
   }
@@ -75,10 +75,7 @@ const columns: Array<ColumnProps<TaskTests>> = [
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory
-}: {
-  initialSort: string | string[];
-  initialCategory: string | string[];
-}) => {
+}: ValidInitialQueryParams) => {
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
