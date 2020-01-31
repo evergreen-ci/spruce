@@ -3,6 +3,10 @@ export interface ValidInitialQueryParams {
   initialSort: string | string[];
 }
 
+export type Limit = {
+  limit: number;
+};
+
 export enum Categories {
   TestName = "TEST_NAME",
   Duration = "DURATION",

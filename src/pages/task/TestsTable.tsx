@@ -5,7 +5,8 @@ import {
   Categories,
   RequiredQueryParams,
   Sort,
-  ValidInitialQueryParams
+  ValidInitialQueryParams,
+  Limit
 } from "pages/task/types";
 import queryString from "query-string";
 
@@ -16,7 +17,7 @@ enum DefaultQueryParams {
   Limit = "0"
 }
 
-export const TestsTable: React.FC = () => {
+export const TestsTable: React.FC<Limit> = ({ limit }) => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
   const [validInitialQueryParams, setValidInitialQueryParams] = useState<
@@ -49,5 +50,6 @@ export const TestsTable: React.FC = () => {
   if (!validInitialQueryParams) {
     return null;
   }
-  return <TestsTableCore {...validInitialQueryParams} />;
+  console.log("rerender");
+  return <TestsTableCore {...validInitialQueryParams} limit={limit} />;
 };

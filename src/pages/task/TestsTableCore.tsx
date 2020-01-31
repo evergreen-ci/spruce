@@ -10,7 +10,8 @@ import {
   Categories,
   RequiredQueryParams,
   Sort,
-  ValidInitialQueryParams
+  ValidInitialQueryParams,
+  Limit
 } from "pages/task/types";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -72,10 +73,12 @@ const columns: Array<ColumnProps<TaskTests>> = [
   }
 ];
 
-export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
+type Props = ValidInitialQueryParams & Limit;
+export const TestsTableCore: React.FC<Props> = ({
   initialSort,
-  initialCategory
-}: ValidInitialQueryParams) => {
+  initialCategory,
+  limit
+}) => {
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
@@ -84,7 +87,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     variables: {
       id: taskID,
       dir: initialSort === Sort.Asc ? "ASC" : "DESC",
-      cat: initialCategory
+      cat: initialCategory,
+      limit
     },
     notifyOnNetworkStatusChange: true
   });
@@ -110,13 +114,13 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
 
   useEffect(() => {
     if (networkStatus >= 7) {
-      const variables = {
-        cat: category,
-        dir: sort === Sort.Asc ? "ASC" : "DESC",
-        pageNum: 0
-      };
       fetchMore({
-        variables,
+        variables: {
+          cat: category,
+          dir: sort === Sort.Asc ? "ASC" : "DESC",
+          pageNum: 0,
+          limit
+        },
         updateQuery: (
           prev: UpdateQueryArg,
           { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
@@ -128,15 +132,16 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         }
       });
     }
-  }, [category, sort, fetchMore, networkStatus]);
+  }, [category, sort]);
 
   const dataSource: [TaskTests] = get(data, "taskTests", []);
   const onFetch = () => {
     fetchMore({
       variables: {
-        pageNum: dataSource.length / 10,
+        pageNum: dataSource.length / limit,
         cat: category,
-        dir: sort === Sort.Asc ? "ASC" : "DESC"
+        dir: sort === Sort.Asc ? "ASC" : "DESC",
+        limit
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -191,7 +196,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         loading={networkStatus < 7}
         onFetch={onFetch}
         pageSize={2000}
-        loadingIndicator={loadMoreContent}
+        loadingIndicator={loadMoreContent()}
         columns={columns}
         scroll={{ y: 300 }}
         dataSource={dataSource}

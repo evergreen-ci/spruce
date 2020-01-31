@@ -21,7 +21,7 @@ export const Task: React.FC<RouteComponentProps> = () => {
   }, [tab, taskID, history]);
 
   if (tab === Tab.Tests) {
-    return <TestsTable />;
+    return <TestsTable limit={10} />;
   }
 
   return <div>Task Page!!!!!!!!</div>;
