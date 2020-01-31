@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { ColumnProps, TableProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
-import { msToTime } from "utils/string";
+import { msToDuration } from "utils/string";
 import { Tag, Spin } from "antd";
 import { TESTS_QUERY } from "utils/gql/queries";
 import { useParams, useLocation, useHistory } from "react-router-dom";
@@ -69,7 +69,7 @@ const columns: Array<ColumnProps<TaskTests>> = [
     key: Categories.Duration,
     sorter: true,
     render: (text: number): string => {
-      return msToTime(text.toFixed());
+      return msToDuration(text.toFixed());
     }
   }
 ];

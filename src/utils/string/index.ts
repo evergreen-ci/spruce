@@ -1,14 +1,14 @@
 import { DurationInputArg1, duration } from "moment";
 
-export const msToTime = (ms: DurationInputArg1): string => {
+export const msToDuration = (ms: DurationInputArg1): string => {
   const diff = duration(ms, "milliseconds");
   const days = diff.asDays();
-  const hours = diff.asHours();
-  const minutes = diff.asMinutes();
-  const seconds = diff.asSeconds();
-  const milli = diff.asMilliseconds();
-  if (days > 0) {
-    return `${days}d ${hours}h ${minutes}m ${seconds}s`;
+  const hours = diff.hours();
+  const minutes = diff.minutes();
+  const seconds = diff.seconds();
+  const milli = diff.milliseconds();
+  if (days > 1) {
+    return `${Math.trunc(days)}d ${hours}h ${minutes}m ${seconds}s`;
   }
   if (hours > 0) {
     return `${hours}h ${minutes}m ${seconds}s`;
