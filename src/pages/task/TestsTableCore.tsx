@@ -73,7 +73,7 @@ const columns: Array<ColumnProps<TaskTests>> = [
     }
   }
 ];
-
+const rowKey = ({ id }) => id;
 type Props = ValidInitialQueryParams & Limit;
 export const TestsTableCore: React.FC<Props> = ({
   initialSort,
@@ -88,7 +88,8 @@ export const TestsTableCore: React.FC<Props> = ({
       id: taskID,
       dir: initialSort === Sort.Asc ? "ASC" : "DESC",
       cat: initialCategory,
-      limit
+      pageNum: 0,
+      limitNum: limit
     },
     notifyOnNetworkStatusChange: true
   });
@@ -120,7 +121,7 @@ export const TestsTableCore: React.FC<Props> = ({
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
         pageNum: 0,
-        limit
+        limitNum: limit
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -140,7 +141,7 @@ export const TestsTableCore: React.FC<Props> = ({
         pageNum: dataSource.length / limit,
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
-        limit
+        limitNum: limit
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -189,6 +190,7 @@ export const TestsTableCore: React.FC<Props> = ({
   // only need sort order set to reflect initial state in URL
   columns.find(({ key }) => key === initialCategory).defaultSortOrder =
     initialSort === Sort.Asc ? "ascend" : "descend";
+
   return (
     <div>
       <InfinityTable
@@ -198,9 +200,10 @@ export const TestsTableCore: React.FC<Props> = ({
         pageSize={2000}
         loadingIndicator={loadMoreContent()}
         columns={columns}
-        scroll={{ y: 300 }}
+        scroll={{ y: 50 }}
         dataSource={dataSource}
         onChange={onChange}
+        rowKey={rowKey}
         bordered={true}
       />
     </div>
