@@ -19,6 +19,7 @@ import {
 } from "pages/task/types";
 import get from "lodash.get";
 import queryString from "query-string";
+import { NetworkStatus } from "apollo-client";
 
 type Category = Categories.Duration | Categories.Status | Categories.TestName;
 
@@ -137,7 +138,7 @@ export const TestsTableCore: React.FC<Props> = ({
     const elements = document.querySelectorAll(
       "th.ant-table-column-has-actions.ant-table-column-has-sorters"
     );
-    if (networkStatus < 7) {
+    if (networkStatus < NetworkStatus.ready) {
       elements.forEach(el => {
         (el as HTMLElement).style["pointer-events"] = "none";
       });
@@ -148,7 +149,10 @@ export const TestsTableCore: React.FC<Props> = ({
     }
   }, [networkStatus]);
 
-  if ((sort !== prevSort || category !== prevCategory) && networkStatus >= 7) {
+  if (
+    (sort !== prevSort || category !== prevCategory) &&
+    networkStatus === NetworkStatus.ready
+  ) {
     fetchMore({
       variables: {
         cat: category,
@@ -228,7 +232,7 @@ export const TestsTableCore: React.FC<Props> = ({
     <div>
       <InfinityTable
         key="key"
-        loading={networkStatus < 7}
+        loading={networkStatus < NetworkStatus.ready}
         onFetch={onFetch}
         pageSize={10000}
         loadingIndicator={loadMoreContent}
