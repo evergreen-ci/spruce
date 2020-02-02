@@ -24,3 +24,10 @@ export enum Sort {
   Desc = "-1",
   Asc = "1"
 }
+
+export enum TestStatus {
+  Failed = "fail",
+  SilentlyFailed = "silentfail",
+  Skipped = "skip",
+  Succeeded = "pass"
+}

@@ -8,12 +8,14 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { usePrevious } from "utils/hooks";
 import styled from "@emotion/styled/macro";
+
 import {
   Categories,
   RequiredQueryParams,
   Sort,
   ValidInitialQueryParams,
-  Limit
+  Limit,
+  TestStatus
 } from "pages/task/types";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -65,8 +67,23 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "status",
     key: Categories.Status,
     sorter: true,
-    render: (tag: string): JSX.Element => {
-      const color = tag === "pass" ? "green" : "geekblue";
+    render: (tag: string) => {
+      let color: string;
+      switch (tag) {
+        case TestStatus.Succeeded:
+          color = "green";
+          break;
+        case TestStatus.Failed:
+          color = "red";
+          break;
+        case TestStatus.SilentlyFailed:
+          color = "volcano";
+          break;
+        case TestStatus.Skipped:
+          color = "orange";
+          break;
+      }
+
       return (
         <span>
           <Tag color={color} key={tag}>
