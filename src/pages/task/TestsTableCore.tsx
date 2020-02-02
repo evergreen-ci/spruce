@@ -7,6 +7,7 @@ import { TESTS_QUERY } from "utils/gql/queries";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { usePrevious } from "utils/hooks";
+import styled from "@emotion/styled/macro";
 import {
   Categories,
   RequiredQueryParams,
@@ -40,18 +41,18 @@ interface UpdateQueryArg {
   taskTests: [TaskTestsData];
 }
 
-const loadMoreContent = (): JSX.Element => (
-  <div
-    style={{
-      textAlign: "center",
-      paddingTop: 40,
-      paddingBottom: 40,
-      border: "1px solid #e8e8e8"
-    }}
-  >
+const SpinWrapper = styled.div({
+  textAlign: "center",
+  paddingTop: 40,
+  paddingBottom: 40,
+  border: "1px solid #e8e8e8"
+});
+const loadMoreContent = (
+  <SpinWrapper>
     <Spin tip="Loading..." />
-  </div>
+  </SpinWrapper>
 );
+
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
@@ -213,7 +214,7 @@ export const TestsTableCore: React.FC<Props> = ({
         loading={networkStatus < 7}
         onFetch={onFetch}
         pageSize={10000}
-        loadingIndicator={loadMoreContent()}
+        loadingIndicator={loadMoreContent}
         columns={columns}
         scroll={{ y: 350 }}
         dataSource={dataSource}
