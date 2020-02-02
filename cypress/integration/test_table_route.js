@@ -73,5 +73,19 @@ describe("Test Table Route", function() {
         expect(loc.search).to.include("sort=1");
       });
     });
+
+    it("Default query params are set if page query param is an array", function() {
+      cy.visit(
+        "/task/taskID/tests?category=TEST_NAME&page=[0,1,3,4]&limit=4&sort=1"
+      );
+      cy.location().should(fallbackLocation);
+    });
+
+    it("Default query params are set if limit query param is an array", function() {
+      cy.visit(
+        "/task/taskID/tests?category=TEST_NAME&page=0&limit=[4,3,4]&sort=1]"
+      );
+      cy.location().should(fallbackLocation);
+    });
   });
 });
