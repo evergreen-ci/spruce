@@ -100,7 +100,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     key: Categories.Duration,
     sorter: true,
     render: (text: number): string => {
-      return msToDuration(text.toFixed());
+      return msToDuration(Math.trunc(text));
     }
   }
 ];
