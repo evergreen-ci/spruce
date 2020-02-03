@@ -6,7 +6,7 @@ import { Tag, Spin } from "antd";
 import { TESTS_QUERY } from "gql/queries";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { usePrevious } from "utils/hooks";
+import { usePrevious } from "hooks";
 import styled from "@emotion/styled/macro";
 
 import {
