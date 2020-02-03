@@ -3,7 +3,7 @@ import { ColumnProps, TableProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
 import { Tag, Spin } from "antd";
-import { TESTS_QUERY } from "utils/gql/queries";
+import { TESTS_QUERY } from "gql/queries";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { usePrevious } from "utils/hooks";

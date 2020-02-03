@@ -1,7 +1,7 @@
 import * as React from "react";
 import bugsnag from "@bugsnag/browser";
 import bugsnagReact from "@bugsnag/plugin-react";
-import GQLWrapper from "utils/gql/GQLWrapper";
+import GQLWrapper from "gql/GQLWrapper";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import {
   getBugsnagApiKey,
