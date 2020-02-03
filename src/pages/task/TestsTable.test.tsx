@@ -115,7 +115,7 @@ it("It loads data on initial load when given valid query params", async () => {
     div
   );
   await act(async () => {
-    await wait(0);
+    await wait(10);
   });
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
@@ -147,7 +147,7 @@ it("It loads data with TEST_FILE ASC when given invalid query param", async () =
     div
   );
   await act(async () => {
-    await wait(0);
+    await wait(10);
   });
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
