@@ -6,6 +6,31 @@ import { TestsTable } from "../../pages/task/TestsTable";
 import { TESTS_QUERY } from "../../gql/queries";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
+
+const taskTests = [
+  {
+    id: "59ef7a20a7798219e191cf82",
+    status: "pass",
+    testFile: "TestAgentSuite",
+    duration: 0.039999961853027344,
+    __typename: "TestResult"
+  },
+  {
+    id: "59ef7a20a7798219e191cfad",
+    status: "pass",
+    testFile: "TestAgentSuite/TestCancelRunCommands",
+    duration: 0,
+    __typename: "TestResult"
+  },
+  {
+    id: "59ef7a20a7798219e191cf67",
+    status: "pass",
+    testFile: "TestCommandSuite/TestShellExec",
+    duration: 0.019999980926513672,
+    __typename: "TestResult"
+  }
+];
+
 const mocks = [
   {
     request: {
@@ -22,29 +47,7 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: [
-            {
-              id: "59ef7a20a7798219e191cf82",
-              status: "pass",
-              testFile: "TestAgentSuite",
-              duration: 0.039999961853027344,
-              __typename: "TestResult"
-            },
-            {
-              id: "59ef7a20a7798219e191cfad",
-              status: "pass",
-              testFile: "TestAgentSuite/TestCancelRunCommands",
-              duration: 0,
-              __typename: "TestResult"
-            },
-            {
-              id: "59ef7a20a7798219e191cf67",
-              status: "pass",
-              testFile: "TestCommandSuite/TestShellExec",
-              duration: 0.019999980926513672,
-              __typename: "TestResult"
-            }
-          ]
+          taskTests
         }
       };
     }
@@ -64,29 +67,7 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: [
-            {
-              id: "59ef7a20a7798219e191cf82",
-              status: "pass",
-              testFile: "TestAgentSuite",
-              duration: 0.039999961853027344,
-              __typename: "TestResult"
-            },
-            {
-              id: "59ef7a20a7798219e191cfad",
-              status: "pass",
-              testFile: "TestAgentSuite/TestCancelRunCommands",
-              duration: 0,
-              __typename: "TestResult"
-            },
-            {
-              id: "59ef7a20a7798219e191cf67",
-              status: "pass",
-              testFile: "TestCommandSuite/TestShellExec",
-              duration: 0.019999980926513672,
-              __typename: "TestResult"
-            }
-          ]
+          taskTests
         }
       };
     }
