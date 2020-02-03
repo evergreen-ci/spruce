@@ -1,12 +1,12 @@
-import { DurationInputArg1, duration } from "moment";
-
-export const msToDuration = (ms: DurationInputArg1): string => {
-  const diff = duration(ms, "milliseconds");
-  const days = diff.asDays();
-  const hours = diff.hours();
-  const minutes = diff.minutes();
-  const seconds = diff.seconds();
-  const milli = diff.milliseconds();
+export const msToDuration = (ms: number): string => {
+  const days = Math.floor(ms / (24 * 60 * 60 * 1000));
+  const daysMilli = ms % (24 * 60 * 60 * 1000);
+  const hours = Math.floor(daysMilli / (60 * 60 * 1000));
+  const hoursMilli = ms % (60 * 60 * 1000);
+  const minutes = Math.floor(hoursMilli / (60 * 1000));
+  const minutesMilli = ms % (60 * 1000);
+  const seconds = Math.floor(minutesMilli / 1000);
+  const milliseconds = ms % 1000;
   if (days > 1) {
     return `${Math.trunc(days)}d ${hours}h ${minutes}m ${seconds}s`;
   }
@@ -17,7 +17,7 @@ export const msToDuration = (ms: DurationInputArg1): string => {
     return `${minutes}m ${seconds}s`;
   }
   if (seconds > 0) {
-    return `${seconds}s ${milli}ms`;
+    return `${seconds}s ${milliseconds}ms`;
   }
-  return `${milli}ms`;
+  return `${milliseconds}ms`;
 };
