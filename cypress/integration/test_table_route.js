@@ -31,7 +31,7 @@ describe("Test Table Route", function() {
     cy.location().should(loc => {
       expect(loc.pathname).to.equal("/task/taskID/tests");
       expect(loc.search).to.include("category=DuRaTiOn");
-      expect(loc.search).to.include("page=4");
+      expect(loc.search).to.include("sort=-1");
     });
   });
 
