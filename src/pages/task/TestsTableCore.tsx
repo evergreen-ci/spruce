@@ -14,13 +14,12 @@ import {
   RequiredQueryParams,
   Sort,
   ValidInitialQueryParams,
-  Limit,
   TestStatus
 } from "pages/task/types";
 import get from "lodash.get";
 import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
-
+const LIMIT = 10;
 type Category = Categories.Duration | Categories.Status | Categories.TestName;
 
 interface TaskTestsData {
@@ -105,11 +104,10 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
   }
 ];
 const rowKey = ({ id }) => id;
-type Props = ValidInitialQueryParams & Limit;
+type Props = ValidInitialQueryParams;
 export const TestsTableCore: React.FC<Props> = ({
   initialSort,
-  initialCategory,
-  limit
+  initialCategory
 }) => {
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
@@ -123,7 +121,7 @@ export const TestsTableCore: React.FC<Props> = ({
       dir: initialSort === Sort.Asc ? "ASC" : "DESC",
       cat: initialCategory as Category,
       pageNum: 0,
-      limitNum: limit
+      limitNum: LIMIT
     },
     notifyOnNetworkStatusChange: true
   });
@@ -158,7 +156,7 @@ export const TestsTableCore: React.FC<Props> = ({
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
         pageNum: 0,
-        limitNum: limit
+        limitNum: LIMIT
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -178,7 +176,7 @@ export const TestsTableCore: React.FC<Props> = ({
         pageNum: dataSource.length / limit,
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
-        limitNum: limit
+        limitNum: LIMIT
       },
       updateQuery: (
         prev: UpdateQueryArg,

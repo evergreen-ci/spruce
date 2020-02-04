@@ -80,7 +80,7 @@ it("renders without crashing", () => {
     <MemoryRouter>
       <MockedProvider mocks={mocks}>
         <Route path="/task/:taskID/:tab?">
-          <TestsTable limit={3} />
+          <TestsTable />
         </Route>
       </MockedProvider>
     </MemoryRouter>,
@@ -108,7 +108,7 @@ it("It loads data on initial load when given valid query params", async () => {
     >
       <MockedProvider mocks={mocks}>
         <Route path="/task/:taskID/:tab?">
-          <TestsTable limit={3} />
+          <TestsTable />
         </Route>
       </MockedProvider>
     </MemoryRouter>,
@@ -140,7 +140,7 @@ it("It loads data with TEST_FILE ASC when given invalid query param", async () =
     >
       <MockedProvider mocks={mocks}>
         <Route path="/task/:taskID/:tab?">
-          <TestsTable limit={3} />
+          <TestsTable />
         </Route>
       </MockedProvider>
     </MemoryRouter>,
