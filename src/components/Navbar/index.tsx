@@ -6,45 +6,24 @@ import {
 } from "../../context/auth";
 import { Select } from "antd";
 import { useQuery } from "@apollo/react-hooks";
+import {
+  GET_PROJECTS,
+  ProjectsQuery,
+  Project
+} from "graphql/queries/get-projects";
 
 const { Option, OptGroup } = Select;
 
-const GET_PROJECTS = gql`
-  {
-    projects {
-      favorites {
-        identifier
-        repo
-        owner
-        displayName
-      }
-      all {
-        name
-        projects {
-          identifier
-          repo
-          owner
-          displayName
-        }
-      }
-    }
-  }
-`;
-
-interface Project {
-  displayName: string;
-  repo: string;
-  owner: string;
-  identifier: string;
-}
-
-interface GroupedProjects {
-  name: string;
-  projects: Project[];
-}
-
-const renderProjectOption = ({ identifier, displayName }: Project) => (
-  <Option key={identifier} value={identifier}>
+const renderProjectOption = (isFavorite: boolean = false) => ({
+  identifier,
+  displayName
+}: Project) => (
+  // two Options cannot have the same value attribute or it breaks ability to scroll with keyboard.
+  // therefore "-favorite" is appended to the end of a favorite's value prop
+  <Option
+    key={identifier}
+    value={isFavorite ? `${identifier}-favorite` : identifier}
+  >
     {displayName}
   </Option>
 );
@@ -53,26 +32,27 @@ export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
-  const { data, loading } = useQuery(GET_PROJECTS);
+  const { data, loading } = useQuery<ProjectsQuery>(GET_PROJECTS);
 
   return (
     <Wrapper>
       <InnerWrapper>
         <StyledSelect
           showSearch={true}
-          placeholder="Branch"
+          placeholder="Project"
           optionFilterProp="children"
           loading={loading}
+          disabled={loading}
         >
           {data && data.projects.favorites.length > 0 && (
             <OptGroup label="Favorites">
-              {data.projects.favorites.map(renderProjectOption)}
+              {data.projects.favorites.map(renderProjectOption(true))}
             </OptGroup>
           )}
           {data &&
-            data.projects.all.map(({ name, projects }: GroupedProjects) => (
+            data.projects.all.map(({ name, projects }) => (
               <OptGroup key={name} label={name}>
-                {projects.map(renderProjectOption)}
+                {projects.map(renderProjectOption())}
               </OptGroup>
             ))}
         </StyledSelect>
