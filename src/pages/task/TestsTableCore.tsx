@@ -172,9 +172,13 @@ export const TestsTableCore: React.FC<Props> = ({
   }
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
   const onFetch = () => {
+    const pageNum = dataSource.length / LIMIT;
+    if (pageNum % 1 !== 0) {
+      return;
+    }
     fetchMore({
       variables: {
-        pageNum: dataSource.length / LIMIT,
+        pageNum,
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
         limitNum: LIMIT
