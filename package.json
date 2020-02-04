@@ -9,6 +9,7 @@
     "@bugsnag/plugin-react": "^6.5.0",
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
+    "@leafygreen-ui/badge": "^3.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
     "@testing-library/user-event": "^7.2.1",

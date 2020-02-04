@@ -2,8 +2,9 @@ import React, { useEffect } from "react";
 import { ColumnProps, TableProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
-import { Tag, Spin } from "antd";
 import { TESTS_QUERY } from "gql/queries";
+import { Spin } from "antd";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { usePrevious } from "hooks";
@@ -68,27 +69,27 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     key: Categories.Status,
     sorter: true,
     render: (tag: string) => {
-      let color: string;
+      let color: Variant = Variant.LightGray;
       switch (tag) {
         case TestStatus.Succeeded:
-          color = "green";
+          color = Variant.Green;
           break;
         case TestStatus.Failed:
-          color = "red";
+          color = Variant.Red;
           break;
         case TestStatus.SilentlyFailed:
-          color = "volcano";
+          color = Variant.Blue;
           break;
         case TestStatus.Skipped:
-          color = "orange";
+          color = Variant.Yellow;
           break;
       }
 
       return (
         <span>
-          <Tag color={color} key={tag}>
+          <Badge variant={color} key={tag}>
             {tag.toUpperCase()}
-          </Tag>
+          </Badge>
         </span>
       );
     }
@@ -173,7 +174,7 @@ export const TestsTableCore: React.FC<Props> = ({
   const onFetch = () => {
     fetchMore({
       variables: {
-        pageNum: dataSource.length / limit,
+        pageNum: dataSource.length / LIMIT,
         cat: category,
         dir: sort === Sort.Asc ? "ASC" : "DESC",
         limitNum: LIMIT
