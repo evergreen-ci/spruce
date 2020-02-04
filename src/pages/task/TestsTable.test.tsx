@@ -241,6 +241,26 @@ const mocks = [
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
+        dir: "ASC",
+        cat: "STATUS",
+        pageNum: 1,
+        limitNum: 10
+      }
+    },
+    result: () => {
+      return {
+        data: {
+          taskTests: taskTestsPageOne
+        }
+      };
+    }
+  },
+  {
+    request: {
+      query: TESTS_QUERY,
+      variables: {
+        id:
+          "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
         dir: "DESC",
         cat: "STATUS",
         pageNum: 1,
@@ -276,7 +296,7 @@ it("Requests descending data when clicking on active ascending tab", async () =>
   const spy = jest.spyOn(mocks[0], "result");
   const spyOppDir = jest.spyOn(mocks[3], "result");
 
-  const { container, getByText } = render(
+  const { getByText } = render(
     <MemoryRouter
       initialEntries={[
         {
