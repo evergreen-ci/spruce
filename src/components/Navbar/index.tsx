@@ -5,12 +5,55 @@ import {
   useAuthStateContext
 } from "../../context/auth";
 import { Select } from "antd";
+import { useQuery } from "@apollo/react-hooks";
 
 const { Option, OptGroup } = Select;
+
+const GET_PROJECTS = gql`
+  {
+    projects {
+      favorites {
+        identifier
+        repo
+        owner
+        displayName
+      }
+      all {
+        name
+        projects {
+          identifier
+          repo
+          owner
+          displayName
+        }
+      }
+    }
+  }
+`;
+
+interface Project {
+  displayName: string;
+  repo: string;
+  owner: string;
+  identifier: string;
+}
+
+interface GroupedProjects {
+  name: string;
+  projects: Project[];
+}
+
+const renderProjectOption = ({ identifier, displayName }: Project) => (
+  <Option key={identifier} value={identifier}>
+    {displayName}
+  </Option>
+);
 
 export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
+
+  const { data, loading } = useQuery(GET_PROJECTS);
 
   return (
     <Wrapper>
@@ -19,18 +62,19 @@ export const Navbar: React.FC = () => {
           showSearch={true}
           placeholder="Branch"
           optionFilterProp="children"
-          defaultValue={["spruce"]}
+          loading={loading}
         >
-          <OptGroup label="Favorites">
-            <Option value="evergreen-favorite">Evergreen</Option>
-            <Option value="spruce-favorite">Spruce</Option>
-          </OptGroup>
-          <OptGroup label="Engineer">
-            <Option value="evergreen">Evergreen</Option>
-            <Option value="spruce">Spruce</Option>
-            <Option value="cloud">Cloud</Option>
-            <Option value="build">Build</Option>
-          </OptGroup>
+          {data && data.projects.favorites.length > 0 && (
+            <OptGroup label="Favorites">
+              {data.projects.favorites.map(renderProjectOption)}
+            </OptGroup>
+          )}
+          {data &&
+            data.projects.all.map(({ name, projects }: GroupedProjects) => (
+              <OptGroup key={name} label={name}>
+                {projects.map(renderProjectOption)}
+              </OptGroup>
+            ))}
         </StyledSelect>
         {isAuthenticated && (
           <LogoutButton id="logout" onClick={logout}>
