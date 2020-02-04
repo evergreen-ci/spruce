@@ -4,6 +4,9 @@ import {
   useAuthDispatchContext,
   useAuthStateContext
 } from "../../context/auth";
+import Select from "antd/es/select";
+
+const { Option, OptGroup } = Select;
 
 export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
@@ -12,6 +15,25 @@ export const Navbar: React.FC = () => {
   return (
     <Wrapper>
       <InnerWrapper>
+        {false && (
+          <StyledSelect
+            showSearch={true}
+            placeholder="Branch"
+            optionFilterProp="children"
+            defaultValue={["spruce"]}
+          >
+            <OptGroup label="Favorites">
+              <Option value="evergreen">Evergreen</Option>
+              <Option value="spruce">Spruce</Option>
+            </OptGroup>
+            <OptGroup label="Engineer">
+              <Option value="evergreen">Evergreen</Option>
+              <Option value="spruce">Spruce</Option>
+              <Option value="cloud">Cloud</Option>
+              <Option value="build">Build</Option>
+            </OptGroup>
+          </StyledSelect>
+        )}
         {isAuthenticated && (
           <LogoutButton id="logout" onClick={logout}>
             Logout
@@ -22,22 +44,27 @@ export const Navbar: React.FC = () => {
   );
 };
 
-const Wrapper = styled.nav({
-  position: "absolute",
-  top: 0,
-  left: 0,
-  right: 0,
-  height: "60px",
-  padding: "0 20px"
-});
+const Wrapper = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  padding: 0 20px;
+`;
 
-const InnerWrapper = styled.div({
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "flex-end",
-  height: "100%"
-});
+const InnerWrapper = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: 100%;
+`;
 
-const LogoutButton = styled.div({
-  cursor: "pointer"
-});
+const StyledSelect = styled(Select)`
+  width: 200px;
+  margin-right: 12px;
+`;
+
+const LogoutButton = styled.div`
+  cursor: pointer;
+`;
