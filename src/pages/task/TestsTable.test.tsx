@@ -1,5 +1,5 @@
 import * as React from "react";
-import { render } from "@testing-library/react";
+import { render, cleanup } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import * as ReactDOM from "react-dom";
 import { MockedProvider } from "@apollo/react-testing";
@@ -214,6 +214,46 @@ const mocks = [
         }
       };
     }
+  },
+  {
+    request: {
+      query: TESTS_QUERY,
+      variables: {
+        id:
+          "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
+        dir: "DESC",
+        cat: "STATUS",
+        pageNum: 0,
+        limitNum: 10
+      }
+    },
+    result: () => {
+      return {
+        data: {
+          taskTests: taskTestsPageZero
+        }
+      };
+    }
+  },
+  {
+    request: {
+      query: TESTS_QUERY,
+      variables: {
+        id:
+          "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
+        dir: "DESC",
+        cat: "STATUS",
+        pageNum: 1,
+        limitNum: 10
+      }
+    },
+    result: () => {
+      return {
+        data: {
+          taskTests: taskTestsPageOne
+        }
+      };
+    }
   }
 ];
 
@@ -230,6 +270,44 @@ it("renders without crashing", () => {
     div
   );
   ReactDOM.unmountComponentAtNode(div);
+});
+
+it("Requests descending data when clicking on active ascending tab", async () => {
+  const spy = jest.spyOn(mocks[0], "result");
+  const spyOppDir = jest.spyOn(mocks[3], "result");
+
+  const { container, getByText } = render(
+    <MemoryRouter
+      initialEntries={[
+        {
+          pathname:
+            "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
+          search: "?category=STATUS&sort=1",
+          hash: "",
+          key: "djuhdk"
+        }
+      ]}
+      initialIndex={0}
+    >
+      <MockedProvider mocks={mocks}>
+        <Route path="/task/:taskID/:tab?">
+          <TestsTable />
+        </Route>
+      </MockedProvider>
+    </MemoryRouter>
+  );
+  await act(async () => {
+    await wait(50);
+  });
+  fireEvent.click(getByText("Status"));
+  await act(async () => {
+    await wait(50);
+  });
+  expect(spy).toHaveBeenCalled();
+  expect(spyOppDir).toHaveBeenCalled();
+  cleanup();
+  spy.mockRestore();
+  spyOppDir.mockRestore();
 });
 
 it("It loads data on initial load when given valid query params", async () => {
@@ -334,6 +412,7 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
   expect(spyNextPage).toHaveBeenCalled();
+  cleanup();
   spy.mockRestore();
   spyNextPage.mockRestore();
 });
