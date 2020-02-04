@@ -17,6 +17,7 @@ import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ContextProviders } from "./context/Providers";
 import { Navbar } from "./components/Navbar";
+import "antd/dist/antd.css";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
