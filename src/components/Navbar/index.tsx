@@ -4,7 +4,7 @@ import {
   useAuthDispatchContext,
   useAuthStateContext
 } from "../../context/auth";
-import Select from "antd/es/select";
+import { Select } from "antd";
 
 const { Option, OptGroup } = Select;
 
