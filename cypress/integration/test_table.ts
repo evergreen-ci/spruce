@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 describe("Tests Table", function() {
-  it("Navigate to tests table and click on table header to adjust query params", function() {
+  before(function() {
     function login() {
       cy.get("input[name=username]").type("admin");
       cy.get("input[name=password]").type("password");
@@ -9,6 +9,8 @@ describe("Tests Table", function() {
     }
     cy.visit("/login");
     login();
+  });
+  it("Navigate to tests table and click on table header to adjust query params", function() {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
     );
@@ -57,6 +59,5 @@ describe("Tests Table", function() {
       expect(loc.search).to.include("category=DURATION");
       expect(loc.search).to.include("sort=-1");
     });
-    //cy.location().should(fallbackLocation);k
   });
 });
