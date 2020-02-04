@@ -15,25 +15,23 @@ export const Navbar: React.FC = () => {
   return (
     <Wrapper>
       <InnerWrapper>
-        {false && (
-          <StyledSelect
-            showSearch={true}
-            placeholder="Branch"
-            optionFilterProp="children"
-            defaultValue={["spruce"]}
-          >
-            <OptGroup label="Favorites">
-              <Option value="evergreen">Evergreen</Option>
-              <Option value="spruce">Spruce</Option>
-            </OptGroup>
-            <OptGroup label="Engineer">
-              <Option value="evergreen">Evergreen</Option>
-              <Option value="spruce">Spruce</Option>
-              <Option value="cloud">Cloud</Option>
-              <Option value="build">Build</Option>
-            </OptGroup>
-          </StyledSelect>
-        )}
+        <StyledSelect
+          showSearch={true}
+          placeholder="Branch"
+          optionFilterProp="children"
+          defaultValue={["spruce"]}
+        >
+          <OptGroup label="Favorites">
+            <Option value="evergreen-favorite">Evergreen</Option>
+            <Option value="spruce-favorite">Spruce</Option>
+          </OptGroup>
+          <OptGroup label="Engineer">
+            <Option value="evergreen">Evergreen</Option>
+            <Option value="spruce">Spruce</Option>
+            <Option value="cloud">Cloud</Option>
+            <Option value="build">Build</Option>
+          </OptGroup>
+        </StyledSelect>
         {isAuthenticated && (
           <LogoutButton id="logout" onClick={logout}>
             Logout

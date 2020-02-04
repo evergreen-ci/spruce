@@ -7,7 +7,7 @@ interface State {
 }
 
 const defaultState: State = {
-  isAuthenticated: false
+  isAuthenticated: true
 };
 
 type Action = { type: "authenticate" } | { type: "deauthenticate" };
