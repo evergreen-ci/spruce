@@ -14,16 +14,8 @@ import {
 
 const { Option, OptGroup } = Select;
 
-const renderProjectOption = (isFavorite: boolean = false) => ({
-  identifier,
-  displayName
-}: Project) => (
-  // two Options cannot have the same value attribute or it breaks ability to scroll with keyboard.
-  // therefore "-favorite" is appended to the end of a favorite's value prop
-  <Option
-    key={identifier}
-    value={isFavorite ? `${identifier}-favorite` : identifier}
-  >
+const renderProjectOption = ({ identifier, displayName }: Project) => (
+  <Option key={identifier} value={identifier}>
     {displayName}
   </Option>
 );
@@ -46,13 +38,13 @@ export const Navbar: React.FC = () => {
         >
           {data && data.projects.favorites.length > 0 && (
             <OptGroup label="Favorites">
-              {data.projects.favorites.map(renderProjectOption(true))}
+              {data.projects.favorites.map(renderProjectOption)}
             </OptGroup>
           )}
           {data &&
-            data.projects.all.map(({ name, projects }) => (
+            data.projects.otherProjects.map(({ name, projects }) => (
               <OptGroup key={name} label={name}>
-                {projects.map(renderProjectOption())}
+                {projects.map(renderProjectOption)}
               </OptGroup>
             ))}
         </StyledSelect>

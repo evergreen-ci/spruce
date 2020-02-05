@@ -9,7 +9,7 @@ export const GET_PROJECTS = gql`
         owner
         displayName
       }
-      all {
+      otherProjects {
         name
         projects {
           identifier
@@ -36,7 +36,7 @@ interface GroupedProjects {
 
 interface Projects {
   favorites: Project[];
-  all: GroupedProjects[];
+  otherProjects: GroupedProjects[];
 }
 
 export interface ProjectsQuery {
