@@ -18,12 +18,5 @@ import "./commands";
 
 // Alternatively you can use CommonJS syntax:
 // require('./commands')
-before(function() {
-  function login() {
-    cy.get("input[name=username]").type("admin");
-    cy.get("input[name=password]").type("password");
-    cy.get("button[id=login-submit]").click();
-  }
-  cy.visit("/login");
-  login();
-});
+
+import "./hooks";
