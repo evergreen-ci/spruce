@@ -14,6 +14,19 @@ describe("tests table", function() {
     cy.get(".ant-table").contains("No Data");
   });
 
+  it("Should have sort buttons disabled when fetching data", () => {
+    cy.visit(
+      "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
+    );
+    cy.contains("Name").click();
+    cy.once;
+    cy.once("fail", err => {
+      expect(err.message).to.include(
+        "'pointer-events: none' prevents user mouse interaction."
+      );
+    });
+  });
+
   it("Navigate to tests table and click on table header to adjust query params", () => {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
