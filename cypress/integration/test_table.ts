@@ -1,15 +1,6 @@
 /// <reference types="Cypress" />
 
 describe("Tests Table", function() {
-  before(function() {
-    function login() {
-      cy.get("input[name=username]").type("admin");
-      cy.get("input[name=password]").type("password");
-      cy.get("button[id=login-submit]").click();
-    }
-    cy.visit("/login");
-    login();
-  });
   it("Navigate to tests table and click on table header to adjust query params", function() {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
