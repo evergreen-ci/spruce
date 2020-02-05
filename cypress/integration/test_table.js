@@ -1,10 +1,20 @@
 /// <reference types="Cypress" />
 
 describe("tests table", function() {
-  it("Navigate to tests table and click on table header to adjust query params", function() {
+  this.beforeEach(() => {
     cy.server();
     cy.login();
     cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  it("Should display No Data when given an invalid TaskID in the url", () => {
+    cy.visit("/task/NO-SUCH-THANG/tests");
+    cy.wait(["@gqlQuery"]);
+    cy.wait(["@gqlQuery"]);
+    cy.get(".ant-table").contains("No Data");
+  });
+
+  it("Navigate to tests table and click on table header to adjust query params", () => {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
     );
