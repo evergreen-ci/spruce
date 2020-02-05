@@ -48,6 +48,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "status",
     key: Categories.Status,
     sorter: true,
+    width: "25%",
     render: (tag: string) => {
       let color: Variant = Variant.LightGray;
       switch (tag) {
@@ -75,6 +76,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
   },
   {
     title: "Time",
+    width: "25%",
     dataIndex: "duration",
     key: Categories.Duration,
     sorter: true,
@@ -223,7 +225,6 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         dataSource={dataSource}
         onChange={onChange}
         rowKey={rowKey}
-        bordered={true}
       />
     </div>
   );
