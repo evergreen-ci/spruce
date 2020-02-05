@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "pages/task/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import {
-  Categories,
   RequiredQueryParams,
-  Sort,
+  SortQueryParam,
   ValidInitialQueryParams
 } from "pages/task/types";
+import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
 
 enum DefaultQueryParams {
@@ -29,7 +29,7 @@ export const TestsTable: React.FC = () => {
       .toUpperCase();
     const sort = parsed[RequiredQueryParams.Sort];
     if (
-      (sort !== Sort.Desc && sort !== Sort.Asc) ||
+      (sort !== SortQueryParam.Desc && sort !== SortQueryParam.Asc) ||
       (category !== Categories.TestName &&
         category !== Categories.Duration &&
         category !== Categories.Status)

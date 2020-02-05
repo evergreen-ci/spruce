@@ -3,12 +3,6 @@ export interface ValidInitialQueryParams {
   initialSort: string | string[];
 }
 
-export enum Categories {
-  TestName = "TEST_NAME",
-  Duration = "DURATION",
-  Status = "STATUS"
-}
-
 export enum RequiredQueryParams {
   Sort = "sort",
   Category = "category",
@@ -16,14 +10,7 @@ export enum RequiredQueryParams {
   Limit = "limit"
 }
 
-export enum Sort {
+export enum SortQueryParam {
   Desc = "-1",
   Asc = "1"
-}
-
-export enum TestStatus {
-  Failed = "fail",
-  SilentlyFailed = "silentfail",
-  Skipped = "skip",
-  Succeeded = "pass"
 }

@@ -2,48 +2,29 @@ import React, { useEffect } from "react";
 import { ColumnProps, TableProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
-import { TESTS_QUERY } from "gql/queries";
+import {
+  Categories,
+  GET_TASK_TESTS,
+  TakskTestsVars,
+  TaskTestsData,
+  TestStatus,
+  UpdateQueryArg
+} from "gql/queries/get-task-tests";
 import { Spin } from "antd";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { usePrevious } from "hooks";
 import styled from "@emotion/styled/macro";
-
 import {
-  Categories,
   RequiredQueryParams,
-  Sort,
-  ValidInitialQueryParams,
-  TestStatus
+  SortQueryParam,
+  ValidInitialQueryParams
 } from "pages/task/types";
 import get from "lodash.get";
 import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
 const LIMIT = 10;
-type Category = Categories.Duration | Categories.Status | Categories.TestName;
-
-interface TaskTestsData {
-  id: string;
-  status: string;
-  testFile: string;
-  duration: number;
-}
-
-type SortDir = "ASC" | "DESC";
-
-interface TakskTestsVars {
-  id: string;
-  dir: SortDir;
-  cat: Category;
-  pageNum: number;
-  limitNum: number;
-}
-
-interface UpdateQueryArg {
-  taskTests: [TaskTestsData];
-}
-
 const SpinWrapper = styled.div({
   textAlign: "center",
   paddingTop: 40,
@@ -55,7 +36,6 @@ const loadMoreContent = (
     <Spin tip="Loading..." />
   </SpinWrapper>
 );
-
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
@@ -84,7 +64,6 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           color = Variant.Yellow;
           break;
       }
-
       return (
         <span>
           <Badge variant={color} key={tag}>
@@ -105,8 +84,8 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
   }
 ];
 const rowKey = ({ id }) => id;
-type Props = ValidInitialQueryParams;
-export const TestsTableCore: React.FC<Props> = ({
+
+export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory
 }) => {
@@ -116,11 +95,11 @@ export const TestsTableCore: React.FC<Props> = ({
   const { data, fetchMore, networkStatus } = useQuery<
     TaskTestsData,
     TakskTestsVars
-  >(TESTS_QUERY, {
+  >(GET_TASK_TESTS, {
     variables: {
       id: taskID,
-      dir: initialSort === Sort.Asc ? "ASC" : "DESC",
-      cat: initialCategory as Category,
+      dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
+      cat: initialCategory as Categories,
       pageNum: 0,
       limitNum: LIMIT
     },
@@ -155,7 +134,7 @@ export const TestsTableCore: React.FC<Props> = ({
     fetchMore({
       variables: {
         cat: category,
-        dir: sort === Sort.Asc ? "ASC" : "DESC",
+        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
         pageNum: 0,
         limitNum: LIMIT
       },
@@ -180,7 +159,7 @@ export const TestsTableCore: React.FC<Props> = ({
       variables: {
         pageNum,
         cat: category,
-        dir: sort === Sort.Asc ? "ASC" : "DESC",
+        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
         limitNum: LIMIT
       },
       updateQuery: (
@@ -211,15 +190,15 @@ export const TestsTableCore: React.FC<Props> = ({
 
     if (
       order === "ascend" &&
-      parsedSearch[RequiredQueryParams.Sort] === Sort.Desc
+      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Desc
     ) {
-      parsedSearch[RequiredQueryParams.Sort] = Sort.Asc;
+      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Asc;
       hasDiff = true;
     } else if (
       order === "descend" &&
-      parsedSearch[RequiredQueryParams.Sort] === Sort.Asc
+      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Asc
     ) {
-      parsedSearch[RequiredQueryParams.Sort] = Sort.Desc;
+      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Desc;
       hasDiff = true;
     }
     if (hasDiff) {
@@ -229,7 +208,7 @@ export const TestsTableCore: React.FC<Props> = ({
   };
   // only need sort order set to reflect initial state in URL
   columns.find(({ key }) => key === initialCategory).defaultSortOrder =
-    initialSort === Sort.Asc ? "ascend" : "descend";
+    initialSort === SortQueryParam.Asc ? "ascend" : "descend";
 
   return (
     <div>
