@@ -5,7 +5,7 @@ import {
   RequiredQueryParams,
   SortQueryParam,
   ValidInitialQueryParams
-} from "pages/task/types";
+} from "pages/types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
 
