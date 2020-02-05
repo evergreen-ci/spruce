@@ -5,32 +5,48 @@ import {
   useAuthStateContext
 } from "../../context/auth";
 import { Select } from "antd";
+import { useQuery } from "@apollo/react-hooks";
+import {
+  GET_PROJECTS,
+  ProjectsQuery,
+  Project
+} from "graphql/queries/get-projects";
 
 const { Option, OptGroup } = Select;
+
+const renderProjectOption = ({ identifier, displayName }: Project) => (
+  <Option key={identifier} value={identifier}>
+    {displayName}
+  </Option>
+);
 
 export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
+
+  const { data, loading } = useQuery<ProjectsQuery>(GET_PROJECTS);
 
   return (
     <Wrapper>
       <InnerWrapper>
         <StyledSelect
           showSearch={true}
-          placeholder="Branch"
+          placeholder="Project"
           optionFilterProp="children"
-          defaultValue={["spruce"]}
+          loading={loading}
+          disabled={loading}
         >
-          <OptGroup label="Favorites">
-            <Option value="evergreen-favorite">Evergreen</Option>
-            <Option value="spruce-favorite">Spruce</Option>
-          </OptGroup>
-          <OptGroup label="Engineer">
-            <Option value="evergreen">Evergreen</Option>
-            <Option value="spruce">Spruce</Option>
-            <Option value="cloud">Cloud</Option>
-            <Option value="build">Build</Option>
-          </OptGroup>
+          {data && data.projects.favorites.length > 0 && (
+            <OptGroup label="Favorites">
+              {data.projects.favorites.map(renderProjectOption)}
+            </OptGroup>
+          )}
+          {data &&
+            data.projects.otherProjects.map(({ name, projects }) => (
+              <OptGroup key={name} label={name}>
+                {projects.map(renderProjectOption)}
+              </OptGroup>
+            ))}
         </StyledSelect>
         {isAuthenticated && (
           <LogoutButton id="logout" onClick={logout}>
