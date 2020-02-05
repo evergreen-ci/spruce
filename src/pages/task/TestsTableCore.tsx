@@ -94,7 +94,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   const { taskID } = useParams();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
-  const { data, fetchMore, networkStatus } = useQuery<
+  const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
     TakskTestsVars
   >(GET_TASK_TESTS, {
@@ -128,10 +128,10 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       });
     }
   }, [networkStatus]);
-
   if (
     (sort !== prevSort || category !== prevCategory) &&
-    networkStatus === NetworkStatus.ready
+    networkStatus === NetworkStatus.ready &&
+    !error
   ) {
     fetchMore({
       variables: {
@@ -153,6 +153,9 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   }
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
   const onFetch = () => {
+    if (networkStatus === NetworkStatus.error || error) {
+      return;
+    }
     const pageNum = dataSource.length / LIMIT;
     if (pageNum % 1 !== 0) {
       return;
