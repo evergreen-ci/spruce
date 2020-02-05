@@ -4,7 +4,7 @@ import { act } from "react-dom/test-utils";
 import * as ReactDOM from "react-dom";
 import { MockedProvider } from "@apollo/react-testing";
 import { TestsTable } from "../../pages/task/TestsTable";
-import { TESTS_QUERY } from "../../gql/queries";
+import { GET_TASK_TESTS } from "../../gql/queries/get-task-tests";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 import { fireEvent } from "@testing-library/react";
@@ -157,7 +157,7 @@ const taskTestsPageOne = [
 const mocks = [
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
@@ -177,7 +177,7 @@ const mocks = [
   },
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
@@ -197,7 +197,7 @@ const mocks = [
   },
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
@@ -217,7 +217,7 @@ const mocks = [
   },
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
@@ -237,7 +237,7 @@ const mocks = [
   },
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
@@ -257,7 +257,7 @@ const mocks = [
   },
   {
     request: {
-      query: TESTS_QUERY,
+      query: GET_TASK_TESTS,
       variables: {
         id:
           "mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33",
