@@ -1,5 +1,5 @@
 import React from "react";
-import { Select, Icon } from "antd";
+import { Select } from "antd";
 import { useQuery } from "@apollo/react-hooks";
 import {
   GET_PROJECTS,
