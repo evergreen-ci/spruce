@@ -1,53 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import {
-  useAuthDispatchContext,
-  useAuthStateContext
-} from "../../context/auth";
-import { Select } from "antd";
-import { useQuery } from "@apollo/react-hooks";
-import {
-  GET_PROJECTS,
-  ProjectsQuery,
-  Project
-} from "graphql/queries/get-projects";
-
-const { Option, OptGroup } = Select;
-
-const renderProjectOption = ({ identifier, displayName }: Project) => (
-  <Option key={identifier} value={identifier}>
-    {displayName}
-  </Option>
-);
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { ProjectSelect } from "components/ProjectSelect";
 
 export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
-  const { data, loading } = useQuery<ProjectsQuery>(GET_PROJECTS);
-
   return (
     <Wrapper>
       <InnerWrapper>
-        <StyledSelect
-          showSearch={true}
-          placeholder="Project"
-          optionFilterProp="children"
-          loading={loading}
-          disabled={loading}
-        >
-          {data && data.projects.favorites.length > 0 && (
-            <OptGroup label="Favorites">
-              {data.projects.favorites.map(renderProjectOption)}
-            </OptGroup>
-          )}
-          {data &&
-            data.projects.otherProjects.map(({ name, projects }) => (
-              <OptGroup key={name} label={name}>
-                {projects.map(renderProjectOption)}
-              </OptGroup>
-            ))}
-        </StyledSelect>
+        <ProjectSelect />
         {isAuthenticated && (
           <LogoutButton id="logout" onClick={logout}>
             Logout
@@ -72,11 +35,6 @@ const InnerWrapper = styled.div`
   align-items: center;
   justify-content: flex-end;
   height: 100%;
-`;
-
-const StyledSelect = styled(Select)`
-  width: 200px;
-  margin-right: 12px;
 `;
 
 const LogoutButton = styled.div`
