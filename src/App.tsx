@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "@emotion/styled/macro";
 import bugsnag from "@bugsnag/browser";
 import bugsnagReact from "@bugsnag/plugin-react";
 import GQLWrapper from "utils/gql/GQLWrapper";
@@ -21,6 +22,7 @@ import { Navbar } from "./components/Navbar";
 import { BreadCrumb } from "./components/Breadcrumb";
 import "antd/dist/antd.css";
 import { routes } from "./contants/routes";
+import { Layout } from "antd";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -39,15 +41,17 @@ const App: React.FC = () => {
             credentials="include"
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
-            <Navbar />
-            <BreadCrumb />
-            <PrivateRoute path={routes.task} component={Task} />
-            <PrivateRoute path={routes.patch} component={Patch} />
-            <PrivateRoute path={routes.myPatches} component={MyPatches} />
-            <PrivateRoute exact={true} path="/">
-              <Redirect to={routes.myPatches} />
-            </PrivateRoute>
-            <Route path={routes.login} component={Login} />
+            <Layout>
+              <Navbar />
+              <BreadCrumb />
+              <PrivateRoute path={routes.task} component={Task} />
+              <PrivateRoute path={routes.patch} component={Patch} />
+              <PrivateRoute path={routes.myPatches} component={MyPatches} />
+              <PrivateRoute exact={true} path="/">
+                <Redirect to={routes.myPatches} />
+              </PrivateRoute>
+              <Route path={routes.login} component={Login} />
+            </Layout>
           </GQLWrapper>
         </Router>
       </ContextProviders>
