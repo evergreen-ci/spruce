@@ -11,9 +11,13 @@ export const PatchBreadcrumb: React.FC<Props> = ({ displayName }) => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Link to={routes.myPatches}>My Patches</Link>
+        <span id="pb-my-patches">
+          <Link to={routes.myPatches}>My Patches</Link>
+        </span>
       </Breadcrumb.Item>
-      <Breadcrumb.Item>{displayName}</Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <span id="pb-patch">{displayName}</span>
+      </Breadcrumb.Item>
     </Breadcrumb>
   );
 };

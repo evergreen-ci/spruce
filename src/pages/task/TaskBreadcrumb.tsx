@@ -12,12 +12,18 @@ export const TaskBreadcrumb: React.FC<Props> = ({ version, displayName }) => {
   return (
     <Breadcrumb>
       <Breadcrumb.Item>
-        <Link to={paths.myPatches}>My Patches</Link>
+        <span id="tb-my-patches">
+          <Link to={paths.myPatches}>My Patches</Link>
+        </span>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <Link to={`${paths.patch}/${version}`}>Patch</Link>
+        <span id="tb-patch">
+          <Link to={`${paths.patch}/${version}`}>Patch</Link>
+        </span>
       </Breadcrumb.Item>
-      <Breadcrumb.Item>{displayName}</Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <span id="tb-display-name">{displayName}</span>
+      </Breadcrumb.Item>
     </Breadcrumb>
   );
 };
