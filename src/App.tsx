@@ -1,4 +1,5 @@
 import * as React from "react";
+import styled from "@emotion/styled/macro";
 import bugsnag from "@bugsnag/browser";
 import bugsnagReact from "@bugsnag/plugin-react";
 import GQLWrapper from "utils/gql/GQLWrapper";
@@ -18,6 +19,7 @@ import { PrivateRoute } from "./components/PrivateRoute";
 import { ContextProviders } from "./context/Providers";
 import { Navbar } from "./components/Navbar";
 import "antd/dist/antd.css";
+import { Layout } from "antd";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -39,11 +41,13 @@ const App: React.FC = () => {
             credentials="include"
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
-            <Navbar />
-            <Route path="/login" component={Login} />
-            <Route path="/task/:taskID/:tab?" component={Task} />
-            <PrivateRoute exact={true} path="/" component={Home} />
-            <PrivateRoute path="/private" component={FakePrivateRoute} />
+            <Layout>
+              <Navbar />
+              <Route path="/login" component={Login} />
+              <Route path="/task/:taskID/:tab?" component={Task} />
+              <PrivateRoute exact={true} path="/" component={Home} />
+              <PrivateRoute path="/private" component={FakePrivateRoute} />
+            </Layout>
           </GQLWrapper>
         </Router>
       </ContextProviders>

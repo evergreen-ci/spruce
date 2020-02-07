@@ -2,13 +2,16 @@ import React from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
 import { ProjectSelect } from "components/ProjectSelect";
+import { Layout } from "antd";
+
+const { Header } = Layout;
 
 export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
   return (
-    <Wrapper>
+    <Header style={{ background: "#20313c" }}>
       <InnerWrapper>
         <ProjectSelect />
         {isAuthenticated && (
@@ -17,18 +20,9 @@ export const Navbar: React.FC = () => {
           </LogoutButton>
         )}
       </InnerWrapper>
-    </Wrapper>
+    </Header>
   );
 };
-
-const Wrapper = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  padding: 0 20px;
-`;
 
 const InnerWrapper = styled.div`
   display: flex;
