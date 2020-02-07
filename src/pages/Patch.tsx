@@ -1,10 +1,10 @@
 import React from "react";
-import { PatchBreadcrumb } from "pages/patch/PatchBreadcrumb";
+import { BreadCrumb } from "components/Breadcrumb";
 
 export const Patch = () => {
   return (
     <>
-      <PatchBreadcrumb displayName="Specific Patch" />
+      <BreadCrumb displayName="Specific Patch" />
       <div>Patch Page</div>
     </>
   );

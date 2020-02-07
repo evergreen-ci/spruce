@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
-import { TaskBreadcrumb } from "pages/task/TaskBreadcrumb";
+import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
@@ -52,7 +52,7 @@ export const Task: React.FC = () => {
 
   return (
     <>
-      <TaskBreadcrumb displayName={displayName} version={version} />
+      <BreadCrumb displayName={displayName} version={version} isTask={true} />
       {tab === Tab.Tests && <TestsTable />}
     </>
   );
