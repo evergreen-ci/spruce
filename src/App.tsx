@@ -1,5 +1,4 @@
 import * as React from "react";
-import styled from "@emotion/styled/macro";
 import bugsnag from "@bugsnag/browser";
 import bugsnagReact from "@bugsnag/plugin-react";
 import GQLWrapper from "utils/gql/GQLWrapper";

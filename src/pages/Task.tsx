@@ -1,5 +1,4 @@
 import React, { useEffect } from "react";
-import { RouteComponentProps } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { TaskBreadcrumb } from "pages/task/TaskBreadcrumb";
