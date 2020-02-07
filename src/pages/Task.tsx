@@ -38,12 +38,15 @@ export const Task: React.FC = () => {
     }
   }, [tab, taskID, history]);
 
-  const { data, loading } = useQuery<TaskQuery>(GET_TASK, {
+  const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: taskID }
   });
 
   if (loading) {
     return <div>"Loading..."</div>;
+  }
+  if (error) {
+    return <div>{error.message}</div>;
   }
 
   const {
