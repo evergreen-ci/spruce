@@ -61,6 +61,18 @@ functions:
       working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
+      background: false
+      env:
+        GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: ${gobin}
+        GOROOT: ${goroot}
+
+  run-make-background:
+    command: subprocess.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
       background: true
       env:
         GOPATH: ${workdir}/spruce/gopath
@@ -73,7 +85,7 @@ functions:
     params:
       working_dir: spruce
       background: true
-      command: npm start
+      command: npm run start:dev-server
 
   npm-install:
     command: shell.exec
@@ -126,6 +138,20 @@ functions:
       script: |
         npx cypress run --record --key ${cypress_record_key} --reporter junit
 
+  copy-cmdrc:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        cp config/.cmdrc_sample.json config/.cmdrc.json 
+  
+  log-evergreen-to-file:
+    command: shell.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      script: |
+        ./mongodb/mongo evergreen_local --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
+
   attach-results: 
     command: attach.xunit_results
     params:
@@ -159,6 +185,20 @@ functions:
       content_type: video/mp4
       permissions: public-read
       display_name: "video:"
+
+  attach-server-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["gopath/src/github.com/evergreen-ci/evergreen/server_logs.txt"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
+      display_name: "server logs"
 
 #######################################
 #                Tasks                #
@@ -194,9 +234,14 @@ tasks:
     commands:
     - func: get-evergreen-project
     - func: setup-mongodb
+    - func: copy-cmdrc
     - func: run-make
       vars:
-        target: "local-evergreen"
+        target: load-local-data
+    - func: log-evergreen-to-file
+    - func: run-make-background
+      vars:
+        target: local-evergreen
     - func: npm-install
     - func: npm-start
     - func: run-cypress-tests
@@ -222,3 +267,4 @@ post:
   - func: attach-results
   - func: attach-cypress-screenshots
   - func: attach-cypress-videos
+  - func: attach-server-logs
