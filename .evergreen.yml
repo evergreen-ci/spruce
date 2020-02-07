@@ -63,29 +63,9 @@ functions:
       args: ["${make_args|}", "${target}"]
       background: true
       env:
-        ACL_ENABLED: ${acl_enabled}
-        AWS_KEY: ${aws_key}
-        AWS_SECRET: ${aws_secret}
-        CLIENT_URL: https://s3.amazonaws.com/mciuploads/evergreen/${task_id}/evergreen-ci/evergreen/clients/${goos}_${goarch}/evergreen
-        DEBUG_ENABLED: ${debug}
-        DISABLE_COVERAGE: ${disable_coverage}
-        DOCKER_HOST: ${docker_host}
-        EVERGREEN_ALL: "true"
-        GOARCH: ${goarch}
-        GO_BIN_PATH: ${gobin}
-        LEGACY_GO_BIN_PATH: ${legacyGobin}
-        GOOS: ${goos}
         GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: ${gobin}
         GOROOT: ${goroot}
-        IS_DOCKER: ${is_docker}
-        KARMA_REPORTER: junit
-        NODE_BIN_PATH: ${nodebin}
-        RACE_DETECTOR: ${race_detector}
-        SETTINGS_OVERRIDE: creds.yml
-        TEST_TIMEOUT: ${test_timeout}
-        VENDOR_PKG: "github.com/${trigger_repo_owner}/${trigger_repo_name}"
-        VENDOR_REVISION: ${trigger_revision}
-        XC_BUILD: ${xc_build}
 
   npm-start:
     command: subprocess.exec
@@ -207,3 +187,6 @@ buildvariants:
     - name: lint
     - name: coverage
     - name: e2e_test
+    expansions:
+      gobin: /opt/golang/go1.13.4/bin/go
+      goroot: /opt/golang/go1.13.4
