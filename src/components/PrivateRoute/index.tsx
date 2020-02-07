@@ -8,7 +8,7 @@ import {
 import { useAuthStateContext } from "../../context/auth";
 
 type PrivateRouteProps = RouteProps & {
-  component: React.FC<RouteComponentProps>;
+  component?: React.FC<RouteComponentProps>;
 };
 
 export const PrivateRoute: React.FC<PrivateRouteProps> = ({
