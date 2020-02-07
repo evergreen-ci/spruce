@@ -124,13 +124,41 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npx cypress run --record --key ${cypress_record_key}
+        npx cypress run --record --key ${cypress_record_key} --reporter junit
 
   attach-results: 
     command: attach.xunit_results
     params:
       files:
         - "./spruce/junit.xml"
+
+  attach-cypress-screenshots:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/screenshots/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: image/png
+      permissions: public-read
+      display_name: "screenshot:"
+
+  attach-cypress-videos:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/videos/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: video/mp4
+      permissions: public-read
+      display_name: "video:"
 
 #######################################
 #                Tasks                #
@@ -149,7 +177,6 @@ tasks:
     - func: get-project
     - func: npm-install
     - func: npm-test
-    - func: attach-results
 
   - name: lint
     commands:
@@ -190,3 +217,8 @@ buildvariants:
     expansions:
       gobin: /opt/golang/go1.13.4/bin/go
       goroot: /opt/golang/go1.13.4
+
+post:
+  - func: attach-results
+  - func: attach-cypress-screenshots
+  - func: attach-cypress-videos
