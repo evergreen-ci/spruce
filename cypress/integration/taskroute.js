@@ -3,6 +3,7 @@
 describe("Task Page Route", function() {
   it("User is redirected to logs if they land on /task/{taskID}", function() {
     cy.visit("/task/taskID");
+    cy.login();
     cy.location("pathname").should("include", "/task/taskID/logs");
   });
 
