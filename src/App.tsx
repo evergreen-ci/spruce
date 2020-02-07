@@ -19,7 +19,6 @@ import { Login } from "./pages/Login";
 import { PrivateRoute } from "./components/PrivateRoute";
 import { ContextProviders } from "./context/Providers";
 import { Navbar } from "./components/Navbar";
-import { BreadCrumb } from "./components/Breadcrumb";
 import "antd/dist/antd.css";
 import { routes } from "./contants/routes";
 import { Layout } from "antd";
@@ -43,7 +42,6 @@ const App: React.FC = () => {
           >
             <Layout>
               <Navbar />
-              <BreadCrumb />
               <PrivateRoute path={routes.task} component={Task} />
               <PrivateRoute path={routes.patch} component={Patch} />
               <PrivateRoute path={routes.myPatches} component={MyPatches} />

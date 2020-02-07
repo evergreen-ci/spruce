@@ -2,8 +2,11 @@ import React, { useEffect } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useParams, useHistory } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
+import { TaskBreadcrumb } from "pages/task/TaskBreadcrumb";
+import gql from "graphql-tag";
+import { useQuery } from "@apollo/react-hooks";
 
-enum Tab {
+export enum Tab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
@@ -11,7 +14,23 @@ enum Tab {
 }
 const DEFAULT_TAB = Tab.Logs;
 
-export const Task: React.FC<RouteComponentProps> = () => {
+const GET_TASK = gql`
+  query GetTask($taskId: String!) {
+    task(taskId: $taskId) {
+      version
+      displayName
+    }
+  }
+`;
+
+interface TaskQuery {
+  task: {
+    version: string;
+    displayName: string;
+  };
+}
+
+export const Task: React.FC = () => {
   const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
   const history = useHistory();
   useEffect(() => {
@@ -20,9 +39,22 @@ export const Task: React.FC<RouteComponentProps> = () => {
     }
   }, [tab, taskID, history]);
 
-  if (tab === Tab.Tests) {
-    return <TestsTable />;
+  const { data, loading } = useQuery<TaskQuery>(GET_TASK, {
+    variables: { taskId: taskID }
+  });
+
+  if (loading) {
+    return <div>"Loading..."</div>;
   }
 
-  return <div>Task Page!!!!!!!!</div>;
+  const {
+    task: { displayName, version }
+  } = data;
+
+  return (
+    <>
+      <TaskBreadcrumb displayName={displayName} version={version} />
+      {tab === Tab.Tests && <TestsTable />}
+    </>
+  );
 };
