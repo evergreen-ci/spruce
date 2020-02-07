@@ -5,7 +5,7 @@ import { TaskBreadcrumb } from "pages/task/TaskBreadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 
-export enum Tab {
+enum Tab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
