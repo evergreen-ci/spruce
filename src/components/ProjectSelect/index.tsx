@@ -1,11 +1,6 @@
 import React from "react";
 import { Select } from "antd";
-import { useQuery } from "@apollo/react-hooks";
-import {
-  GET_PROJECTS,
-  ProjectsQuery,
-  Project
-} from "graphql/queries/get-projects";
+import { ProjectsQuery, Project } from "graphql/queries/get-projects";
 import styled from "@emotion/styled/macro";
 
 export const { Option, OptGroup } = Select;
@@ -16,9 +11,15 @@ const renderProjectOption = ({ identifier, displayName }: Project) => (
   </Option>
 );
 
-export const ProjectSelect: React.FC = () => {
-  const { data, loading } = useQuery<ProjectsQuery>(GET_PROJECTS);
+export interface ProjectSelectProps {
+  data: ProjectsQuery;
+  loading: boolean;
+}
 
+export const ProjectSelect: React.FC<ProjectSelectProps> = ({
+  data,
+  loading
+}) => {
   return (
     <StyledSelect
       showSearch={true}

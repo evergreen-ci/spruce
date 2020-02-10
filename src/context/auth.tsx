@@ -4,21 +4,24 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 
 interface State {
   isAuthenticated: boolean;
+  initialLoad: boolean;
 }
 
 const defaultState: State = {
-  isAuthenticated: false
+  isAuthenticated: false,
+  initialLoad: true
 };
 
 type Action = { type: "authenticate" } | { type: "deauthenticate" };
 
-type Dispatch = (action: Action) => void;
+export type Dispatch = (action: Action) => void;
 
 export type Logout = () => void;
 
 interface DispatchContext {
   login: (LoginParams) => void;
   logout: Logout;
+  dispatch: Dispatch;
 }
 
 const reducer = (state: State, action: Action): State => {
@@ -26,12 +29,14 @@ const reducer = (state: State, action: Action): State => {
     case "authenticate":
       return {
         ...state,
-        isAuthenticated: true
+        isAuthenticated: true,
+        initialLoad: false
       };
     case "deauthenticate":
       return {
         ...state,
-        isAuthenticated: false
+        isAuthenticated: false,
+        initialLoad: false
       };
     default:
       return state;
@@ -82,7 +87,8 @@ const AuthProvider: React.FC = ({ children }) => {
 
   const dispatchContext: DispatchContext = {
     login: loginHandler,
-    logout: logoutHandler
+    logout: logoutHandler,
+    dispatch
   };
 
   return (
