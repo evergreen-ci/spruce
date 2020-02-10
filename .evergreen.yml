@@ -136,7 +136,6 @@ functions:
     params:
       working_dir: spruce
       script: |
-        sleep 10
         npx cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
