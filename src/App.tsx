@@ -11,16 +11,9 @@ import {
   isTest,
   shouldEnableGQLMockServer
 } from "./utils/getEnvironmentVariables";
-import { Task } from "pages/Task";
-import { Patch } from "pages/Patch";
-import { MyPatches } from "pages/MyPatches";
-import { Login } from "./pages/Login";
-import { PrivateRoute } from "./components/PrivateRoute";
-import { ContextProviders } from "./context/Providers";
-import { Navbar } from "./components/Navbar";
+import { Content } from "./components/Content";
 import "antd/dist/antd.css";
-import { routes } from "./contants/routes";
-import { Layout } from "antd";
+import { ContextProviders } from "./context/Providers";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -39,16 +32,7 @@ const App: React.FC = () => {
             credentials="include"
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
-            <Layout>
-              <Navbar />
-              <PrivateRoute path={routes.task} component={Task} />
-              <PrivateRoute path={routes.patch} component={Patch} />
-              <PrivateRoute path={routes.myPatches} component={MyPatches} />
-              <PrivateRoute exact={true} path="/">
-                <Redirect to={routes.myPatches} />
-              </PrivateRoute>
-              <Route path={routes.login} component={Login} />
-            </Layout>
+            <Content />
           </GQLWrapper>
         </Router>
       </ContextProviders>

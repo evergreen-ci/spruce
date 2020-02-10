@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
+import { ApolloLink } from "apollo-link";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
   addMockFunctionsToSchema,
@@ -11,7 +12,7 @@ import {
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
 import { onError } from "apollo-link-error";
-import { useAuthDispatchContext, Logout } from "../../context/auth";
+import { useAuthDispatchContext, Logout, Dispatch } from "../../context/auth";
 
 interface ClientLinkParams {
   credentials?: string;
@@ -21,6 +22,7 @@ interface ClientLinkParams {
   schemaString?: string;
   shouldEnableGQLMockServer?: boolean;
   logout?: Logout;
+  dispatch?: Dispatch;
 }
 
 export const getClientLink = async ({
@@ -72,6 +74,17 @@ const authLink = (logout: Logout) =>
     }
   });
 
+const authenitcateIfSuccessfulLink = (dispatch: Dispatch) =>
+  new ApolloLink((operation, forward) => {
+    return forward(operation).map(response => {
+      if (response && response.data) {
+        // if there is data in response then server responded with 200; therefore, is authenticated.
+        dispatch({ type: "authenticate" });
+      }
+      return response;
+    });
+  });
+
 export const getGQLClient = async ({
   credentials,
   gqlURL,
@@ -79,7 +92,8 @@ export const getGQLClient = async ({
   isTest,
   schemaString,
   shouldEnableGQLMockServer,
-  logout
+  logout,
+  dispatch
 }: ClientLinkParams) => {
   const link: HttpLink | SchemaLink = await getClientLink({
     credentials,
@@ -91,7 +105,9 @@ export const getGQLClient = async ({
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
-    link: authLink(logout).concat(link)
+    link: authenitcateIfSuccessfulLink(dispatch)
+      .concat(authLink(logout))
+      .concat(link)
   });
   return client;
 };
@@ -106,7 +122,7 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
   shouldEnableGQLMockServer
 }) => {
   const [client, setClient] = useState(null);
-  const { logout } = useAuthDispatchContext();
+  const { logout, dispatch } = useAuthDispatchContext();
 
   useEffect(() => {
     async function getAndSetClient() {
@@ -117,7 +133,8 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
         isTest,
         schemaString,
         shouldEnableGQLMockServer,
-        logout
+        logout,
+        dispatch
       });
       setClient(gqlClient);
     }
@@ -129,7 +146,8 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
     isTest,
     schemaString,
     shouldEnableGQLMockServer,
-    logout
+    logout,
+    dispatch
   ]);
 
   return client ? (

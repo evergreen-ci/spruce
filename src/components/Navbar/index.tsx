@@ -1,24 +1,26 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { ProjectSelect } from "components/ProjectSelect";
+import { ProjectSelect, ProjectSelectProps } from "components/ProjectSelect";
 import { Layout } from "antd";
 
 const { Header } = Layout;
 
-export const Navbar: React.FC = () => {
+export const Navbar: React.FC<ProjectSelectProps> = ({ data, loading }) => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
+
+  if (!isAuthenticated) {
+    return null;
+  }
 
   return (
     <Header style={{ background: "#20313c" }}>
       <InnerWrapper>
-        <ProjectSelect />
-        {isAuthenticated && (
-          <LogoutButton id="logout" onClick={logout}>
-            Logout
-          </LogoutButton>
-        )}
+        <ProjectSelect data={data} loading={loading} />
+        <LogoutButton id="logout" onClick={logout}>
+          Logout
+        </LogoutButton>
       </InnerWrapper>
     </Header>
   );
