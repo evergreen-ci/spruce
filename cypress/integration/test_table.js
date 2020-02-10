@@ -15,7 +15,8 @@ describe("tests table", function() {
     cy.get(".ant-table").should("not.exist");
   });
 
-  it("Should have sort buttons disabled when fetching data", () => {
+  //this test is skipped until we can use POST body to match routes with cypress
+  it.skip("Should have sort buttons disabled when fetching data", () => {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
     );
@@ -29,7 +30,7 @@ describe("tests table", function() {
     });
   });
 
-  //this test should is skipped until we can use POST body to match routes with cypress
+  //this test is skipped until we can use POST body to match routes with cypress
   it.skip("Adjusts query params when table headers are clicked", () => {
     cy.visit(
       "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests"
