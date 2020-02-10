@@ -74,7 +74,7 @@ const authLink = (logout: Logout) =>
     }
   });
 
-const authenitcateIfSuccessfulLink = (dispatch: Dispatch) =>
+const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
   new ApolloLink((operation, forward) => {
     return forward(operation).map(response => {
       if (response && response.data) {
@@ -105,7 +105,7 @@ export const getGQLClient = async ({
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
-    link: authenitcateIfSuccessfulLink(dispatch)
+    link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
       .concat(link)
   });
