@@ -11,7 +11,7 @@ export const msToDuration = (ms: number): string => {
     return `${Math.trunc(days)}d ${hours}h ${minutes}m ${seconds}s`;
   }
   if (hours > 0) {
-    return `${hours}h ${minutes}m ${seconds}s`;
+    return `${hours}h ${minutes}m`;
   }
   if (minutes > 0) {
     return `${minutes}m ${seconds}s`;

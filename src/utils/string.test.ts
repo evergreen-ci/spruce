@@ -1,8 +1,8 @@
 import { msToDuration } from "utils/string";
 
-test("converts milli to 1h 20m 0s", () => {
+test("converts milli to 1h 20m", () => {
   const ms = 80 * 60 * 1000;
-  expect(msToDuration(ms)).toBe("1h 20m 0s");
+  expect(msToDuration(ms)).toBe("1h 20m");
 });
 
 test("converts milli to 3d 5h 20m 5s", () => {
@@ -11,14 +11,9 @@ test("converts milli to 3d 5h 20m 5s", () => {
   expect(msToDuration(ms)).toBe("3d 5h 20m 5s");
 });
 
-test("converts milli to 5h 0m 0s", () => {
+test("converts milli to 5h 0m", () => {
   const ms = 5 * 60 * 60 * 1000;
-  expect(msToDuration(ms)).toBe("5h 0m 0s");
-});
-
-test("converts milli to 5h 0m 0s", () => {
-  const ms = 5 * 60 * 60 * 1000;
-  expect(msToDuration(ms)).toBe("5h 0m 0s");
+  expect(msToDuration(ms)).toBe("5h 0m");
 });
 
 test("converts milli to 1s 20ms", () => {
