@@ -14,21 +14,25 @@ const fallbackLocation = loc => {
 };
 
 describe("Test Table Route", function() {
+  beforeEach(() => {
+    cy.login();
+  });
+
   it("Default query params are set when no required query params exist", function() {
     cy.visit(taskPath);
-    cy.login();
+
     cy.location().should(fallbackLocation);
   });
 
   it("Default query params are set when some required query params exist", function() {
     cy.visit(`${taskPath}?category=TEST_NAME`);
-    cy.login();
+
     cy.location().should(fallbackLocation);
   });
 
   it("Default query params are not changed when all required query params exist and are valid", function() {
     cy.visit(`${taskPath}?category=DURATION&page=4&limit=4&sort=-1`);
-    cy.login();
+
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(taskPath);
       expect(loc.search).to.include("category=DURATION");
@@ -40,7 +44,7 @@ describe("Test Table Route", function() {
 
   it("Category query param is case insensitve", function() {
     cy.visit(`${taskPath}?category=DuRaTiOn&page=4&limit=4&sort=-1`);
-    cy.login();
+
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(taskPath);
       expect(loc.search).to.include("category=DuRaTiOn");
@@ -53,19 +57,19 @@ describe("Test Table Route", function() {
   describe("Page and Limit must be positive numbers", () => {
     it("Page cannot be less than 0", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=-1&limit=0&sort=1`);
-      cy.login();
+
       cy.location().should(fallbackLocation);
     });
 
     it("Limit cannot be less than 0", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=0&limit=-1&sort=1`);
-      cy.login();
+
       cy.location().should(fallbackLocation);
     });
 
     it("Page will truncate if it's a float", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=2.5&limit=1&sort=1`);
-      cy.login();
+
       cy.location().should(loc => {
         expect(loc.pathname).to.equal(taskPath);
         expect(loc.search).to.include("category=TEST_NAME");
@@ -77,7 +81,7 @@ describe("Test Table Route", function() {
 
     it("Limit will truncate if it's a float", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=0&limit=4.5&sort=1`);
-      cy.login();
+
       cy.location().should(loc => {
         expect(loc.pathname).to.equal(taskPath);
         expect(loc.search).to.include("category=TEST_NAME");
@@ -89,13 +93,13 @@ describe("Test Table Route", function() {
 
     it("Default query params are set if page query param is an array", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=[0,1,3,4]&limit=4&sort=1`);
-      cy.login();
+
       cy.location().should(fallbackLocation);
     });
 
     it("Default query params are set if limit query param is an array", function() {
       cy.visit(`${taskPath}?category=TEST_NAME&page=0&limit=[4,3,4]&sort=1]`);
-      cy.login();
+
       cy.location().should(fallbackLocation);
     });
   });
