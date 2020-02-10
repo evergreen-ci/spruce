@@ -24,6 +24,7 @@ import {
 import get from "lodash.get";
 import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
+
 const LIMIT = 10;
 const SpinWrapper = styled.div({
   textAlign: "center",
