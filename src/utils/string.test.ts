@@ -30,3 +30,8 @@ test("converts milli to 12m 12s", () => {
   const ms = 12 * 60 * 1000 + 12 * 1000;
   expect(msToDuration(ms)).toBe("12m 12s");
 });
+
+test("converts milli to 25s", () => {
+  const ms = 25000;
+  expect(msToDuration(ms)).toBe("25s 0ms");
+});
