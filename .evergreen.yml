@@ -61,31 +61,23 @@ functions:
       working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       binary: make
       args: ["${make_args|}", "${target}"]
+      background: false
+      env:
+        GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: ${gobin}
+        GOROOT: ${goroot}
+
+  run-make-background:
+    command: subprocess.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
       background: true
       env:
-        ACL_ENABLED: ${acl_enabled}
-        AWS_KEY: ${aws_key}
-        AWS_SECRET: ${aws_secret}
-        CLIENT_URL: https://s3.amazonaws.com/mciuploads/evergreen/${task_id}/evergreen-ci/evergreen/clients/${goos}_${goarch}/evergreen
-        DEBUG_ENABLED: ${debug}
-        DISABLE_COVERAGE: ${disable_coverage}
-        DOCKER_HOST: ${docker_host}
-        EVERGREEN_ALL: "true"
-        GOARCH: ${goarch}
-        GO_BIN_PATH: ${gobin}
-        LEGACY_GO_BIN_PATH: ${legacyGobin}
-        GOOS: ${goos}
         GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: ${gobin}
         GOROOT: ${goroot}
-        IS_DOCKER: ${is_docker}
-        KARMA_REPORTER: junit
-        NODE_BIN_PATH: ${nodebin}
-        RACE_DETECTOR: ${race_detector}
-        SETTINGS_OVERRIDE: creds.yml
-        TEST_TIMEOUT: ${test_timeout}
-        VENDOR_PKG: "github.com/${trigger_repo_owner}/${trigger_repo_name}"
-        VENDOR_REVISION: ${trigger_revision}
-        XC_BUILD: ${xc_build}
 
   npm-start:
     command: subprocess.exec
@@ -93,7 +85,7 @@ functions:
     params:
       working_dir: spruce
       background: true
-      command: npm start
+      command: npm run start:dev-server
 
   npm-install:
     command: shell.exec
@@ -144,13 +136,69 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npx cypress run --record --key ${cypress_record_key}
+        npx cypress run --record --key ${cypress_record_key} --reporter junit
+
+  copy-cmdrc:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        cp config/.cmdrc_sample.json config/.cmdrc.json 
+  
+  log-evergreen-to-file:
+    command: shell.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      script: |
+        ./mongodb/mongo evergreen_local --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
 
   attach-results: 
     command: attach.xunit_results
     params:
       files:
         - "./spruce/junit.xml"
+
+  attach-cypress-screenshots:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/screenshots/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: image/png
+      permissions: public-read
+      display_name: "screenshot:"
+
+  attach-cypress-videos:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/videos/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: video/mp4
+      permissions: public-read
+      display_name: "video:"
+
+  attach-server-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["gopath/src/github.com/evergreen-ci/evergreen/server_logs.txt"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
+      display_name: "server logs"
 
 #######################################
 #                Tasks                #
@@ -169,7 +217,6 @@ tasks:
     - func: get-project
     - func: npm-install
     - func: npm-test
-    - func: attach-results
 
   - name: lint
     commands:
@@ -187,9 +234,14 @@ tasks:
     commands:
     - func: get-evergreen-project
     - func: setup-mongodb
+    - func: copy-cmdrc
     - func: run-make
       vars:
-        target: "local-evergreen"
+        target: load-local-data
+    - func: log-evergreen-to-file
+    - func: run-make-background
+      vars:
+        target: local-evergreen
     - func: npm-install
     - func: npm-start
     - func: run-cypress-tests
@@ -207,3 +259,12 @@ buildvariants:
     - name: lint
     - name: coverage
     - name: e2e_test
+    expansions:
+      gobin: /opt/golang/go1.13.4/bin/go
+      goroot: /opt/golang/go1.13.4
+
+post:
+  - func: attach-results
+  - func: attach-cypress-screenshots
+  - func: attach-cypress-videos
+  - func: attach-server-logs
