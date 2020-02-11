@@ -7,11 +7,11 @@ import { Login } from "pages/Login";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
 import { routes } from "contants/routes";
-import { Layout } from "antd";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PROJECTS, ProjectsQuery } from "graphql/queries/get-projects";
+import { PageLayout } from "components/styles/Layout";
 
 export const Content = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -26,7 +26,7 @@ export const Content = () => {
   }
 
   return (
-    <Layout style={{ background: "white" }}>
+    <PageLayout style={{ background: "white" }}>
       <Navbar data={data} loading={loading} />
       <PrivateRoute path={routes.task} component={Task} />
       <PrivateRoute path={routes.patch} component={Patch} />
@@ -35,6 +35,6 @@ export const Content = () => {
         <Redirect to={routes.myPatches} />
       </PrivateRoute>
       <Route path={routes.login} component={Login} />
-    </Layout>
+    </PageLayout>
   );
 };

@@ -16,7 +16,7 @@ export const BreadCrumb: React.FC<Props> = ({
   isTask = false
 }) => {
   return (
-    <Breadcrumb style={{ marginBottom: "25px" }}>
+    <StyledBreadcrumb>
       <StyledBreadcrumItem link={true}>
         <span id="bc-my-patches">
           <Link to={paths.myPatches}>My Patches</Link>
@@ -36,13 +36,17 @@ export const BreadCrumb: React.FC<Props> = ({
           <span id="bc-task">{displayName}</span>
         </StyledBreadcrumItem>
       )}
-    </Breadcrumb>
+    </StyledBreadcrumb>
   );
 };
 
 interface BreadcrumbItemProps {
   link?: boolean;
 }
+
+const StyledBreadcrumb = styled(Breadcrumb)`
+  margin-bottom: 25px;
+`;
 
 const StyledBreadcrumItem = styled(Breadcrumb.Item)`
   span > a {
