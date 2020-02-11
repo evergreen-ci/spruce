@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const taskID =
-  "mci_amazon_linux_test_model_grid_patch_6661f3b02a2bca29deb15feb543b3ba2079d8f1e_5dc5b45897b1d35e9c0d45bb_19_11_08_18_31_00";
+  "performance_linux_mmap_standalone_insert_37cb7ea09393e88662e3139bd20fa29e59f2a1a3_18_01_11_00_01_36";
 
 const taskPath = `/task/${taskID}/tests`;
 

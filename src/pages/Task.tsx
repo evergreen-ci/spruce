@@ -4,6 +4,11 @@ import { TestsTable } from "pages/task/TestsTable";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
+import { BigTitle } from "components/styles/Typography";
+import { PageWrapper } from "components/styles/PageWrapper";
+import { SiderCard } from "components/styles/SiderCard";
+import { PageHeader } from "components/styles/PageHeader";
+import { PageContent, PageLayout, PageSider } from "components/styles/Layout";
 
 enum Tab {
   Logs = "logs",
@@ -54,9 +59,20 @@ export const Task: React.FC = () => {
   } = data;
 
   return (
-    <>
+    <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
-      {tab === Tab.Tests && <TestsTable />}
-    </>
+      <PageHeader>
+        <BigTitle>Current Task Name</BigTitle>
+      </PageHeader>
+      <PageLayout>
+        <PageSider>
+          <SiderCard>Patch Metadata</SiderCard>
+          <SiderCard>Build Variants</SiderCard>
+        </PageSider>
+        <PageLayout>
+          <PageContent>{tab === Tab.Tests && <TestsTable />}</PageContent>
+        </PageLayout>
+      </PageLayout>
+    </PageWrapper>
   );
 };

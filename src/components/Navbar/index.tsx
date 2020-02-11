@@ -15,16 +15,22 @@ export const Navbar: React.FC<ProjectSelectProps> = ({ data, loading }) => {
   }
 
   return (
-    <Header style={{ background: "#20313c" }}>
+    <StyledHeader>
       <InnerWrapper>
         <ProjectSelect data={data} loading={loading} />
         <LogoutButton id="logout" onClick={logout}>
           Logout
         </LogoutButton>
       </InnerWrapper>
-    </Header>
+    </StyledHeader>
   );
 };
+
+const StyledHeader = styled(Header)`
+  background-color: #20313c;
+  background: #20313c;
+  margin-bottom: 20px;
+`;
 
 const InnerWrapper = styled.div`
   display: flex;
