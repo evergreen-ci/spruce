@@ -26,7 +26,7 @@ export const Content = () => {
   }
 
   return (
-    <PageLayout style={{ background: "white" }}>
+    <PageLayout>
       <Navbar data={data} loading={loading} />
       <PrivateRoute path={routes.task} component={Task} />
       <PrivateRoute path={routes.patch} component={Patch} />
