@@ -150,7 +150,7 @@ functions:
     params:
       working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       script: |
-        ./mongodb/mongo mci-smoke --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
+        ./mongodb/mongo mci_smoke --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
 
   attach-results: 
     command: attach.xunit_results
@@ -237,7 +237,7 @@ tasks:
     - func: copy-cmdrc
     - func: run-make
       vars:
-        target: load-local-data
+        target: load-smoke-data
     - func: log-evergreen-to-file
     - func: run-make-background
       vars:

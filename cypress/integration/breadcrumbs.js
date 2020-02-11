@@ -22,7 +22,7 @@ describe("TaskBreadcrumb", function() {
     cy.get("span[id=bc-patch]").click();
     cy.url().should(
       "include",
-      "/patch/performance_37cb7ea09393e88662e3139bd20fa29e59f2a1a3"
+      "/patch/logkeeper_edd78c1d581bf757a880777b00685321685a8e67"
     );
   });
 
@@ -38,7 +38,7 @@ describe("PatchBreadcrumb", function() {
     cy.login();
   });
   it("Shows the patches name", function() {
-    cy.visit("/patch/mci_8a4f834ba24ddf91f93d0a96b90452e9653f4138");
+    cy.visit("/patch/logkeeper_edd78c1d581bf757a880777b00685321685a8e67");
     // TODO: replace "Patch" with the actual patch's name once patch query is done
     cy.get("span[id=bc-patch]").should("include.text", "Patch");
   });
