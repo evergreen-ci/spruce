@@ -136,7 +136,6 @@ functions:
     params:
       working_dir: spruce
       script: |
-        sleep 10
         npx cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
@@ -151,7 +150,7 @@ functions:
     params:
       working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
       script: |
-        ./mongodb/mongo evergreen_local --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
+        ./mongodb/mongo mci-smoke --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
 
   attach-results: 
     command: attach.xunit_results
@@ -242,7 +241,7 @@ tasks:
     - func: log-evergreen-to-file
     - func: run-make-background
       vars:
-        target: local-evergreen
+        target: smoke-start-server
     - func: npm-install
     - func: npm-start
     - func: run-cypress-tests

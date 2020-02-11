@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const taskRoute =
-  "/task/performance_linux_mmap_standalone_insert_37cb7ea09393e88662e3139bd20fa29e59f2a1a3_18_01_11_00_01_36";
+  "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58";
 
 describe("TaskBreadcrumb", function() {
   before(() => {
@@ -10,7 +10,7 @@ describe("TaskBreadcrumb", function() {
 
   it("Shows tasks display name", function() {
     cy.visit(taskRoute);
-    cy.get("span[id=bc-task]").should("include.text", "test-agent");
+    cy.get("span[id=bc-task]").should("include.text", "test");
   });
 
   it("Shows the patches name", function() {
