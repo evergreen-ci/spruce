@@ -32,7 +32,7 @@ const toast: ToastDispatchValue = {
   info: showToastMessage(Toast.info)
 };
 
-const MessagesProvider: React.FC = ({ children }) => {
+const ToastProvider: React.FC = ({ children }) => {
   return (
     <MessagesDispatchContext.Provider value={toast}>
       {children}
@@ -40,12 +40,12 @@ const MessagesProvider: React.FC = ({ children }) => {
   );
 };
 
-const useMessageContext = () => {
+const useToastContext = () => {
   const context = React.useContext(MessagesDispatchContext);
   if (context === undefined) {
-    throw new Error("useMessageContext must be used within a MessagesProvider");
+    throw new Error("useToastContext must be used within a ToastProvider");
   }
   return context;
 };
 
-export { MessagesProvider, useMessageContext };
+export { ToastProvider, useToastContext };
