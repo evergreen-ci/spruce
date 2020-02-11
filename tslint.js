@@ -1,0 +1,37 @@
+module.exports = {
+  extends: [
+    "tslint:recommended",
+    "tslint-react",
+    "tslint-config-prettier",
+    "tslint-plugin-graphql"
+  ],
+  linterOptions: {
+    exclude: [
+      "config/**/*.js",
+      "node_modules/**/*.ts",
+      "coverage/lcov-report/*.js",
+      "scripts/*",
+      "src/serviceWorker.ts"
+    ]
+  },
+  rules: {
+    "no-console": false,
+    "ordered-imports": [false],
+    "object-literal-sort-keys": false,
+    "object-literal-shorthand": false,
+    "interface-name": false,
+    "max-classes-per-file": false,
+    "comment-format": false,
+    "class-name": false,
+    "max-line-length": false,
+    graphql: [
+      true,
+      {
+        // Import default settings for your GraphQL client. Supported values:
+        // 'apollo', 'relay', 'lokka'
+        env: "apollo",
+        schemaJsonFilepath: "./graphql.schema.json"
+      }
+    ]
+  }
+};
