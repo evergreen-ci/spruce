@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { Breadcrumb } from "antd";
 import { paths } from "contants/routes";
+import styled from "@emotion/styled/macro";
 
 interface Props {
   version?: string; // only required when rendered on task page
@@ -15,26 +16,36 @@ export const BreadCrumb: React.FC<Props> = ({
   isTask = false
 }) => {
   return (
-    <Breadcrumb>
+    <StyledBreadcrumb>
       <Breadcrumb.Item>
-        <span id="bc-my-patches">
+        <Text id="bc-my-patches">
           <Link to={paths.myPatches}>My Patches</Link>
-        </span>
+        </Text>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <span id="bc-patch">
+        <Text id="bc-patch">
           {isTask ? (
             <Link to={`${paths.patch}/${version}`}>Patch</Link>
           ) : (
             "Patch"
           )}
-        </span>
+        </Text>
       </Breadcrumb.Item>
       {isTask && (
         <Breadcrumb.Item>
-          <span id="bc-task">{displayName}</span>
+          <Text id="bc-task">{displayName}</Text>
         </Breadcrumb.Item>
       )}
-    </Breadcrumb>
+    </StyledBreadcrumb>
   );
 };
+
+const StyledBreadcrumb = styled(Breadcrumb)`
+  margin-bottom: 25px;
+`;
+
+const Text = styled.span`
+  & > a {
+    color: #40a9ff;
+  }
+`;
