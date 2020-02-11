@@ -14,6 +14,7 @@ import {
 import { Content } from "./components/Content";
 import "antd/dist/antd.css";
 import { ContextProviders } from "./context/Providers";
+import { Global, css } from "@emotion/core";
 
 const bugsnagClient = bugsnag(getBugsnagApiKey());
 bugsnagClient.use(bugsnagReact, React);
@@ -32,6 +33,12 @@ const App: React.FC = () => {
             credentials="include"
             shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
           >
+            <Global
+              styles={css`
+                background-color: white;
+                background: white;
+              `}
+            />
             <Content />
           </GQLWrapper>
         </Router>
