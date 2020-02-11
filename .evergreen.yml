@@ -238,7 +238,6 @@ tasks:
     - func: run-make
       vars:
         target: load-smoke-data
-    - func: log-evergreen-to-file
     - func: run-make-background
       vars:
         target: smoke-start-server
