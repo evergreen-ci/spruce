@@ -48,4 +48,4 @@ const useMessageContext = () => {
   return context;
 };
 
-export { MessagesDispatchContext, MessagesProvider, useMessageContext };
+export { MessagesProvider, useMessageContext };
