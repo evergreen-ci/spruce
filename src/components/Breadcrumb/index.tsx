@@ -17,40 +17,35 @@ export const BreadCrumb: React.FC<Props> = ({
 }) => {
   return (
     <StyledBreadcrumb>
-      <StyledBreadcrumItem link={true}>
-        <span id="bc-my-patches">
+      <Breadcrumb.Item>
+        <Text id="bc-my-patches">
           <Link to={paths.myPatches}>My Patches</Link>
-        </span>
-      </StyledBreadcrumItem>
-      <StyledBreadcrumItem link={isTask}>
-        <span id="bc-patch">
+        </Text>
+      </Breadcrumb.Item>
+      <Breadcrumb.Item>
+        <Text id="bc-patch">
           {isTask ? (
             <Link to={`${paths.patch}/${version}`}>Patch</Link>
           ) : (
             "Patch"
           )}
-        </span>
-      </StyledBreadcrumItem>
+        </Text>
+      </Breadcrumb.Item>
       {isTask && (
-        <StyledBreadcrumItem>
-          <span id="bc-task">{displayName}</span>
-        </StyledBreadcrumItem>
+        <Breadcrumb.Item>
+          <Text id="bc-task">{displayName}</Text>
+        </Breadcrumb.Item>
       )}
     </StyledBreadcrumb>
   );
 };
 
-interface BreadcrumbItemProps {
-  link?: boolean;
-}
-
 const StyledBreadcrumb = styled(Breadcrumb)`
   margin-bottom: 25px;
 `;
 
-const StyledBreadcrumItem = styled(Breadcrumb.Item)`
-  span > a {
-    color: ${(props: BreadcrumbItemProps) =>
-      props.link ? "#40a9ff" : "rgba(0, 0, 0, 0.45)"};
+const Text = styled.span`
+  & > a {
+    color: #40a9ff;
   }
 `;
