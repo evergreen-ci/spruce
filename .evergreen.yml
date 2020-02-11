@@ -144,13 +144,6 @@ functions:
       working_dir: spruce
       script: |
         cp config/.cmdrc_sample.json config/.cmdrc.json 
-  
-  log-evergreen-to-file:
-    command: shell.exec
-    params:
-      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
-      script: |
-        ./mongodb/mongo mci_smoke --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
 
   attach-results: 
     command: attach.xunit_results
