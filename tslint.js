@@ -1,10 +1,5 @@
 module.exports = {
-  extends: [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-prettier",
-    "tslint-plugin-graphql"
-  ],
+  extends: ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   linterOptions: {
     exclude: [
       "config/**/*.js",
@@ -23,15 +18,6 @@ module.exports = {
     "max-classes-per-file": false,
     "comment-format": false,
     "class-name": false,
-    "max-line-length": false,
-    graphql: [
-      true,
-      {
-        // Import default settings for your GraphQL client. Supported values:
-        // 'apollo', 'relay', 'lokka'
-        env: "apollo",
-        schemaJsonFilepath: "./graphql.schema.json"
-      }
-    ]
+    "max-line-length": false
   }
 };
