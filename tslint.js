@@ -1,7 +1,7 @@
-{
-  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
-  "linterOptions": {
-    "exclude": [
+module.exports = {
+  extends: ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
+  linterOptions: {
+    exclude: [
       "config/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
@@ -9,7 +9,7 @@
       "src/serviceWorker.ts"
     ]
   },
-  "rules": {
+  rules: {
     "no-console": false,
     "ordered-imports": [false],
     "object-literal-sort-keys": false,
@@ -20,4 +20,4 @@
     "class-name": false,
     "max-line-length": false
   }
-}
+};
