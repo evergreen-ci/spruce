@@ -54,8 +54,8 @@
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
     "lint": "tslint -c tslint.js 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.js 'src/**/*.ts?(x)'",
-    "coverage": "npm run test -- --coverage --watchAll=false",
-    "get-sdl-schema": "curl https://raw.githubusercontent.com/evergreen-ci/evergreen/master/graphql/schema.graphql > sdlschema.graphql"
+    "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)'",
+    "coverage": "npm run test -- --coverage --watchAll=false"
   },
   "eslintConfig": {
     "extends": "react-app"

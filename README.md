@@ -18,11 +18,15 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 1. Clone the Spruce Github repository
 2. Run `npm install`
-3. Run `npm run get-sdl-schema` to get a GraphQL schema file used for query linting
-4. To launch the app, run one these three commands with .cmdrc.json file set described in the next section:
+3. To launch the app, run one these three commands with .cmdrc.json file set described in the next section:
    `npm run start:dev-server` will make requests to a GQL server at http://localhost:9090/graphql/query
    `npm run start:mock-instrospect-schema` will obtain a GQL schema via intropspection from http://localhost:9090/graphql/query and mock GQL responses
    `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
+
+### GQL Query Linting
+
+Before running locally, symlink your GraphQL schema in formatted in the schema definition language to a file named sdlschema in the root of the Spruce directory to enable query linting with ESlint like so `ln -s /path/to/schema sdlschema`
+Run `npm run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor.
 
 ### Environment Variables
 
