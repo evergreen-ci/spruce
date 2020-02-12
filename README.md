@@ -26,7 +26,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 ### GQL Query Linting
 
 1. Symlink your standard definition language GraphQL schema to a file named sdlschema in the root of the Spruce directory to enable query linting with ESlint like so `ln -s /path/to/schema sdlschema`
-2. Run `npm run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor.
+2. Run `npm run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor. If you are using VSCode, we reccomend ESLint by Dirk Baeumer.
 
 ### Environment Variables
 
