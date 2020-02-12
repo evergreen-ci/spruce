@@ -144,13 +144,6 @@ functions:
       working_dir: spruce
       script: |
         cp config/.cmdrc_sample.json config/.cmdrc.json 
-  
-  log-evergreen-to-file:
-    command: shell.exec
-    params:
-      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
-      script: |
-        ./mongodb/mongo evergreen_local --eval 'db.admin.updateOne({_id:"global"},{$set:{log_path:"server_logs.txt"}})'
 
   attach-results: 
     command: attach.xunit_results
@@ -237,11 +230,10 @@ tasks:
     - func: copy-cmdrc
     - func: run-make
       vars:
-        target: load-local-data
-    - func: log-evergreen-to-file
+        target: load-smoke-data
     - func: run-make-background
       vars:
-        target: local-evergreen
+        target: smoke-start-server
     - func: npm-install
     - func: npm-start
     - func: run-cypress-tests
