@@ -22,7 +22,7 @@ enum Toast {
   info = "info"
 }
 
-const showToastMessage = (t: keyof typeof Toast) => (toastMessage: string) =>
+const showToastMessage = (t: Toast) => (toastMessage: string) =>
   message[t](toastMessage);
 
 const toast: ToastDispatchValue = {
