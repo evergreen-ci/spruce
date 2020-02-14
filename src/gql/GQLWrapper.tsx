@@ -94,9 +94,7 @@ const retryLink = new RetryLink({
   },
   attempts: {
     max: 5,
-    retryIf: (error, _operation): boolean => {
-      return error && error.response.status !== 401;
-    }
+    retryIf: (error): boolean => error && error.response.status !== 401
   }
 });
 
