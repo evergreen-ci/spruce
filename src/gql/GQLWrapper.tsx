@@ -3,6 +3,7 @@ import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
+import { RetryLink } from "apollo-link-retry";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
   addMockFunctionsToSchema,
@@ -85,6 +86,20 @@ const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
     });
   });
 
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true
+  },
+  attempts: {
+    max: 5,
+    retryIf: (error, _operation): boolean => {
+      return error && error.response.status !== 401;
+    }
+  }
+});
+
 export const getGQLClient = async ({
   credentials,
   gqlURL,
@@ -107,6 +122,7 @@ export const getGQLClient = async ({
     cache,
     link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
+      .concat(retryLink)
       .concat(link)
   });
   return client;
