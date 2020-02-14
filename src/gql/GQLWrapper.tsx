@@ -89,7 +89,7 @@ const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
 const retryLink = new RetryLink({
   delay: {
     initial: 300,
-    max: Infinity,
+    max: 3000,
     jitter: true
   },
   attempts: {
