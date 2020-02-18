@@ -10,6 +10,7 @@
     "@emotion/core": "^10.0.27",
     "@emotion/styled": "^10.0.27",
     "@leafygreen-ui/badge": "^3.0.0",
+    "@leafygreen-ui/button": "^4.1.0",
     "@leafygreen-ui/card": "^2.0.0",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.4.0",
