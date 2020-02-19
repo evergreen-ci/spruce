@@ -66,4 +66,18 @@ describe("tests table", function() {
       expect(loc.search).to.include("sort=-1");
     });
   });
+
+  it("Should not adjust URL params when clicking Logs tab", () => {
+    const assertInitialURLState = () =>
+      cy.location().should(loc => {
+        expect(loc.pathname).to.equal(TESTS_ROUTE);
+        expect(loc.search).to.include("category=TEST_NAME");
+        expect(loc.search).to.include("sort=1");
+      });
+    cy.visit(TESTS_ROUTE);
+    assertInitialURLState();
+    waitForTestsQuery();
+    cy.contains(TABLE_SORT_SELECTOR, "Logs").click();
+    assertInitialURLState();
+  });
 });
