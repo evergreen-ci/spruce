@@ -4,7 +4,7 @@ import { waitForGQL } from "../utils/networking";
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
 const TESTS_ROUTE =
-  "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests";
+  "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58/tests";
 describe("tests table", function() {
   beforeEach(() => {
     cy.server();
@@ -12,13 +12,13 @@ describe("tests table", function() {
     cy.route("POST", "/graphql/query").as("gqlQuery");
   });
 
-  it.skip("Should display No Data when given an invalid TaskID in the url", () => {
+  it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     waitForGQL("@gqlQuery", "GetTask");
     cy.get(".ant-table").should("not.exist");
   });
 
-  it.skip("Should have sort buttons disabled when fetching data", () => {
+  it("Should have sort buttons disabled when fetching data", () => {
     cy.visit(TESTS_ROUTE);
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
     cy.once("fail", err => {
@@ -28,7 +28,8 @@ describe("tests table", function() {
     });
   });
 
-  it.skip("Adjusts query params when table headers are clicked", () => {
+  //this test is skipped until we can use POST body to match routes with cypress
+  it("Adjusts query params when table headers are clicked", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
