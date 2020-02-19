@@ -28,7 +28,6 @@ describe("tests table", function() {
     });
   });
 
-  //this test is skipped until we can use POST body to match routes with cypress
   it("Adjusts query params when table headers are clicked", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
