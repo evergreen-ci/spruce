@@ -67,7 +67,7 @@ describe("tests table", function() {
     });
   });
 
-  it.skip("Should not adjust URL params when clicking Logs tab", () => {
+  it("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
       cy.location().should(loc => {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
