@@ -67,7 +67,7 @@ describe("tests table", function() {
     });
   });
 
-  it("Should not adjust URL params when clicking Logs tab", () => {
+  it.skip("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
       cy.location().should(loc => {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
@@ -79,5 +79,12 @@ describe("tests table", function() {
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Logs").click();
     assertInitialURLState();
+  });
+
+  it("Buttons in log column should have target=_blank attribute", () => {
+    cy.visit(TESTS_ROUTE);
+    waitForTestsQuery();
+    cy.get(".htmlBtn").should("have.attr", "target", "_blank");
+    cy.get(".rawBtn").should("have.attr", "target", "_blank");
   });
 });

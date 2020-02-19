@@ -108,6 +108,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           {htmlDisplayURL && (
             <ButtonWrapper>
               <Button
+                className="htmlBtn"
                 size="small"
                 target="_blank"
                 variant="default"
@@ -119,6 +120,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
           {rawDisplayURL && (
             <Button
+              className="rawBtn"
               size="small"
               target="_blank"
               variant="default"
