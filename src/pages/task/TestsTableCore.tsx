@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { ColumnProps, TableProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
+import Button from "@leafygreen-ui/button";
 import {
   Categories,
   GET_TASK_TESTS,
@@ -32,6 +33,9 @@ const SpinWrapper = styled.div({
   paddingBottom: 40,
   border: "1px solid #e8e8e8"
 });
+const ButtonWrapper = styled.span({
+  marginRight: 8
+});
 const loadMoreContent = (
   <SpinWrapper>
     <Spin tip="Loading..." />
@@ -49,8 +53,8 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "status",
     key: Categories.Status,
     sorter: true,
-    width: "25%",
-    render: (tag: string) => {
+    width: "20%",
+    render: (tag: string): JSX.Element => {
       let color: Variant = Variant.LightGray;
       switch (tag) {
         case TestStatus.Succeeded:
@@ -77,7 +81,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
   },
   {
     title: "Time",
-    width: "25%",
+    width: "20%",
     dataIndex: "duration",
     key: Categories.Duration,
     sorter: true,
@@ -85,9 +89,50 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
       const ms = text * 1000;
       return msToDuration(Math.trunc(ms));
     }
+  },
+  {
+    title: "Logs",
+    width: "20%",
+    dataIndex: "logs",
+    key: "logs",
+    sorter: false,
+    render: ({
+      htmlDisplayURL,
+      rawDisplayURL
+    }: {
+      htmlDisplayURL: string;
+      rawDisplayURL: string;
+    }): JSX.Element => {
+      return (
+        <>
+          {htmlDisplayURL && (
+            <ButtonWrapper>
+              <Button
+                size="small"
+                target="_blank"
+                variant="default"
+                href={htmlDisplayURL}
+              >
+                HTML
+              </Button>
+            </ButtonWrapper>
+          )}
+          {rawDisplayURL && (
+            <Button
+              size="small"
+              target="_blank"
+              variant="default"
+              href={rawDisplayURL}
+            >
+              Raw
+            </Button>
+          )}
+        </>
+      );
+    }
   }
 ];
-const rowKey = ({ id }) => id;
+const rowKey = ({ id }: { id: string }): string => id;
 
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
@@ -154,7 +199,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     });
   }
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
-  const onFetch = () => {
+  const onFetch = (): void => {
     if (networkStatus === NetworkStatus.error || error) {
       return;
     }
