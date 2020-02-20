@@ -11,7 +11,7 @@ const whiteBackground = css`
 
 export const PageContent = styled(Content)`
   ${whiteBackground}
-  margin-left: 8px;
+  margin-left: 16px;
   min-height: 280;
 `;
 
