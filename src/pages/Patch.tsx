@@ -23,10 +23,8 @@ export const Patch = () => {
   }
   if (error) {
     // TODO: replace with proper error page
-    return <div>{error.message}</div>;
+    return <div id="patch-error">{error.message}</div>;
   }
-
-  console.log("data", data);
 
   const {
     patch: {
@@ -43,7 +41,9 @@ export const Patch = () => {
     <PageWrapper>
       <BreadCrumb displayName="Specific Patch" />
       <PageHeader>
-        <H1>{description ? description : "Current Patch Name"}</H1>
+        <H1 id="patch-name">
+          {description ? description : `Patch: ${patchID}`}
+        </H1>
       </PageHeader>
       <PageLayout>
         <PageSider>
@@ -58,6 +58,7 @@ export const Patch = () => {
             <P2>{`Submitted by: ${author}`}</P2>
             <P2>
               <StyledLink
+                id="patch-base-commit"
                 href={`https://evergreen.mongodb.com/version/${version}`}
               >
                 Base commit: {githash.slice(0, 10)}

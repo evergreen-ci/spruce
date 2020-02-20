@@ -3,5 +3,6 @@
   "projectId": "m45k1x",
   "reporterOptions": {
     "mochaFile": "junit.xml"
-  }
+  },
+  "chromeWebSecurity": false
 }
