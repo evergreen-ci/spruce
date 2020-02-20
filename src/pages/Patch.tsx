@@ -1,15 +1,18 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
 import { useParams } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { H1, H3, P2 } from "components/Typography";
-import { PageWrapper } from "components/styles/PageWrapper";
-import { SiderCard } from "components/styles/SiderCard";
-import { PageHeader } from "components/styles/PageHeader";
-import { PageContent, PageLayout, PageSider } from "components/styles/Layout";
+import {
+  PageWrapper,
+  SiderCard,
+  PageHeader,
+  StyledLink,
+  PageContent,
+  PageLayout,
+  PageSider
+} from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { useQuery } from "@apollo/react-hooks";
-import { blueBase } from "contants/colors";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
 
 export const Patch = () => {
@@ -77,14 +80,3 @@ export const Patch = () => {
     </PageWrapper>
   );
 };
-
-const StyledLink = styled.a`
-  text-decoration: none;
-  margin: none;
-  padding: none;
-  cursor: pointer;
-  color: ${blueBase};
-  &:hover {
-    text-decoration: underline;
-  }
-`;

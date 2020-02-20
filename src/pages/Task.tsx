@@ -5,10 +5,14 @@ import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { H1 } from "components/Typography";
-import { PageWrapper } from "components/styles/PageWrapper";
-import { SiderCard } from "components/styles/SiderCard";
-import { PageHeader } from "components/styles/PageHeader";
-import { PageContent, PageLayout, PageSider } from "components/styles/Layout";
+import {
+  PageWrapper,
+  SiderCard,
+  PageHeader,
+  PageContent,
+  PageLayout,
+  PageSider
+} from "components/styles";
 
 enum Tab {
   Logs = "logs",
