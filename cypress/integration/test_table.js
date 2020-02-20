@@ -28,7 +28,6 @@ describe("tests table", function() {
     });
   });
 
-  //this test is skipped until we can use POST body to match routes with cypress
   it("Adjusts query params when table headers are clicked", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
@@ -66,5 +65,26 @@ describe("tests table", function() {
       expect(loc.search).to.include("category=DURATION");
       expect(loc.search).to.include("sort=-1");
     });
+  });
+
+  it("Should not adjust URL params when clicking Logs tab", () => {
+    const assertInitialURLState = () =>
+      cy.location().should(loc => {
+        expect(loc.pathname).to.equal(TESTS_ROUTE);
+        expect(loc.search).to.include("category=TEST_NAME");
+        expect(loc.search).to.include("sort=1");
+      });
+    cy.visit(TESTS_ROUTE);
+    assertInitialURLState();
+    waitForTestsQuery();
+    cy.contains(TABLE_SORT_SELECTOR, "Logs").click();
+    assertInitialURLState();
+  });
+
+  it("Buttons in log column should have target=_blank attribute", () => {
+    cy.visit(TESTS_ROUTE);
+    waitForTestsQuery();
+    cy.get("#htmlBtn0").should("have.attr", "target", "_blank");
+    cy.get("#rawBtn0").should("have.attr", "target", "_blank");
   });
 });
