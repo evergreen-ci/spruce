@@ -14,6 +14,7 @@ import {
 import { Divider } from "components/styles/Divider";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 export const Patch = () => {
   const { patchID } = useParams<{ patchID: string }>();
@@ -62,7 +63,7 @@ export const Patch = () => {
             <P2>
               <StyledLink
                 id="patch-base-commit"
-                href={`https://evergreen.mongodb.com/version/${version}`}
+                href={`${getUiUrl()}/version/${version}`}
               >
                 Base commit: {githash.slice(0, 10)}
               </StyledLink>
