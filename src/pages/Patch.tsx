@@ -8,61 +8,9 @@ import { SiderCard } from "components/styles/SiderCard";
 import { PageHeader } from "components/styles/PageHeader";
 import { PageContent, PageLayout, PageSider } from "components/styles/Layout";
 import { Divider } from "components/styles/Divider";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { blueBase } from "contants/colors";
-
-interface Patch {
-  id: string;
-  description: string;
-  projectID: string;
-  githash: string;
-  patchNumber: string;
-  author: string;
-  version: string;
-  status: string;
-  activated: string;
-  alias: string;
-  duration: {
-    makespan: string;
-    timeTaken: string;
-  };
-  time: {
-    started?: string;
-    finished?: string;
-    submittedAt: string;
-  };
-}
-
-interface PatchQuery {
-  patch: Patch;
-}
-
-const GET_PATCH = gql`
-  query Patch($id: String!) {
-    patch(id: $id) {
-      id
-      description
-      projectID
-      githash
-      patchNumber
-      author
-      version
-      status
-      activated
-      alias
-      duration {
-        makespan
-        timeTaken
-      }
-      time {
-        started
-        submittedAt
-        finished
-      }
-    }
-  }
-`;
+import { GET_PATCH, PatchQuery } from "gql/queries/patch";
 
 export const Patch = () => {
   const { patchID } = useParams<{ patchID: string }>();
