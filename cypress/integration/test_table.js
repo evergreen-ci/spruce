@@ -84,7 +84,7 @@ describe("tests table", function() {
   it("Buttons in log column should have target=_blank attribute", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
-    cy.get(".htmlBtn").should("have.attr", "target", "_blank");
-    cy.get(".rawBtn").should("have.attr", "target", "_blank");
+    cy.get("#htmlBtn0").should("have.attr", "target", "_blank");
+    cy.get("#rawBtn0").should("have.attr", "target", "_blank");
   });
 });

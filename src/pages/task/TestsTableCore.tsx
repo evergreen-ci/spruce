@@ -33,9 +33,6 @@ const SpinWrapper = styled.div({
   paddingBottom: 40,
   border: "1px solid #e8e8e8"
 });
-const ButtonWrapper = styled.span({
-  marginRight: 8
-});
 const loadMoreContent = (
   <SpinWrapper>
     <Spin tip="Loading..." />
@@ -96,19 +93,20 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: ({
-      htmlDisplayURL,
-      rawDisplayURL
-    }: {
-      htmlDisplayURL: string;
-      rawDisplayURL: string;
-    }): JSX.Element => {
+    render: (
+      {
+        htmlDisplayURL,
+        rawDisplayURL
+      }: { htmlDisplayURL: string; rawDisplayURL: string },
+      record,
+      index
+    ): JSX.Element => {
       return (
         <>
           {htmlDisplayURL && (
             <ButtonWrapper>
               <Button
-                className="htmlBtn"
+                id={`htmlBtn${index}`}
                 size="small"
                 target="_blank"
                 variant="default"
@@ -120,7 +118,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
           {rawDisplayURL && (
             <Button
-              className="rawBtn"
+              id={`rawBtn${index}`}
               size="small"
               target="_blank"
               variant="default"
@@ -281,3 +279,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     </div>
   );
 };
+
+const ButtonWrapper = styled.span({
+  marginRight: 8
+});
