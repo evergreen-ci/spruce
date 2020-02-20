@@ -1,12 +1,14 @@
 import styled from "@emotion/styled/macro";
-import { blueBase } from "../../contants/colors";
+import { uiColors } from "@leafygreen-ui/palette";
+
+const { blue } = uiColors;
 
 export const StyledLink = styled.a`
   text-decoration: none;
   margin: none;
   padding: none;
   cursor: pointer;
-  color: ${blueBase};
+  color: ${blue.base};
   &:hover {
     text-decoration: underline;
   }
