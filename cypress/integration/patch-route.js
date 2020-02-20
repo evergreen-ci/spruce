@@ -22,10 +22,7 @@ describe("Patch route", function() {
   it("Clicking 'Base commit' link in metadata goes to version page of legacy UI", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.get("a[id=patch-base-commit]").click();
-    cy.url().should(
-      "include",
-      `https://evergreen.mongodb.com/version/${patch.id}`
-    );
+    cy.url().should("eq", `https://evergreen.mongodb.com/version/${patch.id}`);
   });
 
   it("Shows an error page if there was a problem loading data", () => {
