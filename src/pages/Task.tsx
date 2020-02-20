@@ -4,7 +4,7 @@ import { TestsTable } from "pages/task/TestsTable";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { BigTitle } from "components/styles/Typography";
+import { H1 } from "components/Typography";
 import { PageWrapper } from "components/styles/PageWrapper";
 import { SiderCard } from "components/styles/SiderCard";
 import { PageHeader } from "components/styles/PageHeader";
@@ -62,7 +62,7 @@ export const Task: React.FC = () => {
     <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
       <PageHeader>
-        <BigTitle>Current Task Name</BigTitle>
+        <H1>Current Task Name</H1>
       </PageHeader>
       <PageLayout>
         <PageSider>

@@ -19,7 +19,11 @@ export const PageLayout = styled(Layout)`
   ${whiteBackground}
 `;
 
+const siderWidth = "275px";
+
 export const PageSider = styled(Sider)`
   ${whiteBackground}
-  width: 200px;
+  width: ${siderWidth} !important;
+  max-width: ${siderWidth} !important;
+  min-width: ${siderWidth} !important;
 `;
