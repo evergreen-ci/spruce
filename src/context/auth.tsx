@@ -1,6 +1,6 @@
 import React, { useContext, useReducer, useCallback } from "react";
 import axios from "axios";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { getLoginDomain } from "utils/getEnvironmentVariables";
 
 interface State {
   isAuthenticated: boolean;
@@ -45,7 +45,7 @@ const reducer = (state: State, action: Action): State => {
 
 const logout = async (dispatch: Dispatch) => {
   try {
-    await axios.get(`${getUiUrl()}/logout`);
+    await axios.get(`${getLoginDomain()}/logout`);
     dispatch({ type: "deauthenticate" });
   } catch (error) {
     // TODO: log errors
@@ -61,7 +61,10 @@ const login = async (
   { username, password }: LoginParams
 ) => {
   try {
-    await axios.post(`${getUiUrl()}/login`, { username, password });
+    await axios.post(`${getLoginDomain()}/login`, {
+      username,
+      password
+    });
     dispatch({ type: "authenticate" });
   } catch (error) {
     // TODO: log errors
