@@ -9,76 +9,92 @@ import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 import { fireEvent } from "@testing-library/react";
 
+const testLog = {
+  htmlDisplayURL: "",
+  rawDisplayURL: "",
+  __typename: "TestLog"
+};
 const taskTestsPageZero = [
   {
     id: "59ef7a20a7798219e191d106",
     status: "skip",
     testFile: "TestMetricsSuite/TestRunForIntervalAndSendMessages",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191d0f2",
     status: "skip",
     testFile: "TestMetricsSuite/TestCollectSubProcesses",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf82",
     status: "pass",
     testFile: "TestAgentSuite",
     duration: 0.039999961853027344,
-    __typename: "TestResult"
+    __typename: "TestResult",
+
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf67",
     status: "pass",
     testFile: "TestCommandSuite/TestShellExec",
     duration: 0.019999980926513672,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf91",
     status: "pass",
     testFile: "TestAgentSuite/TestAbort",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cfad",
     status: "pass",
     testFile: "TestAgentSuite/TestCancelRunCommands",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a2117798219e191cfa3",
     status: "pass",
     testFile: "TestAgentSuite/TestAgentEndTaskShouldExit",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef71.0a7798219e191cf79",
     status: "pass",
     testFile: "TestAgentIntegrationSuite/TestAbortTask",
     duration: 0.1099998950958252,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798119e191cf50",
     status: "pass",
     testFile: "TestCommandSuite",
     duration: 0.06999993324279785,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf5e",
     status: "pass",
     testFile: "TestCommandSuite/TestS3Copy",
     duration: 0.039999961853027344,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   }
 ];
 const taskTestsPageOne = [
@@ -87,70 +103,80 @@ const taskTestsPageOne = [
     status: "pass",
     testFile: "TestAgentSuite/TestAbort",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cfde",
     status: "pass",
     testFile: "TestAgentSuite/TestFinishTaskEndTaskError",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cff9",
     status: "pass",
     testFile: "TestAgentSuite/TestRunPostTaskCommands",
     duration: 0.019999980926513672,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cfa3",
     status: "pass",
     testFile: "TestAgentSuite/TestAgentEndTaskShouldExit",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191d005",
     status: "pass",
     testFile: "TestAgentSuite/TestRunPreTaskCommands",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cff0",
     status: "pass",
     testFile: "TestAgentSuite/TestNextTaskResponseShouldExit",
     duration: 0,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf79",
     status: "pass",
     testFile: "TestAgentIntegrationSuite/TestAbortTask",
     duration: 0.1099998950958252,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf50",
     status: "pass",
     testFile: "TestCommandSuite",
     duration: 0.06999993324279785,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf2x",
     status: "pass",
     testFile: "TestCommandSuite/TestS3Copy",
     duration: 0.039999961853027344,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   },
   {
     id: "59ef7a20a7798219e191cf71",
     status: "pass",
     testFile: "TestAgentIntegrationSuite",
     duration: 0.11999988555908203,
-    __typename: "TestResult"
+    __typename: "TestResult",
+    logs: testLog
   }
 ];
 

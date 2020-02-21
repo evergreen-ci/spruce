@@ -19,6 +19,10 @@ export const GET_TASK_TESTS = gql`
       status
       testFile
       duration
+      logs {
+        htmlDisplayURL
+        rawDisplayURL
+      }
     }
   }
 `;
