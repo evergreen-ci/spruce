@@ -27,7 +27,8 @@ describe("TaskBreadcrumb", function() {
   });
 
   it("Clicking 'My Patches' breadcrumb goes to /my-patches route", function() {
-    cy.go("back");
+    cy.login();
+    cy.visit(taskRoute);
     cy.get("span[id=bc-my-patches]").click();
     cy.url().should("include", "/my-patches");
   });
@@ -37,8 +38,9 @@ describe("PatchBreadcrumb", function() {
   before(() => {
     cy.login();
   });
+  
   it("Shows the patches name", function() {
-    cy.visit("/patch/logkeeper_edd78c1d581bf757a880777b00685321685a8e67");
+    cy.visit("/patch/5e53f9c9a0182531515737ef");
     // TODO: replace "Patch" with the actual patch's name once patch query is done
     cy.get("span[id=bc-patch]").should("include.text", "Patch");
   });
