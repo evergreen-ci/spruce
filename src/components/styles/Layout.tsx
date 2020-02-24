@@ -11,7 +11,7 @@ const whiteBackground = css`
 
 export const PageContent = styled(Content)`
   ${whiteBackground}
-  margin-left: 8px;
+  margin-left: 16px;
   min-height: 280;
 `;
 
@@ -19,7 +19,11 @@ export const PageLayout = styled(Layout)`
   ${whiteBackground}
 `;
 
+const siderWidth = "275px";
+
 export const PageSider = styled(Sider)`
   ${whiteBackground}
-  width: 200px;
+  width: ${siderWidth} !important;
+  max-width: ${siderWidth} !important;
+  min-width: ${siderWidth} !important;
 `;

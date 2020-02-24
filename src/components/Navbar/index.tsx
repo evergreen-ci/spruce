@@ -29,7 +29,7 @@ export const Navbar: React.FC<ProjectSelectProps> = ({ data, loading }) => {
 const StyledHeader = styled(Header)`
   background-color: #20313c;
   background: #20313c;
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 `;
 
 const InnerWrapper = styled.div`

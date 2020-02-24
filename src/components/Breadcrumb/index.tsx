@@ -41,7 +41,7 @@ export const BreadCrumb: React.FC<Props> = ({
 };
 
 const StyledBreadcrumb = styled(Breadcrumb)`
-  margin-bottom: 25px;
+  margin-bottom: 24px;
 `;
 
 const Text = styled.span`
