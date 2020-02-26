@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
+import {FilesTables} from "pages/task/FilesTables"
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -62,6 +63,16 @@ export const Task: React.FC = () => {
     task: { displayName, version }
   } = data;
 
+  let BodyComp = <></>
+  switch (tab) {
+    case Tab.Tests:
+      BodyComp = <TestsTable />
+      break;
+    case Tab.Files:
+      BodyComp = <FilesTables />
+      break;
+  }
+
   return (
     <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
@@ -74,7 +85,7 @@ export const Task: React.FC = () => {
           <SiderCard>Build Variants</SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>{tab === Tab.Tests && <TestsTable />}</PageContent>
+          <PageContent>{BodyComp}</PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>
