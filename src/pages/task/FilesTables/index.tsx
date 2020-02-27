@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
-import { useParams } from "react-router-dom";
 import {
+  File,
   GET_TASK_FILES,
   TaskFilesResponse,
-  TaskFilesVars,
-  File
+  TaskFilesVars
 } from "gql/queries/get-task-files";
-import Table, { SortOrder } from "antd/es/table";
+import { H3 } from "components/Typography";
+import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks/lib/useQuery";
+import styled from "@emotion/styled/macro";
+import Table, { SortOrder } from "antd/es/table";
 
 const columns = [
   {
@@ -48,16 +50,21 @@ export const FilesTables: React.FC = () => {
       {data.taskFiles.map(({ taskName, files }) => {
         return (
           <Fragment key={taskName}>
-            <div>{taskName}</div>
-            <Table
-              rowKey={(record): string => `${record.name}_${record.link}`}
+            <H3>{taskName}</H3>
+            <StyledTable
+              rowKey={(record: File): string => `${record.name}_${record.link}`}
               columns={columns}
               dataSource={files}
               pagination={false}
-            ></Table>
+            />
           </Fragment>
         );
       })}
     </>
   );
 };
+
+const StyledTable = styled(Table)`
+  padding-top: 15px;
+  padding-bottom: 15px;
+`;
