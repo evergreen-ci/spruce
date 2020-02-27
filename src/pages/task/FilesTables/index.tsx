@@ -13,6 +13,7 @@ import styled from "@emotion/styled/macro";
 import Table, { SortOrder } from "antd/es/table";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
+import debounce from 'lodash.debounce'
 
 const columns = [
   {
@@ -43,7 +44,8 @@ export const FilesTables: React.FC = () => {
   );
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
-  useEffect(() => {
+  
+  useEffect(debounce(() => {
     if (data) {
       const nextData = data.taskFiles.map(currVal => ({
         taskName: currVal.taskName,
@@ -53,10 +55,9 @@ export const FilesTables: React.FC = () => {
             )
           : currVal.files
       })) as [TaskFilesData];
-      console.log(data);
       setFilteredData(nextData);
     }
-  }, [data, filterStr]);
+  }, 300), [data, filterStr]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -90,6 +91,7 @@ export const FilesTables: React.FC = () => {
                 columns={columns}
                 dataSource={files}
                 pagination={false}
+                scroll={{y: 400}}
               />
             ) : (
               <></>
