@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks/lib/useQuery";
 import styled from "@emotion/styled/macro";
 import Table, { SortOrder } from "antd/es/table";
+import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 
 const columns = [
@@ -72,7 +73,11 @@ export const FilesTables: React.FC = () => {
   };
   return (
     <>
-      <StyledInput placeholder="Search File Names" onChange={onSearch} />
+      <StyledInput
+        placeholder="Search File Names"
+        onChange={onSearch}
+        suffix={<Icon glyph="MagnifyingGlass" />}
+      />
       {filteredData.map(({ taskName, files }) => {
         return (
           <Fragment key={taskName}>
