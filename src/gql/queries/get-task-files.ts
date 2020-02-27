@@ -17,10 +17,14 @@ interface File {
 }
 
 export interface TaskFilesData {
-  name: string;
+  taskName: string;
   files: [File];
 }
 
 export interface TaskFilesVars {
   id: string;
+}
+
+export interface TaskFilesResponse {
+  taskFiles: [TaskFilesData];
 }
