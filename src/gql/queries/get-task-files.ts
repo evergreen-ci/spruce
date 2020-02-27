@@ -11,7 +11,7 @@ export const GET_TASK_FILES = gql`
     }
   }
 `;
-interface File {
+export interface File {
   name: string;
   link: string;
 }
