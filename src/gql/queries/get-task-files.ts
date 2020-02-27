@@ -25,3 +25,7 @@ export interface TaskFilesData {
     files: [File]
 }
 
+export interface TaskFilesVars {
+    id: string;
+}
+
