@@ -1,9 +1,10 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import {
   File,
   GET_TASK_FILES,
   TaskFilesResponse,
-  TaskFilesVars
+  TaskFilesVars,
+  TaskFilesData
 } from "gql/queries/get-task-files";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
@@ -27,6 +28,7 @@ const columns = [
     sorter: (a: File, b: File): number => a.name.localeCompare(b.name)
   }
 ];
+
 export const FilesTables: React.FC = () => {
   const { taskID } = useParams();
   const { data, loading, error } = useQuery<TaskFilesResponse, TaskFilesVars>(
@@ -37,6 +39,17 @@ export const FilesTables: React.FC = () => {
       }
     }
   );
+  const [filterStr, setFilterStr] = useState("");
+  const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
+  useEffect(() => {
+    const nextData = data.taskFiles.map(currVal => ({
+      taskName: currVal.taskName,
+      files: filterStr.length
+        ? currVal.files.filter(({ name }) => name.includes(filterStr))
+        : currVal.files
+    })) as [TaskFilesData];
+    setFilteredData(nextData);
+  }, [data, filterStr]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -54,7 +67,7 @@ export const FilesTables: React.FC = () => {
             <StyledTable
               rowKey={(record: File): string => `${record.name}_${record.link}`}
               columns={columns}
-              dataSource={files}
+              dataSource={filteredData}
               pagination={false}
             />
           </Fragment>
