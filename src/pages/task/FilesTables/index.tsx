@@ -11,6 +11,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks/lib/useQuery";
 import styled from "@emotion/styled/macro";
 import Table, { SortOrder } from "antd/es/table";
+import { Input } from "antd";
 
 const columns = [
   {
@@ -42,13 +43,18 @@ export const FilesTables: React.FC = () => {
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
   useEffect(() => {
-    const nextData = data.taskFiles.map(currVal => ({
-      taskName: currVal.taskName,
-      files: filterStr.length
-        ? currVal.files.filter(({ name }) => name.includes(filterStr))
-        : currVal.files
-    })) as [TaskFilesData];
-    setFilteredData(nextData);
+    if (data) {
+      const nextData = data.taskFiles.map(currVal => ({
+        taskName: currVal.taskName,
+        files: filterStr.length
+          ? currVal.files.filter(({ name }) =>
+              name.toLowerCase().includes(filterStr.toLowerCase())
+            )
+          : currVal.files
+      })) as [TaskFilesData];
+      console.log(data);
+      setFilteredData(nextData);
+    }
   }, [data, filterStr]);
 
   if (loading) {
@@ -57,19 +63,32 @@ export const FilesTables: React.FC = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-
+  if (!filteredData && data) {
+    // this will happen once per mount
+    return <></>;
+  }
+  const onSearch = (e): void => {
+    setFilterStr(e.target.value);
+  };
   return (
     <>
-      {data.taskFiles.map(({ taskName, files }) => {
+      <StyledInput placeholder="Search File Names" onChange={onSearch} />
+      {filteredData.map(({ taskName, files }) => {
         return (
           <Fragment key={taskName}>
             <H3>{taskName}</H3>
-            <StyledTable
-              rowKey={(record: File): string => `${record.name}_${record.link}`}
-              columns={columns}
-              dataSource={filteredData}
-              pagination={false}
-            />
+            {files.length ? (
+              <StyledTable
+                rowKey={(record: File): string =>
+                  `${record.name}_${record.link}`
+                }
+                columns={columns}
+                dataSource={files}
+                pagination={false}
+              />
+            ) : (
+              <></>
+            )}
           </Fragment>
         );
       })}
@@ -80,4 +99,9 @@ export const FilesTables: React.FC = () => {
 const StyledTable = styled(Table)`
   padding-top: 15px;
   padding-bottom: 15px;
+`;
+
+const StyledInput = styled(Input)`
+  margin-bottom: 15px;
+  max-width: 500px;
 `;
