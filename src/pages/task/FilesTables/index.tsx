@@ -72,6 +72,24 @@ export const FilesTables: React.FC = () => {
   const onSearch = (e): void => {
     setFilterStr(e.target.value);
   };
+
+  const tables = filteredData.filter(({files}) => files.length ).map(({ taskName, files }) => {
+    return (
+      <Fragment key={taskName}>
+        <H3>{taskName}</H3>
+          <StyledTable
+            rowKey={(record: File): string =>
+              `${record.name}_${record.link}`
+            }
+            columns={columns}
+            dataSource={files}
+            pagination={false}
+            scroll={{y: 196}}
+          />
+      </Fragment>
+    );
+  })
+
   return (
     <>
       <StyledInput
@@ -79,26 +97,7 @@ export const FilesTables: React.FC = () => {
         onChange={onSearch}
         suffix={<Icon glyph="MagnifyingGlass" />}
       />
-      {filteredData.map(({ taskName, files }) => {
-        return (
-          <Fragment key={taskName}>
-            <H3>{taskName}</H3>
-            {files.length ? (
-              <StyledTable
-                rowKey={(record: File): string =>
-                  `${record.name}_${record.link}`
-                }
-                columns={columns}
-                dataSource={files}
-                pagination={false}
-                scroll={{y: 400}}
-              />
-            ) : (
-              <></>
-            )}
-          </Fragment>
-        );
-      })}
+      {tables}
     </>
   );
 };
