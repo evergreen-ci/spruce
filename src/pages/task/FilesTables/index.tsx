@@ -69,10 +69,10 @@ export const FilesTables: React.FC = () => {
     // this will happen once per mount
     return <></>;
   }
+  
   const onSearch = (e): void => {
     setFilterStr(e.target.value);
   };
-
   const tables = filteredData.filter(({files}) => files.length ).map(({ taskName, files }) => {
     return (
       <Fragment key={taskName}>
