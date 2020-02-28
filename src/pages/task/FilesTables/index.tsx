@@ -81,6 +81,7 @@ export const FilesTables: React.FC = () => {
   const onSearch = (e): void => {
     setFilterStr(e.target.value);
   };
+
   const tables = filteredData
     .filter(({ files }) => files.length)
     .map(({ taskName, files }) => {
@@ -97,7 +98,7 @@ export const FilesTables: React.FC = () => {
         </Fragment>
       );
     });
-
+  const body = tables.length ? tables : <div>No files found</div>;
   return (
     <>
       <StyledInput
@@ -105,7 +106,7 @@ export const FilesTables: React.FC = () => {
         onChange={onSearch}
         suffix={<Icon glyph="MagnifyingGlass" />}
       />
-      {tables}
+      {body}
     </>
   );
 };
