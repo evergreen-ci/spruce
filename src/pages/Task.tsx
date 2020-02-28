@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { Tab } from "pages/types/task";
+import { Tab, TaskURLParams } from "pages/types/task";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -34,7 +34,7 @@ interface TaskQuery {
 }
 
 export const Task: React.FC = () => {
-  const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
+  const { tab, taskID } = useParams<TaskURLParams>();
   const history = useHistory();
   useEffect(() => {
     if (!tab) {
@@ -70,7 +70,7 @@ export const Task: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <TaskPageBody tab={tab as Tab} />
+            <TaskPageBody />
           </PageContent>
         </PageLayout>
       </PageLayout>

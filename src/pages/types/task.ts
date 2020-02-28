@@ -21,3 +21,8 @@ export enum Tab {
   Files = "files",
   BuildBaron = "build-baron"
 }
+
+export interface TaskURLParams {
+  tab?: Tab;
+  taskID: string;
+}

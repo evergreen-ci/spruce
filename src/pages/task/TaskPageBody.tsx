@@ -1,9 +1,11 @@
 import React from "react";
-import { Tab } from "pages/types/task";
+import { Tab, TaskURLParams } from "pages/types/task";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
+import { useParams } from "react-router-dom";
 
-export const TaskPageBody: React.FC<{ tab: Tab }> = ({ tab }: { tab: Tab }) => {
+export const TaskPageBody: React.FC = () => {
+  const { tab } = useParams<TaskURLParams>();
   let BodyComp = <></>;
   switch (tab) {
     case Tab.Tests:
