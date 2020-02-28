@@ -13,7 +13,7 @@ import styled from "@emotion/styled/macro";
 import Table, { SortOrder } from "antd/es/table";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
-import debounce from 'lodash.debounce'
+import debounce from "lodash.debounce";
 
 const columns = [
   {
@@ -22,7 +22,12 @@ const columns = [
     key: "name",
     render: (text: string, record: File, index: number): JSX.Element => {
       return (
-        <a className="fileLink" href={record.link} rel="noopener noreferrer" target="_blank">
+        <a
+          className="fileLink"
+          href={record.link}
+          rel="noopener noreferrer"
+          target="_blank"
+        >
           {text}
         </a>
       );
@@ -44,20 +49,23 @@ export const FilesTables: React.FC = () => {
   );
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
-  
-  useEffect(() => {
-    if (data) {
-      const nextData = data.taskFiles.map(currVal => ({
-        taskName: currVal.taskName,
-        files: filterStr.length
-          ? currVal.files.filter(({ name }) =>
-              name.toLowerCase().includes(filterStr.toLowerCase())
-            )
-          : currVal.files
-      })) as [TaskFilesData];
-      setFilteredData(nextData);
-    }
-  }, [data, filterStr]);
+
+  useEffect(
+    debounce(() => {
+      if (data) {
+        const nextData = data.taskFiles.map(currVal => ({
+          taskName: currVal.taskName,
+          files: filterStr.length
+            ? currVal.files.filter(({ name }) =>
+                name.toLowerCase().includes(filterStr.toLowerCase())
+              )
+            : currVal.files
+        })) as [TaskFilesData];
+        setFilteredData(nextData);
+      }
+    }, 300),
+    [data, filterStr]
+  );
 
   if (loading) {
     return <div>Loading...</div>;
@@ -69,27 +77,26 @@ export const FilesTables: React.FC = () => {
     // this will happen once per mount
     return <></>;
   }
-  
-  const onSearch = debounce((e): void => {
-    setFilterStr(e.target.value);
-  }, 300);
 
-  const tables = filteredData.filter(({files}) => files.length ).map(({ taskName, files }) => {
-    return (
-      <Fragment key={taskName}>
-        <H3>{taskName}</H3>
+  const onSearch = (e): void => {
+    setFilterStr(e.target.value);
+  };
+  const tables = filteredData
+    .filter(({ files }) => files.length)
+    .map(({ taskName, files }) => {
+      return (
+        <Fragment key={taskName}>
+          <H3>{taskName}</H3>
           <StyledTable
-            rowKey={(record: File): string =>
-              `${record.name}_${record.link}`
-            }
+            rowKey={(record: File): string => `${record.name}_${record.link}`}
             columns={columns}
             dataSource={files}
             pagination={false}
-            scroll={{y: 196}}
+            scroll={{ y: 196 }}
           />
-      </Fragment>
-    );
-  })
+        </Fragment>
+      );
+    });
 
   return (
     <>
