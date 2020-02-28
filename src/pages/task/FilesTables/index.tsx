@@ -20,9 +20,9 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text: string, record: File): JSX.Element => {
+    render: (text: string, record: File, index: number): JSX.Element => {
       return (
-        <a href={record.link} rel="noopener noreferrer" target="_blank">
+        <a className="fileLink" href={record.link} rel="noopener noreferrer" target="_blank">
           {text}
         </a>
       );
@@ -45,7 +45,7 @@ export const FilesTables: React.FC = () => {
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
   
-  useEffect(debounce(() => {
+  useEffect(() => {
     if (data) {
       const nextData = data.taskFiles.map(currVal => ({
         taskName: currVal.taskName,
@@ -57,7 +57,7 @@ export const FilesTables: React.FC = () => {
       })) as [TaskFilesData];
       setFilteredData(nextData);
     }
-  }, 300), [data, filterStr]);
+  }, [data, filterStr]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -70,9 +70,10 @@ export const FilesTables: React.FC = () => {
     return <></>;
   }
   
-  const onSearch = (e): void => {
+  const onSearch = debounce((e): void => {
     setFilterStr(e.target.value);
-  };
+  }, 300);
+
   const tables = filteredData.filter(({files}) => files.length ).map(({ taskName, files }) => {
     return (
       <Fragment key={taskName}>
