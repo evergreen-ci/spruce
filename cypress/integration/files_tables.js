@@ -2,7 +2,7 @@
 import { waitForGQL } from "../utils/networking";
 
 const waitForFilesQuery = () => waitForGQL("@gqlQuery", "taskFiles");
-const FILES_ROUTE = "/task/wuzzup-activated/files";
+const FILES_ROUTE = "/task/evergreen_ubuntu1604_89/files";
 describe("tests table", function() {
   beforeEach(() => {
     cy.server();
