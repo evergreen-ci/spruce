@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { TestsTable } from "pages/task/TestsTable";
-import {FilesTables} from "pages/task/FilesTables"
+import { Tab } from "pages/types/task";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { H1 } from "components/Typography";
+import { TaskPageBody } from "pages/task/TaskPageBody";
 import {
   PageWrapper,
   SiderCard,
@@ -15,12 +15,6 @@ import {
   PageSider
 } from "components/styles";
 
-enum Tab {
-  Logs = "logs",
-  Tests = "tests",
-  Files = "files",
-  BuildBaron = "build-baron"
-}
 const DEFAULT_TAB = Tab.Logs;
 
 const GET_TASK = gql`
@@ -63,16 +57,6 @@ export const Task: React.FC = () => {
     task: { displayName, version }
   } = data;
 
-  let BodyComp = <></>
-  switch (tab) {
-    case Tab.Tests:
-      BodyComp = <TestsTable />
-      break;
-    case Tab.Files:
-      BodyComp = <FilesTables />
-      break;
-  }
-
   return (
     <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
@@ -85,7 +69,9 @@ export const Task: React.FC = () => {
           <SiderCard>Build Variants</SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>{BodyComp}</PageContent>
+          <PageContent>
+            <TaskPageBody tab={tab as Tab} />
+          </PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>
