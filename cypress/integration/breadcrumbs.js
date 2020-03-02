@@ -38,9 +38,9 @@ describe("PatchBreadcrumb", function() {
   before(() => {
     cy.login();
   });
-  
+
   it("Shows the patches name", function() {
-    cy.visit("/patch/5e53f9c9a0182531515737ef");
+    cy.visit("/patch/5e4ff3abe3c3317e352062e4");
     // TODO: replace "Patch" with the actual patch's name once patch query is done
     cy.get("span[id=bc-patch]").should("include.text", "Patch");
   });
