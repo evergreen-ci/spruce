@@ -446,14 +446,14 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
     </MemoryRouter>
   );
   await act(async () => {
-    await wait(50);
+    await wait(100);
   });
 
   fireEvent.scroll(container.querySelector(".ant-table-body"), {
     scrollY: 1000
   });
   await act(async () => {
-    await wait(50);
+    await wait(100);
   });
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
