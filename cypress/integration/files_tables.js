@@ -6,7 +6,7 @@ const FILES_ROUTE = "/task/evergreen_ubuntu1604_89/files";
 const FILES_ROUTE_WITHOUT_FILES =
   "/task/evergreen_ubuntu1604_test_model_commitqueue_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/files ";
 
-describe("tests table", function() {
+describe("files table", function() {
   beforeEach(() => {
     cy.server();
     cy.login();
