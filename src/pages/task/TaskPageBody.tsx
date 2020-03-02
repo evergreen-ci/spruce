@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab, TaskURLParams } from "pages/types/task";
-import { TestsTable } from "pages/task/TestsTable/TestsTable";
+import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
 import { useParams } from "react-router-dom";
 
