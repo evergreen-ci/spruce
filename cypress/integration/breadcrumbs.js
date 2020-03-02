@@ -19,6 +19,8 @@ describe("TaskBreadcrumb", function() {
   });
 
   it("Clicking on the patch breadcrumb goes to patch for task", function() {
+    cy.login();
+    cy.visit(taskRoute);
     cy.get("span[id=bc-patch]").click();
     cy.url().should(
       "include",
