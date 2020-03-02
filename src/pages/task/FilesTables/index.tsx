@@ -8,7 +8,7 @@ import {
 } from "gql/queries/get-task-files";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks/lib/useQuery";
+import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import Table, { SortOrder } from "antd/es/table";
 import Icon from "@leafygreen-ui/icon";
