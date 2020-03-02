@@ -6,16 +6,12 @@ import { useParams } from "react-router-dom";
 
 export const TaskPageBody: React.FC = () => {
   const { tab } = useParams<TaskURLParams>();
-  let BodyComp: React.ReactElement;
   switch (tab) {
     case Tab.Tests:
-      BodyComp = <TestsTable />;
-      break;
+      return <TestsTable />;
     case Tab.Files:
-      BodyComp = <FilesTables />;
-      break;
+      return <FilesTables />;
     default:
-      BodyComp = <></>;
+      return <></>;
   }
-  return BodyComp;
 };
