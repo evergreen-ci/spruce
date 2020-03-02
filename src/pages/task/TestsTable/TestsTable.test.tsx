@@ -3,7 +3,7 @@ import { render, cleanup } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import * as ReactDOM from "react-dom";
 import { MockedProvider } from "@apollo/react-testing";
-import { TestsTable } from ".";
+import { TestsTable } from "pages/Task/TestsTable/TestsTable";
 import { GET_TASK_TESTS } from "../../../gql/queries/get-task-tests";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
