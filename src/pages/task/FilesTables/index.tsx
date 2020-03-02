@@ -81,7 +81,7 @@ export const FilesTables: React.FC = () => {
   const onSearch = (e): void => {
     setFilterStr(e.target.value);
   };
-
+  const rowKey = (record: File): string => `${record.name}_${record.link}`;
   const tables = filteredData
     .filter(({ files }) => files.length)
     .map(({ taskName, files }) => {
@@ -89,7 +89,7 @@ export const FilesTables: React.FC = () => {
         <Fragment key={taskName}>
           <H3>{taskName}</H3>
           <StyledTable
-            rowKey={(record: File): string => `${record.name}_${record.link}`}
+            rowKey={rowKey}
             columns={columns}
             dataSource={files}
             pagination={false}
