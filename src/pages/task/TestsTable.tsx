@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { TestsTableCore } from "pages/task/testsTable/TestsTableCore";
+import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import {
   RequiredQueryParams,
