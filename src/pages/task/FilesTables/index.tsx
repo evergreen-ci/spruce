@@ -10,10 +10,11 @@ import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
-import Table, { SortOrder } from "antd/es/table";
+import { Table } from "antd";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import debounce from "lodash.debounce";
+import { SortOrder } from "antd/es/table/interface";
 
 const columns = [
   {
