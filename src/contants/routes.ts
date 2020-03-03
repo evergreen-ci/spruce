@@ -9,5 +9,5 @@ export const routes = {
   login: paths.login,
   myPatches: paths.myPatches,
   task: `${paths.task}/:taskID/:tab?`,
-  patch: `${paths.patch}/:patchID`
+  patch: `${paths.patch}/:patchID/:tab?`
 };

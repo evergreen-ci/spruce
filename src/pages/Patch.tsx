@@ -15,6 +15,7 @@ import { Divider } from "components/styles/Divider";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
 import { getUiUrl } from "utils/getEnvironmentVariables";
+import { PatchTabs } from "pages/patch/PatchTabs";
 
 export const Patch = () => {
   const { patchID } = useParams<{ patchID: string }>();
@@ -75,7 +76,9 @@ export const Patch = () => {
           </SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>I'm where the table will go</PageContent>
+          <PageContent>
+            <PatchTabs />
+          </PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>
