@@ -5,7 +5,6 @@ import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { H1 } from "components/Typography";
-import { TaskPageBody } from "pages/task/TaskPageBody";
 import {
   PageWrapper,
   SiderCard,
@@ -14,8 +13,21 @@ import {
   PageLayout,
   PageSider
 } from "components/styles";
+import { TestsTable } from "./task/TestsTable";
+import { FilesTables } from "./task/FilesTables";
 
 const DEFAULT_TAB = Tab.Logs;
+
+const getBodyComp = tab => {
+  switch (tab) {
+    case Tab.Tests:
+      return <TestsTable />;
+    case Tab.Files:
+      return <FilesTables />;
+    default:
+      return <></>;
+  }
+};
 
 const GET_TASK = gql`
   query GetTask($taskId: String!) {
@@ -57,6 +69,7 @@ export const Task: React.FC = () => {
     task: { displayName, version }
   } = data;
 
+  const bodyComp = getBodyComp(tab);
   return (
     <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
@@ -69,9 +82,7 @@ export const Task: React.FC = () => {
           <SiderCard>Build Variants</SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>
-            <TaskPageBody />
-          </PageContent>
+          <PageContent>{bodyComp}</PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>
