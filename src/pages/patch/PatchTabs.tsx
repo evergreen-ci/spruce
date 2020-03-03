@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
-import { useParams, useHistory } from "react-router-dom";
+import { paths } from "contants/routes";
+import { useTabs, useDefaultPath } from "hooks";
 
 enum PatchTab {
   Tasks = "tasks",
@@ -8,40 +9,28 @@ enum PatchTab {
 }
 const DEFAULT_TAB = PatchTab.Tasks;
 
-const mapTabToIndex = {
+const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
   [PatchTab.Changes]: 1
 };
 
-const getIndexFromTab = (tab: string) => {
-  if (tab && tab in mapTabToIndex) {
-    return mapTabToIndex[tab];
-  }
-  return mapTabToIndex[PatchTab.Tasks];
-};
-const getTabFromIndex = (index: number) =>
-  Object.keys(mapTabToIndex).find(key => mapTabToIndex[key] === index);
-
 export const PatchTabs: React.FC = () => {
-  const { tab, patchID } = useParams<{ tab?: Tab; patchID: string }>();
-  const history = useHistory();
-  const [selectedTab, setSelectedTab] = useState<number>(getIndexFromTab(tab));
+  useDefaultPath(tabToIndexMap, paths.patch, DEFAULT_TAB);
 
-  const selectTabHandler = (tabIndex: number) => {
-    setSelectedTab(tabIndex);
-    history.replace(`/patch/${patchID}/${getTabFromIndex(tabIndex)}`);
-  };
-
-  useEffect(() => {
-    if (!tab || !(tab in mapTabToIndex)) {
-      history.replace(`/patch/${patchID}/${DEFAULT_TAB}`);
-    }
-  }, [tab, patchID, history]);
+  const [selectedTab, selectTabHandler] = useTabs(
+    tabToIndexMap,
+    paths.patch,
+    DEFAULT_TAB
+  );
 
   return (
     <Tabs selected={selectedTab} setSelected={selectTabHandler}>
-      <Tab name="Tasks" id="task-tab"></Tab>
-      <Tab name="Changes" id="changes-tab"></Tab>
+      <Tab name="Tasks" id="task-tab">
+        I am the tasks table
+      </Tab>
+      <Tab name="Changes" id="changes-tab">
+        I am the patch code changes
+      </Tab>
     </Tabs>
   );
 };

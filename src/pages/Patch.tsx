@@ -18,9 +18,9 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 import { PatchTabs } from "pages/patch/PatchTabs";
 
 export const Patch = () => {
-  const { patchID } = useParams<{ patchID: string }>();
+  const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<PatchQuery>(GET_PATCH, {
-    variables: { id: patchID }
+    variables: { id: id }
   });
 
   if (loading) {
@@ -46,9 +46,7 @@ export const Patch = () => {
     <PageWrapper>
       <BreadCrumb displayName="Specific Patch" />
       <PageHeader>
-        <H1 id="patch-name">
-          {description ? description : `Patch: ${patchID}`}
-        </H1>
+        <H1 id="patch-name">{description ? description : `Patch: ${id}`}</H1>
       </PageHeader>
       <PageLayout>
         <PageSider>

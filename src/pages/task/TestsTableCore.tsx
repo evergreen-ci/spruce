@@ -138,7 +138,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory
 }) => {
-  const { taskID } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const { data, fetchMore, networkStatus, error } = useQuery<
@@ -146,7 +146,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     TakskTestsVars
   >(GET_TASK_TESTS, {
     variables: {
-      id: taskID,
+      id,
       dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
       cat: initialCategory as Categories,
       pageNum: 0,
