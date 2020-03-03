@@ -22,5 +22,5 @@ export const useDefaultPath = (
     if (!tab || !(tab in tabToIndexMap)) {
       history.replace(`${path}/${id}/${defaultTab}`);
     }
-  }, [tab, history, tabToIndexMap]);
+  }, [tab, history, tabToIndexMap, defaultTab, id, path]);
 };
