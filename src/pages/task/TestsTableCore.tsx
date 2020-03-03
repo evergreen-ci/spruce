@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { ColumnProps, TableProps } from "antd/es/table";
+import { ColumnProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
 import Button from "@leafygreen-ui/button";
@@ -20,7 +20,8 @@ import styled from "@emotion/styled/macro";
 import {
   RequiredQueryParams,
   SortQueryParam,
-  ValidInitialQueryParams
+  ValidInitialQueryParams,
+  TableOnChange
 } from "pages/types/task";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -228,7 +229,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     });
   };
 
-  const onChange: TableProps<TaskTestsData>["onChange"] = (...[, , sorter]) => {
+  const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
     let hasDiff = false;
