@@ -40,8 +40,8 @@ export const PatchTabs: React.FC = () => {
 
   return (
     <Tabs selected={selectedTab} setSelected={selectTabHandler}>
-      <Tab name="Tasks"></Tab>
-      <Tab name="Changes"></Tab>
+      <Tab name="Tasks" id="task-tab"></Tab>
+      <Tab name="Changes" id="changes-tab"></Tab>
     </Tabs>
   );
 };
