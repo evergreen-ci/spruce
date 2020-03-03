@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
+import React from "react";
+import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
@@ -13,14 +13,23 @@ import {
   PageLayout,
   PageSider
 } from "components/styles";
+import { useDefaultPath, useTabs } from "hooks";
+import { Tabs, Tab } from "@leafygreen-ui/tabs";
+import { paths } from "contants/routes";
 
-enum Tab {
+enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
   BuildBaron = "build-baron"
 }
-const DEFAULT_TAB = Tab.Logs;
+const tabToIndexMap = {
+  [TaskTab.Logs]: 0,
+  [TaskTab.Tests]: 1,
+  [TaskTab.Files]: 2,
+  [TaskTab.BuildBaron]: 3
+};
+const DEFAULT_TAB = TaskTab.Logs;
 
 const GET_TASK = gql`
   query GetTask($taskId: String!) {
@@ -39,16 +48,16 @@ interface TaskQuery {
 }
 
 export const Task: React.FC = () => {
-  const { tab, taskID } = useParams<{ tab?: Tab; taskID: string }>();
-  const history = useHistory();
-  useEffect(() => {
-    if (!tab) {
-      history.replace(`/task/${taskID}/${DEFAULT_TAB}`);
-    }
-  }, [tab, taskID, history]);
+  useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
+  const [selectedTab, selectTabHandler] = useTabs(
+    tabToIndexMap,
+    paths.task,
+    DEFAULT_TAB
+  );
 
+  const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
-    variables: { taskId: taskID }
+    variables: { taskId: id }
   });
 
   if (loading) {
@@ -57,7 +66,6 @@ export const Task: React.FC = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-
   const {
     task: { displayName, version }
   } = data;
@@ -74,7 +82,16 @@ export const Task: React.FC = () => {
           <SiderCard>Build Variants</SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>{tab === Tab.Tests && <TestsTable />}</PageContent>
+          <PageContent>
+            <Tabs selected={selectedTab} setSelected={selectTabHandler}>
+              <Tab name="Logs" id="task-logs-tab">
+                Logs
+              </Tab>
+              <Tab name="Tests" id="task-tests-tab">
+                <TestsTable />
+              </Tab>
+            </Tabs>
+          </PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>

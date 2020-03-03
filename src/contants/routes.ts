@@ -8,6 +8,6 @@ export const paths = {
 export const routes = {
   login: paths.login,
   myPatches: paths.myPatches,
-  task: `${paths.task}/:taskID/:tab?`,
-  patch: `${paths.patch}/:patchID`
+  task: `${paths.task}/:id/:tab?`,
+  patch: `${paths.patch}/:id/:tab?`
 };
