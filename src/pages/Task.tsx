@@ -14,7 +14,8 @@ import {
   PageSider
 } from "components/styles";
 import { useDefaultPath, useTabs } from "hooks";
-import { Tabs, Tab } from "@leafygreen-ui/tabs";
+import { Tab } from "@leafygreen-ui/tabs";
+import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
 
 enum TaskTab {
@@ -83,14 +84,14 @@ export const Task: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <Tabs selected={selectedTab} setSelected={selectTabHandler}>
+            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
                 Logs
               </Tab>
               <Tab name="Tests" id="task-tests-tab">
                 <TestsTable />
               </Tab>
-            </Tabs>
+            </StyledTabs>
           </PageContent>
         </PageLayout>
       </PageLayout>
