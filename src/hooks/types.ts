@@ -1,1 +1,3 @@
-export type TabToIndexMap = { [key: string]: number };
+export interface TabToIndexMap {
+  [key: string]: number;
+}

@@ -23,9 +23,9 @@ export const useTabs = (
   const { tab, id } = useParams<{ tab?: string; id: string }>();
   const history = useHistory();
 
-  const getIndexFromTab = (tab: string) => {
-    if (tab && tab in tabToIndexMap) {
-      return tabToIndexMap[tab];
+  const getIndexFromTab = (t: string) => {
+    if (t && t in tabToIndexMap) {
+      return tabToIndexMap[t];
     }
     return tabToIndexMap[defaultTab];
   };
