@@ -21,7 +21,7 @@ import {
   RequiredQueryParams,
   SortQueryParam,
   ValidInitialQueryParams
-} from "pages/types/task";
+} from "types/task";
 import get from "lodash.get";
 import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
