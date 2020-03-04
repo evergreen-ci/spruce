@@ -14,15 +14,3 @@ export enum SortQueryParam {
   Desc = "-1",
   Asc = "1"
 }
-
-export enum Tab {
-  Logs = "logs",
-  Tests = "tests",
-  Files = "files",
-  BuildBaron = "build-baron"
-}
-
-export interface TaskURLParams {
-  tab?: Tab;
-  taskID: string;
-}
