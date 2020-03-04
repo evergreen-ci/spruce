@@ -10,7 +10,7 @@ import { routes } from "contants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_PROJECTS, ProjectsQuery } from "graphql/queries/get-projects";
+import { GET_PROJECTS, ProjectsQuery } from "gql/queries/get-projects";
 import { PageLayout } from "components/styles/Layout";
 
 export const Content = () => {
