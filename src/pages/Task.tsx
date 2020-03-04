@@ -1,6 +1,7 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
+import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -14,7 +15,8 @@ import {
   PageSider
 } from "components/styles";
 import { useDefaultPath, useTabs } from "hooks";
-import { Tabs, Tab } from "@leafygreen-ui/tabs";
+import { Tab } from "@leafygreen-ui/tabs";
+import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
 
 enum TaskTab {
@@ -87,14 +89,17 @@ export const Task: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <Tabs selected={selectedTab} setSelected={selectTabHandler}>
+            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
                 Logs
               </Tab>
               <Tab name="Tests" id="task-tests-tab">
                 <TestsTable />
               </Tab>
-            </Tabs>
+              <Tab name="Files" id="task-files-tab">
+                <FilesTables />
+              </Tab>
+            </StyledTabs>
           </PageContent>
         </PageLayout>
       </PageLayout>

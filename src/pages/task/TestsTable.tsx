@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { TestsTableCore } from "pages/task/TestsTableCore";
+import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import {
   RequiredQueryParams,
   SortQueryParam,
   ValidInitialQueryParams
-} from "pages/types/task";
+} from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
 

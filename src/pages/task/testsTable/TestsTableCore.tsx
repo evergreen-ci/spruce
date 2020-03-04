@@ -1,7 +1,8 @@
 import React, { useEffect } from "react";
-import { ColumnProps, TableProps } from "antd/es/table";
+import { ColumnProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
+import { loader } from "components/Loading/Loader";
 import Button from "@leafygreen-ui/button";
 import {
   Categories,
@@ -11,7 +12,6 @@ import {
   TestStatus,
   UpdateQueryArg
 } from "gql/queries/get-task-tests";
-import { Spin } from "antd";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -20,24 +20,15 @@ import styled from "@emotion/styled/macro";
 import {
   RequiredQueryParams,
   SortQueryParam,
-  ValidInitialQueryParams
-} from "pages/types/task";
+  ValidInitialQueryParams,
+  TableOnChange
+} from "types/task";
 import get from "lodash.get";
 import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
 
 const LIMIT = 10;
-const SpinWrapper = styled.div({
-  textAlign: "center",
-  paddingTop: 40,
-  paddingBottom: 40,
-  border: "1px solid #e8e8e8"
-});
-const loadMoreContent = (
-  <SpinWrapper>
-    <Spin tip="Loading..." />
-  </SpinWrapper>
-);
+
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
@@ -98,7 +89,6 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
         htmlDisplayURL,
         rawDisplayURL
       }: { htmlDisplayURL: string; rawDisplayURL: string },
-      record,
       index
     ): JSX.Element => {
       return (
@@ -132,7 +122,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     }
   }
 ];
-const rowKey = ({ id }: { id: string }): string => id;
+export const rowKey = ({ id }: { id: string }): string => id;
 
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
@@ -228,7 +218,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     });
   };
 
-  const onChange: TableProps<TaskTestsData>["onChange"] = (...[, , sorter]) => {
+  const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
     let hasDiff = false;
@@ -269,11 +259,12 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         loading={networkStatus < NetworkStatus.ready}
         onFetch={onFetch}
         pageSize={10000}
-        loadingIndicator={loadMoreContent}
+        loadingIndicator={loader}
         columns={columns}
         scroll={{ y: 350 }}
         dataSource={dataSource}
         onChange={onChange}
+        export={true}
         rowKey={rowKey}
       />
     </div>

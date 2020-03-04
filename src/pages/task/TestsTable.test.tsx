@@ -3,8 +3,8 @@ import { render, cleanup } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import * as ReactDOM from "react-dom";
 import { MockedProvider } from "@apollo/react-testing";
-import { TestsTable } from "../../pages/task/TestsTable";
-import { GET_TASK_TESTS } from "../../gql/queries/get-task-tests";
+import { TestsTable } from "pages/task/TestsTable";
+import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
 import { fireEvent } from "@testing-library/react";
@@ -446,14 +446,14 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
     </MemoryRouter>
   );
   await act(async () => {
-    await wait(50);
+    await wait(100);
   });
 
   fireEvent.scroll(container.querySelector(".ant-table-body"), {
     scrollY: 1000
   });
   await act(async () => {
-    await wait(50);
+    await wait(100);
   });
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
