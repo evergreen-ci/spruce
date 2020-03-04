@@ -10,10 +10,10 @@ import {
   SortQueryParam,
   PatchTasksQueryParams,
   TableOnChange
-} from "pages/types/task";
+} from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { rowKey } from "pages/task/TestsTableCore";
+import { rowKey } from "pages/task/testsTable/TestsTableCore";
 
 interface Props {
   networkStatus: NetworkStatus;
