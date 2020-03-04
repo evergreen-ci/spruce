@@ -79,9 +79,10 @@ export const FilesTables: React.FC = () => {
     return <></>;
   }
 
-  const onSearch = (e): void => {
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
     setFilterStr(e.target.value);
   };
+
   const rowKey = (record: File): string => `${record.name}_${record.link}`;
   const tables = filteredData
     .filter(({ files }) => files.length)
