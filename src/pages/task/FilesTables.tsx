@@ -39,12 +39,12 @@ const columns = [
 ];
 
 export const FilesTables: React.FC = () => {
-  const { taskID } = useParams();
+  const { id } = useParams();
   const { data, loading, error } = useQuery<TaskFilesResponse, TaskFilesVars>(
     GET_TASK_FILES,
     {
       variables: {
-        id: taskID
+        id: id
       }
     }
   );

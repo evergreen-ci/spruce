@@ -1,7 +1,7 @@
-  
 import React from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
+import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -90,6 +90,9 @@ export const Task: React.FC = () => {
               </Tab>
               <Tab name="Tests" id="task-tests-tab">
                 <TestsTable />
+              </Tab>
+              <Tab name="Files" id="task-files-tab">
+                <FilesTables />
               </Tab>
             </Tabs>
           </PageContent>
