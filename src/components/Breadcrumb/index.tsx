@@ -5,15 +5,17 @@ import { paths } from "contants/routes";
 import styled from "@emotion/styled/macro";
 
 interface Props {
-  version?: string; // only required when rendered on task page
+  versionId?: string; // only required when rendered on task page
   isTask?: boolean;
   displayName: string;
+  patchName?: string;
 }
 
 export const BreadCrumb: React.FC<Props> = ({
-  version,
+  versionId,
   displayName,
-  isTask = false
+  isTask = false,
+  patchName
 }) => {
   return (
     <StyledBreadcrumb>
@@ -25,9 +27,9 @@ export const BreadCrumb: React.FC<Props> = ({
       <Breadcrumb.Item>
         <Text id="bc-patch">
           {isTask ? (
-            <Link to={`${paths.patch}/${version}`}>Patch</Link>
+            <Link to={`${paths.patch}/${versionId}`}>Patch</Link>
           ) : (
-            "Patch"
+            `Patch: ${patchName}`
           )}
         </Text>
       </Breadcrumb.Item>

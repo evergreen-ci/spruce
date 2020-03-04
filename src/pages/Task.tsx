@@ -72,7 +72,7 @@ export const Task: React.FC = () => {
 
   return (
     <PageWrapper>
-      <BreadCrumb displayName={displayName} version={version} isTask={true} />
+      <BreadCrumb displayName={displayName} versionId={version} isTask={true} />
       <PageHeader>
         <H1>Current Task Name</H1>
       </PageHeader>

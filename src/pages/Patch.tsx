@@ -44,7 +44,7 @@ export const Patch = () => {
 
   return (
     <PageWrapper>
-      <BreadCrumb displayName="Specific Patch" />
+      <BreadCrumb displayName="Specific Patch" patchName={id} />
       <PageHeader>
         <H1 id="patch-name">{description ? description : `Patch: ${id}`}</H1>
       </PageHeader>
