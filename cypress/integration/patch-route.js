@@ -96,6 +96,15 @@ describe("Patch route", function() {
         cy.get("th.cy-task-table-col-variant").click();
         locationHasUpdatedParams("VARIANT");
       });
+
+      it("clicking task name goes to task page for that task", () => {
+        cy.visit(path);
+        cy.get("td.cy-task-table-col-name:first").within(() => {
+          cy.get("a")
+            .should("have.attr", "href")
+            .and("include", "/task");
+        });
+      });
     });
   });
 });

@@ -85,9 +85,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.Status,
     sorter: true,
     className: "cy-task-table-col-status",
-    render: (tag: string): JSX.Element => {
-      return <Badge key={tag}>{tag}</Badge>;
-    }
+    render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
     title: "Base Status",
@@ -95,9 +93,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.BaseStatus,
     sorter: true,
     className: "cy-task-table-col-base-status",
-    render: (tag: string): JSX.Element => {
-      return <Badge key={tag}>{tag}</Badge>;
-    }
+    render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
     title: "Variant",

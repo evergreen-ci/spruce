@@ -23,3 +23,7 @@ export interface TaskResult {
 export interface PatchTasksQuery {
   patchTasks: [TaskResult];
 }
+
+export interface PatchTasksVariables {
+  patchId: string;
+}
