@@ -13,7 +13,6 @@ import {
 } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { rowKey } from "pages/task/testsTable/TestsTableCore";
 
 interface Props {
   networkStatus: NetworkStatus;
@@ -26,6 +25,8 @@ const orderKeyToSortParam = {
 };
 const getSortDirFromOrder = (order: "ascend" | "descend") =>
   orderKeyToSortParam[order];
+
+const rowKey = ({ id }: { id: string }): string => id;
 
 export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
   const { replace } = useHistory();

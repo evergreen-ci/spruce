@@ -264,7 +264,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         scroll={{ y: 350 }}
         dataSource={dataSource}
         onChange={onChange}
-        export
+        export={true}
         rowKey={rowKey}
       />
     </div>
