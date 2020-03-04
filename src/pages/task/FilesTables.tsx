@@ -21,7 +21,7 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text: string, record: File, index: number): JSX.Element => {
+    render: (text: string, record: File): JSX.Element => {
       return (
         <a
           className="fileLink"
