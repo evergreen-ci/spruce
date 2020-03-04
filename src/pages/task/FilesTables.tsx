@@ -100,7 +100,6 @@ export const FilesTables: React.FC = () => {
         </Fragment>
       );
     });
-  const body = tables.length ? tables : <div>No files found</div>;
   return (
     <>
       <StyledInput
@@ -108,7 +107,7 @@ export const FilesTables: React.FC = () => {
         onChange={onSearch}
         suffix={<Icon glyph="MagnifyingGlass" />}
       />
-      {body}
+      {tables.length ? tables : <div>No files found</div>}
     </>
   );
 };
