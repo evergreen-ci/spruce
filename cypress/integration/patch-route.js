@@ -16,6 +16,18 @@ const badPatch = {
 const locationPathEquals = path =>
   cy.location().should(loc => expect(loc.pathname).to.eq(path));
 
+const locationHasUpdatedParams = (sortBy, sortDir) => {
+  cy.location().should(loc => {
+    expect(loc.pathname).to.equal(pathTasks);
+    expect(loc.search).to.include(`sortBy=${sortBy}`);
+    if (!sortDir) {
+      expect(loc.search).to.not.include("sortDir");
+    } else {
+      expect(loc.search).to.include(`sortDir=${sortDir}`);
+    }
+  });
+};
+
 describe("Patch route", function() {
   beforeEach(() => {
     cy.login();
@@ -60,6 +72,39 @@ describe("Patch route", function() {
     it("replaces invalid tab names in url path with default", () => {
       cy.visit(`${path}/chicken`);
       locationPathEquals(pathTasks);
+    });
+
+    describe("Tasks Table", () => {
+      it("updates the url when column headers are clicked", () => {
+        cy.visit(path);
+
+        cy.get("th.cy-task-table-col-name").click();
+        locationHasUpdatedParams("NAME", 1);
+
+        cy.get("th.cy-task-table-col-name").click();
+        locationHasUpdatedParams("NAME", -1);
+
+        cy.get("th.cy-task-table-col-name").click();
+        locationHasUpdatedParams("NAME");
+
+        cy.get("th.cy-task-table-col-variant").click();
+        locationHasUpdatedParams("VARIANT", 1);
+
+        cy.get("th.cy-task-table-col-variant").click();
+        locationHasUpdatedParams("VARIANT", -1);
+
+        cy.get("th.cy-task-table-col-variant").click();
+        locationHasUpdatedParams("VARIANT");
+      });
+
+      it("clicking task name goes to task page for that task", () => {
+        cy.visit(path);
+        cy.get("td.cy-task-table-col-name:first").within(() => {
+          cy.get("a")
+            .should("have.attr", "href")
+            .and("include", "/task");
+        });
+      });
     });
   });
 });

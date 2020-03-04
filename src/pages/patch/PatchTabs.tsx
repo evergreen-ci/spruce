@@ -1,7 +1,9 @@
 import React from "react";
-import { Tabs, Tab } from "@leafygreen-ui/tabs";
+import { Tab } from "@leafygreen-ui/tabs";
 import { paths } from "contants/routes";
 import { useTabs, useDefaultPath } from "hooks";
+import { Tasks } from "pages/patch/patchTabs/Tasks";
+import { StyledTabs } from "components/styles/StyledTabs";
 
 enum PatchTab {
   Tasks = "tasks",
@@ -24,13 +26,13 @@ export const PatchTabs: React.FC = () => {
   );
 
   return (
-    <Tabs selected={selectedTab} setSelected={selectTabHandler}>
+    <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
       <Tab name="Tasks" id="task-tab">
-        I am the tasks table
+        <Tasks />
       </Tab>
       <Tab name="Changes" id="changes-tab">
         I am the patch code changes
       </Tab>
-    </Tabs>
+    </StyledTabs>
   );
 };
