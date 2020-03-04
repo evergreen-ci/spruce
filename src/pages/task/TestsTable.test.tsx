@@ -308,7 +308,7 @@ it("renders without crashing", () => {
   ReactDOM.render(
     <MemoryRouter>
       <MockedProvider mocks={mocks}>
-        <Route path="/task/:taskID/:tab?">
+        <Route path="/task/:id/:tab?">
           <TestsTable />
         </Route>
       </MockedProvider>
@@ -336,7 +336,7 @@ it("Requests descending data when clicking on active ascending tab", async () =>
       initialIndex={0}
     >
       <MockedProvider mocks={mocks}>
-        <Route path="/task/:taskID/:tab?">
+        <Route path="/task/:id/:tab?">
           <TestsTable />
         </Route>
       </MockedProvider>
@@ -374,7 +374,7 @@ it("It loads data on initial load when given valid query params", async () => {
       initialIndex={0}
     >
       <MockedProvider mocks={mocks}>
-        <Route path="/task/:taskID/:tab?">
+        <Route path="/task/:id/:tab?">
           <TestsTable />
         </Route>
       </MockedProvider>
@@ -406,7 +406,7 @@ it("It loads data with TEST_FILE ASC when given invalid query param", async () =
       initialIndex={0}
     >
       <MockedProvider mocks={mocks}>
-        <Route path="/task/:taskID/:tab?">
+        <Route path="/task/:id/:tab?">
           <TestsTable />
         </Route>
       </MockedProvider>
@@ -439,7 +439,7 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
       initialIndex={0}
     >
       <MockedProvider mocks={mocks}>
-        <Route path="/task/:taskID/:tab?">
+        <Route path="/task/:id/:tab?">
           <TestsTable />
         </Route>
       </MockedProvider>

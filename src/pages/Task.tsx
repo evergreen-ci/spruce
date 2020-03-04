@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
-import { Tab, TaskURLParams } from "types/task";
+  
+import React from "react";
+import { useParams } from "react-router-dom";
+import { TestsTable } from "pages/task/TestsTable";
 import { BreadCrumb } from "components/Breadcrumb";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -13,21 +14,23 @@ import {
   PageLayout,
   PageSider
 } from "components/styles";
-import { TestsTable } from "./task/TestsTable";
-import { FilesTables } from "./task/FilesTables";
+import { useDefaultPath, useTabs } from "hooks";
+import { Tabs, Tab } from "@leafygreen-ui/tabs";
+import { paths } from "contants/routes";
 
-const DEFAULT_TAB = Tab.Logs;
-
-const getBodyComp = tab => {
-  switch (tab) {
-    case Tab.Tests:
-      return <TestsTable />;
-    case Tab.Files:
-      return <FilesTables />;
-    default:
-      return <></>;
-  }
+enum TaskTab {
+  Logs = "logs",
+  Tests = "tests",
+  Files = "files",
+  BuildBaron = "build-baron"
+}
+const tabToIndexMap = {
+  [TaskTab.Logs]: 0,
+  [TaskTab.Tests]: 1,
+  [TaskTab.Files]: 2,
+  [TaskTab.BuildBaron]: 3
 };
+const DEFAULT_TAB = TaskTab.Logs;
 
 const GET_TASK = gql`
   query GetTask($taskId: String!) {
@@ -46,16 +49,16 @@ interface TaskQuery {
 }
 
 export const Task: React.FC = () => {
-  const { tab, taskID } = useParams<TaskURLParams>();
-  const history = useHistory();
-  useEffect(() => {
-    if (!tab) {
-      history.replace(`/task/${taskID}/${DEFAULT_TAB}`);
-    }
-  }, [tab, taskID, history]);
+  useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
+  const [selectedTab, selectTabHandler] = useTabs(
+    tabToIndexMap,
+    paths.task,
+    DEFAULT_TAB
+  );
 
+  const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
-    variables: { taskId: taskID }
+    variables: { taskId: id }
   });
 
   if (loading) {
@@ -64,12 +67,10 @@ export const Task: React.FC = () => {
   if (error) {
     return <div>{error.message}</div>;
   }
-
   const {
     task: { displayName, version }
   } = data;
 
-  const bodyComp = getBodyComp(tab);
   return (
     <PageWrapper>
       <BreadCrumb displayName={displayName} version={version} isTask={true} />
@@ -82,7 +83,16 @@ export const Task: React.FC = () => {
           <SiderCard>Build Variants</SiderCard>
         </PageSider>
         <PageLayout>
-          <PageContent>{bodyComp}</PageContent>
+          <PageContent>
+            <Tabs selected={selectedTab} setSelected={selectTabHandler}>
+              <Tab name="Logs" id="task-logs-tab">
+                Logs
+              </Tab>
+              <Tab name="Tests" id="task-tests-tab">
+                <TestsTable />
+              </Tab>
+            </Tabs>
+          </PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>

@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const taskRoute =
-  "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58";
+  "/task/evergreen_lint_generate_lint_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 
 describe("TaskBreadcrumb", function() {
   before(() => {
@@ -10,7 +10,7 @@ describe("TaskBreadcrumb", function() {
 
   it("Shows tasks display name", function() {
     cy.visit(taskRoute);
-    cy.get("span[id=bc-task]").should("include.text", "test");
+    cy.get("span[id=bc-task]").should("include.text", "generate-lint");
   });
 
   it("Shows the patches name", function() {
@@ -22,10 +22,7 @@ describe("TaskBreadcrumb", function() {
     cy.login();
     cy.visit(taskRoute);
     cy.get("span[id=bc-patch]").click();
-    cy.url().should(
-      "include",
-      "/patch/logkeeper_edd78c1d581bf757a880777b00685321685a8e67"
-    );
+    cy.url().should("include", "/patch/5e4ff3abe3c3317e352062e4");
   });
 
   it("Clicking 'My Patches' breadcrumb goes to /my-patches route", function() {

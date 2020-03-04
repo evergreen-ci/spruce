@@ -5,10 +5,16 @@ const patch = {
   desc:
     "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)"
 };
+const path = `/patch/${patch.id}`;
+const pathTasks = `${path}/tasks`;
+const pathChanges = `${path}/changes`;
 
 const badPatch = {
   id: "i-dont-exist"
 };
+
+const locationPathEquals = path =>
+  cy.location().should(loc => expect(loc.pathname).to.eq(path));
 
 describe("Patch route", function() {
   beforeEach(() => {
@@ -30,5 +36,30 @@ describe("Patch route", function() {
   it("Shows an error page if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
     cy.get("div[id=patch-error]").should("exist");
+  });
+
+  describe("Tabs", () => {
+    it("selects tasks tasb by default", () => {
+      cy.visit(path);
+      cy.get("button[id=task-tab]")
+        .should("have.attr", "aria-selected")
+        .and("eq", "true");
+    });
+
+    it("includes selected tab name in url path", () => {
+      cy.visit(path);
+      locationPathEquals(pathTasks);
+    });
+
+    it("updates the url path when another tab is selected", () => {
+      cy.visit(path);
+      cy.get("button[id=changes-tab]").click();
+      locationPathEquals(pathChanges);
+    });
+
+    it("replaces invalid tab names in url path with default", () => {
+      cy.visit(`${path}/chicken`);
+      locationPathEquals(pathTasks);
+    });
   });
 });
