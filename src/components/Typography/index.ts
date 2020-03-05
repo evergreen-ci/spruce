@@ -8,6 +8,7 @@ export const H1 = styled.h1`
   line-height: 36px;
   margin-bottom: 17px;
   color: ${gray.dark3};
+  display: inline-flex;
 `;
 
 export const H2 = styled.h2`
@@ -15,6 +16,7 @@ export const H2 = styled.h2`
   line-height: 21px;
   margin-bottom: 8px;
   color: ${gray.dark3};
+  display: inline-flex;
 `;
 
 export const H3 = styled.h3`
@@ -22,6 +24,7 @@ export const H3 = styled.h3`
   line-height: 17px;
   margin-bottom: 5px;
   color: ${gray.dark3};
+  display: inline-flex;
 `;
 
 export const P1 = styled.p`
@@ -29,6 +32,7 @@ export const P1 = styled.p`
   line-height: 17px;
   margin-bottom: 5px;
   color: ${gray.dark3};
+  display: inline-flex;
 `;
 
 export const P2 = styled.p`
@@ -36,4 +40,5 @@ export const P2 = styled.p`
   line-height: 14px;
   margin-bottom: 13px;
   color: ${gray.dark3};
+  display: inline-flex;
 `;
