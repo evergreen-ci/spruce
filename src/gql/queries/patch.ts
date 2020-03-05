@@ -5,7 +5,7 @@ interface Patch {
   description: string;
   projectID: string;
   githash: string;
-  patchNumber: string;
+  patchNumber: number;
   author: string;
   version: string;
   status: string;

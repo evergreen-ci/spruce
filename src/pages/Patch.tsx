@@ -37,6 +37,7 @@ export const Patch = () => {
       author,
       githash,
       version,
+      patchNumber,
       time: { submittedAt, started, finished },
       duration: { makespan, timeTaken }
     }
@@ -44,9 +45,11 @@ export const Patch = () => {
 
   return (
     <PageWrapper>
-      <BreadCrumb displayName="Specific Patch" />
+      <BreadCrumb patchNumber={patchNumber} />
       <PageHeader>
-        <H1 id="patch-name">{description ? description : `Patch: ${id}`}</H1>
+        <H1 id="patch-name">
+          {description ? description : `Patch ${patchNumber}`}
+        </H1>
       </PageHeader>
       <PageLayout>
         <PageSider>

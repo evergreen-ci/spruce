@@ -38,6 +38,7 @@ const GET_TASK = gql`
     task(taskId: $taskId) {
       version
       displayName
+      patchNumber
     }
   }
 `;
@@ -46,6 +47,7 @@ interface TaskQuery {
   task: {
     version: string;
     displayName: string;
+    patchNumber: number;
   };
 }
 
@@ -69,12 +71,16 @@ export const Task: React.FC = () => {
     return <div>{error.message}</div>;
   }
   const {
-    task: { displayName, version }
+    task: { displayName, version, patchNumber }
   } = data;
 
   return (
     <PageWrapper>
-      <BreadCrumb displayName={displayName} version={version} isTask={true} />
+      <BreadCrumb
+        taskName={displayName}
+        versionId={version}
+        patchNumber={patchNumber}
+      />
       <PageHeader>
         <H1>Current Task Name</H1>
       </PageHeader>
