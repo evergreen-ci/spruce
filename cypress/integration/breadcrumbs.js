@@ -14,8 +14,7 @@ describe("TaskBreadcrumb", function() {
   });
 
   it("Shows the patches name", function() {
-    // TODO: replace "Patch" with the actual patch's name once patch displayName is added to task query
-    cy.get("span[id=bc-patch]").should("include.text", "Patch");
+    cy.get("span[id=bc-patch]").should("include.text", "Patch 2567");
   });
 
   it("Clicking on the patch breadcrumb goes to patch for task", function() {
@@ -40,8 +39,7 @@ describe("PatchBreadcrumb", function() {
 
   it("Shows the patches name", function() {
     cy.visit("/patch/5e4ff3abe3c3317e352062e4");
-    // TODO: replace "Patch" with the actual patch's name once patch query is done
-    cy.get("span[id=bc-patch]").should("include.text", "Patch");
+    cy.get("span[id=bc-patch]").should("include.text", "Patch 2567");
   });
 
   it("Clicking 'My Patches' goes to /my-patches route", function() {
