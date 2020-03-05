@@ -7,7 +7,7 @@ import styled from "@emotion/styled/macro";
 interface Props {
   versionId?: string; // only required when rendered on task page
   taskName?: string;
-  patchNumber: string;
+  patchNumber: number;
 }
 
 export const BreadCrumb: React.FC<Props> = ({
