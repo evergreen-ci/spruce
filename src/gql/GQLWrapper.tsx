@@ -76,7 +76,7 @@ const authLink = (logout: Logout) =>
     }
   });
 
-const timeoutLink = new ApolloLinkTimeout(30000);
+const timeoutLink = new ApolloLinkTimeout(60000);
 
 const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
   new ApolloLink((operation, forward) => {
