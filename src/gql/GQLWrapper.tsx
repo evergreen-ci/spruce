@@ -14,6 +14,7 @@ import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
 import { onError } from "apollo-link-error";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
+import ApolloLinkTimeout from "apollo-link-timeout";
 
 interface ClientLinkParams {
   credentials?: string;
@@ -75,6 +76,8 @@ const authLink = (logout: Logout) =>
     }
   });
 
+const timeoutLink = new ApolloLinkTimeout(60000);
+
 const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
   new ApolloLink((operation, forward) => {
     return forward(operation).map(response => {
@@ -123,6 +126,7 @@ export const getGQLClient = async ({
       .concat(authLink(logout))
       .concat(retryLink)
       .concat(link)
+      .concat(timeoutLink)
   });
   return client;
 };
