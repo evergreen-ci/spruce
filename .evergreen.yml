@@ -64,8 +64,8 @@ functions:
       background: false
       env:
         GOPATH: ${workdir}/spruce/gopath
-        GO_BIN_PATH: ${gobin}
-        GOROOT: ${goroot}
+        GO_BIN_PATH: /opt/golang/go1.13/bin/go
+        GOROOT: /opt/golang/go1.13
 
   run-make-background:
     command: subprocess.exec
@@ -76,8 +76,8 @@ functions:
       background: true
       env:
         GOPATH: ${workdir}/spruce/gopath
-        GO_BIN_PATH: ${gobin}
-        GOROOT: ${goroot}
+        GO_BIN_PATH: /opt/golang/go1.13/bin/go
+        GOROOT: /opt/golang/go1.13
 
   npm-start:
     command: subprocess.exec
@@ -252,6 +252,8 @@ buildvariants:
     - name: coverage
     - name: e2e_test
     expansions:
+      gobin: /opt/golang/go1.13/bin/go
+      goroot: /opt/golang/go1.13
 
 post:
   - func: attach-results
