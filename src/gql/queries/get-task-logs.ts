@@ -41,3 +41,13 @@ export interface LogMessage {
   timestamp: string;
   version: string;
 }
+
+interface TaskLogsQueryData {
+  agentLogs: [LogMessage];
+  eventLogs: [TaskEventLogData];
+  systemLogs: [LogMessage];
+  taskLogs: [LogMessage];
+}
+export interface TaskLogsQuery {
+  taskLogs: TaskLogsQueryData;
+}
