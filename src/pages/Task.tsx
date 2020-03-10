@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
+import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { H1 } from "components/Typography";
@@ -93,7 +94,7 @@ export const Task: React.FC = () => {
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
-                Logs
+                <Logs />
               </Tab>
               <Tab name="Tests" id="task-tests-tab">
                 <TestsTable />
