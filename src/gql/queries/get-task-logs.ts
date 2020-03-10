@@ -10,6 +10,20 @@ export const GET_TASK_LOGS = gql`
         timestamp
         version
       }
+      agentLogs {
+        type
+        severity
+        message
+        timestamp
+        version
+      }
+      systemLogs {
+        type
+        severity
+        message
+        timestamp
+        version
+      }
       eventLogs {
         timestamp
         eventType
