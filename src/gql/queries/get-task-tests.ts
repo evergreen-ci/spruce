@@ -4,7 +4,7 @@ export const GET_TASK_TESTS = gql`
   query taskTests(
     $dir: SortDirection
     $id: String!
-    $cat: TaskSortCategory
+    $cat: TestSortCategory
     $pageNum: Int
     $limitNum: Int
   ) {

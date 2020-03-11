@@ -228,12 +228,9 @@ tasks:
     - func: get-evergreen-project
     - func: setup-mongodb
     - func: copy-cmdrc
-    - func: run-make
-      vars:
-        target: load-smoke-data
     - func: run-make-background
       vars:
-        target: smoke-start-server
+        target: local-evergreen
     - func: npm-install
     - func: npm-start
     - func: run-cypress-tests

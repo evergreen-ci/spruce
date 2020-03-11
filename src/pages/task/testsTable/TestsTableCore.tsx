@@ -89,14 +89,14 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
         htmlDisplayURL,
         rawDisplayURL
       }: { htmlDisplayURL: string; rawDisplayURL: string },
-      index
+      { id }
     ): JSX.Element => {
       return (
         <>
           {htmlDisplayURL && (
             <ButtonWrapper>
               <Button
-                id={`htmlBtn${index}`}
+                id={`htmlBtn-${id}`}
                 size="small"
                 target="_blank"
                 variant="default"
@@ -108,7 +108,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
           {rawDisplayURL && (
             <Button
-              id={`rawBtn${index}`}
+              id={`rawBtn-${id}`}
               size="small"
               target="_blank"
               variant="default"
