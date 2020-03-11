@@ -48,13 +48,11 @@ export interface TaskEventLogEntry {
   eventType: string;
   data: TaskEventLogData;
 }
-
 export interface LogMessage {
   severity: string;
   message: string;
   timestamp: string;
 }
-
 interface TaskLogsQueryData {
   agentLogs: [LogMessage];
   eventLogs: [TaskEventLogEntry];

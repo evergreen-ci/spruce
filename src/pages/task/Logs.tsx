@@ -19,7 +19,6 @@ enum LogTypes {
   Task = "task",
   Event = "event"
 }
-
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 enum QueryParams {
   LogType = "logtype"
@@ -140,7 +139,7 @@ export const Logs: React.FC = props => {
   );
 };
 
-export const StyledRadioGroup = styled(RadioGroup)`
+const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   justify-content: space-between;
   width: 450px;
