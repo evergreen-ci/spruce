@@ -21,22 +21,22 @@ export const BreadCrumb: React.FC<Props> = ({
   return (
     <StyledBreadcrumb>
       <Breadcrumb.Item>
-        <P1 id="bc-my-patches">
-          <StyledRouterLink to={paths.myPatches}>My Patches</StyledRouterLink>
+        <P1>
+          <StyledRouterLink id="bc-my-patches" to={paths.myPatches}>
+            My Patches
+          </StyledRouterLink>
         </P1>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
-        <span id="bc-patch">
-          {taskName ? (
-            <P1>
-              <StyledRouterLink to={`${paths.patch}/${versionId}`}>
-                {patch}
-              </StyledRouterLink>
-            </P1>
-          ) : (
-            <H3>{patch}</H3>
-          )}
-        </span>
+        {taskName ? (
+          <P1>
+            <StyledRouterLink id="bc-patch" to={`${paths.patch}/${versionId}`}>
+              {patch}
+            </StyledRouterLink>
+          </P1>
+        ) : (
+          <H3 id="bc-patch">{patch}</H3>
+        )}
       </Breadcrumb.Item>
       {taskName && (
         <Breadcrumb.Item>

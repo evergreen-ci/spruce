@@ -4,7 +4,7 @@ import { waitForGQL } from "../utils/networking";
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
 const TESTS_ROUTE =
-  "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58/tests";
+  "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
 describe("tests table", function() {
   beforeEach(() => {
     cy.server();
