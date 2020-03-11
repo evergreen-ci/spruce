@@ -10,7 +10,7 @@ export const LogMessageLine: React.FC<LogMessage> = props => {
   const LogLineWrapper = getLogLineWrapper(severity);
   return (
     <LogLineWrapper>
-      {time}
+      <span className="cy-log-message-time">{time}</span>
       {message}
     </LogLineWrapper>
   );

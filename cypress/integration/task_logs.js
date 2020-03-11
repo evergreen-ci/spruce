@@ -77,4 +77,20 @@ describe("tests table", function() {
       .check()
       .should("be.checked");
   });
+
+  it("Should display 'No logs' when no logs found", () => {
+    cy.visit(LOGS_ROUTE);
+    cy.get("#cy-no-logs").contains("No logs");
+  });
+
+  it("Should format event time as Month Day, Year Hour:Min:Sec am/pm", () => {
+    cy.visit(LOGS_ROUTE + "?logtype=event");
+    cy.get(".cy-event-scheduled").contains("Mar 3, 2020, 10:45:16 a.m.");
+    cy.get(".cy-event-ts").contains("Mar 3, 2020, 10:45:17 a.m.");
+  });
+
+  it("Should format LogMessage time as Year/Day/Month Hour:Min:Sec.MS", () => {
+    cy.visit(LOGS_ROUTE + "?logtype=agent");
+    cy.get(".cy-log-message-time").contains("2019/15/12, 10:15:20.000");
+  });
 });

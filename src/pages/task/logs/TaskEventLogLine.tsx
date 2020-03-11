@@ -51,11 +51,13 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = props => {
       message = <>Deactivated by user {data.userId}</>;
       break;
     case "TASK_ABORT_REQUEST":
-      message = <>Marked to abort by user data.userId</>;
+      message = <>Marked to abort by user {data.userId}</>;
       break;
     case "TASK_SCHEDULED":
       message = (
-        <>Scheduled at {format(new Date(data.timestamp), FORMAT_STR)}</>
+        <span className="cy-event-scheduled">
+          Scheduled at {format(new Date(data.timestamp), FORMAT_STR)}
+        </span>
       );
       break;
     case "TASK_PRIORITY_CHANGED":
@@ -74,7 +76,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = props => {
 
   return (
     <Row>
-      <TS>{format(new Date(timestamp), FORMAT_STR)}</TS>
+      <TS className="cy-event-ts">{format(new Date(timestamp), FORMAT_STR)}</TS>
       {message}
     </Row>
   );

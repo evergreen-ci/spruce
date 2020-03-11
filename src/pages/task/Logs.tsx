@@ -34,9 +34,10 @@ const renderLogs = ({
   eventLogEntryData: [TaskEventLogEntry];
   logMessageData: [LogMessage];
 }): JSX.Element => {
+  const noLogs = <div id="cy-no-logs">No logs</div>;
   if (currentLog === LogTypes.Event) {
     if (!eventLogEntryData.length) {
-      return <div>No logs</div>;
+      return noLogs;
     }
     return (
       <>
@@ -47,7 +48,7 @@ const renderLogs = ({
     );
   }
   if (!logMessageData || !logMessageData.length) {
-    return <div>No logs</div>;
+    return noLogs;
   }
   return (
     <>
