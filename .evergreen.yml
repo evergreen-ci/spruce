@@ -136,6 +136,7 @@ functions:
     params:
       working_dir: spruce
       script: |
+        npx wait-on http://localhost:9090
         npx cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
