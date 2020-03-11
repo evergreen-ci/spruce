@@ -1,4 +1,4 @@
-import styled, { StyledComponent } from "@emotion/styled/macro";
+import styled from "@emotion/styled/macro";
 
 export const DebugMessage = styled.div`
   color: #666;
