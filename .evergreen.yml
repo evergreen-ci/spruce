@@ -228,7 +228,7 @@ tasks:
     - func: get-evergreen-project
     - func: setup-mongodb
     - func: copy-cmdrc
-    - func: run-make
+    - func: run-make-background
       vars:
         target: local-evergreen
     - func: npm-install
