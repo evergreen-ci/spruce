@@ -4,7 +4,7 @@ import {
   TaskLogsQuery,
   TaskEventLogEntry,
   LogMessage
-} from "gql/queries/get-task-logs";
+} from "../../gql/queries/get-task-logs";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -40,8 +40,8 @@ const renderLogs = ({
     }
     return (
       <>
-        {eventLogEntryData.map(data => (
-          <TaskEventLogLine {...data} />
+        {eventLogEntryData.map((data, i) => (
+          <TaskEventLogLine key={i} {...data} />
         ))}
       </>
     );
@@ -51,8 +51,8 @@ const renderLogs = ({
   }
   return (
     <>
-      {logMessageData.map(data => (
-        <LogMessageLine {...data} />
+      {logMessageData.map((data, i) => (
+        <LogMessageLine key={i} {...data} />
       ))}
     </>
   );
