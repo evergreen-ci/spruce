@@ -1,6 +1,6 @@
 import React from "react";
 import { LogMessage } from "gql/queries/get-task-logs";
-import { getLogLineWrapper } from "components/styles/LogLines";
+import { getLogLineWrapper } from "pages/task/logs/logMessageLine/LogLines";
 import { format } from "date-fns";
 const FORMAT_STR = "yyyy/mm/d, HH:mm:ss.SSS";
 
