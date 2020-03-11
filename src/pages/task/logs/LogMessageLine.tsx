@@ -6,7 +6,7 @@ const FORMAT_STR = "yyyy/mm/d, HH:mm:ss.SSS";
 
 export const LogMessageLine: React.FC<LogMessage> = props => {
   const { timestamp, severity, message } = props;
-  const time = timestamp ? `${format(new Date(timestamp), FORMAT_STR)}] ` : "";
+  const time = timestamp ? `[${format(new Date(timestamp), FORMAT_STR)}] ` : "";
   const LogLineWrapper = getLogLineWrapper(severity);
   return (
     <LogLineWrapper>
