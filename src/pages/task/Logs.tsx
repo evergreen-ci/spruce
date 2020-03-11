@@ -121,16 +121,16 @@ export const Logs: React.FC = props => {
         value={currentLog}
         name="log-select"
       >
-        <Radio className="my-radio" value={LogTypes.Task}>
+        <Radio id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
-        <Radio className="my-radio" value={LogTypes.Agent}>
+        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
           Agent Logs
         </Radio>
-        <Radio className="my-radio" value={LogTypes.System}>
+        <Radio id="cy-system-radio" value={LogTypes.System}>
           System Logs
         </Radio>
-        <Radio className="my-radio" value={LogTypes.Event}>
+        <Radio id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
         </Radio>
       </StyledRadioGroup>
