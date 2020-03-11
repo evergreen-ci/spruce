@@ -4,25 +4,19 @@ export const GET_TASK_LOGS = gql`
   query taskLogs($id: String!) {
     taskLogs(taskId: $id) {
       taskLogs {
-        type
         severity
         message
         timestamp
-        version
       }
       agentLogs {
-        type
         severity
         message
         timestamp
-        version
       }
       systemLogs {
-        type
         severity
         message
         timestamp
-        version
       }
       eventLogs {
         timestamp
@@ -30,6 +24,7 @@ export const GET_TASK_LOGS = gql`
         data {
           hostId
           jiraIssue
+          jiraLink
           priority
           status
           timestamp
@@ -39,26 +34,30 @@ export const GET_TASK_LOGS = gql`
     }
   }
 `;
-
-export interface TaskEventLogData {
-  type: string;
-  severity: string;
-  message: string;
+interface TaskEventLogData {
+  hostId: string;
+  jiraIssue: string;
+  jiraLink: string;
+  priority: string;
+  status: string;
   timestamp: string;
-  version: string;
+  userId: string;
+}
+export interface TaskEventLogEntry {
+  timestamp: string;
+  eventType: string;
+  data: TaskEventLogData;
 }
 
 export interface LogMessage {
-  type: string;
   severity: string;
   message: string;
   timestamp: string;
-  version: string;
 }
 
 interface TaskLogsQueryData {
   agentLogs: [LogMessage];
-  eventLogs: [TaskEventLogData];
+  eventLogs: [TaskEventLogEntry];
   systemLogs: [LogMessage];
   taskLogs: [LogMessage];
 }

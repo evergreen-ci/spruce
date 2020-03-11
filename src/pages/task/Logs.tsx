@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   GET_TASK_LOGS,
   TaskLogsQuery,
-  TaskEventLogData,
+  TaskEventLogEntry,
   LogMessage
 } from "gql/queries/get-task-logs";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
@@ -10,7 +10,8 @@ import { useLocation, useHistory, useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import queryString from "query-string";
 import styled from "@emotion/styled/macro";
-import { getLogLineWrapper } from "components/styles/LogLines";
+import { TaskEventLogLine } from "./logs/TaskEventLogLine";
+import { LogMessageLine } from "./logs/LogMessageLine";
 
 enum LogTypes {
   Agent = "agent",
@@ -24,28 +25,36 @@ enum QueryParams {
   LogType = "logtype"
 }
 
-const LogMessageLine = ({
-  message,
-  timestamp,
-  severity
+const renderLogs = ({
+  currentLog,
+  eventLogEntryData,
+  logMessageData
 }: {
-  message: string;
-  timestamp: string;
-  severity: string;
-}) => {
-  let time = "";
-  if (timestamp) {
-    const d = new Date(timestamp);
-    // formats time YYYY/MM/DD HH:MM:SS.MS
-    time = `[${d.getFullYear()}/${d.getMonth() +
-      1}/${d.getDate()} ${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}.${d.getMilliseconds()}}] `;
+  currentLog: LogTypes;
+  eventLogEntryData: [TaskEventLogEntry];
+  logMessageData: [LogMessage];
+}): JSX.Element => {
+  if (currentLog === LogTypes.Event) {
+    if (!eventLogEntryData.length) {
+      return <div>No logs</div>;
+    }
+    return (
+      <>
+        {eventLogEntryData.map(data => (
+          <TaskEventLogLine {...data} />
+        ))}
+      </>
+    );
   }
-  const LogLineWrapper = getLogLineWrapper(severity);
+  if (!logMessageData || !logMessageData.length) {
+    return <div>No logs</div>;
+  }
   return (
-    <LogLineWrapper>
-      {time}
-      {message}
-    </LogLineWrapper>
+    <>
+      {logMessageData.map(data => (
+        <LogMessageLine {...data} />
+      ))}
+    </>
   );
 };
 
@@ -88,23 +97,22 @@ export const Logs: React.FC = props => {
     );
   };
 
-  let currentData: [TaskEventLogData] | [LogMessage];
+  let logMessageData: [LogMessage];
   switch (currentLog) {
     case LogTypes.Agent:
-      currentData = data.taskLogs.agentLogs;
-      break;
-    case LogTypes.Event:
-      currentData = data.taskLogs.systemLogs;
+      logMessageData = data.taskLogs.agentLogs;
       break;
     case LogTypes.System:
-      currentData = data.taskLogs.systemLogs;
+      logMessageData = data.taskLogs.systemLogs;
       break;
     case LogTypes.Task:
-      currentData = data.taskLogs.taskLogs;
+      logMessageData = data.taskLogs.taskLogs;
       break;
     default:
-      currentData = null;
+      logMessageData = null;
   }
+
+  const eventLogEntryData: [TaskEventLogEntry] = data.taskLogs.eventLogs;
   return (
     <div>
       <StyledRadioGroup
@@ -126,19 +134,7 @@ export const Logs: React.FC = props => {
           Event Logs
         </Radio>
       </StyledRadioGroup>
-      {currentData == null || !currentData.length ? (
-        <div>No logs</div>
-      ) : currentLog !== LogTypes.Event ? (
-        currentData.map(({ message, timestamp, severity }) => (
-          <LogMessageLine
-            message={message}
-            timestamp={timestamp}
-            severity={severity}
-          />
-        ))
-      ) : (
-        <div></div>
-      )}
+      {renderLogs({ currentLog, eventLogEntryData, logMessageData })}
     </div>
   );
 };
