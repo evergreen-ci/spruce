@@ -71,4 +71,10 @@ describe("tests table", function() {
       .check()
       .should("be.checked");
   });
+  it("Should intially load with task log radio checked when logtype query param is not a valid log type", () => {
+    cy.visit(LOGS_ROUTE + "?logtype=soeiantsrein");
+    cy.get("#cy-task-radio")
+      .check()
+      .should("be.checked");
+  });
 });
