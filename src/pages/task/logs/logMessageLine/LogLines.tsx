@@ -1,35 +1,23 @@
 import styled from "@emotion/styled/macro";
 
-export const DebugMessage = styled.div`
-  color: #666;
-`;
-
-export const InfoMessage = styled.div`
-  color: #333;
-`;
-
-export const WarnMessage = styled.div`
-  color: #ffa500;
-`;
-
-export const ErrorMessage = styled.div`
-  color: #ff0000;
+const getLogLineComp = (color: string) => styled.div`
+  color: ${color};
 `;
 
 export const getLogLineWrapper = (severity: string): React.FC => {
   switch (severity) {
     case "D":
     case "DEBUG":
-      return DebugMessage;
+      return getLogLineComp("#666");
     case "W":
     case "WARN":
-      return WarnMessage;
+      return getLogLineComp("#ffa500");
     case "I":
     case "INFO":
-      return InfoMessage;
+      return getLogLineComp("#333");
     case "E":
     case "ERROR":
-      return ErrorMessage;
+      return getLogLineComp("#ff0000");
     default:
       return styled.div``;
   }
