@@ -115,7 +115,7 @@ export const Logs: React.FC = props => {
       logMessageData = null;
   }
 
-  const eventLogEntryData: [TaskEventLogEntry] = data.taskLogs.eventLogs;
+  const eventLogEntryData = data.taskLogs.eventLogs;
   return (
     <div>
       <StyledRadioGroup
