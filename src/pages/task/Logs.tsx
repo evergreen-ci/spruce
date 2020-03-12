@@ -77,7 +77,7 @@ export const Logs: React.FC = props => {
       logTypeParam === LogTypes.System ||
       logTypeParam === LogTypes.Task
     ) {
-      setCurrentLog(logTypeParam as LogTypes);
+      setCurrentLog(logTypeParam);
     } else {
       setCurrentLog(DEFAULT_LOG_TYPE);
     }
