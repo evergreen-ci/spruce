@@ -91,6 +91,6 @@ describe("tests table", function() {
 
   it("Should format LogMessage time as Year/Day/Month Hour:Min:Sec.MS", () => {
     cy.visit(LOGS_ROUTE + "?logtype=agent");
-    cy.get(".cy-log-message-time").contains("2019/15/12, 10:15:20.000");
+    cy.get(".cy-log-message-time").contains("2019/12/12, 10:15:20.000");
   });
 });
