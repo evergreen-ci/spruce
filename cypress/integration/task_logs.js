@@ -71,7 +71,7 @@ describe("task logs view", function() {
       .check()
       .should("be.checked");
   });
-  it("Should intially load with task log radio checked when logtype query param is not a valid log type", () => {
+  it("Should initially load with task log radio checked as default when logtype query param is not a valid log type", () => {
     cy.visit(LOGS_ROUTE + "?logtype=soeiantsrein");
     cy.get("#cy-task-radio")
       .check()
