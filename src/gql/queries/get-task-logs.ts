@@ -1,23 +1,8 @@
 import gql from "graphql-tag";
 
-export const GET_TASK_LOGS = gql`
+export const GET_EVENT_LOGS = gql`
   query taskLogs($id: String!) {
     taskLogs(taskId: $id) {
-      taskLogs {
-        severity
-        message
-        timestamp
-      }
-      agentLogs {
-        severity
-        message
-        timestamp
-      }
-      systemLogs {
-        severity
-        message
-        timestamp
-      }
       eventLogs {
         timestamp
         eventType
@@ -34,6 +19,43 @@ export const GET_TASK_LOGS = gql`
     }
   }
 `;
+
+export const GET_TASK_LOGS = gql`
+  query taskLogs($id: String!) {
+    taskLogs(taskId: $id) {
+      taskLogs {
+        severity
+        message
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_AGENT_LOGS = gql`
+  query taskLogs($id: String!) {
+    taskLogs(taskId: $id) {
+      agentLogs {
+        severity
+        message
+        timestamp
+      }
+    }
+  }
+`;
+
+export const GET_SYSTEM_LOGS = gql`
+  query taskLogs($id: String!) {
+    taskLogs(taskId: $id) {
+      systemLogs {
+        severity
+        message
+        timestamp
+      }
+    }
+  }
+`;
+
 interface TaskEventLogData {
   hostId: string;
   jiraIssue: string;
@@ -43,22 +65,49 @@ interface TaskEventLogData {
   timestamp: string;
   userId: string;
 }
+
 export interface TaskEventLogEntry {
+  kind: "taskEventLogEntry";
   timestamp: string;
   eventType: string;
   data: TaskEventLogData;
 }
+
 export interface LogMessage {
+  kind: "logMessage";
   severity: string;
   message: string;
   timestamp: string;
 }
-interface TaskLogsQueryData {
-  agentLogs: [LogMessage];
+
+interface EventLogsQueryData {
   eventLogs: [TaskEventLogEntry];
-  systemLogs: [LogMessage];
+}
+
+interface TaskLogsQueryData {
   taskLogs: [LogMessage];
 }
+
+interface AgentLogsQueryData {
+  agentLogs: [LogMessage];
+}
+
+interface SystemLogsQueryData {
+  systemLogs: [LogMessage];
+}
+
+export interface EventLogsQuery {
+  taskLogs: EventLogsQueryData;
+}
+
 export interface TaskLogsQuery {
   taskLogs: TaskLogsQueryData;
+}
+
+export interface AgentLogsQuery {
+  taskLogs: AgentLogsQueryData;
+}
+
+export interface SystemLogsQuery {
+  taskLogs: SystemLogsQueryData;
 }
