@@ -91,7 +91,7 @@ export const Logs: React.FC = props => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>) => {
     const nextLogType = event.target.value as LogTypes;
     replace(
       `${pathname}?${queryString.stringify({
