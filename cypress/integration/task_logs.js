@@ -15,7 +15,7 @@ describe("task logs view", function() {
     cy.get("#cy-task-radio").should("be.checked");
   });
 
-  it("Should update logtype query param to event after checking agent radio button", () => {
+  it("Should update logtype query param to agent after checking agent radio button", () => {
     cy.visit(LOGS_ROUTE);
     cy.get("#cy-agent-radio")
       .check()
