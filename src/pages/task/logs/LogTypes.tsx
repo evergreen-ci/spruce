@@ -58,7 +58,7 @@ export const EventLog = () => {
     variables: { id }
   });
   return useRenderBody({
-    data: get(data, "taskLogs.eventLogs", []).map(v => ({
+    data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
       ...v,
       kind: "taskEventLogEntry"
     })),
