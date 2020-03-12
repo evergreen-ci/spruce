@@ -70,6 +70,8 @@ export const Logs: React.FC = props => {
   const logTypeParam = (parsed[QueryParams.LogType] || "")
     .toString()
     .toLowerCase();
+
+  // set current log based on query param
   useEffect(() => {
     if (
       logTypeParam === LogTypes.Agent ||
@@ -82,6 +84,7 @@ export const Logs: React.FC = props => {
       setCurrentLog(DEFAULT_LOG_TYPE);
     }
   }, [logTypeParam]);
+
   if (loading) {
     return <div>Loading...</div>;
   }
