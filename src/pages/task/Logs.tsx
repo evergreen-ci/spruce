@@ -16,6 +16,13 @@ enum QueryParams {
   LogType = "logtype"
 }
 
+const options = {
+  [LogTypes.Agent]: <AgentLog />,
+  [LogTypes.System]: <SystemLog />,
+  [LogTypes.Task]: <TaskLog />,
+  [LogTypes.Event]: <EventLog />
+};
+
 export const Logs: React.FC = props => {
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
@@ -69,19 +76,9 @@ export const Logs: React.FC = props => {
           Event Logs
         </Radio>
       </StyledRadioGroup>
-      {renderLogs({ logType: currentLog })}
+      {options[currentLog] || <></>}
     </div>
   );
-};
-
-const renderLogs = ({ logType }: { logType: LogTypes }) => {
-  const options = {
-    [LogTypes.Agent]: <AgentLog />,
-    [LogTypes.System]: <SystemLog />,
-    [LogTypes.Task]: <TaskLog />,
-    [LogTypes.Event]: <EventLog />
-  };
-  return options[logType] || <></>;
 };
 
 const StyledRadioGroup = styled(RadioGroup)`
