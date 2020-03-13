@@ -67,14 +67,14 @@ interface TaskEventLogData {
 }
 
 export interface TaskEventLogEntry {
-  kind: "taskEventLogEntry";
+  kind?: "taskEventLogEntry";
   timestamp: string;
   eventType: string;
   data: TaskEventLogData;
 }
 
 export interface LogMessage {
-  kind: "logMessage";
+  kind?: "logMessage";
   severity: string;
   message: string;
   timestamp: string;
