@@ -76,7 +76,9 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = props => {
 
   return (
     <Row>
-      <TS className="cy-event-ts">{format(new Date(timestamp), FORMAT_STR)}</TS>
+      <Timestamp className="cy-event-ts">
+        {format(new Date(timestamp), FORMAT_STR)}
+      </Timestamp>
       {message}
     </Row>
   );
@@ -89,6 +91,6 @@ const Row = styled.div`
   border-top: 1px dotted #ccc;
 `;
 
-const TS = styled.span`
+const Timestamp = styled.span`
   margin-right: 15px;
 `;
