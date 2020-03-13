@@ -18,40 +18,6 @@ import { ApolloError } from "apollo-client";
 import { useParams } from "react-router-dom";
 import get from "lodash/get";
 
-const useRenderBody = ({
-  loading,
-  error,
-  data
-}: {
-  loading: boolean;
-  error: ApolloError;
-  data: [TaskEventLogEntry | LogMessage];
-}) => {
-  const noLogs = <div id="cy-no-logs">No logs</div>;
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-  if (!data.length) {
-    return noLogs;
-  }
-
-  return (
-    <>
-      {data.map((d, i) =>
-        d.kind === "taskEventLogEntry" ? (
-          <TaskEventLogLine key={i} {...d} />
-        ) : (
-          <LogMessageLine key={i} {...d} />
-        )
-      )}
-    </>
-  );
-};
-
 export const EventLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<EventLogsQuery>(GET_EVENT_LOGS, {
@@ -101,4 +67,38 @@ export const TaskLog = () => {
     loading,
     error
   });
+};
+
+const useRenderBody = ({
+  loading,
+  error,
+  data
+}: {
+  loading: boolean;
+  error: ApolloError;
+  data: [TaskEventLogEntry | LogMessage];
+}) => {
+  const noLogs = <div id="cy-no-logs">No logs</div>;
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+  if (!data.length) {
+    return noLogs;
+  }
+
+  return (
+    <>
+      {data.map((d, i) =>
+        d.kind === "taskEventLogEntry" ? (
+          <TaskEventLogLine key={i} {...d} />
+        ) : (
+          <LogMessageLine key={i} {...d} />
+        )
+      )}
+    </>
+  );
 };
