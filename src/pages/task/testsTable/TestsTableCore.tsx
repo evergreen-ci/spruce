@@ -43,7 +43,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     sorter: true,
     width: "20%",
     render: (tag: string): JSX.Element => {
-      let color: Variant = Variant.LightGray;
+      let color: Variant;
       switch (tag) {
         case TestStatus.Succeeded:
           color = Variant.Green;
@@ -57,6 +57,8 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
         case TestStatus.Skipped:
           color = Variant.Yellow;
           break;
+        default:
+          color = Variant.LightGray;
       }
       return (
         <span>
