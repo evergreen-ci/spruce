@@ -128,7 +128,8 @@ export const rowKey = ({ id }: { id: string }): string => id;
 
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
-  initialCategory
+  initialCategory,
+  initialStatuses
 }) => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
@@ -143,7 +144,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       cat: initialCategory as Categories,
       pageNum: 0,
       limitNum: LIMIT,
-      statusList: []
+      statusList: initialStatuses as [string?]
     },
     notifyOnNetworkStatusChange: true
   });
@@ -152,8 +153,11 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     .toString()
     .toUpperCase();
   const sort = parsed[RequiredQueryParams.Sort];
+  const statuses = parsed[RequiredQueryParams.Statuses];
   const prevCategory = usePrevious(category);
   const prevSort = usePrevious(sort);
+  const prevStatuses = usePrevious(statuses);
+
   useEffect(() => {
     const elements = document.querySelectorAll(
       "th.ant-table-column-has-actions.ant-table-column-has-sorters"
@@ -168,8 +172,13 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       });
     }
   }, [networkStatus]);
+  if (statuses != prevStatuses) {
+    console.log("statuses aint da same", statuses, prevStatuses);
+  }
   if (
-    (sort !== prevSort || category !== prevCategory) &&
+    (sort !== prevSort ||
+      category !== prevCategory ||
+      statuses !== prevStatuses) &&
     networkStatus === NetworkStatus.ready &&
     !error
   ) {

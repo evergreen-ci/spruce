@@ -23,7 +23,7 @@ export const TestsTable: React.FC = () => {
 
   // validate query params for tests table and replace them if necessary
   useEffect(() => {
-    const parsed = queryString.parse(search);
+    const parsed = queryString.parse(search, { arrayFormat: "comma" });
     const category = (parsed[RequiredQueryParams.Category] || "")
       .toString()
       .toUpperCase();
@@ -39,9 +39,11 @@ export const TestsTable: React.FC = () => {
       const nextQueryParams = queryString.stringify(parsed);
       replace(`${pathname}?${nextQueryParams}`);
     } else if (!validInitialQueryParams) {
+      const statuses = parsed[RequiredQueryParams.Statuses];
       setValidInitialQueryParams({
         initialCategory: parsed[RequiredQueryParams.Category],
-        initialSort: parsed[RequiredQueryParams.Sort]
+        initialSort: parsed[RequiredQueryParams.Sort],
+        initialStatuses: Array.isArray(statuses) ? statuses : []
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);

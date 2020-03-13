@@ -3,13 +3,13 @@ import { TableProps } from "antd/es/table";
 export interface ValidInitialQueryParams {
   initialCategory: string | string[];
   initialSort: string | string[];
+  initialStatuses: string | string[];
 }
 
 export enum RequiredQueryParams {
   Sort = "sort",
   Category = "category",
-  Page = "page",
-  Limit = "limit"
+  Statuses = "statuses"
 }
 
 export enum SortQueryParam {
