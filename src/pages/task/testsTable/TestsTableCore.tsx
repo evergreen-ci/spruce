@@ -142,7 +142,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
       cat: initialCategory as Categories,
       pageNum: 0,
-      limitNum: LIMIT
+      limitNum: LIMIT,
+      statusList: []
     },
     notifyOnNetworkStatusChange: true
   });
