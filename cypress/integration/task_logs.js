@@ -47,31 +47,31 @@ describe("task logs view", function() {
     });
   });
   it("Should intially load with agent log radio checked when logtype query param is agent", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=agent");
+    cy.visit(`${LOGS_ROUTE}?logtype=agent`);
     cy.get("#cy-agent-radio")
       .check()
       .should("be.checked");
   });
   it("Should intially load with system log radio checked when logtype query param is system", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=system");
+    cy.visit(`${LOGS_ROUTE}?logtype=system`);
     cy.get("#cy-system-radio")
       .check()
       .should("be.checked");
   });
   it("Should intially load with event log radio checked when logtype query param is event", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=event");
+    cy.visit(`${LOGS_ROUTE}?logtype=event`);
     cy.get("#cy-event-radio")
       .check()
       .should("be.checked");
   });
   it("Should intially load with task log radio checked when logtype query param is task", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=task");
+    cy.visit(`${LOGS_ROUTE}?logtype=task`);
     cy.get("#cy-task-radio")
       .check()
       .should("be.checked");
   });
   it("Should initially load with task log radio checked as default when logtype query param is not a valid log type", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=soeiantsrein");
+    cy.visit(`${LOGS_ROUTE}?logtype=soeiantsrein`);
     cy.get("#cy-task-radio")
       .check()
       .should("be.checked");
@@ -80,16 +80,5 @@ describe("task logs view", function() {
   it("Should display 'No logs' when no logs found", () => {
     cy.visit(LOGS_ROUTE);
     cy.get("#cy-no-logs").contains("No logs");
-  });
-
-  it("Should format event time as Month Day, Year Hour:Min:Sec am/pm", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=event");
-    cy.get(".cy-event-scheduled").contains("Mar 3, 2020, 10:45:16 a.m.");
-    cy.get(".cy-event-ts").contains("Mar 3, 2020, 10:45:17 a.m.");
-  });
-
-  it("Should format LogMessage time as Year/Day/Month Hour:Min:Sec.MS", () => {
-    cy.visit(LOGS_ROUTE + "?logtype=agent");
-    cy.get(".cy-log-message-time").contains("2019/12/12, 10:15:20.000");
   });
 });
