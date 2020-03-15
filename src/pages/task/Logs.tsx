@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
-import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 import { EventLog, AgentLog, SystemLog, TaskLog } from "./logs/LogTypes";
 import queryString from "query-string";
 import styled from "@emotion/styled/macro";
