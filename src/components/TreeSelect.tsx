@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 
-export const StatusSelect = ({
+export const TreeSelect = ({
   state,
   tData,
   onChange,
