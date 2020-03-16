@@ -7,7 +7,7 @@ export const GET_TASK_TESTS = gql`
     $cat: TestSortCategory
     $pageNum: Int
     $limitNum: Int
-    $statusList: [String]
+    $statusList: [String!]!
   ) {
     taskTests(
       taskId: $id
@@ -57,7 +57,7 @@ export interface TakskTestsVars {
   cat: Categories;
   pageNum: number;
   limitNum: number;
-  statusList?: [string?];
+  statusList: string[];
 }
 
 export interface UpdateQueryArg {

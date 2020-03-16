@@ -24,4 +24,12 @@ export enum PatchTasksQueryParams {
   Limit = "limit"
 }
 
+export enum TestStatus {
+  Fail = "fail",
+  Skip = "skip",
+  SilentFail = "silentfail",
+  Success = "success",
+  All = "all"
+}
+
 export type TableOnChange<D> = TableProps<D>["onChange"];

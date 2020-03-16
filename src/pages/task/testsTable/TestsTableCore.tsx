@@ -129,7 +129,7 @@ export const rowKey = ({ id }: { id: string }): string => id;
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory,
-  initialStatuses = []
+  initialStatuses
 }) => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
@@ -143,7 +143,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
       cat: initialCategory as Categories,
       pageNum: 0,
-      limitNum: LIMIT
+      limitNum: LIMIT,
+      statusList: []
     },
     notifyOnNetworkStatusChange: true
   });
