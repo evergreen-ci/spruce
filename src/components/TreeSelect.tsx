@@ -3,6 +3,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
+import Icon from "@leafygreen-ui/icon";
 
 interface Props {
   state: string[];
@@ -27,16 +28,21 @@ export const TreeSelect = ({
   optionsLabel
 }: Props) => {
   const wrapperRef = useRef(null);
-  const [showOptions, setShowOptions] = useState<boolean>(false);
-  useOnClickOutside(wrapperRef, () => setShowOptions(false));
-  const toggleOptions = () => setShowOptions(!showOptions);
+  const [isVisible, setisVisible] = useState<boolean>(false);
+  useOnClickOutside(wrapperRef, () => setisVisible(false));
+  const toggleOptions = () => setisVisible(!isVisible);
   return (
     <div ref={wrapperRef}>
       <LabelWrapper onClick={toggleOptions}>
         {inputLabel}
         {optionsLabel}
+        <ArrowWrapper>
+          <div>
+            <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
+          </div>
+        </ArrowWrapper>
       </LabelWrapper>
-      {showOptions && (
+      {isVisible && (
         <OptionsWrapper>
           {renderCheckboxes({ state, tData, onChange })}
         </OptionsWrapper>
@@ -142,4 +148,14 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   width: 352px;
   margin-top: 5px;
+`;
+
+const ArrowWrapper = styled.span`
+  float: right;
+  border-left: 1px solid ${uiColors.gray.light1};
+  padding-left: 5px;
+  > div {
+    position: relative;
+    top: 2px;
+  }
 `;
