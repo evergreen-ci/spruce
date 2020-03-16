@@ -100,10 +100,10 @@ const crawlChildren = (
   },
   level: number
 ) => {
-  const Wrapper = getCheckboxWrapper(level);
+  const CheckboxWrapper = getCheckboxWrapper(level);
   // push parent
   rows.push(
-    <Wrapper>
+    <CheckboxWrapper>
       <Checkbox
         key={data.key}
         className="cy-checkbox"
@@ -112,7 +112,7 @@ const crawlChildren = (
         checked={state.includes(data.value)}
         bold={false}
       />
-    </Wrapper>
+    </CheckboxWrapper>
   );
   // then examine children
   if (data.children) {
@@ -125,6 +125,7 @@ const crawlChildren = (
 // styles
 const getCheckboxWrapper = (level: number) => styled.div`
   padding-left: ${level}em;
+  padding-bottom: 8px;
 `;
 
 const LabelWrapper = styled.div`
