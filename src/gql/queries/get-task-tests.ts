@@ -57,7 +57,7 @@ export interface TakskTestsVars {
   cat: Categories;
   pageNum: number;
   limitNum: number;
-  statusList: [string?];
+  statusList?: [string?];
 }
 
 export interface UpdateQueryArg {

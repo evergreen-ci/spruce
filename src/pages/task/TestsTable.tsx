@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
+import { StatusSelector } from "./testsTable/StatusSelector";
 import {
   RequiredQueryParams,
   SortQueryParam,
@@ -51,5 +52,10 @@ export const TestsTable: React.FC = () => {
   if (!validInitialQueryParams) {
     return null;
   }
-  return <TestsTableCore {...validInitialQueryParams} />;
+  return (
+    <>
+      <StatusSelector />
+      <TestsTableCore {...validInitialQueryParams} />;
+    </>
+  );
 };
