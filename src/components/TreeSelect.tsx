@@ -32,7 +32,7 @@ export const TreeSelect = ({
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
   return (
-    <div ref={wrapperRef}>
+    <Wrapper ref={wrapperRef}>
       <LabelWrapper onClick={toggleOptions}>
         {inputLabel}
         {optionsLabel}
@@ -47,7 +47,7 @@ export const TreeSelect = ({
           {renderCheckboxes({ state, tData, onChange })}
         </OptionsWrapper>
       )}
-    </div>
+    </Wrapper>
   );
 };
 
@@ -128,7 +128,6 @@ const getCheckboxWrapper = (level: number) => styled.div`
 `;
 
 const LabelWrapper = styled.div`
-  width: 352px;
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
   padding: 5px 8px 5px 5px;
@@ -158,4 +157,8 @@ const ArrowWrapper = styled.span`
     position: relative;
     top: 2px;
   }
+`;
+
+const Wrapper = styled.div`
+  width: 352px;
 `;
