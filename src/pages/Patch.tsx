@@ -16,6 +16,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { PatchTabs } from "pages/patch/PatchTabs";
+import { BuildVariants } from "pages/patch/BuildVariants";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -71,10 +72,7 @@ export const Patch = () => {
               </StyledLink>
             </P2>
           </SiderCard>
-          <SiderCard>
-            <div>Build Variants</div>
-            <Divider />
-          </SiderCard>
+          <BuildVariants />
         </PageSider>
         <PageLayout>
           <PageContent>
