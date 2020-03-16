@@ -4,6 +4,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import { RequiredQueryParams } from "types/task";
 import { TestStatus } from "types/task";
+import { StatusSelect } from "./StatusSelect";
 const { SHOW_PARENT } = TreeSelect;
 const arrayFormat = "comma";
 const COMPLETE = [
@@ -43,7 +44,8 @@ export const StatusSelector = () => {
     }
   };
 
-  return <TreeSelect onChange={onChange} value={value} {...tProps} />;
+  // return <TreeSelect onChange={onChange} value={value} {...tProps} />;
+  return <StatusSelect onChange={onChange} state={value} tData={treeData} />;
 };
 
 const hasAll = (statuses: string[]): boolean =>
