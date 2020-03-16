@@ -4,6 +4,21 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 
+interface Props {
+  state: string[];
+  tData: TreeDataEntry[];
+  onChange: (v: string[]) => void;
+  inputLabel: string;
+  optionsLabel: string;
+}
+
+export interface TreeDataEntry {
+  title: string;
+  value: string;
+  key: string;
+  children?: TreeDataEntry[];
+}
+
 export const TreeSelect = ({
   state,
   tData,
@@ -30,20 +45,24 @@ export const TreeSelect = ({
   );
 };
 
-const handleOnChange = ({ state, value, onChange }) => {
+// Executes when checkbox is clicked
+const handleOnChange = ({
+  state,
+  value,
+  onChange // callback function
+}: {
+  state: string[];
+  value: string;
+  onChange: (v: string[]) => void;
+}) => {
   state.includes(value)
     ? onChange(state.filter(v => v != value))
     : onChange([...state, value]);
 };
 
-interface Props {
-  state: string[];
-  tData: TreeDataEntry[];
-  onChange: (v: string[]) => void;
-  inputLabel: string;
-  optionsLabel: string;
-}
-
+// depth first traversal checkbox data.
+// pushes parent then children to rows array
+// keeps track of level for indentation
 const renderCheckboxes = ({
   tData,
   state,
@@ -56,12 +75,12 @@ const renderCheckboxes = ({
   const rows: JSX.Element[] = [];
   let level = 0;
   tData.forEach(entry => {
-    crawl({ rows, data: entry, onChange, state }, level);
+    crawlChildren({ rows, data: entry, onChange, state }, level);
   });
   return rows;
 };
 
-const crawl = (
+const crawlChildren = (
   {
     rows,
     data,
@@ -76,6 +95,7 @@ const crawl = (
   level: number
 ) => {
   const Wrapper = getCheckboxWrapper(level);
+  // push parent
   rows.push(
     <Wrapper>
       <Checkbox
@@ -88,20 +108,15 @@ const crawl = (
       />
     </Wrapper>
   );
+  // then examine children
   if (data.children) {
     data.children.forEach(entry => {
-      crawl({ rows, data: entry, onChange, state }, level + 1);
+      crawlChildren({ rows, data: entry, onChange, state }, level + 1);
     });
   }
 };
 
-interface TreeDataEntry {
-  title: string;
-  value: string;
-  key: string;
-  children?: TreeDataEntry[];
-}
-
+// styles
 const getCheckboxWrapper = (level: number) => styled.div`
   padding-left: ${level}em;
 `;
@@ -116,6 +131,7 @@ const LabelWrapper = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 const OptionsWrapper = styled.div`
   border-radius: 5px;
   background-color: ${uiColors.white};
