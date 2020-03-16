@@ -44,8 +44,19 @@ export const StatusSelector = () => {
     }
   };
 
-  // return <TreeSelect onChange={onChange} value={value} {...tProps} />;
-  return <StatusSelect onChange={onChange} state={value} tData={treeData} />;
+  const optionsLabel = value.includes(TestStatus.All)
+    ? "All"
+    : value.join(", ");
+
+  return (
+    <StatusSelect
+      onChange={onChange}
+      state={value}
+      tData={treeData}
+      inputLabel="Test Status:  "
+      optionsLabel={optionsLabel}
+    />
+  );
 };
 
 const hasAll = (statuses: string[]): boolean =>
