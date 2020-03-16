@@ -69,7 +69,26 @@ const treeData = [
   {
     title: "All",
     value: TestStatus.All,
-    key: TestStatus.All
+    key: TestStatus.All,
+    children: [
+      {
+        title: "foo",
+        key: "foo",
+        value: "foo"
+      },
+      {
+        title: "bar",
+        key: "bar",
+        value: "bar",
+        children: [
+          {
+            title: "fum",
+            key: "fum",
+            value: "fum"
+          }
+        ]
+      }
+    ]
   },
   {
     title: "Success",
