@@ -1,11 +1,9 @@
 import React from "react";
-import { TreeSelect } from "antd";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import { RequiredQueryParams } from "types/task";
 import { TestStatus } from "types/task";
 import { StatusSelect } from "./StatusSelect";
-const { SHOW_PARENT } = TreeSelect;
 const arrayFormat = "comma";
 const COMPLETE = [
   TestStatus.Success,
@@ -14,6 +12,14 @@ const COMPLETE = [
   TestStatus.SilentFail,
   TestStatus.All
 ];
+const statusCopy = {
+  [TestStatus.Success]: "Success",
+  [TestStatus.Fail]: "Fail",
+  [TestStatus.Skip]: "Skip",
+  [TestStatus.SilentFail]: "Silent Fail",
+  [TestStatus.All]: "All"
+};
+
 const EMPTY: string[] = [];
 
 export const StatusSelector = () => {
@@ -45,8 +51,8 @@ export const StatusSelector = () => {
   };
 
   const optionsLabel = value.includes(TestStatus.All)
-    ? "All"
-    : value.join(", ");
+    ? statusCopy[TestStatus.All]
+    : value.map(status => statusCopy[status] || "").join(", ");
 
   return (
     <StatusSelect
@@ -122,18 +128,6 @@ const treeData = [
     key: TestStatus.SilentFail
   }
 ];
-
-const tProps = {
-  placeholder: "Select Test Status",
-  showCheckedStrategy: SHOW_PARENT,
-  treeCheckable: true,
-  treeData,
-  treeDefaultExpandAll: true,
-  style: {
-    width: "387px"
-  },
-  suffixIcon: <span>wussuf</span>
-};
 
 const getValueFromURL = (search: string) => {
   const parsed = queryString.parse(search, { arrayFormat });
