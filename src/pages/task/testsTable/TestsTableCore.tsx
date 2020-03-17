@@ -9,9 +9,9 @@ import {
   GET_TASK_TESTS,
   TakskTestsVars,
   TaskTestsData,
-  TestStatus,
   UpdateQueryArg
 } from "gql/queries/get-task-tests";
+import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -58,15 +58,13 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   const parsed = queryString.parse(search);
   const category = (parsed[RequiredQueryParams.Category] || "")
     .toString()
-    .toUpperCase();
+    .toUpperCase() as Categories;
   const sort = parsed[RequiredQueryParams.Sort];
   const statuses = parsed[RequiredQueryParams.Statuses];
   // prev values to see when to fetch
   const prevCategory = usePrevious(category);
   const prevSort = usePrevious(sort);
   const prevStatuses = usePrevious(statuses);
-  // formatted statuses removes "all"
-  const formattedStatuses = useFormattedStatuses(search);
 
   // disables sort buttons during fetch
   useEffect(() => {
@@ -94,13 +92,21 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       networkStatus === NetworkStatus.ready &&
       !error
     ) {
+      const rawStatuses = queryString.parse(search, { arrayFormat: "comma" })[
+        RequiredQueryParams.Statuses
+      ];
+      // filter "all"
+      const statusList = (Array.isArray(rawStatuses)
+        ? rawStatuses
+        : [rawStatuses]
+      ).filter(v => v && v !== TestStatus.All);
       fetchMore({
         variables: {
           cat: category,
           dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
           pageNum: 0,
           limitNum: LIMIT,
-          statusList: formattedStatuses
+          statusList: statusList
         },
         updateQuery: (
           prev: UpdateQueryArg,
@@ -119,9 +125,9 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     statuses,
     networkStatus,
     error,
-    formattedStatuses,
     prevSort,
-    prevCategory
+    prevCategory,
+    search
   ]);
 
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
@@ -136,13 +142,21 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     if (pageNum % 1 !== 0) {
       return;
     }
+    const rawStatuses = queryString.parse(search, { arrayFormat: "comma" })[
+      RequiredQueryParams.Statuses
+    ];
+    // filter "all"
+    const statusList = (Array.isArray(rawStatuses)
+      ? rawStatuses
+      : [rawStatuses]
+    ).filter(v => v && v !== TestStatus.All);
     fetchMore({
       variables: {
         pageNum,
         cat: category,
         dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
         limitNum: LIMIT,
-        statusList: formattedStatuses
+        statusList
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -227,16 +241,16 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     render: (tag: string): JSX.Element => {
       let color: Variant;
       switch (tag) {
-        case TestStatus.Succeeded:
+        case TestStatus.Pass:
           color = Variant.Green;
           break;
-        case TestStatus.Failed:
+        case TestStatus.Fail:
           color = Variant.Red;
           break;
-        case TestStatus.SilentlyFailed:
+        case TestStatus.SilentFail:
           color = Variant.Blue;
           break;
-        case TestStatus.Skipped:
+        case TestStatus.Skip:
           color = Variant.Yellow;
           break;
         default:
@@ -309,13 +323,6 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
 
 export const rowKey = ({ id }: { id: string }): string => id;
 
-const useFormattedStatuses = (search: string) => {
-  const parsed = queryString.parse(search, { arrayFormat: "comma" });
-  const statuses = parsed[RequiredQueryParams.Statuses];
-  return (Array.isArray(statuses) ? statuses : [statuses]).filter(
-    v => v && v != "all"
-  );
-};
 const ButtonWrapper = styled.span({
   marginRight: 8
 });
