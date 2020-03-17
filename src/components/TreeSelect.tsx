@@ -24,8 +24,8 @@ export const TreeSelect = ({
   state,
   tData,
   onChange,
-  inputLabel,
-  optionsLabel
+  inputLabel, // label for the select
+  optionsLabel // describes selected options
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
