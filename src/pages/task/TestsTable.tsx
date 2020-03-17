@@ -5,7 +5,8 @@ import { StatusSelector } from "./testsTable/StatusSelector";
 import {
   RequiredQueryParams,
   SortQueryParam,
-  ValidInitialQueryParams
+  ValidInitialQueryParams,
+  TestStatus
 } from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
@@ -46,7 +47,7 @@ export const TestsTable: React.FC = () => {
         initialStatuses: (Array.isArray(statuses)
           ? statuses
           : [statuses]
-        ).filter(v => v && v !== "all")
+        ).filter(v => v && v !== TestStatus.All)
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);

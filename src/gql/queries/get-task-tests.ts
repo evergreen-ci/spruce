@@ -29,7 +29,7 @@ export const GET_TASK_TESTS = gql`
   }
 `;
 
-export enum TestStatus {
+enum TestStatus {
   Failed = "fail",
   SilentlyFailed = "silentfail",
   Skipped = "skip",
