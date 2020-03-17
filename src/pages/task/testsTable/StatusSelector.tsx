@@ -12,14 +12,14 @@ export const StatusSelector = () => {
 
   const onChange = (updatedValue: [string]) => {
     if (
-      !hasAll(value) &&
-      (hasAll(updatedValue) || hasAllStatuses(updatedValue))
+      !hasAllVal(value) &&
+      (hasAllVal(updatedValue) || hasAllStatuses(updatedValue))
     ) {
       // user checks All box
       writeStatusesToURL({ replace, pathname, search, value: COMPLETE });
     } else if (
-      hasAll(value) &&
-      (!hasAll(updatedValue) || hasNoStatuses(updatedValue))
+      hasAllVal(value) &&
+      (!hasAllVal(updatedValue) || hasNoStatuses(updatedValue))
     ) {
       // user deselects All or all options aside from All are unchecked
       writeStatusesToURL({ replace, pathname, search, value: EMPTY });
@@ -29,7 +29,7 @@ export const StatusSelector = () => {
         replace,
         pathname,
         search,
-        value: updatedValue.filter(v => v != "all")
+        value: updatedValue.filter(v => v != TestStatus.All)
       });
     }
   };
@@ -44,7 +44,7 @@ export const StatusSelector = () => {
       state={value}
       tData={treeData}
       inputLabel="Test Status:  "
-      optionsLabel={optionsLabel}
+      optionsLabel={optionsLabel || "No filters selected"}
     />
   );
 };
@@ -69,7 +69,8 @@ const statusCopy = {
 
 const EMPTY: string[] = [];
 
-const hasAll = (statuses: string[]): boolean =>
+// means "all" is checked
+const hasAllVal = (statuses: string[]): boolean =>
   statuses && statuses.includes(TestStatus.All);
 
 const hasAllStatuses = (statuses: string[]): boolean =>
