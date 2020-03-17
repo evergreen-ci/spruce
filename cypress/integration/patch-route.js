@@ -45,7 +45,7 @@ describe("Patch route", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.get("#patch-base-commit")
       .should("have.attr", "href")
-      .and("include", "http://localhost:9090/version/");
+      .and("include", `http://localhost:9090/version/${patch.id}`);
   });
 
   it("Shows an error page if there was a problem loading data", () => {
