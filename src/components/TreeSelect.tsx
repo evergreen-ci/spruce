@@ -33,15 +33,17 @@ export const TreeSelect = ({
   const toggleOptions = () => setisVisible(!isVisible);
   return (
     <Wrapper ref={wrapperRef}>
-      <LabelWrapper onClick={toggleOptions}>
-        {inputLabel}
-        {optionsLabel}
+      <BarWrapper onClick={toggleOptions}>
+        <LabelWrapper>
+          {inputLabel}
+          {optionsLabel}
+        </LabelWrapper>
         <ArrowWrapper>
           <div>
             <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
           </div>
         </ArrowWrapper>
-      </LabelWrapper>
+      </BarWrapper>
       {isVisible && (
         <OptionsWrapper>
           {renderCheckboxes({ state, tData, onChange })}
@@ -126,15 +128,23 @@ const getCheckboxWrapper = (level: number) => styled.div`
   padding-left: ${level}em;
   padding-bottom: 8px;
 `;
-
 const LabelWrapper = styled.div`
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  width: 330px;
+`;
+const BarWrapper = styled.div`
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
-  padding: 5px 8px 5px 5px;
+  padding: 8px;
+  width: 352px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const OptionsWrapper = styled.div`
@@ -150,7 +160,6 @@ const OptionsWrapper = styled.div`
 `;
 
 const ArrowWrapper = styled.span`
-  float: right;
   border-left: 1px solid ${uiColors.gray.light1};
   padding-left: 5px;
   > div {
