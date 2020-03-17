@@ -24,12 +24,12 @@ export const StatusSelector = () => {
       // user deselects All or all options aside from All are unchecked
       writeStatusesToURL({ replace, pathname, search, value: EMPTY });
     } else {
-      // user selects all some statuses but not all of them
+      // user selects some statuses but not all of them
       writeStatusesToURL({
         replace,
         pathname,
         search,
-        value: updatedValue
+        value: updatedValue.filter(v => v != "all")
       });
     }
   };
