@@ -1,9 +1,10 @@
 /// <reference types="Cypress" />
+import { waitForGQL } from "../utils/networking";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
   desc:
-    "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)"
+    "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldEit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)"
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
@@ -51,10 +52,31 @@ describe("Patch route", function() {
   });
 
   describe("Build Variants", () => {
-    it("Lists all of the patch's build variants", () => {});
-    it("Lists all tasks for each build variant", () => {});
-    it("Displays tasks color according to its status", () => {});
-    it("Navigates to task page from clicking task square", () => {});
+    beforeEach(() => {
+      cy.server();
+      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.visit(path);
+      waitForGQL("@gqlQuery", "PatchBuildVariants");
+    });
+
+    it("Lists the patch's build variants", () => {
+      cy.get(".patch-build-variant").within($variants => {
+        Array.from($variants).length > 0;
+      });
+    });
+
+    it("Shows tooltip with task's name on hover", () => {
+      cy.get(".task-square")
+        .first()
+        .trigger("mouseover");
+      cy.get(".task-square-tooltip").should("exist");
+    });
+
+    it("Navigates to task page from clicking task square", () => {
+      cy.get(".task-square")
+        .should("have.attr", "href")
+        .and("include", "/task");
+    });
   });
 
   describe("Tabs", () => {

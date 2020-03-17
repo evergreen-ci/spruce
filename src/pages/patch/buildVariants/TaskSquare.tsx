@@ -14,12 +14,13 @@ interface Props {
 
 export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
   return (
-    <StyledRouterLink to={`/task/${id}`}>
+    <StyledRouterLink to={`/task/${id}`} className="task-square">
       <Tooltip
         trigger={
           <Square color={mapVariantTaskStatusToColor[status] || gray.light1} />
         }
         variant="dark"
+        className="task-square-tooltip"
       >
         {name}
       </Tooltip>

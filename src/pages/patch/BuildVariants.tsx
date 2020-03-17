@@ -52,26 +52,28 @@ export const BuildVariants: React.FC = () => {
       ) : loading ? (
         <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
       ) : (
-        data.patchBuildVariants.map(({ variant, tasks }) => (
-          <VariantsWrapper key={variant}>
-            <P1>{variant}</P1>
-            <TasksWrapper>
-              {tasks.map(task => (
-                <TaskSquare key={task.id} {...task} />
-              ))}
-            </TasksWrapper>
-          </VariantsWrapper>
-        ))
+        <div id="variants-card">
+          {data.patchBuildVariants.map(({ variant, tasks }) => (
+            <BuildVariant key={variant} className="patch-build-variant">
+              <P1>{variant}</P1>
+              <VariantTasks className="patch-variant-tasks">
+                {tasks.map(task => (
+                  <TaskSquare key={task.id} {...task} />
+                ))}
+              </VariantTasks>
+            </BuildVariant>
+          ))}
+        </div>
       )}
     </SiderCard>
   );
 };
 
-const VariantsWrapper = styled.div`
+const BuildVariant = styled.div`
   margin-bottom: 8px;
 `;
 
-const TasksWrapper = styled.div`
+const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
