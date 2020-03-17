@@ -12,7 +12,6 @@ interface Props {
   inputLabel: string;
   optionsLabel: string;
 }
-
 export interface TreeDataEntry {
   title: string;
   value: string;
@@ -87,7 +86,6 @@ const renderCheckboxes = ({
   });
   return rows;
 };
-
 const crawlChildren = (
   {
     rows,
@@ -146,7 +144,6 @@ const BarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 const OptionsWrapper = styled.div`
   border-radius: 5px;
   background-color: ${uiColors.white};
@@ -158,7 +155,6 @@ const OptionsWrapper = styled.div`
   width: 352px;
   margin-top: 5px;
 `;
-
 const ArrowWrapper = styled.span`
   border-left: 1px solid ${uiColors.gray.light1};
   padding-left: 5px;
@@ -167,7 +163,6 @@ const ArrowWrapper = styled.span`
     top: 2px;
   }
 `;
-
 const Wrapper = styled.div`
   width: 352px;
 `;
