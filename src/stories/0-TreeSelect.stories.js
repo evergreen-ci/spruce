@@ -66,3 +66,25 @@ export const InitialValues = () => {
     />
   );
 };
+
+export const Ellipsis = () => {
+  const [value, setValue] = useState([
+    "shapes",
+    "kite",
+    "skip",
+    "trapezoid",
+    "failed",
+    "skip",
+    "silentfail",
+    "pass"
+  ]);
+  return (
+    <TreeSelect
+      tData={treeData}
+      inputLabel="Items: "
+      optionsLabel={value.join(", ")}
+      state={value}
+      onChange={v => setValue(v)}
+    />
+  );
+};
