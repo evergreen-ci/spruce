@@ -21,7 +21,6 @@ export const TestsTable: React.FC = () => {
   const [validInitialQueryParams, setValidInitialQueryParams] = useState<
     ValidInitialQueryParams
   >();
-
   // validate query params for tests table and replace them if necessary
   useEffect(() => {
     const parsed = queryString.parse(search, { arrayFormat: "comma" });
@@ -44,7 +43,10 @@ export const TestsTable: React.FC = () => {
       setValidInitialQueryParams({
         initialCategory: parsed[RequiredQueryParams.Category],
         initialSort: parsed[RequiredQueryParams.Sort],
-        initialStatuses: Array.isArray(statuses) ? statuses : []
+        initialStatuses: (Array.isArray(statuses)
+          ? statuses
+          : [statuses]
+        ).filter(v => v && v !== "all")
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);

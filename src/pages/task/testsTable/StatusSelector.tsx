@@ -8,27 +8,28 @@ import { TreeSelect } from "components/TreeSelect";
 export const StatusSelector = () => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const value = getValueFromURL(search);
+  const value = useStatuses(search);
+
   const onChange = (updatedValue: [string]) => {
     if (
       !hasAll(value) &&
       (hasAll(updatedValue) || hasAllStatuses(updatedValue))
     ) {
       // user checks All box
-      saveValueToURL({ replace, pathname, search, value: COMPLETE });
+      writeStatusesToURL({ replace, pathname, search, value: COMPLETE });
     } else if (
       hasAll(value) &&
       (!hasAll(updatedValue) || hasNoStatuses(updatedValue))
     ) {
       // user deselects All or all options aside from All are unchecked
-      saveValueToURL({ replace, pathname, search, value: EMPTY });
+      writeStatusesToURL({ replace, pathname, search, value: EMPTY });
     } else {
       // user selects all some statuses but not all of them
-      saveValueToURL({
+      writeStatusesToURL({
         replace,
         pathname,
         search,
-        value: updatedValue.filter(v => v !== TestStatus.All)
+        value: updatedValue
       });
     }
   };
@@ -51,7 +52,7 @@ export const StatusSelector = () => {
 const arrayFormat = "comma";
 
 const COMPLETE = [
-  TestStatus.Success,
+  TestStatus.Pass,
   TestStatus.Fail,
   TestStatus.Skip,
   TestStatus.SilentFail,
@@ -59,7 +60,7 @@ const COMPLETE = [
 ];
 
 const statusCopy = {
-  [TestStatus.Success]: "Success",
+  [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
@@ -75,45 +76,26 @@ const hasAllStatuses = (statuses: string[]): boolean =>
   statuses &&
   statuses.includes(TestStatus.SilentFail) &&
   statuses.includes(TestStatus.Skip) &&
-  statuses.includes(TestStatus.Success) &&
+  statuses.includes(TestStatus.Pass) &&
   statuses.includes(TestStatus.Fail);
 
 const hasNoStatuses = (statuses: string[]): boolean =>
   !statuses ||
   (!statuses.includes(TestStatus.SilentFail) &&
     !statuses.includes(TestStatus.Skip) &&
-    !statuses.includes(TestStatus.Success) &&
+    !statuses.includes(TestStatus.Pass) &&
     !statuses.includes(TestStatus.Fail));
 
 const treeData = [
   {
     title: "All",
     value: TestStatus.All,
-    key: TestStatus.All,
-    children: [
-      {
-        title: "foo",
-        key: "foo",
-        value: "foo"
-      },
-      {
-        title: "bar",
-        key: "bar",
-        value: "bar",
-        children: [
-          {
-            title: "fum",
-            key: "fum",
-            value: "fum"
-          }
-        ]
-      }
-    ]
+    key: TestStatus.All
   },
   {
-    title: "Success",
-    value: TestStatus.Success,
-    key: TestStatus.Success
+    title: "Pass",
+    value: TestStatus.Pass,
+    key: TestStatus.Pass
   },
   {
     title: "Failed",
@@ -132,13 +114,13 @@ const treeData = [
   }
 ];
 
-const getValueFromURL = (search: string) => {
+const useStatuses = (search: string) => {
   const parsed = queryString.parse(search, { arrayFormat });
   const statuses = parsed[RequiredQueryParams.Statuses];
   return Array.isArray(statuses) ? statuses : [statuses].filter(v => v);
 };
 
-const saveValueToURL = ({
+const writeStatusesToURL = ({
   pathname,
   replace,
   search,

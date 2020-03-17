@@ -103,9 +103,8 @@ const crawlChildren = (
   const CheckboxWrapper = getCheckboxWrapper(level);
   // push parent
   rows.push(
-    <CheckboxWrapper>
+    <CheckboxWrapper key={data.key}>
       <Checkbox
-        key={data.key}
         className="cy-checkbox"
         onChange={() => handleOnChange({ state, value: data.value, onChange })}
         label={data.title}

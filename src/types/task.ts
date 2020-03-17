@@ -3,7 +3,7 @@ import { TableProps } from "antd/es/table";
 export interface ValidInitialQueryParams {
   initialCategory: string | string[];
   initialSort: string | string[];
-  initialStatuses: string | string[];
+  initialStatuses: string[];
 }
 
 export enum RequiredQueryParams {
@@ -28,7 +28,7 @@ export enum TestStatus {
   Fail = "fail",
   Skip = "skip",
   SilentFail = "silentfail",
-  Success = "success",
+  Pass = "pass",
   All = "all"
 }
 

@@ -29,6 +29,188 @@ import { NetworkStatus } from "apollo-client";
 
 const LIMIT = 10;
 
+export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
+  initialSort,
+  initialCategory,
+  initialStatuses
+}) => {
+  const { id } = useParams<{ id: string }>();
+  const { search, pathname } = useLocation();
+  const { replace } = useHistory();
+
+  // initial fetch
+  const { data, fetchMore, networkStatus, error } = useQuery<
+    TaskTestsData,
+    TakskTestsVars
+  >(GET_TASK_TESTS, {
+    variables: {
+      id,
+      dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
+      cat: initialCategory as Categories,
+      pageNum: 0,
+      limitNum: LIMIT,
+      statusList: initialStatuses
+    },
+    notifyOnNetworkStatusChange: true
+  });
+
+  // access query params from URL
+  const parsed = queryString.parse(search);
+  const category = (parsed[RequiredQueryParams.Category] || "")
+    .toString()
+    .toUpperCase();
+  const sort = parsed[RequiredQueryParams.Sort];
+  const statuses = parsed[RequiredQueryParams.Statuses];
+  // prev values to see when to fetch
+  const prevCategory = usePrevious(category);
+  const prevSort = usePrevious(sort);
+  const prevStatuses = usePrevious(statuses);
+  // formatted statuses removes "all"
+  const formattedStatuses = useFormattedStatuses(search);
+
+  // disables sort buttons during fetch
+  useEffect(() => {
+    const elements = document.querySelectorAll(
+      "th.ant-table-column-has-actions.ant-table-column-has-sorters"
+    );
+    if (networkStatus < NetworkStatus.ready) {
+      elements.forEach(el => {
+        (el as HTMLElement).style["pointer-events"] = "none";
+      });
+    } else {
+      elements.forEach(el => {
+        (el as HTMLElement).style["pointer-events"] = "auto";
+      });
+    }
+  }, [networkStatus]);
+
+  // this fetch is when url params change (sort direction, sort category, status list)
+  // and the page num is set to 0
+  useEffect(() => {
+    if (
+      (sort !== prevSort ||
+        category !== prevCategory ||
+        statuses !== prevStatuses) &&
+      networkStatus === NetworkStatus.ready &&
+      !error
+    ) {
+      fetchMore({
+        variables: {
+          cat: category,
+          dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
+          pageNum: 0,
+          limitNum: LIMIT,
+          statusList: formattedStatuses
+        },
+        updateQuery: (
+          prev: UpdateQueryArg,
+          { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+        ) => {
+          if (!fetchMoreResult) {
+            return prev;
+          }
+          return fetchMoreResult;
+        }
+      });
+    }
+  }, [
+    sort,
+    category,
+    statuses,
+    networkStatus,
+    error,
+    formattedStatuses,
+    prevSort,
+    prevCategory
+  ]);
+
+  const dataSource: [TaskTestsData] = get(data, "taskTests", []);
+
+  // this fetch is the callback for pagination
+  // that's why we see pageNum calculations
+  const onFetch = (): void => {
+    if (networkStatus === NetworkStatus.error || error) {
+      return;
+    }
+    const pageNum = dataSource.length / LIMIT;
+    if (pageNum % 1 !== 0) {
+      return;
+    }
+    fetchMore({
+      variables: {
+        pageNum,
+        cat: category,
+        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
+        limitNum: LIMIT,
+        statusList: formattedStatuses
+      },
+      updateQuery: (
+        prev: UpdateQueryArg,
+        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return Object.assign({}, prev, {
+          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
+        });
+      }
+    });
+  };
+
+  const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
+    const parsedSearch = queryString.parse(search);
+    const { order, columnKey } = sorter;
+    let hasDiff = false;
+    if (
+      columnKey !==
+      parsedSearch[RequiredQueryParams.Category].toString().toUpperCase()
+    ) {
+      parsedSearch[RequiredQueryParams.Category] = columnKey;
+      hasDiff = true;
+    }
+
+    if (
+      order === "ascend" &&
+      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Desc
+    ) {
+      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Asc;
+      hasDiff = true;
+    } else if (
+      order === "descend" &&
+      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Asc
+    ) {
+      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Desc;
+      hasDiff = true;
+    }
+    if (hasDiff) {
+      const nextQueryParams = queryString.stringify(parsedSearch);
+      replace(`${pathname}?${nextQueryParams}`);
+    }
+  };
+  // only need sort order set to reflect initial state in URL
+  columns.find(({ key }) => key === initialCategory).defaultSortOrder =
+    initialSort === SortQueryParam.Asc ? "ascend" : "descend";
+
+  return (
+    <div>
+      <InfinityTable
+        key="key"
+        loading={networkStatus < NetworkStatus.ready}
+        onFetch={onFetch}
+        pageSize={10000}
+        loadingIndicator={loader}
+        columns={columns}
+        scroll={{ y: 350 }}
+        dataSource={dataSource}
+        onChange={onChange}
+        export={true}
+        rowKey={rowKey}
+      />
+    </div>
+  );
+};
+
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
@@ -124,166 +306,16 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     }
   }
 ];
+
 export const rowKey = ({ id }: { id: string }): string => id;
 
-export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
-  initialSort,
-  initialCategory,
-  initialStatuses
-}) => {
-  const { id } = useParams<{ id: string }>();
-  const { search, pathname } = useLocation();
-  const { replace } = useHistory();
-  const { data, fetchMore, networkStatus, error } = useQuery<
-    TaskTestsData,
-    TakskTestsVars
-  >(GET_TASK_TESTS, {
-    variables: {
-      id,
-      dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
-      cat: initialCategory as Categories,
-      pageNum: 0,
-      limitNum: LIMIT,
-      statusList: []
-    },
-    notifyOnNetworkStatusChange: true
-  });
-  const parsed = queryString.parse(search);
-  const category = (parsed[RequiredQueryParams.Category] || "")
-    .toString()
-    .toUpperCase();
-  const sort = parsed[RequiredQueryParams.Sort];
+const useFormattedStatuses = (search: string) => {
+  const parsed = queryString.parse(search, { arrayFormat: "comma" });
   const statuses = parsed[RequiredQueryParams.Statuses];
-  const prevCategory = usePrevious(category);
-  const prevSort = usePrevious(sort);
-  const prevStatuses = usePrevious(statuses);
-
-  useEffect(() => {
-    const elements = document.querySelectorAll(
-      "th.ant-table-column-has-actions.ant-table-column-has-sorters"
-    );
-    if (networkStatus < NetworkStatus.ready) {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "none";
-      });
-    } else {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "auto";
-      });
-    }
-  }, [networkStatus]);
-
-  if (statuses != prevStatuses) {
-  }
-
-  if (
-    (sort !== prevSort ||
-      category !== prevCategory ||
-      statuses !== prevStatuses) &&
-    networkStatus === NetworkStatus.ready &&
-    !error
-  ) {
-    fetchMore({
-      variables: {
-        cat: category,
-        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
-        pageNum: 0,
-        limitNum: LIMIT
-      },
-      updateQuery: (
-        prev: UpdateQueryArg,
-        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return fetchMoreResult;
-      }
-    });
-  }
-  const dataSource: [TaskTestsData] = get(data, "taskTests", []);
-  const onFetch = (): void => {
-    if (networkStatus === NetworkStatus.error || error) {
-      return;
-    }
-    const pageNum = dataSource.length / LIMIT;
-    if (pageNum % 1 !== 0) {
-      return;
-    }
-    fetchMore({
-      variables: {
-        pageNum,
-        cat: category,
-        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
-        limitNum: LIMIT
-      },
-      updateQuery: (
-        prev: UpdateQueryArg,
-        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return Object.assign({}, prev, {
-          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
-        });
-      }
-    });
-  };
-
-  const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
-    const parsedSearch = queryString.parse(search);
-    const { order, columnKey } = sorter;
-    let hasDiff = false;
-    if (
-      columnKey !==
-      parsedSearch[RequiredQueryParams.Category].toString().toUpperCase()
-    ) {
-      parsedSearch[RequiredQueryParams.Category] = columnKey;
-      hasDiff = true;
-    }
-
-    if (
-      order === "ascend" &&
-      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Desc
-    ) {
-      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Asc;
-      hasDiff = true;
-    } else if (
-      order === "descend" &&
-      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Asc
-    ) {
-      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Desc;
-      hasDiff = true;
-    }
-    if (hasDiff) {
-      const nextQueryParams = queryString.stringify(parsedSearch);
-      replace(`${pathname}?${nextQueryParams}`);
-    }
-  };
-  // only need sort order set to reflect initial state in URL
-  columns.find(({ key }) => key === initialCategory).defaultSortOrder =
-    initialSort === SortQueryParam.Asc ? "ascend" : "descend";
-
-  return (
-    <div>
-      <InfinityTable
-        key="key"
-        loading={networkStatus < NetworkStatus.ready}
-        onFetch={onFetch}
-        pageSize={10000}
-        loadingIndicator={loader}
-        columns={columns}
-        scroll={{ y: 350 }}
-        dataSource={dataSource}
-        onChange={onChange}
-        export={true}
-        rowKey={rowKey}
-      />
-    </div>
+  return (Array.isArray(statuses) ? statuses : [statuses]).filter(
+    v => v && v != "all"
   );
 };
-
 const ButtonWrapper = styled.span({
   marginRight: 8
 });
