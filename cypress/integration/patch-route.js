@@ -50,6 +50,13 @@ describe("Patch route", function() {
     cy.get("div[id=patch-error]").should("exist");
   });
 
+  describe("Build Variants", () => {
+    it("Lists all of the patch's build variants", () => {});
+    it("Lists all tasks for each build variant", () => {});
+    it("Displays tasks color according to its status", () => {});
+    it("Navigates to task page from clicking task square", () => {});
+  });
+
   describe("Tabs", () => {
     it("selects tasks tasb by default", () => {
       cy.visit(path);
