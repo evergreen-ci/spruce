@@ -64,7 +64,7 @@ const handleOnChange = ({
   onChange: (v: string[]) => void;
 }) => {
   state.includes(value)
-    ? onChange(state.filter(v => v != value))
+    ? onChange(state.filter(v => v !== value))
     : onChange([...state, value]);
 };
 
