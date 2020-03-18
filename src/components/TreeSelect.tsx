@@ -80,10 +80,10 @@ const handleOnChange = ({
   onChange: (v: string[]) => void;
   tData: TreeDataEntry[];
 }) => {
-  const isAlreadyChecked = state.includes(value);
+  const isAlreadyChecked = state.includes(value); // is checkbox already selected
   const { target, parent, siblings } = findNode({ value, tData });
   const isParent = target.children;
-  const isAll = target.value == "all";
+  const isAll = target.value == "all"; // is all button clicked
   if (!target) {
     onChange([...state]);
   }
@@ -95,6 +95,7 @@ const handleOnChange = ({
       onChange(getAllValues(tData));
     }
   } else if (isParent) {
+    // has list of children
     const childrenValues = target.children.map(child => child.value);
     if (isAlreadyChecked) {
       onChange(
@@ -112,7 +113,7 @@ const handleOnChange = ({
       onChange(adjustAll({ resultState, tData }));
     }
   } else {
-    // is not parent
+    // does not have list of children, could be child
     const parentValue = parent ? parent.value : "";
     if (isAlreadyChecked) {
       onChange(
@@ -139,6 +140,7 @@ const handleOnChange = ({
   }
 };
 
+// selects or deselects the All checkbox depending on current options
 const adjustAll = ({
   resultState,
   tData
@@ -166,6 +168,7 @@ interface FindNodeResult {
   parent: TreeDataEntry;
   siblings: TreeDataEntry[];
 }
+
 const findNode = ({
   value,
   tData
@@ -200,6 +203,7 @@ const findNode = ({
   };
 };
 
+// returns all values in tData from parents and children
 const getAllValues = (tData: TreeDataEntry[]): string[] => {
   return tData.reduce((accum, currNode) => {
     const childrenValues = currNode.children
