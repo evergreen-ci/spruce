@@ -59,8 +59,8 @@ export const TreeSelect = ({
 
   return (
     <Wrapper id={id} ref={wrapperRef}>
-      <BarWrapper onClick={toggleOptions}>
-        <LabelWrapper className="cy-treeselect-bar">
+      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
+        <LabelWrapper>
           {inputLabel}
           {optionsLabel || "No filters selected"}
         </LabelWrapper>
