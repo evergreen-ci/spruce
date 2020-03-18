@@ -11,6 +11,7 @@ interface Props {
   onChange: (v: string[]) => void;
   inputLabel: string;
   optionsLabel: string;
+  id: string;
 }
 
 export interface TreeDataEntry {
@@ -20,20 +21,21 @@ export interface TreeDataEntry {
   children?: TreeDataEntry[];
 }
 
-export const TreeSelect = ({
+export const TreeSelect: React.FC<Props> = ({
   state,
   tData,
   onChange,
   inputLabel, // label for the select
-  optionsLabel // describes selected options
+  optionsLabel, // describes selected options
+  id
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
   return (
-    <Wrapper ref={wrapperRef}>
-      <BarWrapper onClick={toggleOptions}>
+    <Wrapper id={id} ref={wrapperRef}>
+      <BarWrapper className="cy-treeselect-bar" onClick={toggleOptions}>
         <LabelWrapper>
           {inputLabel}
           {optionsLabel}

@@ -45,6 +45,7 @@ export const StatusSelector = () => {
       tData={treeData}
       inputLabel="Test Status:  "
       optionsLabel={optionsLabel || "No filters selected"}
+      id="cy-test-status-select"
     />
   );
 };
