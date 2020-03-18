@@ -60,7 +60,7 @@ export const TreeSelect = ({
   return (
     <Wrapper id={id} ref={wrapperRef}>
       <BarWrapper onClick={toggleOptions}>
-        <LabelWrapper>
+        <LabelWrapper className="cy-treeselect-bar">
           {inputLabel}
           {optionsLabel || "No filters selected"}
         </LabelWrapper>
@@ -94,7 +94,7 @@ const handleOnChange = ({
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
   const { target, parent, siblings } = findNode({ value, tData });
   const isParent = target.children;
-  const isAll = target.value == ALL_VALUE; // is all button clicked
+  const isAll = target.value === ALL_VALUE; // is all button clicked
   if (!target) {
     onChange([...state]);
   }
