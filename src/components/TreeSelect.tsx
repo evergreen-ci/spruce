@@ -256,13 +256,13 @@ const renderCheckboxesHelper = ({
 }) => {
   const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
-  const onChange = () =>
+  const onChangeFn = () =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
     <ParentCheckboxWrapper key={data.key}>
       <Checkbox
         className="cy-checkbox"
-        onChange={onChnange}
+        onChange={onChangeFn}
         label={data.title}
         checked={state.includes(data.value)}
         bold={false}
@@ -273,13 +273,13 @@ const renderCheckboxesHelper = ({
   const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
     data.children.forEach(child => {
-      const onChangeChild = () =>
+      const onChangeChildFn = () =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
         <ChildCheckboxWrapper key={child.key}>
           <Checkbox
             className="cy-checkbox"
-            onChange={onChangeChild}
+            onChange={onChangeChildFn}
             label={child.title}
             checked={state.includes(child.value)}
             bold={false}
