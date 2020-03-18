@@ -56,13 +56,12 @@ export default {
   component: TreeSelect
 };
 
-export const InitialValues = () => {
+export const NoInitialValues = () => {
   const [value, setValue] = useState([]);
   return (
     <TreeSelect
       tData={treeData}
       inputLabel="Items: "
-      optionsLabel={value.join(", ")}
       state={value}
       onChange={v => setValue(v)}
     />
@@ -83,7 +82,71 @@ export const Ellipsis = () => {
     <TreeSelect
       tData={treeData}
       inputLabel="Items: "
-      optionsLabel={value.join(", ")}
+      state={value}
+      onChange={v => setValue(v)}
+    />
+  );
+};
+
+const noAllTreeData = [
+  {
+    title: "Shapes",
+    value: "shapes",
+    key: "shapes",
+    children: [
+      {
+        title: "rectangle",
+        value: "rectangle",
+        key: "rectangle"
+      },
+      {
+        title: "circle",
+        value: "circle",
+        key: "circle"
+      },
+      {
+        title: "rhombus",
+        value: "rhombus",
+        key: "rhombus"
+      }
+    ]
+  },
+  {
+    title: "Pass",
+    value: "pass",
+    key: "pass"
+  },
+  {
+    title: "Failed",
+    value: "failed",
+    key: "failed"
+  },
+  {
+    title: "Skip",
+    value: "skip",
+    key: "skip"
+  },
+  {
+    title: "Silent Fail",
+    value: "silentfail",
+    key: "silentfail"
+  }
+];
+
+export const NoAllButton = () => {
+  const [value, setValue] = useState([
+    "kite",
+    "skip",
+    "trapezoid",
+    "failed",
+    "skip",
+    "silentfail",
+    "pass"
+  ]);
+  return (
+    <TreeSelect
+      tData={noAllTreeData}
+      inputLabel="Items: "
       state={value}
       onChange={v => setValue(v)}
     />
