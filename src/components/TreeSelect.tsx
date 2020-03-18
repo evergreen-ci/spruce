@@ -22,6 +22,8 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
+// including a TreeDataEntry with value = "all"
+// will serve as the 'All' button
 export const TreeSelect = ({
   state,
   tData,
