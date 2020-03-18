@@ -11,6 +11,7 @@ interface Props {
   tData: TreeDataEntry[];
   onChange: (v: string[]) => void;
   inputLabel: string;
+  id: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -25,7 +26,8 @@ export const TreeSelect = ({
   state,
   tData,
   onChange,
-  inputLabel // label for the select
+  inputLabel, // label for the select
+  id
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
@@ -53,7 +55,7 @@ export const TreeSelect = ({
         .join(", ");
 
   return (
-    <Wrapper ref={wrapperRef}>
+    <Wrapper id={id} ref={wrapperRef}>
       <BarWrapper onClick={toggleOptions}>
         <LabelWrapper>
           {inputLabel}
