@@ -36,8 +36,8 @@ export const TreeSelect = ({
   const allValues = getAllValues(tData);
   // remove extraneous values
   const filteredState = state.filter(value => allValues.includes(value));
-  const optionsLabel = filteredState.includes(ALL_COPY)
-    ? ALL_VALUE
+  const optionsLabel = filteredState.includes(ALL_VALUE)
+    ? ALL_COPY
     : filteredState
         .reduce(
           // remove children nodes if parent exists in state
@@ -131,7 +131,7 @@ const handleOnChange = ({
         })
       );
     } else {
-      let siblingsChecked = false;
+      let siblingsChecked = true;
       siblings.forEach(sibling => {
         siblingsChecked = siblingsChecked && state.includes(sibling.value);
       });
