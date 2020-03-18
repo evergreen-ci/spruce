@@ -4,7 +4,8 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
-
+const ALL_VALUE = "all";
+const ALL_COPY = "All";
 interface Props {
   state: string[];
   tData: TreeDataEntry[];
@@ -31,8 +32,8 @@ export const TreeSelect = ({
   const allValues = getAllValues(tData);
   // remove extraneous values
   const filteredState = state.filter(value => allValues.includes(value));
-  const optionsLabel = filteredState.includes("all")
-    ? "All"
+  const optionsLabel = filteredState.includes(ALL_COPY)
+    ? ALL_VALUE
     : filteredState
         .reduce(
           // remove children nodes if parent exists in state
@@ -86,7 +87,7 @@ const handleOnChange = ({
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
   const { target, parent, siblings } = findNode({ value, tData });
   const isParent = target.children;
-  const isAll = target.value == "all"; // is all button clicked
+  const isAll = target.value == ALL_VALUE; // is all button clicked
   if (!target) {
     onChange([...state]);
   }
@@ -151,7 +152,7 @@ const adjustAll = ({
   resultState: string[];
   tData: TreeDataEntry[];
 }) => {
-  const allValues = getAllValues(tData).filter(value => value !== "all");
+  const allValues = getAllValues(tData).filter(value => value !== ALL_VALUE);
   const resultStateHasAllValues = allValues.reduce(
     (accum, value) => accum && resultState.includes(value),
     true
@@ -159,9 +160,9 @@ const adjustAll = ({
   // convert to set in case all exists in URL when its not supposed to
   const resultStateSet = new Set(resultState);
   if (resultStateHasAllValues) {
-    resultStateSet.add("all");
+    resultStateSet.add(ALL_VALUE);
   } else {
-    resultStateSet.delete("all");
+    resultStateSet.delete(ALL_VALUE);
   }
   return Array.from(resultStateSet);
 };
