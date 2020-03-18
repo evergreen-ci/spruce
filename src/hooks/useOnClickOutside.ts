@@ -11,7 +11,7 @@ export const useOnClickOutside = (
       // Unbind the event listener on clean up
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  });
+  }, []);
 
   function handleClickOutside(event) {
     if (ref.current && !ref.current.contains(event.target)) {
