@@ -10,7 +10,6 @@ interface Props {
   tData: TreeDataEntry[];
   onChange: (v: string[]) => void;
   inputLabel: string;
-  optionsLabel: string;
 }
 export interface TreeDataEntry {
   title: string;
@@ -23,13 +22,30 @@ export const TreeSelect = ({
   state,
   tData,
   onChange,
-  inputLabel, // label for the select
-  optionsLabel // describes selected options
+  inputLabel // label for the select
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
+  const optionsLabel = state.includes("all")
+    ? "All"
+    : state
+        .reduce(
+          // remove children nodes if parent exists in state
+          (accum, value) => {
+            console.log(value);
+            const { target } = findNode({ value, tData });
+            if (target.children) {
+              return accum.filter(
+                value => !target.children.find(child => child.value === value)
+              );
+            }
+            return accum;
+          },
+          [...state]
+        )
+        .join(", ");
   return (
     <Wrapper ref={wrapperRef}>
       <BarWrapper onClick={toggleOptions}>
@@ -56,15 +72,141 @@ export const TreeSelect = ({
 const handleOnChange = ({
   state,
   value,
-  onChange // callback function
+  onChange, // callback function
+  tData
 }: {
   state: string[];
   value: string;
   onChange: (v: string[]) => void;
+  tData: TreeDataEntry[];
 }) => {
-  state.includes(value)
-    ? onChange(state.filter(v => v !== value))
-    : onChange([...state, value]);
+  const isAlreadyChecked = state.includes(value);
+  const { target, parent, siblings } = findNode({ value, tData });
+  const isParent = target.children;
+  const isAll = target.value == "all";
+  if (!target) {
+    onChange([...state]);
+  }
+  // is all button checked
+  if (isAll) {
+    if (isAlreadyChecked) {
+      onChange([]);
+    } else {
+      onChange(getAllValues(tData));
+    }
+  } else if (isParent) {
+    const childrenValues = target.children.map(child => child.value);
+    if (isAlreadyChecked) {
+      onChange(
+        adjustAll({
+          resultState: state.filter(
+            v => v !== value && !childrenValues.includes(v)
+          ),
+          tData
+        })
+      );
+    } else {
+      const resultState = Array.from(
+        new Set([...state, value, ...childrenValues])
+      );
+      onChange(adjustAll({ resultState, tData }));
+    }
+  } else {
+    // is not parent
+    const parentValue = parent ? parent.value : "";
+    if (isAlreadyChecked) {
+      onChange(
+        adjustAll({
+          resultState: state.filter(v => v !== value && v !== parentValue),
+          tData
+        })
+      );
+    } else {
+      const shouldCheckParent =
+        parentValue &&
+        siblings.reduce(
+          (accum, sibling) => accum && state.includes(sibling.value),
+          true
+        );
+      // use set in case parent.value already exists in state
+      const resultState = Array.from(
+        new Set(
+          [...state, value].concat(shouldCheckParent ? [parentValue] : [])
+        )
+      );
+      onChange(adjustAll({ resultState, tData }));
+    }
+  }
+};
+
+const adjustAll = ({
+  resultState,
+  tData
+}: {
+  resultState: string[];
+  tData: TreeDataEntry[];
+}) => {
+  const allValues = getAllValues(tData).filter(value => value !== "all");
+  const resultStateHasAllValues = allValues.reduce(
+    (accum, value) => accum && resultState.includes(value),
+    true
+  );
+  // convert to set in case all exists in URL when its not supposed to
+  const resultStateSet = new Set(resultState);
+  if (resultStateHasAllValues) {
+    resultStateSet.add("all");
+  } else {
+    resultStateSet.delete("all");
+  }
+  return Array.from(resultStateSet);
+};
+
+interface FindNodeResult {
+  target: TreeDataEntry;
+  parent: TreeDataEntry;
+  siblings: TreeDataEntry[];
+}
+const findNode = ({
+  value,
+  tData
+}: {
+  value: string;
+  tData: TreeDataEntry[];
+}): FindNodeResult => {
+  for (let i = 0; i < tData.length; i++) {
+    const curr = tData[i];
+    if (curr.value === value) {
+      return {
+        target: curr,
+        parent: null,
+        siblings: tData.filter(v => v.value !== value)
+      };
+    }
+    if (curr.children) {
+      const child = curr.children.find(child => child.value === value);
+      if (child) {
+        return {
+          target: child,
+          parent: curr,
+          siblings: curr.children.filter(child => child.value !== value)
+        };
+      }
+    }
+  }
+  return {
+    target: null,
+    parent: null,
+    siblings: []
+  };
+};
+
+const getAllValues = (tData: TreeDataEntry[]): string[] => {
+  return tData.reduce((accum, currNode) => {
+    const childrenValues = currNode.children
+      ? currNode.children.map(child => child.value)
+      : [];
+    return accum.concat([currNode.value]).concat(childrenValues);
+  }, []);
 };
 
 // depth first traversal checkbox data.
@@ -80,9 +222,8 @@ const renderCheckboxes = ({
   onChange: (v: [string]) => void;
 }) => {
   const rows: JSX.Element[] = [];
-  let level = 0;
   tData.forEach(entry => {
-    crawlChildren({ rows, data: entry, onChange, state }, level);
+    crawlChildren({ rows, data: entry, onChange, state, tData }, 0);
   });
   return rows;
 };
@@ -91,12 +232,14 @@ const crawlChildren = (
     rows,
     data,
     onChange,
-    state
+    state,
+    tData
   }: {
     rows: JSX.Element[];
     data: TreeDataEntry;
     onChange: (v: string[]) => void;
     state: string[];
+    tData: TreeDataEntry[];
   },
   level: number
 ) => {
@@ -106,7 +249,9 @@ const crawlChildren = (
     <CheckboxWrapper key={data.key}>
       <Checkbox
         className="cy-checkbox"
-        onChange={() => handleOnChange({ state, value: data.value, onChange })}
+        onChange={() =>
+          handleOnChange({ state, value: data.value, onChange, tData })
+        }
         label={data.title}
         checked={state.includes(data.value)}
         bold={false}
@@ -116,7 +261,7 @@ const crawlChildren = (
   // then examine children
   if (data.children) {
     data.children.forEach(entry => {
-      crawlChildren({ rows, data: entry, onChange, state }, level + 1);
+      crawlChildren({ rows, data: entry, onChange, state, tData }, level + 1);
     });
   }
 };

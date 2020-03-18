@@ -3,27 +3,29 @@ import { TreeSelect } from "components/TreeSelect";
 
 const treeData = [
   {
+    title: "All",
+    value: "all",
+    key: "all"
+  },
+  {
     title: "Shapes",
     value: "shapes",
     key: "shapes",
     children: [
       {
-        title: "Quadrilateral",
-        value: "quadrilateral",
-        key: "quadrilateral",
-        children: [
-          {
-            title: "Trapezoid",
-            value: "trapezoid",
-            key: "trapezoid"
-          },
-          {
-            title: "Kite",
-            value: "kite",
-            key: "kite",
-            children: [{ title: "Rhombus", value: "rhombus", key: "rhombus" }]
-          }
-        ]
+        title: "rectangle",
+        value: "rectangle",
+        key: "rectangle"
+      },
+      {
+        title: "circle",
+        value: "circle",
+        key: "circle"
+      },
+      {
+        title: "rhombus",
+        value: "rhombus",
+        key: "rhombus"
       }
     ]
   },
@@ -55,7 +57,7 @@ export default {
 };
 
 export const InitialValues = () => {
-  const [value, setValue] = useState(["shapes", "kite", "skip", "trapezoid"]);
+  const [value, setValue] = useState([]);
   return (
     <TreeSelect
       tData={treeData}
