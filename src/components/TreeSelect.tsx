@@ -4,41 +4,65 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
-
+const ALL_VALUE = "all";
+const ALL_COPY = "All";
 interface Props {
   state: string[];
   tData: TreeDataEntry[];
   onChange: (v: string[]) => void;
   inputLabel: string;
-  optionsLabel: string;
   id: string;
 }
-
-export interface TreeDataEntry {
+export interface TreeDataChildEntry {
   title: string;
   value: string;
   key: string;
-  children?: TreeDataEntry[];
+}
+export interface TreeDataEntry extends TreeDataChildEntry {
+  children?: TreeDataChildEntry[];
 }
 
-export const TreeSelect: React.FC<Props> = ({
+// including a TreeDataEntry with value = "all"
+// will serve as the 'All' button
+export const TreeSelect = ({
   state,
   tData,
   onChange,
   inputLabel, // label for the select
-  optionsLabel, // describes selected options
   id
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
+  const allValues = getAllValues(tData);
+  // removes values not included in tData
+  const filteredState = state.filter(value => allValues.includes(value));
+  const optionsLabel = filteredState.includes(ALL_VALUE)
+    ? ALL_COPY
+    : filteredState
+        .reduce(
+          // remove children nodes if parent exists in state
+          (accum, value) => {
+            const { target } = findNode({ value, tData });
+            if (target.children) {
+              return accum.filter(
+                value => !target.children.find(child => child.value === value)
+              );
+            }
+            return accum;
+          },
+          [...filteredState]
+        )
+        .map(value => findNode({ value, tData }).target.title)
+        .join(", ");
+
   return (
     <Wrapper id={id} ref={wrapperRef}>
-      <BarWrapper className="cy-treeselect-bar" onClick={toggleOptions}>
+      <BarWrapper onClick={toggleOptions}>
         <LabelWrapper>
           {inputLabel}
-          {optionsLabel}
+          {optionsLabel || "No filters selected"}
         </LabelWrapper>
         <ArrowWrapper>
           <div>
@@ -48,7 +72,7 @@ export const TreeSelect: React.FC<Props> = ({
       </BarWrapper>
       {isVisible && (
         <OptionsWrapper>
-          {renderCheckboxes({ state, tData, onChange })}
+          {renderCheckboxes({ state: filteredState, tData, onChange })}
         </OptionsWrapper>
       )}
     </Wrapper>
@@ -59,15 +83,144 @@ export const TreeSelect: React.FC<Props> = ({
 const handleOnChange = ({
   state,
   value,
-  onChange // callback function
+  onChange, // callback function
+  tData
 }: {
   state: string[];
   value: string;
   onChange: (v: string[]) => void;
+  tData: TreeDataEntry[];
 }) => {
-  state.includes(value)
-    ? onChange(state.filter(v => v != value))
-    : onChange([...state, value]);
+  const isAlreadyChecked = state.includes(value); // is checkbox already selected
+  const { target, parent, siblings } = findNode({ value, tData });
+  const isParent = target.children;
+  const isAll = target.value == ALL_VALUE; // is all button clicked
+  if (!target) {
+    onChange([...state]);
+  }
+  // is all button checked
+  if (isAll) {
+    if (isAlreadyChecked) {
+      onChange([]);
+    } else {
+      onChange(getAllValues(tData));
+    }
+  } else if (isParent) {
+    // has list of children
+    const childrenValues = target.children.map(child => child.value);
+    if (isAlreadyChecked) {
+      onChange(
+        adjustAll({
+          resultState: state.filter(
+            v => v !== value && !childrenValues.includes(v)
+          ),
+          tData
+        })
+      );
+    } else {
+      const resultState = Array.from(
+        new Set([...state, value, ...childrenValues])
+      );
+      onChange(adjustAll({ resultState, tData }));
+    }
+  } else {
+    // does not have list of children, could be child
+    const parentValue = parent ? parent.value : "";
+    if (isAlreadyChecked) {
+      onChange(
+        adjustAll({
+          resultState: state.filter(v => v !== value && v !== parentValue),
+          tData
+        })
+      );
+    } else {
+      let siblingsChecked = true;
+      siblings.forEach(sibling => {
+        siblingsChecked = siblingsChecked && state.includes(sibling.value);
+      });
+      const shouldCheckParent = parentValue && siblingsChecked;
+      // use set in case parent.value already exists in state
+      const resultState = Array.from(
+        new Set(
+          [...state, value].concat(shouldCheckParent ? [parentValue] : [])
+        )
+      );
+      onChange(adjustAll({ resultState, tData }));
+    }
+  }
+};
+
+// selects or deselects the All checkbox depending on current options
+const adjustAll = ({
+  resultState,
+  tData
+}: {
+  resultState: string[];
+  tData: TreeDataEntry[];
+}) => {
+  const allValues = getAllValues(tData).filter(value => value !== ALL_VALUE);
+  const resultStateHasAllValues = allValues.reduce(
+    (accum, value) => accum && resultState.includes(value),
+    true
+  );
+  // convert to set in case all exists in URL when its not supposed to
+  const resultStateSet = new Set(resultState);
+  if (resultStateHasAllValues) {
+    resultStateSet.add(ALL_VALUE);
+  } else {
+    resultStateSet.delete(ALL_VALUE);
+  }
+  return Array.from(resultStateSet);
+};
+
+interface FindNodeResult {
+  target: TreeDataEntry;
+  parent: TreeDataEntry;
+  siblings: TreeDataEntry[] | TreeDataChildEntry[];
+}
+
+const findNode = ({
+  value,
+  tData
+}: {
+  value: string;
+  tData: TreeDataEntry[];
+}): FindNodeResult => {
+  for (let i = 0; i < tData.length; i++) {
+    const curr = tData[i];
+    if (curr.value === value) {
+      return {
+        target: curr,
+        parent: null,
+        siblings: tData.filter(v => v.value !== value)
+      };
+    }
+    if (curr.children) {
+      const child = curr.children.find(child => child.value === value);
+      if (child) {
+        return {
+          target: child,
+          parent: curr,
+          siblings: curr.children.filter(child => child.value !== value)
+        };
+      }
+    }
+  }
+  return {
+    target: null,
+    parent: null,
+    siblings: []
+  };
+};
+
+// returns all values in tData from parents and children
+const getAllValues = (tData: TreeDataEntry[]): string[] => {
+  return tData.reduce((accum, currNode) => {
+    const childrenValues = currNode.children
+      ? currNode.children.map(child => child.value)
+      : [];
+    return accum.concat([currNode.value]).concat(childrenValues);
+  }, []);
 };
 
 // depth first traversal checkbox data.
@@ -83,44 +236,57 @@ const renderCheckboxes = ({
   onChange: (v: [string]) => void;
 }) => {
   const rows: JSX.Element[] = [];
-  let level = 0;
   tData.forEach(entry => {
-    crawlChildren({ rows, data: entry, onChange, state }, level);
+    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
 };
 
-const crawlChildren = (
-  {
-    rows,
-    data,
-    onChange,
-    state
-  }: {
-    rows: JSX.Element[];
-    data: TreeDataEntry;
-    onChange: (v: string[]) => void;
-    state: string[];
-  },
-  level: number
-) => {
-  const CheckboxWrapper = getCheckboxWrapper(level);
+const renderCheckboxesHelper = ({
+  rows,
+  data,
+  onChange,
+  state,
+  tData
+}: {
+  rows: JSX.Element[];
+  data: TreeDataEntry;
+  onChange: (v: string[]) => void;
+  state: string[];
+  tData: TreeDataEntry[];
+}) => {
+  const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
   rows.push(
-    <CheckboxWrapper key={data.key}>
+    <ParentCheckboxWrapper key={data.key}>
       <Checkbox
         className="cy-checkbox"
-        onChange={() => handleOnChange({ state, value: data.value, onChange })}
+        onChange={() =>
+          handleOnChange({ state, value: data.value, onChange, tData })
+        }
         label={data.title}
         checked={state.includes(data.value)}
         bold={false}
       />
-    </CheckboxWrapper>
+    </ParentCheckboxWrapper>
   );
   // then examine children
+  const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
-    data.children.forEach(entry => {
-      crawlChildren({ rows, data: entry, onChange, state }, level + 1);
+    data.children.forEach(child => {
+      rows.push(
+        <ChildCheckboxWrapper key={child.key}>
+          <Checkbox
+            className="cy-checkbox"
+            onChange={() =>
+              handleOnChange({ state, value: child.value, onChange, tData })
+            }
+            label={child.title}
+            checked={state.includes(child.value)}
+            bold={false}
+          />
+        </ChildCheckboxWrapper>
+      );
     });
   }
 };
@@ -148,7 +314,6 @@ const BarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
-
 const OptionsWrapper = styled.div`
   border-radius: 5px;
   background-color: ${uiColors.white};
@@ -160,7 +325,6 @@ const OptionsWrapper = styled.div`
   width: 352px;
   margin-top: 5px;
 `;
-
 const ArrowWrapper = styled.span`
   border-left: 1px solid ${uiColors.gray.light1};
   padding-left: 5px;
@@ -169,7 +333,6 @@ const ArrowWrapper = styled.span`
     top: 2px;
   }
 `;
-
 const Wrapper = styled.div`
   width: 352px;
 `;

@@ -1,9 +1,8 @@
 /// <reference types="Cypress" />
+import { waitForGQL } from "../utils/networking";
 
 const patch = {
-  id: "5e4ff3abe3c3317e352062e4",
-  desc:
-    "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)"
+  id: "5e4ff3abe3c3317e352062e4"
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
@@ -28,26 +27,58 @@ const locationHasUpdatedParams = (sortBy, sortDir) => {
   });
 };
 
+const hasText = $el => {
+  expect($el.text.length > 0).to.eq(true);
+};
+
 describe("Patch route", function() {
   beforeEach(() => {
     cy.login();
   });
 
-  it("Loads patch data and renders it on the page", function() {
+  it("Renders patch title", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.get("h1[id=patch-name]").should("include.text", patch.desc);
+    cy.get("#patch-name").within(hasText);
   });
 
   it("'Base commit' link in metadata links to version page of legacy UI", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.get("a[id=patch-base-commit]")
+    cy.get("#patch-base-commit")
       .should("have.attr", "href")
-      .and("eq", "http://localhost:9090/version/5e4ff3abe3c3317e352062e4");
+      .and("include", `http://localhost:9090/version/${patch.id}`);
   });
 
   it("Shows an error page if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.get("div[id=patch-error]").should("exist");
+    cy.get("#patch-error").should("exist");
+  });
+
+  describe("Build Variants", () => {
+    beforeEach(() => {
+      cy.server();
+      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.visit(path);
+      waitForGQL("@gqlQuery", "PatchBuildVariants");
+    });
+
+    it("Lists the patch's build variants", () => {
+      cy.get(".patch-build-variant").within($variants => {
+        Array.from($variants).length > 0;
+      });
+    });
+
+    it("Shows tooltip with task's name on hover", () => {
+      cy.get(".task-square")
+        .first()
+        .trigger("mouseover");
+      cy.get(".task-square-tooltip").within(hasText);
+    });
+
+    it("Navigates to task page from clicking task square", () => {
+      cy.get(".task-square")
+        .should("have.attr", "href")
+        .and("include", "/task");
+    });
   });
 
   describe("Tabs", () => {
