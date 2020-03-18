@@ -47,7 +47,7 @@ export const TreeSelect = ({
             const { target } = findNode({ value, tData });
             if (target.children) {
               return accum.filter(
-                value => !target.children.find(child => child.value === value)
+                v => !target.children.find(child => child.value === v)
               );
             }
             return accum;
@@ -186,8 +186,7 @@ const findNode = ({
   value: string;
   tData: TreeDataEntry[];
 }): FindNodeResult => {
-  for (let i = 0; i < tData.length; i++) {
-    const curr = tData[i];
+  for (const curr of tData) {
     if (curr.value === value) {
       return {
         target: curr,
@@ -196,12 +195,12 @@ const findNode = ({
       };
     }
     if (curr.children) {
-      const child = curr.children.find(child => child.value === value);
+      const child = curr.children.find(c => c.value === value);
       if (child) {
         return {
           target: child,
           parent: curr,
-          siblings: curr.children.filter(child => child.value !== value)
+          siblings: curr.children.filter(c => c.value !== value)
         };
       }
     }
@@ -257,13 +256,13 @@ const renderCheckboxesHelper = ({
 }) => {
   const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
+  const onChange = () =>
+    handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
     <ParentCheckboxWrapper key={data.key}>
       <Checkbox
         className="cy-checkbox"
-        onChange={() =>
-          handleOnChange({ state, value: data.value, onChange, tData })
-        }
+        onChange={onChnange}
         label={data.title}
         checked={state.includes(data.value)}
         bold={false}
@@ -274,13 +273,13 @@ const renderCheckboxesHelper = ({
   const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
     data.children.forEach(child => {
+      const onChangeChild = () =>
+        handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
         <ChildCheckboxWrapper key={child.key}>
           <Checkbox
             className="cy-checkbox"
-            onChange={() =>
-              handleOnChange({ state, value: child.value, onChange, tData })
-            }
+            onChange={onChangeChild}
             label={child.title}
             checked={state.includes(child.value)}
             bold={false}
