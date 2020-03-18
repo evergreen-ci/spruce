@@ -12,11 +12,13 @@ interface Props {
   onChange: (v: string[]) => void;
   inputLabel: string;
 }
-export interface TreeDataEntry {
+export interface TreeDataChildEntry {
   title: string;
   value: string;
   key: string;
-  children?: TreeDataEntry[];
+}
+export interface TreeDataEntry extends TreeDataChildEntry {
+  children?: TreeDataChildEntry[];
 }
 
 export const TreeSelect = ({
@@ -127,12 +129,11 @@ const handleOnChange = ({
         })
       );
     } else {
-      const shouldCheckParent =
-        parentValue &&
-        siblings.reduce(
-          (accum, sibling) => accum && state.includes(sibling.value),
-          true
-        );
+      let siblingsChecked = false;
+      siblings.forEach(sibling => {
+        siblingsChecked = siblingsChecked && state.includes(sibling.value);
+      });
+      const shouldCheckParent = parentValue && siblingsChecked;
       // use set in case parent.value already exists in state
       const resultState = Array.from(
         new Set(
@@ -170,7 +171,7 @@ const adjustAll = ({
 interface FindNodeResult {
   target: TreeDataEntry;
   parent: TreeDataEntry;
-  siblings: TreeDataEntry[];
+  siblings: TreeDataEntry[] | TreeDataChildEntry[];
 }
 
 const findNode = ({
