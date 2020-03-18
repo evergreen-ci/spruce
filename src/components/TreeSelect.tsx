@@ -234,30 +234,28 @@ const renderCheckboxes = ({
 }) => {
   const rows: JSX.Element[] = [];
   tData.forEach(entry => {
-    crawlChildren({ rows, data: entry, onChange, state, tData }, 0);
+    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData }, 0);
   });
   return rows;
 };
-const crawlChildren = (
-  {
-    rows,
-    data,
-    onChange,
-    state,
-    tData
-  }: {
-    rows: JSX.Element[];
-    data: TreeDataEntry;
-    onChange: (v: string[]) => void;
-    state: string[];
-    tData: TreeDataEntry[];
-  },
-  level: number
-) => {
-  const CheckboxWrapper = getCheckboxWrapper(level);
+
+const renderCheckboxesHelper = ({
+  rows,
+  data,
+  onChange,
+  state,
+  tData
+}: {
+  rows: JSX.Element[];
+  data: TreeDataEntry;
+  onChange: (v: string[]) => void;
+  state: string[];
+  tData: TreeDataEntry[];
+}) => {
+  const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
   rows.push(
-    <CheckboxWrapper key={data.key}>
+    <ParentCheckboxWrapper key={data.key}>
       <Checkbox
         className="cy-checkbox"
         onChange={() =>
@@ -267,12 +265,25 @@ const crawlChildren = (
         checked={state.includes(data.value)}
         bold={false}
       />
-    </CheckboxWrapper>
+    </ParentCheckboxWrapper>
   );
   // then examine children
+  const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
-    data.children.forEach(entry => {
-      crawlChildren({ rows, data: entry, onChange, state, tData }, level + 1);
+    data.children.forEach(child => {
+      rows.push(
+        <ChildCheckboxWrapper key={child.key}>
+          <Checkbox
+            className="cy-checkbox"
+            onChange={() =>
+              handleOnChange({ state, value: child.value, onChange, tData })
+            }
+            label={child.title}
+            checked={state.includes(child.value)}
+            bold={false}
+          />
+        </ChildCheckboxWrapper>
+      );
     });
   }
 };
