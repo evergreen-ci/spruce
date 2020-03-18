@@ -28,13 +28,15 @@ export const TreeSelect = ({
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
-  const optionsLabel = state.includes("all")
+  const allValues = getAllValues(tData);
+  // remove extraneous values
+  const filteredState = state.filter(value => allValues.includes(value));
+  const optionsLabel = filteredState.includes("all")
     ? "All"
-    : state
+    : filteredState
         .reduce(
           // remove children nodes if parent exists in state
           (accum, value) => {
-            console.log(value);
             const { target } = findNode({ value, tData });
             if (target.children) {
               return accum.filter(
@@ -46,6 +48,7 @@ export const TreeSelect = ({
           [...state]
         )
         .join(", ");
+
   return (
     <Wrapper ref={wrapperRef}>
       <BarWrapper onClick={toggleOptions}>
@@ -61,7 +64,7 @@ export const TreeSelect = ({
       </BarWrapper>
       {isVisible && (
         <OptionsWrapper>
-          {renderCheckboxes({ state, tData, onChange })}
+          {renderCheckboxes({ state: filteredState, tData, onChange })}
         </OptionsWrapper>
       )}
     </Wrapper>
