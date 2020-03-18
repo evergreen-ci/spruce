@@ -35,7 +35,8 @@ const treeData = [
     key: "pass"
   },
   {
-    title: "Failed",
+    title:
+      "REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!",
     value: "failed",
     key: "failed"
   },
@@ -70,8 +71,6 @@ export const NoInitialValues = () => {
 
 export const Ellipsis = () => {
   const [value, setValue] = useState([
-    "kite",
-    "skip",
     "trapezoid",
     "failed",
     "skip",

@@ -36,7 +36,7 @@ export const TreeSelect = ({
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
-  // remove extraneous values
+  // removes values not included in tData
   const filteredState = state.filter(value => allValues.includes(value));
   const optionsLabel = filteredState.includes(ALL_VALUE)
     ? ALL_COPY
@@ -52,8 +52,9 @@ export const TreeSelect = ({
             }
             return accum;
           },
-          [...state]
+          [...filteredState]
         )
+        .map(value => findNode({ value, tData }).target.title)
         .join(", ");
 
   return (
@@ -61,7 +62,7 @@ export const TreeSelect = ({
       <BarWrapper onClick={toggleOptions}>
         <LabelWrapper>
           {inputLabel}
-          {optionsLabel}
+          {optionsLabel || "No filters selected"}
         </LabelWrapper>
         <ArrowWrapper>
           <div>
@@ -236,7 +237,7 @@ const renderCheckboxes = ({
 }) => {
   const rows: JSX.Element[] = [];
   tData.forEach(entry => {
-    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData }, 0);
+    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
 };
