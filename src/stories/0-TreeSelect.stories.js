@@ -71,7 +71,6 @@ export const InitialValues = () => {
 
 export const Ellipsis = () => {
   const [value, setValue] = useState([
-    "shapes",
     "kite",
     "skip",
     "trapezoid",
