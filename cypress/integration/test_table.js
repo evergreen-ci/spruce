@@ -131,6 +131,7 @@ describe("Tests Table", function() {
         cy.location().should(loc => {
           expect(loc.pathname).to.equal(TESTS_ROUTE);
           expect(loc.search).to.include(`statuses=${key}`);
+          expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
         });
         cy.wait(100);
         cy.get(".cy-checkbox")
@@ -141,29 +142,6 @@ describe("Tests Table", function() {
           expect(loc.search).to.not.include(`statuses=${key}`);
         });
       });
-    });
-
-    it("Checking all statuses will check 'All' checkbox", () => {
-      statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-      });
-      cy.get(".cy-checkbox > input").should("be.checked");
-    });
-
-    it("Unchecking a status will uncheck 'All' checkbox", () => {
-      statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-      });
-      cy.get(".cy-checkbox")
-        .contains("Pass")
-        .click();
-      cy.get(".cy-checkbox > input")
-        .first()
-        .should("not.be.checked");
     });
 
     it("Checking multiple statuses adds them to URL", () => {
