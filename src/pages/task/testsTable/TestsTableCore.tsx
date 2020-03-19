@@ -135,7 +135,9 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     prevCategory,
     search,
     fetchMore,
-    prevStatuses
+    prevStatuses,
+    testName,
+    prevTestName
   ]);
 
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);

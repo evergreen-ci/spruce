@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import { StatusSelector } from "./testsTable/StatusSelector";
+import { Input } from "antd";
+import Icon from "@leafygreen-ui/icon";
 import {
   RequiredQueryParams,
   SortQueryParam,
@@ -10,6 +12,7 @@ import {
 } from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
+import styled from "@emotion/styled";
 
 enum DefaultQueryParams {
   Sort = "1",
@@ -23,8 +26,10 @@ export const TestsTable: React.FC = () => {
     ValidInitialQueryParams
   >();
   // validate query params for tests table and replace them if necessary
+  const parsed = queryString.parse(search, { arrayFormat: "comma" });
+  const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
+
   useEffect(() => {
-    const parsed = queryString.parse(search, { arrayFormat: "comma" });
     const category = (parsed[RequiredQueryParams.Category] || "")
       .toString()
       .toUpperCase();
@@ -41,7 +46,6 @@ export const TestsTable: React.FC = () => {
       replace(`${pathname}?${nextQueryParams}`);
     } else if (!validInitialQueryParams) {
       const statuses = parsed[RequiredQueryParams.Statuses];
-      const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
       setValidInitialQueryParams({
         initialCategory: (
           parsed[RequiredQueryParams.Category] || ""
@@ -54,15 +58,33 @@ export const TestsTable: React.FC = () => {
         initialTestName: testName
       });
     }
-  }, [search, pathname, replace, validInitialQueryParams]);
+  }, [search, pathname, replace, validInitialQueryParams, parsed, testName]);
 
   if (!validInitialQueryParams) {
     return null;
   }
+
+  const onSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    parsed[RequiredQueryParams.TestName] = e.target.value;
+    const nextQueryParams = queryString.stringify(parsed);
+    replace(`${pathname}?${nextQueryParams}`);
+  };
+
   return (
     <>
+      <StyledInput
+        placeholder="Search File Names"
+        onChange={onSearch}
+        suffix={<Icon glyph="MagnifyingGlass" />}
+        value={testName}
+      />
       <StatusSelector />
       <TestsTableCore {...validInitialQueryParams} />
     </>
   );
 };
+
+const StyledInput = styled(Input)`
+  margin-bottom: 15px;
+  max-width: 500px;
+`;
