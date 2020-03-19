@@ -144,29 +144,6 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Checking all statuses will check 'All' checkbox", () => {
-      statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-      });
-      cy.get(".cy-checkbox > input").should("be.checked");
-    });
-
-    it("Unchecking a status will uncheck 'All' checkbox", () => {
-      statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-      });
-      cy.get(".cy-checkbox")
-        .contains("Pass")
-        .click();
-      cy.get(".cy-checkbox > input")
-        .first()
-        .should("not.be.checked");
-    });
-
     it("Checking multiple statuses adds them to URL", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
