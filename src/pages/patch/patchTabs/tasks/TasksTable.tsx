@@ -45,19 +45,17 @@ export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
   };
 
   return (
-    <>
-      <InfinityTable
-        key="key"
-        loading={networkStatus < NetworkStatus.ready}
-        pageSize={10000}
-        loadingIndicator={loader}
-        columns={columns}
-        scroll={{ y: 350 }}
-        dataSource={data}
-        onChange={tableChangeHandler}
-        rowKey={rowKey}
-      />
-    </>
+    <InfinityTable
+      key="key"
+      loading={networkStatus < NetworkStatus.ready}
+      pageSize={10000}
+      loadingIndicator={loader}
+      columns={columns}
+      scroll={{ y: 350 }}
+      dataSource={data}
+      onChange={tableChangeHandler}
+      rowKey={rowKey}
+    />
   );
 };
 
