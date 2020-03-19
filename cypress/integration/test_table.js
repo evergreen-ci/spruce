@@ -177,7 +177,7 @@ describe("Tests Table", function() {
     });
   });
 
-  describe("Test name filter", () => {
+  describe("Test Name Filter", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
       cy.get("#cy-testname-input").type("group");
