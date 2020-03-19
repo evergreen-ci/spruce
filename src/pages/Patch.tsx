@@ -38,6 +38,7 @@ export const Patch = () => {
       githash,
       version,
       patchNumber,
+      taskCount,
       time: { submittedAt, started, finished },
       duration: { makespan, timeTaken }
     }
@@ -78,7 +79,7 @@ export const Patch = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs />
+            <PatchTabs taskCount={taskCount}/>
           </PageContent>
         </PageLayout>
       </PageLayout>
