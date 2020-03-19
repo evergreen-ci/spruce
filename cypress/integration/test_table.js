@@ -131,13 +131,8 @@ describe("Tests Table", function() {
         cy.location().should(loc => {
           expect(loc.pathname).to.equal(TESTS_ROUTE);
           expect(loc.search).to.include(`statuses=${key}`);
+          expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
         });
-        // check that other statuses are not in the URL
-        statuses
-          .filter(s => s.key !== key)
-          .forEach(s => {
-            expect(loc.search).to.not.include(s.key);
-          });
         cy.wait(100);
         cy.get(".cy-checkbox")
           .contains(display)
