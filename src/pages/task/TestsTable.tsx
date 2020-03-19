@@ -72,19 +72,26 @@ export const TestsTable: React.FC = () => {
 
   return (
     <>
-      <StyledInput
-        placeholder="Search File Names"
-        onChange={onSearch}
-        suffix={<Icon glyph="MagnifyingGlass" />}
-        value={testName}
-      />
-      <StatusSelector />
+      <FiltersWrapper>
+        <StyledInput
+          placeholder="Search Test Names"
+          onChange={onSearch}
+          suffix={<Icon glyph="MagnifyingGlass" />}
+          value={testName}
+        />
+        <StatusSelector />
+      </FiltersWrapper>
       <TestsTableCore {...validInitialQueryParams} />
     </>
   );
 };
 
+const FiltersWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 20px;
+`;
 const StyledInput = styled(Input)`
-  margin-bottom: 15px;
   max-width: 500px;
+  margin-right: 40px;
 `;
