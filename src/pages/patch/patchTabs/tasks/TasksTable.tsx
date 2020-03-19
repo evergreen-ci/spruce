@@ -6,13 +6,10 @@ import Badge from "@leafygreen-ui/badge";
 import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
 import { StyledRouterLink } from "components/styles/StyledLink";
-import {
-  SortQueryParam,
-  PatchTasksQueryParams,
-  TableOnChange
-} from "types/task";
+import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
+import { TaskSortDir } from "gql/queries/get-patch-tasks";
 
 interface Props {
   networkStatus: NetworkStatus;
@@ -20,8 +17,8 @@ interface Props {
 }
 
 const orderKeyToSortParam = {
-  ascend: SortQueryParam.Asc,
-  descend: SortQueryParam.Desc
+  ascend: TaskSortDir.Asc,
+  descend: TaskSortDir.Desc
 };
 const getSortDirFromOrder = (order: "ascend" | "descend") =>
   orderKeyToSortParam[order];

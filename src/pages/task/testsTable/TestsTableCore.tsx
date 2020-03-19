@@ -25,6 +25,7 @@ import {
 } from "types/task";
 import get from "lodash.get";
 import queryString from "query-string";
+import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 
 const LIMIT = 10;
@@ -144,6 +145,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     },
     notifyOnNetworkStatusChange: true
   });
+  useDisableTableSortersIfLoading(networkStatus);
+
   const parsed = queryString.parse(search);
   const category = (parsed[RequiredQueryParams.Category] || "")
     .toString()
@@ -151,20 +154,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   const sort = parsed[RequiredQueryParams.Sort];
   const prevCategory = usePrevious(category);
   const prevSort = usePrevious(sort);
-  useEffect(() => {
-    const elements = document.querySelectorAll(
-      "th.ant-table-column-has-actions.ant-table-column-has-sorters"
-    );
-    if (networkStatus < NetworkStatus.ready) {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "none";
-      });
-    } else {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "auto";
-      });
-    }
-  }, [networkStatus]);
+
   if (
     (sort !== prevSort || category !== prevCategory) &&
     networkStatus === NetworkStatus.ready &&
