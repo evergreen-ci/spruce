@@ -225,6 +225,12 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   );
 };
 
+const statusCopy = {
+  [TestStatus.Pass]: "Pass",
+  [TestStatus.Fail]: "Fail",
+  [TestStatus.Skip]: "Skip",
+  [TestStatus.SilentFail]: "Silent Fail"
+};
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
@@ -259,7 +265,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
       return (
         <span>
           <Badge variant={color} key={tag}>
-            {tag.toUpperCase()}
+            {statusCopy[tag] || ""}
           </Badge>
         </span>
       );
