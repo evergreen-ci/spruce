@@ -20,6 +20,7 @@ enum DefaultQueryParams {
   Sort = "1",
   Category = "TEST_NAME"
 }
+const arrayFormat = "comma";
 const updateTestNameQueryParam = debounce(
   (
     testName: string,
@@ -27,7 +28,7 @@ const updateTestNameQueryParam = debounce(
     replace: (path: string) => void,
     pathname: string
   ) => {
-    const parsed = queryString.parse(search, { arrayFormat: "comma" });
+    const parsed = queryString.parse(search, { arrayFormat });
     parsed[RequiredQueryParams.TestName] = testName;
     const nextQueryParams = queryString.stringify(parsed);
     replace(`${pathname}?${nextQueryParams}`);
@@ -42,7 +43,7 @@ export const TestsTable: React.FC = () => {
     ValidInitialQueryParams
   >();
   // validate query params for tests table and replace them if necessary
-  const parsed = queryString.parse(search, { arrayFormat: "comma" });
+  const parsed = queryString.parse(search, { arrayFormat });
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const [testNameInput, setTestNameInput] = useState(testName);
 
