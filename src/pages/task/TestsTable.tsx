@@ -78,6 +78,7 @@ export const TestsTable: React.FC = () => {
           onChange={onSearch}
           suffix={<Icon glyph="MagnifyingGlass" />}
           value={testName}
+          id="cy-testname-input"
         />
         <StatusSelector />
       </FiltersWrapper>

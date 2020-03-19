@@ -176,4 +176,23 @@ describe("Tests Table", function() {
       });
     });
   });
+
+  describe("Test name filter", () => {
+    beforeEach(() => {
+      cy.visit(TESTS_ROUTE);
+      cy.get("#cy-testname-input").type("group");
+    });
+    it("Typing in test name filter updates testname query param", () => {
+      cy.location().should(loc => {
+        expect(loc.search).to.include("testname=group");
+      });
+    });
+
+    it("Input value is incuded in the GQL request body under variables.testName ", () => {
+      waitForTestsQuery();
+      cy.get("@gqlQuery")
+        .its("requestBody.variables.testName")
+        .should("equal", "group");
+    });
+  });
 });
