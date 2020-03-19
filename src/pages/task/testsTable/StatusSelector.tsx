@@ -42,9 +42,9 @@ const treeData = [
     key: TestStatus.Pass
   },
   {
-    title: "Failed",
+    title: "Fail",
     value: TestStatus.Fail,
-    key: "failed"
+    key: TestStatus.Fail
   },
   {
     title: "Skip",
