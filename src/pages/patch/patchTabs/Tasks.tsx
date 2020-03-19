@@ -6,14 +6,16 @@ import {
   PatchTasksQuery,
   PatchTasksVariables
 } from "gql/queries/get-patch-tasks";
+import { Patch } from "gql/queries/patch";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { P2 } from "components/Typography";
 
-type TaskProps = {
-  taskCount: number
+interface Props {
+  patch: Patch;
+  patchLoading: boolean;
 }
 
-export const Tasks: React.FC<TaskProps> = ({taskCount}) => {
+export const Tasks: React.FC<Props> = ({ patch, patchLoading }) => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, networkStatus } = useQuery<
     PatchTasksQuery,
@@ -23,7 +25,7 @@ export const Tasks: React.FC<TaskProps> = ({taskCount}) => {
     notifyOnNetworkStatusChange: true
   });
 
-  if (loading) {
+  if (loading || patchLoading) {
     return <div>Loading...</div>;
   }
   if (error) {
@@ -31,7 +33,7 @@ export const Tasks: React.FC<TaskProps> = ({taskCount}) => {
   }
   return (
     <>
-      <P2>{data.patchTasks.length}/{taskCount} tasks</P2>
+      <P2>{data.patchTasks.length}/{patch.taskCount} tasks</P2>
       <TasksTable networkStatus={networkStatus} data={data.patchTasks} />
     </>
   );
