@@ -4,6 +4,8 @@ import { useLocation, useHistory } from "react-router-dom";
 import { StatusSelector } from "./testsTable/StatusSelector";
 import { Input } from "antd";
 import Icon from "@leafygreen-ui/icon";
+import debounce from "lodash.debounce";
+
 import {
   RequiredQueryParams,
   SortQueryParam,
@@ -18,6 +20,20 @@ enum DefaultQueryParams {
   Sort = "1",
   Category = "TEST_NAME"
 }
+const updateTestNameQueryParam = debounce(
+  (
+    testName: string,
+    search: string,
+    replace: (path: string) => void,
+    pathname: string
+  ) => {
+    const parsed = queryString.parse(search, { arrayFormat: "comma" });
+    parsed[RequiredQueryParams.TestName] = testName;
+    const nextQueryParams = queryString.stringify(parsed);
+    replace(`${pathname}?${nextQueryParams}`);
+  },
+  500
+);
 
 export const TestsTable: React.FC = () => {
   const { pathname, search } = useLocation();
@@ -28,6 +44,7 @@ export const TestsTable: React.FC = () => {
   // validate query params for tests table and replace them if necessary
   const parsed = queryString.parse(search, { arrayFormat: "comma" });
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
+  const [testNameInput, setTestNameInput] = useState(testName);
 
   useEffect(() => {
     const category = (parsed[RequiredQueryParams.Category] || "")
@@ -65,9 +82,8 @@ export const TestsTable: React.FC = () => {
   }
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    parsed[RequiredQueryParams.TestName] = e.target.value;
-    const nextQueryParams = queryString.stringify(parsed);
-    replace(`${pathname}?${nextQueryParams}`);
+    setTestNameInput(e.target.value);
+    updateTestNameQueryParam(e.target.value, search, replace, pathname);
   };
 
   return (
@@ -77,7 +93,7 @@ export const TestsTable: React.FC = () => {
           placeholder="Search Test Names"
           onChange={onSearch}
           suffix={<Icon glyph="MagnifyingGlass" />}
-          value={testName}
+          value={testNameInput}
           id="cy-testname-input"
         />
         <StatusSelector />
