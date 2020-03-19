@@ -58,7 +58,7 @@ export const TestsTable: React.FC = () => {
   return (
     <>
       <StatusSelector />
-      <TestsTableCore {...validInitialQueryParams} />;
+      <TestsTableCore {...validInitialQueryParams} />
     </>
   );
 };
