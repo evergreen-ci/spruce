@@ -96,46 +96,46 @@ describe("tests table", function() {
   //   );
   // });
   describe("Test Status Selector", () => {
-    // it("Status select says 'No filters selected' by default'", () => {
-    //   cy.visit(TESTS_ROUTE);
-    //   cy.get("#cy-test-status-select").contains("No filters selected");
-    // });
+    it("Status select says 'No filters selected' by default'", () => {
+      cy.visit(TESTS_ROUTE);
+      cy.get("#cy-test-status-select").contains("No filters selected");
+    });
 
-    // it("Clicking on 'All' status checkbox adds all statuses to URL ", () => {
-    //   cy.visit(TESTS_ROUTE);
+    it("Clicking on 'All' status checkbox adds all statuses to URL ", () => {
+      cy.visit(TESTS_ROUTE);
 
-    //   cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
-    //   cy.get("#cy-test-status-select")
-    //     .contains("All")
-    //     .click();
-    //   cy.location().should(loc => {
-    //     expect(loc.pathname).to.equal(TESTS_ROUTE);
-    //     expect(loc.search).to.include("statuses=pass,fail,skip,silentfail,all");
-    //   });
-    // });
+      cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
+      cy.get("#cy-test-status-select")
+        .contains("All")
+        .click();
+      cy.location().should(loc => {
+        expect(loc.pathname).to.equal(TESTS_ROUTE);
+        expect(loc.search).to.include("statuses=pass,fail,skip,silentfail,all");
+      });
+    });
 
-    // statuses.forEach(({ display, key }) => {
-    //   it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-    //     cy.visit(TESTS_ROUTE);
-    //     cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
-    //     cy.get(".cy-checkbox")
-    //       .contains(display)
-    //       .click();
-    //     cy.location().should(loc => {
-    //       expect(loc.pathname).to.equal(TESTS_ROUTE);
-    //       expect(loc.search).to.include(`statuses=${key}`);
-    //     });
-    //     cy.get(".cy-checkbox")
-    //       .contains(display)
-    //       .click();
-    //     cy.location().should(loc => {
-    //       expect(loc.pathname).to.equal(TESTS_ROUTE);
-    //       expect(loc.search).to.not.include(`statuses=${key}`);
-    //     });
-    //   });
-    // });
+    statuses.forEach(({ display, key }) => {
+      it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
+        cy.visit(TESTS_ROUTE);
+        cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+        cy.location().should(loc => {
+          expect(loc.pathname).to.equal(TESTS_ROUTE);
+          expect(loc.search).to.include(`statuses=${key}`);
+        });
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+        cy.location().should(loc => {
+          expect(loc.pathname).to.equal(TESTS_ROUTE);
+          expect(loc.search).to.not.include(`statuses=${key}`);
+        });
+      });
+    });
 
-    it("Checking all statuses will check All checkbox", () => {
+    it.skip("Checking all statuses will check All checkbox", () => {
       cy.visit(TESTS_ROUTE);
       cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
       statuses.forEach(({ display }) => {
@@ -143,17 +143,35 @@ describe("tests table", function() {
           .contains(display)
           .click();
       });
-      cy.get(".cy-checkbox").should("be.checked");
+      cy.get(".cy-checkbox > input").should("be.checked");
     });
 
     it("Unchecking a status will uncheck All", () => {
-      cy.visit(`${TESTS_ROUTE}?status=pass,fail,silentfail,skip,all`);
+      cy.visit(TESTS_ROUTE);
       cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
+      statuses.forEach(({ display }) => {
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+      });
       cy.get(".cy-checkbox")
-        .contains("pass")
+        .contains("Pass")
         .click();
+      cy.get(".cy-checkbox > input")
+        .first()
+        .should("not.be.checked");
+    });
 
-      cy.get(".cy-checkbox").should("be.checked");
+    it("Checking multiple statuses will add them to URL", () => {
+      statuses.forEach(({ display }) => {
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+      });
+      cy.location().should(loc => {
+        expect(loc.pathname).to.equal(TESTS_ROUTE);
+        expect(loc.search).to.not.include(`statuses=${key}`);
+      });
     });
   });
 });
