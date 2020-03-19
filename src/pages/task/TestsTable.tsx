@@ -89,7 +89,6 @@ export const TestsTable: React.FC = () => {
 
 const FiltersWrapper = styled.div`
   display: flex;
-  flex-direction: row;
   margin-bottom: 20px;
 `;
 const StyledInput = styled(Input)`
