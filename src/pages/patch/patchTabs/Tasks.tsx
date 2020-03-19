@@ -12,7 +12,7 @@ import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
-import { Skeleton } from "antd";
+import get from "lodash.get";
 
 const getQueryVariablesFromUrlSearch = (
   patchId: string,
@@ -66,16 +66,16 @@ export const Tasks: React.FC = () => {
     });
   }, [history, fetchMore, id]);
 
-  // || networkStatus < NetworkStatus.ready
-  if (loading) {
-    return <Skeleton active={true} title={false} paragraph={{ rows: 10 }} />;
-  }
   if (error) {
     return <div>{error.message}</div>;
   }
   return (
     <>
-      <TasksTable networkStatus={networkStatus} data={data.patchTasks} />
+      <TasksTable
+        loading={loading}
+        networkStatus={networkStatus}
+        data={get(data, "patchTasks", [])}
+      />
     </>
   );
 };

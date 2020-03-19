@@ -13,7 +13,8 @@ import { TaskSortDir } from "gql/queries/get-patch-tasks";
 
 interface Props {
   networkStatus: NetworkStatus;
-  data: [TaskResult];
+  data?: [TaskResult];
+  loading: boolean;
 }
 
 const orderKeyToSortParam = {
@@ -25,7 +26,11 @@ const getSortDirFromOrder = (order: "ascend" | "descend") =>
 
 const rowKey = ({ id }: { id: string }): string => id;
 
-export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
+export const TasksTable: React.FC<Props> = ({
+  networkStatus,
+  data = [],
+  loading
+}) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -45,7 +50,7 @@ export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
     <>
       <InfinityTable
         key="key"
-        loading={networkStatus < NetworkStatus.ready}
+        loading={networkStatus < NetworkStatus.ready || loading}
         pageSize={10000}
         loadingIndicator={loader}
         columns={columns}
