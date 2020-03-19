@@ -143,6 +143,11 @@ describe("Tests Table", function() {
     });
 
     it("Checking all statuses will check 'All' checkbox", () => {
+      statuses.forEach(({ display }) => {
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+      });
       cy.get(".cy-checkbox > input").should("be.checked");
     });
 
@@ -167,8 +172,9 @@ describe("Tests Table", function() {
           .click();
       });
       cy.location().should(loc => {
-        expect(loc.pathname).to.equal(TESTS_ROUTE);
-        expect(loc.search).to.not.include(`statuses=${key}`);
+        expect(loc.search).to.not.include(
+          "statuses=pass,silentfail,fail,skip,all"
+        );
       });
     });
   });
