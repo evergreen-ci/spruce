@@ -5,8 +5,7 @@ import {
   GET_PATCH_TASKS,
   PatchTasksQuery,
   PatchTasksVariables,
-  PatchUrlSearchKeys,
-  PatchStatus
+  PatchUrlSearchKeys
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
@@ -34,10 +33,6 @@ export const Tasks: React.FC = () => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-
-  const variables = getQueryVariablesFromUrlSearch(id, search);
-  console.log("variables :", variables);
-
   const { data, loading, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksVariables
@@ -47,6 +42,7 @@ export const Tasks: React.FC = () => {
   });
   useDisableTableSortersIfLoading(networkStatus);
 
+  // fetch tasks when url params change
   useEffect(() => {
     history.listen(({ search }) => {
       if (networkStatus === NetworkStatus.ready && !error) {
@@ -64,7 +60,7 @@ export const Tasks: React.FC = () => {
         });
       }
     });
-  }, [history, fetchMore, id]);
+  }, [history, fetchMore, id, error, networkStatus]);
 
   if (error) {
     return <div>{error.message}</div>;
