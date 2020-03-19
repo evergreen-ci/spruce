@@ -4,7 +4,6 @@ import { paths } from "contants/routes";
 import { useTabs, useDefaultPath } from "hooks";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { Patch } from "gql/queries/patch";
 
 enum PatchTab {
   Tasks = "tasks",
@@ -18,11 +17,10 @@ const tabToIndexMap = {
 };
 
 interface Props {
-  patch: Patch;
-  patchLoading: boolean;
+  taskCount: string;
 }
 
-export const PatchTabs: React.FC<Props> = ({ patch, patchLoading }) => {
+export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   useDefaultPath(tabToIndexMap, paths.patch, DEFAULT_TAB);
 
   const [selectedTab, selectTabHandler] = useTabs(
@@ -34,7 +32,7 @@ export const PatchTabs: React.FC<Props> = ({ patch, patchLoading }) => {
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
       <Tab name="Tasks" id="task-tab">
-        <Tasks patch={patch} patchLoading={patchLoading}/>
+        <Tasks taskCount={taskCount}/>
       </Tab>
       <Tab name="Changes" id="changes-tab">
         I am the patch code changes

@@ -11,7 +11,7 @@ export interface Patch {
   status: string;
   activated: string;
   alias: string;
-  taskCount: number;
+  taskCount: string;
   duration: {
     makespan: string;
     timeTaken: string;

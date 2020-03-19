@@ -44,7 +44,7 @@ export const Patch = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs patch={patch} patchLoading={loading} />
+            <PatchTabs taskCount={patch ? patch.taskCount : ""} />
           </PageContent>
         </PageLayout>
       </PageLayout>
