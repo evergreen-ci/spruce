@@ -72,15 +72,13 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(() => {
-    return listen(({ search }) => {
-      const parsed = queryString.parse(search);
+    return listen(loc => {
+      const parsed = queryString.parse(loc.search, { arrayFormat });
       const category = (parsed[RequiredQueryParams.Category] || "")
         .toString()
         .toUpperCase() as Categories;
       const sort = parsed[RequiredQueryParams.Sort];
-      const rawStatuses = queryString.parse(search, { arrayFormat })[
-        RequiredQueryParams.Statuses
-      ];
+      const rawStatuses = parsed[RequiredQueryParams.Statuses];
       const statusList = (Array.isArray(rawStatuses)
         ? rawStatuses
         : [rawStatuses]
