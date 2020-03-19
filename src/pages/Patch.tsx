@@ -1,85 +1,50 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
-import { H1, H3, P2 } from "components/Typography";
+import { H1 } from "components/Typography";
 import {
   PageWrapper,
-  SiderCard,
   PageHeader,
-  StyledLink,
   PageContent,
   PageLayout,
   PageSider
 } from "components/styles";
-import { Divider } from "components/styles/Divider";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { PatchTabs } from "pages/patch/PatchTabs";
+import { BuildVariants } from "pages/patch/BuildVariants";
+import get from "lodash/get";
+import { Metadata } from "pages/patch/Metadata";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<PatchQuery>(GET_PATCH, {
     variables: { id: id }
   });
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
-  if (error) {
-    // TODO: replace with proper error page
-    return <div id="patch-error">{error.message}</div>;
-  }
-
-  const {
-    patch: {
-      description,
-      author,
-      githash,
-      version,
-      patchNumber,
-      taskCount,
-      time: { submittedAt, started, finished },
-      duration: { makespan, timeTaken }
-    }
-  } = data;
-
+  const patch = get(data, "patch");
   return (
     <PageWrapper>
-      <BreadCrumb patchNumber={patchNumber} />
+      {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageHeader>
-        <H1 id="patch-name">
-          {description ? description : `Patch ${patchNumber}`}
-        </H1>
+        {loading ? (
+          <Skeleton active={true} paragraph={{ rows: 0 }} />
+        ) : patch ? (
+          <H1 id="patch-name">
+            {patch.description
+              ? patch.description
+              : `Patch ${patch.patchNumber}`}
+          </H1>
+        ) : null}
       </PageHeader>
       <PageLayout>
         <PageSider>
-          <SiderCard>
-            <H3>Patch Metadata</H3>
-            <Divider />
-            <P2>Makespan: {makespan && makespan}</P2>
-            <P2>Time taken: {timeTaken && timeTaken}</P2>
-            <P2>Submitted at: {submittedAt}</P2>
-            <P2>Started: {started && started}</P2>
-            <P2>Finished: {finished && finished}</P2>
-            <P2>{`Submitted by: ${author}`}</P2>
-            <P2>
-              <StyledLink
-                id="patch-base-commit"
-                href={`${getUiUrl()}/version/${version}`}
-              >
-                Base commit: {githash.slice(0, 10)}
-              </StyledLink>
-            </P2>
-          </SiderCard>
-          <SiderCard>
-            <div>Build Variants</div>
-            <Divider />
-          </SiderCard>
+          <Metadata loading={loading} patch={patch} error={error} />
+          <BuildVariants />
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={taskCount}/>
+            <PatchTabs taskCount={data.patch.taskCount}/>
           </PageContent>
         </PageLayout>
       </PageLayout>

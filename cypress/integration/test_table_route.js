@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const taskID =
-  "performance_linux_mmap_standalone_insert_37cb7ea09393e88662e3139bd20fa29e59f2a1a3_18_01_11_00_01_36";
+  "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 
 const taskPath = `/task/${taskID}/tests`;
 

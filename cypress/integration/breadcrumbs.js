@@ -10,24 +10,24 @@ describe("TaskBreadcrumb", function() {
 
   it("Shows tasks display name", function() {
     cy.visit(taskRoute);
-    cy.get("span[id=bc-task]").should("include.text", "generate-lint");
+    cy.get("#bc-task").should("include.text", "generate-lint");
   });
 
   it("Shows the patches name", function() {
-    cy.get("span[id=bc-patch]").should("include.text", "Patch 2567");
+    cy.get("#bc-patch").should("include.text", "Patch 2567");
   });
 
   it("Clicking on the patch breadcrumb goes to patch for task", function() {
     cy.login();
     cy.visit(taskRoute);
-    cy.get("span[id=bc-patch]").click();
+    cy.get("#bc-patch").click();
     cy.url().should("include", "/patch/5e4ff3abe3c3317e352062e4");
   });
 
   it("Clicking 'My Patches' breadcrumb goes to /my-patches route", function() {
     cy.login();
     cy.visit(taskRoute);
-    cy.get("span[id=bc-my-patches]").click();
+    cy.get("#bc-my-patches").click();
     cy.url().should("include", "/my-patches");
   });
 });
@@ -39,11 +39,11 @@ describe("PatchBreadcrumb", function() {
 
   it("Shows the patches name", function() {
     cy.visit("/patch/5e4ff3abe3c3317e352062e4");
-    cy.get("span[id=bc-patch]").should("include.text", "Patch 2567");
+    cy.get("#bc-patch").should("include.text", "Patch 2567");
   });
 
   it("Clicking 'My Patches' goes to /my-patches route", function() {
-    cy.get("span[id=bc-my-patches]").click();
+    cy.get("#bc-my-patches").click();
     cy.url().should("include", "/my-patches");
   });
 });

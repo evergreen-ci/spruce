@@ -32,7 +32,6 @@ export const P1 = styled.p`
   line-height: 17px;
   margin-bottom: 5px;
   color: ${gray.dark3};
-  display: inline-flex;
 `;
 
 export const P2 = styled.p`
@@ -40,5 +39,4 @@ export const P2 = styled.p`
   line-height: 14px;
   margin-bottom: 13px;
   color: ${gray.dark3};
-  display: inline-flex;
 `;

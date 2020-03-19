@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-interface Patch {
+export interface Patch {
   id: string;
   description: string;
   projectID: string;
