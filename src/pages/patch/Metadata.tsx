@@ -22,12 +22,8 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
     );
   }
   if (error) {
-    return (
-      <MetadataCard>
-        // TODO: replace with actual error message display
-        {error.message}
-      </MetadataCard>
-    );
+    // TODO: replace with actual error message display
+    return <MetadataCard>{error.message}</MetadataCard>;
   }
   const {
     author,

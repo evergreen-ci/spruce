@@ -23,20 +23,19 @@ export const Patch = () => {
     variables: { id: id }
   });
   const patch = get(data, "patch");
-
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageHeader>
         {loading ? (
           <Skeleton active={true} paragraph={{ rows: 0 }} />
-        ) : (
+        ) : patch ? (
           <H1 id="patch-name">
             {patch.description
               ? patch.description
               : `Patch ${patch.patchNumber}`}
           </H1>
-        )}
+        ) : null}
       </PageHeader>
       <PageLayout>
         <PageSider>
