@@ -132,6 +132,12 @@ describe("Tests Table", function() {
           expect(loc.pathname).to.equal(TESTS_ROUTE);
           expect(loc.search).to.include(`statuses=${key}`);
         });
+        // check that other statuses are not in the URL
+        statuses
+          .filter(s => s.key !== key)
+          .forEach(s => {
+            expect(loc.search).to.not.include(s.key);
+          });
         cy.wait(100);
         cy.get(".cy-checkbox")
           .contains(display)
