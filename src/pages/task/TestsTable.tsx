@@ -41,13 +41,17 @@ export const TestsTable: React.FC = () => {
       replace(`${pathname}?${nextQueryParams}`);
     } else if (!validInitialQueryParams) {
       const statuses = parsed[RequiredQueryParams.Statuses];
+      const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
       setValidInitialQueryParams({
-        initialCategory: parsed[RequiredQueryParams.Category],
+        initialCategory: (
+          parsed[RequiredQueryParams.Category] || ""
+        ).toString(),
         initialSort: parsed[RequiredQueryParams.Sort],
         initialStatuses: (Array.isArray(statuses)
           ? statuses
           : [statuses]
-        ).filter(v => v && v !== TestStatus.All)
+        ).filter(v => v && v !== TestStatus.All),
+        initialTestName: testName
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);

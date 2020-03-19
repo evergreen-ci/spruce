@@ -32,7 +32,8 @@ const LIMIT = 10;
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory,
-  initialStatuses
+  initialStatuses,
+  initialTestName
 }) => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
@@ -49,7 +50,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       cat: initialCategory as Categories,
       pageNum: 0,
       limitNum: LIMIT,
-      statusList: initialStatuses
+      statusList: initialStatuses,
+      testName: initialTestName
     },
     notifyOnNetworkStatusChange: true
   });
@@ -61,10 +63,12 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     .toUpperCase() as Categories;
   const sort = parsed[RequiredQueryParams.Sort];
   const statuses = parsed[RequiredQueryParams.Statuses];
+  const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   // prev values to see when to fetch
   const prevCategory = usePrevious(category);
   const prevSort = usePrevious(sort);
   const prevStatuses = usePrevious(statuses);
+  const prevTestName = usePrevious(testName);
 
   // disables sort buttons during fetch
   useEffect(() => {
@@ -88,7 +92,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     if (
       (sort !== prevSort ||
         category !== prevCategory ||
-        statuses !== prevStatuses) &&
+        statuses !== prevStatuses ||
+        testName !== prevTestName) &&
       networkStatus === NetworkStatus.ready &&
       !error
     ) {
@@ -106,7 +111,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
           dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
           pageNum: 0,
           limitNum: LIMIT,
-          statusList: statusList
+          statusList: statusList,
+          testName
         },
         updateQuery: (
           prev: UpdateQueryArg,
@@ -158,7 +164,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         cat: category,
         dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
         limitNum: LIMIT,
-        statusList
+        statusList,
+        testName
       },
       updateQuery: (
         prev: UpdateQueryArg,
