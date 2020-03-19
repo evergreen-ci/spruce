@@ -188,8 +188,11 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Input value is incuded in the GQL request body under variables.testName ", () => {
+    it("Input value is incuded in the taskTests GQL request body under variables.testName ", () => {
       waitForTestsQuery();
+      cy.get("@gqlQuery")
+        .its("requestBody.operationName")
+        .should("equal", "taskTests");
       cy.get("@gqlQuery")
         .its("requestBody.variables.testName")
         .should("equal", "group");
