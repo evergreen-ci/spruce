@@ -15,7 +15,6 @@ import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { usePrevious } from "hooks";
 import styled from "@emotion/styled/macro";
 import {
   RequiredQueryParams,
@@ -28,6 +27,7 @@ import queryString from "query-string";
 import { NetworkStatus } from "apollo-client";
 
 const LIMIT = 10;
+const arrayFormat = "comma";
 
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
@@ -36,8 +36,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
 }) => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
-  const { replace } = useHistory();
-
+  const { replace, listen } = useHistory();
   // initial fetch
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
@@ -53,18 +52,6 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     },
     notifyOnNetworkStatusChange: true
   });
-
-  // access query params from URL
-  const parsed = queryString.parse(search);
-  const category = (parsed[RequiredQueryParams.Category] || "")
-    .toString()
-    .toUpperCase() as Categories;
-  const sort = parsed[RequiredQueryParams.Sort];
-  const statuses = parsed[RequiredQueryParams.Statuses];
-  // prev values to see when to fetch
-  const prevCategory = usePrevious(category);
-  const prevSort = usePrevious(sort);
-  const prevStatuses = usePrevious(statuses);
 
   // disables sort buttons during fetch
   useEffect(() => {
@@ -85,17 +72,15 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(() => {
-    if (
-      (sort !== prevSort ||
-        category !== prevCategory ||
-        statuses !== prevStatuses) &&
-      networkStatus === NetworkStatus.ready &&
-      !error
-    ) {
-      const rawStatuses = queryString.parse(search, { arrayFormat: "comma" })[
+    return listen(({ search }) => {
+      const parsed = queryString.parse(search);
+      const category = (parsed[RequiredQueryParams.Category] || "")
+        .toString()
+        .toUpperCase() as Categories;
+      const sort = parsed[RequiredQueryParams.Sort];
+      const rawStatuses = queryString.parse(search, { arrayFormat })[
         RequiredQueryParams.Statuses
       ];
-      // filter "all"
       const statusList = (Array.isArray(rawStatuses)
         ? rawStatuses
         : [rawStatuses]
@@ -118,19 +103,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
           return fetchMoreResult;
         }
       });
-    }
-  }, [
-    sort,
-    category,
-    statuses,
-    networkStatus,
-    error,
-    prevSort,
-    prevCategory,
-    search,
-    fetchMore,
-    prevStatuses
-  ]);
+    });
+  }, [networkStatus, error, fetchMore, listen]);
 
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
 
@@ -144,10 +118,12 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     if (pageNum % 1 !== 0) {
       return;
     }
-    const rawStatuses = queryString.parse(search, { arrayFormat: "comma" })[
-      RequiredQueryParams.Statuses
-    ];
-    // filter "all"
+    const parsed = queryString.parse(search, { arrayFormat });
+    const rawStatuses = parsed[RequiredQueryParams.Statuses];
+    const category = (parsed[RequiredQueryParams.Category] || "")
+      .toString()
+      .toUpperCase() as Categories;
+    const sort = parsed[RequiredQueryParams.Sort];
     const statusList = (Array.isArray(rawStatuses)
       ? rawStatuses
       : [rawStatuses]
