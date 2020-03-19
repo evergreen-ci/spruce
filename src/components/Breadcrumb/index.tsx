@@ -51,5 +51,5 @@ const StyledP1 = styled(P1)`
 `;
 
 const StyledBreadcrumb = styled(Breadcrumb)`
-  margin-bottom: 24px;
+  margin-bottom: 16px;
 `;
