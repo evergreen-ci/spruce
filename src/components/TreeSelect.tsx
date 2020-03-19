@@ -290,7 +290,6 @@ const renderCheckboxesHelper = ({
   }
 };
 
-// styles
 const getCheckboxWrapper = (level: number) => styled.div`
   padding-left: ${level}em;
   padding-bottom: 8px;

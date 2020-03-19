@@ -132,6 +132,7 @@ describe("Tests Table", function() {
           expect(loc.pathname).to.equal(TESTS_ROUTE);
           expect(loc.search).to.include(`statuses=${key}`);
         });
+        cy.wait(100);
         cy.get(".cy-checkbox")
           .contains(display)
           .click();
