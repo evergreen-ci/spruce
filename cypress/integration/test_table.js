@@ -119,7 +119,7 @@ describe("Tests Table", function() {
     const statuses = [
       { display: "Pass", key: "pass" },
       { display: "Silent Fail", key: "silentfail" },
-      { display: "Failed", key: "fail" },
+      { display: "Fail", key: "fail" },
       { display: "Skip", key: "skip" }
     ];
 
@@ -172,9 +172,7 @@ describe("Tests Table", function() {
           .click();
       });
       cy.location().should(loc => {
-        expect(loc.search).to.not.include(
-          "statuses=pass,silentfail,fail,skip,all"
-        );
+        expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
     });
   });
