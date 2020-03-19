@@ -9,7 +9,8 @@ export interface ValidInitialQueryParams {
 export enum RequiredQueryParams {
   Sort = "sort",
   Category = "category",
-  Statuses = "statuses"
+  Statuses = "statuses",
+  TestName = "testname"
 }
 
 export enum SortQueryParam {
