@@ -23,6 +23,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
    `npm run start:mock-instrospect-schema` will obtain a GQL schema via intropspection from http://localhost:9090/graphql/query and mock GQL responses
    `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
 
+### Storybook
+
+Run `npm run storybook` to launch storybook and view our shared components.
+
 ### GQL Query Linting
 
 Follow these directions to enable query linting during local development so your Evergreen GraphQL schema changes are reflected in your Spruce query linting results.
