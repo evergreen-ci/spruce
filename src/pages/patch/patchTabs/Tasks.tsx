@@ -65,7 +65,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const total = taskCount || "-";
   return (
     <>
-      <P2 id="task-count">{`${count} / ${total}`}</P2>
+      <P2 id="task-count">{`${count} / ${total} tasks`}</P2>
       <TasksTable
         loading={loading}
         networkStatus={networkStatus}
