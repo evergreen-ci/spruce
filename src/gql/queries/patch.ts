@@ -11,6 +11,7 @@ export interface Patch {
   status: string;
   activated: string;
   alias: string;
+  taskCount: string;
   duration: {
     makespan: string;
     timeTaken: string;
@@ -39,6 +40,7 @@ export const GET_PATCH = gql`
       status
       activated
       alias
+      taskCount
       duration {
         makespan
         timeTaken

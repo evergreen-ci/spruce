@@ -7,8 +7,13 @@ import {
   PatchTasksVariables
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
+import { P2 } from "components/Typography";
 
-export const Tasks: React.FC = () => {
+interface Props {
+  taskCount: string;
+}
+
+export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, networkStatus } = useQuery<
     PatchTasksQuery,
@@ -26,6 +31,11 @@ export const Tasks: React.FC = () => {
   }
   return (
     <>
+      {taskCount && (
+        <P2 id="task-count">
+          {data.patchTasks.length}/{taskCount} tasks
+        </P2>
+      )}
       <TasksTable networkStatus={networkStatus} data={data.patchTasks} />
     </>
   );
