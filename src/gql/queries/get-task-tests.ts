@@ -7,6 +7,7 @@ export const GET_TASK_TESTS = gql`
     $cat: TestSortCategory
     $pageNum: Int
     $limitNum: Int
+    $statusList: [String!]!
   ) {
     taskTests(
       taskId: $id
@@ -14,6 +15,7 @@ export const GET_TASK_TESTS = gql`
       sortDirection: $dir
       page: $pageNum
       limit: $limitNum
+      statuses: $statusList
     ) {
       id
       status
@@ -27,7 +29,7 @@ export const GET_TASK_TESTS = gql`
   }
 `;
 
-export enum TestStatus {
+enum TestStatus {
   Failed = "fail",
   SilentlyFailed = "silentfail",
   Skipped = "skip",
@@ -55,6 +57,7 @@ export interface TakskTestsVars {
   cat: Categories;
   pageNum: number;
   limitNum: number;
+  statusList: string[];
 }
 
 export interface UpdateQueryArg {

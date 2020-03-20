@@ -190,7 +190,8 @@ const mocks = [
         dir: "ASC",
         cat: "STATUS",
         pageNum: 0,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -210,7 +211,8 @@ const mocks = [
         dir: "ASC",
         cat: "TEST_NAME",
         pageNum: 0,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -230,7 +232,8 @@ const mocks = [
         dir: "ASC",
         cat: "TEST_NAME",
         pageNum: 1,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -250,7 +253,8 @@ const mocks = [
         dir: "DESC",
         cat: "STATUS",
         pageNum: 0,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -270,7 +274,8 @@ const mocks = [
         dir: "ASC",
         cat: "STATUS",
         pageNum: 1,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -290,7 +295,8 @@ const mocks = [
         dir: "DESC",
         cat: "STATUS",
         pageNum: 1,
-        limitNum: 10
+        limitNum: 10,
+        statusList: []
       }
     },
     result: () => {
@@ -343,11 +349,11 @@ it("Requests descending data when clicking on active ascending tab", async () =>
     </MemoryRouter>
   );
   await act(async () => {
-    await wait(50);
+    await wait(500);
   });
   fireEvent.click(getByText("Status"));
   await act(async () => {
-    await wait(50);
+    await wait(500);
   });
   expect(spy).toHaveBeenCalled();
   expect(spyOppDir).toHaveBeenCalled();

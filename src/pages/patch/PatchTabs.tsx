@@ -16,7 +16,11 @@ const tabToIndexMap = {
   [PatchTab.Changes]: 1
 };
 
-export const PatchTabs: React.FC = () => {
+interface Props {
+  taskCount: string;
+}
+
+export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   useDefaultPath(tabToIndexMap, paths.patch, DEFAULT_TAB);
 
   const [selectedTab, selectTabHandler] = useTabs(
@@ -28,7 +32,7 @@ export const PatchTabs: React.FC = () => {
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
       <Tab name="Tasks" id="task-tab">
-        <Tasks />
+        <Tasks taskCount={taskCount}/>
       </Tab>
       <Tab name="Changes" id="changes-tab">
         I am the patch code changes

@@ -12,6 +12,7 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
+import { P2 } from "components/Typography";
 
 const getQueryVariablesFromUrlSearch = (
   patchId: string,
@@ -29,7 +30,11 @@ const getQueryVariablesFromUrlSearch = (
   } as PatchTasksVariables;
 };
 
-export const Tasks: React.FC = () => {
+interface Props {
+  taskCount: string;
+}
+
+export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
@@ -76,11 +81,18 @@ export const Tasks: React.FC = () => {
     return <div>{error.message}</div>;
   }
   return (
-    <TasksTable
-      fullTableLoad={fullTableLoad}
-      loading={loading}
-      networkStatus={networkStatus}
-      data={get(data, "patchTasks", [])}
-    />
+    <>
+      {taskCount && (
+        <P2 id="task-count">
+          {data.patchTasks.length}/{taskCount} tasks
+        </P2>
+      )}
+      <TasksTable
+        fullTableLoad={fullTableLoad}
+        loading={loading}
+        networkStatus={networkStatus}
+        data={get(data, "patchTasks", [])}
+      />
+    </>
   );
 };
