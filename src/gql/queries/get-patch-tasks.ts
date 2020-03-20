@@ -55,7 +55,7 @@ export enum TaskSortDir {
 export interface PatchUrlSearchKeys {
   sortBy?: TaskSortBy;
   sortDir?: SortDir;
-  page?: Number;
+  page?: number;
   statuses?: [PatchStatus];
 }
 
