@@ -133,7 +133,7 @@ describe("Tests Table", function() {
           expect(loc.search).to.include(`statuses=${key}`);
           expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
         });
-        cy.wait(100);
+        cy.wait(200);
         cy.get(".cy-checkbox")
           .contains(display)
           .click();
@@ -144,7 +144,7 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Checking multiple statuses adds them to URL", () => {
+    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
           .contains(display)
@@ -168,6 +168,7 @@ describe("Tests Table", function() {
     });
 
     it("Input value is incuded in the taskTests GQL request body under variables.testName ", () => {
+      waitForTestsQuery(); // this query is for the initial data load before any typing begins
       waitForTestsQuery();
       cy.get("@gqlQuery")
         .its("requestBody.operationName")

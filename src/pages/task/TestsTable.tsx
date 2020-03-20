@@ -48,6 +48,7 @@ export const TestsTable: React.FC = () => {
   const [testNameInput, setTestNameInput] = useState(testName);
 
   useEffect(() => {
+    const parsed = queryString.parse(search, { arrayFormat: "comma" });
     const category = (parsed[RequiredQueryParams.Category] || "")
       .toString()
       .toUpperCase();
@@ -65,9 +66,7 @@ export const TestsTable: React.FC = () => {
     } else if (!validInitialQueryParams) {
       const statuses = parsed[RequiredQueryParams.Statuses];
       setValidInitialQueryParams({
-        initialCategory: (
-          parsed[RequiredQueryParams.Category] || ""
-        ).toString(),
+        initialCategory: category,
         initialSort: parsed[RequiredQueryParams.Sort],
         initialStatuses: (Array.isArray(statuses)
           ? statuses
