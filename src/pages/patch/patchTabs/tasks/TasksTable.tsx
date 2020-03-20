@@ -81,7 +81,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.Name,
     sorter: true,
     width: "50%",
-    className: "cy-task-table-col-name",
+    className: "cy-task-table-col-NAME",
     render: (name: string, { id }: TaskResult) => (
       <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
     )
@@ -91,7 +91,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "status",
     key: TableColumnHeader.Status,
     sorter: true,
-    className: "cy-task-table-col-status",
+    className: "cy-task-table-col-STATUS",
     render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
@@ -99,7 +99,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "baseStatus",
     key: TableColumnHeader.BaseStatus,
     sorter: true,
-    className: "cy-task-table-col-base-status",
+    className: "cy-task-table-col-BASE_STATUS",
     render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
@@ -108,6 +108,6 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "buildVariant",
     key: TableColumnHeader.Variant,
     sorter: true,
-    className: "cy-task-table-col-variant"
+    className: "cy-task-table-col-VARIANT"
   }
 ];

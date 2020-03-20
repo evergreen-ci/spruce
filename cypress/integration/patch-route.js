@@ -113,31 +113,31 @@ describe("Patch route", function() {
         cy.visit(path);
       });
 
-      it("updates the url when column headers are clicked", () => {
+      it("Updates the url when column headers are clicked", () => {
         cy.visit(path);
 
-        cy.get("th.cy-task-table-col-name").click();
+        cy.get("th.cy-task-table-col-NAME").click();
         locationHasUpdatedParams("NAME", "ASC");
 
-        cy.get("th.cy-task-table-col-name").click();
+        cy.get("th.cy-task-table-col-NAME").click();
         locationHasUpdatedParams("NAME", "DESC");
 
-        cy.get("th.cy-task-table-col-name").click();
+        cy.get("th.cy-task-table-col-NAME").click();
         locationHasUpdatedParams("NAME");
 
-        cy.get("th.cy-task-table-col-variant").click();
+        cy.get("th.cy-task-table-col-VARIANT").click();
         locationHasUpdatedParams("VARIANT", "ASC");
 
-        cy.get("th.cy-task-table-col-variant").click();
+        cy.get("th.cy-task-table-col-VARIANT").click();
         locationHasUpdatedParams("VARIANT", "DESC");
 
-        cy.get("th.cy-task-table-col-variant").click();
+        cy.get("th.cy-task-table-col-VARIANT").click();
         locationHasUpdatedParams("VARIANT");
       });
 
       it("clicking task name goes to task page for that task", () => {
         cy.visit(path);
-        cy.get("td.cy-task-table-col-name:first").within(() => {
+        cy.get("td.cy-task-table-col-NAME:first").within(() => {
           cy.get("a")
             .should("have.attr", "href")
             .and("include", "/task");
@@ -154,30 +154,34 @@ describe("Patch route", function() {
         });
       });
 
-      it("Updates url and fetches new tasks when table sort headers are clicked", () => {
-        cy.visit(path);
-
-        cy.get("th.cy-task-table-col-name").click();
-        locationHasUpdatedParams("NAME", "ASC");
-        waitForGQL("@gqlQuery", "PatchBuildVariants");
-
-        cy.get("@gqlQuery")
-          .its("requestBody.operationName")
-          .should("equal", "PatchTasks")
-          .its("requestBody.variables.sortBy")
-          .should("equal", "NAME")
-          .its("requestBody.variables.sortDir")
-          .should("equal", "ASC");
-
-        cy.get("th.cy-task-table-col-name").click();
-        waitForGQL("@gqlQuery", "PatchBuildVariants");
-
-        cy.get("@gqlQuery")
-          .its("requestBody.operationName")
-          .should("equal", "PatchTasks")
-          .its("requestBody.variables.sortDir")
-          .should("equal", "DESC");
+      it("Fetches sorted tasks when table sort headers are clicked", () => {
+        ["NAME", "STATUS"].forEach(sortBy =>
+          clickSorterAndAssertTasksAreFetched(sortBy)
+        );
       });
     });
   });
 });
+
+const assertCorrectRequestVariabls = (sortBy, sortDir) => {
+  cy.get("@gqlQuery")
+    .its("requestBody.operationName")
+    .should("equal", "PatchTasks");
+  cy.get("@gqlQuery")
+    .its("requestBody.variables.sortBy")
+    .should("equal", sortBy);
+  cy.get("@gqlQuery")
+    .its("requestBody.variables.sortDir")
+    .should("equal", sortDir);
+};
+
+const clickSorterAndAssertTasksAreFetched = patchSortBy => {
+  cy.visit(path);
+
+  cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
+  waitForGQL("@gqlQuery", "PatchBuildVariants");
+  assertCorrectRequestVariabls(patchSortBy, "ASC");
+
+  cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
+  assertCorrectRequestVariabls(patchSortBy, "DESC");
+};
