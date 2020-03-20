@@ -43,24 +43,26 @@ export const Tasks: React.FC = () => {
   useDisableTableSortersIfLoading(networkStatus);
 
   // fetch tasks when url params change
-  useEffect(() => {
-    history.listen(({ search }) => {
-      if (networkStatus === NetworkStatus.ready && !error) {
-        fetchMore({
-          variables: getQueryVariablesFromUrlSearch(id, search),
-          updateQuery: (
-            prev: PatchTasksQuery,
-            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
+  useEffect(
+    () =>
+      history.listen(({ search }) => {
+        if (networkStatus === NetworkStatus.ready && !error) {
+          fetchMore({
+            variables: getQueryVariablesFromUrlSearch(id, search),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
             }
-            return fetchMoreResult;
-          }
-        });
-      }
-    });
-  }, [history, fetchMore, id, error, networkStatus]);
+          });
+        }
+      }),
+    [history, fetchMore, id, error, networkStatus]
+  );
 
   if (error) {
     return <div>{error.message}</div>;
