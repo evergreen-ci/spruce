@@ -8,7 +8,7 @@ import { TreeSelect } from "components/TreeSelect";
 export const StatusSelector = () => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const value = useStatuses(search);
+  const value = useQueryParamStatuses(search);
 
   const onChange = (updatedValue: [string]) => {
     const parsed = queryString.parse(search, { arrayFormat });
@@ -58,7 +58,7 @@ const treeData = [
   }
 ];
 
-const useStatuses = (search: string) => {
+const useQueryParamStatuses = (search: string) => {
   const parsed = queryString.parse(search, { arrayFormat });
   const statuses = parsed[RequiredQueryParams.Statuses];
   return Array.isArray(statuses) ? statuses : [statuses].filter(v => v);
