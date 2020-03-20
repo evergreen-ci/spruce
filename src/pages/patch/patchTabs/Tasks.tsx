@@ -42,23 +42,31 @@ export const Tasks: React.FC = () => {
   });
   useDisableTableSortersIfLoading(networkStatus);
 
+  const [fullTableLoad, setFullTableLoad] = React.useState(false);
+
+  const fetchMoreTasks = async (search: string) => {
+    setFullTableLoad(true);
+    await fetchMore({
+      variables: getQueryVariablesFromUrlSearch(id, search),
+      updateQuery: (
+        prev: PatchTasksQuery,
+        { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return fetchMoreResult;
+      }
+    });
+    setFullTableLoad(false);
+  };
+
   // fetch tasks when url params change
   useEffect(
     () =>
       history.listen(({ search }) => {
         if (networkStatus === NetworkStatus.ready && !error) {
-          fetchMore({
-            variables: getQueryVariablesFromUrlSearch(id, search),
-            updateQuery: (
-              prev: PatchTasksQuery,
-              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-            ) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              return fetchMoreResult;
-            }
-          });
+          fetchMoreTasks(search);
         }
       }),
     [history, fetchMore, id, error, networkStatus]
@@ -68,12 +76,11 @@ export const Tasks: React.FC = () => {
     return <div>{error.message}</div>;
   }
   return (
-    <>
-      <TasksTable
-        loading={loading}
-        networkStatus={networkStatus}
-        data={get(data, "patchTasks", [])}
-      />
-    </>
+    <TasksTable
+      fullTableLoad={fullTableLoad}
+      loading={loading}
+      networkStatus={networkStatus}
+      data={get(data, "patchTasks", [])}
+    />
   );
 };

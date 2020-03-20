@@ -15,21 +15,14 @@ interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
   loading: boolean;
+  fullTableLoad: boolean;
 }
-
-const orderKeyToSortParam = {
-  ascend: TaskSortDir.Asc,
-  descend: TaskSortDir.Desc
-};
-const getSortDirFromOrder = (order: "ascend" | "descend") =>
-  orderKeyToSortParam[order];
-
-const rowKey = ({ id }: { id: string }): string => id;
 
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
   data = [],
-  loading
+  loading,
+  fullTableLoad
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -46,22 +39,33 @@ export const TasksTable: React.FC<Props> = ({
     );
   };
 
+  const isLoading = networkStatus < NetworkStatus.ready || loading;
+
   return (
     <>
       <InfinityTable
         key="key"
-        loading={networkStatus < NetworkStatus.ready || loading}
+        loading={isLoading}
         pageSize={10000}
         loadingIndicator={loader}
         columns={columns}
         scroll={{ y: 350 }}
-        dataSource={data}
+        dataSource={fullTableLoad ? [] : data}
         onChange={tableChangeHandler}
         rowKey={rowKey}
       />
     </>
   );
 };
+
+const orderKeyToSortParam = {
+  ascend: TaskSortDir.Asc,
+  descend: TaskSortDir.Desc
+};
+const getSortDirFromOrder = (order: "ascend" | "descend") =>
+  orderKeyToSortParam[order];
+
+const rowKey = ({ id }: { id: string }): string => id;
 
 enum TableColumnHeader {
   Name = "NAME",
