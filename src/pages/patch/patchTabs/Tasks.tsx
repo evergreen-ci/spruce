@@ -31,7 +31,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   return (
     <>
-      { taskCount && (<P2>{data.patchTasks.length}/{taskCount} tasks</P2>) }
+      { taskCount && (<P2 id="task-count">{data.patchTasks.length}/{taskCount} tasks</P2>) }
       <TasksTable networkStatus={networkStatus} data={data.patchTasks} />
     </>
   );
