@@ -93,5 +93,5 @@ const getQueryVariablesFromUrlSearch = (
     sortBy,
     sortDir,
     page
-  } as PatchTasksVariables;
+  };
 };
