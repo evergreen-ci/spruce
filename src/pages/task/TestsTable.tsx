@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
+import { StatusSelector } from "./testsTable/StatusSelector";
 import {
   RequiredQueryParams,
   SortQueryParam,
-  ValidInitialQueryParams
+  ValidInitialQueryParams,
+  TestStatus
 } from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
@@ -20,10 +22,9 @@ export const TestsTable: React.FC = () => {
   const [validInitialQueryParams, setValidInitialQueryParams] = useState<
     ValidInitialQueryParams
   >();
-
   // validate query params for tests table and replace them if necessary
   useEffect(() => {
-    const parsed = queryString.parse(search);
+    const parsed = queryString.parse(search, { arrayFormat: "comma" });
     const category = (parsed[RequiredQueryParams.Category] || "")
       .toString()
       .toUpperCase();
@@ -39,9 +40,14 @@ export const TestsTable: React.FC = () => {
       const nextQueryParams = queryString.stringify(parsed);
       replace(`${pathname}?${nextQueryParams}`);
     } else if (!validInitialQueryParams) {
+      const statuses = parsed[RequiredQueryParams.Statuses];
       setValidInitialQueryParams({
         initialCategory: parsed[RequiredQueryParams.Category],
-        initialSort: parsed[RequiredQueryParams.Sort]
+        initialSort: parsed[RequiredQueryParams.Sort],
+        initialStatuses: (Array.isArray(statuses)
+          ? statuses
+          : [statuses]
+        ).filter(v => v && v !== TestStatus.All)
       });
     }
   }, [search, pathname, replace, validInitialQueryParams]);
@@ -49,5 +55,10 @@ export const TestsTable: React.FC = () => {
   if (!validInitialQueryParams) {
     return null;
   }
-  return <TestsTableCore {...validInitialQueryParams} />;
+  return (
+    <>
+      <StatusSelector />
+      <TestsTableCore {...validInitialQueryParams} />
+    </>
+  );
 };
