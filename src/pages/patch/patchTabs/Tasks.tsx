@@ -14,22 +14,6 @@ import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
 import { P2 } from "components/Typography";
 
-const getQueryVariablesFromUrlSearch = (
-  patchId: string,
-  search: string
-): PatchTasksVariables => {
-  // TODO: add 'statuses' var here when the UI is implemented
-  const { sortBy, sortDir, page } = queryString.parse(
-    search
-  ) as PatchUrlSearchKeys;
-  return {
-    patchId,
-    sortBy,
-    sortDir,
-    page
-  } as PatchTasksVariables;
-};
-
 interface Props {
   taskCount: string;
 }
@@ -94,4 +78,20 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       />
     </>
   );
+};
+
+const getQueryVariablesFromUrlSearch = (
+  patchId: string,
+  search: string
+): PatchTasksVariables => {
+  // TODO: add 'statuses' var here when the UI is implemented
+  const { sortBy, sortDir, page } = queryString.parse(
+    search
+  ) as PatchUrlSearchKeys;
+  return {
+    patchId,
+    sortBy,
+    sortDir,
+    page
+  } as PatchTasksVariables;
 };
