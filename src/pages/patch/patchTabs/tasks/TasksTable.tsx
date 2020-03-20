@@ -39,12 +39,10 @@ export const TasksTable: React.FC<Props> = ({
     );
   };
 
-  const isLoading = networkStatus < NetworkStatus.ready || loading;
-
   return (
     <InfinityTable
       key="key"
-      loading={networkStatus < NetworkStatus.ready}
+      loading={networkStatus < NetworkStatus.ready || loading}
       pageSize={10000}
       loadingIndicator={loader}
       columns={columns}
