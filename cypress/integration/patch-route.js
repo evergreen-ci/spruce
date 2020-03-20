@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
 
+const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const patch = {
   id: "5e4ff3abe3c3317e352062e4"
 };
@@ -134,6 +135,16 @@ describe("Patch route", function() {
           cy.get("a")
             .should("have.attr", "href")
             .and("include", "/task");
+        });
+      });
+
+      it("Should have sort buttons disabled when fetching data", () => {
+        cy.visit(path);
+        cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+        cy.once("fail", err => {
+          expect(err.message).to.include(
+            "'pointer-events: none' prevents user mouse interaction."
+          );
         });
       });
     });
