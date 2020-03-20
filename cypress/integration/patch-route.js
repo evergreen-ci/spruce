@@ -107,23 +107,29 @@ describe("Patch route", function() {
     });
 
     describe("Tasks Table", () => {
+      beforeEach(() => {
+        cy.server();
+        cy.route("POST", "/graphql/query").as("gqlQuery");
+        cy.visit(path);
+      });
+
       it("updates the url when column headers are clicked", () => {
         cy.visit(path);
 
         cy.get("th.cy-task-table-col-name").click();
-        locationHasUpdatedParams("NAME", 1);
+        locationHasUpdatedParams("NAME", "ASC");
 
         cy.get("th.cy-task-table-col-name").click();
-        locationHasUpdatedParams("NAME", -1);
+        locationHasUpdatedParams("NAME", "DESC");
 
         cy.get("th.cy-task-table-col-name").click();
         locationHasUpdatedParams("NAME");
 
         cy.get("th.cy-task-table-col-variant").click();
-        locationHasUpdatedParams("VARIANT", 1);
+        locationHasUpdatedParams("VARIANT", "ASC");
 
         cy.get("th.cy-task-table-col-variant").click();
-        locationHasUpdatedParams("VARIANT", -1);
+        locationHasUpdatedParams("VARIANT", "DESC");
 
         cy.get("th.cy-task-table-col-variant").click();
         locationHasUpdatedParams("VARIANT");
@@ -146,6 +152,31 @@ describe("Patch route", function() {
             "'pointer-events: none' prevents user mouse interaction."
           );
         });
+      });
+
+      it("Updates url and fetches new tasks when table sort headers are clicked", () => {
+        cy.visit(path);
+
+        cy.get("th.cy-task-table-col-name").click();
+        locationHasUpdatedParams("NAME", "ASC");
+        waitForGQL("@gqlQuery", "PatchBuildVariants");
+
+        cy.get("@gqlQuery")
+          .its("requestBody.operationName")
+          .should("equal", "PatchTasks")
+          .its("requestBody.variables.sortBy")
+          .should("equal", "NAME")
+          .its("requestBody.variables.sortDir")
+          .should("equal", "ASC");
+
+        cy.get("th.cy-task-table-col-name").click();
+        waitForGQL("@gqlQuery", "PatchBuildVariants");
+
+        cy.get("@gqlQuery")
+          .its("requestBody.operationName")
+          .should("equal", "PatchTasks")
+          .its("requestBody.variables.sortDir")
+          .should("equal", "DESC");
       });
     });
   });
