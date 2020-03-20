@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import {
   GET_PATCH_TASKS,
+  PATCH_TASKS_LIMIT,
   PatchTasksQuery,
   PatchTasksVariables,
   PatchUrlSearchKeys
@@ -26,14 +27,14 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     PatchTasksQuery,
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
-    variables: getQueryVariablesFromUrlSearch(id, search),
+    variables: getQueryVariablesFromUrlSearch(id, search, 0),
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);
 
   const fetchMoreTasks = (search: string) => {
     fetchMore({
-      variables: getQueryVariablesFromUrlSearch(id, search),
+      variables: getQueryVariablesFromUrlSearch(id, search, 0),
       updateQuery: (
         prev: PatchTasksQuery,
         { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -57,19 +58,45 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     [history, fetchMore, id, error, networkStatus]
   );
 
+  // this fetch is the callback for pagination
+  // that's why we see pageNum calculations
+  const onFetch = (): void => {
+    if (networkStatus === NetworkStatus.error || error) {
+      return;
+    }
+    const pageNum = data.patchTasks.length / PATCH_TASKS_LIMIT;
+    if (pageNum % 1 !== 0) {
+      return;
+    }
+    fetchMore({
+      variables: getQueryVariablesFromUrlSearch(id, search, pageNum),
+      updateQuery: (
+        prev: PatchTasksQuery,
+        { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return Object.assign({}, prev, {
+          taskTests: [...prev.patchTasks, ...fetchMoreResult.patchTasks]
+        });
+      }
+    });
+  };
+
   if (error) {
     return <div>{error.message}</div>;
   }
-
   const count = get(data, "patchTasks.length", "-");
   const total = taskCount || "-";
   return (
     <>
-      <P2 id="task-count">{`${count} / ${total}`}</P2>
+      <P2 id="task-count">{`${count} / ${total} tasks`}</P2>
       <TasksTable
         loading={loading}
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
+        onFetch={onFetch}
       />
     </>
   );
@@ -77,12 +104,11 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
 const getQueryVariablesFromUrlSearch = (
   patchId: string,
-  search: string
+  search: string,
+  page: number
 ): PatchTasksVariables => {
   // TODO: add 'statuses' var here when the UI is implemented
-  const { sortBy, sortDir, page } = queryString.parse(
-    search
-  ) as PatchUrlSearchKeys;
+  const { sortBy, sortDir } = queryString.parse(search) as PatchUrlSearchKeys;
   return {
     patchId,
     sortBy,

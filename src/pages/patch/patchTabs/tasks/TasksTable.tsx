@@ -15,12 +15,14 @@ interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
   loading: boolean;
+  onFetch: () => void;
 }
 
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
   data = [],
-  loading
+  loading,
+  onFetch
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -47,6 +49,7 @@ export const TasksTable: React.FC<Props> = ({
       scroll={{ y: 350 }}
       dataSource={data}
       onChange={tableChangeHandler}
+      onFetch={onFetch}
       rowKey={rowKey}
     />
   );

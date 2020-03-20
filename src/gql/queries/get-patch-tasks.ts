@@ -1,6 +1,8 @@
 import gql from "graphql-tag";
 import { SortDir } from "gql/queries/get-task-tests";
 
+export const PATCH_TASKS_LIMIT = 10;
+
 export const GET_PATCH_TASKS = gql`
   query PatchTasks(
     $patchId: String!
@@ -11,7 +13,7 @@ export const GET_PATCH_TASKS = gql`
   ) {
     patchTasks(
       patchId: $patchId
-      limit: 10
+      limit: ${PATCH_TASKS_LIMIT}
       page: $page
       statuses: $statuses
       sortDir: $sortDir
