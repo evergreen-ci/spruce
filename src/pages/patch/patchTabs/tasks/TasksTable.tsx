@@ -15,14 +15,12 @@ interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
   loading: boolean;
-  fullTableLoad: boolean;
 }
 
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
   data = [],
-  loading,
-  fullTableLoad
+  loading
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();

@@ -31,10 +31,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   });
   useDisableTableSortersIfLoading(networkStatus);
 
-  const [fullTableLoad, setFullTableLoad] = React.useState(false);
-
   const fetchMoreTasks = async (search: string) => {
-    setFullTableLoad(true);
     await fetchMore({
       variables: getQueryVariablesFromUrlSearch(id, search),
       updateQuery: (
@@ -47,7 +44,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         return fetchMoreResult;
       }
     });
-    setFullTableLoad(false);
   };
 
   // fetch tasks when url params change
@@ -71,7 +67,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     <>
       <P2 id="task-count">{`${count} / ${total}`}</P2>
       <TasksTable
-        fullTableLoad={fullTableLoad}
         loading={loading}
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
