@@ -31,8 +31,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   });
   useDisableTableSortersIfLoading(networkStatus);
 
-  const fetchMoreTasks = async (search: string) => {
-    await fetchMore({
+  const fetchMoreTasks = (search: string) => {
+    fetchMore({
       variables: getQueryVariablesFromUrlSearch(id, search),
       updateQuery: (
         prev: PatchTasksQuery,
