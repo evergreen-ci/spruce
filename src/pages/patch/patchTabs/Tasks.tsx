@@ -80,13 +80,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   if (error) {
     return <div>{error.message}</div>;
   }
+
+  const count = get(data, "patchTasks.length", "-");
+  const total = taskCount || "-";
   return (
     <>
-      {taskCount && !loading && (
-        <P2 id="task-count">
-          {get(data, "patchTasks.length", 0)}/{taskCount} tasks
-        </P2>
-      )}
+      <P2 id="task-count">{`${count} / ${total}`}</P2>
       <TasksTable
         fullTableLoad={fullTableLoad}
         loading={loading}
