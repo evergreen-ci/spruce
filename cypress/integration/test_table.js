@@ -133,7 +133,7 @@ describe("Tests Table", function() {
           expect(loc.search).to.include(`statuses=${key}`);
           expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
         });
-        cy.wait(100);
+        cy.wait(200);
         cy.get(".cy-checkbox")
           .contains(display)
           .click();
