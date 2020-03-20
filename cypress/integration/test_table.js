@@ -144,7 +144,7 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Checking multiple statuses adds them to URL", () => {
+    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
           .contains(display)
