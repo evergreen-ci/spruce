@@ -14,14 +14,12 @@ import { TaskSortDir } from "gql/queries/get-patch-tasks";
 interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
-  loading: boolean;
   onFetch: () => void;
 }
 
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
   data = [],
-  loading,
   onFetch
 }) => {
   const { replace } = useHistory();
@@ -42,7 +40,7 @@ export const TasksTable: React.FC<Props> = ({
   return (
     <InfinityTable
       key="key"
-      loading={networkStatus < NetworkStatus.ready || loading}
+      loading={networkStatus < NetworkStatus.ready}
       pageSize={10000}
       loadingIndicator={loader}
       columns={columns}

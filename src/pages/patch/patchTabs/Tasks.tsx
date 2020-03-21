@@ -5,8 +5,7 @@ import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
   PatchTasksQuery,
-  PatchTasksVariables,
-  PatchUrlSearchKeys
+  PatchTasksVariables
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
@@ -23,40 +22,38 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const { data, loading, error, networkStatus, fetchMore } = useQuery<
+  const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
-    variables: getQueryVariablesFromUrlSearch(id, search, 0),
+    variables: getQueryVariablesFromUrlSearch(
+      id,
+      search,
+      0
+    ) as PatchTasksVariables,
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);
 
-  const fetchMoreTasks = (search: string) => {
-    fetchMore({
-      variables: getQueryVariablesFromUrlSearch(id, search, 0),
-      updateQuery: (
-        prev: PatchTasksQuery,
-        { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        return fetchMoreResult;
+  // fetch tasks when url params change
+  useEffect(() => {
+    history.listen(({ search }) => {
+      if (networkStatus === NetworkStatus.ready && !error) {
+        fetchMore({
+          variables: getQueryVariablesFromUrlSearch(id, search, 0),
+          updateQuery: (
+            prev: PatchTasksQuery,
+            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+          ) => {
+            if (!fetchMoreResult) {
+              return prev;
+            }
+            return fetchMoreResult;
+          }
+        });
       }
     });
-  };
-
-  // fetch tasks when url params change
-  useEffect(
-    () =>
-      history.listen(({ search }) => {
-        if (networkStatus === NetworkStatus.ready && !error) {
-          fetchMoreTasks(search);
-        }
-      }),
-    [history, fetchMore, id, error, networkStatus]
-  );
+  }, [history, fetchMore, id, error, networkStatus]);
 
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
@@ -93,7 +90,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     <>
       <P2 id="task-count">{`${count} / ${total} tasks`}</P2>
       <TasksTable
-        loading={loading}
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
         onFetch={onFetch}
@@ -102,17 +98,20 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   );
 };
 
+const getString = (param: string | string[]): string =>
+  Array.isArray(param) ? param[0] : param;
+
 const getQueryVariablesFromUrlSearch = (
   patchId: string,
   search: string,
   page: number
-): PatchTasksVariables => {
+) => {
   // TODO: add 'statuses' var here when the UI is implemented
-  const { sortBy, sortDir } = queryString.parse(search) as PatchUrlSearchKeys;
+  const { sortBy, sortDir } = queryString.parse(search);
   return {
     patchId,
-    sortBy,
-    sortDir,
+    sortBy: getString(sortBy),
+    sortDir: getString(sortDir),
     page
   };
 };

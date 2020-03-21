@@ -157,7 +157,7 @@ describe("Patch route", function() {
       });
 
       it("Fetches sorted tasks when table sort headers are clicked", () => {
-        ["NAME", "STATUS"].forEach(sortBy =>
+        ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
           clickSorterAndAssertTasksAreFetched(sortBy)
         );
       });
@@ -165,7 +165,7 @@ describe("Patch route", function() {
   });
 });
 
-const assertCorrectRequestVariabls = (sortBy, sortDir) => {
+const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")
     .its("requestBody.operationName")
     .should("equal", "PatchTasks");
@@ -182,8 +182,8 @@ const clickSorterAndAssertTasksAreFetched = patchSortBy => {
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
   waitForGQL("@gqlQuery", "PatchBuildVariants");
-  assertCorrectRequestVariabls(patchSortBy, "ASC");
+  assertCorrectRequestVariables(patchSortBy, "ASC");
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
-  assertCorrectRequestVariabls(patchSortBy, "DESC");
+  assertCorrectRequestVariables(patchSortBy, "DESC");
 };
