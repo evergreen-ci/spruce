@@ -31,9 +31,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     ) as PatchTasksVariables,
     notifyOnNetworkStatusChange: true
   });
-  if (error) {
-    return <div>{error.message}</div>;
-  }
   useDisableTableSortersIfLoading(networkStatus);
 
   // fetch tasks when url params change
@@ -56,6 +53,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     });
   }, [history, fetchMore, id, error, networkStatus]);
 
+  if (error) {
+    return <div>{error.message}</div>;
+  }
   const count = get(data, "patchTasks.length", "-");
   const total = taskCount || "-";
   return (
