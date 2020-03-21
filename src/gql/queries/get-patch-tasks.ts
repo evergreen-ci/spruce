@@ -52,13 +52,10 @@ export enum TaskSortDir {
   Asc = "ASC"
 }
 
-export interface PatchUrlSearchKeys {
+export interface PatchTasksVariables {
+  patchId: string;
   sortBy?: TaskSortBy;
   sortDir?: SortDir;
   page?: number;
   statuses?: [PatchStatus];
-}
-
-export interface PatchTasksVariables extends PatchUrlSearchKeys {
-  patchId: string;
 }

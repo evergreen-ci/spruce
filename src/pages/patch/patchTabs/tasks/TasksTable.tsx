@@ -14,14 +14,9 @@ import { TaskSortDir } from "gql/queries/get-patch-tasks";
 interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
-  loading: boolean;
 }
 
-export const TasksTable: React.FC<Props> = ({
-  networkStatus,
-  data = [],
-  loading
-}) => {
+export const TasksTable: React.FC<Props> = ({ networkStatus, data = [] }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -40,7 +35,7 @@ export const TasksTable: React.FC<Props> = ({
   return (
     <InfinityTable
       key="key"
-      loading={networkStatus < NetworkStatus.ready || loading}
+      loading={networkStatus < NetworkStatus.ready}
       pageSize={10000}
       loadingIndicator={loader}
       columns={columns}
