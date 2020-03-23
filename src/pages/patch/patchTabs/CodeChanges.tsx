@@ -27,8 +27,8 @@ export const CodeChanges = () => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
-  const content = data.patch.moduleCodeChanges.map(modCodeChange => {
-    return (
+  <div>
+    {data.patch.moduleCodeChanges.map(modCodeChange => (
       <div key={modCodeChange.branchName}>
         <H2>Changes on {modCodeChange.branchName}: </H2>
         <StyledButton
@@ -53,14 +53,9 @@ export const CodeChanges = () => {
           scroll={{ y: 196 }}
         />
       </div>
-    );
-  });
-  return <div>{content}</div>;
+    ))}
+  </div>;
 };
-
-const StyledButton = styled(Button)`
-  margin-left: 16px;
-`;
 
 const columns = [
   {
@@ -112,6 +107,10 @@ const columns = [
 ];
 
 const rowKey = (record: FileDiff): string => record.fileName;
+
+const StyledButton = styled(Button)`
+  margin-left: 16px;
+`;
 
 const Addition = styled.span`
   color: ${uiColors.green.base};
