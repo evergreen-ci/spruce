@@ -157,25 +157,29 @@ describe("Tests Table", function() {
   });
 
   describe("Test Name Filter", () => {
+    const testNameInputValue = "group";
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get("#cy-testname-input").type("group");
+      cy.get("#cy-testname-input").type(testNameInputValue);
     });
+
     it("Typing in test name filter updates testname query param", () => {
       cy.location().should(loc => {
-        expect(loc.search).to.include("testname=group");
+        expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });
     });
 
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
-      waitForTestsQuery(); // this query is for the initial data load before any typing begins
-      waitForTestsQuery();
+      const xhrTestNamePath = "requestBody.variables.testName";
+      waitForGQL("@gqlQuery", "taskTests", {
+        [xhrTestNamePath]: testNameInputValue
+      });
       cy.get("@gqlQuery")
         .its("requestBody.operationName")
         .should("equal", "taskTests");
       cy.get("@gqlQuery")
-        .its("requestBody.variables.testName")
-        .should("equal", "group");
+        .its(xhrTestNamePath)
+        .should("equal", testNameInputValue);
     });
   });
 });
