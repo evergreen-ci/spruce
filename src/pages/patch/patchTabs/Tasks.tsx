@@ -56,7 +56,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }, [history, fetchMore, id, error, networkStatus]);
 
   const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
-    true
+    false
   );
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
@@ -70,6 +70,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     }
     const pageNum = data.patchTasks.length / PATCH_TASKS_LIMIT;
     if (pageNum % 1 !== 0) {
+      setAllItemsHaveBeenFetched(true);
       return;
     }
     fetchMore({
@@ -81,9 +82,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         if (!fetchMoreResult) {
           return prev;
         }
-        return Object.assign({}, prev, {
-          taskTests: [...prev.patchTasks, ...fetchMoreResult.patchTasks]
-        });
+        return {
+          ...prev,
+          patchTasks: [...prev.patchTasks, ...fetchMoreResult.patchTasks]
+        };
       }
     });
   };
