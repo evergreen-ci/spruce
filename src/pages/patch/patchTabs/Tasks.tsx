@@ -94,8 +94,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  const count = get(data, "patchTasks.length", "-");
-  const total = taskCount || "-";
   return (
     <>
       <P2 id="task-count">
