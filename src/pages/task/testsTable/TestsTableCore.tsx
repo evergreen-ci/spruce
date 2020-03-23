@@ -24,6 +24,7 @@ import {
 } from "types/task";
 import get from "lodash.get";
 import queryString from "query-string";
+import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 
 const LIMIT = 10;
@@ -52,22 +53,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     },
     notifyOnNetworkStatusChange: true
   });
-
-  // disables sort buttons during fetch
-  useEffect(() => {
-    const elements = document.querySelectorAll(
-      "th.ant-table-column-has-actions.ant-table-column-has-sorters"
-    );
-    if (networkStatus < NetworkStatus.ready) {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "none";
-      });
-    } else {
-      elements.forEach(el => {
-        (el as HTMLElement).style["pointer-events"] = "auto";
-      });
-    }
-  }, [networkStatus]);
+  useDisableTableSortersIfLoading(networkStatus);
 
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0

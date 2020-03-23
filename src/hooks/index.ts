@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import { useTabs } from "hooks/useTabs";
 import { useDefaultPath } from "hooks/useDefaultPath";
+import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfLoading";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 export const usePrevious = <T>(state: T): T | undefined => {
@@ -11,4 +12,9 @@ export const usePrevious = <T>(state: T): T | undefined => {
   return ref.current;
 };
 
-export { useTabs, useDefaultPath, useOnClickOutside };
+export {
+  useTabs,
+  useDefaultPath,
+  useDisableTableSortersIfLoading,
+  useOnClickOutside
+};

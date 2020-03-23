@@ -6,29 +6,17 @@ import Badge from "@leafygreen-ui/badge";
 import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
 import { StyledRouterLink } from "components/styles/StyledLink";
-import {
-  SortQueryParam,
-  PatchTasksQueryParams,
-  TableOnChange
-} from "types/task";
+import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
+import { TaskSortDir } from "gql/queries/get-patch-tasks";
 
 interface Props {
   networkStatus: NetworkStatus;
-  data: [TaskResult];
+  data?: [TaskResult];
 }
 
-const orderKeyToSortParam = {
-  ascend: SortQueryParam.Asc,
-  descend: SortQueryParam.Desc
-};
-const getSortDirFromOrder = (order: "ascend" | "descend") =>
-  orderKeyToSortParam[order];
-
-const rowKey = ({ id }: { id: string }): string => id;
-
-export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
+export const TasksTable: React.FC<Props> = ({ networkStatus, data = [] }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -59,6 +47,15 @@ export const TasksTable: React.FC<Props> = ({ networkStatus, data }) => {
   );
 };
 
+const orderKeyToSortParam = {
+  ascend: TaskSortDir.Asc,
+  descend: TaskSortDir.Desc
+};
+const getSortDirFromOrder = (order: "ascend" | "descend") =>
+  orderKeyToSortParam[order];
+
+const rowKey = ({ id }: { id: string }): string => id;
+
 enum TableColumnHeader {
   Name = "NAME",
   Status = "STATUS",
@@ -73,7 +70,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.Name,
     sorter: true,
     width: "50%",
-    className: "cy-task-table-col-name",
+    className: "cy-task-table-col-NAME",
     render: (name: string, { id }: TaskResult) => (
       <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
     )
@@ -83,7 +80,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "status",
     key: TableColumnHeader.Status,
     sorter: true,
-    className: "cy-task-table-col-status",
+    className: "cy-task-table-col-STATUS",
     render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
@@ -91,7 +88,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "baseStatus",
     key: TableColumnHeader.BaseStatus,
     sorter: true,
-    className: "cy-task-table-col-base-status",
+    className: "cy-task-table-col-BASE_STATUS",
     render: (tag: string): JSX.Element => <Badge key={tag}>{tag}</Badge>
   },
   {
@@ -100,6 +97,6 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "buildVariant",
     key: TableColumnHeader.Variant,
     sorter: true,
-    className: "cy-task-table-col-variant"
+    className: "cy-task-table-col-VARIANT"
   }
 ];

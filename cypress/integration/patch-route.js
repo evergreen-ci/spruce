@@ -1,6 +1,7 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
 
+const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const patch = {
   id: "5e4ff3abe3c3317e352062e4"
 };
@@ -108,36 +109,81 @@ describe("Patch route", function() {
     });
 
     describe("Tasks Table", () => {
-      it("updates the url when column headers are clicked", () => {
+      beforeEach(() => {
+        cy.server();
+        cy.route("POST", "/graphql/query").as("gqlQuery");
+        cy.visit(path);
+      });
+
+      it("Updates the url when column headers are clicked", () => {
         cy.visit(path);
 
-        cy.get("th.cy-task-table-col-name").click();
-        locationHasUpdatedParams("NAME", 1);
+        cy.get("th.cy-task-table-col-NAME").click();
+        locationHasUpdatedParams("NAME", "ASC");
 
-        cy.get("th.cy-task-table-col-name").click();
-        locationHasUpdatedParams("NAME", -1);
+        cy.get("th.cy-task-table-col-NAME").click();
+        locationHasUpdatedParams("NAME", "DESC");
 
-        cy.get("th.cy-task-table-col-name").click();
+        cy.get("th.cy-task-table-col-NAME").click();
         locationHasUpdatedParams("NAME");
 
-        cy.get("th.cy-task-table-col-variant").click();
-        locationHasUpdatedParams("VARIANT", 1);
+        cy.get("th.cy-task-table-col-VARIANT").click();
+        locationHasUpdatedParams("VARIANT", "ASC");
 
-        cy.get("th.cy-task-table-col-variant").click();
-        locationHasUpdatedParams("VARIANT", -1);
+        cy.get("th.cy-task-table-col-VARIANT").click();
+        locationHasUpdatedParams("VARIANT", "DESC");
 
-        cy.get("th.cy-task-table-col-variant").click();
+        cy.get("th.cy-task-table-col-VARIANT").click();
         locationHasUpdatedParams("VARIANT");
       });
 
       it("clicking task name goes to task page for that task", () => {
         cy.visit(path);
-        cy.get("td.cy-task-table-col-name:first").within(() => {
+        cy.get("td.cy-task-table-col-NAME:first").within(() => {
           cy.get("a")
             .should("have.attr", "href")
             .and("include", "/task");
         });
       });
+
+      it("Should have sort buttons disabled when fetching data", () => {
+        cy.visit(path);
+        cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+        cy.once("fail", err => {
+          expect(err.message).to.include(
+            "'pointer-events: none' prevents user mouse interaction."
+          );
+        });
+      });
+
+      it("Fetches sorted tasks when table sort headers are clicked", () => {
+        ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
+          clickSorterAndAssertTasksAreFetched(sortBy)
+        );
+      });
     });
   });
 });
+
+const assertCorrectRequestVariables = (sortBy, sortDir) => {
+  cy.get("@gqlQuery")
+    .its("requestBody.operationName")
+    .should("equal", "PatchTasks");
+  cy.get("@gqlQuery")
+    .its("requestBody.variables.sortBy")
+    .should("equal", sortBy);
+  cy.get("@gqlQuery")
+    .its("requestBody.variables.sortDir")
+    .should("equal", sortDir);
+};
+
+const clickSorterAndAssertTasksAreFetched = patchSortBy => {
+  cy.visit(path);
+
+  cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
+  waitForGQL("@gqlQuery", "PatchBuildVariants");
+  assertCorrectRequestVariables(patchSortBy, "ASC");
+
+  cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
+  assertCorrectRequestVariables(patchSortBy, "DESC");
+};

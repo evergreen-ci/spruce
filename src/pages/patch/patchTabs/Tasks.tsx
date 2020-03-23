@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/react-hooks";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory, useLocation } from "react-router-dom";
 import {
   GET_PATCH_TASKS,
   PatchTasksQuery,
   PatchTasksVariables
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
+import queryString from "query-string";
+import { useDisableTableSortersIfLoading } from "hooks";
+import { NetworkStatus } from "apollo-client";
+import get from "lodash.get";
 import { P2 } from "components/Typography";
 
 interface Props {
@@ -14,29 +18,66 @@ interface Props {
 }
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
+  const history = useHistory();
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error, networkStatus } = useQuery<
+  const { search } = useLocation();
+  const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
-    variables: { patchId: id },
+    variables: getQueryVariablesFromUrlSearch(
+      id,
+      search
+    ) as PatchTasksVariables,
     notifyOnNetworkStatusChange: true
   });
+  useDisableTableSortersIfLoading(networkStatus);
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+  // fetch tasks when url params change
+  useEffect(() => {
+    history.listen(location => {
+      if (networkStatus === NetworkStatus.ready && !error) {
+        fetchMore({
+          variables: getQueryVariablesFromUrlSearch(id, location.search),
+          updateQuery: (
+            prev: PatchTasksQuery,
+            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+          ) => {
+            if (!fetchMoreResult) {
+              return prev;
+            }
+            return fetchMoreResult;
+          }
+        });
+      }
+    });
+  }, [history, fetchMore, id, error, networkStatus]);
+
   if (error) {
     return <div>{error.message}</div>;
   }
+  const count = get(data, "patchTasks.length", "-");
+  const total = taskCount || "-";
   return (
     <>
-      {taskCount && (
-        <P2 id="task-count">
-          {data.patchTasks.length}/{taskCount} tasks
-        </P2>
-      )}
-      <TasksTable networkStatus={networkStatus} data={data.patchTasks} />
+      <P2 id="task-count">{`${count} / ${total} tasks`}</P2>
+      <TasksTable
+        networkStatus={networkStatus}
+        data={get(data, "patchTasks", [])}
+      />
     </>
   );
+};
+
+const getString = (param: string | string[]): string =>
+  Array.isArray(param) ? param[0] : param;
+
+const getQueryVariablesFromUrlSearch = (patchId: string, search: string) => {
+  // TODO: add 'statuses' var here when the UI is implemented
+  const { sortBy, sortDir } = queryString.parse(search);
+  return {
+    patchId,
+    sortBy: getString(sortBy),
+    sortDir: getString(sortDir)
+  };
 };
