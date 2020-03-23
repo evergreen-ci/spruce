@@ -1,15 +1,17 @@
 import { TableProps } from "antd/es/table";
 
 export interface ValidInitialQueryParams {
-  initialCategory: string | string[];
+  initialCategory: string;
   initialSort: string | string[];
   initialStatuses: string[];
+  initialTestName: string;
 }
 
 export enum RequiredQueryParams {
   Sort = "sort",
   Category = "category",
-  Statuses = "statuses"
+  Statuses = "statuses",
+  TestName = "testname"
 }
 
 export enum SortQueryParam {
