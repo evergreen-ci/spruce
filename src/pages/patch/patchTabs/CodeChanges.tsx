@@ -11,7 +11,6 @@ import {
 } from "gql/queries/get-code-changes";
 import Button from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
-import { SortOrder } from "antd/es/table";
 
 export const CodeChanges = () => {
   const { id } = useParams<{ id: string }>();
@@ -27,6 +26,9 @@ export const CodeChanges = () => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
+  if (!data.patch.moduleCodeChanges.length) {
+    return <div className="cy-no-code-changes">No code changes</div>;
+  }
   return (
     <div>
       {data.patch.moduleCodeChanges.map(modCodeChange => {
@@ -37,6 +39,7 @@ export const CodeChanges = () => {
           <div key={modCodeChange.branchName}>
             <H2>Changes on {modCodeChange.branchName}: </H2>
             <StyledButton
+              className="cy-html-diff-btn"
               size="small"
               title="Open diff as html file"
               href={modCodeChange.htmlLink}
@@ -44,6 +47,7 @@ export const CodeChanges = () => {
               HTML
             </StyledButton>
             <StyledButton
+              className="cy-raw-diff-btn"
               size="small"
               title="Open diff as raw file"
               href={modCodeChange.rawLink}
@@ -51,6 +55,7 @@ export const CodeChanges = () => {
               Raw
             </StyledButton>
             <StyledTable
+              className="cy-code-changes-table"
               rowKey={rowKey}
               columns={columns}
               dataSource={sortedFileDiffs}
