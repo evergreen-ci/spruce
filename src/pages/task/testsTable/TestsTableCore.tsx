@@ -33,7 +33,8 @@ const arrayFormat = "comma";
 export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   initialSort,
   initialCategory,
-  initialStatuses
+  initialStatuses,
+  initialTestName
 }) => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
@@ -49,7 +50,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       cat: initialCategory as Categories,
       pageNum: 0,
       limitNum: LIMIT,
-      statusList: initialStatuses
+      statusList: initialStatuses,
+      testName: initialTestName
     },
     notifyOnNetworkStatusChange: true
   });
@@ -63,6 +65,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       const category = (parsed[RequiredQueryParams.Category] || "")
         .toString()
         .toUpperCase() as Categories;
+      const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
       const sort = parsed[RequiredQueryParams.Sort];
       const rawStatuses = parsed[RequiredQueryParams.Statuses];
       const statusList = (Array.isArray(rawStatuses)
@@ -75,7 +78,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
           dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
           pageNum: 0,
           limitNum: LIMIT,
-          statusList: statusList
+          statusList: statusList,
+          testName
         },
         updateQuery: (
           prev: UpdateQueryArg,
@@ -108,6 +112,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
       .toString()
       .toUpperCase() as Categories;
     const sort = parsed[RequiredQueryParams.Sort];
+    const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
     const statusList = (Array.isArray(rawStatuses)
       ? rawStatuses
       : [rawStatuses]
@@ -118,7 +123,8 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         cat: category,
         dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
         limitNum: LIMIT,
-        statusList
+        statusList,
+        testName
       },
       updateQuery: (
         prev: UpdateQueryArg,

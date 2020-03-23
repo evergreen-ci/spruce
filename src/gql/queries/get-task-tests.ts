@@ -8,6 +8,7 @@ export const GET_TASK_TESTS = gql`
     $pageNum: Int
     $limitNum: Int
     $statusList: [String!]!
+    $testName: String!
   ) {
     taskTests(
       taskId: $id
@@ -16,6 +17,7 @@ export const GET_TASK_TESTS = gql`
       page: $pageNum
       limit: $limitNum
       statuses: $statusList
+      testName: $testName
     ) {
       id
       status
@@ -58,6 +60,7 @@ export interface TakskTestsVars {
   pageNum: number;
   limitNum: number;
   statusList: string[];
+  testName: string;
 }
 
 export interface UpdateQueryArg {
