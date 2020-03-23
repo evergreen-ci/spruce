@@ -117,4 +117,5 @@ const Deletion = styled.span`
 
 const StyledTable = styled(Table)`
   margin-top: 13px;
+  margin-bottom: 13px;
 `;
