@@ -1,21 +1,22 @@
 import gql from "graphql-tag";
 
 interface FileDiff {
-  fileName: String;
-  additions: Number;
-  deletions: Number;
-  diffLink: String;
+  fileName: string;
+  additions: number;
+  deletions: number;
+  diffLink: string;
 }
 
 interface ModuleCodeChange {
-  branchName: String;
-  htmlLink: String;
-  rawLink: String;
+  branchName: string;
+  htmlLink: string;
+  rawLink: string;
   fileDiffs: FileDiff[];
 }
 
 export interface Patch {
   moduleCodeChanges: ModuleCodeChange[];
+  id: string;
 }
 
 export interface GetCodeChangesQuery {
@@ -25,6 +26,7 @@ export interface GetCodeChangesQuery {
 export const GET_CODE_CHANGES = gql`
   query Patch($id: String!) {
     patch(id: $id) {
+      id
       moduleCodeChanges {
         branchName
         htmlLink
