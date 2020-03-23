@@ -27,34 +27,36 @@ export const CodeChanges = () => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
-  <div>
-    {data.patch.moduleCodeChanges.map(modCodeChange => (
-      <div key={modCodeChange.branchName}>
-        <H2>Changes on {modCodeChange.branchName}: </H2>
-        <StyledButton
-          size="small"
-          title="Open diff as html file"
-          href={modCodeChange.htmlLink}
-        >
-          HTML
-        </StyledButton>
-        <StyledButton
-          size="small"
-          title="Open diff as raw file"
-          href={modCodeChange.rawLink}
-        >
-          RAW
-        </StyledButton>
-        <StyledTable
-          rowKey={rowKey}
-          columns={columns}
-          dataSource={modCodeChange.fileDiffs}
-          pagination={false}
-          scroll={{ y: 196 }}
-        />
-      </div>
-    ))}
-  </div>;
+  return (
+    <div>
+      {data.patch.moduleCodeChanges.map(modCodeChange => (
+        <div key={modCodeChange.branchName}>
+          <H2>Changes on {modCodeChange.branchName}: </H2>
+          <StyledButton
+            size="small"
+            title="Open diff as html file"
+            href={modCodeChange.htmlLink}
+          >
+            HTML
+          </StyledButton>
+          <StyledButton
+            size="small"
+            title="Open diff as raw file"
+            href={modCodeChange.rawLink}
+          >
+            Raw
+          </StyledButton>
+          <StyledTable
+            rowKey={rowKey}
+            columns={columns}
+            dataSource={modCodeChange.fileDiffs}
+            pagination={false}
+            scroll={{ y: 196 }}
+          />
+        </div>
+      ))}
+    </div>
+  );
 };
 
 const columns = [
@@ -95,18 +97,15 @@ const columns = [
     title: "Deletions",
     dataIndex: "deletions",
     key: "deletions",
-    sorter: (a: FileDiff, b: FileDiff): number =>
-      a.deletions < b.deletions ? -1 : 1,
-    render: (text: number) => {
-      if (text === 0) {
-        return text;
-      }
-      return <Deletion>-{text}</Deletion>;
-    }
+    sorter: (a: FileDiff, b: FileDiff): number => {
+      console.log(a.deletions, b.deletions);
+      return a.deletions < b.deletions ? 1 : -1;
+    },
+    render: (text: number) => (text === 0 ? text : <Deletion>-{text}</Deletion>)
   }
 ];
 
-const rowKey = (record: FileDiff): string => record.fileName;
+const rowKey = (record: FileDiff, index: number): string => `${index}`;
 
 const StyledButton = styled(Button)`
   margin-left: 16px;
