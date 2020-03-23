@@ -29,32 +29,37 @@ export const CodeChanges = () => {
   }
   return (
     <div>
-      {data.patch.moduleCodeChanges.map(modCodeChange => (
-        <div key={modCodeChange.branchName}>
-          <H2>Changes on {modCodeChange.branchName}: </H2>
-          <StyledButton
-            size="small"
-            title="Open diff as html file"
-            href={modCodeChange.htmlLink}
-          >
-            HTML
-          </StyledButton>
-          <StyledButton
-            size="small"
-            title="Open diff as raw file"
-            href={modCodeChange.rawLink}
-          >
-            Raw
-          </StyledButton>
-          <StyledTable
-            rowKey={rowKey}
-            columns={columns}
-            dataSource={modCodeChange.fileDiffs}
-            pagination={false}
-            scroll={{ y: 196 }}
-          />
-        </div>
-      ))}
+      {data.patch.moduleCodeChanges.map(modCodeChange => {
+        const sortedFileDiffs = [...modCodeChange.fileDiffs].sort((a, b) =>
+          a.fileName.localeCompare(b.fileName)
+        );
+        return (
+          <div key={modCodeChange.branchName}>
+            <H2>Changes on {modCodeChange.branchName}: </H2>
+            <StyledButton
+              size="small"
+              title="Open diff as html file"
+              href={modCodeChange.htmlLink}
+            >
+              HTML
+            </StyledButton>
+            <StyledButton
+              size="small"
+              title="Open diff as raw file"
+              href={modCodeChange.rawLink}
+            >
+              Raw
+            </StyledButton>
+            <StyledTable
+              rowKey={rowKey}
+              columns={columns}
+              dataSource={sortedFileDiffs}
+              pagination={false}
+              scroll={{ y: 300 }}
+            />
+          </div>
+        );
+      })}
     </div>
   );
 };
@@ -75,17 +80,12 @@ const columns = [
           {text}
         </a>
       );
-    },
-    defaultSortOrder: "ascend" as SortOrder,
-    sorter: (a: FileDiff, b: FileDiff): number =>
-      a.fileName.localeCompare(b.fileName)
+    }
   },
   {
     title: "Additions",
     dataIndex: "additions",
     key: "additions",
-    sorter: (a: FileDiff, b: FileDiff): number =>
-      a.additions < b.additions ? -1 : 1,
     render: (text: number) => {
       if (text === 0) {
         return text;
@@ -97,10 +97,6 @@ const columns = [
     title: "Deletions",
     dataIndex: "deletions",
     key: "deletions",
-    sorter: (a: FileDiff, b: FileDiff): number => {
-      console.log(a.deletions, b.deletions);
-      return a.deletions < b.deletions ? 1 : -1;
-    },
     render: (text: number) => (text === 0 ? text : <Deletion>-{text}</Deletion>)
   }
 ];
