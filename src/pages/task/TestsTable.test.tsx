@@ -191,7 +191,8 @@ const mocks = [
         cat: "STATUS",
         pageNum: 0,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
@@ -212,7 +213,8 @@ const mocks = [
         cat: "TEST_NAME",
         pageNum: 0,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
@@ -233,7 +235,8 @@ const mocks = [
         cat: "TEST_NAME",
         pageNum: 1,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
@@ -254,7 +257,8 @@ const mocks = [
         cat: "STATUS",
         pageNum: 0,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
@@ -275,7 +279,8 @@ const mocks = [
         cat: "STATUS",
         pageNum: 1,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
@@ -296,7 +301,8 @@ const mocks = [
         cat: "STATUS",
         pageNum: 1,
         limitNum: 10,
-        statusList: []
+        statusList: [],
+        testName: ""
       }
     },
     result: () => {
