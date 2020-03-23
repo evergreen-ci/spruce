@@ -161,9 +161,77 @@ describe("Patch route", function() {
           clickSorterAndAssertTasksAreFetched(sortBy)
         );
       });
+
+      it("Fetches additional tasks as the user scrolls", () => {
+        cy.get(".ant-table-row")
+          .invoke("toArray")
+          .then($initialTasks => {
+            cy.get(".ant-table-body").scrollTo("bottom", { duration: 300 });
+            cy.wait(200);
+
+            waitForGQL("@gqlQuery", "PatchTasks");
+            cy.get("@gqlQuery")
+              .its("requestBody.variables.page")
+              .should("equal", 1);
+
+            // confirm additional tasks were appended to table items
+            cy.get(".ant-table-row").should(
+              "have.length.greaterThan",
+              $initialTasks.length
+            );
+          });
+      });
+
+      it("Task count increments by the number of additional tasks fetched", () => {
+        waitForGQL("@gqlQuery", "PatchTasks");
+        cy.get("[data-cy=current-task-count]")
+          .invoke("text")
+          .then($initialTaskCount => {
+            cy.get(".ant-table-body").scrollTo("bottom", { duration: 300 });
+            cy.wait(200);
+            waitForGQL("@gqlQuery", "PatchTasks");
+
+            cy.get("[data-cy=current-task-count]")
+              .invoke("text")
+              .then($newTaskCount => {
+                expect(parseInt($newTaskCount)).is.gt(
+                  parseInt($initialTaskCount)
+                );
+              });
+          });
+      });
+
+      it("Stops fetching tasks when all tasks have been fetched", () => {
+        scrollTasksTableUntilAllTasksFetched({ hasMore: true });
+        cy.get(".ant-table-body").scrollTo("bottom", { duration: 300 });
+        cy.wait(200);
+        cy.wait("@gqlQuery").then(xhr => {
+          expect(xhr.requestBody.operationName).not.eq("PatchTasks");
+        });
+      });
     });
   });
 });
+
+const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
+  if (!hasMore) {
+    return;
+  }
+  cy.get("[data-cy=total-task-count]")
+    .invoke("text")
+    .then($totalTaskCount => {
+      cy.get(".ant-table-body").scrollTo("bottom", { duration: 300 });
+      cy.wait(200);
+      cy.get("[data-cy=current-task-count]")
+        .invoke("text")
+        .then($currentTaskCount => {
+          if ($currentTaskCount === $totalTaskCount) {
+            hasMore = false;
+          }
+        })
+        .then(() => scrollTasksTableUntilAllTasksFetched({ hasMore }));
+    });
+};
 
 const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")

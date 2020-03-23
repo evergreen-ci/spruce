@@ -58,13 +58,14 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
     false
   );
-  // this fetch is the callback for pagination
-  // that's why we see pageNum calculations
+
+  // fetch new sorted tasks after a table header is clicked
   const onFetch = (): void => {
     if (
       allItemsHaveBeenFetched ||
       networkStatus === NetworkStatus.error ||
-      error
+      error ||
+      !data
     ) {
       return;
     }
@@ -93,11 +94,16 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   if (error) {
     return <div>{error.message}</div>;
   }
-  const count = get(data, "patchTasks.length", "-");
-  const total = taskCount || "-";
   return (
     <>
-      <P2 id="task-count">{`${count} / ${total} tasks`}</P2>
+      <P2 id="task-count">
+        <span data-cy="current-task-count">
+          {get(data, "patchTasks.length", "-")}
+        </span>
+        {"/"}
+        <span data-cy="total-task-count">{taskCount || "-"}</span>
+        <span>{" tasks"}</span>
+      </P2>
       <TasksTable
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
