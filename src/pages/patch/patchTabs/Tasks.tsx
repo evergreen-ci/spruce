@@ -37,10 +37,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   // fetch tasks when url params change
   useEffect(() => {
-    history.listen(({ search }) => {
+    history.listen(location => {
       if (networkStatus === NetworkStatus.ready && !error) {
         fetchMore({
-          variables: getQueryVariablesFromUrlSearch(id, search, 0),
+          variables: getQueryVariablesFromUrlSearch(id, location.search, 0),
           updateQuery: (
             prev: PatchTasksQuery,
             { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -55,10 +55,17 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     });
   }, [history, fetchMore, id, error, networkStatus]);
 
+  const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
+    true
+  );
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
   const onFetch = (): void => {
-    if (networkStatus === NetworkStatus.error || error) {
+    if (
+      allItemsHaveBeenFetched ||
+      networkStatus === NetworkStatus.error ||
+      error
+    ) {
       return;
     }
     const pageNum = data.patchTasks.length / PATCH_TASKS_LIMIT;
