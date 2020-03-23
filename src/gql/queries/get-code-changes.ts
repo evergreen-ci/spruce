@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-interface FileDiff {
+export interface FileDiff {
   fileName: string;
   additions: number;
   deletions: number;
