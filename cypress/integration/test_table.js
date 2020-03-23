@@ -167,7 +167,7 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Input value is incuded in the taskTests GQL request body under variables.testName ", () => {
+    it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
       waitForTestsQuery(); // this query is for the initial data load before any typing begins
       waitForTestsQuery();
       cy.get("@gqlQuery")
