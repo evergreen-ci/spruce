@@ -33,7 +33,7 @@ const updateTestNameQueryParam = debounce(
     const nextQueryParams = queryString.stringify(parsed);
     replace(`${pathname}?${nextQueryParams}`);
   },
-  500
+  250
 );
 
 export const TestsTable: React.FC = () => {
