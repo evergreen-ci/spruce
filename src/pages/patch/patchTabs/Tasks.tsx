@@ -35,10 +35,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   // fetch tasks when url params change
   useEffect(() => {
-    history.listen(({ search }) => {
+    history.listen(location => {
       if (networkStatus === NetworkStatus.ready && !error) {
         fetchMore({
-          variables: getQueryVariablesFromUrlSearch(id, search),
+          variables: getQueryVariablesFromUrlSearch(id, location.search),
           updateQuery: (
             prev: PatchTasksQuery,
             { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }

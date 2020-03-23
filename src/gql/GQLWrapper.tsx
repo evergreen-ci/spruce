@@ -125,8 +125,8 @@ export const getGQLClient = async ({
     link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
       .concat(retryLink)
-      .concat(link)
       .concat(timeoutLink)
+      .concat(link)
   });
   return client;
 };
