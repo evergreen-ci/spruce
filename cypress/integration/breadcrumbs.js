@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const taskRoute =
-  "/task/evergreen_lint_generate_lint_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+  "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 
 describe("TaskBreadcrumb", function() {
   before(() => {
@@ -10,7 +10,7 @@ describe("TaskBreadcrumb", function() {
 
   it("Shows tasks display name", function() {
     cy.visit(taskRoute);
-    cy.get("#bc-task").should("include.text", "generate-lint");
+    cy.get("#bc-task").should("include.text", "test-model");
   });
 
   it("Shows the patches name", function() {
