@@ -33,4 +33,12 @@ describe("task logs view", function() {
     waitForGQL("@gqlQuery", "Patch");
     cy.contains("No code changes");
   });
+
+  it("File names in table should have href", () => {
+    cy.visit(CODE_CHANGES_ROUTE);
+    waitForGQL("@gqlQuery", "Patch");
+    cy.get(".fileLink")
+      .should("have.attr", "href")
+      .and("include", `filediff/${patchWithChanges}`);
+  });
 });
