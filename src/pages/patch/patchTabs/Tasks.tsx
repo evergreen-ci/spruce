@@ -52,7 +52,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
               return fetchMoreResult;
             }
           });
-        } catch (e) {}
+        } catch (e) {
+          // empty block
+        }
       }
     });
   }, [history, fetchMore, id, error, networkStatus]);

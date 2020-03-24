@@ -94,7 +94,9 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
             return fetchMoreResult;
           }
         });
-      } catch (e) {}
+      } catch (e) {
+        // empty block
+      }
     });
   }, [networkStatus, error, fetchMore, listen]);
 
