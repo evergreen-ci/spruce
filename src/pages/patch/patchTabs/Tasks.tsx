@@ -35,20 +35,24 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   // fetch tasks when url params change
   useEffect(() => {
-    history.listen(location => {
+    return history.listen(async location => {
       if (networkStatus === NetworkStatus.ready && !error) {
-        fetchMore({
-          variables: getQueryVariablesFromUrlSearch(id, location.search),
-          updateQuery: (
-            prev: PatchTasksQuery,
-            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
+        // catch errors resulting from async requests
+        // that return after component unmounts
+        try {
+          await fetchMore({
+            variables: getQueryVariablesFromUrlSearch(id, location.search),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
             }
-            return fetchMoreResult;
-          }
-        });
+          });
+        } catch (e) {}
       }
     });
   }, [history, fetchMore, id, error, networkStatus]);
