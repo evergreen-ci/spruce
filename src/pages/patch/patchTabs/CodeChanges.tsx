@@ -17,7 +17,7 @@ export const CodeChanges = () => {
   const { data, loading, error } = useQuery<GetCodeChangesQuery>(
     GET_CODE_CHANGES,
     {
-      variables: { id: id }
+      variables: { id }
     }
   );
   if (loading) {
@@ -27,7 +27,7 @@ export const CodeChanges = () => {
     return <div id="patch-error">{error.message}</div>;
   }
   if (!data.patch.moduleCodeChanges.length) {
-    return <div className="cy-no-code-changes">No code changes</div>;
+    return <Title className="cy-no-code-changes">No code changes</Title>;
   }
   return (
     <div>
@@ -37,7 +37,7 @@ export const CodeChanges = () => {
         );
         return (
           <div key={modCodeChange.branchName}>
-            <H2>Changes on {modCodeChange.branchName}: </H2>
+            <Title>Changes on {modCodeChange.branchName}: </Title>
             <StyledButton
               className="cy-html-diff-btn"
               size="small"
@@ -123,4 +123,8 @@ const Deletion = styled.span`
 const StyledTable = styled(Table)`
   margin-top: 13px;
   margin-bottom: 13px;
+`;
+
+const Title = styled(H2)`
+  font-weight: normal;
 `;
