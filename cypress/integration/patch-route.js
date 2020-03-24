@@ -7,14 +7,10 @@ const patch = {
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-const pathChanges = `${path}/changes`;
 
 const badPatch = {
   id: "i-dont-exist"
 };
-
-const locationPathEquals = path =>
-  cy.location().should(loc => expect(loc.pathname).to.eq(path));
 
 const locationHasUpdatedParams = (sortBy, sortDir) => {
   cy.location().should(loc => {
@@ -84,83 +80,58 @@ describe("Patch route", function() {
     });
   });
 
-  describe("Tabs", () => {
-    it("selects tasks tasb by default", () => {
+  describe("Tasks Table", () => {
+    beforeEach(() => {
+      cy.server();
+      cy.route("POST", "/graphql/query").as("gqlQuery");
       cy.visit(path);
-      cy.get("button[id=task-tab]")
-        .should("have.attr", "aria-selected")
-        .and("eq", "true");
     });
 
-    it("includes selected tab name in url path", () => {
+    it("Updates the url when column headers are clicked", () => {
       cy.visit(path);
-      locationPathEquals(pathTasks);
+
+      cy.get("th.cy-task-table-col-NAME").click();
+      locationHasUpdatedParams("NAME", "ASC");
+
+      cy.get("th.cy-task-table-col-NAME").click();
+      locationHasUpdatedParams("NAME", "DESC");
+
+      cy.get("th.cy-task-table-col-NAME").click();
+      locationHasUpdatedParams("NAME");
+
+      cy.get("th.cy-task-table-col-VARIANT").click();
+      locationHasUpdatedParams("VARIANT", "ASC");
+
+      cy.get("th.cy-task-table-col-VARIANT").click();
+      locationHasUpdatedParams("VARIANT", "DESC");
+
+      cy.get("th.cy-task-table-col-VARIANT").click();
+      locationHasUpdatedParams("VARIANT");
     });
 
-    it("updates the url path when another tab is selected", () => {
+    it("clicking task name goes to task page for that task", () => {
       cy.visit(path);
-      cy.get("button[id=changes-tab]").click();
-      locationPathEquals(pathChanges);
+      cy.get("td.cy-task-table-col-NAME:first").within(() => {
+        cy.get("a")
+          .should("have.attr", "href")
+          .and("include", "/task");
+      });
     });
 
-    it("replaces invalid tab names in url path with default", () => {
-      cy.visit(`${path}/chicken`);
-      locationPathEquals(pathTasks);
-    });
-
-    describe("Tasks Table", () => {
-      beforeEach(() => {
-        cy.server();
-        cy.route("POST", "/graphql/query").as("gqlQuery");
-        cy.visit(path);
-      });
-
-      it("Updates the url when column headers are clicked", () => {
-        cy.visit(path);
-
-        cy.get("th.cy-task-table-col-NAME").click();
-        locationHasUpdatedParams("NAME", "ASC");
-
-        cy.get("th.cy-task-table-col-NAME").click();
-        locationHasUpdatedParams("NAME", "DESC");
-
-        cy.get("th.cy-task-table-col-NAME").click();
-        locationHasUpdatedParams("NAME");
-
-        cy.get("th.cy-task-table-col-VARIANT").click();
-        locationHasUpdatedParams("VARIANT", "ASC");
-
-        cy.get("th.cy-task-table-col-VARIANT").click();
-        locationHasUpdatedParams("VARIANT", "DESC");
-
-        cy.get("th.cy-task-table-col-VARIANT").click();
-        locationHasUpdatedParams("VARIANT");
-      });
-
-      it("clicking task name goes to task page for that task", () => {
-        cy.visit(path);
-        cy.get("td.cy-task-table-col-NAME:first").within(() => {
-          cy.get("a")
-            .should("have.attr", "href")
-            .and("include", "/task");
-        });
-      });
-
-      it("Should have sort buttons disabled when fetching data", () => {
-        cy.visit(path);
-        cy.contains(TABLE_SORT_SELECTOR, "Name").click();
-        cy.once("fail", err => {
-          expect(err.message).to.include(
-            "'pointer-events: none' prevents user mouse interaction."
-          );
-        });
-      });
-
-      it("Fetches sorted tasks when table sort headers are clicked", () => {
-        ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
-          clickSorterAndAssertTasksAreFetched(sortBy)
+    it("Should have sort buttons disabled when fetching data", () => {
+      cy.visit(path);
+      cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+      cy.once("fail", err => {
+        expect(err.message).to.include(
+          "'pointer-events: none' prevents user mouse interaction."
         );
       });
+    });
+
+    it("Fetches sorted tasks when table sort headers are clicked", () => {
+      ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
+        clickSorterAndAssertTasksAreFetched(sortBy)
+      );
     });
   });
 });
