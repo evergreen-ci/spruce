@@ -14,9 +14,14 @@ import { TaskSortDir } from "gql/queries/get-patch-tasks";
 interface Props {
   networkStatus: NetworkStatus;
   data?: [TaskResult];
+  onFetch: () => void;
 }
 
-export const TasksTable: React.FC<Props> = ({ networkStatus, data = [] }) => {
+export const TasksTable: React.FC<Props> = ({
+  networkStatus,
+  data = [],
+  onFetch
+}) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -42,6 +47,7 @@ export const TasksTable: React.FC<Props> = ({ networkStatus, data = [] }) => {
       scroll={{ y: 350 }}
       dataSource={data}
       onChange={tableChangeHandler}
+      onFetch={onFetch}
       rowKey={rowKey}
     />
   );

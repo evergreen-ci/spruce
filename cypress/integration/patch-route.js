@@ -126,6 +126,54 @@ describe("Patch route", function() {
           "'pointer-events: none' prevents user mouse interaction."
         );
       });
+
+      it("Fetches additional tasks as the user scrolls", () => {
+        cy.get(".ant-table-row")
+          .invoke("toArray")
+          .then($initialTasks => {
+            scrollToBottomOfTasksTable();
+            waitForGQL("@gqlQuery", "PatchTasks");
+            cy.get("@gqlQuery")
+              .its("requestBody.variables.page")
+              .should("equal", 1);
+
+            // confirm additional tasks were appended to table items
+            cy.get(".ant-table-row").should(
+              "have.length.greaterThan",
+              $initialTasks.length
+            );
+          });
+      });
+
+      it("Task count increments by the number of additional tasks fetched", () => {
+        waitForGQL("@gqlQuery", "PatchTasks");
+        cy.get("[data-cy=current-task-count]")
+          .invoke("text")
+          .then($initialTaskCount => {
+            scrollToBottomOfTasksTable();
+            waitForGQL("@gqlQuery", "PatchTasks");
+            cy.get("@gqlQuery").then($xhr => {
+              console.log("$xhr", $xhr);
+              cy.get("[data-cy=current-task-count]")
+                .invoke("text")
+                .then($newTaskCount => {
+                  expect(parseInt($newTaskCount)).eq(
+                    parseInt($initialTaskCount) +
+                      $xhr.response.body.data.patchTasks.length
+                  );
+                });
+            });
+          });
+      });
+
+      it("Stops fetching tasks when all tasks have been fetched", () => {
+        scrollTasksTableUntilAllTasksFetched({ hasMore: true });
+        cy.get(".ant-table-body").scrollTo("top");
+        scrollToBottomOfTasksTable();
+        cy.wait("@gqlQuery").then(xhr => {
+          expect(xhr.requestBody.operationName).not.eq("PatchTasks");
+        });
+      });
     });
 
     it("Fetches sorted tasks when table sort headers are clicked", () => {
@@ -135,6 +183,30 @@ describe("Patch route", function() {
     });
   });
 });
+
+const scrollToBottomOfTasksTable = () => {
+  cy.get(".ant-table-body").scrollTo("bottom", { duration: 500 });
+  cy.wait(200);
+};
+
+const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
+  if (!hasMore) {
+    return;
+  }
+  cy.get("[data-cy=total-task-count]")
+    .invoke("text")
+    .then($totalTaskCount => {
+      scrollToBottomOfTasksTable();
+      cy.get("[data-cy=current-task-count]")
+        .invoke("text")
+        .then($currentTaskCount => {
+          if ($currentTaskCount === $totalTaskCount) {
+            hasMore = false;
+          }
+        })
+        .then(() => scrollTasksTableUntilAllTasksFetched({ hasMore }));
+    });
+};
 
 const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")
