@@ -30,7 +30,7 @@ export const CodeChanges = () => {
     return <Title className="cy-no-code-changes">No code changes</Title>;
   }
   return (
-    <div>
+    <div data-cy="code-changes">
       {data.patch.moduleCodeChanges.map(modCodeChange => {
         const sortedFileDiffs = [...modCodeChange.fileDiffs].sort((a, b) =>
           a.fileName.localeCompare(b.fileName)
