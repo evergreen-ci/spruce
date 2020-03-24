@@ -33,13 +33,13 @@ describe("Tabs", () => {
       locationPathEquals(patch.tasks.route);
     });
 
-    it("updates the url patchRoute when another tab is selected", () => {
+    it("updates the url path when another tab is selected", () => {
       cy.visit(patchRoute);
       cy.get(patch.changes.btn).click();
       locationPathEquals(patch.changes.route);
     });
 
-    it("replaces invalid tab names in url patchRoute with default", () => {
+    it("replaces invalid tab names in url path with default", () => {
       cy.visit(`${patchRoute}/chicken`);
       locationPathEquals(patch.tasks.route);
     });
@@ -47,7 +47,7 @@ describe("Tabs", () => {
     it("clicking away from each tab doesn't crash app", () => {
       cy.visit(patchRoute);
       cy.get(patch.changes.btn).click();
-      cy.contains("I am the patch code changes");
+      cy.get("[data-cy=code-changes]").should("exist");
       cy.get(patch.tasks.btn).click();
       cy.get("#task-count").should("exist");
     });
