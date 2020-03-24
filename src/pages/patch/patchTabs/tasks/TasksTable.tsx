@@ -82,6 +82,7 @@ const failureColors = {
   fill: "#E6CCE6"
 };
 
+// the status colors that are not supported by the leafygreen Badge variants
 const mapUnsupportedBadgeColors = {
   [TaskStatus.SystemFailed]: failureColors,
   [TaskStatus.TestTimedOut]: failureColors,
@@ -112,12 +113,14 @@ const renderStatusBadge = (status: string) => {
         {status}
       </Badge>
     );
+  } else if (status in mapUnsupportedBadgeColors) {
+    return (
+      <StyledBadge key={status} {...mapUnsupportedBadgeColors[status]}>
+        {status}
+      </StyledBadge>
+    );
   }
-  return (
-    <StyledBadge key={status} {...mapUnsupportedBadgeColors[status]}>
-      {status}
-    </StyledBadge>
-  );
+  throw new Error(`Status '${status}' is not a valid task status`);
 };
 
 enum TableColumnHeader {
