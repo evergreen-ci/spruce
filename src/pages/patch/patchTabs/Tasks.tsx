@@ -26,11 +26,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     PatchTasksQuery,
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
-    variables: getQueryVariablesFromUrlSearch(
-      id,
-      search,
-      0
-    ) as PatchTasksVariables,
+    variables: getQueryVariables(id, search, 0) as PatchTasksVariables,
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);
@@ -40,7 +36,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     history.listen(location => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
         fetchMore({
-          variables: getQueryVariablesFromUrlSearch(id, location.search, 0),
+          variables: getQueryVariables(id, location.search, 0),
           updateQuery: (
             prev: PatchTasksQuery,
             { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -75,7 +71,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       return;
     }
     fetchMore({
-      variables: getQueryVariablesFromUrlSearch(id, search, pageNum),
+      variables: getQueryVariables(id, search, pageNum),
       updateQuery: (
         prev: PatchTasksQuery,
         { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -116,11 +112,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 const getString = (param: string | string[]): string =>
   Array.isArray(param) ? param[0] : param;
 
-const getQueryVariablesFromUrlSearch = (
-  patchId: string,
-  search: string,
-  page: number
-) => {
+const getQueryVariables = (patchId: string, search: string, page: number) => {
   // TODO: add 'statuses' var here when the UI is implemented
   const { sortBy, sortDir } = queryString.parse(search);
   return {
