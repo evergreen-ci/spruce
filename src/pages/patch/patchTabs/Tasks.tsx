@@ -13,6 +13,7 @@ import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
 import { P2 } from "components/Typography";
+import { ErrorBoundary } from "components/ErrorBoundary";
 
 interface Props {
   taskCount: string;
@@ -91,7 +92,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     return <div>{error.message}</div>;
   }
   return (
-    <>
+    <ErrorBoundary>
       <P2 id="task-count">
         <span data-cy="current-task-count">
           {get(data, "patchTasks.length", "-")}
@@ -105,7 +106,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         data={get(data, "patchTasks", [])}
         onFetch={onFetch}
       />
-    </>
+    </ErrorBoundary>
   );
 };
 
