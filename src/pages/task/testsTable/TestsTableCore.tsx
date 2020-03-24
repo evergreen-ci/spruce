@@ -72,8 +72,6 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         ? rawStatuses
         : [rawStatuses]
       ).filter(v => v && v !== TestStatus.All);
-      // catch errors resulting from async requests
-      // that return after component unmounts
       try {
         await fetchMore({
           variables: {

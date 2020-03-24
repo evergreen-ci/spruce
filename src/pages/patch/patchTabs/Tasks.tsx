@@ -37,8 +37,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   useEffect(() => {
     return history.listen(async location => {
       if (networkStatus === NetworkStatus.ready && !error) {
-        // catch errors resulting from async requests
-        // that return after component unmounts
         try {
           await fetchMore({
             variables: getQueryVariablesFromUrlSearch(id, location.search),
