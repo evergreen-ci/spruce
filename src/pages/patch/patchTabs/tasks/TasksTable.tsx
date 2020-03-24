@@ -77,18 +77,18 @@ const mapTaskStatusToBadgeVariant = {
 };
 
 const failureColors = {
-  sysUnresponsiveText: "#800080",
-  sysUnresponsiveBorder: "#CC99CC",
-  sysUnresponsiveFill: "#E6CCE6"
+  text: "#800080",
+  border: "#CC99CC",
+  fill: "#E6CCE6"
 };
 
 const mapUnsupportedBadgeColors = {
   [TaskStatus.SystemFailed]: failureColors,
   [TaskStatus.TestTimedOut]: failureColors,
   [TaskStatus.SetupFailed]: {
-    setupFailBorder: "#E7DBEC",
-    setupFailFill: "#F3EDF5",
-    setupFailText: "#877290"
+    border: "#E7DBEC",
+    fill: "#F3EDF5",
+    text: "#877290"
   }
 };
 
@@ -133,7 +133,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     dataIndex: "displayName",
     key: TableColumnHeader.Name,
     sorter: true,
-    width: "50%",
+    width: "40%",
     className: "cy-task-table-col-NAME",
     render: (name: string, { id }: TaskResult) => (
       <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
@@ -157,7 +157,6 @@ const columns: Array<ColumnProps<TaskResult>> = [
   },
   {
     title: "Variant",
-    width: "25%",
     dataIndex: "buildVariant",
     key: TableColumnHeader.Variant,
     sorter: true,
