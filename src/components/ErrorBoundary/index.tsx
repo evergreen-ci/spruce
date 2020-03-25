@@ -1,16 +1,16 @@
 import React from "react";
 
 class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
-  constructor(props) {
+  public static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  public constructor(props) {
     super(props);
     this.state = { hasError: false };
   }
 
-  static getDerivedStateFromError() {
-    return { hasError: true };
-  }
-
-  render() {
+  public render() {
     if (this.state.hasError) {
       // TODO: render error banner
       return <h1>Something went wrong.</h1>;
