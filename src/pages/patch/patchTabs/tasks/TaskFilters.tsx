@@ -1,10 +1,9 @@
 import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import styled from "@emotion/styled";
-import { Input } from "antd";
 import { useFilterInputChangeHandler } from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { TaskSortBy } from "gql/queries/get-patch-tasks";
+import { FiltersWrapper, StyledInput } from "components/styles";
 
 export const TaskFilters: React.FC = () => {
   const { pathname, search } = useLocation();
@@ -31,12 +30,3 @@ export const TaskFilters: React.FC = () => {
     </FiltersWrapper>
   );
 };
-
-const FiltersWrapper = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`;
-const StyledInput = styled(Input)`
-  max-width: 500px;
-  margin-right: 40px;
-`;

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import { StatusSelector } from "./testsTable/StatusSelector";
-import { Input } from "antd";
+import { FiltersWrapper, StyledInput } from "components/styles";
 import Icon from "@leafygreen-ui/icon";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
-
 import {
   RequiredQueryParams,
   SortQueryParam,
@@ -14,7 +13,6 @@ import {
 } from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
-import styled from "@emotion/styled";
 
 enum DefaultQueryParams {
   Sort = "1",
@@ -91,12 +89,3 @@ export const TestsTable: React.FC = () => {
     </>
   );
 };
-
-const FiltersWrapper = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`;
-const StyledInput = styled(Input)`
-  max-width: 500px;
-  margin-right: 40px;
-`;
