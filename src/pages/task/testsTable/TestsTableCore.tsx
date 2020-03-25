@@ -60,7 +60,7 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(() => {
-    return listen(loc => {
+    return listen(async loc => {
       const parsed = queryString.parse(loc.search, { arrayFormat });
       const category = (parsed[RequiredQueryParams.Category] || "")
         .toString()
@@ -72,25 +72,29 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
         ? rawStatuses
         : [rawStatuses]
       ).filter(v => v && v !== TestStatus.All);
-      fetchMore({
-        variables: {
-          cat: category,
-          dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
-          pageNum: 0,
-          limitNum: LIMIT,
-          statusList: statusList,
-          testName
-        },
-        updateQuery: (
-          prev: UpdateQueryArg,
-          { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-        ) => {
-          if (!fetchMoreResult) {
-            return prev;
+      try {
+        await fetchMore({
+          variables: {
+            cat: category || Categories.TestName,
+            dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
+            pageNum: 0,
+            limitNum: LIMIT,
+            statusList: statusList,
+            testName
+          },
+          updateQuery: (
+            prev: UpdateQueryArg,
+            { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+          ) => {
+            if (!fetchMoreResult) {
+              return prev;
+            }
+            return fetchMoreResult;
           }
-          return fetchMoreResult;
-        }
-      });
+        });
+      } catch (e) {
+        // empty block
+      }
     });
   }, [networkStatus, error, fetchMore, listen]);
 

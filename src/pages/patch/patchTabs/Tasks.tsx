@@ -34,20 +34,24 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   // fetch tasks when url params change
   useEffect(() => {
-    history.listen(location => {
+    return history.listen(async location => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-        fetchMore({
-          variables: getQueryVariables(id, location.search, 0),
-          updateQuery: (
-            prev: PatchTasksQuery,
-            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
+        try {
+          await fetchMore({
+            variables: getQueryVariables(id, location.search, 0),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
             }
-            return fetchMoreResult;
-          }
-        });
+          });
+        } catch (e) {
+          // empty block
+        }
       }
     });
   }, [history, fetchMore, id, error, networkStatus]);
