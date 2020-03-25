@@ -32,7 +32,7 @@ export const TaskFilters: React.FC = () => {
         onChange={variantFilterValueOnChange}
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
-        id="cy-testname-input"
+        data-cy="variant-input"
       />
     </FiltersWrapper>
   );
