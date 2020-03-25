@@ -1,6 +1,7 @@
 import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
+import { useLocation, useHistory } from "react-router-dom";
 
 const arrayFormat = "comma";
 
@@ -35,11 +36,11 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
  * pass {(e: InputEvent) => void} return value to input component as onChange prop
  */
 export const useFilterInputChangeHandler = (
-  urlSearchParam: string,
-  pathname: string,
-  search: string,
-  replace: (path: string) => void
+  urlSearchParam: string
 ): [string, (e: InputEvent) => void] => {
+  const { pathname, search } = useLocation();
+  const { replace } = useHistory();
+
   const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
   const [value, setValue] = useState(inputValue);

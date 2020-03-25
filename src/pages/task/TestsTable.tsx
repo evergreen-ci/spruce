@@ -33,12 +33,7 @@ export const TestsTable: React.FC = () => {
   const [
     testNameFilterValue,
     testNameFilterValueOnChange
-  ] = useFilterInputChangeHandler(
-    RequiredQueryParams.TestName,
-    pathname,
-    search,
-    replace
-  );
+  ] = useFilterInputChangeHandler(RequiredQueryParams.TestName);
 
   useEffect(() => {
     const category = (parsed[RequiredQueryParams.Category] || "")
