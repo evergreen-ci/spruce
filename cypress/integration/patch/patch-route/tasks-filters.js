@@ -29,18 +29,10 @@ describe("Tasks filters", function() {
 
   describe("Variant input field", () => {
     it("Updates the VARIANT url search param when input changes", () => {
-      cy.get("[data-cy=variant-input]")
-        .type(variantInputValue)
-        .then(() => {
-          locationHasUpdatedVariantParam(variantInputValue);
-        })
-        .then(() => {
-          cy.get("[data-cy=variant-input]")
-            .clear()
-            .then(() => {
-              locationHasUpdatedVariantParam(null);
-            });
-        });
+      cy.get("[data-cy=variant-input]").type(variantInputValue);
+      locationHasUpdatedVariantParam(variantInputValue);
+      cy.get("[data-cy=variant-input]").clear();
+      locationHasUpdatedVariantParam(null);
     });
   });
 });
