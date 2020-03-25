@@ -13,6 +13,7 @@ import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
 import { P2 } from "components/Typography";
+import { ErrorBoundary } from "components/ErrorBoundary";
 
 interface Props {
   taskCount: string;
@@ -33,20 +34,24 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   // fetch tasks when url params change
   useEffect(() => {
-    history.listen(location => {
+    return history.listen(async location => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-        fetchMore({
-          variables: getQueryVariables(id, location.search, 0),
-          updateQuery: (
-            prev: PatchTasksQuery,
-            { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
+        try {
+          await fetchMore({
+            variables: getQueryVariables(id, location.search, 0),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
             }
-            return fetchMoreResult;
-          }
-        });
+          });
+        } catch (e) {
+          // empty block
+        }
       }
     });
   }, [history, fetchMore, id, error, networkStatus]);
@@ -91,7 +96,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     return <div>{error.message}</div>;
   }
   return (
-    <>
+    <ErrorBoundary>
       <P2 id="task-count">
         <span data-cy="current-task-count">
           {get(data, "patchTasks.length", "-")}
@@ -105,7 +110,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         data={get(data, "patchTasks", [])}
         onFetch={onFetch}
       />
-    </>
+    </ErrorBoundary>
   );
 };
 

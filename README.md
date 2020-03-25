@@ -17,11 +17,14 @@ You can find the most recent version of this guide [here](https://github.com/fac
 ### Running Locally
 
 1. Clone the Spruce Github repository
-2. Run `npm install`
-3. To launch the app, run one these three commands with .cmdrc.json file set described in the next section:
-   `npm run start:dev-server` will make requests to a GQL server at http://localhost:9090/graphql/query
-   `npm run start:mock-instrospect-schema` will obtain a GQL schema via intropspection from http://localhost:9090/graphql/query and mock GQL responses
-   `npm run start:mock-custom-schema` will obtain the schema from .build-dev-cmdrc.json and mock GQL responses
+2. Ask a colleague for their .cmdrc.json file and follow the instructions [here](#environment-variables)
+3. Run `npm install`
+4. Start a local evergreen server by doing the following:
+
+- Clone the evergreen repo into your go path
+- Run `make local-evergreen`
+
+5. Run `npm run dev`. This will launch the app and point it at the local evergreen server you just ran.
 
 ### Storybook
 
