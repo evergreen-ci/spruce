@@ -85,7 +85,7 @@ functions:
     params:
       working_dir: spruce
       background: true
-      command: npm run start:dev-server
+      command: npm run dev
 
   npm-install:
     command: shell.exec
