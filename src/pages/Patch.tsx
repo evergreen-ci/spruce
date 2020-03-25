@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
-import { H1 } from "components/Typography";
+import { H2 } from "components/Typography";
 import {
   PageWrapper,
   PageHeader,
@@ -16,6 +16,9 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { PatchStatus } from "gql/queries/get-patch-tasks";
+import styled from "@emotion/styled";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,20 +26,31 @@ export const Patch = () => {
     variables: { id: id }
   });
   const patch = get(data, "patch");
+  const status = get(patch, "status");
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      <PageHeader>
-        {loading ? (
+      {loading ? (
+        <PageHeader>
           <Skeleton active={true} paragraph={{ rows: 0 }} />
-        ) : patch ? (
-          <H1 id="patch-name">
-            {patch.description
-              ? patch.description
-              : `Patch ${patch.patchNumber}`}
-          </H1>
-        ) : null}
-      </PageHeader>
+        </PageHeader>
+      ) : patch ? (
+        <PageHeader>
+          <H2 id="patch-name">
+            <span>
+              {patch.description
+                ? patch.description
+                : `Patch ${patch.patchNumber}`}
+              {"  "}
+              <BadgeWrapper>
+                <Badge variant={mapPatchStatusToBadgeVariant[status]}>
+                  {status}
+                </Badge>
+              </BadgeWrapper>
+            </span>
+          </H2>
+        </PageHeader>
+      ) : null}
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
@@ -50,4 +64,15 @@ export const Patch = () => {
       </PageLayout>
     </PageWrapper>
   );
+};
+
+const BadgeWrapper = styled.span`
+  display: inline-flex;
+`;
+
+const mapPatchStatusToBadgeVariant = {
+  [PatchStatus.Created]: Variant.LightGray,
+  [PatchStatus.Failed]: Variant.Red,
+  [PatchStatus.Started]: Variant.Yellow,
+  [PatchStatus.Success]: Variant.Green
 };

@@ -12,8 +12,8 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  font-size: 18px;
-  line-height: 21px;
+  font-size: 20px;
+  line-height: 23px;
   margin-bottom: 8px;
   color: ${gray.dark3};
   display: inline-flex;
