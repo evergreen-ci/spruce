@@ -2,6 +2,8 @@ import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
 
+const arrayFormat = "comma";
+
 const updateQueryParam = debounce(
   (
     urlSearchParam: string,
@@ -38,7 +40,7 @@ export const useFilterInputChangeHandler = (
   search: string,
   replace: (path: string) => void
 ): [string, (e: InputEvent) => void] => {
-  const parsed = queryString.parse(search, { arrayFormat: "comma" });
+  const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
   const [value, setValue] = useState(inputValue);
 
