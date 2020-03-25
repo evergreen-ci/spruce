@@ -24,7 +24,7 @@ You can find the most recent version of this guide [here](https://github.com/fac
 - Clone the evergreen repo into your go path
 - Run `make local-evergreen`
 
-4. Run `npm run dev`. This will launch the app and point it at the local evergreen server you just ran.
+5. Run `npm run dev`. This will launch the app and point it at the local evergreen server you just ran.
 
 ### Storybook
 
