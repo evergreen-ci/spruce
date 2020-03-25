@@ -4,13 +4,7 @@ import styled from "@emotion/styled";
 import { Input } from "antd";
 import { useFilterInputChangeHandler } from "hooks";
 import Icon from "@leafygreen-ui/icon";
-
-enum TaskSortBy {
-  Name = "NAME",
-  Status = "STATUS",
-  BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT"
-}
+import { TaskSortBy } from "gql/queries/get-patch-tasks";
 
 export const TaskFilters: React.FC = () => {
   const { pathname, search } = useLocation();
