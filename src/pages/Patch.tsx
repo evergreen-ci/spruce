@@ -30,27 +30,27 @@ export const Patch = () => {
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      <PageHeader>
-        {loading ? (
+      {loading ? (
+        <PageHeader>
           <Skeleton active={true} paragraph={{ rows: 0 }} />
-        ) : patch ? (
-          <>
-            <H2 id="patch-name">
-              <span>
-                {patch.description
-                  ? patch.description
-                  : `Patch ${patch.patchNumber}`}
-                {"  "}
-                <BadgeWrapper>
-                  <Badge variant={mapPatchStatusToBadgeVariant[status]}>
-                    {status}
-                  </Badge>
-                </BadgeWrapper>
-              </span>
-            </H2>
-          </>
-        ) : null}
-      </PageHeader>
+        </PageHeader>
+      ) : patch ? (
+        <PageHeader>
+          <H2 id="patch-name">
+            <span>
+              {patch.description
+                ? patch.description
+                : `Patch ${patch.patchNumber}`}
+              {"  "}
+              <BadgeWrapper>
+                <Badge variant={mapPatchStatusToBadgeVariant[status]}>
+                  {status}
+                </Badge>
+              </BadgeWrapper>
+            </span>
+          </H2>
+        </PageHeader>
+      ) : null}
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
