@@ -12,7 +12,7 @@ export const H1 = styled.h1`
 `;
 
 export const H2 = styled.h2`
-  font-size: 18px;
+  font-size: 20px;
   line-height: 21px;
   margin-bottom: 8px;
   color: ${gray.dark3};

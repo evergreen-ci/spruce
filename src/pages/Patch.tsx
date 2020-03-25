@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
-import { H1 } from "components/Typography";
+import { H2 } from "components/Typography";
 import {
   PageWrapper,
   PageHeader,
@@ -18,6 +18,7 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
+import styled from "@emotion/styled";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,14 +35,19 @@ export const Patch = () => {
           <Skeleton active={true} paragraph={{ rows: 0 }} />
         ) : patch ? (
           <>
-            <H1 id="patch-name">
-              {patch.description
-                ? patch.description
-                : `Patch ${patch.patchNumber}`}{" "}
-            </H1>
-            <Badge variant={mapPatchStatusToBadgeVariant[status]}>
-              {status}
-            </Badge>
+            <H2 id="patch-name">
+              <span>
+                {patch.description
+                  ? patch.description
+                  : `Patch ${patch.patchNumber}`}
+                {"  "}
+                <BadgeWrapper>
+                  <Badge variant={mapPatchStatusToBadgeVariant[status]}>
+                    {status}
+                  </Badge>
+                </BadgeWrapper>
+              </span>
+            </H2>
           </>
         ) : null}
       </PageHeader>
@@ -60,7 +66,9 @@ export const Patch = () => {
   );
 };
 
-// const StyledBadge = styled(Badge)``;
+const BadgeWrapper = styled.span`
+  display: inline-flex;
+`;
 
 const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
