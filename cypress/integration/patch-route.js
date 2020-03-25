@@ -177,6 +177,7 @@ describe("Patch route", function() {
     });
 
     it("Fetches sorted tasks when table sort headers are clicked", () => {
+      waitForGQL("@gqlQuery", "PatchTasks");
       ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
         clickSorterAndAssertTasksAreFetched(sortBy)
       );
