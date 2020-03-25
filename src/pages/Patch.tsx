@@ -16,6 +16,8 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { PatchStatus } from "gql/queries/get-patch-tasks";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +25,7 @@ export const Patch = () => {
     variables: { id: id }
   });
   const patch = get(data, "patch");
+  const status = get(patch, "status");
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
@@ -30,11 +33,16 @@ export const Patch = () => {
         {loading ? (
           <Skeleton active={true} paragraph={{ rows: 0 }} />
         ) : patch ? (
-          <H1 id="patch-name">
-            {patch.description
-              ? patch.description
-              : `Patch ${patch.patchNumber}`}
-          </H1>
+          <>
+            <H1 id="patch-name">
+              {patch.description
+                ? patch.description
+                : `Patch ${patch.patchNumber}`}{" "}
+            </H1>
+            <Badge variant={mapPatchStatusToBadgeVariant[status]}>
+              {status}
+            </Badge>
+          </>
         ) : null}
       </PageHeader>
       <PageLayout>
@@ -50,4 +58,13 @@ export const Patch = () => {
       </PageLayout>
     </PageWrapper>
   );
+};
+
+// const StyledBadge = styled(Badge)``;
+
+const mapPatchStatusToBadgeVariant = {
+  [PatchStatus.Created]: Variant.LightGray,
+  [PatchStatus.Failed]: Variant.Red,
+  [PatchStatus.Started]: Variant.Yellow,
+  [PatchStatus.Success]: Variant.Green
 };
