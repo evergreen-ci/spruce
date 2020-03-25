@@ -19,8 +19,6 @@ const updateQueryParam = debounce(
   250
 );
 
-const arrayFormat = "comma";
-
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 /**
@@ -40,7 +38,7 @@ export const useFilterInputChangeHandler = (
   search: string,
   replace: (path: string) => void
 ): [string, (e: InputEvent) => void] => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = queryString.parse(search, { arrayFormat: "comma" });
   const inputValue = (parsed[urlSearchParam] || "").toString();
   const [value, setValue] = useState(inputValue);
 
