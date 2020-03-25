@@ -14,6 +14,7 @@ import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
 import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
+import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 
 interface Props {
   taskCount: string;
@@ -97,6 +98,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   return (
     <ErrorBoundary>
+      <TaskFilters />
       <P2 id="task-count">
         <span data-cy="current-task-count">
           {get(data, "patchTasks.length", "-")}
