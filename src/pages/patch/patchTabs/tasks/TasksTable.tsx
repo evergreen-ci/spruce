@@ -69,11 +69,11 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Unstarted]: Variant.LightGray,
   [TaskStatus.Undispatched]: Variant.LightGray,
   [TaskStatus.Started]: Variant.Yellow,
-  [TaskStatus.Dispatched]: Variant.LightGray,
+  [TaskStatus.Dispatched]: Variant.Yellow,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Failed]: Variant.Red,
   [TaskStatus.StatusBlocked]: Variant.DarkGray,
-  [TaskStatus.StatusPending]: Variant.Yellow
+  [TaskStatus.StatusPending]: Variant.LightGray
 };
 
 const failureColors = {
