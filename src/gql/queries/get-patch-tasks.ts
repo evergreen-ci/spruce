@@ -40,7 +40,12 @@ export interface PatchTasksQuery {
   patchTasks: [TaskResult];
 }
 
-type TaskSortBy = "NAME" | "STATUS" | "BASE_STATUS" | "VARIANT";
+export enum TaskSortBy {
+  Name = "NAME",
+  Status = "STATUS",
+  BaseStatus = "BASE_STATUS",
+  Variant = "VARIANT"
+}
 
 export enum PatchStatus {
   Created = "created",

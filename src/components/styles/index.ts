@@ -4,6 +4,7 @@ import { PageHeader } from "./PageHeader";
 import { PageWrapper } from "./PageWrapper";
 import { StyledLink, StyledRouterLink } from "./StyledLink";
 import { SiderCard } from "./SiderCard";
+import { FiltersWrapper, StyledInput } from "./filters";
 
 export {
   Divider,
@@ -14,5 +15,7 @@ export {
   PageWrapper,
   StyledLink,
   SiderCard,
-  StyledRouterLink
+  StyledRouterLink,
+  FiltersWrapper,
+  StyledInput
 };

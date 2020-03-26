@@ -3,6 +3,7 @@ import { useTabs } from "hooks/useTabs";
 import { useDefaultPath } from "hooks/useDefaultPath";
 import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfLoading";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -16,5 +17,6 @@ export {
   useTabs,
   useDefaultPath,
   useDisableTableSortersIfLoading,
-  useOnClickOutside
+  useOnClickOutside,
+  useFilterInputChangeHandler
 };

@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { useLocation, useHistory } from "react-router-dom";
 import { StatusSelector } from "./testsTable/StatusSelector";
-import { Input } from "antd";
+import { FiltersWrapper, StyledInput } from "components/styles";
 import Icon from "@leafygreen-ui/icon";
-import debounce from "lodash.debounce";
-
+import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import {
   RequiredQueryParams,
   SortQueryParam,
@@ -14,27 +13,12 @@ import {
 } from "types/task";
 import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
-import styled from "@emotion/styled";
 
 enum DefaultQueryParams {
   Sort = "1",
   Category = "TEST_NAME"
 }
 const arrayFormat = "comma";
-const updateTestNameQueryParam = debounce(
-  (
-    testName: string,
-    search: string,
-    replace: (path: string) => void,
-    pathname: string
-  ) => {
-    const parsed = queryString.parse(search, { arrayFormat });
-    parsed[RequiredQueryParams.TestName] = testName;
-    const nextQueryParams = queryString.stringify(parsed);
-    replace(`${pathname}?${nextQueryParams}`);
-  },
-  250
-);
 
 export const TestsTable: React.FC = () => {
   const { pathname, search } = useLocation();
@@ -45,7 +29,11 @@ export const TestsTable: React.FC = () => {
   // validate query params for tests table and replace them if necessary
   const parsed = queryString.parse(search, { arrayFormat });
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
-  const [testNameInput, setTestNameInput] = useState(testName);
+
+  const [
+    testNameFilterValue,
+    testNameFilterValueOnChange
+  ] = useFilterInputChangeHandler(RequiredQueryParams.TestName);
 
   useEffect(() => {
     const category = (parsed[RequiredQueryParams.Category] || "")
@@ -80,19 +68,14 @@ export const TestsTable: React.FC = () => {
     return null;
   }
 
-  const onSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    setTestNameInput(e.target.value);
-    updateTestNameQueryParam(e.target.value, search, replace, pathname);
-  };
-
   return (
     <>
       <FiltersWrapper>
         <StyledInput
           placeholder="Search Test Names"
-          onChange={onSearch}
+          onChange={testNameFilterValueOnChange}
           suffix={<Icon glyph="MagnifyingGlass" />}
-          value={testNameInput}
+          value={testNameFilterValue}
           id="cy-testname-input"
         />
         <StatusSelector />
@@ -101,12 +84,3 @@ export const TestsTable: React.FC = () => {
     </>
   );
 };
-
-const FiltersWrapper = styled.div`
-  display: flex;
-  margin-bottom: 20px;
-`;
-const StyledInput = styled(Input)`
-  max-width: 500px;
-  margin-right: 40px;
-`;
