@@ -12,16 +12,20 @@ export const useStatusesFilter = (
 ): [string[], (newValue: string[]) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const parsed = queryString.parse(search, { arrayFormat });
 
   const onChange = (newValue: string[]) => {
-    const nextQueryParams = queryString.stringify({
-      ...parsed,
-      [urlParam]: newValue
-    });
+    const parsed = queryString.parse(search, { arrayFormat });
+    const nextQueryParams = queryString.stringify(
+      {
+        ...parsed,
+        [urlParam]: newValue
+      },
+      { arrayFormat }
+    );
     replace(`${pathname}?${nextQueryParams}`);
   };
 
+  const parsed = queryString.parse(search, { arrayFormat });
   const statuses = parsed[urlParam];
   const value = Array.isArray(statuses) ? statuses : [statuses].filter(v => v);
   return [value, onChange];

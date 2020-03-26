@@ -42,24 +42,21 @@ const statusesTreeData = [
     key: TaskStatus.All
   },
   {
-    title: "Unstarted",
-    value: TaskStatus.Unstarted,
-    key: TaskStatus.Unstarted
-  },
-  {
-    title: "Undispatched",
-    value: TaskStatus.Undispatched,
-    key: TaskStatus.Undispatched
-  },
-  {
-    title: "Started",
-    value: TaskStatus.Started,
-    key: TaskStatus.Started
-  },
-  {
-    title: "Dispatched",
-    value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched
+    title: "Failed",
+    value: "all failures",
+    key: "all failures",
+    children: [
+      {
+        title: "Failed",
+        value: TaskStatus.Failed,
+        key: TaskStatus.Failed
+      },
+      {
+        title: "Test Timed Out",
+        value: TaskStatus.TestTimedOut,
+        key: TaskStatus.TestTimedOut
+      }
+    ]
   },
   {
     title: "Succeeded",
@@ -67,19 +64,43 @@ const statusesTreeData = [
     key: TaskStatus.Succeeded
   },
   {
-    title: "Failed",
-    value: TaskStatus.Failed,
-    key: TaskStatus.Failed
+    title: "Started",
+    value: TaskStatus.Started,
+    key: TaskStatus.Started
   },
   {
-    title: "System Failed",
-    value: TaskStatus.SystemFailed,
-    key: TaskStatus.SystemFailed
+    title: "Scheduled",
+    value: TaskStatus.Dispatched,
+    key: TaskStatus.Dispatched
   },
   {
-    title: "Test Timed Out",
-    value: TaskStatus.TestTimedOut,
-    key: TaskStatus.TestTimedOut
+    title: "Not Scheduled",
+    value: "not started",
+    key: "not started",
+    children: [
+      {
+        title: "Unstarted",
+        value: TaskStatus.Unstarted,
+        key: TaskStatus.Unstarted
+      },
+      {
+        title: "Undispatched",
+        value: TaskStatus.Undispatched,
+        key: TaskStatus.Undispatched
+      }
+    ]
+  },
+  {
+    title: "System Issues",
+    value: "system issues",
+    key: "system issues",
+    children: [
+      {
+        title: "System Failed",
+        value: TaskStatus.SystemFailed,
+        key: TaskStatus.SystemFailed
+      }
+    ]
   },
   {
     title: "Setup Failed",
@@ -87,12 +108,12 @@ const statusesTreeData = [
     key: TaskStatus.SetupFailed
   },
   {
-    title: "Status Blocked",
+    title: "Blocked",
     value: TaskStatus.StatusBlocked,
     key: TaskStatus.StatusBlocked
   },
   {
-    title: "Status Pending",
+    title: "Pending",
     value: TaskStatus.StatusPending,
     key: TaskStatus.StatusPending
   }
