@@ -1,12 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
-import { H2 } from "components/Typography";
 import {
   PageWrapper,
-  PageHeader,
   PageContent,
   PageLayout,
   PageSider
@@ -19,7 +16,6 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
-import styled from "@emotion/styled";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -55,10 +51,6 @@ export const Patch = () => {
     </PageWrapper>
   );
 };
-
-const BadgeWrapper = styled.span`
-  display: inline-flex;
-`;
 
 const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
