@@ -34,6 +34,8 @@ export const PageTitle: React.FC<Props> = ({
 
 const BadgeWrapper = styled.span`
   display: inline-flex;
+  position: relative;
+  top: -2px;
 `;
 
 const PageHeader = styled.div`

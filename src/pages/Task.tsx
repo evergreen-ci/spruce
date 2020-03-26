@@ -92,11 +92,9 @@ export const Task: React.FC = () => {
         hasData={!!(displayName && status)}
         title={displayName}
         badge={
-          <BadgeWrapper>
-            <ErrorBoundary>
-              <TaskStatusBadge status={status} />
-            </ErrorBoundary>
-          </BadgeWrapper>
+          <ErrorBoundary>
+            <TaskStatusBadge status={status} />
+          </ErrorBoundary>
         }
       />
       <PageLayout>
@@ -123,8 +121,3 @@ export const Task: React.FC = () => {
     </PageWrapper>
   );
 };
-
-const BadgeWrapper = styled.span`
-  top: -2px;
-  position: relative;
-`;
