@@ -15,6 +15,7 @@ import get from "lodash.get";
 import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
+import { TaskSortBy } from "gql/queries/get-patch-tasks";
 
 interface Props {
   taskCount: string;
@@ -120,12 +121,14 @@ const getString = (param: string | string[]): string =>
   Array.isArray(param) ? param[0] : param;
 
 const getQueryVariables = (patchId: string, search: string, page: number) => {
-  // TODO: add 'statuses' var here when the UI is implemented
-  const { sortBy, sortDir } = queryString.parse(search);
+  const { sortBy, sortDir, [TaskSortBy.Variant]: variant } = queryString.parse(
+    search
+  );
   return {
     patchId,
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),
+    variant: getString(variant),
     page
   };
 };
