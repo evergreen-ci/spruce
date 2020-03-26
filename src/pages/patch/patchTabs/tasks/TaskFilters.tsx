@@ -17,7 +17,7 @@ export const TaskFilters: React.FC = () => {
   return (
     <FiltersWrapper>
       <StyledInput
-        data-cy="variant-input"
+        data-cy="task-name-input"
         placeholder="Search Task Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={taskNameFilterValue}

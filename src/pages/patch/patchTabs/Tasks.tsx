@@ -122,14 +122,18 @@ const getString = (param: string | string[]): string =>
   Array.isArray(param) ? param[0] : param;
 
 const getQueryVariables = (patchId: string, search: string, page: number) => {
-  const { sortBy, sortDir, [TaskSortBy.Variant]: variant } = queryString.parse(
-    search
-  );
+  const {
+    sortBy,
+    sortDir,
+    [TaskSortBy.Variant]: variant,
+    [TaskSortBy.Name]: taskName
+  } = queryString.parse(search);
   return {
     patchId,
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),
     variant: getString(variant),
+    taskName: getString(taskName),
     page
   };
 };
