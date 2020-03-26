@@ -66,7 +66,7 @@ export const Patch = () => {
   );
 };
 
-export const BadgeWrapper = styled.span`
+const BadgeWrapper = styled.span`
   display: inline-flex;
 `;
 
