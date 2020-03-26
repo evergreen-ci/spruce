@@ -19,7 +19,7 @@ describe("Tasks filters", function() {
     const variantInputValue = "lint";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
-      locationHasUpdatedVariantParam(variantInputValue, "VARIANT");
+      locationHasUpdatedVariantParam(variantInputValue, "variant");
       filteredTasksAreFetched("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
       locationHasUpdatedVariantParam(null);
@@ -30,7 +30,7 @@ describe("Tasks filters", function() {
     const taskNameInputValue = "test-cloud";
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
-      locationHasUpdatedVariantParam(taskNameInputValue, "NAME");
+      locationHasUpdatedVariantParam(taskNameInputValue, "taskName");
       filteredTasksAreFetched("taskName", taskNameInputValue);
       cy.get("[data-cy=variant-input]").clear();
       locationHasUpdatedVariantParam(null);

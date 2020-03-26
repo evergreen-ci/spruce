@@ -1,18 +1,18 @@
 import React from "react";
 import { useFilterInputChangeHandler } from "hooks";
 import Icon from "@leafygreen-ui/icon";
-import { TaskSortBy } from "gql/queries/get-patch-tasks";
 import { FiltersWrapper, StyledInput } from "components/styles";
+import { PatchTasksQueryParams } from "types/task";
 
 export const TaskFilters: React.FC = () => {
   const [
     variantFilterValue,
     variantFilterValueOnChange
-  ] = useFilterInputChangeHandler(TaskSortBy.Variant);
+  ] = useFilterInputChangeHandler(PatchTasksQueryParams.Variant);
   const [
     taskNameFilterValue,
     taskNameFilterValueOnChange
-  ] = useFilterInputChangeHandler(TaskSortBy.Name);
+  ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName);
 
   return (
     <FiltersWrapper>

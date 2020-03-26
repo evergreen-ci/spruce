@@ -16,6 +16,7 @@ import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TaskSortBy } from "gql/queries/get-patch-tasks";
+import { PatchTasksQueryParams } from "types/task";
 
 interface Props {
   taskCount: string;
@@ -124,8 +125,8 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
   const {
     sortBy,
     sortDir,
-    [TaskSortBy.Variant]: variant,
-    [TaskSortBy.Name]: taskName
+    [PatchTasksQueryParams.Variant]: variant,
+    [PatchTasksQueryParams.TaskName]: taskName
   } = queryString.parse(search);
   return {
     patchId,
