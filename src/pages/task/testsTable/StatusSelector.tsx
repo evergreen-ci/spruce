@@ -1,4 +1,5 @@
 import React from "react";
+<<<<<<< HEAD
 import { RequiredQueryParams } from "types/task";
 import { TestStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
@@ -8,6 +9,25 @@ export const StatusSelector = () => {
   const [statusVal, statusValOnChange] = useStatusesFilter(
     RequiredQueryParams.Statuses
   );
+=======
+import { useLocation, useHistory } from "react-router-dom";
+import queryString from "query-string";
+import { RequiredQueryParams } from "types/task";
+import { TestStatus } from "types/task";
+import { TreeSelect } from "components/TreeSelect";
+
+export const StatusSelector = () => {
+  const { pathname, search } = useLocation();
+  const { replace } = useHistory();
+  const value = useQueryParamStatuses(search);
+
+  const onChange = (updatedValue: [string]) => {
+    const parsed = queryString.parse(search, { arrayFormat });
+    parsed[RequiredQueryParams.Statuses] = updatedValue;
+    const nextQueryParams = queryString.stringify(parsed, { arrayFormat });
+    replace(`${pathname}?${nextQueryParams}`);
+  };
+>>>>>>> Revert "EVG-7524: task status dropdown updates url statuses param"
 
   return (
     <TreeSelect
@@ -20,6 +40,8 @@ export const StatusSelector = () => {
     />
   );
 };
+
+const arrayFormat = "comma";
 
 const treeData = [
   {
@@ -48,3 +70,9 @@ const treeData = [
     key: TestStatus.SilentFail,
   },
 ];
+
+const useQueryParamStatuses = (search: string) => {
+  const parsed = queryString.parse(search, { arrayFormat });
+  const statuses = parsed[RequiredQueryParams.Statuses];
+  return Array.isArray(statuses) ? statuses : [statuses].filter(v => v);
+};
