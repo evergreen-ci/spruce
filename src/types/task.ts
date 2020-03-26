@@ -25,6 +25,8 @@ export enum PatchTasksQueryParams {
   Page = "page",
   Limit = "limit",
   Statuses = "statuses"
+  Variant = "variant",
+  TaskName = "taskName"
 }
 
 export enum TestStatus {

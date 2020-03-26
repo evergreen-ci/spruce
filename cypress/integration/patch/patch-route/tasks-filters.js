@@ -1,23 +1,11 @@
 /// <reference types="Cypress" />
+import { waitForGQL } from "../../../utils/networking";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4"
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-
-const variantInputValue = "ubuntu1604";
-
-const locationHasUpdatedVariantParam = paramValue => {
-  cy.location().should(loc => {
-    expect(loc.pathname).to.equal(pathTasks);
-    if (!paramValue) {
-      expect(loc.search).to.not.include("VARIANT");
-    } else {
-      expect(loc.search).to.include(`VARIANT=${paramValue}`);
-    }
-  });
-};
 
 describe("Tasks filters", function() {
   beforeEach(() => {
@@ -28,11 +16,48 @@ describe("Tasks filters", function() {
   });
 
   describe("Variant input field", () => {
-    it("Updates the VARIANT url search param when input changes", () => {
+    const variantInputValue = "lint";
+    it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
-      locationHasUpdatedVariantParam(variantInputValue);
+      locationHasUpdatedFilterParam(variantInputValue, "variant");
+      filteredTasksAreFetched("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedVariantParam(null);
+      locationHasUpdatedFilterParam(null);
+    });
+  });
+
+  describe("Task name input field", () => {
+    const taskNameInputValue = "test-cloud";
+    it("Updates url with input value and fetches tasks filtered by task name", () => {
+      cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
+      locationHasUpdatedFilterParam(taskNameInputValue, "taskName");
+      filteredTasksAreFetched("taskName", taskNameInputValue);
+      cy.get("[data-cy=variant-input]").clear();
+      locationHasUpdatedFilterParam(null);
     });
   });
 });
+
+const filteredTasksAreFetched = (variable, value) => {
+  waitForGQL("@gqlQuery", "PatchTasks", {
+    [`request.body.variables[${variable}`]: value
+  });
+  cy.get("@gqlQuery").then(({ response }) => {
+    cy.get(".ant-table-row")
+      .invoke("toArray")
+      .then(filteredResults => {
+        expect(response.body.data.patchTasks.length).eq(filteredResults.length);
+      });
+  });
+};
+
+const locationHasUpdatedFilterParam = (paramValue, filterName) => {
+  cy.location().should(loc => {
+    expect(loc.pathname).to.equal(pathTasks);
+    if (!paramValue) {
+      expect(loc.search).to.not.include(filterName);
+    } else {
+      expect(loc.search).to.include(`${filterName}=${paramValue}`);
+    }
+  });
+};
