@@ -30,7 +30,7 @@ export const Patch = () => {
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}
-        hasData={!!data}
+        hasData={!!patch}
         title={description ? description : `Patch ${get(patch, "patchNumber")}`}
         badge={
           <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>

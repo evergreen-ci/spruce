@@ -1,6 +1,5 @@
 import React from "react";
 import { Skeleton } from "antd";
-import { PageHeader } from "./styles";
 import { H2 } from "./Typography";
 import styled from "@emotion/styled";
 
@@ -35,4 +34,8 @@ export const PageTitle: React.FC<Props> = ({
 
 const BadgeWrapper = styled.span`
   display: inline-flex;
+`;
+
+const PageHeader = styled.div`
+  margin-bottom: 11px;
 `;

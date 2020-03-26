@@ -4,6 +4,7 @@ import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
@@ -12,7 +13,6 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
   SiderCard,
-  PageHeader,
   PageContent,
   PageLayout,
   PageSider
@@ -21,7 +21,6 @@ import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
-import { Skeleton } from "antd";
 import styled from "@emotion/styled";
 
 enum TaskTab {
@@ -88,21 +87,18 @@ export const Task: React.FC = () => {
         versionId={version}
         patchNumber={patchNumber}
       />
-      {loading ? (
-        <PageHeader>
-          <Skeleton active={true} paragraph={{ rows: 0 }} />
-        </PageHeader>
-      ) : displayName || status ? (
-        <PageHeader>
-          <H2 id="task-name">{displayName}</H2>
-          {"  "}
+      <PageTitle
+        loading={loading}
+        hasData={!!(displayName && status)}
+        title={displayName}
+        badge={
           <BadgeWrapper>
             <ErrorBoundary>
               <TaskStatusBadge status={status} />
             </ErrorBoundary>
           </BadgeWrapper>
-        </PageHeader>
-      ) : null}
+        }
+      />
       <PageLayout>
         <PageSider>
           <SiderCard>Patch Metadata</SiderCard>
@@ -129,6 +125,6 @@ export const Task: React.FC = () => {
 };
 
 const BadgeWrapper = styled.span`
-  top: -3px;
+  top: -2px;
   position: relative;
 `;
