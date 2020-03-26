@@ -15,7 +15,7 @@ import get from "lodash.get";
 import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
-import { PatchTasksQueryParams } from "types/task";
+import { PatchTasksQueryParams, TaskStatus } from "types/task";
 
 interface Props {
   taskCount: string;
@@ -119,20 +119,42 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
 const getString = (param: string | string[]): string =>
   Array.isArray(param) ? param[0] : param;
+const getArray = (param: string | string[]): string[] =>
+  Array.isArray(param) ? param : [param];
+
+const statusesToIncludeInQuery = {
+  [TaskStatus.Dispatched]: true,
+  [TaskStatus.Failed]: true,
+  [TaskStatus.Inactive]: true,
+  [TaskStatus.SetupFailed]: true,
+  [TaskStatus.Started]: true,
+  [TaskStatus.StatusBlocked]: true,
+  [TaskStatus.StatusPending]: true,
+  [TaskStatus.Succeeded]: true,
+  [TaskStatus.SystemFailed]: true,
+  [TaskStatus.TestTimedOut]: true,
+  [TaskStatus.Undispatched]: true,
+  [TaskStatus.Unstarted]: true
+};
 
 const getQueryVariables = (patchId: string, search: string, page: number) => {
   const {
     sortBy,
     sortDir,
     [PatchTasksQueryParams.Variant]: variant,
-    [PatchTasksQueryParams.TaskName]: taskName
-  } = queryString.parse(search);
+    [PatchTasksQueryParams.TaskName]: taskName,
+    [PatchTasksQueryParams.Statuses]: rawStatuses
+  } = queryString.parse(search, { arrayFormat: "comma" });
+
   return {
     patchId,
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),
     variant: getString(variant),
     taskName: getString(taskName),
+    statuses: getArray(rawStatuses).filter(
+      status => status in statusesToIncludeInQuery
+    ),
     page
   };
 };
