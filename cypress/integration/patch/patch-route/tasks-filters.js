@@ -19,10 +19,10 @@ describe("Tasks filters", function() {
     const variantInputValue = "lint";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
-      locationHasUpdatedVariantParam(variantInputValue, "variant");
+      locationHasUpdatedFilterParam(variantInputValue, "variant");
       filteredTasksAreFetched("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedVariantParam(null);
+      locationHasUpdatedFilterParam(null);
     });
   });
 
@@ -30,10 +30,10 @@ describe("Tasks filters", function() {
     const taskNameInputValue = "test-cloud";
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
-      locationHasUpdatedVariantParam(taskNameInputValue, "taskName");
+      locationHasUpdatedFilterParam(taskNameInputValue, "taskName");
       filteredTasksAreFetched("taskName", taskNameInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedVariantParam(null);
+      locationHasUpdatedFilterParam(null);
     });
   });
 });
@@ -51,7 +51,7 @@ const filteredTasksAreFetched = (variable, value) => {
   });
 };
 
-const locationHasUpdatedVariantParam = (paramValue, filterName) => {
+const locationHasUpdatedFilterParam = (paramValue, filterName) => {
   cy.location().should(loc => {
     expect(loc.pathname).to.equal(pathTasks);
     if (!paramValue) {

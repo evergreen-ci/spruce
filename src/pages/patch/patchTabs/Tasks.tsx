@@ -15,7 +15,6 @@ import get from "lodash.get";
 import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
-import { TaskSortBy } from "gql/queries/get-patch-tasks";
 import { PatchTasksQueryParams } from "types/task";
 
 interface Props {
