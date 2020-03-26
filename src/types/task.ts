@@ -40,9 +40,6 @@ export enum TestStatus {
 export type TableOnChange<D> = TableProps<D>["onChange"];
 
 export enum TaskStatus {
-  // `all` is not an actual status - only used in ui to represent all statuses selected
-  All = "all",
-
   Inactive = "inactive",
 
   // TaskUnstarted is assigned to a display task after cleaning up one of

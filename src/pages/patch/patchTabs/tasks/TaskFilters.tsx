@@ -48,8 +48,8 @@ export const TaskFilters: React.FC = () => {
 const statusesTreeData = [
   {
     title: "All",
-    value: TaskStatus.All,
-    key: TaskStatus.All
+    value: "all",
+    key: "all"
   },
   {
     title: "Failed",
