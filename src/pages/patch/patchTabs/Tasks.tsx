@@ -40,7 +40,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
         try {
           await fetchMore({
-            variables: getQueryVariables(id, location.search, 0);,
+            variables: getQueryVariables(id, location.search, 0),
             updateQuery: (
               prev: PatchTasksQuery,
               { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
