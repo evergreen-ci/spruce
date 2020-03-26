@@ -8,7 +8,6 @@ import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { H2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
@@ -21,7 +20,6 @@ import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
-import styled from "@emotion/styled";
 
 enum TaskTab {
   Logs = "logs",
