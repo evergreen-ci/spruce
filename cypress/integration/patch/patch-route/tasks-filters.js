@@ -19,20 +19,30 @@ describe("Tasks filters", function() {
     const variantInputValue = "lint";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
-      locationHasUpdatedVariantParam(variantInputValue, "VARIANT");
+      locationHasUpdatedFilterParam(variantInputValue, "variant");
       filteredTasksAreFetched("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedVariantParam(null);
+      locationHasUpdatedFilterParam(null);
+    });
+  });
+
+  describe("Task name input field", () => {
+    const taskNameInputValue = "test-cloud";
+    it("Updates url with input value and fetches tasks filtered by task name", () => {
+      cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
+      locationHasUpdatedFilterParam(taskNameInputValue, "taskName");
+      filteredTasksAreFetched("taskName", taskNameInputValue);
+      cy.get("[data-cy=variant-input]").clear();
+      locationHasUpdatedFilterParam(null);
     });
   });
 });
 
 const filteredTasksAreFetched = (variable, value) => {
-  cy.wait(200);
-  waitForGQL("@gqlQuery", "PatchTasks");
-  cy.get("@gqlQuery").then(({ request, response }) => {
-    expect(request.body.operationName).eq("PatchTasks");
-    expect(request.body.variables[variable]).eq(value);
+  waitForGQL("@gqlQuery", "PatchTasks", {
+    [`request.body.variables[${variable}`]: value
+  });
+  cy.get("@gqlQuery").then(({ response }) => {
     cy.get(".ant-table-row")
       .invoke("toArray")
       .then(filteredResults => {
@@ -41,7 +51,7 @@ const filteredTasksAreFetched = (variable, value) => {
   });
 };
 
-const locationHasUpdatedVariantParam = (paramValue, filterName) => {
+const locationHasUpdatedFilterParam = (paramValue, filterName) => {
   cy.location().should(loc => {
     expect(loc.pathname).to.equal(pathTasks);
     if (!paramValue) {
