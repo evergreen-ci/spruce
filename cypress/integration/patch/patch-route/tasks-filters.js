@@ -39,11 +39,10 @@ describe("Tasks filters", function() {
 });
 
 const filteredTasksAreFetched = (variable, value) => {
-  cy.wait(200);
-  waitForGQL("@gqlQuery", "PatchTasks");
-  cy.get("@gqlQuery").then(({ request, response }) => {
-    expect(request.body.operationName).eq("PatchTasks");
-    expect(request.body.variables[variable]).eq(value);
+  waitForGQL("@gqlQuery", "PatchTasks", {
+    [`request.body.variables[${variable}`]: value
+  });
+  cy.get("@gqlQuery").then(({ response }) => {
     cy.get(".ant-table-row")
       .invoke("toArray")
       .then(filteredResults => {
