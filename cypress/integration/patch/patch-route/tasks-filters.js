@@ -1,4 +1,5 @@
 /// <reference types="Cypress" />
+import { waitForGQL } from "../../../utils/networking";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4"
@@ -6,7 +7,7 @@ const patch = {
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 
-const variantInputValue = "ubuntu1604";
+const variantInputValue = "lint";
 
 const locationHasUpdatedVariantParam = paramValue => {
   cy.location().should(loc => {
@@ -33,6 +34,23 @@ describe("Tasks filters", function() {
       locationHasUpdatedVariantParam(variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
       locationHasUpdatedVariantParam(null);
+    });
+
+    it("Fetches tasks filtered by the input value", () => {
+      cy.get("[data-cy=variant-input]").type(variantInputValue);
+      cy.wait(300);
+      waitForGQL("@gqlQuery", "PatchTasks");
+      cy.get("@gqlQuery").then(({ request, response }) => {
+        expect(request.body.operationName).eq("PatchTasks");
+        expect(request.body.variables.variant).eq(variantInputValue);
+        cy.get(".ant-table-row")
+          .invoke("toArray")
+          .then(filteredResults => {
+            expect(response.body.data.patchTasks.length).eq(
+              filteredResults.length
+            );
+          });
+      });
     });
   });
 });

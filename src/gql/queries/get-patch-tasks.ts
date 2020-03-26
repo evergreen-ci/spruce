@@ -10,6 +10,7 @@ export const GET_PATCH_TASKS = gql`
     $sortDir: SortDirection
     $page: Int
     $statuses: [String!]
+    $variant: String
   ) {
     patchTasks(
       patchId: $patchId
@@ -18,6 +19,7 @@ export const GET_PATCH_TASKS = gql`
       statuses: $statuses
       sortDir: $sortDir
       sortBy: $sortBy
+      variant: $variant
     ) {
       id
       status
@@ -65,4 +67,5 @@ export interface PatchTasksVariables {
   sortDir?: SortDir;
   page?: number;
   statuses?: [PatchStatus];
+  variant?: string;
 }

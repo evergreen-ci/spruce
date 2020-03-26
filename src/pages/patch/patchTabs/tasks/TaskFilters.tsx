@@ -9,15 +9,26 @@ export const TaskFilters: React.FC = () => {
     variantFilterValue,
     variantFilterValueOnChange
   ] = useFilterInputChangeHandler(TaskSortBy.Variant);
+  const [
+    taskNameFilterValue,
+    taskNameFilterValueOnChange
+  ] = useFilterInputChangeHandler(TaskSortBy.Name);
 
   return (
     <FiltersWrapper>
       <StyledInput
+        data-cy="variant-input"
+        placeholder="Search Task Name"
+        suffix={<Icon glyph="MagnifyingGlass" />}
+        value={taskNameFilterValue}
+        onChange={taskNameFilterValueOnChange}
+      />
+      <StyledInput
+        data-cy="variant-input"
         placeholder="Search Variant Name"
-        onChange={variantFilterValueOnChange}
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
-        data-cy="variant-input"
+        onChange={variantFilterValueOnChange}
       />
     </FiltersWrapper>
   );
