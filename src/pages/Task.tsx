@@ -3,10 +3,11 @@ import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { H1 } from "components/Typography";
+import { H2 } from "components/Typography";
 import {
   PageWrapper,
   SiderCard,
@@ -19,6 +20,8 @@ import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
+import { Skeleton } from "antd";
+import styled from "@emotion/styled";
 
 enum TaskTab {
   Logs = "logs",
@@ -40,6 +43,7 @@ const GET_TASK = gql`
       version
       displayName
       patchNumber
+      status
     }
   }
 `;
@@ -49,6 +53,7 @@ interface TaskQuery {
     version: string;
     displayName: string;
     patchNumber: number;
+    status: string;
   };
 }
 
@@ -72,7 +77,7 @@ export const Task: React.FC = () => {
     return <div>{error.message}</div>;
   }
   const {
-    task: { displayName, version, patchNumber }
+    task: { displayName, version, patchNumber, status }
   } = data;
 
   return (
@@ -82,9 +87,19 @@ export const Task: React.FC = () => {
         versionId={version}
         patchNumber={patchNumber}
       />
-      <PageHeader>
-        <H1>Current Task Name</H1>
-      </PageHeader>
+      {loading ? (
+        <PageHeader>
+          <Skeleton active={true} paragraph={{ rows: 0 }} />
+        </PageHeader>
+      ) : displayName || status ? (
+        <PageHeader>
+          <H2 id="task-name">{displayName}</H2>
+          {"  "}
+          <BadgeWrapper>
+            <TaskStatusBadge status={status} />
+          </BadgeWrapper>
+        </PageHeader>
+      ) : null}
       <PageLayout>
         <PageSider>
           <SiderCard>Patch Metadata</SiderCard>
@@ -109,3 +124,8 @@ export const Task: React.FC = () => {
     </PageWrapper>
   );
 };
+
+const BadgeWrapper = styled.span`
+  top: -3px;
+  position: relative;
+`;

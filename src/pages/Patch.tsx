@@ -66,13 +66,13 @@ export const Patch = () => {
   );
 };
 
-const BadgeWrapper = styled.span`
-  display: inline-flex;
-`;
-
 const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
   [PatchStatus.Success]: Variant.Green
 };
+
+export const BadgeWrapper = styled.span`
+  display: inline-flex;
+`;
