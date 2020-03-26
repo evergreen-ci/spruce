@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
+import { PageTitle } from "components/PageTitle";
 import { H2 } from "components/Typography";
 import {
   PageWrapper,
@@ -27,30 +28,19 @@ export const Patch = () => {
   });
   const patch = get(data, "patch");
   const status = get(patch, "status");
+  const description = get(patch, "description");
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      {loading ? (
-        <PageHeader>
-          <Skeleton active={true} paragraph={{ rows: 0 }} />
-        </PageHeader>
-      ) : patch ? (
-        <PageHeader>
-          <H2 id="patch-name">
-            <span>
-              {patch.description
-                ? patch.description
-                : `Patch ${patch.patchNumber}`}
-              {"  "}
-              <BadgeWrapper>
-                <Badge variant={mapPatchStatusToBadgeVariant[status]}>
-                  {status}
-                </Badge>
-              </BadgeWrapper>
-            </span>
-          </H2>
-        </PageHeader>
-      ) : null}
+      <PageTitle
+        loading={loading}
+        hasData={!!data}
+        title={description ? description : `Patch ${get(patch, "patchNumber")}`}
+        badge={
+          <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
+        }
+      />
+
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
