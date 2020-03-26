@@ -14,6 +14,9 @@ export const TaskFilters: React.FC = () => {
     taskNameFilterValue,
     taskNameFilterValueOnChange
   ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName);
+  const [statusesVal, statusesValOnChange] = useStatusesFilter(
+    PatchTasksQueryParams.Statuses
+  );
 
   return (
     <FiltersWrapper>
@@ -32,10 +35,10 @@ export const TaskFilters: React.FC = () => {
         onChange={variantFilterValueOnChange}
       />
       <TreeSelect
-        onChange={statusesOnChange}
-        state={statusesValue}
+        onChange={statusesValOnChange}
+        state={statusesVal}
         tData={statusesTreeData}
-        inputLabel={`Test Status: ${statusesValue}`}
+        inputLabel={`Test Status: ${statusesVal}`}
         id="cy-test-status-select"
       />
     </FiltersWrapper>
