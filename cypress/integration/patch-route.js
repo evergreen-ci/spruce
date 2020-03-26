@@ -35,7 +35,7 @@ describe("Patch route", function() {
 
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.get(["data-cy=page-title"]).within(hasText);
+    cy.get("[data-cy=page-title]").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
