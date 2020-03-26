@@ -7,17 +7,6 @@ const patch = {
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 
-const locationHasUpdatedVariantParam = (paramValue, filterName) => {
-  cy.location().should(loc => {
-    expect(loc.pathname).to.equal(pathTasks);
-    if (!paramValue) {
-      expect(loc.search).to.not.include(filterName);
-    } else {
-      expect(loc.search).to.include(`${filterName}=${paramValue}`);
-    }
-  });
-};
-
 describe("Tasks filters", function() {
   beforeEach(() => {
     cy.login();
@@ -60,5 +49,16 @@ const filteredTasksAreFetched = (variable, value) => {
       .then(filteredResults => {
         expect(response.body.data.patchTasks.length).eq(filteredResults.length);
       });
+  });
+};
+
+const locationHasUpdatedVariantParam = (paramValue, filterName) => {
+  cy.location().should(loc => {
+    expect(loc.pathname).to.equal(pathTasks);
+    if (!paramValue) {
+      expect(loc.search).to.not.include(filterName);
+    } else {
+      expect(loc.search).to.include(`${filterName}=${paramValue}`);
+    }
   });
 };
