@@ -8,6 +8,7 @@ import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { H2 } from "components/Typography";
+import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
   SiderCard,
@@ -96,7 +97,9 @@ export const Task: React.FC = () => {
           <H2 id="task-name">{displayName}</H2>
           {"  "}
           <BadgeWrapper>
-            <TaskStatusBadge status={status} />
+            <ErrorBoundary>
+              <TaskStatusBadge status={status} />
+            </ErrorBoundary>
           </BadgeWrapper>
         </PageHeader>
       ) : null}
