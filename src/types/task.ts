@@ -24,7 +24,7 @@ export enum PatchTasksQueryParams {
   SortDir = "sortDir",
   Page = "page",
   Limit = "limit",
-  Statuses = "statuses"
+  Statuses = "statuses",
   Variant = "variant",
   TaskName = "taskName"
 }
