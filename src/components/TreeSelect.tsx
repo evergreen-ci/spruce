@@ -12,6 +12,7 @@ interface Props {
   onChange: (v: string[]) => void;
   inputLabel: string;
   dataCy: string;
+  width?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -304,7 +305,8 @@ const BarWrapper = styled.div`
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
   padding: 8px;
-  width: 352px;
+  width: ${(props: { width?: string }) =>
+    props.width ? props.width : "352px"};
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -320,7 +322,8 @@ const OptionsWrapper = styled.div`
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
-  width: 352px;
+  width: ${(props: { width?: string }) =>
+    props.width ? props.width : "352px"};
   margin-top: 5px;
 `;
 const ArrowWrapper = styled.span`
@@ -332,5 +335,6 @@ const ArrowWrapper = styled.span`
   }
 `;
 const Wrapper = styled.div`
-  width: 352px;
+  width: ${(props: { width?: string }) =>
+    props.width ? props.width : "352px"};
 `;

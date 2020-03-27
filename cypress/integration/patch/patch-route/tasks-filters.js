@@ -8,6 +8,64 @@ const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
 
+const parentStatuses = [
+  {
+    title: "Failures",
+    statuses: "all-failures,failed,test-timed-out"
+  },
+  {
+    title: "Scheduled",
+    statuses: "scheduled,unstarted,undispatched"
+  },
+  {
+    title: "System Issues",
+    statuses: "system-issues,system-failed"
+  }
+];
+
+const statuses = [
+  {
+    title: "Failed",
+    key: "failed"
+  },
+  {
+    title: "Test Timed Out",
+    key: "test-timed-out"
+  },
+  {
+    title: "Success",
+    key: "success"
+  },
+  {
+    title: "Running",
+    key: "dispatched"
+  },
+  {
+    title: "Started",
+    key: "started"
+  },
+  {
+    title: "Unstarted",
+    key: "unstarted"
+  },
+  {
+    title: "Undispatched",
+    key: "undispatched"
+  },
+  {
+    title: "System Failed",
+    key: "system-failed"
+  },
+  {
+    title: "Setup Failed",
+    key: "setup-failed"
+  },
+  {
+    title: "Blocked",
+    key: "blocked"
+  }
+];
+
 describe("Tasks filters", function() {
   beforeEach(() => {
     cy.login();
@@ -38,85 +96,44 @@ describe("Tasks filters", function() {
     });
   });
 
-  describe("Statuses select", () => {
-    beforeEach(() => {
-      cy.get("[data-cy=task-status-filter] > .cy-treeselect-bar").click();
-    });
-
-    it("Clicking on 'All' checkbox adds all statuses to URL. Clicking again removes all statuses.", () => {
-      cy.get(".cy-checkbox")
-        .contains("All")
-        .then($all => {
-          $all.click();
-          locationHasUpdatedFilterParam(allStatuses, "statuses");
-          $all.click();
-          locationHasUpdatedFilterParam(null);
-        });
-    });
-
-    [
-      {
-        title: "Failures",
-        statuses: "all-failures,failed,test-timed-out"
-      },
-      {
-        title: "Scheduled",
-        statuses: "scheduled,unstarted,undispatched"
-      },
-      {
-        title: "System Issues",
-        statuses: "system-issues,system-failed"
-      }
-    ].forEach(({ title, statuses }) => {
-      it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
-        clickCheckboxesAndAssertCorrectUrlParams(title, statuses);
+  [
+    {
+      filterName: "Statuses",
+      dataCy: "task-status-filter",
+      urlParam: "statuses"
+    },
+    {
+      filterName: "Base Statuses",
+      dataCy: "task-base-status-filter",
+      urlParam: "baseStatuses"
+    }
+  ].forEach(({ filterName, dataCy, urlParam }) => {
+    describe(`${filterName} select`, () => {
+      beforeEach(() => {
+        cy.get(`[data-cy=${dataCy}] > .cy-treeselect-bar`).click();
       });
-    });
 
-    [
-      {
-        title: "Failed",
-        key: "failed"
-      },
-      {
-        title: "Test Timed Out",
-        key: "test-timed-out"
-      },
-      {
-        title: "Success",
-        key: "success"
-      },
-      {
-        title: "Running",
-        key: "dispatched"
-      },
-      {
-        title: "Started",
-        key: "started"
-      },
-      {
-        title: "Unstarted",
-        key: "unstarted"
-      },
-      {
-        title: "Undispatched",
-        key: "undispatched"
-      },
-      {
-        title: "System Failed",
-        key: "system-failed"
-      },
-      {
-        title: "Setup Failed",
-        key: "setup-failed"
-      },
-      {
-        title: "Blocked",
-        key: "blocked"
-      }
-    ].forEach(({ title, key }) => {
-      it(`Clicking on singular statuses '${title}' updates url status with '${key}'`, () => {
-        clickCheckboxesAndAssertCorrectUrlParams(title, key);
+      it("Clicking on 'All' checkbox adds all statuses to URL. Clicking again removes all statuses.", () => {
+        cy.get(".cy-checkbox")
+          .contains("All")
+          .then($all => {
+            $all.click();
+            locationHasUpdatedFilterParam(allStatuses, urlParam);
+            $all.click();
+            locationHasUpdatedFilterParam(null);
+          });
+      });
+
+      parentStatuses.forEach(({ title, statuses }) => {
+        it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
+          clickCheckboxesAndAssertCorrectUrlParams(title, statuses);
+        });
+      });
+
+      statuses.forEach(({ title, key }) => {
+        it(`Clicking on singular statuses '${title}' updates url status with '${key}'`, () => {
+          clickCheckboxesAndAssertCorrectUrlParams(title, key);
+        });
       });
     });
   });

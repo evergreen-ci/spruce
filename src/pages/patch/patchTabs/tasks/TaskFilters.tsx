@@ -1,9 +1,11 @@
 import React from "react";
 import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
 import Icon from "@leafygreen-ui/icon";
-import { FiltersWrapper, StyledInput } from "components/styles";
+// import { FiltersWrapper, StyledInput } from "components/styles";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
+import { Input } from "antd";
+import styled from "@emotion/styled";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -23,28 +25,30 @@ export const TaskFilters: React.FC = () => {
 
   return (
     <FiltersWrapper>
-      <StyledInput
+      <Input
+        style={{ width: "25%" }}
         data-cy="task-name-input"
         placeholder="Search Task Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={taskNameFilterValue}
         onChange={taskNameFilterValueOnChange}
       />
-      <StyledInput
+      <Input
+        style={{ width: "25%" }}
         data-cy="variant-input"
         placeholder="Search Variant Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
         onChange={variantFilterValueOnChange}
       />
-      <TreeSelect
+      <StyledTreeSelect
         onChange={statusesValOnChange}
         state={statusesVal}
         tData={statusesTreeData}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
       />
-      <TreeSelect
+      <StyledTreeSelect
         onChange={baseStatusesValOnChange}
         state={baseStatusesVal}
         tData={statusesTreeData}
@@ -133,3 +137,14 @@ const statusesTreeData = [
     key: TaskStatus.StatusBlocked
   }
 ];
+
+const FiltersWrapper = styled.div`
+  display: flex;
+  margin-bottom: 12px;
+  > :not(:last-child) {
+    margin-right: 20px;
+  }
+`;
+const StyledTreeSelect = styled(TreeSelect)`
+  width: 25%;
+`;
