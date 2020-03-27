@@ -34,6 +34,32 @@ const tabToIndexMap = {
   [TaskTab.BuildBaron]: 3
 };
 const DEFAULT_TAB = TaskTab.Logs;
+export interface Patch {
+  id: string;
+  description: string;
+  projectID: string;
+  githash: string;
+  patchNumber: number;
+  author: string;
+  version: string;
+  status: string;
+  activated: string;
+  alias: string;
+  taskCount: string;
+  duration: {
+    makespan: string;
+    timeTaken: string;
+  };
+  time: {
+    started?: string;
+    finished?: string;
+    submittedAt: string;
+  };
+}
+
+export interface PatchQuery {
+  patch: Patch;
+}
 
 const GET_TASK = gql`
   query GetTask($taskId: String!) {
@@ -49,10 +75,17 @@ const GET_TASK = gql`
       timeTaken
       baseCommitDuration
       hostId
+      reliesOn
     }
   }
 `;
 
+interface Dependency {
+  name: string;
+  metStatus: MetStatus;
+  requiredStatus: RequiredStatus;
+  buildVariant: string;
+}
 interface TaskQuery {
   task: {
     version: string;
@@ -66,6 +99,7 @@ interface TaskQuery {
     timeTaken: number;
     baseCommitDuration: number;
     hostId: string;
+    reliesOn: Dependency[];
   };
 }
 
