@@ -25,9 +25,12 @@ export const useStatusesFilter = (
     replace(`${pathname}?${nextQueryParams}`);
   };
 
-  const parsed = queryString.parse(search, { arrayFormat });
-  const statuses = parsed[urlParam];
-  const value = Array.isArray(statuses) ? statuses : [statuses].filter(v => v);
+  const { [urlParam]: rawStatuses } = queryString.parse(search, {
+    arrayFormat
+  });
+  const value = Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses].filter(v => v);
   return [value, onChange];
 };
 

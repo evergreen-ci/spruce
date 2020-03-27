@@ -15,7 +15,7 @@ export const StatusSelector = () => {
       state={statusVal}
       tData={treeData}
       inputLabel="Test Status:  "
-      id="cy-test-status-select"
+      dataCy="test-status-select"
     />
   );
 };

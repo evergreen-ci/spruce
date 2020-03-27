@@ -38,8 +38,8 @@ export const TaskFilters: React.FC = () => {
         onChange={statusesValOnChange}
         state={statusesVal}
         tData={statusesTreeData}
-        inputLabel={`Test Status: ${statusesVal}`}
-        id="cy-test-status-select"
+        inputLabel="Task Status: "
+        dataCy="task-status-filter"
       />
     </FiltersWrapper>
   );
@@ -52,9 +52,9 @@ const statusesTreeData = [
     key: "all"
   },
   {
-    title: "Failed",
-    value: "all failures",
-    key: "all failures",
+    title: "Failures",
+    value: "all-failures",
+    key: "all-failures",
     children: [
       {
         title: "Failed",
@@ -69,9 +69,14 @@ const statusesTreeData = [
     ]
   },
   {
-    title: "Succeeded",
+    title: "Success",
     value: TaskStatus.Succeeded,
     key: TaskStatus.Succeeded
+  },
+  {
+    title: "Running",
+    value: TaskStatus.Dispatched,
+    key: TaskStatus.Dispatched
   },
   {
     title: "Started",
@@ -80,13 +85,8 @@ const statusesTreeData = [
   },
   {
     title: "Scheduled",
-    value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched
-  },
-  {
-    title: "Not Scheduled",
-    value: "not started",
-    key: "not started",
+    value: "scheduled",
+    key: "scheduled",
     children: [
       {
         title: "Unstarted",
@@ -102,8 +102,8 @@ const statusesTreeData = [
   },
   {
     title: "System Issues",
-    value: "system issues",
-    key: "system issues",
+    value: "system-issues",
+    key: "system-issues",
     children: [
       {
         title: "System Failed",
@@ -121,10 +121,5 @@ const statusesTreeData = [
     title: "Blocked",
     value: TaskStatus.StatusBlocked,
     key: TaskStatus.StatusBlocked
-  },
-  {
-    title: "Pending",
-    value: TaskStatus.StatusPending,
-    key: TaskStatus.StatusPending
   }
 ];
