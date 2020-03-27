@@ -60,12 +60,8 @@ export const TreeSelect = ({
         .join(", ");
 
   return (
-    <Wrapper data-cy={dataCy} ref={wrapperRef}>
-      <BarWrapper
-        onClick={toggleOptions}
-        className="cy-treeselect-bar"
-        width={width}
-      >
+    <Wrapper data-cy={dataCy} ref={wrapperRef} width={width}>
+      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
         <LabelWrapper>
           {inputLabel}
           {optionsLabel || "No filters selected"}
@@ -310,8 +306,7 @@ const BarWrapper = styled.div`
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
   padding: 8px;
-  width: ${(props: { width?: string }) =>
-    props.width ? props.width : "352px"};
+  width: 100%;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -327,8 +322,7 @@ const OptionsWrapper = styled.div`
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
-  width: ${(props: { width?: string }) =>
-    props.width ? props.width : "352px"};
+  width: width: 100%;
   margin-top: 5px;
 `;
 const ArrowWrapper = styled.span`
