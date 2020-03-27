@@ -11,18 +11,15 @@ import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
-  SiderCard,
   PageContent,
   PageLayout,
-  PageSider,
-  Divider
+  PageSider
 } from "components/styles";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
-import { H3, P2 } from "components/Typography";
-import { Skeleton } from "antd";
+import { Metadata } from "./task/Metadata";
 
 enum TaskTab {
   Logs = "logs",
@@ -45,7 +42,6 @@ const GET_TASK = gql`
       displayName
       patchNumber
       status
-<<<<<<< HEAD
       activatedBy
       createTime
       startTime
@@ -53,8 +49,6 @@ const GET_TASK = gql`
       timeTaken
       baseCommitDuration
       hostId
-=======
->>>>>>> 0b4effda22a90691ac056023f238deceea33b9c5
     }
   }
 `;
@@ -129,27 +123,7 @@ export const Task: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
-          <SiderCard>
-            {loading ? (
-              <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-            ) : (
-              <>
-                <H3>Task Metadata</H3>
-                <Divider />
-                <P2>Submitted by: {activatedBy}</P2>
-                <P2>Submitted at: {createTime}</P2>
-                <P2>Started: {startTime}</P2>
-                <P2>Finished: {finishTime}</P2>
-                <P2>Duration: {timeTaken} </P2>
-                <P2>Base commit duration: {baseCommitDuration}</P2>
-                <P2>Base commit</P2>
-                <P2>Host: {hostId}</P2>
-                <div />
-              </>
-            )}
-            <H3>Depends On</H3>
-            <Divider />
-          </SiderCard>
+          <Metadata data={data} loading={loading} />
         </PageSider>
         <PageLayout>
           <PageContent>
