@@ -14,12 +14,15 @@ import {
   SiderCard,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
+  Divider
 } from "components/styles";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
+import { H3, P2 } from "components/Typography";
+import { Skeleton } from "antd";
 
 enum TaskTab {
   Logs = "logs",
@@ -42,6 +45,13 @@ const GET_TASK = gql`
       displayName
       patchNumber
       status
+      activatedBy
+      createTime
+      startTime
+      finishTime
+      timeTaken
+      baseCommitDuration
+      hostId
     }
   }
 `;
@@ -52,6 +62,13 @@ interface TaskQuery {
     displayName: string;
     patchNumber: number;
     status: string;
+    activatedBy: string;
+    createTime: string;
+    startTime: string;
+    finishTime: string;
+    timeTaken: number;
+    baseCommitDuration: number;
+    hostId: string;
   };
 }
 
@@ -75,7 +92,19 @@ export const Task: React.FC = () => {
     return <div>{error.message}</div>;
   }
   const {
-    task: { displayName, version, patchNumber, status }
+    task: {
+      displayName,
+      version,
+      patchNumber,
+      status,
+      activatedBy,
+      createTime,
+      startTime,
+      finishTime,
+      timeTaken,
+      baseCommitDuration,
+      hostId
+    }
   } = data;
 
   return (
@@ -97,8 +126,27 @@ export const Task: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
-          <SiderCard>Patch Metadata</SiderCard>
-          <SiderCard>Build Variants</SiderCard>
+          <SiderCard>
+            {loading ? (
+              <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
+            ) : (
+              <>
+                <H3>Task Metadata</H3>
+                <Divider />
+                <P2>Submitted by: {activatedBy}</P2>
+                <P2>Submitted at: {createTime}</P2>
+                <P2>Started: {startTime}</P2>
+                <P2>Finished: {finishTime}</P2>
+                <P2>Duration: {timeTaken} </P2>
+                <P2>Base commit duration: {baseCommitDuration}</P2>
+                <P2>Base commit</P2>
+                <P2>Host: {hostId}</P2>
+                <div />
+              </>
+            )}
+            <H3>Depends On</H3>
+            <Divider />
+          </SiderCard>
         </PageSider>
         <PageLayout>
           <PageContent>
