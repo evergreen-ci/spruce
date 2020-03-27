@@ -3,14 +3,15 @@ import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "./task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
 import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { H1 } from "components/Typography";
+import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
   SiderCard,
-  PageHeader,
   PageContent,
   PageLayout,
   PageSider
@@ -40,6 +41,7 @@ const GET_TASK = gql`
       version
       displayName
       patchNumber
+      status
     }
   }
 `;
@@ -49,6 +51,7 @@ interface TaskQuery {
     version: string;
     displayName: string;
     patchNumber: number;
+    status: string;
   };
 }
 
@@ -72,7 +75,7 @@ export const Task: React.FC = () => {
     return <div>{error.message}</div>;
   }
   const {
-    task: { displayName, version, patchNumber }
+    task: { displayName, version, patchNumber, status }
   } = data;
 
   return (
@@ -82,9 +85,16 @@ export const Task: React.FC = () => {
         versionId={version}
         patchNumber={patchNumber}
       />
-      <PageHeader>
-        <H1>Current Task Name</H1>
-      </PageHeader>
+      <PageTitle
+        loading={loading}
+        hasData={!!(displayName && status)}
+        title={displayName}
+        badge={
+          <ErrorBoundary>
+            <TaskStatusBadge status={status} />
+          </ErrorBoundary>
+        }
+      />
       <PageLayout>
         <PageSider>
           <SiderCard>Patch Metadata</SiderCard>

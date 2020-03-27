@@ -1,8 +1,8 @@
 import React from "react";
 import { loader } from "components/Loading/Loader";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { TaskResult } from "gql/queries/get-patch-tasks";
 import { InfinityTable } from "antd-table-infinity";
-import Badge, { Variant } from "@leafygreen-ui/badge";
 import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
 import { StyledRouterLink } from "components/styles/StyledLink";
@@ -10,8 +10,6 @@ import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
 import { TaskSortDir } from "gql/queries/get-patch-tasks";
-import { TaskStatus } from "types/task";
-import styled from "@emotion/styled/macro";
 
 interface Props {
   networkStatus: NetworkStatus;
@@ -64,65 +62,6 @@ const getSortDirFromOrder = (order: "ascend" | "descend") =>
 
 const rowKey = ({ id }: { id: string }): string => id;
 
-const mapTaskStatusToBadgeVariant = {
-  [TaskStatus.Inactive]: Variant.LightGray,
-  [TaskStatus.Unstarted]: Variant.LightGray,
-  [TaskStatus.Undispatched]: Variant.LightGray,
-  [TaskStatus.Started]: Variant.Yellow,
-  [TaskStatus.Dispatched]: Variant.Yellow,
-  [TaskStatus.Succeeded]: Variant.Green,
-  [TaskStatus.Failed]: Variant.Red,
-  [TaskStatus.StatusBlocked]: Variant.DarkGray,
-  [TaskStatus.StatusPending]: Variant.LightGray
-};
-
-const failureColors = {
-  text: "#800080",
-  border: "#CC99CC",
-  fill: "#E6CCE6"
-};
-
-// the status colors that are not supported by the leafygreen Badge variants
-const mapUnsupportedBadgeColors = {
-  [TaskStatus.SystemFailed]: failureColors,
-  [TaskStatus.TestTimedOut]: failureColors,
-  [TaskStatus.SetupFailed]: {
-    border: "#E7DBEC",
-    fill: "#F3EDF5",
-    text: "#877290"
-  }
-};
-
-interface BadgeColorProps {
-  border: string;
-  fill: string;
-  text: string;
-}
-
-// only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
-const StyledBadge = styled(Badge)`
-  border-color: ${(props: BadgeColorProps) => props.border} !important;
-  background-color: ${(props: BadgeColorProps) => props.fill} !important;
-  color: ${(props: BadgeColorProps) => props.text} !important;
-`;
-
-const renderStatusBadge = (status: string) => {
-  if (status in mapTaskStatusToBadgeVariant) {
-    return (
-      <Badge key={status} variant={mapTaskStatusToBadgeVariant[status]}>
-        {status}
-      </Badge>
-    );
-  } else if (status in mapUnsupportedBadgeColors) {
-    return (
-      <StyledBadge key={status} {...mapUnsupportedBadgeColors[status]}>
-        {status}
-      </StyledBadge>
-    );
-  }
-  throw new Error(`Status '${status}' is not a valid task status`);
-};
-
 enum TableColumnHeader {
   Name = "NAME",
   Status = "STATUS",
@@ -130,6 +69,7 @@ enum TableColumnHeader {
   Variant = "VARIANT"
 }
 
+const renderStatusBadge = status => <TaskStatusBadge status={status} />;
 const columns: Array<ColumnProps<TaskResult>> = [
   {
     title: "Name",
