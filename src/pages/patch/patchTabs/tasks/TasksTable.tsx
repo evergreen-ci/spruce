@@ -29,11 +29,14 @@ export const TasksTable: React.FC<Props> = ({
     ...[, , { order, columnKey }]
   ) => {
     replace(
-      `${pathname}?${queryString.stringify({
-        ...queryString.parse(search),
-        [PatchTasksQueryParams.SortDir]: getSortDirFromOrder(order),
-        [PatchTasksQueryParams.SortBy]: columnKey
-      })}`
+      `${pathname}?${queryString.stringify(
+        {
+          ...queryString.parse(search, { arrayFormat }),
+          [PatchTasksQueryParams.SortDir]: getSortDirFromOrder(order),
+          [PatchTasksQueryParams.SortBy]: columnKey
+        },
+        { arrayFormat }
+      )}`
     );
   };
 
@@ -52,6 +55,8 @@ export const TasksTable: React.FC<Props> = ({
     />
   );
 };
+
+const arrayFormat = "comma";
 
 const orderKeyToSortParam = {
   ascend: TaskSortDir.Asc,

@@ -30,7 +30,8 @@ export const TreeSelect = ({
   tData,
   onChange,
   inputLabel, // label for the select
-  dataCy // for testing only
+  dataCy, // for testing only
+  width
 }: Props) => {
   const wrapperRef = useRef(null);
   const [isVisible, setisVisible] = useState<boolean>(false);
@@ -60,7 +61,11 @@ export const TreeSelect = ({
 
   return (
     <Wrapper data-cy={dataCy} ref={wrapperRef}>
-      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
+      <BarWrapper
+        onClick={toggleOptions}
+        className="cy-treeselect-bar"
+        width={width}
+      >
         <LabelWrapper>
           {inputLabel}
           {optionsLabel || "No filters selected"}
