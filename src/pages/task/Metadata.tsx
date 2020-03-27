@@ -13,7 +13,7 @@ export const Metadata = ({ loading, data }) => {
   const timeTaken = get(task, "timeTaken");
   const baseCommitDuration = get(task, "baseCommitDuration");
   const hostId = get(task, "hostId");
-  c;
+
   return (
     <SiderCard>
       {loading ? (
