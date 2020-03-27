@@ -1,8 +1,9 @@
 import React from "react";
-import { useFilterInputChangeHandler } from "hooks";
+import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { FiltersWrapper, StyledInput } from "components/styles";
-import { PatchTasksQueryParams } from "types/task";
+import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import { TreeSelect } from "components/TreeSelect";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -13,6 +14,9 @@ export const TaskFilters: React.FC = () => {
     taskNameFilterValue,
     taskNameFilterValueOnChange
   ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName);
+  const [statusesVal, statusesValOnChange] = useStatusesFilter(
+    PatchTasksQueryParams.Statuses
+  );
 
   return (
     <FiltersWrapper>
@@ -30,6 +34,92 @@ export const TaskFilters: React.FC = () => {
         value={variantFilterValue}
         onChange={variantFilterValueOnChange}
       />
+      <TreeSelect
+        onChange={statusesValOnChange}
+        state={statusesVal}
+        tData={statusesTreeData}
+        inputLabel="Task Status: "
+        dataCy="task-status-filter"
+      />
     </FiltersWrapper>
   );
 };
+
+const statusesTreeData = [
+  {
+    title: "All",
+    value: "all",
+    key: "all"
+  },
+  {
+    title: "Failures",
+    value: "all-failures",
+    key: "all-failures",
+    children: [
+      {
+        title: "Failed",
+        value: TaskStatus.Failed,
+        key: TaskStatus.Failed
+      },
+      {
+        title: "Test Timed Out",
+        value: TaskStatus.TestTimedOut,
+        key: TaskStatus.TestTimedOut
+      }
+    ]
+  },
+  {
+    title: "Success",
+    value: TaskStatus.Succeeded,
+    key: TaskStatus.Succeeded
+  },
+  {
+    title: "Running",
+    value: TaskStatus.Dispatched,
+    key: TaskStatus.Dispatched
+  },
+  {
+    title: "Started",
+    value: TaskStatus.Started,
+    key: TaskStatus.Started
+  },
+  {
+    title: "Scheduled",
+    value: "scheduled",
+    key: "scheduled",
+    children: [
+      {
+        title: "Unstarted",
+        value: TaskStatus.Unstarted,
+        key: TaskStatus.Unstarted
+      },
+      {
+        title: "Undispatched",
+        value: TaskStatus.Undispatched,
+        key: TaskStatus.Undispatched
+      }
+    ]
+  },
+  {
+    title: "System Issues",
+    value: "system-issues",
+    key: "system-issues",
+    children: [
+      {
+        title: "System Failed",
+        value: TaskStatus.SystemFailed,
+        key: TaskStatus.SystemFailed
+      }
+    ]
+  },
+  {
+    title: "Setup Failed",
+    value: TaskStatus.SetupFailed,
+    key: TaskStatus.SetupFailed
+  },
+  {
+    title: "Blocked",
+    value: TaskStatus.StatusBlocked,
+    key: TaskStatus.StatusBlocked
+  }
+];

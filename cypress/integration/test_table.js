@@ -99,11 +99,11 @@ describe("Tests Table", function() {
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get("#cy-test-status-select > .cy-treeselect-bar").click();
+      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
     });
 
     it("Status select says 'No filters selected' by default", () => {
-      cy.get("#cy-test-status-select").contains("No filters selected");
+      cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL ", () => {
