@@ -147,6 +147,3 @@ const FiltersWrapper = styled.div`
     margin-right: 20px;
   }
 `;
-const StyledTreeSelect = styled(TreeSelect)`
-  width: 25%;
-`;
