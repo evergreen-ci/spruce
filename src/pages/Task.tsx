@@ -45,6 +45,7 @@ const GET_TASK = gql`
       displayName
       patchNumber
       status
+<<<<<<< HEAD
       activatedBy
       createTime
       startTime
@@ -52,6 +53,8 @@ const GET_TASK = gql`
       timeTaken
       baseCommitDuration
       hostId
+=======
+>>>>>>> 0b4effda22a90691ac056023f238deceea33b9c5
     }
   }
 `;
