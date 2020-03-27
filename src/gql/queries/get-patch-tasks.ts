@@ -69,6 +69,7 @@ export interface PatchTasksVariables {
   sortDir?: SortDir;
   page?: number;
   statuses?: [PatchStatus];
+  baseStatuses?: [PatchStatus];
   variant?: string;
   taskName?: string;
 }
