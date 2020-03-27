@@ -6,7 +6,6 @@ const patch = {
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-const urlWithStatusesParam = `all%20failures,failed,test-timed-out`;
 const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
 
 describe("Tasks filters", function() {
