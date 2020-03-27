@@ -80,7 +80,7 @@ describe("Tabs", () => {
     it("clicking away from each tab doesn't crash app", () => {
       cy.visit(task.logs.route);
       cy.get(task.tests.btn).click();
-      cy.get("#cy-test-status-select").should("exist");
+      cy.get("[data-cy=test-status-select]").should("exist");
       cy.get(task.files.btn).click();
       cy.contains("No files found");
       cy.get(task.logs.btn).click();
