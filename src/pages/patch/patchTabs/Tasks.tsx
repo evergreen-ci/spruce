@@ -143,7 +143,8 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     sortDir,
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
-    [PatchTasksQueryParams.Statuses]: rawStatuses
+    [PatchTasksQueryParams.Statuses]: rawStatuses,
+    [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses
   } = queryString.parse(search, { arrayFormat: "comma" });
 
   return {
@@ -153,6 +154,9 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getArray(rawStatuses).filter(
+      status => status in statusesToIncludeInQuery
+    ),
+    baseStatuses: getArray(rawBaseStatuses).filter(
       status => status in statusesToIncludeInQuery
     ),
     page

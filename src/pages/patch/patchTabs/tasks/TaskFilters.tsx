@@ -17,6 +17,9 @@ export const TaskFilters: React.FC = () => {
   const [statusesVal, statusesValOnChange] = useStatusesFilter(
     PatchTasksQueryParams.Statuses
   );
+  const [baseStatusesVal, baseStatusesValOnChange] = useStatusesFilter(
+    PatchTasksQueryParams.BaseStatuses
+  );
 
   return (
     <FiltersWrapper>
@@ -40,6 +43,13 @@ export const TaskFilters: React.FC = () => {
         tData={statusesTreeData}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
+      />
+      <TreeSelect
+        onChange={baseStatusesValOnChange}
+        state={baseStatusesVal}
+        tData={statusesTreeData}
+        inputLabel="Task Base Status: "
+        dataCy="task-base-status-filter"
       />
     </FiltersWrapper>
   );

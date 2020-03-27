@@ -10,6 +10,7 @@ export const GET_PATCH_TASKS = gql`
     $sortDir: SortDirection
     $page: Int
     $statuses: [String!]
+    $baseStatuses: [String!]
     $variant: String
     $taskName: String
   ) {
@@ -18,6 +19,7 @@ export const GET_PATCH_TASKS = gql`
       limit: ${PATCH_TASKS_LIMIT}
       page: $page
       statuses: $statuses
+      baseStatuses: $baseStatuses
       sortDir: $sortDir
       sortBy: $sortBy
       variant: $variant
