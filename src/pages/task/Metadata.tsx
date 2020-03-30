@@ -26,13 +26,13 @@ export const Metadata = ({
   const hostLink = get(task, "hostLink");
   const startTime = get(task, "startTime");
   const timeTaken = get(task, "timeTaken");
+  const baseCommit = get(task, "revision", "").slice(0, 10);
 
   const baseTaskMetadata = get(task, "baseTaskMetadata");
   const baseTaskDuration = get(baseTaskMetadata, "baseTaskDuration");
   const baseTaskLink = get(baseTaskMetadata, "baseTaskLink");
 
   const patchMetadata = get(task, "patchMetadata");
-  const githash = get(patchMetadata, "githash", "").slice(0, 10);
   const author = get(patchMetadata, "author", "");
 
   if (loading) {
@@ -62,7 +62,7 @@ export const Metadata = ({
       <P2>Duration: {secToDuration(timeTaken)} </P2>
       <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
       <P2>
-        Base commit: <a href={baseTaskLink}>{githash.slice(0, 10)}</a>
+        Base commit: <a href={baseTaskLink}>{baseCommit}</a>
       </P2>
       <P2>
         Host: <a href={hostLink}>{hostId}</a>

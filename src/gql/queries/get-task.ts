@@ -28,6 +28,7 @@ export const GET_TASK = gql`
       status
       timeTaken
       version
+      revision
     }
   }
 `;
@@ -49,7 +50,6 @@ interface Dependency {
 
 interface PatchMetadata {
   author: string;
-  githash: string;
 }
 
 interface Task {
@@ -67,6 +67,7 @@ interface Task {
   status: string;
   timeTaken: number;
   version: string;
+  revision: string;
 }
 
 export interface TaskQuery {
