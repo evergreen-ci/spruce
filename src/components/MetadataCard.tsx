@@ -3,9 +3,13 @@ import { H3 } from "components/Typography";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 
-export const MetadataCard: React.FC = ({ children }) => (
+interface Props {
+  title: string;
+}
+
+export const MetadataCard: React.FC<Props> = ({ title, children }) => (
   <SiderCard>
-    <H3>Patch Metadata</H3>
+    <H3>{title}</H3>
     <Divider />
     {children}
   </SiderCard>
