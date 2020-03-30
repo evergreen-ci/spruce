@@ -1,12 +1,11 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
-import { FilesTables } from "./task/FilesTables";
+import { FilesTables } from "pages/task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import {
@@ -15,11 +14,13 @@ import {
   PageLayout,
   PageSider
 } from "components/styles";
+import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
+import get from "lodash/get";
 
 enum TaskTab {
   Logs = "logs",
@@ -34,74 +35,6 @@ const tabToIndexMap = {
   [TaskTab.BuildBaron]: 3
 };
 const DEFAULT_TAB = TaskTab.Logs;
-export interface Patch {
-  id: string;
-  description: string;
-  projectID: string;
-  githash: string;
-  patchNumber: number;
-  author: string;
-  version: string;
-  status: string;
-  activated: string;
-  alias: string;
-  taskCount: string;
-  duration: {
-    makespan: string;
-    timeTaken: string;
-  };
-  time: {
-    started?: string;
-    finished?: string;
-    submittedAt: string;
-  };
-}
-
-export interface PatchQuery {
-  patch: Patch;
-}
-
-const GET_TASK = gql`
-  query GetTask($taskId: String!) {
-    task(taskId: $taskId) {
-      version
-      displayName
-      patchNumber
-      status
-      activatedBy
-      createTime
-      startTime
-      finishTime
-      timeTaken
-      baseCommitDuration
-      hostId
-      reliesOn
-    }
-  }
-`;
-
-interface Dependency {
-  name: string;
-  metStatus: MetStatus;
-  requiredStatus: RequiredStatus;
-  buildVariant: string;
-}
-interface TaskQuery {
-  task: {
-    version: string;
-    displayName: string;
-    patchNumber: number;
-    status: string;
-    activatedBy: string;
-    createTime: string;
-    startTime: string;
-    finishTime: string;
-    timeTaken: number;
-    baseCommitDuration: number;
-    hostId: string;
-    reliesOn: Dependency[];
-  };
-}
 
 export const Task: React.FC = () => {
   useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
@@ -116,35 +49,21 @@ export const Task: React.FC = () => {
     variables: { taskId: id }
   });
 
-  if (loading) {
-    return <div>"Loading..."</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-  const {
-    task: {
-      displayName,
-      version,
-      patchNumber,
-      status,
-      activatedBy,
-      createTime,
-      startTime,
-      finishTime,
-      timeTaken,
-      baseCommitDuration,
-      hostId
-    }
-  } = data;
+  const task = get(data, "task");
+  const displayName = get(task, "displayName");
+  const patchNumber = get(task, "patchNumber");
+  const status = get(task, "status");
+  const version = get(task, "version");
 
   return (
     <PageWrapper>
-      <BreadCrumb
-        taskName={displayName}
-        versionId={version}
-        patchNumber={patchNumber}
-      />
+      {task && (
+        <BreadCrumb
+          taskName={displayName}
+          versionId={version}
+          patchNumber={patchNumber}
+        />
+      )}
       <PageTitle
         loading={loading}
         hasData={!!(displayName && status)}
@@ -157,7 +76,7 @@ export const Task: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
-          <Metadata data={data} loading={loading} />
+          <Metadata data={data} loading={loading} error={error} />
         </PageSider>
         <PageLayout>
           <PageContent>

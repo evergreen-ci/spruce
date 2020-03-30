@@ -2,38 +2,85 @@ import React from "react";
 import { SiderCard, Divider } from "components/styles";
 import { H3, P2 } from "components/Typography";
 import { Skeleton } from "antd";
-import get from "lodash.get";
+import { format } from "date-fns";
+import { TaskQuery } from "gql/queries/get-task";
+import get from "lodash/get";
+import { msToDuration } from "utils/string";
+import { MetadataCard } from "components/MetadataCard";
+import { ApolloError } from "apollo-client";
 
-export const Metadata = ({ loading, data }) => {
-  const task = get(data, "task");
-  const activatedBy = get(task, "activatedBy");
+export const Metadata = ({
+  loading,
+  data,
+  error
+}: {
+  loading: boolean;
+  data: TaskQuery;
+  error: ApolloError;
+}) => {
+  const task = data ? data.task : null;
+
   const createTime = get(task, "createTime");
-  const startTime = get(task, "startTime");
   const finishTime = get(task, "finishTime");
-  const timeTaken = get(task, "timeTaken");
-  const baseCommitDuration = get(task, "baseCommitDuration");
   const hostId = get(task, "hostId");
+  const hostLink = get(task, "hostLink");
+  const startTime = get(task, "startTime");
+  const timeTaken = get(task, "timeTaken");
+
+  const baseTaskMetadata = get(task, "baseTaskMetadata");
+  const baseTaskDuration = get(baseTaskMetadata, "baseTaskDuration");
+  const baseTaskLink = get(baseTaskMetadata, "baseTaskLink");
+
+  const patchMetadata = get(task, "patchMetadata");
+  const githash = get(patchMetadata, "githash", "").slice(0, 10);
+  const author = get(patchMetadata, "author", "");
+
+  if (loading) {
+    return (
+      <MetadataCard title={CARD_TITLE}>
+        <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
+      </MetadataCard>
+    );
+  }
+
+  if (error) {
+    return (
+      <MetadataCard title={CARD_TITLE}>
+        <div data-cy="task-metadata-error">{error.message}</div>
+      </MetadataCard>
+    );
+  }
 
   return (
-    <SiderCard>
-      {loading ? (
-        <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-      ) : (
-        <>
-          <H3>Task Metadata</H3>
-          <Divider />
-          <P2>Submitted by: {activatedBy}</P2>
-          <P2>Submitted at: {createTime}</P2>
-          <P2>Started: {startTime}</P2>
-          <P2>Finished: {finishTime}</P2>
-          <P2>Duration: {timeTaken} </P2>
-          <P2>Base commit duration: {baseCommitDuration}</P2>
-          <P2>Host: {hostId}</P2>
-          <div />
-        </>
-      )}
+    <MetadataCard title={CARD_TITLE}>
+      <H3>Task Metadata</H3>
+      <Divider />
+      <P2>Submitted by: {author}</P2>
+      <P2>Submitted at: {getDateCopy(createTime)}</P2>
+      <P2>Started: {getDateCopy(startTime)}</P2>
+      <P2>Finished: {getDateCopy(finishTime)}</P2>
+      <P2>Duration: {secToDuration(timeTaken)} </P2>
+      <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
+      <P2>
+        Base commit: <a href={baseTaskLink}>{githash.slice(0, 10)}</a>
+      </P2>
+      <P2>
+        Host: <a href={hostLink}>{hostId}</a>
+      </P2>
+      <div />
       <H3>Depends On</H3>
       <Divider />
-    </SiderCard>
+    </MetadataCard>
   );
 };
+
+const CARD_TITLE = "Task Metadata";
+
+const secToDuration = (seconds: number) => {
+  const ms = seconds * 1000;
+  return msToDuration(Math.trunc(ms));
+};
+
+const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
+const getDateCopy = (d: string): string =>
+  d ? format(new Date(d), DATE_FORMAT) : "";
