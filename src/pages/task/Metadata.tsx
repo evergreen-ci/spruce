@@ -8,6 +8,7 @@ import get from "lodash/get";
 import { msToDuration } from "utils/string";
 import { MetadataCard } from "components/MetadataCard";
 import { ApolloError } from "apollo-client";
+import { StyledLink } from "components/styles";
 
 export const Metadata = ({
   loading,
@@ -60,10 +61,10 @@ export const Metadata = ({
       <P2>Duration: {secToDuration(timeTaken)} </P2>
       <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
       <P2>
-        Base commit: <a href={baseTaskLink}>{baseCommit}</a>
+        Base commit: <StyledLink href={baseTaskLink}>{baseCommit}</StyledLink>
       </P2>
       <P2>
-        Host: <a href={hostLink}>{hostId}</a>
+        Host: <StyledLink href={hostLink}>{hostId}</StyledLink>
       </P2>
       <div />
       <H3>Depends On</H3>
