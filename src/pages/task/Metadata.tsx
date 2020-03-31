@@ -1,7 +1,6 @@
 import React from "react";
 import { Divider } from "components/styles";
 import { H3, P2 } from "components/Typography";
-import { Skeleton } from "antd";
 import { format } from "date-fns";
 import { TaskQuery } from "gql/queries/get-task";
 import get from "lodash/get";
@@ -37,24 +36,8 @@ export const Metadata = ({
   const patchMetadata = get(task, "patchMetadata");
   const author = get(patchMetadata, "author", "");
 
-  if (loading) {
-    return (
-      <MetadataCard title={CARD_TITLE}>
-        <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-      </MetadataCard>
-    );
-  }
-
-  if (error) {
-    return (
-      <MetadataCard title={CARD_TITLE}>
-        <div data-cy="task-metadata-error">{error.message}</div>
-      </MetadataCard>
-    );
-  }
-
   return (
-    <MetadataCard title={CARD_TITLE}>
+    <MetadataCard error={error} loading={loading} title="Task Metadata">
       <P2>Submitted by: {author}</P2>
       <P2>Submitted at: {getDateCopy(createTime)}</P2>
       <P2>Started: {getDateCopy(startTime)}</P2>
@@ -79,8 +62,6 @@ export const Metadata = ({
     </MetadataCard>
   );
 };
-
-const CARD_TITLE = "Task Metadata";
 
 const secToDuration = (seconds: number) => {
   const ms = seconds * 1000;

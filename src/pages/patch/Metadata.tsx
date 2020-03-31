@@ -1,5 +1,4 @@
 import React from "react";
-import { Skeleton } from "antd";
 import { P2 } from "components/Typography";
 import { StyledLink } from "components/styles";
 import { Patch } from "gql/queries/patch";
@@ -12,34 +11,14 @@ interface Props {
   error: ApolloError;
   patch: Patch;
 }
-const CARD_TITLE = "Patch Metadata";
 
 export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
-  if (loading) {
-    return (
-      <MetadataCard title={CARD_TITLE}>
-        <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-      </MetadataCard>
-    );
-  }
-  if (error) {
-    // TODO: replace with actual error message display
-    return (
-      <MetadataCard title={CARD_TITLE}>
-        <div id="patch-error">{error.message}</div>
-      </MetadataCard>
-    );
-  }
-  const {
-    author,
-    githash,
-    version,
-    time: { submittedAt, started, finished },
-    duration: { makespan, timeTaken }
-  } = patch;
+  const { author, githash, version, time, duration } = patch || {};
+  const { submittedAt, started, finished } = time || {};
+  const { makespan, timeTaken } = duration || {};
 
   return (
-    <MetadataCard title={CARD_TITLE}>
+    <MetadataCard loading={loading} error={error} title="Patch Metadata">
       <P2>Makespan: {makespan && makespan}</P2>
       <P2>Time taken: {timeTaken && timeTaken}</P2>
       <P2>Submitted at: {submittedAt}</P2>
@@ -51,7 +30,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
           id="patch-base-commit"
           href={`${getUiUrl()}/version/${version}`}
         >
-          Base commit: {githash.slice(0, 10)}
+          Base commit: {githash ? githash.slice(0, 10) : ""}
         </StyledLink>
       </P2>
     </MetadataCard>
