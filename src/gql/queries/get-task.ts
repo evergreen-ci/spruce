@@ -23,6 +23,7 @@ export const GET_TASK = gql`
         metStatus
         name
         requiredStatus
+        uiLink
       }
       startTime
       status
@@ -46,6 +47,7 @@ interface Dependency {
   metStatus: MetStatus;
   name: string;
   requiredStatus: RequiredStatus;
+  uiLink: string;
 }
 
 interface PatchMetadata {
