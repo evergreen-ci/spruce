@@ -27,7 +27,7 @@ export const Metadata = ({
   const startTime = get(task, "startTime");
   const timeTaken = get(task, "timeTaken");
   const baseCommit = get(task, "revision", "").slice(0, 10);
-
+  const reliesOn = get(task, "reliesOn");
   const baseTaskMetadata = get(task, "baseTaskMetadata");
   const baseTaskDuration = get(baseTaskMetadata, "baseTaskDuration");
   const baseTaskLink = get(baseTaskMetadata, "baseTaskLink");
@@ -50,11 +50,9 @@ export const Metadata = ({
       </MetadataCard>
     );
   }
-
+  console.log(reliesOn);
   return (
     <MetadataCard title={CARD_TITLE}>
-      <H3>Task Metadata</H3>
-      <Divider />
       <P2>Submitted by: {author}</P2>
       <P2>Submitted at: {getDateCopy(createTime)}</P2>
       <P2>Started: {getDateCopy(startTime)}</P2>
