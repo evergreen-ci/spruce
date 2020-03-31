@@ -15,7 +15,7 @@ describe("Tests Table", function() {
   it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     waitForGQL("@gqlQuery", "GetTask");
-    cy.get(".ant-table").should("not.exist");
+    cy.contains("No Data");
   });
 
   it("Should have sort buttons disabled when fetching data", () => {
