@@ -1,14 +1,14 @@
 import React from "react";
+import { ApolloError } from "apollo-client";
+import { DependsOn } from "./metadata/DependsOn";
 import { Divider } from "components/styles";
-import { H3, P2 } from "components/Typography";
 import { format } from "date-fns";
+import { H3, P2 } from "components/Typography";
+import { MetadataCard } from "components/MetadataCard";
+import { msToDuration } from "utils/string";
+import { StyledLink } from "components/styles";
 import { TaskQuery } from "gql/queries/get-task";
 import get from "lodash/get";
-import { msToDuration } from "utils/string";
-import { MetadataCard } from "components/MetadataCard";
-import { ApolloError } from "apollo-client";
-import { StyledLink } from "components/styles";
-import { DependsOn } from "./metadata/DependsOn";
 
 export const Metadata = ({
   loading,
