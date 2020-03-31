@@ -63,6 +63,10 @@ const statuses = [
   {
     title: "Blocked",
     key: "blocked"
+  },
+  {
+    title: "Won't Run",
+    key: "inactive"
   }
 ];
 
@@ -74,23 +78,23 @@ describe("Tasks filters", function() {
     cy.visit(pathTasks);
   });
 
-  describe("Variant input field", () => {
+  xdescribe("Variant input field", () => {
     const variantInputValue = "lint";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       locationHasUpdatedFilterParam(variantInputValue, "variant");
-      filteredTasksAreFetched("variant", variantInputValue);
+      filteredTasksAreFetchedAndRendered("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
       locationHasUpdatedFilterParam(null);
     });
   });
 
-  describe("Task name input field", () => {
+  xdescribe("Task name input field", () => {
     const taskNameInputValue = "test-cloud";
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
       locationHasUpdatedFilterParam(taskNameInputValue, "taskName");
-      filteredTasksAreFetched("taskName", taskNameInputValue);
+      filteredTasksAreFetchedAndRendered("taskName", taskNameInputValue);
       cy.get("[data-cy=variant-input]").clear();
       locationHasUpdatedFilterParam(null);
     });
@@ -119,41 +123,51 @@ describe("Tasks filters", function() {
           .then($all => {
             $all.click();
             locationHasUpdatedFilterParam(allStatuses, urlParam);
+            filteredTasksAreFetchedAndRendered();
             $all.click();
             locationHasUpdatedFilterParam(null);
+            filteredTasksAreFetchedAndRendered();
           });
       });
 
       parentStatuses.forEach(({ title, statuses }) => {
         it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
-          clickCheckboxesAndAssertCorrectUrlParams(title, statuses);
+          clickCheckboxesAndAssertCorrectUrlParams(title, statuses, urlParam);
+          filteredTasksAreFetchedAndRendered();
         });
       });
 
       statuses.forEach(({ title, key }) => {
         it(`Clicking on singular statuses '${title}' updates url status with '${key}'`, () => {
-          clickCheckboxesAndAssertCorrectUrlParams(title, key);
+          clickCheckboxesAndAssertCorrectUrlParams(title, key, urlParam);
+          filteredTasksAreFetchedAndRendered();
         });
       });
     });
   });
 });
 
-const clickCheckboxesAndAssertCorrectUrlParams = (checkboxTitle, urlStatus) => {
+const clickCheckboxesAndAssertCorrectUrlParams = (
+  checkboxTitle,
+  urlStatus,
+  urlParam
+) => {
   cy.get(".cy-checkbox")
     .contains(checkboxTitle)
     .then($status => {
       $status.click();
-      locationHasUpdatedFilterParam(urlStatus, "statuses");
+      locationHasUpdatedFilterParam(urlStatus, urlParam);
       $status.click();
       locationHasUpdatedFilterParam(null);
     });
 };
 
-const filteredTasksAreFetched = (variable, value) => {
-  waitForGQL("@gqlQuery", "PatchTasks", {
-    [`request.body.variables[${variable}`]: value
-  });
+const filteredTasksAreFetchedAndRendered = (variable, value) => {
+  const options = {};
+  if (variable && value) {
+    options[`request.body.variables[${variable}]`] = value;
+  }
+  waitForGQL("@gqlQuery", "PatchTasks", options);
   cy.get("@gqlQuery").then(({ response }) => {
     cy.get(".ant-table-row")
       .invoke("toArray")
