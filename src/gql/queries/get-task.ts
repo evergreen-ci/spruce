@@ -33,15 +33,24 @@ export const GET_TASK = gql`
   }
 `;
 
-type MetStatus = "MET" | "UNMET" | "PENDING";
-type RequiredStatus = "MUST_FAIL" | "MUST_SUCCEED" | "MUST_FINISH";
+export enum MetStatus {
+  Met = "MET",
+  Unmet = "UNMET",
+  Pending = "PENDING"
+}
+
+export enum RequiredStatus {
+  MustFail = "MUST_FAIL",
+  MustSucceed = "MUST_SUCCEED",
+  MustFinish = "MUST_FINISH"
+}
 
 interface BaseTaskMetadata {
   baseTaskLink: string;
   baseTaskDuration: number;
 }
 
-interface Dependency {
+export interface Dependency {
   buildVariant: string;
   metStatus: MetStatus;
   name: string;
