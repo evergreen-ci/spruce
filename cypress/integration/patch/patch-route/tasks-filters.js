@@ -78,7 +78,7 @@ describe("Tasks filters", function() {
     cy.visit(pathTasks);
   });
 
-  xdescribe("Variant input field", () => {
+  describe("Variant input field", () => {
     const variantInputValue = "lint";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
@@ -89,7 +89,7 @@ describe("Tasks filters", function() {
     });
   });
 
-  xdescribe("Task name input field", () => {
+  describe("Task name input field", () => {
     const taskNameInputValue = "test-cloud";
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
