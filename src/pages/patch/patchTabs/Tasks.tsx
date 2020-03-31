@@ -16,6 +16,7 @@ import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
+import every from "lodash/every";
 
 interface Props {
   taskCount: string;
@@ -39,9 +40,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     return history.listen(async location => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
         try {
-          const vars = getQueryVariables(id, location.search, 0);
           await fetchMore({
-            variables: vars,
+            variables: getQueryVariables(id, location.search, 0),
             updateQuery: (
               prev: PatchTasksQuery,
               { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -137,6 +137,20 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Unstarted]: true
 };
 
+const getStatuses = (rawStatuses: string[] | string) => {
+  const statuses = getArray(rawStatuses).filter(
+    status => status in statusesToIncludeInQuery
+  );
+  if (
+    every(Object.keys(statusesToIncludeInQuery), status =>
+      statuses.includes(status)
+    )
+  ) {
+    return [];
+  }
+  return statuses;
+};
+
 const getQueryVariables = (patchId: string, search: string, page: number) => {
   const {
     sortBy,
@@ -153,12 +167,8 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     sortDir: getString(sortDir),
     variant: getString(variant),
     taskName: getString(taskName),
-    statuses: getArray(rawStatuses).filter(
-      status => status in statusesToIncludeInQuery
-    ),
-    baseStatuses: getArray(rawBaseStatuses).filter(
-      status => status in statusesToIncludeInQuery
-    ),
+    statuses: getStatuses(rawStatuses),
+    baseStatuses: getStatuses(rawBaseStatuses),
     page
   };
 };

@@ -137,6 +137,11 @@ const statusesTreeData = [
     title: "Blocked",
     value: TaskStatus.StatusBlocked,
     key: TaskStatus.StatusBlocked
+  },
+  {
+    title: "Won't Run",
+    value: TaskStatus.Inactive,
+    key: TaskStatus.Inactive
   }
 ];
 
