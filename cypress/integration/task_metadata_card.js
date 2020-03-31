@@ -13,6 +13,11 @@ describe("Task Metadata Card", function() {
     cy.route("POST", "/graphql/query").as("gqlQuery");
   });
 
+  it("Should show an error message when navigating to a nonexistent task id", () => {
+    cy.visit("task/not-real");
+    cy.get("[data-cy=metadata-card-error]").should("exist");
+  });
+
   it("Base commit link should have href", () => {
     cy.visit(taskRoute);
     cy.get("[data-cy=base-task-link]").should("have.attr", "href");
