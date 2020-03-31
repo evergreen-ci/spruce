@@ -1,5 +1,5 @@
 import React from "react";
-import { SiderCard, Divider } from "components/styles";
+import { Divider } from "components/styles";
 import { H3, P2 } from "components/Typography";
 import { Skeleton } from "antd";
 import { format } from "date-fns";
@@ -9,6 +9,7 @@ import { msToDuration } from "utils/string";
 import { MetadataCard } from "components/MetadataCard";
 import { ApolloError } from "apollo-client";
 import { StyledLink } from "components/styles";
+import { DependsOn } from "./metadata/DependsOn";
 
 export const Metadata = ({
   loading,
@@ -51,7 +52,7 @@ export const Metadata = ({
       </MetadataCard>
     );
   }
-  console.log(reliesOn);
+
   return (
     <MetadataCard title={CARD_TITLE}>
       <P2>Submitted by: {author}</P2>
@@ -66,9 +67,15 @@ export const Metadata = ({
       <P2>
         Host: <StyledLink href={hostLink}>{hostId}</StyledLink>
       </P2>
-      <div />
-      <H3>Depends On</H3>
-      <Divider />
+      {reliesOn && reliesOn.length ? (
+        <>
+          <H3>Depends On</H3>
+          <Divider />
+          {reliesOn.map(props => (
+            <DependsOn {...props} />
+          ))}
+        </>
+      ) : null}
     </MetadataCard>
   );
 };
