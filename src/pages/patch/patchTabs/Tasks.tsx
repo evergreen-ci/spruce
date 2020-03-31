@@ -146,6 +146,9 @@ const getStatuses = (rawStatuses: string[] | string) => {
       statuses.includes(status)
     )
   ) {
+    // returning empty array instead of all statuses prevents bug where no tasks are rendered
+    // for the first request made with/without all statuses.
+    // passing empty array for `All` value is also more performant for filtering on the backend
     return [];
   }
   return statuses;

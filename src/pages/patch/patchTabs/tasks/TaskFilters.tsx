@@ -1,7 +1,6 @@
 import React from "react";
 import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
 import Icon from "@leafygreen-ui/icon";
-// import { FiltersWrapper, StyledInput } from "components/styles";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
 import { Input } from "antd";
