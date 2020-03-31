@@ -15,7 +15,6 @@ export const GET_TASK = gql`
       hostLink
       patchMetadata {
         author
-        githash
       }
       patchNumber
       reliesOn {
