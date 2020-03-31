@@ -1,8 +1,8 @@
 import React from "react";
+import { ApolloError } from "apollo-client";
+import { Divider } from "components/styles/Divider";
 import { H3 } from "components/Typography";
 import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/Divider";
-import { ApolloError } from "apollo-client";
 import { Skeleton } from "antd";
 import styled from "@emotion/styled";
 
