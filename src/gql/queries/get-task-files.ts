@@ -30,6 +30,7 @@ export interface TaskFilesVars {
 interface TaskFilesData {
   groupedFiles: GroupedFiles[];
 }
+
 export interface TaskFilesResponse {
   taskFiles: TaskFilesData;
 }

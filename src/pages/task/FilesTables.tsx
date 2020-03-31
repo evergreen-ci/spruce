@@ -15,7 +15,6 @@ import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
-import get from "lodash/get";
 
 const columns = [
   {
