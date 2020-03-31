@@ -19,7 +19,9 @@ export const DependsOn: React.FC<Dependency> = ({
     <DependsOnWrapper>
       <LeftContainer>{metStatusToIcon[metStatus]}</LeftContainer>
       <RightContainer>
-        <BoldStyledLink href={uiLink}>{name}</BoldStyledLink>
+        <BoldStyledLink data-cy="depends-on-link" href={uiLink}>
+          {name}
+        </BoldStyledLink>
         <Subtitle>in {buildVariant}</Subtitle>
         {requiredStatusToBadge[requiredStatus]}
       </RightContainer>

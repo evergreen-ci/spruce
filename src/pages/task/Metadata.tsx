@@ -45,19 +45,25 @@ export const Metadata = ({
       <P2>Duration: {secToDuration(timeTaken)} </P2>
       <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
       <P2>
-        Base commit: <StyledLink href={baseTaskLink}>{baseCommit}</StyledLink>
+        Base commit:{" "}
+        <StyledLink data-cy="base-task-link" href={baseTaskLink}>
+          {baseCommit}
+        </StyledLink>
       </P2>
       <P2>
-        Host: <StyledLink href={hostLink}>{hostId}</StyledLink>
+        Host:{" "}
+        <StyledLink data-cy="task-host-link" href={hostLink}>
+          {hostId}
+        </StyledLink>
       </P2>
       {reliesOn && reliesOn.length ? (
-        <>
+        <span data-cy="depends-on-container">
           <H3>Depends On</H3>
           <Divider />
           {reliesOn.map(props => (
             <DependsOn {...props} />
           ))}
-        </>
+        </span>
       ) : null}
     </MetadataCard>
   );
