@@ -60,8 +60,8 @@ export const Metadata = ({
         <span data-cy="depends-on-container">
           <H3>Depends On</H3>
           <Divider />
-          {reliesOn.map(props => (
-            <DependsOn {...props} />
+          {reliesOn.map((props, i) => (
+            <DependsOn key={i} {...props} />
           ))}
         </span>
       ) : null}
