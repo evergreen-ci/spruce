@@ -4,8 +4,8 @@ const taskID =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 
 const taskPath = `/task/${taskID}/tests`;
-const DESCEND_PARAM = "sortBy=DESC";
-const ASCEND_PARAM = "sortBy=ASC";
+const DESCEND_PARAM = "sortDir=DESC";
+const ASCEND_PARAM = "sortDir=ASC";
 
 const fallbackLocation = loc => {
   expect(loc.pathname).to.equal(`/task/${taskID}/tests`);
@@ -29,7 +29,7 @@ describe("Tests Table Route", function() {
   });
 
   it("Default query params are not changed when all required query params exist and are valid", function() {
-    cy.visit(`${taskPath}?sortBy=DURATION&sort=DESC`);
+    cy.visit(`${taskPath}?sortBy=DURATION&${DESCEND_PARAM}`);
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(taskPath);
       expect(loc.search).to.include("sortBy=DURATION");
