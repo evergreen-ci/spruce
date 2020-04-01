@@ -46,9 +46,9 @@ describe("Patch route", function() {
       .and("include", `http://localhost:9090/version/${patch.id}`);
   });
 
-  it("Shows an error page if there was a problem loading data", () => {
+  it("Shows a message if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.get("#patch-error").should("exist");
+    cy.get("[data-cy=metadata-card-error]").should("exist");
     cy.get("#task-count").should("not.exist");
   });
 

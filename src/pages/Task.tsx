@@ -1,25 +1,26 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
-import { FilesTables } from "./task/FilesTables";
+import { FilesTables } from "pages/task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
-  SiderCard,
   PageContent,
   PageLayout,
   PageSider
 } from "components/styles";
+import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
+import { Metadata } from "./task/Metadata";
+import get from "lodash/get";
 
 enum TaskTab {
   Logs = "logs",
@@ -35,26 +36,6 @@ const tabToIndexMap = {
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
-const GET_TASK = gql`
-  query GetTask($taskId: String!) {
-    task(taskId: $taskId) {
-      version
-      displayName
-      patchNumber
-      status
-    }
-  }
-`;
-
-interface TaskQuery {
-  task: {
-    version: string;
-    displayName: string;
-    patchNumber: number;
-    status: string;
-  };
-}
-
 export const Task: React.FC = () => {
   useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
   const [selectedTab, selectTabHandler] = useTabs(
@@ -68,23 +49,21 @@ export const Task: React.FC = () => {
     variables: { taskId: id }
   });
 
-  if (loading) {
-    return <div>"Loading..."</div>;
-  }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-  const {
-    task: { displayName, version, patchNumber, status }
-  } = data;
+  const task = get(data, "task");
+  const displayName = get(task, "displayName");
+  const patchNumber = get(task, "patchNumber");
+  const status = get(task, "status");
+  const version = get(task, "version");
 
   return (
     <PageWrapper>
-      <BreadCrumb
-        taskName={displayName}
-        versionId={version}
-        patchNumber={patchNumber}
-      />
+      {task && (
+        <BreadCrumb
+          taskName={displayName}
+          versionId={version}
+          patchNumber={patchNumber}
+        />
+      )}
       <PageTitle
         loading={loading}
         hasData={!!(displayName && status)}
@@ -97,8 +76,7 @@ export const Task: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
-          <SiderCard>Patch Metadata</SiderCard>
-          <SiderCard>Build Variants</SiderCard>
+          <Metadata data={data} loading={loading} error={error} />
         </PageSider>
         <PageLayout>
           <PageContent>

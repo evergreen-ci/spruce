@@ -368,7 +368,7 @@ it("Requests descending data when clicking on active ascending tab", async () =>
   spyOppDir.mockRestore();
 });
 
-it("It loads data on initial load when given valid query params", async () => {
+xit("It loads data on initial load when given valid query params", async () => {
   const div = document.createElement("div");
   const spy = jest.spyOn(mocks[0], "result");
 
@@ -401,7 +401,7 @@ it("It loads data on initial load when given valid query params", async () => {
   spy.mockRestore();
 });
 
-it("It loads data with TEST_FILE ASC when given invalid query param", async () => {
+xit("It loads data with TEST_FILE ASC when given invalid query param", async () => {
   const div = document.createElement("div");
   const spy = jest.spyOn(mocks[1], "result");
 
