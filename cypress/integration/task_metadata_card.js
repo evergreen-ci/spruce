@@ -30,7 +30,9 @@ describe("Task Metadata Card", function() {
 
   it("Depends on task should have href", () => {
     cy.visit(taskRoute);
-    cy.get("[data-cy=depends-on-link]").should("have.attr", "href");
+    cy.get("[data-cy=depends-on-link]")
+      .should("have.attr", "href")
+      .and("include", "/task");
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach(route => {
@@ -51,7 +53,7 @@ describe("Task Metadata Card", function() {
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
-    it(`Dates labels in the Depends On sections are empty if their data does not exist in the GetTask GQL response (route ${i +
+    it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${i +
       1})`, () => {
       cy.visit(route);
       const createTimePath = "responseBody.data.task.createTime";
