@@ -15,8 +15,8 @@ export enum RequiredQueryParams {
 }
 
 export enum SortQueryParam {
-  Desc = "-1",
-  Asc = "1"
+  Desc = "DESC",
+  Asc = "ASC"
 }
 
 export enum PatchTasksQueryParams {

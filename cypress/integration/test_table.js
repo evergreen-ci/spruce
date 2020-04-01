@@ -2,7 +2,10 @@
 import { waitForGQL } from "../utils/networking";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
+const DESCEND_PARAM = "sort=DESC";
+const ASCEND_PARAM = "sort=ASC";
 const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
+
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
 describe("Tests Table", function() {
@@ -35,35 +38,35 @@ describe("Tests Table", function() {
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("category=TEST_NAME");
-      expect(loc.search).to.include("sort=-1");
+      expect(loc.search).to.include(DESCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("category=STATUS");
-      expect(loc.search).to.include("sort=1");
+      expect(loc.search).to.include(ASCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("category=STATUS");
-      expect(loc.search).to.include("sort=-1");
+      expect(loc.search).to.include(DESCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("category=DURATION");
-      expect(loc.search).to.include("sort=1");
+      expect(loc.search).to.include(ASCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("category=DURATION");
-      expect(loc.search).to.include("sort=-1");
+      expect(loc.search).to.include(DESCEND_PARAM);
     });
   });
 
@@ -72,7 +75,7 @@ describe("Tests Table", function() {
       cy.location().should(loc => {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
         expect(loc.search).to.include("category=TEST_NAME");
-        expect(loc.search).to.include("sort=1");
+        expect(loc.search).to.include(ASCEND_PARAM);
       });
     cy.visit(TESTS_ROUTE);
     assertInitialURLState();
