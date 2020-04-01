@@ -18,7 +18,7 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import { RequiredQueryParams, TableOnChange } from "types/task";
-import get from "lodash.get";
+import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
@@ -30,7 +30,6 @@ export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
   const { replace, listen } = useHistory();
-  // initial fetch
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
     TakskTestsVars
@@ -113,7 +112,11 @@ export const TestsTableCore: React.FC = () => {
     });
     replace(`${pathname}?${nextQueryParams}`);
   };
+
   // only need sort order set to reflect initial state in URL
+  const { cat, dir } = getQueryVariables(search);
+  columns.find(({ key }) => key === cat).defaultSortOrder =
+    dir === SortDir.ASC ? "ascend" : "descend";
 
   return (
     <div>
@@ -248,11 +251,10 @@ const getQueryVariables = search => {
     .toString()
     .toUpperCase();
   const cat =
-    category in Categories ? (category as Categories) : Categories.TestName;
+    category in Categories ? (category as Categories) : Categories.Status;
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
-  const dir = sort in SortDir ? (sort as SortDir) : SortDir.DESC;
-
+  const dir = sort in SortDir ? (sort as SortDir) : SortDir.ASC;
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
