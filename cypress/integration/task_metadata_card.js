@@ -34,7 +34,7 @@ describe("Task Metadata Card", function() {
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach(route => {
-    it("Depends on section should be displayed when reliesOn field has length greater than 0 and nonexistent otherwise", () => {
+    it("Depends On section should be displayed when reliesOn field has length greater than 0 and nonexistent otherwise", () => {
       cy.visit(route);
       const reliesOnPath = "responseBody.data.task.reliesOn";
       waitForGQL("@gqlQuery", "GetTask", {
@@ -49,4 +49,46 @@ describe("Task Metadata Card", function() {
       });
     });
   });
+
+  [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
+    it(`Dates labels in the Depends On sections are empty if their data does not exist in the GetTask GQL response (route ${i +
+      1})`, () => {
+      cy.visit(route);
+      const createTimePath = "responseBody.data.task.createTime";
+      const startTimePath = "responseBody.data.task.startTime";
+      const finishTimePath = "responseBody.data.task.finishTime";
+      const valExists = v => v !== undefined;
+      // wait for gql query where the 3 time fields were requested
+      waitForGQL("@gqlQuery", "GetTask", {
+        [createTimePath]: valExists,
+        [startTimePath]: valExists,
+        [finishTimePath]: valExists
+      }).then(xhr => {
+        dateExistenceCheck(
+          xhr,
+          createTimePath,
+          "[data-cy=task-metadata-submitted-at]"
+        );
+        dateExistenceCheck(
+          xhr,
+          startTimePath,
+          "[data-cy=task-metadata-started]"
+        );
+        dateExistenceCheck(
+          xhr,
+          finishTimePath,
+          "[data-cy=task-metadata-finished]"
+        );
+      });
+    });
+  });
 });
+
+const dateExistenceCheck = (xhr, resBodyPath, container) => {
+  const dateContainer = cy.get(container);
+  if (get(xhr, resBodyPath)) {
+    dateContainer.should("not.be.empty");
+  } else {
+    dateContainer.should("be.empty");
+  }
+};
