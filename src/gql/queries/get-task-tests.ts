@@ -51,7 +51,10 @@ export interface TaskTestsData {
   duration: number;
 }
 
-export type SortDir = "ASC" | "DESC";
+export enum SortDir {
+  ASC = "ASC",
+  DESC = "DESC"
+}
 
 export interface TakskTestsVars {
   id: string;
