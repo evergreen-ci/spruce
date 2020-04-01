@@ -8,8 +8,8 @@ export interface ValidInitialQueryParams {
 }
 
 export enum RequiredQueryParams {
-  Sort = "sort",
-  Category = "category",
+  Sort = "sortDir",
+  Category = "sortBy",
   Statuses = "statuses",
   TestName = "testname"
 }
