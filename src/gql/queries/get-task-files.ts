@@ -3,10 +3,12 @@ import gql from "graphql-tag";
 export const GET_TASK_FILES = gql`
   query taskFiles($id: String!) {
     taskFiles(taskId: $id) {
-      taskName
-      files {
-        name
-        link
+      groupedFiles {
+        taskName
+        files {
+          name
+          link
+        }
       }
     }
   }
@@ -16,15 +18,19 @@ export interface File {
   link: string;
 }
 
-export interface TaskFilesData {
+export interface GroupedFiles {
   taskName: string;
-  files: [File];
+  files: File[];
 }
 
 export interface TaskFilesVars {
   id: string;
 }
 
+interface TaskFilesData {
+  groupedFiles: GroupedFiles[];
+}
+
 export interface TaskFilesResponse {
-  taskFiles: [TaskFilesData];
+  taskFiles: TaskFilesData;
 }
