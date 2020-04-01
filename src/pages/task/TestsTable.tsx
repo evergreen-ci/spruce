@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { TestsTableCore } from "./testsTable/TestsTableCore";
 import { StatusSelector } from "./testsTable/StatusSelector";
 import { FiltersWrapper, StyledInput } from "components/styles";
