@@ -81,7 +81,6 @@ export const TestsTableCore: React.FC = () => {
     if (pageNum % 1 !== 0) {
       return;
     }
-
     fetchMore({
       variables: {
         pageNum,
@@ -251,10 +250,15 @@ const getQueryVariables = search => {
     .toString()
     .toUpperCase();
   const cat =
-    category in Categories ? (category as Categories) : Categories.Status;
+    category === Categories.TestName ||
+    category === Categories.Status ||
+    category === Categories.Duration
+      ? (category as Categories)
+      : Categories.Status;
+
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
-  const dir = sort in SortDir ? (sort as SortDir) : SortDir.ASC;
+  const dir = sort === SortDir.DESC ? SortDir.DESC : SortDir.ASC;
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
