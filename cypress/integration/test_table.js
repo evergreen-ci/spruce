@@ -59,7 +59,6 @@ describe("Tests Table", function() {
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-
     assertQueryVariables("DURATION", "ASC");
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should(loc => {
