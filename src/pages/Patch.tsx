@@ -36,7 +36,6 @@ export const Patch = () => {
           <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
         }
       />
-
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
