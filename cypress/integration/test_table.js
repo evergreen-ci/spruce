@@ -5,9 +5,31 @@ const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
-
+const assertQueryVariables = (
+  sortBy = "STATUS",
+  sortDir = "ASC",
+  statuses = [],
+  testName = "",
+  pageNum = 0
+) =>
+  waitForGQL("@gqlQuery", "taskTests", {
+    "requestBody.variables.cat": sortBy,
+    "requestBody.variables.dir": sortDir,
+    "requestBody.variables.statusList": statusQueryVar => {
+      const statusesSet = new Set(statuses);
+      return (
+        Array.isArray(statusQueryVar) &&
+        statusQueryVar.length === statusesSet.size &&
+        statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
+      );
+    },
+    "requestBody.variables.limitNum": 10,
+    "requestBody.variables.pageNum": pageNum,
+    "requestBody.variables.testName": testName
+  });
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
+
 describe("Tests Table", function() {
   beforeEach(() => {
     cy.server();
@@ -31,7 +53,7 @@ describe("Tests Table", function() {
     });
   });
 
-  it("Adjusts query params when table headers are clicked", () => {
+  it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
@@ -40,34 +62,36 @@ describe("Tests Table", function() {
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    waitForTestsQuery();
+    assertQueryVariables("TEST_NAME", "ASC");
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    waitForTestsQuery();
+    assertQueryVariables("STATUS", "ASC");
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    waitForTestsQuery();
+    assertQueryVariables("STATUS", "DESC");
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    waitForTestsQuery();
+
+    assertQueryVariables("DURATION", "ASC");
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should(loc => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
+    assertQueryVariables("DURATION", "DESC");
   });
 
   it("Should not adjust URL params when clicking Logs tab", () => {
@@ -108,7 +132,7 @@ describe("Tests Table", function() {
       cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
-    it("Clicking on 'All' checkbox adds all statuses to URL ", () => {
+    it("Clicking on 'All' checkbox adds all statuses to URL and makes request with all statuses", () => {
       cy.get(".cy-checkbox")
         .contains("All")
         .click();
@@ -116,6 +140,12 @@ describe("Tests Table", function() {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
         expect(loc.search).to.include("statuses=all,pass,fail,skip,silentfail");
       });
+      assertQueryVariables("STATUS", "ASC", [
+        "pass",
+        "fail",
+        "skip",
+        "silentfail"
+      ]);
     });
 
     const statuses = [
@@ -135,7 +165,6 @@ describe("Tests Table", function() {
           expect(loc.search).to.include(`statuses=${key}`);
           expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
         });
-        cy.wait(200);
         cy.get(".cy-checkbox")
           .contains(display)
           .click();
@@ -146,7 +175,16 @@ describe("Tests Table", function() {
       });
     });
 
-    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none", () => {
+    statuses.forEach(({ display, key }) => {
+      it(`Clicking on ${display} status checkbox makes GQL request with status ${key}`, () => {
+        cy.get(".cy-checkbox")
+          .contains(display)
+          .click();
+        assertQueryVariables("STATUS", "ASC", [key]);
+      });
+    });
+
+    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
           .contains(display)
@@ -155,6 +193,12 @@ describe("Tests Table", function() {
       cy.location().should(loc => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
+      assertQueryVariables("STATUS", "ASC", [
+        "pass",
+        "silentfail",
+        "fail",
+        "skip"
+      ]);
     });
   });
 
@@ -174,7 +218,7 @@ describe("Tests Table", function() {
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
       const xhrTestNamePath = "requestBody.variables.testName";
       waitForGQL("@gqlQuery", "taskTests", {
-        [xhrTestNamePath]: testNameInputValue
+        [xhrTestNamePath]: inputValue
       });
       cy.get("@gqlQuery")
         .its("requestBody.operationName")
