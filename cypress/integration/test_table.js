@@ -216,16 +216,7 @@ describe("Tests Table", function() {
     });
 
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
-      const xhrTestNamePath = "requestBody.variables.testName";
-      waitForGQL("@gqlQuery", "taskTests", {
-        [xhrTestNamePath]: inputValue
-      });
-      cy.get("@gqlQuery")
-        .its("requestBody.operationName")
-        .should("equal", "taskTests");
-      cy.get("@gqlQuery")
-        .its(xhrTestNamePath)
-        .should("equal", testNameInputValue);
+      assertQueryVariables("STATUS", "ASC", [], testNameInputValue, 0);
     });
   });
 });
