@@ -110,7 +110,10 @@ export const TestsTableCore: React.FC = () => {
     const nextQueryParams = queryString.stringify(parsedSearch, {
       arrayFormat
     });
-    replace(`${pathname}?${nextQueryParams}`);
+
+    if (nextQueryParams !== search.split("?")[1]) {
+      replace(`${pathname}?${nextQueryParams}`);
+    }
   };
 
   // only need sort order set to reflect initial state in URL
