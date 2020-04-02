@@ -14,7 +14,7 @@ describe("files table", function() {
   });
 
   it("Should not render table when invalid TaskID in the url", () => {
-    cy.visit("/task/NO-SUCH-THANG/tests");
+    cy.visit("/task/NO-SUCH-THANG/files");
     waitForGQL("@gqlQuery", "GetTask");
     cy.get(".ant-table").should("not.exist");
   });
