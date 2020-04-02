@@ -37,6 +37,11 @@ describe("Tests Table", function() {
     cy.route("POST", "/graphql/query").as("gqlQuery");
   });
 
+  it("Should make GQL request with default query variables when no query params are provided", () => {
+    cy.visit(TESTS_ROUTE);
+    assertQueryVariables();
+  });
+
   it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     waitForGQL("@gqlQuery", "GetTask");
