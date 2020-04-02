@@ -340,7 +340,7 @@ it("Requests descending data when clicking on active ascending tab", async () =>
         {
           pathname:
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
-          search: "?category=STATUS&sort=1",
+          search: "?sortBy=STATUS&sortDir=ASC",
           hash: "",
           key: "djuhdk"
         }
@@ -378,7 +378,7 @@ xit("It loads data on initial load when given valid query params", async () => {
         {
           pathname:
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
-          search: "?category=STATUS&sort=1",
+          search: "?sortBy=STATUS&sortBy=ASC",
           hash: "",
           key: "djuhdk"
         }

@@ -153,7 +153,6 @@ describe("Patch route", function() {
             scrollToBottomOfTasksTable();
             waitForGQL("@gqlQuery", "PatchTasks");
             cy.get("@gqlQuery").then($xhr => {
-              console.log("$xhr", $xhr);
               cy.get("[data-cy=current-task-count]")
                 .invoke("text")
                 .then($newTaskCount => {
