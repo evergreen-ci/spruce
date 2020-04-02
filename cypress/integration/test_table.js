@@ -134,20 +134,21 @@ describe("Tests Table", function() {
       it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
         cy.get(".cy-checkbox")
           .contains(display)
-          .click();
-        cy.location().should(loc => {
-          expect(loc.pathname).to.equal(TESTS_ROUTE);
-          expect(loc.search).to.include(`statuses=${key}`);
-          expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
-        });
-        cy.wait(20);
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-        cy.location().should(loc => {
-          expect(loc.pathname).to.equal(TESTS_ROUTE);
-          expect(loc.search).to.not.include(`statuses=${key}`);
-        });
+          .click()
+          .then(() => {
+            cy.location().should(loc => {
+              expect(loc.pathname).to.equal(TESTS_ROUTE);
+              expect(loc.search).to.include(`statuses=${key}`);
+              expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
+            });
+            cy.get(".cy-checkbox")
+              .contains(display)
+              .click();
+            cy.location().should(loc => {
+              expect(loc.pathname).to.equal(TESTS_ROUTE);
+              expect(loc.search).to.not.include(`statuses=${key}`);
+            });
+          });
       });
     });
 
