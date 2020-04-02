@@ -205,7 +205,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           {htmlDisplayURL && (
             <ButtonWrapper>
               <Button
-                id={`htmlBtn-${id}`}
+                data-cy="test-table-html-btn"
                 size="small"
                 target="_blank"
                 variant="default"
@@ -217,7 +217,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
           {rawDisplayURL && (
             <Button
-              id={`rawBtn-${id}`}
+              data-cy="test-table-raw-btn"
               size="small"
               target="_blank"
               variant="default"
