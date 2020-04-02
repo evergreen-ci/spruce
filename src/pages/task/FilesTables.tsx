@@ -4,7 +4,7 @@ import {
   GET_TASK_FILES,
   TaskFilesResponse,
   TaskFilesVars,
-  TaskFilesData
+  GroupedFiles
 } from "gql/queries/get-task-files";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
@@ -49,19 +49,19 @@ export const FilesTables: React.FC = () => {
     }
   );
   const [filterStr, setFilterStr] = useState("");
-  const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
+  const [filteredData, setFilteredData] = useState<[GroupedFiles]>();
 
   useEffect(
     debounce(() => {
       if (data) {
-        const nextData = data.taskFiles.map(currVal => ({
+        const nextData = data.taskFiles.groupedFiles.map(currVal => ({
           taskName: currVal.taskName,
           files: filterStr.length
             ? currVal.files.filter(({ name }) =>
                 name.toLowerCase().includes(filterStr.toLowerCase())
               )
             : currVal.files
-        })) as [TaskFilesData];
+        })) as [GroupedFiles];
         setFilteredData(nextData);
       }
     }, 300),

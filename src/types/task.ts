@@ -8,15 +8,15 @@ export interface ValidInitialQueryParams {
 }
 
 export enum RequiredQueryParams {
-  Sort = "sort",
-  Category = "category",
+  Sort = "sortDir",
+  Category = "sortBy",
   Statuses = "statuses",
   TestName = "testname"
 }
 
 export enum SortQueryParam {
-  Desc = "-1",
-  Asc = "1"
+  Desc = "DESC",
+  Asc = "ASC"
 }
 
 export enum PatchTasksQueryParams {
