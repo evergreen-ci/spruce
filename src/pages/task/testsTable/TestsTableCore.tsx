@@ -116,7 +116,7 @@ export const TestsTableCore: React.FC = () => {
     }
   };
 
-  // only need sort order set to reflect initial state in URL
+  // initial table sort button state to reflect initial URL query params
   const { cat, dir } = getQueryVariables(search);
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDir.ASC ? "ascend" : "descend";
