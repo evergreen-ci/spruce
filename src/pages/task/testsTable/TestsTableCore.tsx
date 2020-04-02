@@ -140,6 +140,12 @@ export const TestsTableCore: React.FC = () => {
   );
 };
 
+const statusToBadgeColor = {
+  [TestStatus.Pass]: Variant.Green,
+  [TestStatus.Fail]: Variant.Red,
+  [TestStatus.SilentFail]: Variant.Blue,
+  [TestStatus.Skip]: Variant.Yellow
+};
 const statusCopy = {
   [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
@@ -159,32 +165,16 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     key: Categories.Status,
     sorter: true,
     width: "20%",
-    render: (tag: string): JSX.Element => {
-      let color: Variant;
-      switch (tag) {
-        case TestStatus.Pass:
-          color = Variant.Green;
-          break;
-        case TestStatus.Fail:
-          color = Variant.Red;
-          break;
-        case TestStatus.SilentFail:
-          color = Variant.Blue;
-          break;
-        case TestStatus.Skip:
-          color = Variant.Yellow;
-          break;
-        default:
-          color = Variant.LightGray;
-      }
-      return (
-        <span>
-          <Badge variant={color} key={tag}>
-            {statusCopy[tag] || ""}
-          </Badge>
-        </span>
-      );
-    }
+    render: (status: string): JSX.Element => (
+      <span>
+        <Badge
+          variant={statusToBadgeColor[status] || Variant.LightGray}
+          key={status}
+        >
+          {statusCopy[status] || ""}
+        </Badge>
+      </span>
+    )
   },
   {
     title: "Time",
