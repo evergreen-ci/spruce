@@ -137,7 +137,7 @@ describe("Tests Table", function() {
       cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
-    it("Clicking on 'All' checkbox adds all statuses to URL and makes request with all statuses", () => {
+    it("Clicking on 'All' checkbox adds all statuses to URL and makes GQL request with all statuses", () => {
       cy.get(".cy-checkbox")
         .contains("All")
         .click();
