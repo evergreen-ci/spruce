@@ -56,7 +56,7 @@ export enum SortDir {
   DESC = "DESC"
 }
 
-export interface TakskTestsVars {
+export interface TaskTestVars {
   id: string;
   dir: SortDir;
   cat: Categories;

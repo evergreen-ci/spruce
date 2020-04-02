@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ColumnProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
@@ -7,7 +7,7 @@ import Button from "@leafygreen-ui/button";
 import {
   Categories,
   GET_TASK_TESTS,
-  TakskTestsVars,
+  TaskTestVars,
   TaskTestsData,
   UpdateQueryArg,
   SortDir
@@ -30,77 +30,75 @@ export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
+  const [initialQueryVariables] = useState<TaskTestVars>({
+    id,
+    pageNum: 0,
+    ...getQueryVariables(search)
+  });
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
-    TakskTestsVars
+    TaskTestVars
   >(GET_TASK_TESTS, {
-    variables: {
-      id,
-      pageNum: 0,
-      ...getQueryVariables(search)
-    },
+    variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);
 
-  // // this fetch is when url params change (sort direction, sort category, status list)
-  // // and the page num is set to 0
-  // useEffect(() => {
-  //   return listen(async loc => {
-  //     try {
-  //       await fetchMore({
-  //         variables: {
-  //           pageNum: 0,
-  //           ...getQueryVariables(loc.search)
-  //         },
-  //         updateQuery: (
-  //           prev: UpdateQueryArg,
-  //           { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-  //         ) => {
-  //           if (!fetchMoreResult) {
-  //             return prev;
-  //           }
-  //           return fetchMoreResult;
-  //         }
-  //       });
-  //     } catch (e) {
-  //       // empty block
-  //     }
-  //   });
-  // }, [networkStatus, error, fetchMore, listen]);
+  // this fetch is when url params change (sort direction, sort category, status list)
+  // and the page num is set to 0
+  useEffect(() => {
+    return listen(async loc => {
+      try {
+        await fetchMore({
+          variables: {
+            pageNum: 0,
+            ...getQueryVariables(loc.search)
+          },
+          updateQuery: (
+            prev: UpdateQueryArg,
+            { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+          ) => {
+            if (!fetchMoreResult) {
+              return prev;
+            }
+            return fetchMoreResult;
+          }
+        });
+      } catch (e) {
+        // empty block
+      }
+    });
+  }, [networkStatus, error, fetchMore, listen]);
 
   const dataSource: [TaskTestsData] = get(data, "taskTests", []);
 
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
   const onFetch = (): void => {
-    // if (networkStatus === NetworkStatus.error || error) {
-    //   return;
-    // }
-    // console.log(dataSource.length);
-    // console.log("o shit");
-    // const pageNum = dataSource.length / LIMIT;
-    // if (pageNum % 1 !== 0) {
-    //   return;
-    // }
-    // fetchMore({
-    //   variables: {
-    //     pageNum,
-    //     ...getQueryVariables(search)
-    //   },
-    //   updateQuery: (
-    //     prev: UpdateQueryArg,
-    //     { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-    //   ) => {
-    //     if (!fetchMoreResult) {
-    //       return prev;
-    //     }
-    //     console.log("o shit");
-    //     return Object.assign({}, prev, {
-    //       taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
-    //     });
-    //   }
-    // });
+    if (networkStatus === NetworkStatus.error || error) {
+      return;
+    }
+    const pageNum = dataSource.length / LIMIT;
+    if (pageNum % 1 !== 0) {
+      return;
+    }
+    fetchMore({
+      variables: {
+        pageNum,
+        ...getQueryVariables(search)
+      },
+      updateQuery: (
+        prev: UpdateQueryArg,
+        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        return Object.assign({}, prev, {
+          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
+        });
+      }
+    });
   };
 
   const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
