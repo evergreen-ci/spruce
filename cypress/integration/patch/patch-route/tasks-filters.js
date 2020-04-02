@@ -85,7 +85,7 @@ describe("Tasks filters", function() {
       locationHasUpdatedFilterParam(variantInputValue, "variant");
       filteredTasksAreFetchedAndRendered("variant", variantInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedFilterParam(null);
+      locationHasUpdatedFilterParam(null, "variant");
     });
   });
 
@@ -96,7 +96,7 @@ describe("Tasks filters", function() {
       locationHasUpdatedFilterParam(taskNameInputValue, "taskName");
       filteredTasksAreFetchedAndRendered("taskName", taskNameInputValue);
       cy.get("[data-cy=variant-input]").clear();
-      locationHasUpdatedFilterParam(null);
+      locationHasUpdatedFilterParam(null, "taskName");
     });
   });
 
@@ -125,7 +125,7 @@ describe("Tasks filters", function() {
             locationHasUpdatedFilterParam(allStatuses, urlParam);
             filteredTasksAreFetchedAndRendered();
             $all.click();
-            locationHasUpdatedFilterParam(null);
+            locationHasUpdatedFilterParam(null, urlParam);
             filteredTasksAreFetchedAndRendered();
           });
       });
@@ -158,7 +158,7 @@ const clickCheckboxesAndAssertCorrectUrlParams = (
       $status.click();
       locationHasUpdatedFilterParam(urlStatus, urlParam);
       $status.click();
-      locationHasUpdatedFilterParam(null);
+      locationHasUpdatedFilterParam(null, urlParam);
     });
 };
 
