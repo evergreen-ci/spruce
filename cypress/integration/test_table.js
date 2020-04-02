@@ -1,35 +1,6 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
 
-const TABLE_SORT_SELECTOR = ".ant-table-column-title";
-const DESCEND_PARAM = "sortDir=DESC";
-const ASCEND_PARAM = "sortDir=ASC";
-const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
-const assertQueryVariables = (
-  sortBy = "STATUS",
-  sortDir = "ASC",
-  statuses = [],
-  testName = "",
-  pageNum = 0
-) =>
-  waitForGQL("@gqlQuery", "taskTests", {
-    "requestBody.variables.cat": sortBy,
-    "requestBody.variables.dir": sortDir,
-    "requestBody.variables.statusList": statusQueryVar => {
-      const statusesSet = new Set(statuses);
-      return (
-        Array.isArray(statusQueryVar) &&
-        statusQueryVar.length === statusesSet.size &&
-        statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
-      );
-    },
-    "requestBody.variables.limitNum": 10,
-    "requestBody.variables.pageNum": pageNum,
-    "requestBody.variables.testName": testName
-  });
-const TESTS_ROUTE =
-  "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
-
 describe("Tests Table", function() {
   beforeEach(() => {
     cy.server();
@@ -246,3 +217,32 @@ describe("Tests Table", function() {
     });
   });
 });
+
+const TABLE_SORT_SELECTOR = ".ant-table-column-title";
+const DESCEND_PARAM = "sortDir=DESC";
+const ASCEND_PARAM = "sortDir=ASC";
+const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
+const assertQueryVariables = (
+  sortBy = "STATUS",
+  sortDir = "ASC",
+  statuses = [],
+  testName = "",
+  pageNum = 0
+) =>
+  waitForGQL("@gqlQuery", "taskTests", {
+    "requestBody.variables.cat": sortBy,
+    "requestBody.variables.dir": sortDir,
+    "requestBody.variables.statusList": statusQueryVar => {
+      const statusesSet = new Set(statuses);
+      return (
+        Array.isArray(statusQueryVar) &&
+        statusQueryVar.length === statusesSet.size &&
+        statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
+      );
+    },
+    "requestBody.variables.limitNum": 10,
+    "requestBody.variables.pageNum": pageNum,
+    "requestBody.variables.testName": testName
+  });
+const TESTS_ROUTE =
+  "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
