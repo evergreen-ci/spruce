@@ -35,29 +35,29 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   useDisableTableSortersIfLoading(networkStatus);
 
   // fetch tasks when url params change
-  // useEffect(() => {
-  //   return history.listen(async location => {
-  //     if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-  //       try {
-  //         const vars = getQueryVariables(id, location.search, 0);
-  //         await fetchMore({
-  //           variables: vars,
-  //           updateQuery: (
-  //             prev: PatchTasksQuery,
-  //             { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-  //           ) => {
-  //             if (!fetchMoreResult) {
-  //               return prev;
-  //             }
-  //             return fetchMoreResult;
-  //           }
-  //         });
-  //       } catch (e) {
-  //         // empty block
-  //       }
-  //     }
-  //   });
-  // }, [history, fetchMore, id, error, networkStatus]);
+  useEffect(() => {
+    return history.listen(async location => {
+      if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
+        try {
+          const vars = getQueryVariables(id, location.search, 0);
+          await fetchMore({
+            variables: vars,
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
+            }
+          });
+        } catch (e) {
+          // empty block
+        }
+      }
+    });
+  }, [history, fetchMore, id, error, networkStatus]);
 
   const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
     false
