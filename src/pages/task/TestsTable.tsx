@@ -15,7 +15,7 @@ import { Categories } from "gql/queries/get-task-tests";
 import queryString from "query-string";
 
 enum DefaultQueryParams {
-  Sort = "1",
+  Sort = "ASC",
   Category = "TEST_NAME"
 }
 const arrayFormat = "comma";
