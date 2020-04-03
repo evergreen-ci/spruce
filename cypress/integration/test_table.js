@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
+import { assertScrollFetchAppend } from "../utils/table";
 
 describe("Tests Table", function() {
   beforeEach(() => {
@@ -204,17 +205,9 @@ describe("Tests Table", function() {
     });
 
     it("Fetches and appends additional tests to table as the user scrolls", () => {
-      cy.get(".ant-table-row")
-        .invoke("toArray")
-        .then($initialTasks => {
-          // need to overscroll to trigger fetch
-          cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
-          assertQueryVariables("STATUS", "ASC", [], "", 1);
-          cy.get(".ant-table-row").should(
-            "have.length.greaterThan",
-            $initialTasks.length
-          );
-        });
+      assertScrollFetchAppend(() => {
+        assertQueryVariables("STATUS", "ASC", [], "", 1);
+      });
     });
   });
 });
