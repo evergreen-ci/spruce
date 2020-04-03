@@ -120,8 +120,7 @@
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-graphql": "0.0.6",
     "tslint-react": "^4.1.0",
-    "typescript": "^3.8.3",
-    "webpack": "^4.42.1"
+    "typescript": "^3.8.3"
   },
   "proxy": "http://localhost:9090"
 }
