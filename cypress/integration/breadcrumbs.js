@@ -8,6 +8,10 @@ describe("TaskBreadcrumb", function() {
     cy.login();
   });
 
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
   it("Shows tasks display name", function() {
     cy.visit(taskRoute);
     cy.get("#bc-task").should("include.text", "test-model");
@@ -18,14 +22,12 @@ describe("TaskBreadcrumb", function() {
   });
 
   it("Clicking on the patch breadcrumb goes to patch for task", function() {
-    cy.login();
     cy.visit(taskRoute);
     cy.get("#bc-patch").click();
     cy.url().should("include", "/patch/5e4ff3abe3c3317e352062e4");
   });
 
   it("Clicking 'My Patches' breadcrumb goes to /my-patches route", function() {
-    cy.login();
     cy.visit(taskRoute);
     cy.get("#bc-my-patches").click();
     cy.url().should("include", "/my-patches");
@@ -33,8 +35,7 @@ describe("TaskBreadcrumb", function() {
 });
 
 describe("PatchBreadcrumb", function() {
-  beforeEach(() => {
-    cy.login();
+  before(() => {
     cy.visit("/patch/5e4ff3abe3c3317e352062e4");
   });
 

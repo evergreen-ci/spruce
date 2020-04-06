@@ -12,3 +12,16 @@ Cypress.Commands.add("login", () => {
 Cypress.Commands.add("enterLoginCredentials", () => {
   enterLoginCredentials();
 });
+
+Cypress.Commands.add("preserveCookies", () => {
+  Cypress.Cookies.preserveOnce(
+    "mci-token",
+    "mci-session",
+    "mci-project-cookie"
+  );
+});
+
+Cypress.Commands.add("listenGQL", () => {
+  cy.server();
+  cy.route("POST", "/graphql/query").as("gqlQuery");
+});

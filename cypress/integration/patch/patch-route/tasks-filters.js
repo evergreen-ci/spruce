@@ -2,17 +2,20 @@
 import { waitForGQL } from "../../../utils/networking";
 
 const patch = {
-  id: "5e4ff3abe3c3317e352062e4"
+  id: "5e4ff3abe3c3317e352062e4",
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
 
 describe("Tasks filters", function() {
-  beforeEach(() => {
+  before(() => {
     cy.login();
-    cy.server();
-    cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  beforeEach(() => {
+    cy.listenGQL();
+    cy.preserveCookies();
     cy.visit(pathTasks);
   });
 
@@ -46,7 +49,7 @@ describe("Tasks filters", function() {
     it("Clicking on 'All' checkbox adds all statuses to URL. Clicking again removes all statuses.", () => {
       cy.get(".cy-checkbox")
         .contains("All")
-        .then($all => {
+        .then(($all) => {
           $all.click();
           locationHasUpdatedFilterParam(allStatuses, "statuses");
           $all.click();
@@ -57,16 +60,16 @@ describe("Tasks filters", function() {
     [
       {
         title: "Failures",
-        statuses: "all-failures,failed,test-timed-out"
+        statuses: "all-failures,failed,test-timed-out",
       },
       {
         title: "Scheduled",
-        statuses: "scheduled,unstarted,undispatched"
+        statuses: "scheduled,unstarted,undispatched",
       },
       {
         title: "System Issues",
-        statuses: "system-issues,system-failed"
-      }
+        statuses: "system-issues,system-failed",
+      },
     ].forEach(({ title, statuses }) => {
       it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
         clickCheckboxesAndAssertCorrectUrlParams(title, statuses);
@@ -76,44 +79,44 @@ describe("Tasks filters", function() {
     [
       {
         title: "Failed",
-        key: "failed"
+        key: "failed",
       },
       {
         title: "Test Timed Out",
-        key: "test-timed-out"
+        key: "test-timed-out",
       },
       {
         title: "Success",
-        key: "success"
+        key: "success",
       },
       {
         title: "Running",
-        key: "dispatched"
+        key: "dispatched",
       },
       {
         title: "Started",
-        key: "started"
+        key: "started",
       },
       {
         title: "Unstarted",
-        key: "unstarted"
+        key: "unstarted",
       },
       {
         title: "Undispatched",
-        key: "undispatched"
+        key: "undispatched",
       },
       {
         title: "System Failed",
-        key: "system-failed"
+        key: "system-failed",
       },
       {
         title: "Setup Failed",
-        key: "setup-failed"
+        key: "setup-failed",
       },
       {
         title: "Blocked",
-        key: "blocked"
-      }
+        key: "blocked",
+      },
     ].forEach(({ title, key }) => {
       it(`Clicking on singular statuses '${title}' updates url status with '${key}'`, () => {
         clickCheckboxesAndAssertCorrectUrlParams(title, key);
@@ -125,7 +128,7 @@ describe("Tasks filters", function() {
 const clickCheckboxesAndAssertCorrectUrlParams = (checkboxTitle, urlStatus) => {
   cy.get(".cy-checkbox")
     .contains(checkboxTitle)
-    .then($status => {
+    .then(($status) => {
       $status.click();
       locationHasUpdatedFilterParam(urlStatus, "statuses");
       $status.click();
@@ -135,19 +138,19 @@ const clickCheckboxesAndAssertCorrectUrlParams = (checkboxTitle, urlStatus) => {
 
 const filteredTasksAreFetched = (variable, value) => {
   waitForGQL("@gqlQuery", "PatchTasks", {
-    [`request.body.variables[${variable}`]: value
+    [`request.body.variables[${variable}`]: value,
   });
   cy.get("@gqlQuery").then(({ response }) => {
     cy.get(".ant-table-row")
       .invoke("toArray")
-      .then(filteredResults => {
+      .then((filteredResults) => {
         expect(response.body.data.patchTasks.length).eq(filteredResults.length);
       });
   });
 };
 
 const locationHasUpdatedFilterParam = (paramValue, filterName) => {
-  cy.location().should(loc => {
+  cy.location().should((loc) => {
     expect(loc.pathname).to.equal(pathTasks);
     if (!paramValue) {
       expect(loc.search).to.not.include(filterName);

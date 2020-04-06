@@ -2,7 +2,7 @@ const patchId = "5e4ff3abe3c3317e352062e4";
 const patchRoute = `/patch/${patchId}`;
 const patch = {
   changes: { route: `${patchRoute}/changes`, btn: "button[id=changes-tab]" },
-  tasks: { route: `${patchRoute}/tasks`, btn: "button[id=task-tab]" }
+  tasks: { route: `${patchRoute}/tasks`, btn: "button[id=task-tab]" },
 };
 const taskId =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
@@ -10,16 +10,21 @@ const taskRoute = `/task/${taskId}`;
 const task = {
   logs: { route: `${taskRoute}/logs`, btn: "button[id=task-logs-tab]" },
   tests: { route: `${taskRoute}/tests`, btn: "button[id=task-tests-tab]" },
-  files: { route: `${taskRoute}/files`, btn: "button[id=task-files-tab]" }
+  files: { route: `${taskRoute}/files`, btn: "button[id=task-files-tab]" },
 };
 
-const locationPathEquals = path =>
-  cy.location().should(loc => expect(loc.pathname).to.eq(path));
+const locationPathEquals = (path) =>
+  cy.location().should((loc) => expect(loc.pathname).to.eq(path));
 
 describe("Tabs", () => {
-  beforeEach(() => {
+  before(() => {
     cy.login();
   });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+  });
+
   describe("Patch page", () => {
     it("selects tasks tab by default", () => {
       cy.visit(patchRoute);
