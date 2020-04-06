@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import {
@@ -25,11 +25,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
+  const [initialQueryVariables] = useState(getQueryVariables(id, search, 0));
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
-    variables: getQueryVariables(id, search, 0) as PatchTasksVariables,
+    variables: initialQueryVariables as PatchTasksVariables,
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);

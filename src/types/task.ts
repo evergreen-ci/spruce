@@ -1,22 +1,10 @@
 import { TableProps } from "antd/es/table";
 
-export interface ValidInitialQueryParams {
-  initialCategory: string;
-  initialSort: string | string[];
-  initialStatuses: string[];
-  initialTestName: string;
-}
-
 export enum RequiredQueryParams {
   Sort = "sortDir",
   Category = "sortBy",
   Statuses = "statuses",
   TestName = "testname"
-}
-
-export enum SortQueryParam {
-  Desc = "DESC",
-  Asc = "ASC"
 }
 
 export enum PatchTasksQueryParams {

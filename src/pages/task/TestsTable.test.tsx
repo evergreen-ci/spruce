@@ -401,7 +401,7 @@ xit("It loads data on initial load when given valid query params", async () => {
   spy.mockRestore();
 });
 
-xit("It loads data with TEST_FILE ASC when given invalid query param", async () => {
+xit("It loads data with STATUS ASC when given invalid query param", async () => {
   const div = document.createElement("div");
   const spy = jest.spyOn(mocks[1], "result");
 
@@ -444,6 +444,7 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
         {
           pathname:
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
+          search: "?sortBy=TEST_NAME&sortDir=ASC",
           hash: "",
           key: "djuhdk"
         }
