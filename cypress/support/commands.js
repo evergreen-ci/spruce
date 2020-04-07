@@ -1,3 +1,7 @@
+import { waitForGQL } from "../utils/networking";
+
+const GQL_QUERY = "gqlQuery";
+
 function enterLoginCredentials() {
   cy.get("input[name=username]").type("admin");
   cy.get("input[name=password]").type("password");
@@ -23,5 +27,11 @@ Cypress.Commands.add("preserveCookies", () => {
 
 Cypress.Commands.add("listenGQL", () => {
   cy.server();
-  cy.route("POST", "/graphql/query").as("gqlQuery");
+  cy.route("POST", "/graphql/query").as(GQL_QUERY);
 });
+
+Cypress.Commands.add("waitForGQL", (queryName, options) =>
+  waitForGQL(`@${GQL_QUERY}`, queryName, options)
+);
+
+Cypress.Commands.add("dataCy", (value) => cy.get(`[data-cy=${value}]`));
