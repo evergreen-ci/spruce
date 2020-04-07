@@ -52,7 +52,7 @@ export const waitForGQL = (
   return waitOnce();
 };
 
-type truthyFunction = (v: Cypress.WaitXHR) => boolean;
+type truthyFunction = (v: any) => boolean;
 
 export interface Options {
   [index: string]: string | truthyFunction;

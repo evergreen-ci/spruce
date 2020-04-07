@@ -46,7 +46,7 @@ declare namespace Cypress {
   }
 }
 
-type truthyFunction = (v: Cypress.WaitXHR) => boolean;
+type truthyFunction = (v: any) => boolean;
 interface WaitForGQLOptions {
   [index: string]: string | truthyFunction;
 }

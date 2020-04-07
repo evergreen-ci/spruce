@@ -31,13 +31,17 @@ const hasText = ($el) => {
 };
 
 describe("Patch route", function() {
-  beforeEach(() => {
+  before(() => {
     cy.login();
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
   });
 
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.dataCy("title").within(hasText);
+    cy.dataCy("page-title").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
@@ -50,14 +54,14 @@ describe("Patch route", function() {
 
   it("Shows a message if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.get("[data-cy=metadata-card-error]").should("exist");
+    cy.dataCy("metadata-card-error").should("exist");
     cy.get("#task-count").should("not.exist");
   });
 
   describe("Build Variants", () => {
     beforeEach(() => {
-      cy.server();
-      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.listenGQL();
+      cy.preserveCookies();
       cy.visit(path);
       cy.waitForGQL("PatchBuildVariants");
     });
@@ -84,8 +88,8 @@ describe("Patch route", function() {
 
   describe("Tasks Table", () => {
     beforeEach(() => {
-      cy.server();
-      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.listenGQL();
+      cy.preserveCookies();
       cy.visit(path);
     });
 
@@ -132,20 +136,20 @@ describe("Patch route", function() {
       it("Fetches additional tasks as the user scrolls", () => {
         assertScrollFetchAppend(() => {
           cy.waitForGQL("PatchTasks", {
-            "requestBody.variables.page": 1,
+            "requestBody.variables.page": (v) => v === 1,
           });
         });
       });
 
       it("Task count increments by the number of additional tasks fetched", () => {
         cy.waitForGQL("PatchTasks");
-        cy.get("[data-cy=current-task-count]")
+        cy.dataCy("current-task-count")
           .invoke("text")
           .then(($initialTaskCount) => {
             scrollToBottomOfTasksTable();
             cy.waitForGQL("PatchTasks");
             cy.get("@gqlQuery").then(($xhr) => {
-              cy.get("[data-cy=current-task-count]")
+              cy.dataCy("current-task-count")
                 .invoke("text")
                 .then(($newTaskCount) => {
                   expect(parseInt($newTaskCount)).eq(
@@ -184,11 +188,11 @@ const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
   if (!hasMore) {
     return;
   }
-  cy.get("[data-cy=total-task-count]")
+  cy.dataCy("total-task-count")
     .invoke("text")
     .then(($totalTaskCount) => {
       scrollToBottomOfTasksTable();
-      cy.get("[data-cy=current-task-count]")
+      cy.dataCy("current-task-count")
         .invoke("text")
         .then(($currentTaskCount) => {
           if ($currentTaskCount === $totalTaskCount) {
