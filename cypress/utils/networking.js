@@ -36,7 +36,6 @@ export const waitForGQL = (alias, queryName, options = {}) => {
         },
         true
       );
-      console.log("operation", get(xhr, "requestBody.operationName"));
       if (
         get(xhr, "requestBody.operationName") !== queryName ||
         !optionsMatch

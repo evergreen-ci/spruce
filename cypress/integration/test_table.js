@@ -2,8 +2,7 @@
 import { waitForGQL } from "../utils/networking";
 import {
   clickingCheckboxFetchesFilteredTasksAndUpdatesUrl,
-  filteredTasksAreFetchedAndRendered,
-  urlSearchParamsAreUpdated,
+  resultsAreFechedAndRendered,
   assertQueryVariables,
 } from "../utils";
 import { assertScrollFetchAppend } from "../utils/table";
@@ -229,7 +228,7 @@ describe("Tests Table", function() {
     it("Fetches and appends additional tests to table as the user scrolls", () => {
       cy.visit(TESTS_ROUTE);
       cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
-      filteredTasksAreFetchedAndRendered({
+      resultsAreFechedAndRendered({
         queryName: "taskTests",
         responseName: "taskTests",
         requestVariables: {

@@ -13,13 +13,13 @@ export const clickingCheckboxFetchesFilteredTasksAndUpdatesUrl = ({
     .contains(checkboxDisplayName)
     .as("target")
     .click();
-  filteredTasksAreFetchedAndRendered({
+  resultsAreFechedAndRendered({
     queryName: name,
     responseName,
     requestVariables,
   }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
   cy.get("@target").click({ force: true });
-  filteredTasksAreFetchedAndRendered({
+  resultsAreFechedAndRendered({
     queryName: name,
     responseName,
     requestVariables: [],
@@ -47,7 +47,7 @@ export const assertQueryVariables = (queryName, variables = {}) => {
   waitForGQL("@gqlQuery", queryName, options);
 };
 
-export const filteredTasksAreFetchedAndRendered = ({
+export const resultsAreFechedAndRendered = ({
   queryName,
   responseName,
   requestVariables,
