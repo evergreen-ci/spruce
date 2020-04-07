@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { ColumnProps } from "antd/es/table";
 import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
@@ -7,22 +7,18 @@ import Button from "@leafygreen-ui/button";
 import {
   Categories,
   GET_TASK_TESTS,
-  TakskTestsVars,
+  TaskTestVars,
   TaskTestsData,
-  UpdateQueryArg
+  UpdateQueryArg,
+  SortDir
 } from "gql/queries/get-task-tests";
 import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
-import {
-  RequiredQueryParams,
-  SortQueryParam,
-  ValidInitialQueryParams,
-  TableOnChange
-} from "types/task";
-import get from "lodash.get";
+import { RequiredQueryParams, TableOnChange } from "types/task";
+import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
@@ -30,29 +26,20 @@ import { NetworkStatus } from "apollo-client";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
-export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
-  initialSort,
-  initialCategory,
-  initialStatuses,
-  initialTestName
-}) => {
+export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { search, pathname } = useLocation();
   const { replace, listen } = useHistory();
-  // initial fetch
+  const { search, pathname } = useLocation();
+  const [initialQueryVariables] = useState<TaskTestVars>({
+    id,
+    pageNum: 0,
+    ...getQueryVariables(search)
+  });
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
-    TakskTestsVars
+    TaskTestVars
   >(GET_TASK_TESTS, {
-    variables: {
-      id,
-      dir: initialSort === SortQueryParam.Asc ? "ASC" : "DESC",
-      cat: initialCategory as Categories,
-      pageNum: 0,
-      limitNum: LIMIT,
-      statusList: initialStatuses,
-      testName: initialTestName
-    },
+    variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true
   });
   useDisableTableSortersIfLoading(networkStatus);
@@ -61,26 +48,11 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   // and the page num is set to 0
   useEffect(() => {
     return listen(async loc => {
-      const parsed = queryString.parse(loc.search, { arrayFormat });
-      const category = (parsed[RequiredQueryParams.Category] || "")
-        .toString()
-        .toUpperCase() as Categories;
-      const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
-      const sort = parsed[RequiredQueryParams.Sort];
-      const rawStatuses = parsed[RequiredQueryParams.Statuses];
-      const statusList = (Array.isArray(rawStatuses)
-        ? rawStatuses
-        : [rawStatuses]
-      ).filter(v => v && v !== TestStatus.All);
       try {
         await fetchMore({
           variables: {
-            cat: category || Categories.TestName,
-            dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
             pageNum: 0,
-            limitNum: LIMIT,
-            statusList: statusList,
-            testName
+            ...getQueryVariables(loc.search)
           },
           updateQuery: (
             prev: UpdateQueryArg,
@@ -110,25 +82,10 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
     if (pageNum % 1 !== 0) {
       return;
     }
-    const parsed = queryString.parse(search, { arrayFormat });
-    const rawStatuses = parsed[RequiredQueryParams.Statuses];
-    const category = (parsed[RequiredQueryParams.Category] || "")
-      .toString()
-      .toUpperCase() as Categories;
-    const sort = parsed[RequiredQueryParams.Sort];
-    const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
-    const statusList = (Array.isArray(rawStatuses)
-      ? rawStatuses
-      : [rawStatuses]
-    ).filter(v => v && v !== TestStatus.All);
     fetchMore({
       variables: {
         pageNum,
-        cat: category,
-        dir: sort === SortQueryParam.Asc ? "ASC" : "DESC",
-        limitNum: LIMIT,
-        statusList,
-        testName
+        ...getQueryVariables(search)
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -147,36 +104,22 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
-    let hasDiff = false;
-    if (
-      columnKey !==
-      parsedSearch[RequiredQueryParams.Category].toString().toUpperCase()
-    ) {
-      parsedSearch[RequiredQueryParams.Category] = columnKey;
-      hasDiff = true;
-    }
+    parsedSearch[RequiredQueryParams.Category] = columnKey;
+    parsedSearch[RequiredQueryParams.Sort] =
+      order === "ascend" ? SortDir.ASC : SortDir.DESC;
+    const nextQueryParams = queryString.stringify(parsedSearch, {
+      arrayFormat
+    });
 
-    if (
-      order === "ascend" &&
-      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Desc
-    ) {
-      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Asc;
-      hasDiff = true;
-    } else if (
-      order === "descend" &&
-      parsedSearch[RequiredQueryParams.Sort] === SortQueryParam.Asc
-    ) {
-      parsedSearch[RequiredQueryParams.Sort] = SortQueryParam.Desc;
-      hasDiff = true;
-    }
-    if (hasDiff) {
-      const nextQueryParams = queryString.stringify(parsedSearch);
+    if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
-  // only need sort order set to reflect initial state in URL
-  columns.find(({ key }) => key === initialCategory).defaultSortOrder =
-    initialSort === SortQueryParam.Asc ? "ascend" : "descend";
+
+  // initial table sort button state to reflect initial URL query params
+  const { cat, dir } = getQueryVariables(search);
+  columns.find(({ key }) => key === cat).defaultSortOrder =
+    dir === SortDir.ASC ? "ascend" : "descend";
 
   return (
     <div>
@@ -197,6 +140,12 @@ export const TestsTableCore: React.FC<ValidInitialQueryParams> = ({
   );
 };
 
+const statusToBadgeColor = {
+  [TestStatus.Pass]: Variant.Green,
+  [TestStatus.Fail]: Variant.Red,
+  [TestStatus.SilentFail]: Variant.Blue,
+  [TestStatus.Skip]: Variant.Yellow
+};
 const statusCopy = {
   [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
@@ -216,32 +165,16 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     key: Categories.Status,
     sorter: true,
     width: "20%",
-    render: (tag: string): JSX.Element => {
-      let color: Variant;
-      switch (tag) {
-        case TestStatus.Pass:
-          color = Variant.Green;
-          break;
-        case TestStatus.Fail:
-          color = Variant.Red;
-          break;
-        case TestStatus.SilentFail:
-          color = Variant.Blue;
-          break;
-        case TestStatus.Skip:
-          color = Variant.Yellow;
-          break;
-        default:
-          color = Variant.LightGray;
-      }
-      return (
-        <span>
-          <Badge variant={color} key={tag}>
-            {statusCopy[tag] || ""}
-          </Badge>
-        </span>
-      );
-    }
+    render: (status: string): JSX.Element => (
+      <span>
+        <Badge
+          variant={statusToBadgeColor[status] || Variant.LightGray}
+          key={status}
+        >
+          {statusCopy[status] || ""}
+        </Badge>
+      </span>
+    )
   },
   {
     title: "Time",
@@ -272,7 +205,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           {htmlDisplayURL && (
             <ButtonWrapper>
               <Button
-                id={`htmlBtn-${id}`}
+                data-cy="test-table-html-btn"
                 size="small"
                 target="_blank"
                 variant="default"
@@ -284,7 +217,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
           {rawDisplayURL && (
             <Button
-              id={`rawBtn-${id}`}
+              data-cy="test-table-raw-btn"
               size="small"
               target="_blank"
               variant="default"
@@ -304,3 +237,32 @@ export const rowKey = ({ id }: { id: string }): string => id;
 const ButtonWrapper = styled.span({
   marginRight: 8
 });
+
+const getQueryVariables = (search: string) => {
+  const parsed = queryString.parse(search, { arrayFormat });
+  const category = (parsed[RequiredQueryParams.Category] || "")
+    .toString()
+    .toUpperCase();
+  const cat =
+    category === Categories.TestName ||
+    category === Categories.Status ||
+    category === Categories.Duration
+      ? (category as Categories)
+      : Categories.Status;
+
+  const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
+  const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
+  const dir = sort === SortDir.DESC ? SortDir.DESC : SortDir.ASC;
+  const rawStatuses = parsed[RequiredQueryParams.Statuses];
+  const statusList = (Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses]
+  ).filter(v => v && v !== TestStatus.All);
+  return {
+    cat,
+    dir,
+    limitNum: LIMIT,
+    statusList,
+    testName
+  };
+};

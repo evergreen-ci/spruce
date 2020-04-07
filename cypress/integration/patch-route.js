@@ -1,19 +1,20 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
+import { assertScrollFetchAppend } from "../utils/table";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const patch = {
-  id: "5e4ff3abe3c3317e352062e4"
+  id: "5e4ff3abe3c3317e352062e4",
 };
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 
 const badPatch = {
-  id: "i-dont-exist"
+  id: "i-dont-exist",
 };
 
 const locationHasUpdatedParams = (sortBy, sortDir) => {
-  cy.location().should(loc => {
+  cy.location().should((loc) => {
     expect(loc.pathname).to.equal(pathTasks);
     expect(loc.search).to.include(`sortBy=${sortBy}`);
     if (!sortDir) {
@@ -24,7 +25,7 @@ const locationHasUpdatedParams = (sortBy, sortDir) => {
   });
 };
 
-const hasText = $el => {
+const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
 };
 
@@ -61,7 +62,7 @@ describe("Patch route", function() {
     });
 
     it("Lists the patch's build variants", () => {
-      cy.get(".patch-build-variant").within($variants => {
+      cy.get(".patch-build-variant").within(($variants) => {
         Array.from($variants).length > 0;
       });
     });
@@ -121,41 +122,31 @@ describe("Patch route", function() {
     it("Should have sort buttons disabled when fetching data", () => {
       cy.visit(path);
       cy.contains(TABLE_SORT_SELECTOR, "Name").click();
-      cy.once("fail", err => {
+      cy.once("fail", (err) => {
         expect(err.message).to.include(
           "'pointer-events: none' prevents user mouse interaction."
         );
       });
 
       it("Fetches additional tasks as the user scrolls", () => {
-        cy.get(".ant-table-row")
-          .invoke("toArray")
-          .then($initialTasks => {
-            scrollToBottomOfTasksTable();
-            waitForGQL("@gqlQuery", "PatchTasks");
-            cy.get("@gqlQuery")
-              .its("requestBody.variables.page")
-              .should("equal", 1);
-
-            // confirm additional tasks were appended to table items
-            cy.get(".ant-table-row").should(
-              "have.length.greaterThan",
-              $initialTasks.length
-            );
+        assertScrollFetchAppend(() => {
+          waitForGQL("@gqlQuery", "PatchTasks", {
+            "requestBody.variables.page": 1,
           });
+        });
       });
 
       it("Task count increments by the number of additional tasks fetched", () => {
         waitForGQL("@gqlQuery", "PatchTasks");
         cy.get("[data-cy=current-task-count]")
           .invoke("text")
-          .then($initialTaskCount => {
+          .then(($initialTaskCount) => {
             scrollToBottomOfTasksTable();
             waitForGQL("@gqlQuery", "PatchTasks");
-            cy.get("@gqlQuery").then($xhr => {
+            cy.get("@gqlQuery").then(($xhr) => {
               cy.get("[data-cy=current-task-count]")
                 .invoke("text")
-                .then($newTaskCount => {
+                .then(($newTaskCount) => {
                   expect(parseInt($newTaskCount)).eq(
                     parseInt($initialTaskCount) +
                       $xhr.response.body.data.patchTasks.length
@@ -169,14 +160,14 @@ describe("Patch route", function() {
         scrollTasksTableUntilAllTasksFetched({ hasMore: true });
         cy.get(".ant-table-body").scrollTo("top");
         scrollToBottomOfTasksTable();
-        cy.wait("@gqlQuery").then(xhr => {
+        cy.wait("@gqlQuery").then((xhr) => {
           expect(xhr.requestBody.operationName).not.eq("PatchTasks");
         });
       });
     });
 
     xit("Fetches sorted tasks when table sort headers are clicked", () => {
-      ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach(sortBy =>
+      ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) =>
         clickSorterAndAssertTasksAreFetched(sortBy)
       );
     });
@@ -194,11 +185,11 @@ const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
   }
   cy.get("[data-cy=total-task-count]")
     .invoke("text")
-    .then($totalTaskCount => {
+    .then(($totalTaskCount) => {
       scrollToBottomOfTasksTable();
       cy.get("[data-cy=current-task-count]")
         .invoke("text")
-        .then($currentTaskCount => {
+        .then(($currentTaskCount) => {
           if ($currentTaskCount === $totalTaskCount) {
             hasMore = false;
           }
@@ -219,7 +210,7 @@ const assertCorrectRequestVariables = (sortBy, sortDir) => {
     .should("equal", sortDir);
 };
 
-const clickSorterAndAssertTasksAreFetched = patchSortBy => {
+const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.visit(path);
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();

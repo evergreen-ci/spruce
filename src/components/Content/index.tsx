@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Redirect } from "react-router-dom";
+import { Route, Redirect, Switch } from "react-router-dom";
 import { Task } from "pages/Task";
 import { Patch } from "pages/Patch";
 import { MyPatches } from "pages/MyPatches";
@@ -12,6 +12,7 @@ import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PROJECTS, ProjectsQuery } from "gql/queries/get-projects";
 import { PageLayout } from "components/styles/Layout";
+import { PageDoesNotExist } from "pages/404";
 
 export const Content = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -24,17 +25,19 @@ export const Content = () => {
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
-
   return (
     <PageLayout>
       <Navbar data={data} loading={loading} />
-      <PrivateRoute path={routes.task} component={Task} />
-      <PrivateRoute path={routes.patch} component={Patch} />
-      <PrivateRoute path={routes.myPatches} component={MyPatches} />
-      <PrivateRoute exact={true} path="/">
-        <Redirect to={routes.myPatches} />
-      </PrivateRoute>
-      <Route path={routes.login} component={Login} />
+      <Switch>
+        <PrivateRoute path={routes.task} component={Task} />
+        <PrivateRoute path={routes.patch} component={Patch} />
+        <PrivateRoute path={routes.myPatches} component={MyPatches} />
+        <PrivateRoute exact={true} path="/">
+          <Redirect to={routes.myPatches} />
+        </PrivateRoute>
+        <Route path={routes.login} component={Login} />
+        <Route component={PageDoesNotExist} />
+      </Switch>
     </PageLayout>
   );
 };
