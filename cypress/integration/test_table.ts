@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
+/// <reference path="../support/index.d.ts" />
+
 import { assertScrollFetchAppend } from "../utils/table";
 
 describe("Tests Table", function() {

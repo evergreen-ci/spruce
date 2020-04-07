@@ -1,3 +1,6 @@
+/// <reference types="Cypress" />
+/// <reference path="../support/index.d.ts" />
+
 const waitForFilesQuery = () => cy.waitForGQL("taskFiles");
 const FILES_ROUTE = "/task/evergreen_ubuntu1604_89/files";
 const FILES_ROUTE_WITHOUT_FILES =

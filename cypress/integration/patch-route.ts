@@ -1,4 +1,6 @@
 /// <reference types="Cypress" />
+/// <reference path="../support/index.d.ts" />
+
 import { assertScrollFetchAppend } from "../utils/table";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";

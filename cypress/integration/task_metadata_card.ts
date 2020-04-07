@@ -1,6 +1,8 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
+/// <reference path="../support/index.d.ts" />
+
 import get from "lodash/get";
+
 const taskId =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskId}`;
@@ -43,7 +45,7 @@ describe("Task Metadata Card", function() {
       cy.visit(route);
       const reliesOnPath = "responseBody.data.task.reliesOn";
       cy.waitForGQL("GetTask", {
-        [reliesOnPath]: (v) => v,
+        [reliesOnPath]: (v) => !!v,
       }).then((xhr) => {
         const dependsOnContainer = cy.get("[data-cy=depends-on-container]");
         if (get(xhr, reliesOnPath, []).length > 0) {
