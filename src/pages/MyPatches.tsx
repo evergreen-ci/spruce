@@ -7,7 +7,7 @@ export const MyPatches = () => {
   const { search, pathname } = useLocation();
   const history = useHistory();
   const parsed = queryString.parse(search);
-  let showCommitQueue = (parsed.commitQueue === "true");
+  let showCommitQueue = parsed.commitQueue === "true";
   return (
     <div>
       <div>My Patches Page</div>
@@ -17,7 +17,7 @@ export const MyPatches = () => {
           history.push({
             pathname: pathname,
             search: "?commitQueue=" + showCommitQueue
-          })
+          });
         }}
         label="Show Commit Queue"
         checked={showCommitQueue}
