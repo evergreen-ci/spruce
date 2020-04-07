@@ -2,7 +2,7 @@
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   urlSearchParamsAreUpdated,
-  resultsAreFechedAndRendered,
+  resultsAreFetchedAndRendered,
 } from "../../../utils";
 
 const patch = {
@@ -89,7 +89,7 @@ describe("Tasks filters", function() {
 
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
-      resultsAreFechedAndRendered({
+      resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
         responseName: "patchTasks",
       }).then(() =>
@@ -100,7 +100,7 @@ describe("Tasks filters", function() {
         })
       );
       cy.get("[data-cy=variant-input]").clear();
-      resultsAreFechedAndRendered({
+      resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
         responseName: "patchTasks",
       }).then(() =>
@@ -119,7 +119,7 @@ describe("Tasks filters", function() {
 
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
-      resultsAreFechedAndRendered({
+      resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
         responseName: "patchTasks",
       }).then(() =>
@@ -130,7 +130,7 @@ describe("Tasks filters", function() {
         })
       );
       cy.get("[data-cy=task-name-input]").clear();
-      resultsAreFechedAndRendered({
+      resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
         responseName: "patchTasks",
       }).then(() =>

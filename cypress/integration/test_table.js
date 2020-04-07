@@ -2,7 +2,7 @@
 import { waitForGQL } from "../utils/networking";
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
-  resultsAreFechedAndRendered,
+  resultsAreFetchedAndRendered,
   assertQueryVariables,
 } from "../utils";
 
@@ -18,7 +18,6 @@ describe("Tests Table", function() {
     assertQueryVariables("taskTests", {
       cat: "STATUS",
       dir: "ASC",
-      statusList: [],
       testName: "",
       pageNum: 0,
     });
@@ -227,7 +226,7 @@ describe("Tests Table", function() {
     it("Fetches and appends additional tests to table as the user scrolls", () => {
       cy.visit(TESTS_ROUTE);
       cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
-      resultsAreFechedAndRendered({
+      resultsAreFetchedAndRendered({
         queryName: "taskTests",
         responseName: "taskTests",
         requestVariables: {
