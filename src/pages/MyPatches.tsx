@@ -10,7 +10,7 @@ export const MyPatches = () => {
   const parsed = queryString.parse(search);
   const showCommitQueue = parsed.commitQueue === "true" || parsed.commitQueue === undefined;
 
-  function onCheckboxChange() {
+  const onCheckboxChange = () => {
     replace(
       `${pathname}?${queryString.stringify({
         ...queryString.parse(search),
