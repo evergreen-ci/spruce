@@ -7,7 +7,7 @@ export const clickingCheckboxFetchesFilteredTasksAndUpdatesUrl = ({
   pathname,
   paramName,
   search,
-  query: { name, reqBodyVariable, value, responseName },
+  query: { name, responseName, requestVariables },
 }) => {
   cy.get(selector)
     .contains(checkboxDisplayName)
@@ -15,32 +15,44 @@ export const clickingCheckboxFetchesFilteredTasksAndUpdatesUrl = ({
     .click();
   filteredTasksAreFetchedAndRendered({
     queryName: name,
-    reqBodyVariable,
-    value,
     responseName,
+    requestVariables,
   }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
   cy.get("@target").click({ force: true });
   filteredTasksAreFetchedAndRendered({
     queryName: name,
-    reqBodyVariable,
-    value,
     responseName,
+    requestVariables: [],
   }).then(() =>
     urlSearchParamsAreUpdated({ pathname, paramName, search: null })
   );
 };
 
+export const assertQueryVariables = (queryName, variables = {}) => {
+  const options = {};
+  Object.entries(variables).forEach(([variable, value]) => {
+    if (variable.includes("status")) {
+      options[`requestBody.variables[${variable}]`] = (statusQueryVar) => {
+        const statusesSet = new Set(value);
+        return (
+          Array.isArray(statusQueryVar) &&
+          statusQueryVar.length === statusesSet.size &&
+          statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
+        );
+      };
+    } else {
+      options[`requestBody.variables[${variable}]`] = value;
+    }
+  });
+  waitForGQL("@gqlQuery", queryName, options);
+};
+
 export const filteredTasksAreFetchedAndRendered = ({
-  reqBodyVariable,
-  value,
   queryName,
   responseName,
+  requestVariables,
 } = {}) => {
-  const options = {};
-  if (reqBodyVariable && value) {
-    options[`request.body.variables[${reqBodyVariable}]`] = value;
-  }
-  waitForGQL("@gqlQuery", queryName, options);
+  assertQueryVariables(queryName, requestVariables);
   return cy.get("@gqlQuery").then(({ response }) => {
     const numberOfResults = response.body.data[responseName].length;
     if (numberOfResults === 0) {
@@ -49,7 +61,7 @@ export const filteredTasksAreFetchedAndRendered = ({
       cy.get(".ant-table-row")
         .invoke("toArray")
         .then((filteredResults) => {
-          expect(numberOfResults).eq(filteredResults.length);
+          expect(filteredResults.length >= numberOfResults).eq(true);
         });
     }
   });
