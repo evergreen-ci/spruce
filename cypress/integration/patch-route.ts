@@ -1,5 +1,4 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
 import { assertScrollFetchAppend } from "../utils/table";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
@@ -36,7 +35,7 @@ describe("Patch route", function() {
 
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.get("[data-cy=page-title]").within(hasText);
+    cy.dataCy("title").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
