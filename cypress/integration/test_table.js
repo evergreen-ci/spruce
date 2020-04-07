@@ -15,18 +15,24 @@ describe("Tests Table", function() {
     cy.route("POST", "/graphql/query").as("gqlQuery");
   });
 
-  xit("Should make GQL request with default query variables when no query params are provided", () => {
+  it("Should make GQL request with default query variables when no query params are provided", () => {
     cy.visit(TESTS_ROUTE);
-    assertQueryVariables();
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "ASC",
+      statusList: [],
+      testName: "",
+      pageNum: 0,
+    });
   });
 
-  xit("Should display No Data when given an invalid TaskID in the url", () => {
+  it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     waitForGQL("@gqlQuery", "GetTask");
     cy.contains("No Data");
   });
 
-  xit("Should have sort buttons disabled when fetching data", () => {
+  it("Should have sort buttons disabled when fetching data", () => {
     cy.visit(TESTS_ROUTE);
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
     cy.once("fail", (err) => {
@@ -36,7 +42,7 @@ describe("Tests Table", function() {
     });
   });
 
-  xit("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
+  it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
@@ -45,38 +51,53 @@ describe("Tests Table", function() {
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("TEST_NAME", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "TEST_NAME",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("STATUS", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("STATUS", "DESC");
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "DESC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("DURATION", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "DURATION",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("DURATION", "DESC");
+    assertQueryVariables("taskTests", {
+      cat: "DURATION",
+      dir: "DESC",
+    });
   });
 
-  xit("Should not adjust URL params when clicking Logs tab", () => {
+  it("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
       cy.location().should((loc) => {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
@@ -89,7 +110,7 @@ describe("Tests Table", function() {
     assertInitialURLState();
   });
 
-  xit("Buttons in log column should have target=_blank attribute", () => {
+  it("Buttons in log column should have target=_blank attribute", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.get("[data-cy=test-table-html-btn").should(
@@ -110,7 +131,7 @@ describe("Tests Table", function() {
       cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
     });
 
-    xit("Status select says 'No filters selected' by default", () => {
+    it("Status select says 'No filters selected' by default", () => {
       cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
