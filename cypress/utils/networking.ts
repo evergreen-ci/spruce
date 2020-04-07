@@ -22,9 +22,13 @@ import get from "lodash/get";
 //        "responseBody.data.task.displayName": "task1"
 //      })
 //
-export const waitForGQL = (alias, queryName, options = {}) => {
+export const waitForGQL = (
+  alias: string,
+  queryName: string,
+  options: Options
+): Cypress.Chainable<Cypress.WaitXHR> => {
   const waitOnce = () => {
-    return cy.wait(alias).then(xhr => {
+    return cy.wait(alias).then((xhr) => {
       const optionsMatch = Object.entries(options).reduce(
         (accum, [key, val]) => {
           const xhrValueAtPath = get(xhr, key);
@@ -47,3 +51,9 @@ export const waitForGQL = (alias, queryName, options = {}) => {
 
   return waitOnce();
 };
+
+type truthyFunction = (v: any) => boolean;
+
+export interface Options {
+  [index: string]: string | truthyFunction;
+}
