@@ -7,7 +7,7 @@ export const MyPatches = () => {
   const { search, pathname } = useLocation();
   const history = useHistory();
   const parsed = queryString.parse(search);
-  let showCommitQueue = parsed.commitQueue === "true";
+  let showCommitQueue = parsed.commitQueue ? parsed.commitQueue === "true" : true;
 
   function onCheckboxChange() {
     showCommitQueue = !showCommitQueue;
