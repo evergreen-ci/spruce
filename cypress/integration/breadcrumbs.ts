@@ -35,12 +35,12 @@ describe("TaskBreadcrumb", function() {
 });
 
 describe("PatchBreadcrumb", function() {
-  before(() => {
-    cy.login();
-    cy.visit("/patch/5e4ff3abe3c3317e352062e4");
+  beforeEach(() => {
+    cy.preserveCookies();
   });
 
   it("Shows the patches name", function() {
+    cy.visit("/patch/5e4ff3abe3c3317e352062e4");
     cy.get("#bc-patch").should("include.text", "Patch 2567");
   });
 
