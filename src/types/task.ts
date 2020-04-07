@@ -17,6 +17,10 @@ export enum PatchTasksQueryParams {
   TaskName = "taskName"
 }
 
+export enum MyPatchesQueryParams {
+  CommitQueue = "commitQueue"
+}
+
 export enum TestStatus {
   Fail = "fail",
   Skip = "skip",
