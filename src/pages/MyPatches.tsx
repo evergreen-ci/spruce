@@ -3,7 +3,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 
-export const MyPatches: React.FC = () => {
+export const MyPatches = () => {
   const { search, pathname } = useLocation();
   const history = useHistory();
   const parsed = queryString.parse(search);
