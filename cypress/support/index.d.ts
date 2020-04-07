@@ -39,7 +39,7 @@ declare namespace Cypress {
     listenGQL(): void;
     /**
      * Custom command to enter credentials in username and password input
-     * click submit
+     * and then click submit
      * @example cy.enterLoginCredentials()
      */
     enterLoginCredentials(): void;
