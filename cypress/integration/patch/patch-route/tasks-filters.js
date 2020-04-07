@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 import {
-  clickingCheckboxFetchesFilteredTasksAndUpdatesUrl,
+  clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   urlSearchParamsAreUpdated,
   resultsAreFechedAndRendered,
 } from "../../../utils";
@@ -161,7 +161,7 @@ describe("Tasks filters", function() {
       });
 
       it("Clicking on 'All' checkbox adds all statuses to URL. Clicking again removes all statuses.", () => {
-        clickingCheckboxFetchesFilteredTasksAndUpdatesUrl({
+        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
           checkboxDisplayName: "All",
           pathname: pathTasks,
           paramName,
@@ -172,7 +172,7 @@ describe("Tasks filters", function() {
 
       parentStatuses.forEach(({ title, statuses }) => {
         it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
-          clickingCheckboxFetchesFilteredTasksAndUpdatesUrl({
+          clickingCheckboxUpdatesUrlAndRendersFetchedResults({
             checkboxDisplayName: title,
             pathname: pathTasks,
             paramName,
@@ -184,7 +184,7 @@ describe("Tasks filters", function() {
 
       singularStatuses.forEach(({ title, paramValue }) => {
         it(`Clicking on singular status '${title}' updates url status with '${paramValue}'`, () => {
-          clickingCheckboxFetchesFilteredTasksAndUpdatesUrl({
+          clickingCheckboxUpdatesUrlAndRendersFetchedResults({
             checkboxDisplayName: title,
             pathname: pathTasks,
             paramName,

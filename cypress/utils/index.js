@@ -1,7 +1,7 @@
 import { waitForGQL } from "./networking";
 
 // used to test status and base status dropdown filters
-export const clickingCheckboxFetchesFilteredTasksAndUpdatesUrl = ({
+export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   selector = ".cy-checkbox",
   checkboxDisplayName,
   pathname,
@@ -31,13 +31,12 @@ export const clickingCheckboxFetchesFilteredTasksAndUpdatesUrl = ({
 export const assertQueryVariables = (queryName, variables = {}) => {
   const options = {};
   Object.entries(variables).forEach(([variable, value]) => {
-    if (variable.includes("status")) {
-      options[`requestBody.variables[${variable}]`] = (statusQueryVar) => {
-        const statusesSet = new Set(value);
+    if (Array.isArray(variable)) {
+      options[`requestBody.variables[${variable}]`] = (arrayVariable) => {
+        const arrayValues = new Set(value);
         return (
-          Array.isArray(statusQueryVar) &&
-          statusQueryVar.length === statusesSet.size &&
-          statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
+          arrayVariable.length === arrayValues.size &&
+          arrayVariable.reduce((accum, s) => accum && arrayValues.has(s), true)
         );
       };
     } else {

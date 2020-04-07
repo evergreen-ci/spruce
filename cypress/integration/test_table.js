@@ -1,11 +1,10 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
 import {
-  clickingCheckboxFetchesFilteredTasksAndUpdatesUrl,
+  clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   resultsAreFechedAndRendered,
   assertQueryVariables,
 } from "../utils";
-import { assertScrollFetchAppend } from "../utils/table";
 
 describe("Tests Table", function() {
   beforeEach(() => {
@@ -135,7 +134,7 @@ describe("Tests Table", function() {
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL ", () => {
-      clickingCheckboxFetchesFilteredTasksAndUpdatesUrl({
+      clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: TESTS_ROUTE,
         paramName: "statuses",
@@ -164,7 +163,7 @@ describe("Tests Table", function() {
 
     statuses.forEach(({ display, key }) => {
       it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-        clickingCheckboxFetchesFilteredTasksAndUpdatesUrl({
+        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
           checkboxDisplayName: display,
           pathname: TESTS_ROUTE,
           paramName: "statuses",
