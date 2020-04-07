@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
 import { waitForGQL } from "../utils/networking";
+import { clickCheckboxGetTasksUpdateUrl } from "../utils";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
@@ -24,7 +25,7 @@ describe("Tests Table", function() {
   it("Should have sort buttons disabled when fetching data", () => {
     cy.visit(TESTS_ROUTE);
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
-    cy.once("fail", err => {
+    cy.once("fail", (err) => {
       expect(err.message).to.include(
         "'pointer-events: none' prevents user mouse interaction."
       );
@@ -35,35 +36,35 @@ describe("Tests Table", function() {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
@@ -72,7 +73,7 @@ describe("Tests Table", function() {
 
   it("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
-      cy.location().should(loc => {
+      cy.location().should((loc) => {
         expect(loc.pathname).to.equal(TESTS_ROUTE);
         expect(loc.search).to.include("sortBy=TEST_NAME");
         expect(loc.search).to.include(ASCEND_PARAM);
@@ -110,12 +111,15 @@ describe("Tests Table", function() {
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL ", () => {
-      cy.get(".cy-checkbox")
-        .contains("All")
-        .click();
-      cy.location().should(loc => {
-        expect(loc.pathname).to.equal(TESTS_ROUTE);
-        expect(loc.search).to.include("statuses=all,pass,fail,skip,silentfail");
+      clickCheckboxGetTasksUpdateUrl({
+        checkboxDisplayName: "All",
+        pathname: TESTS_ROUTE,
+        paramName: "statuses",
+        search: "all,pass,fail,skip,silentfail",
+        query: {
+          name: "taskTests",
+          responseName: "taskTests",
+        },
       });
     });
 
@@ -123,26 +127,20 @@ describe("Tests Table", function() {
       { display: "Pass", key: "pass" },
       { display: "Silent Fail", key: "silentfail" },
       { display: "Fail", key: "fail" },
-      { display: "Skip", key: "skip" }
+      { display: "Skip", key: "skip" },
     ];
 
     statuses.forEach(({ display, key }) => {
       it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-        cy.location().should(loc => {
-          expect(loc.pathname).to.equal(TESTS_ROUTE);
-          expect(loc.search).to.include(`statuses=${key}`);
-          expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
-        });
-        cy.wait(200);
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-        cy.location().should(loc => {
-          expect(loc.pathname).to.equal(TESTS_ROUTE);
-          expect(loc.search).to.not.include(`statuses=${key}`);
+        clickCheckboxGetTasksUpdateUrl({
+          checkboxDisplayName: display,
+          pathname: TESTS_ROUTE,
+          paramName: "statuses",
+          search: key,
+          query: {
+            name: "taskTests",
+            responseName: "taskTests",
+          },
         });
       });
     });
@@ -153,7 +151,7 @@ describe("Tests Table", function() {
           .contains(display)
           .click();
       });
-      cy.location().should(loc => {
+      cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
     });
@@ -167,7 +165,7 @@ describe("Tests Table", function() {
     });
 
     it("Typing in test name filter updates testname query param", () => {
-      cy.location().should(loc => {
+      cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });
     });
@@ -175,7 +173,7 @@ describe("Tests Table", function() {
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
       const xhrTestNamePath = "requestBody.variables.testName";
       waitForGQL("@gqlQuery", "taskTests", {
-        [xhrTestNamePath]: testNameInputValue
+        [xhrTestNamePath]: testNameInputValue,
       });
       cy.get("@gqlQuery")
         .its("requestBody.operationName")
