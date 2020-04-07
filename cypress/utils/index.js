@@ -31,12 +31,13 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
 export const assertQueryVariables = (queryName, variables = {}) => {
   const options = {};
   Object.entries(variables).forEach(([variable, value]) => {
-    if (Array.isArray(variable)) {
-      options[`requestBody.variables[${variable}]`] = (arrayVariable) => {
-        const arrayValues = new Set(value);
+    if (Array.isArray(value)) {
+      options[`requestBody.variables[${variable}]`] = (statusQueryVar) => {
+        const statusesSet = new Set(value);
         return (
-          arrayVariable.length === arrayValues.size &&
-          arrayVariable.reduce((accum, s) => accum && arrayValues.has(s), true)
+          Array.isArray(statusQueryVar) &&
+          statusQueryVar.length === statusesSet.size &&
+          statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
         );
       };
     } else {

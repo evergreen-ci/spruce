@@ -93,7 +93,6 @@ describe("Tests Table", function() {
       dir: "DESC",
     });
   });
-
   it("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
       cy.location().should((loc) => {
