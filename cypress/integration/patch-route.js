@@ -58,7 +58,7 @@ describe("Patch route", function() {
       cy.server();
       cy.route("POST", "/graphql/query").as("gqlQuery");
       cy.visit(path);
-      waitForGQL("@gqlQuery", "PatchBuildVariants");
+      cy.waitForGQL("PatchBuildVariants");
     });
 
     it("Lists the patch's build variants", () => {
@@ -130,19 +130,19 @@ describe("Patch route", function() {
 
       it("Fetches additional tasks as the user scrolls", () => {
         assertScrollFetchAppend(() => {
-          waitForGQL("@gqlQuery", "PatchTasks", {
+          cy.waitForGQL("PatchTasks", {
             "requestBody.variables.page": 1,
           });
         });
       });
 
       it("Task count increments by the number of additional tasks fetched", () => {
-        waitForGQL("@gqlQuery", "PatchTasks");
+        cy.waitForGQL("PatchTasks");
         cy.get("[data-cy=current-task-count]")
           .invoke("text")
           .then(($initialTaskCount) => {
             scrollToBottomOfTasksTable();
-            waitForGQL("@gqlQuery", "PatchTasks");
+            cy.waitForGQL("PatchTasks");
             cy.get("@gqlQuery").then(($xhr) => {
               cy.get("[data-cy=current-task-count]")
                 .invoke("text")
@@ -214,7 +214,7 @@ const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.visit(path);
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
-  waitForGQL("@gqlQuery", "PatchBuildVariants");
+  cy.waitForGQL("PatchBuildVariants");
   assertCorrectRequestVariables(patchSortBy, "ASC");
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
 

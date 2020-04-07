@@ -42,7 +42,7 @@ describe("Task Metadata Card", function() {
     it("Depends On section should be displayed when reliesOn field has length greater than 0 and nonexistent otherwise", () => {
       cy.visit(route);
       const reliesOnPath = "responseBody.data.task.reliesOn";
-      waitForGQL("@gqlQuery", "GetTask", {
+      cy.waitForGQL("GetTask", {
         [reliesOnPath]: (v) => v,
       }).then((xhr) => {
         const dependsOnContainer = cy.get("[data-cy=depends-on-container]");
@@ -64,7 +64,7 @@ describe("Task Metadata Card", function() {
       const finishTimePath = "responseBody.data.task.finishTime";
       const valExists = (v) => v !== undefined;
       // wait for gql query where the 3 time fields were requested
-      waitForGQL("@gqlQuery", "GetTask", {
+      cy.waitForGQL("GetTask", {
         [createTimePath]: valExists,
         [startTimePath]: valExists,
         [finishTimePath]: valExists,

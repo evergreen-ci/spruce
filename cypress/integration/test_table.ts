@@ -19,7 +19,7 @@ describe("Tests Table", function() {
 
   it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
-    waitForGQL("@gqlQuery", "GetTask");
+    cy.waitForGQL("GetTask");
     cy.contains("No Data");
   });
 
@@ -218,7 +218,7 @@ describe("Tests Table", function() {
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
-const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
+const waitForTestsQuery = () => cy.waitForGQL("taskTests");
 const assertQueryVariables = (
   sortBy = "STATUS",
   sortDir = "ASC",
@@ -226,7 +226,7 @@ const assertQueryVariables = (
   testName = "",
   pageNum = 0
 ) =>
-  waitForGQL("@gqlQuery", "taskTests", {
+  cy.waitForGQL("taskTests", {
     "requestBody.variables.cat": sortBy,
     "requestBody.variables.dir": sortDir,
     "requestBody.variables.statusList": (statusQueryVar) => {

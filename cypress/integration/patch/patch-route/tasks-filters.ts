@@ -137,7 +137,7 @@ const clickCheckboxesAndAssertCorrectUrlParams = (checkboxTitle, urlStatus) => {
 };
 
 const filteredTasksAreFetched = (variable, value) => {
-  waitForGQL("@gqlQuery", "PatchTasks", {
+  cy.waitForGQL("PatchTasks", {
     [`request.body.variables[${variable}`]: value,
   });
   cy.get("@gqlQuery").then(({ response }) => {

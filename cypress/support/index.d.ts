@@ -13,6 +13,7 @@ declare namespace Cypress {
     preserveCookies(): void;
     login(): void;
     listenGQL(): void;
+    enterCredentials(): void;
   }
 }
 

@@ -1,5 +1,3 @@
-/// <reference types="Cypress" />
-
 describe("Auth", function() {
   it("Unauthenticated user is redirected to login page after visiting a private route", function() {
     cy.visit("/patch/123123");
