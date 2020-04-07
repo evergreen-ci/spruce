@@ -30,7 +30,7 @@ Cypress.Commands.add("listenGQL", () => {
   cy.route("POST", "/graphql/query").as(GQL_QUERY);
 });
 
-Cypress.Commands.add("waitForGQL", (queryName, options) =>
+Cypress.Commands.add("waitForGQL", (queryName, options = {}) =>
   waitForGQL(`@${GQL_QUERY}`, queryName, options)
 );
 
