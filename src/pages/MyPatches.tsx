@@ -2,22 +2,19 @@ import React from "react";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { MyPatchesQueryParams } from "types/task";
+import { MyPatchesQueryParams } from "types/patch";
 
 export const MyPatches = () => {
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const parsed = queryString.parse(search);
-  let showCommitQueue = parsed.commitQueue
-    ? parsed.commitQueue === "true"
-    : true;
+  const showCommitQueue = parsed.commitQueue === "true" || parsed.commitQueue === undefined;
 
   function onCheckboxChange() {
-    showCommitQueue = !showCommitQueue;
     replace(
       `${pathname}?${queryString.stringify({
         ...queryString.parse(search),
-        [MyPatchesQueryParams.CommitQueue]: showCommitQueue
+        [MyPatchesQueryParams.CommitQueue]: !showCommitQueue
       })}`
     );
   }
