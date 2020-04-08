@@ -48,7 +48,7 @@ export const Task: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 500,
+    pollInterval: 2000,
   });
 
   const task = get(data, "task");
