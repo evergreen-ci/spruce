@@ -23,6 +23,7 @@ export const MyPatches = () => {
     <div>
       <div>My Patches Page</div>
       <Checkbox
+        className="cy-checkbox"
         onChange={onCheckboxChange}
         label="Show Commit Queue"
         checked={showCommitQueue}
