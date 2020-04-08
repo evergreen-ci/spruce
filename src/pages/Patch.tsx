@@ -19,13 +19,16 @@ import { PatchStatus } from "gql/queries/get-patch-tasks";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<PatchQuery>(GET_PATCH, {
+  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(GET_PATCH, {
     variables: { id: id },
     pollInterval: 500
   });
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
+  if(status === PatchStatus.Failed || status === PatchStatus.Success) {
+    stopPolling();
+  }
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
