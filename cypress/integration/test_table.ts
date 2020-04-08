@@ -1,7 +1,10 @@
 /// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
 
-import { assertScrollFetchAppend } from "../utils/table";
+import {
+  clickingCheckboxUpdatesUrlAndRendersFetchedResults,
+  resultsAreFetchedAndRendered,
+  assertQueryVariables,
+} from "../utils";
 
 describe("Tests Table", function() {
   before(() => {
@@ -9,13 +12,18 @@ describe("Tests Table", function() {
   });
 
   beforeEach(() => {
-    cy.preserveCookies();
     cy.listenGQL();
+    cy.preserveCookies();
   });
 
   it("Should make GQL request with default query variables when no query params are provided", () => {
     cy.visit(TESTS_ROUTE);
-    assertQueryVariables();
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "ASC",
+      testName: "",
+      pageNum: 0,
+    });
   });
 
   it("Should display No Data when given an invalid TaskID in the url", () => {
@@ -43,37 +51,51 @@ describe("Tests Table", function() {
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("TEST_NAME", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "TEST_NAME",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("STATUS", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Status").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("STATUS", "DESC");
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "DESC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("DURATION", "ASC");
+    assertQueryVariables("taskTests", {
+      cat: "DURATION",
+      dir: "ASC",
+    });
     cy.contains(TABLE_SORT_SELECTOR, "Time").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("DURATION", "DESC");
+    assertQueryVariables("taskTests", {
+      cat: "DURATION",
+      dir: "DESC",
+    });
   });
-
   it("Should not adjust URL params when clicking Logs tab", () => {
     const assertInitialURLState = () =>
       cy.location().should((loc) => {
@@ -112,20 +134,25 @@ describe("Tests Table", function() {
       cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
-    it("Clicking on 'All' checkbox adds all statuses to URL and makes GQL request with all statuses", () => {
-      cy.get(".cy-checkbox")
-        .contains("All")
-        .click();
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(TESTS_ROUTE);
-        expect(loc.search).to.include("statuses=all,pass,fail,skip,silentfail");
+    it("Clicking on 'All' checkbox adds all statuses to URL ", () => {
+      clickingCheckboxUpdatesUrlAndRendersFetchedResults({
+        checkboxDisplayName: "All",
+        pathname: TESTS_ROUTE,
+        paramName: "statuses",
+        search: "all,pass,fail,skip,silentfail",
+        query: {
+          name: "taskTests",
+          responseName: "taskTests",
+          requestVariables: {
+            cat: "STATUS",
+            dir: "ASC",
+            statusList: ["pass", "fail", "skip", "silentfail"],
+            limitNum: 10,
+            pageNum: 0,
+            testName: "",
+          },
+        },
       });
-      assertQueryVariables("STATUS", "ASC", [
-        "pass",
-        "fail",
-        "skip",
-        "silentfail",
-      ]);
     });
 
     const statuses = [
@@ -137,32 +164,24 @@ describe("Tests Table", function() {
 
     statuses.forEach(({ display, key }) => {
       it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click()
-          .then(() => {
-            cy.location().should((loc) => {
-              expect(loc.pathname).to.equal(TESTS_ROUTE);
-              expect(loc.search).to.include(`statuses=${key}`);
-              expect(loc.search).to.not.include(`statuses=${key},`); // comma means that there is more than 1 status
-            });
-            cy.get(".cy-checkbox")
-              .contains(display)
-              .click();
-            cy.location().should((loc) => {
-              expect(loc.pathname).to.equal(TESTS_ROUTE);
-              expect(loc.search).to.not.include(`statuses=${key}`);
-            });
-          });
-      });
-    });
-
-    statuses.forEach(({ display, key }) => {
-      it(`Clicking on ${display} status checkbox makes GQL request with status ${key}`, () => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click();
-        assertQueryVariables("STATUS", "ASC", [key]);
+        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
+          checkboxDisplayName: display,
+          pathname: TESTS_ROUTE,
+          paramName: "statuses",
+          search: key,
+          query: {
+            name: "taskTests",
+            responseName: "taskTests",
+            requestVariables: {
+              cat: "STATUS",
+              dir: "ASC",
+              statusList: [key],
+              limitNum: 10,
+              pageNum: 0,
+              testName: "",
+            },
+          },
+        });
       });
     });
 
@@ -175,12 +194,9 @@ describe("Tests Table", function() {
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
-      assertQueryVariables("STATUS", "ASC", [
-        "pass",
-        "silentfail",
-        "fail",
-        "skip",
-      ]);
+      assertQueryVariables("taskTests", {
+        statusList: ["pass", "silentfail", "fail", "skip"],
+      });
     });
   });
 
@@ -198,19 +214,30 @@ describe("Tests Table", function() {
     });
 
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
-      assertQueryVariables("STATUS", "ASC", [], testNameInputValue, 0);
+      assertQueryVariables("taskTests", {
+        cat: "STATUS",
+        dir: "ASC",
+        statusList: [],
+        testName: testNameInputValue,
+        pageNum: 0,
+      });
     });
   });
 
   describe("Scrolling", () => {
-    beforeEach(() => {
-      cy.visit(TESTS_ROUTE);
-      assertQueryVariables();
-    });
-
     it("Fetches and appends additional tests to table as the user scrolls", () => {
-      assertScrollFetchAppend(() => {
-        assertQueryVariables("STATUS", "ASC", [], "", 1);
+      cy.visit(TESTS_ROUTE);
+      cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
+      resultsAreFetchedAndRendered({
+        queryName: "taskTests",
+        responseName: "taskTests",
+        requestVariables: {
+          cat: "STATUS",
+          dir: "ASC",
+          statusList: [],
+          testName: "",
+          pageNum: 1,
+        },
       });
     });
   });
@@ -220,27 +247,5 @@ const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => cy.waitForGQL("taskTests");
-const assertQueryVariables = (
-  sortBy = "STATUS",
-  sortDir = "ASC",
-  statuses = [],
-  testName = "",
-  pageNum = 0
-) =>
-  cy.waitForGQL("taskTests", {
-    "requestBody.variables.cat": sortBy,
-    "requestBody.variables.dir": sortDir,
-    "requestBody.variables.statusList": (statusQueryVar) => {
-      const statusesSet = new Set(statuses);
-      return (
-        Array.isArray(statusQueryVar) &&
-        statusQueryVar.length === statusesSet.size &&
-        statusQueryVar.reduce((accum, s) => accum && statusesSet.has(s), true)
-      );
-    },
-    "requestBody.variables.limitNum": 10,
-    "requestBody.variables.pageNum": pageNum,
-    "requestBody.variables.testName": testName,
-  });
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
