@@ -48,7 +48,7 @@ export const Task: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 500
+    pollInterval: 500,
   });
 
   const task = get(data, "task");
@@ -58,7 +58,13 @@ export const Task: React.FC = () => {
   const version = get(task, "version");
 
   // should this also include SetupFailed, TimedOut, and SystemFailed?
-  if (status === TaskStatus.Failed || status === TaskStatus.Succeeded) {
+  if (
+    status === TaskStatus.Failed ||
+    status === TaskStatus.Succeeded ||
+    status === TaskStatus.SetupFailed ||
+    status === TaskStatus.SystemFailed ||
+    status === TaskStatus.TestTimedOut
+  ) {
     stopPolling();
   }
 
