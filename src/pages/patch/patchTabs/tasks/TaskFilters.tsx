@@ -1,9 +1,10 @@
 import React from "react";
 import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
 import Icon from "@leafygreen-ui/icon";
-import { FiltersWrapper, StyledInput } from "components/styles";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
+import { Input } from "antd";
+import styled from "@emotion/styled";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -17,17 +18,22 @@ export const TaskFilters: React.FC = () => {
   const [statusesVal, statusesValOnChange] = useStatusesFilter(
     PatchTasksQueryParams.Statuses
   );
+  const [baseStatusesVal, baseStatusesValOnChange] = useStatusesFilter(
+    PatchTasksQueryParams.BaseStatuses
+  );
 
   return (
     <FiltersWrapper>
-      <StyledInput
+      <Input
+        style={{ width: "25%" }}
         data-cy="task-name-input"
         placeholder="Search Task Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={taskNameFilterValue}
         onChange={taskNameFilterValueOnChange}
       />
-      <StyledInput
+      <Input
+        style={{ width: "25%" }}
         data-cy="variant-input"
         placeholder="Search Variant Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
@@ -40,6 +46,15 @@ export const TaskFilters: React.FC = () => {
         tData={statusesTreeData}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
+        width="25%"
+      />
+      <TreeSelect
+        onChange={baseStatusesValOnChange}
+        state={baseStatusesVal}
+        tData={statusesTreeData}
+        inputLabel="Task Base Status: "
+        dataCy="task-base-status-filter"
+        width="25%"
       />
     </FiltersWrapper>
   );
@@ -121,5 +136,18 @@ const statusesTreeData = [
     title: "Blocked",
     value: TaskStatus.StatusBlocked,
     key: TaskStatus.StatusBlocked
+  },
+  {
+    title: "Won't Run",
+    value: TaskStatus.Inactive,
+    key: TaskStatus.Inactive
   }
 ];
+
+const FiltersWrapper = styled.div`
+  display: flex;
+  margin-bottom: 12px;
+  > :not(:last-child) {
+    margin-right: 20px;
+  }
+`;
