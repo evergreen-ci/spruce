@@ -21,7 +21,7 @@ export const Patch = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, stopPolling } = useQuery<PatchQuery>(GET_PATCH, {
     variables: { id: id },
-    pollInterval: 500
+    pollInterval: 2000
   });
   const patch = get(data, "patch");
   const status = get(patch, "status");
