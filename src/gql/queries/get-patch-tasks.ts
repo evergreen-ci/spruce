@@ -10,6 +10,7 @@ export const GET_PATCH_TASKS = gql`
     $sortDir: SortDirection
     $page: Int
     $statuses: [String!]
+    $baseStatuses: [String!]
     $variant: String
     $taskName: String
   ) {
@@ -18,6 +19,7 @@ export const GET_PATCH_TASKS = gql`
       limit: ${PATCH_TASKS_LIMIT}
       page: $page
       statuses: $statuses
+      baseStatuses: $baseStatuses
       sortDir: $sortDir
       sortBy: $sortBy
       variant: $variant
@@ -48,19 +50,19 @@ export enum TaskSortBy {
   Name = "NAME",
   Status = "STATUS",
   BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT"
+  Variant = "VARIANT",
 }
 
 export enum PatchStatus {
   Created = "created",
   Started = "started",
   Success = "success",
-  Failed = "failed"
+  Failed = "failed",
 }
 
 export enum TaskSortDir {
   Desc = "DESC",
-  Asc = "ASC"
+  Asc = "ASC",
 }
 
 export interface PatchTasksVariables {
@@ -69,6 +71,7 @@ export interface PatchTasksVariables {
   sortDir?: SortDir;
   page?: number;
   statuses?: [PatchStatus];
+  baseStatuses?: [PatchStatus];
   variant?: string;
   taskName?: string;
 }
