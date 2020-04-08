@@ -12,7 +12,7 @@ import {
   PageWrapper,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
 import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
@@ -21,18 +21,19 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
+import { TaskStatus } from "types/task";
 
 enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
-  BuildBaron = "build-baron"
+  BuildBaron = "build-baron",
 }
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3
+  [TaskTab.BuildBaron]: 3,
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
@@ -45,8 +46,9 @@ export const Task: React.FC = () => {
   );
 
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
-    variables: { taskId: id }
+  const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
+    variables: { taskId: id },
+    pollInterval: 500
   });
 
   const task = get(data, "task");
@@ -54,6 +56,11 @@ export const Task: React.FC = () => {
   const patchNumber = get(task, "patchNumber");
   const status = get(task, "status");
   const version = get(task, "version");
+
+  // should this also include SetupFailed, TimedOut, and SystemFailed?
+  if (status === TaskStatus.Failed || status === TaskStatus.Succeeded) {
+    stopPolling();
+  }
 
   return (
     <PageWrapper>
