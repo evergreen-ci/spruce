@@ -78,7 +78,7 @@ A `.cmdrc.json` file is required to deploy because it sets the environment varia
 
 ### How to Deploy:
 
-Run the `deploy:prod` or `deploy:staging` commands
+Run the `deploy:prod` or `deploy:staging` npm command
 
-1. `deploy:prod` = deploy to https://spruce.mongodb.com
-2. `deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
+1. `npm run deploy:prod` = deploy to https://spruce.mongodb.com
+2. `npm run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
