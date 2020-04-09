@@ -76,10 +76,13 @@ const singularStatuses = [
 ];
 
 describe("Tasks filters", function() {
-  beforeEach(() => {
+  before(() => {
     cy.login();
-    cy.server();
-    cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  beforeEach(() => {
+    cy.listenGQL();
+    cy.preserveCookies();
     cy.visit(pathTasks);
   });
 
