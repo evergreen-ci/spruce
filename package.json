@@ -66,6 +66,8 @@
     "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json npm run start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
+    "deploy:staging": "npm run build:staging && BUCKET=evergreen-staging.spruce npm run deploy",
+    "deploy:prod": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy",
     "lint": "tslint -c tslint.js 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.js 'src/**/*.ts?(x)'",
     "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)'",
