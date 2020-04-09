@@ -4,7 +4,7 @@ import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams } from "types/patch";
-import { H1 } from "@leafygreen-ui/typography";
+import { H2 } from "@leafygreen-ui/typography";
 
 export const MyPatches = () => {
   const { search, pathname } = useLocation();
@@ -24,7 +24,7 @@ export const MyPatches = () => {
 
   return (
     <PageWrapper>
-      <H1>My Patches</H1>
+      <H2>My Patches</H2>
       <Checkbox
         data-cy="commit-queue-checkbox"
         onChange={onCheckboxChange}
