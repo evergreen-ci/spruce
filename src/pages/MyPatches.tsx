@@ -1,10 +1,10 @@
 import React from "react";
 import { PageWrapper } from "components/styles";
-import { PageTitle } from "components/PageTitle";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams } from "types/patch";
+import { H1 } from "@leafygreen-ui/typography";
 
 export const MyPatches = () => {
   const { search, pathname } = useLocation();
@@ -24,12 +24,7 @@ export const MyPatches = () => {
 
   return (
     <PageWrapper>
-      <PageTitle
-        loading={false}
-        hasData={true}
-        title="My Patches"
-        badge={null}
-      />
+      <H1>My Patches</H1>
       <Checkbox
         data-cy="commit-queue-checkbox"
         onChange={onCheckboxChange}
