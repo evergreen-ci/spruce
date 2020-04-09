@@ -12,7 +12,7 @@ import {
   PageWrapper,
   PageContent,
   PageLayout,
-  PageSider,
+  PageSider
 } from "components/styles";
 import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
@@ -33,7 +33,7 @@ const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3,
+  [TaskTab.BuildBaron]: 3
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
@@ -48,7 +48,7 @@ export const Task: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 2000,
+    pollInterval: 2000
   });
 
   const task = get(data, "task");
