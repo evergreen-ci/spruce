@@ -21,6 +21,7 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
+import { TaskStatus } from "types/task";
 
 enum TaskTab {
   Logs = "logs",
@@ -45,8 +46,9 @@ export const Task: React.FC = () => {
   );
 
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
-    variables: { taskId: id }
+  const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
+    variables: { taskId: id },
+    pollInterval: 2000
   });
 
   const task = get(data, "task");
@@ -54,6 +56,16 @@ export const Task: React.FC = () => {
   const patchNumber = get(task, "patchNumber");
   const status = get(task, "status");
   const version = get(task, "version");
+
+  if (
+    status === TaskStatus.Failed ||
+    status === TaskStatus.Succeeded ||
+    status === TaskStatus.SetupFailed ||
+    status === TaskStatus.SystemFailed ||
+    status === TaskStatus.TestTimedOut
+  ) {
+    stopPolling();
+  }
 
   return (
     <PageWrapper>
