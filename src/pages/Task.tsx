@@ -27,7 +27,7 @@ enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
-  BuildBaron = "build-baron",
+  BuildBaron = "build-baron"
 }
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
