@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
+
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   resultsAreFetchedAndRendered,
@@ -7,10 +7,13 @@ import {
 } from "../utils";
 
 describe("Tests Table", function() {
-  beforeEach(() => {
-    cy.server();
+  before(() => {
     cy.login();
-    cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  beforeEach(() => {
+    cy.listenGQL();
+    cy.preserveCookies();
   });
 
   it("Should make GQL request with default query variables when no query params are provided", () => {
@@ -25,7 +28,7 @@ describe("Tests Table", function() {
 
   it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
-    waitForGQL("@gqlQuery", "GetTask");
+    cy.waitForGQL("GetTask");
     cy.contains("No Data");
   });
 
@@ -186,7 +189,7 @@ describe("Tests Table", function() {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
           .contains(display)
-          .click();
+          .click({ force: true });
       });
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
@@ -243,6 +246,6 @@ describe("Tests Table", function() {
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
-const waitForTestsQuery = () => waitForGQL("@gqlQuery", "taskTests");
+const waitForTestsQuery = () => cy.waitForGQL("taskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";

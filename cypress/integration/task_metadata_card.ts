@@ -1,16 +1,21 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
+/// <reference path="../support/index.d.ts" />
+
 import get from "lodash/get";
+
 const taskId =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskId}`;
 const taskRouteWithoutDependsOn = `/task/evergreen_ubuntu1604_test_migrations_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48`;
 
 describe("Task Metadata Card", function() {
-  beforeEach(() => {
-    cy.server();
+  before(() => {
     cy.login();
-    cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  beforeEach(() => {
+    cy.listenGQL();
+    cy.preserveCookies();
   });
 
   it("Should show an error message when navigating to a nonexistent task id", () => {
@@ -35,13 +40,13 @@ describe("Task Metadata Card", function() {
       .and("include", "/task");
   });
 
-  [taskRoute, taskRouteWithoutDependsOn].forEach(route => {
+  [taskRoute, taskRouteWithoutDependsOn].forEach((route) => {
     it("Depends On section should be displayed when reliesOn field has length greater than 0 and nonexistent otherwise", () => {
       cy.visit(route);
       const reliesOnPath = "responseBody.data.task.reliesOn";
-      waitForGQL("@gqlQuery", "GetTask", {
-        [reliesOnPath]: v => v
-      }).then(xhr => {
+      cy.waitForGQL("GetTask", {
+        [reliesOnPath]: (v) => !!v,
+      }).then((xhr) => {
         const dependsOnContainer = cy.get("[data-cy=depends-on-container]");
         if (get(xhr, reliesOnPath, []).length > 0) {
           dependsOnContainer.should("exist");
@@ -59,13 +64,13 @@ describe("Task Metadata Card", function() {
       const createTimePath = "responseBody.data.task.createTime";
       const startTimePath = "responseBody.data.task.startTime";
       const finishTimePath = "responseBody.data.task.finishTime";
-      const valExists = v => v !== undefined;
+      const valExists = (v) => v !== undefined;
       // wait for gql query where the 3 time fields were requested
-      waitForGQL("@gqlQuery", "GetTask", {
+      cy.waitForGQL("GetTask", {
         [createTimePath]: valExists,
         [startTimePath]: valExists,
-        [finishTimePath]: valExists
-      }).then(xhr => {
+        [finishTimePath]: valExists,
+      }).then((xhr) => {
         dateExistenceCheck(
           xhr,
           createTimePath,

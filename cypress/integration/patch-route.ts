@@ -1,5 +1,6 @@
 /// <reference types="Cypress" />
-import { waitForGQL } from "../utils/networking";
+/// <reference path="../support/index.d.ts" />
+
 import { assertScrollFetchAppend } from "../utils/table";
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
@@ -30,13 +31,17 @@ const hasText = ($el) => {
 };
 
 describe("Patch route", function() {
-  beforeEach(() => {
+  before(() => {
     cy.login();
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
   });
 
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
-    cy.get("[data-cy=page-title]").within(hasText);
+    cy.dataCy("page-title").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
@@ -49,16 +54,16 @@ describe("Patch route", function() {
 
   it("Shows a message if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.get("[data-cy=metadata-card-error]").should("exist");
+    cy.dataCy("metadata-card-error").should("exist");
     cy.get("#task-count").should("not.exist");
   });
 
   describe("Build Variants", () => {
     beforeEach(() => {
-      cy.server();
-      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.listenGQL();
+      cy.preserveCookies();
       cy.visit(path);
-      waitForGQL("@gqlQuery", "PatchBuildVariants");
+      cy.waitForGQL("PatchBuildVariants");
     });
 
     it("Lists the patch's build variants", () => {
@@ -83,8 +88,8 @@ describe("Patch route", function() {
 
   describe("Tasks Table", () => {
     beforeEach(() => {
-      cy.server();
-      cy.route("POST", "/graphql/query").as("gqlQuery");
+      cy.listenGQL();
+      cy.preserveCookies();
       cy.visit(path);
     });
 
@@ -130,21 +135,21 @@ describe("Patch route", function() {
 
       it("Fetches additional tasks as the user scrolls", () => {
         assertScrollFetchAppend(() => {
-          waitForGQL("@gqlQuery", "PatchTasks", {
-            "requestBody.variables.page": 1,
+          cy.waitForGQL("PatchTasks", {
+            "requestBody.variables.page": (v) => v === 1,
           });
         });
       });
 
       it("Task count increments by the number of additional tasks fetched", () => {
-        waitForGQL("@gqlQuery", "PatchTasks");
-        cy.get("[data-cy=current-task-count]")
+        cy.waitForGQL("PatchTasks");
+        cy.dataCy("current-task-count")
           .invoke("text")
           .then(($initialTaskCount) => {
             scrollToBottomOfTasksTable();
-            waitForGQL("@gqlQuery", "PatchTasks");
+            cy.waitForGQL("PatchTasks");
             cy.get("@gqlQuery").then(($xhr) => {
-              cy.get("[data-cy=current-task-count]")
+              cy.dataCy("current-task-count")
                 .invoke("text")
                 .then(($newTaskCount) => {
                   expect(parseInt($newTaskCount)).eq(
@@ -183,11 +188,11 @@ const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
   if (!hasMore) {
     return;
   }
-  cy.get("[data-cy=total-task-count]")
+  cy.dataCy("total-task-count")
     .invoke("text")
     .then(($totalTaskCount) => {
       scrollToBottomOfTasksTable();
-      cy.get("[data-cy=current-task-count]")
+      cy.dataCy("current-task-count")
         .invoke("text")
         .then(($currentTaskCount) => {
           if ($currentTaskCount === $totalTaskCount) {
@@ -214,7 +219,7 @@ const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.visit(path);
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
-  waitForGQL("@gqlQuery", "PatchBuildVariants");
+  cy.waitForGQL("PatchBuildVariants");
   assertCorrectRequestVariables(patchSortBy, "ASC");
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
 

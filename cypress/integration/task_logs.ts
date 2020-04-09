@@ -3,10 +3,13 @@
 const LOGS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
 describe("task logs view", function() {
-  beforeEach(() => {
-    cy.server();
+  before(() => {
     cy.login();
-    cy.route("POST", "/graphql/query").as("gqlQuery");
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+    cy.listenGQL();
   });
 
   it("Should render with task logs radio checked when logtype not indicated in URL query param", () => {
@@ -19,7 +22,7 @@ describe("task logs view", function() {
     cy.get("#cy-agent-radio")
       .check()
       .should("be.checked");
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=agent");
     });
@@ -30,7 +33,7 @@ describe("task logs view", function() {
     cy.get("#cy-event-radio")
       .check()
       .should("be.checked");
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=event");
     });
@@ -41,7 +44,7 @@ describe("task logs view", function() {
     cy.get("#cy-system-radio")
       .check()
       .should("be.checked");
-    cy.location().should(loc => {
+    cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=system");
     });
