@@ -12,7 +12,7 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   cy.get(selector)
     .contains(checkboxDisplayName)
     .as("target")
-    .click();
+    .click({ force: true });
   resultsAreFetchedAndRendered({
     queryName: name,
     responseName,
