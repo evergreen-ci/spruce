@@ -74,18 +74,11 @@ Follow these directions to enable query linting during local development so your
 
 ### Requirements
 
-A `.cmdrc.json` file is required to deploy Spruce to staging or production environments. See [Environment Variables](#environment-variables) section for more info about this file.
-
-Having a `.cmdrc.json` file sets the API and UI URLs that the application needs in production and staging environments to point to the correct APIs.
+A `.cmdrc.json` file is required to deploy because it sets the environment variables that the application needs in production and staging environments. See [Environment Variables](#environment-variables) section for more info about this file.
 
 ### How to Deploy:
 
-1. Build the application for the environment to which you wish to deploy
+Run the `deploy:prod` or `deploy:staging` commands
 
-- For staging, run `npm run build:staging`
-- For production, run `npm run build:production`
-
-2. Run `BUCKET=the-s3-bucket npm run deploy` and replace `the-s3-bucket` with the name of the S3 bucket
-
-- Staging: evergreen-staging.spruce
-- Production: evergreen.spruce
+1. `deploy:prod` = deploy to https://spruce.mongodb.com
+2. `deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
