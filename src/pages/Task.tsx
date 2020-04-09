@@ -57,7 +57,6 @@ export const Task: React.FC = () => {
   const status = get(task, "status");
   const version = get(task, "version");
 
-  // should this also include SetupFailed, TimedOut, and SystemFailed?
   if (
     status === TaskStatus.Failed ||
     status === TaskStatus.Succeeded ||
