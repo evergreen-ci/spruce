@@ -189,7 +189,7 @@ describe("Tests Table", function() {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox")
           .contains(display)
-          .click();
+          .click({ force: true });
       });
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
