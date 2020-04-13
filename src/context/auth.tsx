@@ -9,7 +9,7 @@ interface State {
 
 const defaultState: State = {
   isAuthenticated: false,
-  initialLoad: true
+  initialLoad: true,
 };
 
 type Action = { type: "authenticate" } | { type: "deauthenticate" };
@@ -30,13 +30,13 @@ const reducer = (state: State, action: Action): State => {
       return {
         ...state,
         isAuthenticated: true,
-        initialLoad: false
+        initialLoad: false,
       };
     case "deauthenticate":
       return {
         ...state,
         isAuthenticated: false,
-        initialLoad: false
+        initialLoad: false,
       };
     default:
       return state;
@@ -63,7 +63,7 @@ const login = async (
   try {
     await axios.post(`${getLoginDomain()}/login`, {
       username,
-      password
+      password,
     });
     dispatch({ type: "authenticate" });
   } catch (error) {
@@ -91,7 +91,7 @@ const AuthProvider: React.FC = ({ children }) => {
   const dispatchContext: DispatchContext = {
     login: loginHandler,
     logout: logoutHandler,
-    dispatch
+    dispatch,
   };
 
   return (
