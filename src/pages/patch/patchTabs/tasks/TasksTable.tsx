@@ -20,7 +20,7 @@ interface Props {
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
   data = [],
-  onFetch
+  onFetch,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -33,7 +33,7 @@ export const TasksTable: React.FC<Props> = ({
         {
           ...queryString.parse(search, { arrayFormat }),
           [PatchTasksQueryParams.SortDir]: getSortDirFromOrder(order),
-          [PatchTasksQueryParams.SortBy]: columnKey
+          [PatchTasksQueryParams.SortBy]: columnKey,
         },
         { arrayFormat }
       )}`
@@ -60,7 +60,7 @@ const arrayFormat = "comma";
 
 const orderKeyToSortParam = {
   ascend: TaskSortDir.Asc,
-  descend: TaskSortDir.Desc
+  descend: TaskSortDir.Desc,
 };
 const getSortDirFromOrder = (order: "ascend" | "descend") =>
   orderKeyToSortParam[order];
@@ -71,10 +71,15 @@ enum TableColumnHeader {
   Name = "NAME",
   Status = "STATUS",
   BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT"
+  Variant = "VARIANT",
 }
 
-const renderStatusBadge = status => <TaskStatusBadge status={status} />;
+const renderStatusBadge = (status) => {
+  if (status === "" || !status) {
+    return null;
+  }
+  return <TaskStatusBadge status={status} />;
+};
 const columns: Array<ColumnProps<TaskResult>> = [
   {
     title: "Name",
@@ -85,7 +90,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     className: "cy-task-table-col-NAME",
     render: (name: string, { id }: TaskResult) => (
       <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
-    )
+    ),
   },
   {
     title: "Patch Status",
@@ -93,7 +98,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.Status,
     sorter: true,
     className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge
+    render: renderStatusBadge,
   },
   {
     title: "Base Status",
@@ -101,13 +106,13 @@ const columns: Array<ColumnProps<TaskResult>> = [
     key: TableColumnHeader.BaseStatus,
     sorter: true,
     className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge
+    render: renderStatusBadge,
   },
   {
     title: "Variant",
     dataIndex: "buildVariant",
     key: TableColumnHeader.Variant,
     sorter: true,
-    className: "cy-task-table-col-VARIANT"
-  }
+    className: "cy-task-table-col-VARIANT",
+  },
 ];
