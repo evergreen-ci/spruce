@@ -45,8 +45,8 @@ const reducer = (state: State, action: Action): State => {
 
 const logout = async (dispatch: Dispatch) => {
   try {
-    await axios.get(`${getLoginDomain()}/logout`);
     dispatch({ type: "deauthenticate" });
+    await axios.get(`${getLoginDomain()}/logout`);
   } catch (error) {
     // TODO: log errors
   }
