@@ -71,31 +71,52 @@ describe("Task Metadata Card", function() {
         [startTimePath]: valExists,
         [finishTimePath]: valExists,
       }).then((xhr) => {
-        dateExistenceCheck(
+        existenceCheck(xhr, createTimePath, "task-metadata-submitted-at");
+        existenceCheck(xhr, startTimePath, "task-metadata-started");
+        existenceCheck(xhr, finishTimePath, "task-metadata-finished");
+      });
+    });
+  });
+
+  [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
+    it(`Then "Spawn host" link is shown with href when the spawnHostLink field in the GetTask GQL response exists, otherwise the "Spawn host" link is not shown (route ${i +
+      1})`, () => {
+      cy.visit(route);
+      const spawnHostLinkPath = "responseBody.data.task.spawnHostLink";
+      const valExists = (v) => v !== undefined;
+      cy.waitForGQL("GetTask", {
+        [spawnHostLinkPath]: valExists,
+      }).then((xhr) => {
+        const exists = existenceCheck(
           xhr,
-          createTimePath,
-          "[data-cy=task-metadata-submitted-at]"
+          spawnHostLinkPath,
+          "task-spawn-host-link",
+          "exist",
+          "not.exist"
         );
-        dateExistenceCheck(
-          xhr,
-          startTimePath,
-          "[data-cy=task-metadata-started]"
-        );
-        dateExistenceCheck(
-          xhr,
-          finishTimePath,
-          "[data-cy=task-metadata-finished]"
-        );
+        if (exists) {
+          cy.dataCy("task-spawn-host-link").should("have.attr", "href");
+        }
       });
     });
   });
 });
 
-const dateExistenceCheck = (xhr, resBodyPath, container) => {
-  const dateContainer = cy.get(container);
+// checks to see if container exists based on value in xhr object
+// returns true if the container "exists" and false otherwise
+const existenceCheck = (
+  xhr,
+  resBodyPath,
+  container,
+  doesExist = "not.be.empty",
+  doesNotExist = "be.empty"
+) => {
+  const dateContainer = cy.dataCy(container);
   if (get(xhr, resBodyPath)) {
-    dateContainer.should("not.be.empty");
+    dateContainer.should(doesExist);
+    return true;
   } else {
-    dateContainer.should("be.empty");
+    dateContainer.should(doesNotExist);
+    return false;
   }
 };
