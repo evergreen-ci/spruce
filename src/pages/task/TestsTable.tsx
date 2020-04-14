@@ -9,7 +9,7 @@ import { RequiredQueryParams } from "types/task";
 export const TestsTable: React.FC = () => {
   const [
     testNameFilterValue,
-    testNameFilterValueOnChange
+    testNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(RequiredQueryParams.TestName);
 
   return (

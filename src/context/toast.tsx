@@ -19,7 +19,7 @@ enum Toast {
   success = "success",
   warning = "warning",
   error = "error",
-  info = "info"
+  info = "info",
 }
 
 const showToastMessage = (t: Toast) => (toastMessage: string) =>
@@ -29,7 +29,7 @@ const toast: ToastDispatchValue = {
   success: showToastMessage(Toast.success),
   warning: showToastMessage(Toast.warning),
   error: showToastMessage(Toast.error),
-  info: showToastMessage(Toast.info)
+  info: showToastMessage(Toast.info),
 };
 
 const ToastProvider: React.FC = ({ children }) => {

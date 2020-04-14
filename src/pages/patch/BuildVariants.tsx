@@ -40,7 +40,7 @@ export const BuildVariants: React.FC = () => {
   const { data, loading, error } = useQuery<BuildVariantsQuery>(
     GET_PATCH_BUILD_VARIANTS,
     {
-      variables: { patchId: id }
+      variables: { patchId: id },
     }
   );
   return (
@@ -56,7 +56,7 @@ export const BuildVariants: React.FC = () => {
           <BuildVariant key={variant} className="patch-build-variant">
             <P1>{variant}</P1>
             <VariantTasks>
-              {tasks.map(task => (
+              {tasks.map((task) => (
                 <TaskSquare key={task.id} {...task} />
               ))}
             </VariantTasks>

@@ -5,7 +5,7 @@ const treeData = [
   {
     title: "All",
     value: "all",
-    key: "all"
+    key: "all",
   },
   {
     title: "Shapes",
@@ -15,46 +15,46 @@ const treeData = [
       {
         title: "rectangle",
         value: "rectangle",
-        key: "rectangle"
+        key: "rectangle",
       },
       {
         title: "circle",
         value: "circle",
-        key: "circle"
+        key: "circle",
       },
       {
         title: "rhombus",
         value: "rhombus",
-        key: "rhombus"
-      }
-    ]
+        key: "rhombus",
+      },
+    ],
   },
   {
     title: "Pass",
     value: "pass",
-    key: "pass"
+    key: "pass",
   },
   {
     title:
       "REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!",
     value: "failed",
-    key: "failed"
+    key: "failed",
   },
   {
     title: "Skip",
     value: "skip",
-    key: "skip"
+    key: "skip",
   },
   {
     title: "Silent Fail",
     value: "silentfail",
-    key: "silentfail"
-  }
+    key: "silentfail",
+  },
 ];
 
 export default {
   title: "TreeSelect",
-  component: TreeSelect
+  component: TreeSelect,
 };
 
 export const NoInitialValues = () => {
@@ -64,7 +64,7 @@ export const NoInitialValues = () => {
       tData={treeData}
       inputLabel="Items: "
       state={value}
-      onChange={v => setValue(v)}
+      onChange={(v) => setValue(v)}
     />
   );
 };
@@ -75,14 +75,14 @@ export const Ellipsis = () => {
     "failed",
     "skip",
     "silentfail",
-    "pass"
+    "pass",
   ]);
   return (
     <TreeSelect
       tData={treeData}
       inputLabel="Items: "
       state={value}
-      onChange={v => setValue(v)}
+      onChange={(v) => setValue(v)}
     />
   );
 };
@@ -96,40 +96,40 @@ const noAllTreeData = [
       {
         title: "rectangle",
         value: "rectangle",
-        key: "rectangle"
+        key: "rectangle",
       },
       {
         title: "circle",
         value: "circle",
-        key: "circle"
+        key: "circle",
       },
       {
         title: "rhombus",
         value: "rhombus",
-        key: "rhombus"
-      }
-    ]
+        key: "rhombus",
+      },
+    ],
   },
   {
     title: "Pass",
     value: "pass",
-    key: "pass"
+    key: "pass",
   },
   {
     title: "Failed",
     value: "failed",
-    key: "failed"
+    key: "failed",
   },
   {
     title: "Skip",
     value: "skip",
-    key: "skip"
+    key: "skip",
   },
   {
     title: "Silent Fail",
     value: "silentfail",
-    key: "silentfail"
-  }
+    key: "silentfail",
+  },
 ];
 
 export const NoAllButton = () => {
@@ -140,14 +140,14 @@ export const NoAllButton = () => {
     "failed",
     "skip",
     "silentfail",
-    "pass"
+    "pass",
   ]);
   return (
     <TreeSelect
       tData={noAllTreeData}
       inputLabel="Items: "
       state={value}
-      onChange={v => setValue(v)}
+      onChange={(v) => setValue(v)}
     />
   );
 };

@@ -13,7 +13,7 @@ import get from "lodash/get";
 export const Metadata = ({
   loading,
   data,
-  error
+  error,
 }: {
   loading: boolean;
   data: TaskQuery;

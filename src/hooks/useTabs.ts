@@ -31,7 +31,7 @@ export const useTabs = (
   };
 
   const getTabFromIndex = (index: number) =>
-    Object.keys(tabToIndexMap).find(key => tabToIndexMap[key] === index);
+    Object.keys(tabToIndexMap).find((key) => tabToIndexMap[key] === index);
 
   const [selectedTab, setSelectedTab] = useState<number>(getIndexFromTab(tab));
 

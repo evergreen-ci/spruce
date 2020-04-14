@@ -7,7 +7,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import {
   GET_CODE_CHANGES,
   GetCodeChangesQuery,
-  FileDiff
+  FileDiff,
 } from "gql/queries/get-code-changes";
 import Button from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
@@ -17,7 +17,7 @@ export const CodeChanges = () => {
   const { data, loading, error } = useQuery<GetCodeChangesQuery>(
     GET_CODE_CHANGES,
     {
-      variables: { id }
+      variables: { id },
     }
   );
   if (loading) {
@@ -31,7 +31,7 @@ export const CodeChanges = () => {
   }
   return (
     <div data-cy="code-changes">
-      {data.patch.moduleCodeChanges.map(modCodeChange => {
+      {data.patch.moduleCodeChanges.map((modCodeChange) => {
         const sortedFileDiffs = [...modCodeChange.fileDiffs].sort((a, b) =>
           a.fileName.localeCompare(b.fileName)
         );
@@ -85,7 +85,7 @@ const columns = [
           {text}
         </a>
       );
-    }
+    },
   },
   {
     title: "Additions",
@@ -96,14 +96,15 @@ const columns = [
         return text;
       }
       return <Addition>+{text}</Addition>;
-    }
+    },
   },
   {
     title: "Deletions",
     dataIndex: "deletions",
     key: "deletions",
-    render: (text: number) => (text === 0 ? text : <Deletion>-{text}</Deletion>)
-  }
+    render: (text: number) =>
+      text === 0 ? text : <Deletion>-{text}</Deletion>,
+  },
 ];
 
 const rowKey = (record: FileDiff, index: number): string => `${index}`;

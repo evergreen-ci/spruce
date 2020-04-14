@@ -14,7 +14,7 @@ export const PageTitle: React.FC<Props> = ({
   loading,
   hasData,
   title,
-  badge
+  badge,
 }) =>
   loading ? (
     <PageHeader>

@@ -16,5 +16,5 @@ export {
   SiderCard,
   StyledRouterLink,
   FiltersWrapper,
-  StyledInput
+  StyledInput,
 };
