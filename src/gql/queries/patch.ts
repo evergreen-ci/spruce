@@ -1,5 +1,19 @@
 import gql from "graphql-tag";
 
+export interface PatchProject {
+  tasks: string[];
+  variants: Array<{
+    name: string;
+    displayName: string;
+    tasks: string[];
+  }>;
+}
+
+export type VariantsTasks = Array<{
+  name: string;
+  tasks: string[];
+}>;
+
 export interface Patch {
   id: string;
   description: string;
@@ -9,7 +23,7 @@ export interface Patch {
   author: string;
   version: string;
   status: string;
-  activated: string;
+  activated: boolean;
   alias: string;
   taskCount: string;
   duration: {
@@ -21,6 +35,8 @@ export interface Patch {
     finished?: string;
     submittedAt: string;
   };
+  project: PatchProject;
+  variantsTasks: VariantsTasks;
 }
 
 export interface PatchQuery {
@@ -49,6 +65,18 @@ export const GET_PATCH = gql`
         started
         submittedAt
         finished
+      }
+      project {
+        tasks
+        variants {
+          name
+          displayName
+          tasks
+        }
+      }
+      variantsTasks {
+        name
+        tasks
       }
     }
   }

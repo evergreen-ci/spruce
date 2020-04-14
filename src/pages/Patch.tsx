@@ -6,7 +6,7 @@ import {
   PageWrapper,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
@@ -16,41 +16,59 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
+import { Reconfigure } from "pages/patch/Reconfigure";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(GET_PATCH, {
-    variables: { id: id },
-    pollInterval: 2000
-  });
+  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
+    GET_PATCH,
+    {
+      variables: { id: id },
+      pollInterval: 2000,
+    }
+  );
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
-  if(status === PatchStatus.Failed || status === PatchStatus.Success) {
+  const activated = get(patch, "activated");
+  const project = get(patch, "project");
+  const variantsTasks = get(patch, "variantsTasks");
+
+  if (status === PatchStatus.Failed || status === PatchStatus.Success) {
     stopPolling();
   }
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      <PageTitle
-        loading={loading}
-        hasData={!!patch}
-        title={description ? description : `Patch ${get(patch, "patchNumber")}`}
-        badge={
-          <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
-        }
-      />
-      <PageLayout>
-        <PageSider>
-          <Metadata loading={loading} patch={patch} error={error} />
-          <BuildVariants />
-        </PageSider>
-        <PageLayout>
-          <PageContent>
-            <PatchTabs taskCount={patch ? patch.taskCount : null} />
-          </PageContent>
-        </PageLayout>
-      </PageLayout>
+      {patch && activated === false ? (
+        <Reconfigure project={project} variantsTasks={variantsTasks} />
+      ) : (
+        <>
+          <PageTitle
+            loading={loading}
+            hasData={!!patch}
+            title={
+              description ? description : `Patch ${get(patch, "patchNumber")}`
+            }
+            badge={
+              <Badge variant={mapPatchStatusToBadgeVariant[status]}>
+                {status}
+              </Badge>
+            }
+          />
+          <PageLayout>
+            <PageSider>
+              <Metadata loading={loading} patch={patch} error={error} />
+              <BuildVariants />
+            </PageSider>
+            <PageLayout>
+              <PageContent>
+                <PatchTabs taskCount={patch ? patch.taskCount : null} />
+              </PageContent>
+            </PageLayout>
+          </PageLayout>
+        </>
+      )}
     </PageWrapper>
   );
 };
@@ -59,5 +77,5 @@ const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Success]: Variant.Green
+  [PatchStatus.Success]: Variant.Green,
 };
