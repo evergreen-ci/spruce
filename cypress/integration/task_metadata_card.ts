@@ -105,18 +105,17 @@ describe("Task Metadata Card", function() {
 // checks to see if container exists based on value in xhr object
 // returns true if the container "exists" and false otherwise
 const existenceCheck = (
-  xhr,
-  resBodyPath,
-  container,
+  xhr: Cypress.WaitXHR,
+  resBodyPath: string,
+  container: string,
   doesExist = "not.be.empty",
   doesNotExist = "be.empty"
-) => {
+): boolean => {
   const dateContainer = cy.dataCy(container);
   if (get(xhr, resBodyPath)) {
     dateContainer.should(doesExist);
     return true;
-  } else {
-    dateContainer.should(doesNotExist);
-    return false;
   }
+  dateContainer.should(doesNotExist);
+  return false;
 };
