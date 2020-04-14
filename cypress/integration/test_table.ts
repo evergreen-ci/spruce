@@ -6,7 +6,7 @@ import {
   assertQueryVariables,
 } from "../utils";
 
-describe("Tests Table", function() {
+describe("Tests Table", function () {
   before(() => {
     cy.login();
   });
@@ -187,9 +187,7 @@ describe("Tests Table", function() {
 
     it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click({ force: true });
+        cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
