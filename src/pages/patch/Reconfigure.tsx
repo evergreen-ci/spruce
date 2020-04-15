@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import {
-  PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
@@ -17,6 +16,7 @@ import styled from "@emotion/styled/macro";
 import { PatchProject, VariantsTasks } from "gql/queries/patch";
 import { uiColors } from "@leafygreen-ui/palette";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Input } from "antd";
 
 interface Props {
   project: PatchProject;
@@ -104,6 +104,7 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
             <VariantList>
               {variants.map(({ displayName, name }) => (
                 <Variant
+                  key={name}
                   isSelected={selectedBuildVariant === name}
                   onClick={getClickVariantHandler(name)}
                 >
@@ -125,6 +126,7 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
                       selectedVariantTasks[selectedBuildVariant][task] === true;
                     return (
                       <Checkbox
+                        key={task}
                         data-cy="variant-task"
                         onChange={getTaskCheckboxChangeHandler(
                           task,
