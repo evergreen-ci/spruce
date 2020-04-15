@@ -227,6 +227,7 @@ const VariantTaskCount = styled.div`
 `;
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
+  font-weight: 600;
 `;
 const StyledSiderCard = styled(SiderCard)`
   padding-left: 0;
