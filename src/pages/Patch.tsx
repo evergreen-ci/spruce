@@ -34,7 +34,11 @@ export const Patch = () => {
   const project = get(patch, "project");
   const variantsTasks = get(patch, "variantsTasks");
 
-  if (status === PatchStatus.Failed || status === PatchStatus.Success) {
+  if (
+    status === PatchStatus.Failed ||
+    status === PatchStatus.Success ||
+    activated === false
+  ) {
     stopPolling();
   }
   return (

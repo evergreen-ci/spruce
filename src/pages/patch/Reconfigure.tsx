@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   PageWrapper,
   PageContent,
@@ -15,6 +15,8 @@ import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "contants/routes";
 import styled from "@emotion/styled/macro";
 import { PatchProject, VariantsTasks } from "gql/queries/patch";
+import { uiColors } from "@leafygreen-ui/palette";
+import Checkbox from "@leafygreen-ui/checkbox";
 
 interface Props {
   project: PatchProject;
@@ -32,12 +34,54 @@ const tabToIndexMap = {
   [PatchTab.Changes]: 1,
 };
 
+interface VariantTasksState {
+  [variant: string]: {
+    task: true;
+  };
+}
+
 export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
   const [selectedTab, selectTabHandler] = useTabs(
     tabToIndexMap,
     paths.patch,
     DEFAULT_TAB
   );
+
+  const { variants } = project;
+
+  const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
+    variants[0].name
+  );
+  const [selectedVariantTasks, setSelectedVariantTasks] = useState<
+    VariantTasksState
+  >({});
+
+  const getClickVariantHandler = (variantName: string) => () =>
+    setSelectedBuildVariant(variantName);
+
+  const getTaskCheckboxChangeHandler = (task: string, variant: string) => (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { checked } = e.target;
+    const nextVariantTasks = { ...selectedVariantTasks[variant] };
+    if (checked) {
+      setSelectedVariantTasks({
+        ...selectedVariantTasks,
+        [variant]: { ...nextVariantTasks, [task]: true },
+      });
+    } else {
+      delete nextVariantTasks[task];
+      setSelectedVariantTasks({
+        ...selectedVariantTasks,
+        [variant]: nextVariantTasks,
+      });
+    }
+  };
+
+  const projectVariantTasksMap = variants.reduce((prev, { name, tasks }) => {
+    prev[name] = tasks;
+    return prev;
+  }, {});
 
   return (
     <>
@@ -49,9 +93,16 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
             <P2>Submitted at: </P2>
           </MetadataCard>
           <SiderCard>
-            {project.variants.map(({ displayName }) => (
-              <div>{displayName}</div>
-            ))}
+            <VariantList>
+              {variants.map(({ displayName, name }) => (
+                <Variant
+                  isSelected={selectedBuildVariant === name}
+                  onClick={getClickVariantHandler(name)}
+                >
+                  {displayName}
+                </Variant>
+              ))}
+            </VariantList>
           </SiderCard>
         </PageSider>
         <PageLayout>
@@ -59,7 +110,25 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Configure" id="task-tab">
                 <Header></Header>
-                <div></div>
+                <div>
+                  {projectVariantTasksMap[selectedBuildVariant].map((task) => {
+                    const checked =
+                      !!selectedVariantTasks[selectedBuildVariant] &&
+                      selectedVariantTasks[selectedBuildVariant][task] === true;
+                    return (
+                      <Checkbox
+                        data-cy="variant-task"
+                        onChange={getTaskCheckboxChangeHandler(
+                          task,
+                          selectedBuildVariant
+                        )}
+                        label={task}
+                        checked={checked}
+                        bold={false}
+                      />
+                    );
+                  })}
+                </div>
               </Tab>
               <Tab name="Changes" id="changes-tab">
                 <CodeChanges />
@@ -73,3 +142,9 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
 };
 
 const Header = styled.div``;
+const VariantList = styled.ul``;
+const Variant = styled.li`
+  cursor: pointer;
+  background-color: ${(props: { isSelected: boolean }) =>
+    props.isSelected ? uiColors.green.light3 : "none"};
+`;
