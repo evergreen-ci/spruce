@@ -12,13 +12,13 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Failed]: Variant.Red,
   [TaskStatus.StatusBlocked]: Variant.DarkGray,
-  [TaskStatus.StatusPending]: Variant.LightGray
+  [TaskStatus.StatusPending]: Variant.LightGray,
 };
 
 const failureColors = {
   text: "#800080",
   border: "#CC99CC",
-  fill: "#E6CCE6"
+  fill: "#E6CCE6",
 };
 
 // the status colors that are not supported by the leafygreen Badge variants
@@ -28,8 +28,8 @@ const mapUnsupportedBadgeColors = {
   [TaskStatus.SetupFailed]: {
     border: "#E7DBEC",
     fill: "#F3EDF5",
-    text: "#877290"
-  }
+    text: "#877290",
+  },
 };
 
 interface BadgeColorProps {

@@ -12,7 +12,7 @@ import { fireEvent } from "@testing-library/react";
 const testLog = {
   htmlDisplayURL: "",
   rawDisplayURL: "",
-  __typename: "TestLog"
+  __typename: "TestLog",
 };
 const taskTestsPageZero = [
   {
@@ -21,7 +21,7 @@ const taskTestsPageZero = [
     testFile: "TestMetricsSuite/TestRunForIntervalAndSendMessages",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191d0f2",
@@ -29,7 +29,7 @@ const taskTestsPageZero = [
     testFile: "TestMetricsSuite/TestCollectSubProcesses",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf82",
@@ -38,7 +38,7 @@ const taskTestsPageZero = [
     duration: 0.039999961853027344,
     __typename: "TestResult",
 
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf67",
@@ -46,7 +46,7 @@ const taskTestsPageZero = [
     testFile: "TestCommandSuite/TestShellExec",
     duration: 0.019999980926513672,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf91",
@@ -54,7 +54,7 @@ const taskTestsPageZero = [
     testFile: "TestAgentSuite/TestAbort",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cfad",
@@ -62,7 +62,7 @@ const taskTestsPageZero = [
     testFile: "TestAgentSuite/TestCancelRunCommands",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a2117798219e191cfa3",
@@ -70,7 +70,7 @@ const taskTestsPageZero = [
     testFile: "TestAgentSuite/TestAgentEndTaskShouldExit",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef71.0a7798219e191cf79",
@@ -78,7 +78,7 @@ const taskTestsPageZero = [
     testFile: "TestAgentIntegrationSuite/TestAbortTask",
     duration: 0.1099998950958252,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798119e191cf50",
@@ -86,7 +86,7 @@ const taskTestsPageZero = [
     testFile: "TestCommandSuite",
     duration: 0.06999993324279785,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf5e",
@@ -94,8 +94,8 @@ const taskTestsPageZero = [
     testFile: "TestCommandSuite/TestS3Copy",
     duration: 0.039999961853027344,
     __typename: "TestResult",
-    logs: testLog
-  }
+    logs: testLog,
+  },
 ];
 const taskTestsPageOne = [
   {
@@ -104,7 +104,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestAbort",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cfde",
@@ -112,7 +112,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestFinishTaskEndTaskError",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cff9",
@@ -120,7 +120,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestRunPostTaskCommands",
     duration: 0.019999980926513672,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cfa3",
@@ -128,7 +128,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestAgentEndTaskShouldExit",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191d005",
@@ -136,7 +136,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestRunPreTaskCommands",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cff0",
@@ -144,7 +144,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentSuite/TestNextTaskResponseShouldExit",
     duration: 0,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf79",
@@ -152,7 +152,7 @@ const taskTestsPageOne = [
     testFile: "TestAgentIntegrationSuite/TestAbortTask",
     duration: 0.1099998950958252,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf50",
@@ -160,7 +160,7 @@ const taskTestsPageOne = [
     testFile: "TestCommandSuite",
     duration: 0.06999993324279785,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf2x",
@@ -168,7 +168,7 @@ const taskTestsPageOne = [
     testFile: "TestCommandSuite/TestS3Copy",
     duration: 0.039999961853027344,
     __typename: "TestResult",
-    logs: testLog
+    logs: testLog,
   },
   {
     id: "59ef7a20a7798219e191cf71",
@@ -176,8 +176,8 @@ const taskTestsPageOne = [
     testFile: "TestAgentIntegrationSuite",
     duration: 0.11999988555908203,
     __typename: "TestResult",
-    logs: testLog
-  }
+    logs: testLog,
+  },
 ];
 
 const mocks = [
@@ -192,16 +192,16 @@ const mocks = [
         pageNum: 0,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero
-        }
+          taskTests: taskTestsPageZero,
+        },
       };
-    }
+    },
   },
   {
     request: {
@@ -214,16 +214,16 @@ const mocks = [
         pageNum: 0,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero
-        }
+          taskTests: taskTestsPageZero,
+        },
       };
-    }
+    },
   },
   {
     request: {
@@ -236,16 +236,16 @@ const mocks = [
         pageNum: 1,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne
-        }
+          taskTests: taskTestsPageOne,
+        },
       };
-    }
+    },
   },
   {
     request: {
@@ -258,16 +258,16 @@ const mocks = [
         pageNum: 0,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero
-        }
+          taskTests: taskTestsPageZero,
+        },
       };
-    }
+    },
   },
   {
     request: {
@@ -280,16 +280,16 @@ const mocks = [
         pageNum: 1,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne
-        }
+          taskTests: taskTestsPageOne,
+        },
       };
-    }
+    },
   },
   {
     request: {
@@ -302,17 +302,17 @@ const mocks = [
         pageNum: 1,
         limitNum: 10,
         statusList: [],
-        testName: ""
-      }
+        testName: "",
+      },
     },
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne
-        }
+          taskTests: taskTestsPageOne,
+        },
       };
-    }
-  }
+    },
+  },
 ];
 
 it("renders without crashing", () => {
@@ -342,8 +342,8 @@ it("Requests descending data when clicking on active ascending tab", async () =>
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
           search: "?sortBy=STATUS&sortDir=ASC",
           hash: "",
-          key: "djuhdk"
-        }
+          key: "djuhdk",
+        },
       ]}
       initialIndex={0}
     >
@@ -380,8 +380,8 @@ xit("It loads data on initial load when given valid query params", async () => {
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
           search: "?sortBy=STATUS&sortBy=ASC",
           hash: "",
-          key: "djuhdk"
-        }
+          key: "djuhdk",
+        },
       ]}
       initialIndex={0}
     >
@@ -412,8 +412,8 @@ xit("It loads data with STATUS ASC when given invalid query param", async () => 
           pathname:
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
           hash: "",
-          key: "djuhdk"
-        }
+          key: "djuhdk",
+        },
       ]}
       initialIndex={0}
     >
@@ -446,8 +446,8 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
             "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
           search: "?sortBy=TEST_NAME&sortDir=ASC",
           hash: "",
-          key: "djuhdk"
-        }
+          key: "djuhdk",
+        },
       ]}
       initialIndex={0}
     >
@@ -463,7 +463,7 @@ it("It loads second page when scrolling to the bottom of the table", async () =>
   });
 
   fireEvent.scroll(container.querySelector(".ant-table-body"), {
-    scrollY: 1000
+    scrollY: 1000,
   });
   await act(async () => {
     await wait(100);

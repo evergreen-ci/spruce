@@ -13,7 +13,7 @@ export const DependsOn: React.FC<Dependency> = ({
   metStatus,
   name,
   requiredStatus,
-  uiLink
+  uiLink,
 }) => {
   return (
     <DependsOnWrapper>
@@ -52,7 +52,7 @@ const Subtitle = styled(Disclaimer)`
 const metStatusToIcon = {
   [MetStatus.Met]: <Icon fill={uiColors.green.base} glyph="Checkmark" />,
   [MetStatus.Unmet]: <Icon fill={uiColors.red.base} glyph="X" />,
-  [MetStatus.Pending]: <></>
+  [MetStatus.Pending]: <></>,
 };
 
 const requiredStatusToBadge = {
@@ -62,5 +62,5 @@ const requiredStatusToBadge = {
   ),
   [RequiredStatus.MustSucceed]: (
     <Badge variant={Variant.Green}>MUST SUCCEED</Badge>
-  )
+  ),
 };

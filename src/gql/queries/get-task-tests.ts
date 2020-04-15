@@ -35,13 +35,13 @@ enum TestStatus {
   Failed = "fail",
   SilentlyFailed = "silentfail",
   Skipped = "skip",
-  Succeeded = "pass"
+  Succeeded = "pass",
 }
 
 export enum Categories {
   TestName = "TEST_NAME",
   Duration = "DURATION",
-  Status = "STATUS"
+  Status = "STATUS",
 }
 
 export interface TaskTestsData {
@@ -53,7 +53,7 @@ export interface TaskTestsData {
 
 export enum SortDir {
   ASC = "ASC",
-  DESC = "DESC"
+  DESC = "DESC",
 }
 
 export interface TaskTestVars {

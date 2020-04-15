@@ -1,7 +1,7 @@
 /// <reference types="Cypress" />
 
 const MY_PATCHES_ROUTE = "/my-patches";
-describe("my patches page", function() {
+describe("my patches page", function () {
   beforeEach(() => {
     cy.server();
     cy.login();

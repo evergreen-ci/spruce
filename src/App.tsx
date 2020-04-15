@@ -9,7 +9,7 @@ import {
   getSchemaString,
   isDevelopment,
   isTest,
-  shouldEnableGQLMockServer
+  shouldEnableGQLMockServer,
 } from "./utils/getEnvironmentVariables";
 import { Content } from "./components/Content";
 import "antd/dist/antd.css";

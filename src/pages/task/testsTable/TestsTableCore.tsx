@@ -10,7 +10,7 @@ import {
   TaskTestVars,
   TaskTestsData,
   UpdateQueryArg,
-  SortDir
+  SortDir,
 } from "gql/queries/get-task-tests";
 import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
@@ -33,26 +33,26 @@ export const TestsTableCore: React.FC = () => {
   const [initialQueryVariables] = useState<TaskTestVars>({
     id,
     pageNum: 0,
-    ...getQueryVariables(search)
+    ...getQueryVariables(search),
   });
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
     TaskTestVars
   >(GET_TASK_TESTS, {
     variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true
+    notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
 
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(() => {
-    return listen(async loc => {
+    return listen(async (loc) => {
       try {
         await fetchMore({
           variables: {
             pageNum: 0,
-            ...getQueryVariables(loc.search)
+            ...getQueryVariables(loc.search),
           },
           updateQuery: (
             prev: UpdateQueryArg,
@@ -62,7 +62,7 @@ export const TestsTableCore: React.FC = () => {
               return prev;
             }
             return fetchMoreResult;
-          }
+          },
         });
       } catch (e) {
         // empty block
@@ -85,7 +85,7 @@ export const TestsTableCore: React.FC = () => {
     fetchMore({
       variables: {
         pageNum,
-        ...getQueryVariables(search)
+        ...getQueryVariables(search),
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -95,9 +95,9 @@ export const TestsTableCore: React.FC = () => {
           return prev;
         }
         return Object.assign({}, prev, {
-          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
+          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests],
         });
-      }
+      },
     });
   };
 
@@ -108,7 +108,7 @@ export const TestsTableCore: React.FC = () => {
     parsedSearch[RequiredQueryParams.Sort] =
       order === "ascend" ? SortDir.ASC : SortDir.DESC;
     const nextQueryParams = queryString.stringify(parsedSearch, {
-      arrayFormat
+      arrayFormat,
     });
 
     if (nextQueryParams !== search.split("?")[1]) {
@@ -144,20 +144,20 @@ const statusToBadgeColor = {
   [TestStatus.Pass]: Variant.Green,
   [TestStatus.Fail]: Variant.Red,
   [TestStatus.SilentFail]: Variant.Blue,
-  [TestStatus.Skip]: Variant.Yellow
+  [TestStatus.Skip]: Variant.Yellow,
 };
 const statusCopy = {
   [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
   [TestStatus.Skip]: "Skip",
-  [TestStatus.SilentFail]: "Silent Fail"
+  [TestStatus.SilentFail]: "Silent Fail",
 };
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
     dataIndex: "testFile",
     key: Categories.TestName,
-    sorter: true
+    sorter: true,
   },
   {
     title: "Status",
@@ -174,7 +174,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           {statusCopy[status] || ""}
         </Badge>
       </span>
-    )
+    ),
   },
   {
     title: "Time",
@@ -185,7 +185,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     render: (text: number): string => {
       const ms = text * 1000;
       return msToDuration(Math.trunc(ms));
-    }
+    },
   },
   {
     title: "Logs",
@@ -196,7 +196,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     render: (
       {
         htmlDisplayURL,
-        rawDisplayURL
+        rawDisplayURL,
       }: { htmlDisplayURL: string; rawDisplayURL: string },
       { id }
     ): JSX.Element => {
@@ -228,14 +228,14 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
         </>
       );
-    }
-  }
+    },
+  },
 ];
 
 export const rowKey = ({ id }: { id: string }): string => id;
 
 const ButtonWrapper = styled.span({
-  marginRight: 8
+  marginRight: 8,
 });
 
 const getQueryVariables = (search: string) => {
@@ -257,12 +257,12 @@ const getQueryVariables = (search: string) => {
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
-  ).filter(v => v && v !== TestStatus.All);
+  ).filter((v) => v && v !== TestStatus.All);
   return {
     cat,
     dir,
     limitNum: LIMIT,
     statusList,
-    testName
+    testName,
   };
 };

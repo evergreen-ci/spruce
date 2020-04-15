@@ -16,7 +16,7 @@ export const MetadataCard: React.FC<Props> = ({
   title,
   children,
   error,
-  loading
+  loading,
 }) => (
   <SiderCard>
     <H3>{title}</H3>

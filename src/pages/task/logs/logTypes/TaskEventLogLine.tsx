@@ -5,7 +5,7 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 import { format } from "date-fns";
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 
-export const TaskEventLogLine: React.FC<TaskEventLogEntry> = props => {
+export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
   const { timestamp, eventType, data } = props;
   const hostLink = (
     <a href={`${getUiUrl()}/host/${data.hostId}`}>{data.hostId}</a>

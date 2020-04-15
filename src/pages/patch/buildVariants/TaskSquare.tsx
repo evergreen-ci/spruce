@@ -45,7 +45,7 @@ const mapVariantTaskStatusToColor = {
   [TaskStatus.TestTimedOut]: failurePurple,
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.StatusBlocked]: gray.dark1,
-  [TaskStatus.StatusPending]: yellow.base
+  [TaskStatus.StatusPending]: yellow.base,
 };
 
 const Square = styled.div`
