@@ -45,7 +45,11 @@ export const Patch = () => {
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       {patch && activated === false ? (
-        <Reconfigure project={project} variantsTasks={variantsTasks} />
+        <Reconfigure
+          project={project}
+          variantsTasks={variantsTasks}
+          description={description}
+        />
       ) : (
         <>
           <PageTitle

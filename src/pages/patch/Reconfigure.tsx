@@ -13,14 +13,18 @@ import { useTabs } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "contants/routes";
 import styled from "@emotion/styled/macro";
+import { css } from "@emotion/core";
 import { PatchProject, VariantsTasks } from "gql/queries/patch";
 import { uiColors } from "@leafygreen-ui/palette";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
+import { Divider } from "components/styles/Divider";
+import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
   project: PatchProject;
   variantsTasks: VariantsTasks;
+  description: string;
 }
 
 enum PatchTab {
@@ -48,21 +52,26 @@ const convertPatchVariantTasksToState = (
     return prev;
   }, {});
 
-export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
+export const Reconfigure: React.FC<Props> = ({
+  project,
+  variantsTasks,
+  description,
+}) => {
+  const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs(
     tabToIndexMap,
     paths.patch,
     DEFAULT_TAB
   );
-
-  const { variants } = project;
-
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
     variants[0].name
   );
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
   >(convertPatchVariantTasksToState(variantsTasks));
+  const [descriptionValue, setdescriptionValue] = useState<string>(
+    description || ""
+  );
 
   const getClickVariantHandler = (variantName: string) => () =>
     setSelectedBuildVariant(variantName);
@@ -93,26 +102,35 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
 
   return (
     <>
-      {/* <PageTitle /> */}
+      <StyledInput
+        placeholder="Patch description"
+        value={descriptionValue}
+        size="large"
+        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+          setdescriptionValue(e.target.value)
+        }
+      />
       <PageLayout>
         <PageSider>
           <MetadataCard loading={false} error={null} title="Patch Metadata">
             <P2>Submitted by: </P2>
             <P2>Submitted at: </P2>
           </MetadataCard>
-          <SiderCard>
-            <VariantList>
-              {variants.map(({ displayName, name }) => (
-                <Variant
-                  key={name}
-                  isSelected={selectedBuildVariant === name}
-                  onClick={getClickVariantHandler(name)}
-                >
-                  {displayName}
-                </Variant>
-              ))}
-            </VariantList>
-          </SiderCard>
+          <StyledSiderCard>
+            <CardHeaderWrapper>
+              <Body weight="medium">Select Build Variants and Tasks</Body>
+              <StyledDivider />
+            </CardHeaderWrapper>
+            {variants.map(({ displayName, name }) => (
+              <Variant
+                key={name}
+                isSelected={selectedBuildVariant === name}
+                onClick={getClickVariantHandler(name)}
+              >
+                {displayName}
+              </Variant>
+            ))}
+          </StyledSiderCard>
         </PageSider>
         <PageLayout>
           <PageContent>
@@ -151,10 +169,33 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
   );
 };
 
+const cardSidePadding = css`
+  padding-left: 8px;
+  padding-right: 8px;
+`;
 const Header = styled.div``;
-const VariantList = styled.ul``;
-const Variant = styled.li`
+const Variant = styled.div`
+  display: flex;
+  align-items: center;
+  height: 32px;
   cursor: pointer;
+  ${cardSidePadding}
   background-color: ${(props: { isSelected: boolean }) =>
     props.isSelected ? uiColors.green.light3 : "none"};
+  border-left: 3px solid white;
+  border-left-color: ${(props: { isSelected: boolean }) =>
+    props.isSelected ? uiColors.green.base : "none"};
+`;
+const StyledInput = styled(Input)`
+  margin-bottom: 16px;
+`;
+const StyledSiderCard = styled(SiderCard)`
+  padding-left: 0;
+  padding-right: 0;
+`;
+const CardHeaderWrapper = styled.div`
+  ${cardSidePadding}
+`;
+const StyledDivider = styled(Divider)`
+  margin-bottom: 0;
 `;
