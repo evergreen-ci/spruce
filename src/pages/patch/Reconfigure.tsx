@@ -40,6 +40,14 @@ interface VariantTasksState {
   };
 }
 
+const convertPatchVariantTasksToState = (
+  variantsTasks: VariantsTasks
+): VariantTasksState =>
+  variantsTasks.reduce((prev, { name: variant, tasks }) => {
+    prev[variant] = tasks;
+    return prev;
+  }, {});
+
 export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
   const [selectedTab, selectTabHandler] = useTabs(
     tabToIndexMap,
@@ -54,7 +62,7 @@ export const Reconfigure: React.FC<Props> = ({ project, variantsTasks }) => {
   );
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
-  >({});
+  >(convertPatchVariantTasksToState(variantsTasks));
 
   const getClickVariantHandler = (variantName: string) => () =>
     setSelectedBuildVariant(variantName);
