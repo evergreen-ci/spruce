@@ -3,7 +3,7 @@ import { Input } from "antd";
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
 `;
 export const StyledInput = styled(Input)`
   max-width: 500px;

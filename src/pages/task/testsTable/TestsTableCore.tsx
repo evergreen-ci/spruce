@@ -10,7 +10,8 @@ import {
   TaskTestVars,
   TaskTestsData,
   UpdateQueryArg,
-  SortDir
+  SortDir,
+  TestResult,
 } from "gql/queries/get-task-tests";
 import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
@@ -22,6 +23,7 @@ import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
+import { P2 } from "components/Typography";
 
 const LIMIT = 10;
 const arrayFormat = "comma";
@@ -33,26 +35,26 @@ export const TestsTableCore: React.FC = () => {
   const [initialQueryVariables] = useState<TaskTestVars>({
     id,
     pageNum: 0,
-    ...getQueryVariables(search)
+    ...getQueryVariables(search),
   });
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsData,
     TaskTestVars
   >(GET_TASK_TESTS, {
     variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true
+    notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
 
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(() => {
-    return listen(async loc => {
+    return listen(async (loc) => {
       try {
         await fetchMore({
           variables: {
             pageNum: 0,
-            ...getQueryVariables(loc.search)
+            ...getQueryVariables(loc.search),
           },
           updateQuery: (
             prev: UpdateQueryArg,
@@ -62,7 +64,7 @@ export const TestsTableCore: React.FC = () => {
               return prev;
             }
             return fetchMoreResult;
-          }
+          },
         });
       } catch (e) {
         // empty block
@@ -70,7 +72,7 @@ export const TestsTableCore: React.FC = () => {
     });
   }, [networkStatus, error, fetchMore, listen]);
 
-  const dataSource: [TaskTestsData] = get(data, "taskTests", []);
+  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
@@ -85,7 +87,7 @@ export const TestsTableCore: React.FC = () => {
     fetchMore({
       variables: {
         pageNum,
-        ...getQueryVariables(search)
+        ...getQueryVariables(search),
       },
       updateQuery: (
         prev: UpdateQueryArg,
@@ -94,10 +96,12 @@ export const TestsTableCore: React.FC = () => {
         if (!fetchMoreResult) {
           return prev;
         }
-        return Object.assign({}, prev, {
-          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests]
-        });
-      }
+        fetchMoreResult.taskTests.testResults = [
+          ...prev.taskTests.testResults,
+          ...fetchMoreResult.taskTests.testResults,
+        ];
+        return fetchMoreResult;
+      },
     });
   };
 
@@ -108,7 +112,7 @@ export const TestsTableCore: React.FC = () => {
     parsedSearch[RequiredQueryParams.Sort] =
       order === "ascend" ? SortDir.ASC : SortDir.DESC;
     const nextQueryParams = queryString.stringify(parsedSearch, {
-      arrayFormat
+      arrayFormat,
     });
 
     if (nextQueryParams !== search.split("?")[1]) {
@@ -120,9 +124,16 @@ export const TestsTableCore: React.FC = () => {
   const { cat, dir } = getQueryVariables(search);
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDir.ASC ? "ascend" : "descend";
-
+  const filteredTestCount = get(data, "taskTests.filteredTestCount", "-");
+  const totalTestCount = get(data, "taskTests.totalTestCount", "-");
   return (
-    <div>
+    <>
+      <P2 id="task-count">
+        <span data-cy="filtered-test-count">{filteredTestCount}</span>
+        {"/"}
+        <span data-cy="total-test-count">{totalTestCount}</span>
+        <span> tests</span>
+      </P2>
       <InfinityTable
         key="key"
         loading={networkStatus < NetworkStatus.ready}
@@ -136,7 +147,7 @@ export const TestsTableCore: React.FC = () => {
         export={true}
         rowKey={rowKey}
       />
-    </div>
+    </>
   );
 };
 
@@ -144,20 +155,20 @@ const statusToBadgeColor = {
   [TestStatus.Pass]: Variant.Green,
   [TestStatus.Fail]: Variant.Red,
   [TestStatus.SilentFail]: Variant.Blue,
-  [TestStatus.Skip]: Variant.Yellow
+  [TestStatus.Skip]: Variant.Yellow,
 };
 const statusCopy = {
   [TestStatus.Pass]: "Pass",
   [TestStatus.Fail]: "Fail",
   [TestStatus.Skip]: "Skip",
-  [TestStatus.SilentFail]: "Silent Fail"
+  [TestStatus.SilentFail]: "Silent Fail",
 };
 const columns: Array<ColumnProps<TaskTestsData>> = [
   {
     title: "Name",
     dataIndex: "testFile",
     key: Categories.TestName,
-    sorter: true
+    sorter: true,
   },
   {
     title: "Status",
@@ -174,7 +185,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           {statusCopy[status] || ""}
         </Badge>
       </span>
-    )
+    ),
   },
   {
     title: "Time",
@@ -185,7 +196,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     render: (text: number): string => {
       const ms = text * 1000;
       return msToDuration(Math.trunc(ms));
-    }
+    },
   },
   {
     title: "Logs",
@@ -193,13 +204,13 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: (
-      {
-        htmlDisplayURL,
-        rawDisplayURL
-      }: { htmlDisplayURL: string; rawDisplayURL: string },
-      { id }
-    ): JSX.Element => {
+    render: ({
+      htmlDisplayURL,
+      rawDisplayURL,
+    }: {
+      htmlDisplayURL: string;
+      rawDisplayURL: string;
+    }): JSX.Element => {
       return (
         <>
           {htmlDisplayURL && (
@@ -228,14 +239,14 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
           )}
         </>
       );
-    }
-  }
+    },
+  },
 ];
 
 export const rowKey = ({ id }: { id: string }): string => id;
 
 const ButtonWrapper = styled.span({
-  marginRight: 8
+  marginRight: 8,
 });
 
 const getQueryVariables = (search: string) => {
@@ -257,12 +268,12 @@ const getQueryVariables = (search: string) => {
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
-  ).filter(v => v && v !== TestStatus.All);
+  ).filter((v) => v && v !== TestStatus.All);
   return {
     cat,
     dir,
     limitNum: LIMIT,
     statusList,
-    testName
+    testName,
   };
 };
