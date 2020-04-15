@@ -43,6 +43,23 @@ declare namespace Cypress {
      * @example cy.enterLoginCredentials()
      */
     enterLoginCredentials(): void;
+    /**
+     * Custom command that asserts element existence based on value in xhr object
+     * @param xhr request that determines element existence
+     * @param resBodyPath path in xhr object containing information to base element existence
+     * @param dataCyStr data-cy attribute for element
+     * @param doesExist assert string for when element should exist
+     * @param doesNotExist assert string for when element does not exist
+     * @returns true if element exists and false otherwise
+     *
+     */
+    elementExistenceCheck(
+      xhr: Cypress.WaitXHR,
+      resBodyPath: string,
+      dataCyStr: string,
+      doesExist?: string,
+      doesNotExist?: string
+    ): boolean;
   }
 }
 

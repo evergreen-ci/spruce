@@ -35,3 +35,22 @@ Cypress.Commands.add("waitForGQL", (queryName, options = {}) =>
 );
 
 Cypress.Commands.add("dataCy", (value) => cy.get(`[data-cy=${value}]`));
+
+Cypress.Commands.add(
+  "elementExistenceCheck",
+  (
+    xhr,
+    resBodyPath,
+    dataCyStr,
+    doesExist = "not.be.empty",
+    doesNotExist = "be.empty"
+  ) => {
+    const el = cy.dataCy(dataCyStr);
+    if (get(xhr, resBodyPath)) {
+      el.should(doesExist);
+      return true;
+    }
+    el.should(doesNotExist);
+    return false;
+  }
+);
