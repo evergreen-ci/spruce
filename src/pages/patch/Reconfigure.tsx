@@ -121,15 +121,30 @@ export const Reconfigure: React.FC<Props> = ({
               <Body weight="medium">Select Build Variants and Tasks</Body>
               <StyledDivider />
             </CardHeaderWrapper>
-            {variants.map(({ displayName, name }) => (
-              <Variant
-                key={name}
-                isSelected={selectedBuildVariant === name}
-                onClick={getClickVariantHandler(name)}
-              >
-                {displayName}
-              </Variant>
-            ))}
+            {variants.map(({ displayName, name }, i) => {
+              const taskCount = selectedVariantTasks[name]
+                ? Object.keys(selectedVariantTasks[name]).length
+                : null;
+              const isSelected = selectedBuildVariant === name;
+              return (
+                <Variant
+                  key={name}
+                  isSelected={isSelected}
+                  onClick={getClickVariantHandler(name)}
+                >
+                  <VariantName>
+                    <Body weight={isSelected ? "medium" : "regular"}>
+                      {displayName}
+                    </Body>
+                  </VariantName>
+                  {taskCount > 0 && (
+                    <VariantTaskCount isSelected={isSelected}>
+                      <Body>{taskCount}</Body>
+                    </VariantTaskCount>
+                  )}
+                </Variant>
+              );
+            })}
           </StyledSiderCard>
         </PageSider>
         <PageLayout>
@@ -169,6 +184,8 @@ export const Reconfigure: React.FC<Props> = ({
   );
 };
 
+type VariantProps = { isSelected: boolean };
+
 const cardSidePadding = css`
   padding-left: 8px;
   padding-right: 8px;
@@ -177,14 +194,36 @@ const Header = styled.div``;
 const Variant = styled.div`
   display: flex;
   align-items: center;
-  height: 32px;
+  min-height: 32px;
   cursor: pointer;
+  padding: 8px 0;
   ${cardSidePadding}
-  background-color: ${(props: { isSelected: boolean }) =>
+  background-color: ${(props: VariantProps) =>
     props.isSelected ? uiColors.green.light3 : "none"};
   border-left: 3px solid white;
-  border-left-color: ${(props: { isSelected: boolean }) =>
+  border-left-color: ${(props: VariantProps) =>
     props.isSelected ? uiColors.green.base : "none"};
+`;
+const VariantName = styled.div`
+  word-break: break-all;
+  white-space: normal;
+`;
+const VariantTaskCount = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 18px;
+  min-width: 30px;
+  margin-left: 8px;
+  border-radius: 10px;
+  padding: 0 8px;
+  ${(props: VariantProps) =>
+    props.isSelected && `& > p {color: ${uiColors.white}}`};
+  border: 1px solid;
+  border-color: ${(props: VariantProps) =>
+    props.isSelected ? uiColors.gray.dark3 : uiColors.gray.light2};
+  background-color: ${(props: VariantProps) =>
+    props.isSelected ? uiColors.gray.dark2 : uiColors.gray.light3};
 `;
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
