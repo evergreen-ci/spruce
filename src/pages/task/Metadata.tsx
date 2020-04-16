@@ -21,6 +21,7 @@ export const Metadata = ({
 }) => {
   const task = data ? data.task : null;
 
+  const spawnHostLink = get(task, "spawnHostLink");
   const createTime = get(task, "createTime");
   const finishTime = get(task, "finishTime");
   const hostId = get(task, "hostId");
@@ -60,6 +61,13 @@ export const Metadata = ({
           {hostId}
         </StyledLink>
       </P2>
+      {spawnHostLink && (
+        <P2>
+          <StyledLink data-cy="task-spawn-host-link" href={spawnHostLink}>
+            Spawn host
+          </StyledLink>
+        </P2>
+      )}
       {reliesOn && reliesOn.length ? (
         <span data-cy="depends-on-container">
           <H3>Depends On</H3>

@@ -1,4 +1,5 @@
 import { waitForGQL } from "./networking";
+import get from "lodash/get";
 
 // used to test status and base status dropdown filters
 export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
@@ -76,4 +77,30 @@ export const urlSearchParamsAreUpdated = ({ pathname, paramName, search }) => {
       expect(loc.search).to.include(search);
     }
   });
+};
+
+/**
+ * Asserts element existence based on value in xhr object
+ * @param xhr request that determines element existence
+ * @param resBodyPath path in xhr object containing information to base element existence
+ * @param dataCyStr data-cy attribute for element
+ * @param doesExist assert string for when element should exist
+ * @param doesNotExist assert string for when element does not exist
+ * @returns true if element exists and false otherwise
+ *
+ */
+export const elementExistenceCheck = (
+  xhr,
+  resBodyPath,
+  dataCyStr,
+  doesExist = "not.be.empty",
+  doesNotExist = "be.empty"
+) => {
+  const el = cy.dataCy(dataCyStr);
+  if (get(xhr, resBodyPath)) {
+    el.should(doesExist);
+    return true;
+  }
+  el.should(doesNotExist);
+  return false;
 };

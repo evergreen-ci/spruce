@@ -29,6 +29,7 @@ export const GET_TASK = gql`
       timeTaken
       version
       revision
+      spawnHostLink
     }
   }
 `;
@@ -78,6 +79,7 @@ interface Task {
   timeTaken: number;
   version: string;
   revision: string;
+  spawnHostLink: string;
 }
 
 export interface TaskQuery {
