@@ -71,13 +71,9 @@ describe("Task Metadata Card", function() {
         [startTimePath]: valExists,
         [finishTimePath]: valExists,
       }).then((xhr) => {
-        cy.elementExistenceCheck(
-          xhr,
-          createTimePath,
-          "task-metadata-submitted-at"
-        );
-        cy.elementExistenceCheck(xhr, startTimePath, "task-metadata-started");
-        cy.elementExistenceCheck(xhr, finishTimePath, "task-metadata-finished");
+        existenceCheck(xhr, createTimePath, "task-metadata-submitted-at");
+        existenceCheck(xhr, startTimePath, "task-metadata-started");
+        existenceCheck(xhr, finishTimePath, "task-metadata-finished");
       });
     });
   });
@@ -91,7 +87,7 @@ describe("Task Metadata Card", function() {
       cy.waitForGQL("GetTask", {
         [spawnHostLinkPath]: valExists,
       }).then((xhr) => {
-        const exists = cy.elementExistenceCheck(
+        const exists = existenceCheck(
           xhr,
           spawnHostLinkPath,
           "task-spawn-host-link",
@@ -105,3 +101,21 @@ describe("Task Metadata Card", function() {
     });
   });
 });
+
+// checks to see if container exists based on value in xhr object
+// returns true if the container "exists" and false otherwise
+const existenceCheck = (
+  xhr: Cypress.WaitXHR,
+  resBodyPath: string,
+  container: string,
+  doesExist = "not.be.empty",
+  doesNotExist = "be.empty"
+): boolean => {
+  const dateContainer = cy.dataCy(container);
+  if (get(xhr, resBodyPath)) {
+    dateContainer.should(doesExist);
+    return true;
+  }
+  dateContainer.should(doesNotExist);
+  return false;
+};
