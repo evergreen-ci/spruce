@@ -27,6 +27,8 @@ interface Props {
   project: PatchProject;
   variantsTasks: VariantsTasks;
   description: string;
+  author: string;
+  submittedAt: string;
 }
 
 enum PatchTab {
@@ -59,6 +61,8 @@ export const Reconfigure: React.FC<Props> = ({
   project,
   variantsTasks,
   description,
+  author,
+  submittedAt,
 }) => {
   const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs(
@@ -141,8 +145,8 @@ export const Reconfigure: React.FC<Props> = ({
       <PageLayout>
         <PageSider>
           <MetadataCard loading={false} error={null} title="Patch Metadata">
-            <P2>Submitted by: </P2>
-            <P2>Submitted at: </P2>
+            <P2>Submitted by: {author}</P2>
+            <P2>Submitted at: {submittedAt}</P2>
           </MetadataCard>
           <StyledSiderCard>
             <CardHeaderWrapper>

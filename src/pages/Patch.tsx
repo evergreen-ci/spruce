@@ -33,6 +33,8 @@ export const Patch = () => {
   const activated = get(patch, "activated");
   const project = get(patch, "project");
   const variantsTasks = get(patch, "variantsTasks");
+  const author = get(patch, "author");
+  const submittedAt = get(patch, "time.submittedAt");
 
   if (
     status === PatchStatus.Failed ||
@@ -49,6 +51,8 @@ export const Patch = () => {
           project={project}
           variantsTasks={variantsTasks}
           description={description}
+          author={author}
+          submittedAt={submittedAt}
         />
       ) : (
         <>
