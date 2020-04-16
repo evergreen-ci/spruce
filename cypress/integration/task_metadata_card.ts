@@ -2,6 +2,7 @@
 /// <reference path="../support/index.d.ts" />
 
 import get from "lodash/get";
+import { elementExistenceCheck } from "../utils";
 
 const taskId =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
@@ -22,7 +23,6 @@ describe("Task Metadata Card", function() {
     cy.visit("task/not-real");
     cy.get("[data-cy=metadata-card-error]").should("exist");
   });
-
   it("Base commit link should have href", () => {
     cy.visit(taskRoute);
     cy.get("[data-cy=base-task-link]").should("have.attr", "href");
@@ -71,9 +71,13 @@ describe("Task Metadata Card", function() {
         [startTimePath]: valExists,
         [finishTimePath]: valExists,
       }).then((xhr) => {
-        existenceCheck(xhr, createTimePath, "task-metadata-submitted-at");
-        existenceCheck(xhr, startTimePath, "task-metadata-started");
-        existenceCheck(xhr, finishTimePath, "task-metadata-finished");
+        elementExistenceCheck(
+          xhr,
+          createTimePath,
+          "task-metadata-submitted-at"
+        );
+        elementExistenceCheck(xhr, startTimePath, "task-metadata-started");
+        elementExistenceCheck(xhr, finishTimePath, "task-metadata-finished");
       });
     });
   });
@@ -87,7 +91,7 @@ describe("Task Metadata Card", function() {
       cy.waitForGQL("GetTask", {
         [spawnHostLinkPath]: valExists,
       }).then((xhr) => {
-        const exists = existenceCheck(
+        const exists = elementExistenceCheck(
           xhr,
           spawnHostLinkPath,
           "task-spawn-host-link",
@@ -101,21 +105,3 @@ describe("Task Metadata Card", function() {
     });
   });
 });
-
-// checks to see if container exists based on value in xhr object
-// returns true if the container "exists" and false otherwise
-const existenceCheck = (
-  xhr: Cypress.WaitXHR,
-  resBodyPath: string,
-  container: string,
-  doesExist = "not.be.empty",
-  doesNotExist = "be.empty"
-): boolean => {
-  const dateContainer = cy.dataCy(container);
-  if (get(xhr, resBodyPath)) {
-    dateContainer.should(doesExist);
-    return true;
-  }
-  dateContainer.should(doesNotExist);
-  return false;
-};
