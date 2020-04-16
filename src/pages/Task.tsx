@@ -22,8 +22,7 @@ import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TaskStatus } from "types/task";
-import Badge from "@leafygreen-ui/badge";
-import styled from "@emotion/styled";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 
 enum TaskTab {
   Logs = "logs",
@@ -103,12 +102,12 @@ export const Task: React.FC = () => {
                 name={
                   <span>
                     {failedTestCount ? (
-                      <>
-                        <ShiftedLabelContainer>Tests</ShiftedLabelContainer>{" "}
-                        <Badge key={status} variant={"red"}>
-                          {failedTestCount}
-                        </Badge>
-                      </>
+                      <TabLabelWithBadge
+                        tabLabel="Tests"
+                        badgeVariant="red"
+                        badgeText={failedTestCount}
+                        dataCyBadge="test-tab-badge"
+                      />
                     ) : (
                       "Tests"
                     )}
@@ -128,8 +127,3 @@ export const Task: React.FC = () => {
     </PageWrapper>
   );
 };
-
-const ShiftedLabelContainer = styled.span`
-  position: relative;
-  top: 2px;
-`;
