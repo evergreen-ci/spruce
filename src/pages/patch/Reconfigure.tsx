@@ -117,10 +117,9 @@ export const Reconfigure: React.FC<Props> = ({
     });
   };
   const onClickDeselectAll = () => {
-    setSelectedVariantTasks({
-      ...selectedVariantTasks,
-      [selectedBuildVariant]: {},
-    });
+    const nextSelectedVariantTasks = { ...selectedVariantTasks };
+    delete nextSelectedVariantTasks[selectedBuildVariant];
+    setSelectedVariantTasks(nextSelectedVariantTasks);
   };
 
   const taskCount = Object.values(selectedVariantTasks).reduce(
@@ -184,39 +183,44 @@ export const Reconfigure: React.FC<Props> = ({
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Configure" id="task-tab">
-                <Actions>
-                  <Button>Schedule</Button>
-                  <ButtonLink onClick={onClickSelectAll}>Select All</ButtonLink>
-                  <ButtonLink onClick={onClickDeselectAll}>
-                    Deselect All
-                  </ButtonLink>
-                </Actions>
-                <Disclaimer>
-                  {`${taskCount} task${
-                    taskCount !== 1 ? "s" : ""
-                  } across ${buildVariantCount} build variant${
-                    buildVariantCount !== 1 ? "s" : ""
-                  }`}
-                </Disclaimer>
-                <Tasks>
-                  {currentTasks.map((task) => {
-                    const checked =
-                      !!selectedVariantTasks[selectedBuildVariant] &&
-                      selectedVariantTasks[selectedBuildVariant][task] === true;
-                    return (
-                      <Checkbox
-                        key={task}
-                        data-cy="variant-task"
-                        onChange={getTaskCheckboxChangeHandler(
-                          task,
-                          selectedBuildVariant
-                        )}
-                        label={task}
-                        checked={checked}
-                      />
-                    );
-                  })}
-                </Tasks>
+                <TabContentWrapper>
+                  <Actions>
+                    <Button>Schedule</Button>
+                    <ButtonLink onClick={onClickSelectAll}>
+                      Select All
+                    </ButtonLink>
+                    <ButtonLink onClick={onClickDeselectAll}>
+                      Deselect All
+                    </ButtonLink>
+                  </Actions>
+                  <StyledDisclaimer>
+                    {`${taskCount} task${
+                      taskCount !== 1 ? "s" : ""
+                    } across ${buildVariantCount} build variant${
+                      buildVariantCount !== 1 ? "s" : ""
+                    }`}
+                  </StyledDisclaimer>
+                  <Tasks>
+                    {currentTasks.map((task) => {
+                      const checked =
+                        !!selectedVariantTasks[selectedBuildVariant] &&
+                        selectedVariantTasks[selectedBuildVariant][task] ===
+                          true;
+                      return (
+                        <Checkbox
+                          key={task}
+                          data-cy="variant-task"
+                          onChange={getTaskCheckboxChangeHandler(
+                            task,
+                            selectedBuildVariant
+                          )}
+                          label={task}
+                          checked={checked}
+                        />
+                      );
+                    })}
+                  </Tasks>
+                </TabContentWrapper>
               </Tab>
               <Tab name="Changes" id="changes-tab">
                 <CodeChanges />
@@ -236,7 +240,6 @@ const cardSidePadding = css`
   padding-right: 8px;
 `;
 const Actions = styled.div`
-  margin-left: 8px;
   margin-bottom: 8px;
   display: flex;
   align-items: center;
@@ -247,9 +250,17 @@ const Actions = styled.div`
     margin-right: 24px;
   }
 `;
-const Header = styled.div``;
-const Tasks = styled.div`
+const TabContentWrapper = styled.div`
   ${cardSidePadding}
+`;
+const Tasks = styled.div`
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto auto;
+  grid-template-areas: "a a";
+  grid-auto-rows: auto;
+  grid-column-gap: 80px;
+  grid-row-gap: 12px;
 `;
 const BuildVariant = styled.div`
   display: flex;
@@ -287,4 +298,7 @@ const StyledDivider = styled(Divider)`
 `;
 const ButtonLink = styled.div`
   cursor: pointer;
+`;
+const StyledDisclaimer = styled(Disclaimer)`
+  margin-bottom: 8px;
 `;
