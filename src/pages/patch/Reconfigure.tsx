@@ -20,6 +20,8 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
 import { Divider } from "components/styles/Divider";
 import { Body } from "@leafygreen-ui/typography";
+import Button from "@leafygreen-ui/button";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 
 interface Props {
   project: PatchProject;
@@ -38,10 +40,11 @@ const tabToIndexMap = {
   [PatchTab.Changes]: 1,
 };
 
+interface TasksState {
+  [task: string]: true;
+}
 interface VariantTasksState {
-  [variant: string]: {
-    task: true;
-  };
+  [variant: string]: TasksState;
 }
 
 const convertPatchVariantTasksToState = (
@@ -95,10 +98,30 @@ export const Reconfigure: React.FC<Props> = ({
     }
   };
 
-  const projectVariantTasksMap = variants.reduce((prev, { name, tasks }) => {
+  const projectVariantTasksMap: {
+    [variant: string]: string[];
+  } = variants.reduce((prev, { name, tasks }) => {
     prev[name] = tasks;
     return prev;
   }, {});
+  const currentTasks = projectVariantTasksMap[selectedBuildVariant];
+
+  const onClickSelectAll = () => {
+    const allTasksForVariant: TasksState = currentTasks.reduce((prev, curr) => {
+      prev[curr] = true;
+      return prev;
+    }, {});
+    setSelectedVariantTasks({
+      ...selectedVariantTasks,
+      [selectedBuildVariant]: allTasksForVariant,
+    });
+  };
+  const onClickDeselectAll = () => {
+    setSelectedVariantTasks({
+      ...selectedVariantTasks,
+      [selectedBuildVariant]: {},
+    });
+  };
 
   return (
     <>
@@ -121,13 +144,13 @@ export const Reconfigure: React.FC<Props> = ({
               <Body weight="medium">Select Build Variants and Tasks</Body>
               <StyledDivider />
             </CardHeaderWrapper>
-            {variants.map(({ displayName, name }, i) => {
+            {variants.map(({ displayName, name }) => {
               const taskCount = selectedVariantTasks[name]
                 ? Object.keys(selectedVariantTasks[name]).length
                 : null;
               const isSelected = selectedBuildVariant === name;
               return (
-                <Variant
+                <BuildVariant
                   key={name}
                   isSelected={isSelected}
                   onClick={getClickVariantHandler(name)}
@@ -138,11 +161,15 @@ export const Reconfigure: React.FC<Props> = ({
                     </Body>
                   </VariantName>
                   {taskCount > 0 && (
-                    <VariantTaskCount isSelected={isSelected}>
-                      <Body>{taskCount}</Body>
-                    </VariantTaskCount>
+                    <StyledBadge
+                      variant={
+                        isSelected ? Variant.DarkGray : Variant.LightGray
+                      }
+                    >
+                      {taskCount}
+                    </StyledBadge>
                   )}
-                </Variant>
+                </BuildVariant>
               );
             })}
           </StyledSiderCard>
@@ -151,9 +178,16 @@ export const Reconfigure: React.FC<Props> = ({
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Configure" id="task-tab">
+                <Actions>
+                  <Button>Schedule</Button>
+                  <ButtonLink onClick={onClickSelectAll}>Select All</ButtonLink>
+                  <ButtonLink onClick={onClickDeselectAll}>
+                    Deselect All
+                  </ButtonLink>
+                </Actions>
                 <Header></Header>
-                <div>
-                  {projectVariantTasksMap[selectedBuildVariant].map((task) => {
+                <Tasks>
+                  {currentTasks.map((task) => {
                     const checked =
                       !!selectedVariantTasks[selectedBuildVariant] &&
                       selectedVariantTasks[selectedBuildVariant][task] === true;
@@ -167,11 +201,10 @@ export const Reconfigure: React.FC<Props> = ({
                         )}
                         label={task}
                         checked={checked}
-                        bold={false}
                       />
                     );
                   })}
-                </div>
+                </Tasks>
               </Tab>
               <Tab name="Changes" id="changes-tab">
                 <CodeChanges />
@@ -190,8 +223,23 @@ const cardSidePadding = css`
   padding-left: 8px;
   padding-right: 8px;
 `;
+const Actions = styled.div`
+  margin-left: 8px;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  & > :first-child {
+    margin-right: 40px;
+  }
+  & > :not(:first-child) {
+    margin-right: 24px;
+  }
+`;
 const Header = styled.div``;
-const Variant = styled.div`
+const Tasks = styled.div`
+  ${cardSidePadding}
+`;
+const BuildVariant = styled.div`
   display: flex;
   align-items: center;
   min-height: 32px;
@@ -208,22 +256,8 @@ const VariantName = styled.div`
   word-break: break-all;
   white-space: normal;
 `;
-const VariantTaskCount = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 18px;
-  min-width: 30px;
+const StyledBadge = styled(Badge)`
   margin-left: 8px;
-  border-radius: 10px;
-  padding: 0 8px;
-  ${(props: VariantProps) =>
-    props.isSelected && `& > p {color: ${uiColors.white}}`};
-  border: 1px solid;
-  border-color: ${(props: VariantProps) =>
-    props.isSelected ? uiColors.gray.dark3 : uiColors.gray.light2};
-  background-color: ${(props: VariantProps) =>
-    props.isSelected ? uiColors.gray.dark2 : uiColors.gray.light3};
 `;
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
@@ -238,4 +272,7 @@ const CardHeaderWrapper = styled.div`
 `;
 const StyledDivider = styled(Divider)`
   margin-bottom: 0;
+`;
+const ButtonLink = styled.div`
+  cursor: pointer;
 `;
