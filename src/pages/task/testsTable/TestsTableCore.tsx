@@ -23,8 +23,7 @@ import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
-import { P2 } from "components/Typography";
-
+import { ResultCountLabel } from "components/ResultCountLabel";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
@@ -128,12 +127,13 @@ export const TestsTableCore: React.FC = () => {
   const totalTestCount = get(data, "taskTests.totalTestCount", "-");
   return (
     <>
-      <P2 id="task-count">
-        <span data-cy="filtered-test-count">{filteredTestCount}</span>
-        {"/"}
-        <span data-cy="total-test-count">{totalTestCount}</span>
-        <span> tests</span>
-      </P2>
+      <ResultCountLabel
+        dataCyNumerator="filtered-test-count"
+        dataCyDenominator="total-test-count"
+        label="tests"
+        numerator={filteredTestCount}
+        denominator={totalTestCount}
+      />
       <InfinityTable
         key="key"
         loading={networkStatus < NetworkStatus.ready}
