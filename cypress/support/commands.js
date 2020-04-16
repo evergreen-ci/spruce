@@ -1,5 +1,4 @@
 import { waitForGQL } from "../utils/networking";
-import get from "lodash/get";
 
 const GQL_QUERY = "gqlQuery";
 
