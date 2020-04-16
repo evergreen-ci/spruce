@@ -1,3 +1,5 @@
+import get from "lodash/get";
+
 export const assertScrollFetchAppend = (assertFetch) => {
   cy.get(".ant-table-row")
     .invoke("toArray")
@@ -10,4 +12,19 @@ export const assertScrollFetchAppend = (assertFetch) => {
         $initialTasks.length
       );
     });
+};
+
+export const assertCountLabels = (
+  filteredCountPath: string,
+  totalCountPath: string,
+  dataCyFilteredCount: string,
+  dataCyTotalCount: string
+) => {
+  cy.get("@gqlQuery").then((xhr) => {
+    console.log(xhr);
+    const filteredCount = get(xhr, filteredCountPath);
+    const totalCount = get(xhr, totalCountPath);
+    cy.dataCy(dataCyFilteredCount).contains(`${filteredCount}`);
+    cy.dataCy(dataCyTotalCount).contains(`${totalCount}`);
+  });
 };

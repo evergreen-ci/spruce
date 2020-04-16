@@ -5,6 +5,7 @@ import {
   resultsAreFetchedAndRendered,
   assertQueryVariables,
 } from "../utils";
+import { assertCountLabels } from "../utils/table";
 
 describe("Tests Table", () => {
   before(() => {
@@ -16,7 +17,7 @@ describe("Tests Table", () => {
     cy.preserveCookies();
   });
 
-  it("Should make GQL request with default query variables when no query params are provided", () => {
+  it("Should make GQL request with default query variables when no query params are provided", function() {
     cy.visit(TESTS_ROUTE);
     assertQueryVariables("taskTests", {
       cat: "STATUS",
@@ -134,7 +135,7 @@ describe("Tests Table", () => {
       cy.get("[data-cy=test-status-select]").contains("No filters selected");
     });
 
-    xit("Clicking on 'All' checkbox adds all statuses to URL", () => {
+    it("Clicking on 'All' checkbox adds all statuses to URL", () => {
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: TESTS_ROUTE,
@@ -204,7 +205,7 @@ describe("Tests Table", () => {
     const testNameInputValue = "group";
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get("#cy-testname-input").type(testNameInputValue);
+      cy.dataCy("testname-input").type(testNameInputValue);
     });
 
     it("Typing in test name filter updates testname query param", () => {
@@ -224,13 +225,30 @@ describe("Tests Table", () => {
     });
   });
 
+  describe("Filtered and total test count label", () => {
+    before(() => {
+      cy.visit(TESTS_ROUTE);
+    });
+
+    it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
+      assertTestCountLabels();
+      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
+      cy.get(".cy-checkbox")
+        .contains("Fail")
+        .click();
+      assertTestCountLabels();
+      cy.dataCy("testname-input").type("group");
+      assertTestCountLabels();
+    });
+  });
+
   describe("Scrolling", () => {
     it("Fetches and appends additional tests to table as the user scrolls", () => {
       cy.visit(TESTS_ROUTE);
       cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
       resultsAreFetchedAndRendered({
         queryName: "taskTests",
-        responseName: "taskTests",
+        responseName: "taskTests.testResults",
         requestVariables: {
           cat: "STATUS",
           dir: "ASC",
@@ -243,6 +261,15 @@ describe("Tests Table", () => {
   });
 });
 
+const assertTestCountLabels = () => {
+  waitForTestsQuery();
+  assertCountLabels(
+    "response.body.data.taskTests.filteredTestCount",
+    "response.body.data.taskTests.totalTestCount",
+    "filtered-test-count",
+    "total-test-count"
+  );
+};
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
