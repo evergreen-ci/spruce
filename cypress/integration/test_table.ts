@@ -17,7 +17,7 @@ describe("Tests Table", () => {
     cy.preserveCookies();
   });
 
-  it("Should make GQL request with default query variables when no query params are provided", function() {
+  it("Should make GQL request with default query variables when no query params are provided", () => {
     cy.visit(TESTS_ROUTE);
     assertQueryVariables("taskTests", {
       cat: "STATUS",
