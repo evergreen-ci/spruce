@@ -4,7 +4,7 @@ import {
   GET_TASK_FILES,
   TaskFilesResponse,
   TaskFilesVars,
-  GroupedFiles
+  GroupedFiles,
 } from "gql/queries/get-task-files";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
@@ -34,8 +34,8 @@ const columns = [
       );
     },
     defaultSortOrder: "ascend" as SortOrder,
-    sorter: (a: File, b: File): number => a.name.localeCompare(b.name)
-  }
+    sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
+  },
 ];
 
 export const FilesTables: React.FC = () => {
@@ -44,8 +44,8 @@ export const FilesTables: React.FC = () => {
     GET_TASK_FILES,
     {
       variables: {
-        id: id
-      }
+        id: id,
+      },
     }
   );
   const [filterStr, setFilterStr] = useState("");
@@ -54,13 +54,13 @@ export const FilesTables: React.FC = () => {
   useEffect(
     debounce(() => {
       if (data) {
-        const nextData = data.taskFiles.groupedFiles.map(currVal => ({
+        const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
           taskName: currVal.taskName,
           files: filterStr.length
             ? currVal.files.filter(({ name }) =>
                 name.toLowerCase().includes(filterStr.toLowerCase())
               )
-            : currVal.files
+            : currVal.files,
         })) as [GroupedFiles];
         setFilteredData(nextData);
       }

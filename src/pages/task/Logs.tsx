@@ -9,21 +9,21 @@ enum LogTypes {
   Agent = "agent",
   System = "system",
   Task = "task",
-  Event = "event"
+  Event = "event",
 }
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 enum QueryParams {
-  LogType = "logtype"
+  LogType = "logtype",
 }
 
 const options = {
   [LogTypes.Agent]: <AgentLog />,
   [LogTypes.System]: <SystemLog />,
   [LogTypes.Task]: <TaskLog />,
-  [LogTypes.Event]: <EventLog />
+  [LogTypes.Event]: <EventLog />,
 };
 
-export const Logs: React.FC = props => {
+export const Logs: React.FC = (props) => {
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
@@ -50,7 +50,7 @@ export const Logs: React.FC = props => {
     const nextLogType = event.target.value as LogTypes;
     replace(
       `${pathname}?${queryString.stringify({
-        [QueryParams.LogType]: nextLogType
+        [QueryParams.LogType]: nextLogType,
       })}`
     );
   };

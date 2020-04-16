@@ -75,7 +75,7 @@ const singularStatuses = [
   },
 ];
 
-describe("Tasks filters", function() {
+describe("Tasks filters", function () {
   before(() => {
     cy.login();
   });

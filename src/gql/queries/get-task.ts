@@ -30,6 +30,7 @@ export const GET_TASK = gql`
       version
       revision
       failedTestCount
+      spawnHostLink
     }
   }
 `;
@@ -80,6 +81,7 @@ interface Task {
   version: string;
   revision: string;
   failedTestCount: number;
+  spawnHostLink: string;
 }
 
 export interface TaskQuery {

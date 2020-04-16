@@ -11,12 +11,14 @@ function enableFetchWorkaround() {
 
   before(() => {
     console.info("Load fetch XHR polyfill");
-    cy.readFile("./cypress/support/polyfills/unfetch.umd.js").then(content => {
-      polyfill = content;
-    });
+    cy.readFile("./cypress/support/polyfills/unfetch.umd.js").then(
+      (content) => {
+        polyfill = content;
+      }
+    );
   });
 
-  Cypress.on("window:before:load", win => {
+  Cypress.on("window:before:load", (win) => {
     delete win.fetch;
     // since the application code does not ship with a polyfill
     // load a polyfilled "fetch" from the test

@@ -3,7 +3,7 @@ import {
   Route,
   Redirect,
   RouteComponentProps,
-  RouteProps
+  RouteProps,
 } from "react-router-dom";
 import { useAuthStateContext } from "../../context/auth";
 
@@ -17,7 +17,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
 }) => {
   const { isAuthenticated } = useAuthStateContext();
 
-  const render = props =>
+  const render = (props) =>
     isAuthenticated ? (
       <Component {...props} />
     ) : (

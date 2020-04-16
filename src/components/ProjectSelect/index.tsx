@@ -18,7 +18,7 @@ export interface ProjectSelectProps {
 
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   data,
-  loading
+  loading,
 }) => {
   return (
     <StyledSelect

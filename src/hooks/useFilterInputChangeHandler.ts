@@ -15,7 +15,7 @@ const updateQueryParam = debounce(
   ) => {
     const nextQueryParams = queryString.stringify({
       ...queryString.parse(search, { arrayFormat }),
-      [urlSearchParam]: inputValue === "" ? undefined : inputValue
+      [urlSearchParam]: inputValue === "" ? undefined : inputValue,
     });
     replace(`${pathname}?${nextQueryParams}`);
   },
