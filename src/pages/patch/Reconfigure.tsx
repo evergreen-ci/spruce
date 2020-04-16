@@ -19,7 +19,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
 import { Divider } from "components/styles/Divider";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import Button from "@leafygreen-ui/button";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 
@@ -123,6 +123,12 @@ export const Reconfigure: React.FC<Props> = ({
     });
   };
 
+  const taskCount = Object.values(selectedVariantTasks).reduce(
+    (prev, curr) => prev + Object.values(curr).length,
+    0
+  );
+  const buildVariantCount = Object.keys(selectedVariantTasks).length;
+
   return (
     <>
       <StyledInput
@@ -185,7 +191,13 @@ export const Reconfigure: React.FC<Props> = ({
                     Deselect All
                   </ButtonLink>
                 </Actions>
-                <Header></Header>
+                <Disclaimer>
+                  {`${taskCount} task${
+                    taskCount !== 1 ? "s" : ""
+                  } across ${buildVariantCount} build variant${
+                    buildVariantCount !== 1 ? "s" : ""
+                  }`}
+                </Disclaimer>
                 <Tasks>
                   {currentTasks.map((task) => {
                     const checked =
