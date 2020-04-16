@@ -1,5 +1,4 @@
 import * as React from "react";
-import { render, cleanup } from "@testing-library/react";
 import { act } from "react-dom/test-utils";
 import * as ReactDOM from "react-dom";
 import { MockedProvider } from "@apollo/react-testing";
@@ -7,8 +6,8 @@ import { TestsTable } from "pages/task/TestsTable";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import { MemoryRouter, Route } from "react-router";
 import wait from "waait";
-import { fireEvent } from "@testing-library/react";
-
+const filteredTestCount = 0;
+const totalTestCount = 0;
 const testLog = {
   htmlDisplayURL: "",
   rawDisplayURL: "",
@@ -198,7 +197,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero,
+          taskTests: {
+            testResults: taskTestsPageZero,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -220,7 +223,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero,
+          taskTests: {
+            testResults: taskTestsPageZero,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -242,7 +249,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne,
+          taskTests: {
+            testResults: taskTestsPageOne,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -264,7 +275,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageZero,
+          taskTests: {
+            testResults: taskTestsPageZero,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -286,7 +301,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne,
+          taskTests: {
+            testResults: taskTestsPageOne,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -308,7 +327,11 @@ const mocks = [
     result: () => {
       return {
         data: {
-          taskTests: taskTestsPageOne,
+          taskTests: {
+            testResults: taskTestsPageOne,
+            filteredTestCount,
+            totalTestCount,
+          },
         },
       };
     },
@@ -328,44 +351,6 @@ it("renders without crashing", () => {
     div
   );
   ReactDOM.unmountComponentAtNode(div);
-});
-
-it("Requests descending data when clicking on active ascending tab", async () => {
-  const spy = jest.spyOn(mocks[0], "result");
-  const spyOppDir = jest.spyOn(mocks[3], "result");
-
-  const { getByText } = render(
-    <MemoryRouter
-      initialEntries={[
-        {
-          pathname:
-            "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
-          search: "?sortBy=STATUS&sortDir=ASC",
-          hash: "",
-          key: "djuhdk",
-        },
-      ]}
-      initialIndex={0}
-    >
-      <MockedProvider mocks={mocks}>
-        <Route path="/task/:id/:tab?">
-          <TestsTable />
-        </Route>
-      </MockedProvider>
-    </MemoryRouter>
-  );
-  await act(async () => {
-    await wait(500);
-  });
-  fireEvent.click(getByText("Status"));
-  await act(async () => {
-    await wait(500);
-  });
-  expect(spy).toHaveBeenCalled();
-  expect(spyOppDir).toHaveBeenCalled();
-  cleanup();
-  spy.mockRestore();
-  spyOppDir.mockRestore();
 });
 
 xit("It loads data on initial load when given valid query params", async () => {
@@ -431,47 +416,4 @@ xit("It loads data with STATUS ASC when given invalid query param", async () => 
   ReactDOM.unmountComponentAtNode(div);
   expect(spy).toHaveBeenCalled();
   spy.mockRestore();
-});
-
-it("It loads second page when scrolling to the bottom of the table", async () => {
-  const div = document.createElement("div");
-  const spy = jest.spyOn(mocks[1], "result");
-  const spyNextPage = jest.spyOn(mocks[2], "result");
-
-  const { container } = render(
-    <MemoryRouter
-      initialEntries={[
-        {
-          pathname:
-            "/task/mci_windows_test_agent_8a4f834ba24ddf91f93d0a96b90452e9653f4138_17_10_23_21_58_33/tests",
-          search: "?sortBy=TEST_NAME&sortDir=ASC",
-          hash: "",
-          key: "djuhdk",
-        },
-      ]}
-      initialIndex={0}
-    >
-      <MockedProvider mocks={mocks}>
-        <Route path="/task/:id/:tab?">
-          <TestsTable />
-        </Route>
-      </MockedProvider>
-    </MemoryRouter>
-  );
-  await act(async () => {
-    await wait(100);
-  });
-
-  fireEvent.scroll(container.querySelector(".ant-table-body"), {
-    scrollY: 1000,
-  });
-  await act(async () => {
-    await wait(100);
-  });
-  ReactDOM.unmountComponentAtNode(div);
-  expect(spy).toHaveBeenCalled();
-  expect(spyNextPage).toHaveBeenCalled();
-  cleanup();
-  spy.mockRestore();
-  spyNextPage.mockRestore();
 });
