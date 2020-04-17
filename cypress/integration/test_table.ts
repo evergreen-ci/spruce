@@ -27,6 +27,16 @@ describe("Tests Table", () => {
     });
   });
 
+  it("Should make GQL request with default query variables when invalid query params are provided", () => {
+    cy.visit(`${TESTS_ROUTE}?sortBy=INVALID&sortDir=INVALID`);
+    assertQueryVariables("taskTests", {
+      cat: "STATUS",
+      dir: "ASC",
+      testName: "",
+      pageNum: 0,
+    });
+  });
+
   it("Should display No Data when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     cy.waitForGQL("GetTask");
