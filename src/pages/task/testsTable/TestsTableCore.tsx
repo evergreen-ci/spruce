@@ -11,6 +11,7 @@ import {
   TaskTestsData,
   UpdateQueryArg,
   SortDir,
+  TestResult,
 } from "gql/queries/get-task-tests";
 import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
@@ -22,7 +23,7 @@ import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
-
+import { ResultCountLabel } from "components/ResultCountLabel";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
@@ -70,7 +71,7 @@ export const TestsTableCore: React.FC = () => {
     });
   }, [networkStatus, error, fetchMore, listen]);
 
-  const dataSource: [TaskTestsData] = get(data, "taskTests", []);
+  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
   // this fetch is the callback for pagination
   // that's why we see pageNum calculations
@@ -94,9 +95,11 @@ export const TestsTableCore: React.FC = () => {
         if (!fetchMoreResult) {
           return prev;
         }
-        return Object.assign({}, prev, {
-          taskTests: [...prev.taskTests, ...fetchMoreResult.taskTests],
-        });
+        fetchMoreResult.taskTests.testResults = [
+          ...prev.taskTests.testResults,
+          ...fetchMoreResult.taskTests.testResults,
+        ];
+        return fetchMoreResult;
       },
     });
   };
@@ -120,9 +123,17 @@ export const TestsTableCore: React.FC = () => {
   const { cat, dir } = getQueryVariables(search);
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDir.ASC ? "ascend" : "descend";
-
+  const filteredTestCount = get(data, "taskTests.filteredTestCount", "-");
+  const totalTestCount = get(data, "taskTests.totalTestCount", "-");
   return (
-    <div>
+    <>
+      <ResultCountLabel
+        dataCyNumerator="filtered-test-count"
+        dataCyDenominator="total-test-count"
+        label="tests"
+        numerator={filteredTestCount}
+        denominator={totalTestCount}
+      />
       <InfinityTable
         key="key"
         loading={networkStatus < NetworkStatus.ready}
@@ -136,7 +147,7 @@ export const TestsTableCore: React.FC = () => {
         export={true}
         rowKey={rowKey}
       />
-    </div>
+    </>
   );
 };
 
@@ -193,13 +204,13 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: (
-      {
-        htmlDisplayURL,
-        rawDisplayURL,
-      }: { htmlDisplayURL: string; rawDisplayURL: string },
-      { id }
-    ): JSX.Element => {
+    render: ({
+      htmlDisplayURL,
+      rawDisplayURL,
+    }: {
+      htmlDisplayURL: string;
+      rawDisplayURL: string;
+    }): JSX.Element => {
       return (
         <>
           {htmlDisplayURL && (

@@ -29,6 +29,7 @@ export const GET_TASK = gql`
       timeTaken
       version
       revision
+      failedTestCount
       spawnHostLink
     }
   }
@@ -79,6 +80,7 @@ interface Task {
   timeTaken: number;
   version: string;
   revision: string;
+  failedTestCount: number;
   spawnHostLink: string;
 }
 

@@ -22,6 +22,7 @@ import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TaskStatus } from "types/task";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 
 enum TaskTab {
   Logs = "logs",
@@ -56,6 +57,7 @@ export const Task: React.FC = () => {
   const patchNumber = get(task, "patchNumber");
   const status = get(task, "status");
   const version = get(task, "version");
+  const failedTestCount = get(task, "failedTestCount");
 
   if (
     status === TaskStatus.Failed ||
@@ -96,7 +98,23 @@ export const Task: React.FC = () => {
               <Tab name="Logs" id="task-logs-tab">
                 <Logs />
               </Tab>
-              <Tab name="Tests" id="task-tests-tab">
+              <Tab
+                name={
+                  <span>
+                    {failedTestCount ? (
+                      <TabLabelWithBadge
+                        tabLabel="Tests"
+                        badgeVariant="red"
+                        badgeText={failedTestCount}
+                        dataCyBadge="test-tab-badge"
+                      />
+                    ) : (
+                      "Tests"
+                    )}
+                  </span>
+                }
+                id="task-tests-tab"
+              >
                 <TestsTable />
               </Tab>
               <Tab name="Files" id="task-files-tab">

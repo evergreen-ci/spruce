@@ -20,7 +20,7 @@ export const TestsTable: React.FC = () => {
           onChange={testNameFilterValueOnChange}
           suffix={<Icon glyph="MagnifyingGlass" />}
           value={testNameFilterValue}
-          id="cy-testname-input"
+          data-cy="testname-input"
         />
         <StatusSelector />
       </FiltersWrapper>

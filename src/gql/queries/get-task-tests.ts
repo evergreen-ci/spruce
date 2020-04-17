@@ -19,14 +19,18 @@ export const GET_TASK_TESTS = gql`
       statuses: $statusList
       testName: $testName
     ) {
-      id
-      status
-      testFile
-      duration
-      logs {
-        htmlDisplayURL
-        rawDisplayURL
+      testResults {
+        id
+        status
+        testFile
+        duration
+        logs {
+          htmlDisplayURL
+          rawDisplayURL
+        }
       }
+      filteredTestCount
+      totalTestCount
     }
   }
 `;
@@ -44,11 +48,16 @@ export enum Categories {
   Status = "STATUS",
 }
 
-export interface TaskTestsData {
+export interface TestResult {
   id: string;
   status: TestStatus;
   testFile: string;
   duration: number;
+}
+export interface TaskTestsData {
+  testResults: TestResult[];
+  filteredTestCount: number;
+  totalTestCount: number;
 }
 
 export enum SortDir {
@@ -67,5 +76,5 @@ export interface TaskTestVars {
 }
 
 export interface UpdateQueryArg {
-  taskTests: [TaskTestsData];
+  taskTests: TaskTestsData;
 }
