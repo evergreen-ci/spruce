@@ -40,7 +40,7 @@ export const TreeSelect = ({
 
   useEffect(() => {
     if (wrapperRef) {
-      let handleResize = () => {
+      const handleResize = () => {
         setOptionWidth(wrapperRef.current.clientWidth);
       };
       setOptionWidth(wrapperRef.current.clientWidth);
