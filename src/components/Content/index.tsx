@@ -30,6 +30,7 @@ export const Content = () => {
       <Navbar data={data} loading={loading} />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
+        <PrivateRoute exact path={routes.configurePatch} component={TestMe} />
         <PrivateRoute path={routes.patch} component={Patch} />
         <PrivateRoute path={routes.myPatches} component={MyPatches} />
         <PrivateRoute exact={true} path="/">
@@ -40,4 +41,8 @@ export const Content = () => {
       </Switch>
     </PageLayout>
   );
+};
+
+const TestMe = () => {
+  return <div>HELLO WORLD</div>;
 };

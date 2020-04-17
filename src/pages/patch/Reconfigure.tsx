@@ -5,6 +5,8 @@ import {
   PageSider,
   SiderCard,
 } from "components/styles";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
 import { P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -22,14 +24,7 @@ import { Divider } from "components/styles/Divider";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import Button from "@leafygreen-ui/button";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-
-interface Props {
-  project: PatchProject;
-  variantsTasks: VariantsTasks;
-  description: string;
-  author: string;
-  submittedAt: string;
-}
+import { GET_PATCH_CONFIGURE, PatchQuery } from "gql/queries/patch";
 
 enum PatchTab {
   Configure = "configure",
@@ -50,20 +45,21 @@ interface VariantTasksState {
 }
 
 const convertPatchVariantTasksToState = (
-  variantsTasks: VariantsTasks
-): VariantTasksState =>
-  variantsTasks.reduce((prev, { name: variant, tasks }) => {
-    prev[variant] = tasks;
-    return prev;
-  }, {});
+  variantsTasks?: VariantsTasks
+): VariantTasksState | null =>
+  variantsTasks
+    ? variantsTasks.reduce((prev, { name: variant, tasks }) => {
+        prev[variant] = tasks;
+        return prev;
+      }, {})
+    : null;
 
-export const Reconfigure: React.FC<Props> = ({
-  project,
-  variantsTasks,
-  description,
-  author,
-  submittedAt,
-}) => {
+export const Reconfigure: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const { data, loading, error } = useQuery<PatchQuery>(GET_PATCH_CONFIGURE, {
+    variables: { id },
+  });
+
   const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs(
     tabToIndexMap,
@@ -144,15 +140,15 @@ export const Reconfigure: React.FC<Props> = ({
       />
       <PageLayout>
         <PageSider>
-          <MetadataCard loading={false} error={null} title="Patch Metadata">
+          <MetadataCard loading={loading} error={null} title="Patch Metadata">
             <P2>Submitted by: {author}</P2>
             <P2>Submitted at: {submittedAt}</P2>
           </MetadataCard>
-          <StyledSiderCard>
-            <CardHeaderWrapper>
-              <Body weight="medium">Select Build Variants and Tasks</Body>
-              <StyledDivider />
-            </CardHeaderWrapper>
+          <MetadataCard
+            loading={loading}
+            title="Select Build Variants and Tasks"
+            error={null}
+          >
             {variants.map(({ displayName, name }) => {
               const taskCount = selectedVariantTasks[name]
                 ? Object.keys(selectedVariantTasks[name]).length
@@ -181,7 +177,7 @@ export const Reconfigure: React.FC<Props> = ({
                 </BuildVariant>
               );
             })}
-          </StyledSiderCard>
+          </MetadataCard>
         </PageSider>
         <PageLayout>
           <PageContent>

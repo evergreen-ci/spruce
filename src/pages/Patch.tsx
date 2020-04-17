@@ -18,8 +18,11 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
 import { Reconfigure } from "pages/patch/Reconfigure";
 
+import { Switch, Route, useRouteMatch } from "react-router-dom";
+
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
+  const { path, url } = useRouteMatch();
   const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
     GET_PATCH,
     {
@@ -46,16 +49,8 @@ export const Patch = () => {
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      {patch && activated === false ? (
-        <Reconfigure
-          project={project}
-          variantsTasks={variantsTasks}
-          description={description}
-          author={author}
-          submittedAt={submittedAt}
-        />
-      ) : (
-        <>
+      <Switch>
+        <Route exact path={path}>
           <PageTitle
             loading={loading}
             hasData={!!patch}
@@ -79,8 +74,22 @@ export const Patch = () => {
               </PageContent>
             </PageLayout>
           </PageLayout>
-        </>
-      )}
+        </Route>
+        <Route path={`${path}/configure`}>
+          {loading ? (
+            "LOADING"
+          ) : (
+            <Reconfigure
+              project={project}
+              variantsTasks={variantsTasks}
+              description={description}
+              author={author}
+              submittedAt={submittedAt}
+              loading={loading}
+            />
+          )}
+        </Route>
+      </Switch>
     </PageWrapper>
   );
 };
