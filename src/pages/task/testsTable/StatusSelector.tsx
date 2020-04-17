@@ -16,6 +16,7 @@ export const StatusSelector = () => {
       tData={treeData}
       inputLabel="Test Status:  "
       dataCy="test-status-select"
+      width="25%"
     />
   );
 };

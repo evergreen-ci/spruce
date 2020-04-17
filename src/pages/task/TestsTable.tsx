@@ -21,6 +21,7 @@ export const TestsTable: React.FC = () => {
           suffix={<Icon glyph="MagnifyingGlass" />}
           value={testNameFilterValue}
           data-cy="testname-input"
+          width="25%"
         />
         <StatusSelector />
       </FiltersWrapper>
