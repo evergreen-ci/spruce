@@ -235,7 +235,7 @@ describe("Tests Table", () => {
       cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
       cy.get(".cy-checkbox")
         .contains("Fail")
-        .click();
+        .click({ force: true });
       assertTestCountLabels();
       cy.dataCy("testname-input").type("group");
       assertTestCountLabels();
