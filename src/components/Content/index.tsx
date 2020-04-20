@@ -4,6 +4,7 @@ import { Task } from "pages/Task";
 import { Patch } from "pages/Patch";
 import { MyPatches } from "pages/MyPatches";
 import { Login } from "pages/Login";
+import { CommitQueue } from "pages/CommitQueue";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
 import { routes } from "contants/routes";
@@ -32,6 +33,7 @@ export const Content = () => {
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.patch} component={Patch} />
         <PrivateRoute path={routes.myPatches} component={MyPatches} />
+        <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
         <PrivateRoute exact={true} path="/">
           <Redirect to={routes.myPatches} />
         </PrivateRoute>
