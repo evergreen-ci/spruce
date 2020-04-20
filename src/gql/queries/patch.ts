@@ -1,12 +1,13 @@
 import gql from "graphql-tag";
 
+export type ProjectVariants = Array<{
+  name: string;
+  displayName: string;
+  tasks: string[];
+}>;
 export interface PatchProject {
   tasks?: string[];
-  variants?: Array<{
-    name: string;
-    displayName: string;
-    tasks: string[];
-  }>;
+  variants?: ProjectVariants;
 }
 
 export type VariantsTasks = Array<{

@@ -16,13 +16,12 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
-import { Reconfigure } from "pages/patch/Reconfigure";
 
-import { Switch, Route, useRouteMatch } from "react-router-dom";
+import { useRouteMatch } from "react-router-dom";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { path, url } = useRouteMatch();
+  const { path } = useRouteMatch();
   const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
     GET_PATCH,
     {
@@ -34,10 +33,6 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  const project = get(patch, "project");
-  const variantsTasks = get(patch, "variantsTasks");
-  const author = get(patch, "author");
-  const submittedAt = get(patch, "time.submittedAt");
 
   if (
     status === PatchStatus.Failed ||
@@ -49,47 +44,25 @@ export const Patch = () => {
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      <Switch>
-        <Route exact path={path}>
-          <PageTitle
-            loading={loading}
-            hasData={!!patch}
-            title={
-              description ? description : `Patch ${get(patch, "patchNumber")}`
-            }
-            badge={
-              <Badge variant={mapPatchStatusToBadgeVariant[status]}>
-                {status}
-              </Badge>
-            }
-          />
-          <PageLayout>
-            <PageSider>
-              <Metadata loading={loading} patch={patch} error={error} />
-              <BuildVariants />
-            </PageSider>
-            <PageLayout>
-              <PageContent>
-                <PatchTabs taskCount={patch ? patch.taskCount : null} />
-              </PageContent>
-            </PageLayout>
-          </PageLayout>
-        </Route>
-        <Route path={`${path}/configure`}>
-          {loading ? (
-            "LOADING"
-          ) : (
-            <Reconfigure
-              project={project}
-              variantsTasks={variantsTasks}
-              description={description}
-              author={author}
-              submittedAt={submittedAt}
-              loading={loading}
-            />
-          )}
-        </Route>
-      </Switch>
+      <PageTitle
+        loading={loading}
+        hasData={!!patch}
+        title={description ? description : `Patch ${get(patch, "patchNumber")}`}
+        badge={
+          <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
+        }
+      />
+      <PageLayout>
+        <PageSider>
+          <Metadata loading={loading} patch={patch} error={error} />
+          <BuildVariants />
+        </PageSider>
+        <PageLayout>
+          <PageContent>
+            <PatchTabs taskCount={patch ? patch.taskCount : null} />
+          </PageContent>
+        </PageLayout>
+      </PageLayout>
     </PageWrapper>
   );
 };

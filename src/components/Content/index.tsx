@@ -13,6 +13,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { GET_PROJECTS, ProjectsQuery } from "gql/queries/get-projects";
 import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
+import { ConfigurePatch } from "pages/ConfigurePatch";
 
 export const Content = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -30,7 +31,11 @@ export const Content = () => {
       <Navbar data={data} loading={loading} />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
-        <PrivateRoute exact path={routes.configurePatch} component={TestMe} />
+        <PrivateRoute
+          exact
+          path={routes.configurePatch}
+          component={ConfigurePatch}
+        />
         <PrivateRoute path={routes.patch} component={Patch} />
         <PrivateRoute path={routes.myPatches} component={MyPatches} />
         <PrivateRoute exact={true} path="/">
@@ -41,8 +46,4 @@ export const Content = () => {
       </Switch>
     </PageLayout>
   );
-};
-
-const TestMe = () => {
-  return <div>HELLO WORLD</div>;
 };
