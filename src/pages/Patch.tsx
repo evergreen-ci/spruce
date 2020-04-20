@@ -16,10 +16,12 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
+import { useHistory } from "react-router-dom";
+import { paths } from "contants/routes";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-
+  const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
     GET_PATCH,
     {
@@ -31,6 +33,9 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
+  if (activated === false) {
+    router.push(`${paths.patch}/${id}/configure/tasks`);
+  }
   if (
     status === PatchStatus.Failed ||
     status === PatchStatus.Success ||

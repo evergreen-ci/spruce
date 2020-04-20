@@ -7,8 +7,7 @@ import { useParams, useHistory } from "react-router-dom";
  *
  * @param  {TabToIndexMap} tabToIndexMap a JS object that maps a tab to an index
  * the leafygreen Tab component works by using indexes which is why this is required
- * @param  {string} path the route path, e.g. on patch page the route is "/patch"
- * @param  {string} defaultTab the tab that is selected by default
+ * @param  {string} defaultPath the full path that should be displayed by default (including the tab)
  */
 export const useDefaultPath = ({
   tabToIndexMap,
