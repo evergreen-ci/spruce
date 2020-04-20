@@ -54,6 +54,7 @@ export const CommitQueue = () => {
       <HR />
       {queue.map((commit, i) => (
         <CommitQueueCard
+          key={commit.Issue}
           index={i + 1}
           title={commit.Patch.description}
           author={commit.Patch.author}

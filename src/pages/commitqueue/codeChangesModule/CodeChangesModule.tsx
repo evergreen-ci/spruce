@@ -55,6 +55,7 @@ const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
         {fileDiffs.map((fileDiff, index) => (
           <CodeChangeItem
             {...fileDiff}
+            key={fileDiff.diffLink}
             isLastItem={fileDiffs.length - 1 === index}
           />
         ))}
@@ -69,7 +70,10 @@ export const CodeChangeModules: React.FC<{
   return (
     <div>
       {moduleCodeChanges.map(moduleCodeChange => (
-        <CodeChangeModule moduleCodeChange={moduleCodeChange} />
+        <CodeChangeModule
+          key={moduleCodeChange.rawLink}
+          moduleCodeChange={moduleCodeChange}
+        />
       ))}
     </div>
   );

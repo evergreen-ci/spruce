@@ -12,6 +12,7 @@ export const GET_COMMIT_QUEUE = gql`
           author
           description
           moduleCodeChanges {
+            rawLink
             fileDiffs {
               fileName
               additions

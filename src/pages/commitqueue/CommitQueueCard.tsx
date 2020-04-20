@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { CodeChangeModules } from "./codeChangesModule/CodeChangesModule";
 import { ModuleCodeChanges } from "types/patch";
+import { prettyDate } from "utils/string";
 interface Props {
   index: number;
   title: string;
@@ -62,7 +63,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         <CommitInfo>
           <CardTitle>{title}</CardTitle>
           <CardMetaData>
-            <b>By {author}</b> on {commitTime}
+            <b>By {author}</b> on {prettyDate(commitTime)}
           </CardMetaData>
           <CodeChangeModules moduleCodeChanges={moduleCodeChanges} />
         </CommitInfo>
