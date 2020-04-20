@@ -5,14 +5,12 @@ import Button from "@leafygreen-ui/button";
 import { ProjectVariants } from "gql/queries/patch";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Skeleton } from "antd";
 import { css } from "@emotion/core";
 
 interface Props {
   variants: ProjectVariants;
   selectedBuildVariant: string;
   selectedVariantTasks: VariantTasksState;
-  loading: boolean;
   setSelectedVariantTasks: React.Dispatch<
     React.SetStateAction<VariantTasksState>
   >;
@@ -25,12 +23,8 @@ export const ConfigureTasks: React.FC<Props> = ({
   variants,
   selectedBuildVariant,
   selectedVariantTasks,
-  loading,
   setSelectedVariantTasks,
 }) => {
-  if (loading) {
-    return <Skeleton active={true} title={true} paragraph={{ rows: 8 }} />;
-  }
   const projectVariantTasksMap: {
     [variant: string]: string[];
   } = variants.reduce((prev, { name, tasks }) => {
@@ -39,13 +33,11 @@ export const ConfigureTasks: React.FC<Props> = ({
   }, {});
   const currentTasks =
     projectVariantTasksMap[selectedBuildVariant || variants[0].name];
-
   const taskCount = Object.values(selectedVariantTasks).reduce(
     (prev, curr) => prev + Object.values(curr).length,
     0
   );
   const buildVariantCount = Object.keys(selectedVariantTasks).length;
-
   const onClickSelectAll = () => {
     const allTasksForVariant: TasksState = currentTasks.reduce((prev, curr) => {
       prev[curr] = true;
@@ -79,7 +71,6 @@ export const ConfigureTasks: React.FC<Props> = ({
       });
     }
   };
-
   return (
     <TabContentWrapper>
       <Actions>

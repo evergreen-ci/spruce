@@ -7,10 +7,8 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { ProjectVariants } from "gql/queries/patch";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { MetadataCard } from "components/MetadataCard";
-import { Skeleton } from "antd";
 
 interface Props {
-  loading: boolean;
   variants: ProjectVariants;
   selectedVariantTasks: VariantTasksState;
   selectedBuildVariant: string;
@@ -18,23 +16,15 @@ interface Props {
 }
 
 export const ConfigureBuildVariants: React.FC<Props> = ({
-  loading,
   variants,
   selectedVariantTasks,
   selectedBuildVariant,
   setSelectedBuildVariant,
 }) => {
-  if (loading) {
-    return <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />;
-  }
   const getClickVariantHandler = (variantName: string) => () =>
     setSelectedBuildVariant(variantName);
   return (
-    <MetadataCard
-      loading={loading}
-      title="Select Build Variants and Tasks"
-      error={null}
-    >
+    <MetadataCard title="Select Build Variants and Tasks" error={null}>
       {variants.map(({ displayName, name }) => {
         const taskCount = selectedVariantTasks[name]
           ? Object.keys(selectedVariantTasks[name]).length

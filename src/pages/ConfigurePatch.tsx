@@ -14,6 +14,7 @@ export const ConfigurePatch: React.FC = () => {
     return <PatchAndTaskFullPageLoad />;
   }
   if (error) {
+    // TODO: replace with full page error
     return <div>{error.message}</div>;
   }
   return <ConfigurePatchCore patch={data.patch} />;

@@ -9,7 +9,7 @@ import { Body } from "@leafygreen-ui/typography";
 interface Props {
   title: string;
   error: ApolloError;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export const MetadataCard: React.FC<Props> = ({
