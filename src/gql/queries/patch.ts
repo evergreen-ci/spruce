@@ -1,27 +1,5 @@
 import gql from "graphql-tag";
-
-export interface Patch {
-  id: string;
-  description: string;
-  projectID: string;
-  githash: string;
-  patchNumber: number;
-  author: string;
-  version: string;
-  status: string;
-  activated: string;
-  alias: string;
-  taskCount: string;
-  duration: {
-    makespan: string;
-    timeTaken: string;
-  };
-  time: {
-    started?: string;
-    finished?: string;
-    submittedAt: string;
-  };
-}
+import { Patch } from "types/patch";
 
 export interface PatchQuery {
   patch: Patch;

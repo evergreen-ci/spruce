@@ -1,7 +1,7 @@
 import React from "react";
 import { P2 } from "components/Typography";
 import { StyledLink } from "components/styles";
-import { Patch } from "gql/queries/patch";
+import { Patch } from "types/patch";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { ApolloError } from "apollo-client";
 import { MetadataCard } from "components/MetadataCard";
