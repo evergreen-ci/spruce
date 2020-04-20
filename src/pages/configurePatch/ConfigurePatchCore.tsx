@@ -74,13 +74,12 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       />
       <PageLayout>
         <PageSider>
-          <MetadataCard loading={false} error={null} title="Patch Metadata">
+          <MetadataCard error={null} title="Patch Metadata">
             <P2>Submitted by: {patch?.author}</P2>
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
             {...{
-              loading: false,
               variants,
               selectedVariantTasks,
               selectedBuildVariant,
@@ -94,7 +93,6 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
               <Tab name="Configure" id="task-tab">
                 <ConfigureTasks
                   {...{
-                    loading: false,
                     variants,
                     selectedBuildVariant,
                     selectedVariantTasks,
