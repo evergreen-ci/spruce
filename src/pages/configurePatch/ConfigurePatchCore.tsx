@@ -4,7 +4,7 @@ import { P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { Tab } from "@leafygreen-ui/tabs";
-import { useTabs } from "hooks";
+import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "contants/routes";
 import styled from "@emotion/styled/macro";
@@ -13,48 +13,26 @@ import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
-
-enum PatchTab {
-  Configure = "configure",
-  Changes = "changes",
-}
-const DEFAULT_TAB = PatchTab.Configure;
-
-const tabToIndexMap = {
-  [PatchTab.Configure]: 0,
-  [PatchTab.Changes]: 1,
-};
-
-interface TasksState {
-  [task: string]: true;
-}
-export interface VariantTasksState {
-  [variant: string]: TasksState;
-}
-
-const convertPatchVariantTasksToState = (
-  variantsTasks?: VariantsTasks
-): VariantTasksState | null =>
-  variantsTasks
-    ? variantsTasks.reduce((prev, { name: variant, tasks }) => {
-        prev[variant] = tasks;
-        return prev;
-      }, {})
-    : null;
+import { useHistory } from "react-router-dom";
 
 interface Props {
   patch: Patch;
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
+  const history = useHistory();
   const { project, variantsTasks } = patch;
   const { variants } = project;
-  const [selectedTab, selectTabHandler] = useTabs(
+  const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
-    paths.patch,
-    DEFAULT_TAB
-  );
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.patch}/${patch.id}/configure`,
+  });
+  useDefaultPath({
+    tabToIndexMap,
+    defaultPath: `${paths.patch}/${patch.id}/configure/${DEFAULT_TAB}`,
+  });
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
-    variantsTasks[0].name
+    variants[0].name
   );
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
@@ -110,6 +88,31 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     </>
   );
 };
+interface TasksState {
+  [task: string]: true;
+}
+export interface VariantTasksState {
+  [variant: string]: TasksState;
+}
+enum PatchTab {
+  Configure = "tasks",
+  Changes = "changes",
+}
+
+const DEFAULT_TAB = PatchTab.Configure;
+const tabToIndexMap = {
+  [PatchTab.Configure]: 0,
+  [PatchTab.Changes]: 1,
+};
+const convertPatchVariantTasksToState = (
+  variantsTasks?: VariantsTasks
+): VariantTasksState | null =>
+  variantsTasks
+    ? variantsTasks.reduce((prev, { name: variant, tasks }) => {
+        prev[variant] = tasks;
+        return prev;
+      }, {})
+    : null;
 
 export const cardSidePadding = css`
   padding-left: 8px;

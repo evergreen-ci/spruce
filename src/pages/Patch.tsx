@@ -17,15 +17,13 @@ import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "gql/queries/get-patch-tasks";
 
-import { useRouteMatch } from "react-router-dom";
-
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { path } = useRouteMatch();
+
   const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
     GET_PATCH,
     {
-      variables: { id: id },
+      variables: { id },
       pollInterval: 2000,
     }
   );
@@ -33,7 +31,6 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-
   if (
     status === PatchStatus.Failed ||
     status === PatchStatus.Success ||

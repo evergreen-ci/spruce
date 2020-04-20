@@ -10,5 +10,5 @@ export const routes = {
   myPatches: paths.myPatches,
   task: `${paths.task}/:id/:tab?`,
   patch: `${paths.patch}/:id/:tab?`,
-  configurePatch: `${paths.patch}/:id/configure`,
+  configurePatch: `${paths.patch}/:id/configure/:tab?`,
 };

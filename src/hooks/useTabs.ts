@@ -11,16 +11,21 @@ type TabSelectHandler = (index: number) => void;
  * the leafygreen Tab component works by using indexes which is why this is required
  * @param  {string} path the route path, e.g. on patch page the route is "/patch"
  * @param  {string} defaultTab the tab that is selected by default
+ * @param {(tab: string) => void} updateHistory function used to update history (url) that is called when tab is selected
  * @returns {[number, (index: number) => void]}
  * first item in returned array represents the selected tab index
  * second item in returned array is a handler function for selecting a tab. Pass it to the <Tab/> component
  */
-export const useTabs = (
-  tabToIndexMap: TabToIndexMap,
-  path: string,
-  defaultTab: string
-): [number, TabSelectHandler] => {
-  const { tab, id } = useParams<{ tab?: string; id: string }>();
+export const useTabs = ({
+  tabToIndexMap,
+  defaultTab,
+  path,
+}: {
+  tabToIndexMap: TabToIndexMap;
+  defaultTab: string;
+  path?: string;
+}): [number, TabSelectHandler] => {
+  const { tab } = useParams<{ tab?: string }>();
   const history = useHistory();
 
   const getIndexFromTab = (t: string) => {
@@ -29,16 +34,15 @@ export const useTabs = (
     }
     return tabToIndexMap[defaultTab];
   };
-
   const getTabFromIndex = (index: number) =>
-    Object.keys(tabToIndexMap).find(key => tabToIndexMap[key] === index);
+    Object.keys(tabToIndexMap).find((key) => tabToIndexMap[key] === index);
 
   const [selectedTab, setSelectedTab] = useState<number>(getIndexFromTab(tab));
 
   const selectTabHandler = (tabIndex: number) => {
     setSelectedTab(tabIndex);
-    history.replace(`${path}/${id}/${getTabFromIndex(tabIndex)}`);
+    const tab = getTabFromIndex(tabIndex);
+    history.replace(`${path}/${tab}`);
   };
-
   return [selectedTab, selectTabHandler];
 };

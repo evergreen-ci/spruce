@@ -10,17 +10,18 @@ import { useParams, useHistory } from "react-router-dom";
  * @param  {string} path the route path, e.g. on patch page the route is "/patch"
  * @param  {string} defaultTab the tab that is selected by default
  */
-export const useDefaultPath = (
-  tabToIndexMap: TabToIndexMap,
-  path: string,
-  defaultTab: string
-) => {
+export const useDefaultPath = ({
+  tabToIndexMap,
+  defaultPath,
+}: {
+  tabToIndexMap: TabToIndexMap;
+  defaultPath: string;
+}) => {
   const history = useHistory();
   const { tab, id } = useParams<{ tab?: string; id: string }>();
-
   useEffect(() => {
     if (!tab || !(tab in tabToIndexMap)) {
-      history.replace(`${path}/${id}/${defaultTab}`);
+      history.replace(defaultPath);
     }
-  }, [tab, history, tabToIndexMap, defaultTab, id, path]);
+  }, [tab, history, tabToIndexMap, id, defaultPath]);
 };

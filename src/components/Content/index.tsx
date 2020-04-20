@@ -31,11 +31,7 @@ export const Content = () => {
       <Navbar data={data} loading={loading} />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
-        <PrivateRoute
-          exact
-          path={routes.configurePatch}
-          component={ConfigurePatch}
-        />
+        <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
         <PrivateRoute path={routes.patch} component={Patch} />
         <PrivateRoute path={routes.myPatches} component={MyPatches} />
         <PrivateRoute exact={true} path="/">
