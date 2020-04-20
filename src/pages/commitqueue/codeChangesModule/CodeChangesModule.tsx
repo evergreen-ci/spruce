@@ -12,9 +12,9 @@ const DropDownText = styled(Body)`
 const totalFileDiffs = fileDiffs => {
   let additions = 0;
   let deletions = 0;
-  for (let i = 0; i < fileDiffs.length; i++) {
-    additions += fileDiffs[i].additions;
-    deletions += fileDiffs[i].deletions;
+  for (let fileDiff of fileDiffs) {
+    additions += fileDiff.additions;
+    deletions += fileDiff.deletions;
   }
   return { additions, deletions };
 };
