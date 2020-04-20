@@ -35,6 +35,10 @@ const AnimatedAccordian = styled("div")`
   overflow-y: hidden;
   transition: max-height 0.3s ease-in-out;
 `;
+
+const DropDownTextStyle = styled("span")`
+  margin-right: 24px;
+`;
 const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
   moduleCodeChange
 }) => {
@@ -46,9 +50,11 @@ const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
       <AccordianToggle onClick={() => setToggleAccordian(!toggleAccordian)}>
         <Icon glyph={toggleAccordian ? "CaretDown" : "CaretUp"} />
         <DropDownText>
-          Total Code changes
-          <FileDiffText value={additions} type="+" />
-          <FileDiffText value={deletions} type="-" />
+          <DropDownTextStyle>Total Code changes</DropDownTextStyle>
+          <span>
+            <FileDiffText value={additions} type="+" />
+            <FileDiffText value={deletions} type="-" />
+          </span>
         </DropDownText>
       </AccordianToggle>
       <AnimatedAccordian hide={!toggleAccordian}>

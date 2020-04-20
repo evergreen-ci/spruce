@@ -7,6 +7,8 @@ import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
+import { Skeleton } from "antd";
+
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 import {
   GET_COMMIT_QUEUE,
@@ -33,13 +35,25 @@ const HR = styled("hr")`
   height: 3px;
 `;
 
+const ErrorWrapper = styled.div`
+  word-wrap: break-word;
+`;
+
 export const CommitQueue = () => {
   const { id } = useParams();
-  const { data, loading } = useQuery<CommitQueueQuery>(GET_COMMIT_QUEUE, {
-    variables: { id: id }
-  });
+  const { data, loading, error } = useQuery<CommitQueueQuery>(
+    GET_COMMIT_QUEUE,
+    {
+      variables: { id: id }
+    }
+  );
   if (loading) {
-    return <p>LOADING...</p>;
+    return <Skeleton active={true} title={true} paragraph={{ rows: 4 }} />;
+  }
+  if (error) {
+    return (
+      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+    );
   }
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "Queue");
