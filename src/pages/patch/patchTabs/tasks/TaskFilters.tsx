@@ -9,11 +9,11 @@ import styled from "@emotion/styled";
 export const TaskFilters: React.FC = () => {
   const [
     variantFilterValue,
-    variantFilterValueOnChange
+    variantFilterValueOnChange,
   ] = useFilterInputChangeHandler(PatchTasksQueryParams.Variant);
   const [
     taskNameFilterValue,
-    taskNameFilterValueOnChange
+    taskNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName);
   const [statusesVal, statusesValOnChange] = useStatusesFilter(
     PatchTasksQueryParams.Statuses
@@ -64,7 +64,7 @@ const statusesTreeData = [
   {
     title: "All",
     value: "all",
-    key: "all"
+    key: "all",
   },
   {
     title: "Failures",
@@ -74,29 +74,29 @@ const statusesTreeData = [
       {
         title: "Failed",
         value: TaskStatus.Failed,
-        key: TaskStatus.Failed
+        key: TaskStatus.Failed,
       },
       {
         title: "Test Timed Out",
         value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut
-      }
-    ]
+        key: TaskStatus.TestTimedOut,
+      },
+    ],
   },
   {
     title: "Success",
     value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded
+    key: TaskStatus.Succeeded,
   },
   {
     title: "Running",
     value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched
+    key: TaskStatus.Dispatched,
   },
   {
     title: "Started",
     value: TaskStatus.Started,
-    key: TaskStatus.Started
+    key: TaskStatus.Started,
   },
   {
     title: "Scheduled",
@@ -106,14 +106,14 @@ const statusesTreeData = [
       {
         title: "Unstarted",
         value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted
+        key: TaskStatus.Unstarted,
       },
       {
         title: "Undispatched",
         value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched
-      }
-    ]
+        key: TaskStatus.Undispatched,
+      },
+    ],
   },
   {
     title: "System Issues",
@@ -123,25 +123,25 @@ const statusesTreeData = [
       {
         title: "System Failed",
         value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed
-      }
-    ]
+        key: TaskStatus.SystemFailed,
+      },
+    ],
   },
   {
     title: "Setup Failed",
     value: TaskStatus.SetupFailed,
-    key: TaskStatus.SetupFailed
+    key: TaskStatus.SetupFailed,
   },
   {
     title: "Blocked",
     value: TaskStatus.StatusBlocked,
-    key: TaskStatus.StatusBlocked
+    key: TaskStatus.StatusBlocked,
   },
   {
     title: "Won't Run",
     value: TaskStatus.Inactive,
-    key: TaskStatus.Inactive
-  }
+    key: TaskStatus.Inactive,
+  },
 ];
 
 const FiltersWrapper = styled.div`

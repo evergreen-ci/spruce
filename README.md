@@ -30,6 +30,10 @@ You can find the most recent version of this guide [here](https://github.com/fac
 
 Run `npm run storybook` to launch storybook and view our shared components.
 
+### Code Formatting
+
+Install the Prettier code formatting plugin in your code editor if you don't have it already. The plugin will use the .prettierrc settings file found at the root of Spruce to format your code. 
+
 ### GQL Query Linting
 
 Follow these directions to enable query linting during local development so your Evergreen GraphQL schema changes are reflected in your Spruce query linting results.

@@ -8,13 +8,13 @@ import { StyledTabs } from "components/styles/StyledTabs";
 
 enum PatchTab {
   Tasks = "tasks",
-  Changes = "changes"
+  Changes = "changes",
 }
 const DEFAULT_TAB = PatchTab.Tasks;
 
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
-  [PatchTab.Changes]: 1
+  [PatchTab.Changes]: 1,
 };
 
 interface Props {

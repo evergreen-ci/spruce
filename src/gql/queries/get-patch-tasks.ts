@@ -56,7 +56,7 @@ export enum TaskSortBy {
 export enum PatchStatus {
   Created = "created",
   Started = "started",
-  Success = "success",
+  Success = "succeeded",
   Failed = "failed",
 }
 

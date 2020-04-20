@@ -6,7 +6,7 @@ import {
   PageWrapper,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH, PatchQuery } from "gql/queries/patch";
@@ -19,14 +19,17 @@ import { PatchStatus } from "gql/queries/get-patch-tasks";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(GET_PATCH, {
-    variables: { id: id },
-    pollInterval: 2000
-  });
+  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
+    GET_PATCH,
+    {
+      variables: { id: id },
+      pollInterval: 2000,
+    }
+  );
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
-  if(status === PatchStatus.Failed || status === PatchStatus.Success) {
+  if (status === PatchStatus.Failed || status === PatchStatus.Success) {
     stopPolling();
   }
   return (
@@ -59,5 +62,5 @@ const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Success]: Variant.Green
+  [PatchStatus.Success]: Variant.Green,
 };

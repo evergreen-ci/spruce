@@ -5,7 +5,7 @@ import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
   PatchTasksQuery,
-  PatchTasksVariables
+  PatchTasksVariables,
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
@@ -32,13 +32,13 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     PatchTasksVariables
   >(GET_PATCH_TASKS, {
     variables: initialQueryVariables as PatchTasksVariables,
-    notifyOnNetworkStatusChange: true
+    notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
 
   // fetch tasks when url params change
   useEffect(() => {
-    return history.listen(async location => {
+    return history.listen(async (location) => {
       if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
         try {
           await fetchMore({
@@ -51,7 +51,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
                 return prev;
               }
               return fetchMoreResult;
-            }
+            },
           });
         } catch (e) {
           // empty block
@@ -90,9 +90,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         }
         return {
           ...prev,
-          patchTasks: [...prev.patchTasks, ...fetchMoreResult.patchTasks]
+          patchTasks: [...prev.patchTasks, ...fetchMoreResult.patchTasks],
         };
-      }
+      },
     });
   };
 
@@ -135,15 +135,15 @@ const statusesToIncludeInQuery = {
   [TaskStatus.SystemFailed]: true,
   [TaskStatus.TestTimedOut]: true,
   [TaskStatus.Undispatched]: true,
-  [TaskStatus.Unstarted]: true
+  [TaskStatus.Unstarted]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string) => {
   const statuses = getArray(rawStatuses).filter(
-    status => status in statusesToIncludeInQuery
+    (status) => status in statusesToIncludeInQuery
   );
   if (
-    every(Object.keys(statusesToIncludeInQuery), status =>
+    every(Object.keys(statusesToIncludeInQuery), (status) =>
       statuses.includes(status)
     )
   ) {
@@ -162,7 +162,7 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
-    [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses
+    [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
   } = queryString.parse(search, { arrayFormat: "comma" });
 
   return {
@@ -173,6 +173,6 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
-    page
+    page,
   };
 };

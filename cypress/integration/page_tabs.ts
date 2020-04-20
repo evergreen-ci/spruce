@@ -1,3 +1,6 @@
+import { elementExistenceCheck } from "../utils";
+import get from "lodash/get";
+
 const patchId = "5e4ff3abe3c3317e352062e4";
 const patchRoute = `/patch/${patchId}`;
 const patch = {
@@ -7,6 +10,9 @@ const patch = {
 const taskId =
   "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskId}`;
+const taskRouteNoFailedTests =
+  "task/evergreen_ubuntu1604_test_auth_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+
 const task = {
   logs: { route: `${taskRoute}/logs`, btn: "button[id=task-logs-tab]" },
   tests: { route: `${taskRoute}/tests`, btn: "button[id=task-tests-tab]" },
@@ -23,6 +29,7 @@ describe("Tabs", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+    cy.listenGQL();
   });
 
   describe("Patch page", () => {
@@ -90,6 +97,29 @@ describe("Tabs", () => {
       cy.contains("No files found");
       cy.get(task.logs.btn).click();
       cy.contains("No logs");
+    });
+
+    [taskRoute, taskRouteNoFailedTests].forEach((route, i) => {
+      it(`Should display a badge with the number of failed tests in the Test tab if the failedTestCount field from the Task gql query is above 0 (${i +
+        1})`, () => {
+        cy.visit(route);
+        const failedTestCountPath = "responseBody.data.task.failedTestCount";
+        const valExists = (v) => v !== undefined;
+        cy.waitForGQL("GetTask", {
+          [failedTestCountPath]: valExists,
+        }).then((xhr) => {
+          const exists = elementExistenceCheck(
+            xhr,
+            failedTestCountPath,
+            "test-tab-badge",
+            "exist",
+            "not.exist"
+          );
+          if (exists) {
+            cy.dataCy("test-tab-badge").contains(get(xhr, failedTestCountPath));
+          }
+        });
+      });
     });
   });
 });

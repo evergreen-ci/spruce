@@ -18,7 +18,7 @@ export const useStatusesFilter = (
     const nextQueryParams = queryString.stringify(
       {
         ...parsed,
-        [urlParam]: newValue
+        [urlParam]: newValue,
       },
       { arrayFormat }
     );
@@ -26,11 +26,11 @@ export const useStatusesFilter = (
   };
 
   const { [urlParam]: rawStatuses } = queryString.parse(search, {
-    arrayFormat
+    arrayFormat,
   });
   const value = Array.isArray(rawStatuses)
     ? rawStatuses
-    : [rawStatuses].filter(v => v);
+    : [rawStatuses].filter((v) => v);
   return [value, onChange];
 };
 

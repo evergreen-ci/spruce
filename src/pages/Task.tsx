@@ -12,7 +12,7 @@ import {
   PageWrapper,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
 import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
@@ -22,18 +22,19 @@ import { paths } from "contants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TaskStatus } from "types/task";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 
 enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
-  BuildBaron = "build-baron"
+  BuildBaron = "build-baron",
 }
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3
+  [TaskTab.BuildBaron]: 3,
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
@@ -48,7 +49,7 @@ export const Task: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 2000
+    pollInterval: 2000,
   });
 
   const task = get(data, "task");
@@ -56,6 +57,7 @@ export const Task: React.FC = () => {
   const patchNumber = get(task, "patchNumber");
   const status = get(task, "status");
   const version = get(task, "version");
+  const failedTestCount = get(task, "failedTestCount");
 
   if (
     status === TaskStatus.Failed ||
@@ -96,7 +98,23 @@ export const Task: React.FC = () => {
               <Tab name="Logs" id="task-logs-tab">
                 <Logs />
               </Tab>
-              <Tab name="Tests" id="task-tests-tab">
+              <Tab
+                name={
+                  <span>
+                    {failedTestCount ? (
+                      <TabLabelWithBadge
+                        tabLabel="Tests"
+                        badgeVariant="red"
+                        badgeText={failedTestCount}
+                        dataCyBadge="test-tab-badge"
+                      />
+                    ) : (
+                      "Tests"
+                    )}
+                  </span>
+                }
+                id="task-tests-tab"
+              >
                 <TestsTable />
               </Tab>
               <Tab name="Files" id="task-files-tab">

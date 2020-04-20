@@ -20,5 +20,5 @@ export {
   useDisableTableSortersIfLoading,
   useOnClickOutside,
   useFilterInputChangeHandler,
-  useStatusesFilter
+  useStatusesFilter,
 };

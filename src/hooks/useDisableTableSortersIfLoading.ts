@@ -9,11 +9,11 @@ export const useDisableTableSortersIfLoading = (
       "th.ant-table-column-has-actions.ant-table-column-has-sorters"
     );
     if (networkStatus < NetworkStatus.ready) {
-      elements.forEach(el => {
+      elements.forEach((el) => {
         (el as HTMLElement).style["pointer-events"] = "none";
       });
     } else {
-      elements.forEach(el => {
+      elements.forEach((el) => {
         (el as HTMLElement).style["pointer-events"] = "auto";
       });
     }

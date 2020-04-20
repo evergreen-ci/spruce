@@ -29,6 +29,8 @@ export const GET_TASK = gql`
       timeTaken
       version
       revision
+      failedTestCount
+      spawnHostLink
     }
   }
 `;
@@ -36,13 +38,13 @@ export const GET_TASK = gql`
 export enum MetStatus {
   Met = "MET",
   Unmet = "UNMET",
-  Pending = "PENDING"
+  Pending = "PENDING",
 }
 
 export enum RequiredStatus {
   MustFail = "MUST_FAIL",
   MustSucceed = "MUST_SUCCEED",
-  MustFinish = "MUST_FINISH"
+  MustFinish = "MUST_FINISH",
 }
 
 interface BaseTaskMetadata {
@@ -78,6 +80,8 @@ interface Task {
   timeTaken: number;
   version: string;
   revision: string;
+  failedTestCount: number;
+  spawnHostLink: string;
 }
 
 export interface TaskQuery {
