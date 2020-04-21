@@ -7,6 +7,7 @@ import {
   CodeChangeItem,
   FileDiffText,
 } from "pages/commitqueue/codeChangesModule/CodeChangeItem";
+import { CodeChangesTable } from "components/CodeChangesTable";
 
 const totalFileDiffs = (fileDiffs) => {
   let additions = 0;
@@ -27,7 +28,7 @@ export const CodeChangeModule: React.FC<{
   return (
     <CodeChangeModuleContainer>
       <AccordianToggle onClick={() => setToggleAccordian(!toggleAccordian)}>
-        <Icon glyph={toggleAccordian ? "CaretDown" : "CaretUp"} />
+        <Icon glyph={toggleAccordian ? "CaretDown" : "CaretRight"} />
         <DropDownText>
           <DropDownTextStyle>Total Code changes</DropDownTextStyle>
           <span>
@@ -37,13 +38,7 @@ export const CodeChangeModule: React.FC<{
         </DropDownText>
       </AccordianToggle>
       <AnimatedAccordian hide={!toggleAccordian}>
-        {fileDiffs.map((fileDiff, index) => (
-          <CodeChangeItem
-            {...fileDiff}
-            key={fileDiff.diffLink}
-            isLastItem={fileDiffs.length - 1 === index}
-          />
-        ))}
+        <CodeChangesTable fileDiffs={fileDiffs} showHeader={false} />
       </AnimatedAccordian>
     </CodeChangeModuleContainer>
   );

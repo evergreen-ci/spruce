@@ -3,13 +3,12 @@ import { useQuery } from "@apollo/react-hooks";
 import { useParams } from "react-router-dom";
 import { Skeleton, Table } from "antd";
 import { H2 } from "components/Typography";
-import { uiColors } from "@leafygreen-ui/palette";
 import {
   GET_CODE_CHANGES,
   GetCodeChangesQuery,
-  FileDiff,
 } from "gql/queries/get-code-changes";
 import Button from "@leafygreen-ui/button";
+import { CodeChangesTable } from "components/CodeChangesTable";
 import styled from "@emotion/styled";
 
 export const CodeChanges = () => {
@@ -54,14 +53,7 @@ export const CodeChanges = () => {
             >
               Raw
             </StyledButton>
-            <StyledTable
-              className="cy-code-changes-table"
-              rowKey={rowKey}
-              columns={columns}
-              dataSource={sortedFileDiffs}
-              pagination={false}
-              scroll={{ y: 300 }}
-            />
+            <CodeChangesTable fileDiffs={sortedFileDiffs} />
           </div>
         );
       })}
@@ -69,61 +61,8 @@ export const CodeChanges = () => {
   );
 };
 
-const columns = [
-  {
-    title: "File",
-    dataIndex: "fileName",
-    key: "fileName",
-    render: (text: string, record: FileDiff): JSX.Element => {
-      return (
-        <a
-          className="fileLink"
-          href={record.diffLink}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {text}
-        </a>
-      );
-    },
-  },
-  {
-    title: "Additions",
-    dataIndex: "additions",
-    key: "additions",
-    render: (text: number) => {
-      if (text === 0) {
-        return text;
-      }
-      return <Addition>+{text}</Addition>;
-    },
-  },
-  {
-    title: "Deletions",
-    dataIndex: "deletions",
-    key: "deletions",
-    render: (text: number) =>
-      text === 0 ? text : <Deletion>-{text}</Deletion>,
-  },
-];
-
-const rowKey = (record: FileDiff, index: number): string => `${index}`;
-
 const StyledButton = styled(Button)`
   margin-left: 16px;
-`;
-
-const Addition = styled.span`
-  color: ${uiColors.green.base};
-`;
-
-const Deletion = styled.span`
-  color: ${uiColors.red.base};
-`;
-
-const StyledTable = styled(Table)`
-  margin-top: 13px;
-  margin-bottom: 13px;
 `;
 
 const Title = styled(H2)`
