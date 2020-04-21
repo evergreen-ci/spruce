@@ -4,7 +4,9 @@ import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
+import { StyledRouterLink } from "components/styles/StyledLink";
 import { ModuleCodeChanges } from "types/patch";
+import { paths } from "constants/routes";
 import { format } from "date-fns";
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
@@ -13,6 +15,7 @@ interface Props {
   title: string;
   author: string;
   commitTime: Date;
+  patchId: string;
   moduleCodeChanges: [ModuleCodeChanges];
 }
 const { blue, gray } = uiColors;
@@ -22,6 +25,7 @@ export const CommitQueueCard: React.FC<Props> = ({
   title,
   author,
   commitTime,
+  patchId,
   moduleCodeChanges,
 }) => {
   return (
@@ -29,7 +33,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       <Subtitle>{index}.</Subtitle>
       <CommitQueueCardGrid>
         <CommitInfo>
-          <CardTitle>{title}</CardTitle>
+          <CardTitle to={`${paths.patch}/${patchId}`}>{title}</CardTitle>
           <CardMetaData>
             <b>By {author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
@@ -55,9 +59,11 @@ const Card = styled("div")`
   margin-top: 16px;
   width: 100%;
 `;
-const CardTitle = styled(Subtitle)`
+const CardTitle = styled(StyledRouterLink)`
   color: ${blue.base};
   margin-bottom: 16px;
+  font-size: 18px;
+  font-weight: bold;
 `;
 const CommitInfo = styled("div")`
   display: flex;

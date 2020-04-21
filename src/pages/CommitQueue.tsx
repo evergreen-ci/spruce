@@ -44,14 +44,17 @@ export const CommitQueue = () => {
         </Badge>
       </Header>
       <HR />
-      {queue.map((commit, i) => (
+      {queue.map((queueItems, i) => (
         <CommitQueueCard
-          key={commit.issue}
+          key={queueItems.issue}
           index={i + 1}
-          title={commit.patch.description}
-          author={commit.patch.author}
-          commitTime={commit.enqueueTime}
-          moduleCodeChanges={commit.patch.moduleCodeChanges}
+          title={queueItems.patch && queueItems.patch.description}
+          author={queueItems.patch && queueItems.patch.author}
+          patchId={queueItems.patch && queueItems.patch.id}
+          commitTime={queueItems.enqueueTime}
+          moduleCodeChanges={
+            queueItems.patch && queueItems.patch.moduleCodeChanges
+          }
         />
       ))}
     </PageWrapper>
