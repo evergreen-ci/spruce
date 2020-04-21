@@ -7,7 +7,7 @@ import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
-import { routes } from "contants/routes";
+import { routes } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
