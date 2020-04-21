@@ -5,7 +5,7 @@ export interface ModuleCodeChanges {
   branchName: string;
   htmlLink: string;
   rawLink: string;
-  fileDiffs: [FileDiff];
+  fileDiffs: FileDiff[];
 }
 export interface FileDiff {
   fileName: string;
