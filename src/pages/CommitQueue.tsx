@@ -12,39 +12,17 @@ import { Skeleton } from "antd";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 import {
   GET_COMMIT_QUEUE,
-  CommitQueueQuery
-} from "../gql/queries/get-commit-queue";
+  CommitQueueQuery,
+} from "gql/queries/get-commit-queue";
 
 const { gray } = uiColors;
-
-const Header = styled("div")`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 24px;
-  margin-bottom: 16px;
-`;
-const PageTitle = styled(Subtitle)`
-  margin-right: 16px;
-  font-size: 18px;
-`;
-
-const HR = styled("hr")`
-  background-color: ${gray.light2};
-  border: 0;
-  height: 3px;
-`;
-
-const ErrorWrapper = styled.div`
-  word-wrap: break-word;
-`;
 
 export const CommitQueue = () => {
   const { id } = useParams();
   const { data, loading, error } = useQuery<CommitQueueQuery>(
     GET_COMMIT_QUEUE,
     {
-      variables: { id: id }
+      variables: { id: id },
     }
   );
   if (loading) {
@@ -79,3 +57,25 @@ export const CommitQueue = () => {
     </PageWrapper>
   );
 };
+
+const Header = styled("div")`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 16px;
+`;
+const PageTitle = styled(Subtitle)`
+  margin-right: 16px;
+  font-size: 18px;
+`;
+
+const HR = styled("hr")`
+  background-color: ${gray.light2};
+  border: 0;
+  height: 3px;
+`;
+
+const ErrorWrapper = styled("div")`
+  word-wrap: break-word;
+`;

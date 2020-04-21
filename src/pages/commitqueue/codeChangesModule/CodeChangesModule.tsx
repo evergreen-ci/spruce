@@ -3,13 +3,12 @@ import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "@leafygreen-ui/icon";
 import { ModuleCodeChanges } from "types/patch";
-import { CodeChangeItem, FileDiffText } from "./CodeChangeItem";
+import {
+  CodeChangeItem,
+  FileDiffText,
+} from "pages/commitqueue/codeChangesModule/CodeChangeItem";
 
-const DropDownText = styled(Body)`
-  font-size: 16px;
-`;
-
-const totalFileDiffs = fileDiffs => {
+const totalFileDiffs = (fileDiffs) => {
   let additions = 0;
   let deletions = 0;
   for (let fileDiff of fileDiffs) {
@@ -19,28 +18,8 @@ const totalFileDiffs = fileDiffs => {
   return { additions, deletions };
 };
 
-const CodeChangeModuleContainer = styled("div")`
-  margin-top: 16px;
-`;
-const AccordianToggle = styled("span")`
-  :hover {
-    cursor: pointer;
-  }
-`;
-const AnimatedAccordian = styled("div")`
-  max-height: 0;
-  /* This is used to calculate a fixed height for the accordian since height
-     transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }) => !props.hide && `1500px`};
-  overflow-y: hidden;
-  transition: max-height 0.3s ease-in-out;
-`;
-
-const DropDownTextStyle = styled("span")`
-  margin-right: 24px;
-`;
 const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
-  moduleCodeChange
+  moduleCodeChange,
 }) => {
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);
@@ -75,7 +54,7 @@ export const CodeChangeModules: React.FC<{
 }> = ({ moduleCodeChanges }) => {
   return (
     <div>
-      {moduleCodeChanges.map(moduleCodeChange => (
+      {moduleCodeChanges.map((moduleCodeChange) => (
         <CodeChangeModule
           key={moduleCodeChange.rawLink}
           moduleCodeChange={moduleCodeChange}
@@ -84,3 +63,28 @@ export const CodeChangeModules: React.FC<{
     </div>
   );
 };
+
+const CodeChangeModuleContainer = styled("div")`
+  margin-top: 16px;
+`;
+const AccordianToggle = styled("span")`
+  :hover {
+    cursor: pointer;
+  }
+`;
+const AnimatedAccordian = styled("div")`
+  max-height: 0;
+  /* This is used to calculate a fixed height for the accordian since height
+     transitions require a fixed height for their end height */
+  max-height: ${(props: { hide: boolean }) => !props.hide && `1500px`};
+  overflow-y: hidden;
+  transition: max-height 0.3s ease-in-out;
+`;
+
+const DropDownTextStyle = styled("span")`
+  margin-right: 24px;
+`;
+
+const DropDownText = styled(Body)`
+  font-size: 16px;
+`;

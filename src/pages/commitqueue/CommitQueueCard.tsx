@@ -3,9 +3,10 @@ import styled from "@emotion/styled";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
-import { CodeChangeModules } from "./codeChangesModule/CodeChangesModule";
+import { CodeChangeModules } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 import { ModuleCodeChanges } from "types/patch";
 import { prettyDate } from "utils/string";
+
 interface Props {
   index: number;
   title: string;
@@ -14,6 +15,33 @@ interface Props {
   moduleCodeChanges: [ModuleCodeChanges];
 }
 const { blue, gray } = uiColors;
+
+export const CommitQueueCard: React.FC<Props> = ({
+  index,
+  title,
+  author,
+  commitTime,
+  moduleCodeChanges,
+}) => {
+  return (
+    <Card>
+      <Subtitle>{index}.</Subtitle>
+      <CommitQueueCardGrid>
+        <CommitInfo>
+          <CardTitle>{title}</CardTitle>
+          <CardMetaData>
+            <b>By {author}</b> on {prettyDate(commitTime)}
+          </CardMetaData>
+          <CodeChangeModules moduleCodeChanges={moduleCodeChanges} />
+        </CommitInfo>
+        <CommitQueueCardActions>
+          <Button>Remove Patch From Queue</Button>
+        </CommitQueueCardActions>
+      </CommitQueueCardGrid>
+    </Card>
+  );
+};
+
 const Card = styled("div")`
   display: flex;
   margin-top: 16px;
@@ -48,28 +76,3 @@ const CommitQueueCardGrid = styled("div")`
 const CommitQueueCardActions = styled("div")`
   grid-area: 1 / 3 / 2 / 4;
 `;
-export const CommitQueueCard: React.FC<Props> = ({
-  index,
-  title,
-  author,
-  commitTime,
-  moduleCodeChanges
-}) => {
-  return (
-    <Card>
-      <Subtitle>{index}.</Subtitle>
-      <CommitQueueCardGrid>
-        <CommitInfo>
-          <CardTitle>{title}</CardTitle>
-          <CardMetaData>
-            <b>By {author}</b> on {prettyDate(commitTime)}
-          </CardMetaData>
-          <CodeChangeModules moduleCodeChanges={moduleCodeChanges} />
-        </CommitInfo>
-        <CommitQueueCardActions>
-          <Button>Remove Patch From Queue</Button>
-        </CommitQueueCardActions>
-      </CommitQueueCardGrid>
-    </Card>
-  );
-};

@@ -5,6 +5,46 @@ import { StyledLink } from "components/styles/StyledLink";
 import { uiColors } from "@leafygreen-ui/palette";
 
 const { green, red, gray } = uiColors;
+
+interface FileDiffTextProps {
+  type: string;
+  value: number;
+}
+export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
+  const hasValue = value > 0;
+  return (
+    <FileDiffTextContainer hasValue={hasValue} type={type}>
+      {hasValue && type}
+      {value}
+    </FileDiffTextContainer>
+  );
+};
+
+interface CodeChangeItemProps extends FileDiff {
+  isLastItem: boolean;
+}
+export const CodeChangeItem: React.FC<CodeChangeItemProps> = ({
+  fileName,
+  diffLink,
+  additions,
+  deletions,
+  isLastItem,
+}) => {
+  return (
+    <CodeChangeItemRow isLastItem={isLastItem}>
+      <CodeChangeItemGridField grid="1 / 1 / 2 / 2">
+        <StyledLink href={diffLink}>{fileName}</StyledLink>
+      </CodeChangeItemGridField>
+      <CodeChangeItemGridField grid="1 / 2 / 2 / 3">
+        <FileDiffText value={additions} type="+" />
+      </CodeChangeItemGridField>
+      <CodeChangeItemGridField grid="1 / 3 / 2 / 4">
+        <FileDiffText value={deletions} type="-" />
+      </CodeChangeItemGridField>
+    </CodeChangeItemRow>
+  );
+};
+
 const CodeChangeItemRow = styled("div")`
   display: grid;
   ${(props: { isLastItem: boolean }) =>
@@ -29,41 +69,3 @@ const FileDiffTextContainer = styled("span")`
     margin-left: 16px;
   }
 `;
-interface FileDiffTextProps {
-  type: string;
-  value: number;
-}
-export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
-  const hasValue = value > 0;
-  return (
-    <FileDiffTextContainer hasValue={hasValue} type={type}>
-      {hasValue && type}
-      {value}
-    </FileDiffTextContainer>
-  );
-};
-
-interface CodeChangeItemProps extends FileDiff {
-  isLastItem: boolean;
-}
-export const CodeChangeItem: React.FC<CodeChangeItemProps> = ({
-  fileName,
-  diffLink,
-  additions,
-  deletions,
-  isLastItem
-}) => {
-  return (
-    <CodeChangeItemRow isLastItem={isLastItem}>
-      <CodeChangeItemGridField grid="1 / 1 / 2 / 2">
-        <StyledLink href={diffLink}>{fileName}</StyledLink>
-      </CodeChangeItemGridField>
-      <CodeChangeItemGridField grid="1 / 2 / 2 / 3">
-        <FileDiffText value={additions} type="+" />
-      </CodeChangeItemGridField>
-      <CodeChangeItemGridField grid="1 / 3 / 2 / 4">
-        <FileDiffText value={deletions} type="-" />
-      </CodeChangeItemGridField>
-    </CodeChangeItemRow>
-  );
-};
