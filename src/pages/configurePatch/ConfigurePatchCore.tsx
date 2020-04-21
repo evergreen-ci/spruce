@@ -14,12 +14,12 @@ import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { useHistory } from "react-router-dom";
+import { previewImage } from "antd/lib/upload/utils";
 
 interface Props {
   patch: Patch;
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
-  const history = useHistory();
   const { project, variantsTasks } = patch;
   const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs({
@@ -36,7 +36,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
-  >(convertPatchVariantTasksToState(variantsTasks));
+  >(convertPatchVariantTasksToStateShape(variantsTasks));
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description
   );
@@ -99,20 +99,25 @@ enum PatchTab {
   Changes = "changes",
 }
 
+const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
+  arrayOfStrings.reduce((prev, curr) => ({ ...prev, [curr]: true }), {});
+
+const convertPatchVariantTasksToStateShape = (
+  variantsTasks?: VariantsTasks
+): VariantTasksState =>
+  variantsTasks.reduce(
+    (prev, { name: variant, tasks }) => ({
+      ...prev,
+      [variant]: convertArrayOfStringsToMap(tasks),
+    }),
+    {}
+  );
+
 const DEFAULT_TAB = PatchTab.Configure;
 const tabToIndexMap = {
   [PatchTab.Configure]: 0,
   [PatchTab.Changes]: 1,
 };
-const convertPatchVariantTasksToState = (
-  variantsTasks?: VariantsTasks
-): VariantTasksState | null =>
-  variantsTasks
-    ? variantsTasks.reduce((prev, { name: variant, tasks }) => {
-        prev[variant] = tasks;
-        return prev;
-      }, {})
-    : null;
 
 export const cardSidePadding = css`
   padding-left: 8px;
