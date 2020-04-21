@@ -18,9 +18,9 @@ const totalFileDiffs = (fileDiffs) => {
   return { additions, deletions };
 };
 
-const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
-  moduleCodeChange,
-}) => {
+export const CodeChangeModule: React.FC<{
+  moduleCodeChange: ModuleCodeChanges;
+}> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);
   const [toggleAccordian, setToggleAccordian] = useState(false);
@@ -46,21 +46,6 @@ const CodeChangeModule: React.FC<{ moduleCodeChange: ModuleCodeChanges }> = ({
         ))}
       </AnimatedAccordian>
     </CodeChangeModuleContainer>
-  );
-};
-
-export const CodeChangeModules: React.FC<{
-  moduleCodeChanges: ModuleCodeChanges[];
-}> = ({ moduleCodeChanges }) => {
-  return (
-    <div>
-      {moduleCodeChanges.map((moduleCodeChange) => (
-        <CodeChangeModule
-          key={moduleCodeChange.rawLink}
-          moduleCodeChange={moduleCodeChange}
-        />
-      ))}
-    </div>
   );
 };
 

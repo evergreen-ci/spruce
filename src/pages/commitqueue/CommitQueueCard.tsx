@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
-import { CodeChangeModules } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
+import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 import { ModuleCodeChanges } from "types/patch";
 import { format } from "date-fns";
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
@@ -33,7 +33,14 @@ export const CommitQueueCard: React.FC<Props> = ({
           <CardMetaData>
             <b>By {author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
-          <CodeChangeModules moduleCodeChanges={moduleCodeChanges} />
+          <div>
+            {moduleCodeChanges.map((moduleCodeChange) => (
+              <CodeChangeModule
+                key={moduleCodeChange.rawLink}
+                moduleCodeChange={moduleCodeChange}
+              />
+            ))}
+          </div>
         </CommitInfo>
         <CommitQueueCardActions>
           <Button>Remove Patch From Queue</Button>
