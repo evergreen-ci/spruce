@@ -3,7 +3,7 @@ export const paths = {
   myPatches: "/my-patches",
   task: "/task",
   patch: "/patch",
-  commitQueue: "/commitQueue"
+  commitQueue: "/commit-queue",
 };
 
 export const routes = {
@@ -11,5 +11,5 @@ export const routes = {
   myPatches: paths.myPatches,
   task: `${paths.task}/:id/:tab?`,
   patch: `${paths.patch}/:id/:tab?`,
-  commitQueue: `${paths.commitQueue}/:id`
+  commitQueue: `${paths.commitQueue}/:id`,
 };
