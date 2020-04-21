@@ -34,7 +34,7 @@ export const CommitQueue = () => {
     );
   }
   const commitQueue = get(data, "commitQueue");
-  const queue = get(commitQueue, "Queue");
+  const queue = get(commitQueue, "queue");
   return (
     <PageWrapper>
       <Header>
@@ -46,12 +46,12 @@ export const CommitQueue = () => {
       <HR />
       {queue.map((commit, i) => (
         <CommitQueueCard
-          key={commit.Issue}
+          key={commit.issue}
           index={i + 1}
-          title={commit.Patch.description}
-          author={commit.Patch.author}
-          commitTime={commit.EnqueueTime}
-          moduleCodeChanges={commit.Patch.moduleCodeChanges}
+          title={commit.patch.description}
+          author={commit.patch.author}
+          commitTime={commit.enqueueTime}
+          moduleCodeChanges={commit.patch.moduleCodeChanges}
         />
       ))}
     </PageWrapper>

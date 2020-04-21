@@ -3,11 +3,11 @@ import { Patch } from "../../types/patch";
 export const GET_COMMIT_QUEUE = gql`
   query CommitQueue($id: String!) {
     commitQueue(id: $id) {
-      ProjectID
-      Queue {
-        Issue
-        EnqueueTime
-        Patch {
+      projectId
+      queue {
+        issue
+        enqueueTime
+        patch {
           id
           author
           description
@@ -27,7 +27,7 @@ export const GET_COMMIT_QUEUE = gql`
 `;
 
 export interface CommitQueue {
-  ProjectID: string;
+  projectId: string;
   Queue: [
     {
       Issue: string;
