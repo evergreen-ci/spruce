@@ -67,14 +67,6 @@ export const GET_PATCH = gql`
         submittedAt
         finished
       }
-      project {
-        tasks
-        variants {
-          name
-          displayName
-          tasks
-        }
-      }
       variantsTasks {
         name
         tasks
