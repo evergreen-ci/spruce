@@ -13,8 +13,7 @@ import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
-import { useHistory } from "react-router-dom";
-import { previewImage } from "antd/lib/upload/utils";
+import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
   patch: Patch;
@@ -42,6 +41,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
   return (
     <>
+      <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         placeholder="Patch description"
         value={descriptionValue}
@@ -126,4 +126,7 @@ export const cardSidePadding = css`
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
   font-weight: 600;
+`;
+const StyledBody = styled(Body)`
+  margin-bottom: 4px;
 `;

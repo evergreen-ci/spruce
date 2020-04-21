@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Button from "@leafygreen-ui/button";
+import Button, { Variant } from "@leafygreen-ui/button";
 import { ProjectVariants } from "gql/queries/patch";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -80,7 +80,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   return (
     <TabContentWrapper>
       <Actions>
-        <Button>Schedule</Button>
+        <Button variant={Variant.Primary}>Schedule</Button>
         <ButtonLink onClick={onClickSelectAll}>Select All</ButtonLink>
         <ButtonLink onClick={onClickDeselectAll}>Deselect All</ButtonLink>
       </Actions>
