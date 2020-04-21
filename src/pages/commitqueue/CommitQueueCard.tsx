@@ -5,7 +5,8 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { CodeChangeModules } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 import { ModuleCodeChanges } from "types/patch";
-import { prettyDate } from "utils/string";
+import { format } from "date-fns";
+const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
 interface Props {
   index: number;
@@ -30,7 +31,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         <CommitInfo>
           <CardTitle>{title}</CardTitle>
           <CardMetaData>
-            <b>By {author}</b> on {prettyDate(commitTime)}
+            <b>By {author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
           <CodeChangeModules moduleCodeChanges={moduleCodeChanges} />
         </CommitInfo>

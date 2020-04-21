@@ -21,24 +21,3 @@ export const msToDuration = (ms: number): string => {
   }
   return `${milliseconds}ms`;
 };
-
-const formatField = (field: number): string => {
-  return `${field < 10 ? "0" : ""}${field}`;
-};
-
-export const prettyDate = (date: Date): string => {
-  date = new Date(date);
-  const month = date.getMonth();
-  const day = date.getDay();
-  const year = date.getFullYear();
-  let hours = date.getHours();
-  hours = hours % 12;
-  hours = hours ? hours : 12; // the hour '0' should be '12'
-  const minutes = date.getMinutes();
-  const seconds = date.getSeconds();
-  const ampm = hours >= 12 ? "pm" : "am";
-
-  return `${formatField(month)}/${formatField(day)}/${year} at ${formatField(
-    hours
-  )}:${formatField(minutes)}:${formatField(seconds)} ${ampm}`;
-};
