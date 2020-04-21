@@ -6,7 +6,8 @@ import { Body } from "@leafygreen-ui/typography";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { ProjectVariants } from "gql/queries/patch";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
-import { MetadataCard } from "components/MetadataCard";
+import { SiderCard } from "components/styles";
+import { Divider } from "components/styles/Divider";
 
 interface Props {
   variants: ProjectVariants;
@@ -24,7 +25,11 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   const getClickVariantHandler = (variantName: string) => () =>
     setSelectedBuildVariant(variantName);
   return (
-    <MetadataCard title="Select Build Variants and Tasks" error={null}>
+    <StyledSiderCard>
+      <Container>
+        <Body weight="medium">Select Build Variants and Tasks</Body>
+        <Divider />
+      </Container>
       {variants.map(({ displayName, name }) => {
         const taskCount = selectedVariantTasks[name]
           ? Object.keys(selectedVariantTasks[name]).length
@@ -51,7 +56,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           </BuildVariant>
         );
       })}
-    </MetadataCard>
+    </StyledSiderCard>
   );
 };
 
@@ -60,6 +65,13 @@ type VariantProps = { isSelected: boolean };
 export const cardSidePadding = css`
   padding-left: 8px;
   padding-right: 8px;
+`;
+const Container = styled.div`
+  ${cardSidePadding}
+`;
+const StyledSiderCard = styled(SiderCard)`
+  padding-left: 0px;
+  padding-right: 0px;
 `;
 const BuildVariant = styled.div`
   display: flex;
