@@ -1,8 +1,6 @@
 /// <reference types="Cypress" />
 /// <reference path="../../support/index.d.ts" />
 
-import every from "lodash/every";
-
 type ProjectVariants = Array<{
   name: string;
   displayName: string;

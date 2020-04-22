@@ -69,13 +69,14 @@ export const ConfigureTasks: React.FC<Props> = ({
       });
     } else {
       delete nextVariantTasks[task];
-      if (isEmpty(nextVariantTasks)) {
-        delete selectedVariantTasks[variant];
-      }
-      setSelectedVariantTasks({
+      const nextSelectedVariantTasks = {
         ...selectedVariantTasks,
         [variant]: nextVariantTasks,
-      });
+      };
+      if (isEmpty(nextVariantTasks)) {
+        delete nextSelectedVariantTasks[variant];
+      }
+      setSelectedVariantTasks(nextSelectedVariantTasks);
     }
   };
 
