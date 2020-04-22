@@ -4,7 +4,7 @@ import { Divider } from "components/styles/Divider";
 import { H3 } from "components/Typography";
 import { SiderCard } from "components/styles";
 import { Skeleton } from "antd";
-import styled from "@emotion/styled";
+import { ErrorWrapper } from "components/ErrorWrapper";
 
 interface Props {
   title: string;
@@ -30,7 +30,3 @@ export const MetadataCard: React.FC<Props> = ({
     )}
   </SiderCard>
 );
-
-export const ErrorWrapper = styled.div`
-  word-wrap: break-word;
-`;

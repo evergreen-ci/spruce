@@ -21,9 +21,10 @@ export const CodeChangeModule: React.FC<{
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);
   const [toggleAccordian, setToggleAccordian] = useState(false);
+  const toggleAccordianHandler = () => setToggleAccordian(!toggleAccordian);
   return (
     <CodeChangeModuleContainer>
-      <AccordianToggle onClick={() => setToggleAccordian(!toggleAccordian)}>
+      <AccordianToggle onClick={toggleAccordianHandler}>
         <Icon glyph={toggleAccordian ? "CaretDown" : "CaretRight"} />
         <DropDownText>
           <DropDownTextStyle>Total Code changes</DropDownTextStyle>

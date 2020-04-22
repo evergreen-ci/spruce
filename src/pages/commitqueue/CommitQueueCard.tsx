@@ -35,7 +35,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         <CommitInfo>
           <CardTitle to={`${paths.patch}/${patchId}`}>{title}</CardTitle>
           <CardMetaData>
-            <b>By {author}</b> on {format(new Date(commitTime), FORMAT_STR)}
+            By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
           <div>
             {moduleCodeChanges.map((moduleCodeChange) => (

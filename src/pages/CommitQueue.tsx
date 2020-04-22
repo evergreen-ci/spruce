@@ -8,8 +8,9 @@ import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { Skeleton } from "antd";
 import { PageTitle } from "components/PageTitle";
-
+import { ErrorWrapper } from "components/ErrorWrapper";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
+
 import {
   GET_COMMIT_QUEUE,
   CommitQueueQuery,
@@ -69,8 +70,4 @@ const HR = styled("hr")`
   background-color: ${gray.light2};
   border: 0;
   height: 3px;
-`;
-
-const ErrorWrapper = styled.div`
-  word-wrap: break-word;
 `;
