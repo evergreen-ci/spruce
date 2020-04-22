@@ -1,16 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { PageWrapper } from "components/styles";
+import {
+  PageWrapper,
+  StyledInput,
+  FiltersWrapperSpaceBetween,
+} from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, PatchStatus } from "types/patch";
+import Icon from "@leafygreen-ui/icon";
 import { H2 } from "@leafygreen-ui/typography";
 import {
   UserPatchesVars,
   UserPatchesData,
   GET_USER_PATCHES,
 } from "gql/queries/my-patches";
+import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
+import { useFilterInputChangeHandler } from "hooks";
+import styled from "@emotion/styled";
 
 export const MyPatches = () => {
   const { replace, listen } = useHistory();
@@ -19,6 +27,10 @@ export const MyPatches = () => {
     $page: 0,
     ...getQueryVariables(search),
   });
+  const [
+    patchNameFilterValue,
+    patchNameFilterValueOnChange,
+  ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
   const { data, fetchMore, networkStatus, error } = useQuery<
     UserPatchesData,
     UserPatchesVars
@@ -68,12 +80,25 @@ export const MyPatches = () => {
   return (
     <PageWrapper>
       <H2>My Patches</H2>
-      <Checkbox
-        data-cy="commit-queue-checkbox"
-        onChange={onCheckboxChange}
-        label="Show Commit Queue"
-        checked={getQueryVariables(search).$includeCommitQueue}
-      />
+      <FiltersWrapperSpaceBetween>
+        <FlexRow>
+          <StyledInput
+            placeholder="Search Test Names"
+            onChange={patchNameFilterValueOnChange}
+            suffix={<Icon glyph="MagnifyingGlass" />}
+            value={patchNameFilterValue}
+            data-cy="patchname-input"
+            width="25%"
+          />
+          <StatusSelector />
+        </FlexRow>
+        <Checkbox
+          data-cy="commit-queue-checkbox"
+          onChange={onCheckboxChange}
+          label="Show Commit Queue"
+          checked={getQueryVariables(search).$includeCommitQueue}
+        />
+      </FiltersWrapperSpaceBetween>
     </PageWrapper>
   );
 };
@@ -99,3 +124,7 @@ const getQueryVariables = (search: string) => {
     $limit: LIMIT,
   };
 };
+
+const FlexRow = styled.div`
+  display: flex;
+`;
