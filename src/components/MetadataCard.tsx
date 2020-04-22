@@ -1,15 +1,15 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { Divider } from "components/styles/Divider";
-import { H3 } from "components/Typography";
 import { SiderCard } from "components/styles";
 import { Skeleton } from "antd";
 import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
   title: string;
   error: ApolloError;
-  loading: boolean;
+  loading?: boolean;
 }
 
 export const MetadataCard: React.FC<Props> = ({
@@ -19,7 +19,7 @@ export const MetadataCard: React.FC<Props> = ({
   loading,
 }) => (
   <SiderCard>
-    <H3>{title}</H3>
+    <Body weight="medium">{title}</Body>
     <Divider />
     {loading ? (
       <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />

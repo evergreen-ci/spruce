@@ -30,7 +30,7 @@ const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
 };
 
-describe("Patch route", function () {
+describe("Patch route", function() {
   before(() => {
     cy.login();
   });
@@ -39,13 +39,23 @@ describe("Patch route", function () {
     cy.preserveCookies();
   });
 
-  it("Renders patch info", function () {
+  it("Redirects to configure patch page if patch is not activated", () => {
+    const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+    cy.visit(`/patch/${unactivatedPatchId}`);
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal(
+        `/patch/${unactivatedPatchId}/configure/tasks`
+      );
+    });
+  });
+
+  it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("page-title").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
-  it("'Base commit' link in metadata links to version page of legacy UI", function () {
+  it("'Base commit' link in metadata links to version page of legacy UI", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.get("#patch-base-commit")
       .should("have.attr", "href")
@@ -73,7 +83,9 @@ describe("Patch route", function () {
     });
 
     it("Shows tooltip with task's name on hover", () => {
-      cy.get(".task-square").first().trigger("mouseover");
+      cy.get(".task-square")
+        .first()
+        .trigger("mouseover");
       cy.get(".task-square-tooltip").within(hasText);
     });
 
@@ -116,7 +128,9 @@ describe("Patch route", function () {
     it("clicking task name goes to task page for that task", () => {
       cy.visit(path);
       cy.get("td.cy-task-table-col-NAME:first").within(() => {
-        cy.get("a").should("have.attr", "href").and("include", "/task");
+        cy.get("a")
+          .should("have.attr", "href")
+          .and("include", "/task");
       });
     });
 

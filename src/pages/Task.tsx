@@ -39,14 +39,16 @@ const tabToIndexMap = {
 const DEFAULT_TAB = TaskTab.Logs;
 
 export const Task: React.FC = () => {
-  useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
-  const [selectedTab, selectTabHandler] = useTabs(
-    tabToIndexMap,
-    paths.task,
-    DEFAULT_TAB
-  );
-
   const { id } = useParams<{ id: string }>();
+  useDefaultPath({
+    tabToIndexMap,
+    defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
+  });
+  const [selectedTab, selectTabHandler] = useTabs({
+    tabToIndexMap,
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.task}/${id}`,
+  });
   const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
     variables: { taskId: id },
     pollInterval: 2000,
