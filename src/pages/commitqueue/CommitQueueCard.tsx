@@ -29,7 +29,7 @@ export const CommitQueueCard: React.FC<Props> = ({
   moduleCodeChanges,
 }) => {
   return (
-    <Card>
+    <Card data-cy="commit-queue-card">
       <Subtitle>{index}.</Subtitle>
       <CommitQueueCardGrid>
         <CommitInfo>

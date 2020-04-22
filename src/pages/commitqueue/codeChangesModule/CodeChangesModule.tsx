@@ -24,7 +24,10 @@ export const CodeChangeModule: React.FC<{
   const toggleAccordianHandler = () => setToggleAccordian(!toggleAccordian);
   return (
     <CodeChangeModuleContainer>
-      <AccordianToggle onClick={toggleAccordianHandler}>
+      <AccordianToggle
+        data-cy="accordian-toggle"
+        onClick={toggleAccordianHandler}
+      >
         <Icon glyph={toggleAccordian ? "CaretDown" : "CaretRight"} />
         <DropDownText>
           <DropDownTextStyle>Total Code changes</DropDownTextStyle>

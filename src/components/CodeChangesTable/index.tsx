@@ -11,7 +11,7 @@ export const CodeChangesTable: React.FC<{
   showHeader?: boolean;
 }> = ({ fileDiffs, showHeader = true }) => (
   <StyledTable
-    className="cy-code-changes-table"
+    data-cy="code-changes-table"
     rowKey={rowKey}
     columns={columns(showHeader)}
     dataSource={fileDiffs}

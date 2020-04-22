@@ -4,7 +4,7 @@
 const patchWithChanges = "5e4ff3abe3c3317e352062e4";
 const CODE_CHANGES_ROUTE = `patch/${patchWithChanges}/changes`;
 const NO_CODE_CHANGES_ROUTE = "patch/5e6bb9e23066155a993e0f1a/changes";
-describe("task logs view", function () {
+describe("task logs view", function() {
   before(() => {
     cy.login();
   });
@@ -28,7 +28,7 @@ describe("task logs view", function () {
   it("Should display at least one table when there are code changes", () => {
     cy.visit(CODE_CHANGES_ROUTE);
     cy.waitForGQL("Patch");
-    cy.get(".cy-code-changes-table").should("exist");
+    cy.get("[data-cy=code-changes-table]").should("exist");
   });
 
   it("Should display 'No code changes' when there are no code changes", () => {
