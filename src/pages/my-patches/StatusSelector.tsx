@@ -1,5 +1,9 @@
 import React from "react";
-import { MyPatchesQueryParams, PatchStatus } from "types/patch";
+import {
+  MyPatchesQueryParams,
+  PatchStatus,
+  ALL_PATCH_STATUS,
+} from "types/patch";
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 
@@ -23,8 +27,8 @@ export const StatusSelector = () => {
 const treeData = [
   {
     title: "All",
-    value: PatchStatus.All,
-    key: PatchStatus.All,
+    value: ALL_PATCH_STATUS,
+    key: ALL_PATCH_STATUS,
   },
   {
     title: "Created",

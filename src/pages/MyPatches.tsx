@@ -8,7 +8,7 @@ import {
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { MyPatchesQueryParams, PatchStatus } from "types/patch";
+import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import Icon from "@leafygreen-ui/icon";
 import {
   UserPatchesVars,
@@ -115,7 +115,7 @@ const getQueryVariables = (search: string) => {
   const $statuses = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
-  ).filter((v) => v && v !== PatchStatus.All);
+  ).filter((v) => v && v !== ALL_PATCH_STATUS);
 
   return {
     $includeCommitQueue,

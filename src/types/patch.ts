@@ -6,8 +6,9 @@ export enum MyPatchesQueryParams {
 
 export enum PatchStatus {
   Created = "created",
+  Failed = "failed",
   Started = "started",
   Success = "succeeded",
-  Failed = "failed",
-  All = "all",
 }
+
+export const ALL_PATCH_STATUS = "all";
