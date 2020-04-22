@@ -6,6 +6,7 @@ import { ProjectVariants } from "gql/queries/patch";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
+import isEmpty from "lodash/isEmpty";
 
 interface Props {
   variants: ProjectVariants;
@@ -68,12 +69,17 @@ export const ConfigureTasks: React.FC<Props> = ({
       });
     } else {
       delete nextVariantTasks[task];
+      if (isEmpty(nextVariantTasks)) {
+        delete selectedVariantTasks[variant];
+      }
       setSelectedVariantTasks({
         ...selectedVariantTasks,
         [variant]: nextVariantTasks,
       });
     }
   };
+
+  console.log("selectedVariantTasks :", selectedVariantTasks);
 
   return (
     <TabContentWrapper>
@@ -140,7 +146,7 @@ const Tasks = styled.div`
   grid-template-columns: auto auto;
   grid-template-areas: "a a";
   grid-auto-rows: auto;
-  grid-column-gap: 80px;
+  grid-column-gap: 30px;
   grid-row-gap: 12px;
 `;
 const ButtonLink = styled.div`

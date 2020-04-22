@@ -31,7 +31,7 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
-    path: `${paths.patch}/${id}/${DEFAULT_TAB}`,
+    path: `${paths.patch}/${id}`,
   });
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
