@@ -1,5 +1,5 @@
 import { Divider } from "./Divider";
-import { PageContent, PageLayout, PageSider } from "./Layout";
+import { PageContent, PageLayout, PageSider, SimplePageTitle } from "./Layout";
 import { PageWrapper } from "./PageWrapper";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
 import { SiderCard } from "./SiderCard";
@@ -22,4 +22,5 @@ export {
   FiltersWrapper,
   FiltersWrapperSpaceBetween,
   StyledInput,
+  SimplePageTitle,
 };

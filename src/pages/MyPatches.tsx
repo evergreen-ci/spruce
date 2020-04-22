@@ -3,13 +3,13 @@ import {
   PageWrapper,
   StyledInput,
   FiltersWrapperSpaceBetween,
+  SimplePageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, PatchStatus } from "types/patch";
 import Icon from "@leafygreen-ui/icon";
-import { H2 } from "@leafygreen-ui/typography";
 import {
   UserPatchesVars,
   UserPatchesData,
@@ -79,7 +79,7 @@ export const MyPatches = () => {
 
   return (
     <PageWrapper>
-      <H2>My Patches</H2>
+      <SimplePageTitle>My Patches</SimplePageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput
@@ -127,4 +127,5 @@ const getQueryVariables = (search: string) => {
 
 const FlexRow = styled.div`
   display: flex;
+  flex-grow: 2;
 `;
