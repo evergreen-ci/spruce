@@ -5,6 +5,7 @@ import { useTabs, useDefaultPath } from "hooks";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
+import { useParams } from "react-router-dom";
 
 enum PatchTab {
   Tasks = "tasks",
@@ -22,14 +23,16 @@ interface Props {
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
-  useDefaultPath(tabToIndexMap, paths.patch, DEFAULT_TAB);
-
-  const [selectedTab, selectTabHandler] = useTabs(
+  const { id } = useParams<{ id: string }>();
+  useDefaultPath({
     tabToIndexMap,
-    paths.patch,
-    DEFAULT_TAB
-  );
-
+    defaultPath: `${paths.patch}/${id}/${DEFAULT_TAB}`,
+  });
+  const [selectedTab, selectTabHandler] = useTabs({
+    tabToIndexMap,
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.patch}/${id}`,
+  });
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
       <Tab name="Tasks" id="task-tab">

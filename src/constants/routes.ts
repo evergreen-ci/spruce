@@ -12,4 +12,5 @@ export const routes = {
   task: `${paths.task}/:id/:tab?`,
   patch: `${paths.patch}/:id/:tab?`,
   commitQueue: `${paths.commitQueue}/:id`,
+  configurePatch: `${paths.patch}/:id/configure/:tab?`,
 };
