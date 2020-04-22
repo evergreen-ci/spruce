@@ -1,6 +1,6 @@
 import gql from "graphql-tag";
 
-export const GET_MY_PATCHES = gql`
+export const GET_USER_PATCHES = gql`
   query userPatches(
     $page: Int
     $limit: Int
