@@ -3,11 +3,7 @@ import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "@leafygreen-ui/icon";
 import { ModuleCodeChanges } from "types/patch";
-import {
-  CodeChangeItem,
-  FileDiffText,
-} from "pages/commitqueue/codeChangesModule/CodeChangeItem";
-import { CodeChangesTable } from "components/CodeChangesTable";
+import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 
 const totalFileDiffs = (fileDiffs) => {
   let additions = 0;
@@ -47,7 +43,7 @@ export const CodeChangeModule: React.FC<{
 const CodeChangeModuleContainer = styled.div`
   margin-top: 16px;
 `;
-const AccordianToggle = styled("span")`
+const AccordianToggle = styled.span`
   :hover {
     cursor: pointer;
   }

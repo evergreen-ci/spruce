@@ -65,13 +65,6 @@ export const CommitQueue = () => {
   );
 };
 
-const Header = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 24px;
-`;
-
 const HR = styled("hr")`
   background-color: ${gray.light2};
   border: 0;

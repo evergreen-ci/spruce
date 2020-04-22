@@ -5,6 +5,7 @@ import { Table } from "antd";
 import { uiColors } from "@leafygreen-ui/palette";
 import { FileDiff } from "types/patch";
 
+const { green, red } = uiColors;
 export const CodeChangesTable: React.FC<{
   fileDiffs: FileDiff[];
   showHeader?: boolean;
@@ -20,18 +21,21 @@ export const CodeChangesTable: React.FC<{
   />
 );
 
-const Addition = styled.span`
-  color: ${uiColors.green.base};
-`;
+interface FileDiffTextProps {
+  type: string;
+  value: number;
+}
 
-const Deletion = styled.span`
-  color: ${uiColors.red.base};
-`;
+export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
+  const hasValue = value > 0;
+  return (
+    <FileDiffTextContainer hasValue={hasValue} type={type}>
+      {hasValue && type}
+      {value}
+    </FileDiffTextContainer>
+  );
+};
 
-const StyledTable = styled(Table)`
-  margin-top: 13px;
-  margin-bottom: 13px;
-`;
 const rowKey = (record: FileDiff, index: number): string => `${index}`;
 
 const columns = (showHeader: boolean) => [
@@ -57,19 +61,26 @@ const columns = (showHeader: boolean) => [
     dataIndex: "additions",
     key: "additions",
     width: !showHeader && 80,
-    render: (text: number) => {
-      if (text === 0) {
-        return text;
-      }
-      return <Addition>+{text}</Addition>;
-    },
+    render: (text: number) => <FileDiffText value={text} type="+" />,
   },
   {
     title: "Deletions",
     dataIndex: "deletions",
     key: "deletions",
     width: !showHeader && 80,
-    render: (text: number) =>
-      text === 0 ? text : <Deletion>-{text}</Deletion>,
+    render: (text: number) => <FileDiffText value={text} type="-" />,
   },
 ];
+
+const StyledTable = styled(Table)`
+  margin-top: 13px;
+  margin-bottom: 13px;
+`;
+const FileDiffTextContainer = styled("span")`
+  ${(props: { type: string; hasValue: boolean }) =>
+    props.hasValue &&
+    (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
+  &:nth-child(2) {
+    margin-left: 16px;
+  }
+`;
