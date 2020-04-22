@@ -64,7 +64,9 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   );
 };
 
-type VariantProps = { isSelected: boolean };
+interface VariantProps {
+  isSelected: boolean;
+}
 
 export const cardSidePadding = css`
   padding-left: 8px;

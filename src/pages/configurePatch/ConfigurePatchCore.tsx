@@ -39,6 +39,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description
   );
+  const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
+    setdescriptionValue(e.target.value);
   return (
     <>
       <StyledBody weight="medium">Patch Name</StyledBody>
@@ -47,9 +49,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         placeholder="Patch description"
         value={descriptionValue}
         size="large"
-        onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-          setdescriptionValue(e.target.value)
-        }
+        onChange={onChangePatchName}
       />
       <PageLayout>
         <PageSider>

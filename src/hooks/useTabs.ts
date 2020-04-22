@@ -41,8 +41,8 @@ export const useTabs = ({
 
   const selectTabHandler = (tabIndex: number) => {
     setSelectedTab(tabIndex);
-    const tab = getTabFromIndex(tabIndex);
-    history.replace(`${path}/${tab}`);
+    const currentTab = getTabFromIndex(tabIndex);
+    history.replace(`${path}/${currentTab}`);
   };
   return [selectedTab, selectTabHandler];
 };
