@@ -1,5 +1,7 @@
 export enum MyPatchesQueryParams {
   CommitQueue = "commitQueue",
+  PatchName = "patchName",
+  Statuses = "statuses",
 }
 
 export enum PatchStatus {
