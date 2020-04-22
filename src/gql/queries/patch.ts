@@ -9,7 +9,6 @@ export interface PatchProject {
   tasks?: string[];
   variants?: ProjectVariants;
 }
-
 export type VariantsTasks = Array<{
   name: string;
   tasks: string[];
@@ -76,7 +75,7 @@ export const GET_PATCH = gql`
 `;
 
 export const GET_PATCH_CONFIGURE = gql`
-  query Patch($id: String!) {
+  query ConfigurePatch($id: String!) {
     patch(id: $id) {
       id
       description

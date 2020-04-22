@@ -39,6 +39,16 @@ describe("Patch route", function() {
     cy.preserveCookies();
   });
 
+  it("Redirects to configure patch page if patch is not activated", () => {
+    const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+    cy.visit(`/patch/${unactivatedPatchId}`);
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal(
+        `/patch/${unactivatedPatchId}/configure/tasks`
+      );
+    });
+  });
+
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("page-title").within(hasText);

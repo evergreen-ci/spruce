@@ -25,8 +25,6 @@ export const ConfigureTasks: React.FC<Props> = ({
   selectedVariantTasks,
   setSelectedVariantTasks,
 }) => {
-  console.log("selectedVariantTasks :", selectedVariantTasks);
-
   const buildVariantCount = Object.keys(selectedVariantTasks).length;
   const taskCount = Object.values(selectedVariantTasks).reduce(
     (prev, curr) => prev + Object.values(curr).length,
@@ -81,25 +79,36 @@ export const ConfigureTasks: React.FC<Props> = ({
     <TabContentWrapper>
       <Actions>
         <Button variant={Variant.Primary}>Schedule</Button>
-        <ButtonLink onClick={onClickSelectAll}>Select All</ButtonLink>
-        <ButtonLink onClick={onClickDeselectAll}>Deselect All</ButtonLink>
+        <ButtonLink
+          data-cy="configurePatch-selectAll"
+          onClick={onClickSelectAll}
+        >
+          Select All
+        </ButtonLink>
+        <ButtonLink
+          data-cy="configurePatch-deselectAll"
+          onClick={onClickDeselectAll}
+        >
+          Deselect All
+        </ButtonLink>
       </Actions>
-      <StyledDisclaimer>
+      <StyledDisclaimer data-cy="x-tasks-across-y-variants">
         {`${taskCount} task${
           taskCount !== 1 ? "s" : ""
         } across ${buildVariantCount} build variant${
           buildVariantCount !== 1 ? "s" : ""
         }`}
       </StyledDisclaimer>
-      <Tasks>
+      <Tasks data-cy="configurePatch-tasks">
         {currentTasks.map((task) => {
           const checked =
             !!selectedVariantTasks[selectedBuildVariant] &&
             selectedVariantTasks[selectedBuildVariant][task] === true;
           return (
             <Checkbox
+              data-cy={`configurePatch-${task}`}
+              data-checked={checked}
               key={task}
-              data-cy="variant-task"
               onChange={getTaskCheckboxChangeHandler(
                 task,
                 selectedBuildVariant

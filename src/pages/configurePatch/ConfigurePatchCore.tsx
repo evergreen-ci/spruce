@@ -43,6 +43,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     <>
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
+        data-cy="configurePatch-nameInput"
         placeholder="Patch description"
         value={descriptionValue}
         size="large"

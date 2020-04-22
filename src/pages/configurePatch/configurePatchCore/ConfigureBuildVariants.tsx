@@ -37,6 +37,9 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         const isSelected = selectedBuildVariant === name;
         return (
           <BuildVariant
+            data-cy="configurePatch-buildVariantListItem"
+            data-cy-name={name}
+            data-cy-selected={isSelected}
             key={name}
             isSelected={isSelected}
             onClick={getClickVariantHandler(name)}
@@ -48,6 +51,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
             </VariantName>
             {taskCount > 0 && (
               <StyledBadge
+                data-cy={`configurePatch-taskCountBadge-${name}`}
                 variant={isSelected ? Variant.DarkGray : Variant.LightGray}
               >
                 {taskCount}
