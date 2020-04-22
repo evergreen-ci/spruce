@@ -2,12 +2,12 @@ import React from "react";
 import styled from "@emotion/styled";
 import { PageWrapper } from "components/styles";
 import { useParams } from "react-router-dom";
-import { Subtitle } from "@leafygreen-ui/typography";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { Skeleton } from "antd";
+import { PageTitle } from "components/PageTitle";
 
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 import {
@@ -37,12 +37,16 @@ export const CommitQueue = () => {
   const queue = get(commitQueue, "queue");
   return (
     <PageWrapper>
-      <Header>
-        <PageTitle> Commit Queue </PageTitle>
-        <Badge variant="darkgray">
-          {queue.length} Item {queue.length > 1 && "s"}
-        </Badge>
-      </Header>
+      <PageTitle
+        title="Commit Queue"
+        badge={
+          <Badge variant="darkgray">
+            {queue.length} Item {queue.length > 1 && "s"}
+          </Badge>
+        }
+        loading={false}
+        hasData={true}
+      />
       <HR />
       {queue.map((queueItems, i) => (
         <CommitQueueCard
@@ -61,16 +65,11 @@ export const CommitQueue = () => {
   );
 };
 
-const Header = styled("div")`
+const Header = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
   margin-top: 24px;
-  margin-bottom: 16px;
-`;
-const PageTitle = styled(Subtitle)`
-  margin-right: 16px;
-  font-size: 18px;
 `;
 
 const HR = styled("hr")`
@@ -79,6 +78,6 @@ const HR = styled("hr")`
   height: 3px;
 `;
 
-const ErrorWrapper = styled("div")`
+const ErrorWrapper = styled.div`
   word-wrap: break-word;
 `;

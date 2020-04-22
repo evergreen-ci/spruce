@@ -45,7 +45,7 @@ export const CodeChangeItem: React.FC<CodeChangeItemProps> = ({
   );
 };
 
-const CodeChangeItemRow = styled("div")`
+const CodeChangeItemRow = styled.div`
   display: grid;
   ${(props: { isLastItem: boolean }) =>
     !props.isLastItem && `border-bottom: 1px solid ${gray.light2};`}
@@ -56,7 +56,7 @@ const CodeChangeItemRow = styled("div")`
   width: 70%;
 `;
 
-const CodeChangeItemGridField = styled("div")`
+const CodeChangeItemGridField = styled.div`
   grid-area: ${(props: { grid: string }) => props.grid};
   margin: 16px 0 16px 0;
 `;

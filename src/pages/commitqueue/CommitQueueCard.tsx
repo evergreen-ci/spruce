@@ -54,7 +54,7 @@ export const CommitQueueCard: React.FC<Props> = ({
   );
 };
 
-const Card = styled("div")`
+const Card = styled.div`
   display: flex;
   margin-top: 16px;
   width: 100%;
@@ -65,7 +65,7 @@ const CardTitle = styled(StyledRouterLink)`
   font-size: 18px;
   font-weight: bold;
 `;
-const CommitInfo = styled("div")`
+const CommitInfo = styled.div`
   display: flex;
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
@@ -77,7 +77,7 @@ const CardMetaData = styled(Body)`
   color: ${gray.dark2};
 `;
 
-const CommitQueueCardGrid = styled("div")`
+const CommitQueueCardGrid = styled.div`
   border-bottom: 1px solid ${gray.light2};
   display: grid;
   grid-template-columns: 4fr repeat(2, 1fr);
@@ -87,6 +87,6 @@ const CommitQueueCardGrid = styled("div")`
   width: 100%;
 `;
 
-const CommitQueueCardActions = styled("div")`
+const CommitQueueCardActions = styled.div`
   grid-area: 1 / 3 / 2 / 4;
 `;

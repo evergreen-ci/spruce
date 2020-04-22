@@ -44,7 +44,7 @@ export const CodeChangeModule: React.FC<{
   );
 };
 
-const CodeChangeModuleContainer = styled("div")`
+const CodeChangeModuleContainer = styled.div`
   margin-top: 16px;
 `;
 const AccordianToggle = styled("span")`
@@ -52,11 +52,11 @@ const AccordianToggle = styled("span")`
     cursor: pointer;
   }
 `;
-const AnimatedAccordian = styled("div")`
+const AnimatedAccordian = styled.div`
   max-height: 0;
   /* This is used to calculate a fixed height for the accordian since height
      transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }) => !props.hide && `1500px`};
+  max-height: ${(props: { hide: boolean }) => !props.hide && "1500px"};
   overflow-y: hidden;
   transition: max-height 0.3s ease-in-out;
 `;
