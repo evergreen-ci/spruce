@@ -11,7 +11,6 @@ type TabSelectHandler = (index: number) => void;
  * the leafygreen Tab component works by using indexes which is why this is required
  * @param  {string} path the route path, e.g. on patch page the route is "/patch"
  * @param  {string} defaultTab the tab that is selected by default
- * @param {(tab: string) => void} updateHistory function used to update history (url) that is called when tab is selected
  * @returns {[number, (index: number) => void]}
  * first item in returned array represents the selected tab index
  * second item in returned array is a handler function for selecting a tab. Pass it to the <Tab/> component
