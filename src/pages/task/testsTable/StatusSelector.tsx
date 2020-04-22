@@ -16,6 +16,7 @@ export const StatusSelector = () => {
       tData={treeData}
       inputLabel="Test Status:  "
       dataCy="test-status-select"
+      width="25%"
     />
   );
 };
@@ -24,26 +25,26 @@ const treeData = [
   {
     title: "All",
     value: TestStatus.All,
-    key: TestStatus.All
+    key: TestStatus.All,
   },
   {
     title: "Pass",
     value: TestStatus.Pass,
-    key: TestStatus.Pass
+    key: TestStatus.Pass,
   },
   {
     title: "Fail",
     value: TestStatus.Fail,
-    key: TestStatus.Fail
+    key: TestStatus.Fail,
   },
   {
     title: "Skip",
     value: TestStatus.Skip,
-    key: TestStatus.Skip
+    key: TestStatus.Skip,
   },
   {
     title: "Silent Fail",
     value: TestStatus.SilentFail,
-    key: TestStatus.SilentFail
-  }
+    key: TestStatus.SilentFail,
+  },
 ];

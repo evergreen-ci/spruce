@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Checkbox from "@leafygreen-ui/checkbox";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
+import { usePrevious } from "hooks";
 const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
@@ -34,6 +35,20 @@ export const TreeSelect = ({
   width,
 }: Props) => {
   const wrapperRef = useRef(null);
+  const prevWrapperRef = usePrevious(wrapperRef);
+  const [optionWidth, setOptionWidth] = useState(0);
+
+  useEffect(() => {
+    if (wrapperRef) {
+      const handleResize = () => {
+        setOptionWidth(wrapperRef.current.clientWidth);
+      };
+      setOptionWidth(wrapperRef.current.clientWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, [setOptionWidth, prevWrapperRef]);
+
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
@@ -73,7 +88,7 @@ export const TreeSelect = ({
         </ArrowWrapper>
       </BarWrapper>
       {isVisible && (
-        <OptionsWrapper>
+        <OptionsWrapper width={optionWidth}>
           {renderCheckboxes({ state: filteredState, tData, onChange })}
         </OptionsWrapper>
       )}
@@ -300,13 +315,11 @@ const LabelWrapper = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 330px;
 `;
 const BarWrapper = styled.div`
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
   padding: 8px;
-  width: 100%;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -322,8 +335,10 @@ const OptionsWrapper = styled.div`
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
-  width: 100%;
   margin-top: 5px;
+  width: ${(props: { width: number }) =>
+    props.width ? `${props.width}px` : ""};
+  overflow: hidden;
 `;
 const ArrowWrapper = styled.span`
   border-left: 1px solid ${uiColors.gray.light1};
@@ -334,6 +349,5 @@ const ArrowWrapper = styled.span`
   }
 `;
 const Wrapper = styled.div`
-  width: ${(props: { width?: string }) =>
-    props.width ? props.width : "352px"};
+  width: ${(props: { width?: string }) => (props.width ? props.width : "")};
 `;

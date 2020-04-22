@@ -9,7 +9,7 @@ import {
   LogMessage,
   SystemLogsQuery,
   TaskEventLogEntry,
-  TaskLogsQuery
+  TaskLogsQuery,
 } from "gql/queries/get-task-logs";
 import { useQuery } from "@apollo/react-hooks";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
@@ -21,58 +21,58 @@ import get from "lodash/get";
 export const EventLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<EventLogsQuery>(GET_EVENT_LOGS, {
-    variables: { id }
+    variables: { id },
   });
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
       ...v,
-      kind: "taskEventLogEntry"
+      kind: "taskEventLogEntry",
     })),
     loading,
-    error
+    error,
   });
 };
 
 export const SystemLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<SystemLogsQuery>(GET_SYSTEM_LOGS, {
-    variables: { id }
+    variables: { id },
   });
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
     loading,
-    error
+    error,
   });
 };
 
 export const AgentLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<AgentLogsQuery>(GET_AGENT_LOGS, {
-    variables: { id }
+    variables: { id },
   });
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
     loading,
-    error
+    error,
   });
 };
 
 export const TaskLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<TaskLogsQuery>(GET_TASK_LOGS, {
-    variables: { id }
+    variables: { id },
   });
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
     loading,
-    error
+    error,
   });
 };
 
 const useRenderBody = ({
   loading,
   error,
-  data
+  data,
 }: {
   loading: boolean;
   error: ApolloError;

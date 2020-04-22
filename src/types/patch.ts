@@ -1,3 +1,3 @@
 export enum MyPatchesQueryParams {
-  CommitQueue = "commitQueue"
+  CommitQueue = "commitQueue",
 }

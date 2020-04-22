@@ -14,7 +14,7 @@ interface Props {
 export const BreadCrumb: React.FC<Props> = ({
   versionId,
   taskName,
-  patchNumber
+  patchNumber,
 }) => {
   const patch = `Patch ${patchNumber}`;
   return (

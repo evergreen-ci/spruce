@@ -4,7 +4,7 @@ export enum RequiredQueryParams {
   Sort = "sortDir",
   Category = "sortBy",
   Statuses = "statuses",
-  TestName = "testname"
+  TestName = "testname",
 }
 
 export enum PatchTasksQueryParams {
@@ -15,7 +15,7 @@ export enum PatchTasksQueryParams {
   Statuses = "statuses",
   BaseStatuses = "baseStatuses",
   Variant = "variant",
-  TaskName = "taskName"
+  TaskName = "taskName",
 }
 
 export enum TestStatus {
@@ -23,7 +23,7 @@ export enum TestStatus {
   Skip = "skip",
   SilentFail = "silentfail",
   Pass = "pass",
-  All = "all"
+  All = "all",
 }
 
 export type TableOnChange<D> = TableProps<D>["onChange"];
@@ -59,5 +59,5 @@ export enum TaskStatus {
   SetupFailed = "setup-failed",
 
   StatusBlocked = "blocked",
-  StatusPending = "pending"
+  StatusPending = "pending",
 }

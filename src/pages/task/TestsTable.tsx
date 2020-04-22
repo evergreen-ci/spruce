@@ -9,7 +9,7 @@ import { RequiredQueryParams } from "types/task";
 export const TestsTable: React.FC = () => {
   const [
     testNameFilterValue,
-    testNameFilterValueOnChange
+    testNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(RequiredQueryParams.TestName);
 
   return (
@@ -20,7 +20,8 @@ export const TestsTable: React.FC = () => {
           onChange={testNameFilterValueOnChange}
           suffix={<Icon glyph="MagnifyingGlass" />}
           value={testNameFilterValue}
-          id="cy-testname-input"
+          data-cy="testname-input"
+          width="25%"
         />
         <StatusSelector />
       </FiltersWrapper>
