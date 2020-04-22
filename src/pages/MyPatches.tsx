@@ -1,23 +1,66 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { PageWrapper } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { MyPatchesQueryParams } from "types/patch";
+import { MyPatchesQueryParams, PatchStatus } from "types/patch";
 import { H2 } from "@leafygreen-ui/typography";
+import {
+  UserPatchesVars,
+  UserPatchesData,
+  GET_USER_PATCHES,
+} from "gql/queries/my-patches";
+import { useQuery } from "@apollo/react-hooks";
 
 export const MyPatches = () => {
+  const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
-  const { replace } = useHistory();
-  const parsed = queryString.parse(search);
-  const showCommitQueue =
-    parsed.commitQueue === "true" || parsed.commitQueue === undefined;
+  const [initialQueryVariables] = useState<UserPatchesVars>({
+    $page: 0,
+    ...getQueryVariables(search),
+  });
+  const { data, fetchMore, networkStatus, error } = useQuery<
+    UserPatchesData,
+    UserPatchesVars
+  >(GET_USER_PATCHES, {
+    variables: initialQueryVariables,
+    notifyOnNetworkStatusChange: true,
+  });
+
+  useEffect(() => {
+    return listen(async (loc) => {
+      try {
+        await fetchMore({
+          variables: {
+            pageNum: 0,
+            ...getQueryVariables(loc.search),
+          },
+          updateQuery: (
+            prev: UserPatchesData,
+            { fetchMoreResult }: { fetchMoreResult: UserPatchesData }
+          ) => {
+            if (!fetchMoreResult) {
+              return prev;
+            }
+            return fetchMoreResult;
+          },
+        });
+      } catch (e) {
+        // empty block
+      }
+    });
+  }, [networkStatus, error, fetchMore, listen]);
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
 
   const onCheckboxChange = () => {
     replace(
       `${pathname}?${queryString.stringify({
         ...queryString.parse(search),
-        [MyPatchesQueryParams.CommitQueue]: !showCommitQueue,
+        [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search)
+          .$includeCommitQueue,
       })}`
     );
   };
@@ -29,8 +72,30 @@ export const MyPatches = () => {
         data-cy="commit-queue-checkbox"
         onChange={onCheckboxChange}
         label="Show Commit Queue"
-        checked={showCommitQueue}
+        checked={getQueryVariables(search).$includeCommitQueue}
       />
     </PageWrapper>
   );
+};
+
+const arrayFormat = "comma";
+const LIMIT = 10;
+const getQueryVariables = (search: string) => {
+  const parsed = queryString.parse(search, { arrayFormat });
+  const $includeCommitQueue =
+    parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
+    parsed[MyPatchesQueryParams.CommitQueue] === undefined;
+  const $patchName = (parsed[MyPatchesQueryParams.PatchName] || "").toString();
+  const rawStatuses = parsed[MyPatchesQueryParams.Statuses];
+  const $statuses = (Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses]
+  ).filter((v) => v && v !== PatchStatus.All);
+
+  return {
+    $includeCommitQueue,
+    $patchName,
+    $statuses,
+    $limit: LIMIT,
+  };
 };
