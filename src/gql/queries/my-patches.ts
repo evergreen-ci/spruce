@@ -4,7 +4,7 @@ export const GET_USER_PATCHES = gql`
   query userPatches(
     $page: Int
     $limit: Int
-    $statuses: [String!]!
+    $statuses: [String!]
     $patchName: String
     $includeCommitQueue: Boolean
   ) {
