@@ -53,13 +53,6 @@ export enum TaskSortBy {
   Variant = "VARIANT",
 }
 
-export enum PatchStatus {
-  Created = "created",
-  Started = "started",
-  Success = "succeeded",
-  Failed = "failed",
-}
-
 export enum TaskSortDir {
   Desc = "DESC",
   Asc = "ASC",
