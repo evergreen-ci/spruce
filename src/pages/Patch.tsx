@@ -33,15 +33,15 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  if (activated === false) {
-    router.push(`${paths.patch}/${id}/configure/tasks`);
-  }
   if (
     status === PatchStatus.Failed ||
     status === PatchStatus.Success ||
     activated === false
   ) {
     stopPolling();
+  }
+  if (activated === false) {
+    router.push(`${paths.patch}/${id}/configure`);
   }
   return (
     <PageWrapper>
