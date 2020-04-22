@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams } from "react-router-dom";
-import { Skeleton, Table } from "antd";
+import { Skeleton } from "antd";
 import { H2 } from "components/Typography";
 import {
   GET_CODE_CHANGES,

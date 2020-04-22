@@ -6,7 +6,7 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
 import { VariantsTasks, Patch } from "gql/queries/patch";
 import { css } from "@emotion/core";
