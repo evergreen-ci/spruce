@@ -4,7 +4,6 @@
   "private": true,
   "dependencies": {
     "@apollo/react-hooks": "^3.1.3",
-    "@apollo/react-testing": "^3.1.3",
     "@bugsnag/browser": "^6.5.0",
     "@bugsnag/plugin-react": "^6.5.0",
     "@emotion/core": "^10.0.27",
@@ -19,14 +18,6 @@
     "@leafygreen-ui/tabs": "^2.0.0",
     "@leafygreen-ui/tooltip": "^3.1.0",
     "@leafygreen-ui/typography": "^1.0.1",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.4.0",
-    "@testing-library/user-event": "^7.2.1",
-    "@types/jest": "^24.0.25",
-    "@types/lodash.debounce": "^4.0.6",
-    "@types/node": "^12.12.24",
-    "@types/react": "^16.9.17",
-    "@types/react-dom": "^16.9.4",
     "antd": "^3.26.7",
     "antd-table-infinity": "^1.1.6",
     "apollo-cache-inmemory": "^1.6.5",
@@ -49,9 +40,7 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "react-scripts": "3.3.0",
-    "typescript": "^3.7.4",
-    "waait": "^1.0.5"
+    "react-scripts": "3.3.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -101,12 +90,21 @@
     ]
   },
   "devDependencies": {
+    "@apollo/react-testing": "^3.1.4",
     "@cypress/webpack-preprocessor": "^4.1.3",
     "@storybook/addon-actions": "^5.3.17",
     "@storybook/addon-links": "^5.3.17",
     "@storybook/addons": "^5.3.17",
     "@storybook/preset-create-react-app": "^2.0.0",
     "@storybook/react": "^5.3.17",
+    "@testing-library/jest-dom": "^5.5.0",
+    "@testing-library/react": "^10.0.3",
+    "@testing-library/user-event": "^10.0.2",
+    "@types/jest": "^25.2.1",
+    "@types/lodash.debounce": "^4.0.6",
+    "@types/node": "^13.13.2",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
     "@types/react-router-dom": "^5.1.3",
     "@typescript-eslint/eslint-plugin": "^2.19.2",
     "@typescript-eslint/parser": "^2.19.2",
@@ -122,7 +120,9 @@
     "tslint": "^5.20.1",
     "tslint-config-prettier": "^1.18.0",
     "tslint-plugin-graphql": "0.0.6",
-    "tslint-react": "^4.1.0"
+    "tslint-react": "^4.1.0",
+    "typescript": "^3.8.3",
+    "waait": "^1.0.5"
   },
   "proxy": "http://localhost:9090"
 }
