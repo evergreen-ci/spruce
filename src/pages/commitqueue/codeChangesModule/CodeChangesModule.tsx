@@ -8,7 +8,7 @@ import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 const totalFileDiffs = (fileDiffs) => {
   let additions = 0;
   let deletions = 0;
-  for (let fileDiff of fileDiffs) {
+  for (const fileDiff of fileDiffs) {
     additions += fileDiff.additions;
     deletions += fileDiff.deletions;
   }
