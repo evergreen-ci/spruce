@@ -82,9 +82,14 @@ describe("Configure Patch Page", () => {
   });
   describe("Configuring a patch", () => {
     it("Can update patch description by typing into `Patch Name` input field", () => {
+      const val = "michelle obama";
       cy.get(`[data-cy=configurePatch-nameInput]`)
+        .as("patchNameInput")
         .clear()
-        .type("michelle obama");
+        .type(val);
+      cy.get("@patchNameInput")
+        .invoke("val")
+        .should("eq", val);
     });
     it("Selecting build variant displays tasks of that variant", () => {
       patch.project.variants.forEach(({ name, tasks }) => {

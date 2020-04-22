@@ -79,9 +79,6 @@ export const ConfigureTasks: React.FC<Props> = ({
       setSelectedVariantTasks(nextSelectedVariantTasks);
     }
   };
-
-  console.log("selectedVariantTasks :", selectedVariantTasks);
-
   return (
     <TabContentWrapper>
       <Actions>
