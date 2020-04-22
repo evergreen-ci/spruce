@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { PatchStatus } from "types/patch";
 import { SortDir } from "gql/queries/get-task-tests";
 
 export const PATCH_TASKS_LIMIT = 10;

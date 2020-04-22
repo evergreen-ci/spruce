@@ -15,7 +15,7 @@ import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { PatchStatus } from "gql/queries/get-patch-tasks";
+import { PatchStatus } from "types/patch";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
