@@ -5,6 +5,7 @@ import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
   PatchTasksQuery,
+  PatchTasks,
   PatchTasksVariables,
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
@@ -74,7 +75,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     ) {
       return;
     }
-    const pageNum = data.patchTasks.length / PATCH_TASKS_LIMIT;
+    const pageNum = data.patchTasks.tasks.length / PATCH_TASKS_LIMIT;
     if (pageNum % 1 !== 0) {
       setAllItemsHaveBeenFetched(true);
       return;
@@ -88,10 +89,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         if (!fetchMoreResult) {
           return prev;
         }
-        return {
-          ...prev,
-          patchTasks: [...prev.patchTasks, ...fetchMoreResult.patchTasks],
-        };
+        const { tasks } = fetchMoreResult.patchTasks;
+        fetchMoreResult.patchTasks.tasks = [...prev.patchTasks.tasks, ...tasks];
+        return fetchMoreResult;
       },
     });
   };
@@ -104,7 +104,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       <TaskFilters />
       <P2 id="task-count">
         <span data-cy="current-task-count">
-          {get(data, "patchTasks.length", "-")}
+          {get(data, "patchTasks.count", "-")}
         </span>
         {"/"}
         <span data-cy="total-task-count">{taskCount || "-"}</span>
