@@ -17,6 +17,7 @@ export const GET_USER_PATCHES = gql`
       patchName: $patchName
       includeCommitQueue: $includeCommitQueue
     ) {
+      id
       projectID
       description
       status
@@ -47,6 +48,7 @@ export interface UserPatchesVars {
   $includeCommitQueue: boolean;
 }
 export interface Patch {
+  id: string;
   projectID: string;
   description: string;
   status: PatchStatus;

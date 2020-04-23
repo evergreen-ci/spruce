@@ -101,7 +101,9 @@ export const MyPatches = () => {
           checked={getQueryVariables(search).$includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
-      {data ? data.userPatches.map((p) => <PatchCard {...p} />) : null}
+      {data
+        ? data.userPatches.map((p) => <PatchCard key={p.id} {...p} />)
+        : null}
     </PageWrapper>
   );
 };
