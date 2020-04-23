@@ -11,18 +11,6 @@ describe("My Patches Page", () => {
     cy.listenGQL();
   });
 
-  it("Initial load should make a userPatches gql query with default query params when none are specified in the URL", () => {
-    cy.visit(MY_PATCHES_ROUTE);
-    cy.waitForGQL("userPatches", {
-      "request.body.variables.$includeCommitQueue": (v) => v == true,
-      "request.body.variables.$limit": (v) => v === 10,
-      "request.body.variables.$page": (v) => v === 0,
-      "request.body.variables.$patchName": (v) => v === "",
-      "request.body.variables.$statuses": (v) =>
-        Array.isArray(v) && v.length === 0,
-    }).then((xhr) => console.log(xhr));
-  });
-
   describe("Show commit queue checkbox", () => {
     beforeEach(() => {
       cy.preserveCookies();
