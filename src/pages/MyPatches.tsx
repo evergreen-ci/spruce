@@ -3,7 +3,7 @@ import {
   PageWrapper,
   StyledInput,
   FiltersWrapperSpaceBetween,
-  SimplePageTitle,
+  PageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
@@ -79,7 +79,7 @@ export const MyPatches = () => {
 
   return (
     <PageWrapper>
-      <SimplePageTitle>My Patches</SimplePageTitle>
+      <PageTitle>My Patches</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput

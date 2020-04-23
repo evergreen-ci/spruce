@@ -29,6 +29,6 @@ export const PageSider = styled(Sider)`
   min-width: ${siderWidth} !important;
 `;
 
-export const SimplePageTitle = styled(H2)`
+export const PageTitle = styled(H2)`
   margin-bottom: 16px;
 `;
