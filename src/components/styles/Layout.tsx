@@ -1,6 +1,7 @@
 import styled from "@emotion/styled/macro";
 import { Layout } from "antd";
 import { css } from "@emotion/core";
+import { H2 } from "@leafygreen-ui/typography";
 
 const { Content, Sider } = Layout;
 
@@ -26,4 +27,8 @@ export const PageSider = styled(Sider)`
   width: ${siderWidth} !important;
   max-width: ${siderWidth} !important;
   min-width: ${siderWidth} !important;
+`;
+
+export const PageTitle = styled(H2)`
+  margin-bottom: 16px;
 `;
