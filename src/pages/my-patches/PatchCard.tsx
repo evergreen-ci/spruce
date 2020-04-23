@@ -23,15 +23,23 @@ export const PatchCard: React.FC<Patch> = ({
       <div>
         <PatchStatusBadge status={status} />
       </div>
-      <div>
+      <IconContainer>
         {builds.map((b, i) => (
-          <BuildStatusIcon key={i} {...b} />
+          <div>
+            <BuildStatusIcon key={i} status={b.status} />
+          </div>
         ))}
-      </div>
+      </IconContainer>
     </Container>
   );
 };
 
+const IconContainer = styled.div`
+  display: flex;
+  > div {
+    margin-right: 5px;
+  }
+`;
 const Container = styled.div`
   display: flex;
 `;

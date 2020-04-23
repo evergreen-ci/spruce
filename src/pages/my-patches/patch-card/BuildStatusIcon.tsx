@@ -1,14 +1,17 @@
 import React from "react";
 import { BuildStatus } from "types/build";
-import { Build } from "gql/queries/my-patches";
 import { RunningIcon } from "pages/my-patches/patch-card/BuildStatusIcon/RunningIcon";
 import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/SucceededIcon";
 import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled";
 
-export const BuildStatusIcon = (props: Build) => {
-  switch (props.status) {
+interface Props {
+  status: BuildStatus;
+}
+
+export const BuildStatusIcon: React.FC<Props> = ({ status }) => {
+  switch (status) {
     case BuildStatus.Created:
       return <Created />;
     case BuildStatus.Failed:
