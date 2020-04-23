@@ -19,6 +19,8 @@ import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
+import get from "lodash/get";
+import { PatchCard } from "./my-patches/PatchCard";
 
 export const MyPatches = () => {
   const { replace, listen } = useHistory();
@@ -99,6 +101,7 @@ export const MyPatches = () => {
           checked={getQueryVariables(search).$includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
+      {data ? data.userPatches.map((p) => <PatchCard {...p} />) : null}
     </PageWrapper>
   );
 };
