@@ -5,7 +5,7 @@ import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
-import { ProgressCircle } from "./PatchCard/ProgressCircle";
+import { ProgressCircle } from "pages/my-patches/patch-card/ProgressCircle";
 
 interface Props {
   description: string;
