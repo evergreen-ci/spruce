@@ -36,12 +36,12 @@ const treeData = [
     key: PatchStatus.Created,
   },
   {
-    title: "Started",
+    title: "Running",
     value: PatchStatus.Started,
     key: PatchStatus.Started,
   },
   {
-    title: "Success",
+    title: "Succeeded",
     value: PatchStatus.Success,
     key: PatchStatus.Success,
   },
