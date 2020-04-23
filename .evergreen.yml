@@ -84,6 +84,7 @@ functions:
     type: setup
     params:
       working_dir: spruce
+      background: true
       command: npm run dev
 
   npm-install:
