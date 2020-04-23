@@ -22,8 +22,8 @@ export const PageTitle: React.FC<Props> = ({
     </PageHeader>
   ) : hasData ? (
     <PageHeader>
-      <Subtitle data-cy="page-title">
-        <span>
+      <Subtitle>
+        <span data-cy="page-title">
           {title}
           {"  "}
           <BadgeWrapper>{badge}</BadgeWrapper>
