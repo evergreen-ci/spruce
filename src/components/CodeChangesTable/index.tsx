@@ -74,7 +74,7 @@ const columns = (showHeader: boolean) => [
 
 const StyledTable = styled(Table)`
   margin-top: 13px;
-  margin-bottom: 13px;
+  margin-bottom: 50px;
 `;
 const FileDiffTextContainer = styled("span")`
   ${(props: { type: string; hasValue: boolean }) =>

@@ -8,6 +8,7 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { ModuleCodeChanges } from "types/patch";
 import { paths } from "constants/routes";
 import { format } from "date-fns";
+
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
 interface Props {
@@ -37,14 +38,14 @@ export const CommitQueueCard: React.FC<Props> = ({
           <CardMetaData>
             By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
-          <div>
+          <>
             {moduleCodeChanges.map((moduleCodeChange) => (
               <CodeChangeModule
                 key={moduleCodeChange.rawLink}
                 moduleCodeChange={moduleCodeChange}
               />
             ))}
-          </div>
+          </>
         </CommitInfo>
         <CommitQueueCardActions>
           <Button>Remove Patch From Queue</Button>
@@ -70,7 +71,7 @@ const CommitInfo = styled.div`
   flex-direction: column;
   grid-area: 1 / 1 / 2 / 2;
   margin-left: 16px;
-  padding-bottom: 24px;
+  margin-bottom: 24px;
   width: 100%;
 `;
 const CardMetaData = styled(Body)`

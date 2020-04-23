@@ -46,6 +46,9 @@ export const CodeChangeModule: React.FC<{
 
 const CodeChangeModuleContainer = styled.div`
   margin-top: 16px;
+  :last-child {
+    margin-bottom: 32px;
+  }
 `;
 const AccordianToggle = styled.span`
   :hover {
