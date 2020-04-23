@@ -125,7 +125,7 @@ describe("Patch route", function() {
       locationHasUpdatedParams("VARIANT");
     });
 
-    it("clicking task name goes to task page for that task", () => {
+    it("Clicking task name goes to task page for that task", () => {
       cy.visit(path);
       cy.get("td.cy-task-table-col-NAME:first").within(() => {
         cy.get("a")
@@ -134,7 +134,20 @@ describe("Patch route", function() {
       });
     });
 
-    it("Should have sort buttons disabled when fetching data", () => {
+    it("Task count displays total tasks", () => {
+      cy.visit(path);
+      cy.waitForGQL("PatchTasks").then(() => {
+        cy.get("[data-cy=current-task-count]")
+          .invoke("text")
+          .then(($taskCount) => {
+            cy.get("[data-cy=total-task-count]")
+              .invoke("text")
+              .should("eq", $taskCount);
+          });
+      });
+    });
+
+    it("Sort buttons are disabled when fetching data", () => {
       cy.visit(path);
       cy.contains(TABLE_SORT_SELECTOR, "Name").click();
       cy.once("fail", (err) => {
@@ -151,25 +164,25 @@ describe("Patch route", function() {
         });
       });
 
-      it("Task count increments by the number of additional tasks fetched", () => {
-        cy.waitForGQL("PatchTasks");
-        cy.dataCy("current-task-count")
-          .invoke("text")
-          .then(($initialTaskCount) => {
-            scrollToBottomOfTasksTable();
-            cy.waitForGQL("PatchTasks");
-            cy.get("@gqlQuery").then(($xhr) => {
-              cy.dataCy("current-task-count")
-                .invoke("text")
-                .then(($newTaskCount) => {
-                  expect(parseInt($newTaskCount)).eq(
-                    parseInt($initialTaskCount) +
-                      $xhr.response.body.data.patchTasks.length
-                  );
-                });
-            });
-          });
-      });
+      // it("Task count increments by the number of additional tasks fetched", () => {
+      //   cy.waitForGQL("PatchTasks");
+      //   cy.dataCy("current-task-count")
+      //     .invoke("text")
+      //     .then(($initialTaskCount) => {
+      //       scrollToBottomOfTasksTable();
+      //       cy.waitForGQL("PatchTasks");
+      //       cy.get("@gqlQuery").then(($xhr) => {
+      //         cy.dataCy("current-task-count")
+      //           .invoke("text")
+      //           .then(($newTaskCount) => {
+      //             expect(parseInt($newTaskCount)).eq(
+      //               parseInt($initialTaskCount) +
+      //                 $xhr.response.body.data.patchTasks.length
+      //             );
+      //           });
+      //       });
+      //     });
+      // });
 
       it("Stops fetching tasks when all tasks have been fetched", () => {
         scrollTasksTableUntilAllTasksFetched({ hasMore: true });
@@ -181,7 +194,7 @@ describe("Patch route", function() {
       });
     });
 
-    xit("Fetches sorted tasks when table sort headers are clicked", () => {
+    it("Fetches sorted tasks when table sort headers are clicked", () => {
       ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) =>
         clickSorterAndAssertTasksAreFetched(sortBy)
       );
