@@ -238,9 +238,9 @@ tasks:
 
 buildvariants:
   - name: ubuntu1604
-    display_name: Ubuntu 16.04
+    display_name: RedHat
     run_on:
-    - ubuntu1604-test
+    - rhel70-small
     modules:
       - evergreen
     tasks:
