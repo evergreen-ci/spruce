@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import {
   PageWrapper,
   StyledInput,
-  FiltersWrapperSpaceBetween,
+  FiltersWrapper,
   PageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
@@ -128,4 +128,8 @@ const getQueryVariables = (search: string) => {
 const FlexRow = styled.div`
   display: flex;
   flex-grow: 2;
+`;
+
+const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
+  justify-content: space-between;
 `;

@@ -3,11 +3,7 @@ import { PageContent, PageLayout, PageSider, PageTitle } from "./Layout";
 import { PageWrapper } from "./PageWrapper";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
 import { SiderCard } from "./SiderCard";
-import {
-  FiltersWrapper,
-  FiltersWrapperSpaceBetween,
-  StyledInput,
-} from "./filters";
+import { FiltersWrapper, StyledInput } from "./filters";
 
 export {
   Divider,
@@ -20,7 +16,6 @@ export {
   SiderCard,
   StyledRouterLink,
   FiltersWrapper,
-  FiltersWrapperSpaceBetween,
   StyledInput,
   PageTitle,
 };
