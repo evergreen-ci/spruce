@@ -4,13 +4,6 @@ import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { Patch } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
-interface Props {
-  description: string;
-  status: string;
-  dateStr: string;
-  branch: string;
-  buildStatuses: Build[];
-}
 
 export const PatchCard: React.FC<Patch> = ({
   description,
@@ -31,7 +24,9 @@ export const PatchCard: React.FC<Patch> = ({
         <PatchStatusBadge status={status} />
       </div>
       <div>
-        {builds.map((b, i) => <BuildStatusIcon key={i} {...b} /> }
+        {builds.map((b, i) => (
+          <BuildStatusIcon key={i} {...b} />
+        ))}
       </div>
     </Container>
   );
