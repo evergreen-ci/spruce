@@ -55,9 +55,8 @@ export const resultsAreFetchedAndRendered = ({
 } = {}) => {
   assertQueryVariables(queryName, requestVariables);
   return cy.get("@gqlQuery").then(({ response }) => {
-    const numberOfResults = get(response, `body.data.${responseName}.tasks`, [])
+    const numberOfResults = get(response, `body.data.${responseName}`, [])
       .length;
-    const count = get(response, `body.data.${responseName}.count`);
     if (numberOfResults === 0) {
       cy.get(".ant-table-row").should("not.exist");
     } else {
