@@ -4,11 +4,13 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { Patch } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
 import Button from "@leafygreen-ui/button";
 import { format } from "date-fns";
+import { StyledLink } from "components/styles";
+import { paths } from "constants/routes";
 
 export const PatchCard: React.FC<Patch> = ({
+  id,
   description,
   status,
   createTime,
@@ -19,7 +21,9 @@ export const PatchCard: React.FC<Patch> = ({
   return (
     <CardWrapper>
       <Left>
-        <Description>{description || "no description"}</Description>
+        <DescriptionLink href={`${paths.patch}/${id}`}>
+          {description || "no description"}
+        </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           on <b>{projectID}</b>
@@ -73,8 +77,8 @@ const Right = styled.div`
   display: flex;
   justify-content: flex-end;
 `;
-const Description = styled(Body)`
-  color: ${uiColors.blue.base};
+
+const DescriptionLink = styled(StyledLink)`
   font-size: 18px;
   padding-bottom: 8px;
 `;
