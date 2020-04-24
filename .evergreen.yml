@@ -144,9 +144,9 @@ functions:
     params:
       working_dir: spruce
       script: |
-        cp config/.cmdrc_sample.json config/.cmdrc.json 
+        cp config/.cmdrc_sample.json config/.cmdrc.json
 
-  attach-results: 
+  attach-results:
     command: attach.xunit_results
     params:
       files:

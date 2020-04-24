@@ -1,4 +1,5 @@
 import gql from "graphql-tag";
+import { PatchStatus } from "types/patch";
 import { SortDir } from "gql/queries/get-task-tests";
 
 export const PATCH_TASKS_LIMIT = 10;
@@ -58,13 +59,6 @@ export enum TaskSortBy {
   Status = "STATUS",
   BaseStatus = "BASE_STATUS",
   Variant = "VARIANT",
-}
-
-export enum PatchStatus {
-  Created = "created",
-  Started = "started",
-  Success = "succeeded",
-  Failed = "failed",
 }
 
 export enum TaskSortDir {
