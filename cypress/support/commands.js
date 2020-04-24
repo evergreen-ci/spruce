@@ -1,6 +1,7 @@
 import { waitForGQL } from "../utils/networking";
 
 const GQL_QUERY = "gqlQuery";
+const LOGIN_COOKIE = "mci-token";
 
 function enterLoginCredentials() {
   cy.get("input[name=username]").type("admin");
@@ -9,8 +10,12 @@ function enterLoginCredentials() {
 }
 
 Cypress.Commands.add("login", () => {
-  cy.visit("/login");
-  enterLoginCredentials();
+  cy.getCookie(LOGIN_COOKIE).then((c) => {
+    if (!c) {
+      cy.visit("/login");
+      enterLoginCredentials();
+    }
+  });
 });
 
 Cypress.Commands.add("enterLoginCredentials", () => {
@@ -19,7 +24,7 @@ Cypress.Commands.add("enterLoginCredentials", () => {
 
 Cypress.Commands.add("preserveCookies", () => {
   Cypress.Cookies.preserveOnce(
-    "mci-token",
+    LOGIN_COOKIE,
     "mci-session",
     "mci-project-cookie"
   );
