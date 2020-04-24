@@ -17,52 +17,64 @@ export const PatchCard: React.FC<Patch> = ({
 }) => {
   const createDate = new Date(createTime);
   return (
-    <Container>
-      <div>
+    <CardWrapper>
+      <Left>
         <Description>{description}</Description>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           on <b>{projectID}</b>
         </TimeAndProject>
-      </div>
-      <BadgeAndStatusIconWrapper>
+      </Left>
+      <Center>
         <BadgeContainer>
           <PatchStatusBadge status={status} />
         </BadgeContainer>
-        <IconContainer>
-          {builds.map((b, i) => {
-            return (
-              <div key={i}>
-                <BuildStatusIcon status={b.status} />
-              </div>
-            );
-          })}
-        </IconContainer>
-      </BadgeAndStatusIconWrapper>
-      <Button size="xsmall">...</Button>
-    </Container>
+        <IconsContainer>
+          {builds.map((b, i) => (
+            <div key={i}>
+              <BuildStatusIcon status={b.status} />
+            </div>
+          ))}
+        </IconsContainer>
+      </Center>
+      <Right>
+        <Button size="xsmall">...</Button>
+      </Right>
+    </CardWrapper>
   );
 };
 
-const IconContainer = styled.div`
+const IconsContainer = styled.div`
   display: flex;
+  justify-content: flex-start;
   > div {
-    margin-right: 5px;
+    margin-right: 14px;
   }
   flex-wrap: wrap;
 `;
-const Container = styled.div`
+
+const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
 
-const BadgeAndStatusIconWrapper = styled.div`
+const Center = styled.div`
   display: flex;
+  flex: 1 1 0;
 `;
 
+const Left = styled(Center)`
+  flex-direction: column;
+`;
+
+const Right = styled.div`
+  display: flex;
+  justify-content: flex-end;
+`;
 const Description = styled(Body)`
   color: ${uiColors.blue.base};
   font-size: 18px;
+  padding-bottom: 8px;
 `;
 
 const BadgeContainer = styled.div`
