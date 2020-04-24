@@ -16,7 +16,7 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 
 export const Patch = () => {

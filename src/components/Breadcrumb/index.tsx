@@ -1,6 +1,6 @@
 import React from "react";
 import { Breadcrumb } from "antd";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
 import { H3, P1 } from "components/Typography";
 import { StyledRouterLink } from "components/styles/StyledLink";

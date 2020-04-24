@@ -1,6 +1,6 @@
 import React from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 import { useTabs, useDefaultPath } from "hooks";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
