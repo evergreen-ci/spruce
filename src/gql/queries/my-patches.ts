@@ -23,22 +23,16 @@ export const GET_USER_PATCHES = gql`
       status
       createTime
       builds {
-        id
         buildVariant
         status
-        predictedMakespan
-        actualMakespan
       }
     }
   }
 `;
 
 export interface Build {
-  id: string;
   buildVariant: string;
   status: BuildStatus;
-  predictedMakespan: number;
-  actualMakespan: number;
 }
 export interface UserPatchesVars {
   page: number;

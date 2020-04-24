@@ -32,7 +32,7 @@ export const PatchCard: React.FC<Patch> = ({
         <IconsContainer>
           {builds.map((b, i) => (
             <div key={i}>
-              <BuildStatusIcon status={b.status} />
+              <BuildStatusIcon {...b} />
             </div>
           ))}
         </IconsContainer>
