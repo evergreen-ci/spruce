@@ -78,7 +78,7 @@ export const MyPatches = () => {
       })}`
     );
   };
-  console.log(data);
+
   return (
     <PageWrapper>
       <PageTitle>My Patches</PageTitle>
