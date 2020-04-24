@@ -5,7 +5,6 @@ import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
   PatchTasksQuery,
-  PatchTasks,
   PatchTasksVariables,
 } from "gql/queries/get-patch-tasks";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
@@ -147,9 +146,7 @@ const getStatuses = (rawStatuses: string[] | string) => {
       statuses.includes(status)
     )
   ) {
-    // returning empty array instead of all statuses prevents bug where no tasks are rendered
-    // for the first request made with/without all statuses.
-    // passing empty array for `All` value is also more performant for filtering on the backend
+    // passing empty array for `All` value is also more performant for filtering on the backend as opposed to passing array of all statuses
     return [];
   }
   return statuses;
