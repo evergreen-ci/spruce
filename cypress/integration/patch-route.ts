@@ -136,15 +136,14 @@ describe("Patch route", function() {
 
     it("Task count displays total tasks", () => {
       cy.visit(path);
-      cy.waitForGQL("PatchTasks").then(() => {
-        cy.get("[data-cy=current-task-count]")
-          .invoke("text")
-          .then(($taskCount) => {
-            cy.get("[data-cy=total-task-count]")
-              .invoke("text")
-              .should("eq", $taskCount);
-          });
-      });
+      cy.waitForGQL("PatchTasks");
+      cy.get("[data-cy=total-task-count]")
+        .invoke("text")
+        .then(($taskCount) => {
+          cy.get("[data-cy=current-task-count]")
+            .invoke("text")
+            .should("eq", $taskCount);
+        });
     });
 
     it("Sort buttons are disabled when fetching data", () => {
@@ -222,7 +221,7 @@ const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.visit(path);
 
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
-  cy.waitForGQL("PatchBuildVariants");
+  cy.waitForGQL("PatchTasks");
   assertCorrectRequestVariables(patchSortBy, "ASC");
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
   assertCorrectRequestVariables(patchSortBy, "DESC");
