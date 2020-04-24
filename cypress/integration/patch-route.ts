@@ -164,26 +164,6 @@ describe("Patch route", function() {
         });
       });
 
-      // it("Task count increments by the number of additional tasks fetched", () => {
-      //   cy.waitForGQL("PatchTasks");
-      //   cy.dataCy("current-task-count")
-      //     .invoke("text")
-      //     .then(($initialTaskCount) => {
-      //       scrollToBottomOfTasksTable();
-      //       cy.waitForGQL("PatchTasks");
-      //       cy.get("@gqlQuery").then(($xhr) => {
-      //         cy.dataCy("current-task-count")
-      //           .invoke("text")
-      //           .then(($newTaskCount) => {
-      //             expect(parseInt($newTaskCount)).eq(
-      //               parseInt($initialTaskCount) +
-      //                 $xhr.response.body.data.patchTasks.length
-      //             );
-      //           });
-      //       });
-      //     });
-      // });
-
       it("Stops fetching tasks when all tasks have been fetched", () => {
         scrollTasksTableUntilAllTasksFetched({ hasMore: true });
         cy.get(".ant-table-body").scrollTo("top");
@@ -245,6 +225,5 @@ const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.waitForGQL("PatchBuildVariants");
   assertCorrectRequestVariables(patchSortBy, "ASC");
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
-
   assertCorrectRequestVariables(patchSortBy, "DESC");
 };
