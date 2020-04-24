@@ -29,7 +29,7 @@ describe("task logs view", function() {
   it("Should display at least one table when there are code changes", () => {
     cy.visit(CODE_CHANGES_ROUTE);
     cy.waitForGQL("Patch");
-    cy.get(".cy-code-changes-table").should("exist");
+    cy.get("[data-cy=code-changes-table]").should("exist");
   });
 
   it("Should display 'No code changes' when there are no code changes", () => {

@@ -1,23 +1,5 @@
 import gql from "graphql-tag";
-
-export interface FileDiff {
-  fileName: string;
-  additions: number;
-  deletions: number;
-  diffLink: string;
-}
-
-interface ModuleCodeChange {
-  branchName: string;
-  htmlLink: string;
-  rawLink: string;
-  fileDiffs: FileDiff[];
-}
-
-export interface Patch {
-  moduleCodeChanges: ModuleCodeChange[];
-  id: string;
-}
+import { Patch } from "types/patch";
 
 export interface GetCodeChangesQuery {
   patch: Patch;

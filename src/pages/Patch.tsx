@@ -17,7 +17,7 @@ import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
