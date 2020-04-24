@@ -41,11 +41,11 @@ export interface Build {
   actualMakespan: number;
 }
 export interface UserPatchesVars {
-  $page: number;
-  $limit: number;
-  $statuses: string[];
-  $patchName: string;
-  $includeCommitQueue: boolean;
+  page: number;
+  limit: number;
+  statuses: string[];
+  patchName: string;
+  includeCommitQueue: boolean;
 }
 export interface Patch {
   id: string;

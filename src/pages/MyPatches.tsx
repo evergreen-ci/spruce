@@ -26,7 +26,7 @@ export const MyPatches = () => {
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<UserPatchesVars>({
-    $page: 0,
+    page: 0,
     ...getQueryVariables(search),
   });
   const [
@@ -46,7 +46,7 @@ export const MyPatches = () => {
       try {
         await fetchMore({
           variables: {
-            pageNum: 0,
+            $page: 0,
             ...getQueryVariables(loc.search),
           },
           updateQuery: (
@@ -72,13 +72,13 @@ export const MyPatches = () => {
   const onCheckboxChange = () => {
     replace(
       `${pathname}?${queryString.stringify({
-        ...queryString.parse(search),
+        ...queryString.parse(search, { arrayFormat }),
         [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search)
-          .$includeCommitQueue,
+          .includeCommitQueue,
       })}`
     );
   };
-
+  console.log(data);
   return (
     <PageWrapper>
       <PageTitle>My Patches</PageTitle>
@@ -98,7 +98,7 @@ export const MyPatches = () => {
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
           label="Show Commit Queue"
-          checked={getQueryVariables(search).$includeCommitQueue}
+          checked={getQueryVariables(search).includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
       {data
@@ -112,21 +112,20 @@ const arrayFormat = "comma";
 const LIMIT = 10;
 const getQueryVariables = (search: string) => {
   const parsed = queryString.parse(search, { arrayFormat });
-  const $includeCommitQueue =
+  const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
     parsed[MyPatchesQueryParams.CommitQueue] === undefined;
-  const $patchName = (parsed[MyPatchesQueryParams.PatchName] || "").toString();
+  const patchName = (parsed[MyPatchesQueryParams.PatchName] || "").toString();
   const rawStatuses = parsed[MyPatchesQueryParams.Statuses];
-  const $statuses = (Array.isArray(rawStatuses)
+  const statuses = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
   ).filter((v) => v && v !== ALL_PATCH_STATUS);
-
   return {
-    $includeCommitQueue,
-    $patchName,
-    $statuses,
-    $limit: LIMIT,
+    includeCommitQueue,
+    patchName,
+    statuses,
+    limit: LIMIT,
   };
 };
 
