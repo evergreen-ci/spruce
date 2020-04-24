@@ -46,7 +46,7 @@ export const MyPatches = () => {
       try {
         await fetchMore({
           variables: {
-            $page: 0,
+            page: 0,
             ...getQueryVariables(loc.search),
           },
           updateQuery: (
