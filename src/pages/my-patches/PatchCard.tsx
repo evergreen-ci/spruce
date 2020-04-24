@@ -19,7 +19,7 @@ export const PatchCard: React.FC<Patch> = ({
   return (
     <CardWrapper>
       <Left>
-        <Description>{description}</Description>
+        <Description>{description || "no description"}</Description>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           on <b>{projectID}</b>
@@ -56,6 +56,8 @@ const IconsContainer = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  padding: 12px 5px 12px;
+  border-bottom: 1px solid ${uiColors.gray.light2};
 `;
 
 const Center = styled.div`
