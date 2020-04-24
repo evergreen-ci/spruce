@@ -31,7 +31,9 @@ export const CommitQueue = () => {
   }
   if (error) {
     return (
-      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
+      <ErrorWrapper data-cy="commitQueue-card-error">
+        {error.message}
+      </ErrorWrapper>
     );
   }
   const commitQueue = get(data, "commitQueue");
