@@ -15,7 +15,7 @@ describe("commit queue page", function() {
     cy.visit(COMMIT_QUEUE_ROUTE);
     cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
   });
-  it("Should be able to click on Total Code changes and toggle a drop down table", () => {
+  it("Clicking on Total Code changes should toggle a drop down table", () => {
     cy.visit(COMMIT_QUEUE_ROUTE);
     cy.get("[data-cy=code-changes-table]").should("not.exist");
     cy.get("[data-cy=accordian-toggle]").click();
