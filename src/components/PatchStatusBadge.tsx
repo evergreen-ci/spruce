@@ -7,14 +7,21 @@ interface Props {
 }
 
 export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
-  <Badge variant={mapPatchStatusToBadgeVariant[status as PatchStatus]}>
-    {status}
+  <Badge variant={statusToBadgeVariant[status as PatchStatus]}>
+    {patchStatusToCopy[status as PatchStatus]}
   </Badge>
 );
 
-const mapPatchStatusToBadgeVariant = {
+const statusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
   [PatchStatus.Success]: Variant.Green,
+};
+
+const patchStatusToCopy = {
+  [PatchStatus.Created]: "Created",
+  [PatchStatus.Failed]: "Failed",
+  [PatchStatus.Started]: "Running",
+  [PatchStatus.Success]: "Succeeded",
 };
