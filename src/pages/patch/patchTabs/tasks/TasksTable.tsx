@@ -9,17 +9,18 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { TaskSortDir } from "gql/queries/get-patch-tasks";
+import { TaskSortDir, PatchTasks } from "gql/queries/get-patch-tasks";
+import get from "lodash.get";
 
 interface Props {
   networkStatus: NetworkStatus;
-  data?: [TaskResult];
+  data?: PatchTasks;
   onFetch: () => void;
 }
 
 export const TasksTable: React.FC<Props> = ({
   networkStatus,
-  data = [],
+  data,
   onFetch,
 }) => {
   const { replace } = useHistory();
@@ -39,7 +40,6 @@ export const TasksTable: React.FC<Props> = ({
       )}`
     );
   };
-
   return (
     <InfinityTable
       key="key"
@@ -48,7 +48,7 @@ export const TasksTable: React.FC<Props> = ({
       loadingIndicator={loader}
       columns={columns}
       scroll={{ y: 350 }}
-      dataSource={data}
+      dataSource={get(data, "tasks", [])}
       onChange={tableChangeHandler}
       onFetch={onFetch}
       rowKey={rowKey}

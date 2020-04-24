@@ -11,7 +11,7 @@ const patch = {
 const path = `/patch/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
-const gqlQuery = { name: "PatchTasks", responseName: "patchTasks" };
+const gqlQuery = { name: "PatchTasks", responseName: "patchTasks.tasks" };
 
 const parentStatuses = [
   {
@@ -75,7 +75,7 @@ const singularStatuses = [
   },
 ];
 
-describe("Tasks filters", function () {
+describe("Tasks filters", function() {
   before(() => {
     cy.login();
   });
@@ -94,7 +94,7 @@ describe("Tasks filters", function () {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
-        responseName: "patchTasks",
+        responseName: "patchTasks.tasks",
       }).then(() =>
         urlSearchParamsAreUpdated({
           pathname: pathTasks,
@@ -105,7 +105,7 @@ describe("Tasks filters", function () {
       cy.get("[data-cy=variant-input]").clear();
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
-        responseName: "patchTasks",
+        responseName: "patchTasks.tasks",
       }).then(() =>
         urlSearchParamsAreUpdated({
           pathname: pathTasks,
@@ -124,7 +124,7 @@ describe("Tasks filters", function () {
       cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
-        responseName: "patchTasks",
+        responseName: "patchTasks.tasks",
       }).then(() =>
         urlSearchParamsAreUpdated({
           pathname: pathTasks,
@@ -135,7 +135,7 @@ describe("Tasks filters", function () {
       cy.get("[data-cy=task-name-input]").clear();
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
-        responseName: "patchTasks",
+        responseName: "patchTasks.tasks",
       }).then(() =>
         urlSearchParamsAreUpdated({
           pathname: pathTasks,

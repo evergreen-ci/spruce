@@ -25,7 +25,7 @@ import get from "lodash/get";
 export const waitForGQL = (
   alias: string,
   queryName: string,
-  options: Options
+  options: Options = {}
 ): Cypress.Chainable<Cypress.WaitXHR> => {
   const waitOnce = () => {
     return cy.wait(alias).then((xhr) => {

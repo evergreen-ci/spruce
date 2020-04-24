@@ -26,11 +26,14 @@ export const GET_PATCH_TASKS = gql`
       variant: $variant
       taskName: $taskName
     ) {
-      id
-      status
-      baseStatus
-      displayName
-      buildVariant
+      count
+      tasks {
+        id
+        status
+        baseStatus
+        displayName
+        buildVariant
+      }
     }
   }
 `;
@@ -43,8 +46,12 @@ export interface TaskResult {
   buildVariant: string;
 }
 
+export interface PatchTasks {
+  count: number;
+  tasks: TaskResult[];
+}
 export interface PatchTasksQuery {
-  patchTasks: [TaskResult];
+  patchTasks: PatchTasks;
 }
 
 export enum TaskSortBy {
