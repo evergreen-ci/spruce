@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import {
   PatchBuildVariantsQuery,
