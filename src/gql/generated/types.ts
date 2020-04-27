@@ -513,7 +513,7 @@ export type CommitQueueQueryVariables = {
 };
 
 
-export type CommitQueueQuery = { commitQueue: { projectId?: Maybe<string>, queue?: Maybe<Array<{ issue?: Maybe<string>, enqueueTime?: Maybe<any>, patch?: Maybe<{ id: string, author: string, description: string, moduleCodeChanges: Array<{ rawLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> }> }>> } };
+export type CommitQueueQuery = { commitQueue: { projectId?: Maybe<string>, queue?: Maybe<Array<{ issue?: Maybe<string>, enqueueTime?: Maybe<any>, patch?: Maybe<{ id: string, author: string, description: string, moduleCodeChanges: Array<{ rawLink: string, branchName: string, htmlLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> }> }>> } };
 
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars['String'];
