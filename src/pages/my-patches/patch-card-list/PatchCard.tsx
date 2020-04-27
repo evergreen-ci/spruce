@@ -47,12 +47,19 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <Button size="xsmall">...</Button>
+        <Button size="small">
+          <BtnCopy>...</BtnCopy>
+        </Button>
       </Right>
     </CardWrapper>
   );
 };
 
+const BtnCopy = styled.div`
+  position: relative;
+  top: -4px;
+  font-weight: bold;
+`;
 const IconsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
