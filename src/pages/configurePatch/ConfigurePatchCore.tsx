@@ -26,7 +26,6 @@ const SCHEDULE_PATCH = gql`
     }
   }
 `;
-
 interface Props {
   patch: Patch;
 }
@@ -74,7 +73,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   }
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
-    router.push(`/patch/${scheduledPatchId}`);
+    router.push(`${paths.patch}/${scheduledPatchId}`);
   }
   return (
     <>
@@ -145,10 +144,6 @@ const getGqlVariantTasksParamFromState = (
   return Object.keys(selectedVariantTasks).map((variantName) => {
     const tasksObj = selectedVariantTasks[variantName];
     const tasksArr = Object.keys(tasksObj);
-    // const displayTasks: DisplayTask = {
-    //   name: "",
-    //   execTasks: [],
-    // };
     const variantTasks: VariantTasks = {
       variant: variantName,
       tasks: tasksArr,
