@@ -32,7 +32,7 @@ Run `npm run storybook` to launch storybook and view our shared components.
 
 ### Code Formatting
 
-Install the Prettier code formatting plugin in your code editor if you don't have it already. The plugin will use the .prettierrc settings file found at the root of Spruce to format your code. 
+Install the Prettier code formatting plugin in your code editor if you don't have it already. The plugin will use the .prettierrc settings file found at the root of Spruce to format your code.
 
 ### GQL Query Linting
 
@@ -48,7 +48,11 @@ Follow these directions to enable query linting during local development so your
 ```js
 {
   "devServer": {
-    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query"
+    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
+    "REACT_APP_API_URL": "http://localhost:3000/api",
+    "REACT_APP_UI_URL": "http://localhost:9090",
+    "REACT_APP_SPRUCE_URL": "http://localhost:3000",
+    "REACT_APP_GQL_COOKIE": "cookie-from-REACT_APP_GQL_URL"
   },
   "mockIntrospectSchema": {
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
@@ -73,6 +77,28 @@ Follow these directions to enable query linting during local development so your
   }
 }
 ```
+
+## GraphQL Type Generation
+
+We use Code generation to generate our types for our GraphQL queries and mutations. When you create a query or mutation you can run the code generation script with the steps below. The types for your query/mutation response and variables will be generated and saved to `gql/generated/types.ts`. Much of the underlying types for subfields in your queries will likely be generated there as well and you can refer to those before creating your own.
+
+### Setting up code generation
+
+- While you are authenticated locally visit `http://localhost:9090/graphql/query` and perform some random query.
+- Observe the request that is made and copy the cookie used in the request. It should start with `mci-token=...`
+- Save this cookie within your `.cmdrc.json` under `REACT_APP_GQL_COOKIE`. You may have to do some quote escaping by placing a `\` (Backslash) in front of any quotation marks.
+
+### Using code generation
+
+- Ensure you have the `evergreen` server running (`make local-evergreen`)
+- From within the spruce folder run `npm run codegen`
+- As long as your queries are declared correctly the types should generate
+
+### Code generation troubleshooting and tips
+
+- Queries should be declared with a query name so the code generation knows what to name the corresponding type.
+- Each query and mutation should have a unique name.
+- Since query analysis for type checking occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
 
 ## Deployment
 
