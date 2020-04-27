@@ -5,6 +5,7 @@ import { Skeleton } from "antd";
 import { FixedSizeList } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { Patch } from "gql/queries/my-patches";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 interface Props {
   hasNextPage: boolean;
@@ -31,23 +32,16 @@ export const PatchCardList = ({
         }
         hasMountedRef.current = true;
       }),
-    []
+    [listen]
   );
-  // If there are more items to be loaded then add an extra row to hold a loading indicator.
   const itemCount = hasNextPage ? items.length + 1 : items.length;
-
-  // Pass an empty callback to InfiniteLoader in case it asks us to load more than once.
   const loadMoreItems = isNextPageLoading ? () => {} : loadNextPage;
-
-  // Every row is loaded except for our loading indicator row.
   const isItemLoaded = (index) => !hasNextPage || index < items.length;
-
-  // Render an item or a loading indicator.
-  const Item = ({ index }) =>
+  const Item = ({ index, style }) =>
     !isItemLoaded(index) ? (
-      <Skeleton active={true} title={false} paragraph={{ rows: 1 }} />
+      <Skeleton active={true} title={false} paragraph={{ rows: 2 }} />
     ) : (
-      <PatchCard {...items[index]} />
+      <PatchCard style={style} {...items[index]} />
     );
 
   return (
@@ -58,13 +52,20 @@ export const PatchCardList = ({
       loadMoreItems={loadMoreItems}
     >
       {({ onItemsRendered, ref }) => (
-        <FixedSizeList
-          itemCount={itemCount}
-          onItemsRendered={onItemsRendered}
-          ref={ref}
-        >
-          {Item}
-        </FixedSizeList>
+        <AutoSizer>
+          {({ height, width }) => (
+            <FixedSizeList
+              itemCount={itemCount}
+              onItemsRendered={onItemsRendered}
+              ref={ref}
+              height={height}
+              itemSize={100}
+              width={width}
+            >
+              {Item}
+            </FixedSizeList>
+          )}
+        </AutoSizer>
       )}
     </InfiniteLoader>
   );
