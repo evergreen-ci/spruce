@@ -50,6 +50,7 @@ export const PatchCardList = ({
       isItemLoaded={isItemLoaded}
       itemCount={itemCount}
       loadMoreItems={loadMoreItems}
+      threshold={4}
     >
       {({ onItemsRendered, ref }) => (
         <AutoSizer>
