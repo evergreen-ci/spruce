@@ -98,7 +98,7 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 - Queries should be declared with a query name so the code generation knows what to name the corresponding type.
 - Each query and mutation should have a unique name.
-- Since query analysis for type checking occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
+- Since query analysis for type generation occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
 
 ## Deployment
 
