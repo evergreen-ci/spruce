@@ -26,7 +26,7 @@ export const PatchCard: React.FC<Props> = ({
   return (
     <CardWrapper style={style}>
       <Left>
-        <DescriptionLink href={`${paths.patch}/${id}`}>
+        <DescriptionLink title={description} href={`${paths.patch}/${id}`}>
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
@@ -76,6 +76,12 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
+  &,
+  & > * {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 `;
 
 const Right = styled.div`
