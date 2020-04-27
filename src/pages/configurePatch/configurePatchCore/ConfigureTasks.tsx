@@ -7,6 +7,7 @@ import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
 import isEmpty from "lodash/isEmpty";
+import { Icon } from "antd";
 
 interface Props {
   variants: ProjectVariants;
@@ -15,6 +16,8 @@ interface Props {
   setSelectedVariantTasks: React.Dispatch<
     React.SetStateAction<VariantTasksState>
   >;
+  loading: boolean;
+  onClickSchedule: () => void;
 }
 interface TasksState {
   [task: string]: true;
@@ -25,6 +28,8 @@ export const ConfigureTasks: React.FC<Props> = ({
   selectedBuildVariant,
   selectedVariantTasks,
   setSelectedVariantTasks,
+  loading,
+  onClickSchedule,
 }) => {
   const buildVariantCount = Object.keys(selectedVariantTasks).length;
   const taskCount = Object.values(selectedVariantTasks).reduce(
@@ -82,7 +87,10 @@ export const ConfigureTasks: React.FC<Props> = ({
   return (
     <TabContentWrapper>
       <Actions>
-        <Button variant={Variant.Primary}>Schedule</Button>
+        <Button variant={Variant.Primary} onClick={onClickSchedule}>
+          {loading && <StyledIcon type="loading" />}
+          Schedule
+        </Button>
         <ButtonLink
           data-cy="configurePatch-selectAll"
           onClick={onClickSelectAll}
@@ -127,6 +135,9 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
 };
 
+const StyledIcon = styled(Icon)`
+  margin-right: 8px;
+`;
 const Actions = styled.div`
   margin-bottom: 8px;
   display: flex;

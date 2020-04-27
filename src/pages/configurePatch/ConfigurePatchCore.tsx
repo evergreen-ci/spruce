@@ -14,12 +14,29 @@ import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { Body } from "@leafygreen-ui/typography";
+import gql from "graphql-tag";
+import { useMutation } from "@apollo/react-hooks";
+import get from "lodash/get";
+import { useHistory } from "react-router-dom";
+
+const SCHEDULE_PATCH = gql`
+  mutation SchedulePatch($patchId: String!, $reconfigure: PatchReconfigure!) {
+    schedulePatch(patchId: $patchId, reconfigure: $reconfigure) {
+      id
+    }
+  }
+`;
 
 interface Props {
   patch: Patch;
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
-  const { project, variantsTasks } = patch;
+  const [
+    schedulePatch,
+    { data, error: errorSchedulingPatch, loading: loadingScheduledPatch },
+  ] = useMutation(SCHEDULE_PATCH);
+  const router = useHistory();
+  const { project, variantsTasks, id } = patch;
   const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
@@ -41,6 +58,24 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
+  const onClickSchedule = () => {
+    const configurePatchParam: PatchConfigureGqlParam = {
+      description: descriptionValue,
+      variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
+    };
+    schedulePatch({
+      variables: { patchId: id, reconfigure: configurePatchParam },
+    });
+  };
+
+  if (errorSchedulingPatch) {
+    // TODO: show error banner at top of page
+    console.error(errorSchedulingPatch);
+  }
+  const scheduledPatchId = get(data, "schedulePatch.id");
+  if (scheduledPatchId) {
+    router.push(`/patch/${scheduledPatchId}`);
+  }
   return (
     <>
       <StyledBody weight="medium">Patch Name</StyledBody>
@@ -75,6 +110,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                     selectedBuildVariant,
                     selectedVariantTasks,
                     setSelectedVariantTasks,
+                    loading: loadingScheduledPatch,
+                    onClickSchedule,
                   }}
                 />
               </Tab>
@@ -88,6 +125,39 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     </>
   );
 };
+
+interface DisplayTask {
+  name: string;
+  execTasks: string[];
+}
+interface VariantTasks {
+  variant: string;
+  tasks: string[];
+  displayTasks: DisplayTask[];
+}
+interface PatchConfigureGqlParam {
+  description: string;
+  variantsTasks: VariantTasks[];
+}
+const getGqlVariantTasksParamFromState = (
+  selectedVariantTasks: VariantTasksState
+): VariantTasks[] => {
+  return Object.keys(selectedVariantTasks).map((variantName) => {
+    const tasksObj = selectedVariantTasks[variantName];
+    const tasksArr = Object.keys(tasksObj);
+    // const displayTasks: DisplayTask = {
+    //   name: "",
+    //   execTasks: [],
+    // };
+    const variantTasks: VariantTasks = {
+      variant: variantName,
+      tasks: tasksArr,
+      displayTasks: [],
+    };
+    return variantTasks;
+  });
+};
+
 interface TasksState {
   [task: string]: true;
 }
