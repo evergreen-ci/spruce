@@ -9,17 +9,22 @@ import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 
-export const PatchCard: React.FC<Patch> = ({
+interface Props extends Patch {
+  style: any;
+}
+
+export const PatchCard: React.FC<Props> = ({
   id,
   description,
   status,
   createTime,
   projectID,
   builds,
+  style,
 }) => {
   const createDate = new Date(createTime);
   return (
-    <CardWrapper>
+    <CardWrapper style={style}>
       <Left>
         <DescriptionLink href={`${paths.patch}/${id}`}>
           {description || "no description"}
