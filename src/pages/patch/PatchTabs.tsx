@@ -19,7 +19,7 @@ const tabToIndexMap = {
 };
 
 interface Props {
-  taskCount: string;
+  taskCount: number;
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount }) => {

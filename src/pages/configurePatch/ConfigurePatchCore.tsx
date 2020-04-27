@@ -8,7 +8,7 @@ import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
-import { VariantsTasks, Patch } from "gql/queries/patch";
+import { ConfigurePatchQuery, VariantTask } from "gql/generated/types";
 import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
@@ -16,7 +16,7 @@ import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/
 import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
-  patch: Patch;
+  patch: ConfigurePatchQuery["patch"];
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const { project, variantsTasks } = patch;
@@ -57,12 +57,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
-            {...{
-              variants,
-              selectedVariantTasks,
-              selectedBuildVariant,
-              setSelectedBuildVariant,
-            }}
+            variants={variants}
+            selectedVariantTasks={selectedVariantTasks}
+            selectedBuildVariant={selectedBuildVariant}
+            setSelectedBuildVariant={setSelectedBuildVariant}
           />
         </PageSider>
         <PageLayout>
@@ -103,7 +101,7 @@ const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
   arrayOfStrings.reduce((prev, curr) => ({ ...prev, [curr]: true }), {});
 
 const convertPatchVariantTasksToStateShape = (
-  variantsTasks?: VariantsTasks
+  variantsTasks?: VariantTask[]
 ): VariantTasksState =>
   variantsTasks.reduce(
     (prev, { name: variant, tasks }) => ({

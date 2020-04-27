@@ -1,16 +1,22 @@
 import React from "react";
 import {
-  AgentLogsQuery,
-  EventLogsQuery,
   GET_AGENT_LOGS,
   GET_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
-  LogMessage,
-  SystemLogsQuery,
-  TaskEventLogEntry,
-  TaskLogsQuery,
 } from "gql/queries/get-task-logs";
+import {
+  EventLogsQuery,
+  EventLogsQueryVariables,
+  SystemLogsQuery,
+  SystemLogsQueryVariables,
+  AgentLogsQuery,
+  AgentLogsQueryVariables,
+  TaskLogsQuery,
+  TaskLogsQueryVariables,
+  LogMessage,
+  TaskEventLogEntry,
+} from "gql/generated/types";
 import { useQuery } from "@apollo/react-hooks";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
@@ -20,7 +26,10 @@ import get from "lodash/get";
 
 export const EventLog = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<EventLogsQuery>(GET_EVENT_LOGS, {
+  const { data, loading, error } = useQuery<
+    EventLogsQuery,
+    EventLogsQueryVariables
+  >(GET_EVENT_LOGS, {
     variables: { id },
   });
   return useRenderBody({
@@ -35,7 +44,10 @@ export const EventLog = () => {
 
 export const SystemLog = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<SystemLogsQuery>(GET_SYSTEM_LOGS, {
+  const { data, loading, error } = useQuery<
+    SystemLogsQuery,
+    SystemLogsQueryVariables
+  >(GET_SYSTEM_LOGS, {
     variables: { id },
   });
   return useRenderBody({
@@ -47,7 +59,10 @@ export const SystemLog = () => {
 
 export const AgentLog = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<AgentLogsQuery>(GET_AGENT_LOGS, {
+  const { data, loading, error } = useQuery<
+    AgentLogsQuery,
+    AgentLogsQueryVariables
+  >(GET_AGENT_LOGS, {
     variables: { id },
   });
   return useRenderBody({
@@ -59,7 +74,10 @@ export const AgentLog = () => {
 
 export const TaskLog = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<TaskLogsQuery>(GET_TASK_LOGS, {
+  const { data, loading, error } = useQuery<
+    TaskLogsQuery,
+    TaskLogsQueryVariables
+  >(GET_TASK_LOGS, {
     variables: { id },
   });
   return useRenderBody({

@@ -1,7 +1,7 @@
 import React from "react";
 import { loader } from "components/Loading/Loader";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { TaskResult } from "gql/queries/get-patch-tasks";
+import { TaskResult } from "gql/generated/types";
 import { InfinityTable } from "antd-table-infinity";
 import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
@@ -9,7 +9,7 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { TaskSortDir, PatchTasks } from "gql/queries/get-patch-tasks";
+import { SortDirection, PatchTasks } from "gql/generated/types";
 import get from "lodash.get";
 
 interface Props {
@@ -59,8 +59,8 @@ export const TasksTable: React.FC<Props> = ({
 const arrayFormat = "comma";
 
 const orderKeyToSortParam = {
-  ascend: TaskSortDir.Asc,
-  descend: TaskSortDir.Desc,
+  ascend: SortDirection.Asc,
+  descend: SortDirection.Desc,
 };
 const getSortDirFromOrder = (order: "ascend" | "descend") =>
   orderKeyToSortParam[order];

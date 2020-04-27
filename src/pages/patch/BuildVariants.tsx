@@ -1,7 +1,12 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import gql from "graphql-tag";
+
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
+import {
+  PatchBuildVariantsQuery,
+  PatchBuildVariantsQueryVariables,
+} from "gql/generated/types";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { Skeleton } from "antd";
@@ -9,40 +14,14 @@ import { TaskSquare } from "./buildVariants/TaskSquare";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
 
-interface BuildVariantTask {
-  id: string;
-  name: string;
-  status: string;
-}
-interface PatchBuildVariantTask {
-  variant: string;
-  tasks: [BuildVariantTask];
-}
-interface BuildVariantsQuery {
-  patchBuildVariants: [PatchBuildVariantTask];
-}
-
-export const GET_PATCH_BUILD_VARIANTS = gql`
-  query PatchBuildVariants($patchId: String!) {
-    patchBuildVariants(patchId: $patchId) {
-      variant
-      tasks {
-        id
-        name
-        status
-      }
-    }
-  }
-`;
-
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<BuildVariantsQuery>(
-    GET_PATCH_BUILD_VARIANTS,
-    {
-      variables: { patchId: id },
-    }
-  );
+  const { data, loading, error } = useQuery<
+    PatchBuildVariantsQuery,
+    PatchBuildVariantsQueryVariables
+  >(GET_PATCH_BUILD_VARIANTS, {
+    variables: { patchId: id },
+  });
   return (
     <SiderCard>
       <H3>Build Variants</H3>

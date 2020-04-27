@@ -7,7 +7,7 @@ import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
 import { StyledLink } from "components/styles";
-import { TaskQuery } from "gql/queries/get-task";
+import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
 
 export const Metadata = ({
@@ -16,7 +16,7 @@ export const Metadata = ({
   error,
 }: {
   loading: boolean;
-  data: TaskQuery;
+  data: GetTaskQuery;
   error: ApolloError;
 }) => {
   const task = data ? data.task : null;

@@ -1,10 +1,9 @@
 import React from "react";
-import { Dependency } from "gql/queries/get-task";
 import Icon from "@leafygreen-ui/icon";
 import { BoldStyledLink } from "components/styles";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { MetStatus, RequiredStatus } from "gql/queries/get-task";
+import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
 import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled";
 

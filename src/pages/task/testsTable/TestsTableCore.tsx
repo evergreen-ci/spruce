@@ -4,15 +4,15 @@ import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
 import { loader } from "components/Loading/Loader";
 import Button from "@leafygreen-ui/button";
+import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import {
-  Categories,
-  GET_TASK_TESTS,
-  TaskTestVars,
-  TaskTestsData,
-  UpdateQueryArg,
-  SortDir,
+  TaskTestsQuery,
+  TaskTestsQueryVariables,
+  SortDirection,
+  TestSortCategory,
   TestResult,
-} from "gql/queries/get-task-tests";
+  TaskTestResult,
+} from "gql/generated/types";
 import { TestStatus } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
@@ -27,18 +27,23 @@ import { ResultCountLabel } from "components/ResultCountLabel";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
+export interface UpdateQueryArg {
+  taskTests: TaskTestResult;
+}
+
 export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
-  const [initialQueryVariables] = useState<TaskTestVars>({
+  const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
     id,
     pageNum: 0,
     ...getQueryVariables(search),
   });
+
   const { data, fetchMore, networkStatus, error } = useQuery<
-    TaskTestsData,
-    TaskTestVars
+    TaskTestsQuery,
+    TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
@@ -104,12 +109,12 @@ export const TestsTableCore: React.FC = () => {
     });
   };
 
-  const onChange: TableOnChange<TaskTestsData> = (...[, , sorter]) => {
+  const onChange: TableOnChange<TaskTestsQuery> = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
     parsedSearch[RequiredQueryParams.Category] = columnKey;
     parsedSearch[RequiredQueryParams.Sort] =
-      order === "ascend" ? SortDir.ASC : SortDir.DESC;
+      order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
     const nextQueryParams = queryString.stringify(parsedSearch, {
       arrayFormat,
     });
@@ -122,7 +127,7 @@ export const TestsTableCore: React.FC = () => {
   // initial table sort button state to reflect initial URL query params
   const { cat, dir } = getQueryVariables(search);
   columns.find(({ key }) => key === cat).defaultSortOrder =
-    dir === SortDir.ASC ? "ascend" : "descend";
+    dir === SortDirection.Asc ? "ascend" : "descend";
   const filteredTestCount = get(data, "taskTests.filteredTestCount", "-");
   const totalTestCount = get(data, "taskTests.totalTestCount", "-");
   return (
@@ -163,17 +168,17 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: Array<ColumnProps<TaskTestsData>> = [
+const columns: Array<ColumnProps<TaskTestsQuery>> = [
   {
     title: "Name",
     dataIndex: "testFile",
-    key: Categories.TestName,
+    key: TestSortCategory.TestName,
     sorter: true,
   },
   {
     title: "Status",
     dataIndex: "status",
-    key: Categories.Status,
+    key: TestSortCategory.Status,
     sorter: true,
     width: "20%",
     render: (status: string): JSX.Element => (
@@ -191,7 +196,7 @@ const columns: Array<ColumnProps<TaskTestsData>> = [
     title: "Time",
     width: "20%",
     dataIndex: "duration",
-    key: Categories.Duration,
+    key: TestSortCategory.Duration,
     sorter: true,
     render: (text: number): string => {
       const ms = text * 1000;
@@ -255,15 +260,16 @@ const getQueryVariables = (search: string) => {
     .toString()
     .toUpperCase();
   const cat =
-    category === Categories.TestName ||
-    category === Categories.Status ||
-    category === Categories.Duration
-      ? (category as Categories)
-      : Categories.Status;
+    category === TestSortCategory.TestName ||
+    category === TestSortCategory.Status ||
+    category === TestSortCategory.Duration
+      ? (category as TestSortCategory)
+      : TestSortCategory.Status;
 
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
-  const dir = sort === SortDir.DESC ? SortDir.DESC : SortDir.ASC;
+  const dir =
+    sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc;
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
