@@ -24,6 +24,12 @@ import { ApolloError } from "apollo-client";
 import { useParams } from "react-router-dom";
 import get from "lodash/get";
 
+interface TaskEventLogEntryType extends TaskEventLogEntry {
+  kind?: "taskEventLogEntry";
+}
+interface LogMessageType extends LogMessage {
+  kind?: "logMessage";
+}
 export const EventLog = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
@@ -94,7 +100,7 @@ const useRenderBody = ({
 }: {
   loading: boolean;
   error: ApolloError;
-  data: [TaskEventLogEntry | LogMessage];
+  data: [TaskEventLogEntryType | LogMessageType];
 }) => {
   const noLogs = <div id="cy-no-logs">No logs</div>;
 

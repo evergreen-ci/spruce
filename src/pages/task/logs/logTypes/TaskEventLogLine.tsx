@@ -1,5 +1,5 @@
 import React from "react";
-import { TaskEventLogEntry } from "gql/queries/get-task-logs";
+import { TaskEventLogEntry } from "gql/generated/types";
 import styled from "@emotion/styled/macro";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { format } from "date-fns";
