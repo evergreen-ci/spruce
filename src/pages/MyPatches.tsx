@@ -6,6 +6,7 @@ import {
   PageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
+import { ErrorWrapper } from "components/ErrorWrapper";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
@@ -19,12 +20,14 @@ import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
-import { PatchCard } from "./my-patches/patch-card-list/PatchCard";
+import { NetworkStatus } from "apollo-client";
+import get from "lodash/get";
 import { PatchCardList } from "pages/my-patches/PatchCardList";
 
 export const MyPatches = () => {
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
+  const [hasNextPage, setHasNextPage] = useState(true);
   const [initialQueryVariables] = useState<UserPatchesVars>({
     page: 0,
     ...getQueryVariables(search),
@@ -40,9 +43,9 @@ export const MyPatches = () => {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
-
   useEffect(() => {
     return listen(async (loc) => {
+      setHasNextPage(true);
       try {
         await fetchMore({
           variables: {
@@ -56,6 +59,9 @@ export const MyPatches = () => {
             if (!fetchMoreResult) {
               return prev;
             }
+            if (fetchMoreResult.userPatches.length === 0) {
+              setHasNextPage(false);
+            }
             return fetchMoreResult;
           },
         });
@@ -66,8 +72,40 @@ export const MyPatches = () => {
   }, [networkStatus, error, fetchMore, listen]);
 
   if (error) {
-    return <div>{error.message}</div>;
+    return <ErrorWrapper>{error.message}</ErrorWrapper>;
   }
+
+  const loadNextPage = (): void => {
+    const networkError = networkStatus === NetworkStatus.error || error;
+    const page = get(data, "userPatches", []).length / LIMIT;
+    const fetchedAll = page % 1 !== 0;
+    if (networkError || fetchedAll) {
+      setHasNextPage(false);
+      return;
+    }
+    fetchMore({
+      variables: {
+        page,
+        ...getQueryVariables(search),
+      },
+      updateQuery: (
+        prev: UserPatchesData,
+        { fetchMoreResult }: { fetchMoreResult: UserPatchesData }
+      ) => {
+        if (!fetchMoreResult) {
+          return prev;
+        }
+        if (fetchMoreResult.userPatches.length === 0) {
+          setHasNextPage(false);
+        }
+        fetchMoreResult.userPatches = [
+          ...prev.userPatches,
+          ...fetchMoreResult.userPatches,
+        ];
+        return fetchMoreResult;
+      },
+    });
+  };
 
   const onCheckboxChange = () => {
     replace(
@@ -101,9 +139,18 @@ export const MyPatches = () => {
           checked={getQueryVariables(search).includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
-      {data
-        ? data.userPatches.map((p) => <PatchCard key={p.id} {...p} />)
-        : null}
+      <ListContainer>
+        {get(data, "userPatches", []).length !== 0 ? (
+          <PatchCardList
+            hasNextPage={hasNextPage}
+            items={get(data, "userPatches", [])}
+            isNextPageLoading={networkStatus < NetworkStatus.ready}
+            loadNextPage={loadNextPage}
+          />
+        ) : (
+          "No patches found"
+        )}
+      </ListContainer>
     </PageWrapper>
   );
 };
@@ -136,4 +183,8 @@ const FlexRow = styled.div`
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
+`;
+
+const ListContainer = styled.div`
+  height calc(100vh - 200px);
 `;
