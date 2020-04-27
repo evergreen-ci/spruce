@@ -1,12 +1,7 @@
 import gql from "graphql-tag";
-import { Patch } from "types/patch";
-
-export interface GetCodeChangesQuery {
-  patch: Patch;
-}
 
 export const GET_CODE_CHANGES = gql`
-  query Patch($id: String!) {
+  query CodeChanges($id: String!) {
     patch(id: $id) {
       id
       moduleCodeChanges {
