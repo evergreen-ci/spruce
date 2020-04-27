@@ -3,7 +3,7 @@ import { ApolloError } from "apollo-client";
 import { Divider } from "components/styles/Divider";
 import { SiderCard } from "components/styles";
 import { Skeleton } from "antd";
-import styled from "@emotion/styled";
+import { ErrorWrapper } from "components/ErrorWrapper";
 import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
@@ -30,7 +30,3 @@ export const MetadataCard: React.FC<Props> = ({
     )}
   </SiderCard>
 );
-
-export const ErrorWrapper = styled.div`
-  word-wrap: break-word;
-`;

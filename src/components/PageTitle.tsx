@@ -1,6 +1,6 @@
 import React from "react";
 import { Skeleton } from "antd";
-import { H2 } from "./Typography";
+import { Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
 
 interface Props {
@@ -22,13 +22,13 @@ export const PageTitle: React.FC<Props> = ({
     </PageHeader>
   ) : hasData ? (
     <PageHeader>
-      <H2 data-cy="page-title">
-        <span>
+      <Subtitle>
+        <span data-cy="page-title">
           {title}
           {"  "}
           <BadgeWrapper>{badge}</BadgeWrapper>
         </span>
-      </H2>
+      </Subtitle>
     </PageHeader>
   ) : null;
 

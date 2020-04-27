@@ -18,7 +18,7 @@ import { GET_TASK, TaskQuery } from "gql/queries/get-task";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TaskStatus } from "types/task";
