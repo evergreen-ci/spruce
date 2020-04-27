@@ -20,7 +20,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
-import { PatchCard } from "./my-patches/PatchCard";
+import { PatchCard } from "./my-patches/patch-card-list/PatchCard";
 
 export const MyPatches = () => {
   const { replace, listen } = useHistory();
