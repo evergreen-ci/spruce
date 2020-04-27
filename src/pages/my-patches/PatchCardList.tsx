@@ -60,7 +60,7 @@ export const PatchCardList = ({
               onItemsRendered={onItemsRendered}
               ref={ref}
               height={height}
-              itemSize={100}
+              itemSize={80}
               width={width}
             >
               {Item}
