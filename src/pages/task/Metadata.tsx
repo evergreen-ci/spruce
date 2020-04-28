@@ -87,5 +87,5 @@ const secToDuration = (seconds: number) => {
 };
 
 const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
-const getDateCopy = (d: string): string =>
+const getDateCopy = (d: Date): string =>
   d ? format(new Date(d), DATE_FORMAT) : "";
