@@ -33,7 +33,7 @@ export const ConfigurePatch: React.FC = () => {
             <PageLayout>
               <div data-cy="full-page-error">
                 Something went wrong. This patch's project either has no
-                variants or tasks associated with it.{" "}
+                variants or no tasks associated with it.{" "}
               </div>
             </PageLayout>
           );
