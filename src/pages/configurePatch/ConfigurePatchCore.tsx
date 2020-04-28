@@ -14,13 +14,14 @@ import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { Body } from "@leafygreen-ui/typography";
+import get from "lodash/get";
 
 interface Props {
   patch: Patch;
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const { project, variantsTasks } = patch;
-  const { variants } = project;
+  const { variants, tasks } = project;
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
@@ -30,17 +31,26 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     tabToIndexMap,
     defaultPath: `${paths.patch}/${patch.id}/configure/${DEFAULT_TAB}`,
   });
-  const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
-    variants[0].name
-  );
+  const [selectedBuildVariant, setSelectedBuildVariant] = useState<
+    string | null
+  >(get(variants[0], "name", ""));
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
   >(convertPatchVariantTasksToStateShape(variantsTasks));
   const [descriptionValue, setdescriptionValue] = useState<string>(
-    patch.description
+    patch.description || ""
   );
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
+  if (variants.length === 0 || tasks.length === 0) {
+    return (
+      // TODO: Full page error
+      <PageLayout>
+        Something went wrong. This patch's project either has no variants or
+        tasks associated with it.{" "}
+      </PageLayout>
+    );
+  }
   return (
     <>
       <StyledBody weight="medium">Patch Name</StyledBody>
