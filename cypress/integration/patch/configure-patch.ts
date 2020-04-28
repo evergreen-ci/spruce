@@ -179,7 +179,7 @@ describe("Configure Patch Page", () => {
     });
   });
   describe("Errors", () => {
-    it("Configure patch path is present in url", () => {
+    it("Shows full page error if patch project has no variants or tasks", () => {
       cy.login();
       cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
       cy.get("[data-cy=full-page-error").should("exist");
