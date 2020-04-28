@@ -13,10 +13,11 @@ export const GET_PATCH_TASKS = gql`
     $baseStatuses: [String!]
     $variant: String
     $taskName: String
+    $limit: Int
   ) {
     patchTasks(
       patchId: $patchId
-      limit: 10
+      limit: $limit
       page: $page
       statuses: $statuses
       baseStatuses: $baseStatuses

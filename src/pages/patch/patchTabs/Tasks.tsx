@@ -170,5 +170,6 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
     page,
+    limit: PATCH_TASKS_LIMIT,
   };
 };

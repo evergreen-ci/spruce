@@ -531,6 +531,7 @@ export type PatchTasksQueryVariables = {
   baseStatuses?: Maybe<Array<Scalars['String']>>;
   variant?: Maybe<Scalars['String']>;
   taskName?: Maybe<Scalars['String']>;
+  limit?: Maybe<Scalars['Int']>;
 };
 
 
