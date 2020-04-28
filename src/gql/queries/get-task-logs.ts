@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_EVENT_LOGS = gql`
-  query eventLogs($id: String!) {
+  query EventLogs($id: String!) {
     taskLogs(taskId: $id) {
       eventLogs {
         timestamp
@@ -21,7 +21,7 @@ export const GET_EVENT_LOGS = gql`
 `;
 
 export const GET_TASK_LOGS = gql`
-  query taskLogs($id: String!) {
+  query TaskLogs($id: String!) {
     taskLogs(taskId: $id) {
       taskLogs {
         severity
@@ -33,7 +33,7 @@ export const GET_TASK_LOGS = gql`
 `;
 
 export const GET_AGENT_LOGS = gql`
-  query agentLogs($id: String!) {
+  query AgentLogs($id: String!) {
     taskLogs(taskId: $id) {
       agentLogs {
         severity
@@ -45,7 +45,7 @@ export const GET_AGENT_LOGS = gql`
 `;
 
 export const GET_SYSTEM_LOGS = gql`
-  query systemLogs($id: String!) {
+  query SystemLogs($id: String!) {
     taskLogs(taskId: $id) {
       systemLogs {
         severity

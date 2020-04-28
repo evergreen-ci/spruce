@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_USER_PATCHES = gql`
-  query userPatches(
+  query UserPatches(
     $page: Int
     $limit: Int
     $statuses: [String!]
