@@ -177,6 +177,12 @@ describe("Configure Patch Page", () => {
         });
     });
   });
+
+  describe("Scheduling a patch", () => {
+    // click schedule - SchedulePatch mutation is fired
+    // error - show banner, page does not change, data still intact
+    // success - redirected to patch page for scheduled patch
+  });
 });
 
 const getTaskCountFromText = (text) => {
