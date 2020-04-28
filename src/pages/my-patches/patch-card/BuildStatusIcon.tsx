@@ -1,9 +1,9 @@
 import React from "react";
 import { BuildStatus } from "types/build";
-import { RunningIcon } from "pages/my-patches/patch-card-list/patch-card/BuildStatusIcon/RunningIcon";
-import { SucceededIcon } from "pages/my-patches/patch-card-list/patch-card/BuildStatusIcon/SucceededIcon";
-import { FailedIcon } from "pages/my-patches/patch-card-list/patch-card/BuildStatusIcon/FailedIcon";
-import { CreatedIcon } from "pages/my-patches/patch-card-list/patch-card/BuildStatusIcon/CreatedIcon";
+import { RunningIcon } from "pages/my-patches/patch-card/BuildStatusIcon/RunningIcon";
+import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/SucceededIcon";
+import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
+import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/CreatedIcon";
 import Tooltip from "@leafygreen-ui/tooltip";
 
 interface Props {

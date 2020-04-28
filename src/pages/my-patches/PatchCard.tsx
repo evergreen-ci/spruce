@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { Patch } from "gql/queries/my-patches";
-import { BuildStatusIcon } from "pages/my-patches/patch-card-list/patch-card/BuildStatusIcon";
+import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { format } from "date-fns";
