@@ -16,6 +16,11 @@ module.exports = {
       config: {
         skipTypename: true,
         preResolveTypes: true,
+        scalars: {
+          StringMap: "{ [key: string]: any }",
+          Time: "Date",
+          Duration: "number",
+        },
       },
     },
   },

@@ -6,9 +6,9 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  Time: any;
-  Duration: any;
-  StringMap: any;
+  Time: Date;
+  Duration: number;
+  StringMap: { [key: string]: any };
 };
 
 export type BaseTaskMetadata = {
@@ -513,7 +513,7 @@ export type CommitQueueQueryVariables = {
 };
 
 
-export type CommitQueueQuery = { commitQueue: { projectId?: Maybe<string>, queue?: Maybe<Array<{ issue?: Maybe<string>, enqueueTime?: Maybe<any>, patch?: Maybe<{ id: string, author: string, description: string, moduleCodeChanges: Array<{ rawLink: string, branchName: string, htmlLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> }> }>> } };
+export type CommitQueueQuery = { commitQueue: { projectId?: Maybe<string>, queue?: Maybe<Array<{ issue?: Maybe<string>, enqueueTime?: Maybe<Date>, patch?: Maybe<{ id: string, author: string, description: string, moduleCodeChanges: Array<{ rawLink: string, branchName: string, htmlLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> }> }>> } };
 
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars['String'];
@@ -553,28 +553,28 @@ export type EventLogsQueryVariables = {
 };
 
 
-export type EventLogsQuery = { taskLogs: { eventLogs: Array<{ timestamp?: Maybe<any>, eventType?: Maybe<string>, data?: Maybe<{ hostId?: Maybe<string>, jiraIssue?: Maybe<string>, jiraLink?: Maybe<string>, priority?: Maybe<number>, status?: Maybe<string>, timestamp?: Maybe<any>, userId?: Maybe<string> }> }> } };
+export type EventLogsQuery = { taskLogs: { eventLogs: Array<{ timestamp?: Maybe<Date>, eventType?: Maybe<string>, data?: Maybe<{ hostId?: Maybe<string>, jiraIssue?: Maybe<string>, jiraLink?: Maybe<string>, priority?: Maybe<number>, status?: Maybe<string>, timestamp?: Maybe<Date>, userId?: Maybe<string> }> }> } };
 
 export type TaskLogsQueryVariables = {
   id: Scalars['String'];
 };
 
 
-export type TaskLogsQuery = { taskLogs: { taskLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<any> }> } };
+export type TaskLogsQuery = { taskLogs: { taskLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
 
 export type AgentLogsQueryVariables = {
   id: Scalars['String'];
 };
 
 
-export type AgentLogsQuery = { taskLogs: { agentLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<any> }> } };
+export type AgentLogsQuery = { taskLogs: { agentLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
 
 export type SystemLogsQueryVariables = {
   id: Scalars['String'];
 };
 
 
-export type SystemLogsQuery = { taskLogs: { systemLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<any> }> } };
+export type SystemLogsQuery = { taskLogs: { systemLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
 
 export type TaskTestsQueryVariables = {
   dir?: Maybe<SortDirection>;
@@ -594,7 +594,7 @@ export type GetTaskQueryVariables = {
 };
 
 
-export type GetTaskQuery = { task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<any>, displayName: string, finishTime?: Maybe<any>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<any>, status: string, timeTaken?: Maybe<any>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<any>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+export type GetTaskQuery = { task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars['Int']>;
@@ -605,7 +605,7 @@ export type UserPatchesQueryVariables = {
 };
 
 
-export type UserPatchesQuery = { userPatches: Array<{ projectID: string, description: string, status: string, createTime?: Maybe<any>, builds: Array<{ id: string, buildVariant: string, status: string, predictedMakespan: any, actualMakespan: any }> }> };
+export type UserPatchesQuery = { userPatches: Array<{ projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ id: string, buildVariant: string, status: string, predictedMakespan: number, actualMakespan: number }> }> };
 
 export type PatchQueryVariables = {
   id: Scalars['String'];
