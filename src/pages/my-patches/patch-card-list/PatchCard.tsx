@@ -9,24 +9,19 @@ import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 
-interface Props extends Patch {
-  style: any;
-}
-
-export const PatchCard: React.FC<Props> = ({
+export const PatchCard: React.FC<Patch> = ({
   id,
   description,
   status,
   createTime,
   projectID,
   builds,
-  style,
 }) => {
   const createDate = new Date(createTime);
   return (
-    <CardWrapper style={style}>
+    <CardWrapper>
       <Left>
-        <DescriptionLink title={description} href={`${paths.patch}/${id}`}>
+        <DescriptionLink href={`${paths.patch}/${id}`}>
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
@@ -83,12 +78,6 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
-  &,
-  & > * {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
 `;
 
 const Right = styled.div`
