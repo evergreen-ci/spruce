@@ -42,18 +42,6 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
-
-  if (variants.length === 0 || tasks.length === 0) {
-    return (
-      // TODO: Full page error
-      <PageLayout>
-        <div data-cy="full-page-error">
-          Something went wrong. This patch's project either has no variants or
-          tasks associated with it.{" "}
-        </div>
-      </PageLayout>
-    );
-  }
   return (
     <>
       <StyledBody weight="medium">Patch Name</StyledBody>
