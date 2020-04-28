@@ -25,7 +25,7 @@ import { PatchCard } from "./my-patches/PatchCard";
 import { Skeleton, Pagination } from "antd";
 
 export const MyPatches = () => {
-  const { replace, listen } = useHistory();
+  const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [page, setPage] = useState(1);
   const [initialQueryVariables] = useState<UserPatchesVars>({
