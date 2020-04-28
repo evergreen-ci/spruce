@@ -33,9 +33,10 @@ interface ConfigurePatchQuery {
   };
 }
 
+const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+
 describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
-  const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
   before(() => {
     cy.login();
     cy.visit(`/patch/${unactivatedPatchId}`);
@@ -178,12 +179,24 @@ describe("Configure Patch Page", () => {
     });
   });
   describe("Scheduling a patch", () => {
-    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
-      // click schedule - SchedulePatch mutation is fired - check req body against selected BV's and tasks?
-      // success - redirected to patch page for scheduled patch
+    beforeEach(() => {
+      cy.login();
+      cy.listenGQL();
     });
-    it("Shows error banner if there was a problem scheduling patch", () => {
-      // error - show banner, page does not change, data still intact
+    it("Clicking `Schedule` button schedules patch", () => {
+      cy.visit(`/patch/${unactivatedPatchId}`);
+      const val = "hello world";
+      cy.get(`[data-cy=configurePatch-nameInput]`)
+        .as("patchNameInput")
+        .clear()
+        .type(val);
+      cy.get("[data-cy=schedule-patch]").click();
+      cy.waitForGQL("SchedulePatch").then(({ requestBody }) => {
+        const { variables } = requestBody as {
+          variables: { [key: string]: any };
+        };
+        expect(variables.reconfigure.description).to.eq(val);
+      });
     });
   });
 });

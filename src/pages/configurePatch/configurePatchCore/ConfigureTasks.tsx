@@ -87,7 +87,11 @@ export const ConfigureTasks: React.FC<Props> = ({
   return (
     <TabContentWrapper>
       <Actions>
-        <Button variant={Variant.Primary} onClick={onClickSchedule}>
+        <Button
+          data-cy="schedule-patch"
+          variant={Variant.Primary}
+          onClick={onClickSchedule}
+        >
           {loading && <StyledIcon type="loading" />}
           Schedule
         </Button>
