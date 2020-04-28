@@ -177,11 +177,14 @@ describe("Configure Patch Page", () => {
         });
     });
   });
-
   describe("Scheduling a patch", () => {
-    // click schedule - SchedulePatch mutation is fired
-    // error - show banner, page does not change, data still intact
-    // success - redirected to patch page for scheduled patch
+    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
+      // click schedule - SchedulePatch mutation is fired - check req body against selected BV's and tasks?
+      // success - redirected to patch page for scheduled patch
+    });
+    it("Shows error banner if there was a problem scheduling patch", () => {
+      // error - show banner, page does not change, data still intact
+    });
   });
 });
 
