@@ -1,13 +1,5 @@
 module.exports = {
-  schema: [
-    {
-      "http://localhost:9090/graphql/query": {
-        headers: {
-          cookie: process.env.REACT_APP_GQL_COOKIE,
-        },
-      },
-    },
-  ],
+  schema: "sdlschema.graphql",
   documents: ["./src/**/*.ts"],
   overwrite: true,
   generates: {
