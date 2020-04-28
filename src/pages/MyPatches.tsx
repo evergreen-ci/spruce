@@ -18,16 +18,16 @@ import {
 } from "gql/queries/my-patches";
 import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler } from "hooks";
+import { useFilterInputChangeHandler, usePrevious } from "hooks";
 import styled from "@emotion/styled";
-import { NetworkStatus } from "apollo-client";
 import get from "lodash/get";
-import { PatchCardList } from "pages/my-patches/PatchCardList";
+import { PatchCard } from "./my-patches/patch-card-list/PatchCard";
+import { Skeleton, Pagination } from "antd";
 
 export const MyPatches = () => {
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
-  const [hasNextPage, setHasNextPage] = useState(true);
+  const [page, setPage] = useState(1);
   const [initialQueryVariables] = useState<UserPatchesVars>({
     page: 0,
     ...getQueryVariables(search),
@@ -36,21 +36,25 @@ export const MyPatches = () => {
     patchNameFilterValue,
     patchNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
-  const { data, fetchMore, networkStatus, error } = useQuery<
+  const { data, fetchMore, error, loading } = useQuery<
     UserPatchesData,
     UserPatchesVars
   >(GET_USER_PATCHES, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
+  const prevSearch = usePrevious(search);
   useEffect(() => {
-    return listen(async (loc) => {
-      setHasNextPage(true);
+    setPage(1);
+  }, [search]);
+
+  useEffect(() => {
+    const fetch = async () => {
       try {
         await fetchMore({
           variables: {
-            page: 0,
-            ...getQueryVariables(loc.search),
+            page: prevSearch !== search ? 0 : page - 1,
+            ...getQueryVariables(search),
           },
           updateQuery: (
             prev: UserPatchesData,
@@ -59,53 +63,15 @@ export const MyPatches = () => {
             if (!fetchMoreResult) {
               return prev;
             }
-            if (fetchMoreResult.userPatches.length === 0) {
-              setHasNextPage(false);
-            }
             return fetchMoreResult;
           },
         });
       } catch (e) {
         // empty block
       }
-    });
-  }, [networkStatus, error, fetchMore, listen]);
-
-  if (error) {
-    return <ErrorWrapper>{error.message}</ErrorWrapper>;
-  }
-
-  const loadNextPage = (): void => {
-    const networkError = networkStatus === NetworkStatus.error || error;
-    const page = get(data, "userPatches", []).length / LIMIT;
-    const fetchedAll = page % 1 !== 0;
-    if (networkError || fetchedAll) {
-      setHasNextPage(false);
-      return;
-    }
-    fetchMore({
-      variables: {
-        page,
-        ...getQueryVariables(search),
-      },
-      updateQuery: (
-        prev: UserPatchesData,
-        { fetchMoreResult }: { fetchMoreResult: UserPatchesData }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        if (fetchMoreResult.userPatches.length === 0) {
-          setHasNextPage(false);
-        }
-        fetchMoreResult.userPatches = [
-          ...prev.userPatches,
-          ...fetchMoreResult.userPatches,
-        ];
-        return fetchMoreResult;
-      },
-    });
-  };
+    };
+    fetch();
+  }, [page, search, prevSearch]);
 
   const onCheckboxChange = () => {
     replace(
@@ -115,6 +81,10 @@ export const MyPatches = () => {
           .includeCommitQueue,
       })}`
     );
+  };
+
+  const onChange = (page: number) => {
+    setPage(page);
   };
 
   return (
@@ -139,14 +109,19 @@ export const MyPatches = () => {
           checked={getQueryVariables(search).includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
+      <Pagination
+        onChange={onChange}
+        current={page}
+        pageSize={LIMIT}
+        total={get(data, "userPatches.filteredPatchCount", 0)}
+      />
       <ListContainer>
-        {get(data, "userPatches", []).length !== 0 ? (
-          <PatchCardList
-            hasNextPage={hasNextPage}
-            items={get(data, "userPatches", [])}
-            isNextPageLoading={networkStatus < NetworkStatus.ready}
-            loadNextPage={loadNextPage}
-          />
+        {error ? (
+          <ErrorWrapper>{error}</ErrorWrapper>
+        ) : loading ? (
+          <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
+        ) : get(data, "userPatches.patches", []).length !== 0 ? (
+          data.userPatches.patches.map((p) => <PatchCard key={p.id} {...p} />)
         ) : (
           "No patches found"
         )}
@@ -156,7 +131,7 @@ export const MyPatches = () => {
 };
 
 const arrayFormat = "comma";
-const LIMIT = 10;
+const LIMIT = 7;
 const getQueryVariables = (search: string) => {
   const parsed = queryString.parse(search, { arrayFormat });
   const includeCommitQueue =
@@ -186,5 +161,6 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
 `;
 
 const ListContainer = styled.div`
-  height calc(100vh - 200px);
+  max-height: calc(100vh - 200px);
+  overflow-y: auto;
 `;
