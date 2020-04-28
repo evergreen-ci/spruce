@@ -21,7 +21,7 @@ interface Props {
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const { project, variantsTasks } = patch;
-  const { variants, tasks } = project;
+  const { variants } = project;
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
