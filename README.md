@@ -84,13 +84,10 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 ### Setting up code generation
 
-- While you are authenticated locally visit `http://localhost:9090/graphql/query` and perform some random query.
-- Observe the request that is made and copy the cookie used in the request. It should start with `mci-token=...`
-- Save this cookie within your `.cmdrc.json` under `REACT_APP_GQL_COOKIE`. You may have to do some quote escaping by placing a `\` (Backslash) in front of any quotation marks.
+- create a symlink from the `schema.graphql` file from evergreen with the spruce folder using `ln -s path-to-evergreen-schema.graphql sdlschema.graphql`
 
 ### Using code generation
 
-- Ensure you have the `evergreen` server running (`make local-evergreen`)
 - From within the spruce folder run `npm run codegen`
 - As long as your queries are declared correctly the types should generate
 
