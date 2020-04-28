@@ -46,12 +46,6 @@ describe("Configure Patch Page", () => {
       patch = data.patch;
     });
   });
-  describe("Errors", () => {
-    it("Configure patch path is present in url", () => {
-      cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
-      cy.get("[data-cy=full-page-error").should("exist");
-    });
-  });
   describe("Initial state reflects patch data", () => {
     it("Configure patch path is present in url", () => {
       cy.location().should((loc) =>
@@ -182,6 +176,13 @@ describe("Configure Patch Page", () => {
             .its("length")
             .should("eq", $tasks.length);
         });
+    });
+  });
+  describe("Errors", () => {
+    it("Configure patch path is present in url", () => {
+      cy.login();
+      cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
+      cy.get("[data-cy=full-page-error").should("exist");
     });
   });
 });
