@@ -17,15 +17,18 @@ export const GET_USER_PATCHES = gql`
       patchName: $patchName
       includeCommitQueue: $includeCommitQueue
     ) {
-      id
-      projectID
-      description
-      status
-      createTime
-      builds {
-        buildVariant
+      patches {
+        id
+        projectID
+        description
         status
+        createTime
+        builds {
+          buildVariant
+          status
+        }
       }
+      filteredPatchCount
     }
   }
 `;
@@ -49,6 +52,11 @@ export interface Patch {
   createTime: string;
   builds: Build[];
 }
+
+export interface UserPatches {
+  patches: Patch[];
+  filteredPatchCount: number;
+}
 export interface UserPatchesData {
-  userPatches: Patch[];
+  userPatches: UserPatches;
 }
