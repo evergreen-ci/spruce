@@ -36,6 +36,7 @@ interface ConfigurePatchQuery {
 describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
   const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+  const patchWithNoVariantsOrTasks = "5e94c2dfe3c3312519b59480";
   before(() => {
     cy.login();
     cy.visit(`/patch/${unactivatedPatchId}`);
@@ -43,6 +44,12 @@ describe("Configure Patch Page", () => {
     cy.waitForGQL("ConfigurePatch").then(({ responseBody }) => {
       const { data } = responseBody as ConfigurePatchQuery;
       patch = data.patch;
+    });
+  });
+  describe("Errors", () => {
+    it("Configure patch path is present in url", () => {
+      cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
+      cy.get("[data-cy=full-page-error").should("exist");
     });
   });
   describe("Initial state reflects patch data", () => {
