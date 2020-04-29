@@ -173,10 +173,10 @@ describe("Patch route", function() {
       });
     });
 
-    it("Fetches sorted tasks when table sort headers are clicked", () => {
-      ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) =>
-        clickSorterAndAssertTasksAreFetched(sortBy)
-      );
+    ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
+      it(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
+        clickSorterAndAssertTasksAreFetched(sortBy);
+      });
     });
   });
 });
@@ -219,7 +219,6 @@ const assertCorrectRequestVariables = (sortBy, sortDir) => {
 
 const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.visit(path);
-
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
   cy.waitForGQL("PatchTasks");
   assertCorrectRequestVariables(patchSortBy, "ASC");

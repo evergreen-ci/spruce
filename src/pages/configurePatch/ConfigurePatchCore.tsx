@@ -8,7 +8,7 @@ import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
-import { VariantsTasks, Patch } from "gql/queries/patch";
+import { ConfigurePatchQuery, VariantTask } from "gql/generated/types";
 import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
@@ -39,7 +39,7 @@ const SCHEDULE_PATCH = gql`
   }
 `;
 interface Props {
-  patch: Patch;
+  patch: ConfigurePatchQuery["patch"];
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const [
@@ -48,7 +48,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   ] = useMutation(SCHEDULE_PATCH);
   const router = useHistory();
   const { project, variantsTasks, id } = patch;
-  const { variants } = project;
+  const { variants, tasks } = project;
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
@@ -59,13 +59,13 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     defaultPath: `${paths.patch}/${patch.id}/configure/${DEFAULT_TAB}`,
   });
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
-    variants[0].name
+    get(variants[0], "name", "")
   );
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
   >(convertPatchVariantTasksToStateShape(variantsTasks));
   const [descriptionValue, setdescriptionValue] = useState<string>(
-    patch.description
+    patch.description || ""
   );
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
@@ -91,6 +91,17 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   if (scheduledPatchId) {
     router.push(`${paths.patch}/${scheduledPatchId}`);
   }
+  if (variants.length === 0 || tasks.length === 0) {
+    return (
+      // TODO: Full page error
+      <PageLayout>
+        <div data-cy="full-page-error">
+          Something went wrong. This patch's project either has no variants or
+          no tasks associated with it.{" "}
+        </div>
+      </PageLayout>
+    );
+  }
   return (
     <>
       {errorSchedulingPatch && (
@@ -113,12 +124,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
-            {...{
-              variants,
-              selectedVariantTasks,
-              selectedBuildVariant,
-              setSelectedBuildVariant,
-            }}
+            variants={variants}
+            selectedVariantTasks={selectedVariantTasks}
+            selectedBuildVariant={selectedBuildVariant}
+            setSelectedBuildVariant={setSelectedBuildVariant}
           />
         </PageSider>
         <PageLayout>
@@ -190,7 +199,7 @@ const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
   arrayOfStrings.reduce((prev, curr) => ({ ...prev, [curr]: true }), {});
 
 const convertPatchVariantTasksToStateShape = (
-  variantsTasks?: VariantsTasks
+  variantsTasks?: VariantTask[]
 ): VariantTasksState =>
   variantsTasks.reduce(
     (prev, { name: variant, tasks }) => ({

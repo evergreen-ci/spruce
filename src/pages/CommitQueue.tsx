@@ -10,22 +10,22 @@ import { Skeleton } from "antd";
 import { PageTitle } from "components/PageTitle";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
-
+import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
 import {
-  GET_COMMIT_QUEUE,
   CommitQueueQuery,
-} from "gql/queries/get-commit-queue";
+  CommitQueueQueryVariables,
+} from "gql/generated/types";
 
 const { gray } = uiColors;
 
 export const CommitQueue = () => {
   const { id } = useParams();
-  const { data, loading, error } = useQuery<CommitQueueQuery>(
-    GET_COMMIT_QUEUE,
-    {
-      variables: { id: id },
-    }
-  );
+  const { data, loading, error } = useQuery<
+    CommitQueueQuery,
+    CommitQueueQueryVariables
+  >(GET_COMMIT_QUEUE, {
+    variables: { id },
+  });
   if (loading) {
     return <Skeleton active={true} title={true} paragraph={{ rows: 4 }} />;
   }

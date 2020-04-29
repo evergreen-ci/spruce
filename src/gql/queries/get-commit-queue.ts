@@ -1,5 +1,5 @@
 import gql from "graphql-tag";
-import { Patch } from "types/patch";
+
 export const GET_COMMIT_QUEUE = gql`
   query CommitQueue($id: String!) {
     commitQueue(id: $id) {
@@ -13,6 +13,8 @@ export const GET_COMMIT_QUEUE = gql`
           description
           moduleCodeChanges {
             rawLink
+            branchName
+            htmlLink
             fileDiffs {
               fileName
               additions
@@ -25,18 +27,3 @@ export const GET_COMMIT_QUEUE = gql`
     }
   }
 `;
-
-export interface CommitQueue {
-  projectId: string;
-  queue: [
-    {
-      issue: string;
-      enqueueTime: Date;
-      patch: Patch;
-    }
-  ];
-}
-
-export interface CommitQueueQuery {
-  commitQueue: CommitQueue;
-}

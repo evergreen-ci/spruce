@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_TASK_FILES = gql`
-  query taskFiles($id: String!) {
+  query TaskFiles($id: String!) {
     taskFiles(taskId: $id) {
       groupedFiles {
         taskName
@@ -13,24 +13,3 @@ export const GET_TASK_FILES = gql`
     }
   }
 `;
-export interface File {
-  name: string;
-  link: string;
-}
-
-export interface GroupedFiles {
-  taskName: string;
-  files: File[];
-}
-
-export interface TaskFilesVars {
-  id: string;
-}
-
-interface TaskFilesData {
-  groupedFiles: GroupedFiles[];
-}
-
-export interface TaskFilesResponse {
-  taskFiles: TaskFilesData;
-}
