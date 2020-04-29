@@ -26,7 +26,7 @@ export const Patch = () => {
     GET_PATCH,
     {
       variables: { id },
-      pollInterval: 2000,
+      pollInterval: 3000,
     }
   );
   const patch = get(data, "patch");
