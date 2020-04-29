@@ -1,13 +1,7 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import {
-  UserPatch,
-  GET_PATCH_VARIANTS_AND_STATUS,
-  PatchVariantsAndStatusVars,
-  PatchVariantsAndStatusData,
-  Build,
-} from "gql/queries/my-patches";
+import { GET_PATCH_VARIANTS_AND_STATUS } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
@@ -16,9 +10,25 @@ import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
-import { PatchStatus } from "types/patch";
-
-export const PatchCard: React.FC<UserPatch> = ({
+import { useStopPatchPolling } from "hooks";
+import {
+  PatchBuildVariantsQueryVariables,
+  PatchBuildVariantsAndStatusQuery,
+  Maybe,
+} from "gql/generated/types";
+interface Build {
+  buildVariant: string;
+  status: string;
+}
+interface Props {
+  id: string;
+  projectID: string;
+  description: string;
+  status: string;
+  createTime?: Maybe<Date>;
+  builds: Array<Build>;
+}
+export const PatchCard: React.FC<Props> = ({
   id,
   description,
   createTime,
@@ -26,29 +36,18 @@ export const PatchCard: React.FC<UserPatch> = ({
   ...props
 }) => {
   const { data, stopPolling } = useQuery<
-    PatchVariantsAndStatusData,
-    PatchVariantsAndStatusVars
+    PatchBuildVariantsAndStatusQuery,
+    PatchBuildVariantsQueryVariables
   >(GET_PATCH_VARIANTS_AND_STATUS, {
-    variables: { id },
+    variables: { patchId: id },
     pollInterval: 2000,
   });
 
-  useEffect(() => {
-    return stopPolling;
-  }, []);
-
-  const status: PatchStatus = get(data, "patch.status", props.status);
+  const status: string = get(data, "patch.status", props.status);
   const builds: Build[] = get(data, "patch.builds", props.builds);
   const activated = get(data, "patch.activated");
 
-  if (
-    data &&
-    (status === PatchStatus.Failed ||
-      status === PatchStatus.Success ||
-      activated === false)
-  ) {
-    stopPolling();
-  }
+  useStopPatchPolling({ hasData: !!data, status, activated, stopPolling });
 
   const createDate = new Date(createTime);
   return (
