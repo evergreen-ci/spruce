@@ -19,7 +19,7 @@ describe("Tests Table", () => {
 
   it("Should make GQL request with default query variables when no query params are provided", () => {
     cy.visit(TESTS_ROUTE);
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "STATUS",
       dir: "ASC",
       testName: "",
@@ -29,7 +29,7 @@ describe("Tests Table", () => {
 
   it("Should make GQL request with default query variables when invalid query params are provided", () => {
     cy.visit(`${TESTS_ROUTE}?sortBy=INVALID&sortDir=INVALID`);
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "STATUS",
       dir: "ASC",
       testName: "",
@@ -62,7 +62,7 @@ describe("Tests Table", () => {
       expect(loc.search).to.include("sortBy=TEST_NAME");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "TEST_NAME",
       dir: "ASC",
     });
@@ -72,7 +72,7 @@ describe("Tests Table", () => {
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "STATUS",
       dir: "ASC",
     });
@@ -82,7 +82,7 @@ describe("Tests Table", () => {
       expect(loc.search).to.include("sortBy=STATUS");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "STATUS",
       dir: "DESC",
     });
@@ -92,7 +92,7 @@ describe("Tests Table", () => {
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(ASCEND_PARAM);
     });
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "DURATION",
       dir: "ASC",
     });
@@ -102,7 +102,7 @@ describe("Tests Table", () => {
       expect(loc.search).to.include("sortBy=DURATION");
       expect(loc.search).to.include(DESCEND_PARAM);
     });
-    assertQueryVariables("taskTests", {
+    assertQueryVariables("TaskTests", {
       cat: "DURATION",
       dir: "DESC",
     });
@@ -152,7 +152,7 @@ describe("Tests Table", () => {
         paramName: "statuses",
         search: "all,pass,fail,skip,silentfail",
         query: {
-          name: "taskTests",
+          name: "TaskTests",
           responseName: "taskTests.testResults",
           requestVariables: {
             cat: "STATUS",
@@ -181,7 +181,7 @@ describe("Tests Table", () => {
           paramName: "statuses",
           search: key,
           query: {
-            name: "taskTests",
+            name: "TaskTests",
             responseName: "taskTests.testResults",
             requestVariables: {
               cat: "STATUS",
@@ -205,7 +205,7 @@ describe("Tests Table", () => {
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
-      assertQueryVariables("taskTests", {
+      assertQueryVariables("TaskTests", {
         statusList: ["pass", "silentfail", "fail", "skip"],
       });
     });
@@ -225,7 +225,7 @@ describe("Tests Table", () => {
     });
 
     it("Input value is included in the taskTests GQL request body under variables.testName ", () => {
-      assertQueryVariables("taskTests", {
+      assertQueryVariables("TaskTests", {
         cat: "STATUS",
         dir: "ASC",
         statusList: [],
@@ -257,7 +257,7 @@ describe("Tests Table", () => {
       cy.visit(TESTS_ROUTE);
       cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
       resultsAreFetchedAndRendered({
-        queryName: "taskTests",
+        queryName: "TaskTests",
         responseName: "taskTests.testResults",
         requestVariables: {
           cat: "STATUS",
@@ -283,6 +283,6 @@ const assertTestCountLabels = () => {
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
-const waitForTestsQuery = () => cy.waitForGQL("taskTests");
+const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";

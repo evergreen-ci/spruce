@@ -11,11 +11,11 @@ import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import Icon from "@leafygreen-ui/icon";
+import { GET_USER_PATCHES } from "gql/queries/my-patches";
 import {
-  UserPatchesVars,
-  UserPatchesData,
-  GET_USER_PATCHES,
-} from "gql/queries/my-patches";
+  UserPatchesQueryVariables,
+  UserPatchesQuery,
+} from "gql/generated/types";
 import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler, usePrevious } from "hooks";
@@ -28,7 +28,7 @@ export const MyPatches = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [page, setPage] = useState(1);
-  const [initialQueryVariables] = useState<UserPatchesVars>({
+  const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
     page: 0,
     ...getQueryVariables(search),
   });
@@ -36,9 +36,9 @@ export const MyPatches = () => {
     patchNameFilterValue,
     patchNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
-  const { data, fetchMore, error, loading } = useQuery<
-    UserPatchesData,
-    UserPatchesVars
+  const { data, fetchMore, loading, error } = useQuery<
+    UserPatchesQuery,
+    UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
@@ -57,8 +57,8 @@ export const MyPatches = () => {
             ...getQueryVariables(search),
           },
           updateQuery: (
-            prev: UserPatchesData,
-            { fetchMoreResult }: { fetchMoreResult: UserPatchesData }
+            prev: UserPatchesQuery,
+            { fetchMoreResult }: { fetchMoreResult: UserPatchesQuery }
           ) => {
             if (!fetchMoreResult) {
               return prev;

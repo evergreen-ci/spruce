@@ -2,14 +2,14 @@ import React from "react";
 import styled from "@emotion/styled/macro";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { ProjectVariants } from "gql/queries/patch";
+import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
 import isEmpty from "lodash/isEmpty";
 
 interface Props {
-  variants: ProjectVariants;
+  variants: ProjectBuildVariant[];
   selectedBuildVariant: string;
   selectedVariantTasks: VariantTasksState;
   setSelectedVariantTasks: React.Dispatch<

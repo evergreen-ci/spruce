@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import Icon from "@leafygreen-ui/icon";
-import { ModuleCodeChanges } from "types/patch";
+import { ModuleCodeChange } from "gql/generated/types";
 import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 
 const totalFileDiffs = (fileDiffs) => {
@@ -16,7 +16,7 @@ const totalFileDiffs = (fileDiffs) => {
 };
 
 export const CodeChangeModule: React.FC<{
-  moduleCodeChange: ModuleCodeChanges;
+  moduleCodeChange: ModuleCodeChange;
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);

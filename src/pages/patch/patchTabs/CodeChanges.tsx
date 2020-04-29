@@ -3,22 +3,23 @@ import { useQuery } from "@apollo/react-hooks";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import { H2 } from "components/Typography";
+import { GET_CODE_CHANGES } from "gql/queries/get-code-changes";
 import {
-  GET_CODE_CHANGES,
-  GetCodeChangesQuery,
-} from "gql/queries/get-code-changes";
+  CodeChangesQuery,
+  CodeChangesQueryVariables,
+} from "gql/generated/types";
 import Button from "@leafygreen-ui/button";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import styled from "@emotion/styled";
 
 export const CodeChanges = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<GetCodeChangesQuery>(
-    GET_CODE_CHANGES,
-    {
-      variables: { id },
-    }
-  );
+  const { data, loading, error } = useQuery<
+    CodeChangesQuery,
+    CodeChangesQueryVariables
+  >(GET_CODE_CHANGES, {
+    variables: { id },
+  });
   if (loading) {
     return <Skeleton active={true} title={true} paragraph={{ rows: 8 }} />;
   }

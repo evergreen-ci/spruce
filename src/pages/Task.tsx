@@ -14,7 +14,8 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { GET_TASK, TaskQuery } from "gql/queries/get-task";
+import { GET_TASK } from "gql/queries/get-task";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -49,7 +50,10 @@ export const Task: React.FC = () => {
     defaultTab: DEFAULT_TAB,
     path: `${paths.task}/${id}`,
   });
-  const { data, loading, error, stopPolling } = useQuery<TaskQuery>(GET_TASK, {
+  const { data, loading, error, stopPolling } = useQuery<
+    GetTaskQuery,
+    GetTaskQueryVariables
+  >(GET_TASK, {
     variables: { taskId: id },
     pollInterval: 2000,
   });

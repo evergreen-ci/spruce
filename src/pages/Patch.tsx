@@ -9,7 +9,8 @@ import {
   PageSider,
 } from "components/styles";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_PATCH, PatchQuery } from "gql/queries/patch";
+import { GET_PATCH } from "gql/queries/patch";
+import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
@@ -22,13 +23,13 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
   const router = useHistory();
-  const { data, loading, error, stopPolling } = useQuery<PatchQuery>(
-    GET_PATCH,
-    {
-      variables: { id },
-      pollInterval: 3000,
-    }
-  );
+  const { data, loading, error, stopPolling } = useQuery<
+    PatchQuery,
+    PatchQueryVariables
+  >(GET_PATCH, {
+    variables: { id },
+    pollInterval: 2000,
+  });
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");

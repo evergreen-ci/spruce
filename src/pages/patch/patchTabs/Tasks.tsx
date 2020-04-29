@@ -4,9 +4,8 @@ import { useParams, useHistory, useLocation } from "react-router-dom";
 import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
-  PatchTasksQuery,
-  PatchTasksVariables,
 } from "gql/queries/get-patch-tasks";
+import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
@@ -19,7 +18,7 @@ import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
 
 interface Props {
-  taskCount: string;
+  taskCount: number;
 }
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
@@ -29,9 +28,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const [initialQueryVariables] = useState(getQueryVariables(id, search, 0));
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
-    PatchTasksVariables
+    PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
-    variables: initialQueryVariables as PatchTasksVariables,
+    variables: initialQueryVariables as PatchTasksQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
@@ -74,7 +73,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     ) {
       return;
     }
-    const pageNum = data.patchTasks.length / PATCH_TASKS_LIMIT;
+    const pageNum = data.patchTasks.tasks.length / PATCH_TASKS_LIMIT;
     if (pageNum % 1 !== 0) {
       setAllItemsHaveBeenFetched(true);
       return;
@@ -88,10 +87,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         if (!fetchMoreResult) {
           return prev;
         }
-        return {
-          ...prev,
-          patchTasks: [...prev.patchTasks, ...fetchMoreResult.patchTasks],
-        };
+        const { tasks } = fetchMoreResult.patchTasks;
+        fetchMoreResult.patchTasks.tasks = [...prev.patchTasks.tasks, ...tasks];
+        return fetchMoreResult;
       },
     });
   };
@@ -104,7 +102,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       <TaskFilters />
       <P2 id="task-count">
         <span data-cy="current-task-count">
-          {get(data, "patchTasks.length", "-")}
+          {get(data, "patchTasks.count", "-")}
         </span>
         {"/"}
         <span data-cy="total-task-count">{taskCount || "-"}</span>
@@ -147,9 +145,7 @@ const getStatuses = (rawStatuses: string[] | string) => {
       statuses.includes(status)
     )
   ) {
-    // returning empty array instead of all statuses prevents bug where no tasks are rendered
-    // for the first request made with/without all statuses.
-    // passing empty array for `All` value is also more performant for filtering on the backend
+    // passing empty array for `All` value is also more performant for filtering on the backend as opposed to passing array of all statuses
     return [];
   }
   return statuses;
@@ -174,5 +170,6 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
     page,
+    limit: PATCH_TASKS_LIMIT,
   };
 };

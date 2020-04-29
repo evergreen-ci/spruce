@@ -28,19 +28,19 @@ describe("task logs view", function() {
 
   it("Should display at least one table when there are code changes", () => {
     cy.visit(CODE_CHANGES_ROUTE);
-    cy.waitForGQL("Patch");
+    cy.waitForGQL("CodeChanges");
     cy.get("[data-cy=code-changes-table]").should("exist");
   });
 
   it("Should display 'No code changes' when there are no code changes", () => {
     cy.visit(NO_CODE_CHANGES_ROUTE);
-    cy.waitForGQL("Patch");
+    cy.waitForGQL("CodeChanges");
     cy.contains("No code changes");
   });
 
   it("File names in table should have href", () => {
     cy.visit(CODE_CHANGES_ROUTE);
-    cy.waitForGQL("Patch");
+    cy.waitForGQL("CodeChanges");
     cy.get(".fileLink")
       .should("have.attr", "href")
       .and("include", `filediff/${patchWithChanges}`);

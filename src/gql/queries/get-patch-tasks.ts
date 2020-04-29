@@ -1,8 +1,7 @@
 import gql from "graphql-tag";
-import { PatchStatus } from "types/patch";
-import { SortDir } from "gql/queries/get-task-tests";
 
 export const PATCH_TASKS_LIMIT = 10;
+// When updating this limit be sure to update the limit field in the query
 
 export const GET_PATCH_TASKS = gql`
   query PatchTasks(
@@ -14,10 +13,11 @@ export const GET_PATCH_TASKS = gql`
     $baseStatuses: [String!]
     $variant: String
     $taskName: String
+    $limit: Int
   ) {
     patchTasks(
       patchId: $patchId
-      limit: ${PATCH_TASKS_LIMIT}
+      limit: $limit
       page: $page
       statuses: $statuses
       baseStatuses: $baseStatuses
@@ -26,46 +26,14 @@ export const GET_PATCH_TASKS = gql`
       variant: $variant
       taskName: $taskName
     ) {
-      id
-      status
-      baseStatus
-      displayName
-      buildVariant
+      count
+      tasks {
+        id
+        status
+        baseStatus
+        displayName
+        buildVariant
+      }
     }
   }
 `;
-
-export interface TaskResult {
-  id: string;
-  status: string;
-  baseStatus: string;
-  displayName: string;
-  buildVariant: string;
-}
-
-export interface PatchTasksQuery {
-  patchTasks: [TaskResult];
-}
-
-export enum TaskSortBy {
-  Name = "NAME",
-  Status = "STATUS",
-  BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT",
-}
-
-export enum TaskSortDir {
-  Desc = "DESC",
-  Asc = "ASC",
-}
-
-export interface PatchTasksVariables {
-  patchId: string;
-  sortBy?: TaskSortBy;
-  sortDir?: SortDir;
-  page?: number;
-  statuses?: [PatchStatus];
-  baseStatuses?: [PatchStatus];
-  variant?: string;
-  taskName?: string;
-}
