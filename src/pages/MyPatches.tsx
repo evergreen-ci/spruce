@@ -71,7 +71,7 @@ export const MyPatches = () => {
       }
     };
     fetch();
-  }, [page, search, prevSearch]);
+  }, [page, search, prevSearch, fetchMore]);
 
   const onCheckboxChange = () => {
     replace(
@@ -123,7 +123,7 @@ export const MyPatches = () => {
         ) : get(data, "userPatches.patches", []).length !== 0 ? (
           data.userPatches.patches.map((p) => <PatchCard key={p.id} {...p} />)
         ) : (
-          "No patches found"
+          <div data-cy="no-patches-found">No patches found</div>
         )}
       </ListContainer>
     </PageWrapper>
