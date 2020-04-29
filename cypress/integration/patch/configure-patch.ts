@@ -46,7 +46,7 @@ describe("Configure Patch Page", () => {
       patch = data.patch;
     });
   });
-  xdescribe("Initial state reflects patch data", () => {
+  describe("Initial state reflects patch data", () => {
     it("Configure patch path is present in url", () => {
       cy.location().should((loc) =>
         expect(loc.pathname).to.eq(
@@ -81,7 +81,7 @@ describe("Configure Patch Page", () => {
       });
     });
   });
-  xdescribe("Configuring a patch", () => {
+  describe("Configuring a patch", () => {
     it("Can update patch description by typing into `Patch Name` input field", () => {
       const val = "michelle obama";
       cy.get(`[data-cy=configurePatch-nameInput]`)
@@ -183,7 +183,7 @@ describe("Configure Patch Page", () => {
       cy.login();
       cy.listenGQL();
     });
-    it("Clicking `Schedule` button schedules patch", () => {
+    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
       cy.visit(`/patch/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)

@@ -85,8 +85,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   };
 
   if (errorSchedulingPatch) {
-    // TODO: show error banner at top of page
-    console.error(errorSchedulingPatch);
+    // TODO: log this error
   }
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
