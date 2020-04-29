@@ -52,7 +52,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       });
     } catch (error) {
       setButtonDisabled(false);
-      console.log(error);
+      console.log(error); // Replace this with better error handling
     }
   };
   return (
@@ -74,7 +74,11 @@ export const CommitQueueCard: React.FC<Props> = ({
           </>
         </CommitInfo>
         <CommitQueueCardActions>
-          <Button disabled={isButtonDisabled} onClick={handleEnroll}>
+          <Button
+            data-cy="commit-queue-patch-button"
+            disabled={isButtonDisabled}
+            onClick={handleEnroll}
+          >
             Remove Patch From Queue
           </Button>
         </CommitQueueCardActions>

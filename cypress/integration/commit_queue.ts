@@ -59,4 +59,15 @@ describe("commit queue page", function() {
       cy.get("[data-cy=commitQueue-card-error]").contains(errorMessage);
     });
   });
+
+  it("Clicking on remove a patch from the commit queue should work", () => {
+    cy.visit(COMMIT_QUEUE_ROUTE_1);
+    cy.get("[data-cy=commit-queue-card]").should("exist");
+    cy.get("[data-cy=commit-queue-patch-button]").should("exist");
+    cy.get("[data-cy=commit-queue-patch-button]").click();
+    cy.waitForGQL("CommitQueue");
+    cy.get("@gqlQuery").then(() => {
+      cy.get("[data-cy=commit-queue-card]").should("not.exist");
+    });
+  });
 });
