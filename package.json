@@ -64,7 +64,7 @@
     "coverage": "npm run test -- --coverage --watchAll=false",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "codegen": "env-cmd -e devServer -r config/.cmdrc.json graphql-codegen --config codegen.js"
+    "codegen": "graphql-codegen --config codegen.js"
   },
   "eslintConfig": {
     "extends": "react-app"
