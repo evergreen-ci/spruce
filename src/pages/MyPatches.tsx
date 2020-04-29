@@ -119,11 +119,11 @@ export const MyPatches = () => {
         {error ? (
           <ErrorWrapper>{error}</ErrorWrapper>
         ) : loading ? (
-          <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
+          <StyledSkeleton active={true} title={false} paragraph={{ rows: 4 }} />
         ) : get(data, "userPatches.patches", []).length !== 0 ? (
           data.userPatches.patches.map((p) => <PatchCard key={p.id} {...p} />)
         ) : (
-          <div data-cy="no-patches-found">No patches found</div>
+          <NoResults data-cy="no-patches-found">No patches found</NoResults>
         )}
       </ListContainer>
     </PageWrapper>
@@ -163,4 +163,12 @@ const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
 const ListContainer = styled.div`
   max-height: calc(100vh - 200px);
   overflow-y: auto;
+`;
+
+const StyledSkeleton = styled(Skeleton)`
+  margin-top: 12px;
+`;
+
+const NoResults = styled.div`
+  margin-top: 12px;
 `;
