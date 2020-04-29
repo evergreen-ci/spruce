@@ -19,6 +19,7 @@ import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { useStopPatchPolling } from "hooks";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,13 +35,9 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  if (
-    status === PatchStatus.Failed ||
-    status === PatchStatus.Success ||
-    activated === false
-  ) {
-    stopPolling();
-  }
+
+  useStopPatchPolling({ hasData: !!data, status, activated, stopPolling });
+
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }
