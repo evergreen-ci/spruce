@@ -197,9 +197,7 @@ describe("Configure Patch Page", () => {
         response: mockedSuccessfulConfigureResponse,
       });
       cy.get("[data-cy=schedule-patch]").click();
-      cy.location().should((loc) =>
-        expect(loc.pathname).to.eq(`/patch/${unactivatedPatchId}/tasks`)
-      );
+      cy.location().should("eq", `/patch/${unactivatedPatchId}/tasks`);
     });
     it("Shows error banner if unsuccessful and keeps data", () => {
       cy.visit(`/patch/${unactivatedPatchId}`);
@@ -214,11 +212,7 @@ describe("Configure Patch Page", () => {
         response: mockedErrorConfigureResponse,
       });
       cy.get("[data-cy=schedule-patch]").click();
-      cy.location().should((loc) =>
-        expect(loc.pathname).to.include(
-          `/patch/${unactivatedPatchId}/configure`
-        )
-      );
+      cy.location().should("eq", `/patch/${unactivatedPatchId}/configure`);
       cy.get("[data-cy=error-banner]").should("exist");
     });
   });
