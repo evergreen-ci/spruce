@@ -1,22 +1,55 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { Patch } from "gql/queries/my-patches";
+import {
+  UserPatch,
+  GET_PATCH_VARIANTS_AND_STATUS,
+  PatchVariantsAndStatusVars,
+  PatchVariantsAndStatusData,
+  Build,
+} from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
+import { useQuery } from "@apollo/react-hooks";
+import get from "lodash/get";
+import { PatchStatus } from "types/patch";
 
-export const PatchCard: React.FC<Patch> = ({
+export const PatchCard: React.FC<UserPatch> = ({
   id,
   description,
-  status,
   createTime,
   projectID,
-  builds,
+  ...props
 }) => {
+  const { data, stopPolling } = useQuery<
+    PatchVariantsAndStatusData,
+    PatchVariantsAndStatusVars
+  >(GET_PATCH_VARIANTS_AND_STATUS, {
+    variables: { id },
+    pollInterval: 2000,
+  });
+
+  useEffect(() => {
+    return stopPolling;
+  }, []);
+
+  const status: PatchStatus = get(data, "patch.status", props.status);
+  const builds: Build[] = get(data, "patch.builds", props.builds);
+  const activated = get(data, "patch.activated");
+
+  if (
+    data &&
+    (status === PatchStatus.Failed ||
+      status === PatchStatus.Success ||
+      activated === false)
+  ) {
+    stopPolling();
+  }
+
   const createDate = new Date(createTime);
   return (
     <CardWrapper>
