@@ -115,7 +115,7 @@ export const MyPatches = () => {
         pageSize={LIMIT}
         total={get(data, "userPatches.filteredPatchCount", 0)}
       />
-      <ListContainer>
+      <div>
         {error ? (
           <ErrorWrapper>{error}</ErrorWrapper>
         ) : loading ? (
@@ -125,7 +125,7 @@ export const MyPatches = () => {
         ) : (
           <NoResults data-cy="no-patches-found">No patches found</NoResults>
         )}
-      </ListContainer>
+      </div>
     </PageWrapper>
   );
 };
@@ -158,11 +158,6 @@ const FlexRow = styled.div`
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
-`;
-
-const ListContainer = styled.div`
-  max-height: calc(100vh - 200px);
-  overflow-y: auto;
 `;
 
 const StyledSkeleton = styled(Skeleton)`
