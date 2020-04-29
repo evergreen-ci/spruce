@@ -93,11 +93,11 @@ export const MyPatches = () => {
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput
-            placeholder="Search Test Names"
+            placeholder="Search Patch Descriptions"
             onChange={patchNameFilterValueOnChange}
             suffix={<Icon glyph="MagnifyingGlass" />}
             value={patchNameFilterValue}
-            data-cy="patchname-input"
+            data-cy="patch-description-input"
             width="25%"
           />
           <StatusSelector />
