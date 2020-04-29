@@ -44,7 +44,8 @@ export const CommitQueue = () => {
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">
-            {queue ? queue.length : 0} Item {queue && queue.length != 1 && "s"}
+            {queue ? queue.length : 0} Item
+            {queue ? queue.length !== 1 && "s" : "s"}
           </Badge>
         }
         loading={false}
