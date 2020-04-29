@@ -70,13 +70,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         variables: { patchId: id, reconfigure: configurePatchParam },
       });
     } catch (error) {
+      // TODO: log this error
       console.error(error);
     }
   };
-
-  if (errorSchedulingPatch) {
-    // TODO: log this error
-  }
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
     router.push(`${paths.patch}/${scheduledPatchId}`);
