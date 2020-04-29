@@ -1,7 +1,7 @@
 import React from "react";
 import { P2 } from "components/Typography";
 import { StyledLink } from "components/styles";
-import { Patch } from "gql/queries/patch";
+import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { ApolloError } from "apollo-client";
 import { MetadataCard } from "components/MetadataCard";
@@ -9,7 +9,7 @@ import { MetadataCard } from "components/MetadataCard";
 interface Props {
   loading: boolean;
   error: ApolloError;
-  patch: Patch;
+  patch: PatchQuery["patch"];
 }
 
 export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {

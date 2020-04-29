@@ -5,7 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 import { StyledRouterLink } from "components/styles/StyledLink";
-import { ModuleCodeChanges } from "types/patch";
+import { ModuleCodeChange } from "gql/generated/types";
 import { paths } from "constants/routes";
 import { format } from "date-fns";
 
@@ -17,7 +17,7 @@ interface Props {
   author: string;
   commitTime: Date;
   patchId: string;
-  moduleCodeChanges: [ModuleCodeChanges];
+  moduleCodeChanges: ModuleCodeChange[];
 }
 const { blue, gray } = uiColors;
 

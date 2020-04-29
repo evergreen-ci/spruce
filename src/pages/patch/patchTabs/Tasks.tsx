@@ -4,9 +4,8 @@ import { useParams, useHistory, useLocation } from "react-router-dom";
 import {
   GET_PATCH_TASKS,
   PATCH_TASKS_LIMIT,
-  PatchTasksQuery,
-  PatchTasksVariables,
 } from "gql/queries/get-patch-tasks";
+import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
@@ -19,7 +18,7 @@ import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
 
 interface Props {
-  taskCount: string;
+  taskCount: number;
 }
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
@@ -29,9 +28,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const [initialQueryVariables] = useState(getQueryVariables(id, search, 0));
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
-    PatchTasksVariables
+    PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
-    variables: initialQueryVariables as PatchTasksVariables,
+    variables: initialQueryVariables as PatchTasksQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
@@ -171,5 +170,6 @@ const getQueryVariables = (patchId: string, search: string, page: number) => {
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
     page,
+    limit: PATCH_TASKS_LIMIT,
   };
 };
