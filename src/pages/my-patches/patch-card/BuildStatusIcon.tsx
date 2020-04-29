@@ -7,7 +7,7 @@ import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/Created
 import Tooltip from "@leafygreen-ui/tooltip";
 
 interface Props {
-  status: BuildStatus;
+  status: string;
   buildVariant: string;
 }
 
