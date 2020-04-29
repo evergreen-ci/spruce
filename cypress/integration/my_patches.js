@@ -113,7 +113,7 @@ describe("My Patches Page", () => {
     });
   });
 
-  xdescribe("Show commit queue checkbox", () => {
+  describe("Show commit queue checkbox", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
