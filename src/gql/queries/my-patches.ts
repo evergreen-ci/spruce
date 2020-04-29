@@ -32,7 +32,7 @@ export const GET_USER_PATCHES = gql`
 `;
 
 export const GET_PATCH_VARIANTS_AND_STATUS = gql`
-  query patchBuildVariantsAndStatus($id: String!) {
+  query PatchBuildVariantsAndStatus($id: String!) {
     patch(id: $id) {
       status
       activated
