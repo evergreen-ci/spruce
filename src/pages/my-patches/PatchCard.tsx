@@ -12,7 +12,7 @@ import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useStopPatchPolling } from "hooks";
 import {
-  PatchBuildVariantsQueryVariables,
+  PatchBuildVariantsAndStatusQueryVariables,
   PatchBuildVariantsAndStatusQuery,
   Maybe,
 } from "gql/generated/types";
@@ -37,9 +37,9 @@ export const PatchCard: React.FC<Props> = ({
 }) => {
   const { data, stopPolling } = useQuery<
     PatchBuildVariantsAndStatusQuery,
-    PatchBuildVariantsQueryVariables
+    PatchBuildVariantsAndStatusQueryVariables
   >(GET_PATCH_VARIANTS_AND_STATUS, {
-    variables: { patchId: id },
+    variables: { id },
     pollInterval: 2000,
   });
 
@@ -51,7 +51,7 @@ export const PatchCard: React.FC<Props> = ({
 
   const createDate = new Date(createTime);
   return (
-    <CardWrapper>
+    <CardWrapper data-cy="patch-card">
       <Left>
         <DescriptionLink href={`${paths.patch}/${id}`}>
           {description || "no description"}
