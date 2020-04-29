@@ -86,8 +86,8 @@ export const MyPatches = () => {
     );
   };
 
-  const onChange = (page: number) => {
-    setPage(page);
+  const onChange = (pageNum: number) => {
+    setPage(pageNum);
   };
 
   return (

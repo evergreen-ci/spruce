@@ -3,7 +3,7 @@ import { PatchStatus } from "types/patch";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 
 interface Props {
-  status: String;
+  status: string;
 }
 
 export const PatchStatusBadge: React.FC<Props> = ({ status }) => (

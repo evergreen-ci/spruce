@@ -26,7 +26,7 @@ interface Props {
   description: string;
   status: string;
   createTime?: Maybe<Date>;
-  builds: Array<Build>;
+  builds: Build[];
 }
 export const PatchCard: React.FC<Props> = ({
   id,
