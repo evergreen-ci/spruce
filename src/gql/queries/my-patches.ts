@@ -33,10 +33,38 @@ export const GET_USER_PATCHES = gql`
   }
 `;
 
+export const GET_PATCH_VARIANTS_AND_STATUS = gql`
+  query patchBuildVariantsAndStatus($id: String!) {
+    patch(id: $id) {
+      status
+      activated
+      builds {
+        buildVariant
+        status
+      }
+    }
+  }
+`;
+
 export interface Build {
   buildVariant: string;
   status: BuildStatus;
 }
+
+interface Patch {
+  builds: Build[];
+  status: PatchStatus;
+  activated: boolean;
+}
+
+export interface PatchVariantsAndStatusData {
+  patch: Patch;
+}
+
+export interface PatchVariantsAndStatusVars {
+  id: string;
+}
+
 export interface UserPatchesVars {
   page: number;
   limit: number;
@@ -44,7 +72,8 @@ export interface UserPatchesVars {
   patchName: string;
   includeCommitQueue: boolean;
 }
-export interface Patch {
+
+export interface UserPatch {
   id: string;
   projectID: string;
   description: string;
@@ -53,10 +82,11 @@ export interface Patch {
   builds: Build[];
 }
 
-export interface UserPatches {
-  patches: Patch[];
+interface UserPatches {
+  patches: UserPatch[];
   filteredPatchCount: number;
 }
+
 export interface UserPatchesData {
   userPatches: UserPatches;
 }
