@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { useMutation } from "@apollo/react-hooks";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
@@ -37,21 +37,18 @@ export const CommitQueueCard: React.FC<Props> = ({
   moduleCodeChanges,
   commitQueueId,
 }) => {
-  const [removePatchFromCommitQueue] = useMutation<
+  const [removePatchFromCommitQueue, { loading }] = useMutation<
     RemovePatchFromCommitQueueMutation,
     RemovePatchFromCommitQueueMutationVariables
   >(REMOVE_PATCH_FROM_COMMIT_QUEUE);
-  const [isButtonDisabled, setButtonDisabled] = useState(false);
   const handleEnroll = async (e) => {
     e.preventDefault();
-    setButtonDisabled(true);
     try {
       await removePatchFromCommitQueue({
         variables: { patchId, commitQueueId },
         refetchQueries: ["CommitQueue"],
       });
     } catch (error) {
-      setButtonDisabled(false);
       console.log(error); // Replace this with better error handling
     }
   };
@@ -76,7 +73,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         <CommitQueueCardActions>
           <Button
             data-cy="commit-queue-patch-button"
-            disabled={isButtonDisabled}
+            disabled={loading}
             onClick={handleEnroll}
           >
             Remove Patch From Queue

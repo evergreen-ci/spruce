@@ -66,8 +66,6 @@ describe("commit queue page", function() {
     cy.get("[data-cy=commit-queue-patch-button]").should("exist");
     cy.get("[data-cy=commit-queue-patch-button]").click();
     cy.waitForGQL("CommitQueue");
-    cy.get("@gqlQuery").then(() => {
-      cy.get("[data-cy=commit-queue-card]").should("not.exist");
-    });
+    cy.get("[data-cy=commit-queue-card]").should("not.exist");
   });
 });
