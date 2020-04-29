@@ -4,6 +4,7 @@ import { PageWrapper } from "components/styles";
 import { useParams } from "react-router-dom";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Body } from "@leafygreen-ui/typography";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -67,6 +68,7 @@ export const CommitQueue = () => {
             commitQueueId={commitQueue.projectId}
           />
         ))}
+      {!queue && <Body>There are no items in this queue. </Body>}
     </PageWrapper>
   );
 };
