@@ -44,26 +44,28 @@ export const CommitQueue = () => {
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">
-            {queue.length} Item {queue.length > 1 && "s"}
+            {queue ? queue.length : 0} Item {queue && queue.length != 1 && "s"}
           </Badge>
         }
         loading={false}
         hasData={true}
       />
       <HR />
-      {queue.map((queueItems, i) => (
-        <CommitQueueCard
-          key={queueItems.issue}
-          index={i + 1}
-          title={queueItems.patch && queueItems.patch.description}
-          author={queueItems.patch && queueItems.patch.author}
-          patchId={queueItems.patch && queueItems.patch.id}
-          commitTime={queueItems.enqueueTime}
-          moduleCodeChanges={
-            queueItems.patch && queueItems.patch.moduleCodeChanges
-          }
-        />
-      ))}
+      {queue &&
+        queue.map((queueItems, i) => (
+          <CommitQueueCard
+            key={queueItems.issue}
+            index={i + 1}
+            title={queueItems.patch && queueItems.patch.description}
+            author={queueItems.patch && queueItems.patch.author}
+            patchId={queueItems.patch && queueItems.patch.id}
+            commitTime={queueItems.enqueueTime}
+            moduleCodeChanges={
+              queueItems.patch && queueItems.patch.moduleCodeChanges
+            }
+            commitQueueId={commitQueue.projectId}
+          />
+        ))}
     </PageWrapper>
   );
 };
