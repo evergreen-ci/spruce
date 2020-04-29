@@ -110,6 +110,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars['Boolean'];
+  removePatchFromCommitQueue?: Maybe<Scalars['String']>;
 };
 
 
@@ -157,6 +158,12 @@ export type MutationRestartTaskArgs = {
 
 export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
+};
+
+
+export type MutationRemovePatchFromCommitQueueArgs = {
+  commitQueueId: Scalars['String'];
+  patchId: Scalars['String'];
 };
 
 export type Patch = {
@@ -500,6 +507,14 @@ export type VariantTasks = {
   tasks: Array<Scalars['String']>;
   displayTasks: Array<DisplayTask>;
 };
+
+export type RemovePatchFromCommitQueueMutationVariables = {
+  commitQueueId: Scalars['String'];
+  patchId: Scalars['String'];
+};
+
+
+export type RemovePatchFromCommitQueueMutation = { removePatchFromCommitQueue?: Maybe<string> };
 
 export type CodeChangesQueryVariables = {
   id: Scalars['String'];
