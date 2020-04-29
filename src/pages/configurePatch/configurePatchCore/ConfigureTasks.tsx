@@ -91,7 +91,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           data-cy="schedule-patch"
           variant={Variant.Primary}
           onClick={onClickSchedule}
-          disabled={isEmpty(selectedVariantTasks)}
+          disabled={isEmpty(selectedVariantTasks) || loading}
         >
           {loading && <StyledIcon type="loading" />}
           Schedule
