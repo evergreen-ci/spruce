@@ -8,36 +8,24 @@ import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
-import { ConfigurePatchQuery, VariantTask } from "gql/generated/types";
 import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { Body } from "@leafygreen-ui/typography";
-import gql from "graphql-tag";
 import { useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
+import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import {
+  SchedulePatchMutation,
+  PatchReconfigure,
+  SchedulePatchMutationVariables,
+  VariantTasks,
+  ConfigurePatchQuery,
+  VariantTask,
+} from "gql/generated/types";
 
-const SCHEDULE_PATCH = gql`
-  mutation SchedulePatch($patchId: String!, $reconfigure: PatchReconfigure!) {
-    schedulePatch(patchId: $patchId, reconfigure: $reconfigure) {
-      id
-      activated
-      version
-      description
-      status
-      version
-      activated
-      tasks
-      variants
-      variantsTasks {
-        name
-        tasks
-      }
-    }
-  }
-`;
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
@@ -45,7 +33,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const [
     schedulePatch,
     { data, error: errorSchedulingPatch, loading: loadingScheduledPatch },
-  ] = useMutation(SCHEDULE_PATCH);
+  ] = useMutation<SchedulePatchMutation, SchedulePatchMutationVariables>(
+    SCHEDULE_PATCH
+  );
   const router = useHistory();
   const { project, variantsTasks, id } = patch;
   const { variants, tasks } = project;
@@ -71,7 +61,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     setdescriptionValue(e.target.value);
 
   const onClickSchedule = async () => {
-    const configurePatchParam: PatchConfigureGqlParam = {
+    const configurePatchParam: PatchReconfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
     };
@@ -156,19 +146,6 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
 };
 
-interface DisplayTask {
-  name: string;
-  execTasks: string[];
-}
-interface VariantTasks {
-  variant: string;
-  tasks: string[];
-  displayTasks: DisplayTask[];
-}
-interface PatchConfigureGqlParam {
-  description: string;
-  variantsTasks: VariantTasks[];
-}
 const getGqlVariantTasksParamFromState = (
   selectedVariantTasks: VariantTasksState
 ): VariantTasks[] => {
