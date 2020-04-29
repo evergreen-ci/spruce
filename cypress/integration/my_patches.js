@@ -111,6 +111,23 @@ describe("My Patches Page", () => {
         });
       });
     });
+
+    it("Clicking on All status checkbox applies all of the statuses and clicking again removes them", () => {
+      clickingCheckboxUpdatesUrlAndRendersFetchedResults({
+        checkboxDisplayName: "All",
+        pathname: MY_PATCHES_ROUTE,
+        paramName: "statuses",
+        search: "all,created,started,succeeded,failed",
+        tableRow,
+        query: {
+          name: "UserPatches",
+          responseName: "userPatches.patches",
+          requestVariables: {
+            statuses: statuses.map((s) => s.key),
+          },
+        },
+      });
+    });
   });
 
   describe("Show commit queue checkbox", () => {
