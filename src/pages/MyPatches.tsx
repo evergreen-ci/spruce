@@ -75,11 +75,14 @@ export const MyPatches = () => {
 
   const onCheckboxChange = () => {
     replace(
-      `${pathname}?${queryString.stringify({
-        ...queryString.parse(search, { arrayFormat }),
-        [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search)
-          .includeCommitQueue,
-      })}`
+      `${pathname}?${queryString.stringify(
+        {
+          ...queryString.parse(search, { arrayFormat }),
+          [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search)
+            .includeCommitQueue,
+        },
+        { arrayFormat }
+      )}`
     );
   };
 
