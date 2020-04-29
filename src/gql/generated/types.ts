@@ -244,9 +244,9 @@ export type Projects = {
 };
 
 export type Query = {
-  userPatches: Array<Patch>;
-  patch: Patch;
+  userPatches: UserPatches;
   task?: Maybe<Task>;
+  patch: Patch;
   projects: Projects;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -268,13 +268,13 @@ export type QueryUserPatchesArgs = {
 };
 
 
-export type QueryPatchArgs = {
-  id: Scalars['String'];
+export type QueryTaskArgs = {
+  taskId: Scalars['String'];
 };
 
 
-export type QueryTaskArgs = {
-  taskId: Scalars['String'];
+export type QueryPatchArgs = {
+  id: Scalars['String'];
 };
 
 
@@ -490,6 +490,11 @@ export type User = {
   displayName: Scalars['String'];
 };
 
+export type UserPatches = {
+  patches: Array<Patch>;
+  filteredPatchCount: Scalars['Int'];
+};
+
 export type VariantTask = {
   name: Scalars['String'];
   tasks: Array<Scalars['String']>;
@@ -606,7 +611,14 @@ export type UserPatchesQueryVariables = {
 };
 
 
-export type UserPatchesQuery = { userPatches: Array<{ projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ id: string, buildVariant: string, status: string, predictedMakespan: number, actualMakespan: number }> }> };
+export type UserPatchesQuery = { userPatches: { filteredPatchCount: number, patches: Array<{ id: string, projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ buildVariant: string, status: string }> }> } };
+
+export type PatchBuildVariantsAndStatusQueryVariables = {
+  id: Scalars['String'];
+};
+
+
+export type PatchBuildVariantsAndStatusQuery = { patch: { status: string, activated: boolean, builds: Array<{ buildVariant: string, status: string }> } };
 
 export type PatchQueryVariables = {
   id: Scalars['String'];
