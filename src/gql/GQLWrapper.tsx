@@ -8,7 +8,7 @@ import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
   addMockFunctionsToSchema,
   introspectSchema,
-  makeExecutableSchema
+  makeExecutableSchema,
 } from "graphql-tools";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
@@ -33,11 +33,11 @@ export const getClientLink = async ({
   isDevelopment,
   isTest,
   schemaString,
-  shouldEnableGQLMockServer
+  shouldEnableGQLMockServer,
 }: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
   const httpLink = new HttpLink({
     uri: gqlURL,
-    credentials
+    credentials,
   });
 
   if (
@@ -48,7 +48,7 @@ export const getClientLink = async ({
       const executableSchema = makeExecutableSchema({
         typeDefs: schemaString
           ? schemaString
-          : printSchema(await introspectSchema(httpLink))
+          : printSchema(await introspectSchema(httpLink)),
       });
       addMockFunctionsToSchema({ schema: executableSchema });
       return new SchemaLink({ schema: executableSchema });
@@ -80,7 +80,7 @@ const timeoutLink = new ApolloLinkTimeout(60000);
 
 const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
   new ApolloLink((operation, forward) => {
-    return forward(operation).map(response => {
+    return forward(operation).map((response) => {
       if (response && response.data) {
         // if there is data in response then server responded with 200; therefore, is authenticated.
         dispatch({ type: "authenticate" });
@@ -93,13 +93,13 @@ const retryLink = new RetryLink({
   delay: {
     initial: 300,
     max: 3000,
-    jitter: true
+    jitter: true,
   },
   attempts: {
     max: 5,
     retryIf: (error): boolean =>
-      error && error.response && error.response.status >= 500
-  }
+      error && error.response && error.response.status >= 500,
+  },
 });
 
 export const getGQLClient = async ({
@@ -110,7 +110,7 @@ export const getGQLClient = async ({
   schemaString,
   shouldEnableGQLMockServer,
   logout,
-  dispatch
+  dispatch,
 }: ClientLinkParams) => {
   const link: HttpLink | SchemaLink = await getClientLink({
     credentials,
@@ -118,7 +118,7 @@ export const getGQLClient = async ({
     isDevelopment,
     isTest,
     schemaString,
-    shouldEnableGQLMockServer
+    shouldEnableGQLMockServer,
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
@@ -126,7 +126,7 @@ export const getGQLClient = async ({
       .concat(authLink(logout))
       .concat(retryLink)
       .concat(timeoutLink)
-      .concat(link)
+      .concat(link),
   });
   return client;
 };
@@ -138,7 +138,7 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
   isDevelopment,
   isTest,
   schemaString,
-  shouldEnableGQLMockServer
+  shouldEnableGQLMockServer,
 }) => {
   const [client, setClient] = useState(null);
   const { logout, dispatch } = useAuthDispatchContext();
@@ -153,7 +153,7 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
         schemaString,
         shouldEnableGQLMockServer,
         logout,
-        dispatch
+        dispatch,
       });
       setClient(gqlClient);
     }
@@ -166,7 +166,7 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
     schemaString,
     shouldEnableGQLMockServer,
     logout,
-    dispatch
+    dispatch,
   ]);
 
   return client ? (

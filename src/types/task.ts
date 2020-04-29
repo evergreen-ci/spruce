@@ -1,29 +1,21 @@
 import { TableProps } from "antd/es/table";
 
-export interface ValidInitialQueryParams {
-  initialCategory: string;
-  initialSort: string | string[];
-  initialStatuses: string[];
-  initialTestName: string;
-}
-
 export enum RequiredQueryParams {
-  Sort = "sort",
-  Category = "category",
+  Sort = "sortDir",
+  Category = "sortBy",
   Statuses = "statuses",
-  TestName = "testname"
-}
-
-export enum SortQueryParam {
-  Desc = "-1",
-  Asc = "1"
+  TestName = "testname",
 }
 
 export enum PatchTasksQueryParams {
   SortBy = "sortBy",
   SortDir = "sortDir",
   Page = "page",
-  Limit = "limit"
+  Limit = "limit",
+  Statuses = "statuses",
+  BaseStatuses = "baseStatuses",
+  Variant = "variant",
+  TaskName = "taskName",
 }
 
 export enum TestStatus {
@@ -31,7 +23,7 @@ export enum TestStatus {
   Skip = "skip",
   SilentFail = "silentfail",
   Pass = "pass",
-  All = "all"
+  All = "all",
 }
 
 export type TableOnChange<D> = TableProps<D>["onChange"];
@@ -67,5 +59,5 @@ export enum TaskStatus {
   SetupFailed = "setup-failed",
 
   StatusBlocked = "blocked",
-  StatusPending = "pending"
+  StatusPending = "pending",
 }

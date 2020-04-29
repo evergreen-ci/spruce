@@ -1,7 +1,7 @@
 import gql from "graphql-tag";
 
 export const GET_TASK_TESTS = gql`
-  query taskTests(
+  query TaskTests(
     $dir: SortDirection
     $id: String!
     $cat: TestSortCategory
@@ -19,50 +19,18 @@ export const GET_TASK_TESTS = gql`
       statuses: $statusList
       testName: $testName
     ) {
-      id
-      status
-      testFile
-      duration
-      logs {
-        htmlDisplayURL
-        rawDisplayURL
+      testResults {
+        id
+        status
+        testFile
+        duration
+        logs {
+          htmlDisplayURL
+          rawDisplayURL
+        }
       }
+      filteredTestCount
+      totalTestCount
     }
   }
 `;
-
-enum TestStatus {
-  Failed = "fail",
-  SilentlyFailed = "silentfail",
-  Skipped = "skip",
-  Succeeded = "pass"
-}
-
-export enum Categories {
-  TestName = "TEST_NAME",
-  Duration = "DURATION",
-  Status = "STATUS"
-}
-
-export interface TaskTestsData {
-  id: string;
-  status: TestStatus;
-  testFile: string;
-  duration: number;
-}
-
-export type SortDir = "ASC" | "DESC";
-
-export interface TakskTestsVars {
-  id: string;
-  dir: SortDir;
-  cat: Categories;
-  pageNum: number;
-  limitNum: number;
-  statusList: string[];
-  testName: string;
-}
-
-export interface UpdateQueryArg {
-  taskTests: [TaskTestsData];
-}

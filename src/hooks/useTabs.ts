@@ -15,12 +15,16 @@ type TabSelectHandler = (index: number) => void;
  * first item in returned array represents the selected tab index
  * second item in returned array is a handler function for selecting a tab. Pass it to the <Tab/> component
  */
-export const useTabs = (
-  tabToIndexMap: TabToIndexMap,
-  path: string,
-  defaultTab: string
-): [number, TabSelectHandler] => {
-  const { tab, id } = useParams<{ tab?: string; id: string }>();
+export const useTabs = ({
+  tabToIndexMap,
+  defaultTab,
+  path,
+}: {
+  tabToIndexMap: TabToIndexMap;
+  defaultTab: string;
+  path?: string;
+}): [number, TabSelectHandler] => {
+  const { tab } = useParams<{ tab?: string }>();
   const history = useHistory();
 
   const getIndexFromTab = (t: string) => {
@@ -29,16 +33,15 @@ export const useTabs = (
     }
     return tabToIndexMap[defaultTab];
   };
-
   const getTabFromIndex = (index: number) =>
-    Object.keys(tabToIndexMap).find(key => tabToIndexMap[key] === index);
+    Object.keys(tabToIndexMap).find((key) => tabToIndexMap[key] === index);
 
   const [selectedTab, setSelectedTab] = useState<number>(getIndexFromTab(tab));
 
   const selectTabHandler = (tabIndex: number) => {
     setSelectedTab(tabIndex);
-    history.replace(`${path}/${id}/${getTabFromIndex(tabIndex)}`);
+    const currentTab = getTabFromIndex(tabIndex);
+    history.replace(`${path}/${currentTab}`);
   };
-
   return [selectedTab, selectTabHandler];
 };

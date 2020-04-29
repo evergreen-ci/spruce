@@ -6,8 +6,9 @@ module.exports = {
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
       "scripts/*",
-      "src/serviceWorker.ts"
-    ]
+      "src/serviceWorker.ts",
+      "src/gql/generated/types.ts",
+    ],
   },
   rules: {
     "no-console": false,
@@ -18,6 +19,6 @@ module.exports = {
     "max-classes-per-file": false,
     "comment-format": false,
     "class-name": false,
-    "max-line-length": false
-  }
+    "max-line-length": false,
+  },
 };

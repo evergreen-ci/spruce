@@ -1,9 +1,10 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Checkbox from "@leafygreen-ui/checkbox";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
+import { usePrevious } from "hooks";
 const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
@@ -11,7 +12,8 @@ interface Props {
   tData: TreeDataEntry[];
   onChange: (v: string[]) => void;
   inputLabel: string;
-  id: string;
+  dataCy: string;
+  width?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -29,15 +31,30 @@ export const TreeSelect = ({
   tData,
   onChange,
   inputLabel, // label for the select
-  id
+  dataCy, // for testing only
+  width,
 }: Props) => {
   const wrapperRef = useRef(null);
+  const prevWrapperRef = usePrevious(wrapperRef);
+  const [optionWidth, setOptionWidth] = useState(0);
+
+  useEffect(() => {
+    if (wrapperRef) {
+      const handleResize = () => {
+        setOptionWidth(wrapperRef.current.clientWidth);
+      };
+      setOptionWidth(wrapperRef.current.clientWidth);
+      window.addEventListener("resize", handleResize);
+      return () => window.removeEventListener("resize", handleResize);
+    }
+  }, [setOptionWidth, prevWrapperRef]);
+
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
-  const filteredState = state.filter(value => allValues.includes(value));
+  const filteredState = state.filter((value) => allValues.includes(value));
   const optionsLabel = filteredState.includes(ALL_VALUE)
     ? ALL_COPY
     : filteredState
@@ -47,18 +64,18 @@ export const TreeSelect = ({
             const { target } = findNode({ value, tData });
             if (target.children) {
               return accum.filter(
-                v => !target.children.find(child => child.value === v)
+                (v) => !target.children.find((child) => child.value === v)
               );
             }
             return accum;
           },
           [...filteredState]
         )
-        .map(value => findNode({ value, tData }).target.title)
+        .map((value) => findNode({ value, tData }).target.title)
         .join(", ");
 
   return (
-    <Wrapper id={id} ref={wrapperRef}>
+    <Wrapper data-cy={dataCy} ref={wrapperRef} width={width}>
       <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
         <LabelWrapper>
           {inputLabel}
@@ -71,7 +88,7 @@ export const TreeSelect = ({
         </ArrowWrapper>
       </BarWrapper>
       {isVisible && (
-        <OptionsWrapper>
+        <OptionsWrapper width={optionWidth}>
           {renderCheckboxes({ state: filteredState, tData, onChange })}
         </OptionsWrapper>
       )}
@@ -84,7 +101,7 @@ const handleOnChange = ({
   state,
   value,
   onChange, // callback function
-  tData
+  tData,
 }: {
   state: string[];
   value: string;
@@ -107,14 +124,14 @@ const handleOnChange = ({
     }
   } else if (isParent) {
     // has list of children
-    const childrenValues = target.children.map(child => child.value);
+    const childrenValues = target.children.map((child) => child.value);
     if (isAlreadyChecked) {
       onChange(
         adjustAll({
           resultState: state.filter(
-            v => v !== value && !childrenValues.includes(v)
+            (v) => v !== value && !childrenValues.includes(v)
           ),
-          tData
+          tData,
         })
       );
     } else {
@@ -129,13 +146,13 @@ const handleOnChange = ({
     if (isAlreadyChecked) {
       onChange(
         adjustAll({
-          resultState: state.filter(v => v !== value && v !== parentValue),
-          tData
+          resultState: state.filter((v) => v !== value && v !== parentValue),
+          tData,
         })
       );
     } else {
       let siblingsChecked = true;
-      siblings.forEach(sibling => {
+      siblings.forEach((sibling) => {
         siblingsChecked = siblingsChecked && state.includes(sibling.value);
       });
       const shouldCheckParent = parentValue && siblingsChecked;
@@ -153,12 +170,12 @@ const handleOnChange = ({
 // selects or deselects the All checkbox depending on current options
 const adjustAll = ({
   resultState,
-  tData
+  tData,
 }: {
   resultState: string[];
   tData: TreeDataEntry[];
 }) => {
-  const allValues = getAllValues(tData).filter(value => value !== ALL_VALUE);
+  const allValues = getAllValues(tData).filter((value) => value !== ALL_VALUE);
   const resultStateHasAllValues = allValues.reduce(
     (accum, value) => accum && resultState.includes(value),
     true
@@ -181,7 +198,7 @@ interface FindNodeResult {
 
 const findNode = ({
   value,
-  tData
+  tData,
 }: {
   value: string;
   tData: TreeDataEntry[];
@@ -191,16 +208,16 @@ const findNode = ({
       return {
         target: curr,
         parent: null,
-        siblings: tData.filter(v => v.value !== value)
+        siblings: tData.filter((v) => v.value !== value),
       };
     }
     if (curr.children) {
-      const child = curr.children.find(c => c.value === value);
+      const child = curr.children.find((c) => c.value === value);
       if (child) {
         return {
           target: child,
           parent: curr,
-          siblings: curr.children.filter(c => c.value !== value)
+          siblings: curr.children.filter((c) => c.value !== value),
         };
       }
     }
@@ -208,7 +225,7 @@ const findNode = ({
   return {
     target: null,
     parent: null,
-    siblings: []
+    siblings: [],
   };
 };
 
@@ -216,7 +233,7 @@ const findNode = ({
 const getAllValues = (tData: TreeDataEntry[]): string[] => {
   return tData.reduce((accum, currNode) => {
     const childrenValues = currNode.children
-      ? currNode.children.map(child => child.value)
+      ? currNode.children.map((child) => child.value)
       : [];
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
@@ -228,14 +245,14 @@ const getAllValues = (tData: TreeDataEntry[]): string[] => {
 const renderCheckboxes = ({
   tData,
   state,
-  onChange
+  onChange,
 }: {
   tData: TreeDataEntry[];
   state: string[];
   onChange: (v: [string]) => void;
 }) => {
   const rows: JSX.Element[] = [];
-  tData.forEach(entry => {
+  tData.forEach((entry) => {
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
@@ -246,7 +263,7 @@ const renderCheckboxesHelper = ({
   data,
   onChange,
   state,
-  tData
+  tData,
 }: {
   rows: JSX.Element[];
   data: TreeDataEntry;
@@ -272,7 +289,7 @@ const renderCheckboxesHelper = ({
   // then examine children
   const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
-    data.children.forEach(child => {
+    data.children.forEach((child) => {
       const onChangeChildFn = () =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
@@ -298,13 +315,11 @@ const LabelWrapper = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  width: 330px;
 `;
 const BarWrapper = styled.div`
   border: 1px solid ${uiColors.gray.light1};
   border-radius: 3px;
   padding: 8px;
-  width: 352px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -320,8 +335,10 @@ const OptionsWrapper = styled.div`
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
-  width: 352px;
   margin-top: 5px;
+  width: ${(props: { width: number }) =>
+    props.width ? `${props.width}px` : ""};
+  overflow: hidden;
 `;
 const ArrowWrapper = styled.span`
   border-left: 1px solid ${uiColors.gray.light1};
@@ -332,5 +349,5 @@ const ArrowWrapper = styled.span`
   }
 `;
 const Wrapper = styled.div`
-  width: 352px;
+  width: ${(props: { width?: string }) => (props.width ? props.width : "")};
 `;

@@ -1,94 +1,102 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
-import { FilesTables } from "./task/FilesTables";
+import { FilesTables } from "pages/task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
-import gql from "graphql-tag";
 import { useQuery } from "@apollo/react-hooks";
-import { H1 } from "components/Typography";
+import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   PageWrapper,
-  SiderCard,
-  PageHeader,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
+import { GET_TASK } from "gql/queries/get-task";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { paths } from "contants/routes";
+import { paths } from "constants/routes";
+import { Metadata } from "./task/Metadata";
+import get from "lodash/get";
+import { TaskStatus } from "types/task";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 
 enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
-  BuildBaron = "build-baron"
+  BuildBaron = "build-baron",
 }
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3
+  [TaskTab.BuildBaron]: 3,
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
-const GET_TASK = gql`
-  query GetTask($taskId: String!) {
-    task(taskId: $taskId) {
-      version
-      displayName
-      patchNumber
-    }
-  }
-`;
-
-interface TaskQuery {
-  task: {
-    version: string;
-    displayName: string;
-    patchNumber: number;
-  };
-}
-
 export const Task: React.FC = () => {
-  useDefaultPath(tabToIndexMap, paths.task, DEFAULT_TAB);
-  const [selectedTab, selectTabHandler] = useTabs(
-    tabToIndexMap,
-    paths.task,
-    DEFAULT_TAB
-  );
-
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<TaskQuery>(GET_TASK, {
-    variables: { taskId: id }
+  useDefaultPath({
+    tabToIndexMap,
+    defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
+  });
+  const [selectedTab, selectTabHandler] = useTabs({
+    tabToIndexMap,
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.task}/${id}`,
+  });
+  const { data, loading, error, stopPolling } = useQuery<
+    GetTaskQuery,
+    GetTaskQueryVariables
+  >(GET_TASK, {
+    variables: { taskId: id },
+    pollInterval: 2000,
   });
 
-  if (loading) {
-    return <div>"Loading..."</div>;
+  const task = get(data, "task");
+  const displayName = get(task, "displayName");
+  const patchNumber = get(task, "patchNumber");
+  const status = get(task, "status");
+  const version = get(task, "version");
+  const failedTestCount = get(task, "failedTestCount");
+
+  if (
+    status === TaskStatus.Failed ||
+    status === TaskStatus.Succeeded ||
+    status === TaskStatus.SetupFailed ||
+    status === TaskStatus.SystemFailed ||
+    status === TaskStatus.TestTimedOut
+  ) {
+    stopPolling();
   }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-  const {
-    task: { displayName, version, patchNumber }
-  } = data;
 
   return (
     <PageWrapper>
-      <BreadCrumb
-        taskName={displayName}
-        versionId={version}
-        patchNumber={patchNumber}
+      {task && (
+        <BreadCrumb
+          taskName={displayName}
+          versionId={version}
+          patchNumber={patchNumber}
+        />
+      )}
+      <PageTitle
+        loading={loading}
+        hasData={!!(displayName && status)}
+        title={displayName}
+        badge={
+          <ErrorBoundary>
+            <TaskStatusBadge status={status} />
+          </ErrorBoundary>
+        }
       />
-      <PageHeader>
-        <H1>Current Task Name</H1>
-      </PageHeader>
       <PageLayout>
         <PageSider>
-          <SiderCard>Patch Metadata</SiderCard>
-          <SiderCard>Build Variants</SiderCard>
+          <Metadata data={data} loading={loading} error={error} />
         </PageSider>
         <PageLayout>
           <PageContent>
@@ -96,7 +104,23 @@ export const Task: React.FC = () => {
               <Tab name="Logs" id="task-logs-tab">
                 <Logs />
               </Tab>
-              <Tab name="Tests" id="task-tests-tab">
+              <Tab
+                name={
+                  <span>
+                    {failedTestCount ? (
+                      <TabLabelWithBadge
+                        tabLabel="Tests"
+                        badgeVariant="red"
+                        badgeText={failedTestCount}
+                        dataCyBadge="test-tab-badge"
+                      />
+                    ) : (
+                      "Tests"
+                    )}
+                  </span>
+                }
+                id="task-tests-tab"
+              >
                 <TestsTable />
               </Tab>
               <Tab name="Files" id="task-files-tab">

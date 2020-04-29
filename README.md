@@ -29,6 +29,10 @@ Spruce is the React UI for MongoDB's continuous integration software.
 
 Run `npm run storybook` to launch storybook and view our shared components.
 
+### Code Formatting
+
+Install the Prettier code formatting plugin in your code editor if you don't have it already. The plugin will use the .prettierrc settings file found at the root of Spruce to format your code.
+
 ### GQL Query Linting
 
 Follow these directions to enable query linting during local development so your Evergreen GraphQL schema changes are reflected in your Spruce query linting results.
@@ -43,7 +47,11 @@ Follow these directions to enable query linting during local development so your
 ```js
 {
   "devServer": {
-    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query"
+    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
+    "REACT_APP_API_URL": "http://localhost:3000/api",
+    "REACT_APP_UI_URL": "http://localhost:9090",
+    "REACT_APP_SPRUCE_URL": "http://localhost:3000",
+    "REACT_APP_GQL_COOKIE": "cookie-from-REACT_APP_GQL_URL"
   },
   "mockIntrospectSchema": {
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
@@ -69,22 +77,34 @@ Follow these directions to enable query linting during local development so your
 }
 ```
 
+## GraphQL Type Generation
+
+We use Code generation to generate our types for our GraphQL queries and mutations. When you create a query or mutation you can run the code generation script with the steps below. The types for your query/mutation response and variables will be generated and saved to `gql/generated/types.ts`. Much of the underlying types for subfields in your queries will likely be generated there as well and you can refer to those before creating your own.
+
+### Setting up code generation
+
+- create a symlink from the `schema.graphql` file from evergreen with the spruce folder using `ln -s path-to-evergreen-schema.graphql sdlschema.graphql`
+
+### Using code generation
+
+- From within the spruce folder run `npm run codegen`
+- As long as your queries are declared correctly the types should generate
+
+### Code generation troubleshooting and tips
+
+- Queries should be declared with a query name so the code generation knows what to name the corresponding type.
+- Each query and mutation should have a unique name.
+- Since query analysis for type generation occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
+
 ## Deployment
 
 ### Requirements
 
-A `.cmdrc.json` file is required to deploy Spruce to staging or production environments. See [Environment Variables](#environment-variables) section for more info about this file.
-
-Having a `.cmdrc.json` file sets the API and UI URLs that the application needs in production and staging environments to point to the correct APIs.
+A `.cmdrc.json` file is required to deploy because it sets the environment variables that the application needs in production and staging environments. See [Environment Variables](#environment-variables) section for more info about this file.
 
 ### How to Deploy:
 
-1. Build the application for the environment to which you wish to deploy
+Run the `deploy:prod` or `deploy:staging` npm command
 
-- For staging, run `npm run build:staging`
-- For production, run `npm run build:production`
-
-2. Run `BUCKET=the-s3-bucket npm run deploy` and replace `the-s3-bucket` with the name of the S3 bucket
-
-- Staging: evergreen-staging.spruce
-- Production: evergreen.spruce
+1. `npm run deploy:prod` = deploy to https://spruce.mongodb.com
+2. `npm run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/

@@ -1,56 +1,60 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { Skeleton } from "antd";
 import { BreadCrumb } from "components/Breadcrumb";
-import { H2 } from "components/Typography";
+import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
-  PageHeader,
   PageContent,
   PageLayout,
-  PageSider
+  PageSider,
 } from "components/styles";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_PATCH, PatchQuery } from "gql/queries/patch";
+import { GET_PATCH } from "gql/queries/patch";
+import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { PatchStatus } from "gql/queries/get-patch-tasks";
-import styled from "@emotion/styled";
+import { PatchStatus } from "types/patch";
+import { useHistory } from "react-router-dom";
+import { paths } from "constants/routes";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<PatchQuery>(GET_PATCH, {
-    variables: { id: id }
+  const router = useHistory();
+  const { data, loading, error, stopPolling } = useQuery<
+    PatchQuery,
+    PatchQueryVariables
+  >(GET_PATCH, {
+    variables: { id },
+    pollInterval: 2000,
   });
   const patch = get(data, "patch");
   const status = get(patch, "status");
+  const description = get(patch, "description");
+  const activated = get(patch, "activated");
+  if (
+    status === PatchStatus.Failed ||
+    status === PatchStatus.Success ||
+    activated === false
+  ) {
+    stopPolling();
+  }
+  if (activated === false) {
+    router.push(`${paths.patch}/${id}/configure`);
+  }
   return (
     <PageWrapper>
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
-      {loading ? (
-        <PageHeader>
-          <Skeleton active={true} paragraph={{ rows: 0 }} />
-        </PageHeader>
-      ) : patch ? (
-        <PageHeader>
-          <H2 id="patch-name">
-            <span>
-              {patch.description
-                ? patch.description
-                : `Patch ${patch.patchNumber}`}
-              {"  "}
-              <BadgeWrapper>
-                <Badge variant={mapPatchStatusToBadgeVariant[status]}>
-                  {status}
-                </Badge>
-              </BadgeWrapper>
-            </span>
-          </H2>
-        </PageHeader>
-      ) : null}
+      <PageTitle
+        loading={loading}
+        hasData={!!patch}
+        title={description ? description : `Patch ${get(patch, "patchNumber")}`}
+        badge={
+          <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
+        }
+      />
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
@@ -66,13 +70,9 @@ export const Patch = () => {
   );
 };
 
-const BadgeWrapper = styled.span`
-  display: inline-flex;
-`;
-
 const mapPatchStatusToBadgeVariant = {
   [PatchStatus.Created]: Variant.LightGray,
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Success]: Variant.Green
+  [PatchStatus.Success]: Variant.Green,
 };

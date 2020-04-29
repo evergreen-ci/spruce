@@ -1,11 +1,11 @@
 import React, { Fragment, useState, useEffect } from "react";
+import { GET_TASK_FILES } from "gql/queries/get-task-files";
 import {
+  TaskFilesQuery,
+  TaskFilesQueryVariables,
   File,
-  GET_TASK_FILES,
-  TaskFilesResponse,
-  TaskFilesVars,
-  TaskFilesData
-} from "gql/queries/get-task-files";
+  GroupedFiles,
+} from "gql/generated/types";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -34,34 +34,34 @@ const columns = [
       );
     },
     defaultSortOrder: "ascend" as SortOrder,
-    sorter: (a: File, b: File): number => a.name.localeCompare(b.name)
-  }
+    sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
+  },
 ];
 
 export const FilesTables: React.FC = () => {
   const { id } = useParams();
-  const { data, loading, error } = useQuery<TaskFilesResponse, TaskFilesVars>(
-    GET_TASK_FILES,
-    {
-      variables: {
-        id: id
-      }
-    }
-  );
+  const { data, loading, error } = useQuery<
+    TaskFilesQuery,
+    TaskFilesQueryVariables
+  >(GET_TASK_FILES, {
+    variables: {
+      id: id,
+    },
+  });
   const [filterStr, setFilterStr] = useState("");
-  const [filteredData, setFilteredData] = useState<[TaskFilesData]>();
+  const [filteredData, setFilteredData] = useState<[GroupedFiles]>();
 
   useEffect(
     debounce(() => {
       if (data) {
-        const nextData = data.taskFiles.map(currVal => ({
+        const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
           taskName: currVal.taskName,
           files: filterStr.length
             ? currVal.files.filter(({ name }) =>
                 name.toLowerCase().includes(filterStr.toLowerCase())
               )
-            : currVal.files
-        })) as [TaskFilesData];
+            : currVal.files,
+        })) as [GroupedFiles];
         setFilteredData(nextData);
       }
     }, 300),

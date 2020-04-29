@@ -1,32 +1,5 @@
 import gql from "graphql-tag";
 
-export interface Patch {
-  id: string;
-  description: string;
-  projectID: string;
-  githash: string;
-  patchNumber: number;
-  author: string;
-  version: string;
-  status: string;
-  activated: string;
-  alias: string;
-  taskCount: string;
-  duration: {
-    makespan: string;
-    timeTaken: string;
-  };
-  time: {
-    started?: string;
-    finished?: string;
-    submittedAt: string;
-  };
-}
-
-export interface PatchQuery {
-  patch: Patch;
-}
-
 export const GET_PATCH = gql`
   query Patch($id: String!) {
     patch(id: $id) {
@@ -49,6 +22,37 @@ export const GET_PATCH = gql`
         started
         submittedAt
         finished
+      }
+      variantsTasks {
+        name
+        tasks
+      }
+    }
+  }
+`;
+
+export const GET_PATCH_CONFIGURE = gql`
+  query ConfigurePatch($id: String!) {
+    patch(id: $id) {
+      id
+      description
+      author
+      status
+      activated
+      time {
+        submittedAt
+      }
+      project {
+        tasks
+        variants {
+          name
+          displayName
+          tasks
+        }
+      }
+      variantsTasks {
+        name
+        tasks
       }
     }
   }
