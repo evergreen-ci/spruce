@@ -23,6 +23,18 @@ const SCHEDULE_PATCH = gql`
   mutation SchedulePatch($patchId: String!, $reconfigure: PatchReconfigure!) {
     schedulePatch(patchId: $patchId, reconfigure: $reconfigure) {
       id
+      activated
+      version
+      description
+      status
+      version
+      activated
+      tasks
+      variants
+      variantsTasks {
+        name
+        tasks
+      }
     }
   }
 `;
@@ -58,13 +70,13 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
 
-  const onClickSchedule = () => {
+  const onClickSchedule = async () => {
     const configurePatchParam: PatchConfigureGqlParam = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
     };
     try {
-      schedulePatch({
+      await schedulePatch({
         variables: { patchId: id, reconfigure: configurePatchParam },
       });
     } catch (error) {
@@ -82,6 +94,12 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   }
   return (
     <>
+      {errorSchedulingPatch && (
+        // TODO: replace with error banner
+        <div data-cy="error-banner">
+          There was a problem trying to schedule patch.
+        </div>
+      )}
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         data-cy="configurePatch-nameInput"
