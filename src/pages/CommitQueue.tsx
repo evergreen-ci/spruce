@@ -4,6 +4,7 @@ import { PageWrapper } from "components/styles";
 import { useParams } from "react-router-dom";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Body } from "@leafygreen-ui/typography";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -44,26 +45,29 @@ export const CommitQueue = () => {
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">
-            {queue.length} Item {queue.length > 1 && "s"}
+            {buildBadgeString(queue ? queue.length : 0)}
           </Badge>
         }
         loading={false}
         hasData={true}
       />
       <HR />
-      {queue.map((queueItems, i) => (
-        <CommitQueueCard
-          key={queueItems.issue}
-          index={i + 1}
-          title={queueItems.patch && queueItems.patch.description}
-          author={queueItems.patch && queueItems.patch.author}
-          patchId={queueItems.patch && queueItems.patch.id}
-          commitTime={queueItems.enqueueTime}
-          moduleCodeChanges={
-            queueItems.patch && queueItems.patch.moduleCodeChanges
-          }
-        />
-      ))}
+      {queue &&
+        queue.map((queueItems, i) => (
+          <CommitQueueCard
+            key={queueItems.issue}
+            index={i + 1}
+            title={queueItems.patch && queueItems.patch.description}
+            author={queueItems.patch && queueItems.patch.author}
+            patchId={queueItems.patch && queueItems.patch.id}
+            commitTime={queueItems.enqueueTime}
+            moduleCodeChanges={
+              queueItems.patch && queueItems.patch.moduleCodeChanges
+            }
+            commitQueueId={commitQueue.projectId}
+          />
+        ))}
+      {!queue && <Body>There are no items in this queue. </Body>}
     </PageWrapper>
   );
 };
@@ -73,3 +77,11 @@ const HR = styled("hr")`
   border: 0;
   height: 3px;
 `;
+
+const buildBadgeString = (queueLength: number): string => {
+  if (queueLength !== 1) {
+    return `${queueLength} Items`;
+  } else {
+    return `${queueLength} Item`;
+  }
+};

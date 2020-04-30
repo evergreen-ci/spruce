@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { useMutation } from "@apollo/react-hooks";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
@@ -8,6 +9,11 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { ModuleCodeChange } from "gql/generated/types";
 import { paths } from "constants/routes";
 import { format } from "date-fns";
+import { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "gql/mutations/remove-patch-from-commit-queue";
+import {
+  RemovePatchFromCommitQueueMutation,
+  RemovePatchFromCommitQueueMutationVariables,
+} from "gql/generated/types";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
@@ -18,6 +24,7 @@ interface Props {
   commitTime: Date;
   patchId: string;
   moduleCodeChanges: ModuleCodeChange[];
+  commitQueueId: string;
 }
 const { blue, gray } = uiColors;
 
@@ -28,7 +35,23 @@ export const CommitQueueCard: React.FC<Props> = ({
   commitTime,
   patchId,
   moduleCodeChanges,
+  commitQueueId,
 }) => {
+  const [removePatchFromCommitQueue, { loading, error }] = useMutation<
+    RemovePatchFromCommitQueueMutation,
+    RemovePatchFromCommitQueueMutationVariables
+  >(REMOVE_PATCH_FROM_COMMIT_QUEUE);
+  const handleEnroll = async (e) => {
+    e.preventDefault();
+    try {
+      await removePatchFromCommitQueue({
+        variables: { patchId, commitQueueId },
+        refetchQueries: ["CommitQueue"],
+      });
+    } catch (error) {
+      console.log(error); // TODO: Replace this with better error handling
+    }
+  };
   return (
     <Card data-cy="commit-queue-card">
       <Subtitle>{index}.</Subtitle>
@@ -48,7 +71,14 @@ export const CommitQueueCard: React.FC<Props> = ({
           </>
         </CommitInfo>
         <CommitQueueCardActions>
-          <Button>Remove Patch From Queue</Button>
+          <Button
+            data-cy="commit-queue-patch-button"
+            disabled={loading}
+            onClick={handleEnroll}
+          >
+            Remove Patch From Queue
+          </Button>
+          {error && <div data-cy="error-banner">{error.message}</div>}
         </CommitQueueCardActions>
       </CommitQueueCardGrid>
     </Card>

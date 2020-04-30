@@ -513,6 +513,14 @@ export type VariantTasks = {
   displayTasks: Array<DisplayTask>;
 };
 
+export type RemovePatchFromCommitQueueMutationVariables = {
+  commitQueueId: Scalars['String'];
+  patchId: Scalars['String'];
+};
+
+
+export type RemovePatchFromCommitQueueMutation = { removePatchFromCommitQueue?: Maybe<string> };
+
 export type SchedulePatchMutationVariables = {
   patchId: Scalars['String'];
   reconfigure: PatchReconfigure;
