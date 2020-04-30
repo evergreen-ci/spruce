@@ -64,6 +64,7 @@ export const Task: React.FC = () => {
   const status = get(task, "status");
   const version = get(task, "version");
   const failedTestCount = get(task, "failedTestCount");
+  const fileCount = get(data, "taskFiles.fileCount");
 
   if (
     status === TaskStatus.Failed ||
@@ -74,7 +75,6 @@ export const Task: React.FC = () => {
   ) {
     stopPolling();
   }
-
   return (
     <PageWrapper>
       {task && (
@@ -123,7 +123,23 @@ export const Task: React.FC = () => {
               >
                 <TestsTable />
               </Tab>
-              <Tab name="Files" id="task-files-tab">
+              <Tab
+                name={
+                  <span>
+                    {fileCount !== undefined ? (
+                      <TabLabelWithBadge
+                        tabLabel="Files"
+                        badgeVariant="lightgray"
+                        badgeText={fileCount}
+                        dataCyBadge="file-tab-badge"
+                      />
+                    ) : (
+                      "Files"
+                    )}
+                  </span>
+                }
+                id="task-files-tab"
+              >
                 <FilesTables />
               </Tab>
             </StyledTabs>

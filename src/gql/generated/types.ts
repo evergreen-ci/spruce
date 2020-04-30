@@ -615,7 +615,7 @@ export type GetTaskQueryVariables = {
 };
 
 
-export type GetTaskQuery = { task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars['Int']>;

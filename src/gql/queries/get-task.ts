@@ -2,6 +2,9 @@ import gql from "graphql-tag";
 
 export const GET_TASK = gql`
   query GetTask($taskId: String!) {
+    taskFiles(taskId: $taskId) {
+      fileCount
+    }
     task(taskId: $taskId) {
       activatedBy
       baseTaskMetadata {
