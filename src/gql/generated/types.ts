@@ -513,6 +513,14 @@ export type VariantTasks = {
   displayTasks: Array<DisplayTask>;
 };
 
+export type SchedulePatchMutationVariables = {
+  patchId: Scalars['String'];
+  reconfigure: PatchReconfigure;
+};
+
+
+export type SchedulePatchMutation = { schedulePatch: { id: string, activated: boolean, version: string, description: string, status: string, tasks: Array<string>, variants: Array<string>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+
 export type CodeChangesQueryVariables = {
   id: Scalars['String'];
 };
