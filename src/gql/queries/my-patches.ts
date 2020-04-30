@@ -15,16 +15,18 @@ export const GET_USER_PATCHES = gql`
       patchName: $patchName
       includeCommitQueue: $includeCommitQueue
     ) {
-      projectID
-      description
-      status
-      createTime
-      builds {
-        id
-        buildVariant
+      patches {
+        projectID
+        description
         status
-        predictedMakespan
-        actualMakespan
+        createTime
+        builds {
+          id
+          buildVariant
+          status
+          predictedMakespan
+          actualMakespan
+        }
       }
     }
   }
