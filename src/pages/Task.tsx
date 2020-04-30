@@ -131,7 +131,7 @@ export const Task: React.FC = () => {
                         tabLabel="Files"
                         badgeVariant="lightgray"
                         badgeText={fileCount}
-                        dataCyBadge="file-tab-badge"
+                        dataCyBadge="files-tab-badge"
                       />
                     ) : (
                       "Files"
