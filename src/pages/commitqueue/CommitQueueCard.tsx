@@ -10,7 +10,6 @@ import { ModuleCodeChange } from "gql/generated/types";
 import { paths } from "constants/routes";
 import { format } from "date-fns";
 import { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "gql/mutations/remove-patch-from-commit-queue";
-import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
 import {
   RemovePatchFromCommitQueueMutation,
   RemovePatchFromCommitQueueMutationVariables,
@@ -47,14 +46,7 @@ export const CommitQueueCard: React.FC<Props> = ({
     try {
       await removePatchFromCommitQueue({
         variables: { patchId, commitQueueId },
-        refetchQueries: [
-          {
-            query: GET_COMMIT_QUEUE,
-            variables: {
-              id: commitQueueId,
-            },
-          },
-        ],
+        refetchQueries: ["CommitQueue"],
       });
     } catch (error) {
       console.log(error); // TODO: Replace this with better error handling
