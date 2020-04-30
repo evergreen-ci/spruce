@@ -90,7 +90,8 @@ describe("Tasks filters", function() {
     const variantInputValue = "lint";
     const urlParam = "variant";
 
-    it("Updates url with input value and fetches tasks filtered by variant", () => {
+    // TODO: fix. have identified this test as flakey
+    xit("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
