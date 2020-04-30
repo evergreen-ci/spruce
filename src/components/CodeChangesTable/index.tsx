@@ -80,7 +80,7 @@ const FileDiffTextContainer = styled("span")`
   ${(props: { type: string; hasValue: boolean }) =>
     props.hasValue &&
     (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
-  &:nth-child(2) {
+  &:nth-of-type(2) {
     margin-left: 16px;
   }
 `;

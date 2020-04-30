@@ -45,8 +45,7 @@ export const CommitQueue = () => {
         title="Commit Queue"
         badge={
           <Badge variant="darkgray">
-            {queue ? queue.length : 0} Item
-            {queue ? queue.length !== 1 && "s" : "s"}
+            {buildBadgeString(queue ? queue.length : 0)}
           </Badge>
         }
         loading={false}
@@ -78,3 +77,11 @@ const HR = styled("hr")`
   border: 0;
   height: 3px;
 `;
+
+const buildBadgeString = (queueLength: number): string => {
+  if (queueLength !== 1) {
+    return `${queueLength} Items`;
+  } else {
+    return `${queueLength} Item`;
+  }
+};

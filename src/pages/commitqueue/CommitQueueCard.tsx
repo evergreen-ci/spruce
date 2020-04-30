@@ -37,7 +37,7 @@ export const CommitQueueCard: React.FC<Props> = ({
   moduleCodeChanges,
   commitQueueId,
 }) => {
-  const [removePatchFromCommitQueue, { loading }] = useMutation<
+  const [removePatchFromCommitQueue, { loading, error }] = useMutation<
     RemovePatchFromCommitQueueMutation,
     RemovePatchFromCommitQueueMutationVariables
   >(REMOVE_PATCH_FROM_COMMIT_QUEUE);
@@ -49,7 +49,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         refetchQueries: ["CommitQueue"],
       });
     } catch (error) {
-      console.log(error); // Replace this with better error handling
+      console.log(error); // TODO: Replace this with better error handling
     }
   };
   return (
@@ -78,6 +78,7 @@ export const CommitQueueCard: React.FC<Props> = ({
           >
             Remove Patch From Queue
           </Button>
+          {error && <div data-cy="error-banner">{error.message}</div>}
         </CommitQueueCardActions>
       </CommitQueueCardGrid>
     </Card>
