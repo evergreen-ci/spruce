@@ -118,7 +118,7 @@ export const MyPatches = () => {
         pageSize={LIMIT}
         total={get(data, "userPatches.filteredPatchCount", 0)}
       />
-      <div>
+      <>
         {error ? (
           <ErrorWrapper>{error}</ErrorWrapper>
         ) : loading ? (
@@ -128,7 +128,7 @@ export const MyPatches = () => {
         ) : (
           <NoResults data-cy="no-patches-found">No patches found</NoResults>
         )}
-      </div>
+      </>
     </PageWrapper>
   );
 };
