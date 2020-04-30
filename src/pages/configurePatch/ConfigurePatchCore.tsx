@@ -8,19 +8,36 @@ import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
-import { ConfigurePatchQuery, VariantTask } from "gql/generated/types";
 import { css } from "@emotion/core";
 import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { Body } from "@leafygreen-ui/typography";
+import { useMutation } from "@apollo/react-hooks";
 import get from "lodash/get";
+import { useHistory } from "react-router-dom";
+import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import {
+  SchedulePatchMutation,
+  PatchReconfigure,
+  SchedulePatchMutationVariables,
+  VariantTasks,
+  ConfigurePatchQuery,
+  VariantTask,
+} from "gql/generated/types";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
-  const { project, variantsTasks } = patch;
+  const [
+    schedulePatch,
+    { data, error: errorSchedulingPatch, loading: loadingScheduledPatch },
+  ] = useMutation<SchedulePatchMutation, SchedulePatchMutationVariables>(
+    SCHEDULE_PATCH
+  );
+  const router = useHistory();
+  const { project, variantsTasks, id } = patch;
   const { variants, tasks } = project;
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
@@ -42,6 +59,25 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   );
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
     setdescriptionValue(e.target.value);
+
+  const onClickSchedule = async () => {
+    const configurePatchParam: PatchReconfigure = {
+      description: descriptionValue,
+      variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
+    };
+    try {
+      await schedulePatch({
+        variables: { patchId: id, reconfigure: configurePatchParam },
+      });
+    } catch (error) {
+      // TODO: log this error
+      console.error(error);
+    }
+  };
+  const scheduledPatchId = get(data, "schedulePatch.id");
+  if (scheduledPatchId) {
+    router.push(`${paths.patch}/${scheduledPatchId}`);
+  }
   if (variants.length === 0 || tasks.length === 0) {
     return (
       // TODO: Full page error
@@ -55,6 +91,12 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   }
   return (
     <>
+      {errorSchedulingPatch && (
+        // TODO: replace with error banner
+        <div data-cy="error-banner">
+          There was a problem trying to schedule patch.
+        </div>
+      )}
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         data-cy="configurePatch-nameInput"
@@ -85,6 +127,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                     selectedBuildVariant,
                     selectedVariantTasks,
                     setSelectedVariantTasks,
+                    loading: loadingScheduledPatch,
+                    onClickSchedule,
                   }}
                 />
               </Tab>
@@ -98,6 +142,22 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     </>
   );
 };
+
+const getGqlVariantTasksParamFromState = (
+  selectedVariantTasks: VariantTasksState
+): VariantTasks[] => {
+  return Object.keys(selectedVariantTasks).map((variantName) => {
+    const tasksObj = selectedVariantTasks[variantName];
+    const tasksArr = Object.keys(tasksObj);
+    const variantTasks: VariantTasks = {
+      variant: variantName,
+      tasks: tasksArr,
+      displayTasks: [],
+    };
+    return variantTasks;
+  });
+};
+
 interface TasksState {
   [task: string]: true;
 }
