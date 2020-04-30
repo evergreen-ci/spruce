@@ -35,7 +35,6 @@ export const GET_PATCH_VARIANTS_AND_STATUS = gql`
   query PatchBuildVariantsAndStatus($id: String!) {
     patch(id: $id) {
       status
-      activated
       builds {
         buildVariant
         status

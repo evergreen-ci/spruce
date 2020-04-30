@@ -10,7 +10,6 @@ import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
-import { useStopPatchPolling } from "hooks";
 import {
   PatchBuildVariantsAndStatusQueryVariables,
   PatchBuildVariantsAndStatusQuery,
@@ -43,12 +42,9 @@ export const PatchCard: React.FC<Props> = ({
     variables: { id },
     pollInterval: 2000,
   });
-
+  useEffect(() => stopPolling, [stopPolling]);
   const status: string = get(data, "patch.status", props.status);
   const builds: Build[] = get(data, "patch.builds", props.builds);
-  const activated = get(data, "patch.activated");
-
-  useStopPatchPolling({ hasData: !!data, status, activated, stopPolling });
 
   const createDate = new Date(createTime);
   return (

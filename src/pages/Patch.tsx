@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
@@ -15,11 +15,9 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
-import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { useStopPatchPolling } from "hooks";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
@@ -31,12 +29,11 @@ export const Patch = () => {
     variables: { id },
     pollInterval: 2000,
   });
+  useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-
-  useStopPatchPolling({ hasData: !!data, status, activated, stopPolling });
 
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
