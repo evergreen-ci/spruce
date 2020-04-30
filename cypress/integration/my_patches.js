@@ -1,10 +1,7 @@
 /// <reference types="Cypress" />
+import get from "lodash/get";
+import { urlSearchParamsAreUpdated, assertQueryVariables } from "../utils";
 
-import {
-  urlSearchParamsAreUpdated,
-  resultsAreFetchedAndRendered,
-  clickingCheckboxUpdatesUrlAndRendersFetchedResults,
-} from "../utils";
 const tableRow = "[data-cy=patch-card]";
 const MY_PATCHES_ROUTE = "/my-patches";
 describe("My Patches Page", () => {
@@ -40,7 +37,6 @@ describe("My Patches Page", () => {
   });
 
   it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
-    cy.dataCy("commit-queue-checkbox").should("be.checked");
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
@@ -50,7 +46,7 @@ describe("My Patches Page", () => {
     resultsAreFetchedAndRendered({
       queryName: "UserPatches",
       responseName: "userPatches.patches",
-      requestVariables: { includeCommitQueue: false },
+      requestVariables: { includeCommitQueue: (v) => v === false },
       tableRow: "[data-cy=patch-card]",
     });
     cy.dataCy("commit-queue-checkbox").click({ force: true });
@@ -62,14 +58,14 @@ describe("My Patches Page", () => {
     resultsAreFetchedAndRendered({
       queryName: "UserPatches",
       responseName: "userPatches.patches",
-      requestVariables: { includeCommitQueue: true },
+      requestVariables: { includeCommitQueue: (v) => v === true },
       tableRow: "[data-cy=patch-card]",
     });
   });
 
   describe("Pagination", () => {
-    [2, 3].forEach((pageNum) =>
-      it(`Clicking on page number ${pageNum} requests and renders patches for that page`, () => {
+    it(`Clicking on page number requests and renders patches for that page`, () => {
+      cy.wrap([2, 3]).each((pageNum) => {
         cy.get(`.ant-pagination-item-${pageNum}`).click({ force: true });
         resultsAreFetchedAndRendered({
           queryName: "UserPatches",
@@ -77,12 +73,14 @@ describe("My Patches Page", () => {
           requestVariables: { page: (v) => v === pageNum - 1 },
           tableRow: "[data-cy=patch-card]",
         });
-      })
-    );
+      });
+    });
   });
 
   describe("Clicking on status checkbox requests and renders patches for that status", () => {
     beforeEach(() => {
+      cy.preserveCookies();
+      cy.listenGQL();
       cy.get("[data-cy=my-patch-status-select] > .cy-treeselect-bar").click();
     });
 
@@ -104,8 +102,11 @@ describe("My Patches Page", () => {
           query: {
             name: "UserPatches",
             responseName: "userPatches.patches",
-            requestVariables: {
+            checkedRequestVariables: {
               statuses: [key],
+            },
+            uncheckedRequestVariables: {
+              statuses: (v) => Array.isArray(v) && v.length === 0,
             },
           },
         });
@@ -151,3 +152,64 @@ describe("My Patches Page", () => {
     });
   });
 });
+
+// TODO: These functions were adopted from cypress/utils/index and fixes two issues
+// which caused the incorrect query to be tracked. The functions in the util folder
+// should be updated as well as any tests that rely on them
+
+const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
+  selector = ".cy-checkbox",
+  checkboxDisplayName,
+  pathname,
+  paramName,
+  search,
+  tableRow,
+  query: {
+    name,
+    responseName,
+    checkedRequestVariables,
+    uncheckedRequestVariables,
+  },
+}) => {
+  cy.get(selector)
+    .contains(checkboxDisplayName)
+    .as("target")
+    .click({ force: true });
+  resultsAreFetchedAndRendered({
+    queryName: name,
+    responseName,
+    requestVariables: checkedRequestVariables,
+    tableRow,
+  }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
+  cy.get("@target").click({ force: true });
+  resultsAreFetchedAndRendered({
+    queryName: name,
+    responseName,
+    requestVariables: uncheckedRequestVariables,
+    tableRow,
+  }).then(() => {
+    urlSearchParamsAreUpdated({ pathname, paramName, search: null });
+  });
+};
+
+const resultsAreFetchedAndRendered = ({
+  queryName,
+  responseName,
+  requestVariables,
+  tableRow,
+} = {}) => {
+  return assertQueryVariables(queryName, requestVariables).then((xhr) => {
+    const { response } = xhr;
+    const numberOfResults = get(response, `body.data.${responseName}`, [])
+      .length;
+    if (numberOfResults === 0) {
+      cy.get(tableRow).should("not.exist");
+    } else {
+      cy.get(tableRow)
+        .invoke("toArray")
+        .then((filteredResults) => {
+          expect(filteredResults.length >= numberOfResults).eq(true);
+        });
+    }
+  });
+};

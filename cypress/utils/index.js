@@ -8,7 +8,6 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   pathname,
   paramName,
   search,
-  tableRow,
   query: { name, responseName, requestVariables },
 }) => {
   cy.get(selector)
@@ -19,14 +18,12 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
     queryName: name,
     responseName,
     requestVariables,
-    tableRow,
   }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
   cy.get("@target").click({ force: true });
   resultsAreFetchedAndRendered({
     queryName: name,
     responseName,
     requestVariables: [],
-    tableRow,
   }).then(() =>
     urlSearchParamsAreUpdated({ pathname, paramName, search: null })
   );
@@ -48,7 +45,6 @@ export const assertQueryVariables = (queryName, variables = {}) => {
       options[`requestBody.variables[${variable}]`] = value;
     }
   });
-
   return waitForGQL("@gqlQuery", queryName, options);
 };
 
@@ -56,23 +52,21 @@ export const resultsAreFetchedAndRendered = ({
   queryName,
   responseName,
   requestVariables,
-  tableRow = ".ant-table-row",
 } = {}) => {
-  return assertQueryVariables(queryName, requestVariables).then(
-    ({ response }) => {
-      const numberOfResults = get(response, `body.data.${responseName}`, [])
-        .length;
-      if (numberOfResults === 0) {
-        cy.get(tableRow).should("not.exist");
-      } else {
-        cy.get(tableRow)
-          .invoke("toArray")
-          .then((filteredResults) => {
-            expect(filteredResults.length >= numberOfResults).eq(true);
-          });
-      }
+  assertQueryVariables(queryName, requestVariables);
+  return cy.get("@gqlQuery").then(({ response }) => {
+    const numberOfResults = get(response, `body.data.${responseName}`, [])
+      .length;
+    if (numberOfResults === 0) {
+      cy.get(".ant-table-row").should("not.exist");
+    } else {
+      cy.get(".ant-table-row")
+        .invoke("toArray")
+        .then((filteredResults) => {
+          expect(filteredResults.length >= numberOfResults).eq(true);
+        });
     }
-  );
+  });
 };
 
 export const urlSearchParamsAreUpdated = ({ pathname, paramName, search }) => {
