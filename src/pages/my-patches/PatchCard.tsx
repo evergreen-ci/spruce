@@ -16,6 +16,7 @@ import {
   PatchBuildVariantsAndStatusQuery,
   Maybe,
 } from "gql/generated/types";
+
 interface Build {
   buildVariant: string;
   status: string;
