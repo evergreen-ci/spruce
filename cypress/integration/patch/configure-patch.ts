@@ -33,10 +33,11 @@ interface ConfigurePatchQuery {
   };
 }
 
+const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+const patchWithNoVariantsOrTasks = "5e94c2dfe3c3312519b59480";
+
 describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
-  const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-  const patchWithNoVariantsOrTasks = "5e94c2dfe3c3312519b59480";
   before(() => {
     cy.login();
     cy.visit(`/patch/${unactivatedPatchId}`);
@@ -178,6 +179,49 @@ describe("Configure Patch Page", () => {
         });
     });
   });
+  describe("Scheduling a patch", () => {
+    beforeEach(() => {
+      cy.login();
+      cy.listenGQL();
+    });
+    it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
+      cy.visit(`/patch/${unactivatedPatchId}`);
+      const val = "hello world";
+      cy.get(`[data-cy=configurePatch-nameInput]`)
+        .as("patchNameInput")
+        .clear()
+        .type(val);
+      cy.route({
+        method: "POST",
+        url: "/graphql/query",
+        response: mockedSuccessfulConfigureResponse,
+      });
+      cy.get("[data-cy=schedule-patch]").click();
+      cy.location("pathname").should(
+        "eq",
+        `/patch/${unactivatedPatchId}/tasks`
+      );
+    });
+    it("Shows error banner if unsuccessful and keeps data", () => {
+      cy.visit(`/patch/${unactivatedPatchId}`);
+      const val = "hello world";
+      cy.get(`[data-cy=configurePatch-nameInput]`)
+        .as("patchNameInput")
+        .clear()
+        .type(val);
+      cy.route({
+        method: "POST",
+        url: "/graphql/query",
+        response: mockedErrorConfigureResponse,
+      });
+      cy.get("[data-cy=schedule-patch]").click();
+      cy.location("pathname").should(
+        "eq",
+        `/patch/${unactivatedPatchId}/configure/tasks`
+      );
+      cy.get("[data-cy=error-banner]").should("exist");
+    });
+  });
   describe("Errors", () => {
     it("Shows full page error if patch project has no variants or tasks", () => {
       cy.login();
@@ -192,4 +236,119 @@ const getTaskCountFromText = (text) => {
     return 0;
   }
   return parseInt(text);
+};
+
+const mockedErrorConfigureResponse = {
+  errors: [
+    {
+      message: "WAH WAH CHICKEN WAH",
+      path: ["schedulePatch"],
+      extensions: { code: "INTERNAL_SERVER_ERROR" },
+    },
+  ],
+  data: null,
+};
+
+const mockedSuccessfulConfigureResponse = {
+  data: {
+    schedulePatch: {
+      id: unactivatedPatchId,
+      activated: true,
+      __typename: "Patch",
+    },
+    patchTasks: {
+      count: 3,
+      tasks: [
+        {
+          id:
+            "mci_osx_dist_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+          status: "success",
+          baseStatus: "success",
+          displayName: "dist",
+          buildVariant: "osx",
+          __typename: "TaskResult",
+        },
+        {
+          id:
+            "mci_osx_test_auth_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+          status: "success",
+          baseStatus: "success",
+          displayName: "test-auth",
+          buildVariant: "osx",
+          __typename: "TaskResult",
+        },
+        {
+          id:
+            "mci_osx_test_graphql_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+          status: "success",
+          baseStatus: "success",
+          displayName: "test-graphql",
+          buildVariant: "osx",
+          __typename: "TaskResult",
+        },
+      ],
+      __typename: "PatchTasks",
+    },
+    patchBuildVariants: [
+      {
+        variant: "osx",
+        tasks: [
+          {
+            id:
+              "mci_osx_dist_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+            name: "dist",
+            status: "success",
+            __typename: "PatchBuildVariantTask",
+          },
+          {
+            id:
+              "mci_osx_test_auth_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+            name: "test-auth",
+            status: "success",
+            __typename: "PatchBuildVariantTask",
+          },
+          {
+            id:
+              "mci_osx_test_graphql_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
+            name: "test-graphql",
+            status: "success",
+            __typename: "PatchBuildVariantTask",
+          },
+        ],
+        __typename: "PatchBuildVariant",
+      },
+    ],
+    patch: {
+      id: unactivatedPatchId,
+      description: "whoaaaaaa mama!!!",
+      projectID: "mci",
+      githash: "c12773e028910390ab4fda66e4b1745cfdc9ee65",
+      patchNumber: 6,
+      author: "trey.granderson",
+      version: "5ea99425b23736089a09a98f",
+      status: "succeeded",
+      activated: true,
+      alias: "",
+      taskCount: 3,
+      duration: {
+        makespan: "18m31s",
+        timeTaken: null,
+        __typename: "PatchDuration",
+      },
+      time: {
+        started: "April 29, 2020, 11:09AM",
+        submittedAt: "April 29, 2020, 10:50AM",
+        finished: "April 29, 2020, 11:27AM",
+        __typename: "PatchTime",
+      },
+      variantsTasks: [
+        {
+          name: "osx",
+          tasks: ["test-graphql", "test-auth", "dist"],
+          __typename: "VariantTask",
+        },
+      ],
+      __typename: "Patch",
+    },
+  },
 };
