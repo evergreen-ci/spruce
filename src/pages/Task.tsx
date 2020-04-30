@@ -75,6 +75,7 @@ export const Task: React.FC = () => {
   ) {
     stopPolling();
   }
+
   return (
     <PageWrapper>
       {task && (
