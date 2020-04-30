@@ -25,7 +25,7 @@ export const BuildVariants: React.FC = () => {
     variables: { patchId: id },
     pollInterval: 2000,
   });
-  useEffect(() => stopPolling, []);
+  useEffect(() => stopPolling, [stopPolling]);
   const buildVariants = get(data, "patchBuildVariants", []);
   if (data && allTasksHaveFinished(buildVariants)) {
     stopPolling();
