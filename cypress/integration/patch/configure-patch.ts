@@ -217,7 +217,7 @@ describe("Configure Patch Page", () => {
       cy.get("[data-cy=schedule-patch]").click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/configure`
+        `/patch/${unactivatedPatchId}/configure/tasks`
       );
       cy.get("[data-cy=error-banner]").should("exist");
     });
