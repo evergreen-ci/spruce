@@ -40,7 +40,7 @@ export const PatchCard: React.FC<Props> = ({
     PatchBuildVariantsAndStatusQueryVariables
   >(GET_PATCH_VARIANTS_AND_STATUS, {
     variables: { id },
-    pollInterval: 2000,
+    pollInterval: 5000,
   });
   useEffect(() => stopPolling, [stopPolling]);
   const status: string = get(data, "patch.status", props.status);

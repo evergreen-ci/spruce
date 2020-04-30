@@ -27,7 +27,7 @@ export const Patch = () => {
     PatchQueryVariables
   >(GET_PATCH, {
     variables: { id },
-    pollInterval: 2000,
+    pollInterval: 5000,
   });
   useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
