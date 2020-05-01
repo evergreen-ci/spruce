@@ -90,6 +90,23 @@ export const MyPatches = () => {
     setPage(pageNum);
   };
 
+  const tableBody = (() => {
+    if (error) {
+      return <ErrorWrapper>{error}</ErrorWrapper>;
+    }
+    if (loading) {
+      return (
+        <StyledSkeleton active={true} title={false} paragraph={{ rows: 4 }} />
+      );
+    }
+    if (get(data, "userPatches.patches", []).length !== 0) {
+      return data.userPatches.patches.map((p) => (
+        <PatchCard key={p.id} {...p} />
+      ));
+    }
+    return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
+  })();
+
   return (
     <PageWrapper>
       <PageTitle>My Patches</PageTitle>
@@ -118,17 +135,7 @@ export const MyPatches = () => {
         pageSize={LIMIT}
         total={get(data, "userPatches.filteredPatchCount", 0)}
       />
-      <>
-        {error ? (
-          <ErrorWrapper>{error}</ErrorWrapper>
-        ) : loading ? (
-          <StyledSkeleton active={true} title={false} paragraph={{ rows: 4 }} />
-        ) : get(data, "userPatches.patches", []).length !== 0 ? (
-          data.userPatches.patches.map((p) => <PatchCard key={p.id} {...p} />)
-        ) : (
-          <NoResults data-cy="no-patches-found">No patches found</NoResults>
-        )}
-      </>
+      <>{tableBody}</>
     </PageWrapper>
   );
 };
