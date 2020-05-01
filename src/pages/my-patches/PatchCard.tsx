@@ -125,6 +125,7 @@ const DescriptionLink = styled(StyledLink)`
 
 const BadgeContainer = styled.div`
   margin-right: 27px;
+  min-width: 90px;
 `;
 
 const TimeAndProject = styled.div`
