@@ -16,7 +16,7 @@ export const GET_TASK = gql`
       patchMetadata {
         author
       }
-      patchNumber
+      order
       reliesOn {
         buildVariant
         metStatus

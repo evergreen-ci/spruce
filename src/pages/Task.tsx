@@ -60,7 +60,7 @@ export const Task: React.FC = () => {
 
   const task = get(data, "task");
   const displayName = get(task, "displayName");
-  const patchNumber = get(task, "patchNumber");
+  const patchNumber = get(task, "order");
   const status = get(task, "status");
   const version = get(task, "version");
   const failedTestCount = get(task, "failedTestCount");
