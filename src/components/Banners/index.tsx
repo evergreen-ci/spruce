@@ -12,11 +12,13 @@ export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
   return (
     <BannersWrapper>
       {banners &&
-        banners.map(({ id, type, message }) => (
-          <Banner key={id} {...{ id, type, removeBanner }}>
-            {message}
-          </Banner>
-        ))}
+        banners
+          .sort((a) => (a.type === "warning" ? -1 : 1))
+          .map(({ id, type, message }) => (
+            <Banner key={id} {...{ id, type, removeBanner }}>
+              {message}
+            </Banner>
+          ))}
     </BannersWrapper>
   );
 };
