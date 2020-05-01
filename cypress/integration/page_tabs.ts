@@ -126,9 +126,8 @@ describe("Tabs", () => {
       const fileCountPath = "responseBody.data.taskFiles.fileCount";
       cy.waitForGQL("GetTask", {
         [fileCountPath]: valExists,
-      }).then((xhr) => {
-        cy.dataCy("files-tab-badge").contains(get(xhr, fileCountPath));
       });
+      cy.dataCy("files-tab-badge").contains("0");
     });
   });
 });
