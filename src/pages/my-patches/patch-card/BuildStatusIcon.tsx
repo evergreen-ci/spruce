@@ -5,13 +5,19 @@ import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/Succe
 import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/CreatedIcon";
 import Tooltip from "@leafygreen-ui/tooltip";
+import styled from "@emotion/styled";
 
 interface Props {
   status: string;
   buildVariant: string;
+  onClick: () => void;
 }
 
-export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
+export const BuildStatusIcon: React.FC<Props> = ({
+  status,
+  buildVariant,
+  onClick,
+}) => {
   const icon = statusToIcon[status];
   if (!icon) {
     return null;
@@ -20,7 +26,7 @@ export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
   return (
     <Tooltip
       triggerEvent="hover"
-      trigger={<div>{icon}</div>}
+      trigger={<IconWrapper onClick={onClick}>{icon}</IconWrapper>}
       variant="light"
       justify="middle"
       align="top"
@@ -36,3 +42,7 @@ const statusToIcon = {
   [BuildStatus.Started]: <RunningIcon />,
   [BuildStatus.Succeeded]: <SucceededIcon />,
 };
+
+const IconWrapper = styled.div`
+  cursor: pointer;
+`;
