@@ -22,6 +22,7 @@ import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { ApolloError } from "apollo-client";
 import { useParams } from "react-router-dom";
+import { Skeleton } from "antd";
 import get from "lodash/get";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
@@ -105,7 +106,7 @@ const useRenderBody = ({
   const noLogs = <div id="cy-no-logs">No logs</div>;
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
   }
   if (error) {
     return <div>{error.message}</div>;
