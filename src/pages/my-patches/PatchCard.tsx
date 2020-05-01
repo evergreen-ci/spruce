@@ -64,9 +64,12 @@ export const PatchCard: React.FC<Props> = ({
           <PatchStatusBadge status={status} />
         </BadgeContainer>
         <IconsContainer>
-          {builds.map(({ id, status, buildVariant }) => (
-            <div key={id}>
-              <BuildStatusIcon status={status} buildVariant={buildVariant} />
+          {builds.map((b) => (
+            <div key={b.id}>
+              <BuildStatusIcon
+                status={b.status}
+                buildVariant={b.buildVariant}
+              />
             </div>
           ))}
         </IconsContainer>
