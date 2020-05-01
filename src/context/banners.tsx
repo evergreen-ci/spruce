@@ -1,5 +1,5 @@
 import React, { useState, useContext } from "react";
-import { BannerTypeKeys } from "components/Banner";
+import { BannerTypeKeys } from "types/banner";
 import { v4 as uuid } from "uuid";
 
 export interface BannerObj {
