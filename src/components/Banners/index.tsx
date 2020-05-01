@@ -13,7 +13,9 @@ export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
     <BannersWrapper>
       {banners &&
         banners.map(({ id, type, message }) => (
-          <Banner {...{ id, type, removeBanner }}>{message}</Banner>
+          <Banner key={id} {...{ id, type, removeBanner }}>
+            {message}
+          </Banner>
         ))}
     </BannersWrapper>
   );

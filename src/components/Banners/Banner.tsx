@@ -19,11 +19,12 @@ export const Banner: React.FC<Props> = ({
   removeBanner,
   id,
 }) => {
+  const onClickX = () => removeBanner(id);
   return (
     <Wrapper type={type}>
       <StyledBody type={type}>{children}</StyledBody>
       {(type === "success" || type === "info") && (
-        <X onClick={() => removeBanner(id)}>
+        <X onClick={onClickX}>
           <Icon glyph="X" fill={gray.base} />
         </X>
       )}
