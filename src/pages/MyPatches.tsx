@@ -90,7 +90,7 @@ export const MyPatches = () => {
     setPage(pageNum);
   };
 
-  const tableBody = (() => {
+  const renderTable = () => {
     if (error) {
       return <ErrorWrapper>{error}</ErrorWrapper>;
     }
@@ -105,7 +105,7 @@ export const MyPatches = () => {
       ));
     }
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
-  })();
+  };
 
   return (
     <PageWrapper>
@@ -135,7 +135,7 @@ export const MyPatches = () => {
         pageSize={LIMIT}
         total={get(data, "userPatches.filteredPatchCount", 0)}
       />
-      <>{tableBody}</>
+      <>{renderTable()}</>
     </PageWrapper>
   );
 };
