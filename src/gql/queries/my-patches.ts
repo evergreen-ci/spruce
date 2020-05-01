@@ -22,6 +22,7 @@ export const GET_USER_PATCHES = gql`
         status
         createTime
         builds {
+          id
           buildVariant
           status
         }
@@ -36,6 +37,7 @@ export const GET_PATCH_VARIANTS_AND_STATUS = gql`
     patch(id: $id) {
       status
       builds {
+        id
         buildVariant
         status
       }

@@ -17,6 +17,7 @@ import {
 } from "gql/generated/types";
 
 interface Build {
+  id: string;
   buildVariant: string;
   status: string;
 }
@@ -63,9 +64,9 @@ export const PatchCard: React.FC<Props> = ({
           <PatchStatusBadge status={status} />
         </BadgeContainer>
         <IconsContainer>
-          {builds.map((b, i) => (
-            <div key={i}>
-              <BuildStatusIcon {...b} />
+          {builds.map(({ id, status, buildVariant }) => (
+            <div key={id}>
+              <BuildStatusIcon status={status} buildVariant={buildVariant} />
             </div>
           ))}
         </IconsContainer>
