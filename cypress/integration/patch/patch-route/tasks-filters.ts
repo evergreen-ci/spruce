@@ -75,7 +75,8 @@ const singularStatuses = [
   },
 ];
 
-describe("Tasks filters", function() {
+// TODO: refactor to not wait for / inspect gql query. Use defined data set and test against it.
+xdescribe("Tasks filters", function() {
   before(() => {
     cy.login();
   });
@@ -90,6 +91,7 @@ describe("Tasks filters", function() {
     const variantInputValue = "lint";
     const urlParam = "variant";
 
+    // TODO: fix. have identified this test as flakey
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       resultsAreFetchedAndRendered({
