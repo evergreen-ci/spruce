@@ -1,6 +1,7 @@
-# [Spruce](https://spruce.mongodb.com) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache2.0-blue.svg)](https://github.com/evergreen-ci/spruce/master/LICENSE)
+This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
-Spruce is the React UI for MongoDB's continuous integration software.
+Below you will find some information on how to perform common tasks.<br>
+You can find the most recent version of this guide [here](https://github.com/facebookincubator/create-react-app/blob/master/packages/react-scripts/template/README.md).
 
 ## Table of Contents
 
@@ -50,8 +51,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
-    "REACT_APP_SPRUCE_URL": "http://localhost:3000",
-    "REACT_APP_GQL_COOKIE": "cookie-from-REACT_APP_GQL_URL"
+    "REACT_APP_SPRUCE_URL": "http://localhost:3000"
   },
   "mockIntrospectSchema": {
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
