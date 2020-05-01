@@ -111,6 +111,7 @@ const Center = styled.div`
 
 const Left = styled(Center)`
   flex-direction: column;
+  padding-right: 24px;
 `;
 
 const Right = styled.div`
@@ -120,11 +121,12 @@ const Right = styled.div`
 
 const DescriptionLink = styled(StyledLink)`
   font-size: 18px;
+  font-weight: 500;
   padding-bottom: 8px;
 `;
 
 const BadgeContainer = styled.div`
-  margin-right: 27px;
+  margin-right: 24px;
   min-width: 90px;
 `;
 
