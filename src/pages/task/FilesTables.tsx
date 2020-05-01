@@ -15,6 +15,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
+import get from "lodash/get";
 
 const columns = [
   {
@@ -82,8 +83,8 @@ export const FilesTables: React.FC = () => {
     if (loading || (!filteredData && data)) {
       return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
     }
-    const filteredFiles = (filteredData || []).filter(
-      ({ files }) => files.length
+    const filteredFiles = (filteredData || []).filter(({ files }) =>
+      get(files, "length", 0)
     );
     if (!filteredFiles.length) {
       return <div>No files found</div>;
