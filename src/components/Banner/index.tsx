@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
+import { BannerObj } from "context/banners";
 
 const { green, red, yellow, blue, gray } = uiColors;
 
@@ -12,17 +13,39 @@ interface BannerType {
   info: string;
   warning: string;
 }
-type BannerTypeKeys = keyof BannerType;
-interface Props {
-  type: BannerTypeKeys;
-}
+export type BannerTypeKeys = keyof BannerType;
 
-export const Banner: React.FC<Props> = ({ children, type }) => {
+interface BannersProps {
+  banners: BannerObj[];
+  removeBanner: (bannerId: string) => void;
+}
+export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
+  return (
+    <BannersWrapper>
+      {banners &&
+        banners.map(({ id, type, message }) => (
+          <Banner {...{ id, type, removeBanner }}>{message}</Banner>
+        ))}
+    </BannersWrapper>
+  );
+};
+const BannersWrapper = styled.div`
+  & > :not(:last-child) {
+    margin-bottom: 8px;
+  }
+`;
+
+interface Props {
+  id: string;
+  type: BannerTypeKeys;
+  removeBanner: (bannerId: string) => void;
+}
+const Banner: React.FC<Props> = ({ children, type, removeBanner, id }) => {
   return (
     <Wrapper type={type}>
       <StyledBody type={type}>{children}</StyledBody>
       {(type === "success" || type === "info") && (
-        <X>
+        <X onClick={() => removeBanner(id)}>
           <Icon glyph="X" fill={gray.base} />
         </X>
       )}
@@ -48,20 +71,21 @@ const mapTypeToTextColor: { [key in BannerTypeKeys]: string } = {
   warning: yellow.dark2,
   info: blue.dark2,
 };
-
+interface StyleProps {
+  type: BannerTypeKeys;
+}
 const Wrapper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 16px 16px;
-  min-height: 44px;
   border: 1px solid;
   border-radius: 4px;
-  border-color: ${({ type }: Props) => mapTypeToBorderColor[type]};
-  background-color: ${({ type }: Props) => mapTypeToBackgroundColor[type]};
+  border-color: ${({ type }: StyleProps) => mapTypeToBorderColor[type]};
+  background-color: ${({ type }: StyleProps) => mapTypeToBackgroundColor[type]};
 `;
 const StyledBody = styled(Body)`
-  color: ${({ type }: Props) => mapTypeToTextColor[type]};
+  color: ${({ type }: StyleProps) => mapTypeToTextColor[type]};
 `;
 const X = styled.div`
   margin-left: 16px;
