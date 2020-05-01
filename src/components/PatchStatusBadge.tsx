@@ -1,15 +1,17 @@
 import React from "react";
 import { PatchStatus } from "types/patch";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import styled from "@emotion/styled";
 
 interface Props {
   status: string;
 }
 
+
 export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
-  <Badge variant={statusToBadgeVariant[status as PatchStatus]}>
-    {patchStatusToCopy[status as PatchStatus]}
-  </Badge>
+  <StyledBadge variant={statusToBadgeVariant[status as PatchStatus]}>
+        {patchStatusToCopy[status as PatchStatus]}
+  </StyledBadge>
 );
 
 const statusToBadgeVariant = {
@@ -25,3 +27,9 @@ const patchStatusToCopy = {
   [PatchStatus.Started]: "Running",
   [PatchStatus.Success]: "Succeeded",
 };
+
+const StyledBadge = styled(Badge)`
+  display:flex;
+  justify-content: center;
+  width: 90px;
+`
