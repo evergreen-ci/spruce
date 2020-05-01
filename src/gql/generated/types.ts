@@ -409,7 +409,6 @@ export type Task = {
   generateTask?: Maybe<Scalars['Boolean']>;
   generatedBy?: Maybe<Scalars['String']>;
   aborted?: Maybe<Scalars['Boolean']>;
-  patchNumber?: Maybe<Scalars['Int']>;
   baseTaskMetadata: BaseTaskMetadata;
 };
 
