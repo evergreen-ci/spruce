@@ -16,8 +16,6 @@ import { ProjectsQuery } from "gql/generated/types";
 import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
-import { Banners } from "components/Banners";
-import { BannerContextProvider } from "context/banners";
 
 export const Content = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
