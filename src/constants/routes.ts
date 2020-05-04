@@ -4,6 +4,7 @@ export const paths = {
   task: "/task",
   patch: "/patch",
   commitQueue: "/commit-queue",
+  preferences: "/preferences",
 };
 
 export const routes = {
@@ -13,6 +14,7 @@ export const routes = {
   patch: `${paths.patch}/:id/:tab?`,
   commitQueue: `${paths.commitQueue}/:id`,
   configurePatch: `${paths.patch}/:id/configure/:tab?`,
+  preferences: `${paths.preferences}/:tab?`,
 };
 
 export enum PatchTab {
