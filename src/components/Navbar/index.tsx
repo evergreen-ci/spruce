@@ -1,23 +1,21 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { ProjectSelect, ProjectSelectProps } from "components/ProjectSelect";
+import { ProjectSelectProps } from "components/ProjectSelect";
 import { Layout } from "antd";
 
 const { Header } = Layout;
 
-export const Navbar: React.FC<ProjectSelectProps> = ({ data, loading }) => {
+export const Navbar: React.FC<ProjectSelectProps> = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
   if (!isAuthenticated) {
     return null;
   }
-
   return (
     <StyledHeader>
       <InnerWrapper>
-        <ProjectSelect data={data} loading={loading} />
         <LogoutButton id="logout" onClick={logout}>
           Logout
         </LogoutButton>
@@ -31,14 +29,12 @@ const StyledHeader = styled(Header)`
   background: #20313c;
   margin-bottom: 16px;
 `;
-
 const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-end;
   height: 100%;
 `;
-
 const LogoutButton = styled.div`
   cursor: pointer;
 `;
