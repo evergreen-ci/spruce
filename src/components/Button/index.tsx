@@ -10,7 +10,7 @@ interface ButtonType {
   info: string;
   primary: string;
 }
-export type ButtonTypeKeys = keyof ButtonType;
+type ButtonTypeKeys = keyof ButtonType;
 
 interface Props {
   loading?: boolean;
@@ -19,14 +19,6 @@ interface Props {
   disabled?: boolean;
   dataCy?: string;
 }
-
-const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
-  [Variant.Danger]: "danger",
-  [Variant.Dark]: "dark",
-  [Variant.Default]: "default",
-  [Variant.Info]: "info",
-  [Variant.Primary]: "primary",
-};
 
 export const Button: React.FC<Props> = ({
   children,
@@ -47,6 +39,14 @@ export const Button: React.FC<Props> = ({
       {children}
     </LeafyGreenButton>
   );
+};
+
+const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
+  [Variant.Danger]: "danger",
+  [Variant.Dark]: "dark",
+  [Variant.Default]: "default",
+  [Variant.Info]: "info",
+  [Variant.Primary]: "primary",
 };
 
 const StyledIcon = styled(Icon)`
