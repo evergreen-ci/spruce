@@ -84,7 +84,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
+        ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema
 
   npm-start:
     command: subprocess.exec
