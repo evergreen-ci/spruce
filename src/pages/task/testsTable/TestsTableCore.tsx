@@ -24,6 +24,7 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
+import { Skeleton } from "antd";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
@@ -75,6 +76,10 @@ export const TestsTableCore: React.FC = () => {
       }
     });
   }, [networkStatus, error, fetchMore, listen]);
+
+  if (!data && networkStatus < NetworkStatus.ready) {
+    return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+  }
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
