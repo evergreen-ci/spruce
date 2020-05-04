@@ -79,6 +79,13 @@ functions:
         GO_BIN_PATH: /opt/golang/go1.13/bin/go
         GOROOT: /opt/golang/go1.13
 
+  sym-link:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        ln -s gopath/src/github.com/evergreen-ci/evergreen/schema.graphql sdlschema.graphql
+
   npm-start:
     command: subprocess.exec
     type: setup
@@ -109,6 +116,13 @@ functions:
       working_dir: spruce
       binary: npm
       args: [run, lint]
+
+  npm-eslint:
+    command: subprocess.exec
+    params:
+      working_dir: spruce
+      binary: npm
+      args: [run, eslint]
 
   npm-build:
     command: subprocess.exec
@@ -215,8 +229,10 @@ tasks:
   - name: lint
     commands:
     - func: get-project
+    - func: sym-link
     - func: npm-install
     - func: npm-lint
+    - func: npm-eslint
 
   - name: coverage
     commands:
