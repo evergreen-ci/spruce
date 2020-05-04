@@ -17,6 +17,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
+import { EllipsisBtnCopy } from "components/styles/Button";
 
 interface Build {
   id: string;
@@ -86,18 +87,13 @@ export const PatchCard: React.FC<Props> = ({
       </Center>
       <Right>
         <Button size="small">
-          <BtnCopy>...</BtnCopy>
+          <EllipsisBtnCopy>...</EllipsisBtnCopy>
         </Button>
       </Right>
     </CardWrapper>
   );
 };
 
-const BtnCopy = styled.div`
-  position: relative;
-  top: -4px;
-  font-weight: bold;
-`;
 const IconsContainer = styled.div`
   display: flex;
   justify-content: flex-start;

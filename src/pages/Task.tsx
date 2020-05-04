@@ -8,6 +8,7 @@ import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
 import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
+import { ActionButtons } from "pages/task/ActionButtons";
 import {
   PageWrapper,
   PageContent,
@@ -94,6 +95,7 @@ export const Task: React.FC = () => {
             <TaskStatusBadge status={status} />
           </ErrorBoundary>
         }
+        buttons={<ActionButtons />}
       />
       <PageLayout>
         <PageSider>
