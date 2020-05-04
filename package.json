@@ -46,7 +46,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "build:staging": "env-cmd -e staging -r config/.cmdrc.json npm run build",
     "build:prod": "env-cmd -e prod -r config/.cmdrc.json npm run build",
