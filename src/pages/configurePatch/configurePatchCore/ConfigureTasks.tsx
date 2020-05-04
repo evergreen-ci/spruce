@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import Button, { Variant } from "@leafygreen-ui/button";
+// import Button, { Variant } from "@leafygreen-ui/button";
 import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
 import isEmpty from "lodash/isEmpty";
-import { Icon } from "antd";
+import { Button } from "components/Button";
 
 interface Props {
   variants: ProjectBuildVariant[];
@@ -88,12 +88,12 @@ export const ConfigureTasks: React.FC<Props> = ({
     <TabContentWrapper>
       <Actions>
         <Button
-          data-cy="schedule-patch"
-          variant={Variant.Primary}
+          dataCy="schedule-patch"
+          variant="primary"
           onClick={onClickSchedule}
           disabled={isEmpty(selectedVariantTasks) || loading}
+          loading={loading}
         >
-          {loading && <StyledIcon type="loading" />}
           Schedule
         </Button>
         <ButtonLink
@@ -140,9 +140,6 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
 };
 
-const StyledIcon = styled(Icon)`
-  margin-right: 8px;
-`;
 const Actions = styled.div`
   margin-bottom: 8px;
   display: flex;
