@@ -16,6 +16,7 @@ import { Input } from "antd";
 import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
 import get from "lodash/get";
+import { Body } from "@leafygreen-ui/typography";
 
 const columns = [
   {
@@ -87,7 +88,7 @@ export const FilesTables: React.FC = () => {
       get(files, "length", 0)
     );
     if (!filteredFiles.length) {
-      return <div>No files found</div>;
+      return <Body>No files found</Body>;
     }
     return filteredFiles.map(({ taskName, files }) => {
       return (
