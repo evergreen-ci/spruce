@@ -18,7 +18,7 @@ export const StatusSelector: React.FC = () => {
       state={statusVal}
       tData={treeData}
       inputLabel="Patch status:  "
-      dataCy="test-status-select"
+      dataCy="my-patch-status-select"
       width="25%"
     />
   );

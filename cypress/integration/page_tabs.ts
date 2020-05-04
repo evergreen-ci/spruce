@@ -104,7 +104,6 @@ describe("Tabs", () => {
         1})`, () => {
         cy.visit(route);
         const failedTestCountPath = "responseBody.data.task.failedTestCount";
-        const valExists = (v) => v !== undefined;
         cy.waitForGQL("GetTask", {
           [failedTestCountPath]: valExists,
         }).then((xhr) => {
@@ -121,5 +120,16 @@ describe("Tabs", () => {
         });
       });
     });
+
+    it("Should display a badge with the number of files in the Files tab", () => {
+      cy.visit(taskRoute);
+      const fileCountPath = "responseBody.data.taskFiles.fileCount";
+      cy.waitForGQL("GetTask", {
+        [fileCountPath]: valExists,
+      });
+      cy.dataCy("files-tab-badge").contains("0");
+    });
   });
 });
+
+const valExists = (v) => v !== undefined;

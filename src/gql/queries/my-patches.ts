@@ -16,6 +16,7 @@ export const GET_USER_PATCHES = gql`
       includeCommitQueue: $includeCommitQueue
     ) {
       patches {
+        id
         projectID
         description
         status
@@ -24,9 +25,21 @@ export const GET_USER_PATCHES = gql`
           id
           buildVariant
           status
-          predictedMakespan
-          actualMakespan
         }
+      }
+      filteredPatchCount
+    }
+  }
+`;
+
+export const GET_PATCH_VARIANTS_AND_STATUS = gql`
+  query PatchBuildVariantsAndStatus($id: String!) {
+    patch(id: $id) {
+      status
+      builds {
+        id
+        buildVariant
+        status
       }
     }
   }
