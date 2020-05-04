@@ -25,9 +25,8 @@ import {
   BannerContextProvider,
 } from "context/banners";
 import { Banners } from "components/Banners";
-import Button from "@leafygreen-ui/button";
 
-const PatchCore = () => {
+export const PatchCore = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
