@@ -17,7 +17,7 @@ import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 
-export const Content = () => {
+export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
 
   // this top-level query is required for authentication to work

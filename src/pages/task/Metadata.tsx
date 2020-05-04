@@ -10,15 +10,11 @@ import { StyledLink } from "components/styles";
 import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
 
-export const Metadata = ({
-  loading,
-  data,
-  error,
-}: {
+export const Metadata: React.FC<{
   loading: boolean;
   data: GetTaskQuery;
   error: ApolloError;
-}) => {
+}> = ({ loading, data, error }) => {
   const task = data ? data.task : null;
 
   const spawnHostLink = get(task, "spawnHostLink");
@@ -81,7 +77,7 @@ export const Metadata = ({
   );
 };
 
-const secToDuration = (seconds: number) => {
+const secToDuration = (seconds: number): string => {
   const ms = seconds * 1000;
   return msToDuration(Math.trunc(ms));
 };

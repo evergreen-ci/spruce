@@ -1,7 +1,7 @@
 import React from "react";
 
 class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
-  public static getDerivedStateFromError() {
+  public static getDerivedStateFromError(): { hasError: boolean } {
     return { hasError: true };
   }
 
@@ -10,7 +10,7 @@ class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
     this.state = { hasError: false };
   }
 
-  public render() {
+  public render(): JSX.Element | React.ReactNode {
     if (this.state.hasError) {
       // TODO: render error banner
       return <h1>Something went wrong.</h1>;

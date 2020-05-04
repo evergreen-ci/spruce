@@ -27,18 +27,18 @@ export const useTabs = ({
   const { tab } = useParams<{ tab?: string }>();
   const history = useHistory();
 
-  const getIndexFromTab = (t: string) => {
+  const getIndexFromTab = (t: string): number => {
     if (t && t in tabToIndexMap) {
       return tabToIndexMap[t];
     }
     return tabToIndexMap[defaultTab];
   };
-  const getTabFromIndex = (index: number) =>
+  const getTabFromIndex = (index: number): string =>
     Object.keys(tabToIndexMap).find((key) => tabToIndexMap[key] === index);
 
   const [selectedTab, setSelectedTab] = useState<number>(getIndexFromTab(tab));
 
-  const selectTabHandler = (tabIndex: number) => {
+  const selectTabHandler = (tabIndex: number): void => {
     setSelectedTab(tabIndex);
     const currentTab = getTabFromIndex(tabIndex);
     history.replace(`${path}/${currentTab}`);

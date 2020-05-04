@@ -5,7 +5,10 @@ import styled from "@emotion/styled/macro";
 
 export const { Option, OptGroup } = Select;
 
-const renderProjectOption = ({ identifier, displayName }: Project) => (
+const renderProjectOption: React.FC<Project> = ({
+  identifier,
+  displayName,
+}) => (
   <Option key={identifier} value={identifier}>
     {displayName}
   </Option>

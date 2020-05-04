@@ -62,7 +62,7 @@ const orderKeyToSortParam = {
   ascend: SortDirection.Asc,
   descend: SortDirection.Desc,
 };
-const getSortDirFromOrder = (order: "ascend" | "descend") =>
+const getSortDirFromOrder = (order: "ascend" | "descend"): string =>
   orderKeyToSortParam[order];
 
 const rowKey = ({ id }: { id: string }): string => id;
@@ -74,7 +74,7 @@ enum TableColumnHeader {
   Variant = "VARIANT",
 }
 
-const renderStatusBadge = (status) => {
+const renderStatusBadge = (status): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
@@ -88,7 +88,7 @@ const columns: Array<ColumnProps<TaskResult>> = [
     sorter: true,
     width: "40%",
     className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: TaskResult) => (
+    render: (name: string, { id }: TaskResult): JSX.Element => (
       <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
     ),
   },

@@ -64,7 +64,7 @@ export const getClientLink = async ({
 
 const cache = new InMemoryCache();
 
-const authLink = (logout: Logout) =>
+const authLink = (logout: Logout): ApolloLink =>
   onError(({ networkError }) => {
     if (
       // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
@@ -78,7 +78,7 @@ const authLink = (logout: Logout) =>
 
 const timeoutLink = new ApolloLinkTimeout(60000);
 
-const authenticateIfSuccessfulLink = (dispatch: Dispatch) =>
+const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
   new ApolloLink((operation, forward) => {
     return forward(operation).map((response) => {
       if (response && response.data) {
@@ -111,7 +111,7 @@ export const getGQLClient = async ({
   shouldEnableGQLMockServer,
   logout,
   dispatch,
-}: ClientLinkParams) => {
+}: ClientLinkParams): Promise<ApolloClient<NormalizedCacheObject>> => {
   const link: HttpLink | SchemaLink = await getClientLink({
     credentials,
     gqlURL,
@@ -144,7 +144,7 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
   const { logout, dispatch } = useAuthDispatchContext();
 
   useEffect(() => {
-    async function getAndSetClient() {
+    async function getAndSetClient(): Promise<void> {
       const gqlClient = await getGQLClient({
         credentials,
         gqlURL,

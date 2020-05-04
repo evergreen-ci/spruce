@@ -4,7 +4,7 @@ import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
 
-const getReferrer = (location: Location<{ referrer?: string }>) => {
+const getReferrer = (location: Location<{ referrer?: string }>): string => {
   if (location && location.state && "referrer" in location.state) {
     return location.state.referrer;
   }
@@ -18,13 +18,13 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
   const { login } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
-  const loginHandler = () => {
+  const loginHandler = (): void => {
     login({ username, password });
   };
 
   const inputChangeHandler = (cb: (value: string) => void) => (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     cb(e.target.value);
   };
 

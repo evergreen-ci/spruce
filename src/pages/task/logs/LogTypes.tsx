@@ -30,7 +30,7 @@ interface TaskEventLogEntryType extends TaskEventLogEntry {
 interface LogMessageType extends LogMessage {
   kind?: "logMessage";
 }
-export const EventLog = () => {
+export const EventLog = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     EventLogsQuery,
@@ -48,7 +48,7 @@ export const EventLog = () => {
   });
 };
 
-export const SystemLog = () => {
+export const SystemLog = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     SystemLogsQuery,
@@ -63,7 +63,7 @@ export const SystemLog = () => {
   });
 };
 
-export const AgentLog = () => {
+export const AgentLog = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     AgentLogsQuery,
@@ -78,7 +78,7 @@ export const AgentLog = () => {
   });
 };
 
-export const TaskLog = () => {
+export const TaskLog = (): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     TaskLogsQuery,
@@ -93,15 +93,11 @@ export const TaskLog = () => {
   });
 };
 
-const useRenderBody = ({
-  loading,
-  error,
-  data,
-}: {
+const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
   data: [TaskEventLogEntryType | LogMessageType];
-}) => {
+}> = ({ loading, error, data }) => {
   const noLogs = <div id="cy-no-logs">No logs</div>;
 
   if (loading) {

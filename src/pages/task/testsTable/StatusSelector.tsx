@@ -4,7 +4,7 @@ import { TestStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 
-export const StatusSelector = () => {
+export const StatusSelector: React.FC = () => {
   const [statusVal, statusValOnChange] = useStatusesFilter(
     RequiredQueryParams.Statuses
   );

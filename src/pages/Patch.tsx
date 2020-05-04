@@ -20,7 +20,7 @@ import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
 
-export const Patch = () => {
+export const Patch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<

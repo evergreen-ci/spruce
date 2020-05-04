@@ -20,7 +20,7 @@ import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
 
-export const MyPatches = () => {
+export const MyPatches: React.FC = () => {
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
@@ -31,7 +31,7 @@ export const MyPatches = () => {
     patchNameFilterValue,
     patchNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
-  const { data, fetchMore, networkStatus, error } = useQuery<
+  const { fetchMore, networkStatus, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
@@ -67,7 +67,7 @@ export const MyPatches = () => {
     return <div>{error.message}</div>;
   }
 
-  const onCheckboxChange = () => {
+  const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify({
         ...queryString.parse(search),
@@ -105,7 +105,14 @@ export const MyPatches = () => {
 
 const arrayFormat = "comma";
 const LIMIT = 10;
-const getQueryVariables = (search: string) => {
+const getQueryVariables = (
+  search: string
+): {
+  $includeCommitQueue: boolean;
+  $patchName: string;
+  $statuses: string[];
+  $limit: number;
+} => {
   const parsed = queryString.parse(search, { arrayFormat });
   const $includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||

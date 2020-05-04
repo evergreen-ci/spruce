@@ -19,7 +19,7 @@ import {
 
 const { gray } = uiColors;
 
-export const CommitQueue = () => {
+export const CommitQueue: React.FC = () => {
   const { id } = useParams();
   const { data, loading, error } = useQuery<
     CommitQueueQuery,
