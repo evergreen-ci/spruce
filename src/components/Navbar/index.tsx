@@ -15,6 +15,7 @@ export const Navbar: React.FC = () => {
   if (!isAuthenticated) {
     return null;
   }
+
   return (
     <StyledHeader>
       <InnerWrapper>
@@ -34,6 +35,7 @@ const StyledHeader = styled(Header)`
   margin-bottom: 16px;
   padding: 0 36px;
 `;
+
 const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
