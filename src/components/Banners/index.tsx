@@ -13,11 +13,11 @@ export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
     return null;
   }
   return (
-    <BannersWrapper data-cy="banner-wrapper">
+    <BannersWrapper data-cy="banners-wrapper">
       {banners
         .sort((a) => (a.type === "warning" ? -1 : 1))
         .map(({ id, type, message }) => (
-          <Banner data-cy="banner" key={id} {...{ id, type, removeBanner }}>
+          <Banner key={id} {...{ id, type, removeBanner }}>
             {message}
           </Banner>
         ))}

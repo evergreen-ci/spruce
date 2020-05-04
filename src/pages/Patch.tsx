@@ -61,7 +61,7 @@ export const PatchCore = () => {
     );
   }
   return (
-    <PageWrapper>
+    <PageWrapper data-cy="patch-page">
       <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle

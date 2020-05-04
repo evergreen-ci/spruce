@@ -52,7 +52,7 @@ describe("Patch route", function() {
   it("Renders patch info", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("page-title").within(hasText);
-    cy.get("#task-count").within(hasText);
+    cy.dataCy("patch-page").within(hasText);
   });
 
   it("'Base commit' link in metadata links to version page of legacy UI", function() {
@@ -64,7 +64,7 @@ describe("Patch route", function() {
 
   it("Shows a message if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.dataCy("metadata-card-error").should("exist");
+    cy.dataCy("banner").should("exist");
     cy.get("#task-count").should("not.exist");
   });
 
