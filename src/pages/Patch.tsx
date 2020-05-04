@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
@@ -19,30 +19,36 @@ import Badge, { Variant } from "@leafygreen-ui/badge";
 import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
+import { Banners } from "components/Banners";
+import Button from "@leafygreen-ui/button";
 
 export const Patch = () => {
   const { id } = useParams<{ id: string }>();
+  const banner = useBannerDispatchContext();
   const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
   >(GET_PATCH, {
     variables: { id },
-    pollInterval: 2000,
+    pollInterval: 5000,
   });
+  useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  if (
-    status === PatchStatus.Failed ||
-    status === PatchStatus.Success ||
-    activated === false
-  ) {
-    stopPolling();
-  }
+
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
+  }
+  if (error) {
+    banner.error("There was an error loading the patch.");
+    return null;
   }
   return (
     <PageWrapper>
@@ -55,6 +61,15 @@ export const Patch = () => {
           <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
         }
       />
+      <Button
+        onClick={() =>
+          banner.error(
+            "Beauty and the best was a good movie about the old country"
+          )
+        }
+      >
+        Error banner
+      </Button>
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />

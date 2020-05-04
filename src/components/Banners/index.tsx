@@ -9,21 +9,24 @@ interface BannersProps {
 }
 
 export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
+  if (!banners || banners.length === 0) {
+    return null;
+  }
   return (
-    <BannersWrapper>
-      {banners &&
-        banners
-          .sort((a) => (a.type === "warning" ? -1 : 1))
-          .map(({ id, type, message }) => (
-            <Banner key={id} {...{ id, type, removeBanner }}>
-              {message}
-            </Banner>
-          ))}
+    <BannersWrapper data-cy="banner-wrapper">
+      {banners
+        .sort((a) => (a.type === "warning" ? -1 : 1))
+        .map(({ id, type, message }) => (
+          <Banner data-cy="banner" key={id} {...{ id, type, removeBanner }}>
+            {message}
+          </Banner>
+        ))}
     </BannersWrapper>
   );
 };
 
 const BannersWrapper = styled.div`
+  margin-bottom: 16px;
   & > :not(:last-child) {
     margin-bottom: 8px;
   }
