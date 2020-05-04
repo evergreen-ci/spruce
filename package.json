@@ -68,7 +68,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint && npm run eslint",
+      "pre-commit": "lint-staged",
       "pre-push": "npm run test"
     }
   },
@@ -128,6 +128,7 @@
     "husky": "4.2.5",
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
+    "lint-staged": "10.2.2",
     "prettier": "1.19.1",
     "ts-loader": "6.2.2",
     "tslint": "5.20.1",
