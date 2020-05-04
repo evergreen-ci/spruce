@@ -10,21 +10,23 @@ module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
     jsx: true,
-    useJSXTextNode: true
+    useJSXTextNode: true,
   },
   extends: [
     "react-app",
     "plugin:@typescript-eslint/recommended",
     "prettier",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
   ],
-  plugins: ["@typescript-eslint", "graphql"],
+  plugins: ["@typescript-eslint", "graphql", "react-hooks"],
   rules: {
     "graphql/template-strings": [
       "error",
       {
-        schemaString: schema
-      }
-    ]
-  }
+        schemaString: schema,
+      },
+    ],
+    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+  },
 };
