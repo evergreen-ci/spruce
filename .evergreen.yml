@@ -131,13 +131,6 @@ functions:
       binary: npm
       args: [run, build]
 
-  npm-build:
-    command: subprocess.exec
-    params:
-      working_dir: spruce
-      binary: npm
-      args: [run, build]
-
   npm-coverage:
     command: subprocess.exec
     params:
@@ -217,7 +210,6 @@ tasks:
     commands:
     - func: get-project
     - func: npm-install
-    - func: npm-build
     - func: npm-build
 
   - name: test
