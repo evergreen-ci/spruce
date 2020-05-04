@@ -22,13 +22,15 @@ import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
+  BannerContextProvider,
 } from "context/banners";
 import { Banners } from "components/Banners";
 import Button from "@leafygreen-ui/button";
 
-export const Patch = () => {
+const PatchCore = () => {
   const { id } = useParams<{ id: string }>();
-  const banner = useBannerDispatchContext();
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
   const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<
     PatchQuery,
@@ -42,16 +44,26 @@ export const Patch = () => {
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-
+  useEffect(() => {
+    if (error) {
+      dispatchBanner.error(
+        `There was an error loading the patch: ${error.message}`
+      );
+    }
+  }, [error]);
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }
   if (error) {
-    banner.error("There was an error loading the patch.");
-    return null;
+    return (
+      <PageWrapper>
+        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      </PageWrapper>
+    );
   }
   return (
     <PageWrapper>
+      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}
@@ -61,15 +73,6 @@ export const Patch = () => {
           <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
         }
       />
-      <Button
-        onClick={() =>
-          banner.error(
-            "Beauty and the best was a good movie about the old country"
-          )
-        }
-      >
-        Error banner
-      </Button>
       <PageLayout>
         <PageSider>
           <Metadata loading={loading} patch={patch} error={error} />
@@ -82,6 +85,14 @@ export const Patch = () => {
         </PageLayout>
       </PageLayout>
     </PageWrapper>
+  );
+};
+
+export const Patch = () => {
+  return (
+    <BannerContextProvider>
+      <PatchCore />
+    </BannerContextProvider>
   );
 };
 

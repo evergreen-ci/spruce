@@ -17,10 +17,7 @@ import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Banners } from "components/Banners";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { BannerContextProvider } from "context/banners";
 
 export const Content = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -36,7 +33,6 @@ export const Content = () => {
   return (
     <PageLayout>
       <Navbar data={data} loading={loading} />
-      <BannersWithContext />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
@@ -51,10 +47,4 @@ export const Content = () => {
       </Switch>
     </PageLayout>
   );
-};
-
-const BannersWithContext = () => {
-  const bannersState = useBannerStateContext();
-  const banner = useBannerDispatchContext();
-  return <Banners banners={bannersState} removeBanner={banner.remove} />;
 };
