@@ -12,6 +12,14 @@ module.exports = {
     jsx: true,
     useJSXTextNode: true,
   },
+  ignorePatterns: [
+    "config/**/*.js",
+    "node_modules/**/*.ts",
+    "coverage/lcov-report/*.js",
+    "scripts/*",
+    "src/serviceWorker.ts",
+    "src/gql/generated/types.ts",
+  ],
   extends: [
     "react-app",
     "plugin:@typescript-eslint/recommended",
