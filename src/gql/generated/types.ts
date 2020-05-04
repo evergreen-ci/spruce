@@ -634,7 +634,14 @@ export type UserPatchesQueryVariables = {
 };
 
 
-export type UserPatchesQuery = { userPatches: { patches: Array<{ projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ id: string, buildVariant: string, status: string, predictedMakespan: number, actualMakespan: number }> }> } };
+export type UserPatchesQuery = { userPatches: { filteredPatchCount: number, patches: Array<{ id: string, projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ id: string, buildVariant: string, status: string }> }> } };
+
+export type PatchBuildVariantsAndStatusQueryVariables = {
+  id: Scalars['String'];
+};
+
+
+export type PatchBuildVariantsAndStatusQuery = { patch: { status: string, builds: Array<{ id: string, buildVariant: string, status: string }> } };
 
 export type PatchQueryVariables = {
   id: Scalars['String'];

@@ -3,7 +3,7 @@ import { Input } from "antd";
 
 export const FiltersWrapper = styled.div`
   display: flex;
-  margin-bottom: 12px;
+  margin-bottom: 16px;
   align-items: center;
 `;
 

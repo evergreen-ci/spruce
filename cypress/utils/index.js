@@ -45,7 +45,7 @@ export const assertQueryVariables = (queryName, variables = {}) => {
       options[`requestBody.variables[${variable}]`] = value;
     }
   });
-  waitForGQL("@gqlQuery", queryName, options);
+  return waitForGQL("@gqlQuery", queryName, options);
 };
 
 export const resultsAreFetchedAndRendered = ({

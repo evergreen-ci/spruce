@@ -13,10 +13,13 @@ const updateQueryParam = debounce(
     replace: (path: string) => void,
     pathname: string
   ) => {
-    const nextQueryParams = queryString.stringify({
-      ...queryString.parse(search, { arrayFormat }),
-      [urlSearchParam]: inputValue === "" ? undefined : inputValue,
-    });
+    const nextQueryParams = queryString.stringify(
+      {
+        ...queryString.parse(search, { arrayFormat }),
+        [urlSearchParam]: inputValue === "" ? undefined : inputValue,
+      },
+      { arrayFormat }
+    );
     replace(`${pathname}?${nextQueryParams}`);
   },
   250

@@ -15,8 +15,6 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { PatchStatus } from "types/patch";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
 import {
@@ -25,6 +23,7 @@ import {
   BannerContextProvider,
 } from "context/banners";
 import { Banners } from "components/Banners";
+import { PatchStatusBadge } from "components/PatchStatusBadge";
 
 export const PatchCore = () => {
   const { id } = useParams<{ id: string }>();
@@ -68,9 +67,7 @@ export const PatchCore = () => {
         loading={loading}
         hasData={!!patch}
         title={description ? description : `Patch ${get(patch, "patchNumber")}`}
-        badge={
-          <Badge variant={mapPatchStatusToBadgeVariant[status]}>{status}</Badge>
-        }
+        badge={<PatchStatusBadge status={status} />}
       />
       <PageLayout>
         <PageSider>
@@ -93,11 +90,4 @@ export const Patch = () => {
       <PatchCore />
     </BannerContextProvider>
   );
-};
-
-const mapPatchStatusToBadgeVariant = {
-  [PatchStatus.Created]: Variant.LightGray,
-  [PatchStatus.Failed]: Variant.Red,
-  [PatchStatus.Started]: Variant.Yellow,
-  [PatchStatus.Success]: Variant.Green,
 };

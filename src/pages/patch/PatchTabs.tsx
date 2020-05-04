@@ -1,17 +1,11 @@
 import React from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { paths } from "constants/routes";
+import { paths, PatchTab, DEFAULT_PATCH_TAB } from "constants/routes";
 import { useTabs, useDefaultPath } from "hooks";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { useParams } from "react-router-dom";
-
-enum PatchTab {
-  Tasks = "tasks",
-  Changes = "changes",
-}
-const DEFAULT_TAB = PatchTab.Tasks;
 
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
@@ -26,11 +20,11 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   const { id } = useParams<{ id: string }>();
   useDefaultPath({
     tabToIndexMap,
-    defaultPath: `${paths.patch}/${id}/${DEFAULT_TAB}`,
+    defaultPath: `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}`,
   });
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
-    defaultTab: DEFAULT_TAB,
+    defaultTab: DEFAULT_PATCH_TAB,
     path: `${paths.patch}/${id}`,
   });
   return (
