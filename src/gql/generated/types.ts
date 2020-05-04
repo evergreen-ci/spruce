@@ -398,7 +398,7 @@ export type Task = {
   hostLink?: Maybe<Scalars['String']>;
   restarts?: Maybe<Scalars['Int']>;
   execution?: Maybe<Scalars['Int']>;
-  order?: Maybe<Scalars['Int']>;
+  patchNumber?: Maybe<Scalars['Int']>;
   requester: Scalars['String'];
   status: Scalars['String'];
   details?: Maybe<TaskEndDetail>;
@@ -622,7 +622,7 @@ export type GetTaskQueryVariables = {
 };
 
 
-export type GetTaskQuery = { task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, order?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+export type GetTaskQuery = { task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars['Int']>;
