@@ -154,33 +154,35 @@ export const ActionButtons = (props: Props) => {
         </Button>
         {isVisible && (
           <Options>
-            <Item>
+            <Item onClick={() => unscheduleTask()}>
               <Body>Unschedule</Body>
             </Item>
-            <Item>
+            <Item onClick={() => abortTask()}>
               <Body>Abort</Body>
             </Item>
             <Popconfirm
               placement="left"
               title={
                 <>
-                  <Body>Submit priority:</Body>
-                  <div>
-                    <InputNumber
-                      size="small"
-                      min={1}
-                      type="number"
-                      max={100000}
-                      value={priority}
-                      onChange={onChange}
-                    />
-                  </div>
+                  <StyledBody>Set new priority:</StyledBody>
+                  <InputNumber
+                    size="small"
+                    min={1}
+                    type="number"
+                    max={100000}
+                    value={priority}
+                    onChange={onChange}
+                  />
                 </>
               }
-              onConfirm={() => console.log("confirm")}
-              onCancel={() => console.log("cancel")}
-              okText="Yes"
-              cancelText="No"
+              onConfirm={() =>
+                setTaskPriority({
+                  variables: { taskId, priority },
+                })
+              }
+              onCancel={() => setIsVisible(false)}
+              okText="Set"
+              cancelText="Cancel"
             >
               <Item ref={priorityRef} style={{ paddingRight: 8 }}>
                 <Body>Set priority</Body>
@@ -213,4 +215,8 @@ const Item = styled.div`
     text-decoration: underline;
     cursor: pointer;
   }
+`;
+
+const StyledBody = styled(Body)`
+  padding-right: 8px;
 `;
