@@ -21,7 +21,7 @@ export const Banner: React.FC<Props> = ({
 }) => {
   const onClickX = () => removeBanner(id);
   return (
-    <Wrapper type={type}>
+    <Wrapper type={type} data-cy="banner">
       <StyledBody type={type}>{children}</StyledBody>
       {(type === "success" || type === "info") && (
         <X onClick={onClickX}>

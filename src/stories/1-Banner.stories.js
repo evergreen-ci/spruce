@@ -51,6 +51,7 @@ const BannersExample = () => {
         >
           Info
         </Button>
+        <Button onClick={() => banner.clearAll()}>Clear All</Button>
       </ButtonsWrapper>
     </>
   );
