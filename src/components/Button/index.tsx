@@ -18,6 +18,7 @@ interface Props {
   onClick?: () => void;
   disabled?: boolean;
   dataCy?: string;
+  glyph?: React.ReactElement;
 }
 
 export const Button: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const Button: React.FC<Props> = ({
   onClick,
   disabled,
   dataCy,
+  glyph,
 }) => {
   return (
     <LeafyGreenButton
@@ -34,8 +36,9 @@ export const Button: React.FC<Props> = ({
       variant={mapVariantToLeafyGreenVariant[variant]}
       onClick={onClick}
       disabled={disabled}
+      glyph={loading ? <StyledIcon type="loading" /> : glyph}
     >
-      {loading && <StyledIcon type="loading" />}
+      {/* {loading && } */}
       {children}
     </LeafyGreenButton>
   );
