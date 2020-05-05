@@ -7,7 +7,25 @@ import Card from "@leafygreen-ui/card";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
-
+import { useParams } from "react-router-dom";
+import { useMutation } from "@apollo/react-hooks";
+import { ABORT_TASK } from "gql/mutations/abort-task";
+import { RESTART_TASK } from "gql/mutations/restart-task";
+import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
+import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
+import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
+import {
+  SetTaskPriorityMutation,
+  SetTaskPriorityMutationVariables,
+  AbortTaskMutation,
+  AbortTaskMutationVariables,
+  RestartTaskMutation,
+  RestartTaskMutationVariables,
+  ScheduleTaskMutation,
+  ScheduleTaskMutationVariables,
+  UnscheduleTaskMutation,
+  UnscheduleTaskMutationVariables,
+} from "gql/generated/types";
 interface Props {
   priority?: number;
 }
@@ -17,14 +35,44 @@ export const ActionButtons = (props: Props) => {
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [priority, setPriority] = useState<number>(props.priority);
-  const outsideClickCb = () => {
+  const { id } = useParams<{ id: string }>();
+  const [
+    scheduleTask,
+    { loading: loadingScheduleTask, error: errorScheduleTask },
+  ] = useMutation<ScheduleTaskMutation, ScheduleTaskMutationVariables>(
+    SCHEDULE_TASK
+  );
+  const [
+    unscheduleTask,
+    { loading: loadingUnscheduleTask, error: errorUnscheduleTask },
+  ] = useMutation<UnscheduleTaskMutation, UnscheduleTaskMutationVariables>(
+    UNSCHEDULE_TASK
+  );
+  const [
+    abortTask,
+    { loading: loadingAbortTask, error: errorAbortTask },
+  ] = useMutation<AbortTaskMutation, AbortTaskMutationVariables>(ABORT_TASK);
+  const [
+    restartTask,
+    { loading: loadingRestartTask, error: errorRestartTask },
+  ] = useMutation<RestartTaskMutation, RestartTaskMutationVariables>(
+    RESTART_TASK
+  );
+  const [
+    setTaskPriority,
+    { loading: loadingSetPriority, error: errorSetPriority },
+  ] = useMutation<SetTaskPriorityMutation, SetTaskPriorityMutationVariables>(
+    SET_TASK_PRIORTY
+  );
+
+  useOnClickOutside(wrapperRef, () => {
     if (
       !get(priorityRef, "current.className", "").includes("ant-popover-open")
     ) {
       setIsVisible(false);
     }
-  };
-  useOnClickOutside(wrapperRef, outsideClickCb);
+  });
+
   const toggleOptions = () => setIsVisible(!isVisible);
   const onChange = (p) => {
     setPriority(p);
