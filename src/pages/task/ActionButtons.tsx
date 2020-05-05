@@ -4,7 +4,8 @@ import { EllipsisBtnCopy } from "components/styles/Button";
 import styled from "@emotion/styled";
 import { useOnClickOutside } from "hooks";
 import Card from "@leafygreen-ui/card";
-import { InputNumber } from "antd";
+import { InputNumber, Popconfirm } from "antd";
+import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
 
 interface Props {
@@ -12,13 +13,22 @@ interface Props {
 }
 export const ActionButtons = (props: Props) => {
   const wrapperRef = useRef(null);
+  const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [priority, setPriority] = useState<number>(props.priority);
-  useOnClickOutside(wrapperRef, () => setIsVisible(false));
+  const outsideClickCb = () => {
+    if (
+      !get(priorityRef, "current.className", "").includes("ant-popover-open")
+    ) {
+      setIsVisible(false);
+    }
+  };
+  useOnClickOutside(wrapperRef, outsideClickCb);
   const toggleOptions = () => setIsVisible(!isVisible);
   const onChange = (p) => {
     setPriority(p);
   };
+
   return (
     <Container ref={wrapperRef}>
       <Button size="small">Schedule</Button>
@@ -30,18 +40,39 @@ export const ActionButtons = (props: Props) => {
         </Button>
         {isVisible && (
           <Options>
-            <Item>Unschedule</Item>
-            <Item>Abort</Item>
+            <Item>
+              <Body>Unschedule</Body>
+            </Item>
+            <Item>
+              <Body>Abort</Body>
+            </Item>
             <div>
-              <Item style={{ paddingRight: 8 }}>Set priority</Item>
-              <InputNumber
-                size="small"
-                min={1}
-                type="number"
-                max={100000}
-                value={priority}
-                onChange={onChange}
-              />
+              <Popconfirm
+                placement="left"
+                title={
+                  <>
+                    <Body>Submit priority:</Body>
+                    <div>
+                      <InputNumber
+                        size="small"
+                        min={1}
+                        type="number"
+                        max={100000}
+                        value={priority}
+                        onChange={onChange}
+                      />
+                    </div>
+                  </>
+                }
+                onConfirm={() => console.log("confirm")}
+                onCancel={() => console.log("cancel")}
+                okText="Yes"
+                cancelText="No"
+              >
+                <Item ref={priorityRef} style={{ paddingRight: 8 }}>
+                  <Body>Set priority</Body>
+                </Item>
+              </Popconfirm>
             </div>
           </Options>
         )}
