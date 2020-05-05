@@ -13,6 +13,7 @@
     "@leafygreen-ui/card": "2.0.0",
     "@leafygreen-ui/checkbox": "4.0.0",
     "@leafygreen-ui/icon": "4.1.0",
+    "@leafygreen-ui/leafygreen-provider": "1.1.1",
     "@leafygreen-ui/palette": "2.0.0",
     "@leafygreen-ui/radio-group": "2.0.0",
     "@leafygreen-ui/side-nav": "2.0.9",
