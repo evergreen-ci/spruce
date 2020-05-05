@@ -8,7 +8,7 @@ import {
   SiderCard,
 } from "components/styles";
 
-export const PatchAndTaskFullPageLoad = () => {
+export const PatchAndTaskFullPageLoad: React.FC = () => {
   return (
     <>
       <H2>

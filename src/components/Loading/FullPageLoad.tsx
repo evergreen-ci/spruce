@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 
-export const FullPageLoad = () => {
+export const FullPageLoad: React.FC = () => {
   return (
     <FullPage>
       <div>LOADING...</div>

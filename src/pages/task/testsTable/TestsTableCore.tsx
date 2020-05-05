@@ -24,6 +24,7 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
+import { Skeleton } from "antd";
 const LIMIT = 10;
 const arrayFormat = "comma";
 
@@ -75,6 +76,10 @@ export const TestsTableCore: React.FC = () => {
       }
     });
   }, [networkStatus, error, fetchMore, listen]);
+
+  if (!data && networkStatus < NetworkStatus.ready) {
+    return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+  }
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
@@ -254,7 +259,15 @@ const ButtonWrapper = styled.span({
   marginRight: 8,
 });
 
-const getQueryVariables = (search: string) => {
+const getQueryVariables = (
+  search: string
+): {
+  cat: TestSortCategory;
+  dir: SortDirection;
+  limitNum: number;
+  statusList: string[];
+  testName: string;
+} => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
     .toString()

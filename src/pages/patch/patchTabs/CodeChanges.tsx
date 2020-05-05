@@ -12,7 +12,7 @@ import Button from "@leafygreen-ui/button";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import styled from "@emotion/styled";
 
-export const CodeChanges = () => {
+export const CodeChanges: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     CodeChangesQuery,

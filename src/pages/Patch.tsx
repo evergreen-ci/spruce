@@ -25,7 +25,7 @@ import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "higherOrderComponents/withBannersContext";
 
-const PatchCore = () => {
+const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();

@@ -23,7 +23,7 @@ const options = {
   [LogTypes.Event]: <EventLog />,
 };
 
-export const Logs: React.FC = (props) => {
+export const Logs: React.FC = () => {
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
@@ -46,7 +46,7 @@ export const Logs: React.FC = (props) => {
     }
   }, [logTypeParam]);
 
-  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     replace(
       `${pathname}?${queryString.stringify({

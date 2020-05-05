@@ -3,7 +3,7 @@ import { NetworkStatus } from "apollo-client";
 
 export const useDisableTableSortersIfLoading = (
   networkStatus: NetworkStatus
-) => {
+): void => {
   useEffect(() => {
     const elements = document.querySelectorAll(
       "th.ant-table-column-has-actions.ant-table-column-has-sorters"

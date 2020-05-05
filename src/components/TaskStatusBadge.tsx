@@ -40,12 +40,13 @@ interface BadgeColorProps {
 
 // only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
 const StyledBadge = styled(Badge)`
-  border-color: ${(props: BadgeColorProps) => props.border} !important;
-  background-color: ${(props: BadgeColorProps) => props.fill} !important;
-  color: ${(props: BadgeColorProps) => props.text} !important;
+  border-color: ${(props: BadgeColorProps): string => props.border} !important;
+  background-color: ${(props: BadgeColorProps): string =>
+    props.fill} !important;
+  color: ${(props: BadgeColorProps): string => props.text} !important;
 `;
 
-export const TaskStatusBadge = ({ status }: { status: string }) => {
+export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
   if (status in mapTaskStatusToBadgeVariant) {
     return (
       <Badge key={status} variant={mapTaskStatusToBadgeVariant[status]}>

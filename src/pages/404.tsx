@@ -3,7 +3,7 @@ import { PageWrapper } from "components/styles";
 import { H2 } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
 
-export const PageDoesNotExist = () => {
+export const PageDoesNotExist: React.FC = () => {
   return (
     <StyledPageWrapper>
       <H2 data-cy="404">404 Page Does Not Exist</H2>

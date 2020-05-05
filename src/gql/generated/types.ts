@@ -398,7 +398,7 @@ export type Task = {
   hostLink?: Maybe<Scalars['String']>;
   restarts?: Maybe<Scalars['Int']>;
   execution?: Maybe<Scalars['Int']>;
-  order?: Maybe<Scalars['Int']>;
+  patchNumber?: Maybe<Scalars['Int']>;
   requester: Scalars['String'];
   status: Scalars['String'];
   details?: Maybe<TaskEndDetail>;
@@ -409,7 +409,6 @@ export type Task = {
   generateTask?: Maybe<Scalars['Boolean']>;
   generatedBy?: Maybe<Scalars['String']>;
   aborted?: Maybe<Scalars['Boolean']>;
-  patchNumber?: Maybe<Scalars['Int']>;
   baseTaskMetadata: BaseTaskMetadata;
 };
 

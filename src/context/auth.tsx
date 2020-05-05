@@ -43,7 +43,7 @@ const reducer = (state: State, action: Action): State => {
   }
 };
 
-const logout = async (dispatch: Dispatch) => {
+const logout = async (dispatch: Dispatch): Promise<void> => {
   try {
     dispatch({ type: "deauthenticate" });
     await axios.get(`${getLoginDomain()}/logout`);
@@ -59,7 +59,7 @@ interface LoginParams {
 const login = async (
   dispatch: Dispatch,
   { username, password }: LoginParams
-) => {
+): Promise<void> => {
   try {
     await axios.post(`${getLoginDomain()}/login`, {
       username,
@@ -103,7 +103,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-const useAuthStateContext = () => {
+const useAuthStateContext = (): State => {
   const authState = useContext(AuthStateContext);
   if (authState === undefined) {
     throw new Error(
@@ -113,7 +113,7 @@ const useAuthStateContext = () => {
   return authState;
 };
 
-const useAuthDispatchContext = () => {
+const useAuthDispatchContext = (): DispatchContext => {
   const authDispatch = useContext(AuthDispatchContext);
   if (authDispatch === undefined) {
     throw new Error(
