@@ -46,7 +46,11 @@ export const ActionButtons = (props: Props) => {
     unscheduleTask,
     { loading: loadingUnscheduleTask, error: errorUnscheduleTask },
   ] = useMutation<UnscheduleTaskMutation, UnscheduleTaskMutationVariables>(
-    UNSCHEDULE_TASK
+    UNSCHEDULE_TASK,
+    {
+      onCompleted: () => console.log("banner"),
+      onError: () => console.log("show banner"),
+    }
   );
   const [
     abortTask,
