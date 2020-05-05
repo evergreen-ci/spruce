@@ -1,7 +1,7 @@
 var fs = require("fs");
 let schema;
 try {
-  schema = fs.readFileSync("./sdlschema", "utf8");
+  schema = fs.readFileSync("./sdlschema.graphql", "utf8");
 } catch (e) {
   schema = "";
 }
