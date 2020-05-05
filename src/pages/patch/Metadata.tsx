@@ -41,7 +41,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
           Base commit: {githash ? githash.slice(0, 10) : ""}
         </StyledLink>
       </P2>
-      {commitQueuePosition && (
+      {commitQueuePosition !== null && (
         <P2>
           <StyledLink
             data-cy="commit-queue-position"
