@@ -22,7 +22,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   selectedBuildVariant,
   setSelectedBuildVariant,
 }) => {
-  const getClickVariantHandler = (variantName: string) => () =>
+  const getClickVariantHandler = (variantName: string) => (): void =>
     setSelectedBuildVariant(variantName);
   return (
     <StyledSiderCard>
@@ -86,10 +86,10 @@ const BuildVariant = styled.div`
   cursor: pointer;
   padding: 8px 0;
   ${cardSidePadding}
-  background-color: ${(props: VariantProps) =>
+  background-color: ${(props: VariantProps): string =>
     props.isSelected ? uiColors.green.light3 : "none"};
   border-left: 3px solid white;
-  border-left-color: ${(props: VariantProps) =>
+  border-left-color: ${(props: VariantProps): string =>
     props.isSelected ? uiColors.green.base : "none"};
 `;
 const VariantName = styled.div`

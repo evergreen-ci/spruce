@@ -57,10 +57,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description || ""
   );
-  const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>) =>
+  const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setdescriptionValue(e.target.value);
 
-  const onClickSchedule = async () => {
+  const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchReconfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),

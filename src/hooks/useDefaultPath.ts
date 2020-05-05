@@ -15,7 +15,7 @@ export const useDefaultPath = ({
 }: {
   tabToIndexMap: TabToIndexMap;
   defaultPath: string;
-}) => {
+}): void => {
   const history = useHistory();
   const { tab, id } = useParams<{ tab?: string; id: string }>();
   useEffect(() => {

@@ -22,7 +22,7 @@ enum Toast {
   info = "info",
 }
 
-const showToastMessage = (t: Toast) => (toastMessage: string) =>
+const showToastMessage = (t: Toast) => (toastMessage: string): MessageType =>
   message[t](toastMessage);
 
 const toast: ToastDispatchValue = {
@@ -40,7 +40,7 @@ const ToastProvider: React.FC = ({ children }) => {
   );
 };
 
-const useToastContext = () => {
+const useToastContext = (): ToastDispatchValue => {
   const context = React.useContext(MessagesDispatchContext);
   if (context === undefined) {
     throw new Error("useToastContext must be used within a ToastProvider");

@@ -7,7 +7,7 @@ import {
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 
-export const StatusSelector = () => {
+export const StatusSelector: React.FC = () => {
   const [statusVal, statusValOnChange] = useStatusesFilter(
     MyPatchesQueryParams.Statuses
   );

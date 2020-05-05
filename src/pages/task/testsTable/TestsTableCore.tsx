@@ -259,7 +259,15 @@ const ButtonWrapper = styled.span({
   marginRight: 8,
 });
 
-const getQueryVariables = (search: string) => {
+const getQueryVariables = (
+  search: string
+): {
+  cat: TestSortCategory;
+  dir: SortDirection;
+  limitNum: number;
+  statusList: string[];
+  testName: string;
+} => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
     .toString()

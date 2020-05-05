@@ -38,7 +38,15 @@ export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
 
 const rowKey = (record: FileDiff, index: number): string => `${index}`;
 
-const columns = (showHeader: boolean) => [
+const columns = (
+  showHeader: boolean
+): Array<{
+  title: string;
+  dataIndex: string;
+  key: string;
+  width?: number;
+  render: (text: string | number, record?: FileDiff) => JSX.Element;
+}> => [
   {
     title: "File",
     dataIndex: "fileName",
@@ -61,14 +69,18 @@ const columns = (showHeader: boolean) => [
     dataIndex: "additions",
     key: "additions",
     width: !showHeader && 80,
-    render: (text: number) => <FileDiffText value={text} type="+" />,
+    render: (text: number): JSX.Element => (
+      <FileDiffText value={text} type="+" />
+    ),
   },
   {
     title: "Deletions",
     dataIndex: "deletions",
     key: "deletions",
     width: !showHeader && 80,
-    render: (text: number) => <FileDiffText value={text} type="-" />,
+    render: (text: number): JSX.Element => (
+      <FileDiffText value={text} type="-" />
+    ),
   },
 ];
 
@@ -77,7 +89,7 @@ const StyledTable = styled(Table)`
   margin-bottom: 50px;
 `;
 const FileDiffTextContainer = styled("span")`
-  ${(props: { type: string; hasValue: boolean }) =>
+  ${(props: { type: string; hasValue: boolean }): string =>
     props.hasValue &&
     (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
   &:nth-of-type(2) {
