@@ -10,11 +10,13 @@ import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
-import { Table } from "antd";
+import { Table, Skeleton } from "antd";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
+import get from "lodash/get";
+import { Body } from "@leafygreen-ui/typography";
 
 const columns = [
   {
@@ -68,15 +70,8 @@ export const FilesTables: React.FC = () => {
     [data, filterStr]
   );
 
-  if (loading) {
-    return <div>Loading...</div>;
-  }
   if (error) {
     return <div>{error.message}</div>;
-  }
-  if (!filteredData && data) {
-    // this will happen once per mount
-    return <></>;
   }
 
   const onSearch = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -84,9 +79,18 @@ export const FilesTables: React.FC = () => {
   };
 
   const rowKey = (record: File): string => `${record.name}_${record.link}`;
-  const tables = filteredData
-    .filter(({ files }) => files.length)
-    .map(({ taskName, files }) => {
+
+  const renderTable = () => {
+    if (loading || (!filteredData && data)) {
+      return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+    }
+    const filteredFiles = (filteredData || []).filter(({ files }) =>
+      get(files, "length", 0)
+    );
+    if (!filteredFiles.length) {
+      return <Body>No files found</Body>;
+    }
+    return filteredFiles.map(({ taskName, files }) => {
       return (
         <Fragment key={taskName}>
           <H3>{taskName}</H3>
@@ -100,6 +104,8 @@ export const FilesTables: React.FC = () => {
         </Fragment>
       );
     });
+  };
+
   return (
     <>
       <StyledInput
@@ -107,7 +113,7 @@ export const FilesTables: React.FC = () => {
         onChange={onSearch}
         suffix={<Icon glyph="MagnifyingGlass" />}
       />
-      {tables.length ? tables : <div>No files found</div>}
+      {renderTable()}
     </>
   );
 };
