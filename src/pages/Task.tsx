@@ -25,6 +25,12 @@ import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TaskStatus } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
+import { Banners } from "components/Banners";
+import { withBannersContext } from "higherOrderComponents/withBannersContext";
 
 enum TaskTab {
   Logs = "logs",
@@ -40,8 +46,10 @@ const tabToIndexMap = {
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
-export const Task: React.FC = () => {
+const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
@@ -78,8 +86,17 @@ export const Task: React.FC = () => {
     stopPolling();
   }
 
+  if (error) {
+    return (
+      <PageWrapper>
+        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      </PageWrapper>
+    );
+  }
+
   return (
     <PageWrapper>
+      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {task && (
         <BreadCrumb
           taskName={displayName}
@@ -153,3 +170,5 @@ export const Task: React.FC = () => {
     </PageWrapper>
   );
 };
+
+export const Task = withBannersContext(TaskCore);
