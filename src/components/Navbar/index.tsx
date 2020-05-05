@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
-import { ProjectSelectProps } from "components/ProjectSelect";
 import { Layout } from "antd";
 
 const { Header } = Layout;
 
-export const Navbar: React.FC<ProjectSelectProps> = () => {
+export const Navbar: React.FC = () => {
   const { logout } = useAuthDispatchContext();
   const { isAuthenticated } = useAuthStateContext();
 
