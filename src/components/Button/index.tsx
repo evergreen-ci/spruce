@@ -36,7 +36,7 @@ export const Button: React.FC<Props> = ({
       variant={mapVariantToLeafyGreenVariant[variant]}
       onClick={onClick}
       disabled={disabled}
-      glyph={loading ? <StyledIcon type="loading" /> : glyph}
+      glyph={loading ? <Icon type="loading" /> : glyph}
     >
       {children}
     </LeafyGreenButton>
@@ -50,7 +50,3 @@ const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
   [Variant.Info]: "info",
   [Variant.Primary]: "primary",
 };
-
-const StyledIcon = styled(Icon)`
-  margin-right: 8px;
-`;
