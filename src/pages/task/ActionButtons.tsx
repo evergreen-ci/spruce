@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import Button from "@leafygreen-ui/button";
+import { Button } from "components/Button";
 import { EllipsisBtnCopy } from "components/styles/Button";
 import styled from "@emotion/styled";
 import { useOnClickOutside } from "hooks";
@@ -32,11 +32,11 @@ export const ActionButtons = (props: Props) => {
 
   return (
     <Container ref={wrapperRef}>
-      <Button size="small">Schedule</Button>
-      <Button size="small">Restart</Button>
-      <Button size="small">Add Notification</Button>
+      <Button>Schedule</Button>
+      <Button>Restart</Button>
+      <Button>Add Notification</Button>
       <div>
-        <Button onClick={toggleOptions} size="small">
+        <Button onClick={toggleOptions}>
           <EllipsisBtnCopy>...</EllipsisBtnCopy>
         </Button>
         {isVisible && (
@@ -98,7 +98,8 @@ const Options = styled(Card)`
 `;
 
 const Item = styled.div`
-  &:hover {
+  > p:hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 `;
