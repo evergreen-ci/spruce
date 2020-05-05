@@ -1,8 +1,8 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useEffect } from "react";
 import { Button } from "components/Button";
 import { EllipsisBtnCopy } from "components/styles/Button";
 import styled from "@emotion/styled";
-import { useOnClickOutside } from "hooks";
+import { useOnClickOutside, usePrevious } from "hooks";
 import Card from "@leafygreen-ui/card";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
@@ -14,6 +14,7 @@ import { RESTART_TASK } from "gql/mutations/restart-task";
 import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
+import { useBannerDispatchContext } from "context/banners";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -31,43 +32,85 @@ interface Props {
 }
 
 export const ActionButtons = (props: Props) => {
+  const { success, error } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [priority, setPriority] = useState<number>(props.priority);
-  const { id } = useParams<{ id: string }>();
-  const [
-    scheduleTask,
-    { loading: loadingScheduleTask, error: errorScheduleTask },
-  ] = useMutation<ScheduleTaskMutation, ScheduleTaskMutationVariables>(
-    SCHEDULE_TASK
-  );
-  const [
-    unscheduleTask,
-    { loading: loadingUnscheduleTask, error: errorUnscheduleTask },
-  ] = useMutation<UnscheduleTaskMutation, UnscheduleTaskMutationVariables>(
-    UNSCHEDULE_TASK,
-    {
-      onCompleted: () => console.log("banner"),
-      onError: () => console.log("show banner"),
+  const { id: taskId } = useParams<{ id: string }>();
+  const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
+    ScheduleTaskMutation,
+    ScheduleTaskMutationVariables
+  >(SCHEDULE_TASK, {
+    variables: { taskId },
+    onCompleted: () => {
+      success("Task marked as scheduled");
+    },
+    onError: (err) => {
+      error(`Error scheduling task: ${err.message}`);
+    },
+  });
+
+  const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
+    UnscheduleTaskMutation,
+    UnscheduleTaskMutationVariables
+  >(UNSCHEDULE_TASK, {
+    variables: { taskId },
+    onCompleted: () => {
+      success("Task marked as unscheduled");
+    },
+    onError: (err) => {
+      error(`Error unscheduling task: ${err.message}`);
+    },
+  });
+
+  const [abortTask, { loading: loadingAbortTask }] = useMutation<
+    AbortTaskMutation,
+    AbortTaskMutationVariables
+  >(ABORT_TASK, {
+    onCompleted: () => {
+      success("Task aborted");
+    },
+    onError: (err) => {
+      error(`Error aborting task: ${err.message}`);
+    },
+  });
+
+  const [restartTask, { loading: loadingRestartTask }] = useMutation<
+    RestartTaskMutation,
+    RestartTaskMutationVariables
+  >(RESTART_TASK, {
+    variables: { taskId },
+    onCompleted: () => success("Task scheduled to restart"),
+    onError: (err) => {
+      error(`Error restarting task: ${err.message}`);
+    },
+  });
+
+  const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
+    SetTaskPriorityMutation,
+    SetTaskPriorityMutationVariables
+  >(SET_TASK_PRIORTY, {
+    onCompleted: (data) => {
+      success(`Priority for task updated to ${data.setTaskPriority.priority}`);
+    },
+    onError: (err) => {
+      error(`Error updating priority for task: ${err.message}`);
+    },
+  });
+
+  const disabled =
+    loadingAbortTask ||
+    loadingRestartTask ||
+    loadingSetPriority ||
+    loadingUnscheduleTask ||
+    loadingScheduleTask;
+
+  useEffect(() => {
+    if (disabled) {
+      setIsVisible(false);
     }
-  );
-  const [
-    abortTask,
-    { loading: loadingAbortTask, error: errorAbortTask },
-  ] = useMutation<AbortTaskMutation, AbortTaskMutationVariables>(ABORT_TASK);
-  const [
-    restartTask,
-    { loading: loadingRestartTask, error: errorRestartTask },
-  ] = useMutation<RestartTaskMutation, RestartTaskMutationVariables>(
-    RESTART_TASK
-  );
-  const [
-    setTaskPriority,
-    { loading: loadingSetPriority, error: errorSetPriority },
-  ] = useMutation<SetTaskPriorityMutation, SetTaskPriorityMutationVariables>(
-    SET_TASK_PRIORTY
-  );
+  }, [disabled]);
 
   useOnClickOutside(wrapperRef, () => {
     if (
@@ -78,17 +121,35 @@ export const ActionButtons = (props: Props) => {
   });
 
   const toggleOptions = () => setIsVisible(!isVisible);
-  const onChange = (p) => {
+  const onChange = (p: number) => {
     setPriority(p);
   };
 
   return (
     <Container ref={wrapperRef}>
-      <Button>Schedule</Button>
-      <Button>Restart</Button>
-      <Button>Add Notification</Button>
+      <Button
+        disabled={disabled}
+        loading={loadingScheduleTask}
+        onClick={scheduleTask}
+      >
+        Schedule
+      </Button>
+      <Button
+        disabled={disabled}
+        loading={loadingRestartTask}
+        onClick={restartTask}
+      >
+        Restart
+      </Button>
+      <Button disabled={disabled}>Add Notification</Button>
       <div>
-        <Button onClick={toggleOptions}>
+        <Button
+          disabled={disabled}
+          loading={
+            loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
+          }
+          onClick={toggleOptions}
+        >
           <EllipsisBtnCopy>...</EllipsisBtnCopy>
         </Button>
         {isVisible && (
@@ -99,34 +160,32 @@ export const ActionButtons = (props: Props) => {
             <Item>
               <Body>Abort</Body>
             </Item>
-            <div>
-              <Popconfirm
-                placement="left"
-                title={
-                  <>
-                    <Body>Submit priority:</Body>
-                    <div>
-                      <InputNumber
-                        size="small"
-                        min={1}
-                        type="number"
-                        max={100000}
-                        value={priority}
-                        onChange={onChange}
-                      />
-                    </div>
-                  </>
-                }
-                onConfirm={() => console.log("confirm")}
-                onCancel={() => console.log("cancel")}
-                okText="Yes"
-                cancelText="No"
-              >
-                <Item ref={priorityRef} style={{ paddingRight: 8 }}>
-                  <Body>Set priority</Body>
-                </Item>
-              </Popconfirm>
-            </div>
+            <Popconfirm
+              placement="left"
+              title={
+                <>
+                  <Body>Submit priority:</Body>
+                  <div>
+                    <InputNumber
+                      size="small"
+                      min={1}
+                      type="number"
+                      max={100000}
+                      value={priority}
+                      onChange={onChange}
+                    />
+                  </div>
+                </>
+              }
+              onConfirm={() => console.log("confirm")}
+              onCancel={() => console.log("cancel")}
+              okText="Yes"
+              cancelText="No"
+            >
+              <Item ref={priorityRef} style={{ paddingRight: 8 }}>
+                <Body>Set priority</Body>
+              </Item>
+            </Popconfirm>
           </Options>
         )}
       </div>
