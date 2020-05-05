@@ -20,12 +20,12 @@ import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
-  BannerContextProvider,
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { withBannersContext } from "higherOrderComponents/withBannersContext";
 
-export const PatchCore = () => {
+const PatchCore = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
@@ -84,10 +84,4 @@ export const PatchCore = () => {
   );
 };
 
-export const Patch = () => {
-  return (
-    <BannerContextProvider>
-      <PatchCore />
-    </BannerContextProvider>
-  );
-};
+export const Patch = withBannersContext(PatchCore);
