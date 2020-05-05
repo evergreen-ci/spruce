@@ -12,91 +12,95 @@ export type Scalars = {
 };
 
 export type BaseTaskMetadata = {
-  baseTaskDuration?: Maybe<Scalars['Duration']>;
-  baseTaskLink: Scalars['String'];
+  baseTaskDuration?: Maybe<Scalars["Duration"]>;
+  baseTaskLink: Scalars["String"];
 };
 
 export type Build = {
-  id: Scalars['String'];
-  buildVariant: Scalars['String'];
-  status: Scalars['String'];
-  predictedMakespan: Scalars['Duration'];
-  actualMakespan: Scalars['Duration'];
+  id: Scalars["String"];
+  buildVariant: Scalars["String"];
+  status: Scalars["String"];
+  predictedMakespan: Scalars["Duration"];
+  actualMakespan: Scalars["Duration"];
 };
 
 export type CommitQueue = {
-  projectId?: Maybe<Scalars['String']>;
+  projectId?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
 export type CommitQueueItem = {
-  issue?: Maybe<Scalars['String']>;
-  version?: Maybe<Scalars['String']>;
-  enqueueTime?: Maybe<Scalars['Time']>;
+  issue?: Maybe<Scalars["String"]>;
+  version?: Maybe<Scalars["String"]>;
+  enqueueTime?: Maybe<Scalars["Time"]>;
   patch?: Maybe<Patch>;
   modules?: Maybe<Array<Module>>;
 };
 
 export type Dependency = {
-  name: Scalars['String'];
+  name: Scalars["String"];
   metStatus: MetStatus;
   requiredStatus: RequiredStatus;
-  buildVariant: Scalars['String'];
-  uiLink: Scalars['String'];
+  buildVariant: Scalars["String"];
+  uiLink: Scalars["String"];
 };
 
 export type DisplayTask = {
-  Name: Scalars['String'];
-  ExecTasks: Array<Scalars['String']>;
+  Name: Scalars["String"];
+  ExecTasks: Array<Scalars["String"]>;
 };
 
-
 export type File = {
-  name: Scalars['String'];
-  link: Scalars['String'];
-  visibility: Scalars['String'];
+  name: Scalars["String"];
+  link: Scalars["String"];
+  visibility: Scalars["String"];
 };
 
 export type FileDiff = {
-  fileName: Scalars['String'];
-  additions: Scalars['Int'];
-  deletions: Scalars['Int'];
-  diffLink: Scalars['String'];
+  fileName: Scalars["String"];
+  additions: Scalars["Int"];
+  deletions: Scalars["Int"];
+  diffLink: Scalars["String"];
+};
+
+export type GithubUser = {
+  uid?: Maybe<Scalars["Int"]>;
+  lastKnownAs?: Maybe<Scalars["String"]>;
 };
 
 export type GroupedFiles = {
-  taskName?: Maybe<Scalars['String']>;
+  taskName?: Maybe<Scalars["String"]>;
   files?: Maybe<Array<File>>;
 };
 
 export type GroupedProjects = {
-  name: Scalars['String'];
+  name: Scalars["String"];
   projects: Array<Project>;
 };
 
 export type LogMessage = {
-  type?: Maybe<Scalars['String']>;
-  severity?: Maybe<Scalars['String']>;
-  message?: Maybe<Scalars['String']>;
-  timestamp?: Maybe<Scalars['Time']>;
-  version?: Maybe<Scalars['Int']>;
+  type?: Maybe<Scalars["String"]>;
+  severity?: Maybe<Scalars["String"]>;
+  message?: Maybe<Scalars["String"]>;
+  timestamp?: Maybe<Scalars["Time"]>;
+  version?: Maybe<Scalars["Int"]>;
 };
 
 export enum MetStatus {
-  Unmet = 'UNMET',
-  Met = 'MET',
-  Pending = 'PENDING'
+  Unmet = "UNMET",
+  Met = "MET",
+  Pending = "PENDING",
 }
 
 export type Module = {
-  module?: Maybe<Scalars['String']>;
-  issue?: Maybe<Scalars['String']>;
+  module?: Maybe<Scalars["String"]>;
+  issue?: Maybe<Scalars["String"]>;
 };
 
 export type ModuleCodeChange = {
-  branchName: Scalars['String'];
-  htmlLink: Scalars['String'];
-  rawLink: Scalars['String'];
+  branchName: Scalars["String"];
+  htmlLink: Scalars["String"];
+  rawLink: Scalars["String"];
   fileDiffs: Array<FileDiff>;
 };
 
@@ -109,140 +113,145 @@ export type Mutation = {
   abortTask: Task;
   setTaskPriority: Task;
   restartTask: Task;
-  saveSubscription: Scalars['Boolean'];
-  removePatchFromCommitQueue?: Maybe<Scalars['String']>;
+  saveSubscription: Scalars["Boolean"];
+  removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  restartPatch?: Maybe<Scalars["String"]>;
 };
-
 
 export type MutationAddFavoriteProjectArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars["String"];
 };
-
 
 export type MutationRemoveFavoriteProjectArgs = {
-  identifier: Scalars['String'];
+  identifier: Scalars["String"];
 };
 
-
 export type MutationSchedulePatchArgs = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
 };
 
-
 export type MutationScheduleTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type MutationUnscheduleTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type MutationAbortTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type MutationSetTaskPriorityArgs = {
-  taskId: Scalars['String'];
-  priority: Scalars['Int'];
+  taskId: Scalars["String"];
+  priority: Scalars["Int"];
 };
-
 
 export type MutationRestartTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
-
 export type MutationRemovePatchFromCommitQueueArgs = {
-  commitQueueId: Scalars['String'];
-  patchId: Scalars['String'];
+  commitQueueId: Scalars["String"];
+  patchId: Scalars["String"];
+};
+
+export type MutationRestartPatchArgs = {
+  patchId: Scalars["String"];
+};
+
+export type Notifications = {
+  buildBreak?: Maybe<Scalars["String"]>;
+  patchFinish?: Maybe<Scalars["String"]>;
+  patchFirstFailure?: Maybe<Scalars["String"]>;
+  spawnHostExpiration?: Maybe<Scalars["String"]>;
+  spawnHostOutcome?: Maybe<Scalars["String"]>;
+  commitQueue?: Maybe<Scalars["String"]>;
 };
 
 export type Patch = {
-  createTime?: Maybe<Scalars['Time']>;
-  id: Scalars['ID'];
-  description: Scalars['String'];
-  projectID: Scalars['String'];
-  githash: Scalars['String'];
-  patchNumber: Scalars['Int'];
-  author: Scalars['String'];
-  version: Scalars['String'];
-  status: Scalars['String'];
-  variants: Array<Scalars['String']>;
-  tasks: Array<Scalars['String']>;
+  createTime?: Maybe<Scalars["Time"]>;
+  id: Scalars["ID"];
+  description: Scalars["String"];
+  projectID: Scalars["String"];
+  githash: Scalars["String"];
+  patchNumber: Scalars["Int"];
+  author: Scalars["String"];
+  version: Scalars["String"];
+  status: Scalars["String"];
+  variants: Array<Scalars["String"]>;
+  tasks: Array<Scalars["String"]>;
   variantsTasks: Array<Maybe<VariantTask>>;
-  activated: Scalars['Boolean'];
-  alias: Scalars['String'];
+  activated: Scalars["Boolean"];
+  alias: Scalars["String"];
   duration?: Maybe<PatchDuration>;
   time?: Maybe<PatchTime>;
-  taskCount?: Maybe<Scalars['Int']>;
-  baseVersionID?: Maybe<Scalars['String']>;
+  taskCount?: Maybe<Scalars["Int"]>;
+  baseVersionID?: Maybe<Scalars["String"]>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
+  commitQueuePosition?: Maybe<Scalars["Int"]>;
 };
 
 export type PatchBuildVariant = {
-  variant: Scalars['String'];
+  variant: Scalars["String"];
   tasks?: Maybe<Array<Maybe<PatchBuildVariantTask>>>;
 };
 
 export type PatchBuildVariantTask = {
-  id: Scalars['ID'];
-  name: Scalars['String'];
-  status: Scalars['String'];
+  id: Scalars["ID"];
+  name: Scalars["String"];
+  status: Scalars["String"];
 };
 
 export type PatchDuration = {
-  makespan?: Maybe<Scalars['String']>;
-  timeTaken?: Maybe<Scalars['String']>;
+  makespan?: Maybe<Scalars["String"]>;
+  timeTaken?: Maybe<Scalars["String"]>;
   time?: Maybe<PatchTime>;
 };
 
 export type PatchMetadata = {
-  author: Scalars['String'];
+  author: Scalars["String"];
 };
 
 export type PatchProject = {
   variants: Array<ProjectBuildVariant>;
-  tasks: Array<Scalars['String']>;
+  tasks: Array<Scalars["String"]>;
 };
 
 export type PatchReconfigure = {
-  description: Scalars['String'];
+  description: Scalars["String"];
   variantsTasks: Array<VariantTasks>;
 };
 
 export type PatchTasks = {
   tasks: Array<TaskResult>;
-  count: Scalars['Int'];
+  count: Scalars["Int"];
 };
 
 export type PatchTime = {
-  started?: Maybe<Scalars['String']>;
-  finished?: Maybe<Scalars['String']>;
-  submittedAt: Scalars['String'];
+  started?: Maybe<Scalars["String"]>;
+  finished?: Maybe<Scalars["String"]>;
+  submittedAt: Scalars["String"];
 };
 
 export type Project = {
-  identifier: Scalars['String'];
-  displayName: Scalars['String'];
-  repo: Scalars['String'];
-  owner: Scalars['String'];
+  identifier: Scalars["String"];
+  displayName: Scalars["String"];
+  repo: Scalars["String"];
+  owner: Scalars["String"];
 };
 
 export type ProjectBuildVariant = {
-  name: Scalars['String'];
-  displayName: Scalars['String'];
-  tasks: Array<Scalars['String']>;
+  name: Scalars["String"];
+  displayName: Scalars["String"];
+  tasks: Array<Scalars["String"]>;
 };
 
 export type Projects = {
@@ -262,70 +271,62 @@ export type Query = {
   taskLogs: RecentTaskLogs;
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
+  userSettings?: Maybe<UserSettings>;
 };
-
 
 export type QueryUserPatchesArgs = {
-  limit?: Maybe<Scalars['Int']>;
-  page?: Maybe<Scalars['Int']>;
-  patchName?: Maybe<Scalars['String']>;
-  statuses?: Maybe<Array<Scalars['String']>>;
-  userId?: Maybe<Scalars['String']>;
-  includeCommitQueue?: Maybe<Scalars['Boolean']>;
+  limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars["Int"]>;
+  patchName?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  userId?: Maybe<Scalars["String"]>;
+  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
-
 
 export type QueryTaskArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type QueryPatchArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
-
 
 export type QueryPatchTasksArgs = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
   sortDir?: Maybe<SortDirection>;
-  page?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  statuses?: Maybe<Array<Scalars['String']>>;
-  baseStatuses?: Maybe<Array<Scalars['String']>>;
-  variant?: Maybe<Scalars['String']>;
-  taskName?: Maybe<Scalars['String']>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  baseStatuses?: Maybe<Array<Scalars["String"]>>;
+  variant?: Maybe<Scalars["String"]>;
+  taskName?: Maybe<Scalars["String"]>;
 };
-
 
 export type QueryTaskTestsArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
-  page?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  testName?: Maybe<Scalars['String']>;
-  statuses?: Array<Scalars['String']>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
+  testName?: Maybe<Scalars["String"]>;
+  statuses?: Array<Scalars["String"]>;
 };
-
 
 export type QueryTaskFilesArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type QueryTaskLogsArgs = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
-
 
 export type QueryPatchBuildVariantsArgs = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
 };
 
-
 export type QueryCommitQueueArgs = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
 export type RecentTaskLogs = {
@@ -336,322 +337,577 @@ export type RecentTaskLogs = {
 };
 
 export enum RequiredStatus {
-  MustFail = 'MUST_FAIL',
-  MustFinish = 'MUST_FINISH',
-  MustSucceed = 'MUST_SUCCEED'
+  MustFail = "MUST_FAIL",
+  MustFinish = "MUST_FINISH",
+  MustSucceed = "MUST_SUCCEED",
 }
 
 export type SelectorInput = {
-  type: Scalars['String'];
-  data: Scalars['String'];
+  type: Scalars["String"];
+  data: Scalars["String"];
 };
 
 export enum SortDirection {
-  Asc = 'ASC',
-  Desc = 'DESC'
+  Asc = "ASC",
+  Desc = "DESC",
 }
 
-
 export type SubscriberInput = {
-  type: Scalars['String'];
-  target: Scalars['String'];
+  type: Scalars["String"];
+  target: Scalars["String"];
 };
 
 export type SubscriptionInput = {
-  resource_type?: Maybe<Scalars['String']>;
-  trigger?: Maybe<Scalars['String']>;
+  resource_type?: Maybe<Scalars["String"]>;
+  trigger?: Maybe<Scalars["String"]>;
   selectors: Array<SelectorInput>;
   regex_selectors: Array<SelectorInput>;
   subscriber: SubscriberInput;
-  owner_type?: Maybe<Scalars['String']>;
-  owner?: Maybe<Scalars['String']>;
-  trigger_data: Scalars['StringMap'];
+  owner_type?: Maybe<Scalars["String"]>;
+  owner?: Maybe<Scalars["String"]>;
+  trigger_data: Scalars["StringMap"];
 };
 
 export type Task = {
-  failedTestCount: Scalars['Int'];
-  spawnHostLink?: Maybe<Scalars['String']>;
+  failedTestCount: Scalars["Int"];
+  spawnHostLink?: Maybe<Scalars["String"]>;
   patchMetadata: PatchMetadata;
-  id: Scalars['String'];
-  createTime?: Maybe<Scalars['Time']>;
-  ingestTime?: Maybe<Scalars['Time']>;
-  dispatchTime?: Maybe<Scalars['Time']>;
-  scheduledTime?: Maybe<Scalars['Time']>;
-  startTime?: Maybe<Scalars['Time']>;
-  finishTime?: Maybe<Scalars['Time']>;
-  activatedTime?: Maybe<Scalars['Time']>;
-  version: Scalars['String'];
-  projectId: Scalars['String'];
-  revision?: Maybe<Scalars['String']>;
-  priority?: Maybe<Scalars['Int']>;
-  taskGroup?: Maybe<Scalars['String']>;
-  taskGroupMaxHosts?: Maybe<Scalars['Int']>;
+  id: Scalars["String"];
+  createTime?: Maybe<Scalars["Time"]>;
+  ingestTime?: Maybe<Scalars["Time"]>;
+  dispatchTime?: Maybe<Scalars["Time"]>;
+  scheduledTime?: Maybe<Scalars["Time"]>;
+  startTime?: Maybe<Scalars["Time"]>;
+  finishTime?: Maybe<Scalars["Time"]>;
+  activatedTime?: Maybe<Scalars["Time"]>;
+  version: Scalars["String"];
+  projectId: Scalars["String"];
+  revision?: Maybe<Scalars["String"]>;
+  priority?: Maybe<Scalars["Int"]>;
+  taskGroup?: Maybe<Scalars["String"]>;
+  taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   logs: TaskLogLinks;
-  activated: Scalars['Boolean'];
-  activatedBy?: Maybe<Scalars['String']>;
-  buildId: Scalars['String'];
-  distroId: Scalars['String'];
-  buildVariant: Scalars['String'];
+  activated: Scalars["Boolean"];
+  activatedBy?: Maybe<Scalars["String"]>;
+  buildId: Scalars["String"];
+  distroId: Scalars["String"];
+  buildVariant: Scalars["String"];
   reliesOn: Array<Dependency>;
-  displayName: Scalars['String'];
-  hostId?: Maybe<Scalars['String']>;
-  hostLink?: Maybe<Scalars['String']>;
-  restarts?: Maybe<Scalars['Int']>;
-  execution?: Maybe<Scalars['Int']>;
-  patchNumber?: Maybe<Scalars['Int']>;
-  requester: Scalars['String'];
-  status: Scalars['String'];
+  displayName: Scalars["String"];
+  hostId?: Maybe<Scalars["String"]>;
+  hostLink?: Maybe<Scalars["String"]>;
+  restarts?: Maybe<Scalars["Int"]>;
+  execution?: Maybe<Scalars["Int"]>;
+  patchNumber?: Maybe<Scalars["Int"]>;
+  requester: Scalars["String"];
+  status: Scalars["String"];
   details?: Maybe<TaskEndDetail>;
-  timeTaken?: Maybe<Scalars['Duration']>;
-  expectedDuration?: Maybe<Scalars['Duration']>;
-  displayOnly?: Maybe<Scalars['Boolean']>;
-  executionTasks?: Maybe<Array<Scalars['String']>>;
-  generateTask?: Maybe<Scalars['Boolean']>;
-  generatedBy?: Maybe<Scalars['String']>;
-  aborted?: Maybe<Scalars['Boolean']>;
+  timeTaken?: Maybe<Scalars["Duration"]>;
+  expectedDuration?: Maybe<Scalars["Duration"]>;
+  displayOnly?: Maybe<Scalars["Boolean"]>;
+  executionTasks?: Maybe<Array<Scalars["String"]>>;
+  generateTask?: Maybe<Scalars["Boolean"]>;
+  generatedBy?: Maybe<Scalars["String"]>;
+  aborted?: Maybe<Scalars["Boolean"]>;
   baseTaskMetadata: BaseTaskMetadata;
 };
 
 export type TaskEndDetail = {
-  status: Scalars['String'];
-  type: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  timedOut?: Maybe<Scalars['Boolean']>;
+  status: Scalars["String"];
+  type: Scalars["String"];
+  description?: Maybe<Scalars["String"]>;
+  timedOut?: Maybe<Scalars["Boolean"]>;
 };
 
 export type TaskEventLogData = {
-  hostId?: Maybe<Scalars['String']>;
-  jiraIssue?: Maybe<Scalars['String']>;
-  jiraLink?: Maybe<Scalars['String']>;
-  priority?: Maybe<Scalars['Int']>;
-  status?: Maybe<Scalars['String']>;
-  timestamp?: Maybe<Scalars['Time']>;
-  userId?: Maybe<Scalars['String']>;
+  hostId?: Maybe<Scalars["String"]>;
+  jiraIssue?: Maybe<Scalars["String"]>;
+  jiraLink?: Maybe<Scalars["String"]>;
+  priority?: Maybe<Scalars["Int"]>;
+  status?: Maybe<Scalars["String"]>;
+  timestamp?: Maybe<Scalars["Time"]>;
+  userId?: Maybe<Scalars["String"]>;
 };
 
 export type TaskEventLogEntry = {
-  timestamp?: Maybe<Scalars['Time']>;
-  eventType?: Maybe<Scalars['String']>;
+  timestamp?: Maybe<Scalars["Time"]>;
+  eventType?: Maybe<Scalars["String"]>;
   data?: Maybe<TaskEventLogData>;
 };
 
 export type TaskFiles = {
-  fileCount: Scalars['Int'];
+  fileCount: Scalars["Int"];
   groupedFiles: Array<GroupedFiles>;
 };
 
 export type TaskLogLinks = {
-  allLogLink?: Maybe<Scalars['String']>;
-  agentLogLink?: Maybe<Scalars['String']>;
-  systemLogLink?: Maybe<Scalars['String']>;
-  taskLogLink?: Maybe<Scalars['String']>;
+  allLogLink?: Maybe<Scalars["String"]>;
+  agentLogLink?: Maybe<Scalars["String"]>;
+  systemLogLink?: Maybe<Scalars["String"]>;
+  taskLogLink?: Maybe<Scalars["String"]>;
 };
 
 export type TaskResult = {
-  id: Scalars['ID'];
-  displayName: Scalars['String'];
-  version: Scalars['String'];
-  status: Scalars['String'];
-  baseStatus: Scalars['String'];
-  buildVariant: Scalars['String'];
+  id: Scalars["ID"];
+  displayName: Scalars["String"];
+  version: Scalars["String"];
+  status: Scalars["String"];
+  baseStatus: Scalars["String"];
+  buildVariant: Scalars["String"];
 };
 
 export enum TaskSortCategory {
-  Name = 'NAME',
-  Status = 'STATUS',
-  BaseStatus = 'BASE_STATUS',
-  Variant = 'VARIANT'
+  Name = "NAME",
+  Status = "STATUS",
+  BaseStatus = "BASE_STATUS",
+  Variant = "VARIANT",
 }
 
 export type TaskTestResult = {
-  totalTestCount: Scalars['Int'];
-  filteredTestCount: Scalars['Int'];
+  totalTestCount: Scalars["Int"];
+  filteredTestCount: Scalars["Int"];
   testResults: Array<TestResult>;
 };
 
 export type TestLog = {
-  htmlDisplayURL?: Maybe<Scalars['String']>;
-  rawDisplayURL?: Maybe<Scalars['String']>;
+  htmlDisplayURL?: Maybe<Scalars["String"]>;
+  rawDisplayURL?: Maybe<Scalars["String"]>;
 };
 
 export type TestResult = {
-  id: Scalars['String'];
-  status: Scalars['String'];
-  testFile: Scalars['String'];
+  id: Scalars["String"];
+  status: Scalars["String"];
+  testFile: Scalars["String"];
   logs: TestLog;
-  exitCode?: Maybe<Scalars['Int']>;
-  startTime?: Maybe<Scalars['Time']>;
-  duration?: Maybe<Scalars['Float']>;
-  endTime?: Maybe<Scalars['Time']>;
+  exitCode?: Maybe<Scalars["Int"]>;
+  startTime?: Maybe<Scalars["Time"]>;
+  duration?: Maybe<Scalars["Float"]>;
+  endTime?: Maybe<Scalars["Time"]>;
 };
 
 export enum TestSortCategory {
-  Status = 'STATUS',
-  Duration = 'DURATION',
-  TestName = 'TEST_NAME'
+  Status = "STATUS",
+  Duration = "DURATION",
+  TestName = "TEST_NAME",
 }
 
-
 export type User = {
-  displayName: Scalars['String'];
+  displayName: Scalars["String"];
 };
 
 export type UserPatches = {
   patches: Array<Patch>;
-  filteredPatchCount: Scalars['Int'];
+  filteredPatchCount: Scalars["Int"];
+};
+
+export type UserSettings = {
+  timezone?: Maybe<Scalars["String"]>;
+  region?: Maybe<Scalars["String"]>;
+  githubUser?: Maybe<GithubUser>;
+  slackUsername?: Maybe<Scalars["String"]>;
+  notifications?: Maybe<Notifications>;
 };
 
 export type VariantTask = {
-  name: Scalars['String'];
-  tasks: Array<Scalars['String']>;
+  name: Scalars["String"];
+  tasks: Array<Scalars["String"]>;
 };
 
 export type VariantTasks = {
-  variant: Scalars['String'];
-  tasks: Array<Scalars['String']>;
+  variant: Scalars["String"];
+  tasks: Array<Scalars["String"]>;
   displayTasks: Array<DisplayTask>;
 };
 
-export type RemovePatchFromCommitQueueMutationVariables = {
-  commitQueueId: Scalars['String'];
-  patchId: Scalars['String'];
+export type AbortTaskMutationVariables = {
+  taskId: Scalars["String"];
 };
 
+export type AbortTaskMutation = { abortTask: { id: string } };
 
-export type RemovePatchFromCommitQueueMutation = { removePatchFromCommitQueue?: Maybe<string> };
+export type RemovePatchFromCommitQueueMutationVariables = {
+  commitQueueId: Scalars["String"];
+  patchId: Scalars["String"];
+};
+
+export type RemovePatchFromCommitQueueMutation = {
+  removePatchFromCommitQueue?: Maybe<string>;
+};
+
+export type RestartTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type RestartTaskMutation = { restartTask: { id: string } };
 
 export type SchedulePatchMutationVariables = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
 };
 
+export type SchedulePatchMutation = {
+  schedulePatch: {
+    id: string;
+    activated: boolean;
+    version: string;
+    description: string;
+    status: string;
+    tasks: Array<string>;
+    variants: Array<string>;
+    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+  };
+};
 
-export type SchedulePatchMutation = { schedulePatch: { id: string, activated: boolean, version: string, description: string, status: string, tasks: Array<string>, variants: Array<string>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+export type ScheduleTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type ScheduleTaskMutation = { scheduleTask: { id: string } };
+
+export type SetTaskPriorityMutationVariables = {
+  taskId: Scalars["String"];
+  priority: Scalars["Int"];
+};
+
+export type SetTaskPriorityMutation = {
+  setTaskPriority: { id: string; priority?: Maybe<number> };
+};
+
+export type UnscheduleTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
 
 export type CodeChangesQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type CodeChangesQuery = { patch: { id: string, moduleCodeChanges: Array<{ branchName: string, htmlLink: string, rawLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> } };
+export type CodeChangesQuery = {
+  patch: {
+    id: string;
+    moduleCodeChanges: Array<{
+      branchName: string;
+      htmlLink: string;
+      rawLink: string;
+      fileDiffs: Array<{
+        fileName: string;
+        additions: number;
+        deletions: number;
+        diffLink: string;
+      }>;
+    }>;
+  };
+};
 
 export type CommitQueueQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type CommitQueueQuery = { commitQueue: { projectId?: Maybe<string>, queue?: Maybe<Array<{ issue?: Maybe<string>, enqueueTime?: Maybe<Date>, patch?: Maybe<{ id: string, author: string, description: string, moduleCodeChanges: Array<{ rawLink: string, branchName: string, htmlLink: string, fileDiffs: Array<{ fileName: string, additions: number, deletions: number, diffLink: string }> }> }> }>> } };
+export type CommitQueueQuery = {
+  commitQueue: {
+    projectId?: Maybe<string>;
+    queue?: Maybe<
+      Array<{
+        issue?: Maybe<string>;
+        enqueueTime?: Maybe<Date>;
+        patch?: Maybe<{
+          id: string;
+          author: string;
+          description: string;
+          moduleCodeChanges: Array<{
+            rawLink: string;
+            branchName: string;
+            htmlLink: string;
+            fileDiffs: Array<{
+              fileName: string;
+              additions: number;
+              deletions: number;
+              diffLink: string;
+            }>;
+          }>;
+        }>;
+      }>
+    >;
+  };
+};
 
 export type PatchBuildVariantsQueryVariables = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
 };
 
-
-export type PatchBuildVariantsQuery = { patchBuildVariants: Array<{ variant: string, tasks?: Maybe<Array<Maybe<{ id: string, name: string, status: string }>>> }> };
+export type PatchBuildVariantsQuery = {
+  patchBuildVariants: Array<{
+    variant: string;
+    tasks?: Maybe<Array<Maybe<{ id: string; name: string; status: string }>>>;
+  }>;
+};
 
 export type PatchTasksQueryVariables = {
-  patchId: Scalars['String'];
+  patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
   sortDir?: Maybe<SortDirection>;
-  page?: Maybe<Scalars['Int']>;
-  statuses?: Maybe<Array<Scalars['String']>>;
-  baseStatuses?: Maybe<Array<Scalars['String']>>;
-  variant?: Maybe<Scalars['String']>;
-  taskName?: Maybe<Scalars['String']>;
-  limit?: Maybe<Scalars['Int']>;
+  page?: Maybe<Scalars["Int"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  baseStatuses?: Maybe<Array<Scalars["String"]>>;
+  variant?: Maybe<Scalars["String"]>;
+  taskName?: Maybe<Scalars["String"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
-
-export type PatchTasksQuery = { patchTasks: { count: number, tasks: Array<{ id: string, status: string, baseStatus: string, displayName: string, buildVariant: string }> } };
+export type PatchTasksQuery = {
+  patchTasks: {
+    count: number;
+    tasks: Array<{
+      id: string;
+      status: string;
+      baseStatus: string;
+      displayName: string;
+      buildVariant: string;
+    }>;
+  };
+};
 
 export type ProjectsQueryVariables = {};
 
-
-export type ProjectsQuery = { projects: { favorites: Array<{ identifier: string, repo: string, owner: string, displayName: string }>, otherProjects: Array<{ name: string, projects: Array<{ identifier: string, repo: string, owner: string, displayName: string }> }> } };
+export type ProjectsQuery = {
+  projects: {
+    favorites: Array<{
+      identifier: string;
+      repo: string;
+      owner: string;
+      displayName: string;
+    }>;
+    otherProjects: Array<{
+      name: string;
+      projects: Array<{
+        identifier: string;
+        repo: string;
+        owner: string;
+        displayName: string;
+      }>;
+    }>;
+  };
+};
 
 export type TaskFilesQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type TaskFilesQuery = { taskFiles: { groupedFiles: Array<{ taskName?: Maybe<string>, files?: Maybe<Array<{ name: string, link: string }>> }> } };
+export type TaskFilesQuery = {
+  taskFiles: {
+    groupedFiles: Array<{
+      taskName?: Maybe<string>;
+      files?: Maybe<Array<{ name: string; link: string }>>;
+    }>;
+  };
+};
 
 export type EventLogsQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type EventLogsQuery = { taskLogs: { eventLogs: Array<{ timestamp?: Maybe<Date>, eventType?: Maybe<string>, data?: Maybe<{ hostId?: Maybe<string>, jiraIssue?: Maybe<string>, jiraLink?: Maybe<string>, priority?: Maybe<number>, status?: Maybe<string>, timestamp?: Maybe<Date>, userId?: Maybe<string> }> }> } };
+export type EventLogsQuery = {
+  taskLogs: {
+    eventLogs: Array<{
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      data?: Maybe<{
+        hostId?: Maybe<string>;
+        jiraIssue?: Maybe<string>;
+        jiraLink?: Maybe<string>;
+        priority?: Maybe<number>;
+        status?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+        userId?: Maybe<string>;
+      }>;
+    }>;
+  };
+};
 
 export type TaskLogsQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type TaskLogsQuery = { taskLogs: { taskLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
+export type TaskLogsQuery = {
+  taskLogs: {
+    taskLogs: Array<{
+      severity?: Maybe<string>;
+      message?: Maybe<string>;
+      timestamp?: Maybe<Date>;
+    }>;
+  };
+};
 
 export type AgentLogsQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type AgentLogsQuery = { taskLogs: { agentLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
+export type AgentLogsQuery = {
+  taskLogs: {
+    agentLogs: Array<{
+      severity?: Maybe<string>;
+      message?: Maybe<string>;
+      timestamp?: Maybe<Date>;
+    }>;
+  };
+};
 
 export type SystemLogsQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type SystemLogsQuery = { taskLogs: { systemLogs: Array<{ severity?: Maybe<string>, message?: Maybe<string>, timestamp?: Maybe<Date> }> } };
+export type SystemLogsQuery = {
+  taskLogs: {
+    systemLogs: Array<{
+      severity?: Maybe<string>;
+      message?: Maybe<string>;
+      timestamp?: Maybe<Date>;
+    }>;
+  };
+};
 
 export type TaskTestsQueryVariables = {
   dir?: Maybe<SortDirection>;
-  id: Scalars['String'];
+  id: Scalars["String"];
   cat?: Maybe<TestSortCategory>;
-  pageNum?: Maybe<Scalars['Int']>;
-  limitNum?: Maybe<Scalars['Int']>;
-  statusList: Array<Scalars['String']>;
-  testName: Scalars['String'];
+  pageNum?: Maybe<Scalars["Int"]>;
+  limitNum?: Maybe<Scalars["Int"]>;
+  statusList: Array<Scalars["String"]>;
+  testName: Scalars["String"];
 };
 
-
-export type TaskTestsQuery = { taskTests: { filteredTestCount: number, totalTestCount: number, testResults: Array<{ id: string, status: string, testFile: string, duration?: Maybe<number>, logs: { htmlDisplayURL?: Maybe<string>, rawDisplayURL?: Maybe<string> } }> } };
+export type TaskTestsQuery = {
+  taskTests: {
+    filteredTestCount: number;
+    totalTestCount: number;
+    testResults: Array<{
+      id: string;
+      status: string;
+      testFile: string;
+      duration?: Maybe<number>;
+      logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
+    }>;
+  };
+};
 
 export type GetTaskQueryVariables = {
-  taskId: Scalars['String'];
+  taskId: Scalars["String"];
 };
 
-
-export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, priority?: Maybe<number>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+export type GetTaskQuery = {
+  taskFiles: { fileCount: number };
+  task?: Maybe<{
+    activatedBy?: Maybe<string>;
+    createTime?: Maybe<Date>;
+    displayName: string;
+    finishTime?: Maybe<Date>;
+    hostId?: Maybe<string>;
+    hostLink?: Maybe<string>;
+    patchNumber?: Maybe<number>;
+    startTime?: Maybe<Date>;
+    status: string;
+    timeTaken?: Maybe<number>;
+    version: string;
+    revision?: Maybe<string>;
+    failedTestCount: number;
+    spawnHostLink?: Maybe<string>;
+    priority?: Maybe<number>;
+    baseTaskMetadata: {
+      baseTaskDuration?: Maybe<number>;
+      baseTaskLink: string;
+    };
+    patchMetadata: { author: string };
+    reliesOn: Array<{
+      buildVariant: string;
+      metStatus: MetStatus;
+      name: string;
+      requiredStatus: RequiredStatus;
+      uiLink: string;
+    }>;
+  }>;
+};
 
 export type UserPatchesQueryVariables = {
-  page?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  statuses?: Maybe<Array<Scalars['String']>>;
-  patchName?: Maybe<Scalars['String']>;
-  includeCommitQueue?: Maybe<Scalars['Boolean']>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  patchName?: Maybe<Scalars["String"]>;
+  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
 };
 
-
-export type UserPatchesQuery = { userPatches: { filteredPatchCount: number, patches: Array<{ id: string, projectID: string, description: string, status: string, createTime?: Maybe<Date>, builds: Array<{ id: string, buildVariant: string, status: string }> }> } };
+export type UserPatchesQuery = {
+  userPatches: {
+    filteredPatchCount: number;
+    patches: Array<{
+      id: string;
+      projectID: string;
+      description: string;
+      status: string;
+      createTime?: Maybe<Date>;
+      builds: Array<{ id: string; buildVariant: string; status: string }>;
+    }>;
+  };
+};
 
 export type PatchBuildVariantsAndStatusQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type PatchBuildVariantsAndStatusQuery = { patch: { status: string, builds: Array<{ id: string, buildVariant: string, status: string }> } };
+export type PatchBuildVariantsAndStatusQuery = {
+  patch: {
+    status: string;
+    builds: Array<{ id: string; buildVariant: string; status: string }>;
+  };
+};
 
 export type PatchQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type PatchQuery = { patch: { id: string, description: string, projectID: string, githash: string, patchNumber: number, author: string, version: string, status: string, activated: boolean, alias: string, taskCount?: Maybe<number>, duration?: Maybe<{ makespan?: Maybe<string>, timeTaken?: Maybe<string> }>, time?: Maybe<{ started?: Maybe<string>, submittedAt: string, finished?: Maybe<string> }>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+export type PatchQuery = {
+  patch: {
+    id: string;
+    description: string;
+    projectID: string;
+    githash: string;
+    patchNumber: number;
+    author: string;
+    version: string;
+    status: string;
+    activated: boolean;
+    alias: string;
+    taskCount?: Maybe<number>;
+    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
+    time?: Maybe<{
+      started?: Maybe<string>;
+      submittedAt: string;
+      finished?: Maybe<string>;
+    }>;
+    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+  };
+};
 
 export type ConfigurePatchQueryVariables = {
-  id: Scalars['String'];
+  id: Scalars["String"];
 };
 
-
-export type ConfigurePatchQuery = { patch: { id: string, description: string, author: string, status: string, activated: boolean, time?: Maybe<{ submittedAt: string }>, project?: Maybe<{ tasks: Array<string>, variants: Array<{ name: string, displayName: string, tasks: Array<string> }> }>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+export type ConfigurePatchQuery = {
+  patch: {
+    id: string;
+    description: string;
+    author: string;
+    status: string;
+    activated: boolean;
+    time?: Maybe<{ submittedAt: string }>;
+    project?: Maybe<{
+      tasks: Array<string>;
+      variants: Array<{
+        name: string;
+        displayName: string;
+        tasks: Array<string>;
+      }>;
+    }>;
+    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+  };
+};
