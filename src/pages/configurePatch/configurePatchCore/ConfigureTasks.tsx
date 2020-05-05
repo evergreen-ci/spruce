@@ -45,7 +45,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   const currentTasks =
     projectVariantTasksMap[selectedBuildVariant || variants[0].name];
 
-  const onClickSelectAll = () => {
+  const onClickSelectAll = (): void => {
     const allTasksForVariant: TasksState = currentTasks.reduce((prev, curr) => {
       prev[curr] = true;
       return prev;
@@ -55,7 +55,7 @@ export const ConfigureTasks: React.FC<Props> = ({
       [selectedBuildVariant]: allTasksForVariant,
     });
   };
-  const onClickDeselectAll = () => {
+  const onClickDeselectAll = (): void => {
     const nextSelectedVariantTasks = { ...selectedVariantTasks };
     delete nextSelectedVariantTasks[selectedBuildVariant];
     setSelectedVariantTasks(nextSelectedVariantTasks);
@@ -63,7 +63,7 @@ export const ConfigureTasks: React.FC<Props> = ({
 
   const getTaskCheckboxChangeHandler = (task: string, variant: string) => (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  ): void => {
     const { checked } = e.target;
     const nextVariantTasks = { ...selectedVariantTasks[variant] };
     if (checked) {

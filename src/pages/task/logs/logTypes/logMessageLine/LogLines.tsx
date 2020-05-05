@@ -1,6 +1,6 @@
 import styled from "@emotion/styled/macro";
 
-const getLogLineComp = (color: string) => styled.div`
+const getLogLineComp = (color: string): React.FC => styled.div`
   color: ${color};
 `;
 

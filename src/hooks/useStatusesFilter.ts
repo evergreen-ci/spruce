@@ -13,7 +13,7 @@ export const useStatusesFilter = (
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
-  const onChange = (newValue: string[]) => {
+  const onChange = (newValue: string[]): void => {
     const parsed = queryString.parse(search, { arrayFormat });
     const nextQueryParams = queryString.stringify(
       {

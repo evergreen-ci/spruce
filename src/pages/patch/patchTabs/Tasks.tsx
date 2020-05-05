@@ -136,7 +136,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Unstarted]: true,
 };
 
-const getStatuses = (rawStatuses: string[] | string) => {
+const getStatuses = (rawStatuses: string[] | string): string[] => {
   const statuses = getArray(rawStatuses).filter(
     (status) => status in statusesToIncludeInQuery
   );
@@ -151,7 +151,21 @@ const getStatuses = (rawStatuses: string[] | string) => {
   return statuses;
 };
 
-const getQueryVariables = (patchId: string, search: string, page: number) => {
+const getQueryVariables = (
+  patchId: string,
+  search: string,
+  page: number
+): {
+  patchId: string;
+  sortBy?: string;
+  sortDir?: string;
+  page?: number;
+  statuses?: string[];
+  baseStatuses?: string[];
+  variant?: string;
+  taskName?: string;
+  limit?: number;
+} => {
   const {
     sortBy,
     sortDir,

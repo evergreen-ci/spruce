@@ -5,7 +5,9 @@ import Icon from "@leafygreen-ui/icon";
 import { ModuleCodeChange } from "gql/generated/types";
 import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 
-const totalFileDiffs = (fileDiffs) => {
+const totalFileDiffs = (
+  fileDiffs
+): { additions: number; deletions: number } => {
   let additions = 0;
   let deletions = 0;
   for (const fileDiff of fileDiffs) {
@@ -21,7 +23,8 @@ export const CodeChangeModule: React.FC<{
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);
   const [toggleAccordian, setToggleAccordian] = useState(false);
-  const toggleAccordianHandler = () => setToggleAccordian(!toggleAccordian);
+  const toggleAccordianHandler = (): void =>
+    setToggleAccordian(!toggleAccordian);
   return (
     <CodeChangeModuleContainer>
       <AccordianToggle
@@ -59,7 +62,7 @@ const AnimatedAccordian = styled.div`
   max-height: 0;
   /* This is used to calculate a fixed height for the accordian since height
      transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }) => !props.hide && "1500px"};
+  max-height: ${(props: { hide: boolean }): string => !props.hide && "1500px"};
   overflow-y: hidden;
   transition: max-height 0.3s ease-in-out;
 `;

@@ -47,7 +47,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "react-scripts test --watchAll=false",
     "eject": "react-scripts eject",
     "build:staging": "env-cmd -e staging -r config/.cmdrc.json npm run build",
     "build:prod": "env-cmd -e prod -r config/.cmdrc.json npm run build",
@@ -59,13 +59,22 @@
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
     "deploy:staging": "npm run build:staging && BUCKET=evergreen-staging.spruce npm run deploy",
     "deploy:prod": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy",
+    "check-types": "tsc",
     "lint": "tslint -c tslint.js 'src/**/*.ts?(x)'",
     "lint-fix": "tslint --fix -c tslint.js 'src/**/*.ts?(x)'",
     "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)'",
+    "eslint:strict": "STRICT=1 eslint -c .eslintrc.js 'src/**/*.ts?(x)'",
+    "eslint-fix": "STRICT=1 eslint -c .eslintrc.js --fix 'src/**/*.ts?(x)'",
+    "prettier": "prettier --write",
     "coverage": "npm run test -- --coverage --watchAll=false",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "codegen": "graphql-codegen --config codegen.js"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -119,8 +128,11 @@
     "eslint-config-prettier": "6.10.0",
     "eslint-config-react-app": "5.2.0",
     "eslint-plugin-graphql": "3.1.1",
+    "eslint-plugin-react-hooks": "4.0.0",
+    "husky": "4.2.5",
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
+    "lint-staged": "10.2.2",
     "prettier": "1.19.1",
     "ts-loader": "6.2.2",
     "tslint": "5.20.1",

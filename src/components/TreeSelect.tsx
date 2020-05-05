@@ -26,32 +26,32 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 
 // including a TreeDataEntry with value = "all"
 // will serve as the 'All' button
-export const TreeSelect = ({
+export const TreeSelect: React.FC<Props> = ({
   state,
   tData,
   onChange,
   inputLabel, // label for the select
   dataCy, // for testing only
   width,
-}: Props) => {
+}) => {
   const wrapperRef = useRef(null);
   const prevWrapperRef = usePrevious(wrapperRef);
   const [optionWidth, setOptionWidth] = useState(0);
 
   useEffect(() => {
     if (wrapperRef) {
-      const handleResize = () => {
+      const handleResize: () => void = () => {
         setOptionWidth(wrapperRef.current.clientWidth);
       };
       setOptionWidth(wrapperRef.current.clientWidth);
       window.addEventListener("resize", handleResize);
-      return () => window.removeEventListener("resize", handleResize);
+      return (): void => window.removeEventListener("resize", handleResize);
     }
   }, [setOptionWidth, prevWrapperRef]);
 
   const [isVisible, setisVisible] = useState<boolean>(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
-  const toggleOptions = () => setisVisible(!isVisible);
+  const toggleOptions: () => void = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
   const filteredState = state.filter((value) => allValues.includes(value));
@@ -107,7 +107,7 @@ const handleOnChange = ({
   value: string;
   onChange: (v: string[]) => void;
   tData: TreeDataEntry[];
-}) => {
+}): void => {
   const isAlreadyChecked = state.includes(value); // is checkbox already selected
   const { target, parent, siblings } = findNode({ value, tData });
   const isParent = target.children;
@@ -174,7 +174,7 @@ const adjustAll = ({
 }: {
   resultState: string[];
   tData: TreeDataEntry[];
-}) => {
+}): string[] => {
   const allValues = getAllValues(tData).filter((value) => value !== ALL_VALUE);
   const resultStateHasAllValues = allValues.reduce(
     (accum, value) => accum && resultState.includes(value),
@@ -250,7 +250,7 @@ const renderCheckboxes = ({
   tData: TreeDataEntry[];
   state: string[];
   onChange: (v: [string]) => void;
-}) => {
+}): JSX.Element[] => {
   const rows: JSX.Element[] = [];
   tData.forEach((entry) => {
     renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
@@ -270,10 +270,10 @@ const renderCheckboxesHelper = ({
   onChange: (v: string[]) => void;
   state: string[];
   tData: TreeDataEntry[];
-}) => {
+}): void => {
   const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
-  const onChangeFn = () =>
+  const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
     <ParentCheckboxWrapper key={data.key}>
@@ -290,7 +290,7 @@ const renderCheckboxesHelper = ({
   const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
     data.children.forEach((child) => {
-      const onChangeChildFn = () =>
+      const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
         <ChildCheckboxWrapper key={child.key}>
@@ -307,7 +307,7 @@ const renderCheckboxesHelper = ({
   }
 };
 
-const getCheckboxWrapper = (level: number) => styled.div`
+const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
   padding-bottom: 8px;
 `;
@@ -336,7 +336,7 @@ const OptionsWrapper = styled.div`
   position: absolute;
   z-index: 5;
   margin-top: 5px;
-  width: ${(props: { width: number }) =>
+  width: ${(props: { width: number }): string =>
     props.width ? `${props.width}px` : ""};
   overflow: hidden;
 `;
@@ -349,5 +349,6 @@ const ArrowWrapper = styled.span`
   }
 `;
 const Wrapper = styled.div`
-  width: ${(props: { width?: string }) => (props.width ? props.width : "")};
+  width: ${(props: { width?: string }): string =>
+    props.width ? props.width : ""};
 `;
