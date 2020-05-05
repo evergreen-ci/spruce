@@ -55,6 +55,12 @@ describe("Patch route", function() {
     cy.get("#task-count").within(hasText);
   });
 
+  it("Shows commit queue position in metadata if patch is on commit queue", function() {
+    cy.visit(`/patch/${patch.id}`);
+    cy.dataCy("commit-queue-position").click();
+    cy.location("pathname").should("eq", "/commit-queue/mongodb-mongo-test");
+  });
+
   it("'Base commit' link in metadata links to version page of legacy UI", function() {
     cy.visit(`/patch/${patch.id}`);
     cy.get("#patch-base-commit")
