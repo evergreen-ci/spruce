@@ -38,7 +38,6 @@ export const Button: React.FC<Props> = ({
       disabled={disabled}
       glyph={loading ? <StyledIcon type="loading" /> : glyph}
     >
-      {/* {loading && } */}
       {children}
     </LeafyGreenButton>
   );
