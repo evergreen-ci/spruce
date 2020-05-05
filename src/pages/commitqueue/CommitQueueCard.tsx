@@ -41,7 +41,7 @@ export const CommitQueueCard: React.FC<Props> = ({
     RemovePatchFromCommitQueueMutation,
     RemovePatchFromCommitQueueMutationVariables
   >(REMOVE_PATCH_FROM_COMMIT_QUEUE);
-  const handleEnroll = async (e) => {
+  const handleEnroll = async (e): Promise<void> => {
     e.preventDefault();
     try {
       await removePatchFromCommitQueue({

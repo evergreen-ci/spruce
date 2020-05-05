@@ -51,7 +51,7 @@ const mapVariantTaskStatusToColor = {
 const Square = styled.div`
   height: 12px;
   width: 12px;
-  background-color: ${(props: { color: string }) => props.color};
+  background-color: ${(props: { color: string }): string => props.color};
   margin-right: 1px;
   margin-bottom: 1px;
 `;

@@ -24,7 +24,7 @@ import get from "lodash/get";
 import { PatchCard } from "./my-patches/PatchCard";
 import { Skeleton, Pagination } from "antd";
 
-export const MyPatches = () => {
+export const MyPatches: React.FC = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [page, setPage] = useState(1);
@@ -73,7 +73,7 @@ export const MyPatches = () => {
     fetch();
   }, [page, search, prevSearch, fetchMore]);
 
-  const onCheckboxChange = () => {
+  const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify(
         {
@@ -142,7 +142,14 @@ export const MyPatches = () => {
 
 const arrayFormat = "comma";
 const LIMIT = 7;
-const getQueryVariables = (search: string) => {
+const getQueryVariables = (
+  search: string
+): {
+  includeCommitQueue: boolean;
+  patchName: string;
+  statuses: string[];
+  limit: number;
+} => {
   const parsed = queryString.parse(search, { arrayFormat });
   const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||

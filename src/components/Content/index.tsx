@@ -17,20 +17,20 @@ import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 
-export const Content = () => {
+export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
 
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  const { data, loading } = useQuery<ProjectsQuery>(GET_PROJECTS);
+  useQuery<ProjectsQuery>(GET_PROJECTS);
 
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
   return (
     <PageLayout>
-      <Navbar data={data} loading={loading} />
+      <Navbar />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
