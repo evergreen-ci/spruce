@@ -11,6 +11,7 @@ import { Body } from "@leafygreen-ui/typography";
 interface Props {
   priority?: number;
 }
+
 export const ActionButtons = (props: Props) => {
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);

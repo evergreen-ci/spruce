@@ -34,6 +34,7 @@ export const GET_TASK = gql`
       revision
       failedTestCount
       spawnHostLink
+      priority
     }
   }
 `;
