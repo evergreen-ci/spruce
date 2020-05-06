@@ -19,7 +19,7 @@ export const PreferencesTabs: React.FC<PreferenceTabsProps> = ({
   return (
     <Container>
       <H1>{mapUrlTabToTitle[tabKey]}</H1>
-      {loading && <Skeleton active />}
+      {loading && <Skeleton active={true} />}
       {!loading && (
         <MapUrlTabToPage tabKey={tabKey} userSettings={userSettings} />
       )}
