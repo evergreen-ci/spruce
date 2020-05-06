@@ -90,7 +90,8 @@ const TaskCore: React.FC = () => {
     status === TaskStatus.Succeeded ||
     status === TaskStatus.SetupFailed ||
     status === TaskStatus.SystemFailed ||
-    status === TaskStatus.TestTimedOut
+    status === TaskStatus.TestTimedOut ||
+    error
   ) {
     stopPolling();
   }
