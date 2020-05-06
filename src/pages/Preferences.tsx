@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
@@ -34,19 +34,22 @@ export const Preferences: React.FC = () => {
           <SideNavGroup header="Preferences">
             <PaddedSideNavItem
               active={tab === "profile"}
-              href={`${paths.preferences}/profile`}
+              to={`${paths.preferences}/profile`}
+              as={Link}
             >
               Profile
             </PaddedSideNavItem>
             <PaddedSideNavItem
               active={tab === "notifications"}
-              href={`${paths.preferences}/notifications`}
+              to={`${paths.preferences}/notifications`}
+              as={Link}
             >
               Notifications
             </PaddedSideNavItem>
             <PaddedSideNavItem
               active={tab === "cli"}
-              href={`${paths.preferences}/cli`}
+              to={`${paths.preferences}/cli`}
+              as={Link}
             >
               CLI & API
             </PaddedSideNavItem>
