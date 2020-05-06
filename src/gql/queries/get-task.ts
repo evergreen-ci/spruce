@@ -35,6 +35,11 @@ export const GET_TASK = gql`
       failedTestCount
       spawnHostLink
       priority
+      canRestart
+      canAbort
+      canSchedule
+      canUnschedule
+      canSetPriority
     }
   }
 `;

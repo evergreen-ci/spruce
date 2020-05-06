@@ -410,6 +410,11 @@ export type Task = {
   generatedBy?: Maybe<Scalars["String"]>;
   aborted?: Maybe<Scalars["Boolean"]>;
   baseTaskMetadata: BaseTaskMetadata;
+  canRestart: Scalars["Boolean"];
+  canAbort: Scalars["Boolean"];
+  canSchedule: Scalars["Boolean"];
+  canUnschedule: Scalars["Boolean"];
+  canSetPriority: Scalars["Boolean"];
 };
 
 export type TaskEndDetail = {
@@ -813,6 +818,11 @@ export type GetTaskQuery = {
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;
+    canRestart: boolean;
+    canAbort: boolean;
+    canSchedule: boolean;
+    canUnschedule: boolean;
+    canSetPriority: boolean;
     baseTaskMetadata: {
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
