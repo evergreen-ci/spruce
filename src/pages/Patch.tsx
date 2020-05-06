@@ -48,7 +48,7 @@ const PatchCore: React.FC = () => {
         `There was an error loading the patch: ${error.message}`
       );
     }
-  }, [error]);
+  }, [error, dispatchBanner]);
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }

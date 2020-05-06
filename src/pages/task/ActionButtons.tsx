@@ -2,7 +2,7 @@ import React, { useRef, useState, useEffect } from "react";
 import { Button } from "components/Button";
 import { EllipsisBtnCopy } from "components/styles/Button";
 import styled from "@emotion/styled";
-import { useOnClickOutside, usePrevious } from "hooks";
+import { useOnClickOutside } from "hooks";
 import Card from "@leafygreen-ui/card";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
