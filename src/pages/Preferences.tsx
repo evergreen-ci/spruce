@@ -13,12 +13,6 @@ import {
   GetUserSettingsQueryVariables,
 } from "gql/generated/types";
 
-const PaddedSideNavItem = styled(SideNavItem)`
-  margin-top: 16px;
-`;
-const PageContainer = styled.div`
-  display: flex;
-`;
 export const Preferences: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
   const { data, loading, error } = useQuery<
@@ -65,3 +59,10 @@ export const Preferences: React.FC = () => {
     </PageWrapper>
   );
 };
+
+const PaddedSideNavItem = styled(SideNavItem)`
+  margin-top: 16px;
+`;
+const PageContainer = styled.div`
+  display: flex;
+`;
