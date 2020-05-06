@@ -115,6 +115,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  restartPatch?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -160,6 +161,10 @@ export type MutationRemovePatchFromCommitQueueArgs = {
   patchId: Scalars["String"];
 };
 
+export type MutationRestartPatchArgs = {
+  patchId: Scalars["String"];
+};
+
 export type Notifications = {
   buildBreak?: Maybe<Scalars["String"]>;
   patchFinish?: Maybe<Scalars["String"]>;
@@ -191,6 +196,7 @@ export type Patch = {
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
+  commitQueuePosition?: Maybe<Scalars["Int"]>;
 };
 
 export type PatchBuildVariant = {
@@ -392,7 +398,7 @@ export type Task = {
   hostLink?: Maybe<Scalars["String"]>;
   restarts?: Maybe<Scalars["Int"]>;
   execution?: Maybe<Scalars["Int"]>;
-  order?: Maybe<Scalars["Int"]>;
+  patchNumber?: Maybe<Scalars["Int"]>;
   requester: Scalars["String"];
   status: Scalars["String"];
   details?: Maybe<TaskEndDetail>;
@@ -403,7 +409,6 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]>;
   generatedBy?: Maybe<Scalars["String"]>;
   aborted?: Maybe<Scalars["Boolean"]>;
-  patchNumber?: Maybe<Scalars["Int"]>;
   baseTaskMetadata: BaseTaskMetadata;
 };
 
@@ -858,6 +863,7 @@ export type PatchQuery = {
     activated: boolean;
     alias: string;
     taskCount?: Maybe<number>;
+    commitQueuePosition?: Maybe<number>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
