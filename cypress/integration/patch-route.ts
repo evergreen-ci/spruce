@@ -30,7 +30,7 @@ const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
 };
 
-describe("Patch route", function() {
+describe("Patch route", () => {
   before(() => {
     cy.login();
   });
@@ -49,13 +49,19 @@ describe("Patch route", function() {
     });
   });
 
-  it("Renders patch info", function() {
+  it("Renders patch info", () => {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("page-title").within(hasText);
     cy.get("#task-count").within(hasText);
   });
 
-  it("'Base commit' link in metadata links to version page of legacy UI", function() {
+  it("Shows commit queue position in metadata if patch is on commit queue", () => {
+    cy.visit(`/patch/${patch.id}`);
+    cy.dataCy("commit-queue-position").click();
+    cy.location("pathname").should("eq", "/commit-queue/mongodb-mongo-test");
+  });
+
+  it("'Base commit' link in metadata links to version page of legacy UI", () => {
     cy.visit(`/patch/${patch.id}`);
     cy.get("#patch-base-commit")
       .should("have.attr", "href")

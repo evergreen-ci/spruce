@@ -64,6 +64,11 @@ export type FileDiff = {
   diffLink: Scalars['String'];
 };
 
+export type GithubUser = {
+  uid?: Maybe<Scalars['Int']>;
+  lastKnownAs?: Maybe<Scalars['String']>;
+};
+
 export type GroupedFiles = {
   taskName?: Maybe<Scalars['String']>;
   files?: Maybe<Array<File>>;
@@ -111,6 +116,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars['Boolean'];
   removePatchFromCommitQueue?: Maybe<Scalars['String']>;
+  restartPatch?: Maybe<Scalars['String']>;
 };
 
 
@@ -166,6 +172,20 @@ export type MutationRemovePatchFromCommitQueueArgs = {
   patchId: Scalars['String'];
 };
 
+
+export type MutationRestartPatchArgs = {
+  patchId: Scalars['String'];
+};
+
+export type Notifications = {
+  buildBreak?: Maybe<Scalars['String']>;
+  patchFinish?: Maybe<Scalars['String']>;
+  patchFirstFailure?: Maybe<Scalars['String']>;
+  spawnHostExpiration?: Maybe<Scalars['String']>;
+  spawnHostOutcome?: Maybe<Scalars['String']>;
+  commitQueue?: Maybe<Scalars['String']>;
+};
+
 export type Patch = {
   createTime?: Maybe<Scalars['Time']>;
   id: Scalars['ID'];
@@ -188,6 +208,7 @@ export type Patch = {
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
+  commitQueuePosition?: Maybe<Scalars['Int']>;
 };
 
 export type PatchBuildVariant = {
@@ -262,6 +283,7 @@ export type Query = {
   taskLogs: RecentTaskLogs;
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
+  userSettings?: Maybe<UserSettings>;
 };
 
 
@@ -501,6 +523,14 @@ export type UserPatches = {
   filteredPatchCount: Scalars['Int'];
 };
 
+export type UserSettings = {
+  timezone?: Maybe<Scalars['String']>;
+  region?: Maybe<Scalars['String']>;
+  githubUser?: Maybe<GithubUser>;
+  slackUsername?: Maybe<Scalars['String']>;
+  notifications?: Maybe<Notifications>;
+};
+
 export type VariantTask = {
   name: Scalars['String'];
   tasks: Array<Scalars['String']>;
@@ -647,7 +677,7 @@ export type PatchQueryVariables = {
 };
 
 
-export type PatchQuery = { patch: { id: string, description: string, projectID: string, githash: string, patchNumber: number, author: string, version: string, status: string, activated: boolean, alias: string, taskCount?: Maybe<number>, duration?: Maybe<{ makespan?: Maybe<string>, timeTaken?: Maybe<string> }>, time?: Maybe<{ started?: Maybe<string>, submittedAt: string, finished?: Maybe<string> }>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+export type PatchQuery = { patch: { id: string, description: string, projectID: string, githash: string, patchNumber: number, author: string, version: string, status: string, activated: boolean, alias: string, taskCount?: Maybe<number>, commitQueuePosition?: Maybe<number>, duration?: Maybe<{ makespan?: Maybe<string>, timeTaken?: Maybe<string> }>, time?: Maybe<{ started?: Maybe<string>, submittedAt: string, finished?: Maybe<string> }>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
 
 export type ConfigurePatchQueryVariables = {
   id: Scalars['String'];
