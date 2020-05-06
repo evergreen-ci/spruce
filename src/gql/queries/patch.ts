@@ -14,6 +14,7 @@ export const GET_PATCH = gql`
       activated
       alias
       taskCount
+      commitQueuePosition
       duration {
         makespan
         timeTaken

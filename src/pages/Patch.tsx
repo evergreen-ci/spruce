@@ -23,7 +23,7 @@ import {
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { withBannersContext } from "higherOrderComponents/withBannersContext";
+import { withBannersContext } from "hoc/withBannersContext";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -36,19 +36,16 @@ const PatchCore: React.FC = () => {
   >(GET_PATCH, {
     variables: { id },
     pollInterval: 5000,
+    onError: () =>
+      dispatchBanner.error(
+        `There was an error loading the patch: ${error.message}`
+      ),
   });
   useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  useEffect(() => {
-    if (error) {
-      dispatchBanner.error(
-        `There was an error loading the patch: ${error.message}`
-      );
-    }
-  }, [error, dispatchBanner]);
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }
