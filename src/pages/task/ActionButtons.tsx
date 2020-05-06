@@ -141,6 +141,7 @@ export const ActionButtons = ({
 
   const rowButtons = [
     <Button
+      dataCy="schedule-task"
       key="schedule"
       disabled={disabled || !canSchedule}
       loading={loadingScheduleTask}
@@ -149,6 +150,7 @@ export const ActionButtons = ({
       Schedule
     </Button>,
     <Button
+      dataCy="restart-task"
       key="restart"
       disabled={disabled || !canRestart}
       loading={loadingRestartTask}
@@ -156,7 +158,7 @@ export const ActionButtons = ({
     >
       Restart
     </Button>,
-    <Button key="notifications" disabled={disabled}>
+    <Button dataCy="notify-task" key="notifications" disabled={disabled}>
       Add Notification
     </Button>,
   ];
@@ -165,11 +167,13 @@ export const ActionButtons = ({
     <Item
       disabled={disabled || !canUnschedule}
       key="unschedule"
+      data-cy="unschedule-task"
       onClick={() => unscheduleTask()}
     >
       <Body>Unschedule</Body>
     </Item>,
     <Item
+      data-cy="abort-task"
       key="abort"
       disabled={disabled || !canAbort}
       onClick={() => abortTask()}
@@ -202,6 +206,7 @@ export const ActionButtons = ({
       cancelText="Cancel"
     >
       <Item
+        data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
         style={{ paddingRight: 8 }}

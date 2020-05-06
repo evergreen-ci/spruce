@@ -10,6 +10,8 @@ interface Props {
   loading?: boolean;
   isVisibleCard?: boolean;
   cardItems: JSX.Element[];
+  dataCyBtn?: string;
+  dataCyCard?: string;
 }
 
 export const CardDropdownButton = ({
@@ -20,16 +22,23 @@ export const CardDropdownButton = ({
   },
   isVisibleCard = true,
   cardItems,
+  dataCyBtn = "ellipsis-btn",
+  dataCyCard = "card-dropdown",
 }: Props) => {
   const toggleCard = () => {
     setIsVisibleCard(!isVisibleCard);
   };
   return (
     <>
-      <Button disabled={disabled} loading={loading} onClick={toggleCard}>
+      <Button
+        dataCy={dataCyBtn}
+        disabled={disabled}
+        loading={loading}
+        onClick={toggleCard}
+      >
         <EllipsisBtnCopy>...</EllipsisBtnCopy>
       </Button>
-      {isVisibleCard && <Options>{cardItems}</Options>}
+      {isVisibleCard && <Options data-cy={dataCyCard}>{cardItems}</Options>}
     </>
   );
 };
