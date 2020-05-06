@@ -22,4 +22,10 @@ export enum PatchTab {
   Changes = "changes",
 }
 
+export enum preferencesTabRoutes {
+  Profile = "profile",
+  Notifications = "notifications",
+  CLI = "cli",
+}
+
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

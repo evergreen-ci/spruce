@@ -21,8 +21,8 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
   region,
 }) => {
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
-  const [timezoneField, setTimezoneField] = useState(timezone || "UTC");
-  const [regionField, setRegionField] = useState(region || "us-east-1");
+  const [timezoneField, setTimezoneField] = useState(timezone ?? "UTC");
+  const [regionField, setRegionField] = useState(region ?? "us-east-1");
   const [githubUsernameField, setGithubUsernameField] = useState(lastKnownAs);
 
   const hasFieldUpdates =
@@ -69,16 +69,18 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
         </ContentWrapper>
       </PreferencesCard>
       <PreferencesCard>
-        <Body>
-          To log out of the Evergreen UI in all browser windows on all computers
-          you are logged in on.
-        </Body>
-        <StyledLogMeOutButton
-          data-cy="logme-out-button"
-          variant={Variant.Danger}
-        >
-          Log me out everywhere
-        </StyledLogMeOutButton>
+        <ContentWrapper>
+          <Body>
+            To log out of the Evergreen UI in all browser windows on all
+            computers you are logged in on.
+          </Body>
+          <StyledLogMeOutButton
+            data-cy="logme-out-button"
+            variant={Variant.Danger}
+          >
+            Log me out everywhere
+          </StyledLogMeOutButton>
+        </ContentWrapper>
       </PreferencesCard>
     </div>
   );

@@ -6,7 +6,6 @@ export const GET_USER_SETTINGS = gql`
       timezone
       region
       slackUsername
-
       notifications {
         patchFinish
         patchFirstFailure

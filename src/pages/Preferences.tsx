@@ -1,10 +1,10 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, Redirect } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import get from "lodash/get";
-import { paths } from "constants/routes";
+import { paths, preferencesTabRoutes } from "constants/routes";
 import { PageWrapper } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
@@ -19,30 +19,31 @@ export const Preferences: React.FC = () => {
     GetUserSettingsQuery,
     GetUserSettingsQueryVariables
   >(GET_USER_SETTINGS);
-
   const userSettings = get(data, "data.userSettings");
+  if (tab === undefined)
+    return <Redirect to={`${paths.preferences}/profile`} />;
   return (
     <PageWrapper>
       <PageContainer>
         <SideNav>
           <SideNavGroup header="Preferences">
             <PaddedSideNavItem
-              active={tab === "profile"}
-              to={`${paths.preferences}/profile`}
+              active={tab === preferencesTabRoutes.Profile}
+              to={`${paths.preferences}/${preferencesTabRoutes.Profile}`}
               as={Link}
             >
               Profile
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === "notifications"}
-              to={`${paths.preferences}/notifications`}
+              active={tab === preferencesTabRoutes.Notifications}
+              to={`${paths.preferences}/${preferencesTabRoutes.Notifications}`}
               as={Link}
             >
               Notifications
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === "cli"}
-              to={`${paths.preferences}/cli`}
+              active={tab === preferencesTabRoutes.CLI}
+              to={`${paths.preferences}/${preferencesTabRoutes.CLI}`}
               as={Link}
             >
               CLI & API
