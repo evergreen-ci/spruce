@@ -5,21 +5,21 @@ import { CardDropdownButton } from "components/CardDropdownButton";
 interface Props {
   containerRef: React.MutableRefObject<HTMLDivElement>;
   rowButtons: JSX.Element[];
-  cardButtons: JSX.Element[];
+  cardItems: JSX.Element[];
   cardLoading: boolean;
   cardDisabled: boolean;
   setIsVisibleCard: (v: boolean) => void;
   isVisibleCard: boolean;
 }
 
-export const ActionButtons = (props: Props) => {
+export const ButtonRow = (props: Props) => {
   return (
     <Container ref={props.containerRef}>
       {props.rowButtons}
       <div>
         <CardDropdownButton
           disabled={props.cardDisabled}
-          cardItems={props.cardButtons}
+          cardItems={props.cardItems}
           isVisibleCard={props.isVisibleCard}
           setIsVisibleCard={props.setIsVisibleCard}
           loading={props.cardLoading}
