@@ -23,7 +23,7 @@ import {
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { withBannersContext } from "higherOrderComponents/withBannersContext";
+import { withBannersContext } from "hoc/withBannersContext";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
