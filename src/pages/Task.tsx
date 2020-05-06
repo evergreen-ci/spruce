@@ -72,6 +72,11 @@ const TaskCore: React.FC = () => {
   });
 
   const task = get(data, "task");
+  const canAbort = get(task, "canAbort");
+  const canRestart = get(task, "canRestart");
+  const canSchedule = get(task, "canSchedule");
+  const canUnschedule = get(task, "canUnschedule");
+  const canSetPriority = get(task, "canSetPriority");
   const displayName = get(task, "displayName");
   const patchNumber = get(task, "patchNumber");
   const priority = get(task, "priority");
@@ -117,7 +122,16 @@ const TaskCore: React.FC = () => {
             <TaskStatusBadge status={status} />
           </ErrorBoundary>
         }
-        buttons={<ActionButtons priority={priority} />}
+        buttons={
+          <ActionButtons
+            canAbort={canAbort}
+            canRestart={canRestart}
+            canSchedule={canSchedule}
+            canUnschedule={canUnschedule}
+            canSetPriority={canSetPriority}
+            priority={priority}
+          />
+        }
       />
       <PageLayout>
         <PageSider>

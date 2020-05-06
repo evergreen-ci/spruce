@@ -27,11 +27,24 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
+import { uiColors } from "@leafygreen-ui/palette";
 interface Props {
   priority?: number;
+  canAbort: boolean;
+  canRestart: boolean;
+  canSchedule: boolean;
+  canUnschedule: boolean;
+  canSetPriority: boolean;
 }
 
-export const ActionButtons = (props: Props) => {
+export const ActionButtons = ({
+  canAbort,
+  canRestart,
+  canSchedule,
+  canSetPriority,
+  canUnschedule,
+  ...props
+}: Props) => {
   const { success, error } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
@@ -129,7 +142,7 @@ export const ActionButtons = (props: Props) => {
   const rowButtons = [
     <Button
       key="schedule"
-      disabled={disabled}
+      disabled={disabled || !canSchedule}
       loading={loadingScheduleTask}
       onClick={scheduleTask}
     >
@@ -137,7 +150,7 @@ export const ActionButtons = (props: Props) => {
     </Button>,
     <Button
       key="restart"
-      disabled={disabled}
+      disabled={disabled || !canRestart}
       loading={loadingRestartTask}
       onClick={restartTask}
     >
@@ -149,10 +162,18 @@ export const ActionButtons = (props: Props) => {
   ];
 
   const cardItems = [
-    <Item key="unschedule" onClick={() => unscheduleTask()}>
+    <Item
+      disabled={disabled || !canUnschedule}
+      key="unschedule"
+      onClick={() => unscheduleTask()}
+    >
       <Body>Unschedule</Body>
     </Item>,
-    <Item key="abort" onClick={() => abortTask()}>
+    <Item
+      key="abort"
+      disabled={disabled || !canAbort}
+      onClick={() => abortTask()}
+    >
       <Body>Abort</Body>
     </Item>,
     <Popconfirm
@@ -180,7 +201,11 @@ export const ActionButtons = (props: Props) => {
       okText="Set"
       cancelText="Cancel"
     >
-      <Item ref={priorityRef} style={{ paddingRight: 8 }}>
+      <Item
+        disabled={disabled || !canSetPriority}
+        ref={priorityRef}
+        style={{ paddingRight: 8 }}
+      >
         <Body>Set priority</Body>
       </Item>
     </Popconfirm>,
@@ -201,11 +226,17 @@ export const ActionButtons = (props: Props) => {
   );
 };
 
+interface ItemProps {
+  disabled: boolean;
+}
 const Item = styled.div`
   > p:hover {
     text-decoration: underline;
     cursor: pointer;
   }
+  pointer-events:${(props: ItemProps) => props.disabled && "none"}; 
+  > p {
+    color: ${(props: ItemProps) => props.disabled && uiColors.gray.base};
 `;
 
 const StyledBody = styled(Body)`
