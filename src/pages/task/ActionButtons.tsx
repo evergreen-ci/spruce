@@ -63,6 +63,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error scheduling task: ${err.message}`);
     },
+    refetchQueries: ["GetTask"],
   });
 
   const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
@@ -76,6 +77,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error unscheduling task: ${err.message}`);
     },
+    refetchQueries: ["GetTask"],
   });
 
   const [abortTask, { loading: loadingAbortTask }] = useMutation<
@@ -91,6 +93,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error aborting task: ${err.message}`);
     },
+    refetchQueries: ["GetTask"],
   });
 
   const [restartTask, { loading: loadingRestartTask }] = useMutation<
@@ -104,6 +107,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error restarting task: ${err.message}`);
     },
+    refetchQueries: ["GetTask"],
   });
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
@@ -116,6 +120,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error updating priority for task: ${err.message}`);
     },
+    refetchQueries: ["GetTask"],
   });
 
   const disabled =
