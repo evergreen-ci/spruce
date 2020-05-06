@@ -20,8 +20,9 @@ export const Preferences: React.FC = () => {
     GetUserSettingsQueryVariables
   >(GET_USER_SETTINGS);
   const userSettings = get(data, "data.userSettings");
-  if (tab === undefined)
+  if (tab === undefined) {
     return <Redirect to={`${paths.preferences}/profile`} />;
+  }
   return (
     <PageWrapper>
       <PageContainer>
