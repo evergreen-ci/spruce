@@ -3,6 +3,7 @@ import { Button } from "components/Button";
 import { EllipsisBtnCopy } from "components/styles/Button";
 import Card from "@leafygreen-ui/card";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 
 interface Props {
   disabled?: boolean;
@@ -43,6 +44,19 @@ export const CardDropdownButton = ({
     </>
   );
 };
+interface CardItemProps {
+  disabled: boolean;
+}
+
+export const CardItem = styled.div`
+  > p:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
+  pointer-events:${(props: CardItemProps) => props.disabled && "none"}; 
+  > p {
+    color: ${(props: CardItemProps) => props.disabled && uiColors.gray.base};
+`;
 
 const Options = styled(Card)`
   position: absolute;

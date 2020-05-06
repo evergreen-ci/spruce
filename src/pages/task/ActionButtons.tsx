@@ -27,7 +27,7 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { uiColors } from "@leafygreen-ui/palette";
+import { CardItem } from "components/CardDropdownButton";
 interface Props {
   priority?: number;
   canAbort: boolean;
@@ -176,22 +176,22 @@ export const ActionButtons = ({
   ];
 
   const cardItems = [
-    <Item
+    <CardItem
       disabled={disabled || !canUnschedule}
       key="unschedule"
       data-cy="unschedule-task"
       onClick={() => unscheduleTask()}
     >
       <Body>Unschedule</Body>
-    </Item>,
-    <Item
+    </CardItem>,
+    <CardItem
       data-cy="abort-task"
       key="abort"
       disabled={disabled || !canAbort}
       onClick={() => abortTask()}
     >
       <Body>Abort</Body>
-    </Item>,
+    </CardItem>,
     <Popconfirm
       key="priority"
       placement="left"
@@ -217,14 +217,14 @@ export const ActionButtons = ({
       okText="Set"
       cancelText="Cancel"
     >
-      <Item
+      <CardItem
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
         style={{ paddingRight: 8 }}
       >
         <Body>Set priority</Body>
-      </Item>
+      </CardItem>
     </Popconfirm>,
   ];
 
@@ -242,19 +242,6 @@ export const ActionButtons = ({
     />
   );
 };
-
-interface ItemProps {
-  disabled: boolean;
-}
-const Item = styled.div`
-  > p:hover {
-    text-decoration: underline;
-    cursor: pointer;
-  }
-  pointer-events:${(props: ItemProps) => props.disabled && "none"}; 
-  > p {
-    color: ${(props: ItemProps) => props.disabled && uiColors.gray.base};
-`;
 
 const StyledBody = styled(Body)`
   padding-right: 8px;
