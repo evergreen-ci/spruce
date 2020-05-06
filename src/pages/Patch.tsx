@@ -17,10 +17,18 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
+import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { withBannersContext } from "hoc/withBannersContext";
 
-export const Patch: React.FC = () => {
+const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
   const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<
     PatchQuery,
@@ -28,18 +36,29 @@ export const Patch: React.FC = () => {
   >(GET_PATCH, {
     variables: { id },
     pollInterval: 5000,
+    onError: () =>
+      dispatchBanner.error(
+        `There was an error loading the patch: ${error.message}`
+      ),
   });
   useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }
+  if (error) {
+    return (
+      <PageWrapper>
+        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      </PageWrapper>
+    );
+  }
   return (
-    <PageWrapper>
+    <PageWrapper data-cy="patch-page">
+      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}
@@ -61,3 +80,5 @@ export const Patch: React.FC = () => {
     </PageWrapper>
   );
 };
+
+export const Patch = withBannersContext(PatchCore);
