@@ -31,7 +31,7 @@ export const ButtonRow = (props: Props) => {
 
 const Container = styled.div`
   > button {
-    margin-right: 8px;
+    margin-right: 24px;
   }
   display: flex;
 `;

@@ -221,7 +221,6 @@ export const ActionButtons = ({
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
-        style={{ paddingRight: 8 }}
       >
         <Body>Set priority</Body>
       </CardItem>
