@@ -146,6 +146,7 @@ export const ActionButtons = ({
 
   const rowButtons = [
     <Button
+      size="small"
       dataCy="schedule-task"
       key="schedule"
       disabled={disabled || !canSchedule}
@@ -155,6 +156,7 @@ export const ActionButtons = ({
       Schedule
     </Button>,
     <Button
+      size="small"
       dataCy="restart-task"
       key="restart"
       disabled={disabled || !canRestart}
@@ -163,7 +165,12 @@ export const ActionButtons = ({
     >
       Restart
     </Button>,
-    <Button dataCy="notify-task" key="notifications" disabled={disabled}>
+    <Button
+      size="small"
+      dataCy="notify-task"
+      key="notifications"
+      disabled={disabled}
+    >
       Add Notification
     </Button>,
   ];

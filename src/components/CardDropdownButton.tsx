@@ -31,6 +31,7 @@ export const CardDropdownButton = ({
   return (
     <>
       <Button
+        size="small"
         dataCy={dataCyBtn}
         disabled={disabled}
         loading={loading}
