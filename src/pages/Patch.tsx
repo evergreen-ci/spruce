@@ -36,19 +36,16 @@ const PatchCore: React.FC = () => {
   >(GET_PATCH, {
     variables: { id },
     pollInterval: 5000,
+    onError: () =>
+      dispatchBanner.error(
+        `There was an error loading the patch: ${error.message}`
+      ),
   });
   useEffect(() => stopPolling, [stopPolling]);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  useEffect(() => {
-    if (error) {
-      dispatchBanner.error(
-        `There was an error loading the patch: ${error.message}`
-      );
-    }
-  }, [error]);
   if (activated === false) {
     router.push(`${paths.patch}/${id}/configure`);
   }
