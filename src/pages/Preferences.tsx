@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
+import get from "lodash/get";
 import { paths } from "constants/routes";
 import { PageWrapper } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
@@ -25,13 +26,7 @@ export const Preferences: React.FC = () => {
     GetUserSettingsQueryVariables
   >(GET_USER_SETTINGS);
 
-  if (loading) {
-    return <p>Loading...</p>;
-  }
-  if (error) {
-    return <p>Error</p>;
-  }
-  const userSettings = data.userSettings;
+  const userSettings = get(data, "data.userSettings");
   return (
     <PageWrapper>
       <PageContainer>
@@ -57,7 +52,12 @@ export const Preferences: React.FC = () => {
             </PaddedSideNavItem>
           </SideNavGroup>
         </SideNav>
-        <PreferencesTabs tabKey={tab} userSettings={userSettings} />
+        <PreferencesTabs
+          tabKey={tab}
+          userSettings={userSettings}
+          loading={loading}
+          error={error}
+        />
       </PageContainer>
     </PageWrapper>
   );
