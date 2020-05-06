@@ -1,9 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { Button } from "components/Button";
-import { EllipsisBtnCopy } from "components/styles/Button";
 import styled from "@emotion/styled";
 import { useOnClickOutside } from "hooks";
-import Card from "@leafygreen-ui/card";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
@@ -15,6 +13,8 @@ import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { useBannerDispatchContext } from "context/banners";
+import { ButtonRow } from "components/ButtonRow";
+
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -38,6 +38,7 @@ export const ActionButtons = (props: Props) => {
   const [isVisible, setIsVisible] = useState(false);
   const [priority, setPriority] = useState<number>(props.priority);
   const { id: taskId } = useParams<{ id: string }>();
+
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTaskMutation,
     ScheduleTaskMutationVariables
@@ -68,6 +69,9 @@ export const ActionButtons = (props: Props) => {
     AbortTaskMutation,
     AbortTaskMutationVariables
   >(ABORT_TASK, {
+    variables: {
+      taskId,
+    },
     onCompleted: () => {
       success("Task aborted");
     },
@@ -81,7 +85,9 @@ export const ActionButtons = (props: Props) => {
     RestartTaskMutationVariables
   >(RESTART_TASK, {
     variables: { taskId },
-    onCompleted: () => success("Task scheduled to restart"),
+    onCompleted: () => {
+      success("Task scheduled to restart");
+    },
     onError: (err) => {
       error(`Error restarting task: ${err.message}`);
     },
@@ -120,95 +126,80 @@ export const ActionButtons = (props: Props) => {
     }
   });
 
-  const toggleOptions = () => setIsVisible(!isVisible);
-  const onChange = (p: number) => {
-    setPriority(p);
-  };
+  const rowButtons = [
+    <Button
+      key="schedule"
+      disabled={disabled}
+      loading={loadingScheduleTask}
+      onClick={scheduleTask}
+    >
+      Schedule
+    </Button>,
+    <Button
+      key="restart"
+      disabled={disabled}
+      loading={loadingRestartTask}
+      onClick={restartTask}
+    >
+      Restart
+    </Button>,
+    <Button key="notifications" disabled={disabled}>
+      Add Notification
+    </Button>,
+  ];
+
+  const cardItems = [
+    <Item key="unschedule" onClick={() => unscheduleTask()}>
+      <Body>Unschedule</Body>
+    </Item>,
+    <Item key="abort" onClick={() => abortTask()}>
+      <Body>Abort</Body>
+    </Item>,
+    <Popconfirm
+      key="priority"
+      placement="left"
+      title={
+        <>
+          <StyledBody>Set new priority:</StyledBody>
+          <InputNumber
+            size="small"
+            min={0}
+            type="number"
+            max={Number.MAX_SAFE_INTEGER}
+            value={priority}
+            onChange={setPriority}
+          />
+        </>
+      }
+      onConfirm={() =>
+        setTaskPriority({
+          variables: { taskId, priority },
+        })
+      }
+      onCancel={() => setIsVisible(false)}
+      okText="Set"
+      cancelText="Cancel"
+    >
+      <Item ref={priorityRef} style={{ paddingRight: 8 }}>
+        <Body>Set priority</Body>
+      </Item>
+    </Popconfirm>,
+  ];
 
   return (
-    <Container ref={wrapperRef}>
-      <Button
-        disabled={disabled}
-        loading={loadingScheduleTask}
-        onClick={scheduleTask}
-      >
-        Schedule
-      </Button>
-      <Button
-        disabled={disabled}
-        loading={loadingRestartTask}
-        onClick={restartTask}
-      >
-        Restart
-      </Button>
-      <Button disabled={disabled}>Add Notification</Button>
-      <div>
-        <Button
-          disabled={disabled}
-          loading={
-            loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
-          }
-          onClick={toggleOptions}
-        >
-          <EllipsisBtnCopy>...</EllipsisBtnCopy>
-        </Button>
-        {isVisible && (
-          <Options>
-            <Item onClick={() => unscheduleTask()}>
-              <Body>Unschedule</Body>
-            </Item>
-            <Item onClick={() => abortTask()}>
-              <Body>Abort</Body>
-            </Item>
-            <Popconfirm
-              placement="left"
-              title={
-                <>
-                  <StyledBody>Set new priority:</StyledBody>
-                  <InputNumber
-                    size="small"
-                    min={0}
-                    type="number"
-                    max={Number.MAX_SAFE_INTEGER}
-                    value={priority}
-                    onChange={onChange}
-                  />
-                </>
-              }
-              onConfirm={() =>
-                setTaskPriority({
-                  variables: { taskId, priority },
-                })
-              }
-              onCancel={() => setIsVisible(false)}
-              okText="Set"
-              cancelText="Cancel"
-            >
-              <Item ref={priorityRef} style={{ paddingRight: 8 }}>
-                <Body>Set priority</Body>
-              </Item>
-            </Popconfirm>
-          </Options>
-        )}
-      </div>
-    </Container>
+    <ButtonRow
+      containerRef={wrapperRef}
+      rowButtons={rowButtons}
+      cardItems={cardItems}
+      cardLoading={
+        loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
+      }
+      cardDisabled={disabled}
+      setIsVisibleCard={setIsVisible}
+      isVisibleCard={isVisible}
+    />
   );
 };
-
-const Container = styled.div`
-  > button {
-    margin-right: 8px;
-  }
-  display: flex;
-`;
-
-const Options = styled(Card)`
-  position: absolute;
-  right: 8px;
-  z-index: 1;
-  margin-top: 2px;
-  padding: 8px;
-`;
 
 const Item = styled.div`
   > p:hover {
