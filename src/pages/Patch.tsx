@@ -2,12 +2,8 @@ import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
-import {
-  PageWrapper,
-  PageContent,
-  PageLayout,
-  PageSider,
-} from "components/styles";
+import { PageWrapper } from "components/PageWrapper";
+import { PageContent, PageLayout, PageSider } from "components/styles";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_PATCH } from "gql/queries/patch";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
@@ -17,18 +13,12 @@ import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
 import { useHistory } from "react-router-dom";
 import { paths } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
-import { Banners } from "components/Banners";
+import { useBannerDispatchContext } from "context/banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { withBannersContext } from "hoc/withBannersContext";
 
-const PatchCore: React.FC = () => {
+export const Patch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
   const router = useHistory();
   const { data, loading, error, stopPolling } = useQuery<
     PatchQuery,
@@ -50,15 +40,10 @@ const PatchCore: React.FC = () => {
     router.push(`${paths.patch}/${id}/configure`);
   }
   if (error) {
-    return (
-      <PageWrapper>
-        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
-      </PageWrapper>
-    );
+    return <PageWrapper />;
   }
   return (
     <PageWrapper data-cy="patch-page">
-      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}
@@ -80,5 +65,3 @@ const PatchCore: React.FC = () => {
     </PageWrapper>
   );
 };
-
-export const Patch = withBannersContext(PatchCore);

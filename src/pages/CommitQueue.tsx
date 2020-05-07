@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { PageWrapper } from "components/styles";
+import { PageWrapper } from "components/PageWrapper";
 import { useParams } from "react-router-dom";
 import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
