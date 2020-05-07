@@ -78,7 +78,7 @@ export const Task: React.FC = () => {
   }
 
   if (error) {
-    return <PageWrapper></PageWrapper>;
+    return <PageWrapper />;
   }
 
   return (

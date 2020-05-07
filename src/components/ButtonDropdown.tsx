@@ -38,7 +38,7 @@ export const ButtonDropdown: React.FC<Props> = ({
         loading={loading}
         onClick={toggleDropdown}
         glyph={<Icon glyph="Ellipsis" />}
-      ></Button>
+      />
       {isVisibleDropdown && (
         <Dropdown data-cy={dataCyDropdown}>{dropdownItems}</Dropdown>
       )}
