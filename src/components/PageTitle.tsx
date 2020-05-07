@@ -31,7 +31,7 @@ export const PageTitle: React.FC<Props> = ({
           <BadgeWrapper>{badge}</BadgeWrapper>
         </span>
       </Subtitle>
-      {buttons ?? <></>}
+      {buttons ?? null}
     </PageHeader>
   ) : null;
 
