@@ -134,7 +134,7 @@ export const ActionButtons = ({
     if (disabled) {
       setIsVisible(false);
     }
-  }, [disabled]);
+  }, [disabled, setIsVisible]);
 
   useOnClickOutside(wrapperRef, () => {
     if (
