@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { ColumnProps } from "antd/es/table";
-import { InfinityTable } from "antd-table-infinity";
+import Table, { ColumnProps } from "antd/es/table";
 import { msToDuration } from "utils/string";
-import { loader } from "components/Loading/Loader";
 import Button from "@leafygreen-ui/button";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import {
@@ -114,7 +112,7 @@ export const TestsTableCore: React.FC = () => {
     });
   };
 
-  const onChange: TableOnChange<TaskTestsQuery> = (...[, , sorter]) => {
+  const onChange = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
     const { order, columnKey } = sorter;
     parsedSearch[RequiredQueryParams.Category] = columnKey;
@@ -144,19 +142,7 @@ export const TestsTableCore: React.FC = () => {
         numerator={filteredTestCount}
         denominator={totalTestCount}
       />
-      <InfinityTable
-        key="key"
-        loading={networkStatus < NetworkStatus.ready}
-        onFetch={onFetch}
-        pageSize={10000}
-        loadingIndicator={loader}
-        columns={columns}
-        scroll={{ y: 350 }}
-        dataSource={dataSource}
-        onChange={onChange}
-        export={true}
-        rowKey={rowKey}
-      />
+      <Table columns={columns} dataSource={dataSource} onChange={onChange} />
     </>
   );
 };
@@ -173,7 +159,7 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: Array<ColumnProps<TaskTestsQuery>> = [
+const columns: ColumnProps<TestResult>[] = [
   {
     title: "Name",
     dataIndex: "testFile",
@@ -267,6 +253,7 @@ const getQueryVariables = (
   limitNum: number;
   statusList: string[];
   testName: string;
+  page: number;
 } => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
@@ -278,7 +265,8 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-
+  const page = parseInt((parsed[RequiredQueryParams.Page] || "").toString());
+  const limit = parseInt((parsed[RequiredQueryParams.Limit] || "").toString());
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
   const dir =
@@ -291,8 +279,9 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum: LIMIT,
+    limitNum: !isNaN(limit) && limit > 0 ? limit : 10,
     statusList,
     testName,
+    page: !isNaN(page) && page >= 0 ? page : 0,
   };
 };
