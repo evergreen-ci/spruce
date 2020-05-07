@@ -12,17 +12,25 @@ interface Props {
   isVisibleCard: boolean;
 }
 
-export const ButtonRow = (props: Props) => {
+export const ButtonRow = ({
+  containerRef,
+  rowButtons,
+  cardDisabled,
+  cardItems,
+  isVisibleCard,
+  setIsVisibleCard,
+  cardLoading,
+}: Props) => {
   return (
-    <Container ref={props.containerRef}>
-      {props.rowButtons}
+    <Container ref={containerRef}>
+      {rowButtons}
 
       <CardDropdownButton
-        disabled={props.cardDisabled}
-        cardItems={props.cardItems}
-        isVisibleCard={props.isVisibleCard}
-        setIsVisibleCard={props.setIsVisibleCard}
-        loading={props.cardLoading}
+        disabled={cardDisabled}
+        cardItems={cardItems}
+        isVisibleCard={isVisibleCard}
+        setIsVisibleCard={setIsVisibleCard}
+        loading={cardLoading}
       />
     </Container>
   );
