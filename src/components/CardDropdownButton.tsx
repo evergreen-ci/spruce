@@ -30,7 +30,7 @@ export const CardDropdownButton = ({
     setIsVisibleCard(!isVisibleCard);
   };
   return (
-    <>
+    <Container>
       <Button
         size="small"
         dataCy={dataCyBtn}
@@ -41,7 +41,7 @@ export const CardDropdownButton = ({
         <EllipsisBtnCopy>...</EllipsisBtnCopy>
       </Button>
       {isVisibleCard && <Options data-cy={dataCyCard}>{cardItems}</Options>}
-    </>
+    </Container>
   );
 };
 interface CardItemProps {
@@ -60,8 +60,12 @@ export const CardItem = styled.div`
 
 const Options = styled(Card)`
   position: absolute;
-  right: 8px;
+  right: 0px;
   z-index: 1;
   margin-top: 2px;
   padding: 8px;
+`;
+
+const Container = styled.div`
+  position: relative;
 `;

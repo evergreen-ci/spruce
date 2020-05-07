@@ -16,15 +16,14 @@ export const ButtonRow = (props: Props) => {
   return (
     <Container ref={props.containerRef}>
       {props.rowButtons}
-      <div>
-        <CardDropdownButton
-          disabled={props.cardDisabled}
-          cardItems={props.cardItems}
-          isVisibleCard={props.isVisibleCard}
-          setIsVisibleCard={props.setIsVisibleCard}
-          loading={props.cardLoading}
-        />
-      </div>
+
+      <CardDropdownButton
+        disabled={props.cardDisabled}
+        cardItems={props.cardItems}
+        isVisibleCard={props.isVisibleCard}
+        setIsVisibleCard={props.setIsVisibleCard}
+        loading={props.cardLoading}
+      />
     </Container>
   );
 };
@@ -34,4 +33,5 @@ const Container = styled.div`
     margin-right: 24px;
   }
   display: flex;
+  padding-right: 40px;
 `;
