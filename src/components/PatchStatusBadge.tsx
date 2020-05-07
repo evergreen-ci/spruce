@@ -7,10 +7,9 @@ interface Props {
   status: string;
 }
 
-
 export const PatchStatusBadge: React.FC<Props> = ({ status }) => (
   <StyledBadge variant={statusToBadgeVariant[status as PatchStatus]}>
-        {patchStatusToCopy[status as PatchStatus]}
+    {patchStatusToCopy[status as PatchStatus]}
   </StyledBadge>
 );
 
@@ -29,7 +28,7 @@ const patchStatusToCopy = {
 };
 
 const StyledBadge = styled(Badge)`
-  display:flex;
+  display: flex;
   justify-content: center;
   width: 90px;
-`
+`;

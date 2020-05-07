@@ -6,14 +6,14 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 import { StyledRouterLink } from "components/styles/StyledLink";
-import { ModuleCodeChange } from "gql/generated/types";
-import { paths } from "constants/routes";
-import { format } from "date-fns";
-import { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "gql/mutations/remove-patch-from-commit-queue";
 import {
+  ModuleCodeChange,
   RemovePatchFromCommitQueueMutation,
   RemovePatchFromCommitQueueMutationVariables,
 } from "gql/generated/types";
+import { paths } from "constants/routes";
+import { format } from "date-fns";
+import { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "gql/mutations/remove-patch-from-commit-queue";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
@@ -48,8 +48,8 @@ export const CommitQueueCard: React.FC<Props> = ({
         variables: { patchId, commitQueueId },
         refetchQueries: ["CommitQueue"],
       });
-    } catch (error) {
-      console.log(error); // TODO: Replace this with better error handling
+    } catch (err) {
+      // console.log(err); // TODO: Replace this with better error handling
     }
   };
   return (

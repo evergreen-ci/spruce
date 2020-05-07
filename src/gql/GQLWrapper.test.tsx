@@ -1,7 +1,7 @@
-import { getClientLink, getGQLClient } from "./GQLWrapper";
 import SchemaLink from "apollo-link-schema";
 import { HttpLink } from "apollo-link-http";
 import ApolloClient from "apollo-client";
+import { getClientLink, getGQLClient } from "./GQLWrapper";
 
 const schema = `
   type Patch {

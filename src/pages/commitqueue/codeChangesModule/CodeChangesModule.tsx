@@ -10,10 +10,10 @@ const totalFileDiffs = (
 ): { additions: number; deletions: number } => {
   let additions = 0;
   let deletions = 0;
-  for (const fileDiff of fileDiffs) {
+  fileDiffs.forEach((fileDiff) => {
     additions += fileDiff.additions;
     deletions += fileDiff.deletions;
-  }
+  });
   return { additions, deletions };
 };
 

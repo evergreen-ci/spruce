@@ -46,9 +46,7 @@ export const getClientLink = async ({
   ) {
     try {
       const executableSchema = makeExecutableSchema({
-        typeDefs: schemaString
-          ? schemaString
-          : printSchema(await introspectSchema(httpLink)),
+        typeDefs: schemaString || printSchema(await introspectSchema(httpLink)),
       });
       addMockFunctionsToSchema({ schema: executableSchema });
       return new SchemaLink({ schema: executableSchema });
@@ -79,15 +77,15 @@ const authLink = (logout: Logout): ApolloLink =>
 const timeoutLink = new ApolloLinkTimeout(60000);
 
 const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
-  new ApolloLink((operation, forward) => {
-    return forward(operation).map((response) => {
+  new ApolloLink((operation, forward) =>
+    forward(operation).map((response) => {
       if (response && response.data) {
         // if there is data in response then server responded with 200; therefore, is authenticated.
         dispatch({ type: "authenticate" });
       }
       return response;
-    });
-  });
+    })
+  );
 
 const retryLink = new RetryLink({
   delay: {

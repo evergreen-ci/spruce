@@ -29,19 +29,17 @@ export const Button: React.FC<Props> = ({
   disabled,
   dataCy,
   glyph,
-}) => {
-  return (
-    <LeafyGreenButton
-      data-cy={dataCy}
-      variant={mapVariantToLeafyGreenVariant[variant]}
-      onClick={onClick}
-      disabled={disabled}
-      glyph={loading ? <StyledIcon type="loading" /> : glyph}
-    >
-      {children}
-    </LeafyGreenButton>
-  );
-};
+}) => (
+  <LeafyGreenButton
+    data-cy={dataCy}
+    variant={mapVariantToLeafyGreenVariant[variant]}
+    onClick={onClick}
+    disabled={disabled}
+    glyph={loading ? <StyledIcon type="loading" /> : glyph}
+  >
+    {children}
+  </LeafyGreenButton>
+);
 
 const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
   [Variant.Danger]: "danger",

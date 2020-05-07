@@ -71,7 +71,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       });
     } catch (error) {
       // TODO: log this error
-      console.error(error);
+      // console.error(error);
     }
   };
   const scheduledPatchId = get(data, "schedulePatch.id");
@@ -83,8 +83,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       // TODO: Full page error
       <PageLayout>
         <div data-cy="full-page-error">
-          Something went wrong. This patch's project either has no variants or
-          no tasks associated with it.{" "}
+          Something went wrong. This patch&apos;s project either has no variants
+          or no tasks associated with it.{" "}
         </div>
       </PageLayout>
     );
@@ -145,8 +145,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 
 const getGqlVariantTasksParamFromState = (
   selectedVariantTasks: VariantTasksState
-): VariantTasks[] => {
-  return Object.keys(selectedVariantTasks).map((variantName) => {
+): VariantTasks[] =>
+  Object.keys(selectedVariantTasks).map((variantName) => {
     const tasksObj = selectedVariantTasks[variantName];
     const tasksArr = Object.keys(tasksObj);
     const variantTasks: VariantTasks = {
@@ -156,7 +156,6 @@ const getGqlVariantTasksParamFromState = (
     };
     return variantTasks;
   });
-};
 
 interface TasksState {
   [task: string]: true;

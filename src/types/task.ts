@@ -28,6 +28,12 @@ export enum TestStatus {
 
 export type TableOnChange<D> = TableProps<D>["onChange"];
 
+export enum TaskTab {
+  Logs = "logs",
+  Tests = "tests",
+  Files = "files",
+  BuildBaron = "build-baron",
+}
 export enum TaskStatus {
   Inactive = "inactive",
 
