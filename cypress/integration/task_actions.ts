@@ -70,7 +70,7 @@ describe("Task Action Buttons", function() {
 });
 
 const scheduleErrorBannerText =
-  "Error scheduling task: GraphQL error: error activating dependency for evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48 with id evergreen_ubuntu1604_test_graphql_5e823e1f28baeaa22ae00823d83e03082cd148ab_20_02_20_20_37_06: document not found";
+  "Error scheduling task: GraphQL error: error activating dependency for clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48 with id evergreen_ubuntu1604_test_graphql_5e823e1f28baeaa22ae00823d83e03082cd148ab_20_02_20_20_37_06: document not found";
 const prioritySuccessBannerText = "Priority for task updated to 99";
 const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
