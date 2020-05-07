@@ -15,7 +15,7 @@ interface Props {
   dataCyCard?: string;
 }
 
-export const CardDropdownButton = ({
+export const ButtonDropdown = ({
   disabled = false,
   loading = false,
   setIsVisibleCard = function noop(v: boolean) {

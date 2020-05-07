@@ -17,7 +17,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
-import { CardDropdownButton } from "components/CardDropdownButton";
+import { ButtonDropdown } from "components/ButtonDropdown";
 interface Build {
   id: string;
   buildVariant: string;
@@ -85,7 +85,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <CardDropdownButton isVisibleCard={false} cardItems={[]} />
+        <ButtonDropdown isVisibleCard={false} cardItems={[]} />
       </Right>
     </CardWrapper>
   );

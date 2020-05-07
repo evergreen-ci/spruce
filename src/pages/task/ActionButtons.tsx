@@ -26,7 +26,7 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { CardItem } from "components/CardDropdownButton";
+import { CardItem } from "components/ButtonDropdown";
 
 interface Props {
   priority?: number;

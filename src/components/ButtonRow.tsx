@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { CardDropdownButton } from "components/CardDropdownButton";
+import { ButtonDropdown } from "components/ButtonDropdown";
 
 interface Props {
   containerRef: React.MutableRefObject<HTMLDivElement>;
@@ -25,7 +25,7 @@ export const ButtonRow = ({
     <Container ref={containerRef}>
       {rowButtons}
 
-      <CardDropdownButton
+      <ButtonDropdown
         disabled={cardDisabled}
         cardItems={cardItems}
         isVisibleCard={isVisibleCard}
