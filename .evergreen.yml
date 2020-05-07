@@ -110,12 +110,6 @@ functions:
       env:
         CI: "true"
 
-  npm-lint:
-    command: subprocess.exec
-    params:
-      working_dir: spruce
-      binary: npm
-      args: [run, lint]
 
   npm-eslint:
     command: subprocess.exec
