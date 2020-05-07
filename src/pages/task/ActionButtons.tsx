@@ -14,7 +14,6 @@ import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { useBannerDispatchContext } from "context/banners";
 import { ButtonRow } from "components/ButtonRow";
-
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -28,6 +27,7 @@ import {
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
 import { CardItem } from "components/CardDropdownButton";
+
 interface Props {
   priority?: number;
   canAbort: boolean;
@@ -63,7 +63,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error scheduling task: ${err.message}`);
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries,
   });
 
   const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
@@ -77,7 +77,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error unscheduling task: ${err.message}`);
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries,
   });
 
   const [abortTask, { loading: loadingAbortTask }] = useMutation<
@@ -93,7 +93,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error aborting task: ${err.message}`);
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries,
   });
 
   const [restartTask, { loading: loadingRestartTask }] = useMutation<
@@ -107,7 +107,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error restarting task: ${err.message}`);
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries,
   });
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
@@ -120,7 +120,7 @@ export const ActionButtons = ({
     onError: (err) => {
       error(`Error updating priority for task: ${err.message}`);
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries,
   });
 
   const disabled =
@@ -242,6 +242,7 @@ export const ActionButtons = ({
   );
 };
 
+const refetchQueries = ["GetTask"];
 const StyledBody = styled(Body)`
   padding-right: 8px;
 `;
