@@ -85,7 +85,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <ButtonDropdown isVisibleCard={false} cardItems={[]} />
+        <ButtonDropdown isVisibleDropdown={false} dropdownItems={[]} />
       </Right>
     </CardWrapper>
   );

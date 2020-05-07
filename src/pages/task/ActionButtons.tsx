@@ -13,7 +13,6 @@ import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { useBannerDispatchContext } from "context/banners";
-import { ButtonRow } from "components/ButtonRow";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -26,7 +25,8 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { CardItem } from "components/ButtonDropdown";
+import { PageButtonRow } from "components/styles";
+import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 
 interface Props {
   priority?: number;
@@ -144,54 +144,23 @@ export const ActionButtons = ({
     }
   });
 
-  const rowButtons = [
-    <Button
-      size="small"
-      dataCy="schedule-task"
-      key="schedule"
-      disabled={disabled || !canSchedule}
-      loading={loadingScheduleTask}
-      onClick={scheduleTask}
-    >
-      Schedule
-    </Button>,
-    <Button
-      size="small"
-      dataCy="restart-task"
-      key="restart"
-      disabled={disabled || !canRestart}
-      loading={loadingRestartTask}
-      onClick={restartTask}
-    >
-      Restart
-    </Button>,
-    <Button
-      size="small"
-      dataCy="notify-task"
-      key="notifications"
-      disabled={disabled}
-    >
-      Add Notification
-    </Button>,
-  ];
-
-  const cardItems = [
-    <CardItem
+  const dropdownItems = [
+    <DropdownItem
       disabled={disabled || !canUnschedule}
       key="unschedule"
       data-cy="unschedule-task"
       onClick={() => unscheduleTask()}
     >
       <Body>Unschedule</Body>
-    </CardItem>,
-    <CardItem
+    </DropdownItem>,
+    <DropdownItem
       data-cy="abort-task"
       key="abort"
       disabled={disabled || !canAbort}
       onClick={() => abortTask()}
     >
       <Body>Abort</Body>
-    </CardItem>,
+    </DropdownItem>,
     <Popconfirm
       key="priority"
       icon={null}
@@ -218,28 +187,56 @@ export const ActionButtons = ({
       okText="Set"
       cancelText="Cancel"
     >
-      <CardItem
+      <DropdownItem
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
       >
         <Body>Set priority</Body>
-      </CardItem>
+      </DropdownItem>
     </Popconfirm>,
   ];
 
   return (
-    <ButtonRow
-      containerRef={wrapperRef}
-      rowButtons={rowButtons}
-      cardItems={cardItems}
-      cardLoading={
-        loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
-      }
-      cardDisabled={disabled}
-      setIsVisibleCard={setIsVisible}
-      isVisibleCard={isVisible}
-    />
+    <PageButtonRow ref={wrapperRef}>
+      <Button
+        size="small"
+        dataCy="schedule-task"
+        key="schedule"
+        disabled={disabled || !canSchedule}
+        loading={loadingScheduleTask}
+        onClick={scheduleTask}
+      >
+        Schedule
+      </Button>
+      <Button
+        size="small"
+        dataCy="restart-task"
+        key="restart"
+        disabled={disabled || !canRestart}
+        loading={loadingRestartTask}
+        onClick={restartTask}
+      >
+        Restart
+      </Button>
+      <Button
+        size="small"
+        dataCy="notify-task"
+        key="notifications"
+        disabled={disabled}
+      >
+        Add Notification
+      </Button>
+      <ButtonDropdown
+        disabled={disabled}
+        dropdownItems={dropdownItems}
+        isVisibleDropdown={isVisible}
+        setIsVisibleDropdown={setIsVisible}
+        loading={
+          loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
+        }
+      />
+    </PageButtonRow>
   );
 };
 

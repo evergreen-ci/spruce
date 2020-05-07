@@ -7,27 +7,27 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 interface Props {
   disabled?: boolean;
-  setIsVisibleCard?: (v: boolean) => void;
+  setIsVisibleDropdown?: (v: boolean) => void;
   loading?: boolean;
-  isVisibleCard?: boolean;
-  cardItems: JSX.Element[];
+  isVisibleDropdown?: boolean;
+  dropdownItems: JSX.Element[];
   dataCyBtn?: string;
-  dataCyCard?: string;
+  dataCyDropdown?: string;
 }
 
-export const ButtonDropdown = ({
+export const ButtonDropdown: React.FC<Props> = ({
   disabled = false,
   loading = false,
-  setIsVisibleCard = function noop(v: boolean) {
+  setIsVisibleDropdown = function noop(v: boolean) {
     return;
   },
-  isVisibleCard = true,
-  cardItems,
+  isVisibleDropdown = true,
+  dropdownItems,
   dataCyBtn = "ellipsis-btn",
-  dataCyCard = "card-dropdown",
+  dataCyDropdown = "card-dropdown",
 }: Props) => {
-  const toggleCard = () => {
-    setIsVisibleCard(!isVisibleCard);
+  const toggleDropdown = () => {
+    setIsVisibleDropdown(!isVisibleDropdown);
   };
   return (
     <Container>
@@ -36,10 +36,12 @@ export const ButtonDropdown = ({
         dataCy={dataCyBtn}
         disabled={disabled}
         loading={loading}
-        onClick={toggleCard}
+        onClick={toggleDropdown}
         glyph={<Icon glyph="Ellipsis" />}
       ></Button>
-      {isVisibleCard && <Options data-cy={dataCyCard}>{cardItems}</Options>}
+      {isVisibleDropdown && (
+        <Dropdown data-cy={dataCyDropdown}>{dropdownItems}</Dropdown>
+      )}
     </Container>
   );
 };
@@ -47,7 +49,7 @@ interface CardItemProps {
   disabled: boolean;
 }
 
-export const CardItem = styled.div`
+export const DropdownItem = styled.div`
   > p:hover {
     text-decoration: underline;
     cursor: pointer;
@@ -57,7 +59,7 @@ export const CardItem = styled.div`
     color: ${(props: CardItemProps) => props.disabled && uiColors.gray.base};
 `;
 
-const Options = styled(Card)`
+const Dropdown = styled(Card)`
   position: absolute;
   right: 0px;
   z-index: 1;
