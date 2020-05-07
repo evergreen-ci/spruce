@@ -194,6 +194,7 @@ export const ActionButtons = ({
     </CardItem>,
     <Popconfirm
       key="priority"
+      icon={null}
       placement="left"
       title={
         <>
