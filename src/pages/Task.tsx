@@ -23,7 +23,6 @@ import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "constants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
-import { TaskStatus } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import {
   useBannerDispatchContext,

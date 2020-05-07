@@ -4,7 +4,6 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { GET_PATCH_VARIANTS_AND_STATUS } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
-import Button from "@leafygreen-ui/button";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
