@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "components/Button";
-import { EllipsisBtnCopy } from "components/styles/Button";
+import Icon from "@leafygreen-ui/icon";
 import Card from "@leafygreen-ui/card";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -37,9 +37,8 @@ export const CardDropdownButton = ({
         disabled={disabled}
         loading={loading}
         onClick={toggleCard}
-      >
-        <EllipsisBtnCopy>...</EllipsisBtnCopy>
-      </Button>
+        glyph={<Icon glyph="Ellipsis" />}
+      ></Button>
       {isVisibleCard && <Options data-cy={dataCyCard}>{cardItems}</Options>}
     </Container>
   );

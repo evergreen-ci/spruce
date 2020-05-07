@@ -17,8 +17,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
-import { EllipsisBtnCopy } from "components/styles/Button";
-
+import { CardDropdownButton } from "components/CardDropdownButton";
 interface Build {
   id: string;
   buildVariant: string;
@@ -86,9 +85,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <Button size="small">
-          <EllipsisBtnCopy>...</EllipsisBtnCopy>
-        </Button>
+        <CardDropdownButton isVisibleCard={false} cardItems={[]} />
       </Right>
     </CardWrapper>
   );
