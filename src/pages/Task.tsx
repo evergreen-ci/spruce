@@ -85,14 +85,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
 
-  if (
-    status === TaskStatus.Failed ||
-    status === TaskStatus.Succeeded ||
-    status === TaskStatus.SetupFailed ||
-    status === TaskStatus.SystemFailed ||
-    status === TaskStatus.TestTimedOut ||
-    error
-  ) {
+  if (error) {
     stopPolling();
   }
 
