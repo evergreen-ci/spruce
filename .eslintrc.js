@@ -22,6 +22,7 @@ module.exports = {
     browser: true,
     es6: true,
     jest: true,
+    node: true,
   },
   extends: [
     "plugin:react/recommended",
@@ -58,7 +59,12 @@ module.exports = {
     "import/resolver": {
       node: {
         paths: ["src"],
+        extensions: [".js", ".jsx", ".ts", ".tsx"],
       },
+    },
+    "import/extensions": [".js", ".mjs", ".jsx", ".ts", ".tsx"],
+    "import/parsers": {
+      "@typescript-eslint/parser": [".ts", ".tsx"],
     },
   },
   rules: {
@@ -69,21 +75,35 @@ module.exports = {
         requireReturnForObjectLiteral: false,
       },
     ],
+    "consistent-return": "off",
     curly: [errorIfStrict, "multi-line"],
     eqeqeq: [errorIfStrict, "always", { null: "ignore" }],
     // Help us with emotion
     "emotion/syntax-preference": [errorIfStrict, "string"],
     "emotion/no-vanilla": errorIfStrict,
-    "emotion/import-from-emotion": "error",
+    "emotion/import-from-emotion": ERROR,
     "graphql/template-strings": [
-      "error",
+      ERROR,
       {
         schemaString: schema,
       },
     ],
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        js: "never",
+        jsx: "never",
+        ts: "never",
+        tsx: "never",
+      },
+    ],
     // We use import resolver for this
     "import/no-unresolved": OFF,
+    "import/no-extraneous-dependencies": OFF,
+    "import/newline-after-import": WARN,
     "import/prefer-default-export": OFF,
+
     // disallow use of undeclared variables unless mentioned in a
     // /*global */ block
     "no-undef": ERROR,
@@ -97,14 +117,26 @@ module.exports = {
       errorIfStrict,
       { order: ["everything-else", "render"] },
     ],
+    "react/jsx-props-no-spreading": [
+      errorIfStrict,
+      {
+        custom: "ignore",
+        explicitSpread: "ignore",
+      },
+    ],
+    "react/prop-types": OFF,
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
-    "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
-    "react-hooks/exhaustive-deps": "warn", // Checks effect dependencies
+    "react-hooks/rules-of-hooks": ERROR, // Checks rules of Hooks
+    "react-hooks/exhaustive-deps": WARN, // Checks effect dependencies
     // These rules help ensure we are following proper accessability standards
     "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
     "jsx-a11y/aria-props": errorIfStrict,
     // renamed to anchor-is-valid
     "jsx-a11y/href-no-hash": OFF,
     "jsx-a11y/anchor-is-valid": errorIfStrict,
+    "jsx-a11y/label-has-associated-control": [
+      errorIfStrict,
+      { some: ["nesting", "id"] },
+    ],
   },
 };
