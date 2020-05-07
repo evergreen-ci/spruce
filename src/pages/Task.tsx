@@ -30,7 +30,7 @@ import {
   useBannerStateContext,
 } from "context/banners";
 import { Banners } from "components/Banners";
-import { withBannersContext } from "higherOrderComponents/withBannersContext";
+import { withBannersContext } from "hoc/withBannersContext";
 
 enum TaskTab {
   Logs = "logs",
