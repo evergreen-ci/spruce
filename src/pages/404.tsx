@@ -1,5 +1,5 @@
 import React from "react";
-import { PageWrapper } from "components/PageWrapper";
+import { PageWrapper } from "components/styles";
 import { H2 } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
 

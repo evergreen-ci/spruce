@@ -8,7 +8,7 @@ import {
 } from "gql/generated/types";
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
-import { PageWrapper } from "components/PageWrapper";
+import { PageWrapper } from "components/styles";
 
 export const ConfigurePatch: React.FC = () => {
   const { id } = useParams<{ id: string }>();

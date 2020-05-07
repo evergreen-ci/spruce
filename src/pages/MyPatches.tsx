@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { StyledInput, FiltersWrapper, PageTitle } from "components/styles";
-import { PageWrapper } from "components/PageWrapper";
+import {
+  PageWrapper,
+  StyledInput,
+  FiltersWrapper,
+  PageTitle,
+} from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import queryString from "query-string";

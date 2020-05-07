@@ -9,8 +9,12 @@ import { Logs } from "pages/task/Logs";
 import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { ActionButtons } from "pages/task/ActionButtons";
-import { PageContent, PageLayout, PageSider } from "components/styles";
-import { PageWrapper } from "components/PageWrapper";
+import {
+  PageWrapper,
+  PageContent,
+  PageLayout,
+  PageSider,
+} from "components/styles";
 import { GET_TASK } from "gql/queries/get-task";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { useDefaultPath, useTabs } from "hooks";
@@ -20,7 +24,13 @@ import { paths } from "constants/routes";
 import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { useBannerDispatchContext } from "context/banners";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
+import { Banners } from "components/Banners";
+import { withBannersContext } from "hoc/withBannersContext";
+
 enum TaskTab {
   Logs = "logs",
   Tests = "tests",
@@ -35,9 +45,10 @@ const tabToIndexMap = {
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
-export const Task: React.FC = () => {
+const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
@@ -78,11 +89,16 @@ export const Task: React.FC = () => {
   }
 
   if (error) {
-    return <PageWrapper />;
+    return (
+      <PageWrapper>
+        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      </PageWrapper>
+    );
   }
 
   return (
     <PageWrapper>
+      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
       {task && (
         <BreadCrumb
           taskName={displayName}
@@ -165,3 +181,5 @@ export const Task: React.FC = () => {
     </PageWrapper>
   );
 };
+
+export const Task = withBannersContext(TaskCore);
