@@ -75,7 +75,7 @@ const prioritySuccessBannerText = "Priority for task updated to 99";
 const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
 const taskRoute1 =
-  "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
+  "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
 const taskRoute2 =
   "task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const bannerDataCy = "banner";
