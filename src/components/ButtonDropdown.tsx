@@ -18,9 +18,7 @@ interface Props {
 export const ButtonDropdown: React.FC<Props> = ({
   disabled = false,
   loading = false,
-  setIsVisibleDropdown = function noop(v: boolean) {
-    return;
-  },
+  setIsVisibleDropdown = (v: boolean) => undefined,
   isVisibleDropdown = true,
   dropdownItems,
   dataCyBtn = "ellipsis-btn",
