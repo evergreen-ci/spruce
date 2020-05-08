@@ -16,6 +16,7 @@ export const PageTitle: React.FC<Props> = ({
   hasData,
   title,
   badge,
+  buttons,
 }) => (
   <>
     {!hasData && loading && (
@@ -32,6 +33,7 @@ export const PageTitle: React.FC<Props> = ({
             <BadgeWrapper>{badge}</BadgeWrapper>
           </span>
         </Subtitle>
+        {buttons ?? null}
       </PageHeader>
     )}
   </>
