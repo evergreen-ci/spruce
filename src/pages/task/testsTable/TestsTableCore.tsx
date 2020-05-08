@@ -233,7 +233,8 @@ const getQueryVariables = (
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
   const page = parseInt(
-    (parsed[RequiredQueryParams.Page] || "", 10).toString()
+    (parsed[RequiredQueryParams.Page] || "", 10).toString(),
+    10
   );
   const limit = parseInt(
     (parsed[RequiredQueryParams.Limit] || "").toString(),
@@ -251,9 +252,9 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum: !isNaN(limit) && limit > 0 ? limit : 10,
+    limitNum: !Number.isNaN(limit) && limit > 0 ? limit : 10,
     statusList,
     testName,
-    page: !isNaN(page) && page >= 0 ? page : 0,
+    page: !Number.isNaN(page) && page >= 0 ? page : 0,
   };
 };
