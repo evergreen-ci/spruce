@@ -223,7 +223,6 @@ tasks:
     - func: get-project
     - func: sym-link
     - func: npm-install
-    - func: npm-lint
     - func: npm-eslint
 
   - name: coverage
