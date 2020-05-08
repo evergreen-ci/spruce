@@ -22,6 +22,7 @@ import { ApolloError } from "apollo-client";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import get from "lodash/get";
+import { v4 as uuid } from "uuid";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
@@ -115,9 +116,9 @@ const useRenderBody: React.FC<{
     <>
       {data.map((d) =>
         d.kind === "taskEventLogEntry" ? (
-          <TaskEventLogLine key={d.eventType} {...d} />
+          <TaskEventLogLine key={uuid()} {...d} />
         ) : (
-          <LogMessageLine key={d.message} {...d} />
+          <LogMessageLine key={uuid()} {...d} />
         )
       )}
     </>
