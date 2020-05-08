@@ -51,18 +51,16 @@ const columns = (
     title: "File",
     dataIndex: "fileName",
     key: "fileName",
-    render: (text: string, record: FileDiff): JSX.Element => {
-      return (
-        <a
-          className="fileLink"
-          href={record.diffLink}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {text}
-        </a>
-      );
-    },
+    render: (text: string, record: FileDiff): JSX.Element => (
+      <a
+        className="fileLink"
+        href={record.diffLink}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {text}
+      </a>
+    ),
   },
   {
     title: "Additions",

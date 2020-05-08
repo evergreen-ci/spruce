@@ -3,6 +3,7 @@ import { TaskEventLogEntry } from "gql/generated/types";
 import styled from "@emotion/styled/macro";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { format } from "date-fns";
+
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 
 export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
@@ -20,7 +21,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
       );
       break;
     case "TASK_STARTED":
-      message = <>Marked as "started"</>;
+      message = <>Marked as &quote;started&quote;</>;
       break;
     case "TASK_DISPATCHED":
       message = <>Dispatched to host {hostLink}</>;

@@ -16,25 +16,26 @@ export const PageTitle: React.FC<Props> = ({
   hasData,
   title,
   badge,
-  buttons,
-}) =>
-  loading ? (
-    <PageHeader>
-      <Skeleton active={true} paragraph={{ rows: 0 }} />
-    </PageHeader>
-  ) : hasData ? (
-    <PageHeader>
-      <Subtitle>
-        <span data-cy="page-title">
-          {title}
-          {"  "}
-          <BadgeWrapper>{badge}</BadgeWrapper>
-        </span>
-      </Subtitle>
-      {buttons ?? null}
-    </PageHeader>
-  ) : null;
-
+}) => (
+  <>
+    {!hasData && loading && (
+      <PageHeader>
+        <Skeleton active paragraph={{ rows: 0 }} />
+      </PageHeader>
+    )}
+    {hasData && !loading && (
+      <PageHeader>
+        <Subtitle>
+          <span data-cy="page-title">
+            {title}
+            {"  "}
+            <BadgeWrapper>{badge}</BadgeWrapper>
+          </span>
+        </Subtitle>
+      </PageHeader>
+    )}
+  </>
+);
 const BadgeWrapper = styled.span`
   display: inline-flex;
   position: relative;

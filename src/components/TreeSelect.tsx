@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
 import { usePrevious } from "hooks";
+
 const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
@@ -203,6 +204,7 @@ const findNode = ({
   value: string;
   tData: TreeDataEntry[];
 }): FindNodeResult => {
+  // eslint-disable-next-line no-restricted-syntax
   for (const curr of tData) {
     if (curr.value === value) {
       return {
@@ -230,14 +232,13 @@ const findNode = ({
 };
 
 // returns all values in tData from parents and children
-const getAllValues = (tData: TreeDataEntry[]): string[] => {
-  return tData.reduce((accum, currNode) => {
+const getAllValues = (tData: TreeDataEntry[]): string[] =>
+  tData.reduce((accum, currNode) => {
     const childrenValues = currNode.children
       ? currNode.children.map((child) => child.value)
       : [];
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
-};
 
 // depth first traversal checkbox data.
 // pushes parent then children to rows array

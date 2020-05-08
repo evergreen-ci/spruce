@@ -32,13 +32,11 @@ const toast: ToastDispatchValue = {
   info: showToastMessage(Toast.info),
 };
 
-const ToastProvider: React.FC = ({ children }) => {
-  return (
-    <MessagesDispatchContext.Provider value={toast}>
-      {children}
-    </MessagesDispatchContext.Provider>
-  );
-};
+const ToastProvider: React.FC = ({ children }) => (
+  <MessagesDispatchContext.Provider value={toast}>
+    {children}
+  </MessagesDispatchContext.Provider>
+);
 
 const useToastContext = (): ToastDispatchValue => {
   const context = React.useContext(MessagesDispatchContext);

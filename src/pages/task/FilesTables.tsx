@@ -10,9 +10,9 @@ import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
-import { Table, Skeleton } from "antd";
+import { Table, Skeleton, Input } from "antd";
 import Icon from "@leafygreen-ui/icon";
-import { Input } from "antd";
+
 import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
 import get from "lodash/get";
@@ -23,18 +23,16 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
-    render: (text: string, record: File): JSX.Element => {
-      return (
-        <a
-          className="fileLink"
-          href={record.link}
-          rel="noopener noreferrer"
-          target="_blank"
-        >
-          {text}
-        </a>
-      );
-    },
+    render: (text: string, record: File): JSX.Element => (
+      <a
+        className="fileLink"
+        href={record.link}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        {text}
+      </a>
+    ),
     defaultSortOrder: "ascend" as SortOrder,
     sorter: (a: File, b: File): number => a.name.localeCompare(b.name),
   },
@@ -47,7 +45,7 @@ export const FilesTables: React.FC = () => {
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
     variables: {
-      id: id,
+      id,
     },
   });
   const [filterStr, setFilterStr] = useState("");
@@ -82,7 +80,7 @@ export const FilesTables: React.FC = () => {
 
   const renderTable = () => {
     if (loading || (!filteredData && data)) {
-      return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+      return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
     }
     const filteredFiles = (filteredData || []).filter(({ files }) =>
       get(files, "length", 0)
@@ -90,20 +88,18 @@ export const FilesTables: React.FC = () => {
     if (!filteredFiles.length) {
       return <Body>No files found</Body>;
     }
-    return filteredFiles.map(({ taskName, files }) => {
-      return (
-        <Fragment key={taskName}>
-          <H3>{taskName}</H3>
-          <StyledTable
-            rowKey={rowKey}
-            columns={columns}
-            dataSource={files}
-            pagination={false}
-            scroll={{ y: 196 }}
-          />
-        </Fragment>
-      );
-    });
+    return filteredFiles.map(({ taskName, files }) => (
+      <Fragment key={taskName}>
+        <H3>{taskName}</H3>
+        <StyledTable
+          rowKey={rowKey}
+          columns={columns}
+          dataSource={files}
+          pagination={false}
+          scroll={{ y: 196 }}
+        />
+      </Fragment>
+    ));
   };
 
   return (

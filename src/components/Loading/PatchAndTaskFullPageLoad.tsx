@@ -8,27 +8,25 @@ import {
   SiderCard,
 } from "components/styles";
 
-export const PatchAndTaskFullPageLoad: React.FC = () => {
-  return (
-    <>
-      <H2>
-        <Skeleton active={true} paragraph={{ rows: 0 }} />
-      </H2>
+export const PatchAndTaskFullPageLoad: React.FC = () => (
+  <>
+    <H2>
+      <Skeleton active paragraph={{ rows: 0 }} />
+    </H2>
+    <PageLayout>
+      <PageSider>
+        <SiderCard>
+          <Skeleton active title={false} paragraph={{ rows: 4 }} />
+        </SiderCard>
+        <SiderCard>
+          <Skeleton active title={false} paragraph={{ rows: 4 }} />
+        </SiderCard>
+      </PageSider>
       <PageLayout>
-        <PageSider>
-          <SiderCard>
-            <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-          </SiderCard>
-          <SiderCard>
-            <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-          </SiderCard>
-        </PageSider>
-        <PageLayout>
-          <PageContent>
-            <Skeleton active={true} title={true} paragraph={{ rows: 8 }} />;
-          </PageContent>
-        </PageLayout>
+        <PageContent>
+          <Skeleton active title paragraph={{ rows: 8 }} />;
+        </PageContent>
       </PageLayout>
-    </>
-  );
-};
+    </PageLayout>
+  </>
+);

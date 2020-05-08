@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -15,7 +15,7 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
-import { useHistory } from "react-router-dom";
+
 import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
@@ -63,7 +63,7 @@ const PatchCore: React.FC = () => {
       <PageTitle
         loading={loading}
         hasData={!!patch}
-        title={description ? description : `Patch ${get(patch, "patchNumber")}`}
+        title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
       />
       <PageLayout>

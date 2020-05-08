@@ -13,21 +13,19 @@ interface Props {
   status: string;
 }
 
-export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
-  return (
-    <StyledRouterLink to={`/task/${id}`} className="task-square">
-      <Tooltip
-        trigger={
-          <Square color={mapVariantTaskStatusToColor[status] || gray.light1} />
-        }
-        variant="dark"
-        className="task-square-tooltip"
-      >
-        {name}
-      </Tooltip>
-    </StyledRouterLink>
-  );
-};
+export const TaskSquare: React.FC<Props> = ({ id, name, status }) => (
+  <StyledRouterLink to={`/task/${id}`} className="task-square">
+    <Tooltip
+      trigger={
+        <Square color={mapVariantTaskStatusToColor[status] || gray.light1} />
+      }
+      variant="dark"
+      className="task-square-tooltip"
+    >
+      {name}
+    </Tooltip>
+  </StyledRouterLink>
+);
 
 const failureLavender = "#C2A5CF";
 const failurePurple = "#840884";
