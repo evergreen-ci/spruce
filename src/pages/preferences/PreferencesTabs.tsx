@@ -3,8 +3,8 @@ import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ApolloError } from "apollo-client";
-import { ProfileTab } from "./ProfileTab";
 import { UserSettings } from "gql/generated/types";
+import { ProfileTab } from "./ProfileTab";
 
 interface PreferenceTabsProps {
   tabKey: string;
@@ -23,13 +23,12 @@ export const PreferencesTabs: React.FC<PreferenceTabsProps> = ({
   tabKey,
   userSettings,
   loading,
-  error,
 }) => {
   const Component = componentMap[tabKey];
   return (
     <Container>
       <H2>{mapUrlTabToTitle[tabKey]}</H2>
-      {loading && <Skeleton active={true} />}
+      {loading && <Skeleton active />}
       {!loading && <Component tabKey={tabKey} userSettings={userSettings} />}
     </Container>
   );

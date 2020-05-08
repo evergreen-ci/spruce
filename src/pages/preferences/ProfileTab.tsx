@@ -6,8 +6,9 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
-import { timeZones, awsRegions } from "./fieldMaps";
 import { GithubUser } from "gql/generated/types";
+import { timeZones, awsRegions } from "./fieldMaps";
+
 const { Option } = Select;
 
 interface ProfileTabProps {

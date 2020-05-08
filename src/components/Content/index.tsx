@@ -39,7 +39,7 @@ export const Content: React.FC = () => {
         <PrivateRoute path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
         <PrivateRoute path={routes.preferences} component={Preferences} />
-        <PrivateRoute exact={true} path="/">
+        <PrivateRoute exact path="/">
           <Redirect to={routes.myPatches} />
         </PrivateRoute>
         <Route path={routes.login} component={Login} />
