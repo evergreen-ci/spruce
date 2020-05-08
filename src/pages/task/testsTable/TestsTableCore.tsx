@@ -56,7 +56,6 @@ export const TestsTableCore: React.FC = () => {
       try {
         await fetchMore({
           variables: {
-            pageNum: 0,
             ...getQueryVariables(loc.search),
           },
           updateQuery: (
@@ -80,37 +79,6 @@ export const TestsTableCore: React.FC = () => {
   }
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
-
-  // this fetch is the callback for pagination
-  // that's why we see pageNum calculations
-  const onFetch = (): void => {
-    if (networkStatus === NetworkStatus.error || error) {
-      return;
-    }
-    const pageNum = dataSource.length / LIMIT;
-    if (pageNum % 1 !== 0) {
-      return;
-    }
-    fetchMore({
-      variables: {
-        pageNum,
-        ...getQueryVariables(search),
-      },
-      updateQuery: (
-        prev: UpdateQueryArg,
-        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        fetchMoreResult.taskTests.testResults = [
-          ...prev.taskTests.testResults,
-          ...fetchMoreResult.taskTests.testResults,
-        ];
-        return fetchMoreResult;
-      },
-    });
-  };
 
   const onChange = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
