@@ -21,7 +21,8 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { Skeleton } from "antd";
+import { Skeleton, Pagination } from "antd";
+import { PageSizeSelector, PAGE_SIZES } from "components/PageSizeSelector";
 
 const arrayFormat = "comma";
 
@@ -35,7 +36,6 @@ export const TestsTableCore: React.FC = () => {
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
     id,
-    pageNum: 0,
     ...getQueryVariables(search),
   });
 
@@ -81,37 +81,64 @@ export const TestsTableCore: React.FC = () => {
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
-  const onChange = (...[, , sorter]) => {
+  const onChangeTableSort = (...[, , sorter]) => {
     const parsedSearch = queryString.parse(search);
-    const { order, columnKey } = sorter;
-    parsedSearch[RequiredQueryParams.Category] = columnKey;
+    parsedSearch[RequiredQueryParams.Category] = sorter.columnKey;
     parsedSearch[RequiredQueryParams.Sort] =
-      order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
+      sorter.order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
+    parsedSearch[RequiredQueryParams.Page] = "0";
     const nextQueryParams = queryString.stringify(parsedSearch, {
       arrayFormat,
     });
-
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
 
+  const setPage = (page: number) =>
+    replace(
+      `${pathname}?${queryString.stringify(
+        {
+          ...queryString.parse(search, { arrayFormat }),
+          page,
+        },
+        { arrayFormat }
+      )}`
+    );
+
   // initial table sort button state to reflect initial URL query params
-  const { cat, dir } = getQueryVariables(search);
+  const { cat, dir, pageNum, limitNum } = getQueryVariables(search);
+
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-  const filteredTestCount = get(data, "taskTests.filteredTestCount", "-");
-  const totalTestCount = get(data, "taskTests.totalTestCount", "-");
+
   return (
     <>
-      <ResultCountLabel
-        dataCyNumerator="filtered-test-count"
-        dataCyDenominator="total-test-count"
-        label="tests"
-        numerator={filteredTestCount}
-        denominator={totalTestCount}
+      <Row>
+        <ResultCountLabel
+          dataCyNumerator="filtered-test-count"
+          dataCyDenominator="total-test-count"
+          label="tests"
+          numerator={get(data, "taskTests.filteredTestCount", "-")}
+          denominator={get(data, "taskTests.totalTestCount", "-")}
+        />
+        <Row>
+          <Pagination
+            simple
+            pageSize={limitNum}
+            current={pageNum + 1}
+            total={get(data, "taskTests.filteredTestCount", 0)}
+            onChange={(p) => setPage(p - 1)}
+          />
+          <PageSizeSelector value={limitNum} />
+        </Row>
+      </Row>
+      <Table
+        pagination={false}
+        columns={columns}
+        dataSource={dataSource}
+        onChange={onChangeTableSort}
       />
-      <Table columns={columns} dataSource={dataSource} onChange={onChange} />
     </>
   );
 };
@@ -220,7 +247,7 @@ const getQueryVariables = (
   limitNum: number;
   statusList: string[];
   testName: string;
-  page: number;
+  pageNum: number;
 } => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
@@ -233,7 +260,7 @@ const getQueryVariables = (
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
   const page = parseInt(
-    (parsed[RequiredQueryParams.Page] || "", 10).toString(),
+    (parsed[RequiredQueryParams.Page] || "").toString(),
     10
   );
   const limit = parseInt(
@@ -252,9 +279,15 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum: !Number.isNaN(limit) && limit > 0 ? limit : 10,
+    limitNum: !Number.isNaN(limit) && PAGE_SIZES.includes(limit) ? limit : 10,
     statusList,
     testName,
-    page: !Number.isNaN(page) && page >= 0 ? page : 0,
+    pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,
   };
 };
+
+const Row = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
