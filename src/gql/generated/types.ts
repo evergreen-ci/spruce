@@ -794,6 +794,25 @@ export type GetTaskQuery = {
   }>;
 };
 
+export type GetUserSettingsQueryVariables = {};
+
+export type GetUserSettingsQuery = {
+  userSettings?: Maybe<{
+    timezone?: Maybe<string>;
+    region?: Maybe<string>;
+    slackUsername?: Maybe<string>;
+    notifications?: Maybe<{
+      patchFinish?: Maybe<string>;
+      patchFirstFailure?: Maybe<string>;
+      spawnHostOutcome?: Maybe<string>;
+      spawnHostExpiration?: Maybe<string>;
+      buildBreak?: Maybe<string>;
+      commitQueue?: Maybe<string>;
+    }>;
+    githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
+  }>;
+};
+
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
