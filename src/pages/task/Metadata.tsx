@@ -1,14 +1,14 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
-import { DependsOn } from "./metadata/DependsOn";
-import { Divider } from "components/styles";
+import { Divider, StyledLink } from "components/styles";
 import { format } from "date-fns";
 import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
-import { StyledLink } from "components/styles";
+
 import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
+import { DependsOn } from "./metadata/DependsOn";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -68,8 +68,8 @@ export const Metadata: React.FC<{
         <span data-cy="depends-on-container">
           <H3>Depends On</H3>
           <Divider />
-          {reliesOn.map((props, i) => (
-            <DependsOn key={i} {...props} />
+          {reliesOn.map((props) => (
+            <DependsOn key={props.buildVariant} {...props} />
           ))}
         </span>
       ) : null}

@@ -20,13 +20,9 @@ export const ConfigurePatch: React.FC = () => {
   });
   return (
     <PageWrapper>
-      {loading ? (
-        <PatchAndTaskFullPageLoad />
-      ) : error ? (
-        <div>{error.message}</div>
-      ) : (
-        <ConfigurePatchCore patch={data.patch} />
-      )}
+      {loading && !error && <PatchAndTaskFullPageLoad />}
+      {error && !loading && <div>{error.message}</div>}
+      {!error && !loading && <ConfigurePatchCore patch={data.patch} />}
     </PageWrapper>
   );
 };

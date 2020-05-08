@@ -17,7 +17,7 @@ export const Banners: React.FC<BannersProps> = ({ banners, removeBanner }) => {
       {banners
         .sort((a) => (a.type === "warning" ? -1 : 1))
         .map(({ id, type, message }) => (
-          <Banner key={id} {...{ id, type, removeBanner }}>
+          <Banner key={id} id={id} type={type} removeBanner={removeBanner}>
             {message}
           </Banner>
         ))}

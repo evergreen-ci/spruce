@@ -9,12 +9,12 @@ import {
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { Skeleton } from "antd";
-import { TaskSquare } from "./buildVariants/TaskSquare";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
 import every from "lodash/every";
 import { TaskStatus } from "types/task";
 import get from "lodash/get";
+import { TaskSquare } from "./buildVariants/TaskSquare";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -34,11 +34,13 @@ export const BuildVariants: React.FC = () => {
     <SiderCard>
       <H3>Build Variants</H3>
       <Divider />
-      {error ? (
-        <div>{error.message}</div>
-      ) : loading ? (
-        <Skeleton active={true} title={false} paragraph={{ rows: 4 }} />
-      ) : (
+      {error && !loading && <div>{error.message}</div>}{" "}
+      {loading && !error && (
+        <Skeleton active title={false} paragraph={{ rows: 4 }} />
+      )}
+      {data &&
+        !error &&
+        !loading &&
         data.patchBuildVariants.map(({ variant, tasks }) => (
           <BuildVariant key={variant} className="patch-build-variant">
             <P1>{variant}</P1>
@@ -48,8 +50,7 @@ export const BuildVariants: React.FC = () => {
               ))}
             </VariantTasks>
           </BuildVariant>
-        ))
-      )}
+        ))}
     </SiderCard>
   );
 };

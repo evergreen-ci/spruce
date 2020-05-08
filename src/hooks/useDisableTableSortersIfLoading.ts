@@ -10,10 +10,12 @@ export const useDisableTableSortersIfLoading = (
     );
     if (networkStatus < NetworkStatus.ready) {
       elements.forEach((el) => {
+        // eslint-disable-next-line no-param-reassign
         (el as HTMLElement).style["pointer-events"] = "none";
       });
     } else {
       elements.forEach((el) => {
+        // eslint-disable-next-line no-param-reassign
         (el as HTMLElement).style["pointer-events"] = "auto";
       });
     }

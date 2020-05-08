@@ -1,6 +1,6 @@
 import React from "react";
-import { RequiredQueryParams } from "types/task";
-import { TestStatus } from "types/task";
+import { RequiredQueryParams, TestStatus } from "types/task";
+
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 

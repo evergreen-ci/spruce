@@ -11,12 +11,14 @@ class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
   }
 
   public render(): JSX.Element | React.ReactNode {
-    if (this.state.hasError) {
+    const { hasError } = this.state;
+    const { children } = this.props;
+    if (hasError) {
       // TODO: render error banner
       return <h1>Something went wrong.</h1>;
     }
 
-    return this.props.children;
+    return children;
   }
 }
 

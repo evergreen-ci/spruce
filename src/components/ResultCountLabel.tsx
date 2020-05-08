@@ -16,8 +16,7 @@ export const ResultCountLabel: React.FC<Props> = ({
   label,
 }) => (
   <P2>
-    <span data-cy={dataCyNumerator}>{numerator}</span>
-    {"/"}
+    <span data-cy={dataCyNumerator}>{numerator}</span>/
     <span data-cy={dataCyDenominator}>{denominator}</span>
     <span> {label}</span>
   </P2>
