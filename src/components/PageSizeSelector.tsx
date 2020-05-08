@@ -19,6 +19,7 @@ export const PageSizeSelector = ({ value }: Props) => {
         {
           ...queryString.parse(search, { arrayFormat }),
           limit: pageSize,
+          page: 0,
         },
         { arrayFormat }
       )}`

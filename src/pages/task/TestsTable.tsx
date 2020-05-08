@@ -10,7 +10,7 @@ export const TestsTable: React.FC = () => {
   const [
     testNameFilterValue,
     testNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(RequiredQueryParams.TestName);
+  ] = useFilterInputChangeHandler(RequiredQueryParams.TestName, true);
 
   return (
     <>
