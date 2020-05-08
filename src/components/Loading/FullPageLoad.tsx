@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 
-export const FullPageLoad: React.FC = () => {
-  return (
-    <FullPage>
-      <div>LOADING...</div>
-    </FullPage>
-  );
-};
+export const FullPageLoad: React.FC = () => (
+  <FullPage>
+    <div>LOADING...</div>
+  </FullPage>
+);
 
 const FullPage = styled.div`
   width: 100vw;

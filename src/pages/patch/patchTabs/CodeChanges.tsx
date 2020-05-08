@@ -21,7 +21,7 @@ export const CodeChanges: React.FC = () => {
     variables: { id },
   });
   if (loading) {
-    return <Skeleton active={true} title={true} paragraph={{ rows: 8 }} />;
+    return <Skeleton active title paragraph={{ rows: 8 }} />;
   }
   if (error) {
     return <div id="patch-error">{error.message}</div>;

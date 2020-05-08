@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
-import { Variant } from "@leafygreen-ui/badge";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 
 interface Props {
   tabLabel: string;

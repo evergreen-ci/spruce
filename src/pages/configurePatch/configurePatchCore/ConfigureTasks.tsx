@@ -39,7 +39,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   const projectVariantTasksMap: {
     [variant: string]: string[];
   } = variants.reduce((prev, { name, tasks }) => {
-    prev[name] = tasks;
+    prev[name] = tasks; // eslint-disable-line no-param-reassign
     return prev;
   }, {});
   const currentTasks =
@@ -47,7 +47,7 @@ export const ConfigureTasks: React.FC<Props> = ({
 
   const onClickSelectAll = (): void => {
     const allTasksForVariant: TasksState = currentTasks.reduce((prev, curr) => {
-      prev[curr] = true;
+      prev[curr] = true; // eslint-disable-line no-param-reassign
       return prev;
     }, {});
     setSelectedVariantTasks({

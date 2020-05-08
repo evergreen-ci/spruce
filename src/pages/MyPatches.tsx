@@ -21,8 +21,8 @@ import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler, usePrevious } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
-import { PatchCard } from "./my-patches/PatchCard";
 import { Skeleton, Pagination } from "antd";
+import { PatchCard } from "./my-patches/PatchCard";
 
 export const MyPatches: React.FC = () => {
   const { replace } = useHistory();
@@ -95,9 +95,7 @@ export const MyPatches: React.FC = () => {
       return <ErrorWrapper>{error}</ErrorWrapper>;
     }
     if (loading) {
-      return (
-        <StyledSkeleton active={true} title={false} paragraph={{ rows: 4 }} />
-      );
+      return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {
       return data.userPatches.patches.map((p) => (

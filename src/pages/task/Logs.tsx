@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { useLocation, useHistory } from "react-router-dom";
-import { EventLog, AgentLog, SystemLog, TaskLog } from "./logs/LogTypes";
 import queryString from "query-string";
 import styled from "@emotion/styled/macro";
+import { EventLog, AgentLog, SystemLog, TaskLog } from "./logs/LogTypes";
 
 enum LogTypes {
   Agent = "agent",

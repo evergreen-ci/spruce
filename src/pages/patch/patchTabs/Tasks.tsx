@@ -36,28 +36,30 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   useDisableTableSortersIfLoading(networkStatus);
 
   // fetch tasks when url params change
-  useEffect(() => {
-    return history.listen(async (location) => {
-      if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-        try {
-          await fetchMore({
-            variables: getQueryVariables(id, location.search, 0),
-            updateQuery: (
-              prev: PatchTasksQuery,
-              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-            ) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              return fetchMoreResult;
-            },
-          });
-        } catch (e) {
-          // empty block
+  useEffect(
+    () =>
+      history.listen(async (location) => {
+        if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
+          try {
+            await fetchMore({
+              variables: getQueryVariables(id, location.search, 0),
+              updateQuery: (
+                prev: PatchTasksQuery,
+                { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+              ) => {
+                if (!fetchMoreResult) {
+                  return prev;
+                }
+                return fetchMoreResult;
+              },
+            });
+          } catch (e) {
+            // empty block
+          }
         }
-      }
-    });
-  }, [history, fetchMore, id, error, networkStatus]);
+      }),
+    [history, fetchMore, id, error, networkStatus]
+  );
 
   const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
     false
@@ -88,8 +90,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           return prev;
         }
         const { tasks } = fetchMoreResult.patchTasks;
-        fetchMoreResult.patchTasks.tasks = [...prev.patchTasks.tasks, ...tasks];
-        return fetchMoreResult;
+        let patchTasks = fetchMoreResult.patchTasks.tasks;
+        patchTasks = [...prev.patchTasks.tasks, ...tasks];
+        return patchTasks;
       },
     });
   };
@@ -104,8 +107,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         <span data-cy="current-task-count">
           {get(data, "patchTasks.count", "-")}
         </span>
-        {"/"}
-        <span data-cy="total-task-count">{taskCount || "-"}</span>
+        /<span data-cy="total-task-count">{taskCount || "-"}</span>
         <span>{" tasks"}</span>
       </P2>
       <TasksTable

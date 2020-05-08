@@ -11,19 +11,18 @@ import {
   TestResult,
   TaskTestResult,
 } from "gql/generated/types";
-import { TestStatus } from "types/task";
+import { TestStatus, RequiredQueryParams } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
-import { RequiredQueryParams, TableOnChange } from "types/task";
 import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Skeleton } from "antd";
-const LIMIT = 10;
+
 const arrayFormat = "comma";
 
 export interface UpdateQueryArg {
@@ -51,31 +50,33 @@ export const TestsTableCore: React.FC = () => {
 
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
-  useEffect(() => {
-    return listen(async (loc) => {
-      try {
-        await fetchMore({
-          variables: {
-            ...getQueryVariables(loc.search),
-          },
-          updateQuery: (
-            prev: UpdateQueryArg,
-            { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
-            }
-            return fetchMoreResult;
-          },
-        });
-      } catch (e) {
-        // empty block
-      }
-    });
-  }, [networkStatus, error, fetchMore, listen]);
+  useEffect(
+    () =>
+      listen(async (loc) => {
+        try {
+          await fetchMore({
+            variables: {
+              ...getQueryVariables(loc.search),
+            },
+            updateQuery: (
+              prev: UpdateQueryArg,
+              { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
+            },
+          });
+        } catch (e) {
+          // empty block
+        }
+      }),
+    [networkStatus, error, fetchMore, listen]
+  );
 
   if (!data && networkStatus < NetworkStatus.ready) {
-    return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
   }
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
@@ -174,44 +175,42 @@ const columns: ColumnProps<TestResult>[] = [
     }: {
       htmlDisplayURL: string;
       rawDisplayURL: string;
-    }): JSX.Element => {
-      return (
-        <>
-          {htmlDisplayURL && (
-            <ButtonWrapper>
-              <Button
-                data-cy="test-table-html-btn"
-                size="small"
-                target="_blank"
-                variant="default"
-                href={htmlDisplayURL}
-              >
-                HTML
-              </Button>
-            </ButtonWrapper>
-          )}
-          {rawDisplayURL && (
+    }): JSX.Element => (
+      <>
+        {htmlDisplayURL && (
+          <ButtonWrapper>
             <Button
-              data-cy="test-table-raw-btn"
+              data-cy="test-table-html-btn"
               size="small"
               target="_blank"
               variant="default"
-              href={rawDisplayURL}
+              href={htmlDisplayURL}
             >
-              Raw
+              HTML
             </Button>
-          )}
-        </>
-      );
-    },
+          </ButtonWrapper>
+        )}
+        {rawDisplayURL && (
+          <Button
+            data-cy="test-table-raw-btn"
+            size="small"
+            target="_blank"
+            variant="default"
+            href={rawDisplayURL}
+          >
+            Raw
+          </Button>
+        )}
+      </>
+    ),
   },
 ];
 
 export const rowKey = ({ id }: { id: string }): string => id;
 
-const ButtonWrapper = styled.span({
-  marginRight: 8,
-});
+const ButtonWrapper = styled("span")`
+  margin-right: 8;
+`;
 
 const getQueryVariables = (
   search: string
@@ -233,8 +232,13 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-  const page = parseInt((parsed[RequiredQueryParams.Page] || "").toString());
-  const limit = parseInt((parsed[RequiredQueryParams.Limit] || "").toString());
+  const page = parseInt(
+    (parsed[RequiredQueryParams.Page] || "", 10).toString()
+  );
+  const limit = parseInt(
+    (parsed[RequiredQueryParams.Limit] || "").toString(),
+    10
+  );
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
   const dir =
