@@ -25,6 +25,8 @@ export const Accordian: React.FC<AccordianProps> = ({ title, contents }) => {
 };
 
 const AccordianToggle = styled.span`
+  display: flex;
+  align-items: center;
   :hover {
     cursor: pointer;
   }
