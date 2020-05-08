@@ -39,6 +39,7 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
         .contains("Set")
         .click({ force: true });
+      cy.wait(20);
       cy.dataCy(bannerDataCy).contains(prioritySuccessBannerText);
     });
 
