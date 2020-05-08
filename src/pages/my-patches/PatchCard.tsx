@@ -47,8 +47,10 @@ export const PatchCard: React.FC<Props> = ({
     pollInterval: 5000,
   });
   useEffect(() => stopPolling, [stopPolling]);
-  const status: string = get(data, "patch.status", props.status);
-  const builds: Build[] = get(data, "patch.builds", props.builds);
+
+  const { status, builds } = props;
+  const patchStatus: string = get(data, "patch.status", status);
+  const patchBuilds: Build[] = get(data, "patch.builds", builds);
 
   const createDate = new Date(createTime);
   return (
@@ -64,10 +66,10 @@ export const PatchCard: React.FC<Props> = ({
       </Left>
       <Center>
         <BadgeContainer>
-          <PatchStatusBadge status={status} />
+          <PatchStatusBadge status={patchStatus} />
         </BadgeContainer>
         <IconsContainer>
-          {builds.map((b) => {
+          {patchBuilds.map((b) => {
             const onClick = () =>
               router.push(
                 `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`

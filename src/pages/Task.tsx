@@ -20,17 +20,11 @@ import { useDefaultPath, useTabs } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "constants/routes";
-import { Metadata } from "./task/Metadata";
 import get from "lodash/get";
-import { TaskStatus } from "types/task";
+import { TaskStatus, TaskTab } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { Metadata } from "./task/Metadata";
 
-enum TaskTab {
-  Logs = "logs",
-  Tests = "tests",
-  Files = "files",
-  BuildBaron = "build-baron",
-}
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,

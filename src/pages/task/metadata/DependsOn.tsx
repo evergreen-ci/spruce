@@ -13,20 +13,18 @@ export const DependsOn: React.FC<Dependency> = ({
   name,
   requiredStatus,
   uiLink,
-}) => {
-  return (
-    <DependsOnWrapper>
-      <LeftContainer>{metStatusToIcon[metStatus]}</LeftContainer>
-      <RightContainer>
-        <BoldStyledLink data-cy="depends-on-link" href={uiLink}>
-          {name}
-        </BoldStyledLink>
-        <Subtitle>in {buildVariant}</Subtitle>
-        {requiredStatusToBadge[requiredStatus]}
-      </RightContainer>
-    </DependsOnWrapper>
-  );
-};
+}) => (
+  <DependsOnWrapper>
+    <LeftContainer>{metStatusToIcon[metStatus]}</LeftContainer>
+    <RightContainer>
+      <BoldStyledLink data-cy="depends-on-link" href={uiLink}>
+        {name}
+      </BoldStyledLink>
+      <Subtitle>in {buildVariant}</Subtitle>
+      {requiredStatusToBadge[requiredStatus]}
+    </RightContainer>
+  </DependsOnWrapper>
+);
 
 const DependsOnWrapper = styled.div`
   display: flex;

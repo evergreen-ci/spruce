@@ -53,7 +53,8 @@ export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
         {status}
       </Badge>
     );
-  } else if (status in mapUnsupportedBadgeColors) {
+  }
+  if (status in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge key={status} {...mapUnsupportedBadgeColors[status]}>
         {status}

@@ -18,12 +18,13 @@ import {
   TaskEventLogEntry,
 } from "gql/generated/types";
 import { useQuery } from "@apollo/react-hooks";
-import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
-import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { ApolloError } from "apollo-client";
 import { useParams } from "react-router-dom";
 import { Skeleton } from "antd";
 import get from "lodash/get";
+import { v4 as uuid } from "uuid";
+import { LogMessageLine } from "./logTypes/LogMessageLine";
+import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -102,7 +103,7 @@ const useRenderBody: React.FC<{
   const noLogs = <div id="cy-no-logs">No logs</div>;
 
   if (loading) {
-    return <Skeleton active={true} title={false} paragraph={{ rows: 8 }} />;
+    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
   }
   if (error) {
     return <div>{error.message}</div>;
@@ -113,11 +114,11 @@ const useRenderBody: React.FC<{
 
   return (
     <>
-      {data.map((d, i) =>
+      {data.map((d) =>
         d.kind === "taskEventLogEntry" ? (
-          <TaskEventLogLine key={i} {...d} />
+          <TaskEventLogLine key={uuid()} {...d} />
         ) : (
-          <LogMessageLine key={i} {...d} />
+          <LogMessageLine key={uuid()} {...d} />
         )
       )}
     </>
