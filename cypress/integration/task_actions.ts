@@ -1,6 +1,6 @@
 /// <reference types="Cypress" />
 
-describe("Task Action Buttons", function() {
+describe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
