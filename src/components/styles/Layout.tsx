@@ -14,6 +14,7 @@ export const PageContent = styled(Content)`
   ${whiteBackground}
   margin-left: 16px;
   min-height: 280;
+  overflow: hidden;
 `;
 
 export const PageLayout = styled(Layout)`
