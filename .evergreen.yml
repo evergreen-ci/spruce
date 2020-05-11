@@ -84,7 +84,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema
+        ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
 
   npm-start:
     command: subprocess.exec
@@ -110,12 +110,6 @@ functions:
       env:
         CI: "true"
 
-  npm-lint:
-    command: subprocess.exec
-    params:
-      working_dir: spruce
-      binary: npm
-      args: [run, lint]
 
   npm-eslint:
     command: subprocess.exec
@@ -223,7 +217,6 @@ tasks:
     - func: get-project
     - func: sym-link
     - func: npm-install
-    - func: npm-lint
     - func: npm-eslint
 
   - name: coverage

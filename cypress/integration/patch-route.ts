@@ -84,7 +84,7 @@ describe("Patch route", () => {
 
     it("Lists the patch's build variants", () => {
       cy.get(".patch-build-variant").within(($variants) => {
-        Array.from($variants).length > 0;
+        return Array.from($variants).length > 0;
       });
     });
 

@@ -5,6 +5,7 @@ import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfL
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { useStatusesFilter } from "hooks/useStatusesFilter";
+
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
   useEffect(() => {

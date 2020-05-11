@@ -1,4 +1,5 @@
 import React from "react";
+
 export const SucceededIcon = () => (
   <svg width="22px" height="22px" viewBox="0 0 22 22">
     <g stroke="none" strokeWidth={1} fill="none" fillRule="evenodd">

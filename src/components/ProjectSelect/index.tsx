@@ -22,29 +22,27 @@ export interface ProjectSelectProps {
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   data,
   loading,
-}) => {
-  return (
-    <StyledSelect
-      showSearch={true}
-      placeholder="Project"
-      optionFilterProp="children"
-      loading={loading}
-      disabled={loading}
-    >
-      {data && data.projects.favorites.length > 0 && (
-        <OptGroup label="Favorites">
-          {data.projects.favorites.map(renderProjectOption)}
+}) => (
+  <StyledSelect
+    showSearch
+    placeholder="Project"
+    optionFilterProp="children"
+    loading={loading}
+    disabled={loading}
+  >
+    {data && data.projects.favorites.length > 0 && (
+      <OptGroup label="Favorites">
+        {data.projects.favorites.map(renderProjectOption)}
+      </OptGroup>
+    )}
+    {data &&
+      data.projects.otherProjects.map(({ name, projects }) => (
+        <OptGroup key={name} label={name}>
+          {projects.map(renderProjectOption)}
         </OptGroup>
-      )}
-      {data &&
-        data.projects.otherProjects.map(({ name, projects }) => (
-          <OptGroup key={name} label={name}>
-            {projects.map(renderProjectOption)}
-          </OptGroup>
-        ))}
-    </StyledSelect>
-  );
-};
+      ))}
+  </StyledSelect>
+);
 
 const StyledSelect = styled(Select)`
   width: 400px;

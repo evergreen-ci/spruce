@@ -432,6 +432,11 @@ export type Task = {
   generatedBy?: Maybe<Scalars['String']>;
   aborted?: Maybe<Scalars['Boolean']>;
   baseTaskMetadata: BaseTaskMetadata;
+  canRestart: Scalars['Boolean'];
+  canAbort: Scalars['Boolean'];
+  canSchedule: Scalars['Boolean'];
+  canUnschedule: Scalars['Boolean'];
+  canSetPriority: Scalars['Boolean'];
 };
 
 export type TaskEndDetail = {
@@ -542,6 +547,13 @@ export type VariantTasks = {
   displayTasks: Array<DisplayTask>;
 };
 
+export type AbortTaskMutationVariables = {
+  taskId: Scalars['String'];
+};
+
+
+export type AbortTaskMutation = { abortTask: { id: string } };
+
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars['String'];
   patchId: Scalars['String'];
@@ -550,6 +562,13 @@ export type RemovePatchFromCommitQueueMutationVariables = {
 
 export type RemovePatchFromCommitQueueMutation = { removePatchFromCommitQueue?: Maybe<string> };
 
+export type RestartTaskMutationVariables = {
+  taskId: Scalars['String'];
+};
+
+
+export type RestartTaskMutation = { restartTask: { id: string } };
+
 export type SchedulePatchMutationVariables = {
   patchId: Scalars['String'];
   reconfigure: PatchReconfigure;
@@ -557,6 +576,28 @@ export type SchedulePatchMutationVariables = {
 
 
 export type SchedulePatchMutation = { schedulePatch: { id: string, activated: boolean, version: string, description: string, status: string, tasks: Array<string>, variants: Array<string>, variantsTasks: Array<Maybe<{ name: string, tasks: Array<string> }>> } };
+
+export type ScheduleTaskMutationVariables = {
+  taskId: Scalars['String'];
+};
+
+
+export type ScheduleTaskMutation = { scheduleTask: { id: string } };
+
+export type SetTaskPriorityMutationVariables = {
+  taskId: Scalars['String'];
+  priority: Scalars['Int'];
+};
+
+
+export type SetTaskPriorityMutation = { setTaskPriority: { id: string, priority?: Maybe<number> } };
+
+export type UnscheduleTaskMutationVariables = {
+  taskId: Scalars['String'];
+};
+
+
+export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
 
 export type CodeChangesQueryVariables = {
   id: Scalars['String'];
@@ -652,7 +693,12 @@ export type GetTaskQueryVariables = {
 };
 
 
-export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, createTime?: Maybe<Date>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, priority?: Maybe<number>, canRestart: boolean, canAbort: boolean, canSchedule: boolean, canUnschedule: boolean, canSetPriority: boolean, baseTaskMetadata: { baseTaskDuration?: Maybe<number>, baseTaskLink: string }, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }> }> };
+
+export type GetUserSettingsQueryVariables = {};
+
+
+export type GetUserSettingsQuery = { userSettings?: Maybe<{ timezone?: Maybe<string>, region?: Maybe<string>, slackUsername?: Maybe<string>, notifications?: Maybe<{ patchFinish?: Maybe<string>, patchFirstFailure?: Maybe<string>, spawnHostOutcome?: Maybe<string>, spawnHostExpiration?: Maybe<string>, buildBreak?: Maybe<string>, commitQueue?: Maybe<string> }>, githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }> }> };
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars['Int']>;

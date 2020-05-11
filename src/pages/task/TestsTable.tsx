@@ -1,10 +1,10 @@
 import React from "react";
-import { TestsTableCore } from "./testsTable/TestsTableCore";
-import { StatusSelector } from "./testsTable/StatusSelector";
 import { FiltersWrapper, StyledInput } from "components/styles";
 import Icon from "@leafygreen-ui/icon";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { RequiredQueryParams } from "types/task";
+import { StatusSelector } from "./testsTable/StatusSelector";
+import { TestsTableCore } from "./testsTable/TestsTableCore";
 
 export const TestsTable: React.FC = () => {
   const [

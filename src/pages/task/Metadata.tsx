@@ -1,14 +1,14 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
-import { DependsOn } from "./metadata/DependsOn";
-import { Divider } from "components/styles";
+import { Divider, StyledLink } from "components/styles";
 import { format } from "date-fns";
 import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
-import { StyledLink } from "components/styles";
+
 import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
+import { DependsOn } from "./metadata/DependsOn";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -39,9 +39,13 @@ export const Metadata: React.FC<{
       <P2 data-cy="task-metadata-submitted-at">
         Submitted at: {getDateCopy(createTime)}
       </P2>
-      <P2 data-cy="task-metadata-started">Started: {getDateCopy(startTime)}</P2>
+      <P2>
+        Started:{" "}
+        <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+      </P2>
       <P2 data-cy="task-metadata-finished">
-        Finished: {getDateCopy(finishTime)}
+        Finished:{" "}
+        <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
       </P2>
       <P2>Duration: {secToDuration(timeTaken)} </P2>
       <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
@@ -68,8 +72,8 @@ export const Metadata: React.FC<{
         <span data-cy="depends-on-container">
           <H3>Depends On</H3>
           <Divider />
-          {reliesOn.map((props, i) => (
-            <DependsOn key={i} {...props} />
+          {reliesOn.map((props) => (
+            <DependsOn key={props.buildVariant} {...props} />
           ))}
         </span>
       ) : null}

@@ -4,7 +4,6 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { GET_PATCH_VARIANTS_AND_STATUS } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
-import Button from "@leafygreen-ui/button";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
@@ -17,6 +16,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
+import { ButtonDropdown } from "components/ButtonDropdown";
 
 interface Build {
   id: string;
@@ -47,8 +47,10 @@ export const PatchCard: React.FC<Props> = ({
     pollInterval: 5000,
   });
   useEffect(() => stopPolling, [stopPolling]);
-  const status: string = get(data, "patch.status", props.status);
-  const builds: Build[] = get(data, "patch.builds", props.builds);
+
+  const { status, builds } = props;
+  const patchStatus: string = get(data, "patch.status", status);
+  const patchBuilds: Build[] = get(data, "patch.builds", builds);
 
   const createDate = new Date(createTime);
   return (
@@ -64,10 +66,10 @@ export const PatchCard: React.FC<Props> = ({
       </Left>
       <Center>
         <BadgeContainer>
-          <PatchStatusBadge status={status} />
+          <PatchStatusBadge status={patchStatus} />
         </BadgeContainer>
         <IconsContainer>
-          {builds.map((b) => {
+          {patchBuilds.map((b) => {
             const onClick = () =>
               router.push(
                 `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`
@@ -85,19 +87,12 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <Button size="small">
-          <BtnCopy>...</BtnCopy>
-        </Button>
+        <ButtonDropdown isVisibleDropdown={false} dropdownItems={[]} />
       </Right>
     </CardWrapper>
   );
 };
 
-const BtnCopy = styled.div`
-  position: relative;
-  top: -4px;
-  font-weight: bold;
-`;
 const IconsContainer = styled.div`
   display: flex;
   justify-content: flex-start;

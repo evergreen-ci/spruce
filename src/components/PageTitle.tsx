@@ -8,6 +8,7 @@ interface Props {
   hasData: boolean;
   title: string;
   badge: JSX.Element;
+  buttons?: JSX.Element;
 }
 
 export const PageTitle: React.FC<Props> = ({
@@ -15,23 +16,28 @@ export const PageTitle: React.FC<Props> = ({
   hasData,
   title,
   badge,
-}) =>
-  loading ? (
-    <PageHeader>
-      <Skeleton active={true} paragraph={{ rows: 0 }} />
-    </PageHeader>
-  ) : hasData ? (
-    <PageHeader>
-      <Subtitle>
-        <span data-cy="page-title">
-          {title}
-          {"  "}
-          <BadgeWrapper>{badge}</BadgeWrapper>
-        </span>
-      </Subtitle>
-    </PageHeader>
-  ) : null;
-
+  buttons,
+}) => (
+  <>
+    {!hasData && loading && (
+      <PageHeader>
+        <Skeleton active paragraph={{ rows: 0 }} />
+      </PageHeader>
+    )}
+    {hasData && !loading && (
+      <PageHeader>
+        <Subtitle>
+          <span data-cy="page-title">
+            {title}
+            {"  "}
+            <BadgeWrapper>{badge}</BadgeWrapper>
+          </span>
+        </Subtitle>
+        {buttons ?? null}
+      </PageHeader>
+    )}
+  </>
+);
 const BadgeWrapper = styled.span`
   display: inline-flex;
   position: relative;
@@ -40,4 +46,6 @@ const BadgeWrapper = styled.span`
 
 const PageHeader = styled.div`
   margin-bottom: 11px;
+  display: flex;
+  justify-content: space-between;
 `;

@@ -10,12 +10,12 @@ import get from "lodash/get";
 import { Skeleton } from "antd";
 import { PageTitle } from "components/PageTitle";
 import { ErrorWrapper } from "components/ErrorWrapper";
-import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
 import {
   CommitQueueQuery,
   CommitQueueQueryVariables,
 } from "gql/generated/types";
+import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = uiColors;
 
@@ -28,7 +28,7 @@ export const CommitQueue: React.FC = () => {
     variables: { id },
   });
   if (loading) {
-    return <Skeleton active={true} title={true} paragraph={{ rows: 4 }} />;
+    return <Skeleton active title paragraph={{ rows: 4 }} />;
   }
   if (error) {
     return (
@@ -49,7 +49,7 @@ export const CommitQueue: React.FC = () => {
           </Badge>
         }
         loading={false}
-        hasData={true}
+        hasData
       />
       <HR />
       {queue &&
@@ -81,7 +81,6 @@ const HR = styled("hr")`
 const buildBadgeString = (queueLength: number): string => {
   if (queueLength !== 1) {
     return `${queueLength} Items`;
-  } else {
-    return `${queueLength} Item`;
   }
+  return `${queueLength} Item`;
 };

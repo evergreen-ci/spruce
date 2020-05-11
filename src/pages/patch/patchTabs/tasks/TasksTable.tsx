@@ -1,7 +1,7 @@
 import React from "react";
 import { loader } from "components/Loading/Loader";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { TaskResult } from "gql/generated/types";
+import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
 import { InfinityTable } from "antd-table-infinity";
 import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
@@ -9,7 +9,7 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import { SortDirection, PatchTasks } from "gql/generated/types";
+
 import get from "lodash.get";
 
 interface Props {

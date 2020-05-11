@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
-import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
+import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
 
 const getReferrer = (location: Location<{ referrer?: string }>): string => {
   if (location && location.state && "referrer" in location.state) {
@@ -34,32 +34,34 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
 
   return (
     <Wrapper>
-      <label>Username</label>
+      <label htmlFor="username">Username</label>
       <input
         type="text"
         name="username"
+        id="username"
         value={username}
         onChange={inputChangeHandler(setUsername)}
       />
-      <label>Password</label>
+      <label htmlFor="password">Password</label>
       <input
         type="password"
         name="password"
+        id="password"
         value={password}
         onChange={inputChangeHandler(setPassword)}
       />
-      <button id="login-submit" onClick={loginHandler}>
+      <button id="login-submit" onClick={loginHandler} type="submit">
         Login
       </button>
     </Wrapper>
   );
 };
 
-const Wrapper = styled.div({
-  width: "100%",
-  height: "100vh",
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
-  flexDirection: "column",
-});
+const Wrapper = styled.div`
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+`;

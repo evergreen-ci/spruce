@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import LeafyGreenButton, { Variant } from "@leafygreen-ui/button";
+import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
 import { Icon } from "antd";
 
 interface ButtonType {
@@ -19,6 +19,7 @@ interface Props {
   disabled?: boolean;
   dataCy?: string;
   glyph?: React.ReactElement;
+  size?: Size;
 }
 
 export const Button: React.FC<Props> = ({
@@ -29,19 +30,17 @@ export const Button: React.FC<Props> = ({
   disabled,
   dataCy,
   glyph,
-}) => {
-  return (
-    <LeafyGreenButton
-      data-cy={dataCy}
-      variant={mapVariantToLeafyGreenVariant[variant]}
-      onClick={onClick}
-      disabled={disabled}
-      glyph={loading ? <StyledIcon type="loading" /> : glyph}
-    >
-      {children}
-    </LeafyGreenButton>
-  );
-};
+}) => (
+  <LeafyGreenButton
+    data-cy={dataCy}
+    variant={mapVariantToLeafyGreenVariant[variant]}
+    onClick={onClick}
+    disabled={disabled}
+    glyph={loading ? <StyledIcon type="loading" /> : glyph}
+  >
+    {children}
+  </LeafyGreenButton>
+);
 
 const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
   [Variant.Danger]: "danger",
