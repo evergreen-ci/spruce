@@ -94,10 +94,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </InnerRow>
       </OuterRow>
       <TableContainer hide={isLoading}>
-        <TasksTable
-          networkStatus={networkStatus}
-          data={get(data, "patchTasks", [])}
-        />
+        <TasksTable data={get(data, "patchTasks", [])} />
       </TableContainer>
       {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
     </ErrorBoundary>

@@ -1,7 +1,6 @@
 import React from "react";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
-import { NetworkStatus } from "apollo-client";
 import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
@@ -10,7 +9,6 @@ import Table, { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 
 interface Props {
-  networkStatus: NetworkStatus;
   data?: PatchTasks;
 }
 

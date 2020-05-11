@@ -28,6 +28,7 @@ import {
   PAGE_SIZES,
   DEFAULT_PAGE_SIZE,
 } from "components/PageSizeSelector";
+import { TableContainer } from "components/styles";
 
 const arrayFormat = "comma";
 
@@ -78,10 +79,6 @@ export const TestsTableCore: React.FC = () => {
     [networkStatus, error, fetchMore, listen]
   );
 
-  if (!data && networkStatus < NetworkStatus.ready) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  }
-
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
   const tableChangeHandler: TableOnChange<TestResult> = (
@@ -107,7 +104,7 @@ export const TestsTableCore: React.FC = () => {
 
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-
+  const isLoading = networkStatus < NetworkStatus.ready;
   return (
     <>
       <OuterRow>
@@ -127,13 +124,16 @@ export const TestsTableCore: React.FC = () => {
           <PageSizeSelector value={limitNum} />
         </InnerRow>
       </OuterRow>
-      <Table
-        rowKey={rowKey}
-        pagination={false}
-        columns={columns}
-        dataSource={dataSource}
-        onChange={tableChangeHandler}
-      />
+      <TableContainer hide={isLoading}>
+        <Table
+          rowKey={rowKey}
+          pagination={false}
+          columns={columns}
+          dataSource={dataSource}
+          onChange={tableChangeHandler}
+        />
+      </TableContainer>
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
     </>
   );
 };
