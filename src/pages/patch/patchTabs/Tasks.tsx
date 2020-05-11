@@ -61,45 +61,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     [history, fetchMore, id, error, networkStatus]
   );
 
-  const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
-    false
-  );
-
-  // fetch new sorted tasks after a table header is clicked
-  const onFetch = (): void => {
-    if (
-      allItemsHaveBeenFetched ||
-      networkStatus === NetworkStatus.error ||
-      error ||
-      !data
-    ) {
-      return;
-    }
-    const pageNum = data.patchTasks.tasks.length / PATCH_TASKS_LIMIT;
-    if (pageNum % 1 !== 0) {
-      setAllItemsHaveBeenFetched(true);
-      return;
-    }
-    fetchMore({
-      variables: getQueryVariables(id, search, pageNum),
-      updateQuery: (
-        prev: PatchTasksQuery,
-        { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        const { tasks } = fetchMoreResult.patchTasks;
-        let patchTasks = fetchMoreResult.patchTasks.tasks;
-        patchTasks = [...prev.patchTasks.tasks, ...tasks];
-        return patchTasks;
-      },
-    });
-  };
-
   if (error) {
     return <div>{error.message}</div>;
   }
+
   return (
     <ErrorBoundary>
       <TaskFilters />
@@ -113,7 +78,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       <TasksTable
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
-        onFetch={onFetch}
       />
     </ErrorBoundary>
   );
