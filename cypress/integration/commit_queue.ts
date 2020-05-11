@@ -1,15 +1,15 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
-const commit_queue = {
+const commitQueue = {
   id1: "mongodb-mongo-master",
   id2: "mongodb-mongo-test",
   id3: "non-existant-item",
 };
-const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commit_queue.id1}`;
-const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commit_queue.id2}`;
-const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commit_queue.id3}`;
+const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commitQueue.id1}`;
+const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commitQueue.id2}`;
+const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commitQueue.id3}`;
 
-describe("commit queue page", function() {
+describe("commit queue page", () => {
   before(() => {
     cy.login();
   });
