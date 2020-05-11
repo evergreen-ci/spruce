@@ -235,7 +235,7 @@ const columns: ColumnProps<TestResult>[] = [
 export const rowKey = ({ id }: { id: string }): string => id;
 
 const ButtonWrapper = styled("span")`
-  margin-right: 8;
+  margin-right: 8px;
 `;
 
 const getQueryVariables = (
