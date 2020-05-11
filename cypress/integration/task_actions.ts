@@ -23,6 +23,7 @@ describe("Task Action Buttons", () => {
     it("Clicking Unschedule button should produce success banner", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
+      cy.wait(200);
       cy.dataCy(bannerDataCy).contains(unscheduleSuccessBannerText);
     });
 
@@ -39,7 +40,7 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
         .contains("Set")
         .click({ force: true });
-      cy.wait(20);
+      cy.wait(200);
       cy.dataCy(bannerDataCy).contains(prioritySuccessBannerText);
     });
 
