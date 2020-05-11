@@ -59,9 +59,7 @@ export const TestsTableCore: React.FC = () => {
       listen(async (loc) => {
         try {
           await fetchMore({
-            variables: {
-              ...getQueryVariables(loc.search),
-            },
+            variables: getQueryVariables(loc.search),
             updateQuery: (
               prev: UpdateQueryArg,
               { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
