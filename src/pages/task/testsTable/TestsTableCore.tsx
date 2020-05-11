@@ -11,7 +11,7 @@ import {
   TestResult,
   TaskTestResult,
 } from "gql/generated/types";
-import { TestStatus, RequiredQueryParams } from "types/task";
+import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
@@ -81,15 +81,19 @@ export const TestsTableCore: React.FC = () => {
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
-  const onChangeTableSort = (...[, , sorter]) => {
-    const parsedSearch = queryString.parse(search);
-    parsedSearch[RequiredQueryParams.Category] = sorter.columnKey;
-    parsedSearch[RequiredQueryParams.Sort] =
-      sorter.order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
-    parsedSearch[RequiredQueryParams.Page] = "0";
-    const nextQueryParams = queryString.stringify(parsedSearch, {
-      arrayFormat,
-    });
+  const tableChangeHandler: TableOnChange<TestResult> = (
+    ...[, , { order, columnKey }]
+  ) => {
+    const nextQueryParams = queryString.stringify(
+      {
+        ...queryString.parse(search, { arrayFormat }),
+        [RequiredQueryParams.Category]: columnKey,
+        [RequiredQueryParams.Sort]:
+          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+        [RequiredQueryParams.Page]: "0",
+      },
+      { arrayFormat }
+    );
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
@@ -134,10 +138,11 @@ export const TestsTableCore: React.FC = () => {
         </InnerRow>
       </OuterRow>
       <Table
+        rowKey={rowKey}
         pagination={false}
         columns={columns}
         dataSource={dataSource}
-        onChange={onChangeTableSort}
+        onChange={tableChangeHandler}
       />
     </>
   );
