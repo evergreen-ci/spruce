@@ -23,6 +23,7 @@ module.exports = {
     es6: true,
     jest: true,
     node: true,
+    mocha: true,
   },
   extends: [
     "plugin:react/recommended",
