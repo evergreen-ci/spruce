@@ -22,7 +22,11 @@ import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Skeleton, Pagination } from "antd";
-import { PageSizeSelector, PAGE_SIZES } from "components/PageSizeSelector";
+import {
+  PageSizeSelector,
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+} from "components/PageSizeSelector";
 
 const arrayFormat = "comma";
 
@@ -284,7 +288,10 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum: !Number.isNaN(limit) && PAGE_SIZES.includes(limit) ? limit : 10,
+    limitNum:
+      !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
+        ? limit
+        : DEFAULT_PAGE_SIZE,
     statusList,
     testName,
     pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,

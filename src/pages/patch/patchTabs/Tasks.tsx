@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
-import {
-  GET_PATCH_TASKS,
-  PATCH_TASKS_LIMIT,
-} from "gql/queries/get-patch-tasks";
+import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
@@ -16,6 +13,7 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
+import { PAGE_SIZES, DEFAULT_PAGE_SIZE } from "components/PageSizeSelector";
 
 interface Props {
   taskCount: number;
@@ -25,7 +23,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const [initialQueryVariables] = useState(getQueryVariables(id, search, 0));
+  const [initialQueryVariables] = useState(getQueryVariables(id, search));
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -38,11 +36,11 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   // fetch tasks when url params change
   useEffect(
     () =>
-      history.listen(async (location) => {
+      history.listen(async (loc) => {
         if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
           try {
             await fetchMore({
-              variables: getQueryVariables(id, location.search, 0),
+              variables: getQueryVariables(id, loc.search),
               updateQuery: (
                 prev: PatchTasksQuery,
                 { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
@@ -119,8 +117,7 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
 
 const getQueryVariables = (
   patchId: string,
-  search: string,
-  page: number
+  search: string
 ): {
   patchId: string;
   sortBy?: string;
@@ -139,8 +136,12 @@ const getQueryVariables = (
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
+    [PatchTasksQueryParams.Page]: page,
+    [PatchTasksQueryParams.Limit]: limit,
   } = queryString.parse(search, { arrayFormat: "comma" });
 
+  const pageNum = parseInt(getString(page), 10);
+  const limitNum = parseInt(getString(limit), 10);
   return {
     patchId,
     sortBy: getString(sortBy),
@@ -149,7 +150,10 @@ const getQueryVariables = (
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
-    page,
-    limit: PATCH_TASKS_LIMIT,
+    page: !Number.isNaN(pageNum) && pageNum >= 0 ? pageNum : 0,
+    limit:
+      !Number.isNaN(limitNum) && PAGE_SIZES.includes(limitNum)
+        ? limitNum
+        : DEFAULT_PAGE_SIZE,
   };
 };
