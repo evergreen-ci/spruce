@@ -89,11 +89,15 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         />
         <TableControlInnerRow>
           <Pagination
+            dataTestId="tasks-table-pagination"
             pageSize={limit}
             value={page}
             totalResults={get(data, "patchTasks.count", 0)}
           />
-          <PageSizeSelector value={limit} />
+          <PageSizeSelector
+            dataTestId="tasks-table-page-size-selector"
+            value={limit}
+          />
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={isLoading}>

@@ -2,7 +2,6 @@
 
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
-  resultsAreFetchedAndRendered,
   assertQueryVariables,
 } from "../utils";
 import { assertCountLabels } from "../utils/table";
@@ -252,21 +251,30 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("Scrolling", () => {
-    it("Fetches and appends additional tests to table as the user scrolls", () => {
+  describe("Paginating", () => {
+    it("Displays the next page of results when right arrow is clicked", () => {
+      cy.login();
       cy.visit(TESTS_ROUTE);
-      cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
-      resultsAreFetchedAndRendered({
-        queryName: "TaskTests",
-        responseName: "taskTests.testResults",
-        requestVariables: {
-          cat: "STATUS",
-          dir: "ASC",
-          statusList: [],
-          testName: "",
-          pageNum: 1,
-        },
+      cy.get(
+        "[data-test-id=tests-table-pagination] > .ant-pagination-next"
+      ).click();
+      cy.get(tableRows).each(($el, index) => {
+        cy.wrap($el).contains(secondPageDisplayNames[index]);
       });
+      cy.get(
+        "[data-test-id=tests-table-pagination] > .ant-pagination-prev"
+      ).click();
+      cy.get(tableRows).each(($el, index) => {
+        cy.wrap($el).contains(firstPageDisplayNames[index]);
+      });
+    });
+  });
+
+  describe("Changing page size", () => {
+    it("Displays 20 results at once when the page size is changed to 20 and at least 20 results are available", () => {
+      cy.get("[data-test-id=tests-table-page-size-selector]").click();
+      cy.get("[data-test-id=tests-table-page-size-selector-20]").click();
+      cy.get(tableRows).should("have.length", 20);
     });
   });
 });
@@ -286,3 +294,28 @@ const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
+const tableRows = "[data-test-id=tests-table] tr td:first-child";
+const firstPageDisplayNames = [
+  "TestFinalizePatch",
+  "TestHostTaskAuditing",
+  "TestStuckHostAuditing",
+  "TestGenerateSuite",
+  "TestGenerateSuite/TestSaveNewTasksWithCrossVariantDependencies",
+  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
+  "TestGenerateSuite/TestValidateNoRedefine",
+  "TestUpdateVersionAndParserProject",
+  "TestSetVersionActivation",
+  "TestCreateTaskGroup",
+];
+const secondPageDisplayNames = [
+  "TestSortTasks",
+  "TestDepsMatrixIntegration",
+  "TestRetryCommitQueueItems",
+  "TestProjectAliasSuite/TestInsertTagsAndNoVariant",
+  "TestProjectEventSuite/TestModifyProjectNonEvent",
+  "TestTaskGroupWithDisplayTask",
+  "TestTryUpsert/configNumberMatches",
+  "TestGetActivationTimeWithCron/Interval",
+  "TestCreateIntermediateProjectRequirements",
+  "TestMergeAxisValue",
+];

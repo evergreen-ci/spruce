@@ -124,12 +124,17 @@ export const TestsTableCore: React.FC = () => {
             pageSize={limitNum}
             value={pageNum}
             totalResults={get(data, "taskTests.filteredTestCount", 0)}
+            dataTestId="tests-table-pagination"
           />
-          <PageSizeSelector value={limitNum} />
+          <PageSizeSelector
+            dataTestId="tests-table-page-size-selector"
+            value={limitNum}
+          />
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={isLoading}>
         <Table
+          data-test-id="tests-table"
           rowKey={rowKey}
           pagination={false}
           columns={columns}

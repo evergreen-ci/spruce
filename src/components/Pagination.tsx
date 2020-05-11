@@ -7,12 +7,14 @@ interface Props {
   totalResults: number;
   value: number;
   pageSize: number;
+  dataTestId?: string;
 }
 
 export const Pagination: React.FC<Props> = ({
   totalResults,
   value,
   pageSize,
+  dataTestId,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -29,6 +31,7 @@ export const Pagination: React.FC<Props> = ({
 
   return (
     <AntPagination
+      data-test-id={dataTestId}
       simple
       pageSize={pageSize}
       current={value + 1}

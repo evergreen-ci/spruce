@@ -7,9 +7,10 @@ const { Option } = Select;
 
 interface Props {
   value: number;
+  dataTestId?: string;
 }
 
-export const PageSizeSelector = ({ value }: Props) => {
+export const PageSizeSelector = ({ value, dataTestId }: Props) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -27,9 +28,18 @@ export const PageSizeSelector = ({ value }: Props) => {
   };
 
   return (
-    <Select value={value} style={{ width: 120 }} onChange={handleChange}>
+    <Select
+      data-test-id={dataTestId}
+      value={value}
+      style={{ width: 120 }}
+      onChange={handleChange}
+    >
       {PAGE_SIZES.map((limit) => (
-        <Option key={limit} value={limit}>{`${limit} / page`}</Option>
+        <Option
+          data-test-id={`${dataTestId}-${limit}`}
+          key={limit}
+          value={limit}
+        >{`${limit} / page`}</Option>
       ))}
     </Select>
   );
