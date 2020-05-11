@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
+import { ActionButtons } from "pages/patch/index";
 import {
   PageWrapper,
   PageContent,
@@ -65,6 +66,16 @@ const PatchCore: React.FC = () => {
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
+        buttons={
+          <ActionButtons
+            canAbort
+            canRestart
+            canSchedule
+            canUnschedule
+            canSetPriority
+            initialPriority={1}
+          />
+        }
       />
       <PageLayout>
         <PageSider>
