@@ -26,13 +26,15 @@ export const PageTitle: React.FC<Props> = ({
     )}
     {hasData && !loading && (
       <PageHeader>
-        <Subtitle>
-          <span data-cy="page-title">
-            {title}
-            {"  "}
-            <BadgeWrapper>{badge}</BadgeWrapper>
-          </span>
-        </Subtitle>
+        <TitleWrapper>
+          <Subtitle>
+            <span data-cy="page-title">
+              {title}
+              {"  "}
+              <BadgeWrapper>{badge}</BadgeWrapper>
+            </span>
+          </Subtitle>
+        </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
     )}
@@ -48,4 +50,8 @@ const PageHeader = styled.div`
   margin-bottom: 11px;
   display: flex;
   justify-content: space-between;
+`;
+
+const TitleWrapper = styled.div`
+  width: 60%;
 `;
