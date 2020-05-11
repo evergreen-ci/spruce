@@ -37,3 +37,13 @@ export const PageTitle = styled(H2)`
 export const TableContainer = styled("div")`
   display ${(props: { hide: boolean }): string => (props.hide ? "none" : "")}
 `;
+
+export const TableControlInnerRow = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const TableControlOuterRow = styled(TableControlInnerRow)`
+  padding-bottom: 8px;
+`;

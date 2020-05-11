@@ -28,7 +28,11 @@ import {
   PAGE_SIZES,
   DEFAULT_PAGE_SIZE,
 } from "components/PageSizeSelector";
-import { TableContainer } from "components/styles";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "components/styles";
 
 const arrayFormat = "comma";
 
@@ -107,7 +111,7 @@ export const TestsTableCore: React.FC = () => {
   const isLoading = networkStatus < NetworkStatus.ready;
   return (
     <>
-      <OuterRow>
+      <TableControlOuterRow>
         <ResultCountLabel
           dataCyNumerator="filtered-test-count"
           dataCyDenominator="total-test-count"
@@ -115,15 +119,15 @@ export const TestsTableCore: React.FC = () => {
           numerator={get(data, "taskTests.filteredTestCount", "-")}
           denominator={get(data, "taskTests.totalTestCount", "-")}
         />
-        <InnerRow>
+        <TableControlInnerRow>
           <Pagination
             pageSize={limitNum}
             value={pageNum}
             totalResults={get(data, "taskTests.filteredTestCount", 0)}
           />
           <PageSizeSelector value={limitNum} />
-        </InnerRow>
-      </OuterRow>
+        </TableControlInnerRow>
+      </TableControlOuterRow>
       <TableContainer hide={isLoading}>
         <Table
           rowKey={rowKey}
@@ -283,12 +287,3 @@ const getQueryVariables = (
     pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,
   };
 };
-
-const InnerRow = styled("div")`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-const OuterRow = styled(InnerRow)`
-  padding-bottom: 8px;
-`;

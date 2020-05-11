@@ -16,9 +16,12 @@ import {
   DEFAULT_PAGE_SIZE,
   PageSizeSelector,
 } from "components/PageSizeSelector";
-import { TableContainer } from "components/styles";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "components/styles";
 import { Pagination } from "components/Pagination";
-import styled from "@emotion/styled";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { NetworkStatus } from "apollo-client";
 import { Skeleton } from "antd";
@@ -76,7 +79,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   return (
     <ErrorBoundary>
       <TaskFilters />
-      <OuterRow>
+      <TableControlOuterRow>
         <ResultCountLabel
           dataCyNumerator="current-task-count"
           dataCyDenominator="total-task-count"
@@ -84,15 +87,15 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           numerator={get(data, "patchTasks.count", "-")}
           denominator={taskCount}
         />
-        <InnerRow>
+        <TableControlInnerRow>
           <Pagination
             pageSize={limit}
             value={page}
             totalResults={get(data, "patchTasks.count", 0)}
           />
           <PageSizeSelector value={limit} />
-        </InnerRow>
-      </OuterRow>
+        </TableControlInnerRow>
+      </TableControlOuterRow>
       <TableContainer hide={isLoading}>
         <TasksTable data={get(data, "patchTasks", [])} />
       </TableContainer>
@@ -175,13 +178,3 @@ const getQueryVariables = (
         : DEFAULT_PAGE_SIZE,
   };
 };
-
-const InnerRow = styled("div")`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const OuterRow = styled(InnerRow)`
-  padding-bottom: 8px;
-`;

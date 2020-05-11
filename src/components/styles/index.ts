@@ -5,6 +5,8 @@ import {
   PageSider,
   PageTitle,
   TableContainer,
+  TableControlInnerRow,
+  TableControlOuterRow,
 } from "./Layout";
 import { PageWrapper } from "./PageWrapper";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
@@ -25,4 +27,6 @@ export {
   StyledInput,
   PageTitle,
   TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
 };
