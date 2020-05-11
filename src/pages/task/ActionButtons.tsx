@@ -29,7 +29,7 @@ import { PageButtonRow } from "components/styles";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 
 interface Props {
-  priority?: number;
+  initialPriority?: number;
   canAbort: boolean;
   canRestart: boolean;
   canSchedule: boolean;
@@ -43,13 +43,13 @@ export const ActionButtons = ({
   canSchedule,
   canSetPriority,
   canUnschedule,
-  ...props
+  initialPriority,
 }: Props) => {
   const { success, error } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [priority, setPriority] = useState<number>(props.priority);
+  const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<

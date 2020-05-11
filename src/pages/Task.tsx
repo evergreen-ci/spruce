@@ -117,7 +117,7 @@ const TaskCore: React.FC = () => {
             canSchedule={canSchedule}
             canUnschedule={canUnschedule}
             canSetPriority={canSetPriority}
-            priority={priority}
+            initialPriority={priority}
           />
         }
       />
