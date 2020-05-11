@@ -16,9 +16,12 @@ import {
   DEFAULT_PAGE_SIZE,
   PageSizeSelector,
 } from "components/PageSizeSelector";
+import { TableContainer } from "components/styles";
 import { Pagination } from "components/Pagination";
 import styled from "@emotion/styled";
 import { ResultCountLabel } from "components/ResultCountLabel";
+import { NetworkStatus } from "apollo-client";
+import { Skeleton } from "antd";
 
 interface Props {
   taskCount: number;
@@ -69,7 +72,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     return <div>{error.message}</div>;
   }
   const { limit, page } = getQueryVariables(search);
-
+  const isLoading = networkStatus < NetworkStatus.ready;
   return (
     <ErrorBoundary>
       <TaskFilters />
@@ -90,10 +93,13 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           <PageSizeSelector value={limit} />
         </InnerRow>
       </OuterRow>
-      <TasksTable
-        networkStatus={networkStatus}
-        data={get(data, "patchTasks", [])}
-      />
+      <TableContainer hide={isLoading}>
+        <TasksTable
+          networkStatus={networkStatus}
+          data={get(data, "patchTasks", [])}
+        />
+      </TableContainer>
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
     </ErrorBoundary>
   );
 };
@@ -157,6 +163,7 @@ const getQueryVariables = (
 
   const pageNum = parseInt(getString(page), 10);
   const limitNum = parseInt(getString(limit), 10);
+
   return {
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),

@@ -33,3 +33,7 @@ export const PageSider = styled(Sider)`
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
 `;
+
+export const TableContainer = styled("div")`
+  display ${(props: { hide: boolean }): string => (props.hide ? "none" : "")}
+`;
