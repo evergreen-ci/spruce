@@ -6,7 +6,7 @@ const prettierConfig = JSON.parse(
   fs.readFileSync(path.join(__dirname, ".prettierrc"), "utf8")
 );
 try {
-  schema = fs.readFileSync("./sdlschema", "utf8");
+  schema = fs.readFileSync("./sdlschema.graphql", "utf8");
 } catch (e) {
   schema = "";
 }

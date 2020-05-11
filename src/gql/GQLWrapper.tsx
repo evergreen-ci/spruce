@@ -51,9 +51,7 @@ export const getClientLink = async ({
       addMockFunctionsToSchema({ schema: executableSchema });
       return new SchemaLink({ schema: executableSchema });
     } catch (e) {
-      console.warn(
-        "Unable to initiate mock server. If this was unintended, provide a valid value for the REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables."
-      );
+      // unable to initiate mock server
       return new HttpLink();
     }
   }

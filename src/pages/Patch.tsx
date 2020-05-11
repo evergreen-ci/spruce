@@ -36,9 +36,9 @@ const PatchCore: React.FC = () => {
   >(GET_PATCH, {
     variables: { id },
     pollInterval: 5000,
-    onError: () =>
+    onError: (e) =>
       dispatchBanner.error(
-        `There was an error loading the patch: ${error.message}`
+        `There was an error loading the patch: ${e.message}`
       ),
   });
   useEffect(() => stopPolling, [stopPolling]);
