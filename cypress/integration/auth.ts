@@ -17,12 +17,6 @@ describe("Auth", () => {
     cy.url().should("include", "/patch/123123");
   });
 
-  it("Redirects user to /login after logging out", () => {
-    cy.login();
-    cy.get("div[id=logout]").click();
-    cy.url().should("include", "/login");
-  });
-
   it("Redirects user to home page by default if no previous referer", () => {
     cy.login();
     cy.url().should("include", "/my-patches");
