@@ -114,7 +114,7 @@ export const TestsTableCore: React.FC = () => {
 
   return (
     <>
-      <Row>
+      <OuterRow>
         <ResultCountLabel
           dataCyNumerator="filtered-test-count"
           dataCyDenominator="total-test-count"
@@ -122,7 +122,7 @@ export const TestsTableCore: React.FC = () => {
           numerator={get(data, "taskTests.filteredTestCount", "-")}
           denominator={get(data, "taskTests.totalTestCount", "-")}
         />
-        <Row>
+        <InnerRow>
           <Pagination
             simple
             pageSize={limitNum}
@@ -131,8 +131,8 @@ export const TestsTableCore: React.FC = () => {
             onChange={(p) => setPage(p - 1)}
           />
           <PageSizeSelector value={limitNum} />
-        </Row>
-      </Row>
+        </InnerRow>
+      </OuterRow>
       <Table
         pagination={false}
         columns={columns}
@@ -286,8 +286,11 @@ const getQueryVariables = (
   };
 };
 
-const Row = styled("div")`
+const InnerRow = styled("div")`
   display: flex;
   justify-content: space-between;
   align-items: center;
+`;
+const OuterRow = styled(InnerRow)`
+  padding-bottom: 8px;
 `;
