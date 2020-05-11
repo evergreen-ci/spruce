@@ -29,7 +29,7 @@ export const PageSizeSelector = ({ value }: Props) => {
   return (
     <Select value={value} style={{ width: 120 }} onChange={handleChange}>
       {PAGE_SIZES.map((limit) => (
-        <Option value={limit}>{`${limit} / page`}</Option>
+        <Option key={limit} value={limit}>{`${limit} / page`}</Option>
       ))}
     </Select>
   );

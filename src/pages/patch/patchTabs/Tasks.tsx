@@ -6,14 +6,19 @@ import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
-import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
-import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
-import { PAGE_SIZES, DEFAULT_PAGE_SIZE } from "components/PageSizeSelector";
+import {
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+  PageSizeSelector,
+} from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import styled from "@emotion/styled";
+import { ResultCountLabel } from "components/ResultCountLabel";
 
 interface Props {
   taskCount: number;
@@ -23,7 +28,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const [initialQueryVariables] = useState(getQueryVariables(id, search));
+  const [initialQueryVariables] = useState({
+    patchId: id,
+    ...getQueryVariables(search),
+  });
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -37,23 +45,21 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   useEffect(
     () =>
       history.listen(async (loc) => {
-        if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-          try {
-            await fetchMore({
-              variables: getQueryVariables(id, loc.search),
-              updateQuery: (
-                prev: PatchTasksQuery,
-                { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-              ) => {
-                if (!fetchMoreResult) {
-                  return prev;
-                }
-                return fetchMoreResult;
-              },
-            });
-          } catch (e) {
-            // empty block
-          }
+        try {
+          await fetchMore({
+            variables: getQueryVariables(loc.search),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
+            },
+          });
+        } catch (e) {
+          // empty block
         }
       }),
     [history, fetchMore, id, error, networkStatus]
@@ -62,17 +68,28 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   if (error) {
     return <div>{error.message}</div>;
   }
+  const { limit, page } = getQueryVariables(search);
 
   return (
     <ErrorBoundary>
       <TaskFilters />
-      <P2 id="task-count">
-        <span data-cy="current-task-count">
-          {get(data, "patchTasks.count", "-")}
-        </span>
-        /<span data-cy="total-task-count">{taskCount || "-"}</span>
-        <span>{" tasks"}</span>
-      </P2>
+      <OuterRow>
+        <ResultCountLabel
+          dataCyNumerator="current-task-count"
+          dataCyDenominator="total-task-count"
+          label="tasks"
+          numerator={get(data, "patchTasks.count", "-")}
+          denominator={taskCount}
+        />
+        <InnerRow>
+          <Pagination
+            pageSize={limit}
+            value={page}
+            totalResults={get(data, "patchTasks.count", 0)}
+          />
+          <PageSizeSelector value={limit} />
+        </InnerRow>
+      </OuterRow>
       <TasksTable
         networkStatus={networkStatus}
         data={get(data, "patchTasks", [])}
@@ -116,10 +133,8 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
 };
 
 const getQueryVariables = (
-  patchId: string,
   search: string
 ): {
-  patchId: string;
   sortBy?: string;
   sortDir?: string;
   page?: number;
@@ -143,7 +158,6 @@ const getQueryVariables = (
   const pageNum = parseInt(getString(page), 10);
   const limitNum = parseInt(getString(limit), 10);
   return {
-    patchId,
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),
     variant: getString(variant),
@@ -157,3 +171,13 @@ const getQueryVariables = (
         : DEFAULT_PAGE_SIZE,
   };
 };
+
+const InnerRow = styled("div")`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const OuterRow = styled(InnerRow)`
+  padding-bottom: 8px;
+`;

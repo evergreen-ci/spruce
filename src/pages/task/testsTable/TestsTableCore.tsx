@@ -21,7 +21,8 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { Skeleton, Pagination } from "antd";
+import { Skeleton } from "antd";
+import { Pagination } from "components/Pagination";
 import {
   PageSizeSelector,
   PAGE_SIZES,
@@ -101,17 +102,6 @@ export const TestsTableCore: React.FC = () => {
     }
   };
 
-  const setPage = (page: number) =>
-    replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          page,
-        },
-        { arrayFormat }
-      )}`
-    );
-
   // initial table sort button state to reflect initial URL query params
   const { cat, dir, pageNum, limitNum } = getQueryVariables(search);
 
@@ -130,11 +120,9 @@ export const TestsTableCore: React.FC = () => {
         />
         <InnerRow>
           <Pagination
-            simple
             pageSize={limitNum}
-            current={pageNum + 1}
-            total={get(data, "taskTests.filteredTestCount", 0)}
-            onChange={(p) => setPage(p - 1)}
+            value={pageNum}
+            totalResults={get(data, "taskTests.filteredTestCount", 0)}
           />
           <PageSizeSelector value={limitNum} />
         </InnerRow>
