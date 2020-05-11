@@ -39,9 +39,13 @@ export const Metadata: React.FC<{
       <P2 data-cy="task-metadata-submitted-at">
         Submitted at: {getDateCopy(createTime)}
       </P2>
-      <P2 data-cy="task-metadata-started">Started: {getDateCopy(startTime)}</P2>
+      <P2>
+        Started:{" "}
+        <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+      </P2>
       <P2 data-cy="task-metadata-finished">
-        Finished: {getDateCopy(finishTime)}
+        Finished:{" "}
+        <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
       </P2>
       <P2>Duration: {secToDuration(timeTaken)} </P2>
       <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>

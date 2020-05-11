@@ -32,3 +32,11 @@ export const PageSider = styled(Sider)`
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
 `;
+
+export const PageButtonRow = styled.div`
+  > button {
+    margin-right: 24px;
+  }
+  display: flex;
+  padding-right: 40px;
+`;

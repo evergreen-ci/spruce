@@ -36,7 +36,8 @@ describe("My Patches Page", () => {
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
-  it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
+  // TODO: flakes becuase the gql query is not always tracked
+  xit("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
