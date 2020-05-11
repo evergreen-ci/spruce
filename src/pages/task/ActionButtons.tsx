@@ -45,7 +45,7 @@ export const ActionButtons = ({
   canUnschedule,
   initialPriority,
 }: Props) => {
-  const { success, error } = useBannerDispatchContext();
+  const { successBanner, errorBanner } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -58,10 +58,10 @@ export const ActionButtons = ({
   >(SCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      success("Task marked as scheduled");
+      successBanner("Task marked as scheduled");
     },
     onError: (err) => {
-      error(`Error scheduling task: ${err.message}`);
+      errorBanner(`Error scheduling task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -72,10 +72,10 @@ export const ActionButtons = ({
   >(UNSCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      success("Task marked as unscheduled");
+      successBanner("Task marked as unscheduled");
     },
     onError: (err) => {
-      error(`Error unscheduling task: ${err.message}`);
+      errorBanner(`Error unscheduling task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -88,10 +88,10 @@ export const ActionButtons = ({
       taskId,
     },
     onCompleted: () => {
-      success("Task aborted");
+      successBanner("Task aborted");
     },
     onError: (err) => {
-      error(`Error aborting task: ${err.message}`);
+      errorBanner(`Error aborting task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -102,10 +102,10 @@ export const ActionButtons = ({
   >(RESTART_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      success("Task scheduled to restart");
+      successBanner("Task scheduled to restart");
     },
     onError: (err) => {
-      error(`Error restarting task: ${err.message}`);
+      errorBanner(`Error restarting task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -115,10 +115,12 @@ export const ActionButtons = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
-      success(`Priority for task updated to ${data.setTaskPriority.priority}`);
+      successBanner(
+        `Priority for task updated to ${data.setTaskPriority.priority}`
+      );
     },
     onError: (err) => {
-      error(`Error updating priority for task: ${err.message}`);
+      errorBanner(`Error updating priority for task: ${err.message}`);
     },
     refetchQueries,
   });

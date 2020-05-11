@@ -38,7 +38,7 @@ const PatchCore: React.FC = () => {
     variables: { id },
     pollInterval: 5000,
     onError: (e) =>
-      dispatchBanner.error(
+      dispatchBanner.errorBanner(
         `There was an error loading the patch: ${e.message}`
       ),
   });

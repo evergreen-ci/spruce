@@ -9,10 +9,10 @@ export interface BannerObj {
 }
 type AddBanner = (message: string) => void;
 interface DispatchBanner {
-  error: AddBanner;
-  success: AddBanner;
-  warning: AddBanner;
-  info: AddBanner;
+  errorBanner: AddBanner;
+  successBanner: AddBanner;
+  warningBanner: AddBanner;
+  infoBanner: AddBanner;
   remove: (bannerId: string) => void;
   clearAll: () => void;
 }
@@ -33,10 +33,10 @@ export const BannerContextProvider: React.FC = ({ children }) => {
   };
   const clearAllBanners = () => setBanners([]);
   const dispatchBanner: DispatchBanner = {
-    error: (message: string) => addBanner("error", message),
-    success: (message: string) => addBanner("success", message),
-    warning: (message: string) => addBanner("warning", message),
-    info: (message: string) => addBanner("info", message),
+    errorBanner: (message: string) => addBanner("error", message),
+    successBanner: (message: string) => addBanner("success", message),
+    warningBanner: (message: string) => addBanner("warning", message),
+    infoBanner: (message: string) => addBanner("info", message),
     remove: removeBanner,
     clearAll: clearAllBanners,
   };
