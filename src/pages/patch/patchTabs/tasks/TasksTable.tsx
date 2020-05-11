@@ -1,69 +1,53 @@
 import React from "react";
-import { loader } from "components/Loading/Loader";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
-import { InfinityTable } from "antd-table-infinity";
-import { ColumnProps } from "antd/es/table";
 import { NetworkStatus } from "apollo-client";
 import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-
-import get from "lodash.get";
+import Table, { ColumnProps } from "antd/es/table";
+import get from "lodash/get";
 
 interface Props {
   networkStatus: NetworkStatus;
   data?: PatchTasks;
-  onFetch: () => void;
 }
 
-export const TasksTable: React.FC<Props> = ({
-  networkStatus,
-  data,
-  onFetch,
-}) => {
+export const TasksTable: React.FC<Props> = ({ data }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
   const tableChangeHandler: TableOnChange<TaskResult> = (
     ...[, , { order, columnKey }]
   ) => {
-    replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          [PatchTasksQueryParams.SortDir]: getSortDirFromOrder(order),
-          [PatchTasksQueryParams.SortBy]: columnKey,
-        },
-        { arrayFormat }
-      )}`
+    const nextQueryParams = queryString.stringify(
+      {
+        ...queryString.parse(search, { arrayFormat }),
+        [PatchTasksQueryParams.SortDir]:
+          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+        [PatchTasksQueryParams.SortBy]: columnKey,
+        [PatchTasksQueryParams.Page]: "0",
+      },
+      { arrayFormat }
     );
+    if (nextQueryParams !== search.split("?")[1]) {
+      replace(`${pathname}?${nextQueryParams}`);
+    }
   };
+
   return (
-    <InfinityTable
-      key="key"
-      loading={networkStatus < NetworkStatus.ready}
-      pageSize={10000}
-      loadingIndicator={loader}
+    <Table
+      rowKey={rowKey}
+      pagination={false}
       columns={columns}
-      scroll={{ y: 350 }}
       dataSource={get(data, "tasks", [])}
       onChange={tableChangeHandler}
-      onFetch={onFetch}
-      rowKey={rowKey}
     />
   );
 };
 
 const arrayFormat = "comma";
-
-const orderKeyToSortParam = {
-  ascend: SortDirection.Asc,
-  descend: SortDirection.Desc,
-};
-const getSortDirFromOrder = (order: "ascend" | "descend"): string =>
-  orderKeyToSortParam[order];
 
 const rowKey = ({ id }: { id: string }): string => id;
 
