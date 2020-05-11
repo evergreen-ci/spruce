@@ -99,7 +99,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
       <TableContainer hide={isLoading}>
         <TasksTable data={get(data, "patchTasks", [])} />
       </TableContainer>
-      {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
     </ErrorBoundary>
   );
 };

@@ -137,7 +137,7 @@ export const TestsTableCore: React.FC = () => {
           onChange={tableChangeHandler}
         />
       </TableContainer>
-      {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
     </>
   );
 };
