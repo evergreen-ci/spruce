@@ -16,7 +16,6 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
-
 import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
