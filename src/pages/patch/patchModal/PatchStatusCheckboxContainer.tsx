@@ -24,7 +24,7 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
         onChange={() => toggleSelectedTask(task.id)}
         label={
           <PatchStateItemWrapper>
-            <Square color={mapVariantTaskStatusToColor[task.status]} />{" "}
+            <PaddedSquare color={mapVariantTaskStatusToColor[task.status]} />{" "}
             {task.name}
           </PatchStateItemWrapper>
         }
@@ -35,6 +35,9 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   </ScrollableContainer>
 );
 
+const PaddedSquare = styled(Square)`
+  margin-right: 6px;
+`;
 const ScrollableContainer = styled("div")`
   max-height: 250px;
   overflow-y: scroll;

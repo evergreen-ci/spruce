@@ -151,8 +151,8 @@ const HR = styled("hr")`
 `;
 
 const ConfirmationMessage = styled(Body)`
-  padding-top: 36px;
-  padding-bottom: 24px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 `;
 
 const statusesTreeData = [
