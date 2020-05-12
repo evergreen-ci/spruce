@@ -34,7 +34,11 @@ export const PatchModal: React.FC<PatchModalProps> = ({
   onOk,
   onCancel,
 }) => {
-  const { successBanner, errorBanner, clearAll } = useBannerDispatchContext();
+  const {
+    successBanner,
+    errorBanner,
+    clearAllBanners,
+  } = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
   const [abortInProgressTasks, setAbortInProgressTasks] = useState(false);
   const [restartPatch, { loading: mutationLoading }] = useMutation<
@@ -43,7 +47,11 @@ export const PatchModal: React.FC<PatchModalProps> = ({
   >(RESTART_PATCH, {
     onCompleted: () => {
       onOk();
-      successBanner(`Successfully restarted patch: ${id}`);
+      successBanner(`Successfully restarted patch!`);
+    },
+    onError: (err) => {
+      onOk();
+      errorBanner(`Error while restarting patch: '${err.message}'`);
     },
   });
   const { data, loading } = useQuery<
@@ -61,7 +69,7 @@ export const PatchModal: React.FC<PatchModalProps> = ({
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
-    clearAll();
+    clearAllBanners();
     try {
       await restartPatch({
         variables: {
@@ -70,8 +78,8 @@ export const PatchModal: React.FC<PatchModalProps> = ({
           abort: abortInProgressTasks,
         },
       });
-    } catch (err) {
-      errorBanner(err.message);
+    } catch {
+      // This is handled in the onError handler for the mutation
     }
   };
   return (

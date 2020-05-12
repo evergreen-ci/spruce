@@ -52,13 +52,19 @@ const PatchCore: React.FC = () => {
   if (error) {
     return (
       <PageWrapper>
-        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+        <Banners
+          banners={bannersState}
+          removeBanner={dispatchBanner.removeBanner}
+        />
       </PageWrapper>
     );
   }
   return (
     <PageWrapper data-cy="patch-page">
-      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}

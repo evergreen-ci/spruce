@@ -13,8 +13,8 @@ interface DispatchBanner {
   successBanner: AddBanner;
   warningBanner: AddBanner;
   infoBanner: AddBanner;
-  remove: (bannerId: string) => void;
-  clearAll: () => void;
+  removeBanner: (bannerId: string) => void;
+  clearAllBanners: () => void;
 }
 
 const BannerDispatchContext = React.createContext<DispatchBanner | null>(null);
@@ -37,8 +37,8 @@ export const BannerContextProvider: React.FC = ({ children }) => {
     successBanner: (message: string) => addBanner("success", message),
     warningBanner: (message: string) => addBanner("warning", message),
     infoBanner: (message: string) => addBanner("info", message),
-    remove: removeBanner,
-    clearAll: clearAllBanners,
+    removeBanner,
+    clearAllBanners,
   };
 
   return (
