@@ -83,9 +83,9 @@ describe("Patch route", () => {
     });
 
     it("Lists the patch's build variants", () => {
-      cy.get(".patch-build-variant").within(($variants) => {
-        return Array.from($variants).length > 0;
-      });
+      cy.get(".patch-build-variant").within(
+        ($variants) => Array.from($variants).length > 0
+      );
     });
 
     it("Shows tooltip with task's name on hover", () => {
@@ -119,7 +119,7 @@ describe("Patch route", () => {
       locationHasUpdatedParams("NAME", "DESC");
 
       cy.get("th.cy-task-table-col-NAME").click();
-      locationHasUpdatedParams("NAME");
+      locationHasUpdatedParams("NAME", "DESC");
 
       cy.get("th.cy-task-table-col-VARIANT").click();
       locationHasUpdatedParams("VARIANT", "ASC");
@@ -128,7 +128,7 @@ describe("Patch route", () => {
       locationHasUpdatedParams("VARIANT", "DESC");
 
       cy.get("th.cy-task-table-col-VARIANT").click();
-      locationHasUpdatedParams("VARIANT");
+      locationHasUpdatedParams("VARIANT", "DESC");
     });
 
     it("Clicking task name goes to task page for that task", () => {
