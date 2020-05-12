@@ -108,6 +108,7 @@ export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
   schedulePatch: Patch;
+  schedulePatchTasks?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
   abortTask: Task;
@@ -129,6 +130,10 @@ export type MutationRemoveFavoriteProjectArgs = {
 export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
+};
+
+export type MutationSchedulePatchTasksArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationScheduleTaskArgs = {
