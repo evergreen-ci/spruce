@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
+// / <reference types="Cypress" />
+// / <reference path="../support/index.d.ts" />
 
 import { assertScrollFetchAppend } from "../utils/table";
 
@@ -83,9 +83,9 @@ describe("Patch route", () => {
     });
 
     it("Lists the patch's build variants", () => {
-      cy.get(".patch-build-variant").within(($variants) => {
-        return Array.from($variants).length > 0;
-      });
+      cy.get(".patch-build-variant").within(
+        ($variants) => Array.from($variants).length > 0
+      );
     });
 
     it("Shows tooltip with task's name on hover", () => {
@@ -197,6 +197,7 @@ const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
   if (!hasMore) {
     return;
   }
+  let stillHasMore = hasMore;
   cy.dataCy("total-task-count")
     .invoke("text")
     .then(($totalTaskCount) => {
@@ -205,10 +206,12 @@ const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
         .invoke("text")
         .then(($currentTaskCount) => {
           if ($currentTaskCount === $totalTaskCount) {
-            hasMore = false;
+            stillHasMore = false;
           }
         })
-        .then(() => scrollTasksTableUntilAllTasksFetched({ hasMore }));
+        .then(() =>
+          scrollTasksTableUntilAllTasksFetched({ hasMore: stillHasMore })
+        );
     });
 };
 
