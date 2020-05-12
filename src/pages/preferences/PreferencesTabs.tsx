@@ -28,7 +28,7 @@ export const PreferencesTabs: React.FC<PreferenceTabsProps> = ({
   const Component = componentMap[tabKey];
   return (
     <Container>
-      <H2>{mapUrlTabToTitle[tabKey]}</H2>
+      <Title>{mapUrlTabToTitle[tabKey]}</Title>
       {loading && <Skeleton active />}
       {!loading && <Component tabKey={tabKey} {...userSettings} />}
     </Container>
@@ -44,4 +44,8 @@ const componentMap = {
 const Container = styled.div`
   margin-left: 64px;
   width: 60%;
+`;
+
+const Title = styled(H2)`
+  margin-bottom: 30px;
 `;
