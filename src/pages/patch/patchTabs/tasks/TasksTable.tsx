@@ -36,6 +36,7 @@ export const TasksTable: React.FC<Props> = ({ data }) => {
 
   return (
     <Table
+      data-test-id="tasks-table"
       rowKey={rowKey}
       pagination={false}
       columns={columns}

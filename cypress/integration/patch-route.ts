@@ -1,8 +1,6 @@
 /// <reference types="Cypress" />
 /// <reference path="../support/index.d.ts" />
 
-import { assertScrollFetchAppend } from "../utils/table";
-
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
@@ -39,56 +37,57 @@ describe("Patch route", () => {
     cy.preserveCookies();
   });
 
-  it("Redirects to configure patch page if patch is not activated", () => {
-    const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-    cy.visit(`/patch/${unactivatedPatchId}`);
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(
-        `/patch/${unactivatedPatchId}/configure/tasks`
-      );
-    });
-  });
+  // it("Redirects to configure patch page if patch is not activated", () => {
+  //   const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+  //   cy.visit(`/patch/${unactivatedPatchId}`);
+  //   cy.location().should((loc) => {
+  //     expect(loc.pathname).to.equal(
+  //       `/patch/${unactivatedPatchId}/configure/tasks`
+  //     );
+  //   });
+  // });
 
-  it("Renders patch info", () => {
-    cy.visit(`/patch/${patch.id}`);
-    cy.dataCy("page-title").within(hasText);
-    cy.dataCy("patch-page").within(hasText);
-  });
+  // it("Renders patch info", () => {
+  //   cy.visit(`/patch/${patch.id}`);
+  //   cy.dataCy("page-title").within(hasText);
+  //   cy.dataCy("patch-page").within(hasText);
+  // });
 
-  it("Shows commit queue position in metadata if patch is on commit queue", () => {
-    cy.visit(`/patch/${patch.id}`);
-    cy.dataCy("commit-queue-position").click();
-    cy.location("pathname").should("eq", "/commit-queue/mongodb-mongo-test");
-  });
+  // it("Shows commit queue position in metadata if patch is on commit queue", () => {
+  //   cy.visit(`/patch/${patch.id}`);
+  //   cy.dataCy("commit-queue-position").click();
+  //   cy.location("pathname").should("eq", "/commit-queue/mongodb-mongo-test");
+  // });
 
-  it("'Base commit' link in metadata links to version page of legacy UI", () => {
-    cy.visit(`/patch/${patch.id}`);
-    cy.get("#patch-base-commit")
-      .should("have.attr", "href")
-      .and("include", `http://localhost:9090/version/${patch.id}`);
-  });
+  // it("'Base commit' link in metadata links to version page of legacy UI", () => {
+  //   cy.visit(`/patch/${patch.id}`);
+  //   cy.get("#patch-base-commit")
+  //     .should("have.attr", "href")
+  //     .and("include", `http://localhost:9090/version/${patch.id}`);
+  // });
 
-  it("Shows a message if there was a problem loading data", () => {
-    cy.visit(`/patch/${badPatch.id}`);
-    cy.dataCy("banner").should("exist");
-    cy.get("#task-count").should("not.exist");
-  });
+  // it("Shows a message if there was a problem loading data", () => {
+  //   cy.visit(`/patch/${badPatch.id}`);
+  //   cy.dataCy("banner").should("exist");
+  //   cy.get("#task-count").should("not.exist");
+  // });
 
-  describe("Build Variants", () => {
+  xdescribe("Build Variants", () => {
     beforeEach(() => {
       cy.listenGQL();
       cy.preserveCookies();
-      cy.visit(path);
       cy.waitForGQL("PatchBuildVariants");
     });
 
     it("Lists the patch's build variants", () => {
+      cy.visit(path);
       cy.get(".patch-build-variant").within(
         ($variants) => Array.from($variants).length > 0
       );
     });
 
     it("Shows tooltip with task's name on hover", () => {
+      cy.visit(path);
       cy.get(".task-square")
         .first()
         .trigger("mouseover");
@@ -96,6 +95,7 @@ describe("Patch route", () => {
     });
 
     it("Navigates to task page from clicking task square", () => {
+      cy.visit(path);
       cy.get(".task-square")
         .should("have.attr", "href")
         .and("include", "/task");
@@ -103,10 +103,12 @@ describe("Patch route", () => {
   });
 
   describe("Tasks Table", () => {
+    before(() => {
+      cy.login();
+    });
     beforeEach(() => {
       cy.listenGQL();
       cy.preserveCookies();
-      cy.visit(path);
     });
 
     it("Updates the url when column headers are clicked", () => {
@@ -162,32 +164,54 @@ describe("Patch route", () => {
         clickSorterAndAssertTasksAreFetched(sortBy);
       });
     });
+
+    describe("Changing page number", () => {
+      beforeEach(() => {
+        cy.preserveCookies();
+      });
+
+      it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+        cy.get(
+          "[data-test-id=tasks-table-pagination] > .ant-pagination-next"
+        ).click();
+        cy.get(tableRows).each(($el, index) => {
+          cy.wrap($el).contains(secondPageDisplayNames[index]);
+        });
+        cy.location("search").should("include", "page=1");
+      });
+
+      // it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+      //   cy.get(
+      //     "[data-test-id=tests-table-pagination] > .ant-pagination-next"
+      //   ).click();
+      //   cy.get(tableRows).each(($el, index) => {
+      //     cy.wrap($el).contains(secondPageDisplayNames[index]);
+      //   });
+      //   cy.location("search").should("include", "page=1");
+      // });
+
+      it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+        cy.get(
+          "[data-test-id=tasks-table-pagination] > .ant-pagination-prev"
+        ).click();
+        cy.get(tableRows).each(($el, index) => {
+          cy.wrap($el).contains(firstPageDisplayNames[index]);
+        });
+        cy.location("search").should("include", "page=0");
+      });
+
+      it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+        cy.get(
+          "[data-test-id-tasks-table-pagination] > .ant-pagination-prev"
+        ).click();
+        cy.get(tableRows).each(($el, index) => {
+          cy.wrap($el).contains(firstPageDisplayNames[index]);
+        });
+        cy.location("search").should("include", "page=0");
+      });
+    });
   });
 });
-
-const scrollToBottomOfTasksTable = () => {
-  cy.get(".ant-table-body").scrollTo("bottom", { duration: 500 });
-  cy.wait(200);
-};
-
-const scrollTasksTableUntilAllTasksFetched = ({ hasMore }) => {
-  if (!hasMore) {
-    return;
-  }
-  cy.dataCy("total-task-count")
-    .invoke("text")
-    .then(($totalTaskCount) => {
-      scrollToBottomOfTasksTable();
-      cy.dataCy("current-task-count")
-        .invoke("text")
-        .then(($currentTaskCount) => {
-          if ($currentTaskCount === $totalTaskCount) {
-            hasMore = false;
-          }
-        })
-        .then(() => scrollTasksTableUntilAllTasksFetched({ hasMore }));
-    });
-};
 
 const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")
@@ -209,3 +233,29 @@ const clickSorterAndAssertTasksAreFetched = (patchSortBy) => {
   cy.get(`th.cy-task-table-col-${patchSortBy}`).click();
   assertCorrectRequestVariables(patchSortBy, "DESC");
 };
+
+const tableRows = "[data-test-id=tasks-table] tr td:first-child";
+const firstPageDisplayNames = [
+  "lint-service",
+  "test-cloud",
+  "test-service",
+  "test-thirdparty",
+  "test-thirdparty",
+  "test-model",
+  "generate-lint",
+  "js-test",
+  "test-agent",
+  "test-auth",
+];
+const secondPageDisplayNames = [
+  "test-command",
+  "test-db",
+  "test-evergreen",
+  "test-graphql",
+  "test-migrations",
+  "test-model-alertrecord",
+  "test-model-artifact",
+  "test-model-build",
+  "test-model-commitqueue",
+  "test-model-distro",
+];
