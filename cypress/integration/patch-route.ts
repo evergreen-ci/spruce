@@ -143,13 +143,7 @@ describe("Patch route", () => {
     it("Task count displays total tasks", () => {
       cy.visit(path);
       cy.waitForGQL("PatchTasks");
-      cy.get("[data-cy=total-task-count]")
-        .invoke("text")
-        .then(($taskCount) => {
-          cy.get("[data-cy=current-task-count]")
-            .invoke("text")
-            .should("eq", $taskCount);
-        });
+      cy.get("[data-cy=total-task-count]").contains("47");
     });
 
     it("Sort buttons are disabled when fetching data", () => {
@@ -159,23 +153,6 @@ describe("Patch route", () => {
         expect(err.message).to.include(
           "'pointer-events: none' prevents user mouse interaction."
         );
-      });
-
-      it("Fetches additional tasks as the user scrolls", () => {
-        assertScrollFetchAppend(() => {
-          cy.waitForGQL("PatchTasks", {
-            "requestBody.variables.page": (v) => v === 1,
-          });
-        });
-      });
-
-      it("Stops fetching tasks when all tasks have been fetched", () => {
-        scrollTasksTableUntilAllTasksFetched({ hasMore: true });
-        cy.get(".ant-table-body").scrollTo("top");
-        scrollToBottomOfTasksTable();
-        cy.wait("@gqlQuery").then((xhr) => {
-          expect(xhr.requestBody.operationName).not.eq("PatchTasks");
-        });
       });
     });
 
