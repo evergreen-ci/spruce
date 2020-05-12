@@ -5,7 +5,8 @@ import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
-import Table, { ColumnProps } from "antd/es/table";
+import { ColumnProps } from "antd/es/table";
+import { Table } from "antd";
 import get from "lodash/get";
 
 interface Props {

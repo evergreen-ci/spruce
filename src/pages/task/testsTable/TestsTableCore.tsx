@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Table, { ColumnProps } from "antd/es/table";
 import { msToDuration } from "utils/string";
 import Button from "@leafygreen-ui/button";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
@@ -33,6 +32,8 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { ColumnProps } from "antd/es/table";
+import { Table } from "antd";
 
 const arrayFormat = "comma";
 
