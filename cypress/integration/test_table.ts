@@ -251,30 +251,62 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("Paginating", () => {
-    it("Displays the next page of results when right arrow is clicked", () => {
-      cy.login();
+  describe("Changing page number", () => {
+    before(() => {
       cy.visit(TESTS_ROUTE);
+    });
+
+    it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.get(
         "[data-test-id=tests-table-pagination] > .ant-pagination-next"
       ).click();
       cy.get(tableRows).each(($el, index) => {
         cy.wrap($el).contains(secondPageDisplayNames[index]);
       });
+      cy.location("search").should("include", "page=1");
+    });
+
+    it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+      cy.get(
+        "[data-test-id=tests-table-pagination] > .ant-pagination-next"
+      ).click();
+      cy.get(tableRows).each(($el, index) => {
+        cy.wrap($el).contains(secondPageDisplayNames[index]);
+      });
+      cy.location("search").should("include", "page=1");
+    });
+
+    it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.get(
         "[data-test-id=tests-table-pagination] > .ant-pagination-prev"
       ).click();
       cy.get(tableRows).each(($el, index) => {
         cy.wrap($el).contains(firstPageDisplayNames[index]);
       });
+      cy.location("search").should("include", "page=0");
+    });
+
+    it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+      cy.get(
+        "[data-test-id=tests-table-pagination] > .ant-pagination-prev"
+      ).click();
+      cy.get(tableRows).each(($el, index) => {
+        cy.wrap($el).contains(firstPageDisplayNames[index]);
+      });
+      cy.location("search").should("include", "page=0");
     });
   });
 
-  describe("Changing page size", () => {
-    it("Displays 20 results at once when the page size is changed to 20 and at least 20 results are available", () => {
-      cy.get("[data-test-id=tests-table-page-size-selector]").click();
-      cy.get("[data-test-id=tests-table-page-size-selector-20]").click();
-      cy.get(tableRows).should("have.length", 20);
+  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    [20, 10, 50, 100].forEach((pageSize) => {
+      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+        cy.get("[data-test-id=tests-table-page-size-selector]").click();
+        cy.get(
+          `[data-test-id=tests-table-page-size-selector-${pageSize}]`
+        ).click();
+        cy.get(tableRows).should("have.length.of.at.most", pageSize);
+        cy.location("search").should("include", `limit=${pageSize}`);
+      });
     });
   });
 });
