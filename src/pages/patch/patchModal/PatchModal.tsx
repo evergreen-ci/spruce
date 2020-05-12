@@ -40,7 +40,9 @@ export const PatchModal: React.FC<PatchModalProps> = ({
     clearAllBanners,
   } = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
-  const [abortInProgressTasks, setAbortInProgressTasks] = useState(false);
+  const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
+    false
+  );
   const [restartPatch, { loading: mutationLoading }] = useMutation<
     RestartPatchMutation,
     RestartPatchMutationVariables
@@ -75,7 +77,7 @@ export const PatchModal: React.FC<PatchModalProps> = ({
         variables: {
           patchId: id,
           taskIds: selectedTasks,
-          abort: abortInProgressTasks,
+          abort: shouldAbortInProgressTasks,
         },
       });
     } catch {
@@ -129,9 +131,11 @@ export const PatchModal: React.FC<PatchModalProps> = ({
             tasks?
           </ConfirmationMessage>
           <Checkbox
-            onChange={() => setAbortInProgressTasks(!abortInProgressTasks)}
+            onChange={() =>
+              setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
+            }
             label="Abort in progress tasks"
-            checked={abortInProgressTasks}
+            checked={shouldAbortInProgressTasks}
             bold={false}
           />
         </>
