@@ -3,6 +3,8 @@
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   assertQueryVariables,
+  clickOnPageBtnAndAssertURLandTableResults,
+  clickOnPageSizeBtnAndAssertURLandTableSize,
 } from "../utils";
 import { assertCountLabels } from "../utils/table";
 
@@ -257,55 +259,51 @@ describe("Tests Table", () => {
     });
 
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
-      cy.get(
-        "[data-test-id=tests-table-pagination] > .ant-pagination-next"
-      ).click();
-      cy.get(tableRows).each(($el, index) => {
-        cy.wrap($el).contains(secondPageDisplayNames[index]);
-      });
-      cy.location("search").should("include", "page=1");
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        secondPageDisplayNames,
+        1,
+        dataCyTableRows
+      );
     });
 
     it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
-      cy.get(
-        "[data-test-id=tests-table-pagination] > .ant-pagination-next"
-      ).click();
-      cy.get(tableRows).each(($el, index) => {
-        cy.wrap($el).contains(secondPageDisplayNames[index]);
-      });
-      cy.location("search").should("include", "page=1");
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        secondPageDisplayNames,
+        1,
+        dataCyTableRows
+      );
     });
 
     it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
-      cy.get(
-        "[data-test-id=tests-table-pagination] > .ant-pagination-prev"
-      ).click();
-      cy.get(tableRows).each(($el, index) => {
-        cy.wrap($el).contains(firstPageDisplayNames[index]);
-      });
-      cy.location("search").should("include", "page=0");
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
     });
 
     it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
-      cy.get(
-        "[data-test-id=tests-table-pagination] > .ant-pagination-prev"
-      ).click();
-      cy.get(tableRows).each(($el, index) => {
-        cy.wrap($el).contains(firstPageDisplayNames[index]);
-      });
-      cy.location("search").should("include", "page=0");
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
     });
   });
 
   describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
     [20, 10, 50, 100].forEach((pageSize) => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
-        cy.get("[data-test-id=tests-table-page-size-selector]").click();
-        cy.get(
-          `[data-test-id=tests-table-page-size-selector-${pageSize}]`
-        ).click();
-        cy.get(tableRows).should("have.length.of.at.most", pageSize);
-        cy.location("search").should("include", `limit=${pageSize}`);
+        clickOnPageSizeBtnAndAssertURLandTableSize(
+          pageSize,
+          "[data-test-id=tests-table-page-size-selector]",
+          `[data-test-id=tests-table-page-size-selector-${pageSize}]`,
+          dataCyTableRows
+        );
       });
     });
   });
@@ -326,7 +324,7 @@ const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
-const tableRows = "[data-test-id=tests-table] tr td:first-child";
+const dataCyTableRows = "[data-test-id=tests-table] tr td:first-child";
 const firstPageDisplayNames = [
   "TestFinalizePatch",
   "TestHostTaskAuditing",
@@ -351,3 +349,8 @@ const secondPageDisplayNames = [
   "TestCreateIntermediateProjectRequirements",
   "TestMergeAxisValue",
 ];
+
+const dataCyNextPage =
+  "[data-test-id=tests-table-pagination] > .ant-pagination-next";
+const dataCyPrevPage =
+  "[data-test-id=tests-table-pagination] > .ant-pagination-prev";
