@@ -7,20 +7,22 @@ interface AccordianProps {
   contents: React.ReactNode;
 }
 export const Accordian: React.FC<AccordianProps> = ({ title, contents }) => {
-  const [toggleAccordian, setToggleAccordian] = useState(false);
+  const [isAccordianDisplayed, setIsAccordianDisplayed] = useState(false);
   const toggleAccordianHandler = (): void =>
-    setToggleAccordian(!toggleAccordian);
+    setIsAccordianDisplayed(!isAccordianDisplayed);
   return (
-    <div>
+    <>
       <AccordianToggle
         data-cy="accordian-toggle"
         onClick={toggleAccordianHandler}
       >
-        <Icon glyph={toggleAccordian ? "CaretDown" : "CaretRight"} />
+        <Icon glyph={isAccordianDisplayed ? "CaretDown" : "CaretRight"} />
         {title}
       </AccordianToggle>
-      <AnimatedAccordian hide={!toggleAccordian}>{contents}</AnimatedAccordian>
-    </div>
+      <AnimatedAccordian hide={!isAccordianDisplayed}>
+        {contents}
+      </AnimatedAccordian>
+    </>
   );
 };
 
