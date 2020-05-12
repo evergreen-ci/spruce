@@ -1,5 +1,5 @@
-import { elementExistenceCheck } from "../utils";
 import get from "lodash/get";
+import { elementExistenceCheck } from "../utils";
 
 const patchId = "5e4ff3abe3c3317e352062e4";
 const patchRoute = `/patch/${patchId}`;
@@ -61,7 +61,7 @@ describe("Tabs", () => {
       cy.get(patch.changes.btn).click();
       cy.get("[data-cy=code-changes]").should("exist");
       cy.get(patch.tasks.btn).click();
-      cy.get("#task-count").should("exist");
+      cy.dataCy("total-task-count").should("exist");
     });
   });
 
