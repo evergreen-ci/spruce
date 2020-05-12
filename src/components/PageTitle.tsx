@@ -53,5 +53,5 @@ const PageHeader = styled.div`
 `;
 
 const TitleWrapper = styled.div`
-  width: 60%;
+  width: 70%;
 `;
