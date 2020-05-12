@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../../support/index.d.ts" />
+// / <reference types="Cypress" />
+// / <reference path="../../support/index.d.ts" />
 
 type ProjectVariants = Array<{
   name: string;
@@ -121,8 +121,8 @@ describe("Configure Patch Page", () => {
             .as("taskCount")
             .invoke("text")
             .then(($taskCount) => {
-              const firstTask = lastVariantInList.tasks[0];
-              cy.get(`[data-cy=configurePatch-${firstTask}]`).check({
+              const firstTask1 = lastVariantInList.tasks[0];
+              cy.get(`[data-cy=configurePatch-${firstTask1}]`).check({
                 force: true,
               });
               cy.get("@taskCount")
@@ -235,7 +235,7 @@ const getTaskCountFromText = (text) => {
   if (!text) {
     return 0;
   }
-  return parseInt(text);
+  return parseInt(text, 10);
 };
 
 const mockedErrorConfigureResponse = {

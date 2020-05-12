@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
 describe("Task Action Buttons", () => {
   before(() => {
@@ -17,6 +17,7 @@ describe("Task Action Buttons", () => {
 
     it("Clicking Restart button should produce success banner", () => {
       cy.dataCy("restart-task").click();
+      cy.wait(200);
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
     });
 
@@ -50,6 +51,7 @@ describe("Task Action Buttons", () => {
 
     it("Clicking on Schedule should produce an error banner", () => {
       cy.dataCy("schedule-task").click();
+      cy.wait(200);
       cy.dataCy(bannerDataCy).contains(scheduleErrorBannerText);
     });
 
@@ -66,6 +68,7 @@ describe("Task Action Buttons", () => {
     it("Clicking on Abort should produce a success banner", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("abort-task").click();
+      cy.wait(200);
       cy.dataCy(bannerDataCy).contains("Task aborted");
     });
   });

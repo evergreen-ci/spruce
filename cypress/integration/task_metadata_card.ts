@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
+// / <reference types="Cypress" />
+// / <reference path="../support/index.d.ts" />
 
 import get from "lodash/get";
 import { elementExistenceCheck } from "../utils";
@@ -9,7 +9,7 @@ const taskId =
 const taskRoute = `/task/${taskId}`;
 const taskRouteWithoutDependsOn = `/task/evergreen_ubuntu1604_test_migrations_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48`;
 
-describe("Task Metadata Card", function() {
+describe("Task Metadata Card", () => {
   before(() => {
     cy.login();
   });

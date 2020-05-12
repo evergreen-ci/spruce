@@ -27,8 +27,8 @@ export const waitForGQL = (
   queryName: string,
   options: Options = {}
 ): Cypress.Chainable<Cypress.WaitXHR> => {
-  const waitOnce = () => {
-    return cy.wait(alias).then((xhr) => {
+  const waitOnce = () =>
+    cy.wait(alias).then((xhr) => {
       const optionsMatch = Object.entries(options).reduce(
         (accum, [key, val]) => {
           const xhrValueAtPath = get(xhr, key);
@@ -47,7 +47,6 @@ export const waitForGQL = (
         return waitOnce();
       }
     });
-  };
 
   return waitOnce();
 };
