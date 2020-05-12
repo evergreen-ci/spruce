@@ -20,7 +20,7 @@ import {
 import { usePatchStatusSelect } from "hooks";
 import { useBannerDispatchContext } from "context/banners";
 import { TaskStatus } from "types/task";
-import { PatchBuildVariantAccordian } from "./PatchBuildVariantAccordian";
+import { PatchBuildVariantAccordian } from "pages/patch/patchModal/index";
 
 const { gray } = uiColors;
 
