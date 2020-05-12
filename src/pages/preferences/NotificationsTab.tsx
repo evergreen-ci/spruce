@@ -17,8 +17,11 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
   notifications,
 }) => {
   const [slackUsernameField, setslackUsernameField] = useState(slackUsername);
+  const [notificationStatus, setNotificationStatus] = useState(notifications);
 
-  const hasFieldUpdates = slackUsername !== slackUsernameField;
+  const hasFieldUpdates =
+    slackUsername !== slackUsernameField ||
+    notificationStatus !== notifications;
   const omitTypename = (key, value) =>
     key === "__typename" ? undefined : value;
   const newPayload = JSON.parse(JSON.stringify(notifications), omitTypename);
@@ -39,8 +42,9 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
             {Object.keys(newPayload).map((notification, index) => (
               <NotificationField
                 notification={notification}
-                status={notifications[notification]}
                 index={index}
+                notificationStatus={notificationStatus}
+                setNotificationStatus={setNotificationStatus}
               />
             ))}
           </GridContainer>
@@ -54,15 +58,17 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
         </ContentWrapper>
       </PreferencesCard>
       <PreferencesCard>
-        <Body>
-          To clear all subscriptions you have made on individual Task pages.
-        </Body>
-        <StyledLogMeOutButton
-          data-cy="clear-subscriptions-button"
-          variant={Variant.Danger}
-        >
-          Clear all previous subscriptions
-        </StyledLogMeOutButton>
+        <ContentWrapper>
+          <Body>
+            To clear all subscriptions you have made on individual Task pages.
+          </Body>
+          <StyledLogMeOutButton
+            data-cy="clear-subscriptions-button"
+            variant={Variant.Danger}
+          >
+            Clear all previous subscriptions
+          </StyledLogMeOutButton>
+        </ContentWrapper>
       </PreferencesCard>
     </div>
   );
@@ -70,25 +76,36 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
 
 interface NotificationFieldProps {
   notification: string;
-  status?: string;
+  notificationStatus: Notifications;
   index: number;
+  setNotificationStatus: (e) => void;
 }
 const NotificationField: React.FC<NotificationFieldProps> = ({
   notification,
+  setNotificationStatus,
+  notificationStatus,
   index,
 }) => (
-  <GridCapableRadioGroup>
+  <GridCapableRadioGroup
+    onChange={(e) => {
+      setNotificationStatus({
+        ...notificationStatus,
+        [notification]: e.target.value,
+      });
+    }}
+    value={notificationStatus[notification]}
+  >
     <GridField gridArea={`${2 + index}/ 1 / ${2 + index} / 3`}>
       {notificationFields[notification]}
     </GridField>
     <GridField gridArea={`${2 + index} / 3 / ${2 + index} / 4`}>
-      <Radio value={1} />
+      <Radio value="slack" />
     </GridField>
     <GridField gridArea={`${2 + index} / 4 / ${2 + index} / 5`}>
-      <Radio value={2} />
+      <Radio value="email" />
     </GridField>
     <GridField gridArea={`${2 + index} / 5 / ${2 + index} / 6`}>
-      <Radio value={3} />
+      <Radio value="" />
     </GridField>
   </GridCapableRadioGroup>
 );
@@ -105,7 +122,7 @@ const GridCapableRadioGroup = styled(Radio.Group)`
 `;
 const GridContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: 2fr repeat(3, 1fr);
   grid-template-rows: repeat(7, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -119,10 +136,12 @@ const GridField = styled.div`
 `;
 const StyledLogMeOutButton = styled(Button)`
   margin-top: 36px;
+  display: flex;
 `;
 const StyledTextInput = styled(TextInput)`
   margin-bottom: 24px;
-  : last - child {
+  width: 50%;
+  : last-child {
     margin-bottom: 40px;
   }
 `;
