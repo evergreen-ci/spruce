@@ -58,7 +58,7 @@ describe("Patch route", () => {
     cy.get("#task-count").should("not.exist");
   });
 
-  xdescribe("Build Variants", () => {
+  describe("Build Variants", () => {
     beforeEach(() => {
       cy.listenGQL();
       cy.preserveCookies();
