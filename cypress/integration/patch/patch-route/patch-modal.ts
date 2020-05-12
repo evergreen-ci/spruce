@@ -5,7 +5,7 @@ const patch = {
 };
 const path = `/patch/${patch.id}`;
 const allTasksSelectedConfirmationMessage =
-  "Are you sure you want to restart the 47 selected tasks?";
+  "Are you sure you want to restart the 2 selected tasks?";
 describe("Restarting a patch", () => {
   before(() => {
     cy.login();

@@ -112,7 +112,7 @@ export const PatchModal: React.FC<PatchModalProps> = ({
             onChange={setValidStatus}
             state={validStatus}
             tData={statusesTreeData}
-            inputLabel="Patch Status: "
+            inputLabel="Tasks Selected: "
             dataCy="patch-status-filter"
             width="50%"
           />
@@ -161,80 +161,20 @@ const statusesTreeData = [
     value: "all",
     key: "all",
   },
+
   {
-    title: "Failures",
-    value: "all-failures",
-    key: "all-failures",
-    children: [
-      {
-        title: "Failed",
-        value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
-      },
-      {
-        title: "Test Timed Out",
-        value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut,
-      },
-    ],
+    title: "Task Failures",
+    value: TaskStatus.Failed,
+    key: TaskStatus.Failed,
   },
   {
-    title: "Success",
-    value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded,
+    title: "System Failures",
+    value: TaskStatus.SystemFailed,
+    key: TaskStatus.SystemFailed,
   },
   {
-    title: "Running",
-    value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched,
-  },
-  {
-    title: "Started",
-    value: TaskStatus.Started,
-    key: TaskStatus.Started,
-  },
-  {
-    title: "Scheduled",
-    value: "scheduled",
-    key: "scheduled",
-    children: [
-      {
-        title: "Unstarted",
-        value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted,
-      },
-      {
-        title: "Undispatched",
-        value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched,
-      },
-    ],
-  },
-  {
-    title: "System Issues",
-    value: "system-issues",
-    key: "system-issues",
-    children: [
-      {
-        title: "System Failed",
-        value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
-      },
-    ],
-  },
-  {
-    title: "Setup Failed",
+    title: "Setup Failures",
     value: TaskStatus.SetupFailed,
     key: TaskStatus.SetupFailed,
-  },
-  {
-    title: "Blocked",
-    value: TaskStatus.StatusBlocked,
-    key: TaskStatus.StatusBlocked,
-  },
-  {
-    title: "Won't Run",
-    value: TaskStatus.Inactive,
-    key: TaskStatus.Inactive,
   },
 ];
