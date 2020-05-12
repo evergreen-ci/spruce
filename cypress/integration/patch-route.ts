@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
+// / <reference types="Cypress" />
+// / <reference path="../support/index.d.ts" />
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",

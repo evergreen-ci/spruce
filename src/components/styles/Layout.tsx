@@ -47,3 +47,11 @@ export const TableControlInnerRow = styled("div")`
 export const TableControlOuterRow = styled(TableControlInnerRow)`
   padding-bottom: 8px;
 `;
+
+export const PageButtonRow = styled.div`
+  > button {
+    margin-right: 24px;
+  }
+  display: flex;
+  padding-right: 40px;
+`;

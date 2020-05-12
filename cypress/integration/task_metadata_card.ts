@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
+// / <reference types="Cypress" />
+// / <reference path="../support/index.d.ts" />
 
 import get from "lodash/get";
 import { elementExistenceCheck } from "../utils";
@@ -9,7 +9,7 @@ const taskId =
 const taskRoute = `/task/${taskId}`;
 const taskRouteWithoutDependsOn = `/task/evergreen_ubuntu1604_test_migrations_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48`;
 
-describe("Task Metadata Card", function () {
+describe("Task Metadata Card", () => {
   before(() => {
     cy.login();
   });
@@ -21,8 +21,11 @@ describe("Task Metadata Card", function () {
 
   it("Should show an error message when navigating to a nonexistent task id", () => {
     cy.visit("task/not-real");
-    cy.get("[data-cy=metadata-card-error]").should("exist");
+    cy.dataCy("banner").contains(
+      "There was an error loading the task: GraphQL error"
+    );
   });
+
   it("Base commit link should have href", () => {
     cy.visit(taskRoute);
     cy.get("[data-cy=base-task-link]").should("have.attr", "href");
@@ -58,9 +61,8 @@ describe("Task Metadata Card", function () {
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
-    it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${
-      i + 1
-    })`, () => {
+    it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${i +
+      1})`, () => {
       cy.visit(route);
       const createTimePath = "responseBody.data.task.createTime";
       const startTimePath = "responseBody.data.task.startTime";

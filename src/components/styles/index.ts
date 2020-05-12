@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableControlInnerRow,
   TableControlOuterRow,
+  PageButtonRow,
 } from "./Layout";
 import { PageWrapper } from "./PageWrapper";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
@@ -29,4 +30,5 @@ export {
   TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
+  PageButtonRow,
 };

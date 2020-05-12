@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
@@ -38,10 +38,12 @@ describe("Tests Table", () => {
     });
   });
 
-  it("Should display No Data when given an invalid TaskID in the url", () => {
+  it("Should display error banner when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     cy.waitForGQL("GetTask");
-    cy.contains("No Data");
+    cy.dataCy("banner").contains(
+      "There was an error loading the task: GraphQL error:"
+    );
   });
 
   it("Should have sort buttons disabled when fetching data", () => {

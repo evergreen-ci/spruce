@@ -410,6 +410,11 @@ export type Task = {
   generatedBy?: Maybe<Scalars["String"]>;
   aborted?: Maybe<Scalars["Boolean"]>;
   baseTaskMetadata: BaseTaskMetadata;
+  canRestart: Scalars["Boolean"];
+  canAbort: Scalars["Boolean"];
+  canSchedule: Scalars["Boolean"];
+  canUnschedule: Scalars["Boolean"];
+  canSetPriority: Scalars["Boolean"];
 };
 
 export type TaskEndDetail = {
@@ -519,6 +524,12 @@ export type VariantTasks = {
   displayTasks: Array<DisplayTask>;
 };
 
+export type AbortTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type AbortTaskMutation = { abortTask: { id: string } };
+
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
   patchId: Scalars["String"];
@@ -527,6 +538,12 @@ export type RemovePatchFromCommitQueueMutationVariables = {
 export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
+
+export type RestartTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type RestartTaskMutation = { restartTask: { id: string } };
 
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
@@ -545,6 +562,27 @@ export type SchedulePatchMutation = {
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
 };
+
+export type ScheduleTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type ScheduleTaskMutation = { scheduleTask: { id: string } };
+
+export type SetTaskPriorityMutationVariables = {
+  taskId: Scalars["String"];
+  priority: Scalars["Int"];
+};
+
+export type SetTaskPriorityMutation = {
+  setTaskPriority: { id: string; priority?: Maybe<number> };
+};
+
+export type UnscheduleTaskMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
 
 export type CodeChangesQueryVariables = {
   id: Scalars["String"];
@@ -779,6 +817,12 @@ export type GetTaskQuery = {
     revision?: Maybe<string>;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
+    priority?: Maybe<number>;
+    canRestart: boolean;
+    canAbort: boolean;
+    canSchedule: boolean;
+    canUnschedule: boolean;
+    canSetPriority: boolean;
     baseTaskMetadata: {
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
