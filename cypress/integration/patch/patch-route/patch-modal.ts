@@ -55,9 +55,6 @@ describe("Restarting a patch", () => {
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("patch-restart-modal").should("not.be.be.visible");
     cy.dataCy("banner").should("exist");
-    cy.dataCy("banner").should(
-      "contain.text",
-      `Successfully restarted patch: ${patch.id}`
-    );
+    cy.dataCy("banner").should("contain.text", `Successfully restarted patch`);
   });
 });
