@@ -5,7 +5,7 @@ const patch = {
 };
 const path = `/patch/${patch.id}`;
 const allTasksSelectedConfirmationMessage =
-  "Are you sure you want to restart the 43 selected tasks?";
+  "Are you sure you want to restart the 42 selected tasks?";
 describe("Restarting a patch", () => {
   before(() => {
     cy.login();
@@ -52,6 +52,15 @@ describe("Restarting a patch", () => {
     );
   });
   it("Restarting a task should close the modal and display a success message if it occurs successfully", () => {
+    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
+    cy.get(".cy-checkbox")
+      .contains("All")
+      .as("target")
+      .click({ force: true });
+    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
+    cy.dataCy("task-status-checkbox")
+      .eq(1)
+      .click({ force: true });
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("patch-restart-modal").should("not.be.be.visible");
     cy.dataCy("banner").should("exist");
