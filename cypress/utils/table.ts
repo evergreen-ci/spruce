@@ -21,7 +21,6 @@ export const assertCountLabels = (
   dataCyTotalCount: string
 ) => {
   cy.get("@gqlQuery").then((xhr) => {
-    console.log(xhr);
     const filteredCount = get(xhr, filteredCountPath);
     const totalCount = get(xhr, totalCountPath);
     cy.dataCy(dataCyFilteredCount).contains(`${filteredCount}`);

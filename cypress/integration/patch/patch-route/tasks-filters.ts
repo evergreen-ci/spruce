@@ -1,4 +1,4 @@
-/// <reference types="Cypress" />
+// / <reference types="Cypress" />
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   urlSearchParamsAreUpdated,
@@ -76,7 +76,7 @@ const singularStatuses = [
 ];
 
 // TODO: refactor to not wait for / inspect gql query. Use defined data set and test against it.
-xdescribe("Tasks filters", function() {
+xdescribe("Tasks filters", () => {
   before(() => {
     cy.login();
   });

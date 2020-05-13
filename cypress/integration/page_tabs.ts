@@ -1,5 +1,5 @@
-import { elementExistenceCheck } from "../utils";
 import get from "lodash/get";
+import { elementExistenceCheck } from "../utils";
 
 const patchId = "5e4ff3abe3c3317e352062e4";
 const patchRoute = `/patch/${patchId}`;
