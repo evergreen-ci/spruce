@@ -4,9 +4,8 @@ import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
-import { Radio } from "antd";
 import { Notifications } from "gql/generated/types";
-import { notificationFields } from "./fieldMaps";
+import { NotificationField } from "./NotificationField";
 
 interface ProfileTabProps {
   slackUsername?: string;
@@ -74,41 +73,6 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
   );
 };
 
-interface NotificationFieldProps {
-  notification: string;
-  notificationStatus: Notifications;
-  index: number;
-  setNotificationStatus: (e) => void;
-}
-const NotificationField: React.FC<NotificationFieldProps> = ({
-  notification,
-  setNotificationStatus,
-  notificationStatus,
-  index,
-}) => (
-  <GridCapableRadioGroup
-    onChange={(e) => {
-      setNotificationStatus({
-        ...notificationStatus,
-        [notification]: e.target.value,
-      });
-    }}
-    value={notificationStatus[notification]}
-  >
-    <GridField gridArea={`${2 + index}/ 1 / ${2 + index} / 3`}>
-      {notificationFields[notification]}
-    </GridField>
-    <GridField gridArea={`${2 + index} / 3 / ${2 + index} / 4`}>
-      <Radio value="slack" />
-    </GridField>
-    <GridField gridArea={`${2 + index} / 4 / ${2 + index} / 5`}>
-      <Radio value="email" />
-    </GridField>
-    <GridField gridArea={`${2 + index} / 5 / ${2 + index} / 6`}>
-      <Radio value="" />
-    </GridField>
-  </GridCapableRadioGroup>
-);
 const handleFieldUpdate = (stateUpdate) => (e) => {
   if (typeof e === "string") {
     stateUpdate(e); // Antd select just passes in the value string instead of an event
@@ -117,9 +81,6 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
   }
 };
 
-const GridCapableRadioGroup = styled(Radio.Group)`
-  display: contents;
-`;
 const GridContainer = styled.div`
   display: grid;
   grid-template-columns: 2fr repeat(3, 1fr);
