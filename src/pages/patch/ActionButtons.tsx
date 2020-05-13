@@ -7,7 +7,7 @@ import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
 import { PageButtonRow } from "components/styles";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
-import { PatchModal } from "pages/patch/index";
+import { PatchRestartModal } from "pages/patch/index";
 
 interface Props {
   initialPriority?: number;
@@ -136,7 +136,7 @@ export const ActionButtons = ({
           loading={false}
         />
       </PageButtonRow>
-      <PatchModal
+      <PatchRestartModal
         visible={openModal}
         onOk={() => setOpenModal(false)}
         onCancel={() => setOpenModal(false)}

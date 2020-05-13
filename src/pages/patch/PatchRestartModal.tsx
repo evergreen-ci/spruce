@@ -20,7 +20,7 @@ import {
 import { usePatchStatusSelect } from "hooks";
 import { useBannerDispatchContext } from "context/banners";
 import { TaskStatus } from "types/task";
-import { PatchBuildVariantAccordian } from "pages/patch/patchModal/index";
+import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
 
 const { gray } = uiColors;
 
@@ -29,7 +29,7 @@ interface PatchModalProps {
   onOk: () => void;
   onCancel: () => void;
 }
-export const PatchModal: React.FC<PatchModalProps> = ({
+export const PatchRestartModal: React.FC<PatchModalProps> = ({
   visible,
   onOk,
   onCancel,
@@ -103,7 +103,7 @@ export const PatchModal: React.FC<PatchModalProps> = ({
       ]}
       width="50%"
       wrapProps={{
-        "data-cy": "patch-modal",
+        "data-cy": "patch-restart-modal",
       }}
     >
       {!loading && patchBuildVariants && (

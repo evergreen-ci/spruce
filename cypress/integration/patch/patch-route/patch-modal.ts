@@ -17,9 +17,9 @@ describe("Restarting a patch", () => {
 
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
-    cy.dataCy("patch-modal").should("not.be.visible");
+    cy.dataCy("patch-restart-modal").should("not.be.visible");
     cy.dataCy("restart-patch").click();
-    cy.dataCy("patch-modal").should("be.be.visible");
+    cy.dataCy("patch-restart-modal").should("be.be.visible");
   });
 
   it("Clicking on a variant should toggle an accordian drop down of tasks", () => {
@@ -46,14 +46,14 @@ describe("Restarting a patch", () => {
 
     // ideally this would target the text field itself but leafygreen Body tags dont
     // support cy-data elements currently
-    cy.dataCy("patch-modal").should(
+    cy.dataCy("patch-restart-modal").should(
       "contain.text",
       allTasksSelectedConfirmationMessage
     );
   });
   it("Restarting a task should close the modal and display a success message if it occurs successfully", () => {
     cy.dataCy("restart-patch-button").click();
-    cy.dataCy("patch-modal").should("not.be.be.visible");
+    cy.dataCy("patch-restart-modal").should("not.be.be.visible");
     cy.dataCy("banner").should("exist");
     cy.dataCy("banner").should(
       "contain.text",
