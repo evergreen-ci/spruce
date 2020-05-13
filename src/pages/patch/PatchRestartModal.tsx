@@ -34,11 +34,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   onOk,
   onCancel,
 }) => {
-  const {
-    successBanner,
-    errorBanner,
-    clearAllBanners,
-  } = useBannerDispatchContext();
+  const dispatchBanner = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
     false
@@ -49,11 +45,13 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   >(RESTART_PATCH, {
     onCompleted: () => {
       onOk();
-      successBanner(`Successfully restarted patch!`);
+      dispatchBanner.successBanner(`Successfully restarted patch!`);
     },
     onError: (err) => {
       onOk();
-      errorBanner(`Error while restarting patch: '${err.message}'`);
+      dispatchBanner.errorBanner(
+        `Error while restarting patch: '${err.message}'`
+      );
     },
   });
   const { data, loading } = useQuery<
@@ -71,7 +69,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
 
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
-    clearAllBanners();
+    dispatchBanner.clearAllBanners();
     try {
       await restartPatch({
         variables: {
