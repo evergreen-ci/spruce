@@ -155,7 +155,7 @@ const ConfirmationMessage = styled(Body)`
 
 const statusesTreeData = [
   {
-    title: "All",
+    title: "Select All",
     value: "all",
     key: "all",
   },
