@@ -155,24 +155,35 @@ const ConfirmationMessage = styled(Body)`
 
 const statusesTreeData = [
   {
-    title: "Select All",
+    title: "Select All Tasks",
     value: "all",
     key: "all",
   },
-
   {
-    title: "Task Failures",
-    value: TaskStatus.Failed,
-    key: TaskStatus.Failed,
+    title: "Select All Successful tasks",
+    value: TaskStatus.Succeeded,
+    key: TaskStatus.Succeeded,
   },
   {
-    title: "System Failures",
-    value: TaskStatus.SystemFailed,
-    key: TaskStatus.SystemFailed,
-  },
-  {
-    title: "Setup Failures",
-    value: TaskStatus.SetupFailed,
-    key: TaskStatus.SetupFailed,
+    title: "Select All Failures",
+    value: "all-failures",
+    key: "all-failures",
+    children: [
+      {
+        title: "Task Failures",
+        value: TaskStatus.Failed,
+        key: TaskStatus.Failed,
+      },
+      {
+        title: "System Failures",
+        value: TaskStatus.SystemFailed,
+        key: TaskStatus.SystemFailed,
+      },
+      {
+        title: "Setup Failures",
+        value: TaskStatus.SetupFailed,
+        key: TaskStatus.SetupFailed,
+      },
+    ],
   },
 ];
