@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import Icon from "@leafygreen-ui/icon";
 import { ModuleCodeChange } from "gql/generated/types";
 import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
+import { Accordian } from "components/Accordian";
 
 const totalFileDiffs = (
   fileDiffs
@@ -22,27 +22,21 @@ export const CodeChangeModule: React.FC<{
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
   const { additions, deletions } = totalFileDiffs(fileDiffs);
-  const [toggleAccordian, setToggleAccordian] = useState(false);
-  const toggleAccordianHandler = (): void =>
-    setToggleAccordian(!toggleAccordian);
+  const AccordianTitle = () => (
+    <DropDownText>
+      <DropDownTextStyle>Total Code changes</DropDownTextStyle>
+      <span>
+        <FileDiffText value={additions} type="+" />
+        <FileDiffText value={deletions} type="-" />
+      </span>
+    </DropDownText>
+  );
   return (
     <CodeChangeModuleContainer>
-      <AccordianToggle
-        data-cy="accordian-toggle"
-        onClick={toggleAccordianHandler}
-      >
-        <Icon glyph={toggleAccordian ? "CaretDown" : "CaretRight"} />
-        <DropDownText>
-          <DropDownTextStyle>Total Code changes</DropDownTextStyle>
-          <span>
-            <FileDiffText value={additions} type="+" />
-            <FileDiffText value={deletions} type="-" />
-          </span>
-        </DropDownText>
-      </AccordianToggle>
-      <AnimatedAccordian hide={!toggleAccordian}>
-        <CodeChangesTable fileDiffs={fileDiffs} showHeader={false} />
-      </AnimatedAccordian>
+      <Accordian
+        title={<AccordianTitle />}
+        contents={<CodeChangesTable fileDiffs={fileDiffs} showHeader={false} />}
+      />
     </CodeChangeModuleContainer>
   );
 };
@@ -52,19 +46,6 @@ const CodeChangeModuleContainer = styled.div`
   :last-child {
     margin-bottom: 32px;
   }
-`;
-const AccordianToggle = styled.span`
-  :hover {
-    cursor: pointer;
-  }
-`;
-const AnimatedAccordian = styled.div`
-  max-height: 0;
-  /* This is used to calculate a fixed height for the accordian since height
-     transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }): string => !props.hide && "1500px"};
-  overflow-y: hidden;
-  transition: max-height 0.3s ease-in-out;
 `;
 
 const DropDownTextStyle = styled("span")`

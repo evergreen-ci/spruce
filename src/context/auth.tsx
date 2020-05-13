@@ -25,6 +25,14 @@ interface DispatchContext {
 }
 
 const reducer = (state: State, action: Action): State => {
+  // check to see if the authenticate state has changed otherwise dont update the reducer
+  if (
+    state.isAuthenticated &&
+    !state.initialLoad &&
+    action.type === "authenticate"
+  ) {
+    return state;
+  }
   switch (action.type) {
     case "authenticate":
       return {

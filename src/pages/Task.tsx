@@ -60,7 +60,7 @@ const TaskCore: React.FC = () => {
     variables: { taskId: id },
     pollInterval: 2000,
     onError: (err) =>
-      dispatchBanner.error(
+      dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
   });
@@ -86,14 +86,20 @@ const TaskCore: React.FC = () => {
   if (error) {
     return (
       <PageWrapper>
-        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+        <Banners
+          banners={bannersState}
+          removeBanner={dispatchBanner.removeBanner}
+        />
       </PageWrapper>
     );
   }
 
   return (
     <PageWrapper>
-      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       {task && (
         <BreadCrumb
           taskName={displayName}

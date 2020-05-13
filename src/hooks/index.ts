@@ -5,6 +5,7 @@ import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfL
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { useStatusesFilter } from "hooks/useStatusesFilter";
+import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -21,4 +22,5 @@ export {
   useOnClickOutside,
   useFilterInputChangeHandler,
   useStatusesFilter,
+  usePatchStatusSelect,
 };
