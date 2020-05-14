@@ -26,7 +26,7 @@ functions:
     params:
       directory: spruce
       revisions:
-        evergreen: d18efcd1d34073067d43dc94f6f603d30c8744df
+        evergreen: ${evergreen_rev}
 
   setup-mongodb:
     - command: subprocess.exec
