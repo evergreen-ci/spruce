@@ -18,7 +18,6 @@ import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
-import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Skeleton } from "antd";
 import { Pagination } from "components/Pagination";
@@ -34,6 +33,7 @@ import {
 } from "components/styles";
 import { ColumnProps } from "antd/es/table";
 import { Table } from "antd";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 const arrayFormat = "comma";
 
@@ -109,7 +109,7 @@ export const TestsTableCore: React.FC = () => {
 
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-  const isLoading = networkStatus < NetworkStatus.ready;
+  const isLoading = isNetworkRequestInFlight(networkStatus);
   return (
     <>
       <TableControlOuterRow>

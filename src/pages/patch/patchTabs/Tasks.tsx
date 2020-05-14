@@ -23,8 +23,8 @@ import {
 } from "components/styles";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { NetworkStatus } from "apollo-client";
 import { Skeleton } from "antd";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 interface Props {
   taskCount: number;
@@ -75,7 +75,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     return <div>{error.message}</div>;
   }
   const { limit, page } = getQueryVariables(search);
-  const isLoading = networkStatus < NetworkStatus.ready;
+  const isLoading = isNetworkRequestInFlight(networkStatus);
   return (
     <ErrorBoundary>
       <TaskFilters />

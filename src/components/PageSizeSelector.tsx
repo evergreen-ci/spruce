@@ -10,7 +10,7 @@ interface Props {
   dataTestId?: string;
 }
 
-export const PageSizeSelector = ({ value, dataTestId }: Props) => {
+export const PageSizeSelector: React.FC<Props> = ({ value, dataTestId }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
