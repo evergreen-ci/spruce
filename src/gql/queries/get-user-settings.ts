@@ -7,12 +7,12 @@ export const GET_USER_SETTINGS = gql`
       region
       slackUsername
       notifications {
-        patchFinish
-        patchFirstFailure
-        spawnHostOutcome
-        spawnHostExpiration
         buildBreak
         commitQueue
+        patchFinish
+        patchFirstFailure
+        spawnHostExpiration
+        spawnHostOutcome
       }
       githubUser {
         lastKnownAs

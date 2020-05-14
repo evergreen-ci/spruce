@@ -109,6 +109,9 @@ export type Mutation = {
   removeFavoriteProject: Project;
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
+  unschedulePatchTasks?: Maybe<Scalars["String"]>;
+  restartPatch?: Maybe<Scalars["String"]>;
+  setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
   abortTask: Task;
@@ -116,7 +119,6 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
-  restartPatch?: Maybe<Scalars["String"]>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -134,6 +136,22 @@ export type MutationSchedulePatchArgs = {
 
 export type MutationSchedulePatchTasksArgs = {
   patchId: Scalars["String"];
+};
+
+export type MutationUnschedulePatchTasksArgs = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+};
+
+export type MutationRestartPatchArgs = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+  taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationSetPatchPriorityArgs = {
+  patchId: Scalars["String"];
+  priority: Scalars["Int"];
 };
 
 export type MutationScheduleTaskArgs = {
@@ -163,10 +181,6 @@ export type MutationSaveSubscriptionArgs = {
 
 export type MutationRemovePatchFromCommitQueueArgs = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
-};
-
-export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
 };
 
@@ -544,6 +558,14 @@ export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
 
+export type RestartPatchMutationVariables = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+  taskIds: Array<Scalars["String"]>;
+};
+
+export type RestartPatchMutation = { restartPatch?: Maybe<string> };
+
 export type RestartTaskMutationVariables = {
   taskId: Scalars["String"];
 };
@@ -851,12 +873,12 @@ export type GetUserSettingsQuery = {
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
     notifications?: Maybe<{
-      patchFinish?: Maybe<string>;
-      patchFirstFailure?: Maybe<string>;
-      spawnHostOutcome?: Maybe<string>;
-      spawnHostExpiration?: Maybe<string>;
       buildBreak?: Maybe<string>;
       commitQueue?: Maybe<string>;
+      patchFinish?: Maybe<string>;
+      patchFirstFailure?: Maybe<string>;
+      spawnHostExpiration?: Maybe<string>;
+      spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
   }>;
