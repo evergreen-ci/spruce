@@ -34,11 +34,11 @@ export const PageTitle = styled(H2)`
   margin-bottom: 16px;
 `;
 
-export const TableContainer = styled("div")`
+export const TableContainer = styled.div`
   ${(props: { hide: boolean }): string => props.hide && "display:none;"}
 `;
 
-export const TableControlInnerRow = styled("div")`
+export const TableControlInnerRow = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
