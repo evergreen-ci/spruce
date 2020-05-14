@@ -50,7 +50,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --watchAll=false",
+    "test": "react-scripts test  --transformIgnorePatterns \"node_modules/(?!antd)/\" --watchAll=false",
     "test:watch": "react-scripts test --verbose",
     "eject": "react-scripts eject",
     "build:staging": "env-cmd -e staging -r config/.cmdrc.json npm run build",
