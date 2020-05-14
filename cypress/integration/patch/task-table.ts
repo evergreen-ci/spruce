@@ -72,7 +72,7 @@ describe("Task table", () => {
     });
   });
 
-  describe("Changing page number and size", () => {
+  describe("Changing page number", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
@@ -116,14 +116,16 @@ describe("Task table", () => {
     });
   });
 
-  it("Updates URL and the number of results displayed is less than or equal to the selected page size", () => {
-    cy.wrap([20, 10, 50, 100]).each((pageSize) => {
-      clickOnPageSizeBtnAndAssertURLandTableSize(
-        pageSize,
-        "[data-test-id=tasks-table-page-size-selector]",
-        `[data-test-id=tasks-table-page-size-selector-${pageSize}]`,
-        dataCyTableRows
-      );
+  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    [20, 10, 50, 100].forEach((pageSize) => {
+      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+        clickOnPageSizeBtnAndAssertURLandTableSize(
+          pageSize,
+          "[data-test-id=tasks-table-page-size-selector]",
+          `[data-test-id=tasks-table-page-size-selector-${pageSize}]`,
+          dataCyTableRows
+        );
+      });
     });
   });
 });
