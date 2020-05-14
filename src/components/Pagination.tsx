@@ -1,7 +1,6 @@
 import React from "react";
 import { Pagination as AntPagination } from "antd";
-import { useHistory, useLocation } from "react-router-dom";
-import queryString from "query-string";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 
 interface Props {
   totalResults: number;
@@ -16,19 +15,7 @@ export const Pagination: React.FC<Props> = ({
   pageSize,
   dataTestId,
 }) => {
-  const { replace } = useHistory();
-  const { search, pathname } = useLocation();
-  const setPage = (page: number) =>
-    replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          page,
-        },
-        { arrayFormat }
-      )}`
-    );
-
+  const updateQueryParams = useUpdateURLQueryParams();
   return (
     <AntPagination
       data-test-id={dataTestId}
@@ -36,9 +23,7 @@ export const Pagination: React.FC<Props> = ({
       pageSize={pageSize}
       current={value + 1}
       total={totalResults}
-      onChange={(p) => setPage(p - 1)}
+      onChange={(p) => updateQueryParams({ page: `${p - 1}` })}
     />
   );
 };
-
-const arrayFormat = "comma";
