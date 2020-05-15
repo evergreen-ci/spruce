@@ -62,18 +62,17 @@ describe("Patch route", () => {
     beforeEach(() => {
       cy.listenGQL();
       cy.preserveCookies();
+      cy.visit(path);
       cy.waitForGQL("PatchBuildVariants");
     });
 
     it("Lists the patch's build variants", () => {
-      cy.visit(path);
       cy.get(".patch-build-variant").within(
         ($variants) => Array.from($variants).length > 0
       );
     });
 
     it("Shows tooltip with task's name on hover", () => {
-      cy.visit(path);
       cy.get(".task-square")
         .first()
         .trigger("mouseover");
@@ -81,7 +80,6 @@ describe("Patch route", () => {
     });
 
     it("Navigates to task page from clicking task square", () => {
-      cy.visit(path);
       cy.get(".task-square")
         .should("have.attr", "href")
         .and("include", "/task");
