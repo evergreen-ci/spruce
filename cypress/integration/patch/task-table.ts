@@ -1,5 +1,5 @@
-/// <reference types="Cypress" />
-/// <reference path="../support/index.d.ts" />
+// /<reference types="Cypress" />
+// /<reference path="../support/index.d.ts" />
 
 import {
   clickOnPageBtnAndAssertURLandTableResults,
