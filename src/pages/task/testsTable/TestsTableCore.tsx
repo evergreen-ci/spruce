@@ -1,8 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { ColumnProps } from "antd/es/table";
-import { InfinityTable } from "antd-table-infinity";
 import { msToDuration } from "utils/string";
-import { loader } from "components/Loading/Loader";
 import Button from "@leafygreen-ui/button";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import {
@@ -21,11 +18,22 @@ import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
-import { NetworkStatus } from "apollo-client";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { Skeleton } from "antd";
+import { Pagination } from "components/Pagination";
+import {
+  PageSizeSelector,
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+} from "components/PageSizeSelector";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "components/styles";
+import { ColumnProps } from "antd/es/table";
+import { Table, Skeleton } from "antd";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
-const LIMIT = 10;
 const arrayFormat = "comma";
 
 export interface UpdateQueryArg {
@@ -38,7 +46,6 @@ export const TestsTableCore: React.FC = () => {
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
     id,
-    pageNum: 0,
     ...getQueryVariables(search),
   });
 
@@ -58,10 +65,7 @@ export const TestsTableCore: React.FC = () => {
       listen(async (loc) => {
         try {
           await fetchMore({
-            variables: {
-              pageNum: 0,
-              ...getQueryVariables(loc.search),
-            },
+            variables: getQueryVariables(loc.search),
             updateQuery: (
               prev: UpdateQueryArg,
               { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
@@ -79,86 +83,66 @@ export const TestsTableCore: React.FC = () => {
     [networkStatus, error, fetchMore, listen]
   );
 
-  if (!data && networkStatus < NetworkStatus.ready) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  }
-
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
 
-  // this fetch is the callback for pagination
-  // that's why we see pageNum calculations
-  const onFetch = (): void => {
-    if (networkStatus === NetworkStatus.error || error) {
-      return;
-    }
-    const pageNum = dataSource.length / LIMIT;
-    if (pageNum % 1 !== 0) {
-      return;
-    }
-    fetchMore({
-      variables: {
-        pageNum,
-        ...getQueryVariables(search),
+  const tableChangeHandler: TableOnChange<TestResult> = (
+    ...[, , { order, columnKey }]
+  ) => {
+    const nextQueryParams = queryString.stringify(
+      {
+        ...queryString.parse(search, { arrayFormat }),
+        [RequiredQueryParams.Category]: columnKey,
+        [RequiredQueryParams.Sort]:
+          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+        [RequiredQueryParams.Page]: "0",
       },
-      updateQuery: (
-        prev: UpdateQueryArg,
-        { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        const testResults = [
-          ...prev.taskTests.testResults,
-          ...fetchMoreResult.taskTests.testResults,
-        ];
-        return testResults;
-      },
-    });
-  };
-
-  const onChange: TableOnChange<TaskTestsQuery> = (...[, , sorter]) => {
-    const parsedSearch = queryString.parse(search);
-    const { order, columnKey } = sorter;
-    parsedSearch[RequiredQueryParams.Category] = columnKey;
-    parsedSearch[RequiredQueryParams.Sort] =
-      order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
-    const nextQueryParams = queryString.stringify(parsedSearch, {
-      arrayFormat,
-    });
-
+      { arrayFormat }
+    );
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
 
   // initial table sort button state to reflect initial URL query params
-  const { cat, dir } = getQueryVariables(search);
+  const { cat, dir, pageNum, limitNum } = getQueryVariables(search);
+
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-  const filteredTestCount = get(data, "taskTests.filteredTestCount", "-");
-  const totalTestCount = get(data, "taskTests.totalTestCount", "-");
+  const isLoading = isNetworkRequestInFlight(networkStatus);
   return (
     <>
-      <ResultCountLabel
-        dataCyNumerator="filtered-test-count"
-        dataCyDenominator="total-test-count"
-        label="tests"
-        numerator={filteredTestCount}
-        denominator={totalTestCount}
-      />
-      <InfinityTable
-        key="key"
-        loading={networkStatus < NetworkStatus.ready}
-        onFetch={onFetch}
-        pageSize={10000}
-        loadingIndicator={loader}
-        columns={columns}
-        scroll={{ y: 350 }}
-        dataSource={dataSource}
-        onChange={onChange}
-        export
-        rowKey={rowKey}
-      />
+      <TableControlOuterRow>
+        <ResultCountLabel
+          dataCyNumerator="filtered-test-count"
+          dataCyDenominator="total-test-count"
+          label="tests"
+          numerator={get(data, "taskTests.filteredTestCount", "-")}
+          denominator={get(data, "taskTests.totalTestCount", "-")}
+        />
+        <TableControlInnerRow>
+          <Pagination
+            pageSize={limitNum}
+            value={pageNum}
+            totalResults={get(data, "taskTests.filteredTestCount", 0)}
+            dataTestId="tests-table-pagination"
+          />
+          <PageSizeSelector
+            dataTestId="tests-table-page-size-selector"
+            value={limitNum}
+          />
+        </TableControlInnerRow>
+      </TableControlOuterRow>
+      <TableContainer hide={isLoading}>
+        <Table
+          data-test-id="tests-table"
+          rowKey={rowKey}
+          pagination={false}
+          columns={columns}
+          dataSource={dataSource}
+          onChange={tableChangeHandler}
+        />
+      </TableContainer>
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
     </>
   );
 };
@@ -175,7 +159,7 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: Array<ColumnProps<TaskTestsQuery>> = [
+const columns: ColumnProps<TestResult>[] = [
   {
     title: "Name",
     dataIndex: "testFile",
@@ -256,7 +240,7 @@ const columns: Array<ColumnProps<TaskTestsQuery>> = [
 export const rowKey = ({ id }: { id: string }): string => id;
 
 const ButtonWrapper = styled("span")`
-  margin-right: 8;
+  margin-right: 8px;
 `;
 
 const getQueryVariables = (
@@ -267,6 +251,7 @@ const getQueryVariables = (
   limitNum: number;
   statusList: string[];
   testName: string;
+  pageNum: number;
 } => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
@@ -278,7 +263,14 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-
+  const page = parseInt(
+    (parsed[RequiredQueryParams.Page] || "").toString(),
+    10
+  );
+  const limit = parseInt(
+    (parsed[RequiredQueryParams.Limit] || "").toString(),
+    10
+  );
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
   const dir =
@@ -291,8 +283,12 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum: LIMIT,
+    limitNum:
+      !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
+        ? limit
+        : DEFAULT_PAGE_SIZE,
     statusList,
     testName,
+    pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,
   };
 };

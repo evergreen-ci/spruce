@@ -873,12 +873,12 @@ export type GetUserSettingsQuery = {
     region?: Maybe<string>;
     slackUsername?: Maybe<string>;
     notifications?: Maybe<{
-      patchFinish?: Maybe<string>;
-      patchFirstFailure?: Maybe<string>;
-      spawnHostOutcome?: Maybe<string>;
-      spawnHostExpiration?: Maybe<string>;
       buildBreak?: Maybe<string>;
       commitQueue?: Maybe<string>;
+      patchFinish?: Maybe<string>;
+      patchFirstFailure?: Maybe<string>;
+      spawnHostExpiration?: Maybe<string>;
+      spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
   }>;

@@ -11,12 +11,14 @@ const updateQueryParam = debounce(
     inputValue: string,
     search: string,
     replace: (path: string) => void,
-    pathname: string
+    pathname: string,
+    resetPage?: boolean
   ) => {
     const nextQueryParams = queryString.stringify(
       {
         ...queryString.parse(search, { arrayFormat }),
         [urlSearchParam]: inputValue === "" ? undefined : inputValue,
+        ...(resetPage && { page: 0 }),
       },
       { arrayFormat }
     );
@@ -34,12 +36,14 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
  * @param  {string} pathname url pathname
  * @param  {string} search url search
  * @param  {(path:string)=>void} replace method from react router to update ur
+ * @param {boolean} resetPage update url page param to 0 if true
  * @return {[string, (e: InputEvent) => void]}
  * pass {string} return value to input component as `value`
  * pass {(e: InputEvent) => void} return value to input component as onChange prop
  */
 export const useFilterInputChangeHandler = (
-  urlSearchParam: string
+  urlSearchParam: string,
+  resetPage?: boolean
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
@@ -50,7 +54,14 @@ export const useFilterInputChangeHandler = (
 
   const onChange = (e: InputEvent): void => {
     setValue(e.target.value);
-    updateQueryParam(urlSearchParam, e.target.value, search, replace, pathname);
+    updateQueryParam(
+      urlSearchParam,
+      e.target.value,
+      search,
+      replace,
+      pathname,
+      resetPage
+    );
   };
   return [value, onChange];
 };
