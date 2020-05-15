@@ -76,7 +76,7 @@ const singularStatuses = [
 ];
 
 // TODO: refactor to not wait for / inspect gql query. Use defined data set and test against it.
-describe("Tasks filters", () => {
+xdescribe("Tasks filters", () => {
   before(() => {
     cy.login();
   });
