@@ -92,7 +92,7 @@ describe("Tasks filters", () => {
     const urlParam = "variant";
 
     // TODO: fix. have identified this test as flakey
-    it("Updates url with input value and fetches tasks filtered by variant", () => {
+    xit("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
@@ -119,6 +119,16 @@ describe("Tasks filters", () => {
   });
 
   describe("Task name input field", () => {
+    before(() => {
+      cy.login();
+    });
+
+    beforeEach(() => {
+      cy.listenGQL();
+      cy.preserveCookies();
+      cy.visit(pathTasks);
+    });
+
     const taskNameInputValue = "test-cloud";
     const urlParam = "taskName";
 
