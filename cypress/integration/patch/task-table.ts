@@ -156,12 +156,12 @@ const secondPageDisplayNames = [
   "test-model-event",
 ];
 const fourthPageDisplayNames = [
-  "test-thirdparty-docker",
   "test-thirdparty",
   "test-trigger",
   "test-units",
   "test-util",
   "test-validator",
+  "test-model",
   "test-model-2",
 ];
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
