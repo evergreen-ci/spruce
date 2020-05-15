@@ -137,14 +137,13 @@ const firstPageDisplayNames = [
   "test-service",
   "test-thirdparty",
   "test-thirdparty",
-  "test-model",
   "generate-lint",
   "js-test",
   "test-agent",
   "test-auth",
+  "test-command",
 ];
 const secondPageDisplayNames = [
-  "test-command",
   "test-db",
   "test-evergreen",
   "test-graphql",
@@ -154,6 +153,7 @@ const secondPageDisplayNames = [
   "test-model-build",
   "test-model-commitqueue",
   "test-model-distro",
+  "test-model-event",
 ];
 const fourthPageDisplayNames = [
   "test-thirdparty-docker",
