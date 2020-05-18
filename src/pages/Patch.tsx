@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
+import { ActionButtons } from "pages/patch/index";
 import {
   PageWrapper,
   PageContent,
@@ -15,7 +16,6 @@ import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import get from "lodash/get";
 import { Metadata } from "pages/patch/Metadata";
-
 import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
@@ -37,7 +37,7 @@ const PatchCore: React.FC = () => {
     variables: { id },
     pollInterval: 5000,
     onError: (e) =>
-      dispatchBanner.error(
+      dispatchBanner.errorBanner(
         `There was an error loading the patch: ${e.message}`
       ),
   });
@@ -52,19 +52,35 @@ const PatchCore: React.FC = () => {
   if (error) {
     return (
       <PageWrapper>
-        <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+        <Banners
+          banners={bannersState}
+          removeBanner={dispatchBanner.removeBanner}
+        />
       </PageWrapper>
     );
   }
   return (
     <PageWrapper data-cy="patch-page">
-      <Banners banners={bannersState} removeBanner={dispatchBanner.remove} />
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
       <PageTitle
         loading={loading}
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
+        buttons={
+          <ActionButtons
+            canAbort
+            canRestart
+            canSchedule
+            canUnschedule
+            canSetPriority
+            initialPriority={1}
+          />
+        }
       />
       <PageLayout>
         <PageSider>

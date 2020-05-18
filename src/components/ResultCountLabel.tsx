@@ -1,4 +1,5 @@
 import React from "react";
+import styled from "@emotion/styled";
 import { P2 } from "./Typography";
 
 interface Props {
@@ -15,9 +16,14 @@ export const ResultCountLabel: React.FC<Props> = ({
   dataCyDenominator,
   label,
 }) => (
-  <P2>
+  <StyledP2>
     <span data-cy={dataCyNumerator}>{numerator}</span>/
     <span data-cy={dataCyDenominator}>{denominator}</span>
     <span> {label}</span>
-  </P2>
+  </StyledP2>
 );
+
+const StyledP2 = styled(P2)`
+  position: relative;
+  top: 5px;
+`;

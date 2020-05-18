@@ -4,6 +4,9 @@ import {
   PageLayout,
   PageSider,
   PageTitle,
+  TableContainer,
+  TableControlInnerRow,
+  TableControlOuterRow,
   PageButtonRow,
 } from "./Layout";
 import { PageWrapper } from "./PageWrapper";
@@ -24,5 +27,8 @@ export {
   FiltersWrapper,
   StyledInput,
   PageTitle,
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
   PageButtonRow,
 };

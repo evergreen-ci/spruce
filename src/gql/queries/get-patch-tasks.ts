@@ -1,8 +1,5 @@
 import gql from "graphql-tag";
 
-export const PATCH_TASKS_LIMIT = 10;
-// When updating this limit be sure to update the limit field in the query
-
 export const GET_PATCH_TASKS = gql`
   query PatchTasks(
     $patchId: String!

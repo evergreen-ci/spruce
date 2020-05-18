@@ -3,12 +3,15 @@ import { useLocation, useHistory } from "react-router-dom";
 
 /**
  * @param  {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
+ * @param {boolean} page reset url page param to 0 if true
+ * @param {boolean} resetPage update url page param to 0 if true
  * @return {[string[], (newValue: string[]) => void]}
  * pass first value in return array to `value` prop of dropdown component
  * pass second value in return array to `onChange` prop of dropdown component
  */
 export const useStatusesFilter = (
-  urlParam: string
+  urlParam: string,
+  resetPage?: boolean
 ): [string[], (newValue: string[]) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
@@ -19,6 +22,7 @@ export const useStatusesFilter = (
       {
         ...parsed,
         [urlParam]: newValue,
+        ...(resetPage && { page: 0 }),
       },
       { arrayFormat }
     );

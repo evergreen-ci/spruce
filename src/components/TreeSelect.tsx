@@ -6,6 +6,8 @@ import { useOnClickOutside } from "hooks/useOnClickOutside";
 import Icon from "@leafygreen-ui/icon";
 import { usePrevious } from "hooks";
 
+const { gray, white } = uiColors;
+
 const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
@@ -310,7 +312,11 @@ const renderCheckboxesHelper = ({
 
 const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
-  padding-bottom: 8px;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  :first-child {
+    border-bottom: 1px solid ${gray.light2};
+  }
 `;
 const LabelWrapper = styled.div`
   white-space: nowrap;
@@ -318,7 +324,7 @@ const LabelWrapper = styled.div`
   text-overflow: ellipsis;
 `;
 const BarWrapper = styled.div`
-  border: 1px solid ${uiColors.gray.light1};
+  border: 1px solid ${gray.light1};
   border-radius: 3px;
   padding: 8px;
   cursor: pointer;
@@ -330,8 +336,8 @@ const BarWrapper = styled.div`
 `;
 const OptionsWrapper = styled.div`
   border-radius: 5px;
-  background-color: ${uiColors.white};
-  border: 1px solid ${uiColors.gray.light1};
+  background-color: ${white};
+  border: 1px solid ${gray.light1};
   padding: 8px;
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
@@ -342,7 +348,7 @@ const OptionsWrapper = styled.div`
   overflow: hidden;
 `;
 const ArrowWrapper = styled.span`
-  border-left: 1px solid ${uiColors.gray.light1};
+  border-left: 1px solid ${gray.light1};
   padding-left: 5px;
   > div {
     position: relative;

@@ -1,5 +1,5 @@
-import { waitForGQL } from "./networking";
 import get from "lodash/get";
+import { waitForGQL } from "./networking";
 
 // used to test status and base status dropdown filters
 export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
@@ -104,4 +104,43 @@ export const elementExistenceCheck = (
   }
   el.should(doesNotExist);
   return false;
+};
+
+/**
+ * Asserts Page url query param and table row names after clicking on a pagination button
+ * @param dataCyPageBtn data-cy for next/prev page button from the pagination component
+ * @param tableDisplayNames ordered list of names that should occur in table rows
+ * @param pageQueryParamValue page query param value that is present after clicking the next/prev page button
+ */
+export const clickOnPageBtnAndAssertURLandTableResults = (
+  dataCyPageBtn,
+  tableDisplayNames,
+  pageQueryParamValue,
+  dataCyTableRows
+) => {
+  cy.get(dataCyPageBtn).click();
+  cy.wait(200);
+  cy.get(dataCyTableRows).each(($el, index) => {
+    cy.wrap($el).contains(tableDisplayNames[index]);
+  });
+  cy.location("search").should("include", `page=${pageQueryParamValue}`);
+};
+
+/**
+ * Assert limit query param and table length after clicking on a page size button
+ * @param pageSize new page size
+ * @param dataCyPageSizeSelectorToggle data-cy for page size dropdown toggle
+ * @param dataCyPageSizeBtn data-cy for page size button to select page size
+ * @param dataCyTableRows dat-cy for table rows
+ */
+export const clickOnPageSizeBtnAndAssertURLandTableSize = (
+  pageSize,
+  dataCyPageSizeSelectorToggle,
+  dataCyPageSizeBtn,
+  dataCyTableRows
+) => {
+  cy.get(dataCyPageSizeSelectorToggle).click();
+  cy.get(dataCyPageSizeBtn).click();
+  cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
+  cy.location("search").should("include", `limit=${pageSize}`);
 };
