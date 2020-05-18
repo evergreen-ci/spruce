@@ -71,6 +71,7 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
           label="Slack Username"
           onChange={handleFieldUpdate(setslackUsernameField)}
           value={slackUsernameField}
+          data-cy="slack-username-field"
         />
         <GridContainer>
           <GridField gridArea="1 / 3 / 2 / 4">Email</GridField>

@@ -39,7 +39,7 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
   const Component = componentMap[tabKey];
   return (
     <Container>
-      <Title>{mapUrlTabToTitle[tabKey]}</Title>
+      <Title data-cy="preferences-tab-title">{mapUrlTabToTitle[tabKey]}</Title>
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
