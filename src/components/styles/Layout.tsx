@@ -14,6 +14,7 @@ export const PageContent = styled(Content)`
   ${whiteBackground}
   margin-left: 16px;
   min-height: 280;
+  overflow: hidden;
 `;
 
 export const PageLayout = styled(Layout)`
@@ -31,6 +32,20 @@ export const PageSider = styled(Sider)`
 
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
+`;
+
+export const TableContainer = styled.div`
+  ${(props: { hide: boolean }): string => props.hide && "display:none;"}
+`;
+
+export const TableControlInnerRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+export const TableControlOuterRow = styled(TableControlInnerRow)`
+  padding-bottom: 8px;
 `;
 
 export const PageButtonRow = styled.div`

@@ -5,6 +5,8 @@ export enum RequiredQueryParams {
   Category = "sortBy",
   Statuses = "statuses",
   TestName = "testname",
+  Page = "page",
+  Limit = "limit",
 }
 
 export enum PatchTasksQueryParams {

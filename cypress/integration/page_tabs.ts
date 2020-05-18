@@ -61,7 +61,7 @@ describe("Tabs", () => {
       cy.get(patch.changes.btn).click();
       cy.get("[data-cy=code-changes]").should("exist");
       cy.get(patch.tasks.btn).click();
-      cy.get("#task-count").should("exist");
+      cy.dataCy("total-task-count").should("exist");
     });
   });
 

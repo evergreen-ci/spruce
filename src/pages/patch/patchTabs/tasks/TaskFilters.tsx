@@ -10,16 +10,18 @@ export const TaskFilters: React.FC = () => {
   const [
     variantFilterValue,
     variantFilterValueOnChange,
-  ] = useFilterInputChangeHandler(PatchTasksQueryParams.Variant);
+  ] = useFilterInputChangeHandler(PatchTasksQueryParams.Variant, true);
   const [
     taskNameFilterValue,
     taskNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName);
+  ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName, true);
   const [statusesVal, statusesValOnChange] = useStatusesFilter(
-    PatchTasksQueryParams.Statuses
+    PatchTasksQueryParams.Statuses,
+    true
   );
   const [baseStatusesVal, baseStatusesValOnChange] = useStatusesFilter(
-    PatchTasksQueryParams.BaseStatuses
+    PatchTasksQueryParams.BaseStatuses,
+    true
   );
 
   return (

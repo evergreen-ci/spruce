@@ -2,8 +2,9 @@
 
 import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
-  resultsAreFetchedAndRendered,
   assertQueryVariables,
+  clickOnPageBtnAndAssertURLandTableResults,
+  clickOnPageSizeBtnAndAssertURLandTableSize,
 } from "../utils";
 import { assertCountLabels } from "../utils/table";
 
@@ -254,20 +255,57 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("Scrolling", () => {
-    it("Fetches and appends additional tests to table as the user scrolls", () => {
+  describe("Changing page number", () => {
+    before(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get(".ant-table-body").scrollTo(0, "101%", { duration: 500 });
-      resultsAreFetchedAndRendered({
-        queryName: "TaskTests",
-        responseName: "taskTests.testResults",
-        requestVariables: {
-          cat: "STATUS",
-          dir: "ASC",
-          statusList: [],
-          testName: "",
-          pageNum: 1,
-        },
+    });
+
+    it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        secondPageDisplayNames,
+        1,
+        dataCyTableRows
+      );
+    });
+
+    it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        secondPageDisplayNames,
+        1,
+        dataCyTableRows
+      );
+    });
+
+    it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
+    });
+
+    it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
+    });
+  });
+
+  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    [20, 10, 50, 100].forEach((pageSize) => {
+      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+        clickOnPageSizeBtnAndAssertURLandTableSize(
+          pageSize,
+          "[data-test-id=tests-table-page-size-selector]",
+          `[data-test-id=tests-table-page-size-selector-${pageSize}]`,
+          dataCyTableRows
+        );
       });
     });
   });
@@ -288,3 +326,33 @@ const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
+const dataCyTableRows = "[data-test-id=tests-table] tr td:first-child";
+const firstPageDisplayNames = [
+  "TestFinalizePatch",
+  "TestHostTaskAuditing",
+  "TestStuckHostAuditing",
+  "TestGenerateSuite",
+  "TestGenerateSuite/TestSaveNewTasksWithCrossVariantDependencies",
+  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
+  "TestGenerateSuite/TestValidateNoRedefine",
+  "TestUpdateVersionAndParserProject",
+  "TestSetVersionActivation",
+  "TestCreateTaskGroup",
+];
+const secondPageDisplayNames = [
+  "TestSortTasks",
+  "TestDepsMatrixIntegration",
+  "TestRetryCommitQueueItems",
+  "TestProjectAliasSuite/TestInsertTagsAndNoVariant",
+  "TestProjectEventSuite/TestModifyProjectNonEvent",
+  "TestTaskGroupWithDisplayTask",
+  "TestTryUpsert/configNumberMatches",
+  "TestGetActivationTimeWithCron/Interval",
+  "TestCreateIntermediateProjectRequirements",
+  "TestMergeAxisValue",
+];
+
+const dataCyNextPage =
+  "[data-test-id=tests-table-pagination] > .ant-pagination-next";
+const dataCyPrevPage =
+  "[data-test-id=tests-table-pagination] > .ant-pagination-prev";

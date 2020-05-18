@@ -1,21 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
-import {
-  GET_PATCH_TASKS,
-  PATCH_TASKS_LIMIT,
-} from "gql/queries/get-patch-tasks";
+import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
-import { NetworkStatus } from "apollo-client";
 import get from "lodash.get";
-import { P2 } from "components/Typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
+import {
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+  PageSizeSelector,
+} from "components/PageSizeSelector";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "components/styles";
+import { Pagination } from "components/Pagination";
+import { ResultCountLabel } from "components/ResultCountLabel";
+import { Skeleton } from "antd";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 interface Props {
   taskCount: number;
@@ -25,7 +34,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
   const { id } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const [initialQueryVariables] = useState(getQueryVariables(id, search, 0));
+  const [initialQueryVariables] = useState({
+    patchId: id,
+    ...getQueryVariables(search),
+  });
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -38,83 +50,60 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   // fetch tasks when url params change
   useEffect(
     () =>
-      history.listen(async (location) => {
-        if (networkStatus === NetworkStatus.ready && !error && fetchMore) {
-          try {
-            await fetchMore({
-              variables: getQueryVariables(id, location.search, 0),
-              updateQuery: (
-                prev: PatchTasksQuery,
-                { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-              ) => {
-                if (!fetchMoreResult) {
-                  return prev;
-                }
-                return fetchMoreResult;
-              },
-            });
-          } catch (e) {
-            // empty block
-          }
+      history.listen(async (loc) => {
+        try {
+          await fetchMore({
+            variables: getQueryVariables(loc.search),
+            updateQuery: (
+              prev: PatchTasksQuery,
+              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
+            ) => {
+              if (!fetchMoreResult) {
+                return prev;
+              }
+              return fetchMoreResult;
+            },
+          });
+        } catch (e) {
+          // empty block
         }
       }),
     [history, fetchMore, id, error, networkStatus]
   );
 
-  const [allItemsHaveBeenFetched, setAllItemsHaveBeenFetched] = React.useState(
-    false
-  );
-
-  // fetch new sorted tasks after a table header is clicked
-  const onFetch = (): void => {
-    if (
-      allItemsHaveBeenFetched ||
-      networkStatus === NetworkStatus.error ||
-      error ||
-      !data
-    ) {
-      return;
-    }
-    const pageNum = data.patchTasks.tasks.length / PATCH_TASKS_LIMIT;
-    if (pageNum % 1 !== 0) {
-      setAllItemsHaveBeenFetched(true);
-      return;
-    }
-    fetchMore({
-      variables: getQueryVariables(id, search, pageNum),
-      updateQuery: (
-        prev: PatchTasksQuery,
-        { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-      ) => {
-        if (!fetchMoreResult) {
-          return prev;
-        }
-        const { tasks } = fetchMoreResult.patchTasks;
-        let patchTasks = fetchMoreResult.patchTasks.tasks;
-        patchTasks = [...prev.patchTasks.tasks, ...tasks];
-        return patchTasks;
-      },
-    });
-  };
-
   if (error) {
     return <div>{error.message}</div>;
   }
+  const { limit, page } = getQueryVariables(search);
+  const isLoading = isNetworkRequestInFlight(networkStatus);
   return (
     <ErrorBoundary>
       <TaskFilters />
-      <P2 id="task-count">
-        <span data-cy="current-task-count">
-          {get(data, "patchTasks.count", "-")}
-        </span>
-        /<span data-cy="total-task-count">{taskCount || "-"}</span>
-        <span>{" tasks"}</span>
-      </P2>
-      <TasksTable
-        networkStatus={networkStatus}
-        data={get(data, "patchTasks", [])}
-        onFetch={onFetch}
-      />
+      <TableControlOuterRow>
+        <ResultCountLabel
+          dataCyNumerator="current-task-count"
+          dataCyDenominator="total-task-count"
+          label="tasks"
+          numerator={get(data, "patchTasks.count", "-")}
+          denominator={taskCount}
+        />
+        <TableControlInnerRow>
+          <Pagination
+            dataTestId="tasks-table-pagination"
+            pageSize={limit}
+            value={page}
+            totalResults={get(data, "patchTasks.count", 0)}
+          />
+          <PageSizeSelector
+            dataTestId="tasks-table-page-size-selector"
+            value={limit}
+          />
+        </TableControlInnerRow>
+      </TableControlOuterRow>
+      <TableContainer hide={isLoading}>
+        <TasksTable data={get(data, "patchTasks", [])} />
+      </TableContainer>
+      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
     </ErrorBoundary>
   );
 };
@@ -154,11 +143,8 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
 };
 
 const getQueryVariables = (
-  patchId: string,
-  search: string,
-  page: number
+  search: string
 ): {
-  patchId: string;
   sortBy?: string;
   sortDir?: string;
   page?: number;
@@ -175,17 +161,24 @@ const getQueryVariables = (
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
+    [PatchTasksQueryParams.Page]: page,
+    [PatchTasksQueryParams.Limit]: limit,
   } = queryString.parse(search, { arrayFormat: "comma" });
 
+  const pageNum = parseInt(getString(page), 10);
+  const limitNum = parseInt(getString(limit), 10);
+
   return {
-    patchId,
     sortBy: getString(sortBy),
     sortDir: getString(sortDir),
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
-    page,
-    limit: PATCH_TASKS_LIMIT,
+    page: !Number.isNaN(pageNum) && pageNum >= 0 ? pageNum : 0,
+    limit:
+      !Number.isNaN(limitNum) && PAGE_SIZES.includes(limitNum)
+        ? limitNum
+        : DEFAULT_PAGE_SIZE,
   };
 };
