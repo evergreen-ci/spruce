@@ -29,12 +29,12 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
     cb(e.target.value);
   };
 
+  if (isAuthenticated) {
+    return <Redirect to={getReferrer(location)} />;
+  }
   if (isProduction()) {
     window.location.href = `${getUiUrl()}/login`;
     return null;
-  }
-  if (isAuthenticated) {
-    return <Redirect to={getReferrer(location)} />;
   }
   return (
     <Wrapper>
