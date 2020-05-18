@@ -11,7 +11,6 @@ describe("user preferences pages", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
   it("visiting /preferences should redirect to the profile tab", () => {
     cy.visit(baseRoute);

@@ -38,7 +38,9 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
       );
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(`Error while saving patch: '${err.message}'`);
+      dispatchBanner.errorBanner(
+        `Error while saving settings: '${err.message}'`
+      );
     },
   });
 

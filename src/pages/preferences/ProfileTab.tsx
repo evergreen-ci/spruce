@@ -45,7 +45,9 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
       );
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(`Error while saving patch: '${err.message}'`);
+      dispatchBanner.errorBanner(
+        `Error while saving settings: '${err.message}'`
+      );
     },
   });
   const handleSave = async (e): Promise<void> => {
