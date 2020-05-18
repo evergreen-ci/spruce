@@ -21,3 +21,8 @@ export const msToDuration = (ms: number): string => {
   }
   return `${milliseconds}ms`;
 };
+
+export const omitTypename = (object) =>
+  JSON.parse(JSON.stringify(object), (key, value) =>
+    key === "__typename" ? undefined : value
+  );
