@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
@@ -6,8 +7,16 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
-import { GithubUser } from "gql/generated/types";
+import {
+  GithubUser,
+  UpdateUserSettingsMutation,
+  UpdateUserSettingsMutationVariables,
+} from "gql/generated/types";
+import { useBannerDispatchContext } from "context/banners";
+import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { omitTypename } from "utils/string";
 import { timeZones, awsRegions } from "./fieldMaps";
+import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
 
@@ -25,6 +34,39 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
   const [timezoneField, setTimezoneField] = useState(timezone ?? "UTC");
   const [regionField, setRegionField] = useState(region ?? "us-east-1");
   const [githubUsernameField, setGithubUsernameField] = useState(lastKnownAs);
+  const dispatchBanner = useBannerDispatchContext();
+  const [updateUserSettings, { loading }] = useMutation<
+    UpdateUserSettingsMutation,
+    UpdateUserSettingsMutationVariables
+  >(UPDATE_USER_SETTINGS, {
+    onCompleted: () => {
+      dispatchBanner.successBanner(
+        `Your changes have successfully been saved.`
+      );
+    },
+    onError: (err) => {
+      dispatchBanner.errorBanner(`Error while saving patch: '${err.message}'`);
+    },
+  });
+  const handleSave = async (e): Promise<void> => {
+    e.preventDefault();
+    dispatchBanner.clearAllBanners();
+    try {
+      await updateUserSettings({
+        variables: {
+          userSettings: {
+            githubUser: {
+              ...omitTypename(githubUser),
+              lastKnownAs: githubUsernameField,
+            },
+            timezone: timezoneField,
+            region: regionField,
+          },
+        },
+        refetchQueries: ["GetUserSettings"],
+      });
+    } catch (err) {}
+  };
 
   const hasFieldUpdates =
     lastKnownAs !== githubUsernameField ||
@@ -63,12 +105,22 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
           <Button
             data-cy="save-profile-changes-button"
             variant={Variant.Primary}
-            disabled={!hasFieldUpdates}
+            disabled={!hasFieldUpdates || loading}
+            onClick={handleSave}
           >
             Save Changes
           </Button>
         </ContentWrapper>
       </PreferencesCard>
+      <LogMeOutCard />
+    </div>
+  );
+};
+
+const LogMeOutCard: React.FC = () => {
+  const [showModal, setShowModal] = useState(false);
+  return (
+    <>
       <PreferencesCard>
         <ContentWrapper>
           <Body>
@@ -78,15 +130,22 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
           <StyledLogMeOutButton
             data-cy="logme-out-button"
             variant={Variant.Danger}
+            onClick={() => setShowModal(true)}
           >
             Log me out everywhere
           </StyledLogMeOutButton>
         </ContentWrapper>
       </PreferencesCard>
-    </div>
+      <PreferencesModal
+        visible={showModal}
+        title="Are you sure you want to log out from everywhere?"
+        onSubmit={() => console.log("Submitted")}
+        onCancel={() => setShowModal(false)}
+        action="Log out"
+      />
+    </>
   );
 };
-
 const handleFieldUpdate = (stateUpdate) => (e) => {
   if (typeof e === "string") {
     stateUpdate(e); // Antd select just passes in the value string instead of an event
