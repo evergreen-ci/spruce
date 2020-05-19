@@ -104,7 +104,7 @@ export const ActionButtons = () => {
       icon={null}
       placement="left"
       title={
-        <div>
+        <>
           <StyledBody>Unschedule all tasks?</StyledBody>
           <Checkbox
             data-cy="abort-checkbox"
@@ -113,19 +113,14 @@ export const ActionButtons = () => {
             checked={abort}
             bold={false}
           />
-        </div>
+        </>
       }
       onConfirm={() => unschedulePatchTasks({ variables: { patchId, abort } })}
       onCancel={() => setIsVisible(false)}
       okText="Yes"
       cancelText="Cancel"
     >
-      <DropdownItem
-        disabled={disabled}
-        key="unschedule"
-        data-cy="unschedule-patch"
-        onClick={() => undefined}
-      >
+      <DropdownItem disabled={disabled} data-cy="unschedule-patch">
         <Body>Unschedule</Body>
       </DropdownItem>
     </Popconfirm>,
@@ -177,10 +172,8 @@ export const ActionButtons = () => {
           <Button
             size="small"
             dataCy="schedule-patch"
-            key="schedule"
             disabled={disabled}
             loading={loadingSchedulePatchTasks}
-            onClick={() => undefined}
           >
             Schedule
           </Button>
