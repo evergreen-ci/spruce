@@ -657,6 +657,12 @@ export type UnscheduleTaskMutationVariables = {
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
 
+export type UpdateUserSettingsMutationVariables = {
+  userSettings: UserSettingsInput;
+};
+
+export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
+
 export type CodeChangesQueryVariables = {
   id: Scalars["String"];
 };

@@ -109,6 +109,7 @@ module.exports = {
     // /*global */ block
     "no-undef": ERROR,
     "no-use-before-define": [ERROR, { functions: false, variables: false }],
+    "no-empty": [ERROR, { allowEmptyCatch: true }],
     "@typescript-eslint/no-unused-vars": [
       errorIfStrict,
       { vars: "all", args: "after-used", ignoreRestSiblings: true },

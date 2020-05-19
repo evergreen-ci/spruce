@@ -2,7 +2,7 @@ import React from "react";
 import { Radio } from "antd";
 import styled from "@emotion/styled";
 import { Notifications } from "gql/generated/types";
-import { notificationFields } from "./fieldMaps";
+import { notificationFields } from "constants/fieldMaps";
 
 interface NotificationFieldProps {
   notification: string;
@@ -35,7 +35,7 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
       <Radio value="email" />
     </GridField>
     <GridField gridArea={`${2 + index} / 5 / ${2 + index} / 6`}>
-      <Radio value="" />
+      <Radio value="none" />
     </GridField>
   </GridCapableRadioGroup>
 );
