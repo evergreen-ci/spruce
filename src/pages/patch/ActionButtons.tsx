@@ -123,7 +123,7 @@ export const ActionButtons = () => {
       <DropdownItem
         disabled={disabled}
         key="unschedule"
-        data-cy="unschedule-task"
+        data-cy="unschedule-patch"
         onClick={() => undefined}
       >
         <Body>Unschedule</Body>
@@ -152,7 +152,7 @@ export const ActionButtons = () => {
       cancelText="Cancel"
     >
       <DropdownItem
-        data-cy="prioritize-task"
+        data-cy="prioritize-patch"
         disabled={disabled}
         ref={priorityRef}
       >
@@ -224,4 +224,5 @@ const refetchQueries = ["Patch"];
 
 const StyledBody = styled(Body)`
   padding-bottom: 8px;
+  padding-right: 8px;
 `;
