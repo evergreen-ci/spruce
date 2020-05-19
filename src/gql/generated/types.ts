@@ -68,6 +68,10 @@ export type GithubUser = {
   lastKnownAs?: Maybe<Scalars["String"]>;
 };
 
+export type GithubUserInput = {
+  lastKnownAs?: Maybe<Scalars["String"]>;
+};
+
 export type GroupedFiles = {
   taskName?: Maybe<Scalars["String"]>;
   files?: Maybe<Array<File>>;
@@ -108,10 +112,10 @@ export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
   schedulePatch: Patch;
-  schedulePatchTasks?: Maybe<Scalars["String"]>;
-  unschedulePatchTasks?: Maybe<Scalars["String"]>;
+  schedulePatchTasks: Scalars["String"];
+  unschedulePatchTasks: Scalars["String"];
   restartPatch?: Maybe<Scalars["String"]>;
-  setPatchPriority?: Maybe<Scalars["String"]>;
+  setPatchPriority: Scalars["String"];
   scheduleTask: Task;
   unscheduleTask: Task;
   abortTask: Task;
@@ -119,6 +123,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  updateUserSettings: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -184,7 +189,20 @@ export type MutationRemovePatchFromCommitQueueArgs = {
   patchId: Scalars["String"];
 };
 
+export type MutationUpdateUserSettingsArgs = {
+  userSettings?: Maybe<UserSettingsInput>;
+};
+
 export type Notifications = {
+  buildBreak?: Maybe<Scalars["String"]>;
+  patchFinish?: Maybe<Scalars["String"]>;
+  patchFirstFailure?: Maybe<Scalars["String"]>;
+  spawnHostExpiration?: Maybe<Scalars["String"]>;
+  spawnHostOutcome?: Maybe<Scalars["String"]>;
+  commitQueue?: Maybe<Scalars["String"]>;
+};
+
+export type NotificationsInput = {
   buildBreak?: Maybe<Scalars["String"]>;
   patchFinish?: Maybe<Scalars["String"]>;
   patchFirstFailure?: Maybe<Scalars["String"]>;
@@ -532,6 +550,14 @@ export type UserSettings = {
   notifications?: Maybe<Notifications>;
 };
 
+export type UserSettingsInput = {
+  timezone?: Maybe<Scalars["String"]>;
+  region?: Maybe<Scalars["String"]>;
+  githubUser?: Maybe<GithubUserInput>;
+  slackUsername?: Maybe<Scalars["String"]>;
+  notifications?: Maybe<NotificationsInput>;
+};
+
 export type VariantTask = {
   name: Scalars["String"];
   tasks: Array<Scalars["String"]>;
@@ -572,6 +598,12 @@ export type RestartTaskMutationVariables = {
 
 export type RestartTaskMutation = { restartTask: { id: string } };
 
+export type SchedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type SchedulePatchTasksMutation = { schedulePatchTasks: string };
+
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
@@ -596,6 +628,13 @@ export type ScheduleTaskMutationVariables = {
 
 export type ScheduleTaskMutation = { scheduleTask: { id: string } };
 
+export type SetPatchPriorityMutationVariables = {
+  patchId: Scalars["String"];
+  priority: Scalars["Int"];
+};
+
+export type SetPatchPriorityMutation = { setPatchPriority: string };
+
 export type SetTaskPriorityMutationVariables = {
   taskId: Scalars["String"];
   priority: Scalars["Int"];
@@ -604,6 +643,13 @@ export type SetTaskPriorityMutationVariables = {
 export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
+
+export type UnschedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+};
+
+export type UnschedulePatchTasksMutation = { unschedulePatchTasks: string };
 
 export type UnscheduleTaskMutationVariables = {
   taskId: Scalars["String"];

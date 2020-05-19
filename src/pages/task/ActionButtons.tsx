@@ -43,7 +43,7 @@ export const ActionButtons = ({
   canSchedule,
   canSetPriority,
   canUnschedule,
-  initialPriority,
+  initialPriority = 1,
 }: Props) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
@@ -115,6 +115,7 @@ export const ActionButtons = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
+      setPriority(initialPriority);
       successBanner(
         `Priority for task updated to ${data.setTaskPriority.priority}`
       );

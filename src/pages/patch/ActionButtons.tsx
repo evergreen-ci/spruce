@@ -1,38 +1,96 @@
 import React, { useRef, useState, useEffect } from "react";
+import Checkbox from "@leafygreen-ui/checkbox";
 import { Button } from "components/Button";
 import styled from "@emotion/styled";
-import { useOnClickOutside } from "hooks";
+import { useParams } from "react-router-dom";
 import { InputNumber, Popconfirm } from "antd";
-import get from "lodash/get";
+import { useMutation } from "@apollo/react-hooks";
 import { Body } from "@leafygreen-ui/typography";
 import { PageButtonRow } from "components/styles";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { PatchRestartModal } from "pages/patch/index";
+import { useBannerDispatchContext } from "context/banners";
+import {
+  SchedulePatchTasksMutation,
+  SchedulePatchTasksMutationVariables,
+  UnschedulePatchTasksMutation,
+  UnschedulePatchTasksMutationVariables,
+  SetPatchPriorityMutation,
+  SetPatchPriorityMutationVariables,
+} from "gql/generated/types";
+import {
+  SCHEDULE_PATCH_TASKS,
+  UNSCHEDULE_PATCH_TASKS,
+  SET_PATCH_PRIORITY,
+} from "gql/mutations";
 
-interface Props {
-  initialPriority?: number;
-  canAbort: boolean;
-  canRestart: boolean;
-  canSchedule: boolean;
-  canUnschedule: boolean;
-  canSetPriority: boolean;
-}
-
-export const ActionButtons = ({
-  canAbort,
-  canRestart,
-  canSchedule,
-  canSetPriority,
-  canUnschedule,
-  initialPriority,
-}: Props) => {
+export const ActionButtons = () => {
+  const { successBanner, errorBanner } = useBannerDispatchContext();
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const [openModal, setOpenModal] = useState(false);
+  const [abort, setAbort] = useState(false);
+  const initialPriority = 1;
   const [priority, setPriority] = useState<number>(initialPriority);
+  const { id: patchId } = useParams<{ id: string }>();
 
-  const disabled = false;
+  const [
+    schedulePatchTasks,
+    { loading: loadingSchedulePatchTasks },
+  ] = useMutation<
+    SchedulePatchTasksMutation,
+    SchedulePatchTasksMutationVariables
+  >(SCHEDULE_PATCH_TASKS, {
+    variables: { patchId },
+    onCompleted: () => {
+      successBanner("All tasks were scheduled");
+    },
+    onError: (err) => {
+      errorBanner(`Error scheduling tasks: ${err.message}`);
+    },
+    refetchQueries,
+  });
+
+  const [
+    unschedulePatchTasks,
+    { loading: loadingUnschedulePatchTasks },
+  ] = useMutation<
+    UnschedulePatchTasksMutation,
+    UnschedulePatchTasksMutationVariables
+  >(UNSCHEDULE_PATCH_TASKS, {
+    onCompleted: () => {
+      successBanner(
+        `All tasks were unscheduled ${
+          abort ? "and tasks that already started were aborted" : ""
+        }`
+      );
+      setAbort(false);
+    },
+    onError: (err) => {
+      errorBanner(`Error unscheduling tasks: ${err.message}`);
+    },
+    refetchQueries,
+  });
+
+  const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
+    SetPatchPriorityMutation,
+    SetPatchPriorityMutationVariables
+  >(SET_PATCH_PRIORITY, {
+    onCompleted: () => {
+      successBanner(`Priority was set to ${priority}`);
+      setPriority(initialPriority);
+    },
+    onError: (err) => {
+      errorBanner(`Error setting priority: ${err.message}`);
+    },
+    refetchQueries,
+  });
+
+  const disabled =
+    loadingSchedulePatchTasks ||
+    loadingSetPatchPriority ||
+    loadingUnschedulePatchTasks;
 
   useEffect(() => {
     if (disabled) {
@@ -40,51 +98,35 @@ export const ActionButtons = ({
     }
   }, [disabled, setIsVisible]);
 
-  useOnClickOutside(wrapperRef, () => {
-    if (
-      !get(priorityRef, "current.className", "").includes("ant-popover-open")
-    ) {
-      setIsVisible(false);
-    }
-  });
-
   const dropdownItems = [
     <Popconfirm
-      key="priority"
+      key="unschedule"
       icon={null}
       placement="left"
-      title="Unschedule version?"
-      onConfirm={() => undefined}
+      title={
+        <div>
+          <StyledBody>Unschedule all tasks?</StyledBody>
+          <Checkbox
+            data-cy="abort-checkbox"
+            label="Abort tasks that have already started"
+            onChange={() => setAbort(!abort)}
+            checked={abort}
+            bold={false}
+          />
+        </div>
+      }
+      onConfirm={() => unschedulePatchTasks({ variables: { patchId, abort } })}
       onCancel={() => setIsVisible(false)}
       okText="Ok"
       cancelText="Cancel"
     >
       <DropdownItem
-        disabled={disabled || !canUnschedule}
+        disabled={disabled}
         key="unschedule"
         data-cy="unschedule-task"
         onClick={() => undefined}
       >
         <Body>Unschedule</Body>
-      </DropdownItem>
-    </Popconfirm>,
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title="Abort version?"
-      onConfirm={() => undefined}
-      onCancel={() => setIsVisible(false)}
-      okText="Ok"
-      cancelText="Cancel"
-    >
-      <DropdownItem
-        data-cy="abort-task"
-        key="abort"
-        disabled={disabled || !canAbort}
-        onClick={() => undefined}
-      >
-        <Body>Abort</Body>
       </DropdownItem>
     </Popconfirm>,
     <Popconfirm
@@ -104,14 +146,14 @@ export const ActionButtons = ({
           />
         </>
       }
-      onConfirm={() => undefined}
+      onConfirm={() => setPatchPriority({ variables: { patchId, priority } })}
       onCancel={() => setIsVisible(false)}
       okText="Set"
       cancelText="Cancel"
     >
       <DropdownItem
         data-cy="prioritize-task"
-        disabled={disabled || !canSetPriority}
+        disabled={disabled}
         ref={priorityRef}
       >
         <Body>Set priority</Body>
@@ -126,8 +168,8 @@ export const ActionButtons = ({
           key="priority"
           icon={null}
           placement="left"
-          title="Schedule version?"
-          onConfirm={() => undefined}
+          title="Schedule all tasks?"
+          onConfirm={() => schedulePatchTasks()}
           onCancel={() => setIsVisible(false)}
           okText="Ok"
           cancelText="Cancel"
@@ -136,7 +178,7 @@ export const ActionButtons = ({
             size="small"
             dataCy="schedule-patch"
             key="schedule"
-            disabled={disabled || !canSchedule}
+            disabled={disabled}
             loading={false}
             onClick={() => undefined}
           >
@@ -147,7 +189,7 @@ export const ActionButtons = ({
           size="small"
           dataCy="restart-patch"
           key="restart"
-          disabled={disabled || !canRestart}
+          disabled={disabled}
           loading={false}
           onClick={() => setOpenModal(!openModal)}
         >
@@ -177,6 +219,8 @@ export const ActionButtons = ({
     </>
   );
 };
+
+const refetchQueries = ["Patch"];
 
 const StyledBody = styled(Body)`
   padding-right: 8px;
