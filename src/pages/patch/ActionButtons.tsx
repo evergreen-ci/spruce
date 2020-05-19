@@ -117,7 +117,7 @@ export const ActionButtons = () => {
       }
       onConfirm={() => unschedulePatchTasks({ variables: { patchId, abort } })}
       onCancel={() => setIsVisible(false)}
-      okText="Ok"
+      okText="Yes"
       cancelText="Cancel"
     >
       <DropdownItem
@@ -171,7 +171,7 @@ export const ActionButtons = () => {
           title="Schedule all tasks?"
           onConfirm={() => schedulePatchTasks()}
           onCancel={() => setIsVisible(false)}
-          okText="Ok"
+          okText="Yes"
           cancelText="Cancel"
         >
           <Button
@@ -179,7 +179,7 @@ export const ActionButtons = () => {
             dataCy="schedule-patch"
             key="schedule"
             disabled={disabled}
-            loading={false}
+            loading={loadingSchedulePatchTasks}
             onClick={() => undefined}
           >
             Schedule
@@ -197,7 +197,7 @@ export const ActionButtons = () => {
         </Button>
         <Button
           size="small"
-          dataCy="notify-task"
+          dataCy="notify-patch"
           key="notifications"
           disabled={disabled}
         >
@@ -223,5 +223,5 @@ export const ActionButtons = () => {
 const refetchQueries = ["Patch"];
 
 const StyledBody = styled(Body)`
-  padding-right: 8px;
+  padding-bottom: 8px;
 `;
