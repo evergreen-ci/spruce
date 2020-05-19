@@ -14,7 +14,7 @@ import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { omitTypename } from "utils/string";
 import { PreferencesModal } from "./PreferencesModal";
-import { NotificationField } from "./NotificationField";
+import { NotificationField } from "./notificationTab/NotificationField";
 
 interface ProfileTabProps {
   slackUsername?: string;

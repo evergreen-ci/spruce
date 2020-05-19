@@ -10,8 +10,8 @@ import {
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
-import { NotificationsTab } from "./NotificationsTab";
-import { ProfileTab } from "./ProfileTab";
+import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
+import { ProfileTab } from "./preferencesTabs/ProfileTab";
 
 interface PreferenceTabsProps {
   tabKey: string;

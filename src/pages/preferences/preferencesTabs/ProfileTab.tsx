@@ -15,7 +15,7 @@ import {
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { omitTypename } from "utils/string";
-import { timeZones, awsRegions } from "./fieldMaps";
+import { timeZones, awsRegions } from "constants/fieldMaps";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
