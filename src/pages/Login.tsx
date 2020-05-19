@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
-import { useAuthDispatchContext, useAuthStateContext } from "../context/auth";
+import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
+import { isProduction, getUiUrl } from "utils/getEnvironmentVariables";
 
 const getReferrer = (location: Location<{ referrer?: string }>): string => {
   if (location && location.state && "referrer" in location.state) {
@@ -31,7 +32,10 @@ export const Login: React.FC<RouteComponentProps> = ({ location }) => {
   if (isAuthenticated) {
     return <Redirect to={getReferrer(location)} />;
   }
-
+  if (isProduction()) {
+    window.location.href = `${getUiUrl()}/login`;
+    return null;
+  }
   return (
     <Wrapper>
       <label htmlFor="username">Username</label>

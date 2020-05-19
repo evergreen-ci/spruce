@@ -26,7 +26,7 @@ functions:
     params:
       directory: spruce
       revisions:
-        evergreen: d18efcd1d34073067d43dc94f6f603d30c8744df
+        evergreen: ${evergreen_rev}
 
   setup-mongodb:
     - command: subprocess.exec
@@ -228,6 +228,9 @@ tasks:
   - name: e2e_test
     commands:
     - func: get-evergreen-project
+    - func: run-make
+      vars:
+        target: get-go-imports
     - func: setup-mongodb
     - func: copy-cmdrc
     - func: run-make-background
