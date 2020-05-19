@@ -1,11 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ApolloError } from "apollo-client";
 import { UserSettings } from "gql/generated/types";
-import { ProfileTab } from "./ProfileTab";
-import { NotificationsTab } from "./NotificationsTab";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
+import { Banners } from "components/Banners";
+import { withBannersContext } from "hoc/withBannersContext";
+import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
+import { ProfileTab } from "./preferencesTabs/ProfileTab";
 
 interface PreferenceTabsProps {
   tabKey: string;
@@ -20,15 +26,24 @@ enum mapUrlTabToTitle {
   cli = "CLI & API",
 }
 
-export const PreferencesTabs: React.FC<PreferenceTabsProps> = ({
+const Tabs: React.FC<PreferenceTabsProps> = ({
   tabKey,
   userSettings,
   loading,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
+  useEffect(() => {
+    dispatchBanner.clearAllBanners();
+  }, [tabKey]); // eslint-disable-line react-hooks/exhaustive-deps
   const Component = componentMap[tabKey];
   return (
     <Container>
-      <Title>{mapUrlTabToTitle[tabKey]}</Title>
+      <Title data-cy="preferences-tab-title">{mapUrlTabToTitle[tabKey]}</Title>
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       {loading && <Skeleton active />}
       {!loading && <Component tabKey={tabKey} {...userSettings} />}
     </Container>
@@ -49,3 +64,5 @@ const Container = styled.div`
 const Title = styled(H2)`
   margin-bottom: 30px;
 `;
+
+export const PreferencesTabs = withBannersContext(Tabs);

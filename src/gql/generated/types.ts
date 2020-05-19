@@ -68,6 +68,10 @@ export type GithubUser = {
   lastKnownAs?: Maybe<Scalars["String"]>;
 };
 
+export type GithubUserInput = {
+  lastKnownAs?: Maybe<Scalars["String"]>;
+};
+
 export type GroupedFiles = {
   taskName?: Maybe<Scalars["String"]>;
   files?: Maybe<Array<File>>;
@@ -119,6 +123,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  updateUserSettings: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -184,7 +189,20 @@ export type MutationRemovePatchFromCommitQueueArgs = {
   patchId: Scalars["String"];
 };
 
+export type MutationUpdateUserSettingsArgs = {
+  userSettings?: Maybe<UserSettingsInput>;
+};
+
 export type Notifications = {
+  buildBreak?: Maybe<Scalars["String"]>;
+  patchFinish?: Maybe<Scalars["String"]>;
+  patchFirstFailure?: Maybe<Scalars["String"]>;
+  spawnHostExpiration?: Maybe<Scalars["String"]>;
+  spawnHostOutcome?: Maybe<Scalars["String"]>;
+  commitQueue?: Maybe<Scalars["String"]>;
+};
+
+export type NotificationsInput = {
   buildBreak?: Maybe<Scalars["String"]>;
   patchFinish?: Maybe<Scalars["String"]>;
   patchFirstFailure?: Maybe<Scalars["String"]>;
@@ -532,6 +550,14 @@ export type UserSettings = {
   notifications?: Maybe<Notifications>;
 };
 
+export type UserSettingsInput = {
+  timezone?: Maybe<Scalars["String"]>;
+  region?: Maybe<Scalars["String"]>;
+  githubUser?: Maybe<GithubUserInput>;
+  slackUsername?: Maybe<Scalars["String"]>;
+  notifications?: Maybe<NotificationsInput>;
+};
+
 export type VariantTask = {
   name: Scalars["String"];
   tasks: Array<Scalars["String"]>;
@@ -610,6 +636,12 @@ export type UnscheduleTaskMutationVariables = {
 };
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+
+export type UpdateUserSettingsMutationVariables = {
+  userSettings: UserSettingsInput;
+};
+
+export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
 export type CodeChangesQueryVariables = {
   id: Scalars["String"];
