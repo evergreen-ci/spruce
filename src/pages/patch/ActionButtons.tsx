@@ -49,22 +49,44 @@ export const ActionButtons = ({
   });
 
   const dropdownItems = [
-    <DropdownItem
-      disabled={disabled || !canUnschedule}
-      key="unschedule"
-      data-cy="unschedule-task"
-      onClick={() => undefined}
+    <Popconfirm
+      key="priority"
+      icon={null}
+      placement="left"
+      title="Unschedule version?"
+      onConfirm={() => undefined}
+      onCancel={() => setIsVisible(false)}
+      okText="Ok"
+      cancelText="Cancel"
     >
-      <Body>Unschedule</Body>
-    </DropdownItem>,
-    <DropdownItem
-      data-cy="abort-task"
-      key="abort"
-      disabled={disabled || !canAbort}
-      onClick={() => undefined}
+      <DropdownItem
+        disabled={disabled || !canUnschedule}
+        key="unschedule"
+        data-cy="unschedule-task"
+        onClick={() => undefined}
+      >
+        <Body>Unschedule</Body>
+      </DropdownItem>
+    </Popconfirm>,
+    <Popconfirm
+      key="priority"
+      icon={null}
+      placement="left"
+      title="Abort version?"
+      onConfirm={() => undefined}
+      onCancel={() => setIsVisible(false)}
+      okText="Ok"
+      cancelText="Cancel"
     >
-      <Body>Abort</Body>
-    </DropdownItem>,
+      <DropdownItem
+        data-cy="abort-task"
+        key="abort"
+        disabled={disabled || !canAbort}
+        onClick={() => undefined}
+      >
+        <Body>Abort</Body>
+      </DropdownItem>
+    </Popconfirm>,
     <Popconfirm
       key="priority"
       icon={null}
@@ -100,16 +122,27 @@ export const ActionButtons = ({
   return (
     <>
       <PageButtonRow ref={wrapperRef}>
-        <Button
-          size="small"
-          dataCy="schedule-patch"
-          key="schedule"
-          disabled={disabled || !canSchedule}
-          loading={false}
-          onClick={() => undefined}
+        <Popconfirm
+          key="priority"
+          icon={null}
+          placement="left"
+          title="Schedule version?"
+          onConfirm={() => undefined}
+          onCancel={() => setIsVisible(false)}
+          okText="Ok"
+          cancelText="Cancel"
         >
-          Schedule
-        </Button>
+          <Button
+            size="small"
+            dataCy="schedule-patch"
+            key="schedule"
+            disabled={disabled || !canSchedule}
+            loading={false}
+            onClick={() => undefined}
+          >
+            Schedule
+          </Button>
+        </Popconfirm>
         <Button
           size="small"
           dataCy="restart-patch"
