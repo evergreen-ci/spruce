@@ -32,6 +32,7 @@ export const Preferences: React.FC = () => {
               active={tab === preferencesTabRoutes.Profile}
               to={`${paths.preferences}/${preferencesTabRoutes.Profile}`}
               as={Link}
+              data-cy="profile-nav-tab"
             >
               Profile
             </PaddedSideNavItem>
@@ -39,6 +40,7 @@ export const Preferences: React.FC = () => {
               active={tab === preferencesTabRoutes.Notifications}
               to={`${paths.preferences}/${preferencesTabRoutes.Notifications}`}
               as={Link}
+              data-cy="notifications-nav-tab"
             >
               Notifications
             </PaddedSideNavItem>
@@ -46,6 +48,7 @@ export const Preferences: React.FC = () => {
               active={tab === preferencesTabRoutes.CLI}
               to={`${paths.preferences}/${preferencesTabRoutes.CLI}`}
               as={Link}
+              data-cy="cli-nav-tab"
             >
               CLI & API
             </PaddedSideNavItem>

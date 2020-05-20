@@ -71,16 +71,7 @@ const PatchCore: React.FC = () => {
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
-        buttons={
-          <ActionButtons
-            canAbort
-            canRestart
-            canSchedule
-            canUnschedule
-            canSetPriority
-            initialPriority={1}
-          />
-        }
+        buttons={<ActionButtons />}
       />
       <PageLayout>
         <PageSider>

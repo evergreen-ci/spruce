@@ -604,6 +604,12 @@ export type SaveSubscriptionMutationVariables = {
 
 export type SaveSubscriptionMutation = { saveSubscription: boolean };
 
+export type SchedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
+
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
@@ -628,6 +634,13 @@ export type ScheduleTaskMutationVariables = {
 
 export type ScheduleTaskMutation = { scheduleTask: { id: string } };
 
+export type SetPatchPriorityMutationVariables = {
+  patchId: Scalars["String"];
+  priority: Scalars["Int"];
+};
+
+export type SetPatchPriorityMutation = { setPatchPriority?: Maybe<string> };
+
 export type SetTaskPriorityMutationVariables = {
   taskId: Scalars["String"];
   priority: Scalars["Int"];
@@ -637,11 +650,26 @@ export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
 
+export type UnschedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+};
+
+export type UnschedulePatchTasksMutation = {
+  unschedulePatchTasks?: Maybe<string>;
+};
+
 export type UnscheduleTaskMutationVariables = {
   taskId: Scalars["String"];
 };
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+
+export type UpdateUserSettingsMutationVariables = {
+  userSettings: UserSettingsInput;
+};
+
+export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
 export type CodeChangesQueryVariables = {
   id: Scalars["String"];

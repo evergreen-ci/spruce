@@ -16,6 +16,7 @@ export const PrivateRoute: React.FC<PrivateRouteProps> = ({
   ...rest
 }) => {
   const { isAuthenticated } = useAuthStateContext();
+
   const render = (props): JSX.Element => {
     const { location } = props;
     return isAuthenticated ? (
