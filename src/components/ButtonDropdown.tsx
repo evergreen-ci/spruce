@@ -52,9 +52,10 @@ export const DropdownItem = styled.div`
     text-decoration: underline;
     cursor: pointer;
   }
-  pointer-events:${(props: CardItemProps) => props.disabled && "none"}; 
+  pointer-events: ${(props: CardItemProps) => props.disabled && "none"};
   > p {
     color: ${(props: CardItemProps) => props.disabled && uiColors.gray.base};
+  }
 `;
 
 const Dropdown = styled(Card)`
