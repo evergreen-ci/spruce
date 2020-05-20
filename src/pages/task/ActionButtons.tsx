@@ -43,7 +43,7 @@ export const ActionButtons = ({
   canSchedule,
   canSetPriority,
   canUnschedule,
-  initialPriority,
+  initialPriority = 1,
 }: Props) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const wrapperRef = useRef(null);

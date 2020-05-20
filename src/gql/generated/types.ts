@@ -112,10 +112,10 @@ export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
   schedulePatch: Patch;
-  schedulePatchTasks?: Maybe<Scalars["String"]>;
-  unschedulePatchTasks?: Maybe<Scalars["String"]>;
+  schedulePatchTasks: Scalars["String"];
+  unschedulePatchTasks: Scalars["String"];
   restartPatch?: Maybe<Scalars["String"]>;
-  setPatchPriority?: Maybe<Scalars["String"]>;
+  setPatchPriority: Scalars["String"];
   scheduleTask: Task;
   unscheduleTask: Task;
   abortTask: Task;
@@ -598,6 +598,12 @@ export type RestartTaskMutationVariables = {
 
 export type RestartTaskMutation = { restartTask: { id: string } };
 
+export type SchedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type SchedulePatchTasksMutation = { schedulePatchTasks: string };
+
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
   reconfigure: PatchReconfigure;
@@ -622,6 +628,13 @@ export type ScheduleTaskMutationVariables = {
 
 export type ScheduleTaskMutation = { scheduleTask: { id: string } };
 
+export type SetPatchPriorityMutationVariables = {
+  patchId: Scalars["String"];
+  priority: Scalars["Int"];
+};
+
+export type SetPatchPriorityMutation = { setPatchPriority: string };
+
 export type SetTaskPriorityMutationVariables = {
   taskId: Scalars["String"];
   priority: Scalars["Int"];
@@ -630,6 +643,13 @@ export type SetTaskPriorityMutationVariables = {
 export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
+
+export type UnschedulePatchTasksMutationVariables = {
+  patchId: Scalars["String"];
+  abort: Scalars["Boolean"];
+};
+
+export type UnschedulePatchTasksMutation = { unschedulePatchTasks: string };
 
 export type UnscheduleTaskMutationVariables = {
   taskId: Scalars["String"];
