@@ -115,7 +115,6 @@ export const ActionButtons = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
-      setPriority(initialPriority);
       successBanner(
         `Priority for task updated to ${data.setTaskPriority.priority}`
       );

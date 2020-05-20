@@ -31,8 +31,7 @@ export const ActionButtons = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [openModal, setOpenModal] = useState(false);
   const [abort, setAbort] = useState(false);
-  const initialPriority = 1;
-  const [priority, setPriority] = useState<number>(initialPriority);
+  const [priority, setPriority] = useState<number>(1);
   const { id: patchId } = useParams<{ id: string }>();
 
   const [
@@ -79,7 +78,6 @@ export const ActionButtons = () => {
   >(SET_PATCH_PRIORITY, {
     onCompleted: () => {
       successBanner(`Priority was set to ${priority}`);
-      setPriority(initialPriority);
     },
     onError: (err) => {
       errorBanner(`Error setting priority: ${err.message}`);
