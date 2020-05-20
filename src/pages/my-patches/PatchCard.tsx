@@ -88,7 +88,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <DropdownMenu />
+        <DropdownMenu patchId={id} />
       </Right>
     </CardWrapper>
   );

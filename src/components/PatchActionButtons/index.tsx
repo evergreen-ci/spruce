@@ -47,7 +47,7 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
       cancelText="Cancel"
     >
       <DropdownItem disabled={disabled} data-cy="unschedule-patch">
-        <Disclaimer>Unschedule</Disclaimer>
+        <Disclaimer>Unschedule All Tasks</Disclaimer>
       </DropdownItem>
     </Popconfirm>
   );
