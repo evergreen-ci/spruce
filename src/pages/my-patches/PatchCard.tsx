@@ -16,7 +16,6 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
-import { ButtonDropdown } from "components/ButtonDropdown";
 import { DropdownMenu } from "pages/my-patches/patch-card/DropdownMenu";
 
 interface Build {

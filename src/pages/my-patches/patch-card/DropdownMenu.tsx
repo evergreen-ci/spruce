@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import {
   SchedulePatchTasksPopconfirm,
@@ -10,27 +9,12 @@ import { DropdownItem } from "components/ButtonDropdown";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { paths } from "constants/routes";
-import { useBannerDispatchContext } from "context/banners";
-import {
-  SchedulePatchTasksMutation,
-  SchedulePatchTasksMutationVariables,
-  UnschedulePatchTasksMutation,
-  UnschedulePatchTasksMutationVariables,
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
-} from "gql/generated/types";
-import {
-  SCHEDULE_PATCH_TASKS,
-  UNSCHEDULE_PATCH_TASKS,
-  SET_PATCH_PRIORITY,
-} from "gql/mutations";
 
 interface Props {
   patchId: string;
 }
 export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const [isVisible, setIsVisible] = useState(false);
-  // const { successBanner, errorBanner } = useBannerDispatchContext();
   const hideMenu = () => setIsVisible(false);
 
   const dropdownItems = [
@@ -42,18 +26,20 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
     <SchedulePatchTasksPopconfirm
       key="schedule"
       patchId={patchId}
-      onConfirm={() => undefined}
-      onCancel={hideMenu}
+      hideMenu={hideMenu}
     />,
     <UnschedulePatchTasksPopconfirm
       key="unschedule"
-      onConfirm={() => undefined}
-      onCancel={hideMenu}
-      disabled={false}
-      checked={false}
-      onAbortCheckboxChange={() => undefined}
+      patchId={patchId}
+      hideMenu={hideMenu}
     />,
-    <RestartPatch key="restart" disabled={false} />,
+    <RestartPatch
+      key="restart"
+      patchId={patchId}
+      disabled={false}
+      refetchQueries={["PatchBuildVariantsAndStatus"]}
+      hideMenu={hideMenu}
+    />,
   ];
 
   return (

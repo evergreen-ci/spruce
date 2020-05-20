@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { InputNumber, Popconfirm } from "antd";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -12,13 +12,13 @@ import {
   SchedulePatchTasksMutationVariables,
   UnschedulePatchTasksMutation,
   UnschedulePatchTasksMutationVariables,
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
+  // SetPatchPriorityMutation,
+  // SetPatchPriorityMutationVariables,
 } from "gql/generated/types";
 import {
   SCHEDULE_PATCH_TASKS,
   UNSCHEDULE_PATCH_TASKS,
-  SET_PATCH_PRIORITY,
+  // SET_PATCH_PRIORITY,
 } from "gql/mutations";
 import { useMutation } from "@apollo/react-hooks";
 
@@ -26,19 +26,38 @@ type PopconfirmButtonClickHandler = (
   e?: React.MouseEvent<HTMLElement, MouseEvent>
 ) => void;
 interface UnscheduleProps {
-  onConfirm: PopconfirmButtonClickHandler;
-  onCancel: PopconfirmButtonClickHandler;
-  onAbortCheckboxChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  checked: boolean;
-  disabled?: boolean;
+  patchId: string;
+  hideMenu: PopconfirmButtonClickHandler;
+  refetchQueries?: string[];
 }
 export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
-  onConfirm,
-  onCancel,
-  onAbortCheckboxChange,
-  checked,
-  disabled,
+  patchId,
+  hideMenu,
+  refetchQueries,
 }) => {
+  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const [abort, setAbort] = useState(false);
+  const [
+    unschedulePatchTasks,
+    { loading: loadingUnschedulePatchTasks },
+  ] = useMutation<
+    UnschedulePatchTasksMutation,
+    UnschedulePatchTasksMutationVariables
+  >(UNSCHEDULE_PATCH_TASKS, {
+    onCompleted: () => {
+      successBanner(
+        `All tasks were unscheduled ${
+          abort ? "and tasks that already started were aborted" : ""
+        }`
+      );
+      setAbort(false);
+    },
+    onError: (err) => {
+      errorBanner(`Error unscheduling tasks: ${err.message}`);
+    },
+    refetchQueries,
+  });
+
   return (
     <Popconfirm
       key="unschedule"
@@ -50,18 +69,21 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
           <Checkbox
             data-cy="abort-checkbox"
             label="Abort tasks that have already started"
-            onChange={onAbortCheckboxChange}
-            checked={checked}
+            onChange={() => setAbort(!abort)}
+            checked={abort}
             bold={false}
           />
         </>
       }
-      onConfirm={onConfirm}
-      onCancel={onCancel}
+      onConfirm={() => unschedulePatchTasks({ variables: { patchId, abort } })}
+      onCancel={hideMenu}
       okText="Yes"
       cancelText="Cancel"
     >
-      <DropdownItem disabled={disabled} data-cy="unschedule-patch">
+      <DropdownItem
+        disabled={loadingUnschedulePatchTasks}
+        data-cy="unschedule-patch"
+      >
         <Disclaimer>Unschedule All Tasks</Disclaimer>
       </DropdownItem>
     </Popconfirm>
@@ -70,15 +92,13 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
 
 interface SchedulePatchTasksProps {
   patchId: string;
-  onConfirm: PopconfirmButtonClickHandler;
-  onCancel: PopconfirmButtonClickHandler;
+  hideMenu: PopconfirmButtonClickHandler;
   isButton?: boolean;
   refetchQueries?: string[];
 }
 export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = ({
   patchId,
-  onConfirm,
-  onCancel,
+  hideMenu,
   isButton = false,
   refetchQueries = [],
 }) => {
@@ -93,11 +113,11 @@ export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = (
     variables: { patchId },
     onCompleted: () => {
       successBanner("All tasks were scheduled");
-      onCancel();
+      hideMenu();
     },
     onError: (err) => {
       errorBanner(`Error scheduling tasks: ${err.message}`);
-      onCancel();
+      hideMenu();
     },
     refetchQueries,
   });
@@ -109,7 +129,7 @@ export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = (
       placement="left"
       title="Schedule all tasks?"
       onConfirm={() => schedulePatchTasks()}
-      onCancel={onCancel}
+      onCancel={hideMenu}
       okText="Yes"
       cancelText="Cancel"
     >
@@ -135,12 +155,18 @@ export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = (
 };
 
 interface RestartPatchProps {
+  patchId: string;
   disabled: boolean;
   isButton?: boolean;
+  refetchQueries?: string[];
+  hideMenu: PopconfirmButtonClickHandler;
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
   disabled,
+  patchId,
+  refetchQueries,
+  hideMenu,
 }) => {
   const [openModal, setOpenModal] = React.useState(false);
   return (
@@ -157,15 +183,26 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
           Restart
         </Button>
       ) : (
-        <DropdownItem disabled={disabled} data-cy="restart-patch">
+        <DropdownItem
+          disabled={disabled}
+          data-cy="restart-patch"
+          onClick={() => setOpenModal(!openModal)}
+        >
           <Disclaimer>Restart</Disclaimer>
         </DropdownItem>
       )}
-      <PatchRestartModal
-        visible={openModal}
-        onOk={() => setOpenModal(false)}
-        onCancel={() => setOpenModal(false)}
-      />
+      {openModal && (
+        <PatchRestartModal
+          patchId={patchId}
+          visible={openModal}
+          onOk={() => {
+            setOpenModal(false);
+            hideMenu();
+          }}
+          onCancel={() => setOpenModal(false)}
+          refetchQueries={refetchQueries}
+        />
+      )}
     </>
   );
 };

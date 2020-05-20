@@ -28,14 +28,19 @@ interface PatchModalProps {
   visible: boolean;
   onOk: () => void;
   onCancel: () => void;
+  patchId?: string;
+  refetchQueries?: string[];
 }
 export const PatchRestartModal: React.FC<PatchModalProps> = ({
   visible,
   onOk,
   onCancel,
+  patchId: patchIdFromProps,
+  refetchQueries = [],
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
+  const patchId = patchIdFromProps || id;
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
     false
   );
@@ -53,12 +58,13 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
         `Error while restarting patch: '${err.message}'`
       );
     },
+    refetchQueries,
   });
   const { data, loading } = useQuery<
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
-    variables: { patchId: id },
+    variables: { patchId },
   });
   const patchBuildVariants = get(data, "patchBuildVariants");
   const [
@@ -73,7 +79,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     try {
       await restartPatch({
         variables: {
-          patchId: id,
+          patchId,
           taskIds: selectedTasks,
           abort: shouldAbortInProgressTasks,
         },
