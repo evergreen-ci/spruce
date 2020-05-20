@@ -6,6 +6,21 @@ import styled from "@emotion/styled";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { PatchRestartModal } from "pages/patch/index";
 import { Button } from "components/Button";
+import { useBannerDispatchContext } from "context/banners";
+import {
+  SchedulePatchTasksMutation,
+  SchedulePatchTasksMutationVariables,
+  UnschedulePatchTasksMutation,
+  UnschedulePatchTasksMutationVariables,
+  SetPatchPriorityMutation,
+  SetPatchPriorityMutationVariables,
+} from "gql/generated/types";
+import {
+  SCHEDULE_PATCH_TASKS,
+  UNSCHEDULE_PATCH_TASKS,
+  SET_PATCH_PRIORITY,
+} from "gql/mutations";
+import { useMutation } from "@apollo/react-hooks";
 
 type PopconfirmButtonClickHandler = (
   e?: React.MouseEvent<HTMLElement, MouseEvent>
@@ -54,24 +69,46 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
 };
 
 interface SchedulePatchTasksProps {
+  patchId: string;
   onConfirm: PopconfirmButtonClickHandler;
   onCancel: PopconfirmButtonClickHandler;
   isButton?: boolean;
-  loading: boolean;
+  refetchQueries?: string[];
 }
 export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = ({
+  patchId,
   onConfirm,
   onCancel,
   isButton = false,
-  loading,
+  refetchQueries = [],
 }) => {
+  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const [
+    schedulePatchTasks,
+    { loading: loadingSchedulePatchTasks },
+  ] = useMutation<
+    SchedulePatchTasksMutation,
+    SchedulePatchTasksMutationVariables
+  >(SCHEDULE_PATCH_TASKS, {
+    variables: { patchId },
+    onCompleted: () => {
+      successBanner("All tasks were scheduled");
+      onCancel();
+    },
+    onError: (err) => {
+      errorBanner(`Error scheduling tasks: ${err.message}`);
+      onCancel();
+    },
+    refetchQueries,
+  });
+
   return (
     <Popconfirm
       key="priority"
       icon={null}
       placement="left"
       title="Schedule all tasks?"
-      onConfirm={onConfirm}
+      onConfirm={() => schedulePatchTasks()}
       onCancel={onCancel}
       okText="Yes"
       cancelText="Cancel"
@@ -80,13 +117,16 @@ export const SchedulePatchTasksPopconfirm: React.FC<SchedulePatchTasksProps> = (
         <Button
           size="small"
           dataCy="schedule-patch"
-          disabled={loading}
-          loading={loading}
+          disabled={loadingSchedulePatchTasks}
+          loading={loadingSchedulePatchTasks}
         >
           Schedule
         </Button>
       ) : (
-        <DropdownItem disabled={loading} data-cy="schedule-patch">
+        <DropdownItem
+          disabled={loadingSchedulePatchTasks}
+          data-cy="schedule-patch"
+        >
           <Disclaimer>Schedule All Tasks</Disclaimer>
         </DropdownItem>
       )}

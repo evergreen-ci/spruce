@@ -6,7 +6,6 @@ import {
   PageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
-import { ErrorWrapper } from "components/ErrorWrapper";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
@@ -22,9 +21,18 @@ import { useFilterInputChangeHandler, usePrevious } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton, Pagination } from "antd";
+import { Banners } from "components/Banners";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import { PatchCard } from "./my-patches/PatchCard";
+import { withBannersContext } from "hoc/withBannersContext";
 
-export const MyPatches: React.FC = () => {
+const MyPatchesComponent: React.FC = () => {
+  const bannersState = useBannerStateContext();
+  const dispatchBanner = useBannerDispatchContext();
+
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [page, setPage] = useState(1);
@@ -92,7 +100,14 @@ export const MyPatches: React.FC = () => {
 
   const renderTable = () => {
     if (error) {
-      return <ErrorWrapper>{error}</ErrorWrapper>;
+      return (
+        <PageWrapper>
+          <Banners
+            banners={bannersState}
+            removeBanner={dispatchBanner.removeBanner}
+          />
+        </PageWrapper>
+      );
     }
     if (loading) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
@@ -107,6 +122,10 @@ export const MyPatches: React.FC = () => {
 
   return (
     <PageWrapper>
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       <PageTitle>My Patches</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
@@ -137,6 +156,8 @@ export const MyPatches: React.FC = () => {
     </PageWrapper>
   );
 };
+
+export const MyPatches = withBannersContext(MyPatchesComponent);
 
 const arrayFormat = "comma";
 const LIMIT = 7;
