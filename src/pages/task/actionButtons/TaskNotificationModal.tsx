@@ -39,19 +39,19 @@ const subscriptionMethodControls: SubscriptionMethods = {
   "jira-comment": {
     label: "JIRA Issue",
     placeholder: "ABC-123",
-    targetPath: "['jira-comment']",
+    targetPath: "jira-comment",
     validator: (v: string) => v.match(".+-[0-9]+") !== null,
   },
   email: {
     label: "Email Address",
     placeholder: "someone@example.com",
-    targetPath: "['email']",
+    targetPath: "email",
     validator: (v: string): boolean => v.match(".+@.+") !== null,
   },
   slack: {
     label: "Slack Username or Channel",
     placeholder: "@user",
-    targetPath: "['slack']",
+    targetPath: "slack",
     validator: (v: string): boolean => v.match("(#|@).+") !== null,
   },
 };

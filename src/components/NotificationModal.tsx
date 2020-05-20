@@ -204,6 +204,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
           onChange={(v: string) => {
             setSelectedTriggerId(v);
           }}
+          data-test-id="when-select"
         >
           {triggers.map((t) => (
             <Option key={t.trigger} value={t.trigger}>
@@ -216,6 +217,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
         <ExtraFieldContainer key={key}>
           <span>{text}</span>
           <StyledInputNumber
+            data-test-id={`${key}-input-number`}
             type="number"
             value={extraFieldInputVals[key]}
             onChange={(n) => {
@@ -236,7 +238,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
           }}
         >
           {subscriptionMethods.map((s) => (
-            <Option key={s.value} value={s.value}>
+            <Option
+              key={s.value}
+              value={s.value}
+              data-test-id={`${s.value}-option`}
+            >
               {s.label}
             </Option>
           ))}
@@ -248,6 +254,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
             {label}
             <StyledInput
               placeholder={placeholder}
+              data-test-id={`${targetPath}-input`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const targetCopy = { ...target };
                 set(targetCopy, targetPath, event.target.value);
