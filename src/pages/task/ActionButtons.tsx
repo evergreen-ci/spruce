@@ -27,6 +27,7 @@ import {
 } from "gql/generated/types";
 import { PageButtonRow } from "components/styles";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { TaskNotificationModal } from "pages/task/actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
@@ -49,6 +50,7 @@ export const ActionButtons = ({
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
+  const [isVisibleModal, setIsVisibleModal] = useState(true);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
 
@@ -200,45 +202,52 @@ export const ActionButtons = ({
   ];
 
   return (
-    <PageButtonRow ref={wrapperRef}>
-      <Button
-        size="small"
-        dataCy="schedule-task"
-        key="schedule"
-        disabled={disabled || !canSchedule}
-        loading={loadingScheduleTask}
-        onClick={scheduleTask}
-      >
-        Schedule
-      </Button>
-      <Button
-        size="small"
-        dataCy="restart-task"
-        key="restart"
-        disabled={disabled || !canRestart}
-        loading={loadingRestartTask}
-        onClick={restartTask}
-      >
-        Restart
-      </Button>
-      <Button
-        size="small"
-        dataCy="notify-task"
-        key="notifications"
-        disabled={disabled}
-      >
-        Add Notification
-      </Button>
-      <ButtonDropdown
-        disabled={disabled}
-        dropdownItems={dropdownItems}
-        isVisibleDropdown={isVisible}
-        setIsVisibleDropdown={setIsVisible}
-        loading={
-          loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
-        }
+    <>
+      <PageButtonRow ref={wrapperRef}>
+        <Button
+          size="small"
+          dataCy="schedule-task"
+          key="schedule"
+          disabled={disabled || !canSchedule}
+          loading={loadingScheduleTask}
+          onClick={scheduleTask}
+        >
+          Schedule
+        </Button>
+        <Button
+          size="small"
+          dataCy="restart-task"
+          key="restart"
+          disabled={disabled || !canRestart}
+          loading={loadingRestartTask}
+          onClick={restartTask}
+        >
+          Restart
+        </Button>
+        <Button
+          size="small"
+          dataCy="notify-task"
+          key="notifications"
+          disabled={disabled}
+          onClick={() => setIsVisibleModal(!isVisibleModal)}
+        >
+          Add Notification
+        </Button>
+        <ButtonDropdown
+          disabled={disabled}
+          dropdownItems={dropdownItems}
+          isVisibleDropdown={isVisible}
+          setIsVisibleDropdown={setIsVisible}
+          loading={
+            loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
+          }
+        />
+      </PageButtonRow>
+      <TaskNotificationModal
+        visible={isVisibleModal}
+        onCancel={() => setIsVisibleModal(false)}
       />
-    </PageButtonRow>
+    </>
   );
 };
 
