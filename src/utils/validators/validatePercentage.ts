@@ -1,4 +1,4 @@
-export default (percent: any) => {
+export const validatePercentage = (percent: any) => {
   if (!Number.isFinite(percent)) {
     return "Percent must be a number";
   }

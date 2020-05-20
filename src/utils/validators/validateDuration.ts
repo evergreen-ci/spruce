@@ -1,4 +1,4 @@
-export default (duration: any) => {
+export const validateDuration = (duration: any) => {
   if ((!duration && duration !== 0) || !Number.isInteger(+duration)) {
     return "Duration must be an integer";
   }
