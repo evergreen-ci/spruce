@@ -72,7 +72,7 @@ describe("Patch Action Buttons", () => {
       .should("exist");
   });
 
-  it("Error scheduling a version shows error banner", () => {
+  it("Error setting priority shows error banner", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
     cy.get(".ant-input-number-input")
