@@ -50,7 +50,7 @@ export const ActionButtons = ({
   const wrapperRef = useRef(null);
   const priorityRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
-  const [isVisibleModal, setIsVisibleModal] = useState(true);
+  const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
 

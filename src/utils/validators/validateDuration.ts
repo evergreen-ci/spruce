@@ -1,5 +1,5 @@
 export default (duration: any) => {
-  if (duration === "" || !Number.isInteger(+duration)) {
+  if ((!duration && duration !== 0) || !Number.isInteger(+duration)) {
     return "Duration must be an integer";
   }
   if (+duration < 0) {

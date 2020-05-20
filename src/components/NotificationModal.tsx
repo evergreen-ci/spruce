@@ -167,16 +167,21 @@ export const NotificationModal: React.FC<ModalProps> = ({
 
   return (
     <Modal
+      data-test-id="subscription-modal"
       title={<H2>Add Subscription</H2>}
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <Button key="cancel" onClick={onCancel}>
+        <Button
+          key="cancel"
+          onClick={onCancel}
+          dataCy="cancel-subscription-button"
+        >
           Cancel
         </Button>,
         <Button
           key="save"
-          data-cy="save-task-subscription-button"
+          dataCy="save-subscription-button"
           loading={mutationLoading}
           disabled={!isFormValid}
           onClick={() => {
@@ -207,7 +212,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
           data-test-id="when-select"
         >
           {triggers.map((t) => (
-            <Option key={t.trigger} value={t.trigger}>
+            <Option
+              key={t.trigger}
+              value={t.trigger}
+              data-test-id={`${t.trigger}-option`}
+            >
               {t.label}
             </Option>
           ))}
@@ -232,6 +241,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
       <div>
         then notify by:
         <StyledSelect
+          data-test-id="notify-by-select"
           value={selectedSubscriptionMethod}
           onChange={(v: string) => {
             setSelectedSubscriptionMethod(v);
@@ -268,7 +278,9 @@ export const NotificationModal: React.FC<ModalProps> = ({
       <div>
         {isVisibleExtraFieldErrorMessages &&
           extraFieldErrorMessages.map((text) => (
-            <ErrorMessage>{text}</ErrorMessage>
+            <span data-cy="error-message">
+              <ErrorMessage>{text}</ErrorMessage>
+            </span>
           ))}
       </div>
     </Modal>
