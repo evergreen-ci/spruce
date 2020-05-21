@@ -1,9 +1,6 @@
 import React from "react";
-import {
-  NotificationModal,
-  SubscriptionMethods,
-  Trigger,
-} from "components/NotificationModal";
+import { NotificationModal } from "components/NotificationModal";
+import { SubscriptionMethods, Trigger } from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
