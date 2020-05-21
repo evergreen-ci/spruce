@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
   SchedulePatchTasksPopconfirm,
   UnschedulePatchTasksPopconfirm,
   RestartPatch,
 } from "components/PatchActionButtons";
-import { DropdownItem } from "components/ButtonDropdown";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { paths } from "constants/routes";
@@ -18,11 +17,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const hideMenu = () => setIsVisible(false);
 
   const dropdownItems = [
-    <Link key="reconfigure" to={`${paths.patch}/${patchId}/configure`}>
-      <DropdownItem disabled={false} data-cy="unschedule-patch">
-        <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
-      </DropdownItem>
-    </Link>,
+    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
     <SchedulePatchTasksPopconfirm
       key="schedule"
       patchId={patchId}
@@ -50,3 +45,11 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
     />
   );
 };
+
+const LinkToReconfigurePage: React.FC<{ patchId: string }> = ({ patchId }) => (
+  <Link to={`${paths.patch}/${patchId}/configure`}>
+    <DropdownItem disabled={false} data-cy="unschedule-patch">
+      <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
+    </DropdownItem>
+  </Link>
+);
