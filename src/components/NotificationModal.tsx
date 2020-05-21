@@ -60,6 +60,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
       dispatchBanner.errorBanner(
         `Error adding your subscription: '${err.message}'`
       );
+      // TODO: save error
     },
   });
   const [selectedTriggerId, setSelectedTriggerId] = useState<string>("");
@@ -148,15 +149,10 @@ export const NotificationModal: React.FC<ModalProps> = ({
     };
   };
 
-  const onClickSave = async (): Promise<void> => {
-    try {
-      await saveSubscription({
-        variables: { subscription: getRequestPayload() },
-      });
-    } catch (error) {
-      // TODO: log this errro
-    }
-  };
+  const onClickSave = () =>
+    saveSubscription({
+      variables: { subscription: getRequestPayload() },
+    });
 
   const currentMethodControl = subscriptionMethodControls[
     selectedSubscriptionMethod
