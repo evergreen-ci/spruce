@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
-  SchedulePatchTasksPopconfirm,
-  UnschedulePatchTasksPopconfirm,
+  SchedulePatchTasks,
+  UnschedulePatchTasks,
   RestartPatch,
 } from "components/PatchActionButtons";
 import { Disclaimer } from "@leafygreen-ui/typography";
@@ -18,12 +18,8 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
 
   const dropdownItems = [
     <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
-    <SchedulePatchTasksPopconfirm
-      key="schedule"
-      patchId={patchId}
-      hideMenu={hideMenu}
-    />,
-    <UnschedulePatchTasksPopconfirm
+    <SchedulePatchTasks key="schedule" patchId={patchId} hideMenu={hideMenu} />,
+    <UnschedulePatchTasks
       key="unschedule"
       patchId={patchId}
       hideMenu={hideMenu}
