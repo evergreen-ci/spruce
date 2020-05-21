@@ -15,14 +15,14 @@ interface SetPriorityProps {
   patchId: string;
   disabled?: boolean;
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  refetchQueries?: string[];
+  refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
 export const SetPatchPriority: React.FC<SetPriorityProps> = ({
   patchId,
   disabled,
   hideMenu,
-  refetchQueries = [],
+  refetchQueries,
   setParentLoading,
 }) => {
   const priorityRef = React.useRef(null);

@@ -18,18 +18,24 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
 
   const dropdownItems = [
     <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
-    <SchedulePatchTasks key="schedule" patchId={patchId} hideMenu={hideMenu} />,
+    <SchedulePatchTasks
+      key="schedule"
+      patchId={patchId}
+      hideMenu={hideMenu}
+      refetchQueries={refetchQueries}
+    />,
     <UnschedulePatchTasks
       key="unschedule"
       patchId={patchId}
       hideMenu={hideMenu}
+      refetchQueries={refetchQueries}
     />,
     <RestartPatch
       key="restart"
       patchId={patchId}
       disabled={false}
-      refetchQueries={["PatchBuildVariantsAndStatus"]}
       hideMenu={hideMenu}
+      refetchQueries={refetchQueries}
     />,
   ];
 
@@ -50,3 +56,5 @@ const LinkToReconfigurePage: React.FC<{ patchId: string }> = ({ patchId }) => (
     </DropdownItem>
   </Link>
 );
+
+const refetchQueries = ["PatchBuildVariantsAndStatus"];

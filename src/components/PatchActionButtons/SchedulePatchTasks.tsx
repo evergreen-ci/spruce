@@ -15,7 +15,7 @@ interface SchedulePatchTasksProps {
   patchId: string;
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   isButton?: boolean;
-  refetchQueries?: string[];
+  refetchQueries: string[];
   disabled?: boolean;
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
@@ -24,7 +24,7 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
   hideMenu,
   isButton = false,
   disabled,
-  refetchQueries = [],
+  refetchQueries,
   setParentLoading = () => undefined,
 }) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();

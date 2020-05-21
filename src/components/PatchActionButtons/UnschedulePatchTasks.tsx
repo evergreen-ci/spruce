@@ -15,7 +15,7 @@ import { DropdownItem } from "components/ButtonDropdown";
 interface UnscheduleProps {
   patchId: string;
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  refetchQueries?: string[];
+  refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
   disabled?: boolean;
 }

@@ -8,7 +8,7 @@ interface RestartPatchProps {
   patchId: string;
   disabled: boolean;
   isButton?: boolean;
-  refetchQueries?: string[];
+  refetchQueries: string[];
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({

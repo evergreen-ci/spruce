@@ -62,7 +62,13 @@ export const ActionButtons = () => {
           }}
         />
         <RestartPatch
-          {...{ patchId, hideMenu, isButton: true, disabled: actionIsLoading }}
+          {...{
+            patchId,
+            hideMenu,
+            isButton: true,
+            disabled: actionIsLoading,
+            refetchQueries,
+          }}
         />
         <Button
           size="small"
