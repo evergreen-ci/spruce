@@ -29,6 +29,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       hideMenu={hideMenu}
     />,
     <RestartPatch
+      data-cy="restart-patch-link"
       key="restart"
       patchId={patchId}
       disabled={false}
@@ -39,6 +40,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
 
   return (
     <ButtonDropdown
+      dataCyBtn="patch-card-dropdown"
       isVisibleDropdown={isVisible}
       dropdownItems={dropdownItems}
       setIsVisibleDropdown={setIsVisible}
@@ -47,8 +49,8 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
 };
 
 const LinkToReconfigurePage: React.FC<{ patchId: string }> = ({ patchId }) => (
-  <Link to={`${paths.patch}/${patchId}/configure`}>
-    <DropdownItem disabled={false} data-cy="unschedule-patch">
+  <Link data-cy="reconfigure-link" to={`${paths.patch}/${patchId}/configure`}>
+    <DropdownItem disabled={false}>
       <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
     </DropdownItem>
   </Link>

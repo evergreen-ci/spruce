@@ -51,6 +51,7 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
         }`
       );
       setAbort(false);
+      hideMenu();
     },
     onError: (err) => {
       errorBanner(`Error unscheduling tasks: ${err.message}`);
@@ -81,8 +82,8 @@ export const UnschedulePatchTasksPopconfirm: React.FC<UnscheduleProps> = ({
       cancelText="Cancel"
     >
       <DropdownItem
-        disabled={loadingUnschedulePatchTasks}
         data-cy="unschedule-patch"
+        disabled={loadingUnschedulePatchTasks}
       >
         <Disclaimer>Unschedule All Tasks</Disclaimer>
       </DropdownItem>
