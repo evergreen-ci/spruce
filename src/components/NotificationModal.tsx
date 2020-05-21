@@ -14,6 +14,7 @@ import {
 import { useBannerDispatchContext } from "context/banners";
 import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
+import { v4 as uuid } from "uuid";
 
 const { Option } = Select;
 
@@ -46,10 +47,6 @@ export const NotificationModal: React.FC<ModalProps> = ({
   const [extraFieldErrorMessages, setExtraFieldErrorMessages] = useState<
     string[]
   >([]);
-  const [
-    isVisibleExtraFieldErrorMessages,
-    setIsVisibleExtraFieldErrorMessages,
-  ] = useState(false);
   const [saveSubscription, { loading: mutationLoading }] = useMutation<
     SaveSubscriptionMutation,
     SaveSubscriptionMutationVariables
@@ -78,7 +75,6 @@ export const NotificationModal: React.FC<ModalProps> = ({
     setExtraFieldInputVals(
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
     );
-    setIsVisibleExtraFieldErrorMessages(false);
   }, [extraFields]);
 
   // reset Targets when subscription method changes
@@ -88,7 +84,6 @@ export const NotificationModal: React.FC<ModalProps> = ({
 
   // handles populating an error messages error array for the extra fields
   useEffect(() => {
-    setIsVisibleExtraFieldErrorMessages(false);
     if (!extraFields) {
       setExtraFieldErrorMessages([]);
       return;
@@ -111,11 +106,12 @@ export const NotificationModal: React.FC<ModalProps> = ({
 
   useEffect(() => {
     const targetEntries = Object.entries(target);
-    // check that required fields exist
+    // check that required fields exist and there are no extra field errors
     if (
       !targetEntries.length ||
       !selectedTriggerId ||
-      !selectedSubscriptionMethod
+      !selectedSubscriptionMethod ||
+      extraFieldErrorMessages.length
     ) {
       setIsFormValid(false);
       return;
@@ -134,6 +130,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
     extraFieldInputVals,
     selectedTriggerId,
     selectedSubscriptionMethod,
+    extraFieldErrorMessages,
   ]);
 
   const getRequestPayload = () => {
@@ -190,12 +187,8 @@ export const NotificationModal: React.FC<ModalProps> = ({
           loading={mutationLoading}
           disabled={!isFormValid}
           onClick={() => {
-            if (extraFieldErrorMessages.length) {
-              setIsVisibleExtraFieldErrorMessages(true);
-            } else {
-              onClickSave();
-              onCancel();
-            }
+            onClickSave();
+            onCancel();
           }}
           variant="danger"
         >
@@ -281,12 +274,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
         )}
       </div>
       <div>
-        {isVisibleExtraFieldErrorMessages &&
-          extraFieldErrorMessages.map((text) => (
-            <span data-cy="error-message">
-              <ErrorMessage>{text}</ErrorMessage>
-            </span>
-          ))}
+        {extraFieldErrorMessages.map((text) => (
+          <span key={uuid()} data-cy="error-message">
+            <ErrorMessage>{text}</ErrorMessage>
+          </span>
+        ))}
       </div>
     </Modal>
   );

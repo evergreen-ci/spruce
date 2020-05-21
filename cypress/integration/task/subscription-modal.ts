@@ -21,7 +21,7 @@ describe("Task Subscription Modal", () => {
     cy.dataCy(bannerDataCy).contains(successText);
   });
 
-  it("Display error message when submitting form with negative percent value", () => {
+  it("Disable save button and display error message when populating form with negative percent value", () => {
     openModal();
     cy.dataTestId("runtime-change-option").click();
     cy.dataTestId("task-percent-change-input-number")
@@ -30,11 +30,15 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("EVG-2000");
-    cy.dataCy("save-subscription-button").click();
     cy.dataCy("error-message").contains(errorTextNegativePercent);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("task-percent-change-input-number")
+      .clear()
+      .type("100");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
   });
 
-  it("Display error message in modal when submitting form with negative duration value", () => {
+  it("Disable save button and display error message in modal when populating form with negative duration value", () => {
     openModal();
     cy.dataTestId("exceeds-duration-option").click();
     cy.dataTestId("task-duration-secs-input-number")
@@ -43,11 +47,15 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("EVG-2000");
-    cy.dataCy("save-subscription-button").click();
     cy.dataCy("error-message").contains(errorTextNegativeDuration);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("task-duration-secs-input-number")
+      .clear()
+      .type("100");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
   });
 
-  it("Display error message in modal when submitting form with decimal duration value", () => {
+  it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
     openModal();
     cy.dataTestId("exceeds-duration-option").click();
     cy.dataTestId("task-duration-secs-input-number")
@@ -56,8 +64,12 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("EVG-2000");
-    cy.dataCy("save-subscription-button").click();
     cy.dataCy("error-message").contains(errorTextDecimalDuration);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("task-duration-secs-input-number")
+      .clear()
+      .type("33");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
   });
 
   it("Display error banner when save subscription request fails", () => {
