@@ -40,6 +40,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
   const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
     ""
   );
+  // target represents the input value for a subscription method
   const [target, setTarget] = useState<Target>({});
   const [isFormValid, setIsFormValid] = useState(false);
   const [extraFieldErrorMessages, setExtraFieldErrorMessages] = useState<
@@ -68,9 +69,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
     ExtraFieldInputVals
   >({});
 
+  // extraFields represents schema additional inputs required for the selected trigger
   const { extraFields } =
     triggers.find(({ trigger }) => trigger === selectedTriggerId) ?? {};
 
+  // clear the input vals for the extraFields when the extraFields change
   useEffect(() => {
     setExtraFieldInputVals(
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
@@ -78,33 +81,37 @@ export const NotificationModal: React.FC<ModalProps> = ({
     setIsVisibleExtraFieldErrorMessages(false);
   }, [extraFields]);
 
+  // reset Targets when subscription method changes
   useEffect(() => {
     setTarget({});
   }, [selectedSubscriptionMethod]);
 
+  // handles populating an error messages error array for the extra fields
   useEffect(() => {
     setIsVisibleExtraFieldErrorMessages(false);
     if (!extraFields) {
       setExtraFieldErrorMessages([]);
-    } else {
-      const extraFieldInputValEntries = Object.entries(extraFieldInputVals);
-      setExtraFieldErrorMessages(
-        extraFieldInputValEntries
-          .map(([fieldName, fieldVal]) => {
-            const validator = get(
-              extraFields.find(({ key }) => key === fieldName),
-              "validator",
-              () => ""
-            );
-            return validator(fieldVal);
-          })
-          .filter((v) => v)
-      );
+      return;
     }
+    const extraFieldInputValEntries = Object.entries(extraFieldInputVals);
+    const nextErrorMessages = extraFieldInputValEntries
+      .map(([fieldName, fieldVal]) => {
+        // get the validator for the extra field
+        const validator = get(
+          extraFields.find(({ key }) => key === fieldName),
+          "validator",
+          () => ""
+        );
+        // validator returns an error message or an empty string
+        return validator(fieldVal);
+      })
+      .filter((v) => v); // filter out empty strings
+    setExtraFieldErrorMessages(nextErrorMessages);
   }, [extraFieldInputVals, extraFields, setExtraFieldErrorMessages]);
 
   useEffect(() => {
     const targetEntries = Object.entries(target);
+    // check that required fields exist
     if (
       !targetEntries.length ||
       !selectedTriggerId ||
@@ -113,6 +120,8 @@ export const NotificationModal: React.FC<ModalProps> = ({
       setIsFormValid(false);
       return;
     }
+    // check that subscription methods input has the correct value
+    // targetEntries should only ever be length 1
     const isTargetValid = targetEntries.reduce(
       (accum, [tName, tVal]) =>
         accum && subscriptionMethodControls[tName].validator(tVal),
