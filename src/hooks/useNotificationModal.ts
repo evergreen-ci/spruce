@@ -1,9 +1,9 @@
+import { useState, useEffect } from "react";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
-import { useState, useEffect } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 import get from "lodash.get";

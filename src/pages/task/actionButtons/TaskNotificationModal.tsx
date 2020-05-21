@@ -91,7 +91,7 @@ const triggers: Trigger[] = [
   },
   {
     trigger: "runtime-change",
-    label: "this task success and its runtime changes by some percentage",
+    label: "this task succeeds and its runtime changes by some percentage",
     extraFields: [
       {
         text: "Percent change",

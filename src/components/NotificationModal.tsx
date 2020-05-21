@@ -5,7 +5,6 @@ import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { H2, Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
-
 import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
@@ -13,6 +12,7 @@ import {
   useNotificationModal,
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
+
 const { Option } = Select;
 
 interface ModalProps extends UseNotificationModalProps {
