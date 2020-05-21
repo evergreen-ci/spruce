@@ -16,12 +16,16 @@ interface SchedulePatchTasksProps {
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   isButton?: boolean;
   refetchQueries?: string[];
+  disabled?: boolean;
+  setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
 export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
   patchId,
   hideMenu,
   isButton = false,
+  disabled,
   refetchQueries = [],
+  setParentLoading = () => undefined,
 }) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const [
@@ -35,10 +39,12 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
     onCompleted: () => {
       successBanner("All tasks were scheduled");
       hideMenu();
+      setParentLoading(false);
     },
     onError: (err) => {
       errorBanner(`Error scheduling tasks: ${err.message}`);
       hideMenu();
+      setParentLoading(false);
     },
     refetchQueries,
   });
@@ -49,7 +55,10 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
       icon={null}
       placement="left"
       title="Schedule all tasks?"
-      onConfirm={() => schedulePatchTasks()}
+      onConfirm={() => {
+        setParentLoading(true);
+        schedulePatchTasks();
+      }}
       onCancel={hideMenu}
       okText="Yes"
       cancelText="Cancel"
@@ -58,14 +67,14 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
         <Button
           size="small"
           dataCy="schedule-patch"
-          disabled={loadingSchedulePatchTasks}
+          disabled={loadingSchedulePatchTasks || disabled}
           loading={loadingSchedulePatchTasks}
         >
           Schedule
         </Button>
       ) : (
         <DropdownItem
-          disabled={loadingSchedulePatchTasks}
+          disabled={loadingSchedulePatchTasks || disabled}
           data-cy="schedule-patch"
         >
           <Disclaimer>Schedule All Tasks</Disclaimer>

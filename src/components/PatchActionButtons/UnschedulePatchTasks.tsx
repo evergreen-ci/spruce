@@ -16,11 +16,15 @@ interface UnscheduleProps {
   patchId: string;
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   refetchQueries?: string[];
+  setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
+  disabled?: boolean;
 }
 export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
   patchId,
   hideMenu,
   refetchQueries,
+  disabled,
+  setParentLoading = () => undefined,
 }) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const [abort, setAbort] = useState(false);
@@ -39,9 +43,11 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
       );
       setAbort(false);
       hideMenu();
+      setParentLoading(false);
     },
     onError: (err) => {
       errorBanner(`Error unscheduling tasks: ${err.message}`);
+      setParentLoading(false);
     },
     refetchQueries,
   });
@@ -63,14 +69,17 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
           />
         </>
       }
-      onConfirm={() => unschedulePatchTasks({ variables: { patchId, abort } })}
+      onConfirm={() => {
+        unschedulePatchTasks({ variables: { patchId, abort } });
+        setParentLoading(true);
+      }}
       onCancel={hideMenu}
       okText="Yes"
       cancelText="Cancel"
     >
       <DropdownItem
         data-cy="unschedule-patch"
-        disabled={loadingUnschedulePatchTasks}
+        disabled={loadingUnschedulePatchTasks || disabled}
       >
         <Disclaimer>Unschedule All Tasks</Disclaimer>
       </DropdownItem>

@@ -25,7 +25,6 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       hideMenu={hideMenu}
     />,
     <RestartPatch
-      data-cy="restart-patch-link"
       key="restart"
       patchId={patchId}
       disabled={false}

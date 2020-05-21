@@ -28,6 +28,7 @@ interface PatchModalProps {
   visible: boolean;
   onOk: () => void;
   onCancel: () => void;
+  onCompleted?: () => void;
   patchId?: string;
   refetchQueries?: string[];
 }
@@ -35,6 +36,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   visible,
   onOk,
   onCancel,
+  onCompleted = () => undefined,
   patchId: patchIdFromProps,
   refetchQueries = [],
 }) => {
@@ -49,10 +51,12 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     RestartPatchMutationVariables
   >(RESTART_PATCH, {
     onCompleted: () => {
+      onCompleted();
       onOk();
       dispatchBanner.successBanner(`Successfully restarted patch!`);
     },
     onError: (err) => {
+      onCompleted();
       onOk();
       dispatchBanner.errorBanner(
         `Error while restarting patch: '${err.message}'`
