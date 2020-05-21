@@ -1,4 +1,2 @@
-export const validateSlack = (v: string): boolean => {
-  console.log(v);
-  return v.match("(#|@).+") !== null;
-};
+export const validateSlack = (v: string): boolean =>
+  v.match("(#|@).+") !== null;
