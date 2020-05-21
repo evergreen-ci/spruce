@@ -26,7 +26,7 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { PatchCard } from "./my-patches/PatchCard";
+import { PatchCard } from "pages/my-patches/PatchCard";
 import { withBannersContext } from "hoc/withBannersContext";
 
 const MyPatchesComponent: React.FC = () => {
@@ -139,7 +139,7 @@ const MyPatchesComponent: React.FC = () => {
           />
           <StatusSelector />
         </FlexRow>
-        <Checkbox
+        <StyledCheckbox
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
           label="Show Commit Queue"
@@ -186,6 +186,10 @@ const getQueryVariables = (
     limit: LIMIT,
   };
 };
+
+const StyledCheckbox = styled(Checkbox)`
+  margin-left: 16px;
+`;
 
 const FlexRow = styled.div`
   display: flex;
