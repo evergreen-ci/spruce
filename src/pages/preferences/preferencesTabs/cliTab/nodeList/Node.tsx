@@ -34,8 +34,8 @@ const Step: React.FC<StepProps> = ({ index }) => (
 );
 
 const Circle = Styled.div`
-  height: 56px;
-  width: 56px;
+  min-height: 56px;
+  min-width: 56px;
   background-color: ${green.base};
   border-radius: 50%;
   display: flex;
