@@ -1,5 +1,5 @@
 import React from "react";
-import Styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 
@@ -33,7 +33,7 @@ const Step: React.FC<StepProps> = ({ stepNumber }) => (
   </Circle>
 );
 
-const Circle = Styled.div`
+const Circle = styled.div`
   min-height: 56px;
   min-width: 56px;
   background-color: ${green.base};
@@ -44,24 +44,24 @@ const Circle = Styled.div`
   z-index: 2;
 `;
 
-const Index = Styled(Subtitle)`
+const Index = styled(Subtitle)`
   color: ${white};
 `;
 
-const NodeTitle = Styled(Subtitle)`
+const NodeTitle = styled(Subtitle)`
   align-self: center;
   margin-left: 24px;
 `;
-const NodeContainer = Styled.div`
+const NodeContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-bottom: 80px;
 `;
 
-const NodeHeader = Styled.div`
+const NodeHeader = styled.div`
   display: flex;
 `;
 
-const ChildContainer = Styled.div`
+const ChildContainer = styled.div`
   margin-left: 80px;
 `;

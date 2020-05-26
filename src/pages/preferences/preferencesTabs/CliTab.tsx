@@ -1,5 +1,5 @@
 import React from "react";
-import Styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import {
   DownloadCard,
   AuthenticationCard,
@@ -35,8 +35,8 @@ const list = [
   },
 ];
 
-const RelativeContainer = Styled.div`
- // This is required for the NodeList component to allow the vertical line to render properly
- // It has to do with absolute positioning in relation to the nearest relative parent.
+const RelativeContainer = styled.div`
+  // This is required for the NodeList component to allow the vertical line to render properly
+  // It has to do with absolute positioning in relation to the nearest relative parent.
   position: relative;
 `;

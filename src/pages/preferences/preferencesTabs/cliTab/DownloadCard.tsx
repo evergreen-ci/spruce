@@ -1,6 +1,6 @@
 import React from "react";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import Styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import { SiderCard, StyledLink } from "components/styles";
@@ -63,46 +63,46 @@ const ExpandableLinkContents = () => (
     <StyledLink href={cliDownloadUrls.windows_386}>Windows 32-bit</StyledLink>
   </LinkContainer>
 );
-const Container = Styled(SiderCard)`
+const Container = styled(SiderCard)`
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
 `;
-const CardGroup = Styled.div`
+const CardGroup = styled.div`
   display: flex;
 `;
-const CliDownloadCard = Styled(SiderCard)`
+const CliDownloadCard = styled(SiderCard)`
   display: flex;
-  flex-direction:column;
+  flex-direction: column;
   width: 180px;
   padding-top: 20px;
-  padding-bottom:20px;
+  padding-bottom: 20px;
   padding-left: 20px;
   margin-right: 16px;
 `;
 
-const CliDownloadButton = Styled(Button)`
+const CliDownloadButton = styled(Button)`
   align-self: flex-start;
 `;
 
-const CliDownloadTitle = Styled(Subtitle)`
+const CliDownloadTitle = styled(Subtitle)`
   font-weight: bold;
   padding-bottom: 45px;
 `;
-const CardDescription = Styled(Body)`
+const CardDescription = styled(Body)`
   font-size: 14px;
   padding-bottom: 40px;
 `;
 
-const InlinePre = Styled("pre")`
+const InlinePre = styled("pre")`
   display: inline-block;
   background-color: ${gray.light3};
   margin-bottom: 0;
   overflow: visible;
 `;
 
-const LinkContainer = Styled.div`
-  display:flex;
-  flex-direction:column;
+const LinkContainer = styled.div`
+  display: flex;
+  flex-direction: column;
   margin-bottom: 16px;
 `;

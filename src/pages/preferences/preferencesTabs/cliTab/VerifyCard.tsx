@@ -1,7 +1,7 @@
 import React from "react";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import Styled from "@emotion/styled";
+import styled from "@emotion/styled";
 import { SiderCard } from "components/styles";
 import Code from "@leafygreen-ui/code";
 
@@ -26,19 +26,19 @@ revision='2020-04-27']"
   );
 };
 
-const Container = Styled(SiderCard)`
+const Container = styled(SiderCard)`
   padding-left: 20px;
   padding-top: 20px;
   padding-bottom: 20px;
 `;
 
-const CodeContainer = Styled.div`
+const CodeContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 30px;
   width: 80%;
 `;
 
-const InlinePre = Styled("pre")`
+const InlinePre = styled("pre")`
   display: inline-block;
   background-color: ${gray.light3};
   margin-bottom: 0;
