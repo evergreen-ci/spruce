@@ -7,7 +7,7 @@ const { green, white } = uiColors;
 
 export type NodeType = {
   title: string;
-  child: JSX.Element;
+  child?: JSX.Element;
 };
 
 interface NodeProps extends NodeType {
@@ -19,7 +19,7 @@ export const Node: React.FC<NodeProps> = ({ title, child, index }) => (
       <Step index={index + 1} />
       <NodeTitle>{title}</NodeTitle>
     </NodeHeader>
-    <ChildContainer>{child}</ChildContainer>
+    {child && <ChildContainer>{child}</ChildContainer>}
   </NodeContainer>
 );
 
