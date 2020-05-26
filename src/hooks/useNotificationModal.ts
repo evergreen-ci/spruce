@@ -131,10 +131,7 @@ export const useNotificationModal = ({
         type: targetEntry[0],
         target: targetEntry[1],
       },
-      trigger_data: Object.entries(extraFieldInputVals).reduce(
-        (accum, [key, val]) => ({ ...accum, [key]: `${val}` }),
-        {}
-      ),
+      trigger_data: extraFieldInputVals,
       owner_type: "person",
       regex_selectors: [],
     };
@@ -148,19 +145,19 @@ export const useNotificationModal = ({
   };
 
   return {
-    selectedSubscriptionMethod,
-    onClickSave,
-    mutationLoading,
-    isFormValid,
-    selectedTriggerId,
-    setSelectedTriggerId,
-    extraFields,
+    extraFieldErrorMessages,
     extraFieldInputVals,
+    extraFields,
+    isFormValid,
+    mutationLoading,
+    target,
+    onClickSave,
+    selectedSubscriptionMethod,
+    selectedTriggerId,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
-    target,
+    setSelectedTriggerId,
     setTarget,
-    extraFieldErrorMessages,
   };
 };
 
@@ -171,14 +168,14 @@ interface Target {
 }
 type ResourceType = "TASK" | "VERSION";
 interface ExtraFieldInputVals {
-  [index: string]: number;
+  [index: string]: string;
 }
 const clearExtraFieldsInputCb = (
   accum: ExtraFieldInputVals,
   eF: ExtraField
 ) => ({
   ...accum,
-  [eF.key]: 10,
+  [eF.key]: "10",
 });
 interface ExtraField {
   text: string;

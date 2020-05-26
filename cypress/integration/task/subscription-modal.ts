@@ -24,7 +24,7 @@ describe("Task Subscription Modal", () => {
   it("Disable save button and display error message when populating form with negative percent value", () => {
     openModal();
     cy.dataTestId("runtime-change-option").click();
-    cy.dataTestId("task-percent-change-input-number")
+    cy.dataCy("task-percent-change-input")
       .clear()
       .type("-100");
     cy.dataTestId("notify-by-select").click();
@@ -32,7 +32,7 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("jira-comment-input").type("EVG-2000");
     cy.dataCy("error-message").contains(errorTextNegativePercent);
     cy.dataCy("save-subscription-button").should("be.disabled");
-    cy.dataTestId("task-percent-change-input-number")
+    cy.dataCy("task-percent-change-input")
       .clear()
       .type("100");
     cy.dataCy("save-subscription-button").should("not.be.disabled");
@@ -41,7 +41,7 @@ describe("Task Subscription Modal", () => {
   it("Disable save button and display error message in modal when populating form with negative duration value", () => {
     openModal();
     cy.dataTestId("exceeds-duration-option").click();
-    cy.dataTestId("task-duration-secs-input-number")
+    cy.dataCy("task-duration-secs-input")
       .clear()
       .type("-100");
     cy.dataTestId("notify-by-select").click();
@@ -49,7 +49,7 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("jira-comment-input").type("EVG-2000");
     cy.dataCy("error-message").contains(errorTextNegativeDuration);
     cy.dataCy("save-subscription-button").should("be.disabled");
-    cy.dataTestId("task-duration-secs-input-number")
+    cy.dataCy("task-duration-secs-input")
       .clear()
       .type("100");
     cy.dataCy("save-subscription-button").should("not.be.disabled");
@@ -58,7 +58,7 @@ describe("Task Subscription Modal", () => {
   it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
     openModal();
     cy.dataTestId("exceeds-duration-option").click();
-    cy.dataTestId("task-duration-secs-input-number")
+    cy.dataCy("task-duration-secs-input")
       .clear()
       .type(".33");
     cy.dataTestId("notify-by-select").click();
@@ -66,7 +66,7 @@ describe("Task Subscription Modal", () => {
     cy.dataTestId("jira-comment-input").type("EVG-2000");
     cy.dataCy("error-message").contains(errorTextDecimalDuration);
     cy.dataCy("save-subscription-button").should("be.disabled");
-    cy.dataTestId("task-duration-secs-input-number")
+    cy.dataCy("task-duration-secs-input")
       .clear()
       .type("33");
     cy.dataCy("save-subscription-button").should("not.be.disabled");
@@ -136,6 +136,6 @@ describe("Task Subscription Modal", () => {
   const bannerDataCy = "banner";
   const successText = "Your subscription has been added";
   const errorTextNegativeDuration = "Duration cannot be negative";
-  const errorTextNegativePercent = "Percent cannot be negative";
+  const errorTextNegativePercent = "Percent must be a positive number";
   const errorTextDecimalDuration = "Duration must be an integer";
 });

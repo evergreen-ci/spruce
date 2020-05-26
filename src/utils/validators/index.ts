@@ -13,12 +13,11 @@ export const validateEmail = (v: string): boolean => /\S+@\S+\.\S+/.test(v);
 export const validateJira = (v: string) => v.match(".+-[0-9]+") !== null;
 
 export const validatePercentage = (percent: any) => {
-  if (!Number.isFinite(percent)) {
-    return "Percent must be a number";
+  const posNumRegex = /^[0-9]+([,.][0-9]+)?$/g;
+  if (!posNumRegex.test(percent)) {
+    return "Percent must be a positive number";
   }
-  if (+percent <= 0) {
-    return "Percent cannot be negative";
-  }
+
   return "";
 };
 

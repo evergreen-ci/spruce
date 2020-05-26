@@ -1,11 +1,12 @@
 import React from "react";
-import { Modal, Select, InputNumber, Input } from "antd";
+import { Modal, Select, Input } from "antd";
 import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { H2, Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
+import TextInput from "@leafygreen-ui/text-input";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import {
@@ -110,17 +111,17 @@ export const NotificationModal: React.FC<ModalProps> = ({
       </>
       {(extraFields ?? []).map(({ text, key }) => (
         <ExtraFieldContainer key={key}>
-          <span>{text}</span>
-          <StyledInputNumber
-            data-test-id={`${key}-input-number`}
-            type="number"
-            value={extraFieldInputVals[key]}
-            onChange={(n) => {
+          <TextInput
+            label=" "
+            data-cy={`${key}-input`}
+            description={text}
+            onChange={(event) => {
               setExtraFieldInputVals({
                 ...extraFieldInputVals,
-                [key]: n,
+                [key]: event.target.value,
               });
             }}
+            value={extraFieldInputVals[key]}
           />
         </ExtraFieldContainer>
       ))}
@@ -189,9 +190,6 @@ const StyledInput = styled(Input)`
   width: 50%;
 `;
 
-const StyledInputNumber = styled(InputNumber)`
-  margin-left: 8px;
-`;
 const ExtraFieldContainer = styled.div`
   margin-bottom: 8px;
 `;
