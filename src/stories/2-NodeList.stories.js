@@ -26,4 +26,8 @@ const list = [
     child: <Child />,
   },
 ];
-export const NodeListFull = () => <NodeList list={list} />;
+export const NodeListFull = () => (
+  <div style={{ position: "relative" }}>
+    <NodeList list={list} />
+  </div>
+);

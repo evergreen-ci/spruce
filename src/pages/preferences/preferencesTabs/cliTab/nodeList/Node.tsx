@@ -40,7 +40,7 @@ const Circle = Styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: 100px;
+  z-index: 2;
 `;
 
 const Index = Styled(Subtitle)`
