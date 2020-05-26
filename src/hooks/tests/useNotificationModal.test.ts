@@ -22,16 +22,22 @@ test("Should have correctly formatted request payload after selecting options", 
 
   act(() => {
     result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
-  });
-  act(() => {
     result.current.setTarget({ email: "email@email.com" });
-  });
-  act(() => {
     result.current.setSelectedTriggerId("exceeds-duration");
   });
-  expect(JSON.stringify(result.current.getRequestPayload())).toStrictEqual(
-    `{"trigger":"exceeds-duration","resource_type":"TASK","selectors":[{"type":"object","data":"task"},{"type":"id","data":"a task id"}],"subscriber":{"type":"email","target":"email@email.com"},"trigger_data":{"task-duration-secs":"10"},"owner_type":"person","regex_selectors":[]}`
-  );
+
+  expect(result.current.getRequestPayload()).toStrictEqual({
+    trigger: "exceeds-duration",
+    resource_type: "TASK",
+    selectors: [
+      { type: "object", data: "task" },
+      { type: "id", data: "a task id" },
+    ],
+    subscriber: { type: "email", target: "email@email.com" },
+    trigger_data: { "task-duration-secs": "10" },
+    owner_type: "person",
+    regex_selectors: [],
+  });
 });
 
 const subscriptionMethodControls: SubscriptionMethods = {
