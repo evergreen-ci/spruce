@@ -16,6 +16,7 @@ describe("Task Action Buttons", () => {
     });
 
     it("Clicking Restart button should produce success banner", () => {
+      cy.visit(taskRoute3);
       cy.dataCy("restart-task").click();
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
@@ -49,14 +50,16 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).should("have.length", 3);
     });
 
-    it("Clicking on Schedule should produce an error banner", () => {
+    it("Clicking on Restart and then Schedule should produce an error banner", () => {
+      cy.visit(taskRoute1);
+      cy.dataCy("restart-task").click();
       cy.dataCy("schedule-task").click();
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains(scheduleErrorBannerText);
     });
 
-    it("There should be four banners visible from the previous actions", () => {
-      cy.dataCy(bannerDataCy).should("have.length", 4);
+    it("There should be 2 banners visible from the previous actions", () => {
+      cy.dataCy(bannerDataCy).should("have.length", 2);
       cy.dataCy("ellipsis-btn").click();
     });
 
@@ -81,6 +84,8 @@ const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
 const taskRoute1 =
   "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
+const taskRoute3 =
+  "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute2 =
   "task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const bannerDataCy = "banner";
