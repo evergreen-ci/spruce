@@ -11,6 +11,7 @@ import {
 } from "constants/externalResources";
 
 const { gray } = uiColors;
+
 export const DownloadCard = () => (
   <Container>
     <Subtitle>Command-Line Client</Subtitle>
@@ -38,7 +39,11 @@ export const DownloadCard = () => (
   </Container>
 );
 
-const CliDownloadBox = ({ title, link }) => (
+interface CliDownloadBoxProps {
+  title: string;
+  link: string;
+}
+const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => (
   <CliDownloadCard>
     <CliDownloadTitle>{title}</CliDownloadTitle>
     <CliDownloadButton href={link} as="a">
