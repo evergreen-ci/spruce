@@ -18,16 +18,18 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler, usePrevious } from "hooks";
+import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
-import { Skeleton, Pagination } from "antd";
-import { PatchCard } from "./my-patches/PatchCard";
+import { Skeleton } from "antd";
+import { PatchCard } from "pages/my-patches/PatchCard";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 export const MyPatches: React.FC = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const [page, setPage] = useState(1);
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
     page: 0,
     ...getQueryVariables(search),
@@ -43,17 +45,12 @@ export const MyPatches: React.FC = () => {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
-  const prevSearch = usePrevious(search);
-  useEffect(() => {
-    setPage(1);
-  }, [search]);
 
   useEffect(() => {
     const fetch = async () => {
       try {
         await fetchMore({
           variables: {
-            page: prevSearch !== search ? 0 : page - 1,
             ...getQueryVariables(search),
           },
           updateQuery: (
@@ -71,7 +68,7 @@ export const MyPatches: React.FC = () => {
       }
     };
     fetch();
-  }, [page, search, prevSearch, fetchMore]);
+  }, [search, fetchMore]);
 
   const onCheckboxChange = (): void => {
     replace(
@@ -84,10 +81,6 @@ export const MyPatches: React.FC = () => {
         { arrayFormat }
       )}`
     );
-  };
-
-  const onChange = (pageNum: number) => {
-    setPage(pageNum);
   };
 
   const renderTable = () => {
@@ -105,6 +98,7 @@ export const MyPatches: React.FC = () => {
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
   };
 
+  const { limit, page } = getQueryVariables(search);
   return (
     <PageWrapper>
       <PageTitle>My Patches</PageTitle>
@@ -127,19 +121,24 @@ export const MyPatches: React.FC = () => {
           checked={getQueryVariables(search).includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
-      <Pagination
-        onChange={onChange}
-        current={page}
-        pageSize={LIMIT}
-        total={get(data, "userPatches.filteredPatchCount", 0)}
-      />
+      <PaginationRow>
+        <Pagination
+          pageSize={limit}
+          value={page}
+          totalResults={get(data, "userPatches.filteredPatchCount", 0)}
+          dataTestId="my-patches-pagination"
+        />
+        <PageSizeSelector
+          dataTestId="my-patches-page-size-selector"
+          value={limit}
+        />
+      </PaginationRow>
       <>{renderTable()}</>
     </PageWrapper>
   );
 };
 
 const arrayFormat = "comma";
-const LIMIT = 7;
 const getQueryVariables = (
   search: string
 ): {
@@ -147,8 +146,10 @@ const getQueryVariables = (
   patchName: string;
   statuses: string[];
   limit: number;
+  page: number;
 } => {
   const parsed = queryString.parse(search, { arrayFormat });
+
   const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
     parsed[MyPatchesQueryParams.CommitQueue] === undefined;
@@ -162,13 +163,19 @@ const getQueryVariables = (
     includeCommitQueue,
     patchName,
     statuses,
-    limit: LIMIT,
+    page: getPageFromSearch(search),
+    limit: getLimitFromSearch(search),
   };
 };
 
 const FlexRow = styled.div`
   display: flex;
   flex-grow: 2;
+`;
+const PaginationRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
