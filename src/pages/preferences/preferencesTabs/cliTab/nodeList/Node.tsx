@@ -32,6 +32,7 @@ const Step: React.FC<StepProps> = ({ index }) => (
     <Index>{index}</Index>
   </Circle>
 );
+
 const Circle = Styled.div`
   height: 56px;
   width: 56px;

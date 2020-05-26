@@ -17,13 +17,13 @@ export const NodeList: React.FC<NodeListProps> = ({ list }) => (
 
 const NodeContainer = Styled.div`
   :after {
-    content:"";
-    position: absolute;
-    left: 28px;
-    top: 5%;
-    height: 100%;
-    width: 1px;
     background: ${gray.light2};
+    content:"";
+    left: 28px;
+    position: absolute;
+    top: 0%;
+    height: 80%;
+    width: 1px;
     z-index:0;
   }
 `;
