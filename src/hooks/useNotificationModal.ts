@@ -1,11 +1,4 @@
 import { useState, useEffect } from "react";
-import {
-  SaveSubscriptionMutation,
-  SaveSubscriptionMutationVariables,
-} from "gql/generated/types";
-import { useBannerDispatchContext } from "context/banners";
-import { useMutation } from "@apollo/react-hooks";
-import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 import get from "lodash.get";
 
 export interface UseNotificationModalProps {
@@ -13,16 +6,13 @@ export interface UseNotificationModalProps {
   triggers: Trigger[];
   resourceType: ResourceType;
   resourceId: string;
-  onCancel: () => void;
 }
 export const useNotificationModal = ({
   triggers,
   subscriptionMethodControls,
   resourceType,
   resourceId,
-  onCancel,
 }: UseNotificationModalProps) => {
-  const dispatchBanner = useBannerDispatchContext();
   const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
     ""
   );
@@ -32,20 +22,7 @@ export const useNotificationModal = ({
   const [extraFieldErrorMessages, setExtraFieldErrorMessages] = useState<
     string[]
   >([]);
-  const [saveSubscription, { loading: mutationLoading }] = useMutation<
-    SaveSubscriptionMutation,
-    SaveSubscriptionMutationVariables
-  >(SAVE_SUBSCRIPTION, {
-    onCompleted: () => {
-      dispatchBanner.successBanner("Your subscription has been added");
-    },
-    onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error adding your subscription: '${err.message}'`
-      );
-      // TODO: save error
-    },
-  });
+
   const [selectedTriggerId, setSelectedTriggerId] = useState<string>("");
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<
     ExtraFieldInputVals
@@ -137,27 +114,19 @@ export const useNotificationModal = ({
     };
   };
 
-  const onClickSave = () => {
-    saveSubscription({
-      variables: { subscription: getRequestPayload() },
-    });
-    onCancel();
-  };
-
   return {
     extraFieldErrorMessages,
     extraFieldInputVals,
     extraFields,
     isFormValid,
-    mutationLoading,
     target,
-    onClickSave,
     selectedSubscriptionMethod,
     selectedTriggerId,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
     setSelectedTriggerId,
     setTarget,
+    getRequestPayload,
   };
 };
 

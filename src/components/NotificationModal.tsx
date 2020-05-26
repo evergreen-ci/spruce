@@ -9,16 +9,24 @@ import set from "lodash/set";
 import TextInput from "@leafygreen-ui/text-input";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
+import { useBannerDispatchContext } from "context/banners";
 import {
   useNotificationModal,
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
+import { useMutation } from "@apollo/react-hooks";
+import {
+  SaveSubscriptionMutation,
+  SaveSubscriptionMutationVariables,
+} from "gql/generated/types";
+import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 
 const { Option } = Select;
 
 interface ModalProps extends UseNotificationModalProps {
   visible: boolean;
   subscriptionMethods: SubscriptionMethod[];
+  onCancel: () => void;
 }
 
 export const NotificationModal: React.FC<ModalProps> = ({
@@ -30,10 +38,23 @@ export const NotificationModal: React.FC<ModalProps> = ({
   resourceId,
   resourceType,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
+  const [saveSubscription, { loading: mutationLoading }] = useMutation<
+    SaveSubscriptionMutation,
+    SaveSubscriptionMutationVariables
+  >(SAVE_SUBSCRIPTION, {
+    onCompleted: () => {
+      dispatchBanner.successBanner("Your subscription has been added");
+    },
+    onError: (err) => {
+      dispatchBanner.errorBanner(
+        `Error adding your subscription: '${err.message}'`
+      );
+      // TODO: save error
+    },
+  });
   const {
     selectedSubscriptionMethod,
-    onClickSave,
-    mutationLoading,
     isFormValid,
     selectedTriggerId,
     setSelectedTriggerId,
@@ -44,13 +65,20 @@ export const NotificationModal: React.FC<ModalProps> = ({
     target,
     setTarget,
     extraFieldErrorMessages,
+    getRequestPayload,
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
     resourceType,
     resourceId,
-    onCancel,
   });
+
+  const onClickSave = () => {
+    saveSubscription({
+      variables: { subscription: getRequestPayload() },
+    });
+    onCancel();
+  };
 
   const currentMethodControl = subscriptionMethodControls[
     selectedSubscriptionMethod
