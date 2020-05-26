@@ -3,7 +3,7 @@ import Styled from "@emotion/styled";
 import {
   DownloadCard,
   AuthenticationCard,
-  ConfirmationCard,
+  VerifyCard,
   NodeList,
 } from "./cliTab/index";
 
@@ -31,7 +31,7 @@ const list = [
   },
   {
     title: "Make sure you are good to go!",
-    child: <ConfirmationCard />,
+    child: <VerifyCard />,
   },
 ];
 

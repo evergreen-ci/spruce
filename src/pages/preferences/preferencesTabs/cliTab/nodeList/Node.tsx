@@ -11,12 +11,12 @@ export type NodeType = {
 };
 
 interface NodeProps extends NodeType {
-  index: number;
+  stepNumber: number;
 }
-export const Node: React.FC<NodeProps> = ({ title, child, index }) => (
+export const Node: React.FC<NodeProps> = ({ title, child, stepNumber }) => (
   <NodeContainer>
     <NodeHeader>
-      <Step index={index + 1} />
+      <Step stepNumber={stepNumber} />
       <NodeTitle>{title}</NodeTitle>
     </NodeHeader>
     {child && <ChildContainer>{child}</ChildContainer>}
@@ -24,12 +24,12 @@ export const Node: React.FC<NodeProps> = ({ title, child, index }) => (
 );
 
 interface StepProps {
-  index: number;
+  stepNumber: number;
 }
 
-const Step: React.FC<StepProps> = ({ index }) => (
+const Step: React.FC<StepProps> = ({ stepNumber }) => (
   <Circle>
-    <Index>{index}</Index>
+    <Index>{stepNumber}</Index>
   </Circle>
 );
 

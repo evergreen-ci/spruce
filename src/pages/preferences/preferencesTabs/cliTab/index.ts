@@ -1,4 +1,4 @@
 export { DownloadCard } from "./DownloadCard";
 export { AuthenticationCard } from "./AuthenticationCard";
-export { ConfirmationCard } from "./ConfirmationCard";
+export { VerifyCard } from "./VerifyCard";
 export { NodeList } from "./NodeList";

@@ -7,8 +7,8 @@ import Code from "@leafygreen-ui/code";
 
 const { gray } = uiColors;
 
-export const ConfirmationCard = () => {
-  const confirmationCode = `
+export const VerifyCard = () => {
+  const verifcationCode = `
 "[evergreen] 2020/05/01 13:30:02 [p=notice]:
 [message='Binary is already up to date - not updating.'
 revision='2020-04-27']"
@@ -20,7 +20,7 @@ revision='2020-04-27']"
         <InlinePre>evergreen get-update</InlinePre>&quot;. It should display :
       </Body>
       <CodeContainer>
-        <Code copyable={false}>{confirmationCode}</Code>
+        <Code copyable={false}>{verifcationCode}</Code>
       </CodeContainer>
     </Container>
   );

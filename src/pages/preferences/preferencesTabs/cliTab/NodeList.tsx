@@ -10,7 +10,12 @@ interface NodeListProps {
 export const NodeList: React.FC<NodeListProps> = ({ list }) => (
   <NodeContainer>
     {list.map((node, index) => (
-      <Node title={node.title} child={node.child} index={index} />
+      <Node
+        key={node.title}
+        title={node.title}
+        child={node.child}
+        stepNumber={index + 1}
+      />
     ))}
   </NodeContainer>
 );
