@@ -137,22 +137,23 @@ export const NotificationModal: React.FC<ModalProps> = ({
           ))}
         </StyledSelect>
       </>
-      {(extraFields ?? []).map(({ text, key }) => (
-        <ExtraFieldContainer key={key}>
-          <TextInput
-            label=" "
-            data-cy={`${key}-input`}
-            description={text}
-            onChange={(event) => {
-              setExtraFieldInputVals({
-                ...extraFieldInputVals,
-                [key]: event.target.value,
-              });
-            }}
-            value={extraFieldInputVals[key]}
-          />
-        </ExtraFieldContainer>
-      ))}
+      {extraFields &&
+        extraFields.map(({ text, key }) => (
+          <ExtraFieldContainer key={key}>
+            <TextInput
+              label=" "
+              data-cy={`${key}-input`}
+              description={text}
+              onChange={(event) => {
+                setExtraFieldInputVals({
+                  ...extraFieldInputVals,
+                  [key]: event.target.value,
+                });
+              }}
+              value={extraFieldInputVals[key]}
+            />
+          </ExtraFieldContainer>
+        ))}
       <div>
         then notify by:
         <StyledSelect
