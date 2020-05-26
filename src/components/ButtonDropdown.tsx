@@ -48,14 +48,12 @@ interface CardItemProps {
 }
 
 export const DropdownItem = styled.div`
-  > p:hover,
-  small:hover {
+  > small:hover {
     text-decoration: underline;
     cursor: pointer;
   }
   pointer-events: ${(props: CardItemProps) => props.disabled && "none"};
-  > p,
-  small {
+  > small {
     color: ${(props: CardItemProps) => props.disabled && uiColors.gray.base};
   }
 `;

@@ -16,7 +16,7 @@ interface SchedulePatchTasksProps {
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   isButton?: boolean;
   refetchQueries: string[];
-  disabled?: boolean;
+  disabled: boolean;
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
 export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
@@ -43,7 +43,6 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
     },
     onError: (err) => {
       errorBanner(`Error scheduling tasks: ${err.message}`);
-      hideMenu();
       setParentLoading(false);
     },
     refetchQueries,

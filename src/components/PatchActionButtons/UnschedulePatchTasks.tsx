@@ -17,7 +17,7 @@ interface UnscheduleProps {
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
-  disabled?: boolean;
+  disabled: boolean;
 }
 export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
   patchId,
@@ -54,7 +54,6 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
 
   return (
     <Popconfirm
-      key="unschedule"
       icon={null}
       placement="left"
       title={
@@ -70,8 +69,8 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
         </>
       }
       onConfirm={() => {
-        unschedulePatchTasks({ variables: { patchId, abort } });
         setParentLoading(true);
+        unschedulePatchTasks({ variables: { patchId, abort } });
       }}
       onCancel={hideMenu}
       okText="Yes"

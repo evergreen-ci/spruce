@@ -15,15 +15,15 @@ export const ActionButtons = () => {
   const [isVisible, setIsVisible] = useState(false);
   const { id: patchId } = useParams<{ id: string }>();
 
-  const [actionIsLoading, setActionIsLoading] = useState(false);
+  const [isActionLoading, setIsActionLoading] = useState(false);
 
   const hideMenu = () => setIsVisible(false);
 
   useEffect(() => {
-    if (actionIsLoading) {
+    if (isActionLoading) {
       setIsVisible(false);
     }
-  }, [actionIsLoading, setIsVisible]);
+  }, [isActionLoading, setIsVisible]);
 
   const dropdownItems = [
     <UnschedulePatchTasks
@@ -32,8 +32,8 @@ export const ActionButtons = () => {
         hideMenu,
         refetchQueries,
         key: "unschedule",
-        setParentLoading: setActionIsLoading,
-        disabled: actionIsLoading,
+        setParentLoading: setIsActionLoading,
+        disabled: isActionLoading,
       }}
     />,
     <SetPatchPriority
@@ -41,9 +41,9 @@ export const ActionButtons = () => {
         patchId,
         hideMenu,
         key: "priority",
-        disabled: actionIsLoading,
+        disabled: isActionLoading,
         refetchQueries,
-        setParentLoading: setActionIsLoading,
+        setParentLoading: setIsActionLoading,
       }}
     />,
   ];
@@ -56,8 +56,8 @@ export const ActionButtons = () => {
             patchId,
             hideMenu,
             isButton: true,
-            disabled: actionIsLoading,
-            setParentLoading: setActionIsLoading,
+            disabled: isActionLoading,
+            setParentLoading: setIsActionLoading,
             refetchQueries,
           }}
         />
@@ -66,7 +66,7 @@ export const ActionButtons = () => {
             patchId,
             hideMenu,
             isButton: true,
-            disabled: actionIsLoading,
+            disabled: isActionLoading,
             refetchQueries,
           }}
         />
@@ -74,12 +74,12 @@ export const ActionButtons = () => {
           size="small"
           dataCy="notify-patch"
           key="notifications"
-          disabled={actionIsLoading}
+          disabled={isActionLoading}
         >
           Notify Me
         </Button>
         <ButtonDropdown
-          disabled={actionIsLoading}
+          disabled={isActionLoading}
           dropdownItems={dropdownItems}
           isVisibleDropdown={isVisible}
           setIsVisibleDropdown={setIsVisible}

@@ -13,6 +13,7 @@ interface Props {
   patchId: string;
 }
 export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
+  const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
 
@@ -23,17 +24,21 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       patchId={patchId}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
+      disabled={isActionLoading}
+      setParentLoading={setIsActionLoading}
     />,
     <UnschedulePatchTasks
       key="unschedule"
       patchId={patchId}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
+      disabled={isActionLoading}
+      setParentLoading={setIsActionLoading}
     />,
     <RestartPatch
       key="restart"
       patchId={patchId}
-      disabled={false}
+      disabled={isActionLoading}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
     />,

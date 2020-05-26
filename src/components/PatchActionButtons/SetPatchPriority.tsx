@@ -13,7 +13,7 @@ import { StyledBody } from "./UnschedulePatchTasks";
 
 interface SetPriorityProps {
   patchId: string;
-  disabled?: boolean;
+  disabled: boolean;
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
@@ -36,6 +36,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     onCompleted: () => {
       successBanner(`Priority was set to ${priority}`);
       setParentLoading(false);
+      hideMenu();
     },
     onError: (err) => {
       errorBanner(`Error setting priority: ${err.message}`);
@@ -63,8 +64,8 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
         </>
       }
       onConfirm={() => {
-        setPatchPriority({ variables: { patchId, priority } });
         setParentLoading(true);
+        setPatchPriority({ variables: { patchId, priority } });
       }}
       onCancel={hideMenu}
       okText="Set"

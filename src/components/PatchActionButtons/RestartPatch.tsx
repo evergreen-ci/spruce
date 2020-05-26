@@ -25,7 +25,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         <Button
           size="small"
           dataCy="restart-patch"
-          key="restart"
           disabled={disabled}
           loading={false}
           onClick={() => setOpenModal(!openModal)}

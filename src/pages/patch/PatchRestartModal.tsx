@@ -29,14 +29,14 @@ interface PatchModalProps {
   onOk: () => void;
   onCancel: () => void;
   patchId?: string;
-  refetchQueries?: string[];
+  refetchQueries: string[];
 }
 export const PatchRestartModal: React.FC<PatchModalProps> = ({
   visible,
   onOk,
   onCancel,
   patchId: patchIdFromProps,
-  refetchQueries = [],
+  refetchQueries,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
