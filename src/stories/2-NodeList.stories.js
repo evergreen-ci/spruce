@@ -8,7 +8,11 @@ export default {
 };
 
 export const NodeElement = () => (
-  <Node title="Download the Command-Line Client." child={<Child />} />
+  <Node
+    title="Download the Command-Line Client."
+    child={<Child />}
+    stepNumber={1}
+  />
 );
 
 const Child = () => (
