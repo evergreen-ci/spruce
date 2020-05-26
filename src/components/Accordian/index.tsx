@@ -5,12 +5,16 @@ import Icon from "@leafygreen-ui/icon";
 interface AccordianProps {
   title: React.ReactNode;
   toggledTitle?: React.ReactNode;
+  toggleFromBottom?: boolean;
+  showCaret?: boolean;
   contents: React.ReactNode;
 }
 export const Accordian: React.FC<AccordianProps> = ({
   title,
   toggledTitle,
   contents,
+  toggleFromBottom = false,
+  showCaret = true,
 }) => {
   const [isAccordianDisplayed, setIsAccordianDisplayed] = useState(false);
   const toggleAccordianHandler = (): void =>
@@ -19,16 +23,25 @@ export const Accordian: React.FC<AccordianProps> = ({
   const showToggledTitle = isAccordianDisplayed ? toggledTitle : title;
   return (
     <>
+      {toggleFromBottom && (
+        <AnimatedAccordian hide={!isAccordianDisplayed}>
+          {contents}
+        </AnimatedAccordian>
+      )}
       <AccordianToggle
         data-cy="accordian-toggle"
         onClick={toggleAccordianHandler}
       >
-        <Icon glyph={isAccordianDisplayed ? "CaretDown" : "CaretRight"} />
+        {showCaret && (
+          <Icon glyph={isAccordianDisplayed ? "CaretDown" : "CaretRight"} />
+        )}
         {toggledTitle ? showToggledTitle : title}
       </AccordianToggle>
-      <AnimatedAccordian hide={!isAccordianDisplayed}>
-        {contents}
-      </AnimatedAccordian>
+      {!toggleFromBottom && (
+        <AnimatedAccordian hide={!isAccordianDisplayed}>
+          {contents}
+        </AnimatedAccordian>
+      )}
     </>
   );
 };
