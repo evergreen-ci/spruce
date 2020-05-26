@@ -47,6 +47,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
     },
     onError: (err) => {
       errorBanner(`Error unscheduling tasks: ${err.message}`);
+      hideMenu();
       setParentLoading(false);
     },
     refetchQueries,

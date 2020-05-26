@@ -43,6 +43,7 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
     },
     onError: (err) => {
       errorBanner(`Error scheduling tasks: ${err.message}`);
+      hideMenu();
       setParentLoading(false);
     },
     refetchQueries,

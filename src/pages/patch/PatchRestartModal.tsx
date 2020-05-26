@@ -40,7 +40,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const { id } = useParams<{ id: string }>();
-  const patchId = patchIdFromProps || id;
+  const patchId = patchIdFromProps ?? id;
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
     false
   );
