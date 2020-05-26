@@ -32,6 +32,8 @@ export const DownloadCard = () => (
       title={<StyledLink>Show More</StyledLink>}
       toggledTitle={<StyledLink>Show Less</StyledLink>}
       contents={<ExpandableLinkContents />}
+      toggleFromBottom
+      showCaret={false}
     />
   </Container>
 );
@@ -46,7 +48,7 @@ const CliDownloadBox = ({ title, link }) => (
 );
 
 const ExpandableLinkContents = () => (
-  <FlexContainer>
+  <LinkContainer>
     <StyledLink href={cliDownloadUrls.linux_arm64}>Linux ARM 64-bit</StyledLink>
     <StyledLink href={cliDownloadUrls.linux_s390x}>Linux zSeries</StyledLink>
     <StyledLink href={cliDownloadUrls.linux_386}>Linux 32-bit</StyledLink>
@@ -54,7 +56,7 @@ const ExpandableLinkContents = () => (
       Linux PowerPC 64-bit
     </StyledLink>
     <StyledLink href={cliDownloadUrls.windows_386}>Windows 32-bit</StyledLink>
-  </FlexContainer>
+  </LinkContainer>
 );
 const Container = Styled(SiderCard)`
   padding-left: 20px;
@@ -94,7 +96,8 @@ const InlinePre = Styled("pre")`
   overflow: visible;
 `;
 
-const FlexContainer = Styled.div`
+const LinkContainer = Styled.div`
   display:flex;
   flex-direction:column;
+  margin-bottom: 16px;
 `;
