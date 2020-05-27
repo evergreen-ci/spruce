@@ -98,7 +98,7 @@ export const MyPatches: React.FC = () => {
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
   };
 
-  const { limit, page } = getQueryVariables(search);
+  const { limit, page, includeCommitQueue } = getQueryVariables(search);
   return (
     <PageWrapper>
       <PageTitle>My Patches</PageTitle>
@@ -118,7 +118,7 @@ export const MyPatches: React.FC = () => {
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
           label="Show Commit Queue"
-          checked={getQueryVariables(search).includeCommitQueue}
+          checked={includeCommitQueue}
         />
       </FiltersWrapperSpaceBetween>
       <PaginationRow>
