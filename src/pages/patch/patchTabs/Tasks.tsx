@@ -49,11 +49,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     patchId: id,
     ...getQueryVariables(search),
   });
-  useSetColumnDefaultSortOrder<TaskResult>(
-    columns,
-    initialQueryVariables.sortBy,
-    initialQueryVariables.sortDir
-  );
+  const { sortBy, sortDir } = initialQueryVariables;
+  useSetColumnDefaultSortOrder<TaskResult>(columns, sortBy, sortDir);
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables

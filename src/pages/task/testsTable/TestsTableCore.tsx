@@ -49,11 +49,8 @@ export const TestsTableCore: React.FC = () => {
     id,
     ...getQueryVariables(search),
   });
-  useSetColumnDefaultSortOrder<TestResult>(
-    columns,
-    initialQueryVariables.cat,
-    initialQueryVariables.dir
-  );
+  const { cat, dir } = initialQueryVariables;
+  useSetColumnDefaultSortOrder<TestResult>(columns, cat, dir);
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
