@@ -2,10 +2,18 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
+import {
+  PatchTasksQuery,
+  PatchTasksQueryVariables,
+  TaskResult,
+  SortDirection,
+} from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading } from "hooks";
+import {
+  useDisableTableSortersIfLoading,
+  useSetColumnDefaultSortOrder,
+} from "hooks";
 import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
@@ -20,11 +28,14 @@ import {
   TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
+  StyledRouterLink,
 } from "components/styles";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Skeleton } from "antd";
 import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { ColumnProps } from "antd/lib/table";
 
 interface Props {
   taskCount: number;
@@ -38,6 +49,11 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     patchId: id,
     ...getQueryVariables(search),
   });
+  useSetColumnDefaultSortOrder<TaskResult>(
+    columns,
+    initialQueryVariables.sortBy,
+    initialQueryVariables.sortDir
+  );
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -101,7 +117,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={isLoading}>
-        <TasksTable data={get(data, "patchTasks", [])} />
+        <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
       </TableContainer>
       {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
     </ErrorBoundary>
@@ -142,6 +158,13 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
   return statuses;
 };
 
+enum TableColumnHeader {
+  Name = "NAME",
+  Status = "STATUS",
+  BaseStatus = "BASE_STATUS",
+  Variant = "VARIANT",
+}
+
 const getQueryVariables = (
   search: string
 ): {
@@ -169,8 +192,8 @@ const getQueryVariables = (
   const limitNum = parseInt(getString(limit), 10);
 
   return {
-    sortBy: getString(sortBy),
-    sortDir: getString(sortDir),
+    sortBy: getString(sortBy) ?? TableColumnHeader.Status,
+    sortDir: getString(sortDir) ?? SortDirection.Asc,
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
@@ -182,3 +205,47 @@ const getQueryVariables = (
         : DEFAULT_PAGE_SIZE,
   };
 };
+
+const renderStatusBadge = (status): null | JSX.Element => {
+  if (status === "" || !status) {
+    return null;
+  }
+  return <TaskStatusBadge status={status} />;
+};
+
+const columns: Array<ColumnProps<TaskResult>> = [
+  {
+    title: "Name",
+    dataIndex: "displayName",
+    key: TableColumnHeader.Name,
+    sorter: true,
+    width: "40%",
+    className: "cy-task-table-col-NAME",
+    render: (name: string, { id }: TaskResult): JSX.Element => (
+      <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
+    ),
+  },
+  {
+    title: "Patch Status",
+    dataIndex: "status",
+    key: TableColumnHeader.Status,
+    sorter: true,
+    className: "cy-task-table-col-STATUS",
+    render: renderStatusBadge,
+  },
+  {
+    title: "Base Status",
+    dataIndex: "baseStatus",
+    key: TableColumnHeader.BaseStatus,
+    sorter: true,
+    className: "cy-task-table-col-BASE_STATUS",
+    render: renderStatusBadge,
+  },
+  {
+    title: "Variant",
+    dataIndex: "buildVariant",
+    key: TableColumnHeader.Variant,
+    sorter: true,
+    className: "cy-task-table-col-VARIANT",
+  },
+];
