@@ -1,4 +1,4 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { useBannerDispatchContext } from "context/banners";
 import {
   SchedulePatchTasksMutation,
@@ -19,67 +19,78 @@ interface SchedulePatchTasksProps {
   disabled: boolean;
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
-export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
-  patchId,
-  hideMenu,
-  isButton = false,
-  disabled,
-  refetchQueries,
-  setParentLoading = () => undefined,
-}) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
-  const [
-    schedulePatchTasks,
-    { loading: loadingSchedulePatchTasks },
-  ] = useMutation<
-    SchedulePatchTasksMutation,
-    SchedulePatchTasksMutationVariables
-  >(SCHEDULE_PATCH_TASKS, {
-    variables: { patchId },
-    onCompleted: () => {
-      successBanner("All tasks were scheduled");
-      hideMenu();
-      setParentLoading(false);
+export const SchedulePatchTasks = forwardRef<
+  HTMLDivElement,
+  SchedulePatchTasksProps
+>(
+  (
+    {
+      patchId,
+      hideMenu,
+      isButton = false,
+      disabled,
+      refetchQueries,
+      setParentLoading = () => undefined,
     },
-    onError: (err) => {
-      errorBanner(`Error scheduling tasks: ${err.message}`);
-      hideMenu();
-      setParentLoading(false);
-    },
-    refetchQueries,
-  });
+    ref
+  ) => {
+    const { successBanner, errorBanner } = useBannerDispatchContext();
+    const [
+      schedulePatchTasks,
+      { loading: loadingSchedulePatchTasks },
+    ] = useMutation<
+      SchedulePatchTasksMutation,
+      SchedulePatchTasksMutationVariables
+    >(SCHEDULE_PATCH_TASKS, {
+      variables: { patchId },
+      onCompleted: () => {
+        successBanner("All tasks were scheduled");
+        hideMenu();
+        setParentLoading(false);
+      },
+      onError: (err) => {
+        errorBanner(`Error scheduling tasks: ${err.message}`);
+        hideMenu();
+        setParentLoading(false);
+      },
+      refetchQueries,
+    });
 
-  return (
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title="Schedule all tasks?"
-      onConfirm={() => {
-        setParentLoading(true);
-        schedulePatchTasks();
-      }}
-      onCancel={hideMenu}
-      okText="Yes"
-      cancelText="Cancel"
-    >
-      {isButton ? (
-        <Button
-          size="small"
-          dataCy="schedule-patch"
-          disabled={loadingSchedulePatchTasks || disabled}
-          loading={loadingSchedulePatchTasks}
-        >
-          Schedule
-        </Button>
-      ) : (
-        <DropdownItem
-          disabled={loadingSchedulePatchTasks || disabled}
-          data-cy="schedule-patch"
-        >
-          <Disclaimer>Schedule All Tasks</Disclaimer>
-        </DropdownItem>
-      )}
-    </Popconfirm>
-  );
-};
+    return (
+      <Popconfirm
+        key="priority"
+        className="clickable-content" // required for useOnClickOutside to work
+        icon={null}
+        placement="left"
+        title="Schedule all tasks?"
+        onConfirm={() => {
+          setParentLoading(true);
+          schedulePatchTasks();
+        }}
+        onCancel={hideMenu}
+        okText="Yes"
+        cancelText="Cancel"
+      >
+        <div ref={ref}>
+          {isButton ? (
+            <Button
+              size="small"
+              dataCy="schedule-patch"
+              disabled={loadingSchedulePatchTasks || disabled}
+              loading={loadingSchedulePatchTasks}
+            >
+              Schedule
+            </Button>
+          ) : (
+            <DropdownItem
+              disabled={loadingSchedulePatchTasks || disabled}
+              data-cy="schedule-patch"
+            >
+              <Disclaimer>Schedule All Tasks</Disclaimer>
+            </DropdownItem>
+          )}
+        </div>
+      </Popconfirm>
+    );
+  }
+);

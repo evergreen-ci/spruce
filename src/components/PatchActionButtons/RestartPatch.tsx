@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, forwardRef } from "react";
 import { PatchRestartModal } from "pages/patch/index";
 import { Button } from "components/Button";
 import { Disclaimer } from "@leafygreen-ui/typography";
@@ -11,47 +11,45 @@ interface RestartPatchProps {
   refetchQueries: string[];
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
-export const RestartPatch: React.FC<RestartPatchProps> = ({
-  isButton,
-  disabled,
-  patchId,
-  refetchQueries,
-  hideMenu,
-}) => {
-  const [openModal, setOpenModal] = useState(false);
-  return (
-    <>
-      {isButton ? (
-        <Button
-          size="small"
-          dataCy="restart-patch"
-          disabled={disabled}
-          loading={false}
-          onClick={() => setOpenModal(!openModal)}
-        >
-          Restart
-        </Button>
-      ) : (
-        <DropdownItem
-          disabled={disabled}
-          data-cy="restart-patch"
-          onClick={() => setOpenModal(!openModal)}
-        >
-          <Disclaimer>Restart</Disclaimer>
-        </DropdownItem>
-      )}
-      {openModal && (
-        <PatchRestartModal
-          patchId={patchId}
-          visible={openModal}
-          onOk={() => {
-            setOpenModal(false);
-            hideMenu();
-          }}
-          onCancel={() => setOpenModal(false)}
-          refetchQueries={refetchQueries}
-        />
-      )}
-    </>
-  );
-};
+export const RestartPatch = forwardRef<HTMLDivElement, RestartPatchProps>(
+  ({ isButton, disabled, patchId, refetchQueries, hideMenu }, ref) => {
+    const [openModal, setOpenModal] = useState(false);
+    return (
+      <>
+        {isButton ? (
+          <Button
+            size="small"
+            dataCy="restart-patch"
+            disabled={disabled}
+            loading={false}
+            onClick={() => setOpenModal(!openModal)}
+          >
+            Restart
+          </Button>
+        ) : (
+          <DropdownItem
+            disabled={disabled}
+            data-cy="restart-patch"
+            onClick={() => setOpenModal(!openModal)}
+          >
+            <Disclaimer>Restart</Disclaimer>
+          </DropdownItem>
+        )}
+        {openModal && (
+          <div className="clickable-content" ref={ref}>
+            <PatchRestartModal
+              patchId={patchId}
+              visible={openModal}
+              onOk={() => {
+                setOpenModal(false);
+                hideMenu();
+              }}
+              onCancel={() => setOpenModal(false)}
+              refetchQueries={refetchQueries}
+            />
+          </div>
+        )}
+      </>
+    );
+  }
+);

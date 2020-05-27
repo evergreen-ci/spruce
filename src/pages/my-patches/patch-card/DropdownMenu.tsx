@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import {
   SchedulePatchTasks,
@@ -8,6 +8,8 @@ import {
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { paths } from "constants/routes";
+import { useOnClickOutside } from "hooks";
+import get from "lodash/get";
 
 interface Props {
   patchId: string;
@@ -16,6 +18,16 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
+  const popconfirmRef = useRef(null);
+  const dropdownWrapperRef = useRef(null);
+
+  useOnClickOutside(dropdownWrapperRef, () => {
+    if (
+      !get(popconfirmRef, "current.className", "").includes("clickable-content")
+    ) {
+      hideMenu();
+    }
+  });
 
   const dropdownItems = [
     <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
@@ -26,6 +38,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       refetchQueries={refetchQueries}
       disabled={isActionLoading}
       setParentLoading={setIsActionLoading}
+      ref={popconfirmRef}
     />,
     <UnschedulePatchTasks
       key="unschedule"
@@ -34,6 +47,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       refetchQueries={refetchQueries}
       disabled={isActionLoading}
       setParentLoading={setIsActionLoading}
+      ref={popconfirmRef}
     />,
     <RestartPatch
       key="restart"
@@ -45,12 +59,14 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   ];
 
   return (
-    <ButtonDropdown
-      dataCyBtn="patch-card-dropdown"
-      isVisibleDropdown={isVisible}
-      dropdownItems={dropdownItems}
-      setIsVisibleDropdown={setIsVisible}
-    />
+    <div ref={dropdownWrapperRef}>
+      <ButtonDropdown
+        dataCyBtn="patch-card-dropdown"
+        isVisibleDropdown={isVisible}
+        dropdownItems={dropdownItems}
+        setIsVisibleDropdown={setIsVisible}
+      />
+    </div>
   );
 };
 
