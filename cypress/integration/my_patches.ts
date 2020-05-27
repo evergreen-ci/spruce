@@ -71,12 +71,7 @@ describe("My Patches Page", () => {
     });
   });
 
-  describe("Changing page number", () => {
-    beforeEach(() => {
-      cy.preserveCookies();
-      cy.listenGQL();
-    });
-
+  describe("Changing page number and page size", () => {
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.login();
       cy.visit(MY_PATCHES_ROUTE);
@@ -115,11 +110,9 @@ describe("My Patches Page", () => {
         dataCyTableRows
       );
     });
-  });
 
-  describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
-    [20, 10, 50, 100].forEach((pageSize) => {
-      it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
+    it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+      cy.wrap([20, 10, 50, 100]).each((pageSize) => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
           "[data-test-id=my-patches-page-size-selector]",
