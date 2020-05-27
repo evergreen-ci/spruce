@@ -25,7 +25,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   const getClickVariantHandler = (variantName: string) => (): void =>
     setSelectedBuildVariant(variantName);
   return (
-    <StyledSiderCard>
+    <StyledSiderCard data-cy="select-variants-and-task-card">
       <Container>
         <Body weight="medium">Select Build Variants and Tasks</Body>
         <Divider />

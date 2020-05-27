@@ -229,6 +229,15 @@ describe("Configure Patch Page", () => {
       cy.get("[data-cy=full-page-error").should("exist");
     });
   });
+  describe("Switching tabs", () => {
+    it("Navigating to 'Changes' tab from 'Configure' hides the 'Select Build Variants and Tasks' card", () => {
+      cy.login();
+      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.dataCy("select-variants-and-task-card").should("exist");
+      cy.dataCy("changes-tab").click();
+      cy.dataCy("select-variants-and-task-card").should("not.exist");
+    });
+  });
 });
 
 const getTaskCountFromText = (text) => {

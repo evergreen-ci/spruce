@@ -110,12 +110,14 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted by: {patch?.author}</P2>
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
-          <ConfigureBuildVariants
-            variants={variants}
-            selectedVariantTasks={selectedVariantTasks}
-            selectedBuildVariant={selectedBuildVariant}
-            setSelectedBuildVariant={setSelectedBuildVariant}
-          />
+          {selectedTab === 0 && (
+            <ConfigureBuildVariants
+              variants={variants}
+              selectedVariantTasks={selectedVariantTasks}
+              selectedBuildVariant={selectedBuildVariant}
+              setSelectedBuildVariant={setSelectedBuildVariant}
+            />
+          )}
         </PageSider>
         <PageLayout>
           <PageContent>
@@ -132,7 +134,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                   }}
                 />
               </Tab>
-              <Tab name="Changes" id="changes-tab">
+              <Tab data-cy="changes-tab" name="Changes" id="changes-tab">
                 <CodeChanges />
               </Tab>
             </StyledTabs>
