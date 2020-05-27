@@ -60,7 +60,6 @@ export const UnschedulePatchTasks = forwardRef<HTMLDivElement, UnscheduleProps>(
     return (
       <Popconfirm
         icon={null}
-        className="clickable-content" // required for useOnClickOutside to work
         placement="left"
         title={
           <>

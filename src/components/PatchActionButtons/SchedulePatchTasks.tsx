@@ -59,7 +59,6 @@ export const SchedulePatchTasks = forwardRef<
     return (
       <Popconfirm
         key="priority"
-        className="clickable-content" // required for useOnClickOutside to work
         icon={null}
         placement="left"
         title="Schedule all tasks?"

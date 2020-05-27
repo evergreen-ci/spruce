@@ -23,7 +23,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
-      !get(popconfirmRef, "current.className", "").includes("clickable-content")
+      !get(popconfirmRef, "current.className", "").includes("ant-popover-open")
     ) {
       hideMenu();
     }
@@ -55,6 +55,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       disabled={isActionLoading}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
+      ref={popconfirmRef}
     />,
   ];
 
