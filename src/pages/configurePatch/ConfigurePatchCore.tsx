@@ -110,7 +110,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted by: {patch?.author}</P2>
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
-          <DisableWrapper disabled={selectedTab !== 0}>
+          <DisableWrapper
+            data-cy="select-variants-and-task-card-wrapper"
+            disabled={selectedTab !== 0}
+          >
             <ConfigureBuildVariants
               variants={variants}
               selectedVariantTasks={selectedVariantTasks}
@@ -203,5 +206,5 @@ const StyledBody = styled(Body)`
 `;
 const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>
-    props.disabled && "opacity:.4;pointer-events:none;"}
+    props.disabled && "opacity:0.4;pointer-events:none;"}
 `;
