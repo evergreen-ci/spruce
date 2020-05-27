@@ -58,7 +58,6 @@ export const SchedulePatchTasks = forwardRef<
 
     return (
       <Popconfirm
-        key="priority"
         icon={null}
         placement="left"
         title="Schedule all tasks?"
@@ -70,25 +69,24 @@ export const SchedulePatchTasks = forwardRef<
         okText="Yes"
         cancelText="Cancel"
       >
-        <div ref={ref}>
-          {isButton ? (
-            <Button
-              size="small"
-              dataCy="schedule-patch"
-              disabled={loadingSchedulePatchTasks || disabled}
-              loading={loadingSchedulePatchTasks}
-            >
-              Schedule
-            </Button>
-          ) : (
-            <DropdownItem
-              disabled={loadingSchedulePatchTasks || disabled}
-              data-cy="schedule-patch"
-            >
-              <Disclaimer>Schedule All Tasks</Disclaimer>
-            </DropdownItem>
-          )}
-        </div>
+        {isButton ? (
+          <Button
+            size="small"
+            dataCy="schedule-patch"
+            disabled={loadingSchedulePatchTasks || disabled}
+            loading={loadingSchedulePatchTasks}
+          >
+            Schedule
+          </Button>
+        ) : (
+          <DropdownItem
+            data-cy="schedule-patch"
+            ref={ref}
+            disabled={loadingSchedulePatchTasks || disabled}
+          >
+            <Disclaimer>Schedule All Tasks</Disclaimer>
+          </DropdownItem>
+        )}
       </Popconfirm>
     );
   }

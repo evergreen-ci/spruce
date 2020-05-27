@@ -19,11 +19,17 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
   const popconfirmRef = useRef(null);
+  const scheduleTasksRef = useRef(null); // schedule and unschedule refs must be different for useOnClickOutside to work
   const dropdownWrapperRef = useRef(null);
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
-      !get(popconfirmRef, "current.className", "").includes("ant-popover-open")
+      !get(popconfirmRef, "current.className", "").includes(
+        "ant-popover-open"
+      ) &&
+      !get(scheduleTasksRef, "current.className", "").includes(
+        "ant-popover-open"
+      )
     ) {
       hideMenu();
     }
@@ -38,7 +44,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       refetchQueries={refetchQueries}
       disabled={isActionLoading}
       setParentLoading={setIsActionLoading}
-      ref={popconfirmRef}
+      ref={scheduleTasksRef}
     />,
     <UnschedulePatchTasks
       key="unschedule"
