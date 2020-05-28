@@ -4,22 +4,6 @@ import { ColumnProps } from "antd/lib/table";
 import { TestResult, SortDirection } from "gql/generated/types";
 
 test("Should add a defaultSortOrder key with the supplied direction to the column item with a key matching the supplied category", () => {
-  const columns: ColumnProps<TestResult>[] = [
-    {
-      title: "Name",
-      dataIndex: "testFile",
-      key: "testName",
-      sorter: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: true,
-      width: "20%",
-    },
-  ];
-
   const { result } = renderHook(() =>
     useSetColumnDefaultSortOrder(columns, "testName", SortDirection.Asc)
   );
@@ -43,22 +27,6 @@ test("Should add a defaultSortOrder key with the supplied direction to the colum
 });
 
 test("Should not make any changes to columns if the supplied category is not found", () => {
-  const columns: ColumnProps<TestResult>[] = [
-    {
-      title: "Name",
-      dataIndex: "testFile",
-      key: "testName",
-      sorter: true,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: true,
-      width: "20%",
-    },
-  ];
-
   const { result } = renderHook(() =>
     useSetColumnDefaultSortOrder(columns, "crazy stuff", SortDirection.Asc)
   );
@@ -79,3 +47,19 @@ test("Should not make any changes to columns if the supplied category is not fou
     },
   ]);
 });
+
+const columns: ColumnProps<TestResult>[] = [
+  {
+    title: "Name",
+    dataIndex: "testFile",
+    key: "testName",
+    sorter: true,
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    sorter: true,
+    width: "20%",
+  },
+];
