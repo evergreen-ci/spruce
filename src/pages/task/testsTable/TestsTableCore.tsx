@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { msToDuration } from "utils/string";
 import Button from "@leafygreen-ui/button";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
@@ -17,7 +17,7 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
+import { useDisableTableSortersIfLoading, usePollTableQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
 import {
@@ -32,28 +32,20 @@ import {
 } from "components/styles";
 import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
-import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 const arrayFormat = "comma";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
-
 export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { replace, listen } = useHistory();
+  const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const [count, setCount] = useState(0);
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
-    id,
-    ...getQueryVariables(search),
+    ...getQueryVariables(search, id),
   });
-  const currentQueryVariables = getQueryVariables(search);
-  const prevQueryVariables = usePrevious(currentQueryVariables);
-
-  const [intervalId, setIntervalId] = useState<number>();
-  const { data, refetch, networkStatus, error } = useQuery<
+  const { data, refetch, networkStatus } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
@@ -61,56 +53,12 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-  const isLoading = isNetworkRequestInFlight(networkStatus);
-  const prevIsLoading = usePrevious(isLoading);
-  useEffect(() => {
-    if (isLoading && prevIsLoading !== isLoading) {
-      setCount(count + 1);
-    }
-  }, [isLoading, count, setCount]);
-
-  useEffect(() => {
-    if (!intervalId) {
-    }
-    return () => clearInterval(intervalId);
-  }, [refetch, search, intervalId]);
-  useEffect(() => console.log(count), [count]);
-  useEffect(() => {
-    if (!intervalId) {
-      const queryVariables = getQueryVariables(
-        search
-      ) as TaskTestsQueryVariables;
-      setIntervalId(
-        window.setInterval(() => {
-          refetch(queryVariables);
-        }, 3000)
-      );
-    }
-  }, [intervalId, refetch, search]);
-
-  useEffect(
-    () =>
-      listen(async (loc) => {
-        try {
-          const queryVariables = getQueryVariables(
-            loc.search
-          ) as TaskTestsQueryVariables;
-          refetch(queryVariables);
-          clearInterval(intervalId);
-          setIntervalId(
-            window.setInterval(() => {
-              refetch(queryVariables);
-            }, 3000)
-          );
-        } catch (e) {
-          // empty block
-        }
-      }),
-    [networkStatus, error, refetch, listen, intervalId]
-  );
-
+  const { showSkeleton } = usePollTableQuery({
+    networkStatus,
+    getQueryVariables,
+    refetch,
+  });
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
-
   const tableChangeHandler: TableOnChange<TestResult> = (
     ...[, , { order, columnKey }]
   ) => {
@@ -130,11 +78,9 @@ export const TestsTableCore: React.FC = () => {
   };
 
   // initial table sort button state to reflect initial URL query params
-  const { cat, dir, pageNum, limitNum } = getQueryVariables(search);
-
+  const { cat, dir, pageNum, limitNum } = getQueryVariables(search, id);
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-  const showSkeleton = isLoading;
   return (
     <>
       <TableControlOuterRow>
@@ -272,15 +218,9 @@ const ButtonWrapper = styled("span")`
 `;
 
 const getQueryVariables = (
-  search: string
-): {
-  cat: TestSortCategory;
-  dir: SortDirection;
-  limitNum: number;
-  statusList: string[];
-  testName: string;
-  pageNum: number;
-} => {
+  search: string,
+  resourceId: string
+): TaskTestsQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
   const category = (parsed[RequiredQueryParams.Category] || "")
     .toString()
@@ -309,6 +249,7 @@ const getQueryVariables = (
     : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
   return {
+    id: resourceId,
     cat,
     dir,
     limitNum:
