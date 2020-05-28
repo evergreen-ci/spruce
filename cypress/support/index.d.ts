@@ -8,6 +8,11 @@ declare namespace Cypress {
      */
     dataCy(value: string): Chainable<Element>;
     /**
+     * Custom command to select DOM element by data-test-id attribute.
+     * @example cy.dataTestId('greeting')
+     */
+    dataTestId(value: string): Chainable<Element>;
+    /**
      * Custom command to wait for a gqlQuery with queryName.
      * @param queryName Name of the query to wait for
      * @param options Key is the path in WaitXHR object. Value

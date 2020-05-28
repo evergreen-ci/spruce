@@ -12,6 +12,7 @@ import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
+import { CliTab } from "./preferencesTabs/CliTab";
 
 interface PreferenceTabsProps {
   tabKey: string;
@@ -53,7 +54,7 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
 const componentMap = {
   profile: ProfileTab,
   notifications: NotificationsTab,
-  cli: ProfileTab,
+  cli: CliTab,
 };
 
 const Container = styled.div`
