@@ -7,6 +7,7 @@ import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { useStatusesFilter } from "hooks/useStatusesFilter";
 import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 import { useNotificationModal } from "hooks/useNotificationModal";
+import { usePollTableQuery } from "hooks/usePollTableQuery";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -25,4 +26,5 @@ export {
   useStatusesFilter,
   usePatchStatusSelect,
   useNotificationModal,
+  usePollTableQuery,
 };
