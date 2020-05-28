@@ -11,11 +11,7 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import every from "lodash/every";
-import {
-  PAGE_SIZES,
-  DEFAULT_PAGE_SIZE,
-  PageSizeSelector,
-} from "components/PageSizeSelector";
+import { PageSizeSelector } from "components/PageSizeSelector";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -25,7 +21,7 @@ import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Skeleton } from "antd";
 import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
-
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 interface Props {
   taskCount: number;
 }
@@ -161,12 +157,7 @@ const getQueryVariables = (
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
-    [PatchTasksQueryParams.Page]: page,
-    [PatchTasksQueryParams.Limit]: limit,
   } = queryString.parse(search, { arrayFormat: "comma" });
-
-  const pageNum = parseInt(getString(page), 10);
-  const limitNum = parseInt(getString(limit), 10);
 
   return {
     sortBy: getString(sortBy),
@@ -175,10 +166,7 @@ const getQueryVariables = (
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
     baseStatuses: getStatuses(rawBaseStatuses),
-    page: !Number.isNaN(pageNum) && pageNum >= 0 ? pageNum : 0,
-    limit:
-      !Number.isNaN(limitNum) && PAGE_SIZES.includes(limitNum)
-        ? limitNum
-        : DEFAULT_PAGE_SIZE,
+    page: getPageFromSearch(search),
+    limit: getLimitFromSearch(search),
   };
 };

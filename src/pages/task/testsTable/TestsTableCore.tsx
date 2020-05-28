@@ -20,11 +20,7 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
-import {
-  PageSizeSelector,
-  PAGE_SIZES,
-  DEFAULT_PAGE_SIZE,
-} from "components/PageSizeSelector";
+import { PageSizeSelector } from "components/PageSizeSelector";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -33,6 +29,7 @@ import {
 import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
 import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 const arrayFormat = "comma";
 
@@ -263,14 +260,7 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-  const page = parseInt(
-    (parsed[RequiredQueryParams.Page] || "").toString(),
-    10
-  );
-  const limit = parseInt(
-    (parsed[RequiredQueryParams.Limit] || "").toString(),
-    10
-  );
+
   const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
   const dir =
@@ -283,12 +273,9 @@ const getQueryVariables = (
   return {
     cat,
     dir,
-    limitNum:
-      !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
-        ? limit
-        : DEFAULT_PAGE_SIZE,
+    limitNum: getLimitFromSearch(search),
     statusList,
     testName,
-    pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,
+    pageNum: getPageFromSearch(search),
   };
 };

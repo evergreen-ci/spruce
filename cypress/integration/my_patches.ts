@@ -1,6 +1,11 @@
 // / <reference types="Cypress" />
 import get from "lodash/get";
-import { urlSearchParamsAreUpdated, assertQueryVariables } from "../utils";
+import {
+  urlSearchParamsAreUpdated,
+  assertQueryVariables,
+  clickOnPageBtnAndAssertURLandTableResults,
+  clickOnPageSizeBtnAndAssertURLandTableSize,
+} from "../utils";
 
 const tableRow = "[data-cy=patch-card]";
 const MY_PATCHES_ROUTE = "/my-patches";
@@ -12,10 +17,10 @@ describe("My Patches Page", () => {
   beforeEach(() => {
     cy.preserveCookies();
     cy.listenGQL();
-    cy.visit(MY_PATCHES_ROUTE);
   });
 
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {
+    cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";
     cy.dataCy("patch-description-input").type(inputVal);
     urlSearchParamsAreUpdated({
@@ -32,12 +37,14 @@ describe("My Patches Page", () => {
   });
 
   it("Searching for a nonexistent patch shows 'No patches found'", () => {
+    cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("patch-description-input").type("satenarstharienht");
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
   // TODO: flakes becuase the gql query is not always tracked
   xit("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
+    cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({
       pathname: MY_PATCHES_ROUTE,
@@ -64,16 +71,54 @@ describe("My Patches Page", () => {
     });
   });
 
-  describe("Pagination", () => {
-    it(`Clicking on page number requests and renders patches for that page`, () => {
-      cy.wrap([2, 3]).each((pageNum) => {
-        cy.get(`.ant-pagination-item-${pageNum}`).click({ force: true });
-        resultsAreFetchedAndRendered({
-          queryName: "UserPatches",
-          responseName: "userPatches.patches",
-          requestVariables: { page: (v) => v === pageNum - 1 },
-          tableRow: "[data-cy=patch-card]",
-        });
+  describe("Changing page number and page size", () => {
+    it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
+      cy.login();
+      cy.visit(MY_PATCHES_ROUTE);
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        secondPageDisplayNames,
+        1,
+        dataCyTableRows
+      );
+    });
+
+    it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
+    });
+
+    it("Does not update results or URL when left arrow is clicked and previous page does not exist", () => {
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyPrevPage,
+        firstPageDisplayNames,
+        0,
+        dataCyTableRows
+      );
+    });
+
+    it("Does not update results or URL when right arrow is clicked and next page does not exist", () => {
+      cy.visit(`${MY_PATCHES_ROUTE}?page=2`);
+      clickOnPageBtnAndAssertURLandTableResults(
+        dataCyNextPage,
+        thirdPageDisplayNames,
+        2,
+        dataCyTableRows
+      );
+    });
+
+    it("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+      cy.wrap([20, 10, 50, 100]).each((pageSize) => {
+        clickOnPageSizeBtnAndAssertURLandTableSize(
+          pageSize,
+          "[data-test-id=my-patches-page-size-selector]",
+          `[data-test-id=my-patches-page-size-selector-${pageSize}]`,
+          dataCyTableRows
+        );
       });
     });
   });
@@ -84,6 +129,9 @@ describe("My Patches Page", () => {
       cy.listenGQL();
       cy.get("[data-cy=my-patch-status-select] > .cy-treeselect-bar").click();
     });
+    before(() => {
+      cy.visit(MY_PATCHES_ROUTE);
+    });
 
     const statuses = [
       { display: "Created", key: "created" },
@@ -92,8 +140,8 @@ describe("My Patches Page", () => {
       { display: "Failed", key: "failed" },
     ];
 
-    statuses.forEach(({ display, key }) => {
-      it(`Clicking on ${display} status checkbox applies ${key} status and clicking again removes it`, () => {
+    it(`Clicking on a status checkbox applies the status and clicking again removes it`, () => {
+      cy.wrap(statuses).each(({ display, key }) => {
         clickingCheckboxUpdatesUrlAndRendersFetchedResults({
           checkboxDisplayName: display,
           pathname: MY_PATCHES_ROUTE,
@@ -115,6 +163,7 @@ describe("My Patches Page", () => {
     });
 
     it("Clicking on All status checkbox applies all of the statuses and clicking again removes them", () => {
+      cy.get("[data-cy=my-patch-status-select] > .cy-treeselect-bar").click();
       clickingCheckboxUpdatesUrlAndRendersFetchedResults({
         checkboxDisplayName: "All",
         pathname: MY_PATCHES_ROUTE,
@@ -153,7 +202,41 @@ describe("My Patches Page", () => {
     });
   });
 });
+const dataCyNextPage =
+  "[data-test-id=my-patches-pagination] > .ant-pagination-next";
+const dataCyPrevPage =
+  "[data-test-id=my-patches-pagination] > .ant-pagination-prev";
+const dataCyTableRows = "[data-cy=patch-card]";
 
+const firstPageDisplayNames = [
+  "test meee",
+  "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",
+  "SERVER-12189 test",
+  "testtest",
+  "Empty patch to run a lot of osx tasks",
+  "the right version of ssl_fips",
+  "no description",
+  "SERVER-11333 test run 4",
+  "linux-64",
+  "linux-64",
+];
+const secondPageDisplayNames = [
+  "all",
+  "no description",
+  "work from code freeze",
+  "MCI-832 test run",
+  "SERVER-11183 test run 2",
+  "SERVER-11183 test run",
+  "SERVER-10992 SERVER-11130 test run",
+  "linux-64-duroff,linux-64-debug-duroff",
+  "all",
+  "linux-64",
+];
+const thirdPageDisplayNames = [
+  "osx-108-cxx11-debug",
+  "windows-64,windows-32,solaris-64-bit",
+  "no description",
+];
 // TODO: These functions were adopted from cypress/utils/index and fixes two issues
 // which caused the incorrect query to be tracked. The functions in the util folder
 // should be updated as well as any tests that rely on them
