@@ -2,10 +2,15 @@ import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/react-hooks";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
+import {
+  PatchTasksQuery,
+  PatchTasksQueryVariables,
+  TaskSortCategory,
+  SortDirection,
+} from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading } from "hooks";
+import { useDisableTableSortersIfLoading, usePollTableQuery } from "hooks";
 import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
@@ -32,13 +37,12 @@ interface Props {
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const history = useHistory();
-  const { id } = useParams<{ id: string }>();
+  const { id: resourceId } = useParams<{ id: string }>();
   const { search } = useLocation();
-  const [initialQueryVariables] = useState({
-    patchId: id,
-    ...getQueryVariables(search),
-  });
-  const { data, error, networkStatus, fetchMore } = useQuery<
+  const [initialQueryVariables] = useState(
+    getQueryVariables(search, resourceId)
+  );
+  const { data, error, networkStatus, refetch } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -46,36 +50,15 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-
-  // fetch tasks when url params change
-  useEffect(
-    () =>
-      history.listen(async (loc) => {
-        try {
-          await fetchMore({
-            variables: getQueryVariables(loc.search),
-            updateQuery: (
-              prev: PatchTasksQuery,
-              { fetchMoreResult }: { fetchMoreResult: PatchTasksQuery }
-            ) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              return fetchMoreResult;
-            },
-          });
-        } catch (e) {
-          // empty block
-        }
-      }),
-    [history, fetchMore, id, error, networkStatus]
-  );
-
+  const { showSkeleton } = usePollTableQuery({
+    networkStatus,
+    getQueryVariables,
+    refetch,
+  });
   if (error) {
     return <div>{error.message}</div>;
   }
-  const { limit, page } = getQueryVariables(search);
-  const isLoading = isNetworkRequestInFlight(networkStatus);
+  const { limit, page } = getQueryVariables(search, resourceId);
   return (
     <ErrorBoundary>
       <TaskFilters />
@@ -100,10 +83,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={isLoading}>
+      <TableContainer hide={showSkeleton}>
         <TasksTable data={get(data, "patchTasks", [])} />
       </TableContainer>
-      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
+      {showSkeleton && (
+        <Skeleton active title={false} paragraph={{ rows: 80 }} />
+      )}
     </ErrorBoundary>
   );
 };
@@ -143,17 +128,9 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
 };
 
 const getQueryVariables = (
-  search: string
-): {
-  sortBy?: string;
-  sortDir?: string;
-  page?: number;
-  statuses?: string[];
-  baseStatuses?: string[];
-  variant?: string;
-  taskName?: string;
-  limit?: number;
-} => {
+  search: string,
+  resourceId: string
+): PatchTasksQueryVariables => {
   const {
     sortBy,
     sortDir,
@@ -169,8 +146,9 @@ const getQueryVariables = (
   const limitNum = parseInt(getString(limit), 10);
 
   return {
-    sortBy: getString(sortBy),
-    sortDir: getString(sortDir),
+    patchId: resourceId,
+    sortBy: getString(sortBy) as TaskSortCategory,
+    sortDir: getString(sortDir) as SortDirection,
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),

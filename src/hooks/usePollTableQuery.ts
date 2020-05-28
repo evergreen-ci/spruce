@@ -17,7 +17,7 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   refetch: (
     variables?: ApolloQueryVariables
   ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
-}) => {
+}): { showSkeleton: boolean } => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { listen } = useHistory();
   const { search } = useLocation();
