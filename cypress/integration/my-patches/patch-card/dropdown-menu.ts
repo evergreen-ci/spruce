@@ -20,7 +20,6 @@ describe("Dropdown Menu of Patch Actions", () => {
   it("'Schedule' link opens popconfirm and schedules patch", () => {
     cy.dataCy("patch-card")
       .first()
-      .next()
       .within(() => {
         cy.dataCy("patch-card-dropdown").click();
         cy.dataCy("schedule-patch").click({ force: true });
@@ -35,7 +34,6 @@ describe("Dropdown Menu of Patch Actions", () => {
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
     cy.dataCy("patch-card")
       .first()
-      .next()
       .within(() => {
         cy.dataCy("patch-card-dropdown").click();
         cy.dataCy("unschedule-patch").click({ force: true });
@@ -51,7 +49,6 @@ describe("Dropdown Menu of Patch Actions", () => {
   it("'Restart' link shows restart patch modal", () => {
     cy.dataCy("patch-card")
       .first()
-      .next()
       .within(() => {
         cy.dataCy("patch-card-dropdown").click();
         cy.dataCy("restart-patch").click({ force: true });
