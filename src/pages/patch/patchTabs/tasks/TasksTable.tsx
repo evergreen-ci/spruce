@@ -1,5 +1,7 @@
 import React from "react";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
+import { StyledRouterLink } from "components/styles/StyledLink";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
@@ -9,10 +11,9 @@ import get from "lodash/get";
 
 interface Props {
   data?: PatchTasks;
-  columns: Array<ColumnProps<TaskResult>>;
 }
 
-export const TasksTable: React.FC<Props> = ({ data, columns }) => {
+export const TasksTable: React.FC<Props> = ({ data }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -49,3 +50,53 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
 const arrayFormat = "comma";
 
 const rowKey = ({ id }: { id: string }): string => id;
+
+enum TableColumnHeader {
+  Name = "NAME",
+  Status = "STATUS",
+  BaseStatus = "BASE_STATUS",
+  Variant = "VARIANT",
+}
+
+const renderStatusBadge = (status): null | JSX.Element => {
+  if (status === "" || !status) {
+    return null;
+  }
+  return <TaskStatusBadge status={status} />;
+};
+const columns: Array<ColumnProps<TaskResult>> = [
+  {
+    title: "Name",
+    dataIndex: "displayName",
+    key: TableColumnHeader.Name,
+    sorter: true,
+    width: "40%",
+    className: "cy-task-table-col-NAME",
+    render: (name: string, { id }: TaskResult): JSX.Element => (
+      <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
+    ),
+  },
+  {
+    title: "Patch Status",
+    dataIndex: "status",
+    key: TableColumnHeader.Status,
+    sorter: true,
+    className: "cy-task-table-col-STATUS",
+    render: renderStatusBadge,
+  },
+  {
+    title: "Base Status",
+    dataIndex: "baseStatus",
+    key: TableColumnHeader.BaseStatus,
+    sorter: true,
+    className: "cy-task-table-col-BASE_STATUS",
+    render: renderStatusBadge,
+  },
+  {
+    title: "Variant",
+    dataIndex: "buildVariant",
+    key: TableColumnHeader.Variant,
+    sorter: true,
+    className: "cy-task-table-col-VARIANT",
+  },
+];

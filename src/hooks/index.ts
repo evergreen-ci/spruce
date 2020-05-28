@@ -7,7 +7,6 @@ import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { useStatusesFilter } from "hooks/useStatusesFilter";
 import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 import { useNotificationModal } from "hooks/useNotificationModal";
-import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -26,5 +25,4 @@ export {
   useStatusesFilter,
   usePatchStatusSelect,
   useNotificationModal,
-  useSetColumnDefaultSortOrder,
 };
