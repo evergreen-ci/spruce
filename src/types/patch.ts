@@ -2,6 +2,8 @@ export enum MyPatchesQueryParams {
   CommitQueue = "commitQueue",
   PatchName = "patchName",
   Statuses = "statuses",
+  Page = "page",
+  Limit = "limit",
 }
 export interface ModuleCodeChanges {
   branchName: string;

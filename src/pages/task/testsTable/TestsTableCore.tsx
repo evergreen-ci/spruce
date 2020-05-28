@@ -20,11 +20,7 @@ import queryString from "query-string";
 import { useDisableTableSortersIfLoading, usePollTableQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
-import {
-  PageSizeSelector,
-  PAGE_SIZES,
-  DEFAULT_PAGE_SIZE,
-} from "components/PageSizeSelector";
+import { PageSizeSelector } from "components/PageSizeSelector";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -32,6 +28,8 @@ import {
 } from "components/styles";
 import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
+import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 const arrayFormat = "comma";
 
@@ -39,12 +37,18 @@ export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
 export const TestsTableCore: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id: resourceId } = useParams<{ id: string }>();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
-    ...getQueryVariables(search, id),
+    ...getQueryVariables(search, resourceId),
   });
+  const { cat, dir } = initialQueryVariables;
+  const columns = useSetColumnDefaultSortOrder<TestResult>(
+    columnsTemplate,
+    cat,
+    dir
+  );
   const { data, refetch, networkStatus } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
@@ -78,9 +82,7 @@ export const TestsTableCore: React.FC = () => {
   };
 
   // initial table sort button state to reflect initial URL query params
-  const { cat, dir, pageNum, limitNum } = getQueryVariables(search, id);
-  columns.find(({ key }) => key === cat).defaultSortOrder =
-    dir === SortDirection.Asc ? "ascend" : "descend";
+  const { pageNum, limitNum } = getQueryVariables(search, resourceId);
   return (
     <>
       <TableControlOuterRow>
@@ -133,7 +135,7 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: ColumnProps<TestResult>[] = [
+const columnsTemplate: ColumnProps<TestResult>[] = [
   {
     title: "Name",
     dataIndex: "testFile",
@@ -222,7 +224,7 @@ const getQueryVariables = (
   resourceId: string
 ): TaskTestsQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
-  const category = (parsed[RequiredQueryParams.Category] || "")
+  const category = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
   const cat =
@@ -231,16 +233,8 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-  const page = parseInt(
-    (parsed[RequiredQueryParams.Page] || "").toString(),
-    10
-  );
-  const limit = parseInt(
-    (parsed[RequiredQueryParams.Limit] || "").toString(),
-    10
-  );
-  const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
-  const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
+  const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
+  const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
   const dir =
     sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc;
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
@@ -252,12 +246,9 @@ const getQueryVariables = (
     id: resourceId,
     cat,
     dir,
-    limitNum:
-      !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
-        ? limit
-        : DEFAULT_PAGE_SIZE,
+    limitNum: getLimitFromSearch(search),
     statusList,
     testName,
-    pageNum: !Number.isNaN(page) && page >= 0 ? page : 0,
+    pageNum: getPageFromSearch(search),
   };
 };

@@ -8,6 +8,7 @@ import { useStatusesFilter } from "hooks/useStatusesFilter";
 import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 import { useNotificationModal } from "hooks/useNotificationModal";
 import { usePollTableQuery } from "hooks/usePollTableQuery";
+import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -27,4 +28,5 @@ export {
   usePatchStatusSelect,
   useNotificationModal,
   usePollTableQuery,
+  useSetColumnDefaultSortOrder,
 };
