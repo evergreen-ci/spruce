@@ -17,7 +17,7 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading } from "hooks";
+import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
 import {
@@ -44,12 +44,16 @@ export const TestsTableCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const { replace, listen } = useHistory();
   const { search, pathname } = useLocation();
+  const [count, setCount] = useState(0);
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
     id,
     ...getQueryVariables(search),
   });
+  const currentQueryVariables = getQueryVariables(search);
+  const prevQueryVariables = usePrevious(currentQueryVariables);
 
-  const { data, fetchMore, networkStatus, error } = useQuery<
+  const [intervalId, setIntervalId] = useState<number>();
+  const { data, refetch, networkStatus, error } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
@@ -57,30 +61,52 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
+  const isLoading = isNetworkRequestInFlight(networkStatus);
+  const prevIsLoading = usePrevious(isLoading);
+  useEffect(() => {
+    if (isLoading && prevIsLoading !== isLoading) {
+      setCount(count + 1);
+    }
+  }, [isLoading, count, setCount]);
 
-  // this fetch is when url params change (sort direction, sort category, status list)
-  // and the page num is set to 0
+  useEffect(() => {
+    if (!intervalId) {
+    }
+    return () => clearInterval(intervalId);
+  }, [refetch, search, intervalId]);
+  useEffect(() => console.log(count), [count]);
+  useEffect(() => {
+    if (!intervalId) {
+      const queryVariables = getQueryVariables(
+        search
+      ) as TaskTestsQueryVariables;
+      setIntervalId(
+        window.setInterval(() => {
+          refetch(queryVariables);
+        }, 3000)
+      );
+    }
+  }, [intervalId, refetch, search]);
+
   useEffect(
     () =>
       listen(async (loc) => {
         try {
-          await fetchMore({
-            variables: getQueryVariables(loc.search),
-            updateQuery: (
-              prev: UpdateQueryArg,
-              { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-            ) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              return fetchMoreResult;
-            },
-          });
+          const queryVariables = getQueryVariables(
+            loc.search
+          ) as TaskTestsQueryVariables;
+          refetch(queryVariables);
+          clearInterval(intervalId);
+          setIntervalId(
+            window.setInterval(() => {
+              refetch(queryVariables);
+            }, 3000)
+          );
         } catch (e) {
           // empty block
         }
       }),
-    [networkStatus, error, fetchMore, listen]
+    [networkStatus, error, refetch, listen, intervalId]
   );
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
@@ -108,7 +134,7 @@ export const TestsTableCore: React.FC = () => {
 
   columns.find(({ key }) => key === cat).defaultSortOrder =
     dir === SortDirection.Asc ? "ascend" : "descend";
-  const isLoading = isNetworkRequestInFlight(networkStatus);
+  const showSkeleton = isLoading;
   return (
     <>
       <TableControlOuterRow>
@@ -132,7 +158,7 @@ export const TestsTableCore: React.FC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={isLoading}>
+      <TableContainer hide={showSkeleton}>
         <Table
           data-test-id="tests-table"
           rowKey={rowKey}
@@ -142,7 +168,9 @@ export const TestsTableCore: React.FC = () => {
           onChange={tableChangeHandler}
         />
       </TableContainer>
-      {isLoading && <Skeleton active title={false} paragraph={{ rows: 80 }} />}
+      {showSkeleton && (
+        <Skeleton active title={false} paragraph={{ rows: 80 }} />
+      )}
     </>
   );
 };
