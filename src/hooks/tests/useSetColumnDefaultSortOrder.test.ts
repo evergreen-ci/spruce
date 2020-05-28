@@ -3,7 +3,7 @@ import { useSetColumnDefaultSortOrder } from "hooks";
 import { ColumnProps } from "antd/lib/table";
 import { TestResult, SortDirection } from "gql/generated/types";
 
-test("Should add defaultSortOrder key with supplied direction to column item with matching category", () => {
+test("Should add a defaultSortOrder key with the supplied direction to the column item with a key matching the supplied category", () => {
   const columns: ColumnProps<TestResult>[] = [
     {
       title: "Name",
