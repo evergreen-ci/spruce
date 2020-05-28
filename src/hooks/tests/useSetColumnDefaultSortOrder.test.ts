@@ -20,11 +20,11 @@ test("Should add a defaultSortOrder key with the supplied direction to the colum
     },
   ];
 
-  renderHook(() =>
+  const { result } = renderHook(() =>
     useSetColumnDefaultSortOrder(columns, "testName", SortDirection.Asc)
   );
 
-  expect(columns).toStrictEqual([
+  expect(result.current).toStrictEqual([
     {
       title: "Name",
       dataIndex: "testFile",
@@ -59,11 +59,11 @@ test("Should not make any changes to columns if the supplied category is not fou
     },
   ];
 
-  renderHook(() =>
+  const { result } = renderHook(() =>
     useSetColumnDefaultSortOrder(columns, "crazy stuff", SortDirection.Asc)
   );
 
-  expect(columns).toStrictEqual([
+  expect(result.current).toStrictEqual([
     {
       title: "Name",
       dataIndex: "testFile",

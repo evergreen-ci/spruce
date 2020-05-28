@@ -50,7 +50,11 @@ export const TestsTableCore: React.FC = () => {
     ...getQueryVariables(search),
   });
   const { cat, dir } = initialQueryVariables;
-  useSetColumnDefaultSortOrder<TestResult>(columns, cat, dir);
+  const columns = useSetColumnDefaultSortOrder<TestResult>(
+    columnsTemplate,
+    cat,
+    dir
+  );
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
@@ -158,7 +162,7 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: ColumnProps<TestResult>[] = [
+const columnsTemplate: ColumnProps<TestResult>[] = [
   {
     title: "Name",
     dataIndex: "testFile",

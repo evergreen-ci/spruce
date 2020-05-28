@@ -50,7 +50,11 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     ...getQueryVariables(search),
   });
   const { sortBy, sortDir } = initialQueryVariables;
-  useSetColumnDefaultSortOrder<TaskResult>(columns, sortBy, sortDir);
+  const columns = useSetColumnDefaultSortOrder<TaskResult>(
+    columnsTemplate,
+    sortBy,
+    sortDir
+  );
   const { data, error, networkStatus, fetchMore } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -210,7 +214,7 @@ const renderStatusBadge = (status): null | JSX.Element => {
   return <TaskStatusBadge status={status} />;
 };
 
-const columns: Array<ColumnProps<TaskResult>> = [
+const columnsTemplate: Array<ColumnProps<TaskResult>> = [
   {
     title: "Name",
     dataIndex: "displayName",
