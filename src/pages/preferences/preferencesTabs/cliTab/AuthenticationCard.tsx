@@ -12,9 +12,10 @@ import {
   GetUserConfigQuery,
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
+import { post } from "utils/request";
 
 export const AuthenticationCard = () => {
-  const { data, loading } = useQuery<
+  const { data, loading, refetch } = useQuery<
     GetUserConfigQuery,
     GetUserConfigQueryVariables
   >(GET_USER_CONFIG);
@@ -29,6 +30,11 @@ api_key: "${config.api_key}"
 api_server_host: "${config.api_server_host}"
 ui_server_host: "${config.ui_server_host}"
 `;
+  const resetKey = async (e) => {
+    e.preventDefault();
+    await post("/settings/newkey", {});
+    refetch();
+  };
   return (
     <Container>
       <Subtitle>Authentication</Subtitle>
@@ -36,7 +42,7 @@ ui_server_host: "${config.ui_server_host}"
         <Code language="none">{authCode}</Code>
       </CodeContainer>
       <StyledButton variant={Variant.Primary}>Download File</StyledButton>
-      <Button>Reset Key</Button>
+      <Button onClick={resetKey}>Reset Key</Button>
     </Container>
   );
 };
