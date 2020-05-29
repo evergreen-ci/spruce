@@ -36,7 +36,6 @@ const MyPatchesComponent: React.FC = () => {
   const bannersState = useBannerStateContext();
   const dispatchBanner = useBannerDispatchContext();
 
-
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
