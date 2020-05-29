@@ -16,7 +16,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { DropdownMenu } from "pages/my-patches/patch-card/DropdownMenu";
 
 interface Build {
   id: string;
@@ -87,7 +87,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <ButtonDropdown isVisibleDropdown={false} dropdownItems={[]} />
+        <DropdownMenu patchId={id} />
       </Right>
     </CardWrapper>
   );
