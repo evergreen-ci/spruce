@@ -64,6 +64,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     networkStatus,
     getQueryVariables,
     refetch,
+    search,
   });
   if (error) {
     return <div>{error.message}</div>;

@@ -48,6 +48,7 @@ export const MyPatches: React.FC = () => {
     networkStatus,
     getQueryVariables,
     refetch,
+    search,
   });
 
   const onCheckboxChange = (): void => {

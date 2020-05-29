@@ -12,16 +12,16 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   networkStatus,
   getQueryVariables,
   refetch,
+  search,
 }: {
   networkStatus: NetworkStatus;
   getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;
   refetch: (
     variables?: ApolloQueryVariables
-  ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
+  ) => Promise<ApolloQueryResult<ApolloQueryResultType>> | void;
+  search: string;
 }): { showSkeleton: boolean } => {
   const { id: resourceId } = useParams<{ id: string }>();
-  const { listen } = useHistory();
-  const { search } = useLocation();
   const [intervalId, setIntervalId] = useState<number>();
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
   const currentQueryVariables = getQueryVariables(search, resourceId);
@@ -61,29 +61,30 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   ]);
 
   useEffect(() => {
-    const unregisterListen = listen(async (loc) => {
+    if (intervalId && !isEqual(currentQueryVariables, prevQueryVariables)) {
       clearInterval(intervalId);
       try {
-        refetch(getQueryVariables(loc.search, resourceId));
+        refetch(currentQueryVariables);
       } catch (e) {
         return;
       }
       pollQuery({
-        search: loc.search,
+        search,
         resourceId,
         refetch,
         setIntervalId,
         getQueryVariables,
       });
-    });
-    return unregisterListen;
+    }
   }, [
+    currentQueryVariables,
+    prevQueryVariables,
     networkStatus,
     refetch,
-    listen,
     intervalId,
     resourceId,
     getQueryVariables,
+    search,
   ]);
 
   return {

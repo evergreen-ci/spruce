@@ -61,6 +61,7 @@ export const TestsTableCore: React.FC = () => {
     networkStatus,
     getQueryVariables,
     refetch,
+    search,
   });
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
   const tableChangeHandler: TableOnChange<TestResult> = (
