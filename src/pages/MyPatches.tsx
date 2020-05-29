@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   PageWrapper,
   StyledInput,
@@ -18,7 +18,7 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler } from "hooks";
+import { useFilterInputChangeHandler, usePollTableQuery } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -30,45 +30,25 @@ import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 export const MyPatches: React.FC = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
-    page: 0,
-    ...getQueryVariables(search),
-  });
+  const [initialQueryVariables] = useState<UserPatchesQueryVariables>(
+    getQueryVariables(search)
+  );
   const [
     patchNameFilterValue,
     patchNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
-  const { data, fetchMore, loading, error } = useQuery<
+  const { data, refetch, networkStatus, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await fetchMore({
-          variables: {
-            ...getQueryVariables(search),
-          },
-          updateQuery: (
-            prev: UserPatchesQuery,
-            { fetchMoreResult }: { fetchMoreResult: UserPatchesQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
-            }
-            return fetchMoreResult;
-          },
-        });
-      } catch (e) {
-        // empty block
-      }
-    };
-    fetch();
-  }, [search, fetchMore]);
+  const { showSkeleton } = usePollTableQuery({
+    networkStatus,
+    getQueryVariables,
+    refetch,
+  });
 
   const onCheckboxChange = (): void => {
     replace(
@@ -87,7 +67,7 @@ export const MyPatches: React.FC = () => {
     if (error) {
       return <ErrorWrapper>{error}</ErrorWrapper>;
     }
-    if (loading) {
+    if (showSkeleton) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {
@@ -139,17 +119,8 @@ export const MyPatches: React.FC = () => {
 };
 
 const arrayFormat = "comma";
-const getQueryVariables = (
-  search: string
-): {
-  includeCommitQueue: boolean;
-  patchName: string;
-  statuses: string[];
-  limit: number;
-  page: number;
-} => {
+const getQueryVariables = (search: string): UserPatchesQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
-
   const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
     parsed[MyPatchesQueryParams.CommitQueue] === undefined;

@@ -1,21 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { GET_PATCH_VARIANTS_AND_STATUS } from "gql/queries/my-patches";
 import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
-import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
-import { useQuery } from "@apollo/react-hooks";
-import { PatchTasksQueryParams } from "types/task";
-import get from "lodash/get";
-import {
-  PatchBuildVariantsAndStatusQueryVariables,
-  PatchBuildVariantsAndStatusQuery,
-  Maybe,
-} from "gql/generated/types";
-import { useHistory } from "react-router-dom";
+import { paths } from "constants/routes";
+import { Maybe } from "gql/generated/types";
 import { ButtonDropdown } from "components/ButtonDropdown";
 
 interface Build {
@@ -36,22 +27,9 @@ export const PatchCard: React.FC<Props> = ({
   description,
   createTime,
   projectID,
-  ...props
+  status,
+  builds,
 }) => {
-  const router = useHistory();
-  const { data, stopPolling } = useQuery<
-    PatchBuildVariantsAndStatusQuery,
-    PatchBuildVariantsAndStatusQueryVariables
-  >(GET_PATCH_VARIANTS_AND_STATUS, {
-    variables: { id },
-    pollInterval: 5000,
-  });
-  useEffect(() => stopPolling, [stopPolling]);
-
-  const { status, builds } = props;
-  const patchStatus: string = get(data, "patch.status", status);
-  const patchBuilds: Build[] = get(data, "patch.builds", builds);
-
   const createDate = new Date(createTime);
   return (
     <CardWrapper data-cy="patch-card">
@@ -66,24 +44,17 @@ export const PatchCard: React.FC<Props> = ({
       </Left>
       <Center>
         <BadgeContainer>
-          <PatchStatusBadge status={patchStatus} />
+          <PatchStatusBadge status={status} />
         </BadgeContainer>
         <IconsContainer>
-          {patchBuilds.map((b) => {
-            const onClick = () =>
-              router.push(
-                `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`
-              );
-            return (
-              <div key={b.id}>
-                <BuildStatusIcon
-                  status={b.status}
-                  buildVariant={b.buildVariant}
-                  onClick={onClick}
-                />
-              </div>
-            );
-          })}
+          {builds.map((b) => (
+            <div key={b.id}>
+              <BuildStatusIcon
+                status={b.status}
+                buildVariant={b.buildVariant}
+              />
+            </div>
+          ))}
         </IconsContainer>
       </Center>
       <Right>

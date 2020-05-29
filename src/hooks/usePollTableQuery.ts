@@ -13,7 +13,7 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   refetch,
 }: {
   networkStatus: NetworkStatus;
-  getQueryVariables: (search: string, id: string) => ApolloQueryVariables;
+  getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;
   refetch: (
     variables?: ApolloQueryVariables
   ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
@@ -46,30 +46,41 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
       const queryVariables = getQueryVariables(search, resourceId);
       const id = window.setInterval(() => {
         refetch(queryVariables);
-      }, 3000);
+      }, pollInterval);
       setIntervalId(id);
     }
-  }, [intervalId, refetch, search]);
+    return () => clearInterval(intervalId);
+  }, [intervalId, refetch, search, getQueryVariables, resourceId]);
 
-  useEffect(
-    () =>
-      listen(async (loc) => {
-        try {
-          const queryVariables = getQueryVariables(loc.search, resourceId);
+  useEffect(() => {
+    const unregisterListen = listen(async (loc) => {
+      try {
+        const queryVariables = getQueryVariables(loc.search, resourceId);
+        refetch(queryVariables);
+        clearInterval(intervalId);
+        const id = window.setInterval(() => {
           refetch(queryVariables);
-          clearInterval(intervalId);
-          const id = window.setInterval(() => {
-            refetch(queryVariables);
-          }, 3000);
-          setIntervalId(id);
-        } catch (e) {
-          // empty block
-        }
-      }),
-    [networkStatus, refetch, listen, intervalId, resourceId]
-  );
+        }, pollInterval);
+        setIntervalId(id);
+      } catch (e) {
+        // empty block
+      }
+    });
+    return () => {
+      unregisterListen();
+    };
+  }, [
+    networkStatus,
+    refetch,
+    listen,
+    intervalId,
+    resourceId,
+    getQueryVariables,
+  ]);
 
   return {
     showSkeleton: queryVarDiffOccured,
   };
 };
+
+const pollInterval = 3000;
