@@ -41,8 +41,7 @@ interface BadgeColorProps {
 // only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
 const StyledBadge = styled(Badge)`
   border-color: ${(props: BadgeColorProps): string => props.border} !important;
-  background-color: ${(props: BadgeColorProps): string =>
-    props.fill} !important;
+  background-color: ${(props: BadgeColorProps): string => props.fill} !important
   color: ${(props: BadgeColorProps): string => props.text} !important;
 `;
 

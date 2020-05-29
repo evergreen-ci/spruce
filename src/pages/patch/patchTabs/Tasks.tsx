@@ -6,8 +6,8 @@ import {
   PatchTasksQuery,
   PatchTasksQueryVariables,
   TaskSortCategory,
-  SortDirection,
   TaskResult,
+  SortDirection,
 } from "gql/generated/types";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
@@ -16,7 +16,6 @@ import {
   usePollTableQuery,
   useSetColumnDefaultSortOrder,
 } from "hooks";
-
 import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
