@@ -6,6 +6,7 @@ import {
 import { usePrevious } from "hooks";
 import { useLocation, useHistory, useParams } from "react-router-dom";
 import { ApolloQueryResult } from "apollo-client";
+import isEqual from "lodash.isequal";
 
 export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   networkStatus,
@@ -26,11 +27,9 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   const currentQueryVariables = getQueryVariables(search, resourceId);
   const prevQueryVariables = usePrevious(currentQueryVariables);
   const isLoading = isNetworkRequestInFlight(networkStatus);
+
   useEffect(() => {
-    if (
-      JSON.stringify(currentQueryVariables) !==
-      JSON.stringify(prevQueryVariables)
-    ) {
+    if (!isEqual(currentQueryVariables, prevQueryVariables)) {
       setQueryVarDiffOccured(true);
     }
   }, [currentQueryVariables, prevQueryVariables, setQueryVarDiffOccured]);
