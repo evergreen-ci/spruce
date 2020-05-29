@@ -22,10 +22,10 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   const { listen } = useHistory();
   const { search } = useLocation();
   const [intervalId, setIntervalId] = useState<number>();
-  const isLoading = isNetworkRequestInFlight(networkStatus);
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
   const currentQueryVariables = getQueryVariables(search, resourceId);
   const prevQueryVariables = usePrevious(currentQueryVariables);
+  const isLoading = isNetworkRequestInFlight(networkStatus);
   useEffect(() => {
     if (
       JSON.stringify(currentQueryVariables) !==
@@ -43,32 +43,41 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
 
   useEffect(() => {
     if (!intervalId) {
-      const queryVariables = getQueryVariables(search, resourceId);
-      const id = window.setInterval(() => {
-        refetch(queryVariables);
-      }, pollInterval);
-      setIntervalId(id);
+      pollQuery({
+        setIntervalId,
+        refetch,
+        search,
+        getQueryVariables,
+        resourceId,
+      });
     }
     return () => clearInterval(intervalId);
-  }, [intervalId, refetch, search, getQueryVariables, resourceId]);
+  }, [
+    intervalId,
+    refetch,
+    search,
+    getQueryVariables,
+    resourceId,
+    setIntervalId,
+  ]);
 
   useEffect(() => {
     const unregisterListen = listen(async (loc) => {
+      clearInterval(intervalId);
       try {
-        const queryVariables = getQueryVariables(loc.search, resourceId);
-        refetch(queryVariables);
-        clearInterval(intervalId);
-        const id = window.setInterval(() => {
-          refetch(queryVariables);
-        }, pollInterval);
-        setIntervalId(id);
+        refetch(getQueryVariables(loc.search, resourceId));
       } catch (e) {
-        // empty block
+        return;
       }
+      pollQuery({
+        search: loc.search,
+        resourceId,
+        refetch,
+        setIntervalId,
+        getQueryVariables,
+      });
     });
-    return () => {
-      unregisterListen();
-    };
+    return unregisterListen;
   }, [
     networkStatus,
     refetch,
@@ -83,4 +92,22 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   };
 };
 
-const pollInterval = 3000;
+const pollInterval = 5000;
+
+const pollQuery = ({
+  search,
+  resourceId,
+  refetch,
+  setIntervalId,
+  getQueryVariables,
+}) => {
+  const queryVariables = getQueryVariables(search, resourceId);
+  const intervalId = window.setInterval(() => {
+    try {
+      refetch(queryVariables);
+    } catch {
+      clearInterval(intervalId);
+    }
+  }, pollInterval);
+  setIntervalId(intervalId);
+};
