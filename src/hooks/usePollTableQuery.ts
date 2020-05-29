@@ -4,7 +4,7 @@ import {
   NetworkStatus,
 } from "apollo-client/core/networkStatus";
 import { usePrevious } from "hooks";
-import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
 
@@ -18,7 +18,7 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;
   refetch: (
     variables?: ApolloQueryVariables
-  ) => Promise<ApolloQueryResult<ApolloQueryResultType>> | void;
+  ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
   search: string;
 }): { showSkeleton: boolean } => {
   const { id: resourceId } = useParams<{ id: string }>();

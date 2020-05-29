@@ -66,7 +66,7 @@ export const MyPatches: React.FC = () => {
 
   const renderTable = () => {
     if (error) {
-      return <ErrorWrapper>{error}</ErrorWrapper>;
+      return <ErrorWrapper>{error.message}</ErrorWrapper>;
     }
     if (showSkeleton) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
