@@ -29,6 +29,7 @@ import {
 import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
 import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
+import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 const arrayFormat = "comma";
@@ -45,7 +46,12 @@ export const TestsTableCore: React.FC = () => {
     id,
     ...getQueryVariables(search),
   });
-
+  const { cat, dir } = initialQueryVariables;
+  const columns = useSetColumnDefaultSortOrder<TestResult>(
+    columnsTemplate,
+    cat,
+    dir
+  );
   const { data, fetchMore, networkStatus, error } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
@@ -54,7 +60,6 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-
   // this fetch is when url params change (sort direction, sort category, status list)
   // and the page num is set to 0
   useEffect(
@@ -101,10 +106,8 @@ export const TestsTableCore: React.FC = () => {
   };
 
   // initial table sort button state to reflect initial URL query params
-  const { cat, dir, pageNum, limitNum } = getQueryVariables(search);
+  const { pageNum, limitNum } = getQueryVariables(search);
 
-  columns.find(({ key }) => key === cat).defaultSortOrder =
-    dir === SortDirection.Asc ? "ascend" : "descend";
   const isLoading = isNetworkRequestInFlight(networkStatus);
   return (
     <>
@@ -156,7 +159,7 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columns: ColumnProps<TestResult>[] = [
+const columnsTemplate: ColumnProps<TestResult>[] = [
   {
     title: "Name",
     dataIndex: "testFile",

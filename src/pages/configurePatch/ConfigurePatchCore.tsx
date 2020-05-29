@@ -110,12 +110,17 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted by: {patch?.author}</P2>
             <P2>Submitted at: {patch?.time.submittedAt}</P2>
           </MetadataCard>
-          <ConfigureBuildVariants
-            variants={variants}
-            selectedVariantTasks={selectedVariantTasks}
-            selectedBuildVariant={selectedBuildVariant}
-            setSelectedBuildVariant={setSelectedBuildVariant}
-          />
+          <DisableWrapper
+            data-cy="select-variants-and-task-card-wrapper"
+            disabled={selectedTab !== 0}
+          >
+            <ConfigureBuildVariants
+              variants={variants}
+              selectedVariantTasks={selectedVariantTasks}
+              selectedBuildVariant={selectedBuildVariant}
+              setSelectedBuildVariant={setSelectedBuildVariant}
+            />
+          </DisableWrapper>
         </PageSider>
         <PageLayout>
           <PageContent>
@@ -132,7 +137,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                   }}
                 />
               </Tab>
-              <Tab name="Changes" id="changes-tab">
+              <Tab data-cy="changes-tab" name="Changes" id="changes-tab">
                 <CodeChanges />
               </Tab>
             </StyledTabs>
@@ -198,4 +203,8 @@ const StyledInput = styled(Input)`
 `;
 const StyledBody = styled(Body)`
   margin-bottom: 4px;
+`;
+const DisableWrapper = styled.div`
+  ${(props: { disabled: boolean }) =>
+    props.disabled && "opacity:0.4;pointer-events:none;"}
 `;
