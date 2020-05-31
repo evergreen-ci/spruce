@@ -6,7 +6,6 @@ import {
   PageTitle,
 } from "components/styles";
 import { useLocation, useHistory } from "react-router-dom";
-import { ErrorWrapper } from "components/ErrorWrapper";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
@@ -22,12 +21,21 @@ import { useFilterInputChangeHandler, usePollTableQuery } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
+import { Banners } from "components/Banners";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import { PatchCard } from "pages/my-patches/PatchCard";
+import { withBannersContext } from "hoc/withBannersContext";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
-export const MyPatches: React.FC = () => {
+const MyPatchesComponent: React.FC = () => {
+  const bannersState = useBannerStateContext();
+  const dispatchBanner = useBannerDispatchContext();
+
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>(
@@ -66,7 +74,14 @@ export const MyPatches: React.FC = () => {
 
   const renderTable = () => {
     if (error) {
-      return <ErrorWrapper>{error.message}</ErrorWrapper>;
+      return (
+        <PageWrapper>
+          <Banners
+            banners={bannersState}
+            removeBanner={dispatchBanner.removeBanner}
+          />
+        </PageWrapper>
+      );
     }
     if (showSkeleton) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
@@ -82,6 +97,10 @@ export const MyPatches: React.FC = () => {
   const { limit, page, includeCommitQueue } = getQueryVariables(search);
   return (
     <PageWrapper>
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       <PageTitle>My Patches</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
@@ -95,7 +114,7 @@ export const MyPatches: React.FC = () => {
           />
           <StatusSelector />
         </FlexRow>
-        <Checkbox
+        <StyledCheckbox
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
           label="Show Commit Queue"
@@ -119,6 +138,8 @@ export const MyPatches: React.FC = () => {
   );
 };
 
+export const MyPatches = withBannersContext(MyPatchesComponent);
+
 const arrayFormat = "comma";
 const getQueryVariables = (search: string): UserPatchesQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
@@ -139,6 +160,10 @@ const getQueryVariables = (search: string): UserPatchesQueryVariables => {
     limit: getLimitFromSearch(search),
   };
 };
+
+const StyledCheckbox = styled(Checkbox)`
+  margin-left: 16px;
+`;
 
 const FlexRow = styled.div`
   display: flex;
