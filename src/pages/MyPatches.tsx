@@ -5,7 +5,7 @@ import {
   FiltersWrapper,
   PageTitle,
 } from "components/styles";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation, useHistory, useParams } from "react-router-dom";
 import queryString from "query-string";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
@@ -37,10 +37,11 @@ const MyPatchesComponent: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
 
   const { replace } = useHistory();
+  const { id: userId } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
     page: 0,
-    ...getQueryVariables(search),
+    ...getQueryVariables(search, userId),
   });
   const [
     patchNameFilterValue,
@@ -58,9 +59,7 @@ const MyPatchesComponent: React.FC = () => {
     const fetch = async () => {
       try {
         await fetchMore({
-          variables: {
-            ...getQueryVariables(search),
-          },
+          variables: getQueryVariables(search, userId),
           updateQuery: (
             prev: UserPatchesQuery,
             { fetchMoreResult }: { fetchMoreResult: UserPatchesQuery }
@@ -76,14 +75,14 @@ const MyPatchesComponent: React.FC = () => {
       }
     };
     fetch();
-  }, [search, fetchMore]);
+  }, [search, fetchMore, userId]);
 
   const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify(
         {
           ...queryString.parse(search, { arrayFormat }),
-          [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search)
+          [MyPatchesQueryParams.CommitQueue]: !getQueryVariables(search, userId)
             .includeCommitQueue,
         },
         { arrayFormat }
@@ -113,7 +112,7 @@ const MyPatchesComponent: React.FC = () => {
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
   };
 
-  const { limit, page, includeCommitQueue } = getQueryVariables(search);
+  const { limit, page, includeCommitQueue } = getQueryVariables(search, userId);
   return (
     <PageWrapper>
       <Banners
@@ -161,13 +160,15 @@ export const MyPatches = withBannersContext(MyPatchesComponent);
 
 const arrayFormat = "comma";
 const getQueryVariables = (
-  search: string
+  search: string,
+  userId: string
 ): {
   includeCommitQueue: boolean;
   patchName: string;
   statuses: string[];
   limit: number;
   page: number;
+  userId: string;
 } => {
   const parsed = queryString.parse(search, { arrayFormat });
 
@@ -181,6 +182,7 @@ const getQueryVariables = (
     : [rawStatuses]
   ).filter((v) => v && v !== ALL_PATCH_STATUS);
   return {
+    userId,
     includeCommitQueue,
     patchName,
     statuses,

@@ -234,6 +234,8 @@ export type Patch = {
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
   commitQueuePosition?: Maybe<Scalars["Int"]>;
+  taskStatuses: Array<Scalars["String"]>;
+  baseTaskStatuses: Array<Scalars["String"]>;
 };
 
 export type PatchBuildVariant = {
@@ -536,6 +538,7 @@ export enum TestSortCategory {
 
 export type User = {
   displayName: Scalars["String"];
+  userId: Scalars["String"];
 };
 
 export type UserConfig = {
@@ -963,12 +966,17 @@ export type GetUserSettingsQuery = {
   }>;
 };
 
+export type GetUserQueryVariables = {};
+
+export type GetUserQuery = { user: { userId: string } };
+
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
   patchName?: Maybe<Scalars["String"]>;
   includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  userId?: Maybe<Scalars["String"]>;
 };
 
 export type UserPatchesQuery = {
