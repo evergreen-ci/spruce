@@ -4,7 +4,6 @@ import { RunningIcon } from "pages/my-patches/patch-card/BuildStatusIcon/Running
 import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/SucceededIcon";
 import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/CreatedIcon";
-
 import styled from "@emotion/styled";
 import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
 import { id } from "date-fns/locale";
