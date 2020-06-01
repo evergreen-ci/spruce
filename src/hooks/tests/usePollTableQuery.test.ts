@@ -14,6 +14,7 @@ const refetch = jest.fn((variables: QueryVariables) =>
 
 jest.mock("react-router-dom", () => ({
   useParams: jest.fn().mockReturnValue({ id: "123" }),
+  useLocation: jest.fn().mockReturnValue({ pathname: "/path" }),
 }));
 
 test("when search value changes, showSkeleton is true and refetch is called with correct values", async () => {

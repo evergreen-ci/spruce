@@ -4,7 +4,7 @@ import {
   NetworkStatus,
 } from "apollo-client/core/networkStatus";
 import { usePrevious } from "hooks";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
 
@@ -21,6 +21,8 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
   search: string;
 }): { showSkeleton: boolean } => {
+  const { pathname } = useLocation();
+  const [initialPathname] = useState(pathname);
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
@@ -61,13 +63,19 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   ]);
 
   useEffect(() => {
-    if (intervalId && !isEqual(currentQueryVariables, prevQueryVariables)) {
+    if (pathname !== initialPathname) {
       clearInterval(intervalId);
-      try {
-        refetch(currentQueryVariables);
-      } catch (e) {
-        return;
-      }
+    }
+  }, [pathname, initialPathname, intervalId]);
+
+  useEffect(() => {
+    if (
+      intervalId &&
+      !isEqual(currentQueryVariables, prevQueryVariables) &&
+      pathname === initialPathname
+    ) {
+      clearInterval(intervalId);
+      refetch(currentQueryVariables);
       pollQuery({
         search,
         resourceId,
@@ -85,6 +93,8 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     resourceId,
     getQueryVariables,
     search,
+    pathname,
+    initialPathname,
   ]);
 
   return {
@@ -103,11 +113,7 @@ const pollQuery = ({
 }) => {
   const queryVariables = getQueryVariables(search, resourceId);
   const intervalId = window.setInterval(() => {
-    try {
-      refetch(queryVariables);
-    } catch {
-      clearInterval(intervalId);
-    }
+    refetch(queryVariables);
   }, pollInterval);
   setIntervalId(intervalId);
 };
