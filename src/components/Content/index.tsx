@@ -11,7 +11,7 @@ import { routes } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_PROJECTS } from "gql/queries/get-projects";
+import { GET_USER } from "gql/queries";
 import { ProjectsQuery } from "gql/generated/types";
 import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
@@ -24,7 +24,7 @@ export const Content: React.FC = () => {
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  useQuery<ProjectsQuery>(GET_PROJECTS);
+  useQuery<ProjectsQuery>(GET_USER);
 
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
