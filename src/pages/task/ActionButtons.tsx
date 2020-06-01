@@ -155,7 +155,7 @@ export const ActionButtons = ({
       data-cy="unschedule-task"
       onClick={() => unscheduleTask()}
     >
-      <Body>Unschedule</Body>
+      Unschedule
     </DropdownItem>,
     <DropdownItem
       data-cy="abort-task"
@@ -163,7 +163,7 @@ export const ActionButtons = ({
       disabled={disabled || !canAbort}
       onClick={() => abortTask()}
     >
-      <Body>Abort</Body>
+      Abort
     </DropdownItem>,
     <Popconfirm
       key="priority"
@@ -196,7 +196,7 @@ export const ActionButtons = ({
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
       >
-        <Body>Set priority</Body>
+        Set priority
       </DropdownItem>
     </Popconfirm>,
   ];

@@ -46,15 +46,16 @@ export const ButtonDropdown: React.FC<Props> = ({
 interface CardItemProps {
   disabled: boolean;
 }
-
 export const DropdownItem = styled.div`
-  > p:hover {
+  > small:hover {
     text-decoration: underline;
     cursor: pointer;
   }
-  pointer-events:${(props: CardItemProps) => props.disabled && "none"}; 
-  > p {
-    color: ${(props: CardItemProps) => props.disabled && uiColors.gray.base};
+  ${({ disabled }: CardItemProps) => disabled && "pointer-events: none;"}
+  > small {
+    ${({ disabled }: CardItemProps) =>
+      disabled && `color: ${uiColors.gray.base}`}
+  }
 `;
 
 const Dropdown = styled(Card)`
@@ -63,6 +64,7 @@ const Dropdown = styled(Card)`
   z-index: 1;
   margin-top: 2px;
   padding: 8px;
+  width: max-content;
 `;
 
 const Container = styled.div`
