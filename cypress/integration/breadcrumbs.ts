@@ -27,10 +27,10 @@ describe("TaskBreadcrumb", () => {
     cy.url().should("include", "/patch/5e4ff3abe3c3317e352062e4");
   });
 
-  it("Clicking 'My Patches' breadcrumb goes to /my-patches route", () => {
+  it("Clicking 'My Patches' breadcrumb goes to the user's patches route", () => {
     cy.visit(taskRoute);
     cy.get("#bc-my-patches").click();
-    cy.url().should("include", "/my-patches");
+    cy.url().should("include", "/user/admin/patches");
   });
 });
 
@@ -44,8 +44,8 @@ describe("PatchBreadcrumb", () => {
     cy.get("#bc-patch").should("include.text", "Patch 2567");
   });
 
-  it("Clicking 'My Patches' goes to /my-patches route", () => {
+  it("Clicking 'My Patches' goes to user's patches route", () => {
     cy.get("#bc-my-patches").click();
-    cy.url().should("include", "/my-patches");
+    cy.url().should("include", "/user/admin/patches");
   });
 });

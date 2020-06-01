@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { GET_PATCH_VARIANTS_AND_STATUS } from "gql/queries/my-patches";
-import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
+import { BuildStatusIcon } from "pages/user-patches/patch-card/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
@@ -16,7 +16,7 @@ import {
   Maybe,
 } from "gql/generated/types";
 import { useHistory } from "react-router-dom";
-import { DropdownMenu } from "pages/my-patches/patch-card/DropdownMenu";
+import { DropdownMenu } from "pages/user-patches/patch-card/DropdownMenu";
 
 interface Build {
   id: string;
