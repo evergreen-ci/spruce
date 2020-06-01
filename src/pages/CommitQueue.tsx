@@ -8,39 +8,48 @@ import { Body } from "@leafygreen-ui/typography";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { Skeleton } from "antd";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import { PageTitle } from "components/PageTitle";
-import { ErrorWrapper } from "components/ErrorWrapper";
+import { Banners } from "components/Banners";
 import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
 import {
   CommitQueueQuery,
   CommitQueueQueryVariables,
 } from "gql/generated/types";
+import { withBannersContext } from "hoc/withBannersContext";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = uiColors;
 
-export const CommitQueue: React.FC = () => {
+const CommitQueueCore: React.FC = () => {
   const { id } = useParams();
-  const { data, loading, error } = useQuery<
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
+  const { data, loading } = useQuery<
     CommitQueueQuery,
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
     variables: { id },
+    onError: (e) =>
+      dispatchBanner.errorBanner(
+        `There was an error loading the commit queue: ${e.message}`
+      ),
   });
   if (loading) {
     return <Skeleton active title paragraph={{ rows: 4 }} />;
   }
-  if (error) {
-    return (
-      <ErrorWrapper data-cy="commitQueue-card-error">
-        {error.message}
-      </ErrorWrapper>
-    );
-  }
+
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "queue");
   return (
     <PageWrapper>
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       <PageTitle
         title="Commit Queue"
         badge={
@@ -84,3 +93,5 @@ const buildBadgeString = (queueLength: number): string => {
   }
   return `${queueLength} Item`;
 };
+
+export const CommitQueue = withBannersContext(CommitQueueCore);
