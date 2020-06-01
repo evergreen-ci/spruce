@@ -58,6 +58,7 @@ const TaskCore: React.FC = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id },
+    pollInterval: 2000,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
