@@ -7,7 +7,7 @@ import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { DropdownMenu } from "pages/my-patches/patch-card/DropdownMenu";
 
 interface Build {
   id: string;
@@ -58,7 +58,7 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <ButtonDropdown isVisibleDropdown={false} dropdownItems={[]} />
+        <DropdownMenu patchId={id} />
       </Right>
     </CardWrapper>
   );
