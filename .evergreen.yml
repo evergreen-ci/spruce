@@ -4,6 +4,15 @@ ignore:
   - "*.md"
   - ".github/*"
 
+modules:
+- name: evergreen
+  repo: git@github.com:evergreen-ci/evergreen.git
+  branch: master
+  prefix: gopath/src/github.com/evergreen-ci
+
+#######################################
+#              Functions              #
+#######################################
 functions:
   get-project:
     command: git.get_project
@@ -11,13 +20,86 @@ functions:
     params:
       directory: spruce
 
-  npm-install:
+  get-evergreen-project:
+    command: git.get_project
+    type: setup
+    params:
+      directory: spruce
+      revisions:
+        evergreen: ${evergreen_rev}
+
+  setup-mongodb:
+    - command: subprocess.exec
+      type: setup
+      params:
+        env:
+          gobin: /opt/golang/go1.9/bin/go
+          MONGODB_URL: ${mongodb_url}
+          DECOMPRESS: ${decompress}
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make get-mongodb
+    - command: subprocess.exec
+      type: setup
+      params:
+        background: true
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make start-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make check-mongod
+    - command: subprocess.exec
+      type: setup
+      params:
+        working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+        command: make init-rs
+
+  run-make:
+    command: subprocess.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
+      background: false
+      env:
+        GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: /opt/golang/go1.13/bin/go
+        GOROOT: /opt/golang/go1.13
+
+  run-make-background:
+    command: subprocess.exec
+    params:
+      working_dir: spruce/gopath/src/github.com/evergreen-ci/evergreen
+      binary: make
+      args: ["${make_args|}", "${target}"]
+      background: true
+      env:
+        GOPATH: ${workdir}/spruce/gopath
+        GO_BIN_PATH: /opt/golang/go1.13/bin/go
+        GOROOT: /opt/golang/go1.13
+
+  sym-link:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
+
+  npm-start:
     command: subprocess.exec
     type: setup
     params:
       working_dir: spruce
-      binary: npm
-      args: [install]
+      background: true
+      command: npm run dev
+
+  npm-install:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        npm install
 
   npm-test:
     command: subprocess.exec
@@ -28,19 +110,13 @@ functions:
       env:
         CI: "true"
 
-  npm-lint:
-    command: subprocess.exec
-    params:
-      working_dir: spruce
-      binary: npm
-      args: [run, lint]
 
-  npm-build:
+  npm-eslint:
     command: subprocess.exec
     params:
       working_dir: spruce
       binary: npm
-      args: [run, build]
+      args: [run, eslint]
 
   npm-build:
     command: subprocess.exec
@@ -56,11 +132,72 @@ functions:
       binary: npm
       args: [run, coverage]
 
+  run-cypress-tests:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        npx wait-on http://localhost:3000
+        npx cypress run --record --key ${cypress_record_key} --reporter junit
+
+  copy-cmdrc:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        cp config/.cmdrc_sample.json config/.cmdrc.json
+
   attach-results:
     command: attach.xunit_results
     params:
       files:
         - "./spruce/junit.xml"
+
+  attach-cypress-screenshots:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/screenshots/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: image/png
+      permissions: public-read
+      display_name: "screenshot:"
+
+  attach-cypress-videos:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["spruce/cypress/videos/*"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: video/mp4
+      permissions: public-read
+      display_name: "video:"
+
+  attach-server-logs:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        ["gopath/src/github.com/evergreen-ci/evergreen/server_logs.txt"]
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: text/plain
+      permissions: public-read
+      display_name: "server logs"
+
+#######################################
+#                Tasks                #
+#######################################
 
 tasks:
   - name: compile
@@ -68,31 +205,57 @@ tasks:
     - func: get-project
     - func: npm-install
     - func: npm-build
-    - func: npm-build
+
   - name: test
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-test
-    - func: attach-results
+
   - name: lint
     commands:
     - func: get-project
+    - func: sym-link
     - func: npm-install
-    - func: npm-lint
+    - func: npm-eslint
+
   - name: coverage
     commands:
     - func: get-project
     - func: npm-install
     - func: npm-coverage
 
+  - name: e2e_test
+    commands:
+    - func: get-evergreen-project
+    - func: run-make
+      vars:
+        target: get-go-imports
+    - func: setup-mongodb
+    - func: copy-cmdrc
+    - func: run-make-background
+      vars:
+        target: local-evergreen
+    - func: npm-install
+    - func: npm-start
+    - func: run-cypress-tests
+
 buildvariants:
-  - name: ubuntu1804
-    display_name: Ubuntu 18.04
+  - name: ubuntu1604
+    display_name: Ubuntu 16.04
     run_on:
-    - ubuntu1804-test
+    - ubuntu1604-test
+    modules:
+      - evergreen
     tasks:
     - name: compile
     - name: test
     - name: lint
     - name: coverage
+    - name: e2e_test
+
+post:
+  - func: attach-results
+  - func: attach-cypress-screenshots
+  - func: attach-cypress-videos
+  - func: attach-server-logs

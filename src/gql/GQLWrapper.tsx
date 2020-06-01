@@ -1,16 +1,20 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
 import { ApolloClient } from "apollo-client";
 import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
+import { ApolloLink } from "apollo-link";
+import { RetryLink } from "apollo-link-retry";
 import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
   addMockFunctionsToSchema,
   introspectSchema,
-  makeExecutableSchema
+  makeExecutableSchema,
 } from "graphql-tools";
 import { printSchema } from "graphql/utilities/schemaPrinter";
 import { SchemaLink } from "apollo-link-schema";
-const { useState, useEffect } = React;
+import { onError } from "apollo-link-error";
+import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
+import ApolloLinkTimeout from "apollo-link-timeout";
 
 interface ClientLinkParams {
   credentials?: string;
@@ -19,6 +23,8 @@ interface ClientLinkParams {
   isTest?: boolean;
   schemaString?: string;
   shouldEnableGQLMockServer?: boolean;
+  logout?: Logout;
+  dispatch?: Dispatch;
 }
 
 export const getClientLink = async ({
@@ -27,11 +33,11 @@ export const getClientLink = async ({
   isDevelopment,
   isTest,
   schemaString,
-  shouldEnableGQLMockServer
+  shouldEnableGQLMockServer,
 }: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
   const httpLink = new HttpLink({
     uri: gqlURL,
-    credentials
+    credentials,
   });
 
   if (
@@ -40,16 +46,12 @@ export const getClientLink = async ({
   ) {
     try {
       const executableSchema = makeExecutableSchema({
-        typeDefs: schemaString
-          ? schemaString
-          : printSchema(await introspectSchema(httpLink))
+        typeDefs: schemaString || printSchema(await introspectSchema(httpLink)),
       });
       addMockFunctionsToSchema({ schema: executableSchema });
       return new SchemaLink({ schema: executableSchema });
     } catch (e) {
-      console.warn(
-        "Unable to initiate mock server. If this was unintended, provide a valid value for the REACT_APP_GQL_URL or REACT_APP_SCHEMA_STRING environment variables."
-      );
+      // unable to initiate mock server
       return new HttpLink();
     }
   }
@@ -58,25 +60,69 @@ export const getClientLink = async ({
 
 const cache = new InMemoryCache();
 
+const authLink = (logout: Logout): ApolloLink =>
+  onError(({ networkError }) => {
+    if (
+      // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
+      networkError &&
+      "statusCode" in networkError &&
+      networkError.statusCode === 401
+    ) {
+      logout();
+    }
+  });
+
+const timeoutLink = new ApolloLinkTimeout(60000);
+
+const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
+  new ApolloLink((operation, forward) =>
+    forward(operation).map((response) => {
+      if (response && response.data) {
+        // if there is data in response then server responded with 200; therefore, is authenticated.
+        dispatch({ type: "authenticate" });
+      }
+      return response;
+    })
+  );
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: 3000,
+    jitter: true,
+  },
+  attempts: {
+    max: 5,
+    retryIf: (error): boolean =>
+      error && error.response && error.response.status >= 500,
+  },
+});
+
 export const getGQLClient = async ({
   credentials,
   gqlURL,
   isDevelopment,
   isTest,
   schemaString,
-  shouldEnableGQLMockServer
-}: ClientLinkParams) => {
+  shouldEnableGQLMockServer,
+  logout,
+  dispatch,
+}: ClientLinkParams): Promise<ApolloClient<NormalizedCacheObject>> => {
   const link: HttpLink | SchemaLink = await getClientLink({
     credentials,
     gqlURL,
     isDevelopment,
     isTest,
     schemaString,
-    shouldEnableGQLMockServer
+    shouldEnableGQLMockServer,
   });
   const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
     cache,
-    link
+    link: authenticateIfSuccessfulLink(dispatch)
+      .concat(authLink(logout))
+      .concat(retryLink)
+      .concat(timeoutLink)
+      .concat(link),
   });
   return client;
 };
@@ -88,23 +134,36 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
   isDevelopment,
   isTest,
   schemaString,
-  shouldEnableGQLMockServer
+  shouldEnableGQLMockServer,
 }) => {
   const [client, setClient] = useState(null);
+  const { logout, dispatch } = useAuthDispatchContext();
+
   useEffect(() => {
-    async function getAndSetClient() {
+    async function getAndSetClient(): Promise<void> {
       const gqlClient = await getGQLClient({
         credentials,
         gqlURL,
         isDevelopment,
         isTest,
         schemaString,
-        shouldEnableGQLMockServer
+        shouldEnableGQLMockServer,
+        logout,
+        dispatch,
       });
       setClient(gqlClient);
     }
     getAndSetClient();
-  }, []);
+  }, [
+    credentials,
+    gqlURL,
+    isDevelopment,
+    isTest,
+    schemaString,
+    shouldEnableGQLMockServer,
+    logout,
+    dispatch,
+  ]);
 
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>

@@ -1,7 +1,7 @@
-import { getClientLink, getGQLClient } from "./GQLWrapper";
 import SchemaLink from "apollo-link-schema";
 import { HttpLink } from "apollo-link-http";
 import ApolloClient from "apollo-client";
+import { getClientLink, getGQLClient } from "./GQLWrapper";
 
 const schema = `
   type Patch {
@@ -47,7 +47,7 @@ describe("getClientLink when development mode is true", () => {
       gqlURL: "",
       isDevelopment: true,
       isTest: false,
-      schemaString: schema
+      schemaString: schema,
     });
     expect(link).toBeInstanceOf(SchemaLink);
   });
@@ -57,7 +57,7 @@ describe("getClientLink when development mode is true", () => {
       gqlURL: "",
       isDevelopment: true,
       isTest: false,
-      schemaString: "arst"
+      schemaString: "arst",
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -69,7 +69,7 @@ describe("getClientLink when test mode is true", () => {
       gqlURL: "",
       isDevelopment: false,
       isTest: true,
-      schemaString: schema
+      schemaString: schema,
     });
     expect(link).toBeInstanceOf(SchemaLink);
   });
@@ -79,7 +79,7 @@ describe("getClientLink when test mode is true", () => {
       gqlURL: "",
       isDevelopment: false,
       isTest: true,
-      schemaString: "arst"
+      schemaString: "arst",
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -89,7 +89,7 @@ describe("getClientLink when test mode is true", () => {
       gqlURL: "fake",
       isDevelopment: false,
       isTest: true,
-      shouldEnableGQLMockServer: true
+      shouldEnableGQLMockServer: true,
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -100,7 +100,7 @@ describe("getClientLink when development and test mode are false", () => {
     const link = await getClientLink({
       gqlURL: "",
       isDevelopment: false,
-      isTest: false
+      isTest: false,
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -110,7 +110,7 @@ describe("getClientLink when development and test mode are false", () => {
       gqlURL: "",
       isDevelopment: false,
       isTest: false,
-      schemaString: schema
+      schemaString: schema,
     });
     expect(link).toBeInstanceOf(HttpLink);
   });
@@ -122,7 +122,7 @@ describe("getGQLClient", () => {
       isTest: false,
       isDevelopment: false,
       schemaString: "",
-      gqlURL: ""
+      gqlURL: "",
     });
     expect(client).toBeInstanceOf(ApolloClient);
   });
