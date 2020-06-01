@@ -4,7 +4,7 @@ import { GET_USER } from "gql/queries";
 import { useHistory } from "react-router-dom";
 import { getUserPatchesRoute } from "constants/routes";
 
-export const MyPatches = () => {
+export const MyPatches: React.FC = () => {
   const router = useHistory();
   const { data } = useQuery<GetUserQuery>(GET_USER);
   if (data) {
