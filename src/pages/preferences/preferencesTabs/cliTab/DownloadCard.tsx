@@ -72,7 +72,7 @@ interface CliDownloadBoxProps {
 const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => (
   <CliDownloadCard>
     <CliDownloadTitle>{title}</CliDownloadTitle>
-    <CliDownloadButton href={link} disabled={link === null} as="a">
+    <CliDownloadButton href={link} disabled={!link} as="a">
       Download
     </CliDownloadButton>
   </CliDownloadCard>
@@ -108,14 +108,12 @@ const getBinaryUrl = (
   arch: string,
   clientBinaries: ClientBinary[]
 ) => {
-  let url = null;
-  clientBinaries.forEach((binary) => {
-    if (binary.os === os && binary.arch === arch) {
-      url = binary.url;
-    }
-  });
-  return url;
+  const binary = clientBinaries.find(
+    (clientBinary) => clientBinary.os === os && clientBinary.arch === arch
+  );
+  return binary ? binary.url : null;
 };
+
 const Container = styled(SiderCard)`
   padding-left: 20px;
   padding-top: 20px;
