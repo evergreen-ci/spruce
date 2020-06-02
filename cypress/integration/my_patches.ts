@@ -8,7 +8,7 @@ import {
 } from "../utils";
 
 const tableRow = "[data-cy=patch-card]";
-const MY_PATCHES_ROUTE = "/user/patches";
+const MY_PATCHES_ROUTE = "/user/admin/patches";
 describe("My Patches Page", () => {
   before(() => {
     cy.login();
