@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { BuildStatus } from "types/build";
 import { RunningIcon } from "pages/my-patches/patch-card/BuildStatusIcon/RunningIcon";
 import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/SucceededIcon";
@@ -18,13 +18,10 @@ interface Props {
 
 export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
   const router = useHistory();
-  const onClick = useMemo(
-    () => () =>
-      router.push(
-        `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`
-      ),
-    [buildVariant, router]
-  );
+  const onClick = () =>
+    router.push(
+      `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`
+    );
   const icon = statusToIcon[status];
   if (!icon) {
     return null;
