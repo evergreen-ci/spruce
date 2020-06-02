@@ -118,7 +118,7 @@ export const TestsTableCore: React.FC = () => {
         />
       </TableContainer>
       {showSkeleton && (
-        <Skeleton active title={false} paragraph={{ rows: 80 }} />
+        <Skeleton active title={false} paragraph={{ rows: 8 }} />
       )}
     </>
   );

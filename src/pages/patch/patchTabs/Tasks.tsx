@@ -97,7 +97,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
       </TableContainer>
       {showSkeleton && (
-        <Skeleton active title={false} paragraph={{ rows: 80 }} />
+        <Skeleton active title={false} paragraph={{ rows: 8 }} />
       )}
     </ErrorBoundary>
   );
