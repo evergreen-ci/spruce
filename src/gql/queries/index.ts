@@ -16,3 +16,4 @@ export {
 } from "./get-task-logs";
 export { GET_TASK_TESTS } from "./get-task-tests";
 export { GET_TASK, MetStatus, RequiredStatus } from "./get-task";
+export { GET_CLIENT_CONFIG } from "./get-client-config";
