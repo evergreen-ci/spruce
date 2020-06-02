@@ -56,7 +56,7 @@ export const PatchCard: React.FC<Props> = ({
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
-        <DescriptionLink href={`${paths.patch}/${id}`}>
+        <DescriptionLink href={`${paths.version}/${id}`}>
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>
@@ -72,7 +72,7 @@ export const PatchCard: React.FC<Props> = ({
           {patchBuilds.map((b) => {
             const onClick = () =>
               router.push(
-                `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`
+                `${paths.version}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`
               );
             return (
               <div key={b.id}>

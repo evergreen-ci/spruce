@@ -18,6 +18,7 @@ import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Preferences } from "pages/Preferences";
 import { MyPatches } from "pages/MyPatches";
+import { PatchRedirect } from "pages/PatchRedirect";
 
 export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -37,7 +38,8 @@ export const Content: React.FC = () => {
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
-        <PrivateRoute path={routes.patch} component={Patch} />
+        <PrivateRoute path={routes.patch} component={PatchRedirect} />
+        <PrivateRoute path={routes.version} component={Patch} />
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
         <PrivateRoute path={routes.commitQueue} component={CommitQueue} />

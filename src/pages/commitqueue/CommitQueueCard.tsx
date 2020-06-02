@@ -57,7 +57,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       <Subtitle>{index}.</Subtitle>
       <CommitQueueCardGrid>
         <CommitInfo>
-          <CardTitle to={`${paths.patch}/${patchId}`}>{title}</CardTitle>
+          <CardTitle to={`${paths.version}/${patchId}`}>{title}</CardTitle>
           <CardMetaData>
             By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
           </CardMetaData>
