@@ -4,7 +4,7 @@
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
 };
-const path = `/patch/${patch.id}`;
+const path = `/version/${patch.id}`;
 
 const badPatch = {
   id: "i-dont-exist",

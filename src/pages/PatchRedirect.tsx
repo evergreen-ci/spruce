@@ -5,7 +5,6 @@ export const PatchRedirect = () => {
   const { id, tab } = useParams();
   const { search } = useLocation();
   const router = useHistory();
-
-  router.replace(`${paths.version}/${id}${tab ? `/${tab}` : ""}&${search}`);
+  router.replace(`${paths.version}/${id}${tab ? `/${tab}` : ""}${search}`);
   return null;
 };

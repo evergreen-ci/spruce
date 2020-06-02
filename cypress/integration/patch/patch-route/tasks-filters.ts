@@ -8,7 +8,7 @@ import {
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
 };
-const path = `/patch/${patch.id}`;
+const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
 const gqlQuery = { name: "PatchTasks", responseName: "patchTasks.tasks" };
