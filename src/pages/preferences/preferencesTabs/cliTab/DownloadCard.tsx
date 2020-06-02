@@ -97,8 +97,10 @@ const prettyDisplayName = {
   "Linux 64-bit": "Linux (64-bit)",
 };
 
-const filterBinaries = (binary: ClientBinary) =>
-  Object.keys(prettyDisplayName).includes(binary.displayName);
+const filterBinaries = (binary: ClientBinary) => {
+  const topBinaries = ["OSX 64-bit", "Windows 64-bit", "Linux 64-bit"];
+  return topBinaries.includes(binary.displayName);
+};
 
 const Container = styled(SiderCard)`
   padding-left: 20px;
