@@ -8,7 +8,9 @@ enableFetchWorkaround();
 // private helpers
 function enableFetchWorkaround() {
   let polyfill;
-
+  // TODO: This breaks the onError callback apollo provides and causes onError to
+  // Be flaky all tests should be refactored to remove their dependency on this and this
+  // should be turned off.
   before(() => {
     console.info("Load fetch XHR polyfill");
     cy.readFile("./cypress/support/polyfills/unfetch.umd.js").then(
