@@ -16,7 +16,7 @@ interface Params<ApolloQueryVariables, ApolloQueryResultType> {
   search: string;
 }
 
-export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
+export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   networkStatus,
   getQueryVariables,
   refetch,

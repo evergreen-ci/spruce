@@ -1,5 +1,5 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { usePollTableQuery } from "hooks";
+import { usePollQuery } from "hooks";
 import { NetworkStatus } from "apollo-client";
 import { MemoryRouter as Router } from "react-router-dom";
 
@@ -22,7 +22,7 @@ test("when search value changes, showSkeleton is true and refetch is called with
   let search = "a";
   const { result, rerender } = renderHook(
     () =>
-      usePollTableQuery({
+      usePollQuery({
         getQueryVariables,
         networkStatus,
         refetch,
@@ -44,7 +44,7 @@ test("when search value changes, showSkeleton is true and then goes to false whe
   let search = "a";
   const { result, rerender } = renderHook(
     () =>
-      usePollTableQuery({
+      usePollQuery({
         getQueryVariables,
         networkStatus,
         refetch,

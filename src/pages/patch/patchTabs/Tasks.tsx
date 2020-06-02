@@ -13,7 +13,7 @@ import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import {
   useDisableTableSortersIfLoading,
-  usePollTableQuery,
+  usePollQuery,
   useSetColumnDefaultSortOrder,
 } from "hooks";
 import get from "lodash.get";
@@ -59,7 +59,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-  const { showSkeleton } = usePollTableQuery({
+  const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,

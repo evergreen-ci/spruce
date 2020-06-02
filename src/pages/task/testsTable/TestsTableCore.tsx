@@ -17,7 +17,7 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading, usePollTableQuery } from "hooks";
+import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -57,7 +57,7 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-  const { showSkeleton } = usePollTableQuery({
+  const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,

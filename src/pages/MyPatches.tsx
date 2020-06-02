@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/my-patches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler, usePollTableQuery } from "hooks";
+import { useFilterInputChangeHandler, usePollQuery } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -52,7 +52,7 @@ const MyPatchesComponent: React.FC = () => {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
-  const { showSkeleton } = usePollTableQuery({
+  const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
