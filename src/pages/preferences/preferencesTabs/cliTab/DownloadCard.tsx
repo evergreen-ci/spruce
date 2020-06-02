@@ -28,6 +28,10 @@ export const DownloadCard = () => {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
   const clientBinaries = get(data, "clientConfig.clientBinaries", []);
+  const topBinaries = clientBinaries.filter(filterBinaries);
+  const otherBinaries = clientBinaries.filter(
+    (binary) => !filterBinaries(binary)
+  );
   return (
     <Container>
       <Subtitle>Command-Line Client</Subtitle>
@@ -41,23 +45,17 @@ export const DownloadCard = () => {
         <Body>for additional assistance.</Body>
       </CardDescription>
       <CardGroup>
-        <CliDownloadBox
-          title="Linux (64-bit)"
-          link={getBinaryUrl("linux", "amd64", clientBinaries)}
-        />
-        <CliDownloadBox
-          title="MacOS"
-          link={getBinaryUrl("darwin", "amd64", clientBinaries)}
-        />
-        <CliDownloadBox
-          title="Windows"
-          link={getBinaryUrl("windows", "amd64", clientBinaries)}
-        />
+        {topBinaries.map((binary) => (
+          <CliDownloadBox
+            title={prettyDisplayName[binary.displayName] || binary.displayName}
+            link={binary.url}
+          />
+        ))}
       </CardGroup>
       <Accordian
         title={<StyledLink>Show More</StyledLink>}
         toggledTitle={<StyledLink>Show Less</StyledLink>}
-        contents={<ExpandableLinkContents clientBinaries={clientBinaries} />}
+        contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
         toggleFromBottom
         showCaret={false}
       />
@@ -85,34 +83,22 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   clientBinaries,
 }) => (
   <LinkContainer>
-    <StyledLink href={getBinaryUrl("linux", "arm64", clientBinaries)}>
-      Linux ARM 64-bit
-    </StyledLink>
-    <StyledLink href={getBinaryUrl("linux", "s390x", clientBinaries)}>
-      Linux zSeries
-    </StyledLink>
-    <StyledLink href={getBinaryUrl("linux", "386", clientBinaries)}>
-      Linux 32-bit
-    </StyledLink>
-    <StyledLink href={getBinaryUrl("linux", "ppce64le", clientBinaries)}>
-      Linux PowerPC 64-bit
-    </StyledLink>
-    <StyledLink href={getBinaryUrl("windows", "386", clientBinaries)}>
-      Windows 32-bit
-    </StyledLink>
+    {clientBinaries.map((binary) => (
+      <StyledLink href={binary.url}>
+        {prettyDisplayName[binary.displayName] || binary.displayName}
+      </StyledLink>
+    ))}
   </LinkContainer>
 );
 
-const getBinaryUrl = (
-  os: string,
-  arch: string,
-  clientBinaries: ClientBinary[]
-) => {
-  const binary = clientBinaries.find(
-    (clientBinary) => clientBinary.os === os && clientBinary.arch === arch
-  );
-  return binary ? binary.url : null;
+const prettyDisplayName = {
+  "OSX 64-bit": "MacOS",
+  "Windows 64-bit": "Windows",
+  "Linux 64-bit": "Linux (64-bit)",
 };
+
+const filterBinaries = (binary: ClientBinary) =>
+  Object.keys(prettyDisplayName).includes(binary.displayName);
 
 const Container = styled(SiderCard)`
   padding-left: 20px;
