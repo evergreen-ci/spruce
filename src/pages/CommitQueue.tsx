@@ -7,7 +7,6 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
-import { Skeleton } from "antd";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -33,14 +32,12 @@ const CommitQueueCore: React.FC = () => {
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
     variables: { id },
-    onError: (e) =>
+    onError: (err) => {
       dispatchBanner.errorBanner(
-        `There was an error loading the commit queue: ${e.message}`
-      ),
+        `There was an error loading the commit queue: ${err.message}`
+      );
+    },
   });
-  if (loading) {
-    return <Skeleton active title paragraph={{ rows: 4 }} />;
-  }
 
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "queue");
@@ -57,7 +54,7 @@ const CommitQueueCore: React.FC = () => {
             {buildBadgeString(queue ? queue.length : 0)}
           </Badge>
         }
-        loading={false}
+        loading={loading}
         hasData
       />
       <HR />
