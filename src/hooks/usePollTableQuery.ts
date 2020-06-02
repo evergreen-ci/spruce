@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, Dispatch, SetStateAction } from "react";
 import {
   isNetworkRequestInFlight,
   NetworkStatus,
@@ -28,23 +28,29 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   const [initialPathname] = useState(pathname);
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
+  // this variable is true when query variables have changed and the query is loading
+  // this means the user interacted with the table/list filters, sort, or page
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
   const currentQueryVariables = getQueryVariables(search, resourceId);
   const prevQueryVariables = usePrevious(currentQueryVariables);
   const isLoading = isNetworkRequestInFlight(networkStatus);
 
+  // detects when query variables have changed
   useEffect(() => {
     if (!isEqual(currentQueryVariables, prevQueryVariables)) {
       setQueryVarDiffOccured(true);
     }
   }, [currentQueryVariables, prevQueryVariables, setQueryVarDiffOccured]);
 
+  // when loading goes from true to false, do not show the loading skeleton
   useEffect(() => {
     if (!isLoading) {
       setQueryVarDiffOccured(false);
     }
   }, [isLoading, setQueryVarDiffOccured]);
 
+  // this is to initiate polling for the first time after useQuery
+  // submits it's first request and is not dependent on URL changes
   useEffect(() => {
     if (!intervalId) {
       pollQuery({
@@ -65,12 +71,15 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     setIntervalId,
   ]);
 
+  // clears the interval when the page changes/component unmounts
   useEffect(() => {
     if (pathname !== initialPathname) {
       clearInterval(intervalId);
     }
   }, [pathname, initialPathname, intervalId]);
 
+  // reponsible for clearing the current polling query and
+  // starting a new polling query based on new query variables
   useEffect(() => {
     if (
       intervalId &&
@@ -107,13 +116,22 @@ export const usePollTableQuery = <ApolloQueryVariables, ApolloQueryResultType>({
 
 const pollInterval = 5000;
 
-const pollQuery = ({
+interface PollQueryParams<ApolloQueryVariables, ApolloQueryResultType> {
+  resourceId: string;
+  setIntervalId: Dispatch<SetStateAction<number>>;
+  getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;
+  refetch: (
+    variables?: ApolloQueryVariables
+  ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
+  search: string;
+}
+const pollQuery = <V, T>({
   search,
   resourceId,
   refetch,
   setIntervalId,
   getQueryVariables,
-}) => {
+}: PollQueryParams<V, T>) => {
   const queryVariables = getQueryVariables(search, resourceId);
   const intervalId = window.setInterval(() => {
     refetch(queryVariables);
