@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { msToDuration } from "utils/string";
 import Button from "@leafygreen-ui/button";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
@@ -17,7 +17,7 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import queryString from "query-string";
-import { useDisableTableSortersIfLoading } from "hooks";
+import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -28,7 +28,6 @@ import {
 } from "components/styles";
 import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
-import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
@@ -37,14 +36,12 @@ const arrayFormat = "comma";
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
-
 export const TestsTableCore: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
-  const { replace, listen } = useHistory();
+  const { id: resourceId } = useParams<{ id: string }>();
+  const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
-    id,
-    ...getQueryVariables(search),
+    ...getQueryVariables(search, resourceId),
   });
   const { cat, dir } = initialQueryVariables;
   const columns = useSetColumnDefaultSortOrder<TestResult>(
@@ -52,7 +49,7 @@ export const TestsTableCore: React.FC = () => {
     cat,
     dir
   );
-  const { data, fetchMore, networkStatus, error } = useQuery<
+  const { data, refetch, networkStatus } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
@@ -60,33 +57,13 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
   useDisableTableSortersIfLoading(networkStatus);
-  // this fetch is when url params change (sort direction, sort category, status list)
-  // and the page num is set to 0
-  useEffect(
-    () =>
-      listen(async (loc) => {
-        try {
-          await fetchMore({
-            variables: getQueryVariables(loc.search),
-            updateQuery: (
-              prev: UpdateQueryArg,
-              { fetchMoreResult }: { fetchMoreResult: UpdateQueryArg }
-            ) => {
-              if (!fetchMoreResult) {
-                return prev;
-              }
-              return fetchMoreResult;
-            },
-          });
-        } catch (e) {
-          // empty block
-        }
-      }),
-    [networkStatus, error, fetchMore, listen]
-  );
-
+  const { showSkeleton } = usePollQuery({
+    networkStatus,
+    getQueryVariables,
+    refetch,
+    search,
+  });
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
-
   const tableChangeHandler: TableOnChange<TestResult> = (
     ...[, , { order, columnKey }]
   ) => {
@@ -106,9 +83,7 @@ export const TestsTableCore: React.FC = () => {
   };
 
   // initial table sort button state to reflect initial URL query params
-  const { pageNum, limitNum } = getQueryVariables(search);
-
-  const isLoading = isNetworkRequestInFlight(networkStatus);
+  const { pageNum, limitNum } = getQueryVariables(search, resourceId);
   return (
     <>
       <TableControlOuterRow>
@@ -132,7 +107,7 @@ export const TestsTableCore: React.FC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={isLoading}>
+      <TableContainer hide={showSkeleton}>
         <Table
           data-test-id="tests-table"
           rowKey={rowKey}
@@ -142,7 +117,9 @@ export const TestsTableCore: React.FC = () => {
           onChange={tableChangeHandler}
         />
       </TableContainer>
-      {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+      {showSkeleton && (
+        <Skeleton active title={false} paragraph={{ rows: 8 }} />
+      )}
     </>
   );
 };
@@ -244,17 +221,11 @@ const ButtonWrapper = styled("span")`
 `;
 
 const getQueryVariables = (
-  search: string
-): {
-  cat: TestSortCategory;
-  dir: SortDirection;
-  limitNum: number;
-  statusList: string[];
-  testName: string;
-  pageNum: number;
-} => {
+  search: string,
+  resourceId: string
+): TaskTestsQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
-  const category = (parsed[RequiredQueryParams.Category] || "")
+  const category = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
   const cat =
@@ -263,9 +234,8 @@ const getQueryVariables = (
     category === TestSortCategory.Duration
       ? (category as TestSortCategory)
       : TestSortCategory.Status;
-
-  const testName = (parsed[RequiredQueryParams.TestName] || "").toString();
-  const sort = (parsed[RequiredQueryParams.Sort] || "").toString();
+  const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
+  const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
   const dir =
     sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc;
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
@@ -274,6 +244,7 @@ const getQueryVariables = (
     : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
   return {
+    id: resourceId,
     cat,
     dir,
     limitNum: getLimitFromSearch(search),

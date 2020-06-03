@@ -5,6 +5,7 @@ import { format } from "date-fns";
 import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
+import { v4 as uuid } from "uuid";
 
 import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
@@ -73,7 +74,7 @@ export const Metadata: React.FC<{
           <H3>Depends On</H3>
           <Divider />
           {reliesOn.map((props) => (
-            <DependsOn key={props.buildVariant} {...props} />
+            <DependsOn key={uuid()} {...props} />
           ))}
         </span>
       ) : null}
