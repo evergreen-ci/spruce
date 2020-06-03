@@ -61,7 +61,6 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
         resourceId,
       });
     }
-    return () => clearInterval(intervalId);
   }, [
     intervalId,
     refetch,
@@ -70,13 +69,6 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     resourceId,
     setIntervalId,
   ]);
-
-  // clears the interval when the page changes/component unmounts
-  useEffect(() => {
-    if (pathname !== initialPathname) {
-      clearInterval(intervalId);
-    }
-  }, [pathname, initialPathname, intervalId]);
 
   // reponsible for clearing the current polling query and
   // starting a new polling query based on new query variables
@@ -134,7 +126,11 @@ const pollQuery = <V, T>({
 }: PollQueryParams<V, T>) => {
   const queryVariables = getQueryVariables(search, resourceId);
   const intervalId = window.setInterval(() => {
-    refetch(queryVariables);
+    try {
+      refetch(queryVariables);
+    } catch {
+      clearInterval(intervalId);
+    }
   }, pollInterval);
   setIntervalId(intervalId);
 };
