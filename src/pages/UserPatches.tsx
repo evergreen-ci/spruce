@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   PageWrapper,
   StyledInput,
@@ -17,7 +17,7 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler } from "hooks";
+import { useFilterInputChangeHandler, usePollQuery } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -35,47 +35,29 @@ import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 const UserPatchesComponent: React.FC = () => {
   const bannersState = useBannerStateContext();
   const dispatchBanner = useBannerDispatchContext();
-
+  const { id: userId } = useParams();
   const { replace } = useHistory();
-  const { id: userId } = useParams<{ id: string }>();
   const { search, pathname } = useLocation();
-  const [initialQueryVariables] = useState<UserPatchesQueryVariables>({
-    page: 0,
-    ...getQueryVariables(search, userId),
-  });
+  const [initialQueryVariables] = useState<UserPatchesQueryVariables>(
+    getQueryVariables(search, userId)
+  );
   const [
     patchNameFilterValue,
     patchNameFilterValueOnChange,
   ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
-  const { data, fetchMore, loading, error } = useQuery<
+  const { data, refetch, networkStatus, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
   });
-
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        await fetchMore({
-          variables: getQueryVariables(search, userId),
-          updateQuery: (
-            prev: UserPatchesQuery,
-            { fetchMoreResult }: { fetchMoreResult: UserPatchesQuery }
-          ) => {
-            if (!fetchMoreResult) {
-              return prev;
-            }
-            return fetchMoreResult;
-          },
-        });
-      } catch (e) {
-        // empty block
-      }
-    };
-    fetch();
-  }, [search, fetchMore, userId]);
+  const { showSkeleton } = usePollQuery({
+    networkStatus,
+    getQueryVariables,
+    refetch,
+    search,
+  });
 
   const onCheckboxChange = (): void => {
     replace(
@@ -101,7 +83,7 @@ const UserPatchesComponent: React.FC = () => {
         </PageWrapper>
       );
     }
-    if (loading) {
+    if (showSkeleton) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {
@@ -162,16 +144,8 @@ const arrayFormat = "comma";
 const getQueryVariables = (
   search: string,
   userId: string
-): {
-  includeCommitQueue: boolean;
-  patchName: string;
-  statuses: string[];
-  limit: number;
-  page: number;
-  userId: string;
-} => {
+): UserPatchesQueryVariables => {
   const parsed = queryString.parse(search, { arrayFormat });
-
   const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
     parsed[MyPatchesQueryParams.CommitQueue] === undefined;
