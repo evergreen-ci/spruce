@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getLoginDomain } from "utils/getEnvironmentVariables";
+import { reportError } from "utils/errorReporting";
 
 type optionsType = {
   onFailure?: (e) => void;
@@ -39,5 +40,5 @@ const getErrorMessage = (response: responseType, method: string) =>
 
 const handleError = (error: string) => {
   console.warn(error);
-  // Log the error on bugsnag
+  reportError(error).warning();
 };

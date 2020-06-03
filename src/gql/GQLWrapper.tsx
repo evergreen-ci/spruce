@@ -15,6 +15,7 @@ import { SchemaLink } from "apollo-link-schema";
 import { onError } from "apollo-link-error";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
 import ApolloLinkTimeout from "apollo-link-timeout";
+import { reportError } from "utils/errorReporting";
 
 interface ClientLinkParams {
   credentials?: string;
@@ -72,6 +73,16 @@ const authLink = (logout: Logout): ApolloLink =>
     }
   });
 
+const logErrorsLink = onError(({ graphQLErrors }) => {
+  if (Array.isArray(graphQLErrors)) {
+    graphQLErrors.forEach((gqlErr) => {
+      reportError(gqlErr).warning();
+    });
+  }
+  // dont track network errors here because they are
+  // very common when a user is not authenticated
+});
+
 const timeoutLink = new ApolloLinkTimeout(60000);
 
 const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
@@ -120,6 +131,7 @@ export const getGQLClient = async ({
     cache,
     link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
+      .concat(logErrorsLink)
       .concat(retryLink)
       .concat(timeoutLink)
       .concat(link),
@@ -164,7 +176,6 @@ const GQLWrapper: React.FC<ClientLinkParams> = ({
     logout,
     dispatch,
   ]);
-
   return client ? (
     <ApolloProvider client={client}>{children}</ApolloProvider>
   ) : (

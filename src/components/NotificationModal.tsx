@@ -50,7 +50,6 @@ export const NotificationModal: React.FC<ModalProps> = ({
       dispatchBanner.errorBanner(
         `Error adding your subscription: '${err.message}'`
       );
-      // TODO: save error
     },
   });
   const {

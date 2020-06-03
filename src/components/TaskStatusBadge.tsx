@@ -2,6 +2,7 @@ import React from "react";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { TaskStatus } from "types/task";
 import styled from "@emotion/styled/macro";
+import { reportError } from "utils/errorReporting";
 
 const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,
@@ -60,5 +61,7 @@ export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
       </StyledBadge>
     );
   }
-  throw new Error(`Status '${status}' is not a valid task status`);
+  const err = new Error(`Status '${status}' is not a valid task status`);
+  reportError(err).severe();
+  throw err;
 };

@@ -28,14 +28,13 @@ import "antd/es/select/style/css";
 import "antd/es/skeleton/style/css";
 import "antd/es/spin/style/css";
 import "antd/es/table/style/css";
-
 import { ContextProviders } from "context/Providers";
+
 Bugsnag.start({
   apiKey: getBugsnagApiKey(),
   plugins: [new BugsnagPluginReact()],
 });
 const ErrorBoundary = Bugsnag.getPlugin("react").createErrorBoundary(React);
-
 const App: React.FC = () => (
   <ErrorBoundary>
     <ContextProviders>

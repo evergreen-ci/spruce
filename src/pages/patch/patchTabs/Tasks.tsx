@@ -174,7 +174,11 @@ const renderStatusBadge = (status): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
-  return <TaskStatusBadge status={status} />;
+  return (
+    <ErrorBoundary>
+      <TaskStatusBadge status={status} />
+    </ErrorBoundary>
+  );
 };
 
 const columnsTemplate: Array<ColumnProps<TaskResult>> = [
