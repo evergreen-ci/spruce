@@ -33,16 +33,3 @@ export const GET_USER_PATCHES = gql`
     }
   }
 `;
-
-export const GET_PATCH_VARIANTS_AND_STATUS = gql`
-  query PatchBuildVariantsAndStatus($id: String!) {
-    patch(id: $id) {
-      status
-      builds {
-        id
-        buildVariant
-        status
-      }
-    }
-  }
-`;

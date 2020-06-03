@@ -15,7 +15,7 @@ import {
   UserPatchesQueryVariables,
   UserPatchesQuery,
 } from "gql/generated/types";
-import { StatusSelector } from "pages/user-patches/StatusSelector";
+import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
 import { useFilterInputChangeHandler } from "hooks";
 import styled from "@emotion/styled";
@@ -26,7 +26,7 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { PatchCard } from "pages/user-patches/PatchCard";
+import { PatchCard } from "pages/userPatches/PatchCard";
 import { withBannersContext } from "hoc/withBannersContext";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";

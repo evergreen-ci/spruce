@@ -314,7 +314,7 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
   padding-top: 4px;
   padding-bottom: 4px;
-  :first-child {
+  :first-of-type {
     border-bottom: 1px solid ${gray.light2};
   }
 `;

@@ -143,10 +143,10 @@ const Actions = styled.div`
   margin-bottom: 8px;
   display: flex;
   align-items: center;
-  & > :first-child {
+  & > :first-of-type {
     margin-right: 40px;
   }
-  & > :not(:first-child) {
+  & > :not(:first-of-type) {
     margin-right: 24px;
   }
 `;

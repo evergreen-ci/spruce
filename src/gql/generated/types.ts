@@ -24,6 +24,18 @@ export type Build = {
   actualMakespan: Scalars["Duration"];
 };
 
+export type ClientBinary = {
+  arch?: Maybe<Scalars["String"]>;
+  os?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  displayName?: Maybe<Scalars["String"]>;
+};
+
+export type ClientConfig = {
+  clientBinaries?: Maybe<Array<ClientBinary>>;
+  latestRevision?: Maybe<Scalars["String"]>;
+};
+
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
@@ -312,6 +324,7 @@ export type Query = {
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
   userConfig?: Maybe<UserConfig>;
+  clientConfig?: Maybe<ClientConfig>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -681,6 +694,22 @@ export type UpdateUserSettingsMutationVariables = {
 };
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
+
+export type ClientConfigQueryVariables = {};
+
+export type ClientConfigQuery = {
+  clientConfig?: Maybe<{
+    latestRevision?: Maybe<string>;
+    clientBinaries?: Maybe<
+      Array<{
+        os?: Maybe<string>;
+        displayName?: Maybe<string>;
+        url?: Maybe<string>;
+        arch?: Maybe<string>;
+      }>
+    >;
+  }>;
+};
 
 export type CodeChangesQueryVariables = {
   id: Scalars["String"];
