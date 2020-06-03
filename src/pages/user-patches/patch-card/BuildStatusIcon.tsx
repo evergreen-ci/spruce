@@ -4,34 +4,31 @@ import { RunningIcon } from "pages/user-patches/patch-card/BuildStatusIcon/Runni
 import { SucceededIcon } from "pages/user-patches/patch-card/BuildStatusIcon/SucceededIcon";
 import { FailedIcon } from "pages/user-patches/patch-card/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/user-patches/patch-card/BuildStatusIcon/CreatedIcon";
-import Tooltip from "@leafygreen-ui/tooltip";
 import styled from "@emotion/styled";
+import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
+import { id } from "date-fns/locale";
+import { PatchTasksQueryParams } from "types/task";
+import { useHistory } from "react-router-dom";
+import { Tooltip } from "antd";
 
 interface Props {
   status: string;
   buildVariant: string;
-  onClick: () => void;
 }
 
-export const BuildStatusIcon: React.FC<Props> = ({
-  status,
-  buildVariant,
-  onClick,
-}) => {
+export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
+  const router = useHistory();
+  const onClick = () =>
+    router.push(
+      `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`
+    );
   const icon = statusToIcon[status];
   if (!icon) {
     return null;
   }
-
   return (
-    <Tooltip
-      triggerEvent="hover"
-      trigger={<IconWrapper onClick={onClick}>{icon}</IconWrapper>}
-      variant="light"
-      justify="middle"
-      align="top"
-    >
-      {buildVariant}
+    <Tooltip placement="top" title={buildVariant}>
+      <IconWrapper onClick={onClick}>{icon}</IconWrapper>
     </Tooltip>
   );
 };

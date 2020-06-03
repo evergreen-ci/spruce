@@ -51,6 +51,7 @@ export const TableControlOuterRow = styled(TableControlInnerRow)`
 export const PageButtonRow = styled.div`
   > button {
     margin-right: 24px;
+    flex-shrink: 0;
   }
   display: flex;
   padding-right: 40px;

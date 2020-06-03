@@ -40,6 +40,7 @@
     "graphql-tools": "4.0.6",
     "lodash.debounce": "4.0.8",
     "lodash.get": "4.4.2",
+    "lodash.isequal": "4.5.0",
     "lodash.set": "4.3.2",
     "query-string": "6.10.1",
     "react": "16.12.0",
