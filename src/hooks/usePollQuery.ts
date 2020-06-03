@@ -4,9 +4,10 @@ import {
   NetworkStatus,
 } from "apollo-client/core/networkStatus";
 import { usePrevious } from "hooks";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
+
 interface Params<ApolloQueryVariables, ApolloQueryResultType> {
   networkStatus: NetworkStatus;
   getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;
@@ -24,8 +25,6 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
 }: Params<ApolloQueryVariables, ApolloQueryResultType>): {
   showSkeleton: boolean;
 } => {
-  const { pathname } = useLocation();
-  const [initialPathname] = useState(pathname);
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
   // this variable is true when query variables have changed and the query is loading
@@ -61,6 +60,7 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
         resourceId,
       });
     }
+    return () => clearInterval(intervalId);
   }, [
     intervalId,
     refetch,
@@ -73,11 +73,7 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   // reponsible for clearing the current polling query and
   // starting a new polling query based on new query variables
   useEffect(() => {
-    if (
-      intervalId &&
-      !isEqual(currentQueryVariables, prevQueryVariables) &&
-      pathname === initialPathname
-    ) {
+    if (intervalId && !isEqual(currentQueryVariables, prevQueryVariables)) {
       clearInterval(intervalId);
       refetch(currentQueryVariables);
       pollQuery({
@@ -97,8 +93,6 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     resourceId,
     getQueryVariables,
     search,
-    pathname,
-    initialPathname,
   ]);
 
   return {
