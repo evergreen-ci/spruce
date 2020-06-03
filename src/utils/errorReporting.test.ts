@@ -27,7 +27,7 @@ describe("error reporting", () => {
     expect(noticeError).toHaveBeenCalledTimes(0);
   });
 
-  test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError when environment is Production", () => {
+  test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
     const noticeError = jest.fn();
     window["newrelic"] = { noticeError };
     process.env.NODE_ENV = "production";
@@ -35,9 +35,13 @@ describe("error reporting", () => {
     const result = reportError(err);
     result.severe();
     expect(notifySpy).toHaveBeenCalledTimes(1);
+    expect(notifySpy.mock.calls[0][0]).toBe(err);
     expect(noticeError).toHaveBeenCalledTimes(1);
+    expect(noticeError.mock.calls[0][0]).toBe(err);
     result.warning();
     expect(notifySpy).toHaveBeenCalledTimes(2);
+    expect(notifySpy.mock.calls[1][0]).toBe(err);
     expect(noticeError).toHaveBeenCalledTimes(2);
+    expect(noticeError.mock.calls[1][0]).toBe(err);
   });
 });
