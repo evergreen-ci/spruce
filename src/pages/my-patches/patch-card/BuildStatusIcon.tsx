@@ -5,23 +5,19 @@ import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/Succe
 import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/CreatedIcon";
 import styled from "@emotion/styled";
-import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
-import { id } from "date-fns/locale";
-import { PatchTasksQueryParams } from "types/task";
-import { useHistory } from "react-router-dom";
 import { Tooltip } from "antd";
 
 interface Props {
   status: string;
   buildVariant: string;
+  onClick: () => void;
 }
 
-export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
-  const router = useHistory();
-  const onClick = () =>
-    router.push(
-      `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`
-    );
+export const BuildStatusIcon: React.FC<Props> = ({
+  status,
+  buildVariant,
+  onClick,
+}) => {
   const icon = statusToIcon[status];
   if (!icon) {
     return null;
