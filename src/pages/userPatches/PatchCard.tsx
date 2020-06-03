@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { BuildStatusIcon } from "pages/user-patches/patch-card/BuildStatusIcon";
+import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { DropdownMenu } from "pages/user-patches/patch-card/DropdownMenu";
+import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
 
 interface Build {
   id: string;
