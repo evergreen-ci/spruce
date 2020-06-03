@@ -16,21 +16,28 @@ describe("error reporting", () => {
   });
 
   test("Returns a map of empty functions when environment is not Production", async () => {
-    // spy on Bugsnag.notify becuase that is called when the functions are not empty
+    // spy on Bugsnag.notify and newrelic.noticeError becuase that is called when the functions are not empty
+    const noticeError = jest.fn();
+    window["newrelic"] = { noticeError };
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);
     result.severe();
     result.warning();
     expect(notifySpy).toHaveBeenCalledTimes(0);
+    expect(noticeError).toHaveBeenCalledTimes(0);
   });
 
-  test("Calls returned functions call Bugsnag.notify when environment is Production", () => {
+  test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError when environment is Production", () => {
+    const noticeError = jest.fn();
+    window["newrelic"] = { noticeError };
     process.env.NODE_ENV = "production";
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);
     result.severe();
     expect(notifySpy).toHaveBeenCalledTimes(1);
+    expect(noticeError).toHaveBeenCalledTimes(1);
     result.warning();
     expect(notifySpy).toHaveBeenCalledTimes(2);
+    expect(noticeError).toHaveBeenCalledTimes(2);
   });
 });
