@@ -1,9 +1,9 @@
 import React from "react";
 import { BuildStatus } from "types/build";
-import { RunningIcon } from "pages/my-patches/patch-card/BuildStatusIcon/RunningIcon";
-import { SucceededIcon } from "pages/my-patches/patch-card/BuildStatusIcon/SucceededIcon";
-import { FailedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/FailedIcon";
-import { CreatedIcon } from "pages/my-patches/patch-card/BuildStatusIcon/CreatedIcon";
+import { RunningIcon } from "pages/userPatches/patchCard/BuildStatusIcon/RunningIcon";
+import { SucceededIcon } from "pages/userPatches/patchCard/BuildStatusIcon/SucceededIcon";
+import { FailedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/FailedIcon";
+import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
 import styled from "@emotion/styled";
 import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
 import { id } from "date-fns/locale";

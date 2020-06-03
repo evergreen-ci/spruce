@@ -6,7 +6,7 @@ import { EvergreenLogo } from "components/icons";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
-import { paths } from "constants/routes";
+import { routes } from "constants/routes";
 
 const { Header } = Layout;
 
@@ -19,7 +19,7 @@ export const Navbar: React.FC = () => {
   return (
     <StyledHeader>
       <InnerWrapper>
-        <Link to={paths.myPatches}>
+        <Link to={routes.myPatches}>
           <Logo>
             <EvergreenLogo />
             <StyledSubtitle>Evergreen</StyledSubtitle>

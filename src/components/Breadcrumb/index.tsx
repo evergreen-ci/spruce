@@ -1,6 +1,6 @@
 import React from "react";
 import { Breadcrumb } from "antd";
-import { paths } from "constants/routes";
+import { routes, paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
 import { H3, P1 } from "components/Typography";
 import { StyledRouterLink } from "components/styles/StyledLink";
@@ -21,7 +21,7 @@ export const BreadCrumb: React.FC<Props> = ({
     <StyledBreadcrumb>
       <Breadcrumb.Item>
         <StyledP1>
-          <StyledRouterLink id="bc-my-patches" to={paths.myPatches}>
+          <StyledRouterLink id="bc-my-patches" to={routes.myPatches}>
             My Patches
           </StyledRouterLink>
         </StyledP1>
