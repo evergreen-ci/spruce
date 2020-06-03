@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
 import { Input } from "antd";
 import styled from "@emotion/styled";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import { GET_PATCH_TASK_STATUSES } from "gql/queries";
+import {
+  GetPatchTaskStatusesQuery,
+  GetPatchTaskStatusesQueryVariables,
+} from "gql/generated/types";
+import get from "lodash/get";
+import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -23,6 +32,17 @@ export const TaskFilters: React.FC = () => {
     PatchTasksQueryParams.BaseStatuses,
     true
   );
+
+  // fetch and poll patch's task statuses so statuses filters only show statuses relevant to the patch
+  const { id } = useParams<{ id: string }>();
+  const { data, stopPolling } = useQuery<
+    GetPatchTaskStatusesQuery,
+    GetPatchTaskStatusesQueryVariables
+  >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval: 5000 });
+  useEffect(() => stopPolling, [stopPolling]);
+
+  const statuses = get(data, "patch.taskStatuses", []);
+  const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 
   return (
     <FiltersWrapper>
@@ -45,7 +65,7 @@ export const TaskFilters: React.FC = () => {
       <TreeSelect
         onChange={statusesValOnChange}
         state={statusesVal}
-        tData={statusesTreeData}
+        tData={getCurrentStatuses(statuses, statusesTreeData)}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
         width="25%"
@@ -53,7 +73,7 @@ export const TaskFilters: React.FC = () => {
       <TreeSelect
         onChange={baseStatusesValOnChange}
         state={baseStatusesVal}
-        tData={statusesTreeData}
+        tData={getCurrentStatuses(baseStatuses, statusesTreeData)}
         inputLabel="Task Base Status: "
         dataCy="task-base-status-filter"
         width="25%"
@@ -62,11 +82,20 @@ export const TaskFilters: React.FC = () => {
   );
 };
 
-const statusesTreeData = [
+const allKey = "all";
+
+export interface Status {
+  title: string;
+  value: string;
+  key: string;
+  children?: Status[];
+}
+
+const statusesTreeData: Status[] = [
   {
     title: "All",
-    value: "all",
-    key: "all",
+    value: allKey,
+    key: allKey,
   },
   {
     title: "Failures",
