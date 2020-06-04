@@ -51,6 +51,7 @@ const UserPatchesComponent: React.FC = () => {
   >(GET_USER_PATCHES, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: "network-only",
   });
   const { showSkeleton } = usePollQuery({
     networkStatus,
