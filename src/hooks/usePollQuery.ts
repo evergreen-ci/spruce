@@ -7,6 +7,7 @@ import { usePrevious } from "hooks";
 import { useParams, useLocation } from "react-router-dom";
 import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
+
 interface Params<ApolloQueryVariables, ApolloQueryResultType> {
   networkStatus: NetworkStatus;
   getQueryVariables: (search: string, id?: string) => ApolloQueryVariables;

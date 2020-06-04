@@ -6,6 +6,7 @@ export const paths = {
   login: "/login",
   task: "/task",
   patch: "/patch",
+  version: "/version",
   commitQueue: "/commit-queue",
   preferences: "/preferences",
   user: "/user",
@@ -20,6 +21,7 @@ export const routes = {
   configurePatch: `${paths.patch}/:id/configure/:tab?`,
   preferences: `${paths.preferences}/:tab?`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
+  version: `${paths.version}/:id/:tab?`,
 };
 
 export const getUserPatchesRoute = (userId: string): string =>

@@ -29,7 +29,10 @@ export const BreadCrumb: React.FC<Props> = ({
       <Breadcrumb.Item>
         {taskName ? (
           <StyledP1>
-            <StyledRouterLink id="bc-patch" to={`${paths.patch}/${versionId}`}>
+            <StyledRouterLink
+              id="bc-patch"
+              to={`${paths.version}/${versionId}`}
+            >
               {patch}
             </StyledRouterLink>
           </StyledP1>

@@ -47,7 +47,7 @@ const PatchCore: React.FC = () => {
   const description = get(patch, "description");
   const activated = get(patch, "activated");
   if (activated === false) {
-    router.push(`${paths.patch}/${id}/configure`);
+    router.replace(`${paths.patch}/${id}/configure`);
   }
   if (error) {
     return (

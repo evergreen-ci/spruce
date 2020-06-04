@@ -2,7 +2,7 @@
 // / <reference path="../support/index.d.ts" />
 
 const patchWithChanges = "5e4ff3abe3c3317e352062e4";
-const CODE_CHANGES_ROUTE = `patch/${patchWithChanges}/changes`;
+const CODE_CHANGES_ROUTE = `version/${patchWithChanges}/changes`;
 const NO_CODE_CHANGES_ROUTE =
   "patch/5e6bb9e23066155a993e0f1a/configure/changes";
 describe("task logs view", () => {

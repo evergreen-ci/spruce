@@ -2,7 +2,7 @@ import get from "lodash/get";
 import { elementExistenceCheck } from "../utils";
 
 const patchId = "5e4ff3abe3c3317e352062e4";
-const patchRoute = `/patch/${patchId}`;
+const patchRoute = `/version/${patchId}`;
 const patch = {
   changes: { route: `${patchRoute}/changes`, btn: "button[id=changes-tab]" },
   tasks: { route: `${patchRoute}/tasks`, btn: "button[id=task-tab]" },
