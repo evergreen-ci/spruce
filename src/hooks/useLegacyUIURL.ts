@@ -25,6 +25,7 @@ export const useLegacyUIURL = (route: string, userId: string) => {
       if (matchedPath !== null) {
         setId(get(matchedPath, "params.id", ""));
         setLegacyUIUrl(legacyUIMap[legacyUIKeys[i]]);
+        break;
       }
     }
   }, [id, userId, route, legacyUIMap]);
