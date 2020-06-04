@@ -48,9 +48,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     tabToIndexMap,
     defaultPath: `${paths.patch}/${patch.id}/configure/${DEFAULT_TAB}`,
   });
-  const [selectedBuildVariant, setSelectedBuildVariant] = useState<string>(
-    get(variants[0], "name", "")
-  );
+  const [selectedBuildVariant, setSelectedBuildVariant] = useState<string[]>([
+    get(variants[0], "name", ""),
+  ]);
   const [selectedVariantTasks, setSelectedVariantTasks] = useState<
     VariantTasksState
   >(convertPatchVariantTasksToStateShape(variantsTasks));
@@ -76,7 +76,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   };
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
-    router.push(`${paths.patch}/${scheduledPatchId}`);
+    router.push(`${paths.version}/${scheduledPatchId}`);
   }
   if (variants.length === 0 || tasks.length === 0) {
     return (

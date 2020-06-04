@@ -40,7 +40,7 @@ describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
   before(() => {
     cy.login();
-    cy.visit(`/patch/${unactivatedPatchId}`);
+    cy.visit(`/version/${unactivatedPatchId}`);
     cy.listenGQL();
     cy.waitForGQL("ConfigurePatch").then(({ responseBody }) => {
       const { data } = responseBody as ConfigurePatchQuery;
@@ -178,6 +178,64 @@ describe("Configure Patch Page", () => {
             .should("eq", $tasks.length);
         });
     });
+    describe("Selecting multiple build variants", () => {
+      it("Selecting multiple build variants should work", () => {
+        cy.get('[data-cy-name="linux-docker"]').click();
+        cy.get("body").type("{meta}", { release: false });
+        cy.get('[data-cy-name="coverage"]').click({});
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=false]")
+              .its("length")
+              .should("eq", 2);
+          });
+      });
+      it("Should be able to select/deselect all for multiple build variants", () => {
+        cy.get("[data-cy=configurePatch-selectAll").click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=true]")
+              .its("length")
+              .should("eq", 2);
+          });
+        cy.get("[data-cy=configurePatch-deselectAll").click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=false]")
+              .its("length")
+              .should("eq", 2);
+          });
+      });
+      it("Should be able to select and unselect an individual task", () => {
+        cy.get(`[data-cy=configurePatch-docker-cleanup`).check({
+          force: true,
+        });
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
+          "exist"
+        );
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]")
+          .invoke("text")
+          .should("eq", "1");
+        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
+          "not.exist"
+        );
+        cy.get(`[data-cy=configurePatch-docker-cleanup`).uncheck({
+          force: true,
+        });
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
+          "not.exist"
+        );
+        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
+          "not.exist"
+        );
+      });
+    });
   });
   describe("Scheduling a patch", () => {
     beforeEach(() => {
@@ -199,11 +257,11 @@ describe("Configure Patch Page", () => {
       cy.get("[data-cy=schedule-patch]").click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/tasks`
+        `/version/${unactivatedPatchId}/tasks`
       );
     });
     it("Shows error banner if unsuccessful and keeps data", () => {
-      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)
         .as("patchNameInput")
@@ -225,14 +283,14 @@ describe("Configure Patch Page", () => {
   describe("Errors", () => {
     it("Shows full page error if patch project has no variants or tasks", () => {
       cy.login();
-      cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
+      cy.visit(`/version/${patchWithNoVariantsOrTasks}`);
       cy.get("[data-cy=full-page-error").should("exist");
     });
   });
   describe("Switching tabs", () => {
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.login();
-      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.visit(`/version/${unactivatedPatchId}`);
       cy.dataCy("changes-tab").click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",

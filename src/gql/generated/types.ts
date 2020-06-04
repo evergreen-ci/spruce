@@ -551,6 +551,7 @@ export enum TestSortCategory {
 
 export type User = {
   displayName: Scalars["String"];
+  userId: Scalars["String"];
 };
 
 export type UserConfig = {
@@ -774,6 +775,18 @@ export type PatchBuildVariantsQuery = {
   }>;
 };
 
+export type GetPatchTaskStatusesQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchTaskStatusesQuery = {
+  patch: {
+    id: string;
+    taskStatuses: Array<string>;
+    baseTaskStatuses: Array<string>;
+  };
+};
+
 export type PatchTasksQueryVariables = {
   patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
@@ -994,12 +1007,17 @@ export type GetUserSettingsQuery = {
   }>;
 };
 
+export type GetUserQueryVariables = {};
+
+export type GetUserQuery = { user: { userId: string } };
+
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
   patchName?: Maybe<Scalars["String"]>;
   includeCommitQueue?: Maybe<Scalars["Boolean"]>;
+  userId?: Maybe<Scalars["String"]>;
 };
 
 export type UserPatchesQuery = {
@@ -1013,17 +1031,6 @@ export type UserPatchesQuery = {
       createTime?: Maybe<Date>;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
-  };
-};
-
-export type PatchBuildVariantsAndStatusQueryVariables = {
-  id: Scalars["String"];
-};
-
-export type PatchBuildVariantsAndStatusQuery = {
-  patch: {
-    status: string;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
   };
 };
 

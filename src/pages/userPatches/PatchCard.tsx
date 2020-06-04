@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { BuildStatusIcon } from "pages/my-patches/patch-card/BuildStatusIcon";
+import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
 import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { DropdownMenu } from "pages/my-patches/patch-card/DropdownMenu";
+import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
 import { PatchTasksQueryParams } from "types/task";
 import { useHistory } from "react-router-dom";
 
@@ -37,7 +37,10 @@ export const PatchCard: React.FC<Props> = ({
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
-        <DescriptionLink href={`${paths.patch}/${id}`}>
+        <DescriptionLink
+          data-cy="patch-card-patch-link"
+          href={`${paths.patch}/${id}`}
+        >
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>

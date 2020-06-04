@@ -8,7 +8,7 @@ import {
 } from "../utils";
 
 const tableRow = "[data-cy=patch-card]";
-const MY_PATCHES_ROUTE = "/my-patches";
+const MY_PATCHES_ROUTE = "/user/admin/patches";
 describe("My Patches Page", () => {
   before(() => {
     cy.login();
@@ -17,6 +17,13 @@ describe("My Patches Page", () => {
   beforeEach(() => {
     cy.preserveCookies();
     cy.listenGQL();
+  });
+
+  it("Redirects user to user patches route from `/user/:id`", () => {
+    cy.visit("user/chicken");
+    cy.location().should((loc) =>
+      expect(loc.pathname).to.eq("/user/chicken/patches")
+    );
   });
 
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {

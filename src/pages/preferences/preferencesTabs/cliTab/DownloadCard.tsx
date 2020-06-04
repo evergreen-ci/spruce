@@ -47,6 +47,7 @@ export const DownloadCard = () => {
       <CardGroup>
         {topBinaries.map((binary) => (
           <CliDownloadBox
+            key={`downloadBox_${binary.url}`}
             title={prettyDisplayName[binary.displayName] || binary.displayName}
             link={binary.url}
           />
@@ -84,7 +85,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
 }) => (
   <LinkContainer>
     {clientBinaries.map((binary) => (
-      <StyledLink href={binary.url}>
+      <StyledLink key={`link_${binary.url}`} href={binary.url}>
         {prettyDisplayName[binary.displayName] || binary.displayName}
       </StyledLink>
     ))}

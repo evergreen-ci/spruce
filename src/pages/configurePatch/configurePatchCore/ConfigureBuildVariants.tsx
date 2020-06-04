@@ -8,12 +8,13 @@ import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
+import { toggleArray } from "utils/array";
 
 interface Props {
   variants: ProjectBuildVariant[];
   selectedVariantTasks: VariantTasksState;
-  selectedBuildVariant: string;
-  setSelectedBuildVariant: React.Dispatch<React.SetStateAction<string>>;
+  selectedBuildVariant: string[];
+  setSelectedBuildVariant: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 export const ConfigureBuildVariants: React.FC<Props> = ({
@@ -22,8 +23,18 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   selectedBuildVariant,
   setSelectedBuildVariant,
 }) => {
-  const getClickVariantHandler = (variantName: string) => (): void =>
-    setSelectedBuildVariant(variantName);
+  const getClickVariantHandler = (variantName: string) => (e): void => {
+    if (e.ctrlKey || e.metaKey) {
+      const updatedBuildVariants = toggleArray(variantName, [
+        ...selectedBuildVariant,
+      ]);
+      setSelectedBuildVariant(
+        updatedBuildVariants.length > 0 ? updatedBuildVariants : [variantName]
+      );
+    } else {
+      setSelectedBuildVariant([variantName]);
+    }
+  };
   return (
     <StyledSiderCard>
       <Container>
@@ -34,7 +45,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
         const taskCount = selectedVariantTasks[name]
           ? Object.keys(selectedVariantTasks[name]).length
           : null;
-        const isSelected = selectedBuildVariant === name;
+        const isSelected = selectedBuildVariant.includes(name);
         return (
           <BuildVariant
             data-cy="configurePatch-buildVariantListItem"
