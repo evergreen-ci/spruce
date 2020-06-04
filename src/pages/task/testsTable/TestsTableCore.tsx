@@ -40,9 +40,9 @@ export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const [initialQueryVariables] = useState<TaskTestsQueryVariables>({
-    ...getQueryVariables(search, resourceId),
-  });
+  const [initialQueryVariables] = useState<TaskTestsQueryVariables>(
+    getQueryVariables(search, resourceId)
+  );
   const { cat, dir } = initialQueryVariables;
   const columns = useSetColumnDefaultSortOrder<TestResult>(
     columnsTemplate,
@@ -55,6 +55,7 @@ export const TestsTableCore: React.FC = () => {
   >(GET_TASK_TESTS, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: "network-only",
   });
   useDisableTableSortersIfLoading(networkStatus);
   const { showSkeleton } = usePollQuery({

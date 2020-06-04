@@ -69,6 +69,10 @@ module.exports = {
     },
   },
   rules: {
+    "@typescript-eslint/no-unused-vars": [
+      errorIfStrict,
+      { vars: "all", args: "after-used", ignoreRestSiblings: true },
+    ],
     "arrow-body-style": [
       errorIfStrict,
       "as-needed",
@@ -110,10 +114,7 @@ module.exports = {
     "no-undef": ERROR,
     "no-use-before-define": [ERROR, { functions: false, variables: false }],
     "no-empty": [ERROR, { allowEmptyCatch: true }],
-    "@typescript-eslint/no-unused-vars": [
-      errorIfStrict,
-      { vars: "all", args: "after-used", ignoreRestSiblings: true },
-    ],
+    "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
     "prettier/prettier": [2, prettierConfig],
     "react/sort-comp": [
       errorIfStrict,

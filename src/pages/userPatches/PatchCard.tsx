@@ -34,7 +34,10 @@ export const PatchCard: React.FC<Props> = ({
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
-        <DescriptionLink href={`${paths.patch}/${id}`}>
+        <DescriptionLink
+          data-cy="patch-card-patch-link"
+          href={`${paths.patch}/${id}`}
+        >
           {description || "no description"}
         </DescriptionLink>
         <TimeAndProject>

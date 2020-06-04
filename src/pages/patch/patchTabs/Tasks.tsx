@@ -57,6 +57,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   >(GET_PATCH_TASKS, {
     variables: initialQueryVariables as PatchTasksQueryVariables,
     notifyOnNetworkStatusChange: true,
+    fetchPolicy: "network-only",
   });
   useDisableTableSortersIfLoading(networkStatus);
   const { showSkeleton } = usePollQuery({
