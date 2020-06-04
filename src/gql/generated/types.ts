@@ -775,6 +775,18 @@ export type PatchBuildVariantsQuery = {
   }>;
 };
 
+export type GetPatchTaskStatusesQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchTaskStatusesQuery = {
+  patch: {
+    id: string;
+    taskStatuses: Array<string>;
+    baseTaskStatuses: Array<string>;
+  };
+};
+
 export type PatchTasksQueryVariables = {
   patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
@@ -1019,17 +1031,6 @@ export type UserPatchesQuery = {
       createTime?: Maybe<Date>;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
-  };
-};
-
-export type PatchBuildVariantsAndStatusQueryVariables = {
-  id: Scalars["String"];
-};
-
-export type PatchBuildVariantsAndStatusQuery = {
-  patch: {
-    status: string;
-    builds: Array<{ id: string; buildVariant: string; status: string }>;
   };
 };
 

@@ -18,3 +18,4 @@ export { GET_TASK_TESTS } from "./get-task-tests";
 export { GET_TASK, MetStatus, RequiredStatus } from "./get-task";
 export { GET_USER } from "./get-user";
 export { GET_CLIENT_CONFIG } from "./get-client-config";
+export { GET_PATCH_TASK_STATUSES } from "./get-patch-task-statuses";
