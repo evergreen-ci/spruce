@@ -7,7 +7,7 @@ import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
-import { routes } from "constants/routes";
+import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
@@ -45,6 +45,9 @@ export const Content: React.FC = () => {
         <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
         <PrivateRoute path={routes.preferences} component={Preferences} />
         <PrivateRoute exact path="/">
+          <Redirect to={routes.myPatches} />
+        </PrivateRoute>
+        <PrivateRoute path={`${paths.user}/:id`}>
           <Redirect to={routes.myPatches} />
         </PrivateRoute>
         <Route path={routes.login} component={Login} />
