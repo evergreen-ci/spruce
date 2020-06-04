@@ -178,6 +178,64 @@ describe("Configure Patch Page", () => {
             .should("eq", $tasks.length);
         });
     });
+    describe("Selecting multiple build variants", () => {
+      it("Selecting multiple build variants should work", () => {
+        cy.get('[data-cy-name="linux-docker"]').click();
+        cy.get("body").type("{meta}", { release: false });
+        cy.get('[data-cy-name="coverage"]').click({});
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=false]")
+              .its("length")
+              .should("eq", 2);
+          });
+      });
+      it("Should be able to select/deselect all for multiple build variants", () => {
+        cy.get("[data-cy=configurePatch-selectAll").click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=true]")
+              .its("length")
+              .should("eq", 2);
+          });
+        cy.get("[data-cy=configurePatch-deselectAll").click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .invoke("toArray")
+          .then(() => {
+            cy.get("[data-checked=false]")
+              .its("length")
+              .should("eq", 2);
+          });
+      });
+      it("Should be able to select and unselect an individual task", () => {
+        cy.get(`[data-cy=configurePatch-docker-cleanup`).check({
+          force: true,
+        });
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
+          "exist"
+        );
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]")
+          .invoke("text")
+          .should("eq", "1");
+        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
+          "not.exist"
+        );
+        cy.get(`[data-cy=configurePatch-docker-cleanup`).uncheck({
+          force: true,
+        });
+        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
+          "not.exist"
+        );
+        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
+          "not.exist"
+        );
+      });
+    });
   });
   describe("Scheduling a patch", () => {
     beforeEach(() => {
