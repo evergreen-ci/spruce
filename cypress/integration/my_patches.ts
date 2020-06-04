@@ -20,8 +20,10 @@ describe("My Patches Page", () => {
   });
 
   it("Redirects user to user patches route from `/user/:id`", () => {
-    cy.visit("user/admin");
-    cy.location().should((loc) => expect(loc.pathname).to.eq(MY_PATCHES_ROUTE));
+    cy.visit("user/chicken");
+    cy.location().should((loc) =>
+      expect(loc.pathname).to.eq("/user/chicken/patches")
+    );
   });
 
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {
