@@ -60,14 +60,18 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setdescriptionValue(e.target.value);
 
-  const onClickSchedule = () => {
+  const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchReconfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
     };
-    schedulePatch({
-      variables: { patchId: id, reconfigure: configurePatchParam },
-    });
+    try {
+      await schedulePatch({
+        variables: { patchId: id, reconfigure: configurePatchParam },
+      });
+    } catch (error) {
+      // TODO show error banner
+    }
   };
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {

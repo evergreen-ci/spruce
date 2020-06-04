@@ -41,12 +41,16 @@ export const CommitQueueCard: React.FC<Props> = ({
     RemovePatchFromCommitQueueMutation,
     RemovePatchFromCommitQueueMutationVariables
   >(REMOVE_PATCH_FROM_COMMIT_QUEUE);
-  const handleEnroll = (e) => {
+  const handleEnroll = async (e): Promise<void> => {
     e.preventDefault();
-    removePatchFromCommitQueue({
-      variables: { patchId, commitQueueId },
-      refetchQueries: ["CommitQueue"],
-    });
+    try {
+      await removePatchFromCommitQueue({
+        variables: { patchId, commitQueueId },
+        refetchQueries: ["CommitQueue"],
+      });
+    } catch (err) {
+      // TODO show error banner
+    }
   };
   return (
     <Card data-cy="commit-queue-card">
