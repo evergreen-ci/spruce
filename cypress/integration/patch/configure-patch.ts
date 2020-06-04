@@ -40,7 +40,7 @@ describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
   before(() => {
     cy.login();
-    cy.visit(`/patch/${unactivatedPatchId}`);
+    cy.visit(`/version/${unactivatedPatchId}`);
     cy.listenGQL();
     cy.waitForGQL("ConfigurePatch").then(({ responseBody }) => {
       const { data } = responseBody as ConfigurePatchQuery;
@@ -199,11 +199,11 @@ describe("Configure Patch Page", () => {
       cy.get("[data-cy=schedule-patch]").click();
       cy.location("pathname").should(
         "eq",
-        `/patch/${unactivatedPatchId}/tasks`
+        `/version/${unactivatedPatchId}/tasks`
       );
     });
     it("Shows error banner if unsuccessful and keeps data", () => {
-      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)
         .as("patchNameInput")
@@ -225,14 +225,14 @@ describe("Configure Patch Page", () => {
   describe("Errors", () => {
     it("Shows full page error if patch project has no variants or tasks", () => {
       cy.login();
-      cy.visit(`/patch/${patchWithNoVariantsOrTasks}`);
+      cy.visit(`/version/${patchWithNoVariantsOrTasks}`);
       cy.get("[data-cy=full-page-error").should("exist");
     });
   });
   describe("Switching tabs", () => {
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.login();
-      cy.visit(`/patch/${unactivatedPatchId}`);
+      cy.visit(`/version/${unactivatedPatchId}`);
       cy.dataCy("changes-tab").click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",

@@ -3,7 +3,7 @@
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
 };
-const path = `/patch/${patch.id}`;
+const path = `/version/${patch.id}`;
 const allTasksSelectedConfirmationMessage =
   "Are you sure you want to restart the 43 selected tasks?";
 describe("Restarting a patch", () => {
