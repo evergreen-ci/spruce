@@ -44,4 +44,26 @@ describe("error reporting", () => {
     expect(noticeError).toHaveBeenCalledTimes(2);
     expect(noticeError.mock.calls[1][0]).toBe(err);
   });
+
+  test("newrelic.noticeError is called with userId key from localstorage and severity when environment is Production", () => {
+    localStorage.setItem("userId", "user1");
+    const noticeError = jest.fn();
+    window["newrelic"] = { noticeError };
+    process.env.NODE_ENV = "production";
+    const result = reportError(err);
+    result.severe();
+    expect(noticeError).toHaveBeenCalledTimes(1);
+    expect(noticeError.mock.calls[0][0]).toBe(err);
+    expect(noticeError.mock.calls[0][1]).toStrictEqual({
+      userId: "user1",
+      severity: "error",
+    });
+    result.warning();
+    expect(noticeError).toHaveBeenCalledTimes(2);
+    expect(noticeError.mock.calls[1][0]).toBe(err);
+    expect(noticeError.mock.calls[1][1]).toStrictEqual({
+      userId: "user1",
+      severity: "warning",
+    });
+  });
 });
