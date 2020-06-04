@@ -26,13 +26,6 @@ export const reportError = (err: NotifiableError): reportErrorResult => {
 
 const sendError = (err: NotifiableError, severity: Event["severity"]) => {
   const userId = localStorage.getItem("userId");
-  const newrelic = window["newrelic"];
-  if (newrelic) {
-    newrelic.noticeError(err, {
-      severity,
-      userId,
-    });
-  }
   Bugsnag.notify(err, (event) => {
     event.severity = severity;
     event.setUser(userId);

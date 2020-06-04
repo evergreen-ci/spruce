@@ -2,7 +2,8 @@ import { reportError } from "utils/errorReporting";
 import Bugsnag from "@bugsnag/js";
 
 const err = new Error("test error");
-describe("error reporting", () => {
+
+describe("Error reporting", () => {
   const OLD_ENV = process.env;
 
   beforeEach(() => {
@@ -17,14 +18,11 @@ describe("error reporting", () => {
 
   test("Returns a map of empty functions when environment is not Production", async () => {
     // spy on Bugsnag.notify and newrelic.noticeError becuase that is called when the functions are not empty
-    const noticeError = jest.fn();
-    window["newrelic"] = { noticeError };
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);
     result.severe();
     result.warning();
     expect(notifySpy).toHaveBeenCalledTimes(0);
-    expect(noticeError).toHaveBeenCalledTimes(0);
   });
 
   test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
@@ -36,34 +34,8 @@ describe("error reporting", () => {
     result.severe();
     expect(notifySpy).toHaveBeenCalledTimes(1);
     expect(notifySpy.mock.calls[0][0]).toBe(err);
-    expect(noticeError).toHaveBeenCalledTimes(1);
-    expect(noticeError.mock.calls[0][0]).toBe(err);
     result.warning();
     expect(notifySpy).toHaveBeenCalledTimes(2);
     expect(notifySpy.mock.calls[1][0]).toBe(err);
-    expect(noticeError).toHaveBeenCalledTimes(2);
-    expect(noticeError.mock.calls[1][0]).toBe(err);
-  });
-
-  test("newrelic.noticeError is called with userId key from localstorage and severity when environment is Production", () => {
-    localStorage.setItem("userId", "user1");
-    const noticeError = jest.fn();
-    window["newrelic"] = { noticeError };
-    process.env.NODE_ENV = "production";
-    const result = reportError(err);
-    result.severe();
-    expect(noticeError).toHaveBeenCalledTimes(1);
-    expect(noticeError.mock.calls[0][0]).toBe(err);
-    expect(noticeError.mock.calls[0][1]).toStrictEqual({
-      userId: "user1",
-      severity: "error",
-    });
-    result.warning();
-    expect(noticeError).toHaveBeenCalledTimes(2);
-    expect(noticeError.mock.calls[1][0]).toBe(err);
-    expect(noticeError.mock.calls[1][1]).toStrictEqual({
-      userId: "user1",
-      severity: "warning",
-    });
   });
 });
