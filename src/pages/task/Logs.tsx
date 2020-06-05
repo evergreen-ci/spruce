@@ -49,9 +49,12 @@ export const Logs: React.FC = () => {
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     replace(
-      `${pathname}?${queryString.stringify({
-        [QueryParams.LogType]: nextLogType,
-      })}`
+      `${pathname}?${queryString.stringify(
+        {
+          [QueryParams.LogType]: nextLogType,
+        },
+        { arrayFormat: "comma" }
+      )}`
     );
   };
 
