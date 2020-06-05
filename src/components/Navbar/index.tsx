@@ -31,7 +31,9 @@ export const Navbar: React.FC = () => {
           </Logo>
         </Link>
         {legacyURL && (
-          <StyledLink href={legacyURL}>Switch to legacy UI</StyledLink>
+          <StyledLink href={legacyURL} data-cy="legacy-ui-link">
+            Switch to legacy UI
+          </StyledLink>
         )}
       </InnerWrapper>
     </StyledHeader>

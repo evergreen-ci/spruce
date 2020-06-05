@@ -5,7 +5,7 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 
 import { routes } from "constants/routes";
 
-export const useLegacyUIURL = () => {
+export const useLegacyUIURL = (): string | null => {
   const [id, setId] = useState("");
   const [legacyUIUrl, setLegacyUIUrl] = useState(null);
   const { pathname } = useLocation();
