@@ -27,6 +27,12 @@ export const GET_TASK = gql`
         requiredStatus
         uiLink
       }
+      logs {
+        allLogLink
+        agentLogLink
+        systemLogLink
+        taskLogLink
+      }
       startTime
       status
       timeTaken

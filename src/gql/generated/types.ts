@@ -974,6 +974,12 @@ export type GetTaskQuery = {
       requiredStatus: RequiredStatus;
       uiLink: string;
     }>;
+    logs: {
+      allLogLink?: Maybe<string>;
+      agentLogLink?: Maybe<string>;
+      systemLogLink?: Maybe<string>;
+      taskLogLink?: Maybe<string>;
+    };
   }>;
 };
 
