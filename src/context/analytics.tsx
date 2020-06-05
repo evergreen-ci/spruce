@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext } from "react";
 import { isProduction } from "utils/getEnvironmentVariables";
 import NewRelicAPI from "new-relic-browser";
 import { useQuery } from "@apollo/react-hooks";
@@ -27,9 +27,7 @@ const AnalyticsContext = React.createContext<Analytics | null>(null);
 export const AnalyticsProvider: React.FC = ({ children }) => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const userId = get(data, "user.userId", null);
-
   const { pathname } = useLocation();
-  console.log("pathname :>> ", pathname);
 
   const sendEvent: SendEvent = (eventName, attributes = {}) => {
     const { newrelic } = window;
@@ -39,6 +37,7 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
     newrelic.addPageAction(eventName, {
       ...attributes,
       userId,
+      pathname,
     });
   };
 
@@ -50,4 +49,12 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
   );
 };
 
-export const useAnalyticsContext = () => {};
+export const useAnalyticsContext = () => {
+  const analytics = useContext(AnalyticsContext);
+  if (analytics === undefined) {
+    throw new Error(
+      "useAnalyticsContext must be used within AnalyticsProvider"
+    );
+  }
+  return analytics;
+};
