@@ -31,14 +31,16 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
 
   const sendEvent: SendEvent = (eventName, attributes = {}) => {
     const { newrelic } = window;
-    if (typeof window.newrelic !== "object" || !isProduction()) {
-      return;
-    }
-    newrelic.addPageAction(eventName, {
+    const allAttributes = {
       ...attributes,
       userId,
       pathname,
-    });
+    };
+    if (typeof window.newrelic !== "object" || !isProduction()) {
+      console.log("New Relic addPageAction :>> ", { eventName, allAttributes });
+      return;
+    }
+    newrelic.addPageAction(eventName, allAttributes);
   };
 
   const value = { sendEvent };
