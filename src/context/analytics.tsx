@@ -30,7 +30,7 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
 
   const sendEvent: SendEvent = (eventName, attributes = {}) => {
     const { newrelic } = window;
-    if (typeof window.newrelic !== "object") {
+    if (typeof newrelic !== "object") {
       return;
     }
     newrelic.addPageAction(eventName, {
