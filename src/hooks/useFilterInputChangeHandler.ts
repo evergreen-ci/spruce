@@ -47,6 +47,7 @@ export const useFilterInputChangeHandler = (
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
+  // const {sendEvent} = useAnalyticsContext()
 
   const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
@@ -62,6 +63,7 @@ export const useFilterInputChangeHandler = (
       pathname,
       resetPage
     );
+    // sendEvent()
   };
   return [value, onChange];
 };
