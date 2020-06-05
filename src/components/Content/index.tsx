@@ -7,7 +7,7 @@ import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
-import { routes } from "constants/routes";
+import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
@@ -19,6 +19,7 @@ import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Preferences } from "pages/Preferences";
 import { MyPatches } from "pages/MyPatches";
 import { PatchRedirect } from "pages/PatchRedirect";
+import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 
 export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -31,7 +32,6 @@ export const Content: React.FC = () => {
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
-
   return (
     <PageLayout>
       <Navbar />
@@ -42,6 +42,10 @@ export const Content: React.FC = () => {
         <PrivateRoute path={routes.version} component={Patch} />
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
+        <PrivateRoute
+          path={`${paths.user}/:id`}
+          component={UserPatchesRedirect}
+        />
         <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
         <PrivateRoute path={routes.preferences} component={Preferences} />
         <PrivateRoute exact path="/">

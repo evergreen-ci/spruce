@@ -1,26 +1,39 @@
 import React from "react";
+import { useQuery } from "@apollo/react-hooks";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+import { format } from "date-fns";
+import get from "lodash/get";
 import { SiderCard } from "components/styles";
 import Code from "@leafygreen-ui/code";
+import { GET_CLIENT_CONFIG } from "gql/queries";
+import {
+  ClientConfigQuery,
+  ClientConfigQueryVariables,
+} from "gql/generated/types";
 
 const { gray } = uiColors;
 
 export const VerifyCard = () => {
-  const verifcationCode = `
-"[evergreen] 2020/05/01 13:30:02 [p=notice]:
+  const { data } = useQuery<ClientConfigQuery, ClientConfigQueryVariables>(
+    GET_CLIENT_CONFIG
+  );
+
+  const latestRevision = get(data, "clientConfig.latestRevision", "");
+  const verificationCode = `
+"[evergreen] ${format(new Date(), "yyyy/MM/dd hh:mm:ss")} [p=notice]:
 [message='Binary is already up to date - not updating.'
-revision='2020-04-27']"
+revision='${latestRevision}']"
   `;
   return (
     <Container>
-      <Body>
-        At the command line, type &quot;
-        <InlinePre>evergreen get-update</InlinePre>&quot;. It should display :
-      </Body>
+      <Body>At the command line, type &quot;</Body>
+
+      <InlinePre>evergreen get-update</InlinePre>
+      <Body>&quot;. It should display :</Body>
       <CodeContainer>
-        <Code copyable={false}>{verifcationCode}</Code>
+        <Code copyable={false}>{verificationCode}</Code>
       </CodeContainer>
     </Container>
   );

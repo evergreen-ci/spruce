@@ -19,6 +19,13 @@ describe("My Patches Page", () => {
     cy.listenGQL();
   });
 
+  it("Redirects user to user patches route from `/user/:id`", () => {
+    cy.visit("user/chicken");
+    cy.location().should((loc) =>
+      expect(loc.pathname).to.eq("/user/chicken/patches")
+    );
+  });
+
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";

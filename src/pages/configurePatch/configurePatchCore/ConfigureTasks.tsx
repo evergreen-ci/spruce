@@ -10,7 +10,7 @@ import { Button } from "components/Button";
 
 interface Props {
   variants: ProjectBuildVariant[];
-  selectedBuildVariant: string;
+  selectedBuildVariant: string[];
   selectedVariantTasks: VariantTasksState;
   setSelectedVariantTasks: React.Dispatch<
     React.SetStateAction<VariantTasksState>
@@ -42,25 +42,41 @@ export const ConfigureTasks: React.FC<Props> = ({
     prev[name] = tasks; // eslint-disable-line no-param-reassign
     return prev;
   }, {});
-  const currentTasks =
-    projectVariantTasksMap[selectedBuildVariant || variants[0].name];
-
-  const onClickSelectAll = (): void => {
-    const allTasksForVariant: TasksState = currentTasks.reduce((prev, curr) => {
-      prev[curr] = true; // eslint-disable-line no-param-reassign
-      return prev;
-    }, {});
-    setSelectedVariantTasks({
-      ...selectedVariantTasks,
-      [selectedBuildVariant]: allTasksForVariant,
-    });
+  const temp = selectedBuildVariant.map((buildVariant) => ({
+    buildVariant,
+    tasks: projectVariantTasksMap[buildVariant || variants[0].name],
+  }));
+  const currentTasks = [];
+  for (let i = 0; i < temp.length; i++) {
+    currentTasks.push(temp[i]);
+  }
+  const onClickSelectAll = () => {
+    const variantTasks = selectedBuildVariant.map((buildVariant) =>
+      variants.find((element) => element.name === buildVariant)
+    );
+    const checkAllTasks = (tasks: string[]) => {
+      const checkedTasks = {};
+      for (let i = 0; i < tasks.length; i++) {
+        checkedTasks[tasks[i]] = true;
+      }
+      return checkedTasks;
+    };
+    const selectedTasks = {};
+    for (let i = 0; i < variantTasks.length; i++) {
+      selectedTasks[variantTasks[i].name] = checkAllTasks(
+        variantTasks[i].tasks
+      );
+    }
+    setSelectedVariantTasks({ ...selectedVariantTasks, ...selectedTasks });
   };
+
   const onClickDeselectAll = (): void => {
-    const nextSelectedVariantTasks = { ...selectedVariantTasks };
-    delete nextSelectedVariantTasks[selectedBuildVariant];
-    setSelectedVariantTasks(nextSelectedVariantTasks);
+    const tempSelectedVariantTasks = { ...selectedVariantTasks };
+    for (let i = 0; i < selectedBuildVariant.length; i++) {
+      delete tempSelectedVariantTasks[selectedBuildVariant[i]];
+    }
+    setSelectedVariantTasks({ ...tempSelectedVariantTasks });
   };
-
   const getTaskCheckboxChangeHandler = (task: string, variant: string) => (
     e: React.ChangeEvent<HTMLInputElement>
   ): void => {
@@ -116,24 +132,33 @@ export const ConfigureTasks: React.FC<Props> = ({
         }`}
       </StyledDisclaimer>
       <Tasks data-cy="configurePatch-tasks">
-        {currentTasks.map((task) => {
-          const checked =
-            !!selectedVariantTasks[selectedBuildVariant] &&
-            selectedVariantTasks[selectedBuildVariant][task] === true;
-          return (
-            <Checkbox
-              data-cy={`configurePatch-${task}`}
-              data-checked={checked}
-              key={task}
-              onChange={getTaskCheckboxChangeHandler(
-                task,
-                selectedBuildVariant
-              )}
-              label={task}
-              checked={checked}
-            />
-          );
-        })}
+        {currentTasks.map((currentTask) =>
+          currentTask.tasks.map((task) => {
+            let checked = false;
+            for (let i = 0; i < selectedBuildVariant.length; i++) {
+              if (checked === true) {
+                break;
+              } else {
+                checked =
+                  !!selectedVariantTasks[selectedBuildVariant[i]] &&
+                  selectedVariantTasks[selectedBuildVariant[i]][task] === true;
+              }
+            }
+            return (
+              <Checkbox
+                data-cy={`configurePatch-${task}`}
+                data-checked={checked}
+                key={task}
+                onChange={getTaskCheckboxChangeHandler(
+                  task,
+                  currentTask.buildVariant
+                )}
+                label={task}
+                checked={checked}
+              />
+            );
+          })
+        )}
       </Tasks>
     </TabContentWrapper>
   );
