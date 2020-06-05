@@ -17,6 +17,33 @@ describe("task logs view", () => {
     cy.get("#cy-task-radio").should("be.checked");
   });
 
+  it("HTML button should link to the html logs", () => {
+    cy.visit(LOGS_ROUTE);
+    cy.dataCy("html-log-btn")
+      .should("have.attr", "href")
+      .and(
+        "includes",
+        "/task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=T"
+      );
+  });
+
+  it("Raw button should link to the raw logs", () => {
+    cy.visit(LOGS_ROUTE);
+    cy.dataCy("raw-log-btn")
+      .should("have.attr", "href")
+      .and(
+        "includes",
+        "/task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=T&text=true"
+      );
+  });
+
+  it("Event logs should have an HTML button but not a Raw button", () => {
+    cy.visit(LOGS_ROUTE);
+    cy.get("#cy-event-radio").check();
+    cy.dataCy("html-log-btn").should("exist");
+    cy.dataCy("raw-log-btn").should("not.exist");
+  });
+
   it("Should update logtype query param to agent after checking agent radio button", () => {
     cy.visit(LOGS_ROUTE);
     cy.get("#cy-agent-radio")
