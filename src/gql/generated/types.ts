@@ -503,6 +503,7 @@ export type TaskLogLinks = {
   agentLogLink?: Maybe<Scalars["String"]>;
   systemLogLink?: Maybe<Scalars["String"]>;
   taskLogLink?: Maybe<Scalars["String"]>;
+  eventLogLink?: Maybe<Scalars["String"]>;
 };
 
 export type TaskResult = {
@@ -979,6 +980,7 @@ export type GetTaskQuery = {
       agentLogLink?: Maybe<string>;
       systemLogLink?: Maybe<string>;
       taskLogLink?: Maybe<string>;
+      eventLogLink?: Maybe<string>;
     };
   }>;
 };

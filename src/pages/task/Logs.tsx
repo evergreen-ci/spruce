@@ -3,7 +3,14 @@ import { Radio, RadioGroup } from "@leafygreen-ui/radio-group";
 import { useLocation, useHistory } from "react-router-dom";
 import queryString from "query-string";
 import styled from "@emotion/styled/macro";
-import { EventLog, AgentLog, SystemLog, TaskLog } from "./logs/LogTypes";
+import {
+  EventLog,
+  AgentLog,
+  SystemLog,
+  TaskLog,
+} from "pages/task/logs/LogTypes";
+import Maybe from "graphql/tsutils/Maybe";
+import { Button } from "components/Button";
 
 enum LogTypes {
   Agent = "agent",
@@ -23,7 +30,18 @@ const options = {
   [LogTypes.Event]: <EventLog />,
 };
 
-export const Logs: React.FC = () => {
+interface LogLinks {
+  allLogLink?: Maybe<string>;
+  agentLogLink?: Maybe<string>;
+  systemLogLink?: Maybe<string>;
+  taskLogLink?: Maybe<string>;
+  eventLogLink?: Maybe<string>;
+}
+
+interface Props {
+  logLinks: LogLinks;
+}
+export const Logs: React.FC<Props> = ({ logLinks }) => {
   const { search, pathname } = useLocation();
   const { replace } = useHistory();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
@@ -57,7 +75,7 @@ export const Logs: React.FC = () => {
       )}`
     );
   };
-
+  const { htmlLink, rawLink } = getLinks(logLinks, currentLog);
   return (
     <div>
       <StyledRadioGroup
@@ -66,6 +84,18 @@ export const Logs: React.FC = () => {
         value={currentLog}
         name="log-select"
       >
+        <ButtonContainer>
+          {htmlLink && (
+            <Button dataCy="html-log-btn" target="_blank" href={htmlLink}>
+              HTML
+            </Button>
+          )}
+          {rawLink && (
+            <Button dataCy="raw-log-btn" target="_blank" href={rawLink}>
+              Raw
+            </Button>
+          )}
+        </ButtonContainer>
         <Radio id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
@@ -86,6 +116,39 @@ export const Logs: React.FC = () => {
 
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
-  justify-content: space-between;
-  width: 450px;
+  align-items: center;
+  label {
+    margin-left: 24px;
+  }
+`;
+
+interface GetLinksResult {
+  htmlLink?: string;
+  rawLink?: string;
+}
+
+const getLinks = (logLinks: LogLinks, logType: LogTypes): GetLinksResult => {
+  if (!logLinks) {
+    return {};
+  }
+  const linkTypes = {
+    [LogTypes.Agent]: logLinks.agentLogLink,
+    [LogTypes.Event]: logLinks.eventLogLink,
+    [LogTypes.System]: logLinks.systemLogLink,
+    [LogTypes.Task]: logLinks.taskLogLink,
+  };
+  const url = linkTypes[logType];
+  if (!url) {
+    return {};
+  }
+  if (logType === LogTypes.Event) {
+    return { htmlLink: url };
+  }
+  return { htmlLink: url, rawLink: `${url}&text=true` };
+};
+
+const ButtonContainer = styled.div`
+  a:first-of-type {
+    margin-right: 8px;
+  }
 `;

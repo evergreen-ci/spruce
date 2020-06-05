@@ -32,6 +32,7 @@ export const GET_TASK = gql`
         agentLogLink
         systemLogLink
         taskLogLink
+        eventLogLink
       }
       startTime
       status

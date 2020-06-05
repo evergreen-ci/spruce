@@ -78,7 +78,7 @@ const TaskCore: React.FC = () => {
   const version = get(task, "version");
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
-
+  const logLinks = get(task, "logs");
   if (error) {
     stopPolling();
   }
@@ -135,7 +135,7 @@ const TaskCore: React.FC = () => {
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
-                <Logs />
+                <Logs logLinks={logLinks} />
               </Tab>
               <Tab
                 name={
