@@ -5,11 +5,9 @@ import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
-import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
+import { paths, getBuildStatusIconLink } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
-import { PatchTasksQueryParams } from "types/task";
-import { useHistory } from "react-router-dom";
 
 interface Build {
   id: string;
@@ -32,7 +30,6 @@ export const PatchCard: React.FC<Props> = ({
   status,
   builds,
 }) => {
-  const router = useHistory();
   const createDate = new Date(createTime);
   return (
     <CardWrapper data-cy="patch-card">
@@ -53,21 +50,15 @@ export const PatchCard: React.FC<Props> = ({
           <PatchStatusBadge status={status} />
         </BadgeContainer>
         <IconsContainer>
-          {builds.map((b) => {
-            const onClick = () =>
-              router.push(
-                `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${b.buildVariant}`
-              );
-            return (
-              <div key={b.id}>
-                <BuildStatusIcon
-                  status={b.status}
-                  buildVariant={b.buildVariant}
-                  onClick={onClick}
-                />
-              </div>
-            );
-          })}
+          {builds.map((b) => (
+            <div key={b.id}>
+              <BuildStatusIcon
+                status={b.status}
+                buildVariant={b.buildVariant}
+                href={getBuildStatusIconLink(id, b.buildVariant)}
+              />
+            </div>
+          ))}
         </IconsContainer>
       </Center>
       <Right>

@@ -4,19 +4,18 @@ import { RunningIcon } from "pages/userPatches/patchCard/BuildStatusIcon/Running
 import { SucceededIcon } from "pages/userPatches/patchCard/BuildStatusIcon/SucceededIcon";
 import { FailedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
-import styled from "@emotion/styled";
 import { Tooltip } from "antd";
 
 interface Props {
   status: string;
   buildVariant: string;
-  onClick: () => void;
+  href: string;
 }
 
 export const BuildStatusIcon: React.FC<Props> = ({
   status,
   buildVariant,
-  onClick,
+  href,
 }) => {
   const icon = statusToIcon[status];
   if (!icon) {
@@ -24,7 +23,9 @@ export const BuildStatusIcon: React.FC<Props> = ({
   }
   return (
     <Tooltip placement="top" title={buildVariant}>
-      <IconWrapper onClick={onClick}>{icon}</IconWrapper>
+      <a data-cy="build-status-icon-link" href={href}>
+        {icon}
+      </a>
     </Tooltip>
   );
 };
@@ -35,7 +36,3 @@ const statusToIcon = {
   [BuildStatus.Started]: <RunningIcon />,
   [BuildStatus.Succeeded]: <SucceededIcon />,
 };
-
-const IconWrapper = styled.div`
-  cursor: pointer;
-`;
