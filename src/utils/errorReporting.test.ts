@@ -26,8 +26,6 @@ describe("Error reporting", () => {
   });
 
   test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
-    const noticeError = jest.fn();
-    window["newrelic"] = { noticeError };
     process.env.NODE_ENV = "production";
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);
