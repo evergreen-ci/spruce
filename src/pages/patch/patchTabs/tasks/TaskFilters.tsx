@@ -14,6 +14,8 @@ import {
 } from "gql/generated/types";
 import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
+import { GET_PATCH_FILTERS_EVENT_DATA } from "gql/queries/analytics/get-patch-filters-attributes";
+import { useAnalyticsContext } from "context/analytics";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -44,6 +46,29 @@ export const TaskFilters: React.FC = () => {
   const statuses = get(data, "patch.taskStatuses", []);
   const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 
+  // patch data needed for analyitcs -- query fetches from local cache
+  const { data: eventData } = useQuery(GET_PATCH_FILTERS_EVENT_DATA, {
+    variables: { id },
+  });
+  const status = get(eventData, "patch.status", undefined);
+
+  // on change handlers with analytics
+  const { sendEvent } = useAnalyticsContext();
+  const getInputOnChangeHandler = (
+    eventName: string,
+    handler: (e: React.ChangeEvent<HTMLInputElement>) => void
+  ) => (e: React.ChangeEvent<HTMLInputElement>) => {
+    handler(e);
+    sendEvent(eventName, { id, patchStatus: status, value: e.target.value });
+  };
+  const getTreeSelectOnChangeHandler = (
+    eventName: string,
+    handler: (e: string[]) => void
+  ) => (e: string[]) => {
+    handler(e);
+    sendEvent(eventName, { id, patchStatus: status, value: JSON.stringify(e) });
+  };
+
   return (
     <FiltersWrapper>
       <Input
@@ -52,7 +77,10 @@ export const TaskFilters: React.FC = () => {
         placeholder="Search Task Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={taskNameFilterValue}
-        onChange={taskNameFilterValueOnChange}
+        onChange={getInputOnChangeHandler(
+          "filterTasksByName",
+          taskNameFilterValueOnChange
+        )}
       />
       <Input
         style={{ width: "25%" }}
@@ -60,10 +88,16 @@ export const TaskFilters: React.FC = () => {
         placeholder="Search Variant Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
-        onChange={variantFilterValueOnChange}
+        onChange={getInputOnChangeHandler(
+          "filterTasksByVariant",
+          variantFilterValueOnChange
+        )}
       />
       <TreeSelect
-        onChange={statusesValOnChange}
+        onChange={getTreeSelectOnChangeHandler(
+          "filterTasksByStatus",
+          statusesValOnChange
+        )}
         state={statusesVal}
         tData={getCurrentStatuses(statuses, statusesTreeData)}
         inputLabel="Task Status: "
@@ -71,7 +105,10 @@ export const TaskFilters: React.FC = () => {
         width="25%"
       />
       <TreeSelect
-        onChange={baseStatusesValOnChange}
+        onChange={getTreeSelectOnChangeHandler(
+          "filterTasksByBaseStatus",
+          baseStatusesValOnChange
+        )}
         state={baseStatusesVal}
         tData={getCurrentStatuses(baseStatuses, statusesTreeData)}
         inputLabel="Task Base Status: "

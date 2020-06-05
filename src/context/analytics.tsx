@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { isProduction } from "utils/getEnvironmentVariables";
 import NewRelicAPI from "new-relic-browser";
 import { useQuery } from "@apollo/react-hooks";
 import { GetUserQuery } from "gql/generated/types";
@@ -9,7 +8,7 @@ import { useLocation } from "react-router-dom";
 
 declare global {
   interface Window {
-    newrelic: typeof NewRelicAPI;
+    newrelic: typeof NewRelicAPI; // eslint-disable-line
   }
 }
 
@@ -31,16 +30,14 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
 
   const sendEvent: SendEvent = (eventName, attributes = {}) => {
     const { newrelic } = window;
-    const allAttributes = {
+    if (typeof window.newrelic !== "object") {
+      return;
+    }
+    newrelic.addPageAction(eventName, {
       ...attributes,
       userId,
       pathname,
-    };
-    if (typeof window.newrelic !== "object" || !isProduction()) {
-      console.log("New Relic addPageAction :>> ", { eventName, allAttributes });
-      return;
-    }
-    newrelic.addPageAction(eventName, allAttributes);
+    });
   };
 
   const value = { sendEvent };
