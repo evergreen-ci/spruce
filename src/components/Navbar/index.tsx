@@ -7,6 +7,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { routes } from "constants/routes";
+import { NavDropdown } from "./NavDropdown";
 
 const { Header } = Layout;
 
@@ -25,6 +26,7 @@ export const Navbar: React.FC = () => {
             <StyledSubtitle>Evergreen</StyledSubtitle>
           </Logo>
         </Link>
+        <NavDropdown />
       </InnerWrapper>
     </StyledHeader>
   );
@@ -39,7 +41,7 @@ const StyledHeader = styled(Header)`
 const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   height: 100%;
 `;
 const Logo = styled.div`
