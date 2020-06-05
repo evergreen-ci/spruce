@@ -11,7 +11,7 @@ import { routes } from "constants/routes";
 import { useLegacyUIURL } from "hooks/index";
 
 const { Header } = Layout;
-const { white, gray } = uiColors;
+const { white, blue, gray } = uiColors;
 
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
@@ -31,9 +31,9 @@ export const Navbar: React.FC = () => {
           </Logo>
         </Link>
         {legacyURL && (
-          <StyledLink href={legacyURL} data-cy="legacy-ui-link">
+          <NavLink href={legacyURL} data-cy="legacy-ui-link">
             Switch to legacy UI
-          </StyledLink>
+          </NavLink>
         )}
       </InnerWrapper>
     </StyledHeader>
@@ -60,4 +60,8 @@ const Logo = styled.div`
 const StyledSubtitle = styled(Subtitle)`
   color: ${white};
   margin-left: 8px;
+`;
+
+const NavLink = styled(StyledLink)`
+  color: ${blue.light2};
 `;
