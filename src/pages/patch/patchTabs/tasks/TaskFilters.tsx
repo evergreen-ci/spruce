@@ -46,13 +46,13 @@ export const TaskFilters: React.FC = () => {
   const statuses = get(data, "patch.taskStatuses", []);
   const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 
-  // patch data needed for analyitcs -- query fetches from local cache
+  // patch data needed for analyitcs
   const { data: eventData } = useQuery(GET_PATCH_FILTERS_EVENT_DATA, {
     variables: { id },
   });
   const status = get(eventData, "patch.status", undefined);
 
-  // on change handlers with analytics
+  // onChange handlers with analytics
   const { sendEvent } = useAnalyticsContext();
   const getInputOnChangeHandler = (
     eventName: string,
@@ -94,26 +94,26 @@ export const TaskFilters: React.FC = () => {
         )}
       />
       <TreeSelect
-        onChange={getTreeSelectOnChangeHandler(
-          "filterTasksByStatus",
-          statusesValOnChange
-        )}
         state={statusesVal}
         tData={getCurrentStatuses(statuses, statusesTreeData)}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
         width="25%"
+        onChange={getTreeSelectOnChangeHandler(
+          "filterTasksByStatus",
+          statusesValOnChange
+        )}
       />
       <TreeSelect
-        onChange={getTreeSelectOnChangeHandler(
-          "filterTasksByBaseStatus",
-          baseStatusesValOnChange
-        )}
         state={baseStatusesVal}
         tData={getCurrentStatuses(baseStatuses, statusesTreeData)}
         inputLabel="Task Base Status: "
         dataCy="task-base-status-filter"
         width="25%"
+        onChange={getTreeSelectOnChangeHandler(
+          "filterTasksByBaseStatus",
+          baseStatusesValOnChange
+        )}
       />
     </FiltersWrapper>
   );

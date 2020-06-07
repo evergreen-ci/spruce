@@ -26,7 +26,7 @@ const AnalyticsContext = React.createContext<Analytics | null>(null);
 export const AnalyticsProvider: React.FC = ({ children }) => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const userId = get(data, "user.userId", null);
-  const { pathname } = useLocation();
+  const { search } = useLocation();
 
   const sendEvent: SendEvent = (eventName, attributes = {}) => {
     const { newrelic } = window;
@@ -36,7 +36,7 @@ export const AnalyticsProvider: React.FC = ({ children }) => {
     newrelic.addPageAction(eventName, {
       ...attributes,
       userId,
-      pathname,
+      urlSearch: search,
     });
   };
 
