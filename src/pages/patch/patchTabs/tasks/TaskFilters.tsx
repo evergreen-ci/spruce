@@ -59,14 +59,22 @@ export const TaskFilters: React.FC = () => {
     handler: (e: React.ChangeEvent<HTMLInputElement>) => void
   ) => (e: React.ChangeEvent<HTMLInputElement>) => {
     handler(e);
-    sendEvent(eventName, { id, patchStatus: status, value: e.target.value });
+    sendEvent(eventName, {
+      patchId: id,
+      patchStatus: status,
+      value: e.target.value,
+    });
   };
   const getTreeSelectOnChangeHandler = (
     eventName: string,
     handler: (e: string[]) => void
   ) => (e: string[]) => {
     handler(e);
-    sendEvent(eventName, { id, patchStatus: status, value: JSON.stringify(e) });
+    sendEvent(eventName, {
+      patchId: id,
+      patchStatus: status,
+      value: JSON.stringify(e),
+    });
   };
 
   return (

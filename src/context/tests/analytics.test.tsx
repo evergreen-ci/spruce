@@ -1,45 +1,68 @@
 import React from "react";
 import { MockedProvider } from "@apollo/react-testing";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, queryHelpers } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
-import { GET_PATCH_TASK_STATUSES } from "gql/queries";
+import { GET_USER } from "gql/queries";
 import { GET_PATCH_FILTERS_EVENT_DATA } from "gql/queries/analytics/get-patch-filters-attributes";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { ContextProviders } from "context/Providers";
+import wait from "waait";
+import { act } from "react-dom/test-utils";
 
-test("loads and displays greeting", async () => {
-  render(
-    <MockedProvider mocks={mocks}>
+// @ts-ignore
+window.newrelic = {
+  addPageAction: jest.fn(),
+};
+
+jest.mock("react-router-dom", () => ({
+  useLocation: jest
+    .fn()
+    .mockReturnValue({ search: "?page=0&variant=osx", pathname: "pathname" }),
+  useHistory: jest.fn().mockReturnValue({ replace: jest.fn() }),
+  useParams: jest.fn().mockReturnValue({ id: "123" }),
+}));
+
+test("Interacting with tracked HTML elements calls addPageAction function with correct params", async () => {
+  const { container } = render(
+    <MockedProvider mocks={mocks} addTypename={false}>
       <ContextProviders>
         <TaskFilters />
       </ContextProviders>
     </MockedProvider>
   );
 
-  //   fireEvent.input()
+  await act(async () => {
+    await wait(0);
+  });
 
-  //   fireEvent.click(screen.getByText("Load Greeting"));
+  const inputValue = "cloud";
+  fireEvent.input(
+    queryHelpers.queryByAttribute("data-cy", container, "task-name-input"),
+    { target: { value: inputValue } }
+  );
 
-  //   await waitFor(() => screen.getByRole("heading"));
-
-  //   expect(screen.getByRole("heading")).toHaveTextContent("hello there");
-  //   expect(screen.getByRole("button")).toHaveAttribute("disabled");
+  expect(window.newrelic.addPageAction).toHaveBeenCalledWith(
+    "filterTasksByName",
+    {
+      patchId: "123",
+      patchStatus: undefined,
+      urlSearch: "?page=0&variant=osx",
+      userId: "happy-user",
+      value: inputValue,
+    }
+  );
 });
 
 const patchId = "abc";
 const mocks = [
   {
     request: {
-      query: GET_PATCH_TASK_STATUSES,
-      variables: {
-        id: patchId,
-      },
+      query: GET_USER,
     },
     result: {
       data: {
-        patch: {
-          taskStatuses: ["failed", "success"],
-          baseTaskStatuses: ["success"],
+        user: {
+          userId: "happy-user",
         },
       },
     },
