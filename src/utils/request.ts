@@ -38,6 +38,5 @@ const getErrorMessage = (response: responseType, method: string) =>
     : `${method} Error: Did not receive a response from the server`;
 
 const handleError = () => {
-  // console.warn(error);
   // Log the error on bugsnag
 };
