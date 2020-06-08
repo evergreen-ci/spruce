@@ -12,9 +12,9 @@ git
   .init()
   .then(() => () => {})
   .then(() => git.branchLocal())
-  .then((result) => {
-    if (result.current !== "master") {
-      console.log("Current branch is", result.current);
+  .then(({ current }) => {
+    if (current !== "master") {
+      console.log("Current branch is", current);
       console.log(
         colors.red(
           "Error: You must be on master branch to deploy to production"
