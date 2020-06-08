@@ -149,7 +149,7 @@
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
     "lint-staged": "10.2.2",
-    "path": "^0.12.7",
+    "path": "0.12.7",
     "prettier": "1.19.1",
     "prompt": "^1.0.0",
     "prompt-run": "^1.4.5",
