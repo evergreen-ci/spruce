@@ -1,5 +1,4 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button } from "components/Button";
 import { useParams } from "react-router-dom";
 import { PageButtonRow } from "components/styles";
 import { ButtonDropdown } from "components/ButtonDropdown";
@@ -70,14 +69,6 @@ export const ActionButtons = () => {
             refetchQueries,
           }}
         />
-        <Button
-          size="small"
-          dataCy="notify-patch"
-          key="notifications"
-          disabled={isActionLoading}
-        >
-          Notify Me
-        </Button>
         <ButtonDropdown
           disabled={isActionLoading}
           dropdownItems={dropdownItems}

@@ -2,6 +2,7 @@ import React from "react";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { TaskStatus } from "types/task";
 import styled from "@emotion/styled/macro";
+import { reportError } from "utils/errorReporting";
 
 const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,
@@ -11,6 +12,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Dispatched]: Variant.Yellow,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Failed]: Variant.Red,
+  [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.StatusBlocked]: Variant.DarkGray,
   [TaskStatus.StatusPending]: Variant.LightGray,
 };
@@ -24,7 +26,8 @@ const failureColors = {
 // the status colors that are not supported by the leafygreen Badge variants
 const mapUnsupportedBadgeColors = {
   [TaskStatus.SystemFailed]: failureColors,
-  [TaskStatus.TestTimedOut]: failureColors,
+  [TaskStatus.SystemTimedOut]: failureColors,
+  [TaskStatus.SystemUnresponsive]: failureColors,
   [TaskStatus.SetupFailed]: {
     border: "#E7DBEC",
     fill: "#F3EDF5",
@@ -60,5 +63,7 @@ export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
       </StyledBadge>
     );
   }
-  throw new Error(`Status '${status}' is not a valid task status`);
+  const err = new Error(`Status '${status}' is not a valid task status`);
+  reportError(err).severe();
+  throw err;
 };

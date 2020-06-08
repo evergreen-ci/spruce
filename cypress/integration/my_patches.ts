@@ -49,6 +49,17 @@ describe("My Patches Page", () => {
     cy.dataCy("no-patches-found").contains("No patches found");
   });
 
+  it("Build status icon should link to version page with appropiate filters", () => {
+    cy.visit(MY_PATCHES_ROUTE);
+    cy.dataCy("build-status-icon-link")
+      .first()
+      .should("have.attr", "href")
+      .and(
+        "equals",
+        "/version/5e4ff3abe3c3317e352062e4/tasks?variant=ubuntu1604"
+      );
+  });
+
   // TODO: flakes becuase the gql query is not always tracked
   xit("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);

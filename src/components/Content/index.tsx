@@ -18,6 +18,7 @@ import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Preferences } from "pages/Preferences";
 import { MyPatches } from "pages/MyPatches";
+import get from "lodash/get";
 import { PatchRedirect } from "pages/PatchRedirect";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 
@@ -27,7 +28,8 @@ export const Content: React.FC = () => {
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
-  useQuery<GetUserQuery>(GET_USER);
+  const { data } = useQuery<GetUserQuery>(GET_USER);
+  localStorage.setItem("userId", get(data, "user.userId", ""));
 
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;

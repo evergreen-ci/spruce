@@ -696,6 +696,12 @@ export type UpdateUserSettingsMutationVariables = {
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
+export type GetPatchFiltersEventDataQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchFiltersEventDataQuery = { patch: { status: string } };
+
 export type ClientConfigQueryVariables = {};
 
 export type ClientConfigQuery = {
