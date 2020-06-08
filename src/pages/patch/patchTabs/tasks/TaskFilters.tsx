@@ -15,7 +15,7 @@ import {
 import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 import { GET_PATCH_FILTERS_EVENT_DATA } from "gql/queries/analytics/get-patch-filters-attributes";
-import { useAnalyticsContext } from "context/analytics";
+import { useAnalytics } from "hooks";
 
 export const TaskFilters: React.FC = () => {
   const [
@@ -53,13 +53,13 @@ export const TaskFilters: React.FC = () => {
   const status = get(eventData, "patch.status", undefined);
 
   // onChange handlers with analytics
-  const { sendEvent } = useAnalyticsContext();
+  const analytics = useAnalytics();
   const getInputOnChangeHandler = (
     eventName: string,
     handler: (e: React.ChangeEvent<HTMLInputElement>) => void
   ) => (e: React.ChangeEvent<HTMLInputElement>) => {
     handler(e);
-    sendEvent(eventName, {
+    analytics.sendEvent(eventName, {
       patchId: id,
       patchStatus: status,
       value: e.target.value,
@@ -70,7 +70,7 @@ export const TaskFilters: React.FC = () => {
     handler: (e: string[]) => void
   ) => (e: string[]) => {
     handler(e);
-    sendEvent(eventName, {
+    analytics.sendEvent(eventName, {
       patchId: id,
       patchStatus: status,
       value: JSON.stringify(e),
