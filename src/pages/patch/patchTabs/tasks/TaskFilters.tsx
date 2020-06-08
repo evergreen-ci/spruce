@@ -1,5 +1,9 @@
 import React, { useEffect } from "react";
-import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
+import {
+  useFilterInputChangeHandler,
+  useStatusesFilter,
+  useAnalytics,
+} from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
@@ -15,7 +19,6 @@ import {
 import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 import { GET_PATCH_FILTERS_EVENT_DATA } from "gql/queries/analytics/get-patch-filters-attributes";
-import { useAnalytics } from "hooks";
 
 export const TaskFilters: React.FC = () => {
   const [
