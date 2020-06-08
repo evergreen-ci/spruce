@@ -39,8 +39,8 @@ const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 const App: React.FC = () => (
   <ErrorBoundary>
-    <Router>
-      <ContextProviders>
+    <ContextProviders>
+      <Router>
         <GQLWrapper
           gqlURL={getGQLUrl()}
           isDevelopment={isDevelopment()}
@@ -57,8 +57,8 @@ const App: React.FC = () => (
           />
           <Content />
         </GQLWrapper>
-      </ContextProviders>
-    </Router>
+      </Router>
+    </ContextProviders>
   </ErrorBoundary>
 );
 
