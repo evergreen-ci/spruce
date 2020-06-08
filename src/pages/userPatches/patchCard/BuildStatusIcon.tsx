@@ -4,31 +4,28 @@ import { RunningIcon } from "pages/userPatches/patchCard/BuildStatusIcon/Running
 import { SucceededIcon } from "pages/userPatches/patchCard/BuildStatusIcon/SucceededIcon";
 import { FailedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
-import styled from "@emotion/styled";
-import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
-import { id } from "date-fns/locale";
-import { PatchTasksQueryParams } from "types/task";
-import { useHistory } from "react-router-dom";
 import { Tooltip } from "antd";
 
 interface Props {
   status: string;
   buildVariant: string;
+  href: string;
 }
 
-export const BuildStatusIcon: React.FC<Props> = ({ status, buildVariant }) => {
-  const router = useHistory();
-  const onClick = () =>
-    router.push(
-      `${paths.patch}/${id}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`
-    );
+export const BuildStatusIcon: React.FC<Props> = ({
+  status,
+  buildVariant,
+  href,
+}) => {
   const icon = statusToIcon[status];
   if (!icon) {
     return null;
   }
   return (
     <Tooltip placement="top" title={buildVariant}>
-      <IconWrapper onClick={onClick}>{icon}</IconWrapper>
+      <a data-cy="build-status-icon-link" href={href}>
+        {icon}
+      </a>
     </Tooltip>
   );
 };
@@ -39,7 +36,3 @@ const statusToIcon = {
   [BuildStatus.Started]: <RunningIcon />,
   [BuildStatus.Succeeded]: <SucceededIcon />,
 };
-
-const IconWrapper = styled.div`
-  cursor: pointer;
-`;

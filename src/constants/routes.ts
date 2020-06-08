@@ -1,3 +1,5 @@
+import { PatchTasksQueryParams } from "types/task";
+
 enum PageNames {
   Patches = "patches",
 }
@@ -24,13 +26,12 @@ export const routes = {
   version: `${paths.version}/:id/:tab?`,
 };
 
-export const getUserPatchesRoute = (userId: string): string =>
-  `${paths.user}/${userId}/${PageNames.Patches}`;
-
 export enum PatchTab {
   Tasks = "tasks",
   Changes = "changes",
 }
+
+export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
 
 export enum preferencesTabRoutes {
   Profile = "profile",
@@ -38,4 +39,8 @@ export enum preferencesTabRoutes {
   CLI = "cli",
 }
 
-export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
+export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
+  `${paths.version}/${patchId}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`;
+
+export const getUserPatchesRoute = (userId: string): string =>
+  `${paths.user}/${userId}/${PageNames.Patches}`;

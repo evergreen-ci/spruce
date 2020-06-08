@@ -5,7 +5,7 @@ import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { StyledLink } from "components/styles";
-import { paths } from "constants/routes";
+import { paths, getBuildStatusIconLink } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
 
@@ -55,6 +55,7 @@ export const PatchCard: React.FC<Props> = ({
               <BuildStatusIcon
                 status={b.status}
                 buildVariant={b.buildVariant}
+                href={getBuildStatusIconLink(id, b.buildVariant)}
               />
             </div>
           ))}
