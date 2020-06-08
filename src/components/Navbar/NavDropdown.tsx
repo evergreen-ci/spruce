@@ -11,15 +11,20 @@ import { GET_USER } from "gql/queries";
 import { GetUserQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { legacyRoutes } from "constants/externalResources";
-import { paths, preferencesTabRoutes } from "constants/routes";
+import {
+  paths,
+  preferencesTabRoutes,
+  getUserPatchesRoute,
+} from "constants/routes";
 
 const { white } = uiColors;
 
 export const NavDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const displayName = get(data, "user.displayName");
+  const userId = get(data, "user.userId");
   return (
-    <Dropdown overlay={MenuItems}>
+    <Dropdown overlay={<MenuItems userId={userId} />}>
       <NavDropdownTitle
         className="ant-dropdown-link"
         onClick={(e) => e.preventDefault()}
@@ -31,7 +36,10 @@ export const NavDropdown = () => {
   );
 };
 
-const MenuItems = () => {
+interface MenuItemsProps {
+  userId: string;
+}
+const MenuItems: React.FC<MenuItemsProps> = ({ userId }) => {
   const uiURL = getUiUrl();
   return (
     <Menu>
@@ -40,6 +48,9 @@ const MenuItems = () => {
       </Menu.Item>
       <Menu.Item>
         <a href={`${uiURL}${legacyRoutes.hosts}`}>Hosts</a>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to={`${getUserPatchesRoute(userId)}`}>Patches</Link>
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item>
