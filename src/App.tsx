@@ -40,15 +40,15 @@ const ErrorBoundary = bugsnagClient.getPlugin("react");
 const App: React.FC = () => (
   <ErrorBoundary>
     <Router>
-      <GQLWrapper
-        gqlURL={getGQLUrl()}
-        isDevelopment={isDevelopment()}
-        isTest={isTest()}
-        schemaString={getSchemaString()}
-        credentials="include"
-        shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
-      >
-        <ContextProviders>
+      <ContextProviders>
+        <GQLWrapper
+          gqlURL={getGQLUrl()}
+          isDevelopment={isDevelopment()}
+          isTest={isTest()}
+          schemaString={getSchemaString()}
+          credentials="include"
+          shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
+        >
           <Global
             styles={css`
               background-color: white;
@@ -56,8 +56,8 @@ const App: React.FC = () => (
             `}
           />
           <Content />
-        </ContextProviders>
-      </GQLWrapper>
+        </GQLWrapper>
+      </ContextProviders>
     </Router>
   </ErrorBoundary>
 );
