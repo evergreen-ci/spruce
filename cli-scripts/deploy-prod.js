@@ -3,7 +3,7 @@ const simpleGit = require("simple-git");
 const colors = require("colors/safe");
 const promptRun = require("prompt-run");
 
-const git = simpleGit("/Users/treygranderson/Desktop/dev/spruce");
+const git = simpleGit(__dirname);
 
 prompt.start();
 
