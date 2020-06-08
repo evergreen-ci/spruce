@@ -11,6 +11,8 @@ import {
   shouldEnableGQLMockServer,
 } from "utils/getEnvironmentVariables";
 import { Content } from "components/Content";
+
+// ANTD css
 import "antd/es/breadcrumb/style/css";
 import "antd/es/divider/style/css";
 import "antd/es/icon/style/css";
