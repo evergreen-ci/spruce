@@ -125,7 +125,7 @@ const ClearSubscriptionsCard: React.FC = () => {
       <PreferencesModal
         visible={showModal}
         title="Are you sure you want to clear all of your individual subscriptions?"
-        onSubmit={() => console.log("Submitted")}
+        onSubmit={() => undefined}
         onCancel={() => setShowModal(false)}
         action="Clear All"
       />
