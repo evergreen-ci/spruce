@@ -65,7 +65,7 @@
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
     "deploy:staging": "npm run build:staging && BUCKET=evergreen-staging.spruce npm run deploy",
-    "deploy:prod": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy",
+    "deploy:prod": "node cli-scripts/deploy-prod.js",
     "check-types": "tsc",
     "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
     "eslint:strict": "STRICT=1 eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
@@ -75,7 +75,8 @@
     "coverage": "npm run test -- --coverage --watchAll=false",
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
-    "codegen": "graphql-codegen --config codegen.js"
+    "codegen": "graphql-codegen --config codegen.js",
+    "deploy-prod:do-not-use-directly": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy"
   },
   "husky": {
     "hooks": {
@@ -130,6 +131,7 @@
     "@types/react-router-dom": "5.1.3",
     "@typescript-eslint/eslint-plugin": "2.31.0",
     "@typescript-eslint/parser": "2.31.0",
+    "colors": "^1.4.0",
     "cypress": "3.8.3",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
@@ -147,7 +149,10 @@
     "jest-junit": "10.0.0",
     "lint-staged": "10.2.2",
     "prettier": "1.19.1",
+    "prompt": "^1.0.0",
+    "prompt-run": "^1.4.5",
     "react-test-renderer": "16.12.0",
+    "simple-git": "^2.6.0",
     "ts-loader": "6.2.2",
     "tslint": "5.20.1",
     "tslint-config-prettier": "1.18.0",
