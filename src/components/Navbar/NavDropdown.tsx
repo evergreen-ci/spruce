@@ -27,6 +27,7 @@ export const NavDropdown = () => {
     <Dropdown overlay={<MenuItems userId={userId} />}>
       <NavDropdownTitle
         className="ant-dropdown-link"
+        data-cy="nav-dropdown-link"
         onClick={(e) => e.preventDefault()}
       >
         {displayName}
@@ -44,7 +45,9 @@ const MenuItems: React.FC<MenuItemsProps> = ({ userId }) => {
   return (
     <Menu>
       <Menu.Item>
-        <a href={`${uiURL}${legacyRoutes.distros}`}>Distros</a>
+        <a data-cy="legacy_route" href={`${uiURL}${legacyRoutes.distros}`}>
+          Distros
+        </a>
       </Menu.Item>
       <Menu.Item>
         <a href={`${uiURL}${legacyRoutes.hosts}`}>Hosts</a>
