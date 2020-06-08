@@ -2,8 +2,9 @@ const prompt = require("prompt");
 const simpleGit = require("simple-git");
 const colors = require("colors/safe");
 const promptRun = require("prompt-run");
+const path = require("path");
 
-const git = simpleGit(__dirname);
+const git = simpleGit(path.resolve(__dirname, ".."));
 
 prompt.start();
 
@@ -11,9 +12,9 @@ git
   .init()
   .then(() => () => {})
   .then(() => git.branchLocal())
-  .then(({ current }) => {
-    if (current !== "master") {
-      console.log("Current branch is", current);
+  .then((result) => {
+    if (result.current !== "master") {
+      console.log("Current branch is", result.current);
       console.log(
         colors.red(
           "Error: You must be on master branch to deploy to production"
