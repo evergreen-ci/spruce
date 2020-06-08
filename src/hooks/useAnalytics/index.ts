@@ -3,6 +3,13 @@ import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import get from "lodash/get";
 import { useLocation } from "react-router-dom";
+import NewRelicAPI from "new-relic-browser";
+
+declare global {
+  interface Window {
+    newrelic: typeof NewRelicAPI; // eslint-disable-line no-undef
+  }
+}
 
 type SendEvent = (
   eventName: string,

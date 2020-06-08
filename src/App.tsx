@@ -13,7 +13,6 @@ import {
   shouldEnableGQLMockServer,
 } from "utils/getEnvironmentVariables";
 import { Content } from "components/Content";
-import { AuthProvider } from "context/auth";
 
 // ANTD css
 import "antd/es/breadcrumb/style/css";
@@ -41,26 +40,24 @@ const ErrorBoundary = bugsnagClient.getPlugin("react");
 const App: React.FC = () => (
   <ErrorBoundary>
     <Router>
-      <AuthProvider>
-        <GQLWrapper
-          gqlURL={getGQLUrl()}
-          isDevelopment={isDevelopment()}
-          isTest={isTest()}
-          schemaString={getSchemaString()}
-          credentials="include"
-          shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
-        >
-          <ContextProviders>
-            <Global
-              styles={css`
-                background-color: white;
-                background: white;
-              `}
-            />
-            <Content />
-          </ContextProviders>
-        </GQLWrapper>
-      </AuthProvider>
+      <GQLWrapper
+        gqlURL={getGQLUrl()}
+        isDevelopment={isDevelopment()}
+        isTest={isTest()}
+        schemaString={getSchemaString()}
+        credentials="include"
+        shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
+      >
+        <ContextProviders>
+          <Global
+            styles={css`
+              background-color: white;
+              background: white;
+            `}
+          />
+          <Content />
+        </ContextProviders>
+      </GQLWrapper>
     </Router>
   </ErrorBoundary>
 );
