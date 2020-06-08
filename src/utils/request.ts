@@ -39,6 +39,5 @@ const getErrorMessage = (response: responseType, method: string) =>
     : `${method} Error: Did not receive a response from the server`;
 
 const handleError = (error: string) => {
-  console.warn(error);
   reportError(error).warning();
 };
