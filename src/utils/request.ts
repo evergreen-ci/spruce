@@ -21,7 +21,7 @@ export const post = async (
     if (options.onFailure) {
       options.onFailure(e);
     }
-    handleError(e);
+    handleError();
   }
 };
 
@@ -37,7 +37,6 @@ const getErrorMessage = (response: responseType, method: string) =>
     ? `${method} Error: ${response.status} - ${response.statusText}`
     : `${method} Error: Did not receive a response from the server`;
 
-const handleError = (error: string) => {
-  console.warn(error);
+const handleError = () => {
   // Log the error on bugsnag
 };
