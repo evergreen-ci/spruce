@@ -1,25 +1,19 @@
 import React from "react";
+import Bugsnag from "@bugsnag/js";
+import { getBugsnagApiKey } from "utils/getEnvironmentVariables";
+import BugsnagPluginReact from "@bugsnag/plugin-react";
 
-class ErrorBoundary extends React.Component<{}, { hasError: boolean }> {
-  public static getDerivedStateFromError(): { hasError: boolean } {
-    return { hasError: true };
-  }
+Bugsnag.start({
+  apiKey: getBugsnagApiKey(),
+  plugins: [new BugsnagPluginReact()],
+});
 
-  public constructor(props) {
-    super(props);
-    this.state = { hasError: false };
-  }
+const ErrorBoundaryComp = Bugsnag.getPlugin("react").createErrorBoundary(React);
 
-  public render(): JSX.Element | React.ReactNode {
-    const { hasError } = this.state;
-    const { children } = this.props;
-    if (hasError) {
-      // TODO: render error banner
-      return <h1>Something went wrong.</h1>;
-    }
-
-    return children;
-  }
-}
+const ErrorBoundary: React.FC = ({ children }) => (
+  <ErrorBoundaryComp FallbackComponent={() => <h1>Something went wrong.</h1>}>
+    {children}
+  </ErrorBoundaryComp>
+);
 
 export { ErrorBoundary };
