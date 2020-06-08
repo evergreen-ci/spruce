@@ -7,10 +7,10 @@ const { blue } = uiColors;
 
 const linkStyles = css`
   text-decoration: none;
-  margin: none;
-  padding: none;
+  margin: 0;
+  padding: 0;
   cursor: pointer;
-  color: ${blue.base} !important;
+  color: ${blue.base};
   &:hover {
     text-decoration: underline;
   }
