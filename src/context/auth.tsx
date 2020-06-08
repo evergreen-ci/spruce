@@ -1,6 +1,7 @@
 import React, { useContext, useReducer, useCallback } from "react";
 import axios from "axios";
 import { getLoginDomain } from "utils/getEnvironmentVariables";
+import { reportError } from "utils/errorReporting";
 
 interface State {
   isAuthenticated: boolean;
@@ -56,7 +57,7 @@ const logout = async (dispatch: Dispatch): Promise<void> => {
     dispatch({ type: "deauthenticate" });
     await axios.get(`${getLoginDomain()}/logout`);
   } catch (error) {
-    // TODO: log errors
+    reportError(error).warning();
   }
 };
 
@@ -75,7 +76,7 @@ const login = async (
     });
     dispatch({ type: "authenticate" });
   } catch (error) {
-    // TODO: log errors
+    // TODO: log errors if/when this is used in production
   }
 };
 

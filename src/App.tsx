@@ -1,11 +1,9 @@
 import * as React from "react";
-import bugsnag from "@bugsnag/browser";
-import bugsnagReact from "@bugsnag/plugin-react";
 import { Global, css } from "@emotion/core";
 import GQLWrapper from "gql/GQLWrapper";
 import { BrowserRouter as Router } from "react-router-dom";
+import { ErrorBoundary } from "components/ErrorBoundary";
 import {
-  getBugsnagApiKey,
   getGQLUrl,
   getSchemaString,
   isDevelopment,
@@ -28,12 +26,7 @@ import "antd/es/select/style/css";
 import "antd/es/skeleton/style/css";
 import "antd/es/spin/style/css";
 import "antd/es/table/style/css";
-
 import { ContextProviders } from "context/Providers";
-
-const bugsnagClient = bugsnag(getBugsnagApiKey());
-bugsnagClient.use(bugsnagReact, React);
-const ErrorBoundary = bugsnagClient.getPlugin("react");
 
 const App: React.FC = () => (
   <ErrorBoundary>

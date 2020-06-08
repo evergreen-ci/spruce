@@ -1,5 +1,6 @@
 import axios from "axios";
 import { getLoginDomain } from "utils/getEnvironmentVariables";
+import { reportError } from "utils/errorReporting";
 
 type optionsType = {
   onFailure?: (e) => void;
@@ -21,7 +22,7 @@ export const post = async (
     if (options.onFailure) {
       options.onFailure(e);
     }
-    handleError();
+    handleError(e);
   }
 };
 
@@ -37,6 +38,6 @@ const getErrorMessage = (response: responseType, method: string) =>
     ? `${method} Error: ${response.status} - ${response.statusText}`
     : `${method} Error: Did not receive a response from the server`;
 
-const handleError = () => {
-  // Log the error on bugsnag
+const handleError = (error: string) => {
+  reportError(error).warning();
 };
