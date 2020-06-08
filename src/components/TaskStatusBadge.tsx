@@ -12,6 +12,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Dispatched]: Variant.Yellow,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Failed]: Variant.Red,
+  [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.StatusBlocked]: Variant.DarkGray,
   [TaskStatus.StatusPending]: Variant.LightGray,
 };
@@ -25,7 +26,8 @@ const failureColors = {
 // the status colors that are not supported by the leafygreen Badge variants
 const mapUnsupportedBadgeColors = {
   [TaskStatus.SystemFailed]: failureColors,
-  [TaskStatus.TestTimedOut]: failureColors,
+  [TaskStatus.SystemTimedOut]: failureColors,
+  [TaskStatus.SystemUnresponsive]: failureColors,
   [TaskStatus.SetupFailed]: {
     border: "#E7DBEC",
     fill: "#F3EDF5",

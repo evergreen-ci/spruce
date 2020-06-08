@@ -2,8 +2,11 @@ import React from "react";
 import { Breadcrumb } from "antd";
 import { routes, paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
+import { uiColors } from "@leafygreen-ui/palette";
 import { H3, P1 } from "components/Typography";
 import { StyledRouterLink } from "components/styles/StyledLink";
+
+const { blue } = uiColors;
 
 interface Props {
   versionId?: string; // only required when rendered on task page
@@ -21,20 +24,20 @@ export const BreadCrumb: React.FC<Props> = ({
     <StyledBreadcrumb>
       <Breadcrumb.Item>
         <StyledP1>
-          <StyledRouterLink id="bc-my-patches" to={routes.myPatches}>
+          <StyledBreadcrumbLink id="bc-my-patches" to={routes.myPatches}>
             My Patches
-          </StyledRouterLink>
+          </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
       <Breadcrumb.Item>
         {taskName ? (
           <StyledP1>
-            <StyledRouterLink
+            <StyledBreadcrumbLink
               id="bc-patch"
               to={`${paths.version}/${versionId}`}
             >
               {patch}
-            </StyledRouterLink>
+            </StyledBreadcrumbLink>
           </StyledP1>
         ) : (
           <H3 id="bc-patch">{patch}</H3>
@@ -55,4 +58,8 @@ const StyledP1 = styled(P1)`
 
 const StyledBreadcrumb = styled(Breadcrumb)`
   margin-bottom: 16px;
+`;
+
+const StyledBreadcrumbLink = styled(StyledRouterLink)`
+  color: ${blue.base} !important;
 `;

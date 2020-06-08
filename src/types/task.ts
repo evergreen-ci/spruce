@@ -49,23 +49,33 @@ export enum TaskStatus {
   //  2. a task is scheduled to run (when Task.Activated == true)
   Undispatched = "undispatched",
 
-  // TaskStarted indicates a task is running on an agent
+  // TaskStarted indicates a task is currently running
   Started = "started",
 
   // TaskDispatched indicates that an agent has received the task, but
   // the agent has not yet told Evergreen that it's running the task
   Dispatched = "dispatched",
 
-  // The task statuses below indicate that a task has finished.
+  // This is a temporary status which is the same as undispatched, but
+  // with the additional info that it's waiting for a dependency
+  StatusPending = "pending",
+
+  // The statuses below indicate that a task has finished.
   Succeeded = "success",
 
-  // These statuses indicate the types of failures that are stored in
-  // Task.Status field, build TaskCache and TaskEndDetails.
+  // These statuses indicate that the task failed, and it is likely a problem
+  // with the code being tested
   Failed = "failed",
-  SystemFailed = "system-failed",
   TestTimedOut = "test-timed-out",
-  SetupFailed = "setup-failed",
 
+  // These statuses indicate that the task failed, and it is likely a problem
+  // with the systems running the task
+  SetupFailed = "setup-failed",
+  SystemFailed = "system-failed",
+  SystemTimedOut = "system-timed-out",
+  SystemUnresponsive = "system-unresponsive",
+
+  // This status means that the task will not run because a dependency was
+  // not satisfied
   StatusBlocked = "blocked",
-  StatusPending = "pending",
 }
