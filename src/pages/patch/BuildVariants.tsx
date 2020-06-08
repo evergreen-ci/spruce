@@ -11,9 +11,6 @@ import { Divider } from "components/styles/Divider";
 import { Skeleton } from "antd";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
-import every from "lodash/every";
-import { TaskStatus } from "types/task";
-import get from "lodash/get";
 import { TaskSquare } from "./buildVariants/TaskSquare";
 
 export const BuildVariants: React.FC = () => {
@@ -23,13 +20,9 @@ export const BuildVariants: React.FC = () => {
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
     variables: { patchId: id },
-    pollInterval: 2000,
+    pollInterval: 5000,
   });
   useEffect(() => stopPolling, [stopPolling]);
-  const buildVariants = get(data, "patchBuildVariants", []);
-  if (data && allTasksHaveFinished(buildVariants)) {
-    stopPolling();
-  }
   return (
     <SiderCard>
       <H3>Build Variants</H3>
@@ -54,19 +47,6 @@ export const BuildVariants: React.FC = () => {
     </SiderCard>
   );
 };
-
-const allTasksHaveFinished = (
-  buildVariants: PatchBuildVariantsQuery["patchBuildVariants"]
-) =>
-  every(buildVariants, ({ tasks }) =>
-    every(
-      tasks,
-      ({ status }) =>
-        status !== TaskStatus.Started &&
-        status !== TaskStatus.Dispatched &&
-        status !== TaskStatus.Undispatched
-    )
-  );
 
 const BuildVariant = styled.div`
   margin-bottom: 8px;
