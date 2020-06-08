@@ -11,8 +11,8 @@ import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
 import { useQuery } from "@apollo/react-hooks";
-import { GET_USER } from "gql/queries";
-import { GetUserQuery } from "gql/generated/types";
+import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
+import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { PageLayout } from "components/styles/Layout";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatch } from "pages/ConfigurePatch";
@@ -21,6 +21,7 @@ import { MyPatches } from "pages/MyPatches";
 import get from "lodash/get";
 import { PatchRedirect } from "pages/PatchRedirect";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
+import { WelcomeModal } from "components/WelcomeModal";
 
 export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -29,8 +30,15 @@ export const Content: React.FC = () => {
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
   // therefore this could be any query as long as it is top-level
   const { data } = useQuery<GetUserQuery>(GET_USER);
+  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
+    GET_USER_SETTINGS
+  );
   localStorage.setItem("userId", get(data, "user.userId", ""));
-
+  const hasUsedSpruceBefore = get(
+    userSettingsData,
+    "userSettings.useSpruceOptions.hasUsedSpruceBefore",
+    true
+  );
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
@@ -56,6 +64,7 @@ export const Content: React.FC = () => {
         <Route path={routes.login} component={Login} />
         <Route component={PageDoesNotExist} />
       </Switch>
+      {!hasUsedSpruceBefore && <WelcomeModal />}
     </PageLayout>
   );
 };

@@ -14,6 +14,7 @@ import { Content } from "components/Content";
 
 // ANTD css
 import "antd/es/breadcrumb/style/css";
+import "antd/es/carousel/style/css";
 import "antd/es/divider/style/css";
 import "antd/es/icon/style/css";
 import "antd/es/input-number/style/css";
