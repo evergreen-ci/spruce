@@ -14,23 +14,38 @@ import {
 } from "gql/generated/types";
 import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
+import { usePatchAnalytics } from "analytics";
 
 export const TaskFilters: React.FC = () => {
+  const patchAnalytics = usePatchAnalytics();
+  const sendFilterTasksEvent = (filterBy: string) =>
+    patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
+
   const [
     variantFilterValue,
     variantFilterValueOnChange,
-  ] = useFilterInputChangeHandler(PatchTasksQueryParams.Variant, true);
+  ] = useFilterInputChangeHandler(
+    PatchTasksQueryParams.Variant,
+    true,
+    sendFilterTasksEvent
+  );
   const [
     taskNameFilterValue,
     taskNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(PatchTasksQueryParams.TaskName, true);
+  ] = useFilterInputChangeHandler(
+    PatchTasksQueryParams.TaskName,
+    true,
+    sendFilterTasksEvent
+  );
   const [statusesVal, statusesValOnChange] = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
-    true
+    true,
+    sendFilterTasksEvent
   );
   const [baseStatusesVal, baseStatusesValOnChange] = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
-    true
+    true,
+    sendFilterTasksEvent
   );
 
   // fetch and poll patch's task statuses so statuses filters only show statuses relevant to the patch
