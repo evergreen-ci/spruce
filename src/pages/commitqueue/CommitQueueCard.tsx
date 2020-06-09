@@ -49,7 +49,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         refetchQueries: ["CommitQueue"],
       });
     } catch (err) {
-      // console.log(err); // TODO: Replace this with better error handling
+      // TODO show error banner
     }
   };
   return (

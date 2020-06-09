@@ -141,7 +141,7 @@ const LogMeOutCard: React.FC = () => {
       <PreferencesModal
         visible={showModal}
         title="Are you sure you want to log out from everywhere?"
-        onSubmit={() => console.log("Submitted")}
+        onSubmit={() => undefined}
         onCancel={() => setShowModal(false)}
         action="Log out"
       />

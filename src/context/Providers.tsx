@@ -1,7 +1,7 @@
 import React from "react";
 import LeafyGreenProvider from "@leafygreen-ui/leafygreen-provider";
-import { AuthProvider } from "./auth";
-import { ToastProvider } from "./toast";
+import { ToastProvider } from "context/toast";
+import { AuthProvider } from "context/auth";
 
 export const ContextProviders: React.FC = ({ children }) => (
   <AuthProvider>

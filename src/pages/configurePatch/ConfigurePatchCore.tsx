@@ -70,8 +70,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         variables: { patchId: id, reconfigure: configurePatchParam },
       });
     } catch (error) {
-      // TODO: log this error
-      // console.error(error);
+      // TODO show error banner
     }
   };
   const scheduledPatchId = get(data, "schedulePatch.id");

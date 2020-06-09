@@ -32,3 +32,4 @@ export {
   useSetColumnDefaultSortOrder,
   useLegacyUIURL,
 };
+export { useAnalytics } from "./useAnalytics";

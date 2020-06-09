@@ -20,6 +20,8 @@ interface Props {
   dataCy?: string;
   glyph?: React.ReactElement;
   size?: Size;
+  href?: string;
+  target?: string;
 }
 
 export const Button: React.FC<Props> = ({
@@ -30,6 +32,8 @@ export const Button: React.FC<Props> = ({
   disabled,
   dataCy,
   glyph,
+  href,
+  target,
 }) => (
   <LeafyGreenButton
     data-cy={dataCy}
@@ -37,6 +41,8 @@ export const Button: React.FC<Props> = ({
     onClick={onClick}
     disabled={disabled}
     glyph={loading ? <StyledIcon type="loading" /> : glyph}
+    href={href}
+    target={target}
   >
     {children}
   </LeafyGreenButton>

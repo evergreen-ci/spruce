@@ -503,6 +503,7 @@ export type TaskLogLinks = {
   agentLogLink?: Maybe<Scalars["String"]>;
   systemLogLink?: Maybe<Scalars["String"]>;
   taskLogLink?: Maybe<Scalars["String"]>;
+  eventLogLink?: Maybe<Scalars["String"]>;
 };
 
 export type TaskResult = {
@@ -694,6 +695,12 @@ export type UpdateUserSettingsMutationVariables = {
 };
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
+
+export type GetPatchFiltersEventDataQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchFiltersEventDataQuery = { patch: { status: string } };
 
 export type ClientConfigQueryVariables = {};
 
@@ -974,6 +981,13 @@ export type GetTaskQuery = {
       requiredStatus: RequiredStatus;
       uiLink: string;
     }>;
+    logs: {
+      allLogLink?: Maybe<string>;
+      agentLogLink?: Maybe<string>;
+      systemLogLink?: Maybe<string>;
+      taskLogLink?: Maybe<string>;
+      eventLogLink?: Maybe<string>;
+    };
   }>;
 };
 
