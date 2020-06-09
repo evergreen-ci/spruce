@@ -1,23 +1,20 @@
 import React from "react";
 import { MockedProvider } from "@apollo/react-testing";
-import {
-  render,
-  fireEvent,
-  queryHelpers,
-  waitFor,
-  screen,
-} from "@testing-library/react";
+import { render, fireEvent, queryHelpers } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { GET_USER, GET_PATCH, GET_PATCH_TASK_STATUSES } from "gql/queries";
-import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTabs } from "pages/patch/PatchTabs";
 import { ContextProviders } from "context/Providers";
-import wait from "waait";
-import { act } from "react-dom/test-utils";
 import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { Router } from "react-router-dom";
 import { createMemoryHistory } from "history";
+
+/**
+ * UNABLE TO GET THESE TESTS TO WORK AFTER 5 HOURS OF EFFORT
+ * MADE A TICKET TO REVISIT INTEGRATION TESTS AT A LATER DATE
+ * 1. BUGSNAG IS A PAIN BECAUSE IT CANNOT BE RENDERED IN TESTS - MUST FIND WAY AROUND BUGNSAG
+ * 2. ANALYTICS EVENT NOT BEING TRIGGERED WHEN IT IS SUPPOSED TO BE; THEREFORE FAILING TEST
+ */
 
 // @ts-ignore
 window.newrelic = {
@@ -43,7 +40,7 @@ test("Interacting with tracked HTML elements calls addPageAction function with c
   history.push(
     "/patch/123/tasks?page=0&statuses=failed,success&taskName=cloud&variant=ubun"
   );
-  const { container, debug } = render(
+  const { container } = render(
     <Router history={history}>
       <MockedProvider mocks={mocks} addTypename={false}>
         <ContextProviders>

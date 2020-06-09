@@ -31,7 +31,6 @@ export const usePatchAnalytics = (): PatchAnalytics => {
   const status = get(eventData, "patch.status", undefined);
 
   const sendEvent: PatchAnalytics["sendEvent"] = (action) => {
-    console.log("actionnnn", action);
     addPageAction<Action, P>(action, {
       object: "Patch",
       userId,

@@ -6,6 +6,7 @@ import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { useParams } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
 
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
@@ -24,10 +25,14 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
     defaultPath: `${paths.version}/${id}/${DEFAULT_PATCH_TAB}`,
   });
 
+  const patchAnalytics = usePatchAnalytics();
+
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_PATCH_TAB,
     path: `${paths.version}/${id}`,
+    sendAnalyticsEvent: (tab: string) =>
+      patchAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
 
   return (
