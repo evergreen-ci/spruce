@@ -2,7 +2,6 @@ import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
 
 const arrayFormat = "comma";
 
@@ -13,7 +12,7 @@ const updateQueryParam = debounce(
     search: string,
     replace: (path: string) => void,
     pathname: string,
-    sendAnalyticsEvent: () => void,
+    sendAnalyticsEvent: (filterBy: string) => void,
     resetPage?: boolean
   ) => {
     const nextQueryParams = queryString.stringify(
@@ -25,7 +24,7 @@ const updateQueryParam = debounce(
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
-    sendAnalyticsEvent();
+    sendAnalyticsEvent(urlSearchParam);
   },
   250
 );
@@ -46,11 +45,11 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
  */
 export const useFilterInputChangeHandler = (
   urlSearchParam: string,
-  resetPage?: boolean
+  resetPage?: boolean,
+  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const patchAnalytics = usePatchAnalytics();
 
   const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
@@ -64,11 +63,7 @@ export const useFilterInputChangeHandler = (
       search,
       replace,
       pathname,
-      () =>
-        patchAnalytics.sendEvent({
-          name: "Filter Tasks",
-          filterBy: urlSearchParam,
-        }),
+      sendAnalyticsEvent,
       resetPage
     );
   };

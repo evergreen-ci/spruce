@@ -1,6 +1,5 @@
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
-import { usePatchAnalytics } from "analytics";
 
 /**
  * @param  {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
@@ -12,11 +11,11 @@ import { usePatchAnalytics } from "analytics";
  */
 export const useStatusesFilter = (
   urlParam: string,
-  resetPage?: boolean
+  resetPage?: boolean,
+  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string[], (newValue: string[]) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
-  const patchAnalytics = usePatchAnalytics();
 
   const onChange = (newValue: string[]): void => {
     const parsed = queryString.parse(search, { arrayFormat });
@@ -29,7 +28,7 @@ export const useStatusesFilter = (
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
-    patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy: urlParam });
+    sendAnalyticsEvent(urlParam);
   };
 
   const { [urlParam]: rawStatuses } = queryString.parse(search, {
