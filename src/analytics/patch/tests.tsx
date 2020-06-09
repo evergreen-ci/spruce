@@ -1,15 +1,33 @@
 import React from "react";
-import { renderHook } from "@testing-library/react-hooks";
-import { usePatchAnalytics } from "analytics/patch/usePatchAnalytics";
-import { MemoryRouter as Router } from "react-router-dom";
-import { GET_USER, GET_PATCH, GET_PATCH_TASK_STATUSES } from "gql/queries";
-import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
 import { MockedProvider } from "@apollo/react-testing";
+import {
+  render,
+  fireEvent,
+  queryHelpers,
+  waitFor,
+  screen,
+} from "@testing-library/react";
+import "@testing-library/jest-dom/extend-expect";
+import { GET_USER, GET_PATCH, GET_PATCH_TASK_STATUSES } from "gql/queries";
+import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
+import { PatchTabs } from "pages/patch/PatchTabs";
+import { ContextProviders } from "context/Providers";
+import wait from "waait";
+import { act } from "react-dom/test-utils";
+import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
+import { ErrorBoundary } from "components/ErrorBoundary";
+import { Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 // @ts-ignore
 window.newrelic = {
   addPageAction: jest.fn(),
 };
+
+jest.mock("@bugsnag/js", () => ({
+  start: jest.fn(),
+  getPlugin: jest.fn().mockReturnValue({ createErrorBoundary: jest.fn() }),
+}));
 
 jest.mock("react-router-dom", () => ({
   useLocation: jest.fn().mockReturnValue({
@@ -20,18 +38,25 @@ jest.mock("react-router-dom", () => ({
   useParams: jest.fn().mockReturnValue({ id: "123" }),
 }));
 
-const Wrapper: React.FC = ({ children }) => (
-  <MockedProvider mocks={mocks} addTypename={false}>
-    <Router>{children}</Router>
-  </MockedProvider>
-);
+test("Interacting with tracked HTML elements calls addPageAction function with correct params", async () => {
+  const history = createMemoryHistory();
+  history.push(
+    "/patch/123/tasks?page=0&statuses=failed,success&taskName=cloud&variant=ubun"
+  );
+  const { container, debug } = render(
+    <Router history={history}>
+      <MockedProvider mocks={mocks} addTypename={false}>
+        <ContextProviders>
+          <PatchTabs taskCount={10} />
+        </ContextProviders>
+      </MockedProvider>
+    </Router>
+  );
 
-test("it works", () => {
-  const { result, rerender } = renderHook(() => usePatchAnalytics(), {
-    wrapper: Router,
-  });
-
-  result.current.sendEvent({ name: "Filter Tasks", filterBy: "taskName" });
+  // await act(async () => await wait(0));
+  fireEvent.click(
+    queryHelpers.queryByAttribute("data-cy", container, "changes-tab")
+  );
 
   expect(window.newrelic.addPageAction).toHaveBeenCalledWith("Filter Tasks", {
     patchId: "123",
@@ -42,7 +67,8 @@ test("it works", () => {
     taskName: "cloud",
     variant: "ubun",
     userId: "happy-user",
-    filterBy: "taskName",
+    tab: "changes",
+    // filterBy: "taskName",
   });
 });
 
