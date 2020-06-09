@@ -2,8 +2,9 @@ const prompt = require("prompt");
 const simpleGit = require("simple-git");
 const colors = require("colors/safe");
 const promptRun = require("prompt-run");
+const path = require("path");
 
-const git = simpleGit(__dirname);
+const git = simpleGit(path.resolve(__dirname, ".."));
 
 prompt.start();
 
