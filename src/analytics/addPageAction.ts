@@ -11,9 +11,6 @@ export interface Analytics<Action> {
   sendEvent: (action: Action) => void;
 }
 
-interface ActionType {
-  name: string;
-}
 type AnalyticsObject =
   | "Patch"
   | "Task"
@@ -22,10 +19,15 @@ type AnalyticsObject =
   | "UserPatches"
   | "CommitQueue"
   | "Configure";
+
 interface RequiredProperties {
   object: AnalyticsObject;
   userId: string;
 }
+interface ActionType {
+  name: string;
+}
+
 export interface Properties {
   [key: string]: string | number;
 }
@@ -34,15 +36,10 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   { name, ...actionProps }: A,
   properties: P & RequiredProperties
 ) => {
-  let { newrelic } = window;
-  console.log("hello");
-  console.log("newrelic in func", newrelic);
-  // if (typeof newrelic !== "object") {
-  //   newrelic = {
-  //     addPageAction: ()
-  //   }
-  // }
-  console.log("55555");
+  const { newrelic } = window;
+  if (typeof newrelic !== "object") {
+    return;
+  }
   const { search } = window.location;
   newrelic.addPageAction(name, {
     ...properties,
