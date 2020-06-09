@@ -1,1 +1,2 @@
-export { usePatchAnalytics, PatchAnalyticsProvider } from "./context";
+// export { PatchAnalyticsProvider } from "./context";
+export { usePatchAnalytics } from "./usePatchAnalytics";

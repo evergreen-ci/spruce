@@ -7,6 +7,10 @@ declare global {
   }
 }
 
+export interface Analytics<Action> {
+  sendEvent: (action: Action) => void;
+}
+
 interface ActionType {
   name: string;
 }
@@ -31,7 +35,7 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
     ...actionProps,
   };
 
-  // console.log("analytics", { name, attributesToSend });
+  console.log("analytics", { name, attributesToSend });
 
   if (typeof newrelic !== "object") {
     return;
