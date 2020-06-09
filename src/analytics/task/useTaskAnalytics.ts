@@ -1,9 +1,13 @@
-import { PatchStatus } from "types/patch";
+import { TaskStatus } from "types/task";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
+import {
+  addPageAction,
+  Properties,
+  Analytics as A,
+} from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
@@ -24,12 +28,12 @@ type Action =
 
 interface P extends Properties {
   taskId: string;
-  taskStatus: PatchStatus;
+  taskStatus: TaskStatus;
   failedTestCount: number;
 }
-interface TaskAnalytics extends Analytics<Action> {}
+interface Analytics extends A<Action> {}
 
-export const usePatchAnalytics = (): TaskAnalytics => {
+export const useTaskAnalytics = (): Analytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery(GET_TASK_EVENT_DATA, {
@@ -38,7 +42,7 @@ export const usePatchAnalytics = (): TaskAnalytics => {
   const taskStatus = get(eventData, "patch.status", undefined);
   const failedTestCount = get(eventData, "patch.failedTestCount", undefined);
 
-  const sendEvent: TaskAnalytics["sendEvent"] = (action) => {
+  const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Task",
       userId,
