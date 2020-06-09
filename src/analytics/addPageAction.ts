@@ -14,8 +14,16 @@ export interface Analytics<Action> {
 interface ActionType {
   name: string;
 }
+type AnalyticsObject =
+  | "Patch"
+  | "Task"
+  | "Navbar"
+  | "Breadcrumb"
+  | "UserPatches"
+  | "CommitQueue"
+  | "Configure";
 interface RequiredProperties {
-  object: "Patch" | "Task";
+  object: AnalyticsObject;
   userId: string;
 }
 export interface Properties {
@@ -26,20 +34,19 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   { name, ...actionProps }: A,
   properties: P & RequiredProperties
 ) => {
-  const { newrelic } = window;
-
+  let { newrelic } = window;
+  console.log("hello");
+  console.log("newrelic in func", newrelic);
+  // if (typeof newrelic !== "object") {
+  //   newrelic = {
+  //     addPageAction: ()
+  //   }
+  // }
+  console.log("55555");
   const { search } = window.location;
-  const attributesToSend = {
+  newrelic.addPageAction(name, {
     ...properties,
     ...parseQueryString(search),
     ...actionProps,
-  };
-
-  console.log("analytics", { name, attributesToSend });
-
-  if (typeof newrelic !== "object") {
-    return;
-  }
-
-  newrelic.addPageAction(name, attributesToSend);
+  });
 };

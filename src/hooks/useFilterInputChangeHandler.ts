@@ -25,7 +25,8 @@ const updateQueryParam = debounce(
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
-    sendAnalyticsEvent();
+    console.log("chickennnn");
+    // sendAnalyticsEvent();
   },
   250
 );
@@ -52,11 +53,14 @@ export const useFilterInputChangeHandler = (
   const { replace } = useHistory();
   const patchAnalytics = usePatchAnalytics();
 
+  console.log("12121212", 12121212);
+
   const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
   const [value, setValue] = useState(inputValue);
 
   const onChange = (e: InputEvent): void => {
+    console.log("777777", 777777);
     setValue(e.target.value);
     updateQueryParam(
       urlSearchParam,
@@ -71,6 +75,10 @@ export const useFilterInputChangeHandler = (
         }),
       resetPage
     );
+    patchAnalytics.sendEvent({
+      name: "Filter Tasks",
+      filterBy: urlSearchParam,
+    });
   };
   return [value, onChange];
 };

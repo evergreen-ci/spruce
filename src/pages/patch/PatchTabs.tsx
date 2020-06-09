@@ -32,10 +32,10 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
 
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-      <Tab name="Tasks" id="task-tab">
+      <Tab name="Tasks" id="task-tab" data-cy="task-tab">
         <Tasks taskCount={taskCount} />
       </Tab>
-      <Tab name="Changes" id="changes-tab">
+      <Tab name="Changes" id="changes-tab" data-cy="changes-tab">
         <CodeChanges />
       </Tab>
     </StyledTabs>
