@@ -5,6 +5,7 @@ import {
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
 } from "gql/queries/get-task-logs";
+import queryString from "query-string";
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -19,12 +20,15 @@ import {
 } from "gql/generated/types";
 import { useQuery } from "@apollo/react-hooks";
 import { ApolloError } from "apollo-client";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
-import { LogMessageLine } from "./logTypes/LogMessageLine";
-import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
+import { LogMessageLine } from "pages/task/logs/logTypes/LogMessageLine";
+import { TaskEventLogLine } from "pages/task/logs/logTypes/TaskEventLogLine";
+import styled from "@emotion/styled";
+import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
+import { Button } from "components/Button";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -32,7 +36,21 @@ interface TaskEventLogEntryType extends TaskEventLogEntry {
 interface LogMessageType extends LogMessage {
   kind?: "logMessage";
 }
-export const EventLog = (): JSX.Element => {
+export enum QueryParams {
+  LogType = "logtype",
+}
+export enum LogTypes {
+  Agent = "agent",
+  System = "system",
+  Task = "task",
+  Event = "event",
+}
+interface Props {
+  currentLog: LogTypes;
+  htmlLink: string;
+  rawLink: string;
+}
+export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     EventLogsQuery,
@@ -47,10 +65,11 @@ export const EventLog = (): JSX.Element => {
     })),
     loading,
     error,
+    ...props,
   });
 };
 
-export const SystemLog = (): JSX.Element => {
+export const SystemLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     SystemLogsQuery,
@@ -62,10 +81,11 @@ export const SystemLog = (): JSX.Element => {
     data: get(data, "taskLogs.systemLogs", []),
     loading,
     error,
+    ...props,
   });
 };
 
-export const AgentLog = (): JSX.Element => {
+export const AgentLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     AgentLogsQuery,
@@ -77,10 +97,11 @@ export const AgentLog = (): JSX.Element => {
     data: get(data, "taskLogs.agentLogs", []),
     loading,
     error,
+    ...props,
   });
 };
 
-export const TaskLog = (): JSX.Element => {
+export const TaskLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
   const { data, loading, error } = useQuery<
     TaskLogsQuery,
@@ -92,6 +113,7 @@ export const TaskLog = (): JSX.Element => {
     data: get(data, "taskLogs.taskLogs", []),
     loading,
     error,
+    ...props,
   });
 };
 
@@ -99,28 +121,87 @@ const useRenderBody: React.FC<{
   loading: boolean;
   error: ApolloError;
   data: [TaskEventLogEntryType | LogMessageType];
-}> = ({ loading, error, data }) => {
-  const noLogs = <div id="cy-no-logs">No logs</div>;
-
+  currentLog: LogTypes;
+  htmlLink: string;
+  rawLink: string;
+}> = ({ loading, error, data, currentLog, rawLink, htmlLink }) => {
+  const { pathname } = useLocation();
+  const { replace } = useHistory();
   if (loading) {
     return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
   }
-  if (error) {
-    return <div>{error.message}</div>;
-  }
-  if (!data.length) {
-    return noLogs;
-  }
-
+  const hideLogs = error || !data.length;
+  const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const nextLogType = event.target.value as LogTypes;
+    replace(
+      `${pathname}?${queryString.stringify(
+        {
+          [QueryParams.LogType]: nextLogType,
+        },
+        { arrayFormat: "comma" }
+      )}`
+    );
+  };
   return (
     <>
-      {data.map((d) =>
-        d.kind === "taskEventLogEntry" ? (
-          <TaskEventLogLine key={uuid()} {...d} />
-        ) : (
-          <LogMessageLine key={uuid()} {...d} />
+      <StyledRadioGroup
+        variant="default"
+        onChange={onChangeLog}
+        value={currentLog}
+        name="log-select"
+      >
+        {!hideLogs ? (
+          <ButtonContainer>
+            {htmlLink && (
+              <Button dataCy="html-log-btn" target="_blank" href={htmlLink}>
+                HTML
+              </Button>
+            )}
+            {rawLink && (
+              <Button dataCy="raw-log-btn" target="_blank" href={rawLink}>
+                Raw
+              </Button>
+            )}
+          </ButtonContainer>
+        ) : null}
+        <Radio id="cy-task-radio" value={LogTypes.Task}>
+          Task Logs
+        </Radio>
+        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
+          Agent Logs
+        </Radio>
+        <Radio id="cy-system-radio" value={LogTypes.System}>
+          System Logs
+        </Radio>
+        <Radio id="cy-event-radio" value={LogTypes.Event}>
+          Event Logs
+        </Radio>
+      </StyledRadioGroup>
+      {hideLogs ? (
+        <div id="cy-no-logs">No logs found</div>
+      ) : (
+        data.map((d) =>
+          d.kind === "taskEventLogEntry" ? (
+            <TaskEventLogLine key={uuid()} {...d} />
+          ) : (
+            <LogMessageLine key={uuid()} {...d} />
+          )
         )
       )}
     </>
   );
 };
+
+const ButtonContainer = styled.div`
+  a:first-of-type {
+    margin-right: 8px;
+  }
+  margin-right: 24px;
+`;
+const StyledRadioGroup = styled(RadioGroup)`
+  display: flex;
+  align-items: center;
+  label {
+    margin-right: 24px;
+  }
+`;
