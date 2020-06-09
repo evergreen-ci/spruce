@@ -22,9 +22,8 @@ const { white } = uiColors;
 export const NavDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const displayName = get(data, "user.displayName");
-  const userId = get(data, "user.userId");
   return (
-    <Dropdown overlay={<MenuItems userId={userId} />}>
+    <Dropdown overlay={MenuItems}>
       <NavDropdownTitle
         className="ant-dropdown-link"
         data-cy="nav-dropdown-link"
@@ -37,10 +36,12 @@ export const NavDropdown = () => {
   );
 };
 
-interface MenuItemsProps {
-  userId: string;
-}
-const MenuItems: React.FC<MenuItemsProps> = ({ userId }) => {
+const MenuItems: React.FC = () => {
+  // Could not query for the userId field with useQuery or pass it in as a prop because
+  // Of how the antd Dropdown component is built. It will not render MenuItems as a
+  // Functional component so i can not use hooks. If i pass in the component as JSX
+  // with props the styling of the component will break.
+  const userId = localStorage.getItem("userId");
   const uiURL = getUiUrl();
   return (
     <Menu>
