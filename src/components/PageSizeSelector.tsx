@@ -8,6 +8,7 @@ const { Option } = Select;
 interface Props {
   value: number;
   dataTestId?: string;
+  sendAnalyticsEvent?: () => void;
 }
 
 export const PageSizeSelector: React.FC<Props> = ({ value, dataTestId }) => {

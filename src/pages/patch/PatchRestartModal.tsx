@@ -21,6 +21,7 @@ import { usePatchStatusSelect } from "hooks";
 import { useBannerDispatchContext } from "context/banners";
 import { TaskStatus } from "types/task";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
+import { usePatchAnalytics } from "analytics";
 
 const { gray } = uiColors;
 
@@ -73,10 +74,15 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     { toggleSelectedTask, setValidStatus },
   ] = usePatchStatusSelect(patchBuildVariants);
 
+  const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
     try {
+      patchAnalytics.sendEvent({
+        name: "Restart",
+        abort: shouldAbortInProgressTasks,
+      });
       await restartPatch({
         variables: {
           patchId,

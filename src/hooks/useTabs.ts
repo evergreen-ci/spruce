@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { TabToIndexMap } from "hooks/types";
 import { useParams, useHistory } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
 
 type TabSelectHandler = (index: number) => void;
 
@@ -26,6 +27,7 @@ export const useTabs = ({
 }): [number, TabSelectHandler] => {
   const { tab } = useParams<{ tab?: string }>();
   const history = useHistory();
+  const patchAnalytics = usePatchAnalytics();
 
   const getIndexFromTab = (t: string): number => {
     if (t && t in tabToIndexMap) {
@@ -42,6 +44,7 @@ export const useTabs = ({
     setSelectedTab(tabIndex);
     const currentTab = getTabFromIndex(tabIndex);
     history.replace(`${path}/${currentTab}`);
+    patchAnalytics.sendEvent({ name: "Change Tab", tab: currentTab });
   };
   return [selectedTab, selectTabHandler];
 };

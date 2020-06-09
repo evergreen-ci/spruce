@@ -18,15 +18,18 @@ interface Props {
 
 export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   const { id } = useParams<{ id: string }>();
+
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.version}/${id}/${DEFAULT_PATCH_TAB}`,
   });
+
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_PATCH_TAB,
     path: `${paths.version}/${id}`,
   });
+
   return (
     <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
       <Tab name="Tasks" id="task-tab">

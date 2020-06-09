@@ -2,6 +2,7 @@ import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
 
 const arrayFormat = "comma";
 
@@ -12,6 +13,7 @@ const updateQueryParam = debounce(
     search: string,
     replace: (path: string) => void,
     pathname: string,
+    sendAnalyticsEvent: () => void,
     resetPage?: boolean
   ) => {
     const nextQueryParams = queryString.stringify(
@@ -23,6 +25,7 @@ const updateQueryParam = debounce(
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
+    sendAnalyticsEvent();
   },
   250
 );
@@ -47,6 +50,7 @@ export const useFilterInputChangeHandler = (
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
+  const patchAnalytics = usePatchAnalytics();
 
   const parsed = queryString.parse(search, { arrayFormat });
   const inputValue = (parsed[urlSearchParam] || "").toString();
@@ -60,6 +64,11 @@ export const useFilterInputChangeHandler = (
       search,
       replace,
       pathname,
+      () =>
+        patchAnalytics.sendEvent({
+          name: "Filter Tasks",
+          filterBy: urlSearchParam,
+        }),
       resetPage
     );
   };
