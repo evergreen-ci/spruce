@@ -26,7 +26,7 @@ enum mapUrlTabToTitle {
   profile = "Profile",
   notifications = "Notifications",
   cli = "CLI & API",
-  newUI = "New UI",
+  newUI = "New UI Settings",
 }
 
 const Tabs: React.FC<PreferenceTabsProps> = ({
