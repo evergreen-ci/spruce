@@ -3,7 +3,6 @@ import { MockedProvider } from "@apollo/react-testing";
 import { render, fireEvent, queryHelpers } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
 import { GET_USER, GET_PATCH } from "gql/queries";
-import { GET_PATCH_FILTERS_EVENT_DATA } from "gql/queries/analytics/get-patch-filters-attributes";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { ContextProviders } from "context/Providers";
 import wait from "waait";
@@ -70,22 +69,6 @@ const mocks = [
   {
     request: {
       query: GET_PATCH,
-      variables: {
-        id: patchId,
-      },
-    },
-    result: {
-      data: {
-        patch: {
-          id: patchId,
-          status: "failed",
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: GET_PATCH_FILTERS_EVENT_DATA,
       variables: {
         id: patchId,
       },
