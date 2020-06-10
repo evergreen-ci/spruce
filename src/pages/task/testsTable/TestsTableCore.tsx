@@ -16,7 +16,6 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
-import queryString from "query-string";
 import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
@@ -30,8 +29,8 @@ import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-
-const arrayFormat = "comma";
+// import { useTaskAnalytics } from "analytics";
+import { stringifyQuery, parseQueryString } from "utils";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
@@ -68,16 +67,13 @@ export const TestsTableCore: React.FC = () => {
   const tableChangeHandler: TableOnChange<TestResult> = (
     ...[, , { order, columnKey }]
   ) => {
-    const nextQueryParams = queryString.stringify(
-      {
-        ...queryString.parse(search, { arrayFormat }),
-        [RequiredQueryParams.Category]: columnKey,
-        [RequiredQueryParams.Sort]:
-          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-        [RequiredQueryParams.Page]: "0",
-      },
-      { arrayFormat }
-    );
+    const nextQueryParams = stringifyQuery({
+      ...parseQueryString(search),
+      [RequiredQueryParams.Category]: columnKey,
+      [RequiredQueryParams.Sort]:
+        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+      [RequiredQueryParams.Page]: "0",
+    });
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
@@ -225,7 +221,7 @@ const getQueryVariables = (
   search: string,
   resourceId: string
 ): TaskTestsQueryVariables => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const category = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
