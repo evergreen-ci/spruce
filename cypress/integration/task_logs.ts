@@ -19,21 +19,23 @@ describe("task logs view", () => {
 
   it("HTML button should link to the html logs", () => {
     cy.visit(LOGS_ROUTE);
+    cy.get("#cy-system-radio").check();
     cy.dataCy("html-log-btn")
       .should("have.attr", "href")
       .and(
         "includes",
-        "/task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=T"
+        "task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=S"
       );
   });
 
   it("Raw button should link to the raw logs", () => {
     cy.visit(LOGS_ROUTE);
+    cy.get("#cy-system-radio").check();
     cy.dataCy("raw-log-btn")
       .should("have.attr", "href")
       .and(
         "includes",
-        "/task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=T&text=true"
+        "/task_log_raw/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0?type=S&text=true"
       );
   });
 
@@ -46,9 +48,7 @@ describe("task logs view", () => {
 
   it("Should update logtype query param to agent after checking agent radio button", () => {
     cy.visit(LOGS_ROUTE);
-    cy.get("#cy-agent-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-agent-radio").check();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=agent");
@@ -57,9 +57,7 @@ describe("task logs view", () => {
 
   it("Should update logtype query param to event after checking event radio button", () => {
     cy.visit(LOGS_ROUTE);
-    cy.get("#cy-event-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-event-radio").check();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=event");
@@ -68,9 +66,7 @@ describe("task logs view", () => {
 
   it("Should update logtype query param to system after checking system radio button", () => {
     cy.visit(LOGS_ROUTE);
-    cy.get("#cy-system-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-system-radio").check();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(LOGS_ROUTE);
       expect(loc.search).to.include("logtype=system");
@@ -107,8 +103,10 @@ describe("task logs view", () => {
       .should("be.checked");
   });
 
-  it("Should display 'No logs' when no logs found", () => {
+  it("Should display 'No logs' and hide HTML and Raw buttons when no logs found", () => {
     cy.visit(LOGS_ROUTE);
     cy.get("#cy-no-logs").contains("No logs");
+    cy.dataCy("html-log-btn").should("not.exist");
+    cy.dataCy("raw-log-btn").should("not.exist");
   });
 });
