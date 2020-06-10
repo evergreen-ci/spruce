@@ -8,6 +8,7 @@ import {
   SetPatchPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY } from "gql/mutations";
+import { usePatchAnalytics } from "analytics";
 import { useMutation } from "@apollo/react-hooks";
 import { StyledBody } from "./UnschedulePatchTasks";
 
@@ -45,6 +46,8 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     refetchQueries,
   });
 
+  const patchAnalytics = usePatchAnalytics();
+
   return (
     <Popconfirm
       key="priority"
@@ -66,6 +69,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
       onConfirm={() => {
         setParentLoading(true);
         setPatchPriority({ variables: { patchId, priority } });
+        patchAnalytics.sendEvent({ name: "Set Priority", priority });
       }}
       onCancel={hideMenu}
       okText="Set"
