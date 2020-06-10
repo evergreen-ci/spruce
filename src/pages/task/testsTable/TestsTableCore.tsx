@@ -39,6 +39,8 @@ export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
+
+  // initial query variables to use when making first gql query
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>(
     getQueryVariables(search, resourceId)
   );
@@ -48,6 +50,8 @@ export const TestsTableCore: React.FC = () => {
     cat,
     dir
   );
+
+  // initial request for task tests
   const { data, refetch, networkStatus } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
@@ -56,14 +60,18 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+
   useDisableTableSortersIfLoading(networkStatus);
+
+  // poll task tests
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
   });
-  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
+
+  // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (
     ...[, , { order, columnKey }]
   ) => {
@@ -81,8 +89,11 @@ export const TestsTableCore: React.FC = () => {
 
   const taskAnalytics = useTaskAnalytics();
 
+  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
+
   // initial table sort button state to reflect initial URL query params
   const { pageNum, limitNum } = getQueryVariables(search, resourceId);
+
   return (
     <>
       <TableControlOuterRow>
