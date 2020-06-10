@@ -28,7 +28,7 @@ const carouselCards = [
       "We’ve made it easier to navigate through your tasks and find the information you’re looking for.",
   },
   {
-    img: "some-img-3",
+    img: "newui_gif_06_10.gif",
     subtitle:
       "We really hope you enjoy the new UI, but just in case you miss the old Evergreen…",
     description:
