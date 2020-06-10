@@ -11,6 +11,7 @@ import { Popconfirm } from "antd";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer, Body } from "@leafygreen-ui/typography";
 import { DropdownItem } from "components/ButtonDropdown";
+import { usePatchAnalytics } from "analytics";
 
 interface UnscheduleProps {
   patchId: string;
@@ -57,6 +58,8 @@ export const UnschedulePatchTasks = forwardRef<HTMLDivElement, UnscheduleProps>(
       refetchQueries,
     });
 
+    const patchAnalytics = usePatchAnalytics();
+
     return (
       <Popconfirm
         icon={null}
@@ -76,6 +79,7 @@ export const UnschedulePatchTasks = forwardRef<HTMLDivElement, UnscheduleProps>(
         onConfirm={() => {
           setParentLoading(true);
           unschedulePatchTasks({ variables: { patchId, abort } });
+          patchAnalytics.sendEvent({ name: "Unschedule", abort });
         }}
         onCancel={hideMenu}
         okText="Yes"

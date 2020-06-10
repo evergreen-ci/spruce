@@ -15,15 +15,20 @@ type TabSelectHandler = (index: number) => void;
  * first item in returned array represents the selected tab index
  * second item in returned array is a handler function for selecting a tab. Pass it to the <Tab/> component
  */
+
+interface Props {
+  tabToIndexMap: TabToIndexMap;
+  defaultTab: string;
+  path?: string;
+  sendAnalyticsEvent?: (tab: string) => void;
+}
+
 export const useTabs = ({
   tabToIndexMap,
   defaultTab,
   path,
-}: {
-  tabToIndexMap: TabToIndexMap;
-  defaultTab: string;
-  path?: string;
-}): [number, TabSelectHandler] => {
+  sendAnalyticsEvent = () => undefined,
+}: Props): [number, TabSelectHandler] => {
   const { tab } = useParams<{ tab?: string }>();
   const history = useHistory();
 
@@ -42,6 +47,7 @@ export const useTabs = ({
     setSelectedTab(tabIndex);
     const currentTab = getTabFromIndex(tabIndex);
     history.replace(`${path}/${currentTab}`);
+    sendAnalyticsEvent(currentTab);
   };
   return [selectedTab, selectTabHandler];
 };
