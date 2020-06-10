@@ -81,6 +81,7 @@ const UserPatchesComponent: React.FC = () => {
         { arrayFormat }
       )}`
     );
+    userPatchesAnalytics.sendEvent({ name: "Filter Commit Queue" });
   };
 
   const renderTable = () => {
