@@ -10,23 +10,28 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { LogTypes } from "types/task";
+import { SaveSubscriptionMutationVariables } from "gql/generated/types";
 
 type Action =
-  | { name: "Filter Tests"; filterBy: string } //
-  | { name: "Restart" } //
-  | { name: "Schedule" } //
-  | { name: "Abort" } //
-  | { name: "Set Priority"; priority: number } //
-  | { name: "Unschedule" } //
-  | { name: "Change Page Size" } //
-  | { name: "Change Tab"; tab: string } //
-  | { name: "Click Logs HTML Button" } //
-  | { name: "Click Logs Raw Button" } //
-  | { name: "Select Logs Type"; logsType: LogTypes } //
-  | { name: "Add Notification" }
-  | { name: "Click Base Commit" } //
-  | { name: "Click Host Link" } //
-  | { name: "Click Spawn Host" }; //
+  | { name: "Filter Tests"; filterBy: string }
+  | { name: "Restart" }
+  | { name: "Schedule" }
+  | { name: "Abort" }
+  | { name: "Set Priority"; priority: number }
+  | { name: "Unschedule" }
+  | { name: "Change Page Size" }
+  | { name: "Change Tab"; tab: string }
+  | { name: "Click Logs HTML Button" }
+  | { name: "Click Logs Raw Button" }
+  | { name: "Select Logs Type"; logsType: LogTypes }
+  | { name: "Open Notification Modal" }
+  | {
+      name: "Add Notification";
+      subscription: SaveSubscriptionMutationVariables["subscription"];
+    }
+  | { name: "Click Base Commit" }
+  | { name: "Click Host Link" }
+  | { name: "Click Spawn Host" };
 
 interface P extends Properties {
   taskId: string;

@@ -244,7 +244,10 @@ export const ActionButtons = ({
           dataCy="notify-task"
           key="notifications"
           disabled={disabled}
-          onClick={() => setIsVisibleModal(!isVisibleModal)}
+          onClick={() => {
+            setIsVisibleModal(!isVisibleModal);
+            taskAnalytics.sendEvent({ name: "Open Notification Modal" });
+          }}
         >
           Add Notification
         </Button>
