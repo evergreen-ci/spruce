@@ -24,9 +24,9 @@ type Action =
   | { name: "Click Logs Raw Button" } //
   | { name: "Select Logs Type"; logsType: LogTypes } //
   | { name: "Add Notification" }
-  | { name: "Click Base Commit" }
-  | { name: "Click Host Link" }
-  | { name: "Click Spawn Host" };
+  | { name: "Click Base Commit" } //
+  | { name: "Click Host Link" } //
+  | { name: "Click Spawn Host" }; //
 
 interface P extends Properties {
   taskId: string;
