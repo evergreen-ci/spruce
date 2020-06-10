@@ -29,7 +29,7 @@ import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-// import { useTaskAnalytics } from "analytics";
+import { useTaskAnalytics } from "analytics";
 import { stringifyQuery, parseQueryString } from "utils";
 
 export interface UpdateQueryArg {
@@ -79,6 +79,8 @@ export const TestsTableCore: React.FC = () => {
     }
   };
 
+  const taskAnalytics = useTaskAnalytics();
+
   // initial table sort button state to reflect initial URL query params
   const { pageNum, limitNum } = getQueryVariables(search, resourceId);
   return (
@@ -101,6 +103,9 @@ export const TestsTableCore: React.FC = () => {
           <PageSizeSelector
             dataTestId="tests-table-page-size-selector"
             value={limitNum}
+            sendAnalyticsEvent={() =>
+              taskAnalytics.sendEvent({ name: "Change Page Size" })
+            }
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
