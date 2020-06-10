@@ -143,6 +143,9 @@ const UserPatchesComponent: React.FC = () => {
         <PageSizeSelector
           dataTestId="my-patches-page-size-selector"
           value={limit}
+          sendAnalyticsEvent={() =>
+            userPatchesAnalytics.sendEvent({ name: "Change Page Size" })
+          }
         />
       </PaginationRow>
       <>{renderTable()}</>
