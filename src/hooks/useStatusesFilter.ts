@@ -11,7 +11,8 @@ import { useLocation, useHistory } from "react-router-dom";
  */
 export const useStatusesFilter = (
   urlParam: string,
-  resetPage?: boolean
+  resetPage?: boolean,
+  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string[], (newValue: string[]) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
@@ -27,6 +28,7 @@ export const useStatusesFilter = (
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
+    sendAnalyticsEvent(urlParam);
   };
 
   const { [urlParam]: rawStatuses } = queryString.parse(search, {

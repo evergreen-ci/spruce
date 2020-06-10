@@ -34,6 +34,7 @@ import { Skeleton } from "antd";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { ColumnProps } from "antd/lib/table";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { usePatchAnalytics } from "analytics";
 
 interface Props {
   taskCount: number;
@@ -66,6 +67,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     refetch,
     search,
   });
+  const patchAnalytics = usePatchAnalytics();
+
   if (error) {
     return <div>{error.message}</div>;
   }
@@ -91,6 +94,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           <PageSizeSelector
             dataTestId="tasks-table-page-size-selector"
             value={limit}
+            sendAnalyticsEvent={() =>
+              patchAnalytics.sendEvent({ name: "Change Page Size" })
+            }
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
