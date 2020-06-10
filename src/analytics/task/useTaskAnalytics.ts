@@ -11,11 +11,12 @@ import {
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
-  | { name: "Filter Tests"; filterBy: string }
-  | { name: "Reset" }
-  | { name: "Abort" }
-  | { name: "Set Priority"; priority: number }
-  | { name: "Unschedule" }
+  | { name: "Filter Tests"; filterBy: string } //
+  | { name: "Restart" } //
+  | { name: "Schedule" } //
+  | { name: "Abort" } //
+  | { name: "Set Priority"; priority: number } //
+  | { name: "Unschedule" } //
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Click Logs HTML Button" }
