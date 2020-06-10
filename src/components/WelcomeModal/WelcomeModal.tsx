@@ -36,7 +36,7 @@ const carouselCards = [
   },
 ];
 
-export const WelcomeModal = () => {
+const WelcomeModal = () => {
   const [visible, setVisible] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
   const slider = useRef() as React.MutableRefObject<Carousel>;
@@ -65,7 +65,6 @@ export const WelcomeModal = () => {
       });
     } catch (e) {}
   };
-
   return (
     <Modal
       footer={
@@ -190,3 +189,5 @@ const DotContainer = styled.div`
   align-items: center;
   justify-content: center;
 `;
+
+export default WelcomeModal;
