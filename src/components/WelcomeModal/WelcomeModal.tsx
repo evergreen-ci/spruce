@@ -68,7 +68,11 @@ const WelcomeModal = () => {
   return (
     <Modal
       footer={
-        <Button variant={Variant.Primary} onClick={handleWelcomeClosed}>
+        <Button
+          variant={Variant.Primary}
+          onClick={handleWelcomeClosed}
+          data-cy="close-welcome-modal"
+        >
           Done
         </Button>
       }
@@ -79,6 +83,9 @@ const WelcomeModal = () => {
       maskStyle={{
         backgroundColor: black,
         opacity: 0.9,
+      }}
+      wrapProps={{
+        "data-cy": "welcome-modal",
       }}
     >
       <CardTitle>Welcome to the New Evergreen UI!</CardTitle>
