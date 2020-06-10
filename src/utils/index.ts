@@ -1,1 +1,1 @@
-export { parseQueryString } from "utils/parseQueryString";
+export { parseQueryString } from "utils/queryString/parseQueryString";
