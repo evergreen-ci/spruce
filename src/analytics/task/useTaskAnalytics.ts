@@ -46,8 +46,8 @@ export const useTaskAnalytics = (): Analytics => {
   const { data: eventData } = useQuery(GET_TASK_EVENT_DATA, {
     variables: { taskId: id },
   });
-  const taskStatus = get(eventData, "patch.status", undefined);
-  const failedTestCount = get(eventData, "patch.failedTestCount", undefined);
+  const taskStatus = get(eventData, "task.status", undefined);
+  const failedTestCount = get(eventData, "task.failedTestCount", undefined);
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
