@@ -10,6 +10,7 @@ import { Popconfirm } from "antd";
 import { Button } from "components/Button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { DropdownItem } from "components/ButtonDropdown";
+import { usePatchAnalytics } from "analytics";
 
 interface SchedulePatchTasksProps {
   patchId: string;
@@ -55,6 +56,7 @@ export const SchedulePatchTasks = forwardRef<
       },
       refetchQueries,
     });
+    const patchAnalytics = usePatchAnalytics();
 
     return (
       <Popconfirm
@@ -64,6 +66,7 @@ export const SchedulePatchTasks = forwardRef<
         onConfirm={() => {
           setParentLoading(true);
           schedulePatchTasks();
+          patchAnalytics.sendEvent({ name: "Schedule" });
         }}
         onCancel={hideMenu}
         okText="Yes"

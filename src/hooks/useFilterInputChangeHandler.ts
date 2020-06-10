@@ -12,6 +12,7 @@ const updateQueryParam = debounce(
     search: string,
     replace: (path: string) => void,
     pathname: string,
+    sendAnalyticsEvent: (filterBy: string) => void,
     resetPage?: boolean
   ) => {
     const nextQueryParams = queryString.stringify(
@@ -23,6 +24,7 @@ const updateQueryParam = debounce(
       { arrayFormat }
     );
     replace(`${pathname}?${nextQueryParams}`);
+    sendAnalyticsEvent(urlSearchParam);
   },
   250
 );
@@ -43,7 +45,8 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
  */
 export const useFilterInputChangeHandler = (
   urlSearchParam: string,
-  resetPage?: boolean
+  resetPage?: boolean,
+  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
@@ -60,6 +63,7 @@ export const useFilterInputChangeHandler = (
       search,
       replace,
       pathname,
+      sendAnalyticsEvent,
       resetPage
     );
   };

@@ -8,7 +8,8 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { routes } from "constants/routes";
-import { useLegacyUIURL } from "hooks/index";
+import { useLegacyUIURL } from "hooks";
+import { NavDropdown } from "./NavDropdown";
 
 const { Header } = Layout;
 const { white, blue, gray } = uiColors;
@@ -30,11 +31,14 @@ export const Navbar: React.FC = () => {
             <StyledSubtitle>Evergreen</StyledSubtitle>
           </Logo>
         </Link>
-        {legacyURL && (
-          <NavLink href={legacyURL} data-cy="legacy-ui-link">
-            Switch to legacy UI
-          </NavLink>
-        )}
+        <NavActionContainer>
+          {legacyURL && (
+            <NavLink href={legacyURL} data-cy="legacy-ui-link">
+              Switch to legacy UI
+            </NavLink>
+          )}
+          <NavDropdown />
+        </NavActionContainer>
       </InnerWrapper>
     </StyledHeader>
   );
@@ -50,7 +54,6 @@ const InnerWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   height: 100%;
 `;
 const Logo = styled.div`
@@ -64,4 +67,10 @@ const StyledSubtitle = styled(Subtitle)`
 
 const NavLink = styled(StyledLink)`
   color: ${blue.light2};
+  margin-right: 40px;
+`;
+
+const NavActionContainer = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
