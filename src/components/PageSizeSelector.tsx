@@ -11,7 +11,11 @@ interface Props {
   sendAnalyticsEvent?: () => void;
 }
 
-export const PageSizeSelector: React.FC<Props> = ({ value, dataTestId }) => {
+export const PageSizeSelector: React.FC<Props> = ({
+  value,
+  dataTestId,
+  sendAnalyticsEvent = () => undefined,
+}) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -26,6 +30,7 @@ export const PageSizeSelector: React.FC<Props> = ({ value, dataTestId }) => {
         { arrayFormat }
       )}`
     );
+    sendAnalyticsEvent();
   };
 
   return (
