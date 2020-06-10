@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -13,15 +13,16 @@ import {
 import { reportError } from "utils/errorReporting";
 
 const { gray, green, black } = uiColors;
+
 const carouselCards = [
   {
-    img: "some-img",
+    img: "mypatch_gif_06_10.gif",
     subtitle: "Discover your new and improved patches workflow!",
     description:
       "We’ve made your patches workflow better by adding more filtering options, reducing load times, and improving the design.",
   },
   {
-    img: "some-img-2",
+    img: "patch_gif_06_10.gif",
     subtitle: "We’ve also updated the patch page!",
     description:
       "We’ve made it easier to navigate through your tasks and find the information you’re looking for.",
@@ -34,9 +35,11 @@ const carouselCards = [
       "We’re still working every day to make this better, adding new features and new pages all the time. In case you want to opt out of the new UI and miss all the updates... navigate to your preferences to do so.",
   },
 ];
+
 export const WelcomeModal = () => {
   const [visible, setVisible] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
+  const slider = useRef() as React.MutableRefObject<Carousel>;
   const [updateUserSettings] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
@@ -48,7 +51,6 @@ export const WelcomeModal = () => {
       reportError(err).warning();
     },
   });
-
   const handleWelcomeClosed = async () => {
     try {
       await updateUserSettings({
@@ -63,6 +65,7 @@ export const WelcomeModal = () => {
       });
     } catch (e) {}
   };
+
   return (
     <Modal
       footer={
@@ -86,12 +89,17 @@ export const WelcomeModal = () => {
         autoplay
         dots={false}
         slickGoTo={activeSlide}
+        ref={slider}
       >
         {carouselCards.map((card) => (
           <CarouselCard key={`card_${card.img}`} {...card} />
         ))}
       </Carousel>
-      <CarouselDots activeSlide={activeSlide} cards={carouselCards} />
+      <CarouselDots
+        activeSlide={activeSlide}
+        cards={carouselCards}
+        slider={slider}
+      />
     </Modal>
   );
 };
@@ -102,10 +110,14 @@ type CarouselCard = {
   description: string;
 };
 
-const CarouselCard: React.FC<CarouselCard> = ({ subtitle, description }) => (
+const CarouselCard: React.FC<CarouselCard> = ({
+  img,
+  subtitle,
+  description,
+}) => (
   <CardContainer>
     <CardWrapper>
-      <ImgContainer />
+      <ImgContainer src={`/static/img/welcome_modal/${img}`} />
       <Body weight="medium">{subtitle}</Body>
       <Body>{description}</Body>
     </CardWrapper>
@@ -115,18 +127,27 @@ const CarouselCard: React.FC<CarouselCard> = ({ subtitle, description }) => (
 interface CarouselDotProps {
   activeSlide: number;
   cards: CarouselCard[];
+  slider: React.MutableRefObject<Carousel>;
 }
 
-const CarouselDots: React.FC<CarouselDotProps> = ({ activeSlide, cards }) => (
+const CarouselDots: React.FC<CarouselDotProps> = ({
+  activeSlide,
+  cards,
+  slider,
+}) => (
   <DotContainer>
     {cards.map((card, index) => (
-      <Dot key={`dot_${card.img}`} active={activeSlide === index} />
+      <Dot
+        key={`dot_${card.img}`}
+        active={activeSlide === index}
+        onClick={() => slider.current.goTo(index)}
+      />
     ))}
   </DotContainer>
 );
 
-const ImgContainer = styled.div`
-  height: 400px;
+const ImgContainer = styled.img`
+  height: 250px;
   width: 500px;
   margin-top: 40px;
   margin-bottom: 20px;
@@ -160,6 +181,9 @@ const Dot = styled.div`
   border-radius: 50%;
   margin-left: 8px;
   margin-right: 8px;
+  :hover {
+    cursor: pointer;
+  }
 `;
 const DotContainer = styled.div`
   display: flex;
