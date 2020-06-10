@@ -30,7 +30,8 @@ import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
 import { TaskTab } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { Metadata } from "./task/Metadata";
+import { Metadata } from "pages/task/Metadata";
+import { useTaskAnalytics } from "analytics";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -44,15 +45,23 @@ const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+  const taskAnalytics = useTaskAnalytics();
+
+  // automatically append default tab to end of url path
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
   });
+
+  // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
     path: `${paths.task}/${id}`,
+    sendAnalyticsEvent: (tab: string) =>
+      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
+
   const { data, loading, error, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables

@@ -18,7 +18,7 @@ type Action =
   | { name: "Set Priority"; priority: number } //
   | { name: "Unschedule" } //
   | { name: "Change Page Size" } //
-  | { name: "Change Tab"; tab: string }
+  | { name: "Change Tab"; tab: string } //
   | { name: "Click Logs HTML Button" }
   | { name: "Click Logs Raw Button" }
   | { name: "Select Logs Type" }
