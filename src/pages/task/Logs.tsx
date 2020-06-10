@@ -11,13 +11,9 @@ import {
 } from "pages/task/logs/LogTypes";
 import Maybe from "graphql/tsutils/Maybe";
 import { Button } from "components/Button";
+import { useTaskAnalytics } from "analytics";
+import { LogTypes } from "types/task";
 
-enum LogTypes {
-  Agent = "agent",
-  System = "system",
-  Task = "task",
-  Event = "event",
-}
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 enum QueryParams {
   LogType = "logtype",
@@ -49,6 +45,7 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
   const logTypeParam = (parsed[QueryParams.LogType] || "")
     .toString()
     .toLowerCase();
+  const taskAnalytics = useTaskAnalytics();
 
   // set current log based on query param
   useEffect(() => {
@@ -75,7 +72,9 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
       )}`
     );
   };
+
   const { htmlLink, rawLink } = getLinks(logLinks, currentLog);
+
   return (
     <div>
       <StyledRadioGroup
@@ -86,26 +85,76 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
       >
         <ButtonContainer>
           {htmlLink && (
-            <Button dataCy="html-log-btn" target="_blank" href={htmlLink}>
+            <Button
+              dataCy="html-log-btn"
+              target="_blank"
+              href={htmlLink}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
+              }
+            >
               HTML
             </Button>
           )}
           {rawLink && (
-            <Button dataCy="raw-log-btn" target="_blank" href={rawLink}>
+            <Button
+              dataCy="raw-log-btn"
+              target="_blank"
+              href={rawLink}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+              }
+            >
               Raw
             </Button>
           )}
         </ButtonContainer>
-        <Radio id="cy-task-radio" value={LogTypes.Task}>
+        <Radio
+          id="cy-task-radio"
+          value={LogTypes.Task}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Task,
+            })
+          }
+        >
           Task Logs
         </Radio>
-        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
+        <Radio
+          id="cy-agent-radio"
+          value={LogTypes.Agent}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Agent,
+            })
+          }
+        >
           Agent Logs
         </Radio>
-        <Radio id="cy-system-radio" value={LogTypes.System}>
+        <Radio
+          id="cy-system-radio"
+          value={LogTypes.System}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.System,
+            })
+          }
+        >
           System Logs
         </Radio>
-        <Radio id="cy-event-radio" value={LogTypes.Event}>
+        <Radio
+          id="cy-event-radio"
+          value={LogTypes.Event}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Event,
+            })
+          }
+        >
           Event Logs
         </Radio>
       </StyledRadioGroup>

@@ -9,6 +9,7 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { LogTypes } from "types/task";
 
 type Action =
   | { name: "Filter Tests"; filterBy: string } //
@@ -19,9 +20,9 @@ type Action =
   | { name: "Unschedule" } //
   | { name: "Change Page Size" } //
   | { name: "Change Tab"; tab: string } //
-  | { name: "Click Logs HTML Button" }
-  | { name: "Click Logs Raw Button" }
-  | { name: "Select Logs Type" }
+  | { name: "Click Logs HTML Button" } //
+  | { name: "Click Logs Raw Button" } //
+  | { name: "Select Logs Type"; logsType: LogTypes } //
   | { name: "Add Notification" }
   | { name: "Click Base Commit" }
   | { name: "Click Host Link" }

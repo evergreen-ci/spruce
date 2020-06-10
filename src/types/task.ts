@@ -36,6 +36,14 @@ export enum TaskTab {
   Files = "files",
   BuildBaron = "build-baron",
 }
+
+export enum LogTypes {
+  Agent = "agent",
+  System = "system",
+  Task = "task",
+  Event = "event",
+}
+
 export enum TaskStatus {
   Inactive = "inactive",
 
