@@ -56,10 +56,10 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
 
   const { htmlLink, rawLink } = getLinks(logLinks, currentLog);
   const LogComp = options[currentLog];
-  return LogComp ? (
-    <LogComp htmlLink={htmlLink} rawLink={rawLink} currentLog={currentLog} />
-  ) : (
-    <></>
+  return (
+    LogComp && (
+      <LogComp htmlLink={htmlLink} rawLink={rawLink} currentLog={currentLog} />
+    )
   );
 };
 
