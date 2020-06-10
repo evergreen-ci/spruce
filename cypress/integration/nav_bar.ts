@@ -8,6 +8,7 @@ const SPRUCE_URLS = {
 const LEGACY_URLS = {
   version: `/version/${PATCH_ID}`,
   userPatches: `/patches/user/${USER_ID}`,
+  distros: `/distros`,
 };
 describe("Nav Bar", () => {
   before(() => {
@@ -40,5 +41,13 @@ describe("Nav Bar", () => {
   it("Visiting a page with no legacy equivelant should not display a nav link", () => {
     cy.visit(SPRUCE_URLS.cli);
     cy.dataCy("legacy-ui-link").should("not.exist");
+  });
+  it("Nav Dropdown should provide links to legacy pages", () => {
+    cy.dataCy("legacy_route").should("not.exist");
+    cy.dataCy("nav-dropdown-link").trigger("mouseover");
+    cy.dataCy("legacy_route").should("exist");
+    cy.dataCy("legacy_route")
+      .should("have.attr", "href")
+      .and("include", LEGACY_URLS.distros);
   });
 });
