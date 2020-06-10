@@ -44,7 +44,7 @@ export const useTaskAnalytics = (): Analytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery(GET_TASK_EVENT_DATA, {
-    variables: { id },
+    variables: { taskId: id },
   });
   const taskStatus = get(eventData, "patch.status", undefined);
   const failedTestCount = get(eventData, "patch.failedTestCount", undefined);

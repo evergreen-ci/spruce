@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
@@ -62,17 +62,19 @@ const TaskCore: React.FC = () => {
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
 
+  // Query task data
   const { data, loading, error, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 2000,
+    pollInterval: 5000,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
   });
+  useEffect(() => stopPolling, [stopPolling]);
 
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");

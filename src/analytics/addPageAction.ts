@@ -37,13 +37,17 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   properties: P & RequiredProperties
 ) => {
   const { newrelic } = window;
-  if (typeof newrelic !== "object") {
-    return;
-  }
   const { search } = window.location;
-  newrelic.addPageAction(name, {
+  const attributesToSend = {
     ...properties,
     ...parseQueryString(search),
     ...actionProps,
-  });
+  };
+
+  if (typeof newrelic !== "object") {
+    console.log("attributesToSend", attributesToSend);
+    return;
+  }
+
+  newrelic.addPageAction(name, attributesToSend);
 };
