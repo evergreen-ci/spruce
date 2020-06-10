@@ -6,7 +6,7 @@ import {
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 type Action =
-  | { name: "Filter Patches" }
+  | { name: "Filter Patches"; filterBy: string } //
   | { name: "Filter Commit Queue" }
   | { name: "Change Page Size" }
   | { name: "Click patch link" }
