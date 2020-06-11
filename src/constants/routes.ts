@@ -37,6 +37,7 @@ export enum preferencesTabRoutes {
   Profile = "profile",
   Notifications = "notifications",
   CLI = "cli",
+  NewUI = "newUI",
 }
 
 export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>

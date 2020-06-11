@@ -13,6 +13,7 @@ import { withBannersContext } from "hoc/withBannersContext";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { CliTab } from "./preferencesTabs/CliTab";
+import { NewUITab } from "./preferencesTabs/NewUITab";
 
 interface PreferenceTabsProps {
   tabKey: string;
@@ -25,6 +26,7 @@ enum mapUrlTabToTitle {
   profile = "Profile",
   notifications = "Notifications",
   cli = "CLI & API",
+  newUI = "New UI Settings",
 }
 
 const Tabs: React.FC<PreferenceTabsProps> = ({
@@ -55,6 +57,7 @@ const componentMap = {
   profile: ProfileTab,
   notifications: NotificationsTab,
   cli: CliTab,
+  newUI: NewUITab,
 };
 
 const Container = styled.div`

@@ -323,6 +323,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
 };
@@ -610,7 +611,15 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { status: string } };
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+
+export type GetTaskEventDataQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskEventDataQuery = {
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+};
 
 export type AbortTaskMutationVariables = {
   taskId: Scalars["String"];
@@ -713,6 +722,10 @@ export type UpdateUserSettingsMutationVariables = {
 };
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
+
+export type AwsRegionsQueryVariables = {};
+
+export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
 
 export type ClientConfigQueryVariables = {};
 
@@ -1030,6 +1043,7 @@ export type GetUserSettingsQuery = {
       spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
+    useSpruceOptions?: Maybe<{ spruceV1?: Maybe<boolean> }>;
   }>;
 };
 

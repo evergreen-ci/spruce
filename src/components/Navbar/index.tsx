@@ -7,9 +7,11 @@ import { StyledLink } from "components/styles";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
+import { useNavbarAnalytics } from "analytics";
 import { routes } from "constants/routes";
 import { useLegacyUIURL } from "hooks";
-import { useNavbarAnalytics } from "analytics";
+import { getUiUrl } from "utils/getEnvironmentVariables";
+
 import { NavDropdown } from "./NavDropdown";
 
 const { Header } = Layout;
@@ -18,23 +20,36 @@ const { white, blue, gray } = uiColors;
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
+  const uiURL = getUiUrl();
   const navbarAnalytics = useNavbarAnalytics();
-
   if (!isAuthenticated) {
     return null;
   }
   return (
     <StyledHeader>
       <InnerWrapper>
-        <Link
-          to={routes.myPatches}
-          onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
-        >
-          <Logo>
-            <EvergreenLogo />
-            <StyledSubtitle>Evergreen</StyledSubtitle>
-          </Logo>
-        </Link>
+        <NavActionContainer>
+          <Link
+            to={routes.myPatches}
+            onClick={() =>
+              navbarAnalytics.sendEvent({ name: "Click Logo Link" })
+            }
+          >
+            <Logo>
+              <EvergreenLogo />
+              <StyledSubtitle>Evergreen</StyledSubtitle>
+            </Logo>
+          </Link>
+
+          <NavTitle
+            href={`${uiURL}/waterfall`}
+            onClick={() =>
+              navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
+            }
+          >
+            Waterfall
+          </NavTitle>
+        </NavActionContainer>
         <NavActionContainer>
           {legacyURL && (
             <NavLink
@@ -83,4 +98,13 @@ const NavLink = styled(StyledLink)`
 const NavActionContainer = styled.div`
   display: flex;
   flex-direction: row;
+  align-items: center;
+`;
+
+const NavTitle = styled.a`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: ${white};
+  margin-left: 40px;
 `;
