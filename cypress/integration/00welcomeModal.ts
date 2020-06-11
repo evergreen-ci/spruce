@@ -6,7 +6,6 @@ describe("Welcome Modal", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
   it("Displays a welcome modal only when you first visit spruce", () => {
