@@ -19,6 +19,7 @@ export const GET_USER_SETTINGS = gql`
       }
       useSpruceOptions {
         hasUsedSpruceBefore
+        spruceV1
       }
     }
   }

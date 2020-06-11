@@ -323,6 +323,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
 };
@@ -462,7 +463,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]>;
   generatedBy?: Maybe<Scalars["String"]>;
   aborted?: Maybe<Scalars["Boolean"]>;
-  baseTaskMetadata: BaseTaskMetadata;
+  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   canRestart: Scalars["Boolean"];
   canAbort: Scalars["Boolean"];
   canSchedule: Scalars["Boolean"];
@@ -587,10 +588,12 @@ export type UserSettingsInput = {
 
 export type UseSpruceOptions = {
   hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
 export type UseSpruceOptionsInput = {
-  hasUsedSpruceBefore: Scalars["Boolean"];
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
 export type VariantTask = {
@@ -602,6 +605,20 @@ export type VariantTasks = {
   variant: Scalars["String"];
   tasks: Array<Scalars["String"]>;
   displayTasks: Array<DisplayTask>;
+};
+
+export type GetPatchEventDataQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+
+export type GetTaskEventDataQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskEventDataQuery = {
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -706,11 +723,9 @@ export type UpdateUserSettingsMutationVariables = {
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
-export type GetPatchFiltersEventDataQueryVariables = {
-  id: Scalars["String"];
-};
+export type AwsRegionsQueryVariables = {};
 
-export type GetPatchFiltersEventDataQuery = { patch: { status: string } };
+export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
 
 export type ClientConfigQueryVariables = {};
 
@@ -979,10 +994,10 @@ export type GetTaskQuery = {
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;
-    baseTaskMetadata: {
+    baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
-    };
+    }>;
     patchMetadata: { author: string };
     reliesOn: Array<{
       buildVariant: string;
@@ -1028,7 +1043,10 @@ export type GetUserSettingsQuery = {
       spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
-    useSpruceOptions?: Maybe<{ hasUsedSpruceBefore?: Maybe<boolean> }>;
+    useSpruceOptions?: Maybe<{
+      hasUsedSpruceBefore?: Maybe<boolean>;
+      spruceV1?: Maybe<boolean>;
+    }>;
   }>;
 };
 
