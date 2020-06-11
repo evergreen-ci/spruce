@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
@@ -30,7 +30,8 @@ import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
 import { TaskTab } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { Metadata } from "./task/Metadata";
+import { Metadata } from "pages/task/Metadata";
+import { useTaskAnalytics } from "analytics";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -44,26 +45,36 @@ const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+  const taskAnalytics = useTaskAnalytics();
+
+  // automatically append default tab to end of url path
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
   });
+
+  // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
     path: `${paths.task}/${id}`,
+    sendAnalyticsEvent: (tab: string) =>
+      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
+
+  // Query task data
   const { data, loading, error, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 2000,
+    pollInterval: 5000,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
   });
+  useEffect(() => stopPolling, [stopPolling]);
 
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");

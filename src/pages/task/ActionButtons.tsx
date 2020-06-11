@@ -28,6 +28,7 @@ import {
 import { PageButtonRow } from "components/styles";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { TaskNotificationModal } from "pages/task/actionButtons/TaskNotificationModal";
+import { useTaskAnalytics } from "analytics";
 
 interface Props {
   initialPriority?: number;
@@ -53,6 +54,7 @@ export const ActionButtons = ({
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
+  const taskAnalytics = useTaskAnalytics();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTaskMutation,
@@ -153,7 +155,10 @@ export const ActionButtons = ({
       disabled={disabled || !canUnschedule}
       key="unschedule"
       data-cy="unschedule-task"
-      onClick={() => unscheduleTask()}
+      onClick={() => {
+        unscheduleTask();
+        taskAnalytics.sendEvent({ name: "Unschedule" });
+      }}
     >
       Unschedule
     </DropdownItem>,
@@ -161,7 +166,10 @@ export const ActionButtons = ({
       data-cy="abort-task"
       key="abort"
       disabled={disabled || !canAbort}
-      onClick={() => abortTask()}
+      onClick={() => {
+        abortTask();
+        taskAnalytics.sendEvent({ name: "Abort" });
+      }}
     >
       Abort
     </DropdownItem>,
@@ -182,11 +190,12 @@ export const ActionButtons = ({
           />
         </>
       }
-      onConfirm={() =>
+      onConfirm={() => {
         setTaskPriority({
           variables: { taskId, priority },
-        })
-      }
+        });
+        taskAnalytics.sendEvent({ name: "Set Priority", priority });
+      }}
       onCancel={() => setIsVisible(false)}
       okText="Set"
       cancelText="Cancel"
@@ -210,7 +219,10 @@ export const ActionButtons = ({
           key="schedule"
           disabled={disabled || !canSchedule}
           loading={loadingScheduleTask}
-          onClick={scheduleTask}
+          onClick={() => {
+            scheduleTask();
+            taskAnalytics.sendEvent({ name: "Schedule" });
+          }}
         >
           Schedule
         </Button>
@@ -220,7 +232,10 @@ export const ActionButtons = ({
           key="restart"
           disabled={disabled || !canRestart}
           loading={loadingRestartTask}
-          onClick={restartTask}
+          onClick={() => {
+            restartTask();
+            taskAnalytics.sendEvent({ name: "Restart" });
+          }}
         >
           Restart
         </Button>
@@ -229,7 +244,10 @@ export const ActionButtons = ({
           dataCy="notify-task"
           key="notifications"
           disabled={disabled}
-          onClick={() => setIsVisibleModal(!isVisibleModal)}
+          onClick={() => {
+            setIsVisibleModal(!isVisibleModal);
+            taskAnalytics.sendEvent({ name: "Open Notification Modal" });
+          }}
         >
           Add Notification
         </Button>

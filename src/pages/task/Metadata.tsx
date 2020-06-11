@@ -6,10 +6,10 @@ import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
 import { v4 as uuid } from "uuid";
-
 import { GetTaskQuery } from "gql/generated/types";
 import get from "lodash/get";
-import { DependsOn } from "./metadata/DependsOn";
+import { DependsOn } from "pages/task/metadata/DependsOn";
+import { useTaskAnalytics } from "analytics";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -17,6 +17,7 @@ export const Metadata: React.FC<{
   error: ApolloError;
 }> = ({ loading, data, error }) => {
   const task = data ? data.task : null;
+  const taskAnalytics = useTaskAnalytics();
 
   const spawnHostLink = get(task, "spawnHostLink");
   const createTime = get(task, "createTime");
@@ -55,20 +56,36 @@ export const Metadata: React.FC<{
       {baseTaskLink && (
         <P2>
           Base commit:{" "}
-          <StyledLink data-cy="base-task-link" href={baseTaskLink}>
+          <StyledLink
+            data-cy="base-task-link"
+            href={baseTaskLink}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Base Commit" })
+            }
+          >
             {baseCommit}
           </StyledLink>
         </P2>
       )}
       <P2>
         Host:{" "}
-        <StyledLink data-cy="task-host-link" href={hostLink}>
+        <StyledLink
+          data-cy="task-host-link"
+          href={hostLink}
+          onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
+        >
           {hostId}
         </StyledLink>
       </P2>
       {spawnHostLink && (
         <P2>
-          <StyledLink data-cy="task-spawn-host-link" href={spawnHostLink}>
+          <StyledLink
+            data-cy="task-spawn-host-link"
+            href={spawnHostLink}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Spawn Host" })
+            }
+          >
             Spawn host
           </StyledLink>
         </P2>

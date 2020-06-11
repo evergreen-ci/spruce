@@ -119,7 +119,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
   dataCyTableRows
 ) => {
   cy.get(dataCyPageBtn).click();
-  cy.wait(200);
+  cy.wait(400);
   cy.get(dataCyTableRows).each(($el, index) => {
     cy.wrap($el).contains(tableDisplayNames[index]);
   });
