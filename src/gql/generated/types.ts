@@ -323,7 +323,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
-  awsRegions?: Maybe<Array<Maybe<Scalars["String"]>>>;
+  awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
 };
@@ -725,7 +725,7 @@ export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
 export type AwsRegionsQueryVariables = {};
 
-export type AwsRegionsQuery = { awsRegions?: Maybe<Array<Maybe<string>>> };
+export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
 
 export type ClientConfigQueryVariables = {};
 
