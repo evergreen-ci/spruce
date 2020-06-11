@@ -462,7 +462,7 @@ export type Task = {
   generateTask?: Maybe<Scalars["Boolean"]>;
   generatedBy?: Maybe<Scalars["String"]>;
   aborted?: Maybe<Scalars["Boolean"]>;
-  baseTaskMetadata: BaseTaskMetadata;
+  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   canRestart: Scalars["Boolean"];
   canAbort: Scalars["Boolean"];
   canSchedule: Scalars["Boolean"];
@@ -573,6 +573,7 @@ export type UserSettings = {
   githubUser?: Maybe<GithubUser>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<Notifications>;
+  useSpruceOptions?: Maybe<UseSpruceOptions>;
 };
 
 export type UserSettingsInput = {
@@ -581,6 +582,17 @@ export type UserSettingsInput = {
   githubUser?: Maybe<GithubUserInput>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<NotificationsInput>;
+  useSpruceOptions?: Maybe<UseSpruceOptionsInput>;
+};
+
+export type UseSpruceOptions = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
+};
+
+export type UseSpruceOptionsInput = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
 export type VariantTask = {
@@ -593,6 +605,12 @@ export type VariantTasks = {
   tasks: Array<Scalars["String"]>;
   displayTasks: Array<DisplayTask>;
 };
+
+export type GetPatchEventDataQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchEventDataQuery = { patch: { status: string } };
 
 export type AbortTaskMutationVariables = {
   taskId: Scalars["String"];
@@ -695,12 +713,6 @@ export type UpdateUserSettingsMutationVariables = {
 };
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
-
-export type GetPatchFiltersEventDataQueryVariables = {
-  id: Scalars["String"];
-};
-
-export type GetPatchFiltersEventDataQuery = { patch: { status: string } };
 
 export type ClientConfigQueryVariables = {};
 
@@ -969,10 +981,10 @@ export type GetTaskQuery = {
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;
-    baseTaskMetadata: {
+    baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
-    };
+    }>;
     patchMetadata: { author: string };
     reliesOn: Array<{
       buildVariant: string;
