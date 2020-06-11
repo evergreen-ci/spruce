@@ -14,6 +14,7 @@ import {
   validateSlack,
 } from "utils/validators";
 import { useParams } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
 
 interface ModalProps {
   visible: boolean;
@@ -25,6 +26,8 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
   onCancel,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
+  const taskAnalytics = useTaskAnalytics();
+
   return (
     <NotificationModal
       visible={visible}
@@ -34,6 +37,9 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       subscriptionMethods={subscriptionMethods}
       resourceType="TASK"
       resourceId={taskId}
+      sendAnalyticsEvent={(subscription) =>
+        taskAnalytics.sendEvent({ name: "Add Notification", subscription })
+      }
     />
   );
 };

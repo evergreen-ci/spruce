@@ -29,6 +29,7 @@ import { TaskEventLogLine } from "pages/task/logs/logTypes/TaskEventLogLine";
 import styled from "@emotion/styled";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Button } from "components/Button";
+import { useTaskAnalytics } from "analytics";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -127,9 +128,8 @@ const useRenderBody: React.FC<{
 }> = ({ loading, error, data, currentLog, rawLink, htmlLink }) => {
   const { pathname } = useLocation();
   const { replace } = useHistory();
-  if (loading) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  }
+  const taskAnalytics = useTaskAnalytics();
+
   const hideLogs = error || !data.length;
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
@@ -142,6 +142,10 @@ const useRenderBody: React.FC<{
       )}`
     );
   };
+
+  if (loading) {
+    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+  }
   return (
     <>
       <StyledRadioGroup
@@ -153,27 +157,77 @@ const useRenderBody: React.FC<{
         {!hideLogs ? (
           <ButtonContainer>
             {htmlLink && (
-              <Button dataCy="html-log-btn" target="_blank" href={htmlLink}>
+              <Button
+                dataCy="html-log-btn"
+                target="_blank"
+                href={htmlLink}
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
+                }
+              >
                 HTML
               </Button>
             )}
             {rawLink && (
-              <Button dataCy="raw-log-btn" target="_blank" href={rawLink}>
+              <Button
+                dataCy="raw-log-btn"
+                target="_blank"
+                href={rawLink}
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+                }
+              >
                 Raw
               </Button>
             )}
           </ButtonContainer>
         ) : null}
-        <Radio id="cy-task-radio" value={LogTypes.Task}>
+        <Radio
+          id="cy-task-radio"
+          value={LogTypes.Task}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Task,
+            })
+          }
+        >
           Task Logs
         </Radio>
-        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
+        <Radio
+          id="cy-agent-radio"
+          value={LogTypes.Agent}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Agent,
+            })
+          }
+        >
           Agent Logs
         </Radio>
-        <Radio id="cy-system-radio" value={LogTypes.System}>
+        <Radio
+          id="cy-system-radio"
+          value={LogTypes.System}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.System,
+            })
+          }
+        >
           System Logs
         </Radio>
-        <Radio id="cy-event-radio" value={LogTypes.Event}>
+        <Radio
+          id="cy-event-radio"
+          value={LogTypes.Event}
+          onClick={() =>
+            taskAnalytics.sendEvent({
+              name: "Select Logs Type",
+              logsType: LogTypes.Event,
+            })
+          }
+        >
           Event Logs
         </Radio>
       </StyledRadioGroup>
