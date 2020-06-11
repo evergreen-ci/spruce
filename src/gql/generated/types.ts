@@ -323,6 +323,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  awsRegions?: Maybe<Array<Maybe<Scalars["String"]>>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
 };
@@ -573,6 +574,7 @@ export type UserSettings = {
   githubUser?: Maybe<GithubUser>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<Notifications>;
+  useSpruceOptions?: Maybe<UseSpruceOptions>;
 };
 
 export type UserSettingsInput = {
@@ -581,6 +583,17 @@ export type UserSettingsInput = {
   githubUser?: Maybe<GithubUserInput>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<NotificationsInput>;
+  useSpruceOptions?: Maybe<UseSpruceOptionsInput>;
+};
+
+export type UseSpruceOptions = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
+};
+
+export type UseSpruceOptionsInput = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
 export type VariantTask = {
@@ -592,6 +605,20 @@ export type VariantTasks = {
   variant: Scalars["String"];
   tasks: Array<Scalars["String"]>;
   displayTasks: Array<DisplayTask>;
+};
+
+export type GetPatchEventDataQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+
+export type GetTaskEventDataQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskEventDataQuery = {
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -696,11 +723,9 @@ export type UpdateUserSettingsMutationVariables = {
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
-export type GetPatchFiltersEventDataQueryVariables = {
-  id: Scalars["String"];
-};
+export type AwsRegionsQueryVariables = {};
 
-export type GetPatchFiltersEventDataQuery = { patch: { status: string } };
+export type AwsRegionsQuery = { awsRegions?: Maybe<Array<Maybe<string>>> };
 
 export type ClientConfigQueryVariables = {};
 
