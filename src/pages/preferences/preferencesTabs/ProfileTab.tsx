@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
@@ -11,11 +11,13 @@ import {
   GithubUser,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
+  AwsRegionsQuery,
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { UPDATE_USER_SETTINGS } from "gql/mutations";
+import { AWS_REGIONS } from "gql/queries";
 import { omitTypename } from "utils/string";
-import { timeZones, awsRegions } from "constants/fieldMaps";
+import { timeZones } from "constants/fieldMaps";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
@@ -50,6 +52,9 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
       );
     },
   });
+
+  const { data } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
+  const awsRegions = get(data, "awsRegions", []);
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
@@ -98,9 +103,9 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
-            {awsRegions.map((awsRegion) => (
-              <Option value={awsRegion.value} key={awsRegion.value}>
-                {awsRegion.str}
+            {(awsRegions as any[]).map((awsRegion) => (
+              <Option value={awsRegion} key={awsRegion}>
+                {awsRegion}
               </Option>
             ))}
           </StyledSelect>
