@@ -573,6 +573,7 @@ export type UserSettings = {
   githubUser?: Maybe<GithubUser>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<Notifications>;
+  useSpruceOptions?: Maybe<UseSpruceOptions>;
 };
 
 export type UserSettingsInput = {
@@ -581,6 +582,17 @@ export type UserSettingsInput = {
   githubUser?: Maybe<GithubUserInput>;
   slackUsername?: Maybe<Scalars["String"]>;
   notifications?: Maybe<NotificationsInput>;
+  useSpruceOptions?: Maybe<UseSpruceOptionsInput>;
+};
+
+export type UseSpruceOptions = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
+};
+
+export type UseSpruceOptionsInput = {
+  hasUsedSpruceBefore?: Maybe<Scalars["Boolean"]>;
+  spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
 export type VariantTask = {
@@ -1018,6 +1030,7 @@ export type GetUserSettingsQuery = {
       spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
+    useSpruceOptions?: Maybe<{ spruceV1?: Maybe<boolean> }>;
   }>;
 };
 

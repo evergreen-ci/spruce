@@ -52,6 +52,14 @@ export const Preferences: React.FC = () => {
             >
               CLI & API
             </PaddedSideNavItem>
+            <PaddedSideNavItem
+              active={tab === preferencesTabRoutes.NewUI}
+              to={`${paths.preferences}/${preferencesTabRoutes.NewUI}`}
+              as={Link}
+              data-cy="newui-nav-tab"
+            >
+              New UI
+            </PaddedSideNavItem>
           </SideNavGroup>
         </SideNav>
         <PreferencesTabs
