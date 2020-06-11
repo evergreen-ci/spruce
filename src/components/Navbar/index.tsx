@@ -9,6 +9,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 import { routes } from "constants/routes";
 import { useLegacyUIURL } from "hooks";
+import { useNavbarAnalytics } from "analytics";
 import { NavDropdown } from "./NavDropdown";
 
 const { Header } = Layout;
@@ -17,15 +18,18 @@ const { white, blue, gray } = uiColors;
 export const Navbar: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
   const legacyURL = useLegacyUIURL();
+  const navbarAnalytics = useNavbarAnalytics();
 
   if (!isAuthenticated) {
     return null;
   }
-
   return (
     <StyledHeader>
       <InnerWrapper>
-        <Link to={routes.myPatches}>
+        <Link
+          to={routes.myPatches}
+          onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
+        >
           <Logo>
             <EvergreenLogo />
             <StyledSubtitle>Evergreen</StyledSubtitle>
@@ -33,7 +37,13 @@ export const Navbar: React.FC = () => {
         </Link>
         <NavActionContainer>
           {legacyURL && (
-            <NavLink href={legacyURL} data-cy="legacy-ui-link">
+            <NavLink
+              href={legacyURL}
+              data-cy="legacy-ui-link"
+              onClick={() =>
+                navbarAnalytics.sendEvent({ name: "Click Legacy UI Link" })
+              }
+            >
               Switch to legacy UI
             </NavLink>
           )}
