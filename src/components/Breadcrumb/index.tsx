@@ -5,6 +5,7 @@ import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H3, P1 } from "components/Typography";
 import { StyledRouterLink } from "components/styles/StyledLink";
+import { useBreadcrumbAnalytics } from "analytics";
 
 const { blue } = uiColors;
 
@@ -19,12 +20,23 @@ export const BreadCrumb: React.FC<Props> = ({
   taskName,
   patchNumber,
 }) => {
+  const breadcrumbAnalytics = useBreadcrumbAnalytics();
   const patch = `Patch ${patchNumber}`;
+
   return (
     <StyledBreadcrumb>
       <Breadcrumb.Item>
         <StyledP1>
-          <StyledBreadcrumbLink id="bc-my-patches" to={routes.myPatches}>
+          <StyledBreadcrumbLink
+            id="bc-my-patches"
+            to={routes.myPatches}
+            onClick={() =>
+              breadcrumbAnalytics.sendEvent({
+                name: "Click Link",
+                link: "myPatches",
+              })
+            }
+          >
             My Patches
           </StyledBreadcrumbLink>
         </StyledP1>
@@ -35,6 +47,12 @@ export const BreadCrumb: React.FC<Props> = ({
             <StyledBreadcrumbLink
               id="bc-patch"
               to={`${paths.version}/${versionId}`}
+              onClick={() =>
+                breadcrumbAnalytics.sendEvent({
+                  name: "Click Link",
+                  link: "patch",
+                })
+              }
             >
               {patch}
             </StyledBreadcrumbLink>
