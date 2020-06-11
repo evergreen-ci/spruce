@@ -6,7 +6,6 @@ import {
   clickOnPageBtnAndAssertURLandTableResults,
   clickOnPageSizeBtnAndAssertURLandTableSize,
 } from "../utils";
-import { assertCountLabels } from "../utils/table";
 
 describe("Tests Table", () => {
   before(() => {
@@ -244,14 +243,41 @@ describe("Tests Table", () => {
     });
 
     it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
-      assertTestCountLabels();
+      waitForTestsQuery();
+
+      cy.get("[data-cy=filtered-test-count]")
+        .as("filtered-count")
+        .invoke("text")
+        .should("eq", "20");
+      cy.get("[data-cy=total-test-count]")
+        .as("total-count")
+        .invoke("text")
+        .should("eq", "20");
+
       cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
       cy.get(".cy-checkbox")
         .contains("Fail")
         .click({ force: true });
-      assertTestCountLabels();
-      cy.dataCy("testname-input").type("group");
-      assertTestCountLabels();
+
+      waitForTestsQuery();
+
+      cy.get("@filtered-count")
+        .invoke("text")
+        .should("eq", "1");
+      cy.get("@total-count")
+        .invoke("text")
+        .should("eq", "20");
+
+      cy.dataCy("testname-input").type("hello");
+
+      waitForTestsQuery();
+
+      cy.get("@filtered-count")
+        .invoke("text")
+        .should("eq", "0");
+      cy.get("@total-count")
+        .invoke("text")
+        .should("eq", "20");
     });
   });
 
@@ -311,15 +337,6 @@ describe("Tests Table", () => {
   });
 });
 
-const assertTestCountLabels = () => {
-  waitForTestsQuery();
-  assertCountLabels(
-    "response.body.data.taskTests.filteredTestCount",
-    "response.body.data.taskTests.totalTestCount",
-    "filtered-test-count",
-    "total-test-count"
-  );
-};
 const TABLE_SORT_SELECTOR = ".ant-table-column-title";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
