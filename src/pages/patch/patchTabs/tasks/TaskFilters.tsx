@@ -123,6 +123,11 @@ const statusesTreeData: Status[] = [
         key: TaskStatus.Failed,
       },
       {
+        title: "Task Timed Out",
+        value: TaskStatus.TaskTimedOut,
+        key: TaskStatus.TaskTimedOut,
+      },
+      {
         title: "Test Timed Out",
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
@@ -170,6 +175,16 @@ const statusesTreeData: Status[] = [
         title: "System Failed",
         value: TaskStatus.SystemFailed,
         key: TaskStatus.SystemFailed,
+      },
+      {
+        title: "System Timed Out",
+        value: TaskStatus.SystemTimedOut,
+        key: TaskStatus.SystemTimedOut,
+      },
+      {
+        title: "System Unresponsive",
+        value: TaskStatus.SystemUnresponsive,
+        key: TaskStatus.SystemUnresponsive,
       },
     ],
   },
