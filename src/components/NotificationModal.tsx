@@ -27,6 +27,9 @@ interface ModalProps extends UseNotificationModalProps {
   visible: boolean;
   subscriptionMethods: SubscriptionMethod[];
   onCancel: () => void;
+  sendAnalyticsEvent: (
+    subscription: SaveSubscriptionMutationVariables["subscription"]
+  ) => void;
 }
 
 export const NotificationModal: React.FC<ModalProps> = ({
@@ -37,6 +40,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
   triggers,
   resourceId,
   resourceType,
+  sendAnalyticsEvent,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const [saveSubscription, { loading: mutationLoading }] = useMutation<
@@ -73,9 +77,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
   });
 
   const onClickSave = () => {
+    const subscription = getRequestPayload();
     saveSubscription({
-      variables: { subscription: getRequestPayload() },
+      variables: { subscription },
     });
+    sendAnalyticsEvent(subscription);
     onCancel();
   };
 

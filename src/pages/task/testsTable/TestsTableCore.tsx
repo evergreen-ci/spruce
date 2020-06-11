@@ -16,7 +16,6 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
-import queryString from "query-string";
 import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
@@ -30,8 +29,8 @@ import { ColumnProps } from "antd/es/table";
 import { Table, Skeleton } from "antd";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-
-const arrayFormat = "comma";
+import { useTaskAnalytics } from "analytics";
+import { stringifyQuery, parseQueryString } from "utils";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
@@ -40,6 +39,8 @@ export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
+
+  // initial query variables to use when making first gql query
   const [initialQueryVariables] = useState<TaskTestsQueryVariables>(
     getQueryVariables(search, resourceId)
   );
@@ -49,6 +50,8 @@ export const TestsTableCore: React.FC = () => {
     cat,
     dir
   );
+
+  // initial request for task tests
   const { data, refetch, networkStatus } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
@@ -57,34 +60,40 @@ export const TestsTableCore: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+
   useDisableTableSortersIfLoading(networkStatus);
+
+  // poll task tests
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
   });
-  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
+
+  // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (
     ...[, , { order, columnKey }]
   ) => {
-    const nextQueryParams = queryString.stringify(
-      {
-        ...queryString.parse(search, { arrayFormat }),
-        [RequiredQueryParams.Category]: columnKey,
-        [RequiredQueryParams.Sort]:
-          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-        [RequiredQueryParams.Page]: "0",
-      },
-      { arrayFormat }
-    );
+    const nextQueryParams = stringifyQuery({
+      ...parseQueryString(search),
+      [RequiredQueryParams.Category]: columnKey,
+      [RequiredQueryParams.Sort]:
+        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+      [RequiredQueryParams.Page]: "0",
+    });
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
   };
 
+  const taskAnalytics = useTaskAnalytics();
+
+  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
+
   // initial table sort button state to reflect initial URL query params
   const { pageNum, limitNum } = getQueryVariables(search, resourceId);
+
   return (
     <>
       <TableControlOuterRow>
@@ -105,6 +114,9 @@ export const TestsTableCore: React.FC = () => {
           <PageSizeSelector
             dataTestId="tests-table-page-size-selector"
             value={limitNum}
+            sendAnalyticsEvent={() =>
+              taskAnalytics.sendEvent({ name: "Change Page Size" })
+            }
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
@@ -225,7 +237,7 @@ const getQueryVariables = (
   search: string,
   resourceId: string
 ): TaskTestsQueryVariables => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const category = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
