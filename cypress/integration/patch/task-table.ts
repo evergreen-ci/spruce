@@ -82,7 +82,7 @@ describe("Task table", () => {
     });
   });
 
-  describe("Changing page number", () => {
+  xdescribe("Changing page number", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
