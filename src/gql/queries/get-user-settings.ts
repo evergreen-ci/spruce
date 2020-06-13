@@ -17,6 +17,9 @@ export const GET_USER_SETTINGS = gql`
       githubUser {
         lastKnownAs
       }
+      useSpruceOptions {
+        spruceV1
+      }
     }
   }
 `;

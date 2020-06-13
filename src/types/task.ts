@@ -75,6 +75,7 @@ export enum TaskStatus {
   // with the code being tested
   Failed = "failed",
   TestTimedOut = "test-timed-out",
+  TaskTimedOut = "task-timed-out",
 
   // These statuses indicate that the task failed, and it is likely a problem
   // with the systems running the task
