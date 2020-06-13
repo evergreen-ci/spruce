@@ -28,6 +28,7 @@ export const usePatchAnalytics = (): PatchAnalytics => {
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery(GET_PATCH_EVENT_DATA, {
     variables: { id },
+    fetchPolicy: "cache-first",
   });
   const status = get(eventData, "patch.status", undefined);
 
