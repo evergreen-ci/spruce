@@ -21,11 +21,7 @@ export const VerifyCard = () => {
   );
 
   const latestRevision = get(data, "clientConfig.latestRevision", "");
-  const verificationCode = `
-"[evergreen] ${format(new Date(), "yyyy/MM/dd hh:mm:ss")} [p=notice]:
-[message='Binary is already up to date - not updating.'
-revision='${latestRevision}']"
-  `;
+  const verificationCode = "Binary is already up to date - not updating.";
   return (
     <Container>
       <Body>At the command line, type &quot;</Body>
