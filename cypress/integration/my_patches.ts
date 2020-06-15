@@ -221,7 +221,7 @@ describe("My Patches Page", () => {
   });
 
   describe("Patch card buttons", () => {
-    it("Reconfigure button sould have link to reconfigure page", () => {
+    it("Reconfigure button should have link to reconfigure page", () => {
       cy.dataCy("patch-card-dropdown").first();
       cy.dataCy("reconfigure-link")
         .should("have.attr", "href")

@@ -57,7 +57,7 @@ describe("Patch Action Buttons", () => {
       .should("exist");
   });
 
-  it("Reconfigure button sould have link to reconfigure page", () => {
+  it("Reconfigure button should have link to reconfigure page", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("reconfigure-link")
       .should("have.attr", "href")
