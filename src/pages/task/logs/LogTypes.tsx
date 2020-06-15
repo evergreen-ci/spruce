@@ -58,6 +58,7 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
     EventLogsQueryVariables
   >(GET_EVENT_LOGS, {
     variables: { id },
+    pollInterval: 5000,
   });
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
@@ -77,6 +78,7 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
     variables: { id },
+    pollInterval: 5000,
   });
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -93,6 +95,7 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
     variables: { id },
+    pollInterval: 5000,
   });
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -109,6 +112,7 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
     variables: { id },
+    pollInterval: 5000,
   });
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
