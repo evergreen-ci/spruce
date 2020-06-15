@@ -290,7 +290,7 @@ describe("Configure Patch Page", () => {
   describe("Switching tabs", () => {
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.login();
-      cy.visit(`/version/${unactivatedPatchId}`);
+      cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       cy.dataCy("changes-tab").click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
