@@ -31,6 +31,7 @@ import { withBannersContext } from "hoc/withBannersContext";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { useUserPatchesAnalytics } from "analytics";
 
 const UserPatchesComponent: React.FC = () => {
   const bannersState = useBannerStateContext();
@@ -41,10 +42,19 @@ const UserPatchesComponent: React.FC = () => {
   const [initialQueryVariables] = useState<UserPatchesQueryVariables>(
     getQueryVariables(search, userId)
   );
+  const userPatchesAnalytics = useUserPatchesAnalytics();
+
+  // handlers for patch description filter
   const [
     patchNameFilterValue,
     patchNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(MyPatchesQueryParams.PatchName);
+  ] = useFilterInputChangeHandler(
+    MyPatchesQueryParams.PatchName,
+    false,
+    (filterBy: string) =>
+      userPatchesAnalytics.sendEvent({ name: "Filter Patches", filterBy })
+  );
+
   const { data, refetch, networkStatus, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
@@ -71,6 +81,7 @@ const UserPatchesComponent: React.FC = () => {
         { arrayFormat }
       )}`
     );
+    userPatchesAnalytics.sendEvent({ name: "Filter Commit Queue" });
   };
 
   const renderTable = () => {
@@ -132,6 +143,9 @@ const UserPatchesComponent: React.FC = () => {
         <PageSizeSelector
           dataTestId="my-patches-page-size-selector"
           value={limit}
+          sendAnalyticsEvent={() =>
+            userPatchesAnalytics.sendEvent({ name: "Change Page Size" })
+          }
         />
       </PaginationRow>
       <>{renderTable()}</>

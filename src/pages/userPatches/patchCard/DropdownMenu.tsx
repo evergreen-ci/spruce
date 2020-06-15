@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { paths } from "constants/routes";
 import { useOnClickOutside } from "hooks";
 import get from "lodash/get";
+import { usePatchAnalytics } from "analytics";
 
 interface Props {
   patchId: string;
@@ -21,6 +22,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const popconfirmRef = useRef(null);
   const scheduleTasksRef = useRef(null); // schedule and unschedule refs must be different for useOnClickOutside to work
   const dropdownWrapperRef = useRef(null);
+  const patchAnalytics = usePatchAnalytics();
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
@@ -36,7 +38,13 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   });
 
   const dropdownItems = [
-    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
+    <LinkToReconfigurePage
+      key="reconfigure"
+      patchId={patchId}
+      onClick={() =>
+        patchAnalytics.sendEvent({ name: "Click Reconfigure Link" })
+      }
+    />,
     <SchedulePatchTasks
       key="schedule"
       patchId={patchId}
@@ -77,8 +85,15 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   );
 };
 
-const LinkToReconfigurePage: React.FC<{ patchId: string }> = ({ patchId }) => (
-  <Link data-cy="reconfigure-link" to={`${paths.patch}/${patchId}/configure`}>
+const LinkToReconfigurePage: React.FC<{
+  patchId: string;
+  onClick?: () => void;
+}> = ({ patchId, onClick = () => undefined }) => (
+  <Link
+    data-cy="reconfigure-link"
+    to={`${paths.patch}/${patchId}/configure`}
+    onClick={onClick}
+  >
     <DropdownItem disabled={false}>
       <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
     </DropdownItem>

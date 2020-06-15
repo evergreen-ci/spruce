@@ -8,6 +8,7 @@ import { StyledLink } from "components/styles";
 import { paths, getBuildStatusIconLink } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
+import { useUserPatchesAnalytics } from "analytics";
 
 interface Build {
   id: string;
@@ -30,13 +31,18 @@ export const PatchCard: React.FC<Props> = ({
   status,
   builds,
 }) => {
+  const userPatchesAnalytics = useUserPatchesAnalytics();
   const createDate = new Date(createTime);
+
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
           href={`${paths.patch}/${id}`}
+          onClick={() =>
+            userPatchesAnalytics.sendEvent({ name: "Click Patch Link" })
+          }
         >
           {description || "no description"}
         </DescriptionLink>
@@ -56,6 +62,12 @@ export const PatchCard: React.FC<Props> = ({
                 status={b.status}
                 buildVariant={b.buildVariant}
                 href={getBuildStatusIconLink(id, b.buildVariant)}
+                onClick={() =>
+                  userPatchesAnalytics.sendEvent({
+                    name: "Click Variant Icon",
+                    variantIconStatus: b.status,
+                  })
+                }
               />
             </div>
           ))}
