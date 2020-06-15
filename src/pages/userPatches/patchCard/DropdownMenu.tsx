@@ -1,15 +1,13 @@
 import React, { useState, useRef } from "react";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { ButtonDropdown } from "components/ButtonDropdown";
 import {
   SchedulePatchTasks,
   UnschedulePatchTasks,
   RestartPatch,
 } from "components/PatchActionButtons";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
-import { paths } from "constants/routes";
 import { useOnClickOutside } from "hooks";
 import get from "lodash/get";
+import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface Props {
   patchId: string;
@@ -76,13 +74,5 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
     </div>
   );
 };
-
-const LinkToReconfigurePage: React.FC<{ patchId: string }> = ({ patchId }) => (
-  <Link data-cy="reconfigure-link" to={`${paths.patch}/${patchId}/configure`}>
-    <DropdownItem disabled={false}>
-      <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
-    </DropdownItem>
-  </Link>
-);
 
 const refetchQueries = ["PatchBuildVariantsAndStatus"];
