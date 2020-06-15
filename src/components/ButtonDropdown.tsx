@@ -54,7 +54,7 @@ export const DropdownItem = styled.div`
   ${({ disabled }: CardItemProps) => disabled && "pointer-events: none;"}
   > small {
     ${({ disabled }: CardItemProps) =>
-      disabled && `color: ${uiColors.gray.base}`}
+      disabled && `color: ${uiColors.gray.base};`}
   }
 `;
 
