@@ -58,6 +58,7 @@ const WelcomeModal = () => {
           userSettings: {
             useSpruceOptions: {
               hasUsedSpruceBefore: true,
+              spruceV1: true,
             },
           },
         },
