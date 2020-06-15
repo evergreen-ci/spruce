@@ -38,7 +38,6 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
     setChecked(e.target.checked);
-    console.log(e.target.checked);
     try {
       await updateUserSettings({
         variables: {
