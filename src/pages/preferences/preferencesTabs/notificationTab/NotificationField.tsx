@@ -35,7 +35,7 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
       <Radio value="email" />
     </GridField>
     <GridField gridArea={`${2 + index} / 5 / ${2 + index} / 6`}>
-      <Radio value="none" />
+      <Radio value="" />
     </GridField>
   </GridCapableRadioGroup>
 );
