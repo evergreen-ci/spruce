@@ -57,6 +57,13 @@ describe("Patch Action Buttons", () => {
       .should("exist");
   });
 
+  it("Reconfigure button should have link to reconfigure page", () => {
+    cy.dataCy("ellipsis-btn").click();
+    cy.dataCy("reconfigure-link")
+      .should("have.attr", "href")
+      .and("equal", "/patch/5e4ff3abe3c3317e352062e4/configure");
+  });
+
   it("Clicking 'Set Priority' button shows popconfirm with input and banner on success", () => {
     const priority = "99";
     cy.dataCy("ellipsis-btn").click();

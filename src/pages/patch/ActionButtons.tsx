@@ -8,6 +8,7 @@ import {
   UnschedulePatchTasks,
   SetPatchPriority,
 } from "components/PatchActionButtons";
+import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 export const ActionButtons = () => {
   const wrapperRef = useRef(null);
@@ -25,6 +26,7 @@ export const ActionButtons = () => {
   }, [isActionLoading, setIsVisible]);
 
   const dropdownItems = [
+    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
     <UnschedulePatchTasks
       {...{
         patchId,

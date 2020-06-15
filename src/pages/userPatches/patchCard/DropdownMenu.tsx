@@ -1,16 +1,13 @@
 import React, { useState, useRef } from "react";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { ButtonDropdown } from "components/ButtonDropdown";
 import {
   SchedulePatchTasks,
   UnschedulePatchTasks,
   RestartPatch,
 } from "components/PatchActionButtons";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
-import { paths } from "constants/routes";
 import { useOnClickOutside } from "hooks";
 import get from "lodash/get";
-import { usePatchAnalytics } from "analytics";
+import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface Props {
   patchId: string;
@@ -22,7 +19,6 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   const popconfirmRef = useRef(null);
   const scheduleTasksRef = useRef(null); // schedule and unschedule refs must be different for useOnClickOutside to work
   const dropdownWrapperRef = useRef(null);
-  const patchAnalytics = usePatchAnalytics();
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
@@ -38,13 +34,7 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
   });
 
   const dropdownItems = [
-    <LinkToReconfigurePage
-      key="reconfigure"
-      patchId={patchId}
-      onClick={() =>
-        patchAnalytics.sendEvent({ name: "Click Reconfigure Link" })
-      }
-    />,
+    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
     <SchedulePatchTasks
       key="schedule"
       patchId={patchId}
@@ -84,20 +74,5 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
     </div>
   );
 };
-
-const LinkToReconfigurePage: React.FC<{
-  patchId: string;
-  onClick?: () => void;
-}> = ({ patchId, onClick = () => undefined }) => (
-  <Link
-    data-cy="reconfigure-link"
-    to={`${paths.patch}/${patchId}/configure`}
-    onClick={onClick}
-  >
-    <DropdownItem disabled={false}>
-      <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
-    </DropdownItem>
-  </Link>
-);
 
 const refetchQueries = ["PatchBuildVariantsAndStatus"];
