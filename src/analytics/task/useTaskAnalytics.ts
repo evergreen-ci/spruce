@@ -45,6 +45,7 @@ export const useTaskAnalytics = (): Analytics => {
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery(GET_TASK_EVENT_DATA, {
     variables: { taskId: id },
+    fetchPolicy: "cache-first",
   });
   const taskStatus = get(eventData, "task.status", undefined);
   const failedTestCount = get(eventData, "task.failedTestCount", undefined);

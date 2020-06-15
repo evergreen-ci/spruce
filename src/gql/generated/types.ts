@@ -1043,7 +1043,10 @@ export type GetUserSettingsQuery = {
       spawnHostOutcome?: Maybe<string>;
     }>;
     githubUser?: Maybe<{ lastKnownAs?: Maybe<string> }>;
-    useSpruceOptions?: Maybe<{ spruceV1?: Maybe<boolean> }>;
+    useSpruceOptions?: Maybe<{
+      hasUsedSpruceBefore?: Maybe<boolean>;
+      spruceV1?: Maybe<boolean>;
+    }>;
   }>;
 };
 

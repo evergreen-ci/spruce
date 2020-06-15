@@ -5,17 +5,20 @@ import { SucceededIcon } from "pages/userPatches/patchCard/BuildStatusIcon/Succe
 import { FailedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/FailedIcon";
 import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
 import { Tooltip } from "antd";
+import { Link } from "react-router-dom";
 
 interface Props {
   status: string;
   buildVariant: string;
   href: string;
+  onClick?: () => void;
 }
 
 export const BuildStatusIcon: React.FC<Props> = ({
   status,
   buildVariant,
   href,
+  onClick = () => undefined,
 }) => {
   const icon = statusToIcon[status];
   if (!icon) {
@@ -23,9 +26,9 @@ export const BuildStatusIcon: React.FC<Props> = ({
   }
   return (
     <Tooltip placement="top" title={buildVariant}>
-      <a data-cy="build-status-icon-link" href={href}>
+      <Link data-cy="build-status-icon-link" to={href} onClick={onClick}>
         {icon}
-      </a>
+      </Link>
     </Tooltip>
   );
 };

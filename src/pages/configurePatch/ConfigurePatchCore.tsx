@@ -73,6 +73,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       // TODO show error banner
     }
   };
+
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
     router.push(`${paths.version}/${scheduledPatchId}`);
@@ -88,6 +89,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       </PageLayout>
     );
   }
+
   return (
     <>
       {errorSchedulingPatch && (
