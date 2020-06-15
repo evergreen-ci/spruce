@@ -73,6 +73,7 @@ const WelcomeModal = () => {
   };
   return (
     <Modal
+      centered
       footer={
         <Button
           variant={Variant.Primary}
@@ -95,7 +96,6 @@ const WelcomeModal = () => {
       }}
     >
       <CardTitle>Welcome to the New Evergreen UI!</CardTitle>
-
       <Carousel
         afterChange={(number) => setActiveSlide(number)}
         autoplay
@@ -170,6 +170,7 @@ const CardContainer = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
+  padding-bottom: 16px;
 `;
 
 const CardWrapper = styled.div`
