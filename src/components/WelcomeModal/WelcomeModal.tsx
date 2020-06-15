@@ -1,12 +1,15 @@
 import React, { useState, useRef } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Modal, Carousel } from "antd";
+import get from "lodash/get";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { GET_USER_SETTINGS } from "gql/queries";
 import {
+  GetUserSettingsQuery,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
@@ -51,6 +54,8 @@ const WelcomeModal = () => {
       reportError(err).warning();
     },
   });
+  const { data } = useQuery<GetUserSettingsQuery>(GET_USER_SETTINGS);
+  const spruceV1 = get(data, "userSettings.useSpruceOptions.spruceV1");
   const handleWelcomeClosed = async () => {
     try {
       await updateUserSettings({
@@ -58,7 +63,7 @@ const WelcomeModal = () => {
           userSettings: {
             useSpruceOptions: {
               hasUsedSpruceBefore: true,
-              spruceV1: true,
+              spruceV1,
             },
           },
         },

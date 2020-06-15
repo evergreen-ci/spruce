@@ -16,7 +16,7 @@ interface NewUITabProps {
   useSpruceOptions: UseSpruceOptions;
 }
 export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
-  const { spruceV1 } = useSpruceOptions;
+  const { spruceV1, hasUsedSpruceBefore } = useSpruceOptions;
   const [checked, setChecked] = useState(spruceV1);
   const dispatchBanner = useBannerDispatchContext();
   const [updateUserSettings, { loading }] = useMutation<
@@ -45,7 +45,7 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
           userSettings: {
             useSpruceOptions: {
               spruceV1: e.target.checked,
-              hasUsedSpruceBefore: true,
+              hasUsedSpruceBefore,
             },
           },
         },
