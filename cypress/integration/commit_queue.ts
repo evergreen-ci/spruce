@@ -22,11 +22,8 @@ describe("commit queue page", () => {
   it("Should render the commit queue page with one card", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
     cy.waitForGQL("CommitQueue");
-    cy.get("@gqlQuery").then(($xhr) => {
-      cy.get("[data-cy=commit-queue-card]").should(
-        "have.length",
-        $xhr.response.body.data.commitQueue.queue.length
-      );
+    cy.get("@gqlQuery").then(() => {
+      cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
     });
   });
 
