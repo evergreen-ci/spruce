@@ -99,7 +99,7 @@ const WelcomeModal = () => {
       <Carousel
         afterChange={(number) => setActiveSlide(number)}
         autoplay
-        autoplaySpeed={7000}
+        autoplaySpeed={8000}
         dots={false}
         slickGoTo={activeSlide}
         ref={slider}
