@@ -219,15 +219,6 @@ describe("My Patches Page", () => {
       cy.dataCy("commit-queue-checkbox").should("be.checked");
     });
   });
-
-  describe("Patch card buttons", () => {
-    it("Reconfigure button should have link to reconfigure page", () => {
-      cy.dataCy("patch-card-dropdown").first();
-      cy.dataCy("reconfigure-link")
-        .should("have.attr", "href")
-        .and("equal", "/patch/5ecedafb562343215a7ff297/configure");
-    });
-  });
 });
 
 const dataCyNextPage =
