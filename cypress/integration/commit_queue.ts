@@ -14,7 +14,6 @@ describe("commit queue page", () => {
     cy.login();
   });
   beforeEach(() => {
-    cy.server();
     cy.preserveCookies();
   });
 
