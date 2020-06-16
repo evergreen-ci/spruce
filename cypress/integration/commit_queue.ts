@@ -14,20 +14,12 @@ describe("commit queue page", () => {
     cy.login();
   });
   beforeEach(() => {
-    cy.server();
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
   it("Should render the commit queue page with one card", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.waitForGQL("CommitQueue");
-    cy.get("@gqlQuery").then(($xhr) => {
-      cy.get("[data-cy=commit-queue-card]").should(
-        "have.length",
-        $xhr.response.body.data.commitQueue.queue.length
-      );
-    });
+    cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
   });
 
   it("Clicking on Total Code changes should toggle a drop down table", () => {
@@ -39,15 +31,7 @@ describe("commit queue page", () => {
 
   it("visiting a page with multiple sets of code changes should have multiple tables", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_2);
-    cy.waitForGQL("CommitQueue");
-    cy.get("@gqlQuery").then(($xhr) => {
-      const codeChanges =
-        $xhr.response.body.data.commitQueue.queue[0].patch.moduleCodeChanges;
-      cy.get("[data-cy=accordian-toggle]").should(
-        "have.length",
-        codeChanges.length
-      );
-    });
+    cy.get("[data-cy=accordian-toggle]").should("have.length", 2);
   });
 
   xit("visiting a non existant commit queue page should display an error", () => {
@@ -64,7 +48,6 @@ describe("commit queue page", () => {
     cy.get("[data-cy=commit-queue-card]").should("exist");
     cy.get("[data-cy=commit-queue-patch-button]").should("exist");
     cy.get("[data-cy=commit-queue-patch-button]").click();
-    cy.waitForGQL("CommitQueue");
     cy.get("[data-cy=commit-queue-card]").should("not.exist");
   });
 });
