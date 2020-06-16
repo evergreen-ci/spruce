@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
-import { format } from "date-fns";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
 import Code from "@leafygreen-ui/code";
@@ -22,10 +21,8 @@ export const VerifyCard = () => {
 
   const latestRevision = get(data, "clientConfig.latestRevision", "");
   const verificationCode = `
-"[evergreen] ${format(new Date(), "yyyy/MM/dd hh:mm:ss")} [p=notice]:
-[message='Binary is already up to date - not updating.'
-revision='${latestRevision}']"
-  `;
+"[message='Binary is already up to date - not updating.' revision='${latestRevision}']"`;
+
   return (
     <Container>
       <Body>At the command line, type &quot;</Body>
