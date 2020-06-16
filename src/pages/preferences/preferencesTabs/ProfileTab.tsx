@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
@@ -33,9 +33,17 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
   region,
 }) => {
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
-  const [timezoneField, setTimezoneField] = useState(timezone ?? "UTC");
-  const [regionField, setRegionField] = useState(region ?? "us-east-1");
-  const [githubUsernameField, setGithubUsernameField] = useState(lastKnownAs);
+  const [timezoneField, setTimezoneField] = useState<string>(timezone);
+  const [regionField, setRegionField] = useState<string>(region);
+
+  const [githubUsernameField, setGithubUsernameField] = useState<string>(
+    get(githubUser, "githubUser.lastKnownAs")
+  );
+  useEffect(() => {
+    setGithubUsernameField(githubUser.lastKnownAs);
+    setTimezoneField(timezone);
+    setRegionField(region);
+  }, [githubUser, timezone, region]);
   const dispatchBanner = useBannerDispatchContext();
   const [updateUserSettings, { loading }] = useMutation<
     UpdateUserSettingsMutation,

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { useOnClickOutside } from "hooks";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { ABORT_TASK } from "gql/mutations/abort-task";
@@ -160,7 +160,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Unschedule" });
       }}
     >
-      Unschedule
+      <Disclaimer>Unschedule</Disclaimer>
     </DropdownItem>,
     <DropdownItem
       data-cy="abort-task"
@@ -171,7 +171,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Abort" });
       }}
     >
-      Abort
+      <Disclaimer>Abort</Disclaimer>
     </DropdownItem>,
     <Popconfirm
       key="priority"
@@ -205,7 +205,7 @@ export const ActionButtons = ({
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
       >
-        Set priority
+        <Disclaimer>Set priority</Disclaimer>
       </DropdownItem>
     </Popconfirm>,
   ];

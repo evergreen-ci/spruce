@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/react-hooks";
 import { Body } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
@@ -16,7 +16,8 @@ interface NewUITabProps {
   useSpruceOptions: UseSpruceOptions;
 }
 export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
-  const { spruceV1 } = useSpruceOptions;
+  const { spruceV1, hasUsedSpruceBefore } = useSpruceOptions;
+  const [checked, setChecked] = useState(spruceV1);
   const dispatchBanner = useBannerDispatchContext();
   const [updateUserSettings, { loading }] = useMutation<
     UpdateUserSettingsMutation,
@@ -36,12 +37,14 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
   const handleToggle = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
+    setChecked(e.target.checked);
     try {
       await updateUserSettings({
         variables: {
           userSettings: {
             useSpruceOptions: {
-              spruceV1: !spruceV1,
+              spruceV1: e.target.checked,
+              hasUsedSpruceBefore,
             },
           },
         },
@@ -55,7 +58,7 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
         Direct all inbound links to the new Evergreen UI, whenever possible
         (e.g. from the CLI, GitHub, etc.)
       </PaddedBody>
-      <Toggle checked={spruceV1} disabled={loading} onClick={handleToggle} />
+      <Toggle checked={checked} disabled={loading} onClick={handleToggle} />
     </PreferencesCard>
   );
 };
