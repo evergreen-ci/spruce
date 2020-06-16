@@ -141,7 +141,7 @@
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-prettier": "6.10.0",
-    "eslint-config-react-app": "5.2.0",
+    "eslint-config-react-app": "5.2.1",
     "eslint-plugin-emotion": "10.0.27",
     "eslint-plugin-graphql": "3.1.1",
     "eslint-plugin-import": "2.20.2",
@@ -153,7 +153,7 @@
     "husky": "4.2.5",
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
-    "lint-staged": "10.2.2",
+    "lint-staged": "10.2.10",
     "path": "0.12.7",
     "prettier": "1.19.1",
     "prompt": "^1.0.0",
@@ -165,7 +165,7 @@
     "tslint-config-prettier": "1.18.0",
     "tslint-plugin-graphql": "0.0.6",
     "tslint-react": "4.1.0",
-    "typescript": "3.7.4"
+    "typescript": "3.9.5"
   },
   "proxy": "http://localhost:9090"
 }
