@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/react-hooks";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
-import { format } from "date-fns";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
 import Code from "@leafygreen-ui/code";
