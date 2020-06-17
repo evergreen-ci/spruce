@@ -64,6 +64,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
   },
   "prod": {
+    "REACT_APP_SITE_HOSTNAME": "spruce.mongodb.com",
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
     "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
