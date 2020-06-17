@@ -17,7 +17,7 @@ import {
 } from "components/styles";
 import { GET_TASK } from "gql/queries/get-task";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { useDefaultPath, useTabs } from "hooks";
+import { useDefaultPath, useTabs, usePageTitle } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "constants/routes";
@@ -46,7 +46,6 @@ const TaskCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const taskAnalytics = useTaskAnalytics();
-
   // automatically append default tab to end of url path
   useDefaultPath({
     tabToIndexMap,
@@ -90,6 +89,8 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
+  usePageTitle(`Task - ${displayName}`);
+
   if (error) {
     stopPolling();
   }
