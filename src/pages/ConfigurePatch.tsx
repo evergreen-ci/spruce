@@ -19,7 +19,7 @@ export const ConfigurePatch: React.FC = () => {
   >(GET_PATCH_CONFIGURE, {
     variables: { id },
   });
-  usePageTitle(`Configure Patch - ${id}`);
+  usePageTitle(`Configure Patch`);
 
   return (
     <PageWrapper>

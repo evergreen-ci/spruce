@@ -51,7 +51,7 @@ const PatchCore: React.FC = () => {
   if (activated === false) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
-  usePageTitle(`Patch - ${description} - ${patch && patch.patchNumber}`);
+  usePageTitle(`Patch - ${patch && patch.patchNumber}`);
   if (error) {
     return (
       <PageWrapper>
