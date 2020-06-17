@@ -1,12 +1,11 @@
 import React from "react";
 import { Modal, Select, Input } from "antd";
 import { uiColors } from "@leafygreen-ui/palette";
+import Button from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
-import { Button } from "components/Button";
 import { H2, Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
-import TextInput from "@leafygreen-ui/text-input";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
@@ -93,37 +92,24 @@ export const NotificationModal: React.FC<ModalProps> = ({
   const targetPath = get(currentMethodControl, "targetPath");
 
   return (
-    <Modal
+    <StyledModal
       data-test-id="subscription-modal"
-      title={<H2>Add Subscription</H2>}
+      footer={null}
       visible={visible}
       onCancel={onCancel}
-      footer={[
-        <Button
-          key="cancel"
-          onClick={onCancel}
-          dataCy="cancel-subscription-button"
-        >
-          Cancel
-        </Button>,
-        <Button
-          key="save"
-          dataCy="save-subscription-button"
-          loading={mutationLoading}
-          disabled={!isFormValid}
-          onClick={onClickSave}
-          variant="danger"
-        >
-          Save
-        </Button>,
-      ]}
       width="50%"
       wrapProps={{
         "data-cy": "task-notification-modal",
       }}
     >
-      <>
-        when
+      <ModalTitle>Add Subscription</ModalTitle>
+      <Section>
+        <div>
+          <Body weight="medium">Choose an event</Body>
+        </div>
+        <LabelContainer>
+          <InputLabel>Event</InputLabel>
+        </LabelContainer>
         <StyledSelect
           value={selectedTriggerId}
           onChange={(v: string) => {
@@ -141,26 +127,38 @@ export const NotificationModal: React.FC<ModalProps> = ({
             </Option>
           ))}
         </StyledSelect>
-      </>
-      {extraFields &&
-        extraFields.map(({ text, key }) => (
-          <ExtraFieldContainer key={key}>
-            <TextInput
-              label=" "
-              data-cy={`${key}-input`}
-              description={text}
-              onChange={(event) => {
-                setExtraFieldInputVals({
-                  ...extraFieldInputVals,
-                  [key]: event.target.value,
-                });
-              }}
-              value={extraFieldInputVals[key]}
-            />
-          </ExtraFieldContainer>
-        ))}
+      </Section>
+      {extraFields && extraFields.length && (
+        <Section>
+          <div>
+            <Body weight="medium">Choose how to be Notified</Body>
+          </div>
+          {extraFields.map(({ text, key }) => (
+            <ExtraFieldContainer key={key}>
+              <LabelContainer>
+                <InputLabel>{text}</InputLabel>
+              </LabelContainer>
+              <StyledInput
+                data-cy={`${key}-input`}
+                onChange={(event) => {
+                  setExtraFieldInputVals({
+                    ...extraFieldInputVals,
+                    [key]: event.target.value,
+                  });
+                }}
+                value={extraFieldInputVals[key]}
+              />
+            </ExtraFieldContainer>
+          ))}
+        </Section>
+      )}
       <div>
-        then notify by:
+        <div>
+          <Body weight="medium">Choose how to be Notified</Body>
+        </div>
+        <LabelContainer>
+          <InputLabel>Notification method</InputLabel>
+        </LabelContainer>
         <StyledSelect
           data-test-id="notify-by-select"
           value={selectedSubscriptionMethod}
@@ -182,7 +180,9 @@ export const NotificationModal: React.FC<ModalProps> = ({
       <div>
         {currentMethodControl && (
           <>
-            {label}
+            <LabelContainer>
+              <InputLabel>{label}</InputLabel>
+            </LabelContainer>
             <StyledInput
               placeholder={placeholder}
               data-test-id={`${targetPath}-input`}
@@ -203,7 +203,26 @@ export const NotificationModal: React.FC<ModalProps> = ({
           </span>
         ))}
       </div>
-    </Modal>
+      <Footer>
+        <Button
+          key="cancel"
+          onClick={onCancel}
+          dataCy="cancel-subscription-button"
+        >
+          Cancel
+        </Button>
+        <Button
+          key="save"
+          dataCy="save-subscription-button"
+          loading={mutationLoading}
+          disabled={!isFormValid}
+          onClick={onClickSave}
+          variant="danger"
+        >
+          Save
+        </Button>
+      </Footer>
+    </StyledModal>
   );
 };
 export interface SubscriptionMethodControl {
@@ -215,13 +234,11 @@ export interface SubscriptionMethodControl {
 
 const StyledSelect = styled(Select)`
   width: 80%;
-  margin-left: 8px;
   margin-bottom: 8px;
 `;
 
 const StyledInput = styled(Input)`
-  margin-left: 8px;
-  width: 50%;
+  width: 80%;
 `;
 
 const ExtraFieldContainer = styled.div`
@@ -229,4 +246,41 @@ const ExtraFieldContainer = styled.div`
 `;
 const ErrorMessage = styled(Body)`
   color: ${uiColors.red.base};
+`;
+
+const borderBottom = `1px solid ${uiColors.gray.light2};`;
+
+const Section = styled.div`
+  padding-bottom: 24px;
+  margin-bottom: 22px;
+  border-bottom: ${borderBottom};
+`;
+
+const LabelContainer = styled.div`
+  padding-top: 13px;
+`;
+
+const ModalTitle = styled(H2)`
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: ${borderBottom};
+`;
+
+const Footer = styled.div`
+  padding-top: 24px;
+  float: right;
+`;
+const StyledModal = styled(Modal)`
+  .ant-modal-body {
+    padding-bottom: 89px;
+  }
+  button {
+    :first-of-type {
+      margin-right: 16px;
+    }
+  }
+`;
+
+const InputLabel = styled(Body)`
+  font-size: 14px;
 `;
