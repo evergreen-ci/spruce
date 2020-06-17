@@ -1,6 +1,5 @@
 const { upload } = require("bugsnag-sourcemaps");
 const glob = require("glob");
-const reportBuild = require("bugsnag-build-reporter");
 const appVersion = require("./package.json").version;
 
 /**
@@ -35,31 +34,13 @@ function uploadSourceMap(sourceMap) {
 }
 
 /**
- * Notifies Bugsnag of the release
- */
-function notifyRelease() {
-  reportBuild({
-    apiKey: process.env.REACT_APP_BUGSNAG_API_KEY,
-    appVersion,
-  })
-    .then(() => console.log("Bugsnag build reported"))
-    .catch((err) =>
-      console.log("Reporting Bugsnag build failed", err.messsage)
-    );
-}
-
-/**
  * Find and upload Source Maps
  */
 function processSourceMaps() {
   findSourceMaps((_, files) =>
-    Promise.all(files.map(uploadSourceMap))
-      .then(() => {
-        notifyRelease();
-      })
-      .catch((e) => {
-        console.log(e);
-      })
+    Promise.all(files.map(uploadSourceMap)).catch((e) => {
+      console.log(e);
+    })
   );
 }
 
