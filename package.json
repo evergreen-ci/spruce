@@ -53,7 +53,7 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` react-scripts build",
     "test": "react-scripts test --browser true --transformIgnorePatterns \"node_modules/(?!antd)/\" --watchAll=false",
     "test:watch": "react-scripts test --verbose",
     "eject": "react-scripts eject",
@@ -130,7 +130,7 @@
     "@types/lodash.debounce": "4.0.6",
     "@types/new-relic-browser": "0.1072.4",
     "@types/node": "12.12.24",
-    "@types/react": "16.9.17",
+    "@types/react": "16.9.38",
     "@types/react-dom": "16.9.4",
     "@types/react-router-dom": "5.1.3",
     "@typescript-eslint/eslint-plugin": "2.34.0",
