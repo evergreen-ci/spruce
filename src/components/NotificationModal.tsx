@@ -129,7 +129,6 @@ export const NotificationModal: React.FC<ModalProps> = ({
           ))}
         </StyledSelect>
         {extraFields &&
-          extraFields.length &&
           extraFields.map(({ text, key }) => (
             <ExtraFieldContainer key={key}>
               <SectionLabelContainer>
