@@ -29,10 +29,10 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
       {notificationFields[notification]}
     </GridField>
     <GridField gridArea={`${2 + index} / 3 / ${2 + index} / 4`}>
-      <Radio value="slack" />
+      <Radio value="email" />
     </GridField>
     <GridField gridArea={`${2 + index} / 4 / ${2 + index} / 5`}>
-      <Radio value="email" />
+      <Radio value="slack" />
     </GridField>
     <GridField gridArea={`${2 + index} / 5 / ${2 + index} / 6`}>
       <Radio value="" />
