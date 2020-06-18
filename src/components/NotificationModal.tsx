@@ -105,9 +105,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
     >
       <ModalTitle>Add Subscription</ModalTitle>
       <Section>
-        <div>
-          <Body weight="medium">Choose an event</Body>
-        </div>
+        <Body weight="medium">Choose an event</Body>
         <SectionLabelContainer>
           <InputLabel>Event</InputLabel>
         </SectionLabelContainer>
@@ -132,10 +130,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
           extraFields.map(({ text, key }) => (
             <ExtraFieldContainer key={key}>
               <SectionLabelContainer>
-                <InputLabel>{text}</InputLabel>
+                <InputLabel htmlFor={`${key}-input`}>{text}</InputLabel>
               </SectionLabelContainer>
               <StyledInput
                 data-cy={`${key}-input`}
+                id={`${key}-input`}
                 onChange={(event) => {
                   setExtraFieldInputVals({
                     ...extraFieldInputVals,
@@ -148,13 +147,14 @@ export const NotificationModal: React.FC<ModalProps> = ({
           ))}
       </Section>
       <div>
-        <div>
-          <Body weight="medium">Choose how to be Notified</Body>
-        </div>
+        <Body weight="medium">Choose how to be Notified</Body>
         <SectionLabelContainer>
-          <InputLabel>Notification method</InputLabel>
+          <InputLabel htmlFor="notify-by-select">
+            Notification method
+          </InputLabel>
         </SectionLabelContainer>
         <StyledSelect
+          id="notify-by-select"
           data-test-id="notify-by-select"
           value={selectedSubscriptionMethod}
           onChange={(v: string) => {
@@ -176,9 +176,10 @@ export const NotificationModal: React.FC<ModalProps> = ({
         {currentMethodControl && (
           <>
             <SectionLabelContainer>
-              <InputLabel>{label}</InputLabel>
+              <InputLabel htmlFor="target">{label}</InputLabel>
             </SectionLabelContainer>
             <StyledInput
+              id="target"
               placeholder={placeholder}
               data-test-id={`${targetPath}-input`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -265,6 +266,7 @@ const Footer = styled.div`
   padding-top: 24px;
   float: right;
 `;
+
 const StyledModal = styled(Modal)`
   .ant-modal-body {
     padding-bottom: 89px;
@@ -274,6 +276,7 @@ const StyledModal = styled(Modal)`
 const LeftButton = styled(Button)`
   margin-right: 16px;
 `;
-const InputLabel = styled(Body)`
+
+const InputLabel = styled.label`
   font-size: 14px;
 `;
