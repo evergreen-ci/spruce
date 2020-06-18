@@ -14,6 +14,8 @@
     "REACT_APP_UI_URL": "https://www.example.com"
   },
   "prod": {
+    "REACT_APP_DEPLOYS_EMAIL": "some-email@something.com", 
+    "REACT_APP_SITE_URL": "https://www.example.com",
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
     "REACT_APP_API_URL": "https://www.example.com",
     "REACT_APP_UI_URL": "https://www.example.com",

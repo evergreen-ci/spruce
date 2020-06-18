@@ -25,7 +25,7 @@ function uploadSourceMap(sourceMap) {
     apiKey: process.env.REACT_APP_BUGSNAG_API_KEY,
     appVersion,
     overwrite: true,
-    minifiedUrl: `http*://${process.env.REACT_APP_SITE_HOSTNAME}/${minifiedFileRelativePath}`,
+    minifiedUrl: `${process.env.REACT_APP_SITE_URL}/${minifiedFileRelativePath}`,
     sourceMap,
     minifiedFile,
     projectRoot: __dirname,
