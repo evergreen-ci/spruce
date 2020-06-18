@@ -199,13 +199,13 @@ export const NotificationModal: React.FC<ModalProps> = ({
         ))}
       </div>
       <Footer>
-        <Button
+        <LeftButton
           key="cancel"
           onClick={onCancel}
           dataCy="cancel-subscription-button"
         >
           Cancel
-        </Button>
+        </LeftButton>
         <Button
           key="save"
           dataCy="save-subscription-button"
@@ -269,13 +269,11 @@ const StyledModal = styled(Modal)`
   .ant-modal-body {
     padding-bottom: 89px;
   }
-  button {
-    :first-of-type {
-      margin-right: 16px;
-    }
-  }
 `;
 
+const LeftButton = styled(Button)`
+  margin-right: 16px;
+`;
 const InputLabel = styled(Body)`
   font-size: 14px;
 `;
