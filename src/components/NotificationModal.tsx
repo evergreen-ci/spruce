@@ -93,6 +93,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
 
   return (
     <StyledModal
+      centered
       data-test-id="subscription-modal"
       footer={null}
       visible={visible}
@@ -107,9 +108,9 @@ export const NotificationModal: React.FC<ModalProps> = ({
         <div>
           <Body weight="medium">Choose an event</Body>
         </div>
-        <LabelContainer>
+        <SectionLabelContainer>
           <InputLabel>Event</InputLabel>
-        </LabelContainer>
+        </SectionLabelContainer>
         <StyledSelect
           value={selectedTriggerId}
           onChange={(v: string) => {
@@ -127,17 +128,13 @@ export const NotificationModal: React.FC<ModalProps> = ({
             </Option>
           ))}
         </StyledSelect>
-      </Section>
-      {extraFields && extraFields.length && (
-        <Section>
-          <div>
-            <Body weight="medium">Choose how to be Notified</Body>
-          </div>
-          {extraFields.map(({ text, key }) => (
+        {extraFields &&
+          extraFields.length &&
+          extraFields.map(({ text, key }) => (
             <ExtraFieldContainer key={key}>
-              <LabelContainer>
+              <SectionLabelContainer>
                 <InputLabel>{text}</InputLabel>
-              </LabelContainer>
+              </SectionLabelContainer>
               <StyledInput
                 data-cy={`${key}-input`}
                 onChange={(event) => {
@@ -150,15 +147,14 @@ export const NotificationModal: React.FC<ModalProps> = ({
               />
             </ExtraFieldContainer>
           ))}
-        </Section>
-      )}
+      </Section>
       <div>
         <div>
           <Body weight="medium">Choose how to be Notified</Body>
         </div>
-        <LabelContainer>
+        <SectionLabelContainer>
           <InputLabel>Notification method</InputLabel>
-        </LabelContainer>
+        </SectionLabelContainer>
         <StyledSelect
           data-test-id="notify-by-select"
           value={selectedSubscriptionMethod}
@@ -180,9 +176,9 @@ export const NotificationModal: React.FC<ModalProps> = ({
       <div>
         {currentMethodControl && (
           <>
-            <LabelContainer>
+            <SectionLabelContainer>
               <InputLabel>{label}</InputLabel>
-            </LabelContainer>
+            </SectionLabelContainer>
             <StyledInput
               placeholder={placeholder}
               data-test-id={`${targetPath}-input`}
@@ -217,7 +213,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
           loading={mutationLoading}
           disabled={!isFormValid}
           onClick={onClickSave}
-          variant="danger"
+          variant="primary"
         >
           Save
         </Button>
@@ -256,8 +252,8 @@ const Section = styled.div`
   border-bottom: ${borderBottom};
 `;
 
-const LabelContainer = styled.div`
-  padding-top: 13px;
+const SectionLabelContainer = styled.div`
+  padding-top: 16px;
 `;
 
 const ModalTitle = styled(H2)`
