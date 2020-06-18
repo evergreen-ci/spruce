@@ -89,7 +89,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
-  usePageTitle(`Task - ${displayName}`);
+  usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   if (error) {
     stopPolling();
