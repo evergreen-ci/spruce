@@ -147,7 +147,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
           ))}
       </Section>
       <div>
-        <Body weight="medium">Choose how to be Notified</Body>
+        <Body weight="medium">Choose how to be notified</Body>
         <SectionLabelContainer>
           <InputLabel htmlFor="notify-by-select">
             Notification method
