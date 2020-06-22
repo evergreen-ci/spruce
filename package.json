@@ -19,7 +19,7 @@
     "@leafygreen-ui/radio-group": "2.0.0",
     "@leafygreen-ui/side-nav": "2.0.9",
     "@leafygreen-ui/tabs": "2.0.0",
-    "@leafygreen-ui/text-input": "1.0.4",
+    "@leafygreen-ui/text-input": "1.1.1",
     "@leafygreen-ui/toggle": "3.0.1",
     "@leafygreen-ui/tooltip": "3.1.0",
     "@leafygreen-ui/typography": "1.0.1",
@@ -77,7 +77,8 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "codegen": "graphql-codegen --config codegen.js",
-    "deploy-prod:do-not-use-directly": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy; npm run upload-source-maps",
+    "notify-email": "env-cmd -e prod -r config/.cmdrc.json node ./notify-email.js",
+    "deploy-prod:do-not-use-directly": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy; npm run notify-email; npm run upload-source-maps;",
     "upload-source-maps": "env-cmd -e prod -r config/.cmdrc.json node ./upload-bugsnag-sourcemaps"
   },
   "husky": {
