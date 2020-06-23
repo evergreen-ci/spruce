@@ -6,6 +6,7 @@ import {
   GET_TASK_LOGS,
 } from "gql/queries/get-task-logs";
 import queryString from "query-string";
+import { uiColors } from "@leafygreen-ui/palette";
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -67,6 +68,7 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
     })),
     loading,
     error,
+    LogContainer: ({ children }) => <div>{children}</div>,
     ...props,
   });
 };
@@ -127,9 +129,18 @@ const useRenderBody: React.FC<{
   error: ApolloError;
   data: [TaskEventLogEntryType | LogMessageType];
   currentLog: LogTypes;
+  LogContainer?: React.FC;
   htmlLink: string;
   rawLink: string;
-}> = ({ loading, error, data, currentLog, rawLink, htmlLink }) => {
+}> = ({
+  loading,
+  error,
+  data,
+  currentLog,
+  rawLink,
+  htmlLink,
+  LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
+}) => {
   const { pathname } = useLocation();
   const { replace } = useHistory();
   const taskAnalytics = useTaskAnalytics();
@@ -238,13 +249,15 @@ const useRenderBody: React.FC<{
       {hideLogs ? (
         <div id="cy-no-logs">No logs found</div>
       ) : (
-        data.map((d) =>
-          d.kind === "taskEventLogEntry" ? (
-            <TaskEventLogLine key={uuid()} {...d} />
-          ) : (
-            <LogMessageLine key={uuid()} {...d} />
-          )
-        )
+        <LogContainer>
+          {data.map((d) =>
+            d.kind === "taskEventLogEntry" ? (
+              <TaskEventLogLine key={uuid()} {...d} />
+            ) : (
+              <LogMessageLine key={uuid()} {...d} />
+            )
+          )}
+        </LogContainer>
       )}
     </>
   );
@@ -262,4 +275,14 @@ const StyledRadioGroup = styled(RadioGroup)`
   label {
     margin-right: 24px;
   }
+`;
+
+const StyledPre = styled.pre`
+  padding: 8px;
+  word-break: break-all;
+  word-wrap: break-word;
+  border: 1px solid ${uiColors.gray.light2};
+  border-radius: 4px;
+  font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+  font-size: 13px;
 `;
