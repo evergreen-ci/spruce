@@ -9,6 +9,7 @@ import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
+import { Variant } from "@leafygreen-ui/button";
 import {
   useNotificationModal,
   UseNotificationModalProps,
@@ -213,7 +214,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
           loading={mutationLoading}
           disabled={!isFormValid}
           onClick={onClickSave}
-          variant="primary"
+          variant={Variant.Primary}
         >
           Save
         </Button>
