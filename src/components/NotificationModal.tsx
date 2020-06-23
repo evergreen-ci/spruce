@@ -280,4 +280,5 @@ const LeftButton = styled(Button)`
 
 const InputLabel = styled.label`
   font-size: 14px;
+  font-weight: bold;
 `;
