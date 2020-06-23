@@ -1,4 +1,4 @@
-import { TaskStatus } from "types/task";
+import { TaskStatus, LogTypes } from "types/task";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import get from "lodash/get";
@@ -9,7 +9,7 @@ import {
   Analytics as A,
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
-import { LogTypes } from "types/task";
+
 import { SaveSubscriptionMutationVariables } from "gql/generated/types";
 
 type Action =

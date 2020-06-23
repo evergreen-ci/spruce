@@ -19,6 +19,7 @@ import {
   CommitQueueQueryVariables,
 } from "gql/generated/types";
 import { withBannersContext } from "hoc/withBannersContext";
+import { usePageTitle } from "hooks";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = uiColors;
@@ -41,6 +42,8 @@ const CommitQueueCore: React.FC = () => {
 
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "queue");
+  usePageTitle(`Commit Queue - ${id}`);
+
   return (
     <PageWrapper>
       <Banners

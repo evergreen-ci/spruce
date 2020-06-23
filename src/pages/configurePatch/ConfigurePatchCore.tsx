@@ -76,7 +76,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
-    router.push(`${paths.version}/${scheduledPatchId}`);
+    router.replace(`${paths.version}/${scheduledPatchId}`);
   }
   if (variants.length === 0 || tasks.length === 0) {
     return (

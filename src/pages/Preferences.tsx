@@ -12,6 +12,7 @@ import {
   GetUserSettingsQuery,
   GetUserSettingsQueryVariables,
 } from "gql/generated/types";
+import { usePageTitle } from "hooks";
 
 export const Preferences: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
@@ -19,6 +20,7 @@ export const Preferences: React.FC = () => {
     GetUserSettingsQuery,
     GetUserSettingsQueryVariables
   >(GET_USER_SETTINGS);
+  usePageTitle("Preferences");
   const userSettings = get(data, "userSettings");
   if (tab === undefined) {
     return <Redirect to={`${paths.preferences}/profile`} />;
