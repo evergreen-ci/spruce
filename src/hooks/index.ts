@@ -10,6 +10,7 @@ import { useNotificationModal } from "hooks/useNotificationModal";
 import { usePollQuery } from "hooks/usePollQuery";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { useLegacyUIURL } from "hooks/useLegacyUIURL";
+import { usePageTitle } from "hooks/usePageTitle";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -31,4 +32,5 @@ export {
   usePollQuery,
   useSetColumnDefaultSortOrder,
   useLegacyUIURL,
+  usePageTitle,
 };
