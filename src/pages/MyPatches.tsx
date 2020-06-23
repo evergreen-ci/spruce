@@ -8,7 +8,7 @@ export const MyPatches: React.FC = () => {
   const router = useHistory();
   const { data } = useQuery<GetUserQuery>(GET_USER);
   if (data) {
-    router.push(getUserPatchesRoute(data.user.userId));
+    router.replace(getUserPatchesRoute(data.user.userId));
   }
   return null;
 };
