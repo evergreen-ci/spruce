@@ -87,7 +87,7 @@ const triggers: Trigger[] = [
   },
   {
     trigger: "exceeds-duration",
-    label: "the runtime for this task exceeds some duration",
+    label: "The runtime for this task exceeds some duration",
     extraFields: [
       {
         text: "Task duration (seconds)",
