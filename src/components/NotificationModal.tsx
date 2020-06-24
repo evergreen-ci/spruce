@@ -30,6 +30,7 @@ interface NotificationModalProps extends UseNotificationModalProps {
   ) => void;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  "data-cy": string;
 }
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
@@ -41,6 +42,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   resourceId,
   resourceType,
   sendAnalyticsEvent,
+  "data-cy": dataCy,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const [saveSubscription] = useMutation<
@@ -94,7 +96,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
 
   return (
     <Modal
-      data-test-id="subscription-modal"
+      data-cy={dataCy}
       visible={visible}
       onCancel={onCancel}
       title="Add Subscription"

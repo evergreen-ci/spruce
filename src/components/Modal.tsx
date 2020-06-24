@@ -6,7 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 export interface ModalProps {
   footer: JSX.Element;
   title: string;
-  "data-test-id": string;
+  "data-cy": string;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
@@ -17,18 +17,20 @@ export const Modal: React.FC<ModalProps> = ({
   onCancel,
   visible,
   children,
-  "data-test-id": dataTestId,
+  "data-cy": dataCy,
 }) => (
   <StyledModal
     maskStyle={{
       backgroundColor: "hsla(0, 100%, 0%, .9)",
     }}
     centered
-    data-test-id={dataTestId}
     footer={null}
     visible={visible}
     onCancel={onCancel}
     width="50%"
+    wrapProps={{
+      "data-cy": dataCy,
+    }}
   >
     <ModalTitle>{title}</ModalTitle>
     {children}

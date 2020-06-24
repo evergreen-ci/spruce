@@ -30,6 +30,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
 
   return (
     <NotificationModal
+      data-cy="task-notification-modal"
       visible={visible}
       onCancel={onCancel}
       triggers={triggers}
