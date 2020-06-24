@@ -1,9 +1,10 @@
 import React from "react";
-import { Modal, Select, Input } from "antd";
+import { Select, Input } from "antd";
+import { Modal } from "components/Modal";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
-import { H2, Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
@@ -23,16 +24,16 @@ import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 
 const { Option } = Select;
 
-interface ModalProps extends UseNotificationModalProps {
-  visible: boolean;
+interface NotificationModalProps extends UseNotificationModalProps {
   subscriptionMethods: SubscriptionMethod[];
-  onCancel: () => void;
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionMutationVariables["subscription"]
   ) => void;
+  visible: boolean;
+  onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 
-export const NotificationModal: React.FC<ModalProps> = ({
+export const NotificationModal: React.FC<NotificationModalProps> = ({
   visible,
   onCancel,
   subscriptionMethods,
@@ -93,18 +94,33 @@ export const NotificationModal: React.FC<ModalProps> = ({
   const targetPath = get(currentMethodControl, "targetPath");
 
   return (
-    <StyledModal
-      centered
+    <Modal
       data-test-id="subscription-modal"
-      footer={null}
       visible={visible}
       onCancel={onCancel}
-      width="50%"
-      wrapProps={{
-        "data-cy": "task-notification-modal",
-      }}
+      title="Add Subscription"
+      footer={
+        <>
+          <LeftButton
+            key="cancel"
+            onClick={onCancel}
+            dataCy="cancel-subscription-button"
+          >
+            Cancel
+          </LeftButton>
+          <Button
+            key="save"
+            dataCy="save-subscription-button"
+            loading={mutationLoading}
+            disabled={!isFormValid}
+            onClick={onClickSave}
+            variant={Variant.Primary}
+          >
+            Save
+          </Button>
+        </>
+      }
     >
-      <ModalTitle>Add Subscription</ModalTitle>
       <Section>
         <Body weight="medium">Choose an event</Body>
         <SectionLabelContainer>
@@ -200,26 +216,7 @@ export const NotificationModal: React.FC<ModalProps> = ({
           </span>
         ))}
       </div>
-      <Footer>
-        <LeftButton
-          key="cancel"
-          onClick={onCancel}
-          dataCy="cancel-subscription-button"
-        >
-          Cancel
-        </LeftButton>
-        <Button
-          key="save"
-          dataCy="save-subscription-button"
-          loading={mutationLoading}
-          disabled={!isFormValid}
-          onClick={onClickSave}
-          variant={Variant.Primary}
-        >
-          Save
-        </Button>
-      </Footer>
-    </StyledModal>
+    </Modal>
   );
 };
 export interface SubscriptionMethodControl {
@@ -241,37 +238,19 @@ const StyledInput = styled(Input)`
 const ExtraFieldContainer = styled.div`
   margin-bottom: 8px;
 `;
+
 const ErrorMessage = styled(Body)`
   color: ${uiColors.red.base};
 `;
 
-const borderBottom = `1px solid ${uiColors.gray.light2};`;
-
 const Section = styled.div`
   padding-bottom: 24px;
   margin-bottom: 22px;
-  border-bottom: ${borderBottom};
+  border-bottom: 1px solid ${uiColors.gray.light2};
 `;
 
 const SectionLabelContainer = styled.div`
   padding-top: 16px;
-`;
-
-const ModalTitle = styled(H2)`
-  padding-bottom: 16px;
-  margin-bottom: 16px;
-  border-bottom: ${borderBottom};
-`;
-
-const Footer = styled.div`
-  padding-top: 24px;
-  float: right;
-`;
-
-const StyledModal = styled(Modal)`
-  .ant-modal-body {
-    padding-bottom: 89px;
-  }
 `;
 
 const LeftButton = styled(Button)`
