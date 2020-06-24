@@ -55,6 +55,12 @@ const deployProcess = () => {
       env: [],
       args: [],
     },
+  }).then((childProcess) => {
+    childProcess.on("close", () => {
+      console.log("Deploy Complete! 🎉");
+      console.log("Don't forget to push tags");
+      console.log(colors.green("git push --tags"));
+    });
   });
 };
 
@@ -117,7 +123,7 @@ const deployProd = async () => {
         }
       }
     );
-  } else {
+  } else if (onMaster) {
     prompt.get(
       {
         properties: {
@@ -140,6 +146,8 @@ const deployProd = async () => {
         }
       }
     );
+  } else {
+    console.log("Aborting deploy, you must be on master to deploy!");
   }
 };
 
