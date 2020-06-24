@@ -7,6 +7,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
 import isEmpty from "lodash/isEmpty";
 import { Button } from "components/Button";
+import get from "lodash/get";
 
 interface Props {
   variants: ProjectBuildVariant[];
@@ -17,9 +18,6 @@ interface Props {
   >;
   loading: boolean;
   onClickSchedule: () => void;
-}
-interface TasksState {
-  [task: string]: true;
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
@@ -32,42 +30,36 @@ export const ConfigureTasks: React.FC<Props> = ({
 }) => {
   const buildVariantCount = Object.keys(selectedVariantTasks).length;
   const taskCount = Object.values(selectedVariantTasks).reduce(
-    (prev, curr) => prev + Object.values(curr).length,
+    (accum, taskObj) => accum + Object.values(taskObj).filter((v) => v).length,
     0
   );
 
-  const projectVariantTasksMap: {
-    [variant: string]: string[];
-  } = variants.reduce((prev, { name, tasks }) => {
-    prev[name] = tasks; // eslint-disable-line no-param-reassign
-    return prev;
-  }, {});
-  const temp = selectedBuildVariant.map((buildVariant) => ({
-    buildVariant,
-    tasks: projectVariantTasksMap[buildVariant || variants[0].name],
-  }));
-  const currentTasks = [];
-  for (let i = 0; i < temp.length; i++) {
-    currentTasks.push(temp[i]);
-  }
+  const currentTasks = Array.from(
+    new Set(
+      variants
+        .filter((v) => selectedBuildVariant.includes(v.name))
+        .reduce((accum, { tasks }) => [...accum, ...tasks], [])
+    )
+  );
+
   const onClickSelectAll = () => {
-    const variantTasks = selectedBuildVariant.map((buildVariant) =>
-      variants.find((element) => element.name === buildVariant)
-    );
-    const checkAllTasks = (tasks: string[]) => {
-      const checkedTasks = {};
-      for (let i = 0; i < tasks.length; i++) {
-        checkedTasks[tasks[i]] = true;
-      }
-      return checkedTasks;
-    };
-    const selectedTasks = {};
-    for (let i = 0; i < variantTasks.length; i++) {
-      selectedTasks[variantTasks[i].name] = checkAllTasks(
-        variantTasks[i].tasks
-      );
-    }
-    setSelectedVariantTasks({ ...selectedVariantTasks, ...selectedTasks });
+    // const variantTasks = selectedBuildVariant.map((buildVariant) =>
+    //   variants.filter(v ).find((element) => element.name === buildVariant)
+    // );
+    // const checkAllTasks = (tasks: string[]) => {
+    //   const checkedTasks = {};
+    //   for (let i = 0; i < tasks.length; i++) {
+    //     checkedTasks[tasks[i]] = true;
+    //   }
+    //   return checkedTasks;
+    // };
+    // const selectedTasks = {};
+    // for (let i = 0; i < variantTasks.length; i++) {
+    //   selectedTasks[variantTasks[i].name] = checkAllTasks(
+    //     variantTasks[i].tasks
+    //   );
+    // }
+    // setSelectedVariantTasks({ ...selectedVariantTasks, ...selectedTasks });
   };
 
   const onClickDeselectAll = (): void => {
@@ -77,27 +69,22 @@ export const ConfigureTasks: React.FC<Props> = ({
     }
     setSelectedVariantTasks({ ...tempSelectedVariantTasks });
   };
-  const getTaskCheckboxChangeHandler = (task: string, variant: string) => (
-    e: React.ChangeEvent<HTMLInputElement>
-  ): void => {
-    const { checked } = e.target;
-    const nextVariantTasks = { ...selectedVariantTasks[variant] };
-    if (checked) {
-      setSelectedVariantTasks({
-        ...selectedVariantTasks,
-        [variant]: { ...nextVariantTasks, [task]: true },
-      });
-    } else {
-      delete nextVariantTasks[task];
-      const nextSelectedVariantTasks = {
-        ...selectedVariantTasks,
-        [variant]: nextVariantTasks,
-      };
-      if (isEmpty(nextVariantTasks)) {
-        delete nextSelectedVariantTasks[variant];
-      }
-      setSelectedVariantTasks(nextSelectedVariantTasks);
-    }
+  const onChangeCheckbox = (taskName: string): void => {
+    const valueToSet =
+      getCheckboxState(taskName, selectedBuildVariant, selectedVariantTasks) ===
+      "unchecked";
+    setSelectedVariantTasks(
+      selectedBuildVariant.reduce(
+        (accum, buildVariantName) => ({
+          ...accum,
+          [buildVariantName]: {
+            ...(accum[buildVariantName] ?? {}),
+            [taskName]: valueToSet,
+          },
+        }),
+        selectedVariantTasks
+      )
+    );
   };
   return (
     <TabContentWrapper>
@@ -132,33 +119,25 @@ export const ConfigureTasks: React.FC<Props> = ({
         }`}
       </StyledDisclaimer>
       <Tasks data-cy="configurePatch-tasks">
-        {currentTasks.map((currentTask) =>
-          currentTask.tasks.map((task) => {
-            let checked = false;
-            for (let i = 0; i < selectedBuildVariant.length; i++) {
-              if (checked === true) {
-                break;
-              } else {
-                checked =
-                  !!selectedVariantTasks[selectedBuildVariant[i]] &&
-                  selectedVariantTasks[selectedBuildVariant[i]][task] === true;
-              }
-            }
-            return (
-              <Checkbox
-                data-cy={`configurePatch-${task}`}
-                data-checked={checked}
-                key={task}
-                onChange={getTaskCheckboxChangeHandler(
-                  task,
-                  currentTask.buildVariant
-                )}
-                label={task}
-                checked={checked}
-              />
-            );
-          })
-        )}
+        {currentTasks.map((task) => {
+          const checkboxState = getCheckboxState(
+            task,
+            selectedBuildVariant,
+            selectedVariantTasks
+          );
+          const checked = checkboxState === "checked";
+          return (
+            <Checkbox
+              data-cy={`configurePatch-${task}`}
+              data-checked={checked}
+              key={task}
+              indeterminate={checkboxState === "indeterminate"}
+              onChange={() => onChangeCheckbox(task)}
+              label={task}
+              checked={checked}
+            />
+          );
+        })}
       </Tasks>
     </TabContentWrapper>
   );
@@ -197,3 +176,32 @@ export const cardSidePadding = css`
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
+
+type CheckboxState = "checked" | "unchecked" | "indeterminate";
+
+const getCheckboxState = (
+  taskName: string,
+  selectedBuildVariants: string[],
+  selectedBuildVariantTasks: VariantTasksState
+): CheckboxState => {
+  const checkedCb = (allChecked: boolean, buildVariantName: string) =>
+    allChecked &&
+    get(selectedBuildVariantTasks, `[${buildVariantName}][${taskName}]`, false);
+  const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) =>
+    allUnchecked &&
+    !get(
+      selectedBuildVariantTasks,
+      `[${buildVariantName}][${taskName}]`,
+      false
+    );
+  // @ts-ignore
+  const checked: boolean = selectedBuildVariants.reduce(checkedCb, true);
+  const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
+  if (checked) {
+    return "checked";
+  }
+  if (unchecked) {
+    return "unchecked";
+  }
+  return "indeterminate";
+};

@@ -43,7 +43,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
       </Container>
       {variants.map(({ displayName, name }) => {
         const taskCount = selectedVariantTasks[name]
-          ? Object.keys(selectedVariantTasks[name]).length
+          ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
           : null;
         const isSelected = selectedBuildVariant.includes(name);
         return (
