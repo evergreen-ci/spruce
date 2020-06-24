@@ -24,7 +24,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   setSelectedBuildVariant,
 }) => {
   const getClickVariantHandler = (variantName: string) => (e): void => {
-    if (e.ctrlKey || e.metaKey) {
+    if (e.ctrlKey || e.metaKey || e.shiftKey) {
       const updatedBuildVariants = toggleArray(variantName, [
         ...selectedBuildVariant,
       ]);
