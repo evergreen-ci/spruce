@@ -2,7 +2,7 @@ import React from "react";
 import { Select, Input } from "antd";
 import { Modal } from "components/Modal";
 import { uiColors } from "@leafygreen-ui/palette";
-import Button from "@leafygreen-ui/button";
+import Button, { Variant } from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
@@ -10,7 +10,6 @@ import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
-import { Variant } from "@leafygreen-ui/button";
 import {
   useNotificationModal,
   UseNotificationModalProps,
@@ -44,7 +43,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   sendAnalyticsEvent,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-  const [saveSubscription, { loading: mutationLoading }] = useMutation<
+  const [saveSubscription] = useMutation<
     SaveSubscriptionMutation,
     SaveSubscriptionMutationVariables
   >(SAVE_SUBSCRIPTION, {
@@ -104,14 +103,13 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           <LeftButton
             key="cancel"
             onClick={onCancel}
-            dataCy="cancel-subscription-button"
+            data-cy="cancel-subscription-button"
           >
             Cancel
           </LeftButton>
           <Button
             key="save"
-            dataCy="save-subscription-button"
-            loading={mutationLoading}
+            data-cy="save-subscription-button"
             disabled={!isFormValid}
             onClick={onClickSave}
             variant={Variant.Primary}
