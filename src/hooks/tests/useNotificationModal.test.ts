@@ -64,15 +64,15 @@ const subscriptionMethodControls: SubscriptionMethods = {
 const triggers: Trigger[] = [
   {
     trigger: "outcome",
-    label: "this task finishes",
+    label: "This task finishes",
   },
   {
     trigger: "failure",
-    label: "this task fails",
+    label: "This task fails",
   },
   {
     trigger: "success",
-    label: "this task succeeds",
+    label: "This task succeeds",
   },
   {
     trigger: "exceeds-duration",
@@ -87,7 +87,7 @@ const triggers: Trigger[] = [
   },
   {
     trigger: "runtime-change",
-    label: "this task succeeds and its runtime changes by some percentage",
+    label: "This task succeeds and its runtime changes by some percentage",
     extraFields: [
       {
         text: "Percent change",
