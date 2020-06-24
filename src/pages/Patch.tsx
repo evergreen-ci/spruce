@@ -24,6 +24,7 @@ import {
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "hoc/withBannersContext";
+import { usePageTitle } from "hooks";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -42,6 +43,7 @@ const PatchCore: React.FC = () => {
       ),
   });
   useEffect(() => stopPolling, [stopPolling]);
+
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
@@ -49,6 +51,7 @@ const PatchCore: React.FC = () => {
   if (activated === false) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
+  usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
   if (error) {
     return (
       <PageWrapper>
