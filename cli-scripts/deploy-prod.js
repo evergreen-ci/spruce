@@ -101,6 +101,14 @@ const deployProd = async () => {
               const choice = version.toLowerCase();
               if (versionChoices.includes(choice)) {
                 promptRun({
+                  command: `npm run notify-email`,
+                  options: {},
+                  questions: {
+                    env: [],
+                    args: [],
+                  },
+                });
+                promptRun({
                   command: `npm version ${choice}`,
                   options: {},
                   questions: {
