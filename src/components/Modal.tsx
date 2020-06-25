@@ -3,7 +3,8 @@ import { Modal as AntdModal } from "antd";
 import { H2 } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-export interface ModalProps {
+
+interface ModalProps {
   footer: JSX.Element;
   title: string;
   "data-cy": string;
@@ -21,7 +22,7 @@ export const Modal: React.FC<ModalProps> = ({
 }) => (
   <StyledModal
     maskStyle={{
-      backgroundColor: "hsla(0, 100%, 0%, .9)",
+      backgroundColor: "hsl(204, 69%, 8%, .9)",
     }}
     centered
     footer={null}
