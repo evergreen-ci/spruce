@@ -8,7 +8,7 @@ const git = simpleGit(path.resolve(__dirname, ".."));
 // this script gets the current user email, the latest git commit hash of
 // the current branch and sends an email to a recipient that will forward
 // the message to a slack channel
-const postToSlack = () =>
+const sendEmail = () =>
   exec("git config user.email", async (emailErr, email) => {
     if (emailErr) {
       console.error(errorMessage, emailErr);
@@ -68,7 +68,7 @@ const prettifyCommitLogs = (latestCommits) => {
   return commitBody;
 };
 
-postToSlack();
+sendEmail();
 
 const errorMessage = "Error sending message to slack";
 const lineBreakRegex = /(\r\n|\n|\r)/gm;

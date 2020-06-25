@@ -20,7 +20,7 @@ const checkIfOnMaster = async () => {
   return true;
 };
 
-// Fetches all the commits since the last release tag if there are know commits
+// Fetches all the commits since the last release tag if there are no commits
 // since the last release it returns false otherwise prints out all the commits
 const getLatestCommitsSinceLastRelease = async () => {
   const latestRelease = gitDescribeSync(__dirname);
