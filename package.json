@@ -79,8 +79,8 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "codegen": "graphql-codegen --config codegen.js",
-    "notify-email": "env-cmd -e prod -r config/.cmdrc.json node ./notify-email.js",
-    "deploy-prod:do-not-use-directly": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy; npm run notify-email; npm run upload-source-maps;",
+    "notify-email": "env-cmd -e prod -r config/.cmdrc.json node cli-scripts/notify-email.js",
+    "deploy-prod:do-not-use-directly": "npm run build:prod && BUCKET=evergreen.spruce npm run deploy; npm run upload-source-maps;",
     "upload-source-maps": "env-cmd -e prod -r config/.cmdrc.json node ./upload-bugsnag-sourcemaps"
   },
   "husky": {
@@ -151,6 +151,7 @@
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "2.5.1",
+    "git-describe": "4.0.4",
     "glob": "7.1.6",
     "husky": "4.2.5",
     "jest": "24.9.0",
