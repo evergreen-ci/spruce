@@ -4,7 +4,7 @@ import Badge from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
 import { Accordian } from "components/Accordian";
 import { PatchBuildVariantTask } from "gql/generated/types";
-import { selectedStrings } from "utils/string";
+import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
 
 interface PatchBuildVariantAccordianProps {

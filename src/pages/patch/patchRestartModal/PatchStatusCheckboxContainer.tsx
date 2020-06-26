@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { PatchBuildVariantTask } from "gql/generated/types";
-import { selectedStrings } from "utils/string";
+import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "pages/patch/patchRestartModal/TaskStatusCheckbox";
 
 interface PatchStatusCheckboxContainerProps {

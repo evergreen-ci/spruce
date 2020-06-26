@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
-import { selectedStrings } from "utils/string";
+
+export interface selectedStrings {
+  [id: string]: boolean | undefined;
+}
 
 export const usePatchStatusSelect = (
   patchBuildVariants: PatchBuildVariant[]

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { PatchBuildVariantTask } from "gql/generated/types";
-import { selectedStrings } from "utils/string";
+import { selectedStrings } from "hooks/usePatchStatusSelect";
 import {
   Square,
   mapVariantTaskStatusToColor,

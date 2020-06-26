@@ -26,7 +26,3 @@ export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value
   );
-
-export interface selectedStrings {
-  [id: string]: boolean | undefined;
-}
