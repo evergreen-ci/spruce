@@ -133,7 +133,7 @@
     "@types/new-relic-browser": "0.1072.4",
     "@types/node": "12.12.24",
     "@types/react": "16.9.38",
-    "@types/react-dom": "16.9.4",
+    "@types/react-dom": "16.9.8",
     "@types/react-router-dom": "5.1.3",
     "@typescript-eslint/eslint-plugin": "2.34.0",
     "@typescript-eslint/parser": "2.31.0",
