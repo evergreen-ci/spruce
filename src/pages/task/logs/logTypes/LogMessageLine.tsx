@@ -2,7 +2,10 @@ import React from "react";
 import { LogMessage } from "gql/generated/types";
 import { getLogLineWrapper } from "pages/task/logs/logTypes/logMessageLine/LogLines";
 import { format } from "date-fns";
+import linkifyHtml from "linkifyjs/html";
+import Convert from "ansi-to-html";
 
+const convert = new Convert({ newline: true, escapeXML: true });
 const FORMAT_STR = "yyyy/MM/d, HH:mm:ss.SSS";
 
 export const LogMessageLine: React.FC<LogMessage> = ({
@@ -15,7 +18,15 @@ export const LogMessageLine: React.FC<LogMessage> = ({
   return (
     <LogLineWrapper>
       <span className="cy-log-message-time">{time}</span>
-      {message}
+      <span
+        dangerouslySetInnerHTML={{
+          __html: linkifyHtml(convert.toHtml(message), {
+            validate: {
+              url: (value) => /^(http)s?:\/\//.test(value),
+            },
+          }),
+        }}
+      />
     </LogLineWrapper>
   );
 };

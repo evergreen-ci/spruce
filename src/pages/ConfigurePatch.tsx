@@ -9,6 +9,7 @@ import {
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageWrapper } from "components/styles";
+import { usePageTitle } from "hooks";
 
 export const ConfigurePatch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +19,8 @@ export const ConfigurePatch: React.FC = () => {
   >(GET_PATCH_CONFIGURE, {
     variables: { id },
   });
+  usePageTitle(`Configure Patch`);
+
   return (
     <PageWrapper>
       {loading && !error && <PatchAndTaskFullPageLoad />}
