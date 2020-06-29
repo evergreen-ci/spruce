@@ -1,12 +1,12 @@
 import React from "react";
-import { Modal, Select, Input } from "antd";
+import { Select, Input } from "antd";
+import { Modal } from "components/Modal";
 import { uiColors } from "@leafygreen-ui/palette";
+import Button, { Variant } from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
-import { Button } from "components/Button";
-import { H2, Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
-import TextInput from "@leafygreen-ui/text-input";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
@@ -23,16 +23,17 @@ import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 
 const { Option } = Select;
 
-interface ModalProps extends UseNotificationModalProps {
-  visible: boolean;
+interface NotificationModalProps extends UseNotificationModalProps {
   subscriptionMethods: SubscriptionMethod[];
-  onCancel: () => void;
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionMutationVariables["subscription"]
   ) => void;
+  visible: boolean;
+  onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  "data-cy": string;
 }
 
-export const NotificationModal: React.FC<ModalProps> = ({
+export const NotificationModal: React.FC<NotificationModalProps> = ({
   visible,
   onCancel,
   subscriptionMethods,
@@ -41,9 +42,10 @@ export const NotificationModal: React.FC<ModalProps> = ({
   resourceId,
   resourceType,
   sendAnalyticsEvent,
+  "data-cy": dataCy,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-  const [saveSubscription, { loading: mutationLoading }] = useMutation<
+  const [saveSubscription] = useMutation<
     SaveSubscriptionMutation,
     SaveSubscriptionMutationVariables
   >(SAVE_SUBSCRIPTION, {
@@ -94,36 +96,36 @@ export const NotificationModal: React.FC<ModalProps> = ({
 
   return (
     <Modal
-      data-test-id="subscription-modal"
-      title={<H2>Add Subscription</H2>}
+      data-cy={dataCy}
       visible={visible}
       onCancel={onCancel}
-      footer={[
-        <Button
-          key="cancel"
-          onClick={onCancel}
-          dataCy="cancel-subscription-button"
-        >
-          Cancel
-        </Button>,
-        <Button
-          key="save"
-          dataCy="save-subscription-button"
-          loading={mutationLoading}
-          disabled={!isFormValid}
-          onClick={onClickSave}
-          variant="danger"
-        >
-          Save
-        </Button>,
-      ]}
-      width="50%"
-      wrapProps={{
-        "data-cy": "task-notification-modal",
-      }}
+      title="Add Subscription"
+      footer={
+        <>
+          <LeftButton
+            key="cancel"
+            onClick={onCancel}
+            data-cy="cancel-subscription-button"
+          >
+            Cancel
+          </LeftButton>
+          <Button
+            key="save"
+            data-cy="save-subscription-button"
+            disabled={!isFormValid}
+            onClick={onClickSave}
+            variant={Variant.Primary}
+          >
+            Save
+          </Button>
+        </>
+      }
     >
-      <>
-        when
+      <Section>
+        <Body weight="medium">Choose an event</Body>
+        <SectionLabelContainer>
+          <InputLabel>Event</InputLabel>
+        </SectionLabelContainer>
         <StyledSelect
           value={selectedTriggerId}
           onChange={(v: string) => {
@@ -141,27 +143,35 @@ export const NotificationModal: React.FC<ModalProps> = ({
             </Option>
           ))}
         </StyledSelect>
-      </>
-      {extraFields &&
-        extraFields.map(({ text, key }) => (
-          <ExtraFieldContainer key={key}>
-            <TextInput
-              label=" "
-              data-cy={`${key}-input`}
-              description={text}
-              onChange={(event) => {
-                setExtraFieldInputVals({
-                  ...extraFieldInputVals,
-                  [key]: event.target.value,
-                });
-              }}
-              value={extraFieldInputVals[key]}
-            />
-          </ExtraFieldContainer>
-        ))}
+        {extraFields &&
+          extraFields.map(({ text, key }) => (
+            <ExtraFieldContainer key={key}>
+              <SectionLabelContainer>
+                <InputLabel htmlFor={`${key}-input`}>{text}</InputLabel>
+              </SectionLabelContainer>
+              <StyledInput
+                data-cy={`${key}-input`}
+                id={`${key}-input`}
+                onChange={(event) => {
+                  setExtraFieldInputVals({
+                    ...extraFieldInputVals,
+                    [key]: event.target.value,
+                  });
+                }}
+                value={extraFieldInputVals[key]}
+              />
+            </ExtraFieldContainer>
+          ))}
+      </Section>
       <div>
-        then notify by:
+        <Body weight="medium">Choose how to be notified</Body>
+        <SectionLabelContainer>
+          <InputLabel htmlFor="notify-by-select">
+            Notification method
+          </InputLabel>
+        </SectionLabelContainer>
         <StyledSelect
+          id="notify-by-select"
           data-test-id="notify-by-select"
           value={selectedSubscriptionMethod}
           onChange={(v: string) => {
@@ -182,8 +192,11 @@ export const NotificationModal: React.FC<ModalProps> = ({
       <div>
         {currentMethodControl && (
           <>
-            {label}
+            <SectionLabelContainer>
+              <InputLabel htmlFor="target">{label}</InputLabel>
+            </SectionLabelContainer>
             <StyledInput
+              id="target"
               placeholder={placeholder}
               data-test-id={`${targetPath}-input`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
@@ -215,18 +228,36 @@ export interface SubscriptionMethodControl {
 
 const StyledSelect = styled(Select)`
   width: 80%;
-  margin-left: 8px;
   margin-bottom: 8px;
 `;
 
 const StyledInput = styled(Input)`
-  margin-left: 8px;
-  width: 50%;
+  width: 80%;
 `;
 
 const ExtraFieldContainer = styled.div`
   margin-bottom: 8px;
 `;
+
 const ErrorMessage = styled(Body)`
   color: ${uiColors.red.base};
+`;
+
+const Section = styled.div`
+  padding-bottom: 24px;
+  margin-bottom: 22px;
+  border-bottom: 1px solid ${uiColors.gray.light2};
+`;
+
+const SectionLabelContainer = styled.div`
+  padding-top: 16px;
+`;
+
+const LeftButton = styled(Button)`
+  margin-right: 16px;
+`;
+
+const InputLabel = styled.label`
+  font-size: 14px;
+  font-weight: bold;
 `;

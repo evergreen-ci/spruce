@@ -1,38 +1,37 @@
 import { useState, useEffect } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
 
-export interface selectedStrings {
-  [id: string]: boolean | undefined;
-}
-
 export const usePatchStatusSelect = (
   patchBuildVariants: PatchBuildVariant[]
 ): [
-  selectedStrings,
+  string[],
   string[],
   {
     setValidStatus: (newValue: string[]) => void;
     toggleSelectedTask: (id: string) => void;
   }
 ] => {
-  const [selectedTasks, setSelectedTasks] = useState<selectedStrings>({});
+  const [selectedTasks, setSelectedTasks] = useState<string[]>([]);
   const [validStatus, setValidStatus] = useState<string[]>([]);
 
   const toggleSelectedTask = (id: string) => {
-    const newState = { ...selectedTasks };
-    if (newState[id]) {
-      newState[id] = false;
+    const idIndex = selectedTasks.indexOf(id);
+    if (idIndex !== -1) {
+      const tempTasks = [...selectedTasks];
+      tempTasks.splice(idIndex, 1);
+      setSelectedTasks(tempTasks);
     } else {
-      newState[id] = true;
+      const tempTasks = [...selectedTasks];
+      tempTasks.push(id);
+      setSelectedTasks(tempTasks);
     }
-    setSelectedTasks(newState);
   };
 
   // Iterate through PatchBuildVariants and determine if a task should be selected or not
   // Based on if the task status correlates with the validStatus filter
   useEffect(() => {
     if (patchBuildVariants) {
-      let tempSelectedTasks = selectedTasks;
+      let tempSelectedTasks = [...selectedTasks];
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
           if (validStatus.includes(task.status)) {
@@ -57,17 +56,22 @@ export const usePatchStatusSelect = (
   return [selectedTasks, validStatus, { toggleSelectedTask, setValidStatus }];
 };
 
-const removeTaskFromSelectedTasks = (
-  id: string,
-  selectedTasks: selectedStrings
-) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = false;
-  return newSelectedTasks;
+const removeTaskFromSelectedTasks = (id: string, selectedTasks: string[]) => {
+  const idIndex = selectedTasks.indexOf(id);
+  if (idIndex !== -1) {
+    const tempTasks = [...selectedTasks];
+    tempTasks.splice(idIndex);
+    return tempTasks;
+  }
+  return selectedTasks;
 };
 
-const addTaskToSelectedTasks = (id: string, selectedTasks: selectedStrings) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = true;
-  return newSelectedTasks;
+const addTaskToSelectedTasks = (id: string, selectedTasks: string[]) => {
+  const idIndex = selectedTasks.indexOf(id);
+  if (idIndex === -1) {
+    const tempTasks = [...selectedTasks];
+    tempTasks.push(id);
+    return tempTasks;
+  }
+  return selectedTasks;
 };
