@@ -86,7 +86,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       await restartPatch({
         variables: {
           patchId,
-          taskIds: selectedTasks,
+          taskIds: Object.keys(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
       });
@@ -104,7 +104,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
         <Button onClick={onCancel}>Cancel</Button>,
         <Button
           data-cy="restart-patch-button"
-          disabled={selectedTasks.length === 0 || mutationLoading}
+          disabled={Object.keys(selectedTasks).length === 0 || mutationLoading}
           onClick={handlePatchRestart}
           variant="danger"
         >

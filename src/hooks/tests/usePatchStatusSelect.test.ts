@@ -4,7 +4,17 @@ import { usePatchStatusSelect } from "hooks";
 
 test("should have no tasks and no valid statuses selected by default", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
-  expect(result.current[0]).toStrictEqual([]);
+  expect(result.current[0]).toStrictEqual({
+    evergreen_lint_generate_lint: false,
+    evergreen_lint_lint_service: false,
+    evergreen_ubuntu1604_89: false,
+    evergreen_ubuntu1604_js_test: false,
+    evergreen_ubuntu1604_test_model_distro: false,
+    evergreen_ubuntu1604_test_model_event: false,
+    evergreen_ubuntu1604_test_model_grid: false,
+    evergreen_ubuntu1604_test_model_host: false,
+    evergreen_ubuntu1604_test_service: false,
+  });
 });
 
 test("should select all tasks that match a selected valid status", () => {
@@ -24,7 +34,17 @@ test("should deselect all tasks that no longer match a selected tasks status", (
   act(() => {
     result.current[2].setValidStatus([]);
   });
-  expect(result.current[0]).toStrictEqual([]);
+  expect(result.current[0]).toStrictEqual({
+    evergreen_lint_generate_lint: false,
+    evergreen_lint_lint_service: false,
+    evergreen_ubuntu1604_89: false,
+    evergreen_ubuntu1604_js_test: false,
+    evergreen_ubuntu1604_test_model_distro: false,
+    evergreen_ubuntu1604_test_model_event: false,
+    evergreen_ubuntu1604_test_model_grid: false,
+    evergreen_ubuntu1604_test_model_host: false,
+    evergreen_ubuntu1604_test_service: false,
+  });
 });
 
 test("selecting multiple valid statuses should select all matching task status", () => {
@@ -32,7 +52,17 @@ test("selecting multiple valid statuses should select all matching task status",
   act(() => {
     result.current[2].setValidStatus(["success", "failed"]);
   });
-  expect(result.current[0]).toEqual([...successStatusIds, ...failedStatusIds]);
+  expect(result.current[0]).toEqual({
+    evergreen_lint_generate_lint: true,
+    evergreen_lint_lint_service: true,
+    evergreen_ubuntu1604_89: false,
+    evergreen_ubuntu1604_js_test: true,
+    evergreen_ubuntu1604_test_model_distro: true,
+    evergreen_ubuntu1604_test_model_event: true,
+    evergreen_ubuntu1604_test_model_grid: true,
+    evergreen_ubuntu1604_test_model_host: true,
+    evergreen_ubuntu1604_test_service: true,
+  });
 });
 
 test("selecting an individual task should work", () => {
@@ -40,7 +70,17 @@ test("selecting an individual task should work", () => {
   act(() => {
     result.current[2].toggleSelectedTask("evergreen_lint_generate_lint");
   });
-  expect(result.current[0]).toEqual(["evergreen_lint_generate_lint"]);
+  expect(result.current[0]).toEqual({
+    evergreen_lint_generate_lint: true,
+    evergreen_lint_lint_service: false,
+    evergreen_ubuntu1604_89: false,
+    evergreen_ubuntu1604_js_test: false,
+    evergreen_ubuntu1604_test_model_distro: false,
+    evergreen_ubuntu1604_test_model_event: false,
+    evergreen_ubuntu1604_test_model_grid: false,
+    evergreen_ubuntu1604_test_model_host: false,
+    evergreen_ubuntu1604_test_service: false,
+  });
 });
 
 test("deselecting an individual task should work if it was selected by valid statuses", () => {
@@ -52,9 +92,17 @@ test("deselecting an individual task should work if it was selected by valid sta
   act(() => {
     result.current[2].toggleSelectedTask("evergreen_lint_generate_lint");
   });
-  const resultArray = [...successStatusIds];
-  resultArray.splice(0, 1);
-  expect(result.current[0]).toEqual(resultArray);
+  expect(result.current[0]).toEqual({
+    evergreen_lint_generate_lint: false,
+    evergreen_lint_lint_service: true,
+    evergreen_ubuntu1604_89: false,
+    evergreen_ubuntu1604_js_test: true,
+    evergreen_ubuntu1604_test_model_distro: true,
+    evergreen_ubuntu1604_test_model_event: true,
+    evergreen_ubuntu1604_test_model_grid: true,
+    evergreen_ubuntu1604_test_model_host: true,
+    evergreen_ubuntu1604_test_service: false,
+  });
 });
 const patchBuildVariants = [
   {
@@ -131,14 +179,14 @@ const patchBuildVariants = [
   },
 ];
 
-const successStatusIds = [
-  "evergreen_lint_generate_lint",
-  "evergreen_lint_lint_service",
-  "evergreen_ubuntu1604_js_test",
-  "evergreen_ubuntu1604_test_model_distro",
-  "evergreen_ubuntu1604_test_model_event",
-  "evergreen_ubuntu1604_test_model_grid",
-  "evergreen_ubuntu1604_test_model_host",
-];
-
-const failedStatusIds = ["evergreen_ubuntu1604_test_service"];
+const successStatusIds = {
+  evergreen_lint_generate_lint: true,
+  evergreen_lint_lint_service: true,
+  evergreen_ubuntu1604_89: false,
+  evergreen_ubuntu1604_js_test: true,
+  evergreen_ubuntu1604_test_model_distro: true,
+  evergreen_ubuntu1604_test_model_event: true,
+  evergreen_ubuntu1604_test_model_grid: true,
+  evergreen_ubuntu1604_test_model_host: true,
+  evergreen_ubuntu1604_test_service: false,
+};
