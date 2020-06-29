@@ -4,13 +4,12 @@ import Badge from "@leafygreen-ui/badge";
 import { Body } from "@leafygreen-ui/typography";
 import { Accordian } from "components/Accordian";
 import { PatchBuildVariantTask } from "gql/generated/types";
-import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
 
 interface PatchBuildVariantAccordianProps {
   tasks: PatchBuildVariantTask[];
   variant: string;
-  selectedTasks: selectedStrings;
+  selectedTasks: string[];
   toggleSelectedTask: (id: string) => void;
 }
 export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProps> = ({
@@ -49,11 +48,11 @@ export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProp
 
 const countMatchingTasks = (
   tasks: PatchBuildVariantTask[],
-  selectedTasks: selectedStrings
+  selectedTasks: string[]
 ): number => {
   let matchingTasks = 0;
   tasks.forEach((task) => {
-    if (selectedTasks[task.id]) {
+    if (selectedTasks.includes(task.id)) {
       matchingTasks += 1;
     }
   });
