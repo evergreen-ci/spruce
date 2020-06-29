@@ -33,7 +33,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   />
 );
 
-export const TaskStatusCheckbox = CheckboxComponent;
+export const TaskStatusCheckbox = React.memo(CheckboxComponent);
 
 const PaddedSquare = styled(Square)`
   margin-right: 6px;
