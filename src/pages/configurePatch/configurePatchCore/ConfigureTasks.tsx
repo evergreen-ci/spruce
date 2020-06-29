@@ -28,6 +28,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   loading,
   onClickSchedule,
 }) => {
+  console.log(selectedVariantTasks);
   const buildVariantCount = Object.keys(selectedVariantTasks).length;
   const taskCount = Object.values(selectedVariantTasks).reduce(
     (accum, taskObj) => accum + Object.values(taskObj).filter((v) => v).length,
@@ -41,7 +42,6 @@ export const ConfigureTasks: React.FC<Props> = ({
         .reduce((accum, { tasks }) => [...accum, ...tasks], [])
     )
   );
-  console.log({ selectedBuildVariant });
   const onClickSelectAll = () => {
     setSelectedVariantTasks(
       selectedBuildVariant.reduce(
@@ -65,7 +65,8 @@ export const ConfigureTasks: React.FC<Props> = ({
       getTaskCheckboxState(
         taskName,
         selectedBuildVariant,
-        selectedVariantTasks
+        selectedVariantTasks,
+        variants
       ) === "unchecked";
     setSelectedVariantTasks(
       selectedBuildVariant.reduce(
@@ -127,7 +128,8 @@ export const ConfigureTasks: React.FC<Props> = ({
           const checkboxState = getTaskCheckboxState(
             task,
             selectedBuildVariant,
-            selectedVariantTasks
+            selectedVariantTasks,
+            variants
           );
           const isChecked = checkboxState === "checked";
           return (
@@ -183,11 +185,23 @@ type CheckboxState = "checked" | "unchecked" | "indeterminate";
 const getTaskCheckboxState = (
   taskName: string,
   selectedBuildVariants: string[],
-  selectedBuildVariantTasks: VariantTasksState
+  selectedBuildVariantTasks: VariantTasksState,
+  variants: ProjectBuildVariant[]
 ): CheckboxState => {
   const checkedCb = (allChecked: boolean, buildVariantName: string) =>
     allChecked &&
-    get(selectedBuildVariantTasks, `[${buildVariantName}][${taskName}]`, false);
+    get(
+      variants.find(({ name }) => name === buildVariantName),
+      "tasks",
+      []
+    ).includes(taskName)
+      ? get(
+          selectedBuildVariantTasks,
+          `[${buildVariantName}][${taskName}]`, // need to see that build variant has task to begin with...
+          false
+        )
+      : true;
+
   const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) =>
     allUnchecked &&
     !get(
@@ -195,12 +209,17 @@ const getTaskCheckboxState = (
       `[${buildVariantName}][${taskName}]`,
       false
     );
+
   // @ts-ignore
-  const checked: boolean = selectedBuildVariants.reduce(checkedCb, true);
-  const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
+  const checked: boolean = selectedBuildVariants
+    .filter((buildVariantName) =>
+      variants.find(({ name }) => name === buildVariantName)
+    )
+    .reduce(checkedCb, true);
   if (checked) {
     return "checked";
   }
+  const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
   if (unchecked) {
     return "unchecked";
   }
@@ -210,13 +229,13 @@ const getTaskCheckboxState = (
 const getSetAllCb = (value: boolean, variants: ProjectBuildVariant[]) => (
   variantAccum,
   buildVariantName
-) => ({
-  variantAccum,
-  [buildVariantName]: get(
+) => {
+  const allTasks = get(
     variants.find(({ name }) => name === buildVariantName),
     "tasks",
     []
-  ).reduce(
+  );
+  const tasks = allTasks.reduce(
     (taskObAccum, taskName) => ({
       // @ts-ignore
       ...taskObAccum,
@@ -224,8 +243,12 @@ const getSetAllCb = (value: boolean, variants: ProjectBuildVariant[]) => (
     }),
     // @ts-ignore
     {}
-  ),
-});
+  );
+  return {
+    ...variantAccum,
+    [buildVariantName]: tasks,
+  };
+};
 
 const getSelectAllCheckboxState = (
   selectedBuildVariants: string[],
@@ -244,7 +267,7 @@ const getSelectAllCheckboxState = (
       ) &&
       buildVariantTasksValues.length ===
         get(
-          variants.find(({ displayName }) => displayName === buildVariantName),
+          variants.find(({ name }) => name === buildVariantName),
           "tasks",
           []
         ).length
