@@ -22,6 +22,7 @@ import { useBannerDispatchContext } from "context/banners";
 import { TaskStatus } from "types/task";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
 import { usePatchAnalytics } from "analytics";
+import { selectedStrings } from "hooks/usePatchStatusSelect";
 
 const { gray } = uiColors;
 
@@ -86,7 +87,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       await restartPatch({
         variables: {
           patchId,
-          taskIds: Object.keys(selectedTasks),
+          taskIds: selectedArray(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
       });
@@ -104,7 +105,9 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
         <Button onClick={onCancel}>Cancel</Button>,
         <Button
           data-cy="restart-patch-button"
-          disabled={Object.keys(selectedTasks).length === 0 || mutationLoading}
+          disabled={
+            selectedArray(selectedTasks).length === 0 || mutationLoading
+          }
           onClick={handlePatchRestart}
           variant="danger"
         >
@@ -137,8 +140,8 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
           ))}
           <HR />
           <ConfirmationMessage weight="medium">
-            Are you sure you want to restart the {selectedTasks.length} selected
-            tasks?
+            Are you sure you want to restart the{" "}
+            {selectedArray(selectedTasks).length} selected tasks?
           </ConfirmationMessage>
           <Checkbox
             onChange={() =>
@@ -152,6 +155,17 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       )}
     </Modal>
   );
+};
+
+const selectedArray = (selected: selectedStrings) => {
+  const out: string[] = [];
+  Object.keys(selected).forEach((task) => {
+    if (selected[task]) {
+      out.push(task);
+    }
+  });
+
+  return out;
 };
 
 const HR = styled("hr")`

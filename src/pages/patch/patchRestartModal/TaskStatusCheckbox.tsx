@@ -33,14 +33,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   />
 );
 
-const IsEqual = (
-  prev: TaskStatusCheckboxProps,
-  next: TaskStatusCheckboxProps
-) =>
-  prev.task.id === next.task.id &&
-  prev.selectedTasks[prev.task.id] === next.selectedTasks[next.task.id];
-
-export const TaskStatusCheckbox = React.memo(CheckboxComponent, IsEqual);
+export const TaskStatusCheckbox = CheckboxComponent;
 
 const PaddedSquare = styled(Square)`
   margin-right: 6px;
