@@ -48,24 +48,6 @@ export const ConfigureTasks: React.FC<Props> = ({
     )
   );
 
-  const onClickSelectAll = () => {
-    setSelectedVariantTasks(
-      selectedBuildVariant.reduce(
-        getSetAllCb(true, variants),
-        selectedVariantTasks
-      )
-    );
-  };
-
-  const onClickDeselectAll = (): void => {
-    setSelectedVariantTasks(
-      selectedBuildVariant.reduce(
-        getSetAllCb(false, variants),
-        selectedVariantTasks
-      )
-    );
-  };
-
   const onChangeCheckbox = (taskName: string): void => {
     const valueToSet =
       getTaskCheckboxState(
@@ -101,9 +83,18 @@ export const ConfigureTasks: React.FC<Props> = ({
     variants
   );
 
-  const deselectAllCheckboxState = getDeselectAllCheckboxState(
-    selectAllCheckboxState
-  );
+  const selectAllCheckboxCopy = `Select all tasks in ${
+    selectedBuildVariant.length > 1 ? "these variants" : "this variant"
+  }`;
+
+  const onClickSelectAll = () => {
+    setSelectedVariantTasks(
+      selectedBuildVariant.reduce(
+        getSetAllCb(selectAllCheckboxState !== "checked", variants),
+        selectedVariantTasks
+      )
+    );
+  };
 
   return (
     <TabContentWrapper>
@@ -122,16 +113,8 @@ export const ConfigureTasks: React.FC<Props> = ({
           data-checked={`selectAll-${selectAllCheckboxState}`}
           indeterminate={selectAllCheckboxState === "indeterminate"}
           onChange={onClickSelectAll}
-          label="Select All"
+          label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === "checked"}
-        />
-        <Checkbox
-          data-cy="configurePatch-deselectAll"
-          data-checked={`deselectAll-${deselectAllCheckboxState}`}
-          indeterminate={deselectAllCheckboxState === "indeterminate"}
-          onChange={onClickDeselectAll}
-          label="Deselect All"
-          checked={deselectAllCheckboxState === "checked"}
         />
       </Actions>
       <StyledDisclaimer data-cy="x-tasks-across-y-variants">
@@ -318,15 +301,3 @@ const taskExistsInVariant = (
     "tasks",
     []
   ).includes(taskName);
-
-const getDeselectAllCheckboxState = (
-  selectAllCheckboxState: CheckboxState
-): CheckboxState => {
-  if (selectAllCheckboxState === "checked") {
-    return "unchecked";
-  }
-  if (selectAllCheckboxState === "unchecked") {
-    return "checked";
-  }
-  return "indeterminate";
-};
