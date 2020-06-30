@@ -101,6 +101,10 @@ export const ConfigureTasks: React.FC<Props> = ({
     variants
   );
 
+  const deselectAllCheckboxState = getDeselectAllCheckboxState(
+    selectAllCheckboxState
+  );
+
   return (
     <TabContentWrapper>
       <Actions>
@@ -115,7 +119,7 @@ export const ConfigureTasks: React.FC<Props> = ({
         </Button>
         <Checkbox
           data-cy="configurePatch-selectAll"
-          data-checked={selectAllCheckboxState === "checked"}
+          data-checked={`selectAll-${selectAllCheckboxState}`}
           indeterminate={selectAllCheckboxState === "indeterminate"}
           onChange={onClickSelectAll}
           label="Select All"
@@ -123,11 +127,11 @@ export const ConfigureTasks: React.FC<Props> = ({
         />
         <Checkbox
           data-cy="configurePatch-deselectAll"
-          data-checked={selectAllCheckboxState === "unchecked"}
-          indeterminate={selectAllCheckboxState === "indeterminate"}
+          data-checked={`deselectAll-${deselectAllCheckboxState}`}
+          indeterminate={deselectAllCheckboxState === "indeterminate"}
           onChange={onClickDeselectAll}
           label="Deselect All"
-          checked={selectAllCheckboxState === "unchecked"}
+          checked={deselectAllCheckboxState === "checked"}
         />
       </Actions>
       <StyledDisclaimer data-cy="x-tasks-across-y-variants">
@@ -149,7 +153,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           return (
             <Checkbox
               data-cy={`configurePatch-${task}`}
-              data-checked={isChecked}
+              data-checked={`task-checkbox-${checkboxState}`}
               key={task}
               indeterminate={checkboxState === "indeterminate"}
               onChange={() => onChangeCheckbox(task)}
@@ -313,3 +317,15 @@ const taskExistsInVariant = (
     "tasks",
     []
   ).includes(taskName);
+
+const getDeselectAllCheckboxState = (
+  selectAllCheckboxState: CheckboxState
+): CheckboxState => {
+  if (selectAllCheckboxState === "checked") {
+    return "unchecked";
+  }
+  if (selectAllCheckboxState === "unchecked") {
+    return "checked";
+  }
+  return "indeterminate";
+};
