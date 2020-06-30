@@ -154,6 +154,7 @@ export const ConfigureTasks: React.FC<Props> = ({
             <Checkbox
               data-cy={`configurePatch-${task}`}
               data-checked={`task-checkbox-${checkboxState}`}
+              data-name-checked={`task-checkbox-${task}-${checkboxState}`}
               key={task}
               indeterminate={checkboxState === "indeterminate"}
               onChange={() => onChangeCheckbox(task)}
