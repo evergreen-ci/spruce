@@ -49,9 +49,13 @@ export const Metadata: React.FC<{
         Finished:{" "}
         <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
       </P2>
-      <P2>Duration: {msToDuration(timeTaken)} </P2>
+      <P2 data-cy="task-metadata-duration">
+        Duration: {msToDuration(timeTaken)}{" "}
+      </P2>
       {baseTaskDuration !== undefined && (
-        <P2>Base commit duration: {msToDuration(baseTaskDuration)}</P2>
+        <P2 data-cy="task-metadata-base-commit-duration">
+          Base commit duration: {msToDuration(baseTaskDuration)}
+        </P2>
       )}
       {baseTaskLink && (
         <P2>
