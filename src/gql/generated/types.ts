@@ -611,14 +611,14 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+export type GetPatchEventDataQuery = { patch: { status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+  task?: Maybe<{ status: string; failedTestCount: number }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -1072,6 +1072,7 @@ export type UserPatchesQuery = {
       description: string;
       status: string;
       createTime?: Maybe<Date>;
+      commitQueuePosition?: Maybe<number>;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };
