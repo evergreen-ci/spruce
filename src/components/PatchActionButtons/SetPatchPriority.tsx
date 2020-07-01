@@ -19,6 +19,7 @@ interface SetPriorityProps {
   refetchQueries: string[];
   setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
+
 export const SetPatchPriority: React.FC<SetPriorityProps> = ({
   patchId,
   disabled,
@@ -27,7 +28,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
   setParentLoading,
 }) => {
   const priorityRef = React.useRef(null);
-  const [priority, setPriority] = useState<number>(1);
+  const [priority, setPriority] = useState<number>(0);
   const { successBanner, errorBanner } = useBannerDispatchContext();
 
   const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
