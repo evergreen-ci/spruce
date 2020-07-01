@@ -248,11 +248,11 @@ describe("Configure Patch Page", () => {
         cy.get('[data-cy-name="rhel72-s390x"]').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
-          .should("eq", 5);
+          .should("eq", 1);
         cy.get('[data-cy-name="rhel71-power8"').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
-          .should("eq", 5);
+          .should("eq", 1);
         cy.get('[data-cy-name="windows"').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
@@ -267,7 +267,7 @@ describe("Configure Patch Page", () => {
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
           .should("eq", 7);
-        cy.contains("21 tasks across 5 build variants");
+        cy.contains("20 tasks across 4 build variants");
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("6");
         cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("6");
         cy.dataCy("configurePatch-taskCountBadge-windows").contains("7");
@@ -275,7 +275,7 @@ describe("Configure Patch Page", () => {
         cy.get("[data-checked=task-checkbox-unchecked]")
           .its("length")
           .should("eq", 7);
-        cy.contains("2 tasks across 2 build variants");
+        cy.contains("1 task across 1 build variant");
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").should(
           "not.exist"
         );
@@ -290,7 +290,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("1");
         cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("1");
         cy.dataCy("configurePatch-taskCountBadge-windows").contains("1");
-        cy.contains("5 tasks across 5 build variants");
+        cy.contains("4 tasks across 4 build variants");
       });
     });
   });
