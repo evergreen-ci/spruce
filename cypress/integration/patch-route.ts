@@ -42,7 +42,7 @@ describe("Patch route", () => {
   it("Shows commit queue position in metadata if patch is on commit queue", () => {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("commit-queue-position").click();
-    cy.location("pathname").should("eq", "/commit-queue/mongodb-mongo-test");
+    cy.location("pathname").should("eq", "/commit-queue/evergreen");
   });
 
   it("'Base commit' link in metadata links to version page of legacy UI", () => {
