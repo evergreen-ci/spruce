@@ -1097,6 +1097,7 @@ export type PatchQuery = {
     alias: string;
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
