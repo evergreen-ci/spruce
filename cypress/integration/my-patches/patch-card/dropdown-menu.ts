@@ -22,7 +22,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     });
   });
 
-  it("Recongigure link is disabled for patches on commit queue", () => {
+  it("Reconfigure link is disabled for patches on commit queue", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
         cy.dataCy("patch-card-dropdown").click();
