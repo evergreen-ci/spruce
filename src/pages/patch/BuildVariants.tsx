@@ -34,9 +34,9 @@ export const BuildVariants: React.FC = () => {
       {data &&
         !error &&
         !loading &&
-        data.patchBuildVariants.map(({ variant, tasks }) => (
-          <BuildVariant key={variant} className="patch-build-variant">
-            <P1>{variant}</P1>
+        data.patchBuildVariants.map(({ displayName, tasks }) => (
+          <BuildVariant key={displayName} className="patch-build-variant">
+            <P1>{displayName}</P1>
             <VariantTasks>
               {tasks.map((task) => (
                 <TaskSquare key={task.id} {...task} />
