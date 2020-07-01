@@ -43,6 +43,7 @@ export const CodeChanges: React.FC = () => {
               size="small"
               title="Open diff as html file"
               href={modCodeChange.htmlLink}
+              target="_blank"
             >
               HTML
             </StyledButton>
@@ -51,6 +52,7 @@ export const CodeChanges: React.FC = () => {
               size="small"
               title="Open diff as raw file"
               href={modCodeChange.rawLink}
+              target="_blank"
             >
               Raw
             </StyledButton>
