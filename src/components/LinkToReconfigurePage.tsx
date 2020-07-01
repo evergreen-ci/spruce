@@ -1,25 +1,30 @@
 import React from "react";
 import { paths } from "constants/routes";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { DropdownItem } from "components/ButtonDropdown";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { usePatchAnalytics } from "analytics";
 
 export const LinkToReconfigurePage: React.FC<{
   patchId: string;
-}> = ({ patchId }) => {
+  disabled?: boolean;
+}> = ({ patchId, disabled = false }) => {
   const patchAnalytics = usePatchAnalytics();
+
+  const router = useHistory();
+
   return (
-    <Link
-      onClick={() => {
-        patchAnalytics.sendEvent({ name: "Click Reconfigure Link" });
-      }}
+    <DropdownItem
       data-cy="reconfigure-link"
-      to={`${paths.patch}/${patchId}/configure`}
+      disabled={disabled}
+      onClick={() => {
+        if (!disabled) {
+          patchAnalytics.sendEvent({ name: "Click Reconfigure Link" });
+          router.push(`${paths.patch}/${patchId}/configure`);
+        }
+      }}
     >
-      <DropdownItem disabled={false}>
-        <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
-      </DropdownItem>
-    </Link>
+      <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
+    </DropdownItem>
   );
 };

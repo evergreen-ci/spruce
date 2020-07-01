@@ -28,9 +28,13 @@ import { usePageTitle } from "hooks";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+
   const dispatchBanner = useBannerDispatchContext();
+
   const bannersState = useBannerStateContext();
+
   const router = useHistory();
+
   const { data, loading, error, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
@@ -42,16 +46,23 @@ const PatchCore: React.FC = () => {
         `There was an error loading the patch: ${e.message}`
       ),
   });
+
   useEffect(() => stopPolling, [stopPolling]);
 
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
+
+  const commitQueuePosition = patch?.commitQueuePosition ?? null;
+  const isPatchOnCommitQueue = commitQueuePosition !== null;
+
   if (activated === false) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
+
   usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
+
   if (error) {
     return (
       <PageWrapper>
@@ -62,6 +73,7 @@ const PatchCore: React.FC = () => {
       </PageWrapper>
     );
   }
+
   return (
     <PageWrapper data-cy="patch-page">
       <Banners
@@ -74,7 +86,7 @@ const PatchCore: React.FC = () => {
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
-        buttons={<ActionButtons />}
+        buttons={<ActionButtons isPatchOnCommitQueue={isPatchOnCommitQueue} />}
       />
       <PageLayout>
         <PageSider>
