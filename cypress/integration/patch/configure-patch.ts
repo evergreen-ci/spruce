@@ -168,36 +168,33 @@ describe("Configure Patch Page", () => {
         "test-thirdparty-docker",
         "test-util",
       ];
-      it("clicking Select All should Select all task checkboxes", () => {
+      it("Clicking Select All should check all task checkboxes when all of the task checkboxes unchecked", () => {
         cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
           .should("eq", 7);
       });
-      it("clicking on Deselect All should deselect all task checkboxes", () => {
-        cy.get("[data-cy=configurePatch-deselectAll").click({ force: true });
+      it("Clicking on Select All should uncheck all task checkboxes when all of the task checkboxes are checked", () => {
+        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-unchecked]")
           .its("length")
           .should("eq", 7);
       });
-      it("Checking all task checkboxes should check the Select All checkbox and check the Deselect All checkbox", () => {
+      it("Checking all task checkboxes should check the Select All checkbox", () => {
         cy.wrap(checkboxTaskNames).each((taskName) => {
           cy.dataCy(`configurePatch-${taskName}`).click({ force: true });
         });
         cy.get("[data-checked=selectAll-checked]").should("exist");
-        cy.get("[data-checked=deselectAll-unchecked]").should("exist");
       });
-      it("Unchecking all task checkboxes should uncheck the Select All checkbox and check the Deselect All checkbox", () => {
+      it("Unchecking all task checkboxes should uncheck the Select All checkbox", () => {
         cy.wrap(checkboxTaskNames).each((taskName) => {
           cy.dataCy(`configurePatch-${taskName}`).click({ force: true });
         });
         cy.get("[data-checked=selectAll-unchecked]").should("exist");
-        cy.get("[data-checked=deselectAll-checked]").should("exist");
       });
-      it("A mixture of checked and unchecked task checkboxes sets the Select All and Deselect All checkboxes in an indeterminate state", () => {
+      it("A mixture of checked and unchecked task checkboxes sets the Select All checkbox in an indeterminate state", () => {
         cy.dataCy("configurePatch-test-agent").click({ force: true });
         cy.get("[data-checked=selectAll-indeterminate]").should("exist");
-        cy.get("[data-checked=deselectAll-indeterminate]").should("exist");
       });
     });
 
@@ -251,11 +248,11 @@ describe("Configure Patch Page", () => {
         cy.get('[data-cy-name="rhel72-s390x"]').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
-          .should("eq", 1);
+          .should("eq", 5);
         cy.get('[data-cy-name="rhel71-power8"').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
-          .should("eq", 1);
+          .should("eq", 5);
         cy.get('[data-cy-name="windows"').click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
@@ -270,15 +267,15 @@ describe("Configure Patch Page", () => {
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
           .should("eq", 7);
-        cy.contains("20 tasks across 4 build variants");
+        cy.contains("21 tasks across 5 build variants");
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("6");
         cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("6");
         cy.dataCy("configurePatch-taskCountBadge-windows").contains("7");
-        cy.dataCy("configurePatch-deselectAll").click({ force: true });
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-unchecked]")
           .its("length")
           .should("eq", 7);
-        cy.contains("1 task across 1 build variant");
+        cy.contains("2 tasks across 2 build variants");
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").should(
           "not.exist"
         );
@@ -287,17 +284,18 @@ describe("Configure Patch Page", () => {
         );
         cy.dataCy("configurePatch-taskCountBadge-windows").should("not.exist");
       });
+
       it("Should be able to select and unselect an individual task and have task count be reflected in variant tab badge and task count label", () => {
         cy.dataCy("configurePatch-test-agent").click({ force: true });
         cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("1");
         cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("1");
         cy.dataCy("configurePatch-taskCountBadge-windows").contains("1");
-        cy.contains("4 tasks across 4 build variants");
+        cy.contains("5 tasks across 5 build variants");
       });
     });
   });
   describe("Indeterminate task checkbox states", () => {
-    it("Checking a task in 1 build variant but not the other shows the task checkbox as indeterminate when viewing tasks from both variants", () => {
+    it("Checking a task in 1 build variant but not the other shows the task checkbox as indeterminate when viewing tasks from both variants and puts the Select All checkbox in an indeterminate state", () => {
       cy.get('[data-cy-name="rhel72-s390x"]').click();
       cy.dataCy("configurePatch-test-agent").click({ force: true });
       cy.get("body").type("{meta}", { release: false });
@@ -305,6 +303,7 @@ describe("Configure Patch Page", () => {
       cy.get(
         "[data-name-checked=task-checkbox-test-agent-indeterminate]"
       ).should("exist");
+      cy.get("[data-checked=selectAll-indeterminate]").should("exist");
     });
   });
   describe("Scheduling a patch", () => {
