@@ -1,3 +1,10 @@
+const patchDescriptionCanReconfigure = "test meee";
+const patchDescriptionReconfigureDisabled =
+  "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
+
+const getPatchCardByDescription = (description: string) =>
+  cy.dataCy("patch-card").filter(`:contains(${description})`);
+
 describe("Dropdown Menu of Patch Actions", () => {
   before(() => {
     cy.login();
@@ -8,22 +15,28 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Reconfigure' link takes user to patch configure page", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+      cy.dataCy("reconfigure-link").click({ force: true });
+      cy.location("pathname").should("include", `/configure`);
+    });
+  });
+
+  it("Recongigure link is disabled for patches on commit queue", () => {
+    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
+      () => {
         cy.dataCy("patch-card-dropdown").click();
         cy.dataCy("reconfigure-link").click({ force: true });
-        cy.location("pathname").should("include", `/configure`);
-      });
+        cy.location("pathname").should("eq", `/user/admin/patches`);
+      }
+    );
   });
 
   it("'Schedule' link opens popconfirm and schedules patch", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
-        cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("schedule-patch").click({ force: true });
-      });
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+      cy.dataCy("schedule-patch").click({ force: true });
+    });
     cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
       .contains("Yes")
       .click({ force: true });
@@ -32,12 +45,10 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
-        cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("unschedule-patch").click({ force: true });
-      });
+    getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
+      cy.dataCy("patch-card-dropdown").click();
+      cy.dataCy("unschedule-patch").click({ force: true });
+    });
     cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
       .contains("Yes")
@@ -47,12 +58,12 @@ describe("Dropdown Menu of Patch Actions", () => {
   });
 
   it("'Restart' link shows restart patch modal", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
+    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
+      () => {
         cy.dataCy("patch-card-dropdown").click();
         cy.dataCy("restart-patch").click({ force: true });
-      });
+      }
+    );
     cy.dataCy("accordian-toggle")
       .first()
       .click();
