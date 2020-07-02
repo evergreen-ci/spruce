@@ -637,9 +637,7 @@ export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
 };
 
-export type EnqueuePatchMutation = {
-  enqueuePatch: { commitQueuePosition?: Maybe<number> };
-};
+export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
 
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
