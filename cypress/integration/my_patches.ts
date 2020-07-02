@@ -56,7 +56,7 @@ describe("My Patches Page", () => {
       .should("have.attr", "href")
       .and(
         "equals",
-        "/version/5e4ff3abe3c3317e352062e4/tasks?variant=ubuntu1604"
+        "/version/5ecedafb562343215a7ff297/tasks?variant=ubuntu1604"
       );
   });
 
