@@ -7,6 +7,7 @@ import {
   RestartPatch,
   UnschedulePatchTasks,
   SetPatchPriority,
+  EnqueuePatch,
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
@@ -42,6 +43,16 @@ export const ActionButtons = () => {
         patchId,
         hideMenu,
         key: "priority",
+        disabled: isActionLoading,
+        refetchQueries,
+        setParentLoading: setIsActionLoading,
+      }}
+    />,
+    <EnqueuePatch
+      {...{
+        patchId,
+        hideMenu,
+        key: "enqueue",
         disabled: isActionLoading,
         refetchQueries,
         setParentLoading: setIsActionLoading,

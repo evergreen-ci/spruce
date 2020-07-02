@@ -15,7 +15,8 @@ type Action =
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Click Task Square"; taskSquareStatus: string }
-  | { name: "Click Reconfigure Link" };
+  | { name: "Click Reconfigure Link" }
+  | { name: "Enqueue" };
 
 interface P extends Properties {
   patchId: string;

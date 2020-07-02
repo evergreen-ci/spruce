@@ -127,6 +127,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
@@ -164,6 +165,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationEnqueuePatchArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -248,6 +253,7 @@ export type Patch = {
   commitQueuePosition?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
+  canEnqueue: Scalars["Boolean"];
 };
 
 export type PatchBuildVariant = {
@@ -611,14 +617,14 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+export type GetPatchEventDataQuery = { patch: { status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+  task?: Maybe<{ status: string; failedTestCount: number }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -626,6 +632,14 @@ export type AbortTaskMutationVariables = {
 };
 
 export type AbortTaskMutation = { abortTask: { id: string } };
+
+export type EnqueuePatchMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type EnqueuePatchMutation = {
+  enqueuePatch: { commitQueuePosition?: Maybe<number> };
+};
 
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];

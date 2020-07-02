@@ -4,6 +4,7 @@ import {
   SchedulePatchTasks,
   UnschedulePatchTasks,
   RestartPatch,
+  EnqueuePatch,
 } from "components/PatchActionButtons";
 import { useOnClickOutside } from "hooks";
 import get from "lodash/get";
@@ -54,6 +55,14 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       ref={popconfirmRef}
     />,
     <RestartPatch
+      key="restart"
+      patchId={patchId}
+      disabled={isActionLoading}
+      hideMenu={hideMenu}
+      refetchQueries={refetchQueries}
+      ref={popconfirmRef}
+    />,
+    <EnqueuePatch
       key="restart"
       patchId={patchId}
       disabled={isActionLoading}
