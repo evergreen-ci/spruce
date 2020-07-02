@@ -11,7 +11,11 @@ import {
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
-export const ActionButtons = () => {
+interface ActionButtonProps {
+  canEnqueue: boolean;
+}
+
+export const ActionButtons: React.FC<ActionButtonProps> = ({ canEnqueue }) => {
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const { id: patchId } = useParams<{ id: string }>();
@@ -53,7 +57,7 @@ export const ActionButtons = () => {
         patchId,
         hideMenu,
         key: "enqueue",
-        disabled: isActionLoading,
+        disabled: isActionLoading || !canEnqueue,
         refetchQueries,
         setParentLoading: setIsActionLoading,
       }}

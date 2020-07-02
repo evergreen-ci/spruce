@@ -74,7 +74,7 @@ const PatchCore: React.FC = () => {
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
-        buttons={<ActionButtons />}
+        buttons={<ActionButtons canEnqueue={get(patch, "canEnqueue")} />}
       />
       <PageLayout>
         <PageSider>
