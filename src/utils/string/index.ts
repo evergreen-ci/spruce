@@ -26,3 +26,6 @@ export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value
   );
+
+export const formatDuration = (duration: string): string =>
+  duration.replace(/\d*[dhms]/g, (match) => `${match} `).trim();

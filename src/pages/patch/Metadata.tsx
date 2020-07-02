@@ -1,9 +1,10 @@
 import React from "react";
+import { ApolloError } from "apollo-client";
 import { P2 } from "components/Typography";
 import { StyledLink } from "components/styles";
 import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
-import { ApolloError } from "apollo-client";
+import { formatDuration } from "utils/string";
 import { MetadataCard } from "components/MetadataCard";
 import { paths } from "constants/routes";
 
@@ -27,8 +28,8 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
   const { makespan, timeTaken } = duration || {};
   return (
     <MetadataCard loading={loading} error={error} title="Patch Metadata">
-      <P2>Makespan: {makespan && makespan}</P2>
-      <P2>Time taken: {timeTaken && timeTaken}</P2>
+      <P2>Makespan: {makespan && formatDuration(makespan)}</P2>
+      <P2>Time taken: {timeTaken && formatDuration(timeTaken)}</P2>
       <P2>Submitted at: {submittedAt}</P2>
       <P2>Started: {started && started}</P2>
       <P2>Finished: {finished && finished}</P2>
