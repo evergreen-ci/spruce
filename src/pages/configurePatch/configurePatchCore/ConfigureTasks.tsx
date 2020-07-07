@@ -8,7 +8,7 @@ import { css } from "@emotion/core";
 import isEmpty from "lodash/isEmpty";
 import { Button } from "components/Button";
 import get from "lodash/get";
-import every from "lodash/every";
+import every from "lodash.every";
 
 interface Props {
   variants: ProjectBuildVariant[];
