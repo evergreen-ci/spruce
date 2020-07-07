@@ -1,7 +1,8 @@
 import React, { forwardRef } from "react";
 import { Popconfirm } from "antd";
-import { DropdownItem } from "components/ButtonDropdown";
+import { useMutation } from "@apollo/react-hooks";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { DropdownItem } from "components/ButtonDropdown";
 import { useBannerDispatchContext } from "context/banners";
 import {
   EnqueuePatchMutation,
@@ -9,7 +10,6 @@ import {
 } from "gql/generated/types";
 import { ENQUEUE_PATCH } from "gql/mutations";
 import { usePatchAnalytics } from "analytics";
-import { useMutation } from "@apollo/react-hooks";
 import { StyledBody } from "./UnschedulePatchTasks";
 
 interface EnqueueProps {
