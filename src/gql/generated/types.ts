@@ -252,6 +252,7 @@ export type Patch = {
 
 export type PatchBuildVariant = {
   variant: Scalars["String"];
+  displayName: Scalars["String"];
   tasks?: Maybe<Array<Maybe<PatchBuildVariantTask>>>;
 };
 
@@ -611,14 +612,14 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
+export type GetPatchEventDataQuery = { patch: { status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+  task?: Maybe<{ status: string; failedTestCount: number }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -803,6 +804,7 @@ export type PatchBuildVariantsQueryVariables = {
 export type PatchBuildVariantsQuery = {
   patchBuildVariants: Array<{
     variant: string;
+    displayName: string;
     tasks?: Maybe<Array<Maybe<{ id: string; name: string; status: string }>>>;
   }>;
 };
@@ -1095,6 +1097,7 @@ export type PatchQuery = {
     alias: string;
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
