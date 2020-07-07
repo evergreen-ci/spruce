@@ -102,6 +102,8 @@ describe("Patch Action Buttons", () => {
     cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
       .contains("Yes")
       .click({ force: true });
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("banner")
+      .should("exist")
+      .contains("Enqueued patch");
   });
 });
