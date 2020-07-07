@@ -49,9 +49,13 @@ export const Metadata: React.FC<{
         Finished:{" "}
         <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
       </P2>
-      <P2>Duration: {secToDuration(timeTaken)} </P2>
+      <P2 data-cy="task-metadata-duration">
+        Duration: {msToDuration(timeTaken)}{" "}
+      </P2>
       {baseTaskDuration !== undefined && (
-        <P2>Base commit duration: {secToDuration(baseTaskDuration)}</P2>
+        <P2 data-cy="task-metadata-base-commit-duration">
+          Base commit duration: {msToDuration(baseTaskDuration)}
+        </P2>
       )}
       {baseTaskLink && (
         <P2>
@@ -101,11 +105,6 @@ export const Metadata: React.FC<{
       ) : null}
     </MetadataCard>
   );
-};
-
-const secToDuration = (seconds: number): string => {
-  const ms = seconds * 1000;
-  return msToDuration(Math.trunc(ms));
 };
 
 const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
