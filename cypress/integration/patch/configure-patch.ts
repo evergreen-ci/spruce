@@ -292,6 +292,42 @@ describe("Configure Patch Page", () => {
         cy.dataCy("configurePatch-taskCountBadge-windows").contains("1");
         cy.contains("4 tasks across 4 build variants");
       });
+      it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
+        cy.get("body").type("{shift}", { release: false }); // hold shift
+        cy.get('[data-cy-name="windows"]').click();
+        cy.get("[data-cy-selected=true]")
+          .its("length")
+          .should("eq", 7);
+        const variantsFirstTime = [
+          "RHEL 7.1 POWER81",
+          "RHEL 7.2 zLinux",
+          "Race Detector",
+          "Ubuntu 16.041",
+          "Ubuntu 16.04 (Docker)",
+          "Ubuntu 16.04 ARM",
+          "Windows1",
+        ];
+        cy.get("[data-cy-selected=true]").each((v, i) => {
+          cy.wrap(v).contains(variantsFirstTime[i]);
+        });
+        cy.get("body").type("{shift}", { release: true }); // release shift
+        cy.get("body").type("{meta}", { release: false }); // hold meta
+        cy.get('[data-cy-name="lint"]').click();
+        cy.get("body").type("{meta}", { release: true }); // release meta
+        cy.get("body").type("{shift}", { release: false }); // hold shift
+        cy.get('[data-cy-name="linux-docker"]').click();
+        const variantsSecondTime = [
+          "ArchLinux (Docker)",
+          "Coverage",
+          "Lint",
+        ].concat(variantsFirstTime);
+        cy.get("[data-cy-selected=true]").each((v, i) => {
+          cy.wrap(v).contains(variantsSecondTime[i]);
+        });
+        cy.get("[data-cy-selected=true]")
+          .its("length")
+          .should("eq", 10);
+      });
     });
   });
   describe("Indeterminate task checkbox states", () => {
