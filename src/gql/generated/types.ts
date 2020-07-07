@@ -1086,6 +1086,7 @@ export type UserPatchesQuery = {
       description: string;
       status: string;
       createTime?: Maybe<Date>;
+      canEnqueueToCommitQueue: boolean;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };

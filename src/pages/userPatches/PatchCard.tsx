@@ -22,6 +22,7 @@ interface Props {
   status: string;
   createTime?: Maybe<Date>;
   builds: Build[];
+  canEnqueueToCommitQueue: boolean;
 }
 export const PatchCard: React.FC<Props> = ({
   id,
@@ -30,6 +31,7 @@ export const PatchCard: React.FC<Props> = ({
   projectID,
   status,
   builds,
+  canEnqueueToCommitQueue,
 }) => {
   const userPatchesAnalytics = useUserPatchesAnalytics();
   const createDate = new Date(createTime);
@@ -74,7 +76,10 @@ export const PatchCard: React.FC<Props> = ({
         </IconsContainer>
       </Center>
       <Right>
-        <DropdownMenu patchId={id} />
+        <DropdownMenu
+          patchId={id}
+          canEnqueueToCommitQueue={canEnqueueToCommitQueue}
+        />
       </Right>
     </CardWrapper>
   );

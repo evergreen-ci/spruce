@@ -4,6 +4,7 @@ import {
   SchedulePatchTasks,
   UnschedulePatchTasks,
   RestartPatch,
+  EnqueuePatch,
 } from "components/PatchActionButtons";
 import { useOnClickOutside } from "hooks";
 import get from "lodash/get";
@@ -11,8 +12,12 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface Props {
   patchId: string;
+  canEnqueueToCommitQueue: boolean;
 }
-export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
+export const DropdownMenu: React.FC<Props> = ({
+  patchId,
+  canEnqueueToCommitQueue,
+}) => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
@@ -59,6 +64,15 @@ export const DropdownMenu: React.FC<Props> = ({ patchId }) => {
       disabled={isActionLoading}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
+      ref={popconfirmRef}
+    />,
+    <EnqueuePatch
+      key="enqueue"
+      patchId={patchId}
+      hideMenu={hideMenu}
+      disabled={isActionLoading || !canEnqueueToCommitQueue}
+      refetchQueries={refetchQueries}
+      setParentLoading={setIsActionLoading}
       ref={popconfirmRef}
     />,
   ];
