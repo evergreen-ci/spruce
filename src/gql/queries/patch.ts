@@ -41,6 +41,7 @@ export const GET_PATCH_CONFIGURE = gql`
       author
       status
       activated
+      commitQueuePosition
       time {
         submittedAt
       }

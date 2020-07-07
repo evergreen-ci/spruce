@@ -1120,6 +1120,7 @@ export type ConfigurePatchQuery = {
     author: string;
     status: string;
     activated: boolean;
+    commitQueuePosition?: Maybe<number>;
     time?: Maybe<{ submittedAt: string }>;
     project?: Maybe<{
       tasks: Array<string>;
