@@ -253,7 +253,7 @@ export type Patch = {
   commitQueuePosition?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
-  canEnqueue: Scalars["Boolean"];
+  canEnqueueToCommitQueue: Scalars["Boolean"];
 };
 
 export type PatchBuildVariant = {
@@ -1110,7 +1110,7 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
-    canEnqueue: boolean;
+    canEnqueueToCommitQueue: boolean;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;

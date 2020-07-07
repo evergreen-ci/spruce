@@ -70,7 +70,7 @@ export const EnqueuePatch = forwardRef<HTMLDivElement, EnqueueProps>(
           disabled={disabled || loadingEnqueuePatch}
           ref={ref}
         >
-          <Disclaimer>Enqueue patch</Disclaimer>
+          <Disclaimer>Add to commit queue</Disclaimer>
         </DropdownItem>
       </Popconfirm>
     );
