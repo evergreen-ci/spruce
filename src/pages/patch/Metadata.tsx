@@ -17,10 +17,10 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
   const {
     author,
     githash,
-    version,
     time,
     duration,
     projectID,
+    baseVersionID,
     commitQueuePosition,
   } = patch || {};
   const { submittedAt, started, finished } = time || {};
@@ -36,7 +36,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
       <P2>
         <StyledLink
           id="patch-base-commit"
-          href={`${getUiUrl()}/version/${version}`}
+          href={`${getUiUrl()}/version/${baseVersionID}`}
         >
           Base commit: {githash ? githash.slice(0, 10) : ""}
         </StyledLink>

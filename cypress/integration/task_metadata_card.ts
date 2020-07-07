@@ -36,6 +36,12 @@ describe("Task Metadata Card", () => {
     cy.get("[data-cy=task-host-link]").should("have.attr", "href");
   });
 
+  it("Duration and Base commit duration labels have correct values", () => {
+    cy.visit(taskRoute);
+    cy.dataCy("task-metadata-base-commit-duration").contains("1m 31s");
+    cy.dataCy("task-metadata-duration").contains("1m 6s");
+  });
+
   it("Depends on task should have href", () => {
     cy.visit(taskRoute);
     cy.get("[data-cy=depends-on-link]")
