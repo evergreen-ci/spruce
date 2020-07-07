@@ -107,6 +107,7 @@ test("deselecting an individual task should work if it was selected by valid sta
 const patchBuildVariants = [
   {
     variant: "lint",
+    displayName: "Lint",
     tasks: [
       {
         id: "evergreen_lint_generate_lint",
@@ -125,6 +126,7 @@ const patchBuildVariants = [
   },
   {
     variant: "ubuntu1604",
+    displayName: "Ubuntu 16.04",
     tasks: [
       {
         id: "evergreen_ubuntu1604_js_test",
@@ -167,6 +169,7 @@ const patchBuildVariants = [
   },
   {
     variant: "variant",
+    displayName: "Variant",
     tasks: [
       {
         id: "evergreen_ubuntu1604_89",
