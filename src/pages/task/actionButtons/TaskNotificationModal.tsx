@@ -76,21 +76,25 @@ const triggers: Trigger[] = [
     trigger: "outcome",
     label: "This task finishes",
     resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
     label: "This task fails",
     resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
     label: "This task succeeds",
     resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
     resourceType: "TASK",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Task duration (seconds)",
@@ -103,6 +107,7 @@ const triggers: Trigger[] = [
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
     resourceType: "TASK",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",

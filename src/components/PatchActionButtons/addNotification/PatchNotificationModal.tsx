@@ -75,22 +75,26 @@ const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",
-    resourceType: "TASK",
+    resourceType: "VERSION",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
     label: "This task fails",
-    resourceType: "TASK",
+    resourceType: "VERSION",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
     label: "This task succeeds",
-    resourceType: "TASK",
+    resourceType: "VERSION",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
-    resourceType: "TASK",
+    resourceType: "VERSION",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Task duration (seconds)",
@@ -102,7 +106,8 @@ const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
-    resourceType: "TASK",
+    resourceType: "VERSION",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
@@ -110,5 +115,23 @@ const triggers: Trigger[] = [
         validator: validatePercentage,
       },
     ],
+  },
+  {
+    trigger: "outcome",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "a build-variant in this version finishes",
+  },
+  {
+    trigger: "failure",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "a build-variant in this version fails",
+  },
+  {
+    trigger: "success",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "a build-variant in this version succeeds",
   },
 ];

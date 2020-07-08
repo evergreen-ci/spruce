@@ -27,7 +27,7 @@ export const useNotificationModal = ({
   >({});
 
   // extraFields represents schema additional inputs required for the selected trigger
-  const { extraFields, resourceType } =
+  const { extraFields, resourceType, payloadResourceIdKey } =
     triggers.find(({ trigger }) => trigger === selectedTriggerId) ?? {};
 
   // clear the input vals for the extraFields when the extraFields change
@@ -100,7 +100,7 @@ export const useNotificationModal = ({
       resource_type: resourceType,
       selectors: [
         { type: "object", data: resourceType.toLowerCase() },
-        { type: "id", data: resourceId },
+        { type: payloadResourceIdKey, data: resourceId },
       ],
       subscriber: {
         type: targetEntry[0],
@@ -133,7 +133,7 @@ interface Target {
   email?: string;
   slack?: string;
 }
-type ResourceType = "TASK" | "VERSION";
+type ResourceType = "TASK" | "VERSION" | "BUILD";
 interface ExtraFieldInputVals {
   [index: string]: string;
 }
@@ -149,11 +149,14 @@ interface ExtraField {
   key: string;
   validator: (v: any) => string;
 }
+
+type PayloadResourceIdKey = "in-version" | "in-build" | "id";
 export interface Trigger {
   trigger: string;
   label: string;
   extraFields?: ExtraField[];
   resourceType: ResourceType;
+  payloadResourceIdKey: PayloadResourceIdKey;
 }
 export interface SubscriptionMethodControl {
   label: string;
