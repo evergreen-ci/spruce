@@ -18,7 +18,7 @@ import {
   validateSlack,
 } from "utils/validators";
 import { useParams } from "react-router-dom";
-import { useTaskAnalytics } from "analytics";
+import { usePatchAnalytics } from "analytics";
 
 interface ModalProps {
   visible: boolean;
@@ -30,7 +30,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
   onCancel,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
-  const taskAnalytics = useTaskAnalytics();
+  const patchAnalytics = usePatchAnalytics();
 
   return (
     <NotificationModal
@@ -42,7 +42,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       subscriptionMethods={subscriptionMethods}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
-        taskAnalytics.sendEvent({ name: "Add Notification", subscription })
+        patchAnalytics.sendEvent({ name: "Add Notification", subscription })
       }
     />
   );
