@@ -26,8 +26,11 @@ const sendEmail = () =>
           const recipient = process.env.REACT_APP_DEPLOYS_EMAIL;
           const subject = `${dateStr} Spruce deploy ${formattedCommitHash}`;
           getLatestCommitsSinceLastRelease().then((messageBody) => {
+            const cleanedMessageBody = messageBody
+              .replace(/\(g/gm, "/(")
+              .replace(/\(g/gm, "/)");
             exec(
-              `evergreen notify email -f ${formattedEmail} -r ${recipient} -s "${subject}" -b "${messageBody} check it out <a href="${process.env.REACT_APP_SITE_URL}">here</a>"`,
+              `evergreen notify email -f ${formattedEmail} -r ${recipient} -s "${subject}" -b "${cleanedMessageBody} check it out <a href="${process.env.REACT_APP_SITE_URL}">here</a>"`,
               (notifyErr, notifyStdOut, notifyStdErr) => {
                 if (notifyErr) {
                   console.error(errorMessage, notifyErr);
