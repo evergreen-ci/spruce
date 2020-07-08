@@ -96,7 +96,6 @@ export const FilesTables: React.FC = () => {
           columns={columns}
           dataSource={files}
           pagination={false}
-          scroll={{ y: 196 }}
         />
       </Fragment>
     ));
