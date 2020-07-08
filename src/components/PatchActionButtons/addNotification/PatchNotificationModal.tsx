@@ -1,6 +1,10 @@
 import React from "react";
 import { NotificationModal } from "components/NotificationModal";
-import { SubscriptionMethods, Trigger } from "hooks/useNotificationModal";
+import {
+  SubscriptionMethods,
+  Trigger,
+  RegexSelector,
+} from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
@@ -71,6 +75,17 @@ const subscriptionMethods = [
   SUBSCRIPTION_EMAIL,
 ];
 
+const buildRegexSelectors: RegexSelector[] = [
+  {
+    type: "display-name",
+    typeLabel: "Build Variant Name",
+  },
+  {
+    type: "build-variant",
+    typeLabel: "Build Variant ID",
+  },
+];
+
 const triggers: Trigger[] = [
   {
     trigger: "outcome",
@@ -121,17 +136,20 @@ const triggers: Trigger[] = [
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
     label: "a build-variant in this version finishes",
+    regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "failure",
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
     label: "a build-variant in this version fails",
+    regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "success",
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
     label: "a build-variant in this version succeeds",
+    regexSelectors: buildRegexSelectors,
   },
 ];

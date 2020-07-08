@@ -150,6 +150,12 @@ interface ExtraField {
   validator: (v: any) => string;
 }
 
+type RegexSelectorType = "display-name" | "build-variant";
+export interface RegexSelector {
+  type: RegexSelectorType;
+  typeLabel: string;
+}
+
 type PayloadResourceIdKey = "in-version" | "in-build" | "id";
 export interface Trigger {
   trigger: string;
@@ -157,6 +163,7 @@ export interface Trigger {
   extraFields?: ExtraField[];
   resourceType: ResourceType;
   payloadResourceIdKey: PayloadResourceIdKey;
+  regexSelectors?: RegexSelector[];
 }
 export interface SubscriptionMethodControl {
   label: string;
