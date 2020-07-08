@@ -36,7 +36,6 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       triggers={triggers}
       subscriptionMethodControls={subscriptionMethodControls}
       subscriptionMethods={subscriptionMethods}
-      resourceType="TASK"
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({ name: "Add Notification", subscription })
@@ -76,18 +75,22 @@ const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",
+    resourceType: "TASK",
   },
   {
     trigger: "failure",
     label: "This task fails",
+    resourceType: "TASK",
   },
   {
     trigger: "success",
     label: "This task succeeds",
+    resourceType: "TASK",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
+    resourceType: "TASK",
     extraFields: [
       {
         text: "Task duration (seconds)",
@@ -99,6 +102,7 @@ const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
+    resourceType: "TASK",
     extraFields: [
       {
         text: "Percent change",

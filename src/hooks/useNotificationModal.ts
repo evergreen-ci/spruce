@@ -4,13 +4,11 @@ import get from "lodash.get";
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
-  resourceType: ResourceType;
   resourceId: string;
 }
 export const useNotificationModal = ({
   triggers,
   subscriptionMethodControls,
-  resourceType,
   resourceId,
 }: UseNotificationModalProps) => {
   const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
@@ -29,7 +27,7 @@ export const useNotificationModal = ({
   >({});
 
   // extraFields represents schema additional inputs required for the selected trigger
-  const { extraFields } =
+  const { extraFields, resourceType } =
     triggers.find(({ trigger }) => trigger === selectedTriggerId) ?? {};
 
   // clear the input vals for the extraFields when the extraFields change
@@ -155,6 +153,7 @@ export interface Trigger {
   trigger: string;
   label: string;
   extraFields?: ExtraField[];
+  resourceType: ResourceType;
 }
 export interface SubscriptionMethodControl {
   label: string;

@@ -15,7 +15,6 @@ test("Should have correctly formatted request payload after selecting options", 
     useNotificationModal({
       triggers,
       subscriptionMethodControls,
-      resourceType: "TASK",
       resourceId: "a task id",
     })
   );
@@ -65,18 +64,22 @@ const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",
+    resourceType: "TASK",
   },
   {
     trigger: "failure",
     label: "This task fails",
+    resourceType: "TASK",
   },
   {
     trigger: "success",
     label: "This task succeeds",
+    resourceType: "TASK",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
+    resourceType: "TASK",
     extraFields: [
       {
         text: "Task duration (seconds)",
@@ -88,6 +91,7 @@ const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
+    resourceType: "TASK",
     extraFields: [
       {
         text: "Percent change",

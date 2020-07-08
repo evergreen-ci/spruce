@@ -40,7 +40,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   subscriptionMethodControls,
   triggers,
   resourceId,
-  resourceType,
   sendAnalyticsEvent,
   "data-cy": dataCy,
 }) => {
@@ -74,7 +73,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
-    resourceType,
     resourceId,
   });
 
@@ -225,6 +223,8 @@ export interface SubscriptionMethodControl {
   targetPath: string;
   validator: (v: string) => boolean;
 }
+
+export type ResourceType = "TASK" | "BUILD";
 
 const StyledSelect = styled(Select)`
   width: 80%;
