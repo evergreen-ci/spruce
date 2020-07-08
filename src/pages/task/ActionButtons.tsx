@@ -251,7 +251,7 @@ export const ActionButtons = ({
             setIsVisibleModal(!isVisibleModal);
           }}
         >
-          Add Notification
+          Notify Me
         </Button>
         <ButtonDropdown
           disabled={disabled}
