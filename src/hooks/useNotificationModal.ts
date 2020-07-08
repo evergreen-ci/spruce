@@ -22,9 +22,7 @@ export const useNotificationModal = ({
   >([]);
 
   const [selectedTriggerId, setSelectedTriggerId] = useState<string>("");
-  const [extraFieldInputVals, setExtraFieldInputVals] = useState<
-    ExtraFieldInputVals
-  >({});
+  const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
 
   // extraFields represents schema additional inputs required for the selected trigger
   const { extraFields, resourceType, payloadResourceIdKey } =
@@ -134,13 +132,11 @@ interface Target {
   slack?: string;
 }
 type ResourceType = "TASK" | "VERSION" | "BUILD";
-interface ExtraFieldInputVals {
+interface StringMap {
   [index: string]: string;
 }
-const clearExtraFieldsInputCb = (
-  accum: ExtraFieldInputVals,
-  eF: ExtraField
-) => ({
+
+const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
   ...accum,
   [eF.key]: "10",
 });
