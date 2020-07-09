@@ -30,14 +30,15 @@ export const SiteBanner = () => {
   };
 
   return showBanner ? (
-    <Banner bannerTheme={theme}>
+    <Banner bannerTheme={theme} data-cy="sitewide-banner">
       {text}{" "}
       <IconButton
         aria-label="Close Site Banner"
         variant="light"
         onClick={hideBanner}
+        data-cy="dismiss-sitewide-banner-button"
       >
-        <Icon glyph="X" onClick={hideBanner} />{" "}
+        <Icon glyph="X" />{" "}
       </IconButton>
     </Banner>
   ) : (
