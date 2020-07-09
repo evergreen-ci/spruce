@@ -16,7 +16,6 @@ export const CodeChangesTable: React.FC<{
     columns={columns(showHeader)}
     dataSource={fileDiffs}
     pagination={false}
-    scroll={{ y: 300 }}
     showHeader={showHeader}
   />
 );

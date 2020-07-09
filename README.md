@@ -101,6 +101,8 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 ### Requirements
 
+You must be on the `master` Branch if deploying to prod.
+
 A `.cmdrc.json` file is required to deploy because it sets the environment variables that the application needs in production and staging environments. See [Environment Variables](#environment-variables) section for more info about this file.
 
 ### How to Deploy:
@@ -109,3 +111,5 @@ Run the `deploy:prod` or `deploy:staging` npm command
 
 1. `npm run deploy:prod` = deploy to https://spruce.mongodb.com
 2. `npm run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
+
+After deploying you will be prompted to run `git push --tags` this is important so we can track releases. 
