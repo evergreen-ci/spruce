@@ -39,6 +39,46 @@ export const useNotificationModal = ({
     trigger,
   } = get(triggers, `[${selectedTriggerIndex}]`, {});
 
+  const regexSelectorProps = regexSelectorComps.map((regexTypeId, i) => {
+    return {
+      dropdownOptions: regexSelectors,
+      disabledDropdownOptions: regexSelectorComps.filter((v) => v),
+      selectedOption: regexTypeId,
+      onChangeSelectedOption: (optionValue: string) => {
+        // reset "previous" option
+        if (regexTypeId) {
+          setRegexSelectorInputs({
+            ...regexSelectorInputs,
+            [regexTypeId]: "",
+          });
+        }
+        const regexSelectorCompsClone = [...regexSelectorComps];
+        regexSelectorCompsClone[i] = optionValue;
+        setRegexSelectorComps(regexSelectorCompsClone);
+      },
+      onChangeRegexValue: (event) => {
+        setRegexSelectorInputs({
+          ...regexSelectorInputs,
+          [regexTypeId]: event.target.value,
+        });
+      },
+      onDelete: () => {
+        if (regexTypeId) {
+          setRegexSelectorInputs({
+            ...regexSelectorInputs,
+            [regexTypeId]: "",
+          });
+        }
+        setRegexSelectorComps(
+          regexSelectorComps
+            .slice(0, i)
+            .concat(regexSelectorComps.slice(i + 1, regexSelectorComps.length))
+        );
+      },
+      regexInputValue: regexSelectorInputs[regexTypeId] ?? "",
+    };
+  });
+
   // clear the input vals for the extraFields when the extraFields change
   useEffect(() => {
     setExtraFieldInputVals(
@@ -126,10 +166,7 @@ export const useNotificationModal = ({
       regex_selectors: [],
     };
   };
-  const dropdownOptions = regexSelectors
-    ? regexSelectors.map(({ type }) => type)
-    : [];
-  const disabledDropdownOptions = regexSelectorComps.filter((v) => v);
+
   return {
     extraFieldErrorMessages,
     extraFieldInputVals,
@@ -142,13 +179,16 @@ export const useNotificationModal = ({
     selectedTriggerIndex,
     setExtraFieldInputVals,
     setRegexSelectorInputs,
+    setRegexSelectorComps,
     setSelectedSubscriptionMethod,
     setSelectedTriggerIndex,
     setTarget,
+    regexSelectorComps,
     target,
     showAddCriteria: !!regexSelectors,
-    dropdownOptions,
-    disabledDropdownOptions,
+    dropdownOptions: regexSelectors,
+
+    regexSelectorProps,
   };
 };
 

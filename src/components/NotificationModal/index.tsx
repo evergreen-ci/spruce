@@ -14,8 +14,8 @@ import Icon from "@leafygreen-ui/icon";
 import {
   useNotificationModal,
   UseNotificationModalProps,
-  RegexSelector,
 } from "hooks/useNotificationModal";
+import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { useMutation } from "@apollo/react-hooks";
 import {
   SaveSubscriptionMutation,
@@ -60,24 +60,21 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     },
   });
   const {
-    selectedSubscriptionMethod,
-    isFormValid,
-    selectedTriggerIndex,
-    setSelectedTriggerIndex,
-    extraFields,
+    extraFieldErrorMessages,
     extraFieldInputVals,
+    extraFields,
+    getRequestPayload,
+    isFormValid,
+    onClickAddRegexSelector,
+    regexSelectorProps,
+    selectedSubscriptionMethod,
+    selectedTriggerIndex,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
-    target,
-    onClickAddRegexSelector,
-    setRegexSelectorInputs,
-    regexSelectorInputs,
-    showAddCriteria,
+    setSelectedTriggerIndex,
     setTarget,
-    extraFieldErrorMessages,
-    getRequestPayload,
-    dropdownOptions,
-    disabledOptions,
+    showAddCriteria,
+    target,
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
@@ -98,7 +95,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const label = get(currentMethodControl, "label");
   const placeholder = get(currentMethodControl, "placeholder");
   const targetPath = get(currentMethodControl, "targetPath");
-
   return (
     <Modal
       data-cy={dataCy}
@@ -169,21 +165,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           ))}
         {showAddCriteria && (
           <>
-            {regexSelectorComps.map((regexTypeId, i) => {
-              const props = {
-                dropdownOptions,
-                disabledOptions,
-                selectedOption: regexTypeId,
-                onChangeSelectedOption: (optionValue: string) => {
-                  //clear the regex for the selected option, and then update regex selector comps
-                },
-                onChangeRegexValue,
-                onDelete,
-                regexInputValue,
-              };
-            })}
-            <div onClick={onClickAddRegexSelector}>
-              <Icon glyph="Plus" />
+            {regexSelectorProps.map((props, i) => (
+              <RegexSelectorInput {...props} />
+            ))}
+
+            <div>
+              <Icon onClick={onClickAddRegexSelector} glyph="Plus" />
               Add additional criteria
             </div>
           </>
@@ -243,66 +230,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         ))}
       </div>
     </Modal>
-  );
-};
-
-interface RegexSelectorProps {
-  dropdownOptions: RegexSelector[];
-  disabledOptions: string[];
-  selectedOption: string;
-  onChangeSelectedOption: (optionValue: string) => void;
-  onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  regexInputValue: string;
-  onDelete: () => void;
-}
-export const RegexSelectorInput = ({
-  dropdownOptions,
-  disabledOptions,
-  selectedOption,
-  onChangeSelectedOption,
-  onChangeRegexValue,
-  onDelete,
-  regexInputValue,
-}: RegexSelectorProps) => {
-  const dropdownId = uuid();
-  const inputId = uuid();
-  return (
-    <div>
-      <SectionLabelContainer>
-        <InputLabel htmlFor={dropdownId}>Notification method</InputLabel>
-      </SectionLabelContainer>
-      <StyledSelect
-        id={dropdownId}
-        data-test-id="notify-by-select"
-        value={selectedOption}
-        onChange={onChangeSelectedOption}
-      >
-        {dropdownOptions.map((s) => (
-          <Option
-            key={s.type}
-            disabled={disabledOptions.includes(s.type)}
-            value={s.type}
-            data-test-id={`${s.type}-option`}
-          >
-            {s.typeLabel}
-          </Option>
-        ))}
-      </StyledSelect>
-      matches regex
-      <SectionLabelContainer>
-        <InputLabel htmlFor={inputId}>Regex</InputLabel>
-      </SectionLabelContainer>
-      <StyledInput
-        data-cy={`${selectedOption}-input`}
-        id={inputId}
-        onChange={onChangeRegexValue}
-        value={regexInputValue}
-        disabled={!selectedOption}
-      />
-      <div onClick={onDelete}>
-        <Icon glyph="Trash" />
-      </div>
-    </div>
   );
 };
 
