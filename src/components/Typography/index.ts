@@ -1,7 +1,16 @@
 import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
 
+import { css } from "@emotion/core";
+
 const { gray } = uiColors;
+
+const wordBreakCss = css`
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  hyphens: auto;
+  word-break: break-word;
+`;
 
 export const H1 = styled.h1`
   font-size: 30px;
@@ -32,6 +41,7 @@ export const P1 = styled.p`
   line-height: 17px;
   margin-bottom: 5px;
   color: ${gray.dark3};
+  ${wordBreakCss};
 `;
 
 export const P2 = styled.p`
@@ -39,4 +49,5 @@ export const P2 = styled.p`
   line-height: 14px;
   margin-bottom: 13px;
   color: ${gray.dark3};
+  ${wordBreakCss};
 `;
