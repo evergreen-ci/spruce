@@ -52,7 +52,11 @@ const Banner = styled.div`
   transition: max-height 0.3s ease-in-out;
   align-items: center;
   ${(props: BannerProps) =>
-    props.theme && `background-color: ${bannerTypeToColor[props.theme]}`};
+    `background-color: ${
+      props.theme
+        ? bannerTypeToColor[props.theme]
+        : bannerTypeToColor.announcement
+    }`};
   display: flex;
   justify-content: space-between;
   padding-left: 15px;
