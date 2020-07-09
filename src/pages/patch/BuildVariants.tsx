@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
+import { v4 as uuid } from "uuid";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import {
   PatchBuildVariantsQuery,
@@ -11,7 +12,7 @@ import { Divider } from "components/styles/Divider";
 import { Skeleton } from "antd";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
-import { TaskSquare } from "./buildVariants/TaskSquare";
+import { TaskSquare } from "pages/patch/buildVariants/TaskSquare";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -35,7 +36,7 @@ export const BuildVariants: React.FC = () => {
         !error &&
         !loading &&
         data.patchBuildVariants.map(({ displayName, tasks }) => (
-          <BuildVariant key={displayName} className="patch-build-variant">
+          <BuildVariant key={uuid()} className="patch-build-variant">
             <P1>{displayName}</P1>
             <VariantTasks>
               {tasks.map((task) => (
