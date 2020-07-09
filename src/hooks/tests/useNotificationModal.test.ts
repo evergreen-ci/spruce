@@ -22,7 +22,7 @@ test("Should have correctly formatted request payload after selecting options", 
   act(() => {
     result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
     result.current.setTarget({ email: "email@email.com" });
-    result.current.setSelectedTriggerId("exceeds-duration");
+    result.current.setSelectedTriggerIndex(3);
   });
 
   expect(result.current.getRequestPayload()).toStrictEqual({

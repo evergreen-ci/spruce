@@ -10,9 +10,11 @@ import set from "lodash/set";
 import { SubscriptionMethod } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
+import Icon from "@leafygreen-ui/icon";
 import {
   useNotificationModal,
   UseNotificationModalProps,
+  RegexSelector,
 } from "hooks/useNotificationModal";
 import { useMutation } from "@apollo/react-hooks";
 import {
@@ -60,22 +62,27 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const {
     selectedSubscriptionMethod,
     isFormValid,
-    selectedTriggerId,
-    setSelectedTriggerId,
+    selectedTriggerIndex,
+    setSelectedTriggerIndex,
     extraFields,
     extraFieldInputVals,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
     target,
+    onClickAddRegexSelector,
+    setRegexSelectorInputs,
+    regexSelectorInputs,
+    showAddCriteria,
     setTarget,
     extraFieldErrorMessages,
     getRequestPayload,
+    dropdownOptions,
+    disabledOptions,
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
     resourceId,
   });
-
   const onClickSave = () => {
     const subscription = getRequestPayload();
     saveSubscription({
@@ -125,17 +132,17 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           <InputLabel>Event</InputLabel>
         </SectionLabelContainer>
         <StyledSelect
-          value={selectedTriggerId}
-          onChange={(v: string) => {
-            setSelectedTriggerId(v);
+          value={selectedTriggerIndex}
+          onChange={(v: number) => {
+            setSelectedTriggerIndex(v);
           }}
           data-test-id="when-select"
         >
-          {triggers.map((t) => (
+          {triggers.map((t, i) => (
             <Option
-              key={t.trigger}
-              value={t.trigger}
-              data-test-id={`${t.trigger}-option`}
+              key={uuid()}
+              value={i}
+              data-test-id={`${t.trigger}_${t.label}-option`}
             >
               {t.label}
             </Option>
@@ -160,6 +167,27 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
               />
             </ExtraFieldContainer>
           ))}
+        {showAddCriteria && (
+          <>
+            {regexSelectorComps.map((regexTypeId, i) => {
+              const props = {
+                dropdownOptions,
+                disabledOptions,
+                selectedOption: regexTypeId,
+                onChangeSelectedOption: (optionValue: string) => {
+                  //clear the regex for the selected option, and then update regex selector comps
+                },
+                onChangeRegexValue,
+                onDelete,
+                regexInputValue,
+              };
+            })}
+            <div onClick={onClickAddRegexSelector}>
+              <Icon glyph="Plus" />
+              Add additional criteria
+            </div>
+          </>
+        )}
       </Section>
       <div>
         <Body weight="medium">Choose how to be notified</Body>
@@ -217,6 +245,67 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     </Modal>
   );
 };
+
+interface RegexSelectorProps {
+  dropdownOptions: RegexSelector[];
+  disabledOptions: string[];
+  selectedOption: string;
+  onChangeSelectedOption: (optionValue: string) => void;
+  onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  regexInputValue: string;
+  onDelete: () => void;
+}
+export const RegexSelectorInput = ({
+  dropdownOptions,
+  disabledOptions,
+  selectedOption,
+  onChangeSelectedOption,
+  onChangeRegexValue,
+  onDelete,
+  regexInputValue,
+}: RegexSelectorProps) => {
+  const dropdownId = uuid();
+  const inputId = uuid();
+  return (
+    <div>
+      <SectionLabelContainer>
+        <InputLabel htmlFor={dropdownId}>Notification method</InputLabel>
+      </SectionLabelContainer>
+      <StyledSelect
+        id={dropdownId}
+        data-test-id="notify-by-select"
+        value={selectedOption}
+        onChange={onChangeSelectedOption}
+      >
+        {dropdownOptions.map((s) => (
+          <Option
+            key={s.type}
+            disabled={disabledOptions.includes(s.type)}
+            value={s.type}
+            data-test-id={`${s.type}-option`}
+          >
+            {s.typeLabel}
+          </Option>
+        ))}
+      </StyledSelect>
+      matches regex
+      <SectionLabelContainer>
+        <InputLabel htmlFor={inputId}>Regex</InputLabel>
+      </SectionLabelContainer>
+      <StyledInput
+        data-cy={`${selectedOption}-input`}
+        id={inputId}
+        onChange={onChangeRegexValue}
+        value={regexInputValue}
+        disabled={!selectedOption}
+      />
+      <div onClick={onDelete}>
+        <Icon glyph="Trash" />
+      </div>
+    </div>
+  );
+};
+
 export interface SubscriptionMethodControl {
   label: string;
   placeholder: string;

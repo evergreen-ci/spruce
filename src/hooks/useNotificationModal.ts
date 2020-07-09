@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import get from "lodash.get";
+import get from "lodash/get";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
@@ -21,12 +21,23 @@ export const useNotificationModal = ({
     string[]
   >([]);
 
-  const [selectedTriggerId, setSelectedTriggerId] = useState<string>("");
+  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>();
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
+  const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
+  const [regexSelectorComps, setRegexSelectorComps] = useState<string[]>([""]);
+
+  const onClickAddRegexSelector = () => {
+    setRegexSelectorComps([...regexSelectorComps, ""]);
+  };
 
   // extraFields represents schema additional inputs required for the selected trigger
-  const { extraFields, resourceType, payloadResourceIdKey } =
-    triggers.find(({ trigger }) => trigger === selectedTriggerId) ?? {};
+  const {
+    extraFields,
+    resourceType,
+    payloadResourceIdKey,
+    regexSelectors,
+    trigger,
+  } = get(triggers, `[${selectedTriggerIndex}]`, {});
 
   // clear the input vals for the extraFields when the extraFields change
   useEffect(() => {
@@ -34,6 +45,12 @@ export const useNotificationModal = ({
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
     );
   }, [extraFields]);
+
+  // reset regex selector inputs when regex selector changes
+  useEffect(() => {
+    setRegexSelectorComps([]);
+    setRegexSelectorInputs({});
+  }, [regexSelectors]);
 
   // reset Targets when subscription method changes
   useEffect(() => {
@@ -67,7 +84,7 @@ export const useNotificationModal = ({
     // check that required fields exist and there are no extra field errors
     if (
       !targetEntries.length ||
-      !selectedTriggerId ||
+      selectedTriggerIndex === undefined ||
       !selectedSubscriptionMethod ||
       extraFieldErrorMessages.length
     ) {
@@ -86,7 +103,7 @@ export const useNotificationModal = ({
     subscriptionMethodControls,
     target,
     extraFieldInputVals,
-    selectedTriggerId,
+    selectedTriggerIndex,
     selectedSubscriptionMethod,
     extraFieldErrorMessages,
   ]);
@@ -94,7 +111,7 @@ export const useNotificationModal = ({
   const getRequestPayload = () => {
     const targetEntry = Object.entries(target)[0];
     return {
-      trigger: selectedTriggerId,
+      trigger,
       resource_type: resourceType,
       selectors: [
         { type: "object", data: resourceType.toLowerCase() },
@@ -109,20 +126,29 @@ export const useNotificationModal = ({
       regex_selectors: [],
     };
   };
-
+  const dropdownOptions = regexSelectors
+    ? regexSelectors.map(({ type }) => type)
+    : [];
+  const disabledDropdownOptions = regexSelectorComps.filter((v) => v);
   return {
     extraFieldErrorMessages,
     extraFieldInputVals,
     extraFields,
-    isFormValid,
-    target,
-    selectedSubscriptionMethod,
-    selectedTriggerId,
-    setExtraFieldInputVals,
-    setSelectedSubscriptionMethod,
-    setSelectedTriggerId,
-    setTarget,
     getRequestPayload,
+    isFormValid,
+    onClickAddRegexSelector,
+    regexSelectorInputs,
+    selectedSubscriptionMethod,
+    selectedTriggerIndex,
+    setExtraFieldInputVals,
+    setRegexSelectorInputs,
+    setSelectedSubscriptionMethod,
+    setSelectedTriggerIndex,
+    setTarget,
+    target,
+    showAddCriteria: !!regexSelectors,
+    dropdownOptions,
+    disabledDropdownOptions,
   };
 };
 
