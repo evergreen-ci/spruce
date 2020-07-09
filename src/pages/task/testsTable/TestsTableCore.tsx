@@ -154,6 +154,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     title: "Name",
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
+    width: "40%",
     sorter: true,
   },
   {
