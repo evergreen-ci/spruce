@@ -5,14 +5,15 @@ import { uiColors } from "@leafygreen-ui/palette";
 import IconButton from "@leafygreen-ui/icon-button";
 import Icon from "@leafygreen-ui/icon";
 import Cookies from "js-cookie";
-import get from "lodash.get";
 import { GET_SITE_BANNER } from "gql/queries";
 import { SiteBannerQuery } from "gql/generated/types";
 
 const { yellow, blue, green, red } = uiColors;
 export const SiteBanner = () => {
   const { data, loading } = useQuery<SiteBannerQuery>(GET_SITE_BANNER);
-  const { text, theme } = get(data, "siteBanner", {});
+  const siteBanner = data?.siteBanner;
+  const text = siteBanner?.text ?? "";
+  const theme = siteBanner?.theme ?? "";
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => {
     if (text !== "" && Cookies.get(text) === undefined) {
@@ -29,7 +30,7 @@ export const SiteBanner = () => {
   };
 
   return showBanner ? (
-    <Banner theme={theme}>
+    <Banner bannerTheme={theme}>
       {text}{" "}
       <IconButton
         aria-label="Close Site Banner"
@@ -45,24 +46,21 @@ export const SiteBanner = () => {
 };
 
 type BannerProps = {
-  theme: string;
+  bannerTheme: string;
 };
 
 const Banner = styled.div`
   transition: max-height 0.3s ease-in-out;
   align-items: center;
-  ${(props: BannerProps) =>
+  ${({ bannerTheme }: BannerProps) =>
     `background-color: ${
-      props.theme
-        ? bannerTypeToColor[props.theme]
+      bannerTheme
+        ? bannerTypeToColor[bannerTheme]
         : bannerTypeToColor.announcement
     }`};
   display: flex;
   justify-content: space-between;
-  padding-left: 15px;
-  padding-right: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  padding: 5px 15px;
   margin-bottom: 15px;
 `;
 
