@@ -21,7 +21,7 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
       );
       break;
     case "TASK_STARTED":
-      message = <>Marked as &quote;started&quote;</>;
+      message = <>Marked as &quot;started&quot;</>;
       break;
     case "TASK_DISPATCHED":
       message = <>Dispatched to host {hostLink}</>;
