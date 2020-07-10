@@ -4,6 +4,7 @@ import { BannerObj } from "context/banners";
 import { Banner } from "components/Banners/Banner";
 
 export { SiteBanner } from "components/Banners/SiteBanner";
+export { ConnectivityBanner } from "components/Banners/ConnectivityBanner";
 
 interface BannersProps {
   banners: BannerObj[];
