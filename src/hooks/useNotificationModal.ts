@@ -194,20 +194,15 @@ export const useNotificationModal = ({
     getRequestPayload,
     isFormValid,
     onClickAddRegexSelector,
-    regexSelectorInputs,
+    regexSelectorProps,
     selectedSubscriptionMethod,
     selectedTriggerIndex,
     setExtraFieldInputVals,
-    setRegexSelectorInputs,
-    setRegexSelectorComps,
     setSelectedSubscriptionMethod,
     setSelectedTriggerIndex,
     setTarget,
-    regexSelectorComps,
-    target,
     showAddCriteria: !!regexSelectors,
-    dropdownOptions: regexSelectors,
-    regexSelectorProps,
+    target,
   };
 };
 
