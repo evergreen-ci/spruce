@@ -135,11 +135,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           data-test-id="when-select"
         >
           {triggers.map((t, i) => (
-            <Option
-              key={uuid()}
-              value={i}
-              data-test-id={`${t.trigger}_${t.label}-option`}
-            >
+            <Option key={uuid()} value={i} data-test-id={`trigger_${i}-option`}>
               {t.label}
             </Option>
           ))}

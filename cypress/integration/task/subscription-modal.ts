@@ -13,7 +13,7 @@ describe("Task Subscription Modal", () => {
 
   it("Display success banner after submitting a valid form and request succeeds", () => {
     openModal();
-    cy.dataTestId("outcome-option").click();
+    cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("EVG-2000");
@@ -23,7 +23,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button and display error message when populating form with negative percent value", () => {
     openModal();
-    cy.dataTestId("runtime-change-option").click();
+    cy.dataTestId("trigger_4-option").click();
     cy.dataCy("task-percent-change-input")
       .clear()
       .type("-100");
@@ -40,7 +40,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button and display error message in modal when populating form with negative duration value", () => {
     openModal();
-    cy.dataTestId("exceeds-duration-option").click();
+    cy.dataTestId("trigger_3-option").click();
     cy.dataCy("task-duration-secs-input")
       .clear()
       .type("-100");
@@ -57,7 +57,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
     openModal();
-    cy.dataTestId("exceeds-duration-option").click();
+    cy.dataTestId("trigger_3-option").click();
     cy.dataCy("task-duration-secs-input")
       .clear()
       .type(".33");
@@ -74,7 +74,7 @@ describe("Task Subscription Modal", () => {
 
   it("Display error banner when save subscription request fails", () => {
     openModal();
-    cy.dataTestId("outcome-option").click();
+    cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("EVG-2000");
@@ -95,7 +95,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button when jira ticket is not formatted properly", () => {
     openModal();
-    cy.dataTestId("outcome-option").click();
+    cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
     cy.dataTestId("jira-comment-input").type("E");
@@ -106,7 +106,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button when email is not formatted properly", () => {
     openModal();
-    cy.dataTestId("outcome-option").click();
+    cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("email-option").click();
     cy.dataTestId("email-input").type("arst");
@@ -117,7 +117,7 @@ describe("Task Subscription Modal", () => {
 
   it("Disable save button when slack username or channel is not formatted properly", () => {
     openModal();
-    cy.dataTestId("outcome-option").click();
+    cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("slack-option").click();
     cy.dataTestId("slack-input").type("sart");
