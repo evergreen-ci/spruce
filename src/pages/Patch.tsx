@@ -25,6 +25,7 @@ import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "hoc/withBannersContext";
 import { usePageTitle } from "hooks";
+import { commitQueueAlias } from "constants/patch";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -54,10 +55,11 @@ const PatchCore: React.FC = () => {
   const description = get(patch, "description");
   const activated = get(patch, "activated");
 
+  const alias = patch?.alias ?? null;
   const commitQueuePosition = patch?.commitQueuePosition ?? null;
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
-  if (activated === false) {
+  if (activated === false && alias !== commitQueueAlias) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
 

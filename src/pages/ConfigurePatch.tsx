@@ -11,6 +11,7 @@ import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPag
 import { PageWrapper } from "components/styles";
 import { usePageTitle } from "hooks";
 import { getVersionRoute } from "constants/routes";
+import { commitQueueAlias } from "constants/patch";
 
 export const ConfigurePatch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,8 +31,8 @@ export const ConfigurePatch: React.FC = () => {
   useEffect(() => {
     const patchAlias = data?.patch?.alias ?? null;
 
-    if (patchAlias !== "__commit_queue") {
-      router.push(getVersionRoute(id));
+    if (patchAlias !== commitQueueAlias) {
+      router.replace(getVersionRoute(id));
     }
   }, [data, router, id]);
 
