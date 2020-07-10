@@ -31,7 +31,7 @@ export const ConfigurePatch: React.FC = () => {
   useEffect(() => {
     const patchAlias = data?.patch?.alias ?? null;
 
-    if (patchAlias !== commitQueueAlias) {
+    if (patchAlias === commitQueueAlias) {
       router.replace(getVersionRoute(id));
     }
   }, [data, router, id]);
