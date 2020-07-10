@@ -10,24 +10,24 @@ import styled from "@emotion/styled";
 const { Option } = Select;
 
 export interface RegexSelectorProps {
-  dropdownOptions: RegexSelector[];
   disabledDropdownOptions: string[];
-  selectedOption: string;
-  onChangeSelectedOption: (optionValue: string) => void;
-  onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
-  regexInputValue: string;
-  onDelete: () => void;
+  dropdownOptions: RegexSelector[];
   key?: string;
+  onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeSelectedOption: (optionValue: string) => void;
+  onDelete: () => void;
+  regexInputValue: string;
+  selectedOption: string;
 }
 
 export const RegexSelectorInput = ({
-  dropdownOptions,
   disabledDropdownOptions,
-  selectedOption,
-  onChangeSelectedOption,
+  dropdownOptions,
   onChangeRegexValue,
+  onChangeSelectedOption,
   onDelete,
   regexInputValue,
+  selectedOption,
 }: RegexSelectorProps) => {
   const dropdownId = uuid();
   const inputId = uuid();
@@ -85,7 +85,6 @@ const Container = styled.div`
   width: 80%;
   padding-bottom: 16px;
 `;
-
 const StyledIcon = styled(Icon)`
   cursor: pointer;
 `;
@@ -109,7 +108,6 @@ const MatchesRegexLabel = styled(Disclaimer)`
   padding-right: 8px;
   white-space: nowrap;
 `;
-
 const StyledInput = styled(Input)`
   width: 100%;
 `;
