@@ -1,10 +1,15 @@
 import { useState, useEffect } from "react";
 import get from "lodash/get";
-
+import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
+import { v4 as uuid } from "uuid";
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
   resourceId: string;
+}
+interface RegexSelectorComps {
+  key: string;
+  regexType: string;
 }
 export const useNotificationModal = ({
   triggers,
@@ -24,10 +29,17 @@ export const useNotificationModal = ({
   const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>();
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
-  const [regexSelectorComps, setRegexSelectorComps] = useState<string[]>([""]);
-
+  const [regexSelectorComps, setRegexSelectorComps] = useState<
+    RegexSelectorComps[]
+  >([]);
+  const [regexSelectorProps, setRegexSelectorProps] = useState<
+    RegexSelectorProps[]
+  >([]);
   const onClickAddRegexSelector = () => {
-    setRegexSelectorComps([...regexSelectorComps, ""]);
+    setRegexSelectorComps([
+      ...regexSelectorComps,
+      { regexType: "", key: uuid() },
+    ]);
   };
 
   // extraFields represents schema additional inputs required for the selected trigger
@@ -39,45 +51,53 @@ export const useNotificationModal = ({
     trigger,
   } = get(triggers, `[${selectedTriggerIndex}]`, {});
 
-  const regexSelectorProps = regexSelectorComps.map((regexTypeId, i) => {
-    return {
-      dropdownOptions: regexSelectors,
-      disabledDropdownOptions: regexSelectorComps.filter((v) => v),
-      selectedOption: regexTypeId,
-      onChangeSelectedOption: (optionValue: string) => {
-        // reset "previous" option
-        if (regexTypeId) {
+  useEffect(() => {
+    const disabledDropdownOptions = regexSelectorComps
+      .map(({ regexType }) => regexType)
+      .filter((v) => v);
+    setRegexSelectorProps(
+      regexSelectorComps.map(({ regexType, key }, i) => ({
+        key,
+        dropdownOptions: regexSelectors,
+        disabledDropdownOptions,
+        selectedOption: regexType,
+        onChangeSelectedOption: (optionValue: string) => {
+          // reset "previous" option
+          if (regexType) {
+            setRegexSelectorInputs({
+              ...regexSelectorInputs,
+              [regexType]: "",
+            });
+          }
+          const regexSelectorCompsClone = [...regexSelectorComps];
+          regexSelectorCompsClone[i].regexType = optionValue;
+          setRegexSelectorComps(regexSelectorCompsClone);
+        },
+        onChangeRegexValue: (event) => {
           setRegexSelectorInputs({
             ...regexSelectorInputs,
-            [regexTypeId]: "",
+            [regexType]: event.target.value,
           });
-        }
-        const regexSelectorCompsClone = [...regexSelectorComps];
-        regexSelectorCompsClone[i] = optionValue;
-        setRegexSelectorComps(regexSelectorCompsClone);
-      },
-      onChangeRegexValue: (event) => {
-        setRegexSelectorInputs({
-          ...regexSelectorInputs,
-          [regexTypeId]: event.target.value,
-        });
-      },
-      onDelete: () => {
-        if (regexTypeId) {
-          setRegexSelectorInputs({
-            ...regexSelectorInputs,
-            [regexTypeId]: "",
-          });
-        }
-        setRegexSelectorComps(
-          regexSelectorComps
-            .slice(0, i)
-            .concat(regexSelectorComps.slice(i + 1, regexSelectorComps.length))
-        );
-      },
-      regexInputValue: regexSelectorInputs[regexTypeId] ?? "",
-    };
-  });
+        },
+        onDelete: () => {
+          if (regexType) {
+            setRegexSelectorInputs({
+              ...regexSelectorInputs,
+              [regexType]: "",
+            });
+          }
+          setRegexSelectorComps(
+            regexSelectorComps
+              .slice(0, i)
+              .concat(
+                regexSelectorComps.slice(i + 1, regexSelectorComps.length)
+              )
+          );
+        },
+        regexInputValue: regexSelectorInputs[regexType] ?? "",
+      }))
+    );
+  }, [regexSelectorComps, regexSelectorInputs, regexSelectors]);
 
   // clear the input vals for the extraFields when the extraFields change
   useEffect(() => {
@@ -187,7 +207,6 @@ export const useNotificationModal = ({
     target,
     showAddCriteria: !!regexSelectors,
     dropdownOptions: regexSelectors,
-
     regexSelectorProps,
   };
 };

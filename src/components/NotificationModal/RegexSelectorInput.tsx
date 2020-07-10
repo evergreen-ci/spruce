@@ -17,6 +17,7 @@ export interface RegexSelectorProps {
   onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
   regexInputValue: string;
   onDelete: () => void;
+  key?: string;
 }
 
 export const RegexSelectorInput = ({
