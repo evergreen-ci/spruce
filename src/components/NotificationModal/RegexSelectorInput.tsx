@@ -1,9 +1,11 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { RegexSelector } from "hooks/useNotificationModal";
 import Icon from "@leafygreen-ui/icon";
 import { InputLabel } from "components/styles";
+import styled from "@emotion/styled";
 
 const { Option } = Select;
 
@@ -29,12 +31,12 @@ export const RegexSelectorInput = ({
   const dropdownId = uuid();
   const inputId = uuid();
   return (
-    <div style={{ display: "flex", flexDirection: "row" }}>
+    <Container>
       <div>
         <div>
           <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
         </div>
-        <Select
+        <StyledSelect
           id={dropdownId}
           data-test-id="notify-by-select"
           value={selectedOption}
@@ -50,15 +52,15 @@ export const RegexSelectorInput = ({
               {s.typeLabel}
             </Option>
           ))}
-        </Select>
+        </StyledSelect>
+        <Disclaimer>matches regex</Disclaimer>
       </div>
-      <div>matches regex</div>
+      <MatchesRegexLabel>matches regex</MatchesRegexLabel>
       <div>
         <div>
           <InputLabel htmlFor={inputId}>Regex</InputLabel>
         </div>
-        <Input
-          width={456}
+        <StyledInput
           data-cy={`${selectedOption}-input`}
           id={inputId}
           onChange={onChangeRegexValue}
@@ -66,9 +68,38 @@ export const RegexSelectorInput = ({
           disabled={!selectedOption}
         />
       </div>
-      <div>
+      {/* <TrashContainer>
         <Icon onClick={onDelete} glyph="Trash" />
-      </div>
-    </div>
+      </TrashContainer> */}
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 452px;
+  padding-bottom: 16px;
+  justify-content: space-between;
+`;
+
+const StyledSelect = styled(Select)`
+  min-width: 160px;
+`;
+
+const TrashContainer = styled.div`
+  position: relative;
+  top: 29px;
+  left: 8px;
+`;
+
+const MatchesRegexLabel = styled(Disclaimer)`
+  position: relative;
+  top: 25px;
+  padding-left: 8px;
+  padding-right: 8px;
+`;
+
+const StyledInput = styled(Input)`
+  width: 100%;
+`;
