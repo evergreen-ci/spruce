@@ -165,9 +165,11 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           ))}
         {showAddCriteria && (
           <>
-            {regexSelectorProps.map((props) => (
-              <RegexSelectorInput {...props} />
-            ))}
+            <RegexSelectorInputContainer>
+              {regexSelectorProps.map((props) => (
+                <RegexSelectorInput {...props} />
+              ))}
+            </RegexSelectorInputContainer>
             <AddCriteriaContainer onClick={onClickAddRegexSelector}>
               <Icon glyph="Plus" />
               Add additional criteria
@@ -266,6 +268,9 @@ const Section = styled.div`
   border-bottom: 1px solid ${uiColors.gray.light2};
 `;
 
+const RegexSelectorInputContainer = styled.div`
+  padding-top: 8px;
+`;
 const SectionLabelContainer = styled.div`
   padding-top: 16px;
 `;
