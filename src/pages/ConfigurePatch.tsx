@@ -28,9 +28,9 @@ export const ConfigurePatch: React.FC = () => {
 
   // redirect to version page if patch is on commit queue
   useEffect(() => {
-    const commitQueuePosition = data?.patch?.commitQueuePosition ?? null;
+    const patchAlias = data?.patch?.alias ?? null;
 
-    if (commitQueuePosition !== null) {
+    if (patchAlias !== "__commit_queue") {
       router.push(getVersionRoute(id));
     }
   }, [data, router, id]);

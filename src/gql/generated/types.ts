@@ -1118,6 +1118,7 @@ export type ConfigurePatchQuery = {
     id: string;
     description: string;
     author: string;
+    alias: string;
     status: string;
     activated: boolean;
     commitQueuePosition?: Maybe<number>;
