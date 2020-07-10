@@ -165,14 +165,13 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           ))}
         {showAddCriteria && (
           <>
-            {regexSelectorProps.map((props, i) => (
+            {regexSelectorProps.map((props) => (
               <RegexSelectorInput {...props} />
             ))}
-
-            <div>
-              <Icon onClick={onClickAddRegexSelector} glyph="Plus" />
+            <AddCriteriaContainer onClick={onClickAddRegexSelector}>
+              <Icon glyph="Plus" />
               Add additional criteria
-            </div>
+            </AddCriteriaContainer>
           </>
         )}
       </Section>
@@ -242,13 +241,15 @@ export interface SubscriptionMethodControl {
 
 export type ResourceType = "TASK" | "BUILD";
 
+const inputWidth = "width: calc(80% - 50px);";
+
 const StyledSelect = styled(Select)`
-  width: 80%;
+  ${inputWidth}
   margin-bottom: 8px;
 `;
 
 const StyledInput = styled(Input)`
-  width: 80%;
+  ${inputWidth}
 `;
 
 const ExtraFieldContainer = styled.div`
@@ -276,4 +277,10 @@ const LeftButton = styled(Button)`
 const InputLabel = styled.label`
   font-size: 14px;
   font-weight: bold;
+`;
+
+const AddCriteriaContainer = styled.div`
+  cursor: pointer;
+  align-items: center;
+  display: flex;
 `;

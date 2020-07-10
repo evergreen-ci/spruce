@@ -1,10 +1,10 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Select, Input } from "antd";
-import { RegexSelector } from "hooks/useNotificationModal";
-import Icon from "@leafygreen-ui/icon";
 import { InputLabel } from "components/styles";
+import { RegexSelector } from "hooks/useNotificationModal";
+import { Select, Input } from "antd";
+import { v4 as uuid } from "uuid";
+import Icon from "@leafygreen-ui/icon";
 import styled from "@emotion/styled";
 
 const { Option } = Select;
@@ -32,45 +32,48 @@ export const RegexSelectorInput = ({
   const inputId = uuid();
   return (
     <Container>
-      <div>
+      <FlexRow>
         <div>
-          <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
+          <div>
+            <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
+          </div>
+          <StyledSelect
+            id={dropdownId}
+            data-test-id="notify-by-select"
+            value={selectedOption}
+            onChange={onChangeSelectedOption}
+          >
+            {dropdownOptions.map((s) => (
+              <Option
+                key={s.type}
+                disabled={disabledDropdownOptions.includes(s.type)}
+                value={s.type}
+                data-test-id={`${s.type}-option`}
+              >
+                {s.typeLabel}
+              </Option>
+            ))}
+          </StyledSelect>
         </div>
-        <StyledSelect
-          id={dropdownId}
-          data-test-id="notify-by-select"
-          value={selectedOption}
-          onChange={onChangeSelectedOption}
-        >
-          {dropdownOptions.map((s) => (
-            <Option
-              key={s.type}
-              disabled={disabledDropdownOptions.includes(s.type)}
-              value={s.type}
-              data-test-id={`${s.type}-option`}
-            >
-              {s.typeLabel}
-            </Option>
-          ))}
-        </StyledSelect>
-        <Disclaimer>matches regex</Disclaimer>
-      </div>
-      <MatchesRegexLabel>matches regex</MatchesRegexLabel>
-      <div>
+        <MatchesRegexLabel>matches regex</MatchesRegexLabel>
+      </FlexRow>
+      <RegexContainer>
         <div>
           <InputLabel htmlFor={inputId}>Regex</InputLabel>
         </div>
-        <StyledInput
-          data-cy={`${selectedOption}-input`}
-          id={inputId}
-          onChange={onChangeRegexValue}
-          value={regexInputValue}
-          disabled={!selectedOption}
-        />
-      </div>
-      {/* <TrashContainer>
-        <Icon onClick={onDelete} glyph="Trash" />
-      </TrashContainer> */}
+        <FlexRow>
+          <StyledInput
+            data-cy={`${selectedOption}-input`}
+            id={inputId}
+            onChange={onChangeRegexValue}
+            value={regexInputValue}
+            disabled={!selectedOption}
+          />
+          <TrashContainer>
+            <StyledIcon onClick={onDelete} glyph="Trash" />
+          </TrashContainer>
+        </FlexRow>
+      </RegexContainer>
     </Container>
   );
 };
@@ -78,26 +81,32 @@ export const RegexSelectorInput = ({
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 452px;
+  width: 80%;
   padding-bottom: 16px;
-  justify-content: space-between;
 `;
 
+const StyledIcon = styled(Icon)`
+  cursor: pointer;
+`;
 const StyledSelect = styled(Select)`
   min-width: 160px;
 `;
-
-const TrashContainer = styled.div`
-  position: relative;
-  top: 29px;
-  left: 8px;
+const FlexRow = styled.div`
+  display: flex;
 `;
-
+const TrashContainer = styled.div`
+  padding-left: 32px;
+  margin-top: 6px;
+`;
+const RegexContainer = styled.div`
+  width: 100%;
+`;
 const MatchesRegexLabel = styled(Disclaimer)`
   position: relative;
   top: 25px;
   padding-left: 8px;
   padding-right: 8px;
+  white-space: nowrap;
 `;
 
 const StyledInput = styled(Input)`
