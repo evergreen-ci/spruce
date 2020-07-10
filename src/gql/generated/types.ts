@@ -333,6 +333,7 @@ export type Query = {
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
+  siteBanner: SiteBanner;
 };
 
 export type QueryUserPatchesArgs = {
@@ -406,6 +407,11 @@ export enum RequiredStatus {
 export type SelectorInput = {
   type: Scalars["String"];
   data: Scalars["String"];
+};
+
+export type SiteBanner = {
+  text: Scalars["String"];
+  theme: Scalars["String"];
 };
 
 export enum SortDirection {
@@ -879,6 +885,10 @@ export type ProjectsQuery = {
     }>;
   };
 };
+
+export type SiteBannerQueryVariables = {};
+
+export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
 
 export type TaskFilesQueryVariables = {
   id: Scalars["String"];
