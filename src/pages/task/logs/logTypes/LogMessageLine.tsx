@@ -6,7 +6,6 @@ import linkifyHtml from "linkifyjs/html";
 import { LogMessage } from "gql/generated/types";
 import { getLogLineWrapper } from "pages/task/logs/logTypes/logMessageLine/LogLines";
 
-// const convert = new Convert({ newline: true, escapeXML: true });
 const FORMAT_STR = "yyyy/MM/d, HH:mm:ss.SSS";
 const ansiUp = new AnsiUp();
 
