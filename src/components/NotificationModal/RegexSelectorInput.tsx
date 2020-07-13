@@ -44,7 +44,7 @@ export const RegexSelectorInput = ({
             value={selectedOption}
             onChange={onChangeSelectedOption}
           >
-            {dropdownOptions.map((s) => (
+            {(dropdownOptions ?? []).map((s) => (
               <Option
                 key={s.type}
                 disabled={disabledDropdownOptions.includes(s.type)}
