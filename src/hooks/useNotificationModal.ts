@@ -7,7 +7,7 @@ export interface UseNotificationModalProps {
   triggers: Trigger[];
   resourceId: string;
 }
-interface RegexSelectorComps {
+interface RegexSelectorPropsTemplate {
   key: string;
   regexType: string;
 }
@@ -29,15 +29,15 @@ export const useNotificationModal = ({
   const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>();
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
-  const [regexSelectorComps, setRegexSelectorComps] = useState<
-    RegexSelectorComps[]
+  const [regexSelectorPropsTemplate, setRegexSelectorPropsTemplate] = useState<
+    RegexSelectorPropsTemplate[]
   >([{ regexType: "", key: uuid() }]);
   const [regexSelectorProps, setRegexSelectorProps] = useState<
     RegexSelectorProps[]
   >([]);
   const onClickAddRegexSelector = () => {
-    setRegexSelectorComps([
-      ...regexSelectorComps,
+    setRegexSelectorPropsTemplate([
+      ...regexSelectorPropsTemplate,
       { regexType: "", key: uuid() },
     ]);
   };
@@ -52,11 +52,11 @@ export const useNotificationModal = ({
   } = get(triggers, `[${selectedTriggerIndex}]`, {});
 
   useEffect(() => {
-    const disabledDropdownOptions = regexSelectorComps
+    const disabledDropdownOptions = regexSelectorPropsTemplate
       .map(({ regexType }) => regexType)
       .filter((v) => v);
     setRegexSelectorProps(
-      regexSelectorComps.map(({ regexType, key }, i) => ({
+      regexSelectorPropsTemplate.map(({ regexType, key }, i) => ({
         key,
         dropdownOptions: regexSelectors,
         disabledDropdownOptions,
@@ -69,9 +69,11 @@ export const useNotificationModal = ({
               [regexType]: "",
             });
           }
-          const regexSelectorCompsClone = [...regexSelectorComps];
-          regexSelectorCompsClone[i].regexType = optionValue;
-          setRegexSelectorComps(regexSelectorCompsClone);
+          const regexSelectorPropsTemplateClone = [
+            ...regexSelectorPropsTemplate,
+          ];
+          regexSelectorPropsTemplateClone[i].regexType = optionValue;
+          setRegexSelectorPropsTemplate(regexSelectorPropsTemplateClone);
         },
         onChangeRegexValue: (event) => {
           setRegexSelectorInputs({
@@ -86,25 +88,28 @@ export const useNotificationModal = ({
               [regexType]: "",
             });
           }
-          setRegexSelectorComps(
-            regexSelectorComps
+          setRegexSelectorPropsTemplate(
+            regexSelectorPropsTemplate
               .slice(0, i)
               .concat(
-                regexSelectorComps.slice(i + 1, regexSelectorComps.length)
+                regexSelectorPropsTemplate.slice(
+                  i + 1,
+                  regexSelectorPropsTemplate.length
+                )
               )
           );
         },
         regexInputValue: regexSelectorInputs[regexType] ?? "",
       }))
     );
-  }, [regexSelectorComps, regexSelectorInputs, regexSelectors]);
+  }, [regexSelectorPropsTemplate, regexSelectorInputs, regexSelectors]);
 
   // clear the input vals for the extraFields and regex selectors when the selected trigger changes
   useEffect(() => {
     setExtraFieldInputVals(
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
     );
-    setRegexSelectorComps([{ regexType: "", key: uuid() }]);
+    setRegexSelectorPropsTemplate([{ regexType: "", key: uuid() }]);
     setRegexSelectorInputs({});
   }, [selectedTriggerIndex]);
 
