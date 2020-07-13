@@ -44,7 +44,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
   );
 };
 
-const subscriptionMethodControls: SubscriptionMethods = {
+export const subscriptionMethodControls: SubscriptionMethods = {
   "jira-comment": {
     label: "JIRA Issue",
     placeholder: "ABC-123",
@@ -71,7 +71,7 @@ const subscriptionMethodDropdownOptions = [
   SUBSCRIPTION_EMAIL,
 ];
 
-const triggers: Trigger[] = [
+export const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",

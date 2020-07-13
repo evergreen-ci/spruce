@@ -48,7 +48,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
   );
 };
 
-const subscriptionMethodControls: SubscriptionMethods = {
+export const subscriptionMethodControls: SubscriptionMethods = {
   "jira-comment": {
     label: "JIRA Issue",
     placeholder: "ABC-123",
@@ -86,7 +86,7 @@ const buildRegexSelectors: RegexSelector[] = [
   },
 ];
 
-const triggers: Trigger[] = [
+export const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",
