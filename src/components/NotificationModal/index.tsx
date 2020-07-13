@@ -82,6 +82,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   });
   const onClickSave = () => {
     const subscription = getRequestPayload();
+    console.log(subscription);
     saveSubscription({
       variables: { subscription },
     });
@@ -280,8 +281,9 @@ const InputLabel = styled.label`
   font-weight: bold;
 `;
 
-const AddCriteriaContainer = styled.div`
+const AddCriteriaContainer = styled.span`
   cursor: pointer;
   align-items: center;
   display: flex;
+  width: 160px;
 `;
