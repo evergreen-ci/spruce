@@ -21,7 +21,7 @@
     "@leafygreen-ui/tabs": "2.0.0",
     "@leafygreen-ui/text-input": "1.1.1",
     "@leafygreen-ui/toggle": "3.0.1",
-    "@leafygreen-ui/tooltip": "^3.2.2",
+    "@leafygreen-ui/tooltip": "3.2.2",
     "@leafygreen-ui/typography": "1.0.1",
     "ansi-to-html": "0.6.14",
     "antd": "3.26.7",
