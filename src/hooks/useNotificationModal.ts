@@ -183,7 +183,9 @@ export const useNotificationModal = ({
       },
       trigger_data: extraFieldInputVals,
       owner_type: "person",
-      regex_selectors: [],
+      regex_selectors: Object.entries(regexSelectorInputs)
+        .filter((v) => v[1])
+        .map(([type, data]) => ({ type, data })),
     };
   };
 
