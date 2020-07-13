@@ -31,7 +31,7 @@ export const useNotificationModal = ({
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
   const [regexSelectorComps, setRegexSelectorComps] = useState<
     RegexSelectorComps[]
-  >([]);
+  >([{ regexType: "", key: uuid() }]);
   const [regexSelectorProps, setRegexSelectorProps] = useState<
     RegexSelectorProps[]
   >([]);
@@ -99,18 +99,14 @@ export const useNotificationModal = ({
     );
   }, [regexSelectorComps, regexSelectorInputs, regexSelectors]);
 
-  // clear the input vals for the extraFields when the extraFields change
+  // clear the input vals for the extraFields and regex selectors when the selected trigger changes
   useEffect(() => {
     setExtraFieldInputVals(
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
     );
-  }, [extraFields]);
-
-  // reset regex selector inputs when regex selector changes
-  useEffect(() => {
-    setRegexSelectorComps([]);
+    setRegexSelectorComps([{ regexType: "", key: uuid() }]);
     setRegexSelectorInputs({});
-  }, [regexSelectors]);
+  }, [selectedTriggerIndex]);
 
   // reset Targets when subscription method changes
   useEffect(() => {
