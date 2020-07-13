@@ -7,7 +7,7 @@ import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
-import { SubscriptionMethod } from "types/subscription";
+import { SubscriptionMethodDropdownOption } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
 import Icon from "@leafygreen-ui/icon";
@@ -26,7 +26,7 @@ import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 const { Option } = Select;
 
 interface NotificationModalProps extends UseNotificationModalProps {
-  subscriptionMethods: SubscriptionMethod[];
+  subscriptionMethodDropdownOptions: SubscriptionMethodDropdownOption[];
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionMutationVariables["subscription"]
   ) => void;
@@ -38,7 +38,7 @@ interface NotificationModalProps extends UseNotificationModalProps {
 export const NotificationModal: React.FC<NotificationModalProps> = ({
   visible,
   onCancel,
-  subscriptionMethods,
+  subscriptionMethodDropdownOptions,
   subscriptionMethodControls,
   triggers,
   resourceId,
@@ -189,7 +189,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
             setSelectedSubscriptionMethod(v);
           }}
         >
-          {subscriptionMethods.map((s) => (
+          {subscriptionMethodDropdownOptions.map((s) => (
             <Option
               key={s.value}
               value={s.value}

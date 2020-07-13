@@ -39,7 +39,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       onCancel={onCancel}
       triggers={triggers}
       subscriptionMethodControls={subscriptionMethodControls}
-      subscriptionMethods={subscriptionMethods}
+      subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
         patchAnalytics.sendEvent({ name: "Add Notification", subscription })
@@ -69,7 +69,7 @@ const subscriptionMethodControls: SubscriptionMethods = {
   },
 };
 
-const subscriptionMethods = [
+const subscriptionMethodDropdownOptions = [
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
