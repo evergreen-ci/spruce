@@ -1,0 +1,132 @@
+import { mockErrorResponse } from "./mockErrorResponse";
+
+export const testSharedSubscriptionModalFunctionality = (
+  route: string,
+  dataCyModal: string,
+  dataCyToggleModalButton: string
+) => {
+  it("Display success banner after submitting a valid form and request succeeds", () => {
+    openModal();
+    cy.dataTestId("trigger_0-option").click();
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("EVG-2000");
+    cy.dataCy("save-subscription-button").click();
+    cy.dataCy(bannerDataCy).contains(successText);
+  });
+
+  it("Disable save button and display error message when populating form with negative percent value", () => {
+    openModal();
+    cy.dataTestId("trigger_4-option").click();
+    cy.dataCy("percent-change-input")
+      .clear()
+      .type("-100");
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("EVG-2000");
+    cy.dataCy("error-message").contains(errorTextNegativePercent);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataCy("percent-change-input")
+      .clear()
+      .type("100");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+
+  it("Disable save button and display error message in modal when populating form with negative duration value", () => {
+    openModal();
+    cy.dataTestId("trigger_3-option").click();
+    cy.dataCy("duration-secs-input")
+      .clear()
+      .type("-100");
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("EVG-2000");
+    cy.dataCy("error-message").contains(errorTextNegativeDuration);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataCy("duration-secs-input")
+      .clear()
+      .type("100");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+
+  it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
+    openModal();
+    cy.dataTestId("trigger_3-option").click();
+    cy.dataCy("duration-secs-input")
+      .clear()
+      .type(".33");
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("EVG-2000");
+    cy.dataCy("error-message").contains(errorTextDecimalDuration);
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataCy("duration-secs-input")
+      .clear()
+      .type("33");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+
+  it("Display error banner when save subscription request fails", () => {
+    openModal();
+    cy.dataTestId("trigger_0-option").click();
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("EVG-2000");
+    mockErrorResponse({
+      path: "SaveSubscription",
+      errorMessage: "error",
+    });
+    cy.dataCy("save-subscription-button").click();
+    cy.dataCy(bannerDataCy).contains("error");
+  });
+
+  it("Hide the modal after clicking the cancel button", () => {
+    cy.visit(route);
+    cy.dataCy(dataCyToggleModalButton).click();
+    cy.dataCy("cancel-subscription-button").click();
+    cy.dataCy(dataCyModal).should("have.css", "display", "none");
+  });
+
+  it("Disable save button when jira ticket is not formatted properly", () => {
+    openModal();
+    cy.dataTestId("trigger_0-option").click();
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("jira-comment-option").click();
+    cy.dataTestId("jira-comment-input").type("E");
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("jira-comment-input").type("EVG-100");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+
+  it("Disable save button when email is not formatted properly", () => {
+    openModal();
+    cy.dataTestId("trigger_0-option").click();
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("email-option").click();
+    cy.dataTestId("email-input").type("arst");
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("email-input").type("rat@rast.com");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+
+  it("Disable save button when slack username or channel is not formatted properly", () => {
+    openModal();
+    cy.dataTestId("trigger_0-option").click();
+    cy.dataTestId("notify-by-select").click();
+    cy.dataTestId("slack-option").click();
+    cy.dataTestId("slack-input").type("sart");
+    cy.dataCy("save-subscription-button").should("be.disabled");
+    cy.dataTestId("slack-input").type("@sart");
+    cy.dataCy("save-subscription-button").should("not.be.disabled");
+  });
+  const openModal = () => {
+    cy.visit(route);
+    cy.dataCy(dataCyToggleModalButton).click();
+    cy.dataTestId("when-select").click();
+  };
+  const bannerDataCy = "banner";
+  const successText = "Your subscription has been added";
+  const errorTextNegativeDuration = "Duration cannot be negative";
+  const errorTextNegativePercent = "Percent must be a positive number";
+  const errorTextDecimalDuration = "Duration must be an integer";
+};
