@@ -2,6 +2,7 @@ import styled from "@emotion/styled/macro";
 
 const getLogLineComp = (color: string): React.FC => styled.div`
   color: ${color};
+  overflow-x: scroll;
 `;
 
 export const getLogLineWrapper = (severity: string): React.FC => {
