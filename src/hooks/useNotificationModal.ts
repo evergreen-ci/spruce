@@ -227,6 +227,7 @@ interface ExtraField {
   text: string;
   key: string;
   validator: (v: any) => string;
+  dataCy: string;
 }
 
 type RegexSelectorType = "display-name" | "build-variant";

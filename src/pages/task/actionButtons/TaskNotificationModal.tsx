@@ -99,6 +99,7 @@ export const triggers: Trigger[] = [
       {
         text: "Task duration (seconds)",
         key: "task-duration-secs",
+        dataCy: "duration-secs-input",
         validator: validateDuration,
       },
     ],
@@ -112,6 +113,7 @@ export const triggers: Trigger[] = [
       {
         text: "Percent change",
         key: "task-percent-change",
+        dataCy: "percent-change-input",
         validator: validatePercentage,
       },
     ],

@@ -142,21 +142,21 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           ))}
         </StyledSelect>
         {extraFields &&
-          extraFields.map(({ text, key }) => (
-            <ExtraFieldContainer key={key}>
+          extraFields.map((ef) => (
+            <ExtraFieldContainer key={ef.key}>
               <SectionLabelContainer>
-                <InputLabel htmlFor={`${key}-input`}>{text}</InputLabel>
+                <InputLabel htmlFor={`${ef.key}-input`}>{ef.text}</InputLabel>
               </SectionLabelContainer>
               <StyledInput
-                data-cy={`${key}-input`}
-                id={`${key}-input`}
+                data-cy={ef.dataCy}
+                id={`${ef.key}-input`}
                 onChange={(event) => {
                   setExtraFieldInputVals({
                     ...extraFieldInputVals,
-                    [key]: event.target.value,
+                    [ef.key]: event.target.value,
                   });
                 }}
-                value={extraFieldInputVals[key]}
+                value={extraFieldInputVals[ef.key]}
               />
             </ExtraFieldContainer>
           ))}

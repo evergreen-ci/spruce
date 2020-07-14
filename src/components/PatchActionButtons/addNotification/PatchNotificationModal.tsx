@@ -34,7 +34,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
 
   return (
     <NotificationModal
-      data-cy="task-notification-modal"
+      data-cy="patch-notification-modal"
       visible={visible}
       onCancel={onCancel}
       triggers={triggers}
@@ -89,19 +89,19 @@ const buildRegexSelectors: RegexSelector[] = [
 export const triggers: Trigger[] = [
   {
     trigger: "outcome",
-    label: "This task finishes",
+    label: "This version finishes",
     resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
-    label: "This task fails",
+    label: "This version fails",
     resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
-    label: "This task succeeds",
+    label: "This version succeeds",
     resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
@@ -112,21 +112,23 @@ export const triggers: Trigger[] = [
     payloadResourceIdKey: "id",
     extraFields: [
       {
-        text: "Task duration (seconds)",
-        key: "task-duration-secs",
+        text: "Version duration (seconds)",
+        key: "version-duration-secs",
+        dataCy: "duration-secs-input",
         validator: validateDuration,
       },
     ],
   },
   {
     trigger: "runtime-change",
-    label: "This task succeeds and its runtime changes by some percentage",
+    label: "The runtime for this version changes by some percentage",
     resourceType: "VERSION",
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
-        key: "task-percent-change",
+        key: "version-percent-change",
+        dataCy: "percent-change-input",
         validator: validatePercentage,
       },
     ],
