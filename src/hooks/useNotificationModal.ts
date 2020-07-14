@@ -111,7 +111,7 @@ export const useNotificationModal = ({
     );
     setRegexSelectorPropsTemplate([{ regexType: "", key: uuid() }]);
     setRegexSelectorInputs({});
-  }, [selectedTriggerIndex]);
+  }, [selectedTriggerIndex, extraFields]);
 
   // reset Targets when subscription method changes
   useEffect(() => {
