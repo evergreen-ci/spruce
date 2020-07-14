@@ -20,7 +20,7 @@ import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import every from "lodash.every";
+import every from "lodash/every";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import {
   TableContainer,
