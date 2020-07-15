@@ -32,6 +32,7 @@ export const DownloadCard = () => {
   const otherBinaries = clientBinaries.filter(
     (binary) => !filterBinaries(binary)
   );
+
   return (
     <Container>
       <Subtitle>Command-Line Client</Subtitle>
@@ -39,7 +40,7 @@ export const DownloadCard = () => {
         <Body>
           View the{" "}
           <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
-          run{" "}
+          run &nbsp;{" "}
         </Body>
         <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
         <Body>for additional assistance.</Body>
@@ -48,7 +49,9 @@ export const DownloadCard = () => {
         {topBinaries.map((binary) => (
           <CliDownloadBox
             key={`downloadBox_${binary.url}`}
-            title={prettyDisplayName[binary.displayName] || binary.displayName}
+            title={
+              prettyDisplayNameTop[binary.displayName] || binary.displayName
+            }
             link={binary.url}
           />
         ))}
@@ -86,22 +89,24 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   <LinkContainer>
     {clientBinaries.map((binary) => (
       <StyledLink key={`link_${binary.url}`} href={binary.url}>
-        {prettyDisplayName[binary.displayName] || binary.displayName}
+        {prettyDisplayNameAccordian[binary.displayName] || binary.displayName}
       </StyledLink>
     ))}
   </LinkContainer>
 );
 
-const prettyDisplayName = {
+const prettyDisplayNameTop = {
   "OSX 64-bit": "MacOS",
   "Windows 64-bit": "Windows",
   "Linux 64-bit": "Linux (64-bit)",
 };
 
-const filterBinaries = (binary: ClientBinary) => {
-  const topBinaries = ["OSX 64-bit", "Windows 64-bit", "Linux 64-bit"];
-  return topBinaries.includes(binary.displayName);
+const prettyDisplayNameAccordian = {
+  "Linux 64-bit": "Linux (64-bit, Legacy)",
 };
+
+const filterBinaries = (binary: ClientBinary) =>
+  /darwin_amd64\/|linux_amd64\/|windows_amd64\//.test(binary.url);
 
 const Container = styled(SiderCard)`
   padding-left: 20px;
