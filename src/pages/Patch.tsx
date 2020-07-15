@@ -24,26 +24,27 @@ import {
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "hoc/withBannersContext";
-import { usePageTitle } from "hooks";
+import { usePageTitle, usePollMonitor } from "hooks";
+import { pollInterval } from "constants/index";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const router = useHistory();
-  const { data, loading, error, stopPolling } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
   >(GET_PATCH, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
     onError: (e) =>
       dispatchBanner.errorBanner(
         `There was an error loading the patch: ${e.message}`
       ),
   });
   useEffect(() => stopPolling, [stopPolling]);
-
+  usePollMonitor(startPolling, stopPolling);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
