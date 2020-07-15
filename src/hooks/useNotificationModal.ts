@@ -197,9 +197,6 @@ export const useNotificationModal = ({
     };
   };
 
-  const isDisabledAddCriteria =
-    regexSelectorProps.length >= get(regexSelectors, "length", 0);
-
   return {
     extraFieldErrorMessages,
     extraFieldInputVals,
@@ -215,7 +212,6 @@ export const useNotificationModal = ({
     setSelectedTriggerIndex,
     setTarget,
     showAddCriteria: !!regexSelectors,
-    isDisabledAddCriteria,
     target,
   };
 };
