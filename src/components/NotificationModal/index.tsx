@@ -89,7 +89,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     sendAnalyticsEvent(subscription);
     onCancel();
   };
-
   const currentMethodControl = subscriptionMethodControls[
     selectedSubscriptionMethod
   ] as SubscriptionMethodControl;
