@@ -3,6 +3,8 @@ import styled from "@emotion/styled";
 import { BannerObj } from "context/banners";
 import { Banner } from "components/Banners/Banner";
 
+export { SiteBanner } from "components/Banners/SiteBanner";
+
 interface BannersProps {
   banners: BannerObj[];
   removeBanner: (bannerId: string) => void;

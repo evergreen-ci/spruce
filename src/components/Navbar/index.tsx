@@ -11,7 +11,6 @@ import { useNavbarAnalytics } from "analytics";
 import { routes } from "constants/routes";
 import { useLegacyUIURL } from "hooks";
 import { getUiUrl } from "utils/getEnvironmentVariables";
-
 import { NavDropdown } from "./NavDropdown";
 
 const { Header } = Layout;
@@ -71,7 +70,6 @@ export const Navbar: React.FC = () => {
 
 const StyledHeader = styled(Header)`
   background-color: ${gray.dark3};
-  margin-bottom: 16px;
   padding: 0 36px;
 `;
 
