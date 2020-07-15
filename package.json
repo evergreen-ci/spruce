@@ -47,7 +47,7 @@
     "lodash.get": "4.4.2",
     "lodash.isequal": "4.5.0",
     "lodash.set": "4.3.2",
-    "query-string": "6.10.1",
+    "query-string": "6.13.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
     "react-router-dom": "5.1.2",
