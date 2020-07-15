@@ -82,7 +82,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   });
   const onClickSave = () => {
     const subscription = getRequestPayload();
-    console.log(subscription);
     saveSubscription({
       variables: { subscription },
     });
