@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
@@ -143,7 +144,7 @@ const TaskCore: React.FC = () => {
         <PageSider>
           <Metadata data={data} loading={loading} error={error} />
         </PageSider>
-        <PageLayout>
+        <LogWrapper>
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
@@ -189,10 +190,14 @@ const TaskCore: React.FC = () => {
               </Tab>
             </StyledTabs>
           </PageContent>
-        </PageLayout>
+        </LogWrapper>
       </PageLayout>
     </PageWrapper>
   );
 };
 
 export const Task = withBannersContext(TaskCore);
+
+const LogWrapper = styled(PageLayout)`
+  width: 100%;
+`;
