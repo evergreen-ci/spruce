@@ -56,7 +56,7 @@ export const RegexSelectorInput = ({
                 key={s.type}
                 disabled={disabledDropdownOptions.includes(s.type)}
                 value={s.type}
-                data-test-id={`${s.type}-option`}
+                data-test-id={`${dataCyPrefix}-${s.type}-option`}
               >
                 {s.typeLabel}
               </Option>
@@ -77,7 +77,10 @@ export const RegexSelectorInput = ({
             value={regexInputValue}
             disabled={!selectedOption}
           />
-          <TrashContainer isVisibleDelete={isVisibleDelete}>
+          <TrashContainer
+            data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
+            isVisibleDelete={isVisibleDelete}
+          >
             <StyledIcon
               data-cy={`${dataCyPrefix}-regex-selector-trash`}
               onClick={onDelete}
