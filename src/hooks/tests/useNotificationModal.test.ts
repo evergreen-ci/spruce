@@ -42,7 +42,7 @@ test("Should have correctly formatted request payload after selecting options (t
   });
 });
 
-test("Should have correctly formatted request payload after selecting options (version)", () => {
+test("Should have correctly formatted request payload after selecting options, adding regex selectors and deleting regex selector (version)", () => {
   const { result } = renderHook(() =>
     useNotificationModal({
       triggers: patchTriggers,
@@ -52,24 +52,27 @@ test("Should have correctly formatted request payload after selecting options (v
   );
 
   act(() => {
-    result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
-    result.current.setTarget({ email: "email@email.com" });
     result.current.setSelectedTriggerIndex(5);
+    result.current.setTarget({ email: "email@email.com" });
   });
+
   act(() => {
     result.current.regexSelectorProps[0].onChangeSelectedOption("display-name");
   });
+
   act(() => {
     result.current.regexSelectorProps[0].onChangeRegexValue({
       target: { value: "cheese" },
     } as React.ChangeEvent<HTMLInputElement>);
     result.current.onClickAddRegexSelector();
   });
+
   act(() => {
     result.current.regexSelectorProps[1].onChangeSelectedOption(
       "build-variant"
     );
   });
+
   act(() => {
     result.current.regexSelectorProps[1].onChangeRegexValue({
       target: { value: "pasta" },
@@ -90,5 +93,23 @@ test("Should have correctly formatted request payload after selecting options (v
       { type: "display-name", data: "cheese" },
       { type: "build-variant", data: "pasta" },
     ],
+  });
+
+  // delete second regex selector
+  act(() => {
+    result.current.regexSelectorProps[1].onDelete();
+  });
+
+  expect(result.current.getRequestPayload()).toStrictEqual({
+    trigger: "outcome",
+    resource_type: "BUILD",
+    selectors: [
+      { type: "object", data: "build" },
+      { type: "in-version", data: "a patch id" },
+    ],
+    subscriber: { type: "email", target: "email@email.com" },
+    trigger_data: {},
+    owner_type: "person",
+    regex_selectors: [{ type: "display-name", data: "cheese" }],
   });
 });
