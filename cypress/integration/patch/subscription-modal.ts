@@ -122,5 +122,19 @@ describe("Version Subscription Modal", () => {
       cy.dataTestId("0-build-variant-option").click();
       cy.dataCy("0-regex-selector-input").should("have.value", "");
     });
+
+    it("Display success banner after submitting a valid form with regex selectors inputs and request succeeds", () => {
+      openModal();
+      cy.dataTestId("trigger_5-option").click();
+      cy.dataTestId("0-regex-selector-dropdown").click();
+      cy.dataTestId("0-display-name-option").click();
+      cy.dataCy("0-regex-selector-input").type("stuff");
+      cy.dataTestId("notify-by-select").click();
+      cy.dataTestId("jira-comment-option").click();
+      cy.dataTestId("jira-comment-input").type("EVG-2000");
+      cy.dataCy("banner").should("not.exist");
+      cy.dataCy("save-subscription-button").click();
+      cy.dataCy("banner").contains("Your subscription has been added");
+    });
   });
 });
