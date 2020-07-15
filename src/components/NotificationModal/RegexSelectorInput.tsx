@@ -10,15 +10,16 @@ import styled from "@emotion/styled";
 const { Option } = Select;
 
 export interface RegexSelectorProps {
+  dataCyPrefix?: number;
   disabledDropdownOptions: string[];
   dropdownOptions: RegexSelector[];
+  isVisibleDelete?: boolean;
   key?: string;
   onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeSelectedOption: (optionValue: string) => void;
   onDelete: () => void;
   regexInputValue: string;
   selectedOption: string;
-  dataCyPrefix?: number;
 }
 
 export const RegexSelectorInput = ({
@@ -30,11 +31,15 @@ export const RegexSelectorInput = ({
   regexInputValue,
   selectedOption,
   dataCyPrefix,
+  isVisibleDelete,
 }: RegexSelectorProps) => {
   const dropdownId = uuid();
   const inputId = uuid();
   return (
-    <Container data-cy={`${dataCyPrefix}-regex-selector-container`}>
+    <Container
+      isVisibleDelete={isVisibleDelete}
+      data-cy={`${dataCyPrefix}-regex-selector-container`}
+    >
       <FlexRow>
         <div>
           <div>
@@ -72,7 +77,7 @@ export const RegexSelectorInput = ({
             value={regexInputValue}
             disabled={!selectedOption}
           />
-          <TrashContainer>
+          <TrashContainer isVisibleDelete={isVisibleDelete}>
             <StyledIcon
               data-cy={`${dataCyPrefix}-regex-selector-trash`}
               onClick={onDelete}
@@ -84,11 +89,15 @@ export const RegexSelectorInput = ({
     </Container>
   );
 };
+interface DeleteProps {
+  isVisibleDelete: boolean;
+}
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
-  width: 80%;
+  width: ${(props: DeleteProps): string =>
+    props.isVisibleDelete ? "80%" : "calc(80% - 50px)"};
   padding-bottom: 16px;
 `;
 const StyledIcon = styled(Icon)`
@@ -100,9 +109,12 @@ const StyledSelect = styled(Select)`
 const FlexRow = styled.div`
   display: flex;
 `;
+
 const TrashContainer = styled.div`
   padding-left: 32px;
   margin-top: 6px;
+  display: ${(props: DeleteProps): string =>
+    props.isVisibleDelete ? "block" : "none"};
 `;
 const RegexContainer = styled.div`
   width: 100%;
