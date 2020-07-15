@@ -107,7 +107,7 @@ export const triggers: Trigger[] = [
   },
   {
     trigger: "exceeds-duration",
-    label: "The runtime for this task exceeds some duration",
+    label: "The runtime for this version exceeds some duration",
     resourceType: "VERSION",
     payloadResourceIdKey: "id",
     extraFields: [
@@ -137,21 +137,21 @@ export const triggers: Trigger[] = [
     trigger: "outcome",
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
-    label: "a build-variant in this version finishes",
+    label: "A build-variant in this version finishes",
     regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "failure",
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
-    label: "a build-variant in this version fails",
+    label: "A build-variant in this version fails",
     regexSelectors: buildRegexSelectors,
   },
   {
     trigger: "success",
     resourceType: "BUILD",
     payloadResourceIdKey: "in-version",
-    label: "a build-variant in this version succeeds",
+    label: "A build-variant in this version succeeds",
     regexSelectors: buildRegexSelectors,
   },
 ];
