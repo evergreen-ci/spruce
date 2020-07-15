@@ -18,6 +18,7 @@ export interface RegexSelectorProps {
   onDelete: () => void;
   regexInputValue: string;
   selectedOption: string;
+  dataCyPrefix?: number;
 }
 
 export const RegexSelectorInput = ({
@@ -28,11 +29,12 @@ export const RegexSelectorInput = ({
   onDelete,
   regexInputValue,
   selectedOption,
+  dataCyPrefix,
 }: RegexSelectorProps) => {
   const dropdownId = uuid();
   const inputId = uuid();
   return (
-    <Container>
+    <Container data-cy={`${dataCyPrefix}-regex-selector-container`}>
       <FlexRow>
         <div>
           <div>
@@ -40,7 +42,7 @@ export const RegexSelectorInput = ({
           </div>
           <StyledSelect
             id={dropdownId}
-            data-test-id="notify-by-select"
+            data-test-id={`${dataCyPrefix}-regex-selector-dropdown`}
             value={selectedOption}
             onChange={onChangeSelectedOption}
           >
@@ -64,14 +66,18 @@ export const RegexSelectorInput = ({
         </div>
         <FlexRow>
           <StyledInput
-            data-cy={`${selectedOption}-input`}
+            data-cy={`${dataCyPrefix}-regex-selector-input`}
             id={inputId}
             onChange={onChangeRegexValue}
             value={regexInputValue}
             disabled={!selectedOption}
           />
           <TrashContainer>
-            <StyledIcon onClick={onDelete} glyph="Trash" />
+            <StyledIcon
+              data-cy={`${dataCyPrefix}-regex-selector-trash`}
+              onClick={onDelete}
+              glyph="Trash"
+            />
           </TrashContainer>
         </FlexRow>
       </RegexContainer>

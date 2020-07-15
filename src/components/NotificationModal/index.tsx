@@ -163,11 +163,14 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         {showAddCriteria && (
           <>
             <RegexSelectorInputContainer>
-              {regexSelectorProps.map((props) => (
-                <RegexSelectorInput {...props} />
+              {regexSelectorProps.map((props, i) => (
+                <RegexSelectorInput dataCyPrefix={i} {...props} />
               ))}
             </RegexSelectorInputContainer>
-            <AddCriteriaContainer onClick={onClickAddRegexSelector}>
+            <AddCriteriaContainer
+              data-cy="add-regex-selector-button"
+              onClick={onClickAddRegexSelector}
+            >
               <Icon glyph="Plus" />
               Add additional criteria
             </AddCriteriaContainer>

@@ -147,7 +147,12 @@ export const useNotificationModal = ({
       !targetEntries.length ||
       selectedTriggerIndex === undefined ||
       !selectedSubscriptionMethod ||
-      extraFieldErrorMessages.length
+      extraFieldErrorMessages.length ||
+      // if regex selectors are options for the selected trigger,
+      // make sure that at least one option is filled
+      (regexSelectors &&
+        regexSelectors.length &&
+        !Object.entries(regexSelectorInputs).filter((v) => v[1]).length)
     ) {
       setIsFormValid(false);
       return;
@@ -167,6 +172,8 @@ export const useNotificationModal = ({
     selectedTriggerIndex,
     selectedSubscriptionMethod,
     extraFieldErrorMessages,
+    regexSelectorInputs,
+    regexSelectors,
   ]);
 
   const getRequestPayload = () => {
@@ -190,6 +197,9 @@ export const useNotificationModal = ({
     };
   };
 
+  const isDisabledAddCriteria =
+    regexSelectorProps.length >= get(regexSelectors, "length", 0);
+
   return {
     extraFieldErrorMessages,
     extraFieldInputVals,
@@ -205,6 +215,7 @@ export const useNotificationModal = ({
     setSelectedTriggerIndex,
     setTarget,
     showAddCriteria: !!regexSelectors,
+    isDisabledAddCriteria,
     target,
   };
 };

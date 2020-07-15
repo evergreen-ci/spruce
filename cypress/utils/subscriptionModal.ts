@@ -1,12 +1,21 @@
 import { mockErrorResponse } from "./mockErrorResponse";
 
+export const openSubscriptionModal = (
+  route: string,
+  dataCyToggleModalButton: string
+) => {
+  cy.visit(route);
+  cy.dataCy(dataCyToggleModalButton).click();
+  cy.dataTestId("when-select").click();
+};
+
 export const testSharedSubscriptionModalFunctionality = (
   route: string,
   dataCyModal: string,
   dataCyToggleModalButton: string
 ) => {
   it("Display success banner after submitting a valid form and request succeeds", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
@@ -16,7 +25,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button and display error message when populating form with negative percent value", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_4-option").click();
     cy.dataCy("percent-change-input")
       .clear()
@@ -33,7 +42,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button and display error message in modal when populating form with negative duration value", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_3-option").click();
     cy.dataCy("duration-secs-input")
       .clear()
@@ -50,7 +59,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_3-option").click();
     cy.dataCy("duration-secs-input")
       .clear()
@@ -67,7 +76,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Display error banner when save subscription request fails", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
@@ -88,7 +97,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button when jira ticket is not formatted properly", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("jira-comment-option").click();
@@ -99,7 +108,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button when email is not formatted properly", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("email-option").click();
@@ -110,7 +119,7 @@ export const testSharedSubscriptionModalFunctionality = (
   });
 
   it("Disable save button when slack username or channel is not formatted properly", () => {
-    openModal();
+    openSubscriptionModal(route, dataCyToggleModalButton);
     cy.dataTestId("trigger_0-option").click();
     cy.dataTestId("notify-by-select").click();
     cy.dataTestId("slack-option").click();
@@ -119,11 +128,7 @@ export const testSharedSubscriptionModalFunctionality = (
     cy.dataTestId("slack-input").type("@sart");
     cy.dataCy("save-subscription-button").should("not.be.disabled");
   });
-  const openModal = () => {
-    cy.visit(route);
-    cy.dataCy(dataCyToggleModalButton).click();
-    cy.dataTestId("when-select").click();
-  };
+
   const bannerDataCy = "banner";
   const successText = "Your subscription has been added";
   const errorTextNegativeDuration = "Duration cannot be negative";
