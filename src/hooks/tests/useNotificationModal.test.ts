@@ -9,6 +9,7 @@ import {
   subscriptionMethodControls as patchSubscriptionMethodControls,
 } from "components/PatchActionButtons/addNotification/PatchNotificationModal";
 
+// uuid relies on window.crypto.getRandomValues which is unsupported in these tests
 jest.mock("uuid", () => ({
   v4: () => "",
 }));
