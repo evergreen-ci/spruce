@@ -45,3 +45,6 @@ export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
 
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
+
+export const getVersionRoute = (versionId: string, tab?: PatchTab) =>
+  `${paths.version}/${versionId}/${tab ?? DEFAULT_PATCH_TAB}`;
