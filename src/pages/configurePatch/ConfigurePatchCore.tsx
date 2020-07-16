@@ -152,19 +152,21 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 const getGqlVariantTasksParamFromState = (
   selectedVariantTasks: VariantTasksState
 ): VariantTasks[] =>
-  Object.keys(selectedVariantTasks).map((variantName) => {
-    const tasksObj = selectedVariantTasks[variantName];
-    const tasksArr = Object.keys(tasksObj);
-    const variantTasks: VariantTasks = {
-      variant: variantName,
-      tasks: tasksArr,
-      displayTasks: [],
-    };
-    return variantTasks;
-  });
+  Object.entries(selectedVariantTasks)
+    .map(([variantName, tasksObj]) => {
+      const tasksArr = Object.entries(tasksObj)
+        .filter((entry) => entry[1])
+        .map((entry) => entry[0]);
+      return {
+        variant: variantName,
+        tasks: tasksArr,
+        displayTasks: [],
+      };
+    })
+    .filter(({ tasks }) => tasks.length);
 
 interface TasksState {
-  [task: string]: true;
+  [task: string]: boolean;
 }
 export interface VariantTasksState {
   [variant: string]: TasksState;

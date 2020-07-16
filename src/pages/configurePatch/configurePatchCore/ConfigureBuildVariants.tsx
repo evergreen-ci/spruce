@@ -31,6 +31,26 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
       setSelectedBuildVariant(
         updatedBuildVariants.length > 0 ? updatedBuildVariants : [variantName]
       );
+    } else if (e.shiftKey) {
+      const variantNames = variants.map(({ name }) => name);
+      const clickIndex = variantNames.indexOf(variantName);
+      const anchorIndex = variants.reduce(
+        (accum, { name }, index) =>
+          accum > -1 || !selectedBuildVariant.includes(name) ? accum : index,
+        -1
+      );
+      if (clickIndex === anchorIndex) {
+        return;
+      }
+      const startIndex = anchorIndex < clickIndex ? anchorIndex : clickIndex;
+      const endIndex = anchorIndex < clickIndex ? clickIndex : anchorIndex;
+      const nextSelectedBuildVariants = Array.from(
+        new Set([
+          ...variantNames.slice(startIndex, endIndex + 1),
+          ...selectedBuildVariant,
+        ])
+      );
+      setSelectedBuildVariant(nextSelectedBuildVariants);
     } else {
       setSelectedBuildVariant([variantName]);
     }
@@ -43,7 +63,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
       </Container>
       {variants.map(({ displayName, name }) => {
         const taskCount = selectedVariantTasks[name]
-          ? Object.keys(selectedVariantTasks[name]).length
+          ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
           : null;
         const isSelected = selectedBuildVariant.includes(name);
         return (
@@ -106,6 +126,7 @@ const BuildVariant = styled.div`
 const VariantName = styled.div`
   word-break: break-all;
   white-space: normal;
+  user-select: none;
 `;
 const StyledBadge = styled(Badge)`
   margin-left: 8px;
