@@ -42,9 +42,7 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
     >
       <FlexRow>
         <div>
-          <div>
-            <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
-          </div>
+          <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
           <StyledSelect
             id={dropdownId}
             data-test-id={`${dataCyPrefix}-regex-selector-dropdown`}
