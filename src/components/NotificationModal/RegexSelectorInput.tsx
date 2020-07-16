@@ -13,7 +13,7 @@ export interface RegexSelectorProps {
   dataCyPrefix?: number;
   disabledDropdownOptions: string[];
   dropdownOptions: RegexSelector[];
-  isVisibleDelete?: boolean;
+  canDelete?: boolean;
   key?: string;
   onChangeRegexValue: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeSelectedOption: (optionValue: string) => void;
@@ -31,13 +31,13 @@ export const RegexSelectorInput = ({
   regexInputValue,
   selectedOption,
   dataCyPrefix,
-  isVisibleDelete,
+  canDelete,
 }: RegexSelectorProps) => {
   const dropdownId = uuid();
   const inputId = uuid();
   return (
     <Container
-      isVisibleDelete={isVisibleDelete}
+      canDelete={canDelete}
       data-cy={`${dataCyPrefix}-regex-selector-container`}
     >
       <FlexRow>
@@ -79,7 +79,7 @@ export const RegexSelectorInput = ({
           />
           <TrashContainer
             data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
-            isVisibleDelete={isVisibleDelete}
+            canDelete={canDelete}
           >
             <StyledIcon
               data-cy={`${dataCyPrefix}-regex-selector-trash`}
@@ -93,14 +93,14 @@ export const RegexSelectorInput = ({
   );
 };
 interface DeleteProps {
-  isVisibleDelete: boolean;
+  canDelete: boolean;
 }
 
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: ${(props: DeleteProps): string =>
-    props.isVisibleDelete ? "80%" : "calc(80% - 50px)"};
+    props.canDelete ? "80%" : "calc(80% - 50px)"};
   padding-bottom: 16px;
 `;
 const StyledIcon = styled(Icon)`
@@ -117,7 +117,7 @@ const TrashContainer = styled.div`
   padding-left: 32px;
   margin-top: 6px;
   display: ${(props: DeleteProps): string =>
-    props.isVisibleDelete ? "block" : "none"};
+    props.canDelete ? "block" : "none"};
 `;
 const RegexContainer = styled.div`
   width: 100%;
