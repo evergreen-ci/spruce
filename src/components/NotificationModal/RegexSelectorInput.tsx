@@ -4,6 +4,7 @@ import { InputLabel } from "components/styles";
 import { RegexSelector } from "hooks/useNotificationModal";
 import { Select, Input } from "antd";
 import { v4 as uuid } from "uuid";
+import IconButton from "@leafygreen-ui/icon-button";
 import Icon from "@leafygreen-ui/icon";
 import styled from "@emotion/styled";
 
@@ -77,11 +78,14 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
             data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
             canDelete={canDelete}
           >
-            <StyledIcon
+            <IconButton
               data-cy={`${dataCyPrefix}-regex-selector-trash`}
               onClick={onDelete}
-              glyph="Trash"
-            />
+              aria-label="Remove regex selector row"
+              variant="dark"
+            >
+              <Icon glyph="Trash" />
+            </IconButton>
           </TrashContainer>
         </FlexRow>
       </RegexContainer>
@@ -99,9 +103,7 @@ const Container = styled.div`
     props.canDelete ? "80%" : "calc(80% - 50px)"};
   padding-bottom: 16px;
 `;
-const StyledIcon = styled(Icon)`
-  cursor: pointer;
-`;
+
 const StyledSelect = styled(Select)`
   min-width: 160px;
 `;
