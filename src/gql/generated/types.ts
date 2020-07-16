@@ -1088,6 +1088,7 @@ export type UserPatchesQuery = {
       description: string;
       status: string;
       createTime?: Maybe<Date>;
+      commitQueuePosition?: Maybe<number>;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };
@@ -1131,8 +1132,10 @@ export type ConfigurePatchQuery = {
     id: string;
     description: string;
     author: string;
+    alias: string;
     status: string;
     activated: boolean;
+    commitQueuePosition?: Maybe<number>;
     time?: Maybe<{ submittedAt: string }>;
     project?: Maybe<{
       tasks: Array<string>;

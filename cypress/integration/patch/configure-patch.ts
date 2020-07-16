@@ -34,7 +34,6 @@ interface ConfigurePatchQuery {
 }
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-const patchWithNoVariantsOrTasks = "5e94c2dfe3c3312519b59480";
 
 describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
@@ -280,13 +279,7 @@ describe("Configure Patch Page", () => {
       cy.get("[data-cy=error-banner]").should("exist");
     });
   });
-  describe("Errors", () => {
-    it("Shows full page error if patch project has no variants or tasks", () => {
-      cy.login();
-      cy.visit(`/version/${patchWithNoVariantsOrTasks}`);
-      cy.get("[data-cy=full-page-error").should("exist");
-    });
-  });
+
   describe("Switching tabs", () => {
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.login();
