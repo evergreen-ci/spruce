@@ -99,8 +99,12 @@ const UserPatchesComponent: React.FC = () => {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {
-      return data.userPatches.patches.map((p) => (
-        <PatchCard key={p.id} {...p} />
+      return data.userPatches.patches.map(({ commitQueuePosition, ...p }) => (
+        <PatchCard
+          key={p.id}
+          {...p}
+          isPatchOnCommitQueue={commitQueuePosition !== null}
+        />
       ));
     }
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
