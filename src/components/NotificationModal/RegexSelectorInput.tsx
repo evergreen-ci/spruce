@@ -64,9 +64,7 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
         <MatchesRegexLabel>matches regex</MatchesRegexLabel>
       </FlexRow>
       <RegexContainer>
-        <div>
-          <InputLabel htmlFor={inputId}>Regex</InputLabel>
-        </div>
+        <InputLabel htmlFor={inputId}>Regex</InputLabel>
         <FlexRow>
           <StyledInput
             data-cy={`${dataCyPrefix}-regex-selector-input`}
