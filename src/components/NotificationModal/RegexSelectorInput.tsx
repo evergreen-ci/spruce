@@ -22,7 +22,7 @@ export interface RegexSelectorProps {
   selectedOption: string;
 }
 
-export const RegexSelectorInput = ({
+export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
   disabledDropdownOptions,
   dropdownOptions,
   onChangeRegexValue,
@@ -32,7 +32,7 @@ export const RegexSelectorInput = ({
   selectedOption,
   dataCyPrefix,
   canDelete,
-}: RegexSelectorProps) => {
+}) => {
   const dropdownId = uuid();
   const inputId = uuid();
   return (
