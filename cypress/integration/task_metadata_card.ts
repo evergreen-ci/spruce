@@ -70,20 +70,28 @@ describe("Task Metadata Card", () => {
     it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${i +
       1})`, () => {
       cy.visit(route);
-      const createTimePath = "responseBody.data.task.createTime";
+      const estimatedTimePath = "responseBody.data.task.createTime";
       const startTimePath = "responseBody.data.task.startTime";
       const finishTimePath = "responseBody.data.task.finishTime";
+      const createTimePath = "responseBody.data.task.scheduledTime";
+
       const valExists = (v) => v !== undefined;
       // wait for gql query where the 3 time fields were requested
       cy.waitForGQL("GetTask", {
         [createTimePath]: valExists,
         [startTimePath]: valExists,
         [finishTimePath]: valExists,
+        [estimatedTimePath]: valExists,
       }).then((xhr) => {
         elementExistenceCheck(
           xhr,
           createTimePath,
           "task-metadata-submitted-at"
+        );
+        elementExistenceCheck(
+          xhr,
+          estimatedTimePath,
+          "task-metadata-estimated_start"
         );
         elementExistenceCheck(xhr, startTimePath, "task-metadata-started");
         elementExistenceCheck(xhr, finishTimePath, "task-metadata-finished");

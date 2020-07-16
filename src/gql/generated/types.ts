@@ -341,6 +341,7 @@ export type QueryUserPatchesArgs = {
 
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchArgs = {
@@ -361,6 +362,7 @@ export type QueryPatchTasksArgs = {
 
 export type QueryTaskTestsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
@@ -371,6 +373,7 @@ export type QueryTaskTestsArgs = {
 
 export type QueryTaskFilesArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryTaskLogsArgs = {
@@ -988,6 +991,7 @@ export type GetTaskQuery = {
   task?: Maybe<{
     activatedBy?: Maybe<string>;
     createTime?: Maybe<Date>;
+    scheduledTime?: Maybe<Date>;
     displayName: string;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;

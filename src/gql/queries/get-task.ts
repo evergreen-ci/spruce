@@ -12,6 +12,7 @@ export const GET_TASK = gql`
         baseTaskLink
       }
       createTime
+      scheduledTime
       displayName
       finishTime
       hostId
