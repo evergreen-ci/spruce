@@ -192,11 +192,7 @@ const getTaskCheckboxState = (
 ): CheckboxState => {
   const checkedCb = (allChecked: boolean, buildVariantName: string): boolean =>
     allChecked &&
-    !!get(
-      selectedBuildVariantTasks,
-      [buildVariantName, taskName], // need to see that build variant has task to begin with...
-      false
-    );
+    !!get(selectedBuildVariantTasks, [buildVariantName, taskName], false);
   const checked: boolean = selectedBuildVariants
     .filter((buildVariantName) =>
       taskExistsInVariant(taskName, buildVariantName, variants)
