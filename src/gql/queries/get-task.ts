@@ -36,7 +36,6 @@ export const GET_TASK = gql`
         eventLogLink
       }
       startTime
-      estimatedStart
       status
       timeTaken
       version
