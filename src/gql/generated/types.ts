@@ -479,6 +479,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"];
   canUnschedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
+  estimatedStart?: Maybe<Scalars["Duration"]>;
 };
 
 export type TaskEndDetail = {

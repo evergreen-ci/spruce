@@ -25,7 +25,7 @@ export const Metadata: React.FC<{
   const hostId = get(task, "hostId");
   const hostLink = get(task, "hostLink");
   const startTime = get(task, "startTime");
-  const scheduledTime = get(task, "scheduledTime");
+  const estimatedStart = get(task, "estimatedStart");
   const timeTaken = get(task, "timeTaken");
   const baseCommit = get(task, "revision", "").slice(0, 10);
   const reliesOn = get(task, "reliesOn");
@@ -45,7 +45,7 @@ export const Metadata: React.FC<{
       <P2>
         Estimated time to start:{" "}
         <span data-cy="task-metadata-estimated_start">
-          {getDateCopy(scheduledTime)}
+          {msToDuration(estimatedStart)}
         </span>
       </P2>
       <P2>

@@ -12,7 +12,7 @@ export const GET_TASK = gql`
         baseTaskLink
       }
       createTime
-      scheduledTime
+      estimatedStart
       displayName
       finishTime
       hostId
@@ -36,6 +36,7 @@ export const GET_TASK = gql`
         eventLogLink
       }
       startTime
+      estimatedStart
       status
       timeTaken
       version
