@@ -100,7 +100,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   width: ${(props: DeleteProps): string =>
-    props.canDelete ? "80%" : "calc(80% - 50px)"};
+    props.canDelete ? "80%" : "calc(80% - 55px)"};
   padding-bottom: 16px;
 `;
 
@@ -112,8 +112,8 @@ const FlexRow = styled.div`
 `;
 
 const TrashContainer = styled.div`
-  padding-left: 32px;
-  margin-top: 6px;
+  padding-left: 27px;
+  margin-top: 2px;
   display: ${(props: DeleteProps): string =>
     props.canDelete ? "block" : "none"};
 `;

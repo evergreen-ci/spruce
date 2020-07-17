@@ -245,7 +245,7 @@ export interface SubscriptionMethodControl {
 
 export type ResourceType = "TASK" | "BUILD";
 
-const inputWidth = "width: calc(80% - 50px);";
+const inputWidth = "width: calc(80% - 55px);";
 
 const StyledSelect = styled(Select)`
   ${inputWidth}
