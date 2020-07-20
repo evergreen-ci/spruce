@@ -60,6 +60,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     },
   });
   const {
+    disableAddCriteria,
     extraFieldErrorMessages,
     extraFieldInputVals,
     extraFields,
@@ -169,13 +170,14 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
                 />
               ))}
             </RegexSelectorInputContainer>
-            <AddCriteriaContainer
+            <Button
               data-cy="add-regex-selector-button"
+              disabled={disableAddCriteria}
               onClick={onClickAddRegexSelector}
             >
               <Icon glyph="Plus" />
               Add additional criteria
-            </AddCriteriaContainer>
+            </Button>
           </>
         )}
       </Section>
@@ -284,11 +286,4 @@ const LeftButton = styled(Button)`
 const InputLabel = styled.label`
   font-size: 14px;
   font-weight: bold;
-`;
-
-const AddCriteriaContainer = styled.span`
-  cursor: pointer;
-  align-items: center;
-  display: flex;
-  width: 160px;
 `;

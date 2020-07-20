@@ -49,7 +49,7 @@ export const useNotificationModal = ({
     payloadResourceIdKey,
     regexSelectors,
     trigger,
-  } = get(triggers, `[${selectedTriggerIndex}]`, {});
+  } = triggers[selectedTriggerIndex] || {};
 
   useEffect(() => {
     const disabledDropdownOptions = regexSelectorPropsTemplate
@@ -192,7 +192,11 @@ export const useNotificationModal = ({
     };
   };
 
+  const disableAddCriteria =
+    regexSelectorPropsTemplate.length >= (regexSelectors?.length ?? 0);
+
   return {
+    disableAddCriteria,
     extraFieldErrorMessages,
     extraFieldInputVals,
     extraFields,
@@ -206,7 +210,7 @@ export const useNotificationModal = ({
     setSelectedSubscriptionMethod,
     setSelectedTriggerIndex,
     setTarget,
-    showAddCriteria: !!regexSelectors,
+    showAddCriteria: (regexSelectors?.length ?? 0) > 0,
     target,
   };
 };
