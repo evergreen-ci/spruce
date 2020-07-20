@@ -74,18 +74,10 @@ describe("Version Subscription Modal", () => {
     it("First regex selector input should never have a delete button", () => {
       openModal();
       cy.dataTestId("trigger_6-option").click();
-      cy.dataCy("0-regex-selector-trash-container").should(
-        "have.css",
-        "display",
-        "none"
-      );
+      cy.dataCy("0-regex-selector-trash-container").should("not.exist");
       cy.dataTestId("when-select").click();
       cy.dataTestId("trigger_5-option").click();
-      cy.dataCy("0-regex-selector-trash-container").should(
-        "have.css",
-        "display",
-        "none"
-      );
+      cy.dataCy("0-regex-selector-trash-container").should("not.exist");
     });
 
     it("Switching between Event types should either hide or reset regex selector inputs", () => {
@@ -136,6 +128,14 @@ describe("Version Subscription Modal", () => {
       cy.dataCy("banner").should("not.exist");
       cy.dataCy("save-subscription-button").click();
       cy.dataCy("banner").contains("Your subscription has been added");
+    });
+
+    it("'Add Additional Criteria' button should be disabled when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", () => {
+      openModal();
+      cy.dataTestId("trigger_5-option").click();
+      cy.contains("Add additional criteria").should("not.be.disabled");
+      cy.contains("Add additional criteria").click();
+      cy.contains("Add additional criteria").should("be.disabled");
     });
   });
 });
