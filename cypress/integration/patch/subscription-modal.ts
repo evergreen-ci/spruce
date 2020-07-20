@@ -59,20 +59,21 @@ describe("Version Subscription Modal", () => {
       );
     });
 
-    it("At least one regex selector row needs to be filled to enable the save button", () => {
+    it("Regex selectors are optional for triggers that offer them", () => {
       openModal();
       cy.dataTestId("trigger_5-option").click();
       cy.dataTestId("notify-by-select").click();
       cy.dataTestId("jira-comment-option").click();
       cy.dataTestId("jira-comment-input").type("EVG-2000");
-      cy.dataCy("save-subscription-button").should("be.disabled");
-      cy.dataTestId("0-regex-selector-dropdown").click();
-      cy.dataTestId("0-display-name-option").click();
-      cy.dataCy("0-regex-selector-input").type("regex stuff");
       cy.dataCy("save-subscription-button").should("not.be.disabled");
+      cy.dataCy("banner").should("not.exist");
+      cy.dataCy("save-subscription-button").click();
+      cy.dataCy("banner").contains("Your subscription has been added");
     });
 
     it("First regex selector input should never have a delete button", () => {
+      openModal();
+      cy.dataTestId("trigger_6-option").click();
       cy.dataCy("0-regex-selector-trash-container").should(
         "have.css",
         "display",
