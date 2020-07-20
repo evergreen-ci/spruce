@@ -74,19 +74,20 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
             value={regexInputValue}
             disabled={!selectedOption}
           />
-          <TrashContainer
-            data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
-            canDelete={canDelete}
-          >
-            <IconButton
-              data-cy={`${dataCyPrefix}-regex-selector-trash`}
-              onClick={onDelete}
-              aria-label="Remove regex selector row"
-              variant="dark"
+          {canDelete && (
+            <TrashContainer
+              data-cy={`${dataCyPrefix}-regex-selector-trash-container`}
             >
-              <Icon glyph="Trash" />
-            </IconButton>
-          </TrashContainer>
+              <IconButton
+                data-cy={`${dataCyPrefix}-regex-selector-trash`}
+                onClick={onDelete}
+                aria-label="Remove regex selector row"
+                variant="dark"
+              >
+                <Icon glyph="Trash" />
+              </IconButton>
+            </TrashContainer>
+          )}
         </FlexRow>
       </RegexContainer>
     </Container>
@@ -114,9 +115,8 @@ const FlexRow = styled.div`
 const TrashContainer = styled.div`
   padding-left: 27px;
   margin-top: 2px;
-  display: ${(props: DeleteProps): string =>
-    props.canDelete ? "block" : "none"};
 `;
+
 const RegexContainer = styled.div`
   width: 100%;
 `;
