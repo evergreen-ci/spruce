@@ -1,13 +1,9 @@
 // / <reference types="Cypress" />
 
-import {
-  testSharedSubscriptionModalFunctionality,
-  openSubscriptionModal,
-} from "../../utils/subscriptionModal";
+import { openSubscriptionModal } from "../../utils/subscriptionModal";
 
 describe("Version Subscription Modal", () => {
   const dataCyToggleModalButton = "notify-patch";
-  const dataCyModal = "patch-notification-modal";
   const route = "/version/5e4ff3abe3c3317e352062e4/tasks";
 
   before(() => {
@@ -17,12 +13,6 @@ describe("Version Subscription Modal", () => {
   beforeEach(() => {
     cy.preserveCookies();
   });
-
-  testSharedSubscriptionModalFunctionality(
-    route,
-    dataCyModal,
-    dataCyToggleModalButton
-  );
 
   describe("Regex selector inputs", () => {
     const openModal = () =>
