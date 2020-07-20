@@ -157,83 +157,188 @@ describe("Configure Patch Page", () => {
         }
       });
     });
-    it("Select/Deselect All buttons", () => {
-      cy.get("[data-cy=configurePatch-selectAll").click();
-      cy.get("[data-cy=configurePatch-tasks")
-        .children()
-        .invoke("toArray")
-        .then(($tasks) => {
-          cy.get("[data-checked=true]")
-            .its("length")
-            .should("eq", $tasks.length);
+    describe("Select/Deselect All buttons", () => {
+      const checkboxTaskNames = [
+        "test-agent",
+        "test-command",
+        "test-operations",
+        "test-rest-client",
+        "test-thirdparty",
+        "test-thirdparty-docker",
+        "test-util",
+      ];
+      it("Clicking Select All should check all task checkboxes when all of the task checkboxes unchecked", () => {
+        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.get("[data-checked=task-checkbox-checked]")
+          .its("length")
+          .should("eq", 7);
+      });
+      it("Clicking on Select All should uncheck all task checkboxes when all of the task checkboxes are checked", () => {
+        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.get("[data-checked=task-checkbox-unchecked]")
+          .its("length")
+          .should("eq", 7);
+      });
+      it("Checking all task checkboxes should check the Select All checkbox", () => {
+        cy.wrap(checkboxTaskNames).each((taskName) => {
+          cy.dataCy(`configurePatch-${taskName}`).click({ force: true });
         });
-      cy.get("[data-cy=configurePatch-deselectAll").click();
-      cy.get("[data-cy=configurePatch-tasks")
-        .children()
-        .invoke("toArray")
-        .then(($tasks) => {
-          cy.get("[data-checked=false]")
-            .its("length")
-            .should("eq", $tasks.length);
+        cy.get("[data-checked=selectAll-checked]").should("exist");
+      });
+      it("Unchecking all task checkboxes should uncheck the Select All checkbox", () => {
+        cy.wrap(checkboxTaskNames).each((taskName) => {
+          cy.dataCy(`configurePatch-${taskName}`).click({ force: true });
         });
+        cy.get("[data-checked=selectAll-unchecked]").should("exist");
+      });
+      it("A mixture of checked and unchecked task checkboxes sets the Select All checkbox in an indeterminate state", () => {
+        cy.dataCy("configurePatch-test-agent").click({ force: true });
+        cy.get("[data-checked=selectAll-indeterminate]").should("exist");
+      });
     });
-    describe("Selecting multiple build variants", () => {
-      it("Selecting multiple build variants should work", () => {
-        cy.get('[data-cy-name="linux-docker"]').click();
+
+    describe("Build variant selection", () => {
+      it("Selecting multiple build variants should display deduplicated task checkboxes", () => {
         cy.get("body").type("{meta}", { release: false });
-        cy.get('[data-cy-name="coverage"]').click({});
+        cy.get('[data-cy-name="rhel72-s390x"]').click();
         cy.get("[data-cy=configurePatch-tasks")
           .children()
-          .invoke("toArray")
-          .then(() => {
-            cy.get("[data-checked=false]")
-              .its("length")
-              .should("eq", 2);
-          });
+          .its("length")
+          .should("eq", 7);
+        cy.get('[data-cy-name="rhel71-power8"]').click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .its("length")
+          .should("eq", 7);
+        cy.get('[data-cy-name="race-detector"]').click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .its("length")
+          .should("eq", 40);
+        cy.get("body").type("{meta}", { release: true });
       });
-      it("Should be able to select/deselect all for multiple build variants", () => {
-        cy.get("[data-cy=configurePatch-selectAll").click();
+
+      it("Deselecting multiple build variants should display deduplicated task checkboxes", () => {
+        cy.get("body").type("{meta}", { release: false });
+        cy.get('[data-cy-name="rhel72-s390x"]').click();
         cy.get("[data-cy=configurePatch-tasks")
           .children()
-          .invoke("toArray")
-          .then(() => {
-            cy.get("[data-checked=true]")
-              .its("length")
-              .should("eq", 2);
-          });
-        cy.get("[data-cy=configurePatch-deselectAll").click();
+          .its("length")
+          .should("eq", 40);
+        cy.get('[data-cy-name="rhel71-power8"]').click();
         cy.get("[data-cy=configurePatch-tasks")
           .children()
-          .invoke("toArray")
-          .then(() => {
-            cy.get("[data-checked=false]")
-              .its("length")
-              .should("eq", 2);
-          });
+          .its("length")
+          .should("eq", 40);
+        cy.get('[data-cy-name="race-detector"]').click();
+        cy.get("[data-cy=configurePatch-tasks")
+          .children()
+          .its("length")
+          .should("eq", 7);
       });
-      it("Should be able to select and unselect an individual task", () => {
-        cy.get(`[data-cy=configurePatch-docker-cleanup`).check({
-          force: true,
+
+      it("Checking a deduplicated task between multiple build variants updates the task within each selected build variant", () => {
+        cy.get("body").type("{meta}", { release: false });
+        cy.get('[data-cy-name="rhel72-s390x"]').click();
+        cy.get('[data-cy-name="rhel71-power8"]').click();
+        cy.get("body").type("{meta}", { release: true });
+        cy.dataCy("configurePatch-test-agent").click({ force: true });
+        cy.dataCy("configurePatch-test-agent").click({ force: true });
+        cy.get('[data-cy-name="rhel72-s390x"]').click({ force: true });
+        cy.get("[data-checked=task-checkbox-checked]")
+          .its("length")
+          .should("eq", 1);
+        cy.get('[data-cy-name="rhel71-power8"').click({ force: true });
+        cy.get("[data-checked=task-checkbox-checked]")
+          .its("length")
+          .should("eq", 1);
+        cy.get('[data-cy-name="windows"').click({ force: true });
+        cy.get("[data-checked=task-checkbox-checked]")
+          .its("length")
+          .should("eq", 1);
+      });
+
+      it("Should be able to select/deselect all for multiple build variants and have the number of selected tasks reflected in the variant tab bade and task count label", () => {
+        cy.get("body").type("{meta}", { release: false });
+        cy.get('[data-cy-name="rhel72-s390x"]').click();
+        cy.get('[data-cy-name="rhel71-power8"]').click();
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
+        cy.get("[data-checked=task-checkbox-checked]")
+          .its("length")
+          .should("eq", 7);
+        cy.contains("20 tasks across 4 build variants");
+        cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("6");
+        cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("6");
+        cy.dataCy("configurePatch-taskCountBadge-windows").contains("7");
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
+        cy.get("[data-checked=task-checkbox-unchecked]")
+          .its("length")
+          .should("eq", 7);
+        cy.contains("1 task across 1 build variant");
+        cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").should(
+          "not.exist"
+        );
+        cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").should(
+          "not.exist"
+        );
+        cy.dataCy("configurePatch-taskCountBadge-windows").should("not.exist");
+      });
+
+      it("Should be able to select and unselect an individual task and have task count be reflected in variant tab badge and task count label", () => {
+        cy.dataCy("configurePatch-test-agent").click({ force: true });
+        cy.dataCy("configurePatch-taskCountBadge-rhel71-power8").contains("1");
+        cy.dataCy("configurePatch-taskCountBadge-rhel72-s390x").contains("1");
+        cy.dataCy("configurePatch-taskCountBadge-windows").contains("1");
+        cy.contains("4 tasks across 4 build variants");
+      });
+      it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
+        cy.get("body").type("{shift}", { release: false }); // hold shift
+        cy.get('[data-cy-name="windows"]').click();
+        cy.get("[data-cy-selected=true]")
+          .its("length")
+          .should("eq", 7);
+        const variantsFirstTime = [
+          "RHEL 7.1 POWER81",
+          "RHEL 7.2 zLinux",
+          "Race Detector",
+          "Ubuntu 16.041",
+          "Ubuntu 16.04 (Docker)",
+          "Ubuntu 16.04 ARM",
+          "Windows1",
+        ];
+        cy.get("[data-cy-selected=true]").each((v, i) => {
+          cy.wrap(v).contains(variantsFirstTime[i]);
         });
-        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
-          "exist"
-        );
-        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]")
-          .invoke("text")
-          .should("eq", "1");
-        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
-          "not.exist"
-        );
-        cy.get(`[data-cy=configurePatch-docker-cleanup`).uncheck({
-          force: true,
+        cy.get("body").type("{shift}", { release: true }); // release shift
+        cy.get("body").type("{meta}", { release: false }); // hold meta
+        cy.get('[data-cy-name="lint"]').click();
+        cy.get("body").type("{meta}", { release: true }); // release meta
+        cy.get("body").type("{shift}", { release: false }); // hold shift
+        cy.get('[data-cy-name="linux-docker"]').click();
+        const variantsSecondTime = [
+          "ArchLinux (Docker)",
+          "Coverage",
+          "Lint",
+        ].concat(variantsFirstTime);
+        cy.get("[data-cy-selected=true]").each((v, i) => {
+          cy.wrap(v).contains(variantsSecondTime[i]);
         });
-        cy.get("[data-cy=configurePatch-taskCountBadge-linux-docker]").should(
-          "not.exist"
-        );
-        cy.get("[data-cy=configurePatch-taskCountBadge-coverage]").should(
-          "not.exist"
-        );
+        cy.get("[data-cy-selected=true]")
+          .its("length")
+          .should("eq", 10);
       });
+    });
+  });
+  describe("Indeterminate task checkbox states", () => {
+    it("Checking a task in 1 build variant but not the other shows the task checkbox as indeterminate when viewing tasks from both variants and puts the Select All checkbox in an indeterminate state", () => {
+      cy.get('[data-cy-name="rhel72-s390x"]').click();
+      cy.dataCy("configurePatch-test-agent").click({ force: true });
+      cy.get("body").type("{meta}", { release: false });
+      cy.get('[data-cy-name="rhel71-power8"]').click();
+      cy.get(
+        "[data-name-checked=task-checkbox-test-agent-indeterminate]"
+      ).should("exist");
+      cy.get("[data-checked=selectAll-indeterminate]").should("exist");
     });
   });
   describe("Scheduling a patch", () => {
