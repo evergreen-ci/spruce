@@ -17,7 +17,12 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler, usePollQuery, usePageTitle } from "hooks";
+import {
+  useFilterInputChangeHandler,
+  usePollQuery,
+  usePollMonitor,
+  usePageTitle,
+} from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -63,11 +68,13 @@ const UserPatchesComponent: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+  const isOffline = usePollMonitor();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
+    isOffline,
   });
   usePageTitle("My Patches");
   const onCheckboxChange = (): void => {

@@ -15,6 +15,7 @@ import {
   useDisableTableSortersIfLoading,
   usePollQuery,
   useSetColumnDefaultSortOrder,
+  usePollMonitor,
 } from "hooks";
 import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
@@ -61,11 +62,13 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     fetchPolicy: "network-only",
   });
   useDisableTableSortersIfLoading(networkStatus);
+  const isOffline = usePollMonitor();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
+    isOffline,
   });
   const patchAnalytics = usePatchAnalytics();
 

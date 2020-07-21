@@ -1,12 +1,13 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { ApolloQueryResult } from "apollo-client";
 import {
   isNetworkRequestInFlight,
   NetworkStatus,
 } from "apollo-client/core/networkStatus";
-import { usePrevious } from "hooks";
 import { useParams } from "react-router-dom";
-import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
+import { pollInterval } from "constants/index";
+import { usePrevious } from "hooks";
 
 interface Params<ApolloQueryVariables, ApolloQueryResultType> {
   networkStatus: NetworkStatus;
@@ -15,6 +16,7 @@ interface Params<ApolloQueryVariables, ApolloQueryResultType> {
     variables?: ApolloQueryVariables
   ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
   search: string;
+  isOffline?: boolean;
 }
 
 export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
@@ -22,6 +24,7 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   getQueryVariables,
   refetch,
   search,
+  isOffline,
 }: Params<ApolloQueryVariables, ApolloQueryResultType>): {
   showSkeleton: boolean;
 } => {
@@ -95,12 +98,16 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     search,
   ]);
 
+  // Responsible for clearing the refresh interval if the browser is offline
+  useEffect(() => {
+    if (isOffline) {
+      clearInterval(intervalId);
+    }
+  }, [isOffline]); // eslint-disable-line react-hooks/exhaustive-deps
   return {
     showSkeleton: queryVarDiffOccured,
   };
 };
-
-const pollInterval = 5000;
 
 interface PollQueryParams<ApolloQueryVariables, ApolloQueryResultType> {
   resourceId: string;

@@ -16,7 +16,11 @@ import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
-import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
+import {
+  useDisableTableSortersIfLoading,
+  usePollQuery,
+  usePollMonitor,
+} from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -64,11 +68,13 @@ export const TestsTableCore: React.FC = () => {
   useDisableTableSortersIfLoading(networkStatus);
 
   // poll task tests
+  const isOffline = usePollMonitor();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
+    isOffline,
   });
 
   // update url query params when user event triggers change
