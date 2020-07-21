@@ -341,6 +341,7 @@ export type QueryUserPatchesArgs = {
 
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchArgs = {
@@ -361,6 +362,7 @@ export type QueryPatchTasksArgs = {
 
 export type QueryTaskTestsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
@@ -371,6 +373,11 @@ export type QueryTaskTestsArgs = {
 
 export type QueryTaskFilesArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryUserArgs = {
+  userId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryTaskLogsArgs = {
@@ -476,6 +483,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"];
   canUnschedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
+  estimatedStart?: Maybe<Scalars["Duration"]>;
 };
 
 export type TaskEndDetail = {
@@ -1065,6 +1073,15 @@ export type GetUserSettingsQuery = {
 export type GetUserQueryVariables = {};
 
 export type GetUserQuery = { user: { userId: string; displayName: string } };
+
+export type GetOtherUserQueryVariables = {
+  userId?: Maybe<Scalars["String"]>;
+};
+
+export type GetOtherUserQuery = {
+  currentUser: { userId: string; displayName: string };
+  otherUser: { displayName: string };
+};
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars["Int"]>;
