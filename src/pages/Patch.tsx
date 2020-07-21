@@ -82,7 +82,12 @@ const PatchCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
+      {patch && (
+        <BreadCrumb
+          patchAuthor={patch.author}
+          patchNumber={patch.patchNumber}
+        />
+      )}
       <PageTitle
         loading={loading}
         hasData={!!patch}
