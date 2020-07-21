@@ -10,7 +10,7 @@ export const useGetUserPatchesPageTitleAndLink = (userId: string) => {
   const { data, loading, error } = useQuery<
     GetOtherUserQuery,
     GetOtherUserQueryVariables
-  >(GET_OTHER_USER);
+  >(GET_OTHER_USER, { variables: { userId } });
   const link = getUserPatchesRoute(userId);
 
   if (loading || error) {

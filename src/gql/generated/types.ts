@@ -1079,8 +1079,8 @@ export type GetOtherUserQueryVariables = {
 };
 
 export type GetOtherUserQuery = {
-  currentUser: { userId: string; displayName: string };
-  otherUser: { displayName: string };
+  otherUser: { userId: string; displayName: string };
+  currentUser: { userId: string };
 };
 
 export type UserPatchesQueryVariables = {

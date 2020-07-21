@@ -11,12 +11,12 @@ export const GET_USER = gql`
 
 export const GET_OTHER_USER = gql`
   query GetOtherUser($userId: String) {
-    currentUser: user(userId: $userId) {
+    otherUser: user(userId: $userId) {
       userId
       displayName
     }
-    otherUser: user {
-      displayName
+    currentUser: user {
+      userId
     }
   }
 `;
