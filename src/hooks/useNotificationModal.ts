@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import get from "lodash/get";
 import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
 import { v4 as uuid } from "uuid";
+
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];

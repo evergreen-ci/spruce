@@ -104,19 +104,16 @@ const Container = styled.div`
     props.canDelete ? "80%" : "calc(80% - 55px)"};
   padding-bottom: 16px;
 `;
-
 const StyledSelect = styled(Select)`
   min-width: 160px;
 `;
 const FlexRow = styled.div`
   display: flex;
 `;
-
 const TrashContainer = styled.div`
   padding-left: 27px;
   margin-top: 2px;
 `;
-
 const RegexContainer = styled.div`
   width: 100%;
 `;
