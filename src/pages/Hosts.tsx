@@ -22,6 +22,7 @@ import { Host, HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
+import { formatDistanceToNow } from "date-fns";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -107,7 +108,7 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
   },
   {
     title: "Distro",
-    dataIndex: "distro",
+    dataIndex: "distroId",
     key: TableColumnHeader.Distro,
     sorter: true,
     className: "cy-task-table-col-DISTRO",
@@ -140,6 +141,8 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
     key: TableColumnHeader.Elapsed,
     sorter: true,
     className: "cy-task-table-col-ELAPSED",
+    render: (_, { elapsed }) =>
+      elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A",
   },
   {
     title: "Uptime",
@@ -147,6 +150,8 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
     key: TableColumnHeader.Uptime,
     sorter: true,
     className: "cy-task-table-col-UPTIME",
+    render: (_, { uptime }) =>
+      uptime ? formatDistanceToNow(new Date(uptime)) : "N/A",
   },
   {
     title: "Idle Time",
@@ -154,6 +159,8 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
     key: TableColumnHeader.IdleTime,
     sorter: true,
     className: "cy-task-table-col-IDLE-TIME",
+    render: (_, { totalIdleTime }) =>
+      totalIdleTime ? formatDistanceToNow(new Date(totalIdleTime)) : "N/A",
   },
   {
     title: "Owner",
