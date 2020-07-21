@@ -73,7 +73,6 @@ describe("Task Metadata Card", () => {
       const createTimePath = "responseBody.data.task.createTime";
       const startTimePath = "responseBody.data.task.startTime";
       const finishTimePath = "responseBody.data.task.finishTime";
-      const estimatedTimePath = "responseBody.data.task.estimatedStart";
 
       const valExists = (v) => v !== undefined;
       // wait for gql query where the 3 time fields were requested
@@ -81,17 +80,11 @@ describe("Task Metadata Card", () => {
         [createTimePath]: valExists,
         [startTimePath]: valExists,
         [finishTimePath]: valExists,
-        [estimatedTimePath]: valExists,
       }).then((xhr) => {
         elementExistenceCheck(
           xhr,
           createTimePath,
           "task-metadata-submitted-at"
-        );
-        elementExistenceCheck(
-          xhr,
-          estimatedTimePath,
-          "task-metadata-estimated_start"
         );
         elementExistenceCheck(xhr, startTimePath, "task-metadata-started");
         elementExistenceCheck(xhr, finishTimePath, "task-metadata-finished");
