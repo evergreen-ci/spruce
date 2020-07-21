@@ -23,6 +23,7 @@ export const GET_USER_PATCHES = gql`
         description
         status
         createTime
+        commitQueuePosition
         builds {
           id
           buildVariant

@@ -341,6 +341,7 @@ export type QueryUserPatchesArgs = {
 
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchArgs = {
@@ -361,6 +362,7 @@ export type QueryPatchTasksArgs = {
 
 export type QueryTaskTestsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
@@ -371,6 +373,7 @@ export type QueryTaskTestsArgs = {
 
 export type QueryTaskFilesArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryTaskLogsArgs = {
@@ -476,6 +479,7 @@ export type Task = {
   canSchedule: Scalars["Boolean"];
   canUnschedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
+  estimatedStart?: Maybe<Scalars["Duration"]>;
 };
 
 export type TaskEndDetail = {
@@ -988,6 +992,7 @@ export type GetTaskQuery = {
   task?: Maybe<{
     activatedBy?: Maybe<string>;
     createTime?: Maybe<Date>;
+    estimatedStart?: Maybe<number>;
     displayName: string;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;
@@ -1084,6 +1089,7 @@ export type UserPatchesQuery = {
       description: string;
       status: string;
       createTime?: Maybe<Date>;
+      commitQueuePosition?: Maybe<number>;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };
@@ -1127,8 +1133,10 @@ export type ConfigurePatchQuery = {
     id: string;
     description: string;
     author: string;
+    alias: string;
     status: string;
     activated: boolean;
+    commitQueuePosition?: Maybe<number>;
     time?: Maybe<{ submittedAt: string }>;
     project?: Maybe<{
       tasks: Array<string>;

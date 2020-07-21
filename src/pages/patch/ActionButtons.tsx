@@ -10,7 +10,13 @@ import {
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
-export const ActionButtons = () => {
+interface ActionButtonProps {
+  isPatchOnCommitQueue: boolean;
+}
+
+export const ActionButtons: React.FC<ActionButtonProps> = ({
+  isPatchOnCommitQueue,
+}) => {
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const { id: patchId } = useParams<{ id: string }>();
@@ -26,7 +32,11 @@ export const ActionButtons = () => {
   }, [isActionLoading, setIsVisible]);
 
   const dropdownItems = [
-    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
+    <LinkToReconfigurePage
+      key="reconfigure"
+      patchId={patchId}
+      disabled={isPatchOnCommitQueue}
+    />,
     <UnschedulePatchTasks
       {...{
         patchId,
