@@ -1039,6 +1039,7 @@ export type GetTaskQuery = {
   task?: Maybe<{
     activatedBy?: Maybe<string>;
     createTime?: Maybe<Date>;
+    estimatedStart?: Maybe<number>;
     displayName: string;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;
