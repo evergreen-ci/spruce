@@ -14,7 +14,7 @@ export const useGetUserPatchesPageTitleAndLink = (userId: string) => {
   const link = getUserPatchesRoute(userId);
 
   if (loading || error) {
-    return { error, link, loading, title: "" };
+    return { error, link, loading, title: "Patches" };
   }
 
   if (userId === data?.currentUser.userId) {
