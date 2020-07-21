@@ -102,8 +102,10 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
     key: TableColumnHeader.Id,
     sorter: true,
     className: "cy-hosts-table-col-ID",
-    render: (name: string, { id }: Host): JSX.Element => (
-      <StyledRouterLink to={getHostRoute(id)}>{id}</StyledRouterLink>
+    render: (_, { id }: Host): JSX.Element => (
+      <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
+        {id}
+      </StyledRouterLink>
     ),
   },
   {
@@ -126,9 +128,12 @@ const columnsTemplate: Array<ColumnProps<Host>> = [
     key: TableColumnHeader.CurrentTask,
     sorter: true,
     className: "cy-task-table-col-CURRENT-TASK",
-    render: (name: string, { runningTask }: Host) =>
+    render: (_, { runningTask }: Host) =>
       runningTask?.id !== null ? (
-        <StyledRouterLink to={getTaskRoute(runningTask?.id)}>
+        <StyledRouterLink
+          data-cy="current-task-link"
+          to={getTaskRoute(runningTask?.id)}
+        >
           {runningTask?.name}
         </StyledRouterLink>
       ) : (
