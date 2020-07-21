@@ -73,6 +73,7 @@ describe("Task Metadata Card", () => {
       const createTimePath = "responseBody.data.task.createTime";
       const startTimePath = "responseBody.data.task.startTime";
       const finishTimePath = "responseBody.data.task.finishTime";
+
       const valExists = (v) => v !== undefined;
       // wait for gql query where the 3 time fields were requested
       cy.waitForGQL("GetTask", {
