@@ -31,7 +31,6 @@ const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const dispatchBanner = useBannerDispatchContext();
-
   const bannersState = useBannerStateContext();
 
   const router = useHistory();
