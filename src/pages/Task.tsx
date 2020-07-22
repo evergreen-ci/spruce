@@ -76,7 +76,6 @@ const TaskCore: React.FC = () => {
       ),
   });
   usePollMonitor(startPolling, stopPolling);
-  // useEffect(() => stopPolling, [stopPolling]);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
   const canRestart = get(task, "canRestart");

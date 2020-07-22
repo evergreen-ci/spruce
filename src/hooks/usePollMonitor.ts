@@ -21,18 +21,21 @@ export const usePollMonitor: UsePollMonitorType = (
   stopPolling
 ) => {
   const [isOffline, setIsOffline] = useState(false);
+
   useEffect(() => {
-    window.addEventListener("offline", () => {
+    const handleOffline = () => {
       setIsOffline(true);
       if (stopPolling) stopPolling();
-    });
-    window.addEventListener("online", () => {
+    };
+    const handleOnline = () => {
       setIsOffline(false);
       if (startPolling) startPolling(pollInterval);
-    });
+    };
+    window.addEventListener("offline", handleOffline);
+    window.addEventListener("online", handleOnline);
     return () => {
-      window.removeEventListener("offline", () => undefined);
-      window.removeEventListener("online", () => undefined);
+      window.removeEventListener("offline", handleOffline);
+      window.removeEventListener("online", handleOnline);
     };
   }, [startPolling, stopPolling]);
   return isOffline;
