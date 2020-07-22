@@ -13,6 +13,7 @@ export const paths = {
   preferences: "/preferences",
   user: "/user",
   hosts: "/hosts",
+  host: "/host",
 };
 
 export const routes = {
@@ -51,6 +52,6 @@ export const getUserPatchesRoute = (userId: string): string =>
 export const getVersionRoute = (versionId: string, tab?: PatchTab) =>
   `${paths.version}/${versionId}/${tab ?? DEFAULT_PATCH_TAB}`;
 
-export const getHostRoute = (hostId: string) => `/host/${hostId}`;
+export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
-export const getTaskRoute = (taskId: string) => `/task/${taskId}`;
+export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
