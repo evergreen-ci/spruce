@@ -12,6 +12,8 @@ export const paths = {
   commitQueue: "/commit-queue",
   preferences: "/preferences",
   user: "/user",
+  hosts: "/hosts",
+  host: "/host",
 };
 
 export const routes = {
@@ -24,6 +26,7 @@ export const routes = {
   preferences: `${paths.preferences}/:tab?`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
+  hosts: paths.hosts,
 };
 
 export enum PatchTab {
@@ -48,3 +51,7 @@ export const getUserPatchesRoute = (userId: string): string =>
 
 export const getVersionRoute = (versionId: string, tab?: PatchTab) =>
   `${paths.version}/${versionId}/${tab ?? DEFAULT_PATCH_TAB}`;
+
+export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
+
+export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;

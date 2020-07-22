@@ -42,16 +42,21 @@ interface Props {
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: resourceId } = useParams<{ id: string }>();
+
   const { search } = useLocation();
+
   const [initialQueryVariables] = useState(
     getQueryVariables(search, resourceId)
   );
+
   const { sortBy, sortDir } = initialQueryVariables;
+
   const columns = useSetColumnDefaultSortOrder<TaskResult>(
     columnsTemplate,
     sortBy,
     sortDir
   );
+
   const { data, error, networkStatus, refetch } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
@@ -60,19 +65,24 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+
   useDisableTableSortersIfLoading(networkStatus);
+
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
   });
+
   const patchAnalytics = usePatchAnalytics();
 
   if (error) {
     return <div>{error.message}</div>;
   }
+
   const { limit, page } = getQueryVariables(search, resourceId);
+
   return (
     <ErrorBoundary>
       <TaskFilters />
