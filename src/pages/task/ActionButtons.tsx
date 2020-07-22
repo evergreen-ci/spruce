@@ -245,10 +245,8 @@ export const ActionButtons = ({
           key="notifications"
           disabled={disabled}
           onClick={() => {
-            if (!isVisibleModal) {
-              taskAnalytics.sendEvent({ name: "Open Notification Modal" });
-            }
-            setIsVisibleModal(!isVisibleModal);
+            taskAnalytics.sendEvent({ name: "Open Notification Modal" });
+            setIsVisibleModal(true);
           }}
         >
           Notify Me

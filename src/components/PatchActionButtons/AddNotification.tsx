@@ -20,10 +20,8 @@ export const AddNotification: React.FC<Props> = () => {
         size="small"
         dataCy="notify-patch"
         onClick={() => {
-          if (!isVisibleModal) {
-            patchAnalytics.sendEvent({ name: "Open Notification Modal" });
-          }
-          setIsVisibleModal(!isVisibleModal);
+          patchAnalytics.sendEvent({ name: "Open Notification Modal" });
+          setIsVisibleModal(true);
         }}
       >
         Notify Me
