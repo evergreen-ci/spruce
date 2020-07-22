@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Skeleton } from "antd";
 import { useQuery } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
@@ -23,23 +23,35 @@ import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
 import { formatDistanceToNow } from "date-fns";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { Pagination } from "components/Pagination";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import styled from "@emotion/styled/macro";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
+  const { search } = useLocation();
+
+  const [initialQueryVariables] = useState<HostsQueryVariables>(
+    getQueryVariables(search)
+  );
+
   const { data: hostsData, networkStatus, refetch } = useQuery<
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: { hostId: null },
+    variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
 
-  useDisableTableSortersIfLoading(networkStatus);
+  const hosts = hostsData?.hosts;
+  const hostItems = hosts?.hosts ?? [];
+  const totalHostsCount = hosts?.totalHostsCount;
 
-  const { search } = useLocation();
+  useDisableTableSortersIfLoading(networkStatus);
 
   const { showSkeleton } = usePollQuery({
     networkStatus,
@@ -47,6 +59,8 @@ const Hosts: React.FC = () => {
     refetch,
     search,
   });
+
+  const { limit, page } = getQueryVariables(search);
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -57,9 +71,19 @@ const Hosts: React.FC = () => {
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
-          <TableControlInnerRow>
-            {/** TODO: Put pagination here */}
-          </TableControlInnerRow>
+          <div>Showing 384</div>
+          <StyledTableControlInnerRow>
+            <Pagination
+              dataTestId="tasks-table-pagination"
+              pageSize={limit}
+              value={page}
+              totalResults={totalHostsCount}
+            />
+            <PageSizeSelector
+              dataTestId="tasks-table-page-size-selector"
+              value={limit}
+            />
+          </StyledTableControlInnerRow>
         </TableControlOuterRow>
         <TableContainer hide={showSkeleton}>
           <Table
@@ -67,7 +91,7 @@ const Hosts: React.FC = () => {
             rowKey={rowKey}
             pagination={false}
             columns={columnsTemplate}
-            dataSource={hostsData?.hosts?.hosts ?? []}
+            dataSource={hostItems}
             onChange={() => undefined}
           />
         </TableContainer>
@@ -80,8 +104,10 @@ const Hosts: React.FC = () => {
 };
 
 // TODO: include query parameters
-const getQueryVariables = (): HostsQueryVariables => ({
+const getQueryVariables = (search: string): HostsQueryVariables => ({
   hostId: null,
+  page: getPageFromSearch(search),
+  limit: getLimitFromSearch(search),
 });
 
 enum TableColumnHeader {
@@ -181,3 +207,7 @@ const rowKey = ({ id }: { id: string }): string => id;
 const HostsWithBannersContext = withBannersContext(Hosts);
 
 export { HostsWithBannersContext as Hosts };
+
+const StyledTableControlInnerRow = styled(TableControlInnerRow)`
+  justify-content: flex-end;
+`;

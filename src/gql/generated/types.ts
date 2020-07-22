@@ -1120,6 +1120,8 @@ export type GetUserQuery = { user: { userId: string; displayName: string } };
 
 export type HostsQueryVariables = {
   hostId?: Maybe<Scalars["String"]>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
 export type HostsQuery = {
