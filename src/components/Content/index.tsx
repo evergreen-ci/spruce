@@ -7,7 +7,7 @@ import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
-import { SiteBanner } from "components/Banners";
+import { SiteBanner, ConnectivityBanner } from "components/Banners";
 import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
@@ -46,6 +46,7 @@ export const Content: React.FC = () => {
   return (
     <PageLayout>
       <Navbar />
+      <ConnectivityBanner />
       <SiteBanner />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />

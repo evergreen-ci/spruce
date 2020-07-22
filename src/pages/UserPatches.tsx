@@ -20,7 +20,7 @@ import { useQuery } from "@apollo/react-hooks";
 import {
   useFilterInputChangeHandler,
   usePollQuery,
-  usePollMonitor,
+  useNetworkStatus,
   usePageTitle,
 } from "hooks";
 import styled from "@emotion/styled";
@@ -68,7 +68,7 @@ const UserPatchesComponent: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
-  const isOffline = usePollMonitor();
+  const isOffline = useNetworkStatus();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,

@@ -24,7 +24,7 @@ import {
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "hoc/withBannersContext";
-import { usePageTitle, usePollMonitor } from "hooks";
+import { usePageTitle, useNetworkStatus } from "hooks";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
 
@@ -49,7 +49,7 @@ const PatchCore: React.FC = () => {
   });
 
   useEffect(() => stopPolling, [stopPolling]);
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");

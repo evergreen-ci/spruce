@@ -19,7 +19,7 @@ import get from "lodash/get";
 import {
   useDisableTableSortersIfLoading,
   usePollQuery,
-  usePollMonitor,
+  useNetworkStatus,
 } from "hooks";
 import { ResultCountLabel } from "components/ResultCountLabel";
 import { Pagination } from "components/Pagination";
@@ -68,7 +68,7 @@ export const TestsTableCore: React.FC = () => {
   useDisableTableSortersIfLoading(networkStatus);
 
   // poll task tests
-  const isOffline = usePollMonitor();
+  const isOffline = useNetworkStatus();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,

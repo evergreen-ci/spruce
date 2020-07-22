@@ -11,7 +11,7 @@ import { usePollQuery } from "hooks/usePollQuery";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { useLegacyUIURL } from "hooks/useLegacyUIURL";
 import { usePageTitle } from "hooks/usePageTitle";
-import { usePollMonitor } from "hooks/usePollMonitor";
+import { useNetworkStatus } from "hooks/useNetworkStatus";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -34,5 +34,5 @@ export {
   useSetColumnDefaultSortOrder,
   useLegacyUIURL,
   usePageTitle,
-  usePollMonitor,
+  useNetworkStatus,
 };

@@ -2,7 +2,7 @@ import React from "react";
 import {
   useFilterInputChangeHandler,
   useStatusesFilter,
-  usePollMonitor,
+  useNetworkStatus,
 } from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
@@ -59,7 +59,7 @@ export const TaskFilters: React.FC = () => {
     GetPatchTaskStatusesQuery,
     GetPatchTaskStatusesQueryVariables
   >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
   const statuses = get(data, "patch.taskStatuses", []);
   const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 

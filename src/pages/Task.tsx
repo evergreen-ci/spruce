@@ -18,7 +18,7 @@ import {
 } from "components/styles";
 import { GET_TASK } from "gql/queries/get-task";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { useDefaultPath, useTabs, usePageTitle, usePollMonitor } from "hooks";
+import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "constants/routes";
@@ -75,7 +75,7 @@ const TaskCore: React.FC = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
   const canRestart = get(task, "canRestart");

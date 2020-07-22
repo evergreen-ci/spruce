@@ -12,7 +12,7 @@ import { Divider } from "components/styles/Divider";
 import { pollInterval } from "constants/index";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
-import { usePollMonitor } from "hooks";
+import { useNetworkStatus } from "hooks";
 import { TaskSquare } from "./buildVariants/TaskSquare";
 
 export const BuildVariants: React.FC = () => {
@@ -25,7 +25,7 @@ export const BuildVariants: React.FC = () => {
     pollInterval,
   });
   useEffect(() => stopPolling, [stopPolling]);
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
   return (
     <SiderCard>
       <H3>Build Variants</H3>

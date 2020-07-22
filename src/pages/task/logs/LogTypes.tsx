@@ -31,7 +31,7 @@ import styled from "@emotion/styled";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Button } from "components/Button";
 import { useTaskAnalytics } from "analytics";
-import { usePollMonitor } from "hooks";
+import { useNetworkStatus } from "hooks";
 import { pollInterval } from "constants/index";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
@@ -63,7 +63,7 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id },
     pollInterval,
   });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
       ...v,
@@ -85,7 +85,7 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id },
     pollInterval,
   });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
@@ -104,7 +104,7 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id },
     pollInterval,
   });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
@@ -123,7 +123,7 @@ export const TaskLog: React.FC<Props> = (props): JSX.Element => {
     variables: { id },
     pollInterval,
   });
-  usePollMonitor(startPolling, stopPolling);
+  useNetworkStatus(startPolling, stopPolling);
 
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
