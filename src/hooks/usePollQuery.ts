@@ -30,6 +30,7 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
 } => {
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
+  const [prevOffline, setPrevOffline] = useState<boolean>(isOffline); // This is used to keep track if we transitioned from offline to online
   // this variable is true when query variables have changed and the query is loading
   // this means the user interacted with the table/list filters, sort, or page
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
@@ -102,8 +103,26 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   useEffect(() => {
     if (isOffline) {
       clearInterval(intervalId);
+    } else if (prevOffline !== isOffline) {
+      clearInterval(intervalId);
+      pollQuery({
+        search,
+        resourceId,
+        refetch,
+        setIntervalId,
+        getQueryVariables,
+      });
+      setPrevOffline(isOffline);
     }
-  }, [isOffline]); // eslint-disable-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isOffline,
+    search,
+    resourceId,
+    refetch,
+    setIntervalId,
+    getQueryVariables,
+  ]);
   return {
     showSkeleton: queryVarDiffOccured,
   };

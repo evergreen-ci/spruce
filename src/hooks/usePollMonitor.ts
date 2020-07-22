@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import { pollInterval } from "constants/index";
 
-interface UsePollMonitorType {
+type UsePollMonitorType = {
   (
     startPolling?: (pollInterval: number) => void,
     stopPolling?: () => void
   ): boolean;
-}
+};
 
 /** This hook sets a eventListener to monitor if the browser is offline
  *  Depending on the online status it calls start and stop polling functions supplied

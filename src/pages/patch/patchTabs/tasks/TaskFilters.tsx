@@ -1,5 +1,9 @@
-import React, { useEffect } from "react";
-import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
+import React from "react";
+import {
+  useFilterInputChangeHandler,
+  useStatusesFilter,
+  usePollMonitor,
+} from "hooks";
 import Icon from "@leafygreen-ui/icon";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { TreeSelect } from "components/TreeSelect";
@@ -15,6 +19,7 @@ import {
 import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 import { usePatchAnalytics } from "analytics";
+import { pollInterval } from "constants/index";
 
 export const TaskFilters: React.FC = () => {
   const patchAnalytics = usePatchAnalytics();
@@ -50,12 +55,11 @@ export const TaskFilters: React.FC = () => {
 
   // fetch and poll patch's task statuses so statuses filters only show statuses relevant to the patch
   const { id } = useParams<{ id: string }>();
-  const { data, stopPolling } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     GetPatchTaskStatusesQuery,
     GetPatchTaskStatusesQueryVariables
-  >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval: 5000 });
-  useEffect(() => stopPolling, [stopPolling]);
-
+  >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval });
+  usePollMonitor(startPolling, stopPolling);
   const statuses = get(data, "patch.taskStatuses", []);
   const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 

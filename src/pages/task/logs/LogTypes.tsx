@@ -31,6 +31,8 @@ import styled from "@emotion/styled";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Button } from "components/Button";
 import { useTaskAnalytics } from "analytics";
+import { usePollMonitor } from "hooks";
+import { pollInterval } from "constants/index";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -54,13 +56,14 @@ interface Props {
 }
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     EventLogsQuery,
     EventLogsQueryVariables
   >(GET_EVENT_LOGS, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
   });
+  usePollMonitor(startPolling, stopPolling);
   return useRenderBody({
     data: get(data, "taskLogs.eventLogs", []).map((v: TaskEventLogEntry) => ({
       ...v,
@@ -75,13 +78,15 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
 
 export const SystemLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
   });
+  usePollMonitor(startPolling, stopPolling);
+
   return useRenderBody({
     data: get(data, "taskLogs.systemLogs", []),
     loading,
@@ -92,13 +97,15 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
 
 export const AgentLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
   });
+  usePollMonitor(startPolling, stopPolling);
+
   return useRenderBody({
     data: get(data, "taskLogs.agentLogs", []),
     loading,
@@ -109,13 +116,15 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
 
 export const TaskLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
   });
+  usePollMonitor(startPolling, stopPolling);
+
   return useRenderBody({
     data: get(data, "taskLogs.taskLogs", []),
     loading,
