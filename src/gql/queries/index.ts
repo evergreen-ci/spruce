@@ -21,3 +21,4 @@ export { GET_CLIENT_CONFIG } from "./get-client-config";
 export { GET_PATCH_TASK_STATUSES } from "./get-patch-task-statuses";
 export { AWS_REGIONS } from "./aws-regions";
 export { GET_SITE_BANNER } from "./get-site-banner";
+export { HOSTS } from "./hosts";

@@ -94,6 +94,35 @@ export type GroupedProjects = {
   projects: Array<Project>;
 };
 
+export type Host = {
+  id: Scalars["ID"];
+  hostUrl: Scalars["String"];
+  distroId?: Maybe<Scalars["String"]>;
+  status: Scalars["String"];
+  runningTask?: Maybe<TaskInfo>;
+  totalIdleTime?: Maybe<Scalars["Duration"]>;
+  uptime?: Maybe<Scalars["Time"]>;
+  elapsed?: Maybe<Scalars["Time"]>;
+  startedBy: Scalars["String"];
+};
+
+export enum HostSortBy {
+  Id = "ID",
+  Distro = "DISTRO",
+  CurrentTask = "CURRENT_TASK",
+  Status = "STATUS",
+  Elapsed = "ELAPSED",
+  Uptime = "UPTIME",
+  IdleTime = "IDLE_TIME",
+  Owner = "OWNER",
+}
+
+export type HostsResponse = {
+  filteredHostsCount?: Maybe<Scalars["Int"]>;
+  totalHostsCount: Scalars["Int"];
+  hosts: Array<Host>;
+};
+
 export type LogMessage = {
   type?: Maybe<Scalars["String"]>;
   severity?: Maybe<Scalars["String"]>;
@@ -328,6 +357,7 @@ export type Query = {
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   siteBanner: SiteBanner;
+  hosts: HostsResponse;
 };
 
 export type QueryUserPatchesArgs = {
@@ -386,6 +416,18 @@ export type QueryPatchBuildVariantsArgs = {
 
 export type QueryCommitQueueArgs = {
   id: Scalars["String"];
+};
+
+export type QueryHostsArgs = {
+  hostId?: Maybe<Scalars["String"]>;
+  distroId?: Maybe<Scalars["String"]>;
+  currentTaskId?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  startedBy?: Maybe<Scalars["String"]>;
+  sortBy?: Maybe<HostSortBy>;
+  sortDir?: Maybe<SortDirection>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
 export type RecentTaskLogs = {
@@ -508,6 +550,11 @@ export type TaskEventLogEntry = {
 export type TaskFiles = {
   fileCount: Scalars["Int"];
   groupedFiles: Array<GroupedFiles>;
+};
+
+export type TaskInfo = {
+  id?: Maybe<Scalars["ID"]>;
+  name?: Maybe<Scalars["String"]>;
 };
 
 export type TaskLogLinks = {
@@ -1070,6 +1117,28 @@ export type GetUserSettingsQuery = {
 export type GetUserQueryVariables = {};
 
 export type GetUserQuery = { user: { userId: string; displayName: string } };
+
+export type HostsQueryVariables = {
+  hostId?: Maybe<Scalars["String"]>;
+};
+
+export type HostsQuery = {
+  hosts: {
+    filteredHostsCount?: Maybe<number>;
+    totalHostsCount: number;
+    hosts: Array<{
+      id: string;
+      distroId?: Maybe<string>;
+      status: string;
+      startedBy: string;
+      hostUrl: string;
+      totalIdleTime?: Maybe<number>;
+      uptime?: Maybe<Date>;
+      elapsed?: Maybe<Date>;
+      runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+    }>;
+  };
+};
 
 export type UserPatchesQueryVariables = {
   page?: Maybe<Scalars["Int"]>;
