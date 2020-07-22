@@ -1,7 +1,10 @@
 import SchemaLink from "apollo-link-schema";
+import fetch from "unfetch";
 import { HttpLink } from "apollo-link-http";
 import ApolloClient from "apollo-client";
 import { getClientLink, getGQLClient } from "./GQLWrapper";
+
+window.fetch = fetch;
 
 const schema = `
   type Patch {
