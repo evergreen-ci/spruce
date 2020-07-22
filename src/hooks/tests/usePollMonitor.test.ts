@@ -1,6 +1,5 @@
 import { fireEvent } from "@testing-library/dom";
 import { renderHook, act } from "@testing-library/react-hooks";
-
 import { usePollMonitor } from "hooks";
 
 test("usePollMonitor should return online when the users browser is online and polling to not have been interrupted", () => {
