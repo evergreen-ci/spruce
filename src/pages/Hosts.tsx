@@ -18,12 +18,19 @@ import {
 } from "context/banners";
 import { H2 } from "@leafygreen-ui/typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
-import { Host, HostsQuery, HostsQueryVariables } from "gql/generated/types";
+import {
+  Host,
+  HostsQuery,
+  HostsQueryVariables,
+  HostSortBy,
+  SortDirection,
+} from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { formatDistanceToNow } from "date-fns";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { validateLimit, validatePage } from "utils/url";
+import { parseQueryString, getArray, getString } from "utils";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
@@ -105,11 +112,37 @@ const Hosts: React.FC = () => {
   );
 };
 
-const getQueryVariables = (search: string): HostsQueryVariables => ({
-  hostId: null,
-  page: getPageFromSearch(search),
-  limit: getLimitFromSearch(search),
-});
+type QueryParam = keyof HostsQueryVariables;
+
+const getQueryVariables = (search: string): HostsQueryVariables => {
+  const {
+    hostId,
+    distroId,
+    currentTaskId,
+    statuses,
+    startedBy,
+    sortBy,
+    sortDir,
+    page,
+    limit,
+  } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
+
+  const vars = {
+    hostId: getString(hostId),
+    distroId: getString(distroId),
+    currentTaskId: getString(currentTaskId),
+    statuses: getArray(statuses),
+    startedBy: getString(startedBy),
+    sortBy: getString(sortBy) as HostSortBy,
+    sortDir: getString(sortDir) as SortDirection,
+    page: validatePage(page),
+    limit: validateLimit(limit),
+  };
+
+  console.log("vars :>> ", vars);
+
+  return vars;
+};
 
 enum TableColumnHeader {
   Id = "ID",
