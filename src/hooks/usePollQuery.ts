@@ -1,12 +1,13 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
+import { ApolloQueryResult } from "apollo-client";
 import {
   isNetworkRequestInFlight,
   NetworkStatus,
 } from "apollo-client/core/networkStatus";
-import { usePrevious } from "hooks";
 import { useParams } from "react-router-dom";
-import { ApolloQueryResult } from "apollo-client";
 import isEqual from "lodash.isequal";
+import { pollInterval } from "constants/index";
+import { usePrevious } from "hooks";
 
 interface Params<ApolloQueryVariables, ApolloQueryResultType> {
   networkStatus: NetworkStatus;
@@ -15,6 +16,7 @@ interface Params<ApolloQueryVariables, ApolloQueryResultType> {
     variables?: ApolloQueryVariables
   ) => Promise<ApolloQueryResult<ApolloQueryResultType>>;
   search: string;
+  isOffline?: boolean;
 }
 
 export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
@@ -22,12 +24,13 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
   getQueryVariables,
   refetch,
   search,
+  isOffline,
 }: Params<ApolloQueryVariables, ApolloQueryResultType>): {
   showSkeleton: boolean;
 } => {
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
-
+  const [prevOffline, setPrevOffline] = useState<boolean>(isOffline); // This is used to keep track if we transitioned from offline to online
   // this variable is true when query variables have changed and the query is loading
   // this means the user interacted with the table/list filters, sort, or page
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);
@@ -96,12 +99,34 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
     search,
   ]);
 
+  // Responsible for clearing the refresh interval if the browser is offline
+  useEffect(() => {
+    if (isOffline) {
+      clearInterval(intervalId);
+    } else if (prevOffline !== isOffline) {
+      clearInterval(intervalId);
+      pollQuery({
+        search,
+        resourceId,
+        refetch,
+        setIntervalId,
+        getQueryVariables,
+      });
+      setPrevOffline(isOffline);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isOffline,
+    search,
+    resourceId,
+    refetch,
+    setIntervalId,
+    getQueryVariables,
+  ]);
   return {
     showSkeleton: queryVarDiffOccured,
   };
 };
-
-const pollInterval = 5000;
 
 interface PollQueryParams<ApolloQueryVariables, ApolloQueryResultType> {
   resourceId: string;
