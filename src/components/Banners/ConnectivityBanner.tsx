@@ -4,7 +4,7 @@ import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useNetworkStatus } from "hooks";
 
-const { red } = uiColors;
+const { yellow } = uiColors;
 export const ConnectivityBanner = () => {
   const isOffline = useNetworkStatus();
   return (
@@ -19,7 +19,7 @@ export const ConnectivityBanner = () => {
 const Banner = styled.div`
   transition: max-height 0.3s ease-in-out;
   align-items: center;
-  background-color: ${red.light2};
+  background-color: ${yellow.light3};
   display: flex;
   padding: 5px 15px;
   margin-bottom: 15px;
