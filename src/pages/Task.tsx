@@ -90,6 +90,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
+  const patchAuthor = data?.task.patchMetadata.author;
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   if (error) {
@@ -115,9 +116,10 @@ const TaskCore: React.FC = () => {
       />
       {task && (
         <BreadCrumb
+          patchAuthor={patchAuthor}
+          patchNumber={patchNumber}
           taskName={displayName}
           versionId={version}
-          patchNumber={patchNumber}
         />
       )}
       <PageTitle

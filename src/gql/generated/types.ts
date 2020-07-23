@@ -406,6 +406,10 @@ export type QueryTaskFilesArgs = {
   execution?: Maybe<Scalars["Int"]>;
 };
 
+export type QueryUserArgs = {
+  userId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
 };
@@ -1117,6 +1121,15 @@ export type GetUserSettingsQuery = {
 export type GetUserQueryVariables = {};
 
 export type GetUserQuery = { user: { userId: string; displayName: string } };
+
+export type GetOtherUserQueryVariables = {
+  userId?: Maybe<Scalars["String"]>;
+};
+
+export type GetOtherUserQuery = {
+  otherUser: { userId: string; displayName: string };
+  currentUser: { userId: string };
+};
 
 export type HostsQueryVariables = {
   hostId?: Maybe<Scalars["String"]>;

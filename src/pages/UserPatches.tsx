@@ -17,7 +17,12 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler, usePollQuery, usePageTitle } from "hooks";
+import {
+  useFilterInputChangeHandler,
+  usePollQuery,
+  usePageTitle,
+  useGetUserPatchesPageTitleAndLink,
+} from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -69,7 +74,8 @@ const UserPatchesComponent: React.FC = () => {
     refetch,
     search,
   });
-  usePageTitle("My Patches");
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
+  usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify(
@@ -117,7 +123,7 @@ const UserPatchesComponent: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle>My Patches</PageTitle>
+      <PageTitle>{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput
