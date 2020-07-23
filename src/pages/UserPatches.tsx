@@ -20,6 +20,7 @@ import { useQuery } from "@apollo/react-hooks";
 import {
   useFilterInputChangeHandler,
   usePollQuery,
+  useNetworkStatus,
   usePageTitle,
   useGetUserPatchesPageTitleAndLink,
 } from "hooks";
@@ -68,11 +69,13 @@ const UserPatchesComponent: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+  const isOffline = useNetworkStatus();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
+    isOffline,
   });
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   usePageTitle(pageTitle);

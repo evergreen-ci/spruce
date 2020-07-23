@@ -3,13 +3,14 @@ import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfL
 import { useEffect, useRef } from "react";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
-import { useLegacyUIURL } from "hooks/useLegacyUIURL";
 import { useNotificationModal } from "hooks/useNotificationModal";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
-import { usePageTitle } from "hooks/usePageTitle";
 import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 import { usePollQuery } from "hooks/usePollQuery";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
+import { useLegacyUIURL } from "hooks/useLegacyUIURL";
+import { usePageTitle } from "hooks/usePageTitle";
+import { useNetworkStatus } from "hooks/useNetworkStatus";
 import { useStatusesFilter } from "hooks/useStatusesFilter";
 import { useTabs } from "hooks/useTabs";
 
@@ -33,6 +34,7 @@ export {
   usePatchStatusSelect,
   usePollQuery,
   useSetColumnDefaultSortOrder,
+  useNetworkStatus,
   useStatusesFilter,
   useTabs,
 };
