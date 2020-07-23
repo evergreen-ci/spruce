@@ -40,6 +40,7 @@ const Hosts: React.FC = () => {
     getQueryVariables(search)
   );
 
+  // HOSTS QUERY
   const { data: hostsData, networkStatus, refetch } = useQuery<
     HostsQuery,
     HostsQueryVariables
@@ -48,6 +49,7 @@ const Hosts: React.FC = () => {
     notifyOnNetworkStatusChange: true,
   });
 
+  // REFETCH HOSTS QUERY IF SEARCH CHANGES
   useEffect(() => {
     if (searchChanged) {
       refetch(getQueryVariables(search));
