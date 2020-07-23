@@ -27,6 +27,7 @@ export const usePollQuery = <ApolloQueryVariables, ApolloQueryResultType>({
 } => {
   const { id: resourceId } = useParams<{ id: string }>();
   const [intervalId, setIntervalId] = useState<number>();
+
   // this variable is true when query variables have changed and the query is loading
   // this means the user interacted with the table/list filters, sort, or page
   const [queryVarDiffOccured, setQueryVarDiffOccured] = useState(false);

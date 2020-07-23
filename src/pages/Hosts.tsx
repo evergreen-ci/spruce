@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Skeleton } from "antd";
 import { useQuery } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
@@ -21,18 +21,20 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { Host, HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
+import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { formatDistanceToNow } from "date-fns";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
-import styled from "@emotion/styled/macro";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
   const { search } = useLocation();
+  const prevSearch = usePrevious<string>(search);
+  const searchChanged = search !== prevSearch;
 
   const [initialQueryVariables] = useState<HostsQueryVariables>(
     getQueryVariables(search)
@@ -44,8 +46,13 @@ const Hosts: React.FC = () => {
   >(HOSTS, {
     variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
   });
+
+  useEffect(() => {
+    if (searchChanged) {
+      refetch(getQueryVariables(search));
+    }
+  }, [searchChanged, search, refetch]);
 
   const hosts = hostsData?.hosts;
   const hostItems = hosts?.hosts ?? [];
@@ -53,14 +60,9 @@ const Hosts: React.FC = () => {
 
   useDisableTableSortersIfLoading(networkStatus);
 
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-  });
-
   const { limit, page } = getQueryVariables(search);
+
+  const isLoading = isNetworkRequestInFlight(networkStatus);
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -71,8 +73,8 @@ const Hosts: React.FC = () => {
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
-          <div>Showing 384</div>
-          <StyledTableControlInnerRow>
+          <div>{/** TODO: Put filtered host count here */}</div>
+          <TableControlInnerRow>
             <Pagination
               dataTestId="tasks-table-pagination"
               pageSize={limit}
@@ -83,9 +85,9 @@ const Hosts: React.FC = () => {
               dataTestId="tasks-table-page-size-selector"
               value={limit}
             />
-          </StyledTableControlInnerRow>
+          </TableControlInnerRow>
         </TableControlOuterRow>
-        <TableContainer hide={showSkeleton}>
+        <TableContainer hide={isLoading}>
           <Table
             data-test-id="tasks-table"
             rowKey={rowKey}
@@ -95,15 +97,12 @@ const Hosts: React.FC = () => {
             onChange={() => undefined}
           />
         </TableContainer>
-        {showSkeleton && (
-          <Skeleton active title={false} paragraph={{ rows: 8 }} />
-        )}
+        {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>
     </PageWrapper>
   );
 };
 
-// TODO: include query parameters
 const getQueryVariables = (search: string): HostsQueryVariables => ({
   hostId: null,
   page: getPageFromSearch(search),
@@ -207,7 +206,3 @@ const rowKey = ({ id }: { id: string }): string => id;
 const HostsWithBannersContext = withBannersContext(Hosts);
 
 export { HostsWithBannersContext as Hosts };
-
-const StyledTableControlInnerRow = styled(TableControlInnerRow)`
-  justify-content: flex-end;
-`;
