@@ -8,10 +8,10 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
   StyledRouterLink,
+  PageWrapper,
 } from "components/styles";
 import { withBannersContext } from "hoc/withBannersContext";
 import { Banners } from "components/Banners";
-import { PageWrapper } from "components/styles";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -29,7 +29,7 @@ import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { formatDistanceToNow } from "date-fns";
-import { validateLimit, validatePage } from "utils/url";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { parseQueryString, getArray, getString } from "utils";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -65,11 +65,23 @@ const Hosts: React.FC = () => {
 
   const hosts = hostsData?.hosts;
   const hostItems = hosts?.hosts ?? [];
-  const totalHostsCount = hosts?.totalHostsCount;
+  const totalHostsCount = hosts?.totalHostsCount ?? 0;
+  const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
   useDisableTableSortersIfLoading(networkStatus);
 
-  const { limit, page } = getQueryVariables(search);
+  const {
+    limit,
+    page,
+    hostId,
+    currentTaskId,
+    distroId,
+    statuses,
+    startedBy,
+  } = getQueryVariables(search);
+
+  const hasFilters =
+    hostId || currentTaskId || distroId || statuses || startedBy;
 
   const isLoading = isNetworkRequestInFlight(networkStatus);
 
@@ -82,7 +94,9 @@ const Hosts: React.FC = () => {
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
-          <div>{/** TODO: Put filtered host count here */}</div>
+          <div data-cy="filtered-hosts-count">
+            {hasFilters && `Showing ${filteredHostCount} of ${totalHostsCount}`}
+          </div>
           <TableControlInnerRow>
             <Pagination
               dataTestId="tasks-table-pagination"
@@ -114,6 +128,22 @@ const Hosts: React.FC = () => {
 
 type QueryParam = keyof HostsQueryVariables;
 
+const getSortBy = (sortByParam: string | string[] = ""): HostSortBy => {
+  const sortBy = getString(sortByParam) as HostSortBy;
+
+  return Object.values(HostSortBy).includes(sortBy)
+    ? sortBy
+    : HostSortBy.Status;
+};
+
+const getSortDir = (sortDirParam: string | string[]): SortDirection => {
+  const sortDir = getString(sortDirParam) as SortDirection;
+
+  return Object.values(SortDirection).includes(sortDir)
+    ? sortDir
+    : SortDirection.Asc;
+};
+
 const getQueryVariables = (search: string): HostsQueryVariables => {
   const {
     hostId,
@@ -123,25 +153,19 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
     startedBy,
     sortBy,
     sortDir,
-    page,
-    limit,
   } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
 
-  const vars = {
+  return {
     hostId: getString(hostId),
     distroId: getString(distroId),
     currentTaskId: getString(currentTaskId),
     statuses: getArray(statuses),
     startedBy: getString(startedBy),
-    sortBy: getString(sortBy) as HostSortBy,
-    sortDir: getString(sortDir) as SortDirection,
-    page: validatePage(page),
-    limit: validateLimit(limit),
+    sortBy: getSortBy(sortBy),
+    sortDir: getSortDir(sortDir),
+    page: getPageFromSearch(search),
+    limit: getLimitFromSearch(search),
   };
-
-  console.log("vars :>> ", vars);
-
-  return vars;
 };
 
 enum TableColumnHeader {
