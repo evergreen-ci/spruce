@@ -1,17 +1,18 @@
-import { useEffect, useRef } from "react";
-import { useTabs } from "hooks/useTabs";
 import { useDefaultPath } from "hooks/useDefaultPath";
 import { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfLoading";
-import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { useEffect, useRef } from "react";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
-import { useStatusesFilter } from "hooks/useStatusesFilter";
-import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
+import { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 import { useNotificationModal } from "hooks/useNotificationModal";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
+import { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
 import { usePollQuery } from "hooks/usePollQuery";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { useLegacyUIURL } from "hooks/useLegacyUIURL";
 import { usePageTitle } from "hooks/usePageTitle";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
+import { useStatusesFilter } from "hooks/useStatusesFilter";
+import { useTabs } from "hooks/useTabs";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
@@ -22,17 +23,18 @@ export const usePrevious = <T>(state: T): T | undefined => {
 };
 
 export {
-  useTabs,
   useDefaultPath,
   useDisableTableSortersIfLoading,
-  useOnClickOutside,
   useFilterInputChangeHandler,
-  useStatusesFilter,
-  usePatchStatusSelect,
+  useGetUserPatchesPageTitleAndLink,
+  useLegacyUIURL,
   useNotificationModal,
+  useOnClickOutside,
+  usePageTitle,
+  usePatchStatusSelect,
   usePollQuery,
   useSetColumnDefaultSortOrder,
-  useLegacyUIURL,
-  usePageTitle,
   useNetworkStatus,
+  useStatusesFilter,
+  useTabs,
 };

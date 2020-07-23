@@ -22,6 +22,7 @@ import {
   usePollQuery,
   useNetworkStatus,
   usePageTitle,
+  useGetUserPatchesPageTitleAndLink,
 } from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
@@ -76,7 +77,8 @@ const UserPatchesComponent: React.FC = () => {
     search,
     isOffline,
   });
-  usePageTitle("My Patches");
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
+  usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify(
@@ -124,7 +126,7 @@ const UserPatchesComponent: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle>My Patches</PageTitle>
+      <PageTitle>{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput
