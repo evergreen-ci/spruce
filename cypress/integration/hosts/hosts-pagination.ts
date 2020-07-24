@@ -2,8 +2,6 @@ import { defaultHostsFirstPage } from "./hosts-page-default";
 
 const hostsQuery = "Hosts";
 
-const prevPageButton = ".ant-pagination-prev";
-const nextPageButton = ".ant-pagination-next";
 const tableRow = "tr.ant-table-row";
 
 describe("Hosts Page", () => {
@@ -14,22 +12,6 @@ describe("Hosts Page", () => {
   beforeEach(() => {
     cy.preserveCookies();
     cy.listenGQL();
-  });
-
-  it("Clicking on next and previous pagination buttons shows respective data for that page", () => {
-    cy.visit("/hosts");
-
-    cy.get(nextPageButton).click();
-    cy.waitForGQL(hostsQuery);
-    cy.get(tableRow).each(($el, index) =>
-      cy.wrap($el).contains(hostsSecondPageWithLimitOfTen[index])
-    );
-
-    cy.get(prevPageButton).click();
-    cy.waitForGQL(hostsQuery);
-    cy.get(tableRow).each(($el, index) =>
-      cy.wrap($el).contains(defaultHostsFirstPage[index])
-    );
   });
 
   it("URL query parameters determine pagination values", () => {
@@ -65,13 +47,3 @@ const hostsSecondPageWithLimitOfTen = [
   "i-0f81a2d39744003",
   "i-0f81a2d39744003d",
 ];
-
-// const hostsThirdPageWithLimitOfTen = [
-//   "i-0f81a2d39744003dd",
-//   "rhel71-ppc-1.pic.build.10gen",
-//   "rhel71-ppc-1.pic.build.10gen.c",
-//   "rhel71-ppc-1.pic.build.10gen.cc",
-//   "ubuntu1604-ppc-1.pic.build.10gen",
-//   "ubuntu1604-ppc-1.pic.build.10gen.c",
-//   "ubuntu1604-ppc-1.pic.build.10gen.cc",
-// ];
