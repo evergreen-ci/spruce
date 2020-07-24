@@ -9,7 +9,7 @@ describe("Page Size Selector", () => {
     cy.preserveCookies();
   });
 
-  it("The selected page size will be save to local storage upon selection", () => {
+  it("The selected page size will be saved to local storage upon selection", () => {
     cy.wrap(ROUTES).each(({ route, dataTestId }) => {
       cy.visit(route);
       cy.wrap(PAGE_SIZES).each((pageSize) => {
@@ -23,7 +23,20 @@ describe("Page Size Selector", () => {
     });
   });
 
-  it("The page size selector will default to the 'recentPageSize' value stored in local storage when a valid 'recentPageSize' value exists in local storage a valid limit query param does not exist in the URL", () => {
+  it("The page size selector will default to the limit query param in the URL when it exists. This value has the highest priority and overrides the value in local storage.", () => {
+    cy.wrap(PAGE_SIZES).each((pageSize) => {
+      cy.wrap(ROUTES).each(({ route, dataTestId }) => {
+        // shows that URL limit value is higher priority than value in local storage
+        localStorage.setItem(LOCAL_STORAGE_KEY, "100");
+        cy.visit(`${route}?limit=${pageSize}`);
+        cy.dataTestId(dataTestId)
+          .contains(`${pageSize} / page`)
+          .should("exist");
+      });
+    });
+  });
+
+  it("Page size selector defaults to the value local in storage when a limit is not provided in the URL. ", () => {
     cy.wrap(PAGE_SIZES).each((pageSize) => {
       cy.wrap(ROUTES).each(({ route, dataTestId }) => {
         localStorage.setItem(LOCAL_STORAGE_KEY, `${pageSize}`);
@@ -35,24 +48,13 @@ describe("Page Size Selector", () => {
     });
   });
 
-  it("The page size selector will default to a page size of 10 when the 'recentPageSize' value in local storage doesn't exist and a valid limit query param does not exist the URL", () => {
+  it("Page size selector defaults to 10 when no page size value exists in local storage or in the URL.", () => {
     cy.wrap(ROUTES).each(({ route, dataTestId }) => {
       localStorage.clear();
       cy.visit(route);
       cy.dataTestId(dataTestId)
         .contains(`10 / page`)
         .should("exist");
-    });
-  });
-
-  it("The page size selector will default to the 'limit' query param in the URL when it exists and is valid", () => {
-    cy.wrap(PAGE_SIZES).each((pageSize) => {
-      cy.wrap(ROUTES).each(({ route, dataTestId }) => {
-        cy.visit(`${route}?limit=${pageSize}`);
-        cy.dataTestId(dataTestId)
-          .contains(`${pageSize} / page`)
-          .should("exist");
-      });
     });
   });
 
