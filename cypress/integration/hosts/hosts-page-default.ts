@@ -37,10 +37,6 @@ describe("Hosts Page Default", () => {
           .and("eq", `/task/${taskId}`);
       });
   });
-
-  // test sorting
-  // clicking on table header sorts hosts in ascending and descending order
-  // url param is updated with sortBy and sortDirection values
 });
 
 export const defaultHostsFirstPage = [
