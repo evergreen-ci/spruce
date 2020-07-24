@@ -38,11 +38,6 @@ describe("Hosts Page Default", () => {
       });
   });
 
-  // test filtering
-  // for each of the filterable headers, i click on a filter, input filter, and filtered hosts are rendered
-  // i can reset the filter
-  // url params are updated to reflect filter values
-
   // test sorting
   // clicking on table header sorts hosts in ascending and descending order
   // url param is updated with sortBy and sortDirection values
