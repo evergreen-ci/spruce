@@ -81,7 +81,7 @@ const Hosts: React.FC = () => {
   } = getQueryVariables(search);
 
   const hasFilters =
-    hostId || currentTaskId || distroId || statuses || startedBy;
+    hostId || currentTaskId || distroId || statuses.length || startedBy;
 
   const isLoading = isNetworkRequestInFlight(networkStatus);
 
@@ -102,7 +102,7 @@ const Hosts: React.FC = () => {
               dataTestId="tasks-table-pagination"
               pageSize={limit}
               value={page}
-              totalResults={totalHostsCount}
+              totalResults={hasFilters ? filteredHostCount : totalHostsCount}
             />
             <PageSizeSelector
               dataTestId="tasks-table-page-size-selector"
