@@ -1,8 +1,8 @@
 import gql from "graphql-tag";
 
 export const HOSTS = gql`
-  query Hosts($hostId: String) {
-    hosts(hostId: $hostId) {
+  query Hosts($hostId: String, $page: Int, $limit: Int) {
+    hosts(hostId: $hostId, page: $page, limit: $limit) {
       filteredHostsCount
       totalHostsCount
       hosts {

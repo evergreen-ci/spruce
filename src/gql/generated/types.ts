@@ -1133,6 +1133,8 @@ export type GetOtherUserQuery = {
 
 export type HostsQueryVariables = {
   hostId?: Maybe<Scalars["String"]>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
 export type HostsQuery = {

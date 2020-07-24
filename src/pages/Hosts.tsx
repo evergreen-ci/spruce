@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Skeleton } from "antd";
 import { useQuery } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
@@ -21,32 +21,50 @@ import { ErrorBoundary } from "components/ErrorBoundary";
 import { Host, HostsQuery, HostsQueryVariables } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
+import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { formatDistanceToNow } from "date-fns";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { Pagination } from "components/Pagination";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
+  const { search } = useLocation();
+  const prevSearch = usePrevious<string>(search);
+  const searchChanged = search !== prevSearch;
+
+  const [initialQueryVariables] = useState<HostsQueryVariables>(
+    getQueryVariables(search)
+  );
+
+  // HOSTS QUERY
   const { data: hostsData, networkStatus, refetch } = useQuery<
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: { hostId: null },
+    variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
   });
+
+  // REFETCH HOSTS QUERY IF SEARCH CHANGES
+  useEffect(() => {
+    if (searchChanged) {
+      refetch(getQueryVariables(search));
+    }
+  }, [searchChanged, search, refetch]);
+
+  const hosts = hostsData?.hosts;
+  const hostItems = hosts?.hosts ?? [];
+  const totalHostsCount = hosts?.totalHostsCount;
 
   useDisableTableSortersIfLoading(networkStatus);
 
-  const { search } = useLocation();
+  const { limit, page } = getQueryVariables(search);
 
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-  });
+  const isLoading = isNetworkRequestInFlight(networkStatus);
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -57,31 +75,40 @@ const Hosts: React.FC = () => {
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
+          <div>{/** TODO: Put filtered host count here */}</div>
           <TableControlInnerRow>
-            {/** TODO: Put pagination here */}
+            <Pagination
+              dataTestId="tasks-table-pagination"
+              pageSize={limit}
+              value={page}
+              totalResults={totalHostsCount}
+            />
+            <PageSizeSelector
+              dataTestId="tasks-table-page-size-selector"
+              value={limit}
+            />
           </TableControlInnerRow>
         </TableControlOuterRow>
-        <TableContainer hide={showSkeleton}>
+        <TableContainer hide={isLoading}>
           <Table
             data-test-id="tasks-table"
             rowKey={rowKey}
             pagination={false}
             columns={columnsTemplate}
-            dataSource={hostsData?.hosts?.hosts ?? []}
+            dataSource={hostItems}
             onChange={() => undefined}
           />
         </TableContainer>
-        {showSkeleton && (
-          <Skeleton active title={false} paragraph={{ rows: 8 }} />
-        )}
+        {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>
     </PageWrapper>
   );
 };
 
-// TODO: include query parameters
-const getQueryVariables = (): HostsQueryVariables => ({
+const getQueryVariables = (search: string): HostsQueryVariables => ({
   hostId: null,
+  page: getPageFromSearch(search),
+  limit: getLimitFromSearch(search),
 });
 
 enum TableColumnHeader {
