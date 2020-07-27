@@ -2,6 +2,7 @@ import React from "react";
 import { Input, Icon } from "antd";
 import { Button } from "components/Button";
 import { TreeDataEntry, renderCheckboxes } from "components/TreeSelect";
+import styled from "@emotion/styled";
 
 interface SearchFilterParams {
   dataCy: string;
@@ -21,20 +22,24 @@ export const getColumnSearchFilterProps = ({
   resetUrlParam,
 }: SearchFilterParams) => ({
   filterDropdown: () => (
-    <div style={{ padding: 8 }}>
+    <FilterWrapper>
       <Input
         data-cy={dataCy}
         placeholder={placeholder}
         value={value}
         onChange={onChange}
       />
-      <Button size="small" onClick={resetUrlParam}>
-        Reset
-      </Button>
-      <Button size="small" variant="primary" onClick={updateUrlParam}>
-        Search
-      </Button>
-    </div>
+      <ButtonsWrapper>
+        <ButtonWrapper>
+          <Button size="small" onClick={resetUrlParam}>
+            Reset
+          </Button>
+        </ButtonWrapper>
+        <Button size="small" variant="primary" onClick={updateUrlParam}>
+          Search
+        </Button>
+      </ButtonsWrapper>
+    </FilterWrapper>
   ),
   filterIcon: () => (
     <Icon type="search" style={{ color: value ? "#1890ff" : undefined }} />
@@ -60,20 +65,24 @@ export const getColumnTreeSelectFilterProps = <
   resetUrlParam,
 }: TreeSelectFilterParams<TreeData>) => ({
   filterDropdown: () => (
-    <div style={{ padding: 8 }}>
+    <FilterWrapper>
       {renderCheckboxes({
         tData: statuses,
         state: value,
         onChange,
         hasParent: false,
       })}
-      <Button onClick={resetUrlParam} size="small">
-        Reset
-      </Button>
-      <Button size="small" variant="primary" onClick={updateUrlParam}>
-        Search
-      </Button>
-    </div>
+      <ButtonsWrapper>
+        <ButtonWrapper>
+          <Button onClick={resetUrlParam} size="small">
+            Reset
+          </Button>
+        </ButtonWrapper>
+        <Button size="small" variant="primary" onClick={updateUrlParam}>
+          Search
+        </Button>
+      </ButtonsWrapper>
+    </FilterWrapper>
   ),
   filterIcon: () => (
     <Icon
@@ -82,3 +91,16 @@ export const getColumnTreeSelectFilterProps = <
     />
   ),
 });
+
+const FilterWrapper = styled.div`
+  padding: 12px;
+`;
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-end;
+  margin-top: 32px;
+`;
+const ButtonWrapper = styled.div`
+  margin-right: 8px;
+`;
