@@ -1,6 +1,10 @@
 import React from "react";
 import { NotificationModal } from "components/NotificationModal";
-import { SubscriptionMethods, Trigger } from "hooks/useNotificationModal";
+import {
+  SubscriptionMethods,
+  Trigger,
+  RegexSelector,
+} from "hooks/useNotificationModal";
 import {
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
@@ -14,23 +18,23 @@ import {
   validateSlack,
 } from "utils/validators";
 import { useParams } from "react-router-dom";
-import { useTaskAnalytics } from "analytics";
+import { usePatchAnalytics } from "analytics";
 
 interface ModalProps {
   visible: boolean;
   onCancel: () => void;
 }
 
-export const TaskNotificationModal: React.FC<ModalProps> = ({
+export const PatchNotificationModal: React.FC<ModalProps> = ({
   visible,
   onCancel,
 }) => {
   const { id: taskId } = useParams<{ id: string }>();
-  const taskAnalytics = useTaskAnalytics();
+  const patchAnalytics = usePatchAnalytics();
 
   return (
     <NotificationModal
-      data-cy="task-notification-modal"
+      data-cy="patch-notification-modal"
       visible={visible}
       onCancel={onCancel}
       triggers={triggers}
@@ -38,7 +42,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
-        taskAnalytics.sendEvent({ name: "Add Notification", subscription })
+        patchAnalytics.sendEvent({ name: "Add Notification", subscription })
       }
     />
   );
@@ -71,34 +75,45 @@ const subscriptionMethodDropdownOptions = [
   SUBSCRIPTION_EMAIL,
 ];
 
+const buildRegexSelectors: RegexSelector[] = [
+  {
+    type: "display-name",
+    typeLabel: "Build Variant Name",
+  },
+  {
+    type: "build-variant",
+    typeLabel: "Build Variant ID",
+  },
+];
+
 export const triggers: Trigger[] = [
   {
     trigger: "outcome",
-    label: "This task finishes",
-    resourceType: "TASK",
+    label: "This version finishes",
+    resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
-    label: "This task fails",
-    resourceType: "TASK",
+    label: "This version fails",
+    resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
-    label: "This task succeeds",
-    resourceType: "TASK",
+    label: "This version succeeds",
+    resourceType: "VERSION",
     payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
-    label: "The runtime for this task exceeds some duration",
-    resourceType: "TASK",
+    label: "The runtime for this version exceeds some duration",
+    resourceType: "VERSION",
     payloadResourceIdKey: "id",
     extraFields: [
       {
-        text: "Task duration (seconds)",
-        key: "task-duration-secs",
+        text: "Version duration (seconds)",
+        key: "version-duration-secs",
         dataCy: "duration-secs-input",
         validator: validateDuration,
       },
@@ -106,16 +121,37 @@ export const triggers: Trigger[] = [
   },
   {
     trigger: "runtime-change",
-    label: "This task succeeds and its runtime changes by some percentage",
-    resourceType: "TASK",
+    label: "The runtime for this version changes by some percentage",
+    resourceType: "VERSION",
     payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
-        key: "task-percent-change",
+        key: "version-percent-change",
         dataCy: "percent-change-input",
         validator: validatePercentage,
       },
     ],
+  },
+  {
+    trigger: "outcome",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "A build-variant in this version finishes",
+    regexSelectors: buildRegexSelectors,
+  },
+  {
+    trigger: "failure",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "A build-variant in this version fails",
+    regexSelectors: buildRegexSelectors,
+  },
+  {
+    trigger: "success",
+    resourceType: "BUILD",
+    payloadResourceIdKey: "in-version",
+    label: "A build-variant in this version succeeds",
+    regexSelectors: buildRegexSelectors,
   },
 ];

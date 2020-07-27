@@ -5,6 +5,7 @@ import get from "lodash/get";
 import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
+import { SaveSubscriptionMutationVariables } from "gql/generated/types";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -15,7 +16,12 @@ type Action =
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Click Task Square"; taskSquareStatus: string }
-  | { name: "Click Reconfigure Link" };
+  | { name: "Click Reconfigure Link" }
+  | { name: "Open Notification Modal" }
+  | {
+      name: "Add Notification";
+      subscription: SaveSubscriptionMutationVariables["subscription"];
+    };
 
 interface P extends Properties {
   patchId: string;
