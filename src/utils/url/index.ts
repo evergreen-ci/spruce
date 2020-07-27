@@ -18,3 +18,5 @@ export const getLimitFromSearch = (search: string): number => {
     ? limit
     : DEFAULT_PAGE_SIZE;
 };
+
+export { updateUrlQueryParam } from "./updateUrlQueryParam";

@@ -2,11 +2,7 @@ import { useEffect, useRef } from "react";
 
 export { useDefaultPath } from "hooks/useDefaultPath";
 export { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfLoading";
-export {
-  useFilterInputChangeHandler,
-  useInputFilter,
-  useTreeSelectFilter,
-} from "hooks/useFilterInputChangeHandler";
+export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useNotificationModal } from "hooks/useNotificationModal";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
@@ -18,6 +14,10 @@ export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
 export { useTabs } from "hooks/useTabs";
+export {
+  useTableInputFilter,
+  useTableTreeSelectFilter,
+} from "hooks/useTableFilters";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();

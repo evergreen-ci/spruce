@@ -6,7 +6,7 @@ import { Button } from "components/Button";
 import { formatDistanceToNow } from "date-fns";
 import { TreeDataEntry, renderCheckboxes } from "components/TreeSelect";
 import { StyledRouterLink } from "components/styles";
-import { useInputFilter, useTreeSelectFilter } from "hooks";
+import { useTableInputFilter, useTableTreeSelectFilter } from "hooks";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 
 interface Props {
@@ -33,7 +33,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeHostId,
     updateHostIdUrlParam,
     resetHostIdUrlParam,
-  ] = useInputFilter<HostsUrlParam>({
+  ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "hostId",
     sendAnalyticsEvent: () => undefined,
   });
@@ -44,7 +44,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeStatuses,
     updateStatusesUrlParam,
     resetStatusesUrlParam,
-  ] = useTreeSelectFilter<HostsUrlParam>({
+  ] = useTableTreeSelectFilter<HostsUrlParam>({
     urlSearchParam: "statuses",
     sendAnalyticsEvent: () => undefined,
   });
@@ -55,7 +55,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeDistroId,
     updateDistroIdUrlParam,
     resetDistroIdUrlParam,
-  ] = useInputFilter<HostsUrlParam>({
+  ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "distroId",
     sendAnalyticsEvent: () => undefined,
   });
@@ -66,7 +66,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeCurrentTaskId,
     updateCurrentTaskIdUrlParam,
     resetCurrentTaskIdUrlParam,
-  ] = useInputFilter<HostsUrlParam>({
+  ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "currentTaskId",
     sendAnalyticsEvent: () => undefined,
   });
@@ -77,7 +77,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeOwner,
     updateOwnerUrlParam,
     resetOwnerUrlParam,
-  ] = useInputFilter<HostsUrlParam>({
+  ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "startedBy",
     sendAnalyticsEvent: () => undefined,
   });
