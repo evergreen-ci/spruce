@@ -50,19 +50,6 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).should("have.length", 3);
     });
 
-    it("Clicking on Restart and then Schedule should produce an error banner", () => {
-      cy.visit(taskRoute1);
-      cy.dataCy("restart-task").click();
-      cy.dataCy("schedule-task").click();
-      cy.wait(200);
-      cy.dataCy(bannerDataCy).contains(scheduleErrorBannerText);
-    });
-
-    it("There should be 2 banners visible from the previous actions", () => {
-      cy.dataCy(bannerDataCy).should("have.length", 2);
-      cy.dataCy("ellipsis-btn").click();
-    });
-
     it("Visiting a different task page should clear all banners", () => {
       cy.visit(taskRoute2);
       cy.dataCy(bannerDataCy).should("have.length", 0);
@@ -77,7 +64,6 @@ describe("Task Action Buttons", () => {
   });
 });
 
-const scheduleErrorBannerText = "Error scheduling task: ";
 const prioritySuccessBannerText = "Priority for task updated to 99";
 const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
