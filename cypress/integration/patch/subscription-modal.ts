@@ -61,15 +61,6 @@ describe("Version Subscription Modal", () => {
       cy.dataCy("banner").contains("Your subscription has been added");
     });
 
-    it("First regex selector input should never have a delete button", () => {
-      openModal();
-      cy.dataTestId("trigger_6-option").click();
-      cy.dataCy("0-regex-selector-trash-container").should("not.exist");
-      cy.dataTestId("when-select").click();
-      cy.dataTestId("trigger_5-option").click();
-      cy.dataCy("0-regex-selector-trash-container").should("not.exist");
-    });
-
     it("Switching between Event types should either hide or reset regex selector inputs", () => {
       openModal();
       cy.dataTestId("trigger_5-option").click();

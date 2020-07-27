@@ -163,11 +163,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           <>
             <RegexSelectorInputContainer>
               {regexSelectorProps.map((props, i) => (
-                <RegexSelectorInput
-                  canDelete={i !== 0}
-                  dataCyPrefix={i}
-                  {...props}
-                />
+                <RegexSelectorInput canDelete dataCyPrefix={i} {...props} />
               ))}
             </RegexSelectorInputContainer>
             <Button
