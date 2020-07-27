@@ -1,13 +1,16 @@
 import React from "react";
 import { ColumnProps } from "antd/es/table";
-import { Table, Input, Icon } from "antd";
+import { Table } from "antd";
 import { Host, HostsQueryVariables } from "gql/generated/types";
-import { Button } from "components/Button";
 import { formatDistanceToNow } from "date-fns";
-import { TreeDataEntry, renderCheckboxes } from "components/TreeSelect";
 import { StyledRouterLink } from "components/styles";
 import { useTableInputFilter, useTableTreeSelectFilter } from "hooks";
 import { getHostRoute, getTaskRoute } from "constants/routes";
+import {
+  getColumnSearchFilterProps,
+  getColumnTreeSelectFilterProps,
+} from "utils/filters";
+import { statusesTreeData } from "constants/hosts";
 
 interface Props {
   hosts: Host[];
@@ -214,150 +217,5 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     />
   );
 };
-
-enum HostStatus {
-  Running = "running",
-  Terminated = "terminated",
-  Uninitialized = "initializing",
-  Building = "building",
-  Starting = "starting",
-  Provisioning = "provisioning",
-  ProvisionFailed = "provision failed",
-  Quarantined = "quarantined",
-  Decommissioned = "decommissioned",
-}
-
-export interface Status {
-  title: keyof typeof HostStatus;
-  value: HostStatus;
-  key: HostStatus;
-}
-
-const statusesTreeData: Status[] = [
-  {
-    title: "Running",
-    value: HostStatus.Running,
-    key: HostStatus.Running,
-  },
-  {
-    title: "Terminated",
-    value: HostStatus.Terminated,
-    key: HostStatus.Terminated,
-  },
-  {
-    title: "Uninitialized",
-    value: HostStatus.Uninitialized,
-    key: HostStatus.Uninitialized,
-  },
-
-  {
-    title: "Building",
-    value: HostStatus.Building,
-    key: HostStatus.Building,
-  },
-  {
-    title: "Starting",
-    value: HostStatus.Starting,
-    key: HostStatus.Starting,
-  },
-  {
-    title: "Provisioning",
-    value: HostStatus.Provisioning,
-    key: HostStatus.Provisioning,
-  },
-  {
-    title: "ProvisionFailed",
-    value: HostStatus.ProvisionFailed,
-    key: HostStatus.ProvisionFailed,
-  },
-  {
-    title: "Quarantined",
-    value: HostStatus.Quarantined,
-    key: HostStatus.Quarantined,
-  },
-  {
-    title: "Decommissioned",
-    value: HostStatus.Decommissioned,
-    key: HostStatus.Decommissioned,
-  },
-];
-
-interface SearchFilterParams {
-  dataCy: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  updateUrlParam: () => void;
-  resetUrlParam: () => void;
-}
-
-const getColumnSearchFilterProps = ({
-  dataCy,
-  placeholder,
-  value,
-  onChange,
-  updateUrlParam,
-  resetUrlParam,
-}: SearchFilterParams) => ({
-  filterDropdown: () => (
-    <div style={{ padding: 8 }}>
-      <Input
-        data-cy={dataCy}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-      />
-      <Button size="small" onClick={resetUrlParam}>
-        Reset
-      </Button>
-      <Button size="small" variant="primary" onClick={updateUrlParam}>
-        Search
-      </Button>
-    </div>
-  ),
-  filterIcon: () => (
-    <Icon type="search" style={{ color: value ? "#1890ff" : undefined }} />
-  ),
-});
-
-interface TreeSelectFilterParams<TreeData> {
-  dataCy: string;
-  statuses: TreeData;
-  value: string[];
-  onChange: (v: string[]) => void;
-  updateUrlParam: () => void;
-  resetUrlParam: () => void;
-}
-
-const getColumnTreeSelectFilterProps = <TreeData extends TreeDataEntry[]>({
-  statuses,
-  value,
-  onChange,
-  updateUrlParam,
-  resetUrlParam,
-}: TreeSelectFilterParams<TreeData>) => ({
-  filterDropdown: () => (
-    <div style={{ padding: 8 }}>
-      {renderCheckboxes({
-        tData: statuses,
-        state: value,
-        onChange,
-        hasParent: false,
-      })}
-      <Button onClick={resetUrlParam} size="small">
-        Reset
-      </Button>
-      <Button size="small" variant="primary" onClick={updateUrlParam}>
-        Search
-      </Button>
-    </div>
-  ),
-  filterIcon: () => (
-    <Icon
-      type="filter"
-      style={{ color: value.length ? "#1890ff" : undefined }}
-    />
-  ),
-});
 
 const rowKey = ({ id }: { id: string }): string => id;
