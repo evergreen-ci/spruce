@@ -5,9 +5,10 @@ import { Patch } from "pages/Patch";
 import { UserPatches } from "pages/UserPatches";
 import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
+import { Hosts } from "pages/Hosts";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
-import { SiteBanner } from "components/Banners";
+import { SiteBanner, ConnectivityBanner } from "components/Banners";
 import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
@@ -46,12 +47,14 @@ export const Content: React.FC = () => {
   return (
     <PageLayout>
       <Navbar />
+      <ConnectivityBanner />
       <SiteBanner />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
         <PrivateRoute path={routes.patch} component={PatchRedirect} />
         <PrivateRoute path={routes.version} component={Patch} />
+        <PrivateRoute path={routes.hosts} component={Hosts} />
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
         <PrivateRoute

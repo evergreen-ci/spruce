@@ -1,11 +1,12 @@
 import React from "react";
 import { Breadcrumb } from "antd";
-import { routes, paths } from "constants/routes";
+import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H3, P1 } from "components/Typography";
 import { StyledRouterLink } from "components/styles/StyledLink";
 import { useBreadcrumbAnalytics } from "analytics";
+import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const { blue } = uiColors;
 
@@ -13,23 +14,28 @@ interface Props {
   versionId?: string; // only required when rendered on task page
   taskName?: string;
   patchNumber: number;
+  patchAuthor: string;
 }
 
 export const BreadCrumb: React.FC<Props> = ({
   versionId,
   taskName,
   patchNumber,
+  patchAuthor,
 }) => {
   const breadcrumbAnalytics = useBreadcrumbAnalytics();
   const patch = `Patch ${patchNumber}`;
-
+  const {
+    title: userPatchesPageTitle,
+    link: userPatchesPageLink,
+  } = useGetUserPatchesPageTitleAndLink(patchAuthor);
   return (
     <StyledBreadcrumb>
       <Breadcrumb.Item>
         <StyledP1>
           <StyledBreadcrumbLink
             id="bc-my-patches"
-            to={routes.myPatches}
+            to={userPatchesPageLink}
             onClick={() =>
               breadcrumbAnalytics.sendEvent({
                 name: "Click Link",
@@ -37,7 +43,7 @@ export const BreadCrumb: React.FC<Props> = ({
               })
             }
           >
-            My Patches
+            {userPatchesPageTitle}
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>

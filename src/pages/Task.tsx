@@ -1,4 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
+import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
@@ -17,7 +18,7 @@ import {
 } from "components/styles";
 import { GET_TASK } from "gql/queries/get-task";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { useDefaultPath, useTabs, usePageTitle } from "hooks";
+import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { paths } from "constants/routes";
@@ -32,6 +33,7 @@ import { TaskTab } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Metadata } from "pages/task/Metadata";
 import { useTaskAnalytics } from "analytics";
+import { pollInterval } from "constants/index";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -62,19 +64,18 @@ const TaskCore: React.FC = () => {
   });
 
   // Query task data
-  const { data, loading, error, stopPolling } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id },
-    pollInterval: 5000,
+    pollInterval,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
   });
-  useEffect(() => stopPolling, [stopPolling]);
-
+  useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
   const canRestart = get(task, "canRestart");
@@ -89,6 +90,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
+  const patchAuthor = data?.task.patchMetadata.author;
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   if (error) {
@@ -114,9 +116,10 @@ const TaskCore: React.FC = () => {
       />
       {task && (
         <BreadCrumb
+          patchAuthor={patchAuthor}
+          patchNumber={patchNumber}
           taskName={displayName}
           versionId={version}
-          patchNumber={patchNumber}
         />
       )}
       <PageTitle
@@ -143,7 +146,7 @@ const TaskCore: React.FC = () => {
         <PageSider>
           <Metadata data={data} loading={loading} error={error} />
         </PageSider>
-        <PageLayout>
+        <LogWrapper>
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
               <Tab name="Logs" id="task-logs-tab">
@@ -189,10 +192,14 @@ const TaskCore: React.FC = () => {
               </Tab>
             </StyledTabs>
           </PageContent>
-        </PageLayout>
+        </LogWrapper>
       </PageLayout>
     </PageWrapper>
   );
 };
 
 export const Task = withBannersContext(TaskCore);
+
+const LogWrapper = styled(PageLayout)`
+  width: 100%;
+`;

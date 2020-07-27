@@ -3,7 +3,9 @@ import * as ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import App from "App";
 import wait from "waait";
+import fetch from "unfetch";
 
+window.fetch = fetch;
 it("renders without crashing", async () => {
   // add this line to get bugsnag to play nice with jest: https://github.com/bugsnag/bugsnag-js/issues/452
   // @ts-ignore

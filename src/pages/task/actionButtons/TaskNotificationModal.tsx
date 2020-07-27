@@ -35,8 +35,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       onCancel={onCancel}
       triggers={triggers}
       subscriptionMethodControls={subscriptionMethodControls}
-      subscriptionMethods={subscriptionMethods}
-      resourceType="TASK"
+      subscriptionMethodDropdownOptions={subscriptionMethodDropdownOptions}
       resourceId={taskId}
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({ name: "Add Notification", subscription })
@@ -45,7 +44,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
   );
 };
 
-const subscriptionMethodControls: SubscriptionMethods = {
+export const subscriptionMethodControls: SubscriptionMethods = {
   "jira-comment": {
     label: "JIRA Issue",
     placeholder: "ABC-123",
@@ -66,32 +65,41 @@ const subscriptionMethodControls: SubscriptionMethods = {
   },
 };
 
-const subscriptionMethods = [
+const subscriptionMethodDropdownOptions = [
   SUBSCRIPTION_JIRA_COMMENT,
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
 ];
 
-const triggers: Trigger[] = [
+export const triggers: Trigger[] = [
   {
     trigger: "outcome",
     label: "This task finishes",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "failure",
     label: "This task fails",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "success",
     label: "This task succeeds",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
   },
   {
     trigger: "exceeds-duration",
     label: "The runtime for this task exceeds some duration",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Task duration (seconds)",
         key: "task-duration-secs",
+        dataCy: "duration-secs-input",
         validator: validateDuration,
       },
     ],
@@ -99,10 +107,13 @@ const triggers: Trigger[] = [
   {
     trigger: "runtime-change",
     label: "This task succeeds and its runtime changes by some percentage",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
     extraFields: [
       {
         text: "Percent change",
         key: "task-percent-change",
+        dataCy: "percent-change-input",
         validator: validatePercentage,
       },
     ],

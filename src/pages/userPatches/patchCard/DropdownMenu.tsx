@@ -13,10 +13,12 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 interface Props {
   patchId: string;
   canEnqueueToCommitQueue: boolean;
+  isPatchOnCommitQueue: boolean;
 }
 export const DropdownMenu: React.FC<Props> = ({
   patchId,
   canEnqueueToCommitQueue,
+  isPatchOnCommitQueue,
 }) => {
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
@@ -39,7 +41,11 @@ export const DropdownMenu: React.FC<Props> = ({
   });
 
   const dropdownItems = [
-    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
+    <LinkToReconfigurePage
+      key="reconfigure"
+      patchId={patchId}
+      disabled={isPatchOnCommitQueue}
+    />,
     <SchedulePatchTasks
       key="schedule"
       patchId={patchId}

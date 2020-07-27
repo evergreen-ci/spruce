@@ -190,13 +190,15 @@ const getTaskCheckboxState = (
   selectedBuildVariantTasks: VariantTasksState,
   variants: ProjectBuildVariant[]
 ): CheckboxState => {
-  const checkedCb = (allChecked: boolean, buildVariantName: string): boolean =>
-    allChecked &&
-    !!get(
-      selectedBuildVariantTasks,
-      `[${buildVariantName}][${taskName}]`, // need to see that build variant has task to begin with...
-      false
-    );
+  const checkedCb = (
+    allChecked: boolean,
+    buildVariantName: string
+  ): boolean => {
+    const isTaskSelected =
+      selectedBuildVariantTasks[buildVariantName] &&
+      selectedBuildVariantTasks[buildVariantName][taskName];
+    return allChecked && isTaskSelected;
+  };
   const checked: boolean = selectedBuildVariants
     .filter((buildVariantName) =>
       taskExistsInVariant(taskName, buildVariantName, variants)
@@ -207,13 +209,12 @@ const getTaskCheckboxState = (
     return "checked";
   }
 
-  const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) =>
-    allUnchecked &&
-    !get(
-      selectedBuildVariantTasks,
-      `[${buildVariantName}][${taskName}]`,
-      false
-    );
+  const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) => {
+    const isTaskSelected =
+      selectedBuildVariantTasks[buildVariantName] &&
+      selectedBuildVariantTasks[buildVariantName][taskName];
+    return allUnchecked && !isTaskSelected;
+  };
   const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
 
   if (unchecked) {

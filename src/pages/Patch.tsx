@@ -24,34 +24,46 @@ import {
 import { Banners } from "components/Banners";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { withBannersContext } from "hoc/withBannersContext";
-import { usePageTitle } from "hooks";
+import { usePageTitle, useNetworkStatus } from "hooks";
+import { pollInterval } from "constants/index";
+import { commitQueueAlias } from "constants/patch";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+
   const router = useHistory();
-  const { data, loading, error, stopPolling } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
   >(GET_PATCH, {
     variables: { id },
-    pollInterval: 5000,
+    pollInterval,
     onError: (e) =>
       dispatchBanner.errorBanner(
         `There was an error loading the patch: ${e.message}`
       ),
   });
-  useEffect(() => stopPolling, [stopPolling]);
 
+  useEffect(() => stopPolling, [stopPolling]);
+  useNetworkStatus(startPolling, stopPolling);
   const patch = get(data, "patch");
   const status = get(patch, "status");
   const description = get(patch, "description");
   const activated = get(patch, "activated");
-  if (activated === false) {
+
+  const alias = patch?.alias ?? null;
+  const commitQueuePosition = patch?.commitQueuePosition ?? null;
+  const isPatchOnCommitQueue = commitQueuePosition !== null;
+
+  if (activated === false && alias !== commitQueueAlias) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
+
   usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
+
   if (error) {
     return (
       <PageWrapper>
@@ -62,13 +74,19 @@ const PatchCore: React.FC = () => {
       </PageWrapper>
     );
   }
+
   return (
     <PageWrapper data-cy="patch-page">
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {patch && <BreadCrumb patchNumber={patch.patchNumber} />}
+      {patch && (
+        <BreadCrumb
+          patchAuthor={patch.author}
+          patchNumber={patch.patchNumber}
+        />
+      )}
       <PageTitle
         loading={loading}
         hasData={!!patch}
@@ -77,6 +95,7 @@ const PatchCore: React.FC = () => {
         buttons={
           <ActionButtons
             canEnqueueToCommitQueue={get(patch, "canEnqueueToCommitQueue")}
+            isPatchOnCommitQueue={isPatchOnCommitQueue}
           />
         }
       />

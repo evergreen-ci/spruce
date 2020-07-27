@@ -17,7 +17,13 @@ import {
 } from "gql/generated/types";
 import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { useQuery } from "@apollo/react-hooks";
-import { useFilterInputChangeHandler, usePollQuery, usePageTitle } from "hooks";
+import {
+  useFilterInputChangeHandler,
+  usePollQuery,
+  useNetworkStatus,
+  usePageTitle,
+  useGetUserPatchesPageTitleAndLink,
+} from "hooks";
 import styled from "@emotion/styled";
 import get from "lodash/get";
 import { Skeleton } from "antd";
@@ -63,13 +69,16 @@ const UserPatchesComponent: React.FC = () => {
     notifyOnNetworkStatusChange: true,
     fetchPolicy: "network-only",
   });
+  const isOffline = useNetworkStatus();
   const { showSkeleton } = usePollQuery({
     networkStatus,
     getQueryVariables,
     refetch,
     search,
+    isOffline,
   });
-  usePageTitle("My Patches");
+  const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
+  usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
     replace(
       `${pathname}?${queryString.stringify(
@@ -99,8 +108,12 @@ const UserPatchesComponent: React.FC = () => {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {
-      return data.userPatches.patches.map((p) => (
-        <PatchCard key={p.id} {...p} />
+      return data.userPatches.patches.map(({ commitQueuePosition, ...p }) => (
+        <PatchCard
+          key={p.id}
+          {...p}
+          isPatchOnCommitQueue={commitQueuePosition !== null}
+        />
       ));
     }
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
@@ -113,7 +126,7 @@ const UserPatchesComponent: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle>My Patches</PageTitle>
+      <PageTitle>{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput

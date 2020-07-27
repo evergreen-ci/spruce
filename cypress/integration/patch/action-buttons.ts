@@ -3,7 +3,9 @@
 
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 
+const patchIdWithWorkingReconfigureLink = "5ecedafb562343215a7ff297";
 const patchId = "5e4ff3abe3c3317e352062e4";
+const path = `/patch/${patchId}`;
 
 describe("Patch Action Buttons", () => {
   before(() => {
@@ -11,7 +13,7 @@ describe("Patch Action Buttons", () => {
   });
   beforeEach(() => {
     cy.preserveCookies();
-    cy.visit(`/patch/${patchId}`);
+    cy.visit(path);
   });
 
   it("Clicking 'Schedule' button shows popconfirm and banner on success", () => {
@@ -58,10 +60,15 @@ describe("Patch Action Buttons", () => {
   });
 
   it("Reconfigure button should have link to reconfigure page", () => {
+    cy.visit(`/patch/${patchIdWithWorkingReconfigureLink}`);
     cy.dataCy("ellipsis-btn").click();
-    cy.dataCy("reconfigure-link")
-      .should("have.attr", "href")
-      .and("equal", "/patch/5e4ff3abe3c3317e352062e4/configure");
+    cy.dataCy("reconfigure-link").click();
+    cy.location("pathname").should("include", "configure");
+  });
+
+  it("Reconfigure link is disabled for patches on commit queue", () => {
+    cy.dataCy("ellipsis-btn").click();
+    cy.dataCy("reconfigure-link").should("have.css", "pointer-events", "none");
   });
 
   it("Clicking 'Set Priority' button shows popconfirm with input and banner on success", () => {

@@ -245,11 +245,11 @@ export const ActionButtons = ({
           key="notifications"
           disabled={disabled}
           onClick={() => {
-            setIsVisibleModal(!isVisibleModal);
             taskAnalytics.sendEvent({ name: "Open Notification Modal" });
+            setIsVisibleModal(true);
           }}
         >
-          Add Notification
+          Notify Me
         </Button>
         <ButtonDropdown
           disabled={disabled}

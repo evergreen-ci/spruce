@@ -8,15 +8,18 @@ import {
   UnschedulePatchTasks,
   SetPatchPriority,
   EnqueuePatch,
+  AddNotification,
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
+  isPatchOnCommitQueue: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
+  isPatchOnCommitQueue,
 }) => {
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -33,7 +36,11 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   }, [isActionLoading, setIsVisible]);
 
   const dropdownItems = [
-    <LinkToReconfigurePage key="reconfigure" patchId={patchId} />,
+    <LinkToReconfigurePage
+      key="reconfigure"
+      patchId={patchId}
+      disabled={isPatchOnCommitQueue}
+    />,
     <UnschedulePatchTasks
       {...{
         patchId,
@@ -86,6 +93,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             isButton: true,
             disabled: isActionLoading,
             refetchQueries,
+          }}
+        />
+        <AddNotification
+          {...{
+            patchId,
+            hideMenu,
+            refetchQueries,
+            key: "notification",
+            setParentLoading: setIsActionLoading,
+            disabled: isActionLoading,
           }}
         />
         <ButtonDropdown
