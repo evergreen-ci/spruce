@@ -20,6 +20,7 @@ export const PageSizeSelector: React.FC<Props> = ({
   const { search, pathname } = useLocation();
 
   const handleChange = (pageSize: number) => {
+    localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
     replace(
       `${pathname}?${queryString.stringify(
         {
@@ -51,6 +52,21 @@ export const PageSizeSelector: React.FC<Props> = ({
   );
 };
 
-export const PAGE_SIZES = [10, 20, 50, 100];
-export const DEFAULT_PAGE_SIZE = 10;
+export const RECENT_PAGE_SIZE_KEY = "recentPageSize";
+
+const DEFAULT_PAGE_SIZE = 10;
+
 const arrayFormat = "comma";
+
+export const PAGE_SIZES = [10, 20, 50, 100];
+
+export const getDefaultPageSize = () => {
+  const pageSizeFromLocalStorage: number = parseInt(
+    localStorage.getItem(RECENT_PAGE_SIZE_KEY),
+    DEFAULT_PAGE_SIZE
+  );
+
+  return PAGE_SIZES.includes(pageSizeFromLocalStorage)
+    ? pageSizeFromLocalStorage
+    : DEFAULT_PAGE_SIZE;
+};
