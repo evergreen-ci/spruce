@@ -30,7 +30,7 @@ describe("files table", () => {
 
   it("Searching for Hello world yields 0 results, tables will not render and will display 'No files found'", () => {
     cy.visit(FILES_ROUTE);
-    waitForFilesQuery();
+    cy.wait(500);
     cy.get(".ant-input").type("Hello world");
     cy.wait(350); // wait because input has debounce
     cy.get(".ant-table").should("not.exist");
