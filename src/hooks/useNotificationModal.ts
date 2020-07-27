@@ -1,16 +1,20 @@
 import { useState, useEffect } from "react";
-import get from "lodash.get";
+import get from "lodash/get";
+import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
+import { v4 as uuid } from "uuid";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
-  resourceType: ResourceType;
   resourceId: string;
+}
+interface RegexSelectorPropsTemplate {
+  key: string;
+  regexType: string;
 }
 export const useNotificationModal = ({
   triggers,
   subscriptionMethodControls,
-  resourceType,
   resourceId,
 }: UseNotificationModalProps) => {
   const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
@@ -23,21 +27,92 @@ export const useNotificationModal = ({
     string[]
   >([]);
 
-  const [selectedTriggerId, setSelectedTriggerId] = useState<string>("");
-  const [extraFieldInputVals, setExtraFieldInputVals] = useState<
-    ExtraFieldInputVals
-  >({});
+  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>();
+  const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
+  const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
+  const [regexSelectorPropsTemplate, setRegexSelectorPropsTemplate] = useState<
+    RegexSelectorPropsTemplate[]
+  >([{ regexType: "", key: uuid() }]);
+  const [regexSelectorProps, setRegexSelectorProps] = useState<
+    RegexSelectorProps[]
+  >([]);
+  const onClickAddRegexSelector = () => {
+    setRegexSelectorPropsTemplate([
+      ...regexSelectorPropsTemplate,
+      { regexType: "", key: uuid() },
+    ]);
+  };
 
   // extraFields represents schema additional inputs required for the selected trigger
-  const { extraFields } =
-    triggers.find(({ trigger }) => trigger === selectedTriggerId) ?? {};
+  const {
+    extraFields,
+    resourceType,
+    payloadResourceIdKey,
+    regexSelectors,
+    trigger,
+  } = triggers[selectedTriggerIndex] || {};
 
-  // clear the input vals for the extraFields when the extraFields change
+  useEffect(() => {
+    const disabledDropdownOptions = regexSelectorPropsTemplate
+      .map(({ regexType }) => regexType)
+      .filter((v) => v);
+    setRegexSelectorProps(
+      regexSelectorPropsTemplate.map(({ regexType, key }, i) => ({
+        key,
+        dropdownOptions: regexSelectors,
+        disabledDropdownOptions,
+        selectedOption: regexType,
+        onChangeSelectedOption: (optionValue: string) => {
+          // reset "previous" option
+          if (regexType) {
+            setRegexSelectorInputs({
+              ...regexSelectorInputs,
+              [regexType]: "",
+            });
+          }
+          const regexSelectorPropsTemplateClone = [
+            ...regexSelectorPropsTemplate,
+          ];
+          regexSelectorPropsTemplateClone[i].regexType = optionValue;
+          setRegexSelectorPropsTemplate(regexSelectorPropsTemplateClone);
+        },
+        onChangeRegexValue: (event) => {
+          setRegexSelectorInputs({
+            ...regexSelectorInputs,
+            [regexType]: event.target.value,
+          });
+        },
+        onDelete: () => {
+          if (regexType) {
+            setRegexSelectorInputs({
+              ...regexSelectorInputs,
+              [regexType]: "",
+            });
+          }
+          setRegexSelectorPropsTemplate(
+            regexSelectorPropsTemplate
+              .slice(0, i)
+              .concat(
+                regexSelectorPropsTemplate.slice(
+                  i + 1,
+                  regexSelectorPropsTemplate.length
+                )
+              )
+          );
+        },
+        regexInputValue: regexSelectorInputs[regexType] ?? "",
+      }))
+    );
+  }, [regexSelectorPropsTemplate, regexSelectorInputs, regexSelectors]);
+
+  // clear the input vals for the extraFields and regex selectors when the selected trigger changes
   useEffect(() => {
     setExtraFieldInputVals(
       (extraFields ?? []).reduce(clearExtraFieldsInputCb, {})
     );
-  }, [extraFields]);
+    setRegexSelectorPropsTemplate([{ regexType: "", key: uuid() }]);
+    setRegexSelectorInputs({});
+  }, [selectedTriggerIndex, extraFields]);
 
   // reset Targets when subscription method changes
   useEffect(() => {
@@ -71,7 +146,7 @@ export const useNotificationModal = ({
     // check that required fields exist and there are no extra field errors
     if (
       !targetEntries.length ||
-      !selectedTriggerId ||
+      selectedTriggerIndex === undefined ||
       !selectedSubscriptionMethod ||
       extraFieldErrorMessages.length
     ) {
@@ -90,19 +165,21 @@ export const useNotificationModal = ({
     subscriptionMethodControls,
     target,
     extraFieldInputVals,
-    selectedTriggerId,
+    selectedTriggerIndex,
     selectedSubscriptionMethod,
     extraFieldErrorMessages,
+    regexSelectorInputs,
+    regexSelectors,
   ]);
 
   const getRequestPayload = () => {
     const targetEntry = Object.entries(target)[0];
     return {
-      trigger: selectedTriggerId,
+      trigger,
       resource_type: resourceType,
       selectors: [
         { type: "object", data: resourceType.toLowerCase() },
-        { type: "id", data: resourceId },
+        { type: payloadResourceIdKey, data: resourceId },
       ],
       subscriber: {
         type: targetEntry[0],
@@ -110,23 +187,32 @@ export const useNotificationModal = ({
       },
       trigger_data: extraFieldInputVals,
       owner_type: "person",
-      regex_selectors: [],
+      regex_selectors: Object.entries(regexSelectorInputs)
+        .filter((v) => v[1])
+        .map(([type, data]) => ({ type, data })),
     };
   };
 
+  const disableAddCriteria =
+    regexSelectorPropsTemplate.length >= (regexSelectors?.length ?? 0);
+
   return {
+    disableAddCriteria,
     extraFieldErrorMessages,
     extraFieldInputVals,
     extraFields,
+    getRequestPayload,
     isFormValid,
-    target,
+    onClickAddRegexSelector,
+    regexSelectorProps,
     selectedSubscriptionMethod,
-    selectedTriggerId,
+    selectedTriggerIndex,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
-    setSelectedTriggerId,
+    setSelectedTriggerIndex,
     setTarget,
-    getRequestPayload,
+    showAddCriteria: (regexSelectors?.length ?? 0) > 0,
+    target,
   };
 };
 
@@ -135,14 +221,12 @@ interface Target {
   email?: string;
   slack?: string;
 }
-type ResourceType = "TASK" | "VERSION";
-interface ExtraFieldInputVals {
+type ResourceType = "TASK" | "VERSION" | "BUILD";
+interface StringMap {
   [index: string]: string;
 }
-const clearExtraFieldsInputCb = (
-  accum: ExtraFieldInputVals,
-  eF: ExtraField
-) => ({
+
+const clearExtraFieldsInputCb = (accum: StringMap, eF: ExtraField) => ({
   ...accum,
   [eF.key]: "10",
 });
@@ -150,11 +234,23 @@ interface ExtraField {
   text: string;
   key: string;
   validator: (v: any) => string;
+  dataCy: string;
 }
+
+type RegexSelectorType = "display-name" | "build-variant";
+export interface RegexSelector {
+  type: RegexSelectorType;
+  typeLabel: string;
+}
+
+type PayloadResourceIdKey = "in-version" | "in-build" | "id";
 export interface Trigger {
   trigger: string;
   label: string;
   extraFields?: ExtraField[];
+  resourceType: ResourceType;
+  payloadResourceIdKey: PayloadResourceIdKey;
+  regexSelectors?: RegexSelector[];
 }
 export interface SubscriptionMethodControl {
   label: string;

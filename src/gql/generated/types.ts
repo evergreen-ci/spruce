@@ -1133,6 +1133,12 @@ export type GetOtherUserQuery = {
 
 export type HostsQueryVariables = {
   hostId?: Maybe<Scalars["String"]>;
+  distroId?: Maybe<Scalars["String"]>;
+  currentTaskId?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  startedBy?: Maybe<Scalars["String"]>;
+  sortBy?: Maybe<HostSortBy>;
+  sortDir?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
 };

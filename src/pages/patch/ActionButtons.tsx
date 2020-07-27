@@ -7,6 +7,7 @@ import {
   RestartPatch,
   UnschedulePatchTasks,
   SetPatchPriority,
+  AddNotification,
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
@@ -79,6 +80,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             isButton: true,
             disabled: isActionLoading,
             refetchQueries,
+          }}
+        />
+        <AddNotification
+          {...{
+            patchId,
+            hideMenu,
+            refetchQueries,
+            key: "notification",
+            setParentLoading: setIsActionLoading,
+            disabled: isActionLoading,
           }}
         />
         <ButtonDropdown

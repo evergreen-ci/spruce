@@ -56,3 +56,8 @@ export const PageButtonRow = styled.div`
   display: flex;
   padding-right: 40px;
 `;
+
+export const InputLabel = styled.label`
+  font-size: 14px;
+  font-weight: bold;
+`;
