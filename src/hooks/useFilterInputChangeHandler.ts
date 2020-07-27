@@ -2,32 +2,38 @@ import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
+import { parseQueryString, stringifyQuery } from "utils";
 
 const arrayFormat = "comma";
 
-const updateQueryParam = debounce(
-  (
-    urlSearchParam: string,
-    inputValue: string,
-    search: string,
-    replace: (path: string) => void,
-    pathname: string,
-    sendAnalyticsEvent: (filterBy: string) => void,
-    resetPage?: boolean
-  ) => {
-    const nextQueryParams = queryString.stringify(
-      {
-        ...queryString.parse(search, { arrayFormat }),
-        [urlSearchParam]: inputValue === "" ? undefined : inputValue,
-        ...(resetPage && { page: 0 }),
-      },
-      { arrayFormat }
-    );
-    replace(`${pathname}?${nextQueryParams}`);
-    sendAnalyticsEvent(urlSearchParam);
-  },
-  250
-);
+const updateQueryParam = (
+  urlSearchParam: string,
+  inputValue: string | string[] | null,
+  search: string,
+  replace: (path: string) => void,
+  pathname: string,
+  sendAnalyticsEvent: (filterBy: string) => void,
+  resetPage?: boolean
+) => {
+  const urlParams = parseQueryString(search);
+
+  if (!inputValue) {
+    delete urlParams[urlSearchParam];
+  } else {
+    urlParams[urlSearchParam] = inputValue;
+  }
+
+  const nextQueryParams = stringifyQuery({
+    ...urlParams,
+    ...(resetPage && { page: 0 }),
+  });
+
+  replace(`${pathname}?${nextQueryParams}`);
+
+  sendAnalyticsEvent(urlSearchParam);
+};
+
+const updateQueryParamWithDebounce = debounce(updateQueryParam, 250);
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -57,7 +63,7 @@ export const useFilterInputChangeHandler = (
 
   const onChange = (e: InputEvent): void => {
     setValue(e.target.value);
-    updateQueryParam(
+    updateQueryParamWithDebounce(
       urlSearchParam,
       e.target.value,
       search,
@@ -67,5 +73,124 @@ export const useFilterInputChangeHandler = (
       resetPage
     );
   };
+
   return [value, onChange];
+};
+
+interface Params<SearchParam> {
+  urlSearchParam: SearchParam; // the name of url param
+  sendAnalyticsEvent: (filterBy: string) => void; // callback function to send analytics event
+}
+
+type UseInputFilterReturn = [
+  string, // url param value
+  (e: InputEvent) => void, // onChange handler
+  () => void, // update url param
+  () => void // reset url param
+];
+
+// USE FOR FILTERS BUILT INTO TABLE COLUMN HEADERS
+export const useInputFilter = <SearchParam extends string>({
+  urlSearchParam,
+  sendAnalyticsEvent = () => undefined,
+}: Params<SearchParam>): UseInputFilterReturn => {
+  const { pathname, search } = useLocation();
+  const { replace } = useHistory();
+
+  const parsed = queryString.parse(search, { arrayFormat });
+
+  const inputValueFromUrl = (parsed[urlSearchParam] || "").toString();
+
+  const [value, setValue] = useState(inputValueFromUrl);
+
+  const onChange = (e: InputEvent): void => {
+    setValue(e.target.value);
+  };
+
+  const updateUrlSearchParam = () => {
+    updateQueryParam(
+      urlSearchParam,
+      value,
+      search,
+      replace,
+      pathname,
+      sendAnalyticsEvent,
+      true // when does this need to be false?
+    );
+
+    sendAnalyticsEvent(urlSearchParam);
+  };
+
+  const resetQueryParam = () => {
+    setValue("");
+
+    updateQueryParam(
+      urlSearchParam,
+      null,
+      search,
+      replace,
+      pathname,
+      sendAnalyticsEvent,
+      true // when does this need to be false?
+    );
+  };
+
+  return [value, onChange, updateUrlSearchParam, resetQueryParam];
+};
+
+type UseTreeSelectFilterReturn = [
+  string[], // url param value
+  (e: string[]) => void, // onChange handler
+  () => void, // update url param
+  () => void // reset url param
+];
+
+export const useTreeSelectFilter = <SearchParam extends string>({
+  urlSearchParam,
+  sendAnalyticsEvent = () => undefined,
+}: Params<SearchParam>): UseTreeSelectFilterReturn => {
+  const { pathname, search } = useLocation();
+  const { replace } = useHistory();
+
+  const { [urlSearchParam]: rawStatuses } = parseQueryString(search);
+
+  const valueFromUrl = Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses].filter((v) => v);
+
+  const [value, setValue] = useState<string[]>(valueFromUrl);
+
+  const onChange = (newValue: string[]): void => {
+    setValue(newValue);
+  };
+
+  const updateUrlSearchParam = () => {
+    updateQueryParam(
+      urlSearchParam,
+      value,
+      search,
+      replace,
+      pathname,
+      sendAnalyticsEvent,
+      true // when does this need to be false?
+    );
+
+    sendAnalyticsEvent(urlSearchParam);
+  };
+
+  const resetQueryParam = () => {
+    setValue([]);
+
+    updateQueryParam(
+      urlSearchParam,
+      null,
+      search,
+      replace,
+      pathname,
+      sendAnalyticsEvent,
+      true // when does this need to be false?
+    );
+  };
+
+  return [value, onChange, updateUrlSearchParam, resetQueryParam];
 };
