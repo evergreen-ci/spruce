@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { v4 as uuid } from "uuid";
@@ -9,21 +10,23 @@ import {
 } from "gql/generated/types";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
-import { Skeleton } from "antd";
+import { pollInterval } from "constants/index";
 import { H3, P1 } from "components/Typography";
 import styled from "@emotion/styled/macro";
+import { useNetworkStatus } from "hooks";
 import { TaskSquare } from "pages/patch/buildVariants/TaskSquare";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { data, loading, error, stopPolling } = useQuery<
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
     variables: { patchId: id },
-    pollInterval: 5000,
+    pollInterval,
   });
   useEffect(() => stopPolling, [stopPolling]);
+  useNetworkStatus(startPolling, stopPolling);
   return (
     <SiderCard>
       <H3>Build Variants</H3>

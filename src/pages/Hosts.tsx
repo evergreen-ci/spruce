@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Table, Skeleton } from "antd";
 import { useQuery } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
@@ -8,45 +8,82 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
   StyledRouterLink,
+  PageWrapper,
 } from "components/styles";
 import { withBannersContext } from "hoc/withBannersContext";
 import { Banners } from "components/Banners";
-import { PageWrapper } from "components/styles";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
 import { H2 } from "@leafygreen-ui/typography";
 import { ErrorBoundary } from "components/ErrorBoundary";
-import { Host, HostsQuery, HostsQueryVariables } from "gql/generated/types";
+import {
+  Host,
+  HostsQuery,
+  HostsQueryVariables,
+  HostSortBy,
+  SortDirection,
+} from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { getHostRoute, getTaskRoute } from "constants/routes";
-import { useDisableTableSortersIfLoading, usePollQuery } from "hooks";
+import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { formatDistanceToNow } from "date-fns";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { parseQueryString, getArray, getString } from "utils";
+import { Pagination } from "components/Pagination";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
+  const { search } = useLocation();
+  const prevSearch = usePrevious<string>(search);
+  const searchChanged = search !== prevSearch;
+
+  const [initialQueryVariables] = useState<HostsQueryVariables>(
+    getQueryVariables(search)
+  );
+
+  // HOSTS QUERY
   const { data: hostsData, networkStatus, refetch } = useQuery<
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: { hostId: null },
+    variables: initialQueryVariables,
     notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
   });
+
+  // REFETCH HOSTS QUERY IF SEARCH CHANGES
+  useEffect(() => {
+    if (searchChanged) {
+      refetch(getQueryVariables(search));
+    }
+  }, [searchChanged, search, refetch]);
+
+  const hosts = hostsData?.hosts;
+  const hostItems = hosts?.hosts ?? [];
+  const totalHostsCount = hosts?.totalHostsCount ?? 0;
+  const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
   useDisableTableSortersIfLoading(networkStatus);
 
-  const { search } = useLocation();
+  const {
+    limit,
+    page,
+    hostId,
+    currentTaskId,
+    distroId,
+    statuses,
+    startedBy,
+  } = getQueryVariables(search);
 
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-  });
+  const hasFilters =
+    hostId || currentTaskId || distroId || statuses.length || startedBy;
+
+  const isLoading = isNetworkRequestInFlight(networkStatus);
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -57,32 +94,79 @@ const Hosts: React.FC = () => {
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
+          <div data-cy="filtered-hosts-count">
+            {hasFilters && `Showing ${filteredHostCount} of ${totalHostsCount}`}
+          </div>
           <TableControlInnerRow>
-            {/** TODO: Put pagination here */}
+            <Pagination
+              dataTestId="tasks-table-pagination"
+              pageSize={limit}
+              value={page}
+              totalResults={hasFilters ? filteredHostCount : totalHostsCount}
+            />
+            <PageSizeSelector
+              dataTestId="tasks-table-page-size-selector"
+              value={limit}
+            />
           </TableControlInnerRow>
         </TableControlOuterRow>
-        <TableContainer hide={showSkeleton}>
+        <TableContainer hide={isLoading}>
           <Table
             data-test-id="tasks-table"
             rowKey={rowKey}
             pagination={false}
             columns={columnsTemplate}
-            dataSource={hostsData?.hosts?.hosts ?? []}
+            dataSource={hostItems}
             onChange={() => undefined}
           />
         </TableContainer>
-        {showSkeleton && (
-          <Skeleton active title={false} paragraph={{ rows: 8 }} />
-        )}
+        {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>
     </PageWrapper>
   );
 };
 
-// TODO: include query parameters
-const getQueryVariables = (): HostsQueryVariables => ({
-  hostId: null,
-});
+type QueryParam = keyof HostsQueryVariables;
+
+const getSortBy = (sortByParam: string | string[] = ""): HostSortBy => {
+  const sortBy = getString(sortByParam) as HostSortBy;
+
+  return Object.values(HostSortBy).includes(sortBy)
+    ? sortBy
+    : HostSortBy.Status;
+};
+
+const getSortDir = (sortDirParam: string | string[]): SortDirection => {
+  const sortDir = getString(sortDirParam) as SortDirection;
+
+  return Object.values(SortDirection).includes(sortDir)
+    ? sortDir
+    : SortDirection.Asc;
+};
+
+const getQueryVariables = (search: string): HostsQueryVariables => {
+  const {
+    hostId,
+    distroId,
+    currentTaskId,
+    statuses,
+    startedBy,
+    sortBy,
+    sortDir,
+  } = parseQueryString(search) as { [key in QueryParam]: string | string[] };
+
+  return {
+    hostId: getString(hostId),
+    distroId: getString(distroId),
+    currentTaskId: getString(currentTaskId),
+    statuses: getArray(statuses),
+    startedBy: getString(startedBy),
+    sortBy: getSortBy(sortBy),
+    sortDir: getSortDir(sortDir),
+    page: getPageFromSearch(search),
+    limit: getLimitFromSearch(search),
+  };
+};
 
 enum TableColumnHeader {
   Id = "ID",

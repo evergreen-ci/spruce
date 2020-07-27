@@ -8,3 +8,15 @@ export const GET_USER = gql`
     }
   }
 `;
+
+export const GET_OTHER_USER = gql`
+  query GetOtherUser($userId: String) {
+    otherUser: user(userId: $userId) {
+      userId
+      displayName
+    }
+    currentUser: user {
+      userId
+    }
+  }
+`;

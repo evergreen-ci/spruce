@@ -9,6 +9,9 @@ import {
 
 const tableRow = "[data-cy=patch-card]";
 const MY_PATCHES_ROUTE = "/user/admin/patches";
+const BOB_HICKS_PATCHES_ROUTE = "/user/bob.hicks/patches";
+const REGULAR_USER_PATCHES_ROUTE = "/user/regular/patches";
+
 describe("My Patches Page", () => {
   before(() => {
     cy.login();
@@ -24,6 +27,21 @@ describe("My Patches Page", () => {
     cy.location().should((loc) =>
       expect(loc.pathname).to.eq("/user/chicken/patches")
     );
+  });
+
+  it("The page title should be 'My Patches' when viewing the logged in users' patches page", () => {
+    cy.visit(MY_PATCHES_ROUTE);
+    cy.contains("My Patches").should("exist");
+  });
+
+  it("The page title should be 'Bob Hicks' Patches' when viewing Bob Hicks' patches page", () => {
+    cy.visit(BOB_HICKS_PATCHES_ROUTE);
+    cy.contains("Bob Hicks' Patches").should("exist");
+  });
+
+  it("The page title should be 'Regular User's Patches' when viewing Regular Users's patches page", () => {
+    cy.visit(REGULAR_USER_PATCHES_ROUTE);
+    cy.contains("Regular User's Patches").should("exist");
   });
 
   it("Typing in patch description input updates the url, requests patches and renders patches", () => {

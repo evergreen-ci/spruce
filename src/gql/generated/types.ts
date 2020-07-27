@@ -406,6 +406,10 @@ export type QueryTaskFilesArgs = {
   execution?: Maybe<Scalars["Int"]>;
 };
 
+export type QueryUserArgs = {
+  userId?: Maybe<Scalars["String"]>;
+};
+
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
 };
@@ -1118,8 +1122,25 @@ export type GetUserQueryVariables = {};
 
 export type GetUserQuery = { user: { userId: string; displayName: string } };
 
+export type GetOtherUserQueryVariables = {
+  userId?: Maybe<Scalars["String"]>;
+};
+
+export type GetOtherUserQuery = {
+  otherUser: { userId: string; displayName: string };
+  currentUser: { userId: string };
+};
+
 export type HostsQueryVariables = {
   hostId?: Maybe<Scalars["String"]>;
+  distroId?: Maybe<Scalars["String"]>;
+  currentTaskId?: Maybe<Scalars["String"]>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  startedBy?: Maybe<Scalars["String"]>;
+  sortBy?: Maybe<HostSortBy>;
+  sortDir?: Maybe<SortDirection>;
+  page?: Maybe<Scalars["Int"]>;
+  limit?: Maybe<Scalars["Int"]>;
 };
 
 export type HostsQuery = {
