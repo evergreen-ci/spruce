@@ -24,7 +24,8 @@ export const DropdownMenu: React.FC<Props> = ({
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
   const popconfirmRef = useRef(null);
-  const scheduleTasksRef = useRef(null); // schedule and unschedule refs must be different for useOnClickOutside to work
+  const scheduleTasksRef = useRef(null); // schedule, unschedule, and enqueue refs must be different for useOnClickOutside to work
+  const enqueueRef = useRef(null);
   const dropdownWrapperRef = useRef(null);
 
   useOnClickOutside(dropdownWrapperRef, () => {
@@ -34,7 +35,8 @@ export const DropdownMenu: React.FC<Props> = ({
       ) &&
       !get(scheduleTasksRef, "current.className", "").includes(
         "ant-popover-open"
-      )
+      ) &&
+      !get(enqueueRef, "current.className", "").includes("ant-popover-open")
     ) {
       hideMenu();
     }
@@ -79,7 +81,7 @@ export const DropdownMenu: React.FC<Props> = ({
       disabled={isActionLoading || !canEnqueueToCommitQueue}
       refetchQueries={refetchQueries}
       setParentLoading={setIsActionLoading}
-      ref={popconfirmRef}
+      ref={enqueueRef}
     />,
   ];
 
