@@ -1,5 +1,5 @@
 import queryString from "query-string";
-import { PAGE_SIZES, DEFAULT_PAGE_SIZE } from "components/PageSizeSelector";
+import { PAGE_SIZES, getDefaultPageSize } from "components/PageSizeSelector";
 
 const arrayFormat = "comma";
 const pageKey = "page";
@@ -16,7 +16,7 @@ export const getLimitFromSearch = (search: string): number => {
   const limit = parseInt((parsed[limitKey] ?? "").toString(), 10);
   return !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
     ? limit
-    : DEFAULT_PAGE_SIZE;
+    : getDefaultPageSize();
 };
 
 export { updateUrlQueryParam } from "./updateUrlQueryParam";

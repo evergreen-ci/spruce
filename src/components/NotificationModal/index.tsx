@@ -7,13 +7,15 @@ import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import set from "lodash/set";
-import { SubscriptionMethod } from "types/subscription";
+import { SubscriptionMethodDropdownOption } from "types/subscription";
 import { v4 as uuid } from "uuid";
 import { useBannerDispatchContext } from "context/banners";
+import Icon from "@leafygreen-ui/icon";
 import {
   useNotificationModal,
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
+import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { useMutation } from "@apollo/react-hooks";
 import {
   SaveSubscriptionMutation,
@@ -24,7 +26,7 @@ import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
 const { Option } = Select;
 
 interface NotificationModalProps extends UseNotificationModalProps {
-  subscriptionMethods: SubscriptionMethod[];
+  subscriptionMethodDropdownOptions: SubscriptionMethodDropdownOption[];
   sendAnalyticsEvent: (
     subscription: SaveSubscriptionMutationVariables["subscription"]
   ) => void;
@@ -36,11 +38,10 @@ interface NotificationModalProps extends UseNotificationModalProps {
 export const NotificationModal: React.FC<NotificationModalProps> = ({
   visible,
   onCancel,
-  subscriptionMethods,
+  subscriptionMethodDropdownOptions,
   subscriptionMethodControls,
   triggers,
   resourceId,
-  resourceType,
   sendAnalyticsEvent,
   "data-cy": dataCy,
 }) => {
@@ -59,25 +60,27 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     },
   });
   const {
-    selectedSubscriptionMethod,
-    isFormValid,
-    selectedTriggerId,
-    setSelectedTriggerId,
-    extraFields,
+    disableAddCriteria,
+    extraFieldErrorMessages,
     extraFieldInputVals,
+    extraFields,
+    getRequestPayload,
+    isFormValid,
+    onClickAddRegexSelector,
+    regexSelectorProps,
+    selectedSubscriptionMethod,
+    selectedTriggerIndex,
     setExtraFieldInputVals,
     setSelectedSubscriptionMethod,
-    target,
+    setSelectedTriggerIndex,
     setTarget,
-    extraFieldErrorMessages,
-    getRequestPayload,
+    showAddCriteria,
+    target,
   } = useNotificationModal({
     subscriptionMethodControls,
     triggers,
-    resourceType,
     resourceId,
   });
-
   const onClickSave = () => {
     const subscription = getRequestPayload();
     saveSubscription({
@@ -86,14 +89,12 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     sendAnalyticsEvent(subscription);
     onCancel();
   };
-
   const currentMethodControl = subscriptionMethodControls[
     selectedSubscriptionMethod
   ] as SubscriptionMethodControl;
   const label = get(currentMethodControl, "label");
   const placeholder = get(currentMethodControl, "placeholder");
   const targetPath = get(currentMethodControl, "targetPath");
-
   return (
     <Modal
       data-cy={dataCy}
@@ -127,30 +128,26 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           <InputLabel>Event</InputLabel>
         </SectionLabelContainer>
         <StyledSelect
-          value={selectedTriggerId}
-          onChange={(v: string) => {
-            setSelectedTriggerId(v);
+          value={selectedTriggerIndex}
+          onChange={(v: number) => {
+            setSelectedTriggerIndex(v);
           }}
           data-test-id="when-select"
         >
-          {triggers.map((t) => (
-            <Option
-              key={t.trigger}
-              value={t.trigger}
-              data-test-id={`${t.trigger}-option`}
-            >
+          {triggers.map((t, i) => (
+            <Option key={uuid()} value={i} data-test-id={`trigger_${i}-option`}>
               {t.label}
             </Option>
           ))}
         </StyledSelect>
         {extraFields &&
-          extraFields.map(({ text, key }) => (
+          extraFields.map(({ text, key, dataCy: inputDataCy }) => (
             <ExtraFieldContainer key={key}>
               <SectionLabelContainer>
                 <InputLabel htmlFor={`${key}-input`}>{text}</InputLabel>
               </SectionLabelContainer>
               <StyledInput
-                data-cy={`${key}-input`}
+                data-cy={inputDataCy}
                 id={`${key}-input`}
                 onChange={(event) => {
                   setExtraFieldInputVals({
@@ -162,6 +159,23 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
               />
             </ExtraFieldContainer>
           ))}
+        {showAddCriteria && (
+          <>
+            <RegexSelectorInputContainer>
+              {regexSelectorProps.map((props, i) => (
+                <RegexSelectorInput canDelete dataCyPrefix={i} {...props} />
+              ))}
+            </RegexSelectorInputContainer>
+            <Button
+              data-cy="add-regex-selector-button"
+              disabled={disableAddCriteria}
+              onClick={onClickAddRegexSelector}
+            >
+              <Icon glyph="Plus" />
+              Add additional criteria
+            </Button>
+          </>
+        )}
       </Section>
       <div>
         <Body weight="medium">Choose how to be notified</Body>
@@ -178,7 +192,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
             setSelectedSubscriptionMethod(v);
           }}
         >
-          {subscriptionMethods.map((s) => (
+          {subscriptionMethodDropdownOptions.map((s) => (
             <Option
               key={s.value}
               value={s.value}
@@ -219,6 +233,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     </Modal>
   );
 };
+
 export interface SubscriptionMethodControl {
   label: string;
   placeholder: string;
@@ -226,13 +241,17 @@ export interface SubscriptionMethodControl {
   validator: (v: string) => boolean;
 }
 
+export type ResourceType = "TASK" | "BUILD";
+
+const inputWidth = "width: calc(80% - 55px);";
+
 const StyledSelect = styled(Select)`
-  width: 80%;
+  ${inputWidth}
   margin-bottom: 8px;
 `;
 
 const StyledInput = styled(Input)`
-  width: 80%;
+  ${inputWidth}
 `;
 
 const ExtraFieldContainer = styled.div`
@@ -249,6 +268,9 @@ const Section = styled.div`
   border-bottom: 1px solid ${uiColors.gray.light2};
 `;
 
+const RegexSelectorInputContainer = styled.div`
+  padding-top: 8px;
+`;
 const SectionLabelContainer = styled.div`
   padding-top: 16px;
 `;
