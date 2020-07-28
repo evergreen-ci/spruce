@@ -10,3 +10,4 @@ export { SET_TASK_PRIORTY } from "./set-task-priority";
 export { UNSCHEDULE_PATCH_TASKS } from "./unschedule-patch-tasks";
 export { UNSCHEDULE_TASK } from "./unschedule-task";
 export { UPDATE_USER_SETTINGS } from "./update-user-settings";
+export { ENQUEUE_PATCH } from "./enqueue-patch";

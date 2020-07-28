@@ -7,6 +7,7 @@ import {
 } from "../../utils";
 
 const pathTasks = `/version/5e4ff3abe3c3317e352062e4/tasks`;
+const patchDescriptionTasksExist = "dist";
 
 describe("Task table", () => {
   before(() => {
@@ -21,7 +22,7 @@ describe("Task table", () => {
   it("Loading skeleton does not persist when you navigate to Patch page from My Patches and adjust a filter", () => {
     cy.visit("user/patches");
     cy.dataCy("patch-card-patch-link")
-      .first()
+      .filter(`:contains(${patchDescriptionTasksExist})`)
       .click();
     cy.dataTestId("tasks-table-page-size-selector").click();
     cy.dataTestId("tasks-table-page-size-selector-20").click();
