@@ -97,6 +97,20 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 - Each query and mutation should have a unique name.
 - Since query analysis for type generation occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
 
+## How to get data for your feature
+If you need more data to be able to test out your feature locally the easiest way to do it is to populate the local db using real data from the staging or production environments.
+- First step is to locate where you want to fetch your data from if it exists in either the staging or production environments.
+- After identifying where to get your data from you should try to ssh into one of the db servers used for staging or prod. The urls for these dbs can be located in the `fabfile.py` located in the evergreen directory.
+- You should make sure you are connected to a secondary db before proceeding.
+- Open the mongo shell and identify what query returns the data you need.
+- Exit from the mongo shell and prepare to run `mongoexport`
+- On the staging db this can be run using `/var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=<someCollection> --out=<outputFile>.json --query='<someQuery>'`
+- With this command a json file would be saved to your home directory with the results of the `mongoexport`
+- You can then transfer this json file to your local system by running the following command after quitting the ssh session. `scp <db you sshed into>:~/<outputFile>.json`
+- You should run this file through the scrambled-eggs script to sanatize it and remove any sensitive information `make scramble file=<path to file>.json`
+- Once you have this file you can copy the contents of it to the relevant `testdata/local/<collection>.json` file with in the evergreen folder
+- You can then delete `/bin/.load-local-data` with in the evergreen folder and run `make local-evergreen` to repopulate the local database with your new data.
+
 ## Deployment
 
 ### Requirements
