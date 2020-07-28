@@ -18,6 +18,10 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.StatusPending]: Variant.LightGray,
 };
 
+const taskStatusToCopy = {
+  [TaskStatus.Started]: "Running",
+};
+
 const failureColors = {
   text: "#800080",
   border: "#CC99CC",
@@ -52,15 +56,23 @@ const StyledBadge = styled(Badge)`
 export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
   if (status in mapTaskStatusToBadgeVariant) {
     return (
-      <Badge key={status} variant={mapTaskStatusToBadgeVariant[status]}>
-        {status}
+      <Badge
+        data-cy="task-status-badge"
+        key={status}
+        variant={mapTaskStatusToBadgeVariant[status]}
+      >
+        {taskStatusToCopy[status] ?? status}
       </Badge>
     );
   }
   if (status in mapUnsupportedBadgeColors) {
     return (
-      <StyledBadge key={status} {...mapUnsupportedBadgeColors[status]}>
-        {status}
+      <StyledBadge
+        data-cy="task-status-badge"
+        key={status}
+        {...mapUnsupportedBadgeColors[status]}
+      >
+        {taskStatusToCopy[status] ?? status}
       </StyledBadge>
     );
   }
