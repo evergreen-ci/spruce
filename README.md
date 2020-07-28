@@ -107,9 +107,9 @@ If you need more data to be able to test out your feature locally the easiest wa
 - On the staging db this can be run using `/var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=<someCollection> --out=<outputFile>.json --query='<someQuery>'`
 - With this command a json file would be saved to your home directory with the results of the `mongoexport`
 - You can then transfer this json file to your local system by running the following command after quitting the ssh session. `scp <db you sshed into>:~/<outputFile>.json`
-- You should run this file through the scrambled-eggs script to sanatize it and remove any sensitive information `make scramble file=<path to file>.json`
+- You should run this file through the scramble-eggs script to sanitize it and remove any sensitive information `make scramble file=<path to file>.json` from within the evergreen folder
 - Once you have this file you can copy the contents of it to the relevant `testdata/local/<collection>.json` file with in the evergreen folder
-- You can then delete `/bin/.load-local-data` with in the evergreen folder and run `make local-evergreen` to repopulate the local database with your new data.
+- You can then delete `/bin/.load-local-data` within the evergreen folder and run `make local-evergreen` to repopulate the local database with your new data.
 
 ## Deployment
 
