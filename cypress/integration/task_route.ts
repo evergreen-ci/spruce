@@ -35,6 +35,6 @@ describe("Task Page Route", () => {
 
   it("should display the status badge for a task (2)", () => {
     cy.visit("/task/evergreen_ubuntu1604_89/logs");
-    cy.dataCy("task-status-badge").contains("running");
+    cy.dataCy("task-status-badge").contains("Running");
   });
 });
