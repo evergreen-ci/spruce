@@ -30,6 +30,7 @@ export const Metadata: React.FC<{
   const baseCommit = get(task, "revision", "").slice(0, 10);
   const reliesOn = get(task, "reliesOn");
   const baseTaskMetadata = get(task, "baseTaskMetadata");
+  const ami = get(task, "ami");
   const baseTaskDuration = get(baseTaskMetadata, "baseTaskDuration");
   const baseTaskLink = get(baseTaskMetadata, "baseTaskLink");
 
@@ -78,6 +79,7 @@ export const Metadata: React.FC<{
           </StyledLink>
         </P2>
       )}
+      {ami && <P2 data-cy="task-metadata-ami">AMI: {ami}</P2>}
       <P2>
         Host:{" "}
         <StyledLink
