@@ -27,7 +27,7 @@ export const routes = {
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
   hosts: paths.hosts,
-  host: paths.host,
+  host: `${paths.host}/:id`,
 };
 
 export enum PatchTab {
