@@ -7,15 +7,18 @@ import {
   RestartPatch,
   UnschedulePatchTasks,
   SetPatchPriority,
+  EnqueuePatch,
   AddNotification,
 } from "components/PatchActionButtons";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface ActionButtonProps {
+  canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
+  canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
 }) => {
   const wrapperRef = useRef(null);
@@ -54,6 +57,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         hideMenu,
         key: "priority",
         disabled: isActionLoading,
+        refetchQueries,
+        setParentLoading: setIsActionLoading,
+      }}
+    />,
+    <EnqueuePatch
+      {...{
+        patchId,
+        hideMenu,
+        key: "enqueue",
+        disabled: isActionLoading || !canEnqueueToCommitQueue,
         refetchQueries,
         setParentLoading: setIsActionLoading,
       }}

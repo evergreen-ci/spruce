@@ -26,10 +26,15 @@ describe("Task Page Route", () => {
     cy.location("pathname").should("eq", "/task/taskID/files");
   });
 
-  it("should display the status badge for a task", () => {
+  it("should display the status badge for a task (1)", () => {
     cy.visit(
       "/task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
     );
-    cy.dataCy("page-title").contains("dispatched");
+    cy.dataCy("task-status-badge").contains("dispatched");
+  });
+
+  it("should display the status badge for a task (2)", () => {
+    cy.visit("/task/evergreen_ubuntu1604_89/logs");
+    cy.dataCy("task-status-badge").contains("Running");
   });
 });
