@@ -36,6 +36,9 @@ export const useFilterInputChangeHandler = (
 
   const onChange = (e: InputEvent): void => {
     setValue(e.target.value);
+
+    sendAnalyticsEvent(urlSearchParam);
+
     updateQueryParamWithDebounce(
       urlSearchParam,
       e.target.value,

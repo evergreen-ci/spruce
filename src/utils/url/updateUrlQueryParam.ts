@@ -23,6 +23,4 @@ export const updateUrlQueryParam = (
   });
 
   replace(`${pathname}?${nextQueryParams}`);
-
-  sendAnalyticsEvent(urlSearchParam);
 };
