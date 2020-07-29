@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { useTaskAnalytics } from "analytics";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -31,12 +32,14 @@ export const Metadata: React.FC<{
   const reliesOn = task?.reliesOn;
   const baseTaskMetadata = task?.baseTaskMetadata;
   const ami = task?.ami;
+  const distroId = task?.distroId;
   const baseTaskDuration = baseTaskMetadata?.baseTaskDuration;
   const baseTaskLink = baseTaskMetadata?.baseTaskLink;
 
   const patchMetadata = task?.patchMetadata;
   const author = patchMetadata?.author;
 
+  const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
     <MetadataCard error={error} loading={loading} title="Task Metadata">
       <P2>Submitted by: {author}</P2>
@@ -79,6 +82,16 @@ export const Metadata: React.FC<{
           </StyledLink>
         </P2>
       )}
+      <P2>
+        Distro:{" "}
+        <StyledLink
+          data-cy="task-distro-link"
+          href={distroLink}
+          onClick={() => taskAnalytics.sendEvent({ name: "Click Distro Link" })}
+        >
+          {distroId}
+        </StyledLink>
+      </P2>
       {ami && <P2 data-cy="task-metadata-ami">AMI: {ami}</P2>}
       <P2>
         Host:{" "}

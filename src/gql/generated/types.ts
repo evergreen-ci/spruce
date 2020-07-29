@@ -1150,6 +1150,7 @@ export type GetTaskQuery = {
     canUnschedule: boolean;
     canSetPriority: boolean;
     ami?: Maybe<string>;
+    distroId: string;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;

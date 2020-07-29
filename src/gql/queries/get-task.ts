@@ -49,6 +49,7 @@ export const GET_TASK = gql`
       canUnschedule
       canSetPriority
       ami
+      distroId
     }
   }
 `;
