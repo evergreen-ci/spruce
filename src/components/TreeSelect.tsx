@@ -245,27 +245,18 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
 // depth first traversal checkbox data.
 // pushes parent then children to rows array
 // keeps track of level for indentation
-export const renderCheckboxes = ({
+const renderCheckboxes = ({
   tData,
   state,
   onChange,
-  hasParent = true,
 }: {
   tData: TreeDataEntry[];
   state: string[];
   onChange: (v: [string]) => void;
-  hasParent?: boolean;
 }): JSX.Element[] => {
   const rows: JSX.Element[] = [];
   tData.forEach((entry) => {
-    renderCheckboxesHelper({
-      rows,
-      data: entry,
-      onChange,
-      state,
-      tData,
-      hasParent,
-    });
+    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
   });
   return rows;
 };
@@ -276,16 +267,14 @@ const renderCheckboxesHelper = ({
   onChange,
   state,
   tData,
-  hasParent,
 }: {
   rows: JSX.Element[];
   data: TreeDataEntry;
   onChange: (v: string[]) => void;
   state: string[];
   tData: TreeDataEntry[];
-  hasParent: boolean;
 }): void => {
-  const ParentCheckboxWrapper = getCheckboxWrapper(0, hasParent);
+  const ParentCheckboxWrapper = getCheckboxWrapper(0);
   // push parent
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
@@ -301,7 +290,7 @@ const renderCheckboxesHelper = ({
     </ParentCheckboxWrapper>
   );
   // then examine children
-  const ChildCheckboxWrapper = getCheckboxWrapper(1, hasParent);
+  const ChildCheckboxWrapper = getCheckboxWrapper(1);
   if (data.children) {
     data.children.forEach((child) => {
       const onChangeChildFn = (): void =>
@@ -321,19 +310,13 @@ const renderCheckboxesHelper = ({
   }
 };
 
-const getCheckboxWrapper = (
-  level: number,
-  hasParent: boolean
-): React.FC => styled.div`
+const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
   padding-top: 4px;
   padding-bottom: 4px;
-  ${hasParent &&
-    `
-    :first-of-type {
-      border-bottom: 1px solid ${gray.light2};
-    }
-  `}
+  :first-of-type {
+    border-bottom: 1px solid ${gray.light2};
+  }
 `;
 const LabelWrapper = styled.div`
   white-space: nowrap;
