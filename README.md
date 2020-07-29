@@ -99,18 +99,42 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 ## How to get data for your feature
 If you need more data to be able to test out your feature locally the easiest way to do it is to populate the local db using real data from the staging or production environments.
-- First step is to locate where you want to fetch your data from if it exists in either the staging or production environments.
-- After identifying where to get your data from you should try to ssh into one of the db servers used for staging or prod. The urls for these dbs can be located in the `fabfile.py` located in the evergreen directory.
-- You should make sure you are connected to a secondary db before proceeding.
-- Open the mongo shell and identify what query returns the data you need.
-- Exit from the mongo shell and prepare to run `mongoexport`
-- On the staging db this can be run using `/var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=<someCollection> --out=<outputFile>.json --query='<someQuery>'`
-- With this command a json file would be saved to your home directory with the results of the `mongoexport`
-- You can then transfer this json file to your local system by running the following command after quitting the ssh session. `scp <db you sshed into>:~/<outputFile>.json`
-- You should run this file through the scramble-eggs script to sanitize it and remove any sensitive information `make scramble file=<path to file>.json` from within the evergreen folder
-- Once you have this file you can copy the contents of it to the relevant `testdata/local/<collection>.json` file with in the evergreen folder
-- You can then delete `/bin/.load-local-data` within the evergreen folder and run `make local-evergreen` to repopulate the local database with your new data.
 
+1. You should identify if the data you need is located in the staging or prod db and ssh into them (You should be connected to the office network or vpn before proceeding). The urls for these db servers can be located in the `fabfile.py` located in the evergreen directory or [here](https://github.com/10gen/kernel-tools/blob/master/evergreen/fabfile.py).
+2. You should ensure you are connected to a secondary node before proceeding.
+3. Run `mongo` to open the the mongo shell.
+4. Identify the query you need to fetch the data you are looking for. 
+
+    ```
+    mci:SECONDARY> rs.slaveOk() // Allows read operations on a secondary node
+    mci:SECONDARY> use mci // use the correct db
+    switched to db mci
+    mci:SECONDARY>  db.distro.find({_id: "archlinux-small"}) // the full query
+    ```
+5. Exit from the mongo shell and prepare to run `mongoexport`
+    ```
+    mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+    2020-07-29T17:41:50.266+0000	connected to: localhost
+    2020-07-29T17:41:50.269+0000	exported 1 record
+    ```
+   After running this command a file will be saved to your home directory with the results of the `mongoexport`
+
+    *Note you may need to provide the full path to mongoexport on the staging db*
+
+    ```
+    /var/lib/mongodb-mms-automation/mongodb-linux-x86_64-4.0.5/bin/mongoexport --db=mci --collection=distro --out=distro.json --query='{_id: "archlinux-small"}' 
+    2020-07-29T17:41:50.266+0000	connected to: localhost
+    2020-07-29T17:41:50.269+0000	exported 1 record
+    ```
+6. Exit the ssh session using `exit` or `Ctrl + D`
+7. You can now transfer this json file to your local system by running the following command. `scp <db you sshed into>:~/distro.json .` This will save a file named `distro.json` to the current directory
+8. You should run this file through the scramble-eggs script to sanitize it and remove any sensitive information `make scramble file=<path to file>.json` from within the evergreen folder
+9. Once you have this file you can copy the contents of it to the relevant `testdata/local/<collection>.json` file with in the evergreen folder
+10. You can then delete `/bin/.load-local-data` within the evergreen folder and run `make local-evergreen` to repopulate the local database with your new data.
+
+**Notes**
+
+When creating your queries you should be sure to limit the amount of documents so you don't accidently export an entire collection you can do this by passing a `--limit=<number>` flag to `mongoexport`
 ## Deployment
 
 ### Requirements
