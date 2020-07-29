@@ -20,7 +20,6 @@ export const InputFilterTestComponent = () => {
       <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
       <InputFilter
         {...{
-          dataCy: "",
           placeholder: "Search ID",
           value,
           onChange,
@@ -58,7 +57,6 @@ export const CheckboxFilterTestComponent = () => {
       <div>statuses from url: {urlValue}</div>
       <CheckboxFilter
         {...{
-          dataCy: "",
           statuses,
           value,
           onChange,
