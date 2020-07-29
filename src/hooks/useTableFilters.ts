@@ -43,7 +43,7 @@ export const useTableInputFilter = <SearchParam extends string>({
       replace,
       pathname,
       sendAnalyticsEvent,
-      true // when does this need to be false?
+      true
     );
 
     sendAnalyticsEvent(urlSearchParam);
@@ -59,7 +59,7 @@ export const useTableInputFilter = <SearchParam extends string>({
       replace,
       pathname,
       sendAnalyticsEvent,
-      true // when does this need to be false?
+      true
     );
   };
 
@@ -105,7 +105,7 @@ export const useTableTreeSelectFilter = <SearchParam extends string>({
       replace,
       pathname,
       sendAnalyticsEvent,
-      true // when does this need to be false?
+      true
     );
 
     sendAnalyticsEvent(urlSearchParam);
@@ -121,7 +121,7 @@ export const useTableTreeSelectFilter = <SearchParam extends string>({
       replace,
       pathname,
       sendAnalyticsEvent,
-      true // when does this need to be false?
+      true
     );
   };
 
