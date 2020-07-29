@@ -1,5 +1,5 @@
 import React from "react";
-import { useTableInputFilter, useTableTreeSelectFilter } from "hooks";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { useLocation } from "react-router";
 import { parseQueryString } from "utils";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
@@ -40,7 +40,7 @@ export const CheckboxFilterTestComponent = () => {
     onChange,
     updateUrlParam,
     resetUrlParam,
-  ] = useTableTreeSelectFilter({
+  ] = useTableCheckboxFilter({
     urlSearchParam: statusesUrlParam,
     sendAnalyticsEvent: () => undefined,
   });

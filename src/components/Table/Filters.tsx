@@ -99,7 +99,7 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
   </FilterWrapper>
 );
 
-export const getColumnTreeSelectFilterProps = ({
+export const getColumnCheckboxFilterProps = ({
   statuses,
   value,
   onChange,

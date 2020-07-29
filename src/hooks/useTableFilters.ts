@@ -66,17 +66,17 @@ export const useTableInputFilter = <SearchParam extends string>({
   return [value, onChange, updateParams, resetQueryParam];
 };
 
-type UseTreeSelectFilterReturn = [
+type UseCheckboxFilterReturn = [
   string[], // url param value
   (e: InputEvent, key: string) => void, // onChange handler
   () => void, // update url param
   () => void // reset url param
 ];
 
-export const useTableTreeSelectFilter = <SearchParam extends string>({
+export const useTableCheckboxFilter = <SearchParam extends string>({
   urlSearchParam,
   sendAnalyticsEvent = () => undefined,
-}: Params<SearchParam>): UseTreeSelectFilterReturn => {
+}: Params<SearchParam>): UseCheckboxFilterReturn => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
