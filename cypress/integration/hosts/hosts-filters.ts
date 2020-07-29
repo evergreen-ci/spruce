@@ -294,6 +294,7 @@ describe("Hosts page filtering from URL", () => {
       .should("have.attr", "title")
       .and("eq", "1/3");
   });
+
   it("Calculates number of pages based on filtered hosts count if hosts are filtered", () => {
     cy.visit(`${hostsRoute}?${idParam}=${idFilter}`);
     cy.get(".ant-pagination-simple-pager")
