@@ -9,7 +9,7 @@ import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
   getColumnSearchFilterProps,
   getColumnTreeSelectFilterProps,
-} from "utils/filters";
+} from "components/Table/Filters";
 import { statusesTreeData } from "constants/hosts";
 
 interface Props {
