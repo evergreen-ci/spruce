@@ -68,7 +68,7 @@ export const useTableInputFilter = <SearchParam extends string>({
 
 type UseTreeSelectFilterReturn = [
   string[], // url param value
-  (e: string[]) => void, // onChange handler
+  (e: InputEvent, key: string) => void, // onChange handler
   () => void, // update url param
   () => void // reset url param
 ];
@@ -88,8 +88,13 @@ export const useTableTreeSelectFilter = <SearchParam extends string>({
 
   const [value, setValue] = useState<string[]>(valueFromUrl);
 
-  const onChange = (newValue: string[]): void => {
-    setValue(newValue);
+  const onChange = (e: InputEvent, key: string): void => {
+    if (e.target.checked) {
+      setValue([...value, key]);
+    } else {
+      const index = value.findIndex((v) => v === key);
+      setValue([...value.slice(0, index), ...value.slice(index + 1)]);
+    }
   };
 
   const updateParams = () => {
