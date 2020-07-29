@@ -26,7 +26,8 @@ export const Metadata: React.FC<{
   const startTime = task?.startTime;
   const estimatedStart = task?.estimatedStart;
   const timeTaken = task?.timeTaken;
-  const baseCommit = task?.revision.slice(0, 10);
+  const revision = task?.revision ?? "";
+  const baseCommit = revision.slice(0, 10);
   const reliesOn = task?.reliesOn;
   const baseTaskMetadata = task?.baseTaskMetadata;
   const ami = task?.ami;
