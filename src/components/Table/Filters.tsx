@@ -4,6 +4,7 @@ import { Button } from "components/Button";
 import { TreeDataEntry } from "components/TreeSelect";
 import { CheckboxGroup } from "components/Checkbox";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 
 export interface InputFilterProps {
   dataCy?: string;
@@ -63,7 +64,10 @@ export const getColumnSearchFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <Icon type="search" style={{ color: value ? "#1890ff" : undefined }} />
+    <Icon
+      type="search"
+      style={{ color: value ? uiColors.blue.base : undefined }}
+    />
   ),
 });
 
@@ -122,7 +126,7 @@ export const getColumnCheckboxFilterProps = ({
   filterIcon: () => (
     <Icon
       type="filter"
-      style={{ color: value.length ? "#1890ff" : undefined }}
+      style={{ color: value.length ? uiColors.blue.base : undefined }}
     />
   ),
 });
