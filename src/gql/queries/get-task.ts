@@ -48,6 +48,7 @@ export const GET_TASK = gql`
       canSchedule
       canUnschedule
       canSetPriority
+      ami
     }
   }
 `;

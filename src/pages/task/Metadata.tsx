@@ -7,7 +7,6 @@ import { MetadataCard } from "components/MetadataCard";
 import { msToDuration } from "utils/string";
 import { v4 as uuid } from "uuid";
 import { GetTaskQuery } from "gql/generated/types";
-import get from "lodash/get";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { useTaskAnalytics } from "analytics";
 
@@ -19,23 +18,23 @@ export const Metadata: React.FC<{
   const task = data ? data.task : null;
   const taskAnalytics = useTaskAnalytics();
 
-  const spawnHostLink = get(task, "spawnHostLink");
-  const createTime = get(task, "createTime");
-  const finishTime = get(task, "finishTime");
-  const hostId = get(task, "hostId");
-  const hostLink = get(task, "hostLink");
-  const startTime = get(task, "startTime");
-  const estimatedStart = get(task, "estimatedStart");
-  const timeTaken = get(task, "timeTaken");
-  const baseCommit = get(task, "revision", "").slice(0, 10);
-  const reliesOn = get(task, "reliesOn");
-  const baseTaskMetadata = get(task, "baseTaskMetadata");
-  const ami = get(task, "ami");
-  const baseTaskDuration = get(baseTaskMetadata, "baseTaskDuration");
-  const baseTaskLink = get(baseTaskMetadata, "baseTaskLink");
+  const spawnHostLink = task?.spawnHostLink;
+  const createTime = task?.createTime;
+  const finishTime = task?.finishTime;
+  const hostId = task?.hostId;
+  const hostLink = task?.hostLink;
+  const startTime = task?.startTime;
+  const estimatedStart = task?.estimatedStart;
+  const timeTaken = task?.timeTaken;
+  const baseCommit = task?.revision.slice(0, 10);
+  const reliesOn = task?.reliesOn;
+  const baseTaskMetadata = task?.baseTaskMetadata;
+  const ami = task?.ami;
+  const baseTaskDuration = baseTaskMetadata?.baseTaskDuration;
+  const baseTaskLink = baseTaskMetadata?.baseTaskLink;
 
-  const patchMetadata = get(task, "patchMetadata");
-  const author = get(patchMetadata, "author", "");
+  const patchMetadata = task?.patchMetadata;
+  const author = patchMetadata?.author;
 
   return (
     <MetadataCard error={error} loading={loading} title="Task Metadata">
