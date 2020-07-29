@@ -58,7 +58,7 @@ export const CheckboxFilterTestComponent = () => {
       <div>statuses from url: {urlValue}</div>
       <CheckboxFilter
         {...{
-          dataCy: "tree-select-filter",
+          dataCy: "",
           statuses,
           value,
           onChange,
