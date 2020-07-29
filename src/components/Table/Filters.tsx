@@ -24,7 +24,6 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 }) => (
   <FilterWrapper>
     <Input
-      aria-label="chicken"
       data-cy={dataCy}
       placeholder={placeholder}
       value={value}

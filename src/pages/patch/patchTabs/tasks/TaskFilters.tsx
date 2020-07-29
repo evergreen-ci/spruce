@@ -147,12 +147,12 @@ const statusesTreeData: Status[] = [
     key: TaskStatus.Succeeded,
   },
   {
-    title: "Running",
+    title: "Dispatched",
     value: TaskStatus.Dispatched,
     key: TaskStatus.Dispatched,
   },
   {
-    title: "Started",
+    title: "Running",
     value: TaskStatus.Started,
     key: TaskStatus.Started,
   },

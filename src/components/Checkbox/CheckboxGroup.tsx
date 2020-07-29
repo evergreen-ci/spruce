@@ -16,7 +16,7 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
 }) => (
   <CheckboxesWrapper>
     {data.map(({ key, title, value: checkboxValue }) => (
-      <Checkbox
+      <StyledCheckbox
         key={key}
         className="cy-checkbox"
         onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e, key)}
@@ -31,4 +31,11 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
 
 const CheckboxesWrapper = styled.div`
   padding: 4px;
+`;
+const StyledCheckbox = styled(Checkbox)`
+  margin-bottom: 8px;
+
+  :last-of-type {
+    margin-bottom: 0;
+  }
 `;

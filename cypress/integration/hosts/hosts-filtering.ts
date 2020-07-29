@@ -202,6 +202,7 @@ const sortByTests = [
     sorterName: "owner",
     sortBy: "OWNER",
     expectedIds: [
+      "rhel71-ppc-1.pic.build.10gen",
       "build10.ny.cbi.10gen",
       "build10.ny.cbi.10gen.c",
       "build10.ny.cbi.10gen.cc",
@@ -211,7 +212,6 @@ const sortByTests = [
       "i-0d0ae8b83366d22",
       "i-0d0ae8b83366d22b",
       "i-0d0ae8b83366d22be",
-      "i-0f81a2d39744003",
     ],
   },
 ];
