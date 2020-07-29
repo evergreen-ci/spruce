@@ -34,6 +34,7 @@ export const Button: React.FC<Props> = ({
   glyph,
   href,
   target,
+  size,
 }) => (
   <LeafyGreenButton
     data-cy={dataCy}
@@ -43,6 +44,7 @@ export const Button: React.FC<Props> = ({
     glyph={loading ? <StyledIcon type="loading" /> : glyph}
     href={href}
     target={target}
+    size={size}
   >
     {children}
   </LeafyGreenButton>

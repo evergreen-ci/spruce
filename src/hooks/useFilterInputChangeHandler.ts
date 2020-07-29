@@ -2,32 +2,11 @@ import { useState } from "react";
 import debounce from "lodash.debounce";
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
+import { updateUrlQueryParam } from "utils/url";
 
 const arrayFormat = "comma";
 
-const updateQueryParam = debounce(
-  (
-    urlSearchParam: string,
-    inputValue: string,
-    search: string,
-    replace: (path: string) => void,
-    pathname: string,
-    sendAnalyticsEvent: (filterBy: string) => void,
-    resetPage?: boolean
-  ) => {
-    const nextQueryParams = queryString.stringify(
-      {
-        ...queryString.parse(search, { arrayFormat }),
-        [urlSearchParam]: inputValue === "" ? undefined : inputValue,
-        ...(resetPage && { page: 0 }),
-      },
-      { arrayFormat }
-    );
-    replace(`${pathname}?${nextQueryParams}`);
-    sendAnalyticsEvent(urlSearchParam);
-  },
-  250
-);
+const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
@@ -57,7 +36,7 @@ export const useFilterInputChangeHandler = (
 
   const onChange = (e: InputEvent): void => {
     setValue(e.target.value);
-    updateQueryParam(
+    updateQueryParamWithDebounce(
       urlSearchParam,
       e.target.value,
       search,
@@ -67,5 +46,6 @@ export const useFilterInputChangeHandler = (
       resetPage
     );
   };
+
   return [value, onChange];
 };
