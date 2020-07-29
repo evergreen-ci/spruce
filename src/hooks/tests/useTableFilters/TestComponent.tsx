@@ -1,5 +1,5 @@
 import React from "react";
-import { useTableInputFilter, useTableTreeSelectFilter } from "hooks";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { useLocation } from "react-router";
 import { parseQueryString } from "utils";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
@@ -20,7 +20,6 @@ export const InputFilterTestComponent = () => {
       <div>host id from url: {queryParams[hostIdUrlParam] ?? "N/A"}</div>
       <InputFilter
         {...{
-          dataCy: "",
           placeholder: "Search ID",
           value,
           onChange,
@@ -40,7 +39,7 @@ export const CheckboxFilterTestComponent = () => {
     onChange,
     updateUrlParam,
     resetUrlParam,
-  ] = useTableTreeSelectFilter({
+  ] = useTableCheckboxFilter({
     urlSearchParam: statusesUrlParam,
     sendAnalyticsEvent: () => undefined,
   });
@@ -58,7 +57,6 @@ export const CheckboxFilterTestComponent = () => {
       <div>statuses from url: {urlValue}</div>
       <CheckboxFilter
         {...{
-          dataCy: "tree-select-filter",
           statuses,
           value,
           onChange,

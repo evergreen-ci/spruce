@@ -4,11 +4,11 @@ import { Table } from "antd";
 import { Host, HostsQueryVariables } from "gql/generated/types";
 import { formatDistanceToNow } from "date-fns";
 import { StyledRouterLink } from "components/styles";
-import { useTableInputFilter, useTableTreeSelectFilter } from "hooks";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
   getColumnSearchFilterProps,
-  getColumnTreeSelectFilterProps,
+  getColumnCheckboxFilterProps,
 } from "components/Table/Filters";
 import { statusesTreeData } from "constants/hosts";
 
@@ -47,7 +47,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     onChangeStatuses,
     updateStatusesUrlParam,
     resetStatusesUrlParam,
-  ] = useTableTreeSelectFilter<HostsUrlParam>({
+  ] = useTableCheckboxFilter<HostsUrlParam>({
     urlSearchParam: "statuses",
     sendAnalyticsEvent: () => undefined,
   });
@@ -127,7 +127,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
       key: TableColumnHeader.Status,
       sorter: true,
       className: "cy-task-table-col-STATUS",
-      ...getColumnTreeSelectFilterProps({
+      ...getColumnCheckboxFilterProps({
         value: statusesValue,
         onChange: onChangeStatuses,
         dataCy: "statuses-filter",

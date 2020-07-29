@@ -39,7 +39,7 @@ test("useTableInputFilter", async () => {
   getByText("host id from url: N/A");
 });
 
-test("useTableTreeSelectFilter", async () => {
+test("useTableCheckboxFilter", async () => {
   const { getByText, getByLabelText } = render(
     <MemoryRouter initialEntries={[`/hosts?statuses=running,terminated`]}>
       <Route path="/hosts">

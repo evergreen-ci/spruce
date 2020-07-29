@@ -16,7 +16,7 @@ export { useStatusesFilter } from "hooks/useStatusesFilter";
 export { useTabs } from "hooks/useTabs";
 export {
   useTableInputFilter,
-  useTableTreeSelectFilter,
+  useTableCheckboxFilter,
 } from "hooks/useTableFilters";
 
 export const usePrevious = <T>(state: T): T | undefined => {

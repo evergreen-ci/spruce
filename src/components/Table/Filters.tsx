@@ -4,6 +4,7 @@ import { Button } from "components/Button";
 import { TreeDataEntry } from "components/TreeSelect";
 import { CheckboxGroup } from "components/Checkbox";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 
 export interface InputFilterProps {
   dataCy?: string;
@@ -18,29 +19,24 @@ export const InputFilter: React.FC<InputFilterProps> = ({
   placeholder,
   value,
   onChange,
+  dataCy,
   updateUrlParam,
   resetUrlParam,
-  dataCy,
 }) => (
-  <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+  <FilterWrapper>
     <Input
-      data-cy="input-filter"
+      data-cy={dataCy}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
     />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button dataCy="reset-button" size="small" onClick={resetUrlParam}>
+        <Button size="small" onClick={resetUrlParam}>
           Reset
         </Button>
       </ButtonWrapper>
-      <Button
-        dataCy="filter-button"
-        size="small"
-        variant="primary"
-        onClick={updateUrlParam}
-      >
+      <Button size="small" variant="primary" onClick={updateUrlParam}>
         Search
       </Button>
     </ButtonsWrapper>
@@ -58,20 +54,19 @@ export const getColumnSearchFilterProps = ({
   filterDropdown: () => (
     <InputFilter
       {...{
+        dataCy,
         placeholder,
         value,
         onChange,
         updateUrlParam,
         resetUrlParam,
-        dataCy,
       }}
     />
   ),
   filterIcon: () => (
     <Icon
-      data-cy={dataCy}
       type="search"
-      style={{ color: value ? "#1890ff" : undefined }}
+      style={{ color: value ? uiColors.blue.base : undefined }}
     />
   ),
 });
@@ -86,34 +81,29 @@ export interface CheckboxFilterProps {
 }
 
 export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
+  dataCy,
   statuses,
   value,
   onChange,
   updateUrlParam,
   resetUrlParam,
-  dataCy,
 }) => (
-  <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+  <FilterWrapper data-cy={dataCy}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button dataCy="reset-button" onClick={resetUrlParam} size="small">
+        <Button onClick={resetUrlParam} size="small">
           Reset
         </Button>
       </ButtonWrapper>
-      <Button
-        dataCy="filter-button"
-        size="small"
-        variant="primary"
-        onClick={updateUrlParam}
-      >
+      <Button size="small" variant="primary" onClick={updateUrlParam}>
         Filter
       </Button>
     </ButtonsWrapper>
   </FilterWrapper>
 );
 
-export const getColumnTreeSelectFilterProps = ({
+export const getColumnCheckboxFilterProps = ({
   statuses,
   value,
   onChange,
@@ -135,9 +125,8 @@ export const getColumnTreeSelectFilterProps = ({
   ),
   filterIcon: () => (
     <Icon
-      data-cy={dataCy}
       type="filter"
-      style={{ color: value.length ? "#1890ff" : undefined }}
+      style={{ color: value.length ? uiColors.blue.base : undefined }}
     />
   ),
 });
