@@ -6,6 +6,7 @@ import { UserPatches } from "pages/UserPatches";
 import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { Hosts } from "pages/Hosts";
+import { Host } from "pages/Host";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
 import { SiteBanner, ConnectivityBanner } from "components/Banners";
@@ -55,6 +56,7 @@ export const Content: React.FC = () => {
         <PrivateRoute path={routes.patch} component={PatchRedirect} />
         <PrivateRoute path={routes.version} component={Patch} />
         <PrivateRoute path={routes.hosts} component={Hosts} />
+        <PrivateRoute path={routes.host} component={Host} />
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
         <PrivateRoute
