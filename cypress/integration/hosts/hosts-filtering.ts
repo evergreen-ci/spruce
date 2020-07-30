@@ -377,10 +377,6 @@ describe("Hosts page filtering from table filters", () => {
             cy.get(".cy-checkbox")
               .contains("Provisioning")
               .click({ force: true });
-          } else if (param === currentTaskIdParam) {
-            // do this for really long text because otherwise cypress times out while typing and fails
-            cy.dataCy("input-filter").type(filterValue);
-            cy.wait(200);
           } else {
             cy.dataCy("input-filter").type(filterValue);
           }
