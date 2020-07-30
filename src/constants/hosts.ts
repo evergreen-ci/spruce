@@ -1,7 +1,7 @@
 import { HostStatus } from "types/host";
 
 interface Status {
-  title: keyof typeof HostStatus;
+  title: keyof typeof HostStatus | "Provision Failed";
   value: HostStatus;
   key: HostStatus;
 }
@@ -39,7 +39,7 @@ export const hostStatuses: Status[] = [
     key: HostStatus.Provisioning,
   },
   {
-    title: "ProvisionFailed",
+    title: "Provision Failed",
     value: HostStatus.ProvisionFailed,
     key: HostStatus.ProvisionFailed,
   },
