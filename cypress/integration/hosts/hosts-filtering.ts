@@ -278,7 +278,7 @@ const sortDirectionTests = [
   },
 ];
 
-xdescribe("Hosts page filtering from URL", () => {
+describe("Hosts page filtering from URL", () => {
   before(() => {
     cy.login();
   });
