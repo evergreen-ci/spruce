@@ -85,6 +85,11 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     sendAnalyticsEvent: () => undefined,
   });
 
+  const handleTableChange = (...[, , sorter]) => {
+    console.log("sorter :>> ", sorter);
+  };
+
+  // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [
     {
       title: "ID",
@@ -208,12 +213,12 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
 
   return (
     <Table
-      data-test-id="tasks-table"
+      data-test-id="hosts-table"
       rowKey={rowKey}
       pagination={false}
       columns={columnsTemplate}
       dataSource={hosts}
-      onChange={() => undefined}
+      onChange={handleTableChange}
     />
   );
 };
