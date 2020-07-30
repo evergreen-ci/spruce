@@ -1,16 +1,6 @@
-enum HostStatus {
-  Running = "running",
-  Terminated = "terminated",
-  Uninitialized = "initializing",
-  Building = "building",
-  Starting = "starting",
-  Provisioning = "provisioning",
-  ProvisionFailed = "provision failed",
-  Quarantined = "quarantined",
-  Decommissioned = "decommissioned",
-}
+import { HostStatus } from "types/host";
 
-export interface Status {
+interface Status {
   title: keyof typeof HostStatus;
   value: HostStatus;
   key: HostStatus;
