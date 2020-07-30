@@ -10,7 +10,7 @@ import {
   getColumnSearchFilterProps,
   getColumnCheckboxFilterProps,
 } from "components/Table/Filters";
-import { statusesTreeData } from "constants/hosts";
+import { hostStatuses } from "constants/hosts";
 
 interface Props {
   hosts: Host[];
@@ -131,7 +131,7 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
         value: statusesValue,
         onChange: onChangeStatuses,
         dataCy: "statuses-filter",
-        statuses: statusesTreeData,
+        statuses: hostStatuses,
         updateUrlParam: updateStatusesUrlParam,
         resetUrlParam: resetStatusesUrlParam,
       }),

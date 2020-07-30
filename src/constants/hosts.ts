@@ -6,7 +6,7 @@ interface Status {
   key: HostStatus;
 }
 
-export const statusesTreeData: Status[] = [
+export const hostStatuses: Status[] = [
   {
     title: "Running",
     value: HostStatus.Running,
