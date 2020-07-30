@@ -29,7 +29,6 @@ export const GET_USER_PATCHES = gql`
           buildVariant
           status
         }
-        canEnqueueToCommitQueue
       }
       filteredPatchCount
     }

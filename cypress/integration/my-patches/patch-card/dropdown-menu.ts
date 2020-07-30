@@ -75,13 +75,4 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("banner").should("exist");
     cy.dataCy("card-dropdown").should("not.exist");
   });
-
-  it("'Add to commit queue' button appears", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
-        cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("enqueue-patch").should("exist");
-      });
-  });
 });
