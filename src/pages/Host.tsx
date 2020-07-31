@@ -29,6 +29,7 @@ export const Host: React.FC = () => {
         badge={<HostStatusBadge status={status} />}
         loading={loading}
         hasData
+        size="large"
       />
     </PageWrapper>
   );

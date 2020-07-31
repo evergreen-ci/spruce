@@ -1,7 +1,10 @@
 import React from "react";
 import { Skeleton } from "antd";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { H2, Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+import { css } from "@emotion/core";
+
+type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
@@ -9,7 +12,24 @@ interface Props {
   title: string;
   badge: JSX.Element;
   buttons?: JSX.Element;
+  size?: Size;
 }
+
+interface TitleTypographyProps {
+  size: Size;
+}
+
+const TitleTypography: React.FC<TitleTypographyProps> = ({
+  children,
+  size,
+}) => {
+  if (size === "large") {
+    return <H2>{children}</H2>;
+  }
+  if (size === "medium") {
+    return <Subtitle>{children}</Subtitle>;
+  }
+};
 
 export const PageTitle: React.FC<Props> = ({
   loading,
@@ -17,6 +37,7 @@ export const PageTitle: React.FC<Props> = ({
   title,
   badge,
   buttons,
+  size = "medium",
 }) => (
   <>
     {!hasData && loading && (
@@ -27,23 +48,35 @@ export const PageTitle: React.FC<Props> = ({
     {hasData && !loading && (
       <PageHeader>
         <TitleWrapper>
-          <Subtitle>
+          <TitleTypography size={size}>
             <span data-cy="page-title">
               {title}
               {"  "}
-              <BadgeWrapper>{badge}</BadgeWrapper>
+              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
             </span>
-          </Subtitle>
+          </TitleTypography>
         </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
     )}
   </>
 );
-const BadgeWrapper = styled.span`
-  display: inline-flex;
-  position: relative;
-  top: -2px;
+const BadgeWrapper = styled.span<TitleTypographyProps>`
+  ${({ size }) =>
+    size === "medium" &&
+    css`
+      display: inline-flex;
+      position: relative;
+      top: -2px;
+    `}
+  ${({ size }) =>
+    size === "large" &&
+    css`
+      display: inline-flex;
+      position: relative;
+      top: -4px;
+      margin-left: 20px;
+    `}
 `;
 
 const PageHeader = styled.div`
