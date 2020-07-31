@@ -212,6 +212,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
@@ -249,6 +250,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationEnqueuePatchArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -333,6 +338,7 @@ export type Patch = {
   commitQueuePosition?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
+  canEnqueueToCommitQueue: Scalars["Boolean"];
 };
 
 export type PatchBuildVariant = {
@@ -396,6 +402,11 @@ export type Projects = {
   otherProjects: Array<GroupedProjects>;
 };
 
+export type PublicKey = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
@@ -417,6 +428,7 @@ export type Query = {
   hostEvents: HostEvents;
   hosts: HostsResponse;
   myHosts?: Maybe<Array<Host>>;
+  myPublicKeys: Array<PublicKey>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -596,6 +608,7 @@ export type Task = {
   canUnschedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
+  ami?: Maybe<Scalars["String"]>;
 };
 
 export type TaskEndDetail = {

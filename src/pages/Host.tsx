@@ -8,6 +8,7 @@ import { usePageTitle } from "hooks/usePageTitle";
 import { PageWrapper } from "components/styles";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitleJumbo } from "components/PageTitleJumbo";
+import { HostStatus } from "types/host";
 
 export const Host: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -17,9 +18,9 @@ export const Host: React.FC = () => {
   });
   const host = get(data, "host");
   const hostUrl = get(host, "hostUrl");
-  const status = get(host, "status");
+  const status = get(host, "status") as HostStatus;
+
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
-  console.log(data);
 
   return (
     <PageWrapper>
