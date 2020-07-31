@@ -5,20 +5,23 @@ import { SortOrder } from "antd/lib/table";
 
 export const useSetColumnDefaultSortOrder = <T>(
   columns: ColumnProps<T>[],
-  category: string,
-  direction: string
+  sortByValue: string,
+  sortDirValue: string
 ) => {
   const [modifiedColumns, setModifiedColumns] = useState<ColumnProps<T>[]>();
+
   if (!modifiedColumns) {
     const columnsClone = columns.map((c) => ({
       ...c,
-      ...(c.key === category && {
-        defaultSortOrder: (direction === SortDirection.Asc
+      ...(c.key === sortByValue && {
+        defaultSortOrder: (sortDirValue === SortDirection.Asc
           ? "ascend"
           : "descend") as SortOrder,
       }),
     }));
+
     setModifiedColumns(columnsClone);
   }
+
   return modifiedColumns;
 };

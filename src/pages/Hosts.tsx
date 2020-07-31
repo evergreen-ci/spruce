@@ -107,7 +107,10 @@ const Hosts: React.FC = () => {
           </TableControlInnerRow>
         </TableControlOuterRow>
         <TableContainer hide={isLoading}>
-          <HostsTable hosts={hostItems} />
+          <HostsTable
+            hosts={hostItems}
+            initialQueryVariables={initialQueryVariables}
+          />
         </TableContainer>
         {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>
@@ -122,7 +125,7 @@ const getSortBy = (sortByParam: string | string[] = ""): HostSortBy => {
 
   return Object.values(HostSortBy).includes(sortBy)
     ? sortBy
-    : HostSortBy.Status;
+    : HostSortBy.Status; // default sortBy value
 };
 
 const getSortDir = (sortDirParam: string | string[]): SortDirection => {
@@ -130,7 +133,7 @@ const getSortDir = (sortDirParam: string | string[]): SortDirection => {
 
   return Object.values(SortDirection).includes(sortDir)
     ? sortDir
-    : SortDirection.Asc;
+    : SortDirection.Asc; // default sortDir value
 };
 
 const getQueryVariables = (search: string): HostsQueryVariables => {

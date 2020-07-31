@@ -4,16 +4,22 @@ import { Table } from "antd";
 import { Host, HostsQueryVariables } from "gql/generated/types";
 import { formatDistanceToNow } from "date-fns";
 import { StyledRouterLink } from "components/styles";
-import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
   getColumnSearchFilterProps,
   getColumnCheckboxFilterProps,
 } from "components/Table/Filters";
 import { hostStatuses } from "constants/hosts";
+import {
+  useUpdateUrlSortParamOnTableChange,
+  useSetColumnDefaultSortOrder,
+  useTableInputFilter,
+  useTableCheckboxFilter,
+} from "hooks";
 
 interface Props {
   hosts: Host[];
+  initialQueryVariables: HostsQueryVariables;
 }
 
 enum TableColumnHeader {
@@ -29,7 +35,12 @@ enum TableColumnHeader {
 
 type HostsUrlParam = keyof HostsQueryVariables;
 
-export const HostsTable: React.FC<Props> = ({ hosts }) => {
+export const HostsTable: React.FC<Props> = ({
+  hosts,
+  initialQueryVariables,
+}) => {
+  const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
+
   // HOST ID URL PARAM
   const [
     hostIdValue,
@@ -84,10 +95,6 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     urlSearchParam: "startedBy",
     sendAnalyticsEvent: () => undefined,
   });
-
-  const handleTableChange = (...[, , sorter]) => {
-    console.log("sorter :>> ", sorter);
-  };
 
   // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [
@@ -211,14 +218,22 @@ export const HostsTable: React.FC<Props> = ({ hosts }) => {
     },
   ];
 
+  const { sortBy, sortDir } = initialQueryVariables;
+
+  const columnsWithDefaultSort = useSetColumnDefaultSortOrder<Host>(
+    columnsTemplate,
+    sortBy,
+    sortDir
+  );
+
   return (
     <Table
       data-test-id="hosts-table"
       rowKey={rowKey}
       pagination={false}
-      columns={columnsTemplate}
+      columns={columnsWithDefaultSort}
       dataSource={hosts}
-      onChange={handleTableChange}
+      onChange={tableChangeHandler}
     />
   );
 };
