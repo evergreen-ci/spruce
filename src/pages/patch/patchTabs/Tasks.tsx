@@ -9,13 +9,13 @@ import {
   TaskResult,
   SortDirection,
 } from "gql/generated/types";
+import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import queryString from "query-string";
 import {
   useDisableTableSortersIfLoading,
   usePollQuery,
   useSetColumnDefaultSortOrder,
   useNetworkStatus,
-  useUpdateUrlSortParamOnTableChange,
 } from "hooks";
 import get from "lodash.get";
 import { ErrorBoundary } from "components/ErrorBoundary";
@@ -31,7 +31,7 @@ import {
 } from "components/styles";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import { Skeleton, Table } from "antd";
+import { Skeleton } from "antd";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { ColumnProps } from "antd/lib/table";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
@@ -49,8 +49,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const [initialQueryVariables] = useState(
     getQueryVariables(search, resourceId)
   );
-
-  const tableChangeHandler = useUpdateUrlSortParamOnTableChange<TaskResult>();
 
   const { sortBy, sortDir } = initialQueryVariables;
 
@@ -115,14 +113,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={showSkeleton}>
-        <Table
-          data-test-id="tasks-table"
-          rowKey={({ id }: { id: string }): string => id}
-          pagination={false}
-          columns={columns}
-          dataSource={data?.patchTasks.tasks ?? []}
-          onChange={tableChangeHandler}
-        />
+        <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
       </TableContainer>
       {showSkeleton && (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
