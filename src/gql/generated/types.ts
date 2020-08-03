@@ -222,6 +222,7 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
+  createPublicKey: Array<PublicKey>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -293,6 +294,10 @@ export type MutationRemovePatchFromCommitQueueArgs = {
 
 export type MutationUpdateUserSettingsArgs = {
   userSettings?: Maybe<UserSettingsInput>;
+};
+
+export type MutationCreatePublicKeyArgs = {
+  publicKeyInput: PublicKeyInput;
 };
 
 export type Notifications = {
@@ -403,6 +408,11 @@ export type Projects = {
 };
 
 export type PublicKey = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
+export type PublicKeyInput = {
   name: Scalars["String"];
   key: Scalars["String"];
 };
@@ -1166,6 +1176,8 @@ export type GetTaskQuery = {
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;
+    ami?: Maybe<string>;
+    distroId: string;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -1260,6 +1272,8 @@ export type HostsQuery = {
       totalIdleTime?: Maybe<number>;
       uptime?: Maybe<Date>;
       elapsed?: Maybe<Date>;
+      provider: string;
+      noExpiration: boolean;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
