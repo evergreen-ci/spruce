@@ -11,6 +11,7 @@ import {
   shouldEnableGQLMockServer,
 } from "utils/getEnvironmentVariables";
 import { Content } from "components/Content";
+import { ContextProviders } from "context/Providers";
 
 // ANTD css
 import "antd/es/breadcrumb/style/css";
@@ -29,7 +30,6 @@ import "antd/es/select/style/css";
 import "antd/es/skeleton/style/css";
 import "antd/es/spin/style/css";
 import "antd/es/table/style/css";
-import { ContextProviders } from "context/Providers";
 
 const App: React.FC = () => (
   <ErrorBoundary>
