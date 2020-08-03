@@ -212,6 +212,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
@@ -221,6 +222,7 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
+  createPublicKey: Array<PublicKey>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -249,6 +251,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationEnqueuePatchArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -288,6 +294,10 @@ export type MutationRemovePatchFromCommitQueueArgs = {
 
 export type MutationUpdateUserSettingsArgs = {
   userSettings?: Maybe<UserSettingsInput>;
+};
+
+export type MutationCreatePublicKeyArgs = {
+  publicKeyInput: PublicKeyInput;
 };
 
 export type Notifications = {
@@ -333,6 +343,7 @@ export type Patch = {
   commitQueuePosition?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
+  canEnqueueToCommitQueue: Scalars["Boolean"];
 };
 
 export type PatchBuildVariant = {
@@ -396,6 +407,16 @@ export type Projects = {
   otherProjects: Array<GroupedProjects>;
 };
 
+export type PublicKey = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
+export type PublicKeyInput = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
@@ -417,6 +438,7 @@ export type Query = {
   hostEvents: HostEvents;
   hosts: HostsResponse;
   myHosts?: Maybe<Array<Host>>;
+  myPublicKeys: Array<PublicKey>;
 };
 
 export type QueryUserPatchesArgs = {

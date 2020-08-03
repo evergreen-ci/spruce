@@ -21,6 +21,7 @@ import {
   HostsQueryVariables,
   HostSortBy,
   SortDirection,
+  Host,
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
@@ -60,7 +61,7 @@ const Hosts: React.FC = () => {
   }, [searchChanged, search, refetch]);
 
   const hosts = hostsData?.hosts;
-  const hostItems = hosts?.hosts ?? [];
+  const hostItems = (hosts?.hosts as Host[]) ?? [];
   const totalHostsCount = hosts?.totalHostsCount ?? 0;
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
