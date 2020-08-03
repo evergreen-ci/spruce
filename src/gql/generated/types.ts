@@ -1255,6 +1255,8 @@ export type HostsQuery = {
       totalIdleTime?: Maybe<number>;
       uptime?: Maybe<Date>;
       elapsed?: Maybe<Date>;
+      provider: string;
+      noExpiration: boolean;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };
