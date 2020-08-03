@@ -74,6 +74,8 @@ const Hosts: React.FC = () => {
     distroId,
     statuses,
     startedBy,
+    sortBy,
+    sortDir,
   } = getQueryVariables(search);
 
   const hasFilters =
@@ -107,10 +109,7 @@ const Hosts: React.FC = () => {
           </TableControlInnerRow>
         </TableControlOuterRow>
         <TableContainer hide={isLoading}>
-          <HostsTable
-            hosts={hostItems}
-            initialQueryVariables={initialQueryVariables}
-          />
+          <HostsTable hosts={hostItems} sortBy={sortBy} sortDir={sortDir} />
         </TableContainer>
         {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>

@@ -1,7 +1,12 @@
 import React from "react";
 import { ColumnProps } from "antd/es/table";
 import { Table } from "antd";
-import { Host, HostsQueryVariables } from "gql/generated/types";
+import {
+  Host,
+  HostsQueryVariables,
+  SortDirection,
+  HostSortBy,
+} from "gql/generated/types";
 import { formatDistanceToNow } from "date-fns";
 import { StyledRouterLink } from "components/styles";
 import { getHostRoute, getTaskRoute } from "constants/routes";
@@ -12,14 +17,14 @@ import {
 import { hostStatuses } from "constants/hosts";
 import {
   useUpdateUrlSortParamOnTableChange,
-  useSetColumnDefaultSortOrder,
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks";
 
 interface Props {
   hosts: Host[];
-  initialQueryVariables: HostsQueryVariables;
+  sortBy: HostsQueryVariables["sortBy"];
+  sortDir: HostsQueryVariables["sortDir"];
 }
 
 enum TableColumnHeader {
@@ -35,11 +40,17 @@ enum TableColumnHeader {
 
 type HostsUrlParam = keyof HostsQueryVariables;
 
-export const HostsTable: React.FC<Props> = ({
-  hosts,
-  initialQueryVariables,
-}) => {
+export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
   const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
+
+  const getStatusDefaultSortOrder = (): ColumnProps<
+    Host
+  >["defaultSortOrder"] => {
+    if (sortBy === HostSortBy.Status) {
+      return sortDir === SortDirection.Asc ? "ascend" : "descend";
+    }
+    return null;
+  };
 
   // HOST ID URL PARAM
   const [
@@ -138,6 +149,7 @@ export const HostsTable: React.FC<Props> = ({
       dataIndex: "status",
       key: TableColumnHeader.Status,
       sorter: true,
+      defaultSortOrder: getStatusDefaultSortOrder(),
       className: "cy-task-table-col-STATUS",
       ...getColumnCheckboxFilterProps({
         value: statusesValue,
@@ -218,20 +230,12 @@ export const HostsTable: React.FC<Props> = ({
     },
   ];
 
-  const { sortBy, sortDir } = initialQueryVariables;
-
-  const columnsWithDefaultSort = useSetColumnDefaultSortOrder<Host>(
-    columnsTemplate,
-    sortBy,
-    sortDir
-  );
-
   return (
     <Table
       data-test-id="hosts-table"
       rowKey={rowKey}
       pagination={false}
-      columns={columnsWithDefaultSort}
+      columns={columnsTemplate}
       dataSource={hosts}
       onChange={tableChangeHandler}
     />
