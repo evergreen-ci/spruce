@@ -2,7 +2,6 @@ import React from "react";
 import { Skeleton } from "antd";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
-import { css } from "@emotion/core";
 
 type Size = "large" | "medium";
 
@@ -61,51 +60,21 @@ export const PageTitle: React.FC<Props> = ({
     )}
   </>
 );
+
 const BadgeWrapper = styled.span<TitleTypographyProps>`
-  ${({ size }) =>
-    size === "medium" &&
-    css`
-      display: inline-flex;
-      position: relative;
-      top: -2px;
-    `}
-  ${({ size }) =>
-    size === "large" &&
-    css`
-      display: inline-flex;
-      position: relative;
-      top: -4px;
-      margin-left: 20px;
-    `}
+  display: inline-flex;
+  position: relative;
+  top: ${(props) => (props.size === "medium" ? "-2px" : "-4px")};
+  margin-left: ${(props) => props.size === "large" && "20px"};
 `;
 
 const PageHeader = styled.div<TitleTypographyProps>`
-  ${({ size }) =>
-    size === "medium" &&
-    css`
-      margin-bottom: 11px;
-      display: flex;
-      justify-content: space-between;
-    `}
-  ${({ size }) =>
-    size === "large" &&
-    css`
-      margin-bottom: 15px;
-      margin-top: 15px;
-      display: flex;
-      justify-content: space-between;
-    `}
+  margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "15px")};
+  margin-top: ${(props) => props.size === "large" && "15px"};
+  display: flex;
+  justify-content: space-between;
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`
-  ${({ size }) =>
-    size === "medium" &&
-    css`
-      width: 70%;
-    `}
-  ${({ size }) =>
-    size === "large" &&
-    css`
-      width: 100%;
-    `}
+  width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;
