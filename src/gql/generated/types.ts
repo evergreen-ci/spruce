@@ -955,6 +955,23 @@ export type CommitQueueQuery = {
   };
 };
 
+export type HostQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type HostQuery = {
+  host?: Maybe<{
+    id: string;
+    hostUrl: string;
+    distroId?: Maybe<string>;
+    startedBy: string;
+    user?: Maybe<string>;
+    status: string;
+    lastCommunicationTime?: Maybe<Date>;
+    runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+  }>;
+};
+
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars["String"];
 };

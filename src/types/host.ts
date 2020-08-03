@@ -1,11 +1,27 @@
 export enum HostStatus {
+  // green: host-running
   Running = "running",
-  Terminated = "terminated",
-  Uninitialized = "initializing",
-  Building = "building",
+
+  // yellow: host-starting
   Starting = "starting",
   Provisioning = "provisioning",
-  ProvisionFailed = "provision failed",
-  Quarantined = "quarantined",
+
+  // red: host-terminated
+  Terminated = "terminated",
+
+  // grey: host-unreachable
   Decommissioned = "decommissioned",
+  Quarantined = "quarantined",
+  ProvisionFailed = "provision failed",
+
+  // sometimes shows not found error on old UI
+  Uninitialized = "initializing",
+  Building = "building",
+
+  // doesn't show up on the hosts page
+  StatusSuccess = "success",
+  Stopping = "stopping",
+  Stopped = "stopped",
+  StatusFailed = "failed",
+  ExternalUserName = "external",
 }
