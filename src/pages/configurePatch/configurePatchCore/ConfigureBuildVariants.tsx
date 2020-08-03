@@ -126,7 +126,6 @@ const BuildVariant = styled.div`
 const VariantName = styled.div`
   word-break: break-all;
   white-space: normal;
-  user-select: none;
 `;
 const StyledBadge = styled(Badge)`
   margin-left: 8px;
