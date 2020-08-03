@@ -34,6 +34,8 @@ export const HOSTS = gql`
         totalIdleTime
         uptime
         elapsed
+        provider
+        noExpiration
         runningTask {
           id
           name
