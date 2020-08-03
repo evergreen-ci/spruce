@@ -18,7 +18,7 @@ export enum HostStatus {
   Uninitialized = "initializing",
   Building = "building",
 
-  // doesn't show up on the host page
+  // doesn't show up on the hosts page
   StatusSuccess = "success",
   Stopping = "stopping",
   Stopped = "stopped",
