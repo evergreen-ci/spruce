@@ -965,6 +965,7 @@ export type HostQuery = {
     hostUrl: string;
     distroId?: Maybe<string>;
     startedBy: string;
+    provider: string;
     user?: Maybe<string>;
     status: string;
     lastCommunicationTime?: Maybe<Date>;
