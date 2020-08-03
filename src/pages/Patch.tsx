@@ -92,12 +92,7 @@ const PatchCore: React.FC = () => {
         hasData={!!patch}
         title={description || `Patch ${get(patch, "patchNumber")}`}
         badge={<PatchStatusBadge status={status} />}
-        buttons={
-          <ActionButtons
-            canEnqueueToCommitQueue={get(patch, "canEnqueueToCommitQueue")}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
-          />
-        }
+        buttons={<ActionButtons isPatchOnCommitQueue={isPatchOnCommitQueue} />}
       />
       <PageLayout>
         <PageSider>

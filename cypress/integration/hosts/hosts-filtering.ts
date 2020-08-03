@@ -3,20 +3,32 @@ const hostsRoute = "/hosts";
 const tableRow = "tr.ant-table-row";
 
 // FILTERS
-const idFilter = "hostId=i-0d0ae8b83366d22";
-const distroFilter = "distroId=macos-1014";
-const statusesFilter = "limit=50&page=0&statuses=running,provisioning";
-const ownerFilter = "startedBy=mci";
+const idParam = "hostId";
+const distroParam = "distroId";
+const statusesParam = "statuses";
+const currentTaskIdParam = "currentTaskId";
+const ownerParam = "startedBy";
+
+const idFilter = "i-0d0ae8b83366d22";
+const distroFilter = "macos-1014";
+const statusesFilter = "running,provisioning";
+const currentTaskIdFilter =
+  "mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20";
+const ownerFilter = "mci";
 
 const filterTests = [
   {
-    param: "hostId",
-    filterUrlParam: idFilter,
+    param: idParam,
+    filterIconDataCy: "host-id-filter",
+    filterValue: idFilter,
+    filterUrlParam: `${idParam}=${idFilter}`,
     expectedIds: ["i-0d0ae8b83366d22"],
   },
   {
-    param: "distroId",
-    filterUrlParam: distroFilter,
+    param: distroParam,
+    filterIconDataCy: "distro-id-filter",
+    filterValue: distroFilter,
+    filterUrlParam: `${distroParam}=${distroFilter}`,
     expectedIds: [
       "macos-1014-68.macstadium.build.10gen",
       "macos-1014-68.macstadium.build.10gen.c",
@@ -24,8 +36,10 @@ const filterTests = [
     ],
   },
   {
-    param: "currentTaskId",
-    filterUrlParam: statusesFilter,
+    param: statusesParam,
+    filterIconDataCy: "statuses-filter",
+    filterValue: statusesFilter,
+    filterUrlParam: `limit=50&page=0&${statusesParam}=${statusesFilter}`,
     expectedIds: [
       "i-06f80fa6e28f93b",
       "i-06f80fa6e28f93b7",
@@ -51,8 +65,21 @@ const filterTests = [
     ],
   },
   {
-    param: "startedBy",
-    filterUrlParam: ownerFilter,
+    param: currentTaskIdParam,
+    filterIconDataCy: "current-task-id-filter",
+    filterValue: currentTaskIdFilter,
+    filterUrlParam: `${currentTaskIdParam}=${currentTaskIdFilter}`,
+    expectedIds: [
+      "i-0fb9fe0592ea381",
+      "i-0fb9fe0592ea3815",
+      "i-0fb9fe0592ea38150",
+    ],
+  },
+  {
+    param: ownerParam,
+    filterIconDataCy: "owner-filter",
+    filterValue: ownerFilter,
+    filterUrlParam: `${ownerParam}=${ownerFilter}`,
     expectedIds: [
       "i-06f80fa6e28f93b",
       "i-06f80fa6e28f93b7",
@@ -202,7 +229,6 @@ const sortByTests = [
     sorterName: "owner",
     sortBy: "OWNER",
     expectedIds: [
-      "rhel71-ppc-1.pic.build.10gen",
       "build10.ny.cbi.10gen",
       "build10.ny.cbi.10gen.c",
       "build10.ny.cbi.10gen.cc",
@@ -212,6 +238,7 @@ const sortByTests = [
       "i-0d0ae8b83366d22",
       "i-0d0ae8b83366d22b",
       "i-0d0ae8b83366d22be",
+      "i-0f81a2d39744003",
     ],
   },
 ];
@@ -251,7 +278,7 @@ const sortDirectionTests = [
   },
 ];
 
-describe("Hosts Page Filtering", () => {
+xdescribe("Hosts page filtering from URL", () => {
   before(() => {
     cy.login();
   });
@@ -267,8 +294,9 @@ describe("Hosts Page Filtering", () => {
       .should("have.attr", "title")
       .and("eq", "1/3");
   });
+
   it("Calculates number of pages based on filtered hosts count if hosts are filtered", () => {
-    cy.visit(`${hostsRoute}?${idFilter}`);
+    cy.visit(`${hostsRoute}?${idParam}=${idFilter}`);
     cy.get(".ant-pagination-simple-pager")
       .should("have.attr", "title")
       .and("eq", "1/1");
@@ -322,4 +350,55 @@ describe("Hosts Page Filtering", () => {
         )
     );
   });
+});
+
+describe("Hosts page filtering from table filters", () => {
+  before(() => {
+    cy.login();
+  });
+
+  beforeEach(() => {
+    cy.preserveCookies();
+    cy.listenGQL();
+    cy.visit(hostsRoute);
+  });
+
+  filterTests.forEach(
+    ({ param, expectedIds, filterIconDataCy, filterValue }) => {
+      it(`Filters hosts using table filter dropdowns for ${param}`, () => {
+        cy.dataCy(filterIconDataCy).click();
+
+        cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
+          if (param === statusesParam) {
+            cy.get(".cy-checkbox")
+              .contains("Running")
+              .click({ force: true });
+
+            cy.get(".cy-checkbox")
+              .contains("Provisioning")
+              .click({ force: true });
+          } else if (param === currentTaskIdParam) {
+            // do this for really long text because otherwise cypress times out while typing and fails
+            const subString = filterValue.substr(0, filterValue.length - 1);
+            const lastChar = filterValue.slice(-1);
+
+            cy.dataCy("input-filter")
+              .as("currentTask")
+              .invoke("val", subString)
+              .trigger("input");
+
+            cy.get("@currentTask").type(lastChar);
+          } else {
+            cy.dataCy("input-filter").type(filterValue);
+          }
+
+          cy.dataCy("filter-button").click();
+        });
+
+        cy.get(tableRow).each(($el, index) =>
+          cy.wrap($el).contains(expectedIds[index])
+        );
+      });
+    }
+  );
 });

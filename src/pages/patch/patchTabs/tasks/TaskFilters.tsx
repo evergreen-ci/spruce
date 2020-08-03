@@ -55,11 +55,14 @@ export const TaskFilters: React.FC = () => {
 
   // fetch and poll patch's task statuses so statuses filters only show statuses relevant to the patch
   const { id } = useParams<{ id: string }>();
+
   const { data, startPolling, stopPolling } = useQuery<
     GetPatchTaskStatusesQuery,
     GetPatchTaskStatusesQueryVariables
   >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval });
+
   useNetworkStatus(startPolling, stopPolling);
+
   const statuses = get(data, "patch.taskStatuses", []);
   const baseStatuses = get(data, "patch.baseTaskStatuses", []);
 
