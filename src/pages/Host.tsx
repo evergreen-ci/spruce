@@ -5,17 +5,21 @@ import get from "lodash/get";
 import { useQuery } from "@apollo/react-hooks";
 import { HostQuery, HostQueryVariables } from "gql/generated/types";
 import { usePageTitle } from "hooks/usePageTitle";
-import { PageWrapper } from "components/styles";
+import { PageWrapper, PageSider, PageLayout } from "components/styles";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
+import { Metadata } from "pages/host/Metadata";
 
 export const Host: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   // Query host data
-  const { data, loading } = useQuery<HostQuery, HostQueryVariables>(GET_HOST, {
-    variables: { id },
-  });
+  const { data, loading, error } = useQuery<HostQuery, HostQueryVariables>(
+    GET_HOST,
+    {
+      variables: { id },
+    }
+  );
   const host = get(data, "host");
   const hostUrl = get(host, "hostUrl");
   const status = get(host, "status") as HostStatus;
@@ -31,6 +35,11 @@ export const Host: React.FC = () => {
         hasData
         size="large"
       />
+      <PageLayout>
+        <PageSider>
+          <Metadata loading={loading} data={data} error={error} />
+        </PageSider>
+      </PageLayout>
     </PageWrapper>
   );
 };

@@ -24,12 +24,12 @@ export const Metadata: React.FC<{
   const runningTask = host?.runningTask;
   const runningTaskId = runningTask?.id;
   const runningTaskName = runningTask?.name;
-  const sshCommand = `ssh${user}@${hostUrl}`;
+  const sshCommand = `ssh ${user}@${hostUrl}`;
 
   const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
-    <MetadataCard error={error} loading={loading} title="Task Metadata">
+    <MetadataCard error={error} loading={loading} title="Host">
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
       <P2>SSH Command: {sshCommand}</P2>
