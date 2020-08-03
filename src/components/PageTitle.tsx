@@ -41,13 +41,13 @@ export const PageTitle: React.FC<Props> = ({
 }) => (
   <>
     {!hasData && loading && (
-      <PageHeader>
+      <PageHeader size={size}>
         <Skeleton active paragraph={{ rows: 0 }} />
       </PageHeader>
     )}
     {hasData && !loading && (
-      <PageHeader>
-        <TitleWrapper>
+      <PageHeader size={size}>
+        <TitleWrapper size={size}>
           <TitleTypography size={size}>
             <span data-cy="page-title">
               {title}
@@ -79,12 +79,33 @@ const BadgeWrapper = styled.span<TitleTypographyProps>`
     `}
 `;
 
-const PageHeader = styled.div`
-  margin-bottom: 11px;
-  display: flex;
-  justify-content: space-between;
+const PageHeader = styled.div<TitleTypographyProps>`
+  ${({ size }) =>
+    size === "medium" &&
+    css`
+      margin-bottom: 11px;
+      display: flex;
+      justify-content: space-between;
+    `}
+  ${({ size }) =>
+    size === "large" &&
+    css`
+      margin-bottom: 15px;
+      margin-top: 15px;
+      display: flex;
+      justify-content: space-between;
+    `}
 `;
 
-const TitleWrapper = styled.div`
-  width: 70%;
+const TitleWrapper = styled.div<TitleTypographyProps>`
+  ${({ size }) =>
+    size === "medium" &&
+    css`
+      width: 70%;
+    `}
+  ${({ size }) =>
+    size === "large" &&
+    css`
+      width: 100%;
+    `}
 `;

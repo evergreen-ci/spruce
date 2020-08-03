@@ -7,7 +7,7 @@ import { HostQuery, HostQueryVariables } from "gql/generated/types";
 import { usePageTitle } from "hooks/usePageTitle";
 import { PageWrapper } from "components/styles";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import { PageTitleJumbo } from "components/PageTitleJumbo";
+import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 
 export const Host: React.FC = () => {
@@ -24,7 +24,7 @@ export const Host: React.FC = () => {
 
   return (
     <PageWrapper>
-      <PageTitleJumbo
+      <PageTitle
         title={`Host: ${hostUrl}`}
         badge={<HostStatusBadge status={status} />}
         loading={loading}
