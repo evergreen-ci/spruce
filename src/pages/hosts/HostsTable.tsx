@@ -27,26 +27,15 @@ interface Props {
   sortDir: HostsQueryVariables["sortDir"];
 }
 
-enum TableColumnHeader {
-  Id = "ID",
-  Distro = "DISTRO",
-  Status = "STATUS",
-  CurrentTask = "CURRENT_TASK",
-  Elapsed = "ELAPSED",
-  Uptime = "UPTIME",
-  IdleTime = "IDLE_TIME",
-  Owner = "OWNER",
-}
-
 type HostsUrlParam = keyof HostsQueryVariables;
 
 export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
   const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
 
-  const getStatusDefaultSortOrder = (): ColumnProps<
-    Host
-  >["defaultSortOrder"] => {
-    if (sortBy === HostSortBy.Status) {
+  const getDefaultSortOrder = (
+    key: HostSortBy
+  ): ColumnProps<Host>["defaultSortOrder"] => {
+    if (sortBy === key) {
       return sortDir === SortDirection.Asc ? "ascend" : "descend";
     }
     return null;
@@ -112,9 +101,10 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     {
       title: "ID",
       dataIndex: "id",
-      key: TableColumnHeader.Id,
+      key: HostSortBy.Id,
       sorter: true,
       className: "cy-hosts-table-col-ID",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
       render: (_, { id }: Host): JSX.Element => (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
           {id}
@@ -131,8 +121,9 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     },
     {
       title: "Distro",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Distro),
       dataIndex: "distroId",
-      key: TableColumnHeader.Distro,
+      key: HostSortBy.Distro,
       sorter: true,
       className: "cy-task-table-col-DISTRO",
       ...getColumnSearchFilterProps({
@@ -147,9 +138,9 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     {
       title: "Status",
       dataIndex: "status",
-      key: TableColumnHeader.Status,
+      key: HostSortBy.Status,
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
       sorter: true,
-      defaultSortOrder: getStatusDefaultSortOrder(),
       className: "cy-task-table-col-STATUS",
       ...getColumnCheckboxFilterProps({
         value: statusesValue,
@@ -163,7 +154,8 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     {
       title: "Current Task",
       dataIndex: "currentTask",
-      key: TableColumnHeader.CurrentTask,
+      key: HostSortBy.CurrentTask,
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
       sorter: true,
       className: "cy-task-table-col-CURRENT-TASK",
       render: (_, { runningTask }: Host) =>
@@ -188,8 +180,9 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     },
     {
       title: "Elapsed",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Elapsed),
       dataIndex: "elapsed",
-      key: TableColumnHeader.Elapsed,
+      key: HostSortBy.Elapsed,
       sorter: true,
       className: "cy-task-table-col-ELAPSED",
       render: (_, { elapsed }) =>
@@ -198,7 +191,8 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     {
       title: "Uptime",
       dataIndex: "uptime",
-      key: TableColumnHeader.Uptime,
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Uptime),
+      key: HostSortBy.Uptime,
       sorter: true,
       className: "cy-task-table-col-UPTIME",
       render: (_, { uptime }) =>
@@ -206,8 +200,9 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     },
     {
       title: "Idle Time",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.IdleTime),
       dataIndex: "totalIdleTime",
-      key: TableColumnHeader.IdleTime,
+      key: HostSortBy.IdleTime,
       sorter: true,
       className: "cy-task-table-col-IDLE-TIME",
       render: (_, { totalIdleTime }) =>
@@ -215,8 +210,9 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     },
     {
       title: "Owner",
+      defaultSortOrder: getDefaultSortOrder(HostSortBy.Owner),
       dataIndex: "startedBy",
-      key: TableColumnHeader.Owner,
+      key: HostSortBy.Owner,
       sorter: true,
       className: "cy-task-table-col-OWNER",
       ...getColumnSearchFilterProps({
