@@ -1,3 +1,5 @@
+import { format } from "date-fns";
+
 export const msToDuration = (ms: number): string => {
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysMilli = ms % (24 * 60 * 60 * 1000);
@@ -26,3 +28,7 @@ export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value
   );
+
+const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
+export const getDateCopy = (d: Date): string =>
+  d ? format(new Date(d), DATE_FORMAT) : "";
