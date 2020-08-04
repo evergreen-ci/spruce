@@ -18,6 +18,7 @@ export {
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks/useTableFilters";
+export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTableChange";
 
 export const usePrevious = <T>(state: T): T | undefined => {
   const ref = useRef<T>();
