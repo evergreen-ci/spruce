@@ -115,22 +115,6 @@ const sortByTests = [
       "ubuntu1604-ppc-1.pic.build.10gen",
     ],
   },
-  {
-    sorterName: "owner",
-    sortBy: "OWNER",
-    expectedIds: [
-      "build10.ny.cbi.10gen",
-      "build10.ny.cbi.10gen.c",
-      "build10.ny.cbi.10gen.cc",
-      "i-06f80fa6e28f93b",
-      "i-06f80fa6e28f93b7",
-      "i-06f80fa6e28f93b7d",
-      "i-0d0ae8b83366d22",
-      "i-0d0ae8b83366d22b",
-      "i-0d0ae8b83366d22be",
-      "i-0f81a2d39744003",
-    ],
-  },
 ];
 
 const sortDirectionTests = [

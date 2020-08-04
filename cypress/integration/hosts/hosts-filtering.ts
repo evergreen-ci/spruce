@@ -157,42 +157,36 @@ describe("Hosts page filtering from table filters", () => {
     cy.visit(hostsRoute);
   });
 
-  filterTests.forEach(
-    ({ param, expectedIds, filterIconDataCy, filterValue }) => {
-      it(`Filters hosts using table filter dropdowns for ${param}`, () => {
-        cy.dataCy(filterIconDataCy).click();
+  filterTests.forEach(({ param, filterIconDataCy, filterValue }) => {
+    it(`Filters hosts using table filter dropdowns for ${param}`, () => {
+      cy.dataCy(filterIconDataCy).click();
 
-        cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
-          if (param === statusesParam) {
-            cy.get(".cy-checkbox")
-              .contains("Running")
-              .click({ force: true });
+      cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
+        if (param === statusesParam) {
+          cy.get(".cy-checkbox")
+            .contains("Running")
+            .click({ force: true });
 
-            cy.get(".cy-checkbox")
-              .contains("Provisioning")
-              .click({ force: true });
-          } else if (param === currentTaskIdParam) {
-            // do this for really long text because otherwise cypress times out while typing and fails
-            const subString = filterValue.substr(0, filterValue.length - 1);
-            const lastChar = filterValue.slice(-1);
+          cy.get(".cy-checkbox")
+            .contains("Provisioning")
+            .click({ force: true });
+        } else if (param === currentTaskIdParam) {
+          // do this for really long text because otherwise cypress times out while typing and fails
+          const subString = filterValue.substr(0, filterValue.length - 1);
+          const lastChar = filterValue.slice(-1);
 
-            cy.dataCy("input-filter")
-              .as("currentTask")
-              .invoke("val", subString)
-              .trigger("input");
+          cy.dataCy("input-filter")
+            .as("currentTask")
+            .invoke("val", subString)
+            .trigger("input");
 
-            cy.get("@currentTask").type(lastChar);
-          } else {
-            cy.dataCy("input-filter").type(filterValue);
-          }
+          cy.get("@currentTask").type(lastChar);
+        } else {
+          cy.dataCy("input-filter").type(filterValue);
+        }
 
-          cy.dataCy("filter-button").click();
-        });
-
-        cy.get(tableRow).each(($el, index) =>
-          cy.wrap($el).contains(expectedIds[index])
-        );
+        cy.dataCy("filter-button").click();
       });
-    }
-  );
+    });
+  });
 });
