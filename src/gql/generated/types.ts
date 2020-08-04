@@ -223,6 +223,7 @@ export type Mutation = {
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   createPublicKey: Array<PublicKey>;
+  removePublicKey: Array<PublicKey>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -298,6 +299,10 @@ export type MutationUpdateUserSettingsArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationRemovePublicKeyArgs = {
+  keyName: Scalars["String"];
 };
 
 export type Notifications = {

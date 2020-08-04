@@ -2,10 +2,11 @@ import React from "react";
 import { ApolloError } from "apollo-client";
 import { StyledLink } from "components/styles";
 import { format } from "date-fns";
-import { P2 } from "components/Typography";
-import { MetadataCard } from "components/MetadataCard";
+import { wordBreakCss, gray } from "components/Typography";
+import { HostMetaDataCard } from "components/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
+import styled from "@emotion/styled/macro";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -29,7 +30,7 @@ export const Metadata: React.FC<{
   const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
   return (
-    <MetadataCard error={error} loading={loading} title="Host">
+    <HostMetaDataCard error={error} loading={loading}>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
       <P2>SSH Command: {sshCommand}</P2>
@@ -48,10 +49,19 @@ export const Metadata: React.FC<{
           {runningTaskName}
         </StyledLink>
       </P2>
-    </MetadataCard>
+    </HostMetaDataCard>
   );
 };
 
 const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
 const getDateCopy = (d: Date): string =>
   d ? format(new Date(d), DATE_FORMAT) : "";
+
+export const P2 = styled.p`
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 13px;
+  margin-top: 20px;
+  color: ${gray.dark3};
+  ${wordBreakCss};
+`;
