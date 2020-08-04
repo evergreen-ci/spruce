@@ -62,6 +62,13 @@ export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
 };
 
+export type DistroInfo = {
+  id?: Maybe<Scalars["String"]>;
+  workDir?: Maybe<Scalars["String"]>;
+  isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
+  user?: Maybe<Scalars["String"]>;
+};
+
 export type File = {
   name: Scalars["String"];
   link: Scalars["String"];
@@ -104,6 +111,49 @@ export type Host = {
   uptime?: Maybe<Scalars["Time"]>;
   elapsed?: Maybe<Scalars["Time"]>;
   startedBy: Scalars["String"];
+  provider: Scalars["String"];
+  lastCommunicationTime?: Maybe<Scalars["Time"]>;
+  noExpiration: Scalars["Boolean"];
+  instanceType?: Maybe<Scalars["String"]>;
+  homeVolumeID?: Maybe<Scalars["String"]>;
+  user?: Maybe<Scalars["String"]>;
+  distro?: Maybe<DistroInfo>;
+  availabilityZone?: Maybe<Scalars["String"]>;
+  instanceTags?: Maybe<Array<Maybe<InstanceTag>>>;
+  expiration?: Maybe<Scalars["Time"]>;
+};
+
+export type HostEventLogData = {
+  agentRevision: Scalars["String"];
+  agentBuild: Scalars["String"];
+  jasperRevision: Scalars["String"];
+  oldStatus: Scalars["String"];
+  newStatus: Scalars["String"];
+  logs: Scalars["String"];
+  hostname: Scalars["String"];
+  provisioningMethod: Scalars["String"];
+  taskId: Scalars["String"];
+  taskPid: Scalars["String"];
+  taskStatus: Scalars["String"];
+  execution: Scalars["String"];
+  monitorOp: Scalars["String"];
+  user: Scalars["String"];
+  successful: Scalars["Boolean"];
+  duration: Scalars["Duration"];
+};
+
+export type HostEventLogEntry = {
+  id: Scalars["String"];
+  resourceType: Scalars["String"];
+  processedAt: Scalars["Time"];
+  timestamp?: Maybe<Scalars["Time"]>;
+  eventType?: Maybe<Scalars["String"]>;
+  data: HostEventLogData;
+  resourceId: Scalars["String"];
+};
+
+export type HostEvents = {
+  eventLogEntries: Array<HostEventLogEntry>;
 };
 
 export enum HostSortBy {
@@ -121,6 +171,12 @@ export type HostsResponse = {
   filteredHostsCount?: Maybe<Scalars["Int"]>;
   totalHostsCount: Scalars["Int"];
   hosts: Array<Host>;
+};
+
+export type InstanceTag = {
+  key?: Maybe<Scalars["String"]>;
+  value?: Maybe<Scalars["String"]>;
+  canBeModified?: Maybe<Scalars["Boolean"]>;
 };
 
 export type LogMessage = {
@@ -156,6 +212,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
   unscheduleTask: Task;
@@ -165,6 +222,7 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
+  createPublicKey: Array<PublicKey>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -193,6 +251,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationEnqueuePatchArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -232,6 +294,10 @@ export type MutationRemovePatchFromCommitQueueArgs = {
 
 export type MutationUpdateUserSettingsArgs = {
   userSettings?: Maybe<UserSettingsInput>;
+};
+
+export type MutationCreatePublicKeyArgs = {
+  publicKeyInput: PublicKeyInput;
 };
 
 export type Notifications = {
@@ -277,6 +343,7 @@ export type Patch = {
   commitQueuePosition?: Maybe<Scalars["Int"]>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
+  canEnqueueToCommitQueue: Scalars["Boolean"];
 };
 
 export type PatchBuildVariant = {
@@ -340,6 +407,16 @@ export type Projects = {
   otherProjects: Array<GroupedProjects>;
 };
 
+export type PublicKey = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
+export type PublicKeyInput = {
+  name: Scalars["String"];
+  key: Scalars["String"];
+};
+
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
@@ -357,7 +434,11 @@ export type Query = {
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   siteBanner: SiteBanner;
+  host?: Maybe<Host>;
+  hostEvents: HostEvents;
   hosts: HostsResponse;
+  myHosts?: Maybe<Array<Host>>;
+  myPublicKeys: Array<PublicKey>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -420,6 +501,17 @@ export type QueryPatchBuildVariantsArgs = {
 
 export type QueryCommitQueueArgs = {
   id: Scalars["String"];
+};
+
+export type QueryHostArgs = {
+  hostId: Scalars["String"];
+};
+
+export type QueryHostEventsArgs = {
+  hostId: Scalars["String"];
+  hostTag?: Maybe<Scalars["String"]>;
+  limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryHostsArgs = {
@@ -526,6 +618,7 @@ export type Task = {
   canUnschedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
+  ami?: Maybe<Scalars["String"]>;
 };
 
 export type TaskEndDetail = {
@@ -546,9 +639,13 @@ export type TaskEventLogData = {
 };
 
 export type TaskEventLogEntry = {
+  id: Scalars["String"];
+  resourceType: Scalars["String"];
+  processedAt: Scalars["Time"];
   timestamp?: Maybe<Scalars["Time"]>;
   eventType?: Maybe<Scalars["String"]>;
-  data?: Maybe<TaskEventLogData>;
+  data: TaskEventLogData;
+  resourceId: Scalars["String"];
 };
 
 export type TaskFiles = {
@@ -858,6 +955,23 @@ export type CommitQueueQuery = {
   };
 };
 
+export type HostQueryVariables = {
+  id: Scalars["String"];
+};
+
+export type HostQuery = {
+  host?: Maybe<{
+    id: string;
+    hostUrl: string;
+    distroId?: Maybe<string>;
+    startedBy: string;
+    user?: Maybe<string>;
+    status: string;
+    lastCommunicationTime?: Maybe<Date>;
+    runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+  }>;
+};
+
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars["String"];
 };
@@ -955,7 +1069,7 @@ export type EventLogsQuery = {
     eventLogs: Array<{
       timestamp?: Maybe<Date>;
       eventType?: Maybe<string>;
-      data?: Maybe<{
+      data: {
         hostId?: Maybe<string>;
         jiraIssue?: Maybe<string>;
         jiraLink?: Maybe<string>;
@@ -963,7 +1077,7 @@ export type EventLogsQuery = {
         status?: Maybe<string>;
         timestamp?: Maybe<Date>;
         userId?: Maybe<string>;
-      }>;
+      };
     }>;
   };
 };
@@ -1062,6 +1176,8 @@ export type GetTaskQuery = {
     canSchedule: boolean;
     canUnschedule: boolean;
     canSetPriority: boolean;
+    ami?: Maybe<string>;
+    distroId: string;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -1156,6 +1272,8 @@ export type HostsQuery = {
       totalIdleTime?: Maybe<number>;
       uptime?: Maybe<Date>;
       elapsed?: Maybe<Date>;
+      provider: string;
+      noExpiration: boolean;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };

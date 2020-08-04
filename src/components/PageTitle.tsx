@@ -1,7 +1,9 @@
 import React from "react";
 import { Skeleton } from "antd";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { H2, Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+
+type Size = "large" | "medium";
 
 interface Props {
   loading: boolean;
@@ -9,7 +11,24 @@ interface Props {
   title: string;
   badge: JSX.Element;
   buttons?: JSX.Element;
+  size?: Size;
 }
+
+interface TitleTypographyProps {
+  size: Size;
+}
+
+const TitleTypography: React.FC<TitleTypographyProps> = ({
+  children,
+  size,
+}) => {
+  if (size === "large") {
+    return <H2>{children}</H2>;
+  }
+  if (size === "medium") {
+    return <Subtitle>{children}</Subtitle>;
+  }
+};
 
 export const PageTitle: React.FC<Props> = ({
   loading,
@@ -17,41 +36,45 @@ export const PageTitle: React.FC<Props> = ({
   title,
   badge,
   buttons,
+  size = "medium",
 }) => (
   <>
     {!hasData && loading && (
-      <PageHeader>
+      <PageHeader size={size}>
         <Skeleton active paragraph={{ rows: 0 }} />
       </PageHeader>
     )}
     {hasData && !loading && (
-      <PageHeader>
-        <TitleWrapper>
-          <Subtitle>
+      <PageHeader size={size}>
+        <TitleWrapper size={size}>
+          <TitleTypography size={size}>
             <span data-cy="page-title">
               {title}
               {"  "}
-              <BadgeWrapper>{badge}</BadgeWrapper>
+              <BadgeWrapper size={size}>{badge}</BadgeWrapper>
             </span>
-          </Subtitle>
+          </TitleTypography>
         </TitleWrapper>
         {buttons ?? null}
       </PageHeader>
     )}
   </>
 );
-const BadgeWrapper = styled.span`
+
+const BadgeWrapper = styled.span<TitleTypographyProps>`
   display: inline-flex;
   position: relative;
-  top: -2px;
+  top: ${(props) => (props.size === "medium" ? "-2px" : "-4px")};
+  margin-left: ${(props) => props.size === "large" && "20px"};
 `;
 
-const PageHeader = styled.div`
-  margin-bottom: 11px;
+const PageHeader = styled.div<TitleTypographyProps>`
+  margin-bottom: ${(props) => (props.size === "medium" ? "11px" : "15px")};
+  margin-top: ${(props) => props.size === "large" && "15px"};
   display: flex;
   justify-content: space-between;
 `;
 
-const TitleWrapper = styled.div`
-  width: 70%;
+const TitleWrapper = styled.div<TitleTypographyProps>`
+  width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
 `;
