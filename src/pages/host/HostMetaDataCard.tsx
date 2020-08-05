@@ -4,7 +4,6 @@ import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import styled from "@emotion/styled/macro";
 import Card from "@leafygreen-ui/card";
-import { P2 } from "components/Typography";
 
 interface Props {
   title?: string;
@@ -34,8 +33,7 @@ export const SiderCard = styled(Card)`
   padding-right: 0px;
   padding-left: 15px;
   margin-bottom: 12px;
-`;
-
-export const Row = styled(P2)`
-  margin-top: 20px;
+  > * {
+    margin-top: 20px;
+  }
 `;

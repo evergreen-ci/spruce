@@ -1,10 +1,11 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { StyledLink } from "components/styles";
-import { HostMetaDataCard, Row } from "pages/host/HostMetaDataCard";
+import { HostMetaDataCard } from "pages/host/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
+import { P2 } from "components/Typography";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -30,24 +31,24 @@ export const Metadata: React.FC<{
 
   return (
     <HostMetaDataCard error={error} loading={loading}>
-      <Row>User: {user}</Row>
-      <Row>Host Name: {hostUrl}</Row>
-      <Row>SSH Command: {sshCommand}</Row>
-      <Row>Last Communication: {getDateCopy(lastCommunicationTime)}</Row>
-      <Row>Started By: {startedBy}</Row>
-      <Row>Cloud Provider: {provider}</Row>
-      <Row>
+      <P2>User: {user}</P2>
+      <P2>Host Name: {hostUrl}</P2>
+      <P2>SSH Command: {sshCommand}</P2>
+      <P2>Last Communication: {getDateCopy(lastCommunicationTime)}</P2>
+      <P2>Started By: {startedBy}</P2>
+      <P2>Cloud Provider: {provider}</P2>
+      <P2>
         Distro:{" "}
         <StyledLink data-cy="task-distro-link" href={distroLink}>
           {distroId}
         </StyledLink>
-      </Row>
-      <Row>
+      </P2>
+      <P2>
         Current Task:{" "}
         <StyledLink data-cy="task-distro-link" href={taskLink}>
           {runningTaskName}
         </StyledLink>
-      </Row>
+      </P2>
     </HostMetaDataCard>
   );
 };
