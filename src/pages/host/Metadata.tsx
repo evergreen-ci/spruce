@@ -11,7 +11,7 @@ export const Metadata: React.FC<{
   data: HostQuery;
   error: ApolloError;
 }> = ({ loading, data, error }) => {
-  const host = data ? data.host : null;
+  const host = data?.host ?? null;
 
   const hostUrl = host?.hostUrl;
   const distroId = host?.distroId;
@@ -27,6 +27,7 @@ export const Metadata: React.FC<{
 
   const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
+
   return (
     <HostMetaDataCard error={error} loading={loading}>
       <Row>User: {user}</Row>
