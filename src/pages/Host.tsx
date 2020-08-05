@@ -23,7 +23,6 @@ export const Host: React.FC = () => {
   const host = data?.host;
   const hostUrl = host?.hostUrl;
   const status = host?.status as HostStatus;
-  const siderWidth = 350;
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
@@ -37,7 +36,7 @@ export const Host: React.FC = () => {
         size="large"
       />
       <PageLayout>
-        <PageSider width={siderWidth}>
+        <PageSider width={350}>
           <Metadata loading={loading} data={data} error={error} />
         </PageSider>
       </PageLayout>

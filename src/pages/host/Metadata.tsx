@@ -1,12 +1,15 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { StyledLink } from "components/styles";
-import { wordBreakCss, gray } from "components/Typography";
+import { wordBreakCss } from "components/Typography";
 import { HostMetaDataCard } from "components/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import styled from "@emotion/styled/macro";
 import { getDateCopy } from "utils/string";
+import { uiColors } from "@leafygreen-ui/palette";
+
+export const { gray } = uiColors;
 
 export const Metadata: React.FC<{
   loading: boolean;

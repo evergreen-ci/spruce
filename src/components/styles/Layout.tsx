@@ -23,13 +23,19 @@ export const PageLayout = styled(Layout)`
 
 export const PageSider = styled(Sider)`
   ${whiteBackground}
-  width: ${(props: { width?: number }): string =>
-    props.width ? `${props.width}px` : "275px"}; !important;
-  max-width: ${(props: { width?: number }): string =>
-    props.width ? `${props.width}px` : "275px"}; !important;
-  min-width: ${(props: { width?: number }): string =>
-    props.width ? `${props.width}px` : "275px"}; !important;
 `;
+
+PageSider.defaultProps = { width: 275 };
+
+// export const PageSider = styled(Sider)`
+//   ${whiteBackground}
+//   width: ${(props: { width?: number }): string =>
+//     props.width ? `${props.width}px` : "275px"}; !important;
+//   max-width: ${(props: { width?: number }): string =>
+//     props.width ? `${props.width}px` : "275px"}; !important;
+//   min-width: ${(props: { width?: number }): string =>
+//     props.width ? `${props.width}px` : "275px"}; !important;
+// `;
 
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
