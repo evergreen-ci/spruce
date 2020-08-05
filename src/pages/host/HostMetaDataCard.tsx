@@ -4,6 +4,7 @@ import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import styled from "@emotion/styled/macro";
 import Card from "@leafygreen-ui/card";
+import { P2 } from "components/Typography";
 
 interface Props {
   title?: string;
@@ -18,7 +19,7 @@ export const HostMetaDataCard: React.FC<Props> = ({
 }) => (
   <SiderCard>
     {loading && !error && (
-      <Skeleton active title={false} paragraph={{ rows: 0 }} />
+      <Skeleton active title={false} paragraph={{ rows: 4 }} />
     )}
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
@@ -33,4 +34,8 @@ export const SiderCard = styled(Card)`
   padding-right: 0px;
   padding-left: 15px;
   margin-bottom: 12px;
+`;
+
+export const Row = styled(P2)`
+  margin-top: 20px;
 `;
