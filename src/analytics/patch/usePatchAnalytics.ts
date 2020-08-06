@@ -17,6 +17,7 @@ type Action =
   | { name: "Change Tab"; tab: string }
   | { name: "Click Task Square"; taskSquareStatus: string }
   | { name: "Click Reconfigure Link" }
+  | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
   | {
       name: "Add Notification";

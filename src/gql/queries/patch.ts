@@ -29,6 +29,7 @@ export const GET_PATCH = gql`
         name
         tasks
       }
+      canEnqueueToCommitQueue
     }
   }
 `;
