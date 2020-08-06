@@ -6,7 +6,6 @@ import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
-import Code from "@leafygreen-ui/code";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -25,7 +24,6 @@ export const Metadata: React.FC<{
   const runningTask = host?.runningTask;
   const runningTaskId = runningTask?.id;
   const runningTaskName = runningTask?.name;
-  const sshCommand = `ssh ${user}@${hostUrl}`;
 
   const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
@@ -50,7 +48,5 @@ export const Metadata: React.FC<{
         </StyledLink>
       </P2>
     </HostMetaDataCard>
-
-
   );
 };

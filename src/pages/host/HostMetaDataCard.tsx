@@ -32,7 +32,7 @@ export const SiderCard = styled(Card)`
   padding-bottom: 25px;
   padding-right: 0px;
   padding-left: 15px;
-  margin-bottom: 12px;
+  margin-bottom: 30px;
   > * {
     margin-top: 20px;
   }
