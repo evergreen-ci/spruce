@@ -3,9 +3,9 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 import { css } from "@emotion/core";
 
-export const { gray } = uiColors;
+const { gray } = uiColors;
 
-export const wordBreakCss = css`
+const wordBreakCss = css`
   overflow-wrap: break-word;
   word-wrap: break-word;
   hyphens: auto;
