@@ -102,4 +102,15 @@ describe("Patch Action Buttons", () => {
       .contains("error")
       .should("exist");
   });
+
+  it("Clicking 'Enqueue Patch' button shows popconfirm with input and banner on success", () => {
+    cy.dataCy("ellipsis-btn").click();
+    cy.dataCy("enqueue-patch").click();
+    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+      .contains("Yes")
+      .click({ force: true });
+    cy.dataCy("banner")
+      .should("exist")
+      .contains("Enqueued patch");
+  });
 });
