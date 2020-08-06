@@ -6,6 +6,7 @@ import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
+import Code from "@leafygreen-ui/code";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -33,7 +34,6 @@ export const Metadata: React.FC<{
     <HostMetaDataCard error={error} loading={loading}>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
-      <P2>SSH Command: {sshCommand}</P2>
       <P2>Last Communication: {getDateCopy(lastCommunicationTime)}</P2>
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
@@ -50,5 +50,7 @@ export const Metadata: React.FC<{
         </StyledLink>
       </P2>
     </HostMetaDataCard>
+
+
   );
 };

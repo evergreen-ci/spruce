@@ -9,6 +9,9 @@ import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
+import { HostMetaDataCard } from "./host/HostMetaDataCard";
+import { P2 } from "components/Typography";
+import Code from "@leafygreen-ui/code";
 
 export const Host: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -23,6 +26,7 @@ export const Host: React.FC = () => {
   const host = data?.host;
   const hostUrl = host?.hostUrl;
   const status = host?.status as HostStatus;
+  const sshCommand = "ssh mci@macos-1014-68.macstadium.build.10gen.cc"
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
@@ -38,6 +42,10 @@ export const Host: React.FC = () => {
       <PageLayout>
         <PageSider width={350}>
           <Metadata loading={loading} data={data} error={error} />
+          <br></br>
+          <Code language="shell" multiline={false}>
+                {sshCommand}
+          </Code>
         </PageSider>
       </PageLayout>
     </PageWrapper>
