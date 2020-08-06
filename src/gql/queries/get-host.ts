@@ -6,6 +6,7 @@ export const GET_HOST = gql`
       id
       hostUrl
       distroId
+      tag
       provider
       startedBy
       user
