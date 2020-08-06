@@ -41,9 +41,7 @@ export const Host: React.FC = () => {
       <PageLayout>
         <PageSider width={350}>
           <Metadata loading={loading} data={data} error={error} />
-          <Code language="shell" multiline={false}>
-            {sshCommand}
-          </Code>
+          <Code language="shell">{sshCommand}</Code>
         </PageSider>
       </PageLayout>
     </PageWrapper>
