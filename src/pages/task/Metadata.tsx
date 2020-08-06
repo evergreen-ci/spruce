@@ -1,10 +1,9 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { Divider, StyledLink } from "components/styles";
-import { format } from "date-fns";
 import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";
-import { msToDuration } from "utils/string";
+import { msToDuration, getDateCopy } from "utils/string";
 import { v4 as uuid } from "uuid";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
@@ -128,7 +127,3 @@ export const Metadata: React.FC<{
     </MetadataCard>
   );
 };
-
-const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
-const getDateCopy = (d: Date): string =>
-  d ? format(new Date(d), DATE_FORMAT) : "";

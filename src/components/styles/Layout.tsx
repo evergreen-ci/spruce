@@ -21,14 +21,11 @@ export const PageLayout = styled(Layout)`
   ${whiteBackground}
 `;
 
-const siderWidth = "275px";
-
 export const PageSider = styled(Sider)`
   ${whiteBackground}
-  width: ${siderWidth} !important;
-  max-width: ${siderWidth} !important;
-  min-width: ${siderWidth} !important;
 `;
+
+PageSider.defaultProps = { width: 275 };
 
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
