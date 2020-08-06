@@ -23,8 +23,9 @@ export const Host: React.FC = () => {
 
   const host = data?.host;
   const hostUrl = host?.hostUrl;
+  const user = host?.user;
   const status = host?.status as HostStatus;
-  const sshCommand = "ssh mci@macos-1014-68.macstadium.build.10gen.cc";
+  const sshCommand = `ssh ${user}@${hostUrl}`;
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
