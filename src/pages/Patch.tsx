@@ -94,7 +94,7 @@ const PatchCore: React.FC = () => {
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            canEnqueueToCommitQueue={get(patch, "canEnqueueToCommitQueue")}
+            canEnqueueToCommitQueue={patch?.canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
           />
         }
