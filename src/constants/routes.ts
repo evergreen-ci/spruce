@@ -5,8 +5,8 @@ enum PageNames {
 }
 
 export enum SpawnTab {
-  Host = "host",
-  Volume = "volume",
+  Host = "hosts",
+  Volume = "volumes",
 }
 
 export const paths = {
