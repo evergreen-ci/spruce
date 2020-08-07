@@ -49,7 +49,7 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
 };
 
 const getTitleAndComponent = (
-  tabKey: PreferencesTabRoutes,
+  tabKey: PreferencesTabRoutes = PreferencesTabRoutes.Profile,
   userSettings: UserSettings
 ): { title: string; Component: React.FC } => {
   const {
@@ -59,31 +59,36 @@ const getTitleAndComponent = (
     slackUsername,
     notifications,
     useSpruceOptions,
-  } = userSettings || {};
-  return {
-    [PreferencesTabRoutes.Profile]: {
-      title: "Profile",
-      Component: () => <ProfileTab {...{ githubUser, timezone, region }} />,
-    },
-    [PreferencesTabRoutes.Notifications]: {
-      title: "Notifications",
-      Component: () => (
-        <NotificationsTab {...{ slackUsername, notifications }} />
-      ),
-    },
-    [PreferencesTabRoutes.CLI]: {
-      title: "CLI & API",
-      Component: () => <CliTab />,
-    },
-    [PreferencesTabRoutes.NewUI]: {
-      title: "New UI Settings",
-      Component: () => <NewUITab {...{ useSpruceOptions }} />,
-    },
-    [PreferencesTabRoutes.PublicKeys]: {
-      title: "Manage Public Keys",
-      Component: () => <PublicKeysTab />,
-    },
-  }[tabKey];
+  } = userSettings ?? {};
+
+  const defaultTitleAndComponent = {
+    title: "Profile",
+    Component: () => <ProfileTab {...{ githubUser, timezone, region }} />,
+  };
+
+  return (
+    {
+      [PreferencesTabRoutes.Profile]: defaultTitleAndComponent,
+      [PreferencesTabRoutes.Notifications]: {
+        title: "Notifications",
+        Component: () => (
+          <NotificationsTab {...{ slackUsername, notifications }} />
+        ),
+      },
+      [PreferencesTabRoutes.CLI]: {
+        title: "CLI & API",
+        Component: () => <CliTab />,
+      },
+      [PreferencesTabRoutes.NewUI]: {
+        title: "New UI Settings",
+        Component: () => <NewUITab {...{ useSpruceOptions }} />,
+      },
+      [PreferencesTabRoutes.PublicKeys]: {
+        title: "Manage Public Keys",
+        Component: () => <PublicKeysTab />,
+      },
+    }[tabKey] ?? defaultTitleAndComponent
+  );
 };
 
 const Container = styled.div`
