@@ -21,7 +21,7 @@ export const Spawn = () => {
             active={tab === SpawnTab.Host}
             to={routes.spawnHost}
             as={Link}
-            data-cy="profile-nav-tab"
+            data-cy="host-nav-tab"
           >
             Hosts
           </PaddedSideNavItem>
@@ -29,7 +29,7 @@ export const Spawn = () => {
             active={tab === SpawnTab.Volume}
             to={routes.spawnVolume}
             as={Link}
-            data-cy="notifications-nav-tab"
+            data-cy="volume-nav-tab"
           >
             Volumes
           </PaddedSideNavItem>
