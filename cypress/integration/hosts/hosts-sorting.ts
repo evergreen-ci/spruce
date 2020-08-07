@@ -180,16 +180,6 @@ describe("Hosts page sorting", () => {
     });
   });
 
-  it("Clicking column header updates selected sorter caret icon", () => {
-    cy.visit(hostsRoute);
-    cy.get(".cy-task-table-col-STATUS").click();
-    cy.get(".cy-task-table-col-STATUS").within(() => {
-      cy.get("[data-icon=caret-down]")
-        .should("have.attr", "fill")
-        .and("eq", "currentColor");
-    });
-  });
-
   sortByTests.forEach(({ sorterName, sortBy, expectedIds }) => {
     it(`Sorts by ${sorterName} when sortBy = ${sortBy}`, () => {
       cy.visit(`${hostsRoute}?sortBy=${sortBy}`);
