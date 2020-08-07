@@ -104,6 +104,7 @@ export type GroupedProjects = {
 export type Host = {
   id: Scalars["ID"];
   hostUrl: Scalars["String"];
+  tag: Scalars["String"];
   distroId?: Maybe<Scalars["String"]>;
   status: Scalars["String"];
   runningTask?: Maybe<TaskInfo>;
@@ -1008,6 +1009,43 @@ export type CommitQueueQuery = {
   };
 };
 
+export type HostEventsQueryVariables = {
+  id: Scalars["String"];
+  tag: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars["Int"]>;
+};
+
+export type HostEventsQuery = {
+  hostEvents: {
+    eventLogEntries: Array<{
+      id: string;
+      resourceType: string;
+      processedAt: Date;
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      resourceId: string;
+      data: {
+        agentRevision: string;
+        agentBuild: string;
+        oldStatus: string;
+        newStatus: string;
+        logs: string;
+        hostname: string;
+        provisioningMethod: string;
+        taskId: string;
+        taskPid: string;
+        taskStatus: string;
+        execution: string;
+        monitorOp: string;
+        user: string;
+        successful: boolean;
+        duration: number;
+      };
+    }>;
+  };
+};
+
 export type HostQueryVariables = {
   id: Scalars["String"];
 };
@@ -1017,6 +1055,7 @@ export type HostQuery = {
     id: string;
     hostUrl: string;
     distroId?: Maybe<string>;
+    tag: string;
     provider: string;
     startedBy: string;
     user?: Maybe<string>;
@@ -1323,6 +1362,7 @@ export type HostsQuery = {
       status: string;
       startedBy: string;
       hostUrl: string;
+      tag: string;
       totalIdleTime?: Maybe<number>;
       uptime?: Maybe<Date>;
       elapsed?: Maybe<Date>;
