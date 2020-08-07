@@ -126,34 +126,40 @@ const Hosts: React.FC = () => {
                 hasFilters ? filteredHostCount : totalHostsCount
               } of ${totalHostsCount}`}
             </Disclaimer>
-            {selectedHostIds.length > 0 && (
-              <HostsSelectionWrapper>
-                <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
-                  {selectedHostIds.length} Selected
-                </Badge>
-                <ButtonWrapper>
-                  <Button dataCy="update-status-button">Update Status</Button>
-                </ButtonWrapper>
-                <ButtonWrapper>
-                  <Popconfirm
-                    title={`Restart Jasper for ${selectedHostIds.length} host${
-                      selectedHostIds.length > 1 ? "s" : ""
-                    }?`}
-                    onConfirm={onClickRestartJasperConfirm}
-                    icon={null}
-                    placement="bottom"
-                    okText="Yes"
-                    okButtonProps={{ loading: loadingRestartJasper }}
-                    cancelText="No"
-                    cancelButtonProps={{ disabled: loadingRestartJasper }}
+            <HostsSelectionWrapper>
+              <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
+                {selectedHostIds.length} Selected
+              </Badge>
+              <ButtonWrapper>
+                <Button
+                  dataCy="update-status-button"
+                  disabled={selectedHostIds.length === 0}
+                >
+                  Update Status
+                </Button>
+              </ButtonWrapper>
+              <ButtonWrapper>
+                <Popconfirm
+                  title={`Restart Jasper for ${selectedHostIds.length} host${
+                    selectedHostIds.length > 1 ? "s" : ""
+                  }?`}
+                  onConfirm={onClickRestartJasperConfirm}
+                  icon={null}
+                  placement="bottom"
+                  okText="Yes"
+                  okButtonProps={{ loading: loadingRestartJasper }}
+                  cancelText="No"
+                  cancelButtonProps={{ disabled: loadingRestartJasper }}
+                >
+                  <Button
+                    dataCy="restart-jasper-button"
+                    disabled={selectedHostIds.length === 0}
                   >
-                    <Button dataCy="restart-jasper-button">
-                      Restart Jasper
-                    </Button>
-                  </Popconfirm>
-                </ButtonWrapper>
-              </HostsSelectionWrapper>
-            )}
+                    Restart Jasper
+                  </Button>
+                </Popconfirm>
+              </ButtonWrapper>
+            </HostsSelectionWrapper>
           </SubtitleDataWrapper>
           <TableControlInnerRow>
             <Pagination
