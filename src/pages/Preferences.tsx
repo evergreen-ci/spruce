@@ -4,7 +4,7 @@ import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import get from "lodash/get";
-import { paths, preferencesTabRoutes } from "constants/routes";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { PageWrapper } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
@@ -22,8 +22,9 @@ export const Preferences: React.FC = () => {
   >(GET_USER_SETTINGS);
   usePageTitle("Preferences");
   const userSettings = get(data, "userSettings");
-  if (tab === undefined) {
-    return <Redirect to={`${paths.preferences}/profile`} />;
+
+  if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
+    return <Redirect to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
   }
   return (
     <PageWrapper>
@@ -31,32 +32,41 @@ export const Preferences: React.FC = () => {
         <SideNav>
           <SideNavGroup header="Preferences">
             <PaddedSideNavItem
-              active={tab === preferencesTabRoutes.Profile}
-              to={`${paths.preferences}/${preferencesTabRoutes.Profile}`}
+              active={tab === PreferencesTabRoutes.Profile}
+              to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
               as={Link}
               data-cy="profile-nav-tab"
             >
               Profile
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === preferencesTabRoutes.Notifications}
-              to={`${paths.preferences}/${preferencesTabRoutes.Notifications}`}
+              active={tab === PreferencesTabRoutes.Notifications}
+              to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
               as={Link}
               data-cy="notifications-nav-tab"
             >
               Notifications
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === preferencesTabRoutes.CLI}
-              to={`${paths.preferences}/${preferencesTabRoutes.CLI}`}
+              active={tab === PreferencesTabRoutes.CLI}
+              to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
               as={Link}
               data-cy="cli-nav-tab"
             >
               CLI & API
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === preferencesTabRoutes.NewUI}
-              to={`${paths.preferences}/${preferencesTabRoutes.NewUI}`}
+              active={tab === PreferencesTabRoutes.PublicKeys}
+              to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
+              as={Link}
+              data-cy="publickeys-nav-tab"
+            >
+              Manage Public Keys
+            </PaddedSideNavItem>
+
+            <PaddedSideNavItem
+              active={tab === PreferencesTabRoutes.NewUI}
+              to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
               as={Link}
               data-cy="newui-nav-tab"
             >
@@ -65,7 +75,7 @@ export const Preferences: React.FC = () => {
           </SideNavGroup>
         </SideNav>
         <PreferencesTabs
-          tabKey={tab}
+          tabKey={tab as PreferencesTabRoutes}
           userSettings={userSettings}
           loading={loading}
           error={error}
@@ -74,6 +84,8 @@ export const Preferences: React.FC = () => {
     </PageWrapper>
   );
 };
+
+const tabRouteValues = Object.values(PreferencesTabRoutes);
 
 const PaddedSideNavItem = styled(SideNavItem)`
   margin-top: 16px;
