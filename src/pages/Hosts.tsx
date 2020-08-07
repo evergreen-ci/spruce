@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton } from "antd";
-import { useQuery } from "@apollo/react-hooks";
+import { Skeleton, Popconfirm } from "antd";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
 import {
   TableContainer,
@@ -22,7 +22,8 @@ import {
   HostsQueryVariables,
   HostSortBy,
   SortDirection,
-  Host,
+  RestartJasperMutation,
+  RestartJasperMutationVariables,
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
@@ -34,6 +35,7 @@ import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
 import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
+import { RESTART_JASPER } from "gql/mutations";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -43,35 +45,10 @@ const Hosts: React.FC = () => {
   const prevSearch = usePrevious<string>(search);
   const searchChanged = search !== prevSearch;
 
+  // QUERY VARIABLES FROM URL PARAMS
   const [initialQueryVariables] = useState<HostsQueryVariables>(
     getQueryVariables(search)
   );
-
-  const [selectedHosts, setSelectedHosts] = useState<Host[]>([]);
-
-  // HOSTS QUERY
-  const { data: hostsData, networkStatus, refetch } = useQuery<
-    HostsQuery,
-    HostsQueryVariables
-  >(HOSTS, {
-    variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true,
-  });
-
-  // REFETCH HOSTS QUERY IF SEARCH CHANGES
-  useEffect(() => {
-    if (searchChanged) {
-      refetch(getQueryVariables(search));
-    }
-  }, [searchChanged, search, refetch]);
-
-  const hosts = hostsData?.hosts;
-  const hostItems = hosts?.hosts ?? [];
-  const totalHostsCount = hosts?.totalHostsCount ?? 0;
-  const filteredHostCount = hosts?.filteredHostsCount ?? 0;
-
-  useDisableTableSortersIfLoading(networkStatus);
-
   const {
     limit,
     page,
@@ -87,7 +64,52 @@ const Hosts: React.FC = () => {
   const hasFilters =
     hostId || currentTaskId || distroId || statuses.length || startedBy;
 
+  // SELECTED HOST IDS STATE
+  const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
+
+  // HOSTS QUERY
+  const { data: hostsData, networkStatus, refetch } = useQuery<
+    HostsQuery,
+    HostsQueryVariables
+  >(HOSTS, {
+    variables: initialQueryVariables,
+    notifyOnNetworkStatusChange: true,
+  });
+
+  const hosts = hostsData?.hosts;
+  const hostItems = hosts?.hosts ?? [];
+  const totalHostsCount = hosts?.totalHostsCount ?? 0;
+  const filteredHostCount = hosts?.filteredHostsCount ?? 0;
+
   const isLoading = isNetworkRequestInFlight(networkStatus);
+  useDisableTableSortersIfLoading(networkStatus);
+
+  // REFETCH HOSTS QUERY IF SEARCH CHANGES
+  useEffect(() => {
+    if (searchChanged) {
+      refetch(getQueryVariables(search));
+    }
+  }, [searchChanged, search, refetch]);
+
+  // RESTART JASPER MUTATION
+  const [restartJasper, { loading: loadingRestartJasper }] = useMutation<
+    RestartJasperMutation,
+    RestartJasperMutationVariables
+  >(RESTART_JASPER, {
+    onCompleted({ restartJasper: numberOfHostsUpdated }) {
+      dispatchBanner.successBanner(
+        `Jasper was restarted for ${numberOfHostsUpdated} host${
+          numberOfHostsUpdated === 1 ? "" : "s"
+        }`
+      );
+    },
+    onError({ message }) {
+      dispatchBanner.errorBanner(message);
+    },
+  });
+
+  const onClickRestartJasperConfirm = () =>
+    restartJasper({ variables: { hostIds: selectedHostIds } });
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -104,16 +126,31 @@ const Hosts: React.FC = () => {
                 hasFilters ? filteredHostCount : totalHostsCount
               } of ${totalHostsCount}`}
             </Disclaimer>
-            {selectedHosts.length >= 1 && (
+            {selectedHostIds.length > 0 && (
               <HostsSelectionWrapper>
-                <Badge variant={Variant.Blue}>
-                  {selectedHosts.length} Selected
+                <Badge variant={Variant.Blue} data-cy="hosts-selection-badge">
+                  {selectedHostIds.length} Selected
                 </Badge>
                 <ButtonWrapper>
-                  <Button>Update Status</Button>
+                  <Button dataCy="update-status-button">Update Status</Button>
                 </ButtonWrapper>
                 <ButtonWrapper>
-                  <Button>Restart Jasper</Button>
+                  <Popconfirm
+                    title={`Restart Jasper for ${selectedHostIds.length} host${
+                      selectedHostIds.length > 1 ? "s" : ""
+                    }?`}
+                    onConfirm={onClickRestartJasperConfirm}
+                    icon={null}
+                    placement="bottom"
+                    okText="Yes"
+                    okButtonProps={{ loading: loadingRestartJasper }}
+                    cancelText="No"
+                    cancelButtonProps={{ disabled: loadingRestartJasper }}
+                  >
+                    <Button dataCy="restart-jasper-button">
+                      Restart Jasper
+                    </Button>
+                  </Popconfirm>
                 </ButtonWrapper>
               </HostsSelectionWrapper>
             )}
@@ -136,7 +173,8 @@ const Hosts: React.FC = () => {
             hosts={hostItems}
             sortBy={sortBy}
             sortDir={sortDir}
-            setSelectedHosts={setSelectedHosts}
+            selectedHostIds={selectedHostIds}
+            setSelectedHostIds={setSelectedHostIds}
           />
         </TableContainer>
         {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
@@ -197,7 +235,7 @@ const HostsSelectionWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  margin-left: 24px;
+  margin-left: 32px;
 `;
 const ButtonWrapper = styled.div`
   margin-left: 24px;

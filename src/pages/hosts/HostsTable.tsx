@@ -1,5 +1,5 @@
 import React from "react";
-import { ColumnProps } from "antd/es/table";
+import { ColumnProps, TableRowSelection } from "antd/es/table";
 import { Table } from "antd";
 import {
   Host,
@@ -25,7 +25,8 @@ interface Props {
   hosts: Host[];
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
-  setSelectedHosts: React.Dispatch<React.SetStateAction<Host[]>>;
+  selectedHostIds: string[];
+  setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
 type HostsUrlParam = keyof HostsQueryVariables;
@@ -34,7 +35,8 @@ export const HostsTable: React.FC<Props> = ({
   hosts,
   sortBy,
   sortDir,
-  setSelectedHosts,
+  selectedHostIds,
+  setSelectedHostIds,
 }) => {
   const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
 
@@ -232,16 +234,9 @@ export const HostsTable: React.FC<Props> = ({
     },
   ];
 
-  const rowSelection = {
-    onChange: (selectedRowKeys, selectedRows) => {
-      console.log(
-        `selectedRowKeys: ${selectedRowKeys}`,
-        "selectedRows: ",
-        selectedRows
-      );
-      setSelectedHosts(selectedRows);
-    },
-  };
+  const onSelectChange: TableRowSelection<Host>["onChange"] = (
+    selectedRowKeys
+  ) => setSelectedHostIds(selectedRowKeys as string[]);
 
   return (
     <Table
@@ -252,7 +247,8 @@ export const HostsTable: React.FC<Props> = ({
       dataSource={hosts}
       rowSelection={{
         type: "checkbox",
-        ...rowSelection,
+        onChange: onSelectChange,
+        selectedRowKeys: selectedHostIds,
       }}
       onChange={tableChangeHandler}
     />
