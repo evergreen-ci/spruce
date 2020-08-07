@@ -25,11 +25,17 @@ interface Props {
   hosts: Host[];
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
+  setSelectedHosts: React.Dispatch<React.SetStateAction<Host[]>>;
 }
 
 type HostsUrlParam = keyof HostsQueryVariables;
 
-export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
+export const HostsTable: React.FC<Props> = ({
+  hosts,
+  sortBy,
+  sortDir,
+  setSelectedHosts,
+}) => {
   const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
 
   const getDefaultSortOrder = (
@@ -226,6 +232,17 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
     },
   ];
 
+  const rowSelection = {
+    onChange: (selectedRowKeys, selectedRows) => {
+      console.log(
+        `selectedRowKeys: ${selectedRowKeys}`,
+        "selectedRows: ",
+        selectedRows
+      );
+      setSelectedHosts(selectedRows);
+    },
+  };
+
   return (
     <Table
       data-test-id="hosts-table"
@@ -233,6 +250,10 @@ export const HostsTable: React.FC<Props> = ({ hosts, sortBy, sortDir }) => {
       pagination={false}
       columns={columnsTemplate}
       dataSource={hosts}
+      rowSelection={{
+        type: "checkbox",
+        ...rowSelection,
+      }}
       onChange={tableChangeHandler}
     />
   );
