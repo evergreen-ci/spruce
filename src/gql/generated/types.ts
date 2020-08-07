@@ -223,7 +223,10 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
+  restartJasper: Scalars["Int"];
+  updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
+  spawnHost: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -299,8 +302,22 @@ export type MutationUpdateUserSettingsArgs = {
   userSettings?: Maybe<UserSettingsInput>;
 };
 
+export type MutationRestartJasperArgs = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type MutationUpdateHostStatusArgs = {
+  hostIds: Array<Scalars["String"]>;
+  status: Scalars["String"];
+  notes?: Maybe<Scalars["String"]>;
+};
+
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationSpawnHostArgs = {
+  spawnHostInput?: Maybe<SpawnHostInput>;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -566,6 +583,19 @@ export enum SortDirection {
   Desc = "DESC",
 }
 
+export type SpawnHostInput = {
+  distroId: Scalars["String"];
+  region: Scalars["String"];
+  savePublicKey: Scalars["Boolean"];
+  publicKey: PublicKeyInput;
+  userDataScript?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration: Scalars["Boolean"];
+  setUpScript?: Maybe<Scalars["String"]>;
+  isVirtualWorkStation: Scalars["Boolean"];
+  homeVolumeSize?: Maybe<Scalars["Int"]>;
+};
+
 export type SubscriberInput = {
   type: Scalars["String"];
   target: Scalars["String"];
@@ -812,6 +842,12 @@ export type RemovePatchFromCommitQueueMutationVariables = {
 export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
+
+export type RestartJasperMutationVariables = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type RestartJasperMutation = { restartJasper: number };
 
 export type RestartPatchMutationVariables = {
   patchId: Scalars["String"];
