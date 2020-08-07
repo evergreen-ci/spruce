@@ -20,6 +20,7 @@ interface Props {
   tabToIndexMap: TabToIndexMap;
   defaultTab: string;
   path?: string;
+  query?: URLSearchParams;
   sendAnalyticsEvent?: (tab: string) => void;
 }
 
@@ -27,6 +28,7 @@ export const useTabs = ({
   tabToIndexMap,
   defaultTab,
   path,
+  query,
   sendAnalyticsEvent = () => undefined,
 }: Props): [number, TabSelectHandler] => {
   const { tab } = useParams<{ tab?: string }>();
@@ -46,7 +48,7 @@ export const useTabs = ({
   const selectTabHandler = (tabIndex: number): void => {
     setSelectedTab(tabIndex);
     const currentTab = getTabFromIndex(tabIndex);
-    history.replace(`${path}/${currentTab}`);
+    history.replace(`${path}/${currentTab}?${query ? query.toString() : ""}`);
     sendAnalyticsEvent(currentTab);
   };
   return [selectedTab, selectTabHandler];

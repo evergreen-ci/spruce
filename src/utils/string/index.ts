@@ -32,3 +32,7 @@ export const omitTypename = (object) =>
 const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
 export const getDateCopy = (d: Date): string =>
   d ? format(new Date(d), DATE_FORMAT) : "";
+
+const SHORT_DATE_FORMAT = "M/d/yy h:m aa";
+export const shortDate = (d: Date): string =>
+  d ? format(new Date(d), SHORT_DATE_FORMAT) : "";

@@ -1,11 +1,11 @@
 import gql from "graphql-tag";
 
 export const GET_TASK = gql`
-  query GetTask($taskId: String!) {
-    taskFiles(taskId: $taskId) {
+  query GetTask($taskId: String!, $execution: Int) {
+    taskFiles(taskId: $taskId, execution: $execution) {
       fileCount
     }
-    task(taskId: $taskId) {
+    task(taskId: $taskId, execution: $execution) {
       activatedBy
       baseTaskMetadata {
         baseTaskDuration
@@ -50,6 +50,7 @@ export const GET_TASK = gql`
       canSetPriority
       ami
       distroId
+      latestExecution
     }
   }
 `;

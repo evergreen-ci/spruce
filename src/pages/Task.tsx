@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
@@ -17,7 +17,13 @@ import {
   PageSider,
 } from "components/styles";
 import { GET_TASK } from "gql/queries/get-task";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { GET_TASK_ALL_EXECUTIONS } from "gql/queries/get-task-all-executions";
+import {
+  GetTaskQuery,
+  GetTaskQueryVariables,
+  GetTaskAllExecutionsQuery,
+  GetTaskAllExecutionsQueryVariables,
+} from "gql/generated/types";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -29,11 +35,21 @@ import {
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
-import { TaskTab } from "types/task";
+import { TaskTab, RequiredQueryParams } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Metadata } from "pages/task/Metadata";
 import { useTaskAnalytics } from "analytics";
 import { pollInterval } from "constants/index";
+import { Select } from "antd";
+import { shortDate } from "utils/string";
+import {
+  mapVariantTaskStatusToColor,
+  Square,
+} from "pages/patch/buildVariants/variantColors"; // TODO: move somewhere
+import { P1 } from "components/Typography";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { parseQueryString } from "utils";
+import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -47,6 +63,12 @@ const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+  const { search: queryVars } = useLocation();
+  const parsed = parseQueryString(queryVars);
+  const initialExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const [execution, setExecution] = useState(
+    !Number.isNaN(initialExecution) ? ExecutionAsData(initialExecution) : null
+  );
   const taskAnalytics = useTaskAnalytics();
   // automatically append default tab to end of url path
   useDefaultPath({
@@ -54,27 +76,27 @@ const TaskCore: React.FC = () => {
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
   });
 
-  // logic for tabs + updating url when they change
-  const [selectedTab, selectTabHandler] = useTabs({
-    tabToIndexMap,
-    defaultTab: DEFAULT_TAB,
-    path: `${paths.task}/${id}`,
-    sendAnalyticsEvent: (tab: string) =>
-      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
-  });
-
   // Query task data
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
-    variables: { taskId: id },
+    variables: { taskId: id, execution },
     pollInterval,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
   });
+  const allExecutionsResult = useQuery<
+    GetTaskAllExecutionsQuery,
+    GetTaskAllExecutionsQueryVariables
+  >(GET_TASK_ALL_EXECUTIONS, {
+    variables: { taskId: id },
+  });
+  const allExecutions = allExecutionsResult?.data?.taskAllExecutions;
+  const executionsLoading = allExecutionsResult?.loading;
+  const { Option } = Select;
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
@@ -92,6 +114,20 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const patchAuthor = data?.task.patchMetadata.author;
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
+  const updateQueryParams = useUpdateURLQueryParams();
+  // logic for tabs + updating url when they change
+  const [selectedTab, selectTabHandler] = useTabs({
+    tabToIndexMap,
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.task}/${id}`,
+    query: new URLSearchParams(
+      `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(
+        execution || task?.latestExecution
+      )}`
+    ),
+    sendAnalyticsEvent: (tab: string) =>
+      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
+  });
 
   if (error) {
     stopPolling();
@@ -144,6 +180,45 @@ const TaskCore: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
+          {task?.latestExecution > 0 && (
+            <StyledSelect
+              placeholder="Choose an execution"
+              disabled={executionsLoading}
+              key={execution}
+              data-test-id="execution-select"
+              value={`Execution ${ExecutionAsDisplay(
+                execution === null ? task?.latestExecution : execution
+              )}${
+                execution === null || execution === task?.latestExecution
+                  ? " (latest)"
+                  : ""
+              }`}
+              onChange={(selected: number | null) => {
+                setExecution(selected);
+                updateQueryParams({
+                  execution: `${ExecutionAsDisplay(selected)}`,
+                });
+              }}
+            >
+              {allExecutions?.map((singleExecution) => (
+                <Option
+                  key={singleExecution.execution}
+                  value={singleExecution.execution}
+                  data-test-id={`execution-${singleExecution.execution}`}
+                >
+                  <StyledSquare
+                    color={mapVariantTaskStatusToColor[singleExecution.status]}
+                  />
+                  <StyledP1>
+                    {" "}
+                    Execution {ExecutionAsDisplay(
+                      singleExecution.execution
+                    )} - {shortDate(singleExecution.createTime)}
+                  </StyledP1>
+                </Option>
+              ))}
+            </StyledSelect>
+          )}
           <Metadata data={data} loading={loading} error={error} />
         </PageSider>
         <LogWrapper>
@@ -202,4 +277,17 @@ export const Task = withBannersContext(TaskCore);
 
 const LogWrapper = styled(PageLayout)`
   width: 100%;
+`;
+const StyledSelect = styled(Select)`
+  margin-bottom: 10px;
+  width: 100%;
+`;
+const StyledSquare = styled(Square)`
+  float: left;
+  width: 17px;
+  height: 17px;
+  margin-right: 3px;
+`;
+const StyledP1 = styled(P1)`
+  float: left;
 `;
