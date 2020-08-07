@@ -827,6 +827,12 @@ export type AbortTaskMutationVariables = {
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type EnqueuePatchMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
+
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
   patchId: Scalars["String"];
@@ -1346,6 +1352,7 @@ export type UserPatchesQuery = {
       status: string;
       createTime?: Maybe<Date>;
       commitQueuePosition?: Maybe<number>;
+      canEnqueueToCommitQueue: boolean;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };
@@ -1370,6 +1377,7 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
+    canEnqueueToCommitQueue: boolean;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
