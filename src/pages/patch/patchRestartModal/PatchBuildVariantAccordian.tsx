@@ -24,12 +24,12 @@ export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProp
   const variantTitle = (
     <>
       <Checkbox
-        data-cy="task-status-checkbox"
+        data-cy="variant-checkbox-select-all"
         onChange={() => toggleSelectedTask(tasks.map((task) => task.id))}
         label={displayName}
         checked={matchingTasks === taskLength}
         indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
-        bold={false}
+        bold
       />
       <BadgeWrapper>
         <Badge data-cy="task-status-badge">

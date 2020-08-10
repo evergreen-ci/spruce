@@ -5,7 +5,7 @@ const patch = {
 };
 const path = `/version/${patch.id}`;
 const allTasksSelectedConfirmationMessage =
-  "Are you sure you want to restart the 42 selected tasks?";
+  "Are you sure you want to restart the 43 selected tasks?";
 describe("Restarting a patch", () => {
   before(() => {
     cy.login();
@@ -27,6 +27,17 @@ describe("Restarting a patch", () => {
       .first()
       .click();
     cy.dataCy("patch-status-selector-container").should("exist");
+  });
+  it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
+    cy.dataCy("variant-checkbox-select-all")
+      .first()
+      .click({ force: true });
+    cy.dataCy("task-status-badge").should("contain.text", "2 of 2 Selected");
+    cy.dataCy("variant-checkbox-select-all")
+      .first()
+      .click({ force: true });
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
   });
   it("Clicking on a task should toggle its check box and select the task", () => {
     cy.dataCy("task-status-checkbox")
