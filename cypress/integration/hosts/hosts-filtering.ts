@@ -2,7 +2,6 @@ const hostsRoute = "/hosts";
 
 const tableRow = "tr.ant-table-row";
 
-// FILTERS
 const idParam = "hostId";
 const distroParam = "distroId";
 const statusesParam = "statuses";
@@ -16,6 +15,8 @@ const currentTaskIdFilter =
   "mongodb_mongo_v3.6_debian92_sharding_auth_bc405c72dce4714da604810cdc90c132bd5fbaa1_20_07_20_17_39_20";
 const ownerFilter = "mci";
 
+const distroFilterIconDataCy = "distro-id-filter";
+
 const filterTests = [
   {
     param: idParam,
@@ -26,7 +27,7 @@ const filterTests = [
   },
   {
     param: distroParam,
-    filterIconDataCy: "distro-id-filter",
+    filterIconDataCy: distroFilterIconDataCy,
     filterValue: distroFilter,
     filterUrlParam: `${distroParam}=${distroFilter}`,
     expectedIds: [
@@ -155,6 +156,54 @@ describe("Hosts page filtering from table filters", () => {
     cy.preserveCookies();
     cy.listenGQL();
     cy.visit(hostsRoute);
+  });
+
+  it("Filters hosts with input value when Enter key is pressed", () => {
+    cy.visit(`${hostsRoute}?limit=100&page=0`);
+
+    cy.dataCy(distroFilterIconDataCy).click();
+
+    cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
+      cy.dataCy("input-filter").type("centos6-perf{enter}");
+    });
+
+    cy.waitForGQL("Hosts");
+
+    cy.get(tableRow).each(($el, index) =>
+      cy
+        .wrap($el)
+        .contains(
+          [
+            "build10.ny.cbi.10gen",
+            "build10.ny.cbi.10gen.c",
+            "build10.ny.cbi.10gen.cc",
+          ][index]
+        )
+    );
+  });
+
+  it("Trims the whitespace from filter input values", () => {
+    cy.visit(`${hostsRoute}?limit=100&page=0`);
+
+    cy.dataCy(distroFilterIconDataCy).click();
+
+    cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
+      cy.dataCy("input-filter").type("      centos6-perf     {enter}");
+    });
+
+    cy.waitForGQL("Hosts");
+
+    cy.get(tableRow).each(($el, index) =>
+      cy
+        .wrap($el)
+        .contains(
+          [
+            "build10.ny.cbi.10gen",
+            "build10.ny.cbi.10gen.c",
+            "build10.ny.cbi.10gen.cc",
+          ][index]
+        )
+    );
   });
 
   filterTests.forEach(({ param, filterIconDataCy, filterValue }) => {
