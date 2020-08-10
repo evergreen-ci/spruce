@@ -13,8 +13,9 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 import { legacyRoutes } from "constants/externalResources";
 import {
   paths,
-  preferencesTabRoutes,
+  PreferencesTabRoutes,
   getUserPatchesRoute,
+  getPreferencesRoute,
 } from "constants/routes";
 
 const { white } = uiColors;
@@ -61,7 +62,7 @@ const MenuItems: React.FC = () => {
         <Link to={paths.preferences}>Preferences</Link>
       </Menu.Item>
       <Menu.Item>
-        <Link to={`${paths.preferences}/${preferencesTabRoutes.Notifications}`}>
+        <Link to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}>
           Notifications
         </Link>
       </Menu.Item>

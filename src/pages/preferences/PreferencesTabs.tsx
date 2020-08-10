@@ -8,25 +8,20 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
+import { PreferencesTabRoutes } from "constants/routes";
 import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
+import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
 interface PreferenceTabsProps {
-  tabKey: string;
+  tabKey: PreferencesTabRoutes;
   userSettings: UserSettings;
   loading: boolean;
   error: ApolloError;
-}
-
-enum mapUrlTabToTitle {
-  profile = "Profile",
-  notifications = "Notifications",
-  cli = "CLI & API",
-  newUI = "New UI Settings",
 }
 
 const Tabs: React.FC<PreferenceTabsProps> = ({
@@ -39,25 +34,61 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
   useEffect(() => {
     dispatchBanner.clearAllBanners();
   }, [tabKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const Component = componentMap[tabKey];
+  const { title, Component } = getTitleAndComponent(tabKey, userSettings);
   return (
     <Container>
-      <Title data-cy="preferences-tab-title">{mapUrlTabToTitle[tabKey]}</Title>
+      <Title data-cy="preferences-tab-title">{title}</Title>
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
       {loading && <Skeleton active />}
-      {!loading && <Component tabKey={tabKey} {...userSettings} />}
+      {!loading && <Component />}
     </Container>
   );
 };
 
-const componentMap = {
-  profile: ProfileTab,
-  notifications: NotificationsTab,
-  cli: CliTab,
-  newUI: NewUITab,
+const getTitleAndComponent = (
+  tabKey: PreferencesTabRoutes = PreferencesTabRoutes.Profile,
+  userSettings: UserSettings
+): { title: string; Component: React.FC } => {
+  const {
+    githubUser,
+    timezone,
+    region,
+    slackUsername,
+    notifications,
+    useSpruceOptions,
+  } = userSettings ?? {};
+
+  const defaultTitleAndComponent = {
+    title: "Profile",
+    Component: () => <ProfileTab {...{ githubUser, timezone, region }} />,
+  };
+
+  return (
+    {
+      [PreferencesTabRoutes.Profile]: defaultTitleAndComponent,
+      [PreferencesTabRoutes.Notifications]: {
+        title: "Notifications",
+        Component: () => (
+          <NotificationsTab {...{ slackUsername, notifications }} />
+        ),
+      },
+      [PreferencesTabRoutes.CLI]: {
+        title: "CLI & API",
+        Component: () => <CliTab />,
+      },
+      [PreferencesTabRoutes.NewUI]: {
+        title: "New UI Settings",
+        Component: () => <NewUITab {...{ useSpruceOptions }} />,
+      },
+      [PreferencesTabRoutes.PublicKeys]: {
+        title: "Manage Public Keys",
+        Component: () => <PublicKeysTab />,
+      },
+    }[tabKey] ?? defaultTitleAndComponent
+  );
 };
 
 const Container = styled.div`

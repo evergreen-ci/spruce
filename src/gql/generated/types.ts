@@ -104,6 +104,7 @@ export type GroupedProjects = {
 export type Host = {
   id: Scalars["ID"];
   hostUrl: Scalars["String"];
+  tag: Scalars["String"];
   distroId?: Maybe<Scalars["String"]>;
   status: Scalars["String"];
   runningTask?: Maybe<TaskInfo>;
@@ -222,8 +223,12 @@ export type Mutation = {
   saveSubscription: Scalars["Boolean"];
   removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
+  restartJasper: Scalars["Int"];
+  updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
+  spawnHost: Host;
   removePublicKey: Array<PublicKey>;
+  updatePublicKey: Array<PublicKey>;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -297,12 +302,31 @@ export type MutationUpdateUserSettingsArgs = {
   userSettings?: Maybe<UserSettingsInput>;
 };
 
+export type MutationRestartJasperArgs = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type MutationUpdateHostStatusArgs = {
+  hostIds: Array<Scalars["String"]>;
+  status: Scalars["String"];
+  notes?: Maybe<Scalars["String"]>;
+};
+
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
 };
 
+export type MutationSpawnHostArgs = {
+  spawnHostInput?: Maybe<SpawnHostInput>;
+};
+
 export type MutationRemovePublicKeyArgs = {
   keyName: Scalars["String"];
+};
+
+export type MutationUpdatePublicKeyArgs = {
+  targetKeyName: Scalars["String"];
+  updateInfo: PublicKeyInput;
 };
 
 export type Notifications = {
@@ -559,6 +583,19 @@ export enum SortDirection {
   Desc = "DESC",
 }
 
+export type SpawnHostInput = {
+  distroId: Scalars["String"];
+  region: Scalars["String"];
+  savePublicKey: Scalars["Boolean"];
+  publicKey: PublicKeyInput;
+  userDataScript?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration: Scalars["Boolean"];
+  setUpScript?: Maybe<Scalars["String"]>;
+  isVirtualWorkStation: Scalars["Boolean"];
+  homeVolumeSize?: Maybe<Scalars["Int"]>;
+};
+
 export type SubscriberInput = {
   type: Scalars["String"];
   target: Scalars["String"];
@@ -791,6 +828,12 @@ export type AbortTaskMutationVariables = {
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type EnqueuePatchMutationVariables = {
+  patchId: Scalars["String"];
+};
+
+export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
+
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
   patchId: Scalars["String"];
@@ -799,6 +842,12 @@ export type RemovePatchFromCommitQueueMutationVariables = {
 export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
+
+export type RestartJasperMutationVariables = {
+  hostIds: Array<Scalars["String"]>;
+};
+
+export type RestartJasperMutation = { restartJasper: number };
 
 export type RestartPatchMutationVariables = {
   patchId: Scalars["String"];
@@ -960,6 +1009,43 @@ export type CommitQueueQuery = {
   };
 };
 
+export type HostEventsQueryVariables = {
+  id: Scalars["String"];
+  tag: Scalars["String"];
+  limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars["Int"]>;
+};
+
+export type HostEventsQuery = {
+  hostEvents: {
+    eventLogEntries: Array<{
+      id: string;
+      resourceType: string;
+      processedAt: Date;
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      resourceId: string;
+      data: {
+        agentRevision: string;
+        agentBuild: string;
+        oldStatus: string;
+        newStatus: string;
+        logs: string;
+        hostname: string;
+        provisioningMethod: string;
+        taskId: string;
+        taskPid: string;
+        taskStatus: string;
+        execution: string;
+        monitorOp: string;
+        user: string;
+        successful: boolean;
+        duration: number;
+      };
+    }>;
+  };
+};
+
 export type HostQueryVariables = {
   id: Scalars["String"];
 };
@@ -969,6 +1055,7 @@ export type HostQuery = {
     id: string;
     hostUrl: string;
     distroId?: Maybe<string>;
+    tag: string;
     provider: string;
     startedBy: string;
     user?: Maybe<string>;
@@ -1275,6 +1362,7 @@ export type HostsQuery = {
       status: string;
       startedBy: string;
       hostUrl: string;
+      tag: string;
       totalIdleTime?: Maybe<number>;
       uptime?: Maybe<Date>;
       elapsed?: Maybe<Date>;
@@ -1304,6 +1392,7 @@ export type UserPatchesQuery = {
       status: string;
       createTime?: Maybe<Date>;
       commitQueuePosition?: Maybe<number>;
+      canEnqueueToCommitQueue: boolean;
       builds: Array<{ id: string; buildVariant: string; status: string }>;
     }>;
   };
@@ -1328,6 +1417,7 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
+    canEnqueueToCommitQueue: boolean;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;

@@ -37,11 +37,12 @@ export enum PatchTab {
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
 
-export enum preferencesTabRoutes {
+export enum PreferencesTabRoutes {
   Profile = "profile",
   Notifications = "notifications",
   CLI = "cli",
   NewUI = "newUI",
+  PublicKeys = "publickeys",
 }
 
 export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
@@ -56,3 +57,6 @@ export const getVersionRoute = (versionId: string, tab?: PatchTab) =>
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
 export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
+
+export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
+  `${paths.preferences}/${tab}`;
