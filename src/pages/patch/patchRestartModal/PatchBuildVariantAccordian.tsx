@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Body } from "@leafygreen-ui/typography";
+import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordian } from "components/Accordian";
 import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
@@ -9,13 +9,13 @@ import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
 
 interface PatchBuildVariantAccordianProps {
   tasks: PatchBuildVariantTask[];
-  variant: string;
+  displayName: string;
   selectedTasks: selectedStrings;
-  toggleSelectedTask: (id: string) => void;
+  toggleSelectedTask: (id: string | string[]) => void;
 }
 export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProps> = ({
   tasks,
-  variant,
+  displayName,
   selectedTasks,
   toggleSelectedTask,
 }) => {
@@ -23,7 +23,14 @@ export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProp
   const matchingTasks = countMatchingTasks(tasks, selectedTasks);
   const variantTitle = (
     <>
-      <Body weight="medium">{variant}</Body>
+      <Checkbox
+        data-cy="task-status-checkbox"
+        onChange={() => toggleSelectedTask(tasks.map((task) => task.id))}
+        label={displayName}
+        checked={matchingTasks === taskLength}
+        indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
+        bold={false}
+      />
       <BadgeWrapper>
         <Badge data-cy="task-status-badge">
           {matchingTasks} of {taskLength} Selected
