@@ -39,6 +39,24 @@ test("useTableInputFilter", async () => {
   getByText("host id from url: N/A");
 });
 
+test("useTableInputFilter - trims whitespace from input value", async () => {
+  const { getByText, getByPlaceholderText } = render(
+    <MemoryRouter initialEntries={[`/hosts?hostId=123`]}>
+      <Route path="/hosts">
+        <InputFilterTestComponent />
+      </Route>
+    </MemoryRouter>
+  );
+
+  const input = getByPlaceholderText("Search ID") as HTMLInputElement;
+  const searchButton = getByText("Search");
+
+  fireEvent.change(input, { target: { value: "     abc  " } });
+  fireEvent.click(searchButton);
+
+  getByText("host id from url: abc");
+});
+
 test("useTableCheckboxFilter", async () => {
   const { getByText, getByLabelText } = render(
     <MemoryRouter initialEntries={[`/hosts?statuses=running,terminated`]}>
