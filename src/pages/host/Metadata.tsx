@@ -36,16 +36,10 @@ export const Metadata: React.FC<{
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
       <P2>
-        Distro:{" "}
-        <StyledLink data-cy="task-distro-link" href={distroLink}>
-          {distroId}
-        </StyledLink>
+        Distro: <StyledLink href={distroLink}>{distroId}</StyledLink>
       </P2>
       <P2>
-        Current Task:{" "}
-        <StyledLink data-cy="task-distro-link" href={taskLink}>
-          {runningTaskName}
-        </StyledLink>
+        Current Task: <StyledLink href={taskLink}>{runningTaskName}</StyledLink>
       </P2>
     </HostMetaDataCard>
   );

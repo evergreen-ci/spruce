@@ -2,15 +2,16 @@ import React from "react";
 import { ApolloError } from "apollo-client";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
-import styled from "@emotion/styled/macro";
 import Card from "@leafygreen-ui/card";
+import styled from "@emotion/styled/macro";
 
 interface Props {
+  title?: string;
   error: ApolloError;
   loading?: boolean;
 }
 
-export const HostMetaDataCard: React.FC<Props> = ({
+export const HostTableWrapper: React.FC<Props> = ({
   children,
   error,
   loading,
@@ -29,10 +30,9 @@ export const HostMetaDataCard: React.FC<Props> = ({
 export const SiderCard = styled(Card)`
   padding-top: 12px;
   padding-bottom: 25px;
-  padding-right: 0px;
-  padding-left: 15px;
+  padding-right: 28px;
+  padding-left: 28px;
   margin-bottom: 30px;
-  > * {
-    margin-top: 20px;
-  }
+  margin-left: 20px;
+  margin-right: 20px;
 `;

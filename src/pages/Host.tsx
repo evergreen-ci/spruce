@@ -10,11 +10,17 @@ import {
   HostEventsQueryVariables,
 } from "gql/generated/types";
 import { usePageTitle } from "hooks/usePageTitle";
-import { PageWrapper, PageSider, PageLayout } from "components/styles";
+import {
+  PageWrapper,
+  PageSider,
+  PageLayout,
+  PageContent,
+} from "components/styles";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
+import { HostTable } from "pages/host/HostTable";
 import Code from "@leafygreen-ui/code";
 
 export const Host: React.FC = () => {
@@ -60,6 +66,12 @@ export const Host: React.FC = () => {
           <Metadata loading={loading} data={hostData} error={error} />
           <Code language="shell">{sshCommand}</Code>
         </PageSider>
+
+        <PageLayout>
+          <PageContent>
+            <HostTable loading={loading} data={hostEventData} error={error} />
+          </PageContent>
+        </PageLayout>
       </PageLayout>
     </PageWrapper>
   );

@@ -24,11 +24,48 @@ export const msToDuration = (ms: number): string => {
   return `${milliseconds}ms`;
 };
 
+export const stringifyNanoseconds = (input, skipDayMax, skipSecMax) => {
+  const NS_PER_MS = 1000 * 1000; // 10^6
+  const NS_PER_SEC = NS_PER_MS * 1000;
+  const NS_PER_MINUTE = NS_PER_SEC * 60;
+  const NS_PER_HOUR = NS_PER_MINUTE * 60;
+
+  if (input === 0) {
+    return "0 seconds";
+  }
+  if (input < NS_PER_MS) {
+    return "< 1 ms";
+  }
+  if (input < NS_PER_SEC) {
+    if (skipSecMax) {
+      return `${Math.floor(input / NS_PER_MS)} ms`;
+    }
+    return "< 1 second";
+  }
+  if (input < NS_PER_MINUTE) {
+    return `${Math.floor(input / NS_PER_SEC)} seconds`;
+  }
+  if (input < NS_PER_HOUR) {
+    return `${Math.floor(input / NS_PER_MINUTE)}m ${Math.floor(
+      (input % NS_PER_MINUTE) / NS_PER_SEC
+    )}s`;
+  }
+  if (input < NS_PER_HOUR * 24 || skipDayMax) {
+    return `${Math.floor(input / NS_PER_HOUR)}h ${Math.floor(
+      (input % NS_PER_HOUR) / NS_PER_MINUTE
+    )}m ${Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC)}s`;
+  }
+  if (input === "unknown") {
+    return "unknown";
+  }
+  return ">= 1 day";
+};
+
 export const omitTypename = (object) =>
   JSON.parse(JSON.stringify(object), (key, value) =>
     key === "__typename" ? undefined : value
   );
 
-const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaa";
+const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaaa'm";
 export const getDateCopy = (d: Date): string =>
   d ? format(new Date(d), DATE_FORMAT) : "";
