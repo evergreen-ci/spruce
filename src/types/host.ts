@@ -19,9 +19,9 @@ export enum HostStatus {
   Building = "building",
 
   // doesn't show up on the hosts page
-  StatusSuccess = "success",
+  Success = "success",
   Stopping = "stopping",
   Stopped = "stopped",
-  StatusFailed = "failed",
+  Failed = "failed",
   ExternalUserName = "external",
 }
