@@ -7,6 +7,7 @@ import { Login } from "pages/Login";
 import { CommitQueue } from "pages/CommitQueue";
 import { Hosts } from "pages/Hosts";
 import { Host } from "pages/Host";
+import { Spawn } from "pages/Spawn";
 import { PrivateRoute } from "components/PrivateRoute";
 import { Navbar } from "components/Navbar";
 import { SiteBanner, ConnectivityBanner } from "components/Banners";
@@ -63,6 +64,7 @@ export const Content: React.FC = () => {
           path={`${paths.user}/:id`}
           component={UserPatchesRedirect}
         />
+        <PrivateRoute path={routes.spawn} component={Spawn} />
         <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
         <PrivateRoute path={routes.preferences} component={Preferences} />
         <PrivateRoute exact path="/">
