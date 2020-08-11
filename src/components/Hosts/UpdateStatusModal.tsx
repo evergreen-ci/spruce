@@ -60,6 +60,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
         `There was an error updating hosts status: ${error}`
       );
     },
+    refetchQueries: ["Hosts"],
   });
 
   const onClickUpdate = () => {
