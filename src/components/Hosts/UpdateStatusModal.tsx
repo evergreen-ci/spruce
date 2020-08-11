@@ -136,81 +136,32 @@ const StyledTextArea = styled(TextArea)`
 `;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
+enum UpdateHostStatus {
+  Start = "start",
+  Stop = "stop",
+  Terminate = "terminate",
+}
+
 interface Status {
-  title: keyof typeof HostStatus;
-  value: HostStatus;
-  key: HostStatus;
+  title: keyof typeof UpdateHostStatus;
+  value: UpdateHostStatus;
+  key: UpdateHostStatus;
 }
 
 const hostStatuses: Status[] = [
   {
-    title: "Running",
-    value: HostStatus.Running,
-    key: HostStatus.Running,
+    title: "Start",
+    value: UpdateHostStatus.Start,
+    key: UpdateHostStatus.Start,
   },
   {
-    title: "Starting",
-    value: HostStatus.Starting,
-    key: HostStatus.Starting,
+    title: "Stop",
+    value: UpdateHostStatus.Stop,
+    key: UpdateHostStatus.Stop,
   },
   {
-    title: "Provisioning",
-    value: HostStatus.Provisioning,
-    key: HostStatus.Provisioning,
-  },
-  {
-    title: "Terminated",
-    value: HostStatus.Terminated,
-    key: HostStatus.Terminated,
-  },
-  {
-    title: "Decommissioned",
-    value: HostStatus.Decommissioned,
-    key: HostStatus.Decommissioned,
-  },
-  {
-    title: "Quarantined",
-    value: HostStatus.Quarantined,
-    key: HostStatus.Quarantined,
-  },
-  {
-    title: "ProvisionFailed",
-    value: HostStatus.ProvisionFailed,
-    key: HostStatus.ProvisionFailed,
-  },
-  {
-    title: "Uninitialized",
-    value: HostStatus.Uninitialized,
-    key: HostStatus.Uninitialized,
-  },
-  {
-    title: "Building",
-    value: HostStatus.Building,
-    key: HostStatus.Building,
-  },
-  {
-    title: "Success",
-    value: HostStatus.Success,
-    key: HostStatus.Success,
-  },
-  {
-    title: "Stopping",
-    value: HostStatus.Stopping,
-    key: HostStatus.Stopping,
-  },
-  {
-    title: "Stopped",
-    value: HostStatus.Stopped,
-    key: HostStatus.Stopped,
-  },
-  {
-    title: "Failed",
-    value: HostStatus.Failed,
-    key: HostStatus.Failed,
-  },
-  {
-    title: "ExternalUserName",
-    value: HostStatus.ExternalUserName,
-    key: HostStatus.ExternalUserName,
+    title: "Terminate",
+    value: UpdateHostStatus.Terminate,
+    key: UpdateHostStatus.Terminate,
   },
 ];
