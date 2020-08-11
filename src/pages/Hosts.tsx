@@ -36,10 +36,13 @@ import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { RESTART_JASPER } from "gql/mutations";
+import { useHostsTableAnalytics } from "analytics";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+
+  const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();
   const prevSearch = usePrevious<string>(search);
@@ -108,8 +111,10 @@ const Hosts: React.FC = () => {
     },
   });
 
-  const onClickRestartJasperConfirm = () =>
+  const onClickRestartJasperConfirm = () => {
+    hostsTableAnalytics.sendEvent({ name: "Restart Jasper" });
     restartJasper({ variables: { hostIds: selectedHostIds } });
+  };
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -171,6 +176,9 @@ const Hosts: React.FC = () => {
             <PageSizeSelector
               dataTestId="tasks-table-page-size-selector"
               value={limit}
+              sendAnalyticsEvent={() =>
+                hostsTableAnalytics.sendEvent({ name: "Change Page Size" })
+              }
             />
           </TableControlInnerRow>
         </TableControlOuterRow>

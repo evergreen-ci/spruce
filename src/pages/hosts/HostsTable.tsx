@@ -20,6 +20,7 @@ import {
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks";
+import { useHostsTableAnalytics } from "analytics";
 
 interface Props {
   hosts: Host[];
@@ -38,7 +39,12 @@ export const HostsTable: React.FC<Props> = ({
   selectedHostIds,
   setSelectedHostIds,
 }) => {
-  const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>();
+  const hostsTableAnalytics = useHostsTableAnalytics();
+
+  const tableChangeHandler = useUpdateUrlSortParamOnTableChange<Host>({
+    sendAnalyticsEvents: () =>
+      hostsTableAnalytics.sendEvent({ name: "Sort Hosts" }),
+  });
 
   const getDefaultSortOrder = (
     key: HostSortBy
@@ -49,6 +55,9 @@ export const HostsTable: React.FC<Props> = ({
     return null;
   };
 
+  const sendHostsTableFilterEvent = (filterBy: string) =>
+    hostsTableAnalytics.sendEvent({ name: "Filter Hosts", filterBy });
+
   // HOST ID URL PARAM
   const [
     hostIdValue,
@@ -57,7 +66,7 @@ export const HostsTable: React.FC<Props> = ({
     resetHostIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "hostId",
-    sendAnalyticsEvent: () => undefined,
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // STATUSES URL PARAM
@@ -68,7 +77,7 @@ export const HostsTable: React.FC<Props> = ({
     resetStatusesUrlParam,
   ] = useTableCheckboxFilter<HostsUrlParam>({
     urlSearchParam: "statuses",
-    sendAnalyticsEvent: () => undefined,
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // DISTRO URL PARAM
@@ -79,7 +88,7 @@ export const HostsTable: React.FC<Props> = ({
     resetDistroIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "distroId",
-    sendAnalyticsEvent: () => undefined,
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // CURRENT TASK ID URL PARAM
@@ -90,7 +99,7 @@ export const HostsTable: React.FC<Props> = ({
     resetCurrentTaskIdUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "currentTaskId",
-    sendAnalyticsEvent: () => undefined,
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // OWNER URL PARAM
@@ -101,7 +110,7 @@ export const HostsTable: React.FC<Props> = ({
     resetOwnerUrlParam,
   ] = useTableInputFilter<HostsUrlParam>({
     urlSearchParam: "startedBy",
-    sendAnalyticsEvent: () => undefined,
+    sendAnalyticsEvent: sendHostsTableFilterEvent,
   });
 
   // TABLE COLUMNS
