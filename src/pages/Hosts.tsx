@@ -36,6 +36,7 @@ import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { RESTART_JASPER } from "gql/mutations";
+import { UpdateStatusModal } from "components/Hosts";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -66,6 +67,11 @@ const Hosts: React.FC = () => {
 
   // SELECTED HOST IDS STATE
   const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
+
+  // UPDATE STATUS MODAL VISIBILITY STATE
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
+    boolean
+  >(false);
 
   // HOSTS QUERY
   const { data: hostsData, networkStatus, refetch } = useQuery<
@@ -135,6 +141,7 @@ const Hosts: React.FC = () => {
                 <Button
                   dataCy="update-status-button"
                   disabled={selectedHostIds.length === 0}
+                  onClick={() => setIsUpdateStatusModalVisible(true)}
                 >
                   Update Status
                 </Button>
@@ -185,6 +192,12 @@ const Hosts: React.FC = () => {
             loading={isLoading}
           />
         </TableContainer>
+        <UpdateStatusModal
+          dataCy="update-host-status-modal"
+          hostIds={selectedHostIds}
+          visible={isUpdateStatusModalVisible}
+          closeModal={() => setIsUpdateStatusModalVisible(false)}
+        />
       </ErrorBoundary>
     </PageWrapper>
   );
