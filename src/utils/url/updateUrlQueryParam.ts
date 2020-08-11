@@ -6,7 +6,6 @@ export const updateUrlQueryParam = (
   search: string,
   replace: (path: string) => void,
   pathname: string,
-  sendAnalyticsEvent: (filterBy: string) => void,
   resetPage?: boolean
 ) => {
   const urlParams = parseQueryString(search);

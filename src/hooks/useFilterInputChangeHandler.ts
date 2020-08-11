@@ -45,7 +45,6 @@ export const useFilterInputChangeHandler = (
       search,
       replace,
       pathname,
-      sendAnalyticsEvent,
       resetPage
     );
   };

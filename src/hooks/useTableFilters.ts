@@ -42,7 +42,6 @@ export const useTableInputFilter = <SearchParam extends string>({
       search,
       replace,
       pathname,
-      sendAnalyticsEvent,
       true
     );
 
@@ -52,15 +51,7 @@ export const useTableInputFilter = <SearchParam extends string>({
   const resetQueryParam = () => {
     setValue("");
 
-    updateUrlQueryParam(
-      urlSearchParam,
-      null,
-      search,
-      replace,
-      pathname,
-      sendAnalyticsEvent,
-      true
-    );
+    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
   };
 
   return [value, onChange, updateParams, resetQueryParam];
@@ -98,15 +89,7 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
   };
 
   const updateParams = () => {
-    updateUrlQueryParam(
-      urlSearchParam,
-      value,
-      search,
-      replace,
-      pathname,
-      sendAnalyticsEvent,
-      true
-    );
+    updateUrlQueryParam(urlSearchParam, value, search, replace, pathname, true);
 
     sendAnalyticsEvent(urlSearchParam);
   };
@@ -114,15 +97,7 @@ export const useTableCheckboxFilter = <SearchParam extends string>({
   const resetQueryParam = () => {
     setValue([]);
 
-    updateUrlQueryParam(
-      urlSearchParam,
-      null,
-      search,
-      replace,
-      pathname,
-      sendAnalyticsEvent,
-      true
-    );
+    updateUrlQueryParam(urlSearchParam, null, search, replace, pathname, true);
   };
 
   return [value, onChange, updateParams, resetQueryParam];

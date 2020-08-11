@@ -3,17 +3,26 @@ import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { useHistory, useLocation } from "react-router-dom";
 import { parseQueryString, stringifyQuery } from "utils";
 
-export const useUpdateUrlSortParamOnTableChange = <T extends unknown>() => {
+interface Params {
+  sendAnalyticsEvents?: () => void;
+}
+
+export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
+  sendAnalyticsEvents = () => undefined,
+}: Params = {}) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
   const tableChangeHandler: TableOnChange<T> = (
     ...[, , { order, columnKey }]
   ) => {
+    sendAnalyticsEvents();
+
     // order is undefined when the column sorter is unselected (which occurs after being clicked three times)
     // when order is undefined, sort should be reset; therefore removed from the url
     if (!order) {
       replace(pathname);
+      return;
     }
 
     const queryParams = parseQueryString(search);
