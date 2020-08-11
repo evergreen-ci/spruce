@@ -2,10 +2,10 @@ import React from "react";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
-import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
+import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import get from "lodash/get";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
-import { PageWrapper } from "components/styles";
+import { PageWrapper, PaddedSideNavItem } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
 import {
@@ -87,9 +87,6 @@ export const Preferences: React.FC = () => {
 
 const tabRouteValues = Object.values(PreferencesTabRoutes);
 
-const PaddedSideNavItem = styled(SideNavItem)`
-  margin-top: 16px;
-`;
 const PageContainer = styled.div`
   display: flex;
 `;

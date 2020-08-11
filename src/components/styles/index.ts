@@ -14,23 +14,25 @@ import { PageWrapper } from "./PageWrapper";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
 import { SiderCard } from "./SiderCard";
 import { FiltersWrapper, StyledInput } from "./filters";
+import { PaddedSideNavItem } from "./SideNav";
 
 export {
+  BoldStyledLink,
   Divider,
+  FiltersWrapper,
+  InputLabel,
+  PaddedSideNavItem,
+  PageButtonRow,
   PageContent,
   PageLayout,
   PageSider,
-  PageWrapper,
-  StyledLink,
-  BoldStyledLink,
-  SiderCard,
-  StyledRouterLink,
-  FiltersWrapper,
-  StyledInput,
   PageTitle,
+  PageWrapper,
+  SiderCard,
+  StyledInput,
+  StyledLink,
+  StyledRouterLink,
   TableContainer,
-  TableControlOuterRow,
   TableControlInnerRow,
-  PageButtonRow,
-  InputLabel,
+  TableControlOuterRow,
 };
