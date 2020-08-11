@@ -4,30 +4,39 @@ enum PageNames {
   Patches = "patches",
 }
 
+export enum SpawnTab {
+  Host = "host",
+  Volume = "volume",
+}
+
 export const paths = {
-  login: "/login",
-  task: "/task",
-  patch: "/patch",
-  version: "/version",
   commitQueue: "/commit-queue",
-  preferences: "/preferences",
-  user: "/user",
-  hosts: "/hosts",
   host: "/host",
+  hosts: "/hosts",
+  login: "/login",
+  patch: "/patch",
+  preferences: "/preferences",
+  spawn: "/spawn",
+  task: "/task",
+  user: "/user",
+  version: "/version",
 };
 
 export const routes = {
-  login: paths.login,
-  myPatches: `${paths.user}/${PageNames.Patches}`,
-  task: `${paths.task}/:id/:tab?`,
-  patch: `${paths.patch}/:id/:tab?`,
   commitQueue: `${paths.commitQueue}/:id`,
   configurePatch: `${paths.patch}/:id/configure/:tab?`,
+  host: `${paths.host}/:id`,
+  hosts: paths.hosts,
+  login: paths.login,
+  myPatches: `${paths.user}/${PageNames.Patches}`,
+  patch: `${paths.patch}/:id/:tab?`,
   preferences: `${paths.preferences}/:tab?`,
+  spawn: `${paths.spawn}/:tab?`,
+  spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
+  spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
+  task: `${paths.task}/:id/:tab?`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
-  hosts: paths.hosts,
-  host: `${paths.host}/:id`,
 };
 
 export enum PatchTab {
