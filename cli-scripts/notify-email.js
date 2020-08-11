@@ -27,8 +27,8 @@ const sendEmail = () =>
           const subject = `${dateStr} Spruce deploy ${formattedCommitHash}`;
           getLatestCommitsSinceLastRelease().then((messageBody) => {
             const cleanedMessageBody = messageBody
-              .replace(/\(/gm, "/(")
-              .replace(/\)/gm, "/)");
+              .replace(/\(/gm, "")
+              .replace(/\)/gm, "");
             exec(
               `evergreen notify email -f ${formattedEmail} -r ${recipient} -s "${subject}" -b "${cleanedMessageBody} check it out <a href="${process.env.REACT_APP_SITE_URL}">here</a>"`,
               (notifyErr, notifyStdOut, notifyStdErr) => {
