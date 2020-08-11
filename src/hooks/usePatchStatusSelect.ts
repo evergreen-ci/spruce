@@ -12,19 +12,31 @@ export const usePatchStatusSelect = (
   string[],
   {
     setValidStatus: (newValue: string[]) => void;
-    toggleSelectedTask: (id: string) => void;
+    toggleSelectedTask: (id: string | string[]) => void;
   }
 ] => {
   const [selectedTasks, setSelectedTasks] = useState<selectedStrings>({});
   const [validStatus, setValidStatus] = useState<string[]>([]);
 
-  const toggleSelectedTask = (id: string) => {
+  const toggleSelectedTask = (id: string | string[]) => {
     const newState = { ...selectedTasks };
-    if (newState[id]) {
-      newState[id] = false;
+
+    if (typeof id === "string") {
+      if (newState[id]) {
+        newState[id] = false;
+      } else {
+        newState[id] = true;
+      }
     } else {
-      newState[id] = true;
+      id.forEach((taskId) => {
+        if (newState[taskId]) {
+          newState[taskId] = false;
+        } else {
+          newState[taskId] = true;
+        }
+      });
     }
+
     setSelectedTasks(newState);
   };
 

@@ -133,7 +133,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
             <PatchBuildVariantAccordian
               key={`accoridan_${patchBuildVariant.variant}`}
               tasks={patchBuildVariant.tasks}
-              variant={patchBuildVariant.variant}
+              displayName={patchBuildVariant.displayName}
               selectedTasks={selectedTasks}
               toggleSelectedTask={toggleSelectedTask}
             />

@@ -31,6 +31,7 @@ export const HOSTS = gql`
         status
         startedBy
         hostUrl
+        tag
         totalIdleTime
         uptime
         elapsed

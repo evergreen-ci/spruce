@@ -28,6 +28,17 @@ describe("Restarting a patch", () => {
       .click();
     cy.dataCy("patch-status-selector-container").should("exist");
   });
+  it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
+    cy.dataCy("variant-checkbox-select-all")
+      .first()
+      .click({ force: true });
+    cy.dataCy("task-status-badge").should("contain.text", "2 of 2 Selected");
+    cy.dataCy("variant-checkbox-select-all")
+      .first()
+      .click({ force: true });
+    cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
+  });
   it("Clicking on a task should toggle its check box and select the task", () => {
     cy.dataCy("task-status-checkbox")
       .first()

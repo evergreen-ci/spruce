@@ -38,7 +38,7 @@ export const useTableInputFilter = <SearchParam extends string>({
   const updateParams = () => {
     updateUrlQueryParam(
       urlSearchParam,
-      value,
+      value.trim(),
       search,
       replace,
       pathname,

@@ -29,6 +29,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      onPressEnter={updateUrlParam}
     />
     <ButtonsWrapper>
       <ButtonWrapper>

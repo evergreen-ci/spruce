@@ -1,0 +1,34 @@
+import gql from "graphql-tag";
+
+export const GET_HOST_EVENTS = gql`
+  query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
+    hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
+      eventLogEntries {
+        id
+        resourceType
+        processedAt
+        timestamp
+        eventType
+        data {
+          agentRevision
+          agentBuild
+          agentBuild
+          oldStatus
+          newStatus
+          logs
+          hostname
+          provisioningMethod
+          taskId
+          taskPid
+          taskStatus
+          execution
+          monitorOp
+          user
+          successful
+          duration
+        }
+        resourceId
+      }
+    }
+  }
+`;
