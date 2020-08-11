@@ -226,7 +226,6 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
-  spawnHost: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -314,10 +313,6 @@ export type MutationUpdateHostStatusArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
-};
-
-export type MutationSpawnHostArgs = {
-  spawnHostInput?: Maybe<SpawnHostInput>;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -929,6 +924,14 @@ export type UnscheduleTaskMutationVariables = {
 };
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+
+export type UpdateHostStatusMutationVariables = {
+  hostIds: Array<Scalars["String"]>;
+  status: Scalars["String"];
+  notes?: Maybe<Scalars["String"]>;
+};
+
+export type UpdateHostStatusMutation = { updateHostStatus: number };
 
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;

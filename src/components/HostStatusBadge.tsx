@@ -23,10 +23,10 @@ const statusToBadgeVariant = {
   [HostStatus.ProvisionFailed]: Variant.LightGray,
   [HostStatus.Uninitialized]: Variant.LightGray,
   [HostStatus.Building]: Variant.LightGray,
-  [HostStatus.StatusSuccess]: Variant.LightGray,
+  [HostStatus.Success]: Variant.LightGray,
   [HostStatus.Stopping]: Variant.LightGray,
   [HostStatus.Stopped]: Variant.LightGray,
-  [HostStatus.StatusFailed]: Variant.LightGray,
+  [HostStatus.Failed]: Variant.LightGray,
   [HostStatus.ExternalUserName]: Variant.LightGray,
 };
 
@@ -40,10 +40,10 @@ const hostStatusToCopy = {
   [HostStatus.ProvisionFailed]: "Provision Failed",
   [HostStatus.Uninitialized]: "Initializing",
   [HostStatus.Building]: "Building",
-  [HostStatus.StatusSuccess]: "Success",
+  [HostStatus.Success]: "Success",
   [HostStatus.Stopping]: "Stopping",
   [HostStatus.Stopped]: "Stopped",
-  [HostStatus.StatusFailed]: "Failed",
+  [HostStatus.Failed]: "Failed",
   [HostStatus.ExternalUserName]: "External",
 };
 
