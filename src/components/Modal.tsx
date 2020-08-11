@@ -6,7 +6,7 @@ import { hexToRGBA } from "utils/color";
 import { uiColors } from "@leafygreen-ui/palette";
 
 interface ModalProps {
-  footer: JSX.Element;
+  footer: JSX.Element[] | JSX.Element;
   title: string;
   "data-cy": string;
   visible: boolean;

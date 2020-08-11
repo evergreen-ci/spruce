@@ -31,7 +31,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
-  const [status, setHostStatus] = useState<UpdateHostStatus | null>(null);
+  const [status, setHostStatus] = useState<UpdateHostStatus>(null);
 
   const [notes, setNotesValue] = useState<string>("");
 
@@ -78,24 +78,20 @@ export const UpdateStatusModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onClickCancel}
       title="Update Host Status"
-      footer={
-        <Buttons>
-          <ButtonWrapper>
-            <Button dataCy="modal-cancel-button" onClick={onClickCancel}>
-              Cancel
-            </Button>
-          </ButtonWrapper>
-          <Button
-            dataCy="modal-update-button"
-            variant="primary"
-            disabled={!status}
-            loading={loadingUpdateHostStatus}
-            onClick={onClickUpdate}
-          >
-            Update
-          </Button>
-        </Buttons>
-      }
+      footer={[
+        <Button dataCy="modal-cancel-button" onClick={onClickCancel}>
+          Cancel
+        </Button>,
+        <Button
+          dataCy="modal-update-button"
+          variant="primary"
+          disabled={!status}
+          loading={loadingUpdateHostStatus}
+          onClick={onClickUpdate}
+        >
+          Update
+        </Button>,
+      ]}
     >
       <Body weight="medium">Host Status</Body>
       <StyledSelect
@@ -121,13 +117,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
 };
 
 // STYLES
-const Buttons = styled.div`
-  display: flex;
-  flex-wrap: nowrap;
-`;
-const ButtonWrapper = styled.div`
-  margin-right: 16px;
-`;
 const StyledSelect = styled(Select)`
   width: 100%;
   margin-bottom: 24px;
