@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
 import {
@@ -85,6 +85,7 @@ const Hosts: React.FC = () => {
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
   const isLoading = isNetworkRequestInFlight(networkStatus);
+
   useDisableTableSortersIfLoading(networkStatus);
 
   // REFETCH HOSTS QUERY IF SEARCH CHANGES
@@ -182,16 +183,16 @@ const Hosts: React.FC = () => {
             />
           </TableControlInnerRow>
         </TableControlOuterRow>
-        <TableContainer hide={isLoading}>
+        <TableContainer hide={false}>
           <HostsTable
             hosts={hostItems}
             sortBy={sortBy}
             sortDir={sortDir}
             selectedHostIds={selectedHostIds}
             setSelectedHostIds={setSelectedHostIds}
+            loading={isLoading}
           />
         </TableContainer>
-        {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
       </ErrorBoundary>
     </PageWrapper>
   );

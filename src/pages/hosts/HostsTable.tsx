@@ -27,6 +27,7 @@ interface Props {
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
   selectedHostIds: string[];
+  loading: boolean;
   setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
 
@@ -38,6 +39,7 @@ export const HostsTable: React.FC<Props> = ({
   sortDir,
   selectedHostIds,
   setSelectedHostIds,
+  loading,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 
@@ -122,6 +124,7 @@ export const HostsTable: React.FC<Props> = ({
       sorter: true,
       className: "cy-hosts-table-col-ID",
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Id),
+      width: "15%",
       render: (_, { id }: Host): JSX.Element => (
         <StyledRouterLink data-cy="host-id-link" to={getHostRoute(id)}>
           {id}
@@ -142,6 +145,7 @@ export const HostsTable: React.FC<Props> = ({
       dataIndex: "distroId",
       key: HostSortBy.Distro,
       sorter: true,
+      width: "15%",
       className: "cy-task-table-col-DISTRO",
       ...getColumnSearchFilterProps({
         placeholder: "Search Distro",
@@ -158,6 +162,7 @@ export const HostsTable: React.FC<Props> = ({
       key: HostSortBy.Status,
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Status),
       sorter: true,
+      width: "15%",
       className: "cy-task-table-col-STATUS",
       ...getColumnCheckboxFilterProps({
         value: statusesValue,
@@ -174,6 +179,7 @@ export const HostsTable: React.FC<Props> = ({
       key: HostSortBy.CurrentTask,
       defaultSortOrder: getDefaultSortOrder(HostSortBy.CurrentTask),
       sorter: true,
+      width: "15%",
       className: "cy-task-table-col-CURRENT-TASK",
       render: (_, { runningTask }: Host) =>
         runningTask?.id !== null ? (
@@ -202,6 +208,7 @@ export const HostsTable: React.FC<Props> = ({
       key: HostSortBy.Elapsed,
       sorter: true,
       className: "cy-task-table-col-ELAPSED",
+      width: "10%",
       render: (_, { elapsed }) =>
         elapsed ? formatDistanceToNow(new Date(elapsed)) : "N/A",
     },
@@ -211,6 +218,7 @@ export const HostsTable: React.FC<Props> = ({
       defaultSortOrder: getDefaultSortOrder(HostSortBy.Uptime),
       key: HostSortBy.Uptime,
       sorter: true,
+      width: "10%",
       className: "cy-task-table-col-UPTIME",
       render: (_, { uptime }) =>
         uptime ? formatDistanceToNow(new Date(uptime)) : "N/A",
@@ -221,6 +229,7 @@ export const HostsTable: React.FC<Props> = ({
       dataIndex: "totalIdleTime",
       key: HostSortBy.IdleTime,
       sorter: true,
+      width: "10%",
       className: "cy-task-table-col-IDLE-TIME",
       render: (_, { totalIdleTime }) =>
         totalIdleTime ? formatDistanceToNow(new Date(totalIdleTime)) : "N/A",
@@ -231,6 +240,7 @@ export const HostsTable: React.FC<Props> = ({
       dataIndex: "startedBy",
       key: HostSortBy.Owner,
       sorter: true,
+      width: "10%",
       className: "cy-task-table-col-OWNER",
       ...getColumnSearchFilterProps({
         placeholder: "Search Owner",
@@ -260,6 +270,7 @@ export const HostsTable: React.FC<Props> = ({
         selectedRowKeys: selectedHostIds,
       }}
       onChange={tableChangeHandler}
+      loading={loading}
     />
   );
 };
