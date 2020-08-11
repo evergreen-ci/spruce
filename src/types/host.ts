@@ -25,3 +25,9 @@ export enum HostStatus {
   Failed = "failed",
   ExternalUserName = "external",
 }
+
+export enum UpdateHostStatus {
+  Start = "start",
+  Stop = "stop",
+  Terminate = "terminate",
+}

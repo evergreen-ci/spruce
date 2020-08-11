@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_HOST_STATUS } from "gql/mutations";
 import { useBannerDispatchContext } from "context/banners";
-import { HostStatus } from "types/host";
+import { UpdateHostStatus } from "types/host";
 import { Body } from "@leafygreen-ui/typography";
 
 const { Option } = Select;
@@ -31,7 +31,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
-  const [status, setHostStatus] = useState<HostStatus | null>(null);
+  const [status, setHostStatus] = useState<UpdateHostStatus | null>(null);
 
   const [notes, setNotesValue] = useState<string>("");
 
@@ -100,7 +100,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
       <StyledSelect
         data-cy="host-status-select"
         value={status}
-        onChange={(s) => setHostStatus(s as HostStatus)}
+        onChange={(s) => setHostStatus(s as UpdateHostStatus)}
       >
         {hostStatuses.map(({ title, value, key }) => (
           <Option key={key} value={value} data-cy={`${value}-option`}>
@@ -136,12 +136,6 @@ const StyledTextArea = styled(TextArea)`
 `;
 
 // HOSTS STATUSES DATA FOR SELECT COMPONENT
-enum UpdateHostStatus {
-  Start = "start",
-  Stop = "stop",
-  Terminate = "terminate",
-}
-
 interface Status {
   title: keyof typeof UpdateHostStatus;
   value: UpdateHostStatus;
