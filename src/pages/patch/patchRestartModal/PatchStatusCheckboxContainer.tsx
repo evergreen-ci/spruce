@@ -20,6 +20,7 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
         task={task}
         selectedTasks={selectedTasks}
         toggleSelectedTask={toggleSelectedTask}
+        key={`task_checkbox_${task.id}`}
       />
     ))}
   </ScrollableContainer>
