@@ -31,7 +31,7 @@ import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { parseQueryString, getArray, getString } from "utils";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
-import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
+import { isNetworkRequestInFlight } from "@apollo/client/core/networkStatus";
 import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";

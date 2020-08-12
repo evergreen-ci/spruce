@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { Divider, StyledLink } from "components/styles";
 import { H3, P2 } from "components/Typography";
 import { MetadataCard } from "components/MetadataCard";

@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import styled from "@emotion/styled/macro";

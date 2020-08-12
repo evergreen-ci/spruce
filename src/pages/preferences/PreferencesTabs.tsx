@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { UserSettings } from "gql/generated/types";
 import {
   useBannerDispatchContext,

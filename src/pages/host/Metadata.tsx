@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { StyledLink } from "components/styles";
 import { HostMetaDataCard } from "pages/host/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
