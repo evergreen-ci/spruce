@@ -1,6 +1,6 @@
-import React from "react";
-import { Table, Skeleton } from "antd";
-import { useQuery } from "@apollo/react-hooks";
+import React, { useEffect, useState } from "react";
+import { Table, Skeleton, Popconfirm } from "antd";
+import { useQuery, useMutation } from "@apollo/react-hooks";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import styled from "@emotion/styled";
@@ -9,22 +9,81 @@ import { useBannerDispatchContext } from "context/banners";
 import {
   GetMyPublicKeysQuery,
   GetMyPublicKeysQueryVariables,
+  RemovePublicKeyMutation,
+  RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
+import { REMOVE_PUBLIC_KEY } from "gql/mutations";
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
-  const { data, loading } = useQuery<
+  const [tableData, setTableData] = useState([]);
+  const { data: myKeysData, loading: loadingMyPublicKeys } = useQuery<
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, {
-    onError: (error) => {
+    onError(error) {
       dispatchBanner.errorBanner(
         `There was an error fetching your public keys: ${error.message}`
       );
     },
   });
+  const [removePublicKey, { loading: loadingRemovePublicKey }] = useMutation<
+    RemovePublicKeyMutation,
+    RemovePublicKeyMutationVariables
+  >(REMOVE_PUBLIC_KEY, {
+    onCompleted(removeData) {
+      setTableData(removeData.removePublicKey);
+    },
+    onError(error) {
+      dispatchBanner.errorBanner(
+        `There was an error removing the public key: ${error.message}`
+      );
+    },
+  });
 
-  const tableData = data?.myPublicKeys ?? [];
+  useEffect(() => {
+    setTableData(myKeysData?.myPublicKeys ?? []);
+  }, [myKeysData]);
+
+  const columns = [
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      render: (text: string): JSX.Element => (
+        <span data-cy="table-key-name">{text}</span>
+      ),
+    },
+    {
+      title: "Actions",
+      render: (text: string, publicKey: PublicKey): JSX.Element => (
+        <BtnContainer>
+          <Button
+            size="small"
+            data-cy={`${publicKey.name}-edit-btn`}
+            glyph={<Icon glyph="Edit" />}
+          />
+          <Popconfirm
+            icon={null}
+            placement="topRight"
+            title="Delete this public key?"
+            onConfirm={() => {
+              removePublicKey({ variables: { keyName: publicKey.name } });
+            }}
+            okText="Yes"
+            cancelText="Cancel"
+          >
+            <StyledButton
+              size="small"
+              data-cy={`${publicKey.name}-delete-btn`}
+              glyph={<Icon glyph="Trash" />}
+              disabled={loadingRemovePublicKey}
+            />
+          </Popconfirm>
+        </BtnContainer>
+      ),
+    },
+  ];
 
   return (
     <div>
@@ -36,7 +95,7 @@ export const PublicKeysTab: React.FC = () => {
         Add New Key
       </Button>
       <TableContainer>
-        {loading ? (
+        {loadingMyPublicKeys ? (
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         ) : (
           <Table
@@ -50,34 +109,6 @@ export const PublicKeysTab: React.FC = () => {
     </div>
   );
 };
-
-const columns = [
-  {
-    title: "Name",
-    dataIndex: "name",
-    key: "name",
-    render: (text: string): JSX.Element => (
-      <span data-cy="table-key-name">{text}</span>
-    ),
-  },
-  {
-    title: "Actions",
-    render: (text: string, publicKey: PublicKey): JSX.Element => (
-      <BtnContainer>
-        <Button
-          size="small"
-          data-cy={`${publicKey.name}-edit-btn`}
-          glyph={<Icon glyph="Edit" />}
-        />
-        <StyledButton
-          size="small"
-          data-cy={`${publicKey.name}-delete-btn`}
-          glyph={<Icon glyph="Trash" />}
-        />
-      </BtnContainer>
-    ),
-  },
-];
 
 interface PublicKey {
   name: string;
