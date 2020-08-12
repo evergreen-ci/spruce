@@ -28,7 +28,6 @@ const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
   },
 ];
 
-// const rowKey = ({ timestamp }: { timestamp: Date }): Date => timestamp;
 const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
 
 export const HostTable: React.FC<{
