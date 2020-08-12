@@ -5,7 +5,7 @@ import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
-import { HostCard } from "./HostCard";
+import { HostCard } from "pages/host/HostCard";
 
 export const Metadata: React.FC<{
   loading: boolean;
