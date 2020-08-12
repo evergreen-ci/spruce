@@ -3,13 +3,11 @@ import {
   ApolloClient,
   ApolloProvider,
   InMemoryCache,
-  NormalizedCacheObject,
   ApolloLink,
   HttpLink,
 } from "@apollo/client";
 import { RetryLink } from "@apollo/client/link/retry";
 import { onError } from "@apollo/client/link/error";
-import { SchemaLink } from "@apollo/client/link/schema";
 import { getGQLUrl } from "utils/getEnvironmentVariables";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
 import { reportError } from "utils/errorReporting";
@@ -22,12 +20,12 @@ const cache = new InMemoryCache();
 export const ApolloClientProvider: React.FC = ({ children }) => {
   const { logout, dispatch } = useAuthDispatchContext();
 
-  const link: HttpLink | SchemaLink = new HttpLink({
+  const link = new HttpLink({
     uri: getGQLUrl(),
     credentials: "include",
   });
 
-  const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+  const client = new ApolloClient({
     cache,
     link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
