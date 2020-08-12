@@ -19,7 +19,7 @@ import { getGQLUrl } from "utils/getEnvironmentVariables";
 
 const cache = new InMemoryCache();
 
-const GQLWrapper: React.FC = ({ children }) => {
+export const ApolloClientProvider: React.FC = ({ children }) => {
   const { logout, dispatch } = useAuthDispatchContext();
 
   const link: HttpLink | SchemaLink = new HttpLink({
@@ -86,5 +86,3 @@ const retryLink = new RetryLink({
       error && error.response && error.response.status >= 500,
   },
 });
-
-export default GQLWrapper;
