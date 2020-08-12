@@ -226,6 +226,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
+  spawnHost: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -313,6 +314,10 @@ export type MutationUpdateHostStatusArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationSpawnHostArgs = {
+  spawnHostInput?: Maybe<SpawnHostInput>;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -1137,6 +1142,12 @@ export type ProjectsQuery = {
       }>;
     }>;
   };
+};
+
+export type GetMyPublicKeysQueryVariables = {};
+
+export type GetMyPublicKeysQuery = {
+  myPublicKeys: Array<{ name: string; key: string }>;
 };
 
 export type SiteBannerQueryVariables = {};
