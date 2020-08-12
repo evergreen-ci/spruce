@@ -1,6 +1,4 @@
 import React from "react";
-import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
-import { reportError } from "utils/errorReporting";
 import {
   ApolloClient,
   ApolloProvider,
@@ -13,6 +11,8 @@ import { RetryLink } from "@apollo/client/link/retry";
 import { onError } from "@apollo/client/link/error";
 import { SchemaLink } from "@apollo/client/link/schema";
 import { getGQLUrl } from "utils/getEnvironmentVariables";
+import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
+import { reportError } from "utils/errorReporting";
 
 // TODO: use ApolloLinkTimeout when it supports apollo client 3 upgrade
 // import ApolloLinkTimeout from "apollo-link-timeout";
