@@ -56,6 +56,9 @@ const columns = [
     title: "Name",
     dataIndex: "name",
     key: "name",
+    render: (text: string): JSX.Element => (
+      <span data-cy="table-key-name">{text}</span>
+    ),
   },
   {
     title: "Actions",
