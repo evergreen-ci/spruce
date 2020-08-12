@@ -2,7 +2,7 @@ import React from "react";
 import { ApolloError } from "apollo-client";
 import { Table, Collapse } from "antd";
 import { getDateCopy, stringifyNanoseconds } from "utils/string";
-import { HostTableWrapper } from "pages/host/HostTableWrapper";
+import { HostCard } from "pages/host/HostCard";
 import {
   HostEventsQuery,
   HostEventLogEntry,
@@ -47,7 +47,7 @@ export const HostTable: React.FC<{
   const logEntries = hostEvents?.eventLogEntries;
   console.log(logEntries, data);
   return (
-    <HostTableWrapper error={error} loading={loading}>
+    <HostCard error={error} loading={loading} metaData={false}>
       <StyledSubtitle>Recent Events </StyledSubtitle>
       <Table
         data-test-id="tests-table"
@@ -56,7 +56,7 @@ export const HostTable: React.FC<{
         columns={columnsTemplate}
         pagination={false}
       />
-    </HostTableWrapper>
+    </HostCard>
   );
 };
 

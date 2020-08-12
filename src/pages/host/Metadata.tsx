@@ -1,11 +1,11 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { StyledLink } from "components/styles";
-import { HostMetaDataCard } from "pages/host/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
+import { HostCard } from "./HostCard";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -29,7 +29,7 @@ export const Metadata: React.FC<{
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (
-    <HostMetaDataCard error={error} loading={loading}>
+    <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
       <P2>Last Communication: {getDateCopy(lastCommunicationTime)}</P2>
@@ -41,6 +41,6 @@ export const Metadata: React.FC<{
       <P2>
         Current Task: <StyledLink href={taskLink}>{runningTaskName}</StyledLink>
       </P2>
-    </HostMetaDataCard>
+    </HostCard>
   );
 };
