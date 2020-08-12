@@ -26,7 +26,7 @@ import Code from "@leafygreen-ui/code";
 export const Host: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   // Query host data
-  const { data: hostData, loading, error } = useQuery<
+  const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
     HostQuery,
     HostQueryVariables
   >(GET_HOST, {
@@ -48,8 +48,6 @@ export const Host: React.FC = () => {
     variables: { id, tag },
   });
 
-  console.log(hostEventData, hostEventLoading);
-
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
   return (
@@ -57,19 +55,26 @@ export const Host: React.FC = () => {
       <PageTitle
         title={`Host: ${hostUrl}`}
         badge={<HostStatusBadge status={status} />}
-        loading={loading}
+        loading={hostMetaDataLoading}
         hasData
         size="large"
       />
       <PageLayout>
         <PageSider width={350}>
-          <Metadata loading={loading} data={hostData} error={error} />
+          <Metadata
+            loading={hostMetaDataLoading}
+            data={hostData}
+            error={error}
+          />
           <Code language="shell">{sshCommand}</Code>
         </PageSider>
-
         <PageLayout>
           <PageContent>
-            <HostTable loading={loading} data={hostEventData} error={error} />
+            <HostTable
+              loading={hostEventLoading}
+              data={hostEventData}
+              error={error}
+            />
           </PageContent>
         </PageLayout>
       </PageLayout>

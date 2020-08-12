@@ -45,7 +45,6 @@ export const HostTable: React.FC<{
 }> = ({ loading, data, error }) => {
   const hostEvents = data?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
-  console.log(logEntries, data);
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <StyledSubtitle>Recent Events </StyledSubtitle>
@@ -85,12 +84,6 @@ const getTerminationString = (monitorOp: string) => {
 };
 
 const getHostEventString = (eventType: string, data: HostEventLogData) => {
-  console.log(data);
-  // const link = getUserPatchesRoute(userId);
-
-  // if (userId === data?.currentUser.userId) {
-  //   return { error, link, loading, title: "My Patches" };
-  // }
   switch (eventType) {
     case `HOST_CREATED`:
       return `Host created`;
