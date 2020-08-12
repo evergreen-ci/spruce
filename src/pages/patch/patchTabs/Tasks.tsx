@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { useParams, useLocation } from "react-router-dom";
 import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
 import {

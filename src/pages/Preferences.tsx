@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams, Link, Redirect } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import get from "lodash/get";

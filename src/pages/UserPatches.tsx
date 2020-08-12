@@ -16,7 +16,7 @@ import {
   UserPatchesQuery,
 } from "gql/generated/types";
 import { StatusSelector } from "pages/userPatches/StatusSelector";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import {
   useFilterInputChangeHandler,
   usePollQuery,

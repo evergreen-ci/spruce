@@ -1,6 +1,6 @@
 import React, { forwardRef } from "react";
 import { Popconfirm } from "antd";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { DropdownItem } from "components/ButtonDropdown";
 import { useBannerDispatchContext } from "context/banners";

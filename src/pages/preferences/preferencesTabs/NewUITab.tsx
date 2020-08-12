@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Body } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
 import styled from "@emotion/styled";

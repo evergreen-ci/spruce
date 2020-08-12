@@ -19,7 +19,7 @@ import {
   LogMessage,
   TaskEventLogEntry,
 } from "gql/generated/types";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { ApolloError } from "apollo-client";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { Skeleton } from "antd";

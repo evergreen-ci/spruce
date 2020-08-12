@@ -16,7 +16,7 @@ import {
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,

@@ -8,7 +8,7 @@ import {
 } from "gql/generated/types";
 import { H3 } from "components/Typography";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import { Table, Skeleton, Input } from "antd";
 import Icon from "@leafygreen-ui/icon";

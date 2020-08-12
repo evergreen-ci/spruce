@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Select, Input } from "antd";
 import styled from "@emotion/styled";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Modal } from "components/Modal";
 import { Button } from "components/Button";
 import {

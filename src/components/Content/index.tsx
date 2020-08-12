@@ -14,7 +14,7 @@ import { SiteBanner, ConnectivityBanner } from "components/Banners";
 import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { PageLayout } from "components/styles/Layout";

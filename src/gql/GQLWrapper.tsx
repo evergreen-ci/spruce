@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { ApolloClient } from "apollo-client";
-import { ApolloProvider } from "@apollo/react-hooks";
 import { HttpLink } from "apollo-link-http";
 import { ApolloLink } from "apollo-link";
 import { RetryLink } from "apollo-link-retry";
@@ -16,6 +15,8 @@ import { onError } from "apollo-link-error";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
 import ApolloLinkTimeout from "apollo-link-timeout";
 import { reportError } from "utils/errorReporting";
+
+import { ApolloProvider } from "@apollo/client";
 
 interface ClientLinkParams {
   credentials?: string;

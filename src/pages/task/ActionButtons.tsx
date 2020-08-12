@@ -6,7 +6,7 @@ import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { ABORT_TASK } from "gql/mutations/abort-task";
 import { RESTART_TASK } from "gql/mutations/restart-task";
 import { SCHEDULE_TASK } from "gql/mutations/schedule-task";

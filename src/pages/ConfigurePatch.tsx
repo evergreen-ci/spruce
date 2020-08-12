@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GET_PATCH_CONFIGURE } from "gql/queries/patch";
 import {
   ConfigurePatchQuery,

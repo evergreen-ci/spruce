@@ -2,7 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import {
   HostQuery,
   HostQueryVariables,

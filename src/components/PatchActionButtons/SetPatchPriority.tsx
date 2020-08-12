@@ -9,7 +9,7 @@ import {
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY } from "gql/mutations";
 import { usePatchAnalytics } from "analytics";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { StyledBody } from "./UnschedulePatchTasks";
 
 interface SetPriorityProps {

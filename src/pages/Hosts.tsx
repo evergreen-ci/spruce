@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Popconfirm } from "antd";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import {
   TableContainer,
