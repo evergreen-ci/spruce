@@ -60,7 +60,7 @@ export const PublicKeysTab: React.FC = () => {
         <BtnContainer>
           <Button
             size="small"
-            data-cy={`${publicKey.name}-edit-btn`}
+            data-cy="edit-btn"
             glyph={<Icon glyph="Edit" />}
           />
           <Popconfirm
@@ -75,7 +75,7 @@ export const PublicKeysTab: React.FC = () => {
           >
             <StyledButton
               size="small"
-              data-cy={`${publicKey.name}-delete-btn`}
+              data-cy="delete-btn"
               glyph={<Icon glyph="Trash" />}
               disabled={loadingRemovePublicKey}
             />
