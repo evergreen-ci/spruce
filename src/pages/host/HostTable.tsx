@@ -9,27 +9,6 @@ import { getHostEventString } from "pages/host/getHostEventString";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 
-// TABLE COLUMNS
-const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
-  {
-    title: "Date",
-    dataIndex: "timestamp",
-    width: 230,
-    render: (_, { timestamp }: HostEventLogEntry): JSX.Element => (
-      <div>{getDateCopy(timestamp)}</div>
-    ),
-  },
-  {
-    title: "Event",
-    dataIndex: "data",
-    render: (_, { eventType, data }: HostEventLogEntry): JSX.Element => (
-      <div>{getHostEventString(eventType, data)}</div>
-    ),
-  },
-];
-
-const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
-
 export const HostTable: React.FC<{
   loading: boolean;
   data: HostEventsQuery;
@@ -50,6 +29,28 @@ export const HostTable: React.FC<{
     </HostCard>
   );
 };
+
+// TABLE COLUMNS
+const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
+  {
+    title: "Date",
+    dataIndex: "timestamp",
+    width: "25%",
+    render: (_, { timestamp }: HostEventLogEntry): JSX.Element => (
+      <div>{getDateCopy(timestamp)}</div>
+    ),
+  },
+  {
+    title: "Event",
+    dataIndex: "data",
+    width: "75%",
+    render: (_, { eventType, data }: HostEventLogEntry): JSX.Element => (
+      <div>{getHostEventString(eventType, data)}</div>
+    ),
+  },
+];
+
+const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
 
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;

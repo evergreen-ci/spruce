@@ -28,12 +28,12 @@ export const HostCard: React.FC<Props> = ({
     {error && !loading && (
       <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
     )}
-    {!loading && !error && children}
+    {children}
   </SiderCard>
 );
 
 export const metaDataCard = css`
-  > * {
+  > p {
     margin-top: 20px;
   }
 `;

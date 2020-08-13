@@ -48,7 +48,8 @@ export const getHostEventString = (
       return (
         <div>
           {" "}
-          Agent deployed with revision <b>{data.agentRevision}</b> from{" "}
+          Agent deployed {data.agentRevision ? "with revision" : ""}{" "}
+          <b>{data.agentRevision}</b> {data.agentBuild ? " from " : ""}
           <b>{data.agentBuild}</b>{" "}
         </div>
       );
@@ -56,7 +57,10 @@ export const getHostEventString = (
       return (
         <div>
           {" "}
-          Agent monitor deployed with revision <b>{data.agentRevision}</b>{" "}
+          Agent monitor deployed {data.agentRevision
+            ? "with revision"
+            : ""}{" "}
+          <b>{data.agentRevision}</b>{" "}
         </div>
       );
     case `HOST_AGENT_MONITOR_DEPLOY_FAILED`:
@@ -98,9 +102,13 @@ export const getHostEventString = (
       );
 
     case `HOST_CONVERTING_PROVISIONING`:
-      return `Host converting provisioning type to ${data.provisioningMethod} method`;
+      return `Host converting provisioning type ${
+        data.provisioningMethod ? "to" : ""
+      }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
     case `HOST_CONVERTED_PROVISIONING`:
-      return `Host successfully converted provisioning type to ${data.provisioningMethod} method`;
+      return `Host successfully converted provisioning type ${
+        data.provisioningMethod ? "to" : ""
+      }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
     case `HOST_CONVERTING_PROVISIONING_ERROR`:
       return (
         <div>
@@ -269,9 +277,9 @@ export const getHostEventString = (
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
             {data.taskId}
-          </StyledLink>
+          </StyledLink>{" "}
           completed with status:
-          <b> {data.taskStatus}</b> c{" "}
+          <b> {data.taskStatus}</b>{" "}
         </div>
       );
     case `HOST_EXPIRATION_WARNING_SENT`:
