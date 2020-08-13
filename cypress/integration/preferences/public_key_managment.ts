@@ -11,7 +11,7 @@ describe("Public Key Management Page", () => {
     cy.preserveCookies();
   });
 
-  it("displays the user's public keys", () => {
+  it("Displays the user's public keys", () => {
     cy.visit(route);
     cy.dataCy("table-key-name").each(($el, index) =>
       cy.wrap($el).contains(allPublicKeys[index])
@@ -27,7 +27,16 @@ describe("Public Key Management Page", () => {
       cy.wrap($el).contains(publicKeysAfterDeletion[index])
     );
   });
+
+  it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
+    cy.dataCy("delete-btn")
+      .first()
+      .click();
+    cy.get(popconfirmYesClassName).click();
+    cy.contains("No keys saved. Add a new key to populate the list.");
+  });
 });
+
 const keyName1 =
   "a loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong name";
 const keyName2 = "bKey";

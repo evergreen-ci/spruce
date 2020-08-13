@@ -85,6 +85,17 @@ export const PublicKeysTab: React.FC = () => {
     },
   ];
 
+  const table = tableData.length ? (
+    <Table
+      rowKey={({ name }) => name}
+      columns={columns}
+      dataSource={tableData}
+      pagination={false}
+    />
+  ) : (
+    "No keys saved. Add a new key to populate the list."
+  );
+
   return (
     <div>
       <Button
@@ -98,12 +109,7 @@ export const PublicKeysTab: React.FC = () => {
         {loadingMyPublicKeys ? (
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         ) : (
-          <Table
-            rowKey={({ name }) => name}
-            columns={columns}
-            dataSource={tableData}
-            pagination={false}
-          />
+          table
         )}
       </TableContainer>
     </div>
