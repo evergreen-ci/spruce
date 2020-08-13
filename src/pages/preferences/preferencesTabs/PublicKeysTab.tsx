@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Button from "@leafygreen-ui/button";
