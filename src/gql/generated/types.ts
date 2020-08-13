@@ -226,6 +226,7 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
+  spawnHost: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -313,6 +314,10 @@ export type MutationUpdateHostStatusArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationSpawnHostArgs = {
+  spawnHostInput?: Maybe<SpawnHostInput>;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -1066,6 +1071,30 @@ export type HostQuery = {
     lastCommunicationTime?: Maybe<Date>;
     runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
   }>;
+};
+
+export type MyHostsQueryVariables = {};
+
+export type MyHostsQuery = {
+  myHosts?: Maybe<
+    Array<{
+      expiration?: Maybe<Date>;
+      hostUrl: string;
+      homeVolumeID?: Maybe<string>;
+      instanceType?: Maybe<string>;
+      noExpiration: boolean;
+      status: string;
+      tag: string;
+      user?: Maybe<string>;
+      uptime?: Maybe<Date>;
+      distro?: Maybe<{
+        isVirtualWorkStation?: Maybe<boolean>;
+        id?: Maybe<string>;
+        user?: Maybe<string>;
+        workDir?: Maybe<string>;
+      }>;
+    }>
+  >;
 };
 
 export type PatchBuildVariantsQueryVariables = {
