@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled/macro";
 import { useAuthStateContext } from "context/auth";
 import { Layout } from "antd";
-import { EvergreenLogo } from "components/icons";
+import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -35,7 +35,7 @@ export const Navbar: React.FC = () => {
             }
           >
             <Logo>
-              <EvergreenLogo />
+              <Icon glyph="EvergreenLogo" />
               <StyledSubtitle>Evergreen</StyledSubtitle>
             </Logo>
           </Link>

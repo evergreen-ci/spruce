@@ -1,8 +1,6 @@
 import React from "react";
 import { BuildStatus } from "types/build";
-import { RunningIcon } from "pages/userPatches/patchCard/BuildStatusIcon/RunningIcon";
-import { SucceededIcon } from "pages/userPatches/patchCard/BuildStatusIcon/SucceededIcon";
-import { FailedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/FailedIcon";
+import Icon from "components/Icon";
 import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
@@ -35,7 +33,7 @@ export const BuildStatusIcon: React.FC<Props> = ({
 
 const statusToIcon = {
   [BuildStatus.Created]: <CreatedIcon />,
-  [BuildStatus.Failed]: <FailedIcon />,
-  [BuildStatus.Started]: <RunningIcon />,
-  [BuildStatus.Succeeded]: <SucceededIcon />,
+  [BuildStatus.Failed]: <Icon glyph="FailedIcon" />,
+  [BuildStatus.Started]: <Icon glyph="RunningIcon" />,
+  [BuildStatus.Succeeded]: <Icon glyph="SucceededIcon" />,
 };
