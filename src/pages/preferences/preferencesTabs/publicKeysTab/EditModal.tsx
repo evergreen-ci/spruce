@@ -3,6 +3,17 @@ import { Modal } from "components/Modal";
 import { useMutation } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import {
+  GetMyPublicKeysQuery,
+  UpdatePublicKeyMutation,
+  UpdatePublicKeyMutationVariables,
+  GetMyPublicKeysQueryVariables,
+  CreatePublicKeyMutation,
+  CreatePublicKeyMutationVariables,
+} from "gql/generated/types";
+import { GET_MY_PUBLIC_KEYS } from "gql/queries";
+import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
+import { useBannerDispatchContext } from "context/banners";
 
 export interface Props {
   replaceKeyName?: string;
@@ -19,6 +30,40 @@ export const EditModal: React.FC<Props> = ({
   visible,
   onCancel,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
+  const [updatePublicKey, { loading: loadingUpdatePublicKey }] = useMutation<
+    UpdatePublicKeyMutation,
+    UpdatePublicKeyMutationVariables
+  >(UPDATE_PUBLIC_KEY, {
+    onError(error) {
+      dispatchBanner.errorBanner(
+        `There was an error editing the public key: ${error.message}`
+      );
+    },
+    update(cache, { data }) {
+      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+        query: GET_MY_PUBLIC_KEYS,
+        data: { myPublicKeys: [...data.updatePublicKey] },
+      });
+    },
+  });
+  const [createPublicKey, { loading: loadingCreatePublicKey }] = useMutation<
+    CreatePublicKeyMutation,
+    CreatePublicKeyMutationVariables
+  >(UPDATE_PUBLIC_KEY, {
+    onError(error) {
+      dispatchBanner.errorBanner(
+        `There was an error creating the public key: ${error.message}`
+      );
+    },
+    update(cache, { data }) {
+      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+        query: GET_MY_PUBLIC_KEYS,
+        data: { myPublicKeys: [...data.createPublicKey] },
+      });
+    },
+  });
+
   const [keyName, setKeyName] = useState(initialKeyName ?? "");
   const [keyValue, setKeyValue] = useState(initialKeyValue ?? "");
 
@@ -26,11 +71,17 @@ export const EditModal: React.FC<Props> = ({
     setKeyName(initialKeyName);
     setKeyValue(initialKeyValue);
   }, [initialKeyName, initialKeyValue]);
-  const modalTitle = replaceKeyName ? "Edit Public Key" : "Add Public Key";
+
+  const modalTitle = replaceKeyName ? "Update Public Key" : "Add Public Key";
 
   const isFormValid = true;
   const onClickSave = () => {
-    alert("save lol");
+    const nextKeyInfo = { name: keyName, key: keyValue };
+    replaceKeyName
+      ? updatePublicKey({
+          variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
+        })
+      : createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
   };
 
   return (
@@ -61,8 +112,6 @@ export const EditModal: React.FC<Props> = ({
       title={modalTitle}
     />
   );
-
-  return <div />;
 };
 
 const LeftButton = styled(Button)`
