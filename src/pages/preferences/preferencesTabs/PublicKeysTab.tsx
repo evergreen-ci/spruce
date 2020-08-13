@@ -16,7 +16,6 @@ import { REMOVE_PUBLIC_KEY } from "gql/mutations";
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
-  const [tableData, setTableData] = useState([]);
   const { data: myKeysData, loading: loadingMyPublicKeys } = useQuery<
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
@@ -31,19 +30,18 @@ export const PublicKeysTab: React.FC = () => {
     RemovePublicKeyMutation,
     RemovePublicKeyMutationVariables
   >(REMOVE_PUBLIC_KEY, {
-    onCompleted(removeData) {
-      setTableData(removeData.removePublicKey);
-    },
     onError(error) {
       dispatchBanner.errorBanner(
         `There was an error removing the public key: ${error.message}`
       );
     },
+    update(cache, { data }) {
+      cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
+        query: GET_MY_PUBLIC_KEYS,
+        data: { myPublicKeys: [...data.removePublicKey] },
+      });
+    },
   });
-
-  useEffect(() => {
-    setTableData(myKeysData?.myPublicKeys ?? []);
-  }, [myKeysData]);
 
   const columns = [
     {
@@ -85,6 +83,7 @@ export const PublicKeysTab: React.FC = () => {
     },
   ];
 
+  const tableData = myKeysData?.myPublicKeys ?? [];
   const table = tableData.length ? (
     <Table
       rowKey={({ name }) => name}
