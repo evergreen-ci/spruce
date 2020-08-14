@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import Button from "@leafygreen-ui/button";
@@ -12,10 +12,20 @@ import {
   RemovePublicKeyMutation,
   RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
+import {
+  EditModal,
+  EditModalPropsState,
+} from "pages/preferences/preferencesTabs/publicKeysTab/EditModal";
 import { REMOVE_PUBLIC_KEY } from "gql/mutations";
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
+  const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
+    defaultEditModalProps
+  );
+  const onCancel = () => {
+    setEditModalProps(defaultEditModalProps);
+  };
   const { data: myKeysData, loading: loadingMyPublicKeys } = useQuery<
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
@@ -54,19 +64,27 @@ export const PublicKeysTab: React.FC = () => {
     },
     {
       title: "Actions",
-      render: (text: string, publicKey: PublicKey): JSX.Element => (
+      render: (text: string, { name, key }: PublicKey): JSX.Element => (
         <BtnContainer>
           <Button
             size="small"
             data-cy="edit-btn"
             glyph={<Icon glyph="Edit" />}
+            onClick={() => {
+              setEditModalProps({
+                initialKeyName: name,
+                initialKeyValue: key,
+                replaceKeyName: name,
+                visible: true,
+              });
+            }}
           />
           <Popconfirm
             icon={null}
             placement="topRight"
             title="Delete this public key?"
             onConfirm={() => {
-              removePublicKey({ variables: { keyName: publicKey.name } });
+              removePublicKey({ variables: { keyName: name } });
             }}
             okText="Yes"
             cancelText="Cancel"
@@ -101,6 +119,11 @@ export const PublicKeysTab: React.FC = () => {
         size="small"
         data-cy="add-key-button"
         glyph={<Icon glyph="Plus" />}
+        onClick={() => {
+          setEditModalProps({
+            visible: true,
+          });
+        }}
       >
         Add New Key
       </Button>
@@ -111,6 +134,7 @@ export const PublicKeysTab: React.FC = () => {
           table
         )}
       </TableContainer>
+      <EditModal {...editModalProps} onCancel={onCancel} />
     </div>
   );
 };
@@ -119,6 +143,10 @@ interface PublicKey {
   name: string;
   key: string;
 }
+
+const defaultEditModalProps = {
+  visible: false,
+};
 
 const TableContainer = styled.div`
   margin-top: 48px;

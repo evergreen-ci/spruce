@@ -14,16 +14,23 @@ import {
 import { GET_MY_PUBLIC_KEYS } from "gql/queries";
 import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
 import { useBannerDispatchContext } from "context/banners";
+import { Input } from "antd";
+import { CREATE_PUBLIC_KEY } from "gql/mutations/create-public-key";
+import { InputLabel } from "components/styles";
+const { TextArea } = Input;
 
-export interface Props {
+export interface EditModalPropsState {
   replaceKeyName?: string;
   initialKeyName?: string;
   initialKeyValue?: string;
   visible: boolean;
+}
+
+interface EditModalProps extends EditModalPropsState {
   onCancel: () => void;
 }
 
-export const EditModal: React.FC<Props> = ({
+export const EditModal: React.FC<EditModalProps> = ({
   replaceKeyName,
   initialKeyName,
   initialKeyValue,
@@ -31,7 +38,7 @@ export const EditModal: React.FC<Props> = ({
   onCancel,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-  const [updatePublicKey, { loading: loadingUpdatePublicKey }] = useMutation<
+  const [updatePublicKey] = useMutation<
     UpdatePublicKeyMutation,
     UpdatePublicKeyMutationVariables
   >(UPDATE_PUBLIC_KEY, {
@@ -47,10 +54,10 @@ export const EditModal: React.FC<Props> = ({
       });
     },
   });
-  const [createPublicKey, { loading: loadingCreatePublicKey }] = useMutation<
+  const [createPublicKey] = useMutation<
     CreatePublicKeyMutation,
     CreatePublicKeyMutationVariables
-  >(UPDATE_PUBLIC_KEY, {
+  >(CREATE_PUBLIC_KEY, {
     onError(error) {
       dispatchBanner.errorBanner(
         `There was an error creating the public key: ${error.message}`
@@ -69,19 +76,23 @@ export const EditModal: React.FC<Props> = ({
 
   useEffect(() => {
     setKeyName(initialKeyName);
-    setKeyValue(initialKeyValue);
-  }, [initialKeyName, initialKeyValue]);
+  }, [initialKeyName]);
 
-  const modalTitle = replaceKeyName ? "Update Public Key" : "Add Public Key";
+  useEffect(() => {
+    setKeyValue(initialKeyValue);
+  }, [initialKeyValue]);
 
   const isFormValid = true;
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
-    replaceKeyName
-      ? updatePublicKey({
-          variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
-        })
-      : createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
+    if (replaceKeyName) {
+      updatePublicKey({
+        variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
+      });
+    } else {
+      createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
+    }
+    onCancel();
   };
 
   return (
@@ -109,11 +120,31 @@ export const EditModal: React.FC<Props> = ({
           </Button>
         </>
       }
-      title={modalTitle}
-    />
+      title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
+    >
+      <InputLabel>Key Name</InputLabel>
+      <StyledInput
+        value={keyName}
+        onChange={(e) => {
+          setKeyName(e.target.value);
+        }}
+        data-cy="key-name-input"
+      />
+      <InputLabel>Public Key</InputLabel>
+      <TextArea
+        data-cy="key-value"
+        value={keyValue}
+        autoSize={{ minRows: 4, maxRows: 6 }}
+        onChange={(e) => setKeyValue(e.target.value)}
+      />
+    </Modal>
   );
 };
 
 const LeftButton = styled(Button)`
   margin-right: 16px;
+`;
+
+const StyledInput = styled(Input)`
+  margin-bottom: 24px;
 `;
