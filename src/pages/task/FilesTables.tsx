@@ -17,8 +17,7 @@ import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
 import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
-import { queryParamAsNumber } from "utils";
-import { parseQueryString } from "utils";
+import { queryParamAsNumber, parseQueryString } from "utils";
 import { ExecutionAsData } from "pages/task/util/execution";
 import { RequiredQueryParams } from "types/task";
 

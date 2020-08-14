@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
@@ -10,20 +10,15 @@ import { Logs } from "pages/task/Logs";
 import { useQuery } from "@apollo/react-hooks";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { ActionButtons } from "pages/task/ActionButtons";
+import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import {
   PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
 } from "components/styles";
-import { GET_TASK } from "gql/queries/get-task";
-import { GET_TASK_ALL_EXECUTIONS } from "gql/queries/get-task-all-executions";
-import {
-  GetTaskQuery,
-  GetTaskQueryVariables,
-  GetTaskAllExecutionsQuery,
-  GetTaskAllExecutionsQueryVariables,
-} from "gql/generated/types";
+import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -40,16 +35,9 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Metadata } from "pages/task/Metadata";
 import { useTaskAnalytics } from "analytics";
 import { pollInterval } from "constants/index";
-import { Select } from "antd";
-import { shortDate } from "utils/string";
-import {
-  mapVariantTaskStatusToColor,
-  Square,
-} from "pages/patch/buildVariants/variantColors"; // TODO: move somewhere
-import { P1 } from "components/Typography";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseQueryString } from "utils";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
+import { parseQueryString } from "utils";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -63,18 +51,39 @@ const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
-  const { search: queryVars } = useLocation();
-  const parsed = parseQueryString(queryVars);
-  const initialExecution = Number(parsed[RequiredQueryParams.Execution]);
-  const [execution, setExecution] = useState(
-    !Number.isNaN(initialExecution) ? ExecutionAsData(initialExecution) : null
-  );
   const taskAnalytics = useTaskAnalytics();
   // automatically append default tab to end of url path
   useDefaultPath({
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
   });
+  const { search: queryVars } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
+  const parsed = parseQueryString(queryVars);
+  const initialExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const { data: latest } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
+    GET_TASK_LATEST_EXECUTION,
+    {
+      variables: { taskId: id },
+      onError: (err) =>
+        dispatchBanner.errorBanner(
+          `There was an error loading the task: ${err.message}`
+        ),
+    }
+  );
+  const [execution, setExecution] = useState(
+    !Number.isNaN(initialExecution)
+      ? ExecutionAsData(initialExecution)
+      : latest?.task?.latestExecution
+  );
+  useEffect(() => {
+    if (Number.isNaN(initialExecution) && latest?.task) {
+      setExecution(latest?.task?.latestExecution);
+      updateQueryParams({
+        execution: `${ExecutionAsDisplay(latest?.task?.latestExecution)}`,
+      });
+    }
+  }, [latest, initialExecution, updateQueryParams]);
 
   // Query task data
   const { data, loading, error, startPolling, stopPolling } = useQuery<
@@ -88,15 +97,6 @@ const TaskCore: React.FC = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
-  const allExecutionsResult = useQuery<
-    GetTaskAllExecutionsQuery,
-    GetTaskAllExecutionsQueryVariables
-  >(GET_TASK_ALL_EXECUTIONS, {
-    variables: { taskId: id },
-  });
-  const allExecutions = allExecutionsResult?.data?.taskAllExecutions;
-  const executionsLoading = allExecutionsResult?.loading;
-  const { Option } = Select;
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
@@ -114,16 +114,13 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const patchAuthor = data?.task.patchMetadata.author;
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
-  const updateQueryParams = useUpdateURLQueryParams();
   // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_TAB,
     path: `${paths.task}/${id}`,
     query: new URLSearchParams(
-      `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(
-        execution || task?.latestExecution
-      )}`
+      `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(execution)}`
     ),
     sendAnalyticsEvent: (tab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
@@ -181,43 +178,17 @@ const TaskCore: React.FC = () => {
       <PageLayout>
         <PageSider>
           {task?.latestExecution > 0 && (
-            <StyledSelect
-              placeholder="Choose an execution"
-              disabled={executionsLoading}
-              key={execution}
-              data-test-id="execution-select"
-              value={`Execution ${ExecutionAsDisplay(
-                execution === null ? task?.latestExecution : execution
-              )}${
-                execution === null || execution === task?.latestExecution
-                  ? " (latest)"
-                  : ""
-              }`}
-              onChange={(selected: number | null) => {
-                setExecution(selected);
+            <ExecutionSelect
+              id={id}
+              currentExecution={execution}
+              latestExecution={latest?.task?.latestExecution}
+              updateExecution={(n: number) => {
+                setExecution(n);
                 updateQueryParams({
-                  execution: `${ExecutionAsDisplay(selected)}`,
+                  execution: `${ExecutionAsDisplay(n)}`,
                 });
               }}
-            >
-              {allExecutions?.map((singleExecution) => (
-                <Option
-                  key={singleExecution.execution}
-                  value={singleExecution.execution}
-                  data-test-id={`execution-${singleExecution.execution}`}
-                >
-                  <StyledSquare
-                    color={mapVariantTaskStatusToColor[singleExecution.status]}
-                  />
-                  <StyledP1>
-                    {" "}
-                    Execution {ExecutionAsDisplay(
-                      singleExecution.execution
-                    )} - {shortDate(singleExecution.createTime)}
-                  </StyledP1>
-                </Option>
-              ))}
-            </StyledSelect>
+            />
           )}
           <Metadata data={data} loading={loading} error={error} />
         </PageSider>
@@ -277,17 +248,4 @@ export const Task = withBannersContext(TaskCore);
 
 const LogWrapper = styled(PageLayout)`
   width: 100%;
-`;
-const StyledSelect = styled(Select)`
-  margin-bottom: 10px;
-  width: 100%;
-`;
-const StyledSquare = styled(Square)`
-  float: left;
-  width: 17px;
-  height: 17px;
-  margin-right: 3px;
-`;
-const StyledP1 = styled(P1)`
-  float: left;
 `;
