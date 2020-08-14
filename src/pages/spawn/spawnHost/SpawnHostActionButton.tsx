@@ -9,7 +9,10 @@ import { HostStatus } from "types/host";
 
 export const SpawnHostActionButton: React.FC<{ host: Host }> = ({ host }) => {
   const action = mapStatusToAction[host.status];
-  return <PaddedButton glyph={<Icon glyph={action} />} size={Size.Small} />;
+
+  return action ? (
+    <PaddedButton glyph={<Icon glyph={action} />} size={Size.XSmall} />
+  ) : null;
 };
 const mapStatusToAction = {
   [HostStatus.Running]: "Pause",
