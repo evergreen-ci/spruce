@@ -11,33 +11,28 @@ export const EvergreenLogo = () => (
 );
 
 export const Pause = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    data-icon="pause"
-    data-prefix="fas"
-    viewBox="0 0 448 512"
-  >
+  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
     <path
-      fill="currentColor"
-      d="M144 479H48a48 48 0 01-48-48V79a48 48 0 0148-48h96a48 48 0 0148 48v352a48 48 0 01-48 48zm304-48V79a48 48 0 00-48-48h-96a48 48 0 00-48 48v352a48 48 0 0048 48h96a48 48 0 0048-48z"
+      fill="#000"
+      fillRule="nonzero"
+      d="M.4 0C.2 0 0 .2 0 .4v13.2c0 .2.2.4.4.4h3.8l.3-.1.1-.3V.4c0-.2-.2-.4-.4-.4H.4zm6.4 0c-.2 0-.4.2-.4.4V14l.4.1h3.8l.3-.1.1-.3V.4l-.1-.3-.3-.1H6.8z"
     />
   </svg>
 );
 
 export const Play = () => (
-  <svg
-    xmlns="http://www.w3.org/2000/svg"
-    aria-hidden="true"
-    className="svg-inline--fa fa-play fa-w-14 fa-3x"
-    data-icon="play"
-    data-prefix="fas"
-    viewBox="0 0 448 512"
-  >
-    <path
-      fill="currentColor"
-      d="M424.4 214.7L72.4 6.6C43.8-10.3 0 6.1 0 47.9V464a48 48 0 0072.4 41.3l352-208a48 48 0 000-82.6z"
-    />
+  <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14">
+    <defs>
+      <path id="a" d="M0 0h13v14H0z" />
+    </defs>
+    <g fill="none" fillRule="evenodd">
+      <mask id="b" fill="#fff" />
+      <path
+        fill="#000"
+        d="M12.3 5.8L2.3.2C1.2-.4 0 .3 0 1.4v11.2c0 1 1.2 1.7 2.2 1.2l10-5.6c1-.5 1-1.9 0-2.4"
+        mask="url(#b)"
+      />
+    </g>
   </svg>
 );
 
