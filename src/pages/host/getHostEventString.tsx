@@ -88,13 +88,7 @@ export const getHostEventString = (
           {" "}
           Host encountered error when restarting Jasper service
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Provisioning logs" key="1">
-                <Code showLineNumbers multiline={false} language="shell">
-                  {data.logs}
-                </Code>
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -114,13 +108,7 @@ export const getHostEventString = (
         <div>
           Host encountered error when converting reprovisioning
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Provisioning logs" key="1">
-                <Code showLineNumbers multiline={false} language="shell">
-                  {data.logs}
-                </Code>
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -133,11 +121,11 @@ export const getHostEventString = (
           Status changed from <b>{data.oldStatus}</b> to <b>{data.newStatus}</b>{" "}
           {data.user ? "by" : ""} <b>{data.user}</b>{" "}
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Additional details" key="1">
-                {data.logs}
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog
+              title="Additional details"
+              logs={data.logs}
+              isCode={false}
+            />
           ) : (
             ""
           )}
@@ -156,11 +144,7 @@ export const getHostEventString = (
           {" "}
           Executed script on host
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Script Logs" key="1">
-                {data.logs}
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Script Logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -172,11 +156,7 @@ export const getHostEventString = (
           {" "}
           Failed to execute script on host
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Script Logs" key="1">
-                {data.logs}
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Script Logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -233,13 +213,7 @@ export const getHostEventString = (
           {" "}
           Provisioning failed{" "}
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Provisioning logs" key="1">
-                <Code showLineNumbers multiline={false} language="shell">
-                  {data.logs}
-                </Code>
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -256,13 +230,7 @@ export const getHostEventString = (
             <b>failed</b>
           )} in {stringifyNanoseconds(data.duration, true, true)}
           {data.logs ? (
-            <StyledCollapse bordered={false}>
-              <Panel header="Teardown logs" key="1">
-                <Code showLineNumbers multiline={false} language="shell">
-                  {data.logs}
-                </Code>
-              </Panel>
-            </StyledCollapse>
+            <HostEventLog title="Teardown logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -297,3 +265,21 @@ export const StyledCollapse = styled(Collapse)`
     width: inherit;
   }
 `;
+
+export const HostEventLog: React.FC<{
+  title: string;
+  logs: any;
+  isCode: boolean;
+}> = ({ title, logs, isCode }) => (
+  <StyledCollapse bordered={false}>
+    <Panel header={title} key="1">
+      {{ isCode } ? (
+        <Code multiline={false} language="shell">
+          {logs}
+        </Code>
+      ) : (
+        { logs }
+      )}
+    </Panel>
+  </StyledCollapse>
+);
