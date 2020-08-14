@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloError } from "apollo-client";
 import { Table } from "antd";
-import { getDateCopy } from "utils/string";
+import { useUserTimeZone } from "utils/string";
 import { HostCard } from "pages/host/HostCard";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
 import { ColumnProps } from "antd/es/table";
@@ -37,7 +37,7 @@ const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
     dataIndex: "timestamp",
     width: "25%",
     render: (_, { timestamp }: HostEventLogEntry): JSX.Element => (
-      <div>{getDateCopy(timestamp)}</div>
+      <TimeDisplay timestamp={timestamp} />
     ),
   },
   {
@@ -56,3 +56,7 @@ const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
   margin-top: 15px;
 `;
+
+export const TimeDisplay: React.FC<{
+  timestamp;
+}> = ({ timestamp }) => <div>{useUserTimeZone(timestamp)}</div>;

@@ -1,4 +1,25 @@
 import { format } from "date-fns";
+import moment from "moment";
+import "moment-timezone";
+import get from "lodash/get";
+import { useQuery } from "@apollo/react-hooks";
+import { GetUserSettingsQuery } from "gql/generated/types";
+import { GET_USER_SETTINGS } from "gql/queries";
+
+export const useUserTimeZone = (time) => {
+  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
+    GET_USER_SETTINGS
+  );
+  const timezone = get(userSettingsData, "userSettings.timezone", true);
+
+  if (timezone) {
+    return moment(time)
+      .tz(timezone)
+      .format("MMM D, YYYY h:mm:ss a");
+  }
+
+  return getDateCopy(time);
+};
 
 export const msToDuration = (ms: number): string => {
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
