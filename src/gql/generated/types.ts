@@ -62,6 +62,14 @@ export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
 };
 
+export type Distro = {
+  name?: Maybe<Scalars["String"]>;
+  userSpawnAllowed?: Maybe<Scalars["Boolean"]>;
+  workDir?: Maybe<Scalars["String"]>;
+  user?: Maybe<Scalars["String"]>;
+  isVirtualWorkStation: Scalars["Boolean"];
+};
+
 export type DistroInfo = {
   id?: Maybe<Scalars["String"]>;
   workDir?: Maybe<Scalars["String"]>;
@@ -227,6 +235,7 @@ export type Mutation = {
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
+  updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -318,6 +327,11 @@ export type MutationCreatePublicKeyArgs = {
 
 export type MutationSpawnHostArgs = {
   spawnHostInput?: Maybe<SpawnHostInput>;
+};
+
+export type MutationUpdateSpawnHostStatusArgs = {
+  hostId: Scalars["String"];
+  action: SpawnHostStatusActions;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -466,8 +480,9 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
-  myHosts?: Maybe<Array<Host>>;
+  myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
+  distros: Array<Maybe<Distro>>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -555,6 +570,10 @@ export type QueryHostsArgs = {
   limit?: Maybe<Scalars["Int"]>;
 };
 
+export type QueryDistrosArgs = {
+  onlySpawnable: Scalars["Boolean"];
+};
+
 export type RecentTaskLogs = {
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
@@ -595,6 +614,12 @@ export type SpawnHostInput = {
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
 };
+
+export enum SpawnHostStatusActions {
+  Start = "START",
+  Stop = "STOP",
+  Terminate = "TERMINATE",
+}
 
 export type SubscriberInput = {
   type: Scalars["String"];
@@ -1076,25 +1101,26 @@ export type HostQuery = {
 export type MyHostsQueryVariables = {};
 
 export type MyHostsQuery = {
-  myHosts?: Maybe<
-    Array<{
-      expiration?: Maybe<Date>;
-      hostUrl: string;
-      homeVolumeID?: Maybe<string>;
-      instanceType?: Maybe<string>;
-      noExpiration: boolean;
-      status: string;
-      tag: string;
+  myHosts: Array<{
+    expiration?: Maybe<Date>;
+    hostUrl: string;
+    homeVolumeID?: Maybe<string>;
+    id: string;
+    instanceType?: Maybe<string>;
+    noExpiration: boolean;
+    provider: string;
+    status: string;
+    startedBy: string;
+    tag: string;
+    user?: Maybe<string>;
+    uptime?: Maybe<Date>;
+    distro?: Maybe<{
+      isVirtualWorkStation?: Maybe<boolean>;
+      id?: Maybe<string>;
       user?: Maybe<string>;
-      uptime?: Maybe<Date>;
-      distro?: Maybe<{
-        isVirtualWorkStation?: Maybe<boolean>;
-        id?: Maybe<string>;
-        user?: Maybe<string>;
-        workDir?: Maybe<string>;
-      }>;
-    }>
-  >;
+      workDir?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type PatchBuildVariantsQueryVariables = {
