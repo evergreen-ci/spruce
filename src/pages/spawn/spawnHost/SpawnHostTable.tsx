@@ -24,7 +24,7 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       title: "Host",
       dataIndex: "id",
       key: "host",
-      sorter: (a, b) => sortFunctionString(a, b, "id"),
+      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "id"),
       render: (_, host: Host) =>
         host?.distro?.isVirtualWorkStation ? (
           <FlexContainer>
@@ -39,21 +39,21 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       title: "Distro",
       dataIndex: "distro",
       key: "distro",
-      sorter: (a, b) => sortFunctionString(a, b, "distro.id"),
+      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "distro.id"),
       render: (distro) => distro.id,
     },
     {
       title: "Status",
       dataIndex: "status",
       key: "status",
-      sorter: (a, b) => sortFunctionString(a, b, "status"),
+      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "status"),
       render: (status) => <HostStatusBadge status={status} />,
     },
     {
       title: "Expires In",
       dataIndex: "expiration",
       key: "expiration",
-      sorter: (a, b) => sortFunctionDate(a, b, "expiration"),
+      sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "expiration"),
       render: (expiration, host: Host) =>
         host?.noExpiration
           ? "Does not expire"
@@ -63,7 +63,7 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       title: "Uptime",
       dataIndex: "uptime",
       key: "uptime",
-      sorter: (a, b) => sortFunctionDate(a, b, "uptime"),
+      sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "uptime"),
       render: (uptime) => formatDistanceToNow(new Date(uptime)),
     },
     {
