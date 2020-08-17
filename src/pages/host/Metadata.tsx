@@ -6,6 +6,7 @@ import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
+import styled from "@emotion/styled";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -43,10 +44,18 @@ export const Metadata: React.FC<{
       </P2>
       <P2>
         Current Task:{" "}
-        <StyledLink data-cy="task-distro-link" href={taskLink}>
-          {runningTaskName}
-        </StyledLink>
+        {runningTaskName ? (
+          <StyledLink data-cy="task-distro-link" href={taskLink}>
+            {runningTaskName}
+          </StyledLink>
+        ) : (
+          <Italic>none</Italic>
+        )}
       </P2>
     </HostMetaDataCard>
   );
 };
+
+const Italic = styled.i`
+  color: silver;
+`;
