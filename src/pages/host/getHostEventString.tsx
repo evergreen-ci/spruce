@@ -1,11 +1,12 @@
 import React from "react";
 import { HostEventLogData } from "gql/generated/types";
 import styled from "@emotion/styled/macro";
-import { stringifyNanoseconds } from "utils/string";
+import { stringifyNanoseconds, shortenString } from "utils/string";
 import Code from "@leafygreen-ui/code";
 import { StyledLink } from "components/styles";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { Collapse } from "antd";
+
 const { Panel } = Collapse;
 
 const getTerminationString = (monitorOp: string) => {
@@ -176,7 +177,7 @@ export const getHostEventString = (
           <StyledLink
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
-            {data.taskId}
+            {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
         </div>
       );
@@ -188,8 +189,9 @@ export const getHostEventString = (
           <StyledLink
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
-            {data.taskId}
+            {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
+          )
         </div>
       );
     case `HOST_TASK_PID_SET`:
@@ -244,7 +246,7 @@ export const getHostEventString = (
           <StyledLink
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
-            {data.taskId}
+            {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>{" "}
           completed with status:
           <b> {data.taskStatus}</b>{" "}

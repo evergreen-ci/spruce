@@ -21,6 +21,34 @@ export const useUserTimeZone = (time) => {
   return getDateCopy(time);
 };
 
+export const shortenString = (
+  value: string,
+  wordwise: boolean,
+  max: number,
+  tail: string
+): string => {
+  if (!value) {
+    return "";
+  }
+
+  if (!max) {
+    return value;
+  }
+  if (value.length <= max) {
+    return value;
+  }
+
+  let valueSubstring = value.substr(0, max);
+  if (wordwise) {
+    const lastspace = valueSubstring.lastIndexOf(" ");
+    if (lastspace !== -1) {
+      valueSubstring = valueSubstring.substr(0, lastspace);
+    }
+  }
+
+  return valueSubstring + (tail || " …");
+};
+
 export const msToDuration = (ms: number): string => {
   const days = Math.floor(ms / (24 * 60 * 60 * 1000));
   const daysMilli = ms % (24 * 60 * 60 * 1000);
