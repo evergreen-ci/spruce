@@ -15,7 +15,7 @@ const getTerminationString = (monitorOp: string) => {
     case `idle`:
       return `host was idle.`;
     case `excess`:
-      return `host was decommissioned.`;
+      return `pool exceeded maximum hosts limit.`;
     case `provision_timeout`:
       return `host took too long for provisioning to complete.`;
     case `provision_failed`:

@@ -55,5 +55,3 @@ const SiderCard = styled(Card)<StylingProps>`
     margin-top: ${(props) => props.metaData && "20px"};
   }
 `;
-
-// ${(props) => (props.metaData ? { metaDataCard } : { tableWrapper })};
