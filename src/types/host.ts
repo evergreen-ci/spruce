@@ -27,7 +27,8 @@ export enum HostStatus {
 }
 
 export enum UpdateHostStatus {
-  Start = "start",
-  Stop = "stop",
-  Terminate = "terminate",
+  Running = "running",
+  Quarantined = "quarantined",
+  Decommissioned = "decommissioned",
+  Terminated = "terminated",
 }
