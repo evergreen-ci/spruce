@@ -16,7 +16,9 @@ import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
 import { useBannerDispatchContext } from "context/banners";
 import { Input } from "antd";
 import { CREATE_PUBLIC_KEY } from "gql/mutations/create-public-key";
-import { InputLabel } from "components/styles";
+import { InputLabel, ErrorMessage } from "components/styles";
+import { v4 as uuid } from "uuid";
+
 const { TextArea } = Input;
 
 export interface EditModalPropsState {
@@ -24,6 +26,10 @@ export interface EditModalPropsState {
   initialKeyName?: string;
   initialKeyValue?: string;
   visible: boolean;
+  existingKeys?: {
+    name: string;
+    key?: string;
+  }[];
 }
 
 interface EditModalProps extends EditModalPropsState {
@@ -34,10 +40,12 @@ export const EditModal: React.FC<EditModalProps> = ({
   replaceKeyName,
   initialKeyName,
   initialKeyValue,
+  existingKeys,
   visible,
   onCancel,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
+  const [errors, setErrors] = useState<string[]>([]);
   const [updatePublicKey] = useMutation<
     UpdatePublicKeyMutation,
     UpdatePublicKeyMutationVariables
@@ -82,7 +90,25 @@ export const EditModal: React.FC<EditModalProps> = ({
     setKeyValue(initialKeyValue);
   }, [initialKeyValue]);
 
-  const isFormValid = true;
+  useEffect(() => {
+    const inputErrors = [];
+    if (!keyName) {
+      inputErrors.push(EMPTY_KEY_NAME);
+    }
+    if (
+      existingKeys?.find(({ name }) => name === keyName) &&
+      keyName !== replaceKeyName
+    ) {
+      inputErrors.push(DUPLICATE_KEY_NAME);
+    }
+    const hasRSA = keyValue?.substring(0, SSH_RSA.length) === SSH_RSA;
+    const hasDSS = keyValue?.substring(0, SSH_DSS.length) === SSH_DSS;
+    if (!hasRSA && !hasDSS) {
+      inputErrors.push(INVALID_SSH_KEY);
+    }
+    setErrors(inputErrors);
+  }, [keyName, keyValue, replaceKeyName, existingKeys]);
+
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
     if (replaceKeyName) {
@@ -112,7 +138,7 @@ export const EditModal: React.FC<EditModalProps> = ({
           <Button
             key="save"
             data-cy="save-subscription-button"
-            disabled={!isFormValid}
+            disabled={errors.length > 0}
             onClick={onClickSave}
             variant={Variant.Primary}
           >
@@ -137,6 +163,13 @@ export const EditModal: React.FC<EditModalProps> = ({
         autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => setKeyValue(e.target.value)}
       />
+      <ErrorContainer>
+        {errors.map((text) => (
+          <div key={uuid()} data-cy="error-message">
+            <ErrorMessage>{text}</ErrorMessage>
+          </div>
+        ))}
+      </ErrorContainer>
     </Modal>
   );
 };
@@ -148,3 +181,11 @@ const LeftButton = styled(Button)`
 const StyledInput = styled(Input)`
   margin-bottom: 24px;
 `;
+const ErrorContainer = styled.div`
+  margin-top: 8px;
+`;
+const DUPLICATE_KEY_NAME = "The key name already exists.";
+const INVALID_SSH_KEY = "The SSH key must begin with 'ssh-rsa' or 'ssh-dss'.";
+const EMPTY_KEY_NAME = "The key name cannot be empty.";
+const SSH_RSA = "ssh-rsa";
+const SSH_DSS = "ssh-dss";

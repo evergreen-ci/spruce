@@ -134,7 +134,11 @@ export const PublicKeysTab: React.FC = () => {
           table
         )}
       </TableContainer>
-      <EditModal {...editModalProps} onCancel={onCancel} />
+      <EditModal
+        {...editModalProps}
+        existingKeys={myKeysData?.myPublicKeys}
+        onCancel={onCancel}
+      />
     </div>
   );
 };
