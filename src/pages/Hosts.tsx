@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Skeleton, Popconfirm } from "antd";
+import { Popconfirm } from "antd";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import { useLocation } from "react-router-dom";
 import {
@@ -36,10 +36,14 @@ import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
 import { RESTART_JASPER } from "gql/mutations";
+import { useHostsTableAnalytics } from "analytics";
+import { UpdateStatusModal } from "components/Hosts";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+
+  const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();
   const prevSearch = usePrevious<string>(search);
@@ -67,6 +71,11 @@ const Hosts: React.FC = () => {
   // SELECTED HOST IDS STATE
   const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
 
+  // UPDATE STATUS MODAL VISIBILITY STATE
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
+    boolean
+  >(false);
+
   // HOSTS QUERY
   const { data: hostsData, networkStatus, refetch } = useQuery<
     HostsQuery,
@@ -82,6 +91,7 @@ const Hosts: React.FC = () => {
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
 
   const isLoading = isNetworkRequestInFlight(networkStatus);
+
   useDisableTableSortersIfLoading(networkStatus);
 
   // REFETCH HOSTS QUERY IF SEARCH CHANGES
@@ -108,8 +118,10 @@ const Hosts: React.FC = () => {
     },
   });
 
-  const onClickRestartJasperConfirm = () =>
+  const onClickRestartJasperConfirm = () => {
+    hostsTableAnalytics.sendEvent({ name: "Restart Jasper" });
     restartJasper({ variables: { hostIds: selectedHostIds } });
+  };
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -134,6 +146,7 @@ const Hosts: React.FC = () => {
                 <Button
                   dataCy="update-status-button"
                   disabled={selectedHostIds.length === 0}
+                  onClick={() => setIsUpdateStatusModalVisible(true)}
                 >
                   Update Status
                 </Button>
@@ -171,19 +184,28 @@ const Hosts: React.FC = () => {
             <PageSizeSelector
               dataTestId="tasks-table-page-size-selector"
               value={limit}
+              sendAnalyticsEvent={() =>
+                hostsTableAnalytics.sendEvent({ name: "Change Page Size" })
+              }
             />
           </TableControlInnerRow>
         </TableControlOuterRow>
-        <TableContainer hide={isLoading}>
+        <TableContainer hide={false}>
           <HostsTable
             hosts={hostItems}
             sortBy={sortBy}
             sortDir={sortDir}
             selectedHostIds={selectedHostIds}
             setSelectedHostIds={setSelectedHostIds}
+            loading={isLoading}
           />
         </TableContainer>
-        {isLoading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+        <UpdateStatusModal
+          dataCy="update-host-status-modal"
+          hostIds={selectedHostIds}
+          visible={isUpdateStatusModalVisible}
+          closeModal={() => setIsUpdateStatusModalVisible(false)}
+        />
       </ErrorBoundary>
     </PageWrapper>
   );

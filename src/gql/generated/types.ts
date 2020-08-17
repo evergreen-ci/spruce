@@ -843,6 +843,14 @@ export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
 
+export type RemovePublicKeyMutationVariables = {
+  keyName: Scalars["String"];
+};
+
+export type RemovePublicKeyMutation = {
+  removePublicKey: Array<{ key: string; name: string }>;
+};
+
 export type RestartJasperMutationVariables = {
   hostIds: Array<Scalars["String"]>;
 };
@@ -929,6 +937,14 @@ export type UnscheduleTaskMutationVariables = {
 };
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+
+export type UpdateHostStatusMutationVariables = {
+  hostIds: Array<Scalars["String"]>;
+  status: Scalars["String"];
+  notes?: Maybe<Scalars["String"]>;
+};
+
+export type UpdateHostStatusMutation = { updateHostStatus: number };
 
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
@@ -1065,6 +1081,30 @@ export type HostQuery = {
   }>;
 };
 
+export type MyHostsQueryVariables = {};
+
+export type MyHostsQuery = {
+  myHosts?: Maybe<
+    Array<{
+      expiration?: Maybe<Date>;
+      hostUrl: string;
+      homeVolumeID?: Maybe<string>;
+      instanceType?: Maybe<string>;
+      noExpiration: boolean;
+      status: string;
+      tag: string;
+      user?: Maybe<string>;
+      uptime?: Maybe<Date>;
+      distro?: Maybe<{
+        isVirtualWorkStation?: Maybe<boolean>;
+        id?: Maybe<string>;
+        user?: Maybe<string>;
+        workDir?: Maybe<string>;
+      }>;
+    }>
+  >;
+};
+
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars["String"];
 };
@@ -1134,6 +1174,12 @@ export type ProjectsQuery = {
       }>;
     }>;
   };
+};
+
+export type GetMyPublicKeysQueryVariables = {};
+
+export type GetMyPublicKeysQuery = {
+  myPublicKeys: Array<{ name: string; key: string }>;
 };
 
 export type SiteBannerQueryVariables = {};
