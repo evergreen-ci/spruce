@@ -25,7 +25,15 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       dataIndex: "id",
       key: "host",
       sorter: (a, b) => sortFunctionString(a, b, "id"),
-      render: (_, host: Host) => <HostIdField host={host} />,
+      render: (_, host: Host) =>
+        host?.distro?.isVirtualWorkStation ? (
+          <FlexContainer>
+            <HostIdSpan>{host.id}</HostIdSpan>
+            <WorkstationBadge>WORKSTATION</WorkstationBadge>
+          </FlexContainer>
+        ) : (
+          <HostIdSpan>{host.id}</HostIdSpan>
+        ),
     },
     {
       title: "Distro",
@@ -46,8 +54,10 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
       dataIndex: "expiration",
       key: "expiration",
       sorter: (a, b) => sortFunctionDate(a, b, "expiration"),
-      render: (expiration) =>
-        formatDistanceToNow(new Date(expiration)) || "Does not expire",
+      render: (expiration, host: Host) =>
+        host?.noExpiration
+          ? "Does not expire"
+          : formatDistanceToNow(new Date(expiration)),
     },
     {
       title: "Uptime",
@@ -103,18 +113,6 @@ const CopySSHCommandButton: React.FC<{ host: Host }> = ({ host }) => {
     >
       Copied!
     </Tooltip>
-  );
-};
-
-const HostIdField: React.FC<{ host: Host }> = ({ host }) => {
-  const isVirtualWorkStation = host?.distro?.isVirtualWorkStation;
-  return isVirtualWorkStation ? (
-    <FlexContainer>
-      <HostIdSpan>{host.id}</HostIdSpan>
-      <WorkstationBadge>WORKSTATION</WorkstationBadge>
-    </FlexContainer>
-  ) : (
-    <HostIdSpan>{host.id}</HostIdSpan>
   );
 };
 
