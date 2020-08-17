@@ -137,7 +137,7 @@ export const EditModal: React.FC<EditModalProps> = ({
           </LeftButton>
           <Button
             key="save"
-            data-cy="save-subscription-button"
+            data-cy="save-key-button"
             disabled={errors.length > 0}
             onClick={onClickSave}
             variant={Variant.Primary}
@@ -158,7 +158,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       />
       <InputLabel>Public Key</InputLabel>
       <TextArea
-        data-cy="key-value"
+        data-cy="key-value-input"
         value={keyValue}
         autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => setKeyValue(e.target.value)}

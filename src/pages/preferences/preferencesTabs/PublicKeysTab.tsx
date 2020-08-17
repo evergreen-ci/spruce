@@ -150,6 +150,9 @@ interface PublicKey {
 
 const defaultEditModalProps = {
   visible: false,
+  replaceKeyName: "",
+  initialKeyName: "",
+  initialKeyValue: "",
 };
 
 const TableContainer = styled.div`
