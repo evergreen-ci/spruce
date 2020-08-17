@@ -22,6 +22,7 @@ import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
 import { HostTable } from "pages/host/HostTable";
 import Code from "@leafygreen-ui/code";
+import { useUserTimeZone } from "utils/string";
 
 export const Host: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -39,6 +40,7 @@ export const Host: React.FC = () => {
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const tag = host?.tag ?? "";
+  const timeZone = useUserTimeZone();
 
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
@@ -65,6 +67,7 @@ export const Host: React.FC = () => {
             loading={hostMetaDataLoading}
             data={hostData}
             error={error}
+            timeZone={timeZone}
           />
           <Code language="shell">{sshCommand}</Code>
         </PageSider>
@@ -72,8 +75,9 @@ export const Host: React.FC = () => {
           <PageContent>
             <HostTable
               loading={hostEventLoading}
-              data={hostEventData}
+              eventData={hostEventData}
               error={error}
+              timeZone={timeZone}
             />
           </PageContent>
         </PageLayout>

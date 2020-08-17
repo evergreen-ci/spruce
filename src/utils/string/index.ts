@@ -1,26 +1,20 @@
 import { format } from "date-fns";
-import moment from "moment";
-import "moment-timezone";
 import get from "lodash/get";
 import { useQuery } from "@apollo/react-hooks";
 import { GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
+import { formatToTimeZone } from "date-fns-timezone";
 
-export const useUserTimeZone = (time) => {
+// get the timezone for the user
+export const useUserTimeZone = () => {
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
     GET_USER_SETTINGS
   );
-  const timezone = get(userSettingsData, "userSettings.timezone", true);
-
-  if (timezone) {
-    return moment(time)
-      .tz(timezone)
-      .format("MMM D, YYYY h:mm:ss a");
-  }
-
-  return getDateCopy(time);
+  return get(userSettingsData, "userSettings.timezone", "");
 };
 
+// shortenString takes a string and shortens it
+// Useful for displaying part of a long string, such as a long taskId
 export const shortenString = (
   value: string,
   wordwise: boolean,
@@ -115,6 +109,19 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaaa'm";
-export const getDateCopy = (d: Date): string =>
-  d ? format(new Date(d), DATE_FORMAT) : "";
+// const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaaa'm";
+// export const getDateCopy = (d: Date): string =>
+//   d ? format(new Date(d), DATE_FORMAT) : "";
+
+export const getDateCopy = (time, timeZone?) => {
+  if (timeZone) {
+    return formatToTimeZone(time, "MMM D, YYYY h:mm:ss a", {
+      // eslint-disable-next-line object-shorthand
+      timeZone: timeZone,
+    });
+  }
+  if (time) {
+    return format(new Date(time), "MMM d, yyyy, h:mm:ss aaaaa'm");
+  }
+  return "";
+};
