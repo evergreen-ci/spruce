@@ -84,7 +84,7 @@ const SpawnHostActions: React.FC<{ host: Host }> = ({ host }) => (
 );
 
 const CopySSHCommandButton: React.FC<{ host: Host }> = ({ host }) => {
-  const sshCommand = `${host.user}@${host.hostUrl}`;
+  const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
 
   return (
     <Tooltip
