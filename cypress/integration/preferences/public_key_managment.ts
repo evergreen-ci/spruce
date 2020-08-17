@@ -37,7 +37,6 @@ describe("Public Key Management Page", () => {
   });
 
   describe("Add New Key Modal", () => {
-    // error messages show up on open
     it("Displays errors when the modal opens", () => {
       cy.visit(route);
       cy.dataCy("add-key-button").click();
@@ -75,6 +74,7 @@ describe("Public Key Management Page", () => {
     it("Modal has correct title", () => {
       cy.dataCy("modal-title").contains("Add Public Key");
       cy.dataCy("cancel-subscription-button").click();
+      cy.dataCy("save-key-button").click();
     });
   });
 
@@ -105,6 +105,20 @@ describe("Public Key Management Page", () => {
 
     it("Modal has correct title", () => {
       cy.dataCy("modal-title").contains("Update Public Key");
+    });
+  });
+
+  describe("Network errors", () => {
+    it("should show an error banner after submitting an invalid public key", () => {
+      cy.dataCy("add-key-button").click();
+      cy.dataCy("key-name-input").type(keyName4);
+      cy.dataCy("key-value-input").type("ssh-rsa");
+      cy.dataCy("save-key-button").click();
+      cy.dataCy("banner")
+        .first()
+        .contains(
+          "There was an error creating the public key: GraphQL error: Provided public key is invalid : ssh: no key found"
+        );
     });
   });
 });
