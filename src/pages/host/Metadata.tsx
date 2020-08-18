@@ -6,6 +6,7 @@ import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
 import { HostCard } from "pages/host/HostCard";
+import styled from "@emotion/styled";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -42,8 +43,19 @@ export const Metadata: React.FC<{
         Distro: <StyledLink href={distroLink}>{distroId}</StyledLink>
       </P2>
       <P2>
-        Current Task: <StyledLink href={taskLink}>{runningTaskName}</StyledLink>
+        Current Task:{" "}
+        {runningTaskName ? (
+          <StyledLink data-cy="task-distro-link" href={taskLink}>
+            {runningTaskName}
+          </StyledLink>
+        ) : (
+          <Italic>none</Italic>
+        )}
       </P2>
     </HostCard>
   );
 };
+
+const Italic = styled.i`
+  color: silver;
+`;

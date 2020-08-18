@@ -1,8 +1,13 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
-import { useQuery } from "@apollo/react-hooks";
+import { Banners } from "components/Banners";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import {
   HostQuery,
   HostQueryVariables,
@@ -23,8 +28,12 @@ import { Metadata } from "pages/host/Metadata";
 import { HostTable } from "pages/host/HostTable";
 import Code from "@leafygreen-ui/code";
 import { useUserTimeZone } from "utils/string";
+import { withBannersContext } from "hoc/withBannersContext";
 
-export const Host: React.FC = () => {
+export const HostCore: React.FC = () => {
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
+
   const { id } = useParams<{ id: string }>();
   // Query host data
   const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
@@ -49,11 +58,16 @@ export const Host: React.FC = () => {
   >(GET_HOST_EVENTS, {
     variables: { id, tag },
   });
+  console.log(hostEventData, hostEventLoading);
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
   return (
     <PageWrapper>
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       <PageTitle
         title={`Host: ${hostUrl}`}
         badge={<HostStatusBadge status={status} />}
@@ -85,3 +99,5 @@ export const Host: React.FC = () => {
     </PageWrapper>
   );
 };
+
+export const Host = withBannersContext(HostCore);
