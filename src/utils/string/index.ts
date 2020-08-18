@@ -110,15 +110,10 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-// const DATE_FORMAT = "MMM d, yyyy, h:mm:ss aaaaa'm";
-// export const getDateCopy = (d: Date): string =>
-//   d ? format(new Date(d), DATE_FORMAT) : "";
-
-export const getDateCopy = (time, timeZone?) => {
-  if (timeZone) {
+export const getDateCopy = (time: Date, tz?: string) => {
+  if (tz) {
     return formatToTimeZone(time, "MMM D, YYYY h:mm:ss a", {
-      // eslint-disable-next-line object-shorthand
-      timeZone: timeZone,
+      timeZone: tz,
     });
   }
   if (time) {
