@@ -868,6 +868,14 @@ export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
 };
 
+export type RemovePublicKeyMutationVariables = {
+  keyName: Scalars["String"];
+};
+
+export type RemovePublicKeyMutation = {
+  removePublicKey: Array<{ key: string; name: string }>;
+};
+
 export type RestartJasperMutationVariables = {
   hostIds: Array<Scalars["String"]>;
 };
@@ -1192,6 +1200,12 @@ export type ProjectsQuery = {
       }>;
     }>;
   };
+};
+
+export type GetMyPublicKeysQueryVariables = {};
+
+export type GetMyPublicKeysQuery = {
+  myPublicKeys: Array<{ name: string; key: string }>;
 };
 
 export type SiteBannerQueryVariables = {};
