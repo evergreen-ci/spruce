@@ -67,7 +67,11 @@ export const msToDuration = (ms: number): string => {
   return `${milliseconds}ms`;
 };
 
-export const stringifyNanoseconds = (input, skipDayMax, skipSecMax) => {
+export const stringifyNanoseconds = (
+  input: number,
+  skipDayMax: boolean,
+  skipSecMax: boolean
+) => {
   const NS_PER_MS = 1000 * 1000; // 10^6
   const NS_PER_SEC = NS_PER_MS * 1000;
   const NS_PER_MINUTE = NS_PER_SEC * 60;
@@ -97,9 +101,6 @@ export const stringifyNanoseconds = (input, skipDayMax, skipSecMax) => {
     return `${Math.floor(input / NS_PER_HOUR)}h ${Math.floor(
       (input % NS_PER_HOUR) / NS_PER_MINUTE
     )}m ${Math.floor((input % NS_PER_MINUTE) / NS_PER_SEC)}s`;
-  }
-  if (input === "unknown") {
-    return "unknown";
   }
   return ">= 1 day";
 };
