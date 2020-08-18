@@ -72,9 +72,7 @@ export const PublicKeysTab: React.FC = () => {
             glyph={<Icon glyph="Edit" />}
             onClick={() => {
               setEditModalProps({
-                initialKeyName: name,
-                initialKeyValue: key,
-                replaceKeyName: name,
+                replaceKey: { key, name },
                 visible: true,
               });
             }}
@@ -122,6 +120,7 @@ export const PublicKeysTab: React.FC = () => {
         onClick={() => {
           setEditModalProps({
             visible: true,
+            replaceKey: null,
           });
         }}
       >
@@ -146,9 +145,7 @@ interface PublicKey {
 
 const defaultEditModalProps = {
   visible: false,
-  replaceKeyName: "",
-  initialKeyName: "",
-  initialKeyValue: "",
+  replaceKey: null,
 };
 
 const TableContainer = styled.div`

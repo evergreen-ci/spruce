@@ -22,9 +22,7 @@ import { v4 as uuid } from "uuid";
 const { TextArea } = Input;
 
 export interface EditModalPropsState {
-  replaceKeyName?: string;
-  initialKeyName?: string;
-  initialKeyValue?: string;
+  replaceKey?: { name: string; key: string };
   visible: boolean;
 }
 
@@ -33,9 +31,7 @@ interface EditModalProps extends EditModalPropsState {
 }
 
 export const EditModal: React.FC<EditModalProps> = ({
-  replaceKeyName,
-  initialKeyName,
-  initialKeyValue,
+  replaceKey,
   visible,
   onCancel,
 }) => {
@@ -78,16 +74,15 @@ export const EditModal: React.FC<EditModalProps> = ({
     },
   });
 
-  const [keyName, setKeyName] = useState(initialKeyName ?? "");
-  const [keyValue, setKeyValue] = useState(initialKeyValue ?? "");
+  const [keyName, setKeyName] = useState<string>();
+  const [keyValue, setKeyValue] = useState<string>();
 
   useEffect(() => {
-    setKeyName(initialKeyName);
-  }, [initialKeyName]);
+    setKeyName(replaceKey?.name ?? "");
+    setKeyValue(replaceKey?.key ?? "");
+  }, [replaceKey]);
 
-  useEffect(() => {
-    setKeyValue(initialKeyValue);
-  }, [initialKeyValue]);
+  const replaceKeyName = replaceKey?.name;
 
   useEffect(() => {
     const inputErrors = [];
