@@ -4,7 +4,6 @@ import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
 import Card from "@leafygreen-ui/card";
 import styled from "@emotion/styled/macro";
-import { css } from "@emotion/core";
 
 interface Props {
   error: ApolloError;
@@ -32,17 +31,6 @@ export const HostCard: React.FC<Props> = ({
   </SiderCard>
 );
 
-export const metaDataCard = css`
-  > p {
-    margin-top: 20px;
-  }
-`;
-
-export const tableWrapper = css`
-  margin-left: 20px;
-  margin-right: 20px;
-`;
-
 const SiderCard = styled(Card)<StylingProps>`
   padding-top: 12px;
   padding-bottom: 25px;
@@ -51,7 +39,7 @@ const SiderCard = styled(Card)<StylingProps>`
   padding-left: ${(props) => (props.metaData ? "15px" : "28px")};
   margin-left: ${(props) => (props.metaData ? "0px" : "20px")};
   margin-right: ${(props) => (props.metaData ? "0px" : "20px")};
-  > * {
+  > p {
     margin-top: ${(props) => props.metaData && "20px"};
   }
 `;
