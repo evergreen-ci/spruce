@@ -84,6 +84,7 @@ export const EditModal: React.FC<EditModalProps> = ({
 
   const replaceKeyName = replaceKey?.name;
 
+  // form validation
   useEffect(() => {
     const inputErrors = [];
     if (!keyName) {
