@@ -7,7 +7,7 @@ import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { SpawnHostButton } from "pages/spawn/spawnHost/index";
+import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { useNetworkStatus } from "hooks";
 import { HostStatus } from "types/host";
 
@@ -52,13 +52,13 @@ export const SpawnHost = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnHostButton />
-      <div>Table here</div>
+      <SpawnHostTable hosts={hosts} />
     </Container>
   );
 };
 
 const Container = styled.div`
-  margin-left: 64px;
+  margin-left: 50px;
   width: 100%;
 `;
 const Title = styled(H2)``;
