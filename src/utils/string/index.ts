@@ -121,3 +121,36 @@ export const getDateCopy = (time: Date, tz?: string) => {
   }
   return "";
 };
+
+export const copyToClipboard = (str: string) => {
+  const el = document.createElement("textarea");
+  el.value = str;
+  document.body.appendChild(el);
+  el.select();
+  document.execCommand("copy");
+  document.body.removeChild(el);
+};
+
+export const sortFunctionString = (a, b, key) => {
+  const nameA = get(a, key).toUpperCase();
+  const nameB = get(b, key).toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+};
+
+export const sortFunctionDate = (a, b, key) => {
+  let dateA;
+  let dateB;
+  try {
+    dateA = new Date(get(a, key));
+    dateB = new Date(get(b, key));
+  } catch (e) {
+    throw Error(`Could not convert ${key} to date`);
+  }
+  return dateA - dateB;
+};
