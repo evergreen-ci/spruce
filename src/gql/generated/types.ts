@@ -1119,9 +1119,12 @@ export type MyHostsQuery = {
     expiration?: Maybe<Date>;
     hostUrl: string;
     homeVolumeID?: Maybe<string>;
+    id: string;
     instanceType?: Maybe<string>;
     noExpiration: boolean;
+    provider: string;
     status: string;
+    startedBy: string;
     tag: string;
     user?: Maybe<string>;
     uptime?: Maybe<Date>;
