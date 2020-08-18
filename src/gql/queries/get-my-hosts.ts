@@ -12,9 +12,12 @@ export const GET_MY_HOSTS = gql`
       }
       hostUrl
       homeVolumeID
+      id
       instanceType
       noExpiration
+      provider
       status
+      startedBy
       tag
       user
       uptime

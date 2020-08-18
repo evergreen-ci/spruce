@@ -41,6 +41,8 @@ const hostsSecondPageWithLimitOfTen = [
   "build10.ny.cbi.10gen",
   "build10.ny.cbi.10gen.c",
   "build10.ny.cbi.10gen.cc",
+  "i-04ade558e1e26b0ad",
+  "i-092593689871a50dc",
   "i-0d0ae8b83366d22",
   "i-0d0ae8b83366d22b",
   "i-0d0ae8b83366d22be",
