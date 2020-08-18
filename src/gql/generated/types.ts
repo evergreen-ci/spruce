@@ -463,6 +463,7 @@ export type PublicKeyInput = {
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
+  taskAllExecutions: Array<Task>;
   patch: Patch;
   projects: Projects;
   patchTasks: PatchTasks;
@@ -497,6 +498,10 @@ export type QueryUserPatchesArgs = {
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryTaskAllExecutionsArgs = {
+  taskId: Scalars["String"];
 };
 
 export type QueryPatchArgs = {
@@ -667,6 +672,7 @@ export type Task = {
   hostLink?: Maybe<Scalars["String"]>;
   restarts?: Maybe<Scalars["Int"]>;
   execution?: Maybe<Scalars["Int"]>;
+  latestExecution: Scalars["Int"];
   patchNumber?: Maybe<Scalars["Int"]>;
   requester: Scalars["String"];
   status: Scalars["String"];
