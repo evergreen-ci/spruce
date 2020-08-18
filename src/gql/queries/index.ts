@@ -28,4 +28,5 @@ export { GET_PATCH_TASK_STATUSES } from "./get-patch-task-statuses";
 export { AWS_REGIONS } from "./aws-regions";
 export { GET_SITE_BANNER } from "./get-site-banner";
 export { HOSTS } from "./hosts";
+export { GET_MY_PUBLIC_KEYS } from "./get-public-keys";
 export { GET_MY_HOSTS } from "./get-my-hosts";

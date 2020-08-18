@@ -1,4 +1,5 @@
 // / <reference types="Cypress" />
+import { popconfirmYesClassName } from "../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
   before(() => {
@@ -45,7 +46,7 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-input-number-input")
         .clear()
         .type("99");
-      cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+      cy.get(popconfirmYesClassName)
         .contains("Set")
         .click({ force: true });
       cy.wait(200);

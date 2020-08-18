@@ -1,3 +1,4 @@
+import { popconfirmYesClassName } from "../../../utils/popconfirm";
 const patchDescriptionCanReconfigure = "test meee";
 const patchDescriptionReconfigureDisabled =
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)";
@@ -37,7 +38,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("patch-card-dropdown").click();
       cy.dataCy("schedule-patch").click({ force: true });
     });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner").should("exist");
@@ -50,7 +51,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("unschedule-patch").click({ force: true });
     });
     cy.dataCy("abort-checkbox").check({ force: true });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner").should("exist");
