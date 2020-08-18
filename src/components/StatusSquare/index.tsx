@@ -7,7 +7,6 @@ const { green, gray, yellow, red } = uiColors;
 const failureLavender = "#C2A5CF";
 const failurePurple = "#840884";
 
-// only used for build variant task squares
 export const mapVariantTaskStatusToColor = {
   [TaskStatus.Inactive]: gray.light1,
   [TaskStatus.Unstarted]: gray.light1,

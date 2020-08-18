@@ -69,7 +69,7 @@
     "dev": "env-cmd -e devServer -r config/.cmdrc.json npm run start",
     "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json npm run start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
-    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config.json",
+    "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config/.cmdrc.json",
     "deploy:staging": "npm run build:staging && BUCKET=evergreen-staging.spruce npm run deploy",
     "deploy:prod": "node cli-scripts/deploy-prod.js",
     "check-types": "tsc",

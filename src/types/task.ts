@@ -7,6 +7,7 @@ export enum RequiredQueryParams {
   TestName = "testname",
   Page = "page",
   Limit = "limit",
+  Execution = "execution",
 }
 
 export enum PatchTasksQueryParams {
