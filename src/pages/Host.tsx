@@ -26,7 +26,6 @@ import { withBannersContext } from "hoc/withBannersContext";
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
-
   const { id } = useParams<{ id: string }>();
   // Query host data
   const { data: hostData, loading, error } = useQuery<
@@ -34,6 +33,11 @@ export const HostCore: React.FC = () => {
     HostQueryVariables
   >(GET_HOST, {
     variables: { id },
+    onError: (err) => {
+      dispatchBanner.errorBanner(
+        `There was an error loading the host: ${err.message}`
+      );
+    },
   });
 
   const host = hostData?.host;
@@ -60,19 +64,23 @@ export const HostCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle
-        title={`Host: ${hostUrl}`}
-        badge={<HostStatusBadge status={status} />}
-        loading={loading}
-        hasData
-        size="large"
-      />
-      <PageLayout>
-        <PageSider width={350}>
-          <Metadata loading={loading} data={hostData} error={error} />
-          <Code language="shell">{sshCommand}</Code>
-        </PageSider>
-      </PageLayout>
+      {host && (
+        <>
+          <PageTitle
+            title={`Host: ${hostUrl}`}
+            badge={<HostStatusBadge status={status} />}
+            loading={loading}
+            hasData
+            size="large"
+          />
+          <PageLayout>
+            <PageSider width={350}>
+              <Metadata loading={loading} data={hostData} error={error} />
+              <Code language="shell">{sshCommand}</Code>
+            </PageSider>
+          </PageLayout>
+        </>
+      )}
     </PageWrapper>
   );
 };
