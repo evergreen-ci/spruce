@@ -1,8 +1,9 @@
 import React from "react";
 import { useParams } from "react-router-dom";
+import { useQuery } from "@apollo/react-hooks";
+import Code from "@leafygreen-ui/code";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
-import { useQuery } from "@apollo/react-hooks";
 import { Banners } from "components/Banners";
 import {
   useBannerDispatchContext,
@@ -20,7 +21,6 @@ import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
-import Code from "@leafygreen-ui/code";
 import { withBannersContext } from "hoc/withBannersContext";
 
 export const HostCore: React.FC = () => {
