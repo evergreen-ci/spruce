@@ -103,6 +103,12 @@ export const EditModal: React.FC<EditModalProps> = ({
     setErrors(inputErrors);
   }, [keyName, keyValue, replaceKeyName, myKeysData]);
 
+  const closeModal = () => {
+    onCancel();
+    setKeyName("");
+    setKeyValue("");
+  };
+
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
     if (replaceKeyName) {
@@ -112,19 +118,19 @@ export const EditModal: React.FC<EditModalProps> = ({
     } else {
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }
-    onCancel();
+    closeModal();
   };
 
   return (
     <Modal
       data-cy="key-edit-modal"
       visible={visible}
-      onCancel={onCancel}
+      onCancel={closeModal}
       footer={
         <>
           <LeftButton
             key="cancel"
-            onClick={onCancel}
+            onClick={closeModal}
             data-cy="cancel-subscription-button"
           >
             Cancel
@@ -158,11 +164,12 @@ export const EditModal: React.FC<EditModalProps> = ({
         onChange={(e) => setKeyValue(e.target.value)}
       />
       <ErrorContainer>
-        {errors.map((text) => (
-          <div key={uuid()} data-cy="error-message">
-            <ErrorMessage>{text}</ErrorMessage>
-          </div>
-        ))}
+        {visible &&
+          errors.map((text) => (
+            <div key={uuid()} data-cy="error-message">
+              <ErrorMessage>{text}</ErrorMessage>
+            </div>
+          ))}
       </ErrorContainer>
     </Modal>
   );
