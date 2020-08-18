@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "components/Modal";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import {
@@ -26,10 +26,6 @@ export interface EditModalPropsState {
   initialKeyName?: string;
   initialKeyValue?: string;
   visible: boolean;
-  existingKeys?: {
-    name: string;
-    key?: string;
-  }[];
 }
 
 interface EditModalProps extends EditModalPropsState {
@@ -40,10 +36,13 @@ export const EditModal: React.FC<EditModalProps> = ({
   replaceKeyName,
   initialKeyName,
   initialKeyValue,
-  existingKeys,
   visible,
   onCancel,
 }) => {
+  const { data: myKeysData } = useQuery<
+    GetMyPublicKeysQuery,
+    GetMyPublicKeysQueryVariables
+  >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
   const dispatchBanner = useBannerDispatchContext();
   const [errors, setErrors] = useState<string[]>([]);
   const [updatePublicKey] = useMutation<
@@ -96,7 +95,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       inputErrors.push(EMPTY_KEY_NAME);
     }
     if (
-      existingKeys?.find(({ name }) => name === keyName) &&
+      myKeysData?.myPublicKeys.find(({ name }) => name === keyName) &&
       keyName !== replaceKeyName
     ) {
       inputErrors.push(DUPLICATE_KEY_NAME);
@@ -107,7 +106,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       inputErrors.push(INVALID_SSH_KEY);
     }
     setErrors(inputErrors);
-  }, [keyName, keyValue, replaceKeyName, existingKeys]);
+  }, [keyName, keyValue, replaceKeyName, myKeysData]);
 
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
