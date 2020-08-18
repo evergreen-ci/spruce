@@ -6,22 +6,23 @@ import Code from "@leafygreen-ui/code";
 import { StyledLink } from "components/styles";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { Collapse } from "antd";
+import { HostEvent, HostMonitorOp } from "types/host";
 
 const { Panel } = Collapse;
 
 const getTerminationString = (monitorOp: string) => {
   switch (monitorOp) {
-    case `decommissioned`:
+    case HostMonitorOp.Decommissioned:
       return `host was decommissioned.`;
-    case `idle`:
+    case HostMonitorOp.Idle:
       return `host was idle.`;
-    case `excess`:
+    case HostMonitorOp.Excess:
       return `pool exceeded maximum hosts limit.`;
-    case `provision_timeout`:
+    case HostMonitorOp.ProvisionTimeout:
       return `host took too long for provisioning to complete.`;
-    case `provision_failed`:
+    case HostMonitorOp.ProvisionFailed:
       return `provisioning failed.`;
-    case `expired`:
+    case HostMonitorOp.Expired:
       return `expiration time passed.`;
     default:
       return `${monitorOp}`;
@@ -33,19 +34,19 @@ export const getHostEventString = (
   data: HostEventLogData
 ) => {
   switch (eventType) {
-    case `HOST_CREATED`:
+    case HostEvent.Created:
       return `Host created`;
-    case `HOST_AGENT_DEPLOY_FAILED`:
+    case HostEvent.AgentDeployFailed:
       return `New agent deploy failed`;
-    case `HOST_PROVISION_ERROR`:
+    case HostEvent.ProvisionError:
       return `Host encountered error during provisioning`;
-    case `HOST_STARTED`:
+    case HostEvent.Started:
       return `Host start attempt ${data.successful ? "succeeded" : ""}`;
-    case `HOST_STOPPED`:
+    case HostEvent.Stopped:
       return `Host stop attempt ${data.successful ? "succeeded" : ""}`;
-    case `HOST_MODIFIED`:
+    case HostEvent.Modified:
       return `Host modify attempt ${data.successful ? "succeeded" : ""}`;
-    case `HOST_AGENT_DEPLOYED`:
+    case HostEvent.AgentDeployed:
       return (
         <div>
           {" "}
@@ -54,7 +55,7 @@ export const getHostEventString = (
           <b>{data.agentBuild}</b>{" "}
         </div>
       );
-    case `HOST_AGENT_MONITOR_DEPLOYED`:
+    case HostEvent.AgentMonitorDeployed:
       return (
         <div>
           {" "}
@@ -64,9 +65,9 @@ export const getHostEventString = (
           <b>{data.agentRevision}</b>{" "}
         </div>
       );
-    case `HOST_AGENT_MONITOR_DEPLOY_FAILED`:
+    case HostEvent.AgentMonitorDeployFailed:
       return `New agent monitor deploy failed`;
-    case `HOST_JASPER_RESTARTING`:
+    case HostEvent.HostJasperRestarting:
       return (
         <div>
           {" "}
@@ -74,7 +75,7 @@ export const getHostEventString = (
           <b>{data.user}</b>{" "}
         </div>
       );
-    case `HOST_JASPER_RESTARTED`:
+    case HostEvent.HostJasperRestarted:
       return (
         <div>
           {" "}
@@ -83,7 +84,7 @@ export const getHostEventString = (
           </b>{" "}
         </div>
       );
-    case `HOST_JASPER_RESTART_ERROR`:
+    case HostEvent.HostJasperRestartError:
       return (
         <div>
           {" "}
@@ -95,16 +96,15 @@ export const getHostEventString = (
           )}
         </div>
       );
-
-    case `HOST_CONVERTING_PROVISIONING`:
+    case HostEvent.HostConvertingProvisioning:
       return `Host converting provisioning type ${
         data.provisioningMethod ? "to" : ""
       }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
-    case `HOST_CONVERTED_PROVISIONING`:
+    case HostEvent.HostConvertedProvisioning:
       return `Host successfully converted provisioning type ${
         data.provisioningMethod ? "to" : ""
       }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
-    case `HOST_CONVERTING_PROVISIONING_ERROR`:
+    case HostEvent.HostConvertingProvisioningError:
       return (
         <div>
           Host encountered error when converting reprovisioning
@@ -115,7 +115,7 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_STATUS_CHANGED`:
+    case HostEvent.HostStatusChanged:
       return (
         <div>
           {" "}
@@ -132,14 +132,14 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_DNS_NAME_SET`:
+    case HostEvent.HostDNSNameSet:
       return (
         <div>
           {" "}
           DNS Name set to <b>${data.hostname}</b>{" "}
         </div>
       );
-    case `HOST_SCRIPT_EXECUTED`:
+    case HostEvent.HostScriptExecuted:
       return (
         <div>
           {" "}
@@ -151,7 +151,7 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_SCRIPT_EXECUTE_FAILED`:
+    case HostEvent.HostScriptExecuteFailed:
       return (
         <div>
           {" "}
@@ -163,13 +163,13 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_PROVISIONED`:
+    case HostEvent.HostProvisioned:
       return (
         <div>
           Marked as <b>provisioned</b>
         </div>
       );
-    case `HOST_RUNNING_TASK_SET`:
+    case HostEvent.HostRunningTaskSet:
       return (
         <div>
           {" "}
@@ -181,7 +181,7 @@ export const getHostEventString = (
           </StyledLink>
         </div>
       );
-    case `HOST_RUNNING_TASK_CLEARED`:
+    case HostEvent.HostRunningTaskCleared:
       return (
         <div>
           {" "}
@@ -194,14 +194,14 @@ export const getHostEventString = (
           )
         </div>
       );
-    case `HOST_TASK_PID_SET`:
+    case HostEvent.HostTaskPIDSet:
       return (
         <div>
           {" "}
           PID of running task set to <b>{data.taskPid}</b>{" "}
         </div>
       );
-    case `HOST_MONITOR_FLAG`:
+    case HostEvent.HostMonitorFlag:
       return (
         <div>
           {" "}
@@ -209,7 +209,7 @@ export const getHostEventString = (
           <b>{getTerminationString(data.monitorOp)}</b>
         </div>
       );
-    case `HOST_PROVISION_FAILED`:
+    case HostEvent.HostProvisionFailed:
       return (
         <div>
           {" "}
@@ -221,7 +221,7 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_TEARDOWN`:
+    case HostEvent.HostTeardown:
       return (
         <div>
           {" "}
@@ -238,7 +238,7 @@ export const getHostEventString = (
           )}
         </div>
       );
-    case `HOST_TASK_FINISHED`:
+    case HostEvent.HostTaskFinished:
       return (
         <div>
           {" "}
@@ -252,7 +252,7 @@ export const getHostEventString = (
           <b> {data.taskStatus}</b>{" "}
         </div>
       );
-    case `HOST_EXPIRATION_WARNING_SENT`:
+    case HostEvent.HostExpirationWarningSet:
       return "Expiration warning sent";
     default:
       return `${eventType}`;
