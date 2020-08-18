@@ -50,6 +50,9 @@ export const EditModal: React.FC<EditModalProps> = ({
         `There was an error editing the public key: ${error.message}`
       );
     },
+    onCompleted() {
+      dispatchBanner.clearAllBanners();
+    },
     update(cache, { data }) {
       cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,
@@ -65,6 +68,9 @@ export const EditModal: React.FC<EditModalProps> = ({
       dispatchBanner.errorBanner(
         `There was an error creating the public key: ${error.message}`
       );
+    },
+    onCompleted() {
+      dispatchBanner.clearAllBanners();
     },
     update(cache, { data }) {
       cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({

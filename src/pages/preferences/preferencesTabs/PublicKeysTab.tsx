@@ -35,6 +35,9 @@ export const PublicKeysTab: React.FC = () => {
         `There was an error fetching your public keys: ${error.message}`
       );
     },
+    onCompleted() {
+      dispatchBanner.clearAllBanners();
+    },
   });
   const [removePublicKey, { loading: loadingRemovePublicKey }] = useMutation<
     RemovePublicKeyMutation,
