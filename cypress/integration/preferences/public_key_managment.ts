@@ -91,9 +91,9 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey2);
       cy.dataCy("save-key-button").click();
-      cy.dataCy("table-key-name").each(($el, index) =>
-        cy.wrap($el).contains([keyName4][index])
-      );
+      cy.dataCy("table-key-name")
+        .first()
+        .contains(keyName4);
       cy.dataCy("edit-btn")
         .first()
         .click();
