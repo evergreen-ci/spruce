@@ -30,6 +30,7 @@ import "antd/es/select/style/css";
 import "antd/es/skeleton/style/css";
 import "antd/es/spin/style/css";
 import "antd/es/table/style/css";
+import "antd/es/collapse/style/css";
 
 const App: React.FC = () => (
   <ErrorBoundary>
