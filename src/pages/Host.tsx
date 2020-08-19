@@ -62,7 +62,6 @@ export const HostCore: React.FC = () => {
   >(GET_HOST_EVENTS, {
     variables: { id, tag },
   });
-  console.log(hostEventData, hostEventLoading);
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
