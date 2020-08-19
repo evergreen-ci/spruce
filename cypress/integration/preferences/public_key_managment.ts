@@ -91,6 +91,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").clear();
       cy.dataCy("key-value-input").type(pubKey2);
       cy.dataCy("save-key-button").click();
+      cy.wait(200); // prevent race condition caused by modal close animation
       cy.dataCy("table-key-name")
         .first()
         .contains(keyName4);
