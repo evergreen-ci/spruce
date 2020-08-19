@@ -83,6 +83,7 @@ export const EditModal: React.FC<EditModalProps> = ({
   const [keyName, setKeyName] = useState<string>();
   const [keyValue, setKeyValue] = useState<string>();
 
+  // reset state with initial value
   useEffect(() => {
     setKeyName(initialPublicKey?.name ?? "");
     setKeyValue(initialPublicKey?.key ?? "");
