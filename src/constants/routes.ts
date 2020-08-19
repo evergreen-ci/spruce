@@ -20,6 +20,7 @@ export const paths = {
   task: "/task",
   user: "/user",
   version: "/version",
+  taskQueue: "/task-queue",
 };
 
 export const routes = {
@@ -37,6 +38,7 @@ export const routes = {
   task: `${paths.task}/:id/:tab?`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
+  taskQueue: paths.taskQueue,
 };
 
 export enum PatchTab {
