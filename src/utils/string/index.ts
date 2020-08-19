@@ -122,7 +122,6 @@ export const getDateCopy = (time: Date, tz?: string) => {
   return "";
 };
 
-
 const SHORT_DATE_FORMAT = "M/d/yy h:m aa";
 export const shortDate = (d: Date): string =>
   d ? format(new Date(d), SHORT_DATE_FORMAT) : "";
