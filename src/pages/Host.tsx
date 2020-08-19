@@ -1,7 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import Code from "@leafygreen-ui/code";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { Banners } from "components/Banners";
@@ -16,11 +15,19 @@ import {
   HostEventsQueryVariables,
 } from "gql/generated/types";
 import { usePageTitle } from "hooks/usePageTitle";
-import { PageWrapper, PageSider, PageLayout } from "components/styles";
+import {
+  PageWrapper,
+  PageSider,
+  PageLayout,
+  PageContent,
+} from "components/styles";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
+import { HostTable } from "pages/host/HostTable";
+import Code from "@leafygreen-ui/code";
+import { useUserTimeZone } from "utils/string";
 import { withBannersContext } from "hoc/withBannersContext";
 
 export const HostCore: React.FC = () => {
@@ -28,7 +35,7 @@ export const HostCore: React.FC = () => {
   const bannersState = useBannerStateContext();
   const { id } = useParams<{ id: string }>();
   // Query host data
-  const { data: hostData, loading, error } = useQuery<
+  const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
     HostQuery,
     HostQueryVariables
   >(GET_HOST, {
@@ -46,6 +53,7 @@ export const HostCore: React.FC = () => {
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const tag = host?.tag ?? "";
+  const timeZone = useUserTimeZone();
 
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
@@ -69,15 +77,30 @@ export const HostCore: React.FC = () => {
           <PageTitle
             title={`Host: ${hostUrl}`}
             badge={<HostStatusBadge status={status} />}
-            loading={loading}
+            loading={hostMetaDataLoading}
             hasData
             size="large"
           />
           <PageLayout>
             <PageSider width={350}>
-              <Metadata loading={loading} data={hostData} error={error} />
+              <Metadata
+                loading={hostMetaDataLoading}
+                data={hostData}
+                error={error}
+                timeZone={timeZone}
+              />
               <Code language="shell">{sshCommand}</Code>
             </PageSider>
+            <PageLayout>
+              <PageContent>
+                <HostTable
+                  loading={hostEventLoading}
+                  eventData={hostEventData}
+                  error={error}
+                  timeZone={timeZone}
+                />
+              </PageContent>
+            </PageLayout>
           </PageLayout>
         </>
       )}
