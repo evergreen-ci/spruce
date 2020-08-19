@@ -12,15 +12,15 @@ interface SpawnHostCardProps {
 }
 
 export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
-  <SiderCard>
+  <StyledSiderCard data-cy="spawn-host-card">
     {Object.keys(spawnHostCardFieldMaps).map((key) => (
       <SpawnHostEntry
-        key={key}
+        key={`${key}_${spawnHostCardFieldMaps[key](host)}`}
         field={key}
         value={spawnHostCardFieldMaps[key](host)}
       />
     ))}
-  </SiderCard>
+  </StyledSiderCard>
 );
 
 interface SpawnHostEntryProps {
@@ -43,10 +43,10 @@ const spawnHostCardFieldMaps = {
       {host?.noExpiration ? "Does not expire" : getDateCopy(host?.expiration)}
     </span>
   ),
-  "SSH User": (host: Host) => <span>{host?.distro?.user}</span>,
-  "DNS Name": (host: Host) => <span>{host?.hostUrl}</span>,
-  "Working Directory": (host: Host) => <span>{host?.distro?.workDir}</span>,
-  "Availability Zone": (host: Host) => <span>{host?.distro?.user}</span>,
+  "SSH User": (host: Host) => <pre>{host?.distro?.user}</pre>,
+  "DNS Name": (host: Host) => <pre>{host?.hostUrl}</pre>,
+  "Working Directory": (host: Host) => <pre>{host?.distro?.workDir}</pre>,
+  "Availability Zone": (host: Host) => <span>{host?.availabilityZone}</span>,
   "User Tags": (host: Host) => (
     <span>
       {host?.instanceTags?.map((tag) => (
@@ -65,6 +65,10 @@ const spawnHostCardFieldMaps = {
     </span>
   ),
 };
+
+const StyledSiderCard = styled(SiderCard)`
+  width: 60%;
+`;
 const SpawnHostEntryWrapper = styled.div`
   display: flex;
   width: 100%;
@@ -73,5 +77,5 @@ const SpawnHostEntryWrapper = styled.div`
 `;
 
 const KeyWrapper = styled.div`
-  width: 150px;
+  min-width: 150px;
 `;
