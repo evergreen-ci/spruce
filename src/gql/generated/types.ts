@@ -463,6 +463,7 @@ export type PublicKeyInput = {
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
+  taskAllExecutions: Array<Task>;
   patch: Patch;
   projects: Projects;
   patchTasks: PatchTasks;
@@ -497,6 +498,10 @@ export type QueryUserPatchesArgs = {
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryTaskAllExecutionsArgs = {
+  taskId: Scalars["String"];
 };
 
 export type QueryPatchArgs = {
@@ -667,6 +672,7 @@ export type Task = {
   hostLink?: Maybe<Scalars["String"]>;
   restarts?: Maybe<Scalars["Int"]>;
   execution?: Maybe<Scalars["Int"]>;
+  latestExecution: Scalars["Int"];
   patchNumber?: Maybe<Scalars["Int"]>;
   requester: Scalars["String"];
   status: Scalars["String"];
@@ -1212,8 +1218,21 @@ export type SiteBannerQueryVariables = {};
 
 export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
 
+export type GetTaskAllExecutionsQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskAllExecutionsQuery = {
+  taskAllExecutions: Array<{
+    execution?: Maybe<number>;
+    status: string;
+    createTime?: Maybe<Date>;
+  }>;
+};
+
 export type TaskFilesQueryVariables = {
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type TaskFilesQuery = {
@@ -1297,6 +1316,7 @@ export type TaskTestsQueryVariables = {
   limitNum?: Maybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
   testName: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type TaskTestsQuery = {
@@ -1315,6 +1335,7 @@ export type TaskTestsQuery = {
 
 export type GetTaskQueryVariables = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type GetTaskQuery = {
@@ -1343,6 +1364,7 @@ export type GetTaskQuery = {
     canSetPriority: boolean;
     ami?: Maybe<string>;
     distroId: string;
+    latestExecution: number;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -1363,6 +1385,14 @@ export type GetTaskQuery = {
       eventLogLink?: Maybe<string>;
     };
   }>;
+};
+
+export type GetTaskLatestExecutionQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskLatestExecutionQuery = {
+  task?: Maybe<{ latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = {};

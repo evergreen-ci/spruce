@@ -2,7 +2,7 @@ import React from "react";
 import { StyledRouterLink } from "components/styles";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { usePatchAnalytics } from "analytics";
-import { mapVariantTaskStatusToColor, Square } from "./variantColors";
+import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
 
 interface Props {
   id: string;

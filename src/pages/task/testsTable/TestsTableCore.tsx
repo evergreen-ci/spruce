@@ -34,7 +34,8 @@ import { Table, Skeleton } from "antd";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { useTaskAnalytics } from "analytics";
-import { stringifyQuery, parseQueryString } from "utils";
+import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
+import { ExecutionAsData } from "pages/task/util/execution";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
@@ -263,6 +264,7 @@ const getQueryVariables = (
     ? rawStatuses
     : [rawStatuses]
   ).filter((v) => v && v !== TestStatus.All);
+  const execution = parsed[RequiredQueryParams.Execution];
   return {
     id: resourceId,
     cat,
@@ -271,5 +273,6 @@ const getQueryVariables = (
     statusList,
     testName,
     pageNum: getPageFromSearch(search),
+    execution: ExecutionAsData(queryParamAsNumber(execution)),
   };
 };
