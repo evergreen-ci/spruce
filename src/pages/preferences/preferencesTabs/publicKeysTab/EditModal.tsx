@@ -22,7 +22,7 @@ import { v4 as uuid } from "uuid";
 const { TextArea } = Input;
 
 export interface EditModalPropsState {
-  replaceKey?: { name: string; key: string };
+  initialPublicKey?: { name: string; key: string }; // initialPublicKey is the key that will be updated in the db when provided
   visible: boolean;
 }
 
@@ -31,7 +31,7 @@ interface EditModalProps extends EditModalPropsState {
 }
 
 export const EditModal: React.FC<EditModalProps> = ({
-  replaceKey,
+  initialPublicKey,
   visible,
   onCancel,
 }) => {
@@ -84,11 +84,11 @@ export const EditModal: React.FC<EditModalProps> = ({
   const [keyValue, setKeyValue] = useState<string>();
 
   useEffect(() => {
-    setKeyName(replaceKey?.name ?? "");
-    setKeyValue(replaceKey?.key ?? "");
-  }, [replaceKey]);
+    setKeyName(initialPublicKey?.name ?? "");
+    setKeyValue(initialPublicKey?.key ?? "");
+  }, [initialPublicKey]);
 
-  const replaceKeyName = replaceKey?.name;
+  const replaceKeyName = initialPublicKey?.name;
 
   // form validation
   useEffect(() => {
