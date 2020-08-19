@@ -23,9 +23,9 @@ describe("Public Key Management Page", () => {
         .first()
         .click();
       cy.get(popconfirmYesClassName).click();
-      cy.dataCy("table-key-name").each(($el, index) =>
-        cy.wrap($el).contains([keyName2][index])
-      );
+      cy.dataCy("table-key-name")
+        .first()
+        .contains(keyName2);
     });
     it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
       cy.dataCy("delete-btn")
@@ -57,9 +57,9 @@ describe("Public Key Management Page", () => {
         .type(pubKey)
         .then(() => {
           cy.dataCy("save-key-button").click();
-          cy.dataCy("table-key-name").each(($el, index) =>
-            cy.wrap($el).contains([keyName3][index])
-          );
+          cy.dataCy("table-key-name")
+            .first()
+            .contains(keyName3);
         });
     });
 
