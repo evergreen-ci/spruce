@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery, useApolloClient } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
@@ -8,30 +8,29 @@ import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
 import {
-  GithubUser,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   AwsRegionsQuery,
+  GetUserSettingsQuery,
+  GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { AWS_REGIONS } from "gql/queries";
+import { AWS_REGIONS, GET_USER_SETTINGS } from "gql/queries";
 import { omitTypename } from "utils/string";
 import { timeZones } from "constants/fieldMaps";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
 
-interface ProfileTabProps {
-  githubUser?: GithubUser;
-  timezone?: string;
-  region?: string;
-}
-export const ProfileTab: React.FC<ProfileTabProps> = ({
-  githubUser,
-  timezone,
-  region,
-}) => {
+export const ProfileTab: React.FC = () => {
+  const { userSettings } = useApolloClient().readQuery<
+    GetUserSettingsQuery,
+    GetUserConfigQueryVariables
+  >({
+    query: GET_USER_SETTINGS,
+  });
+  const { githubUser, timezone, region } = userSettings;
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);

@@ -1,22 +1,27 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import { Body } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
 import {
-  UseSpruceOptions,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
+  GetUserSettingsQuery,
+  GetUserConfigQueryVariables,
 } from "gql/generated/types";
 
-interface NewUITabProps {
-  useSpruceOptions: UseSpruceOptions;
-}
-export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
-  const { spruceV1, hasUsedSpruceBefore } = useSpruceOptions;
+export const NewUITab: React.FC = () => {
+  const { userSettings } = useApolloClient().readQuery<
+    GetUserSettingsQuery,
+    GetUserConfigQueryVariables
+  >({
+    query: GET_USER_SETTINGS,
+  });
+  const { spruceV1, hasUsedSpruceBefore } = userSettings.useSpruceOptions ?? {};
   const [checked, setChecked] = useState(spruceV1);
   const dispatchBanner = useBannerDispatchContext();
   const [updateUserSettings, { loading }] = useMutation<

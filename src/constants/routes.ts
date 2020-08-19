@@ -9,6 +9,14 @@ export enum SpawnTab {
   Volume = "volume",
 }
 
+export enum PreferencesTabRoutes {
+  Profile = "profile",
+  Notifications = "notifications",
+  CLI = "cli",
+  NewUI = "newUI",
+  PublicKeys = "publickeys",
+}
+
 export const paths = {
   commitQueue: "/commit-queue",
   host: "/host",
@@ -37,6 +45,11 @@ export const routes = {
   task: `${paths.task}/:id/:tab?`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
+  profilePreferences: [`${paths.preferences}/${PreferencesTabRoutes.Profile}`],
+  notificationsPreferences: `${paths.preferences}/${PreferencesTabRoutes.Notifications}`,
+  cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
+  newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
+  publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
 };
 
 export enum PatchTab {
@@ -45,14 +58,6 @@ export enum PatchTab {
 }
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
-
-export enum PreferencesTabRoutes {
-  Profile = "profile",
-  Notifications = "notifications",
-  CLI = "cli",
-  NewUI = "newUI",
-  PublicKeys = "publickeys",
-}
 
 export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
   `${paths.version}/${patchId}/${DEFAULT_PATCH_TAB}?${PatchTasksQueryParams.Variant}=${buildVariant}`;

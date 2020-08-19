@@ -1,29 +1,31 @@
 import React, { useState } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation, useApolloClient } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import {
-  Notifications,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
+  GetUserSettingsQuery,
+  GetUserConfigQueryVariables,
 } from "gql/generated/types";
+import { GET_USER_SETTINGS } from "gql/queries";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { omitTypename } from "utils/string";
 import { PreferencesModal } from "./PreferencesModal";
 import { NotificationField } from "./notificationTab/NotificationField";
 
-interface ProfileTabProps {
-  slackUsername?: string;
-  notifications?: Notifications;
-}
-export const NotificationsTab: React.FC<ProfileTabProps> = ({
-  slackUsername,
-  notifications,
-}) => {
+export const NotificationsTab: React.FC = () => {
+  const { userSettings } = useApolloClient().readQuery<
+    GetUserSettingsQuery,
+    GetUserConfigQueryVariables
+  >({
+    query: GET_USER_SETTINGS,
+  });
+  const { slackUsername, notifications } = userSettings;
   const [slackUsernameField, setslackUsernameField] = useState(slackUsername);
   const [notificationStatus, setNotificationStatus] = useState(notifications);
   const dispatchBanner = useBannerDispatchContext();

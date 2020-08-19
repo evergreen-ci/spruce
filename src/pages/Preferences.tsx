@@ -1,28 +1,16 @@
 import React from "react";
 import { useParams, Link, Redirect } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
-import get from "lodash/get";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { PageWrapper, PaddedSideNavItem } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
-import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
-import {
-  GetUserSettingsQuery,
-  GetUserSettingsQueryVariables,
-} from "gql/generated/types";
+
 import { usePageTitle } from "hooks";
 
 export const Preferences: React.FC = () => {
-  const { tab } = useParams<{ tab: string }>();
-  const { data, loading, error } = useQuery<
-    GetUserSettingsQuery,
-    GetUserSettingsQueryVariables
-  >(GET_USER_SETTINGS);
   usePageTitle("Preferences");
-  const userSettings = get(data, "userSettings");
-
+  const { tab } = useParams<{ tab: string }>();
   if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
     return <Redirect to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
   }
@@ -74,12 +62,7 @@ export const Preferences: React.FC = () => {
             </PaddedSideNavItem>
           </SideNavGroup>
         </SideNav>
-        <PreferencesTabs
-          tabKey={tab as PreferencesTabRoutes}
-          userSettings={userSettings}
-          loading={loading}
-          error={error}
-        />
+        <PreferencesTabs />
       </PageContainer>
     </PageWrapper>
   );
