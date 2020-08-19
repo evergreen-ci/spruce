@@ -8,3 +8,6 @@ export const getString = (param: string | string[] = ""): string =>
 
 export const getArray = (param: string | string[] = []): string[] =>
   Array.isArray(param) ? param : [param];
+
+export const queryParamAsNumber = (str: string | string[]) =>
+  !Number.isNaN(Number(str)) ? Number(str) : null;

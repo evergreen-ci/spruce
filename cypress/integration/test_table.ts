@@ -109,18 +109,6 @@ describe("Tests Table", () => {
       dir: "DESC",
     });
   });
-  it("Should not adjust URL params when clicking Logs tab", () => {
-    const assertInitialURLState = () =>
-      cy.location().should((loc) => {
-        expect(loc.pathname).to.equal(TESTS_ROUTE);
-        expect(loc.search).to.equal("");
-      });
-    cy.visit(TESTS_ROUTE);
-    assertInitialURLState();
-    waitForTestsQuery();
-    cy.contains(TABLE_SORT_SELECTOR, "Logs").click();
-    assertInitialURLState();
-  });
 
   it("Buttons in log column should have target=_blank attribute", () => {
     cy.visit(TESTS_ROUTE);
