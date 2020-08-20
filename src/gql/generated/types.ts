@@ -1206,6 +1206,7 @@ export type PatchTasksQuery = {
       baseStatus: string;
       displayName: string;
       buildVariant: string;
+      blocked: boolean;
     }>;
   };
 };
@@ -1389,6 +1390,7 @@ export type GetTaskQuery = {
     ami?: Maybe<string>;
     distroId: string;
     latestExecution: number;
+    blocked: boolean;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;

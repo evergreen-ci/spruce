@@ -14,7 +14,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Failed]: Variant.Red,
   [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.TaskTimedOut]: Variant.Red,
-  [TaskStatus.StatusBlocked]: Variant.DarkGray,
+  [TaskStatus.StatusBlocked]: Variant.Red,
   [TaskStatus.StatusPending]: Variant.LightGray,
 };
 
@@ -53,26 +53,38 @@ const StyledBadge = styled(Badge)`
   color: ${(props: BadgeColorProps): string => props.text} !important;
 `;
 
-export const TaskStatusBadge: React.FC<{ status: string }> = ({ status }) => {
-  if (status in mapTaskStatusToBadgeVariant) {
+interface TaskStatusBadgeProps {
+  status: string;
+  blocked: boolean;
+}
+export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
+  status,
+  blocked,
+}) => {
+  // We have to do this assignment because Blocked is not an official Task
+  // status from the tasks collection but we want to represent it in the badge.
+  const adjustedTaskStatus = blocked
+    ? (TaskStatus.StatusBlocked as string)
+    : status;
+  if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
       <Badge
-        data-cy="task-status-badge"
-        key={status}
-        variant={mapTaskStatusToBadgeVariant[status]}
+        data-cy="task-adjustedTaskStatus-badge"
+        key={adjustedTaskStatus}
+        variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
-        {taskStatusToCopy[status] ?? status}
+        {taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus}
       </Badge>
     );
   }
-  if (status in mapUnsupportedBadgeColors) {
+  if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
-        data-cy="task-status-badge"
-        key={status}
-        {...mapUnsupportedBadgeColors[status]}
+        data-cy="task-adjustedTaskStatus-badge"
+        key={adjustedTaskStatus}
+        {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
       >
-        {taskStatusToCopy[status] ?? status}
+        {taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus}
       </StyledBadge>
     );
   }
