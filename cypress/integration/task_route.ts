@@ -38,6 +38,13 @@ describe("Task Page Route", () => {
     cy.dataCy("task-status-badge").contains("Running");
   });
 
+  it("should display the status badge for a task (3)", () => {
+    cy.visit(
+      "/task/patch-2-evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_6ecedafb562343215a7ff297_20_05_27_21_39_46/logs?execution=1"
+    );
+    cy.dataCy("task-status-badge").contains("Blocked");
+  });
+
   it("should display different executions", () => {
     cy.visit(
       "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58/logs"
