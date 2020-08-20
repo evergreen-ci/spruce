@@ -23,7 +23,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
     });
 
-    it("should be able to switch to the new execution", () => {
+    xit("Should be able to switch to the new execution", () => {
       cy.dataCy("execution-select").click();
       cy.dataCy("execution-1").click();
       cy.dataCy("task-status-badge").contains("undispatched");
