@@ -24,8 +24,8 @@ describe("Task Action Buttons", () => {
     });
 
     it("should be able to switch to the new execution", () => {
-      cy.dataTestId("execution-select").click();
-      cy.dataTestId("execution-1").click();
+      cy.dataCy("execution-select").click();
+      cy.dataCy("execution-1").click();
       cy.dataCy("task-status-badge").contains("undispatched");
     });
 

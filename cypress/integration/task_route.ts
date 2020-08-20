@@ -43,9 +43,9 @@ describe("Task Page Route", () => {
       "/task/logkeeper_ubuntu_test_edd78c1d581bf757a880777b00685321685a8e67_16_10_20_21_58_58/logs"
     );
     cy.dataCy("task-status-badge").contains("undispatched");
-    cy.dataTestId("execution-select").click();
-    cy.dataTestId("execution-0").click();
-    cy.dataCy("task-status-badge").contains("success");
-    cy.location("search").should("include", "execution=1");
+    cy.dataCy("execution-select").click();
+    cy.dataCy("execution-1").click();
+    cy.dataCy("task-status-badge").contains("undispatched");
+    cy.location("search").should("include", "execution=2");
   });
 });
