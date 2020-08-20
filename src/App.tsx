@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Global, css } from "@emotion/core";
-import { ApolloClientProvider } from "gql/ApolloClientProvider";
+import GQLWrapper from "gql/GQLWrapper";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { Content } from "components/Content";
@@ -23,12 +23,13 @@ import "antd/es/select/style/css";
 import "antd/es/skeleton/style/css";
 import "antd/es/spin/style/css";
 import "antd/es/table/style/css";
+import "antd/es/collapse/style/css";
 
 const App: React.FC = () => (
   <ErrorBoundary>
     <ContextProviders>
       <Router>
-        <ApolloClientProvider>
+        <GQLWrapper>
           <Global
             styles={css`
               background-color: white;
@@ -36,7 +37,7 @@ const App: React.FC = () => (
             `}
           />
           <Content />
-        </ApolloClientProvider>
+        </GQLWrapper>
       </Router>
     </ContextProviders>
   </ErrorBoundary>
