@@ -23,12 +23,6 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
     });
 
-    it("Should be able to switch to the new execution", () => {
-      cy.dataCy("execution-select").click();
-      cy.dataCy("execution-1").click();
-      cy.dataCy("task-status-badge").contains("undispatched");
-    });
-
     it("Clicking Unschedule button should produce success banner", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
