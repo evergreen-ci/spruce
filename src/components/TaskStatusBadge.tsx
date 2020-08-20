@@ -69,7 +69,7 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
       <Badge
-        data-cy="task-adjustedTaskStatus-badge"
+        data-cy={dataCy}
         key={adjustedTaskStatus}
         variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
@@ -80,7 +80,7 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
-        data-cy="task-adjustedTaskStatus-badge"
+        data-cy={dataCy}
         key={adjustedTaskStatus}
         {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
       >
@@ -92,3 +92,5 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   reportError(err).severe();
   throw err;
 };
+
+const dataCy = "task-status-badge";
