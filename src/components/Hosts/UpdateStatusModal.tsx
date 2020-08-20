@@ -21,6 +21,7 @@ interface Props {
   dataCy: string;
   hostIds: string[];
   closeModal: () => void;
+  isSingleHost?: boolean;
 }
 
 export const UpdateStatusModal: React.FC<Props> = ({
@@ -28,6 +29,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   dataCy,
   hostIds,
   closeModal,
+  isSingleHost = false,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
@@ -39,7 +41,6 @@ export const UpdateStatusModal: React.FC<Props> = ({
     setHostStatus(null);
     setNotesValue("");
   };
-
   // UPDATE HOST STATUS MUTATION
   const [updateHostStatus, { loading: loadingUpdateHostStatus }] = useMutation<
     UpdateHostStatusMutation,
@@ -47,11 +48,19 @@ export const UpdateStatusModal: React.FC<Props> = ({
   >(UPDATE_HOST_STATUS, {
     onCompleted({ updateHostStatus: numberOfHostsUpdated }) {
       closeModal();
-      dispatchBanner.successBanner(
-        `Status was changed to ${status} for ${numberOfHostsUpdated} host${
-          numberOfHostsUpdated === 1 ? "" : "s"
-        }`
-      );
+      if (isSingleHost) {
+        dispatchBanner.successBanner(
+          `Status was changed to ${status}
+          `
+        );
+      } else {
+        dispatchBanner.successBanner(
+          `Status was changed to ${status} for ${numberOfHostsUpdated} host${
+            numberOfHostsUpdated === 1 ? "" : "s"
+          }`
+        );
+      }
+
       resetForm();
     },
     onError(error) {

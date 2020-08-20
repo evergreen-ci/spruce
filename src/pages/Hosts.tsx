@@ -253,19 +253,19 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
   };
 };
 
-const SubtitleDataWrapper = styled.div`
+export const SubtitleDataWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   height: 70px;
 `;
-const HostsSelectionWrapper = styled.div`
+export const HostsSelectionWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   margin-left: 32px;
 `;
-const ButtonWrapper = styled.div`
+export const ButtonWrapper = styled.div`
   margin-left: 24px;
 `;
 

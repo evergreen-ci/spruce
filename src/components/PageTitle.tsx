@@ -76,5 +76,5 @@ const PageHeader = styled.div<TitleTypographyProps>`
 `;
 
 const TitleWrapper = styled.div<TitleTypographyProps>`
-  width: ${(props) => (props.size === "medium" ? "70%" : "100%")};
+  width: ${(props) => (props.size === "medium" ? "70%" : "78%")};
 `;
