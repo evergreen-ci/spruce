@@ -45,7 +45,7 @@ describe("Version Subscription Modal", () => {
       cy.dataTestId("1-display-name-option").should(
         "have.css",
         "user-select",
-        "none"
+        "auto"
       );
     });
 
