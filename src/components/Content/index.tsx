@@ -37,12 +37,15 @@ export const Content: React.FC = () => {
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
     GET_USER_SETTINGS
   );
+
   localStorage.setItem("userId", get(data, "user.userId", ""));
+
   const hasUsedSpruceBefore = get(
     userSettingsData,
     "userSettings.useSpruceOptions.hasUsedSpruceBefore",
     true
   );
+
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
