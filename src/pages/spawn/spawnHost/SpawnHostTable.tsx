@@ -1,77 +1,24 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import Button, { Size } from "@leafygreen-ui/button";
-import Tooltip from "@leafygreen-ui/tooltip";
 import { Table } from "antd";
 import { formatDistanceToNow } from "date-fns";
+import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import Icon from "components/icons/Icon";
 import { Host } from "gql/generated/types";
-import {
-  copyToClipboard,
-  sortFunctionDate,
-  sortFunctionString,
-} from "utils/string";
-import { SpawnHostActionButton } from "./SpawnHostActionButton";
+import { parseQueryString } from "utils";
+import { sortFunctionDate, sortFunctionString } from "utils/string";
+import { SpawnHostCard } from "./SpawnHostCard";
+import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
   hosts: Host[];
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
-  const columns = [
-    {
-      title: "Host",
-      dataIndex: "id",
-      key: "host",
-      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "id"),
-      render: (_, host: Host) =>
-        host?.distro?.isVirtualWorkStation ? (
-          <FlexContainer>
-            <HostIdSpan>{host.id}</HostIdSpan>
-            <WorkstationBadge>WORKSTATION</WorkstationBadge>
-          </FlexContainer>
-        ) : (
-          <HostIdSpan>{host.id}</HostIdSpan>
-        ),
-    },
-    {
-      title: "Distro",
-      dataIndex: "distro",
-      key: "distro",
-      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "distro.id"),
-      render: (distro) => distro.id,
-    },
-    {
-      title: "Status",
-      dataIndex: "status",
-      key: "status",
-      sorter: (a: Host, b: Host) => sortFunctionString(a, b, "status"),
-      render: (status) => <HostStatusBadge status={status} />,
-    },
-    {
-      title: "Expires In",
-      dataIndex: "expiration",
-      key: "expiration",
-      sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "expiration"),
-      render: (expiration, host: Host) =>
-        host?.noExpiration
-          ? "Does not expire"
-          : formatDistanceToNow(new Date(expiration)),
-    },
-    {
-      title: "Uptime",
-      dataIndex: "uptime",
-      key: "uptime",
-      sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "uptime"),
-      render: (uptime) => formatDistanceToNow(new Date(uptime)),
-    },
-    {
-      title: "Action",
-      key: "action",
-      render: (_, host) => <SpawnHostActions host={host} />,
-    },
-  ];
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
+  const host = queryParams?.host;
   return (
     <Container>
       <Table
@@ -79,42 +26,71 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
         dataSource={hosts}
         rowKey={(record) => record.id}
         pagination={false}
+        expandedRowRender={(record: Host) => <SpawnHostCard host={record} />}
+        expandIcon={({ expanded }) => (
+          <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
+        )}
+        defaultExpandedRowKeys={[host as string]}
+        expandRowByClick
       />
     </Container>
   );
 };
+const columns = [
+  {
+    title: "Host",
+    dataIndex: "id",
+    key: "host",
+    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "id"),
+    render: (_, host: Host) =>
+      host?.distro?.isVirtualWorkStation ? (
+        <FlexContainer>
+          <HostIdSpan>{host.id}</HostIdSpan>
+          <WorkstationBadge>WORKSTATION</WorkstationBadge>
+        </FlexContainer>
+      ) : (
+        <HostIdSpan>{host.id}</HostIdSpan>
+      ),
+  },
+  {
+    title: "Distro",
+    dataIndex: "distro",
+    key: "distro",
+    width: 100,
+    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "distro.id"),
+    render: (distro) => distro.id,
+  },
+  {
+    title: "Status",
+    dataIndex: "status",
+    key: "status",
+    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "status"),
+    render: (status) => <HostStatusBadge status={status} />,
+  },
+  {
+    title: "Expires In",
+    dataIndex: "expiration",
+    key: "expiration",
+    sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "expiration"),
+    render: (expiration, host: Host) =>
+      host?.noExpiration
+        ? "Does not expire"
+        : formatDistanceToNow(new Date(expiration)),
+  },
+  {
+    title: "Uptime",
+    dataIndex: "uptime",
+    key: "uptime",
 
-const SpawnHostActions: React.FC<{ host: Host }> = ({ host }) => (
-  <ActionButtonContainer>
-    <SpawnHostActionButton host={host} />
-    <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
-    <CopySSHCommandButton host={host} />
-    <PaddedButton size={Size.XSmall}>Edit</PaddedButton>
-  </ActionButtonContainer>
-);
-
-const CopySSHCommandButton: React.FC<{ host: Host }> = ({ host }) => {
-  const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
-
-  return (
-    <Tooltip
-      align="top"
-      justify="middle"
-      trigger={
-        <PaddedButton
-          onClick={() => copyToClipboard(sshCommand)}
-          size={Size.XSmall}
-        >
-          Copy SSH command
-        </PaddedButton>
-      }
-      triggerEvent="click"
-      variant="light"
-    >
-      Copied!
-    </Tooltip>
-  );
-};
+    sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "uptime"),
+    render: (uptime) => formatDistanceToNow(new Date(uptime)),
+  },
+  {
+    title: "Action",
+    key: "action",
+    render: (_, host) => <SpawnHostTableActions host={host} />,
+  },
+];
 
 const FlexContainer = styled.div`
   display: flex;
@@ -130,15 +106,6 @@ const HostIdSpan = styled.span`
   word-break: break-all;
   overflow: scroll;
   width: 150px;
-`;
-
-const ActionButtonContainer = styled(FlexContainer)`
-  flex-shrink: 0;
-`;
-
-const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
 `;
 
 const Container = styled.div`

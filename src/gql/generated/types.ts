@@ -1134,6 +1134,15 @@ export type MyHostsQuery = {
       user?: Maybe<string>;
       workDir?: Maybe<string>;
     }>;
+    instanceTags?: Maybe<
+      Array<
+        Maybe<{
+          key?: Maybe<string>;
+          value?: Maybe<string>;
+          canBeModified?: Maybe<boolean>;
+        }>
+      >
+    >;
   }>;
 };
 
