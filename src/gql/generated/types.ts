@@ -484,6 +484,8 @@ export type Query = {
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
   distros: Array<Maybe<Distro>>;
+  instanceTypes: Array<Scalars["String"]>;
+  distroTaskQueue: Array<TaskQueueItem>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -577,6 +579,10 @@ export type QueryHostsArgs = {
 
 export type QueryDistrosArgs = {
   onlySpawnable: Scalars["Boolean"];
+};
+
+export type QueryDistroTaskQueueArgs = {
+  distroId: Scalars["String"];
 };
 
 export type RecentTaskLogs = {
@@ -738,6 +744,22 @@ export type TaskLogLinks = {
   taskLogLink?: Maybe<Scalars["String"]>;
   eventLogLink?: Maybe<Scalars["String"]>;
 };
+
+export type TaskQueueItem = {
+  id: Scalars["ID"];
+  displayName: Scalars["String"];
+  project: Scalars["String"];
+  buildVariant: Scalars["String"];
+  expectedDuration: Scalars["Duration"];
+  priority: Scalars["Int"];
+  revision: Scalars["String"];
+  requester: TaskQueueItemType;
+};
+
+export enum TaskQueueItemType {
+  Commit = "COMMIT",
+  Patch = "PATCH",
+}
 
 export type TaskResult = {
   id: Scalars["ID"];

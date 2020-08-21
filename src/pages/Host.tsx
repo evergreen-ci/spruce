@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { Popconfirm } from "antd";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/react-hooks";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { Banners } from "components/Banners";
@@ -14,8 +13,6 @@ import {
   HostQueryVariables,
   HostEventsQuery,
   HostEventsQueryVariables,
-  RestartJasperMutation,
-  RestartJasperMutationVariables,
 } from "gql/generated/types";
 import { usePageTitle } from "hooks/usePageTitle";
 import {
@@ -33,8 +30,8 @@ import Code from "@leafygreen-ui/code";
 import { useUserTimeZone } from "utils/string";
 import { withBannersContext } from "hoc/withBannersContext";
 import { Button } from "components/Button";
-import { RESTART_JASPER } from "gql/mutations";
 import { UpdateStatusModal } from "components/Hosts";
+import { RestartJasper } from "pages/hosts/RestartJasper";
 import { ButtonWrapper } from "./Hosts";
 
 export const HostCore: React.FC = () => {
@@ -70,22 +67,6 @@ export const HostCore: React.FC = () => {
     variables: { id, tag },
   });
 
-  // RESTART JASPER MUTATION
-  const [restartJasper, { loading: loadingRestartJasper }] = useMutation<
-    RestartJasperMutation,
-    RestartJasperMutationVariables
-  >(RESTART_JASPER, {
-    onCompleted() {
-      dispatchBanner.successBanner(`Jasper was restarted`);
-    },
-    onError({ message }) {
-      dispatchBanner.errorBanner(message);
-    },
-  });
-
-  const onClickRestartJasperConfirm = () =>
-    restartJasper({ variables: { hostIds: [id] } });
-
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
     boolean
@@ -115,20 +96,7 @@ export const HostCore: React.FC = () => {
                   </Button>
                 </ButtonWrapper>
                 <ButtonWrapper>
-                  <Popconfirm
-                    title={`Restart Jasper for host ${hostUrl}?`}
-                    onConfirm={onClickRestartJasperConfirm}
-                    icon={null}
-                    placement="bottom"
-                    okText="Yes"
-                    okButtonProps={{ loading: loadingRestartJasper }}
-                    cancelText="No"
-                    cancelButtonProps={{ disabled: loadingRestartJasper }}
-                  >
-                    <Button dataCy="restart-jasper-button">
-                      Restart Jasper
-                    </Button>
-                  </Popconfirm>
+                  <RestartJasper ids={[id]} hostUrl={hostUrl} isSingleHost />
                 </ButtonWrapper>
               </>
             }
