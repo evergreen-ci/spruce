@@ -1,12 +1,12 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../utils/popconfirm";
 
-describe("Task Action Buttons", () => {
+xdescribe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
 
-  describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
+  xdescribe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
