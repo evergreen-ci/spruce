@@ -113,7 +113,9 @@ const TaskCore: React.FC = () => {
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
   const patchAuthor = data?.task.patchMetadata.author;
+
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
+
   // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,

@@ -186,7 +186,7 @@ export const ActionButtons = ({
             type="number"
             max={Number.MAX_SAFE_INTEGER}
             value={priority}
-            onChange={setPriority}
+            onChange={(val) => setPriority(val as number)}
           />
         </>
       }

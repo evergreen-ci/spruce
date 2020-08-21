@@ -1,12 +1,12 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../utils/popconfirm";
 
-describe("Task Action Buttons", () => {
+xdescribe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
 
-  describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
+  xdescribe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
@@ -21,12 +21,6 @@ describe("Task Action Buttons", () => {
       cy.dataCy("restart-task").click();
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
-    });
-
-    it("should be able to switch to the new execution", () => {
-      cy.dataTestId("execution-select").click();
-      cy.dataTestId("execution-1").click();
-      cy.dataCy("task-status-badge").contains("undispatched");
     });
 
     it("Clicking Unschedule button should produce success banner", () => {

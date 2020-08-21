@@ -63,7 +63,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
             type="number"
             max={Number.MAX_SAFE_INTEGER}
             value={priority}
-            onChange={setPriority}
+            onChange={(value) => setPriority(value as number)}
           />
         </>
       }

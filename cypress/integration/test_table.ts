@@ -327,7 +327,7 @@ describe("Tests Table", () => {
   });
 });
 
-const TABLE_SORT_SELECTOR = ".ant-table-column-title";
+const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
 const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
