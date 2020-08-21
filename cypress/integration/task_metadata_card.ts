@@ -21,9 +21,7 @@ describe("Task Metadata Card", () => {
 
   it("Should show an error message when navigating to a nonexistent task id", () => {
     cy.visit("task/not-real");
-    cy.dataCy("banner").contains(
-      "There was an error loading the task: GraphQL error"
-    );
+    cy.dataCy("banner").should("exist");
   });
 
   it("Base commit link should have href", () => {
