@@ -222,7 +222,7 @@ const HostsSelectionWrapper = styled.div`
   align-items: center;
   margin-left: 32px;
 `;
-export const ButtonWrapper = styled.div`
+const ButtonWrapper = styled.div`
   margin-left: 24px;
 `;
 
