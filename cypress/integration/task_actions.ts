@@ -1,4 +1,5 @@
 // / <reference types="Cypress" />
+import { popconfirmYesClassName } from "../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
   before(() => {
@@ -22,6 +23,12 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
     });
 
+    it("should be able to switch to the new execution", () => {
+      cy.dataTestId("execution-select").click();
+      cy.dataTestId("execution-1").click();
+      cy.dataCy("task-status-badge").contains("undispatched");
+    });
+
     it("Clicking Unschedule button should produce success banner", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
@@ -39,7 +46,7 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-input-number-input")
         .clear()
         .type("99");
-      cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+      cy.get(popconfirmYesClassName)
         .contains("Set")
         .click({ force: true });
       cy.wait(200);

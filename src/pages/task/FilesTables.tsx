@@ -7,7 +7,7 @@ import {
   GroupedFiles,
 } from "gql/generated/types";
 import { H3 } from "components/Typography";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import { Table, Skeleton, Input } from "antd";
@@ -17,6 +17,9 @@ import debounce from "lodash.debounce";
 import { SortOrder } from "antd/es/table/interface";
 import get from "lodash/get";
 import { Body } from "@leafygreen-ui/typography";
+import { queryParamAsNumber, parseQueryString } from "utils";
+import { ExecutionAsData } from "pages/task/util/execution";
+import { RequiredQueryParams } from "types/task";
 
 const columns = [
   {
@@ -40,12 +43,18 @@ const columns = [
 
 export const FilesTables: React.FC = () => {
   const { id } = useParams();
+  const { search: queryVars } = useLocation();
+  const parsed = parseQueryString(queryVars);
+  const initialExecution = queryParamAsNumber(
+    parsed[RequiredQueryParams.Execution]
+  );
   const { data, loading, error } = useQuery<
     TaskFilesQuery,
     TaskFilesQueryVariables
   >(GET_TASK_FILES, {
     variables: {
       id,
+      execution: ExecutionAsData(initialExecution),
     },
   });
   const [filterStr, setFilterStr] = useState("");

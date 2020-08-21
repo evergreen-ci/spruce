@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 // / <reference path="../../support/index.d.ts" />
-
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
 
 const patchIdWithWorkingReconfigureLink = "5ecedafb562343215a7ff297";
@@ -18,7 +18,7 @@ describe("Patch Action Buttons", () => {
 
   it("Clicking 'Schedule' button shows popconfirm and banner on success", () => {
     cy.dataCy("schedule-patch").click();
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner").should("exist");
@@ -27,7 +27,7 @@ describe("Patch Action Buttons", () => {
   it("Error scheduling a version shows error banner", () => {
     cy.dataCy("schedule-patch").click();
     mockErrorResponse({ errorMessage: "There was an error scheduling tasks" });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner")
@@ -39,7 +39,7 @@ describe("Patch Action Buttons", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("unschedule-patch").click();
     cy.dataCy("abort-checkbox").check({ force: true });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner").should("exist");
@@ -51,7 +51,7 @@ describe("Patch Action Buttons", () => {
     mockErrorResponse({
       errorMessage: "There was an error unscheduling tasks",
     });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner")
@@ -78,7 +78,7 @@ describe("Patch Action Buttons", () => {
     cy.get(".ant-input-number-input")
       .clear()
       .type(priority);
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Set")
       .click({ force: true });
     cy.dataCy("banner")
@@ -95,7 +95,7 @@ describe("Patch Action Buttons", () => {
     mockErrorResponse({
       errorMessage: "There was an error setting priority",
     });
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Set")
       .click({ force: true });
     cy.dataCy("banner")
@@ -106,7 +106,7 @@ describe("Patch Action Buttons", () => {
   it("Clicking 'Enqueue Patch' button shows popconfirm with input and banner on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("enqueue-patch").click();
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm")
+    cy.get(popconfirmYesClassName)
       .contains("Yes")
       .click({ force: true });
     cy.dataCy("banner")

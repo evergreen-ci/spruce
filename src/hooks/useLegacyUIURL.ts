@@ -17,6 +17,7 @@ export const useLegacyUIURL = (): string | null => {
     [routes.configurePatch]: `${uiURL}/patch/${id}`,
     [routes.userPatches]: `${uiURL}/patches/user/${id}`,
     [routes.task]: `${uiURL}/task/${id}`,
+    [routes.spawnHost]: `${uiURL}/spawn`,
   };
   useEffect(() => {
     const legacyUIKeys = Object.keys(legacyUIMap);

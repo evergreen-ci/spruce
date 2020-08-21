@@ -1,11 +1,11 @@
 import { gql } from "@apollo/client";
 
 export const GET_TASK = gql`
-  query GetTask($taskId: String!) {
-    taskFiles(taskId: $taskId) {
+  query GetTask($taskId: String!, $execution: Int) {
+    taskFiles(taskId: $taskId, execution: $execution) {
       fileCount
     }
-    task(taskId: $taskId) {
+    task(taskId: $taskId, execution: $execution) {
       activatedBy
       baseTaskMetadata {
         baseTaskDuration
@@ -50,6 +50,15 @@ export const GET_TASK = gql`
       canSetPriority
       ami
       distroId
+      latestExecution
+    }
+  }
+`;
+
+export const GET_TASK_LATEST_EXECUTION = gql`
+  query GetTaskLatestExecution($taskId: String!) {
+    task(taskId: $taskId) {
+      latestExecution
     }
   }
 `;

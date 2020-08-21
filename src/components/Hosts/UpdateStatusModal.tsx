@@ -57,7 +57,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
     onError(error) {
       closeModal();
       dispatchBanner.errorBanner(
-        `There was an error updating hosts status: ${error}`
+        `There was an error updating hosts status: ${error.message}`
       );
     },
     refetchQueries: ["Hosts"],
@@ -134,18 +134,23 @@ interface Status {
 
 const hostStatuses: Status[] = [
   {
-    title: "Start",
-    value: UpdateHostStatus.Start,
-    key: UpdateHostStatus.Start,
+    title: "Decommissioned",
+    value: UpdateHostStatus.Decommissioned,
+    key: UpdateHostStatus.Decommissioned,
   },
   {
-    title: "Stop",
-    value: UpdateHostStatus.Stop,
-    key: UpdateHostStatus.Stop,
+    title: "Quarantined",
+    value: UpdateHostStatus.Quarantined,
+    key: UpdateHostStatus.Quarantined,
   },
   {
-    title: "Terminate",
-    value: UpdateHostStatus.Terminate,
-    key: UpdateHostStatus.Terminate,
+    title: "Running",
+    value: UpdateHostStatus.Running,
+    key: UpdateHostStatus.Running,
+  },
+  {
+    title: "Terminated",
+    value: UpdateHostStatus.Terminated,
+    key: UpdateHostStatus.Terminated,
   },
 ];

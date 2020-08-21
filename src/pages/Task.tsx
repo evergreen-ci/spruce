@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { TestsTable } from "pages/task/TestsTable";
 import { FilesTables } from "pages/task/FilesTables";
 import { BreadCrumb } from "components/Breadcrumb";
@@ -10,13 +10,14 @@ import { Logs } from "pages/task/Logs";
 import { useQuery } from "@apollo/client";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { ActionButtons } from "pages/task/ActionButtons";
+import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import {
   PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
 } from "components/styles";
-import { GET_TASK } from "gql/queries/get-task";
+import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -29,11 +30,14 @@ import {
 } from "context/banners";
 import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
-import { TaskTab } from "types/task";
+import { TaskTab, RequiredQueryParams } from "types/task";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { Metadata } from "pages/task/Metadata";
 import { useTaskAnalytics } from "analytics";
 import { pollInterval } from "constants/index";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
+import { parseQueryString } from "utils";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -53,22 +57,40 @@ const TaskCore: React.FC = () => {
     tabToIndexMap,
     defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
   });
-
-  // logic for tabs + updating url when they change
-  const [selectedTab, selectTabHandler] = useTabs({
-    tabToIndexMap,
-    defaultTab: DEFAULT_TAB,
-    path: `${paths.task}/${id}`,
-    sendAnalyticsEvent: (tab: string) =>
-      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
-  });
+  const { search: queryVars } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
+  const parsed = parseQueryString(queryVars);
+  const initialExecution = Number(parsed[RequiredQueryParams.Execution]);
+  const { data: latest } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
+    GET_TASK_LATEST_EXECUTION,
+    {
+      variables: { taskId: id },
+      onError: (err) =>
+        dispatchBanner.errorBanner(
+          `There was an error loading the task: ${err.message}`
+        ),
+    }
+  );
+  const [execution, setExecution] = useState(
+    !Number.isNaN(initialExecution)
+      ? ExecutionAsData(initialExecution)
+      : latest?.task?.latestExecution
+  );
+  useEffect(() => {
+    if (Number.isNaN(initialExecution) && latest?.task) {
+      setExecution(latest?.task?.latestExecution);
+      updateQueryParams({
+        execution: `${ExecutionAsDisplay(latest?.task?.latestExecution)}`,
+      });
+    }
+  }, [latest, initialExecution, updateQueryParams]);
 
   // Query task data
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     GetTaskQuery,
     GetTaskQueryVariables
   >(GET_TASK, {
-    variables: { taskId: id },
+    variables: { taskId: id, execution },
     pollInterval,
     onError: (err) =>
       dispatchBanner.errorBanner(
@@ -92,6 +114,17 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const patchAuthor = data?.task.patchMetadata.author;
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
+  // logic for tabs + updating url when they change
+  const [selectedTab, selectTabHandler] = useTabs({
+    tabToIndexMap,
+    defaultTab: DEFAULT_TAB,
+    path: `${paths.task}/${id}`,
+    query: new URLSearchParams(
+      `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(execution)}`
+    ),
+    sendAnalyticsEvent: (tab: string) =>
+      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
+  });
 
   if (error) {
     stopPolling();
@@ -144,6 +177,19 @@ const TaskCore: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
+          {task?.latestExecution > 0 && (
+            <ExecutionSelect
+              id={id}
+              currentExecution={execution}
+              latestExecution={latest?.task?.latestExecution}
+              updateExecution={(n: number) => {
+                setExecution(n);
+                updateQueryParams({
+                  execution: `${ExecutionAsDisplay(n)}`,
+                });
+              }}
+            />
+          )}
           <Metadata data={data} loading={loading} error={error} />
         </PageSider>
         <LogWrapper>

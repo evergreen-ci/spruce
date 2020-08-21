@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
-import { H2 } from "@leafygreen-ui/typography";
+import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ApolloError } from "@apollo/client";
 import { UserSettings } from "gql/generated/types";
@@ -34,10 +34,16 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
   useEffect(() => {
     dispatchBanner.clearAllBanners();
   }, [tabKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const { title, Component } = getTitleAndComponent(tabKey, userSettings);
+  const { title, Component, subtitle } = getTitleAndComponent(
+    tabKey,
+    userSettings
+  );
   return (
     <Container>
-      <Title data-cy="preferences-tab-title">{title}</Title>
+      <TitleContainer>
+        <H2 data-cy="preferences-tab-title">{title}</H2>
+        {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      </TitleContainer>
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
@@ -51,7 +57,7 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
 const getTitleAndComponent = (
   tabKey: PreferencesTabRoutes = PreferencesTabRoutes.Profile,
   userSettings: UserSettings
-): { title: string; Component: React.FC } => {
+): { title: string; Component: React.FC; subtitle?: string } => {
   const {
     githubUser,
     timezone,
@@ -85,6 +91,7 @@ const getTitleAndComponent = (
       },
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
+        subtitle: "These keys will be used to SSH into spawned hosts",
         Component: () => <PublicKeysTab />,
       },
     }[tabKey] ?? defaultTitleAndComponent
@@ -96,8 +103,11 @@ const Container = styled.div`
   width: 60%;
 `;
 
-const Title = styled(H2)`
+const TitleContainer = styled.div`
   margin-bottom: 30px;
 `;
 
+const Subtitle = styled(Disclaimer)`
+  padding-top: 16px;
+`;
 export const PreferencesTabs = withBannersContext(Tabs);

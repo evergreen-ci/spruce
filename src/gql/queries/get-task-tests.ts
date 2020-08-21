@@ -9,6 +9,7 @@ export const GET_TASK_TESTS = gql`
     $limitNum: Int
     $statusList: [String!]!
     $testName: String!
+    $execution: Int
   ) {
     taskTests(
       taskId: $id
@@ -18,6 +19,7 @@ export const GET_TASK_TESTS = gql`
       limit: $limitNum
       statuses: $statusList
       testName: $testName
+      execution: $execution
     ) {
       testResults {
         id

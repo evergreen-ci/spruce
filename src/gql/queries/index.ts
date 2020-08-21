@@ -15,10 +15,18 @@ export {
   GET_SYSTEM_LOGS,
 } from "./get-task-logs";
 export { GET_TASK_TESTS } from "./get-task-tests";
-export { GET_TASK, MetStatus, RequiredStatus } from "./get-task";
+export {
+  GET_TASK,
+  GET_TASK_LATEST_EXECUTION,
+  MetStatus,
+  RequiredStatus,
+} from "./get-task";
+export { GET_TASK_ALL_EXECUTIONS } from "./get-task-all-executions";
 export { GET_USER, GET_OTHER_USER } from "./get-user";
 export { GET_CLIENT_CONFIG } from "./get-client-config";
 export { GET_PATCH_TASK_STATUSES } from "./get-patch-task-statuses";
 export { AWS_REGIONS } from "./aws-regions";
 export { GET_SITE_BANNER } from "./get-site-banner";
 export { HOSTS } from "./hosts";
+export { GET_MY_PUBLIC_KEYS } from "./get-public-keys";
+export { GET_MY_HOSTS } from "./get-my-hosts";

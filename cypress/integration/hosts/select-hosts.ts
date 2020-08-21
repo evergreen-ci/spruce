@@ -1,3 +1,4 @@
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 const hostsRoute = "/hosts";
 
 describe("Select hosts in hosts page table", () => {
@@ -45,7 +46,7 @@ describe("Select hosts in hosts page table", () => {
 
     cy.dataCy("restart-jasper-button").click();
 
-    cy.get(".ant-btn.ant-btn-primary.ant-btn-sm").click();
+    cy.get(popconfirmYesClassName).click();
 
     cy.dataCy("banner").should("exist");
   });

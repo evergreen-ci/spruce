@@ -1,17 +1,19 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import { StyledLink } from "components/styles";
-import { HostMetaDataCard } from "pages/host/HostMetaDataCard";
 import { HostQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
 import { P2 } from "components/Typography";
+import { HostCard } from "pages/host/HostCard";
+import styled from "@emotion/styled";
 
 export const Metadata: React.FC<{
   loading: boolean;
   data: HostQuery;
   error: ApolloError;
-}> = ({ loading, data, error }) => {
+  timeZone: string;
+}> = ({ loading, data, error, timeZone }) => {
   const host = data?.host ?? null;
 
   const hostUrl = host?.hostUrl;
@@ -29,24 +31,31 @@ export const Metadata: React.FC<{
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (
-    <HostMetaDataCard error={error} loading={loading}>
+    <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
-      <P2>Last Communication: {getDateCopy(lastCommunicationTime)}</P2>
+      <P2>
+        Last Communication: {getDateCopy(lastCommunicationTime, timeZone)}
+      </P2>
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
       <P2>
-        Distro:{" "}
-        <StyledLink data-cy="task-distro-link" href={distroLink}>
-          {distroId}
-        </StyledLink>
+        Distro: <StyledLink href={distroLink}>{distroId}</StyledLink>
       </P2>
       <P2>
         Current Task:{" "}
-        <StyledLink data-cy="task-distro-link" href={taskLink}>
-          {runningTaskName}
-        </StyledLink>
+        {runningTaskName ? (
+          <StyledLink data-cy="task-distro-link" href={taskLink}>
+            {runningTaskName}
+          </StyledLink>
+        ) : (
+          <Italic>none</Italic>
+        )}
       </P2>
-    </HostMetaDataCard>
+    </HostCard>
   );
 };
+
+const Italic = styled.i`
+  color: silver;
+`;

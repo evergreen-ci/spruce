@@ -62,6 +62,14 @@ export type DisplayTask = {
   ExecTasks: Array<Scalars["String"]>;
 };
 
+export type Distro = {
+  name?: Maybe<Scalars["String"]>;
+  userSpawnAllowed?: Maybe<Scalars["Boolean"]>;
+  workDir?: Maybe<Scalars["String"]>;
+  user?: Maybe<Scalars["String"]>;
+  isVirtualWorkStation: Scalars["Boolean"];
+};
+
 export type DistroInfo = {
   id?: Maybe<Scalars["String"]>;
   workDir?: Maybe<Scalars["String"]>;
@@ -226,6 +234,8 @@ export type Mutation = {
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
+  spawnHost: Host;
+  updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
 };
@@ -313,6 +323,15 @@ export type MutationUpdateHostStatusArgs = {
 
 export type MutationCreatePublicKeyArgs = {
   publicKeyInput: PublicKeyInput;
+};
+
+export type MutationSpawnHostArgs = {
+  spawnHostInput?: Maybe<SpawnHostInput>;
+};
+
+export type MutationUpdateSpawnHostStatusArgs = {
+  hostId: Scalars["String"];
+  action: SpawnHostStatusActions;
 };
 
 export type MutationRemovePublicKeyArgs = {
@@ -444,6 +463,7 @@ export type PublicKeyInput = {
 export type Query = {
   userPatches: UserPatches;
   task?: Maybe<Task>;
+  taskAllExecutions: Array<Task>;
   patch: Patch;
   projects: Projects;
   patchTasks: PatchTasks;
@@ -461,8 +481,9 @@ export type Query = {
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
-  myHosts?: Maybe<Array<Host>>;
+  myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
+  distros: Array<Maybe<Distro>>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -477,6 +498,10 @@ export type QueryUserPatchesArgs = {
 export type QueryTaskArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type QueryTaskAllExecutionsArgs = {
+  taskId: Scalars["String"];
 };
 
 export type QueryPatchArgs = {
@@ -550,6 +575,10 @@ export type QueryHostsArgs = {
   limit?: Maybe<Scalars["Int"]>;
 };
 
+export type QueryDistrosArgs = {
+  onlySpawnable: Scalars["Boolean"];
+};
+
 export type RecentTaskLogs = {
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
@@ -590,6 +619,12 @@ export type SpawnHostInput = {
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
 };
+
+export enum SpawnHostStatusActions {
+  Start = "START",
+  Stop = "STOP",
+  Terminate = "TERMINATE",
+}
 
 export type SubscriberInput = {
   type: Scalars["String"];
@@ -637,6 +672,7 @@ export type Task = {
   hostLink?: Maybe<Scalars["String"]>;
   restarts?: Maybe<Scalars["Int"]>;
   execution?: Maybe<Scalars["Int"]>;
+  latestExecution: Scalars["Int"];
   patchNumber?: Maybe<Scalars["Int"]>;
   requester: Scalars["String"];
   status: Scalars["String"];
@@ -836,6 +872,14 @@ export type RemovePatchFromCommitQueueMutationVariables = {
 
 export type RemovePatchFromCommitQueueMutation = {
   removePatchFromCommitQueue?: Maybe<string>;
+};
+
+export type RemovePublicKeyMutationVariables = {
+  keyName: Scalars["String"];
+};
+
+export type RemovePublicKeyMutation = {
+  removePublicKey: Array<{ key: string; name: string }>;
 };
 
 export type RestartJasperMutationVariables = {
@@ -1068,6 +1112,31 @@ export type HostQuery = {
   }>;
 };
 
+export type MyHostsQueryVariables = {};
+
+export type MyHostsQuery = {
+  myHosts: Array<{
+    expiration?: Maybe<Date>;
+    hostUrl: string;
+    homeVolumeID?: Maybe<string>;
+    id: string;
+    instanceType?: Maybe<string>;
+    noExpiration: boolean;
+    provider: string;
+    status: string;
+    startedBy: string;
+    tag: string;
+    user?: Maybe<string>;
+    uptime?: Maybe<Date>;
+    distro?: Maybe<{
+      isVirtualWorkStation?: Maybe<boolean>;
+      id?: Maybe<string>;
+      user?: Maybe<string>;
+      workDir?: Maybe<string>;
+    }>;
+  }>;
+};
+
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars["String"];
 };
@@ -1139,12 +1208,31 @@ export type ProjectsQuery = {
   };
 };
 
+export type GetMyPublicKeysQueryVariables = {};
+
+export type GetMyPublicKeysQuery = {
+  myPublicKeys: Array<{ name: string; key: string }>;
+};
+
 export type SiteBannerQueryVariables = {};
 
 export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
 
+export type GetTaskAllExecutionsQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskAllExecutionsQuery = {
+  taskAllExecutions: Array<{
+    execution?: Maybe<number>;
+    status: string;
+    createTime?: Maybe<Date>;
+  }>;
+};
+
 export type TaskFilesQueryVariables = {
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type TaskFilesQuery = {
@@ -1228,6 +1316,7 @@ export type TaskTestsQueryVariables = {
   limitNum?: Maybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
   testName: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type TaskTestsQuery = {
@@ -1246,6 +1335,7 @@ export type TaskTestsQuery = {
 
 export type GetTaskQueryVariables = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type GetTaskQuery = {
@@ -1274,6 +1364,7 @@ export type GetTaskQuery = {
     canSetPriority: boolean;
     ami?: Maybe<string>;
     distroId: string;
+    latestExecution: number;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -1294,6 +1385,14 @@ export type GetTaskQuery = {
       eventLogLink?: Maybe<string>;
     };
   }>;
+};
+
+export type GetTaskLatestExecutionQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetTaskLatestExecutionQuery = {
+  task?: Maybe<{ latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = {};
