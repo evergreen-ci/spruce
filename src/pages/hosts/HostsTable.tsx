@@ -1,5 +1,6 @@
 import React from "react";
-import { ColumnProps, TableRowSelection } from "antd/es/table";
+import { ColumnProps } from "antd/es/table";
+import { TableRowSelection } from "antd/es/table/interface";
 import { Table } from "antd";
 import {
   Host,

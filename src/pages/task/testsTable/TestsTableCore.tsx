@@ -79,9 +79,9 @@ export const TestsTableCore: React.FC = () => {
   });
 
   // update url query params when user event triggers change
-  const tableChangeHandler: TableOnChange<TestResult> = (
-    ...[, , { order, columnKey }]
-  ) => {
+  const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
+    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
+
     const nextQueryParams = stringifyQuery({
       ...parseQueryString(search),
       [RequiredQueryParams.Category]: columnKey,
