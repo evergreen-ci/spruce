@@ -253,13 +253,13 @@ const getQueryVariables = (search: string): HostsQueryVariables => {
   };
 };
 
-export const SubtitleDataWrapper = styled.div`
+const SubtitleDataWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
   height: 70px;
 `;
-export const HostsSelectionWrapper = styled.div`
+const HostsSelectionWrapper = styled.div`
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
