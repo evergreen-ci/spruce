@@ -16,9 +16,9 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
-  const tableChangeHandler: TableOnChange<TaskResult> = (
-    ...[, , { order, columnKey }]
-  ) => {
+  const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
+    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
+
     const nextQueryParams = queryString.stringify(
       {
         ...queryString.parse(search, { arrayFormat }),

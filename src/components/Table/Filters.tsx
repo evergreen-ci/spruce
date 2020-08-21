@@ -1,5 +1,6 @@
 import React from "react";
-import { Input, Icon } from "antd";
+import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
+import { Input } from "antd";
 import { Button } from "components/Button";
 import { TreeDataEntry } from "components/TreeSelect";
 import { CheckboxGroup } from "components/Checkbox";
@@ -70,9 +71,8 @@ export const getColumnSearchFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <Icon
+    <SearchOutlined
       data-cy={dataCy}
-      type="search"
       style={{ color: value ? uiColors.blue.base : undefined }}
     />
   ),
@@ -136,9 +136,8 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <Icon
+    <FilterOutlined
       data-cy={dataCy}
-      type="filter"
       style={{ color: value.length ? uiColors.blue.base : undefined }}
     />
   ),

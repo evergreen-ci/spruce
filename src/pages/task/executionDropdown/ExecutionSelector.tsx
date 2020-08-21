@@ -40,7 +40,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
       placeholder="Choose an execution"
       disabled={executionsLoading}
       key={currentExecution}
-      data-test-id="execution-select"
+      data-cy="execution-select"
       value={`Execution ${ExecutionAsDisplay(currentExecution)}${
         currentExecution === latestExecution ? " (latest)" : ""
       }`}
@@ -52,7 +52,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
         <Option
           key={singleExecution.execution}
           value={singleExecution.execution}
-          data-test-id={`execution-${singleExecution.execution}`}
+          data-cy={`execution-${singleExecution.execution}`}
         >
           <StyledSquare
             color={mapVariantTaskStatusToColor[singleExecution.status]}
