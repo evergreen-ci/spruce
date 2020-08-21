@@ -4,8 +4,6 @@ const hostTableRow = ".ant-table-row";
 const hostColumnHeader =
   ":nth-child(2) > .ant-table-header-column > .ant-table-column-sorters";
 
-// const hostColumnHeader =
-//   ".ant-table-column-sort > .ant-table-header-column > .ant-table-column-sorters";
 const unsortedSpawnHostOrder = ["i-092593689871a50dc", "i-04ade558e1e26b0ad"];
 const ascendingSortSpawnHostOrderByHostId = [
   "i-04ade558e1e26b0ad",
