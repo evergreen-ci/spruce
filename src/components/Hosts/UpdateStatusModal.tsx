@@ -45,6 +45,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
     setHostStatus(null);
     setNotesValue("");
   };
+
   // UPDATE HOST STATUS MUTATION
   const [updateHostStatus, { loading: loadingUpdateHostStatus }] = useMutation<
     UpdateHostStatusMutation,
