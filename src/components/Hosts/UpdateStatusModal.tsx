@@ -48,18 +48,13 @@ export const UpdateStatusModal: React.FC<Props> = ({
   >(UPDATE_HOST_STATUS, {
     onCompleted({ updateHostStatus: numberOfHostsUpdated }) {
       closeModal();
-      if (isSingleHost) {
-        dispatchBanner.successBanner(
-          `Status was changed to ${status}
-          `
-        );
-      } else {
-        dispatchBanner.successBanner(
-          `Status was changed to ${status} for ${numberOfHostsUpdated} host${
+      const message = isSingleHost
+        ? `Status was changed to ${status}`
+        : `Status was changed to ${status} for ${numberOfHostsUpdated} host${
             numberOfHostsUpdated === 1 ? "" : "s"
-          }`
-        );
-      }
+          }`;
+
+      dispatchBanner.successBanner(message);
 
       resetForm();
     },
