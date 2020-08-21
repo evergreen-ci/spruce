@@ -2,7 +2,7 @@
 
 const hostTableRow = ".ant-table-row";
 const hostColumnHeader =
-  ":nth-child(2) > .ant-table-header-column > .ant-table-column-sorters";
+  ":nth-child(2) > .ant-table-column-sorters-with-tooltip";
 
 const unsortedSpawnHostOrder = ["i-092593689871a50dc", "i-04ade558e1e26b0ad"];
 const ascendingSortSpawnHostOrderByHostId = [
