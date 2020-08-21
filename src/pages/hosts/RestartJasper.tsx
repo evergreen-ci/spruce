@@ -22,7 +22,7 @@ export const RestartJasper: React.FC<Props> = ({
   hostUrl,
   isSingleHost,
 }) => {
-  const hostsTableAnalytics = useHostsTableAnalytics();
+  const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchBanner = useBannerDispatchContext();
 
   // RESTART JASPER MUTATION

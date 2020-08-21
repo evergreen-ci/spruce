@@ -13,6 +13,8 @@ import { useBannerDispatchContext } from "context/banners";
 import { UpdateHostStatus } from "types/host";
 import { Body } from "@leafygreen-ui/typography";
 
+import { useHostsTableAnalytics } from "analytics";
+
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -36,6 +38,8 @@ export const UpdateStatusModal: React.FC<Props> = ({
   const [status, setHostStatus] = useState<UpdateHostStatus>(null);
 
   const [notes, setNotesValue] = useState<string>("");
+
+  const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
 
   const resetForm = () => {
     setHostStatus(null);
@@ -68,6 +72,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   });
 
   const onClickUpdate = () => {
+    hostsTableAnalytics.sendEvent({ name: "Update Status", status });
     updateHostStatus({ variables: { hostIds, status, notes } });
   };
 

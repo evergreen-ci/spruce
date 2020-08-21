@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import styled from "@emotion/styled";
 import { useQuery } from "@apollo/react-hooks";
+import Code from "@leafygreen-ui/code";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { Banners } from "components/Banners";
@@ -26,13 +28,11 @@ import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
 import { HostTable } from "pages/host/HostTable";
-import Code from "@leafygreen-ui/code";
 import { useUserTimeZone } from "utils/string";
 import { withBannersContext } from "hoc/withBannersContext";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
 import { RestartJasper } from "pages/hosts/RestartJasper";
-import styled from "@emotion/styled";
 
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -90,16 +90,18 @@ export const HostCore: React.FC = () => {
             size="large"
             buttons={
               <div>
-                <ButtonWrapper>
-                  <Button onClick={() => setIsUpdateStatusModalVisible(true)}>
-                    Update Status
-                  </Button>
-                </ButtonWrapper>
-                <RestartJasper
-                  selectedHostIds={[id]}
-                  hostUrl={hostUrl}
-                  isSingleHost
-                />
+                <ButtonsWrapper>
+                  <ButtonSpacer>
+                    <Button onClick={() => setIsUpdateStatusModalVisible(true)}>
+                      Update Status
+                    </Button>
+                  </ButtonSpacer>
+                  <RestartJasper
+                    selectedHostIds={[id]}
+                    hostUrl={hostUrl}
+                    isSingleHost
+                  />
+                </ButtonsWrapper>
               </div>
             }
           />
@@ -137,7 +139,12 @@ export const HostCore: React.FC = () => {
     </PageWrapper>
   );
 };
-const ButtonWrapper = styled.span`
+const ButtonSpacer = styled.span`
   margin-right: 32px;
 `;
+
+const ButtonsWrapper = styled.div`
+  white-space: nowrap;
+`;
+
 export const Host = withBannersContext(HostCore);
