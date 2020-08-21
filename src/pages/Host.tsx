@@ -33,7 +33,6 @@ import { withBannersContext } from "hoc/withBannersContext";
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
-
   const { id } = useParams<{ id: string }>();
   // Query host data
   const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
@@ -41,6 +40,11 @@ export const HostCore: React.FC = () => {
     HostQueryVariables
   >(GET_HOST, {
     variables: { id },
+    onError: (err) => {
+      dispatchBanner.errorBanner(
+        `There was an error loading the host: ${err.message}`
+      );
+    },
   });
 
   const host = hostData?.host;
@@ -67,34 +71,38 @@ export const HostCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle
-        title={`Host: ${hostUrl}`}
-        badge={<HostStatusBadge status={status} />}
-        loading={hostMetaDataLoading}
-        hasData
-        size="large"
-      />
-      <PageLayout>
-        <PageSider width={350}>
-          <Metadata
+      {host && (
+        <>
+          <PageTitle
+            title={`Host: ${hostUrl}`}
+            badge={<HostStatusBadge status={status} />}
             loading={hostMetaDataLoading}
-            data={hostData}
-            error={error}
-            timeZone={timeZone}
+            hasData
+            size="large"
           />
-          <Code language="shell">{sshCommand}</Code>
-        </PageSider>
-        <PageLayout>
-          <PageContent>
-            <HostTable
-              loading={hostEventLoading}
-              eventData={hostEventData}
-              error={error}
-              timeZone={timeZone}
-            />
-          </PageContent>
-        </PageLayout>
-      </PageLayout>
+          <PageLayout>
+            <PageSider width={350}>
+              <Metadata
+                loading={hostMetaDataLoading}
+                data={hostData}
+                error={error}
+                timeZone={timeZone}
+              />
+              <Code language="shell">{sshCommand}</Code>
+            </PageSider>
+            <PageLayout>
+              <PageContent>
+                <HostTable
+                  loading={hostEventLoading}
+                  eventData={hostEventData}
+                  error={error}
+                  timeZone={timeZone}
+                />
+              </PageContent>
+            </PageLayout>
+          </PageLayout>
+        </>
+      )}
     </PageWrapper>
   );
 };

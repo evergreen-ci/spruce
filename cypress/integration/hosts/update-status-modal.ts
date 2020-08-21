@@ -13,7 +13,7 @@ describe("Update Status Modal", () => {
   });
 
   it("Update status for selected hosts", () => {
-    cy.get(".ant-table-header-column").within(() => {
+    cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 
@@ -33,9 +33,7 @@ describe("Update Status Modal", () => {
     cy.dataCy("update-status-button").click();
 
     cy.dataCy("host-status-select").within(() => {
-      cy.get(".ant-select-selection-selected-value")
-        .should("have.attr", "title")
-        .and("not.contain.value");
+      cy.get(".ant-select-selection-item").should("not.exist");
     });
 
     cy.dataCy("host-status-notes")
@@ -44,7 +42,7 @@ describe("Update Status Modal", () => {
   });
 
   it("Clears form values when modal is closed", () => {
-    cy.get(".ant-table-header-column").within(() => {
+    cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 
@@ -61,9 +59,7 @@ describe("Update Status Modal", () => {
     cy.dataCy("update-status-button").click();
 
     cy.dataCy("host-status-select").within(() => {
-      cy.get(".ant-select-selection-selected-value")
-        .should("have.attr", "title")
-        .and("not.contain.value");
+      cy.get(".ant-select-selection-item").should("not.exist");
     });
 
     cy.dataCy("host-status-notes")

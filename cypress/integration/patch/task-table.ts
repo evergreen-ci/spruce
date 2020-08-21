@@ -183,7 +183,7 @@ const fourthPageDisplayNames = [
   "test-validator",
   "test-model-2",
 ];
-const TABLE_SORT_SELECTOR = ".ant-table-column-title";
+const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 
 const locationHasUpdatedParams = (sortBy, sortDir) => {
   cy.location().should((loc) => {
