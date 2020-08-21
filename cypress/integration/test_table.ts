@@ -161,28 +161,30 @@ describe("Tests Table", () => {
       { display: "Skip", key: "skip" },
     ];
 
-    statuses.forEach(({ display, key }) => {
-      it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
-          checkboxDisplayName: display,
-          pathname: TESTS_ROUTE,
-          paramName: "statuses",
-          search: key,
-          query: {
-            name: "TaskTests",
-            responseName: "taskTests.testResults",
-            requestVariables: {
-              cat: "STATUS",
-              dir: "ASC",
-              statusList: [key],
-              limitNum: 10,
-              pageNum: 0,
-              testName: "",
-            },
-          },
-        });
-      });
-    });
+    // THESE TESTS CAN BE DELETED ONCE TABLE FILTERS ARE REPLACED WITH INLINE FILTERS
+
+    // statuses.forEach(({ display, key }) => {
+    //   it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
+    //     clickingCheckboxUpdatesUrlAndRendersFetchedResults({
+    //       checkboxDisplayName: display,
+    //       pathname: TESTS_ROUTE,
+    //       paramName: "statuses",
+    //       search: key,
+    //       query: {
+    //         name: "TaskTests",
+    //         responseName: "taskTests.testResults",
+    //         requestVariables: {
+    //           cat: "STATUS",
+    //           dir: "ASC",
+    //           statusList: [key],
+    //           limitNum: 10,
+    //           pageNum: 0,
+    //           testName: "",
+    //         },
+    //       },
+    //     });
+    //   });
+    // });
 
     it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
