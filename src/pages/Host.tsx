@@ -96,7 +96,11 @@ export const HostCore: React.FC = () => {
                   </Button>
                 </ButtonWrapper>
                 <ButtonWrapper>
-                  <RestartJasper ids={[id]} hostUrl={hostUrl} isSingleHost />
+                  <RestartJasper
+                    selectedHostIds={[id]}
+                    hostUrl={hostUrl}
+                    isSingleHost
+                  />
                 </ButtonWrapper>
               </>
             }

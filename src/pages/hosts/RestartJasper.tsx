@@ -9,32 +9,54 @@ import { RESTART_JASPER } from "gql/mutations";
 import { useBannerDispatchContext } from "context/banners";
 import { Button } from "components/Button";
 
+import { useHostsTableAnalytics } from "analytics";
+
 interface Props {
-  ids: string[];
+  selectedHostIds: string[];
   hostUrl?: string;
-  isSingleHost: boolean;
+  isSingleHost?: boolean;
 }
 
-export const RestartJasper: React.FC<Props> = ({ ids, hostUrl }) => {
+export const RestartJasper: React.FC<Props> = ({
+  selectedHostIds,
+  hostUrl,
+  isSingleHost,
+}) => {
+  const hostsTableAnalytics = useHostsTableAnalytics();
   const dispatchBanner = useBannerDispatchContext();
+
   // RESTART JASPER MUTATION
   const [restartJasper, { loading: loadingRestartJasper }] = useMutation<
     RestartJasperMutation,
     RestartJasperMutationVariables
   >(RESTART_JASPER, {
-    onCompleted() {
-      dispatchBanner.successBanner(`Jasper was restarted`);
+    onCompleted({ restartJasper: numberOfHostsUpdated }) {
+      const successMessage = isSingleHost
+        ? `Jasper was restarted`
+        : `Jasper was restarted for ${numberOfHostsUpdated} host${
+            numberOfHostsUpdated === 1 ? "" : "s"
+          }`;
+      dispatchBanner.successBanner(successMessage);
     },
     onError({ message }) {
       dispatchBanner.errorBanner(message);
     },
   });
 
-  const onClickRestartJasperConfirm = () =>
-    restartJasper({ variables: { hostIds: ids } });
+  const onClickRestartJasperConfirm = () => {
+    hostsTableAnalytics.sendEvent({ name: "Restart Jasper" });
+    restartJasper({ variables: { hostIds: selectedHostIds } });
+  };
+
+  const titleText = isSingleHost
+    ? `Restart Jasper for host ${hostUrl}?`
+    : `Restart Jasper for ${selectedHostIds.length} host${
+        selectedHostIds.length > 1 ? "s" : ""
+      }?`;
+
   return (
     <Popconfirm
-      title={`Restart Jasper for host ${hostUrl}?`}
+      title={titleText}
       onConfirm={onClickRestartJasperConfirm}
       icon={null}
       placement="bottom"
@@ -43,7 +65,12 @@ export const RestartJasper: React.FC<Props> = ({ ids, hostUrl }) => {
       cancelText="No"
       cancelButtonProps={{ disabled: loadingRestartJasper }}
     >
-      <Button dataCy="restart-jasper-button">Restart Jasper</Button>
+      <Button
+        dataCy="restart-jasper-button"
+        disabled={selectedHostIds.length === 0}
+      >
+        Restart Jasper
+      </Button>
     </Popconfirm>
   );
 };
