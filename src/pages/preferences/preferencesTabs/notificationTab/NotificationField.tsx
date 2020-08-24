@@ -26,7 +26,7 @@ export const NotificationField: React.FC<NotificationFieldProps> = ({
     value={notificationStatus[notification]}
   >
     <GridField gridArea={`${2 + index}/ 1 / ${2 + index} / 3`}>
-      {notificationFields[notification]}
+      <FieldLabel>{notificationFields[notification]}</FieldLabel>
     </GridField>
     <GridField gridArea={`${2 + index} / 3 / ${2 + index} / 4`}>
       <Radio value="email" />
@@ -47,4 +47,8 @@ const GridCapableRadioGroup = styled(Radio.Group)`
 const GridField = styled.div`
   height: 50px;
   grid-area: ${(props: { gridArea: string }): string => props.gridArea};
+`;
+
+const FieldLabel = styled.span`
+  font-size: 14px;
 `;

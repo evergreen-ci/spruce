@@ -1,30 +1,24 @@
 import React, { useState } from "react";
-import { useMutation, useApolloClient } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/react-hooks";
 import { Body } from "@leafygreen-ui/typography";
 import Toggle from "@leafygreen-ui/toggle";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
-import { GET_USER_SETTINGS } from "gql/queries/get-user-settings";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
-  GetUserSettingsQuery,
-  GetUserConfigQueryVariables,
 } from "gql/generated/types";
+import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {
-  const { userSettings } = useApolloClient().readQuery<
-    GetUserSettingsQuery,
-    GetUserConfigQueryVariables
-  >({
-    query: GET_USER_SETTINGS,
-  });
-  const { spruceV1, hasUsedSpruceBefore } = userSettings.useSpruceOptions ?? {};
+  const { data, loadingComp } = useUserSettingsQuery();
+  const { spruceV1, hasUsedSpruceBefore } =
+    data?.userSettings?.useSpruceOptions ?? {};
   const [checked, setChecked] = useState(spruceV1);
   const dispatchBanner = useBannerDispatchContext();
-  const [updateUserSettings, { loading }] = useMutation<
+  const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
@@ -39,6 +33,11 @@ export const NewUITab: React.FC = () => {
       );
     },
   });
+
+  if (loadingComp) {
+    return loadingComp;
+  }
+
   const handleToggle = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
@@ -63,7 +62,11 @@ export const NewUITab: React.FC = () => {
         Direct all inbound links to the new Evergreen UI, whenever possible
         (e.g. from the CLI, GitHub, etc.)
       </PaddedBody>
-      <Toggle checked={checked} disabled={loading} onClick={handleToggle} />
+      <Toggle
+        checked={checked}
+        disabled={updateLoading}
+        onClick={handleToggle}
+      />
     </PreferencesCard>
   );
 };

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery, useApolloClient } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/react-hooks";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
@@ -11,26 +11,20 @@ import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   AwsRegionsQuery,
-  GetUserSettingsQuery,
-  GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { AWS_REGIONS, GET_USER_SETTINGS } from "gql/queries";
+import { AWS_REGIONS } from "gql/queries";
 import { omitTypename } from "utils/string";
 import { timeZones } from "constants/fieldMaps";
+import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
 
 export const ProfileTab: React.FC = () => {
-  const { userSettings } = useApolloClient().readQuery<
-    GetUserSettingsQuery,
-    GetUserConfigQueryVariables
-  >({
-    query: GET_USER_SETTINGS,
-  });
-  const { githubUser, timezone, region } = userSettings;
+  const { data, loadingComp } = useUserSettingsQuery();
+  const { githubUser, timezone, region } = data?.userSettings ?? {};
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
@@ -39,12 +33,12 @@ export const ProfileTab: React.FC = () => {
     get(githubUser, "githubUser.lastKnownAs")
   );
   useEffect(() => {
-    setGithubUsernameField(githubUser.lastKnownAs);
+    setGithubUsernameField(githubUser?.lastKnownAs);
     setTimezoneField(timezone);
     setRegionField(region);
   }, [githubUser, timezone, region]);
   const dispatchBanner = useBannerDispatchContext();
-  const [updateUserSettings, { loading }] = useMutation<
+  const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
@@ -60,8 +54,13 @@ export const ProfileTab: React.FC = () => {
     },
   });
 
-  const { data } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
-  const awsRegions = get(data, "awsRegions", []);
+  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
+
+  if (loadingComp) {
+    return loadingComp;
+  }
+
+  const awsRegions = get(awsRegionData, "awsRegions", []);
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
@@ -119,7 +118,7 @@ export const ProfileTab: React.FC = () => {
           <Button
             data-cy="save-profile-changes-button"
             variant={Variant.Primary}
-            disabled={!hasFieldUpdates || loading}
+            disabled={!hasFieldUpdates || updateLoading}
             onClick={handleSave}
           >
             Save Changes
