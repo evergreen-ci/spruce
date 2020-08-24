@@ -156,17 +156,19 @@ export const EditModal: React.FC<EditModalProps> = ({
       }
       title={replaceKeyName ? "Update Public Key" : "Add Public Key"}
     >
-      <InputLabel>Key Name</InputLabel>
+      <InputLabel htmlFor={KEY_NAME_ID}>Key Name</InputLabel>
       <StyledInput
         value={keyName}
         onChange={(e) => {
           setKeyName(e.target.value);
         }}
-        data-cy="key-name-input"
+        id={KEY_NAME_ID}
+        data-cy={KEY_NAME_ID}
       />
-      <InputLabel>Public Key</InputLabel>
+      <InputLabel htmlFor={KEY_VALUE_ID}>Public Key</InputLabel>
       <TextArea
-        data-cy="key-value-input"
+        id={KEY_VALUE_ID}
+        data-cy={KEY_VALUE_ID}
         value={keyValue}
         autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => setKeyValue(e.target.value)}
@@ -186,13 +188,14 @@ export const EditModal: React.FC<EditModalProps> = ({
 const LeftButton = styled(Button)`
   margin-right: 16px;
 `;
-
 const StyledInput = styled(Input)`
   margin-bottom: 24px;
 `;
 const ErrorContainer = styled.div`
   margin-top: 8px;
 `;
+const KEY_NAME_ID = "key-name-input";
+const KEY_VALUE_ID = "key-value-input";
 const DUPLICATE_KEY_NAME = "The key name already exists.";
 const INVALID_SSH_KEY = "The SSH key must begin with 'ssh-rsa' or 'ssh-dss'.";
 const EMPTY_KEY_NAME = "The key name cannot be empty.";
