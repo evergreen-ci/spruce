@@ -1,7 +1,6 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
 import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
-import { Icon } from "antd";
+import { LoadingOutlined } from "@ant-design/icons";
 
 interface ButtonType {
   danger: string;
@@ -41,7 +40,7 @@ export const Button: React.FC<Props> = ({
     variant={mapVariantToLeafyGreenVariant[variant]}
     onClick={onClick}
     disabled={disabled}
-    glyph={loading ? <StyledIcon type="loading" /> : glyph}
+    glyph={loading ? <LoadingOutlined style={{ marginRight: "8px" }} /> : glyph}
     href={href}
     target={target}
     size={size}
@@ -57,7 +56,3 @@ const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
   [Variant.Info]: "info",
   [Variant.Primary]: "primary",
 };
-
-const StyledIcon = styled(Icon)`
-  margin-right: 8px;
-`;

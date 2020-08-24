@@ -23,7 +23,7 @@ describe("Select hosts in hosts page table", () => {
       .should("have.attr", "aria-disabled")
       .and("eq", "true");
 
-    cy.get(".ant-table-header-column").within(() => {
+    cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 
@@ -40,7 +40,7 @@ describe("Select hosts in hosts page table", () => {
 
     cy.waitForGQL("Hosts");
 
-    cy.get(".ant-table-header-column").within(() => {
+    cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").check({ force: true });
     });
 

@@ -13,10 +13,10 @@ export const useUpdateUrlSortParamOnTableChange = <T extends unknown>({
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
-  const tableChangeHandler: TableOnChange<T> = (
-    ...[, , { order, columnKey }]
-  ) => {
+  const tableChangeHandler: TableOnChange<T> = (...[, , sorter]) => {
     sendAnalyticsEvents();
+
+    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
 
     // order is undefined when the column sorter is unselected (which occurs after being clicked three times)
     // when order is undefined, sort should be reset; therefore removed from the url
