@@ -5,7 +5,6 @@ import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { PageWrapper, PaddedSideNavItem } from "components/styles";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
-
 import { usePageTitle } from "hooks";
 
 export const Preferences: React.FC = () => {
