@@ -14,6 +14,11 @@ export const GET_MY_HOSTS = gql`
       homeVolumeID
       id
       instanceType
+      instanceTags {
+        key
+        value
+        canBeModified
+      }
       noExpiration
       provider
       status
