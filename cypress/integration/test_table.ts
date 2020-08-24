@@ -53,6 +53,46 @@ describe("Tests Table", () => {
     });
   });
 
+  it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
+    cy.visit(TESTS_ROUTE);
+
+    cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+
+    cy.get("[data-cy=filtered-test-count]")
+      .as("filtered-count")
+      .invoke("text")
+      .should("eq", "20");
+    cy.get("[data-cy=total-test-count]")
+      .as("total-count")
+      .invoke("text")
+      .should("eq", "20");
+
+    cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
+    cy.get(".cy-checkbox")
+      .contains("Fail")
+      .click({ force: true });
+
+    waitForTestsQuery();
+
+    cy.get("@filtered-count")
+      .invoke("text")
+      .should("eq", "1");
+    cy.get("@total-count")
+      .invoke("text")
+      .should("eq", "20");
+
+    cy.dataCy("testname-input").type("hello");
+
+    waitForTestsQuery();
+
+    cy.get("@filtered-count")
+      .invoke("text")
+      .should("eq", "0");
+    cy.get("@total-count")
+      .invoke("text")
+      .should("eq", "20");
+  });
+
   it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
@@ -109,8 +149,6 @@ describe("Tests Table", () => {
   });
 
   it("Buttons in log column should have target=_blank attribute", () => {
-    cy.visit(TESTS_ROUTE);
-    waitForTestsQuery();
     cy.get("[data-cy=test-table-html-btn").should(
       "have.attr",
       "target",
@@ -222,50 +260,6 @@ describe("Tests Table", () => {
         testName: testNameInputValue,
         pageNum: 0,
       });
-    });
-  });
-
-  describe("Filtered and total test count label", () => {
-    before(() => {
-      cy.visit(TESTS_ROUTE);
-    });
-
-    it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
-      waitForTestsQuery();
-
-      cy.get("[data-cy=filtered-test-count]")
-        .as("filtered-count")
-        .invoke("text")
-        .should("eq", "20");
-      cy.get("[data-cy=total-test-count]")
-        .as("total-count")
-        .invoke("text")
-        .should("eq", "20");
-
-      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-      cy.get(".cy-checkbox")
-        .contains("Fail")
-        .click({ force: true });
-
-      waitForTestsQuery();
-
-      cy.get("@filtered-count")
-        .invoke("text")
-        .should("eq", "1");
-      cy.get("@total-count")
-        .invoke("text")
-        .should("eq", "20");
-
-      cy.dataCy("testname-input").type("hello");
-
-      waitForTestsQuery();
-
-      cy.get("@filtered-count")
-        .invoke("text")
-        .should("eq", "0");
-      cy.get("@total-count")
-        .invoke("text")
-        .should("eq", "20");
     });
   });
 
