@@ -9,6 +9,7 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { TableContainer, PageWrapper } from "components/styles";
+import { Body } from "@leafygreen-ui/typography";
 
 export const TaskQueue = () => {
   const { data: taskQueueItemsData, loading } = useQuery<
@@ -23,7 +24,8 @@ export const TaskQueue = () => {
       title: "",
       dataIndex: "number",
       key: "number",
-      className: "cy-hosts-table-col-ID",
+      className: "cy-hosts-table-col-index",
+      render: (...[, , index]) => <Body weight="medium">{index + 1}</Body>,
     },
     {
       title: "Task",
@@ -45,6 +47,7 @@ export const TaskQueue = () => {
       key: "revision",
       className: "cy-hosts-table-col-ID",
       width: "25%",
+      render: (value) => value.slice(0, 7),
     },
     {
       title: "Task Type",
