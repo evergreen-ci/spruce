@@ -141,7 +141,7 @@ describe("Task table", () => {
     });
   });
 
-  describe("The blocked status badge appears in the table when a task status or base task status is blocked", () => {
+  it("The blocked status badge appears in the table when a task status or base task status is blocked", () => {
     cy.visit("/version/6ecedafb562343215a7ff297/tasks");
     cy.dataCy("task-status-badge").each(($el) =>
       cy.wrap($el).contains("blocked")
