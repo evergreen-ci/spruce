@@ -484,6 +484,8 @@ export type Query = {
   myHosts: Array<Host>;
   myPublicKeys: Array<PublicKey>;
   distros: Array<Maybe<Distro>>;
+  instanceTypes: Array<Scalars["String"]>;
+  distroTaskQueue: Array<TaskQueueItem>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -579,6 +581,10 @@ export type QueryDistrosArgs = {
   onlySpawnable: Scalars["Boolean"];
 };
 
+export type QueryDistroTaskQueueArgs = {
+  distroId: Scalars["String"];
+};
+
 export type RecentTaskLogs = {
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
@@ -643,55 +649,56 @@ export type SubscriptionInput = {
 };
 
 export type Task = {
-  failedTestCount: Scalars["Int"];
-  spawnHostLink?: Maybe<Scalars["String"]>;
-  patchMetadata: PatchMetadata;
-  id: Scalars["String"];
-  createTime?: Maybe<Scalars["Time"]>;
-  ingestTime?: Maybe<Scalars["Time"]>;
-  dispatchTime?: Maybe<Scalars["Time"]>;
-  scheduledTime?: Maybe<Scalars["Time"]>;
-  startTime?: Maybe<Scalars["Time"]>;
-  finishTime?: Maybe<Scalars["Time"]>;
-  activatedTime?: Maybe<Scalars["Time"]>;
-  version: Scalars["String"];
-  projectId: Scalars["String"];
-  revision?: Maybe<Scalars["String"]>;
-  priority?: Maybe<Scalars["Int"]>;
-  taskGroup?: Maybe<Scalars["String"]>;
-  taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
-  logs: TaskLogLinks;
+  aborted?: Maybe<Scalars["Boolean"]>;
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
+  activatedTime?: Maybe<Scalars["Time"]>;
+  ami?: Maybe<Scalars["String"]>;
+  blocked: Scalars["Boolean"];
+  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   buildId: Scalars["String"];
-  distroId: Scalars["String"];
   buildVariant: Scalars["String"];
-  reliesOn: Array<Dependency>;
+  canAbort: Scalars["Boolean"];
+  canRestart: Scalars["Boolean"];
+  canSchedule: Scalars["Boolean"];
+  canSetPriority: Scalars["Boolean"];
+  canUnschedule: Scalars["Boolean"];
+  createTime?: Maybe<Scalars["Time"]>;
+  details?: Maybe<TaskEndDetail>;
+  dispatchTime?: Maybe<Scalars["Time"]>;
   displayName: Scalars["String"];
+  displayOnly?: Maybe<Scalars["Boolean"]>;
+  distroId: Scalars["String"];
+  estimatedStart?: Maybe<Scalars["Duration"]>;
+  execution?: Maybe<Scalars["Int"]>;
+  executionTasks?: Maybe<Array<Scalars["String"]>>;
+  expectedDuration?: Maybe<Scalars["Duration"]>;
+  failedTestCount: Scalars["Int"];
+  finishTime?: Maybe<Scalars["Time"]>;
+  generatedBy?: Maybe<Scalars["String"]>;
+  generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
   hostLink?: Maybe<Scalars["String"]>;
-  restarts?: Maybe<Scalars["Int"]>;
-  execution?: Maybe<Scalars["Int"]>;
+  id: Scalars["String"];
+  ingestTime?: Maybe<Scalars["Time"]>;
   latestExecution: Scalars["Int"];
+  logs: TaskLogLinks;
+  patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
+  priority?: Maybe<Scalars["Int"]>;
+  projectId: Scalars["String"];
+  reliesOn: Array<Dependency>;
   requester: Scalars["String"];
+  restarts?: Maybe<Scalars["Int"]>;
+  revision?: Maybe<Scalars["String"]>;
+  scheduledTime?: Maybe<Scalars["Time"]>;
+  spawnHostLink?: Maybe<Scalars["String"]>;
+  startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
-  details?: Maybe<TaskEndDetail>;
+  taskGroup?: Maybe<Scalars["String"]>;
+  taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
-  expectedDuration?: Maybe<Scalars["Duration"]>;
-  displayOnly?: Maybe<Scalars["Boolean"]>;
-  executionTasks?: Maybe<Array<Scalars["String"]>>;
-  generateTask?: Maybe<Scalars["Boolean"]>;
-  generatedBy?: Maybe<Scalars["String"]>;
-  aborted?: Maybe<Scalars["Boolean"]>;
-  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
-  canRestart: Scalars["Boolean"];
-  canAbort: Scalars["Boolean"];
-  canSchedule: Scalars["Boolean"];
-  canUnschedule: Scalars["Boolean"];
-  canSetPriority: Scalars["Boolean"];
-  estimatedStart?: Maybe<Scalars["Duration"]>;
-  ami?: Maybe<Scalars["String"]>;
+  version: Scalars["String"];
 };
 
 export type TaskEndDetail = {
@@ -739,6 +746,22 @@ export type TaskLogLinks = {
   eventLogLink?: Maybe<Scalars["String"]>;
 };
 
+export type TaskQueueItem = {
+  id: Scalars["ID"];
+  displayName: Scalars["String"];
+  project: Scalars["String"];
+  buildVariant: Scalars["String"];
+  expectedDuration: Scalars["String"];
+  priority: Scalars["Int"];
+  revision: Scalars["String"];
+  requester: TaskQueueItemType;
+};
+
+export enum TaskQueueItemType {
+  Commit = "COMMIT",
+  Patch = "PATCH",
+}
+
 export type TaskResult = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -746,6 +769,7 @@ export type TaskResult = {
   status: Scalars["String"];
   baseStatus: Scalars["String"];
   buildVariant: Scalars["String"];
+  blocked: Scalars["Boolean"];
 };
 
 export enum TaskSortCategory {
@@ -986,6 +1010,23 @@ export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 export type AwsRegionsQueryVariables = {};
 
 export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
+
+export type DistroTaskQueueQueryVariables = {
+  distroId: Scalars["String"];
+};
+
+export type DistroTaskQueueQuery = {
+  distroTaskQueue: Array<{
+    id: string;
+    expectedDuration: string;
+    requester: TaskQueueItemType;
+    displayName: string;
+    project: string;
+    buildVariant: string;
+    priority: number;
+    revision: string;
+  }>;
+};
 
 export type ClientConfigQueryVariables = {};
 
