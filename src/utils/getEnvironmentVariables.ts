@@ -14,14 +14,8 @@ export const isProduction = (): boolean =>
 
 export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 
-export const getSchemaString: () => string = () =>
-  process.env.REACT_APP_SCHEMA_STRING || "";
-
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
-
-export const shouldEnableGQLMockServer: () => boolean = () =>
-  process.env.REACT_APP_ENABLE_GQL_MOCK_SERVER === "true";
 
 // in development, the dev server on port 3000 proxies the local evergreen server on port 9090
 // therefore in dev we want the login domain to be localhost:3000
