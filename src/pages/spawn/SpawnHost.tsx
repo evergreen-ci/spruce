@@ -58,7 +58,7 @@ export const SpawnHost = () => {
 };
 
 const Container = styled.div`
-  margin-left: 50px;
+  margin-left: 60px;
   width: 100%;
 `;
 const Title = styled(H2)``;
