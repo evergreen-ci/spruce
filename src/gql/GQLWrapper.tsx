@@ -67,8 +67,6 @@ const logErrorsLink = onError(({ graphQLErrors }) => {
   // very common when a user is not authenticated
 });
 
-// const timeoutLink = new ApolloLinkTimeout(60000);
-
 const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
   new ApolloLink((operation, forward) =>
     forward(operation).map((response) => {
