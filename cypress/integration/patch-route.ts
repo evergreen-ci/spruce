@@ -10,7 +10,7 @@ const badPatch = {
   id: "i-dont-exist",
 };
 
-const hasText = ($el) => {
+export const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
 };
 

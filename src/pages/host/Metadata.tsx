@@ -34,18 +34,21 @@ export const Metadata: React.FC<{
     <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
-      <P2>
+      <P2 data-cy="host-last-communication">
         Last Communication: {getDateCopy(lastCommunicationTime, timeZone)}
       </P2>
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
       <P2>
-        Distro: <StyledLink href={distroLink}>{distroId}</StyledLink>
+        Distro:{" "}
+        <StyledLink data-cy="distro-link" href={distroLink}>
+          {distroId}
+        </StyledLink>
       </P2>
-      <P2>
+      <P2 data-cy="current-running-task">
         Current Task:{" "}
         {runningTaskName ? (
-          <StyledLink data-cy="task-distro-link" href={taskLink}>
+          <StyledLink data-cy="running-task-link" href={taskLink}>
             {runningTaskName}
           </StyledLink>
         ) : (

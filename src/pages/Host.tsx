@@ -66,7 +66,7 @@ export const HostCore: React.FC = () => {
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
   return (
-    <PageWrapper>
+    <PageWrapper data-cy="host-page">
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
@@ -88,7 +88,9 @@ export const HostCore: React.FC = () => {
                 error={error}
                 timeZone={timeZone}
               />
-              <Code language="shell">{sshCommand}</Code>
+              <Code language="shell" data-cy="ssh-command">
+                {sshCommand}
+              </Code>
             </PageSider>
             <PageLayout>
               <PageContent>
