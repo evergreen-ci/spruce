@@ -22,7 +22,7 @@ import {
   HostSortBy,
   SortDirection,
 } from "gql/generated/types";
-import { RestartJasper } from "pages/hosts/RestartJasper";
+import { RestartJasper } from "components/Hosts/RestartJasper";
 import { HOSTS } from "gql/queries";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";

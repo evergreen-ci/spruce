@@ -32,7 +32,7 @@ import { useUserTimeZone } from "utils/string";
 import { withBannersContext } from "hoc/withBannersContext";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
-import { RestartJasper } from "pages/hosts/RestartJasper";
+import { RestartJasper } from "components/Hosts/RestartJasper";
 
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
