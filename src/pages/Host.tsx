@@ -1,9 +1,10 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { Banners } from "components/Banners";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -55,13 +56,20 @@ export const HostCore: React.FC = () => {
   const tag = host?.tag ?? "";
   const timeZone = useUserTimeZone();
 
+  const { search } = useLocation();
+
+  const page = getPageFromSearch(search);
+  const limit = getLimitFromSearch(search);
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
     HostEventsQueryVariables
   >(GET_HOST_EVENTS, {
-    variables: { id, tag },
+    variables: { id, tag, page, limit },
   });
+
+  const hostEvents = hostEventData?.hostEvents;
+  const eventsCount = hostEvents?.count;
 
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
@@ -97,6 +105,9 @@ export const HostCore: React.FC = () => {
                   eventData={hostEventData}
                   error={error}
                   timeZone={timeZone}
+                  page={page}
+                  limit={limit}
+                  eventsCount={eventsCount}
                 />
               </PageContent>
             </PageLayout>

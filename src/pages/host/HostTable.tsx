@@ -8,13 +8,21 @@ import { ColumnProps } from "antd/es/table";
 import { getHostEventString } from "pages/host/getHostEventString";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { Pagination } from "components/Pagination";
+import { useHostsTableAnalytics } from "analytics";
+import { PageSizeSelector } from "components/PageSizeSelector";
 
 export const HostTable: React.FC<{
   loading: boolean;
   eventData: HostEventsQuery;
   error: ApolloError;
   timeZone: string;
-}> = ({ loading, eventData, error, timeZone }) => {
+  page: number;
+  limit: number;
+  eventsCount: number;
+}> = ({ loading, eventData, error, timeZone, page, limit, eventsCount }) => {
+  // todo: specify the page
+  const hostsTableAnalytics = useHostsTableAnalytics();
   const hostEvents = eventData?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
   const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
@@ -38,7 +46,27 @@ export const HostTable: React.FC<{
 
   return (
     <HostCard error={error} loading={loading} metaData={false}>
-      <StyledSubtitle>Recent Events </StyledSubtitle>
+      <TableTitle>
+        <StyledSubtitle>Recent Events </StyledSubtitle>
+        <PaginationWrapper>
+          <Pagination
+            dataTestId="host-event-table-pagination"
+            pageSize={limit}
+            value={page}
+            totalResults={eventsCount}
+          />
+          <PageSizeSelector
+            dataTestId="host-event-table-page-size-selector"
+            value={limit}
+            sendAnalyticsEvent={() =>
+              hostsTableAnalytics.sendEvent({
+                name: "Change Page Size",
+              })
+            }
+          />
+        </PaginationWrapper>
+      </TableTitle>
+
       <Table
         data-test-id="tests-table"
         dataSource={logEntries}
@@ -55,4 +83,16 @@ const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
   margin-top: 15px;
+`;
+
+const TableTitle = styled.div`
+  flex-wrap: nowrap;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PaginationWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 `;
