@@ -883,6 +883,14 @@ export type AbortTaskMutationVariables = {
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type CreatePublicKeyMutationVariables = {
+  publicKeyInput: PublicKeyInput;
+};
+
+export type CreatePublicKeyMutation = {
+  createPublicKey: Array<{ key: string; name: string }>;
+};
+
 export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
 };
@@ -1000,6 +1008,15 @@ export type UpdateHostStatusMutationVariables = {
 };
 
 export type UpdateHostStatusMutation = { updateHostStatus: number };
+
+export type UpdatePublicKeyMutationVariables = {
+  targetKeyName: Scalars["String"];
+  updateInfo: PublicKeyInput;
+};
+
+export type UpdatePublicKeyMutation = {
+  updatePublicKey: Array<{ key: string; name: string }>;
+};
 
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
