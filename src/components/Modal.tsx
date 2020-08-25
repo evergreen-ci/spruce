@@ -34,7 +34,7 @@ export const Modal: React.FC<ModalProps> = ({
       "data-cy": dataCy,
     }}
   >
-    <ModalTitle>{title}</ModalTitle>
+    <ModalTitle data-cy="modal-title">{title}</ModalTitle>
     {children}
     {footer && <Footer>{footer}</Footer>}
   </StyledModal>

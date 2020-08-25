@@ -1,7 +1,8 @@
 import styled from "@emotion/styled/macro";
 import { Layout } from "antd";
 import { css } from "@emotion/core";
-import { H2 } from "@leafygreen-ui/typography";
+import { H2, Body } from "@leafygreen-ui/typography";
+import { uiColors } from "@leafygreen-ui/palette";
 
 const { Content, Sider } = Layout;
 
@@ -57,4 +58,8 @@ export const PageButtonRow = styled.div`
 export const InputLabel = styled.label`
   font-size: 14px;
   font-weight: bold;
+`;
+
+export const ErrorMessage = styled(Body)`
+  color: ${uiColors.red.base};
 `;

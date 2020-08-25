@@ -54,7 +54,7 @@ const singularStatuses = [
     paramValue: "unstarted",
   },
   {
-    title: "Undispatched",
+    title: "Undispatched or Blocked",
     paramValue: "undispatched",
   },
   {

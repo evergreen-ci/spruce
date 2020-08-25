@@ -100,6 +100,7 @@ const TaskCore: React.FC = () => {
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
+  const blocked = task?.blocked;
   const canRestart = get(task, "canRestart");
   const canSchedule = get(task, "canSchedule");
   const canUnschedule = get(task, "canUnschedule");
@@ -163,7 +164,7 @@ const TaskCore: React.FC = () => {
         title={displayName}
         badge={
           <ErrorBoundary>
-            <TaskStatusBadge status={status} />
+            <TaskStatusBadge status={status} blocked={blocked} />
           </ErrorBoundary>
         }
         buttons={

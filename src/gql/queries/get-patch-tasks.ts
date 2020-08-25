@@ -30,6 +30,7 @@ export const GET_PATCH_TASKS = gql`
         baseStatus
         displayName
         buildVariant
+        blocked
       }
     }
   }
