@@ -18,7 +18,10 @@ export const TaskQueueTable = () => {
   const { data: taskQueueItemsData, loading, refetch: refetchQueue } = useQuery<
     DistroTaskQueueQuery,
     DistroTaskQueueQueryVariables
-  >(DISTRO_TASK_QUEUE, { variables: { distroId: distro }, onError() {} });
+  >(DISTRO_TASK_QUEUE, {
+    variables: { distroId: distro },
+    errorPolicy: "ignore",
+  });
 
   const taskQueueItems = taskQueueItemsData?.distroTaskQueue ?? [];
 

@@ -55,7 +55,8 @@ export const TaskQueue = () => {
     <PageWrapper>
       <H2>Task Queue</H2>
       <TableControlOuterRow>
-        <Select
+        <StyledSelect
+          data-cy="select-distro"
           showSearch
           value={selectedDistro}
           style={{ width: 400 }}
@@ -64,12 +65,12 @@ export const TaskQueue = () => {
           filterOption={(input, { key }) => key.toString().includes(input)}
         >
           {distros.map(({ id, queueCount }) => (
-            <Option key={id} value={id}>
+            <Option data-cy={`${id}-distro-option`} key={id} value={id}>
               <StyledBadge>{queueCount}</StyledBadge>
               <DistroName>{id}</DistroName>
             </Option>
           ))}
-        </Select>
+        </StyledSelect>
       </TableControlOuterRow>
       <TableContainer hide={false}>
         <TaskQueueTable />
@@ -78,6 +79,9 @@ export const TaskQueue = () => {
   );
 };
 
+const StyledSelect = styled(Select)`
+  margin: 44px 0;
+`;
 const StyledBadge = styled(Badge)`
   display: inline-flex;
   justify-content: center;
