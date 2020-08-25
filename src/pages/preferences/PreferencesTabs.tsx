@@ -1,43 +1,32 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import { Skeleton } from "antd";
-import { ApolloError } from "@apollo/client";
-import { UserSettings } from "gql/generated/types";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { PreferencesTabRoutes } from "constants/routes";
 import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
+import { routes, PreferencesTabRoutes } from "constants/routes";
+import { Route, useParams } from "react-router-dom";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
-interface PreferenceTabsProps {
-  tabKey: PreferencesTabRoutes;
-  userSettings: UserSettings;
-  loading: boolean;
-  error: ApolloError;
-}
-
-const Tabs: React.FC<PreferenceTabsProps> = ({
-  tabKey,
-  userSettings,
-  loading,
-}) => {
+const Tabs: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
+
+  const { tab } = useParams<{ tab: string }>();
   const bannersState = useBannerStateContext();
+
   useEffect(() => {
     dispatchBanner.clearAllBanners();
-  }, [tabKey]); // eslint-disable-line react-hooks/exhaustive-deps
-  const { title, Component, subtitle } = getTitleAndComponent(
-    tabKey,
-    userSettings
-  );
+  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
+
   return (
     <Container>
       <TitleContainer>
@@ -48,53 +37,41 @@ const Tabs: React.FC<PreferenceTabsProps> = ({
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {loading && <Skeleton active />}
-      {!loading && <Component />}
+      <Route path={routes.profilePreferences} component={ProfileTab} />
+      <Route
+        path={routes.notificationsPreferences}
+        component={NotificationsTab}
+      />
+      <Route path={routes.cliPreferences} component={CliTab} />
+      <Route path={routes.newUIPreferences} component={NewUITab} />
+      <Route path={routes.publicKeysPreferences} component={PublicKeysTab} />
     </Container>
   );
 };
 
-const getTitleAndComponent = (
-  tabKey: PreferencesTabRoutes = PreferencesTabRoutes.Profile,
-  userSettings: UserSettings
-): { title: string; Component: React.FC; subtitle?: string } => {
-  const {
-    githubUser,
-    timezone,
-    region,
-    slackUsername,
-    notifications,
-    useSpruceOptions,
-  } = userSettings ?? {};
-
-  const defaultTitleAndComponent = {
+const getTitle = (
+  tab: PreferencesTabRoutes = PreferencesTabRoutes.Profile
+): { title: string; subtitle?: string } => {
+  const defaultTitle = {
     title: "Profile",
-    Component: () => <ProfileTab {...{ githubUser, timezone, region }} />,
   };
-
   return (
     {
-      [PreferencesTabRoutes.Profile]: defaultTitleAndComponent,
+      [PreferencesTabRoutes.Profile]: defaultTitle,
       [PreferencesTabRoutes.Notifications]: {
         title: "Notifications",
-        Component: () => (
-          <NotificationsTab {...{ slackUsername, notifications }} />
-        ),
       },
       [PreferencesTabRoutes.CLI]: {
         title: "CLI & API",
-        Component: () => <CliTab />,
       },
       [PreferencesTabRoutes.NewUI]: {
         title: "New UI Settings",
-        Component: () => <NewUITab {...{ useSpruceOptions }} />,
       },
       [PreferencesTabRoutes.PublicKeys]: {
         title: "Manage Public Keys",
         subtitle: "These keys will be used to SSH into spawned hosts",
-        Component: () => <PublicKeysTab />,
       },
-    }[tabKey] ?? defaultTitleAndComponent
+    }[tab] ?? defaultTitle
   );
 };
 

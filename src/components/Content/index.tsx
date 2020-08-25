@@ -26,6 +26,7 @@ import get from "lodash/get";
 import { PatchRedirect } from "pages/PatchRedirect";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
+import { TaskQueue } from "pages/TaskQueue";
 
 export const Content: React.FC = () => {
   const { isAuthenticated, initialLoad } = useAuthStateContext();
@@ -63,6 +64,7 @@ export const Content: React.FC = () => {
         <PrivateRoute path={routes.host} component={Host} />
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
+        <PrivateRoute path={routes.taskQueue} component={TaskQueue} />
         <PrivateRoute
           path={`${paths.user}/:id`}
           component={UserPatchesRedirect}

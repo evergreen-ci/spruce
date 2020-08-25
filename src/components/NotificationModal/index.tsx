@@ -22,6 +22,7 @@ import {
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
+import { ErrorMessage } from "components/styles";
 
 const { Option } = Select;
 
@@ -256,10 +257,6 @@ const StyledInput = styled(Input)`
 
 const ExtraFieldContainer = styled.div`
   margin-bottom: 8px;
-`;
-
-const ErrorMessage = styled(Body)`
-  color: ${uiColors.red.base};
 `;
 
 const Section = styled.div`

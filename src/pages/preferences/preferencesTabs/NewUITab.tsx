@@ -7,19 +7,18 @@ import Card from "@leafygreen-ui/card";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import {
-  UseSpruceOptions,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
+import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
-interface NewUITabProps {
-  useSpruceOptions: UseSpruceOptions;
-}
-export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
-  const { spruceV1, hasUsedSpruceBefore } = useSpruceOptions;
+export const NewUITab: React.FC = () => {
+  const { data, loadingComp } = useUserSettingsQuery();
+  const { spruceV1, hasUsedSpruceBefore } =
+    data?.userSettings?.useSpruceOptions ?? {};
   const [checked, setChecked] = useState(spruceV1);
   const dispatchBanner = useBannerDispatchContext();
-  const [updateUserSettings, { loading }] = useMutation<
+  const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
@@ -34,6 +33,11 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
       );
     },
   });
+
+  if (loadingComp) {
+    return loadingComp;
+  }
+
   const handleToggle = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
@@ -58,7 +62,11 @@ export const NewUITab: React.FC<NewUITabProps> = ({ useSpruceOptions }) => {
         Direct all inbound links to the new Evergreen UI, whenever possible
         (e.g. from the CLI, GitHub, etc.)
       </PaddedBody>
-      <Toggle checked={checked} disabled={loading} onClick={handleToggle} />
+      <Toggle
+        checked={checked}
+        disabled={updateLoading}
+        onClick={handleToggle}
+      />
     </PreferencesCard>
   );
 };

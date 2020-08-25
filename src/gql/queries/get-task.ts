@@ -51,6 +51,7 @@ export const GET_TASK = gql`
       ami
       distroId
       latestExecution
+      blocked
     }
   }
 `;

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
@@ -6,29 +6,30 @@ import TextInput from "@leafygreen-ui/text-input";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import {
-  Notifications,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { omitTypename } from "utils/string";
 import { PreferencesModal } from "./PreferencesModal";
 import { NotificationField } from "./notificationTab/NotificationField";
 
-interface ProfileTabProps {
-  slackUsername?: string;
-  notifications?: Notifications;
-}
-export const NotificationsTab: React.FC<ProfileTabProps> = ({
-  slackUsername,
-  notifications,
-}) => {
-  const [slackUsernameField, setslackUsernameField] = useState(slackUsername);
-  const [notificationStatus, setNotificationStatus] = useState(notifications);
+export const NotificationsTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
+  const { data, loadingComp } = useUserSettingsQuery();
+  const { slackUsername, notifications } = data?.userSettings ?? {};
+  const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
+  const [notificationStatus, setNotificationStatus] = useState(notifications);
 
-  const [updateUserSettings, { loading }] = useMutation<
+  // update state from query
+  useEffect(() => {
+    setSlackUsernameField(slackUsername);
+    setNotificationStatus(notifications);
+  }, [slackUsername, notifications]);
+
+  const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
@@ -43,6 +44,14 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
       );
     },
   });
+
+  if (loadingComp) {
+    return loadingComp;
+  }
+
+  if (!notificationStatus) {
+    return null;
+  }
 
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
@@ -64,14 +73,13 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
     slackUsername !== slackUsernameField ||
     notificationStatus !== notifications;
 
-  const newPayload = omitTypename(notifications);
-
+  const newPayload = omitTypename(notificationStatus);
   return (
     <div>
       <PreferencesCard>
         <StyledTextInput
           label="Slack Username"
-          onChange={handleFieldUpdate(setslackUsernameField)}
+          onChange={handleFieldUpdate(setSlackUsernameField)}
           value={slackUsernameField}
           data-cy="slack-username-field"
         />
@@ -92,9 +100,8 @@ export const NotificationsTab: React.FC<ProfileTabProps> = ({
         <Button
           data-cy="save-profile-changes-button"
           variant={Variant.Primary}
-          disabled={!hasFieldUpdates}
+          disabled={!hasFieldUpdates || updateLoading}
           onClick={handleSave}
-          loading={loading}
         >
           Save Changes
         </Button>
