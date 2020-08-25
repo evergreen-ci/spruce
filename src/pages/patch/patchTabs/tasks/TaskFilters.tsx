@@ -167,7 +167,7 @@ const statusesTreeData: Status[] = [
         key: TaskStatus.Unstarted,
       },
       {
-        title: "Undispatched",
+        title: "Undispatched or Blocked",
         value: TaskStatus.Undispatched,
         key: TaskStatus.Undispatched,
       },

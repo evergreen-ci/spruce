@@ -28,6 +28,7 @@ export const paths = {
   task: "/task",
   user: "/user",
   version: "/version",
+  taskQueue: "/task-queue",
 };
 
 export const routes = {
@@ -50,6 +51,7 @@ export const routes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
   newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
+  taskQueue: paths.taskQueue,
 };
 
 export enum PatchTab {
