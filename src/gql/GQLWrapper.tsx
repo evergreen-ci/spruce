@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   ApolloClient,
   ApolloProvider,
@@ -13,27 +13,18 @@ import { reportError } from "utils/errorReporting";
 import { getGQLUrl } from "utils/getEnvironmentVariables";
 
 const GQLWrapper: React.FC = ({ children }) => {
-  const [client, setClient] = useState(null);
   const { logout, dispatch } = useAuthDispatchContext();
 
-  useEffect(() => {
-    async function getAndSetClient(): Promise<void> {
-      const gqlClient = await getGQLClient({
-        credentials: "include",
-        gqlURL: getGQLUrl(),
-        logout,
-        dispatch,
-      });
-      setClient(gqlClient);
-    }
-    getAndSetClient();
-  }, [logout, dispatch]);
-
-  return client ? (
-    <ApolloProvider client={client}>{children}</ApolloProvider>
-  ) : (
-    <></>
+  const [client] = useState(
+    getGQLClient({
+      credentials: "include",
+      gqlURL: getGQLUrl(),
+      logout,
+      dispatch,
+    })
   );
+
+  return <ApolloProvider client={client}>{children}</ApolloProvider>;
 };
 
 interface ClientLinkParams {
