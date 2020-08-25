@@ -8,7 +8,6 @@ import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
 import {
-  GithubUser,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   AwsRegionsQuery,
@@ -18,20 +17,14 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { AWS_REGIONS } from "gql/queries";
 import { omitTypename } from "utils/string";
 import { timeZones } from "constants/fieldMaps";
+import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
 
-interface ProfileTabProps {
-  githubUser?: GithubUser;
-  timezone?: string;
-  region?: string;
-}
-export const ProfileTab: React.FC<ProfileTabProps> = ({
-  githubUser,
-  timezone,
-  region,
-}) => {
+export const ProfileTab: React.FC = () => {
+  const { data, loadingComp } = useUserSettingsQuery();
+  const { githubUser, timezone, region } = data?.userSettings ?? {};
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
@@ -40,12 +33,12 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
     get(githubUser, "githubUser.lastKnownAs")
   );
   useEffect(() => {
-    setGithubUsernameField(githubUser.lastKnownAs);
+    setGithubUsernameField(githubUser?.lastKnownAs);
     setTimezoneField(timezone);
     setRegionField(region);
   }, [githubUser, timezone, region]);
   const dispatchBanner = useBannerDispatchContext();
-  const [updateUserSettings, { loading }] = useMutation<
+  const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
@@ -61,8 +54,13 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
     },
   });
 
-  const { data } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
-  const awsRegions = get(data, "awsRegions", []);
+  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
+
+  if (loadingComp) {
+    return loadingComp;
+  }
+
+  const awsRegions = get(awsRegionData, "awsRegions", []);
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
@@ -120,7 +118,7 @@ export const ProfileTab: React.FC<ProfileTabProps> = ({
           <Button
             data-cy="save-profile-changes-button"
             variant={Variant.Primary}
-            disabled={!hasFieldUpdates || loading}
+            disabled={!hasFieldUpdates || updateLoading}
             onClick={handleSave}
           >
             Save Changes
