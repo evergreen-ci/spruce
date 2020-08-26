@@ -10,7 +10,6 @@ import {
   LogTypes,
   QueryParams,
 } from "pages/task/logs/LogTypes";
-import Maybe from "graphql/tsutils/Maybe";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
@@ -22,11 +21,11 @@ const options = {
 };
 
 interface LogLinks {
-  allLogLink?: Maybe<string>;
-  agentLogLink?: Maybe<string>;
-  systemLogLink?: Maybe<string>;
-  taskLogLink?: Maybe<string>;
-  eventLogLink?: Maybe<string>;
+  allLogLink?: string;
+  agentLogLink?: string;
+  systemLogLink?: string;
+  taskLogLink?: string;
+  eventLogLink?: string;
 }
 
 interface Props {

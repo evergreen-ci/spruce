@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const GET_HOST_EVENTS = gql`
   query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {

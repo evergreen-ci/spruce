@@ -6,7 +6,7 @@ import {
   UnschedulePatchTasksMutationVariables,
 } from "gql/generated/types";
 import { UNSCHEDULE_PATCH_TASKS } from "gql/mutations";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Popconfirm } from "antd";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer, Body } from "@leafygreen-ui/typography";

@@ -10,7 +10,7 @@ import { TreeSelect } from "components/TreeSelect";
 import { Input } from "antd";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GET_PATCH_TASK_STATUSES } from "gql/queries";
 import {
   GetPatchTaskStatusesQuery,

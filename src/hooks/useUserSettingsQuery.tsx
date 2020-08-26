@@ -1,6 +1,6 @@
 import React from "react";
 import { useBannerDispatchContext } from "context/banners";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import {
   GetUserSettingsQuery,
   GetUserSettingsQueryVariables,

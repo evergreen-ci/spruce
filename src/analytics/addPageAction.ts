@@ -19,7 +19,8 @@ type AnalyticsObject =
   | "UserPatches"
   | "CommitQueue"
   | "Configure"
-  | "HostsTable";
+  | "HostsTable"
+  | "HostPage";
 
 interface RequiredProperties {
   object: AnalyticsObject;

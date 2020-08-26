@@ -19,8 +19,8 @@ import {
   LogMessage,
   TaskEventLogEntry,
 } from "gql/generated/types";
-import { useQuery } from "@apollo/react-hooks";
-import { ApolloError } from "apollo-client";
+import { useQuery } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { Skeleton } from "antd";
 import get from "lodash/get";

@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const SET_PATCH_PRIORITY = gql`
   mutation SetPatchPriority($patchId: String!, $priority: Int!) {

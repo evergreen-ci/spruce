@@ -3,13 +3,6 @@ import { Global, css } from "@emotion/core";
 import GQLWrapper from "gql/GQLWrapper";
 import { BrowserRouter as Router } from "react-router-dom";
 import { ErrorBoundary } from "components/ErrorBoundary";
-import {
-  getGQLUrl,
-  getSchemaString,
-  isDevelopment,
-  isTest,
-  shouldEnableGQLMockServer,
-} from "utils/getEnvironmentVariables";
 import { Content } from "components/Content";
 import { ContextProviders } from "context/Providers";
 
@@ -36,14 +29,7 @@ const App: React.FC = () => (
   <ErrorBoundary>
     <ContextProviders>
       <Router>
-        <GQLWrapper
-          gqlURL={getGQLUrl()}
-          isDevelopment={isDevelopment()}
-          isTest={isTest()}
-          schemaString={getSchemaString()}
-          credentials="include"
-          shouldEnableGQLMockServer={shouldEnableGQLMockServer()}
-        >
+        <GQLWrapper>
           <Global
             styles={css`
               background-color: white;

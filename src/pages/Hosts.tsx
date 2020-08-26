@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Popconfirm } from "antd";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { useLocation } from "react-router-dom";
 import {
   TableContainer,
@@ -22,20 +21,18 @@ import {
   HostsQueryVariables,
   HostSortBy,
   SortDirection,
-  RestartJasperMutation,
-  RestartJasperMutationVariables,
 } from "gql/generated/types";
+import { RestartJasper } from "components/Hosts/RestartJasper";
 import { HOSTS } from "gql/queries";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { parseQueryString, getArray, getString } from "utils";
 import { Pagination } from "components/Pagination";
 import { PageSizeSelector } from "components/PageSizeSelector";
-import { isNetworkRequestInFlight } from "apollo-client/core/networkStatus";
+import { isNetworkRequestInFlight } from "@apollo/client/core/networkStatus";
 import { HostsTable } from "pages/hosts/HostsTable";
 import styled from "@emotion/styled";
 import { Button } from "components/Button";
-import { RESTART_JASPER } from "gql/mutations";
 import { useHostsTableAnalytics } from "analytics";
 import { UpdateStatusModal } from "components/Hosts";
 
@@ -101,28 +98,6 @@ const Hosts: React.FC = () => {
     }
   }, [searchChanged, search, refetch]);
 
-  // RESTART JASPER MUTATION
-  const [restartJasper, { loading: loadingRestartJasper }] = useMutation<
-    RestartJasperMutation,
-    RestartJasperMutationVariables
-  >(RESTART_JASPER, {
-    onCompleted({ restartJasper: numberOfHostsUpdated }) {
-      dispatchBanner.successBanner(
-        `Jasper was restarted for ${numberOfHostsUpdated} host${
-          numberOfHostsUpdated === 1 ? "" : "s"
-        }`
-      );
-    },
-    onError({ message }) {
-      dispatchBanner.errorBanner(message);
-    },
-  });
-
-  const onClickRestartJasperConfirm = () => {
-    hostsTableAnalytics.sendEvent({ name: "Restart Jasper" });
-    restartJasper({ variables: { hostIds: selectedHostIds } });
-  };
-
   return (
     <PageWrapper data-cy="hosts-page">
       <Banners
@@ -152,25 +127,7 @@ const Hosts: React.FC = () => {
                 </Button>
               </ButtonWrapper>
               <ButtonWrapper>
-                <Popconfirm
-                  title={`Restart Jasper for ${selectedHostIds.length} host${
-                    selectedHostIds.length > 1 ? "s" : ""
-                  }?`}
-                  onConfirm={onClickRestartJasperConfirm}
-                  icon={null}
-                  placement="bottom"
-                  okText="Yes"
-                  okButtonProps={{ loading: loadingRestartJasper }}
-                  cancelText="No"
-                  cancelButtonProps={{ disabled: loadingRestartJasper }}
-                >
-                  <Button
-                    dataCy="restart-jasper-button"
-                    disabled={selectedHostIds.length === 0}
-                  >
-                    Restart Jasper
-                  </Button>
-                </Popconfirm>
+                <RestartJasper selectedHostIds={selectedHostIds} />
               </ButtonWrapper>
             </HostsSelectionWrapper>
           </SubtitleDataWrapper>

@@ -1,6 +1,6 @@
 import { renderHook } from "@testing-library/react-hooks";
 import { usePollQuery } from "hooks";
-import { NetworkStatus } from "apollo-client";
+import { NetworkStatus } from "@apollo/client";
 import { MemoryRouter as Router } from "react-router-dom";
 
 const refetch = jest.fn((variables: QueryVariables) =>
