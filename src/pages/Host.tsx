@@ -92,7 +92,10 @@ export const HostCore: React.FC = () => {
               <div>
                 <ButtonsWrapper>
                   <ButtonSpacer>
-                    <Button onClick={() => setIsUpdateStatusModalVisible(true)}>
+                    <Button
+                      dataCy="update-status-button"
+                      onClick={() => setIsUpdateStatusModalVisible(true)}
+                    >
                       Update Status
                     </Button>
                   </ButtonSpacer>

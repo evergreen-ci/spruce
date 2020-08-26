@@ -163,6 +163,7 @@ export type HostEventLogEntry = {
 
 export type HostEvents = {
   eventLogEntries: Array<HostEventLogEntry>;
+  count: Scalars["Int"];
 };
 
 export enum HostSortBy {
