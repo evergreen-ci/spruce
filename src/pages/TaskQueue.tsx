@@ -36,7 +36,7 @@ export const TaskQueue = () => {
 
   // SET DEFAULT DISTRO
   useEffect(() => {
-    const defaultDistro = distro || firstDistroInList;
+    const defaultDistro = distro ?? firstDistroInList;
 
     setSelectedDistro(defaultDistro);
 
