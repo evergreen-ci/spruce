@@ -28,7 +28,7 @@ describe("Host page title is displayed ", () => {
 
   it("title shows the host name", () => {
     cy.visit(`host/macos-1014-68.macstadium.build.10gen`);
-    cy.get("[data-cy=page-title").should(
+    cy.dataCy("page-title").should(
       "include.text",
       "Host: macos-1014-68.macstadium.build.10gen"
     );

@@ -33,6 +33,8 @@ export const getHostEventString = (
   eventType: string,
   data: HostEventLogData
 ) => {
+  const succeededString = "succeeded";
+
   switch (eventType) {
     case HostEvent.Created:
       return <span data-cy="created">Host created</span>;
@@ -47,19 +49,19 @@ export const getHostEventString = (
     case HostEvent.Started:
       return (
         <span data-cy="started">
-          Host start attempt {data.successful ? "succeeded" : ""}
+          Host start attempt {data.successful ? succeededString : ""}
         </span>
       );
     case HostEvent.Stopped:
       return (
         <span data-cy="stopped">
-          Host stop attempt {data.successful ? "succeeded" : ""}
+          Host stop attempt {data.successful ? succeededString : ""}
         </span>
       );
     case HostEvent.Modified:
       return (
         <span data-cy="modified">
-          Host modify attempt {data.successful ? "succeeded" : ""}
+          Host modify attempt {data.successful ? succeededString : ""}
         </span>
       );
     case HostEvent.AgentDeployed:
