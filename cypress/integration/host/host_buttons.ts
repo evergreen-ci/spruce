@@ -1,6 +1,6 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
-describe("Host load page buttons", () => {
+describe("Host page restart jasper and update host status buttons", () => {
   before(() => {
     cy.login();
     cy.visit("/host/i-092593689871a50dc");
