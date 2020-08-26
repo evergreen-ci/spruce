@@ -11,12 +11,14 @@ type Action =
 interface P extends Properties {}
 interface HostsAnalytics extends Analytics<Action> {}
 
-export const useHostsTableAnalytics = (): HostsAnalytics => {
+export const useHostsTableAnalytics = (
+  isHostPage?: boolean
+): HostsAnalytics => {
   const userId = useGetUserQuery();
 
   const sendEvent: HostsAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
-      object: "HostsTable",
+      object: isHostPage ? "HostsTable" : "HostPage",
       userId,
     });
   };
