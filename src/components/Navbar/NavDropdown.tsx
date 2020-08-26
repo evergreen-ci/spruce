@@ -1,5 +1,5 @@
 import React from "react";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Menu, Dropdown } from "antd";
 import Icon from "@leafygreen-ui/icon";

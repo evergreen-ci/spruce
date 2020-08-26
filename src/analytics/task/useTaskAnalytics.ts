@@ -1,6 +1,6 @@
 import { TaskStatus, LogTypes } from "types/task";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import {

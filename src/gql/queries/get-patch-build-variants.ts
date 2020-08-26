@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const GET_PATCH_BUILD_VARIANTS = gql`
   query PatchBuildVariants($patchId: String!) {

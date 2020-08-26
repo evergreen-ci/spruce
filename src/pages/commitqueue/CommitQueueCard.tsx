@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";

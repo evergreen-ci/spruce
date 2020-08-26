@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const GET_PATCH_TASK_STATUSES = gql`
   query GetPatchTaskStatuses($id: String!) {

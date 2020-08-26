@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const SAVE_SUBSCRIPTION = gql`
   mutation SaveSubscription($subscription: SubscriptionInput!) {

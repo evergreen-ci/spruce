@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const UNSCHEDULE_TASK = gql`
   mutation UnscheduleTask($taskId: String!) {

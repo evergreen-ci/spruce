@@ -9,7 +9,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GET_PATCH } from "gql/queries/patch";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { PatchTabs } from "pages/patch/PatchTabs";

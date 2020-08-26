@@ -3,7 +3,7 @@ import { P2 } from "components/Typography";
 import { StyledLink } from "components/styles";
 import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
 import { paths } from "constants/routes";
 
