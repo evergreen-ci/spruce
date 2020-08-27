@@ -109,7 +109,7 @@ export const ProfileTab: React.FC = () => {
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
-            {(awsRegions as any[]).map((awsRegion) => (
+            {(awsRegions as any[])?.map((awsRegion) => (
               <Option value={awsRegion} key={awsRegion}>
                 {awsRegion}
               </Option>
