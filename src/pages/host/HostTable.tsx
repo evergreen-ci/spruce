@@ -21,8 +21,8 @@ export const HostTable: React.FC<{
   limit: number;
   eventsCount: number;
 }> = ({ loading, eventData, error, timeZone, page, limit, eventsCount }) => {
-  // todo: specify the page
-  const hostsTableAnalytics = useHostsTableAnalytics();
+  const isHostPage = true;
+  const hostsTableAnalytics = useHostsTableAnalytics(isHostPage);
   const hostEvents = eventData?.hostEvents;
   const logEntries = hostEvents?.eventLogEntries;
   const columnsTemplate: Array<ColumnProps<HostEventLogEntry>> = [
