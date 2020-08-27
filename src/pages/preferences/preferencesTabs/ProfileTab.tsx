@@ -14,7 +14,7 @@ import {
 } from "gql/generated/types";
 import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { AWS_REGIONS } from "gql/queries";
+import { GET_AWS_REGIONS } from "gql/queries";
 import { omitTypename } from "utils/string";
 import { timeZones } from "constants/fieldMaps";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
@@ -54,7 +54,7 @@ export const ProfileTab: React.FC = () => {
     },
   });
 
-  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
+  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
 
   if (loadingComp) {
     return loadingComp;
