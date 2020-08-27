@@ -35,8 +35,7 @@ export const Metadata: React.FC<{
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
       <P2 data-cy="host-last-communication">
-        Last Communication: {getDateCopy(lastCommunicationTime, timeZone)},
-        Timezone: {timeZone}
+        Last Communication: {getDateCopy(lastCommunicationTime, timeZone)}
       </P2>
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
