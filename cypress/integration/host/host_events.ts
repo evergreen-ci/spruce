@@ -153,7 +153,6 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
-    cy.visit(pathWithEvents);
     cy.dataTestId("host-event-table-page-size-selector").click();
     cy.dataTestId("host-event-table-page-size-selector-100").click();
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
@@ -185,6 +184,14 @@ describe("Host events", () => {
     ];
     hostTypes.forEach((hostType) => {
       cy.dataCy(hostType).should("have.attr", "href");
+    });
+  });
+
+  it("host event pagination last page displays the right items", () => {
+    cy.visit("host/i-0f81a2d39744003dd?limit=10&page=3");
+    const hostTypes = ["host-running-task-set-link", "host-provisioned"];
+    hostTypes.forEach((hostType) => {
+      cy.dataCy(hostType).should("exist");
     });
   });
 });
