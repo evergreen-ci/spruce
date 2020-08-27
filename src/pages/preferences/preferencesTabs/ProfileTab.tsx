@@ -98,9 +98,14 @@ export const ProfileTab: React.FC = () => {
           <StyledSelect
             defaultValue={timezoneField}
             onChange={handleFieldUpdate(setTimezoneField)}
+            data-cy="timezone-field"
           >
             {timeZones.map((timeZone) => (
-              <Option value={timeZone.value} key={timeZone.value}>
+              <Option
+                value={timeZone.value}
+                key={timeZone.value}
+                data-cy={`${timeZone.str}-option`}
+              >
                 {timeZone.str}
               </Option>
             ))}
@@ -109,7 +114,7 @@ export const ProfileTab: React.FC = () => {
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
-            {(awsRegions as any[]).map((awsRegion) => (
+            {(awsRegions as any[])?.map((awsRegion) => (
               <Option value={awsRegion} key={awsRegion}>
                 {awsRegion}
               </Option>

@@ -33,22 +33,40 @@ export const getHostEventString = (
   eventType: string,
   data: HostEventLogData
 ) => {
+  const succeededString = "succeeded";
+
   switch (eventType) {
     case HostEvent.Created:
-      return `Host created`;
+      return <span data-cy="created">Host created</span>;
     case HostEvent.AgentDeployFailed:
-      return `New agent deploy failed`;
+      return <span data-cy="agent-deploy-failed">New agent deploy failed</span>;
     case HostEvent.ProvisionError:
-      return `Host encountered error during provisioning`;
+      return (
+        <span data-cy="provision-error">
+          Host encountered error during provisioning
+        </span>
+      );
     case HostEvent.Started:
-      return `Host start attempt ${data.successful ? "succeeded" : ""}`;
+      return (
+        <span data-cy="started">
+          Host start attempt {data.successful ? succeededString : ""}
+        </span>
+      );
     case HostEvent.Stopped:
-      return `Host stop attempt ${data.successful ? "succeeded" : ""}`;
+      return (
+        <span data-cy="stopped">
+          Host stop attempt {data.successful ? succeededString : ""}
+        </span>
+      );
     case HostEvent.Modified:
-      return `Host modify attempt ${data.successful ? "succeeded" : ""}`;
+      return (
+        <span data-cy="modified">
+          Host modify attempt {data.successful ? succeededString : ""}
+        </span>
+      );
     case HostEvent.AgentDeployed:
       return (
-        <div>
+        <div data-cy="agent-deployed">
           {" "}
           Agent deployed {data.agentRevision ? "with revision" : ""}{" "}
           <b>{data.agentRevision}</b> {data.agentBuild ? " from " : ""}
@@ -57,7 +75,7 @@ export const getHostEventString = (
       );
     case HostEvent.AgentMonitorDeployed:
       return (
-        <div>
+        <div data-cy="agent-monitor-deployed">
           {" "}
           Agent monitor deployed {data.agentRevision
             ? "with revision"
@@ -66,10 +84,14 @@ export const getHostEventString = (
         </div>
       );
     case HostEvent.AgentMonitorDeployFailed:
-      return `New agent monitor deploy failed`;
+      return (
+        <span data-cy="agent-monitor-deploy-failed">
+          New agent monitor deploy failed
+        </span>
+      );
     case HostEvent.HostJasperRestarting:
       return (
-        <div>
+        <div data-cy="host-jasper-restarting">
           {" "}
           Jasper service marked as restarting {data.user ? "by" : ""}{" "}
           <b>{data.user}</b>{" "}
@@ -77,7 +99,7 @@ export const getHostEventString = (
       );
     case HostEvent.HostJasperRestarted:
       return (
-        <div>
+        <div data-cy="host-jasper-restarted">
           {" "}
           Jasper service restarted with revision<b>
             {data.jasperRevision}
@@ -86,7 +108,7 @@ export const getHostEventString = (
       );
     case HostEvent.HostJasperRestartError:
       return (
-        <div>
+        <div data-cy="host-jasper-restart-error">
           {" "}
           Host encountered error when restarting Jasper service
           {data.logs ? (
@@ -97,16 +119,24 @@ export const getHostEventString = (
         </div>
       );
     case HostEvent.HostConvertingProvisioning:
-      return `Host converting provisioning type ${
-        data.provisioningMethod ? "to" : ""
-      }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
+      return (
+        <span data-cy="host-converting-provisioning">
+          Host converting provisioning type
+          {data.provisioningMethod ? " to" : ""} {data.provisioningMethod}
+          {data.provisioningMethod ? " method" : ""}
+        </span>
+      );
     case HostEvent.HostConvertedProvisioning:
-      return `Host successfully converted provisioning type ${
-        data.provisioningMethod ? "to" : ""
-      }  ${data.provisioningMethod} ${data.provisioningMethod ? "method" : ""}`;
+      return (
+        <span data-cy="host-converted-provisioning">
+          Host successfully converted provisioning type
+          {data.provisioningMethod ? " to" : ""} {data.provisioningMethod}
+          {data.provisioningMethod ? " method" : ""}
+        </span>
+      );
     case HostEvent.HostConvertingProvisioningError:
       return (
-        <div>
+        <div data-cy="host-converting-provisioning-error">
           Host encountered error when converting reprovisioning
           {data.logs ? (
             <HostEventLog title="Provisioning logs" logs={data.logs} isCode />
@@ -117,7 +147,7 @@ export const getHostEventString = (
       );
     case HostEvent.HostStatusChanged:
       return (
-        <div>
+        <div data-cy="host-status-changed">
           {" "}
           Status changed from <b>{data.oldStatus}</b> to <b>{data.newStatus}</b>{" "}
           {data.user ? "by" : ""} <b>{data.user}</b>{" "}
@@ -134,18 +164,18 @@ export const getHostEventString = (
       );
     case HostEvent.HostDNSNameSet:
       return (
-        <div>
+        <div data-cy="host-dns-name-set">
           {" "}
-          DNS Name set to <b>${data.hostname}</b>{" "}
+          DNS Name set to <b>{data.hostname}</b>{" "}
         </div>
       );
     case HostEvent.HostScriptExecuted:
       return (
-        <div>
+        <div data-cy="host-script-executed">
           {" "}
           Executed script on host
           {data.logs ? (
-            <HostEventLog title="Script Logs" logs={data.logs} isCode />
+            <HostEventLog title="Script logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -153,11 +183,11 @@ export const getHostEventString = (
       );
     case HostEvent.HostScriptExecuteFailed:
       return (
-        <div>
+        <div data-cy="host-script-execute-failed">
           {" "}
           Failed to execute script on host
           {data.logs ? (
-            <HostEventLog title="Script Logs" logs={data.logs} isCode />
+            <HostEventLog title="Script logs" logs={data.logs} isCode />
           ) : (
             ""
           )}
@@ -165,16 +195,17 @@ export const getHostEventString = (
       );
     case HostEvent.HostProvisioned:
       return (
-        <div>
+        <div data-cy="host-provisioned">
           Marked as <b>provisioned</b>
         </div>
       );
     case HostEvent.HostRunningTaskSet:
       return (
-        <div>
+        <div data-cy="host-running-task-set">
           {" "}
           Assigned to run task{" "}
           <StyledLink
+            data-cy="host-running-task-set-link"
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
@@ -183,10 +214,11 @@ export const getHostEventString = (
       );
     case HostEvent.HostRunningTaskCleared:
       return (
-        <div>
+        <div data-cy="host-running-task-cleared">
           {" "}
           Current running task cleared (was:
           <StyledLink
+            data-cy="host-running-task-cleared-link"
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
@@ -196,14 +228,14 @@ export const getHostEventString = (
       );
     case HostEvent.HostTaskPIDSet:
       return (
-        <div>
+        <div data-cy="host-task-pid-set">
           {" "}
           PID of running task set to <b>{data.taskPid}</b>{" "}
         </div>
       );
     case HostEvent.HostMonitorFlag:
       return (
-        <div>
+        <div data-cy="host-monitor-flag">
           {" "}
           Flagged for termination because:{" "}
           <b>{getTerminationString(data.monitorOp)}</b>
@@ -211,7 +243,7 @@ export const getHostEventString = (
       );
     case HostEvent.HostProvisionFailed:
       return (
-        <div>
+        <div data-cy="host-provision-failed">
           {" "}
           Provisioning failed{" "}
           {data.logs ? (
@@ -223,14 +255,14 @@ export const getHostEventString = (
       );
     case HostEvent.HostTeardown:
       return (
-        <div>
+        <div data-cy="host-teardown">
           {" "}
-          Teardown script{" "}
-          {data.successful ? (
-            <div>ran successfully</div>
+          Teardown script {data.successful ? (
+            "ran successfully"
           ) : (
             <b>failed</b>
-          )} in {stringifyNanoseconds(data.duration, true, true)}
+          )}{" "}
+          in {stringifyNanoseconds(data.duration, true, true)}
           {data.logs ? (
             <HostEventLog title="Teardown logs" logs={data.logs} isCode />
           ) : (
@@ -240,10 +272,11 @@ export const getHostEventString = (
       );
     case HostEvent.HostTaskFinished:
       return (
-        <div>
+        <div data-cy="host-task-finished">
           {" "}
           Task{" "}
           <StyledLink
+            data-cy="host-task-finished-link"
             href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
@@ -253,7 +286,11 @@ export const getHostEventString = (
         </div>
       );
     case HostEvent.HostExpirationWarningSet:
-      return "Expiration warning sent";
+      return (
+        <span data-cy="host-expiration-warning-set">
+          Expiration warning sent
+        </span>
+      );
     default:
       return `${eventType}`;
   }
@@ -273,15 +310,17 @@ export const HostEventLog: React.FC<{
   logs: any;
   isCode: boolean;
 }> = ({ title, logs, isCode }) => (
-  <StyledCollapse bordered={false}>
-    <Panel header={title} key="1">
-      {{ isCode } ? (
-        <Code multiline={false} language="shell">
-          {logs}
-        </Code>
-      ) : (
-        { logs }
-      )}
-    </Panel>
-  </StyledCollapse>
+  <span data-cy="host-event-logs">
+    <StyledCollapse bordered={false}>
+      <Panel header={title} key="1">
+        {{ isCode } ? (
+          <Code multiline={false} language="shell">
+            {logs}
+          </Code>
+        ) : (
+          { logs }
+        )}
+      </Panel>
+    </StyledCollapse>
+  </span>
 );
