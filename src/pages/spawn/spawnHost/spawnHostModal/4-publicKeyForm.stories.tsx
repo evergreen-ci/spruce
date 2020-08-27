@@ -20,7 +20,7 @@ interface publicKeyState {
   savePublicKey: boolean;
 }
 export const PublicKeyFormView = () => {
-  const publicKeyState = useState<publicKeyState>({
+  const [publicKeyState, setPublicKeyState] = useState<publicKeyState>({
     publicKey: {
       name: "",
       key: "",
@@ -29,7 +29,11 @@ export const PublicKeyFormView = () => {
   });
   console.log(publicKeyState[0]);
   return (
-    <PublicKeyForm publicKeys={publicKeys} publicKeyState={publicKeyState} />
+    <PublicKeyForm
+      publicKeys={publicKeys}
+      onChange={setPublicKeyState}
+      data={publicKeyState}
+    />
   );
 };
 

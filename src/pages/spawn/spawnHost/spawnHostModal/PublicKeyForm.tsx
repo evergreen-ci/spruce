@@ -11,35 +11,33 @@ import { PublicKey, PublicKeyInput } from "gql/generated/types";
 const { Option } = Select;
 const { TextArea } = Input;
 
-export interface publicKeyState {
+export type publicKeyState = {
   publicKey: PublicKeyInput;
   savePublicKey: boolean;
-}
+};
 
 interface PublicKeyFormProps {
   publicKeys: PublicKey[];
-  publicKeyState: [
-    publicKeyState,
-    React.Dispatch<React.SetStateAction<publicKeyState>>
-  ];
+  onChange: React.Dispatch<React.SetStateAction<publicKeyState>>;
+  data: publicKeyState;
 }
 export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   publicKeys,
-  publicKeyState,
+  onChange,
+  data,
 }) => {
   const [addNewKey, setAddNewKey] = useState(false);
-  const { savePublicKey } = publicKeyState[0];
-  const { key: publicKey, name: keyName } = publicKeyState[0].publicKey;
-  const setPublicKeyState = publicKeyState[1];
+  const { savePublicKey } = data;
+  const { key: publicKey, name: keyName } = data.publicKey;
 
   const selectPublicKey = (name: string) => {
     const selectedKey = publicKeys.find((key) => key.name === name);
     updatePublicKeyState(selectedKey);
   };
   const updatePublicKeyState = (selectedKey: PublicKey) => {
-    const state = { ...publicKeyState[0] };
+    const state = { ...data };
     state.publicKey = selectedKey;
-    setPublicKeyState(state);
+    onChange(state);
   };
   return (
     <Container>
@@ -81,8 +79,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
               label="Save public key"
               checked={savePublicKey}
               onChange={(e) =>
-                setPublicKeyState({
-                  ...publicKeyState[0],
+                onChange({
+                  ...data,
                   savePublicKey: e.target.checked,
                 })
               }
