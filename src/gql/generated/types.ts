@@ -1115,6 +1115,12 @@ export type CommitQueueQuery = {
   };
 };
 
+export type DistrosQueryVariables = {
+  onlySpawnable: Scalars["Boolean"];
+};
+
+export type DistrosQuery = { distros: Array<Maybe<{ name?: Maybe<string> }>> };
+
 export type HostEventsQueryVariables = {
   id: Scalars["String"];
   tag: Scalars["String"];
