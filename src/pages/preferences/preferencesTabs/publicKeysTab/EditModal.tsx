@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Modal } from "components/Modal";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import {

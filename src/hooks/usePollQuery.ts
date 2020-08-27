@@ -1,9 +1,9 @@
 import { useState, useEffect, Dispatch, SetStateAction } from "react";
-import { ApolloQueryResult } from "apollo-client";
+import { ApolloQueryResult } from "@apollo/client";
 import {
   isNetworkRequestInFlight,
   NetworkStatus,
-} from "apollo-client/core/networkStatus";
+} from "@apollo/client/core/networkStatus";
 import { useParams } from "react-router-dom";
 import isEqual from "lodash.isequal";
 import { pollInterval } from "constants/index";

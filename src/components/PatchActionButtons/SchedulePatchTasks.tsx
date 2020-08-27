@@ -5,7 +5,7 @@ import {
   SchedulePatchTasksMutationVariables,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH_TASKS } from "gql/mutations";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Popconfirm } from "antd";
 import { Button } from "components/Button";
 import { Disclaimer } from "@leafygreen-ui/typography";

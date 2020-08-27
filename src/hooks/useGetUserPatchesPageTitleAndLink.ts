@@ -3,7 +3,7 @@ import {
   GetOtherUserQuery,
   GetOtherUserQueryVariables,
 } from "gql/generated/types";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { getUserPatchesRoute } from "constants/routes";
 
 export const useGetUserPatchesPageTitleAndLink = (userId: string) => {

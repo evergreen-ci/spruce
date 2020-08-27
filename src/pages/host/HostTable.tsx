@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { Table } from "antd";
 import { getDateCopy } from "utils/string";
 import { HostCard } from "pages/host/HostCard";

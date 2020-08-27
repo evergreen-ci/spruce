@@ -14,7 +14,7 @@ import { SiteBanner, ConnectivityBanner } from "components/Banners";
 import { routes, paths } from "constants/routes";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { useAuthStateContext } from "context/auth";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { PageLayout } from "components/styles/Layout";
@@ -38,12 +38,15 @@ export const Content: React.FC = () => {
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
     GET_USER_SETTINGS
   );
+
   localStorage.setItem("userId", get(data, "user.userId", ""));
+
   const hasUsedSpruceBefore = get(
     userSettingsData,
     "userSettings.useSpruceOptions.hasUsedSpruceBefore",
     true
   );
+
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }

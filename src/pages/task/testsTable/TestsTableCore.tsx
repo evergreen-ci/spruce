@@ -13,7 +13,7 @@ import {
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { useParams, useLocation, useHistory } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import get from "lodash/get";
 import {

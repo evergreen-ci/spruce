@@ -1,63 +1,47 @@
 import React, { useState, useEffect } from "react";
-import { ApolloClient } from "apollo-client";
-import { ApolloProvider } from "@apollo/react-hooks";
-import { HttpLink } from "apollo-link-http";
-import { ApolloLink } from "apollo-link";
-import { RetryLink } from "apollo-link-retry";
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
 import {
-  addMockFunctionsToSchema,
-  introspectSchema,
-  makeExecutableSchema,
-} from "graphql-tools";
-import { printSchema } from "graphql/utilities/schemaPrinter";
-import { SchemaLink } from "apollo-link-schema";
-import { onError } from "apollo-link-error";
+  ApolloClient,
+  ApolloProvider,
+  InMemoryCache,
+  ApolloLink,
+  HttpLink,
+} from "@apollo/client";
+import { RetryLink } from "@apollo/client/link/retry";
+import { onError } from "@apollo/client/link/error";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
-import ApolloLinkTimeout from "apollo-link-timeout";
 import { reportError } from "utils/errorReporting";
+import { getGQLUrl } from "utils/getEnvironmentVariables";
+
+const GQLWrapper: React.FC = ({ children }) => {
+  const [client, setClient] = useState(null);
+  const { logout, dispatch } = useAuthDispatchContext();
+
+  useEffect(() => {
+    async function getAndSetClient(): Promise<void> {
+      const gqlClient = await getGQLClient({
+        credentials: "include",
+        gqlURL: getGQLUrl(),
+        logout,
+        dispatch,
+      });
+      setClient(gqlClient);
+    }
+    getAndSetClient();
+  }, [logout, dispatch]);
+
+  return client ? (
+    <ApolloProvider client={client}>{children}</ApolloProvider>
+  ) : (
+    <></>
+  );
+};
 
 interface ClientLinkParams {
   credentials?: string;
   gqlURL?: string;
-  isDevelopment?: boolean;
-  isTest?: boolean;
-  schemaString?: string;
-  shouldEnableGQLMockServer?: boolean;
   logout?: Logout;
   dispatch?: Dispatch;
 }
-
-export const getClientLink = async ({
-  credentials,
-  gqlURL,
-  isDevelopment,
-  isTest,
-  schemaString,
-  shouldEnableGQLMockServer,
-}: ClientLinkParams): Promise<HttpLink | SchemaLink> => {
-  const httpLink = new HttpLink({
-    uri: gqlURL,
-    credentials,
-  });
-
-  if (
-    (isDevelopment || isTest) &&
-    (schemaString || shouldEnableGQLMockServer)
-  ) {
-    try {
-      const executableSchema = makeExecutableSchema({
-        typeDefs: schemaString || printSchema(await introspectSchema(httpLink)),
-      });
-      addMockFunctionsToSchema({ schema: executableSchema });
-      return new SchemaLink({ schema: executableSchema });
-    } catch (e) {
-      // unable to initiate mock server
-      return new HttpLink();
-    }
-  }
-  return httpLink;
-};
 
 const cache = new InMemoryCache();
 
@@ -83,8 +67,6 @@ const logErrorsLink = onError(({ graphQLErrors }) => {
   // very common when a user is not authenticated
 });
 
-const timeoutLink = new ApolloLinkTimeout(60000);
-
 const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
   new ApolloLink((operation, forward) =>
     forward(operation).map((response) => {
@@ -109,78 +91,27 @@ const retryLink = new RetryLink({
   },
 });
 
-export const getGQLClient = async ({
+export const getGQLClient = ({
   credentials,
   gqlURL,
-  isDevelopment,
-  isTest,
-  schemaString,
-  shouldEnableGQLMockServer,
   logout,
   dispatch,
-}: ClientLinkParams): Promise<ApolloClient<NormalizedCacheObject>> => {
-  const link: HttpLink | SchemaLink = await getClientLink({
+}: ClientLinkParams) => {
+  const link = new HttpLink({
+    uri: gqlURL,
     credentials,
-    gqlURL,
-    isDevelopment,
-    isTest,
-    schemaString,
-    shouldEnableGQLMockServer,
   });
-  const client: ApolloClient<NormalizedCacheObject> = new ApolloClient({
+
+  const client = new ApolloClient({
     cache,
     link: authenticateIfSuccessfulLink(dispatch)
       .concat(authLink(logout))
       .concat(logErrorsLink)
       .concat(retryLink)
-      .concat(timeoutLink)
       .concat(link),
   });
+
   return client;
-};
-
-const GQLWrapper: React.FC<ClientLinkParams> = ({
-  children,
-  credentials,
-  gqlURL,
-  isDevelopment,
-  isTest,
-  schemaString,
-  shouldEnableGQLMockServer,
-}) => {
-  const [client, setClient] = useState(null);
-  const { logout, dispatch } = useAuthDispatchContext();
-
-  useEffect(() => {
-    async function getAndSetClient(): Promise<void> {
-      const gqlClient = await getGQLClient({
-        credentials,
-        gqlURL,
-        isDevelopment,
-        isTest,
-        schemaString,
-        shouldEnableGQLMockServer,
-        logout,
-        dispatch,
-      });
-      setClient(gqlClient);
-    }
-    getAndSetClient();
-  }, [
-    credentials,
-    gqlURL,
-    isDevelopment,
-    isTest,
-    schemaString,
-    shouldEnableGQLMockServer,
-    logout,
-    dispatch,
-  ]);
-  return client ? (
-    <ApolloProvider client={client}>{children}</ApolloProvider>
-  ) : (
-    <></>
-  );
 };
 
 export default GQLWrapper;

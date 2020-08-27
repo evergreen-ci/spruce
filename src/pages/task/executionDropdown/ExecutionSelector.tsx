@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { shortDate } from "utils/string";
 import { Select } from "antd";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { ExecutionAsDisplay } from "pages/task/util/execution";
 import {
   GetTaskAllExecutionsQuery,
