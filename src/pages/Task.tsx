@@ -7,7 +7,7 @@ import { BreadCrumb } from "components/Breadcrumb";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { PageTitle } from "components/PageTitle";
 import { Logs } from "pages/task/Logs";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";

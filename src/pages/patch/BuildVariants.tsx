@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import {

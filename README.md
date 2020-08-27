@@ -52,13 +52,6 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_UI_URL": "http://localhost:9090",
     "REACT_APP_SPRUCE_URL": "http://localhost:3000"
   },
-  "mockIntrospectSchema": {
-    "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
-    "REACT_APP_ENABLE_GQL_MOCK_SERVER": "true"
-  },
-  "mockCustomSchema": {
-    "REACT_APP_SCHEMA_STRING": "type Patch {\n id: ID!\n description: String!\n project: String!\n githash: String!\n patchNumber: Int!\n author: String!\n version: String!\n status: String!\n createTime: Time!\n startTime: Time!\n finishTime: Time!\n variants: [String]!\n tasks: [String]!\n variantTasks: [VariantTask]!\n activated: Boolean!\n alias: String!\n }\n type Query {\n userPatches(userId: String!): [Patch]!\n }\n type StatusDetails {\n status: String!\n type: String!\n desc: String!\n }\n scalar Time\n type VariantTask {\n display_name: String!\n tasks: [String]!\n }\n"
-  },
   "staging": {
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"

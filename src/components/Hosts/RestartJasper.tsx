@@ -4,7 +4,7 @@ import {
   RestartJasperMutationVariables,
 } from "gql/generated/types";
 import { Popconfirm } from "antd";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { RESTART_JASPER } from "gql/mutations";
 import { useBannerDispatchContext } from "context/banners";
 import { Button } from "components/Button";

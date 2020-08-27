@@ -40,9 +40,7 @@ describe("Tests Table", () => {
   it("Should display error banner when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     cy.waitForGQL("GetTask");
-    cy.dataCy("banner").contains(
-      "There was an error loading the task: GraphQL error:"
-    );
+    cy.dataCy("banner").should("exist");
   });
 
   it("Should have sort buttons disabled when fetching data", () => {
@@ -53,6 +51,46 @@ describe("Tests Table", () => {
         "'pointer-events: none' prevents user mouse interaction."
       );
     });
+  });
+
+  it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
+    cy.visit(TESTS_ROUTE);
+
+    cy.contains(TABLE_SORT_SELECTOR, "Name").click();
+
+    cy.get("[data-cy=filtered-test-count]")
+      .as("filtered-count")
+      .invoke("text")
+      .should("eq", "20");
+    cy.get("[data-cy=total-test-count]")
+      .as("total-count")
+      .invoke("text")
+      .should("eq", "20");
+
+    cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
+    cy.get(".cy-checkbox")
+      .contains("Fail")
+      .click({ force: true });
+
+    waitForTestsQuery();
+
+    cy.get("@filtered-count")
+      .invoke("text")
+      .should("eq", "1");
+    cy.get("@total-count")
+      .invoke("text")
+      .should("eq", "20");
+
+    cy.dataCy("testname-input").type("hello");
+
+    waitForTestsQuery();
+
+    cy.get("@filtered-count")
+      .invoke("text")
+      .should("eq", "0");
+    cy.get("@total-count")
+      .invoke("text")
+      .should("eq", "20");
   });
 
   it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
@@ -111,8 +149,6 @@ describe("Tests Table", () => {
   });
 
   it("Buttons in log column should have target=_blank attribute", () => {
-    cy.visit(TESTS_ROUTE);
-    waitForTestsQuery();
     cy.get("[data-cy=test-table-html-btn").should(
       "have.attr",
       "target",
@@ -163,28 +199,30 @@ describe("Tests Table", () => {
       { display: "Skip", key: "skip" },
     ];
 
-    statuses.forEach(({ display, key }) => {
-      it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
-        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
-          checkboxDisplayName: display,
-          pathname: TESTS_ROUTE,
-          paramName: "statuses",
-          search: key,
-          query: {
-            name: "TaskTests",
-            responseName: "taskTests.testResults",
-            requestVariables: {
-              cat: "STATUS",
-              dir: "ASC",
-              statusList: [key],
-              limitNum: 10,
-              pageNum: 0,
-              testName: "",
-            },
-          },
-        });
-      });
-    });
+    // THESE TESTS CAN BE DELETED ONCE TABLE FILTERS ARE REPLACED WITH INLINE FILTERS
+
+    // statuses.forEach(({ display, key }) => {
+    //   it(`Clicking on ${display} status checkbox adds ${key} status to URL and clicking again removes it`, () => {
+    //     clickingCheckboxUpdatesUrlAndRendersFetchedResults({
+    //       checkboxDisplayName: display,
+    //       pathname: TESTS_ROUTE,
+    //       paramName: "statuses",
+    //       search: key,
+    //       query: {
+    //         name: "TaskTests",
+    //         responseName: "taskTests.testResults",
+    //         requestVariables: {
+    //           cat: "STATUS",
+    //           dir: "ASC",
+    //           statusList: [key],
+    //           limitNum: 10,
+    //           pageNum: 0,
+    //           testName: "",
+    //         },
+    //       },
+    //     });
+    //   });
+    // });
 
     it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
@@ -225,53 +263,11 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("Filtered and total test count label", () => {
-    before(() => {
-      cy.visit(TESTS_ROUTE);
-    });
-
-    it("Should display filteredTestCount and totalTestCount from taskTest GQL response", () => {
-      waitForTestsQuery();
-
-      cy.get("[data-cy=filtered-test-count]")
-        .as("filtered-count")
-        .invoke("text")
-        .should("eq", "20");
-      cy.get("[data-cy=total-test-count]")
-        .as("total-count")
-        .invoke("text")
-        .should("eq", "20");
-
-      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-      cy.get(".cy-checkbox")
-        .contains("Fail")
-        .click({ force: true });
-
-      waitForTestsQuery();
-
-      cy.get("@filtered-count")
-        .invoke("text")
-        .should("eq", "1");
-      cy.get("@total-count")
-        .invoke("text")
-        .should("eq", "20");
-
-      cy.dataCy("testname-input").type("hello");
-
-      waitForTestsQuery();
-
-      cy.get("@filtered-count")
-        .invoke("text")
-        .should("eq", "0");
-      cy.get("@total-count")
-        .invoke("text")
-        .should("eq", "20");
-    });
-  });
-
   describe("Changing page number", () => {
     before(() => {
-      cy.visit(TESTS_ROUTE);
+      cy.visit(
+        "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests?execution=1&limit=10&page=0"
+      );
     });
 
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {

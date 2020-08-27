@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Table, Skeleton, Popconfirm } from "antd";
-import { useQuery, useMutation } from "@apollo/react-hooks";
+import { useQuery, useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import styled from "@emotion/styled";

@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError } from "apollo-client";
+import { ApolloError } from "@apollo/client";
 import { Divider } from "components/styles/Divider";
 import { SiderCard } from "components/styles";
 import { Skeleton } from "antd";
