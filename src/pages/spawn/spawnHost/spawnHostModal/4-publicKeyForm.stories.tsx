@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { PublicKeyInput } from "gql/generated/types";
-import { PublicKeyForm } from "./PublicKeyForm";
+import { PublicKeyForm, publicKeyStateType } from "./PublicKeyForm";
 import "antd/es/select/style/css";
 import "antd/es/carousel/style/css";
 
@@ -15,12 +14,8 @@ const publicKeys = [
     name: "MyThirdKey.pub",
   },
 ];
-interface publicKeyState {
-  publicKey: PublicKeyInput;
-  savePublicKey: boolean;
-}
 export const PublicKeyFormView = () => {
-  const [publicKeyState, setPublicKeyState] = useState<publicKeyState>({
+  const [publicKeyState, setPublicKeyState] = useState<publicKeyStateType>({
     publicKey: {
       name: "",
       key: "",

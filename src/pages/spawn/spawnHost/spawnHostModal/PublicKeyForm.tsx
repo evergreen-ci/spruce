@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Body } from "@leafygreen-ui/typography";
+import { Subtitle } from "@leafygreen-ui/typography";
 import Checkbox from "@leafygreen-ui/checkbox";
 import TextInput from "@leafygreen-ui/text-input";
 import { RadioBox } from "@leafygreen-ui/radio-box-group";
@@ -11,15 +11,15 @@ import { PublicKey, PublicKeyInput } from "gql/generated/types";
 const { Option } = Select;
 const { TextArea } = Input;
 
-export type publicKeyState = {
+export type publicKeyStateType = {
   publicKey: PublicKeyInput;
   savePublicKey: boolean;
 };
 
 interface PublicKeyFormProps {
   publicKeys: PublicKey[];
-  onChange: React.Dispatch<React.SetStateAction<publicKeyState>>;
-  data: publicKeyState;
+  onChange: React.Dispatch<React.SetStateAction<publicKeyStateType>>;
+  data: publicKeyStateType;
 }
 export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   publicKeys,
@@ -41,7 +41,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   };
   return (
     <Container>
-      <Body>Public Key</Body>
+      <Subtitle>Public Key</Subtitle>
       <SelectContainer>
         <Select
           showSearch
@@ -50,14 +50,18 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           onChange={selectPublicKey}
         >
           {publicKeys?.map((pk) => (
-            <Option value={pk.name}>{pk.name}</Option>
+            <Option key={`public_key_option_${pk.name}`} value={pk.name}>
+              {pk.name}
+            </Option>
           ))}
         </Select>
-        or
+        <PaddedText>or</PaddedText>
         <RadioBox
           value="addKey"
           onClick={() => setAddNewKey(!addNewKey)}
+          onChange={() => undefined}
           checked={addNewKey}
+          size="full"
         >
           Add new key
         </RadioBox>
@@ -116,7 +120,12 @@ const KeyNameContainer = styled(FlexContainer)`
 `;
 
 const Container = styled(FlexColumnContainer)`
-  width: 60%;
+  width: 80%;
+`;
+
+const PaddedText = styled.span`
+  padding-left: 15px;
+  padding-right: 15px;
 `;
 const SelectContainer = styled.div`
   display: flex;
