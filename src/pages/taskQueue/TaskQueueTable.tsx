@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
@@ -16,7 +16,7 @@ import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 
 export const TaskQueueTable = () => {
-  const { distro } = useParams<{ distro: string }>();
+  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
 
   const { data: taskQueueItemsData, loading, refetch: refetchQueue } = useQuery<
     DistroTaskQueueQuery,
@@ -38,6 +38,18 @@ export const TaskQueueTable = () => {
       refetchQueue({ distroId: distro });
     }
   }, [searchChanged, refetchQueue, distro]);
+
+  // SCROLL TO TASK
+  const taskRowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (taskRowRef.current) {
+      taskRowRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  }, [taskRowRef]);
 
   const columns: Array<ColumnProps<TaskQueueItem>> = [
     {
@@ -93,6 +105,16 @@ export const TaskQueueTable = () => {
     <Table
       columns={columns}
       rowKey={({ id }: { id: string }): string => id}
+      rowSelection={{
+        hideSelectAll: true,
+        selectedRowKeys: [taskId],
+        renderCell(...[, { id }]) {
+          if (id === taskId) {
+            return <div ref={taskRowRef} />;
+          }
+          return null;
+        },
+      }}
       pagination={false}
       dataSource={taskQueueItems}
       loading={loading}

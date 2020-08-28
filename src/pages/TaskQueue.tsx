@@ -21,7 +21,7 @@ import { getTaskQueueRoute } from "constants/routes";
 const { Option } = Select;
 
 export const TaskQueue = () => {
-  const { distro } = useParams<{ distro: string }>();
+  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
   const [selectedDistro, setSelectedDistro] = useState(null);
@@ -41,9 +41,9 @@ export const TaskQueue = () => {
     setSelectedDistro(defaultDistro);
 
     if (defaultDistro) {
-      replace(getTaskQueueRoute(defaultDistro));
+      replace(getTaskQueueRoute(defaultDistro, taskId));
     }
-  }, [firstDistroInList, distro, replace]);
+  }, [firstDistroInList, distro, replace, taskId]);
 
   const onChangeDistroSelection = (val: string) => {
     setSelectedDistro(val);
@@ -91,3 +91,5 @@ const StyledBadge = styled(Badge)`
 const DistroName = styled(Disclaimer)`
   margin-left: 16px;
 `;
+
+// mongodb_cpp_driver_dev_osx_108_compile_and_test_671bda78e9947426e78bdae3ea13be1ce64ffe18_16_07_26_21_12_52
