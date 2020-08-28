@@ -22,7 +22,6 @@ export const PublicKeyFormView = () => {
     },
     savePublicKey: false,
   });
-  console.log(publicKeyState[0]);
   return (
     <PublicKeyForm
       publicKeys={publicKeys}

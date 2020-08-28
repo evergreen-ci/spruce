@@ -26,7 +26,7 @@ export const Modal: React.FC<ModalProps> = ({
       backgroundColor,
     }}
     centered
-    footer={null}
+    footer={footer}
     visible={visible}
     onCancel={onCancel}
     width="50%"
@@ -36,7 +36,6 @@ export const Modal: React.FC<ModalProps> = ({
   >
     <ModalTitle data-cy="modal-title">{title}</ModalTitle>
     {children}
-    {footer && <Footer>{footer}</Footer>}
   </StyledModal>
 );
 
@@ -46,11 +45,6 @@ const ModalTitle = styled(H2)`
   padding-bottom: 16px;
   margin-bottom: 16px;
   border-bottom: 1px solid ${uiColors.gray.light2};
-`;
-
-const Footer = styled.div`
-  padding-top: 24px;
-  float: right;
 `;
 
 const StyledModal = styled(AntdModal)`

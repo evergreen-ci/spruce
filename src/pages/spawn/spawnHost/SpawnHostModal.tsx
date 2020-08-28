@@ -38,6 +38,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
+  // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
     DistrosQueryVariables
@@ -47,16 +48,19 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     },
   });
 
+  // QUERY aws regions
   const { data: awsData, loading: awsLoading } = useQuery<
     AwsRegionsQuery,
     AwsRegionsQueryVariables
   >(GET_AWS_REGIONS);
 
+  // QUERY public keys
   const { data: publicKeysData, loading: publicKeyLoading } = useQuery<
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS);
 
+  // Public key form state
   const [publicKeyState, setPublicKeyState] = useState<publicKeyStateType>({
     publicKey: {
       name: "",
@@ -64,6 +68,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     },
     savePublicKey: false,
   });
+  // optional host details form state
   const [hostDetailsState, setHostDetailsState] = useState<
     hostDetailsStateType
   >({
@@ -72,7 +77,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     expiration: null,
     noExpiration: false,
   });
+
+  // distro Field for form submision
   const [distro, setDistro] = useState("");
+  // aws region field for form submission
   const [awsRegion, setAWSRegion] = useState("");
 
   if (distroLoading || publicKeyLoading || awsLoading) {
@@ -105,15 +113,15 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <Button onClick={onCancel}>Cancel</Button>,
-        <Button
+        <WideButton onClick={onCancel}>Cancel</WideButton>,
+        <WideButton
           data-cy="spawn-host-button"
           disabled={false}
           onClick={() => undefined}
           variant={Variant.Primary}
         >
           Spawn
-        </Button>,
+        </WideButton>,
       ]}
       data-cy="spawn-host-modal"
     >
@@ -192,4 +200,9 @@ const HR = styled("hr")`
   border: 0;
   height: 1px;
   width: 100%;
+`;
+
+const WideButton = styled(Button)`
+  justify-content: center;
+  width: 140px;
 `;

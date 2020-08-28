@@ -38,6 +38,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
     const updatedTime = set(expiration, { year, month, date });
     onChange({ ...data, expiration: updatedTime });
   };
+
   const updateTime = (_, dateString) => {
     // This functions take in the time string returned from the timePicker component
     // It uses the date string since it comes in the format hh-mm-ss and it can be combined with the
@@ -49,7 +50,9 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
     const updatedTime = set(expiration, { hours, minutes, seconds });
     onChange({ ...data, expiration: updatedTime });
   };
+
   const disabledDate = (current) => current < Date.now();
+
   return (
     <Container>
       <StyledSubtitle> Optional Host Details</StyledSubtitle>
@@ -137,5 +140,5 @@ const StyledSubtitle = styled(Subtitle)`
 `;
 
 const StyledTextArea = styled(TextArea)`
-  margin-bottom: 15px;
+  margin: 15px 0;
 `;

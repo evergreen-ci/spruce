@@ -26,7 +26,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   onChange,
   data,
 }) => {
-  const [addNewKey, setAddNewKey] = useState(false);
+  const [shouldAddNewKey, setShouldAddNewKey] = useState(false);
   const { savePublicKey } = data;
   const { key: publicKey, name: keyName } = data.publicKey;
 
@@ -58,15 +58,15 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
         <PaddedText>or</PaddedText>
         <RadioBox
           value="addKey"
-          onClick={() => setAddNewKey(!addNewKey)}
+          onClick={() => setShouldAddNewKey(!shouldAddNewKey)}
           onChange={() => undefined}
-          checked={addNewKey}
+          checked={shouldAddNewKey}
           size="full"
         >
           Add new key
         </RadioBox>
       </SelectContainer>
-      {addNewKey && (
+      {shouldAddNewKey && (
         <FlexColumnContainer>
           <InputLabel htmlFor="keyValueInput">Public Key</InputLabel>
           <StyledTextArea
