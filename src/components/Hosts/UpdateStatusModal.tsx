@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Select, Input } from "antd";
 import styled from "@emotion/styled";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import { Modal } from "components/Modal";
 import { Button } from "components/Button";
 import {
@@ -13,6 +13,8 @@ import { useBannerDispatchContext } from "context/banners";
 import { UpdateHostStatus } from "types/host";
 import { Body } from "@leafygreen-ui/typography";
 
+import { useHostsTableAnalytics } from "analytics";
+
 const { Option } = Select;
 const { TextArea } = Input;
 
@@ -21,6 +23,7 @@ interface Props {
   dataCy: string;
   hostIds: string[];
   closeModal: () => void;
+  isSingleHost?: boolean;
 }
 
 export const UpdateStatusModal: React.FC<Props> = ({
@@ -28,12 +31,15 @@ export const UpdateStatusModal: React.FC<Props> = ({
   dataCy,
   hostIds,
   closeModal,
+  isSingleHost = false,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
   const [status, setHostStatus] = useState<UpdateHostStatus>(null);
 
   const [notes, setNotesValue] = useState<string>("");
+
+  const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
 
   const resetForm = () => {
     setHostStatus(null);
@@ -47,11 +53,14 @@ export const UpdateStatusModal: React.FC<Props> = ({
   >(UPDATE_HOST_STATUS, {
     onCompleted({ updateHostStatus: numberOfHostsUpdated }) {
       closeModal();
-      dispatchBanner.successBanner(
-        `Status was changed to ${status} for ${numberOfHostsUpdated} host${
-          numberOfHostsUpdated === 1 ? "" : "s"
-        }`
-      );
+      const message = isSingleHost
+        ? `Status was changed to ${status}`
+        : `Status was changed to ${status} for ${numberOfHostsUpdated} host${
+            numberOfHostsUpdated === 1 ? "" : "s"
+          }`;
+
+      dispatchBanner.successBanner(message);
+
       resetForm();
     },
     onError(error) {
@@ -64,6 +73,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   });
 
   const onClickUpdate = () => {
+    hostsTableAnalytics.sendEvent({ name: "Update Status", status });
     updateHostStatus({ variables: { hostIds, status, notes } });
   };
 

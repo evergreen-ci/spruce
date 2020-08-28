@@ -1,6 +1,6 @@
 import { PatchStatus } from "types/patch";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";

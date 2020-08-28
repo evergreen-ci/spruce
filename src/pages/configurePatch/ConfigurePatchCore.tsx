@@ -13,7 +13,7 @@ import { Input } from "antd";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { Body } from "@leafygreen-ui/typography";
-import { useMutation } from "@apollo/react-hooks";
+import { useMutation } from "@apollo/client";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";

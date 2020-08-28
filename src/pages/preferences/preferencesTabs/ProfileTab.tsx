@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/react-hooks";
+import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
@@ -98,9 +98,14 @@ export const ProfileTab: React.FC = () => {
           <StyledSelect
             defaultValue={timezoneField}
             onChange={handleFieldUpdate(setTimezoneField)}
+            data-cy="timezone-field"
           >
             {timeZones.map((timeZone) => (
-              <Option value={timeZone.value} key={timeZone.value}>
+              <Option
+                value={timeZone.value}
+                key={timeZone.value}
+                data-cy={`${timeZone.str}-option`}
+              >
                 {timeZone.str}
               </Option>
             ))}
@@ -109,7 +114,7 @@ export const ProfileTab: React.FC = () => {
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
-            {(awsRegions as any[]).map((awsRegion) => (
+            {(awsRegions as any[])?.map((awsRegion) => (
               <Option value={awsRegion} key={awsRegion}>
                 {awsRegion}
               </Option>

@@ -1,6 +1,6 @@
 import { format } from "date-fns";
 import get from "lodash/get";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import { GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
 import { formatToTimeZone } from "date-fns-timezone";

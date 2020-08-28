@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { NetworkStatus } from "apollo-client";
+import { NetworkStatus } from "@apollo/client";
 
 export const useDisableTableSortersIfLoading = (
   networkStatus: NetworkStatus

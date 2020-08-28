@@ -116,9 +116,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("save-key-button").click();
       cy.dataCy("banner")
         .first()
-        .contains(
-          "There was an error creating the public key: GraphQL error: Provided public key is invalid : ssh: no key found"
-        );
+        .should("exist");
     });
   });
 });

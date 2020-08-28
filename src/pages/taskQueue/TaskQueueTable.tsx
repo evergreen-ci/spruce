@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useQuery } from "@apollo/react-hooks";
+import { useQuery } from "@apollo/client";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,

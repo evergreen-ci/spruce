@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const SET_TASK_PRIORTY = gql`
   mutation SetTaskPriority($taskId: String!, $priority: Int!) {

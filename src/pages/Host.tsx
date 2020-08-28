@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/react-hooks";
+import styled from "@emotion/styled";
+import { useQuery } from "@apollo/client";
+import Code from "@leafygreen-ui/code";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { Banners } from "components/Banners";
@@ -26,9 +28,11 @@ import { PageTitle } from "components/PageTitle";
 import { HostStatus } from "types/host";
 import { Metadata } from "pages/host/Metadata";
 import { HostTable } from "pages/host/HostTable";
-import Code from "@leafygreen-ui/code";
 import { useUserTimeZone } from "utils/string";
 import { withBannersContext } from "hoc/withBannersContext";
+import { Button } from "components/Button";
+import { UpdateStatusModal } from "components/Hosts";
+import { RestartJasper } from "components/Hosts/RestartJasper";
 
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -63,10 +67,15 @@ export const HostCore: React.FC = () => {
     variables: { id, tag },
   });
 
+  // UPDATE STATUS MODAL VISIBILITY STATE
+  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
+    boolean
+  >(false);
+
   usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
 
   return (
-    <PageWrapper>
+    <PageWrapper data-cy="host-page">
       <Banners
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
@@ -79,7 +88,27 @@ export const HostCore: React.FC = () => {
             loading={hostMetaDataLoading}
             hasData
             size="large"
+            buttons={
+              <div>
+                <ButtonsWrapper>
+                  <ButtonSpacer>
+                    <Button
+                      dataCy="update-status-button"
+                      onClick={() => setIsUpdateStatusModalVisible(true)}
+                    >
+                      Update Status
+                    </Button>
+                  </ButtonSpacer>
+                  <RestartJasper
+                    selectedHostIds={[id]}
+                    hostUrl={hostUrl}
+                    isSingleHost
+                  />
+                </ButtonsWrapper>
+              </div>
+            }
           />
+
           <PageLayout>
             <PageSider width={350}>
               <Metadata
@@ -88,7 +117,9 @@ export const HostCore: React.FC = () => {
                 error={error}
                 timeZone={timeZone}
               />
-              <Code language="shell">{sshCommand}</Code>
+              <Code language="shell" data-cy="ssh-command">
+                {sshCommand}
+              </Code>
             </PageSider>
             <PageLayout>
               <PageContent>
@@ -103,8 +134,22 @@ export const HostCore: React.FC = () => {
           </PageLayout>
         </>
       )}
+      <UpdateStatusModal
+        dataCy="update-host-status-modal"
+        hostIds={[id]}
+        visible={isUpdateStatusModalVisible}
+        closeModal={() => setIsUpdateStatusModalVisible(false)}
+        isSingleHost
+      />
     </PageWrapper>
   );
 };
+const ButtonSpacer = styled.span`
+  margin-right: 32px;
+`;
+
+const ButtonsWrapper = styled.div`
+  white-space: nowrap;
+`;
 
 export const Host = withBannersContext(HostCore);
