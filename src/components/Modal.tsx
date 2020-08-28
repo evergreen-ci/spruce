@@ -7,7 +7,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 interface ModalProps {
   footer: JSX.Element[] | JSX.Element;
-  title: string;
+  title: string | JSX.Element;
   "data-cy": string;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;

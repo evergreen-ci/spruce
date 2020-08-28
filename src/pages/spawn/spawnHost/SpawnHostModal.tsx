@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Modal, AutoComplete, Input, Select } from "antd";
+import { AutoComplete, Input, Select } from "antd";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Subtitle, H2 } from "@leafygreen-ui/typography";
@@ -7,6 +7,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Icon from "components/icons/Icon";
 import { InputLabel } from "components/styles";
+import { Modal } from "components/Modal";
 import { GET_DISTROS, GET_MY_PUBLIC_KEYS, GET_AWS_REGIONS } from "gql/queries";
 import {
   DistrosQuery,
@@ -35,7 +36,6 @@ interface SpawnHostModalProps {
 }
 export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   visible,
-  onOk,
   onCancel,
 }) => {
   const { data: distrosData, loading: distroLoading } = useQuery<
@@ -103,7 +103,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     <Modal
       title={<H2>Spawn New Host</H2>}
       visible={visible}
-      onOk={onOk}
       onCancel={onCancel}
       footer={[
         <Button onClick={onCancel}>Cancel</Button>,
@@ -113,13 +112,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           onClick={() => undefined}
           variant={Variant.Primary}
         >
-          Restart
+          Spawn
         </Button>,
       ]}
-      width="50%"
-      wrapProps={{
-        "data-cy": "spawn-host-modal",
-      }}
+      data-cy="spawn-host-modal"
     >
       <Container>
         <Subtitle> Required Host Information</Subtitle>
