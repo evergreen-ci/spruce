@@ -49,12 +49,14 @@ export const Metadata: React.FC<{
       <P2 data-cy="task-metadata-submitted-at">
         Submitted at: {getDateCopy(createTime)}
       </P2>
-      <P2>
-        Estimated time to start:{" "}
-        <span data-cy="task-metadata-estimated_start">
-          {msToDuration(estimatedStart)}
-        </span>
-      </P2>
+      {estimatedStart > 0 && (
+        <P2>
+          Estimated time to start:{" "}
+          <span data-cy="task-metadata-estimated_start">
+            {msToDuration(estimatedStart)}
+          </span>
+        </P2>
+      )}
       {/* Can only show the time running and eta if the task is running and 
       it has a baseTaskDuration to calculate the eta with */}
       {status === TaskStatus.Started && baseTaskDuration && (
@@ -75,9 +77,11 @@ export const Metadata: React.FC<{
           <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
         </P2>
       )}
-      <P2 data-cy="task-metadata-duration">
-        Duration: {msToDuration(timeTaken)}{" "}
-      </P2>
+      {timeTaken && (
+        <P2 data-cy="task-metadata-duration">
+          Duration: {msToDuration(timeTaken)}{" "}
+        </P2>
+      )}
       {baseTaskDuration !== undefined && (
         <P2 data-cy="task-metadata-base-commit-duration">
           Base commit duration: {msToDuration(baseTaskDuration)}
