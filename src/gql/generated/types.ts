@@ -1133,7 +1133,11 @@ export type DistrosQueryVariables = {
   onlySpawnable: Scalars["Boolean"];
 };
 
-export type DistrosQuery = { distros: Array<Maybe<{ name?: Maybe<string> }>> };
+export type DistrosQuery = {
+  distros: Array<
+    Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
+  >;
+};
 
 export type HostEventsQueryVariables = {
   id: Scalars["String"];

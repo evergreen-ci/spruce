@@ -87,6 +87,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
             onChange={updateTime}
             disabled={noExpiration}
             disabledDate={disabledDate}
+            value={expiration}
           />
         </FlexColumnContainer>
         <PaddedBody> or </PaddedBody>

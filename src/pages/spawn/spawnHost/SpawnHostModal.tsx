@@ -69,7 +69,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   >({
     hasUserDataScript: false,
     userDataScript: "",
-    expiration: new Date(),
+    expiration: null,
     noExpiration: false,
   });
   const [distro, setDistro] = useState("");
@@ -82,6 +82,23 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const distros = distrosData?.distros;
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
+
+  const virtualWorkstationDistros = distros.filter(
+    (d) => d.isVirtualWorkStation
+  );
+  const notVirtualWorkstationDistros = distros.filter(
+    (d) => !d.isVirtualWorkStation
+  );
+  const distroOptions = [
+    {
+      label: renderTitle("WORKSTATION DISTROS"),
+      options: virtualWorkstationDistros.map((d) => renderItem(d.name)),
+    },
+    {
+      label: renderTitle("OTHER DISTROS"),
+      options: notVirtualWorkstationDistros.map((d) => renderItem(d.name)),
+    },
+  ];
   return (
     <Modal
       title={<H2>Spawn New Host</H2>}
@@ -110,7 +127,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
           <AutoComplete
             style={{ width: 200, marginLeft: 0 }}
-            options={distros?.map((d) => wrapOption(d.name))}
+            options={distroOptions}
             id="distroSearchBox"
             onChange={setDistro}
           >
@@ -158,10 +175,11 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   );
 };
 
-// antd requires options to be in this format.
-// For some reason something is preventing me from inlining this in the map statement above
-const wrapOption = (str: string) => ({
-  value: str,
+const renderTitle = (title: string) => <b>{title}</b>;
+
+const renderItem = (title: string) => ({
+  value: title,
+  label: <span>{title}</span>,
 });
 
 const Container = styled.div`
