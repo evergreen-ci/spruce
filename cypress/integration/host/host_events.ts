@@ -17,7 +17,7 @@ describe("Host events", () => {
 
     const dataCyTableRows =
       "[data-test-id=host-events-table] tr td:first-child";
-    cy.get(dataCyTableRows).should("have.length.of.at.most", 100);
+    cy.get(dataCyTableRows).should("have.length.of.at.most", 32);
 
     const hostTypes = [
       {
