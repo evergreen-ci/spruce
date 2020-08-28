@@ -15,6 +15,10 @@ describe("Host events", () => {
     cy.dataTestId("host-event-table-page-size-selector").click();
     cy.dataTestId("host-event-table-page-size-selector-100").click();
 
+    const dataCyTableRows =
+      "[data-test-id=host-events-table] tr td:first-child";
+    cy.get(dataCyTableRows).should("have.length.of.at.most", 100);
+
     const hostTypes = [
       {
         hostType: "host-converted-provisioning",

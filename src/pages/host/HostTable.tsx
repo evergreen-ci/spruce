@@ -68,7 +68,7 @@ export const HostTable: React.FC<{
       </TableTitle>
 
       <Table
-        data-test-id="tests-table"
+        data-test-id="host-events-table"
         dataSource={logEntries}
         rowKey={rowKey}
         columns={columnsTemplate}
