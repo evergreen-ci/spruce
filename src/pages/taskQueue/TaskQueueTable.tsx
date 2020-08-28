@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useQuery } from "@apollo/client";
@@ -8,9 +9,11 @@ import {
   TaskQueueItem,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { Body } from "@leafygreen-ui/typography";
 import { useParams, useLocation } from "react-router-dom";
 import { usePrevious } from "hooks";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { StyledRouterLink } from "components/styles";
+import { getTaskRoute } from "constants/routes";
 
 export const TaskQueueTable = () => {
   const { distro } = useParams<{ distro: string }>();
@@ -50,6 +53,17 @@ export const TaskQueueTable = () => {
       key: "displayName",
       className: "cy-hosts-table-col-ID",
       width: "25%",
+      render: (_, { displayName, id, project, buildVariant }) => (
+        <TaskCell>
+          <Body>
+            <StyledRouterLink data-cy="current-task-link" to={getTaskRoute(id)}>
+              {displayName}
+            </StyledRouterLink>
+          </Body>
+          <Body>{buildVariant}</Body>
+          <Disclaimer>{project}</Disclaimer>
+        </TaskCell>
+      ),
     },
     {
       title: "Est. Runtime",
@@ -85,3 +99,8 @@ export const TaskQueueTable = () => {
     />
   );
 };
+
+const TaskCell = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
