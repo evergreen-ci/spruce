@@ -91,5 +91,3 @@ const StyledBadge = styled(Badge)`
 const DistroName = styled(Disclaimer)`
   margin-left: 16px;
 `;
-
-// mongodb_cpp_driver_dev_osx_108_compile_and_test_671bda78e9947426e78bdae3ea13be1ce64ffe18_16_07_26_21_12_52

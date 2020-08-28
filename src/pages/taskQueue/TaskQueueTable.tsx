@@ -49,7 +49,7 @@ export const TaskQueueTable = () => {
         block: "start",
       });
     }
-  }, [taskRowRef]);
+  });
 
   const columns: Array<ColumnProps<TaskQueueItem>> = [
     {
