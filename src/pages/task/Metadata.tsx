@@ -9,6 +9,8 @@ import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { useTaskAnalytics } from "analytics";
 import { getUiUrl } from "utils/getEnvironmentVariables";
+import { TaskStatus } from "types/task";
+import { ETATimer } from "./metadata/ETATimer";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -18,6 +20,7 @@ export const Metadata: React.FC<{
   const task = data ? data.task : null;
   const taskAnalytics = useTaskAnalytics();
 
+  const status = task?.status;
   const spawnHostLink = task?.spawnHostLink;
   const createTime = task?.createTime;
   const finishTime = task?.finishTime;
@@ -39,6 +42,7 @@ export const Metadata: React.FC<{
   const author = patchMetadata?.author;
 
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
+
   return (
     <MetadataCard error={error} loading={loading} title="Task Metadata">
       <P2>Submitted by: {author}</P2>
@@ -51,14 +55,26 @@ export const Metadata: React.FC<{
           {msToDuration(estimatedStart)}
         </span>
       </P2>
-      <P2>
-        Started:{" "}
-        <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
-      </P2>
-      <P2 data-cy="task-metadata-finished">
-        Finished:{" "}
-        <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
-      </P2>
+      {/* Can only show the time running and eta if the task is running and 
+      it has a baseTaskDuration to calculate the eta with */}
+      {status === TaskStatus.Started && baseTaskDuration && (
+        <P2>
+          Running Time / ETA:{" "}
+          <ETATimer startTime={startTime} baseTaskDuration={baseTaskDuration} />
+        </P2>
+      )}
+      {startTime && (
+        <P2>
+          Started:{" "}
+          <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+        </P2>
+      )}
+      {finishTime && (
+        <P2 data-cy="task-metadata-finished">
+          Finished:{" "}
+          <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
+        </P2>
+      )}
       <P2 data-cy="task-metadata-duration">
         Duration: {msToDuration(timeTaken)}{" "}
       </P2>
