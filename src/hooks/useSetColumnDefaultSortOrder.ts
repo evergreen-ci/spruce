@@ -1,7 +1,7 @@
-import { SortDirection } from "gql/generated/types";
-import { ColumnProps } from "antd/es/table";
 import { useState } from "react";
+import { ColumnProps } from "antd/es/table";
 import { SortOrder } from "antd/es/table/interface";
+import { SortDirection } from "gql/generated/types";
 
 export const useSetColumnDefaultSortOrder = <T>(
   columns: ColumnProps<T>[],

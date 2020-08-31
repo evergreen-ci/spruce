@@ -1,18 +1,17 @@
 import React, { useEffect } from "react";
-import { Route, useParams, Redirect, Link } from "react-router-dom";
-import { routes, SpawnTab } from "constants/routes";
-import { SpawnHost } from "pages/spawn/SpawnHost";
-import { SpawnVolume } from "pages/spawn/SpawnVolume";
+import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
+import { Route, useParams, Redirect, Link } from "react-router-dom";
+import { Banners } from "components/Banners";
 import { PaddedSideNavItem, PageWrapper } from "components/styles";
+import { routes, SpawnTab } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
 import { withBannersContext } from "hoc/withBannersContext";
-import { Banners } from "components/Banners";
-
-import styled from "@emotion/styled";
+import { SpawnHost } from "pages/spawn/SpawnHost";
+import { SpawnVolume } from "pages/spawn/SpawnVolume";
 
 const SpawnTabs = () => {
   const { tab } = useParams<{ tab: string }>();

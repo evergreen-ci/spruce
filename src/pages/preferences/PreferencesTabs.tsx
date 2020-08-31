@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { Route, useParams } from "react-router-dom";
+import { Banners } from "components/Banners";
+import { routes, PreferencesTabRoutes } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { Banners } from "components/Banners";
 import { withBannersContext } from "hoc/withBannersContext";
-import { routes, PreferencesTabRoutes } from "constants/routes";
-import { Route, useParams } from "react-router-dom";
-import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
-import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
+import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
+import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
 const Tabs: React.FC = () => {

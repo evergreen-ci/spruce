@@ -1,12 +1,12 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
+import styled from "@emotion/styled";
 import { StyledLink } from "components/styles";
+import { P2 } from "components/Typography";
 import { HostQuery } from "gql/generated/types";
+import { HostCard } from "pages/host/HostCard";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
-import { P2 } from "components/Typography";
-import { HostCard } from "pages/host/HostCard";
-import styled from "@emotion/styled";
 
 export const Metadata: React.FC<{
   loading: boolean;

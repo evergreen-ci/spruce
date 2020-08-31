@@ -1,42 +1,42 @@
 import React, { useState, useEffect } from "react";
-import styled from "@emotion/styled";
-import { useParams, useLocation } from "react-router-dom";
-import { TestsTable } from "pages/task/TestsTable";
-import { FilesTables } from "pages/task/FilesTables";
-import { BreadCrumb } from "components/Breadcrumb";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { PageTitle } from "components/PageTitle";
-import { Logs } from "pages/task/Logs";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import { Tab } from "@leafygreen-ui/tabs";
+import get from "lodash/get";
+import { useParams, useLocation } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
+import { Banners } from "components/Banners";
+import { BreadCrumb } from "components/Breadcrumb";
 import { ErrorBoundary } from "components/ErrorBoundary";
-import { ActionButtons } from "pages/task/ActionButtons";
-import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
+import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
 } from "components/styles";
-import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
-import { Tab } from "@leafygreen-ui/tabs";
 import { StyledTabs } from "components/styles/StyledTabs";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { pollInterval } from "constants/index";
 import { paths } from "constants/routes";
-import get from "lodash/get";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { Banners } from "components/Banners";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { TaskTab, RequiredQueryParams } from "types/task";
-import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { Metadata } from "pages/task/Metadata";
-import { useTaskAnalytics } from "analytics";
-import { pollInterval } from "constants/index";
+import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { ActionButtons } from "pages/task/ActionButtons";
+import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
+import { FilesTables } from "pages/task/FilesTables";
+import { Logs } from "pages/task/Logs";
+import { Metadata } from "pages/task/Metadata";
+import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
+import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
 
 const tabToIndexMap = {

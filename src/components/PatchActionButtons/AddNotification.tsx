@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import { Button } from "components/Button";
 import { usePatchAnalytics } from "analytics";
+import { Button } from "components/Button";
 import { PatchNotificationModal } from "./addNotification/PatchNotificationModal";
 
 interface Props {

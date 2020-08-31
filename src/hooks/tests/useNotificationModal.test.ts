@@ -1,13 +1,13 @@
 import { renderHook, act } from "@testing-library/react-hooks";
+import {
+  triggers as patchTriggers,
+  subscriptionMethodControls as patchSubscriptionMethodControls,
+} from "components/PatchActionButtons/addNotification/PatchNotificationModal";
 import { useNotificationModal } from "hooks";
 import {
   triggers as taskTriggers,
   subscriptionMethodControls as taskSubscriptionMethodControls,
 } from "pages/task/actionButtons/TaskNotificationModal";
-import {
-  triggers as patchTriggers,
-  subscriptionMethodControls as patchSubscriptionMethodControls,
-} from "components/PatchActionButtons/addNotification/PatchNotificationModal";
 
 // uuid relies on window.crypto.getRandomValues which is unsupported in these tests
 jest.mock("uuid", () => ({

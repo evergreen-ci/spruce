@@ -1,19 +1,19 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { useMutation } from "@apollo/client";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { uiColors } from "@leafygreen-ui/palette";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
+import { uiColors } from "@leafygreen-ui/palette";
+import { Subtitle, Body } from "@leafygreen-ui/typography";
+import { format } from "date-fns";
 import { StyledRouterLink } from "components/styles/StyledLink";
+import { paths } from "constants/routes";
 import {
   ModuleCodeChange,
   RemovePatchFromCommitQueueMutation,
   RemovePatchFromCommitQueueMutationVariables,
 } from "gql/generated/types";
-import { paths } from "constants/routes";
-import { format } from "date-fns";
 import { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "gql/mutations/remove-patch-from-commit-queue";
+import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 

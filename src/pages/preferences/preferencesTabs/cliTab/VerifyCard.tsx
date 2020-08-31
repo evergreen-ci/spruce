@@ -1,16 +1,16 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Code from "@leafygreen-ui/code";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import styled from "@emotion/styled";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
-import Code from "@leafygreen-ui/code";
-import { GET_CLIENT_CONFIG } from "gql/queries";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
 } from "gql/generated/types";
+import { GET_CLIENT_CONFIG } from "gql/queries";
 
 const { gray } = uiColors;
 

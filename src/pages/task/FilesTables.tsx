@@ -1,25 +1,25 @@
 import React, { Fragment, useState, useEffect } from "react";
-import { GET_TASK_FILES } from "gql/queries/get-task-files";
+import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled/macro";
+import Icon from "@leafygreen-ui/icon";
+import { Body } from "@leafygreen-ui/typography";
+import { Table, Skeleton, Input } from "antd";
+
+import { SortOrder } from "antd/es/table/interface";
+import debounce from "lodash.debounce";
+import get from "lodash/get";
+import { useParams, useLocation } from "react-router-dom";
+import { H3 } from "components/Typography";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
   File,
   GroupedFiles,
 } from "gql/generated/types";
-import { H3 } from "components/Typography";
-import { useParams, useLocation } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled/macro";
-import { Table, Skeleton, Input } from "antd";
-import Icon from "@leafygreen-ui/icon";
-
-import debounce from "lodash.debounce";
-import { SortOrder } from "antd/es/table/interface";
-import get from "lodash/get";
-import { Body } from "@leafygreen-ui/typography";
-import { queryParamAsNumber, parseQueryString } from "utils";
+import { GET_TASK_FILES } from "gql/queries/get-task-files";
 import { ExecutionAsData } from "pages/task/util/execution";
 import { RequiredQueryParams } from "types/task";
+import { queryParamAsNumber, parseQueryString } from "utils";
 
 const columns = [
   {

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled/macro";
-import { Redirect, RouteComponentProps } from "react-router-dom";
 import { Location } from "history";
+import { Redirect, RouteComponentProps } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
 import { isProduction, getUiUrl } from "utils/getEnvironmentVariables";
 

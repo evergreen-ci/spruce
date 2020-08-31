@@ -1,22 +1,32 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
+import Icon from "@leafygreen-ui/icon";
+import { Skeleton } from "antd";
+import get from "lodash/get";
+import queryString from "query-string";
+import { useLocation, useHistory, useParams } from "react-router-dom";
+import { useUserPatchesAnalytics } from "analytics";
+import { Banners } from "components/Banners";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
 import {
   PageWrapper,
   StyledInput,
   FiltersWrapper,
   PageTitle,
 } from "components/styles";
-import { useLocation, useHistory, useParams } from "react-router-dom";
-import queryString from "query-string";
-import Checkbox from "@leafygreen-ui/checkbox";
-import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import Icon from "@leafygreen-ui/icon";
-import { GET_USER_PATCHES } from "gql/queries/my-patches";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import {
   UserPatchesQueryVariables,
   UserPatchesQuery,
 } from "gql/generated/types";
-import { StatusSelector } from "pages/userPatches/StatusSelector";
-import { useQuery } from "@apollo/client";
+import { GET_USER_PATCHES } from "gql/queries/my-patches";
+import { withBannersContext } from "hoc/withBannersContext";
 import {
   useFilterInputChangeHandler,
   usePollQuery,
@@ -24,20 +34,10 @@ import {
   usePageTitle,
   useGetUserPatchesPageTitleAndLink,
 } from "hooks";
-import styled from "@emotion/styled";
-import get from "lodash/get";
-import { Skeleton } from "antd";
-import { Banners } from "components/Banners";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
 import { PatchCard } from "pages/userPatches/PatchCard";
-import { withBannersContext } from "hoc/withBannersContext";
-import { PageSizeSelector } from "components/PageSizeSelector";
-import { Pagination } from "components/Pagination";
+import { StatusSelector } from "pages/userPatches/StatusSelector";
+import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-import { useUserPatchesAnalytics } from "analytics";
 
 const UserPatchesComponent: React.FC = () => {
   const bannersState = useBannerStateContext();

@@ -1,22 +1,17 @@
 import React, { useState } from "react";
-import { PageContent, PageLayout, PageSider } from "components/styles";
-import { P2 } from "components/Typography";
-import { MetadataCard } from "components/MetadataCard";
-import { StyledTabs } from "components/styles/StyledTabs";
-import { Tab } from "@leafygreen-ui/tabs";
-import { useTabs, useDefaultPath } from "hooks";
-import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
-import { paths } from "constants/routes";
-import styled from "@emotion/styled/macro";
-import { css } from "@emotion/core";
-import { Input } from "antd";
-import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
-import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
-import { Body } from "@leafygreen-ui/typography";
 import { useMutation } from "@apollo/client";
+import { css } from "@emotion/core";
+import styled from "@emotion/styled/macro";
+import { Tab } from "@leafygreen-ui/tabs";
+import { Body } from "@leafygreen-ui/typography";
+import { Input } from "antd";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
-import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import { MetadataCard } from "components/MetadataCard";
+import { PageContent, PageLayout, PageSider } from "components/styles";
+import { StyledTabs } from "components/styles/StyledTabs";
+import { P2 } from "components/Typography";
+import { paths } from "constants/routes";
 import {
   SchedulePatchMutation,
   PatchReconfigure,
@@ -25,6 +20,11 @@ import {
   ConfigurePatchQuery,
   VariantTask,
 } from "gql/generated/types";
+import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import { useTabs, useDefaultPath } from "hooks";
+import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
+import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
+import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];

@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-import { Table } from "antd";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Table } from "antd";
 import { FileDiff } from "types/patch";
 
 const { green, red } = uiColors;

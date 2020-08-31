@@ -1,7 +1,7 @@
 import React from "react";
 import Bugsnag from "@bugsnag/js";
-import { getBugsnagApiKey } from "utils/getEnvironmentVariables";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
+import { getBugsnagApiKey } from "utils/getEnvironmentVariables";
 
 Bugsnag.start({
   apiKey: getBugsnagApiKey(),

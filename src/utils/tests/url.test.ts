@@ -1,6 +1,6 @@
 import "jest-localstorage-mock";
-import { getLimitFromSearch } from "utils/url";
 import { RECENT_PAGE_SIZE_KEY } from "components/PageSizeSelector";
+import { getLimitFromSearch } from "utils/url";
 
 beforeEach(() => {
   localStorage.clear();
