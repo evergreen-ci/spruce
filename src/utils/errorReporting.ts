@@ -1,5 +1,5 @@
-import { isProduction } from "utils/getEnvironmentVariables";
 import Bugsnag, { Event, NotifiableError } from "@bugsnag/js";
+import { isProduction } from "utils/getEnvironmentVariables";
 
 interface reportErrorResult {
   severe: () => void;

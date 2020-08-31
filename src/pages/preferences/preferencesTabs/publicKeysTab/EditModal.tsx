@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Modal } from "components/Modal";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
+import { Input } from "antd";
+import { v4 as uuid } from "uuid";
+import { Modal } from "components/Modal";
+import { InputLabel, ErrorMessage } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
 import {
   GetMyPublicKeysQuery,
   UpdatePublicKeyMutation,
@@ -11,13 +15,9 @@ import {
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
 } from "gql/generated/types";
-import { GET_MY_PUBLIC_KEYS } from "gql/queries";
-import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
-import { useBannerDispatchContext } from "context/banners";
-import { Input } from "antd";
 import { CREATE_PUBLIC_KEY } from "gql/mutations/create-public-key";
-import { InputLabel, ErrorMessage } from "components/styles";
-import { v4 as uuid } from "uuid";
+import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
+import { GET_MY_PUBLIC_KEYS } from "gql/queries";
 
 const { TextArea } = Input;
 

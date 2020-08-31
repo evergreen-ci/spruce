@@ -1,7 +1,7 @@
 import React from "react";
+import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { TaskStatus } from "types/task";
-import styled from "@emotion/styled/macro";
 import { reportError } from "utils/errorReporting";
 
 const mapTaskStatusToBadgeVariant = {

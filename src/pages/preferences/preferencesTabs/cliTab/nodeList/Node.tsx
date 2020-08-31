@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Subtitle } from "@leafygreen-ui/typography";
 
 const { green, white } = uiColors;
 

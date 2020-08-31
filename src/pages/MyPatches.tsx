@@ -1,8 +1,8 @@
 import { useQuery } from "@apollo/client";
-import { GetUserQuery } from "gql/generated/types";
-import { GET_USER } from "gql/queries";
 import { useHistory } from "react-router-dom";
 import { getUserPatchesRoute } from "constants/routes";
+import { GetUserQuery } from "gql/generated/types";
+import { GET_USER } from "gql/queries";
 
 export const MyPatches: React.FC = () => {
   const router = useHistory();

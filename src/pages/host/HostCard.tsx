@@ -1,9 +1,9 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
+import styled from "@emotion/styled/macro";
+import Card from "@leafygreen-ui/card";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
-import Card from "@leafygreen-ui/card";
-import styled from "@emotion/styled/macro";
 
 interface Props {
   error: ApolloError;

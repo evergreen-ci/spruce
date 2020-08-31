@@ -1,9 +1,9 @@
 import * as React from "react";
 import * as ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
-import App from "App";
-import wait from "waait";
 import fetch from "unfetch";
+import wait from "waait";
+import App from "App";
 
 window.fetch = fetch;
 it("renders without crashing", async () => {

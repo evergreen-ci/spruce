@@ -1,5 +1,5 @@
-import { useHistory, useLocation } from "react-router-dom";
 import queryString from "query-string";
+import { useHistory, useLocation } from "react-router-dom";
 
 export const useUpdateURLQueryParams = () => {
   const { replace } = useHistory();

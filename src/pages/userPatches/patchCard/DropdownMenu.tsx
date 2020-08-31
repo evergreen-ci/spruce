@@ -1,5 +1,7 @@
 import React, { useState, useRef } from "react";
+import get from "lodash/get";
 import { ButtonDropdown } from "components/ButtonDropdown";
+import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
   UnschedulePatchTasks,
@@ -7,8 +9,6 @@ import {
   EnqueuePatch,
 } from "components/PatchActionButtons";
 import { useOnClickOutside } from "hooks";
-import get from "lodash/get";
-import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 
 interface Props {
   patchId: string;

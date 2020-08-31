@@ -1,9 +1,8 @@
 import { useState, useEffect } from "react";
-import { matchPath, useLocation } from "react-router-dom";
 import get from "lodash/get";
-import { getUiUrl } from "utils/getEnvironmentVariables";
-
+import { matchPath, useLocation } from "react-router-dom";
 import { routes } from "constants/routes";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 export const useLegacyUIURL = (): string | null => {
   const [id, setId] = useState("");

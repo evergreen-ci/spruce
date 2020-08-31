@@ -1,12 +1,12 @@
 import React from "react";
-import { FiltersWrapper, StyledInput } from "components/styles";
 import Icon from "@leafygreen-ui/icon";
-import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
-import { RequiredQueryParams, TestStatus } from "types/task";
-import { TestsTableCore } from "pages/task/testsTable/TestsTableCore";
 import { useTaskAnalytics } from "analytics";
+import { FiltersWrapper, StyledInput } from "components/styles";
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
+import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
+import { TestsTableCore } from "pages/task/testsTable/TestsTableCore";
+import { RequiredQueryParams, TestStatus } from "types/task";
 
 export const TestsTable: React.FC = () => {
   const taskAnalytics = useTaskAnalytics();

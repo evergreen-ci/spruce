@@ -1,17 +1,17 @@
 import React, { useEffect } from "react";
-import { useParams, useHistory } from "react-router-dom";
 import { useQuery } from "@apollo/client";
-import { GET_PATCH_CONFIGURE } from "gql/queries/patch";
+import { useParams, useHistory } from "react-router-dom";
+import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
+import { PageWrapper } from "components/styles";
+import { commitQueueAlias } from "constants/patch";
+import { getVersionRoute } from "constants/routes";
 import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
 } from "gql/generated/types";
-import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
-import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
-import { PageWrapper } from "components/styles";
+import { GET_PATCH_CONFIGURE } from "gql/queries/patch";
 import { usePageTitle } from "hooks";
-import { getVersionRoute } from "constants/routes";
-import { commitQueueAlias } from "constants/patch";
+import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
 
 export const ConfigurePatch: React.FC = () => {
   const { id } = useParams<{ id: string }>();

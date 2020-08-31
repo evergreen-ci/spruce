@@ -1,11 +1,11 @@
 import React from "react";
-import { P2 } from "components/Typography";
-import { StyledLink } from "components/styles";
-import { PatchQuery } from "gql/generated/types";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
+import { StyledLink } from "components/styles";
+import { P2 } from "components/Typography";
 import { paths } from "constants/routes";
+import { PatchQuery } from "gql/generated/types";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 interface Props {
   loading: boolean;

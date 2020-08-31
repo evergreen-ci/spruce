@@ -1,16 +1,16 @@
 import React, { forwardRef } from "react";
+import { useMutation } from "@apollo/client";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import { Popconfirm } from "antd";
+import { usePatchAnalytics } from "analytics";
+import { Button } from "components/Button";
+import { DropdownItem } from "components/ButtonDropdown";
 import { useBannerDispatchContext } from "context/banners";
 import {
   SchedulePatchTasksMutation,
   SchedulePatchTasksMutationVariables,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH_TASKS } from "gql/mutations";
-import { useMutation } from "@apollo/client";
-import { Popconfirm } from "antd";
-import { Button } from "components/Button";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { DropdownItem } from "components/ButtonDropdown";
-import { usePatchAnalytics } from "analytics";
 
 interface SchedulePatchTasksProps {
   patchId: string;

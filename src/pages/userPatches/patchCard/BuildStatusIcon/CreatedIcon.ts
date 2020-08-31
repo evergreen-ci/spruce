@@ -1,5 +1,5 @@
-import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 
 export const CreatedIcon = styled.div`
   border-radius: 50%;
