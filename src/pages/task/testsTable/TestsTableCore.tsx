@@ -1,7 +1,21 @@
 import React, { useState } from "react";
-import { msToDuration } from "utils/string";
+import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled/macro";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
-import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
+import { Table, Skeleton } from "antd";
+import { ColumnProps } from "antd/es/table";
+import get from "lodash/get";
+import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import { ResultCountLabel } from "components/ResultCountLabel";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+} from "components/styles";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -10,32 +24,18 @@ import {
   TestResult,
   TaskTestResult,
 } from "gql/generated/types";
-import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled/macro";
-import get from "lodash/get";
+import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import {
   useDisableTableSortersIfLoading,
   usePollQuery,
   useNetworkStatus,
 } from "hooks";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { Pagination } from "components/Pagination";
-import { PageSizeSelector } from "components/PageSizeSelector";
-import {
-  TableContainer,
-  TableControlOuterRow,
-  TableControlInnerRow,
-} from "components/styles";
-import { ColumnProps } from "antd/es/table";
-import { Table, Skeleton } from "antd";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-import { useTaskAnalytics } from "analytics";
-import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
 import { ExecutionAsData } from "pages/task/util/execution";
+import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
+import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
+import { msToDuration } from "utils/string";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;

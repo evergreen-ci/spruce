@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { BannerObj } from "context/banners";
 import { Banner } from "components/Banners/Banner";
+import { BannerObj } from "context/banners";
 
 export { SiteBanner } from "components/Banners/SiteBanner";
 export { ConnectivityBanner } from "components/Banners/ConnectivityBanner";

@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import Icon from "@leafygreen-ui/icon";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { BannerTypeKeys } from "types/banner";
 

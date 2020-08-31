@@ -1,17 +1,17 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import Button, { Variant } from "@leafygreen-ui/button";
-import { Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+import Button, { Variant } from "@leafygreen-ui/button";
 import Code from "@leafygreen-ui/code";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
-import { GET_USER_CONFIG } from "gql/queries";
 import {
   GetUserConfigQuery,
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
+import { GET_USER_CONFIG } from "gql/queries";
 import { post } from "utils/request";
 
 export const AuthenticationCard = () => {

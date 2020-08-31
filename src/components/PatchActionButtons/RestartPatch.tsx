@@ -1,8 +1,8 @@
 import React, { useState, forwardRef } from "react";
-import { PatchRestartModal } from "pages/patch/index";
-import { Button } from "components/Button";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
+import { PatchRestartModal } from "pages/patch/index";
 
 interface RestartPatchProps {
   patchId: string;

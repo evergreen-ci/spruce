@@ -1,20 +1,20 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import Button from "@leafygreen-ui/button";
+import { uiColors } from "@leafygreen-ui/palette";
+import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
-import { SiderCard, StyledLink } from "components/styles";
 import { Accordian } from "components/Accordian";
+import { SiderCard, StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
-import { GET_CLIENT_CONFIG } from "gql/queries";
 import {
   ClientConfigQuery,
   ClientConfigQueryVariables,
   ClientBinary,
 } from "gql/generated/types";
+import { GET_CLIENT_CONFIG } from "gql/queries";
 
 const { gray } = uiColors;
 

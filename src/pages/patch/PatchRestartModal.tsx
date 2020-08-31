@@ -1,28 +1,28 @@
 import React, { useState } from "react";
-import { Modal } from "antd";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Body, H2 } from "@leafygreen-ui/typography";
 import { uiColors } from "@leafygreen-ui/palette";
-import { useParams } from "react-router-dom";
-import { TreeSelect } from "components/TreeSelect";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
-import { RESTART_PATCH } from "gql/mutations/restart-patch";
+import { Body, H2 } from "@leafygreen-ui/typography";
+import { Modal } from "antd";
 import get from "lodash/get";
+import { useParams } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
+import { TreeSelect } from "components/TreeSelect";
+import { useBannerDispatchContext } from "context/banners";
 import {
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
   RestartPatchMutation,
   RestartPatchMutationVariables,
 } from "gql/generated/types";
+import { RESTART_PATCH } from "gql/mutations/restart-patch";
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import { usePatchStatusSelect } from "hooks";
-import { useBannerDispatchContext } from "context/banners";
-import { TaskStatus } from "types/task";
-import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
-import { usePatchAnalytics } from "analytics";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
+import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
+import { TaskStatus } from "types/task";
 
 const { gray } = uiColors;
 

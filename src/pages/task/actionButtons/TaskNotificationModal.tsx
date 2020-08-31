@@ -1,4 +1,6 @@
 import React from "react";
+import { useParams } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
 import { NotificationModal } from "components/NotificationModal";
 import { SubscriptionMethods, Trigger } from "hooks/useNotificationModal";
 import {
@@ -13,8 +15,6 @@ import {
   validateJira,
   validateSlack,
 } from "utils/validators";
-import { useParams } from "react-router-dom";
-import { useTaskAnalytics } from "analytics";
 
 interface ModalProps {
   visible: boolean;

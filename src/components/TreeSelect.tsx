@@ -1,10 +1,10 @@
 import React, { useState, useRef, useEffect } from "react";
-import Checkbox from "@leafygreen-ui/checkbox";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-import { useOnClickOutside } from "hooks/useOnClickOutside";
+import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
+import { uiColors } from "@leafygreen-ui/palette";
 import { usePrevious } from "hooks";
+import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 const { gray, white } = uiColors;
 

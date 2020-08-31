@@ -1,10 +1,9 @@
 import React, { useState } from "react";
-import { Table, Skeleton, Popconfirm } from "antd";
 import { useQuery, useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
-import styled from "@emotion/styled";
-import { GET_MY_PUBLIC_KEYS } from "gql/queries";
+import { Table, Skeleton, Popconfirm } from "antd";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetMyPublicKeysQuery,
@@ -12,11 +11,12 @@ import {
   RemovePublicKeyMutation,
   RemovePublicKeyMutationVariables,
 } from "gql/generated/types";
+import { REMOVE_PUBLIC_KEY } from "gql/mutations";
+import { GET_MY_PUBLIC_KEYS } from "gql/queries";
 import {
   EditModal,
   EditModalPropsState,
 } from "pages/preferences/preferencesTabs/publicKeysTab/EditModal";
-import { REMOVE_PUBLIC_KEY } from "gql/mutations";
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();

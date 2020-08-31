@@ -1,11 +1,11 @@
 import React from "react";
+import { Table } from "antd";
+import { ColumnProps } from "antd/es/table";
+import get from "lodash/get";
+import queryString from "query-string";
+import { useHistory, useLocation } from "react-router-dom";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { useHistory, useLocation } from "react-router-dom";
-import queryString from "query-string";
-import { ColumnProps } from "antd/es/table";
-import { Table } from "antd";
-import get from "lodash/get";
 
 interface Props {
   data?: PatchTasks;

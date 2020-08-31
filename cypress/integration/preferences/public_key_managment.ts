@@ -1,5 +1,6 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../../utils/popconfirm";
+
 const route = "/preferences/publickeys";
 
 describe("Public Key Management Page", () => {

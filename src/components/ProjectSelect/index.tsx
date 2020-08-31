@@ -1,7 +1,7 @@
 import React from "react";
+import styled from "@emotion/styled/macro";
 import { Select } from "antd";
 import { ProjectsQuery, Project } from "gql/queries/get-projects";
-import styled from "@emotion/styled/macro";
 
 export const { Option, OptGroup } = Select;
 

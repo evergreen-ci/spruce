@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { PageButtonRow } from "components/styles";
 import { ButtonDropdown } from "components/ButtonDropdown";
+import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
   RestartPatch,
@@ -10,7 +10,7 @@ import {
   EnqueuePatch,
   AddNotification,
 } from "components/PatchActionButtons";
-import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
+import { PageButtonRow } from "components/styles";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
