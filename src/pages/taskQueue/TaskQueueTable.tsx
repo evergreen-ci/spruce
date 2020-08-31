@@ -1,15 +1,15 @@
 import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { Body } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useQuery } from "@apollo/client";
+import { useParams, useLocation } from "react-router-dom";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
   TaskQueueItem,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { Body } from "@leafygreen-ui/typography";
-import { useParams, useLocation } from "react-router-dom";
 import { usePrevious } from "hooks";
 
 export const TaskQueueTable = () => {
