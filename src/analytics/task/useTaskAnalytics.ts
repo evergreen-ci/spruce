@@ -9,7 +9,11 @@ import {
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
-import { SaveSubscriptionMutationVariables } from "gql/generated/types";
+import {
+  SaveSubscriptionMutationVariables,
+  GetTaskEventDataQuery,
+  GetTaskEventDataQueryVariables,
+} from "gql/generated/types";
 import { TaskStatus, LogTypes } from "types/task";
 
 type Action =
@@ -44,7 +48,10 @@ interface Analytics extends A<Action> {}
 export const useTaskAnalytics = (): Analytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
-  const { data: eventData } = useQuery(GET_TASK_EVENT_DATA, {
+  const { data: eventData } = useQuery<
+    GetTaskEventDataQuery,
+    GetTaskEventDataQueryVariables
+  >(GET_TASK_EVENT_DATA, {
     variables: { taskId: id },
     fetchPolicy: "cache-first",
   });
