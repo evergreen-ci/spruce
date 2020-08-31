@@ -1,15 +1,17 @@
 import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import { Body } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useQuery } from "@apollo/client";
+import { useParams, useLocation } from "react-router-dom";
+import { StyledRouterLink } from "components/styles";
+import { getVersionRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
   TaskQueueItem,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { Body } from "@leafygreen-ui/typography";
-import { useParams, useLocation } from "react-router-dom";
 import { usePrevious } from "hooks";
 
 export const TaskQueueTable = () => {
@@ -41,36 +43,38 @@ export const TaskQueueTable = () => {
       title: "",
       dataIndex: "number",
       key: "number",
-      className: "cy-hosts-table-col-index",
+      className: "cy-task-queue-col-index",
       render: (...[, , index]) => <Body weight="medium">{index + 1}</Body>,
     },
     {
       title: "Task",
       dataIndex: "displayName",
       key: "displayName",
-      className: "cy-hosts-table-col-ID",
+      className: "cy-task-queue-col-task",
       width: "25%",
     },
     {
       title: "Est. Runtime",
       dataIndex: "expectedDuration",
       key: "expectedDuration",
-      className: "cy-hosts-table-col-ID",
+      className: "cy-task-queue-col-runtime",
       width: "25%",
     },
     {
-      title: "Revision",
-      dataIndex: "revision",
-      key: "revision",
-      className: "cy-hosts-table-col-ID",
+      title: "Version",
+      dataIndex: "version",
+      key: "version",
+      className: "cy-task-queue-col-version",
       width: "25%",
-      render: (value) => value.slice(0, 7),
+      render: (value) => (
+        <StyledRouterLink to={getVersionRoute(value)}>{value}</StyledRouterLink>
+      ),
     },
     {
       title: "Task Type",
       dataIndex: "requester",
       key: "requester",
-      className: "cy-hosts-table-col-ID",
+      className: "cy-task-queue-col-type",
       width: "25%",
     },
   ];

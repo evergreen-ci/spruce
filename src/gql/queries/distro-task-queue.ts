@@ -10,7 +10,7 @@ export const DISTRO_TASK_QUEUE = gql`
       project
       buildVariant
       priority
-      revision
+      version
     }
   }
 `;
