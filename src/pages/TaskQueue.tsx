@@ -1,74 +1,93 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Body } from "@leafygreen-ui/typography";
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
-import { TableContainer, PageWrapper } from "components/styles";
+import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
+import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { Select } from "antd";
+import { useParams, useHistory } from "react-router-dom";
 import {
-  DistroTaskQueueQuery,
-  DistroTaskQueueQueryVariables,
-  TaskQueueItem,
+  TableContainer,
+  TableControlOuterRow,
+  PageWrapper,
+} from "components/styles";
+import { getTaskQueueRoute } from "constants/routes";
+import {
+  TaskQueueDistrosQuery,
+  TaskQueueDistrosQueryVariables,
 } from "gql/generated/types";
-import { DISTRO_TASK_QUEUE } from "gql/queries";
+import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
+
+const { Option } = Select;
 
 export const TaskQueue = () => {
-  const { data: taskQueueItemsData, loading } = useQuery<
-    DistroTaskQueueQuery,
-    DistroTaskQueueQueryVariables
-  >(DISTRO_TASK_QUEUE, { variables: { distroId: "rhel71-power8-small" } });
+  const { distro } = useParams<{ distro: string }>();
+  const { replace } = useHistory();
 
-  const taskQueueItems = taskQueueItemsData?.distroTaskQueue ?? [];
+  const [selectedDistro, setSelectedDistro] = useState(null);
 
-  const columns: Array<ColumnProps<TaskQueueItem>> = [
-    {
-      title: "",
-      dataIndex: "number",
-      key: "number",
-      className: "cy-hosts-table-col-index",
-      render: (...[, , index]) => <Body weight="medium">{index + 1}</Body>,
-    },
-    {
-      title: "Task",
-      dataIndex: "displayName",
-      key: "displayName",
-      className: "cy-hosts-table-col-ID",
-      width: "25%",
-    },
-    {
-      title: "Est. Runtime",
-      dataIndex: "expectedDuration",
-      key: "expectedDuration",
-      className: "cy-hosts-table-col-ID",
-      width: "25%",
-    },
-    {
-      title: "Revision",
-      dataIndex: "revision",
-      key: "revision",
-      className: "cy-hosts-table-col-ID",
-      width: "25%",
-      render: (value) => value.slice(0, 7),
-    },
-    {
-      title: "Task Type",
-      dataIndex: "requester",
-      key: "requester",
-      className: "cy-hosts-table-col-ID",
-      width: "25%",
-    },
-  ];
+  const { data: distrosData, loading: loadingDistros } = useQuery<
+    TaskQueueDistrosQuery,
+    TaskQueueDistrosQueryVariables
+  >(TASK_QUEUE_DISTROS);
+
+  const distros = distrosData?.taskQueueDistros ?? [];
+  const firstDistroInList = distros[0]?.id;
+
+  // SET DEFAULT DISTRO
+  useEffect(() => {
+    const defaultDistro = distro ?? firstDistroInList;
+
+    setSelectedDistro(defaultDistro);
+
+    if (defaultDistro) {
+      replace(getTaskQueueRoute(defaultDistro));
+    }
+  }, [firstDistroInList, distro, replace]);
+
+  const onChangeDistroSelection = (val: string) => {
+    setSelectedDistro(val);
+
+    replace(getTaskQueueRoute(val));
+  };
 
   return (
     <PageWrapper>
+      <H2>Task Queue</H2>
+      <TableControlOuterRow>
+        <StyledSelect
+          data-cy="select-distro"
+          showSearch
+          value={selectedDistro}
+          style={{ width: 400 }}
+          onChange={onChangeDistroSelection}
+          loading={loadingDistros}
+          filterOption={(input, { key }) => key.toString().includes(input)}
+        >
+          {distros.map(({ id, queueCount }) => (
+            <Option data-cy={`${id}-distro-option`} key={id} value={id}>
+              <StyledBadge>{queueCount}</StyledBadge>
+              <DistroName>{id}</DistroName>
+            </Option>
+          ))}
+        </StyledSelect>
+      </TableControlOuterRow>
       <TableContainer hide={false}>
-        <Table
-          columns={columns}
-          rowKey={({ id }: { id: string }): string => id}
-          pagination={false}
-          dataSource={taskQueueItems}
-          loading={loading}
-        />
+        <TaskQueueTable />
       </TableContainer>
     </PageWrapper>
   );
 };
+
+const StyledSelect = styled(Select)`
+  margin: 44px 0;
+`;
+const StyledBadge = styled(Badge)`
+  display: inline-flex;
+  justify-content: center;
+  width: 60px;
+  text-align: center;
+`;
+const DistroName = styled(Disclaimer)`
+  margin-left: 16px;
+`;

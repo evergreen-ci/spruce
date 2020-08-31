@@ -33,11 +33,11 @@ export type Query = {
   hostEvents: HostEvents;
   hosts: HostsResponse;
   myHosts: Array<Host>;
-  myVolumes: Array<Volume>;
   myPublicKeys: Array<PublicKey>;
   distros: Array<Maybe<Distro>>;
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
+  taskQueueDistros: Array<TaskQueueDistro>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -393,6 +393,11 @@ export type TaskQueueItem = {
   requester: TaskQueueItemType;
 };
 
+export type TaskQueueDistro = {
+  id: Scalars["ID"];
+  queueCount: Scalars["Int"];
+};
+
 export type Host = {
   id: Scalars["ID"];
   hostUrl: Scalars["String"];
@@ -528,20 +533,6 @@ export type Build = {
   status: Scalars["String"];
   predictedMakespan: Scalars["Duration"];
   actualMakespan: Scalars["Duration"];
-};
-
-export type Volume = {
-  id: Scalars["String"];
-  displayName: Scalars["String"];
-  createdBy: Scalars["String"];
-  type: Scalars["String"];
-  availabilityZone: Scalars["String"];
-  size: Scalars["Int"];
-  expiration?: Maybe<Scalars["Time"]>;
-  deviceName?: Maybe<Scalars["String"]>;
-  hostID: Scalars["String"];
-  noExpiration: Scalars["Boolean"];
-  homeVolume: Scalars["Boolean"];
 };
 
 export type PatchProject = {
@@ -1638,4 +1629,10 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type TaskQueueDistrosQueryVariables = {};
+
+export type TaskQueueDistrosQuery = {
+  taskQueueDistros: Array<{ id: string; queueCount: number }>;
 };
