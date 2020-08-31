@@ -1,9 +1,9 @@
 import React from "react";
-import { paths } from "constants/routes";
-import { useHistory } from "react-router-dom";
-import { DropdownItem } from "components/ButtonDropdown";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { DropdownItem } from "components/ButtonDropdown";
+import { paths } from "constants/routes";
 
 export const LinkToReconfigurePage: React.FC<{
   patchId: string;

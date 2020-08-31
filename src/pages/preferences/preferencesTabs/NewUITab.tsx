@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Body } from "@leafygreen-ui/typography";
-import Toggle from "@leafygreen-ui/toggle";
 import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
+import Toggle from "@leafygreen-ui/toggle";
+import { Body } from "@leafygreen-ui/typography";
 import { useBannerDispatchContext } from "context/banners";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
+import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {

@@ -1,6 +1,6 @@
 import React from "react";
-import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
 import { LoadingOutlined } from "@ant-design/icons";
+import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
 
 interface ButtonType {
   danger: string;

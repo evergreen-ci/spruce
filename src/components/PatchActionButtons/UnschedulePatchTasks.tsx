@@ -1,17 +1,17 @@
 import React, { forwardRef, useState } from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
+import { Disclaimer, Body } from "@leafygreen-ui/typography";
+import { Popconfirm } from "antd";
+import { usePatchAnalytics } from "analytics";
+import { DropdownItem } from "components/ButtonDropdown";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UnschedulePatchTasksMutation,
   UnschedulePatchTasksMutationVariables,
 } from "gql/generated/types";
 import { UNSCHEDULE_PATCH_TASKS } from "gql/mutations";
-import { useMutation } from "@apollo/client";
-import { Popconfirm } from "antd";
-import Checkbox from "@leafygreen-ui/checkbox";
-import { Disclaimer, Body } from "@leafygreen-ui/typography";
-import { DropdownItem } from "components/ButtonDropdown";
-import { usePatchAnalytics } from "analytics";
 
 interface UnscheduleProps {
   patchId: string;

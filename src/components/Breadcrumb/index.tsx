@@ -1,11 +1,11 @@
 import React from "react";
-import { Breadcrumb } from "antd";
-import { paths } from "constants/routes";
 import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
-import { H3, P1 } from "components/Typography";
-import { StyledRouterLink } from "components/styles/StyledLink";
+import { Breadcrumb } from "antd";
 import { useBreadcrumbAnalytics } from "analytics";
+import { StyledRouterLink } from "components/styles/StyledLink";
+import { H3, P1 } from "components/Typography";
+import { paths } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const { blue } = uiColors;

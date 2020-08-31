@@ -1,16 +1,16 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { useParams } from "react-router-dom";
+import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
+import { useParams } from "react-router-dom";
+import { CodeChangesTable } from "components/CodeChangesTable";
 import { H2 } from "components/Typography";
-import { GET_CODE_CHANGES } from "gql/queries/get-code-changes";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
 } from "gql/generated/types";
-import Button from "@leafygreen-ui/button";
-import { CodeChangesTable } from "components/CodeChangesTable";
-import styled from "@emotion/styled";
+import { GET_CODE_CHANGES } from "gql/queries/get-code-changes";
 
 export const CodeChanges: React.FC = () => {
   const { id } = useParams<{ id: string }>();

@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { ModuleCodeChange } from "gql/generated/types";
-import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 import { Accordian } from "components/Accordian";
+import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
+import { ModuleCodeChange } from "gql/generated/types";
 
 const totalFileDiffs = (
   fileDiffs

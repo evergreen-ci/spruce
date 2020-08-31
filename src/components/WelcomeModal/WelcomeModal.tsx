@@ -1,18 +1,18 @@
 import React, { useState, useRef } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import Button, { Variant } from "@leafygreen-ui/button";
 import { Modal, Carousel } from "antd";
 import get from "lodash/get";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
-import { GET_USER_SETTINGS } from "gql/queries";
 import {
   GetUserSettingsQuery,
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
+import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { GET_USER_SETTINGS } from "gql/queries";
 import { reportError } from "utils/errorReporting";
 
 const { gray, green, black } = uiColors;

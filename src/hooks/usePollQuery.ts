@@ -4,8 +4,8 @@ import {
   isNetworkRequestInFlight,
   NetworkStatus,
 } from "@apollo/client/core/networkStatus";
-import { useParams } from "react-router-dom";
 import isEqual from "lodash.isequal";
+import { useParams } from "react-router-dom";
 import { pollInterval } from "constants/index";
 import { usePrevious } from "hooks";
 
