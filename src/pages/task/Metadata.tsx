@@ -60,8 +60,8 @@ export const Metadata: React.FC<{
       {/* Can only show the time running and eta if the task is running and 
       it has a baseTaskDuration to calculate the eta with */}
       {status === TaskStatus.Started && baseTaskDuration && (
-        <P2>
-          Running Time / ETA:{" "}
+        <P2 data-cy="task-metadata-eta">
+          Running Time / Time Left:{" "}
           <ETATimer startTime={startTime} baseTaskDuration={baseTaskDuration} />
         </P2>
       )}
@@ -72,9 +72,11 @@ export const Metadata: React.FC<{
         </P2>
       )}
       {finishTime && (
-        <P2 data-cy="task-metadata-finished">
+        <P2>
           Finished:{" "}
-          <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
+          <span data-cy="task-metadata-finished">
+            {getDateCopy(finishTime)}
+          </span>
         </P2>
       )}
       {timeTaken && (

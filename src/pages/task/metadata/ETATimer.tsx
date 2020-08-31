@@ -35,7 +35,7 @@ export const ETATimer: React.FC<ETATimerProps> = ({
   // Sometimes if the task takes longer then expected the eta becomes negative which
   // doesn't make sense so in those cases we hide it
   return (
-    <span>
+    <span data-cy="metadata-eta-timer">
       {msToDuration(runningTime)}
       {eta >= 0 && ` / ${msToDuration(eta)}`}
     </span>
