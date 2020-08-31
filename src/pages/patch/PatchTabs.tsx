@@ -1,12 +1,12 @@
 import React from "react";
 import { Tab } from "@leafygreen-ui/tabs";
-import { paths, PatchTab, DEFAULT_PATCH_TAB } from "constants/routes";
-import { useTabs, useDefaultPath } from "hooks";
-import { Tasks } from "pages/patch/patchTabs/Tasks";
-import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
-import { StyledTabs } from "components/styles/StyledTabs";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { StyledTabs } from "components/styles/StyledTabs";
+import { paths, PatchTab, DEFAULT_PATCH_TAB } from "constants/routes";
+import { useTabs, useDefaultPath } from "hooks";
+import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
+import { Tasks } from "pages/patch/patchTabs/Tasks";
 
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,

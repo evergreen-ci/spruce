@@ -1,7 +1,7 @@
 import React from "react";
-import { PatchStatus } from "types/patch";
-import Badge, { Variant } from "@leafygreen-ui/badge";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { PatchStatus } from "types/patch";
 
 interface Props {
   status: string;

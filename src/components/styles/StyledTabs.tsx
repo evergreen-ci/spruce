@@ -1,5 +1,5 @@
-import { Tabs } from "@leafygreen-ui/tabs";
 import styled from "@emotion/styled/macro";
+import { Tabs } from "@leafygreen-ui/tabs";
 
 export const StyledTabs = styled(Tabs)`
   & > div:nth-of-type(3) {

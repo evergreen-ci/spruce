@@ -1,9 +1,9 @@
 import React from "react";
-import { Modal as AntdModal } from "antd";
-import { H2 } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
-import { hexToRGBA } from "utils/color";
 import { uiColors } from "@leafygreen-ui/palette";
+import { H2 } from "@leafygreen-ui/typography";
+import { Modal as AntdModal } from "antd";
+import { hexToRGBA } from "utils/color";
 
 interface ModalProps {
   footer: JSX.Element[] | JSX.Element;

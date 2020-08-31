@@ -1,7 +1,23 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
+import { Skeleton } from "antd";
+import { ColumnProps } from "antd/lib/table";
+import every from "lodash.every";
+import get from "lodash.get";
+import queryString from "query-string";
 import { useParams, useLocation } from "react-router-dom";
-import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
+import { usePatchAnalytics } from "analytics";
+import { ErrorBoundary } from "components/ErrorBoundary";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import { ResultCountLabel } from "components/ResultCountLabel";
+import {
+  TableContainer,
+  TableControlOuterRow,
+  TableControlInnerRow,
+  StyledRouterLink,
+} from "components/styles";
+import { TaskStatusBadge } from "components/TaskStatusBadge";
 import {
   PatchTasksQuery,
   PatchTasksQueryVariables,
@@ -9,33 +25,17 @@ import {
   TaskResult,
   SortDirection,
 } from "gql/generated/types";
-import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
-import queryString from "query-string";
+import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
 import {
   useDisableTableSortersIfLoading,
   usePollQuery,
   useSetColumnDefaultSortOrder,
   useNetworkStatus,
 } from "hooks";
-import get from "lodash.get";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
+import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import every from "lodash.every";
-import { PageSizeSelector } from "components/PageSizeSelector";
-import {
-  TableContainer,
-  TableControlOuterRow,
-  TableControlInnerRow,
-  StyledRouterLink,
-} from "components/styles";
-import { Pagination } from "components/Pagination";
-import { ResultCountLabel } from "components/ResultCountLabel";
-import { Skeleton } from "antd";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { ColumnProps } from "antd/lib/table";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-import { usePatchAnalytics } from "analytics";
 
 interface Props {
   taskCount: number;

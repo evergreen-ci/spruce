@@ -1,7 +1,7 @@
 import { renderHook } from "@testing-library/react-hooks";
-import { useSetColumnDefaultSortOrder } from "hooks";
 import { ColumnProps } from "antd/lib/table";
 import { TestResult, SortDirection } from "gql/generated/types";
+import { useSetColumnDefaultSortOrder } from "hooks";
 
 test("Should add a defaultSortOrder key with the supplied direction to the column item with a key matching the supplied category", () => {
   const { result } = renderHook(() =>

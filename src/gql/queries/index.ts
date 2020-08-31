@@ -32,3 +32,4 @@ export { GET_MY_PUBLIC_KEYS } from "./get-public-keys";
 export { GET_MY_HOSTS } from "./get-my-hosts";
 export { DISTRO_TASK_QUEUE } from "./distro-task-queue";
 export { GET_DISTROS } from "./get-distros";
+export { TASK_QUEUE_DISTROS } from "./task-queue-distros";

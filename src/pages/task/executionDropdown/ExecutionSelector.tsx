@@ -1,16 +1,16 @@
 import React from "react";
-import styled from "@emotion/styled";
-import { shortDate } from "utils/string";
-import { Select } from "antd";
 import { useQuery } from "@apollo/client";
-import { ExecutionAsDisplay } from "pages/task/util/execution";
+import styled from "@emotion/styled";
+import { Select } from "antd";
+import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
+import { P1 } from "components/Typography";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
-import { P1 } from "components/Typography";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
-import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
+import { ExecutionAsDisplay } from "pages/task/util/execution";
+import { shortDate } from "utils/string";
 
 interface ExecutionSelectProps {
   id: string;

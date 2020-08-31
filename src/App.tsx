@@ -1,10 +1,10 @@
 import * as React from "react";
 import { Global, css } from "@emotion/core";
-import GQLWrapper from "gql/GQLWrapper";
 import { BrowserRouter as Router } from "react-router-dom";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { Content } from "components/Content";
+import { ErrorBoundary } from "components/ErrorBoundary";
 import { ContextProviders } from "context/Providers";
+import GQLWrapper from "gql/GQLWrapper";
 
 // ANTD css
 import "antd/es/breadcrumb/style/css";

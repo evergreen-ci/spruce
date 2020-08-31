@@ -1,11 +1,11 @@
 import React from "react";
-import Icon from "@leafygreen-ui/icon";
-import { BoldStyledLink } from "components/styles";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
-import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import Icon from "@leafygreen-ui/icon";
+import { uiColors } from "@leafygreen-ui/palette";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import { BoldStyledLink } from "components/styles";
+import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
 
 export const DependsOn: React.FC<Dependency> = ({
   buildVariant,

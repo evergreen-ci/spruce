@@ -1,12 +1,12 @@
 import React from "react";
-import { useBannerDispatchContext } from "context/banners";
 import { useQuery } from "@apollo/client";
+import { Skeleton } from "antd";
+import { useBannerDispatchContext } from "context/banners";
 import {
   GetUserSettingsQuery,
   GetUserSettingsQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
-import { Skeleton } from "antd";
 
 interface HookResult {
   data: GetUserSettingsQuery;

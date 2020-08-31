@@ -1,27 +1,27 @@
 import React from "react";
+import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { TableRowSelection } from "antd/es/table/interface";
-import { Table } from "antd";
+import { formatDistanceToNow } from "date-fns";
+import { useHostsTableAnalytics } from "analytics";
+import { StyledRouterLink } from "components/styles";
+import {
+  getColumnSearchFilterProps,
+  getColumnCheckboxFilterProps,
+} from "components/Table/Filters";
+import { hostStatuses } from "constants/hosts";
+import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
   Host,
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
 } from "gql/generated/types";
-import { formatDistanceToNow } from "date-fns";
-import { StyledRouterLink } from "components/styles";
-import { getHostRoute, getTaskRoute } from "constants/routes";
-import {
-  getColumnSearchFilterProps,
-  getColumnCheckboxFilterProps,
-} from "components/Table/Filters";
-import { hostStatuses } from "constants/hosts";
 import {
   useUpdateUrlSortParamOnTableChange,
   useTableInputFilter,
   useTableCheckboxFilter,
 } from "hooks";
-import { useHostsTableAnalytics } from "analytics";
 
 interface Props {
   hosts: Host[];

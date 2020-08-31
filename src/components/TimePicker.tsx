@@ -1,6 +1,6 @@
 import React from "react";
-import { PickerTimeProps } from "antd/es/date-picker/generatePicker";
 import { Omit } from "antd/es/_util/type";
+import { PickerTimeProps } from "antd/es/date-picker/generatePicker";
 import DatePicker from "./DatePicker";
 
 export interface TimePickerProps

@@ -1,14 +1,13 @@
 import React, { useState } from "react";
-import { AutoComplete, Input, Select } from "antd";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Subtitle, H2 } from "@leafygreen-ui/typography";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Subtitle, H2 } from "@leafygreen-ui/typography";
+import { AutoComplete, Input, Select } from "antd";
 import Icon from "components/icons/Icon";
-import { InputLabel } from "components/styles";
 import { Modal } from "components/Modal";
-import { GET_DISTROS, GET_MY_PUBLIC_KEYS, GET_AWS_REGIONS } from "gql/queries";
+import { InputLabel } from "components/styles";
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -17,14 +16,15 @@ import {
   AwsRegionsQuery,
   AwsRegionsQueryVariables,
 } from "gql/generated/types";
-import {
-  PublicKeyForm,
-  publicKeyStateType,
-} from "./spawnHostModal/PublicKeyForm";
+import { GET_DISTROS, GET_MY_PUBLIC_KEYS, GET_AWS_REGIONS } from "gql/queries";
 import {
   HostDetailsForm,
   hostDetailsStateType,
 } from "./spawnHostModal/HostDetailsForm";
+import {
+  PublicKeyForm,
+  publicKeyStateType,
+} from "./spawnHostModal/PublicKeyForm";
 
 const { Option } = Select;
 const { gray } = uiColors;

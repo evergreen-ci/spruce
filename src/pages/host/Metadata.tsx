@@ -1,12 +1,12 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
+import styled from "@emotion/styled";
 import { StyledLink } from "components/styles";
+import { P2 } from "components/Typography";
 import { HostQuery } from "gql/generated/types";
+import { HostCard } from "pages/host/HostCard";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { getDateCopy } from "utils/string";
-import { P2 } from "components/Typography";
-import { HostCard } from "pages/host/HostCard";
-import styled from "@emotion/styled";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -34,18 +34,21 @@ export const Metadata: React.FC<{
     <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
-      <P2>
+      <P2 data-cy="host-last-communication">
         Last Communication: {getDateCopy(lastCommunicationTime, timeZone)}
       </P2>
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
       <P2>
-        Distro: <StyledLink href={distroLink}>{distroId}</StyledLink>
+        Distro:{" "}
+        <StyledLink data-cy="distro-link" href={distroLink}>
+          {distroId}
+        </StyledLink>
       </P2>
-      <P2>
+      <P2 data-cy="current-running-task">
         Current Task:{" "}
         {runningTaskName ? (
-          <StyledLink data-cy="task-distro-link" href={taskLink}>
+          <StyledLink data-cy="running-task-link" href={taskLink}>
             {runningTaskName}
           </StyledLink>
         ) : (

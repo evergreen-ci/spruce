@@ -1,8 +1,8 @@
 import React from "react";
-import { Radio } from "antd";
 import styled from "@emotion/styled";
-import { Notifications } from "gql/generated/types";
+import { Radio } from "antd";
 import { notificationFields } from "constants/fieldMaps";
+import { Notifications } from "gql/generated/types";
 
 interface NotificationFieldProps {
   notification: string;

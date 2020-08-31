@@ -1,14 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Menu, Dropdown } from "antd";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
+import { Menu, Dropdown } from "antd";
 import get from "lodash/get";
 import { Link } from "react-router-dom";
-import { GET_USER } from "gql/queries";
-import { GetUserQuery } from "gql/generated/types";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { legacyRoutes } from "constants/externalResources";
 import {
   paths,
@@ -16,6 +13,9 @@ import {
   getUserPatchesRoute,
   getPreferencesRoute,
 } from "constants/routes";
+import { GetUserQuery } from "gql/generated/types";
+import { GET_USER } from "gql/queries";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 const { white } = uiColors;
 

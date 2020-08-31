@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { Subtitle } from "@leafygreen-ui/typography";
 import Checkbox from "@leafygreen-ui/checkbox";
-import TextInput from "@leafygreen-ui/text-input";
 import { RadioBox } from "@leafygreen-ui/radio-box-group";
+import TextInput from "@leafygreen-ui/text-input";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
 import { PublicKey, PublicKeyInput } from "gql/generated/types";

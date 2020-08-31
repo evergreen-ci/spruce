@@ -1,5 +1,4 @@
 import React from "react";
-import { H2 } from "components/Typography";
 import { Skeleton } from "antd";
 import {
   PageContent,
@@ -7,6 +6,7 @@ import {
   PageSider,
   SiderCard,
 } from "components/styles";
+import { H2 } from "components/Typography";
 
 export const PatchAndTaskFullPageLoad: React.FC = () => (
   <>

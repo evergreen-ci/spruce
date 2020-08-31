@@ -1,11 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Subtitle, Body } from "@leafygreen-ui/typography";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import { set } from "date-fns";
-import { InputLabel } from "components/styles";
 import DatePicker from "components/DatePicker";
+import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
 
 const { TextArea } = Input;

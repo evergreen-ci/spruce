@@ -1,8 +1,8 @@
 import React from "react";
-import { useUpdateUrlSortParamOnTableChange } from "hooks";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useLocation } from "react-router";
+import { useUpdateUrlSortParamOnTableChange } from "hooks";
 import { parseQueryString } from "utils";
 
 export const TestComponent = () => {

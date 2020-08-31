@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
-import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
+import { timeZones } from "constants/fieldMaps";
+import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
   AwsRegionsQuery,
 } from "gql/generated/types";
-import { useBannerDispatchContext } from "context/banners";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
-import { omitTypename } from "utils/string";
-import { timeZones } from "constants/fieldMaps";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
+import { omitTypename } from "utils/string";
 import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
@@ -98,9 +98,14 @@ export const ProfileTab: React.FC = () => {
           <StyledSelect
             defaultValue={timezoneField}
             onChange={handleFieldUpdate(setTimezoneField)}
+            data-cy="timezone-field"
           >
             {timeZones.map((timeZone) => (
-              <Option value={timeZone.value} key={timeZone.value}>
+              <Option
+                value={timeZone.value}
+                key={timeZone.value}
+                data-cy={`${timeZone.str}-option`}
+              >
                 {timeZone.str}
               </Option>
             ))}
@@ -109,7 +114,7 @@ export const ProfileTab: React.FC = () => {
             defaultValue={regionField}
             onChange={handleFieldUpdate(setRegionField)}
           >
-            {(awsRegions as any[]).map((awsRegion) => (
+            {(awsRegions as any[])?.map((awsRegion) => (
               <Option value={awsRegion} key={awsRegion}>
                 {awsRegion}
               </Option>
