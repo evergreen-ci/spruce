@@ -60,7 +60,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           <StyledP1>
             {" "}
             Execution {ExecutionAsDisplay(singleExecution.execution)} -{" "}
-            {shortDate(singleExecution.createTime)}
+            {shortDate(singleExecution.ingestTime)}
           </StyledP1>
         </Option>
       ))}
