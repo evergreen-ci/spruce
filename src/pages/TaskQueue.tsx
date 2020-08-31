@@ -1,15 +1,15 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
+import { Body } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useQuery } from "@apollo/client";
+import { TableContainer, PageWrapper } from "components/styles";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
   TaskQueueItem,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { TableContainer, PageWrapper } from "components/styles";
-import { Body } from "@leafygreen-ui/typography";
 
 export const TaskQueue = () => {
   const { data: taskQueueItemsData, loading } = useQuery<

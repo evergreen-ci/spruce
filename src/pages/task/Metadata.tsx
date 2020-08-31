@@ -1,15 +1,15 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
-import { Divider, StyledLink } from "components/styles";
-import { H3, P2 } from "components/Typography";
-import { MetadataCard } from "components/MetadataCard";
-import { msToDuration, getDateCopy } from "utils/string";
 import { v4 as uuid } from "uuid";
+import { useTaskAnalytics } from "analytics";
+import { MetadataCard } from "components/MetadataCard";
+import { StyledLink, Divider } from "components/styles";
+import { H3, P2 } from "components/Typography";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
-import { useTaskAnalytics } from "analytics";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { TaskStatus } from "types/task";
+import { getUiUrl } from "utils/getEnvironmentVariables";
+import { msToDuration, getDateCopy } from "utils/string";
 import { ETATimer } from "./metadata/ETATimer";
 
 export const Metadata: React.FC<{

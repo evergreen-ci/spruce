@@ -1,9 +1,9 @@
 import React from "react";
-import { renderHook, act } from "@testing-library/react-hooks";
-import { useGetUserPatchesPageTitleAndLink } from "hooks";
 import { MockedProvider } from "@apollo/react-testing";
-import { GET_OTHER_USER } from "gql/queries";
+import { renderHook, act } from "@testing-library/react-hooks";
 import wait from "waait";
+import { GET_OTHER_USER } from "gql/queries";
+import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const mocks = [
   {

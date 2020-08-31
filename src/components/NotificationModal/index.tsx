@@ -1,28 +1,28 @@
 import React from "react";
-import { Select, Input } from "antd";
-import { Modal } from "components/Modal";
-import { uiColors } from "@leafygreen-ui/palette";
-import Button, { Variant } from "@leafygreen-ui/button";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button, { Variant } from "@leafygreen-ui/button";
+import Icon from "@leafygreen-ui/icon";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { Select, Input } from "antd";
 import get from "lodash/get";
 import set from "lodash/set";
-import { SubscriptionMethodDropdownOption } from "types/subscription";
 import { v4 as uuid } from "uuid";
-import { useBannerDispatchContext } from "context/banners";
-import Icon from "@leafygreen-ui/icon";
-import {
-  useNotificationModal,
-  UseNotificationModalProps,
-} from "hooks/useNotificationModal";
+import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
-import { useMutation } from "@apollo/client";
+import { ErrorMessage } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
-import { ErrorMessage } from "components/styles";
+import {
+  useNotificationModal,
+  UseNotificationModalProps,
+} from "hooks/useNotificationModal";
+import { SubscriptionMethodDropdownOption } from "types/subscription";
 
 const { Option } = Select;
 

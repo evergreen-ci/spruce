@@ -1,16 +1,16 @@
-import { TaskStatus, LogTypes } from "types/task";
-import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
-import { GET_TASK_EVENT_DATA } from "analytics/task/query";
+import { useParams } from "react-router-dom";
 import {
   addPageAction,
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
+import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
 import { SaveSubscriptionMutationVariables } from "gql/generated/types";
+import { TaskStatus, LogTypes } from "types/task";
 
 type Action =
   | { name: "Filter Tests"; filterBy: string }

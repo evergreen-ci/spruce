@@ -1,7 +1,7 @@
 import React from "react";
-import { Modal } from "antd";
 import Button from "@leafygreen-ui/button";
 import { H2 } from "@leafygreen-ui/typography";
+import { Modal } from "antd";
 
 interface SpawnHostModalProps {
   visible: boolean;

@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { Select, Input } from "antd";
-import styled from "@emotion/styled";
 import { useMutation } from "@apollo/client";
-import { Modal } from "components/Modal";
+import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
+import { Select, Input } from "antd";
+import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
+import { Modal } from "components/Modal";
+import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateHostStatusMutation,
   UpdateHostStatusMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_HOST_STATUS } from "gql/mutations";
-import { useBannerDispatchContext } from "context/banners";
 import { UpdateHostStatus } from "types/host";
-import { Body } from "@leafygreen-ui/typography";
-
-import { useHostsTableAnalytics } from "analytics";
 
 const { Option } = Select;
 const { TextArea } = Input;

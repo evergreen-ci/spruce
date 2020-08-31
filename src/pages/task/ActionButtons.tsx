@@ -1,17 +1,14 @@
 import React, { useRef, useState, useEffect } from "react";
-import { Button } from "components/Button";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useOnClickOutside } from "hooks";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import get from "lodash/get";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { useMutation } from "@apollo/client";
-import { ABORT_TASK } from "gql/mutations/abort-task";
-import { RESTART_TASK } from "gql/mutations/restart-task";
-import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
-import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
-import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
+import { useTaskAnalytics } from "analytics";
+import { Button } from "components/Button";
+import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { PageButtonRow } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
   SetTaskPriorityMutation,
@@ -25,10 +22,13 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { PageButtonRow } from "components/styles";
-import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { ABORT_TASK } from "gql/mutations/abort-task";
+import { RESTART_TASK } from "gql/mutations/restart-task";
+import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
+import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
+import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
+import { useOnClickOutside } from "hooks";
 import { TaskNotificationModal } from "pages/task/actionButtons/TaskNotificationModal";
-import { useTaskAnalytics } from "analytics";
 
 interface Props {
   initialPriority?: number;

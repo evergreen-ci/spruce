@@ -6,8 +6,8 @@ import {
   ApolloLink,
   HttpLink,
 } from "@apollo/client";
-import { RetryLink } from "@apollo/client/link/retry";
 import { onError } from "@apollo/client/link/error";
+import { RetryLink } from "@apollo/client/link/retry";
 import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
 import { reportError } from "utils/errorReporting";
 import { getGQLUrl } from "utils/getEnvironmentVariables";

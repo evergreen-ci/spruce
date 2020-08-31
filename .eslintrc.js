@@ -109,6 +109,16 @@ module.exports = {
     "import/newline-after-import": WARN,
     "import/prefer-default-export": OFF,
 
+    // These rules help ensure we are following proper accessability standards
+    "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
+    "jsx-a11y/aria-props": errorIfStrict,
+    // renamed to anchor-is-valid
+    "jsx-a11y/href-no-hash": OFF,
+    "jsx-a11y/anchor-is-valid": errorIfStrict,
+    "jsx-a11y/label-has-associated-control": [
+      errorIfStrict,
+      { some: ["nesting", "id"] },
+    ],
     // disallow use of undeclared variables unless mentioned in a
     // /*global */ block
     "no-undef": ERROR,
@@ -131,15 +141,34 @@ module.exports = {
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
     "react-hooks/rules-of-hooks": ERROR, // Checks rules of Hooks
     "react-hooks/exhaustive-deps": WARN, // Checks effect dependencies
-    // These rules help ensure we are following proper accessability standards
-    "jsx-a11y/aria-role": [errorIfStrict, { ignoreNonDom: false }],
-    "jsx-a11y/aria-props": errorIfStrict,
-    // renamed to anchor-is-valid
-    "jsx-a11y/href-no-hash": OFF,
-    "jsx-a11y/anchor-is-valid": errorIfStrict,
-    "jsx-a11y/label-has-associated-control": [
-      errorIfStrict,
-      { some: ["nesting", "id"] },
+    "import/order": [
+      "error",
+      {
+        groups: ["external", "builtin", "internal"],
+        pathGroups: [
+          {
+            pattern: "react",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern: "@**",
+            group: "external",
+            position: "before",
+          },
+          {
+            pattern:
+              "(analytics|components|constants|context|gql|hoc|hooks|pages|types|utils)/**",
+            group: "internal",
+            position: "before",
+          },
+        ],
+        pathGroupsExcludedImportTypes: ["react"],
+        alphabetize: {
+          order: "asc",
+          caseInsensitive: true,
+        },
+      },
     ],
   },
 };

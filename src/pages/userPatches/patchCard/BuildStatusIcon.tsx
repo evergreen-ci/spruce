@@ -1,9 +1,9 @@
 import React from "react";
-import { BuildStatus } from "types/build";
-import Icon from "components/icons/Icon";
-import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
+import Icon from "components/icons/Icon";
+import { CreatedIcon } from "pages/userPatches/patchCard/BuildStatusIcon/CreatedIcon";
+import { BuildStatus } from "types/build";
 
 interface Props {
   status: string;

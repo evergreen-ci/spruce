@@ -1,40 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import { isNetworkRequestInFlight } from "@apollo/client/core/networkStatus";
+import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
+import { useHostsTableAnalytics } from "analytics";
+import { Banners } from "components/Banners";
+import { Button } from "components/Button";
+import { ErrorBoundary } from "components/ErrorBoundary";
+import { UpdateStatusModal } from "components/Hosts";
+import { RestartJasper } from "components/Hosts/RestartJasper";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
 import {
   TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
   PageWrapper,
 } from "components/styles";
-import { withBannersContext } from "hoc/withBannersContext";
-import { Banners } from "components/Banners";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import {
   HostsQuery,
   HostsQueryVariables,
   HostSortBy,
   SortDirection,
 } from "gql/generated/types";
-import { RestartJasper } from "components/Hosts/RestartJasper";
 import { HOSTS } from "gql/queries";
+import { withBannersContext } from "hoc/withBannersContext";
 import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-import { parseQueryString, getArray, getString } from "utils";
-import { Pagination } from "components/Pagination";
-import { PageSizeSelector } from "components/PageSizeSelector";
-import { isNetworkRequestInFlight } from "@apollo/client/core/networkStatus";
 import { HostsTable } from "pages/hosts/HostsTable";
-import styled from "@emotion/styled";
-import { Button } from "components/Button";
-import { useHostsTableAnalytics } from "analytics";
-import { UpdateStatusModal } from "components/Hosts";
+import { parseQueryString, getArray, getString } from "utils";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 const Hosts: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();

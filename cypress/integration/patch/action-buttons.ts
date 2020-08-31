@@ -1,7 +1,7 @@
 // / <reference types="Cypress" />
 // / <reference path="../../support/index.d.ts" />
-import { popconfirmYesClassName } from "../../utils/popconfirm";
 import { mockErrorResponse } from "../../utils/mockErrorResponse";
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 const patchIdWithWorkingReconfigureLink = "5ecedafb562343215a7ff297";
 const patchId = "5e4ff3abe3c3317e352062e4";

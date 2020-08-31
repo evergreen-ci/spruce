@@ -1,15 +1,14 @@
 import React from "react";
+import { useMutation } from "@apollo/client";
+import { Popconfirm } from "antd";
+import { useHostsTableAnalytics } from "analytics";
+import { Button } from "components/Button";
+import { useBannerDispatchContext } from "context/banners";
 import {
   RestartJasperMutation,
   RestartJasperMutationVariables,
 } from "gql/generated/types";
-import { Popconfirm } from "antd";
-import { useMutation } from "@apollo/client";
 import { RESTART_JASPER } from "gql/mutations";
-import { useBannerDispatchContext } from "context/banners";
-import { Button } from "components/Button";
-
-import { useHostsTableAnalytics } from "analytics";
 
 interface Props {
   selectedHostIds: string[];

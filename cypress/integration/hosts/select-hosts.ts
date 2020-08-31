@@ -1,4 +1,5 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
+
 const hostsRoute = "/hosts";
 
 describe("Select hosts in hosts page table", () => {

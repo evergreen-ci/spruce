@@ -1,14 +1,14 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { ProjectBuildVariant } from "gql/generated/types";
-import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
-import Checkbox from "@leafygreen-ui/checkbox";
 import { css } from "@emotion/core";
+import styled from "@emotion/styled/macro";
+import Checkbox from "@leafygreen-ui/checkbox";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import every from "lodash.every";
+import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import { Button } from "components/Button";
-import get from "lodash/get";
-import every from "lodash.every";
+import { ProjectBuildVariant } from "gql/generated/types";
+import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 
 interface Props {
   variants: ProjectBuildVariant[];

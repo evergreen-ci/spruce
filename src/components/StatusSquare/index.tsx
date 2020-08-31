@@ -1,5 +1,5 @@
-import { uiColors } from "@leafygreen-ui/palette";
 import styled from "@emotion/styled/macro";
+import { uiColors } from "@leafygreen-ui/palette";
 import { TaskStatus } from "types/task";
 
 const { green, gray, yellow, red } = uiColors;

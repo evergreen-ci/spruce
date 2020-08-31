@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-import IconButton from "@leafygreen-ui/icon-button";
 import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
+import { uiColors } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import { GET_SITE_BANNER } from "gql/queries";
 import { SiteBannerQuery } from "gql/generated/types";
+import { GET_SITE_BANNER } from "gql/queries";
 
 const { yellow, blue, green, red } = uiColors;
 export const SiteBanner = () => {
