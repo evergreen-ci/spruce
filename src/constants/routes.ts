@@ -51,7 +51,7 @@ export const routes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
   newUIPreferences: `${paths.preferences}/${PreferencesTabRoutes.NewUI}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
-  taskQueue: `${paths.taskQueue}/:distro?`,
+  taskQueue: `${paths.taskQueue}/:distro?/:taskId?`,
 };
 
 export enum PatchTab {
@@ -77,5 +77,5 @@ export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
 export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 
-export const getTaskQueueRoute = (distro: string) =>
-  `${paths.taskQueue}/${distro}`;
+export const getTaskQueueRoute = (distro: string, taskId?: string) =>
+  `${paths.taskQueue}/${distro}${taskId ? `/${taskId}` : ""}`;
