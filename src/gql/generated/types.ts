@@ -412,7 +412,6 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
-  version: Scalars["String"];
 };
 
 export type TaskQueueDistro = {
@@ -1348,7 +1347,7 @@ export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
     execution?: Maybe<number>;
     status: string;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
   }>;
 };
 
@@ -1464,7 +1463,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     activatedBy?: Maybe<string>;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
     estimatedStart?: Maybe<number>;
     displayName: string;
     finishTime?: Maybe<Date>;
