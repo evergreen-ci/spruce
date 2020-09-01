@@ -397,6 +397,7 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
+  version: Scalars["String"];
 };
 
 export type TaskQueueDistro = {
