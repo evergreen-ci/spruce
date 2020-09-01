@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
 import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
 
 interface TaskStatusCheckboxProps {
   task: PatchBuildVariantTask;

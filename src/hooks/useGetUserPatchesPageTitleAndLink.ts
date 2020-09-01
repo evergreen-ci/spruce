@@ -1,10 +1,10 @@
-import { GET_OTHER_USER } from "gql/queries";
+import { useQuery } from "@apollo/client";
+import { getUserPatchesRoute } from "constants/routes";
 import {
   GetOtherUserQuery,
   GetOtherUserQueryVariables,
 } from "gql/generated/types";
-import { useQuery } from "@apollo/client";
-import { getUserPatchesRoute } from "constants/routes";
+import { GET_OTHER_USER } from "gql/queries";
 
 export const useGetUserPatchesPageTitleAndLink = (userId: string) => {
   const { data, loading, error } = useQuery<

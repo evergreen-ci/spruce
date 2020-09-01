@@ -1,11 +1,11 @@
-import { PatchStatus } from "types/patch";
-import { useParams } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
-import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
+import { useParams } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
+import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import { SaveSubscriptionMutationVariables } from "gql/generated/types";
+import { PatchStatus } from "types/patch";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }

@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const REMOVE_PUBLIC_KEY = gql`
   mutation RemovePublicKey($keyName: String!) {

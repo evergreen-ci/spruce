@@ -1,7 +1,7 @@
 import React from "react";
-import { Skeleton } from "antd";
-import { H2, Subtitle } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+import { H2, Subtitle } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 
 type Size = "large" | "medium";
 

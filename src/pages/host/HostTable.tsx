@@ -1,16 +1,16 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
-import { Table } from "antd";
-import { getDateCopy } from "utils/string";
-import { HostCard } from "pages/host/HostCard";
-import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
-import { ColumnProps } from "antd/es/table";
-import { getHostEventString } from "pages/host/getHostEventString";
 import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Pagination } from "components/Pagination";
+import { Table } from "antd";
+import { ColumnProps } from "antd/es/table";
 import { useHostsTableAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
+import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
+import { getHostEventString } from "pages/host/getHostEventString";
+import { HostCard } from "pages/host/HostCard";
+import { getDateCopy } from "utils/string";
 
 export const HostTable: React.FC<{
   loading: boolean;

@@ -1,11 +1,11 @@
 import React from "react";
+import { TreeSelect } from "components/TreeSelect";
+import { useStatusesFilter } from "hooks";
 import {
   MyPatchesQueryParams,
   PatchStatus,
   ALL_PATCH_STATUS,
 } from "types/patch";
-import { TreeSelect } from "components/TreeSelect";
-import { useStatusesFilter } from "hooks";
 
 export const StatusSelector: React.FC = () => {
   const [statusVal, statusValOnChange] = useStatusesFilter(

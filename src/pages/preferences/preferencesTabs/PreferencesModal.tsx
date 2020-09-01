@@ -1,8 +1,8 @@
 import React from "react";
-import { Modal } from "antd";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { Modal } from "antd";
 
 interface PreferencesModalProps {
   title: string;

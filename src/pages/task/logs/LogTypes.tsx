@@ -1,12 +1,17 @@
 import React from "react";
-import {
-  GET_AGENT_LOGS,
-  GET_EVENT_LOGS,
-  GET_SYSTEM_LOGS,
-  GET_TASK_LOGS,
-} from "gql/queries/get-task-logs";
-import queryString from "query-string";
+import { useQuery, ApolloError } from "@apollo/client";
+
+import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
+import { Skeleton } from "antd";
+import get from "lodash/get";
+import queryString from "query-string";
+import { useParams, useLocation, useHistory } from "react-router-dom";
+import { v4 as uuid } from "uuid";
+import { useTaskAnalytics } from "analytics";
+import { Button } from "components/Button";
+import { pollInterval } from "constants/index";
 import {
   EventLogsQuery,
   EventLogsQueryVariables,
@@ -19,20 +24,15 @@ import {
   LogMessage,
   TaskEventLogEntry,
 } from "gql/generated/types";
-import { useQuery } from "@apollo/client";
-import { ApolloError } from "@apollo/client";
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import { Skeleton } from "antd";
-import get from "lodash/get";
-import { v4 as uuid } from "uuid";
+import {
+  GET_AGENT_LOGS,
+  GET_EVENT_LOGS,
+  GET_SYSTEM_LOGS,
+  GET_TASK_LOGS,
+} from "gql/queries/get-task-logs";
+import { useNetworkStatus } from "hooks";
 import { LogMessageLine } from "pages/task/logs/logTypes/LogMessageLine";
 import { TaskEventLogLine } from "pages/task/logs/logTypes/TaskEventLogLine";
-import styled from "@emotion/styled";
-import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
-import { Button } from "components/Button";
-import { useTaskAnalytics } from "analytics";
-import { useNetworkStatus } from "hooks";
-import { pollInterval } from "constants/index";
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";

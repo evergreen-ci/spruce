@@ -1,8 +1,8 @@
-import styled from "@emotion/styled/macro";
-import { Layout } from "antd";
 import { css } from "@emotion/core";
-import { H2, Body } from "@leafygreen-ui/typography";
+import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
+import { H2, Body } from "@leafygreen-ui/typography";
+import { Layout } from "antd";
 
 const { Content, Sider } = Layout;
 

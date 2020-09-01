@@ -1,9 +1,9 @@
-const prompt = require("prompt");
-const simpleGit = require("simple-git");
 const colors = require("colors/safe");
-const promptRun = require("prompt-run");
-const path = require("path");
 const { gitDescribeSync } = require("git-describe");
+const prompt = require("prompt");
+const promptRun = require("prompt-run");
+const simpleGit = require("simple-git");
+const path = require("path");
 
 const git = simpleGit(path.resolve(__dirname, ".."));
 
@@ -59,7 +59,7 @@ const deployProcess = () => {
     childProcess.on("close", () => {
       console.log("Deploy Complete! 🎉");
       console.log("Don't forget to push tags");
-      console.log(colors.green("git push --tags"));
+      console.log(colors.green("git push upstream --tags"));
     });
   });
 };

@@ -1,12 +1,20 @@
 import React, { useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
-import styled from "@emotion/styled";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { GET_HOST } from "gql/queries/get-host";
-import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
+import { useParams, useLocation } from "react-router-dom";
 import { Banners } from "components/Banners";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { Button } from "components/Button";
+import { UpdateStatusModal } from "components/Hosts";
+import { RestartJasper } from "components/Hosts/RestartJasper";
+import { HostStatusBadge } from "components/HostStatusBadge";
+import { PageTitle } from "components/PageTitle";
+import {
+  PageWrapper,
+  PageSider,
+  PageLayout,
+  PageContent,
+} from "components/styles";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -17,23 +25,15 @@ import {
   HostEventsQuery,
   HostEventsQueryVariables,
 } from "gql/generated/types";
-import { usePageTitle } from "hooks/usePageTitle";
-import {
-  PageWrapper,
-  PageSider,
-  PageLayout,
-  PageContent,
-} from "components/styles";
-import { HostStatusBadge } from "components/HostStatusBadge";
-import { PageTitle } from "components/PageTitle";
-import { HostStatus } from "types/host";
-import { Metadata } from "pages/host/Metadata";
-import { HostTable } from "pages/host/HostTable";
-import { useUserTimeZone } from "utils/string";
+import { GET_HOST } from "gql/queries/get-host";
+import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
 import { withBannersContext } from "hoc/withBannersContext";
-import { Button } from "components/Button";
-import { UpdateStatusModal } from "components/Hosts";
-import { RestartJasper } from "components/Hosts/RestartJasper";
+import { usePageTitle } from "hooks/usePageTitle";
+import { HostTable } from "pages/host/HostTable";
+import { Metadata } from "pages/host/Metadata";
+import { HostStatus } from "types/host";
+import { useUserTimeZone } from "utils/string";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();

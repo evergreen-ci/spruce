@@ -143,4 +143,4 @@ Run the `deploy:prod` or `deploy:staging` npm command
 1. `npm run deploy:prod` = deploy to https://spruce.mongodb.com
 2. `npm run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
 
-After deploying you will be prompted to run `git push --tags` this is important so we can track releases. 
+After deploying you will be prompted to run `git push --tags` or `git push upstream --tags` depending on your setup, this is important so we can track releases. 

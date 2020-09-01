@@ -38,6 +38,7 @@ export type Query = {
   distros: Array<Maybe<Distro>>;
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
+  taskQueueDistros: Array<TaskQueueDistro>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -161,6 +162,7 @@ export type Mutation = {
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
+  removeVolume: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -264,6 +266,10 @@ export type MutationRemovePublicKeyArgs = {
 export type MutationUpdatePublicKeyArgs = {
   targetKeyName: Scalars["String"];
   updateInfo: PublicKeyInput;
+};
+
+export type MutationRemoveVolumeArgs = {
+  volumeId: Scalars["String"];
 };
 
 export enum SpawnHostStatusActions {
@@ -391,6 +397,11 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
+};
+
+export type TaskQueueDistro = {
+  id: Scalars["ID"];
+  queueCount: Scalars["Int"];
 };
 
 export type Host = {
@@ -1130,6 +1141,16 @@ export type CommitQueueQuery = {
   };
 };
 
+export type DistrosQueryVariables = {
+  onlySpawnable: Scalars["Boolean"];
+};
+
+export type DistrosQuery = {
+  distros: Array<
+    Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
+  >;
+};
+
 export type HostEventsQueryVariables = {
   id: Scalars["String"];
   tag: Scalars["String"];
@@ -1640,4 +1661,10 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type TaskQueueDistrosQueryVariables = {};
+
+export type TaskQueueDistrosQuery = {
+  taskQueueDistros: Array<{ id: string; queueCount: number }>;
 };

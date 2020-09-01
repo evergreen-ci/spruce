@@ -1,18 +1,18 @@
 import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled/macro";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
+import { SiderCard } from "components/styles";
+import { Divider } from "components/styles/Divider";
+import { H3, P1 } from "components/Typography";
+import { pollInterval } from "constants/index";
 import {
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
 } from "gql/generated/types";
-import { SiderCard } from "components/styles";
-import { Divider } from "components/styles/Divider";
-import { pollInterval } from "constants/index";
-import { H3, P1 } from "components/Typography";
-import styled from "@emotion/styled/macro";
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import { useNetworkStatus } from "hooks";
 import { TaskSquare } from "pages/patch/buildVariants/TaskSquare";
 

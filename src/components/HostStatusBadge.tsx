@@ -1,7 +1,7 @@
 import React from "react";
-import { HostStatus } from "types/host";
-import Badge, { Variant } from "@leafygreen-ui/badge";
 import styled from "@emotion/styled";
+import Badge, { Variant } from "@leafygreen-ui/badge";
+import { HostStatus } from "types/host";
 
 interface Props {
   status: HostStatus;
