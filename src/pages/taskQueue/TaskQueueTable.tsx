@@ -1,11 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import { Body } from "@leafygreen-ui/typography";
+import styled from "@emotion/styled";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
 import { StyledRouterLink } from "components/styles";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
@@ -15,7 +16,7 @@ import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
 
 export const TaskQueueTable = () => {
-  const { distro } = useParams<{ distro: string }>();
+  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
 
   const { data: taskQueueItemsData, loading, refetch: refetchQueue } = useQuery<
     DistroTaskQueueQuery,
@@ -38,6 +39,18 @@ export const TaskQueueTable = () => {
     }
   }, [searchChanged, refetchQueue, distro]);
 
+  // SCROLL TO TASK
+  const taskRowRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (taskRowRef.current) {
+      taskRowRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+
   const columns: Array<ColumnProps<TaskQueueItem>> = [
     {
       title: "",
@@ -52,6 +65,17 @@ export const TaskQueueTable = () => {
       key: "displayName",
       className: "cy-task-queue-col-task",
       width: "25%",
+      render: (_, { displayName, id, project, buildVariant }) => (
+        <TaskCell>
+          <Body>
+            <StyledRouterLink data-cy="current-task-link" to={getTaskRoute(id)}>
+              {displayName}
+            </StyledRouterLink>
+          </Body>
+          <Body>{buildVariant}</Body>
+          <Disclaimer>{project}</Disclaimer>
+        </TaskCell>
+      ),
     },
     {
       title: "Est. Runtime",
@@ -83,9 +107,20 @@ export const TaskQueueTable = () => {
     <Table
       columns={columns}
       rowKey={({ id }: { id: string }): string => id}
+      rowSelection={{
+        hideSelectAll: true,
+        selectedRowKeys: [taskId],
+        renderCell: (...[, { id }]) =>
+          id === taskId ? <div ref={taskRowRef} /> : null,
+      }}
       pagination={false}
       dataSource={taskQueueItems}
       loading={loading}
     />
   );
 };
+
+const TaskCell = styled.div`
+  display: flex;
+  flex-direction: column;
+`;

@@ -15,7 +15,7 @@ import {
   AwsRegionsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
-import { AWS_REGIONS } from "gql/queries";
+import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { omitTypename } from "utils/string";
 import { PreferencesModal } from "./PreferencesModal";
@@ -54,7 +54,7 @@ export const ProfileTab: React.FC = () => {
     },
   });
 
-  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(AWS_REGIONS);
+  const { data: awsRegionData } = useQuery<AwsRegionsQuery>(GET_AWS_REGIONS);
 
   if (loadingComp) {
     return loadingComp;

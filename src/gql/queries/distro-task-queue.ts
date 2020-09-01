@@ -1,4 +1,4 @@
-import gql from "graphql-tag";
+import { gql } from "@apollo/client";
 
 export const DISTRO_TASK_QUEUE = gql`
   query DistroTaskQueue($distroId: String!) {

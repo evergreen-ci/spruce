@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -15,7 +19,16 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "paths": {
+      "test-utils": [
+        "./test_utils/test-utils"
+      ]
+    }
   },
-  "include": ["src"]
+  "include": [
+    "src",
+    "test_utils/test-utils.ts",
+    "test_utils/custom-queries.ts"
+  ]
 }
