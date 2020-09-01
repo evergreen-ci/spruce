@@ -1,5 +1,5 @@
 import React from "react";
-import Tooltip from "@leafygreen-ui/tooltip";
+import { Tooltip } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
 import { StyledRouterLink } from "components/styles";
@@ -16,7 +16,7 @@ export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
   return (
     <StyledRouterLink
       to={`/task/${id}`}
-      className="task-square"
+      data-cy="task-square"
       onClick={() =>
         patchAnalytics.sendEvent({
           name: "Click Task Square",
@@ -24,12 +24,8 @@ export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
         })
       }
     >
-      <Tooltip
-        trigger={<Square color={mapVariantTaskStatusToColor[status]} />}
-        variant="dark"
-        className="task-square-tooltip"
-      >
-        {name}
+      <Tooltip title={name} data-cy="task-square-tooltip">
+        <Square color={mapVariantTaskStatusToColor[status]} />
       </Tooltip>
     </StyledRouterLink>
   );
