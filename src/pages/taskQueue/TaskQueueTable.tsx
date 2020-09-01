@@ -108,12 +108,8 @@ export const TaskQueueTable = () => {
       rowSelection={{
         hideSelectAll: true,
         selectedRowKeys: [taskId],
-        renderCell(...[, { id }]) {
-          if (id === taskId) {
-            return <div ref={taskRowRef} />;
-          }
-          return null;
-        },
+        renderCell: (...[, { id }]) =>
+          id === taskId ? <div ref={taskRowRef} /> : null,
       }}
       pagination={false}
       dataSource={taskQueueItems}
