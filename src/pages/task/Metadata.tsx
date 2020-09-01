@@ -7,8 +7,10 @@ import { StyledLink, Divider } from "components/styles";
 import { H3, P2 } from "components/Typography";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
+import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration, getDateCopy } from "utils/string";
+import { ETATimer } from "./metadata/ETATimer";
 
 export const Metadata: React.FC<{
   loading: boolean;
@@ -18,6 +20,7 @@ export const Metadata: React.FC<{
   const task = data ? data.task : null;
   const taskAnalytics = useTaskAnalytics();
 
+  const status = task?.status;
   const spawnHostLink = task?.spawnHostLink;
   const ingestTime = task?.ingestTime;
   const finishTime = task?.finishTime;
@@ -39,29 +42,48 @@ export const Metadata: React.FC<{
   const author = patchMetadata?.author;
 
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
+
   return (
     <MetadataCard error={error} loading={loading} title="Task Metadata">
       <P2>Submitted by: {author}</P2>
       <P2 data-cy="task-metadata-submitted-at">
         Submitted at: {getDateCopy(ingestTime)}
       </P2>
-      <P2>
-        Estimated time to start:{" "}
-        <span data-cy="task-metadata-estimated_start">
-          {msToDuration(estimatedStart)}
-        </span>
-      </P2>
-      <P2>
-        Started:{" "}
-        <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
-      </P2>
-      <P2 data-cy="task-metadata-finished">
-        Finished:{" "}
-        <span data-cy="task-metadata-started">{getDateCopy(finishTime)}</span>
-      </P2>
-      <P2 data-cy="task-metadata-duration">
-        Duration: {msToDuration(timeTaken)}{" "}
-      </P2>
+      {estimatedStart > 0 && (
+        <P2>
+          Estimated time to start:{" "}
+          <span data-cy="task-metadata-estimated_start">
+            {msToDuration(estimatedStart)}
+          </span>
+        </P2>
+      )}
+      {/* Can only show the time running and eta if the task is running and 
+      it has a baseTaskDuration to calculate the eta with */}
+      {status === TaskStatus.Started && baseTaskDuration && (
+        <P2 data-cy="task-metadata-eta">
+          Running Time / Time Left:{" "}
+          <ETATimer startTime={startTime} baseTaskDuration={baseTaskDuration} />
+        </P2>
+      )}
+      {startTime && (
+        <P2>
+          Started:{" "}
+          <span data-cy="task-metadata-started">{getDateCopy(startTime)}</span>
+        </P2>
+      )}
+      {finishTime && (
+        <P2>
+          Finished:{" "}
+          <span data-cy="task-metadata-finished">
+            {getDateCopy(finishTime)}
+          </span>
+        </P2>
+      )}
+      {timeTaken && (
+        <P2 data-cy="task-metadata-duration">
+          Duration: {msToDuration(timeTaken)}{" "}
+        </P2>
+      )}
       {baseTaskDuration !== undefined && (
         <P2 data-cy="task-metadata-base-commit-duration">
           Base commit duration: {msToDuration(baseTaskDuration)}

@@ -1,9 +1,9 @@
-const prompt = require("prompt");
-const simpleGit = require("simple-git");
 const colors = require("colors/safe");
+const prompt = require("prompt");
 const promptRun = require("prompt-run");
+const simpleGit = require("simple-git");
 const path = require("path");
-const { gitDescribeSync } = require("git-describe");
+const getLatestReleaseTag = require("./git-tag-proc");
 
 const git = simpleGit(path.resolve(__dirname, ".."));
 
@@ -23,15 +23,24 @@ const checkIfOnMaster = async () => {
 // Fetches all the commits since the last release tag if there are no commits
 // since the last release it returns false otherwise prints out all the commits
 const getLatestCommitsSinceLastRelease = async () => {
-  const latestRelease = gitDescribeSync(__dirname);
-  const latestCommits = await git.log(latestRelease.tag, "HEAD");
-  if (latestCommits.all.length === 0) {
-    console.log(colors.red("No Changes found since last release\n"));
+  try {
+    const latestRelease = getLatestReleaseTag();
+    const latestCommits = await git.log(latestRelease, "HEAD");
+    if (latestCommits.all.length === 0) {
+      console.log(colors.red("No Changes found since last release\n"));
+      return false;
+    }
+    console.log(colors.red("Changes since last release\n"));
+    prettyPrintCommitLogs(latestCommits.all);
+    return true;
+  } catch (e) {
+    console.log(
+      colors.bgRed(
+        `Error occured when trying to parse commits.\nThere is likely something wrong with your commit history:\n ${e}`
+      )
+    );
     return false;
   }
-  console.log(colors.red("Changes since last release\n"));
-  prettyPrintCommitLogs(latestCommits.all);
-  return true;
 };
 
 // Prints out all the commits since the commit body is optional it will conditionally print it

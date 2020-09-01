@@ -21,7 +21,7 @@ import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
 const { Option } = Select;
 
 export const TaskQueue = () => {
-  const { distro } = useParams<{ distro: string }>();
+  const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
   const [selectedDistro, setSelectedDistro] = useState(null);
@@ -41,9 +41,9 @@ export const TaskQueue = () => {
     setSelectedDistro(defaultDistro);
 
     if (defaultDistro) {
-      replace(getTaskQueueRoute(defaultDistro));
+      replace(getTaskQueueRoute(defaultDistro, taskId));
     }
-  }, [firstDistroInList, distro, replace]);
+  }, [firstDistroInList, distro, replace, taskId]);
 
   const onChangeDistroSelection = (val: string) => {
     setSelectedDistro(val);
