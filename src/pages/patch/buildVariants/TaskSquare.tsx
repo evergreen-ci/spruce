@@ -24,7 +24,7 @@ export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
         })
       }
     >
-      <Tooltip title={name} data-cy="task-square-tooltip">
+      <Tooltip title={<span data-cy="task-square-tooltip">{name}</span>}>
         <Square color={mapVariantTaskStatusToColor[status]} />
       </Tooltip>
     </StyledRouterLink>
