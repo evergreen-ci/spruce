@@ -1,12 +1,12 @@
 import React from "react";
-import { HostEventLogData } from "gql/generated/types";
 import styled from "@emotion/styled/macro";
-import { stringifyNanoseconds, shortenString } from "utils/string";
 import Code from "@leafygreen-ui/code";
-import { StyledLink } from "components/styles";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { Collapse } from "antd";
+import { StyledLink } from "components/styles";
+import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
+import { getUiUrl } from "utils/getEnvironmentVariables";
+import { stringifyNanoseconds, shortenString } from "utils/string";
 
 const { Panel } = Collapse;
 

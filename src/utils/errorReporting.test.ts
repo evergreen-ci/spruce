@@ -1,5 +1,5 @@
-import { reportError } from "utils/errorReporting";
 import Bugsnag from "@bugsnag/js";
+import { reportError } from "utils/errorReporting";
 
 const err = new Error("test error");
 

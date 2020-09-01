@@ -1,7 +1,7 @@
 import React from "react";
-import { PageWrapper } from "components/styles";
-import { H2 } from "@leafygreen-ui/typography";
 import styled from "@emotion/styled";
+import { H2 } from "@leafygreen-ui/typography";
+import { PageWrapper } from "components/styles";
 
 export const PageDoesNotExist: React.FC = () => (
   <StyledPageWrapper>

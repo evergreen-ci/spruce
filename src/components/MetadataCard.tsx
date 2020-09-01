@@ -1,10 +1,10 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
-import { Divider } from "components/styles/Divider";
-import { SiderCard } from "components/styles";
+import { Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";
-import { Body } from "@leafygreen-ui/typography";
+import { SiderCard } from "components/styles";
+import { Divider } from "components/styles/Divider";
 
 interface Props {
   title: string;

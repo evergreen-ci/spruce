@@ -1,11 +1,11 @@
 import React from "react";
-import { useParams, Link, Redirect } from "react-router-dom";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
-import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
+import { useParams, Link, Redirect } from "react-router-dom";
 import { PageWrapper, PaddedSideNavItem } from "components/styles";
-import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
+import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { usePageTitle } from "hooks";
+import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 
 export const Preferences: React.FC = () => {
   usePageTitle("Preferences");

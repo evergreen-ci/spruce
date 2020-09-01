@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { TabToIndexMap } from "hooks/types";
 import { useParams, useHistory } from "react-router-dom";
+import { TabToIndexMap } from "hooks/types";
 
 type TabSelectHandler = (index: number) => void;
 

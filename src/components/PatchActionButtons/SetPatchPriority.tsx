@@ -1,15 +1,15 @@
 import React, { useState } from "react";
-import { InputNumber, Popconfirm } from "antd";
-import { DropdownItem } from "components/ButtonDropdown";
+import { useMutation } from "@apollo/client";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { InputNumber, Popconfirm } from "antd";
+import { usePatchAnalytics } from "analytics";
+import { DropdownItem } from "components/ButtonDropdown";
 import { useBannerDispatchContext } from "context/banners";
 import {
   SetPatchPriorityMutation,
   SetPatchPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY } from "gql/mutations";
-import { usePatchAnalytics } from "analytics";
-import { useMutation } from "@apollo/client";
 import { StyledBody } from "./UnschedulePatchTasks";
 
 interface SetPriorityProps {

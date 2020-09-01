@@ -1,8 +1,8 @@
 import React from "react";
-import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
 import { useLocation } from "react-router";
-import { parseQueryString } from "utils";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
+import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
+import { parseQueryString } from "utils";
 
 const hostIdUrlParam = "hostId";
 

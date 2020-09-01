@@ -1,7 +1,7 @@
 import { ActionButtons } from "pages/patch/ActionButtons";
-import { Metadata } from "pages/patch/Metadata";
-import { PatchTabs } from "pages/patch/PatchTabs";
 import { BuildVariants } from "pages/patch/BuildVariants";
+import { Metadata } from "pages/patch/Metadata";
 import { PatchRestartModal } from "pages/patch/PatchRestartModal";
+import { PatchTabs } from "pages/patch/PatchTabs";
 
 export { ActionButtons, Metadata, PatchTabs, BuildVariants, PatchRestartModal };

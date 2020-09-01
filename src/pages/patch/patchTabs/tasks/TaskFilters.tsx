@@ -1,25 +1,25 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Icon from "@leafygreen-ui/icon";
+import { Input } from "antd";
+import get from "lodash/get";
+import { useParams } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
+import { TreeSelect } from "components/TreeSelect";
+import { pollInterval } from "constants/index";
+import {
+  GetPatchTaskStatusesQuery,
+  GetPatchTaskStatusesQueryVariables,
+} from "gql/generated/types";
+import { GET_PATCH_TASK_STATUSES } from "gql/queries";
 import {
   useFilterInputChangeHandler,
   useStatusesFilter,
   useNetworkStatus,
 } from "hooks";
-import Icon from "@leafygreen-ui/icon";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { TreeSelect } from "components/TreeSelect";
-import { Input } from "antd";
-import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
-import { useQuery } from "@apollo/client";
-import { GET_PATCH_TASK_STATUSES } from "gql/queries";
-import {
-  GetPatchTaskStatusesQuery,
-  GetPatchTaskStatusesQueryVariables,
-} from "gql/generated/types";
-import get from "lodash/get";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
-import { usePatchAnalytics } from "analytics";
-import { pollInterval } from "constants/index";
 
 export const TaskFilters: React.FC = () => {
   const patchAnalytics = usePatchAnalytics();

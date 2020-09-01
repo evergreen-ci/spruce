@@ -1,13 +1,13 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
 import { css } from "@emotion/core";
+import styled from "@emotion/styled/macro";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { ProjectBuildVariant } from "gql/generated/types";
-import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
+import { ProjectBuildVariant } from "gql/generated/types";
+import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { toggleArray } from "utils/array";
 
 interface Props {

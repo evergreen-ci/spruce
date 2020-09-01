@@ -1,8 +1,8 @@
 import React from "react";
-import { TaskEventLogEntry } from "gql/generated/types";
 import styled from "@emotion/styled/macro";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { format } from "date-fns";
+import { TaskEventLogEntry } from "gql/generated/types";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 

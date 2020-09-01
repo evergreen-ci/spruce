@@ -1,32 +1,32 @@
 import React, { useEffect } from "react";
+import { useQuery } from "@apollo/client";
+import get from "lodash/get";
 import { useParams, useHistory } from "react-router-dom";
+import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
-import { ActionButtons } from "pages/patch/index";
+import { PatchStatusBadge } from "components/PatchStatusBadge";
 import {
   PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
 } from "components/styles";
-import { useQuery } from "@apollo/client";
-import { GET_PATCH } from "gql/queries/patch";
-import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
-import { PatchTabs } from "pages/patch/PatchTabs";
-import { BuildVariants } from "pages/patch/BuildVariants";
-import get from "lodash/get";
-import { Metadata } from "pages/patch/Metadata";
+import { pollInterval } from "constants/index";
+import { commitQueueAlias } from "constants/patch";
 import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { Banners } from "components/Banners";
-import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
+import { GET_PATCH } from "gql/queries/patch";
 import { withBannersContext } from "hoc/withBannersContext";
 import { usePageTitle, useNetworkStatus } from "hooks";
-import { pollInterval } from "constants/index";
-import { commitQueueAlias } from "constants/patch";
+import { BuildVariants } from "pages/patch/BuildVariants";
+import { ActionButtons } from "pages/patch/index";
+import { Metadata } from "pages/patch/Metadata";
+import { PatchTabs } from "pages/patch/PatchTabs";
 
 const PatchCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();

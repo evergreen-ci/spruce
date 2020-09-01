@@ -1,22 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import { Select } from "antd";
+import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import {
-  TaskQueueDistrosQuery,
-  TaskQueueDistrosQueryVariables,
-} from "gql/generated/types";
-import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { H2, Disclaimer } from "@leafygreen-ui/typography";
+import { Select } from "antd";
+import { useParams, useHistory } from "react-router-dom";
 import {
   TableContainer,
   TableControlOuterRow,
   PageWrapper,
 } from "components/styles";
-import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
-import { H2, Disclaimer } from "@leafygreen-ui/typography";
-import styled from "@emotion/styled";
-import { useParams, useHistory } from "react-router-dom";
 import { getTaskQueueRoute } from "constants/routes";
+import {
+  TaskQueueDistrosQuery,
+  TaskQueueDistrosQueryVariables,
+} from "gql/generated/types";
+import { TASK_QUEUE_DISTROS } from "gql/queries";
+import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
 
 const { Option } = Select;
 

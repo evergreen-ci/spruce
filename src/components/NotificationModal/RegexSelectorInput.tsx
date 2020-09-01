@@ -1,12 +1,12 @@
 import React from "react";
+import styled from "@emotion/styled";
+import Icon from "@leafygreen-ui/icon";
+import IconButton from "@leafygreen-ui/icon-button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { InputLabel } from "components/styles";
-import { RegexSelector } from "hooks/useNotificationModal";
 import { Select, Input } from "antd";
 import { v4 as uuid } from "uuid";
-import IconButton from "@leafygreen-ui/icon-button";
-import Icon from "@leafygreen-ui/icon";
-import styled from "@emotion/styled";
+import { InputLabel } from "components/styles";
+import { RegexSelector } from "hooks/useNotificationModal";
 
 const { Option } = Select;
 

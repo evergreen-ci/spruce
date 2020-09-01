@@ -1,19 +1,19 @@
 import React, { useEffect, useRef } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import { useQuery } from "@apollo/client";
+import { useParams, useLocation } from "react-router-dom";
+import { StyledRouterLink } from "components/styles";
+import { getTaskRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
   TaskQueueItem,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
-import { useParams, useLocation } from "react-router-dom";
 import { usePrevious } from "hooks";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
-import { StyledRouterLink } from "components/styles";
-import { getTaskRoute } from "constants/routes";
 
 export const TaskQueueTable = () => {
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
