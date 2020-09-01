@@ -18,7 +18,7 @@ export const useHostsTableAnalytics = (
 
   const sendEvent: HostsAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
-      object: isHostPage ? "HostsTable" : "HostPage",
+      object: isHostPage ? "HostPage" : "HostsTable",
       userId,
     });
   };

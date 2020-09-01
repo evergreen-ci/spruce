@@ -29,6 +29,7 @@ export const GET_HOST_EVENTS = gql`
         }
         resourceId
       }
+      count
     }
   }
 `;
