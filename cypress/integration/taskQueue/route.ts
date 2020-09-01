@@ -53,4 +53,14 @@ describe("Task Queue", () => {
 
     cy.get(".ant-table-row").should("have.length", 0);
   });
+
+  it("Scrolls to current task if taskId param in url", () => {
+    cy.visit(
+      "/task-queue/osx-108/mongodb_cpp_driver_dev_osx_108_compile_and_test_671bda78e9947426e78bdae3ea13be1ce64ffe18_16_07_26_21_12_52"
+    );
+
+    cy.get(".ant-table-row-selected")
+      .contains("13")
+      .should("be.visible");
+  });
 });
