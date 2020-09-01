@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-export const AWS_REGIONS = gql`
+export const GET_AWS_REGIONS = gql`
   query AWSRegions {
     awsRegions
   }
