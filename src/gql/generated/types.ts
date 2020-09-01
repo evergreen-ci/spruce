@@ -162,6 +162,8 @@ export type Mutation = {
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
+  attachVolumeToHost: Scalars["Boolean"];
+  detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
 };
 
@@ -268,6 +270,14 @@ export type MutationUpdatePublicKeyArgs = {
   updateInfo: PublicKeyInput;
 };
 
+export type MutationAttachVolumeToHostArgs = {
+  volumeAndHost: VolumeHost;
+};
+
+export type MutationDetachVolumeFromHostArgs = {
+  volumeId: Scalars["String"];
+};
+
 export type MutationRemoveVolumeArgs = {
   volumeId: Scalars["String"];
 };
@@ -323,6 +333,11 @@ export enum TaskQueueItemType {
   Commit = "COMMIT",
   Patch = "PATCH",
 }
+
+export type VolumeHost = {
+  volumeId: Scalars["String"];
+  hostId: Scalars["String"];
+};
 
 export type PatchReconfigure = {
   description: Scalars["String"];
@@ -397,6 +412,7 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
+  version: Scalars["String"];
 };
 
 export type TaskQueueDistro = {
