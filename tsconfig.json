@@ -19,12 +19,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react",
-    "baseUrl": "src",
-    "paths": {
-      "test-utils": [
-        "./test_utils/test-utils"
-      ]
-    }
+    "baseUrl": "src"
   },
   "include": [
     "src",
