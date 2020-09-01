@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
@@ -14,6 +15,7 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
+import { msToDuration } from "utils/string";
 
 export const TaskQueueTable = () => {
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
@@ -83,6 +85,7 @@ export const TaskQueueTable = () => {
       key: "expectedDuration",
       className: "cy-task-queue-col-runtime",
       width: "25%",
+      render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
     },
     {
       title: "Version",
@@ -100,6 +103,7 @@ export const TaskQueueTable = () => {
       key: "requester",
       className: "cy-task-queue-col-type",
       width: "25%",
+      render: (type) => <Badge>{type}</Badge>,
     },
   ];
 
