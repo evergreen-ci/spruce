@@ -12,6 +12,12 @@ describe("Host events", () => {
 
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
+    cy.dataTestId("host-event-table-page-size-selector").click();
+    cy.dataTestId("host-event-table-page-size-selector-100").click();
+
+    const dataCyTableRows =
+      "[data-test-id=host-events-table] tr td:first-child";
+    cy.get(dataCyTableRows).should("have.length.of.at.most", 32);
 
     const hostTypes = [
       {
@@ -151,6 +157,8 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
+    cy.dataTestId("host-event-table-page-size-selector").click();
+    cy.dataTestId("host-event-table-page-size-selector-100").click();
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
       cy.dataCy(hostType)
         .contains(text)
@@ -163,7 +171,8 @@ describe("Host events", () => {
   });
 
   it("host events logs do not display when not available", () => {
-    cy.visit(pathWithEvents);
+    cy.dataTestId("host-event-table-page-size-selector").click();
+    cy.dataTestId("host-event-table-page-size-selector-100").click();
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to unreachable")
       .within(() => {
@@ -179,6 +188,14 @@ describe("Host events", () => {
     ];
     hostTypes.forEach((hostType) => {
       cy.dataCy(hostType).should("have.attr", "href");
+    });
+  });
+
+  it("host event pagination last page displays the right items", () => {
+    cy.visit("host/i-0f81a2d39744003dd?limit=10&page=3");
+    const hostTypes = ["host-running-task-set-link", "host-provisioned"];
+    hostTypes.forEach((hostType) => {
+      cy.dataCy(hostType).should("exist");
     });
   });
 });
