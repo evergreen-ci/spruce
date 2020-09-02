@@ -39,6 +39,7 @@ export type Query = {
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
+  searchReturnInfo: SearchReturnInfo;
 };
 
 export type QueryUserPatchesArgs = {
@@ -136,6 +137,11 @@ export type QueryDistrosArgs = {
 
 export type QueryDistroTaskQueueArgs = {
   distroId: Scalars["String"];
+};
+
+export type QuerySearchReturnInfoArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["String"];
 };
 
 export type Mutation = {
@@ -412,6 +418,7 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
+  version: Scalars["String"];
 };
 
 export type TaskQueueDistro = {
@@ -713,6 +720,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
   version: Scalars["String"];
+  minQueuePosition: Scalars["Int"];
 };
 
 export type Projects = {
@@ -903,6 +911,32 @@ export type HostEventLogData = {
   user: Scalars["String"];
   successful: Scalars["Boolean"];
   duration: Scalars["Duration"];
+};
+
+export type SearchReturnInfo = {
+  issues: Array<JiraTicket>;
+  search: Scalars["String"];
+  source: Scalars["String"];
+  featuresURL: Scalars["String"];
+};
+
+export type JiraTicket = {
+  key: Scalars["String"];
+  fields: TicketFields;
+};
+
+export type TicketFields = {
+  summary: Scalars["String"];
+  assigneeDisplayName?: Maybe<Scalars["String"]>;
+  resolutionName?: Maybe<Scalars["String"]>;
+  created: Scalars["String"];
+  updated: Scalars["String"];
+  status: JiraStatus;
+};
+
+export type JiraStatus = {
+  id: Scalars["String"];
+  name: Scalars["String"];
 };
 
 export type GetPatchEventDataQueryVariables = {
@@ -1682,4 +1716,12 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type TaskQueuePositionQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type TaskQueuePositionQuery = {
+  task?: Maybe<{ minQueuePosition: number }>;
 };

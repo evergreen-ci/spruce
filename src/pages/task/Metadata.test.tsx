@@ -132,7 +132,12 @@ afterAll(() => {
 test("Renders the metadata card with a pending status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskAboutToStart} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskAboutToStart}
+        error={undefined}
+      />
     </MockedProvider>
   );
   // @ts-ignore
@@ -150,7 +155,12 @@ test("Renders the metadata card with a pending status", async () => {
 test("Renders the metadata card with a started status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskStarted} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskStarted}
+        error={undefined}
+      />
     </MockedProvider>
   );
 
@@ -171,7 +181,12 @@ test("Renders the metadata card with a started status", async () => {
 test("Renders the metadata card with a succeeded status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskSucceeded} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskSucceeded}
+        error={undefined}
+      />
     </MockedProvider>
   );
 
