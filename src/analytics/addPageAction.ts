@@ -20,7 +20,8 @@ type AnalyticsObject =
   | "CommitQueue"
   | "Configure"
   | "HostsTable"
-  | "HostPage";
+  | "HostPage"
+  | "TaskQueue";
 
 interface RequiredProperties {
   object: AnalyticsObject;
