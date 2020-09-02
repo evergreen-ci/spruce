@@ -68,7 +68,7 @@ const deployProcess = () => {
     childProcess.on("close", () => {
       console.log("Deploy Complete! 🎉");
       console.log("Don't forget to push tags");
-      console.log(colors.green("git push upstream --tags"));
+      console.log(colors.green("git push upstream && git push upstream --tags"));
     });
   });
 };
