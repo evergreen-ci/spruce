@@ -1083,7 +1083,7 @@ export type DistroTaskQueueQuery = {
     project: string;
     buildVariant: string;
     priority: number;
-    revision: string;
+    version: string;
   }>;
 };
 
