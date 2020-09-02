@@ -5,6 +5,7 @@ import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
+import { useTaskQueueAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -16,6 +17,8 @@ import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
 
 export const TaskQueueTable = () => {
+  const taskQueueAnalytics = useTaskQueueAnalytics();
+
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
 
   const { data: taskQueueItemsData, loading, refetch: refetchQueue } = useQuery<
@@ -68,7 +71,13 @@ export const TaskQueueTable = () => {
       render: (_, { displayName, id, project, buildVariant }) => (
         <TaskCell>
           <Body>
-            <StyledRouterLink data-cy="current-task-link" to={getTaskRoute(id)}>
+            <StyledRouterLink
+              data-cy="current-task-link"
+              to={getTaskRoute(id)}
+              onClick={() =>
+                taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
+              }
+            >
               {displayName}
             </StyledRouterLink>
           </Body>
