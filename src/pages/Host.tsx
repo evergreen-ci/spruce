@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { Banners } from "components/Banners";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
@@ -33,6 +33,7 @@ import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
 import { useUserTimeZone } from "utils/string";
+import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 export const HostCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -59,14 +60,20 @@ export const HostCore: React.FC = () => {
   const tag = host?.tag ?? "";
   const timeZone = useUserTimeZone();
 
+  const { search } = useLocation();
+
+  const page = getPageFromSearch(search);
+  const limit = getLimitFromSearch(search);
   // Query hostEvent data
   const { data: hostEventData, loading: hostEventLoading } = useQuery<
     HostEventsQuery,
     HostEventsQueryVariables
   >(GET_HOST_EVENTS, {
-    variables: { id, tag },
+    variables: { id, tag, page, limit },
   });
 
+  const hostEvents = hostEventData?.hostEvents;
+  const eventsCount = hostEvents?.count;
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
     boolean
@@ -128,6 +135,9 @@ export const HostCore: React.FC = () => {
                   eventData={hostEventData}
                   error={error}
                   timeZone={timeZone}
+                  page={page}
+                  limit={limit}
+                  eventsCount={eventsCount}
                 />
               </PageContent>
             </PageLayout>
