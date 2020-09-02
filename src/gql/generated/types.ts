@@ -162,6 +162,8 @@ export type Mutation = {
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
+  attachVolumeToHost: Scalars["Boolean"];
+  detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
 };
 
@@ -268,6 +270,14 @@ export type MutationUpdatePublicKeyArgs = {
   updateInfo: PublicKeyInput;
 };
 
+export type MutationAttachVolumeToHostArgs = {
+  volumeAndHost: VolumeHost;
+};
+
+export type MutationDetachVolumeFromHostArgs = {
+  volumeId: Scalars["String"];
+};
+
 export type MutationRemoveVolumeArgs = {
   volumeId: Scalars["String"];
 };
@@ -323,6 +333,11 @@ export enum TaskQueueItemType {
   Commit = "COMMIT",
   Patch = "PATCH",
 }
+
+export type VolumeHost = {
+  volumeId: Scalars["String"];
+  hostId: Scalars["String"];
+};
 
 export type PatchReconfigure = {
   description: Scalars["String"];
@@ -397,7 +412,6 @@ export type TaskQueueItem = {
   priority: Scalars["Int"];
   revision: Scalars["String"];
   requester: TaskQueueItemType;
-  version: Scalars["String"];
 };
 
 export type TaskQueueDistro = {
@@ -859,6 +873,7 @@ export type SiteBanner = {
 
 export type HostEvents = {
   eventLogEntries: Array<HostEventLogEntry>;
+  count: Scalars["Int"];
 };
 
 export type HostEventLogEntry = {
@@ -1068,7 +1083,7 @@ export type DistroTaskQueueQuery = {
     project: string;
     buildVariant: string;
     priority: number;
-    revision: string;
+    version: string;
   }>;
 };
 
@@ -1160,6 +1175,7 @@ export type HostEventsQueryVariables = {
 
 export type HostEventsQuery = {
   hostEvents: {
+    count: number;
     eventLogEntries: Array<{
       id: string;
       resourceType: string;
@@ -1331,7 +1347,7 @@ export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
     execution?: Maybe<number>;
     status: string;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
   }>;
 };
 
@@ -1447,7 +1463,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     activatedBy?: Maybe<string>;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
     estimatedStart?: Maybe<number>;
     displayName: string;
     finishTime?: Maybe<Date>;

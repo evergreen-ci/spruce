@@ -22,7 +22,7 @@ export const Metadata: React.FC<{
 
   const status = task?.status;
   const spawnHostLink = task?.spawnHostLink;
-  const createTime = task?.createTime;
+  const ingestTime = task?.ingestTime;
   const finishTime = task?.finishTime;
   const hostId = task?.hostId;
   const hostLink = task?.hostLink;
@@ -47,7 +47,7 @@ export const Metadata: React.FC<{
     <MetadataCard error={error} loading={loading} title="Task Metadata">
       <P2>Submitted by: {author}</P2>
       <P2 data-cy="task-metadata-submitted-at">
-        Submitted at: {getDateCopy(createTime)}
+        Submitted at: {getDateCopy(ingestTime)}
       </P2>
       {estimatedStart > 0 && (
         <P2>
