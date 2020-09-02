@@ -4,7 +4,7 @@ import { act } from "@testing-library/react";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import { GET_USER } from "gql/queries";
+import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
@@ -117,6 +117,21 @@ const mocks = [
         task: {
           status: "started",
           failedTestCount: 0,
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: TASK_QUEUE_POSITION,
+      variables: {
+        taskId,
+      },
+    },
+    result: {
+      data: {
+        task: {
+          minQueuePosition: 0,
         },
       },
     },
