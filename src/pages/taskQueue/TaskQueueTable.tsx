@@ -103,7 +103,14 @@ export const TaskQueueTable = () => {
       className: "cy-task-queue-col-version",
       width: "25%",
       render: (value) => (
-        <StyledRouterLink to={getVersionRoute(value)}>{value}</StyledRouterLink>
+        <StyledRouterLink
+          to={getVersionRoute(value)}
+          onClick={() =>
+            taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
+          }
+        >
+          {value}
+        </StyledRouterLink>
       ),
     },
     {
