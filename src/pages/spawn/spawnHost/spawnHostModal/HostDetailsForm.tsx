@@ -1,13 +1,17 @@
 import React from "react";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
+import Icon from "components/icons/Icon";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { Volume } from "gql/generated/types";
 
+const { Option } = Select;
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
@@ -15,17 +19,28 @@ export type hostDetailsStateType = {
   userDataScript: string;
   noExpiration: boolean;
   expiration: Date;
+  volume: string;
+  isVirtualWorkstation: boolean;
 };
 
 interface HostDetailsFormProps {
   onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
   data: hostDetailsStateType;
+  volumes: Volume[];
 }
 export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   onChange,
   data,
+  volumes,
 }) => {
-  const { noExpiration, expiration, hasUserDataScript, userDataScript } = data;
+  const {
+    noExpiration,
+    expiration,
+    hasUserDataScript,
+    userDataScript,
+    isVirtualWorkstation,
+    volume,
+  } = data;
 
   const updateDate = (_, dateString) => {
     // This functions take in the date string returned from the datePicker component
@@ -71,8 +86,8 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
         autoSize={{ minRows: 4, maxRows: 6 }}
         onChange={(e) => onChange({ ...data, userDataScript: e.target.value })}
       />
-      <ExpirationContainer>
-        <ExpirationLabel>Expiration</ExpirationLabel>
+      <SectionContainer>
+        <SectionLabel>Expiration</SectionLabel>
         <FlexColumnContainer>
           <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
           <DatePicker
@@ -101,7 +116,38 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
             onChange({ ...data, noExpiration: e.target.checked })
           }
         />{" "}
-      </ExpirationContainer>
+      </SectionContainer>
+
+      {isVirtualWorkstation && (
+        <SectionContainer>
+          <SectionLabel>Virtual Workstation</SectionLabel>
+          <FlexColumnContainer>
+            <InputLabel htmlFor="hostDetailsDatePicker">Volume</InputLabel>
+            <Select
+              id="volumesSelectDropown"
+              showSearch
+              style={{ width: 200 }}
+              placeholder="Select existing key"
+              onChange={(v) => onChange({ ...data, volume: v })}
+              value={volume}
+            >
+              {volumes?.map((v) => (
+                <Option
+                  value={v.id}
+                  key={`volume_option1_${v.id}`}
+                  disabled={v.hostID == null}
+                >
+                  ({v.size}gb) {v.displayName || v.id}
+                </Option>
+              ))}
+            </Select>
+          </FlexColumnContainer>
+          <PaddedBody> or </PaddedBody>
+          <PaddedButton glyph={<Icon glyph="Plus" />}>
+            Create a Volume
+          </PaddedButton>
+        </SectionContainer>
+      )}
     </Container>
   );
 };
@@ -115,17 +161,21 @@ const FlexContainer = styled.div`
   display: flex;
 `;
 
-const ExpirationContainer = styled(FlexContainer)`
+const SectionContainer = styled(FlexContainer)`
   align-items: center;
+  margin-top: 15px;
 `;
-const ExpirationLabel = styled(Body)`
+
+const SectionLabel = styled(Body)`
   padding-right: 15px;
   margin-top: 22px;
+  min-width: 175px;
 `;
 
 const Container = styled(FlexColumnContainer)`
-  width: 80%;
+  width: 90%;
 `;
+
 const PaddedBody = styled.span`
   padding-left: 15px;
   padding-right: 15px;
@@ -135,6 +185,11 @@ const PaddedBody = styled.span`
 const PaddedCheckbox = styled(Checkbox)`
   margin-top: 22px;
 `;
+
+const PaddedButton = styled(Button)`
+  margin-top: 22px;
+`;
+
 const StyledSubtitle = styled(Subtitle)`
   padding-bottom: 20px;
 `;

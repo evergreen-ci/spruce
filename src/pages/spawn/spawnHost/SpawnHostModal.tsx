@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -15,8 +15,15 @@ import {
   GetMyPublicKeysQueryVariables,
   AwsRegionsQuery,
   AwsRegionsQueryVariables,
+  MyVolumesQuery,
+  MyHostsQueryVariables,
 } from "gql/generated/types";
-import { GET_DISTROS, GET_MY_PUBLIC_KEYS, GET_AWS_REGIONS } from "gql/queries";
+import {
+  GET_DISTROS,
+  GET_MY_PUBLIC_KEYS,
+  GET_AWS_REGIONS,
+  GET_MY_VOLUMES,
+} from "gql/queries";
 import {
   HostDetailsForm,
   hostDetailsStateType,
@@ -60,6 +67,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS);
 
+  // QUERY volumes
+  const { data: volumesData, loading: volumesLoading } = useQuery<
+    MyVolumesQuery,
+    MyHostsQueryVariables
+  >(GET_MY_VOLUMES);
+
   // Public key form state
   const [publicKeyState, setPublicKeyState] = useState<publicKeyStateType>({
     publicKey: {
@@ -76,6 +89,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     userDataScript: "",
     expiration: null,
     noExpiration: false,
+    volume: "",
+    isVirtualWorkstation: false,
   });
 
   // distro Field for form submision
@@ -83,20 +98,29 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   // aws region field for form submission
   const [awsRegion, setAWSRegion] = useState("");
 
-  if (distroLoading || publicKeyLoading || awsLoading) {
+  // Need to initialize these here so they can be used in the useEffect hook
+  let virtualWorkstationDistros = [];
+  let notVirtualWorkstationDistros = [];
+
+  useEffect(() => {
+    if (virtualWorkstationDistros.find((vd) => distro === vd.name)) {
+      setHostDetailsState({ ...hostDetailsState, isVirtualWorkstation: true });
+    } else {
+      setHostDetailsState({ ...hostDetailsState, isVirtualWorkstation: false });
+    }
+  }, [distro]); // eslint-disable-line react-hooks/exhaustive-deps
+  if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
 
   const distros = distrosData?.distros;
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
+  const volumes = volumesData?.myVolumes;
 
-  const virtualWorkstationDistros = distros.filter(
-    (d) => d.isVirtualWorkStation
-  );
-  const notVirtualWorkstationDistros = distros.filter(
-    (d) => !d.isVirtualWorkStation
-  );
+  virtualWorkstationDistros = distros.filter((d) => d.isVirtualWorkStation);
+  notVirtualWorkstationDistros = distros.filter((d) => !d.isVirtualWorkStation);
+
   const distroOptions = [
     {
       label: renderTitle("WORKSTATION DISTROS"),
@@ -172,6 +196,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           <HostDetailsForm
             data={hostDetailsState}
             onChange={setHostDetailsState}
+            volumes={volumes}
           />
         </Section>
       </Container>

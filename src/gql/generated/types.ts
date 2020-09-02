@@ -162,6 +162,8 @@ export type Mutation = {
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
+  attachVolumeToHost: Scalars["Boolean"];
+  detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
 };
 
@@ -268,6 +270,14 @@ export type MutationUpdatePublicKeyArgs = {
   updateInfo: PublicKeyInput;
 };
 
+export type MutationAttachVolumeToHostArgs = {
+  volumeAndHost: VolumeHost;
+};
+
+export type MutationDetachVolumeFromHostArgs = {
+  volumeId: Scalars["String"];
+};
+
 export type MutationRemoveVolumeArgs = {
   volumeId: Scalars["String"];
 };
@@ -323,6 +333,11 @@ export enum TaskQueueItemType {
   Commit = "COMMIT",
   Patch = "PATCH",
 }
+
+export type VolumeHost = {
+  volumeId: Scalars["String"];
+  hostId: Scalars["String"];
+};
 
 export type PatchReconfigure = {
   description: Scalars["String"];
@@ -699,6 +714,7 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
   version: Scalars["String"];
+  minQueuePosition: Scalars["Int"];
 };
 
 export type Projects = {
@@ -859,6 +875,7 @@ export type SiteBanner = {
 
 export type HostEvents = {
   eventLogEntries: Array<HostEventLogEntry>;
+  count: Scalars["Int"];
 };
 
 export type HostEventLogEntry = {
@@ -1238,6 +1255,24 @@ export type MyHostsQuery = {
         }>
       >
     >;
+  }>;
+};
+
+export type MyVolumesQueryVariables = {};
+
+export type MyVolumesQuery = {
+  myVolumes: Array<{
+    id: string;
+    displayName: string;
+    createdBy: string;
+    type: string;
+    availabilityZone: string;
+    size: number;
+    expiration?: Maybe<Date>;
+    deviceName?: Maybe<string>;
+    hostID: string;
+    noExpiration: boolean;
+    homeVolume: boolean;
   }>;
 };
 
