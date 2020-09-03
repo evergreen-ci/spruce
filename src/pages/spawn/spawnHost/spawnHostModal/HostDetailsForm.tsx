@@ -127,14 +127,14 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
               id="volumesSelectDropown"
               showSearch
               style={{ width: 200 }}
-              placeholder="Select existing key"
+              placeholder="Select volume"
               onChange={(v) => onChange({ ...data, volume: v })}
               value={volume}
             >
               {volumes?.map((v) => (
                 <Option
                   value={v.id}
-                  key={`volume_option1_${v.id}`}
+                  key={`volume_option_${v.id}`}
                   disabled={v.hostID == null}
                 >
                   ({v.size}gb) {v.displayName || v.id}
