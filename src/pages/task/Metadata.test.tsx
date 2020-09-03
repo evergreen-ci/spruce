@@ -115,6 +115,8 @@ const mocks = [
     result: {
       data: {
         task: {
+          __typename: "Task",
+          id: taskId,
           status: "started",
           failedTestCount: 0,
         },
@@ -131,6 +133,8 @@ const mocks = [
     result: {
       data: {
         task: {
+          __typename: "Task",
+          id: taskId,
           minQueuePosition: 0,
         },
       },
