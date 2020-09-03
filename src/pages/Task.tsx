@@ -193,7 +193,7 @@ const TaskCore: React.FC = () => {
               }}
             />
           )}
-          <Metadata data={data} loading={loading} error={error} />
+          <Metadata taskId={id} data={data} loading={loading} error={error} />
         </PageSider>
         <LogWrapper>
           <PageContent>

@@ -1,22 +1,31 @@
 import React from "react";
-import { ApolloError } from "@apollo/client";
+import { ApolloError, useQuery } from "@apollo/client";
 import { v4 as uuid } from "uuid";
 import { useTaskAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
-import { StyledLink, Divider } from "components/styles";
+import { StyledLink, Divider, StyledRouterLink } from "components/styles";
 import { H3, P2 } from "components/Typography";
-import { GetTaskQuery } from "gql/generated/types";
+import { getTaskQueueRoute } from "constants/routes";
+import {
+  GetTaskQuery,
+  TaskQueuePositionQuery,
+  TaskQueuePositionQueryVariables,
+} from "gql/generated/types";
+import { TASK_QUEUE_POSITION } from "gql/queries";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration, getDateCopy } from "utils/string";
 import { ETATimer } from "./metadata/ETATimer";
 
-export const Metadata: React.FC<{
+interface Props {
+  taskId: string;
   loading: boolean;
   data: GetTaskQuery;
   error: ApolloError;
-}> = ({ loading, data, error }) => {
+}
+
+export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const task = data ? data.task : null;
   const taskAnalytics = useTaskAnalytics();
 
@@ -42,6 +51,13 @@ export const Metadata: React.FC<{
   const author = patchMetadata?.author;
 
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
+
+  const { data: taskQueuePositionData } = useQuery<
+    TaskQueuePositionQuery,
+    TaskQueuePositionQueryVariables
+  >(TASK_QUEUE_POSITION, { variables: { taskId } });
+
+  const taskQueuePosition = taskQueuePositionData?.task?.minQueuePosition ?? 0;
 
   return (
     <MetadataCard error={error} loading={loading} title="Task Metadata">
@@ -135,6 +151,17 @@ export const Metadata: React.FC<{
           >
             Spawn host
           </StyledLink>
+        </P2>
+      )}
+      {taskQueuePosition > 0 && (
+        <P2>
+          Position in queue:{" "}
+          <StyledRouterLink
+            data-cy="task-queue-position"
+            to={getTaskQueueRoute(distroId, taskId)}
+          >
+            {taskQueuePosition}
+          </StyledRouterLink>
         </P2>
       )}
       {reliesOn && reliesOn.length ? (
