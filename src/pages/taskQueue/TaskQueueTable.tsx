@@ -7,15 +7,17 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
-import { StyledRouterLink } from "components/styles";
+import { StyledRouterLink, StyledLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
   DistroTaskQueueQuery,
   DistroTaskQueueQueryVariables,
   TaskQueueItem,
+  TaskQueueItemType,
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration } from "utils/string";
 
 export const TaskQueueTable = () => {
@@ -69,7 +71,7 @@ export const TaskQueueTable = () => {
       dataIndex: "displayName",
       key: "displayName",
       className: "cy-task-queue-col-task",
-      width: "25%",
+      width: "30%",
       render: (_, { displayName, id, project, buildVariant }) => (
         <TaskCell>
           <Body>
@@ -93,7 +95,7 @@ export const TaskQueueTable = () => {
       dataIndex: "expectedDuration",
       key: "expectedDuration",
       className: "cy-task-queue-col-runtime",
-      width: "25%",
+      width: "15%",
       render: (runtimeMilliseconds) => msToDuration(runtimeMilliseconds),
     },
     {
@@ -101,24 +103,34 @@ export const TaskQueueTable = () => {
       dataIndex: "version",
       key: "version",
       className: "cy-task-queue-col-version",
-      width: "25%",
-      render: (value) => (
-        <StyledRouterLink
-          to={getVersionRoute(value)}
-          onClick={() =>
-            taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
-          }
-        >
-          {value}
-        </StyledRouterLink>
-      ),
+      width: "30%",
+      render: (value, { requester }) =>
+        requester === TaskQueueItemType.Patch ? (
+          <StyledRouterLink
+            to={getVersionRoute(value)}
+            onClick={() =>
+              taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
+            }
+          >
+            {value}
+          </StyledRouterLink>
+        ) : (
+          <StyledLink
+            href={`${getUiUrl()}/version/${value}`}
+            onClick={() =>
+              taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
+            }
+          >
+            {value}
+          </StyledLink>
+        ),
     },
     {
       title: "Task Type",
       dataIndex: "requester",
       key: "requester",
       className: "cy-task-queue-col-type",
-      width: "25%",
+      width: "15%",
       render: (type) => <Badge>{type}</Badge>,
     },
   ];
@@ -126,6 +138,7 @@ export const TaskQueueTable = () => {
   return (
     <Table
       columns={columns}
+      tableLayout="fixed"
       rowKey={({ id }: { id: string }): string => id}
       rowSelection={{
         hideSelectAll: true,
