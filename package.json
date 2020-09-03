@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "1.0.0",
+  "version": "1.1.2",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.2.2",
@@ -23,7 +23,6 @@
     "@leafygreen-ui/tabs": "2.0.0",
     "@leafygreen-ui/text-input": "1.1.1",
     "@leafygreen-ui/toggle": "3.0.1",
-    "@leafygreen-ui/tooltip": "3.3.3",
     "@leafygreen-ui/typography": "1.0.1",
     "ansi_up": "4.0.4",
     "antd": "4.5.4",

@@ -5,7 +5,7 @@ export const GET_TASK_ALL_EXECUTIONS = gql`
     taskAllExecutions(taskId: $taskId) {
       execution
       status
-      createTime
+      ingestTime
     }
   }
 `;

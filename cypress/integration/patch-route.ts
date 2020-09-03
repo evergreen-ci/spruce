@@ -73,14 +73,14 @@ describe("Patch route", () => {
     });
 
     it("Shows tooltip with task's name on hover", () => {
-      cy.get(".task-square")
+      cy.dataCy("task-square")
         .first()
         .trigger("mouseover");
-      cy.get(".task-square-tooltip").within(hasText);
+      cy.dataCy("task-square-tooltip").within(hasText);
     });
 
     it("Navigates to task page from clicking task square", () => {
-      cy.get(".task-square")
+      cy.dataCy("task-square")
         .should("have.attr", "href")
         .and("include", "/task");
     });

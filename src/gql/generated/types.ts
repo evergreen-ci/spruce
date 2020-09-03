@@ -39,6 +39,7 @@ export type Query = {
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
+  searchReturnInfo: SearchReturnInfo;
 };
 
 export type QueryUserPatchesArgs = {
@@ -136,6 +137,11 @@ export type QueryDistrosArgs = {
 
 export type QueryDistroTaskQueueArgs = {
   distroId: Scalars["String"];
+};
+
+export type QuerySearchReturnInfoArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["String"];
 };
 
 export type Mutation = {
@@ -907,6 +913,32 @@ export type HostEventLogData = {
   duration: Scalars["Duration"];
 };
 
+export type SearchReturnInfo = {
+  issues: Array<JiraTicket>;
+  search: Scalars["String"];
+  source: Scalars["String"];
+  featuresURL: Scalars["String"];
+};
+
+export type JiraTicket = {
+  key: Scalars["String"];
+  fields: TicketFields;
+};
+
+export type TicketFields = {
+  summary: Scalars["String"];
+  assigneeDisplayName?: Maybe<Scalars["String"]>;
+  resolutionName?: Maybe<Scalars["String"]>;
+  created: Scalars["String"];
+  updated: Scalars["String"];
+  status: JiraStatus;
+};
+
+export type JiraStatus = {
+  id: Scalars["String"];
+  name: Scalars["String"];
+};
+
 export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
@@ -1085,7 +1117,7 @@ export type DistroTaskQueueQuery = {
     project: string;
     buildVariant: string;
     priority: number;
-    revision: string;
+    version: string;
   }>;
 };
 
@@ -1177,6 +1209,7 @@ export type HostEventsQueryVariables = {
 
 export type HostEventsQuery = {
   hostEvents: {
+    count: number;
     eventLogEntries: Array<{
       id: string;
       resourceType: string;
@@ -1366,7 +1399,7 @@ export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
     execution?: Maybe<number>;
     status: string;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
   }>;
 };
 
@@ -1482,7 +1515,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     activatedBy?: Maybe<string>;
-    createTime?: Maybe<Date>;
+    ingestTime?: Maybe<Date>;
     estimatedStart?: Maybe<number>;
     displayName: string;
     finishTime?: Maybe<Date>;
@@ -1701,4 +1734,12 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type TaskQueuePositionQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type TaskQueuePositionQuery = {
+  task?: Maybe<{ minQueuePosition: number }>;
 };
