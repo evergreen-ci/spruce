@@ -86,7 +86,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("error-message").should("have.length", 0);
     });
 
-    it("After submitting, the key name and key value are updated", () => {
+    xit("After submitting, the key name and key value are updated", () => {
       cy.dataCy("key-name-input").clear();
       cy.dataCy("key-name-input").type(keyName4);
       cy.dataCy("key-value-input").clear();

@@ -5,6 +5,7 @@ import Badge from "@leafygreen-ui/badge";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { useParams, useHistory } from "react-router-dom";
+import { useTaskQueueAnalytics } from "analytics";
 import {
   TableContainer,
   TableControlOuterRow,
@@ -21,6 +22,8 @@ import { TaskQueueTable } from "pages/taskQueue/TaskQueueTable";
 const { Option } = Select;
 
 export const TaskQueue = () => {
+  const taskQueueAnalytics = useTaskQueueAnalytics();
+
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
   const { replace } = useHistory();
 
@@ -46,6 +49,8 @@ export const TaskQueue = () => {
   }, [firstDistroInList, distro, replace, taskId]);
 
   const onChangeDistroSelection = (val: string) => {
+    taskQueueAnalytics.sendEvent({ name: "Select Distro", distro: val });
+
     setSelectedDistro(val);
 
     replace(getTaskQueueRoute(val));
