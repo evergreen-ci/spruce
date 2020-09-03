@@ -6,6 +6,7 @@ import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
+import { useTaskQueueAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
@@ -18,6 +19,8 @@ import { usePrevious } from "hooks";
 import { msToDuration } from "utils/string";
 
 export const TaskQueueTable = () => {
+  const taskQueueAnalytics = useTaskQueueAnalytics();
+
   const { distro, taskId } = useParams<{ distro: string; taskId?: string }>();
 
   const { data: taskQueueItemsData, loading, refetch: refetchQueue } = useQuery<
@@ -70,7 +73,13 @@ export const TaskQueueTable = () => {
       render: (_, { displayName, id, project, buildVariant }) => (
         <TaskCell>
           <Body>
-            <StyledRouterLink data-cy="current-task-link" to={getTaskRoute(id)}>
+            <StyledRouterLink
+              data-cy="current-task-link"
+              to={getTaskRoute(id)}
+              onClick={() =>
+                taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
+              }
+            >
               {displayName}
             </StyledRouterLink>
           </Body>
@@ -94,7 +103,14 @@ export const TaskQueueTable = () => {
       className: "cy-task-queue-col-version",
       width: "25%",
       render: (value) => (
-        <StyledRouterLink to={getVersionRoute(value)}>{value}</StyledRouterLink>
+        <StyledRouterLink
+          to={getVersionRoute(value)}
+          onClick={() =>
+            taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
+          }
+        >
+          {value}
+        </StyledRouterLink>
       ),
     },
     {
