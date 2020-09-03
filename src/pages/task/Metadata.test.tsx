@@ -4,7 +4,7 @@ import { act } from "@testing-library/react";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import { GET_USER } from "gql/queries";
+import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
@@ -115,8 +115,27 @@ const mocks = [
     result: {
       data: {
         task: {
+          __typename: "Task",
+          id: taskId,
           status: "started",
           failedTestCount: 0,
+        },
+      },
+    },
+  },
+  {
+    request: {
+      query: TASK_QUEUE_POSITION,
+      variables: {
+        taskId,
+      },
+    },
+    result: {
+      data: {
+        task: {
+          __typename: "Task",
+          id: taskId,
+          minQueuePosition: 0,
         },
       },
     },
@@ -132,7 +151,12 @@ afterAll(() => {
 test("Renders the metadata card with a pending status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskAboutToStart} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskAboutToStart}
+        error={undefined}
+      />
     </MockedProvider>
   );
   // @ts-ignore
@@ -150,7 +174,12 @@ test("Renders the metadata card with a pending status", async () => {
 test("Renders the metadata card with a started status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskStarted} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskStarted}
+        error={undefined}
+      />
     </MockedProvider>
   );
 
@@ -171,7 +200,12 @@ test("Renders the metadata card with a started status", async () => {
 test("Renders the metadata card with a succeeded status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
-      <Metadata loading={false} data={taskSucceeded} error={undefined} />
+      <Metadata
+        taskId={taskId}
+        loading={false}
+        data={taskSucceeded}
+        error={undefined}
+      />
     </MockedProvider>
   );
 

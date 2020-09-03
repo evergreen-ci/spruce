@@ -56,7 +56,7 @@ describe("Task Queue", () => {
 
   it("Scrolls to current task if taskId param in url", () => {
     cy.visit(
-      "/task-queue/osx-108/mongodb_cpp_driver_dev_osx_108_compile_and_test_671bda78e9947426e78bdae3ea13be1ce64ffe18_16_07_26_21_12_52"
+      "/task-queue/osx-108/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48"
     );
 
     cy.get(".ant-table-row-selected")
