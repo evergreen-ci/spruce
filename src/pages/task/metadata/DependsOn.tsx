@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
+import { Variant } from "@leafygreen-ui/badge";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { SmallCapsBadge as Badge } from "components/SmallCapsBadge";
 import { BoldStyledLink } from "components/styles";
 import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
 
