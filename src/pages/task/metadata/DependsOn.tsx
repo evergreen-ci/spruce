@@ -4,7 +4,7 @@ import { Variant } from "@leafygreen-ui/badge";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { SmallCapsBadge as Badge } from "components/SmallCapsBadge";
+import { StatusBadge as Badge } from "components/StatusBadge";
 import { BoldStyledLink } from "components/styles";
 import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
 

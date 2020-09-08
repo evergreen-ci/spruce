@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/badge";
-import { SmallCapsBadge as Badge } from "components/SmallCapsBadge";
+import { StatusBadge as Badge } from "components/StatusBadge";
 import { PatchStatus } from "types/patch";
 
 interface Props {
