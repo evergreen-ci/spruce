@@ -1400,6 +1400,7 @@ export type GetTaskAllExecutionsQuery = {
     execution?: Maybe<number>;
     status: string;
     ingestTime?: Maybe<Date>;
+    activatedTime?: Maybe<Date>;
   }>;
 };
 

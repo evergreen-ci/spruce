@@ -6,6 +6,7 @@ export const GET_TASK_ALL_EXECUTIONS = gql`
       execution
       status
       ingestTime
+      activatedTime
     }
   }
 `;

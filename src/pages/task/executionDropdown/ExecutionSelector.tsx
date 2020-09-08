@@ -60,7 +60,9 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           <StyledP1>
             {" "}
             Execution {ExecutionAsDisplay(singleExecution.execution)} -{" "}
-            {shortDate(singleExecution.ingestTime)}
+            {shortDate(
+              singleExecution.activatedTime ?? singleExecution.ingestTime
+            )}
           </StyledP1>
         </Option>
       ))}
@@ -79,5 +81,6 @@ const StyledSquare = styled(Square)`
   margin-right: 3px;
 `;
 const StyledP1 = styled(P1)`
+  font-size: 14px;
   float: left;
 `;
