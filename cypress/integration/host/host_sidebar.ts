@@ -27,7 +27,7 @@ describe("Host page title and sidebar ", () => {
 
     cy.visit(pathWithTask);
     cy.dataCy("host-last-communication").contains(
-      "Last Communication: Jul 20, 2020 9:16:36 am"
+      "Last Communication: about 2 months ago"
     );
   });
 
