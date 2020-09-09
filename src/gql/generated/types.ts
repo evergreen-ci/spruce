@@ -1291,6 +1291,24 @@ export type MyHostsQuery = {
   }>;
 };
 
+export type MyVolumesQueryVariables = {};
+
+export type MyVolumesQuery = {
+  myVolumes: Array<{
+    id: string;
+    displayName: string;
+    createdBy: string;
+    type: string;
+    availabilityZone: string;
+    size: number;
+    expiration?: Maybe<Date>;
+    deviceName?: Maybe<string>;
+    hostID: string;
+    noExpiration: boolean;
+    homeVolume: boolean;
+  }>;
+};
+
 export type PatchBuildVariantsQueryVariables = {
   patchId: Scalars["String"];
 };
