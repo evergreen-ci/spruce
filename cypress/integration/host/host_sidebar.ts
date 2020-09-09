@@ -19,18 +19,6 @@ describe("Host page title and sidebar ", () => {
     );
   });
 
-  it("Metadata card last Communication has the correct values", () => {
-    cy.visit("/preferences");
-    cy.dataCy("timezone-field").click();
-    cy.dataCy("Hawaii-option").click();
-    cy.dataCy("save-profile-changes-button").click();
-
-    cy.visit(pathWithTask);
-    cy.dataCy("host-last-communication").contains(
-      "Last Communication: Jul 20, 2020 9:16:36 am"
-    );
-  });
-
   it("Metadata card Distro and current running links should have href", () => {
     cy.visit(pathWithTask);
     cy.get("[data-cy=distro-link]").should("have.attr", "href");
