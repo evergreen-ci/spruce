@@ -1,13 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
-import { pollInterval } from "constants/index";
-import { useBannerDispatchContext } from "context/banners";
-import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { GET_MY_HOSTS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
-import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
-import { HostStatus } from "types/host";
 import {
   Container,
   TitleContainer,
@@ -15,6 +8,13 @@ import {
   BadgeWrapper,
   StyledBadge,
 } from "components/Spawn";
+import { pollInterval } from "constants/index";
+import { useBannerDispatchContext } from "context/banners";
+import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
+import { GET_MY_HOSTS } from "gql/queries";
+import { useNetworkStatus } from "hooks";
+import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
+import { HostStatus } from "types/host";
 
 export const SpawnHost = () => {
   const dispatchBanner = useBannerDispatchContext();

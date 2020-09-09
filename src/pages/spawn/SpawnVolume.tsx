@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { MyVolumesQuery, MyHostsQueryVariables } from "gql/generated/types";
-import { GET_MY_VOLUMES } from "gql/queries";
+import { Variant } from "@leafygreen-ui/badge";
 import {
   Container,
   Title,
@@ -9,7 +8,8 @@ import {
   TitleContainer,
   StyledBadge,
 } from "components/Spawn";
-import { Variant } from "@leafygreen-ui/badge";
+import { MyVolumesQuery, MyHostsQueryVariables } from "gql/generated/types";
+import { GET_MY_VOLUMES } from "gql/queries";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
 export const SpawnVolume = () => {
