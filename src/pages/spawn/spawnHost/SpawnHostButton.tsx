@@ -1,19 +1,12 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
+import { PlusButton } from "components/Spawn";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
 
 export const SpawnHostButton = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
-      <StyledButton
-        glyph={<Icon glyph="Plus" />}
-        onClick={() => setOpenModal(true)}
-      >
-        Spawn a host
-      </StyledButton>
+      <PlusButton onClick={() => setOpenModal(true)}>Spawn a host</PlusButton>
       <SpawnHostModal
         visible={openModal}
         onOk={() => {
@@ -24,8 +17,3 @@ export const SpawnHostButton = () => {
     </>
   );
 };
-
-const StyledButton = styled(Button)`
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;

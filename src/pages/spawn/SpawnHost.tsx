@@ -1,8 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
-import { H2 } from "@leafygreen-ui/typography";
+import { Variant } from "@leafygreen-ui/badge";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -10,6 +8,13 @@ import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
+import {
+  Container,
+  TitleContainer,
+  Title,
+  BadgeWrapper,
+  StyledBadge,
+} from "components/Spawn";
 
 export const SpawnHost = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -56,23 +61,3 @@ export const SpawnHost = () => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  margin-left: 60px;
-  width: 100%;
-`;
-const Title = styled(H2)``;
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const BadgeWrapper = styled.div`
-  display: flex;
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-right: 10px;
-  margin-left: 10px;
-`;
