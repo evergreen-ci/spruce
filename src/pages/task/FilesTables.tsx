@@ -99,7 +99,7 @@ export const FilesTables: React.FC = () => {
     }
     return filteredFiles.map(({ taskName, files }) => (
       <Fragment key={taskName}>
-        <H3>{taskName}</H3>
+        {filteredData?.length > 1 && <H3>{taskName}</H3>}
         <StyledTable
           rowKey={rowKey}
           columns={columns}
