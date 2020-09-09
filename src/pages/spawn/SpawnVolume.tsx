@@ -28,9 +28,11 @@ export const SpawnVolume = () => {
         <Title>Volumes</Title>
         <BadgeWrapper>
           <StyledBadge
+            data-cy="mounted-badge"
             variant={Variant.Green}
           >{`${mountedCount} Mounted`}</StyledBadge>
           <StyledBadge
+            data-cy="free-badge"
             variant={Variant.Blue}
           >{`${unmountedCount} Free`}</StyledBadge>
         </BadgeWrapper>
