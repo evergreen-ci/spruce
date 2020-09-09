@@ -198,4 +198,16 @@ describe("Host events", () => {
       cy.dataCy(hostType).should("exist");
     });
   });
+
+  it("host events are displayed in the right timezone", () => {
+    cy.visit("/preferences");
+    cy.dataCy("timezone-field").click();
+    cy.dataCy("Hawaii-option").click();
+    cy.dataCy("save-profile-changes-button").click();
+
+    cy.visit(pathWithEvents);
+    cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
+      "Sep 30, 2017 9:11:16 am"
+    );
+  });
 });

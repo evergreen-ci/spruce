@@ -30,8 +30,10 @@ export const HostTable: React.FC<{
       title: "Date",
       dataIndex: "timestamp",
       width: "25%",
-      render: (_, { timestamp }: HostEventLogEntry): JSX.Element => (
-        <div>{getDateCopy(timestamp, timeZone)}</div>
+      render: (_, { eventType, timestamp }: HostEventLogEntry): JSX.Element => (
+        <div data-cy={`${eventType}-time`}>
+          {getDateCopy(timestamp, timeZone)}
+        </div>
       ),
     },
     {

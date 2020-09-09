@@ -1,19 +1,19 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { formatDistanceToNow } from "date-fns";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { HostQuery } from "gql/generated/types";
 import { HostCard } from "pages/host/HostCard";
 import { getUiUrl } from "utils/getEnvironmentVariables";
-import { getDateCopy } from "utils/string";
 
 export const Metadata: React.FC<{
   loading: boolean;
   data: HostQuery;
   error: ApolloError;
   timeZone: string;
-}> = ({ loading, data, error, timeZone }) => {
+}> = ({ loading, data, error }) => {
   const host = data?.host ?? null;
 
   const hostUrl = host?.hostUrl;
@@ -34,9 +34,12 @@ export const Metadata: React.FC<{
     <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
       <P2>Host Name: {hostUrl}</P2>
-      <P2 data-cy="host-last-communication">
-        Last Communication: {getDateCopy(lastCommunicationTime, timeZone)}
-      </P2>
+      {lastCommunicationTime && (
+        <P2 data-cy="host-last-communication">
+          Last Communication:{" "}
+          {formatDistanceToNow(new Date(lastCommunicationTime))} ago
+        </P2>
+      )}
       <P2>Started By: {startedBy}</P2>
       <P2>Cloud Provider: {provider}</P2>
       <P2>
