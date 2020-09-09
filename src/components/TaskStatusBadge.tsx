@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
-import { Variant } from "@leafygreen-ui/badge";
-import { StatusBadge as Badge } from "components/StatusBadge";
+import Badge, { Variant } from "components/Badge";
 import { TaskStatus } from "types/task";
 import { reportError } from "utils/errorReporting";
 
@@ -21,6 +20,16 @@ const mapTaskStatusToBadgeVariant = {
 
 const taskStatusToCopy = {
   [TaskStatus.Started]: "Running",
+  [TaskStatus.Inactive]: "Inactive",
+  [TaskStatus.Unstarted]: "Unstarted",
+  [TaskStatus.Undispatched]: "Undispatched",
+  [TaskStatus.Dispatched]: "Dispatched",
+  [TaskStatus.Succeeded]: "Success",
+  [TaskStatus.Failed]: "Failed",
+  [TaskStatus.TestTimedOut]: "Test-timed-out",
+  [TaskStatus.TaskTimedOut]: "Task-timed-out",
+  [TaskStatus.StatusBlocked]: "Blocked",
+  [TaskStatus.StatusPending]: "Pending",
 };
 
 const failureColors = {

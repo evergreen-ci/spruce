@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Variant } from "@leafygreen-ui/badge";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { StatusBadge as Badge } from "components/StatusBadge";
+import Badge, { Variant } from "components/Badge";
 import { BoldStyledLink } from "components/styles";
 import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
 
@@ -54,11 +53,11 @@ const metStatusToIcon = {
 };
 
 const requiredStatusToBadge = {
-  [RequiredStatus.MustFail]: <Badge variant={Variant.Red}>MUST FAIL</Badge>,
+  [RequiredStatus.MustFail]: <Badge variant={Variant.Red}>Must fail</Badge>,
   [RequiredStatus.MustFinish]: (
-    <Badge variant={Variant.Blue}>MUST FINISH</Badge>
+    <Badge variant={Variant.Blue}>Must finish</Badge>
   ),
   [RequiredStatus.MustSucceed]: (
-    <Badge variant={Variant.Green}>MUST SUCCEED</Badge>
+    <Badge variant={Variant.Green}>Must succeed</Badge>
   ),
 };

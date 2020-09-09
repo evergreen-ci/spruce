@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { useParams } from "react-router-dom";
+import Badge from "components/Badge";
 import { Banners } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import { PageWrapper } from "components/styles";
