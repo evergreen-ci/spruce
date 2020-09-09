@@ -1,13 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { PlusButton } from "components/Spawn";
 
-export const SpawnVolumeButton = () => {
-  const [openModal, setOpenModal] = useState(false);
-  return (
-    <>
-      <PlusButton onClick={() => setOpenModal(!openModal)}>
-        Create Volume
-      </PlusButton>
-    </>
-  );
-};
+export const SpawnVolumeButton = () => <PlusButton>Create Volume</PlusButton>;
