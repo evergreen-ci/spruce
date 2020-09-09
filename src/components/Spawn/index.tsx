@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { H2 } from "@leafygreen-ui/typography";
+import Badge from "components/Badge";
 
 export const Container = styled.div`
   margin-left: 60px;

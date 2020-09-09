@@ -1,12 +1,12 @@
 import React, { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskQueueAnalytics } from "analytics";
+import Badge from "components/Badge";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import {
@@ -131,7 +131,13 @@ export const TaskQueueTable = () => {
       key: "requester",
       className: "cy-task-queue-col-type",
       width: "15%",
-      render: (type) => <Badge>{type}</Badge>,
+      render: (type) => {
+        const copy = {
+          [TaskQueueItemType.Commit]: "Commit",
+          [TaskQueueItemType.Patch]: "Patch",
+        }[type];
+        return <Badge>{copy}</Badge>;
+      },
     },
   ];
 

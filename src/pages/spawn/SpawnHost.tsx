@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { Variant } from "@leafygreen-ui/badge";
+import { Variant } from "components/Badge";
 import {
   Container,
   TitleContainer,

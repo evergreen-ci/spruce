@@ -5,7 +5,9 @@ export const SpawnVolumeButton = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
-      <PlusButton onClick={() => setOpenModal(true)}>Create Volume</PlusButton>
+      <PlusButton onClick={() => setOpenModal(!openModal)}>
+        Create Volume
+      </PlusButton>
     </>
   );
 };
