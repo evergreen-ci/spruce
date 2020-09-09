@@ -1,8 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordian } from "components/Accordian";
+import Badge from "components/Badge";
 import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";

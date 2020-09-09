@@ -1,8 +1,8 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "@leafygreen-ui/badge";
 import { H2 } from "@leafygreen-ui/typography";
+import Badge, { Variant } from "components/Badge";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";

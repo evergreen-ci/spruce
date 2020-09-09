@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
-import Badge, { Variant } from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Table, Skeleton } from "antd";
 import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import Badge, { Variant } from "components/Badge";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
