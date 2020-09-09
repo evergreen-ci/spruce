@@ -32,7 +32,7 @@ export const SpawnVolume = () => {
           >{`${mountedCount} Mounted`}</StyledBadge>
           <StyledBadge
             variant={Variant.Blue}
-          >{`${unmountedCount} Unmounted`}</StyledBadge>
+          >{`${unmountedCount} Free`}</StyledBadge>
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton />
