@@ -112,12 +112,13 @@ export const FilesTables: React.FC = () => {
 
   return (
     <>
-      <StyledInput
-        placeholder="Search File Names"
-        onChange={onSearch}
-        suffix={<Icon glyph="MagnifyingGlass" />}
-      />
-      <br />
+      <div>
+        <StyledInput
+          placeholder="Search File Names"
+          onChange={onSearch}
+          suffix={<Icon glyph="MagnifyingGlass" />}
+        />
+      </div>
       {renderTable()}
     </>
   );
