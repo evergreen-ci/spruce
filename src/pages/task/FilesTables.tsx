@@ -117,6 +117,7 @@ export const FilesTables: React.FC = () => {
         onChange={onSearch}
         suffix={<Icon glyph="MagnifyingGlass" />}
       />
+      <br />
       {renderTable()}
     </>
   );
@@ -130,5 +131,4 @@ const StyledTable = styled(Table)`
 const StyledInput = styled(Input)`
   margin-bottom: 15px;
   max-width: 500px;
-  display: block;
 `;
