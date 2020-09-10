@@ -1,9 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
 import { H2 } from "@leafygreen-ui/typography";
+import { Table } from "antd";
 import Badge from "components/Badge";
+import Icon from "components/icons/Icon";
 
 export const Container = styled.div`
   margin-left: 60px;
@@ -36,4 +37,25 @@ export const PlusButton = ({
   ...props
 }: React.ComponentProps<typeof Btn>) => (
   <Btn {...{ ...props, glyph: <Icon glyph="Plus" /> }}>{children}</Btn>
+);
+
+const TableContainer = styled.div`
+  width: 100%;
+  padding-right: 1%;
+`;
+
+export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
+  <TableContainer>
+    <Table
+      {...{
+        ...props,
+        rowKey: (record) => record.id,
+        pagination: false,
+        expandRowByClick: true,
+        expandIcon: ({ expanded }) => (
+          <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
+        ),
+      }}
+    />
+  </TableContainer>
 );

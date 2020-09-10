@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Table } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import Icon from "components/icons/Icon";
+import { SpawnTable } from "components/Spawn";
 import { Host } from "gql/generated/types";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
@@ -17,25 +16,17 @@ interface SpawnHostTableProps {
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();
-  const queryParams = parseQueryString(search);
-  const host = queryParams?.host;
+  const host = parseQueryString(search)?.host;
   return (
-    <Container>
-      <Table
-        columns={columns}
-        dataSource={hosts}
-        rowKey={(record) => record.id}
-        pagination={false}
-        expandedRowRender={(record: Host) => <SpawnHostCard host={record} />}
-        expandIcon={({ expanded }) => (
-          <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
-        )}
-        defaultExpandedRowKeys={[host as string]}
-        expandRowByClick
-      />
-    </Container>
+    <SpawnTable
+      columns={columns}
+      dataSource={hosts}
+      expandedRowRender={(record: Host) => <SpawnHostCard host={record} />}
+      defaultExpandedRowKeys={[host as string]}
+    />
   );
 };
+
 const columns = [
   {
     title: "Host",
@@ -106,9 +97,4 @@ const HostIdSpan = styled.span`
   word-break: break-all;
   overflow: scroll;
   width: 150px;
-`;
-
-const Container = styled.div`
-  width: 100%;
-  padding-right: 1%;
 `;

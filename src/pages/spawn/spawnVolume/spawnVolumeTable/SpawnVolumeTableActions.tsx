@@ -1,5 +1,3 @@
 import React from "react";
 
-export const SpawnVolumeTableActions = () => {
-  return <div>table actions</div>;
-};
+export const SpawnVolumeTableActions = () => <div>table actions</div>;

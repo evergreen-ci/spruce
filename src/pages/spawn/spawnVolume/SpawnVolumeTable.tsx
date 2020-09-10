@@ -4,9 +4,8 @@ import { Table } from "antd";
 import { useLocation } from "react-router";
 import Icon from "components/icons/Icon";
 import { Volume } from "gql/generated/types";
-import { parseQueryString } from "utils";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
-import { SpawnVolumeTableActions } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeTableActions";
+import { parseQueryString } from "utils";
 
 interface SpawnVolumeTableProps {
   volumes: Volume[];
