@@ -26,14 +26,9 @@ export const StyledBadge = styled(Badge)`
   margin-left: 10px;
 `;
 
-const Btn = styled(Button)`
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;
-
 export const PlusButton = ({
   children,
   ...props
-}: React.ComponentProps<typeof Btn>) => (
-  <Btn {...{ ...props, glyph: <Icon glyph="Plus" /> }}>{children}</Btn>
+}: React.ComponentProps<typeof Button>) => (
+  <Button {...{ ...props, glyph: <Icon glyph="Plus" /> }}>{children}</Button>
 );
