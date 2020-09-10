@@ -151,7 +151,7 @@
     "jest": "24.9.0",
     "jest-junit": "10.0.0",
     "jest-localstorage-mock": "2.4.3",
-    "lint-staged": "10.2.11",
+    "lint-staged": "10.3.0",
     "path": "0.12.7",
     "prettier": "1.19.1",
     "prompt": "^1.0.0",
