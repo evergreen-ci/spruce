@@ -1,15 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
-import { Input, Select } from "antd";
-import Icon from "components/icons/Icon";
-import { InputLabel } from "components/styles";
+import { Input } from "antd";
 import { Volume } from "gql/generated/types";
-import { HostExpirationField } from "pages/spawn/spawnHost/HostExpirationField";
+import {
+  HostExpirationField,
+  VolumesField,
+} from "pages/spawn/spawnHost/fields";
 
-const { Option } = Select;
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
@@ -31,12 +30,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   data,
   volumes,
 }) => {
-  const {
-    hasUserDataScript,
-    userDataScript,
-    isVirtualWorkstation,
-    volume,
-  } = data;
+  const { hasUserDataScript, userDataScript, isVirtualWorkstation } = data;
 
   return (
     <Container>
@@ -63,31 +57,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
       {isVirtualWorkstation && (
         <SectionContainer>
           <SectionLabel>Virtual Workstation</SectionLabel>
-          <FlexColumnContainer>
-            <InputLabel htmlFor="hostDetailsDatePicker">Volume</InputLabel>
-            <Select
-              id="volumesSelectDropown"
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select volume"
-              onChange={(v) => onChange({ ...data, volume: v })}
-              value={volume}
-            >
-              {volumes?.map((v) => (
-                <Option
-                  value={v.id}
-                  key={`volume_option_${v.id}`}
-                  disabled={v.hostID == null}
-                >
-                  ({v.size}gb) {v.displayName || v.id}
-                </Option>
-              ))}
-            </Select>
-          </FlexColumnContainer>
-          <PaddedBody> or </PaddedBody>
-          <PaddedButton glyph={<Icon glyph="Plus" />}>
-            Create a Volume
-          </PaddedButton>
+          <VolumesField data={data} onChange={onChange} volumes={volumes} />
         </SectionContainer>
       )}
     </Container>
@@ -116,16 +86,6 @@ const SectionLabel = styled(Body)`
 
 const Container = styled(FlexColumnContainer)`
   width: 90%;
-`;
-
-const PaddedBody = styled.span`
-  padding-left: 15px;
-  padding-right: 15px;
-  margin-top: 22px;
-`;
-
-const PaddedButton = styled(Button)`
-  margin-top: 22px;
 `;
 
 const StyledSubtitle = styled(Subtitle)`

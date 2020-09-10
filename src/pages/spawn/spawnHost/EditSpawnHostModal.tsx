@@ -10,9 +10,14 @@ import {
   Host,
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
+  MyVolumesQuery,
+  MyHostsQueryVariables,
 } from "gql/generated/types";
-import { GET_INSTANCE_TYPES } from "gql/queries";
-import { HostExpirationField } from "pages/spawn/spawnHost/HostExpirationField";
+import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
+import {
+  HostExpirationField,
+  VolumesField,
+} from "pages/spawn/spawnHost/fields";
 
 const { Option } = Select;
 
@@ -21,6 +26,7 @@ interface editSpawnHostState {
   noExpiration: boolean;
   displayName?: string;
   instanceType?: string;
+  volume: string;
 }
 interface EditSpawnHostModalProps {
   visible: boolean;
@@ -41,15 +47,25 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expiration,
     noExpiration,
     instanceType: host.instanceType,
+    volume: host.homeVolumeID,
   });
-  const { data: InstanceTypesData } = useQuery<
+
+  // QUERY get_instance_types
+  const { data: instanceTypesData } = useQuery<
     InstanceTypesQuery,
     InstanceTypesQueryVariables
   >(GET_INSTANCE_TYPES);
 
+  // QUERY volumes
+  const { data: volumesData } = useQuery<MyVolumesQuery, MyHostsQueryVariables>(
+    GET_MY_VOLUMES
+  );
+
   const { displayName, instanceType } = editSpawnHostState;
 
-  const instanceTypes = InstanceTypesData?.instanceTypes;
+  const instanceTypes = instanceTypesData?.instanceTypes;
+  const volumes = volumesData?.myVolumes;
+
   return (
     <Modal
       title="Edit Host Details"
@@ -71,7 +87,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       <Container>
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
-          <div>
+          <Section>
+            <InputLabel htmlFor="instanceTypeDropdown">Host Name</InputLabel>
             <Input
               value={displayName}
               onChange={(e) =>
@@ -81,7 +98,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 })
               }
             />
-          </div>
+          </Section>
         </SectionContainer>
         <SectionContainer>
           <HostExpirationField
@@ -119,6 +136,14 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
               ))}
             </Select>
           </Section>
+        </SectionContainer>
+        <SectionContainer>
+          <SectionLabel weight="medium">Add Volume</SectionLabel>
+          <VolumesField
+            data={editSpawnHostState}
+            onChange={setEditSpawnHostState}
+            volumes={volumes}
+          />
         </SectionContainer>
       </Container>
     </Modal>

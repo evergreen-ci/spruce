@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle, H2 } from "@leafygreen-ui/typography";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input, Select } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
@@ -133,7 +133,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   ];
   return (
     <Modal
-      title={<H2>Spawn New Host</H2>}
+      title="Spawn New Host"
       visible={visible}
       onCancel={onCancel}
       footer={[
