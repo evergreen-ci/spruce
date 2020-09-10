@@ -39,7 +39,7 @@ export type Query = {
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
-  searchReturnInfo: SearchReturnInfo;
+  buildBaron: BuildBaron;
 };
 
 export type QueryUserPatchesArgs = {
@@ -139,9 +139,9 @@ export type QueryDistroTaskQueueArgs = {
   distroId: Scalars["String"];
 };
 
-export type QuerySearchReturnInfoArgs = {
+export type QueryBuildBaronArgs = {
   taskId: Scalars["String"];
-  execution: Scalars["String"];
+  execution: Scalars["Int"];
 };
 
 export type Mutation = {
@@ -165,6 +165,7 @@ export type Mutation = {
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
+  spawnVolume: Scalars["Boolean"];
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
@@ -260,6 +261,10 @@ export type MutationCreatePublicKeyArgs = {
 
 export type MutationSpawnHostArgs = {
   spawnHostInput?: Maybe<SpawnHostInput>;
+};
+
+export type MutationSpawnVolumeArgs = {
+  spawnVolumeInput: SpawnVolumeInput;
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
@@ -407,6 +412,15 @@ export type SpawnHostInput = {
   setUpScript?: Maybe<Scalars["String"]>;
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
+};
+
+export type SpawnVolumeInput = {
+  availabilityZone: Scalars["String"];
+  size: Scalars["Int"];
+  type: Scalars["String"];
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  host?: Maybe<Scalars["String"]>;
 };
 
 export type TaskQueueItem = {
@@ -697,6 +711,7 @@ export type Task = {
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
+  generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
   hostLink?: Maybe<Scalars["String"]>;
@@ -911,6 +926,11 @@ export type HostEventLogData = {
   user: Scalars["String"];
   successful: Scalars["Boolean"];
   duration: Scalars["Duration"];
+};
+
+export type BuildBaron = {
+  searchReturnInfo?: Maybe<SearchReturnInfo>;
+  buildBaronConfigured: Scalars["Boolean"];
 };
 
 export type SearchReturnInfo = {
@@ -1540,6 +1560,8 @@ export type GetTaskQuery = {
     distroId: string;
     latestExecution: number;
     blocked: boolean;
+    generatedBy?: Maybe<string>;
+    generatedByName?: Maybe<string>;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
