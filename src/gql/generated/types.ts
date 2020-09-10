@@ -39,7 +39,7 @@ export type Query = {
   instanceTypes: Array<Scalars["String"]>;
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
-  searchReturnInfo: SearchReturnInfo;
+  buildBaron: BuildBaron;
 };
 
 export type QueryUserPatchesArgs = {
@@ -139,9 +139,9 @@ export type QueryDistroTaskQueueArgs = {
   distroId: Scalars["String"];
 };
 
-export type QuerySearchReturnInfoArgs = {
+export type QueryBuildBaronArgs = {
   taskId: Scalars["String"];
-  execution: Scalars["String"];
+  execution: Scalars["Int"];
 };
 
 export type Mutation = {
@@ -165,12 +165,14 @@ export type Mutation = {
   updateHostStatus: Scalars["Int"];
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
+  spawnVolume: Scalars["Boolean"];
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
   attachVolumeToHost: Scalars["Boolean"];
   detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
+  editSpawnHost: Host;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -262,6 +264,10 @@ export type MutationSpawnHostArgs = {
   spawnHostInput?: Maybe<SpawnHostInput>;
 };
 
+export type MutationSpawnVolumeArgs = {
+  spawnVolumeInput: SpawnVolumeInput;
+};
+
 export type MutationUpdateSpawnHostStatusArgs = {
   hostId: Scalars["String"];
   action: SpawnHostStatusActions;
@@ -286,6 +292,10 @@ export type MutationDetachVolumeFromHostArgs = {
 
 export type MutationRemoveVolumeArgs = {
   volumeId: Scalars["String"];
+};
+
+export type MutationEditSpawnHostArgs = {
+  spawnHost?: Maybe<EditSpawnHostInput>;
 };
 
 export enum SpawnHostStatusActions {
@@ -409,6 +419,26 @@ export type SpawnHostInput = {
   homeVolumeSize?: Maybe<Scalars["Int"]>;
 };
 
+export type EditSpawnHostInput = {
+  hostId: Scalars["String"];
+  displayName?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  instanceType?: Maybe<Scalars["String"]>;
+  addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  volume?: Maybe<Scalars["String"]>;
+};
+
+export type SpawnVolumeInput = {
+  availabilityZone: Scalars["String"];
+  size: Scalars["Int"];
+  type: Scalars["String"];
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  host?: Maybe<Scalars["String"]>;
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -447,12 +477,18 @@ export type Host = {
   availabilityZone?: Maybe<Scalars["String"]>;
   instanceTags?: Maybe<Array<Maybe<InstanceTag>>>;
   expiration?: Maybe<Scalars["Time"]>;
+  displayName?: Maybe<Scalars["String"]>;
 };
 
 export type InstanceTag = {
   key?: Maybe<Scalars["String"]>;
   value?: Maybe<Scalars["String"]>;
   canBeModified?: Maybe<Scalars["Boolean"]>;
+};
+
+export type InstanceTagInput = {
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type DistroInfo = {
@@ -913,6 +949,11 @@ export type HostEventLogData = {
   duration: Scalars["Duration"];
 };
 
+export type BuildBaron = {
+  searchReturnInfo?: Maybe<SearchReturnInfo>;
+  buildBaronConfigured: Scalars["Boolean"];
+};
+
 export type SearchReturnInfo = {
   issues: Array<JiraTicket>;
   search: Scalars["String"];
@@ -1256,6 +1297,10 @@ export type HostQuery = {
     runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
   }>;
 };
+
+export type InstanceTypesQueryVariables = {};
+
+export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
 export type MyHostsQueryVariables = {};
 
