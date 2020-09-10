@@ -1,8 +1,13 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import { H2 } from "@leafygreen-ui/typography";
-import Badge, { Variant } from "components/Badge";
+import { Variant } from "components/Badge";
+import {
+  Container,
+  TitleContainer,
+  Title,
+  BadgeWrapper,
+  StyledBadge,
+} from "components/Spawn";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
@@ -56,23 +61,3 @@ export const SpawnHost = () => {
     </Container>
   );
 };
-
-const Container = styled.div`
-  margin-left: 60px;
-  width: 100%;
-`;
-const Title = styled(H2)``;
-
-const TitleContainer = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
-const BadgeWrapper = styled.div`
-  display: flex;
-`;
-
-const StyledBadge = styled(Badge)`
-  margin-right: 10px;
-  margin-left: 10px;
-`;

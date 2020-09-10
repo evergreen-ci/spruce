@@ -99,7 +99,7 @@ export const FilesTables: React.FC = () => {
     }
     return filteredFiles.map(({ taskName, files }) => (
       <Fragment key={taskName}>
-        <H3>{taskName}</H3>
+        {filteredData?.length > 1 && <H3>{taskName}</H3>}
         <StyledTable
           rowKey={rowKey}
           columns={columns}
@@ -112,11 +112,13 @@ export const FilesTables: React.FC = () => {
 
   return (
     <>
-      <StyledInput
-        placeholder="Search File Names"
-        onChange={onSearch}
-        suffix={<Icon glyph="MagnifyingGlass" />}
-      />
+      <div>
+        <StyledInput
+          placeholder="Search File Names"
+          onChange={onSearch}
+          suffix={<Icon glyph="MagnifyingGlass" />}
+        />
+      </div>
       {renderTable()}
     </>
   );
@@ -130,5 +132,4 @@ const StyledTable = styled(Table)`
 const StyledInput = styled(Input)`
   margin-bottom: 15px;
   max-width: 500px;
-  display: block;
 `;
