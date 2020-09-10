@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Body } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
+import isEqual from "lodash.isequal";
 import { Modal } from "components/Modal";
 import { InputLabel } from "components/styles";
 import {
@@ -40,15 +41,17 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   host,
 }) => {
   const { expiration, noExpiration } = host;
-  const [editSpawnHostState, setEditSpawnHostState] = useState<
-    editSpawnHostState
-  >({
-    displayName: host.displayName,
+
+  const defaultEditSpawnHostState = {
+    displayName: host.displayName || "",
     expiration,
     noExpiration,
     instanceType: host.instanceType,
     volume: host.homeVolumeID,
-  });
+  };
+  const [editSpawnHostState, setEditSpawnHostState] = useState<
+    editSpawnHostState
+  >(defaultEditSpawnHostState);
 
   // QUERY get_instance_types
   const { data: instanceTypesData } = useQuery<
@@ -66,6 +69,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const instanceTypes = instanceTypesData?.instanceTypes;
   const volumes = volumesData?.myVolumes;
 
+  const hasChanges = isEqual(defaultEditSpawnHostState, editSpawnHostState);
+
   return (
     <Modal
       title="Edit Host Details"
@@ -75,7 +80,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         <WideButton onClick={onCancel}>Cancel</WideButton>,
         <WideButton
           data-cy="save-spawn-host-button"
-          disabled={false}
+          disabled={hasChanges}
           onClick={() => undefined}
           variant={Variant.Primary}
         >
