@@ -166,6 +166,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"];
+  updateVolume: Scalars["Boolean"];
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
@@ -266,6 +267,10 @@ export type MutationSpawnHostArgs = {
 
 export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
+};
+
+export type MutationUpdateVolumeArgs = {
+  updateVolumeInput: UpdateVolumeInput;
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
@@ -437,6 +442,13 @@ export type SpawnVolumeInput = {
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   host?: Maybe<Scalars["String"]>;
+};
+
+export type UpdateVolumeInput = {
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  name?: Maybe<Scalars["String"]>;
+  volumeId: Scalars["String"];
 };
 
 export type TaskQueueItem = {

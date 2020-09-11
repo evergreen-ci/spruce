@@ -7,6 +7,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
+import BuildBaron from "components/Buildbaron/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -39,7 +40,6 @@ import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
-import { BuildBaron } from "pages/task/BuildBaron";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import { FilesTables } from "pages/task/FilesTables";
 import { Logs } from "pages/task/Logs";

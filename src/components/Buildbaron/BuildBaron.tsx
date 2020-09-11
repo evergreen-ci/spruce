@@ -1,7 +1,7 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import { BuildBaronQuery } from "gql/generated/types";
-import { BuildBaronTable } from "pages/task/BuildBaronTable";
+import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   data: BuildBaronQuery;
@@ -9,7 +9,7 @@ interface Props {
   error: ApolloError;
 }
 
-export const BuildBaron: React.FC<Props> = ({ data, timeZone, error }) => (
+const BuildBaron: React.FC<Props> = ({ data, timeZone, error }) => (
   <>
     {error && (
       <div>There was an error loading the build baron: {error.message}</div>
@@ -20,3 +20,5 @@ export const BuildBaron: React.FC<Props> = ({ data, timeZone, error }) => (
     )}
   </>
 );
+
+export default BuildBaron;
