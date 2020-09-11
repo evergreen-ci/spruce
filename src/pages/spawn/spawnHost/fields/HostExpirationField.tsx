@@ -22,26 +22,18 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
 }) => {
   const { expiration, noExpiration } = data;
 
-  const updateDate = (_, dateString) => {
-    // This functions take in the date string returned from the datePicker component
-    // It uses the date string since it comes in the format yyyy-mm-dd and it can be combined with the
-    // value from the timePicker since it only returns a subset of the date and wont overwrite the entire date
-
-    const year = dateString.slice(0, 4);
-    const month = dateString.slice(5, 7);
-    const date = dateString.slice(8, 10);
+  const updateDate = (d: Date) => {
+    const year = d.getFullYear();
+    const month = d.getMonth();
+    const date = d.getDate();
     const updatedTime = set(expiration || new Date(), { year, month, date });
     onChange({ ...data, expiration: updatedTime });
   };
 
-  const updateTime = (_, dateString) => {
-    // This functions take in the time string returned from the timePicker component
-    // It uses the date string since it comes in the format hh-mm-ss and it can be combined with the
-    // value from the timePicker since it only returns a subset of the date and wont overwrite the entire date
-
-    const hours = dateString.slice(0, 2);
-    const minutes = dateString.slice(3, 5);
-    const seconds = dateString.slice(7, 9);
+  const updateTime = (d: Date) => {
+    const hours = d.getHours();
+    const minutes = d.getMinutes();
+    const seconds = d.getSeconds();
     const updatedTime = set(expiration || new Date(), {
       hours,
       minutes,
