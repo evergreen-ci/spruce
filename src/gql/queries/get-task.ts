@@ -52,6 +52,8 @@ export const GET_TASK = gql`
       distroId
       latestExecution
       blocked
+      generatedBy
+      generatedByName
     }
   }
 `;
