@@ -13,7 +13,13 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
   const [openModal, setOpenModal] = useState(false);
   return (
     <>
-      <PaddedButton size={Size.XSmall} onClick={() => setOpenModal(true)}>
+      <PaddedButton
+        size={Size.XSmall}
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenModal(true);
+        }}
+      >
         Edit
       </PaddedButton>
       <EditSpawnHostModal

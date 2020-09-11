@@ -34,8 +34,12 @@ export const Modal: React.FC<ModalProps> = ({
       "data-cy": dataCy,
     }}
   >
-    <ModalTitle data-cy="modal-title">{title}</ModalTitle>
-    {children}
+    {/* Placing a stop propogation event handler around this modal to prevent click events from bubbling up to their parent component  */}
+    {/* eslint-disable-next-line */}
+    <div onClick={(e) => e.stopPropagation()}>
+      <ModalTitle data-cy="modal-title">{title}</ModalTitle>
+      {children}
+    </div>
   </StyledModal>
 );
 
