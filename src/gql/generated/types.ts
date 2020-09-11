@@ -733,6 +733,7 @@ export type Task = {
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
+  generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
   hostLink?: Maybe<Scalars["String"]>;
@@ -1585,6 +1586,8 @@ export type GetTaskQuery = {
     distroId: string;
     latestExecution: number;
     blocked: boolean;
+    generatedBy?: Maybe<string>;
+    generatedByName?: Maybe<string>;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
