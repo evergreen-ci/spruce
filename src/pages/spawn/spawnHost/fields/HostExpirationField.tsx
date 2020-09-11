@@ -8,8 +8,8 @@ import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
 
 export interface ExpirationDateType {
-  expiration: Date;
-  noExpiration: boolean;
+  expiration?: Date;
+  noExpiration?: boolean;
 }
 
 interface HostExpirationFieldProps {
@@ -20,8 +20,8 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
   onChange,
   data,
 }) => {
-  const { expiration, noExpiration } = data;
-
+  const { expiration: expirationString, noExpiration } = data;
+  const expiration = new Date(expirationString);
   const updateDate = (d: Date) => {
     const year = d.getFullYear();
     const month = d.getMonth();

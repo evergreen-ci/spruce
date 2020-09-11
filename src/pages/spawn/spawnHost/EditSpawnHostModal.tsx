@@ -23,11 +23,11 @@ import {
 const { Option } = Select;
 
 interface editSpawnHostState {
-  expiration: Date;
+  expiration?: Date;
   noExpiration: boolean;
   displayName?: string;
   instanceType?: string;
-  volume: string;
+  volume?: string;
 }
 interface EditSpawnHostModalProps {
   visible: boolean;
@@ -41,9 +41,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   host,
 }) => {
   const { expiration, noExpiration } = host;
-
   const defaultEditSpawnHostState = {
-    displayName: host.displayName || "",
+    displayName: host.displayName,
     expiration,
     noExpiration,
     instanceType: host.instanceType,

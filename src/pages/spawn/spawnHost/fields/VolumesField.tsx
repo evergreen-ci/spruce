@@ -10,7 +10,7 @@ const { Option } = Select;
 interface VolumesFieldProps {
   onChange: React.Dispatch<React.SetStateAction<any>>;
   data: {
-    volume: string;
+    volume?: string;
   };
   volumes: Volume[];
 }
