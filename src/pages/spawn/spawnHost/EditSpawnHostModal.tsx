@@ -92,8 +92,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
           <Section>
-            <InputLabel htmlFor="instanceTypeDropdown">Host Name</InputLabel>
+            <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
             <Input
+              id="hostNameInput"
               value={displayName}
               onChange={(e) =>
                 setEditSpawnHostState({
