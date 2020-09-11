@@ -112,7 +112,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           />
         </SectionContainer>
         <SectionContainer>
-          <SectionLabel weight="medium">Host Name</SectionLabel>
+          <SectionLabel weight="medium">Instance Type</SectionLabel>
 
           <Section>
             <InputLabel htmlFor="instanceTypeDropdown">
