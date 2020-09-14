@@ -21,7 +21,7 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
   data,
 }) => {
   const { expiration: expirationString, noExpiration } = data;
-  const expiration = new Date(expirationString);
+  const expiration = expirationString ? new Date(expirationString) : new Date();
   const updateDate = (d: Date) => {
     const year = d.getFullYear();
     const month = d.getMonth();
@@ -54,6 +54,7 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
           disabled={noExpiration}
           disabledDate={disabledDate}
           value={expiration}
+          allowClear={false}
         />
       </FlexColumnContainer>
       <PaddedBody>&amp;</PaddedBody>
@@ -64,6 +65,7 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
           disabled={noExpiration}
           disabledDate={disabledDate}
           value={expiration}
+          allowClear={false}
         />
       </FlexColumnContainer>
       <PaddedBody> or </PaddedBody>
