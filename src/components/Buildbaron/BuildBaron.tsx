@@ -5,19 +5,16 @@ import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   data: BuildBaronQuery;
-  timeZone: string;
   error: ApolloError;
 }
 
-const BuildBaron: React.FC<Props> = ({ data, timeZone, error }) => (
+const BuildBaron: React.FC<Props> = ({ data, error }) => (
   <>
     {error && (
       <div>There was an error loading the build baron: {error.message}</div>
     )}
 
-    {data && (
-      <BuildBaronTable eventData={data.buildBaron} timeZone={timeZone} />
-    )}
+    {data && <BuildBaronTable eventData={data.buildBaron} />}
   </>
 );
 

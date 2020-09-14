@@ -9,23 +9,22 @@ import { getDateCopy } from "utils/string";
 
 const { blue, gray } = uiColors;
 
+const columns = [
+  {
+    title: "Related tickets from JIRA",
+    render: (text: string, { key, fields }: JiraTicket): JSX.Element => (
+      <div>
+        <JiraTicketRow jiraKey={key} fields={fields} />
+      </div>
+    ),
+  },
+];
+
 export const BuildBaronTable: React.FC<{
   eventData: BuildBaron;
-  timeZone: string;
-}> = ({ eventData, timeZone }) => {
+}> = ({ eventData }) => {
   const searchReturnInfo = eventData?.searchReturnInfo;
   const jiraIssues = searchReturnInfo?.issues;
-
-  const columns = [
-    {
-      title: "Related tickets from JIRA",
-      render: (text: string, { key, fields }: JiraTicket): JSX.Element => (
-        <div>
-          <JiraTicketRow jiraKey={key} fields={fields} timeZone={timeZone} />
-        </div>
-      ),
-    },
-  ];
 
   return (
     <Table
@@ -39,10 +38,9 @@ export const BuildBaronTable: React.FC<{
 };
 
 const JiraTicketRow: React.FC<{
-  timeZone: string;
   jiraKey: String;
   fields;
-}> = ({ jiraKey, fields, timeZone }) => {
+}> = ({ jiraKey, fields }) => {
   const url = `https://jira.mongodb.org/browse/${jiraKey}`;
   return (
     <div>
@@ -54,10 +52,10 @@ const JiraTicketRow: React.FC<{
 
       <MetaDataWrapper>
         <JiraTicketMetadata>
-          Created: {getDateCopy(fields.created, timeZone, true)}
+          Created: {getDateCopy(fields.created, null, true)}
         </JiraTicketMetadata>
         <JiraTicketMetadata>
-          Updated: {getDateCopy(fields.updated, timeZone, true)}
+          Updated: {getDateCopy(fields.updated, null, true)}
         </JiraTicketMetadata>
         <JiraTicketMetadata>
           {fields.assigneeDisplayName

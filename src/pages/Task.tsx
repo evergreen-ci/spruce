@@ -48,7 +48,6 @@ import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
-import { useUserTimeZone } from "utils/string";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -152,13 +151,11 @@ const TaskCore: React.FC = () => {
   const buildBaronConfigured = buildBaron?.buildBaronConfigured;
 
   // logic for displaying the build baron tab
-  const timeZone = useUserTimeZone();
-
   const failedTask =
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
 
   // todo: unhide the buildBaronTab when it is production ready
-  const buildBaronIsProductionReady = false;
+  const buildBaronIsProductionReady = true;
   const showBuildBaronTab =
     buildBaronConfigured && failedTask && buildBaronIsProductionReady;
 
@@ -276,11 +273,7 @@ const TaskCore: React.FC = () => {
 
                 {showBuildBaronTab ? (
                   <Tab name="Build Baron" id="task-build-baron-tab">
-                    <BuildBaron
-                      data={buildBaronData}
-                      timeZone={timeZone}
-                      error={buildBaronError}
-                    />
+                    <BuildBaron data={buildBaronData} error={buildBaronError} />
                   </Tab>
                 ) : null}
               </StyledTabs>
