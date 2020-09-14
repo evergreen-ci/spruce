@@ -156,7 +156,11 @@ const TaskCore: React.FC = () => {
 
   const failedTask =
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
-  const showBuildBaronTab = buildBaronConfigured && failedTask;
+
+  // todo: unhide the buildBaronTab when it is production ready
+  const buildBaronIsProductionReady = false;
+  const showBuildBaronTab =
+    buildBaronConfigured && failedTask && buildBaronIsProductionReady;
 
   if (error) {
     stopPolling();
