@@ -230,59 +230,61 @@ const TaskCore: React.FC = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-              <Tab name="Logs" id="task-logs-tab">
-                <Logs logLinks={logLinks} />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {failedTestCount ? (
-                      <TabLabelWithBadge
-                        tabLabel="Tests"
-                        badgeVariant="red"
-                        badgeText={failedTestCount}
-                        dataCyBadge="test-tab-badge"
-                      />
-                    ) : (
-                      "Tests"
-                    )}
-                  </span>
-                }
-                id="task-tests-tab"
-              >
-                <TestsTable />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {fileCount !== undefined ? (
-                      <TabLabelWithBadge
-                        tabLabel="Files"
-                        badgeVariant="lightgray"
-                        badgeText={fileCount}
-                        dataCyBadge="files-tab-badge"
-                      />
-                    ) : (
-                      "Files"
-                    )}
-                  </span>
-                }
-                id="task-files-tab"
-              >
-                <FilesTables />
-              </Tab>
-
-              {showBuildBaronTab ? (
-                <Tab name="Build Baron" id="task-build-baron-tab">
-                  <BuildBaron
-                    data={buildBaronData}
-                    timeZone={timeZone}
-                    error={buildBaronError}
-                  />
+            {showBuildBaronTab !== undefined && (
+              <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
+                <Tab name="Logs" id="task-logs-tab">
+                  <Logs logLinks={logLinks} />
                 </Tab>
-              ) : null}
-            </StyledTabs>
+                <Tab
+                  name={
+                    <span>
+                      {failedTestCount ? (
+                        <TabLabelWithBadge
+                          tabLabel="Tests"
+                          badgeVariant="red"
+                          badgeText={failedTestCount}
+                          dataCyBadge="test-tab-badge"
+                        />
+                      ) : (
+                        "Tests"
+                      )}
+                    </span>
+                  }
+                  id="task-tests-tab"
+                >
+                  <TestsTable />
+                </Tab>
+                <Tab
+                  name={
+                    <span>
+                      {fileCount !== undefined ? (
+                        <TabLabelWithBadge
+                          tabLabel="Files"
+                          badgeVariant="lightgray"
+                          badgeText={fileCount}
+                          dataCyBadge="files-tab-badge"
+                        />
+                      ) : (
+                        "Files"
+                      )}
+                    </span>
+                  }
+                  id="task-files-tab"
+                >
+                  <FilesTables />
+                </Tab>
+
+                {showBuildBaronTab ? (
+                  <Tab name="Build Baron" id="task-build-baron-tab">
+                    <BuildBaron
+                      data={buildBaronData}
+                      timeZone={timeZone}
+                      error={buildBaronError}
+                    />
+                  </Tab>
+                ) : null}
+              </StyledTabs>
+            )}
           </PageContent>
         </LogWrapper>
       </PageLayout>

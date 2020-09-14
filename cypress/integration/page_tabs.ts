@@ -17,10 +17,6 @@ const task = {
   logs: { route: `${taskRoute}/logs`, btn: "button[id=task-logs-tab]" },
   tests: { route: `${taskRoute}/tests`, btn: "button[id=task-tests-tab]" },
   files: { route: `${taskRoute}/files`, btn: "button[id=task-files-tab]" },
-  build_baron: {
-    route: `${taskRoute}/build-baron`,
-    btn: "button[id=task-build-baron-tab]",
-  },
 };
 
 const locationPathEquals = (path) =>
