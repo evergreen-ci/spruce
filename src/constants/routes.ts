@@ -57,6 +57,7 @@ export const routes = {
 export enum PatchTab {
   Tasks = "tasks",
   Changes = "changes",
+  TrendCharts = "trendCharts",
 }
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

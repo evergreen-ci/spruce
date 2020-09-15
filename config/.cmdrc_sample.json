@@ -1,5 +1,6 @@
 {
   "devServer": {
+    "REACT_APP_TREND_CHARTS_ENABLED": "true",
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
@@ -10,10 +11,12 @@
     "REACT_APP_ENABLE_GQL_MOCK_SERVER": "true"
   },
   "staging": {
+    "REACT_APP_TREND_CHARTS_ENABLED": "false",
     "REACT_APP_API_URL": "https://www.example.com",
     "REACT_APP_UI_URL": "https://www.example.com"
   },
   "prod": {
+    "REACT_APP_TREND_CHARTS_ENABLED": "false",
     "REACT_APP_DEPLOYS_EMAIL": "some-email@something.com", 
     "REACT_APP_SITE_URL": "https://www.example.com",
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
