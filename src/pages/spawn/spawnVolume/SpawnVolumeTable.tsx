@@ -13,20 +13,7 @@ import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
 import { ColumnProps } from "antd/es/table";
 
 interface SpawnVolumeTableProps {
-  volumes: Array<{
-    id: string;
-    displayName: string;
-    createdBy: string;
-    type: string;
-    availabilityZone: string;
-    size: number;
-    expiration?: Maybe<Date>;
-    deviceName?: Maybe<string>;
-    hostID: string;
-    noExpiration: boolean;
-    homeVolume: boolean;
-    host?: Maybe<{ displayName?: Maybe<string> }>;
-  }>;
+  volumes: Volume[];
 }
 
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({

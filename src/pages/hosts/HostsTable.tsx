@@ -15,7 +15,7 @@ import {
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
-  Maybe,
+  Host,
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
@@ -23,20 +23,6 @@ import {
   useTableCheckboxFilter,
 } from "hooks";
 
-interface Host {
-  id: string;
-  distroId?: Maybe<string>;
-  status: string;
-  startedBy: string;
-  hostUrl: string;
-  tag: string;
-  totalIdleTime?: Maybe<number>;
-  uptime?: Maybe<Date>;
-  elapsed?: Maybe<Date>;
-  provider: string;
-  noExpiration: boolean;
-  runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
-}
 interface Props {
   hosts: Array<Host>;
   sortBy: HostsQueryVariables["sortBy"];
