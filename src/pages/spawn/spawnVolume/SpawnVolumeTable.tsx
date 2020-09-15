@@ -19,6 +19,7 @@ interface SpawnVolumeTableProps {
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
+  console.log(volumes);
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
   const volume = queryParams?.volume;
@@ -34,8 +35,10 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   );
 };
 
-const getVolumeDisplayName = (v: Volume) => v.displayName ?? v.id;
-const getHostDisplayName = (v: Volume) => v?.host?.displayName ?? v.hostID;
+const getVolumeDisplayName = (v: Volume) =>
+  v.displayName ? v.displayName : v.id;
+const getHostDisplayName = (v: Volume) =>
+  v?.host?.displayName ? v.host.displayName : v.hostID;
 const sortByHost = (a: Volume, b: Volume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
