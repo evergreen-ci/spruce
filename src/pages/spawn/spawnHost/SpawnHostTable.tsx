@@ -4,12 +4,12 @@ import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import { Host, Maybe } from "gql/generated/types";
+import { SpawnTable } from "components/Spawn";
+import { Host } from "gql/generated/types";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
-import { SpawnTable } from "components/Spawn";
 
 interface SpawnHostTableProps {
   hosts: any[];

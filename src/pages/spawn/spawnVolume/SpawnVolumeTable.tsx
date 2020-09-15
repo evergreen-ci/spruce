@@ -1,16 +1,16 @@
 import React from "react";
+import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { SpawnTable } from "components/Spawn";
 import { getHostRoute } from "constants/routes";
-import { Volume, Host, Maybe } from "gql/generated/types";
+import { Volume } from "gql/generated/types";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { parseQueryString } from "utils";
 import { sortFunctionDate } from "utils/string";
-import { SpawnHostTableActions } from "../spawnHost/SpawnHostTableActions";
+import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActions";
 import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
-import { ColumnProps } from "antd/es/table";
 
 interface SpawnVolumeTableProps {
   volumes: any[];
@@ -77,7 +77,6 @@ const columns: Array<ColumnProps<Volume>> = [
     title: "Actions",
     dataIndex: "uptime",
     key: "uptime",
-    sorter: (a: Volume, b: Volume) => sortFunctionDate(a, b, "uptime"),
-    render: (uptime) => formatDistanceToNow(new Date(uptime)),
+    render: () => <SpawnVolumeTableActions />,
   },
 ];

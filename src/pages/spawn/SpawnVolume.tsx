@@ -10,8 +10,8 @@ import {
 } from "components/Spawn";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
-import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
+import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
 export const SpawnVolume = () => {
   const { data: volumesData } = useQuery<

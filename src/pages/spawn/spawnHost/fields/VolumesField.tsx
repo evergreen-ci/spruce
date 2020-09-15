@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
-import { Maybe, Volume } from "gql/generated/types";
 import { SpawnVolumeButton } from "pages/spawn/spawnVolume/SpawnVolumeButton";
 
 const { Option } = Select;
