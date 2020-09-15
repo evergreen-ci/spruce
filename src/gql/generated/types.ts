@@ -1256,6 +1256,11 @@ export type HostQueryVariables = {
 
 export type HostQuery = { host?: Maybe<{ id: string, hostUrl: string, distroId?: Maybe<string>, tag: string, provider: string, startedBy: string, user?: Maybe<string>, status: string, lastCommunicationTime?: Maybe<Date>, runningTask?: Maybe<{ id?: Maybe<string>, name?: Maybe<string> }> }> };
 
+export type InstanceTypesQueryVariables = {};
+
+
+export type InstanceTypesQuery = { instanceTypes: Array<string> };
+
 export type MyHostsQueryVariables = {};
 
 
@@ -1373,7 +1378,7 @@ export type GetTaskQueryVariables = {
 };
 
 
-export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, ingestTime?: Maybe<Date>, estimatedStart?: Maybe<number>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, priority?: Maybe<number>, canRestart: boolean, canAbort: boolean, canSchedule: boolean, canUnschedule: boolean, canSetPriority: boolean, ami?: Maybe<string>, distroId: string, latestExecution: number, blocked: boolean, baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number>, baseTaskLink: string }>, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }>, logs: { allLogLink?: Maybe<string>, agentLogLink?: Maybe<string>, systemLogLink?: Maybe<string>, taskLogLink?: Maybe<string>, eventLogLink?: Maybe<string> } }> };
+export type GetTaskQuery = { taskFiles: { fileCount: number }, task?: Maybe<{ activatedBy?: Maybe<string>, ingestTime?: Maybe<Date>, estimatedStart?: Maybe<number>, displayName: string, finishTime?: Maybe<Date>, hostId?: Maybe<string>, hostLink?: Maybe<string>, patchNumber?: Maybe<number>, startTime?: Maybe<Date>, status: string, timeTaken?: Maybe<number>, version: string, revision?: Maybe<string>, failedTestCount: number, spawnHostLink?: Maybe<string>, priority?: Maybe<number>, canRestart: boolean, canAbort: boolean, canSchedule: boolean, canUnschedule: boolean, canSetPriority: boolean, ami?: Maybe<string>, distroId: string, latestExecution: number, blocked: boolean, generatedBy?: Maybe<string>, generatedByName?: Maybe<string>, baseTaskMetadata?: Maybe<{ baseTaskDuration?: Maybe<number>, baseTaskLink: string }>, patchMetadata: { author: string }, reliesOn: Array<{ buildVariant: string, metStatus: MetStatus, name: string, requiredStatus: RequiredStatus, uiLink: string }>, logs: { allLogLink?: Maybe<string>, agentLogLink?: Maybe<string>, systemLogLink?: Maybe<string>, taskLogLink?: Maybe<string>, eventLogLink?: Maybe<string> } }> };
 
 export type GetTaskLatestExecutionQueryVariables = {
   taskId: Scalars['String'];
