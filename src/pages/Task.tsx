@@ -155,7 +155,7 @@ const TaskCore: React.FC = () => {
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
 
   // todo: unhide the buildBaronTab when it is production ready
-  const buildBaronIsProductionReady = true;
+  const buildBaronIsProductionReady = false;
   const showBuildBaronTab =
     buildBaronConfigured && failedTask && buildBaronIsProductionReady;
 

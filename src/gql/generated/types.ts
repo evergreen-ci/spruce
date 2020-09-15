@@ -40,6 +40,7 @@ export type Query = {
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
   buildBaron: BuildBaron;
+  bbGetCreatedTickets: Array<JiraTicket>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -144,6 +145,10 @@ export type QueryBuildBaronArgs = {
   execution: Scalars["Int"];
 };
 
+export type QueryBbGetCreatedTicketsArgs = {
+  taskId: Scalars["String"];
+};
+
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
@@ -174,6 +179,7 @@ export type Mutation = {
   detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
+  bbCreateTicket: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -301,6 +307,10 @@ export type MutationRemoveVolumeArgs = {
 
 export type MutationEditSpawnHostArgs = {
   spawnHost?: Maybe<EditSpawnHostInput>;
+};
+
+export type MutationBbCreateTicketArgs = {
+  taskId: Scalars["String"];
 };
 
 export enum SpawnHostStatusActions {
