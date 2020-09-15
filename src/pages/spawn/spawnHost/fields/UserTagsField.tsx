@@ -43,6 +43,7 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
         addedTags.push(tag);
       }
     });
+
     onChange({
       ...data,
       deletedInstanceTags: deletedTags,
@@ -67,7 +68,6 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
 
   return (
     <FlexColumnContainer>
-      <UserTagRow onUpdateTag={updateTagHandler} isNewTag />
       {visibleTags.map((tag) => (
         <UserTagRow
           tag={tag}
@@ -76,6 +76,7 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
           onUpdateTag={updateTagHandler}
         />
       ))}
+      <UserTagRow onUpdateTag={updateTagHandler} isNewTag />
     </FlexColumnContainer>
   );
 };

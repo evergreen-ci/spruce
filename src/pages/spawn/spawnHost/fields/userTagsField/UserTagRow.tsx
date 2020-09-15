@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
 import { v4 as uuid } from "uuid";
 import Icon from "components/icons/Icon";
+import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { InstanceTag } from "gql/generated/types";
 
@@ -23,6 +23,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
   const [key, setKey] = useState(tag?.key);
   const [value, setValue] = useState(tag?.value);
   const [hasEditedTag, setHasEditedTag] = useState(false);
+  const [createNewTag, setCreateNewTag] = useState(false);
 
   const tagId = uuid();
   const updateKey = (k) => {
@@ -42,54 +43,70 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
     }
     setHasEditedTag(false);
   };
-  const tagFilled = key && key.length > 0 && value && value.length > 0;
   const createNewTagHandler = () => {
     onUpdateTag({ key, value });
+    setCreateNewTag(false);
     setKey("");
     setValue("");
   };
+
+  const shouldShowTagInput = createNewTag || !isNewTag;
   return (
     <FlexColumnContainer>
-      <FlexContainer>
-        <FlexColumnContainer>
-          <Section>
-            <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
-            <Input
-              id={`tag_key_${tagId}`}
-              value={key}
-              onChange={(e) => updateKey(e.target.value)}
-            />
-          </Section>
-        </FlexColumnContainer>
-        <FlexColumnContainer>
-          <Section>
-            <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
-            <Input
-              id={`tag_value_${tagId}`}
-              value={value}
-              onChange={(e) => updateValue(e.target.value)}
-            />
-          </Section>
-        </FlexColumnContainer>
-        {onDelete && (
+      {shouldShowTagInput && (
+        <FlexContainer>
+          <FlexColumnContainer>
+            <Section>
+              <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
+              <Input
+                id={`tag_key_${tagId}`}
+                value={key}
+                onChange={(e) => updateKey(e.target.value)}
+              />
+            </Section>
+          </FlexColumnContainer>
+          <FlexColumnContainer>
+            <Section>
+              <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
+              <Input
+                id={`tag_value_${tagId}`}
+                value={value}
+                onChange={(e) => updateValue(e.target.value)}
+              />
+            </Section>
+          </FlexColumnContainer>
+
           <IconButtonContainer>
             {hasEditedTag ? (
               <IconButton variant="light" aria-label="Edit Tag">
-                <Icon glyph="Edit" onClick={updateTag} />
+                <Icon
+                  glyph="Edit"
+                  onClick={isNewTag ? createNewTagHandler : updateTag}
+                />
               </IconButton>
             ) : (
               <IconButton variant="light" aria-label="Delete Tag">
-                <Icon glyph="Trash" onClick={() => onDelete(tag.key)} />
+                <Icon
+                  glyph="Trash"
+                  onClick={
+                    isNewTag
+                      ? () => setCreateNewTag(false)
+                      : () => onDelete(tag.key)
+                  }
+                />
               </IconButton>
             )}
           </IconButtonContainer>
-        )}
-      </FlexContainer>
-      {isNewTag && (
+        </FlexContainer>
+      )}
+      {!shouldShowTagInput && (
         <ButtonContainer>
-          <Button disabled={!tagFilled} onClick={createNewTagHandler}>
+          <PlusButton
+            disabled={createNewTag}
+            onClick={() => setCreateNewTag(!createNewTag)}
+          >
             Add Tag
-          </Button>
+          </PlusButton>
         </ButtonContainer>
       )}
     </FlexColumnContainer>
