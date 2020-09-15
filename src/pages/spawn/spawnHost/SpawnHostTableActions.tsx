@@ -5,6 +5,7 @@ import { Tooltip } from "antd";
 import Icon from "components/icons/Icon";
 import { Host } from "gql/generated/types";
 import { copyToClipboard } from "utils/string";
+import { EditSpawnHostButton } from "./EditSpawnHostButton";
 import { SpawnHostActionButton } from "./SpawnHostActionButton";
 
 export const SpawnHostTableActions: React.FC<{ host: Host }> = ({ host }) => (
@@ -12,7 +13,7 @@ export const SpawnHostTableActions: React.FC<{ host: Host }> = ({ host }) => (
     <SpawnHostActionButton host={host} />
     <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
     <CopySSHCommandButton host={host} />
-    <PaddedButton size={Size.XSmall}>Edit</PaddedButton>
+    <EditSpawnHostButton host={host} />
   </ActionButtonContainer>
 );
 
