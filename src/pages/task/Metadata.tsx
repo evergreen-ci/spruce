@@ -103,7 +103,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
           </span>
         </P2>
       )}
-      {timeTaken && (
+      {timeTaken > 0 && (
         <P2 data-cy="task-metadata-duration">
           Duration: {msToDuration(timeTaken)}{" "}
         </P2>
@@ -138,16 +138,18 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
         </StyledLink>
       </P2>
       {ami && <P2 data-cy="task-metadata-ami">AMI: {ami}</P2>}
-      <P2>
-        Host:{" "}
-        <StyledLink
-          data-cy="task-host-link"
-          href={hostLink}
-          onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
-        >
-          {hostId}
-        </StyledLink>
-      </P2>
+      {hostId && (
+        <P2>
+          Host:{" "}
+          <StyledLink
+            data-cy="task-host-link"
+            href={hostLink}
+            onClick={() => taskAnalytics.sendEvent({ name: "Click Host Link" })}
+          >
+            {hostId}
+          </StyledLink>
+        </P2>
+      )}
       {spawnHostLink && (
         <P2>
           <StyledLink
