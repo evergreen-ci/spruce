@@ -11,7 +11,7 @@ const { blue, gray } = uiColors;
 
 const columns = [
   {
-    title: "Related tickets from JIRA",
+    title: "Related tickets from Jira",
     render: (text: string, { key, fields }: JiraTicket): JSX.Element => (
       <div>
         <JiraTicketRow jiraKey={key} fields={fields} />
