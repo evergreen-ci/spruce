@@ -110,14 +110,19 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-export const getDateCopy = (time: Date, tz?: string) => {
+export const getDateCopy = (time: Date, tz?: string, dateOnly?: boolean) => {
   if (tz) {
-    return formatToTimeZone(time, "MMM D, YYYY h:mm:ss a", {
+    const dateFormat = dateOnly ? "MMM D, YYYY" : "MMM D, YYYY h:mm:ss a";
+
+    return formatToTimeZone(time, dateFormat, {
       timeZone: tz,
     });
   }
   if (time) {
-    return format(new Date(time), "MMM d, yyyy, h:mm:ss aaaaa'm");
+    const dateFormat = dateOnly
+      ? "MMM d, yyyy"
+      : "MMM d, yyyy, h:mm:ss aaaaa'm";
+    return format(new Date(time), dateFormat);
   }
   return "";
 };

@@ -1163,6 +1163,33 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type BuildBaronQueryVariables = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+};
+
+export type BuildBaronQuery = {
+  buildBaron: {
+    buildBaronConfigured: boolean;
+    searchReturnInfo?: Maybe<{
+      search: string;
+      source: string;
+      featuresURL: string;
+      issues: Array<{
+        key: string;
+        fields: {
+          summary: string;
+          assigneeDisplayName?: Maybe<string>;
+          resolutionName?: Maybe<string>;
+          created: string;
+          updated: string;
+          status: { id: string; name: string };
+        };
+      }>;
+    }>;
+  };
+};
+
 export type ClientConfigQueryVariables = {};
 
 export type ClientConfigQuery = {

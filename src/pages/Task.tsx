@@ -24,12 +24,22 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
+import {
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  GetTaskQuery,
+  GetTaskQueryVariables,
+} from "gql/generated/types";
+import {
+  GET_TASK,
+  GET_TASK_LATEST_EXECUTION,
+  GET_BUILD_BARON,
+} from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
+import { BuildBaron } from "pages/task/BuildBaron";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import { FilesTables } from "pages/task/FilesTables";
 import { Logs } from "pages/task/Logs";
@@ -38,6 +48,7 @@ import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
+import { useUserTimeZone } from "utils/string";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -128,6 +139,24 @@ const TaskCore: React.FC = () => {
     sendAnalyticsEvent: (tab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
+
+  // Query build baron data
+  const { data: buildBaronData, error: buildBaronError } = useQuery<
+    BuildBaronQuery,
+    BuildBaronQueryVariables
+  >(GET_BUILD_BARON, {
+    variables: { taskId: id, execution },
+    pollInterval,
+  });
+  const buildBaron = buildBaronData?.buildBaron;
+  const buildBaronConfigured = buildBaron?.buildBaronConfigured;
+
+  // logic for displaying the build baron tab
+  const timeZone = useUserTimeZone();
+
+  const failedTask =
+    task?.status?.includes("failed") || task?.status?.includes("timed-out");
+  const showBuildBaronTab = buildBaronConfigured && failedTask;
 
   if (error) {
     stopPolling();
@@ -239,6 +268,16 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
+
+              {showBuildBaronTab ? (
+                <Tab name="Build Baron" id="task-build-baron-tab">
+                  <BuildBaron
+                    data={buildBaronData}
+                    timeZone={timeZone}
+                    error={buildBaronError}
+                  />
+                </Tab>
+              ) : null}
             </StyledTabs>
           </PageContent>
         </LogWrapper>
