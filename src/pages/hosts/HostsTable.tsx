@@ -12,10 +12,10 @@ import {
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
-  Host,
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
+  Maybe,
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
@@ -23,8 +23,22 @@ import {
   useTableCheckboxFilter,
 } from "hooks";
 
+interface Host {
+  id: string;
+  distroId?: Maybe<string>;
+  status: string;
+  startedBy: string;
+  hostUrl: string;
+  tag: string;
+  totalIdleTime?: Maybe<number>;
+  uptime?: Maybe<Date>;
+  elapsed?: Maybe<Date>;
+  provider: string;
+  noExpiration: boolean;
+  runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+}
 interface Props {
-  hosts: Host[];
+  hosts: Array<Host>;
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
   selectedHostIds: string[];

@@ -1264,7 +1264,7 @@ export type InstanceTypesQuery = { instanceTypes: Array<string> };
 export type MyHostsQueryVariables = {};
 
 
-export type MyHostsQuery = { myHosts: Array<{ expiration?: Maybe<Date>, hostUrl: string, homeVolumeID?: Maybe<string>, id: string, instanceType?: Maybe<string>, noExpiration: boolean, provider: string, status: string, startedBy: string, tag: string, user?: Maybe<string>, uptime?: Maybe<Date>, distro?: Maybe<{ isVirtualWorkStation?: Maybe<boolean>, id?: Maybe<string>, user?: Maybe<string>, workDir?: Maybe<string> }>, instanceTags: Array<{ key?: Maybe<string>, value?: Maybe<string>, canBeModified?: Maybe<boolean> }> }> };
+export type MyHostsQuery = { myHosts: Array<{ expiration?: Maybe<Date>, hostUrl: string, homeVolumeID?: Maybe<string>, id: string, instanceType?: Maybe<string>, noExpiration: boolean, provider: string, status: string, startedBy: string, tag: string, user?: Maybe<string>, uptime?: Maybe<Date>, availabilityZone?: Maybe<string>, distro?: Maybe<{ isVirtualWorkStation?: Maybe<boolean>, id?: Maybe<string>, user?: Maybe<string>, workDir?: Maybe<string> }>, instanceTags: Array<{ key?: Maybe<string>, value?: Maybe<string>, canBeModified?: Maybe<boolean> }> }> };
 
 export type MyVolumesQueryVariables = {};
 

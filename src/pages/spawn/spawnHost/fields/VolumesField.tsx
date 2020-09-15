@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
-import { Volume } from "gql/generated/types";
+import { Maybe } from "gql/generated/types";
 import { SpawnVolumeButton } from "pages/spawn/spawnVolume/SpawnVolumeButton";
 
 const { Option } = Select;
@@ -12,7 +12,20 @@ interface VolumesFieldProps {
   data: {
     volume?: string;
   };
-  volumes: Volume[];
+  volumes: Array<{
+    id: string;
+    displayName: string;
+    createdBy: string;
+    type: string;
+    availabilityZone: string;
+    size: number;
+    expiration?: Maybe<Date>;
+    deviceName?: Maybe<string>;
+    hostID: string;
+    noExpiration: boolean;
+    homeVolume: boolean;
+    host?: Maybe<{ displayName?: Maybe<string> }>;
+  }>;
 }
 
 export const VolumesField: React.FC<VolumesFieldProps> = ({

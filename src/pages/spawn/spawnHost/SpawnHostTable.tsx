@@ -4,15 +4,40 @@ import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import { SpawnTable } from "components/Spawn";
-import { Host } from "gql/generated/types";
+import { Maybe } from "gql/generated/types";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
+import { SpawnTable } from "components/Spawn";
 
+interface Host {
+  expiration?: Maybe<Date>;
+  hostUrl: string;
+  homeVolumeID?: Maybe<string>;
+  id: string;
+  instanceType?: Maybe<string>;
+  noExpiration: boolean;
+  provider: string;
+  status: string;
+  startedBy: string;
+  tag: string;
+  user?: Maybe<string>;
+  uptime?: Maybe<Date>;
+  distro?: Maybe<{
+    isVirtualWorkStation?: Maybe<boolean>;
+    id?: Maybe<string>;
+    user?: Maybe<string>;
+    workDir?: Maybe<string>;
+  }>;
+  instanceTags: Array<{
+    key?: Maybe<string>;
+    value?: Maybe<string>;
+    canBeModified?: Maybe<boolean>;
+  }>;
+}
 interface SpawnHostTableProps {
-  hosts: Host[];
+  hosts: Array<Host>;
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();

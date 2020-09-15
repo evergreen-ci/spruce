@@ -4,9 +4,33 @@ import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
 import { SiderCard } from "components/styles";
 import { routes } from "constants/routes";
-import { Host } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
-
+import { Maybe } from "graphql/jsutils/Maybe";
+interface Host {
+  expiration?: Maybe<Date>;
+  hostUrl: string;
+  homeVolumeID?: Maybe<string>;
+  id: string;
+  instanceType?: Maybe<string>;
+  noExpiration: boolean;
+  provider: string;
+  status: string;
+  startedBy: string;
+  tag: string;
+  user?: Maybe<string>;
+  uptime?: Maybe<Date>;
+  distro?: Maybe<{
+    isVirtualWorkStation?: Maybe<boolean>;
+    id?: Maybe<string>;
+    user?: Maybe<string>;
+    workDir?: Maybe<string>;
+  }>;
+  instanceTags: Array<{
+    key?: Maybe<string>;
+    value?: Maybe<string>;
+    canBeModified?: Maybe<boolean>;
+  }>;
+}
 interface SpawnHostCardProps {
   host: Host;
 }
