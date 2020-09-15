@@ -30,6 +30,7 @@ export const GET_PATCH = gql`
         tasks
       }
       canEnqueueToCommitQueue
+      isPerfPluginEnabled
     }
   }
 `;
