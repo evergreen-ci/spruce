@@ -24,7 +24,7 @@ import {
 } from "hooks";
 
 interface Props {
-  hosts: Array<Host>;
+  hosts: Host[];
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
   selectedHostIds: string[];
