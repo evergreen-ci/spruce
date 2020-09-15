@@ -19,7 +19,7 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
   onChange,
   instanceTags,
 }) => {
-  const userTags = instanceTags.filter((tag) => tag.canBeModified);
+  const userTags = instanceTags?.filter((tag) => tag.canBeModified);
   const [visibleTags, setVisibleTags] = useState(userTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
   const visibleTagsAsObject = convertArrayToObject(visibleTags, "key");
