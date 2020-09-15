@@ -12,6 +12,9 @@ export const GET_MY_VOLUMES = gql`
       expiration
       deviceName
       hostID
+      host {
+        displayName
+      }
       noExpiration
       homeVolume
     }

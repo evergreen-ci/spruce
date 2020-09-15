@@ -11,6 +11,7 @@ import {
 import { MyVolumesQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
+import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 
 export const SpawnVolume = () => {
   const { data: volumesData } = useQuery<MyVolumesQuery, MyHostsQueryVariables>(
@@ -21,6 +22,7 @@ export const SpawnVolume = () => {
     volumesData?.myVolumes.filter((v) => v.hostID).length ?? 0;
   const unmountedCount =
     volumesData?.myVolumes.filter((v) => !v.hostID).length ?? 0;
+  const volumes = volumesData?.myVolumes ?? [];
 
   return (
     <Container>
@@ -38,6 +40,7 @@ export const SpawnVolume = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton />
+      <SpawnVolumeTable volumes={volumes} />
     </Container>
   );
 };
