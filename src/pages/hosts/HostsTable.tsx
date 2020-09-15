@@ -13,6 +13,7 @@ import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
   Host,
+  HostsQuery,
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
@@ -24,7 +25,7 @@ import {
 } from "hooks";
 
 interface Props {
-  hosts: Host[];
+  hosts: HostsQuery["hosts"]["hosts"];
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
   selectedHostIds: string[];
