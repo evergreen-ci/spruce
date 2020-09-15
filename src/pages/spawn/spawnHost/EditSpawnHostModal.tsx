@@ -183,7 +183,8 @@ const FlexContainer = styled.div`
 `;
 
 const SectionContainer = styled(FlexContainer)`
-  margin-top: 15px;
+  <<<<<<<head=======align-items: center;
+  >>>>>>>mastermargin-top: 15px;
 `;
 
 const SectionLabel = styled(Body)`
