@@ -23,7 +23,7 @@ export type hostDetailsStateType = {
 interface HostDetailsFormProps {
   onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
   data: hostDetailsStateType;
-  volumes: Volume[];
+  volumes: any[];
 }
 export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   onChange,

@@ -13,7 +13,7 @@ import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
 import { ColumnProps } from "antd/es/table";
 
 interface SpawnVolumeTableProps {
-  volumes: Volume[];
+  volumes: any[];
 }
 
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
@@ -77,7 +77,7 @@ const columns: Array<ColumnProps<Volume>> = [
     title: "Actions",
     dataIndex: "uptime",
     key: "uptime",
-    sorter: (a: Volume, b: Host) => sortFunctionDate(a, b, "uptime"),
+    sorter: (a: Volume, b: Volume) => sortFunctionDate(a, b, "uptime"),
     render: (uptime) => formatDistanceToNow(new Date(uptime)),
   },
 ];

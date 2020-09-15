@@ -12,7 +12,7 @@ interface VolumesFieldProps {
   data: {
     volume?: string;
   };
-  volumes: Volume[];
+  volumes: any[];
 }
 
 export const VolumesField: React.FC<VolumesFieldProps> = ({

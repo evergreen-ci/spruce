@@ -12,7 +12,7 @@ import { SpawnHostTableActions } from "./SpawnHostTableActions";
 import { SpawnTable } from "components/Spawn";
 
 interface SpawnHostTableProps {
-  hosts: Host[];
+  hosts: any[];
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();
