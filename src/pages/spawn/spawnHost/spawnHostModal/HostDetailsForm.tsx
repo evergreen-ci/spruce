@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
+import { MyVolumesQuery } from "gql/generated/types";
 import {
   HostExpirationField,
   VolumesField,
@@ -22,7 +23,7 @@ export type hostDetailsStateType = {
 interface HostDetailsFormProps {
   onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
   data: hostDetailsStateType;
-  volumes: any[];
+  volumes: MyVolumesQuery["myVolumes"];
 }
 export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   onChange,

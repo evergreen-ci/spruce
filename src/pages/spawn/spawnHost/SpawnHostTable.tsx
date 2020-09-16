@@ -5,14 +5,14 @@ import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { SpawnTable } from "components/Spawn";
-import { Host } from "gql/generated/types";
+import { Host, MyHostsQuery } from "gql/generated/types";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
-  hosts: any[];
+  hosts: MyHostsQuery["myHosts"];
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();

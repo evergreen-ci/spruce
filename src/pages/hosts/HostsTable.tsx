@@ -15,7 +15,7 @@ import {
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
-  Host,
+  HostsQuery,
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
@@ -24,13 +24,15 @@ import {
 } from "hooks";
 
 interface Props {
-  hosts: any[];
+  hosts: HostsQuery["hosts"]["hosts"];
   sortBy: HostsQueryVariables["sortBy"];
   sortDir: HostsQueryVariables["sortDir"];
   selectedHostIds: string[];
   loading: boolean;
   setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+type Host = HostsQuery["hosts"]["hosts"][0];
 
 type HostsUrlParam = keyof HostsQueryVariables;
 

@@ -5,7 +5,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { SpawnTable } from "components/Spawn";
 import { getHostRoute } from "constants/routes";
-import { Volume } from "gql/generated/types";
+import { MyVolumesQuery } from "gql/generated/types";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { parseQueryString } from "utils";
 import { sortFunctionDate } from "utils/string";
@@ -13,8 +13,10 @@ import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActi
 import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
 
 interface SpawnVolumeTableProps {
-  volumes: any[];
+  volumes: MyVolumesQuery["myVolumes"];
 }
+
+type Volume = MyVolumesQuery["myVolumes"][0];
 
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
@@ -37,8 +39,10 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
 
 const getVolumeDisplayName = (v: Volume) =>
   v.displayName ? v.displayName : v.id;
+
 const getHostDisplayName = (v: Volume) =>
   v?.host?.displayName ? v.host.displayName : v.hostID;
+
 const sortByHost = (a: Volume, b: Volume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
@@ -64,22 +68,20 @@ const columns: Array<ColumnProps<Volume>> = [
     title: "Status",
     key: "status",
     sorter: sortByHost,
+    sortOrder: "ascend",
     render: (_, volume: Volume) => <VolumeStatusBadge volume={volume} />,
   },
   {
     title: "Expires In",
     dataIndex: "expiration",
-    key: "expiration",
     sorter: (a: Volume, b: Volume) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: Volume) =>
-      volume.noExpiration
+      volume.noExpiration || !volume.expiration
         ? "Does not expire"
         : formatDistanceToNow(new Date(expiration)),
   },
   {
     title: "Actions",
-    dataIndex: "uptime",
-    key: "uptime",
     render: () => <SpawnVolumeTableActions />,
   },
 ];

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
+import { MyVolumesQuery } from "gql/generated/types";
 import { SpawnVolumeButton } from "pages/spawn/spawnVolume/SpawnVolumeButton";
 
 const { Option } = Select;
@@ -11,7 +12,7 @@ interface VolumesFieldProps {
   data: {
     volume?: string;
   };
-  volumes: any[];
+  volumes: MyVolumesQuery["myVolumes"];
 }
 
 export const VolumesField: React.FC<VolumesFieldProps> = ({

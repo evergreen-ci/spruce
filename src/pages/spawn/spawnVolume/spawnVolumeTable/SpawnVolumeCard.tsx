@@ -1,8 +1,8 @@
 import React from "react";
-import { Volume } from "gql/generated/types";
+import { MyVolumesQuery } from "gql/generated/types";
 
 interface Props {
-  volume: Volume;
+  volume: MyVolumesQuery["myVolumes"][0];
 }
 export const SpawnVolumeCard: React.FC<Props> = () => (
   <div>spawn volume card</div>

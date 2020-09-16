@@ -1,9 +1,9 @@
 import React from "react";
 import Badge, { Variant } from "components/Badge";
-import { Volume } from "gql/generated/types";
+import { MyVolumesQuery } from "gql/generated/types";
 
 interface Props {
-  volume: Volume;
+  volume: MyVolumesQuery["myVolumes"][0];
 }
 
 export const VolumeStatusBadge = ({ volume }: Props) => (
