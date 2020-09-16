@@ -56,54 +56,60 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
       data-cy={shouldShowTagInput ? "user-tag-row" : "add-tag-button-row"}
     >
       {shouldShowTagInput && (
-        <FlexContainer>
-          <FlexColumnContainer>
-            <Section>
-              <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
-              <Input
-                id={`tag_key_${tagId}`}
-                value={key}
-                onChange={(e) => updateKey(e.target.value)}
-                data-cy="user-tag-key-field"
-              />
-            </Section>
-          </FlexColumnContainer>
-          <FlexColumnContainer>
-            <Section>
-              <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
-              <Input
-                id={`tag_value_${tagId}`}
-                value={value}
-                onChange={(e) => updateValue(e.target.value)}
-                data-cy="user-tag-value-field"
-              />
-            </Section>
-          </FlexColumnContainer>
-
-          <IconButtonContainer>
-            {hasEditedTag ? (
-              <IconButton variant="light" aria-label="Edit Tag">
-                <Icon
-                  glyph="Edit"
-                  onClick={isNewTag ? createNewTagHandler : updateTag}
-                  data-cy="user-tag-edit-icon"
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            return isNewTag ? createNewTagHandler() : updateTag();
+          }}
+        >
+          <FlexContainer>
+            <FlexColumnContainer>
+              <Section>
+                <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
+                <Input
+                  id={`tag_key_${tagId}`}
+                  value={key}
+                  onChange={(e) => updateKey(e.target.value)}
+                  data-cy="user-tag-key-field"
                 />
-              </IconButton>
-            ) : (
-              <IconButton variant="light" aria-label="Delete Tag">
-                <Icon
-                  glyph="Trash"
-                  onClick={
-                    isNewTag
-                      ? () => setCreateNewTag(false)
-                      : () => onDelete(tag.key)
-                  }
-                  data-cy="user-tag-trash-icon"
+              </Section>
+            </FlexColumnContainer>
+            <FlexColumnContainer>
+              <Section>
+                <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
+                <Input
+                  id={`tag_value_${tagId}`}
+                  value={value}
+                  onChange={(e) => updateValue(e.target.value)}
+                  data-cy="user-tag-value-field"
                 />
-              </IconButton>
-            )}
-          </IconButtonContainer>
-        </FlexContainer>
+              </Section>
+            </FlexColumnContainer>
+            <IconButtonContainer>
+              {hasEditedTag ? (
+                <IconButton variant="light" aria-label="Update tag">
+                  <Icon
+                    glyph="Checkmark"
+                    onClick={isNewTag ? createNewTagHandler : updateTag}
+                    data-cy="user-tag-edit-icon"
+                  />
+                </IconButton>
+              ) : (
+                <IconButton variant="light" aria-label="Delete Tag">
+                  <Icon
+                    glyph="Trash"
+                    onClick={
+                      isNewTag
+                        ? () => setCreateNewTag(false)
+                        : () => onDelete(tag.key)
+                    }
+                    data-cy="user-tag-trash-icon"
+                  />
+                </IconButton>
+              )}
+            </IconButtonContainer>
+          </FlexContainer>
+        </form>
       )}
       {!shouldShowTagInput && (
         <ButtonContainer>
