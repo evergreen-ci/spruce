@@ -101,7 +101,6 @@ const TaskCore: React.FC = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution },
-    pollInterval,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
@@ -155,7 +154,7 @@ const TaskCore: React.FC = () => {
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
 
   // todo: unhide the buildBaronTab when it is production ready
-  const buildBaronIsProductionReady = false;
+  const buildBaronIsProductionReady = true;
   const showBuildBaronTab =
     buildBaronConfigured && failedTask && buildBaronIsProductionReady;
 
@@ -273,7 +272,11 @@ const TaskCore: React.FC = () => {
 
                 {showBuildBaronTab ? (
                   <Tab name="Build Baron" id="task-build-baron-tab">
-                    <BuildBaron data={buildBaronData} error={buildBaronError} />
+                    <BuildBaron
+                      data={buildBaronData}
+                      error={buildBaronError}
+                      taskId={id}
+                    />
                   </Tab>
                 ) : null}
               </StyledTabs>
