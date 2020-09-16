@@ -1025,6 +1025,12 @@ export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
 };
 
+export type DetachVolumeFromHostMutationVariables = {
+  volumeId: Scalars["String"];
+};
+
+export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
+
 export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
 };
