@@ -494,10 +494,11 @@ export type Host = {
   noExpiration: Scalars["Boolean"];
   instanceType?: Maybe<Scalars["String"]>;
   homeVolumeID?: Maybe<Scalars["String"]>;
+  volumes: Array<Volume>;
   user?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
   availabilityZone?: Maybe<Scalars["String"]>;
-  instanceTags?: Maybe<Array<Maybe<InstanceTag>>>;
+  instanceTags: Array<InstanceTag>;
   expiration?: Maybe<Scalars["Time"]>;
   displayName?: Maybe<Scalars["String"]>;
 };
@@ -633,6 +634,7 @@ export type Volume = {
   hostID: Scalars["String"];
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
+  host?: Maybe<Host>;
 };
 
 export type PatchProject = {
@@ -780,6 +782,7 @@ export type Task = {
   timeTaken?: Maybe<Scalars["Duration"]>;
   version: Scalars["String"];
   minQueuePosition: Scalars["Int"];
+  isPerfPluginEnabled: Scalars["Boolean"];
 };
 
 export type Projects = {
@@ -1374,15 +1377,11 @@ export type MyHostsQuery = {
       user?: Maybe<string>;
       workDir?: Maybe<string>;
     }>;
-    instanceTags?: Maybe<
-      Array<
-        Maybe<{
-          key?: Maybe<string>;
-          value?: Maybe<string>;
-          canBeModified?: Maybe<boolean>;
-        }>
-      >
-    >;
+    instanceTags: Array<{
+      key?: Maybe<string>;
+      value?: Maybe<string>;
+      canBeModified?: Maybe<boolean>;
+    }>;
   }>;
 };
 
