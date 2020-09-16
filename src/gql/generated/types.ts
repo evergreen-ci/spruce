@@ -25,6 +25,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
@@ -166,6 +167,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"];
+  updateVolume: Scalars["Boolean"];
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
@@ -266,6 +268,10 @@ export type MutationSpawnHostArgs = {
 
 export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
+};
+
+export type MutationUpdateVolumeArgs = {
+  updateVolumeInput: UpdateVolumeInput;
 };
 
 export type MutationUpdateSpawnHostStatusArgs = {
@@ -439,6 +445,13 @@ export type SpawnVolumeInput = {
   host?: Maybe<Scalars["String"]>;
 };
 
+export type UpdateVolumeInput = {
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  name?: Maybe<Scalars["String"]>;
+  volumeId: Scalars["String"];
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -475,7 +488,7 @@ export type Host = {
   user?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
   availabilityZone?: Maybe<Scalars["String"]>;
-  instanceTags?: Maybe<Array<Maybe<InstanceTag>>>;
+  instanceTags: Array<InstanceTag>;
   expiration?: Maybe<Scalars["Time"]>;
   displayName?: Maybe<Scalars["String"]>;
 };
@@ -758,6 +771,7 @@ export type Task = {
   timeTaken?: Maybe<Scalars["Duration"]>;
   version: Scalars["String"];
   minQueuePosition: Scalars["Int"];
+  isPerfPluginEnabled: Scalars["Boolean"];
 };
 
 export type Projects = {
@@ -909,6 +923,11 @@ export type ClientBinary = {
   os?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["String"]>;
   displayName?: Maybe<Scalars["String"]>;
+};
+
+export type SpruceConfig = {
+  userVoiceUrl?: Maybe<Scalars["String"]>;
+  siteBanner?: Maybe<SiteBanner>;
 };
 
 export type SiteBanner = {
@@ -1325,15 +1344,11 @@ export type MyHostsQuery = {
       user?: Maybe<string>;
       workDir?: Maybe<string>;
     }>;
-    instanceTags?: Maybe<
-      Array<
-        Maybe<{
-          key?: Maybe<string>;
-          value?: Maybe<string>;
-          canBeModified?: Maybe<boolean>;
-        }>
-      >
-    >;
+    instanceTags: Array<{
+      key?: Maybe<string>;
+      value?: Maybe<string>;
+      canBeModified?: Maybe<boolean>;
+    }>;
   }>;
 };
 
@@ -1436,6 +1451,15 @@ export type GetMyPublicKeysQuery = {
 export type SiteBannerQueryVariables = {};
 
 export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
+
+export type GetSpruceConfigQueryVariables = {};
+
+export type GetSpruceConfigQuery = {
+  spruceConfig?: Maybe<{
+    userVoiceUrl?: Maybe<string>;
+    siteBanner?: Maybe<{ text: string; theme: string }>;
+  }>;
+};
 
 export type GetTaskAllExecutionsQueryVariables = {
   taskId: Scalars["String"];
