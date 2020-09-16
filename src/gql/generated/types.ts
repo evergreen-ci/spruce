@@ -1048,6 +1048,12 @@ export type RemovePublicKeyMutation = {
   removePublicKey: Array<{ key: string; name: string }>;
 };
 
+export type RemoveVolumeMutationVariables = {
+  volumeId: Scalars["String"];
+};
+
+export type RemoveVolumeMutation = { removeVolume: boolean };
+
 export type RestartJasperMutationVariables = {
   hostIds: Array<Scalars["String"]>;
 };
