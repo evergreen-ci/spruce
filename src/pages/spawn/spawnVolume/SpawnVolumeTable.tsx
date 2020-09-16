@@ -87,7 +87,7 @@ const columns: Array<ColumnProps<Volume>> = [
   },
   {
     title: "Actions",
-    render: () => <SpawnVolumeTableActions />,
+    render: (volume: Volume) => <SpawnVolumeTableActions volume={volume} />,
   },
 ];
 

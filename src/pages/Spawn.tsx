@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Route, useParams, Redirect, Link } from "react-router-dom";
 import { Banners } from "components/Banners";
+import { Container } from "components/Spawn";
 import { PaddedSideNavItem, PageWrapper } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
 import {
@@ -47,10 +48,12 @@ const SpawnTabs = () => {
         </SideNavGroup>
       </SideNav>
       <div>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
+        <Container>
+          <Banners
+            banners={bannersState}
+            removeBanner={dispatchBanner.removeBanner}
+          />
+        </Container>
         <Route path={routes.spawnHost} component={SpawnHost} />
         <Route path={routes.spawnVolume} component={SpawnVolume} />
       </div>
