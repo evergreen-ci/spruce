@@ -40,6 +40,7 @@ export type Query = {
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
   buildBaron: BuildBaron;
+  bbGetCreatedTickets: Array<JiraTicket>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -144,6 +145,10 @@ export type QueryBuildBaronArgs = {
   execution: Scalars["Int"];
 };
 
+export type QueryBbGetCreatedTicketsArgs = {
+  taskId: Scalars["String"];
+};
+
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
@@ -166,6 +171,7 @@ export type Mutation = {
   createPublicKey: Array<PublicKey>;
   spawnHost: Host;
   spawnVolume: Scalars["Boolean"];
+  updateVolume: Scalars["Boolean"];
   updateSpawnHostStatus: Host;
   removePublicKey: Array<PublicKey>;
   updatePublicKey: Array<PublicKey>;
@@ -173,6 +179,7 @@ export type Mutation = {
   detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
+  bbCreateTicket: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -268,6 +275,10 @@ export type MutationSpawnVolumeArgs = {
   spawnVolumeInput: SpawnVolumeInput;
 };
 
+export type MutationUpdateVolumeArgs = {
+  updateVolumeInput: UpdateVolumeInput;
+};
+
 export type MutationUpdateSpawnHostStatusArgs = {
   hostId: Scalars["String"];
   action: SpawnHostStatusActions;
@@ -296,6 +307,10 @@ export type MutationRemoveVolumeArgs = {
 
 export type MutationEditSpawnHostArgs = {
   spawnHost?: Maybe<EditSpawnHostInput>;
+};
+
+export type MutationBbCreateTicketArgs = {
+  taskId: Scalars["String"];
 };
 
 export enum SpawnHostStatusActions {
@@ -437,6 +452,13 @@ export type SpawnVolumeInput = {
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   host?: Maybe<Scalars["String"]>;
+};
+
+export type UpdateVolumeInput = {
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+  name?: Maybe<Scalars["String"]>;
+  volumeId: Scalars["String"];
 };
 
 export type TaskQueueItem = {
@@ -1161,6 +1183,33 @@ export type DistroTaskQueueQuery = {
     priority: number;
     version: string;
   }>;
+};
+
+export type BuildBaronQueryVariables = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+};
+
+export type BuildBaronQuery = {
+  buildBaron: {
+    buildBaronConfigured: boolean;
+    searchReturnInfo?: Maybe<{
+      search: string;
+      source: string;
+      featuresURL: string;
+      issues: Array<{
+        key: string;
+        fields: {
+          summary: string;
+          assigneeDisplayName?: Maybe<string>;
+          resolutionName?: Maybe<string>;
+          created: string;
+          updated: string;
+          status: { id: string; name: string };
+        };
+      }>;
+    }>;
+  };
 };
 
 export type ClientConfigQueryVariables = {};

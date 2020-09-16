@@ -7,6 +7,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
+import BuildBaron from "components/Buildbaron/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -24,8 +25,17 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
+import {
+  BuildBaronQuery,
+  BuildBaronQueryVariables,
+  GetTaskQuery,
+  GetTaskQueryVariables,
+} from "gql/generated/types";
+import {
+  GET_TASK,
+  GET_TASK_LATEST_EXECUTION,
+  GET_BUILD_BARON,
+} from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -129,6 +139,26 @@ const TaskCore: React.FC = () => {
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
 
+  // Query build baron data
+  const { data: buildBaronData, error: buildBaronError } = useQuery<
+    BuildBaronQuery,
+    BuildBaronQueryVariables
+  >(GET_BUILD_BARON, {
+    variables: { taskId: id, execution },
+    pollInterval,
+  });
+  const buildBaron = buildBaronData?.buildBaron;
+  const buildBaronConfigured = buildBaron?.buildBaronConfigured;
+
+  // logic for displaying the build baron tab
+  const failedTask =
+    task?.status?.includes("failed") || task?.status?.includes("timed-out");
+
+  // todo: unhide the buildBaronTab when it is production ready
+  const buildBaronIsProductionReady = false;
+  const showBuildBaronTab =
+    buildBaronConfigured && failedTask && buildBaronIsProductionReady;
+
   if (error) {
     stopPolling();
   }
@@ -197,49 +227,57 @@ const TaskCore: React.FC = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-              <Tab name="Logs" id="task-logs-tab">
-                <Logs logLinks={logLinks} />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {failedTestCount ? (
-                      <TabLabelWithBadge
-                        tabLabel="Tests"
-                        badgeVariant="red"
-                        badgeText={failedTestCount}
-                        dataCyBadge="test-tab-badge"
-                      />
-                    ) : (
-                      "Tests"
-                    )}
-                  </span>
-                }
-                id="task-tests-tab"
-              >
-                <TestsTable />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {fileCount !== undefined ? (
-                      <TabLabelWithBadge
-                        tabLabel="Files"
-                        badgeVariant="lightgray"
-                        badgeText={fileCount}
-                        dataCyBadge="files-tab-badge"
-                      />
-                    ) : (
-                      "Files"
-                    )}
-                  </span>
-                }
-                id="task-files-tab"
-              >
-                <FilesTables />
-              </Tab>
-            </StyledTabs>
+            {showBuildBaronTab !== undefined && (
+              <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
+                <Tab name="Logs" id="task-logs-tab">
+                  <Logs logLinks={logLinks} />
+                </Tab>
+                <Tab
+                  name={
+                    <span>
+                      {failedTestCount ? (
+                        <TabLabelWithBadge
+                          tabLabel="Tests"
+                          badgeVariant="red"
+                          badgeText={failedTestCount}
+                          dataCyBadge="test-tab-badge"
+                        />
+                      ) : (
+                        "Tests"
+                      )}
+                    </span>
+                  }
+                  id="task-tests-tab"
+                >
+                  <TestsTable />
+                </Tab>
+                <Tab
+                  name={
+                    <span>
+                      {fileCount !== undefined ? (
+                        <TabLabelWithBadge
+                          tabLabel="Files"
+                          badgeVariant="lightgray"
+                          badgeText={fileCount}
+                          dataCyBadge="files-tab-badge"
+                        />
+                      ) : (
+                        "Files"
+                      )}
+                    </span>
+                  }
+                  id="task-files-tab"
+                >
+                  <FilesTables />
+                </Tab>
+
+                {showBuildBaronTab ? (
+                  <Tab name="Build Baron" id="task-build-baron-tab">
+                    <BuildBaron data={buildBaronData} error={buildBaronError} />
+                  </Tab>
+                ) : null}
+              </StyledTabs>
+            )}
           </PageContent>
         </LogWrapper>
       </PageLayout>

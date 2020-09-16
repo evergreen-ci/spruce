@@ -36,3 +36,4 @@ export { TASK_QUEUE_DISTROS } from "./task-queue-distros";
 export { GET_MY_VOLUMES } from "./get-my-volumes";
 export { TASK_QUEUE_POSITION } from "./task-queue-position";
 export { GET_INSTANCE_TYPES } from "./get-instance-types";
+export { GET_BUILD_BARON } from "./get-build-baron";

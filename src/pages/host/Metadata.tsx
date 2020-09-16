@@ -12,7 +12,6 @@ export const Metadata: React.FC<{
   loading: boolean;
   data: HostQuery;
   error: ApolloError;
-  timeZone: string;
 }> = ({ loading, data, error }) => {
   const host = data?.host ?? null;
 

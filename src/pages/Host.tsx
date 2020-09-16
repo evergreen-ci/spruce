@@ -122,7 +122,6 @@ export const HostCore: React.FC = () => {
                 loading={hostMetaDataLoading}
                 data={hostData}
                 error={error}
-                timeZone={timeZone}
               />
               <Code language="shell" data-cy="ssh-command">
                 {sshCommand}
