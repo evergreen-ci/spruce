@@ -52,7 +52,9 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
 
   const shouldShowTagInput = createNewTag || !isNewTag;
   return (
-    <FlexColumnContainer>
+    <FlexColumnContainer
+      data-cy={shouldShowTagInput ? "user-tag-row" : "add-tag-button-row"}
+    >
       {shouldShowTagInput && (
         <FlexContainer>
           <FlexColumnContainer>
@@ -62,6 +64,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
                 id={`tag_key_${tagId}`}
                 value={key}
                 onChange={(e) => updateKey(e.target.value)}
+                data-cy="user-tag-key-field"
               />
             </Section>
           </FlexColumnContainer>
@@ -72,6 +75,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
                 id={`tag_value_${tagId}`}
                 value={value}
                 onChange={(e) => updateValue(e.target.value)}
+                data-cy="user-tag-value-field"
               />
             </Section>
           </FlexColumnContainer>
@@ -82,6 +86,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
                 <Icon
                   glyph="Edit"
                   onClick={isNewTag ? createNewTagHandler : updateTag}
+                  data-cy="user-tag-edit-icon"
                 />
               </IconButton>
             ) : (
@@ -93,6 +98,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
                       ? () => setCreateNewTag(false)
                       : () => onDelete(tag.key)
                   }
+                  data-cy="user-tag-trash-icon"
                 />
               </IconButton>
             )}
@@ -104,6 +110,7 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
           <PlusButton
             disabled={createNewTag}
             onClick={() => setCreateNewTag(!createNewTag)}
+            data-cy="add-tag-button"
           >
             Add Tag
           </PlusButton>
