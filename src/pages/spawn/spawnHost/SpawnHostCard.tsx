@@ -2,36 +2,26 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
-import { SiderCard } from "components/styles";
+import { CardContainer, CardField } from "components/Spawn";
 import { routes } from "constants/routes";
-import { Host } from "gql/generated/types";
+import { MyHostsQuery } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
 
+type Host = MyHostsQuery["myHosts"][0];
 interface SpawnHostCardProps {
   host: Host;
 }
 
 export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
-  <StyledSiderCard data-cy="spawn-host-card">
+  <CardContainer data-cy="spawn-host-card">
     {Object.keys(spawnHostCardFieldMaps).map((key) => (
-      <SpawnHostEntry
+      <CardField
         key={`${key}_${host.id}`}
         field={key}
         value={spawnHostCardFieldMaps[key](host)}
       />
     ))}
-  </StyledSiderCard>
-);
-
-interface SpawnHostEntryProps {
-  field: string;
-  value: string | { key: string; value: string }[];
-}
-const SpawnHostEntry: React.FC<SpawnHostEntryProps> = ({ field, value }) => (
-  <SpawnHostEntryWrapper>
-    <KeyWrapper>{field}</KeyWrapper>
-    <div>{value}</div>
-  </SpawnHostEntryWrapper>
+  </CardContainer>
 );
 
 const spawnHostCardFieldMaps = {
@@ -72,18 +62,4 @@ const spawnHostCardFieldMaps = {
 const PaddedBadge = styled(Badge)`
   margin-left: 8px;
   margin-right: 8px;
-`;
-const StyledSiderCard = styled(SiderCard)`
-  width: 80%;
-  padding-bottom: 32px;
-`;
-const SpawnHostEntryWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const KeyWrapper = styled.div`
-  min-width: 150px;
 `;

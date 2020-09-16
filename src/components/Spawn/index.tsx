@@ -5,6 +5,7 @@ import { H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/icons/Icon";
+import { SiderCard } from "components/styles";
 
 export const Container = styled.div`
   margin-left: 60px;
@@ -53,4 +54,31 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
       }}
     />
   </TableContainer>
+);
+
+export const CardContainer = styled(SiderCard)`
+  width: 80%;
+  padding-bottom: 32px;
+`;
+
+const FieldContainer = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+`;
+
+const FieldName = styled.div`
+  min-width: 150px;
+`;
+interface CardFieldProps {
+  field: string;
+  value: string | { key: string; value: string }[];
+}
+
+export const CardField: React.FC<CardFieldProps> = ({ field, value }) => (
+  <FieldContainer>
+    <FieldName>{field}</FieldName>
+    <div>{value}</div>
+  </FieldContainer>
 );

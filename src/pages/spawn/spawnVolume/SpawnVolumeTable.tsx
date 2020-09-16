@@ -23,10 +23,8 @@ type Volume = MyVolumesQuery["myVolumes"][0];
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
-  console.log(volumes);
   const { search } = useLocation();
-  const queryParams = parseQueryString(search);
-  const volume = queryParams?.volume;
+  const volume = parseQueryString(search)?.volume;
   return (
     <SpawnTable
       expandedRowRender={(record: Volume) => (
