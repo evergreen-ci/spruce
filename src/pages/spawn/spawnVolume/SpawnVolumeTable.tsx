@@ -1,9 +1,11 @@
 import React from "react";
+import styled from "@emotion/styled";
 import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { SpawnTable } from "components/Spawn";
+import { wordBreakCss } from "components/Typography";
 import { getHostRoute } from "constants/routes";
 import { MyVolumesQuery } from "gql/generated/types";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
@@ -52,7 +54,10 @@ const columns: Array<ColumnProps<Volume>> = [
     key: "displayName",
     sorter: (a: Volume, b: Volume) =>
       getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
-    render: (_, volume: Volume) => getVolumeDisplayName(volume),
+    render: (_, volume: Volume) => (
+      <WordBreak>{getVolumeDisplayName(volume)}</WordBreak>
+    ),
+    width: 400,
   },
   {
     title: "Mounted On",
@@ -60,15 +65,15 @@ const columns: Array<ColumnProps<Volume>> = [
     sorter: sortByHost,
     render: (_, volume: Volume) => (
       <Link data-cy="host-link" to={getHostRoute(volume.hostID)}>
-        {getHostDisplayName(volume)}
+        <WordBreak> {getHostDisplayName(volume)}</WordBreak>
       </Link>
     ),
+    width: 400,
   },
   {
     title: "Status",
     key: "status",
     sorter: sortByHost,
-    sortOrder: "ascend",
     render: (_, volume: Volume) => <VolumeStatusBadge volume={volume} />,
   },
   {
@@ -85,3 +90,7 @@ const columns: Array<ColumnProps<Volume>> = [
     render: () => <SpawnVolumeTableActions />,
   },
 ];
+
+const WordBreak = styled.span`
+  ${wordBreakCss};
+`;
