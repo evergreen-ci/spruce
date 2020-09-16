@@ -73,7 +73,7 @@ const FieldName = styled.div`
 `;
 interface CardFieldProps {
   field: string;
-  value: string | { key: string; value: string }[];
+  value: string | { key: string; value: string }[] | JSX.Element;
 }
 
 export const CardField: React.FC<CardFieldProps> = ({ field, value }) => (
@@ -82,3 +82,5 @@ export const CardField: React.FC<CardFieldProps> = ({ field, value }) => (
     <div>{value}</div>
   </FieldContainer>
 );
+
+export const DoesNotExpire: React.FC = () => <>Does not expire</>;

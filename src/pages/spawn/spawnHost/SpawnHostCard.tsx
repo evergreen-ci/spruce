@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
-import { CardContainer, CardField } from "components/Spawn";
+import { CardContainer, CardField, DoesNotExpire } from "components/Spawn";
 import { routes } from "constants/routes";
 import { MyHostsQuery } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
@@ -29,7 +29,7 @@ const spawnHostCardFieldMaps = {
   "Started at": (host: Host) => <span>{getDateCopy(host?.uptime)}</span>,
   "Expires at": (host: Host) => (
     <span>
-      {host?.noExpiration ? "Does not expire" : getDateCopy(host?.expiration)}
+      {host?.noExpiration ? <DoesNotExpire /> : getDateCopy(host?.expiration)}
     </span>
   ),
   "SSH User": (host: Host) => <span>{host?.distro?.user}</span>,

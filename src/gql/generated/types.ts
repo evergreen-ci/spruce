@@ -625,6 +625,7 @@ export type Volume = {
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
   host?: Maybe<Host>;
+  creationTime: Scalars["Time"];
 };
 
 export type PatchProject = {
@@ -1364,6 +1365,7 @@ export type MyVolumesQuery = {
     hostID: string;
     noExpiration: boolean;
     homeVolume: boolean;
+    creationTime: Date;
     host?: Maybe<{ displayName?: Maybe<string> }>;
   }>;
 };

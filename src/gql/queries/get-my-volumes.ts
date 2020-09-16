@@ -17,6 +17,7 @@ export const GET_MY_VOLUMES = gql`
       }
       noExpiration
       homeVolume
+      creationTime
     }
   }
 `;

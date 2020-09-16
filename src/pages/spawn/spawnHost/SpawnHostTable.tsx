@@ -4,7 +4,7 @@ import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import { SpawnTable } from "components/Spawn";
+import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { Host, MyHostsQuery } from "gql/generated/types";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
@@ -64,9 +64,11 @@ const columns = [
     key: "expiration",
     sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, host: Host) =>
-      host?.noExpiration
-        ? "Does not expire"
-        : formatDistanceToNow(new Date(expiration)),
+      host?.noExpiration ? (
+        <DoesNotExpire />
+      ) : (
+        formatDistanceToNow(new Date(expiration))
+      ),
   },
   {
     title: "Uptime",

@@ -4,7 +4,7 @@ import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
-import { SpawnTable } from "components/Spawn";
+import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { wordBreakCss } from "components/Typography";
 import { getHostRoute } from "constants/routes";
 import { MyVolumesQuery } from "gql/generated/types";
@@ -79,9 +79,11 @@ const columns: Array<ColumnProps<Volume>> = [
     dataIndex: "expiration",
     sorter: (a: Volume, b: Volume) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: Volume) =>
-      volume.noExpiration || !volume.expiration
-        ? "Does not expire"
-        : formatDistanceToNow(new Date(expiration)),
+      volume.noExpiration || !volume.expiration ? (
+        <DoesNotExpire />
+      ) : (
+        formatDistanceToNow(new Date(expiration))
+      ),
   },
   {
     title: "Actions",
