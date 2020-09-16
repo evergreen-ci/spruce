@@ -112,7 +112,7 @@ export const omitTypename = (object) =>
 
 export const getDateCopy = (time: Date, tz?: string, dateOnly?: boolean) => {
   if (tz) {
-    const dateFormat = dateOnly ? "MMM d, YYYY" : "MMM d, YYYY h:mm:ss a";
+    const dateFormat = dateOnly ? "MMM D, YYYY" : "MMM D, YYYY h:mm:ss a";
 
     return formatToTimeZone(time, dateFormat, {
       timeZone: tz,
