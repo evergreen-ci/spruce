@@ -1378,7 +1378,7 @@ export type MyVolumesQuery = {
     noExpiration: boolean;
     homeVolume: boolean;
     creationTime: Date;
-    host?: Maybe<{ displayName?: Maybe<string> }>;
+    host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
 };
 
