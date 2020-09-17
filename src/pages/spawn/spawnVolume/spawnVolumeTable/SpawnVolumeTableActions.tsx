@@ -2,16 +2,22 @@ import React from "react";
 import styled from "@emotion/styled";
 import { MyVolumesQuery } from "gql/generated/types";
 import { DeleteVolumeBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/DeleteVolumeBtn";
-import { UnmountBtn } from "./spawnVolumeTableActions/UnmountBtn";
+import { MountBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/MountBtn";
+import { UnmountBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/UnmountBtn";
 
 type Volume = MyVolumesQuery["myVolumes"][0];
 interface Props {
   volume: Volume;
 }
+
 export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
-  <FlexRow>
+  <FlexRow onClick={(e) => e.stopPropagation()}>
     <DeleteVolumeBtn volume={volume} />
-    {volume.host && <UnmountBtn volume={volume} />}
+    {volume.host ? (
+      <UnmountBtn volume={volume} />
+    ) : (
+      <MountBtn volume={volume} />
+    )}
   </FlexRow>
 );
 

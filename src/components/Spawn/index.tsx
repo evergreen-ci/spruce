@@ -84,3 +84,8 @@ export const CardField: React.FC<CardFieldProps> = ({ field, value }) => (
 );
 
 export const DoesNotExpire: React.FC = () => <>Does not expire</>;
+
+export const WideButton = styled(Button)`
+  justify-content: center;
+  width: 140px;
+`;
