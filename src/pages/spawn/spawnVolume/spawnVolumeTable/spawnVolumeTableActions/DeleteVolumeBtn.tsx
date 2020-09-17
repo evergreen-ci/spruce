@@ -1,8 +1,8 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
-import { Popconfirm } from "antd";
 import Icon from "components/icons/Icon";
+import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
 import {
   MyVolumesQuery,
@@ -31,29 +31,22 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
   const volumeName = volume.displayName ? volume.displayName : volume.id;
 
   return (
-    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-    <span
-      onClick={(e) => {
-        e.stopPropagation(); // Stop click propagation for clicks on Popconfirm popup body.
+    <Popconfirm
+      icon={null}
+      placement="left"
+      title={`Delete this volume ${volumeName}?`}
+      onConfirm={() => {
+        removeVolume({ variables: { volumeId: volume.id } });
       }}
+      okText="Yes"
+      cancelText="Cancel"
     >
-      <Popconfirm
-        icon={null}
-        placement="left"
-        title={`Delete this volume ${volumeName}?`}
-        onConfirm={() => {
-          removeVolume({ variables: { volumeId: volume.id } });
-        }}
-        okText="Yes"
-        cancelText="Cancel"
-      >
-        <Button
-          size="small"
-          data-cy="delete-btn"
-          glyph={<Icon glyph="Trash" />}
-          disabled={loadingRemoveVolume}
-        />
-      </Popconfirm>
-    </span>
+      <Button
+        size="small"
+        data-cy="delete-btn"
+        glyph={<Icon glyph="Trash" />}
+        disabled={loadingRemoveVolume}
+      />
+    </Popconfirm>
   );
 };
