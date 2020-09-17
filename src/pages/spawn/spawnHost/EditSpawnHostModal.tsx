@@ -35,13 +35,13 @@ interface editSpawnHostState {
   deletedInstanceTags?: InstanceTag[];
 }
 interface EditSpawnHostModalProps {
-  visible: boolean;
+  visible?: boolean;
   onOk: () => void;
   onCancel: () => void;
   host: Host;
 }
 export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
-  visible,
+  visible = true,
   onCancel,
   host,
 }) => {
@@ -171,6 +171,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             data={editSpawnHostState}
             onChange={setEditSpawnHostState}
             instanceTags={instanceTags}
+            visible={visible}
           />
         </SectionContainer>
       </Container>

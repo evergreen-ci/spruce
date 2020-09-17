@@ -13,11 +13,13 @@ interface UserTagsFieldProps {
   data: UserTagsFieldStateType;
   onChange: React.Dispatch<React.SetStateAction<any>>;
   instanceTags: InstanceTag[];
+  visible?: boolean;
 }
 export const UserTagsField: React.FC<UserTagsFieldProps> = ({
   data,
   onChange,
   instanceTags,
+  visible = true,
 }) => {
   const userTags = instanceTags?.filter((tag) => tag.canBeModified);
   const [visibleTags, setVisibleTags] = useState(userTags);
@@ -50,6 +52,11 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
       addedInstanceTags: addedTags,
     });
   }, [visibleTags]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // used to reset the user tags when we close the modal
+  useEffect(() => {
+    setVisibleTags(userTags);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const deleteHandler = (key: string) => {
     if (visibleTagsAsObject[key]) {
