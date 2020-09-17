@@ -938,8 +938,13 @@ export type ClientBinary = {
 };
 
 export type SpruceConfig = {
-  userVoiceUrl?: Maybe<Scalars["String"]>;
-  siteBanner?: Maybe<SiteBanner>;
+  ui?: Maybe<UiConfig>;
+  banner?: Maybe<Scalars["String"]>;
+  bannerTheme?: Maybe<Scalars["String"]>;
+};
+
+export type UiConfig = {
+  uservoice?: Maybe<Scalars["String"]>;
 };
 
 export type SiteBanner = {
@@ -1495,8 +1500,9 @@ export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
-    userVoiceUrl?: Maybe<string>;
-    siteBanner?: Maybe<{ text: string; theme: string }>;
+    bannerTheme?: Maybe<string>;
+    banner?: Maybe<string>;
+    ui?: Maybe<{ uservoice?: Maybe<string> }>;
   }>;
 };
 
