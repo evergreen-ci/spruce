@@ -41,6 +41,7 @@ export type Query = {
   distroTaskQueue: Array<TaskQueueItem>;
   taskQueueDistros: Array<TaskQueueDistro>;
   buildBaron: BuildBaron;
+  bbGetCreatedTickets: Array<JiraTicket>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -145,6 +146,10 @@ export type QueryBuildBaronArgs = {
   execution: Scalars["Int"];
 };
 
+export type QueryBbGetCreatedTicketsArgs = {
+  taskId: Scalars["String"];
+};
+
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
@@ -175,6 +180,7 @@ export type Mutation = {
   detachVolumeFromHost: Scalars["Boolean"];
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
+  bbCreateTicket: Scalars["Boolean"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -302,6 +308,10 @@ export type MutationRemoveVolumeArgs = {
 
 export type MutationEditSpawnHostArgs = {
   spawnHost?: Maybe<EditSpawnHostInput>;
+};
+
+export type MutationBbCreateTicketArgs = {
+  taskId: Scalars["String"];
 };
 
 export enum SpawnHostStatusActions {
@@ -485,6 +495,7 @@ export type Host = {
   noExpiration: Scalars["Boolean"];
   instanceType?: Maybe<Scalars["String"]>;
   homeVolumeID?: Maybe<Scalars["String"]>;
+  volumes: Array<Volume>;
   user?: Maybe<Scalars["String"]>;
   distro?: Maybe<DistroInfo>;
   availabilityZone?: Maybe<Scalars["String"]>;
@@ -624,6 +635,7 @@ export type Volume = {
   hostID: Scalars["String"];
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
+  host?: Maybe<Host>;
 };
 
 export type PatchProject = {
@@ -1180,6 +1192,33 @@ export type DistroTaskQueueQuery = {
     priority: number;
     version: string;
   }>;
+};
+
+export type BuildBaronQueryVariables = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+};
+
+export type BuildBaronQuery = {
+  buildBaron: {
+    buildBaronConfigured: boolean;
+    searchReturnInfo?: Maybe<{
+      search: string;
+      source: string;
+      featuresURL: string;
+      issues: Array<{
+        key: string;
+        fields: {
+          summary: string;
+          assigneeDisplayName?: Maybe<string>;
+          resolutionName?: Maybe<string>;
+          created: string;
+          updated: string;
+          status: { id: string; name: string };
+        };
+      }>;
+    }>;
+  };
 };
 
 export type ClientConfigQueryVariables = {};
