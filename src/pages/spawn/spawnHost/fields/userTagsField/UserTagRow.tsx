@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
@@ -24,6 +24,15 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
   const [value, setValue] = useState(tag?.value);
   const [hasEditedTag, setHasEditedTag] = useState(false);
   const [createNewTag, setCreateNewTag] = useState(false);
+  const [isInputValid, setIsInputValid] = useState(false);
+
+  useEffect(() => {
+    if (key === "" || value === "") {
+      setIsInputValid(false);
+    } else {
+      setIsInputValid(true);
+    }
+  }, [key, value]);
 
   const tagId = uuid();
   const updateKey = (k) => {
@@ -87,7 +96,11 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
             </FlexColumnContainer>
             <IconButtonContainer>
               {hasEditedTag ? (
-                <IconButton variant="light" aria-label="Update tag">
+                <IconButton
+                  variant="light"
+                  aria-label="Update tag"
+                  disabled={!isInputValid}
+                >
                   <Icon
                     glyph="Checkmark"
                     onClick={isNewTag ? createNewTagHandler : updateTag}
