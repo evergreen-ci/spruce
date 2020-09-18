@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import { CardContainer, CardField, DoesNotExpire } from "components/Spawn";
 import { routes } from "constants/routes";
 import { MyHostsQuery } from "gql/generated/types";
@@ -39,13 +40,13 @@ const spawnHostCardFieldMaps = {
   "User Tags": (host: Host) => (
     <span>
       {host?.instanceTags?.map((tag) => (
-        <>
+        <span key={uuid()}>
           {tag.canBeModified && (
             <PaddedBadge>
               {tag?.key}:{tag?.value}
             </PaddedBadge>
           )}
-        </>
+        </span>
       ))}
     </span>
   ),
