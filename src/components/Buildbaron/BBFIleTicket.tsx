@@ -82,7 +82,6 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       placement="right"
       okText="File Ticket"
       okButtonProps={{ loading: loadingFileJiraTicket }}
-      // cancelText="Cancel"
       cancelButtonProps={{ disabled: loadingFileJiraTicket }}
     >
       <FileButton
