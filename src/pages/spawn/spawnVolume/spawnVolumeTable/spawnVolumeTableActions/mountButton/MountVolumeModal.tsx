@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useMutation, useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import { Modal } from "components/Modal";
-import { WideButton } from "components/Spawn";
+import { ModalContent, Section, WideButton } from "components/Spawn";
+import { InputLabel } from "components/styles";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -114,17 +117,30 @@ export const MountVolumeModal: React.FC<Props> = ({
       ]}
       data-cy="mount-volume-modal"
     >
-      <Select
-        defaultValue={selectedHostId}
-        onChange={(newValue) => setSelectedHostId(newValue)}
-        data-cy="host-select"
-      >
-        {hostOptions.map(({ key, displayName }) => (
-          <Option value={key} key={key} data-cy={`${key}-option`}>
-            {displayName}
-          </Option>
-        ))}
-      </Select>
+      <ModalContent>
+        <Section>
+          <InputLabel htmlFor="hostDropdown">Host Name</InputLabel>
+          <Select
+            id="hostDropdown"
+            defaultValue={selectedHostId}
+            onChange={(newValue) => setSelectedHostId(newValue)}
+            data-cy="host-select"
+          >
+            {hostOptions.map(({ key, displayName }) => (
+              <Option value={key} key={key} data-cy={`${key}-option`}>
+                {displayName}
+              </Option>
+            ))}
+          </Select>
+        </Section>
+        <StyledDisclaimer>
+          {`Only shows running hosts in zone ${targetAvailabilityZone}.`}
+        </StyledDisclaimer>
+      </ModalContent>
     </Modal>
   );
 };
+
+const StyledDisclaimer = styled(Disclaimer)`
+  padding-top: 8px;
+`;

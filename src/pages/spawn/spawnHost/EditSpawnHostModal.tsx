@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
-import { Body } from "@leafygreen-ui/typography";
+import { Variant } from "@leafygreen-ui/button";
 import { Input, Select } from "antd";
 import isEqual from "lodash.isequal";
 import { Modal } from "components/Modal";
+import {
+  ModalContent,
+  Section,
+  SectionContainer,
+  SectionLabel,
+  WideButton,
+} from "components/Spawn";
 import { InputLabel } from "components/styles";
 import {
   Host,
@@ -88,7 +93,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       ]}
       data-cy="spawn-host-modal"
     >
-      <Container>
+      <ModalContent>
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
           <Section>
@@ -150,35 +155,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             volumes={volumes}
           />
         </SectionContainer>
-      </Container>
+      </ModalContent>
     </Modal>
   );
 };
-
-const FlexContainer = styled.div`
-  display: flex;
-`;
-
-const SectionContainer = styled(FlexContainer)`
-  align-items: center;
-  margin-top: 15px;
-`;
-
-const SectionLabel = styled(Body)`
-  padding-right: 15px;
-  margin-top: 22px;
-  min-width: 175px;
-`;
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Section = styled(Container)`
-  margin-top: 20px;
-`;
-
-const WideButton = styled(Button)`
-  justify-content: center;
-  width: 140px;
-`;

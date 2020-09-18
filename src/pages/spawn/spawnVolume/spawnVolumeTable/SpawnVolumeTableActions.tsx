@@ -11,7 +11,7 @@ interface Props {
 }
 
 export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
-  <FlexRow onClick={(e) => e.stopPropagation()}>
+  <FlexRow>
     <DeleteVolumeBtn volume={volume} />
     {volume.host ? (
       <UnmountBtn volume={volume} />
