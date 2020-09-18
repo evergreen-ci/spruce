@@ -48,12 +48,14 @@ import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
+import { TrendCharts } from "./task/TrendCharts";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
   [TaskTab.BuildBaron]: 3,
+  [TaskTab.TrendCharts]: 4,
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
@@ -123,6 +125,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
+  const isPerfPluginEnabled = false;
   const patchAuthor = data?.task.patchMetadata.author;
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
@@ -270,12 +273,16 @@ const TaskCore: React.FC = () => {
                 >
                   <FilesTables />
                 </Tab>
-
                 {showBuildBaronTab ? (
                   <Tab name="Build Baron" id="task-build-baron-tab">
                     <BuildBaron data={buildBaronData} error={buildBaronError} />
                   </Tab>
                 ) : null}
+                {isPerfPluginEnabled && (
+                  <Tab name="Trend Charts" id="trend-charts-tab">
+                    <TrendCharts />
+                  </Tab>
+                )}
               </StyledTabs>
             )}
           </PageContent>
