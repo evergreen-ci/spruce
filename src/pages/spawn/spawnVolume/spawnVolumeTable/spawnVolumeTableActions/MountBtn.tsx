@@ -12,20 +12,22 @@ export const MountBtn: React.FC<Props> = ({ volume }) => {
   const [openModal, setOpenModal] = useState(false);
 
   return (
-    <Button
-      size="small"
-      data-cy="detach-btn"
-      onClick={(e) => {
-        e.stopPropagation();
-        setOpenModal(true);
-      }}
-    >
-      Mount
+    <>
+      <Button
+        size="small"
+        data-cy="detach-btn"
+        onClick={(e) => {
+          e.stopPropagation();
+          setOpenModal(true);
+        }}
+      >
+        Mount
+      </Button>
       <MountVolumeModal
         visible={openModal}
         onCancel={() => setOpenModal(false)}
         volume={volume}
       />
-    </Button>
+    </>
   );
 };

@@ -109,6 +109,7 @@ export const MountVolumeModal: React.FC<Props> = ({
                 },
               },
             });
+            onCancel();
           }}
           variant={Variant.Primary}
         >
