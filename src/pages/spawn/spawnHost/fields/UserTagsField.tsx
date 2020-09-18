@@ -81,9 +81,10 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
           onDelete={deleteHandler}
           key={tag.key}
           onUpdateTag={updateTagHandler}
+          resetRow={visible}
         />
       ))}
-      <UserTagRow onUpdateTag={updateTagHandler} isNewTag />
+      <UserTagRow onUpdateTag={updateTagHandler} isNewTag resetRow={visible} />
     </FlexColumnContainer>
   );
 };

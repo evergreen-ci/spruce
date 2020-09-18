@@ -13,12 +13,14 @@ interface UserTagRowProps {
   onDelete?: (key: string) => void;
   onUpdateTag?: (tag: InstanceTag, deleteKey?: string) => void;
   isNewTag?: boolean;
+  resetRow?: boolean;
 }
 export const UserTagRow: React.FC<UserTagRowProps> = ({
   tag,
   onDelete,
   onUpdateTag,
   isNewTag = false,
+  resetRow,
 }) => {
   const [key, setKey] = useState(tag?.key);
   const [value, setValue] = useState(tag?.value);
@@ -33,6 +35,16 @@ export const UserTagRow: React.FC<UserTagRowProps> = ({
       setIsInputValid(true);
     }
   }, [key, value]);
+
+  useEffect(() => {
+    if (!resetRow) {
+      setKey(tag?.key);
+      setValue(tag?.value);
+      setHasEditedTag(false);
+      setCreateNewTag(false);
+      setIsInputValid(false);
+    }
+  }, [resetRow, tag]);
 
   const tagId = uuid();
   const updateKey = (k) => {
