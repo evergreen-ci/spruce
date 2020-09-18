@@ -54,6 +54,7 @@ export const GET_TASK = gql`
       blocked
       generatedBy
       generatedByName
+      isPerfPluginEnabled
     }
   }
 `;
