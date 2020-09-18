@@ -36,6 +36,7 @@ export enum TaskTab {
   Tests = "tests",
   Files = "files",
   BuildBaron = "build-baron",
+  TrendCharts = "trend-charts",
 }
 
 export enum LogTypes {

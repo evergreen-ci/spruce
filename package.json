@@ -24,6 +24,7 @@
     "@leafygreen-ui/text-input": "1.1.1",
     "@leafygreen-ui/toggle": "3.0.1",
     "@leafygreen-ui/typography": "1.0.1",
+    "@mohamed.khelif-mongo/perf-plugin": "^0.2.1",
     "ansi_up": "4.0.4",
     "antd": "4.5.4",
     "antd-table-infinity": "1.1.6",

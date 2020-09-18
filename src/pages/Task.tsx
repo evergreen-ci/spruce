@@ -2,12 +2,13 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
+import { TrendCharts, QueryModule } from "@mohamed.khelif-mongo/perf-plugin";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
-import BuildBaron from "components/Buildbaron/BuildBaron";
+// import BuildBaron from "components/Buildbaron/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -53,7 +54,7 @@ const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3,
+  [TaskTab.TrendCharts]: 3,
 };
 const DEFAULT_TAB = TaskTab.Logs;
 
@@ -140,7 +141,7 @@ const TaskCore: React.FC = () => {
   });
 
   // Query build baron data
-  const { data: buildBaronData, error: buildBaronError } = useQuery<
+  const { data: buildBaronData } = useQuery<
     BuildBaronQuery,
     BuildBaronQueryVariables
   >(GET_BUILD_BARON, {
@@ -270,12 +271,19 @@ const TaskCore: React.FC = () => {
                 >
                   <FilesTables />
                 </Tab>
-
+                {/* 
+                Disabled this piece of code to get around a limitation with conditionally rendering leafygreen tabs
                 {showBuildBaronTab ? (
                   <Tab name="Build Baron" id="task-build-baron-tab">
                     <BuildBaron data={buildBaronData} error={buildBaronError} />
                   </Tab>
-                ) : null}
+                ) : null} */}
+
+                <Tab name="Trend Charts" id="Trend Charts">
+                  some value
+                  <TrendCharts someProp="test" />
+                  <QueryModule />
+                </Tab>
               </StyledTabs>
             )}
           </PageContent>
@@ -290,3 +298,10 @@ export const Task = withBannersContext(TaskCore);
 const LogWrapper = styled(PageLayout)`
   width: 100%;
 `;
+
+// interface TrendChartsProps {
+//   someProp: string;
+// }
+// export const TrendCharts: React.FC<TrendChartsProps> = ({ someProp }) => (
+//   <div>Some trend chart heres your prop {someProp}</div>
+// );
