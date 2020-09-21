@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import styled from "@emotion/styled";
-import { Subtitle } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { Banners } from "components/Banners";
 import {
@@ -13,12 +11,15 @@ import { BBTitle, TitleAndButtons } from "./BBComponents";
 import { BBFileTicket, CreatedTickets } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
-interface Props {
+interface BuildBaronCoreProps {
   eventData: BuildBaron;
   taskId: string;
 }
 
-const BuildBaronCore: React.FC<Props> = ({ eventData, taskId }) => {
+const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
+  eventData,
+  taskId,
+}) => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const { tab } = useParams<{ tab: string }>();
@@ -26,7 +27,6 @@ const BuildBaronCore: React.FC<Props> = ({ eventData, taskId }) => {
     dispatchBanner.clearAllBanners();
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
-  console.log(`BuildBaronContent 29: ${createdTicketsCount}`);
   return (
     <>
       {eventData && (
@@ -58,13 +58,6 @@ const BuildBaronCore: React.FC<Props> = ({ eventData, taskId }) => {
     </>
   );
 };
-export const StyledSubtitle = styled(Subtitle)<titleProps>`
-  margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
-  margin-top: ${(props) => (props.margin ? "25px" : "20px")};
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: bold;
-`;
 
 interface titleProps {
   margin?: boolean;

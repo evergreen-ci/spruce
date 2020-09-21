@@ -13,7 +13,7 @@ interface titleProps {
 export const BBTitle = styled(Subtitle)<titleProps>`
   margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
   margin-top: ${(props) => (props.margin ? "25px" : "20px")};
-  font-size: 16px;
+  // font-size: 16px;
   line-height: 24px;
   font-weight: bold;
 `;

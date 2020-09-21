@@ -144,7 +144,6 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
 
 const FileButton = styled(Button)`
   justify-content: center;
-  // width: 97px;
   height: 22px;
   margin-bottom: 15px;
   font-size: 11px;
