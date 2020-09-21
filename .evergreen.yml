@@ -265,6 +265,7 @@ buildvariants:
     - name: compile
     - name: test
     - name: lint
+    - name: type_check
     - name: coverage
     - name: e2e_test
 
