@@ -1,11 +1,13 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import { act } from "@testing-library/react";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
-import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
+import {
+  customRenderWithRouterMatch as render,
+  act,
+} from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
 const taskId =
@@ -14,6 +16,7 @@ const taskId =
 const taskQuery = {
   taskFiles: { __typename: "TaskFiles", fileCount: 38 },
   task: {
+    isPerfPluginEnabled: false,
     __typename: "Task",
     activatedBy: "",
     baseTaskMetadata: {
@@ -159,7 +162,7 @@ test("Renders the metadata card with a pending status", async () => {
       />
     </MockedProvider>
   );
-  // @ts-ignore
+
   const { queryByDataCy } = render(withRouter(ContentWrapper), {
     route: `/task/${taskId}`,
     path: "/task/:id",
@@ -183,7 +186,6 @@ test("Renders the metadata card with a started status", async () => {
     </MockedProvider>
   );
 
-  // @ts-ignore
   const { queryByDataCy } = render(withRouter(ContentWrapper), {
     route: `/task/${taskId}`,
     path: "/task/:id",
@@ -209,7 +211,6 @@ test("Renders the metadata card with a succeeded status", async () => {
     </MockedProvider>
   );
 
-  // @ts-ignore
   const { queryByDataCy } = render(withRouter(ContentWrapper), {
     route: `/task/${taskId}`,
     path: "/task/:id",
