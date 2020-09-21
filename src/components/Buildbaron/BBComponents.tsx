@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
+import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { TicketFields } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
@@ -26,10 +27,17 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   jiraKey,
   fields,
 }) => {
+  const taskAnalytics = useTaskAnalytics();
   const url = `https://jira.mongodb.org/browse/${jiraKey}`;
   return (
     <div>
-      <JiraSummaryLink href={url} data-cy="jira-link">
+      <JiraSummaryLink
+        href={url}
+        data-cy="jira-link"
+        onClick={() =>
+          taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
+        }
+      >
         {jiraKey}: {fields.summary} {"   "}
       </JiraSummaryLink>
 
