@@ -65,7 +65,7 @@
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config/.cmdrc.json",
     "deploy:staging": "npm run build:staging && BUCKET=evergreen-staging.spruce npm run deploy",
     "deploy:prod": "node cli-scripts/deploy-prod.js",
-    "check-types": "tsc",
+    "check-types": "tsc -p tsconfig.json --noEmit",
     "eslint": "eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
     "eslint:strict": "STRICT=1 eslint -c .eslintrc.js 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
     "eslint-fix": "STRICT=1 eslint -c .eslintrc.js --fix 'src/**/*.ts?(x)' 'cypress/**/*.ts'",
