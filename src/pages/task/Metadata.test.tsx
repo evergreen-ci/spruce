@@ -16,6 +16,7 @@ const taskId =
 const taskQuery = {
   taskFiles: { __typename: "TaskFiles", fileCount: 38 },
   task: {
+    isPerfPluginEnabled: false,
     __typename: "Task",
     activatedBy: "",
     baseTaskMetadata: {
