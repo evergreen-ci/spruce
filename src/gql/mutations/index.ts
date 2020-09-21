@@ -14,3 +14,4 @@ export { RESTART_JASPER } from "./restart-jasper";
 export { ENQUEUE_PATCH } from "./enqueue-patch";
 export { UPDATE_HOST_STATUS } from "./update-host-status";
 export { REMOVE_PUBLIC_KEY } from "./remove-public-key";
+export { SPAWN_HOST } from "./spawn-host";
