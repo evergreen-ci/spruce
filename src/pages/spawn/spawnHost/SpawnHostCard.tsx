@@ -4,11 +4,12 @@ import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
 import { SiderCard } from "components/styles";
 import { routes } from "constants/routes";
-import { Host } from "gql/generated/types";
+import { MyHostsQuery } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
 
+type MyHost = MyHostsQuery["myHosts"][0];
 interface SpawnHostCardProps {
-  host: Host;
+  host: MyHost;
 }
 
 export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
@@ -35,18 +36,19 @@ const SpawnHostEntry: React.FC<SpawnHostEntryProps> = ({ field, value }) => (
 );
 
 const spawnHostCardFieldMaps = {
-  "Created at": (host: Host) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Started at": (host: Host) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Expires at": (host: Host) => (
+  ID: (host: MyHost) => <span>{host?.id}</span>,
+  "Created at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
+  "Started at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
+  "Expires at": (host: MyHost) => (
     <span>
       {host?.noExpiration ? "Does not expire" : getDateCopy(host?.expiration)}
     </span>
   ),
-  "SSH User": (host: Host) => <span>{host?.distro?.user}</span>,
-  "DNS Name": (host: Host) => <span>{host?.hostUrl}</span>,
-  "Working Directory": (host: Host) => <span>{host?.distro?.workDir}</span>,
-  "Availability Zone": (host: Host) => <span>{host?.availabilityZone}</span>,
-  "User Tags": (host: Host) => (
+  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
+  "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
+  "User Tags": (host: MyHost) => (
     <span>
       {host?.instanceTags?.map((tag) => (
         <>
@@ -59,8 +61,8 @@ const spawnHostCardFieldMaps = {
       ))}
     </span>
   ),
-  "Instance Type": (host: Host) => <span>{host?.instanceType}</span>,
-  "Mounted to": (host: Host) => (
+  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted to": (host: MyHost) => (
     <span>
       <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
         {host?.homeVolumeID}
