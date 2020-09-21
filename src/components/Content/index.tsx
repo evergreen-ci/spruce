@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { Route, Redirect, Switch } from "react-router-dom";
 import { SiteBanner, ConnectivityBanner } from "components/Banners";
+import { Feedback } from "components/Feedback";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { Navbar } from "components/Navbar";
 import { PrivateRoute } from "components/PrivateRoute";
@@ -79,6 +80,7 @@ export const Content: React.FC = () => {
         <Route component={PageDoesNotExist} />
       </Switch>
       {!hasUsedSpruceBefore && <WelcomeModal />}
+      <Feedback />
     </PageLayout>
   );
 };

@@ -25,6 +25,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
@@ -936,6 +937,16 @@ export type ClientBinary = {
   displayName?: Maybe<Scalars["String"]>;
 };
 
+export type SpruceConfig = {
+  ui?: Maybe<UiConfig>;
+  banner?: Maybe<Scalars["String"]>;
+  bannerTheme?: Maybe<Scalars["String"]>;
+};
+
+export type UiConfig = {
+  uservoice?: Maybe<Scalars["String"]>;
+};
+
 export type SiteBanner = {
   text: Scalars["String"];
   theme: Scalars["String"];
@@ -1484,6 +1495,16 @@ export type GetMyPublicKeysQuery = {
 export type SiteBannerQueryVariables = {};
 
 export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
+
+export type GetSpruceConfigQueryVariables = {};
+
+export type GetSpruceConfigQuery = {
+  spruceConfig?: Maybe<{
+    bannerTheme?: Maybe<string>;
+    banner?: Maybe<string>;
+    ui?: Maybe<{ uservoice?: Maybe<string> }>;
+  }>;
+};
 
 export type GetTaskAllExecutionsQueryVariables = {
   taskId: Scalars["String"];

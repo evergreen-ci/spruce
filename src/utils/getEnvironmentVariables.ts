@@ -4,6 +4,9 @@ export const getApiUrl: () => string = () =>
 export const getBugsnagApiKey: () => string = () =>
   process.env.REACT_APP_BUGSNAG_API_KEY || "i-am-a-fake-key";
 
+export const getUserVoiceKey: () => string = () =>
+  process.env.REACT_APP_USER_VOICE_KEY || "fake-user-voice-forum";
+
 export const getUiUrl: () => string = () => process.env.REACT_APP_UI_URL || "";
 
 export const isDevelopment: () => boolean = () =>

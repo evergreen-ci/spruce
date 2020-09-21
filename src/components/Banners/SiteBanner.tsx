@@ -5,15 +5,16 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import { SiteBannerQuery } from "gql/generated/types";
-import { GET_SITE_BANNER } from "gql/queries";
+import { GetSpruceConfigQuery } from "gql/generated/types";
+import { GET_SPRUCE_CONFIG } from "gql/queries";
 
 const { yellow, blue, green, red } = uiColors;
+
 export const SiteBanner = () => {
-  const { data, loading } = useQuery<SiteBannerQuery>(GET_SITE_BANNER);
-  const siteBanner = data?.siteBanner;
-  const text = siteBanner?.text ?? "";
-  const theme = siteBanner?.theme ?? "";
+  const { data, loading } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
+  const spruceConfig = data?.spruceConfig;
+  const text = spruceConfig?.banner ?? "";
+  const theme = spruceConfig?.bannerTheme ?? "";
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => {
     if (text !== "" && Cookies.get(text) === undefined) {
