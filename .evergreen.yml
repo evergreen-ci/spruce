@@ -226,7 +226,7 @@ tasks:
     - func: npm-install
     - func: npm-eslint
 
-  -name: type_check
+  - name: type_check
     commands:
     - func: get-project
     - func: sym-link
