@@ -13,7 +13,7 @@ const { green } = uiColors;
 export const Feedback: React.FC = () => {
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
 
-  const userVoiceUrl = data?.spruceConfig?.ui?.uservoice;
+  const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
   const [isHidden, setIsHidden] = useState(true);
   return (

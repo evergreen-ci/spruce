@@ -6,7 +6,7 @@ export const GET_SPRUCE_CONFIG = gql`
       bannerTheme
       banner
       ui {
-        uservoice
+        userVoice
       }
     }
   }
