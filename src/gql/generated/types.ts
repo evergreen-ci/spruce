@@ -433,6 +433,7 @@ export type SpawnHostInput = {
   setUpScript?: Maybe<Scalars["String"]>;
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
+  volumeId?: Maybe<Scalars["String"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -944,7 +945,7 @@ export type SpruceConfig = {
 };
 
 export type UiConfig = {
-  uservoice?: Maybe<Scalars["String"]>;
+  userVoice?: Maybe<Scalars["String"]>;
 };
 
 export type SiteBanner = {
@@ -1502,7 +1503,7 @@ export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
-    ui?: Maybe<{ uservoice?: Maybe<string> }>;
+    ui?: Maybe<{ userVoice?: Maybe<string> }>;
   }>;
 };
 
@@ -1657,6 +1658,7 @@ export type GetTaskQuery = {
     blocked: boolean;
     generatedBy?: Maybe<string>;
     generatedByName?: Maybe<string>;
+    isPerfPluginEnabled: boolean;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
