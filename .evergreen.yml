@@ -123,7 +123,7 @@ functions:
     params:
       working_dir: spruce
       binary: npm
-      args: [run, type-check]
+      args: [run, check-types]
 
   npm-build:
     command: subprocess.exec
