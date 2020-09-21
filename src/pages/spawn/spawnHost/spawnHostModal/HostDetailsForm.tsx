@@ -51,6 +51,8 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
         onChange={(e) => onChange({ ...data, userDataScript: e.target.value })}
       />
       <SectionContainer>
+        <SectionLabel weight="medium">Expiration</SectionLabel>
+
         <HostExpirationField data={data} onChange={onChange} />
       </SectionContainer>
 

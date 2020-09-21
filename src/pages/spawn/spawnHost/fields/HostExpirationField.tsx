@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Body } from "@leafygreen-ui/typography";
 import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
@@ -45,7 +44,6 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
   const disabledDate = (current) => current < Date.now();
   return (
     <>
-      <SectionLabel weight="medium">Expiration</SectionLabel>
       <FlexColumnContainer>
         <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
         <DatePicker
@@ -81,12 +79,6 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
 const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
-`;
-
-const SectionLabel = styled(Body)`
-  padding-right: 15px;
-  margin-top: 22px;
-  min-width: 175px;
 `;
 
 const PaddedBody = styled.span`
