@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
+import { DispatchBanner } from "context/banners";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
@@ -10,12 +10,14 @@ import {
 import { FILE_JIRA_TICKET } from "gql/mutations/file-jira-ticket";
 import { BBTitle } from "./BBComponents";
 
-export const BBFileTicket: React.FC<{
+interface BBFileTicketProps {
   taskId: string;
-  dispatchBanner;
-  setCreatedTicketsCount;
-  createdTicketsCount;
-}> = ({
+  dispatchBanner: DispatchBanner;
+  setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
+  createdTicketsCount: number;
+}
+
+export const BBFileTicket: React.FC<BBFileTicketProps> = ({
   taskId,
   dispatchBanner,
   setCreatedTicketsCount,
@@ -79,20 +81,13 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       okButtonProps={{ loading: loadingFileJiraTicket }}
       cancelButtonProps={{ disabled: loadingFileJiraTicket }}
     >
-      <FileButton
-        dataCy="file-ticket-button"
+      <Button
+        data-cy="file-ticket-button"
         variant={Variant.Primary}
-        size="small"
+        size="xsmall"
       >
         {buttonText}
-      </FileButton>
+      </Button>
     </Popconfirm>
   );
 };
-
-const FileButton = styled(Button)`
-  justify-content: center;
-  height: 22px;
-  margin-bottom: 15px;
-  font-size: 11px;
-`;

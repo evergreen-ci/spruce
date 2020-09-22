@@ -1,11 +1,14 @@
 import React from "react";
 import { Table } from "antd";
-import { JiraTicket } from "gql/generated/types";
+import { GetCreatedTicketsQuery } from "gql/generated/types";
 import { JiraTicketRow } from "./BBComponents";
 
 const columns = [
   {
-    render: (text: string, { key, fields }: JiraTicket): JSX.Element => (
+    render: (
+      text: string,
+      { key, fields }: GetCreatedTicketsQuery["bbGetCreatedTickets"][0]
+    ): JSX.Element => (
       <div>
         <JiraTicketRow jiraKey={key} fields={fields} />
       </div>
@@ -14,7 +17,7 @@ const columns = [
 ];
 
 export const BuildBaronTable: React.FC<{
-  jiraIssues: JiraTicket[];
+  jiraIssues: GetCreatedTicketsQuery["bbGetCreatedTickets"];
 }> = ({ jiraIssues }) => (
   <Table
     data-test-id="build-baron-table"

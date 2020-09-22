@@ -6,11 +6,11 @@ import { StyledLink } from "components/styles";
 import { TicketFields } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
 
-interface titleProps {
+interface TitleProps {
   margin?: boolean;
 }
 
-export const BBTitle = styled(Subtitle)<titleProps>`
+export const BBTitle = styled(Subtitle)<TitleProps>`
   margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
   margin-top: ${(props) => (props.margin ? "25px" : "20px")};
   line-height: 24px;

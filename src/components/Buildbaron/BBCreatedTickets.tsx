@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { DispatchBanner } from "context/banners";
 import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
@@ -10,9 +11,9 @@ import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   taskId: string;
-  dispatchBanner;
-  setCreatedTicketsCount;
-  createdTicketsCount;
+  dispatchBanner: DispatchBanner;
+  setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
+  createdTicketsCount: number;
 }
 
 export const CreatedTickets: React.FC<Props> = ({
