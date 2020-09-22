@@ -52,11 +52,15 @@ const spawnHostCardFieldMaps = {
   ),
   "Instance Type": (host: Host) => <span>{host?.instanceType}</span>,
   "Mounted to": (host: Host) => (
-    <span>
-      <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
-        {host?.homeVolumeID}
-      </Link>
-    </span>
+    <>
+      {host.volumes.map(({ id, displayName }) => (
+        <div>
+          <Link to={`${routes.spawnVolume}?volume=${id}`}>
+            {displayName || id}
+          </Link>
+        </div>
+      ))}
+    </>
   ),
 };
 
