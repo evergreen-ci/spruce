@@ -62,7 +62,7 @@ const spawnHostCardFieldMaps = {
     </span>
   ),
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
-  "Mounted to": (host: MyHost) => (
+  "Home Volume": (host: MyHost) => (
     <span>
       <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
         {host?.homeVolumeID}
@@ -72,7 +72,6 @@ const spawnHostCardFieldMaps = {
 };
 
 const PaddedBadge = styled(Badge)`
-  margin-left: 8px;
   margin-right: 8px;
 `;
 const StyledSiderCard = styled(SiderCard)`
