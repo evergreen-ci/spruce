@@ -118,6 +118,13 @@ functions:
       binary: npm
       args: [run, eslint]
 
+  npm-tsc:
+    command: subprocess.exec
+    params:
+      working_dir: spruce
+      binary: npm
+      args: [run, check-types]
+
   npm-build:
     command: subprocess.exec
     params:
@@ -219,6 +226,13 @@ tasks:
     - func: npm-install
     - func: npm-eslint
 
+  - name: type_check
+    commands:
+    - func: get-project
+    - func: sym-link
+    - func: npm-install
+    - func: npm-tsc
+
   - name: coverage
     commands:
     - func: get-project
@@ -251,6 +265,7 @@ buildvariants:
     - name: compile
     - name: test
     - name: lint
+    - name: type_check
     - name: coverage
     - name: e2e_test
 
