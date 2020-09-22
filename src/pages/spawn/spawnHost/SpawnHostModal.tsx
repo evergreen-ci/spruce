@@ -9,7 +9,6 @@ import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
-
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -45,7 +44,6 @@ const { gray } = uiColors;
 
 interface SpawnHostModalProps {
   visible: boolean;
-  onOk: () => void;
   onCancel: () => void;
 }
 export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
@@ -191,7 +189,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         <WideButton
           data-cy="spawn-host-button"
           disabled={!canSubmitSpawnHost(spawnHostInput) || loadingSpawnHost}
-          onClick={(e) => spawnHost(e)}
+          onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
           glyph={loadingSpawnHost && <Icon glyph="Refresh" />}
@@ -286,13 +284,11 @@ const WideButton = styled(Button)`
 `;
 
 const canSubmitSpawnHost = (spawnHostInput: SpawnHostInput): boolean => {
-  if (spawnHostInput.distroId === "") {
-    return false;
-  }
-  if (spawnHostInput.region === "") {
-    return false;
-  }
-  if (spawnHostInput.publicKey.key === "") {
+  if (
+    spawnHostInput.distroId === "" ||
+    spawnHostInput.region === "" ||
+    spawnHostInput.publicKey.key === ""
+  ) {
     return false;
   }
   return true;
