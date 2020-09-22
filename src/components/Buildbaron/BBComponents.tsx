@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Subtitle } from "@leafygreen-ui/typography";
+import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { StyledLink } from "components/styles";
+import { TicketFields } from "gql/generated/types";
 import { getDateCopy } from "utils/string";
 
 interface titleProps {
@@ -13,15 +13,19 @@ interface titleProps {
 export const BBTitle = styled(Subtitle)<titleProps>`
   margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
   margin-top: ${(props) => (props.margin ? "25px" : "20px")};
-  // font-size: 16px;
   line-height: 24px;
   font-weight: bold;
 `;
 
-export const JiraTicketRow: React.FC<{
-  jiraKey: String;
-  fields;
-}> = ({ jiraKey, fields }) => {
+interface JiraTicketRowProps {
+  jiraKey: string;
+  fields: TicketFields;
+}
+
+export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
+  jiraKey,
+  fields,
+}) => {
   const url = `https://jira.mongodb.org/browse/${jiraKey}`;
   return (
     <div>
@@ -32,17 +36,17 @@ export const JiraTicketRow: React.FC<{
       <StyledBadge variant="lightgray">{fields.status.name}</StyledBadge>
 
       <MetaDataWrapper>
-        <JiraTicketMetadata>
+        <Disclaimer>
           Created: {getDateCopy(fields.created, null, true)}
-        </JiraTicketMetadata>
-        <JiraTicketMetadata>
+        </Disclaimer>
+        <Disclaimer>
           Updated: {getDateCopy(fields.updated, null, true)}
-        </JiraTicketMetadata>
-        <JiraTicketMetadata>
+        </Disclaimer>
+        <Disclaimer>
           {fields.assigneeDisplayName
             ? `Assignee: ${fields.assigneeDisplayName}`
             : "Unassigned"}{" "}
-        </JiraTicketMetadata>
+        </Disclaimer>
       </MetaDataWrapper>
     </div>
   );
@@ -53,7 +57,6 @@ const JiraSummaryLink = styled(StyledLink)`
   margin-right: 15px;
   font-size: 14px;
   line-height: 20px;
-  color: ${uiColors.blue.base} !important;
 `;
 
 const StyledBadge = styled(Badge)`
@@ -68,12 +71,6 @@ const MetaDataWrapper = styled.div`
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
   width: 65%;
-`;
-
-const JiraTicketMetadata = styled.div`
-  color: ${uiColors.gray.dark2} !important;
-  font-size: 12px;
-  line-height: 20px;
 `;
 
 export const TitleAndButtons = styled.div`

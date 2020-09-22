@@ -34,7 +34,7 @@ export const CreatedTickets: React.FC<Props> = ({
   });
   const length = data?.bbGetCreatedTickets?.length;
 
-  if (createdTicketsCount > data?.bbGetCreatedTickets?.length) {
+  if (createdTicketsCount > length) {
     startPolling(1 * 1000);
   } else {
     setCreatedTicketsCount(length);
