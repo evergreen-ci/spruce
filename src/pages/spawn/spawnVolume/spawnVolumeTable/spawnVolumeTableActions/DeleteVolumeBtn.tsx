@@ -43,7 +43,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     >
       <Button
         size="small"
-        data-cy="delete-btn"
+        data-cy={`trash-${volume.displayName || volume.id}`}
         glyph={<Icon glyph="Trash" />}
         disabled={loadingRemoveVolume}
       />

@@ -1,4 +1,5 @@
 // / <reference types="Cypress" />
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Navigating to Spawn Volume page", () => {
   before(() => {
@@ -27,7 +28,7 @@ describe("Navigating to Spawn Volume page", () => {
     });
   });
 
-  it("Should have 1 volume card visible when the 'volume' query param is provided.", () => {
+  it("Should have 1 volume card visible initially when the 'volume' query param is provided.", () => {
     cy.visit("/spawn/volume?volume=vol-0ea662ac92f611ed4");
   });
 
@@ -39,6 +40,13 @@ describe("Navigating to Spawn Volume page", () => {
       "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0"
     ).click();
     cy.dataCy(cardDataCy).should("exist");
+  });
+
+  it("Click the trash can should remove the volume from the table.", () => {
+    cy.contains("vol-0ae8720b445b771b6");
+    cy.dataCy("trash-vol-0ae8720b445b771b6").click();
+    cy.get(popconfirmYesClassName).click();
+    cy.contains("vol-0ae8720b445b771b6").should("not.exist");
   });
 
   const expectedVolNames = [
