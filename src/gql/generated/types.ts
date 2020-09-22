@@ -25,6 +25,7 @@ export type Query = {
   patchBuildVariants: Array<PatchBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
+  spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
@@ -432,6 +433,7 @@ export type SpawnHostInput = {
   setUpScript?: Maybe<Scalars["String"]>;
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
+  volumeId?: Maybe<Scalars["String"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -937,6 +939,16 @@ export type ClientBinary = {
   displayName?: Maybe<Scalars["String"]>;
 };
 
+export type SpruceConfig = {
+  ui?: Maybe<UiConfig>;
+  banner?: Maybe<Scalars["String"]>;
+  bannerTheme?: Maybe<Scalars["String"]>;
+};
+
+export type UiConfig = {
+  userVoice?: Maybe<Scalars["String"]>;
+};
+
 export type SiteBanner = {
   text: Scalars["String"];
   theme: Scalars["String"];
@@ -1205,6 +1217,33 @@ export type DistroTaskQueueQuery = {
     priority: number;
     version: string;
   }>;
+};
+
+export type BuildBaronQueryVariables = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+};
+
+export type BuildBaronQuery = {
+  buildBaron: {
+    buildBaronConfigured: boolean;
+    searchReturnInfo?: Maybe<{
+      search: string;
+      source: string;
+      featuresURL: string;
+      issues: Array<{
+        key: string;
+        fields: {
+          summary: string;
+          assigneeDisplayName?: Maybe<string>;
+          resolutionName?: Maybe<string>;
+          created: string;
+          updated: string;
+          status: { id: string; name: string };
+        };
+      }>;
+    }>;
+  };
 };
 
 export type ClientConfigQueryVariables = {};
@@ -1482,6 +1521,16 @@ export type SiteBannerQueryVariables = {};
 
 export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
 
+export type GetSpruceConfigQueryVariables = {};
+
+export type GetSpruceConfigQuery = {
+  spruceConfig?: Maybe<{
+    bannerTheme?: Maybe<string>;
+    banner?: Maybe<string>;
+    ui?: Maybe<{ userVoice?: Maybe<string> }>;
+  }>;
+};
+
 export type GetTaskAllExecutionsQueryVariables = {
   taskId: Scalars["String"];
 };
@@ -1633,6 +1682,7 @@ export type GetTaskQuery = {
     blocked: boolean;
     generatedBy?: Maybe<string>;
     generatedByName?: Maybe<string>;
+    isPerfPluginEnabled: boolean;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;

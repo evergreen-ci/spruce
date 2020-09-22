@@ -1,11 +1,18 @@
 import React from "react";
-import { render, queries } from "@testing-library/react";
+import { render, queries, RenderResult } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router, Route } from "react-router-dom";
 import * as customQueries from "./custom-queries";
 
-const customRender = (ui, options?) =>
-  render(ui, { queries: { ...queries, ...customQueries }, ...options });
+type QueriesType = typeof queries;
+type CustomQueriesType = typeof customQueries;
+
+type CustomRenderType = CustomQueriesType & QueriesType;
+const customRender = (ui, options?): RenderResult<CustomRenderType> =>
+  render(ui, {
+    queries: { ...queries, ...customQueries },
+    ...options,
+  }) as RenderResult<CustomRenderType>;
 
 // re-export everything
 export * from "@testing-library/react";

@@ -137,12 +137,15 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel}>Cancel</WideButton>,
+        <WideButton onClick={onCancel} key="cancel_button">
+          Cancel
+        </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
           disabled={false}
           onClick={() => undefined}
           variant={Variant.Primary}
+          key="spawn_host_button"
         >
           Spawn
         </WideButton>,
@@ -208,7 +211,7 @@ const renderTitle = (title: string) => <b>{title}</b>;
 
 const renderItem = (title: string) => ({
   value: title,
-  label: <span>{title}</span>,
+  label: <span key={`distro_${title}`}>{title}</span>,
 });
 
 const Container = styled.div`

@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input, Select } from "antd";
+import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { Modal } from "components/Modal";
 import {
@@ -18,11 +19,13 @@ import {
   InstanceTypesQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
+  InstanceTag,
 } from "gql/generated/types";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
 import {
   HostExpirationField,
   VolumesField,
+  UserTagsField,
 } from "pages/spawn/spawnHost/fields";
 
 const { Option } = Select;
@@ -33,25 +36,29 @@ interface editSpawnHostState {
   displayName?: string;
   instanceType?: string;
   volume?: string;
+  addedInstanceTags?: InstanceTag[];
+  deletedInstanceTags?: InstanceTag[];
 }
 interface EditSpawnHostModalProps {
-  visible: boolean;
+  visible?: boolean;
   onOk: () => void;
   onCancel: () => void;
   host: Host;
 }
 export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
-  visible,
+  visible = true,
   onCancel,
   host,
 }) => {
-  const { expiration, noExpiration } = host;
-  const defaultEditSpawnHostState = {
+  const { expiration, noExpiration, instanceTags } = host;
+  const defaultEditSpawnHostState: editSpawnHostState = {
     displayName: host.displayName,
     expiration,
     noExpiration,
     instanceType: host.instanceType,
     volume: host.homeVolumeID,
+    addedInstanceTags: [],
+    deletedInstanceTags: [],
   };
   const [editSpawnHostState, setEditSpawnHostState] = useState<
     editSpawnHostState
@@ -75,23 +82,31 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const hasChanges = isEqual(defaultEditSpawnHostState, editSpawnHostState);
 
+  // This will be used for the mutation submission we are submitting the diff
+  // Between the changes and the default values so we don't submit an unchanged field
+  const mutationParams = diff(defaultEditSpawnHostState, editSpawnHostState);
+  console.log({ mutationParams });
+
   return (
     <Modal
       title="Edit Host Details"
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel}>Cancel</WideButton>,
+        <WideButton onClick={onCancel} key="cancel_button">
+          Cancel
+        </WideButton>,
         <WideButton
           data-cy="save-spawn-host-button"
           disabled={hasChanges}
           onClick={() => undefined}
           variant={Variant.Primary}
+          key="save_spawn_host_button"
         >
           Save
         </WideButton>,
       ]}
-      data-cy="spawn-host-modal"
+      data-cy="edit-spawn-host-modal"
     >
       <ModalContent>
         <SectionContainer>
@@ -111,6 +126,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           </Section>
         </SectionContainer>
         <SectionContainer>
+          <SectionLabel weight="medium">Expiration</SectionLabel>
           <HostExpirationField
             data={editSpawnHostState}
             onChange={setEditSpawnHostState}
@@ -118,7 +134,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         </SectionContainer>
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>
-
           <Section>
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
@@ -153,6 +168,15 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             data={editSpawnHostState}
             onChange={setEditSpawnHostState}
             volumes={volumes}
+          />
+        </SectionContainer>
+        <SectionContainer>
+          <SectionLabel weight="medium">User Tags</SectionLabel>
+          <UserTagsField
+            data={editSpawnHostState}
+            onChange={setEditSpawnHostState}
+            instanceTags={instanceTags}
+            visible={visible}
           />
         </SectionContainer>
       </ModalContent>
