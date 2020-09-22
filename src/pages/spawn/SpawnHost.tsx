@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { Skeleton } from "antd";
 import { Variant } from "components/Badge";
 import {
   Container,
@@ -26,17 +27,16 @@ export const SpawnHost = () => {
     pollInterval,
     onError: (e) => {
       dispatchBanner.errorBanner(
-        `There was an error loading the patch: ${e.message}`
+        `There was an error loading your spawn hosts: ${e.message}`
       );
-      console.log(e);
     },
   });
   useNetworkStatus(startPolling, stopPolling);
 
   if (loading) {
-    return <b>loading</b>;
+    return <Skeleton />;
   }
-  const hosts = data?.myHosts;
+  const hosts = data?.myHosts || [];
   const runningHosts = hosts.filter(
     (host) => host.status === HostStatus.Running
   );
