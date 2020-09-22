@@ -26,7 +26,7 @@ export const SpawnHost = () => {
     pollInterval,
     onError: (e) => {
       dispatchBanner.errorBanner(
-        `There was an error loading the patch: ${e.message}`
+        `There was an error loading hosts: ${e.message}`
       );
       console.log(e);
     },
@@ -36,7 +36,7 @@ export const SpawnHost = () => {
   if (loading) {
     return <b>loading</b>;
   }
-  const hosts = data?.myHosts;
+  const hosts = data?.myHosts ?? [];
   const runningHosts = hosts.filter(
     (host) => host.status === HostStatus.Running
   );
