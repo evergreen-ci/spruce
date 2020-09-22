@@ -53,7 +53,7 @@ const columns: Array<ColumnProps<Volume>> = [
     sorter: (a: Volume, b: Volume) =>
       getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
     render: (_, volume: Volume) => (
-      <WordBreak>{getVolumeDisplayName(volume)}</WordBreak>
+      <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
     ),
     width: 400,
   },
@@ -72,6 +72,7 @@ const columns: Array<ColumnProps<Volume>> = [
     title: "Status",
     key: "status",
     sorter: sortByHost,
+    defaultSortOrder: "ascend",
     render: (_, volume: Volume) => <VolumeStatusBadge volume={volume} />,
   },
   {
