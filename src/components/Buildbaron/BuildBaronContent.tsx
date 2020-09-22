@@ -8,7 +8,8 @@ import {
 import { BuildBaron } from "gql/generated/types";
 import { withBannersContext } from "hoc/withBannersContext";
 import { BBTitle, TitleAndButtons } from "./BBComponents";
-import { BBFileTicket, CreatedTickets } from "./BBFIleTicket";
+import { CreatedTickets } from "./BBCreatedTickets";
+import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {

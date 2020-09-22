@@ -1,19 +1,14 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
-  GetCreatedTicketsQuery,
-  GetCreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import { FILE_JIRA_TICKET } from "gql/mutations/file-jira-ticket";
-import { GET_CREATED_TICKETS } from "gql/queries/get-created-tickets";
-import { BBTitle, TitleAndButtons } from "./BBComponents";
-import { BuildBaronTable } from "./BuildBaronTable";
+import { BBTitle } from "./BBComponents";
 
 export const BBFileTicket: React.FC<{
   taskId: string;
@@ -92,53 +87,6 @@ export const FileTicket: React.FC<FileTicketProps> = ({
         {buttonText}
       </FileButton>
     </Popconfirm>
-  );
-};
-
-interface CreatedTicketsProps {
-  taskId: string;
-  dispatchBanner;
-  setCreatedTicketsCount;
-  createdTicketsCount;
-}
-
-export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
-  taskId,
-  dispatchBanner,
-  setCreatedTicketsCount,
-  createdTicketsCount,
-}) => {
-  const { data, startPolling, stopPolling } = useQuery<
-    GetCreatedTicketsQuery,
-    GetCreatedTicketsQueryVariables
-  >(GET_CREATED_TICKETS, {
-    variables: { taskId },
-    onError(error) {
-      dispatchBanner.errorBanner(
-        `There was an error getting tickets created for this task: ${error.message}`
-      );
-    },
-  });
-  const length = data?.bbGetCreatedTickets?.length;
-
-  if (createdTicketsCount > data?.bbGetCreatedTickets?.length) {
-    startPolling(1 * 1000);
-  } else {
-    setCreatedTicketsCount(length);
-    stopPolling();
-  }
-
-  return (
-    <>
-      {length > 0 && (
-        <>
-          <TitleAndButtons>
-            <BBTitle>Tickets Created From This Task </BBTitle>
-          </TitleAndButtons>
-          <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
-        </>
-      )}
-    </>
   );
 };
 
