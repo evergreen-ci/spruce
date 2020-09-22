@@ -1,13 +1,11 @@
 import React from "react";
 import styled from "@emotion/styled";
-
 import Button, { Size } from "@leafygreen-ui/button";
 import Icon from "components/icons/Icon";
-import { Host } from "gql/generated/types";
-
 import { HostStatus } from "types/host";
+import { MyHost } from "./types";
 
-export const SpawnHostActionButton: React.FC<{ host: Host }> = ({ host }) => {
+export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const action = mapStatusToAction[host.status];
 
   return action ? (

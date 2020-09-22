@@ -16,21 +16,24 @@ export type hostDetailsStateType = {
   userDataScript: string;
   noExpiration: boolean;
   expiration: Date;
-  volume: string;
-  isVirtualWorkstation: boolean;
+  volumeId: string;
+  homeVolumeSize: number;
+  isVirtualWorkStation: boolean;
 };
 
 interface HostDetailsFormProps {
   onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
   data: hostDetailsStateType;
   volumes: Volume[];
+  isSpawnHostModal: boolean;
 }
 export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   onChange,
   data,
   volumes,
+  isSpawnHostModal = false,
 }) => {
-  const { hasUserDataScript, userDataScript, isVirtualWorkstation } = data;
+  const { hasUserDataScript, userDataScript, isVirtualWorkStation } = data;
 
   return (
     <Container>
@@ -56,10 +59,15 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
         <HostExpirationField data={data} onChange={onChange} />
       </SectionContainer>
 
-      {isVirtualWorkstation && (
+      {isVirtualWorkStation && (
         <SectionContainer>
-          <SectionLabel>Virtual Workstation</SectionLabel>
-          <VolumesField data={data} onChange={onChange} volumes={volumes} />
+          <SectionLabel weight="medium">Virtual Workstation</SectionLabel>
+          <VolumesField
+            data={data}
+            onChange={onChange}
+            volumes={volumes}
+            allowHomeVolume={isSpawnHostModal}
+          />
         </SectionContainer>
       )}
     </Container>

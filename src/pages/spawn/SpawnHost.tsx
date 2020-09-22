@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Variant } from "components/Badge";
 import {
@@ -43,6 +44,8 @@ export const SpawnHost = () => {
   const pausedHosts = hosts.filter(
     (host) => host.status === HostStatus.Stopped
   );
+
+  const hasHosts = hosts.length > 0;
   return (
     <Container>
       <TitleContainer>
@@ -57,7 +60,13 @@ export const SpawnHost = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnHostButton />
-      <SpawnHostTable hosts={hosts} />
+      {hasHosts ? (
+        <SpawnHostTable hosts={hosts} />
+      ) : (
+        <Subtitle>
+          No Spawned hosts available, Spawn one to get started
+        </Subtitle>
+      )}
     </Container>
   );
 };

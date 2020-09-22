@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -8,6 +8,8 @@ import { AutoComplete, Input, Select } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import { InputLabel } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
+
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -17,13 +19,18 @@ import {
   AwsRegionsQueryVariables,
   MyVolumesQuery,
   MyHostsQueryVariables,
+  SpawnHostMutation,
+  SpawnHostMutationVariables,
+  SpawnHostInput,
 } from "gql/generated/types";
+import { SPAWN_HOST } from "gql/mutations";
 import {
   GET_DISTROS,
   GET_MY_PUBLIC_KEYS,
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
 } from "gql/queries";
+import { omitTypename } from "utils/string";
 import {
   HostDetailsForm,
   hostDetailsStateType,
@@ -45,6 +52,8 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
+
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
@@ -73,6 +82,25 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     MyHostsQueryVariables
   >(GET_MY_VOLUMES);
 
+  // UPDATE HOST STATUS MUTATION
+  const [spawnHostMutation, { loading: loadingSpawnHost }] = useMutation<
+    SpawnHostMutation,
+    SpawnHostMutationVariables
+  >(SPAWN_HOST, {
+    onCompleted(hostMutation: SpawnHostMutation) {
+      const { id } = hostMutation?.spawnHost;
+      onCancel();
+      dispatchBanner.successBanner(`Successfully spawned host: ${id}`);
+    },
+    onError(err) {
+      onCancel();
+      dispatchBanner.errorBanner(
+        `There was an error while spawning your host: ${err.message}`
+      );
+    },
+    refetchQueries: ["MyHosts"],
+  });
+
   // Public key form state
   const [publicKeyState, setPublicKeyState] = useState<publicKeyStateType>({
     publicKey: {
@@ -89,9 +117,15 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     userDataScript: "",
     expiration: null,
     noExpiration: false,
-    volume: "",
-    isVirtualWorkstation: false,
+    volumeId: "",
+    isVirtualWorkStation: false,
+    homeVolumeSize: null,
   });
+
+  const distros = distrosData?.distros;
+  const publicKeys = publicKeysData?.myPublicKeys;
+  const awsRegions = awsData?.awsRegions;
+  const volumes = volumesData?.myVolumes;
 
   // distro Field for form submision
   const [distro, setDistro] = useState("");
@@ -104,19 +138,20 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   useEffect(() => {
     if (virtualWorkstationDistros.find((vd) => distro === vd.name)) {
-      setHostDetailsState({ ...hostDetailsState, isVirtualWorkstation: true });
+      setHostDetailsState({
+        ...hostDetailsState,
+        isVirtualWorkStation: true,
+        noExpiration: true,
+        expiration: null,
+        homeVolumeSize: 500,
+      });
     } else {
-      setHostDetailsState({ ...hostDetailsState, isVirtualWorkstation: false });
+      setHostDetailsState({ ...hostDetailsState, isVirtualWorkStation: false });
     }
   }, [distro]); // eslint-disable-line react-hooks/exhaustive-deps
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
-
-  const distros = distrosData?.distros;
-  const publicKeys = publicKeysData?.myPublicKeys;
-  const awsRegions = awsData?.awsRegions;
-  const volumes = volumesData?.myVolumes;
 
   virtualWorkstationDistros = distros.filter((d) => d.isVirtualWorkStation);
   notVirtualWorkstationDistros = distros.filter((d) => !d.isVirtualWorkStation);
@@ -131,6 +166,19 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       options: notVirtualWorkstationDistros.map((d) => renderItem(d.name)),
     },
   ];
+
+  const spawnHostInput = prepareSpawnHostMutationVariables({
+    hostDetailsState,
+    awsRegion,
+    distro,
+    publicKeyState,
+  });
+
+  const spawnHost = (e) => {
+    e.preventDefault();
+    spawnHostMutation({ variables: { SpawnHostInput: spawnHostInput } });
+  };
+
   return (
     <Modal
       title="Spawn New Host"
@@ -142,12 +190,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
-          disabled={false}
-          onClick={() => undefined}
+          disabled={!canSubmitSpawnHost(spawnHostInput) || loadingSpawnHost}
+          onClick={(e) => spawnHost(e)}
           variant={Variant.Primary}
           key="spawn_host_button"
+          glyph={loadingSpawnHost && <Icon glyph="Refresh" />}
         >
-          Spawn
+          {loadingSpawnHost ? "Spawning Host" : "Spawn"}
         </WideButton>,
       ]}
       data-cy="spawn-host-modal"
@@ -200,6 +249,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             data={hostDetailsState}
             onChange={setHostDetailsState}
             volumes={volumes}
+            isSpawnHostModal
           />
         </Section>
       </Container>
@@ -234,3 +284,52 @@ const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
 `;
+
+const canSubmitSpawnHost = (spawnHostInput: SpawnHostInput): boolean => {
+  if (spawnHostInput.distroId === "") {
+    return false;
+  }
+  if (spawnHostInput.region === "") {
+    return false;
+  }
+  if (spawnHostInput.publicKey.key === "") {
+    return false;
+  }
+  return true;
+};
+
+const prepareSpawnHostMutationVariables = ({
+  hostDetailsState,
+  distro,
+  awsRegion,
+  publicKeyState,
+}: {
+  hostDetailsState: hostDetailsStateType;
+  distro: string;
+  awsRegion: string;
+  publicKeyState: publicKeyStateType;
+}): SpawnHostInput => {
+  // Build out the mutationVariables
+  const hostDetails = {
+    ...hostDetailsState,
+  };
+  // Remove unnecessary fields from mutation
+  if (!hostDetails.hasUserDataScript) {
+    delete hostDetails.userDataScript;
+  }
+  if (hostDetails.volumeId === "") {
+    delete hostDetails.volumeId;
+  }
+  if (hostDetails.homeVolumeSize === null) {
+    delete hostDetails.homeVolumeSize;
+  }
+  delete hostDetails.hasUserDataScript;
+
+  const result: SpawnHostInput = {
+    ...hostDetails,
+    ...omitTypename(publicKeyState),
+    distroId: distro,
+    region: awsRegion,
+  };
+  return result;
+};
