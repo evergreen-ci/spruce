@@ -142,10 +142,11 @@ const TaskCore: React.FC = () => {
   });
 
   // Query build baron data
-  const { data: buildBaronData, error: buildBaronError } = useQuery<
-    BuildBaronQuery,
-    BuildBaronQueryVariables
-  >(GET_BUILD_BARON, {
+  const {
+    data: buildBaronData,
+    error: buildBaronError,
+    loading: buildBaronLoading,
+  } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
     variables: { taskId: id, execution },
     pollInterval,
   });
@@ -158,7 +159,10 @@ const TaskCore: React.FC = () => {
 
   const buildBaronIsProductionReady = true;
   const showBuildBaronTab =
-    buildBaronConfigured && failedTask && buildBaronIsProductionReady;
+    !buildBaronLoading &&
+    buildBaronConfigured &&
+    failedTask &&
+    buildBaronIsProductionReady;
 
   if (error) {
     stopPolling();
