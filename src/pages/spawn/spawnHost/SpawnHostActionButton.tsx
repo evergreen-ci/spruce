@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import Icon from "components/icons/Icon";
 import { HostStatus } from "types/host";
-import { MyHost } from "./types";
+import { MyHost } from "types/spawn";
 
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const action = mapStatusToAction[host.status];

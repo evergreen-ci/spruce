@@ -7,11 +7,11 @@ import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import Icon from "components/icons/Icon";
 import { MyHostsQuery } from "gql/generated/types";
+import { MyHost } from "types/spawn";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
-import { MyHost } from "./types";
 
 interface SpawnHostTableProps {
   hosts: MyHostsQuery["myHosts"];

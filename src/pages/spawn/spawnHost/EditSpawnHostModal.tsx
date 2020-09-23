@@ -21,7 +21,7 @@ import {
   VolumesField,
   UserTagsField,
 } from "pages/spawn/spawnHost/fields";
-import { MyHost } from "./types";
+import { MyHost } from "types/spawn";
 
 const { Option } = Select;
 

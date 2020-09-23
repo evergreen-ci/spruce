@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Tooltip } from "antd";
 import Icon from "components/icons/Icon";
+import { MyHost } from "types/spawn";
 import { copyToClipboard } from "utils/string";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
 import { SpawnHostActionButton } from "./SpawnHostActionButton";
-import { MyHost } from "./types";
 
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>

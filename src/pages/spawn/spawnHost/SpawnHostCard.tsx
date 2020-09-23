@@ -4,8 +4,8 @@ import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
 import { SiderCard } from "components/styles";
 import { routes } from "constants/routes";
+import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
-import { MyHost } from "./types";
 
 interface SpawnHostCardProps {
   host: MyHost;
