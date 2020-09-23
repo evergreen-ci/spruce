@@ -29,7 +29,6 @@ import {
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
 } from "gql/queries";
-import { omitTypename } from "utils/string";
 import {
   HostDetailsForm,
   hostDetailsStateType,
@@ -38,6 +37,7 @@ import {
   PublicKeyForm,
   publicKeyStateType,
 } from "./spawnHostModal/PublicKeyForm";
+import { prepareSpawnHostMutationVariables } from "./spawnHostModal/utils";
 
 const { Option } = Select;
 const { gray } = uiColors;
@@ -283,49 +283,9 @@ const WideButton = styled(Button)`
   width: 140px;
 `;
 
-const canSubmitSpawnHost = (spawnHostInput: SpawnHostInput): boolean => {
-  if (
+const canSubmitSpawnHost = (spawnHostInput: SpawnHostInput): boolean =>
+  !(
     spawnHostInput.distroId === "" ||
     spawnHostInput.region === "" ||
     spawnHostInput.publicKey.key === ""
-  ) {
-    return false;
-  }
-  return true;
-};
-
-const prepareSpawnHostMutationVariables = ({
-  hostDetailsState,
-  distro,
-  awsRegion,
-  publicKeyState,
-}: {
-  hostDetailsState: hostDetailsStateType;
-  distro: string;
-  awsRegion: string;
-  publicKeyState: publicKeyStateType;
-}): SpawnHostInput => {
-  // Build out the mutationVariables
-  const hostDetails = {
-    ...hostDetailsState,
-  };
-  // Remove unnecessary fields from mutation
-  if (!hostDetails.hasUserDataScript) {
-    delete hostDetails.userDataScript;
-  }
-  if (hostDetails.volumeId === "") {
-    delete hostDetails.volumeId;
-  }
-  if (hostDetails.homeVolumeSize === null) {
-    delete hostDetails.homeVolumeSize;
-  }
-  delete hostDetails.hasUserDataScript;
-
-  const result: SpawnHostInput = {
-    ...hostDetails,
-    ...omitTypename(publicKeyState),
-    distroId: distro,
-    region: awsRegion,
-  };
-  return result;
-};
+  );
