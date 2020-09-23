@@ -72,18 +72,30 @@ export const TaskQueueTable = () => {
       key: "displayName",
       className: "cy-task-queue-col-task",
       width: "30%",
-      render: (_, { displayName, id, project, buildVariant }) => (
+      render: (_, { displayName, id, project, buildVariant, requester }) => (
         <TaskCell>
           <Body>
-            <StyledRouterLink
-              data-cy="current-task-link"
-              to={getTaskRoute(id)}
-              onClick={() =>
-                taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
-              }
-            >
-              {displayName}
-            </StyledRouterLink>
+            {requester === TaskQueueItemType.Patch ? (
+              <StyledRouterLink
+                data-cy="current-task-link"
+                to={getTaskRoute(id)}
+                onClick={() =>
+                  taskQueueAnalytics.sendEvent({ name: "Click Task Link" })
+                }
+              >
+                {displayName}
+              </StyledRouterLink>
+            ) : (
+              <StyledLink
+                data-cy="current-task-link"
+                href={`${getUiUrl()}/task/${id}`}
+                onClick={() =>
+                  taskQueueAnalytics.sendEvent({ name: "Click Version Link" })
+                }
+              >
+                {displayName}
+              </StyledLink>
+            )}
           </Body>
           <Body>{buildVariant}</Body>
           <Disclaimer>{project}</Disclaimer>
