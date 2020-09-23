@@ -690,6 +690,12 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  oomTracker: OomTrackerInfo;
+};
+
+export type OomTrackerInfo = {
+  detected: Scalars["Boolean"];
+  pids?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
 
 export type TaskTestResult = {
@@ -990,6 +996,7 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
+  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
@@ -1686,6 +1693,9 @@ export type GetTaskQuery = {
       taskLogLink?: Maybe<string>;
       eventLogLink?: Maybe<string>;
     };
+    details?: Maybe<{
+      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+    }>;
   }>;
 };
 

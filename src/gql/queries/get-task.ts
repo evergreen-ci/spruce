@@ -55,6 +55,12 @@ export const GET_TASK = gql`
       generatedBy
       generatedByName
       isPerfPluginEnabled
+      details {
+        oomTracker {
+          detected
+          pids
+        }
+      }
     }
   }
 `;

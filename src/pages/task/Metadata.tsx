@@ -50,6 +50,9 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const patchMetadata = task?.patchMetadata;
   const author = patchMetadata?.author;
 
+  const details = task?.details;
+  const oomTracker = details?.oomTracker;
+
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   const { data: taskQueuePositionData } = useQuery<
@@ -183,6 +186,12 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
           ))}
         </span>
       ) : null}
+      {oomTracker && oomTracker.detected && (
+        <P2>
+          Out of Memory Kill detected
+          {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")}` : ""} )
+        </P2>
+      )}
     </MetadataCard>
   );
 };
