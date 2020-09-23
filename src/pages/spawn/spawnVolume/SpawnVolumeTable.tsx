@@ -7,7 +7,6 @@ import { Link } from "react-router-dom";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { wordBreakCss } from "components/Typography";
 import { getHostRoute } from "constants/routes";
-import { MyVolumesQuery } from "gql/generated/types";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume } from "types/spawn";
 import { parseQueryString } from "utils";
@@ -16,7 +15,7 @@ import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActi
 import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
 
 interface SpawnVolumeTableProps {
-  volumes: MyVolumesQuery["myVolumes"];
+  volumes: MyVolume[];
 }
 
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
