@@ -36,9 +36,11 @@ describe("Navigating to Spawn Volume page", () => {
     const cardDataCy =
       "spawn-volume-card-1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0";
     cy.dataCy(cardDataCy).should("not.exist");
-    cy.contains(
-      "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0"
-    ).click();
+    cy.dataCy("vol-name")
+      .contains(
+        "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0"
+      )
+      .click();
     cy.dataCy(cardDataCy).should("exist");
   });
 
