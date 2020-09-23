@@ -20,7 +20,6 @@ import {
   MyHostsQueryVariables,
   SpawnHostMutation,
   SpawnHostMutationVariables,
-  SpawnHostInput,
 } from "gql/generated/types";
 import { SPAWN_HOST } from "gql/mutations";
 import {
@@ -85,7 +84,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     SpawnHostMutation,
     SpawnHostMutationVariables
   >(SPAWN_HOST, {
-    onCompleted(hostMutation: SpawnHostMutation) {
+    onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost;
       onCancel();
       dispatchBanner.successBanner(`Successfully spawned host: ${id}`);
@@ -172,6 +171,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     publicKeyState,
   });
 
+  const canSubmitSpawnHost = !(
+    spawnHostInput.distroId === "" ||
+    spawnHostInput.region === "" ||
+    spawnHostInput.publicKey.key === ""
+  );
+
   const spawnHost = (e) => {
     e.preventDefault();
     spawnHostMutation({ variables: { SpawnHostInput: spawnHostInput } });
@@ -188,7 +193,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
-          disabled={!canSubmitSpawnHost(spawnHostInput) || loadingSpawnHost}
+          disabled={!canSubmitSpawnHost || loadingSpawnHost}
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
@@ -282,10 +287,3 @@ const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
 `;
-
-const canSubmitSpawnHost = (spawnHostInput: SpawnHostInput): boolean =>
-  !(
-    spawnHostInput.distroId === "" ||
-    spawnHostInput.region === "" ||
-    spawnHostInput.publicKey.key === ""
-  );
