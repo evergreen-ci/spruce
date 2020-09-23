@@ -45,7 +45,7 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
     <Table
       {...{
         ...props,
-        rowKey: (record) => record.id,
+        rowKey: (record) => record.displayName || record.id,
         pagination: false,
         expandRowByClick: true,
         expandIcon: ({ expanded }) => (
