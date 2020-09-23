@@ -10,7 +10,7 @@ interface Props {
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
   <CardContainer
-    data-cy={`spawn-volume-card=${volume.displayName || volume.id}`}
+    data-cy={`spawn-volume-card-${volume.displayName || volume.id}`}
   >
     {spawnVolumeCardFields.map(({ label, Comp }) => (
       <CardField key={label} field={label} value={<Comp volume={volume} />} />
