@@ -1,5 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { Subtitle } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import { Variant } from "components/Badge";
 import {
   Container,
@@ -26,23 +28,24 @@ export const SpawnHost = () => {
     pollInterval,
     onError: (e) => {
       dispatchBanner.errorBanner(
-        `There was an error loading hosts: ${e.message}`
+        `There was an error loading your spawn hosts: ${e.message}`
       );
-      console.log(e);
     },
   });
   useNetworkStatus(startPolling, stopPolling);
 
   if (loading) {
-    return <b>loading</b>;
+    return <Skeleton />;
   }
-  const hosts = data?.myHosts ?? [];
+  const hosts = data?.myHosts || [];
   const runningHosts = hosts.filter(
     (host) => host.status === HostStatus.Running
   );
   const pausedHosts = hosts.filter(
     (host) => host.status === HostStatus.Stopped
   );
+
+  const hasHosts = hosts.length > 0;
   return (
     <Container>
       <TitleContainer>
@@ -57,7 +60,13 @@ export const SpawnHost = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnHostButton />
-      <SpawnHostTable hosts={hosts} />
+      {hasHosts ? (
+        <SpawnHostTable hosts={hosts} />
+      ) : (
+        <Subtitle>
+          No Spawned hosts available, Spawn one to get started
+        </Subtitle>
+      )}
     </Container>
   );
 };

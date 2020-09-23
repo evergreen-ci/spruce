@@ -991,6 +991,7 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
+  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
@@ -1159,6 +1160,12 @@ export type SetTaskPriorityMutationVariables = {
 export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
+
+export type SpawnHostMutationVariables = {
+  SpawnHostInput?: Maybe<SpawnHostInput>;
+};
+
+export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
 
 export type UnschedulePatchTasksMutationVariables = {
   patchId: Scalars["String"];
@@ -1402,8 +1409,8 @@ export type MyHostsQuery = {
     tag: string;
     user?: Maybe<string>;
     uptime?: Maybe<Date>;
-    availabilityZone?: Maybe<string>;
     displayName?: Maybe<string>;
+    availabilityZone?: Maybe<string>;
     distro?: Maybe<{
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;

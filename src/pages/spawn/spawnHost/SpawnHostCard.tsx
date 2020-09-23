@@ -5,12 +5,11 @@ import { Link } from "react-router-dom";
 import { v4 as uuid } from "uuid";
 import { CardContainer, CardField, DoesNotExpire } from "components/Spawn";
 import { routes } from "constants/routes";
-import { MyHostsQuery } from "gql/generated/types";
+import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
 
-type Host = MyHostsQuery["myHosts"][0];
 interface SpawnHostCardProps {
-  host: Host;
+  host: MyHost;
 }
 
 export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
@@ -26,18 +25,19 @@ export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
 );
 
 const spawnHostCardFieldMaps = {
-  "Created at": (host: Host) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Started at": (host: Host) => <span>{getDateCopy(host?.uptime)}</span>,
-  "Expires at": (host: Host) => (
+  ID: (host: MyHost) => <span>{host?.id}</span>,
+  "Created at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
+  "Started at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
+  "Expires at": (host: MyHost) => (
     <span>
       {host?.noExpiration ? <DoesNotExpire /> : getDateCopy(host?.expiration)}
     </span>
   ),
-  "SSH User": (host: Host) => <span>{host?.distro?.user}</span>,
-  "DNS Name": (host: Host) => <span>{host?.hostUrl}</span>,
-  "Working Directory": (host: Host) => <span>{host?.distro?.workDir}</span>,
-  "Availability Zone": (host: Host) => <span>{host?.availabilityZone}</span>,
-  "User Tags": (host: Host) => (
+  "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
+  "DNS Name": (host: MyHost) => <span>{host?.hostUrl}</span>,
+  "Working Directory": (host: MyHost) => <span>{host?.distro?.workDir}</span>,
+  "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
+  "User Tags": (host: MyHost) => (
     <span>
       {host?.instanceTags?.map((tag) => (
         <span key={uuid()}>
@@ -50,8 +50,8 @@ const spawnHostCardFieldMaps = {
       ))}
     </span>
   ),
-  "Instance Type": (host: Host) => <span>{host?.instanceType}</span>,
-  "Mounted to": (host: Host) => (
+  "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted to": (host: MyHost) => (
     <>
       {host.volumes.map(({ id, displayName }) => (
         <div>
@@ -62,9 +62,15 @@ const spawnHostCardFieldMaps = {
       ))}
     </>
   ),
+  "Home Volume": (host: MyHost) => (
+    <span>
+      <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
+        {host?.homeVolumeID}
+      </Link>
+    </span>
+  ),
 };
 
 const PaddedBadge = styled(Badge)`
-  margin-left: 8px;
   margin-right: 8px;
 `;
