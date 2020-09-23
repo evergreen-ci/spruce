@@ -54,6 +54,8 @@ export const MountVolumeModal: React.FC<Props> = ({
   });
   useNetworkStatus(startPolling, stopPolling);
   const targetAvailabilityZone = volume.availabilityZone;
+
+  // set host dropdown options
   useEffect(() => {
     if (data?.myHosts) {
       const opts = data.myHosts
@@ -84,10 +86,9 @@ export const MountVolumeModal: React.FC<Props> = ({
       dispatchBanner.errorBanner(`Error attaching volume: '${err.message}'`),
     refetchQueries: ["myVolumes"],
   });
-  console.log(visible);
   return (
     <Modal
-      title="Attach MyVolume to Host"
+      title="Attach Volume to Host"
       visible={visible}
       onCancel={onCancel}
       footer={[
