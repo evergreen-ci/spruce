@@ -9,6 +9,7 @@ import { wordBreakCss } from "components/Typography";
 import { getHostRoute } from "constants/routes";
 import { MyVolumesQuery } from "gql/generated/types";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
+import { MyVolume } from "types/spawn";
 import { parseQueryString } from "utils";
 import { sortFunctionDate } from "utils/string";
 import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActions";
@@ -18,8 +19,6 @@ interface SpawnVolumeTableProps {
   volumes: MyVolumesQuery["myVolumes"];
 }
 
-type Volume = MyVolumesQuery["myVolumes"][0];
-
 export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   volumes,
 }) => {
@@ -27,7 +26,7 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   const volume = parseQueryString(search)?.volume;
   return (
     <SpawnTable
-      expandedRowRender={(record: Volume) => (
+      expandedRowRender={(record: MyVolume) => (
         <SpawnVolumeCard volume={record} />
       )}
       columns={columns}
@@ -37,22 +36,22 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   );
 };
 
-const getVolumeDisplayName = (v: Volume) =>
+const getVolumeDisplayName = (v: MyVolume) =>
   v.displayName ? v.displayName : v.id;
 
-const getHostDisplayName = (v: Volume) =>
+const getHostDisplayName = (v: MyVolume) =>
   v?.host?.displayName ? v.host.displayName : v.hostID;
 
-const sortByHost = (a: Volume, b: Volume) =>
+const sortByHost = (a: MyVolume, b: MyVolume) =>
   getHostDisplayName(a).localeCompare(getHostDisplayName(b));
 
-const columns: Array<ColumnProps<Volume>> = [
+const columns: Array<ColumnProps<MyVolume>> = [
   {
-    title: "Volume",
+    title: "MyVolume",
     key: "displayName",
-    sorter: (a: Volume, b: Volume) =>
+    sorter: (a: MyVolume, b: MyVolume) =>
       getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
-    render: (_, volume: Volume) => (
+    render: (_, volume: MyVolume) => (
       <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
     ),
     width: 400,
@@ -61,7 +60,7 @@ const columns: Array<ColumnProps<Volume>> = [
     title: "Mounted On",
     key: "mountedOn",
     sorter: sortByHost,
-    render: (_, volume: Volume) => (
+    render: (_, volume: MyVolume) => (
       <Link data-cy="host-link" to={getHostRoute(volume.hostID)}>
         <WordBreak> {getHostDisplayName(volume)}</WordBreak>
       </Link>
@@ -73,13 +72,13 @@ const columns: Array<ColumnProps<Volume>> = [
     key: "status",
     sorter: sortByHost,
     defaultSortOrder: "ascend",
-    render: (_, volume: Volume) => <VolumeStatusBadge volume={volume} />,
+    render: (_, volume: MyVolume) => <VolumeStatusBadge volume={volume} />,
   },
   {
     title: "Expires In",
     dataIndex: "expiration",
-    sorter: (a: Volume, b: Volume) => sortFunctionDate(a, b, "expiration"),
-    render: (expiration, volume: Volume) =>
+    sorter: (a: MyVolume, b: MyVolume) => sortFunctionDate(a, b, "expiration"),
+    render: (expiration, volume: MyVolume) =>
       volume.noExpiration || !volume.expiration ? (
         <DoesNotExpire />
       ) : (
@@ -88,7 +87,7 @@ const columns: Array<ColumnProps<Volume>> = [
   },
   {
     title: "Actions",
-    render: (volume: Volume) => <SpawnVolumeTableActions volume={volume} />,
+    render: (volume: MyVolume) => <SpawnVolumeTableActions volume={volume} />,
   },
 ];
 

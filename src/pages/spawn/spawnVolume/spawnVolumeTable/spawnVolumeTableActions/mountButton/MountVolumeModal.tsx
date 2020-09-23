@@ -14,20 +14,18 @@ import {
   AttachVolumeToHostMutationVariables,
   MyHostsQuery,
   MyHostsQueryVariables,
-  MyVolumesQuery,
 } from "gql/generated/types";
 import { ATTACH_VOLUME } from "gql/mutations/attach-volume";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { MyVolume } from "types/spawn";
 
 const { Option } = Select;
-
-type Volume = MyVolumesQuery["myVolumes"][0];
 
 interface Props {
   visible: boolean;
   onCancel: () => void;
-  volume: Volume;
+  volume: MyVolume;
 }
 interface HostOption {
   key: string;
@@ -89,7 +87,7 @@ export const MountVolumeModal: React.FC<Props> = ({
   console.log(visible);
   return (
     <Modal
-      title="Attach Volume to Host"
+      title="Attach MyVolume to Host"
       visible={visible}
       onCancel={onCancel}
       footer={[

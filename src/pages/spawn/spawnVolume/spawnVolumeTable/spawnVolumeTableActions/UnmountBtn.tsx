@@ -3,12 +3,11 @@ import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
-import { MyVolumesQuery } from "gql/generated/types";
 import { DETACH_VOLUME } from "gql/mutations";
+import { MyVolume } from "types/spawn";
 
-type Volume = MyVolumesQuery["myVolumes"][0];
 interface Props {
-  volume: Volume;
+  volume: MyVolume;
 }
 
 export const UnmountBtn: React.FC<Props> = ({ volume }) => {

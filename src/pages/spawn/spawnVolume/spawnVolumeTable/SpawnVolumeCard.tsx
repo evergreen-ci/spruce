@@ -1,11 +1,10 @@
 import React from "react";
 import { CardContainer, CardField, DoesNotExpire } from "components/Spawn";
-import { MyVolumesQuery } from "gql/generated/types";
+import { MyVolume } from "types/spawn";
 import { getDateCopy } from "utils/string";
 
-type Volume = MyVolumesQuery["myVolumes"][0];
 interface Props {
-  volume: Volume;
+  volume: MyVolume;
 }
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
@@ -47,7 +46,7 @@ const spawnVolumeCardFields: CardItem[] = [
     Comp: ({ volume }) => <>{volume.availabilityZone}</>,
   },
   {
-    label: "Is Home Volume",
+    label: "Is Home MyVolume",
     Comp: ({ volume }) => <>{volume.homeVolume ? "True" : "False"}</>,
   },
 ];

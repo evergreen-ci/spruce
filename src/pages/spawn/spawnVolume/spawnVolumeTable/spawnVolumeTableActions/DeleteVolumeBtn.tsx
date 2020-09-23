@@ -5,15 +5,14 @@ import Icon from "components/icons/Icon";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
 import {
-  MyVolumesQuery,
   RemoveVolumeMutation,
   RemoveVolumeMutationVariables,
 } from "gql/generated/types";
 import { REMOVE_VOLUME } from "gql/mutations";
+import { MyVolume } from "types/spawn";
 
-type Volume = MyVolumesQuery["myVolumes"][0];
 interface Props {
-  volume: Volume;
+  volume: MyVolume;
 }
 
 export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {

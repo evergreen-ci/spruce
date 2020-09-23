@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import Button from "@leafygreen-ui/button";
-import { MyVolumesQuery } from "gql/generated/types";
+import { MyVolume } from "types/spawn";
 import { MountVolumeModal } from "./mountButton/MountVolumeModal";
 
-type Volume = MyVolumesQuery["myVolumes"][0];
 interface Props {
-  volume: Volume;
+  volume: MyVolume;
 }
 
 export const MountBtn: React.FC<Props> = ({ volume }) => {
