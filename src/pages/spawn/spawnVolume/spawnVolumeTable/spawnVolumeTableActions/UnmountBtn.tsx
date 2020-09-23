@@ -39,7 +39,11 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
       okText="Yes"
       cancelText="Cancel"
     >
-      <Button size="small" data-cy="detach-btn" disabled={loadingDetachVolume}>
+      <Button
+        size="small"
+        data-cy={`detach-btn-${volume.displayName || volume.id}`}
+        disabled={loadingDetachVolume}
+      >
         Unmount
       </Button>
     </Popconfirm>
