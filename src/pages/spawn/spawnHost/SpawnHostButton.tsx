@@ -10,9 +10,6 @@ export const SpawnHostButton = () => {
       <PlusButton onClick={() => setOpenModal(true)}>Spawn a host</PlusButton>
       <SpawnHostModal
         visible={openModal}
-        onOk={() => {
-          setOpenModal(false);
-        }}
         onCancel={() => setOpenModal(false)}
       />
     </PaddedContainer>

@@ -9,11 +9,10 @@ import isEqual from "lodash.isequal";
 import { Modal } from "components/Modal";
 import { InputLabel } from "components/styles";
 import {
-  Host,
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
   MyVolumesQuery,
-  MyHostsQueryVariables,
+  MyVolumesQueryVariables,
   InstanceTag,
 } from "gql/generated/types";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
@@ -22,6 +21,7 @@ import {
   VolumesField,
   UserTagsField,
 } from "pages/spawn/spawnHost/fields";
+import { MyHost } from "types/spawn";
 
 const { Option } = Select;
 
@@ -30,7 +30,7 @@ interface editSpawnHostState {
   noExpiration: boolean;
   displayName?: string;
   instanceType?: string;
-  volume?: string;
+  volumeId?: string;
   addedInstanceTags?: InstanceTag[];
   deletedInstanceTags?: InstanceTag[];
 }
@@ -38,7 +38,7 @@ interface EditSpawnHostModalProps {
   visible?: boolean;
   onOk: () => void;
   onCancel: () => void;
-  host: Host;
+  host: MyHost;
 }
 export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   visible = true,
@@ -51,7 +51,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     expiration,
     noExpiration,
     instanceType: host.instanceType,
-    volume: host.homeVolumeID,
     addedInstanceTags: [],
     deletedInstanceTags: [],
   };
@@ -66,9 +65,10 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   >(GET_INSTANCE_TYPES);
 
   // QUERY volumes
-  const { data: volumesData } = useQuery<MyVolumesQuery, MyHostsQueryVariables>(
-    GET_MY_VOLUMES
-  );
+  const { data: volumesData } = useQuery<
+    MyVolumesQuery,
+    MyVolumesQueryVariables
+  >(GET_MY_VOLUMES);
 
   const { displayName, instanceType } = editSpawnHostState;
 
@@ -81,7 +81,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   // Between the changes and the default values so we don't submit an unchanged field
   const mutationParams = diff(defaultEditSpawnHostState, editSpawnHostState);
   console.log({ mutationParams });
-
   return (
     <Modal
       title="Edit Host Details"

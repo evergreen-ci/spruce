@@ -3,21 +3,21 @@ import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Tooltip } from "antd";
 import Icon from "components/icons/Icon";
-import { Host } from "gql/generated/types";
+import { MyHost } from "types/spawn";
 import { copyToClipboard } from "utils/string";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
 import { SpawnHostActionButton } from "./SpawnHostActionButton";
 
-export const SpawnHostTableActions: React.FC<{ host: Host }> = ({ host }) => (
-  <ActionButtonContainer>
+export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
+  <FlexContainer>
     <SpawnHostActionButton host={host} />
     <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
     <CopySSHCommandButton host={host} />
     <EditSpawnHostButton host={host} />
-  </ActionButtonContainer>
+  </FlexContainer>
 );
 
-const CopySSHCommandButton: React.FC<{ host: Host }> = ({ host }) => {
+const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
 
   return (
@@ -36,14 +36,10 @@ const CopySSHCommandButton: React.FC<{ host: Host }> = ({ host }) => {
 
 const FlexContainer = styled.div`
   display: flex;
-  justify-content: space-between;
-`;
-
-const ActionButtonContainer = styled(FlexContainer)`
-  flex-shrink: 0;
 `;
 
 const PaddedButton = styled(Button)`
   margin-left: 5px;
   margin-right: 5px;
+  flex-grow: 0;
 `;

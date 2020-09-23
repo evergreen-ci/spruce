@@ -1141,6 +1141,12 @@ export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
 
+export type SpawnHostMutationVariables = {
+  SpawnHostInput?: Maybe<SpawnHostInput>;
+};
+
+export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
+
 export type UnschedulePatchTasksMutationVariables = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
@@ -1383,6 +1389,8 @@ export type MyHostsQuery = {
     tag: string;
     user?: Maybe<string>;
     uptime?: Maybe<Date>;
+    displayName?: Maybe<string>;
+    availabilityZone?: Maybe<string>;
     distro?: Maybe<{
       isVirtualWorkStation?: Maybe<boolean>;
       id?: Maybe<string>;
