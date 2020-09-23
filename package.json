@@ -44,7 +44,7 @@
     "query-string": "6.13.1",
     "react": "16.12.0",
     "react-dom": "16.12.0",
-    "react-router-dom": "5.1.2",
+    "react-router-dom": "5.2.0",
     "react-scripts": "3.4.0",
     "uuid": "8.1.0",
     "waait": "1.0.5"
