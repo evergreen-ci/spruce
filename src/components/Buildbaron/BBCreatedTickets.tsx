@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { DispatchBanner } from "context/banners";
+import { useBannerDispatchContext } from "context/banners";
 import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
@@ -11,17 +11,16 @@ import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   taskId: string;
-  dispatchBanner: DispatchBanner;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
 }
 
 export const CreatedTickets: React.FC<Props> = ({
   taskId,
-  dispatchBanner,
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
   const { data, startPolling, stopPolling } = useQuery<
     GetCreatedTicketsQuery,
     GetCreatedTicketsQueryVariables
@@ -33,7 +32,13 @@ export const CreatedTickets: React.FC<Props> = ({
       );
     },
   });
-  const length = data?.bbGetCreatedTickets?.length;
+  const length = data?.bbGetCreatedTickets?.length ?? 0;
+
+  // after a user creates a ticket, it takes a bit of time for that ticket
+  // to be reflected in the created tickets query. Therefore, we start
+  // polling one second after a ticket is filed by a user, and stop polling
+  // when the number of created tickets is the same as the number of tickets
+  // retrieved by the query.
 
   if (createdTicketsCount > length) {
     startPolling(1 * 1000);

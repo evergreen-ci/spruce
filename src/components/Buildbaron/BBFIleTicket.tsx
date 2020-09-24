@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
-import { DispatchBanner } from "context/banners";
+import { useBannerDispatchContext } from "context/banners";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
@@ -12,14 +12,12 @@ import { BBTitle } from "./BBComponents";
 
 interface BBFileTicketProps {
   taskId: string;
-  dispatchBanner: DispatchBanner;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
 }
 
 export const BBFileTicket: React.FC<BBFileTicketProps> = ({
   taskId,
-  dispatchBanner,
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => (
@@ -27,7 +25,6 @@ export const BBFileTicket: React.FC<BBFileTicketProps> = ({
     <BBTitle margin>Create a new ticket in Jira </BBTitle>
     <FileTicket
       taskId={taskId}
-      dispatchBanner={dispatchBanner}
       setCreatedTicketsCount={setCreatedTicketsCount}
       createdTicketsCount={createdTicketsCount}
     />
@@ -36,17 +33,16 @@ export const BBFileTicket: React.FC<BBFileTicketProps> = ({
 
 interface FileTicketProps {
   taskId: string;
-  dispatchBanner;
   setCreatedTicketsCount;
   createdTicketsCount: number;
 }
 
 export const FileTicket: React.FC<FileTicketProps> = ({
   taskId,
-  dispatchBanner,
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<
     BbCreateTicketMutation,
     BbCreateTicketMutationVariables

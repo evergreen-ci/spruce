@@ -39,7 +39,6 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
 
           <CreatedTickets
             taskId={taskId}
-            dispatchBanner={dispatchBanner}
             setCreatedTicketsCount={setCreatedTicketsCount}
             createdTicketsCount={createdTicketsCount}
           />
@@ -47,7 +46,6 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
           <TitleAndButtons>
             <BBFileTicket
               taskId={taskId}
-              dispatchBanner={dispatchBanner}
               setCreatedTicketsCount={setCreatedTicketsCount}
               createdTicketsCount={createdTicketsCount}
             />
