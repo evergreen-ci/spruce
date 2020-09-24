@@ -990,6 +990,7 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
+  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
@@ -1051,6 +1052,12 @@ export type EnqueuePatchMutationVariables = {
 };
 
 export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
+
+export type BbCreateTicketMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
@@ -1300,6 +1307,24 @@ export type CommitQueueQuery = {
       }>
     >;
   };
+};
+
+export type GetCreatedTicketsQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetCreatedTicketsQuery = {
+  bbGetCreatedTickets: Array<{
+    key: string;
+    fields: {
+      summary: string;
+      assigneeDisplayName?: Maybe<string>;
+      resolutionName?: Maybe<string>;
+      created: string;
+      updated: string;
+      status: { id: string; name: string };
+    };
+  }>;
 };
 
 export type DistrosQueryVariables = {
