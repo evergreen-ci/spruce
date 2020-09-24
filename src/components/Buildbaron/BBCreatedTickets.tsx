@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { SECOND } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetCreatedTicketsQuery,
@@ -41,7 +42,7 @@ export const CreatedTickets: React.FC<Props> = ({
   // retrieved by the query.
 
   if (createdTicketsCount > length) {
-    startPolling(1 * 1000);
+    startPolling(1 * SECOND);
   } else {
     setCreatedTicketsCount(length);
     stopPolling();
