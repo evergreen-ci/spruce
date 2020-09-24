@@ -157,7 +157,7 @@ const TaskCore: React.FC = () => {
   const failedTask =
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
 
-  const buildBaronIsProductionReady = true;
+  const buildBaronIsProductionReady = false;
   const showBuildBaronTab =
     !buildBaronLoading &&
     buildBaronConfigured &&
