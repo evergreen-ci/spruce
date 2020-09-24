@@ -7,11 +7,16 @@ import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
+import { Banners } from "components/Banners";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { paths } from "constants/routes";
+import {
+  useBannerDispatchContext,
+  useBannerStateContext,
+} from "context/banners";
 import {
   SchedulePatchMutation,
   PatchReconfigure,
@@ -21,6 +26,7 @@ import {
   VariantTask,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import { withBannersContext } from "hoc/withBannersContext";
 import { useTabs, useDefaultPath } from "hooks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
@@ -29,13 +35,18 @@ import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
-export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
-  const [
-    schedulePatch,
-    { data, error: errorSchedulingPatch, loading: loadingScheduledPatch },
-  ] = useMutation<SchedulePatchMutation, SchedulePatchMutationVariables>(
-    SCHEDULE_PATCH
-  );
+const ConfigurePatch: React.FC<Props> = ({ patch }) => {
+  const dispatchBanner = useBannerDispatchContext();
+  const bannersState = useBannerStateContext();
+
+  const [schedulePatch, { data, loading: loadingScheduledPatch }] = useMutation<
+    SchedulePatchMutation,
+    SchedulePatchMutationVariables
+  >(SCHEDULE_PATCH, {
+    onError(err) {
+      dispatchBanner.errorBanner(err.message);
+    },
+  });
   const router = useHistory();
   const { project, variantsTasks, id } = patch;
   const { variants, tasks } = project;
@@ -92,12 +103,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 
   return (
     <>
-      {errorSchedulingPatch && (
-        // TODO: replace with error banner
-        <div data-cy="error-banner">
-          There was a problem trying to schedule patch.
-        </div>
-      )}
+      <Banners
+        banners={bannersState}
+        removeBanner={dispatchBanner.removeBanner}
+      />
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         data-cy="configurePatch-nameInput"
@@ -211,3 +220,5 @@ const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>
     props.disabled && "opacity:0.4;pointer-events:none;"}
 `;
+
+export const ConfigurePatchCore = withBannersContext(ConfigurePatch);
