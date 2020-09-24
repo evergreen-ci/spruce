@@ -103,6 +103,7 @@ const TaskCore: React.FC = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution },
+    pollInterval,
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
@@ -148,7 +149,6 @@ const TaskCore: React.FC = () => {
     loading: buildBaronLoading,
   } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
     variables: { taskId: id, execution },
-    pollInterval,
   });
   const buildBaron = buildBaronData?.buildBaron;
   const buildBaronConfigured = buildBaron?.buildBaronConfigured;
