@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
-import { Host } from "gql/generated/types";
 import { EditSpawnHostModal } from "pages/spawn/spawnHost/index";
+import { MyHost } from "types/spawn";
 
 interface EditSpawnHostButtonProps {
-  host: Host;
+  host: MyHost;
 }
 export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
   host,

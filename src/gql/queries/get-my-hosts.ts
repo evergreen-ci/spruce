@@ -26,6 +26,8 @@ export const GET_MY_HOSTS = gql`
       tag
       user
       uptime
+      displayName
+      availabilityZone
     }
   }
 `;

@@ -6,7 +6,8 @@ import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import Icon from "components/icons/Icon";
-import { Host, MyHostsQuery } from "gql/generated/types";
+import { MyHostsQuery } from "gql/generated/types";
+import { MyHost } from "types/spawn";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
 import { SpawnHostCard } from "./SpawnHostCard";
@@ -26,7 +27,7 @@ export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
         dataSource={hosts}
         rowKey={(record) => record.id}
         pagination={false}
-        expandedRowRender={(record: Host) => <SpawnHostCard host={record} />}
+        expandedRowRender={(record: MyHost) => <SpawnHostCard host={record} />}
         expandIcon={({ expanded }) => (
           <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
         )}
@@ -41,15 +42,15 @@ const columns = [
     title: "Host",
     dataIndex: "id",
     key: "host",
-    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "id"),
-    render: (_, host: Host) =>
+    sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "id"),
+    render: (_, host: MyHost) =>
       host?.distro?.isVirtualWorkStation ? (
         <FlexContainer>
-          <HostIdSpan>{host.id}</HostIdSpan>
+          <HostIdSpan>{host.displayName || host.id}</HostIdSpan>
           <WorkstationBadge>WORKSTATION</WorkstationBadge>
         </FlexContainer>
       ) : (
-        <HostIdSpan>{host.id}</HostIdSpan>
+        <HostIdSpan>{host.displayName || host.id}</HostIdSpan>
       ),
   },
   {
@@ -57,22 +58,22 @@ const columns = [
     dataIndex: "distro",
     key: "distro",
     width: 100,
-    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "distro.id"),
+    sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "distro.id"),
     render: (distro) => distro.id,
   },
   {
     title: "Status",
     dataIndex: "status",
     key: "status",
-    sorter: (a: Host, b: Host) => sortFunctionString(a, b, "status"),
+    sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "status"),
     render: (status) => <HostStatusBadge status={status} />,
   },
   {
     title: "Expires In",
     dataIndex: "expiration",
     key: "expiration",
-    sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "expiration"),
-    render: (expiration, host: Host) =>
+    sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "expiration"),
+    render: (expiration, host: MyHost) =>
       host?.noExpiration
         ? "Does not expire"
         : formatDistanceToNow(new Date(expiration)),
@@ -82,13 +83,13 @@ const columns = [
     dataIndex: "uptime",
     key: "uptime",
 
-    sorter: (a: Host, b: Host) => sortFunctionDate(a, b, "uptime"),
+    sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "uptime"),
     render: (uptime) => formatDistanceToNow(new Date(uptime)),
   },
   {
     title: "Action",
     key: "action",
-    render: (_, host) => <SpawnHostTableActions host={host} />,
+    render: (_, host: MyHost) => <SpawnHostTableActions host={host} />,
   },
 ];
 
