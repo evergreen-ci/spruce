@@ -8,7 +8,7 @@ export interface BannerObj {
   message: string;
 }
 type AddBanner = (message: string) => void;
-interface DispatchBanner {
+export interface DispatchBanner {
   errorBanner: AddBanner;
   successBanner: AddBanner;
   warningBanner: AddBanner;

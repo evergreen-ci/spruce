@@ -691,6 +691,12 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  oomTracker: OomTrackerInfo;
+};
+
+export type OomTrackerInfo = {
+  detected: Scalars["Boolean"];
+  pids?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
 
 export type TaskTestResult = {
@@ -1066,6 +1072,12 @@ export type EnqueuePatchMutationVariables = {
 
 export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
 
+export type BbCreateTicketMutationVariables = {
+  taskId: Scalars["String"];
+};
+
+export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
 export type RemovePatchFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
   patchId: Scalars["String"];
@@ -1320,6 +1332,24 @@ export type CommitQueueQuery = {
       }>
     >;
   };
+};
+
+export type GetCreatedTicketsQueryVariables = {
+  taskId: Scalars["String"];
+};
+
+export type GetCreatedTicketsQuery = {
+  bbGetCreatedTickets: Array<{
+    key: string;
+    fields: {
+      summary: string;
+      assigneeDisplayName?: Maybe<string>;
+      resolutionName?: Maybe<string>;
+      created: string;
+      updated: string;
+      status: { id: string; name: string };
+    };
+  }>;
 };
 
 export type DistrosQueryVariables = {
