@@ -206,6 +206,21 @@ const renderStatusBadge = (
   );
 };
 
+interface TaskLinkProps {
+  taskId: string;
+  taskName: string;
+}
+const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName }) => {
+  const patchAnalytics = usePatchAnalytics();
+  const onClick = () =>
+    patchAnalytics.sendEvent({ name: "Click Task Table Link", taskId });
+  return (
+    <StyledRouterLink onClick={onClick} to={`/task/${taskId}`}>
+      {taskName}
+    </StyledRouterLink>
+  );
+};
+
 const columnsTemplate: Array<ColumnProps<TaskResult>> = [
   {
     title: "Name",
@@ -215,7 +230,7 @@ const columnsTemplate: Array<ColumnProps<TaskResult>> = [
     width: "40%",
     className: "cy-task-table-col-NAME",
     render: (name: string, { id }: TaskResult): JSX.Element => (
-      <StyledRouterLink to={`/task/${id}`}>{name}</StyledRouterLink>
+      <TaskLink taskName={name} taskId={id} />
     ),
   },
   {
