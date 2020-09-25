@@ -637,6 +637,7 @@ export type Volume = {
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
   host?: Maybe<Host>;
+  creationTime: Scalars["Time"];
 };
 
 export type PatchProject = {
@@ -690,6 +691,12 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  oomTracker: OomTrackerInfo;
+};
+
+export type OomTrackerInfo = {
+  detected: Scalars["Boolean"];
+  pids?: Maybe<Array<Maybe<Scalars["Int"]>>>;
 };
 
 export type TaskTestResult = {
