@@ -110,7 +110,11 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-export const getDateCopy = (time: Date, tz?: string, dateOnly?: boolean) => {
+export const getDateCopy = (
+  time: string | Date,
+  tz?: string,
+  dateOnly?: boolean
+) => {
   if (tz) {
     const dateFormat = dateOnly ? "MMM D, YYYY" : "MMM D, YYYY h:mm:ss a";
 
