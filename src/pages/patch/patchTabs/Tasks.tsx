@@ -219,19 +219,19 @@ const columnsTemplate: Array<ColumnProps<TaskResult>> = [
     ),
   },
   {
-    title: "Base Status",
-    dataIndex: "baseStatus",
-    key: TableColumnHeader.BaseStatus,
-    sorter: true,
-    className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
-  },
-  {
     title: "Patch Status",
     dataIndex: "status",
     key: TableColumnHeader.Status,
     sorter: true,
     className: "cy-task-table-col-STATUS",
+    render: renderStatusBadge,
+  },
+  {
+    title: "Base Status",
+    dataIndex: "baseStatus",
+    key: TableColumnHeader.BaseStatus,
+    sorter: true,
+    className: "cy-task-table-col-BASE_STATUS",
     render: renderStatusBadge,
   },
   {
