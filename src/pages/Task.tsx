@@ -7,7 +7,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
-import BuildBaron from "components/Buildbaron/BuildBaron";
+import { BuildBaronTab } from "components/Buildbaron/BuildBaronTab";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -25,17 +25,8 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import {
-  BuildBaronQuery,
-  BuildBaronQueryVariables,
-  GetTaskQuery,
-  GetTaskQueryVariables,
-} from "gql/generated/types";
-import {
-  GET_TASK,
-  GET_TASK_LATEST_EXECUTION,
-  GET_BUILD_BARON,
-} from "gql/queries";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
@@ -108,6 +99,11 @@ const TaskCore: React.FC = () => {
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
       ),
+    onCompleted: () => {
+      setFailedTask(
+        task?.status?.includes("failed") || task?.status?.includes("timed-out")
+      );
+    },
   });
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
@@ -130,6 +126,9 @@ const TaskCore: React.FC = () => {
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
+  const [failedTask, setFailedTask] = useState(undefined);
+  const [showBuildBaronTab, setshowbuildbarontab] = useState(!failedTask);
+
   // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
@@ -141,28 +140,6 @@ const TaskCore: React.FC = () => {
     sendAnalyticsEvent: (tab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
-
-  // Query build baron data
-  const {
-    data: buildBaronData,
-    error: buildBaronError,
-    loading: buildBaronLoading,
-  } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
-    variables: { taskId: id, execution },
-  });
-  const buildBaron = buildBaronData?.buildBaron;
-  const buildBaronConfigured = buildBaron?.buildBaronConfigured;
-
-  // logic for displaying the build baron tab
-  const failedTask =
-    task?.status?.includes("failed") || task?.status?.includes("timed-out");
-
-  const buildBaronIsProductionReady = false;
-  const showBuildBaronTab =
-    !buildBaronLoading &&
-    buildBaronConfigured &&
-    failedTask &&
-    buildBaronIsProductionReady;
 
   if (error) {
     stopPolling();
@@ -275,14 +252,12 @@ const TaskCore: React.FC = () => {
                 >
                   <FilesTables />
                 </Tab>
-                {showBuildBaronTab ? (
-                  <Tab name="Build Baron" id="task-build-baron-tab">
-                    <BuildBaron
-                      data={buildBaronData}
-                      error={buildBaronError}
-                      taskId={id}
-                    />
-                  </Tab>
+                {failedTask && execution !== undefined ? (
+                  <BuildBaronTab
+                    taskId={id}
+                    execution={execution}
+                    setshowbuildbarontab={setshowbuildbarontab}
+                  />
                 ) : null}
                 {isPerfPluginEnabled && (
                   <Tab name="Trend Charts" id="trend-charts-tab">
