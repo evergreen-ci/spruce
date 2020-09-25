@@ -3,12 +3,13 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { Volume } from "gql/generated/types";
+import { MyVolumesQuery } from "gql/generated/types";
 import {
   HostExpirationField,
   VolumesField,
 } from "pages/spawn/spawnHost/fields";
 
+type Volume = MyVolumesQuery["myVolumes"][0];
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
