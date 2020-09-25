@@ -29,7 +29,6 @@ export type Query = {
   awsRegions?: Maybe<Array<Scalars["String"]>>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
-  siteBanner: SiteBanner;
   host?: Maybe<Host>;
   hostEvents: HostEvents;
   hosts: HostsResponse;
@@ -947,17 +946,17 @@ export type ClientBinary = {
 
 export type SpruceConfig = {
   ui?: Maybe<UiConfig>;
+  jira?: Maybe<JiraConfig>;
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
 };
 
-export type UiConfig = {
-  userVoice?: Maybe<Scalars["String"]>;
+export type JiraConfig = {
+  host?: Maybe<Scalars["String"]>;
 };
 
-export type SiteBanner = {
-  text: Scalars["String"];
-  theme: Scalars["String"];
+export type UiConfig = {
+  userVoice?: Maybe<Scalars["String"]>;
 };
 
 export type HostEvents = {
@@ -1532,10 +1531,6 @@ export type GetMyPublicKeysQueryVariables = {};
 export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
-
-export type SiteBannerQueryVariables = {};
-
-export type SiteBannerQuery = { siteBanner: { text: string; theme: string } };
 
 export type GetSpruceConfigQueryVariables = {};
 
