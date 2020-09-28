@@ -44,7 +44,7 @@ const spawnVolumeCardFields: CardItem[] = [
     Comp: ({ volume }) => <>{volume.availabilityZone}</>,
   },
   {
-    label: "Is Home MyVolume",
+    label: "Is Home Volume",
     Comp: ({ volume }) => <>{volume.homeVolume ? "True" : "False"}</>,
   },
 ];
