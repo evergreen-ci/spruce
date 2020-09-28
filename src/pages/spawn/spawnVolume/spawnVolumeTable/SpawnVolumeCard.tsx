@@ -31,11 +31,9 @@ const spawnVolumeCardFields: CardItem[] = [
     label: "Expires at",
     Comp: ({ volume }) => (
       <>
-        {volume.noExpiration || !volume.expiration ? (
-          <DoesNotExpire />
-        ) : (
-          getDateCopy(volume.expiration)
-        )}
+        {volume.noExpiration || !volume.expiration
+          ? DoesNotExpire
+          : getDateCopy(volume.expiration)}
       </>
     ),
   },

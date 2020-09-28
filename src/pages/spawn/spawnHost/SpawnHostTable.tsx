@@ -64,11 +64,9 @@ const columns = [
     key: "expiration",
     sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, host: MyHost) =>
-      host?.noExpiration ? (
-        <DoesNotExpire />
-      ) : (
-        formatDistanceToNow(new Date(expiration))
-      ),
+      host?.noExpiration
+        ? DoesNotExpire
+        : formatDistanceToNow(new Date(expiration)),
   },
   {
     title: "Uptime",

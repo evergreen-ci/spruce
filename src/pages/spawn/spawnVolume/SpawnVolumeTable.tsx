@@ -78,11 +78,9 @@ const columns: Array<ColumnProps<MyVolume>> = [
     dataIndex: "expiration",
     sorter: (a: MyVolume, b: MyVolume) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: MyVolume) =>
-      volume.noExpiration || !volume.expiration ? (
-        <DoesNotExpire />
-      ) : (
-        formatDistanceToNow(new Date(expiration))
-      ),
+      volume.noExpiration || !volume.expiration
+        ? DoesNotExpire
+        : formatDistanceToNow(new Date(expiration)),
   },
   {
     title: "Actions",

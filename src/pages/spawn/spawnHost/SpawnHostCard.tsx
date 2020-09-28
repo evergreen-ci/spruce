@@ -30,7 +30,7 @@ const spawnHostCardFieldMaps = {
   "Started at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
   "Expires at": (host: MyHost) => (
     <span>
-      {host?.noExpiration ? <DoesNotExpire /> : getDateCopy(host?.expiration)}
+      {host?.noExpiration ? DoesNotExpire : getDateCopy(host?.expiration)}
     </span>
   ),
   "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
