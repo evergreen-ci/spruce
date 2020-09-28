@@ -364,7 +364,9 @@ describe("Configure Patch Page", () => {
         `/version/${unactivatedPatchId}/tasks`
       );
     });
-    it("Shows error banner if unsuccessful and keeps data", () => {
+
+    // TODO: Reactivate this test when were remove xhr dep on tests
+    xit("Shows error banner if unsuccessful and keeps data", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)
