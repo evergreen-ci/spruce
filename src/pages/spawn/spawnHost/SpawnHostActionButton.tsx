@@ -14,7 +14,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 };
 const mapStatusToAction = {
   [HostStatus.Running]: "Pause",
-  [HostStatus.Stopped]: "Start",
+  [HostStatus.Stopped]: "Play",
 };
 
 const PaddedButton = styled(Button)`
