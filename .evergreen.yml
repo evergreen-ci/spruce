@@ -92,20 +92,20 @@ functions:
     params:
       working_dir: spruce
       background: true
-      command: npm run dev
+      command: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm run dev
 
   npm-install:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
-        npm install
+        /opt/nodejs/node-v12.16.0-linux-x64/bin/npm install
 
   npm-test:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: npm
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [test, --, -u, --reporters=default, --reporters=jest-junit]
       env:
         CI: "true"
@@ -115,28 +115,28 @@ functions:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: npm
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [run, eslint]
 
   npm-tsc:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: npm
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [run, check-types]
 
   npm-build:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: npm
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [run, build]
 
   npm-coverage:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: npm
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [run, coverage]
 
   run-cypress-tests:
@@ -144,8 +144,8 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npx wait-on http://localhost:3000
-        npx cypress run --record --key ${cypress_record_key} --reporter junit
+        /opt/nodejs/node-v12.16.0-linux-x64/bin/npx wait-on http://localhost:3000
+        /opt/nodejs/node-v12.16.0-linux-x64/bin/npx cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
     command: shell.exec
