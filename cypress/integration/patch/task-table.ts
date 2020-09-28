@@ -29,8 +29,7 @@ describe("Task table", () => {
     cy.dataTestId("tasks-table").should("exist");
   });
 
-  // TODO this test flakes because the test sometimes runes before table sorters/data renders
-  xit("Updates the url when column headers are clicked", () => {
+  it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
 
     cy.get("th.cy-task-table-col-NAME").click();
@@ -77,9 +76,8 @@ describe("Task table", () => {
     });
   });
 
-  // flakey test - must fix
   ["NAME", "STATUS", "BASE_STATUS", "VARIANT"].forEach((sortBy) => {
-    xit(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
+    it(`Fetches tasks sorted by ${sortBy} when ${sortBy} header is clicked`, () => {
       clickSorterAndAssertTasksAreFetched(sortBy);
     });
   });
