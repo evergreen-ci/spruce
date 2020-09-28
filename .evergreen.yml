@@ -145,8 +145,9 @@ functions:
     params:
       working_dir: spruce
       script: |
-        wait-on http://localhost:3000
-        cypress run --record --key ${cypress_record_key} --reporter junit
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        ./node_modules/.bin/wait-on http://localhost:3000
+        ./node_modules/.bin/cypress run --record --key ${cypress_record_key} --reporter junit
 
   copy-cmdrc:
     command: shell.exec
