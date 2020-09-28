@@ -39,7 +39,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
             id="patch-base-commit"
             href={`${getUiUrl()}/version/${baseVersionID}`}
           >
-            Base commit: {githash ? githash.slice(0, 10) : ""}
+            Base commit: {githash.slice(0, 10)}
           </StyledLink>
         </P2>
       )}
