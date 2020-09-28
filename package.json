@@ -111,6 +111,7 @@
   },
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
+    "@cypress/webpack-preprocessor": "5.4.6",
     "@graphql-codegen/cli": "1.13.3",
     "@graphql-codegen/typescript": "1.13.3",
     "@graphql-codegen/typescript-operations": "1.13.3",
