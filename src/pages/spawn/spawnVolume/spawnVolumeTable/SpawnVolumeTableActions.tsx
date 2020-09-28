@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { DeleteVolumeBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/DeleteVolumeBtn";
-import { MountBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/MountBtn";
-import { UnmountBtn } from "pages/spawn/spawnVolume/spawnVolumeTable/spawnVolumeTableActions/UnmountBtn";
 import { MyVolume } from "types/spawn";
+import { DeleteVolumeBtn } from "./spawnVolumeTableActions/DeleteVolumeBtn";
+import { MountBtn } from "./spawnVolumeTableActions/MountBtn";
+import { UnmountBtn } from "./spawnVolumeTableActions/UnmountBtn";
 
 interface Props {
   volume: MyVolume;
