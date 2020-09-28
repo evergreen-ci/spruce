@@ -26,7 +26,6 @@ export { GET_USER, GET_OTHER_USER } from "./get-user";
 export { GET_CLIENT_CONFIG } from "./get-client-config";
 export { GET_PATCH_TASK_STATUSES } from "./get-patch-task-statuses";
 export { GET_AWS_REGIONS } from "./aws-regions";
-export { GET_SITE_BANNER } from "./get-site-banner";
 export { HOSTS } from "./hosts";
 export { GET_MY_PUBLIC_KEYS } from "./get-public-keys";
 export { GET_MY_HOSTS } from "./get-my-hosts";
