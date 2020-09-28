@@ -1192,6 +1192,15 @@ export type UpdatePublicKeyMutation = {
   updatePublicKey: Array<{ key: string; name: string }>;
 };
 
+export type UpdateSpawnHostStatusMutationVariables = {
+  hostId: Scalars["String"];
+  action: SpawnHostStatusActions;
+};
+
+export type UpdateSpawnHostStatusMutation = {
+  updateSpawnHostStatus: { id: string; status: string };
+};
+
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
 };

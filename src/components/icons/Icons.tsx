@@ -13,7 +13,7 @@ export const EvergreenLogo = () => (
 export const Pause = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
     <path
-      fill="#000"
+      fill="currentColor"
       fillRule="nonzero"
       d="M.4 0C.2 0 0 .2 0 .4v13.2c0 .2.2.4.4.4h3.8l.3-.1.1-.3V.4c0-.2-.2-.4-.4-.4H.4zm6.4 0c-.2 0-.4.2-.4.4V14l.4.1h3.8l.3-.1.1-.3V.4l-.1-.3-.3-.1H6.8z"
     />
