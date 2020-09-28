@@ -16,10 +16,14 @@ export const Feedback: React.FC = () => {
 
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
-  const [isHidden, setIsHidden] = useState(Cookies.get("HIDE_FEEDBACK"));
+  const hideFeeback =
+    Cookies.get("HIDE_FEEDBACK") !== undefined
+      ? Cookies.get("HIDE_FEEDBACK")
+      : false;
+  const [isHidden, setIsHidden] = useState(hideFeeback);
   return (
     <FloatingContainer>
-      {isHidden && (
+      {!isHidden && (
         <StyledLink target="_blank" href={userVoiceUrl}>
           Feature Requests/Feedback
         </StyledLink>
