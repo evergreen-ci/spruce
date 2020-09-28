@@ -19,6 +19,7 @@ type Action =
   | { name: "Click Reconfigure Link" }
   | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
+  | { name: "Click Task Table Link"; taskId: string }
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionMutationVariables["subscription"];
