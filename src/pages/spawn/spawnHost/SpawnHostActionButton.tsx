@@ -31,7 +31,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
-    pollInterval: 1000,
+    pollInterval: 3000,
     onError: (e) => {
       dispatchBanner.errorBanner(
         `There was an error loading your spawn hosts: ${e.message}`
@@ -39,7 +39,6 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     },
   });
   useNetworkStatus(startPolling, stopPolling);
-
   // Stop polling when we get updated host data
   useEffect(() => {
     if (stopPolling) {
