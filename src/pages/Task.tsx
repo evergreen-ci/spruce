@@ -124,6 +124,7 @@ const TaskCore: React.FC = () => {
     task?.status?.includes(TaskStatus.TaskTimedOut) ||
     task?.status?.includes(TaskStatus.TestTimedOut);
 
+  const [showBuildBaronTab, setShowbuildbarontab] = useState(!failedTask);
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   // logic for tabs + updating url when they change
@@ -248,8 +249,14 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-              {failedTask && execution !== undefined ? (
-                <BuildBaronTab taskId={id} execution={execution} />
+              {showBuildBaronTab && failedTask && execution !== undefined ? (
+                <Tab name="Build Baron" id="task-build-baron-tab">
+                  <BuildBaronTab
+                    taskId={id}
+                    execution={execution}
+                    setShowbuildbarontab={setShowbuildbarontab}
+                  />
+                </Tab>
               ) : null}
               {isPerfPluginEnabled && (
                 <Tab name="Trend Charts" id="trend-charts-tab">
