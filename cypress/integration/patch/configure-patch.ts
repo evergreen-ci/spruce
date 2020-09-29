@@ -365,8 +365,7 @@ describe("Configure Patch Page", () => {
       );
     });
 
-    // TODO: Reactivate this test when were remove xhr dep on tests
-    xit("Shows error banner if unsuccessful and keeps data", () => {
+    it("Shows error banner if unsuccessful and keeps data", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)
@@ -383,7 +382,7 @@ describe("Configure Patch Page", () => {
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.get("[data-cy=error-banner]").should("exist");
+      cy.get("[data-cy=banner]").contains("WAH WAH CHICKEN WAH");
     });
   });
 

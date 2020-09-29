@@ -1569,6 +1569,7 @@ export type GetSpruceConfigQuery = {
     bannerTheme?: Maybe<string>;
     banner?: Maybe<string>;
     ui?: Maybe<{ userVoice?: Maybe<string> }>;
+    jira?: Maybe<{ host?: Maybe<string> }>;
   }>;
 };
 
