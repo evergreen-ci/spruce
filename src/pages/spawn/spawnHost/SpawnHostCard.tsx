@@ -46,9 +46,20 @@ const spawnHostCardFieldMaps = {
     </span>
   ),
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted to": (host: MyHost) => (
+    <>
+      {host.volumes.map(({ id, displayName }) => (
+        <div>
+          <Link to={`${routes.spawnVolume}?volume=${id}`}>
+            {displayName || id}
+          </Link>
+        </div>
+      ))}
+    </>
+  ),
   "Home Volume": (host: MyHost) => (
     <span>
-      <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
+      <Link to={`${routes.spawnVolume}?volume=${host?.homeVolumeID}`}>
         {host?.homeVolumeID}
       </Link>
     </span>
