@@ -211,5 +211,5 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
 
 const RedP2 = styled(P2)`
   color: ${uiColors.red.dark2};
-  font-weight: bold;
+  font-weight: 500;
 `;
