@@ -7,7 +7,8 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
-import { BuildBaronTab } from "components/Buildbaron/BuildBaronTab";
+import BuildBaron from "components/Buildbaron/BuildBaron";
+import { BuildBaronVariables } from "components/Buildbaron/BuildBaronVariables";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -124,7 +125,10 @@ const TaskCore: React.FC = () => {
     task?.status?.includes(TaskStatus.TaskTimedOut) ||
     task?.status?.includes(TaskStatus.TestTimedOut);
 
-  const [showBuildBaronTab, setShowbuildbarontab] = useState(!failedTask);
+  const [showBuildBaronTab, setShowbuildbarontab] = useState(false);
+  const [buildBaronData, setbuildBaronData] = useState(undefined);
+  const [buildBaronError, setbuildBaronError] = useState(undefined);
+
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   // logic for tabs + updating url when they change
@@ -160,6 +164,15 @@ const TaskCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
+      {failedTask && execution !== undefined ? (
+        <BuildBaronVariables
+          taskId={id}
+          execution={execution}
+          setShowbuildbarontab={setShowbuildbarontab}
+          setbuildBaronData={setbuildBaronData}
+          setbuildBaronError={setbuildBaronError}
+        />
+      ) : null}
       {task && (
         <BreadCrumb
           patchAuthor={patchAuthor}
@@ -249,12 +262,13 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-              {showBuildBaronTab && failedTask && execution !== undefined ? (
+
+              {showBuildBaronTab ? (
                 <Tab name="Build Baron" id="task-build-baron-tab">
-                  <BuildBaronTab
+                  <BuildBaron
+                    data={buildBaronData}
+                    error={buildBaronError}
                     taskId={id}
-                    execution={execution}
-                    setShowbuildbarontab={setShowbuildbarontab}
                   />
                 </Tab>
               ) : null}
