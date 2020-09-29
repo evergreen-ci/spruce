@@ -205,14 +205,6 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
           </span>
         ) : null}
       </MetadataCard>
-      {/* <SiderCard>
-        {oomTracker && oomTracker.detected && (
-          <RedP2>
-            Out of Memory Kill detected
-            {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")}` : ""} )
-          </RedP2>
-        )}
-      </SiderCard> */}
     </>
   );
 };
