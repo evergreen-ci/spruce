@@ -9,7 +9,7 @@ interface Props {
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
   <DetailsCard
-    data-cy="spawn-host-card"
+    data-cy={`spawn-volume-card-${volume.displayName || volume.id}`}
     fieldMaps={spawnVolumeCardFields}
     type={volume}
   />
