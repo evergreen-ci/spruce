@@ -18,7 +18,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     {
       onError: (err) =>
         dispatchBanner.errorBanner(`Error detaching volume: '${err.message}'`),
-      refetchQueries: ["myVolumes"],
+      refetchQueries: ["myVolumes", "myHosts"],
     }
   );
 
