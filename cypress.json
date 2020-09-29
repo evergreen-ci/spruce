@@ -4,5 +4,6 @@
   "reporterOptions": {
     "mochaFile": "junit.xml"
   },
-  "defaultCommandTimeout": 15000
+  "defaultCommandTimeout": 15000,
+  "retries": 4
 }
