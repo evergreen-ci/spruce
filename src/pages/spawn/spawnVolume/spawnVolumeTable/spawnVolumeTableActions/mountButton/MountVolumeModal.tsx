@@ -94,11 +94,11 @@ export const MountVolumeModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton key={0} onClick={onCancel}>
+        <WideButton key="cancel" onClick={onCancel}>
           Cancel
         </WideButton>,
         <WideButton
-          key={1}
+          key="mount"
           data-cy="mount-volume-button"
           disabled={!selectedHostId || loadingAttachVolume || loading}
           onClick={() => {
