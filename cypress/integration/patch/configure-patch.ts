@@ -382,7 +382,7 @@ describe("Configure Patch Page", () => {
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.get("[data-cy=error-banner]").should("exist");
+      cy.get("[data-cy=banner]").contains("WAH WAH CHICKEN WAH");
     });
   });
 
