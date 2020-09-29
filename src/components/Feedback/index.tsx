@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
+import Cookies from "js-cookie";
 import Icon from "components/icons/Icon";
 import { StyledLink as Link } from "components/styles";
 import { GetSpruceConfigQuery } from "gql/generated/types";
@@ -15,16 +16,23 @@ export const Feedback: React.FC = () => {
 
   const userVoiceUrl = data?.spruceConfig?.ui?.userVoice;
 
-  const [isHidden, setIsHidden] = useState(true);
+  const hideFeeback =
+    Cookies.get("HIDE_FEEDBACK") !== undefined
+      ? Cookies.get("HIDE_FEEDBACK")
+      : false;
+  const [isHidden, setIsHidden] = useState(hideFeeback);
   return (
     <FloatingContainer>
-      {isHidden && (
+      {!isHidden && (
         <StyledLink target="_blank" href={userVoiceUrl}>
           Feature Requests/Feedback
         </StyledLink>
       )}
       <IconButton
-        onClick={() => setIsHidden(!isHidden)}
+        onClick={() => {
+          Cookies.set("HIDE_FEEDBACK", !isHidden);
+          setIsHidden(!isHidden);
+        }}
         aria-label="Show Feedback form"
       >
         <StyledIcon glyph="Megaphone" color={green.base} />

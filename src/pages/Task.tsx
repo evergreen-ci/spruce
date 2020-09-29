@@ -149,7 +149,6 @@ const TaskCore: React.FC = () => {
     loading: buildBaronLoading,
   } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
     variables: { taskId: id, execution },
-    pollInterval,
   });
   const buildBaron = buildBaronData?.buildBaron;
   const buildBaronConfigured = buildBaron?.buildBaronConfigured;
@@ -158,7 +157,6 @@ const TaskCore: React.FC = () => {
   const failedTask =
     task?.status?.includes("failed") || task?.status?.includes("timed-out");
 
-  // todo: unhide the buildBaronTab when it is production ready
   const buildBaronIsProductionReady = false;
   const showBuildBaronTab =
     !buildBaronLoading &&
@@ -279,7 +277,11 @@ const TaskCore: React.FC = () => {
                 </Tab>
                 {showBuildBaronTab ? (
                   <Tab name="Build Baron" id="task-build-baron-tab">
-                    <BuildBaron data={buildBaronData} error={buildBaronError} />
+                    <BuildBaron
+                      data={buildBaronData}
+                      error={buildBaronError}
+                      taskId={id}
+                    />
                   </Tab>
                 ) : null}
                 {isPerfPluginEnabled && (

@@ -13,7 +13,7 @@ export const EvergreenLogo = () => (
 export const Pause = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="11" height="14">
     <path
-      fill="#000"
+      fill="currentColor"
       fillRule="nonzero"
       d="M.4 0C.2 0 0 .2 0 .4v13.2c0 .2.2.4.4.4h3.8l.3-.1.1-.3V.4c0-.2-.2-.4-.4-.4H.4zm6.4 0c-.2 0-.4.2-.4.4V14l.4.1h3.8l.3-.1.1-.3V.4l-.1-.3-.3-.1H6.8z"
     />
@@ -22,15 +22,11 @@ export const Pause = () => (
 
 export const Play = () => (
   <svg xmlns="http://www.w3.org/2000/svg" width="13" height="14">
-    <defs>
-      <path id="a" d="M0 0h13v14H0z" />
-    </defs>
-    <g fill="none" fillRule="evenodd">
-      <mask id="b" fill="#fff" />
+    <g fill="none">
       <path
-        fill="#000"
+        fill="currentColor"
         d="M12.3 5.8L2.3.2C1.2-.4 0 .3 0 1.4v11.2c0 1 1.2 1.7 2.2 1.2l10-5.6c1-.5 1-1.9 0-2.4"
-        mask="url(#b)"
+        mask="url(#a)"
       />
     </g>
   </svg>
