@@ -121,9 +121,9 @@ const TaskCore: React.FC = () => {
   const isPerfPluginEnabled = false;
   const patchAuthor = data?.task.patchMetadata.author;
   const failedTask =
-    task?.status?.includes(TaskStatus.Failed) ||
-    task?.status?.includes(TaskStatus.TaskTimedOut) ||
-    task?.status?.includes(TaskStatus.TestTimedOut);
+    task?.status === TaskStatus.Failed ||
+    task?.status === TaskStatus.TaskTimedOut ||
+    task?.status === TaskStatus.TestTimedOut;
 
   const [showBuildBaronTab, setShowbuildbarontab] = useState(false);
   const [buildBaronData, setbuildBaronData] = useState(undefined);
