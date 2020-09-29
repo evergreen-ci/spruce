@@ -84,9 +84,11 @@ export const ModalContent = styled.div`
   display: flex;
   flex-direction: column;
 `;
+
 export const Section = styled(ModalContent)`
   margin-top: 20px;
 `;
+
 export const SectionContainer = styled.div`
   display: flex;
   align-items: center;
@@ -114,6 +116,7 @@ const CardField: React.FC<CardItem> = ({ label, value }) => (
 type FieldMap<T> = {
   [key: string]: (T: T) => JSX.Element;
 };
+
 interface DetailsCardProps {
   type: MyHost | MyVolume;
   ["data-cy"]?: string;
