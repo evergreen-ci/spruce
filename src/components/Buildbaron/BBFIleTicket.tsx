@@ -65,7 +65,6 @@ export const FileTicket: React.FC<FileTicketProps> = ({
   const [buttonText, setButtonText] = useState<string>("FILE TICKET");
   const taskAnalytics = useTaskAnalytics();
   const onClickFile = () => {
-    // todo: add analytics
     taskAnalytics.sendEvent({ name: "Build Baron File Ticket" });
     fileJiraTicket({ variables: { taskId } });
   };
