@@ -49,7 +49,6 @@ export const MountVolumeModal: React.FC<Props> = ({
       dispatchBanner.errorBanner(
         `There was an error loading hosts: ${e.message}`
       );
-      console.log(e);
     },
   });
   useNetworkStatus(startPolling, stopPolling);
@@ -59,13 +58,16 @@ export const MountVolumeModal: React.FC<Props> = ({
   useEffect(() => {
     if (data?.myHosts) {
       const opts = data.myHosts
+        // Filter hosts that do not have the same availability zone as the volume.
         .filter(
           ({ availabilityZone }) => availabilityZone === targetAvailabilityZone
         )
+        // Map host to a displayName and ID for the dropdown <Option />
         .map((host) => ({
           key: host.id,
           displayName: host.displayName ? host.displayName : host.id,
         }))
+        // Sort the dropdown items by display name.
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
       setHostOptions(opts);
     }
