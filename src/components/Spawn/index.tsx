@@ -71,17 +71,6 @@ const FieldContainer = styled.div`
 const FieldName = styled.div`
   min-width: 150px;
 `;
-interface CardFieldProps {
-  field: string;
-  value: string | { key: string; value: string }[] | JSX.Element;
-}
-
-export const CardField: React.FC<CardFieldProps> = ({ field, value }) => (
-  <FieldContainer>
-    <FieldName>{field}</FieldName>
-    <div>{value}</div>
-  </FieldContainer>
-);
 
 export const DoesNotExpire = "Does not expire";
 
@@ -108,3 +97,28 @@ export const SectionLabel = styled(Body)`
   margin-top: 22px;
   min-width: 175px;
 `;
+
+interface CardItem {
+  label: string;
+  value: JSX.Element;
+}
+
+interface CardProps {
+  "data-cy": string;
+  cardItems: CardItem[];
+}
+
+const CardField: React.FC<CardItem> = ({ label, value }) => (
+  <FieldContainer>
+    <FieldName>{label}</FieldName>
+    <div>{value}</div>
+  </FieldContainer>
+);
+
+export const Card: React.FC<CardProps> = ({ "data-cy": dataCy, cardItems }) => (
+  <CardContainer data-cy={dataCy}>
+    {cardItems.map(({ label, value }) => (
+      <CardField key={label} label={label} value={value} />
+    ))}
+  </CardContainer>
+);

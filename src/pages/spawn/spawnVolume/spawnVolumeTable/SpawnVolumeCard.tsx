@@ -1,5 +1,5 @@
 import React from "react";
-import { CardContainer, CardField, DoesNotExpire } from "components/Spawn";
+import { Card, DoesNotExpire } from "components/Spawn";
 import { MyVolume } from "types/spawn";
 import { getDateCopy } from "utils/string";
 
@@ -8,13 +8,13 @@ interface Props {
 }
 
 export const SpawnVolumeCard: React.FC<Props> = ({ volume }) => (
-  <CardContainer
+  <Card
     data-cy={`spawn-volume-card-${volume.displayName || volume.id}`}
-  >
-    {spawnVolumeCardFields.map(({ label, Comp }) => (
-      <CardField key={label} field={label} value={<Comp volume={volume} />} />
-    ))}
-  </CardContainer>
+    cardItems={spawnVolumeCardFields.map(({ label, Comp }) => ({
+      label,
+      value: <Comp volume={volume} />,
+    }))}
+  />
 );
 
 interface CardItem {
