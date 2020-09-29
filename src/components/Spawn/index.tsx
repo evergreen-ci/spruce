@@ -6,6 +6,7 @@ import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/icons/Icon";
 import { SiderCard } from "components/styles";
+import { MyHost, MyVolume } from "types/spawn";
 
 export const Container = styled.div`
   margin-left: 60px;
@@ -103,11 +104,6 @@ interface CardItem {
   value: JSX.Element;
 }
 
-interface CardProps {
-  "data-cy": string;
-  cardItems: CardItem[];
-}
-
 const CardField: React.FC<CardItem> = ({ label, value }) => (
   <FieldContainer>
     <FieldName>{label}</FieldName>
@@ -115,10 +111,27 @@ const CardField: React.FC<CardItem> = ({ label, value }) => (
   </FieldContainer>
 );
 
-export const Card: React.FC<CardProps> = ({ "data-cy": dataCy, cardItems }) => (
+type FieldMap<T> = {
+  [key: string]: (T: T) => JSX.Element;
+};
+interface DetailsCardProps {
+  type: MyHost | MyVolume;
+  ["data-cy"]?: string;
+  fieldMaps: FieldMap<MyHost | MyVolume>;
+}
+
+export const DetailsCard: React.FC<DetailsCardProps> = ({
+  type,
+  "data-cy": dataCy,
+  fieldMaps,
+}) => (
   <CardContainer data-cy={dataCy}>
-    {cardItems.map(({ label, value }) => (
-      <CardField key={label} label={label} value={value} />
+    {Object.keys(fieldMaps).map((key) => (
+      <CardField
+        key={`${key}_${type.id}`}
+        label={key}
+        value={fieldMaps[key](type)}
+      />
     ))}
   </CardContainer>
 );
