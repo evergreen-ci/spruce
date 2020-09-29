@@ -8,6 +8,9 @@ export const GET_SPRUCE_CONFIG = gql`
       ui {
         userVoice
       }
+      jira {
+        host
+      }
     }
   }
 `;

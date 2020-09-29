@@ -91,8 +91,7 @@ xdescribe("Tasks filters", () => {
     const variantInputValue = "lint";
     const urlParam = "variant";
 
-    // TODO: fix. have identified this test as flakey
-    xit("Updates url with input value and fetches tasks filtered by variant", () => {
+    it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.get("[data-cy=variant-input]").type(variantInputValue);
       resultsAreFetchedAndRendered({
         queryName: "PatchTasks",
@@ -198,8 +197,7 @@ xdescribe("Tasks filters", () => {
       });
 
       singularStatuses.forEach(({ title, paramValue }) => {
-        // TODO: fix. have identified this test as flakey
-        xit(`Clicking on singular status '${title}' updates url status with '${paramValue}'`, () => {
+        it(`Clicking on singular status '${title}' updates url status with '${paramValue}'`, () => {
           clickingCheckboxUpdatesUrlAndRendersFetchedResults({
             checkboxDisplayName: title,
             pathname: pathTasks,
