@@ -8,6 +8,7 @@ describe("Navigating to Spawn Volume page", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
+    cy.viewport(1920, 1080);
   });
 
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
