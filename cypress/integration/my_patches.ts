@@ -78,8 +78,7 @@ describe("My Patches Page", () => {
       );
   });
 
-  // TODO: flakes becuase the gql query is not always tracked
-  xit("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
+  it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({

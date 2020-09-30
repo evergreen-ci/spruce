@@ -1,10 +1,12 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
-import { TicketFields } from "gql/generated/types";
+import { GetSpruceConfigQuery, TicketFields } from "gql/generated/types";
+import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { getDateCopy } from "utils/string";
 
 interface TitleProps {
@@ -28,7 +30,11 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   fields,
 }) => {
   const taskAnalytics = useTaskAnalytics();
-  const url = `https://jira.mongodb.org/browse/${jiraKey}`;
+
+  const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
+  const spruceConfig = data?.spruceConfig;
+  const jiraHost = spruceConfig?.jira?.host;
+  const url = `https://${jiraHost}/browse/${jiraKey}`;
   return (
     <div>
       <JiraSummaryLink
