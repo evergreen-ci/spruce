@@ -996,7 +996,6 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
-  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
