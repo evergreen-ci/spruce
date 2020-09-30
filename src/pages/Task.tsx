@@ -8,7 +8,6 @@ import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
 import BuildBaron from "components/Buildbaron/BuildBaron";
-import { BuildBaronVariables } from "components/Buildbaron/BuildBaronVariables";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
@@ -30,6 +29,7 @@ import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
+import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
@@ -38,7 +38,7 @@ import { Logs } from "pages/task/Logs";
 import { Metadata } from "pages/task/Metadata";
 import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
-import { TaskTab, RequiredQueryParams, TaskStatus } from "types/task";
+import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
 import { TrendCharts } from "./task/TrendCharts";
 
@@ -120,14 +120,16 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const isPerfPluginEnabled = false;
   const patchAuthor = data?.task.patchMetadata.author;
-  const failedTask =
-    task?.status === TaskStatus.Failed ||
-    task?.status === TaskStatus.TaskTimedOut ||
-    task?.status === TaskStatus.TestTimedOut;
 
-  const [showBuildBaronTab, setShowbuildbarontab] = useState(false);
-  const [buildBaronData, setbuildBaronData] = useState(undefined);
-  const [buildBaronError, setbuildBaronError] = useState(undefined);
+  const {
+    showBuildBaronTab,
+    buildBaronData,
+    buildBaronError,
+  } = useBuildBaronVariables({
+    taskId: id,
+    execution,
+    taskStatus: task?.status,
+  });
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
@@ -164,15 +166,6 @@ const TaskCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {failedTask && execution !== undefined ? (
-        <BuildBaronVariables
-          taskId={id}
-          execution={execution}
-          setShowbuildbarontab={setShowbuildbarontab}
-          setbuildBaronData={setbuildBaronData}
-          setbuildBaronError={setbuildBaronError}
-        />
-      ) : null}
       {task && (
         <BreadCrumb
           patchAuthor={patchAuthor}
