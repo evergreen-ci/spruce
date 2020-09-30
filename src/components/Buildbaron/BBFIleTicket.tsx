@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
+import { useTaskAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   BbCreateTicketMutation,
@@ -62,8 +63,9 @@ export const FileTicket: React.FC<FileTicketProps> = ({
   });
 
   const [buttonText, setButtonText] = useState<string>("FILE TICKET");
+  const taskAnalytics = useTaskAnalytics();
   const onClickFile = () => {
-    // todo: add analytics
+    taskAnalytics.sendEvent({ name: "Build Baron File Ticket" });
     fileJiraTicket({ variables: { taskId } });
   };
 

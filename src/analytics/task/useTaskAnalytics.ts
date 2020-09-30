@@ -36,7 +36,9 @@ type Action =
   | { name: "Click Base Commit" }
   | { name: "Click Host Link" }
   | { name: "Click Spawn Host" }
-  | { name: "Click Distro Link" };
+  | { name: "Click Distro Link" }
+  | { name: "Click Jira Summary Link" }
+  | { name: "Build Baron File Ticket" };
 
 interface P extends Properties {
   taskId: string;
