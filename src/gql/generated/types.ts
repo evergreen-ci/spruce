@@ -1723,6 +1723,9 @@ export type GetTaskQuery = {
       taskLogLink?: Maybe<string>;
       eventLogLink?: Maybe<string>;
     };
+    details?: Maybe<{
+      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+    }>;
   }>;
 };
 
