@@ -51,6 +51,7 @@ describe("Navigating to Spawn Volume page", () => {
   });
 
   it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
+    cy.visit("/spawn/volume");
     cy.dataRowKey("vol-0ae8720b445b771b6").should("exist");
     cy.dataCy("trash-vol-0ae8720b445b771b6").click();
     cy.get(popconfirmYesClassName).click();
