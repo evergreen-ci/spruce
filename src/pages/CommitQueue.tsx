@@ -9,6 +9,7 @@ import Badge from "components/Badge";
 import { Banners } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import { PageWrapper } from "components/styles";
+import { P1 } from "components/Typography";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -60,6 +61,9 @@ const CommitQueueCore: React.FC = () => {
         loading={loading}
         hasData
       />
+      {commitQueue && commitQueue.message && (
+        <P1 data-cy="commit-queue-message">{commitQueue.message}</P1>
+      )}
       <HR />
       {queue &&
         queue.map((queueItems, i) => (

@@ -858,6 +858,7 @@ export type LogMessage = {
 
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
+  message?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
@@ -996,7 +997,6 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
-  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
@@ -1299,6 +1299,7 @@ export type CommitQueueQueryVariables = {
 export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
+    message?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
