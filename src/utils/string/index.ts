@@ -167,3 +167,5 @@ export const sortFunctionDate = (a, b, key) => {
   }
   return dateA - dateB;
 };
+
+export { getStatusBadgeCopy } from "./getStatusBadgeCopy";
