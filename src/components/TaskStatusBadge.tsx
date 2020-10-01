@@ -62,6 +62,11 @@ const StyledBadge = styled(Badge)`
   border-color: ${(props: BadgeColorProps): string => props.border} !important;
   background-color: ${(props: BadgeColorProps): string => props.fill} !important
   color: ${(props: BadgeColorProps): string => props.text} !important;
+  width: max-content;
+`;
+
+const BadgeWidthMaxContent = styled(Badge)`
+  width: max-content;
 `;
 
 interface TaskStatusBadgeProps {
@@ -83,13 +88,13 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 
   if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
-      <Badge
+      <BadgeWidthMaxContent
         data-cy={dataCy}
         key={adjustedTaskStatus}
         variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
         {getStatusBadgeCopy(displayStatus)}
-      </Badge>
+      </BadgeWidthMaxContent>
     );
   }
 
