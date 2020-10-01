@@ -83,8 +83,9 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
     ? (TaskStatus.StatusBlocked as string)
     : status;
 
-  const displayStatus =
-    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus;
+  const displayStatus = getStatusBadgeCopy(
+    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus
+  );
 
   if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
@@ -93,7 +94,7 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         key={adjustedTaskStatus}
         variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
-        {getStatusBadgeCopy(displayStatus)}
+        {displayStatus}
       </BadgeWidthMaxContent>
     );
   }
@@ -105,7 +106,7 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         key={adjustedTaskStatus}
         {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
       >
-        {getStatusBadgeCopy(displayStatus)}
+        {displayStatus}
       </StyledBadge>
     );
   }
