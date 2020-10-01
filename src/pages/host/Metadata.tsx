@@ -32,7 +32,7 @@ export const Metadata: React.FC<{
   return (
     <HostCard error={error} loading={loading} metaData>
       <P2>User: {user}</P2>
-      <P2>Host Name: {hostUrl}</P2>
+      {hostUrl && <P2>Host Name: {hostUrl}</P2>}
       {lastCommunicationTime && (
         <P2 data-cy="host-last-communication">
           Last Communication:{" "}
