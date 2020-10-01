@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
-import { isNetworkRequestInFlight } from "@apollo/client/core/networkStatus";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
@@ -31,7 +30,7 @@ import {
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { useDisableTableSortersIfLoading, usePrevious } from "hooks";
+import { useDisableTableSortersIfLoading } from "hooks";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { parseQueryString, getArray, getString } from "utils";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
@@ -43,13 +42,8 @@ const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();
-  const prevSearch = usePrevious<string>(search);
-  const searchChanged = search !== prevSearch;
 
-  // QUERY VARIABLES FROM URL PARAMS
-  const [initialQueryVariables] = useState<HostsQueryVariables>(
-    getQueryVariables(search)
-  );
+  const queryVariables = getQueryVariables(search);
   const {
     limit,
     page,
@@ -60,7 +54,7 @@ const Hosts: React.FC = () => {
     startedBy,
     sortBy,
     sortDir,
-  } = getQueryVariables(search);
+  } = queryVariables;
 
   const hasFilters =
     hostId || currentTaskId || distroId || statuses.length || startedBy;
@@ -74,29 +68,19 @@ const Hosts: React.FC = () => {
   >(false);
 
   // HOSTS QUERY
-  const { data: hostsData, networkStatus, refetch } = useQuery<
+  const { data: hostsData, loading } = useQuery<
     HostsQuery,
     HostsQueryVariables
   >(HOSTS, {
-    variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true,
+    variables: queryVariables,
   });
+
+  useDisableTableSortersIfLoading(loading);
 
   const hosts = hostsData?.hosts;
   const hostItems = hosts?.hosts ?? [];
   const totalHostsCount = hosts?.totalHostsCount ?? 0;
   const filteredHostCount = hosts?.filteredHostsCount ?? 0;
-
-  const isLoading = isNetworkRequestInFlight(networkStatus);
-
-  useDisableTableSortersIfLoading(networkStatus);
-
-  // REFETCH HOSTS QUERY IF SEARCH CHANGES
-  useEffect(() => {
-    if (searchChanged) {
-      refetch(getQueryVariables(search));
-    }
-  }, [searchChanged, search, refetch]);
 
   return (
     <PageWrapper data-cy="hosts-page">
@@ -154,7 +138,7 @@ const Hosts: React.FC = () => {
             sortDir={sortDir}
             selectedHostIds={selectedHostIds}
             setSelectedHostIds={setSelectedHostIds}
-            loading={isLoading}
+            loading={loading}
           />
         </TableContainer>
         <UpdateStatusModal
