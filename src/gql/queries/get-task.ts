@@ -16,7 +16,6 @@ export const GET_TASK = gql`
       displayName
       finishTime
       hostId
-      hostLink
       patchMetadata {
         author
       }
