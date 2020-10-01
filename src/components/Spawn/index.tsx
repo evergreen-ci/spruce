@@ -5,8 +5,8 @@ import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/icons/Icon";
-import { SiderCard } from "components/styles";
-import { MyHost, MyVolume } from "types/spawn";
+
+export { DetailsCard } from "./DetailsCard";
 
 export const Container = styled.div`
   margin-left: 60px;
@@ -57,22 +57,6 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
   </TableContainer>
 );
 
-export const CardContainer = styled(SiderCard)`
-  width: 80%;
-  padding-bottom: 32px;
-`;
-
-const FieldContainer = styled.div`
-  display: flex;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const FieldName = styled.div`
-  min-width: 150px;
-`;
-
 export const DoesNotExpire = "Does not expire";
 
 export const WideButton = styled(Button)`
@@ -100,41 +84,3 @@ export const SectionLabel = styled(Body)`
   margin-top: 22px;
   min-width: 175px;
 `;
-
-interface CardItem {
-  label: string;
-  value: JSX.Element;
-}
-
-const CardField: React.FC<CardItem> = ({ label, value }) => (
-  <FieldContainer>
-    <FieldName>{label}</FieldName>
-    <div>{value}</div>
-  </FieldContainer>
-);
-
-type FieldMap<T> = {
-  [key: string]: (T: T) => JSX.Element;
-};
-
-interface DetailsCardProps {
-  type: MyHost | MyVolume;
-  ["data-cy"]?: string;
-  fieldMaps: FieldMap<MyHost | MyVolume>;
-}
-
-export const DetailsCard: React.FC<DetailsCardProps> = ({
-  type,
-  "data-cy": dataCy,
-  fieldMaps,
-}) => (
-  <CardContainer data-cy={dataCy}>
-    {Object.keys(fieldMaps).map((key) => (
-      <CardField
-        key={`${key}_${type.id}`}
-        label={key}
-        value={fieldMaps[key](type)}
-      />
-    ))}
-  </CardContainer>
-);
