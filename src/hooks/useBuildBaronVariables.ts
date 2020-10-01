@@ -22,9 +22,7 @@ export const useBuildBaronVariables = ({
       data: buildBaronData,
       error: buildBaronError,
     },
-  ] = useLazyQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
-    fetchPolicy: "network-only",
-  });
+  ] = useLazyQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON);
 
   const failedTask =
     taskStatus === TaskStatus.Failed ||
