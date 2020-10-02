@@ -16,7 +16,6 @@ export const GET_TASK = gql`
       displayName
       finishTime
       hostId
-      hostLink
       patchMetadata {
         author
       }
@@ -55,6 +54,12 @@ export const GET_TASK = gql`
       generatedBy
       generatedByName
       isPerfPluginEnabled
+      details {
+        oomTracker {
+          detected
+          pids
+        }
+      }
     }
   }
 `;

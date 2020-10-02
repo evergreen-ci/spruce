@@ -53,6 +53,7 @@ export const HostCore: React.FC = () => {
   });
 
   const host = hostData?.host;
+  const hostId = host?.id;
   const hostUrl = host?.hostUrl;
   const user = host?.user;
   const status = host?.status as HostStatus;
@@ -79,7 +80,7 @@ export const HostCore: React.FC = () => {
     boolean
   >(false);
 
-  usePageTitle(`Host${hostUrl ? ` - ${hostUrl}` : ""}`);
+  usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 
   return (
     <PageWrapper data-cy="host-page">
@@ -90,7 +91,7 @@ export const HostCore: React.FC = () => {
       {host && (
         <>
           <PageTitle
-            title={`Host: ${hostUrl}`}
+            title={`Host: ${hostId}`}
             badge={<HostStatusBadge status={status} />}
             loading={hostMetaDataLoading}
             hasData
@@ -123,9 +124,11 @@ export const HostCore: React.FC = () => {
                 data={hostData}
                 error={error}
               />
-              <Code language="shell" data-cy="ssh-command">
-                {sshCommand}
-              </Code>
+              {hostUrl && (
+                <Code language="shell" data-cy="ssh-command">
+                  {sshCommand}
+                </Code>
+              )}
             </PageSider>
             <PageLayout>
               <PageContent>

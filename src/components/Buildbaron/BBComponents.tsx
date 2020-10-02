@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
+import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { GetSpruceConfigQuery, TicketFields } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
@@ -28,14 +29,21 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   jiraKey,
   fields,
 }) => {
+  const taskAnalytics = useTaskAnalytics();
+
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
   const spruceConfig = data?.spruceConfig;
   const jiraHost = spruceConfig?.jira?.host;
-
   const url = `https://${jiraHost}/browse/${jiraKey}`;
   return (
     <div>
-      <JiraSummaryLink href={url} data-cy="jira-link">
+      <JiraSummaryLink
+        href={url}
+        data-cy="jira-link"
+        onClick={() =>
+          taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
+        }
+      >
         {jiraKey}: {fields.summary} {"   "}
       </JiraSummaryLink>
 

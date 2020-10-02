@@ -1,16 +1,15 @@
 import React from "react";
 import styled from "@emotion/styled/macro";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import { paths } from "constants/routes";
 import { TaskEventLogEntry } from "gql/generated/types";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 
 export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
   const { timestamp, eventType, data } = props;
-  const hostLink = (
-    <a href={`${getUiUrl()}/host/${data.hostId}`}>{data.hostId}</a>
-  );
+  const hostLink = `${paths.host}/${data.hostId}`;
   let message: JSX.Element;
   switch (eventType) {
     case "TASK_FINISHED":
@@ -24,13 +23,25 @@ export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
       message = <>Marked as &quot;started&quot;</>;
       break;
     case "TASK_DISPATCHED":
-      message = <>Dispatched to host {hostLink}</>;
+      message = (
+        <>
+          Dispatched to host <Link to={hostLink}>{data.hostId}</Link>
+        </>
+      );
       break;
     case "TASK_UNDISPATCHED":
-      message = <>Undispatched from host {hostLink}</>;
+      message = (
+        <>
+          Undispatched from host <Link to={hostLink}>{data.hostId}</Link>
+        </>
+      );
       break;
     case "TASK_CREATED":
-      message = <>Undispatched from host {hostLink}</>;
+      message = (
+        <>
+          Undispatched from host <Link to={hostLink}>{data.hostId}</Link>
+        </>
+      );
       break;
     case "TASK_RESTARTED":
       message = <>Restarted by {data.userId}</>;
