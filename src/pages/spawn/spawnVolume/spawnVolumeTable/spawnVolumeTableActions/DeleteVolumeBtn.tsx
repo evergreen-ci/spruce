@@ -25,6 +25,9 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     refetchQueries: ["myVolumes", "myHosts"],
     onError: (err) =>
       dispatchBanner.errorBanner(`Error removing volume: '${err.message}'`),
+    onCompleted: () => {
+      dispatchBanner.successBanner("Successfully deleted the volume.");
+    },
   });
 
   const volumeName = volume.displayName ? volume.displayName : volume.id;

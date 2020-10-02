@@ -50,9 +50,6 @@ export const MountVolumeModal: React.FC<Props> = ({
         `There was an error loading hosts: ${e.message}`
       );
     },
-    onCompleted: () => {
-      dispatchBanner.successBanner("Successfully mounted the volume.");
-    },
   });
   useNetworkStatus(startPolling, stopPolling);
   const targetAvailabilityZone = volume.availabilityZone;
@@ -89,6 +86,9 @@ export const MountVolumeModal: React.FC<Props> = ({
   >(ATTACH_VOLUME, {
     onError: (err) =>
       dispatchBanner.errorBanner(`Error attaching volume: '${err.message}'`),
+    onCompleted: () => {
+      dispatchBanner.successBanner("Successfully mounted the volume.");
+    },
     refetchQueries: ["myVolumes"],
   });
   return (
