@@ -25,19 +25,11 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import {
-  BuildBaronQuery,
-  BuildBaronQueryVariables,
-  GetTaskQuery,
-  GetTaskQueryVariables,
-} from "gql/generated/types";
-import {
-  GET_TASK,
-  GET_TASK_LATEST_EXECUTION,
-  GET_BUILD_BARON,
-} from "gql/queries";
+import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
+import { GET_TASK, GET_TASK_LATEST_EXECUTION } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
+import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
@@ -109,6 +101,7 @@ const TaskCore: React.FC = () => {
         `There was an error loading the task: ${err.message}`
       ),
   });
+
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
@@ -128,6 +121,16 @@ const TaskCore: React.FC = () => {
   const isPerfPluginEnabled = false;
   const patchAuthor = data?.task.patchMetadata.author;
 
+  const {
+    showBuildBaronTab,
+    buildBaronData,
+    buildBaronError,
+  } = useBuildBaronVariables({
+    taskId: id,
+    execution,
+    taskStatus: task?.status,
+  });
+
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   // logic for tabs + updating url when they change
@@ -141,28 +144,6 @@ const TaskCore: React.FC = () => {
     sendAnalyticsEvent: (tab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
-
-  // Query build baron data
-  const {
-    data: buildBaronData,
-    error: buildBaronError,
-    loading: buildBaronLoading,
-  } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON, {
-    variables: { taskId: id, execution },
-  });
-  const buildBaron = buildBaronData?.buildBaron;
-  const buildBaronConfigured = buildBaron?.buildBaronConfigured;
-
-  // logic for displaying the build baron tab
-  const failedTask =
-    task?.status?.includes("failed") || task?.status?.includes("timed-out");
-
-  const buildBaronIsProductionReady = false;
-  const showBuildBaronTab =
-    !buildBaronLoading &&
-    buildBaronConfigured &&
-    failedTask &&
-    buildBaronIsProductionReady;
 
   if (error) {
     stopPolling();
@@ -232,65 +213,64 @@ const TaskCore: React.FC = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            {showBuildBaronTab !== undefined && (
-              <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-                <Tab name="Logs" id="task-logs-tab">
-                  <Logs logLinks={logLinks} />
+            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
+              <Tab name="Logs" id="task-logs-tab">
+                <Logs logLinks={logLinks} />
+              </Tab>
+              <Tab
+                name={
+                  <span>
+                    {failedTestCount ? (
+                      <TabLabelWithBadge
+                        tabLabel="Tests"
+                        badgeVariant="red"
+                        badgeText={failedTestCount}
+                        dataCyBadge="test-tab-badge"
+                      />
+                    ) : (
+                      "Tests"
+                    )}
+                  </span>
+                }
+                id="task-tests-tab"
+              >
+                <TestsTable />
+              </Tab>
+              <Tab
+                name={
+                  <span>
+                    {fileCount !== undefined ? (
+                      <TabLabelWithBadge
+                        tabLabel="Files"
+                        badgeVariant="lightgray"
+                        badgeText={fileCount}
+                        dataCyBadge="files-tab-badge"
+                      />
+                    ) : (
+                      "Files"
+                    )}
+                  </span>
+                }
+                id="task-files-tab"
+              >
+                <FilesTables />
+              </Tab>
+
+              {showBuildBaronTab && (
+                <Tab name="Build Baron" id="task-build-baron-tab">
+                  <BuildBaron
+                    data={buildBaronData}
+                    error={buildBaronError}
+                    taskId={id}
+                  />
                 </Tab>
-                <Tab
-                  name={
-                    <span>
-                      {failedTestCount ? (
-                        <TabLabelWithBadge
-                          tabLabel="Tests"
-                          badgeVariant="red"
-                          badgeText={failedTestCount}
-                          dataCyBadge="test-tab-badge"
-                        />
-                      ) : (
-                        "Tests"
-                      )}
-                    </span>
-                  }
-                  id="task-tests-tab"
-                >
-                  <TestsTable />
+              )}
+              {isPerfPluginEnabled && (
+                <Tab name="Trend Charts" id="trend-charts-tab">
+                  <TrendCharts />
                 </Tab>
-                <Tab
-                  name={
-                    <span>
-                      {fileCount !== undefined ? (
-                        <TabLabelWithBadge
-                          tabLabel="Files"
-                          badgeVariant="lightgray"
-                          badgeText={fileCount}
-                          dataCyBadge="files-tab-badge"
-                        />
-                      ) : (
-                        "Files"
-                      )}
-                    </span>
-                  }
-                  id="task-files-tab"
-                >
-                  <FilesTables />
-                </Tab>
-                {showBuildBaronTab ? (
-                  <Tab name="Build Baron" id="task-build-baron-tab">
-                    <BuildBaron
-                      data={buildBaronData}
-                      error={buildBaronError}
-                      taskId={id}
-                    />
-                  </Tab>
-                ) : null}
-                {isPerfPluginEnabled && (
-                  <Tab name="Trend Charts" id="trend-charts-tab">
-                    <TrendCharts />
-                  </Tab>
-                )}
-              </StyledTabs>
-            )}
+              )}
+            </StyledTabs>
           </PageContent>
         </LogWrapper>
       </PageLayout>
