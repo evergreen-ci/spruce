@@ -2,7 +2,6 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
 import {
-  Container,
   Title,
   BadgeWrapper,
   TitleContainer,
@@ -26,7 +25,7 @@ export const SpawnVolume = () => {
   const volumes = volumesData?.myVolumes;
 
   return (
-    <Container>
+    <>
       <TitleContainer>
         <Title>Volumes</Title>
         <BadgeWrapper>
@@ -42,6 +41,6 @@ export const SpawnVolume = () => {
       </TitleContainer>
       <SpawnVolumeButton showMetadata />
       <SpawnVolumeTable volumes={volumes} />
-    </Container>
+    </>
   );
 };

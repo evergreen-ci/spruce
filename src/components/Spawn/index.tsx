@@ -8,11 +8,6 @@ import Icon from "components/icons/Icon";
 
 export { DetailsCard } from "./DetailsCard";
 
-export const Container = styled.div`
-  margin-left: 60px;
-  width: 100%;
-`;
-
 export const Title = styled(H2)``;
 
 export const TitleContainer = styled.div`
