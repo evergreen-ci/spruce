@@ -256,7 +256,7 @@ const TaskCore: React.FC = () => {
                 <FilesTables />
               </Tab>
 
-              {showBuildBaronTab ? (
+              {showBuildBaronTab && (
                 <Tab name="Build Baron" id="task-build-baron-tab">
                   <BuildBaron
                     data={buildBaronData}
@@ -264,7 +264,7 @@ const TaskCore: React.FC = () => {
                     taskId={id}
                   />
                 </Tab>
-              ) : null}
+              )}
               {isPerfPluginEnabled && (
                 <Tab name="Trend Charts" id="trend-charts-tab">
                   <TrendCharts />
