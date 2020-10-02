@@ -762,6 +762,7 @@ export type Task = {
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
@@ -858,6 +859,7 @@ export type LogMessage = {
 
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
+  message?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
@@ -996,7 +998,6 @@ export type HostEventLogData = {
 export type BuildBaron = {
   searchReturnInfo?: Maybe<SearchReturnInfo>;
   buildBaronConfigured: Scalars["Boolean"];
-  jiraHost?: Maybe<Scalars["String"]>;
 };
 
 export type SearchReturnInfo = {
@@ -1689,6 +1690,7 @@ export type GetTaskQuery = {
     timeTaken?: Maybe<number>;
     version: string;
     revision?: Maybe<string>;
+    totalTestCount: number;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;

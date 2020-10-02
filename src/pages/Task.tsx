@@ -37,7 +37,7 @@ import {
   GET_BUILD_BARON,
 } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { useDefaultPath, useTabs, usePageTitle, useNetworkStatus } from "hooks";
+import { useTabs, usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
@@ -57,21 +57,15 @@ const tabToIndexMap = {
   [TaskTab.BuildBaron]: 3,
   [TaskTab.TrendCharts]: 4,
 };
-const DEFAULT_TAB = TaskTab.Logs;
 
 const TaskCore: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const taskAnalytics = useTaskAnalytics();
-  // automatically append default tab to end of url path
-  useDefaultPath({
-    tabToIndexMap,
-    defaultPath: `${paths.task}/${id}/${DEFAULT_TAB}`,
-  });
-  const { search: queryVars } = useLocation();
+  const location = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
-  const parsed = parseQueryString(queryVars);
+  const parsed = parseQueryString(location.search);
   const initialExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data: latest } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
     GET_TASK_LATEST_EXECUTION,
@@ -122,6 +116,7 @@ const TaskCore: React.FC = () => {
   const priority = get(task, "priority");
   const status = get(task, "status");
   const version = get(task, "version");
+  const totalTestCount = get(task, "totalTestCount");
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
@@ -133,7 +128,7 @@ const TaskCore: React.FC = () => {
   // logic for tabs + updating url when they change
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
-    defaultTab: DEFAULT_TAB,
+    defaultTab: TaskTab.Logs,
     path: `${paths.task}/${id}`,
     query: new URLSearchParams(
       `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(execution)}`
@@ -141,6 +136,19 @@ const TaskCore: React.FC = () => {
     sendAnalyticsEvent: (tab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab }),
   });
+
+  useEffect(() => {
+    // the hierarchy of which tab loads first is:
+    // 1. if the URL contains a tab, that trumps everything
+    // 2. if the task has at least 1 test, load the tests tab
+    // 3. otherwise load the logs tab (this default is set in the useTabs hook)
+    const tabFromUrl = getTabFromPath(location.pathname);
+    if (tabFromUrl !== null) {
+      selectTabHandler(tabToIndexMap[tabFromUrl]);
+    } else if (!loading && totalTestCount > 0) {
+      selectTabHandler(tabToIndexMap[TaskTab.Tests]);
+    }
+  }, [loading, location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Query build baron data
   const {
@@ -303,3 +311,12 @@ export const Task = withBannersContext(TaskCore);
 const LogWrapper = styled(PageLayout)`
   width: 100%;
 `;
+
+const getTabFromPath = (s: string): TaskTab | null => {
+  const parts = s.split("/");
+  const endPath = parts[parts.length - 1];
+  if (tabToIndexMap[endPath] !== undefined) {
+    return endPath as TaskTab;
+  }
+  return null;
+};
