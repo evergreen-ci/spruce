@@ -4,10 +4,12 @@ const commitQueue = {
   id1: "mongodb-mongo-master",
   id2: "mongodb-mongo-test",
   id3: "non-existant-item",
+  id4: "evergreen",
 };
 const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commitQueue.id1}`;
 const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commitQueue.id2}`;
 const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commitQueue.id3}`;
+const COMMIT_QUEUE_ROUTE_4 = `/commit-queue/${commitQueue.id4}`;
 
 describe("commit queue page", () => {
   before(() => {
@@ -49,5 +51,14 @@ describe("commit queue page", () => {
     cy.get("[data-cy=commit-queue-patch-button]").should("exist");
     cy.get("[data-cy=commit-queue-patch-button]").click();
     cy.get("[data-cy=commit-queue-card]").should("not.exist");
+  });
+
+  it("should display the commit queue message if there is one", () => {
+    cy.visit(COMMIT_QUEUE_ROUTE_4);
+    cy.dataCy("commit-queue-message").should("exist");
+    cy.dataCy("commit-queue-message").should(
+      "contain.text",
+      "This is the commit queue"
+    );
   });
 });
