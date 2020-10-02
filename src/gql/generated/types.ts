@@ -1298,6 +1298,7 @@ export type CommitQueueQueryVariables = {
 export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
+    message?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
