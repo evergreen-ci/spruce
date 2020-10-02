@@ -61,7 +61,7 @@ const CommitQueueCore: React.FC = () => {
         loading={loading}
         hasData
       />
-      {commitQueue && commitQueue.message && (
+      {commitQueue?.message && (
         <P1 data-cy="commit-queue-message">{commitQueue.message}</P1>
       )}
       <HR />
