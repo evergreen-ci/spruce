@@ -102,8 +102,11 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       onOk={onOk}
       onCancel={onCancel}
       footer={[
-        <Button onClick={onCancel}>Cancel</Button>,
+        <Button key="cancel" onClick={onCancel}>
+          Cancel
+        </Button>,
         <Button
+          key="restart"
           data-cy="restart-patch-button"
           disabled={
             selectedArray(selectedTasks).length === 0 || mutationLoading
