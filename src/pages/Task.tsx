@@ -125,6 +125,7 @@ const TaskCore: React.FC = () => {
     showBuildBaronTab,
     buildBaronData,
     buildBaronError,
+    buildBaronLoading,
   } = useBuildBaronVariables({
     taskId: id,
     execution,
@@ -262,6 +263,7 @@ const TaskCore: React.FC = () => {
                     data={buildBaronData}
                     error={buildBaronError}
                     taskId={id}
+                    loading={buildBaronLoading}
                   />
                 </Tab>
               )}
