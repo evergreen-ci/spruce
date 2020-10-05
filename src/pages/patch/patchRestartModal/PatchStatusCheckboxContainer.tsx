@@ -14,13 +14,23 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   selectedTasks,
   toggleSelectedTask,
 }) => (
-  <ScrollableContainer data-cy="patch-status-selector-container">
+  <ScrollableContainer
+    onClick={(e) => {
+      // @ts-ignore
+      const { name } = e.target;
+      if (selectedTasks[name] !== undefined) {
+        toggleSelectedTask(name);
+      }
+    }}
+    data-cy="patch-status-selector-container"
+  >
     {tasks.map((task) => (
       <TaskStatusCheckbox
-        task={task}
-        selectedTasks={selectedTasks}
-        toggleSelectedTask={toggleSelectedTask}
-        key={`task_checkbox_${task.id}`}
+        checked={!!selectedTasks[task.id]}
+        displayName={task.name}
+        key={task.id}
+        status={task.status}
+        taskId={task.id}
       />
     ))}
   </ScrollableContainer>
@@ -30,3 +40,10 @@ const ScrollableContainer = styled("div")`
   max-height: 250px;
   overflow-y: scroll;
 `;
+
+interface TaskCheckboxProps {
+  label: string;
+  id: string;
+  checked: boolean;
+  toggleSelectedTask: (id: string) => void;
+}
