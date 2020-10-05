@@ -11,6 +11,7 @@ interface ModalProps {
   "data-cy": string;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onOk?: () => void;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -19,12 +20,14 @@ export const Modal: React.FC<ModalProps> = ({
   onCancel,
   visible,
   children,
+  onOk,
   "data-cy": dataCy,
 }) => (
   <StyledModal
     maskStyle={{
       backgroundColor,
     }}
+    onOk={onOk}
     centered
     footer={footer}
     visible={visible}
