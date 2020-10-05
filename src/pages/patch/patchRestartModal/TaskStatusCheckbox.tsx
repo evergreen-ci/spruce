@@ -8,6 +8,7 @@ interface TaskStatusCheckboxProps {
   status: string;
   taskId: string;
   checked: boolean;
+  style: React.CSSProperties;
 }
 
 const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
@@ -15,13 +16,15 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
   status,
   displayName,
   checked,
+  style,
 }) => (
   <Checkbox
+    style={style}
     data-cy="task-status-checkbox"
     className="task-checkbox"
     name={taskId}
     label={
-      <StateItemWrapper className="thing">
+      <StateItemWrapper>
         <PaddedSquare color={mapVariantTaskStatusToColor[status]} />{" "}
         {displayName}
       </StateItemWrapper>

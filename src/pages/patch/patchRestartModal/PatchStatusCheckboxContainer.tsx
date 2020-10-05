@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
+import { FixedSizeList } from "react-window";
 import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "pages/patch/patchRestartModal/TaskStatusCheckbox";
@@ -13,37 +13,45 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   tasks,
   selectedTasks,
   toggleSelectedTask,
-}) => (
-  <ScrollableContainer
-    onClick={(e) => {
-      // @ts-ignore
-      const { name } = e.target;
-      if (selectedTasks[name] !== undefined) {
-        toggleSelectedTask(name);
-      }
-    }}
-    data-cy="patch-status-selector-container"
-  >
-    {tasks.map((task) => (
-      <TaskStatusCheckbox
-        checked={!!selectedTasks[task.id]}
-        displayName={task.name}
-        key={task.id}
-        status={task.status}
-        taskId={task.id}
-      />
-    ))}
-  </ScrollableContainer>
-);
+}) => {
+  const possibleListHeight = tasks.length * itemSize;
+  const listHeight =
+    possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
+  const toggleHandler = (e) => {
+    // @ts-ignore
+    const { name } = e.target;
+    if (selectedTasks[name] !== undefined) {
+      toggleSelectedTask(name);
+    }
+  };
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div onClick={toggleHandler}>
+      <FixedSizeList
+        height={listHeight}
+        itemSize={itemSize}
+        itemCount={tasks.length}
+        itemData={tasks}
+        data-cy="patch-status-selector-container"
+      >
+        {({ style, data, index }) => {
+          const { id: taskId, status, name: displayName } = data[index];
+          const checked = !!selectedTasks[taskId];
+          return (
+            <TaskStatusCheckbox
+              style={style}
+              checked={checked}
+              displayName={displayName}
+              key={taskId}
+              status={status}
+              taskId={taskId}
+            />
+          );
+        }}
+      </FixedSizeList>
+    </div>
+  );
+};
 
-const ScrollableContainer = styled("div")`
-  max-height: 250px;
-  overflow-y: scroll;
-`;
-
-interface TaskCheckboxProps {
-  label: string;
-  id: string;
-  checked: boolean;
-  toggleSelectedTask: (id: string) => void;
-}
+const itemSize = 20;
+const maxListHeight = 250;
