@@ -7,8 +7,8 @@ import { useTaskAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, Divider, StyledRouterLink } from "components/styles";
 import { H3, P2 } from "components/Typography";
-import { getTaskQueueRoute, getTaskRoute } from "constants/routes";
-import { paths } from "constants/routes";
+import { getTaskQueueRoute, getTaskRoute, paths } from "constants/routes";
+
 import {
   GetTaskQuery,
   TaskQueuePositionQuery,
