@@ -67,10 +67,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   useDisableTableSortersIfLoading(loading);
 
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
   const patchAnalytics = usePatchAnalytics();
 
   if (error) {
@@ -103,12 +99,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={showSkeleton}>
+      <TableContainer hide={loading}>
         <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
       </TableContainer>
-      {showSkeleton && (
-        <Skeleton active title={false} paragraph={{ rows: 8 }} />
-      )}
+      {loading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
     </ErrorBoundary>
   );
 };
