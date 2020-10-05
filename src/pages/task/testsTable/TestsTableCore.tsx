@@ -26,7 +26,7 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
-import { useDisableTableSortersIfLoading, useNetworkStatus } from "hooks";
+import { useNetworkStatus } from "hooks";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { ExecutionAsData } from "pages/task/util/execution";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
@@ -59,8 +59,6 @@ export const TestsTableCore: React.FC = () => {
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
-
-  useDisableTableSortersIfLoading(loading);
 
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {

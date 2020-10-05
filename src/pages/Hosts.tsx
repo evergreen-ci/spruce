@@ -30,7 +30,6 @@ import {
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { useDisableTableSortersIfLoading } from "hooks";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { parseQueryString, getArray, getString } from "utils";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
@@ -74,8 +73,6 @@ const Hosts: React.FC = () => {
   >(HOSTS, {
     variables: queryVariables,
   });
-
-  useDisableTableSortersIfLoading(loading);
 
   const hosts = hostsData?.hosts;
   const hostItems = hosts?.hosts ?? [];

@@ -1,5 +1,4 @@
 export { useDefaultPath } from "hooks/useDefaultPath";
-export { useDisableTableSortersIfLoading } from "hooks/useDisableTableSortersIfLoading";
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
 export { useNotificationModal } from "hooks/useNotificationModal";
