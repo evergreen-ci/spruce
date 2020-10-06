@@ -8,6 +8,7 @@ import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, Divider, StyledRouterLink } from "components/styles";
 import { H3, P2 } from "components/Typography";
 import { getTaskQueueRoute, getTaskRoute } from "constants/routes";
+import { paths } from "constants/routes";
 import {
   GetTaskQuery,
   TaskQueuePositionQuery,
@@ -36,7 +37,6 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const ingestTime = task?.ingestTime;
   const finishTime = task?.finishTime;
   const hostId = task?.hostId;
-  const hostLink = task?.hostLink;
   const startTime = task?.startTime;
   const estimatedStart = task?.estimatedStart;
   const timeTaken = task?.timeTaken;
@@ -55,6 +55,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const details = task?.details;
   const oomTracker = details?.oomTracker;
 
+  const hostLink = `${paths.host}/${hostId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   const { data: taskQueuePositionData } = useQuery<

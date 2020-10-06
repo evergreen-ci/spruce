@@ -3,6 +3,7 @@ import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "components/Badge";
 import { TaskStatus } from "types/task";
 import { reportError } from "utils/errorReporting";
+import { getStatusBadgeCopy } from "utils/string";
 
 const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,
@@ -61,6 +62,11 @@ const StyledBadge = styled(Badge)`
   border-color: ${(props: BadgeColorProps): string => props.border} !important;
   background-color: ${(props: BadgeColorProps): string => props.fill} !important
   color: ${(props: BadgeColorProps): string => props.text} !important;
+  width: max-content;
+`;
+
+const BadgeWidthMaxContent = styled(Badge)`
+  width: max-content;
 `;
 
 interface TaskStatusBadgeProps {
@@ -76,17 +82,23 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   const adjustedTaskStatus = blocked
     ? (TaskStatus.StatusBlocked as string)
     : status;
+
+  const displayStatus = getStatusBadgeCopy(
+    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus
+  );
+
   if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
-      <Badge
+      <BadgeWidthMaxContent
         data-cy={dataCy}
         key={adjustedTaskStatus}
         variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
-        {taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus}
-      </Badge>
+        {displayStatus}
+      </BadgeWidthMaxContent>
     );
   }
+
   if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
@@ -94,10 +106,11 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
         key={adjustedTaskStatus}
         {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
       >
-        {taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus}
+        {displayStatus}
       </StyledBadge>
     );
   }
+
   const err = new Error(`Status '${status}' is not a valid task status`);
   reportError(err).severe();
   throw err;

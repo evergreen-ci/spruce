@@ -769,7 +769,6 @@ export type Task = {
   generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
-  hostLink?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
   latestExecution: Scalars["Int"];
@@ -1300,6 +1299,7 @@ export type CommitQueueQueryVariables = {
 export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
+    message?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
@@ -1683,7 +1683,6 @@ export type GetTaskQuery = {
     displayName: string;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;
-    hostLink?: Maybe<string>;
     patchNumber?: Maybe<number>;
     startTime?: Maybe<Date>;
     status: string;
