@@ -33,7 +33,6 @@ export const PlusButton = ({
 
 const TableContainer = styled.div`
   width: 100%;
-  padding-right: 1%;
 `;
 
 export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
