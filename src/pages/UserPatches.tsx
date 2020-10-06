@@ -61,15 +61,19 @@ const UserPatchesComponent: React.FC = () => {
       userPatchesAnalytics.sendEvent({ name: "Filter Patches", filterBy })
   );
 
-  const { data, loading, startPolling, stopPolling, error } = useQuery<
+  const { data, startPolling, stopPolling, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
     variables: queryVariables,
     pollInterval,
+    fetchPolicy: "cache-and-network",
   });
   useNetworkStatus(startPolling, stopPolling);
-
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
@@ -97,7 +101,7 @@ const UserPatchesComponent: React.FC = () => {
         </PageWrapper>
       );
     }
-    if (loading) {
+    if (showSkeleton) {
       return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
     }
     if (get(data, "userPatches.patches", []).length !== 0) {

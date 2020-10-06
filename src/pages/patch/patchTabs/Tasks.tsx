@@ -52,13 +52,18 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     sortDir
   );
 
-  const { data, error, loading, startPolling, stopPolling } = useQuery<
+  const { data, error, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
     pollInterval,
+    fetchPolicy: "cache-and-network",
   });
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
   useNetworkStatus(startPolling, stopPolling);
 
   const patchAnalytics = usePatchAnalytics();
@@ -93,10 +98,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={loading}>
+      <TableContainer hide={showSkeleton}>
         <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
       </TableContainer>
-      {loading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+      {showSkeleton && (
+        <Skeleton active title={false} paragraph={{ rows: 8 }} />
+      )}
     </ErrorBoundary>
   );
 };

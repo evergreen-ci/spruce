@@ -51,7 +51,7 @@ export const TestsTableCore: React.FC = () => {
   );
 
   // initial request for task tests
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
@@ -59,7 +59,10 @@ export const TestsTableCore: React.FC = () => {
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
-
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
@@ -106,7 +109,7 @@ export const TestsTableCore: React.FC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={loading}>
+      <TableContainer hide={showSkeleton}>
         <Table
           data-test-id="tests-table"
           rowKey={rowKey}
@@ -116,7 +119,9 @@ export const TestsTableCore: React.FC = () => {
           onChange={tableChangeHandler}
         />
       </TableContainer>
-      {loading && <Skeleton active title={false} paragraph={{ rows: 8 }} />}
+      {showSkeleton && (
+        <Skeleton active title={false} paragraph={{ rows: 8 }} />
+      )}
     </>
   );
 };
