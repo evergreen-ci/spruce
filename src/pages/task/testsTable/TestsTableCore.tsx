@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import Button from "@leafygreen-ui/button";
@@ -16,6 +16,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -25,11 +26,7 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
-import {
-  useDisableTableSortersIfLoading,
-  usePollQuery,
-  useNetworkStatus,
-} from "hooks";
+import { useNetworkStatus } from "hooks";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { ExecutionAsData } from "pages/task/util/execution";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
@@ -45,11 +42,8 @@ export const TestsTableCore: React.FC = () => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
-  // initial query variables to use when making first gql query
-  const [initialQueryVariables] = useState<TaskTestsQueryVariables>(
-    getQueryVariables(search, resourceId)
-  );
-  const { cat, dir } = initialQueryVariables;
+  const queryVariables = getQueryVariables(search, resourceId);
+  const { cat, dir, pageNum, limitNum } = queryVariables;
   const columns = useSetColumnDefaultSortOrder<TestResult>(
     columnsTemplate,
     cat,
@@ -57,27 +51,18 @@ export const TestsTableCore: React.FC = () => {
   );
 
   // initial request for task tests
-  const { data, refetch, networkStatus } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
     TaskTestsQueryVariables
   >(GET_TASK_TESTS, {
-    variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
+    variables: queryVariables,
+    pollInterval,
   });
-
-  useDisableTableSortersIfLoading(networkStatus);
-
-  // poll task tests
-  const isOffline = useNetworkStatus();
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-    isOffline,
-  });
-
+  useNetworkStatus(startPolling, stopPolling);
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
@@ -97,9 +82,6 @@ export const TestsTableCore: React.FC = () => {
   const taskAnalytics = useTaskAnalytics();
 
   const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
-
-  // initial table sort button state to reflect initial URL query params
-  const { pageNum, limitNum } = getQueryVariables(search, resourceId);
 
   return (
     <>
