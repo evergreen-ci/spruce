@@ -24,7 +24,7 @@ const checkIfOnMaster = async () => {
 // Runs the script to build and deploy to production
 const deployProcess = () => {
   promptRun({
-    command: "npm run deploy-prod:do-not-use-directly",
+    command: "yarn run deploy-prod:do-not-use-directly",
     options: {},
     questions: {
       env: [],
@@ -84,7 +84,7 @@ const deployProd = async () => {
               const choice = version.toLowerCase();
               if (versionChoices.includes(choice)) {
                 promptRun({
-                  command: `npm run notify-email`,
+                  command: `yarn run notify-email`,
                   options: {},
                   questions: {
                     env: [],
@@ -92,7 +92,7 @@ const deployProd = async () => {
                   },
                 });
                 promptRun({
-                  command: `npm version ${choice}`,
+                  command: `yarn version --${choice}`,
                   options: {},
                   questions: {
                     env: [],
