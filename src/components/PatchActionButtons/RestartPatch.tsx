@@ -35,18 +35,20 @@ export const RestartPatch = forwardRef<HTMLDivElement, RestartPatchProps>(
             <Disclaimer>Restart</Disclaimer>
           </DropdownItem>
         )}
-        <div className={openModal ? "ant-popover-open" : ""} ref={ref}>
-          <PatchRestartModal
-            patchId={patchId}
-            visible={openModal}
-            onOk={() => {
-              setOpenModal(false);
-              hideMenu();
-            }}
-            onCancel={() => setOpenModal(false)}
-            refetchQueries={refetchQueries}
-          />
-        </div>
+        {openModal && (
+          <div className={openModal ? "ant-popover-open" : ""} ref={ref}>
+            <PatchRestartModal
+              patchId={patchId}
+              visible={openModal}
+              onOk={() => {
+                setOpenModal(false);
+                hideMenu();
+              }}
+              onCancel={() => setOpenModal(false)}
+              refetchQueries={refetchQueries}
+            />
+          </div>
+        )}
       </>
     );
   }
