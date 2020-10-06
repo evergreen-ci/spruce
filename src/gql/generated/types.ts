@@ -768,6 +768,7 @@ export type Task = {
   generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
+  hostLink?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
   latestExecution: Scalars["Int"];
@@ -1176,6 +1177,12 @@ export type SpawnHostMutationVariables = {
 };
 
 export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
+
+export type SpawnVolumeMutationVariables = {
+  SpawnVolumeInput: SpawnVolumeInput;
+};
+
+export type SpawnVolumeMutation = { spawnVolume: boolean };
 
 export type UnschedulePatchTasksMutationVariables = {
   patchId: Scalars["String"];
