@@ -51,7 +51,7 @@ const tabToIndexMap = {
 };
 
 const TaskCore: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+  const { id, tab } = useParams<{ id: string; tab: string | null }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const taskAnalytics = useTaskAnalytics();
@@ -136,8 +136,8 @@ const TaskCore: React.FC = () => {
     query: new URLSearchParams(
       `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(execution)}`
     ),
-    sendAnalyticsEvent: (tab: string) =>
-      taskAnalytics.sendEvent({ name: "Change Tab", tab }),
+    sendAnalyticsEvent: (newTab: string) =>
+      taskAnalytics.sendEvent({ name: "Change Tab", tab: newTab }),
   });
 
   useEffect(() => {
@@ -145,9 +145,8 @@ const TaskCore: React.FC = () => {
     // 1. if the URL contains a tab, that trumps everything
     // 2. if the task has at least 1 test, load the tests tab
     // 3. otherwise load the logs tab (this default is set in the useTabs hook)
-    const tabFromUrl = getTabFromPath(location.pathname);
-    if (tabFromUrl !== null) {
-      selectTabHandler(tabToIndexMap[tabFromUrl]);
+    if (tab in tabToIndexMap) {
+      selectTabHandler(tabToIndexMap[tab]);
     } else if (!loading && totalTestCount > 0) {
       selectTabHandler(tabToIndexMap[TaskTab.Tests]);
     }
@@ -291,12 +290,3 @@ export const Task = withBannersContext(TaskCore);
 const LogWrapper = styled(PageLayout)`
   width: 100%;
 `;
-
-const getTabFromPath = (s: string): TaskTab | null => {
-  const parts = s.split("/");
-  const endPath = parts[parts.length - 1];
-  if (tabToIndexMap[endPath] !== undefined) {
-    return endPath as TaskTab;
-  }
-  return null;
-};
