@@ -26,13 +26,12 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   };
   return (
     // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
-    <div onClick={toggleHandler}>
+    <div data-cy="patch-status-selector-container" onClick={toggleHandler}>
       <FixedSizeList
         height={listHeight}
         itemSize={itemSize}
         itemCount={tasks.length}
         itemData={tasks}
-        data-cy="patch-status-selector-container"
       >
         {({ style, data, index }) => {
           const { id: taskId, status, name: displayName } = data[index];
