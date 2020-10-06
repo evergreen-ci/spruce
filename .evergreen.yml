@@ -101,6 +101,7 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        /opt/nodejs/node-v12.16.0-linux-x64/bin/npm cache clean --force 
         /opt/nodejs/node-v12.16.0-linux-x64/bin/npm install
 
   npm-test:
