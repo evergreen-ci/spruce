@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
 import { ColumnProps } from "antd/lib/table";
@@ -18,6 +18,7 @@ import {
   StyledRouterLink,
 } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { pollInterval } from "constants/index";
 import {
   PatchTasksQuery,
   PatchTasksQueryVariables,
@@ -26,12 +27,7 @@ import {
   SortDirection,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
-import {
-  useDisableTableSortersIfLoading,
-  usePollQuery,
-  useSetColumnDefaultSortOrder,
-  useNetworkStatus,
-} from "hooks";
+import { useSetColumnDefaultSortOrder, useNetworkStatus } from "hooks";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
@@ -46,11 +42,9 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const { search } = useLocation();
 
-  const [initialQueryVariables] = useState(
-    getQueryVariables(search, resourceId)
-  );
+  const queryVariables = getQueryVariables(search, resourceId);
 
-  const { sortBy, sortDir } = initialQueryVariables;
+  const { sortBy, sortDir, limit, page } = queryVariables;
 
   const columns = useSetColumnDefaultSortOrder<TaskResult>(
     columnsTemplate,
@@ -58,33 +52,25 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     sortDir
   );
 
-  const { data, error, networkStatus, refetch } = useQuery<
+  const { data, error, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
-    variables: initialQueryVariables as PatchTasksQueryVariables,
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
+    variables: queryVariables,
+    pollInterval,
+    fetchPolicy: "cache-and-network",
   });
-
-  useDisableTableSortersIfLoading(networkStatus);
-  const isOffline = useNetworkStatus();
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-    isOffline,
-  });
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
+  useNetworkStatus(startPolling, stopPolling);
 
   const patchAnalytics = usePatchAnalytics();
 
   if (error) {
     return <div>{error.message}</div>;
   }
-
-  const { limit, page } = getQueryVariables(search, resourceId);
-
   return (
     <ErrorBoundary>
       <TaskFilters />

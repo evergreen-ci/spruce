@@ -8,25 +8,14 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   pathname,
   paramName,
   search,
-  query: { name, responseName, requestVariables },
 }) => {
   cy.get(selector)
     .contains(checkboxDisplayName)
     .as("target")
     .click({ force: true });
-  resultsAreFetchedAndRendered({
-    queryName: name,
-    responseName,
-    requestVariables,
-  }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
+  urlSearchParamsAreUpdated({ pathname, paramName, search });
   cy.get("@target").click({ force: true });
-  resultsAreFetchedAndRendered({
-    queryName: name,
-    responseName,
-    requestVariables: [],
-  }).then(() =>
-    urlSearchParamsAreUpdated({ pathname, paramName, search: null })
-  );
+  urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
 export const assertQueryVariables = (queryName, variables = {}) => {
