@@ -19,10 +19,7 @@ export const SpawnVolumeButton: React.FC<SpawnVolumeButtonProps> = ({
 const PaddedContainer = styled.div`
   ${(props: SpawnVolumeButtonProps) =>
     props.showMetadata
-      ? `
-   padding-top: 30px;
-padding-bottom: 30px;
-`
+      ? `padding-top: 30px;padding-bottom: 30px;`
       : `margin-top: 22px;`}
 `;
 

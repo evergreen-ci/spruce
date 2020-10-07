@@ -46,14 +46,14 @@ const SpawnTabs = () => {
           </PaddedSideNavItem>
         </SideNavGroup>
       </SideNav>
-      <div>
+      <Container>
         <Banners
           banners={bannersState}
           removeBanner={dispatchBanner.removeBanner}
         />
         <Route path={routes.spawnHost} component={SpawnHost} />
         <Route path={routes.spawnVolume} component={SpawnVolume} />
-      </div>
+      </Container>
     </FlexPageWrapper>
   );
 };
@@ -62,6 +62,11 @@ const tabRouteValues = Object.values(SpawnTab);
 
 const FlexPageWrapper = styled(PageWrapper)`
   display: flex;
+`;
+
+const Container = styled.div`
+  overflow-x: hidden;
+  margin-left: 60px;
 `;
 
 export const Spawn = withBannersContext(SpawnTabs);

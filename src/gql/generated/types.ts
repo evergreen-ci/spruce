@@ -1045,6 +1045,12 @@ export type AbortTaskMutationVariables = {
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type AttachVolumeToHostMutationVariables = {
+  volumeAndHost: VolumeHost;
+};
+
+export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
+
 export type CreatePublicKeyMutationVariables = {
   publicKeyInput: PublicKeyInput;
 };
@@ -1052,6 +1058,12 @@ export type CreatePublicKeyMutationVariables = {
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
 };
+
+export type DetachVolumeFromHostMutationVariables = {
+  volumeId: Scalars["String"];
+};
+
+export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
 
 export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
@@ -1081,6 +1093,12 @@ export type RemovePublicKeyMutationVariables = {
 export type RemovePublicKeyMutation = {
   removePublicKey: Array<{ key: string; name: string }>;
 };
+
+export type RemoveVolumeMutationVariables = {
+  volumeId: Scalars["String"];
+};
+
+export type RemoveVolumeMutation = { removeVolume: boolean };
 
 export type RestartJasperMutationVariables = {
   hostIds: Array<Scalars["String"]>;
@@ -1443,6 +1461,7 @@ export type MyHostsQuery = {
       value?: Maybe<string>;
       canBeModified?: Maybe<boolean>;
     }>;
+    volumes: Array<{ displayName: string; id: string }>;
   }>;
 };
 
@@ -1461,6 +1480,8 @@ export type MyVolumesQuery = {
     hostID: string;
     noExpiration: boolean;
     homeVolume: boolean;
+    creationTime: Date;
+    host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
 };
 
