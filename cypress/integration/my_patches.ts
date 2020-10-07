@@ -57,7 +57,7 @@ describe("My Patches Page", () => {
       queryName: "UserPatches",
       responseName: "userPatches.patches",
       requestVariables: { patchName: inputVal },
-      tableRow: "[data-cy=patch-card]",
+      tableRow,
     });
   });
 
@@ -90,7 +90,7 @@ describe("My Patches Page", () => {
       queryName: "UserPatches",
       responseName: "userPatches.patches",
       requestVariables: { includeCommitQueue: (v) => v === false },
-      tableRow: "[data-cy=patch-card]",
+      tableRow,
     });
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({
@@ -102,7 +102,7 @@ describe("My Patches Page", () => {
       queryName: "UserPatches",
       responseName: "userPatches.patches",
       requestVariables: { includeCommitQueue: (v) => v === true },
-      tableRow: "[data-cy=patch-card]",
+      tableRow,
     });
   });
 
@@ -182,17 +182,6 @@ describe("My Patches Page", () => {
           pathname: MY_PATCHES_ROUTE,
           paramName: "statuses",
           search: key,
-          tableRow,
-          query: {
-            name: "UserPatches",
-            responseName: "userPatches.patches",
-            checkedRequestVariables: {
-              statuses: [key],
-            },
-            uncheckedRequestVariables: {
-              statuses: (v) => Array.isArray(v) && v.length === 0,
-            },
-          },
         });
       });
     });
@@ -204,14 +193,6 @@ describe("My Patches Page", () => {
         pathname: MY_PATCHES_ROUTE,
         paramName: "statuses",
         search: "all,created,started,succeeded,failed",
-        tableRow,
-        query: {
-          name: "UserPatches",
-          responseName: "userPatches.patches",
-          requestVariables: {
-            statuses: statuses.map((s) => s.key),
-          },
-        },
       });
     });
   });
@@ -242,7 +223,7 @@ const dataCyNextPage =
   "[data-test-id=my-patches-pagination] > .ant-pagination-next";
 const dataCyPrevPage =
   "[data-test-id=my-patches-pagination] > .ant-pagination-prev";
-const dataCyTableRows = "[data-cy=patch-card]";
+const dataCyTableRows = tableRow;
 
 const firstPageDisplayNames = [
   "dist",
@@ -284,33 +265,15 @@ const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   pathname,
   paramName,
   search,
-  tableRow: tableRowVal,
-  query: {
-    name,
-    responseName,
-    checkedRequestVariables,
-    uncheckedRequestVariables,
-  },
 }) => {
   cy.get(selector)
     .contains(checkboxDisplayName)
     .as("target")
     .click({ force: true });
-  resultsAreFetchedAndRendered({
-    queryName: name,
-    responseName,
-    requestVariables: checkedRequestVariables,
-    tableRow: tableRowVal,
-  }).then(() => urlSearchParamsAreUpdated({ pathname, paramName, search }));
+  urlSearchParamsAreUpdated({ pathname, paramName, search });
   cy.get("@target").click({ force: true });
-  resultsAreFetchedAndRendered({
-    queryName: name,
-    responseName,
-    requestVariables: uncheckedRequestVariables,
-    tableRow: tableRowVal,
-  }).then(() => {
-    urlSearchParamsAreUpdated({ pathname, paramName, search: null });
-  });
+
+  urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
 const resultsAreFetchedAndRendered = ({
