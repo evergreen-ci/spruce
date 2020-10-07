@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
@@ -17,6 +17,7 @@ import {
   FiltersWrapper,
   PageTitle,
 } from "components/styles";
+import { pollInterval } from "constants/index";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -29,7 +30,6 @@ import { GET_USER_PATCHES } from "gql/queries/my-patches";
 import { withBannersContext } from "hoc/withBannersContext";
 import {
   useFilterInputChangeHandler,
-  usePollQuery,
   useNetworkStatus,
   usePageTitle,
   useGetUserPatchesPageTitleAndLink,
@@ -45,9 +45,9 @@ const UserPatchesComponent: React.FC = () => {
   const { id: userId } = useParams();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
-  const [initialQueryVariables] = useState<UserPatchesQueryVariables>(
-    getQueryVariables(search, userId)
-  );
+
+  const queryVariables = getQueryVariables(search, userId);
+  const { limit, page, includeCommitQueue } = queryVariables;
   const userPatchesAnalytics = useUserPatchesAnalytics();
 
   // handlers for patch description filter
@@ -61,22 +61,19 @@ const UserPatchesComponent: React.FC = () => {
       userPatchesAnalytics.sendEvent({ name: "Filter Patches", filterBy })
   );
 
-  const { data, refetch, networkStatus, error } = useQuery<
+  const { data, startPolling, stopPolling, error } = useQuery<
     UserPatchesQuery,
     UserPatchesQueryVariables
   >(GET_USER_PATCHES, {
-    variables: initialQueryVariables,
-    notifyOnNetworkStatusChange: true,
-    fetchPolicy: "network-only",
+    variables: queryVariables,
+    pollInterval,
+    fetchPolicy: "cache-and-network",
   });
-  const isOffline = useNetworkStatus();
-  const { showSkeleton } = usePollQuery({
-    networkStatus,
-    getQueryVariables,
-    refetch,
-    search,
-    isOffline,
-  });
+  useNetworkStatus(startPolling, stopPolling);
+  let showSkeleton = true;
+  if (data) {
+    showSkeleton = false;
+  }
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
@@ -119,7 +116,6 @@ const UserPatchesComponent: React.FC = () => {
     return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
   };
 
-  const { limit, page, includeCommitQueue } = getQueryVariables(search, userId);
   return (
     <PageWrapper>
       <Banners
