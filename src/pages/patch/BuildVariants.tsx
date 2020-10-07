@@ -3,6 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -19,6 +20,8 @@ import { GroupedTaskSquare } from "pages/patch/buildVariants/GroupedTaskSquare";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+  const patchAnalytics = usePatchAnalytics();
+
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
@@ -44,7 +47,14 @@ export const BuildVariants: React.FC = () => {
             data-cy="patch-build-variant"
           >
             <P1>
-              <Link to={`${getVersionRoute(id)}?page=0&variant=${variant}`}>
+              <Link
+                to={`${getVersionRoute(id)}?page=0&variant=${variant}`}
+                onClick={() =>
+                  patchAnalytics.sendEvent({
+                    name: "Click Build Variant Grid Link",
+                  })
+                }
+              >
                 {displayName}
               </Link>
             </P1>

@@ -33,7 +33,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({ status, count }) => {
       <Tooltip
         title={
           <span data-cy="task-square-tooltip">
-            {count} {count > 1 ? "task's" : "task"} with status {status}
+            {count} {count > 1 ? "tasks" : "task"} with status {status}
           </span>
         }
       >
