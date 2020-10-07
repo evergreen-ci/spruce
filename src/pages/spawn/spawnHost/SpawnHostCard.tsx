@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Link } from "react-router-dom";
-import { SiderCard } from "components/styles";
+import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { routes } from "constants/routes";
 import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
@@ -12,26 +12,11 @@ interface SpawnHostCardProps {
 }
 
 export const SpawnHostCard: React.FC<SpawnHostCardProps> = ({ host }) => (
-  <StyledSiderCard data-cy="spawn-host-card">
-    {Object.keys(spawnHostCardFieldMaps).map((key) => (
-      <SpawnHostEntry
-        key={`${key}_${host.id}`}
-        field={key}
-        value={spawnHostCardFieldMaps[key](host)}
-      />
-    ))}
-  </StyledSiderCard>
-);
-
-interface SpawnHostEntryProps {
-  field: string;
-  value: string | { key: string; value: string }[];
-}
-const SpawnHostEntry: React.FC<SpawnHostEntryProps> = ({ field, value }) => (
-  <SpawnHostEntryWrapper>
-    <KeyWrapper>{field}</KeyWrapper>
-    <div>{value}</div>
-  </SpawnHostEntryWrapper>
+  <DetailsCard
+    data-cy="spawn-host-card"
+    fieldMaps={spawnHostCardFieldMaps}
+    type={host}
+  />
 );
 
 const spawnHostCardFieldMaps = {
@@ -40,7 +25,7 @@ const spawnHostCardFieldMaps = {
   "Started at": (host: MyHost) => <span>{getDateCopy(host?.uptime)}</span>,
   "Expires at": (host: MyHost) => (
     <span>
-      {host?.noExpiration ? "Does not expire" : getDateCopy(host?.expiration)}
+      {host?.noExpiration ? DoesNotExpire : getDateCopy(host?.expiration)}
     </span>
   ),
   "SSH User": (host: MyHost) => <span>{host?.distro?.user}</span>,
@@ -61,9 +46,20 @@ const spawnHostCardFieldMaps = {
     </span>
   ),
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
+  "Mounted to": (host: MyHost) => (
+    <>
+      {host.volumes.map(({ id, displayName }) => (
+        <div>
+          <Link to={`${routes.spawnVolume}?volume=${id}`}>
+            {displayName || id}
+          </Link>
+        </div>
+      ))}
+    </>
+  ),
   "Home Volume": (host: MyHost) => (
     <span>
-      <Link to={`${routes.spawnVolume}/${host?.homeVolumeID}`}>
+      <Link to={`${routes.spawnVolume}?volume=${host?.homeVolumeID}`}>
         {host?.homeVolumeID}
       </Link>
     </span>
@@ -72,18 +68,4 @@ const spawnHostCardFieldMaps = {
 
 const PaddedBadge = styled(Badge)`
   margin-right: 8px;
-`;
-const StyledSiderCard = styled(SiderCard)`
-  width: 80%;
-  padding-bottom: 32px;
-`;
-const SpawnHostEntryWrapper = styled.div`
-  display: flex;
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-`;
-
-const KeyWrapper = styled.div`
-  min-width: 150px;
 `;
