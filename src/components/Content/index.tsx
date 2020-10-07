@@ -2,7 +2,11 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { Route, Redirect, Switch } from "react-router-dom";
-import { SiteBanner, ConnectivityBanner } from "components/Banners";
+import {
+  SiteBanner,
+  ConnectivityBanner,
+  SlackNotificationBanner,
+} from "components/Banners";
 import { Feedback } from "components/Feedback";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { Navbar } from "components/Navbar";
@@ -56,6 +60,7 @@ export const Content: React.FC = () => {
       <Navbar />
       <ConnectivityBanner />
       <SiteBanner />
+      <SlackNotificationBanner />
       <Switch>
         <PrivateRoute path={routes.task} component={Task} />
         <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />

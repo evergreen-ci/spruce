@@ -5,6 +5,7 @@ import { BannerObj } from "context/banners";
 
 export { SiteBanner } from "components/Banners/SiteBanner";
 export { ConnectivityBanner } from "components/Banners/ConnectivityBanner";
+export { SlackNotificationBanner } from "components/Banners/SlackNotificationBanner";
 
 interface BannersProps {
   banners: BannerObj[];
