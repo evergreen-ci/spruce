@@ -8,6 +8,11 @@ declare namespace Cypress {
      */
     dataCy(value: string): Chainable<Element>;
     /**
+     * Custom command to select DOM element by data-row-key attribute.
+     * @example cy.dataRowKey('greeting')
+     */
+    dataRowKey(value: string): Chainable<Element>;
+    /**
      * Custom command to select DOM element by data-test-id attribute.
      * @example cy.dataTestId('greeting')
      */

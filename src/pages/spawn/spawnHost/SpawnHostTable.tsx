@@ -1,12 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Table } from "antd";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { HostStatusBadge } from "components/HostStatusBadge";
-import Icon from "components/icons/Icon";
-import { MyHostsQuery } from "gql/generated/types";
+import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { MyHost } from "types/spawn";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
@@ -14,29 +12,21 @@ import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 interface SpawnHostTableProps {
-  hosts: MyHostsQuery["myHosts"];
+  hosts: MyHost[];
 }
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();
-  const queryParams = parseQueryString(search);
-  const host = queryParams?.host;
+  const host = parseQueryString(search)?.host;
   return (
-    <Container>
-      <Table
-        columns={columns}
-        dataSource={hosts}
-        rowKey={(record) => record.id}
-        pagination={false}
-        expandedRowRender={(record: MyHost) => <SpawnHostCard host={record} />}
-        expandIcon={({ expanded }) => (
-          <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
-        )}
-        defaultExpandedRowKeys={[host as string]}
-        expandRowByClick
-      />
-    </Container>
+    <SpawnTable
+      columns={columns}
+      dataSource={hosts}
+      expandedRowRender={(record: MyHost) => <SpawnHostCard host={record} />}
+      defaultExpandedRowKeys={[host as string]}
+    />
   );
 };
+
 const columns = [
   {
     title: "Host",
@@ -75,7 +65,7 @@ const columns = [
     sorter: (a: MyHost, b: MyHost) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, host: MyHost) =>
       host?.noExpiration
-        ? "Does not expire"
+        ? DoesNotExpire
         : formatDistanceToNow(new Date(expiration)),
   },
   {
@@ -107,9 +97,4 @@ const HostIdSpan = styled.span`
   word-break: break-all;
   overflow: scroll;
   width: 150px;
-`;
-
-const Container = styled.div`
-  width: 100%;
-  padding-right: 1%;
 `;
