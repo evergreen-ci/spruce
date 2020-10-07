@@ -49,11 +49,15 @@ interface TaskSquareProps {
 const TaskSquare = styled.div<TaskSquareProps>`
   ${({ status }) =>
     `
-    border: 1.3px solid ${mapVariantTaskStatusToColor[status]};
+    border: 1.5px solid ${mapVariantTaskStatusToColor[status]};
     color: ${mapVariantTaskStatusToDarkColor[status]};
     `};
-  padding: 7px;
   margin: 0 3px;
   border-radius: 3px;
   box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
