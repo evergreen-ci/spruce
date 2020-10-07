@@ -7,8 +7,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm, Input } from "antd";
 import Cookies from "js-cookie";
-import { Banners } from "components/Banners";
-import { Banner } from "components/Banners/styles";
+import { Banners, styles } from "components/Banners";
 import { PageWrapper } from "components/styles";
 import {
   useBannerDispatchContext,
@@ -22,6 +21,8 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
+
+const { Banner } = styles;
 
 const slackNotificationBannerCookieKey = "slack-notification-banner";
 const doNotShowslackNotificationBannerCookie = "false";
@@ -105,7 +106,10 @@ export const SlackNotificationBannerCore = () => {
         removeBanner={dispatchBanner.removeBanner}
       />
       {!doNotShowSlackBanner && (
-        <StyledBanner bannerTheme="information" data-cy="sitewide-banner">
+        <StyledBanner
+          bannerTheme="information"
+          data-cy="slack-notification-banner"
+        >
           <Wrapper>
             <StyledIcon glyph="InfoWithCircle" fill={uiColors.blue.base} />
             <StyledBody>
@@ -116,6 +120,7 @@ export const SlackNotificationBannerCore = () => {
                 <>
                   <SlackUsername weight="medium">Slack Username</SlackUsername>
                   <Input
+                    data-cy="slack-username-input"
                     value={slackUsername}
                     onChange={(e) => setSlackUsername(e.target.value)}
                     onPressEnter={() => saveNotificationSettings()}
@@ -131,7 +136,9 @@ export const SlackNotificationBannerCore = () => {
               icon={null}
             >
               <div>
-                <SubscribeButton>Subscribe</SubscribeButton>
+                <SubscribeButton data-cy="subscribe-to-notifications">
+                  Subscribe
+                </SubscribeButton>
               </div>
             </Popconfirm>
           </Wrapper>

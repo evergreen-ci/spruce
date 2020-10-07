@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
+import { styles } from "components/Banners";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 
-const { yellow, blue, green, red } = uiColors;
+const { Banner, BannerPadding } = styles;
 
 export const SiteBanner = () => {
   const { data, loading } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
@@ -45,34 +44,4 @@ export const SiteBanner = () => {
   ) : (
     <BannerPadding />
   );
-};
-
-type BannerProps = {
-  bannerTheme: string;
-};
-
-const Banner = styled.div`
-  transition: max-height 0.3s ease-in-out;
-  align-items: center;
-  ${({ bannerTheme }: BannerProps) =>
-    `background-color: ${
-      bannerTheme
-        ? bannerTypeToColor[bannerTheme]
-        : bannerTypeToColor.announcement
-    }`};
-  display: flex;
-  justify-content: space-between;
-  padding: 5px 15px;
-  margin-bottom: 15px;
-`;
-
-const BannerPadding = styled.div`
-  margin-bottom: 16px;
-`;
-
-const bannerTypeToColor = {
-  announcement: green.light2,
-  information: blue.light2,
-  warning: yellow.light2,
-  important: red.light2,
 };
