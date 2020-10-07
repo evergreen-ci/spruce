@@ -18,7 +18,6 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   const listHeight =
     possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
   const toggleHandler = (e) => {
-    // @ts-ignore
     const { name } = e.target;
     if (selectedTasks[name] !== undefined) {
       toggleSelectedTask(name);
