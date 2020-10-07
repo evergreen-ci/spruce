@@ -48,6 +48,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           style={{ width: 200 }}
           placeholder="Select existing key"
           onChange={selectPublicKey}
+          value={keyName}
+          data-cy="public_key_dropdown"
         >
           {publicKeys?.map((pk) => (
             <Option key={`public_key_option_${pk.name}`} value={pk.name}>
@@ -58,16 +60,20 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
         <PaddedText>or</PaddedText>
         <RadioBox
           value="addKey"
-          onClick={() => setShouldAddNewKey(!shouldAddNewKey)}
+          onClick={() => {
+            updatePublicKeyState({ key: "", name: "" });
+            setShouldAddNewKey(!shouldAddNewKey);
+          }}
           onChange={() => undefined}
           checked={shouldAddNewKey}
           size="full"
+          data-cy="add_public_key_button"
         >
           Add new key
         </RadioBox>
       </SelectContainer>
       {shouldAddNewKey && (
-        <FlexColumnContainer>
+        <FlexColumnContainer data-cy="add_new_key_form">
           <InputLabel htmlFor="keyValueInput">Public Key</InputLabel>
           <StyledTextArea
             id="keyValueInput"
