@@ -2,17 +2,16 @@ import React from "react";
 import styled from "@emotion/styled";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
-import { MyVolumesQuery } from "gql/generated/types";
+import { MyVolume } from "types/spawn";
 
 const { Option } = Select;
-type Volume = MyVolumesQuery["myVolumes"][0];
 interface VolumesFieldProps {
   onChange: React.Dispatch<React.SetStateAction<any>>;
   data: {
     volumeId?: string;
     homeVolumeSize?: number;
   };
-  volumes: Volume[];
+  volumes: MyVolume[];
   allowHomeVolume?: boolean;
 }
 

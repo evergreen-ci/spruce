@@ -40,6 +40,9 @@ Cypress.Commands.add("waitForGQL", (queryName, options = {}) =>
 );
 
 Cypress.Commands.add("dataCy", (value) => cy.get(`[data-cy=${value}]`));
+Cypress.Commands.add("dataRowKey", (value) =>
+  cy.get(`[data-row-key=${value}]`)
+);
 
 Cypress.Commands.add("dataTestId", (value) =>
   cy.get(`[data-test-id=${value}]`)

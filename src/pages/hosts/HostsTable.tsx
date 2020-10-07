@@ -12,11 +12,10 @@ import {
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
 import {
-  Host,
-  HostsQuery,
   HostsQueryVariables,
   SortDirection,
   HostSortBy,
+  HostsQuery,
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
@@ -32,6 +31,8 @@ interface Props {
   loading: boolean;
   setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
 }
+
+type Host = HostsQuery["hosts"]["hosts"][0];
 
 type HostsUrlParam = keyof HostsQueryVariables;
 

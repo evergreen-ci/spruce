@@ -14,5 +14,7 @@ export { RESTART_JASPER } from "./restart-jasper";
 export { ENQUEUE_PATCH } from "./enqueue-patch";
 export { UPDATE_HOST_STATUS } from "./update-host-status";
 export { REMOVE_PUBLIC_KEY } from "./remove-public-key";
+export { REMOVE_VOLUME } from "./remove-volume";
+export { DETACH_VOLUME } from "./detach-volume";
 export { SPAWN_HOST } from "./spawn-host";
 export { UPDATE_SPAWN_HOST_STATUS } from "./update-spawn-host-status";
