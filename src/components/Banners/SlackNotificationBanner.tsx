@@ -53,9 +53,18 @@ export const SlackNotificationBannerCore = () => {
   );
 
   const settingsSlackNotificationPatchFinish =
-    userSettingsData?.userSettings?.notifications?.patchFinish ?? null;
+    userSettingsData?.userSettings?.notifications?.patchFinish;
   const settingsSlackNotificationPatchFail =
-    userSettingsData?.userSettings?.notifications?.patchFirstFailure ?? null;
+    userSettingsData?.userSettings?.notifications?.patchFirstFailure;
+
+  console.log(
+    "settingsSlackNotificationPatchFinish :>> ",
+    settingsSlackNotificationPatchFinish
+  );
+  console.log(
+    "settingsSlackNotificationPatchFail :>> ",
+    settingsSlackNotificationPatchFail
+  );
 
   // UPDATE USER SETTINGS MUTATION
   const [
@@ -98,10 +107,10 @@ export const SlackNotificationBannerCore = () => {
 
   const cookieExists = cookie === doNotShowslackNotificationBannerCookie;
 
-  const doNotShowSlackBanner =
-    cookieExists ||
-    settingsSlackNotificationPatchFail ||
-    settingsSlackNotificationPatchFinish;
+  const showSlackBanner =
+    !cookieExists &&
+    settingsSlackNotificationPatchFail === "" &&
+    settingsSlackNotificationPatchFinish === "";
 
   return (
     <StyledPageWrapper>
@@ -109,7 +118,7 @@ export const SlackNotificationBannerCore = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {!doNotShowSlackBanner && (
+      {showSlackBanner && (
         <StyledBanner
           bannerTheme="information"
           data-cy="slack-notification-banner"
@@ -185,7 +194,8 @@ const SubscribeButton = styled(Body)`
 `;
 
 const StyledPageWrapper = styled(PageWrapper)`
-  margin-bottom: 15px;
+  margin-bottom: 0;
+  padding-bottom: 0;
 `;
 
 const StyledBody = styled(Body)`
