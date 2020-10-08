@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
 import { Tooltip } from "antd";
 import queryString from "query-string";
 import { useParams } from "react-router-dom";
@@ -48,8 +49,10 @@ export const GroupedTaskSquare: React.FC<Props> = ({
       }
     >
       <Tooltip title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}>
-        <TaskSquare color={color} textColor={textColor}>
-          {count}
+        <TaskSquare color={color}>
+          <StyledText weight="medium" textColor={textColor}>
+            {count}
+          </StyledText>
         </TaskSquare>
       </Tooltip>
     </StyledRouterLink>
@@ -58,22 +61,28 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 
 interface TaskSquareProps {
   color: string;
-  textColor: string;
 }
 const TaskSquare = styled.div<TaskSquareProps>`
-  ${({ color, textColor }) =>
+  ${({ color }) =>
     `
-    border: 1.5px solid ${color};
-    color: ${textColor};
+    background-color: ${color}80;
     `};
   margin: 0 3px;
   border-radius: 3px;
-  box-sizing: border-box;
   width: 40px;
   height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
+`;
+
+interface StyledTextProps {
+  textColor: string;
+}
+const StyledText = styled(Body)<StyledTextProps>`
+  ${({ textColor }) => `
+    color: ${textColor};
+    `};
 `;
 
 const arrayFormat = "comma";

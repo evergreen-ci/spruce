@@ -4,9 +4,9 @@ import { TaskStatus } from "types/task";
 
 const { green, gray, yellow, red } = uiColors;
 
-const failureLavender = "#C2A5CF";
+const failureLavender = "#F3EDF5";
 const failureLavendarDark = "#9982A4";
-const failurePurple = "#840884";
+const failurePurple = "#E6CCE6";
 const failurePurpleDark = "#620662";
 
 export const mapVariantTaskStatusToColor = {
