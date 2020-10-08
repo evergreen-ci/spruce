@@ -1,10 +1,9 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 const slackNotificationBanner = "slack-notification-banner";
+const slackUsername = "username";
 
 describe("Slack notification banner", () => {
-  before(() => {});
-
   beforeEach(() => {
     cy.listenGQL();
   });
@@ -40,12 +39,22 @@ describe("Slack notification banner", () => {
     cy.visit("/");
 
     cy.dataCy("subscribe-to-notifications").click();
-    cy.dataCy("slack-username-input").type("username");
+    cy.dataCy("slack-username-input").type(slackUsername);
     cy.get(popconfirmYesClassName).click();
 
     cy.dataCy(slackNotificationBanner).should("not.exist");
     cy.dataCy("banner").contains(
       "You will now receive Slack notifications when your patches fail or succeed"
     );
+  });
+
+  it("new settings are reflected in user preferences", () => {
+    cy.login();
+
+    cy.visit("/preferences/notifications");
+
+    cy.dataCy("slack-username-field").should("contain.value", slackUsername);
+
+    cy.get('input[value="slack"]').should("be.checked");
   });
 });
