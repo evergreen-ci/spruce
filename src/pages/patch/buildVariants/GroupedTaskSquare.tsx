@@ -1,24 +1,41 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Tooltip } from "antd";
+import queryString from "query-string";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import {
-  mapVariantTaskStatusToColor,
-  mapVariantTaskStatusToDarkColor,
-} from "components/StatusSquare";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
 
 interface Props {
   count: number;
-  status: string;
+  statuses: string[];
+  color: string;
+  textColor: string;
 }
 
-export const GroupedTaskSquare: React.FC<Props> = ({ status, count }) => {
+export const GroupedTaskSquare: React.FC<Props> = ({
+  statuses,
+  count,
+  color,
+  textColor,
+}) => {
   const patchAnalytics = usePatchAnalytics();
   const { id } = useParams<{ id: string }>();
-  const filteredRoute = `${getVersionRoute(id)}?page=0&statuses=${status}`;
+
+  const nextQueryParams = queryString.stringify(
+    {
+      statuses,
+      page: 0,
+    },
+    { arrayFormat }
+  );
+  const status = "test";
+  const filteredRoute = `${getVersionRoute(id)}?${nextQueryParams}`;
+  const multipleStatuses = statuses.length > 1;
+  const tooltipCopy = `${count} ${count > 1 ? "tasks" : "task"} with ${
+    multipleStatuses ? "statuses" : "status"
+  }: ${statuses.join()}`;
   return (
     <StyledRouterLink
       to={filteredRoute}
@@ -30,27 +47,24 @@ export const GroupedTaskSquare: React.FC<Props> = ({ status, count }) => {
         })
       }
     >
-      <Tooltip
-        title={
-          <span data-cy="task-square-tooltip">
-            {count} {count > 1 ? "tasks" : "task"} with status {status}
-          </span>
-        }
-      >
-        <TaskSquare status={status}>{count}</TaskSquare>
+      <Tooltip title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}>
+        <TaskSquare color={color} textColor={textColor}>
+          {count}
+        </TaskSquare>
       </Tooltip>
     </StyledRouterLink>
   );
 };
 
 interface TaskSquareProps {
-  status: string;
+  color: string;
+  textColor: string;
 }
 const TaskSquare = styled.div<TaskSquareProps>`
-  ${({ status }) =>
+  ${({ color, textColor }) =>
     `
-    border: 1.5px solid ${mapVariantTaskStatusToColor[status]};
-    color: ${mapVariantTaskStatusToDarkColor[status]};
+    border: 1.5px solid ${color};
+    color: ${textColor};
     `};
   margin: 0 3px;
   border-radius: 3px;
@@ -61,3 +75,5 @@ const TaskSquare = styled.div<TaskSquareProps>`
   justify-content: center;
   align-items: center;
 `;
+
+const arrayFormat = "comma";

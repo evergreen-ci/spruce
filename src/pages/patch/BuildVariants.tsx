@@ -4,6 +4,10 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import {
+  mapVariantTaskStatusToColor,
+  mapVariantTaskStatusToDarkColor,
+} from "components/StatusSquare";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -73,14 +77,16 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   tasks,
   variant,
 }) => {
-  const groupedTasks = groupTasksByStatus(tasks);
+  const groupedTasks = groupTasksByColor(tasks);
   return (
     <VariantTasks>
-      {Object.keys(groupedTasks).map((status) => (
+      {Object.keys(groupedTasks).map((color) => (
         <GroupedTaskSquare
-          key={`${variant}_${status}`}
-          status={status}
-          count={groupedTasks[status]}
+          key={`${variant}_${color}`}
+          statuses={groupedTasks[color].statuses}
+          count={groupedTasks[color].count}
+          color={color}
+          textColor={groupedTasks[color].textColor}
         />
       ))}
     </VariantTasks>
@@ -95,14 +101,30 @@ const VariantTasks = styled.div`
   flex-wrap: wrap;
 `;
 
-const groupTasksByStatus = (tasks: PatchBuildVariantTask[]) => {
-  const statuses = {};
+const groupTasksByColor = (tasks: PatchBuildVariantTask[]) => {
+  const taskColors: {
+    [key: string]: { count: number; statuses: string[]; textColor: string };
+  } = {};
   tasks.forEach((task) => {
-    if (statuses[task.status]) {
-      statuses[task.status] += 1;
+    if (taskColors[mapVariantTaskStatusToColor[task.status]]) {
+      taskColors[mapVariantTaskStatusToColor[task.status]].count += 1;
+      if (
+        !taskColors[mapVariantTaskStatusToColor[task.status]].statuses.includes(
+          task.status
+        )
+      ) {
+        taskColors[mapVariantTaskStatusToColor[task.status]].statuses = [
+          ...taskColors[mapVariantTaskStatusToColor[task.status]].statuses,
+          task.status,
+        ];
+      }
     } else {
-      statuses[task.status] = 1;
+      taskColors[mapVariantTaskStatusToColor[task.status]] = {
+        count: 1,
+        statuses: [task.status],
+        textColor: mapVariantTaskStatusToDarkColor[task.status],
+      };
     }
   });
-  return statuses;
+  return taskColors;
 };
