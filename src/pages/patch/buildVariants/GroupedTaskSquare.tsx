@@ -30,7 +30,6 @@ export const GroupedTaskSquare: React.FC<Props> = ({
     },
     { arrayFormat }
   );
-  const status = "test";
   const filteredRoute = `${getVersionRoute(id)}?${nextQueryParams}`;
   const multipleStatuses = statuses.length > 1;
   const tooltipCopy = `${count} ${count > 1 ? "tasks" : "task"} with ${
@@ -43,7 +42,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
       onClick={() =>
         patchAnalytics.sendEvent({
           name: "Click Grouped Task Square",
-          taskSquareStatus: status,
+          taskSquareStatuses: statuses,
         })
       }
     >
