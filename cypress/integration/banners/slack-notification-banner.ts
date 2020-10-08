@@ -4,10 +4,6 @@ const slackNotificationBanner = "slack-notification-banner";
 const slackUsername = "username";
 
 describe("Slack notification banner", () => {
-  beforeEach(() => {
-    cy.listenGQL();
-  });
-
   it("shows up across the app if user has not set slack notification settings", () => {
     cy.login();
     cy.visit("/");

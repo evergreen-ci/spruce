@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
@@ -24,8 +24,10 @@ import { withBannersContext } from "hoc/withBannersContext";
 
 const { Banner } = styles;
 
+const { blue } = uiColors;
+
 const slackNotificationBannerCookieKey = "slack-notification-banner";
-const doNotShowslackNotificationBannerCookie = "false";
+const doNotShowslackNotificationBannerCookie = false;
 
 export const SlackNotificationBannerCore = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -56,15 +58,14 @@ export const SlackNotificationBannerCore = () => {
     userSettingsData?.userSettings?.notifications?.patchFinish;
   const settingsSlackNotificationPatchFail =
     userSettingsData?.userSettings?.notifications?.patchFirstFailure;
+  const slackUsernameFromSettings =
+    userSettingsData?.userSettings?.slackUsername ?? null;
 
-  console.log(
-    "settingsSlackNotificationPatchFinish :>> ",
-    settingsSlackNotificationPatchFinish
-  );
-  console.log(
-    "settingsSlackNotificationPatchFail :>> ",
-    settingsSlackNotificationPatchFail
-  );
+  useEffect(() => {
+    if (slackUsernameFromSettings) {
+      setSlackUsername(slackUsernameFromSettings);
+    }
+  }, [slackUsernameFromSettings, setSlackUsername]);
 
   // UPDATE USER SETTINGS MUTATION
   const [
@@ -89,9 +90,6 @@ export const SlackNotificationBannerCore = () => {
   });
 
   const saveNotificationSettings = () => {
-    if (!slackUsername) {
-      return;
-    }
     updateUserSettings({
       variables: {
         userSettings: {
@@ -144,7 +142,10 @@ export const SlackNotificationBannerCore = () => {
               onCancel={() => setSlackUsername("")}
               okText="Save"
               cancelText="Cancel"
-              okButtonProps={{ loading: loadingUpdateUserSettings }}
+              okButtonProps={{
+                loading: loadingUpdateUserSettings,
+                disabled: !slackUsername,
+              }}
               cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
               icon={null}
             >
@@ -167,12 +168,12 @@ export const SlackNotificationBannerCore = () => {
 };
 
 const StyledBanner = styled(Banner)`
-  background-color: ${uiColors.blue.light3};
+  background-color: ${blue.light3};
   border: 1px solid;
   border-radius: 4px;
-  border-color: ${uiColors.blue.light2};
+  border-color: ${blue.light2};
   border-left: 4px solid;
-  border-left-color: ${uiColors.blue.base};
+  border-left-color: ${blue.base};
 `;
 
 const Wrapper = styled.div`
@@ -187,9 +188,9 @@ const StyledIcon = styled(Icon)`
 
 const SubscribeButton = styled(Body)`
   text-decoration: underline;
-  text-decoration-color: ${uiColors.blue.dark2};
+  text-decoration-color: ${blue.dark2};
   cursor: pointer;
-  color: ${uiColors.blue.dark2};
+  color: ${blue.dark2};
   font-size: 14px;
 `;
 
@@ -200,7 +201,7 @@ const StyledPageWrapper = styled(PageWrapper)`
 
 const StyledBody = styled(Body)`
   font-size: 14px;
-  color: ${uiColors.blue.dark2};
+  color: ${blue.dark2};
   &:first-of-type {
     margin-right: 4px;
   }
