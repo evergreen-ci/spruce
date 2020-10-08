@@ -3,13 +3,12 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { MyVolumesQuery } from "gql/generated/types";
 import {
   HostExpirationField,
   VolumesField,
 } from "pages/spawn/spawnHost/fields";
+import { MyVolume } from "types/spawn";
 
-type Volume = MyVolumesQuery["myVolumes"][0];
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
@@ -25,7 +24,7 @@ export type hostDetailsStateType = {
 interface HostDetailsFormProps {
   onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
   data: hostDetailsStateType;
-  volumes: Volume[];
+  volumes: MyVolume[];
   isSpawnHostModal: boolean;
 }
 export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({

@@ -75,6 +75,7 @@ functions:
       args: ["${make_args|}", "${target}"]
       background: true
       env:
+        SETTINGS_OVERRIDE: file
         GOPATH: ${workdir}/spruce/gopath
         GO_BIN_PATH: /opt/golang/go1.13/bin/go
         GOROOT: /opt/golang/go1.13

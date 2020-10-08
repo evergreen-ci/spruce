@@ -27,7 +27,7 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
         }}
         size={Size.XSmall}
       >
-        Copy SSH command
+        <Label>Copy SSH command</Label>
       </PaddedButton>
     </Tooltip>
   );
@@ -37,8 +37,11 @@ const FlexContainer = styled.div`
   display: flex;
 `;
 
+const Label = styled.div`
+  width: 121px;
+`;
+
 const PaddedButton = styled(Button)`
   margin-left: 5px;
   margin-right: 5px;
-  flex-grow: 0;
 `;

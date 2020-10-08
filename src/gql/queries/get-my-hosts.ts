@@ -19,6 +19,10 @@ export const GET_MY_HOSTS = gql`
         value
         canBeModified
       }
+      volumes {
+        displayName
+        id
+      }
       noExpiration
       provider
       status
