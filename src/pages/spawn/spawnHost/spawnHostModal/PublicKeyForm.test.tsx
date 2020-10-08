@@ -75,3 +75,33 @@ test("Clicking on Add new key should reset the state to the default", async () =
   expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
   expect(data).toStrictEqual(defaultData);
 });
+
+test("Toggling Add new key should disable and undisable the select input", async () => {
+  const defaultState = {
+    publicKey: { ...publicKeys[0] },
+    savePublicKey: false,
+  };
+  let data = { ...defaultData };
+
+  const updateData = jest.fn((x) => {
+    data = x;
+  });
+
+  const { queryByDataCy } = render(
+    <PublicKeyForm publicKeys={publicKeys} data={data} onChange={updateData} />
+  );
+  expect(data).toStrictEqual(defaultData);
+  expect(queryByDataCy("add_new_key_form")).toBeNull();
+  updateData(defaultState);
+  expect(data).toStrictEqual(defaultState);
+  fireEvent.click(queryByDataCy("add_public_key_button"));
+  expect(queryByDataCy("add_new_key_form")).toBeInTheDocument();
+  expect(queryByDataCy("public_key_dropdown")).toHaveClass(
+    "ant-select-disabled"
+  );
+  fireEvent.click(queryByDataCy("add_public_key_button"));
+  expect(queryByDataCy("add_new_key_form")).toBeNull();
+  expect(queryByDataCy("public_key_dropdown")).not.toHaveClass(
+    "ant-select-disabled"
+  );
+});
