@@ -33,12 +33,18 @@ export const SlackNotificationBannerCore = () => {
 
   const [slackUsername, setSlackUsername] = useState("");
 
+  const [cookie, setCookie] = useState(
+    Cookies.get(slackNotificationBannerCookieKey)
+  );
+
   const hideBanner = () => {
     Cookies.set(
       slackNotificationBannerCookieKey,
       doNotShowslackNotificationBannerCookie,
       { expires: 60 }
     );
+
+    setCookie(doNotShowslackNotificationBannerCookie);
   };
 
   // USER SETTINGS QUERY
@@ -62,7 +68,7 @@ export const SlackNotificationBannerCore = () => {
     onCompleted: () => {
       hideBanner();
       dispatchBanner.successBanner(
-        `You will now receive Slack notifications when your patches fail or succeed`
+        "You will now receive Slack notifications when your patches fail or succeed"
       );
     },
     onError: (err) => {
@@ -90,9 +96,7 @@ export const SlackNotificationBannerCore = () => {
     });
   };
 
-  const cookieExists =
-    Cookies.get(slackNotificationBannerCookieKey) ===
-    doNotShowslackNotificationBannerCookie;
+  const cookieExists = cookie === doNotShowslackNotificationBannerCookie;
 
   const doNotShowSlackBanner =
     cookieExists ||
@@ -135,10 +139,8 @@ export const SlackNotificationBannerCore = () => {
               cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
               icon={null}
             >
-              <div>
-                <SubscribeButton data-cy="subscribe-to-notifications">
-                  Subscribe
-                </SubscribeButton>
+              <div data-cy="subscribe-to-notifications">
+                <SubscribeButton>Subscribe</SubscribeButton>
               </div>
             </Popconfirm>
           </Wrapper>
