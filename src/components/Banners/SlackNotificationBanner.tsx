@@ -122,7 +122,7 @@ export const SlackNotificationBannerCore = () => {
           data-cy="slack-notification-banner"
         >
           <Wrapper>
-            <StyledIcon glyph="InfoWithCircle" fill={uiColors.blue.base} />
+            <StyledIcon glyph="InfoWithCircle" fill={blue.base} />
             <StyledBody>
               You can receive a Slack notification when your patch is ready.
             </StyledBody>
@@ -159,7 +159,7 @@ export const SlackNotificationBannerCore = () => {
             aria-label="Close Slack Notfication Banner"
             onClick={hideBanner}
           >
-            <Icon glyph="X" fill={uiColors.blue.base} />{" "}
+            <Icon glyph="X" fill={blue.base} />{" "}
           </IconButton>
         </StyledBanner>
       )}
