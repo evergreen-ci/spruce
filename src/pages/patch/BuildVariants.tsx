@@ -4,10 +4,6 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { useParams, Link } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import {
-  mapVariantTaskStatusToColor,
-  mapVariantTaskStatusToDarkColor,
-} from "components/StatusSquare";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -21,6 +17,7 @@ import {
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
 import { useNetworkStatus } from "hooks";
 import { GroupedTaskSquare } from "pages/patch/buildVariants/GroupedTaskSquare";
+import { groupTasksByColor } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -100,28 +97,3 @@ const VariantTasks = styled.div`
   display: flex;
   flex-wrap: wrap;
 `;
-
-const groupTasksByColor = (tasks: PatchBuildVariantTask[]) => {
-  const taskColors: {
-    [key: string]: { count: number; statuses: string[]; textColor: string };
-  } = {};
-  tasks.forEach((task) => {
-    const taskStatusToColor = mapVariantTaskStatusToColor[task.status];
-    if (taskColors[taskStatusToColor]) {
-      taskColors[taskStatusToColor].count += 1;
-      if (!taskColors[taskStatusToColor].statuses.includes(task.status)) {
-        taskColors[taskStatusToColor].statuses = [
-          ...taskColors[taskStatusToColor].statuses,
-          task.status,
-        ];
-      }
-    } else {
-      taskColors[taskStatusToColor] = {
-        count: 1,
-        statuses: [task.status],
-        textColor: mapVariantTaskStatusToDarkColor[task.status],
-      };
-    }
-  });
-  return taskColors;
-};
