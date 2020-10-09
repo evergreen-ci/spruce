@@ -94,7 +94,21 @@ functions:
       working_dir: spruce
       background: true
       command: yarn run dev
+  
+  yarn-build-ci:
+    command: subprocess.exec
+    params:
+      working_dir: spruce
+      command: yarn run build:ci
 
+  serve:
+    command: subprocess.exec
+    type: setup
+    params:
+      working_dir: spruce
+      background: true
+      command: npx serve -s build -p 3000
+  
   yarn-install:
     command: shell.exec
     params:
@@ -117,29 +131,25 @@ functions:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: yarn
-      args: [run, eslint]
+      command: yarn eslint
 
   yarn-tsc:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: yarn
-      args: [run, check-types]
+      command: yarn check-types
 
   yarn-build:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: yarn
-      args: [run, build]
+      command: yarn build:ci
 
   yarn-coverage:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: yarn
-      args: [run, coverage]
+      command: yarn coverage
 
   run-cypress-tests:
     command: shell.exec
@@ -254,7 +264,8 @@ tasks:
       vars:
         target: local-evergreen
     - func: yarn-install
-    - func: yarn-start
+    - func: yarn-build-ci
+    - func: serve
     - func: run-cypress-tests
 
 buildvariants:
