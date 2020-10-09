@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { H3, P1 } from "components/Typography";
@@ -36,10 +35,11 @@ export const BuildVariants: React.FC = () => {
         <Skeleton active title={false} paragraph={{ rows: 4 }} />
       )}
       {data &&
-        !error &&
-        !loading &&
         data.patchBuildVariants.map(({ displayName, tasks }) => (
-          <BuildVariant key={uuid()} className="patch-build-variant">
+          <BuildVariant
+            key={`buildVariant_${displayName}`}
+            className="patch-build-variant"
+          >
             <P1>{displayName}</P1>
             <VariantTasks>
               {tasks.map((task) => (

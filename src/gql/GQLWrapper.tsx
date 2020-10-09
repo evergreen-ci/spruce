@@ -43,7 +43,13 @@ interface ClientLinkParams {
   dispatch?: Dispatch;
 }
 
-const cache = new InMemoryCache();
+const cache = new InMemoryCache({
+  typePolicies: {
+    User: {
+      keyFields: ["userId"],
+    },
+  },
+});
 
 const authLink = (logout: Logout): ApolloLink =>
   onError(({ networkError }) => {

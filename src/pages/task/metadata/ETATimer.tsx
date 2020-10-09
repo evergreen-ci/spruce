@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { addMilliseconds, differenceInMilliseconds } from "date-fns";
+import { P2 } from "components/Typography";
 import { msToDuration } from "utils/string";
 
 interface ETATimerProps {
@@ -16,28 +17,42 @@ export const ETATimer: React.FC<ETATimerProps> = ({
     baseTaskDuration
   );
 
+  const currentTime = Date.now();
   const [eta, setEta] = useState(
-    differenceInMilliseconds(Date.now(), estimatedCompletionTime)
+    differenceInMilliseconds(currentTime, estimatedCompletionTime)
   );
 
   const [runningTime, setRunningTime] = useState(
-    differenceInMilliseconds(parsedStartTime, Date.now())
+    differenceInMilliseconds(parsedStartTime, currentTime)
   );
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      const currentTime = Date.now();
-      setEta(differenceInMilliseconds(estimatedCompletionTime, currentTime));
-      setRunningTime(differenceInMilliseconds(currentTime, parsedStartTime));
+    const timer = setInterval(() => {
+      const newEta = differenceInMilliseconds(
+        estimatedCompletionTime,
+        currentTime
+      );
+      const newRunningTime = differenceInMilliseconds(
+        currentTime,
+        parsedStartTime
+      );
+      setEta(newEta > 0 ? newEta : 0);
+      setRunningTime(newRunningTime > 0 ? newRunningTime : 0);
     }, 1000);
-    return () => clearTimeout(timer);
+    return () => clearInterval(timer);
   });
-  // Sometimes if the task takes longer then expected the eta becomes negative which
-  // doesn't make sense so in those cases we hide it
+
   return (
-    <span data-cy="metadata-eta-timer">
-      {msToDuration(runningTime)}
-      {eta >= 0 && ` / ${msToDuration(eta)}`}
-    </span>
+    <>
+      <P2 data-cy="task-metadata-running-time">
+        Running Time:{" "}
+        <span data-cy="metadata-eta-timer">{msToDuration(runningTime)}</span>
+      </P2>
+      {eta >= 0 && (
+        <P2 data-cy="task-metadata-eta">
+          ETA: <span>{msToDuration(eta)}</span>
+        </P2>
+      )}
+    </>
   );
 };
