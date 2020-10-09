@@ -87,58 +87,58 @@ functions:
       script: |
         ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
 
-  npm-start:
+  yarn-start:
     command: subprocess.exec
     type: setup
     params:
       working_dir: spruce
       background: true
-      command: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm run dev
+      command: yarn run dev
 
-  npm-install:
+  yarn-install:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
-        /opt/nodejs/node-v12.16.0-linux-x64/bin/npm install
+        yarn install
 
-  npm-test:
+  yarn-test:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [test, --, -u, --reporters=default, --reporters=jest-junit]
       env:
         CI: "true"
 
 
-  npm-eslint:
+  yarn-eslint:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [run, eslint]
 
-  npm-tsc:
+  yarn-tsc:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [run, check-types]
 
-  npm-build:
+  yarn-build:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [run, build]
 
-  npm-coverage:
+  yarn-coverage:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [run, coverage]
 
   run-cypress-tests:
@@ -213,34 +213,34 @@ tasks:
   - name: compile
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-build
+    - func: yarn-install
+    - func: yarn-build
 
   - name: test
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-test
+    - func: yarn-install
+    - func: yarn-test
 
   - name: lint
     commands:
     - func: get-project
     - func: sym-link
-    - func: npm-install
-    - func: npm-eslint
+    - func: yarn-install
+    - func: yarn-eslint
 
   - name: type_check
     commands:
     - func: get-project
     - func: sym-link
-    - func: npm-install
-    - func: npm-tsc
+    - func: yarn-install
+    - func: yarn-tsc
 
   - name: coverage
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-coverage
+    - func: yarn-install
+    - func: yarn-coverage
 
   - name: e2e_test
     commands:
@@ -253,8 +253,8 @@ tasks:
     - func: run-make-background
       vars:
         target: local-evergreen
-    - func: npm-install
-    - func: npm-start
+    - func: yarn-install
+    - func: yarn-start
     - func: run-cypress-tests
 
 buildvariants:
