@@ -224,6 +224,7 @@ tasks:
     commands:
     - func: get-project
     - func: yarn-install
+    - func: copy-cmdrc
     - func: yarn-build
 
   - name: test
