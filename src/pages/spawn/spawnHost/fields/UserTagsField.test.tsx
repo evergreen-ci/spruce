@@ -37,7 +37,6 @@ const instanceTags = [
 const defaultData = {
   addedInstanceTags: [],
   deletedInstanceTags: [],
-  someOtherField: [],
 };
 
 test("Renders only editable instance tags", async () => {
@@ -47,15 +46,12 @@ test("Renders only editable instance tags", async () => {
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
   expect(queryByText("hiddenField")).toBeNull();
+  expect(data).toBe(defaultData);
 });
 
 test("Editing a tag value should add it to addedInstanceTags", async () => {
@@ -65,11 +61,7 @@ test("Editing a tag value should add it to addedInstanceTags", async () => {
   });
 
   const { queryAllByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -97,11 +89,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -124,11 +112,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
   });
 
   const { queryAllByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -157,11 +141,7 @@ test("Should be able to add an new tag with the add tag button", async () => {
   });
 
   const { queryAllByDataCy, queryByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);

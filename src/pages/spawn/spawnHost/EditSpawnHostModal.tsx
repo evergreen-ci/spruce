@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input, Select } from "antd";
@@ -18,7 +18,6 @@ import {
   InstanceTypesQueryVariables,
   MyVolumesQuery,
   MyVolumesQueryVariables,
-  InstanceTag,
 } from "gql/generated/types";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
 import {
@@ -27,18 +26,10 @@ import {
   UserTagsField,
 } from "pages/spawn/spawnHost/fields";
 import { MyHost } from "types/spawn";
+import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 
-interface editSpawnHostState {
-  expiration?: Date;
-  noExpiration: boolean;
-  displayName?: string;
-  instanceType?: string;
-  volumeId?: string;
-  addedInstanceTags?: InstanceTag[];
-  deletedInstanceTags?: InstanceTag[];
-}
 interface EditSpawnHostModalProps {
   visible?: boolean;
   onOk: () => void;
@@ -50,18 +41,14 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   onCancel,
   host,
 }) => {
-  const { expiration, noExpiration, instanceTags } = host;
-  const defaultEditSpawnHostState: editSpawnHostState = {
-    displayName: host.displayName,
-    expiration,
-    noExpiration,
-    instanceType: host.instanceType,
-    addedInstanceTags: [],
-    deletedInstanceTags: [],
-  };
-  const [editSpawnHostState, setEditSpawnHostState] = useState<
-    editSpawnHostState
-  >(defaultEditSpawnHostState);
+  const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
+    host
+  );
+  const [editSpawnHostState, dispatch] = reducer;
+
+  useEffect(() => {
+    dispatch({ type: "reset", host });
+  }, [visible, dispatch, host]);
 
   // QUERY get_instance_types
   const { data: instanceTypesData } = useQuery<
@@ -74,8 +61,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     MyVolumesQuery,
     MyVolumesQueryVariables
   >(GET_MY_VOLUMES);
-
-  const { displayName, instanceType } = editSpawnHostState;
 
   const instanceTypes = instanceTypesData?.instanceTypes;
   const volumes = volumesData?.myVolumes;
@@ -114,12 +99,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
             <Input
               id="hostNameInput"
-              value={displayName}
+              value={editSpawnHostState.displayName}
               onChange={(e) =>
-                setEditSpawnHostState({
-                  ...editSpawnHostState,
-                  displayName: e.target.value,
-                })
+                dispatch({ type: "editHostName", displayName: e.target.value })
               }
             />
           </Section>
@@ -128,7 +110,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Expiration</SectionLabel>
           <HostExpirationField
             data={editSpawnHostState}
-            onChange={setEditSpawnHostState}
+            onChange={(data) => dispatch({ type: "editExpiration", ...data })}
           />
         </SectionContainer>
         <SectionContainer>
@@ -143,12 +125,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
               style={{ width: 200 }}
               placeholder="Select Instance Type"
               onChange={(v) =>
-                setEditSpawnHostState({
-                  ...editSpawnHostState,
+                dispatch({
+                  type: "editInstanceType",
                   instanceType: v,
                 })
               }
-              value={instanceType}
+              value={editSpawnHostState.instanceType}
             >
               {instanceTypes?.map((instance) => (
                 <Option
@@ -165,16 +147,15 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Add Volume</SectionLabel>
           <VolumesField
             data={editSpawnHostState}
-            onChange={setEditSpawnHostState}
+            onChange={(data) => dispatch({ type: "editVolumes", ...data })}
             volumes={volumes}
           />
         </SectionContainer>
         <SectionContainer>
           <SectionLabel weight="medium">User Tags</SectionLabel>
           <UserTagsField
-            data={editSpawnHostState}
-            onChange={setEditSpawnHostState}
-            instanceTags={instanceTags}
+            onChange={(data) => dispatch({ type: "editInstanceTags", ...data })}
+            instanceTags={host?.instanceTags}
             visible={visible}
           />
         </SectionContainer>

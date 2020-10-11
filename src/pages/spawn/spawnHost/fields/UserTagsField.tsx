@@ -10,13 +10,11 @@ export interface UserTagsFieldStateType {
 }
 
 interface UserTagsFieldProps {
-  data: UserTagsFieldStateType;
   onChange: React.Dispatch<React.SetStateAction<any>>;
   instanceTags: InstanceTag[];
   visible?: boolean;
 }
 export const UserTagsField: React.FC<UserTagsFieldProps> = ({
-  data,
   onChange,
   instanceTags,
   visible = true,
@@ -47,7 +45,6 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
     });
 
     onChange({
-      ...data,
       deletedInstanceTags: deletedTags,
       addedInstanceTags: addedTags,
     });
