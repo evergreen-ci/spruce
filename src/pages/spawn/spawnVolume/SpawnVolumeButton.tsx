@@ -9,7 +9,9 @@ export const SpawnVolumeButton: React.FC = () => {
   const [openModal, setOpenModal] = useState(false);
   return (
     <PaddedContainer>
-      <PlusButton onClick={() => setOpenModal(true)}>Spawn a Volume</PlusButton>
+      <PlusButton data-cy="spawn-volume-btn" onClick={() => setOpenModal(true)}>
+        Spawn a Volume
+      </PlusButton>
       <Info>Limit 1500 GiB per User</Info>
       <SpawnVolumeModal
         visible={openModal}
