@@ -762,6 +762,7 @@ export type Task = {
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
@@ -1716,6 +1717,7 @@ export type GetTaskQuery = {
     timeTaken?: Maybe<number>;
     version: string;
     revision?: Maybe<string>;
+    totalTestCount: number;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;
