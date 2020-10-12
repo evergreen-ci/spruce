@@ -1,23 +1,27 @@
 import React, { useReducer } from "react";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { InputNumber } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
-import { Section, WideButton } from "components/Spawn";
+import { RegionSelector, Section, WideButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
+  AwsRegionsQuery,
+  AwsRegionsQueryVariables,
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { GET_AWS_REGIONS } from "gql/queries";
 
 interface SpawnVolumeModalProps {
   visible: boolean;
   onCancel: () => void;
 }
+
 const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
   availabilityZone: "",
   size: 500,
@@ -27,13 +31,25 @@ const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
   host: "",
 };
 
+enum ActionType {
+  SetSize = "setSize",
+  SetAvailabilityZone = "setAvailabilityZone",
+}
+
+interface Action {
+  type: ActionType;
+  data: any;
+}
+
 function reducer(
   state: SpawnVolumeMutationVariables["SpawnVolumeInput"],
-  action
+  action: Action
 ) {
   switch (action.type) {
-    case "setSize":
+    case ActionType.SetSize:
       return { ...state, size: action.data };
+    case ActionType.SetAvailabilityZone:
+      return { ...state, availabilityZone: action.data };
     default:
       return state;
   }
@@ -61,6 +77,10 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     },
     refetchQueries: ["MyVolumes"],
   });
+  const { data: awsData } = useQuery<AwsRegionsQuery, AwsRegionsQueryVariables>(
+    GET_AWS_REGIONS
+  );
+
   const spawnVolume = () => {
     spawnVolumeMutation({ variables: { SpawnVolumeInput: state } });
   };
@@ -89,7 +109,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       data-cy="spawn-volume-modal"
     >
       <div>
-        <Subtitle> Required Volume Information</Subtitle>
+        <Subtitle>Required Volume Information</Subtitle>
         <Section>
           <InputLabel htmlFor="volumeSize">Size</InputLabel>
           <InputNumber
@@ -97,10 +117,17 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
             max={500}
             value={state.size}
             onChange={(value) =>
-              dispatch({ type: "setSize", data: value as number })
+              dispatch({ type: ActionType.SetSize, data: value as number })
             }
           />
         </Section>
+        <RegionSelector
+          onChange={(value) =>
+            dispatch({ type: ActionType.SetAvailabilityZone, data: value })
+          }
+          selectedRegion={state.availabilityZone}
+          awsRegions={awsData?.awsRegions}
+        />
       </div>
     </Modal>
   );
