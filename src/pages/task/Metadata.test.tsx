@@ -59,6 +59,7 @@ const taskQuery = {
     distroId: "ubuntu1604-small",
     latestExecution: 0,
     blocked: false,
+    totalTestCount: 0,
   },
 };
 
