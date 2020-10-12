@@ -4,10 +4,7 @@ import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
-import {
-  customRenderWithRouterMatch as render,
-  act,
-} from "test_utils/test-utils";
+import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
 const taskId =
@@ -145,12 +142,6 @@ const mocks = [
   },
 ];
 
-beforeAll(() => {
-  jest.useFakeTimers();
-});
-afterAll(() => {
-  jest.useRealTimers();
-});
 test("Renders the metadata card with a pending status", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks}>
@@ -190,11 +181,8 @@ test("Renders the metadata card with a started status", async () => {
     route: `/task/${taskId}`,
     path: "/task/:id",
   });
-  act(() => {
-    jest.advanceTimersByTime(1200);
-  });
   expect(queryByDataCy("task-metadata-estimated_start")).toBeNull();
-  expect(queryByDataCy("metadata-eta-timer")).toHaveTextContent("20m");
+  expect(queryByDataCy("metadata-eta-timer")).toBeInTheDocument();
   expect(queryByDataCy("task-metadata-started")).toBeInTheDocument();
   expect(queryByDataCy("task-metadata-finished")).toBeNull();
 });
