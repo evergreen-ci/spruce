@@ -4,7 +4,6 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Variant } from "components/Badge";
 import {
-  Container,
   TitleContainer,
   Title,
   BadgeWrapper,
@@ -47,7 +46,7 @@ export const SpawnHost = () => {
 
   const hasHosts = hosts.length > 0;
   return (
-    <Container>
+    <>
       <TitleContainer>
         <Title>Hosts</Title>
         <BadgeWrapper>
@@ -67,6 +66,6 @@ export const SpawnHost = () => {
           No Spawned hosts available, Spawn one to get started
         </Subtitle>
       )}
-    </Container>
+    </>
   );
 };

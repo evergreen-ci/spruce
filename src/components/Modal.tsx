@@ -21,26 +21,26 @@ export const Modal: React.FC<ModalProps> = ({
   children,
   "data-cy": dataCy,
 }) => (
-  <StyledModal
-    maskStyle={{
-      backgroundColor,
-    }}
-    centered
-    footer={footer}
-    visible={visible}
-    onCancel={onCancel}
-    width="50%"
-    wrapProps={{
-      "data-cy": dataCy,
-    }}
-  >
-    {/* Placing a stop propogation event handler around this modal to prevent click events from bubbling up to their parent component  */}
-    {/* eslint-disable-next-line */}
-    <div onClick={(e) => e.stopPropagation()}>
+  // Placing a stop propogation event handler around this modal to prevent click events from bubbling up to their parent component
+  // eslint-disable-next-line
+  <div onClick={(e) => e.stopPropagation()}>
+    <StyledModal
+      maskStyle={{
+        backgroundColor,
+      }}
+      centered
+      footer={footer}
+      visible={visible}
+      onCancel={onCancel}
+      width="50%"
+      wrapProps={{
+        "data-cy": dataCy,
+      }}
+    >
       <ModalTitle data-cy="modal-title">{title}</ModalTitle>
       {children}
-    </div>
-  </StyledModal>
+    </StyledModal>
+  </div>
 );
 
 const backgroundColor = hexToRGBA(uiColors.black, 0.9);
