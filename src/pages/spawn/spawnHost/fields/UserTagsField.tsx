@@ -6,7 +6,7 @@ import { UserTagRow } from "./userTagsField/UserTagRow";
 
 export interface UserTagsFieldStateType {
   addedInstanceTags?: InstanceTagInput[];
-  deletedInstanceTags?: InstanceTag[];
+  deletedInstanceTags?: InstanceTagInput[];
 }
 
 interface UserTagsFieldProps {
