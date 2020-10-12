@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { RadioBox } from "@leafygreen-ui/radio-box-group";
@@ -26,7 +26,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   onChange,
   data,
 }) => {
-  const [shouldAddNewKey, setShouldAddNewKey] = useState(false);
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { shouldAddNewKey, disableKeySelect } = state;
   const { savePublicKey } = data;
   const { key: publicKey, name: keyName } = data.publicKey;
 
@@ -35,9 +36,9 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
     updatePublicKeyState(selectedKey);
   };
   const updatePublicKeyState = (selectedKey: PublicKey) => {
-    const state = { ...data };
-    state.publicKey = selectedKey;
-    onChange(state);
+    const oldState = { ...data };
+    oldState.publicKey = selectedKey;
+    onChange(oldState);
   };
   return (
     <Container>
@@ -48,6 +49,9 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           style={{ width: 200 }}
           placeholder="Select existing key"
           onChange={selectPublicKey}
+          value={keyName}
+          data-cy="public_key_dropdown"
+          disabled={disableKeySelect}
         >
           {publicKeys?.map((pk) => (
             <Option key={`public_key_option_${pk.name}`} value={pk.name}>
@@ -58,16 +62,20 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
         <PaddedText>or</PaddedText>
         <RadioBox
           value="addKey"
-          onClick={() => setShouldAddNewKey(!shouldAddNewKey)}
+          onClick={() => {
+            updatePublicKeyState({ key: "", name: "" });
+            dispatch({ type: "toggleNewKey" });
+          }}
           onChange={() => undefined}
           checked={shouldAddNewKey}
           size="full"
+          data-cy="add_public_key_button"
         >
           Add new key
         </RadioBox>
       </SelectContainer>
       {shouldAddNewKey && (
-        <FlexColumnContainer>
+        <FlexColumnContainer data-cy="add_new_key_form">
           <InputLabel htmlFor="keyValueInput">Public Key</InputLabel>
           <StyledTextArea
             id="keyValueInput"
@@ -141,3 +149,16 @@ const StyledInput = styled(TextInput)`
 const StyledTextArea = styled(TextArea)`
   margin-bottom: 15px;
 `;
+
+const initialState = { disableKeySelect: false, shouldAddNewKey: false };
+const reducer = (state, action) => {
+  switch (action.type) {
+    case "toggleNewKey":
+      return {
+        disableKeySelect: !state.disableKeySelect,
+        shouldAddNewKey: !state.shouldAddNewKey,
+      };
+    default:
+      throw new Error();
+  }
+};
