@@ -51,7 +51,7 @@ test("Renders only editable instance tags", async () => {
 
   expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
   expect(queryByText("hiddenField")).toBeNull();
-  expect(data).toBe(defaultData);
+  expect(data).toStrictEqual(defaultData);
 });
 
 test("Editing a tag value should add it to addedInstanceTags", async () => {
@@ -100,7 +100,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   expect(updateData).toBeCalledTimes(2);
   expect(data).toEqual({
     ...defaultData,
-    deletedInstanceTags: ["keyA"],
+    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
   });
   expect(queryByText("keyA")).toBeNull();
 });
@@ -129,7 +129,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
   expect(updateData).toBeCalledTimes(2);
   expect(data).toEqual({
     ...defaultData,
-    deletedInstanceTags: ["keyA"],
+    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
     addedInstanceTags: [{ key: "new key", value: "valueA" }],
   });
 });
