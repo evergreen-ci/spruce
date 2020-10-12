@@ -1739,6 +1739,7 @@ export type GetTaskQuery = {
     timeTaken?: Maybe<number>;
     version: string;
     revision?: Maybe<string>;
+    totalTestCount: number;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;
