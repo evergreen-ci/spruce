@@ -1,22 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
-import { InstanceTag } from "gql/generated/types";
+import { InstanceTag, InstanceTagInput } from "gql/generated/types";
 import { convertArrayToObject } from "utils/array";
 import { UserTagRow } from "./userTagsField/UserTagRow";
 
 export interface UserTagsFieldStateType {
-  addedInstanceTags?: InstanceTag[];
-  deletedInstanceTags?: InstanceTag[];
+  addedInstanceTags?: InstanceTagInput[];
+  deletedInstanceTags?: InstanceTagInput[];
 }
 
 interface UserTagsFieldProps {
-  data: UserTagsFieldStateType;
   onChange: React.Dispatch<React.SetStateAction<any>>;
   instanceTags: InstanceTag[];
   visible?: boolean;
 }
 export const UserTagsField: React.FC<UserTagsFieldProps> = ({
-  data,
   onChange,
   instanceTags,
   visible = true,
@@ -28,26 +26,27 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
   const userTagsAsObject = convertArrayToObject(userTags, "key");
 
   useEffect(() => {
-    const deletedTags: string[] = [];
-    const addedTags: InstanceTag[] = [];
+    const deletedTags: InstanceTagInput[] = [];
+    const addedTags: InstanceTagInput[] = [];
     // anything thats in user tags but not in visible tags has been deleted
     userTags.forEach((tag) => {
       if (!visibleTagsAsObject[tag.key]) {
-        deletedTags.push(tag.key);
+        const { key, value } = tag;
+        deletedTags.push({ key, value });
       }
     });
     // anything thats in visible tags but not in user tags is new
     visibleTags.forEach((tag) => {
       if (!userTagsAsObject[tag.key]) {
-        addedTags.push(tag);
+        const { key, value } = tag;
+        addedTags.push({ key, value });
         // If a tag exists but its value has change we add it to added tags
       } else if (userTagsAsObject[tag.key].value !== tag.value) {
-        addedTags.push(tag);
+        const { key, value } = tag;
+        addedTags.push({ key, value });
       }
     });
-
     onChange({
-      ...data,
       deletedInstanceTags: deletedTags,
       addedInstanceTags: addedTags,
     });

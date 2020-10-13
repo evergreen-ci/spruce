@@ -28,13 +28,7 @@ export const PublicKeyFormView = () => {
     deletedInstanceTags: [],
   });
   console.log({ state });
-  return (
-    <UserTagsField
-      data={state}
-      instanceTags={instanceTags}
-      onChange={setState}
-    />
-  );
+  return <UserTagsField instanceTags={instanceTags} onChange={setState} />;
 };
 
 export default {

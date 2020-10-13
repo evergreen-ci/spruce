@@ -39,6 +39,7 @@ export const GET_TASK = gql`
       timeTaken
       version
       revision
+      totalTestCount
       failedTestCount
       spawnHostLink
       priority
