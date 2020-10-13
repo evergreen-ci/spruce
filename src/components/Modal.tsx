@@ -11,6 +11,7 @@ interface ModalProps {
   "data-cy": string;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  onOk?: () => void;
 }
 
 export const Modal: React.FC<ModalProps> = ({
@@ -19,15 +20,16 @@ export const Modal: React.FC<ModalProps> = ({
   onCancel,
   visible,
   children,
+  onOk,
   "data-cy": dataCy,
 }) => (
-  // Placing a stop propogation event handler around this modal to prevent click events from bubbling up to their parent component
-  // eslint-disable-next-line
+  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <div onClick={(e) => e.stopPropagation()}>
     <StyledModal
       maskStyle={{
         backgroundColor,
       }}
+      onOk={onOk}
       centered
       footer={footer}
       visible={visible}
