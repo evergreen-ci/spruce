@@ -134,9 +134,7 @@ const TaskCore: React.FC = () => {
     tabToIndexMap,
     defaultTab: TaskTab.Logs,
     path: `${paths.task}/${id}`,
-    query: new URLSearchParams(
-      `${RequiredQueryParams.Execution}=${ExecutionAsDisplay(execution)}`
-    ),
+    query: new URLSearchParams(location.search),
     sendAnalyticsEvent: (newTab: string) =>
       taskAnalytics.sendEvent({ name: "Change Tab", tab: newTab }),
   });
