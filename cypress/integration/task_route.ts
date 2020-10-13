@@ -9,11 +9,6 @@ describe("Task Page Route", () => {
     cy.preserveCookies();
   });
 
-  it("User is redirected to logs if they land on /task/{taskID}", () => {
-    cy.visit("/task/taskID");
-    cy.location("pathname").should("include", "/task/taskID/logs");
-  });
-
   it("Browser history is replaced when user lands on /task/{taskID}", () => {
     cy.visit("/random");
     cy.visit("/task/taskID");

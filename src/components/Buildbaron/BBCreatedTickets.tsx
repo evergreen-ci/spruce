@@ -1,5 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import { Skeleton } from "antd";
 import { SECOND } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -43,10 +44,10 @@ export const CreatedTickets: React.FC<Props> = ({
 
   if (createdTicketsCount > length) {
     startPolling(1 * SECOND);
-  } else {
-    setCreatedTicketsCount(length);
-    stopPolling();
+    return <Skeleton active title={false} paragraph={{ rows: 4 }} />;
   }
+  setCreatedTicketsCount(length);
+  stopPolling();
 
   return (
     <>
