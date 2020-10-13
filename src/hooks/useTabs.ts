@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useParams, useHistory } from "react-router-dom";
 import { TabToIndexMap } from "hooks/types";
 
@@ -51,5 +51,8 @@ export const useTabs = ({
     history.replace(`${path}/${currentTab}?${query ? query.toString() : ""}`);
     sendAnalyticsEvent(currentTab);
   };
+  useEffect(() => {
+    setSelectedTab(getIndexFromTab(tab));
+  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   return [selectedTab, selectTabHandler];
 };
