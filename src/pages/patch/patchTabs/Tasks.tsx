@@ -1,11 +1,13 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
+import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import { ColumnProps } from "antd/lib/table";
 import every from "lodash.every";
 import get from "lodash.get";
 import queryString from "query-string";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams, useLocation, Link } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -19,6 +21,7 @@ import {
 } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
+import { getVersionRoute } from "constants/routes";
 import {
   PatchTasksQuery,
   PatchTasksQueryVariables,
@@ -75,13 +78,18 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     <ErrorBoundary>
       <TaskFilters />
       <TableControlOuterRow>
-        <ResultCountLabel
-          dataCyNumerator="current-task-count"
-          dataCyDenominator="total-task-count"
-          label="tasks"
-          numerator={get(data, "patchTasks.count", "-")}
-          denominator={taskCount}
-        />
+        <FlexContainer>
+          <ResultCountLabel
+            dataCyNumerator="current-task-count"
+            dataCyDenominator="total-task-count"
+            label="tasks"
+            numerator={get(data, "patchTasks.count", "-")}
+            denominator={taskCount}
+          />
+          <PaddedButton href={getVersionRoute(resourceId)} as={Link}>
+            Clear All Filters
+          </PaddedButton>
+        </FlexContainer>
         <TableControlInnerRow>
           <Pagination
             dataTestId="tasks-table-pagination"
@@ -243,3 +251,12 @@ const columnsTemplate: Array<ColumnProps<TaskResult>> = [
     className: "cy-task-table-col-VARIANT",
   },
 ];
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const PaddedButton = styled(Button)`
+  margin-left: 15px;
+`;
