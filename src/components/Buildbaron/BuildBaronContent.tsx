@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { Banners } from "components/Banners";
 import {
@@ -15,11 +16,13 @@ import { BuildBaronTable } from "./BuildBaronTable";
 interface BuildBaronCoreProps {
   eventData: BuildBaron;
   taskId: string;
+  loading: boolean;
 }
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   eventData,
   taskId,
+  loading,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
@@ -30,6 +33,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
   return (
     <>
+      {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {eventData && (
         <>
           <Banners

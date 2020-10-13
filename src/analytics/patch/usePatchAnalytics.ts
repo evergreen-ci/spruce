@@ -16,6 +16,8 @@ type Action =
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Click Task Square"; taskSquareStatus: string }
+  | { name: "Click Grouped Task Square"; taskSquareStatuses: string | string[] }
+  | { name: "Click Build Variant Grid Link" }
   | { name: "Click Reconfigure Link" }
   | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
@@ -36,7 +38,6 @@ export const usePatchAnalytics = (): PatchAnalytics => {
   const { id } = useParams<{ id: string }>();
   const { data: eventData } = useQuery(GET_PATCH_EVENT_DATA, {
     variables: { id },
-    fetchPolicy: "cache-first",
   });
   const status = get(eventData, "patch.status", undefined);
 
