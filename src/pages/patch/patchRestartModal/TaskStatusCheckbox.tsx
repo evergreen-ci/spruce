@@ -8,7 +8,7 @@ interface TaskStatusCheckboxProps {
   status: string;
   taskId: string;
   checked: boolean;
-  style: React.CSSProperties;
+  style: React.CSSProperties; // passed in by react-window to handle list virtualization
 }
 
 const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
