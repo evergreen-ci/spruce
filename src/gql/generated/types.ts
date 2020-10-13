@@ -762,12 +762,14 @@ export type Task = {
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
   generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
+  hostLink?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
   latestExecution: Scalars["Int"];
@@ -1063,6 +1065,34 @@ export type DetachVolumeFromHostMutationVariables = {
 };
 
 export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
+
+export type EditSpawnHostMutationVariables = {
+  hostId: Scalars["String"];
+  displayName?: Maybe<Scalars["String"]>;
+  addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  volume?: Maybe<Scalars["String"]>;
+  instanceType?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+};
+
+export type EditSpawnHostMutation = {
+  editSpawnHost: {
+    id: string;
+    displayName?: Maybe<string>;
+    status: string;
+    instanceType?: Maybe<string>;
+    noExpiration: boolean;
+    expiration?: Maybe<Date>;
+    instanceTags: Array<{
+      key?: Maybe<string>;
+      value?: Maybe<string>;
+      canBeModified?: Maybe<boolean>;
+    }>;
+    volumes: Array<{ displayName: string; id: string }>;
+  };
+};
 
 export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
@@ -1709,6 +1739,7 @@ export type GetTaskQuery = {
     timeTaken?: Maybe<number>;
     version: string;
     revision?: Maybe<string>;
+    totalTestCount: number;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;

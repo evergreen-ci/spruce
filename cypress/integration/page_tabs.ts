@@ -75,7 +75,7 @@ describe("Tabs", () => {
 
     it("includes selected tab name in url path", () => {
       cy.visit(taskRoute);
-      locationPathEquals(task.logs.route);
+      locationPathEquals(task.tests.route);
     });
 
     it("updates the url path when another tab is selected", () => {
@@ -86,7 +86,7 @@ describe("Tabs", () => {
 
     it("replaces invalid tab names in url path with default", () => {
       cy.visit(`${taskRoute}/chicken`);
-      locationPathEquals(task.logs.route);
+      locationPathEquals(task.tests.route);
     });
 
     it("clicking away from each tab doesn't crash app", () => {
