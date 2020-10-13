@@ -36,7 +36,7 @@ export const RestartPatch = forwardRef<HTMLDivElement, RestartPatchProps>(
           </DropdownItem>
         )}
         {openModal && (
-          <div className={openModal && "ant-popover-open"} ref={ref}>
+          <div className={openModal ? "ant-popover-open" : ""} ref={ref}>
             <PatchRestartModal
               patchId={patchId}
               visible={openModal}
