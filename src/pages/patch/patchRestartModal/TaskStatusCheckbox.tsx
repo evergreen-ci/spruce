@@ -2,30 +2,34 @@ import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
-import { PatchBuildVariantTask } from "gql/generated/types";
-import { selectedStrings } from "hooks/usePatchStatusSelect";
 
 interface TaskStatusCheckboxProps {
-  task: PatchBuildVariantTask;
-  selectedTasks: selectedStrings;
-  toggleSelectedTask: (id: string) => void;
+  displayName: string;
+  status: string;
+  taskId: string;
+  checked: boolean;
+  style: React.CSSProperties; // passed in by react-window to handle list virtualization
 }
 
 const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
-  task,
-  selectedTasks,
-  toggleSelectedTask,
+  taskId,
+  status,
+  displayName,
+  checked,
+  style,
 }) => (
   <Checkbox
+    style={style}
     data-cy="task-status-checkbox"
-    onChange={() => toggleSelectedTask(task.id)}
+    className="task-checkbox"
+    name={taskId}
     label={
       <StateItemWrapper>
-        <PaddedSquare color={mapVariantTaskStatusToColor[task.status]} />{" "}
-        {task.name}
+        <PaddedSquare color={mapVariantTaskStatusToColor[status]} />{" "}
+        {displayName}
       </StateItemWrapper>
     }
-    checked={selectedTasks[task.id]}
+    checked={checked}
     bold={false}
   />
 );

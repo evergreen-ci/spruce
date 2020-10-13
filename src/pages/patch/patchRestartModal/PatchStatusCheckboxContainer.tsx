@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled";
+import { FixedSizeList } from "react-window";
 import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "pages/patch/patchRestartModal/TaskStatusCheckbox";
@@ -13,20 +13,43 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
   tasks,
   selectedTasks,
   toggleSelectedTask,
-}) => (
-  <ScrollableContainer data-cy="patch-status-selector-container">
-    {tasks.map((task) => (
-      <TaskStatusCheckbox
-        task={task}
-        selectedTasks={selectedTasks}
-        toggleSelectedTask={toggleSelectedTask}
-        key={`task_checkbox_${task.id}`}
-      />
-    ))}
-  </ScrollableContainer>
-);
+}) => {
+  const possibleListHeight = tasks.length * itemSize;
+  const listHeight =
+    possibleListHeight < maxListHeight ? possibleListHeight : maxListHeight;
+  const toggleHandler = (e) => {
+    const { name } = e.target;
+    if (selectedTasks[name] !== undefined) {
+      toggleSelectedTask(name);
+    }
+  };
+  return (
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions,jsx-a11y/click-events-have-key-events
+    <div data-cy="patch-status-selector-container" onClick={toggleHandler}>
+      <FixedSizeList
+        height={listHeight}
+        itemSize={itemSize}
+        itemCount={tasks.length}
+        itemData={tasks}
+      >
+        {({ style, data, index }) => {
+          const { id: taskId, status, name: displayName } = data[index];
+          const checked = !!selectedTasks[taskId];
+          return (
+            <TaskStatusCheckbox
+              style={style}
+              checked={checked}
+              displayName={displayName}
+              key={taskId}
+              status={status}
+              taskId={taskId}
+            />
+          );
+        }}
+      </FixedSizeList>
+    </div>
+  );
+};
 
-const ScrollableContainer = styled("div")`
-  max-height: 250px;
-  overflow-y: scroll;
-`;
+const itemSize = 20;
+const maxListHeight = 250;
