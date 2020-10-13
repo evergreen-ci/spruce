@@ -68,7 +68,7 @@ const TaskSquare = styled.div<TaskSquareProps>`
     `};
   margin: 0 3px;
   border-radius: 3px;
-  width: 35px;
+  width: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
