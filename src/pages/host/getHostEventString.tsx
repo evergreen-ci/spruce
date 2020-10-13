@@ -64,6 +64,12 @@ export const getHostEventString = (
           Host modify attempt {data.successful ? succeededString : ""}
         </span>
       );
+    case HostEvent.Fallback:
+      return (
+        <span data-cy="fallback">
+          Host start attempt failed, attempting to fallback to EC2 On-Demand
+        </span>
+      );
     case HostEvent.AgentDeployed:
       return (
         <div data-cy="agent-deployed">

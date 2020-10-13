@@ -40,6 +40,7 @@ export enum HostEvent {
   Started = "HOST_STARTED",
   Stopped = "HOST_STOPPED",
   Modified = "HOST_MODIFIED",
+  Fallback = "HOST_FALLBACK",
   AgentDeployed = "HOST_AGENT_DEPLOYED",
   AgentMonitorDeployed = "HOST_AGENT_MONITOR_DEPLOYED",
   HostJasperRestarting = "HOST_JASPER_RESTARTING",

@@ -12,6 +12,7 @@ interface Props {
   statuses: string[];
   color: string;
   textColor: string;
+  variant: string;
 }
 
 export const GroupedTaskSquare: React.FC<Props> = ({
@@ -19,6 +20,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   count,
   color,
   textColor,
+  variant,
 }) => {
   const patchAnalytics = usePatchAnalytics();
   const { id } = useParams<{ id: string }>();
@@ -26,6 +28,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   const nextQueryParams = queryString.stringify(
     {
       statuses,
+      variant,
       page: 0,
     },
     { arrayFormat }
@@ -66,7 +69,6 @@ const TaskSquare = styled.div<TaskSquareProps>`
   margin: 0 3px;
   border-radius: 3px;
   width: 40px;
-  height: 40px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,6 +82,7 @@ const StyledText = styled.span<StyledTextProps>`
     color: ${textColor};
     `};
   font-weight: bold;
+  font-size: 12px;
 `;
 
 const arrayFormat = "comma";
