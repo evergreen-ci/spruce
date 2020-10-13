@@ -75,7 +75,7 @@ const JiraSummaryLink = styled(StyledLink)`
 
 const StyledBadge = styled(Badge)`
   justify-content: center;
-  width: 105px;
+  padding: 0px 15px 0px;
 `;
 
 const MetaDataWrapper = styled.div`
