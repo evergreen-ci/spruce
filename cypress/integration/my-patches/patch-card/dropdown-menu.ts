@@ -73,6 +73,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       .children()
       .first()
       .click({ force: true });
+    cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("banner").should("exist");
     cy.dataCy("card-dropdown").should("not.exist");
