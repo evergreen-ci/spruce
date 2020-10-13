@@ -84,6 +84,7 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
           count={groupedTasks[color].count}
           color={color}
           textColor={groupedTasks[color].textColor}
+          variant={variant}
         />
       ))}
     </VariantTasks>
