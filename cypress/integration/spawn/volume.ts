@@ -83,6 +83,12 @@ describe("Navigating to Spawn Volume page", () => {
     cy.contains(errorBannerCopy2).should("exist");
   });
 
+  it("Clicking on 'Spawn Volume' should open the Spawn Volume Modal", () => {
+    cy.visit("/spawn/volume");
+    cy.dataCy("spawn-volume-btn").click();
+    cy.dataCy("spawn-volume-modal").should("be.visible");
+  });
+
   const expectedVolNames = [
     "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0",
     "vol-0c66e16459646704d",
