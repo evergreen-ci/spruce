@@ -3,10 +3,11 @@ import styled from "@emotion/styled";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
 import { MyVolume } from "types/spawn";
+import { editVolumesData } from "../editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 interface VolumesFieldProps {
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: editVolumesData) => void;
   data: {
     volumeId?: string;
     homeVolumeSize?: number;
@@ -33,7 +34,7 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
           showSearch
           style={{ width: 200 }}
           placeholder="Select volume"
-          onChange={(v) => onChange({ ...data, volumeId: v })}
+          onChange={(v) => onChange({ volumeId: v })}
           value={volumeId}
         >
           {availableVolumes?.map((v) => (
@@ -59,7 +60,10 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
               value={homeVolumeSize}
               defaultValue={500}
               onChange={(e) =>
-                onChange({ ...data, homeVolumeSize: e.target.value })
+                onChange({
+                  ...data,
+                  homeVolumeSize: parseInt(e.target.value, 10),
+                })
               }
             />
           </FlexColumnContainer>

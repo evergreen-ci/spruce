@@ -13,7 +13,7 @@ export interface ExpirationDateType {
 
 interface ExpirationFieldProps {
   data: ExpirationDateType;
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: ExpirationDateType) => void;
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
@@ -27,7 +27,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
     const month = d.getMonth();
     const date = d.getDate();
     const updatedTime = set(expiration || new Date(), { year, month, date });
-    onChange({ ...data, expiration: updatedTime });
+    onChange({ expiration: updatedTime });
   };
 
   const updateTime = (d: Date) => {
@@ -39,7 +39,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       minutes,
       seconds,
     });
-    onChange({ ...data, expiration: updatedTime });
+    onChange({ expiration: updatedTime });
   };
 
   const disabledDate = (current) => current < Date.now();
@@ -71,7 +71,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       <PaddedCheckbox
         label="Never"
         checked={noExpiration}
-        onChange={(e) => onChange({ ...data, noExpiration: e.target.checked })}
+        onChange={(e) => onChange({ noExpiration: e.target.checked })}
       />{" "}
     </>
   );

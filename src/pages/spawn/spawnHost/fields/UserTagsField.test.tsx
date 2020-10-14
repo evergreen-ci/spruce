@@ -1,6 +1,7 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { render, fireEvent } from "test_utils/test-utils";
+import { editInstanceTagsData } from "../editSpawnHostModal/useEditSpawnHostModalState";
 import { UserTagsField } from "./UserTagsField";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
@@ -41,7 +42,7 @@ const defaultData = {
 
 test("Renders only editable instance tags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: editInstanceTagsData) => {
     data = x;
   });
 
@@ -56,7 +57,7 @@ test("Renders only editable instance tags", async () => {
 
 test("Editing a tag value should add it to addedInstanceTags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: editInstanceTagsData) => {
     data = x;
   });
 
@@ -84,7 +85,7 @@ test("Editing a tag value should add it to addedInstanceTags", async () => {
 
 test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: editInstanceTagsData) => {
     data = x;
   });
 
@@ -107,7 +108,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
 
 test("Editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: editInstanceTagsData) => {
     data = x;
   });
 
@@ -136,7 +137,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
 
 test("Should be able to add an new tag with the add tag button", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: editInstanceTagsData) => {
     data = x;
   });
 
