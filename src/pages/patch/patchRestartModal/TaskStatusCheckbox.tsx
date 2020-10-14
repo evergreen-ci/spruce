@@ -25,7 +25,7 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     name={taskId}
     label={
       <StateItemWrapper>
-        <PaddedSquare color={mapVariantTaskStatusToColor[status]} />{" "}
+        <PaddedSquare color={mapVariantTaskStatusToColor[status]} />
         {displayName}
       </StateItemWrapper>
     }
@@ -44,4 +44,7 @@ const StateItemWrapper = styled("div")`
   display: flex;
   flex-direction: row;
   align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
