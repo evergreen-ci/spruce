@@ -769,7 +769,6 @@ export type Task = {
   generatedByName?: Maybe<Scalars["String"]>;
   generateTask?: Maybe<Scalars["Boolean"]>;
   hostId?: Maybe<Scalars["String"]>;
-  hostLink?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
   latestExecution: Scalars["Int"];
