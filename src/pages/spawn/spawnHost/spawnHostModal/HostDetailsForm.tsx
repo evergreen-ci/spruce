@@ -3,10 +3,8 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import {
-  HostExpirationField,
-  VolumesField,
-} from "pages/spawn/spawnHost/fields";
+import { ExpirationField as HostExpirationField } from "components/Spawn";
+import { VolumesField } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
 
 const { TextArea } = Input;

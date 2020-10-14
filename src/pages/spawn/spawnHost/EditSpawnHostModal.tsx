@@ -11,6 +11,7 @@ import {
   SectionContainer,
   SectionLabel,
   WideButton,
+  ExpirationField as HostExpirationField,
 } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import {
@@ -20,11 +21,7 @@ import {
   MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
-import {
-  HostExpirationField,
-  VolumesField,
-  UserTagsField,
-} from "pages/spawn/spawnHost/fields";
+import { VolumesField, UserTagsField } from "pages/spawn/spawnHost/fields";
 import { MyHost } from "types/spawn";
 import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 

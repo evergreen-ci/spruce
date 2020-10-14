@@ -11,11 +11,12 @@ export interface ExpirationDateType {
   noExpiration?: boolean;
 }
 
-interface HostExpirationFieldProps {
+interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: React.Dispatch<React.SetStateAction<any>>;
 }
-export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
+
+export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
 }) => {
