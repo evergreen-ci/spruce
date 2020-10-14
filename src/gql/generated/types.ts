@@ -1206,6 +1206,12 @@ export type SpawnHostMutationVariables = {
 
 export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
 
+export type SpawnVolumeMutationVariables = {
+  SpawnVolumeInput: SpawnVolumeInput;
+};
+
+export type SpawnVolumeMutation = { spawnVolume: boolean };
+
 export type UnschedulePatchTasksMutationVariables = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];

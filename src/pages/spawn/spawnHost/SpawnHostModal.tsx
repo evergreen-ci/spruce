@@ -4,9 +4,10 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { AutoComplete, Input, Select } from "antd";
+import { AutoComplete, Input } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
+import { RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -38,7 +39,6 @@ import {
 } from "./spawnHostModal/PublicKeyForm";
 import { prepareSpawnHostMutationVariables } from "./spawnHostModal/utils";
 
-const { Option } = Select;
 const { gray } = uiColors;
 
 interface SpawnHostModalProps {
@@ -222,23 +222,11 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             />
           </AutoComplete>
         </Section>
-        <Section>
-          <InputLabel htmlFor="awsSelectDropown">Region</InputLabel>
-          <Select
-            id="awsSelectDropown"
-            showSearch
-            style={{ width: 200 }}
-            placeholder="Select existing key"
-            onChange={(v) => setAWSRegion(v)}
-            value={awsRegion}
-          >
-            {awsRegions?.map((region) => (
-              <Option value={region} key={`region_option_${region}`}>
-                {region}
-              </Option>
-            ))}
-          </Select>
-        </Section>
+        <RegionSelector
+          onChange={(v) => setAWSRegion(v)}
+          selectedRegion={awsRegion}
+          awsRegions={awsRegions}
+        />
         <Section>
           <PublicKeyForm
             publicKeys={publicKeys}

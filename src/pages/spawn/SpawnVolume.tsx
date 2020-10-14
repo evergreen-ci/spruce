@@ -39,7 +39,7 @@ export const SpawnVolume = () => {
           >{`${unmountedCount} Free`}</StyledBadge>
         </BadgeWrapper>
       </TitleContainer>
-      <SpawnVolumeButton showMetadata />
+      <SpawnVolumeButton />
       <SpawnVolumeTable volumes={volumes} />
     </>
   );
