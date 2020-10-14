@@ -73,7 +73,7 @@ type editVolumes = { type: "editVolumes" };
 
 export type editVolumesData = {
   volumeId?: string;
-  homeVolumeSize?: number; // home volume size is only useful for the Spawn Host Modal & mutation
+  homeVolumeSize?: number; // homeVolumeSize is only useful for creating a new host but the consuming component is used for both modals (create & edit)
 };
 
 type Action =
