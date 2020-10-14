@@ -61,7 +61,6 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
               defaultValue={500}
               onChange={(e) =>
                 onChange({
-                  ...data,
                   homeVolumeSize: parseInt(e.target.value, 10),
                 })
               }
