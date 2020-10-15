@@ -4,7 +4,7 @@ import { InstanceTag } from "gql/generated/types";
 import { MyHost } from "types/spawn";
 import { UserTagsData, VolumesData } from "../fields";
 
-interface editSpawnHostState {
+export interface editSpawnHostStateType {
   expiration?: Date;
   noExpiration: boolean;
   displayName?: string;
@@ -16,7 +16,7 @@ interface editSpawnHostState {
 
 export const useEditSpawnHostModalState = (host: MyHost) => ({
   reducer: useReducer(reducer, host, init),
-  defaultEditSpawnHostState: init(host),
+  defaultEditSpawnHostState: init(host) as editSpawnHostStateType,
 });
 
 const init = (host: MyHost) => ({
@@ -29,7 +29,7 @@ const init = (host: MyHost) => ({
   deletedInstanceTags: [],
 });
 
-const reducer = (state: editSpawnHostState, action: Action) => {
+const reducer = (state: editSpawnHostStateType, action: Action) => {
   switch (action.type) {
     case "reset":
       return init(action.host);

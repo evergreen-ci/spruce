@@ -34,22 +34,21 @@ const spawnHostCardFieldMaps = {
   "Availability Zone": (host: MyHost) => <span>{host?.availabilityZone}</span>,
   "User Tags": (host: MyHost) => (
     <span>
-      {host?.instanceTags?.map((tag) => (
-        <>
-          {tag.canBeModified && (
-            <PaddedBadge>
+      {host?.instanceTags?.map(
+        (tag) =>
+          tag.canBeModified && (
+            <PaddedBadge key={`user_tag_${host.id}_${tag.key}`}>
               {tag?.key}:{tag?.value}
             </PaddedBadge>
-          )}
-        </>
-      ))}
+          )
+      )}
     </span>
   ),
   "Instance Type": (host: MyHost) => <span>{host?.instanceType}</span>,
   "Mounted to": (host: MyHost) => (
     <>
       {host.volumes.map(({ id, displayName }) => (
-        <div>
+        <div key={`volume_link_${id}`}>
           <Link to={`${routes.spawnVolume}?volume=${id}`}>
             {displayName || id}
           </Link>
