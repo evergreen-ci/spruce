@@ -4,12 +4,9 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import { ExpirationField as HostExpirationField } from "components/Spawn";
-import { VolumesField } from "pages/spawn/spawnHost/fields";
+import { ExpirationDateType } from "components/Spawn/ExpirationField";
+import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
-import {
-  editExpirationData,
-  editVolumesData,
-} from "../editSpawnHostModal/useEditSpawnHostModalState";
 
 const { TextArea } = Input;
 
@@ -60,7 +57,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
 
         <HostExpirationField
           data={data}
-          onChange={(expData: editExpirationData) =>
+          onChange={(expData: ExpirationDateType) =>
             onChange({ ...data, ...expData })
           }
         />
@@ -71,7 +68,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
           <SectionLabel weight="medium">Virtual Workstation</SectionLabel>
           <VolumesField
             data={data}
-            onChange={(volData: editVolumesData) =>
+            onChange={(volData: VolumesData) =>
               onChange({ ...data, ...volData })
             }
             volumes={volumes}
