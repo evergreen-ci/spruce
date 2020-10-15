@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -29,15 +29,13 @@ import {
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
 } from "gql/queries";
+import { omitTypename } from "utils/string";
 import {
   HostDetailsForm,
-  hostDetailsStateType,
-} from "./spawnHostModal/HostDetailsForm";
-import {
   PublicKeyForm,
   publicKeyStateType,
-} from "./spawnHostModal/PublicKeyForm";
-import { prepareSpawnHostMutationVariables } from "./spawnHostModal/utils";
+  useSpawnHostModalState,
+} from "./spawnHostModal/index";
 
 const { gray } = uiColors;
 
@@ -98,54 +96,24 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts"],
   });
 
-  // Public key form state
-  const [publicKeyState, setPublicKeyState] = useState<publicKeyStateType>({
-    publicKey: {
-      name: "",
-      key: "",
-    },
-    savePublicKey: false,
-  });
-  // optional host details form state
-  const [hostDetailsState, setHostDetailsState] = useState<
-    hostDetailsStateType
-  >({
-    hasUserDataScript: false,
-    userDataScript: "",
-    expiration: null,
-    noExpiration: false,
-    volumeId: "",
-    isVirtualWorkStation: false,
-    homeVolumeSize: null,
-  });
+  const { reducer } = useSpawnHostModalState();
+  const [spawnHostModalState, dispatch] = reducer;
+
+  const { distroId, region, publicKey } = spawnHostModalState;
 
   const distros = distrosData?.distros;
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes;
 
-  // distro Field for form submision
-  const [distro, setDistro] = useState("");
-  // aws region field for form submission
-  const [awsRegion, setAWSRegion] = useState("");
+  useEffect(() => {
+    dispatch({ type: "reset" });
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Need to initialize these here so they can be used in the useEffect hook
   let virtualWorkstationDistros = [];
   let notVirtualWorkstationDistros = [];
 
-  useEffect(() => {
-    if (virtualWorkstationDistros.find((vd) => distro === vd.name)) {
-      setHostDetailsState({
-        ...hostDetailsState,
-        isVirtualWorkStation: true,
-        noExpiration: true,
-        expiration: null,
-        homeVolumeSize: 500,
-      });
-    } else {
-      setHostDetailsState({ ...hostDetailsState, isVirtualWorkStation: false });
-    }
-  }, [distro]); // eslint-disable-line react-hooks/exhaustive-deps
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
@@ -164,22 +132,27 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     },
   ];
 
-  const spawnHostInput = prepareSpawnHostMutationVariables({
-    hostDetailsState,
-    awsRegion,
-    distro,
-    publicKeyState,
-  });
-
   const canSubmitSpawnHost = !(
-    spawnHostInput.distroId === "" ||
-    spawnHostInput.region === "" ||
-    spawnHostInput.publicKey.key === ""
+    distroId === "" ||
+    region === "" ||
+    publicKey.key === ""
   );
 
   const spawnHost = (e) => {
     e.preventDefault();
-    spawnHostMutation({ variables: { SpawnHostInput: spawnHostInput } });
+    spawnHostMutation({
+      variables: { SpawnHostInput: omitTypename({ ...spawnHostModalState }) },
+    });
+  };
+
+  const editDistro = (d: string) => {
+    dispatch({
+      type: "editDistro",
+      distroId: d,
+      isVirtualWorkstation: !!virtualWorkstationDistros.find(
+        (vd) => d === vd.name
+      ),
+    });
   };
 
   return (
@@ -212,10 +185,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             style={{ width: 200, marginLeft: 0 }}
             options={distroOptions}
             id="distroSearchBox"
-            onChange={setDistro}
+            onChange={editDistro}
           >
             <Input
-              value={distro}
+              value={distroId}
               style={{ width: 200 }}
               placeholder="Search for Distro"
               suffix={<Icon glyph="MagnifyingGlass" />}
@@ -223,22 +196,24 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           </AutoComplete>
         </Section>
         <RegionSelector
-          onChange={(v) => setAWSRegion(v)}
-          selectedRegion={awsRegion}
+          onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
+          selectedRegion={spawnHostModalState.region}
           awsRegions={awsRegions}
         />
         <Section>
           <PublicKeyForm
             publicKeys={publicKeys}
-            data={publicKeyState}
-            onChange={setPublicKeyState}
+            data={spawnHostModalState}
+            onChange={(data: publicKeyStateType) =>
+              dispatch({ type: "editPublicKey", ...data })
+            }
           />
         </Section>
         <HR />
         <Section>
           <HostDetailsForm
-            data={hostDetailsState}
-            onChange={setHostDetailsState}
+            data={spawnHostModalState}
+            onChange={dispatch}
             volumes={volumes}
             isSpawnHostModal
           />
