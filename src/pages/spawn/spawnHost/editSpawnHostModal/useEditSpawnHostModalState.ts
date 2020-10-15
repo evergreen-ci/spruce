@@ -36,8 +36,14 @@ const reducer = (state: editSpawnHostState, action: Action) => {
     case "editExpiration":
       return {
         ...state,
-        expiration: action.expiration,
-        noExpiration: action.noExpiration,
+        expiration:
+          action.expiration !== undefined
+            ? action.expiration
+            : state.expiration,
+        noExpiration:
+          action.noExpiration !== undefined
+            ? action.noExpiration
+            : state.noExpiration,
       };
     case "editInstanceType":
       return { ...state, instanceType: action.instanceType };
@@ -54,14 +60,26 @@ const reducer = (state: editSpawnHostState, action: Action) => {
   }
 };
 
+type editExpiration = { type: "editExpiration" };
+export type editExpirationData = { expiration?: Date; noExpiration?: boolean };
+
+type editInstanceTags = { type: "editInstanceTags" };
+export type editInstanceTagsData = {
+  deletedInstanceTags: InstanceTag[];
+  addedInstanceTags: InstanceTag[];
+};
+
+type editVolumes = { type: "editVolumes" };
+
+export type editVolumesData = {
+  volumeId?: string;
+  homeVolumeSize?: number; // homeVolumeSize is only useful for creating a new host but the consuming component is used for both modals (create & edit)
+};
+
 type Action =
-  | { type: "reset"; host: MyHost }
-  | { type: "editHostName"; displayName: string }
-  | { type: "editExpiration"; expiration: Date; noExpiration: boolean }
   | { type: "editInstanceType"; instanceType: string }
-  | {
-      type: "editInstanceTags";
-      deletedInstanceTags: InstanceTag[];
-      addedInstanceTags: InstanceTag[];
-    }
-  | { type: "editVolumes"; volumeId: string };
+  | { type: "editHostName"; displayName: string }
+  | { type: "reset"; host: MyHost }
+  | (editExpiration & editExpirationData)
+  | (editInstanceTags & editInstanceTagsData)
+  | (editVolumes & editVolumesData);

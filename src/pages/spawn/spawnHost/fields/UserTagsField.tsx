@@ -2,18 +2,15 @@ import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { InstanceTag, InstanceTagInput } from "gql/generated/types";
 import { convertArrayToObject } from "utils/array";
+import { editInstanceTagsData } from "../editSpawnHostModal/useEditSpawnHostModalState";
 import { UserTagRow } from "./userTagsField/UserTagRow";
 
-export interface UserTagsFieldStateType {
-  addedInstanceTags?: InstanceTagInput[];
-  deletedInstanceTags?: InstanceTagInput[];
-}
-
 interface UserTagsFieldProps {
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: editInstanceTagsData) => void;
   instanceTags: InstanceTag[];
   visible?: boolean;
 }
+
 export const UserTagsField: React.FC<UserTagsFieldProps> = ({
   onChange,
   instanceTags,
