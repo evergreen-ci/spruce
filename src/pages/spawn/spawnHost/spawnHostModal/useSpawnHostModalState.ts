@@ -16,6 +16,9 @@ interface spawnHostState {
   isVirtualWorkStation: boolean;
   distroId: string;
   region: string;
+  taskId?: string;
+  useProjectSetupScript: boolean;
+  spawnHostsStartedByTask?: boolean;
 }
 
 export const useSpawnHostModalState = () => ({
@@ -37,6 +40,9 @@ const init = () => ({
   savePublicKey: false,
   distroId: "",
   region: "",
+  taskId: null,
+  useProjectSetupScript: false,
+  spawnHostsStartedByTask: null,
 });
 
 const reducer = (state: spawnHostState, action: Action) => {
@@ -80,6 +86,19 @@ const reducer = (state: spawnHostState, action: Action) => {
         ...state,
         setUpScript: action.setUpScript,
       };
+    case "setProjectSetupScript":
+      return {
+        ...state,
+        taskId: action.taskId,
+        useProjectSetupScript: action.useProjectSetupScript,
+        distroId:
+          action.distroId !== undefined ? action.distroId : state.distroId,
+      };
+    case "setSpawnHostsStartedByTask":
+      return {
+        ...state,
+        spawnHostsStartedByTask: action.spawnHostsStartedByTask,
+      };
     case "editVolumes":
       return {
         ...state,
@@ -97,6 +116,16 @@ export type Action =
   | { type: "editAWSRegion"; region: string }
   | { type: "editUserDataScript"; userDataScript: string }
   | { type: "editSetupScript"; setUpScript: string }
+  | {
+      type: "setProjectSetupScript";
+      taskId: string;
+      useProjectSetupScript: boolean;
+      distroId?: string;
+    }
+  | {
+      type: "setSpawnHostsStartedByTask";
+      spawnHostsStartedByTask: boolean;
+    }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editVolumes" } & VolumesData);
