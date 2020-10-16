@@ -12,17 +12,17 @@ import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
-  userDataScript: string;
+  userDataScript?: string;
   noExpiration: boolean;
-  expiration: Date;
-  volumeId: string;
-  homeVolumeSize: number;
+  expiration: any;
+  volumeId?: string;
+  homeVolumeSize?: number;
   isVirtualWorkStation: boolean;
 };
 
 interface HostDetailsFormProps {
   onChange: React.Dispatch<SpawnHostModalAction>;
-  data: any;
+  data: hostDetailsStateType;
   volumes: MyVolume[];
   isSpawnHostModal: boolean;
 }
