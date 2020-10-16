@@ -1,22 +1,12 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import { renderHook, act } from "@testing-library/react-hooks";
-import MutationObserver from "mutation-observer";
-import wait from "waait";
+import { renderHook } from "@testing-library/react-hooks";
 import { GET_BUILD_BARON } from "gql/queries";
-import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { mockUUID } from "test_utils/test-utils";
+import { useBuildBaronVariables } from "../useBuildBaronVariables";
 import "test_utils/__mocks__/matchmedia.mock";
 
-// @ts-ignore
-global.MutationObserver = MutationObserver;
-
-jest.mock("uuid");
-beforeAll(mockUUID);
-afterAll(() => jest.restoreAllMocks());
-
-const taskId =
-  "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
+const taskId1 = "spruce_ubuntu1604_e2e_test_1";
+const taskId2 = "spruce_ubuntu1604_e2e_test_2";
 const execution = 1;
 
 const buildBaronQuery = {
@@ -75,17 +65,36 @@ const buildBaronQuery = {
   },
 };
 
+const buildBaronQueryNotConfigured = {
+  buildBaron: {
+    buildBaronConfigured: false,
+    searchReturnInfo: {},
+  },
+};
+
 const mocks = [
   {
     request: {
       query: GET_BUILD_BARON,
       variables: {
-        taskId,
+        taskId: taskId1,
         execution,
       },
     },
     result: {
       data: buildBaronQuery,
+    },
+  },
+  {
+    request: {
+      query: GET_BUILD_BARON,
+      variables: {
+        taskId2,
+        execution,
+      },
+    },
+    result: {
+      data: buildBaronQueryNotConfigured,
     },
   },
 ];
@@ -94,19 +103,48 @@ const Provider = ({ children }) => (
   <MockedProvider mocks={mocks}>{children}</MockedProvider>
 );
 
-it("The BuildBaron tab renders when it needs to", async () => {
-  const { result } = renderHook(
+test("The BuildBaron tab renders when the task is failed", async () => {
+  const { result, waitForNextUpdate } = renderHook(
     () =>
       useBuildBaronVariables({
-        taskId,
+        taskId: taskId1,
         execution,
         taskStatus: "failed",
       }),
     { wrapper: Provider }
   );
-  await act(async () => {
-    await wait(0);
-  });
 
+  await waitForNextUpdate();
+  await waitForNextUpdate();
   expect(result.current.showBuildBaronTab).toBeTruthy();
+});
+
+test("The BuildBaron tab doesn't renders when the task is successful", async () => {
+  const { result } = renderHook(
+    () =>
+      useBuildBaronVariables({
+        taskId: taskId1,
+        execution,
+        taskStatus: "success",
+      }),
+    { wrapper: Provider }
+  );
+  expect(result.current.showBuildBaronTab).toBeFalsy();
+});
+
+test("The BuildBaron tab doesn't renders when the buildBaron is not configured", async () => {
+  const ProviderNotConfigured = ({ children }) => (
+    <MockedProvider mocks={mocks}>{children}</MockedProvider>
+  );
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useBuildBaronVariables({
+        taskId: taskId2,
+        execution,
+        taskStatus: "failed",
+      }),
+    { wrapper: ProviderNotConfigured }
+  );
+  await waitForNextUpdate();
+  expect(result.current.showBuildBaronTab).toBeFalsy();
 });

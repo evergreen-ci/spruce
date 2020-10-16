@@ -1,27 +1,21 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import MutationObserver from "mutation-observer";
-import { act } from "react-dom/test-utils";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import BuildBaron from "components/Buildbaron/BuildBaron";
-import { FILE_JIRA_TICKET } from "gql/mutations/file-jira-ticket";
-import { GET_BUILD_BARON, GET_SPRUCE_CONFIG, GET_USER } from "gql/queries";
-import { GET_CREATED_TICKETS } from "gql/queries/get-created-tickets";
+import { FILE_JIRA_TICKET } from "gql/mutations";
+import {
+  GET_BUILD_BARON,
+  GET_SPRUCE_CONFIG,
+  GET_USER,
+  GET_CREATED_TICKETS,
+} from "gql/queries";
 import {
   customRenderWithRouterMatch as render,
   fireEvent,
-  mockUUID,
   waitFor,
 } from "test_utils/test-utils";
 import "test_utils/__mocks__/matchmedia.mock";
-
-// @ts-ignore
-global.MutationObserver = MutationObserver;
-
-jest.mock("uuid");
-beforeAll(mockUUID);
-afterAll(() => jest.restoreAllMocks());
 
 const taskId =
   "spruce_ubuntu1604_e2e_test_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41";
@@ -217,10 +211,9 @@ it("Clicking on file a new ticket dispatches a banner.", async () => {
     path: "/task/:id",
   });
   fireEvent.click(queryByDataCy("file-ticket-button"));
-  await waitFor(() => expect(getByText("File Ticket")).toBeInTheDocument());
-  await act(async () => {
-    fireEvent.click(getByText("File Ticket"));
-  });
+  await expect(getByText("File Ticket")).toBeInTheDocument();
+  await fireEvent.click(getByText("File Ticket"));
+
   waitFor(() =>
     expect(
       getByText("Ticket successfully created for this task")
@@ -239,14 +232,14 @@ it("The correct JiraTicket rows are rendered in the component", () => {
       />
     </MockedProvider>
   );
-  const { queryAllByDataCy, queryByDataCy, debug } = render(
+  const { queryAllByDataCy, queryByDataCy } = render(
     withRouter(ContentWrapper),
     {
       route: `/task/${taskId}`,
       path: "/task/:id",
     }
   );
-  debug();
+
   expect(queryAllByDataCy("jira-ticket-row")).toHaveLength(3);
 
   expect(queryByDataCy("EVG-12345")).toBeInTheDocument();

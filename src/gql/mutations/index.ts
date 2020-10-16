@@ -19,3 +19,4 @@ export { DETACH_VOLUME } from "./detach-volume";
 export { SPAWN_HOST } from "./spawn-host";
 export { UPDATE_SPAWN_HOST_STATUS } from "./update-spawn-host-status";
 export { EDIT_SPAWN_HOST } from "./edit-spawn-host";
+export { FILE_JIRA_TICKET } from "./file-jira-ticket";
