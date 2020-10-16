@@ -8,6 +8,7 @@ interface spawnHostState {
   publicKey: PublicKeyInput;
   savePublicKey: boolean;
   userDataScript?: string;
+  setupScript?: string;
   noExpiration: boolean;
   expiration: Date;
   volumeId: string;
@@ -23,10 +24,10 @@ export const useSpawnHostModalState = () => ({
 });
 
 const init = () => ({
-  userDataScript: undefined,
+  userDataScript: null,
   expiration: null,
   noExpiration: false,
-  volumeId: undefined,
+  volumeId: null,
   isVirtualWorkStation: false,
   homeVolumeSize: null,
   publicKey: {
@@ -74,6 +75,11 @@ const reducer = (state: spawnHostState, action: Action) => {
         ...state,
         userDataScript: action.userDataScript,
       };
+    case "editSetupScript":
+      return {
+        ...state,
+        setUpScript: action.setUpScript,
+      };
     case "editVolumes":
       return {
         ...state,
@@ -90,6 +96,7 @@ export type Action =
   | { type: "editDistro"; distroId: string; isVirtualWorkstation?: boolean }
   | { type: "editAWSRegion"; region: string }
   | { type: "editUserDataScript"; userDataScript: string }
+  | { type: "editSetupScript"; setUpScript: string }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editVolumes" } & VolumesData);
