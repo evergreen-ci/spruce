@@ -193,6 +193,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
               style={{ width: 200 }}
               placeholder="Search for Distro"
               suffix={<Icon glyph="MagnifyingGlass" />}
+              data-cy="distro-input"
             />
           </AutoComplete>
         </Section>

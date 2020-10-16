@@ -23,6 +23,10 @@ const ascendingSortSpawnHostOrderByExpiration = [
   "i-04ade558e1e26b0ad",
 ];
 
+const taskId =
+  "evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46";
+const distroId = "ubuntu1604-small";
+
 describe("Navigating to Spawn Host page", () => {
   before(() => {
     cy.login();
@@ -94,6 +98,29 @@ describe("Navigating to Spawn Host page", () => {
       cy.get(hostTableRow).each(($el, index) =>
         cy.wrap($el).contains(unsortedSpawnHostOrder[index])
       );
+    });
+
+    describe("Spawn host modal", () => {
+      it("Clicking on the spawn host button should open a spawn host modal.", () => {
+        cy.dataCy("spawn-host-modal").should("not.be.visible");
+        cy.dataCy("spawn-host-button").click();
+        cy.dataCy("spawn-host-modal").should("be.visible");
+      });
+      it("Visiting the spawn host page with the proper url param should open the spawn host modal by default", () => {
+        cy.visit("/spawn/host?spawnHost=True ");
+        cy.dataCy("spawn-host-modal").should("be.visible");
+      });
+      it("Visiting the spawn host page with a task and distro supplied in the url should populate the spawn host modal", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+        );
+        cy.dataCy("spawn-host-modal").should("be.visible");
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Load data for dist on ubuntu1604"
+        );
+        cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");
+      });
     });
   });
 });

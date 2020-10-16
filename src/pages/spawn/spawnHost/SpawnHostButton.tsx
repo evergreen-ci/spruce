@@ -12,7 +12,12 @@ export const SpawnHostButton = () => {
   const [openModal, setOpenModal] = useState(shouldSpawnHost);
   return (
     <PaddedContainer>
-      <PlusButton onClick={() => setOpenModal(true)}>Spawn a host</PlusButton>
+      <PlusButton
+        onClick={() => setOpenModal(true)}
+        data-cy="spawn-host-button"
+      >
+        Spawn a host
+      </PlusButton>
       <SpawnHostModal
         visible={openModal}
         onCancel={() => setOpenModal(false)}
