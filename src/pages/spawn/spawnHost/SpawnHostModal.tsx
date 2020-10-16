@@ -186,6 +186,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             options={distroOptions}
             id="distroSearchBox"
             onChange={editDistro}
+            value={distroId}
           >
             <Input
               value={distroId}
