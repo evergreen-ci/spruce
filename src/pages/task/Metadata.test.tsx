@@ -60,6 +60,7 @@ const taskQuery = {
     latestExecution: 0,
     blocked: false,
     totalTestCount: 0,
+    buildVariant: "ubuntu1604",
   },
 };
 

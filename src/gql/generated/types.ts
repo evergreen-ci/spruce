@@ -433,6 +433,9 @@ export type SpawnHostInput = {
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
+  taskId?: Maybe<Scalars["String"]>;
+  useProjectSetupScript: Scalars["Boolean"];
+  spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -1597,6 +1600,15 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
+export type GetSpawnHostTaskQueryVariables = {
+  taskId: Scalars["String"];
+  distroId: Scalars["String"];
+};
+
+export type GetSpawnHostTaskQuery = {
+  task?: Maybe<{ buildVariant: string; displayName: string }>;
+};
+
 export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
@@ -1733,6 +1745,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     activatedBy?: Maybe<string>;
+    buildVariant: string;
     ingestTime?: Maybe<Date>;
     estimatedStart?: Maybe<number>;
     displayName: string;
