@@ -27,7 +27,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
     const month = d.getMonth();
     const date = d.getDate();
     const updatedTime = set(expiration || new Date(), { year, month, date });
-    onChange({ expiration: updatedTime });
+    onChange({ noExpiration, expiration: updatedTime });
   };
 
   const updateTime = (d: Date) => {
@@ -39,7 +39,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       minutes,
       seconds,
     });
-    onChange({ expiration: updatedTime });
+    onChange({ noExpiration, expiration: updatedTime });
   };
 
   const disabledDate = (current) => current < Date.now();
@@ -71,7 +71,9 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       <PaddedCheckbox
         label="Never"
         checked={noExpiration}
-        onChange={(e) => onChange({ noExpiration: e.target.checked })}
+        onChange={(e) =>
+          onChange({ noExpiration: e.target.checked, expiration })
+        }
       />{" "}
     </>
   );

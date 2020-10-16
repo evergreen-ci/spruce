@@ -1,6 +1,8 @@
 import { useReducer } from "react";
+import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InstanceTag } from "gql/generated/types";
 import { MyHost } from "types/spawn";
+import { UserTagsData, VolumesData } from "../fields";
 
 export interface editSpawnHostStateType {
   expiration?: Date;
@@ -60,26 +62,10 @@ const reducer = (state: editSpawnHostStateType, action: Action) => {
   }
 };
 
-type editExpiration = { type: "editExpiration" };
-export type editExpirationData = { expiration?: Date; noExpiration?: boolean };
-
-type editInstanceTags = { type: "editInstanceTags" };
-export type editInstanceTagsData = {
-  deletedInstanceTags: InstanceTag[];
-  addedInstanceTags: InstanceTag[];
-};
-
-type editVolumes = { type: "editVolumes" };
-
-export type editVolumesData = {
-  volumeId?: string;
-  homeVolumeSize?: number; // homeVolumeSize is only useful for creating a new host but the consuming component is used for both modals (create & edit)
-};
-
 type Action =
   | { type: "editInstanceType"; instanceType: string }
   | { type: "editHostName"; displayName: string }
   | { type: "reset"; host: MyHost }
-  | (editExpiration & editExpirationData)
-  | (editInstanceTags & editInstanceTagsData)
-  | (editVolumes & editVolumesData);
+  | ({ type: "editExpiration" } & ExpirationDateType)
+  | ({ type: "editInstanceTags" } & UserTagsData)
+  | ({ type: "editVolumes" } & VolumesData);
