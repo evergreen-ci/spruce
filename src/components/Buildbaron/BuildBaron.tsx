@@ -15,7 +15,9 @@ const BuildBaron: React.FC<Props> = ({ data, error, taskId, loading }) => (
   <>
     {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
     {error && (
-      <div>There was an error loading the build baron: {error.message}</div>
+      <div data-cy="bb-error">
+        There was an error loading the build baron: {error.message}
+      </div>
     )}
 
     {data && (
