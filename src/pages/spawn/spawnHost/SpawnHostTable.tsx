@@ -92,7 +92,7 @@ const WorkstationBadge = styled(Badge)`
   margin-left: 5px;
 `;
 
-const HostIdSpan = styled.span`
+const HostIdSpan = styled.div`
   white-space: nowrap;
   word-break: break-all;
   overflow: scroll;
