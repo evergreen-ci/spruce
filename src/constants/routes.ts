@@ -1,4 +1,5 @@
 import { PatchTasksQueryParams } from "types/task";
+import { stringifyQuery } from "utils";
 
 enum PageNames {
   Patches = "patches",
@@ -79,3 +80,12 @@ export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
 
 export const getTaskQueueRoute = (distro: string, taskId?: string) =>
   `${paths.taskQueue}/${distro}${taskId ? `/${taskId}` : ""}`;
+
+export const getSpawnHostRoute = (distroId: string, taskId?: string) => {
+  const queryParams = stringifyQuery({
+    spawnHost: "True",
+    distroId,
+    taskId,
+  });
+  return `${routes.spawnHost}?${queryParams}`;
+};

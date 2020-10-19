@@ -186,12 +186,14 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             options={distroOptions}
             id="distroSearchBox"
             onChange={editDistro}
+            value={distroId}
           >
             <Input
               value={distroId}
               style={{ width: 200 }}
               placeholder="Search for Distro"
               suffix={<Icon glyph="MagnifyingGlass" />}
+              data-cy="distro-input"
             />
           </AutoComplete>
         </Section>
