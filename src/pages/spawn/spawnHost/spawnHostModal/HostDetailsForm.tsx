@@ -7,6 +7,7 @@ import { ExpirationField as HostExpirationField } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
+import { SetupScriptForm } from "./SetupScriptForm";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
 const { TextArea } = Input;
@@ -18,6 +19,7 @@ export type hostDetailsStateType = {
   volumeId?: string;
   homeVolumeSize?: number;
   isVirtualWorkStation: boolean;
+  setUpScript?: string;
 };
 
 interface HostDetailsFormProps {
@@ -69,6 +71,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
           })
         }
       />
+      <SetupScriptForm data={data} onChange={onChange} />
       <SectionContainer>
         <SectionLabel weight="medium">Expiration</SectionLabel>
 

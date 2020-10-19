@@ -8,6 +8,7 @@ interface spawnHostState {
   publicKey: PublicKeyInput;
   savePublicKey: boolean;
   userDataScript?: string;
+  setupScript?: string;
   noExpiration: boolean;
   expiration: Date;
   volumeId: string;
@@ -15,6 +16,9 @@ interface spawnHostState {
   isVirtualWorkStation: boolean;
   distroId: string;
   region: string;
+  taskId?: string;
+  useProjectSetupScript: boolean;
+  spawnHostsStartedByTask?: boolean;
 }
 
 export const useSpawnHostModalState = () => ({
@@ -23,10 +27,10 @@ export const useSpawnHostModalState = () => ({
 });
 
 const init = () => ({
-  userDataScript: undefined,
+  userDataScript: null,
   expiration: null,
   noExpiration: false,
-  volumeId: undefined,
+  volumeId: null,
   isVirtualWorkStation: false,
   homeVolumeSize: null,
   publicKey: {
@@ -36,6 +40,9 @@ const init = () => ({
   savePublicKey: false,
   distroId: "",
   region: "",
+  taskId: null,
+  useProjectSetupScript: false,
+  spawnHostsStartedByTask: null,
 });
 
 const reducer = (state: spawnHostState, action: Action) => {
@@ -74,6 +81,24 @@ const reducer = (state: spawnHostState, action: Action) => {
         ...state,
         userDataScript: action.userDataScript,
       };
+    case "editSetupScript":
+      return {
+        ...state,
+        setUpScript: action.setUpScript,
+      };
+    case "setProjectSetupScript":
+      return {
+        ...state,
+        taskId: action.taskId,
+        useProjectSetupScript: action.useProjectSetupScript,
+        distroId:
+          action.distroId !== undefined ? action.distroId : state.distroId,
+      };
+    case "setSpawnHostsStartedByTask":
+      return {
+        ...state,
+        spawnHostsStartedByTask: action.spawnHostsStartedByTask,
+      };
     case "editVolumes":
       return {
         ...state,
@@ -90,6 +115,17 @@ export type Action =
   | { type: "editDistro"; distroId: string; isVirtualWorkstation?: boolean }
   | { type: "editAWSRegion"; region: string }
   | { type: "editUserDataScript"; userDataScript: string }
+  | { type: "editSetupScript"; setUpScript: string }
+  | {
+      type: "setProjectSetupScript";
+      taskId: string;
+      useProjectSetupScript: boolean;
+      distroId?: string;
+    }
+  | {
+      type: "setSpawnHostsStartedByTask";
+      spawnHostsStartedByTask: boolean;
+    }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editVolumes" } & VolumesData);
