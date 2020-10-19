@@ -38,13 +38,15 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   >(GET_TASK);
 
   useEffect(() => {
-    getTask({ variables: { taskId: getString(taskId), execution: 0 } });
-    onChange({
-      type: "setProjectSetupScript",
-      taskId: getString(taskId),
-      useProjectSetupScript: true,
-      distroId: getString(distroId),
-    });
+    if (taskId && distroId) {
+      getTask({ variables: { taskId: getString(taskId), execution: 0 } });
+      onChange({
+        type: "setProjectSetupScript",
+        taskId: getString(taskId),
+        useProjectSetupScript: true,
+        distroId: getString(distroId),
+      });
+    }
   }, [taskId, distroId, getTask, onChange]);
 
   const { displayName, buildVariant, revision } = taskData?.task || {};
