@@ -45,6 +45,4 @@ const StateItemWrapper = styled("div")`
   flex-direction: row;
   align-items: center;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
 `;
