@@ -11,6 +11,7 @@ export const GET_TASK = gql`
         baseTaskDuration
         baseTaskLink
       }
+      buildVariant
       ingestTime
       estimatedStart
       displayName
