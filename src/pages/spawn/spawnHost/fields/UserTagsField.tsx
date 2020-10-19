@@ -4,16 +4,16 @@ import { InstanceTag, InstanceTagInput } from "gql/generated/types";
 import { convertArrayToObject } from "utils/array";
 import { UserTagRow } from "./userTagsField/UserTagRow";
 
-export interface UserTagsFieldStateType {
-  addedInstanceTags?: InstanceTagInput[];
-  deletedInstanceTags?: InstanceTagInput[];
-}
-
+export type UserTagsData = {
+  deletedInstanceTags: InstanceTag[];
+  addedInstanceTags: InstanceTag[];
+};
 interface UserTagsFieldProps {
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: UserTagsData) => void;
   instanceTags: InstanceTag[];
   visible?: boolean;
 }
+
 export const UserTagsField: React.FC<UserTagsFieldProps> = ({
   onChange,
   instanceTags,

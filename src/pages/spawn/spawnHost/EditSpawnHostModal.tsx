@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input, Select } from "antd";
 import { diff } from "deep-object-diff";
@@ -11,22 +11,33 @@ import {
   SectionContainer,
   SectionLabel,
   WideButton,
+  ExpirationField as HostExpirationField,
 } from "components/Spawn";
+import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
 import {
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
   MyVolumesQuery,
   MyVolumesQueryVariables,
+  EditSpawnHostMutation,
+  EditSpawnHostMutationVariables,
 } from "gql/generated/types";
+import { EDIT_SPAWN_HOST } from "gql/mutations";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
 import {
-  HostExpirationField,
   VolumesField,
   UserTagsField,
+  VolumesData,
+  UserTagsData,
 } from "pages/spawn/spawnHost/fields";
 import { MyHost } from "types/spawn";
-import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
+import { omitTypename } from "utils/string";
+import {
+  useEditSpawnHostModalState,
+  editSpawnHostStateType,
+} from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 
@@ -41,6 +52,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   onCancel,
   host,
 }) => {
+  const dispatchBanner = useBannerDispatchContext();
+
   const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
     host
   );
@@ -62,15 +75,41 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     MyVolumesQueryVariables
   >(GET_MY_VOLUMES);
 
+  // UPDATE HOST STATUS MUTATION
+  const [editSpawnHostMutation, { loading: loadingSpawnHost }] = useMutation<
+    EditSpawnHostMutation,
+    EditSpawnHostMutationVariables
+  >(EDIT_SPAWN_HOST, {
+    onCompleted(mutationResult) {
+      const { id } = mutationResult?.editSpawnHost;
+      onCancel();
+      dispatchBanner.successBanner(`Successfully modified spawned host: ${id}`);
+    },
+    onError(err) {
+      onCancel();
+      dispatchBanner.errorBanner(
+        `There was an error while modifying your host: ${err.message}`
+      );
+    },
+  });
+
   const instanceTypes = instanceTypesData?.instanceTypes;
   const volumes = volumesData?.myVolumes;
 
-  const hasChanges = isEqual(defaultEditSpawnHostState, editSpawnHostState);
+  const [hasChanges, mutationParams] = computeDiff(
+    defaultEditSpawnHostState,
+    editSpawnHostState
+  );
 
-  // This will be used for the mutation submission we are submitting the diff
-  // Between the changes and the default values so we don't submit an unchanged field
-  const mutationParams = diff(defaultEditSpawnHostState, editSpawnHostState);
-  console.log({ mutationParams });
+  const onSubmit = () => {
+    dispatchBanner.clearAllBanners();
+    editSpawnHostMutation({
+      variables: {
+        hostId: host.id,
+        ...mutationParams,
+      },
+    });
+  };
   return (
     <Modal
       title="Edit Host Details"
@@ -82,12 +121,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="save-spawn-host-button"
-          disabled={hasChanges}
-          onClick={() => undefined}
+          disabled={hasChanges || loadingSpawnHost}
+          onClick={onSubmit}
           variant={Variant.Primary}
           key="save_spawn_host_button"
         >
-          Save
+          {loadingSpawnHost ? "Saving" : "Save"}
         </WideButton>,
       ]}
       data-cy="edit-spawn-host-modal"
@@ -110,7 +149,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Expiration</SectionLabel>
           <HostExpirationField
             data={editSpawnHostState}
-            onChange={(data) => dispatch({ type: "editExpiration", ...data })}
+            onChange={(data: ExpirationDateType) =>
+              dispatch({ type: "editExpiration", ...data })
+            }
           />
         </SectionContainer>
         <SectionContainer>
@@ -147,14 +188,18 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Add Volume</SectionLabel>
           <VolumesField
             data={editSpawnHostState}
-            onChange={(data) => dispatch({ type: "editVolumes", ...data })}
+            onChange={(data: VolumesData) =>
+              dispatch({ type: "editVolumes", ...data })
+            }
             volumes={volumes}
           />
         </SectionContainer>
         <SectionContainer>
           <SectionLabel weight="medium">User Tags</SectionLabel>
           <UserTagsField
-            onChange={(data) => dispatch({ type: "editInstanceTags", ...data })}
+            onChange={(data: UserTagsData) =>
+              dispatch({ type: "editInstanceTags", ...data })
+            }
             instanceTags={host?.instanceTags}
             visible={visible}
           />
@@ -162,4 +207,30 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       </ModalContent>
     </Modal>
   );
+};
+
+const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
+  const hasChanges = isEqual(defaultEditSpawnHostState, editSpawnHostState);
+
+  // diff will return an untyped object which doesn't allow access to the properties so we must
+  // type it inorder to have access to its properties.
+  const mutationParams = diff(
+    defaultEditSpawnHostState,
+    editSpawnHostState
+  ) as editSpawnHostStateType;
+
+  // diff returns na object to compare the differences in positions of an array. So we take this object
+  // and convert it into an array for these fields
+  if (mutationParams.addedInstanceTags) {
+    mutationParams.addedInstanceTags = omitTypename(
+      Object.values(mutationParams.addedInstanceTags)
+    );
+  }
+  if (mutationParams.deletedInstanceTags) {
+    mutationParams.deletedInstanceTags = omitTypename(
+      Object.values(mutationParams.deletedInstanceTags)
+    );
+  }
+
+  return [hasChanges, mutationParams];
 };

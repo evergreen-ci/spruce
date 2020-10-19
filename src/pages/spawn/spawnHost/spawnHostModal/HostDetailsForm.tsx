@@ -1,28 +1,27 @@
-import React from "react";
+import React, { useReducer } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import {
-  HostExpirationField,
-  VolumesField,
-} from "pages/spawn/spawnHost/fields";
+import { ExpirationField as HostExpirationField } from "components/Spawn";
+import { ExpirationDateType } from "components/Spawn/ExpirationField";
+import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
+import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
 const { TextArea } = Input;
 
 export type hostDetailsStateType = {
-  hasUserDataScript: boolean;
-  userDataScript: string;
+  userDataScript?: string;
   noExpiration: boolean;
-  expiration: Date;
-  volumeId: string;
-  homeVolumeSize: number;
+  expiration: any;
+  volumeId?: string;
+  homeVolumeSize?: number;
   isVirtualWorkStation: boolean;
 };
 
 interface HostDetailsFormProps {
-  onChange: React.Dispatch<React.SetStateAction<hostDetailsStateType>>;
+  onChange: React.Dispatch<SpawnHostModalAction>;
   data: hostDetailsStateType;
   volumes: MyVolume[];
   isSpawnHostModal: boolean;
@@ -33,17 +32,29 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   volumes,
   isSpawnHostModal = false,
 }) => {
-  const { hasUserDataScript, userDataScript, isVirtualWorkStation } = data;
+  const { userDataScript, isVirtualWorkStation } = data;
 
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const { hasUserDataScript } = state;
+
+  const onToggleUserData = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { checked } = e.target;
+    dispatch({
+      type: "toggleUserDataScript",
+      hasUserDataScript: checked,
+    });
+    onChange({
+      type: "editUserDataScript",
+      userDataScript: checked ? userDataScript : undefined,
+    });
+  };
   return (
     <Container>
       <StyledSubtitle> Optional Host Details</StyledSubtitle>
       <Checkbox
         label="Run Userdata script on start"
         checked={hasUserDataScript}
-        onChange={(e) =>
-          onChange({ ...data, hasUserDataScript: e.target.checked })
-        }
+        onChange={onToggleUserData}
       />
       <StyledTextArea
         data-cy="userDataScript-input"
@@ -51,12 +62,22 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
         value={userDataScript}
         placeholder="Userdata script"
         autoSize={{ minRows: 4, maxRows: 6 }}
-        onChange={(e) => onChange({ ...data, userDataScript: e.target.value })}
+        onChange={(e) =>
+          onChange({
+            type: "editUserDataScript",
+            userDataScript: e.target.value,
+          })
+        }
       />
       <SectionContainer>
         <SectionLabel weight="medium">Expiration</SectionLabel>
 
-        <HostExpirationField data={data} onChange={onChange} />
+        <HostExpirationField
+          data={data}
+          onChange={(expData: ExpirationDateType) =>
+            onChange({ type: "editExpiration", ...expData })
+          }
+        />
       </SectionContainer>
 
       {isVirtualWorkStation && (
@@ -64,7 +85,9 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
           <SectionLabel weight="medium">Virtual Workstation</SectionLabel>
           <VolumesField
             data={data}
-            onChange={onChange}
+            onChange={(volData: VolumesData) =>
+              onChange({ type: "editVolumes", ...volData })
+            }
             volumes={volumes}
             allowHomeVolume={isSpawnHostModal}
           />
@@ -105,3 +128,21 @@ const StyledSubtitle = styled(Subtitle)`
 const StyledTextArea = styled(TextArea)`
   margin: 15px 0;
 `;
+
+const initialState = { hasUserDataScript: false };
+const reducer = (state: userDataScriptState, action: Action) => {
+  switch (action.type) {
+    case "toggleUserDataScript":
+      return {
+        hasUserDataScript: action.hasUserDataScript,
+      };
+    default:
+      throw new Error();
+  }
+};
+
+type userDataScriptState = {
+  hasUserDataScript: boolean;
+  userDataScript?: string;
+};
+type Action = { type: "toggleUserDataScript"; hasUserDataScript: boolean };
