@@ -1,2 +1,2 @@
-export { VolumesField } from "./VolumesField";
-export { UserTagsField } from "./UserTagsField";
+export * from "./VolumesField";
+export * from "./UserTagsField";

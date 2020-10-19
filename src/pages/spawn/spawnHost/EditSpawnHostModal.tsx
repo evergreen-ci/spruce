@@ -13,6 +13,7 @@ import {
   WideButton,
   ExpirationField as HostExpirationField,
 } from "components/Spawn";
+import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -25,15 +26,17 @@ import {
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
 import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
-import { VolumesField, UserTagsField } from "pages/spawn/spawnHost/fields";
+import {
+  VolumesField,
+  UserTagsField,
+  VolumesData,
+  UserTagsData,
+} from "pages/spawn/spawnHost/fields";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
 import {
   useEditSpawnHostModalState,
   editSpawnHostStateType,
-  editExpirationData,
-  editInstanceTagsData,
-  editVolumesData,
 } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
@@ -146,7 +149,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Expiration</SectionLabel>
           <HostExpirationField
             data={editSpawnHostState}
-            onChange={(data: editExpirationData) =>
+            onChange={(data: ExpirationDateType) =>
               dispatch({ type: "editExpiration", ...data })
             }
           />
@@ -185,7 +188,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           <SectionLabel weight="medium">Add Volume</SectionLabel>
           <VolumesField
             data={editSpawnHostState}
-            onChange={(data: editVolumesData) =>
+            onChange={(data: VolumesData) =>
               dispatch({ type: "editVolumes", ...data })
             }
             volumes={volumes}
@@ -194,7 +197,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         <SectionContainer>
           <SectionLabel weight="medium">User Tags</SectionLabel>
           <UserTagsField
-            onChange={(data: editInstanceTagsData) =>
+            onChange={(data: UserTagsData) =>
               dispatch({ type: "editInstanceTags", ...data })
             }
             instanceTags={host?.instanceTags}

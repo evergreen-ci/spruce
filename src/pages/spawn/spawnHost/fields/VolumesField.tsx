@@ -3,11 +3,15 @@ import styled from "@emotion/styled";
 import { Select, Input } from "antd";
 import { InputLabel } from "components/styles";
 import { MyVolume } from "types/spawn";
-import { editVolumesData } from "../editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
+
+export type VolumesData = {
+  volumeId?: string;
+  homeVolumeSize?: number; // homeVolumeSize is only useful for creating a new host but the consuming component is used for both modals (create & edit)
+};
 interface VolumesFieldProps {
-  onChange: (data: editVolumesData) => void;
+  onChange: (data: VolumesData) => void;
   data: {
     volumeId?: string;
     homeVolumeSize?: number;
