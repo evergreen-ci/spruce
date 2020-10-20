@@ -2,7 +2,6 @@ import React, { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
-import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import {
   MountVolumeSelect,
@@ -18,6 +17,7 @@ import {
   SpawnVolumeMutationVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
 import { TypeSelector } from "./spawnVolumeModal/TypeSelector";
 
@@ -115,7 +115,6 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           onClick={spawnVolume}
           variant={Variant.Primary}
           key="spawn-volume-button"
-          glyph={loadingSpawnVolume && <Icon glyph="Refresh" />}
         >
           {loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
         </WideButton>,
@@ -126,6 +125,10 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       <SizeSelector
         value={state.size}
         onChange={(s) => dispatch({ type: "setSize", data: s })}
+      />
+      <AvailabilityZoneSelector
+        onChange={(z) => dispatch({ type: "setAvailabilityZone", data: z })}
+        value={state.availabilityZone}
       />
       <TypeSelector
         onChange={(t) => dispatch({ type: "setType", typeId: t })}
