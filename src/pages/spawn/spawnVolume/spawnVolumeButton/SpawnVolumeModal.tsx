@@ -32,31 +32,31 @@ const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
   host: "",
 };
 
-enum ActionType {
-  SetSize = "setSize",
-  SetAvailabilityZone = "setAvailabilityZone",
-  EditExpiration = "editExpiration",
-}
-
 type Action =
   | { type: "setSize"; data: number }
   | { type: "setAvailabilityZone"; data: string }
-  | { type: "editExpiration"; expiration?: Date; noExpiration?: boolean };
+  | { type: "editExpiration"; expiration?: Date; noExpiration?: boolean }
+  | { type: "setHost"; hostId: string };
 
 function reducer(
   state: SpawnVolumeMutationVariables["SpawnVolumeInput"],
   action: Action
 ) {
   switch (action.type) {
-    case ActionType.SetSize:
+    case "setSize":
       return { ...state, size: action.data };
-    case ActionType.SetAvailabilityZone:
+    case "setAvailabilityZone":
       return { ...state, availabilityZone: action.data };
-    case ActionType.EditExpiration:
+    case "editExpiration":
       return {
         ...state,
         expiration: action.expiration || state.expiration,
         noExpiration: action.noExpiration || state.noExpiration,
+      };
+    case "setHost":
+      return {
+        ...state,
+        host: action.hostId,
       };
     default:
       return state;
@@ -125,13 +125,13 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
             max={500}
             value={state.size}
             onChange={(value) =>
-              dispatch({ type: ActionType.SetSize, data: value as number })
+              dispatch({ type: "setSize", data: value as number })
             }
           />
         </Section>
         <RegionSelector
           onChange={(value) =>
-            dispatch({ type: ActionType.SetAvailabilityZone, data: value })
+            dispatch({ type: "setAvailabilityZone", data: value })
           }
           selectedRegion={state.availabilityZone}
           awsRegions={awsData?.awsRegions}
