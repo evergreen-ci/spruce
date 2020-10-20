@@ -27,6 +27,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
+  subnetAvailabilityZones: Array<Scalars["String"]>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   host?: Maybe<Host>;
@@ -434,7 +435,7 @@ export type SpawnHostInput = {
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
-  useProjectSetupScript: Scalars["Boolean"];
+  useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -1600,15 +1601,6 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
-export type GetSpawnHostTaskQueryVariables = {
-  taskId: Scalars["String"];
-  distroId: Scalars["String"];
-};
-
-export type GetSpawnHostTaskQuery = {
-  task?: Maybe<{ buildVariant: string; displayName: string }>;
-};
-
 export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
@@ -1965,6 +1957,12 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type SubnetAvailabilityZonesQueryVariables = {};
+
+export type SubnetAvailabilityZonesQuery = {
+  subnetAvailabilityZones: Array<string>;
 };
 
 export type TaskQueueDistrosQueryVariables = {};
