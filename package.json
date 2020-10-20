@@ -51,6 +51,7 @@
     "waait": "1.0.5"
   },
   "scripts": {
+    "analyze": "source-map-explorer 'build/static/js/*.js'",
     "start": "react-scripts start",
     "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` react-scripts build",
     "test": "react-scripts test --browser true --transformIgnorePatterns \"node_modules/(?!antd)/\" --setupFiles jest-localstorage-mock --watchAll=false",
@@ -160,6 +161,7 @@
     "prompt-run": "^1.4.5",
     "react-test-renderer": "16.12.0",
     "simple-git": "^2.6.0",
+    "source-map-explorer": "2.5.0",
     "ts-loader": "6.2.2",
     "tslint": "5.20.1",
     "tslint-config-prettier": "1.18.0",
