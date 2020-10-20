@@ -433,6 +433,9 @@ export type SpawnHostInput = {
   isVirtualWorkStation: Scalars["Boolean"];
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
+  taskId?: Maybe<Scalars["String"]>;
+  useProjectSetupScript: Scalars["Boolean"];
+  spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -762,6 +765,7 @@ export type Task = {
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
@@ -1064,6 +1068,34 @@ export type DetachVolumeFromHostMutationVariables = {
 
 export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
 
+export type EditSpawnHostMutationVariables = {
+  hostId: Scalars["String"];
+  displayName?: Maybe<Scalars["String"]>;
+  addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
+  volume?: Maybe<Scalars["String"]>;
+  instanceType?: Maybe<Scalars["String"]>;
+  expiration?: Maybe<Scalars["Time"]>;
+  noExpiration?: Maybe<Scalars["Boolean"]>;
+};
+
+export type EditSpawnHostMutation = {
+  editSpawnHost: {
+    id: string;
+    displayName?: Maybe<string>;
+    status: string;
+    instanceType?: Maybe<string>;
+    noExpiration: boolean;
+    expiration?: Maybe<Date>;
+    instanceTags: Array<{
+      key?: Maybe<string>;
+      value?: Maybe<string>;
+      canBeModified?: Maybe<boolean>;
+    }>;
+    volumes: Array<{ displayName: string; id: string }>;
+  };
+};
+
 export type EnqueuePatchMutationVariables = {
   patchId: Scalars["String"];
 };
@@ -1176,6 +1208,12 @@ export type SpawnHostMutationVariables = {
 };
 
 export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
+
+export type SpawnVolumeMutationVariables = {
+  SpawnVolumeInput: SpawnVolumeInput;
+};
+
+export type SpawnVolumeMutation = { spawnVolume: boolean };
 
 export type UnschedulePatchTasksMutationVariables = {
   patchId: Scalars["String"];
@@ -1562,6 +1600,15 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
+export type GetSpawnHostTaskQueryVariables = {
+  taskId: Scalars["String"];
+  distroId: Scalars["String"];
+};
+
+export type GetSpawnHostTaskQuery = {
+  task?: Maybe<{ buildVariant: string; displayName: string }>;
+};
+
 export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
@@ -1698,6 +1745,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     activatedBy?: Maybe<string>;
+    buildVariant: string;
     ingestTime?: Maybe<Date>;
     estimatedStart?: Maybe<number>;
     displayName: string;
@@ -1709,6 +1757,7 @@ export type GetTaskQuery = {
     timeTaken?: Maybe<number>;
     version: string;
     revision?: Maybe<string>;
+    totalTestCount: number;
     failedTestCount: number;
     spawnHostLink?: Maybe<string>;
     priority?: Maybe<number>;

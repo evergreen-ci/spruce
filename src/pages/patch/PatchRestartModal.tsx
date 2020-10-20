@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body, H2 } from "@leafygreen-ui/typography";
-import { Modal } from "antd";
+import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { Modal } from "components/Modal";
 import { TreeSelect } from "components/TreeSelect";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -95,15 +95,19 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       // This is handled in the onError handler for the mutation
     }
   };
+
   return (
     <Modal
-      title={<H2>Modify Version</H2>}
+      title="Modify Version"
       visible={visible}
       onOk={onOk}
       onCancel={onCancel}
       footer={[
-        <Button onClick={onCancel}>Cancel</Button>,
+        <Button key="cancel" onClick={onCancel}>
+          Cancel
+        </Button>,
         <Button
+          key="restart"
           data-cy="restart-patch-button"
           disabled={
             selectedArray(selectedTasks).length === 0 || mutationLoading
@@ -114,10 +118,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
           Restart
         </Button>,
       ]}
-      width="50%"
-      wrapProps={{
-        "data-cy": "patch-restart-modal",
-      }}
+      data-cy="patch-restart-modal"
     >
       {!loading && patchBuildVariants && (
         <>

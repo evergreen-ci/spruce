@@ -4,8 +4,10 @@ import { TaskStatus } from "types/task";
 
 const { green, gray, yellow, red } = uiColors;
 
-const failureLavender = "#C2A5CF";
-const failurePurple = "#840884";
+const failureLavender = "#F3EDF5";
+const failureLavendarDark = "#9982A4";
+const failurePurple = "#E6CCE6";
+const failurePurpleDark = "#620662";
 
 export const mapVariantTaskStatusToColor = {
   [TaskStatus.Inactive]: gray.light1,
@@ -23,6 +25,24 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.StatusBlocked]: gray.dark1,
   [TaskStatus.StatusPending]: yellow.base,
+};
+
+export const mapVariantTaskStatusToDarkColor = {
+  [TaskStatus.Inactive]: gray.dark3,
+  [TaskStatus.Unstarted]: gray.dark3,
+  [TaskStatus.Undispatched]: gray.dark3,
+  [TaskStatus.Started]: yellow.dark3,
+  [TaskStatus.Dispatched]: gray.dark3,
+  [TaskStatus.Succeeded]: green.dark3,
+  [TaskStatus.Failed]: red.dark3,
+  [TaskStatus.TestTimedOut]: red.dark3,
+  [TaskStatus.TaskTimedOut]: red.dark3,
+  [TaskStatus.SystemFailed]: failurePurpleDark,
+  [TaskStatus.SystemTimedOut]: failurePurpleDark,
+  [TaskStatus.SystemUnresponsive]: failurePurpleDark,
+  [TaskStatus.SetupFailed]: failureLavendarDark,
+  [TaskStatus.StatusBlocked]: gray.dark3,
+  [TaskStatus.StatusPending]: yellow.dark3,
 };
 
 export const Square = styled.div`

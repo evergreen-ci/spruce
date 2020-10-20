@@ -47,5 +47,10 @@ export const useBuildBaronVariables = ({
     buildBaronConfigured &&
     buildBaronIsProductionReady;
 
-  return { showBuildBaronTab, buildBaronData, buildBaronError };
+  return {
+    showBuildBaronTab,
+    buildBaronData,
+    buildBaronError,
+    buildBaronLoading,
+  };
 };

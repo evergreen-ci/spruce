@@ -5,8 +5,13 @@ import { InputLabel } from "components/styles";
 import { MyVolume } from "types/spawn";
 
 const { Option } = Select;
+
+export type VolumesData = {
+  volumeId?: string;
+  homeVolumeSize?: number; // homeVolumeSize is only useful for creating a new host but the consuming component is used for both modals (create & edit)
+};
 interface VolumesFieldProps {
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: VolumesData) => void;
   data: {
     volumeId?: string;
     homeVolumeSize?: number;
@@ -33,7 +38,7 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
           showSearch
           style={{ width: 200 }}
           placeholder="Select volume"
-          onChange={(v) => onChange({ ...data, volumeId: v })}
+          onChange={(v) => onChange({ volumeId: v })}
           value={volumeId}
         >
           {availableVolumes?.map((v) => (
@@ -59,7 +64,9 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
               value={homeVolumeSize}
               defaultValue={500}
               onChange={(e) =>
-                onChange({ ...data, homeVolumeSize: e.target.value })
+                onChange({
+                  homeVolumeSize: parseInt(e.target.value, 10),
+                })
               }
             />
           </FlexColumnContainer>

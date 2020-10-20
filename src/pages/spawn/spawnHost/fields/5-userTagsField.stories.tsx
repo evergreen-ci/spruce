@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { InstanceTag } from "gql/generated/types";
-import { UserTagsField, UserTagsFieldStateType } from "./UserTagsField";
+import { UserTagsField, UserTagsData } from "./UserTagsField";
 import "antd/es/select/style/css";
 import "antd/es/carousel/style/css";
 
@@ -23,18 +23,12 @@ const instanceTags: InstanceTag[] = [
   },
 ];
 export const PublicKeyFormView = () => {
-  const [state, setState] = useState<UserTagsFieldStateType>({
+  const [state, setState] = useState<UserTagsData>({
     addedInstanceTags: [],
     deletedInstanceTags: [],
   });
   console.log({ state });
-  return (
-    <UserTagsField
-      data={state}
-      instanceTags={instanceTags}
-      onChange={setState}
-    />
-  );
+  return <UserTagsField instanceTags={instanceTags} onChange={setState} />;
 };
 
 export default {

@@ -11,6 +11,7 @@ export const GET_TASK = gql`
         baseTaskDuration
         baseTaskLink
       }
+      buildVariant
       ingestTime
       estimatedStart
       displayName
@@ -39,6 +40,7 @@ export const GET_TASK = gql`
       timeTaken
       version
       revision
+      totalTestCount
       failedTestCount
       spawnHostLink
       priority

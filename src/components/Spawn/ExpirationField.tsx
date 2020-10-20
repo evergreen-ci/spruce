@@ -11,11 +11,12 @@ export interface ExpirationDateType {
   noExpiration?: boolean;
 }
 
-interface HostExpirationFieldProps {
+interface ExpirationFieldProps {
   data: ExpirationDateType;
-  onChange: React.Dispatch<React.SetStateAction<any>>;
+  onChange: (data: ExpirationDateType) => void;
 }
-export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
+
+export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
 }) => {
@@ -26,7 +27,7 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
     const month = d.getMonth();
     const date = d.getDate();
     const updatedTime = set(expiration || new Date(), { year, month, date });
-    onChange({ ...data, expiration: updatedTime });
+    onChange({ noExpiration, expiration: updatedTime });
   };
 
   const updateTime = (d: Date) => {
@@ -38,7 +39,7 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
       minutes,
       seconds,
     });
-    onChange({ ...data, expiration: updatedTime });
+    onChange({ noExpiration, expiration: updatedTime });
   };
 
   const disabledDate = (current) => current < Date.now();
@@ -70,7 +71,9 @@ export const HostExpirationField: React.FC<HostExpirationFieldProps> = ({
       <PaddedCheckbox
         label="Never"
         checked={noExpiration}
-        onChange={(e) => onChange({ ...data, noExpiration: e.target.checked })}
+        onChange={(e) =>
+          onChange({ noExpiration: e.target.checked, expiration })
+        }
       />{" "}
     </>
   );

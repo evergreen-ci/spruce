@@ -1,10 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import debounce from "lodash.debounce";
-import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
+import { parseQueryString } from "utils/queryString/parseQueryString";
 import { updateUrlQueryParam } from "utils/url";
-
-const arrayFormat = "comma";
 
 const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
 
@@ -30,9 +28,14 @@ export const useFilterInputChangeHandler = (
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const inputValue = (parsed[urlSearchParam] || "").toString();
+
   const [value, setValue] = useState(inputValue);
+
+  useEffect(() => {
+    setValue(inputValue);
+  }, [inputValue]);
 
   const onChange = (e: InputEvent): void => {
     setValue(e.target.value);

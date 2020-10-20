@@ -1,7 +1,7 @@
 import React from "react";
 import { v4 as uuid } from "uuid";
 import { render, fireEvent } from "test_utils/test-utils";
-import { UserTagsField } from "./UserTagsField";
+import { UserTagsField, UserTagsData } from "./UserTagsField";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
 jest.mock("uuid");
@@ -37,39 +37,31 @@ const instanceTags = [
 const defaultData = {
   addedInstanceTags: [],
   deletedInstanceTags: [],
-  someOtherField: [],
 };
 
 test("Renders only editable instance tags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: UserTagsData) => {
     data = x;
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
   expect(queryByText("hiddenField")).toBeNull();
+  expect(data).toStrictEqual(defaultData);
 });
 
 test("Editing a tag value should add it to addedInstanceTags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: UserTagsData) => {
     data = x;
   });
 
   const { queryAllByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -92,16 +84,12 @@ test("Editing a tag value should add it to addedInstanceTags", async () => {
 
 test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: UserTagsData) => {
     data = x;
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -112,23 +100,19 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
   expect(updateData).toBeCalledTimes(2);
   expect(data).toEqual({
     ...defaultData,
-    deletedInstanceTags: ["keyA"],
+    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
   });
   expect(queryByText("keyA")).toBeNull();
 });
 
 test("Editing a tag key should add the new tag to addedInstanceTags and delete the old tag", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: UserTagsData) => {
     data = x;
   });
 
   const { queryAllByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
@@ -145,23 +129,19 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
   expect(updateData).toBeCalledTimes(2);
   expect(data).toEqual({
     ...defaultData,
-    deletedInstanceTags: ["keyA"],
+    deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
     addedInstanceTags: [{ key: "new key", value: "valueA" }],
   });
 });
 
 test("Should be able to add an new tag with the add tag button", async () => {
   let data = { ...defaultData };
-  const updateData = jest.fn((x) => {
+  const updateData = jest.fn((x: UserTagsData) => {
     data = x;
   });
 
   const { queryAllByDataCy, queryByDataCy } = render(
-    <UserTagsField
-      instanceTags={instanceTags}
-      data={data}
-      onChange={updateData}
-    />
+    <UserTagsField instanceTags={instanceTags} onChange={updateData} />
   );
 
   expect(data).toEqual(defaultData);
