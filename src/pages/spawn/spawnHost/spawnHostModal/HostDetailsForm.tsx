@@ -72,16 +72,13 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
         }
       />
       <SetupScriptForm data={data} onChange={onChange} />
-      <SectionContainer>
-        <SectionLabel weight="medium">Expiration</SectionLabel>
 
-        <HostExpirationField
-          data={data}
-          onChange={(expData: ExpirationDateType) =>
-            onChange({ type: "editExpiration", ...expData })
-          }
-        />
-      </SectionContainer>
+      <HostExpirationField
+        data={data}
+        onChange={(expData: ExpirationDateType) =>
+          onChange({ type: "editExpiration", ...expData })
+        }
+      />
 
       {isVirtualWorkStation && (
         <SectionContainer>

@@ -145,15 +145,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             />
           </Section>
         </SectionContainer>
-        <SectionContainer>
-          <SectionLabel weight="medium">Expiration</SectionLabel>
-          <HostExpirationField
-            data={editSpawnHostState}
-            onChange={(data: ExpirationDateType) =>
-              dispatch({ type: "editExpiration", ...data })
-            }
-          />
-        </SectionContainer>
+        <HostExpirationField
+          data={editSpawnHostState}
+          onChange={(data: ExpirationDateType) =>
+            dispatch({ type: "editExpiration", ...data })
+          }
+        />
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>
           <Section>

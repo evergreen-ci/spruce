@@ -136,18 +136,13 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       />
       <HR />
       <Subtitle>Optional Volume Information</Subtitle>
-      <SectionContainer>
-        <SectionLabel weight="medium">Expiration</SectionLabel>
-        <ExpirationField
-          data={{
-            expiration: state.expiration,
-            noExpiration: state.noExpiration,
-          }}
-          onChange={(expData) =>
-            dispatch({ type: "editExpiration", ...expData })
-          }
-        />
-      </SectionContainer>
+      <ExpirationField
+        data={{
+          expiration: state.expiration,
+          noExpiration: state.noExpiration,
+        }}
+        onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
+      />
       <SectionContainer>
         <SectionLabel weight="medium">Mount to Host</SectionLabel>
         <MountVolumeSelect
