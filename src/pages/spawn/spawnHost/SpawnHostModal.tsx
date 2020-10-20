@@ -6,7 +6,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
-import { RegionSelector } from "components/Spawn";
+import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { HR } from "components/styles/Layout";
 import { useBannerDispatchContext } from "context/banners";
@@ -175,7 +175,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       ]}
       data-cy="spawn-host-modal"
     >
-      <Container>
+      <ModalContent>
         <Subtitle> Required Host Information</Subtitle>
         <Section>
           <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
@@ -212,15 +212,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           />
         </Section>
         <HR />
-        <Section>
-          <HostDetailsForm
-            data={spawnHostModalState}
-            onChange={dispatch}
-            volumes={volumes}
-            isSpawnHostModal
-          />
-        </Section>
-      </Container>
+        <HostDetailsForm
+          data={spawnHostModalState}
+          onChange={dispatch}
+          volumes={volumes}
+          isSpawnHostModal
+        />
+      </ModalContent>
     </Modal>
   );
 };
@@ -232,12 +230,7 @@ const renderItem = (title: string) => ({
   label: <span key={`distro_${title}`}>{title}</span>,
 });
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Section = styled(Container)`
+const Section = styled(ModalContent)`
   margin-top: 20px;
 `;
 

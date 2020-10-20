@@ -3,7 +3,11 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { ExpirationField as HostExpirationField } from "components/Spawn";
+import {
+  ExpirationField as HostExpirationField,
+  ModalContent,
+  SectionContainer,
+} from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
@@ -97,27 +101,13 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   );
 };
 
-const FlexColumnContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const FlexContainer = styled.div`
-  display: flex;
-`;
-
-const SectionContainer = styled(FlexContainer)`
-  align-items: center;
-  margin-top: 15px;
-`;
-
 const SectionLabel = styled(Body)`
   padding-right: 15px;
   margin-top: 22px;
   min-width: 175px;
 `;
 
-const Container = styled(FlexColumnContainer)`
+const Container = styled(ModalContent)`
   width: 90%;
 `;
 
