@@ -59,7 +59,7 @@ function reducer(
         host: action.hostId,
       };
     default:
-      return state;
+      throw new Error("Unknown action type");
   }
 }
 
