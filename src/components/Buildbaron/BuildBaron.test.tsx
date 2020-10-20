@@ -162,17 +162,6 @@ const mocks = [
       },
     },
   },
-  {
-    request: {
-      query: GET_USER,
-    },
-    result: {
-      data: {
-        userId: "mohamed.khelif",
-        displayName: "Mohamed Khelif",
-      },
-    },
-  },
 ];
 
 it("The BuildBaron component renders without crashing.", () => {
