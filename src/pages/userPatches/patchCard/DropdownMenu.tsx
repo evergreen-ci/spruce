@@ -20,6 +20,7 @@ export const DropdownMenu: React.FC<Props> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
 }) => {
+  const restartModalVisibilityControl = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
@@ -30,6 +31,7 @@ export const DropdownMenu: React.FC<Props> = ({
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
+      !restartModalVisibilityControl[0] &&
       !get(popconfirmRef, "current.className", "").includes(
         "ant-popover-open"
       ) &&
@@ -67,12 +69,12 @@ export const DropdownMenu: React.FC<Props> = ({
       ref={popconfirmRef}
     />,
     <RestartPatch
+      visibilityControl={restartModalVisibilityControl}
       key="restart"
       patchId={patchId}
       disabled={isActionLoading}
       hideMenu={hideMenu}
       refetchQueries={refetchQueries}
-      ref={popconfirmRef}
     />,
     <EnqueuePatch
       key="enqueue"
