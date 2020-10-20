@@ -2,13 +2,13 @@ import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import { RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
+import { HR } from "components/styles/Layout";
 import { useBannerDispatchContext } from "context/banners";
 import {
   DistrosQuery,
@@ -36,8 +36,6 @@ import {
   publicKeyStateType,
   useSpawnHostModalState,
 } from "./spawnHostModal/index";
-
-const { gray } = uiColors;
 
 interface SpawnHostModalProps {
   visible: boolean;
@@ -239,13 +237,6 @@ const Container = styled.div`
 
 const Section = styled(Container)`
   margin-top: 20px;
-`;
-
-const HR = styled("hr")`
-  background-color: ${gray.light2};
-  border: 0;
-  height: 1px;
-  width: 100%;
 `;
 
 const WideButton = styled(Button)`

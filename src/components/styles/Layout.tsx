@@ -63,3 +63,10 @@ export const InputLabel = styled.label`
 export const ErrorMessage = styled(Body)`
   color: ${uiColors.red.base};
 `;
+
+export const HR = styled("hr")`
+  background-color: ${uiColors.gray.light2};
+  border: 0;
+  height: 1px;
+  width: 100%;
+`;
