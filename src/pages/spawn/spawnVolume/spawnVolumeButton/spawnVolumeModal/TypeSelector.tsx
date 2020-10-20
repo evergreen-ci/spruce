@@ -32,4 +32,4 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => (
   </SectionContainer>
 );
 
-const types = ["standard", "io1", "gp2", "sc1", "st1"];
+const types = ["gp2", "io1", "sc1", "st1", "standard"];
