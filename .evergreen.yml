@@ -219,7 +219,7 @@ functions:
       aws_key: ${aws_key}
       aws_secret: ${aws_secret}
       local_file: "spruce/build/source_map.html"
-      remote_file: spruce/${task_id}/
+      remote_file: spruce/${task_id}/source_map.html
       bucket: mciuploads
       content_type: text/html
       permissions: public-read
