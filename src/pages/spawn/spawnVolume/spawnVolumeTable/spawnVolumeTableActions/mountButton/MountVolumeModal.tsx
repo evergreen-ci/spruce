@@ -1,22 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { Select } from "antd";
 import { Modal } from "components/Modal";
-import { ModalContent, Section, WideButton } from "components/Spawn";
-import { InputLabel } from "components/styles";
+import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
 import {
   AttachVolumeToHostMutation,
   AttachVolumeToHostMutationVariables,
 } from "gql/generated/types";
 import { ATTACH_VOLUME } from "gql/mutations/attach-volume";
-import { useMountVolumeSelect } from "hooks/useMountVolumeSelect";
 import { MyVolume } from "types/spawn";
-
-const { Option } = Select;
 
 interface Props {
   visible: boolean;
@@ -30,13 +25,6 @@ export const MountVolumeModal: React.FC<Props> = ({
   volume,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-  const targetAvailabilityZone = volume.availabilityZone;
-  const {
-    loading,
-    hostOptions,
-    selectedHostId,
-    setSelectedHostId,
-  } = useMountVolumeSelect({ targetAvailabilityZone });
   const [attachVolume, { loading: loadingAttachVolume }] = useMutation<
     AttachVolumeToHostMutation,
     AttachVolumeToHostMutationVariables
@@ -48,6 +36,8 @@ export const MountVolumeModal: React.FC<Props> = ({
     },
     refetchQueries: ["myVolumes"],
   });
+  const targetAvailabilityZone = volume.availabilityZone;
+  const [selectedHostId, setSelectedHostId] = useState("");
   return (
     <Modal
       title="Attach Volume to Host"
@@ -60,7 +50,7 @@ export const MountVolumeModal: React.FC<Props> = ({
         <WideButton
           key="mount"
           data-cy="mount-volume-button"
-          disabled={!selectedHostId || loadingAttachVolume || loading}
+          disabled={!selectedHostId || loadingAttachVolume}
           onClick={() => {
             attachVolume({
               variables: {
@@ -80,21 +70,11 @@ export const MountVolumeModal: React.FC<Props> = ({
       data-cy="mount-volume-modal"
     >
       <ModalContent>
-        <Section>
-          <InputLabel htmlFor="hostDropdown">Host Name</InputLabel>
-          <Select
-            id="hostDropdown"
-            defaultValue={selectedHostId}
-            onChange={(newValue) => setSelectedHostId(newValue)}
-            data-cy="host-select"
-          >
-            {hostOptions.map(({ key, displayName }) => (
-              <Option value={key} key={key} data-cy={`${key}-option`}>
-                {displayName}
-              </Option>
-            ))}
-          </Select>
-        </Section>
+        <MountVolumeSelect
+          onChange={setSelectedHostId}
+          selectedHostId={selectedHostId}
+          targetAvailabilityZone={targetAvailabilityZone}
+        />
         <StyledDisclaimer>
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}
         </StyledDisclaimer>
