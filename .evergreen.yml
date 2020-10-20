@@ -142,7 +142,7 @@ functions:
       args: [run, coverage]
 
   npm-analyze:
-    command: shell.exec
+    command: subprocess.exec
     params:
       working_dir: spruce
       binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
