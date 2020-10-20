@@ -74,6 +74,7 @@ export const MountVolumeModal: React.FC<Props> = ({
           onChange={setSelectedHostId}
           selectedHostId={selectedHostId}
           targetAvailabilityZone={targetAvailabilityZone}
+          autofill
         />
         <StyledDisclaimer>
           {`Only shows running hosts in zone ${targetAvailabilityZone}.`}

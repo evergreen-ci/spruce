@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Select } from "antd";
-import { Section } from "components/Spawn";
+import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
@@ -21,6 +21,7 @@ interface Props {
   selectedHostId: string;
   onChange: (hostId: string) => void;
   label?: string;
+  autofill?: boolean;
 }
 
 export const MountVolumeSelect = ({
@@ -28,6 +29,7 @@ export const MountVolumeSelect = ({
   selectedHostId,
   onChange,
   label,
+  autofill,
 }: Props) => {
   const dispatchBanner = useBannerDispatchContext();
   const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
@@ -65,27 +67,32 @@ export const MountVolumeSelect = ({
 
   // set initially selected host in dropdown
   useEffect(() => {
-    if (!selectedHostId && hostOptions.length) {
+    if (!selectedHostId && hostOptions.length && autofill) {
       onChange(hostOptions[0].key);
     }
-  }, [hostOptions, selectedHostId]);
+  }, [hostOptions, selectedHostId, onChange, autofill]);
 
   return (
-    <Section>
+    <ModalContent>
       <InputLabel htmlFor="hostDropdown">{label || "Host Name"}</InputLabel>
       <Select
         id="hostDropdown"
-        defaultValue={selectedHostId}
+        value={selectedHostId}
         style={{ width: 200 }}
         onChange={onChange}
         data-cy="host-select"
       >
+        {!autofill && (
+          <Option value="" key="clear" data-cy="clear-option">
+            {" "}
+          </Option>
+        )}
         {hostOptions.map(({ key, displayName }) => (
           <Option value={key} key={key} data-cy={`${key}-option`}>
             {displayName}
           </Option>
         ))}
       </Select>
-    </Section>
+    </ModalContent>
   );
 };
