@@ -1,25 +1,37 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
+import { Select } from "antd";
+import { Section } from "components/Spawn";
+import { InputLabel } from "components/styles";
 import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
 
+const { Option } = Select;
 interface HostOption {
   key: string;
   displayName: string;
+  label?: string;
 }
 
 interface Props {
   targetAvailabilityZone: string;
+  selectedHostId: string;
+  onChange: (hostId: string) => void;
+  label?: string;
 }
 
-export const useMountVolumeSelect = ({ targetAvailabilityZone }: Props) => {
+export const MountVolumeSelect = ({
+  targetAvailabilityZone,
+  selectedHostId,
+  onChange,
+  label,
+}: Props) => {
   const dispatchBanner = useBannerDispatchContext();
   const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
-  const [selectedHostId, setSelectedHostId] = useState(""); // selected dropdown item
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
     MyHostsQueryVariables
   >(GET_MY_HOSTS, {
@@ -54,14 +66,25 @@ export const useMountVolumeSelect = ({ targetAvailabilityZone }: Props) => {
   // set initially selected host in dropdown
   useEffect(() => {
     if (!selectedHostId && hostOptions.length) {
-      setSelectedHostId(hostOptions[0].key);
+      onChange(hostOptions[0].key);
     }
   }, [hostOptions, selectedHostId]);
 
-  return {
-    loading,
-    hostOptions,
-    selectedHostId,
-    setSelectedHostId,
-  };
+  return (
+    <Section>
+      <InputLabel htmlFor="hostDropdown">{label || "Host Name"}</InputLabel>
+      <Select
+        id="hostDropdown"
+        defaultValue={selectedHostId}
+        onChange={onChange}
+        data-cy="host-select"
+      >
+        {hostOptions.map(({ key, displayName }) => (
+          <Option value={key} key={key} data-cy={`${key}-option`}>
+            {displayName}
+          </Option>
+        ))}
+      </Select>
+    </Section>
+  );
 };
