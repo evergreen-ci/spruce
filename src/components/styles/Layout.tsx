@@ -69,4 +69,6 @@ export const HR = styled("hr")`
   border: 0;
   height: 1px;
   width: 100%;
+  margin-top: 24px;
+  margin-bottom: 24px;
 `;

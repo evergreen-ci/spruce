@@ -76,6 +76,7 @@ export const MountVolumeSelect = ({
       <Select
         id="hostDropdown"
         defaultValue={selectedHostId}
+        style={{ width: 200 }}
         onChange={onChange}
         data-cy="host-select"
       >
