@@ -58,7 +58,6 @@
     "eject": "react-scripts eject",
     "build:staging": "env-cmd -e staging -r config/.cmdrc.json npm run build",
     "build:prod": "env-cmd -e prod -r config/.cmdrc.json npm run build",
-    "build:ci": "env-cmd -e ci -r config/.cmdrc.json npm run build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "dev": "env-cmd -e devServer -r config/.cmdrc.json npm run start",
