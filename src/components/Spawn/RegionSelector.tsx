@@ -1,7 +1,7 @@
 import React from "react";
 import { Select } from "antd";
 import { InputLabel } from "components/styles";
-import { Section } from "./Layout";
+import { ModalContent } from "./Layout";
 
 const { Option } = Select;
 
@@ -16,7 +16,7 @@ export const RegionSelector: React.FC<Props> = ({
   selectedRegion,
   awsRegions,
 }) => (
-  <Section>
+  <ModalContent>
     <InputLabel htmlFor="awsSelectDropown">Region</InputLabel>
     <Select
       id="awsSelectDropown"
@@ -32,5 +32,5 @@ export const RegionSelector: React.FC<Props> = ({
         </Option>
       ))}
     </Select>
-  </Section>
+  </ModalContent>
 );

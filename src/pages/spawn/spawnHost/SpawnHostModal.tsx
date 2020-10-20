@@ -195,11 +195,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             />
           </AutoComplete>
         </Section>
-        <RegionSelector
-          onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
-          selectedRegion={spawnHostModalState.region}
-          awsRegions={awsRegions}
-        />
+        <Section>
+          <RegionSelector
+            onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
+            selectedRegion={spawnHostModalState.region}
+            awsRegions={awsRegions}
+          />
+        </Section>
         <Section>
           <PublicKeyForm
             publicKeys={publicKeys}
