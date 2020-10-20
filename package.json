@@ -61,6 +61,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "dev": "env-cmd -e devServer -r config/.cmdrc.json npm run start",
+    "prod": "env-cmd -e devProd -r config/.cmdrc.json npm run start",
     "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json npm run start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json npm run start",
     "deploy": "aws s3 sync build/ s3://${BUCKET}/ --acl public-read --follow-symlinks --delete --exclude config/.cmdrc.json",
