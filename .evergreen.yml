@@ -141,6 +141,13 @@ functions:
       binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
       args: [run, coverage]
 
+  npm-analyze:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      args: [run, analyze]
+
   run-cypress-tests:
     command: shell.exec
     params:
@@ -205,6 +212,19 @@ functions:
       permissions: public-read
       display_name: "server logs"
 
+  attach-source-map:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_file: "spruce/build/source_map.html"
+      remote_file: spruce/${task_id}/
+      bucket: mciuploads
+      content_type: text/html
+      permissions: public-read
+      display_name: "source map"
+
 #######################################
 #                Tasks                #
 #######################################
@@ -215,6 +235,7 @@ tasks:
     - func: get-project
     - func: npm-install
     - func: npm-build
+    - func: npm-analyze
 
   - name: test
     commands:
@@ -277,3 +298,4 @@ post:
   - func: attach-cypress-screenshots
   - func: attach-cypress-videos
   - func: attach-server-logs
+  - func: attach-source-map
