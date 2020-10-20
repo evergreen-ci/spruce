@@ -31,7 +31,7 @@ const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
   size: 500,
   type: "gp2",
   expiration: null,
-  noExpiration: false,
+  noExpiration: true,
   host: "",
 };
 
@@ -54,8 +54,14 @@ function reducer(
     case "editExpiration":
       return {
         ...state,
-        expiration: action.expiration || state.expiration,
-        noExpiration: action.noExpiration || state.noExpiration,
+        expiration:
+          action.expiration !== undefined
+            ? action.expiration
+            : state.expiration,
+        noExpiration:
+          action.noExpiration !== undefined
+            ? action.noExpiration
+            : state.noExpiration,
       };
     case "setType":
       return {
@@ -96,7 +102,14 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   });
 
   const spawnVolume = () => {
-    spawnVolumeMutation({ variables: { SpawnVolumeInput: state } });
+    const mutationVars = { ...state };
+    if (mutationVars.noExpiration === true) {
+      delete mutationVars.expiration;
+    }
+    if (mutationVars.host === "") {
+      delete mutationVars.host;
+    }
+    spawnVolumeMutation({ variables: { SpawnVolumeInput: mutationVars } });
   };
   const canSubmitSpawnVolume = true;
 
