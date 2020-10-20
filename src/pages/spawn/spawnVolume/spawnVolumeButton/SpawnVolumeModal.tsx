@@ -111,7 +111,6 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     }
     spawnVolumeMutation({ variables: { SpawnVolumeInput: mutationVars } });
   };
-  const canSubmitSpawnVolume = true;
 
   return (
     <Modal
@@ -124,7 +123,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={!canSubmitSpawnVolume || loadingSpawnVolume}
+          disabled={loadingSpawnVolume}
           onClick={spawnVolume}
           variant={Variant.Primary}
           key="spawn-volume-button"
