@@ -1,4 +1,4 @@
-import React, { useState, forwardRef } from "react";
+import React, { useState } from "react";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -9,47 +9,56 @@ interface RestartPatchProps {
   disabled: boolean;
   isButton?: boolean;
   refetchQueries: string[];
+  visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
-export const RestartPatch = forwardRef<HTMLDivElement, RestartPatchProps>(
-  ({ isButton, disabled, patchId, refetchQueries, hideMenu }, ref) => {
-    const [openModal, setOpenModal] = useState(false);
-    return (
-      <>
-        {isButton ? (
-          <Button
-            size="small"
-            dataCy="restart-patch"
-            disabled={disabled}
-            loading={false}
-            onClick={() => setOpenModal(!openModal)}
-          >
-            Restart
-          </Button>
-        ) : (
-          <DropdownItem
-            disabled={disabled}
-            data-cy="restart-patch"
-            onClick={() => setOpenModal(!openModal)}
-          >
-            <Disclaimer>Restart</Disclaimer>
-          </DropdownItem>
-        )}
-        {openModal && (
-          <div className={openModal ? "ant-popover-open" : ""} ref={ref}>
-            <PatchRestartModal
-              patchId={patchId}
-              visible={openModal}
-              onOk={() => {
-                setOpenModal(false);
-                hideMenu();
-              }}
-              onCancel={() => setOpenModal(false)}
-              refetchQueries={refetchQueries}
-            />
-          </div>
-        )}
-      </>
-    );
-  }
-);
+export const RestartPatch: React.FC<RestartPatchProps> = ({
+  isButton,
+  disabled,
+  patchId,
+  refetchQueries,
+  hideMenu,
+  visibilityControl,
+}) => {
+  const fallbackVisibilityControl = useState(false);
+  const [isVisible, setIsVisible] =
+    visibilityControl !== undefined
+      ? visibilityControl
+      : fallbackVisibilityControl;
+
+  const onClick = () => setIsVisible(!isVisible);
+
+  return (
+    <>
+      {isButton ? (
+        <Button
+          size="small"
+          dataCy="restart-patch"
+          disabled={false}
+          loading={false}
+          onClick={onClick}
+        >
+          Restart
+        </Button>
+      ) : (
+        <DropdownItem
+          disabled={disabled}
+          data-cy="restart-patch"
+          onClick={onClick}
+        >
+          <Disclaimer>Restart</Disclaimer>
+        </DropdownItem>
+      )}
+      <PatchRestartModal
+        patchId={patchId}
+        visible={isVisible}
+        onOk={() => {
+          setIsVisible(false);
+          hideMenu();
+        }}
+        onCancel={() => setIsVisible(false)}
+        refetchQueries={refetchQueries}
+      />
+    </>
+  );
+};
