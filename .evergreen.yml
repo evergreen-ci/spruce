@@ -101,13 +101,6 @@ functions:
       working_dir: spruce
       command: yarn run build:ci
 
-  serve:
-    command: subprocess.exec
-    type: setup
-    params:
-      working_dir: spruce
-      background: true
-      command: npx serve -s build -p 3000
   
   yarn-install:
     command: shell.exec
@@ -115,7 +108,7 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
-        yarn install
+        yarn
 
   yarn-test:
     command: subprocess.exec
@@ -266,7 +259,7 @@ tasks:
         target: local-evergreen
     - func: yarn-install
     - func: yarn-build-ci
-    - func: serve
+    - func: yarn-start
     - func: run-cypress-tests
 
 buildvariants:
