@@ -6,6 +6,7 @@ import { InputNumber } from "antd";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import { RegionSelector, Section, WideButton } from "components/Spawn";
+import { ExpirationField } from "components/Spawn/ExpirationField";
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -34,12 +35,13 @@ const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
 enum ActionType {
   SetSize = "setSize",
   SetAvailabilityZone = "setAvailabilityZone",
+  EditExpiration = "editExpiration",
 }
 
-interface Action {
-  type: ActionType;
-  data: any;
-}
+type Action =
+  | { type: "setSize"; data: number }
+  | { type: "setAvailabilityZone"; data: string }
+  | { type: "editExpiration"; expiration?: Date; noExpiration?: boolean };
 
 function reducer(
   state: SpawnVolumeMutationVariables["SpawnVolumeInput"],
@@ -50,6 +52,12 @@ function reducer(
       return { ...state, size: action.data };
     case ActionType.SetAvailabilityZone:
       return { ...state, availabilityZone: action.data };
+    case ActionType.EditExpiration:
+      return {
+        ...state,
+        expiration: action.expiration || state.expiration,
+        noExpiration: action.noExpiration || state.noExpiration,
+      };
     default:
       return state;
   }
@@ -127,6 +135,15 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           }
           selectedRegion={state.availabilityZone}
           awsRegions={awsData?.awsRegions}
+        />
+        <ExpirationField
+          data={{
+            expiration: state.expiration,
+            noExpiration: state.noExpiration,
+          }}
+          onChange={(expData) =>
+            dispatch({ type: "editExpiration", ...expData })
+          }
         />
       </div>
     </Modal>
