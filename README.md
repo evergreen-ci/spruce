@@ -47,6 +47,7 @@ Follow these directions to enable query linting during local development so your
 ```js
 {
   "devServer": {
+    "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.staging.corp.mongodb.com",
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
@@ -57,6 +58,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
   },
   "prod": {
+    "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
     "REACT_APP_DEPLOYS_EMAIL": "something@something.com", 
     "REACT_APP_SITE_URL": "https://spruce.mongodb.com",
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",

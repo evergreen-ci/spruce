@@ -10,6 +10,7 @@ import { BreadCrumb } from "components/Breadcrumb";
 import BuildBaron from "components/Buildbaron/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
+import { TrendChartsPlugin } from "components/PerfPlugin";
 import {
   PageWrapper,
   PageContent,
@@ -40,7 +41,6 @@ import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
-import { TrendCharts } from "./task/TrendCharts";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
@@ -261,7 +261,6 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-
               <Tab
                 name="Build Baron"
                 id="task-build-baron-tab"
@@ -279,7 +278,7 @@ const TaskCore: React.FC = () => {
                 id="trend-charts-tab"
                 disabled={!isPerfPluginEnabled}
               >
-                <TrendCharts />
+                <TrendChartsPlugin taskId={id} />
               </Tab>
             </StyledTabs>
           </PageContent>
