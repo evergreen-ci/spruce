@@ -21,6 +21,7 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => (
         placeholder="Select a type"
         onChange={onChange}
         value={value}
+        data-cy="typeSelector"
       >
         {types.map((t) => (
           <Option value={t} key={`type_option_${t}`}>

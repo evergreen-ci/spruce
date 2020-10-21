@@ -25,6 +25,7 @@ export const RegionSelector: React.FC<Props> = ({
       placeholder="Select a region"
       onChange={onChange}
       value={selectedRegion}
+      data-cy="regionSelector"
     >
       {awsRegions?.map((region) => (
         <Option value={region} key={`region_option_${region}`}>
