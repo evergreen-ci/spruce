@@ -262,7 +262,7 @@ const TaskCore: React.FC = () => {
                 <FilesTables />
               </Tab>
 
-              {showBuildBaronTab && (
+              {showBuildBaronTab ? (
                 <Tab name="Build Baron" id="task-build-baron-tab">
                   <BuildBaron
                     data={buildBaronData}
@@ -271,12 +271,12 @@ const TaskCore: React.FC = () => {
                     loading={buildBaronLoading}
                   />
                 </Tab>
-              )}
-              {isPerfPluginEnabled && (
+              ) : null}
+              {isPerfPluginEnabled ? (
                 <Tab name="Trend Charts" id="trend-charts-tab">
                   <TrendCharts />
                 </Tab>
-              )}
+              ) : null}
             </StyledTabs>
           </PageContent>
         </LogWrapper>
