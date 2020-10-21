@@ -262,21 +262,25 @@ const TaskCore: React.FC = () => {
                 <FilesTables />
               </Tab>
 
-              {showBuildBaronTab && (
-                <Tab name="Build Baron" id="task-build-baron-tab">
-                  <BuildBaron
-                    data={buildBaronData}
-                    error={buildBaronError}
-                    taskId={id}
-                    loading={buildBaronLoading}
-                  />
-                </Tab>
-              )}
-              {isPerfPluginEnabled && (
-                <Tab name="Trend Charts" id="trend-charts-tab">
-                  <TrendCharts />
-                </Tab>
-              )}
+              <Tab
+                name="Build Baron"
+                id="task-build-baron-tab"
+                disabled={!showBuildBaronTab}
+              >
+                <BuildBaron
+                  data={buildBaronData}
+                  error={buildBaronError}
+                  taskId={id}
+                  loading={buildBaronLoading}
+                />
+              </Tab>
+              <Tab
+                name="Trend Charts"
+                id="trend-charts-tab"
+                disabled={!isPerfPluginEnabled}
+              >
+                <TrendCharts />
+              </Tab>
             </StyledTabs>
           </PageContent>
         </LogWrapper>
