@@ -142,7 +142,7 @@ functions:
     command: subprocess.exec
     params:
       working_dir: spruce
-      comman: yarn analyze
+      command: yarn analyze
 
   run-cypress-tests:
     command: shell.exec
