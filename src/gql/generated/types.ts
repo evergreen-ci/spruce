@@ -27,6 +27,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
+  subnetAvailabilityZones: Array<Scalars["String"]>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   host?: Maybe<Host>;
@@ -327,6 +328,7 @@ export enum TaskSortCategory {
 }
 
 export enum TestSortCategory {
+  BaseStatus = "BASE_STATUS",
   Status = "STATUS",
   Duration = "DURATION",
   TestName = "TEST_NAME",
@@ -434,7 +436,7 @@ export type SpawnHostInput = {
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
-  useProjectSetupScript: Scalars["Boolean"];
+  useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -710,6 +712,7 @@ export type TaskTestResult = {
 export type TestResult = {
   id: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
@@ -1600,15 +1603,6 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
-export type GetSpawnHostTaskQueryVariables = {
-  taskId: Scalars["String"];
-  distroId: Scalars["String"];
-};
-
-export type GetSpawnHostTaskQuery = {
-  task?: Maybe<{ buildVariant: string; displayName: string }>;
-};
-
 export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
@@ -1729,6 +1723,7 @@ export type TaskTestsQuery = {
     testResults: Array<{
       id: string;
       status: string;
+      baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
