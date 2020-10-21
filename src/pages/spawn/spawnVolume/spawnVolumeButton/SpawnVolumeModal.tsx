@@ -98,7 +98,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         `There was an error while spawning your volume: ${err.message}`
       );
     },
-    refetchQueries: ["MyVolumes"],
+    refetchQueries: ["myVolumes"],
   });
 
   const spawnVolume = () => {
