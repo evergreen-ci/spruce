@@ -2656,6 +2656,14 @@
     "@leafygreen-ui/lib" "^4.0.0"
     lodash "^4.17.15"
 
+"@leafygreen-ui/box@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.0.1.tgz#e401ad378d6ada1a00b0eba36cb9a917bc4f5e74"
+  integrity sha512-+e+OnsQgyku/491C72klnB+C/MshCRaweOpIGfKrUPAmUHf7nQQuZy4icmOD0amJBwUMsnqnjwcKDXrAqzYHmg==
+  dependencies:
+    "@leafygreen-ui/lib" "^6.0.1"
+    lodash "^4.17.20"
+
 "@leafygreen-ui/button@4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-4.1.0.tgz#7e4f9463a9e6b41f2f51ffac395681c6c43f835d"
@@ -2710,6 +2718,15 @@
     create-emotion-server "10.0.27"
     emotion "^10.0.7"
 
+"@leafygreen-ui/emotion@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/emotion/-/emotion-3.0.1.tgz#b380b79512459da7b94542f6d8a6860804cbab18"
+  integrity sha512-h0VaYrbwC7jNpGKXq81qu4QveT9lyPQFDRrcePIL+UoDA8nLRzs+5T2oxyJkHqulmgHrRTmLEXv2pIuJinbKHA==
+  dependencies:
+    create-emotion "^10.0.7"
+    create-emotion-server "10.0.27"
+    emotion "^10.0.7"
+
 "@leafygreen-ui/hooks@^2.0.0", "@leafygreen-ui/hooks@^2.1.0":
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-2.1.0.tgz#f584cdede054cdd6feb91238d8378624bf950a4a"
@@ -2717,10 +2734,10 @@
   dependencies:
     lodash "^4.17.15"
 
-"@leafygreen-ui/hooks@^4.2.1":
-  version "4.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-4.2.1.tgz#1ca09e0e178d18212afcc0a9d3ef116c2e4cbd1e"
-  integrity sha512-+vvSw9YNjZByRMHD1TIh50CszWS+YxctCXmQZ7LUw/hLmT4eOK/cAFUh8RZp3QSu6/L6dhIcirtc3DST7htXhA==
+"@leafygreen-ui/hooks@^5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-5.0.1.tgz#83b079643c168f4082a37b394b817bd6084e6c6d"
+  integrity sha512-P48TtfREBH7YVXt9fJA7CKDMaUk8cX8/ZoPsH/hQpNBUjmxBGuQ45eadwSr1KplS7C0pMp5oOasNgXeK28lJxw==
   dependencies:
     lodash "^4.17.20"
 
@@ -2769,6 +2786,14 @@
     "@leafygreen-ui/hooks" "^2.0.0"
     "@leafygreen-ui/lib" "^4.0.0"
 
+"@leafygreen-ui/leafygreen-provider@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.0.1.tgz#7e82f02ac82e943127756f2cc1ec2cb849e1fcd3"
+  integrity sha512-kG/XqFMub35xCjsAmcJ7dEKPb5u42vb7e7jca4ezUQBqJyQMEg+BU1Lra41R0SwlrUDWrqcuKVsedHuZ5ujJ2g==
+  dependencies:
+    "@leafygreen-ui/hooks" "^5.0.1"
+    "@leafygreen-ui/lib" "^6.0.1"
+
 "@leafygreen-ui/lib@^4.0.0", "@leafygreen-ui/lib@^4.2.0", "@leafygreen-ui/lib@^4.3.0", "@leafygreen-ui/lib@^4.3.1", "@leafygreen-ui/lib@^4.4.1":
   version "4.4.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-4.4.1.tgz#31b7946458859602ccdcf1fb4f1f300ceab80bf5"
@@ -2785,6 +2810,15 @@
   integrity sha512-M/2L5pT5udbMZOMLH9RS+lgM4oj1xMaeq3QeJtH7FJjSGtutdZCjxOC3K6g+TWD1v519hBxsf6X1mDS2+2X49g==
   dependencies:
     "@leafygreen-ui/emotion" "^2.0.2"
+    facepaint "^1.2.1"
+    polished "^2.3.0"
+
+"@leafygreen-ui/lib@^6.0.1", "@leafygreen-ui/lib@^6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-6.1.0.tgz#1f977dce3ab75f7be9ed5dcdb1acb20ffb2b56f4"
+  integrity sha512-wc554gdNXzvsWceHp2wzRM/5SFCAMpwXdxWNlgui2JDTZXtQ8oRZE9alouCcQb3WNhY2AaAzoXnx5K40uO+snw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^3.0.1"
     facepaint "^1.2.1"
     polished "^2.3.0"
 
@@ -2816,6 +2850,11 @@
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-2.0.2.tgz#dc9e1c11079e043572ed746d734fb4fb8db47a7c"
   integrity sha512-QxjLcJu1WqKjJvlTw6nmq3gdjBEVy9rXdxBlkMR0hgvyzK3qW6w+iGaJExnjMRppzND7ijzsF0IJn1TYKNmevg==
+
+"@leafygreen-ui/palette@^3.0.1":
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.0.1.tgz#9f2b611fd2d9515ae98d468c9d1d4d52bc67750b"
+  integrity sha512-cOikq1E9LUAV+Wpoc/C1qUd0FGF5iZm9LMemCaa00pEMbRIYdp//D7e0von77jIi5TsQ7xnavoDIwZak9JANtQ==
 
 "@leafygreen-ui/popover@^5.1.0":
   version "5.1.0"
@@ -2872,14 +2911,16 @@
     highlight.js "^9.15.6"
     highlightjs-graphql "^1.0.1"
 
-"@leafygreen-ui/tabs@2.1.6":
-  version "2.1.6"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-2.1.6.tgz#2fc8bb003cd528e852d74f52f0536bd2ba9dd975"
-  integrity sha512-DmrbPPOwMw8j+2olUX8smd7Kiq0Eqw7aoTa8A8Td5fEK1E+stb09Y/Yp+6QiP33dFfURBMsk9n1OdLErNtgBCg==
+"@leafygreen-ui/tabs@4.0.3":
+  version "4.0.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-4.0.3.tgz#9a91e39fd14e0921760486ded5490fdfe2af62f8"
+  integrity sha512-oSdWFyDkVcFTT7DvrCd6qrWt7sWqAt3Cp+CQFbooIxo/iLM2vppmvH8aGHpfv4NJz+PtAQUP7IC4pYrD3biBsw==
   dependencies:
-    "@leafygreen-ui/hooks" "^4.2.1"
-    "@leafygreen-ui/lib" "^5.1.1"
-    "@leafygreen-ui/palette" "^2.0.2"
+    "@leafygreen-ui/box" "^3.0.1"
+    "@leafygreen-ui/leafygreen-provider" "^2.0.1"
+    "@leafygreen-ui/lib" "^6.1.0"
+    "@leafygreen-ui/palette" "^3.0.1"
+    "@leafygreen-ui/tokens" "^0.5.0"
     lodash "^4.17.20"
 
 "@leafygreen-ui/text-input@1.1.1":
@@ -2904,6 +2945,13 @@
   dependencies:
     "@leafygreen-ui/lib" "^4.0.0"
     "@leafygreen-ui/palette" "^2.0.0"
+
+"@leafygreen-ui/tokens@^0.5.0":
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-0.5.0.tgz#85c9f7930571ea1c74b57213cecc918e0763e505"
+  integrity sha512-1rnFI1NSNtddMtRzwy4rS/4NF3rO7eK1dbw/+h+VAqY1OZHNJinV0R283QJajx2dMttm20mOpTN6v099kM0SxQ==
+  dependencies:
+    "@leafygreen-ui/lib" "^6.0.1"
 
 "@leafygreen-ui/typography@1.0.1":
   version "1.0.1"
