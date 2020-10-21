@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { Route, Redirect, Switch } from "react-router-dom";
+import { useAnalyticsAttributes } from "analytics";
 import {
   SiteBanner,
   ConnectivityBanner,
@@ -51,7 +52,7 @@ export const Content: React.FC = () => {
     "userSettings.useSpruceOptions.hasUsedSpruceBefore",
     true
   );
-
+  useAnalyticsAttributes();
   if (!isAuthenticated && initialLoad) {
     return <FullPageLoad />;
   }
