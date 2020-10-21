@@ -124,9 +124,9 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         <WideButton
           data-cy="spawn-volume-button"
           disabled={loadingSpawnVolume}
+          key="spawn-volume-button"
           onClick={spawnVolume}
           variant={Variant.Primary}
-          key="spawn-volume-button"
         >
           {loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
         </WideButton>,
@@ -135,8 +135,8 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     >
       <Subtitle>Required Volume Information</Subtitle>
       <SizeSelector
-        value={state.size}
         onChange={(s) => dispatch({ type: "setSize", data: s })}
+        value={state.size}
       />
       <AvailabilityZoneSelector
         onChange={(z) => dispatch({ type: "setAvailabilityZone", data: z })}
@@ -158,10 +158,10 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       <SectionContainer>
         <SectionLabel weight="medium">Mount to Host</SectionLabel>
         <MountVolumeSelect
-          targetAvailabilityZone={state.availabilityZone}
-          selectedHostId={state.host}
-          onChange={(hostId) => dispatch({ type: "setHost", hostId })}
           label="Host"
+          onChange={(hostId) => dispatch({ type: "setHost", hostId })}
+          selectedHostId={state.host}
+          targetAvailabilityZone={state.availabilityZone}
         />
       </SectionContainer>
     </Modal>
