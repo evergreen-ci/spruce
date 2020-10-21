@@ -119,7 +119,7 @@ test("The BuildBaron tab renders when the task is failed", async () => {
   expect(result.current.showBuildBaronTab).toBeTruthy();
 });
 
-test("The BuildBaron tab doesn't renders when the task is successful", async () => {
+test("The BuildBaron tab doesn't render when the task is successful", async () => {
   const { result } = renderHook(
     () =>
       useBuildBaronVariables({
@@ -133,9 +133,6 @@ test("The BuildBaron tab doesn't renders when the task is successful", async () 
 });
 
 test("The BuildBaron tab doesn't renders when the buildBaron is not configured", async () => {
-  const ProviderNotConfigured = ({ children }) => (
-    <MockedProvider mocks={mocks}>{children}</MockedProvider>
-  );
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useBuildBaronVariables({
@@ -143,7 +140,7 @@ test("The BuildBaron tab doesn't renders when the buildBaron is not configured",
         execution,
         taskStatus: "failed",
       }),
-    { wrapper: ProviderNotConfigured }
+    { wrapper: Provider }
   );
   await waitForNextUpdate();
   expect(result.current.showBuildBaronTab).toBeFalsy();
