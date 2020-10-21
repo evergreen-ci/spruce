@@ -97,6 +97,18 @@ const mocks = [
       data: buildBaronQueryNotConfigured,
     },
   },
+  {
+    request: {
+      query: GET_BUILD_BARON,
+      variables: {
+        taskId: "spruce_ubuntu1604_e2e_test_2",
+        execution: 1,
+      },
+    },
+    result: {
+      data: buildBaronQueryNotConfigured,
+    },
+  },
 ];
 
 const Provider = ({ children }) => (
@@ -132,7 +144,7 @@ test("The BuildBaron tab doesn't render when the task is successful", async () =
   expect(result.current.showBuildBaronTab).toBeFalsy();
 });
 
-test("The BuildBaron tab doesn't renders when the buildBaron is not configured", async () => {
+test("The BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
       useBuildBaronVariables({
