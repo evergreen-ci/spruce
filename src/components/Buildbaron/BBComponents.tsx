@@ -39,7 +39,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
     <div>
       <JiraSummaryLink
         href={url}
-        data-cy="jira-link"
+        data-cy={`${jiraKey}`}
         onClick={() =>
           taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
@@ -47,14 +47,16 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
         {jiraKey}: {fields.summary} {"   "}
       </JiraSummaryLink>
 
-      <StyledBadge variant="lightgray">{fields.status.name}</StyledBadge>
+      <StyledBadge data-cy={`${jiraKey}-badge`} variant="lightgray">
+        {fields.status.name}
+      </StyledBadge>
 
-      <MetaDataWrapper>
+      <MetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>
-          Created: {getDateCopy(fields.created, null, true)}
+          Created: {getDateCopy(fields.created, null, true)}{" "}
         </Disclaimer>
         <Disclaimer>
-          Updated: {getDateCopy(fields.updated, null, true)}
+          Updated: {getDateCopy(fields.updated, null, true)}{" "}
         </Disclaimer>
         <Disclaimer>
           {fields.assigneeDisplayName

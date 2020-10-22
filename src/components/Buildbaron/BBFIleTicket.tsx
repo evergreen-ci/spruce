@@ -8,7 +8,7 @@ import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
 } from "gql/generated/types";
-import { FILE_JIRA_TICKET } from "gql/mutations/file-jira-ticket";
+import { FILE_JIRA_TICKET } from "gql/mutations";
 import { BBTitle } from "./BBComponents";
 
 interface BBFileTicketProps {
