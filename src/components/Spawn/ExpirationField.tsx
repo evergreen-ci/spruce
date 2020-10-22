@@ -5,6 +5,7 @@ import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { SectionContainer, SectionLabel } from "./Layout";
 
 export interface ExpirationDateType {
   expiration?: Date;
@@ -44,7 +45,8 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
 
   const disabledDate = (current) => current < Date.now();
   return (
-    <>
+    <SectionContainer>
+      <SectionLabel weight="medium">Expiration</SectionLabel>
       <FlexColumnContainer>
         <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
         <DatePicker
@@ -69,13 +71,14 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       </FlexColumnContainer>
       <PaddedBody> or </PaddedBody>
       <PaddedCheckbox
+        data-cy="neverExpireCheckbox"
         label="Never"
         checked={noExpiration}
         onChange={(e) =>
           onChange({ noExpiration: e.target.checked, expiration })
         }
       />{" "}
-    </>
+    </SectionContainer>
   );
 };
 
