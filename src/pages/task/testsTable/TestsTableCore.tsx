@@ -164,23 +164,6 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Base Status",
-    dataIndex: "baseStatus",
-    key: TestSortCategory.BaseStatus,
-    sorter: true,
-    width: "20%",
-    render: (status: string): JSX.Element => (
-      <span>
-        <Badge
-          variant={statusToBadgeColor[status] || Variant.LightGray}
-          key={status}
-        >
-          {statusCopy[status] || ""}
-        </Badge>
-      </span>
-    ),
-  },
-  {
     title: "Time",
     width: "20%",
     dataIndex: "duration",
