@@ -39,7 +39,7 @@ export const useBuildBaronVariables = ({
   const buildBaronConfigured = buildBaron?.buildBaronConfigured;
 
   // logic for displaying the build baron tab
-  const buildBaronIsProductionReady = false;
+  const buildBaronIsProductionReady = true;
   const showBuildBaronTab =
     failedTask &&
     execution !== undefined &&

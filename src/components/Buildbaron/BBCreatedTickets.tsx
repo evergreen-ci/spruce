@@ -7,7 +7,7 @@ import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
 } from "gql/generated/types";
-import { GET_CREATED_TICKETS } from "gql/queries/get-created-tickets";
+import { GET_CREATED_TICKETS } from "gql/queries";
 import { BBTitle, TitleAndButtons } from "./BBComponents";
 import { BuildBaronTable } from "./BuildBaronTable";
 
