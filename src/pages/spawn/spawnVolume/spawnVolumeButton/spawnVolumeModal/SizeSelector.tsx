@@ -17,7 +17,7 @@ export const SizeSelector: React.FC<Props> = ({ value, onChange }) => (
         data-cy="volumeSize"
         id="volumeSize"
         min={1}
-        max={500}
+        max={1500}
         value={value}
         onChange={onChange}
       />
