@@ -2,6 +2,7 @@ import React from "react";
 import { Select } from "antd";
 import { ModalContent, SectionContainer, SectionLabel } from "components/Spawn";
 import { InputLabel } from "components/styles";
+import { volumeTypes } from "constants/volumes";
 
 const { Option } = Select;
 
@@ -23,7 +24,7 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => (
         value={value}
         data-cy="typeSelector"
       >
-        {types.map((t) => (
+        {volumeTypes.map((t) => (
           <Option value={t} key={`type_option_${t}`}>
             {t}
           </Option>
@@ -32,5 +33,3 @@ export const TypeSelector: React.FC<Props> = ({ value, onChange }) => (
     </ModalContent>
   </SectionContainer>
 );
-
-const types = ["gp2", "io1", "sc1", "st1", "standard"];
