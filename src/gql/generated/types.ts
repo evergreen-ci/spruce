@@ -328,6 +328,7 @@ export enum TaskSortCategory {
 }
 
 export enum TestSortCategory {
+  BaseStatus = "BASE_STATUS",
   Status = "STATUS",
   Duration = "DURATION",
   TestName = "TEST_NAME",
@@ -711,6 +712,7 @@ export type TaskTestResult = {
 export type TestResult = {
   id: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
@@ -1721,6 +1723,7 @@ export type TaskTestsQuery = {
     testResults: Array<{
       id: string;
       status: string;
+      baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
