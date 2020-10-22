@@ -11,9 +11,8 @@ import { useNetworkStatus } from "hooks/useNetworkStatus";
 
 const { Option } = Select;
 interface HostOption {
-  key: string;
+  id: string;
   displayName: string;
-  label?: string;
 }
 
 interface Props {
@@ -55,9 +54,9 @@ export const MountVolumeSelect = ({
           ({ availabilityZone }) => availabilityZone === targetAvailabilityZone
         )
         // Map host to a displayName and ID for the dropdown <Option />
-        .map((host) => ({
-          key: host.id,
-          displayName: host.displayName ? host.displayName : host.id,
+        .map(({ id, displayName }) => ({
+          id,
+          displayName: displayName || id,
         }))
         // Sort the dropdown items by display name.
         .sort((a, b) => a.displayName.localeCompare(b.displayName));
@@ -68,7 +67,7 @@ export const MountVolumeSelect = ({
   // set initially selected host in dropdown
   useEffect(() => {
     if (!selectedHostId && hostOptions.length && autofill) {
-      onChange(hostOptions[0].key);
+      onChange(hostOptions[0].id);
     }
   }, [hostOptions, selectedHostId, onChange, autofill]);
 
@@ -87,8 +86,8 @@ export const MountVolumeSelect = ({
             {" "}
           </Option>
         )}
-        {hostOptions.map(({ key, displayName }) => (
-          <Option value={key} key={key} data-cy={`${key}-option`}>
+        {hostOptions.map(({ id, displayName }) => (
+          <Option value={id} key={id} data-cy={`${id}-option`}>
             {displayName}
           </Option>
         ))}
