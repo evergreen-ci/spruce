@@ -7,6 +7,7 @@ import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
   EditSpawnHostMutationVariables,
   SpawnHostMutationVariables,
+  SpawnVolumeMutationVariables,
 } from "gql/generated/types";
 
 type Action =
@@ -17,7 +18,12 @@ type Action =
   | { name: "Opened the Spawn Host Modal" }
   | { name: "Open the Edit Spawn Host Modal"; hostId: string; status: string }
   | { name: "Edited a Spawn Host"; params: EditSpawnHostMutationVariables }
-  | { name: "Spawned a host"; params: SpawnHostMutationVariables };
+  | { name: "Spawned a host"; params: SpawnHostMutationVariables }
+  | { name: "Opened the Spawn Volume Modal" }
+  | { name: "Mount volume to host"; volumeId: string; hostId: string }
+  | { name: "Delete volume"; volumeId: string }
+  | { name: "Unmount volume"; volumeId: string }
+  | { name: "Spawned a volume"; params: SpawnVolumeMutationVariables };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
