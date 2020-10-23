@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import { Body } from "@leafygreen-ui/typography";
+import { usePreferencesAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateUserSettingsMutation,
@@ -22,7 +23,7 @@ export const NotificationsTab: React.FC = () => {
   const { slackUsername, notifications } = data?.userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
   const [notificationStatus, setNotificationStatus] = useState(notifications);
-
+  const preferencesAnalytics = usePreferencesAnalytics();
   // update state from query
   useEffect(() => {
     setSlackUsernameField(slackUsername);
@@ -56,14 +57,19 @@ export const NotificationsTab: React.FC = () => {
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
+    const variables = {
+      userSettings: {
+        slackUsername: slackUsernameField,
+        notifications: omitTypename(notificationStatus),
+      },
+    };
+    preferencesAnalytics.sendEvent({
+      name: "Save Notifications",
+      params: variables,
+    });
     try {
       await updateUserSettings({
-        variables: {
-          userSettings: {
-            slackUsername: slackUsernameField,
-            notifications: omitTypename(notificationStatus),
-          },
-        },
+        variables,
         refetchQueries: ["GetUserSettings"],
       });
     } catch (err) {}
@@ -113,6 +119,7 @@ export const NotificationsTab: React.FC = () => {
 
 const ClearSubscriptionsCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const preferencesAnalytics = usePreferencesAnalytics();
   return (
     <>
       <PreferencesCard>
@@ -132,7 +139,11 @@ const ClearSubscriptionsCard: React.FC = () => {
       <PreferencesModal
         visible={showModal}
         title="Are you sure you want to clear all of your individual subscriptions?"
-        onSubmit={() => undefined}
+        onSubmit={() => {
+          preferencesAnalytics.sendEvent({
+            name: "Clear Subscriptions",
+          });
+        }}
         onCancel={() => setShowModal(false)}
         action="Clear All"
       />
