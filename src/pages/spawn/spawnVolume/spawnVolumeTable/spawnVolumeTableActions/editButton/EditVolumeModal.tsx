@@ -90,7 +90,7 @@ export const EditVolumeModal: React.FC<Props> = ({
           onClick={updateVolume}
           variant={Variant.Primary}
         >
-          {loading ? "Editing" : "Edit"}
+          {loading ? "Saving" : "Save"}
         </WideButton>,
       ]}
       data-cy="update-volume-modal"
@@ -100,6 +100,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         <ModalContent>
           <InputLabel htmlFor="hostNameInput">Volume Name</InputLabel>
           <Input
+            data-cy="volume-name-input"
             id="volumeNameInput"
             value={state.name}
             onChange={(e) =>
