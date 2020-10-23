@@ -23,7 +23,7 @@ export const NotificationsTab: React.FC = () => {
   const { slackUsername, notifications } = data?.userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
   const [notificationStatus, setNotificationStatus] = useState(notifications);
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   // update state from query
   useEffect(() => {
     setSlackUsernameField(slackUsername);
@@ -63,7 +63,7 @@ export const NotificationsTab: React.FC = () => {
         notifications: omitTypename(notificationStatus),
       },
     };
-    preferencesAnalytics.sendEvent({
+    sendEvent({
       name: "Save Notifications",
       params: variables,
     });
@@ -119,7 +119,7 @@ export const NotificationsTab: React.FC = () => {
 
 const ClearSubscriptionsCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   return (
     <>
       <PreferencesCard>
@@ -140,7 +140,7 @@ const ClearSubscriptionsCard: React.FC = () => {
         visible={showModal}
         title="Are you sure you want to clear all of your individual subscriptions?"
         onSubmit={() => {
-          preferencesAnalytics.sendEvent({
+          sendEvent({
             name: "Clear Subscriptions",
           });
         }}

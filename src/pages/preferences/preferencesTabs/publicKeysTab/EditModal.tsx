@@ -40,7 +40,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const [errors, setErrors] = useState<string[]>([]);
   const [updatePublicKey] = useMutation<
@@ -122,12 +122,12 @@ export const EditModal: React.FC<EditModalProps> = ({
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
     if (replaceKeyName) {
-      preferencesAnalytics.sendEvent({ name: "Update public key" });
+      sendEvent({ name: "Update public key" });
       updatePublicKey({
         variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
       });
     } else {
-      preferencesAnalytics.sendEvent({ name: "Create new public key" });
+      sendEvent({ name: "Create new public key" });
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }
     closeModal();

@@ -29,7 +29,7 @@ export const ProfileTab: React.FC = () => {
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   const [githubUsernameField, setGithubUsernameField] = useState<string>(
     get(githubUser, "githubUser.lastKnownAs")
   );
@@ -75,7 +75,7 @@ export const ProfileTab: React.FC = () => {
         region: regionField,
       },
     };
-    preferencesAnalytics.sendEvent({
+    sendEvent({
       name: "Save Profile Info",
       params: variables,
     });
@@ -143,7 +143,7 @@ export const ProfileTab: React.FC = () => {
 
 const LogMeOutCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   return (
     <>
       <PreferencesCard>
@@ -165,7 +165,7 @@ const LogMeOutCard: React.FC = () => {
         visible={showModal}
         title="Are you sure you want to log out from everywhere?"
         onSubmit={() => {
-          preferencesAnalytics.sendEvent({
+          sendEvent({
             name: "Log Me Out Everywhere",
           });
         }}
