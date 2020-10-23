@@ -52,7 +52,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         `There was an error while updating your volume: ${err.message}`
       );
     },
-    refetchQueries: ["myVolumes"],
+    refetchQueries: ["MyVolumes"],
   });
 
   const updateVolume = () => {
@@ -68,6 +68,12 @@ export const EditVolumeModal: React.FC<Props> = ({
     });
   };
 
+  const noChange =
+    state.name === volume.displayName &&
+    new Date(state.expiration).getTime() ===
+      new Date(volume.expiration).getTime() &&
+    state.noExpiration === volume.noExpiration;
+
   return (
     <Modal
       title="Spawn New Volume"
@@ -79,7 +85,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         </WideButton>,
         <WideButton
           data-cy="update-volume-button"
-          disabled={loading}
+          disabled={loading || noChange}
           key="update-volume-button"
           onClick={updateVolume}
           variant={Variant.Primary}
