@@ -14,7 +14,12 @@ type Action =
   | { name: "Clear Subscriptions" }
   | { name: "CLI Download Link"; downloadName: string }
   | { name: "Download Auth File" }
-  | { name: "Reset Key" };
+  | { name: "Reset Key" }
+  | { name: "Create new public key" }
+  | { name: "Update public key" }
+  | { name: "Delete public key" }
+  | { name: "Opt into Spruce" }
+  | { name: "Opt out of Spruce" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
