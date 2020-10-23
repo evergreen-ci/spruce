@@ -11,6 +11,12 @@ describe("Navigating to Spawn Volume page", () => {
     cy.viewport(1920, 1600);
   });
 
+  it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
+    cy.visit("/spawn/volume");
+    cy.dataCy("edit-btn-1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0").click();
+    cy.dataCy("update-volume-modal").should("be.visible");
+  });
+
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");

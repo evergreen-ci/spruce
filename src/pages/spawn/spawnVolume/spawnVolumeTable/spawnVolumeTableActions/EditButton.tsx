@@ -14,7 +14,7 @@ export const EditButton: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         size="small"
-        data-cy={`attach-btn-${volume.displayName || volume.id}`}
+        data-cy={`edit-btn-${volume.displayName || volume.id}`}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);
