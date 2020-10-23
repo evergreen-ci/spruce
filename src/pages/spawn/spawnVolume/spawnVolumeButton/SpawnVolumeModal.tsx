@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
   MountVolumeSelect,
@@ -32,6 +33,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   onCancel,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const spawnAnalytics = useSpawnAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const [spawnVolumeMutation, { loading: loadingSpawnVolume }] = useMutation<
     SpawnVolumeMutation,
@@ -58,7 +60,9 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     if (mutationVars.host === "") {
       delete mutationVars.host;
     }
-    spawnVolumeMutation({ variables: { SpawnVolumeInput: mutationVars } });
+    const variables = { SpawnVolumeInput: mutationVars };
+    spawnAnalytics.sendEvent({ name: "Spawned a volume", params: variables });
+    spawnVolumeMutation({ variables });
   };
 
   return (

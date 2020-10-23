@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
+import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
 import { DETACH_VOLUME } from "gql/mutations";
@@ -12,6 +13,7 @@ interface Props {
 
 export const UnmountBtn: React.FC<Props> = ({ volume }) => {
   const dispatchBanner = useBannerDispatchContext();
+  const spawnAnalytics = useSpawnAnalytics();
 
   const [detachVolume, { loading: loadingDetachVolume }] = useMutation(
     DETACH_VOLUME,
@@ -36,6 +38,10 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
       placement="left"
       title={`Detach this volume ${volumeName} from host ${hostName}?`}
       onConfirm={() => {
+        spawnAnalytics.sendEvent({
+          name: "Unmount volume",
+          volumeId: volume.id,
+        });
         detachVolume({ variables: { volumeId: volume.id } });
       }}
       okText="Yes"
