@@ -4,6 +4,7 @@ import { Variant } from "@leafygreen-ui/button";
 import { Input, Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
   ModalContent,
@@ -42,7 +43,6 @@ const { Option } = Select;
 
 interface EditSpawnHostModalProps {
   visible?: boolean;
-  onOk: () => void;
   onCancel: () => void;
   host: MyHost;
 }
@@ -53,6 +53,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
+  const spawnAnalytics = useSpawnAnalytics();
   const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
     host
   );
@@ -81,8 +82,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   >(EDIT_SPAWN_HOST, {
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost;
-      onCancel();
       dispatchBanner.successBanner(`Successfully modified spawned host: ${id}`);
+      onCancel();
     },
     onError(err) {
       onCancel();
@@ -100,8 +101,16 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     editSpawnHostState
   );
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatchBanner.clearAllBanners();
+    spawnAnalytics.sendEvent({
+      name: "Edited a Spawn Host",
+      params: {
+        hostId: host.id,
+        ...mutationParams,
+      },
+    });
     editSpawnHostMutation({
       variables: {
         hostId: host.id,

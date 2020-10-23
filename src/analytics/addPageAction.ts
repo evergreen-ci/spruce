@@ -21,7 +21,8 @@ type AnalyticsObject =
   | "Configure"
   | "HostsTable"
   | "HostPage"
-  | "TaskQueue";
+  | "TaskQueue"
+  | "SpawnPages";
 
 interface RequiredProperties {
   object: AnalyticsObject;

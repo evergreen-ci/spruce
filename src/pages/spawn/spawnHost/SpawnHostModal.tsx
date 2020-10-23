@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
+import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
@@ -46,7 +47,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   onCancel,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-
+  const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
@@ -138,6 +139,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
+    spawnAnalytics.sendEvent({
+      name: "Spawned a host",
+      params: omitTypename({ ...spawnHostModalState }),
+    });
     spawnHostMutation({
       variables: { SpawnHostInput: omitTypename({ ...spawnHostModalState }) },
     });
