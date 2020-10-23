@@ -12,7 +12,9 @@ type Action =
   | { name: "Log Me Out Everywhere" }
   | { name: "Save Notifications"; params: UpdateUserSettingsMutationVariables }
   | { name: "Clear Subscriptions" }
-  | { name: "CLI Download Link"; downloadName: string };
+  | { name: "CLI Download Link"; downloadName: string }
+  | { name: "Download Auth File" }
+  | { name: "Reset Key" };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
