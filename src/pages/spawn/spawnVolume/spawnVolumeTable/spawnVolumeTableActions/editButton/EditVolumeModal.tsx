@@ -76,7 +76,7 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   return (
     <Modal
-      title="Spawn New Volume"
+      title="Edit Volume"
       visible={visible}
       onCancel={onCancel}
       footer={[
