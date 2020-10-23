@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
+import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -46,6 +47,8 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     }
   }, [host]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  const spawnAnalytics = useSpawnAnalytics();
+
   const [updateSpawnHostStatus, { loading }] = useMutation<
     UpdateSpawnHostStatusMutation,
     UpdateSpawnHostStatusMutationVariables
@@ -67,6 +70,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     e.preventDefault();
     e.stopPropagation();
     dispatchBanner.clearAllBanners();
+    spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
     updateSpawnHostStatus({
       variables: {
         hostId: host.id,

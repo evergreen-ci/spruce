@@ -6,3 +6,4 @@ export { useBreadcrumbAnalytics } from "./breadcrumb/useBreadcrumbAnalytics";
 export { useHostsTableAnalytics } from "./hostsTable/useHostsTableAnalytics";
 export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
+export { useSpawnAnalytics } from "./spawn/useSpawnAnalytics";
