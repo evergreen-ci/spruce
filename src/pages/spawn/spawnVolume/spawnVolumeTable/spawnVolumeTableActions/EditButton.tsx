@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { MyVolume } from "types/spawn";
 import { EditVolumeModal } from "./editButton/EditVolumeModal";
 
@@ -13,7 +13,7 @@ export const EditButton: React.FC<Props> = ({ volume }) => {
   return (
     <>
       <Button
-        size="small"
+        size={Size.XSmall}
         data-cy={`edit-btn-${volume.displayName || volume.id}`}
         onClick={(e) => {
           e.stopPropagation();

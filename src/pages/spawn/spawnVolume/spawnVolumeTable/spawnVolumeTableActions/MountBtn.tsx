@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { MyVolume } from "types/spawn";
 import { MountVolumeModal } from "./mountButton/MountVolumeModal";
 
@@ -13,7 +13,7 @@ export const MountBtn: React.FC<Props> = ({ volume }) => {
   return (
     <>
       <Button
-        size="small"
+        size={Size.XSmall}
         data-cy={`attach-btn-${volume.displayName || volume.id}`}
         onClick={(e) => {
           e.stopPropagation();
