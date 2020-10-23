@@ -1,0 +1,114 @@
+import React, { useReducer } from "react";
+import { useMutation } from "@apollo/client";
+import { Variant } from "@leafygreen-ui/button";
+import { Input } from "antd";
+import { Modal } from "components/Modal";
+import {
+  ExpirationField,
+  ModalContent,
+  SectionContainer,
+  SectionLabel,
+  WideButton,
+} from "components/Spawn";
+import { InputLabel } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
+import {
+  UpdateVolumeMutation,
+  UpdateVolumeMutationVariables,
+} from "gql/generated/types";
+import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
+import { MyVolume } from "types/spawn";
+import { reducer } from "./editVolumeModal/reducer";
+
+interface Props {
+  visible: boolean;
+  onCancel: () => void;
+  volume: MyVolume;
+}
+
+export const EditVolumeModal: React.FC<Props> = ({
+  visible,
+  onCancel,
+  volume,
+}) => {
+  const [state, dispatch] = useReducer(reducer, {
+    expiration: volume.expiration,
+    volumeId: volume.id,
+    noExpiration: volume.noExpiration,
+    name: volume.displayName,
+  });
+  const dispatchBanner = useBannerDispatchContext();
+  const [updateVolumeMutation, { loading }] = useMutation<
+    UpdateVolumeMutation,
+    UpdateVolumeMutationVariables
+  >(UPDATE_SPAWN_VOLUME, {
+    onCompleted() {
+      onCancel();
+      dispatchBanner.successBanner("Successfully updated volume");
+    },
+    onError(err) {
+      onCancel();
+      dispatchBanner.errorBanner(
+        `There was an error while updating your volume: ${err.message}`
+      );
+    },
+    refetchQueries: ["myVolumes"],
+  });
+
+  const updateVolume = () => {
+    const mutationVars = { ...state };
+    if (mutationVars.name === volume.displayName) {
+      delete mutationVars.name;
+    }
+    if (mutationVars.noExpiration === true) {
+      delete mutationVars.expiration;
+    }
+    updateVolumeMutation({
+      variables: { UpdateVolumeInput: mutationVars },
+    });
+  };
+
+  return (
+    <Modal
+      title="Spawn New Volume"
+      visible={visible}
+      onCancel={onCancel}
+      footer={[
+        <WideButton onClick={onCancel} key="cancel-button">
+          Cancel
+        </WideButton>,
+        <WideButton
+          data-cy="update-volume-button"
+          disabled={loading}
+          key="update-volume-button"
+          onClick={updateVolume}
+          variant={Variant.Primary}
+        >
+          {loading ? "Editing" : "Edit"}
+        </WideButton>,
+      ]}
+      data-cy="update-volume-modal"
+    >
+      <SectionContainer>
+        <SectionLabel weight="medium">Volume name</SectionLabel>
+        <ModalContent>
+          <InputLabel htmlFor="hostNameInput">Volume Name</InputLabel>
+          <Input
+            id="volumeNameInput"
+            value={state.name}
+            onChange={(e) =>
+              dispatch({ type: "setDisplayName", name: e.target.value })
+            }
+          />
+        </ModalContent>
+      </SectionContainer>
+      <ExpirationField
+        data={{
+          expiration: state.expiration,
+          noExpiration: state.noExpiration,
+        }}
+        onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
+      />
+    </Modal>
+  );
+};

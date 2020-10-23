@@ -7,7 +7,6 @@ import isEqual from "lodash.isequal";
 import { Modal } from "components/Modal";
 import {
   ModalContent,
-  Section,
   SectionContainer,
   SectionLabel,
   WideButton,
@@ -134,7 +133,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       <ModalContent>
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
-          <Section>
+          <ModalContent>
             <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
             <Input
               id="hostNameInput"
@@ -143,7 +142,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 dispatch({ type: "editHostName", displayName: e.target.value })
               }
             />
-          </Section>
+          </ModalContent>
         </SectionContainer>
         <HostExpirationField
           data={editSpawnHostState}
@@ -153,7 +152,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         />
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>
-          <Section>
+          <ModalContent>
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
@@ -179,7 +178,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 </Option>
               ))}
             </Select>
-          </Section>
+          </ModalContent>
         </SectionContainer>
         <SectionContainer>
           <SectionLabel weight="medium">Add Volume</SectionLabel>

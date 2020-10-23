@@ -1257,6 +1257,12 @@ export type UpdateSpawnHostStatusMutation = {
   updateSpawnHostStatus: { id: string; status: string };
 };
 
+export type UpdateVolumeMutationVariables = {
+  UpdateVolumeInput: UpdateVolumeInput;
+};
+
+export type UpdateVolumeMutation = { updateVolume: boolean };
+
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
 };
