@@ -2,6 +2,7 @@ import React, { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
   ExpirationField,
@@ -38,6 +39,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     name: volume.displayName,
   });
   const dispatchBanner = useBannerDispatchContext();
+  const spawnAnalytics = useSpawnAnalytics();
   const [updateVolumeMutation, { loading }] = useMutation<
     UpdateVolumeMutation,
     UpdateVolumeMutationVariables
@@ -63,8 +65,13 @@ export const EditVolumeModal: React.FC<Props> = ({
     if (mutationVars.noExpiration === true) {
       delete mutationVars.expiration;
     }
+    const variables = { UpdateVolumeInput: mutationVars };
+    spawnAnalytics.sendEvent({
+      name: "Edited a Spawn Volume",
+      params: variables,
+    });
     updateVolumeMutation({
-      variables: { UpdateVolumeInput: mutationVars },
+      variables,
     });
   };
 
