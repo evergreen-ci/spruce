@@ -26,7 +26,7 @@ describe("Navigating to Spawn Volume page", () => {
         "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       );
       cy.dataCy("date-picker").should("have.value", "2020-06-06");
-      cy.dataCy("time-picker").should("have.value", "11:48:18");
+      cy.dataCy("time-picker").should("have.value", "15:48:18");
     });
 
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
