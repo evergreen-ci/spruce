@@ -6,6 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
+import { usePreferencesAnalytics } from "analytics";
 import { Accordian } from "components/Accordian";
 import { SiderCard, StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
@@ -71,29 +72,54 @@ interface CliDownloadBoxProps {
   title: string;
   link: string | null;
 }
-const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => (
-  <CliDownloadCard>
-    <CliDownloadTitle>{title}</CliDownloadTitle>
-    <CliDownloadButton href={link} disabled={!link} as="a">
-      Download
-    </CliDownloadButton>
-  </CliDownloadCard>
-);
+const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => {
+  const preferencesAnalytics = usePreferencesAnalytics();
+  return (
+    <CliDownloadCard>
+      <CliDownloadTitle>{title}</CliDownloadTitle>
+      <CliDownloadButton
+        onClick={() => {
+          preferencesAnalytics.sendEvent({
+            name: "CLI Download Link",
+            downloadName: title,
+          });
+        }}
+        href={link}
+        disabled={!link}
+        as="a"
+      >
+        Download
+      </CliDownloadButton>
+    </CliDownloadCard>
+  );
+};
 
 interface ExpandableLinkContentsProps {
   clientBinaries: ClientBinary[];
 }
 const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   clientBinaries,
-}) => (
-  <LinkContainer>
-    {clientBinaries.map((binary) => (
-      <StyledLink key={`link_${binary.url}`} href={binary.url}>
-        {prettyDisplayNameAccordian[binary.displayName] || binary.displayName}
-      </StyledLink>
-    ))}
-  </LinkContainer>
-);
+}) => {
+  const preferencesAnalytics = usePreferencesAnalytics();
+  return (
+    <LinkContainer>
+      {clientBinaries.map((binary) => (
+        <StyledLink
+          onClick={() => {
+            preferencesAnalytics.sendEvent({
+              name: "CLI Download Link",
+              downloadName: binary.displayName,
+            });
+          }}
+          key={`link_${binary.url}`}
+          href={binary.url}
+        >
+          {prettyDisplayNameAccordian[binary.displayName] || binary.displayName}
+        </StyledLink>
+      ))}
+    </LinkContainer>
+  );
+};
 
 const prettyDisplayNameTop = {
   "OSX 64-bit": "MacOS",
