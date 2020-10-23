@@ -21,7 +21,7 @@ import {
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
     defaultEditModalProps
   );
@@ -87,7 +87,7 @@ export const PublicKeysTab: React.FC = () => {
             placement="topRight"
             title="Delete this public key?"
             onConfirm={() => {
-              preferencesAnalytics.sendEvent({ name: "Delete public key" });
+              sendEvent({ name: "Delete public key" });
               removePublicKey({ variables: { keyName: name } });
             }}
             okText="Yes"

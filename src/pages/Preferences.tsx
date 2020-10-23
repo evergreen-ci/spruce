@@ -11,7 +11,7 @@ import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 export const Preferences: React.FC = () => {
   usePageTitle("Preferences");
   const { tab } = useParams<{ tab: string }>();
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
     return <Redirect to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
   }
@@ -26,7 +26,7 @@ export const Preferences: React.FC = () => {
               as={Link}
               data-cy="profile-nav-tab"
               onClick={() =>
-                preferencesAnalytics.sendEvent({
+                sendEvent({
                   name: "Change Tab",
                   tab: PreferencesTabRoutes.Profile,
                 })
@@ -40,7 +40,7 @@ export const Preferences: React.FC = () => {
               as={Link}
               data-cy="notifications-nav-tab"
               onClick={() =>
-                preferencesAnalytics.sendEvent({
+                sendEvent({
                   name: "Change Tab",
                   tab: PreferencesTabRoutes.Notifications,
                 })
@@ -54,7 +54,7 @@ export const Preferences: React.FC = () => {
               as={Link}
               data-cy="cli-nav-tab"
               onClick={() =>
-                preferencesAnalytics.sendEvent({
+                sendEvent({
                   name: "Change Tab",
                   tab: PreferencesTabRoutes.CLI,
                 })
@@ -68,7 +68,7 @@ export const Preferences: React.FC = () => {
               as={Link}
               data-cy="publickeys-nav-tab"
               onClick={() =>
-                preferencesAnalytics.sendEvent({
+                sendEvent({
                   name: "Change Tab",
                   tab: PreferencesTabRoutes.PublicKeys,
                 })
@@ -82,7 +82,7 @@ export const Preferences: React.FC = () => {
               as={Link}
               data-cy="newui-nav-tab"
               onClick={() =>
-                preferencesAnalytics.sendEvent({
+                sendEvent({
                   name: "Change Tab",
                   tab: PreferencesTabRoutes.NewUI,
                 })

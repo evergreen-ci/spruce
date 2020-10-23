@@ -14,7 +14,7 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   const { data, loadingComp } = useUserSettingsQuery();
   const { spruceV1, hasUsedSpruceBefore } =
     data?.userSettings?.useSpruceOptions ?? {};
@@ -44,7 +44,7 @@ export const NewUITab: React.FC = () => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
     setChecked(e.target.checked);
-    preferencesAnalytics.sendEvent({
+    sendEvent({
       name: e.target.checked ? "Opt into Spruce" : "Opt out of Spruce",
     });
     try {

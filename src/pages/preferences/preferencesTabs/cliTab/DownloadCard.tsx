@@ -73,13 +73,13 @@ interface CliDownloadBoxProps {
   link: string | null;
 }
 const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => {
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   return (
     <CliDownloadCard>
       <CliDownloadTitle>{title}</CliDownloadTitle>
       <CliDownloadButton
         onClick={() => {
-          preferencesAnalytics.sendEvent({
+          sendEvent({
             name: "CLI Download Link",
             downloadName: title,
           });
@@ -100,13 +100,13 @@ interface ExpandableLinkContentsProps {
 const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
   clientBinaries,
 }) => {
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   return (
     <LinkContainer>
       {clientBinaries.map((binary) => (
         <StyledLink
           onClick={() => {
-            preferencesAnalytics.sendEvent({
+            sendEvent({
               name: "CLI Download Link",
               downloadName: binary.displayName,
             });

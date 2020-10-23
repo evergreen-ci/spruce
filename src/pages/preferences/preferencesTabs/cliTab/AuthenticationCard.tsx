@@ -21,7 +21,7 @@ export const AuthenticationCard = () => {
     GetUserConfigQuery,
     GetUserConfigQueryVariables
   >(GET_USER_CONFIG);
-  const preferencesAnalytics = usePreferencesAnalytics();
+  const { sendEvent } = usePreferencesAnalytics();
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
@@ -33,12 +33,12 @@ ui_server_host: "${config.ui_server_host}"
 `;
   const resetKey = async (e) => {
     e.preventDefault();
-    preferencesAnalytics.sendEvent({ name: "Reset Key" });
+    sendEvent({ name: "Reset Key" });
     await post(`${getUiUrl()}/settings/newkey`, {});
     refetch();
   };
   const downloadFile = (e) => {
-    preferencesAnalytics.sendEvent({ name: "Download Auth File" });
+    sendEvent({ name: "Download Auth File" });
     // This creates a text blob with the contents of `authCode`
     // It then creates a `a` element and generates an objectUrl pointing to the
     // text blob which is used to get the browser to download it as if it were a file
