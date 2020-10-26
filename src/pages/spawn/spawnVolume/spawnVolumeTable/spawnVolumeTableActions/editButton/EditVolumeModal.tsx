@@ -33,7 +33,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   volume,
 }) => {
   const [state, dispatch] = useReducer(reducer, {
-    expiration: volume.expiration,
+    expiration: new Date(volume.expiration),
     volumeId: volume.id,
     noExpiration: volume.noExpiration,
     name: volume.displayName,
