@@ -1735,6 +1735,7 @@ export type TaskTestsQuery = {
     testResults: Array<{
       id: string;
       status: string;
+      baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
