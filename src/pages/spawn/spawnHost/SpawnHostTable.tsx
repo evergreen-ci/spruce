@@ -96,5 +96,5 @@ const HostIdSpan = styled.div`
   white-space: nowrap;
   word-break: break-all;
   overflow: scroll;
-  width: 150px;
+  width: 160px;
 `;
