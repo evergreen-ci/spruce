@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
+import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
-import { RegionSelector } from "components/Spawn";
+import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
+import { HR } from "components/styles/Layout";
 import { useBannerDispatchContext } from "context/banners";
 import {
   DistrosQuery,
@@ -37,8 +38,6 @@ import {
   useSpawnHostModalState,
 } from "./spawnHostModal/index";
 
-const { gray } = uiColors;
-
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;
@@ -48,7 +47,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   onCancel,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
-
+  const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
     DistrosQuery,
@@ -159,6 +158,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const spawnHost = (e) => {
     e.preventDefault();
+    spawnAnalytics.sendEvent({
+      name: "Spawned a host",
+      params: omitTypename({ ...spawnHostModalState }),
+    });
     spawnHostMutation({
       variables: { SpawnHostInput: omitTypename({ ...spawnHostModalState }) },
     });
@@ -196,7 +199,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       ]}
       data-cy="spawn-host-modal"
     >
-      <Container>
+      <ModalContent>
         <Subtitle> Required Host Information</Subtitle>
         <Section>
           <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
@@ -217,11 +220,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
             />
           </AutoComplete>
         </Section>
-        <RegionSelector
-          onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
-          selectedRegion={spawnHostModalState.region}
-          awsRegions={awsRegions}
-        />
+        <Section>
+          <RegionSelector
+            onChange={(v) => dispatch({ type: "editAWSRegion", region: v })}
+            selectedRegion={spawnHostModalState.region}
+            awsRegions={awsRegions}
+          />
+        </Section>
         <Section>
           <PublicKeyForm
             publicKeys={publicKeys}
@@ -232,15 +237,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           />
         </Section>
         <HR />
-        <Section>
-          <HostDetailsForm
-            data={spawnHostModalState}
-            onChange={dispatch}
-            volumes={volumes}
-            isSpawnHostModal
-          />
-        </Section>
-      </Container>
+        <HostDetailsForm
+          data={spawnHostModalState}
+          onChange={dispatch}
+          volumes={volumes}
+          isSpawnHostModal
+        />
+      </ModalContent>
     </Modal>
   );
 };
@@ -252,20 +255,8 @@ const renderItem = (title: string) => ({
   label: <span key={`distro_${title}`}>{title}</span>,
 });
 
-const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-`;
-
-const Section = styled(Container)`
+const Section = styled(ModalContent)`
   margin-top: 20px;
-`;
-
-const HR = styled("hr")`
-  background-color: ${gray.light2};
-  border: 0;
-  height: 1px;
-  width: 100%;
 `;
 
 const WideButton = styled(Button)`

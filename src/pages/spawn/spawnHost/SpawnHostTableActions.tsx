@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Button, { Size } from "@leafygreen-ui/button";
 import { Tooltip } from "antd";
+import { useSpawnAnalytics } from "analytics";
 import { MyHost } from "types/spawn";
 import { copyToClipboard } from "utils/string";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
@@ -17,6 +18,7 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
 
 const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
+  const spawnAnalytics = useSpawnAnalytics();
 
   return (
     <Tooltip placement="top" title="Copied!" trigger="click">
@@ -24,6 +26,7 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           copyToClipboard(sshCommand);
+          spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
         }}
         size={Size.XSmall}
       >

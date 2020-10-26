@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
+import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { MyHost } from "types/spawn";
@@ -17,11 +18,20 @@ interface SpawnHostTableProps {
 export const SpawnHostTable: React.FC<SpawnHostTableProps> = ({ hosts }) => {
   const { search } = useLocation();
   const host = parseQueryString(search)?.host;
+  const spawnAnalytics = useSpawnAnalytics();
   return (
     <SpawnTable
       columns={columns}
       dataSource={hosts}
-      expandedRowRender={(record: MyHost) => <SpawnHostCard host={record} />}
+      expandable={{
+        expandedRowRender: (record: MyHost) => <SpawnHostCard host={record} />,
+        onExpand: (expanded) => {
+          spawnAnalytics.sendEvent({
+            name: "Toggle Spawn Host Details",
+            expanded,
+          });
+        },
+      }}
       defaultExpandedRowKeys={[host as string]}
     />
   );

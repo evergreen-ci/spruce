@@ -1973,6 +1973,12 @@ export type ConfigurePatchQuery = {
   };
 };
 
+export type SubnetAvailabilityZonesQueryVariables = {};
+
+export type SubnetAvailabilityZonesQuery = {
+  subnetAvailabilityZones: Array<string>;
+};
+
 export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
