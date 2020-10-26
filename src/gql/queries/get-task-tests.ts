@@ -24,6 +24,7 @@ export const GET_TASK_TESTS = gql`
       testResults {
         id
         status
+        baseStatus
         testFile
         duration
         logs {
