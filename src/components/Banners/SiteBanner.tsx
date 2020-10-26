@@ -14,6 +14,7 @@ export const SiteBanner = () => {
   const spruceConfig = data?.spruceConfig;
   const text = spruceConfig?.banner ?? "";
   const theme = spruceConfig?.bannerTheme ?? "";
+  const jiraHost = spruceConfig?.jira?.host;
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => {
     if (text !== "" && Cookies.get(text) === undefined) {
@@ -29,9 +30,17 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
+  const jiraLinkify = (text: string) => {
+    const JIRA_REGEXP = /[A-Z]{1,10}-\d{1,6}/ig;
+    const linkified = text.replace(JIRA_REGEXP, function(match) {
+      return '<a href="https://'+jiraHost +'/browse/' + match + '">' + match + '</a>';
+    });
+    return {__html: linkified}
+  }
+
   return showBanner ? (
     <Banner bannerTheme={theme} data-cy="sitewide-banner">
-      {text}{" "}
+      <span dangerouslySetInnerHTML={jiraLinkify(text)}></span>
       <IconButton
         aria-label="Close Site Banner"
         variant="light"
