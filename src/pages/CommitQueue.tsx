@@ -44,7 +44,6 @@ const CommitQueueCore: React.FC = () => {
   const commitQueue = get(data, "commitQueue");
   const queue = get(commitQueue, "queue");
   usePageTitle(`Commit Queue - ${id}`);
-
   return (
     <PageWrapper>
       <Banners
@@ -69,10 +68,13 @@ const CommitQueueCore: React.FC = () => {
         queue.map((queueItems, i) => (
           <CommitQueueCard
             key={queueItems.issue}
+            issue={queueItems.issue}
             index={i + 1}
             title={queueItems.patch && queueItems.patch.description}
             author={queueItems.patch && queueItems.patch.author}
             patchId={queueItems.patch && queueItems.patch.id}
+            repo={commitQueue?.repo}
+            owner={commitQueue?.owner}
             commitTime={queueItems.enqueueTime}
             moduleCodeChanges={
               queueItems.patch && queueItems.patch.moduleCodeChanges

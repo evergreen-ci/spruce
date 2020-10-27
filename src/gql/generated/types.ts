@@ -27,6 +27,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
+  subnetAvailabilityZones: Array<Scalars["String"]>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   host?: Maybe<Host>;
@@ -164,7 +165,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
-  removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  RemoveItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
@@ -244,9 +245,9 @@ export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
-export type MutationRemovePatchFromCommitQueueArgs = {
+export type MutationRemoveItemFromCommitQueueArgs = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -327,6 +328,7 @@ export enum TaskSortCategory {
 }
 
 export enum TestSortCategory {
+  BaseStatus = "BASE_STATUS",
   Status = "STATUS",
   Duration = "DURATION",
   TestName = "TEST_NAME",
@@ -434,7 +436,7 @@ export type SpawnHostInput = {
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
-  useProjectSetupScript: Scalars["Boolean"];
+  useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -710,6 +712,7 @@ export type TaskTestResult = {
 export type TestResult = {
   id: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
@@ -862,6 +865,8 @@ export type LogMessage = {
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
   message?: Maybe<Scalars["String"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
@@ -1108,13 +1113,13 @@ export type BbCreateTicketMutationVariables = {
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
-export type RemovePatchFromCommitQueueMutationVariables = {
+export type RemoveItemFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
-export type RemovePatchFromCommitQueueMutation = {
-  removePatchFromCommitQueue?: Maybe<string>;
+export type RemoveItemFromCommitQueueMutation = {
+  RemoveItemFromCommitQueue?: Maybe<string>;
 };
 
 export type RemovePublicKeyMutationVariables = {
@@ -1355,6 +1360,8 @@ export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
     message?: Maybe<string>;
+    owner?: Maybe<string>;
+    repo?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
@@ -1598,15 +1605,6 @@ export type GetMyPublicKeysQueryVariables = {};
 
 export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
-};
-
-export type GetSpawnHostTaskQueryVariables = {
-  taskId: Scalars["String"];
-  distroId: Scalars["String"];
-};
-
-export type GetSpawnHostTaskQuery = {
-  task?: Maybe<{ buildVariant: string; displayName: string }>;
 };
 
 export type GetSpruceConfigQueryVariables = {};
