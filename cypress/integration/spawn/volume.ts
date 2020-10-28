@@ -11,6 +11,49 @@ describe("Navigating to Spawn Volume page", () => {
     cy.viewport(1920, 1600);
   });
 
+  describe("Edit volume modal", () => {
+    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
+      cy.visit("/spawn/volume");
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
+    });
+
+    it("Volume name & expiration inputs should be populated with the volume display name & expiration on intial render", () => {
+      cy.dataCy("volume-name-input").should(
+        "have.value",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
+      cy.dataCy("date-picker").should("have.value", "2020-06-06");
+      cy.dataCy("time-picker").should("have.value", "15:48:18");
+    });
+
+    it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
+      cy.dataCy("update-volume-button").should("be.disabled");
+      // type a new name
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.dataCy("update-volume-button").should("not.be.disabled");
+
+      // type original name
+      cy.dataCy("volume-name-input")
+        .clear()
+        .type(
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+        );
+      cy.dataCy("update-volume-button").should("be.disabled");
+
+      cy.contains("Never").click();
+      cy.dataCy("update-volume-button").should("not.be.disabled");
+    });
+
+    it("Clicking on save button should close the modal and show a success banner", () => {
+      cy.dataCy("update-volume-button").click();
+      cy.contains("Successfully updated volume");
+      cy.dataCy("update-volume-modal").should("not.be.visible");
+    });
+  });
+
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");
