@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
+import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import { styles } from "components/Banners";
 import { GetSpruceConfigQuery } from "gql/generated/types";
@@ -31,16 +32,16 @@ export const SiteBanner = () => {
   };
 
   const jiraLinkify = (unlinkified: string) => {
-    const JIRA_REGEXP = /[A-Z]{1,10}-\d{1,6}/gi;
-    const linkified = unlinkified.replace(JIRA_REGEXP, function(match) {
-      return `<a href="https://${jiraHost}/browse/${match}">${match}</a>`;
-    });
-    return { __html: linkified };
+    const linkified = unlinkified.replace(
+      /[A-Z]{1,10}-\d{1,6}/gi,
+      (match) => `<a href="https://${jiraHost}/browse/${match}">${match}</a>`
+    );
+    return parse(linkified);
   };
 
   return showBanner ? (
     <Banner bannerTheme={theme} data-cy="sitewide-banner">
-      <span dangerouslySetInnerHTML={jiraLinkify(text)} />
+      <span>{jiraLinkify(text)}</span>
       <IconButton
         aria-label="Close Site Banner"
         variant="light"
