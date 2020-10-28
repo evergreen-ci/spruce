@@ -7,6 +7,7 @@ import TextInput from "@leafygreen-ui/text-input";
 import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
+import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -28,7 +29,7 @@ export const ProfileTab: React.FC = () => {
   const lastKnownAs = get(githubUser, "githubUser.lastKnownAs", "");
   const [timezoneField, setTimezoneField] = useState<string>(timezone);
   const [regionField, setRegionField] = useState<string>(region);
-
+  const { sendEvent } = usePreferencesAnalytics();
   const [githubUsernameField, setGithubUsernameField] = useState<string>(
     get(githubUser, "githubUser.lastKnownAs")
   );
@@ -64,18 +65,23 @@ export const ProfileTab: React.FC = () => {
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
+    const variables = {
+      userSettings: {
+        githubUser: {
+          ...omitTypename(githubUser),
+          lastKnownAs: githubUsernameField,
+        },
+        timezone: timezoneField,
+        region: regionField,
+      },
+    };
+    sendEvent({
+      name: "Save Profile Info",
+      params: variables,
+    });
     try {
       await updateUserSettings({
-        variables: {
-          userSettings: {
-            githubUser: {
-              ...omitTypename(githubUser),
-              lastKnownAs: githubUsernameField,
-            },
-            timezone: timezoneField,
-            region: regionField,
-          },
-        },
+        variables,
         refetchQueries: ["GetUserSettings"],
       });
     } catch (err) {}
@@ -137,6 +143,7 @@ export const ProfileTab: React.FC = () => {
 
 const LogMeOutCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
+  const { sendEvent } = usePreferencesAnalytics();
   return (
     <>
       <PreferencesCard>
@@ -157,7 +164,11 @@ const LogMeOutCard: React.FC = () => {
       <PreferencesModal
         visible={showModal}
         title="Are you sure you want to log out from everywhere?"
-        onSubmit={() => undefined}
+        onSubmit={() => {
+          sendEvent({
+            name: "Log Me Out Everywhere",
+          });
+        }}
         onCancel={() => setShowModal(false)}
         action="Log out"
       />

@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Redirect } from "react-router-dom";
+import { usePreferencesAnalytics } from "analytics";
 import { PageWrapper, PaddedSideNavItem } from "components/styles";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { usePageTitle } from "hooks";
@@ -10,6 +11,7 @@ import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
 export const Preferences: React.FC = () => {
   usePageTitle("Preferences");
   const { tab } = useParams<{ tab: string }>();
+  const { sendEvent } = usePreferencesAnalytics();
   if (!tabRouteValues.includes(tab as PreferencesTabRoutes)) {
     return <Redirect to={getPreferencesRoute(PreferencesTabRoutes.Profile)} />;
   }
@@ -23,6 +25,12 @@ export const Preferences: React.FC = () => {
               to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
               as={Link}
               data-cy="profile-nav-tab"
+              onClick={() =>
+                sendEvent({
+                  name: "Change Tab",
+                  tab: PreferencesTabRoutes.Profile,
+                })
+              }
             >
               Profile
             </PaddedSideNavItem>
@@ -31,6 +39,12 @@ export const Preferences: React.FC = () => {
               to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
               as={Link}
               data-cy="notifications-nav-tab"
+              onClick={() =>
+                sendEvent({
+                  name: "Change Tab",
+                  tab: PreferencesTabRoutes.Notifications,
+                })
+              }
             >
               Notifications
             </PaddedSideNavItem>
@@ -39,6 +53,12 @@ export const Preferences: React.FC = () => {
               to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
               as={Link}
               data-cy="cli-nav-tab"
+              onClick={() =>
+                sendEvent({
+                  name: "Change Tab",
+                  tab: PreferencesTabRoutes.CLI,
+                })
+              }
             >
               CLI & API
             </PaddedSideNavItem>
@@ -47,15 +67,26 @@ export const Preferences: React.FC = () => {
               to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
               as={Link}
               data-cy="publickeys-nav-tab"
+              onClick={() =>
+                sendEvent({
+                  name: "Change Tab",
+                  tab: PreferencesTabRoutes.PublicKeys,
+                })
+              }
             >
               Manage Public Keys
             </PaddedSideNavItem>
-
             <PaddedSideNavItem
               active={tab === PreferencesTabRoutes.NewUI}
               to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
               as={Link}
               data-cy="newui-nav-tab"
+              onClick={() =>
+                sendEvent({
+                  name: "Change Tab",
+                  tab: PreferencesTabRoutes.NewUI,
+                })
+              }
             >
               New UI
             </PaddedSideNavItem>
