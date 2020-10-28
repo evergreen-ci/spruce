@@ -30,17 +30,17 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  const jiraLinkify = (text: string) => {
-    const JIRA_REGEXP = /[A-Z]{1,10}-\d{1,6}/ig;
-    const linkified = text.replace(JIRA_REGEXP, function(match) {
-      return '<a href="https://'+jiraHost +'/browse/' + match + '">' + match + '</a>';
+  const jiraLinkify = (unlinkified: string) => {
+    const JIRA_REGEXP = /[A-Z]{1,10}-\d{1,6}/gi;
+    const linkified = unlinkified.replace(JIRA_REGEXP, function(match) {
+      return `<a href="https://${jiraHost}/browse/${match}">${match}</a>`;
     });
-    return {__html: linkified}
-  }
+    return { __html: linkified };
+  };
 
   return showBanner ? (
     <Banner bannerTheme={theme} data-cy="sitewide-banner">
-      <span dangerouslySetInnerHTML={jiraLinkify(text)}></span>
+      <span dangerouslySetInnerHTML={jiraLinkify(text)} />
       <IconButton
         aria-label="Close Site Banner"
         variant="light"
