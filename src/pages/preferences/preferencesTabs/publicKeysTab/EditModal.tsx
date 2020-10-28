@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
 import { v4 as uuid } from "uuid";
+import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { InputLabel, ErrorMessage } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
@@ -39,6 +40,7 @@ export const EditModal: React.FC<EditModalProps> = ({
     GetMyPublicKeysQuery,
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
+  const { sendEvent } = usePreferencesAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const [errors, setErrors] = useState<string[]>([]);
   const [updatePublicKey] = useMutation<
@@ -120,10 +122,12 @@ export const EditModal: React.FC<EditModalProps> = ({
   const onClickSave = () => {
     const nextKeyInfo = { name: keyName, key: keyValue };
     if (replaceKeyName) {
+      sendEvent({ name: "Update public key" });
       updatePublicKey({
         variables: { targetKeyName: replaceKeyName, updateInfo: nextKeyInfo },
       });
     } else {
+      sendEvent({ name: "Create new public key" });
       createPublicKey({ variables: { publicKeyInput: nextKeyInfo } });
     }
     closeModal();

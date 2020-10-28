@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
+import { usePreferencesAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateUserSettingsMutation,
@@ -13,6 +14,7 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {
+  const { sendEvent } = usePreferencesAnalytics();
   const { data, loadingComp } = useUserSettingsQuery();
   const { spruceV1, hasUsedSpruceBefore } =
     data?.userSettings?.useSpruceOptions ?? {};
@@ -42,6 +44,9 @@ export const NewUITab: React.FC = () => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
     setChecked(e.target.checked);
+    sendEvent({
+      name: e.target.checked ? "Opt into Spruce" : "Opt out of Spruce",
+    });
     try {
       await updateUserSettings({
         variables: {
