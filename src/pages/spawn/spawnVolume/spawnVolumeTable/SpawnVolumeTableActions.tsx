@@ -2,6 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { MyVolume } from "types/spawn";
 import { DeleteVolumeBtn } from "./spawnVolumeTableActions/DeleteVolumeBtn";
+import { EditButton } from "./spawnVolumeTableActions/EditButton";
 import { MountBtn } from "./spawnVolumeTableActions/MountBtn";
 import { UnmountBtn } from "./spawnVolumeTableActions/UnmountBtn";
 
@@ -26,12 +27,16 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
         volume={volume}
       />
     )}
+    <EditButton
+      data-cy={`edit-${volume.displayName || volume.id}`}
+      volume={volume}
+    />
   </FlexRow>
 );
 
 const FlexRow = styled.div`
   display: flex;
-  > span {
+  button {
     margin-right: 8px;
   }
 `;

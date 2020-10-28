@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
+import { usePreferencesAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetMyPublicKeysQuery,
@@ -20,6 +21,7 @@ import {
 
 export const PublicKeysTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
+  const { sendEvent } = usePreferencesAnalytics();
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
     defaultEditModalProps
   );
@@ -85,6 +87,7 @@ export const PublicKeysTab: React.FC = () => {
             placement="topRight"
             title="Delete this public key?"
             onConfirm={() => {
+              sendEvent({ name: "Delete public key" });
               removePublicKey({ variables: { keyName: name } });
             }}
             okText="Yes"

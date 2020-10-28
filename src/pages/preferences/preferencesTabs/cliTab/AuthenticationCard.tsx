@@ -6,12 +6,14 @@ import Code from "@leafygreen-ui/code";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
+import { usePreferencesAnalytics } from "analytics";
 import { SiderCard } from "components/styles";
 import {
   GetUserConfigQuery,
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
+import { getUiUrl } from "utils/getEnvironmentVariables";
 import { post } from "utils/request";
 
 export const AuthenticationCard = () => {
@@ -19,7 +21,7 @@ export const AuthenticationCard = () => {
     GetUserConfigQuery,
     GetUserConfigQueryVariables
   >(GET_USER_CONFIG);
-
+  const { sendEvent } = usePreferencesAnalytics();
   if (loading) {
     return <Skeleton active paragraph={{ rows: 6 }} />;
   }
@@ -31,10 +33,12 @@ ui_server_host: "${config.ui_server_host}"
 `;
   const resetKey = async (e) => {
     e.preventDefault();
-    await post("/settings/newkey", {});
+    sendEvent({ name: "Reset Key" });
+    await post(`${getUiUrl()}/settings/newkey`, {});
     refetch();
   };
   const downloadFile = (e) => {
+    sendEvent({ name: "Download Auth File" });
     // This creates a text blob with the contents of `authCode`
     // It then creates a `a` element and generates an objectUrl pointing to the
     // text blob which is used to get the browser to download it as if it were a file
