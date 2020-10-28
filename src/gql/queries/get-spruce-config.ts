@@ -11,6 +11,11 @@ export const GET_SPRUCE_CONFIG = gql`
       jira {
         host
       }
+      providers {
+        aws {
+          maxVolumeSizePerUser
+        }
+      }
     }
   }
 `;
