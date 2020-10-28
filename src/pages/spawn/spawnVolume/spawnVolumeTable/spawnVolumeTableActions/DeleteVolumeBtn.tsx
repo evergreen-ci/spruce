@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import Icon from "components/icons/Icon";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
@@ -44,7 +44,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
       cancelText="Cancel"
     >
       <Button
-        size="small"
+        size={Size.XSmall}
         data-cy={`trash-${volume.displayName || volume.id}`}
         glyph={<Icon glyph="Trash" />}
         disabled={loadingRemoveVolume}
