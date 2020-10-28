@@ -43,14 +43,14 @@ export const CommitQueueCard: React.FC<Props> = ({
   moduleCodeChanges,
   commitQueueId,
 }) => {
-  const [RemoveItemFromCommitQueue, { loading, error }] = useMutation<
+  const [removeItemFromCommitQueue, { loading, error }] = useMutation<
     RemoveItemFromCommitQueueMutation,
     RemoveItemFromCommitQueueMutationVariables
   >(REMOVE_ITEM_FROM_COMMIT_QUEUE);
   const handleEnroll = async (e): Promise<void> => {
     e.preventDefault();
     try {
-      await RemoveItemFromCommitQueue({
+      await removeItemFromCommitQueue({
         variables: { issue, commitQueueId },
         refetchQueries: ["CommitQueue"],
       });

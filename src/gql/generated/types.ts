@@ -165,7 +165,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
-  RemoveItemFromCommitQueue?: Maybe<Scalars["String"]>;
+  removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
@@ -1119,7 +1119,7 @@ export type RemoveItemFromCommitQueueMutationVariables = {
 };
 
 export type RemoveItemFromCommitQueueMutation = {
-  RemoveItemFromCommitQueue?: Maybe<string>;
+  removeItemFromCommitQueue?: Maybe<string>;
 };
 
 export type RemovePublicKeyMutationVariables = {

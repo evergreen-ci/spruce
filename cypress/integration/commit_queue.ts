@@ -3,13 +3,15 @@
 const commitQueue = {
   id1: "mongodb-mongo-master",
   id2: "mongodb-mongo-test",
-  id3: "non-existant-item",
+  id3: "non-existent-item",
   id4: "evergreen",
+  id5: "logkeeper",
 };
 const COMMIT_QUEUE_ROUTE_1 = `/commit-queue/${commitQueue.id1}`;
 const COMMIT_QUEUE_ROUTE_2 = `/commit-queue/${commitQueue.id2}`;
 const INVALID_COMMIT_QUEUE_ROUTE = `/commit-queue/${commitQueue.id3}`;
 const COMMIT_QUEUE_ROUTE_4 = `/commit-queue/${commitQueue.id4}`;
+const COMMIT_QUEUE_ROUTE_PR = `/commit-queue/${commitQueue.id5}`;
 
 describe("commit queue page", () => {
   before(() => {
@@ -36,7 +38,7 @@ describe("commit queue page", () => {
     cy.get("[data-cy=accordian-toggle]").should("have.length", 2);
   });
 
-  xit("visiting a non existant commit queue page should display an error", () => {
+  xit("visiting a non existent commit queue page should display an error", () => {
     cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
     // TODO: converting these requests to an xhr requests(in cypress/support/hooks.js)
     // breaks the onError callback apollo uses to trigger the banner. So the functionality
@@ -48,6 +50,14 @@ describe("commit queue page", () => {
   it("Clicking on remove a patch from the commit queue should work", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
     cy.get("[data-cy=commit-queue-card]").should("exist");
+    cy.get("[data-cy=commit-queue-patch-button]").should("exist");
+    cy.get("[data-cy=commit-queue-patch-button]").click();
+    cy.get("[data-cy=commit-queue-card]").should("not.exist");
+  });
+
+  it("Clicking on remove a patch for the PR commit queue should work", () => {
+    cy.visit(COMMIT_QUEUE_ROUTE_PR);
+    cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
     cy.get("[data-cy=commit-queue-patch-button]").should("exist");
     cy.get("[data-cy=commit-queue-patch-button]").click();
     cy.get("[data-cy=commit-queue-card]").should("not.exist");
