@@ -1,6 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
@@ -48,7 +48,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
       cancelText="Cancel"
     >
       <Button
-        size="small"
+        size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
         disabled={loadingDetachVolume}
       >

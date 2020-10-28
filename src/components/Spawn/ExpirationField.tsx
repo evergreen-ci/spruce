@@ -51,6 +51,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
         <InputLabel htmlFor="hostDetailsDatePicker">Date</InputLabel>
         <DatePicker
           id="hostDetailsDatePicker"
+          data-cy="date-picker"
           onChange={updateDate}
           disabled={noExpiration}
           disabledDate={disabledDate}
@@ -62,6 +63,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       <FlexColumnContainer>
         <InputLabel htmlFor="hostDetailsTimePicker">Time</InputLabel>
         <TimePicker
+          data-cy="time-picker"
           onChange={updateTime}
           disabled={noExpiration}
           disabledDate={disabledDate}

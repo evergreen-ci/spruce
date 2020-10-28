@@ -8,6 +8,7 @@ import {
   EditSpawnHostMutationVariables,
   SpawnHostMutationVariables,
   SpawnVolumeMutationVariables,
+  UpdateVolumeMutationVariables,
 } from "gql/generated/types";
 
 type Action =
@@ -23,7 +24,8 @@ type Action =
   | { name: "Mount volume to host"; volumeId: string; hostId: string }
   | { name: "Delete volume"; volumeId: string }
   | { name: "Unmount volume"; volumeId: string }
-  | { name: "Spawned a volume"; params: SpawnVolumeMutationVariables };
+  | { name: "Spawned a volume"; params: SpawnVolumeMutationVariables }
+  | { name: "Edited a Spawn Volume"; params: UpdateVolumeMutationVariables };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
