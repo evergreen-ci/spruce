@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
+import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import { styles } from "components/Banners";
 import { GetSpruceConfigQuery } from "gql/generated/types";
@@ -14,6 +15,7 @@ export const SiteBanner = () => {
   const spruceConfig = data?.spruceConfig;
   const text = spruceConfig?.banner ?? "";
   const theme = spruceConfig?.bannerTheme ?? "";
+  const jiraHost = spruceConfig?.jira?.host;
   const [showBanner, setShowBanner] = useState(false);
   useEffect(() => {
     if (text !== "" && Cookies.get(text) === undefined) {
@@ -29,9 +31,17 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
+  const jiraLinkify = (unlinkified: string) => {
+    const linkified = unlinkified.replace(
+      /[A-Z]{1,10}-\d{1,6}/gi,
+      (match) => `<a href="https://${jiraHost}/browse/${match}">${match}</a>`
+    );
+    return parse(linkified);
+  };
+
   return showBanner ? (
     <Banner bannerTheme={theme} data-cy="sitewide-banner">
-      {text}{" "}
+      <span>{jiraLinkify(text)}</span>
       <IconButton
         aria-label="Close Site Banner"
         variant="light"
