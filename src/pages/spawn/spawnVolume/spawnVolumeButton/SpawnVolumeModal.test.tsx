@@ -10,6 +10,7 @@ import {
   act,
   customRenderWithRouterMatch as render,
   fireEvent,
+  waitFor,
 } from "test_utils/test-utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
@@ -229,7 +230,7 @@ test("Form submission succeeds with default values", async () => {
   await new Promise((resolve) => setTimeout(resolve, 0));
   fireEvent.click(queryByText("Spawn"));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  expect(mockSuccessBanner).toBeCalledTimes(1);
+  waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
@@ -267,5 +268,5 @@ test("Form submission succeeds after adjusting inputs", async () => {
   await new Promise((resolve) => setTimeout(resolve, 0));
   act(() => fireEvent.click(queryByText("Spawn")));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  expect(mockSuccessBanner).toBeCalledTimes(1);
+  waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
 });
