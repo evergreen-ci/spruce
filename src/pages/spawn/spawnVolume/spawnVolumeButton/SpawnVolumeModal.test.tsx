@@ -1,7 +1,11 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
-import { GET_MY_HOSTS, GET_SUBNET_AVAILABILITY_ZONES } from "gql/queries";
+import {
+  GET_MY_HOSTS,
+  GET_SUBNET_AVAILABILITY_ZONES,
+  GET_USER,
+} from "gql/queries";
 import {
   act,
   customRenderWithRouterMatch as render,
@@ -10,6 +14,20 @@ import {
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
 const baseMocks = [
+  {
+    request: {
+      query: GET_USER,
+      variables: {},
+    },
+    result: {
+      data: {
+        user: {
+          userId: "a",
+          displayName: "A",
+        },
+      },
+    },
+  },
   {
     request: {
       query: GET_SUBNET_AVAILABILITY_ZONES,
@@ -130,6 +148,20 @@ const baseMocks = [
   },
 ];
 
+const mockSuccessBanner = jest.fn();
+jest.mock("context/banners", () => ({
+  useBannerDispatchContext: () => ({
+    successBanner: mockSuccessBanner,
+    errorBanner: (e) => {
+      console.log(e);
+    },
+  }),
+}));
+
+beforeEach(() => {
+  mockSuccessBanner.mockClear();
+});
+
 test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider mocks={baseMocks}>
@@ -171,15 +203,6 @@ test("Form contains default volumes on initial render.", async () => {
 });
 
 test("Form submission succeeds with default values", async () => {
-  const mockSuccessBanner = jest.fn();
-  jest.mock("context/banners", () => ({
-    useBannerDispatchContext: () => ({
-      successBanner: mockSuccessBanner,
-      errorBanner: (e) => {
-        console.log(e);
-      },
-    }),
-  }));
   const mocks = [
     ...baseMocks,
     {
@@ -210,15 +233,6 @@ test("Form submission succeeds with default values", async () => {
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
-  const mockSuccessBanner = jest.fn();
-  jest.mock("context/banners", () => ({
-    useBannerDispatchContext: () => ({
-      successBanner: mockSuccessBanner,
-      errorBanner: (e) => {
-        console.log(e);
-      },
-    }),
-  }));
   const mocks = [
     ...baseMocks,
     {
