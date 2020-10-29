@@ -170,18 +170,16 @@ test("Form contains default volumes on initial render.", async () => {
   );
 });
 
-const mockSuccessBanner = jest.fn();
-
-jest.mock("context/banners", () => ({
-  useBannerDispatchContext: () => ({
-    successBanner: mockSuccessBanner,
-    errorBanner: (e) => {
-      console.log(e);
-    },
-  }),
-}));
-
 test("Form submission succeeds with default values", async () => {
+  const mockSuccessBanner = jest.fn();
+  jest.mock("context/banners", () => ({
+    useBannerDispatchContext: () => ({
+      successBanner: mockSuccessBanner,
+      errorBanner: (e) => {
+        console.log(e);
+      },
+    }),
+  }));
   const mocks = [
     ...baseMocks,
     {
@@ -212,6 +210,15 @@ test("Form submission succeeds with default values", async () => {
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
+  const mockSuccessBanner = jest.fn();
+  jest.mock("context/banners", () => ({
+    useBannerDispatchContext: () => ({
+      successBanner: mockSuccessBanner,
+      errorBanner: (e) => {
+        console.log(e);
+      },
+    }),
+  }));
   const mocks = [
     ...baseMocks,
     {
@@ -246,5 +253,5 @@ test("Form submission succeeds after adjusting inputs", async () => {
   await new Promise((resolve) => setTimeout(resolve, 0));
   act(() => fireEvent.click(queryByText("Spawn")));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  expect(mockSuccessBanner).toBeCalledTimes(2);
+  expect(mockSuccessBanner).toBeCalledTimes(1);
 });
