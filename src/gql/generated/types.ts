@@ -611,6 +611,7 @@ export type Patch = {
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
   baseVersionID?: Maybe<Scalars["String"]>;
+  parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
@@ -653,6 +654,11 @@ export type ProjectBuildVariant = {
   name: Scalars["String"];
   displayName: Scalars["String"];
   tasks: Array<Scalars["String"]>;
+};
+
+export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type TaskResult = {
@@ -1944,6 +1950,7 @@ export type PatchQuery = {
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    parameters: Array<{ key: string; value: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;

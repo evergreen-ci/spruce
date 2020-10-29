@@ -45,6 +45,13 @@ describe("Patch route", () => {
     cy.location("pathname").should("eq", "/commit-queue/evergreen");
   });
 
+  it("Shows patch parameters if they exist", () => {
+    cy.visit(`/patch/${patch.id}`);
+    cy.dataCy("parameters-modal").should("not.be.visible");
+    cy.dataCy("parameters-link").click();
+    cy.dataCy("parameters-modal").should("be.visible");
+  });
+
   it("'Base commit' link in metadata links to version page of legacy UI", () => {
     cy.visit(`/patch/${patch.id}`);
     cy.get("#patch-base-commit")

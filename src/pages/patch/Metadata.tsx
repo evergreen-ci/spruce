@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
@@ -6,6 +6,7 @@ import { P2 } from "components/Typography";
 import { paths } from "constants/routes";
 import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
+import { ParametersModal } from "./ParametersModal";
 
 interface Props {
   loading: boolean;
@@ -22,9 +23,11 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
     projectID,
     baseVersionID,
     commitQueuePosition,
+    parameters,
   } = patch || {};
   const { submittedAt, started, finished } = time || {};
   const { makespan, timeTaken } = duration || {};
+  const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <MetadataCard loading={loading} error={error} title="Patch Metadata">
       <P2>Makespan: {makespan && makespan}</P2>
@@ -53,6 +56,22 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
           </StyledLink>
         </P2>
       )}
+      {parameters !== undefined && parameters.length > 0 && (
+        <P2>
+          <StyledLink
+            data-cy="parameters-link"
+            onClick={() => setShowModal(true)}
+          >
+            Patch Parameters
+          </StyledLink>
+        </P2>
+      )}
+      <ParametersModal
+        dataCy="parameters-modal"
+        parameters={parameters}
+        visible={showModal}
+        closeModal={() => setShowModal(false)}
+      />
     </MetadataCard>
   );
 };
