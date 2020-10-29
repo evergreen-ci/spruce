@@ -11,6 +11,10 @@ export interface ModuleCodeChanges {
   rawLink: string;
   fileDiffs: FileDiff[];
 }
+export interface Parameter {
+  key: string;
+  value: string;
+}
 export interface FileDiff {
   fileName: string;
   diffLink: string;
@@ -39,6 +43,7 @@ export interface Patch {
     submittedAt: string;
   };
   moduleCodeChanges: [ModuleCodeChanges];
+  parameters: [Parameter];
 }
 
 export enum PatchStatus {

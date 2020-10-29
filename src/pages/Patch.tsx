@@ -57,7 +57,6 @@ const PatchCore: React.FC = () => {
   const alias = patch?.alias ?? null;
   const commitQueuePosition = patch?.commitQueuePosition ?? null;
   const isPatchOnCommitQueue = commitQueuePosition !== null;
-
   if (activated === false && alias !== commitQueueAlias) {
     router.replace(`${paths.patch}/${id}/configure`);
   }

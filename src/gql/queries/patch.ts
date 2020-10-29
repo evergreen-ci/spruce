@@ -16,6 +16,10 @@ export const GET_PATCH = gql`
       taskCount
       commitQueuePosition
       baseVersionID
+      parameters {
+        key
+        value
+      }
       duration {
         makespan
         timeTaken
