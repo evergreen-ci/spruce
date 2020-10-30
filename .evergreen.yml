@@ -256,7 +256,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npm run deploy-prod:do-not-use-directly
+        aws_access_key_id=${aws_key} aws_secret_access_key=${aws_secret} npm run deploy-prod:do-not-use-directly
 
   send-email:
     command: shell.exec
