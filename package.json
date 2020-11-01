@@ -170,7 +170,7 @@
     "tslint-plugin-graphql": "0.0.6",
     "tslint-react": "4.1.0",
     "typescript": "3.9.5",
-    "unfetch": "4.1.0",
+    "unfetch": "4.2.0",
     "wait-on": "5.2.0"
   },
   "proxy": "http://localhost:9090"
