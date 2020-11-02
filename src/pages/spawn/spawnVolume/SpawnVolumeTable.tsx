@@ -46,7 +46,7 @@ const sortByHost = (a: MyVolume, b: MyVolume) =>
 
 const columns: Array<ColumnProps<MyVolume>> = [
   {
-    title: "MyVolume",
+    title: "Volume",
     key: "displayName",
     sorter: (a: MyVolume, b: MyVolume) =>
       getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),

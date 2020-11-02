@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
+import { Subtitle } from "@leafygreen-ui/typography";
 import {
   Title,
   BadgeWrapper,
@@ -22,8 +23,7 @@ export const SpawnVolume = () => {
     volumesData?.myVolumes.filter((v) => v.hostID).length ?? 0;
   const unmountedCount =
     volumesData?.myVolumes.filter((v) => !v.hostID).length ?? 0;
-  const volumes = volumesData?.myVolumes;
-
+  const volumes = volumesData?.myVolumes || [];
   return (
     <>
       <TitleContainer>
@@ -40,7 +40,13 @@ export const SpawnVolume = () => {
         </BadgeWrapper>
       </TitleContainer>
       <SpawnVolumeButton />
-      <SpawnVolumeTable volumes={volumes} />
+      {volumes.length ? (
+        <SpawnVolumeTable volumes={volumes} />
+      ) : (
+        <Subtitle>
+          No Spawned volumes available, Spawn one to get started
+        </Subtitle>
+      )}
     </>
   );
 };
