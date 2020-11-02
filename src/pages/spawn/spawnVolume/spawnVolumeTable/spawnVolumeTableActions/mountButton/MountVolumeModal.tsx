@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Modal } from "components/Modal";
 import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
@@ -25,6 +26,7 @@ export const MountVolumeModal: React.FC<Props> = ({
   volume,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
+  const spawnAnalytics = useSpawnAnalytics();
   const [attachVolume, { loading: loadingAttachVolume }] = useMutation<
     AttachVolumeToHostMutation,
     AttachVolumeToHostMutationVariables
@@ -52,6 +54,11 @@ export const MountVolumeModal: React.FC<Props> = ({
           data-cy="mount-volume-button"
           disabled={!selectedHostId || loadingAttachVolume}
           onClick={() => {
+            spawnAnalytics.sendEvent({
+              name: "Mount volume to host",
+              volumeId: volume.id,
+              hostId: selectedHostId,
+            });
             attachVolume({
               variables: {
                 volumeAndHost: {
