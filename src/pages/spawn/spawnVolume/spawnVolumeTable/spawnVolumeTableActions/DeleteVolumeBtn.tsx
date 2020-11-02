@@ -23,7 +23,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     RemoveVolumeMutation,
     RemoveVolumeMutationVariables
   >(REMOVE_VOLUME, {
-    refetchQueries: ["myVolumes", "myHosts"],
+    refetchQueries: ["MyVolumes", "MyHosts"],
     onError: (err) =>
       dispatchBanner.errorBanner(`Error removing volume: '${err.message}'`),
     onCompleted: () => {

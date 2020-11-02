@@ -91,6 +91,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         `There was an error while modifying your host: ${err.message}`
       );
     },
+    refetchQueries: ["MyVolumes"],
   });
 
   const instanceTypes = instanceTypesData?.instanceTypes;

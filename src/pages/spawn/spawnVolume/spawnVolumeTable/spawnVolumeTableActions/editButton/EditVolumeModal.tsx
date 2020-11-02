@@ -54,7 +54,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         `There was an error while updating your volume: ${err.message}`
       );
     },
-    refetchQueries: ["myVolumes"],
+    refetchQueries: ["MyVolumes", "MyHosts"],
   });
 
   const updateVolume = () => {
