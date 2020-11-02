@@ -229,17 +229,9 @@ functions:
     command: shell.exec
     params:
       working_dir: spruce
-      env:
-        REACT_APP_BUGSNAG_API_KEY: ${REACT_APP_BUGSNAG_API_KEY}
-        REACT_APP_NEW_RELIC_ACCOUNT_ID: ${REACT_APP_NEW_RELIC_ACCOUNT_ID}
-        REACT_APP_NEW_RELIC_AGENT_ID: ${REACT_APP_NEW_RELIC_AGENT_ID}
-        REACT_APP_NEW_RELIC_APPLICATION_ID: ${REACT_APP_NEW_RELIC_APPLICATION_ID}
-        REACT_APP_NEW_RELIC_LICENSE_KEY: ${REACT_APP_NEW_RELIC_LICENSE_KEY}
-        REACT_APP_NEW_RELIC_TRUST_KEY: ${REACT_APP_NEW_RELIC_TRUST_KEY}
-        REACT_APP_DEPLOYS_EMAIL: ${REACT_APP_DEPLOYS_EMAIL}
       script: |
         echo "Generating .cmdrc.json"
-        node cli-scripts/setup-credentials.js
+        REACT_APP_BUGSNAG_API_KEY=${REACT_APP_BUGSNAG_API_KEY} REACT_APP_NEW_RELIC_ACCOUNT_ID=${REACT_APP_NEW_RELIC_ACCOUNT_ID} REACT_APP_NEW_RELIC_AGENT_ID=${REACT_APP_NEW_RELIC_AGENT_ID} REACT_APP_NEW_RELIC_APPLICATION_ID=${REACT_APP_NEW_RELIC_APPLICATION_ID} REACT_APP_NEW_RELIC_LICENSE_KEY=${REACT_APP_NEW_RELIC_LICENSE_KEY} REACT_APP_NEW_RELIC_TRUST_KEY=${REACT_APP_NEW_RELIC_TRUST_KEY} REACT_APP_DEPLOYS_EMAIL=${REACT_APP_DEPLOYS_EMAIL} node cli-scripts/setup-credentials.js
 
         echo "populating evergreen.yml"
         cat <<EOF > .evergreen.yml
@@ -256,8 +248,16 @@ functions:
     params:
       working_dir: spruce
       script: |
-        aws_access_key_id=${aws_key} aws_secret_access_key=${aws_secret} npm run deploy-prod:do-not-use-directly
+        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  npm run deploy; npm run upload-source-maps;
 
+
+  build-prod:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        npm run build:prod
+  
   send-email:
     command: shell.exec
     params:
@@ -337,6 +337,7 @@ tasks:
     - func: get-project
     - func: setup-credentials
     - func: npm-install
+    - func: build-prod
     - func: deploy-to-prod
     - func: send-email
 
