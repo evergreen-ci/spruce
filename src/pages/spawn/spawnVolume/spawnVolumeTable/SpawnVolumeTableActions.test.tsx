@@ -21,7 +21,7 @@ const baseMocks = [
   },
 ];
 
-test("Unmount btn is visible and the delete btn does not exist when the volume is mounted to a host", () => {
+test("Unmount button is visible and the delete button does not exist when the volume is mounted to a host.", () => {
   const volumeWithHost = {
     id: "vol-fcc5accfb588e",
     displayName: "",
