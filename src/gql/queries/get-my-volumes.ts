@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_MY_VOLUMES = gql`
-  query myVolumes {
+  query MyVolumes {
     myVolumes {
       id
       displayName

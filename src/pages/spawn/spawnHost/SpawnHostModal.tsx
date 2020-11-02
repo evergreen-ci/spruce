@@ -92,7 +92,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         `There was an error while spawning your host: ${err.message}`
       );
     },
-    refetchQueries: ["MyHosts"],
+    refetchQueries: ["MyHosts", "MyVolumes", "GetMyPublicKeys"],
   });
 
   const [distroInput, setDistroInput] = useState("");
