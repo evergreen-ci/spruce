@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Modal } from "antd";
+import { Modal } from "components/Modal";
 import { Parameter } from "types/patch";
 
 interface ParametersProps {
