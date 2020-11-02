@@ -2,6 +2,7 @@
 
 Spruce is the React UI for MongoDB's continuous integration software.
 
+
 ## Table of Contents
 
 - [Getting Started](#getting-started)

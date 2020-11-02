@@ -958,6 +958,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
+  providers?: Maybe<CloudProviderConfig>;
 };
 
 export type JiraConfig = {
@@ -966,6 +967,14 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+};
+
+export type CloudProviderConfig = {
+  aws?: Maybe<AwsConfig>;
+};
+
+export type AwsConfig = {
+  maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type HostEvents = {
@@ -1260,6 +1269,12 @@ export type UpdateSpawnHostStatusMutationVariables = {
 export type UpdateSpawnHostStatusMutation = {
   updateSpawnHostStatus: { id: string; status: string };
 };
+
+export type UpdateVolumeMutationVariables = {
+  UpdateVolumeInput: UpdateVolumeInput;
+};
+
+export type UpdateVolumeMutation = { updateVolume: boolean };
 
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
@@ -1615,6 +1630,9 @@ export type GetSpruceConfigQuery = {
     banner?: Maybe<string>;
     ui?: Maybe<{ userVoice?: Maybe<string> }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
+    providers?: Maybe<{
+      aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
+    }>;
   }>;
 };
 
@@ -1727,6 +1745,7 @@ export type TaskTestsQuery = {
     testResults: Array<{
       id: string;
       status: string;
+      baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };

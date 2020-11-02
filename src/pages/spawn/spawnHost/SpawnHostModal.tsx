@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -95,18 +95,36 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     refetchQueries: ["MyHosts"],
   });
 
+  const [distroInput, setDistroInput] = useState("");
   const { reducer } = useSpawnHostModalState();
   const [spawnHostModalState, dispatch] = reducer;
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const distros = distrosData?.distros;
+  const fetchedDistros = distrosData?.distros;
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes;
 
   useEffect(() => {
     dispatch({ type: "reset" });
+    if (awsRegions) {
+      dispatch({ type: "editAWSRegion", region: awsRegions[0] });
+    }
+    if (publicKeys) {
+      dispatch({
+        type: "editPublicKey",
+        publicKey: publicKeys[0],
+        savePublicKey: false,
+      });
+    }
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + 7);
+    dispatch({
+      type: "editExpiration",
+      expiration: futureDate,
+      noExpiration: false,
+    });
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Need to initialize these here so they can be used in the useEffect hook
@@ -117,6 +135,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     return null;
   }
 
+  const distros = fetchedDistros.filter((d) => d.name.includes(distroInput));
   virtualWorkstationDistros = distros.filter((d) => d.isVirtualWorkStation);
   notVirtualWorkstationDistros = distros.filter((d) => !d.isVirtualWorkStation);
 
@@ -197,6 +216,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
               placeholder="Search for Distro"
               suffix={<Icon glyph="MagnifyingGlass" />}
               data-cy="distro-input"
+              onChange={(e) => setDistroInput(e.target.value)}
             />
           </AutoComplete>
         </Section>

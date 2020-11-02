@@ -1,6 +1,7 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import Button from "@leafygreen-ui/button";
+import Button, { Size } from "@leafygreen-ui/button";
+import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import Icon from "components/icons/Icon";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
@@ -31,20 +32,24 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
   });
 
   const volumeName = volume.displayName ? volume.displayName : volume.id;
-
+  const spawnAnalytics = useSpawnAnalytics();
   return (
     <Popconfirm
       icon={null}
       placement="left"
       title={`Delete this volume ${volumeName}?`}
       onConfirm={() => {
+        spawnAnalytics.sendEvent({
+          name: "Delete volume",
+          volumeId: volume.id,
+        });
         removeVolume({ variables: { volumeId: volume.id } });
       }}
       okText="Yes"
       cancelText="Cancel"
     >
       <Button
-        size="small"
+        size={Size.XSmall}
         data-cy={`trash-${volume.displayName || volume.id}`}
         glyph={<Icon glyph="Trash" />}
         disabled={loadingRemoveVolume}
