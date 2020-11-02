@@ -5,6 +5,8 @@ export const GET_COMMIT_QUEUE = gql`
     commitQueue(id: $id) {
       projectId
       message
+      owner
+      repo
       queue {
         issue
         enqueueTime
