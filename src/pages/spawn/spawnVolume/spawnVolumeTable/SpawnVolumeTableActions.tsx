@@ -12,20 +12,22 @@ interface Props {
 
 export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
   <FlexRow>
-    <DeleteVolumeBtn
-      data-cy={`trash-${volume.displayName || volume.id}`}
-      volume={volume}
-    />
     {volume.host ? (
       <UnmountBtn
         data-cy={`unmount-${volume.displayName || volume.id}`}
         volume={volume}
       />
     ) : (
-      <MountBtn
-        data-cy={`mount-${volume.displayName || volume.id}`}
-        volume={volume}
-      />
+      <>
+        <DeleteVolumeBtn
+          data-cy={`trash-${volume.displayName || volume.id}`}
+          volume={volume}
+        />
+        <MountBtn
+          data-cy={`mount-${volume.displayName || volume.id}`}
+          volume={volume}
+        />
+      </>
     )}
     <EditButton
       data-cy={`edit-${volume.displayName || volume.id}`}
@@ -39,4 +41,5 @@ const FlexRow = styled.div`
   button {
     margin-right: 8px;
   }
+  align-items: center;
 `;
