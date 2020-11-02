@@ -36,7 +36,7 @@ export const MountVolumeModal: React.FC<Props> = ({
     onCompleted: () => {
       dispatchBanner.successBanner("Successfully mounted the volume.");
     },
-    refetchQueries: ["myVolumes"],
+    refetchQueries: ["MyVolumes", "MyHosts"],
   });
   const targetAvailabilityZone = volume.availabilityZone;
   const [selectedHostId, setSelectedHostId] = useState("");
