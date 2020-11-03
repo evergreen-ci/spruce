@@ -26,8 +26,8 @@ export const ParametersModal: React.FC<ParametersProps> = ({
     {parameters?.map(
       (param) =>
         param && (
-          <StyledBadge key={`param_${param?.key}`}>
-            {param?.key}:{param?.value}
+          <StyledBadge key={`param_${param.key}`}>
+            {param.key}:{param.value}
           </StyledBadge>
         )
     )}
