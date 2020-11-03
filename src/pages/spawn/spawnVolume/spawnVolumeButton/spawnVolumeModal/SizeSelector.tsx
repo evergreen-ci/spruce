@@ -5,10 +5,11 @@ import { InputLabel } from "components/styles";
 
 interface Props {
   value: number;
+  limit: number;
   onChange: (s: number) => void;
 }
 
-export const SizeSelector: React.FC<Props> = ({ value, onChange }) => (
+export const SizeSelector: React.FC<Props> = ({ value, onChange, limit }) => (
   <SectionContainer>
     <SectionLabel weight="medium">Volume Size</SectionLabel>
     <ModalContent>
@@ -17,7 +18,7 @@ export const SizeSelector: React.FC<Props> = ({ value, onChange }) => (
         data-cy="volumeSize"
         id="volumeSize"
         min={1}
-        max={1500}
+        max={limit}
         value={value}
         onChange={onChange}
       />
