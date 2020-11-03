@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
@@ -11,6 +11,14 @@ import {
   AddNotification,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
+import { useMutation } from "@apollo/client";
+import {
+  SetPatchPriorityMutation,
+  SetPatchPriorityMutationVariables,
+} from "gql/generated/types";
+import { SET_PATCH_PRIORITY } from "gql/mutations";
+import { Disclaimer } from "@leafygreen-ui/typography";
+import { useBannerDispatchContext } from "context/banners";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -24,8 +32,21 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const { id: patchId } = useParams<{ id: string }>();
-
   const [isActionLoading, setIsActionLoading] = useState(false);
+  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const refetchQueries = ["Patch"];
+  const [setPatchPriority] = useMutation<
+    SetPatchPriorityMutation,
+    SetPatchPriorityMutationVariables
+  >(SET_PATCH_PRIORITY, {
+    onCompleted: () => {
+      successBanner(`Priority for all tasks was update`);
+    },
+    onError: (err) => {
+      errorBanner(`Error setting priority: ${err.message}`);
+    },
+    refetchQueries,
+  });
 
   const hideMenu = () => setIsVisible(false);
 
@@ -51,6 +72,17 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         disabled: isActionLoading,
       }}
     />,
+    <DropdownItem
+      data-cy="disable"
+      disabled={false}
+      onClick={() => {
+        setPatchPriority({
+          variables: { patchId, priority: -1 },
+        });
+      }}
+    >
+      <Disclaimer>Disable all tasks</Disclaimer>
+    </DropdownItem>,
     <SetPatchPriority
       {...{
         patchId,
@@ -116,5 +148,3 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     </>
   );
 };
-
-const refetchQueries = ["Patch"];

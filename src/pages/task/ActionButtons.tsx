@@ -173,6 +173,17 @@ export const ActionButtons = ({
     >
       <Disclaimer>Abort</Disclaimer>
     </DropdownItem>,
+    <DropdownItem
+      data-cy="disable-enable"
+      disabled={disabled}
+      onClick={() => {
+        setTaskPriority({
+          variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
+        });
+      }}
+    >
+      <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
+    </DropdownItem>,
     <Popconfirm
       key="priority"
       icon={null}

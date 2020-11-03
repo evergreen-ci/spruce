@@ -90,7 +90,7 @@ export const UnschedulePatchTasks = forwardRef<HTMLDivElement, UnscheduleProps>(
           ref={ref}
           disabled={loadingUnschedulePatchTasks || disabled}
         >
-          <Disclaimer>Unschedule All Tasks</Disclaimer>
+          <Disclaimer>Unschedule all tasks</Disclaimer>
         </DropdownItem>
       </Popconfirm>
     );
