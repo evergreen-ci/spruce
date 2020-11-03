@@ -1,4 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
@@ -11,14 +13,12 @@ import {
   AddNotification,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
-import { useMutation } from "@apollo/client";
+import { useBannerDispatchContext } from "context/banners";
 import {
   SetPatchPriorityMutation,
   SetPatchPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY } from "gql/mutations";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { useBannerDispatchContext } from "context/banners";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -40,7 +40,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     SetPatchPriorityMutationVariables
   >(SET_PATCH_PRIORITY, {
     onCompleted: () => {
-      successBanner(`Priority for all tasks was update`);
+      successBanner(`Priority for all tasks was updated`);
     },
     onError: (err) => {
       errorBanner(`Error setting priority: ${err.message}`);
