@@ -7,7 +7,7 @@ import { Modal } from "antd";
 interface PreferencesModalProps {
   title: string;
   action: string;
-  onSubmit: () => void;
+  onSubmit: (e: any) => void;
   onCancel: () => void;
   visible: boolean;
 }
