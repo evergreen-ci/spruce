@@ -23,14 +23,11 @@ export const ParametersModal: React.FC<ParametersProps> = ({
     data-cy={dataCy}
     title="Patch Parameters"
   >
-    {parameters?.map(
-      (param) =>
-        param && (
-          <StyledBadge key={`param_${param.key}`}>
-            {param.key}:{param.value}
-          </StyledBadge>
-        )
-    )}
+    {parameters?.map((param) => (
+      <StyledBadge key={`param_${param.key}`}>
+        {param.key}:{param.value}
+      </StyledBadge>
+    ))}
   </Modal>
 );
 
