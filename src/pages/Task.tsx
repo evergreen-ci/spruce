@@ -113,7 +113,7 @@ const TaskCore: React.FC = () => {
   const failedTestCount = get(task, "failedTestCount");
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
-  const isPerfPluginEnabled = false;
+  const isPerfPluginEnabled = get(task, "isPerfPluginEnabled");
   const patchAuthor = data?.task.patchMetadata.author;
 
   const {
