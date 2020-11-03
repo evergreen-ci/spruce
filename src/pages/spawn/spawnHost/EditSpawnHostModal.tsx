@@ -32,6 +32,7 @@ import {
   VolumesData,
   UserTagsData,
 } from "pages/spawn/spawnHost/fields";
+import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
 import {
@@ -119,6 +120,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       },
     });
   };
+
+  const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
+
   return (
     <Modal
       title="Edit Host Details"
@@ -178,6 +182,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 })
               }
               value={editSpawnHostState.instanceType}
+              disabled={!canEditInstanceType}
             >
               {instanceTypes?.map((instance) => (
                 <Option
