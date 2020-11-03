@@ -23,7 +23,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
       onCompleted: () => {
         dispatchBanner.successBanner("Successfully unmounted the volume.");
       },
-      refetchQueries: ["myVolumes", "myHosts"],
+      refetchQueries: ["MyVolumes", "MyHosts"],
     }
   );
 

@@ -165,7 +165,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
-  removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
@@ -245,9 +245,9 @@ export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
-export type MutationRemovePatchFromCommitQueueArgs = {
+export type MutationRemoveItemFromCommitQueueArgs = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -871,6 +871,8 @@ export type LogMessage = {
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
   message?: Maybe<Scalars["String"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
@@ -1126,13 +1128,13 @@ export type BbCreateTicketMutationVariables = {
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
-export type RemovePatchFromCommitQueueMutationVariables = {
+export type RemoveItemFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
-export type RemovePatchFromCommitQueueMutation = {
-  removePatchFromCommitQueue?: Maybe<string>;
+export type RemoveItemFromCommitQueueMutation = {
+  removeItemFromCommitQueue?: Maybe<string>;
 };
 
 export type RemovePublicKeyMutationVariables = {
@@ -1379,6 +1381,8 @@ export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
     message?: Maybe<string>;
+    owner?: Maybe<string>;
+    repo?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
