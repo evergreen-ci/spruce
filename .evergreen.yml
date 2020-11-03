@@ -263,12 +263,8 @@ functions:
     params:
       working_dir: spruce
       script: |
-        # exit if branch isnt on master
-        if ["${branch_name}" != "master"]; then
-          exit 0
-        fi
         PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
-        BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)\n")
+        BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
         DATE=$(date +'%m/%d/%Y')
         ~/evergreen -c .evergreen.yml notify email -f ${author}@mongodb.com -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
 
