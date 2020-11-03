@@ -52,7 +52,10 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
               onClick={onClick}
               onKeyDown={onClick}
             >
-              <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
+              <Icon
+                data-cy={`table-caret-icon-${record.id}`}
+                glyph={expanded ? "CaretDown" : "CaretRight"}
+              />
             </span>
           );
         },

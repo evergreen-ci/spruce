@@ -80,7 +80,17 @@ describe("Navigating to Spawn Volume page", () => {
   it("Clicking on the row above an open volume card will hide the card", () => {
     cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
     cy.dataRowKey("vol-0ea662ac92f611ed4").click();
-    cy.dataCy("volume-card-vol-0ea662ac92f611ed4").should("not.be.visible");
+    cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
+      "not.be.visible"
+    );
+  });
+
+  it("Clicking on a table caret icon will open the corresponding card", () => {
+    cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should(
+      "not.be.visible"
+    );
+    cy.dataCy("table-caret-icon-vol-0ea662ac92f611ed4").click();
+    cy.dataCy("spawn-volume-card-vol-0ea662ac92f611ed4").should("be.visible");
   });
 
   it("Clicking on a volume table row should open a card", () => {
