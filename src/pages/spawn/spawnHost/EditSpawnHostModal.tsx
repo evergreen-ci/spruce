@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
-import { Input, Select } from "antd";
+import { Input, Select, Tooltip } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
@@ -170,29 +170,37 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            <Select
-              id="instanceTypeDropdown"
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select Instance Type"
-              onChange={(v) =>
-                dispatch({
-                  type: "editInstanceType",
-                  instanceType: v,
-                })
+            <Tooltip
+              title={
+                !canEditInstanceType
+                  ? "Cant change an instances type while it is running"
+                  : undefined
               }
-              value={editSpawnHostState.instanceType}
-              disabled={!canEditInstanceType}
             >
-              {instanceTypes?.map((instance) => (
-                <Option
-                  value={instance}
-                  key={`instance_type_option_${instance}`}
-                >
-                  {instance}
-                </Option>
-              ))}
-            </Select>
+              <Select
+                id="instanceTypeDropdown"
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select Instance Type"
+                onChange={(v) =>
+                  dispatch({
+                    type: "editInstanceType",
+                    instanceType: v,
+                  })
+                }
+                value={editSpawnHostState.instanceType}
+                disabled={!canEditInstanceType}
+              >
+                {instanceTypes?.map((instance) => (
+                  <Option
+                    value={instance}
+                    key={`instance_type_option_${instance}`}
+                  >
+                    {instance}
+                  </Option>
+                ))}
+              </Select>
+            </Tooltip>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
