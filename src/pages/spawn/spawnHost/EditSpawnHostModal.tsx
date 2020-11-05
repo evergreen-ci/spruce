@@ -173,7 +173,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <Tooltip
               title={
                 !canEditInstanceType
-                  ? "Cant change an instances type while it is running"
+                  ? "Pause this host to adjust this field."
                   : undefined
               }
             >
