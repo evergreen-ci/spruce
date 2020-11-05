@@ -4,18 +4,17 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
-import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { omitTypename } from "utils/string";
+import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
-import { PreferencesModal } from "./PreferencesModal";
 
 export const NotificationsTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
@@ -117,40 +116,6 @@ export const NotificationsTab: React.FC = () => {
   );
 };
 
-const ClearSubscriptionsCard: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-  const { sendEvent } = usePreferencesAnalytics();
-  return (
-    <>
-      <PreferencesCard>
-        <ContentWrapper>
-          <Body>
-            To clear all subscriptions you have made on individual Task pages.
-          </Body>
-          <StyledClearSubscriptionButton
-            data-cy="clear-subscriptions-button"
-            variant={Variant.Danger}
-            onClick={() => setShowModal(true)}
-          >
-            Clear all previous subscriptions
-          </StyledClearSubscriptionButton>
-        </ContentWrapper>
-      </PreferencesCard>
-      <PreferencesModal
-        visible={showModal}
-        title="Are you sure you want to clear all of your individual subscriptions?"
-        onSubmit={() => {
-          sendEvent({
-            name: "Clear Subscriptions",
-          });
-        }}
-        onCancel={() => setShowModal(false)}
-        action="Clear All"
-      />
-    </>
-  );
-};
-
 const handleFieldUpdate = (stateUpdate) => (e) => {
   if (typeof e === "string") {
     stateUpdate(e); // Antd select just passes in the value string instead of an event
@@ -174,10 +139,6 @@ const GridField = styled.div`
   grid-area: ${(props: { gridArea: string }): string => props.gridArea};
 `;
 
-const StyledClearSubscriptionButton = styled(Button)`
-  margin-top: 36px;
-`;
-
 const StyledTextInput = styled(TextInput)`
   margin-bottom: 24px;
   width: 50%;
@@ -185,9 +146,7 @@ const StyledTextInput = styled(TextInput)`
     margin-bottom: 40px;
   }
 `;
-const ContentWrapper = styled.div`
-  width: 50%;
-`;
+
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;
