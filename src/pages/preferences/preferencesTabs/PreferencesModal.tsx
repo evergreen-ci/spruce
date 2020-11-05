@@ -10,6 +10,7 @@ interface PreferencesModalProps {
   onSubmit: () => void;
   onCancel: () => void;
   visible: boolean;
+  disabled?: boolean;
 }
 export const PreferencesModal: React.FC<PreferencesModalProps> = ({
   title,
@@ -17,13 +18,18 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
   onSubmit,
   visible,
   onCancel,
+  disabled,
 }) => (
   <Modal visible={visible} footer={null} onCancel={onCancel}>
     <Container>
       <Title>{title}</Title>
       <ModalActionContainer>
         <WideButton onClick={onCancel}>Cancel</WideButton>
-        <WideButton variant={Variant.Danger} onClick={onSubmit}>
+        <WideButton
+          variant={Variant.Danger}
+          onClick={onSubmit}
+          disabled={disabled}
+        >
           {action}
         </WideButton>
       </ModalActionContainer>
