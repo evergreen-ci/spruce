@@ -10,7 +10,6 @@ import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
-  GetUserSettingsQuery,
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
@@ -18,16 +17,12 @@ import { omitTypename } from "utils/string";
 import { NotificationField } from "./notificationTab/NotificationField";
 import { PreferencesModal } from "./PreferencesModal";
 
-type NotificationFields = GetUserSettingsQuery["userSettings"]["notifications"];
-
 export const NotificationsTab: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const { data, loadingComp } = useUserSettingsQuery();
   const { slackUsername, notifications } = data?.userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
-  const [notificationStatus, setNotificationStatus] = useState<
-    NotificationFields
-  >(notifications);
+  const [notificationStatus, setNotificationStatus] = useState(notifications);
   const { sendEvent } = usePreferencesAnalytics();
   // update state from query
   useEffect(() => {
@@ -59,13 +54,13 @@ export const NotificationsTab: React.FC = () => {
     return null;
   }
 
-  const handleSave = (n) => async (e): Promise<void> => {
+  const handleSave = async (e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
     const variables = {
       userSettings: {
         slackUsername: slackUsernameField,
-        notifications: omitTypename(n),
+        notifications: omitTypename(notificationStatus),
       },
     };
     sendEvent({
@@ -112,46 +107,19 @@ export const NotificationsTab: React.FC = () => {
           data-cy="save-profile-changes-button"
           variant={Variant.Primary}
           disabled={!hasFieldUpdates || updateLoading}
-          onClick={handleSave(notificationStatus)}
+          onClick={handleSave}
         >
           Save Changes
         </Button>
       </PreferencesCard>
-      <ClearSubscriptionsCard
-        notificationStatus={notificationStatus}
-        setNotificationStatus={setNotificationStatus}
-        onSubmit={handleSave}
-      />
+      <ClearSubscriptionsCard />
     </div>
   );
 };
-interface ClearSubscriptionsCardProps {
-  setNotificationStatus: React.Dispatch<
-    React.SetStateAction<NotificationFields>
-  >;
-  notificationStatus: NotificationFields;
-  onSubmit: any;
-}
-const ClearSubscriptionsCard: React.FC<ClearSubscriptionsCardProps> = ({
-  notificationStatus,
-  setNotificationStatus,
-  onSubmit,
-}) => {
+
+const ClearSubscriptionsCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
-  const onClearAllClicked = (e: any) => {
-    const notifications = { ...notificationStatus };
-    Object.keys(notifications).forEach((v) => {
-      notifications[v] = "";
-    });
-
-    setNotificationStatus(notifications);
-    onSubmit(notifications)(e);
-    sendEvent({
-      name: "Clear Subscriptions",
-    });
-    setShowModal(false);
-  };
   return (
     <>
       <PreferencesCard>
@@ -171,7 +139,11 @@ const ClearSubscriptionsCard: React.FC<ClearSubscriptionsCardProps> = ({
       <PreferencesModal
         visible={showModal}
         title="Are you sure you want to clear all of your individual subscriptions?"
-        onSubmit={onClearAllClicked}
+        onSubmit={() => {
+          sendEvent({
+            name: "Clear Subscriptions",
+          });
+        }}
         onCancel={() => setShowModal(false)}
         action="Clear All"
       />
