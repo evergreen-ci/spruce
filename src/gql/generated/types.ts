@@ -181,6 +181,7 @@ export type Mutation = {
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
   bbCreateTicket: Scalars["Boolean"];
+  clearMySubscriptions: Scalars["Int"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -611,6 +612,7 @@ export type Patch = {
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
   baseVersionID?: Maybe<Scalars["String"]>;
+  parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
@@ -653,6 +655,11 @@ export type ProjectBuildVariant = {
   name: Scalars["String"];
   displayName: Scalars["String"];
   tasks: Array<Scalars["String"]>;
+};
+
+export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type TaskResult = {
@@ -1067,6 +1074,10 @@ export type AttachVolumeToHostMutationVariables = {
 };
 
 export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
+
+export type ClearMySubscriptionsMutationVariables = {};
+
+export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
 export type CreatePublicKeyMutationVariables = {
   publicKeyInput: PublicKeyInput;
