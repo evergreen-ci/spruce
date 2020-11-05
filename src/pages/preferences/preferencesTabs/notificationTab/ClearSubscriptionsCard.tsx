@@ -25,7 +25,9 @@ export const ClearSubscriptionsCard: React.FC = () => {
     onCompleted: (result) => {
       setShowModal(false);
       dispatchBanner.successBanner(
-        `Successfully cleared ${result.clearMySubscriptions} subscriptions!`
+        `Successfully cleared ${
+          result.clearMySubscriptions
+        } subscription${result.clearMySubscriptions !== 1 && "s"}!`
       );
     },
     onError: (err) => {
@@ -41,7 +43,8 @@ export const ClearSubscriptionsCard: React.FC = () => {
       <PreferencesCard>
         <ContentWrapper>
           <Body>
-            To clear all subscriptions you have made on individual Task pages.
+            To clear all subscriptions you have made on individual Version and
+            Task pages.
           </Body>
           <StyledClearSubscriptionButton
             data-cy="clear-subscriptions-button"
@@ -54,7 +57,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
       </PreferencesCard>
       <PreferencesModal
         visible={showModal}
-        title="Are you sure you want to clear all of your individual subscriptions?"
+        title="Are you sure you want to clear all subscriptions you have made on individual Version and Task pages?"
         onSubmit={() => {
           clearMySubscriptions();
           sendEvent({
