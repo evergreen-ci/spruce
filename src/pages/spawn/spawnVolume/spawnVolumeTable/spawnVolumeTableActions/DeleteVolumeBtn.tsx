@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
+import Checkbox from "@leafygreen-ui/checkbox";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import Icon from "components/icons/Icon";
 import { Popconfirm } from "components/Popconfirm";
@@ -18,7 +19,7 @@ interface Props {
 
 export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
   const dispatchBanner = useBannerDispatchContext();
-
+  const [confirmDelete, setConfirmDelete] = useState(false);
   const [removeVolume, { loading: loadingRemoveVolume }] = useMutation<
     RemoveVolumeMutation,
     RemoveVolumeMutationVariables
@@ -37,7 +38,22 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     <Popconfirm
       icon={null}
       placement="left"
-      title={`Delete this volume ${volumeName}?`}
+      title={
+        <>
+          {`Delete this volume ${volumeName}?`}
+          {volume.hostID && (
+            <div style={{ paddingTop: 8 }}>
+              <Checkbox
+                className="cy-checkbox"
+                onChange={() => setConfirmDelete(!confirmDelete)}
+                label="I understand this volume is currently mounted to a host."
+                checked={confirmDelete}
+                bold={false}
+              />
+            </div>
+          )}
+        </>
+      }
       onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Delete volume",
@@ -46,6 +62,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
         removeVolume({ variables: { volumeId: volume.id } });
       }}
       okText="Yes"
+      okButtonProps={{ disabled: !confirmDelete && volume.hostID.length > 0 }}
       cancelText="Cancel"
     >
       <Button
