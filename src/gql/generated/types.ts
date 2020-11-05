@@ -181,6 +181,7 @@ export type Mutation = {
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
   bbCreateTicket: Scalars["Boolean"];
+  clearMySubscriptions: Scalars["Int"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -1073,6 +1074,10 @@ export type AttachVolumeToHostMutationVariables = {
 };
 
 export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
+
+export type ClearMySubscriptionsMutationVariables = {};
+
+export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
 export type CreatePublicKeyMutationVariables = {
   publicKeyInput: PublicKeyInput;
