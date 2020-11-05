@@ -120,7 +120,9 @@ export const ActionButtons = ({
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
       successBanner(
-        `Priority for task updated to ${data.setTaskPriority.priority}`
+        data.setTaskPriority.priority >= 0
+          ? `Priority for task updated to ${data.setTaskPriority.priority}`
+          : `Task was successfully disabled`
       );
     },
     onError: (err) => {

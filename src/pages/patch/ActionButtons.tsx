@@ -34,18 +34,17 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const { id: patchId } = useParams<{ id: string }>();
   const [isActionLoading, setIsActionLoading] = useState(false);
   const { successBanner, errorBanner } = useBannerDispatchContext();
-  const refetchQueries = ["Patch"];
-  const [setPatchPriority] = useMutation<
+  const [disablePatch] = useMutation<
     SetPatchPriorityMutation,
     SetPatchPriorityMutationVariables
   >(SET_PATCH_PRIORITY, {
     onCompleted: () => {
-      successBanner(`Priority for all tasks was updated`);
+      successBanner(`Tasks in this patch were disabled`);
     },
     onError: (err) => {
-      errorBanner(`Error setting priority: ${err.message}`);
+      errorBanner(`Unable to disable patch tasks: ${err.message}`);
     },
-    refetchQueries,
+    refetchQueries: ["Patch"],
   });
 
   const hideMenu = () => setIsVisible(false);
@@ -66,7 +65,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       {...{
         patchId,
         hideMenu,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         key: "unschedule",
         setParentLoading: setIsActionLoading,
         disabled: isActionLoading,
@@ -76,7 +75,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       data-cy="disable"
       disabled={false}
       onClick={() => {
-        setPatchPriority({
+        disablePatch({
           variables: { patchId, priority: -1 },
         });
       }}
@@ -89,7 +88,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         hideMenu,
         key: "priority",
         disabled: isActionLoading,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         setParentLoading: setIsActionLoading,
       }}
     />,
@@ -99,7 +98,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         hideMenu,
         key: "enqueue",
         disabled: isActionLoading || !canEnqueueToCommitQueue,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         setParentLoading: setIsActionLoading,
       }}
     />,
@@ -115,7 +114,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             isButton: true,
             disabled: isActionLoading,
             setParentLoading: setIsActionLoading,
-            refetchQueries,
+            refetchQueries: ["Patch"],
           }}
         />
         <RestartPatch
@@ -124,14 +123,14 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             hideMenu,
             isButton: true,
             disabled: isActionLoading,
-            refetchQueries,
+            refetchQueries: ["Patch"],
           }}
         />
         <AddNotification
           {...{
             patchId,
             hideMenu,
-            refetchQueries,
+            refetchQueries: ["Patch"],
             key: "notification",
             setParentLoading: setIsActionLoading,
             disabled: isActionLoading,
