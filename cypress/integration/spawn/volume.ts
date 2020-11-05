@@ -105,12 +105,32 @@ describe("Navigating to Spawn Volume page", () => {
 
   it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
     cy.visit("/spawn/volume");
-    cy.dataRowKey("vol-0ae8720b445b771b6").should("exist");
-    cy.dataCy("trash-vol-0ae8720b445b771b6").click();
+    cy.dataRowKey("vol-0c66e16459646704d").should("exist");
+    cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.get(popconfirmYesClassName).click();
-    cy.dataRowKey("vol-0ae8720b445b771b6").should("not.exist");
+    cy.dataRowKey("vol-0c66e16459646704d").should("not.exist");
+    cy.dataCy("mounted-badge").contains("9 Mounted");
+    cy.dataCy("free-badge").contains("3 Free");
+  });
+
+  it("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
+    cy.visit("/spawn/volume");
+    cy.dataRowKey(
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ).should("exist");
+    cy.dataCy(
+      "trash-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ).click();
+    cy.get(popconfirmYesClassName).should("have.css", "pointer-events", "none"); // should be disabled to start wit.should("have.css", "pointer-events", "none");
+    cy.contains(
+      "I understand this volume is currently mounted to a host."
+    ).click();
+    cy.get(popconfirmYesClassName).click();
+    cy.dataRowKey(
+      "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ).should("not.exist");
     cy.dataCy("mounted-badge").contains("8 Mounted");
-    cy.dataCy("free-badge").contains("4 Free");
+    cy.dataCy("free-badge").contains("3 Free");
   });
 
   it("Clicking on unmount should result in a new error banner appearing.", () => {

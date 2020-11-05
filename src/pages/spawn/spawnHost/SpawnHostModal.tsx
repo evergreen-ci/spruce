@@ -136,8 +136,12 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   }
 
   const distros = fetchedDistros.filter((d) => d.name.includes(distroInput));
-  virtualWorkstationDistros = distros.filter((d) => d.isVirtualWorkStation);
-  notVirtualWorkstationDistros = distros.filter((d) => !d.isVirtualWorkStation);
+  virtualWorkstationDistros = distros
+    .filter((d) => d.isVirtualWorkStation)
+    .sort((a, b) => a.name.localeCompare(b.name));
+  notVirtualWorkstationDistros = distros
+    .filter((d) => !d.isVirtualWorkStation)
+    .sort((a, b) => a.name.localeCompare(b.name));
 
   const distroOptions = [
     {
