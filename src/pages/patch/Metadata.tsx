@@ -6,6 +6,7 @@ import { P2 } from "components/Typography";
 import { paths } from "constants/routes";
 import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
+import { ParametersModal } from "./ParametersModal";
 
 interface Props {
   loading: boolean;
@@ -22,6 +23,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
     projectID,
     baseVersionID,
     commitQueuePosition,
+    parameters,
   } = patch || {};
   const { submittedAt, started, finished } = time || {};
   const { makespan, timeTaken } = duration || {};
@@ -53,6 +55,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
           </StyledLink>
         </P2>
       )}
+      <ParametersModal parameters={parameters} />
     </MetadataCard>
   );
 };
