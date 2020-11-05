@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
@@ -84,6 +84,12 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   );
   const maxSpawnableLimit =
     volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
+
+  useEffect(() => {
+    // Update the size input when we set a new max volume size limit
+    dispatch({ type: "setSize", data: maxSpawnableLimit });
+  }, [maxSpawnableLimit]);
+
   return (
     <Modal
       title="Spawn New Volume"
