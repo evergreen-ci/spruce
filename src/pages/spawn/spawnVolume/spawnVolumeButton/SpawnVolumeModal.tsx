@@ -82,6 +82,8 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     (cnt, v) => cnt + v.size,
     0
   );
+  const maxSpawnableLimit =
+    volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
   return (
     <Modal
       title="Spawn New Volume"
@@ -93,7 +95,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={loadingSpawnVolume}
+          disabled={loadingSpawnVolume || state.size === 0}
           key="spawn-volume-button"
           onClick={spawnVolume}
           variant={Variant.Primary}
@@ -105,7 +107,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     >
       <Subtitle>Required Volume Information</Subtitle>
       <SizeSelector
-        limit={volumeLimit - totalVolumeSize}
+        limit={maxSpawnableLimit}
         onChange={(s) => dispatch({ type: "setSize", data: s })}
         value={state.size}
       />
