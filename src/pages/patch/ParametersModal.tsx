@@ -8,13 +8,9 @@ import { Parameter } from "gql/generated/types";
 
 interface ParametersProps {
   parameters: Parameter[];
-  dataCy: string;
 }
 
-export const ParametersModal: React.FC<ParametersProps> = ({
-  parameters,
-  dataCy,
-}) => {
+export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
   const [showModal, setShowModal] = useState<boolean>(false);
   return (
     <>
@@ -33,7 +29,7 @@ export const ParametersModal: React.FC<ParametersProps> = ({
         visible={showModal}
         footer={null}
         onCancel={() => setShowModal(false)}
-        data-cy={dataCy}
+        data-cy="parameters-modal"
         title="Patch Parameters"
       >
         {parameters?.map((param) => (

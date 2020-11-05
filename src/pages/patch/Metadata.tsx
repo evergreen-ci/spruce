@@ -55,7 +55,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
           </StyledLink>
         </P2>
       )}
-      <ParametersModal dataCy="parameters-modal" parameters={parameters} />
+      <ParametersModal parameters={parameters} />
     </MetadataCard>
   );
 };
