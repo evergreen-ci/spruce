@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { useMutation } from "@apollo/client";
+import React, { useReducer, useEffect } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics";
@@ -16,8 +16,12 @@ import { useBannerDispatchContext } from "context/banners";
 import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
+  GetSpruceConfigQuery,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
 import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { reducer, initialState } from "./spawnVolumeModal/reducer";
 import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
@@ -35,6 +39,14 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const spawnAnalytics = useSpawnAnalytics();
   const dispatchBanner = useBannerDispatchContext();
+  const { data: spruceConfig } = useQuery<GetSpruceConfigQuery>(
+    GET_SPRUCE_CONFIG
+  );
+  const { data: volumesData } = useQuery<
+    MyVolumesQuery,
+    MyVolumesQueryVariables
+  >(GET_MY_VOLUMES);
+
   const [spawnVolumeMutation, { loading: loadingSpawnVolume }] = useMutation<
     SpawnVolumeMutation,
     SpawnVolumeMutationVariables
@@ -64,6 +76,19 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     spawnAnalytics.sendEvent({ name: "Spawned a volume", params: variables });
     spawnVolumeMutation({ variables });
   };
+  const volumeLimit =
+    spruceConfig?.spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
+  const totalVolumeSize = volumesData?.myVolumes?.reduce(
+    (cnt, v) => cnt + v.size,
+    0
+  );
+  const maxSpawnableLimit =
+    volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
+
+  useEffect(() => {
+    // Update the size input when we set a new max volume size limit
+    dispatch({ type: "setSize", data: maxSpawnableLimit });
+  }, [maxSpawnableLimit]);
 
   return (
     <Modal
@@ -76,7 +101,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={loadingSpawnVolume}
+          disabled={loadingSpawnVolume || state.size === 0}
           key="spawn-volume-button"
           onClick={spawnVolume}
           variant={Variant.Primary}
@@ -88,6 +113,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     >
       <Subtitle>Required Volume Information</Subtitle>
       <SizeSelector
+        limit={maxSpawnableLimit}
         onChange={(s) => dispatch({ type: "setSize", data: s })}
         value={state.size}
       />

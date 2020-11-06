@@ -1,26 +1,29 @@
 import React from "react";
-import { InputNumber } from "antd";
+import { InputNumber, Tooltip } from "antd";
 import { ModalContent, SectionContainer, SectionLabel } from "components/Spawn";
 import { InputLabel } from "components/styles";
 
 interface Props {
   value: number;
+  limit: number;
   onChange: (s: number) => void;
 }
 
-export const SizeSelector: React.FC<Props> = ({ value, onChange }) => (
+export const SizeSelector: React.FC<Props> = ({ value, onChange, limit }) => (
   <SectionContainer>
     <SectionLabel weight="medium">Volume Size</SectionLabel>
     <ModalContent>
       <InputLabel htmlFor="volumeSize">Size</InputLabel>
-      <InputNumber
-        data-cy="volumeSize"
-        id="volumeSize"
-        min={1}
-        max={1500}
-        value={value}
-        onChange={onChange}
-      />
+      <Tooltip title={`Max Spawnable Volume Size is ${limit} GiB`}>
+        <InputNumber
+          data-cy="volumeSize"
+          id="volumeSize"
+          min={0}
+          max={limit}
+          value={value}
+          onChange={onChange}
+        />
+      </Tooltip>
     </ModalContent>
   </SectionContainer>
 );
