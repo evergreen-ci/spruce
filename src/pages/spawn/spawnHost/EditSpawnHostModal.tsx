@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
-import { Input, Select } from "antd";
+import { Input, Select, Tooltip } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
@@ -32,6 +32,7 @@ import {
   VolumesData,
   UserTagsData,
 } from "pages/spawn/spawnHost/fields";
+import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
 import {
@@ -119,6 +120,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       },
     });
   };
+
+  const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
+
   return (
     <Modal
       title="Edit Host Details"
@@ -166,28 +170,37 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            <Select
-              id="instanceTypeDropdown"
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select Instance Type"
-              onChange={(v) =>
-                dispatch({
-                  type: "editInstanceType",
-                  instanceType: v,
-                })
+            <Tooltip
+              title={
+                !canEditInstanceType
+                  ? "Pause this host to adjust this field."
+                  : undefined
               }
-              value={editSpawnHostState.instanceType}
             >
-              {instanceTypes?.map((instance) => (
-                <Option
-                  value={instance}
-                  key={`instance_type_option_${instance}`}
-                >
-                  {instance}
-                </Option>
-              ))}
-            </Select>
+              <Select
+                id="instanceTypeDropdown"
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select Instance Type"
+                onChange={(v) =>
+                  dispatch({
+                    type: "editInstanceType",
+                    instanceType: v,
+                  })
+                }
+                value={editSpawnHostState.instanceType}
+                disabled={!canEditInstanceType}
+              >
+                {instanceTypes?.map((instance) => (
+                  <Option
+                    value={instance}
+                    key={`instance_type_option_${instance}`}
+                  >
+                    {instance}
+                  </Option>
+                ))}
+              </Select>
+            </Tooltip>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
