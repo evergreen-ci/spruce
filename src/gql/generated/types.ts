@@ -181,6 +181,7 @@ export type Mutation = {
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
   bbCreateTicket: Scalars["Boolean"];
+  clearMySubscriptions: Scalars["Int"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -611,6 +612,7 @@ export type Patch = {
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
   baseVersionID?: Maybe<Scalars["String"]>;
+  parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
@@ -653,6 +655,11 @@ export type ProjectBuildVariant = {
   name: Scalars["String"];
   displayName: Scalars["String"];
   tasks: Array<Scalars["String"]>;
+};
+
+export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type TaskResult = {
@@ -825,6 +832,7 @@ export type File = {
 export type User = {
   displayName: Scalars["String"];
   userId: Scalars["String"];
+  emailAddress: Scalars["String"];
 };
 
 export type RecentTaskLogs = {
@@ -1859,7 +1867,9 @@ export type GetUserSettingsQuery = {
 
 export type GetUserQueryVariables = {};
 
-export type GetUserQuery = { user: { userId: string; displayName: string } };
+export type GetUserQuery = {
+  user: { userId: string; displayName: string; emailAddress: string };
+};
 
 export type GetOtherUserQueryVariables = {
   userId?: Maybe<Scalars["String"]>;

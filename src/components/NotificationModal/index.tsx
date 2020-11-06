@@ -15,11 +15,12 @@ import { ErrorMessage } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetUserSettingsQuery,
+  GetUserQuery,
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
-import { GET_USER_SETTINGS } from "gql/queries";
+import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import {
   useNotificationModal,
   UseNotificationModalProps,
@@ -27,6 +28,7 @@ import {
 import {
   SubscriptionMethodDropdownOption,
   SUBSCRIPTION_SLACK,
+  SUBSCRIPTION_EMAIL,
 } from "types/subscription";
 
 const { Option } = Select;
@@ -71,7 +73,11 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     GET_USER_SETTINGS
   );
 
+  // USER QUERY
+  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  console.log({ userData });
   const slackUsername = userSettingsData?.userSettings?.slackUsername;
+  const emailAddress = userData?.user?.emailAddress;
   const {
     disableAddCriteria,
     extraFieldErrorMessages,
@@ -110,14 +116,25 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const targetPath = get(currentMethodControl, "targetPath");
 
   useEffect(() => {
-    if (selectedSubscriptionMethod === SUBSCRIPTION_SLACK.value) {
-      if (slackUsername) {
-        const targetCopy = { ...target };
-        set(targetCopy, targetPath, slackUsername);
-        setTarget(targetCopy);
-      }
+    switch (selectedSubscriptionMethod) {
+      case SUBSCRIPTION_SLACK.value:
+        if (slackUsername && slackUsername !== "") {
+          const targetCopy = { ...target };
+          set(targetCopy, targetPath, slackUsername);
+          setTarget(targetCopy);
+        }
+        break;
+      case SUBSCRIPTION_EMAIL.value:
+        if (emailAddress && emailAddress !== "") {
+          const targetCopy = { ...target };
+          set(targetCopy, targetPath, emailAddress);
+          setTarget(targetCopy);
+        }
+        break;
+      default:
+        break;
     }
-  }, [selectedSubscriptionMethod, slackUsername]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedSubscriptionMethod, slackUsername, emailAddress]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Modal
       data-cy={dataCy}
