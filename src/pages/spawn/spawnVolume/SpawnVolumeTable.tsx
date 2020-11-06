@@ -6,7 +6,7 @@ import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { wordBreakCss } from "components/Typography";
-import { routes } from "constants/routes";
+import { getSpawnHostRoute } from "constants/routes";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume } from "types/spawn";
 import { parseQueryString } from "utils";
@@ -60,10 +60,7 @@ const columns: Array<ColumnProps<MyVolume>> = [
     key: "mountedOn",
     sorter: sortByHost,
     render: (_, volume: MyVolume) => (
-      <Link
-        data-cy="host-link"
-        to={`${routes.spawnHost}?host=${volume.hostID}`}
-      >
+      <Link data-cy="host-link" to={getSpawnHostRoute({ host: volume.hostID })}>
         <WordBreak> {getHostDisplayName(volume)}</WordBreak>
       </Link>
     ),

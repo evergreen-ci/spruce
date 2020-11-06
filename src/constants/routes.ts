@@ -81,11 +81,23 @@ export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
 export const getTaskQueueRoute = (distro: string, taskId?: string) =>
   `${paths.taskQueue}/${distro}${taskId ? `/${taskId}` : ""}`;
 
-export const getSpawnHostRoute = (distroId: string, taskId?: string) => {
+interface GetSpawnHosRouteParam {
+  distroId?: string;
+  host?: string;
+  taskId?: string;
+  spawnHost?: boolean;
+}
+export const getSpawnHostRoute = ({
+  distroId,
+  host,
+  taskId,
+  spawnHost,
+}: GetSpawnHosRouteParam) => {
   const queryParams = stringifyQuery({
-    spawnHost: "True",
+    ...(spawnHost && { spawnHost: "True" }),
     distroId,
     taskId,
+    host,
   });
   return `${routes.spawnHost}?${queryParams}`;
 };
