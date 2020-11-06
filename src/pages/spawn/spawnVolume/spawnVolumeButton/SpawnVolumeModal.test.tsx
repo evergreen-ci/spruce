@@ -3,8 +3,10 @@ import { MockedProvider } from "@apollo/client/testing";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
 import {
   GET_MY_HOSTS,
+  GET_SPRUCE_CONFIG,
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_USER,
+  GET_MY_VOLUMES,
 } from "gql/queries";
 import {
   act,
@@ -13,6 +15,56 @@ import {
   waitFor,
 } from "test_utils/test-utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
+
+const myVolumesQueryMock = {
+  request: { query: GET_MY_VOLUMES, variables: {} },
+  result: {
+    data: {
+      myVolumes: [
+        {
+          id: "vol-0228202a15111023c",
+          displayName: "",
+          createdBy: "arjrsatun.psratatel",
+          type: "gp2",
+          availabilityZone: "us-east-1d",
+          size: 200,
+          expiration: "2020-11-12T18:19:39Z",
+          deviceName: null,
+          hostID: "i-0d5d29bf2e7ee342d",
+          host: {
+            displayName: "hai",
+            id: "i-0d5d29bf2e7ee342d",
+            __typename: "Host",
+          },
+          noExpiration: true,
+          homeVolume: false,
+          creationTime: "2020-11-05T18:19:39Z",
+          __typename: "Volume",
+        },
+        {
+          id: "vol-0d7b1973c71a7cccb",
+          displayName: "ramen",
+          createdBy: "arrastrjun.prastatel",
+          type: "gp2",
+          availabilityZone: "us-east-1d",
+          size: 100,
+          expiration: "2020-11-12T18:24:09Z",
+          deviceName: null,
+          hostID: "i-0d5d29bf2e7ee342d",
+          host: {
+            displayName: "hai",
+            id: "i-0d5d29bf2e7ee342d",
+            __typename: "Host",
+          },
+          noExpiration: true,
+          homeVolume: false,
+          creationTime: "2020-11-05T18:18:36Z",
+          __typename: "Volume",
+        },
+      ],
+    },
+  },
+};
 
 const baseMocks = [
   {
@@ -147,6 +199,38 @@ const baseMocks = [
       },
     },
   },
+  {
+    request: {
+      query: GET_SPRUCE_CONFIG,
+      variables: {},
+    },
+    result: {
+      data: {
+        spruceConfig: {
+          bannerTheme: "",
+          banner: "",
+          ui: {
+            userVoice: "",
+            __typename: "UiConfig",
+          },
+          jira: {
+            host: "",
+            __typename: "JiraConfig",
+          },
+          providers: {
+            aws: {
+              maxVolumeSizePerUser: 1500,
+              __typename: "AwsConfig",
+            },
+            __typename: "CloudProviderConfig",
+          },
+        },
+        __typename: "SpruceConfig",
+      },
+    },
+  },
+  myVolumesQueryMock,
+  myVolumesQueryMock,
 ];
 
 const mockSuccessBanner = jest.fn();
@@ -187,7 +271,10 @@ test("Form contains default volumes on initial render.", async () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     </MockedProvider>
   ));
-  expect(queryByDataCy("volumeSize")).toHaveValue("500");
+  await new Promise((resolve) => setTimeout(resolve, 0));
+
+  waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("1200"));
+
   expect(queryByDataCy("regionSelector")).toContainHTML(
     '<span class="ant-select-selection-item" title="us-east-1a">us-east-1a</span>'
   );
@@ -212,7 +299,7 @@ test("Form submission succeeds with default values", async () => {
         variables: {
           SpawnVolumeInput: {
             availabilityZone: "us-east-1a",
-            size: 500,
+            size: 1200,
             type: "gp2",
             noExpiration: true,
           },
