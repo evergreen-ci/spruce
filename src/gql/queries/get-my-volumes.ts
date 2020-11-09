@@ -20,5 +20,10 @@ export const GET_MY_VOLUMES = gql`
       homeVolume
       creationTime
     }
+    spruceConfig {
+      spawnHost {
+        unexpirableVolumesPerUser
+      }
+    }
   }
 `;
