@@ -1,58 +1,35 @@
-import React, { useReducer } from "react";
+import React, { useReducer, useEffect } from "react";
 import { useMutation, useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { InputNumber } from "antd";
-import Icon from "components/icons/Icon";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { RegionSelector, Section, WideButton } from "components/Spawn";
-import { InputLabel } from "components/styles";
+import {
+  MountVolumeSelect,
+  SectionContainer,
+  SectionLabel,
+  WideButton,
+} from "components/Spawn";
+import { ExpirationField } from "components/Spawn/ExpirationField";
+import { HR } from "components/styles/Layout";
 import { useBannerDispatchContext } from "context/banners";
 import {
-  AwsRegionsQuery,
-  AwsRegionsQueryVariables,
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
+  GetSpruceConfigQuery,
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
-import { GET_AWS_REGIONS } from "gql/queries";
+import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
+import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
+import { reducer, initialState } from "./spawnVolumeModal/reducer";
+import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
+import { TypeSelector } from "./spawnVolumeModal/TypeSelector";
 
 interface SpawnVolumeModalProps {
   visible: boolean;
   onCancel: () => void;
-}
-
-const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
-  availabilityZone: "",
-  size: 500,
-  type: "",
-  expiration: null,
-  noExpiration: false,
-  host: "",
-};
-
-enum ActionType {
-  SetSize = "setSize",
-  SetAvailabilityZone = "setAvailabilityZone",
-}
-
-interface Action {
-  type: ActionType;
-  data: any;
-}
-
-function reducer(
-  state: SpawnVolumeMutationVariables["SpawnVolumeInput"],
-  action: Action
-) {
-  switch (action.type) {
-    case ActionType.SetSize:
-      return { ...state, size: action.data };
-    case ActionType.SetAvailabilityZone:
-      return { ...state, availabilityZone: action.data };
-    default:
-      return state;
-  }
 }
 
 export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
@@ -60,7 +37,16 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   onCancel,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const spawnAnalytics = useSpawnAnalytics();
   const dispatchBanner = useBannerDispatchContext();
+  const { data: spruceConfig } = useQuery<GetSpruceConfigQuery>(
+    GET_SPRUCE_CONFIG
+  );
+  const { data: volumesData } = useQuery<
+    MyVolumesQuery,
+    MyVolumesQueryVariables
+  >(GET_MY_VOLUMES);
+
   const [spawnVolumeMutation, { loading: loadingSpawnVolume }] = useMutation<
     SpawnVolumeMutation,
     SpawnVolumeMutationVariables
@@ -77,14 +63,32 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     },
     refetchQueries: ["MyVolumes"],
   });
-  const { data: awsData } = useQuery<AwsRegionsQuery, AwsRegionsQueryVariables>(
-    GET_AWS_REGIONS
-  );
 
   const spawnVolume = () => {
-    spawnVolumeMutation({ variables: { SpawnVolumeInput: state } });
+    const mutationVars = { ...state };
+    if (mutationVars.noExpiration === true) {
+      delete mutationVars.expiration;
+    }
+    if (mutationVars.host === "") {
+      delete mutationVars.host;
+    }
+    const variables = { SpawnVolumeInput: mutationVars };
+    spawnAnalytics.sendEvent({ name: "Spawned a volume", params: variables });
+    spawnVolumeMutation({ variables });
   };
-  const canSubmitSpawnVolume = true;
+  const volumeLimit =
+    spruceConfig?.spruceConfig?.providers?.aws?.maxVolumeSizePerUser;
+  const totalVolumeSize = volumesData?.myVolumes?.reduce(
+    (cnt, v) => cnt + v.size,
+    0
+  );
+  const maxSpawnableLimit =
+    volumeLimit - totalVolumeSize >= 0 ? volumeLimit - totalVolumeSize : 0;
+
+  useEffect(() => {
+    // Update the size input when we set a new max volume size limit
+    dispatch({ type: "setSize", data: maxSpawnableLimit });
+  }, [maxSpawnableLimit]);
 
   return (
     <Modal
@@ -97,38 +101,48 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         </WideButton>,
         <WideButton
           data-cy="spawn-volume-button"
-          disabled={!canSubmitSpawnVolume || loadingSpawnVolume}
+          disabled={loadingSpawnVolume || state.size === 0}
+          key="spawn-volume-button"
           onClick={spawnVolume}
           variant={Variant.Primary}
-          key="spawn-volume-button"
-          glyph={loadingSpawnVolume && <Icon glyph="Refresh" />}
         >
           {loadingSpawnVolume ? "Spawning Volume" : "Spawn"}
         </WideButton>,
       ]}
       data-cy="spawn-volume-modal"
     >
-      <div>
-        <Subtitle>Required Volume Information</Subtitle>
-        <Section>
-          <InputLabel htmlFor="volumeSize">Size</InputLabel>
-          <InputNumber
-            min={1}
-            max={500}
-            value={state.size}
-            onChange={(value) =>
-              dispatch({ type: ActionType.SetSize, data: value as number })
-            }
-          />
-        </Section>
-        <RegionSelector
-          onChange={(value) =>
-            dispatch({ type: ActionType.SetAvailabilityZone, data: value })
-          }
-          selectedRegion={state.availabilityZone}
-          awsRegions={awsData?.awsRegions}
+      <Subtitle>Required Volume Information</Subtitle>
+      <SizeSelector
+        limit={maxSpawnableLimit}
+        onChange={(s) => dispatch({ type: "setSize", data: s })}
+        value={state.size}
+      />
+      <AvailabilityZoneSelector
+        onChange={(z) => dispatch({ type: "setAvailabilityZone", data: z })}
+        value={state.availabilityZone}
+      />
+      <TypeSelector
+        onChange={(t) => dispatch({ type: "setType", typeId: t })}
+        value={state.type}
+      />
+      <HR />
+      <Subtitle>Optional Volume Information</Subtitle>
+      <ExpirationField
+        data={{
+          expiration: state.expiration,
+          noExpiration: state.noExpiration,
+        }}
+        onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
+      />
+      <SectionContainer>
+        <SectionLabel weight="medium">Mount to Host</SectionLabel>
+        <MountVolumeSelect
+          label="Host"
+          onChange={(hostId) => dispatch({ type: "setHost", hostId })}
+          selectedHostId={state.host}
+          targetAvailabilityZone={state.availabilityZone}
         />
-      </div>
+      </SectionContainer>
     </Modal>
   );
 };

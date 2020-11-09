@@ -6,8 +6,6 @@ import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/icons/Icon";
 
-export { DetailsCard } from "./DetailsCard";
-
 export const Title = styled(H2)``;
 
 export const TitleContainer = styled.div`
@@ -40,7 +38,7 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
     <Table
       {...{
         ...props,
-        rowKey: (record) => record.displayName || record.id,
+        rowKey: (record) => record.id,
         pagination: false,
         expandRowByClick: true,
         expandIcon: ({ expanded }) => (

@@ -2,6 +2,7 @@ import React from "react";
 import { render, queries, RenderResult } from "@testing-library/react";
 import { createMemoryHistory } from "history";
 import { Router, Route } from "react-router-dom";
+import { v4 as uuid } from "uuid";
 import * as customQueries from "./custom-queries";
 
 type QueriesType = typeof queries;
@@ -49,3 +50,10 @@ export const customRenderWithRouterMatch = (
     </Router>
   ),
 });
+
+export const mockUUID = () => {
+  const MAX_INT = Number.MAX_SAFE_INTEGER;
+  uuid.mockImplementation(() =>
+    Math.floor(Math.random() * Math.floor(MAX_INT))
+  );
+};

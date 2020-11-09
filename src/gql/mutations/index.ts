@@ -1,5 +1,5 @@
 export { ABORT_TASK } from "./abort-task";
-export { REMOVE_PATCH_FROM_COMMIT_QUEUE } from "./remove-patch-from-commit-queue";
+export { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "./remove-item-from-commit-queue";
 export { RESTART_PATCH } from "./restart-patch";
 export { RESTART_TASK } from "./restart-task";
 export { SCHEDULE_PATCH } from "./schedule-patch";
@@ -19,3 +19,6 @@ export { DETACH_VOLUME } from "./detach-volume";
 export { SPAWN_HOST } from "./spawn-host";
 export { UPDATE_SPAWN_HOST_STATUS } from "./update-spawn-host-status";
 export { EDIT_SPAWN_HOST } from "./edit-spawn-host";
+export { FILE_JIRA_TICKET } from "./file-jira-ticket";
+export { UPDATE_SPAWN_VOLUME } from "./update-spawn-volume";
+export { CLEAR_MY_SUBSCRIPTIONS } from "./clear-my-subscriptions";

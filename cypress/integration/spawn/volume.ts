@@ -11,6 +11,49 @@ describe("Navigating to Spawn Volume page", () => {
     cy.viewport(1920, 1600);
   });
 
+  describe("Edit volume modal", () => {
+    it("Clicking on 'Edit' should open the Edit Volume Modal", () => {
+      cy.visit("/spawn/volume");
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("update-volume-modal").should("be.visible");
+    });
+
+    it("Volume name & expiration inputs should be populated with the volume display name & expiration on intial render", () => {
+      cy.dataCy("volume-name-input").should(
+        "have.value",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
+      cy.dataCy("date-picker").should("have.value", "2020-06-06");
+      cy.dataCy("time-picker").should("have.value", "15:48:18");
+    });
+
+    it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
+      cy.dataCy("update-volume-button").should("be.disabled");
+      // type a new name
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.dataCy("update-volume-button").should("not.be.disabled");
+
+      // type original name
+      cy.dataCy("volume-name-input")
+        .clear()
+        .type(
+          "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+        );
+      cy.dataCy("update-volume-button").should("be.disabled");
+
+      cy.contains("Never").click();
+      cy.dataCy("update-volume-button").should("not.be.disabled");
+    });
+
+    it("Clicking on save button should close the modal and show a success banner", () => {
+      cy.dataCy("update-volume-button").click();
+      cy.contains("Successfully updated volume");
+      cy.dataCy("update-volume-modal").should("not.be.visible");
+    });
+  });
+
   it("Visiting the spawn volume page should display the number of free and mounted volumes.", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("mounted-badge").contains("9 Mounted");
@@ -45,19 +88,39 @@ describe("Navigating to Spawn Volume page", () => {
       "spawn-volume-card-1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0";
     cy.dataCy(cardDataCy).should("not.exist");
     cy.dataRowKey(
-      "1da0e996608e6871b60a92f6564bbc9cdf66ce90be1178dfb653920542a0d0f0"
+      "1fc721c8911fff96e42a7f5bbab07bc647ac590fa398ccea37df85fbca2ab92d"
     ).click();
     cy.dataCy(cardDataCy).should("exist");
   });
 
   it("Click the trash can should remove the volume from the table and update free/mounted volumes badges.", () => {
     cy.visit("/spawn/volume");
-    cy.dataRowKey("vol-0ae8720b445b771b6").should("exist");
-    cy.dataCy("trash-vol-0ae8720b445b771b6").click();
+    cy.dataRowKey("vol-0c66e16459646704d").should("exist");
+    cy.dataCy("trash-vol-0c66e16459646704d").click();
     cy.get(popconfirmYesClassName).click();
-    cy.dataRowKey("vol-0ae8720b445b771b6").should("not.exist");
+    cy.dataRowKey("vol-0c66e16459646704d").should("not.exist");
+    cy.dataCy("mounted-badge").contains("9 Mounted");
+    cy.dataCy("free-badge").contains("3 Free");
+  });
+
+  it("Click the trash can for a mounted volume should show an additional confirmation checkbox which enables the submit button when checked.", () => {
+    cy.visit("/spawn/volume");
+    cy.dataRowKey(
+      "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
+    ).should("exist");
+    cy.dataCy(
+      "trash-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    ).click();
+    cy.get(popconfirmYesClassName).should("have.css", "pointer-events", "none"); // should be disabled to start wit.should("have.css", "pointer-events", "none");
+    cy.contains(
+      "I understand this volume is currently mounted to a host."
+    ).click();
+    cy.get(popconfirmYesClassName).click();
+    cy.dataRowKey(
+      "1de2728dd9de82efc02dc21f6ca046eaa559462414d28e0b6bba6436436ac873"
+    ).should("not.exist");
     cy.dataCy("mounted-badge").contains("8 Mounted");
-    cy.dataCy("free-badge").contains("4 Free");
+    cy.dataCy("free-badge").contains("3 Free");
   });
 
   it("Clicking on unmount should result in a new error banner appearing.", () => {

@@ -27,6 +27,7 @@ export type Query = {
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
   awsRegions?: Maybe<Array<Scalars["String"]>>;
+  subnetAvailabilityZones: Array<Scalars["String"]>;
   userConfig?: Maybe<UserConfig>;
   clientConfig?: Maybe<ClientConfig>;
   host?: Maybe<Host>;
@@ -164,7 +165,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
-  removePatchFromCommitQueue?: Maybe<Scalars["String"]>;
+  removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
   updateHostStatus: Scalars["Int"];
@@ -180,6 +181,7 @@ export type Mutation = {
   removeVolume: Scalars["Boolean"];
   editSpawnHost: Host;
   bbCreateTicket: Scalars["Boolean"];
+  clearMySubscriptions: Scalars["Int"];
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -244,9 +246,9 @@ export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
-export type MutationRemovePatchFromCommitQueueArgs = {
+export type MutationRemoveItemFromCommitQueueArgs = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
 export type MutationUpdateUserSettingsArgs = {
@@ -327,6 +329,7 @@ export enum TaskSortCategory {
 }
 
 export enum TestSortCategory {
+  BaseStatus = "BASE_STATUS",
   Status = "STATUS",
   Duration = "DURATION",
   TestName = "TEST_NAME",
@@ -434,7 +437,7 @@ export type SpawnHostInput = {
   homeVolumeSize?: Maybe<Scalars["Int"]>;
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
-  useProjectSetupScript: Scalars["Boolean"];
+  useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -609,6 +612,7 @@ export type Patch = {
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
   baseVersionID?: Maybe<Scalars["String"]>;
+  parameters: Array<Parameter>;
   moduleCodeChanges: Array<ModuleCodeChange>;
   project?: Maybe<PatchProject>;
   builds: Array<Build>;
@@ -651,6 +655,11 @@ export type ProjectBuildVariant = {
   name: Scalars["String"];
   displayName: Scalars["String"];
   tasks: Array<Scalars["String"]>;
+};
+
+export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
 };
 
 export type TaskResult = {
@@ -710,6 +719,7 @@ export type TaskTestResult = {
 export type TestResult = {
   id: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
@@ -862,6 +872,8 @@ export type LogMessage = {
 export type CommitQueue = {
   projectId?: Maybe<Scalars["String"]>;
   message?: Maybe<Scalars["String"]>;
+  owner?: Maybe<Scalars["String"]>;
+  repo?: Maybe<Scalars["String"]>;
   queue?: Maybe<Array<CommitQueueItem>>;
 };
 
@@ -953,6 +965,7 @@ export type SpruceConfig = {
   jira?: Maybe<JiraConfig>;
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
+  providers?: Maybe<CloudProviderConfig>;
 };
 
 export type JiraConfig = {
@@ -961,6 +974,14 @@ export type JiraConfig = {
 
 export type UiConfig = {
   userVoice?: Maybe<Scalars["String"]>;
+};
+
+export type CloudProviderConfig = {
+  aws?: Maybe<AwsConfig>;
+};
+
+export type AwsConfig = {
+  maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
 };
 
 export type HostEvents = {
@@ -1054,6 +1075,10 @@ export type AttachVolumeToHostMutationVariables = {
 
 export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
 
+export type ClearMySubscriptionsMutationVariables = {};
+
+export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
+
 export type CreatePublicKeyMutationVariables = {
   publicKeyInput: PublicKeyInput;
 };
@@ -1108,13 +1133,13 @@ export type BbCreateTicketMutationVariables = {
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
-export type RemovePatchFromCommitQueueMutationVariables = {
+export type RemoveItemFromCommitQueueMutationVariables = {
   commitQueueId: Scalars["String"];
-  patchId: Scalars["String"];
+  issue: Scalars["String"];
 };
 
-export type RemovePatchFromCommitQueueMutation = {
-  removePatchFromCommitQueue?: Maybe<string>;
+export type RemoveItemFromCommitQueueMutation = {
+  removeItemFromCommitQueue?: Maybe<string>;
 };
 
 export type RemovePublicKeyMutationVariables = {
@@ -1256,6 +1281,12 @@ export type UpdateSpawnHostStatusMutation = {
   updateSpawnHostStatus: { id: string; status: string };
 };
 
+export type UpdateVolumeMutationVariables = {
+  UpdateVolumeInput: UpdateVolumeInput;
+};
+
+export type UpdateVolumeMutation = { updateVolume: boolean };
+
 export type UpdateUserSettingsMutationVariables = {
   userSettings: UserSettingsInput;
 };
@@ -1355,6 +1386,8 @@ export type CommitQueueQuery = {
   commitQueue: {
     projectId?: Maybe<string>;
     message?: Maybe<string>;
+    owner?: Maybe<string>;
+    repo?: Maybe<string>;
     queue?: Maybe<
       Array<{
         issue?: Maybe<string>;
@@ -1600,15 +1633,6 @@ export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
-export type GetSpawnHostTaskQueryVariables = {
-  taskId: Scalars["String"];
-  distroId: Scalars["String"];
-};
-
-export type GetSpawnHostTaskQuery = {
-  task?: Maybe<{ buildVariant: string; displayName: string }>;
-};
-
 export type GetSpruceConfigQueryVariables = {};
 
 export type GetSpruceConfigQuery = {
@@ -1617,6 +1641,9 @@ export type GetSpruceConfigQuery = {
     banner?: Maybe<string>;
     ui?: Maybe<{ userVoice?: Maybe<string> }>;
     jira?: Maybe<{ host?: Maybe<string> }>;
+    providers?: Maybe<{
+      aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
+    }>;
   }>;
 };
 
@@ -1729,6 +1756,7 @@ export type TaskTestsQuery = {
     testResults: Array<{
       id: string;
       status: string;
+      baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
@@ -1931,6 +1959,7 @@ export type PatchQuery = {
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    parameters: Array<{ key: string; value: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
@@ -1965,6 +1994,12 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type SubnetAvailabilityZonesQueryVariables = {};
+
+export type SubnetAvailabilityZonesQuery = {
+  subnetAvailabilityZones: Array<string>;
 };
 
 export type TaskQueueDistrosQueryVariables = {};

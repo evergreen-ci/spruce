@@ -49,7 +49,7 @@ const backgroundColor = hexToRGBA(uiColors.black, 0.9);
 
 const ModalTitle = styled(H2)`
   padding-bottom: 16px;
-  margin-bottom: 16px;
+  margin-bottom: 24px;
   border-bottom: 1px solid ${uiColors.gray.light2};
 `;
 

@@ -8,7 +8,7 @@ type CreatedTickets = GetCreatedTicketsQuery["bbGetCreatedTickets"];
 const columns = [
   {
     render: (text: string, { key, fields }: CreatedTickets[0]): JSX.Element => (
-      <div>
+      <div data-cy="jira-ticket-row">
         <JiraTicketRow jiraKey={key} fields={fields} />
       </div>
     ),

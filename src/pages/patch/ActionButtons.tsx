@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
+import { useMutation } from "@apollo/client";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
-import { ButtonDropdown } from "components/ButtonDropdown";
+import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
@@ -11,6 +13,12 @@ import {
   AddNotification,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
+import { useBannerDispatchContext } from "context/banners";
+import {
+  SetPatchPriorityMutation,
+  SetPatchPriorityMutationVariables,
+} from "gql/generated/types";
+import { SET_PATCH_PRIORITY } from "gql/mutations";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -24,8 +32,20 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
   const { id: patchId } = useParams<{ id: string }>();
-
   const [isActionLoading, setIsActionLoading] = useState(false);
+  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const [disablePatch] = useMutation<
+    SetPatchPriorityMutation,
+    SetPatchPriorityMutationVariables
+  >(SET_PATCH_PRIORITY, {
+    onCompleted: () => {
+      successBanner(`Tasks in this patch were disabled`);
+    },
+    onError: (err) => {
+      errorBanner(`Unable to disable patch tasks: ${err.message}`);
+    },
+    refetchQueries: ["Patch"],
+  });
 
   const hideMenu = () => setIsVisible(false);
 
@@ -45,19 +65,30 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       {...{
         patchId,
         hideMenu,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         key: "unschedule",
         setParentLoading: setIsActionLoading,
         disabled: isActionLoading,
       }}
     />,
+    <DropdownItem
+      data-cy="disable"
+      disabled={false}
+      onClick={() => {
+        disablePatch({
+          variables: { patchId, priority: -1 },
+        });
+      }}
+    >
+      <Disclaimer>Disable all tasks</Disclaimer>
+    </DropdownItem>,
     <SetPatchPriority
       {...{
         patchId,
         hideMenu,
         key: "priority",
         disabled: isActionLoading,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         setParentLoading: setIsActionLoading,
       }}
     />,
@@ -67,7 +98,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         hideMenu,
         key: "enqueue",
         disabled: isActionLoading || !canEnqueueToCommitQueue,
-        refetchQueries,
+        refetchQueries: ["Patch"],
         setParentLoading: setIsActionLoading,
       }}
     />,
@@ -83,7 +114,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             isButton: true,
             disabled: isActionLoading,
             setParentLoading: setIsActionLoading,
-            refetchQueries,
+            refetchQueries: ["Patch"],
           }}
         />
         <RestartPatch
@@ -92,14 +123,14 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
             hideMenu,
             isButton: true,
             disabled: isActionLoading,
-            refetchQueries,
+            refetchQueries: ["Patch"],
           }}
         />
         <AddNotification
           {...{
             patchId,
             hideMenu,
-            refetchQueries,
+            refetchQueries: ["Patch"],
             key: "notification",
             setParentLoading: setIsActionLoading,
             disabled: isActionLoading,
@@ -116,5 +147,3 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     </>
   );
 };
-
-const refetchQueries = ["Patch"];

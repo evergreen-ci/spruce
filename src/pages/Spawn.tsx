@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Route, useParams, Redirect, Link } from "react-router-dom";
+import { useSpawnAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { PaddedSideNavItem, PageWrapper } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
@@ -17,6 +18,7 @@ const SpawnTabs = () => {
   const { tab } = useParams<{ tab: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
+  const spawnAnalytics = useSpawnAnalytics();
   useEffect(() => {
     dispatchBanner.clearAllBanners();
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -33,6 +35,12 @@ const SpawnTabs = () => {
             to={routes.spawnHost}
             as={Link}
             data-cy="host-nav-tab"
+            onClick={() =>
+              spawnAnalytics.sendEvent({
+                name: "Change Tab",
+                tab: SpawnTab.Host,
+              })
+            }
           >
             Hosts
           </PaddedSideNavItem>
@@ -41,6 +49,12 @@ const SpawnTabs = () => {
             to={routes.spawnVolume}
             as={Link}
             data-cy="volume-nav-tab"
+            onClick={() =>
+              spawnAnalytics.sendEvent({
+                name: "Change Tab",
+                tab: SpawnTab.Volume,
+              })
+            }
           >
             Volumes
           </PaddedSideNavItem>

@@ -9,6 +9,9 @@ const path = `/version/${patch.id}`;
 const badPatch = {
   id: "i-dont-exist",
 };
+const patch2 = {
+  id: "52a630633ff1227909000021",
+};
 
 const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
@@ -43,6 +46,19 @@ describe("Patch route", () => {
     cy.visit(`/patch/${patch.id}`);
     cy.dataCy("commit-queue-position").click();
     cy.location("pathname").should("eq", "/commit-queue/evergreen");
+  });
+
+  it("Shows patch parameters if they exist", () => {
+    cy.visit(`/patch/${patch.id}`);
+    cy.dataCy("parameters-modal").should("not.be.visible");
+    cy.dataCy("parameters-link").click();
+    cy.dataCy("parameters-modal").should("be.visible");
+  });
+
+  it("Doesn't show patch parameters if they don't exist", () => {
+    cy.visit(`/patch/${patch2.id}`);
+    cy.dataCy("parameters-link").should("not.be.visible");
+    cy.dataCy("parameters-modal").should("not.be.visible");
   });
 
   it("'Base commit' link in metadata links to version page of legacy UI", () => {

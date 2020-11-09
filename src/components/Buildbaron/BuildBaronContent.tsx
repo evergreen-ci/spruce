@@ -32,7 +32,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
   return (
-    <>
+    <span data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {eventData && (
         <>
@@ -58,12 +58,8 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
           <BuildBaronTable jiraIssues={eventData?.searchReturnInfo?.issues} />
         </>
       )}
-    </>
+    </span>
   );
 };
-
-interface titleProps {
-  margin?: boolean;
-}
 
 export const BuildBaronContent = withBannersContext(BuildBaronCore);

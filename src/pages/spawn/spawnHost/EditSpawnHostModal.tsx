@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
-import { Input, Select } from "antd";
+import { Input, Select, Tooltip } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
+import { useSpawnAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import {
   ModalContent,
-  Section,
   SectionContainer,
   SectionLabel,
   WideButton,
@@ -32,6 +32,7 @@ import {
   VolumesData,
   UserTagsData,
 } from "pages/spawn/spawnHost/fields";
+import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
 import {
@@ -43,7 +44,6 @@ const { Option } = Select;
 
 interface EditSpawnHostModalProps {
   visible?: boolean;
-  onOk: () => void;
   onCancel: () => void;
   host: MyHost;
 }
@@ -54,6 +54,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 }) => {
   const dispatchBanner = useBannerDispatchContext();
 
+  const spawnAnalytics = useSpawnAnalytics();
   const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
     host
   );
@@ -82,8 +83,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   >(EDIT_SPAWN_HOST, {
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost;
-      onCancel();
       dispatchBanner.successBanner(`Successfully modified spawned host: ${id}`);
+      onCancel();
     },
     onError(err) {
       onCancel();
@@ -91,6 +92,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
         `There was an error while modifying your host: ${err.message}`
       );
     },
+    refetchQueries: ["MyVolumes"],
   });
 
   const instanceTypes = instanceTypesData?.instanceTypes;
@@ -101,8 +103,16 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     editSpawnHostState
   );
 
-  const onSubmit = () => {
+  const onSubmit = (e) => {
+    e.preventDefault();
     dispatchBanner.clearAllBanners();
+    spawnAnalytics.sendEvent({
+      name: "Edited a Spawn Host",
+      params: {
+        hostId: host.id,
+        ...mutationParams,
+      },
+    });
     editSpawnHostMutation({
       variables: {
         hostId: host.id,
@@ -110,6 +120,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       },
     });
   };
+
+  const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
+
   return (
     <Modal
       title="Edit Host Details"
@@ -134,7 +147,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       <ModalContent>
         <SectionContainer>
           <SectionLabel weight="medium">Host Name</SectionLabel>
-          <Section>
+          <ModalContent>
             <InputLabel htmlFor="hostNameInput">Host Name</InputLabel>
             <Input
               id="hostNameInput"
@@ -143,46 +156,52 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 dispatch({ type: "editHostName", displayName: e.target.value })
               }
             />
-          </Section>
+          </ModalContent>
         </SectionContainer>
-        <SectionContainer>
-          <SectionLabel weight="medium">Expiration</SectionLabel>
-          <HostExpirationField
-            data={editSpawnHostState}
-            onChange={(data: ExpirationDateType) =>
-              dispatch({ type: "editExpiration", ...data })
-            }
-          />
-        </SectionContainer>
+        <HostExpirationField
+          data={editSpawnHostState}
+          onChange={(data: ExpirationDateType) =>
+            dispatch({ type: "editExpiration", ...data })
+          }
+        />
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>
-          <Section>
+          <ModalContent>
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            <Select
-              id="instanceTypeDropdown"
-              showSearch
-              style={{ width: 200 }}
-              placeholder="Select Instance Type"
-              onChange={(v) =>
-                dispatch({
-                  type: "editInstanceType",
-                  instanceType: v,
-                })
+            <Tooltip
+              title={
+                !canEditInstanceType
+                  ? "Pause this host to adjust this field."
+                  : undefined
               }
-              value={editSpawnHostState.instanceType}
             >
-              {instanceTypes?.map((instance) => (
-                <Option
-                  value={instance}
-                  key={`instance_type_option_${instance}`}
-                >
-                  {instance}
-                </Option>
-              ))}
-            </Select>
-          </Section>
+              <Select
+                id="instanceTypeDropdown"
+                showSearch
+                style={{ width: 200 }}
+                placeholder="Select Instance Type"
+                onChange={(v) =>
+                  dispatch({
+                    type: "editInstanceType",
+                    instanceType: v,
+                  })
+                }
+                value={editSpawnHostState.instanceType}
+                disabled={!canEditInstanceType}
+              >
+                {instanceTypes?.map((instance) => (
+                  <Option
+                    value={instance}
+                    key={`instance_type_option_${instance}`}
+                  >
+                    {instance}
+                  </Option>
+                ))}
+              </Select>
+            </Tooltip>
+          </ModalContent>
         </SectionContainer>
         <SectionContainer>
           <SectionLabel weight="medium">Add Volume</SectionLabel>

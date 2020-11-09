@@ -24,7 +24,7 @@ export const LinkToReconfigurePage: React.FC<{
         }
       }}
     >
-      <Disclaimer>Reconfigure Tasks/Variants</Disclaimer>
+      <Disclaimer>Reconfigure tasks/variants</Disclaimer>
     </DropdownItem>
   );
 };
