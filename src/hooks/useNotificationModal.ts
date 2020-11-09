@@ -1,7 +1,11 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
 import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
+import { GetUserSettingsQuery, GetUserQuery } from "gql/generated/types";
+import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
+import { SUBSCRIPTION_SLACK, SUBSCRIPTION_EMAIL } from "types/subscription";
 
 export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
@@ -17,6 +21,16 @@ export const useNotificationModal = ({
   subscriptionMethodControls,
   resourceId,
 }: UseNotificationModalProps) => {
+  // USER SETTINGS QUERY
+  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
+    GET_USER_SETTINGS
+  );
+
+  // USER QUERY
+  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
+  const slackUsername = userSettingsData?.userSettings?.slackUsername;
+  const emailAddress = userData?.user?.emailAddress;
+
   const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
     ""
   );
@@ -171,6 +185,27 @@ export const useNotificationModal = ({
     regexSelectorInputs,
     regexSelectors,
   ]);
+
+  useEffect(() => {
+    switch (selectedSubscriptionMethod) {
+      case SUBSCRIPTION_SLACK.value:
+        if (slackUsername && slackUsername !== "") {
+          const targetCopy = { ...target };
+          targetCopy.slack = slackUsername;
+          setTarget(targetCopy);
+        }
+        break;
+      case SUBSCRIPTION_EMAIL.value:
+        if (emailAddress && emailAddress !== "") {
+          const targetCopy = { ...target };
+          targetCopy.email = emailAddress;
+          setTarget(targetCopy);
+        }
+        break;
+      default:
+        break;
+    }
+  }, [selectedSubscriptionMethod, slackUsername, emailAddress]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getRequestPayload = () => {
     const targetEntry = Object.entries(target)[0];
