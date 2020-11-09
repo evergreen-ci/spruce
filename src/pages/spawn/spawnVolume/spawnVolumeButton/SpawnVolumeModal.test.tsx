@@ -16,6 +16,30 @@ import {
 } from "test_utils/test-utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
+const spruceConfigMock = {
+  request: {
+    query: GET_SPRUCE_CONFIG,
+    variables: {},
+  },
+  result: {
+    data: {
+      data: {
+        spruceConfig: {
+          bannerTheme: "announcement",
+          banner: "This is an important notification",
+          ui: { userVoice: "https://uservoice.com", __typename: "UIConfig" },
+          jira: { host: "", __typename: "JiraConfig" },
+          providers: {
+            aws: { maxVolumeSizePerUser: 0, __typename: "AWSConfig" },
+            __typename: "CloudProviderConfig",
+          },
+          __typename: "SpruceConfig",
+        },
+      },
+    },
+  },
+};
+
 const myVolumesQueryMock = {
   request: { query: GET_MY_VOLUMES, variables: {} },
   result: {
@@ -196,39 +220,19 @@ const baseMocks = [
             __typename: "Host",
           },
         ],
-      },
-    },
-  },
-  {
-    request: {
-      query: GET_SPRUCE_CONFIG,
-      variables: {},
-    },
-    result: {
-      data: {
         spruceConfig: {
-          bannerTheme: "",
-          banner: "",
-          ui: {
-            userVoice: "",
-            __typename: "UiConfig",
+          spawnHost: {
+            unexpirableHostsPerUser: 20,
+            spawnHostsPerUser: 60,
+            __typename: "SpawnHostConfig",
           },
-          jira: {
-            host: "",
-            __typename: "JiraConfig",
-          },
-          providers: {
-            aws: {
-              maxVolumeSizePerUser: 1500,
-              __typename: "AwsConfig",
-            },
-            __typename: "CloudProviderConfig",
-          },
+          __typename: "SpruceConfig",
         },
-        __typename: "SpruceConfig",
       },
     },
   },
+  spruceConfigMock,
+  spruceConfigMock,
   myVolumesQueryMock,
   myVolumesQueryMock,
 ];
