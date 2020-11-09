@@ -74,46 +74,54 @@ const BadgeWidthMaxContent = styled(Badge)`
 interface TaskStatusBadgeProps {
   status: string;
   blocked: boolean;
+  aborted: boolean;
 }
 export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   status,
   blocked,
+  aborted,
 }) => {
-  // We have to do this assignment because Blocked is not an official Task
-  // status from the tasks collection but we want to represent it in the badge.
-  const adjustedTaskStatus = blocked
-    ? (TaskStatus.StatusBlocked as string)
-    : status;
+  // We have to do this assignment because Blocked and Aborted are not official Task
+  // statuses from the tasks collection but we want to represent it in the badge.
+  let modifiedStatus = status;
+  if (blocked) {
+    modifiedStatus = TaskStatus.StatusBlocked as string;
+  }
+  if (aborted) {
+    modifiedStatus = TaskStatus.Aborted as string;
+  }
 
   const displayStatus = getStatusBadgeCopy(
-    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus
+    taskStatusToCopy[modifiedStatus] ?? modifiedStatus
   );
 
-  if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
+  if (modifiedStatus in mapTaskStatusToBadgeVariant) {
     return (
       <BadgeWidthMaxContent
         data-cy={dataCy}
-        key={adjustedTaskStatus}
-        variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
+        key={modifiedStatus}
+        variant={mapTaskStatusToBadgeVariant[modifiedStatus]}
       >
         {displayStatus}
       </BadgeWidthMaxContent>
     );
   }
 
-  if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
+  if (modifiedStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
         data-cy={dataCy}
-        key={adjustedTaskStatus}
-        {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
+        key={modifiedStatus}
+        {...mapUnsupportedBadgeColors[modifiedStatus]}
       >
         {displayStatus}
       </StyledBadge>
     );
   }
 
-  const err = new Error(`Status '${status}' is not a valid task status`);
+  const err = new Error(
+    `Status '${modifiedStatus}' is not a valid task status`
+  );
   reportError(err).severe();
   throw err;
 };

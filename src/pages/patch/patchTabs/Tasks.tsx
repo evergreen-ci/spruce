@@ -194,14 +194,14 @@ const getQueryVariables = (
 
 const renderStatusBadge = (
   status: string,
-  { blocked }: TaskResult
+  { blocked, aborted }: TaskResult
 ): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
   return (
     <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
+      <TaskStatusBadge status={status} blocked={blocked} aborted={aborted} />
     </ErrorBoundary>
   );
 };
