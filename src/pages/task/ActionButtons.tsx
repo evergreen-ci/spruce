@@ -120,7 +120,9 @@ export const ActionButtons = ({
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
       successBanner(
-        `Priority for task updated to ${data.setTaskPriority.priority}`
+        data.setTaskPriority.priority >= 0
+          ? `Priority for task updated to ${data.setTaskPriority.priority}`
+          : `Task was successfully disabled`
       );
     },
     onError: (err) => {
@@ -172,6 +174,17 @@ export const ActionButtons = ({
       }}
     >
       <Disclaimer>Abort</Disclaimer>
+    </DropdownItem>,
+    <DropdownItem
+      data-cy="disable-enable"
+      disabled={disabled}
+      onClick={() => {
+        setTaskPriority({
+          variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
+        });
+      }}
+    >
+      <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
     </DropdownItem>,
     <Popconfirm
       key="priority"
