@@ -77,27 +77,31 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
         />
       </FlexColumnContainer>
       <PaddedBody> or </PaddedBody>
-      <Tooltip
-        title={
-          disableExpirationCheckbox
-            ? `You already reached the max number of unexipireable ${
-                dataType === "VOLUME" ? "volumes" : "hosts"
-              } Edit or delete an existing ${
-                dataType === "VOLUME" ? "volume" : "host"
-              } to enable this checkbox.`
-            : undefined
-        }
-      >
-        <PaddedCheckbox
-          data-cy="neverExpireCheckbox"
-          disabled={disableExpirationCheckbox}
-          label="Never"
-          checked={noExpiration}
-          onChange={(e) =>
-            onChange({ noExpiration: e.target.checked, expiration })
+      <FlexColumnContainer>
+        <Tooltip
+          title={
+            disableExpirationCheckbox
+              ? `You have reached the max number of unexipireable ${
+                  dataType === "VOLUME" ? "volumes" : "hosts"
+                }. Toggle an existing ${
+                  dataType === "VOLUME" ? "volume" : "host"
+                } to expireable to enable this checkbox.`
+              : undefined
           }
-        />
-      </Tooltip>{" "}
+        >
+          <span>
+            <PaddedCheckbox
+              data-cy="neverExpireCheckbox"
+              disabled={disableExpirationCheckbox}
+              label="Never"
+              checked={noExpiration}
+              onChange={(e) =>
+                onChange({ noExpiration: e.target.checked, expiration })
+              }
+            />
+          </span>
+        </Tooltip>
+      </FlexColumnContainer>
     </SectionContainer>
   );
 };
