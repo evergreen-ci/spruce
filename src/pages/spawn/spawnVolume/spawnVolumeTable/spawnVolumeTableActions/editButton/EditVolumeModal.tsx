@@ -21,7 +21,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
 import { GET_MY_VOLUMES } from "gql/queries";
-import { useShouldDisableExpirationCheckbox } from "hooks/useShouldDisableExpirationCheckbox";
+import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
 import { MyVolume } from "types/spawn";
 import { reducer } from "./editVolumeModal/reducer";
 
@@ -72,7 +72,7 @@ export const EditVolumeModal: React.FC<Props> = ({
       dispatch({ type: "reset", volume: initialState });
     }
   }, [visible]);
-  const disableExpirationCheckbox = useShouldDisableExpirationCheckbox({
+  const disableExpirationCheckbox = useDisableExpirationCheckbox({
     allItems: volumesData?.myVolumes,
     maxUnexpireable:
       volumesData?.spruceConfig.spawnHost.unexpirableVolumesPerUser,
