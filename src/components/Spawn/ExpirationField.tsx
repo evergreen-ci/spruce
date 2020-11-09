@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Tooltip } from "antd";
 import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
@@ -16,12 +17,14 @@ interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
   disableExpirationCheckbox: boolean;
+  dataType: "VOLUME" | "HOST";
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
   disableExpirationCheckbox,
+  dataType,
 }) => {
   const { expiration: expirationString, noExpiration } = data;
   const expiration = expirationString ? new Date(expirationString) : new Date();
@@ -74,15 +77,27 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
         />
       </FlexColumnContainer>
       <PaddedBody> or </PaddedBody>
-      <PaddedCheckbox
-        data-cy="neverExpireCheckbox"
-        disabled={disableExpirationCheckbox}
-        label="Never"
-        checked={noExpiration}
-        onChange={(e) =>
-          onChange({ noExpiration: e.target.checked, expiration })
+      <Tooltip
+        title={
+          disableExpirationCheckbox
+            ? `You already reached the max number of unexipireable ${
+                dataType === "VOLUME" ? "volumes" : "hosts"
+              } Edit or delete an existing ${
+                dataType === "VOLUME" ? "volume" : "host"
+              } to enable this checkbox.`
+            : undefined
         }
-      />{" "}
+      >
+        <PaddedCheckbox
+          data-cy="neverExpireCheckbox"
+          disabled={disableExpirationCheckbox}
+          label="Never"
+          checked={noExpiration}
+          onChange={(e) =>
+            onChange({ noExpiration: e.target.checked, expiration })
+          }
+        />
+      </Tooltip>{" "}
     </SectionContainer>
   );
 };
