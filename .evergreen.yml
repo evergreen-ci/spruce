@@ -244,7 +244,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  npm run deploy; npm run upload-source-maps;
+        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
 
   build-prod:
@@ -252,7 +252,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npm run build:prod
+        yarn build:prod
   
   send-email:
     command: shell.exec
@@ -329,7 +329,7 @@ tasks:
     commands:
     - func: get-project
     - func: setup-credentials
-    - func: npm-install
+    - func: yarn-install
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email
