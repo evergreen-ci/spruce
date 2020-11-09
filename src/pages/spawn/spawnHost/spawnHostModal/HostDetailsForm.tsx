@@ -1,4 +1,5 @@
 import React, { useReducer } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
@@ -9,6 +10,9 @@ import {
   SectionContainer,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
+import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
+import { GET_MY_HOSTS } from "gql/queries";
+import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
 import { VolumesField, VolumesData } from "pages/spawn/spawnHost/fields";
 import { MyVolume } from "types/spawn";
 import { SetupScriptForm } from "./SetupScriptForm";
@@ -39,7 +43,13 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   isSpawnHostModal = false,
 }) => {
   const { userDataScript, isVirtualWorkStation } = data;
-
+  const { data: hostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
+    GET_MY_HOSTS
+  );
+  const disableExpirationCheckbox = useDisableExpirationCheckbox({
+    allItems: hostsData?.myHosts,
+    maxUnexpireable: hostsData?.spruceConfig.spawnHost.unexpirableHostsPerUser,
+  });
   const [state, dispatch] = useReducer(reducer, initialState);
   const { hasUserDataScript } = state;
 
@@ -78,10 +88,12 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
       <SetupScriptForm data={data} onChange={onChange} />
 
       <HostExpirationField
+        dataType="HOST"
         data={data}
         onChange={(expData: ExpirationDateType) =>
           onChange({ type: "editExpiration", ...expData })
         }
+        disableExpirationCheckbox={disableExpirationCheckbox}
       />
 
       {isVirtualWorkStation && (
