@@ -1,5 +1,5 @@
-import React, { useReducer } from "react";
-import { useMutation } from "@apollo/client";
+import React, { useEffect, useReducer } from "react";
+import { useMutation, useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
 import { useSpawnAnalytics } from "analytics";
@@ -14,10 +14,14 @@ import {
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
+  MyVolumesQuery,
+  MyVolumesQueryVariables,
   UpdateVolumeMutation,
   UpdateVolumeMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
+import { GET_MY_VOLUMES } from "gql/queries";
+import { useShouldDisableExpirationCheckbox } from "hooks/useShouldDisableExpirationCheckbox";
 import { MyVolume } from "types/spawn";
 import { reducer } from "./editVolumeModal/reducer";
 
@@ -32,12 +36,13 @@ export const EditVolumeModal: React.FC<Props> = ({
   onCancel,
   volume,
 }) => {
-  const [state, dispatch] = useReducer(reducer, {
+  const initialState = {
     expiration: new Date(volume.expiration),
     volumeId: volume.id,
     noExpiration: volume.noExpiration,
     name: volume.displayName,
-  });
+  };
+  const [state, dispatch] = useReducer(reducer, initialState);
   const dispatchBanner = useBannerDispatchContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [updateVolumeMutation, { loading }] = useMutation<
@@ -55,6 +60,23 @@ export const EditVolumeModal: React.FC<Props> = ({
       );
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
+  });
+
+  const { data: volumesData } = useQuery<
+    MyVolumesQuery,
+    MyVolumesQueryVariables
+  >(GET_MY_VOLUMES);
+
+  useEffect(() => {
+    if (visible) {
+      dispatch({ type: "reset", volume: initialState });
+    }
+  }, [visible]);
+  const disableExpirationCheckbox = useShouldDisableExpirationCheckbox({
+    allItems: volumesData?.myVolumes,
+    maxUnexpireable:
+      volumesData?.spruceConfig.spawnHost.unexpirableVolumesPerUser,
+    targetItem: volume,
   });
 
   const updateVolume = () => {
@@ -117,10 +139,12 @@ export const EditVolumeModal: React.FC<Props> = ({
         </ModalContent>
       </SectionContainer>
       <ExpirationField
+        dataType="HOST"
         data={{
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
+        disableExpirationCheckbox={disableExpirationCheckbox}
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
     </Modal>
