@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import React from "react";
+import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
@@ -14,22 +14,15 @@ import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorIn
 import { ErrorMessage } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
-  GetUserSettingsQuery,
-  GetUserQuery,
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
 import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
-import { GET_USER_SETTINGS, GET_USER } from "gql/queries";
 import {
   useNotificationModal,
   UseNotificationModalProps,
 } from "hooks/useNotificationModal";
-import {
-  SubscriptionMethodDropdownOption,
-  SUBSCRIPTION_SLACK,
-  SUBSCRIPTION_EMAIL,
-} from "types/subscription";
+import { SubscriptionMethodDropdownOption } from "types/subscription";
 
 const { Option } = Select;
 const { gray } = uiColors;
@@ -68,16 +61,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     },
   });
 
-  // USER SETTINGS QUERY
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
-
-  // USER QUERY
-  const { data: userData } = useQuery<GetUserQuery>(GET_USER);
-  console.log({ userData });
-  const slackUsername = userSettingsData?.userSettings?.slackUsername;
-  const emailAddress = userData?.user?.emailAddress;
   const {
     disableAddCriteria,
     extraFieldErrorMessages,
@@ -115,26 +98,6 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const placeholder = get(currentMethodControl, "placeholder");
   const targetPath = get(currentMethodControl, "targetPath");
 
-  useEffect(() => {
-    switch (selectedSubscriptionMethod) {
-      case SUBSCRIPTION_SLACK.value:
-        if (slackUsername && slackUsername !== "") {
-          const targetCopy = { ...target };
-          set(targetCopy, targetPath, slackUsername);
-          setTarget(targetCopy);
-        }
-        break;
-      case SUBSCRIPTION_EMAIL.value:
-        if (emailAddress && emailAddress !== "") {
-          const targetCopy = { ...target };
-          set(targetCopy, targetPath, emailAddress);
-          setTarget(targetCopy);
-        }
-        break;
-      default:
-        break;
-    }
-  }, [selectedSubscriptionMethod, slackUsername, emailAddress]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <Modal
       data-cy={dataCy}

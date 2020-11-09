@@ -191,7 +191,7 @@ export const useNotificationModal = ({
       case SUBSCRIPTION_SLACK.value:
         if (slackUsername && slackUsername !== "") {
           const targetCopy = { ...target };
-          targetCopy.slack = slackUsername;
+          targetCopy.slack = `@${slackUsername}`;
           setTarget(targetCopy);
         }
         break;
