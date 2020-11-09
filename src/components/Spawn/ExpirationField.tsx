@@ -15,11 +15,13 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
+  disableExpirationCheckbox: boolean;
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
+  disableExpirationCheckbox,
 }) => {
   const { expiration: expirationString, noExpiration } = data;
   const expiration = expirationString ? new Date(expirationString) : new Date();
@@ -74,6 +76,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
       <PaddedBody> or </PaddedBody>
       <PaddedCheckbox
         data-cy="neverExpireCheckbox"
+        disabled={disableExpirationCheckbox}
         label="Never"
         checked={noExpiration}
         onChange={(e) =>
