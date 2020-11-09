@@ -17,6 +17,8 @@ export const useDisableExpirationCheckbox = ({
   targetItem,
 }: Params): boolean => {
   const currentUnexpireableCount = (allItems ?? []).reduce(
+    // noExpiration indicates that the item has no expiration
+    // and the "No expiration" checkbox will default to checked
     (accum, currItem) => accum + (currItem.noExpiration ? 1 : 0),
     0
   );
