@@ -208,6 +208,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         <Section>
           <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
           <AutoComplete
+            data-cy="distroSearchBox"
             style={{ width: 200, marginLeft: 0 }}
             options={distroOptions}
             id="distroSearchBox"

@@ -121,6 +121,14 @@ describe("Navigating to Spawn Host page", () => {
         );
         cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");
       });
+      it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {
+        cy.dataCy("distroSearchBox")
+          .click()
+          .type("{downarrow}")
+          .type("{enter}");
+        cy.dataCy("volume-select").click();
+        cy.contains("No Data");
+      });
     });
   });
 });
