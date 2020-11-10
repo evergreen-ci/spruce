@@ -8,7 +8,10 @@ import {
   GET_MY_VOLUMES,
   GET_USER,
 } from "gql/queries";
-import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
+import {
+  customRenderWithRouterMatch as render,
+  waitFor,
+} from "test_utils/test-utils";
 import { SpawnHostButton } from "./SpawnHostButton";
 
 const awsRegionsMock = {
@@ -269,10 +272,10 @@ test("Disables the spawn host button when the number of hosts that currently exi
     </MockedProvider>
   ));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  expect(queryByDataCy("spawn-host-button")).toBeDisabled();
+  waitFor(() => expect(queryByDataCy("spawn-host-button")).toBeDisabled());
 });
 
-test("Enables the spawn host button when the number of hosts that currently exist are greater than or equal to the max number of spawn hosts per user", async () => {
+test("Enables the spawn host button when the number of hosts that currently exist is less than the max number of spawn hosts per user", async () => {
   const { queryByDataCy } = render(() => (
     <MockedProvider
       mocks={[
@@ -289,5 +292,5 @@ test("Enables the spawn host button when the number of hosts that currently exis
     </MockedProvider>
   ));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  expect(queryByDataCy("spawn-host-button")).not.toBeDisabled();
+  waitFor(() => expect(queryByDataCy("spawn-host-button")).not.toBeDisabled());
 });
