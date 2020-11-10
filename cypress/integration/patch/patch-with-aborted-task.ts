@@ -3,11 +3,6 @@ describe("Patch with aborted task", () => {
     cy.login();
   });
 
-  beforeEach(() => {
-    cy.listenGQL();
-    cy.preserveCookies();
-  });
-
   it("Shows status `aborted` in task table for tasks that were aborted", () => {
     cy.visit("/version/5ee1efb3d1fe073e194e8b5c");
     cy.get(

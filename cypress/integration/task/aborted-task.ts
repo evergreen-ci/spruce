@@ -7,7 +7,6 @@ describe("Task table", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
