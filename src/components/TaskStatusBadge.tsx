@@ -83,45 +83,43 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
 }) => {
   // We have to do this assignment because Blocked and Aborted are not official Task
   // statuses from the tasks collection but we want to represent it in the badge.
-  let modifiedStatus = status;
+  let taskStatus = status;
   if (blocked) {
-    modifiedStatus = TaskStatus.StatusBlocked as string;
+    taskStatus = TaskStatus.StatusBlocked as string;
   }
   if (aborted) {
-    modifiedStatus = TaskStatus.Aborted as string;
+    taskStatus = TaskStatus.Aborted as string;
   }
 
   const displayStatus = getStatusBadgeCopy(
-    taskStatusToCopy[modifiedStatus] ?? modifiedStatus
+    taskStatusToCopy[taskStatus] ?? taskStatus
   );
 
-  if (modifiedStatus in mapTaskStatusToBadgeVariant) {
+  if (taskStatus in mapTaskStatusToBadgeVariant) {
     return (
       <BadgeWidthMaxContent
         data-cy={dataCy}
-        key={modifiedStatus}
-        variant={mapTaskStatusToBadgeVariant[modifiedStatus]}
+        key={taskStatus}
+        variant={mapTaskStatusToBadgeVariant[taskStatus]}
       >
         {displayStatus}
       </BadgeWidthMaxContent>
     );
   }
 
-  if (modifiedStatus in mapUnsupportedBadgeColors) {
+  if (taskStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
         data-cy={dataCy}
-        key={modifiedStatus}
-        {...mapUnsupportedBadgeColors[modifiedStatus]}
+        key={taskStatus}
+        {...mapUnsupportedBadgeColors[taskStatus]}
       >
         {displayStatus}
       </StyledBadge>
     );
   }
 
-  const err = new Error(
-    `Status '${modifiedStatus}' is not a valid task status`
-  );
+  const err = new Error(`Status '${taskStatus}' is not a valid task status`);
   reportError(err).severe();
   throw err;
 };
