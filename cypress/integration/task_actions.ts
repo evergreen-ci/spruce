@@ -69,7 +69,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains("Priority for task updated to -1");
+      cy.dataCy(bannerDataCy).contains("Task was successfully disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
       cy.wait(200);

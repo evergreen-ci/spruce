@@ -643,7 +643,7 @@ export type Volume = {
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
   host?: Maybe<Host>;
-  creationTime: Scalars["Time"];
+  creationTime?: Maybe<Scalars["Time"]>;
 };
 
 export type PatchProject = {
@@ -664,6 +664,7 @@ export type Parameter = {
 
 export type TaskResult = {
   id: Scalars["ID"];
+  aborted: Scalars["Boolean"];
   displayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
@@ -750,8 +751,16 @@ export type BaseTaskMetadata = {
   baseTaskLink: Scalars["String"];
 };
 
+export type AbortInfo = {
+  user?: Maybe<Scalars["String"]>;
+  taskID?: Maybe<Scalars["String"]>;
+  taskDisplayName?: Maybe<Scalars["String"]>;
+  buildVariantDisplayName?: Maybe<Scalars["String"]>;
+};
+
 export type Task = {
   aborted?: Maybe<Scalars["Boolean"]>;
+  abortInfo?: Maybe<AbortInfo>;
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
@@ -1561,7 +1570,7 @@ export type MyVolumesQuery = {
     hostID: string;
     noExpiration: boolean;
     homeVolume: boolean;
-    creationTime: Date;
+    creationTime?: Maybe<Date>;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
   spruceConfig?: Maybe<{ spawnHost: { unexpirableVolumesPerUser: number } }>;
