@@ -212,6 +212,19 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             </StyledRouterLink>
           </P2>
         )}
+        {abortInfo && (
+          <P2>
+            {`Aborted by ${abortInfo.user} because of failing task: `}
+            <span>
+              <StyledLink
+                data-cy="abort-link"
+                href={getTaskRoute(abortInfo.taskID)}
+              >
+                {`${abortInfo.buildVariantDisplayName}: ${abortInfo.taskDisplayName}`}
+              </StyledLink>
+            </span>
+          </P2>
+        )}
         {oomTracker && oomTracker.detected && (
           <RedP2>
             Out of Memory Kill detected
