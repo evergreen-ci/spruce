@@ -12,6 +12,11 @@ import {
   subscriptionMethodControls as taskSubscriptionMethodControls,
 } from "pages/task/actionButtons/TaskNotificationModal";
 
+// uuid relies on window.crypto.getRandomValues which is unsupported in these tests
+jest.mock("uuid", () => ({
+  v4: () => Math.floor(Math.random() * Math.floor(Number.MAX_SAFE_INTEGER)),
+}));
+
 it("Should have correctly formatted request payload after selecting options (task)", async () => {
   const mocks = [
     {
