@@ -59,7 +59,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
           <StyledBody>Set new priority:</StyledBody>
           <InputNumber
             size="small"
-            min={0}
+            min={-1}
             type="number"
             max={Number.MAX_SAFE_INTEGER}
             value={priority}
