@@ -92,7 +92,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
             onChange={(volData: VolumesData) =>
               onChange({ type: "editVolumes", ...volData })
             }
-            volumes={volumes}
+            volumes={volumes.filter((v) => v.homeVolume)}
             allowHomeVolume={isSpawnHostModal}
           />
         </SectionContainer>
