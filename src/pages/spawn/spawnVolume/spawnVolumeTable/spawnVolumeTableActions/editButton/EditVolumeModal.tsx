@@ -23,7 +23,7 @@ import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
 import { GET_MY_VOLUMES } from "gql/queries";
 import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
 import { MyVolume } from "types/spawn";
-import { reducer } from "./editVolumeModal/reducer";
+import { getInitialState, reducer } from "./editVolumeModal/reducer";
 
 interface Props {
   visible: boolean;
@@ -36,13 +36,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   onCancel,
   volume,
 }) => {
-  const initialState = {
-    expiration: new Date(volume.expiration),
-    volumeId: volume.id,
-    noExpiration: volume.noExpiration,
-    name: volume.displayName,
-  };
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, getInitialState(volume));
   const dispatchBanner = useBannerDispatchContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [updateVolumeMutation, { loading }] = useMutation<
@@ -69,9 +63,10 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   useEffect(() => {
     if (visible) {
-      dispatch({ type: "reset", volume: initialState });
+      dispatch({ type: "reset", volume: getInitialState(volume) });
     }
-  }, [visible]);
+  }, [visible, volume]);
+
   const disableExpirationCheckbox = useDisableExpirationCheckbox({
     allItems: volumesData?.myVolumes,
     maxUnexpireable:
