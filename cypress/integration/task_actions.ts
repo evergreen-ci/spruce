@@ -1,12 +1,12 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../utils/popconfirm";
 
-xdescribe("Task Action Buttons", () => {
+describe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
 
-  xdescribe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
+  describe("Based on the state of the task, some buttons should be disabled and others should be clickable. Clicking on buttons produces banners messaging if the action succeeded or failed.", () => {
     beforeEach(() => {
       cy.preserveCookies();
     });
@@ -24,6 +24,7 @@ xdescribe("Task Action Buttons", () => {
     });
 
     it("Clicking Unschedule button should produce success banner", () => {
+      cy.visit(taskRoute3);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
       cy.wait(200);
@@ -48,7 +49,7 @@ xdescribe("Task Action Buttons", () => {
     });
 
     it("There should be three visible banners from the previous actions", () => {
-      cy.dataCy(bannerDataCy).should("have.length", 3);
+      cy.dataCy(bannerDataCy).should("have.length", 2);
     });
 
     it("Visiting a different task page should clear all banners", () => {
@@ -62,6 +63,18 @@ xdescribe("Task Action Buttons", () => {
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains("Task aborted");
     });
+
+    it("should correctly disable/enable the task when clicked", () => {
+      cy.visit(taskRoute1);
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("disable-enable").click();
+      cy.wait(200);
+      cy.dataCy(bannerDataCy).contains("Task was successfully disabled");
+      cy.dataCy("ellipsis-btn").click();
+      cy.dataCy("disable-enable").click();
+      cy.wait(200);
+      cy.dataCy(bannerDataCy).contains("Priority for task updated to 0");
+    });
   });
 });
 
@@ -70,8 +83,8 @@ const restartSuccessBannerText = "Task scheduled to restart";
 const unscheduleSuccessBannerText = "Task marked as unscheduled";
 const taskRoute1 =
   "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/logs";
-const taskRoute3 =
-  "/task/evergreen_ubuntu1604_test_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute2 =
   "task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+const taskRoute3 =
+  "/task/evergreen_ubuntu1604_test_cloud_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const bannerDataCy = "banner";

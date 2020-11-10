@@ -38,12 +38,27 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
     <Table
       {...{
         ...props,
-        rowKey: (record) => record.displayName || record.id,
+        rowKey: (record) => record.id,
         pagination: false,
         expandRowByClick: true,
-        expandIcon: ({ expanded }) => (
-          <Icon glyph={expanded ? "CaretDown" : "CaretRight"} />
-        ),
+        expandIcon: ({ expanded, onExpand, record }) => {
+          const onClick = (e) => {
+            onExpand(record, e);
+          };
+          return (
+            <span
+              tabIndex={0}
+              role="button"
+              onClick={onClick}
+              onKeyDown={onClick}
+            >
+              <Icon
+                data-cy={`table-caret-icon-${record.id}`}
+                glyph={expanded ? "CaretDown" : "CaretRight"}
+              />
+            </span>
+          );
+        },
       }}
     />
   </TableContainer>

@@ -643,7 +643,7 @@ export type Volume = {
   noExpiration: Scalars["Boolean"];
   homeVolume: Scalars["Boolean"];
   host?: Maybe<Host>;
-  creationTime: Scalars["Time"];
+  creationTime?: Maybe<Scalars["Time"]>;
 };
 
 export type PatchProject = {
@@ -664,6 +664,7 @@ export type Parameter = {
 
 export type TaskResult = {
   id: Scalars["ID"];
+  aborted: Scalars["Boolean"];
   displayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
@@ -750,8 +751,16 @@ export type BaseTaskMetadata = {
   baseTaskLink: Scalars["String"];
 };
 
+export type AbortInfo = {
+  user?: Maybe<Scalars["String"]>;
+  taskID?: Maybe<Scalars["String"]>;
+  taskDisplayName?: Maybe<Scalars["String"]>;
+  buildVariantDisplayName?: Maybe<Scalars["String"]>;
+};
+
 export type Task = {
   aborted?: Maybe<Scalars["Boolean"]>;
+  abortInfo?: Maybe<AbortInfo>;
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
@@ -967,6 +976,7 @@ export type SpruceConfig = {
   banner?: Maybe<Scalars["String"]>;
   bannerTheme?: Maybe<Scalars["String"]>;
   providers?: Maybe<CloudProviderConfig>;
+  spawnHost: SpawnHostConfig;
 };
 
 export type JiraConfig = {
@@ -983,6 +993,12 @@ export type CloudProviderConfig = {
 
 export type AwsConfig = {
   maxVolumeSizePerUser?: Maybe<Scalars["Int"]>;
+};
+
+export type SpawnHostConfig = {
+  unexpirableHostsPerUser: Scalars["Int"];
+  unexpirableVolumesPerUser: Scalars["Int"];
+  spawnHostsPerUser: Scalars["Int"];
 };
 
 export type HostEvents = {
@@ -1075,6 +1091,10 @@ export type AttachVolumeToHostMutationVariables = {
 };
 
 export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
+
+export type ClearMySubscriptionsMutationVariables = {};
+
+export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
 export type CreatePublicKeyMutationVariables = {
   publicKeyInput: PublicKeyInput;
@@ -1547,7 +1567,7 @@ export type MyVolumesQuery = {
     hostID: string;
     noExpiration: boolean;
     homeVolume: boolean;
-    creationTime: Date;
+    creationTime?: Maybe<Date>;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
 };
@@ -1958,6 +1978,7 @@ export type PatchQuery = {
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    parameters: Array<{ key: string; value: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
