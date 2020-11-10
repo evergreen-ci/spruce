@@ -6,6 +6,7 @@ export const GET_TASK = gql`
       fileCount
     }
     task(taskId: $taskId, execution: $execution) {
+      id
       activatedBy
       baseTaskMetadata {
         baseTaskDuration

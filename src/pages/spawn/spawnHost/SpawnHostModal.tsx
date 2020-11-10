@@ -127,6 +127,19 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     });
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (awsRegions) {
+      dispatch({ type: "editAWSRegion", region: awsRegions[0] });
+    }
+    if (publicKeys) {
+      dispatch({
+        type: "editPublicKey",
+        publicKey: publicKeys[0],
+        savePublicKey: false,
+      });
+    }
+  }, [awsRegions, publicKeys, dispatch]);
+
   // Need to initialize these here so they can be used in the useEffect hook
   let virtualWorkstationDistros = [];
   let notVirtualWorkstationDistros = [];
