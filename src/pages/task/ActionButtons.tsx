@@ -195,7 +195,7 @@ export const ActionButtons = ({
           <StyledBody>Set new priority:</StyledBody>
           <InputNumber
             size="small"
-            min={-1}
+            min={0}
             type="number"
             max={Number.MAX_SAFE_INTEGER}
             value={priority}
