@@ -86,6 +86,13 @@ const myVolumesQueryMock = {
           __typename: "Volume",
         },
       ],
+      spruceConfig: {
+        spawnHost: {
+          unexpirableVolumesPerUser: 20,
+          __typename: "SpawnHostConfig",
+        },
+        __typename: "SpruceConfig",
+      },
     },
   },
 };
