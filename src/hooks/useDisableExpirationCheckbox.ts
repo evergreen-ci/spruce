@@ -17,13 +17,12 @@ export const useDisableExpirationCheckbox = ({
   targetItem,
 }: Params): boolean => {
   const currentUnexpireableCount = (allItems ?? []).reduce(
-    // noExpiration indicates that the item has no expiration
-    // and the "No expiration" checkbox will default to checked
+    // noExpiration indicates whether the item is expireable
     (accum, currItem) => accum + (currItem.noExpiration ? 1 : 0),
     0
   );
   const maxReached = currentUnexpireableCount >= (maxUnexpireable ?? 0);
-  // when the max number of unexpirable items is reached, only allow
-  // toggling the "No Expiration" checkbox when it is already checked
+  // when the max number of unexpirable items is reached, only allow toggling
+  // the "No Expiration" when the targetItem already has noExpiration set to true
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;
 };
