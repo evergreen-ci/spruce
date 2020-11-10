@@ -12,6 +12,7 @@ import {
   PreferencesTabRoutes,
   getUserPatchesRoute,
   getPreferencesRoute,
+  routes,
 } from "constants/routes";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
@@ -38,7 +39,7 @@ export const NavDropdown = () => {
         </a>
       </Menu.Item>
       <Menu.Item>
-        <a href={`${uiURL}${legacyRoutes.hosts}`}>Hosts</a>
+        <Link to={routes.spawnHost}>Hosts</Link>
       </Menu.Item>
       <Menu.Item>
         <Link to={`${getUserPatchesRoute(userId)}`}>Patches</Link>
