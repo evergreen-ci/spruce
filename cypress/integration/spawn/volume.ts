@@ -29,6 +29,18 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("time-picker").should("have.value", "15:48:18");
     });
 
+    it("Reopening the edit volume modal should reset form input fields.", () => {
+      cy.dataCy("volume-name-input").type("Hello, World");
+      cy.dataCy("cancel-volume-button");
+      cy.dataCy(
+        "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      ).click();
+      cy.dataCy("volume-name-input").should(
+        "have.value",
+        "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
+      );
+    });
+
     it("Submit button should be enabled when the volume details input value differs from what already exists.", () => {
       cy.dataCy("update-volume-button").should("be.disabled");
       // type a new name
@@ -160,6 +172,27 @@ describe("Navigating to Spawn Volume page", () => {
     cy.visit("/spawn/volume");
     cy.dataCy("spawn-volume-btn").click();
     cy.dataCy("spawn-volume-modal").should("be.visible");
+  });
+
+  it("Reopening the Spawn Host modal clears previous input changes.", () => {
+    cy.dataCy("typeSelector").click();
+    cy.contains("sc1").click();
+    cy.dataTestId("host-select").click();
+    cy.dataCy("i-04ade558e1e26b0ad-option").click();
+    cy.contains("Never").click();
+    cy.dataCy("cancel-button").click();
+    cy.dataCy("spawn-volume-btn").click();
+    cy.dataCy("typeSelector").contains("gp2");
+    cy.dataCy("neverExpireCheckbox").should(
+      "have.attr",
+      "aria-checked",
+      "false"
+    );
+    cy.get("[data-test-id=host-select] .ant-select-selection-item").should(
+      "have.attr",
+      "title",
+      " "
+    );
   });
 
   const expectedVolNames = [

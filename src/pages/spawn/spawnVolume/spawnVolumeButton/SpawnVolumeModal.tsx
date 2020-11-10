@@ -112,7 +112,11 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel} key="cancel-button">
+        <WideButton
+          onClick={onCancel}
+          data-cy="cancel-button"
+          key="cancel-button"
+        >
           Cancel
         </WideButton>,
         <WideButton

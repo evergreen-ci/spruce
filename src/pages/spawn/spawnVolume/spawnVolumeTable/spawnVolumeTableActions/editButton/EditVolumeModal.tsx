@@ -104,7 +104,11 @@ export const EditVolumeModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel} key="cancel-button">
+        <WideButton
+          data-cy="cancel-volume-button"
+          onClick={onCancel}
+          key="cancel-button"
+        >
           Cancel
         </WideButton>,
         <WideButton
