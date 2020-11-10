@@ -120,12 +120,12 @@ test("Disable the No Expiration checkbox when the max number of unexpireable ite
   expect(result.current).toEqual(true);
 });
 
-test("Enable the No Expiration checkbox when the allItems array is undefined but maxUnexpireable is defined.", async () => {
+test("Disable the No Expiration checkbox when the allItems array is undefined but maxUnexpireable is defined.", async () => {
   const { result } = renderHook(() =>
     useDisableExpirationCheckbox({
       allItems: undefined,
       maxUnexpireable: 3,
     })
   );
-  expect(result.current).toEqual(true);
+  expect(result.current).toEqual(false);
 });
