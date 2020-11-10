@@ -87,66 +87,62 @@ functions:
       script: |
         ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
 
-  npm-start:
+  yarn-start:
     command: subprocess.exec
     type: setup
     params:
       working_dir: spruce
       background: true
-      command: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm run dev
+      command: yarn run dev
 
-  npm-install:
+  
+  yarn-install:
     command: shell.exec
     params:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
-        /opt/nodejs/node-v12.16.0-linux-x64/bin/npm install
+        yarn
 
-  npm-test:
+  yarn-test:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
+      binary: yarn
       args: [test, --, -u, --reporters=default, --reporters=jest-junit]
       env:
         CI: "true"
 
 
-  npm-eslint:
+  yarn-eslint:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
-      args: [run, eslint]
+      command: yarn eslint
 
-  npm-tsc:
+  yarn-tsc:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
-      args: [run, check-types]
+      command: yarn check-types
 
-  npm-build:
+  yarn-build:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
-      args: [run, build]
+      command: yarn build
 
-  npm-coverage:
+  yarn-coverage:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
-      args: [run, coverage]
+      command: yarn coverage
 
-  npm-analyze:
+  yarn-analyze:
     command: subprocess.exec
     params:
       working_dir: spruce
-      binary: /opt/nodejs/node-v12.16.0-linux-x64/bin/npm
-      args: [run, analyze]
+      command: yarn analyze
 
   run-cypress-tests:
     command: shell.exec
@@ -248,7 +244,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  npm run deploy; npm run upload-source-maps;
+        BUCKET=${bucket} AWS_ACCESS_KEY_ID=${aws_key} AWS_SECRET_ACCESS_KEY=${aws_secret}  yarn deploy; yarn upload-source-maps;
 
 
   build-prod:
@@ -256,7 +252,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        npm run build:prod
+        yarn build:prod
   
   send-email:
     command: shell.exec
@@ -276,35 +272,36 @@ tasks:
   - name: compile
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-build
-    - func: npm-analyze
+    - func: yarn-install
+    - func: copy-cmdrc
+    - func: yarn-build
+    - func: yarn-analyze
 
   - name: test
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-test
+    - func: yarn-install
+    - func: yarn-test
 
   - name: lint
     commands:
     - func: get-project
     - func: sym-link
-    - func: npm-install
-    - func: npm-eslint
+    - func: yarn-install
+    - func: yarn-eslint
 
   - name: type_check
     commands:
     - func: get-project
     - func: sym-link
-    - func: npm-install
-    - func: npm-tsc
+    - func: yarn-install
+    - func: yarn-tsc
 
   - name: coverage
     commands:
     - func: get-project
-    - func: npm-install
-    - func: npm-coverage
+    - func: yarn-install
+    - func: yarn-coverage
 
   - name: e2e_test
     commands:
@@ -317,8 +314,8 @@ tasks:
     - func: run-make-background
       vars:
         target: local-evergreen
-    - func: npm-install
-    - func: npm-start
+    - func: yarn-install
+    - func: yarn-start
     - func: run-cypress-tests
     
   - name: send_email
@@ -332,7 +329,7 @@ tasks:
     commands:
     - func: get-project
     - func: setup-credentials
-    - func: npm-install
+    - func: yarn-install
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email
