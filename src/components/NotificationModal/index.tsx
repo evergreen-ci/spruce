@@ -8,7 +8,6 @@ import { Body } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import get from "lodash/get";
 import set from "lodash/set";
-import { v4 as uuid } from "uuid";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
@@ -138,7 +137,11 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           data-test-id="when-select"
         >
           {triggers.map((t, i) => (
-            <Option key={uuid()} value={i} data-test-id={`trigger_${i}-option`}>
+            <Option
+              key={`trigger_${t.payloadResourceIdKey}`}
+              value={i}
+              data-test-id={`trigger_${i}-option`}
+            >
               {t.label}
             </Option>
           ))}
@@ -228,7 +231,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       </div>
       <div>
         {extraFieldErrorMessages.map((text) => (
-          <span key={uuid()} data-cy="error-message">
+          <span key={`field_error_${text}`} data-cy="error-message">
             <ErrorMessage>{text}</ErrorMessage>
           </span>
         ))}
