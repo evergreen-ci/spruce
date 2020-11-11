@@ -19,12 +19,13 @@ interface CardItem {
   value: JSX.Element;
 }
 
-const CardField: React.FC<CardItem> = ({ label, value }) => (
-  <FieldContainer>
-    <FieldName>{label}</FieldName>
-    <div>{value}</div>
-  </FieldContainer>
-);
+const CardField: React.FC<CardItem> = ({ label, value }) =>
+  value !== undefined && (
+    <FieldContainer>
+      <FieldName>{label}</FieldName>
+      <div>{value}</div>
+    </FieldContainer>
+  );
 
 type FieldMap<T> = {
   [key: string]: (T: T) => JSX.Element;
