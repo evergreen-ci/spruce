@@ -47,7 +47,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   };
 
   const disabledDate = (current) => current < Date.now();
-  const disableExpirationCheckbox = true; // TODO
+  const disableExpirationCheckbox = false; // TODO
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
@@ -84,7 +84,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
                   dataType === "VOLUME" ? "volumes" : "hosts"
                 }. Toggle an existing ${
                   dataType === "VOLUME" ? "volume" : "host"
-                } to expireable to enable this checkbox.`
+                } to expirable to enable this checkbox.`
               : undefined
           }
         >
