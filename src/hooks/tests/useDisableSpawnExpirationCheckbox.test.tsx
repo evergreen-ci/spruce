@@ -1,0 +1,173 @@
+import React from "react";
+import { MockedProvider } from "@apollo/client/testing";
+import { renderHook } from "@testing-library/react-hooks";
+import { GET_SPAWN_EXPIRATION_INFO } from "gql/queries";
+import { useDisableSpawnExpirationCheckbox } from "..";
+
+const getProvider = (mocks) => ({ children }) => (
+  <MockedProvider mocks={mocks}>{children}</MockedProvider>
+);
+
+const spawnExpirationMock = {
+  request: {
+    query: GET_SPAWN_EXPIRATION_INFO,
+    variables: {},
+  },
+  result: {
+    data: {
+      myHosts: [
+        { noExpiration: false, id: "i-05a2f286b802fd144", __typename: "Host" },
+        { noExpiration: true, id: "i-09d810d09f9cd9a1d", __typename: "Host" },
+        { noExpiration: true, id: "i-010cb384f2a0af1f4", __typename: "Host" },
+        { noExpiration: false, id: "i-08bc47799b6331c58", __typename: "Host" },
+      ],
+      myVolumes: [
+        {
+          noExpiration: false,
+          id: "vol-0a7fa1af4c970e824",
+          __typename: "Volume",
+        },
+        {
+          noExpiration: false,
+          id: "vol-0270933468cf4712a",
+          __typename: "Volume",
+        },
+        {
+          noExpiration: true,
+          id: "vol-04f4e0b9c13b4d0ad",
+          __typename: "Volume",
+        },
+        {
+          noExpiration: true,
+          id: "vol-094dab1409b72c64a",
+          __typename: "Volume",
+        },
+      ],
+      spruceConfig: {
+        spawnHost: {
+          unexpirableHostsPerUser: 2,
+          unexpirableVolumesPerUser: 1,
+          __typename: "SpawnHostConfig",
+        },
+        __typename: "SpruceConfig",
+      },
+    },
+  },
+};
+
+const host = {
+  expiration: new Date("2020-08-21T14:00:07-04:00"),
+  distro: {
+    isVirtualWorkStation: true,
+    id: "ubuntu1804-workstation",
+    user: "ubuntu",
+    workDir: "/home/ubuntu",
+  },
+  hostUrl: "ec2-54-242-162-135.compute-1.amazonaws.com",
+  homeVolumeID: "vol-0ea662ac92f611ed4",
+  id: "i-04ade558e1e26b0ad",
+  instanceType: "m5.xlarge",
+  instanceTags: [],
+  volumes: [
+    { displayName: "", id: "vol-0583d66433a69f136", __typename: "Volume" },
+    { displayName: "", id: "vol-0ea662ac92f611ed4", __typename: "Volume" },
+  ],
+  provider: "ec2-ondemand",
+  status: "running",
+  startedBy: "admin",
+  tag: "evg-ubuntu1804-workstation-20200615111044-7227428564029203",
+  user: "ubuntu",
+  uptime: new Date("2020-06-15T07:10:44-04:00"),
+  displayName: "",
+  availabilityZone: "us-east-1a",
+};
+
+const volume = {
+  id: "705cbc9010f090b600639e7223a21e68fe35508a12d8c63a34662d01ddf13302",
+  displayName:
+    "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
+  createdBy: "admin",
+  type: "82e62e24ad48ffc0292b9c2846b98e567e634d5df4771977dbedf1ee44134762",
+  availabilityZone:
+    "bcc3edcc1ecf38f75c2d62a8a50c99337509bd80a7f42db062efcda148bf6ff7",
+  size: 1000,
+  expiration: new Date("2020-06-06T15:44:11Z"),
+  deviceName: null,
+  hostID: "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
+  host: {
+    displayName: "",
+    id: "c04d193c4de174376167746bc268426a4085bffb364c4740e0564ca3eeee6875",
+  },
+  homeVolume: true,
+  creationTime: new Date("2020-06-05T15:44:11Z"),
+};
+
+test("Return true when the max unexpirable volumes is 1, the user already has 1 unxepirable volume and a target volume isn't provided", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () => useDisableSpawnExpirationCheckbox("VOLUME"),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeTruthy();
+});
+
+test("Return false when the max unexpirable volumes is 1, the user already has 1 unxepirable volume and a target volume is unexpirable", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useDisableSpawnExpirationCheckbox("VOLUME", {
+        ...volume,
+        noExpiration: true,
+      }),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeFalsy();
+});
+
+test("Return true when the max unexpirable volumes is 1, the user already has 1 unxepirable volume and a target volume is expirable", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useDisableSpawnExpirationCheckbox("VOLUME", {
+        ...volume,
+        noExpiration: false,
+      }),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeTruthy();
+});
+
+test("Return true when the max unexpirable hosts is 2, the user already has 2 unxepirable hosts and a target host isn't provided", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () => useDisableSpawnExpirationCheckbox("HOST"),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeTruthy();
+});
+
+test("Return false when the max unexpirable hosts is 2, the user already has 2 unxepirable volume and a target host is unexpirable", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useDisableSpawnExpirationCheckbox("HOST", {
+        ...host,
+        noExpiration: true,
+      }),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeFalsy();
+});
+
+test("Return true when the max unexpirable hosts is 2, the user already has 2 unxepirable volume and a target host is expirable", async () => {
+  const { result, waitForNextUpdate } = renderHook(
+    () =>
+      useDisableSpawnExpirationCheckbox("VOLUME", {
+        ...host,
+        noExpiration: false,
+      }),
+    { wrapper: getProvider([spawnExpirationMock]) }
+  );
+  await waitForNextUpdate();
+  expect(result.current).toBeTruthy();
+});

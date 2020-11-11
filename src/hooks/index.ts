@@ -16,3 +16,4 @@ export {
 } from "hooks/useTableFilters";
 export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTableChange";
 export { usePrevious } from "./usePrevious";
+export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";

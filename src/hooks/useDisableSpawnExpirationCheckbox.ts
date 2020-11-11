@@ -13,7 +13,7 @@ const countNoExpirationCB = (accum: number, currItem: ListItem) =>
 
 export const useDisableSpawnExpirationCheckbox = (
   dataType: "VOLUME" | "HOST",
-  targetItem: MyVolume | MyHost
+  targetItem?: MyVolume | MyHost
 ) => {
   const { data } = useQuery<
     SpawnExpirationInfoQuery,
