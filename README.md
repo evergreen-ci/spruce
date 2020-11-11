@@ -18,17 +18,17 @@ Spruce is the React UI for MongoDB's continuous integration software.
 
 1. Clone the Spruce Github repository
 2. Ask a colleague for their .cmdrc.json file and follow the instructions [here](#environment-variables)
-3. Run `npm install`
+3. Run `yarn`
 4. Start a local evergreen server by doing the following:
 
 - Clone the evergreen repo into your go path
 - Run `make local-evergreen`
 
-5. Run `npm run dev`. This will launch the app and point it at the local evergreen server you just ran.
+5. Run `yarn run dev`. This will launch the app and point it at the local evergreen server you just ran.
 
 ### Storybook
 
-Run `npm run storybook` to launch storybook and view our shared components.
+Run `yarn run storybook` to launch storybook and view our shared components.
 
 ### Code Formatting
 
@@ -39,7 +39,7 @@ Install the Prettier code formatting plugin in your code editor if you don't hav
 Follow these directions to enable query linting during local development so your Evergreen GraphQL schema changes are reflected in your Spruce query linting results.
 
 1. Symlink the standard definition language GraphQL schema used in your backend to a file named sdlschema in the root of the Spruce directory to enable query linting with ESlint like so `ln -s /path/to/schema sdlschema.graphql`
-2. Run `npm run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor. If you are using VSCode, we recommend ESLint by Dirk Baeumer.
+2. Run `yarn run eslint` to see the results of query linting in your terminal or install a plugin to integrate ESlint into your editor. If you are using VSCode, we recommend ESLint by Dirk Baeumer.
 
 ### Environment Variables
 
@@ -84,7 +84,7 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 
 ### Using code generation
 
-- From within the spruce folder run `npm run codegen`
+- From within the spruce folder run `yarn run codegen`
 - As long as your queries are declared correctly the types should generate
 
 ### Code generation troubleshooting and tips
@@ -141,9 +141,9 @@ A `.cmdrc.json` file is required to deploy because it sets the environment varia
 
 ### How to Deploy:
 
-Run the `deploy:prod` or `deploy:staging` npm command
+Run the `deploy:prod` or `deploy:staging` yarn command
 
-1. `npm run deploy:prod` = deploy to https://spruce.mongodb.com
-2. `npm run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
+1. `yarn run deploy:prod` = deploy to https://spruce.mongodb.com
+2. `yarn run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
 
 After deploying you will be prompted to run `git push --tags` or `git push upstream --tags` depending on your setup, this is important so we can track releases. 
