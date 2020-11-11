@@ -2014,6 +2014,19 @@ export type ConfigurePatchQuery = {
   };
 };
 
+export type SpawnExpirationInfoQueryVariables = {};
+
+export type SpawnExpirationInfoQuery = {
+  myHosts: Array<{ noExpiration: boolean; id: string }>;
+  myVolumes: Array<{ noExpiration: boolean; id: string }>;
+  spruceConfig?: Maybe<{
+    spawnHost: {
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
+  }>;
+};
+
 export type SubnetAvailabilityZonesQueryVariables = {};
 
 export type SubnetAvailabilityZonesQuery = {

@@ -6,6 +6,8 @@ import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { useDisableSpawnExpirationCheckbox } from "hooks/useDisableSpawnExpirationCheckbox";
+import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
 
 export interface ExpirationDateType {
@@ -17,13 +19,19 @@ interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
   dataType: "VOLUME" | "HOST";
+  targetItem?: MyHost | MyVolume;
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
   dataType,
+  targetItem,
 }) => {
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
+    dataType,
+    targetItem
+  );
   const { expiration: expirationString, noExpiration } = data;
   const expiration = expirationString ? new Date(expirationString) : new Date();
   const updateDate = (d: Date) => {
@@ -47,7 +55,6 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   };
 
   const disabledDate = (current) => current < Date.now();
-  const disableExpirationCheckbox = false; // TODO
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
