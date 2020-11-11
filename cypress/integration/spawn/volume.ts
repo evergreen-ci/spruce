@@ -31,7 +31,7 @@ describe("Navigating to Spawn Volume page", () => {
 
     it("Reopening the edit volume modal should reset form input fields.", () => {
       cy.dataCy("volume-name-input").type("Hello, World");
-      cy.dataCy("cancel-volume-button");
+      cy.dataCy("cancel-volume-button").click();
       cy.dataCy(
         "edit-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b858"
       ).click();
