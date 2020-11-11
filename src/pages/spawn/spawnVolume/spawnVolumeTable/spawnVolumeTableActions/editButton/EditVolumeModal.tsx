@@ -1,5 +1,5 @@
 import React, { useEffect, useReducer } from "react";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
 import { useSpawnAnalytics } from "analytics";
@@ -14,14 +14,10 @@ import {
 import { InputLabel } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
-  MyVolumesQuery,
-  MyVolumesQueryVariables,
   UpdateVolumeMutation,
   UpdateVolumeMutationVariables,
 } from "gql/generated/types";
 import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
-import { GET_MY_VOLUMES } from "gql/queries";
-import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
 import { MyVolume } from "types/spawn";
 import { getInitialState, reducer } from "./editVolumeModal/reducer";
 
@@ -56,23 +52,11 @@ export const EditVolumeModal: React.FC<Props> = ({
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
 
-  const { data: volumesData } = useQuery<
-    MyVolumesQuery,
-    MyVolumesQueryVariables
-  >(GET_MY_VOLUMES);
-
   useEffect(() => {
     if (visible) {
       dispatch({ type: "reset", volume: getInitialState(volume) });
     }
   }, [visible, volume]);
-
-  const disableExpirationCheckbox = useDisableExpirationCheckbox({
-    allItems: volumesData?.myVolumes,
-    maxUnexpireable:
-      volumesData?.spruceConfig.spawnHost.unexpirableVolumesPerUser,
-    targetItem: volume,
-  });
 
   const updateVolume = () => {
     const mutationVars = { ...state };
@@ -143,7 +127,6 @@ export const EditVolumeModal: React.FC<Props> = ({
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
-        disableExpirationCheckbox={disableExpirationCheckbox}
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
     </Modal>

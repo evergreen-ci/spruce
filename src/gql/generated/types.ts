@@ -1550,9 +1550,7 @@ export type MyHostsQuery = {
     }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
-  spruceConfig?: Maybe<{
-    spawnHost: { unexpirableHostsPerUser: number; spawnHostsPerUser: number };
-  }>;
+  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
 export type MyVolumesQueryVariables = {};
@@ -1573,7 +1571,6 @@ export type MyVolumesQuery = {
     creationTime?: Maybe<Date>;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
-  spruceConfig?: Maybe<{ spawnHost: { unexpirableVolumesPerUser: number } }>;
 };
 
 export type PatchBuildVariantsQueryVariables = {

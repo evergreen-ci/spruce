@@ -23,12 +23,9 @@ import {
   MyVolumesQueryVariables,
   EditSpawnHostMutation,
   EditSpawnHostMutationVariables,
-  MyHostsQuery,
-  MyHostsQueryVariables,
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
-import { GET_INSTANCE_TYPES, GET_MY_HOSTS, GET_MY_VOLUMES } from "gql/queries";
-import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
+import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
 import {
   VolumesField,
   UserTagsField,
@@ -96,16 +93,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       );
     },
     refetchQueries: ["MyVolumes"],
-  });
-
-  const { data: hostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
-    GET_MY_HOSTS
-  );
-
-  const disableExpirationCheckbox = useDisableExpirationCheckbox({
-    allItems: hostsData?.myHosts,
-    maxUnexpireable: hostsData?.spruceConfig.spawnHost.unexpirableHostsPerUser,
-    targetItem: host,
   });
 
   const instanceTypes = instanceTypesData?.instanceTypes;
@@ -177,7 +164,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
           onChange={(data: ExpirationDateType) =>
             dispatch({ type: "editExpiration", ...data })
           }
-          disableExpirationCheckbox={disableExpirationCheckbox}
         />
         <SectionContainer>
           <SectionLabel weight="medium">Instance Type</SectionLabel>

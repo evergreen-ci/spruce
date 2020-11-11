@@ -35,7 +35,6 @@ export const GET_MY_HOSTS = gql`
     }
     spruceConfig {
       spawnHost {
-        unexpirableHostsPerUser
         spawnHostsPerUser
       }
     }

@@ -22,7 +22,6 @@ import {
 } from "gql/generated/types";
 import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
 import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
-import { useDisableExpirationCheckbox } from "hooks/useDisableExpirationCheckbox";
 import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { reducer, initialState } from "./spawnVolumeModal/reducer";
 import { SizeSelector } from "./spawnVolumeModal/SizeSelector";
@@ -100,12 +99,6 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     });
   }, [maxSpawnableLimit]);
 
-  const disableExpirationCheckbox = useDisableExpirationCheckbox({
-    allItems: volumesData?.myVolumes,
-    maxUnexpireable:
-      volumesData?.spruceConfig.spawnHost.unexpirableVolumesPerUser,
-  });
-
   return (
     <Modal
       title="Spawn New Volume"
@@ -152,7 +145,6 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
-        disableExpirationCheckbox={disableExpirationCheckbox}
         dataType="VOLUME"
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />

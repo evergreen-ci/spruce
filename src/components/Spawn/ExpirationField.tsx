@@ -16,14 +16,12 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
-  disableExpirationCheckbox: boolean;
   dataType: "VOLUME" | "HOST";
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
-  disableExpirationCheckbox,
   dataType,
 }) => {
   const { expiration: expirationString, noExpiration } = data;
@@ -49,6 +47,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   };
 
   const disabledDate = (current) => current < Date.now();
+  const disableExpirationCheckbox = true; // TODO
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
