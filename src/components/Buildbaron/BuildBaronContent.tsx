@@ -4,6 +4,7 @@ import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { Banners } from "components/Banners";
 import { StyledLink } from "components/styles";
+import { getJiraSearchUrl } from "constants/externalResources";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -41,7 +42,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
 
   const jiraSearchString = eventData?.searchReturnInfo?.search;
   const jqlEscaped = encodeURIComponent(jiraSearchString);
-  const jiraSearchLink = `https://${jiraHost}/secure/IssueNavigator.jspa?jql=${jqlEscaped}`;
+  const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
 
   return (
     <span data-cy="bb-content">
