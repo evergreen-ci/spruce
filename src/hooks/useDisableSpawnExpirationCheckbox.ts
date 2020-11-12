@@ -19,15 +19,19 @@ export const useDisableSpawnExpirationCheckbox = (
     SpawnExpirationInfoQuery,
     SpawnExpirationInfoQueryVariables
   >(GET_SPAWN_EXPIRATION_INFO);
+
   const currentUnexpirableCount = (
     (dataType === "VOLUME" ? data?.myVolumes : data?.myHosts) ?? []
   ).reduce(countNoExpirationCB, 0);
+
   const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
     data?.spruceConfig?.spawnHost ?? {};
+
   const maxUnexpirable =
     (dataType === "VOLUME"
       ? unexpirableHostsPerUser
       : unexpirableVolumesPerUser) ?? 0;
+
   const maxReached = currentUnexpirableCount >= (maxUnexpirable ?? 0);
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;
 };
