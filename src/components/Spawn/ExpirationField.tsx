@@ -18,18 +18,18 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
-  dataType: "VOLUME" | "HOST";
+  isVolume: boolean;
   targetItem?: MyHost | MyVolume;
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
-  dataType,
+  isVolume,
   targetItem,
 }) => {
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
-    dataType,
+    isVolume,
     targetItem
   );
   const { expiration: expirationString, noExpiration } = data;
@@ -88,9 +88,9 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
           title={
             disableExpirationCheckbox
               ? `You have reached the max number of unexpirable ${
-                  dataType === "VOLUME" ? "volumes" : "hosts"
+                  isVolume ? "volumes" : "hosts"
                 }. Toggle an existing ${
-                  dataType === "VOLUME" ? "volume" : "host"
+                  isVolume ? "volume" : "host"
                 } to expirable to enable this checkbox.`
               : undefined
           }

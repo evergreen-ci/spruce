@@ -104,7 +104,7 @@ const volume = {
 
 test("Should return true when the user already has the maximum unexpirable volumes and a target item is not supplied.", async () => {
   const { result, waitForNextUpdate } = renderHook(
-    () => useDisableSpawnExpirationCheckbox("VOLUME"),
+    () => useDisableSpawnExpirationCheckbox(true),
     { wrapper: getProvider([spawnExpirationMock]) }
   );
   await waitForNextUpdate();
@@ -114,7 +114,7 @@ test("Should return true when the user already has the maximum unexpirable volum
 test("Should return false when when the user has the maximum number of unexpirable volumes and the target item is unexpirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
-      useDisableSpawnExpirationCheckbox("VOLUME", {
+      useDisableSpawnExpirationCheckbox(true, {
         ...volume,
         noExpiration: true,
       }),
@@ -127,7 +127,7 @@ test("Should return false when when the user has the maximum number of unexpirab
 test("Should return true when the user has the maximum number of unexpirable volumes and the target item is expirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
-      useDisableSpawnExpirationCheckbox("VOLUME", {
+      useDisableSpawnExpirationCheckbox(true, {
         ...volume,
         noExpiration: false,
       }),
@@ -139,7 +139,7 @@ test("Should return true when the user has the maximum number of unexpirable vol
 
 test("Should return true when the user has the maximum number of hosts and a target item is not supplied.", async () => {
   const { result, waitForNextUpdate } = renderHook(
-    () => useDisableSpawnExpirationCheckbox("HOST"),
+    () => useDisableSpawnExpirationCheckbox(false),
     { wrapper: getProvider([spawnExpirationMock]) }
   );
   await waitForNextUpdate();
@@ -149,7 +149,7 @@ test("Should return true when the user has the maximum number of hosts and a tar
 test("Should return false when when user has the maximum number of unexpirable hosts and the target item is unexpirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
-      useDisableSpawnExpirationCheckbox("HOST", {
+      useDisableSpawnExpirationCheckbox(false, {
         ...host,
         noExpiration: true,
       }),
@@ -162,7 +162,7 @@ test("Should return false when when user has the maximum number of unexpirable h
 test("Should return false when when user has the maximum number of unexpirable hosts and the target item is expirable.", async () => {
   const { result, waitForNextUpdate } = renderHook(
     () =>
-      useDisableSpawnExpirationCheckbox("VOLUME", {
+      useDisableSpawnExpirationCheckbox(false, {
         ...host,
         noExpiration: false,
       }),

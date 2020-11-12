@@ -122,7 +122,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         </ModalContent>
       </SectionContainer>
       <ExpirationField
-        dataType="VOLUME"
+        isVolume
         targetItem={volume}
         data={{
           expiration: state.expiration,

@@ -12,7 +12,7 @@ const countNoExpirationCB = (accum: number, currItem: ListItem) =>
   accum + (currItem.noExpiration ? 1 : 0);
 
 export const useDisableSpawnExpirationCheckbox = (
-  dataType: "VOLUME" | "HOST",
+  isVolume: boolean,
   targetItem?: MyVolume | MyHost
 ) => {
   const { data } = useQuery<
@@ -21,16 +21,14 @@ export const useDisableSpawnExpirationCheckbox = (
   >(GET_SPAWN_EXPIRATION_INFO);
 
   const currentUnexpirableCount = (
-    (dataType === "VOLUME" ? data?.myVolumes : data?.myHosts) ?? []
+    (isVolume ? data?.myVolumes : data?.myHosts) ?? []
   ).reduce(countNoExpirationCB, 0);
 
   const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
     data?.spruceConfig?.spawnHost ?? {};
 
   const maxUnexpirable =
-    (dataType === "VOLUME"
-      ? unexpirableHostsPerUser
-      : unexpirableVolumesPerUser) ?? 0;
+    (isVolume ? unexpirableHostsPerUser : unexpirableVolumesPerUser) ?? 0;
 
   const maxReached = currentUnexpirableCount >= (maxUnexpirable ?? 0);
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;

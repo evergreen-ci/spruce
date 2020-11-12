@@ -11,7 +11,7 @@ import {
   SectionContainer,
   SectionLabel,
   WideButton,
-  ExpirationField as HostExpirationField,
+  ExpirationField,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel } from "components/styles";
@@ -158,8 +158,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             />
           </ModalContent>
         </SectionContainer>
-        <HostExpirationField
-          dataType="HOST"
+        <ExpirationField
+          isVolume={false}
           targetItem={host}
           data={editSpawnHostState}
           onChange={(data: ExpirationDateType) =>
