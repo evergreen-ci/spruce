@@ -87,7 +87,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
         <Tooltip
           title={
             disableExpirationCheckbox
-              ? `You have reached the max number of unexipireable ${
+              ? `You have reached the max number of unexpirable ${
                   dataType === "VOLUME" ? "volumes" : "hosts"
                 }. Toggle an existing ${
                   dataType === "VOLUME" ? "volume" : "host"
