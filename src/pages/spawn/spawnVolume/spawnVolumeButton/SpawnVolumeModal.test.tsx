@@ -346,7 +346,7 @@ test("Form contains default volumes on initial render.", async () => {
     </MockedProvider>
   ));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("1200"));
 
   expect(queryByDataCy("regionSelector")).toContainHTML(
