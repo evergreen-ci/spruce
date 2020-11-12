@@ -22,10 +22,12 @@ export const useDisableSpawnExpirationCheckbox = (
   const currentUnexpirableCount = (
     (dataType === "VOLUME" ? data?.myVolumes : data?.myHosts) ?? []
   ).reduce(countNoExpirationCB, 0);
+  const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
+    data?.spruceConfig?.spawnHost ?? {};
   const maxUnexpirable =
     (dataType === "VOLUME"
-      ? data?.spruceConfig?.spawnHost.unexpirableHostsPerUser
-      : data?.spruceConfig?.spawnHost.unexpirableVolumesPerUser) ?? 0;
+      ? unexpirableHostsPerUser
+      : unexpirableVolumesPerUser) ?? 0;
   const maxReached = currentUnexpirableCount >= (maxUnexpirable ?? 0);
   return targetItem ? maxReached && !targetItem.noExpiration : maxReached;
 };
