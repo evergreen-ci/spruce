@@ -19,7 +19,7 @@ const spawnVolumeCardFields = {
   "Created at": (volume: MyVolume) => <>{getDateCopy(volume.creationTime)}</>,
   "Expires at": (volume: MyVolume) => (
     <>
-      {volume.noExpiration || !volume.expiration
+      {volume.noExpiration || !volume.expiration || volume.host
         ? DoesNotExpire
         : getDateCopy(volume.expiration)}
     </>

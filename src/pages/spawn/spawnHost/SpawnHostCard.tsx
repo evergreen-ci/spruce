@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Link } from "react-router-dom";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
+import { StyledLink, StyledRouterLink } from "components/styles";
+import { getIdeUrl } from "constants/externalResources";
 import { routes } from "constants/routes";
 import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
@@ -49,20 +50,30 @@ const spawnHostCardFieldMaps = {
     <>
       {host.volumes.map(({ id, displayName }) => (
         <div key={`volume_link_${id}`}>
-          <Link to={`${routes.spawnVolume}?volume=${id}`}>
+          <StyledRouterLink to={`${routes.spawnVolume}?volume=${id}`}>
             {displayName || id}
-          </Link>
+          </StyledRouterLink>
         </div>
       ))}
     </>
   ),
   "Home Volume": (host: MyHost) => (
     <span>
-      <Link to={`${routes.spawnVolume}?volume=${host?.homeVolumeID}`}>
+      <StyledRouterLink
+        to={`${routes.spawnVolume}?volume=${host?.homeVolumeID}`}
+      >
         {host?.homeVolumeID}
-      </Link>
+      </StyledRouterLink>
     </span>
   ),
+  IDE: (host: MyHost) =>
+    host?.distro?.isVirtualWorkStation ? (
+      <span>
+        <StyledLink href={getIdeUrl(host.id)}>Open IDE</StyledLink>
+      </span>
+    ) : (
+      undefined
+    ),
 };
 
 const PaddedBadge = styled(Badge)`
