@@ -116,6 +116,7 @@ describe("Subscription Modals - Shared functionality", () => {
         cy.dataTestId("trigger_0-option").click();
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("email-option").click();
+        cy.dataTestId("email-input").clear();
         cy.dataTestId("email-input").type("arst");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataTestId("email-input").type("rat@rast.com");
@@ -127,6 +128,7 @@ describe("Subscription Modals - Shared functionality", () => {
         cy.dataTestId("trigger_0-option").click();
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("slack-option").click();
+        cy.dataTestId("slack-input").clear();
         cy.dataTestId("slack-input").type("sart");
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataTestId("slack-input").type("@sart");

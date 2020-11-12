@@ -1887,7 +1887,9 @@ export type GetUserSettingsQuery = {
 
 export type GetUserQueryVariables = {};
 
-export type GetUserQuery = { user: { userId: string; displayName: string } };
+export type GetUserQuery = {
+  user: { userId: string; displayName: string; emailAddress: string };
+};
 
 export type GetOtherUserQueryVariables = {
   userId?: Maybe<Scalars["String"]>;

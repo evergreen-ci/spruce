@@ -8,7 +8,6 @@ import { Body } from "@leafygreen-ui/typography";
 import { Select, Input } from "antd";
 import get from "lodash/get";
 import set from "lodash/set";
-import { v4 as uuid } from "uuid";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
@@ -25,7 +24,7 @@ import {
 import { SubscriptionMethodDropdownOption } from "types/subscription";
 
 const { Option } = Select;
-
+const { gray } = uiColors;
 interface NotificationModalProps extends UseNotificationModalProps {
   subscriptionMethodDropdownOptions: SubscriptionMethodDropdownOption[];
   sendAnalyticsEvent: (
@@ -60,6 +59,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       );
     },
   });
+
   const {
     disableAddCriteria,
     extraFieldErrorMessages,
@@ -96,6 +96,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   const label = get(currentMethodControl, "label");
   const placeholder = get(currentMethodControl, "placeholder");
   const targetPath = get(currentMethodControl, "targetPath");
+
   return (
     <Modal
       data-cy={dataCy}
@@ -136,7 +137,11 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           data-test-id="when-select"
         >
           {triggers.map((t, i) => (
-            <Option key={uuid()} value={i} data-test-id={`trigger_${i}-option`}>
+            <Option
+              key={`trigger_${t.payloadResourceIdKey}`}
+              value={i}
+              data-test-id={`trigger_${i}-option`}
+            >
               {t.label}
             </Option>
           ))}
@@ -226,7 +231,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       </div>
       <div>
         {extraFieldErrorMessages.map((text) => (
-          <span key={uuid()} data-cy="error-message">
+          <span key={`field_error_${text}`} data-cy="error-message">
             <ErrorMessage>{text}</ErrorMessage>
           </span>
         ))}
@@ -262,7 +267,7 @@ const ExtraFieldContainer = styled.div`
 const Section = styled.div`
   padding-bottom: 24px;
   margin-bottom: 22px;
-  border-bottom: 1px solid ${uiColors.gray.light2};
+  border-bottom: 1px solid ${gray.light2};
 `;
 
 const RegexSelectorInputContainer = styled.div`
