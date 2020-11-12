@@ -35,10 +35,7 @@ import {
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
-import {
-  useEditSpawnHostModalState,
-  editSpawnHostStateType,
-} from "./editSpawnHostModal/useEditSpawnHostModalState";
+import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 
@@ -236,7 +233,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
   const mutationParams = diff(
     defaultEditSpawnHostState,
     editSpawnHostState
-  ) as editSpawnHostStateType;
+  ) as EditSpawnHostMutationVariables;
 
   // diff returns na object to compare the differences in positions of an array. So we take this object
   // and convert it into an array for these fields
