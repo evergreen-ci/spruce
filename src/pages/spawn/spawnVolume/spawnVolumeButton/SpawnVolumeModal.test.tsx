@@ -9,11 +9,12 @@ import {
   GET_MY_VOLUMES,
   GET_SPAWN_EXPIRATION_INFO,
 } from "gql/queries";
+
 import {
-  act,
   customRenderWithRouterMatch as render,
   fireEvent,
   waitFor,
+  act,
 } from "test_utils/test-utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
 
@@ -344,9 +345,9 @@ test("Form contains default volumes on initial render.", async () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     </MockedProvider>
   ));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await new Promise((resolve) => setTimeout(resolve, 0));
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("1200"));
+  await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("1200"));
 
   expect(queryByDataCy("regionSelector")).toContainHTML(
     '<span class="ant-select-selection-item" title="us-east-1a">us-east-1a</span>'
@@ -397,11 +398,9 @@ test("Form submission succeeds with default values", async () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     </MockedProvider>
   ));
-
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   fireEvent.click(queryByText("Spawn"));
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
+  await waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
@@ -450,7 +449,7 @@ test("Form submission succeeds after adjusting inputs", async () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     </MockedProvider>
   ));
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   fireEvent.change(queryByDataCy("volumeSize"), { target: { value: "24" } });
   fireEvent.mouseDown(queryByDataCy("regionSelector").firstElementChild);
   fireEvent.click(queryByText("us-east-1c"));
@@ -458,8 +457,6 @@ test("Form submission succeeds after adjusting inputs", async () => {
   fireEvent.click(queryByText("st1"));
   fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
   fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  act(() => fireEvent.click(queryByText("Spawn")));
-  await new Promise((resolve) => setTimeout(resolve, 0));
-  waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
+  fireEvent.click(queryByText("Spawn"));
+  await waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
 });
