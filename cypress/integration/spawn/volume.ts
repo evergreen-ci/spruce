@@ -177,7 +177,7 @@ describe("Navigating to Spawn Volume page", () => {
   it("Reopening the Spawn Host modal clears previous input changes.", () => {
     cy.dataCy("typeSelector").click();
     cy.contains("sc1").click();
-    cy.dataTestId("host-select").click();
+    cy.dataCy("host-select").click();
     cy.dataCy("i-04ade558e1e26b0ad-option").click();
     cy.contains("Never").click();
     cy.dataCy("cancel-button").click();
@@ -188,7 +188,7 @@ describe("Navigating to Spawn Volume page", () => {
       "aria-checked",
       "false"
     );
-    cy.get("[data-test-id=host-select] .ant-select-selection-item").should(
+    cy.get("[data-cy=host-select] .ant-select-selection-item").should(
       "have.attr",
       "title",
       " "

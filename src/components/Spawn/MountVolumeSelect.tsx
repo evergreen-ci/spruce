@@ -80,7 +80,6 @@ export const MountVolumeSelect = ({
         style={{ width: 200 }}
         onChange={onChange}
         data-cy="host-select"
-        data-test-id="host-select"
       >
         {!autofill && (
           <Option value="" key="clear" data-cy="clear-option">
