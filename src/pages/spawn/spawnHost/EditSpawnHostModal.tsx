@@ -93,7 +93,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   });
 
   const instanceTypes = instanceTypesData?.instanceTypes;
-  const volumes = volumesData?.myVolumes;
+  const volumes = volumesData?.myVolumes?.filter(
+    (v) => v.availabilityZone === host.availabilityZone
+  );
 
   const [hasChanges, mutationParams] = computeDiff(
     defaultEditSpawnHostState,

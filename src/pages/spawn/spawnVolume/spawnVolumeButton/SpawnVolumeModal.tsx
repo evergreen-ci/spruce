@@ -87,7 +87,11 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
 
   useEffect(() => {
     // Update the size input when we set a new max volume size limit
-    dispatch({ type: "setSize", data: maxSpawnableLimit });
+    // If the max size limit is > 500 default to 500
+    dispatch({
+      type: "setSize",
+      data: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
+    });
   }, [maxSpawnableLimit]);
 
   return (
