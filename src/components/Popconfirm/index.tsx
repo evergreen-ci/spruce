@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import styled from "@emotion/styled";
+import Checkbox from "@leafygreen-ui/checkbox";
 import { Popconfirm as AntPopconfirm } from "antd";
 
 export const Popconfirm: React.FC<React.ComponentProps<
@@ -13,3 +15,53 @@ export const Popconfirm: React.FC<React.ComponentProps<
     <AntPopconfirm {...props}>{children}</AntPopconfirm>
   </span>
 );
+
+interface PopconfirmWithCheckboxProps {
+  onClick: () => void;
+  title: string;
+  checkboxLabel?: string;
+}
+
+export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
+  checkboxLabel,
+  children,
+  onClick,
+  title,
+}) => {
+  const [checked, setChecked] = useState(!checkboxLabel);
+  useEffect(() => {
+    setChecked(!checkboxLabel);
+  }, [checkboxLabel]);
+  return (
+    <Popconfirm
+      icon={null}
+      placement="topRight"
+      title={
+        <>
+          {title}
+          {checkboxLabel && (
+            <CheckboxContainer>
+              <Checkbox
+                className="cy-checkbox"
+                onChange={() => setChecked(!checked)}
+                label={checkboxLabel}
+                checked={checked}
+                bold={false}
+              />
+            </CheckboxContainer>
+          )}
+        </>
+      }
+      onConfirm={onClick}
+      okText="Yes"
+      cancelText="Cancel"
+      okButtonProps={{ disabled: !checked }}
+    >
+      {children}
+    </Popconfirm>
+  );
+};
+
+const CheckboxContainer = styled.div`
+  padding-top: 8px;
+`;
