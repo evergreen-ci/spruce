@@ -82,12 +82,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   let checkboxLabel = "";
   if (host.noExpiration && host.distro?.isVirtualWorkStation) {
-    checkboxLabel =
-      "I understand that this host is a virtual workstation and unexpirable.";
+    checkboxLabel = `${copyPrefix} workstation and unexpirable.`;
   } else if (host.noExpiration) {
-    checkboxLabel = "I understand that this host is unexpirable.";
+    checkboxLabel = `${copyPrefix} is unexpirable.`;
   } else if (host.distro?.isVirtualWorkStation) {
-    checkboxLabel = "I understand this this host is a virtual workstation.";
+    checkboxLabel = `${copyPrefix} a virtual workstation.`;
   }
 
   return (
@@ -119,3 +118,5 @@ const mapStatusToGlyph = {
   [HostStatus.Running]: "Pause",
   [HostStatus.Stopped]: "Play",
 };
+
+const copyPrefix = "I understand that this host is";
