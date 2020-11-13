@@ -42,6 +42,7 @@ export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
           {checkboxLabel && (
             <CheckboxContainer>
               <Checkbox
+                data-cy="popconfirm-checkbox"
                 className="cy-checkbox"
                 onChange={() => setChecked(!checked)}
                 label={checkboxLabel}
