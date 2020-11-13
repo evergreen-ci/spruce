@@ -1,8 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Size } from "@leafygreen-ui/button";
 import { Tooltip } from "antd";
 import { useSpawnAnalytics } from "analytics";
+import { PaddedButton } from "components/Spawn";
 import { MyHost } from "types/spawn";
 import { copyToClipboard } from "utils/string";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
@@ -42,9 +43,4 @@ const FlexContainer = styled.div`
 
 const Label = styled.div`
   width: 121px;
-`;
-
-const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
 `;

@@ -91,3 +91,9 @@ export const SectionLabel = styled(Body)`
   margin-top: 22px;
   min-width: 175px;
 `;
+
+export const PaddedButton = styled(Button)`
+  margin-left: 5px;
+  margin-right: 5px;
+  flex-grow: 0;
+`;

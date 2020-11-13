@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
+import { PaddedButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateSpawnHostStatusMutation,
@@ -105,9 +105,3 @@ const mapStatusToGlyph = {
   [HostStatus.Running]: "Pause",
   [HostStatus.Stopped]: "Play",
 };
-
-const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
-  flex-grow: 0;
-`;
