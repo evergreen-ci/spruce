@@ -23,7 +23,7 @@ interface PopconfirmWithCheckboxProps {
 }
 
 export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
-  checkboxLabel,
+  checkboxLabel, // truthiness determines if checkbox is rendered
   children,
   onClick,
   title,
