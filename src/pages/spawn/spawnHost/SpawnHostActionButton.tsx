@@ -3,6 +3,7 @@ import { useMutation, useLazyQuery } from "@apollo/client";
 import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
+import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { PaddedButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -78,6 +79,17 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       },
     });
   };
+
+  let checkboxLabel = "";
+  if (host.noExpiration && host.distro?.isVirtualWorkStation) {
+    checkboxLabel =
+      "I understand that this host is a virtual workstation and unexpirable.";
+  } else if (host.noExpiration) {
+    checkboxLabel = "I understand that this host is unexpirable.";
+  } else if (host.distro?.isVirtualWorkStation) {
+    checkboxLabel = "I understand this this host is a virtual workstation.";
+  }
+
   return (
     <>
       {action ? (
@@ -88,11 +100,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           onClick={onClick(action)}
         />
       ) : null}
-      <PaddedButton
+      <PopconfirmWithCheckbox
         onClick={onClick(SpawnHostStatusActions.Terminate)}
-        glyph={<Icon glyph="Trash" />}
-        size={Size.XSmall}
-      />
+        title={`Delete host ${host.displayName || host.id}?`}
+        checkboxLabel={checkboxLabel}
+      >
+        <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
+      </PopconfirmWithCheckbox>
     </>
   );
 };

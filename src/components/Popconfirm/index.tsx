@@ -17,7 +17,7 @@ export const Popconfirm: React.FC<React.ComponentProps<
 );
 
 interface PopconfirmWithCheckboxProps {
-  onClick: () => void;
+  onClick: (e: React.MouseEvent) => void;
   title: string;
   checkboxLabel?: string;
 }
