@@ -40,7 +40,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
           ? "I understand this volume is currently mounted to a host."
           : ""
       }
-      onClick={() => {
+      onConfirm={() => {
         spawnAnalytics.sendEvent({
           name: "Delete volume",
           volumeId: volume.id,

@@ -17,7 +17,7 @@ export const Popconfirm: React.FC<React.ComponentProps<
 );
 
 interface PopconfirmWithCheckboxProps {
-  onClick: (e: React.MouseEvent) => void;
+  onConfirm: (e: React.MouseEvent) => void;
   title: string;
   checkboxLabel?: string;
 }
@@ -25,7 +25,7 @@ interface PopconfirmWithCheckboxProps {
 export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
   checkboxLabel, // truthiness determines if checkbox is rendered
   children,
-  onClick,
+  onConfirm,
   title,
 }) => {
   const [checked, setChecked] = useState(!checkboxLabel);
@@ -53,7 +53,7 @@ export const PopconfirmWithCheckbox: React.FC<PopconfirmWithCheckboxProps> = ({
           )}
         </>
       }
-      onConfirm={onClick}
+      onConfirm={onConfirm}
       okText="Yes"
       cancelText="Cancel"
       okButtonProps={{ disabled: !checked }}

@@ -100,7 +100,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         />
       ) : null}
       <PopconfirmWithCheckbox
-        onClick={onClick(SpawnHostStatusActions.Terminate)}
+        onConfirm={onClick(SpawnHostStatusActions.Terminate)}
         title={`Delete host ${host.displayName || host.id}?`}
         checkboxLabel={checkboxLabel}
       >
