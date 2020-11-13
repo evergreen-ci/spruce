@@ -1,7 +1,9 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
+import { Tooltip } from "antd";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Popconfirm } from "components/Popconfirm";
 import { useBannerDispatchContext } from "context/banners";
 import { DETACH_VOLUME } from "gql/mutations";
@@ -33,27 +35,40 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     : volume.host?.id;
 
   return (
-    <Popconfirm
-      icon={null}
-      placement="left"
-      title={`Detach this volume ${volumeName} from host ${hostName}?`}
-      onConfirm={() => {
-        spawnAnalytics.sendEvent({
-          name: "Unmount volume",
-          volumeId: volume.id,
-        });
-        detachVolume({ variables: { volumeId: volume.id } });
-      }}
-      okText="Yes"
-      cancelText="Cancel"
+    <ConditionalWrapper
+      condition={volume.homeVolume}
+      wrapper={(children) => (
+        <Tooltip title="Cannot unmount home volume">
+          <span>{children}</span>
+        </Tooltip>
+      )}
+      altWrapper={(children) => (
+        <Popconfirm
+          icon={null}
+          placement="left"
+          title={`Detach this volume ${volumeName} from host ${hostName}?`}
+          onConfirm={() => {
+            spawnAnalytics.sendEvent({
+              name: "Unmount volume",
+              volumeId: volume.id,
+            });
+            detachVolume({ variables: { volumeId: volume.id } });
+          }}
+          okText="Yes"
+          cancelText="Cancel"
+          disabled={volume.homeVolume}
+        >
+          {children}
+        </Popconfirm>
+      )}
     >
       <Button
         size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
-        disabled={loadingDetachVolume}
+        disabled={loadingDetachVolume || volume.homeVolume}
       >
         Unmount
       </Button>
-    </Popconfirm>
+    </ConditionalWrapper>
   );
 };
