@@ -9,6 +9,7 @@ import {
   GET_USER,
 } from "gql/queries";
 import {
+  act,
   customRenderWithRouterMatch as render,
   waitFor,
 } from "test_utils/test-utils";
@@ -36,6 +37,7 @@ const getUserMock = {
       user: {
         userId: "a",
         displayName: "A",
+        emailAddress: "a@a.com",
         __typename: "User",
       },
     },
@@ -271,7 +273,7 @@ test("Disables the spawn host button when the number of hosts that currently exi
       <SpawnHostButton />
     </MockedProvider>
   ));
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   waitFor(() => expect(queryByDataCy("spawn-host-button")).toBeDisabled());
 });
 
@@ -291,6 +293,6 @@ test("Enables the spawn host button when the number of hosts that currently exis
       <SpawnHostButton />
     </MockedProvider>
   ));
-  await new Promise((resolve) => setTimeout(resolve, 0));
+  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   waitFor(() => expect(queryByDataCy("spawn-host-button")).not.toBeDisabled());
 });
