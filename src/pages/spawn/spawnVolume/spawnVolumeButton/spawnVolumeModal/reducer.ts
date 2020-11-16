@@ -1,7 +1,7 @@
 import { SpawnVolumeMutationVariables } from "gql/generated/types";
 
 export const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
-  availabilityZone: "us-east-1a",
+  availabilityZone: "",
   size: 500,
   type: "gp2",
   expiration: null,

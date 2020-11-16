@@ -1115,7 +1115,7 @@ export type EditSpawnHostMutationVariables = {
   displayName?: Maybe<Scalars["String"]>;
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
-  volume?: Maybe<Scalars["String"]>;
+  volumeId?: Maybe<Scalars["String"]>;
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
