@@ -131,7 +131,7 @@ functions:
       command: yarn build
 
   yarn-coverage:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
       script: |
