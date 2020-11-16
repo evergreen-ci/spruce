@@ -347,7 +347,7 @@ test("Form contains default volumes on initial render.", async () => {
   ));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("1200"));
+  await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("500"));
 
   expect(queryByDataCy("regionSelector")).toContainHTML(
     '<span class="ant-select-selection-item" title="us-east-1a">us-east-1a</span>'
@@ -379,7 +379,7 @@ test("Form submission succeeds with default values", async () => {
         variables: {
           SpawnVolumeInput: {
             availabilityZone: "us-east-1a",
-            size: 1200,
+            size: 500,
             type: "gp2",
             expiration: null,
             noExpiration: false,
