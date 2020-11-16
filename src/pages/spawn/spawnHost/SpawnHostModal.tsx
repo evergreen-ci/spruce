@@ -196,7 +196,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
-          glyph={loadingSpawnHost && <Icon glyph="Refresh" />}
         >
           {loadingSpawnHost ? "Spawning Host" : "Spawn"}
         </WideButton>,
