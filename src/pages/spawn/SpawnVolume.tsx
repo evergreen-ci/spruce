@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/badge";
 import { Subtitle } from "@leafygreen-ui/typography";
+import { Skeleton } from "antd";
 import {
   Title,
   BadgeWrapper,
@@ -10,15 +11,20 @@ import {
 } from "components/Spawn";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
+import { useNetworkStatus } from "hooks";
 import { SpawnVolumeTable } from "pages/spawn/spawnVolume/SpawnVolumeTable";
 import { SpawnVolumeButton } from "./spawnVolume/SpawnVolumeButton";
 
 export const SpawnVolume = () => {
-  const { data: volumesData } = useQuery<
+  const { data: volumesData, loading, startPolling, stopPolling } = useQuery<
     MyVolumesQuery,
     MyVolumesQueryVariables
   >(GET_MY_VOLUMES);
+  useNetworkStatus(startPolling, stopPolling);
 
+  if (loading) {
+    return <Skeleton />;
+  }
   const mountedCount =
     volumesData?.myVolumes.filter((v) => v.hostID).length ?? 0;
   const unmountedCount =
