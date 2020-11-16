@@ -34,6 +34,7 @@ export const MountVolumeModal: React.FC<Props> = ({
     onError: (err) =>
       dispatchBanner.errorBanner(`Error attaching volume: '${err.message}'`),
     onCompleted: () => {
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner("Successfully mounted the volume.");
     },
     refetchQueries: ["MyVolumes", "MyHosts"],

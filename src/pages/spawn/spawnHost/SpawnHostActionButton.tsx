@@ -55,6 +55,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     UpdateSpawnHostStatusMutationVariables
   >(UPDATE_SPAWN_HOST_STATUS, {
     onCompleted() {
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner(
         `Successfully triggered host status update!`
       );

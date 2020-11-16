@@ -26,6 +26,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     onError: (err) =>
       dispatchBanner.errorBanner(`Error removing volume: '${err.message}'`),
     onCompleted: () => {
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner("Successfully deleted the volume.");
     },
   });

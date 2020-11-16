@@ -50,6 +50,7 @@ export const EditVolumeModal: React.FC<Props> = ({
     },
     onError(err) {
       onCancel();
+      dispatchBanner.clearAllBanners();
       dispatchBanner.errorBanner(
         `There was an error while updating your volume: ${err.message}`
       );

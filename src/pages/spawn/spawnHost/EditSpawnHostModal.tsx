@@ -80,6 +80,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   >(EDIT_SPAWN_HOST, {
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost;
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner(`Successfully modified spawned host: ${id}`);
       onCancel();
     },
