@@ -102,10 +102,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const fetchedDistros = distrosData?.distros;
+  const fetchedDistros = distrosData?.distros ?? [];
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
-  const volumes = volumesData?.myVolumes;
+  const volumes = volumesData?.myVolumes ?? [];
 
   useEffect(() => {
     dispatch({ type: "reset" });
