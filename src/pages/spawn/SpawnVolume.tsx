@@ -9,6 +9,7 @@ import {
   TitleContainer,
   StyledBadge,
 } from "components/Spawn";
+import { pollInterval } from "constants/index";
 import { MyVolumesQuery, MyVolumesQueryVariables } from "gql/generated/types";
 import { GET_MY_VOLUMES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
@@ -19,7 +20,9 @@ export const SpawnVolume = () => {
   const { data: volumesData, loading, startPolling, stopPolling } = useQuery<
     MyVolumesQuery,
     MyVolumesQueryVariables
-  >(GET_MY_VOLUMES);
+  >(GET_MY_VOLUMES, {
+    pollInterval,
+  });
   useNetworkStatus(startPolling, stopPolling);
 
   if (loading) {
