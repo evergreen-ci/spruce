@@ -28,7 +28,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     GET_MY_HOSTS
   );
 
-  const { myHosts } = myHostsData;
+  const myHosts = myHostsData?.myHosts ?? [];
   const [detachVolume, { loading: loadingDetachVolume }] = useMutation<
     DetachVolumeFromHostMutation,
     DetachVolumeFromHostMutationVariables
@@ -47,7 +47,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     : volume.host?.id;
   // Check if myHosts has this volume as one of its homeVolumes. This handles the scenarios where
   // one of the volumes was a home volume but is no longer attached to a host
-  const isHomeVolume = myHosts.some((h) => h.homeVolumeID === volume.id);
+  const isHomeVolume = myHosts?.some((h) => h.homeVolumeID === volume.id);
   return (
     <ConditionalWrapper
       condition={isHomeVolume}
@@ -70,7 +70,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
           }}
           okText="Yes"
           cancelText="Cancel"
-          disabled={volume.homeVolume}
+          disabled={isHomeVolume}
         >
           {children}
         </Popconfirm>
@@ -79,7 +79,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
       <Button
         size={Size.XSmall}
         data-cy={`detach-btn-${volume.displayName || volume.id}`}
-        disabled={loadingDetachVolume || volume.homeVolume}
+        disabled={loadingDetachVolume || isHomeVolume}
       >
         Unmount
       </Button>
