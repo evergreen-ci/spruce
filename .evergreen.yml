@@ -109,7 +109,8 @@ functions:
     params:
       working_dir: spruce
       command: yarn test -u --reporters=default --reporters=jest-junit
-      PATH: /opt/nodejs/node-v12.16.0-linux-x64/bin:${PATH}
+      env:
+        PATH: /opt/nodejs/node-v12.16.0-linux-x64/bin:${PATH}
 
   yarn-eslint:
     command: subprocess.exec
