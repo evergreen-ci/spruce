@@ -64,6 +64,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         `There was an error while updating your host: ${err.message}`
       );
     },
+    refetchQueries: ["MyVolumes"],
   });
 
   const onClick = (a) => (e: React.MouseEvent) => {
