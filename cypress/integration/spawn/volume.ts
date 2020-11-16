@@ -174,11 +174,9 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("spawn-volume-modal").should("be.visible");
   });
 
-  it("Reopening the Spawn Host modal clears previous input changes.", () => {
+  it("Reopening the Spawn Volume modal clears previous input changes.", () => {
     cy.dataCy("typeSelector").click();
     cy.contains("sc1").click();
-    cy.dataCy("host-select").click();
-    cy.dataCy("i-04ade558e1e26b0ad-option").click();
     cy.contains("Never").click();
     cy.dataCy("cancel-button").click();
     cy.dataCy("spawn-volume-btn").click();
@@ -187,11 +185,6 @@ describe("Navigating to Spawn Volume page", () => {
       "have.attr",
       "aria-checked",
       "false"
-    );
-    cy.get("[data-cy=host-select] .ant-select-selection-item").should(
-      "have.attr",
-      "title",
-      " "
     );
   });
 
