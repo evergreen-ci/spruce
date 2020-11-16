@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
+import { PaddedButton } from "components/Spawn";
 import { EditSpawnHostModal } from "pages/spawn/spawnHost/index";
 import { MyHost } from "types/spawn";
 
@@ -37,8 +37,3 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
     </>
   );
 };
-
-const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
-`;
