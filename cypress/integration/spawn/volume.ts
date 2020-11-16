@@ -155,7 +155,6 @@ describe("Navigating to Spawn Volume page", () => {
   });
 
   it("Switching tabs should clear the error banner.", () => {
-    cy.contains(errorBannerCopy).should("exist");
     cy.dataCy("host-nav-tab").click();
     cy.dataCy("volume-nav-tab").click();
     cy.contains(errorBannerCopy).should("not.exist");

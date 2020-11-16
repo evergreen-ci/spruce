@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.2.2",
@@ -63,6 +63,7 @@
     "cy:open": "cypress open",
     "cy:run": "cypress run",
     "dev": "env-cmd -e devServer -r config/.cmdrc.json yarn start",
+    "staging": "env-cmd -e devStaging -r config/.cmdrc.json yarn start",
     "prod": "env-cmd -e devProd -r config/.cmdrc.json yarn start",
     "start:mock-instrospect-schema": "env-cmd -e mockIntrospectSchema -r config/.cmdrc.json yarn start",
     "start:mock-custom-schema": "env-cmd -e mockCustomSchema -r config/.cmdrc.json yarn start",
