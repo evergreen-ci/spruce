@@ -35,6 +35,7 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
         <InputLabel htmlFor="volumesSelectDropown">Volume</InputLabel>
         <Select
           id="volumesSelectDropown"
+          data-cy="volume-select"
           showSearch
           style={{ width: 200 }}
           placeholder="Select volume"

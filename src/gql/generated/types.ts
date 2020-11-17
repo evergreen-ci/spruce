@@ -1115,7 +1115,7 @@ export type EditSpawnHostMutationVariables = {
   displayName?: Maybe<Scalars["String"]>;
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
-  volume?: Maybe<Scalars["String"]>;
+  volumeId?: Maybe<Scalars["String"]>;
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
@@ -1550,6 +1550,7 @@ export type MyHostsQuery = {
     }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
+  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
 export type MyVolumesQueryVariables = {};
@@ -1888,7 +1889,9 @@ export type GetUserSettingsQuery = {
 
 export type GetUserQueryVariables = {};
 
-export type GetUserQuery = { user: { userId: string; displayName: string } };
+export type GetUserQuery = {
+  user: { userId: string; displayName: string; emailAddress: string };
+};
 
 export type GetOtherUserQueryVariables = {
   userId?: Maybe<Scalars["String"]>;
@@ -2012,6 +2015,19 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type SpawnExpirationInfoQueryVariables = {};
+
+export type SpawnExpirationInfoQuery = {
+  myHosts: Array<{ noExpiration: boolean; id: string }>;
+  myVolumes: Array<{ noExpiration: boolean; id: string }>;
+  spruceConfig?: Maybe<{
+    spawnHost: {
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
+  }>;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = {};

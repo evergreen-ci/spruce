@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Button, { Size } from "@leafygreen-ui/button";
+import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
+import { PopconfirmWithCheckbox } from "components/Popconfirm";
+import { PaddedButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
 import {
   UpdateSpawnHostStatusMutation,
@@ -64,6 +65,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         `There was an error while updating your host: ${err.message}`
       );
     },
+    refetchQueries: ["MyVolumes"],
   });
 
   const onClick = (a) => (e: React.MouseEvent) => {
@@ -78,6 +80,16 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       },
     });
   };
+
+  let checkboxLabel = "";
+  if (host.noExpiration && host.distro?.isVirtualWorkStation) {
+    checkboxLabel = `${copyPrefix} a workstation and unexpirable.`;
+  } else if (host.noExpiration) {
+    checkboxLabel = `${copyPrefix} is unexpirable.`;
+  } else if (host.distro?.isVirtualWorkStation) {
+    checkboxLabel = `${copyPrefix} a virtual workstation.`;
+  }
+
   return (
     <>
       {action ? (
@@ -88,11 +100,13 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
           onClick={onClick(action)}
         />
       ) : null}
-      <PaddedButton
-        onClick={onClick(SpawnHostStatusActions.Terminate)}
-        glyph={<Icon glyph="Trash" />}
-        size={Size.XSmall}
-      />
+      <PopconfirmWithCheckbox
+        onConfirm={onClick(SpawnHostStatusActions.Terminate)}
+        title={`Delete host ${host.displayName || host.id}?`}
+        checkboxLabel={checkboxLabel}
+      >
+        <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
+      </PopconfirmWithCheckbox>
     </>
   );
 };
@@ -106,8 +120,4 @@ const mapStatusToGlyph = {
   [HostStatus.Stopped]: "Play",
 };
 
-const PaddedButton = styled(Button)`
-  margin-left: 5px;
-  margin-right: 5px;
-  flex-grow: 0;
-`;
+const copyPrefix = "I understand that this host is";

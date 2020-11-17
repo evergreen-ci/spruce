@@ -105,14 +105,12 @@ functions:
         yarn
 
   yarn-test:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      binary: yarn
-      args: [test, --, -u, --reporters=default, --reporters=jest-junit]
-      env:
-        CI: "true"
-
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn test -u --reporters=default --reporters=jest-junit
 
   yarn-eslint:
     command: subprocess.exec
@@ -133,10 +131,12 @@ functions:
       command: yarn build
 
   yarn-coverage:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn coverage
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn coverage
 
   yarn-analyze:
     command: subprocess.exec

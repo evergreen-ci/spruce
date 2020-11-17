@@ -108,10 +108,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   useEffect(() => {
     dispatch({ type: "reset" });
-    if (awsRegions) {
+    if (awsRegions && awsRegions.length) {
       dispatch({ type: "editAWSRegion", region: awsRegions[0] });
     }
-    if (publicKeys) {
+    if (publicKeys && publicKeys.length) {
       dispatch({
         type: "editPublicKey",
         publicKey: publicKeys[0],
@@ -221,6 +221,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
         <Section>
           <InputLabel htmlFor="distroSearchBox">Distro</InputLabel>
           <AutoComplete
+            data-cy="distroSearchBox"
             style={{ width: 200, marginLeft: 0 }}
             options={distroOptions}
             id="distroSearchBox"

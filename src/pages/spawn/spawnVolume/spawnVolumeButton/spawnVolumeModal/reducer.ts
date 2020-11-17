@@ -1,11 +1,11 @@
 import { SpawnVolumeMutationVariables } from "gql/generated/types";
 
 export const initialState: SpawnVolumeMutationVariables["SpawnVolumeInput"] = {
-  availabilityZone: "us-east-1a",
+  availabilityZone: "",
   size: 500,
   type: "gp2",
   expiration: null,
-  noExpiration: true,
+  noExpiration: false,
   host: "",
 };
 
@@ -14,7 +14,8 @@ type Action =
   | { type: "setAvailabilityZone"; data: string }
   | { type: "editExpiration"; expiration?: Date; noExpiration?: boolean }
   | { type: "setHost"; hostId: string }
-  | { type: "setType"; typeId: string };
+  | { type: "setType"; typeId: string }
+  | { type: "reset" };
 
 export function reducer(
   state: SpawnVolumeMutationVariables["SpawnVolumeInput"],
@@ -47,6 +48,8 @@ export function reducer(
         ...state,
         host: action.hostId,
       };
+    case "reset":
+      return { ...initialState };
     default:
       throw new Error("Unknown action type");
   }

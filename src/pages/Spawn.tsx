@@ -81,6 +81,7 @@ const FlexPageWrapper = styled(PageWrapper)`
 const Container = styled.div`
   overflow-x: hidden;
   margin-left: 60px;
+  width: 100%;
 `;
 
 export const Spawn = withBannersContext(SpawnTabs);

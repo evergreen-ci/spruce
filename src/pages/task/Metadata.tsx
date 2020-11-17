@@ -52,7 +52,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const distroId = task?.distroId;
   const baseTaskDuration = baseTaskMetadata?.baseTaskDuration;
   const baseTaskLink = baseTaskMetadata?.baseTaskLink;
-
+  const priority = task?.priority;
   const patchMetadata = task?.patchMetadata;
   const author = patchMetadata?.author;
 
@@ -165,6 +165,11 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             >
               {hostId}
             </StyledLink>
+          </P2>
+        )}
+        {priority !== 0 && (
+          <P2 data-cy="task-metadata-priority">
+            Priority: {priority} {priority < 0 && `(Disabled)`}
           </P2>
         )}
         {spawnHostLink && (

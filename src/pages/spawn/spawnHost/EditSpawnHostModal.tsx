@@ -11,7 +11,7 @@ import {
   SectionContainer,
   SectionLabel,
   WideButton,
-  ExpirationField as HostExpirationField,
+  ExpirationField,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel } from "components/styles";
@@ -35,10 +35,7 @@ import {
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { omitTypename } from "utils/string";
-import {
-  useEditSpawnHostModalState,
-  editSpawnHostStateType,
-} from "./editSpawnHostModal/useEditSpawnHostModalState";
+import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
 
@@ -96,7 +93,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   });
 
   const instanceTypes = instanceTypesData?.instanceTypes;
-  const volumes = volumesData?.myVolumes;
+  const volumes = volumesData?.myVolumes?.filter(
+    (v) => v.availabilityZone === host.availabilityZone
+  );
 
   const [hasChanges, mutationParams] = computeDiff(
     defaultEditSpawnHostState,
@@ -158,7 +157,9 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             />
           </ModalContent>
         </SectionContainer>
-        <HostExpirationField
+        <ExpirationField
+          isVolume={false}
+          targetItem={host}
           data={editSpawnHostState}
           onChange={(data: ExpirationDateType) =>
             dispatch({ type: "editExpiration", ...data })
@@ -236,7 +237,7 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
   const mutationParams = diff(
     defaultEditSpawnHostState,
     editSpawnHostState
-  ) as editSpawnHostStateType;
+  ) as EditSpawnHostMutationVariables;
 
   // diff returns na object to compare the differences in positions of an array. So we take this object
   // and convert it into an array for these fields

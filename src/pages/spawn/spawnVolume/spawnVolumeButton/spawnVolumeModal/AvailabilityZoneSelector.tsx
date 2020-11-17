@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import {
   RegionSelector,
@@ -35,6 +35,11 @@ export const AvailabilityZoneSelector: React.FC<Props> = ({
 
   const zones = data?.subnetAvailabilityZones;
 
+  useEffect(() => {
+    if (zones) {
+      onChange(zones[0]);
+    }
+  }, [zones]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Availability Zone</SectionLabel>
