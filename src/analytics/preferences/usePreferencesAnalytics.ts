@@ -9,7 +9,6 @@ import { UpdateUserSettingsMutationVariables } from "gql/generated/types";
 type Action =
   | { name: "Change Tab"; tab: string }
   | { name: "Save Profile Info"; params: UpdateUserSettingsMutationVariables }
-  | { name: "Log Me Out Everywhere" }
   | { name: "Save Notifications"; params: UpdateUserSettingsMutationVariables }
   | { name: "Clear Subscriptions" }
   | { name: "CLI Download Link"; downloadName: string }

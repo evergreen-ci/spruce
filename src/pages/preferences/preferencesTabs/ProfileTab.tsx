@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
-import { Body } from "@leafygreen-ui/typography";
 import { Select } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
@@ -19,7 +18,6 @@ import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 import { omitTypename } from "utils/string";
-import { PreferencesModal } from "./PreferencesModal";
 
 const { Option } = Select;
 
@@ -136,45 +134,10 @@ export const ProfileTab: React.FC = () => {
           </Button>
         </ContentWrapper>
       </PreferencesCard>
-      <LogMeOutCard />
     </div>
   );
 };
 
-const LogMeOutCard: React.FC = () => {
-  const [showModal, setShowModal] = useState(false);
-  const { sendEvent } = usePreferencesAnalytics();
-  return (
-    <>
-      <PreferencesCard>
-        <ContentWrapper>
-          <Body>
-            To log out of the Evergreen UI in all browser windows on all
-            computers you are logged in on.
-          </Body>
-          <StyledLogMeOutButton
-            data-cy="logme-out-button"
-            variant={Variant.Danger}
-            onClick={() => setShowModal(true)}
-          >
-            Log me out everywhere
-          </StyledLogMeOutButton>
-        </ContentWrapper>
-      </PreferencesCard>
-      <PreferencesModal
-        visible={showModal}
-        title="Are you sure you want to log out from everywhere?"
-        onSubmit={() => {
-          sendEvent({
-            name: "Log Me Out Everywhere",
-          });
-        }}
-        onCancel={() => setShowModal(false)}
-        action="Log out"
-      />
-    </>
-  );
-};
 const handleFieldUpdate = (stateUpdate) => (e) => {
   if (typeof e === "string") {
     stateUpdate(e); // Antd select just passes in the value string instead of an event
@@ -182,9 +145,7 @@ const handleFieldUpdate = (stateUpdate) => (e) => {
     stateUpdate(e.target.value);
   }
 };
-const StyledLogMeOutButton = styled(Button)`
-  margin-top: 36px;
-`;
+
 const StyledSelect = styled(Select)`
   width: 100%;
   margin-bottom: 24px;
