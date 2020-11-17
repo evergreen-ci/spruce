@@ -6,7 +6,12 @@ import { useTaskAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, Divider, StyledRouterLink } from "components/styles";
 import { H3, P2 } from "components/Typography";
-import { getTaskQueueRoute, getTaskRoute, paths } from "constants/routes";
+import {
+  getTaskQueueRoute,
+  getTaskRoute,
+  paths,
+  getSpawnHostRoute,
+} from "constants/routes";
 
 import {
   GetTaskQuery,
@@ -169,15 +174,19 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
         )}
         {spawnHostLink && (
           <P2>
-            <StyledLink
+            <StyledRouterLink
               data-cy="task-spawn-host-link"
-              href={spawnHostLink}
+              to={getSpawnHostRoute({
+                distroId,
+                spawnHost: true,
+                taskId,
+              })}
               onClick={() =>
                 taskAnalytics.sendEvent({ name: "Click Spawn Host" })
               }
             >
               Spawn host
-            </StyledLink>
+            </StyledRouterLink>
           </P2>
         )}
         {taskQueuePosition > 0 && (

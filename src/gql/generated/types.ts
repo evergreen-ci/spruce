@@ -1790,6 +1790,7 @@ export type GetTaskQueryVariables = {
 export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
+    id: string;
     activatedBy?: Maybe<string>;
     buildVariant: string;
     ingestTime?: Maybe<Date>;
