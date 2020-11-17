@@ -46,12 +46,12 @@ export const MountVolumeSelect = ({
   });
   useNetworkStatus(startPolling, stopPolling);
 
-  // User should not be able to make changes to a host if it isn't in the running or stopped status and the host is not in the wrong availability zone
-  const canUpdateHost = (status: string, availabilityZone: string) =>
-    availabilityZone === targetAvailabilityZone &&
-    (status === HostStatus.Running || status === HostStatus.Stopped);
   // set host dropdown options
   useEffect(() => {
+    // User should not be able to make changes to a host if it isn't in the running or stopped status and the host is not in the wrong availability zone
+    const canUpdateHost = (status: string, availabilityZone: string) =>
+      availabilityZone === targetAvailabilityZone &&
+      (status === HostStatus.Running || status === HostStatus.Stopped);
     if (data?.myHosts) {
       const opts = data.myHosts
         // Filter hosts that do not have the same availability zone as the volume.
