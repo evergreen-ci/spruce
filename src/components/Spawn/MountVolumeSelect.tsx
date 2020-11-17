@@ -8,6 +8,7 @@ import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
+import { HostStatus } from "types/host";
 
 const { Option } = Select;
 interface HostOption {
@@ -47,11 +48,15 @@ export const MountVolumeSelect = ({
 
   // set host dropdown options
   useEffect(() => {
+    // User should not be able to make changes to a host if it isn't in the running or stopped status and the host is not in the wrong availability zone
+    const canUpdateHost = (status: string, availabilityZone: string) =>
+      availabilityZone === targetAvailabilityZone &&
+      (status === HostStatus.Running || status === HostStatus.Stopped);
     if (data?.myHosts) {
       const opts = data.myHosts
         // Filter hosts that do not have the same availability zone as the volume.
-        .filter(
-          ({ availabilityZone }) => availabilityZone === targetAvailabilityZone
+        .filter(({ availabilityZone, status }) =>
+          canUpdateHost(status, availabilityZone)
         )
         // Map host to a displayName and ID for the dropdown <Option />
         .map(({ id, displayName }) => ({
