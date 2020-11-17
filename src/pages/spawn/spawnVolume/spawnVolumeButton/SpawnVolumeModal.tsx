@@ -53,6 +53,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   >(SPAWN_VOLUME, {
     onCompleted() {
       onCancel();
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner("Successfully spawned volume");
     },
     onError(err) {

@@ -84,6 +84,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost;
       onCancel();
+      dispatchBanner.clearAllBanners();
       dispatchBanner.successBanner(`Successfully spawned host: ${id}`);
     },
     onError(err) {
@@ -101,10 +102,10 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const fetchedDistros = distrosData?.distros;
+  const fetchedDistros = distrosData?.distros ?? [];
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
-  const volumes = volumesData?.myVolumes;
+  const volumes = volumesData?.myVolumes ?? [];
 
   useEffect(() => {
     dispatch({ type: "reset" });
@@ -196,7 +197,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
-          glyph={loadingSpawnHost && <Icon glyph="Refresh" />}
         >
           {loadingSpawnHost ? "Spawning Host" : "Spawn"}
         </WideButton>,

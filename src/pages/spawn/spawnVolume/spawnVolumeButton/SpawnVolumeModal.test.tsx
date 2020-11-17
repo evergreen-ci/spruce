@@ -314,6 +314,7 @@ jest.mock("context/banners", () => ({
     errorBanner: (e) => {
       console.log(e);
     },
+    clearAllBanners: () => {},
   }),
 }));
 
