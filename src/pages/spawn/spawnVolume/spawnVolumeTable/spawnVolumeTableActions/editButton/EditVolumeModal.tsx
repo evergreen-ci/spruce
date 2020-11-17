@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import React, { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
@@ -19,7 +19,7 @@ import {
 } from "gql/generated/types";
 import { UPDATE_SPAWN_VOLUME } from "gql/mutations";
 import { MyVolume } from "types/spawn";
-import { reducer } from "./editVolumeModal/reducer";
+import { getInitialState, reducer } from "./editVolumeModal/reducer";
 
 interface Props {
   visible: boolean;
@@ -32,12 +32,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   onCancel,
   volume,
 }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    expiration: new Date(volume.expiration),
-    volumeId: volume.id,
-    noExpiration: volume.noExpiration,
-    name: volume.displayName,
-  });
+  const [state, dispatch] = useReducer(reducer, getInitialState(volume));
   const dispatchBanner = useBannerDispatchContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [updateVolumeMutation, { loading }] = useMutation<
@@ -57,6 +52,12 @@ export const EditVolumeModal: React.FC<Props> = ({
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
+
+  useEffect(() => {
+    if (visible) {
+      dispatch({ type: "reset", volume: getInitialState(volume) });
+    }
+  }, [visible, volume]);
 
   const updateVolume = () => {
     const mutationVars = { ...state };
@@ -88,7 +89,11 @@ export const EditVolumeModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel} key="cancel-button">
+        <WideButton
+          data-cy="cancel-volume-button"
+          onClick={onCancel}
+          key="cancel-button"
+        >
           Cancel
         </WideButton>,
         <WideButton
@@ -118,6 +123,8 @@ export const EditVolumeModal: React.FC<Props> = ({
         </ModalContent>
       </SectionContainer>
       <ExpirationField
+        isVolume
+        targetItem={volume}
         data={{
           expiration: state.expiration,
           noExpiration: state.noExpiration,

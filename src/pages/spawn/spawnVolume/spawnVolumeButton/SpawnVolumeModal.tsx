@@ -65,6 +65,12 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
     refetchQueries: ["MyVolumes"],
   });
 
+  useEffect(() => {
+    if (visible) {
+      dispatch({ type: "reset" });
+    }
+  }, [visible, dispatch]);
+
   const spawnVolume = () => {
     const mutationVars = { ...state };
     if (mutationVars.noExpiration === true) {
@@ -101,7 +107,11 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton onClick={onCancel} key="cancel-button">
+        <WideButton
+          onClick={onCancel}
+          data-cy="cancel-button"
+          key="cancel-button"
+        >
           Cancel
         </WideButton>,
         <WideButton
@@ -137,6 +147,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
           expiration: state.expiration,
           noExpiration: state.noExpiration,
         }}
+        isVolume
         onChange={(expData) => dispatch({ type: "editExpiration", ...expData })}
       />
       <SectionContainer>
