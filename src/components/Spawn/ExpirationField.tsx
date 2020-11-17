@@ -1,10 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import { Tooltip } from "antd";
 import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import { useDisableSpawnExpirationCheckbox } from "hooks";
+import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
 
 export interface ExpirationDateType {
@@ -15,12 +18,20 @@ export interface ExpirationDateType {
 interface ExpirationFieldProps {
   data: ExpirationDateType;
   onChange: (data: ExpirationDateType) => void;
+  isVolume: boolean;
+  targetItem?: MyHost | MyVolume;
 }
 
 export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   onChange,
   data,
+  isVolume,
+  targetItem,
 }) => {
+  const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
+    isVolume,
+    targetItem
+  );
   const { expiration: expirationString, noExpiration } = data;
   const expiration = expirationString ? new Date(expirationString) : new Date();
   const updateDate = (d: Date) => {
@@ -72,14 +83,31 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
         />
       </FlexColumnContainer>
       <PaddedBody> or </PaddedBody>
-      <PaddedCheckbox
-        data-cy="neverExpireCheckbox"
-        label="Never"
-        checked={noExpiration}
-        onChange={(e) =>
-          onChange({ noExpiration: e.target.checked, expiration })
-        }
-      />{" "}
+      <FlexColumnContainer>
+        <Tooltip
+          title={
+            disableExpirationCheckbox
+              ? `You have reached the max number of unexpirable ${
+                  isVolume ? "volumes" : "hosts"
+                }. Toggle an existing ${
+                  isVolume ? "volume" : "host"
+                } to expirable to enable this checkbox.`
+              : undefined
+          }
+        >
+          <span>
+            <PaddedCheckbox
+              data-cy="neverExpireCheckbox"
+              disabled={disableExpirationCheckbox}
+              label="Never"
+              checked={noExpiration}
+              onChange={(e) =>
+                onChange({ noExpiration: e.target.checked, expiration })
+              }
+            />
+          </span>
+        </Tooltip>
+      </FlexColumnContainer>
     </SectionContainer>
   );
 };

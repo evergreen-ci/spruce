@@ -1550,6 +1550,7 @@ export type MyHostsQuery = {
     }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
+  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
 export type MyVolumesQueryVariables = {};
@@ -2013,6 +2014,19 @@ export type ConfigurePatchQuery = {
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
+};
+
+export type SpawnExpirationInfoQueryVariables = {};
+
+export type SpawnExpirationInfoQuery = {
+  myHosts: Array<{ noExpiration: boolean; id: string }>;
+  myVolumes: Array<{ noExpiration: boolean; id: string }>;
+  spruceConfig?: Maybe<{
+    spawnHost: {
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
+  }>;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = {};
