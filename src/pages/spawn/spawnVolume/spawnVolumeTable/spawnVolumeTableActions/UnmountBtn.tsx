@@ -24,23 +24,12 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
   const dispatchBanner = useBannerDispatchContext();
   const spawnAnalytics = useSpawnAnalytics();
 
-  const [detachVolume, { loading: loadingDetachVolume }] = useMutation(
-    DETACH_VOLUME,
-    {
-      onError: (err) =>
-        dispatchBanner.errorBanner(`Error detaching volume: '${err.message}'`),
-      onCompleted: () => {
-        dispatchBanner.clearAllBanners();
-        dispatchBanner.successBanner("Successfully unmounted the volume.");
-      },
-      refetchQueries: ["MyVolumes", "MyHosts"],
-    }
-
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS
   );
 
   const myHosts = myHostsData?.myHosts ?? [];
+
   const [detachVolume, { loading: loadingDetachVolume }] = useMutation<
     DetachVolumeFromHostMutation,
     DetachVolumeFromHostMutationVariables
