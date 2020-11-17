@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "1.12.0",
+  "version": "1.12.1",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.2.2",
@@ -56,7 +56,7 @@
     "start": "react-scripts start",
     "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` react-scripts --max-old-space-size=8192 build",
     "test": "react-scripts test --browser true --transformIgnorePatterns \"node_modules/(?!antd)/\" --setupFiles jest-localstorage-mock --watchAll=false",
-    "test:watch": "react-scripts test --transformIgnorePatterns \"node_modules/(?!antd)/\" --verbose",
+    "test:watch": "react-scripts test --browser true --transformIgnorePatterns \"node_modules/(?!antd)/\" --setupFiles jest-localstorage-mock --verbose",
     "eject": "react-scripts eject",
     "build:staging": "env-cmd -e staging -r config/.cmdrc.json yarn build",
     "build:prod": "env-cmd -e prod -r config/.cmdrc.json yarn build",
