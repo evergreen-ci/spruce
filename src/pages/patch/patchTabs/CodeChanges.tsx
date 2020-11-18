@@ -1,10 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Badge from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { CodeChangesTable } from "components/CodeChangesTable";
+import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
 import { H2 } from "components/Typography";
 import {
   CodeChangesQuery,
@@ -35,6 +36,19 @@ export const CodeChanges: React.FC = () => {
         const sortedFileDiffs = [...modCodeChange.fileDiffs].sort((a, b) =>
           a.fileName.localeCompare(b.fileName)
         );
+        const { fileDiffs } = modCodeChange;
+        const TotalFileDiff = {
+          additions: 0,
+          deletions: 0,
+        };
+        TotalFileDiff.additions = fileDiffs.reduce(
+          (total, diff) => total + diff.additions,
+          0
+        );
+        TotalFileDiff.deletions = fileDiffs.reduce(
+          (total, diff) => total + diff.deletions,
+          0
+        );
         return (
           <div key={modCodeChange.branchName}>
             <Title>Changes on {modCodeChange.branchName}: </Title>
@@ -56,6 +70,10 @@ export const CodeChanges: React.FC = () => {
             >
               Raw
             </StyledButton>
+            <StyledBadge>
+              <FileDiffText type="+" value={TotalFileDiff.additions} />
+              <FileDiffText type="-" value={TotalFileDiff.deletions} />
+            </StyledBadge>
             <CodeChangesTable fileDiffs={sortedFileDiffs} />
           </div>
         );
@@ -70,4 +88,8 @@ const StyledButton = styled(Button)`
 
 const Title = styled(H2)`
   font-weight: normal;
+`;
+
+const StyledBadge = styled(Badge)`
+  margin-left: 16px;
 `;
