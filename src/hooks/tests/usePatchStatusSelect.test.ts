@@ -20,7 +20,7 @@ test("should have no tasks and no valid statuses selected by default", () => {
 test("should select all tasks that match a selected valid status", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
-    result.current[2].setValidStatus(["success"]);
+    result.current[3].setPatchStatusFilterTerm(["success"]);
   });
   expect(result.current[0]).toEqual(successStatusIds);
 });
@@ -28,11 +28,11 @@ test("should select all tasks that match a selected valid status", () => {
 test("should deselect all tasks that no longer match a selected tasks status", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
-    result.current[2].setValidStatus(["success"]);
+    result.current[3].setPatchStatusFilterTerm(["success"]);
   });
   expect(result.current[0]).toEqual(successStatusIds);
   act(() => {
-    result.current[2].setValidStatus([]);
+    result.current[3].setPatchStatusFilterTerm([]);
   });
   expect(result.current[0]).toStrictEqual({
     evergreen_lint_generate_lint: false,
@@ -50,7 +50,7 @@ test("should deselect all tasks that no longer match a selected tasks status", (
 test("selecting multiple valid statuses should select all matching task status", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
-    result.current[2].setValidStatus(["success", "failed"]);
+    result.current[3].setPatchStatusFilterTerm(["success", "failed"]);
   });
   expect(result.current[0]).toEqual({
     evergreen_lint_generate_lint: true,
@@ -68,7 +68,7 @@ test("selecting multiple valid statuses should select all matching task status",
 test("selecting an individual task should work", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
-    result.current[2].toggleSelectedTask("evergreen_lint_generate_lint");
+    result.current[3].toggleSelectedTask("evergreen_lint_generate_lint");
   });
   expect(result.current[0]).toEqual({
     evergreen_lint_generate_lint: true,
@@ -86,11 +86,11 @@ test("selecting an individual task should work", () => {
 test("deselecting an individual task should work if it was selected by valid statuses", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
-    result.current[2].setValidStatus(["success"]);
+    result.current[3].setPatchStatusFilterTerm(["success"]);
   });
   expect(result.current[0]).toEqual(successStatusIds);
   act(() => {
-    result.current[2].toggleSelectedTask("evergreen_lint_generate_lint");
+    result.current[3].toggleSelectedTask("evergreen_lint_generate_lint");
   });
   expect(result.current[0]).toEqual({
     evergreen_lint_generate_lint: false,

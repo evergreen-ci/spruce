@@ -123,14 +123,24 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     >
       {!loading && patchBuildVariants && (
         <>
-          <TreeSelect
-            onChange={setPatchStatusFilterTerm}
-            state={patchStatusFilterTerm}
-            tData={statusesTreeData}
-            inputLabel="Tasks Selected: "
-            dataCy="patch-status-filter"
-            width="50%"
-          />
+          <Row>
+            <TreeSelect
+              onChange={setPatchStatusFilterTerm}
+              state={patchStatusFilterTerm}
+              tData={statusesTreeData}
+              inputLabel="Task Status: "
+              dataCy="patch-status-filter"
+              width="30%"
+            />
+            <TreeSelect
+              onChange={setBaseStatusFilterTerm}
+              state={baseStatusFilterTerm}
+              tData={statusesTreeData}
+              inputLabel="Base Status: "
+              dataCy="base-status-filter"
+              width="30%"
+            />
+          </Row>
           {patchBuildVariants.map((patchBuildVariant) => (
             <PatchBuildVariantAccordian
               key={`accoridan_${patchBuildVariant.variant}`}
@@ -215,3 +225,7 @@ const statusesTreeData = [
     ],
   },
 ];
+
+const Row = styled.div`
+  display: flex;
+`;

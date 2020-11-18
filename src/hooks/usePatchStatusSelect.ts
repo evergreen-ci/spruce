@@ -87,7 +87,12 @@ export const usePatchStatusSelect = (
       let tempSelectedTasks = state.selectedTasks;
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
-          if (state.patchStatusFilterTerm.includes(task.status)) {
+          if (
+            state.patchStatusFilterTerm.includes(task.status) &&
+            (task.baseStatus
+              ? state.baseStatusFilterTerm.includes(task.baseStatus)
+              : true)
+          ) {
             tempSelectedTasks = addTaskToSelectedTasks(
               task.id,
               tempSelectedTasks
