@@ -27,36 +27,34 @@ export const CodeChanges: React.FC = () => {
   if (error) {
     return <div id="patch-error">{error.message}</div>;
   }
-  if (!data.patch.moduleCodeChanges.length) {
+  const { moduleCodeChanges } = data.patch;
+  if (!moduleCodeChanges.length) {
     return <Title className="cy-no-code-changes">No code changes</Title>;
   }
   return (
     <div data-cy="code-changes">
-      {data.patch.moduleCodeChanges.map((modCodeChange) => {
-        const sortedFileDiffs = [...modCodeChange.fileDiffs].sort((a, b) =>
+      {moduleCodeChanges.map((modCodeChange) => {
+        const { fileDiffs, branchName, htmlLink, rawLink } = modCodeChange;
+
+        const sortedFileDiffs = [...fileDiffs].sort((a, b) =>
           a.fileName.localeCompare(b.fileName)
         );
-        const { fileDiffs } = modCodeChange;
-        const TotalFileDiff = {
-          additions: 0,
-          deletions: 0,
-        };
-        TotalFileDiff.additions = fileDiffs.reduce(
+        const additions = fileDiffs.reduce(
           (total, diff) => total + diff.additions,
           0
         );
-        TotalFileDiff.deletions = fileDiffs.reduce(
+        const deletions = fileDiffs.reduce(
           (total, diff) => total + diff.deletions,
           0
         );
         return (
-          <div key={modCodeChange.branchName}>
-            <Title>Changes on {modCodeChange.branchName}: </Title>
+          <div key={branchName}>
+            <Title>Changes on {branchName}: </Title>
             <StyledButton
               className="cy-html-diff-btn"
               size="small"
               title="Open diff as html file"
-              href={modCodeChange.htmlLink}
+              href={htmlLink}
               target="_blank"
             >
               HTML
@@ -65,14 +63,14 @@ export const CodeChanges: React.FC = () => {
               className="cy-raw-diff-btn"
               size="small"
               title="Open diff as raw file"
-              href={modCodeChange.rawLink}
+              href={rawLink}
               target="_blank"
             >
               Raw
             </StyledButton>
             <StyledBadge>
-              <FileDiffText type="+" value={TotalFileDiff.additions} />
-              <FileDiffText type="-" value={TotalFileDiff.deletions} />
+              <FileDiffText type="+" value={additions} />
+              <FileDiffText type="-" value={deletions} />
             </StyledBadge>
             <CodeChangesTable fileDiffs={sortedFileDiffs} />
           </div>
