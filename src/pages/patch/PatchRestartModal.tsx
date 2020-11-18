@@ -71,8 +71,9 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   const patchBuildVariants = get(data, "patchBuildVariants");
   const [
     selectedTasks,
-    validStatus,
-    { toggleSelectedTask, setValidStatus },
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
+    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ] = usePatchStatusSelect(patchBuildVariants);
 
   const patchAnalytics = usePatchAnalytics();
@@ -123,8 +124,8 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       {!loading && patchBuildVariants && (
         <>
           <TreeSelect
-            onChange={setValidStatus}
-            state={validStatus}
+            onChange={setPatchStatusFilterTerm}
+            state={patchStatusFilterTerm}
             tData={statusesTreeData}
             inputLabel="Tasks Selected: "
             dataCy="patch-status-filter"

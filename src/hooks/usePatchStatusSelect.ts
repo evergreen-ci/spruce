@@ -1,25 +1,66 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
 
 export interface selectedStrings {
   [id: string]: boolean | undefined;
 }
 
-export const usePatchStatusSelect = (
-  patchBuildVariants: PatchBuildVariant[]
-): [
+type Action =
+  | { type: "setSelectedTasks"; data: selectedStrings }
+  | { type: "setPatchStatusFilterTerm"; data: string[] }
+  | { type: "setBaseStatusFilterTerm"; data: string[] };
+
+interface State {
+  patchStatusFilterTerm: string[];
+  baseStatusFilterTerm: string[];
+  selectedTasks: selectedStrings;
+}
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "setSelectedTasks":
+      return {
+        ...state,
+        selectedTasks: action.data,
+      };
+    case "setPatchStatusFilterTerm":
+      return {
+        ...state,
+        patchStatusFilterTerm: action.data,
+      };
+    case "setBaseStatusFilterTerm":
+      return {
+        ...state,
+        baseStatusFilterTerm: action.data,
+      };
+    default:
+      throw new Error();
+  }
+};
+
+type FilterSetter = (statuses: string[]) => void;
+
+type HookResult = [
   selectedStrings,
   string[],
+  string[],
   {
-    setValidStatus: (newValue: string[]) => void;
     toggleSelectedTask: (id: string | string[]) => void;
+    setPatchStatusFilterTerm: FilterSetter;
+    setBaseStatusFilterTerm: FilterSetter;
   }
-] => {
-  const [selectedTasks, setSelectedTasks] = useState<selectedStrings>({});
-  const [validStatus, setValidStatus] = useState<string[]>([]);
+];
 
+export const usePatchStatusSelect = (
+  patchBuildVariants: PatchBuildVariant[]
+): HookResult => {
+  const [state, dispatch] = useReducer(reducer, {
+    baseStatusFilterTerm: [],
+    patchStatusFilterTerm: [],
+    selectedTasks: {},
+  });
   const toggleSelectedTask = (id: string | string[]) => {
-    const newState = { ...selectedTasks };
+    const newState = { ...state.selectedTasks };
 
     if (typeof id === "string") {
       if (newState[id]) {
@@ -36,18 +77,17 @@ export const usePatchStatusSelect = (
         }
       });
     }
-
-    setSelectedTasks(newState);
+    dispatch({ type: "setSelectedTasks", data: newState });
   };
 
   // Iterate through PatchBuildVariants and determine if a task should be selected or not
   // Based on if the task status correlates with the validStatus filter
   useEffect(() => {
     if (patchBuildVariants) {
-      let tempSelectedTasks = selectedTasks;
+      let tempSelectedTasks = state.selectedTasks;
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
-          if (validStatus.includes(task.status)) {
+          if (state.patchStatusFilterTerm.includes(task.status)) {
             tempSelectedTasks = addTaskToSelectedTasks(
               task.id,
               tempSelectedTasks
@@ -60,13 +100,27 @@ export const usePatchStatusSelect = (
           }
         });
       });
-      setSelectedTasks(tempSelectedTasks);
+      dispatch({ type: "setSelectedTasks", data: tempSelectedTasks });
     }
     // Disable exhaustive-deps since selectedTasks in dep array causes a infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [patchBuildVariants, validStatus]);
+  }, [
+    patchBuildVariants,
+    state.patchStatusFilterTerm,
+    state.baseStatusFilterTerm,
+  ]);
 
-  return [selectedTasks, validStatus, { toggleSelectedTask, setValidStatus }];
+  const setPatchStatusFilterTerm = (statuses: string[]) =>
+    dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
+  const setBaseStatusFilterTerm = (statuses: string[]) =>
+    dispatch({ type: "setBaseStatusFilterTerm", data: statuses });
+
+  return [
+    state.selectedTasks,
+    state.patchStatusFilterTerm,
+    state.baseStatusFilterTerm,
+    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
+  ];
 };
 
 const removeTaskFromSelectedTasks = (
