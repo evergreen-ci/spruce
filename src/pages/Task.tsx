@@ -97,7 +97,6 @@ const TaskCore: React.FC = () => {
   });
 
   useNetworkStatus(startPolling, stopPolling);
-
   const task = get(data, "task");
   const canAbort = get(task, "canAbort");
   const blocked = task?.blocked;
@@ -116,7 +115,6 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const isPerfPluginEnabled = get(task, "isPerfPluginEnabled");
   const patchAuthor = data?.task.patchMetadata.author;
-  const aborted = data?.task?.aborted ?? false;
 
   const {
     showBuildBaronTab,
@@ -188,11 +186,7 @@ const TaskCore: React.FC = () => {
         title={displayName}
         badge={
           <ErrorBoundary>
-            <TaskStatusBadge
-              status={status}
-              blocked={blocked}
-              aborted={aborted}
-            />
+            <TaskStatusBadge status={status} blocked={blocked} />
           </ErrorBoundary>
         }
         buttons={

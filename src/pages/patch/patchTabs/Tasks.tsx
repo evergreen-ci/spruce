@@ -142,6 +142,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.TestTimedOut]: true,
   [TaskStatus.Undispatched]: true,
   [TaskStatus.Unstarted]: true,
+  [TaskStatus.Aborted]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
@@ -194,14 +195,14 @@ const getQueryVariables = (
 
 const renderStatusBadge = (
   status: string,
-  { blocked, aborted }: TaskResult
+  { blocked }: TaskResult
 ): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
   return (
     <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} aborted={aborted} />
+      <TaskStatusBadge status={status} blocked={blocked} />
     </ErrorBoundary>
   );
 };

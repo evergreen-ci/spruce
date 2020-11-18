@@ -74,52 +74,46 @@ const BadgeWidthMaxContent = styled(Badge)`
 interface TaskStatusBadgeProps {
   status: string;
   blocked: boolean;
-  aborted: boolean;
 }
 export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
   status,
   blocked,
-  aborted,
 }) => {
-  // We have to do this assignment because Blocked and Aborted are not official Task
-  // statuses from the tasks collection but we want to represent it in the badge.
-  let taskStatus = status;
-  if (blocked) {
-    taskStatus = TaskStatus.StatusBlocked as string;
-  }
-  if (aborted) {
-    taskStatus = TaskStatus.Aborted as string;
-  }
+  // We have to do this assignment because Blocked is not an official Task
+  // status from the tasks collection but we want to represent it in the badge.
+  const adjustedTaskStatus = blocked
+    ? (TaskStatus.StatusBlocked as string)
+    : status;
 
   const displayStatus = getStatusBadgeCopy(
-    taskStatusToCopy[taskStatus] ?? taskStatus
+    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus
   );
 
-  if (taskStatus in mapTaskStatusToBadgeVariant) {
+  if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
     return (
       <BadgeWidthMaxContent
         data-cy={dataCy}
-        key={taskStatus}
-        variant={mapTaskStatusToBadgeVariant[taskStatus]}
+        key={adjustedTaskStatus}
+        variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
       >
         {displayStatus}
       </BadgeWidthMaxContent>
     );
   }
 
-  if (taskStatus in mapUnsupportedBadgeColors) {
+  if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
         data-cy={dataCy}
-        key={taskStatus}
-        {...mapUnsupportedBadgeColors[taskStatus]}
+        key={adjustedTaskStatus}
+        {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
       >
         {displayStatus}
       </StyledBadge>
     );
   }
 
-  const err = new Error(`Status '${taskStatus}' is not a valid task status`);
+  const err = new Error(`Status '${status}' is not a valid task status`);
   reportError(err).severe();
   throw err;
 };
