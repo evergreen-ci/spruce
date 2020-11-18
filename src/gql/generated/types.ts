@@ -556,12 +556,14 @@ export type PatchBuildVariant = {
   variant: Scalars["String"];
   displayName: Scalars["String"];
   tasks?: Maybe<Array<Maybe<PatchBuildVariantTask>>>;
+  baseTasks?: Maybe<Array<PatchBuildVariantTask>>;
 };
 
 export type PatchBuildVariantTask = {
   id: Scalars["ID"];
   name: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
 };
 
 export type TaskFiles = {
