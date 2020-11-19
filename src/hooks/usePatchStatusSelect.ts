@@ -94,7 +94,7 @@ export const usePatchStatusSelect = (
             (patchStatusFilterTerm?.length
               ? patchStatusFilterTerm.includes(task.status)
               : true) &&
-            (task.baseStatus && baseStatusFilterTerm?.length
+            (baseStatusFilterTerm?.length
               ? baseStatusFilterTerm.includes(task.baseStatus)
               : true);
 
