@@ -29,6 +29,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
   const { makespan, timeTaken } = duration || {};
   return (
     <MetadataCard loading={loading} error={error} title="Patch Metadata">
+      <P2>Project Name: {projectID}</P2>
       <P2>Makespan: {makespan && makespan}</P2>
       <P2>Time taken: {timeTaken && timeTaken}</P2>
       <P2>Submitted at: {submittedAt}</P2>

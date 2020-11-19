@@ -1,5 +1,5 @@
 import React from "react";
-import { ApolloError, useQuery } from "@apollo/client";
+import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { useTaskAnalytics } from "analytics";
@@ -12,13 +12,7 @@ import {
   paths,
   getSpawnHostRoute,
 } from "constants/routes";
-
-import {
-  GetTaskQuery,
-  TaskQueuePositionQuery,
-  TaskQueuePositionQueryVariables,
-} from "gql/generated/types";
-import { TASK_QUEUE_POSITION } from "gql/queries";
+import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
@@ -33,45 +27,46 @@ interface Props {
 }
 
 export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
-  const task = data ? data.task : null;
+  const task = data?.task ?? ({} as GetTaskQuery["task"]);
   const taskAnalytics = useTaskAnalytics();
 
-  const status = task?.status;
-  const spawnHostLink = task?.spawnHostLink;
-  const ingestTime = task?.ingestTime;
-  const finishTime = task?.finishTime;
-  const hostId = task?.hostId;
-  const startTime = task?.startTime;
-  const estimatedStart = task?.estimatedStart;
-  const timeTaken = task?.timeTaken;
-  const revision = task?.revision ?? "";
-  const baseCommit = revision.slice(0, 10);
-  const reliesOn = task?.reliesOn;
-  const baseTaskMetadata = task?.baseTaskMetadata;
-  const ami = task?.ami;
-  const distroId = task?.distroId;
-  const baseTaskDuration = baseTaskMetadata?.baseTaskDuration;
-  const baseTaskLink = baseTaskMetadata?.baseTaskLink;
-  const priority = task?.priority;
-  const patchMetadata = task?.patchMetadata;
-  const author = patchMetadata?.author;
+  const {
+    status,
+    spawnHostLink,
+    ingestTime,
+    finishTime,
+    hostId,
+    startTime,
+    estimatedStart,
+    timeTaken,
+    revision,
+    reliesOn,
+    baseTaskMetadata,
+    ami,
+    distroId,
+    priority,
+    patchMetadata,
+    buildVariant,
+    details,
+    minQueuePosition: taskQueuePosition,
+  } = task;
 
-  const details = task?.details;
+  const baseCommit = revision?.slice(0, 10);
+
+  const { baseTaskDuration, baseTaskLink } = baseTaskMetadata ?? {};
+
+  const author = patchMetadata?.author;
   const oomTracker = details?.oomTracker;
 
   const hostLink = `${paths.host}/${hostId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
-  const { data: taskQueuePositionData } = useQuery<
-    TaskQueuePositionQuery,
-    TaskQueuePositionQueryVariables
-  >(TASK_QUEUE_POSITION, { variables: { taskId } });
-
-  const taskQueuePosition = taskQueuePositionData?.task?.minQueuePosition ?? 0;
-
   return (
     <>
       <MetadataCard error={error} loading={loading} title="Task Metadata">
+        <P2 data-cy="task-metadata-build-variant">
+          Build Variant Name: {buildVariant}
+        </P2>
         <P2>Submitted by: {author}</P2>
 
         {ingestTime && (

@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
+import { GET_USER } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
@@ -62,6 +62,8 @@ const taskQuery = {
     blocked: false,
     totalTestCount: 0,
     buildVariant: "ubuntu1604",
+    minQueuePosition: 0,
+    projectId: "spruce",
   },
 };
 
@@ -122,23 +124,6 @@ const mocks = [
           id: taskId,
           status: "started",
           failedTestCount: 0,
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: TASK_QUEUE_POSITION,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        task: {
-          __typename: "Task",
-          id: taskId,
-          minQueuePosition: 0,
         },
       },
     },

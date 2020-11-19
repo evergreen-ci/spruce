@@ -744,6 +744,7 @@ export type Dependency = {
 
 export type PatchMetadata = {
   author: Scalars["String"];
+  patchName: Scalars["String"];
 };
 
 export type BaseTaskMetadata = {
@@ -1798,6 +1799,7 @@ export type GetTaskQuery = {
     displayName: string;
     finishTime?: Maybe<Date>;
     hostId?: Maybe<string>;
+    projectId: string;
     patchNumber?: Maybe<number>;
     startTime?: Maybe<Date>;
     status: string;
@@ -1820,6 +1822,7 @@ export type GetTaskQuery = {
     generatedBy?: Maybe<string>;
     generatedByName?: Maybe<string>;
     isPerfPluginEnabled: boolean;
+    minQueuePosition: number;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
