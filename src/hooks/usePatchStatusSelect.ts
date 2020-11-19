@@ -60,6 +60,7 @@ export const usePatchStatusSelect = (
     selectedTasks: {},
   });
   const { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks } = state;
+
   const toggleSelectedTask = (id: string | string[]) => {
     const newState = { ...selectedTasks };
 
@@ -70,12 +71,11 @@ export const usePatchStatusSelect = (
         newState[id] = true;
       }
     } else {
+      // Enter this condition when a parent checkbox is clicked.
+      // If every task is already checked, uncheck them. Otherwise, check them.
+      const nextCheckedState = !id.every((taskId) => selectedTasks[taskId]);
       id.forEach((taskId) => {
-        if (newState[taskId]) {
-          newState[taskId] = false;
-        } else {
-          newState[taskId] = true;
-        }
+        newState[taskId] = nextCheckedState;
       });
     }
     dispatch({ type: "setSelectedTasks", data: newState });
