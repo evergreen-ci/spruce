@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -6,7 +6,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
@@ -19,9 +19,11 @@ import {
 } from "gql/generated/types";
 import { RESTART_PATCH } from "gql/mutations/restart-patch";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
-import { usePatchStatusSelect } from "hooks";
+import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
+import { PatchTasksQueryParams } from "types/task";
+import { getArray, parseQueryString } from "utils";
 
 const { gray } = uiColors;
 
@@ -74,7 +76,26 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ] = usePatchStatusSelect(patchBuildVariants);
-
+  const { search } = useLocation();
+  const prevVisible = usePrevious(visible);
+  useEffect(() => {
+    // apply status filter from URL when the modal opens
+    if (visible && !prevVisible) {
+      const urlParams = parseQueryString(search);
+      setPatchStatusFilterTerm(
+        getArray(urlParams[PatchTasksQueryParams.Statuses]) ?? []
+      );
+      setBaseStatusFilterTerm(
+        getArray(urlParams[PatchTasksQueryParams.BaseStatuses]) ?? []
+      );
+    }
+  }, [
+    prevVisible,
+    search,
+    setBaseStatusFilterTerm,
+    setPatchStatusFilterTerm,
+    visible,
+  ]);
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
