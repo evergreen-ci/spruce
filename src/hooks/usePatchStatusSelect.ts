@@ -80,15 +80,15 @@ export const usePatchStatusSelect = (
     }
     dispatch({ type: "setSelectedTasks", data: newState });
   };
-  // Iterate through PatchBuildVariants and determine if a task should be selected or not
-  // Based on if the task status correlates with the validStatus filter
+  // Iterate through PatchBuildVariants and determine if a task should be
+  // selected or not based on if the task status correlates with the 2 filters.
   useEffect(() => {
     if (patchBuildVariants) {
       let tempSelectedTasks = state.selectedTasks;
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
-          // task is selected when both filters have a match or when
-          // one filter has a match and the other has no active filter terms
+          // A task is selected when both filters have a match or when
+          // one filter has a match and the other has no active filter terms.
           const isSelected =
             (patchStatusFilterTerm?.length || baseStatusFilterTerm?.length) &&
             (patchStatusFilterTerm?.length
