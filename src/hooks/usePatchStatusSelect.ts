@@ -61,7 +61,7 @@ export const usePatchStatusSelect = (
   });
   const { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks } = state;
   const toggleSelectedTask = (id: string | string[]) => {
-    const newState = { ...state.selectedTasks };
+    const newState = { ...selectedTasks };
 
     if (typeof id === "string") {
       if (newState[id]) {
