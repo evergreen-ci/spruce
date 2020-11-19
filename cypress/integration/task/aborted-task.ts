@@ -20,7 +20,7 @@ describe("Task table", () => {
     );
 
     // ABORT REASON LINK SHOULD EXIST
-    cy.dataCy("abort-link")
+    cy.dataCy("abort-message-failing-task")
       .should("have.attr", "href")
       .and(
         "eq",
@@ -36,6 +36,6 @@ describe("Task table", () => {
       cy.get(tasksTableNameCell).within(() => cy.get("a").click())
     );
 
-    cy.dataCy("abort-link").should("not.exist");
+    cy.dataCy("abort-message-failing-task").should("not.exist");
   });
 });
