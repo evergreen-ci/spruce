@@ -59,6 +59,7 @@ export const usePatchStatusSelect = (
     patchStatusFilterTerm: [],
     selectedTasks: {},
   });
+  const { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks } = state;
   const toggleSelectedTask = (id: string | string[]) => {
     const newState = { ...state.selectedTasks };
 
@@ -79,7 +80,6 @@ export const usePatchStatusSelect = (
     }
     dispatch({ type: "setSelectedTasks", data: newState });
   };
-
   // Iterate through PatchBuildVariants and determine if a task should be selected or not
   // Based on if the task status correlates with the validStatus filter
   useEffect(() => {
@@ -87,12 +87,18 @@ export const usePatchStatusSelect = (
       let tempSelectedTasks = state.selectedTasks;
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
-          if (
-            state.patchStatusFilterTerm.includes(task.status) &&
-            (task.baseStatus
-              ? state.baseStatusFilterTerm.includes(task.baseStatus)
-              : true)
-          ) {
+          // task is selected when both filters have a match or when
+          // one filter has a match and the other has no active filter terms
+          const isSelected =
+            (patchStatusFilterTerm?.length || baseStatusFilterTerm?.length) &&
+            (patchStatusFilterTerm?.length
+              ? patchStatusFilterTerm.includes(task.status)
+              : true) &&
+            (task.baseStatus && baseStatusFilterTerm?.length
+              ? baseStatusFilterTerm.includes(task.baseStatus)
+              : true);
+
+          if (isSelected) {
             tempSelectedTasks = addTaskToSelectedTasks(
               task.id,
               tempSelectedTasks
@@ -109,11 +115,7 @@ export const usePatchStatusSelect = (
     }
     // Disable exhaustive-deps since selectedTasks in dep array causes a infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    patchBuildVariants,
-    state.patchStatusFilterTerm,
-    state.baseStatusFilterTerm,
-  ]);
+  }, [patchBuildVariants, patchStatusFilterTerm, baseStatusFilterTerm]);
 
   const setPatchStatusFilterTerm = (statuses: string[]) =>
     dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
@@ -121,9 +123,9 @@ export const usePatchStatusSelect = (
     dispatch({ type: "setBaseStatusFilterTerm", data: statuses });
 
   return [
-    state.selectedTasks,
-    state.patchStatusFilterTerm,
-    state.baseStatusFilterTerm,
+    selectedTasks,
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ];
 };

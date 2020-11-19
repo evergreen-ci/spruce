@@ -71,13 +71,6 @@ export const TaskFilters: React.FC = () => {
   );
 };
 
-export interface Status {
-  title: string;
-  value: string;
-  key: string;
-  children?: Status[];
-}
-
 const FiltersWrapper = styled.div`
   display: flex;
   margin-bottom: 12px;

@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { TreeSelect, ALL_VALUE } from "components/TreeSelect";
+import { TreeSelect, ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
 import {
   GetPatchTaskStatusesQuery,
@@ -8,7 +8,6 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASK_STATUSES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { Status } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TaskStatus } from "types/task";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 
@@ -18,6 +17,7 @@ interface Props {
   selectedBaseStatuses: string[];
   onChangeStatusFilter: (s: string[]) => void;
   onChangeBaseStatusFilter: (s: string[]) => void;
+  options?: TreeDataEntry[];
 }
 
 export const TaskStatusFilters: React.FC<Props> = ({
@@ -26,6 +26,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
   patchId,
   selectedBaseStatuses,
   selectedStatuses,
+  options = statusesTreeData,
 }) => {
   const { data, startPolling, stopPolling } = useQuery<
     GetPatchTaskStatusesQuery,
@@ -41,7 +42,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
     <>
       <TreeSelect
         state={selectedStatuses}
-        tData={getCurrentStatuses(statuses, statusesTreeData)}
+        tData={getCurrentStatuses(statuses, options)}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
         width="25%"
@@ -49,7 +50,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
       />
       <TreeSelect
         state={selectedBaseStatuses}
-        tData={getCurrentStatuses(baseStatuses, statusesTreeData)}
+        tData={getCurrentStatuses(baseStatuses, options)}
         inputLabel="Task Base Status: "
         dataCy="task-base-status-filter"
         width="25%"
@@ -59,7 +60,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
   );
 };
 
-const statusesTreeData: Status[] = [
+const statusesTreeData: TreeDataEntry[] = [
   {
     title: "All",
     value: ALL_VALUE,
