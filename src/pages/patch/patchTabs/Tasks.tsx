@@ -7,7 +7,7 @@ import { ColumnProps } from "antd/lib/table";
 import every from "lodash.every";
 import get from "lodash.get";
 import queryString from "query-string";
-import { useParams, useLocation, Link } from "react-router-dom";
+import { useParams, useLocation, useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -44,6 +44,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: resourceId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
+  const router = useHistory();
 
   const queryVariables = getQueryVariables(search, resourceId);
 
@@ -86,7 +87,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             numerator={get(data, "patchTasks.count", "-")}
             denominator={taskCount}
           />
-          <PaddedButton href={getVersionRoute(resourceId)} as={Link}>
+          <PaddedButton
+            onClick={() => {
+              patchAnalytics.sendEvent({ name: "Clear all filter" });
+              router.push(getVersionRoute(resourceId));
+            }}
+          >
             Clear All Filters
           </PaddedButton>
         </FlexContainer>
