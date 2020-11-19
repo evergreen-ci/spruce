@@ -28,7 +28,12 @@ const taskQuery = {
     displayName: "e2e_test",
     hostId: "i-0e0e62799806e037d",
     hostLink: "https://evergreen.mongodb.com/host/i-0e0e62799806e037d",
-    patchMetadata: { __typename: "PatchMetadata", author: "mohamed.khelif" },
+    patchMetadata: {
+      __typename: "PatchMetadata",
+      author: "mohamed.khelif",
+      patchID:
+        "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+    },
     patchNumber: 417,
     reliesOn: [],
     logs: {

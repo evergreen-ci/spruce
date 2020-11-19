@@ -20,6 +20,7 @@ export const GET_TASK = gql`
       hostId
       patchMetadata {
         author
+        patchID
       }
       projectId
       patchNumber

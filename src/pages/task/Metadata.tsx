@@ -11,6 +11,7 @@ import {
   getTaskRoute,
   paths,
   getSpawnHostRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
@@ -59,7 +60,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
 
   const { baseTaskDuration, baseTaskLink } = baseTaskMetadata ?? {};
 
-  const author = patchMetadata?.author;
+  const { author, patchID } = patchMetadata ?? {};
   const oomTracker = details?.oomTracker;
 
   const hostLink = `${paths.host}/${hostId}`;
@@ -69,7 +70,16 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
     <>
       <MetadataCard error={error} loading={loading} title="Task Metadata">
         <P2 data-cy="task-metadata-build-variant">
-          Build Variant Name: {buildVariant}
+          Build Variant Name:{" "}
+          <StyledRouterLink
+            data-cy="build-variant-link"
+            to={`${getVersionRoute(patchID)}?page=0&variant=${buildVariant}`}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Build Variant Link" })
+            }
+          >
+            {buildVariant}
+          </StyledRouterLink>
         </P2>
         <P2>Submitted by: {author}</P2>
 

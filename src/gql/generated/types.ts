@@ -744,7 +744,7 @@ export type Dependency = {
 
 export type PatchMetadata = {
   author: Scalars["String"];
-  patchName: Scalars["String"];
+  patchID: Scalars["String"];
 };
 
 export type BaseTaskMetadata = {
@@ -1827,7 +1827,7 @@ export type GetTaskQuery = {
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
     }>;
-    patchMetadata: { author: string };
+    patchMetadata: { author: string; patchID: string };
     reliesOn: Array<{
       buildVariant: string;
       metStatus: MetStatus;
@@ -2043,12 +2043,4 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
-};
-
-export type TaskQueuePositionQueryVariables = {
-  taskId: Scalars["String"];
-};
-
-export type TaskQueuePositionQuery = {
-  task?: Maybe<{ minQueuePosition: number }>;
 };
