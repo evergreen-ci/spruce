@@ -124,7 +124,11 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       onOk={onOk}
       onCancel={onCancel}
       footer={[
-        <Button key="cancel" onClick={onCancel}>
+        <Button
+          key="cancel"
+          onClick={onCancel}
+          data-cy="cancel-restart-modal-button"
+        >
           Cancel
         </Button>,
         <Button

@@ -1,17 +1,12 @@
 // / <reference types="Cypress" />
 
-const patch = {
-  id: "5e4ff3abe3c3317e352062e4",
-};
-const path = `/version/${patch.id}`;
-const allTasksSelectedConfirmationMessage =
-  "Are you sure you want to restart the 42 selected tasks?";
 describe("Restarting a patch", () => {
   before(() => {
     cy.login();
   });
 
   beforeEach(() => {
+    cy.viewport(1920, 1600);
     cy.preserveCookies();
   });
 
@@ -47,13 +42,13 @@ describe("Restarting a patch", () => {
     cy.dataCy("task-status-badge").should("contain.text", "1 of 2 Selected");
   });
 
-  it("Selecting on a filter should toggle the tasks that have matching statuses to it", () => {
-    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
+  it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
+    cy.get(statusFilter).click();
     cy.get(".cy-checkbox")
       .contains("All")
       .as("target")
       .click({ force: true });
-    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
+    cy.get(statusFilter).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
     // support cy-data elements currently
@@ -62,19 +57,77 @@ describe("Restarting a patch", () => {
       allTasksSelectedConfirmationMessage
     );
   });
-  it("Restarting a task should close the modal and display a success message if it occurs successfully", () => {
-    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
+
+  it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
+    cy.get(baseStatusFilter).click();
     cy.get(".cy-checkbox")
-      .contains("All")
+      .contains("Dispatched")
       .as("target")
       .click({ force: true });
-    cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
-    cy.dataCy("task-status-checkbox")
-      .eq(1)
-      .click({ force: true });
+    cy.get(baseStatusFilter).click();
+
+    // ideally this would target the text field itself but leafygreen Body tags dont
+    // support cy-data elements currently
+    cy.dataCy("patch-restart-modal").should("contain.text", someTasksSelected);
+  });
+
+  it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("patch-restart-modal").should("not.be.be.visible");
     cy.dataCy("banner").should("exist");
     cy.dataCy("banner").should("contain.text", `Successfully restarted patch`);
   });
+
+  it("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
+    cy.visit(path);
+    cy.get(versionPageStatusFitler).click();
+    cy.get(versionPageStatusFitler)
+      .contains("Dispatched")
+      .click();
+    cy.wait(100);
+    cy.get(versionPageStatusFitler)
+      .contains("Undispatched or Blocked")
+      .click();
+    cy.get(versionPageBaseStatusFitler).click();
+    cy.get(versionPageBaseStatusFitler)
+      .contains("Running")
+      .click();
+    cy.wait(100);
+    cy.get(versionPageBaseStatusFitler)
+      .contains("Dispatched")
+      .click();
+    cy.dataCy("restart-patch").click();
+    cy.get(statusFilter).contains(
+      "Task Status: Dispatched, Undispatched or Blocked"
+    );
+    cy.get(baseStatusFilter).contains("Task Base Status: Running, Dispatched");
+
+    // close modal and do the same thing again
+    cy.dataCy("cancel-restart-modal-button").click();
+
+    cy.get(versionPageStatusFitler).click();
+    cy.get(versionPageStatusFitler)
+      .contains("Running")
+      .click();
+    cy.get(versionPageBaseStatusFitler).click();
+    cy.get(versionPageBaseStatusFitler)
+      .contains("All")
+      .click();
+    cy.dataCy("restart-patch").click();
+    cy.get(statusFilter).contains("Task Status: All");
+    cy.get(baseStatusFilter).contains("Task Base Status: All");
+  });
+
+  const allTasksSelectedConfirmationMessage =
+    "Are you sure you want to restart the 47 selected tasks?";
+  const someTasksSelected =
+    "Are you sure you want to restart the 1 selected tasks?";
+  const path = `/version/5e4ff3abe3c3317e352062e4`;
+  const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
+  const baseStatusFilter =
+    ".ant-modal-body > div > [data-cy=task-base-status-filter]";
+  const versionPageStatusFitler =
+    "[data-cy=task-tab] > div > [data-cy=task-status-filter]";
+  const versionPageBaseStatusFitler =
+    "[data-cy=task-tab] > div > [data-cy=task-base-status-filter]";
 });
