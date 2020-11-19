@@ -13,6 +13,8 @@ export const GET_TASK = gql`
         taskDisplayName
         taskID
         buildVariantDisplayName
+        newVersion
+        prClosed
       }
       activatedBy
       baseTaskMetadata {

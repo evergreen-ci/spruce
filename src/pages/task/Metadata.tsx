@@ -13,12 +13,19 @@ import {
   getSpawnHostRoute,
   getVersionRoute,
 } from "constants/routes";
-import { GetTaskQuery } from "gql/generated/types";
+
+import {
+  GetTaskQuery,
+  TaskQueuePositionQuery,
+  TaskQueuePositionQueryVariables,
+} from "gql/generated/types";
+import { TASK_QUEUE_POSITION } from "gql/queries";
+import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
+import { ETATimer } from "pages/task/metadata/ETATimer";
 import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration, getDateCopy } from "utils/string";
-import { ETATimer } from "./metadata/ETATimer";
 
 const { red } = uiColors;
 
@@ -212,19 +219,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             </StyledRouterLink>
           </P2>
         )}
-        {abortInfo && (
-          <P2>
-            {`Aborted by ${abortInfo.user} because of failing task: `}
-            <span>
-              <StyledLink
-                data-cy="abort-link"
-                href={getTaskRoute(abortInfo.taskID)}
-              >
-                {`${abortInfo.buildVariantDisplayName}: ${abortInfo.taskDisplayName}`}
-              </StyledLink>
-            </span>
-          </P2>
-        )}
+        {abortInfo && <AbortMessage {...abortInfo} />}
         {oomTracker && oomTracker.detected && (
           <RedP2>
             Out of Memory Kill detected
