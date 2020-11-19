@@ -1,31 +1,108 @@
 import { renderHook, act } from "@testing-library/react-hooks";
-
 import { usePatchStatusSelect } from "hooks";
+import { waitFor } from "test_utils/test-utils";
+
+const allFalse = {
+  evergreen_lint_generate_lint: false,
+  evergreen_lint_lint_service: false,
+  evergreen_ubuntu1604_89: false,
+  evergreen_ubuntu1604_js_test: false,
+  evergreen_ubuntu1604_test_model_distro: false,
+  evergreen_ubuntu1604_test_model_event: false,
+  evergreen_ubuntu1604_test_model_grid: false,
+  evergreen_ubuntu1604_test_model_host: false,
+  evergreen_ubuntu1604_test_service: false,
+};
+
+const allTrue = {
+  evergreen_lint_generate_lint: true,
+  evergreen_lint_lint_service: true,
+  evergreen_ubuntu1604_89: true,
+  evergreen_ubuntu1604_js_test: true,
+  evergreen_ubuntu1604_test_model_distro: true,
+  evergreen_ubuntu1604_test_model_event: true,
+  evergreen_ubuntu1604_test_model_grid: true,
+  evergreen_ubuntu1604_test_model_host: true,
+  evergreen_ubuntu1604_test_service: true,
+};
 
 test("should have no tasks and no valid statuses selected by default", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
-  expect(result.current[0]).toStrictEqual({
-    evergreen_lint_generate_lint: false,
-    evergreen_lint_lint_service: false,
-    evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_js_test: false,
-    evergreen_ubuntu1604_test_model_distro: false,
-    evergreen_ubuntu1604_test_model_event: false,
-    evergreen_ubuntu1604_test_model_grid: false,
-    evergreen_ubuntu1604_test_model_host: false,
-    evergreen_ubuntu1604_test_service: false,
-  });
+  expect(result.current[0]).toStrictEqual(allFalse);
 });
 
-test("should select all tasks that match a selected valid status", () => {
+test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
     result.current[3].setPatchStatusFilterTerm(["success"]);
   });
+  act(() => {
+    result.current[3].setBaseStatusFilterTerm([]);
+  });
   expect(result.current[0]).toEqual(successStatusIds);
 });
 
-test("should deselect all tasks that no longer match a selected tasks status", () => {
+test("should select all tasks that match the base status filter when the patch status filter is empty", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  act(() => {
+    result.current[3].setPatchStatusFilterTerm([]);
+  });
+  act(() => {
+    result.current[3].setBaseStatusFilterTerm(["success"]);
+  });
+  expect(result.current[0]).toEqual({
+    ...allFalse,
+    evergreen_ubuntu1604_test_service: true,
+  });
+});
+
+test("should select all tasks that match the patch status filter when the base status filter is empty", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  act(() => {
+    result.current[3].setPatchStatusFilterTerm(["success"]);
+  });
+  act(() => {
+    result.current[3].setBaseStatusFilterTerm([]);
+  });
+  expect(result.current[0]).toEqual(successStatusIds);
+});
+
+test("should select all tasks that match the patch status filter and base status filter when both filters have active filter terms.", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  act(() => {
+    result.current[3].setPatchStatusFilterTerm(["failed"]);
+  });
+  act(() => {
+    result.current[3].setBaseStatusFilterTerm(["success"]);
+  });
+  waitFor(() =>
+    expect(result.current[0]).toEqual({
+      ...allFalse,
+      evergreen_ubuntu1604_test_service: true,
+    })
+  );
+});
+
+test("tasks with undefined base statuses do not match with any base status filter state.", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  act(() => {
+    result.current[3].setPatchStatusFilterTerm(["success"]);
+  });
+  act(() => {
+    result.current[3].setBaseStatusFilterTerm([
+      "success",
+      "fakeStatus",
+      "random",
+    ]);
+  });
+  waitFor(() =>
+    expect(result.current[0]).toEqual({
+      ...allFalse,
+    })
+  );
+});
+
+test("should deselect all tasks with statuses that do not match any patch status filter terms.", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
     result.current[3].setPatchStatusFilterTerm(["success"]);
@@ -34,34 +111,17 @@ test("should deselect all tasks that no longer match a selected tasks status", (
   act(() => {
     result.current[3].setPatchStatusFilterTerm([]);
   });
-  expect(result.current[0]).toStrictEqual({
-    evergreen_lint_generate_lint: false,
-    evergreen_lint_lint_service: false,
-    evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_js_test: false,
-    evergreen_ubuntu1604_test_model_distro: false,
-    evergreen_ubuntu1604_test_model_event: false,
-    evergreen_ubuntu1604_test_model_grid: false,
-    evergreen_ubuntu1604_test_model_host: false,
-    evergreen_ubuntu1604_test_service: false,
-  });
+  expect(result.current[0]).toStrictEqual({ ...allFalse });
 });
 
-test("selecting multiple valid statuses should select all matching task status", () => {
+test("selecting multiple patch statuses should select all tasks with a matching status", () => {
   const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
   act(() => {
     result.current[3].setPatchStatusFilterTerm(["success", "failed"]);
   });
   expect(result.current[0]).toEqual({
-    evergreen_lint_generate_lint: true,
-    evergreen_lint_lint_service: true,
+    ...allTrue,
     evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_js_test: true,
-    evergreen_ubuntu1604_test_model_distro: true,
-    evergreen_ubuntu1604_test_model_event: true,
-    evergreen_ubuntu1604_test_model_grid: true,
-    evergreen_ubuntu1604_test_model_host: true,
-    evergreen_ubuntu1604_test_service: true,
   });
 });
 
@@ -71,15 +131,8 @@ test("selecting an individual task should work", () => {
     result.current[3].toggleSelectedTask("evergreen_lint_generate_lint");
   });
   expect(result.current[0]).toEqual({
+    ...allFalse,
     evergreen_lint_generate_lint: true,
-    evergreen_lint_lint_service: false,
-    evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_js_test: false,
-    evergreen_ubuntu1604_test_model_distro: false,
-    evergreen_ubuntu1604_test_model_event: false,
-    evergreen_ubuntu1604_test_model_grid: false,
-    evergreen_ubuntu1604_test_model_host: false,
-    evergreen_ubuntu1604_test_service: false,
   });
 });
 
@@ -93,17 +146,43 @@ test("deselecting an individual task should work if it was selected by valid sta
     result.current[3].toggleSelectedTask("evergreen_lint_generate_lint");
   });
   expect(result.current[0]).toEqual({
+    ...allTrue,
     evergreen_lint_generate_lint: false,
-    evergreen_lint_lint_service: true,
     evergreen_ubuntu1604_89: false,
-    evergreen_ubuntu1604_js_test: true,
-    evergreen_ubuntu1604_test_model_distro: true,
-    evergreen_ubuntu1604_test_model_event: true,
-    evergreen_ubuntu1604_test_model_grid: true,
-    evergreen_ubuntu1604_test_model_host: true,
     evergreen_ubuntu1604_test_service: false,
   });
 });
+
+test("batch toggling tasks will set them all to checked when they are orignially unchecked", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+  act(() => result.current[3].toggleSelectedTask(Object.keys(allFalse)));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+});
+
+test("batch toggling tasks will set them all to checked when some and not all are originally checked.", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+  act(() =>
+    result.current[3].toggleSelectedTask("evergreen_lint_generate_lint")
+  );
+  waitFor(() =>
+    expect(result.current[0]).toStrictEqual({
+      ...allFalse,
+      evergreen_lint_generate_lint: true,
+    })
+  );
+  act(() => result.current[3].toggleSelectedTask(Object.keys(allFalse)));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+});
+
+test("batch toggling tasks will set them all to unchecked when they are all originally checked.", () => {
+  const { result } = renderHook(() => usePatchStatusSelect(patchBuildVariants));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allTrue }));
+  act(() => result.current[3].toggleSelectedTask(Object.keys(allTrue)));
+  waitFor(() => expect(result.current[0]).toStrictEqual({ ...allFalse }));
+});
+
 const patchBuildVariants = [
   {
     variant: "lint",
@@ -162,6 +241,7 @@ const patchBuildVariants = [
         id: "evergreen_ubuntu1604_test_service",
         name: "test-service",
         status: "failed",
+        baseStatus: "success",
         __typename: "PatchBuildVariantTask",
       },
     ],
