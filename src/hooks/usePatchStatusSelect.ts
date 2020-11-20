@@ -85,6 +85,8 @@ export const usePatchStatusSelect = (
   useEffect(() => {
     if (patchBuildVariants) {
       let tempSelectedTasks = state.selectedTasks;
+      const baseStatuses = new Set(baseStatusFilterTerm);
+      const statuses = new Set(patchStatusFilterTerm);
       patchBuildVariants.forEach((patchBuildVariant) => {
         patchBuildVariant.tasks.forEach((task) => {
           // A task is selected when both filters have a match or when
@@ -92,12 +94,11 @@ export const usePatchStatusSelect = (
           const isSelected =
             (patchStatusFilterTerm?.length || baseStatusFilterTerm?.length) &&
             (patchStatusFilterTerm?.length
-              ? patchStatusFilterTerm.includes(task.status)
+              ? statuses.has(task.status)
               : true) &&
             (baseStatusFilterTerm?.length
-              ? baseStatusFilterTerm.includes(task.baseStatus)
+              ? baseStatuses.has(task.baseStatus)
               : true);
-
           if (isSelected) {
             tempSelectedTasks = addTaskToSelectedTasks(
               task.id,
