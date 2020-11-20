@@ -4,7 +4,7 @@ import Badge from "@leafygreen-ui/badge";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
-import { routes } from "constants/routes";
+import { getSpawnVolumeRoute } from "constants/routes";
 import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
 
@@ -50,7 +50,7 @@ const spawnHostCardFieldMaps = {
     <>
       {host.volumes.map(({ id, displayName }) => (
         <div key={`volume_link_${id}`}>
-          <StyledRouterLink to={`${routes.spawnVolume}?volume=${id}`}>
+          <StyledRouterLink to={getSpawnVolumeRoute(id)}>
             {displayName || id}
           </StyledRouterLink>
         </div>
@@ -59,9 +59,7 @@ const spawnHostCardFieldMaps = {
   ),
   "Home Volume": (host: MyHost) => (
     <span>
-      <StyledRouterLink
-        to={`${routes.spawnVolume}?volume=${host?.homeVolumeID}`}
-      >
+      <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
         {host?.homeVolumeID}
       </StyledRouterLink>
     </span>

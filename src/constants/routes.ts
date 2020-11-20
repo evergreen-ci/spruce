@@ -116,3 +116,10 @@ export const getSpawnHostRoute = ({
   });
   return `${routes.spawnHost}?${queryParams}`;
 };
+
+export const getSpawnVolumeRoute = (volume: string) => {
+  const queryParams = stringifyQuery({
+    volume,
+  });
+  return `${routes.spawnVolume}?${queryParams}`;
+};
