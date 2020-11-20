@@ -2,13 +2,13 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { TreeSelect, TreeDataEntry } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
+import { taskStatusesFilterTreeData } from "constants/task";
 import {
   GetPatchTaskStatusesQuery,
   GetPatchTaskStatusesQueryVariables,
 } from "gql/generated/types";
 import { GET_PATCH_TASK_STATUSES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { taskStatusesFilterTreeData } from "types/task";
 import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
 
 interface Props {
