@@ -77,10 +77,9 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ] = usePatchStatusSelect(patchBuildVariants);
   const { search } = useLocation();
-  const prevVisible = usePrevious(visible);
+  const prevSearch = usePrevious(search);
   useEffect(() => {
-    // apply status filter from URL when the modal opens
-    if (visible && !prevVisible) {
+    if (search !== prevSearch) {
       const urlParams = parseQueryString(search);
       setPatchStatusFilterTerm(
         getArray(urlParams[PatchTasksQueryParams.Statuses]) ?? []
@@ -89,13 +88,8 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
         getArray(urlParams[PatchTasksQueryParams.BaseStatuses]) ?? []
       );
     }
-  }, [
-    prevVisible,
-    search,
-    setBaseStatusFilterTerm,
-    setPatchStatusFilterTerm,
-    visible,
-  ]);
+  }, [search, prevSearch, setBaseStatusFilterTerm, setPatchStatusFilterTerm]);
+
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
