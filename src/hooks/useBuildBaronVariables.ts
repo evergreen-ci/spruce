@@ -26,6 +26,8 @@ export const useBuildBaronVariables = ({
 
   const failedTask =
     taskStatus === TaskStatus.Failed ||
+    taskStatus === TaskStatus.SetupFailed ||
+    taskStatus === TaskStatus.SystemFailed ||
     taskStatus === TaskStatus.TaskTimedOut ||
     taskStatus === TaskStatus.TestTimedOut;
 
