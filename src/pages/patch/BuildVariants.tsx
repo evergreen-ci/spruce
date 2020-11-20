@@ -49,7 +49,7 @@ export const BuildVariants: React.FC = () => {
           >
             <P1>
               <Link
-                to={`${getVersionRoute(id)}?page=0&variant=${variant}`}
+                to={`${getVersionRoute(id, { page: 0, variant })}`}
                 onClick={() =>
                   patchAnalytics.sendEvent({
                     name: "Click Build Variant Grid Link",

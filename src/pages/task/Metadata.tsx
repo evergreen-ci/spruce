@@ -73,7 +73,10 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
           Build Variant Name:{" "}
           <StyledRouterLink
             data-cy="build-variant-link"
-            to={`${getVersionRoute(patchID)}?page=0&variant=${buildVariant}`}
+            to={`${getVersionRoute(patchID, {
+              page: 0,
+              variant: buildVariant,
+            })}?`}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Build Variant Link" })
             }

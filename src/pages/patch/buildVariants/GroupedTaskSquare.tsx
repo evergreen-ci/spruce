@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Tooltip } from "antd";
-import queryString from "query-string";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
@@ -25,15 +24,11 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   const patchAnalytics = usePatchAnalytics();
   const { id } = useParams<{ id: string }>();
 
-  const nextQueryParams = queryString.stringify(
-    {
-      statuses,
-      variant,
-      page: 0,
-    },
-    { arrayFormat }
-  );
-  const filteredRoute = `${getVersionRoute(id)}?${nextQueryParams}`;
+  const filteredRoute = `${getVersionRoute(id, {
+    statuses,
+    variant,
+    page: 0,
+  })}`;
   const multipleStatuses = statuses.length > 1;
   const tooltipCopy = `${count} ${count > 1 ? "tasks" : "task"} with ${
     multipleStatuses ? "statuses" : "status"
@@ -84,5 +79,3 @@ const StyledText = styled.span<StyledTextProps>`
   font-weight: bold;
   font-size: 12px;
 `;
-
-const arrayFormat = "comma";

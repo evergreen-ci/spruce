@@ -165,6 +165,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
+  moveAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -244,6 +245,12 @@ export type MutationRestartTaskArgs = {
 
 export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
+};
+
+export type MutationMoveAnnotationIssueArgs = {
+  annotationId: Scalars["String"];
+  apiIssue: AnnotationIssue;
+  isIssue: Scalars["Boolean"];
 };
 
 export type MutationRemoveItemFromCommitQueueArgs = {
@@ -468,6 +475,11 @@ export type UpdateVolumeInput = {
   volumeId: Scalars["String"];
 };
 
+export type AnnotationIssue = {
+  url: Scalars["String"];
+  issueKey: Scalars["String"];
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -562,6 +574,7 @@ export type PatchBuildVariantTask = {
   id: Scalars["ID"];
   name: Scalars["String"];
   status: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
 };
 
 export type TaskFiles = {
@@ -668,7 +681,7 @@ export type TaskResult = {
   displayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
-  baseStatus: Scalars["String"];
+  baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
 };
@@ -757,6 +770,8 @@ export type AbortInfo = {
   taskID?: Maybe<Scalars["String"]>;
   taskDisplayName?: Maybe<Scalars["String"]>;
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
+  newVersion?: Maybe<Scalars["String"]>;
+  prClosed?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Task = {
@@ -1616,7 +1631,7 @@ export type PatchTasksQuery = {
     tasks: Array<{
       id: string;
       status: string;
-      baseStatus: string;
+      baseStatus?: Maybe<string>;
       displayName: string;
       buildVariant: string;
       blocked: boolean;
