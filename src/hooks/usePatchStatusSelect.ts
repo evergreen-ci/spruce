@@ -54,12 +54,14 @@ type HookResult = [
 export const usePatchStatusSelect = (
   patchBuildVariants: PatchBuildVariant[]
 ): HookResult => {
-  const [state, dispatch] = useReducer(reducer, {
+  const [
+    { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks },
+    dispatch,
+  ] = useReducer(reducer, {
     baseStatusFilterTerm: [],
     patchStatusFilterTerm: [],
     selectedTasks: {},
   });
-  const { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks } = state;
 
   const toggleSelectedTask = (id: string | string[]) => {
     const newState = { ...selectedTasks };
@@ -82,38 +84,32 @@ export const usePatchStatusSelect = (
   };
   // Iterate through PatchBuildVariants and determine if a task should be
   // selected or not based on if the task status correlates with the 2 filters.
+  // if only 1 of the 2 filters contains a filter term, ignore the empty filter
   useEffect(() => {
-    if (patchBuildVariants) {
-      let tempSelectedTasks = state.selectedTasks;
-      const baseStatuses = new Set(baseStatusFilterTerm);
-      const statuses = new Set(patchStatusFilterTerm);
-      patchBuildVariants.forEach((patchBuildVariant) => {
-        patchBuildVariant.tasks.forEach((task) => {
-          // A task is selected when both filters have a match or when
-          // one filter has a match and the other has no active filter terms.
-          const isSelected =
-            (patchStatusFilterTerm?.length || baseStatusFilterTerm?.length) &&
-            (patchStatusFilterTerm?.length
-              ? statuses.has(task.status)
-              : true) &&
-            (baseStatusFilterTerm?.length
-              ? baseStatuses.has(task.baseStatus)
-              : true);
-          if (isSelected) {
-            tempSelectedTasks = addTaskToSelectedTasks(
-              task.id,
-              tempSelectedTasks
-            );
-          } else {
-            tempSelectedTasks = removeTaskFromSelectedTasks(
-              task.id,
-              tempSelectedTasks
-            );
-          }
-        });
-      });
-      dispatch({ type: "setSelectedTasks", data: tempSelectedTasks });
-    }
+    const baseStatuses = new Set(baseStatusFilterTerm);
+    const statuses = new Set(patchStatusFilterTerm);
+    const nextState =
+      patchBuildVariants?.reduce(
+        (accumA, patchBuildVariant) =>
+          patchBuildVariant.tasks?.reduce(
+            (accumB, task) => ({
+              ...accumB,
+              [task.id]:
+                (patchStatusFilterTerm?.length ||
+                  baseStatusFilterTerm?.length) &&
+                (patchStatusFilterTerm?.length
+                  ? statuses.has(task.status)
+                  : true) &&
+                (baseStatusFilterTerm?.length
+                  ? baseStatuses.has(task.baseStatus)
+                  : true),
+            }),
+            accumA
+          ),
+        { ...selectedTasks }
+      ) ?? {};
+    dispatch({ type: "setSelectedTasks", data: nextState });
+
     // Disable exhaustive-deps since selectedTasks in dep array causes a infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [patchBuildVariants, patchStatusFilterTerm, baseStatusFilterTerm]);
@@ -129,19 +125,4 @@ export const usePatchStatusSelect = (
     baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ];
-};
-
-const removeTaskFromSelectedTasks = (
-  id: string,
-  selectedTasks: selectedStrings
-) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = false;
-  return newSelectedTasks;
-};
-
-const addTaskToSelectedTasks = (id: string, selectedTasks: selectedStrings) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = true;
-  return newSelectedTasks;
 };
