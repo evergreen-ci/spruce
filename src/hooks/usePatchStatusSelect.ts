@@ -1,5 +1,6 @@
 import { useEffect, useReducer } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
+import { usePrevious } from "hooks";
 
 export interface selectedStrings {
   [id: string]: boolean | undefined;
@@ -85,34 +86,40 @@ export const usePatchStatusSelect = (
   // Iterate through PatchBuildVariants and determine if a task should be
   // selected or not based on if the task status correlates with the 2 filters.
   // if only 1 of the 2 filters contains a filter term, ignore the empty filter
+  const prevSelectedTasks = usePrevious(selectedTasks);
   useEffect(() => {
-    const baseStatuses = new Set(baseStatusFilterTerm);
-    const statuses = new Set(patchStatusFilterTerm);
-    const nextState =
-      patchBuildVariants?.reduce(
-        (accumA, patchBuildVariant) =>
-          patchBuildVariant.tasks?.reduce(
-            (accumB, task) => ({
-              ...accumB,
-              [task.id]:
-                (patchStatusFilterTerm?.length ||
-                  baseStatusFilterTerm?.length) &&
-                (patchStatusFilterTerm?.length
-                  ? statuses.has(task.status)
-                  : true) &&
-                (baseStatusFilterTerm?.length
-                  ? baseStatuses.has(task.baseStatus)
-                  : true),
-            }),
-            accumA
-          ),
-        { ...selectedTasks }
-      ) ?? {};
-    dispatch({ type: "setSelectedTasks", data: nextState });
-
-    // Disable exhaustive-deps since selectedTasks in dep array causes a infinite loop
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [patchBuildVariants, patchStatusFilterTerm, baseStatusFilterTerm]);
+    if (prevSelectedTasks !== selectedTasks) {
+      const baseStatuses = new Set(baseStatusFilterTerm);
+      const statuses = new Set(patchStatusFilterTerm);
+      const nextState =
+        patchBuildVariants?.reduce(
+          (accumA, patchBuildVariant) =>
+            patchBuildVariant.tasks?.reduce(
+              (accumB, task) => ({
+                ...accumB,
+                [task.id]:
+                  (patchStatusFilterTerm?.length ||
+                    baseStatusFilterTerm?.length) &&
+                  (patchStatusFilterTerm?.length
+                    ? statuses.has(task.status)
+                    : true) &&
+                  (baseStatusFilterTerm?.length
+                    ? baseStatuses.has(task.baseStatus)
+                    : true),
+              }),
+              accumA
+            ),
+          { ...selectedTasks }
+        ) ?? {};
+      dispatch({ type: "setSelectedTasks", data: nextState });
+    }
+  }, [
+    patchBuildVariants,
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
+    selectedTasks,
+    prevSelectedTasks,
+  ]);
 
   const setPatchStatusFilterTerm = (statuses: string[]) =>
     dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
