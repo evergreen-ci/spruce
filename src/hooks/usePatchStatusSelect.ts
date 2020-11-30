@@ -86,9 +86,15 @@ export const usePatchStatusSelect = (
   // Iterate through PatchBuildVariants and determine if a task should be
   // selected or not based on if the task status correlates with the 2 filters.
   // if only 1 of the 2 filters contains a filter term, ignore the empty filter
-  const prevSelectedTasks = usePrevious(selectedTasks);
+  const prevPatchBuildVariants = usePrevious(patchBuildVariants);
+  const prevPatchStatusFilterTerm = usePrevious(patchStatusFilterTerm);
+  const prevBaseStatusFilterTerm = usePrevious(baseStatusFilterTerm);
   useEffect(() => {
-    if (prevSelectedTasks !== selectedTasks) {
+    const filterTermOrPatchTasksChanged =
+      patchBuildVariants !== prevPatchBuildVariants ||
+      patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
+      baseStatusFilterTerm !== prevBaseStatusFilterTerm;
+    if (filterTermOrPatchTasksChanged) {
       const baseStatuses = new Set(baseStatusFilterTerm);
       const statuses = new Set(patchStatusFilterTerm);
       const nextState =
@@ -114,11 +120,13 @@ export const usePatchStatusSelect = (
       dispatch({ type: "setSelectedTasks", data: nextState });
     }
   }, [
+    baseStatusFilterTerm,
     patchBuildVariants,
     patchStatusFilterTerm,
-    baseStatusFilterTerm,
+    prevBaseStatusFilterTerm,
+    prevPatchBuildVariants,
+    prevPatchStatusFilterTerm,
     selectedTasks,
-    prevSelectedTasks,
   ]);
 
   const setPatchStatusFilterTerm = (statuses: string[]) =>
