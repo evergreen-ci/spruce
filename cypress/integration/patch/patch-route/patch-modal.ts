@@ -114,12 +114,14 @@ describe("Restarting a patch", () => {
       .contains("All")
       .click();
     cy.dataCy("restart-patch").click();
-    cy.get(statusFilter).contains("Task Status: All");
+    cy.get(statusFilter).contains(
+      "Task Status: Dispatched, Undispatched or Blocked, Running"
+    );
     cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
 
   const allTasksSelectedConfirmationMessage =
-    "Are you sure you want to restart the 47 selected tasks?";
+    "Are you sure you want to restart the 49 selected tasks?";
   const someTasksSelected =
     "Are you sure you want to restart the 1 selected tasks?";
   const path = `/version/5e4ff3abe3c3317e352062e4`;
@@ -127,7 +129,7 @@ describe("Restarting a patch", () => {
   const baseStatusFilter =
     ".ant-modal-body > div > [data-cy=task-base-status-filter]";
   const versionPageStatusFitler =
-    "[data-cy=task-tab] > div > [data-cy=task-status-filter]";
+    "[data-cy=task-tab] > div > div > [data-cy=task-status-filter]";
   const versionPageBaseStatusFitler =
-    "[data-cy=task-tab] > div > [data-cy=task-base-status-filter]";
+    "[data-cy=task-tab] > div > div > [data-cy=task-base-status-filter]";
 });
