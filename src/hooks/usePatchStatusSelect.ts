@@ -1,6 +1,7 @@
-import { useEffect, useReducer } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
 import { usePrevious } from "hooks";
+import { getWebWorkerURL } from "utils/getEnvironmentVariables";
 
 export interface selectedStrings {
   [id: string]: boolean | undefined;
@@ -55,6 +56,14 @@ type HookResult = [
 export const usePatchStatusSelect = (
   patchBuildVariants: PatchBuildVariant[]
 ): HookResult => {
+  const [webWorker, setWebWorker] = useState<Worker>();
+  useEffect(() => {
+    if (!webWorker) {
+      const worker = new Worker(getWebWorkerURL("patchBuildVariantsReduce.js"));
+      setWebWorker(worker);
+    }
+  }, [webWorker]);
+
   const [
     { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks },
     dispatch,
@@ -83,9 +92,8 @@ export const usePatchStatusSelect = (
     }
     dispatch({ type: "setSelectedTasks", data: newState });
   };
-  // Iterate through PatchBuildVariants and determine if a task should be
-  // selected or not based on if the task status correlates with the 2 filters.
-  // if only 1 of the 2 filters contains a filter term, ignore the empty filter
+
+  // Determine if a task is a selected based on the filter terms and available tasks
   const prevPatchBuildVariants = usePrevious(patchBuildVariants);
   const prevPatchStatusFilterTerm = usePrevious(patchStatusFilterTerm);
   const prevBaseStatusFilterTerm = usePrevious(baseStatusFilterTerm);
@@ -94,30 +102,13 @@ export const usePatchStatusSelect = (
       patchBuildVariants !== prevPatchBuildVariants ||
       patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
-    if (filterTermOrPatchTasksChanged) {
-      const baseStatuses = new Set(baseStatusFilterTerm);
-      const statuses = new Set(patchStatusFilterTerm);
-      const nextState =
-        patchBuildVariants?.reduce(
-          (accumA, patchBuildVariant) =>
-            patchBuildVariant.tasks?.reduce(
-              (accumB, task) => ({
-                ...accumB,
-                [task.id]:
-                  (patchStatusFilterTerm?.length ||
-                    baseStatusFilterTerm?.length) &&
-                  (patchStatusFilterTerm?.length
-                    ? statuses.has(task.status)
-                    : true) &&
-                  (baseStatusFilterTerm?.length
-                    ? baseStatuses.has(task.baseStatus)
-                    : true),
-              }),
-              accumA
-            ),
-          { ...selectedTasks }
-        ) ?? {};
-      dispatch({ type: "setSelectedTasks", data: nextState });
+    if (filterTermOrPatchTasksChanged && webWorker) {
+      webWorker.postMessage({
+        patchBuildVariants,
+        patchStatusFilterTerm,
+        baseStatusFilterTerm,
+        selectedTasks,
+      });
     }
   }, [
     baseStatusFilterTerm,
@@ -127,7 +118,20 @@ export const usePatchStatusSelect = (
     prevPatchBuildVariants,
     prevPatchStatusFilterTerm,
     selectedTasks,
+    webWorker,
   ]);
+
+  // process webworker response
+  useEffect(() => {
+    if (webWorker) {
+      webWorker.onmessage = (event) => {
+        dispatch({
+          type: "setSelectedTasks",
+          data: event.data as selectedStrings,
+        });
+      };
+    }
+  }, [webWorker, dispatch]);
 
   const setPatchStatusFilterTerm = (statuses: string[]) =>
     dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
