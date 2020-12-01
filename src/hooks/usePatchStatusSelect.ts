@@ -58,7 +58,7 @@ export const usePatchStatusSelect = (
 ): HookResult => {
   const [webWorker, setWebWorker] = useState<Worker>();
   useEffect(() => {
-    if (!webWorker) {
+    if (window.Worker && !webWorker) {
       const worker = new Worker(getWebWorkerURL("patchBuildVariantsReduce.js"));
       setWebWorker(worker);
     }
@@ -102,13 +102,45 @@ export const usePatchStatusSelect = (
       patchBuildVariants !== prevPatchBuildVariants ||
       patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
-    if (filterTermOrPatchTasksChanged && webWorker) {
-      webWorker.postMessage({
-        patchBuildVariants,
-        patchStatusFilterTerm,
-        baseStatusFilterTerm,
-        selectedTasks,
-      });
+    if (filterTermOrPatchTasksChanged) {
+      if (window.Worker && webWorker) {
+        webWorker.postMessage({
+          patchBuildVariants,
+          patchStatusFilterTerm,
+          baseStatusFilterTerm,
+          selectedTasks,
+        });
+      } else {
+        // fallback in case web workers are not available.
+        // This code reflects logic in public/web_worker/patchBuildVariantReduce.js
+        // Iterate through PatchBuildVariants and determine if a task should be
+        // selected or not based on if the task status correlates with the 2 filters.
+        // if 1 of the 2 filters is empty, ignore the empty filter
+        const baseStatuses = new Set(baseStatusFilterTerm);
+        const statuses = new Set(patchStatusFilterTerm);
+        const nextState =
+          patchBuildVariants?.reduce(
+            (accumA, patchBuildVariant) =>
+              patchBuildVariant.tasks?.reduce(
+                (accumB, task) => ({
+                  ...accumB,
+                  [task.id]:
+                    (!!patchStatusFilterTerm?.length ||
+                      !!baseStatusFilterTerm?.length) &&
+                    (patchStatusFilterTerm?.length
+                      ? statuses.has(task.status)
+                      : true) &&
+                    (baseStatusFilterTerm?.length
+                      ? baseStatuses.has(task.baseStatus)
+                      : true),
+                }),
+                accumA
+              ),
+            { ...selectedTasks }
+          ) ?? {};
+        console.log("really doe?");
+        dispatch({ type: "setSelectedTasks", data: nextState });
+      }
     }
   }, [
     baseStatusFilterTerm,
@@ -123,7 +155,7 @@ export const usePatchStatusSelect = (
 
   // process webworker response
   useEffect(() => {
-    if (webWorker) {
+    if (window.Worker && webWorker) {
       webWorker.onmessage = (event) => {
         dispatch({
           type: "setSelectedTasks",
