@@ -19,7 +19,7 @@ import {
 } from "context/banners";
 import {
   SchedulePatchMutation,
-  PatchReconfigure,
+  PatchConfigure,
   SchedulePatchMutationVariables,
   VariantTasks,
   ConfigurePatchQuery,
@@ -72,7 +72,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
     setdescriptionValue(e.target.value);
 
   const onClickSchedule = async (): Promise<void> => {
-    const configurePatchParam: PatchReconfigure = {
+    const configurePatchParam: PatchConfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
     };

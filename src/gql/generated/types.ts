@@ -166,6 +166,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
+  addAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -195,7 +196,7 @@ export type MutationRemoveFavoriteProjectArgs = {
 
 export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"];
-  reconfigure: PatchReconfigure;
+  configure: PatchConfigure;
 };
 
 export type MutationSchedulePatchTasksArgs = {
@@ -249,6 +250,13 @@ export type MutationSaveSubscriptionArgs = {
 
 export type MutationMoveAnnotationIssueArgs = {
   annotationId: Scalars["String"];
+  apiIssue: AnnotationIssue;
+  isIssue: Scalars["Boolean"];
+};
+
+export type MutationAddAnnotationIssueArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   apiIssue: AnnotationIssue;
   isIssue: Scalars["Boolean"];
 };
@@ -380,9 +388,10 @@ export type VolumeHost = {
   hostId: Scalars["String"];
 };
 
-export type PatchReconfigure = {
+export type PatchConfigure = {
   description: Scalars["String"];
   variantsTasks: Array<VariantTasks>;
+  parameters?: Maybe<Array<Maybe<ParameterInput>>>;
 };
 
 export type VariantTasks = {
@@ -671,6 +680,11 @@ export type ProjectBuildVariant = {
 };
 
 export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
+};
+
+export type ParameterInput = {
   key: Scalars["String"];
   value: Scalars["String"];
 };
@@ -1223,7 +1237,7 @@ export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
-  reconfigure: PatchReconfigure;
+  reconfigure: PatchConfigure;
 };
 
 export type SchedulePatchMutation = {
