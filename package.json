@@ -22,7 +22,7 @@
     "@leafygreen-ui/side-nav": "2.0.14",
     "@leafygreen-ui/tabs": "4.0.3",
     "@leafygreen-ui/text-input": "1.1.1",
-    "@leafygreen-ui/toggle": "3.0.1",
+    "@leafygreen-ui/toggle": "5.0.2",
     "@leafygreen-ui/typography": "1.0.1",
     "@mongodb-dev-prod/trend-charts-ui": "~0.3.2",
     "ansi_up": "4.0.4",
