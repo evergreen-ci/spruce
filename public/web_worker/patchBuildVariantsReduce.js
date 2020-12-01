@@ -8,6 +8,8 @@ onmessage = function(e) {
     baseStatusFilterTerm,
     selectedTasks,
   } = e.data;
+  // the following logic is captured in usePatchStatusSelect.ts
+  // in the case where web workers are unavailable
   const baseStatuses = new Set(baseStatusFilterTerm);
   const statuses = new Set(patchStatusFilterTerm);
   const nextState =
@@ -17,7 +19,8 @@ onmessage = function(e) {
           (accumB, task) => ({
             ...accumB,
             [task.id]:
-              (patchStatusFilterTerm?.length || baseStatusFilterTerm?.length) &&
+              (!!patchStatusFilterTerm?.length ||
+                !!baseStatusFilterTerm?.length) &&
               (patchStatusFilterTerm?.length
                 ? statuses.has(task.status)
                 : true) &&
@@ -29,5 +32,6 @@ onmessage = function(e) {
         ),
       { ...selectedTasks }
     ) ?? {};
+
   postMessage(nextState);
 };
