@@ -4,7 +4,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { useUserPatchesAnalytics } from "analytics";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { StyledLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { paths, getBuildStatusIconLink } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
@@ -45,7 +45,7 @@ export const PatchCard: React.FC<Props> = ({
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
-          href={`${paths.patch}/${id}`}
+          to={`${paths.patch}/${id}`}
           onClick={() =>
             userPatchesAnalytics.sendEvent({ name: "Click Patch Link" })
           }
@@ -121,7 +121,7 @@ const Right = styled.div`
   justify-content: flex-end;
 `;
 
-const DescriptionLink = styled(StyledLink)`
+const DescriptionLink = styled(StyledRouterLink)`
   font-size: 18px;
   font-weight: 500;
   padding-bottom: 8px;
