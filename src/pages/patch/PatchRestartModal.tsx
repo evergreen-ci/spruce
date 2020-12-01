@@ -148,6 +148,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
               patchId={patchId}
               selectedBaseStatuses={baseStatusFilterTerm}
               selectedStatuses={patchStatusFilterTerm}
+              filterWidth="50%"
             />
           </Row>
           {patchBuildVariants.map((patchBuildVariant) => (

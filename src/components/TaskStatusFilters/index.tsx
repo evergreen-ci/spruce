@@ -18,6 +18,7 @@ interface Props {
   onChangeStatusFilter: (s: string[]) => void;
   onChangeBaseStatusFilter: (s: string[]) => void;
   options?: TreeDataEntry[];
+  filterWidth?: string;
 }
 
 export const TaskStatusFilters: React.FC<Props> = ({
@@ -26,6 +27,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
   patchId,
   selectedBaseStatuses,
   selectedStatuses,
+  filterWidth = "25%",
   options = taskStatusesFilterTreeData,
 }) => {
   const { data, startPolling, stopPolling } = useQuery<
@@ -45,7 +47,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
         tData={getCurrentStatuses(statuses, options)}
         inputLabel="Task Status: "
         dataCy="task-status-filter"
-        width="25%"
+        width={filterWidth}
         onChange={onChangeStatusFilter}
       />
       <TreeSelect
@@ -53,7 +55,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
         tData={getCurrentStatuses(baseStatuses, options)}
         inputLabel="Task Base Status: "
         dataCy="task-base-status-filter"
-        width="25%"
+        width={filterWidth}
         onChange={onChangeBaseStatusFilter}
       />
     </>
