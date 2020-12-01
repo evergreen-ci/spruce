@@ -138,7 +138,6 @@ export const usePatchStatusSelect = (
               ),
             { ...selectedTasks }
           ) ?? {};
-        console.log("really doe?");
         dispatch({ type: "setSelectedTasks", data: nextState });
       }
     }
