@@ -196,7 +196,7 @@ export type MutationRemoveFavoriteProjectArgs = {
 
 export type MutationSchedulePatchArgs = {
   patchId: Scalars["String"];
-  reconfigure: PatchReconfigure;
+  configure: PatchConfigure;
 };
 
 export type MutationSchedulePatchTasksArgs = {
@@ -388,9 +388,10 @@ export type VolumeHost = {
   hostId: Scalars["String"];
 };
 
-export type PatchReconfigure = {
+export type PatchConfigure = {
   description: Scalars["String"];
   variantsTasks: Array<VariantTasks>;
+  parameters?: Maybe<Array<Maybe<ParameterInput>>>;
 };
 
 export type VariantTasks = {
@@ -679,6 +680,11 @@ export type ProjectBuildVariant = {
 };
 
 export type Parameter = {
+  key: Scalars["String"];
+  value: Scalars["String"];
+};
+
+export type ParameterInput = {
   key: Scalars["String"];
   value: Scalars["String"];
 };
@@ -1231,7 +1237,7 @@ export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
-  reconfigure: PatchReconfigure;
+  reconfigure: PatchConfigure;
 };
 
 export type SchedulePatchMutation = {
