@@ -107,7 +107,7 @@ describe("Restarting a patch", () => {
 
     cy.get(versionPageStatusFitler).click();
     cy.get(versionPageStatusFitler)
-      .contains("Running")
+      .contains("Aborted")
       .click();
     cy.get(versionPageBaseStatusFitler).click();
     cy.get(versionPageBaseStatusFitler)
@@ -115,7 +115,7 @@ describe("Restarting a patch", () => {
       .click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
-      "Task Status: Success, Undispatched or Blocked, Running"
+      "Task Status: Success, Undispatched or Blocked, Aborted"
     );
     cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
