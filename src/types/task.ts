@@ -89,4 +89,5 @@ export enum TaskStatus {
   // This status means that the task will not run because a dependency was
   // not satisfied
   StatusBlocked = "blocked",
+  Aborted = "aborted",
 }

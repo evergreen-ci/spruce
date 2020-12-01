@@ -14,7 +14,7 @@ import {
   PatchBuildVariantsQueryVariables,
   PatchBuildVariantTask,
 } from "gql/generated/types";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { GroupedTaskSquare } from "pages/patch/buildVariants/GroupedTaskSquare";
 import { groupTasksByColor } from "./buildVariants/utils";
@@ -49,7 +49,7 @@ export const BuildVariants: React.FC = () => {
           >
             <P1>
               <Link
-                to={`${getVersionRoute(id)}?page=0&variant=${variant}`}
+                to={`${getVersionRoute(id, { page: 0, variant })}`}
                 onClick={() =>
                   patchAnalytics.sendEvent({
                     name: "Click Build Variant Grid Link",

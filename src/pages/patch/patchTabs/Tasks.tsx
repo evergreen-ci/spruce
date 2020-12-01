@@ -29,7 +29,7 @@ import {
   TaskResult,
   SortDirection,
 } from "gql/generated/types";
-import { GET_PATCH_TASKS } from "gql/queries/get-patch-tasks";
+import { GET_PATCH_TASKS } from "gql/queries";
 import { useSetColumnDefaultSortOrder, useNetworkStatus } from "hooks";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
