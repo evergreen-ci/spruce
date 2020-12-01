@@ -27,6 +27,11 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
       },
+      {
+        title: "Aborted",
+        value: TaskStatus.Aborted,
+        key: TaskStatus.Aborted,
+      },
     ],
   },
   {
