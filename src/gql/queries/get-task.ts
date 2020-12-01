@@ -20,7 +20,9 @@ export const GET_TASK = gql`
       hostId
       patchMetadata {
         author
+        patchID
       }
+      projectId
       patchNumber
       reliesOn {
         buildVariant
@@ -57,6 +59,7 @@ export const GET_TASK = gql`
       generatedBy
       generatedByName
       isPerfPluginEnabled
+      minQueuePosition
       details {
         oomTracker {
           detected

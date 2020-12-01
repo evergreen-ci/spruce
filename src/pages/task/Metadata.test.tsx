@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import { GET_USER, TASK_QUEUE_POSITION } from "gql/queries";
+import { GET_USER } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
 
@@ -28,7 +28,12 @@ const taskQuery = {
     displayName: "e2e_test",
     hostId: "i-0e0e62799806e037d",
     hostLink: "https://evergreen.mongodb.com/host/i-0e0e62799806e037d",
-    patchMetadata: { __typename: "PatchMetadata", author: "mohamed.khelif" },
+    patchMetadata: {
+      __typename: "PatchMetadata",
+      author: "mohamed.khelif",
+      patchID:
+        "spruce_ubuntu1604_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_20_08_26_19_20_41",
+    },
     patchNumber: 417,
     reliesOn: [],
     logs: {
@@ -62,6 +67,8 @@ const taskQuery = {
     blocked: false,
     totalTestCount: 0,
     buildVariant: "ubuntu1604",
+    minQueuePosition: 0,
+    projectId: "spruce",
   },
 };
 
@@ -122,23 +129,6 @@ const mocks = [
           id: taskId,
           status: "started",
           failedTestCount: 0,
-        },
-      },
-    },
-  },
-  {
-    request: {
-      query: TASK_QUEUE_POSITION,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        task: {
-          __typename: "Task",
-          id: taskId,
-          minQueuePosition: 0,
         },
       },
     },
