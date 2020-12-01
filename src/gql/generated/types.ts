@@ -166,6 +166,7 @@ export type Mutation = {
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
+  addAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -249,6 +250,13 @@ export type MutationSaveSubscriptionArgs = {
 
 export type MutationMoveAnnotationIssueArgs = {
   annotationId: Scalars["String"];
+  apiIssue: AnnotationIssue;
+  isIssue: Scalars["Boolean"];
+};
+
+export type MutationAddAnnotationIssueArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   apiIssue: AnnotationIssue;
   isIssue: Scalars["Boolean"];
 };
