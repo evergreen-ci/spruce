@@ -5,6 +5,7 @@ import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { getIdeUrl } from "constants/externalResources";
 import { getSpawnVolumeRoute } from "constants/routes";
+import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { getDateCopy } from "utils/string";
 
@@ -65,7 +66,8 @@ const spawnHostCardFieldMaps = {
     </span>
   ),
   IDE: (host: MyHost) =>
-    host?.distro?.isVirtualWorkStation ? (
+    host?.distro?.isVirtualWorkStation &&
+    host?.status === HostStatus.Running ? (
       <span>
         <StyledLink href={getIdeUrl(host.id)}>Open IDE</StyledLink>
       </span>
