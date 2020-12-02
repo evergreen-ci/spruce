@@ -70,10 +70,7 @@ const UserPatchesComponent: React.FC = () => {
     fetchPolicy: "cache-and-network",
   });
   useNetworkStatus(startPolling, stopPolling);
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
+  const showSkeleton = !data;
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
