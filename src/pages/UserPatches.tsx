@@ -42,7 +42,7 @@ import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 const UserPatchesComponent: React.FC = () => {
   const bannersState = useBannerStateContext();
   const dispatchBanner = useBannerDispatchContext();
-  const { id: userId } = useParams();
+  const { id: userId } = useParams<{ id: string }>();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
