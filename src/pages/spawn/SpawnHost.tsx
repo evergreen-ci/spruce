@@ -13,7 +13,7 @@ import { pollInterval } from "constants/index";
 import { useBannerDispatchContext } from "context/banners";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, usePageTitle } from "hooks";
 import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 
@@ -32,6 +32,8 @@ export const SpawnHost = () => {
     },
   });
   useNetworkStatus(startPolling, stopPolling);
+
+  usePageTitle("My Hosts");
 
   if (loading) {
     return <Skeleton />;
