@@ -1335,14 +1335,14 @@
   resolved "https://registry.yarnpkg.com/@bcoe/v8-coverage/-/v8-coverage-0.2.3.tgz#75a2e8b51cb758a7553d6804a5932d7aace75c39"
   integrity sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==
 
-"@bugsnag/browser@^7.1.1":
+"@bugsnag/browser@^7.5.3":
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@bugsnag/browser/-/browser-7.5.3.tgz#a91e9fe74422f5866d4058a05cf6d6881e15c26d"
   integrity sha512-iGmKFtHz91hNovWW8rb/qLD9X5TMVEc7OUEfwE5s1M8ElReEmUAVbgTfQjkahG8aHvjGQ+M+zyM0gHfk+tTczg==
   dependencies:
     "@bugsnag/core" "^7.5.3"
 
-"@bugsnag/core@^7.2.1", "@bugsnag/core@^7.5.3":
+"@bugsnag/core@^7.5.3":
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@bugsnag/core/-/core-7.5.3.tgz#2851284a9f7d9e0628b5f73da3e91ae1d83fc8fb"
   integrity sha512-HaAPWN+z3ZlEjwF2JeuAx83eKoVd6osgx2Hyn8dlmGsRfUvpi+7rG9DI483PGexEM0O6i/ORvD6Qx92/E9zW7w==
@@ -1358,15 +1358,15 @@
   resolved "https://registry.yarnpkg.com/@bugsnag/cuid/-/cuid-3.0.0.tgz#2ee7642a30aee6dc86f5e7f824653741e42e5c35"
   integrity sha512-LOt8aaBI+KvOQGneBtpuCz3YqzyEAehd1f3nC5yr9TIYW1+IzYKa2xWS4EiMz5pPOnRPHkyyS5t/wmSmN51Gjg==
 
-"@bugsnag/js@7.1.1":
-  version "7.1.1"
-  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.1.1.tgz#ccf90bb3ce4646ac50b819a4ba104e045d585abd"
-  integrity sha512-pa7d3kRt398hvrhjKvEzMBKE+m1JOJpwW7c8+Btu6HrjCxBcLj7SeSzzN2mbDmT/DfPU4hjeZ+oXGTWVWjUkgQ==
+"@bugsnag/js@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@bugsnag/js/-/js-7.5.3.tgz#83362da1c4aac5cac0cc05898d11fccea291b652"
+  integrity sha512-xdwfq+bQPWZFwc02IIFk7rVsxoEsAMOLiZLJpjnRK/HtzwWPUciMTRIIlUzb/uZaAmd05UieVQ/TxuwQYdMgEA==
   dependencies:
-    "@bugsnag/browser" "^7.1.1"
-    "@bugsnag/node" "^7.1.1"
+    "@bugsnag/browser" "^7.5.3"
+    "@bugsnag/node" "^7.5.3"
 
-"@bugsnag/node@^7.1.1":
+"@bugsnag/node@^7.5.3":
   version "7.5.3"
   resolved "https://registry.yarnpkg.com/@bugsnag/node/-/node-7.5.3.tgz#1da15d414d49712196d15f6c347e6b8714c69f77"
   integrity sha512-irNGOTcxi7u8lUziLfv7rKzWGg2Yd+ZXZnwD0r6ZDhdlOwA3UnGq6Fud3SOTJNKPcUk/16Sv0mcuKkcLdHTodg==
@@ -1378,12 +1378,10 @@
     pump "^3.0.0"
     stack-generator "^2.0.3"
 
-"@bugsnag/plugin-react@7.2.1":
-  version "7.2.1"
-  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.2.1.tgz#ed12114e3ccc685b0bab639a6bc9aa22f374dd0d"
-  integrity sha512-pBZGs6UudMk68fujIdoN2cQZLE27QmSq9+omX9r4ZLCx50Mmp1f6G7DnOQVrCxts+M9Z/6A2au1I/nXNYurQUQ==
-  dependencies:
-    "@bugsnag/core" "^7.2.1"
+"@bugsnag/plugin-react@7.5.3":
+  version "7.5.3"
+  resolved "https://registry.yarnpkg.com/@bugsnag/plugin-react/-/plugin-react-7.5.3.tgz#fc8b4752690609eacfd2a401477c8b958d9be128"
+  integrity sha512-wIPhOG8Hij40aNMek3H7X76PvaZjLuaJ6nHv8s/+BA1No6Z4kg6g4WExiq2X6AHESoZcAGd3lDeJOlVKLd0VPQ==
 
 "@bugsnag/safe-json-stringify@^6.0.0":
   version "6.0.0"
