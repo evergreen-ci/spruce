@@ -54,7 +54,7 @@ module.exports = {
     "graphql",
     "react-hooks",
     "prettier",
-    "emotion",
+    "@emotion",
   ],
   settings: {
     "import/resolver": {
@@ -69,6 +69,7 @@ module.exports = {
     },
   },
   rules: {
+    "no-unused-vars": OFF,
     "@typescript-eslint/no-unused-vars": [
       errorIfStrict,
       { vars: "all", args: "after-used", ignoreRestSiblings: true },
@@ -84,9 +85,9 @@ module.exports = {
     curly: [errorIfStrict, "multi-line"],
     eqeqeq: [errorIfStrict, "always", { null: "ignore" }],
     // Help us with emotion
-    "emotion/syntax-preference": [errorIfStrict, "string"],
-    "emotion/no-vanilla": errorIfStrict,
-    "emotion/import-from-emotion": ERROR,
+    "@emotion/syntax-preference": [errorIfStrict, "string"],
+    "@emotion/no-vanilla": errorIfStrict,
+    "@emotion/import-from-emotion": ERROR,
     "graphql/template-strings": [
       ERROR,
       {
@@ -119,10 +120,17 @@ module.exports = {
       errorIfStrict,
       { some: ["nesting", "id"] },
     ],
+    "no-console": OFF,
+    "no-shadow": OFF,
+    "@typescript-eslint/no-shadow": ERROR,
     // disallow use of undeclared variables unless mentioned in a
     // /*global */ block
-    "no-undef": ERROR,
-    "no-use-before-define": [ERROR, { functions: false, variables: false }],
+    "no-undef": OFF,
+    "no-use-before-define": OFF,
+    "@typescript-eslint/no-use-before-define": [
+      ERROR,
+      { functions: false, variables: false },
+    ],
     "no-empty": [ERROR, { allowEmptyCatch: true }],
     "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
     "prettier/prettier": [2, prettierConfig],
@@ -139,6 +147,7 @@ module.exports = {
     ],
     "react/prop-types": OFF,
     "react/jsx-filename-extension": [1, { extensions: [".tsx"] }],
+    "react/require-default-props": OFF,
     "react-hooks/rules-of-hooks": ERROR, // Checks rules of Hooks
     "react-hooks/exhaustive-deps": WARN, // Checks effect dependencies
     "import/order": [
