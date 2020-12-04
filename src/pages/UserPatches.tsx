@@ -4,7 +4,7 @@ import { useLocation, useParams } from "react-router-dom";
 import {
   PatchesList,
   getPatchesInputFromURLSearch,
-} from "components/PatchesList";
+} from "components/PatchesPage";
 import { pollInterval } from "constants/index";
 import {
   UserPatchesQuery,

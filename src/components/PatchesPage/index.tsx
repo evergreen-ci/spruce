@@ -3,7 +3,6 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
-import { Skeleton } from "antd";
 import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
@@ -26,10 +25,10 @@ import {
 } from "gql/generated/types";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
-import { PatchCard } from "pages/userPatches/PatchCard";
-import { StatusSelector } from "pages/userPatches/StatusSelector";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { ListArea } from "./ListArea";
+import { StatusSelector } from "./StatusSelector";
 
 interface Props {
   analyticsObject?: Analytics<
@@ -125,41 +124,6 @@ const PatchesListCore: React.FC<Props> = ({
   );
 };
 
-const ListArea: React.FC<{
-  patches?: UserPatchesQuery["user"]["patches"];
-  error?: ApolloError;
-}> = ({ patches, error }) => {
-  const bannersState = useBannerStateContext();
-  const dispatchBanner = useBannerDispatchContext();
-  if (error) {
-    return (
-      <PageWrapper>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
-      </PageWrapper>
-    );
-  }
-  if (!patches) {
-    return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
-  }
-  if (patches?.patches.length !== 0) {
-    return (
-      <>
-        {patches?.patches.map(({ commitQueuePosition, ...p }) => (
-          <PatchCard
-            key={p.id}
-            {...p}
-            isPatchOnCommitQueue={commitQueuePosition !== null}
-          />
-        ))}
-      </>
-    );
-  }
-  return <NoResults data-cy="no-patches-found">No patches found</NoResults>;
-};
-
 export const PatchesList = withBannersContext(PatchesListCore);
 
 const arrayFormat = "comma";
@@ -201,12 +165,4 @@ const PaginationRow = styled.div`
 
 const FiltersWrapperSpaceBetween = styled(FiltersWrapper)`
   justify-content: space-between;
-`;
-
-const StyledSkeleton = styled(Skeleton)`
-  margin-top: 12px;
-`;
-
-const NoResults = styled.div`
-  margin-top: 12px;
 `;

@@ -7,8 +7,8 @@ import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledLink } from "components/styles";
 import { paths, getBuildStatusIconLink } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { BuildStatusIcon } from "pages/userPatches/patchCard/BuildStatusIcon";
-import { DropdownMenu } from "pages/userPatches/patchCard/DropdownMenu";
+import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
+import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 interface Build {
   id: string;
