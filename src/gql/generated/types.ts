@@ -17,6 +17,7 @@ export type Query = {
   taskAllExecutions: Array<Task>;
   patch: Patch;
   projects: Projects;
+  project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
   taskFiles: TaskFiles;
@@ -64,6 +65,10 @@ export type QueryTaskAllExecutionsArgs = {
 
 export type QueryPatchArgs = {
   id: Scalars["String"];
+};
+
+export type QueryProjectArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryPatchTasksArgs = {
@@ -440,6 +445,14 @@ export type UseSpruceOptionsInput = {
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
+export type PatchesInput = {
+  limit: Scalars["Int"];
+  page: Scalars["Int"];
+  patchName: Scalars["String"];
+  statuses: Array<Scalars["String"]>;
+  includeCommitQueue: Scalars["Boolean"];
+};
+
 export type SpawnHostInput = {
   distroId: Scalars["String"];
   region: Scalars["String"];
@@ -611,6 +624,11 @@ export type FileDiff = {
 };
 
 export type UserPatches = {
+  patches: Array<Patch>;
+  filteredPatchCount: Scalars["Int"];
+};
+
+export type Patches = {
   patches: Array<Patch>;
   filteredPatchCount: Scalars["Int"];
 };
@@ -857,9 +875,15 @@ export type GroupedProjects = {
 
 export type Project = {
   identifier: Scalars["String"];
+  id: Scalars["String"];
   displayName: Scalars["String"];
   repo: Scalars["String"];
   owner: Scalars["String"];
+  patches: Patches;
+};
+
+export type ProjectPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type File = {
@@ -872,6 +896,11 @@ export type User = {
   displayName: Scalars["String"];
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
+  patches: Patches;
+};
+
+export type UserPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type RecentTaskLogs = {
@@ -1968,27 +1997,26 @@ export type HostsQuery = {
 };
 
 export type UserPatchesQueryVariables = {
-  page?: Maybe<Scalars["Int"]>;
-  limit?: Maybe<Scalars["Int"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  patchName?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
-  userId?: Maybe<Scalars["String"]>;
+  userId: Scalars["String"];
+  patchesInput: PatchesInput;
 };
 
 export type UserPatchesQuery = {
-  userPatches: {
-    filteredPatchCount: number;
-    patches: Array<{
-      id: string;
-      projectID: string;
-      description: string;
-      status: string;
-      createTime?: Maybe<Date>;
-      commitQueuePosition?: Maybe<number>;
-      canEnqueueToCommitQueue: boolean;
-      builds: Array<{ id: string; buildVariant: string; status: string }>;
-    }>;
+  user: {
+    userId: string;
+    patches: {
+      filteredPatchCount: number;
+      patches: Array<{
+        id: string;
+        projectID: string;
+        description: string;
+        status: string;
+        createTime?: Maybe<Date>;
+        commitQueuePosition?: Maybe<number>;
+        canEnqueueToCommitQueue: boolean;
+        builds: Array<{ id: string; buildVariant: string; status: string }>;
+      }>;
+    };
   };
 };
 
