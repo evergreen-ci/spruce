@@ -21,7 +21,7 @@ import {
 } from "context/banners";
 import {
   UserPatchesQueryVariables,
-  UserPatchesQuery,
+  PatchesPagePatchesFragment,
 } from "gql/generated/types";
 import { withBannersContext } from "hoc/withBannersContext";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
@@ -37,7 +37,7 @@ interface Props {
     | { name: "Change Page Size" }
   >;
   pageTitle: string;
-  patches?: UserPatchesQuery["user"]["patches"];
+  patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
 }
 

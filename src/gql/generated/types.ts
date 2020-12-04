@@ -1139,6 +1139,20 @@ export type GetTaskEventDataQuery = {
   task?: Maybe<{ status: string; failedTestCount: number }>;
 };
 
+export type PatchesPagePatchesFragment = {
+  filteredPatchCount: number;
+  patches: Array<{
+    id: string;
+    projectID: string;
+    description: string;
+    status: string;
+    createTime?: Maybe<Date>;
+    commitQueuePosition?: Maybe<number>;
+    canEnqueueToCommitQueue: boolean;
+    builds: Array<{ id: string; buildVariant: string; status: string }>;
+  }>;
+};
+
 export type AbortTaskMutationVariables = {
   taskId: Scalars["String"];
 };
@@ -2059,22 +2073,7 @@ export type ProjectPatchesQueryVariables = {
 };
 
 export type ProjectPatchesQuery = {
-  project: {
-    id: string;
-    patches: {
-      filteredPatchCount: number;
-      patches: Array<{
-        id: string;
-        projectID: string;
-        description: string;
-        status: string;
-        createTime?: Maybe<Date>;
-        commitQueuePosition?: Maybe<number>;
-        canEnqueueToCommitQueue: boolean;
-        builds: Array<{ id: string; buildVariant: string; status: string }>;
-      }>;
-    };
-  };
+  project: { id: string; patches: PatchesPagePatchesFragment };
 };
 
 export type SpawnExpirationInfoQueryVariables = {};
@@ -2108,20 +2107,5 @@ export type UserPatchesQueryVariables = {
 };
 
 export type UserPatchesQuery = {
-  user: {
-    userId: string;
-    patches: {
-      filteredPatchCount: number;
-      patches: Array<{
-        id: string;
-        projectID: string;
-        description: string;
-        status: string;
-        createTime?: Maybe<Date>;
-        commitQueuePosition?: Maybe<number>;
-        canEnqueueToCommitQueue: boolean;
-        builds: Array<{ id: string; buildVariant: string; status: string }>;
-      }>;
-    };
-  };
+  user: { userId: string; patches: PatchesPagePatchesFragment };
 };
