@@ -4,8 +4,12 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
 import { useUserPatchesAnalytics } from "analytics";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { StyledLink } from "components/styles";
-import { paths, getBuildStatusIconLink } from "constants/routes";
+import { StyledLink, StyledRouterLink } from "components/styles";
+import {
+  paths,
+  getBuildStatusIconLink,
+  getProjectPatchesRoute,
+} from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
@@ -54,7 +58,10 @@ export const PatchCard: React.FC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          on <b>{projectID}</b>
+          on{" "}
+          <StyledRouterLink to={getProjectPatchesRoute(projectID)}>
+            <b>{projectID}</b>
+          </StyledRouterLink>
         </TimeAndProject>
       </Left>
       <Center>
