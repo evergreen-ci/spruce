@@ -23,11 +23,10 @@ const instanceTags: InstanceTag[] = [
   },
 ];
 export const PublicKeyFormView = () => {
-  const [state, setState] = useState<UserTagsData>({
+  const setState = useState<UserTagsData>({
     addedInstanceTags: [],
     deletedInstanceTags: [],
-  });
-  console.log({ state });
+  })[1];
   return <UserTagsField instanceTags={instanceTags} onChange={setState} />;
 };
 

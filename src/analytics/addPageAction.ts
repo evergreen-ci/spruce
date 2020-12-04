@@ -50,8 +50,6 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   };
 
   if (typeof newrelic !== "object") {
-    console.log(name);
-    console.log("attributesToSend", attributesToSend);
     return;
   }
 

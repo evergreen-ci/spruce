@@ -312,7 +312,7 @@ jest.mock("context/banners", () => ({
   useBannerDispatchContext: () => ({
     successBanner: mockSuccessBanner,
     errorBanner: (e) => {
-      console.log(e);
+      console.log(e); // eslint-disable-line no-console
     },
     clearAllBanners: () => {},
   }),
