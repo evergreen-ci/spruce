@@ -2,6 +2,7 @@ export { GET_USER_CONFIG } from "./get-user-config";
 export { GET_USER_SETTINGS } from "./get-user-settings";
 export { GET_PATCH, GET_PATCH_CONFIGURE } from "./patch";
 export { GET_USER_PATCHES } from "./user-patches";
+export { GET_PROJECT_PATCHES } from "./project-patches";
 export { GET_CODE_CHANGES } from "./get-code-changes";
 export { GET_COMMIT_QUEUE } from "./get-commit-queue";
 export { GET_PATCH_BUILD_VARIANTS } from "./get-patch-build-variants";

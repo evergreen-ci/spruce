@@ -1996,30 +1996,6 @@ export type HostsQuery = {
   };
 };
 
-export type UserPatchesQueryVariables = {
-  userId: Scalars["String"];
-  patchesInput: PatchesInput;
-};
-
-export type UserPatchesQuery = {
-  user: {
-    userId: string;
-    patches: {
-      filteredPatchCount: number;
-      patches: Array<{
-        id: string;
-        projectID: string;
-        description: string;
-        status: string;
-        createTime?: Maybe<Date>;
-        commitQueuePosition?: Maybe<number>;
-        canEnqueueToCommitQueue: boolean;
-        builds: Array<{ id: string; buildVariant: string; status: string }>;
-      }>;
-    };
-  };
-};
-
 export type PatchQueryVariables = {
   id: Scalars["String"];
 };
@@ -2077,6 +2053,30 @@ export type ConfigurePatchQuery = {
   };
 };
 
+export type ProjectPatchesQueryVariables = {
+  projectId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type ProjectPatchesQuery = {
+  project: {
+    id: string;
+    patches: {
+      filteredPatchCount: number;
+      patches: Array<{
+        id: string;
+        projectID: string;
+        description: string;
+        status: string;
+        createTime?: Maybe<Date>;
+        commitQueuePosition?: Maybe<number>;
+        canEnqueueToCommitQueue: boolean;
+        builds: Array<{ id: string; buildVariant: string; status: string }>;
+      }>;
+    };
+  };
+};
+
 export type SpawnExpirationInfoQueryVariables = {};
 
 export type SpawnExpirationInfoQuery = {
@@ -2100,4 +2100,28 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type UserPatchesQueryVariables = {
+  userId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type UserPatchesQuery = {
+  user: {
+    userId: string;
+    patches: {
+      filteredPatchCount: number;
+      patches: Array<{
+        id: string;
+        projectID: string;
+        description: string;
+        status: string;
+        createTime?: Maybe<Date>;
+        commitQueuePosition?: Maybe<number>;
+        canEnqueueToCommitQueue: boolean;
+        builds: Array<{ id: string; buildVariant: string; status: string }>;
+      }>;
+    };
+  };
 };
