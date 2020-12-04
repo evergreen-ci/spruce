@@ -76,9 +76,10 @@ export const HostCore: React.FC = () => {
   const hostEvents = hostEventData?.hostEvents;
   const eventsCount = hostEvents?.count;
   // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
-    boolean
-  >(false);
+  const [
+    isUpdateStatusModalVisible,
+    setIsUpdateStatusModalVisible,
+  ] = useState<boolean>(false);
 
   usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 

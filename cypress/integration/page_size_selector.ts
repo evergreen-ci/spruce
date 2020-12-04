@@ -52,9 +52,7 @@ describe("Page Size Selector", () => {
     cy.wrap(ROUTES).each(({ route, dataTestId }) => {
       localStorage.clear();
       cy.visit(route);
-      cy.dataTestId(dataTestId)
-        .contains(`10 / page`)
-        .should("exist");
+      cy.dataTestId(dataTestId).contains(`10 / page`).should("exist");
     });
   });
 

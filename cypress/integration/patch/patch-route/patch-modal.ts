@@ -23,36 +23,25 @@ describe("Restarting a patch", () => {
   });
 
   it("Clicking on a variant should toggle an accordian drop down of tasks", () => {
-    cy.dataCy("variant-accordian")
-      .first()
-      .click();
+    cy.dataCy("variant-accordian").first().click();
     cy.dataCy("patch-status-selector-container").should("exist");
   });
   it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
     cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
-    cy.dataCy("variant-checkbox-select-all")
-      .first()
-      .click({ force: true });
+    cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
     cy.dataCy("task-status-badge").should("contain.text", "2 of 2 Selected");
-    cy.dataCy("variant-checkbox-select-all")
-      .first()
-      .click({ force: true });
+    cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
     cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
   });
   it("Clicking on a task should toggle its check box and select the task", () => {
-    cy.dataCy("task-status-checkbox")
-      .first()
-      .click({ force: true });
+    cy.dataCy("task-status-checkbox").first().click({ force: true });
     cy.dataCy("patch-status-selector-container").should("exist");
     cy.dataCy("task-status-badge").should("contain.text", "1 of 2 Selected");
   });
 
   it("Selecting on a filter should toggle the tasks that have matching statuses to it", () => {
     cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
-    cy.get(".cy-checkbox")
-      .contains("All")
-      .as("target")
-      .click({ force: true });
+    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
     cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
@@ -64,14 +53,9 @@ describe("Restarting a patch", () => {
   });
   it("Restarting a task should close the modal and display a success message if it occurs successfully", () => {
     cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
-    cy.get(".cy-checkbox")
-      .contains("All")
-      .as("target")
-      .click({ force: true });
+    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
     cy.get(`[data-cy=patch-status-filter] > .cy-treeselect-bar`).click();
-    cy.dataCy("task-status-checkbox")
-      .eq(1)
-      .click({ force: true });
+    cy.dataCy("task-status-checkbox").eq(1).click({ force: true });
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("patch-restart-modal").should("not.be.be.visible");
     cy.dataCy("banner").should("exist");

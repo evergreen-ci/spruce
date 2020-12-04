@@ -42,7 +42,7 @@ const columns = [
 ];
 
 export const FilesTables: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);
   const initialExecution = queryParamAsNumber(
@@ -61,19 +61,20 @@ export const FilesTables: React.FC = () => {
   const [filteredData, setFilteredData] = useState<[GroupedFiles]>();
 
   useEffect(
-    debounce(() => {
-      if (data) {
-        const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
-          taskName: currVal.taskName,
-          files: filterStr.length
-            ? currVal.files.filter(({ name }) =>
-                name.toLowerCase().includes(filterStr.toLowerCase())
-              )
-            : currVal.files,
-        })) as [GroupedFiles];
-        setFilteredData(nextData);
-      }
-    }, 300),
+    () =>
+      debounce(() => {
+        if (data) {
+          const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
+            taskName: currVal.taskName,
+            files: filterStr.length
+              ? currVal.files.filter(({ name }) =>
+                  name.toLowerCase().includes(filterStr.toLowerCase())
+                )
+              : currVal.files,
+          })) as [GroupedFiles];
+          setFilteredData(nextData);
+        }
+      }, 300)(),
     [data, filterStr]
   );
 

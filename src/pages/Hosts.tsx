@@ -62,9 +62,10 @@ const Hosts: React.FC = () => {
   const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
 
   // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
-    boolean
-  >(false);
+  const [
+    isUpdateStatusModalVisible,
+    setIsUpdateStatusModalVisible,
+  ] = useState<boolean>(false);
 
   // HOSTS QUERY
   const { data: hostsData, loading } = useQuery<

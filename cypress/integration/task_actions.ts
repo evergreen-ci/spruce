@@ -38,12 +38,8 @@ describe("Task Action Buttons", () => {
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success banner.", () => {
       cy.dataCy("prioritize-task").click();
-      cy.get(".ant-input-number-input")
-        .clear()
-        .type("99");
-      cy.get(popconfirmYesClassName)
-        .contains("Set")
-        .click({ force: true });
+      cy.get(".ant-input-number-input").clear().type("99");
+      cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains(prioritySuccessBannerText);
     });

@@ -163,9 +163,7 @@ describe("Host events", () => {
       cy.dataCy(hostType)
         .contains(text)
         .within(() => {
-          cy.dataCy("host-event-logs")
-            .should("exist")
-            .contains(logsTitle);
+          cy.dataCy("host-event-logs").should("exist").contains(logsTitle);
         });
     });
   });

@@ -10,7 +10,7 @@ it("renders without crashing", async () => {
   // add this line to get bugsnag to play nice with jest: https://github.com/bugsnag/bugsnag-js/issues/452
   // @ts-ignore
   const proto = Object.getPrototypeOf(setTimeout());
-  proto.unref = function() {};
+  proto.unref = function () {};
   const div = document.createElement("div");
   ReactDOM.render(<App />, div);
   await act(async () => {
