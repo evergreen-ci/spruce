@@ -113,22 +113,28 @@ functions:
         yarn test -u --reporters=default --reporters=jest-junit
 
   yarn-eslint:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn eslint
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn eslint
 
   yarn-tsc:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn check-types
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn check-types
 
   yarn-build:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn build
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn build
 
   yarn-coverage:
     command: shell.exec
@@ -139,10 +145,12 @@ functions:
         yarn coverage
 
   yarn-analyze:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn analyze
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn analyze
 
   run-cypress-tests:
     command: shell.exec
