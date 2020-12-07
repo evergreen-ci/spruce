@@ -84,7 +84,7 @@ const PatchesPageCore: React.FC<Props> = ({
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      <PageTitle>{pageTitle}</PageTitle>
+      <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
           <StyledInput
