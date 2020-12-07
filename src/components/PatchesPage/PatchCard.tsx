@@ -59,7 +59,10 @@ export const PatchCard: React.FC<Props> = ({
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           on{" "}
-          <StyledRouterLink to={getProjectPatchesRoute(projectID)}>
+          <StyledRouterLink
+            to={getProjectPatchesRoute(projectID)}
+            data-cy="project-patches-link"
+          >
             <b>{projectID}</b>
           </StyledRouterLink>
         </TimeAndProject>
