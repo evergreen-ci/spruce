@@ -20,6 +20,9 @@ export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
 
+export const getWebWorkerURL = (webWorkerFilename: string): string =>
+  `${process.env.PUBLIC_URL}/web_worker/${webWorkerFilename}`;
+
 // in development, the dev server on port 3000 proxies the local evergreen server on port 9090
 // therefore in dev we want the login domain to be localhost:3000
 // however in prod and staging and we want the login domain to be evergreen.com

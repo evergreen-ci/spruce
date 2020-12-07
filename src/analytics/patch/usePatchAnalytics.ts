@@ -22,6 +22,7 @@ type Action =
   | { name: "Enqueue" }
   | { name: "Open Notification Modal" }
   | { name: "Click Task Table Link"; taskId: string }
+  | { name: "Clear all filter" }
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionMutationVariables["subscription"];
