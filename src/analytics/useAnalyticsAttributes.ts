@@ -14,6 +14,7 @@ export const useAnalyticsAttributes = () => {
 
   useEffect(() => {
     if (typeof newrelic !== "object") {
+      console.log("Setting userId: ", userId);
       return;
     }
     if (userId !== null) {
