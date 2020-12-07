@@ -41,7 +41,7 @@ interface Props {
   error?: ApolloError;
 }
 
-const PatchesListCore: React.FC<Props> = ({
+const PatchesPageCore: React.FC<Props> = ({
   analyticsObject,
   pageTitle,
   patches,
@@ -124,7 +124,7 @@ const PatchesListCore: React.FC<Props> = ({
   );
 };
 
-export const PatchesList = withBannersContext(PatchesListCore);
+export const PatchesPage = withBannersContext(PatchesPageCore);
 
 const arrayFormat = "comma";
 export const getPatchesInputFromURLSearch = (

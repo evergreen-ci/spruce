@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
 import {
-  PatchesList,
+  PatchesPage,
   getPatchesInputFromURLSearch,
 } from "components/PatchesPage";
 import { pollInterval } from "constants/index";
@@ -28,7 +28,7 @@ export const UserPatches = () => {
   useNetworkStatus(startPolling, stopPolling);
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   return (
-    <PatchesList
+    <PatchesPage
       pageTitle={pageTitle}
       error={error}
       patches={data?.user.patches}
