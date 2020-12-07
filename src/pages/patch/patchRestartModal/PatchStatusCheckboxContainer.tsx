@@ -33,7 +33,9 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
         itemData={tasks}
       >
         {({ style, data, index }) => {
-          const { id: taskId, status, name: displayName } = data[index];
+          const { id: taskId, status, baseStatus, name: displayName } = data[
+            index
+          ];
           const checked = !!selectedTasks[taskId];
           return (
             <TaskStatusCheckbox
@@ -42,6 +44,7 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
               displayName={displayName}
               key={taskId}
               status={status}
+              baseStatus={baseStatus}
               taskId={taskId}
             />
           );

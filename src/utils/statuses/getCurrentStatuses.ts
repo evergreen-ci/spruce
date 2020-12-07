@@ -1,8 +1,11 @@
-import { Status } from "pages/patch/patchTabs/tasks/TaskFilters";
+import { TreeDataEntry } from "components/TreeSelect";
 
 const allKey = "all";
 
-export const getCurrentStatuses = (statuses: string[], treeData: Status[]) => {
+export const getCurrentStatuses = (
+  statuses: string[],
+  treeData: TreeDataEntry[]
+) => {
   const currentStatuses = [];
   treeData.forEach((status) => {
     const { key, children } = status;

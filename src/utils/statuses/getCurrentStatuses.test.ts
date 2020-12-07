@@ -1,4 +1,4 @@
-import { Status } from "pages/patch/patchTabs/tasks/TaskFilters";
+import { TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
 import { getCurrentStatuses } from "./getCurrentStatuses";
 
@@ -100,7 +100,7 @@ test("Returns child statuses as parent's children if there are two or more", () 
   ]);
 });
 
-const statusesTreeData: Status[] = [
+const statusesTreeData: TreeDataEntry[] = [
   {
     title: "All",
     value: "all",

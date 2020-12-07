@@ -1,25 +1,12 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TreeSelect } from "components/TreeSelect";
-import { pollInterval } from "constants/index";
-import {
-  GetPatchTaskStatusesQuery,
-  GetPatchTaskStatusesQueryVariables,
-} from "gql/generated/types";
-import { GET_PATCH_TASK_STATUSES } from "gql/queries";
-import {
-  useFilterInputChangeHandler,
-  useStatusesFilter,
-  useNetworkStatus,
-} from "hooks";
-import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
+import { TaskStatusFilters } from "components/TaskStatusFilters";
+import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
+import { PatchTasksQueryParams } from "types/task";
 
 export const TaskFilters: React.FC = () => {
   const patchAnalytics = usePatchAnalytics();
@@ -42,29 +29,18 @@ export const TaskFilters: React.FC = () => {
     true,
     sendFilterTasksEvent
   );
-  const [statusesVal, statusesValOnChange] = useStatusesFilter(
+  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     true,
     sendFilterTasksEvent
   );
-  const [baseStatusesVal, baseStatusesValOnChange] = useStatusesFilter(
+  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
     true,
     sendFilterTasksEvent
   );
 
-  // fetch and poll patch's task statuses so statuses filters only show statuses relevant to the patch
-  const { id } = useParams<{ id: string }>();
-
-  const { data, startPolling, stopPolling } = useQuery<
-    GetPatchTaskStatusesQuery,
-    GetPatchTaskStatusesQueryVariables
-  >(GET_PATCH_TASK_STATUSES, { variables: { id }, pollInterval });
-
-  useNetworkStatus(startPolling, stopPolling);
-
-  const statuses = get(data, "patch.taskStatuses", []);
-  const baseStatuses = get(data, "patch.baseTaskStatuses", []);
+  const { id: patchId } = useParams<{ id: string }>();
 
   return (
     <FiltersWrapper>
@@ -84,133 +60,16 @@ export const TaskFilters: React.FC = () => {
         value={variantFilterValue}
         onChange={variantFilterValueOnChange}
       />
-      <TreeSelect
-        state={statusesVal}
-        tData={getCurrentStatuses(statuses, statusesTreeData)}
-        inputLabel="Task Status: "
-        dataCy="task-status-filter"
-        width="25%"
-        onChange={statusesValOnChange}
-      />
-      <TreeSelect
-        state={baseStatusesVal}
-        tData={getCurrentStatuses(baseStatuses, statusesTreeData)}
-        inputLabel="Task Base Status: "
-        dataCy="task-base-status-filter"
-        width="25%"
-        onChange={baseStatusesValOnChange}
+      <TaskStatusFilters
+        onChangeBaseStatusFilter={onChangeBaseStatusFilter}
+        onChangeStatusFilter={onChangeStatusFilter}
+        patchId={patchId}
+        selectedBaseStatuses={selectedBaseStatuses}
+        selectedStatuses={selectedStatuses}
       />
     </FiltersWrapper>
   );
 };
-
-const allKey = "all";
-
-export interface Status {
-  title: string;
-  value: string;
-  key: string;
-  children?: Status[];
-}
-
-const statusesTreeData: Status[] = [
-  {
-    title: "All",
-    value: allKey,
-    key: allKey,
-  },
-  {
-    title: "Failures",
-    value: "all-failures",
-    key: "all-failures",
-    children: [
-      {
-        title: "Failed",
-        value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
-      },
-      {
-        title: "Task Timed Out",
-        value: TaskStatus.TaskTimedOut,
-        key: TaskStatus.TaskTimedOut,
-      },
-      {
-        title: "Test Timed Out",
-        value: TaskStatus.TestTimedOut,
-        key: TaskStatus.TestTimedOut,
-      },
-    ],
-  },
-  {
-    title: "Success",
-    value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded,
-  },
-  {
-    title: "Dispatched",
-    value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched,
-  },
-  {
-    title: "Running",
-    value: TaskStatus.Started,
-    key: TaskStatus.Started,
-  },
-  {
-    title: "Scheduled",
-    value: "scheduled",
-    key: "scheduled",
-    children: [
-      {
-        title: "Unstarted",
-        value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted,
-      },
-      {
-        title: "Undispatched or Blocked",
-        value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched,
-      },
-    ],
-  },
-  {
-    title: "System Issues",
-    value: "system-issues",
-    key: "system-issues",
-    children: [
-      {
-        title: "System Failed",
-        value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
-      },
-      {
-        title: "System Timed Out",
-        value: TaskStatus.SystemTimedOut,
-        key: TaskStatus.SystemTimedOut,
-      },
-      {
-        title: "System Unresponsive",
-        value: TaskStatus.SystemUnresponsive,
-        key: TaskStatus.SystemUnresponsive,
-      },
-    ],
-  },
-  {
-    title: "Setup Failed",
-    value: TaskStatus.SetupFailed,
-    key: TaskStatus.SetupFailed,
-  },
-  {
-    title: "Blocked",
-    value: TaskStatus.StatusBlocked,
-    key: TaskStatus.StatusBlocked,
-  },
-  {
-    title: "Won't Run",
-    value: TaskStatus.Inactive,
-    key: TaskStatus.Inactive,
-  },
-];
 
 const FiltersWrapper = styled.div`
   display: flex;

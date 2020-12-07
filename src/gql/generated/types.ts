@@ -1611,7 +1611,16 @@ export type PatchBuildVariantsQuery = {
   patchBuildVariants: Array<{
     variant: string;
     displayName: string;
-    tasks?: Maybe<Array<Maybe<{ id: string; name: string; status: string }>>>;
+    tasks?: Maybe<
+      Array<
+        Maybe<{
+          id: string;
+          name: string;
+          status: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >
+    >;
   }>;
 };
 
