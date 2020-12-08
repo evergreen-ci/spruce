@@ -14,12 +14,7 @@ import {
   getVersionRoute,
 } from "constants/routes";
 
-import {
-  GetTaskQuery,
-  TaskQueuePositionQuery,
-  TaskQueuePositionQueryVariables,
-} from "gql/generated/types";
-import { TASK_QUEUE_POSITION } from "gql/queries";
+import { GetTaskQuery } from "gql/generated/types";
 import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { ETATimer } from "pages/task/metadata/ETATimer";
@@ -61,6 +56,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
+    abortInfo,
   } = task;
 
   const baseCommit = revision?.slice(0, 10);
