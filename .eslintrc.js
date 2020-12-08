@@ -134,6 +134,7 @@ module.exports = {
     "no-empty": [ERROR, { allowEmptyCatch: true }],
     "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
     "prettier/prettier": [2, prettierConfig],
+    "react/react-in-jsx-scope": OFF,
     "react/sort-comp": [
       errorIfStrict,
       { order: ["everything-else", "render"] },
