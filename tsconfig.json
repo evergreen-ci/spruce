@@ -22,6 +22,9 @@
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src",
     "test_utils/test-utils.ts",
