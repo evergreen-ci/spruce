@@ -170,6 +170,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
+  editAnnotationNote: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   addAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
@@ -253,16 +254,23 @@ export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
+export type MutationEditAnnotationNoteArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  originalMessage: Scalars["String"];
+  newMessage: Scalars["String"];
+};
+
 export type MutationMoveAnnotationIssueArgs = {
   annotationId: Scalars["String"];
-  apiIssue: AnnotationIssue;
+  apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 };
 
 export type MutationAddAnnotationIssueArgs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
-  apiIssue: AnnotationIssue;
+  apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 };
 
@@ -497,7 +505,7 @@ export type UpdateVolumeInput = {
   volumeId: Scalars["String"];
 };
 
-export type AnnotationIssue = {
+export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
 };
@@ -812,6 +820,7 @@ export type Task = {
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
+  annotation?: Maybe<Annotation>;
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
@@ -1118,11 +1127,37 @@ export type TicketFields = {
   created: Scalars["String"];
   updated: Scalars["String"];
   status: JiraStatus;
+  assignedTeam?: Maybe<Scalars["String"]>;
 };
 
 export type JiraStatus = {
   id: Scalars["String"];
   name: Scalars["String"];
+};
+
+export type Annotation = {
+  taskId: Scalars["String"];
+  taskExecution: Scalars["Int"];
+  note?: Maybe<Note>;
+  issues?: Maybe<Array<Maybe<IssueLink>>>;
+  suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+};
+
+export type Note = {
+  message: Scalars["String"];
+  source: Source;
+};
+
+export type IssueLink = {
+  issueKey?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  source: Source;
+};
+
+export type Source = {
+  author: Scalars["String"];
+  time: Scalars["Time"];
+  requester: Scalars["String"];
 };
 
 export type GetPatchEventDataQueryVariables = {
@@ -2073,7 +2108,11 @@ export type ProjectPatchesQueryVariables = {
 };
 
 export type ProjectPatchesQuery = {
-  project: { id: string; patches: PatchesPagePatchesFragment };
+  project: {
+    id: string;
+    displayName: string;
+    patches: PatchesPagePatchesFragment;
+  };
 };
 
 export type SpawnExpirationInfoQueryVariables = {};

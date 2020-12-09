@@ -29,7 +29,7 @@ export const ProjectPatches = () => {
 
   return (
     <PatchesPage
-      pageTitle={`${data?.project.id} Patches`}
+      pageTitle={`${data?.project.displayName ?? ""} Patches`}
       error={error}
       patches={data?.project.patches}
     />

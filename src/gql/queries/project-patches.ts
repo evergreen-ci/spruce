@@ -6,6 +6,7 @@ export const GET_PROJECT_PATCHES = gql`
   query ProjectPatches($projectId: String!, $patchesInput: PatchesInput!) {
     project(projectId: $projectId) {
       id
+      displayName
       patches(patchesInput: $patchesInput) {
         ...PatchesPagePatches
       }
