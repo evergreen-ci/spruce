@@ -6,13 +6,15 @@ import { v4 as uuid } from "uuid";
 import Icon from "components/icons/Icon";
 import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
-import { ParameterInput } from "gql/generated/types";
+import { ParameterInput, InstanceTag } from "gql/generated/types";
 import { reducer, getInitialState } from "./tagRowReducer";
 
+type Tag = InstanceTag | ParameterInput;
+
 interface TagRowProps {
-  tag?: ParameterInput;
+  tag?: Tag;
   onDelete?: (key: string) => void;
-  onUpdateTag?: (tag: ParameterInput, deleteKey?: string) => void;
+  onUpdateTag?: (tag: Tag, deleteKey?: string) => void;
   isValidKey: (key: string) => boolean; // function to validate if a key has been duplicated
   isNewTag?: boolean;
 }

@@ -1,21 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
+import { InstanceTag, ParameterInput } from "gql/generated/types";
 import { convertArrayToObject } from "utils/array";
 import { TagRow } from "./TagRow";
 
-type Tag = {
-  key: string;
-  value: string;
-};
-interface EditableTagFieldProps {
+type Tag = InstanceTag | ParameterInput;
+type EditableTagFieldProps = {
   onChange: (data: Tag[]) => void;
   inputTags: Tag[];
   visible?: boolean;
-}
+};
 
 export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   onChange,
   inputTags,
+  visible,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
@@ -48,6 +47,10 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
     }
     return true;
   };
+
+  useEffect(() => {
+    setVisibleTags(inputTags);
+  }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
     <FlexColumnContainer>
       {visibleTags.map((tag) => (

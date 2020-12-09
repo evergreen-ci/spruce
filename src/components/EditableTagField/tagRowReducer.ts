@@ -1,7 +1,7 @@
-type Tag = {
-  key: string;
-  value: string;
-};
+import { ParameterInput, InstanceTag } from "gql/generated/types";
+
+type Tag = InstanceTag | ParameterInput;
+
 type State = {
   key: string;
   value: string;

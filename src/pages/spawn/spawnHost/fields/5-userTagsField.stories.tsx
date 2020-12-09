@@ -22,7 +22,7 @@ const instanceTags: InstanceTag[] = [
     canBeModified: false,
   },
 ];
-export const PublicKeyFormView = () => {
+export const UserTagsFieldView = () => {
   const [state, setState] = useState<UserTagsData>({
     addedInstanceTags: [],
     deletedInstanceTags: [],

@@ -17,6 +17,7 @@ export type Query = {
   taskAllExecutions: Array<Task>;
   patch: Patch;
   projects: Projects;
+  project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
   taskFiles: TaskFiles;
@@ -64,6 +65,10 @@ export type QueryTaskAllExecutionsArgs = {
 
 export type QueryPatchArgs = {
   id: Scalars["String"];
+};
+
+export type QueryProjectArgs = {
+  projectId: Scalars["String"];
 };
 
 export type QueryPatchTasksArgs = {
@@ -165,6 +170,7 @@ export type Mutation = {
   setTaskPriority: Task;
   restartTask: Task;
   saveSubscription: Scalars["Boolean"];
+  editAnnotationNote: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   addAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
@@ -248,16 +254,23 @@ export type MutationSaveSubscriptionArgs = {
   subscription: SubscriptionInput;
 };
 
+export type MutationEditAnnotationNoteArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  originalMessage: Scalars["String"];
+  newMessage: Scalars["String"];
+};
+
 export type MutationMoveAnnotationIssueArgs = {
   annotationId: Scalars["String"];
-  apiIssue: AnnotationIssue;
+  apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 };
 
 export type MutationAddAnnotationIssueArgs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
-  apiIssue: AnnotationIssue;
+  apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 };
 
@@ -440,6 +453,14 @@ export type UseSpruceOptionsInput = {
   spruceV1?: Maybe<Scalars["Boolean"]>;
 };
 
+export type PatchesInput = {
+  limit: Scalars["Int"];
+  page: Scalars["Int"];
+  patchName: Scalars["String"];
+  statuses: Array<Scalars["String"]>;
+  includeCommitQueue: Scalars["Boolean"];
+};
+
 export type SpawnHostInput = {
   distroId: Scalars["String"];
   region: Scalars["String"];
@@ -484,7 +505,7 @@ export type UpdateVolumeInput = {
   volumeId: Scalars["String"];
 };
 
-export type AnnotationIssue = {
+export type IssueLinkInput = {
   url: Scalars["String"];
   issueKey: Scalars["String"];
 };
@@ -532,9 +553,9 @@ export type Host = {
 };
 
 export type InstanceTag = {
-  key?: Maybe<Scalars["String"]>;
-  value?: Maybe<Scalars["String"]>;
-  canBeModified?: Maybe<Scalars["Boolean"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
+  canBeModified: Scalars["Boolean"];
 };
 
 export type InstanceTagInput = {
@@ -611,6 +632,11 @@ export type FileDiff = {
 };
 
 export type UserPatches = {
+  patches: Array<Patch>;
+  filteredPatchCount: Scalars["Int"];
+};
+
+export type Patches = {
   patches: Array<Patch>;
   filteredPatchCount: Scalars["Int"];
 };
@@ -794,6 +820,7 @@ export type Task = {
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
+  annotation?: Maybe<Annotation>;
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
@@ -857,9 +884,15 @@ export type GroupedProjects = {
 
 export type Project = {
   identifier: Scalars["String"];
+  id: Scalars["String"];
   displayName: Scalars["String"];
   repo: Scalars["String"];
   owner: Scalars["String"];
+  patches: Patches;
+};
+
+export type ProjectPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type File = {
@@ -872,6 +905,11 @@ export type User = {
   displayName: Scalars["String"];
   userId: Scalars["String"];
   emailAddress: Scalars["String"];
+  patches: Patches;
+};
+
+export type UserPatchesArgs = {
+  patchesInput: PatchesInput;
 };
 
 export type RecentTaskLogs = {
@@ -1089,11 +1127,37 @@ export type TicketFields = {
   created: Scalars["String"];
   updated: Scalars["String"];
   status: JiraStatus;
+  assignedTeam?: Maybe<Scalars["String"]>;
 };
 
 export type JiraStatus = {
   id: Scalars["String"];
   name: Scalars["String"];
+};
+
+export type Annotation = {
+  taskId: Scalars["String"];
+  taskExecution: Scalars["Int"];
+  note?: Maybe<Note>;
+  issues?: Maybe<Array<Maybe<IssueLink>>>;
+  suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+};
+
+export type Note = {
+  message: Scalars["String"];
+  source: Source;
+};
+
+export type IssueLink = {
+  issueKey?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+  source: Source;
+};
+
+export type Source = {
+  author: Scalars["String"];
+  time: Scalars["Time"];
+  requester: Scalars["String"];
 };
 
 export type GetPatchEventDataQueryVariables = {
@@ -1159,11 +1223,7 @@ export type EditSpawnHostMutation = {
     instanceType?: Maybe<string>;
     noExpiration: boolean;
     expiration?: Maybe<Date>;
-    instanceTags: Array<{
-      key?: Maybe<string>;
-      value?: Maybe<string>;
-      canBeModified?: Maybe<boolean>;
-    }>;
+    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   };
 };
@@ -1573,11 +1633,7 @@ export type MyHostsQuery = {
       user?: Maybe<string>;
       workDir?: Maybe<string>;
     }>;
-    instanceTags: Array<{
-      key?: Maybe<string>;
-      value?: Maybe<string>;
-      canBeModified?: Maybe<boolean>;
-    }>;
+    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
   spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;

@@ -75,7 +75,7 @@ test("Editing a tag value should add it to addedInstanceTags", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalledTimes(2);
+  expect(updateData).toBeCalled();
   expect(data).toEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "keyA", value: "new value" }],
@@ -97,7 +97,7 @@ test("Deleting a tag value should add it to deletedInstanceTags", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-trash-icon")[0]);
 
-  expect(updateData).toBeCalledTimes(2);
+  expect(updateData).toBeCalled();
   expect(data).toEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
@@ -126,7 +126,7 @@ test("Editing a tag key should add the new tag to addedInstanceTags and delete t
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalledTimes(2);
+  expect(updateData).toBeCalled();
   expect(data).toEqual({
     ...defaultData,
     deletedInstanceTags: [{ key: "keyA", value: "valueA" }],
@@ -169,7 +169,7 @@ test("Should be able to add an new tag with the add tag button", async () => {
 
   fireEvent.click(queryAllByDataCy("user-tag-edit-icon")[0]);
 
-  expect(updateData).toBeCalledTimes(2);
+  expect(updateData).toBeCalled();
   expect(data).toEqual({
     ...defaultData,
     addedInstanceTags: [{ key: "new key", value: "new value" }],
