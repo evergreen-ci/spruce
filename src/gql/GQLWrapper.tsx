@@ -8,19 +8,20 @@ import {
 } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { RetryLink } from "@apollo/client/link/retry";
-import { useAuthDispatchContext, Logout, Dispatch } from "context/auth";
+import { routes } from "constants/routes";
+import { useAuthDispatchContext } from "context/auth";
 import { reportError } from "utils/errorReporting";
 import { getGQLUrl } from "utils/getEnvironmentVariables";
 
 const GQLWrapper: React.FC = ({ children }) => {
-  const { logout, dispatch } = useAuthDispatchContext();
+  const { logout, dispatchAuthenticated } = useAuthDispatchContext();
   return (
     <ApolloProvider
       client={getGQLClient({
         credentials: "include",
         gqlURL: getGQLUrl(),
         logout,
-        dispatch,
+        dispatchAuthenticated,
       })}
     >
       {children}
@@ -31,8 +32,8 @@ const GQLWrapper: React.FC = ({ children }) => {
 interface ClientLinkParams {
   credentials?: string;
   gqlURL?: string;
-  logout?: Logout;
-  dispatch?: Dispatch;
+  logout?: () => void;
+  dispatchAuthenticated?: () => void;
 }
 
 const cache = new InMemoryCache({
@@ -43,13 +44,14 @@ const cache = new InMemoryCache({
   },
 });
 
-const authLink = (logout: Logout): ApolloLink =>
+const authLink = (logout: () => void): ApolloLink =>
   onError(({ networkError }) => {
     if (
       // must perform these checks so that TS does not complain bc typings for network does not include 'statusCode'
       networkError &&
       "statusCode" in networkError &&
-      networkError.statusCode === 401
+      networkError.statusCode === 401 &&
+      window.location.pathname !== routes.login
     ) {
       logout();
     }
@@ -65,12 +67,12 @@ const logErrorsLink = onError(({ graphQLErrors }) => {
   // very common when a user is not authenticated
 });
 
-const authenticateIfSuccessfulLink = (dispatch: Dispatch): ApolloLink =>
+const authenticateIfSuccessfulLink = (dispatchAuthenticated): ApolloLink =>
   new ApolloLink((operation, forward) =>
     forward(operation).map((response) => {
       if (response && response.data) {
         // if there is data in response then server responded with 200; therefore, is authenticated.
-        dispatch({ type: "authenticate" });
+        dispatchAuthenticated();
       }
       return response;
     })
@@ -93,7 +95,7 @@ const getGQLClient = ({
   credentials,
   gqlURL,
   logout,
-  dispatch,
+  dispatchAuthenticated,
 }: ClientLinkParams) => {
   const link = new HttpLink({
     uri: gqlURL,
@@ -102,7 +104,7 @@ const getGQLClient = ({
 
   const client = new ApolloClient({
     cache,
-    link: authenticateIfSuccessfulLink(dispatch)
+    link: authenticateIfSuccessfulLink(dispatchAuthenticated)
       .concat(authLink(logout))
       .concat(logErrorsLink)
       .concat(retryLink)

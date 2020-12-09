@@ -1,106 +1,73 @@
-import React, { useContext, useReducer, useCallback } from "react";
+import React, { useContext, useReducer } from "react";
 import axios from "axios";
-import { reportError } from "utils/errorReporting";
 import { getLoginDomain } from "utils/getEnvironmentVariables";
 
-interface State {
+interface AuthState {
   isAuthenticated: boolean;
   initialLoad: boolean;
 }
 
-const defaultState: State = {
-  isAuthenticated: false,
-  initialLoad: true,
-};
+type Action = { type: "authenticated" } | { type: "deauthenticated" };
 
-type Action = { type: "authenticate" } | { type: "deauthenticate" };
-
-export type Dispatch = (action: Action) => void;
-
-export type Logout = () => void;
-
+type LoginCreds = { username: string; password: string };
 interface DispatchContext {
-  login: (LoginParams) => void;
-  logout: Logout;
-  dispatch: Dispatch;
+  login: (creds: LoginCreds) => void;
+  logout: () => void;
+  dispatchAuthenticated: () => void;
 }
 
-const reducer = (state: State, action: Action): State => {
+const reducer = (state: AuthState, action: Action): AuthState => {
   // check to see if the authenticate state has changed otherwise dont update the reducer
   if (
     state.isAuthenticated &&
     !state.initialLoad &&
-    action.type === "authenticate"
+    action.type === "authenticated"
   ) {
     return state;
   }
+
+  const authenticatedState = {
+    ...state,
+    isAuthenticated: true,
+    initialLoad: false,
+  };
+  const deauthenticatedState = {
+    ...state,
+    isAuthenticated: false,
+    initialLoad: false,
+  };
+
   switch (action.type) {
-    case "authenticate":
-      return {
-        ...state,
-        isAuthenticated: true,
-        initialLoad: false,
-      };
-    case "deauthenticate":
-      return {
-        ...state,
-        isAuthenticated: false,
-        initialLoad: false,
-      };
+    case "authenticated":
+      return authenticatedState;
+    case "deauthenticated":
+      return deauthenticatedState;
     default:
       return state;
   }
 };
 
-const logout = async (dispatch: Dispatch): Promise<void> => {
-  try {
-    dispatch({ type: "deauthenticate" });
-    await axios.get(`${getLoginDomain()}/logout`);
-  } catch (error) {
-    reportError(error).warning();
-  }
-};
-
-interface LoginParams {
-  username: string;
-  password: string;
-}
-const login = async (
-  dispatch: Dispatch,
-  { username, password }: LoginParams
-): Promise<void> => {
-  try {
-    await axios.post(`${getLoginDomain()}/login`, {
-      username,
-      password,
-    });
-    dispatch({ type: "authenticate" });
-  } catch (error) {
-    // TODO: log errors if/when this is used in production
-  }
-};
-
 const AuthDispatchContext = React.createContext<DispatchContext | null>(null);
-const AuthStateContext = React.createContext<State | null>(null);
+const AuthStateContext = React.createContext<AuthState | null>(null);
 
 const AuthProvider: React.FC = ({ children }) => {
-  const [state, dispatch] = useReducer(reducer, defaultState);
-
-  const logoutHandler = useCallback(() => {
-    logout(dispatch);
-  }, [dispatch]);
-
-  const loginHandler = useCallback(
-    ({ username, password }: LoginParams) => {
-      login(dispatch, { username, password });
-    },
-    [dispatch]
-  );
+  const [state, dispatch] = useReducer(reducer, {
+    isAuthenticated: false,
+    initialLoad: true,
+  });
 
   const dispatchContext: DispatchContext = {
-    login: loginHandler,
-    logout: logoutHandler,
-    dispatch,
+    login: async ({ username, password }) => {
+      await axios.post(`${getLoginDomain()}/login`, { username, password });
+      dispatch({ type: "authenticated" });
+    },
+    logout: async () => {
+      await axios.get(`${getLoginDomain()}/logout`);
+      dispatch({ type: "deauthenticated" });
+    },
+    dispatchAuthenticated: () => {
+      dispatch({ type: "authenticated" });
+    },
   };
 
   return (
@@ -112,7 +79,7 @@ const AuthProvider: React.FC = ({ children }) => {
   );
 };
 
-const useAuthStateContext = (): State => {
+const useAuthStateContext = (): AuthState => {
   const authState = useContext(AuthStateContext);
   if (authState === undefined) {
     throw new Error(
