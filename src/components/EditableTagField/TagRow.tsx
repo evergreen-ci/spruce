@@ -1,0 +1,137 @@
+import React, { useReducer } from "react";
+import styled from "@emotion/styled";
+import IconButton from "@leafygreen-ui/icon-button";
+import { Input } from "antd";
+import { v4 as uuid } from "uuid";
+import Icon from "components/icons/Icon";
+import { PlusButton } from "components/Spawn";
+import { InputLabel } from "components/styles";
+import { ParameterInput } from "gql/generated/types";
+import { reducer, getInitialState } from "./tagRowReducer";
+
+interface TagRowProps {
+  tag?: ParameterInput;
+  onDelete?: (key: string) => void;
+  onUpdateTag?: (tag: ParameterInput, deleteKey?: string) => void;
+  isValidKey: (key: string) => boolean; // function to validate if a key has been duplicated
+  isNewTag?: boolean;
+}
+export const TagRow: React.FC<TagRowProps> = ({
+  tag,
+  onDelete,
+  onUpdateTag,
+  isValidKey,
+  isNewTag = false,
+}) => {
+  const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
+
+  const tagId = uuid();
+
+  const { key, value, canSave, isInputValid, shouldShowNewTag } = state;
+
+  return (
+    <FlexColumnContainer
+      data-cy={!shouldShowNewTag ? "add-tag-button-row" : "user-tag-row"}
+    >
+      {shouldShowNewTag && (
+        <FlexContainer>
+          <FlexColumnContainer>
+            <Section>
+              <InputLabel htmlFor={`tag_key_${tagId}`}>Key</InputLabel>
+              <Input
+                id={`tag_key_${tagId}`}
+                value={key}
+                onChange={(e) =>
+                  dispatch({ type: "updateTag", key: e.target.value })
+                }
+                data-cy="user-tag-key-field"
+              />
+            </Section>
+          </FlexColumnContainer>
+          <FlexColumnContainer>
+            <Section>
+              <InputLabel htmlFor={`tag_value_${tagId}`}>Value</InputLabel>
+              <Input
+                id={`tag_value_${tagId}`}
+                value={value}
+                onChange={(e) =>
+                  dispatch({ type: "updateTag", value: e.target.value })
+                }
+                data-cy="user-tag-value-field"
+              />
+            </Section>
+          </FlexColumnContainer>
+          <IconButtonContainer>
+            {canSave ? (
+              <IconButton
+                variant="light"
+                aria-label="Update tag"
+                disabled={
+                  !isInputValid ||
+                  ((isNewTag || key !== tag.key) && !isValidKey(key))
+                }
+              >
+                <Icon
+                  glyph="Checkmark"
+                  data-cy="user-tag-edit-icon"
+                  onClick={() => {
+                    dispatch({
+                      type: isNewTag ? "cancelNewTag" : "inActive",
+                    });
+                    onUpdateTag(
+                      { key, value },
+                      !isNewTag && key !== tag.key ? tag.key : undefined
+                    );
+                  }}
+                />
+              </IconButton>
+            ) : (
+              <IconButton variant="light" aria-label="Delete Tag">
+                <Icon
+                  glyph="Trash"
+                  onClick={
+                    isNewTag
+                      ? () => dispatch({ type: "cancelNewTag" })
+                      : () => onDelete(tag.key)
+                  }
+                  data-cy="user-tag-trash-icon"
+                />
+              </IconButton>
+            )}
+          </IconButtonContainer>
+        </FlexContainer>
+      )}
+      {!shouldShowNewTag && (
+        <ButtonContainer>
+          <PlusButton
+            onClick={() => dispatch({ type: "newTag" })}
+            data-cy="add-tag-button"
+          >
+            Add Tag
+          </PlusButton>
+        </ButtonContainer>
+      )}
+    </FlexColumnContainer>
+  );
+};
+
+const ButtonContainer = styled.div`
+  margin-top: 25px;
+`;
+const FlexContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+const FlexColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-right: 10px;
+`;
+
+const Section = styled(FlexColumnContainer)`
+  margin-top: 20px;
+`;
+
+const IconButtonContainer = styled.div`
+  margin-top: 42px;
+`;
