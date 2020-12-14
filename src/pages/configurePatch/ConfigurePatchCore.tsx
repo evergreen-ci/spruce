@@ -2,12 +2,14 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled/macro";
+import Badge from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
 import { Banners } from "components/Banners";
+import { EditableTagField } from "components/EditableTagField";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -24,6 +26,7 @@ import {
   VariantTasks,
   ConfigurePatchQuery,
   VariantTask,
+  ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
 import { withBannersContext } from "hoc/withBannersContext";
@@ -68,6 +71,8 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description || ""
   );
+  const [patchParams, setPatchParams] = useState<ParameterInput[]>();
+
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setdescriptionValue(e.target.value);
 
@@ -75,10 +80,11 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
     const configurePatchParam: PatchConfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
+      parameters: patchParams,
     };
     try {
       await schedulePatch({
-        variables: { patchId: id, reconfigure: configurePatchParam },
+        variables: { patchId: id, configure: configurePatchParam },
       });
     } catch (error) {
       // TODO show error banner
@@ -150,6 +156,43 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
               <Tab data-cy="changes-tab" name="Changes" id="changes-tab">
                 <CodeChanges />
               </Tab>
+              <Tab
+                data-cy="parameters-tab"
+                name="Parameters"
+                id="parameters-tab"
+              >
+                <ParamsContainer>
+                  {patch?.activated ? (
+                    <>
+                      <Disclaimer>
+                        <span data-cy="parameters-disclaimer">
+                          Parameters cannot be added or modified once a patch is
+                          configured
+                        </span>
+                      </Disclaimer>
+                      {patch?.parameters && (
+                        <ExistingParamsContainer>
+                          {" "}
+                          {patch.parameters?.map((param) => (
+                            <StyledBadge
+                              data-cy={`badge-${param.key}`}
+                              key={`param_${param.key}`}
+                            >
+                              {param.key}:{param.value}
+                            </StyledBadge>
+                          ))}
+                        </ExistingParamsContainer>
+                      )}
+                    </>
+                  ) : (
+                    <EditableTagField
+                      inputTags={patch.parameters}
+                      onChange={setPatchParams}
+                      buttonText="Add Parameter"
+                    />
+                  )}
+                </ParamsContainer>
+              </Tab>
             </StyledTabs>
           </PageContent>
         </PageLayout>
@@ -183,6 +226,7 @@ export interface VariantTasksState {
 enum PatchTab {
   Configure = "tasks",
   Changes = "changes",
+  Parameters = "parameters",
 }
 
 const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
@@ -203,6 +247,7 @@ const DEFAULT_TAB = PatchTab.Configure;
 const tabToIndexMap = {
   [PatchTab.Configure]: 0,
   [PatchTab.Changes]: 1,
+  [PatchTab.Parameters]: 2,
 };
 
 export const cardSidePadding = css`
@@ -215,6 +260,19 @@ const StyledInput = styled(Input)`
 `;
 const StyledBody = styled(Body)`
   margin-bottom: 4px;
+`;
+const StyledBadge = styled(Badge)`
+  margin-right: 16px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+`;
+export const ParamsContainer = styled.div`
+  margin-left: 20px;
+  width: 70%;
+`;
+
+export const ExistingParamsContainer = styled.div`
+  width: 70%;
 `;
 const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>

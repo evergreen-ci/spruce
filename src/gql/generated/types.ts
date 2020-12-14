@@ -1152,6 +1152,7 @@ export type IssueLink = {
   issueKey?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["String"]>;
   source: Source;
+  jiraTicket?: Maybe<JiraTicket>;
 };
 
 export type Source = {
@@ -1297,7 +1298,7 @@ export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
 export type SchedulePatchMutationVariables = {
   patchId: Scalars["String"];
-  reconfigure: PatchConfigure;
+  configure: PatchConfigure;
 };
 
 export type SchedulePatchMutation = {
@@ -1310,6 +1311,7 @@ export type SchedulePatchMutation = {
     tasks: Array<string>;
     variants: Array<string>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 
@@ -2111,6 +2113,7 @@ export type ConfigurePatchQuery = {
       }>;
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 

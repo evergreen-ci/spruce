@@ -81,6 +81,37 @@ describe("Configure Patch Page", () => {
       });
     });
   });
+
+  describe("Add parameters", () => {
+    it("Navigating to 'Parameters' tab shows the existing parameters", () => {
+      cy.login();
+      cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.dataCy("parameters-tab").click();
+      cy.dataCy("select-variants-and-task-card-wrapper").should(
+        "have.css",
+        "pointer-events",
+        "none"
+      );
+    });
+    it("Adding a paramter is reflected on the page", () => {
+      cy.dataCy("add-tag-button").click();
+      cy.dataCy("user-tag-key-field").type("testKey");
+      cy.dataCy("user-tag-value-field").type("testValue");
+      cy.dataCy("user-tag-edit-icon").click();
+      cy.dataCy("user-tag-row")
+        .its("length")
+        .should("eq", 1);
+    });
+    it("Parameters cannot be added once activated", () => {
+      cy.login();
+      cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
+      cy.dataCy("parameters-tab").click();
+      cy.dataCy("parameters-disclaimer").should("exist");
+      cy.dataCy("badge-this-is-a-parameter").should("exist");
+      cy.dataCy("badge-my_team").should("exist");
+    });
+  });
+
   describe("Configuring a patch", () => {
     it("Can update patch description by typing into `Patch Name` input field", () => {
       const val = "michelle obama";

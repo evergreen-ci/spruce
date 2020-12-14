@@ -9,12 +9,14 @@ type EditableTagFieldProps = {
   onChange: (data: Tag[]) => void;
   inputTags: Tag[];
   visible?: boolean;
+  buttonText: string;
 };
 
 export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   onChange,
   inputTags,
   visible,
+  buttonText,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
@@ -60,12 +62,14 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
           key={tag.key}
           onUpdateTag={updateTagHandler}
           isValidKey={validateKey}
+          buttonText={buttonText}
         />
       ))}
       <TagRow
         onUpdateTag={updateTagHandler}
         isNewTag
         isValidKey={validateKey}
+        buttonText={buttonText}
       />
     </FlexColumnContainer>
   );

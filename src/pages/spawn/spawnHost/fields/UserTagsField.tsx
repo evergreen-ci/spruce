@@ -48,6 +48,7 @@ export const UserTagsField: React.FC<UserTagsFieldProps> = ({
       inputTags={userTags}
       onChange={onUpdateTags}
       visible={visible}
+      buttonText="Add Tag"
     />
   );
 };
