@@ -11,7 +11,10 @@ export const toggleArray = (id: string, array: any[]) => {
   return tempArray;
 };
 
-export const convertArrayToObject = (array: Object[], key: string): Object => {
+export const convertArrayToObject = <T>(
+  array: T[],
+  key: string
+): { [key: string]: T } => {
   const initialValue = {};
   return array.reduce(
     (obj, item) => ({

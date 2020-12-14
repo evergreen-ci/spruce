@@ -8,7 +8,7 @@ import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 const { gray, white } = uiColors;
 
-const ALL_VALUE = "all";
+export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
   state: string[];

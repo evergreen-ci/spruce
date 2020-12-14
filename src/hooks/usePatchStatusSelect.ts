@@ -1,22 +1,77 @@
-import { useState, useEffect } from "react";
+import { useEffect, useReducer, useState } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
+import { usePrevious } from "hooks";
+import { getWebWorkerURL } from "utils/getEnvironmentVariables";
 
 export interface selectedStrings {
   [id: string]: boolean | undefined;
 }
 
-export const usePatchStatusSelect = (
-  patchBuildVariants: PatchBuildVariant[]
-): [
+type Action =
+  | { type: "setSelectedTasks"; data: selectedStrings }
+  | { type: "setPatchStatusFilterTerm"; data: string[] }
+  | { type: "setBaseStatusFilterTerm"; data: string[] };
+
+interface State {
+  patchStatusFilterTerm: string[];
+  baseStatusFilterTerm: string[];
+  selectedTasks: selectedStrings;
+}
+
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "setSelectedTasks":
+      return {
+        ...state,
+        selectedTasks: action.data,
+      };
+    case "setPatchStatusFilterTerm":
+      return {
+        ...state,
+        patchStatusFilterTerm: action.data,
+      };
+    case "setBaseStatusFilterTerm":
+      return {
+        ...state,
+        baseStatusFilterTerm: action.data,
+      };
+    default:
+      throw new Error();
+  }
+};
+
+type FilterSetter = (statuses: string[]) => void;
+
+type HookResult = [
   selectedStrings,
   string[],
+  string[],
   {
-    setValidStatus: (newValue: string[]) => void;
     toggleSelectedTask: (id: string | string[]) => void;
+    setPatchStatusFilterTerm: FilterSetter;
+    setBaseStatusFilterTerm: FilterSetter;
   }
-] => {
-  const [selectedTasks, setSelectedTasks] = useState<selectedStrings>({});
-  const [validStatus, setValidStatus] = useState<string[]>([]);
+];
+
+export const usePatchStatusSelect = (
+  patchBuildVariants: PatchBuildVariant[]
+): HookResult => {
+  const [webWorker, setWebWorker] = useState<Worker>();
+  useEffect(() => {
+    if (window.Worker && !webWorker) {
+      const worker = new Worker(getWebWorkerURL("patchBuildVariantsReduce.js"));
+      setWebWorker(worker);
+    }
+  }, [webWorker]);
+
+  const [
+    { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks },
+    dispatch,
+  ] = useReducer(reducer, {
+    baseStatusFilterTerm: [],
+    patchStatusFilterTerm: [],
+    selectedTasks: {},
+  });
 
   const toggleSelectedTask = (id: string | string[]) => {
     const newState = { ...selectedTasks };
@@ -28,58 +83,96 @@ export const usePatchStatusSelect = (
         newState[id] = true;
       }
     } else {
+      // Enter this condition when a parent checkbox is clicked.
+      // If every task is already checked, uncheck them. Otherwise, check them.
+      const nextCheckedState = !id.every((taskId) => selectedTasks[taskId]);
       id.forEach((taskId) => {
-        if (newState[taskId]) {
-          newState[taskId] = false;
-        } else {
-          newState[taskId] = true;
-        }
+        newState[taskId] = nextCheckedState;
       });
     }
-
-    setSelectedTasks(newState);
+    dispatch({ type: "setSelectedTasks", data: newState });
   };
 
-  // Iterate through PatchBuildVariants and determine if a task should be selected or not
-  // Based on if the task status correlates with the validStatus filter
+  // Determine if a task is a selected based on the filter terms and available tasks
+  const prevPatchBuildVariants = usePrevious(patchBuildVariants);
+  const prevPatchStatusFilterTerm = usePrevious(patchStatusFilterTerm);
+  const prevBaseStatusFilterTerm = usePrevious(baseStatusFilterTerm);
   useEffect(() => {
-    if (patchBuildVariants) {
-      let tempSelectedTasks = selectedTasks;
-      patchBuildVariants.forEach((patchBuildVariant) => {
-        patchBuildVariant.tasks.forEach((task) => {
-          if (validStatus.includes(task.status)) {
-            tempSelectedTasks = addTaskToSelectedTasks(
-              task.id,
-              tempSelectedTasks
-            );
-          } else {
-            tempSelectedTasks = removeTaskFromSelectedTasks(
-              task.id,
-              tempSelectedTasks
-            );
-          }
+    const filterTermOrPatchTasksChanged =
+      patchBuildVariants !== prevPatchBuildVariants ||
+      patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
+      baseStatusFilterTerm !== prevBaseStatusFilterTerm;
+    if (filterTermOrPatchTasksChanged) {
+      if (window.Worker && webWorker) {
+        webWorker.postMessage({
+          patchBuildVariants,
+          patchStatusFilterTerm,
+          baseStatusFilterTerm,
+          selectedTasks,
         });
-      });
-      setSelectedTasks(tempSelectedTasks);
+      } else {
+        // fallback in case web workers are not available.
+        // This code reflects logic in public/web_worker/patchBuildVariantReduce.js
+        // Iterate through PatchBuildVariants and determine if a task should be
+        // selected or not based on if the task status correlates with the 2 filters.
+        // if 1 of the 2 filters is empty, ignore the empty filter
+        const baseStatuses = new Set(baseStatusFilterTerm);
+        const statuses = new Set(patchStatusFilterTerm);
+        const nextState =
+          patchBuildVariants?.reduce(
+            (accumA, patchBuildVariant) =>
+              patchBuildVariant.tasks?.reduce(
+                (accumB, task) => ({
+                  ...accumB,
+                  [task.id]:
+                    (!!patchStatusFilterTerm?.length ||
+                      !!baseStatusFilterTerm?.length) &&
+                    (patchStatusFilterTerm?.length
+                      ? statuses.has(task.status)
+                      : true) &&
+                    (baseStatusFilterTerm?.length
+                      ? baseStatuses.has(task.baseStatus)
+                      : true),
+                }),
+                accumA
+              ),
+            { ...selectedTasks }
+          ) ?? {};
+        dispatch({ type: "setSelectedTasks", data: nextState });
+      }
     }
-    // Disable exhaustive-deps since selectedTasks in dep array causes a infinite loop
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [patchBuildVariants, validStatus]);
+  }, [
+    baseStatusFilterTerm,
+    patchBuildVariants,
+    patchStatusFilterTerm,
+    prevBaseStatusFilterTerm,
+    prevPatchBuildVariants,
+    prevPatchStatusFilterTerm,
+    selectedTasks,
+    webWorker,
+  ]);
 
-  return [selectedTasks, validStatus, { toggleSelectedTask, setValidStatus }];
-};
+  // process webworker response
+  useEffect(() => {
+    if (window.Worker && webWorker) {
+      webWorker.onmessage = (event) => {
+        dispatch({
+          type: "setSelectedTasks",
+          data: event.data as selectedStrings,
+        });
+      };
+    }
+  }, [webWorker, dispatch]);
 
-const removeTaskFromSelectedTasks = (
-  id: string,
-  selectedTasks: selectedStrings
-) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = false;
-  return newSelectedTasks;
-};
+  const setPatchStatusFilterTerm = (statuses: string[]) =>
+    dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
+  const setBaseStatusFilterTerm = (statuses: string[]) =>
+    dispatch({ type: "setBaseStatusFilterTerm", data: statuses });
 
-const addTaskToSelectedTasks = (id: string, selectedTasks: selectedStrings) => {
-  const newSelectedTasks = { ...selectedTasks };
-  newSelectedTasks[id] = true;
-  return newSelectedTasks;
+  return [
+    selectedTasks,
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
+    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
+  ];
 };

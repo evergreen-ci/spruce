@@ -9,6 +9,7 @@ export const GET_PATCH_BUILD_VARIANTS = gql`
         id
         name
         status
+        baseStatus
       }
     }
   }

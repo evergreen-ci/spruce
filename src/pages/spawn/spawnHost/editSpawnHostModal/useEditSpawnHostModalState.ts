@@ -1,6 +1,6 @@
 import { useReducer } from "react";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
-import { InstanceTag } from "gql/generated/types";
+import { InstanceTagInput } from "gql/generated/types";
 import { MyHost } from "types/spawn";
 import { UserTagsData, VolumesData } from "../fields";
 
@@ -10,8 +10,8 @@ export interface editSpawnHostStateType {
   displayName?: string;
   instanceType?: string;
   volumeId?: string;
-  addedInstanceTags?: InstanceTag[];
-  deletedInstanceTags?: InstanceTag[];
+  addedInstanceTags?: InstanceTagInput[];
+  deletedInstanceTags?: InstanceTagInput[];
 }
 
 export const useEditSpawnHostModalState = (host: MyHost) => ({
