@@ -8,11 +8,14 @@ export const StyledTabs: React.FC<StyledTabsProps> = ({
   ...rest
 }) => (
   <Tabs {...rest}>
-    {children.map((c) => (
-      <Tab {...c.props}>
-        <PaddedContainer>{c.props.children}</PaddedContainer>
-      </Tab>
-    ))}
+    {children.map(
+      (c) =>
+        c && (
+          <Tab {...c.props}>
+            <PaddedContainer>{c.props.children}</PaddedContainer>
+          </Tab>
+        )
+    )}
   </Tabs>
 );
 
