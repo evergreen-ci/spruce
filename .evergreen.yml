@@ -282,6 +282,7 @@ tasks:
     - func: get-project
     - func: yarn-install
     - func: copy-cmdrc
+    - func: sym-link
     - func: yarn-build
     - func: yarn-analyze
 
