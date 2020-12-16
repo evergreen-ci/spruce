@@ -8,11 +8,11 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { UserPatchesQuery } from "gql/generated/types";
+import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 
 export const ListArea: React.FC<{
-  patches?: UserPatchesQuery["user"]["patches"];
+  patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
 }> = ({ patches, error }) => {
   const bannersState = useBannerStateContext();
