@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
+import { useUserPatchesAnalytics } from "analytics";
 import {
   PatchesPage,
   getPatchesInputFromURLSearch,
@@ -16,6 +17,7 @@ import { useNetworkStatus, useGetUserPatchesPageTitleAndLink } from "hooks";
 export const UserPatches = () => {
   const { id: userId } = useParams<{ id: string }>();
   const { search } = useLocation();
+  const analyticsObject = useUserPatchesAnalytics();
   const patchesInput = getPatchesInputFromURLSearch(search);
   const { data, startPolling, stopPolling, error } = useQuery<
     UserPatchesQuery,
@@ -29,6 +31,7 @@ export const UserPatches = () => {
   const { title: pageTitle } = useGetUserPatchesPageTitleAndLink(userId);
   return (
     <PatchesPage
+      analyticsObject={analyticsObject}
       pageTitle={pageTitle}
       error={error}
       patches={data?.user.patches}

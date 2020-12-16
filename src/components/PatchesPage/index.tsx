@@ -35,6 +35,11 @@ interface Props {
     | { name: "Filter Patches"; filterBy: string }
     | { name: "Filter Commit Queue" }
     | { name: "Change Page Size" }
+    | { name: "Click Patch Link" }
+    | {
+        name: "Click Variant Icon";
+        variantIconStatus: string;
+      }
   >;
   pageTitle: string;
   patches?: PatchesPagePatchesFragment;
@@ -119,7 +124,11 @@ const PatchesPageCore: React.FC<Props> = ({
           }
         />
       </PaginationRow>
-      <ListArea patches={patches} error={error} />
+      <ListArea
+        patches={patches}
+        error={error}
+        analyticsObject={analyticsObject}
+      />
     </PageWrapper>
   );
 };

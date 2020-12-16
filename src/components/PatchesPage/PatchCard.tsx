@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { format } from "date-fns";
-import { useUserPatchesAnalytics } from "analytics";
+import { Analytics } from "analytics/addPageAction";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import {
@@ -29,6 +29,13 @@ interface Props {
   builds: Build[];
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  analyticsObject?: Analytics<
+    | { name: "Click Patch Link" }
+    | {
+        name: "Click Variant Icon";
+        variantIconStatus: string;
+      }
+  >;
 }
 
 export const PatchCard: React.FC<Props> = ({
@@ -40,8 +47,8 @@ export const PatchCard: React.FC<Props> = ({
   builds,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  analyticsObject,
 }) => {
-  const userPatchesAnalytics = useUserPatchesAnalytics();
   const createDate = new Date(createTime);
 
   return (
@@ -51,7 +58,7 @@ export const PatchCard: React.FC<Props> = ({
           data-cy="patch-card-patch-link"
           to={`${paths.patch}/${id}`}
           onClick={() =>
-            userPatchesAnalytics.sendEvent({ name: "Click Patch Link" })
+            analyticsObject?.sendEvent({ name: "Click Patch Link" })
           }
         >
           {description || "no description"}
@@ -79,7 +86,7 @@ export const PatchCard: React.FC<Props> = ({
                 buildVariant={b.buildVariant}
                 href={getBuildStatusIconLink(id, b.buildVariant)}
                 onClick={() =>
-                  userPatchesAnalytics.sendEvent({
+                  analyticsObject?.sendEvent({
                     name: "Click Variant Icon",
                     variantIconStatus: b.status,
                   })

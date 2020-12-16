@@ -16,7 +16,7 @@ type Action =
 interface P extends Properties {}
 interface Analytics extends A<Action> {}
 
-export const useUserPatchesAnalytics = (): Analytics => {
+export const useProjectPatchesAnalytics = (): Analytics => {
   const { id: projectId } = useParams<{ id: string }>();
   const userId = useGetUserQuery();
   const sendEvent: Analytics["sendEvent"] = (action) => {

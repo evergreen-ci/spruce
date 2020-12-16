@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { useLocation, useParams } from "react-router-dom";
+import { useProjectPatchesAnalytics } from "analytics/patches/useProjectPatchesAnalytics";
 import {
   PatchesPage,
   getPatchesInputFromURLSearch,
@@ -26,9 +27,10 @@ export const ProjectPatches = () => {
     fetchPolicy: "cache-and-network",
   });
   useNetworkStatus(startPolling, stopPolling);
-
+  const analyticsObject = useProjectPatchesAnalytics();
   return (
     <PatchesPage
+      analyticsObject={analyticsObject}
       pageTitle={`${data?.project.displayName ?? ""} Patches`}
       error={error}
       patches={data?.project.patches}
