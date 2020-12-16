@@ -23,7 +23,8 @@ type AnalyticsObject =
   | "HostPage"
   | "TaskQueue"
   | "SpawnPages"
-  | "PreferencesPages";
+  | "PreferencesPages"
+  | "ProjectPatches";
 
 interface RequiredProperties {
   object: AnalyticsObject;
