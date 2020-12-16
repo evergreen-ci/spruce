@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 import { PatchesPage } from "gql/fragments/patchesPage";
 
-/* eslint-disable */
+/* eslint-disable graphql/template-strings */
 export const GET_USER_PATCHES = gql`
   query UserPatches($userId: String!, $patchesInput: PatchesInput!) {
     user(userId: $userId) {
