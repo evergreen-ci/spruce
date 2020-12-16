@@ -133,7 +133,7 @@ module.exports = {
     ],
     "no-empty": [ERROR, { allowEmptyCatch: true }],
     "no-plusplus": [ERROR, { allowForLoopAfterthoughts: true }],
-    "prettier/prettier": [2, prettierConfig],
+    "prettier/prettier": [errorIfStrict, prettierConfig],
     "react/react-in-jsx-scope": OFF, // This is no longer necessary as of React 17
     "react/sort-comp": [
       errorIfStrict,
