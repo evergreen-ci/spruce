@@ -9,25 +9,33 @@ import {
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { GetSpruceConfigQuery, BuildBaron } from "gql/generated/types";
+import {
+  GetSpruceConfigQuery,
+  BuildBaron,
+  Annotation,
+} from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { BBTitle, TitleAndButtons } from "./BBComponents";
+import { AnnotationTickets } from "./AnnotationTickets";
+import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets } from "./BBCreatedTickets";
 import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
-  eventData: BuildBaron;
+  bbData: BuildBaron;
   taskId: string;
   loading: boolean;
+  annotation: Annotation;
 }
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
-  eventData,
+  bbData,
   taskId,
   loading,
+  annotation,
 }) => {
+  const annotationsReady = false;
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const { tab } = useParams<{ tab: string }>();
@@ -40,14 +48,14 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   const spruceConfig = data?.spruceConfig;
   const jiraHost = spruceConfig?.jira?.host;
 
-  const jiraSearchString = eventData?.searchReturnInfo?.search;
+  const jiraSearchString = bbData?.searchReturnInfo?.search;
   const jqlEscaped = encodeURIComponent(jiraSearchString);
   const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
 
   return (
     <span data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      {eventData && (
+      {bbData && (
         <>
           <Banners
             banners={bannersState}
@@ -66,14 +74,27 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
               setCreatedTicketsCount={setCreatedTicketsCount}
               createdTicketsCount={createdTicketsCount}
             />
-            <BBTitle>
+          </TitleAndButtons>
+          {annotationsReady && (
+            <>
+              <AnnotationTickets tickets={annotation?.issues} title="Issues" />
+              <AnnotationTickets
+                tickets={annotation?.suspectedIssues}
+                title="Suspected Issues"
+              />
+            </>
+          )}
+
+          <TitleAndButtons>
+            <TicketsTitle>
               Related tickets from Jira
               <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
                 {"  "}(Jira Search)
               </StyledLink>
-            </BBTitle>
+            </TicketsTitle>
           </TitleAndButtons>
-          <BuildBaronTable jiraIssues={eventData?.searchReturnInfo?.issues} />
+          {/* build baron related jira tickets */}
+          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
         </>
       )}
     </span>

@@ -7,7 +7,7 @@ import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
-import BuildBaron from "components/Buildbaron/BuildBaron";
+import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import { TrendChartsPlugin } from "components/PerfPlugin";
@@ -98,6 +98,7 @@ const TaskCore: React.FC = () => {
 
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
+  const annotation = get(task, "annotation");
   const canAbort = get(task, "canAbort");
   const blocked = task?.blocked;
   const canRestart = get(task, "canRestart");
@@ -268,7 +269,8 @@ const TaskCore: React.FC = () => {
                   disabled={!showBuildBaronTab}
                 >
                   <BuildBaron
-                    data={buildBaronData}
+                    annotation={annotation}
+                    bbData={buildBaronData}
                     error={buildBaronError}
                     taskId={id}
                     loading={buildBaronLoading}

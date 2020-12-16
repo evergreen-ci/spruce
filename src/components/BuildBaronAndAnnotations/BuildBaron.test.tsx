@@ -2,7 +2,7 @@ import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import BuildBaron from "components/Buildbaron/BuildBaron";
+import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
   GET_BUILD_BARON,
@@ -168,7 +168,8 @@ it("The BuildBaron component renders without crashing.", () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
-        data={buildBaronQuery}
+        annotation={null}
+        bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
         loading={false}
@@ -188,7 +189,8 @@ it("Clicking on file a new ticket dispatches a banner.", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
-        data={buildBaronQuery}
+        annotation={null}
+        bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
         loading={false}
@@ -214,7 +216,8 @@ it("The correct JiraTicket rows are rendered in the component", () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
       <BuildBaron
-        data={buildBaronQuery}
+        annotation={null}
+        bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
         loading={false}

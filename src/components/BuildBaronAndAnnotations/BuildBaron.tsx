@@ -1,17 +1,24 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import { Skeleton } from "antd";
-import { BuildBaronQuery } from "gql/generated/types";
+import { Annotation, BuildBaronQuery } from "gql/generated/types";
 import { BuildBaronContent } from "./BuildBaronContent";
 
 interface Props {
-  data: BuildBaronQuery;
+  bbData: BuildBaronQuery;
   error: ApolloError;
   taskId: string;
   loading: boolean;
+  annotation: Annotation;
 }
 
-const BuildBaron: React.FC<Props> = ({ data, error, taskId, loading }) => (
+const BuildBaron: React.FC<Props> = ({
+  bbData,
+  error,
+  taskId,
+  loading,
+  annotation,
+}) => (
   <>
     {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
     {error && (
@@ -20,11 +27,12 @@ const BuildBaron: React.FC<Props> = ({ data, error, taskId, loading }) => (
       </div>
     )}
 
-    {data && (
+    {bbData && (
       <BuildBaronContent
-        eventData={data.buildBaron}
+        bbData={bbData.buildBaron}
         taskId={taskId}
         loading={loading}
+        annotation={annotation}
       />
     )}
   </>

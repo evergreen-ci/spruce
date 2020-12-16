@@ -1152,6 +1152,7 @@ export type IssueLink = {
   issueKey?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["String"]>;
   source: Source;
+  jiraTicket?: Maybe<JiraTicket>;
 };
 
 export type Source = {
@@ -1938,6 +1939,56 @@ export type GetTaskQuery = {
     };
     details?: Maybe<{
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+    }>;
+    annotation?: Maybe<{
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
     }>;
   }>;
 };
