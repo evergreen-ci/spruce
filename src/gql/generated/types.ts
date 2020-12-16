@@ -553,9 +553,9 @@ export type Host = {
 };
 
 export type InstanceTag = {
-  key?: Maybe<Scalars["String"]>;
-  value?: Maybe<Scalars["String"]>;
-  canBeModified?: Maybe<Scalars["Boolean"]>;
+  key: Scalars["String"];
+  value: Scalars["String"];
+  canBeModified: Scalars["Boolean"];
 };
 
 export type InstanceTagInput = {
@@ -1237,11 +1237,7 @@ export type EditSpawnHostMutation = {
     instanceType?: Maybe<string>;
     noExpiration: boolean;
     expiration?: Maybe<Date>;
-    instanceTags: Array<{
-      key?: Maybe<string>;
-      value?: Maybe<string>;
-      canBeModified?: Maybe<boolean>;
-    }>;
+    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   };
 };
@@ -1651,11 +1647,7 @@ export type MyHostsQuery = {
       user?: Maybe<string>;
       workDir?: Maybe<string>;
     }>;
-    instanceTags: Array<{
-      key?: Maybe<string>;
-      value?: Maybe<string>;
-      canBeModified?: Maybe<boolean>;
-    }>;
+    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
   spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
@@ -1689,7 +1681,16 @@ export type PatchBuildVariantsQuery = {
   patchBuildVariants: Array<{
     variant: string;
     displayName: string;
-    tasks?: Maybe<Array<Maybe<{ id: string; name: string; status: string }>>>;
+    tasks?: Maybe<
+      Array<
+        Maybe<{
+          id: string;
+          name: string;
+          status: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >
+    >;
   }>;
 };
 

@@ -24,7 +24,6 @@ import { CommitQueue } from "pages/CommitQueue";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
-import { Login } from "pages/Login";
 import { MyPatches } from "pages/MyPatches";
 import { Patch } from "pages/Patch";
 import { PatchRedirect } from "pages/PatchRedirect";
@@ -84,7 +83,6 @@ export const Content: React.FC = () => {
         <PrivateRoute exact path="/">
           <Redirect to={routes.myPatches} />
         </PrivateRoute>
-        <Route path={routes.login} component={Login} />
         <Route component={PageDoesNotExist} />
       </Switch>
       {!hasUsedSpruceBefore && <WelcomeModal />}

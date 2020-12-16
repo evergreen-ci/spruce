@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -6,10 +6,10 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
-import { TreeSelect } from "components/TreeSelect";
+import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { useBannerDispatchContext } from "context/banners";
 import {
   PatchBuildVariantsQuery,
@@ -19,10 +19,11 @@ import {
 } from "gql/generated/types";
 import { RESTART_PATCH } from "gql/mutations/restart-patch";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
-import { usePatchStatusSelect } from "hooks";
+import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
-import { TaskStatus } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
+import { getArray, parseQueryString } from "utils";
 
 const { gray } = uiColors;
 
@@ -71,9 +72,23 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   const patchBuildVariants = get(data, "patchBuildVariants");
   const [
     selectedTasks,
-    validStatus,
-    { toggleSelectedTask, setValidStatus },
+    patchStatusFilterTerm,
+    baseStatusFilterTerm,
+    { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
   ] = usePatchStatusSelect(patchBuildVariants);
+  const { search } = useLocation();
+  const prevSearch = usePrevious(search);
+  useEffect(() => {
+    if (search !== prevSearch) {
+      const urlParams = parseQueryString(search);
+      setPatchStatusFilterTerm(
+        getArray(urlParams[PatchTasksQueryParams.Statuses]) ?? []
+      );
+      setBaseStatusFilterTerm(
+        getArray(urlParams[PatchTasksQueryParams.BaseStatuses]) ?? []
+      );
+    }
+  }, [search, prevSearch, setBaseStatusFilterTerm, setPatchStatusFilterTerm]);
 
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
@@ -103,7 +118,11 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       onOk={onOk}
       onCancel={onCancel}
       footer={[
-        <Button key="cancel" onClick={onCancel}>
+        <Button
+          key="cancel"
+          onClick={onCancel}
+          data-cy="cancel-restart-modal-button"
+        >
           Cancel
         </Button>,
         <Button
@@ -122,14 +141,16 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     >
       {!loading && patchBuildVariants && (
         <>
-          <TreeSelect
-            onChange={setValidStatus}
-            state={validStatus}
-            tData={statusesTreeData}
-            inputLabel="Tasks Selected: "
-            dataCy="patch-status-filter"
-            width="50%"
-          />
+          <Row>
+            <TaskStatusFilters
+              onChangeBaseStatusFilter={setBaseStatusFilterTerm}
+              onChangeStatusFilter={setPatchStatusFilterTerm}
+              patchId={patchId}
+              selectedBaseStatuses={baseStatusFilterTerm}
+              selectedStatuses={patchStatusFilterTerm}
+              filterWidth="50%"
+            />
+          </Row>
           {patchBuildVariants.map((patchBuildVariant) => (
             <PatchBuildVariantAccordian
               key={`accoridan_${patchBuildVariant.variant}`}
@@ -180,37 +201,9 @@ const ConfirmationMessage = styled(Body)`
   padding-bottom: 15px;
 `;
 
-const statusesTreeData = [
-  {
-    title: "Select All Tasks",
-    value: "all",
-    key: "all",
-  },
-  {
-    title: "Select All Successful tasks",
-    value: TaskStatus.Succeeded,
-    key: TaskStatus.Succeeded,
-  },
-  {
-    title: "Select All Failures",
-    value: "all-failures",
-    key: "all-failures",
-    children: [
-      {
-        title: "Task Failures",
-        value: TaskStatus.Failed,
-        key: TaskStatus.Failed,
-      },
-      {
-        title: "System Failures",
-        value: TaskStatus.SystemFailed,
-        key: TaskStatus.SystemFailed,
-      },
-      {
-        title: "Setup Failures",
-        value: TaskStatus.SetupFailed,
-        key: TaskStatus.SetupFailed,
-      },
-    ],
-  },
-];
+const Row = styled.div`
+  display: flex;
+  > : first-child {
+    margin-right: 16px;
+  }
+`;
