@@ -3,7 +3,6 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
-import queryString from "query-string";
 import { useLocation, useHistory } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
 import { Banners } from "components/Banners";
@@ -133,11 +132,10 @@ const PatchesPageCore: React.FC<Props> = ({
 
 export const PatchesPage = withBannersContext(PatchesPageCore);
 
-const arrayFormat = "comma";
 export const getPatchesInputFromURLSearch = (
   search: string
 ): UserPatchesQueryVariables["patchesInput"] => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const includeCommitQueue =
     parsed[MyPatchesQueryParams.CommitQueue] === "true" ||
     parsed[MyPatchesQueryParams.CommitQueue] === undefined;

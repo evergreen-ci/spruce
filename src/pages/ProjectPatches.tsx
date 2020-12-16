@@ -28,12 +28,13 @@ export const ProjectPatches = () => {
   });
   useNetworkStatus(startPolling, stopPolling);
   const analyticsObject = useProjectPatchesAnalytics();
+  const { displayName, patches } = data?.project ?? {};
   return (
     <PatchesPage
       analyticsObject={analyticsObject}
-      pageTitle={`${data?.project.displayName ?? ""} Patches`}
+      pageTitle={`${displayName ?? ""} Patches`}
       error={error}
-      patches={data?.project.patches}
+      patches={patches}
     />
   );
 };
