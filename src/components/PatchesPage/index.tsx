@@ -26,6 +26,7 @@ import {
 import { withBannersContext } from "hoc/withBannersContext";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
+import { parseQueryString, stringifyQuery } from "utils";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
@@ -71,13 +72,10 @@ const PatchesPageCore: React.FC<Props> = ({
   usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
     replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          [MyPatchesQueryParams.CommitQueue]: !includeCommitQueue,
-        },
-        { arrayFormat }
-      )}`
+      `${pathname}?${stringifyQuery({
+        ...parseQueryString(search),
+        [MyPatchesQueryParams.CommitQueue]: !includeCommitQueue,
+      })}`
     );
     // eslint-disable-next-line no-unused-expressions
     analyticsObject?.sendEvent({ name: "Filter Commit Queue" });

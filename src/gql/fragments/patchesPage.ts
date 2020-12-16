@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client";
 
-/* eslint-disable graphql/template-strings */
+/* eslint-disable */
 export const PatchesPage = {
   fragments: {
     patches: gql`
