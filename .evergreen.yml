@@ -326,6 +326,7 @@ tasks:
       vars:
         target: local-evergreen
     - func: yarn-install
+    - func: sym-link
     - func: yarn-start
     - func: run-cypress-tests
     
