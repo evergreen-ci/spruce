@@ -88,12 +88,14 @@ functions:
         ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
 
   yarn-start:
-    command: subprocess.exec
+    command: shell.exec
     type: setup
     params:
       working_dir: spruce
       background: true
-      command: yarn run dev
+      shell: |
+      PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+      yarn run dev
 
   
   yarn-install:
