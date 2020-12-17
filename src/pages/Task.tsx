@@ -264,7 +264,7 @@ const TaskCore: React.FC = () => {
               </Tab>
               {(showBuildBaronTab || tab === TaskTab.BuildBaron) && (
                 <Tab
-                  name="Build Baron"
+                  name="Task Annotations"
                   id="task-build-baron-tab"
                   disabled={!showBuildBaronTab}
                 >

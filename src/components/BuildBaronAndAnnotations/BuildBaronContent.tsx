@@ -35,7 +35,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   loading,
   annotation,
 }) => {
-  const annotationsReady = false;
+  const annotationsReady = true;
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const { tab } = useParams<{ tab: string }>();
