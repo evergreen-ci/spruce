@@ -93,9 +93,9 @@ functions:
     params:
       working_dir: spruce
       background: true
-      shell: |
-      PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
-      yarn run dev
+      script: |
+        PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn run dev
 
   
   yarn-install:
