@@ -1,16 +1,12 @@
 import React from "react";
-import { v4 as uuid } from "uuid";
-import { render, fireEvent } from "test_utils/test-utils";
+import { render, fireEvent, mockUUID } from "test_utils/test-utils";
 import { UserTagsField, UserTagsData } from "./UserTagsField";
 
 // Must mock uuid for this test since getRandomValues() is not supported in CI
 jest.mock("uuid");
 
 beforeAll(() => {
-  const MAX_INT = Number.MAX_SAFE_INTEGER;
-  uuid.mockImplementation(() =>
-    Math.floor(Math.random() * Math.floor(MAX_INT))
-  );
+  mockUUID();
 });
 
 afterAll(() => jest.restoreAllMocks());
