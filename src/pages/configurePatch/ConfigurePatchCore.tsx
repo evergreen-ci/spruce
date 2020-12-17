@@ -2,14 +2,12 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled/macro";
-import Badge from "@leafygreen-ui/badge";
 import { Tab } from "@leafygreen-ui/tabs";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import get from "lodash/get";
 import { useHistory } from "react-router-dom";
 import { Banners } from "components/Banners";
-import { EditableTagField } from "components/EditableTagField";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -34,6 +32,7 @@ import { useTabs, useDefaultPath } from "hooks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
+import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
@@ -161,37 +160,11 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
                 name="Parameters"
                 id="parameters-tab"
               >
-                <ParamsContainer>
-                  {patch?.activated ? (
-                    <>
-                      <Disclaimer>
-                        <span data-cy="parameters-disclaimer">
-                          Parameters cannot be added or modified once a patch is
-                          configured
-                        </span>
-                      </Disclaimer>
-                      {patch?.parameters && (
-                        <ExistingParamsContainer>
-                          {" "}
-                          {patch.parameters?.map((param) => (
-                            <StyledBadge
-                              data-cy={`badge-${param.key}`}
-                              key={`param_${param.key}`}
-                            >
-                              {param.key}:{param.value}
-                            </StyledBadge>
-                          ))}
-                        </ExistingParamsContainer>
-                      )}
-                    </>
-                  ) : (
-                    <EditableTagField
-                      inputTags={patch.parameters}
-                      onChange={setPatchParams}
-                      buttonText="Add Parameter"
-                    />
-                  )}
-                </ParamsContainer>
+                <ParametersContent
+                  patchActivated={patch?.activated}
+                  patchParameters={patch?.parameters}
+                  setPatchParams={setPatchParams}
+                />
               </Tab>
             </StyledTabs>
           </PageContent>
@@ -260,19 +233,6 @@ const StyledInput = styled(Input)`
 `;
 const StyledBody = styled(Body)`
   margin-bottom: 4px;
-`;
-const StyledBadge = styled(Badge)`
-  margin-right: 16px;
-  margin-top: 15px;
-  margin-bottom: 15px;
-`;
-export const ParamsContainer = styled.div`
-  margin-left: 20px;
-  width: 70%;
-`;
-
-export const ExistingParamsContainer = styled.div`
-  width: 70%;
 `;
 const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>

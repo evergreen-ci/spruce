@@ -93,7 +93,10 @@ describe("Configure Patch Page", () => {
         "none"
       );
     });
-    it("Adding a paramter is reflected on the page", () => {
+    it("Adding a parameter is reflected on the page", () => {
+      cy.login();
+      cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.dataCy("parameters-tab").click();
       cy.dataCy("add-tag-button").click();
       cy.dataCy("user-tag-key-field").type("testKey");
       cy.dataCy("user-tag-value-field").type("testValue");
