@@ -2412,7 +2412,7 @@
     "@leafygreen-ui/hooks" "^4.0.1"
     "@leafygreen-ui/lib" "^5.1.1"
 
-"@leafygreen-ui/leafygreen-provider@^2.0.1":
+"@leafygreen-ui/leafygreen-provider@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.0.2.tgz#d03b898a21dc2969bfd9e23a472c8f72b7e5c8c2"
   integrity sha512-0lGFRJWuhao4OcPtMYhA+tH8VceCdz8HCL7oDylJTCDhw4NbFATsyy4abeJc+WKFngzR6EwlOaLeC5HFsJMu9A==
@@ -2439,7 +2439,16 @@
     facepaint "^1.2.1"
     polished "^2.3.0"
 
-"@leafygreen-ui/lib@^6.0.1", "@leafygreen-ui/lib@^6.1.0", "@leafygreen-ui/lib@^6.1.1":
+"@leafygreen-ui/lib@^6.0.1":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-6.1.0.tgz#1f977dce3ab75f7be9ed5dcdb1acb20ffb2b56f4"
+  integrity sha512-wc554gdNXzvsWceHp2wzRM/5SFCAMpwXdxWNlgui2JDTZXtQ8oRZE9alouCcQb3WNhY2AaAzoXnx5K40uO+snw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^3.0.1"
+    facepaint "^1.2.1"
+    polished "^2.3.0"
+
+"@leafygreen-ui/lib@^6.1.1", "@leafygreen-ui/lib@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-6.1.2.tgz#6657619fa2493cc9d25f304d807be607c496a281"
   integrity sha512-byZDRlDtVO78GSX/2rsumgzGTMJAi4mrxB0ZFgnMrcHF2BFQTCjSF7KNFaZSpk4oRB+HKcbuR/FN/X7xIjnNIg==
@@ -2478,7 +2487,7 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-2.0.2.tgz#dc9e1c11079e043572ed746d734fb4fb8db47a7c"
   integrity sha512-QxjLcJu1WqKjJvlTw6nmq3gdjBEVy9rXdxBlkMR0hgvyzK3qW6w+iGaJExnjMRppzND7ijzsF0IJn1TYKNmevg==
 
-"@leafygreen-ui/palette@^3.0.1":
+"@leafygreen-ui/palette@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.1.0.tgz#9e71e641944a1922aed11c80f1af9005abfb4645"
   integrity sha512-+KuBtiSD72vwWb2VMoDX1AJ6eLjsbWcQcJgmkNxWNih4DtJieufNxTxsJwvPRWoe6ik1yfchBJnugehLEAvHIQ==
@@ -2538,15 +2547,15 @@
     highlight.js "^9.15.6"
     highlightjs-graphql "^1.0.1"
 
-"@leafygreen-ui/tabs@4.0.3":
-  version "4.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-4.0.3.tgz#9a91e39fd14e0921760486ded5490fdfe2af62f8"
-  integrity sha512-oSdWFyDkVcFTT7DvrCd6qrWt7sWqAt3Cp+CQFbooIxo/iLM2vppmvH8aGHpfv4NJz+PtAQUP7IC4pYrD3biBsw==
+"@leafygreen-ui/tabs@4.0.5":
+  version "4.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-4.0.5.tgz#6ac7318c16360fe6595c563ba2fb6a54f80a2619"
+  integrity sha512-nfXg9EoPme2KKPgfcxS4rFXA8aGTask9Qt06lRXTg/LJpu1/hZcu49OmHjMpI98Gm2JRN9B89dRafQIRugRDcQ==
   dependencies:
     "@leafygreen-ui/box" "^3.0.1"
-    "@leafygreen-ui/leafygreen-provider" "^2.0.1"
-    "@leafygreen-ui/lib" "^6.1.0"
-    "@leafygreen-ui/palette" "^3.0.1"
+    "@leafygreen-ui/leafygreen-provider" "^2.0.2"
+    "@leafygreen-ui/lib" "^6.1.2"
+    "@leafygreen-ui/palette" "^3.1.0"
     "@leafygreen-ui/tokens" "^0.5.0"
     lodash "^4.17.20"
 
