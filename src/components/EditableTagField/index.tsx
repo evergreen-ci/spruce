@@ -79,4 +79,5 @@ const FlexColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   margin-right: 10px;
+  max-width: 70%;
 `;
