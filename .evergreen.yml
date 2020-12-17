@@ -94,7 +94,7 @@ functions:
       working_dir: spruce
       background: true
       script: |
-        PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
         yarn run dev
 
   
