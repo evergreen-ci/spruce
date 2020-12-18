@@ -26,6 +26,7 @@ export const GET_PATCH_TASKS = gql`
       count
       tasks {
         id
+        aborted
         status
         baseStatus
         displayName

@@ -1172,7 +1172,7 @@ export type GetPatchEventDataQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
 
-export type GetPatchEventDataQuery = { patch: { status: string } };
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
 
 export type GetTaskEventDataQueryVariables = Exact<{
   taskId: Scalars["String"];
@@ -1718,6 +1718,7 @@ export type PatchTasksQuery = {
     count: number;
     tasks: Array<{
       id: string;
+      aborted: boolean;
       status: string;
       baseStatus?: Maybe<string>;
       displayName: string;
@@ -1900,6 +1901,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     id: string;
+    aborted?: Maybe<boolean>;
     activatedBy?: Maybe<string>;
     buildVariant: string;
     ingestTime?: Maybe<Date>;
@@ -1931,6 +1933,14 @@ export type GetTaskQuery = {
     generatedByName?: Maybe<string>;
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
+    abortInfo?: Maybe<{
+      user?: Maybe<string>;
+      taskDisplayName?: Maybe<string>;
+      taskID?: Maybe<string>;
+      buildVariantDisplayName?: Maybe<string>;
+      newVersion?: Maybe<string>;
+      prClosed?: Maybe<boolean>;
+    }>;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
