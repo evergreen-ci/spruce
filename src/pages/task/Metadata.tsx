@@ -13,14 +13,12 @@ import {
   getSpawnHostRoute,
   getVersionRoute,
 } from "constants/routes";
-
 import { GetTaskQuery } from "gql/generated/types";
-import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
-import { ETATimer } from "pages/task/metadata/ETATimer";
 import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration, getDateCopy } from "utils/string";
+import { ETATimer } from "./metadata/ETATimer";
 
 const { red } = uiColors;
 
@@ -56,7 +54,6 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
-    abortInfo,
   } = task;
 
   const baseCommit = revision?.slice(0, 10);
@@ -215,7 +212,6 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             </StyledRouterLink>
           </P2>
         )}
-        {abortInfo && <AbortMessage {...abortInfo} />}
         {oomTracker && oomTracker.detected && (
           <RedP2>
             Out of Memory Kill detected
