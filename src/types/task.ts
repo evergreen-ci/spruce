@@ -79,9 +79,6 @@ export enum TaskStatus {
   TestTimedOut = "test-timed-out",
   TaskTimedOut = "task-timed-out",
 
-  // Represents a failed task that has been aborted
-  Aborted = "aborted",
-
   // These statuses indicate that the task failed, and it is likely a problem
   // with the systems running the task
   SetupFailed = "setup-failed",
@@ -92,4 +89,5 @@ export enum TaskStatus {
   // This status means that the task will not run because a dependency was
   // not satisfied
   StatusBlocked = "blocked",
+  Aborted = "aborted",
 }
