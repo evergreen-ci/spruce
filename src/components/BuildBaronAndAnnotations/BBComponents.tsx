@@ -5,6 +5,7 @@ import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
 import { useTaskAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
+import { getJiraTicketUrl } from "constants/externalResources";
 import {
   GetSpruceConfigQuery,
   JiraTicket,
@@ -38,12 +39,12 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
   const spruceConfig = data?.spruceConfig;
   const jiraHost = spruceConfig?.jira?.host;
-  const url = `https://${jiraHost}/browse/${jiraKey}`;
+  const url = getJiraTicketUrl(jiraHost, jiraKey);
   return (
     <div>
       <JiraSummaryLink
         href={url}
-        data-cy={`${jiraKey}`}
+        data-cy={jiraKey}
         onClick={() =>
           taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
@@ -81,43 +82,43 @@ interface AnnotationTicketRowProps {
 export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   issueKey,
   url,
-  source,
   jiraTicket,
 }) => {
-  console.log(source);
+  const fields = jiraTicket?.fields;
+
   return (
-    <div>
-      <JiraSummaryLink href={url} data-cy={`${issueKey}`}>
+    <div data-cy="annotation-ticket-row">
+      <JiraSummaryLink href={url} data-cy={issueKey}>
         {issueKey}
-        {jiraTicket?.fields?.summary && `: ${jiraTicket?.fields?.summary}`}
+        {fields?.summary && `: ${fields?.summary}`}
       </JiraSummaryLink>
 
       {jiraTicket && (
         <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-          {jiraTicket?.fields?.status.name}
+          {fields?.status.name}
         </StyledBadge>
       )}
 
       <MetaDataWrapper data-cy={`${issueKey}-metadata`}>
-        <Disclaimer>
-          {jiraTicket?.fields?.created &&
-            `Created: ${getDateCopy(jiraTicket?.fields.created, null, true)}`}
-        </Disclaimer>
-        <Disclaimer>
-          {jiraTicket?.fields?.created &&
-            `Updated: ${getDateCopy(jiraTicket?.fields.updated, null, true)}`}
-        </Disclaimer>
-        <Disclaimer>
-          {jiraTicket?.fields &&
-            !jiraTicket?.fields?.assigneeDisplayName &&
-            "Unassigned"}{" "}
-          {jiraTicket?.fields?.assigneeDisplayName &&
-            `Assignee: ${jiraTicket?.fields?.assigneeDisplayName}`}
-        </Disclaimer>
-        <Disclaimer>
-          {jiraTicket?.fields?.assignedTeam &&
-            `Assigned Team: ${jiraTicket?.fields?.assignedTeam}`}{" "}
-        </Disclaimer>
+        {fields?.created && (
+          <Disclaimer>
+            Created: {getDateCopy(fields?.created, null, true)}
+          </Disclaimer>
+        )}
+        {fields?.created && (
+          <Disclaimer>
+            Updated: {getDateCopy(fields?.updated, null, true)}
+          </Disclaimer>
+        )}
+        {fields && !fields?.assigneeDisplayName && (
+          <Disclaimer>Unassigned</Disclaimer>
+        )}{" "}
+        {fields?.assigneeDisplayName && (
+          <Disclaimer>Assignee: {fields?.assigneeDisplayName}</Disclaimer>
+        )}
+        {fields?.assignedTeam && (
+          <Disclaimer>Assigned Team: {fields?.assignedTeam}</Disclaimer>
+        )}{" "}
       </MetaDataWrapper>
     </div>
   );

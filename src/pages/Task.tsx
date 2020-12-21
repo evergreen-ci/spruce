@@ -98,7 +98,6 @@ const TaskCore: React.FC = () => {
 
   useNetworkStatus(startPolling, stopPolling);
   const task = get(data, "task");
-  const annotation = get(task, "annotation");
   const canAbort = get(task, "canAbort");
   const blocked = task?.blocked;
   const canRestart = get(task, "canRestart");
@@ -116,6 +115,7 @@ const TaskCore: React.FC = () => {
   const logLinks = get(task, "logs");
   const isPerfPluginEnabled = get(task, "isPerfPluginEnabled");
   const patchAuthor = data?.task.patchMetadata.author;
+  const annotation = task?.annotation;
 
   const {
     showBuildBaronTab,

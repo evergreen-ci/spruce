@@ -8,18 +8,15 @@ interface Props {
   title: string;
 }
 
-export const AnnotationTickets: React.FC<Props> = ({ tickets, title }) => {
-  const length = tickets?.length ?? 0;
-  return (
-    <>
-      {length > 0 && (
-        <>
-          <TitleAndButtons>
-            <TicketsTitle>{title} </TicketsTitle>
-          </TitleAndButtons>
-          <AnnotationTicketsTable jiraIssues={tickets} />{" "}
-        </>
-      )}
-    </>
-  );
-};
+export const AnnotationTickets: React.FC<Props> = ({ tickets, title }) => (
+  <>
+    {tickets?.length && (
+      <>
+        <TitleAndButtons>
+          <TicketsTitle>{title} </TicketsTitle>
+        </TitleAndButtons>
+        <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+      </>
+    )}
+  </>
+);

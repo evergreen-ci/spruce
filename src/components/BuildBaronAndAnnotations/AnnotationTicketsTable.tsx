@@ -13,14 +13,12 @@ const columns = [
       text: string,
       { issueKey, url, source, jiraTicket }: AnnotationTickets[0]
     ): JSX.Element => (
-      <div data-cy="jira-ticket-row">
-        <AnnotationTicketRow
-          issueKey={issueKey}
-          url={url}
-          source={source}
-          jiraTicket={jiraTicket}
-        />
-      </div>
+      <AnnotationTicketRow
+        issueKey={issueKey}
+        url={url}
+        source={source}
+        jiraTicket={jiraTicket}
+      />
     ),
   },
 ];
