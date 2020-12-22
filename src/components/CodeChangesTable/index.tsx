@@ -2,11 +2,11 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table } from "antd";
-import { FileDiff } from "types/patch";
+import { CodeChangesTableFileDiffsFragment } from "gql/generated/types";
 
 const { green, red } = uiColors;
 export const CodeChangesTable: React.FC<{
-  fileDiffs: FileDiff[];
+  fileDiffs: CodeChangesTableFileDiffsFragment[];
   showHeader?: boolean;
 }> = ({ fileDiffs, showHeader = true }) => (
   <StyledTable
@@ -34,7 +34,10 @@ export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
   );
 };
 
-const rowKey = (record: FileDiff, index: number): string => `${index}`;
+const rowKey = (
+  record: CodeChangesTableFileDiffsFragment,
+  index: number
+): string => `${index}`;
 
 const columns = (
   showHeader: boolean
@@ -43,13 +46,19 @@ const columns = (
   dataIndex: string;
   key: string;
   width?: number;
-  render: (text: string | number, record?: FileDiff) => JSX.Element;
+  render: (
+    text: string | number,
+    record?: CodeChangesTableFileDiffsFragment
+  ) => JSX.Element;
 }> => [
   {
     title: "File",
     dataIndex: "fileName",
     key: "fileName",
-    render: (text: string, record: FileDiff): JSX.Element => (
+    render: (
+      text: string,
+      record: CodeChangesTableFileDiffsFragment
+    ): JSX.Element => (
       <a
         className="fileLink"
         href={record.diffLink}
