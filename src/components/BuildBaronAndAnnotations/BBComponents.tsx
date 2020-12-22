@@ -40,6 +40,8 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   const spruceConfig = data?.spruceConfig;
   const jiraHost = spruceConfig?.jira?.host;
   const url = getJiraTicketUrl(jiraHost, jiraKey);
+  const { created, assigneeDisplayName, updated, status, summary } =
+    fields ?? {};
   return (
     <div>
       <JiraSummaryLink
@@ -49,23 +51,19 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
           taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
       >
-        {jiraKey}: {fields?.summary} {"   "}
+        {jiraKey}: {summary} {"   "}
       </JiraSummaryLink>
 
       <StyledBadge data-cy={`${jiraKey}-badge`} variant="lightgray">
-        {fields?.status.name}
+        {status.name}
       </StyledBadge>
 
       <MetaDataWrapper data-cy={`${jiraKey}-metadata`}>
+        <Disclaimer>Created: {getDateCopy(created, null, true)} </Disclaimer>
+        <Disclaimer>Updated: {getDateCopy(updated, null, true)} </Disclaimer>
         <Disclaimer>
-          Created: {getDateCopy(fields?.created, null, true)}{" "}
-        </Disclaimer>
-        <Disclaimer>
-          Updated: {getDateCopy(fields?.updated, null, true)}{" "}
-        </Disclaimer>
-        <Disclaimer>
-          {fields?.assigneeDisplayName
-            ? `Assignee: ${fields?.assigneeDisplayName}`
+          {assigneeDisplayName
+            ? `Assignee: ${assigneeDisplayName}`
             : "Unassigned"}{" "}
         </Disclaimer>
       </MetaDataWrapper>
@@ -85,40 +83,40 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   jiraTicket,
 }) => {
   const fields = jiraTicket?.fields;
+  const {
+    created,
+    assigneeDisplayName,
+    assignedTeam,
+    updated,
+    summary,
+    status,
+  } = jiraTicket?.fields ?? {};
 
   return (
     <div data-cy="annotation-ticket-row">
       <JiraSummaryLink href={url} data-cy={issueKey}>
         {issueKey}
-        {fields?.summary && `: ${fields?.summary}`}
+        {summary && `: ${summary}`}
       </JiraSummaryLink>
 
       {jiraTicket && (
         <StyledBadge data-cy={`${issueKey}-badge`} variant="lightgray">
-          {fields?.status.name}
+          {status.name}
         </StyledBadge>
       )}
 
       <MetaDataWrapper data-cy={`${issueKey}-metadata`}>
-        {fields?.created && (
-          <Disclaimer>
-            Created: {getDateCopy(fields?.created, null, true)}
-          </Disclaimer>
+        {created && (
+          <Disclaimer>Created: {getDateCopy(created, null, true)}</Disclaimer>
         )}
-        {fields?.created && (
-          <Disclaimer>
-            Updated: {getDateCopy(fields?.updated, null, true)}
-          </Disclaimer>
+        {updated && (
+          <Disclaimer>Updated: {getDateCopy(updated, null, true)}</Disclaimer>
         )}
-        {fields && !fields?.assigneeDisplayName && (
-          <Disclaimer>Unassigned</Disclaimer>
-        )}{" "}
-        {fields?.assigneeDisplayName && (
-          <Disclaimer>Assignee: {fields?.assigneeDisplayName}</Disclaimer>
+        {fields && !assigneeDisplayName && <Disclaimer>Unassigned</Disclaimer>}{" "}
+        {assigneeDisplayName && (
+          <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
         )}
-        {fields?.assignedTeam && (
-          <Disclaimer>Assigned Team: {fields?.assignedTeam}</Disclaimer>
-        )}{" "}
+        {assignedTeam && <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>}{" "}
       </MetaDataWrapper>
     </div>
   );
@@ -127,8 +125,6 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
   margin-right: 15px;
-  font-size: 14px;
-  line-height: 20px;
 `;
 
 const StyledBadge = styled(Badge)`
