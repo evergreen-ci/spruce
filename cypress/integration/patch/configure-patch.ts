@@ -39,12 +39,12 @@ describe("Configure Patch Page", () => {
   let patch: ConfigurePatchData;
   before(() => {
     cy.login();
-    cy.visit(`/version/${unactivatedPatchId}`);
     cy.listenGQL();
     cy.waitForGQL("ConfigurePatch").then(({ responseBody }) => {
       const { data } = responseBody as ConfigurePatchQuery;
       patch = data.patch;
     });
+    cy.visit(`/version/${unactivatedPatchId}`);
   });
   describe("Initial state reflects patch data", () => {
     it("Configure patch path is present in url", () => {
