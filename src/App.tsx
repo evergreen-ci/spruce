@@ -1,8 +1,9 @@
 import * as React from "react";
 import { Global, css } from "@emotion/core";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorBoundary";
+import { routes } from "constants/routes";
 import { ContextProviders } from "context/Providers";
 import GQLWrapper from "gql/GQLWrapper";
 
@@ -26,11 +27,13 @@ import "antd/es/table/style/css";
 import "antd/es/collapse/style/css";
 import "antd/es/date-picker/style/css";
 import "antd/es/time-picker/style/css";
+import { Login } from "pages/Login";
 
 const App: React.FC = () => (
   <ErrorBoundary>
     <ContextProviders>
       <Router>
+        <Route path={routes.login} component={Login} />
         <GQLWrapper>
           <Global
             styles={css`
