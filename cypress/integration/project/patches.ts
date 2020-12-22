@@ -21,7 +21,7 @@ describe("Project Patches Page", () => {
 
   it("Page title and data rows are displayed.", () => {
     cy.visit(route);
-    cy.dataCy("patches-page-title").contains("evergreen Patches");
+    cy.dataCy("patches-page-title").contains("Evergreen Patches");
     const patchDisplayNames = [
       "dist",
       "dist",
