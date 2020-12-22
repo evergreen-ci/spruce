@@ -637,6 +637,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -1489,6 +1490,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1521,6 +1523,7 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
+              description: string;
             }>;
           }>;
         }>;
