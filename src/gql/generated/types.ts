@@ -173,6 +173,7 @@ export type Mutation = {
   editAnnotationNote: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   addAnnotationIssue: Scalars["Boolean"];
+  removeAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -268,6 +269,13 @@ export type MutationMoveAnnotationIssueArgs = {
 };
 
 export type MutationAddAnnotationIssueArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+};
+
+export type MutationRemoveAnnotationIssueArgs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
   apiIssue: IssueLinkInput;

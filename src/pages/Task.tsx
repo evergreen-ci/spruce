@@ -40,13 +40,14 @@ import { Metadata } from "pages/task/Metadata";
 import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams } from "types/task";
+import { TaskStatus } from "types/task";
 import { parseQueryString } from "utils";
 
 const tabToIndexMap = {
   [TaskTab.Logs]: 0,
   [TaskTab.Tests]: 1,
   [TaskTab.Files]: 2,
-  [TaskTab.BuildBaron]: 3,
+  [TaskTab.Annotations]: 3,
   [TaskTab.TrendCharts]: 4,
 };
 
@@ -118,7 +119,7 @@ const TaskCore: React.FC = () => {
   const annotation = task?.annotation;
 
   const {
-    showBuildBaronTab,
+    showBuildBaron,
     buildBaronData,
     buildBaronError,
     buildBaronLoading,
@@ -127,6 +128,15 @@ const TaskCore: React.FC = () => {
     execution,
     taskStatus: task?.status,
   });
+
+  const failedTask =
+    task?.status === TaskStatus.Failed ||
+    task?.status === TaskStatus.SetupFailed ||
+    task?.status === TaskStatus.SystemFailed ||
+    task?.status === TaskStatus.TaskTimedOut ||
+    task?.status === TaskStatus.TestTimedOut;
+
+  const showAnnotationsTab = failedTask && (showBuildBaron || annotation);
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
@@ -262,11 +272,11 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-              {(showBuildBaronTab || tab === TaskTab.BuildBaron) && (
+              {(showAnnotationsTab || tab === TaskTab.Annotations) && (
                 <Tab
                   name="Task Annotations"
                   id="task-build-baron-tab"
-                  disabled={!showBuildBaronTab}
+                  disabled={!showAnnotationsTab}
                 >
                   <BuildBaron
                     annotation={annotation}
