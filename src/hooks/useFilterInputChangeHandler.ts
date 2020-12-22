@@ -12,17 +12,13 @@ type InputEvent = React.ChangeEvent<HTMLInputElement>;
  * useFilterInputChangeHandler updates the url query param (urlSearchParam) by the
  * the value user enters into the input field.
  * @param  {string} urlSearchParam the url search param that should update
- * @param  {string} pathname url pathname
- * @param  {string} search url search
- * @param  {(path:string)=>void} replace method from react router to update ur
  * @param {boolean} resetPage update url page param to 0 if true
+ * @param {(filterBy: string) => void} sendAnalyticsEvent analytics event that is dispatched on filter change
  * @return {[string, (e: InputEvent) => void]}
- * pass {string} return value to input component as `value`
- * pass {(e: InputEvent) => void} return value to input component as onChange prop
  */
 export const useFilterInputChangeHandler = (
   urlSearchParam: string,
-  resetPage?: boolean,
+  resetPage: boolean,
   sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string, (e: InputEvent) => void] => {
   const { pathname, search } = useLocation();

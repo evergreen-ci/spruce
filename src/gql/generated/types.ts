@@ -1183,6 +1183,20 @@ export type GetTaskEventDataQuery = {
   task?: Maybe<{ status: string; failedTestCount: number }>;
 };
 
+export type PatchesPagePatchesFragment = {
+  filteredPatchCount: number;
+  patches: Array<{
+    id: string;
+    projectID: string;
+    description: string;
+    status: string;
+    createTime?: Maybe<Date>;
+    commitQueuePosition?: Maybe<number>;
+    canEnqueueToCommitQueue: boolean;
+    builds: Array<{ id: string; buildVariant: string; status: string }>;
+  }>;
+};
+
 export type AbortTaskMutationVariables = {
   taskId: Scalars["String"];
 };
@@ -2091,31 +2105,6 @@ export type HostsQuery = {
   };
 };
 
-export type UserPatchesQueryVariables = {
-  page?: Maybe<Scalars["Int"]>;
-  limit?: Maybe<Scalars["Int"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  patchName?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
-  userId?: Maybe<Scalars["String"]>;
-};
-
-export type UserPatchesQuery = {
-  userPatches: {
-    filteredPatchCount: number;
-    patches: Array<{
-      id: string;
-      projectID: string;
-      description: string;
-      status: string;
-      createTime?: Maybe<Date>;
-      commitQueuePosition?: Maybe<number>;
-      canEnqueueToCommitQueue: boolean;
-      builds: Array<{ id: string; buildVariant: string; status: string }>;
-    }>;
-  };
-};
-
 export type PatchQueryVariables = {
   id: Scalars["String"];
 };
@@ -2173,6 +2162,19 @@ export type ConfigurePatchQuery = {
   };
 };
 
+export type ProjectPatchesQueryVariables = {
+  projectId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type ProjectPatchesQuery = {
+  project: {
+    id: string;
+    displayName: string;
+    patches: PatchesPagePatchesFragment;
+  };
+};
+
 export type SpawnExpirationInfoQueryVariables = {};
 
 export type SpawnExpirationInfoQuery = {
@@ -2196,4 +2198,13 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type UserPatchesQueryVariables = {
+  userId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type UserPatchesQuery = {
+  user: { userId: string; patches: PatchesPagePatchesFragment };
 };
