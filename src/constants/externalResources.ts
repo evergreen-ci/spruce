@@ -13,3 +13,6 @@ export const getIdeUrl = (hostId: string) => `${getUiUrl()}/host/${hostId}/ide`;
 
 export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
   `https://${jiraHost}/secure/IssueNavigator.jspa?jql=${jqlEscaped}`;
+
+export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
+  `https://${jiraHost}/browse/${jiraKey}`;
