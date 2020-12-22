@@ -44,14 +44,22 @@ export const AnnotationTickets: React.FC<Props> = ({
         >
           <StyledButton
             onClick={() => setIsAddAnnotationModalVisible(true)}
-            data-cy="add-tag-button"
+            data-cy={
+              isIssue ? "add-issue-button" : "add-suspected-issue-button"
+            }
             disabled={!userCanModify}
           >
             {buttonText}
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+      <AnnotationTicketsTable
+        jiraIssues={tickets}
+        taskId={taskId}
+        execution={execution}
+        isIssue={isIssue}
+        userCanModify={userCanModify}
+      />{" "}
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}
