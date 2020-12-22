@@ -732,6 +732,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -848,6 +849,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1723,6 +1725,9 @@ export type PatchTasksQuery = {
       displayName: string;
       buildVariant: string;
       blocked: boolean;
+      executionTasksFull?: Maybe<
+        Array<{ id: string; displayName: string; status: string }>
+      >;
     }>;
   };
 };
