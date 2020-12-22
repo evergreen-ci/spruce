@@ -28,6 +28,7 @@ import { MyPatches } from "pages/MyPatches";
 import { Patch } from "pages/Patch";
 import { PatchRedirect } from "pages/PatchRedirect";
 import { Preferences } from "pages/Preferences";
+import { ProjectPatches } from "pages/ProjectPatches";
 import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
 import { TaskQueue } from "pages/TaskQueue";
@@ -71,6 +72,7 @@ export const Content: React.FC = () => {
         <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
         <PrivateRoute path={routes.userPatches} component={UserPatches} />
         <PrivateRoute path={routes.taskQueue} component={TaskQueue} />
+        <PrivateRoute path={routes.projectPatches} component={ProjectPatches} />
         <PrivateRoute
           path={`${paths.user}/:id`}
           component={UserPatchesRedirect}

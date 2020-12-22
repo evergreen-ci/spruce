@@ -23,7 +23,8 @@ type AnalyticsObject =
   | "HostPage"
   | "TaskQueue"
   | "SpawnPages"
-  | "PreferencesPages";
+  | "PreferencesPages"
+  | "ProjectPatches";
 
 interface RequiredProperties {
   object: AnalyticsObject;
@@ -50,8 +51,6 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   };
 
   if (typeof newrelic !== "object") {
-    console.log(name);
-    console.log("attributesToSend", attributesToSend);
     return;
   }
 
