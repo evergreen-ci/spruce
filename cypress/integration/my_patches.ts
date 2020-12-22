@@ -44,7 +44,6 @@ describe("My Patches Page", () => {
     cy.contains("Regular User's Patches").should("exist");
   });
 
-  
   it.skip("Typing in patch description input updates the url, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";
