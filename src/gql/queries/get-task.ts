@@ -66,6 +66,66 @@ export const GET_TASK = gql`
           pids
         }
       }
+      annotation {
+        taskId
+        taskExecution
+        note {
+          source {
+            author
+            time
+            requester
+          }
+          message
+        }
+        issues {
+          issueKey
+          url
+          source {
+            author
+            time
+            requester
+          }
+          jiraTicket {
+            key
+            fields {
+              summary
+              assigneeDisplayName
+              resolutionName
+              created
+              updated
+              status {
+                id
+                name
+              }
+              assignedTeam
+            }
+          }
+        }
+        suspectedIssues {
+          issueKey
+          url
+          source {
+            author
+            time
+            requester
+          }
+          jiraTicket {
+            key
+            fields {
+              summary
+              assigneeDisplayName
+              resolutionName
+              created
+              updated
+              status {
+                id
+                name
+              }
+              assignedTeam
+            }
+          }
+        }
+      }
     }
   }
 `;

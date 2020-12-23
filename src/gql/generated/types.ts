@@ -173,6 +173,7 @@ export type Mutation = {
   editAnnotationNote: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   addAnnotationIssue: Scalars["Boolean"];
+  removeAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -268,6 +269,13 @@ export type MutationMoveAnnotationIssueArgs = {
 };
 
 export type MutationAddAnnotationIssueArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+};
+
+export type MutationRemoveAnnotationIssueArgs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
   apiIssue: IssueLinkInput;
@@ -1942,6 +1950,56 @@ export type GetTaskQuery = {
     };
     details?: Maybe<{
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+    }>;
+    annotation?: Maybe<{
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
     }>;
   }>;
 };

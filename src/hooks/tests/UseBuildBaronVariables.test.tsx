@@ -128,7 +128,7 @@ test("The BuildBaron tab renders when the task is failed", async () => {
 
   await waitForNextUpdate();
   await waitForNextUpdate();
-  expect(result.current.showBuildBaronTab).toBeTruthy();
+  expect(result.current.showBuildBaron).toBeTruthy();
 });
 
 test("The BuildBaron tab doesn't render when the task is successful", async () => {
@@ -141,7 +141,7 @@ test("The BuildBaron tab doesn't render when the task is successful", async () =
       }),
     { wrapper: Provider }
   );
-  expect(result.current.showBuildBaronTab).toBeFalsy();
+  expect(result.current.showBuildBaron).toBeFalsy();
 });
 
 test("The BuildBaron tab doesn't render when the buildBaron is not configured", async () => {
@@ -155,5 +155,5 @@ test("The BuildBaron tab doesn't render when the buildBaron is not configured", 
     { wrapper: Provider }
   );
   await waitForNextUpdate();
-  expect(result.current.showBuildBaronTab).toBeFalsy();
+  expect(result.current.showBuildBaron).toBeFalsy();
 });
