@@ -17,11 +17,6 @@ describe("Auth", () => {
     cy.url().should("include", "/version/123123");
   });
 
-  it("Redirects user to home page by default if no previous referer", () => {
-    cy.login();
-    cy.url().should("include", "/user/admin/patches");
-  });
-
   it("Redirects user to their patches page if they are already logged in and visit login page", () => {
     cy.login();
     cy.visit("/login");
