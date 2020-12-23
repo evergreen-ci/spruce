@@ -11,7 +11,7 @@ type Action = { type: "authenticated" } | { type: "deauthenticated" };
 type LoginCreds = { username: string; password: string };
 interface DispatchContext {
   login: (creds: LoginCreds) => void;
-  logout: () => void;
+  logoutAndRedirect: () => void;
   dispatchAuthenticated: () => void;
 }
 
@@ -40,7 +40,7 @@ const AuthProvider: React.FC = ({ children }) => {
       await axios.post(`${getLoginDomain()}/login`, { username, password });
       dispatch({ type: "authenticated" });
     },
-    logout: async () => {
+    logoutAndRedirect: async () => {
       // attempt log out and redirect to login page
       try {
         await axios.get(`${getLoginDomain()}/logout`);
