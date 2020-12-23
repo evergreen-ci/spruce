@@ -1174,14 +1174,14 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { status: string } };
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ status: string; failedTestCount: number }>;
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
 };
 
 export type CodeChangesTableFileDiffsFragment = {
@@ -1802,6 +1802,7 @@ export type TaskFilesQueryVariables = {
 
 export type TaskFilesQuery = {
   taskFiles: {
+    fileCount: number;
     groupedFiles: Array<{
       taskName?: Maybe<string>;
       files?: Maybe<Array<{ name: string; link: string }>>;
@@ -2019,7 +2020,7 @@ export type GetTaskLatestExecutionQueryVariables = {
 };
 
 export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ latestExecution: number }>;
+  task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = {};
