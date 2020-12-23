@@ -41,6 +41,15 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
+    Patch: {
+      fields: {
+        time: {
+          merge(existing, incoming, { mergeObjects }) {
+            return mergeObjects(existing, incoming);
+          },
+        },
+      },
+    },
   },
 });
 

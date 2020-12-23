@@ -732,6 +732,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -848,6 +849,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1173,14 +1175,14 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { status: string } };
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ status: string; failedTestCount: number }>;
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
 };
 
 export type PatchesPagePatchesFragment = {
@@ -1803,6 +1805,7 @@ export type TaskFilesQueryVariables = {
 
 export type TaskFilesQuery = {
   taskFiles: {
+    fileCount: number;
     groupedFiles: Array<{
       taskName?: Maybe<string>;
       files?: Maybe<Array<{ name: string; link: string }>>;
@@ -2020,7 +2023,7 @@ export type GetTaskLatestExecutionQueryVariables = {
 };
 
 export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ latestExecution: number }>;
+  task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = {};
