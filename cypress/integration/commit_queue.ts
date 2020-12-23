@@ -35,7 +35,7 @@ describe("commit queue page", () => {
 
   it("visiting a page with multiple sets of code changes should have multiple tables", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_2);
-    cy.get("[data-cy=accordian-toggle]").should("have.length", 2);
+    cy.get("[data-cy=accordian-toggle]").should("have.length", 4);
   });
 
   xit("visiting a non existent commit queue page should display an error", () => {
@@ -69,6 +69,21 @@ describe("commit queue page", () => {
     cy.dataCy("commit-queue-message").should(
       "contain.text",
       "This is the commit queue"
+    );
+  });
+
+  it("should display the commit description above each table", () => {
+    cy.dataCy("commit-name").each(($el, index) =>
+      cy
+        .wrap($el)
+        .contains(
+          [
+            "ramen is amazing",
+            "some other commit",
+            "crazy cool commit!!!",
+            "mega commit",
+          ][index]
+        )
     );
   });
 });

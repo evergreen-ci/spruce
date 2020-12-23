@@ -31,7 +31,9 @@ export const CodeChangeModule: React.FC<{
     const { description } = commitDiffs[0] ?? {};
     return (
       <CodeChangeModuleContainer>
-        {description && <CommitName>{description}</CommitName>}
+        {description && (
+          <CommitName data-cy="commit-name">{description}</CommitName>
+        )}
         <Accordian
           title={
             <DropDownText>
