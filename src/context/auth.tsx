@@ -4,7 +4,6 @@ import { getLoginDomain } from "utils/getEnvironmentVariables";
 
 interface AuthState {
   isAuthenticated: boolean;
-  initialLoad: boolean;
 }
 
 type Action = { type: "authenticated" } | { type: "deauthenticated" };
@@ -18,30 +17,11 @@ interface DispatchContext {
 
 const reducer = (state: AuthState, action: Action): AuthState => {
   // check to see if the authenticate state has changed otherwise dont update the reducer
-  if (
-    state.isAuthenticated &&
-    !state.initialLoad &&
-    action.type === "authenticated"
-  ) {
-    return state;
-  }
-
-  const authenticatedState = {
-    ...state,
-    isAuthenticated: true,
-    initialLoad: false,
-  };
-  const deauthenticatedState = {
-    ...state,
-    isAuthenticated: false,
-    initialLoad: false,
-  };
-
   switch (action.type) {
     case "authenticated":
-      return authenticatedState;
+      return state.isAuthenticated ? state : { isAuthenticated: true };
     case "deauthenticated":
-      return deauthenticatedState;
+      return !state.isAuthenticated ? state : { isAuthenticated: false };
     default:
       return state;
   }
@@ -53,7 +33,6 @@ const AuthStateContext = React.createContext<AuthState | null>(null);
 const AuthProvider: React.FC = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, {
     isAuthenticated: false,
-    initialLoad: true,
   });
 
   const dispatchContext: DispatchContext = {
@@ -62,8 +41,12 @@ const AuthProvider: React.FC = ({ children }) => {
       dispatch({ type: "authenticated" });
     },
     logout: async () => {
-      await axios.get(`${getLoginDomain()}/logout`);
+      // attempt log out and redirect to login page
+      try {
+        await axios.get(`${getLoginDomain()}/logout`);
+      } catch {}
       dispatch({ type: "deauthenticated" });
+      window.location.href = `${getLoginDomain()}/login`;
     },
     dispatchAuthenticated: () => {
       dispatch({ type: "authenticated" });

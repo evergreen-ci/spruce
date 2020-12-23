@@ -62,6 +62,7 @@ const authLink = (logout: () => void): ApolloLink =>
       networkError.statusCode === 401 &&
       window.location.pathname !== routes.login
     ) {
+      // logout will redirect user to appropiate login page
       logout();
     }
   });

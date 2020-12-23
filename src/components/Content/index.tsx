@@ -35,7 +35,7 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 
 export const Content: React.FC = () => {
-  const { isAuthenticated, initialLoad } = useAuthStateContext();
+  const { isAuthenticated } = useAuthStateContext();
 
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
@@ -44,18 +44,17 @@ export const Content: React.FC = () => {
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
     GET_USER_SETTINGS
   );
-
+  const hasUsedSpruceBefore =
+    userSettingsData?.userSettings?.useSpruceOptions?.hasUsedSpruceBefore ===
+    false;
   localStorage.setItem("userId", get(data, "user.userId", ""));
 
-  const hasUsedSpruceBefore = get(
-    userSettingsData,
-    "userSettings.useSpruceOptions.hasUsedSpruceBefore",
-    true
-  );
   useAnalyticsAttributes();
-  if (!isAuthenticated && initialLoad) {
+
+  if (!isAuthenticated) {
     return <FullPageLoad />;
   }
+
   return (
     <PageLayout>
       <Navbar />
@@ -85,7 +84,7 @@ export const Content: React.FC = () => {
         </PrivateRoute>
         <Route component={PageDoesNotExist} />
       </Switch>
-      {!hasUsedSpruceBefore && <WelcomeModal />}
+      {hasUsedSpruceBefore && <WelcomeModal />}
       <Feedback />
     </PageLayout>
   );
