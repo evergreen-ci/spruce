@@ -7,9 +7,9 @@ describe("Auth", () => {
     cy.url().should("include", "/login");
   });
 
-  it("Redirects user back to the route they were trying to visit after login", () => {
+  it("Redirects user to My Patches page after logging in.", () => {
     cy.enterLoginCredentials();
-    cy.url().should("include", "/version/123123");
+    cy.url().should("include", "/user/admin/patches");
   });
 
   it("Automatically authenticates user if they are logged in", () => {
