@@ -8,7 +8,7 @@ import {
   GetCreatedTicketsQueryVariables,
 } from "gql/generated/types";
 import { GET_CREATED_TICKETS } from "gql/queries";
-import { BBTitle, TitleAndButtons } from "./BBComponents";
+import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
@@ -54,7 +54,7 @@ export const CreatedTickets: React.FC<Props> = ({
       {length > 0 && (
         <>
           <TitleAndButtons>
-            <BBTitle>Tickets Created From This Task </BBTitle>
+            <TicketsTitle>Tickets Created From This Task </TicketsTitle>
           </TitleAndButtons>
           <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
         </>

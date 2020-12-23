@@ -1,5 +1,5 @@
-import * as React from "react";
-import * as ReactDOM from "react-dom";
+import React from "react";
+import ReactDOM from "react-dom";
 import { act } from "react-dom/test-utils";
 import fetch from "unfetch";
 import App from "App";

@@ -9,7 +9,7 @@ import {
   BbCreateTicketMutationVariables,
 } from "gql/generated/types";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { BBTitle } from "./BBComponents";
+import { TicketsTitle } from "./BBComponents";
 
 interface BBFileTicketProps {
   taskId: string;
@@ -23,7 +23,7 @@ export const BBFileTicket: React.FC<BBFileTicketProps> = ({
   createdTicketsCount,
 }) => (
   <>
-    <BBTitle margin>Create a new ticket in Jira </BBTitle>
+    <TicketsTitle margin>Create a new ticket in Jira </TicketsTitle>
     <FileTicket
       taskId={taskId}
       setCreatedTicketsCount={setCreatedTicketsCount}

@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Table } from "antd";
-import { FileDiff } from "types/patch";
+import { FileDiff } from "gql/generated/types";
 
 const { green, red } = uiColors;
 export const CodeChangesTable: React.FC<{
@@ -34,7 +34,8 @@ export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
   );
 };
 
-const rowKey = (record: FileDiff, index: number): string => `${index}`;
+const rowKey = (record: FileDiff): string =>
+  `code_changes_row_${record.diffLink}`;
 
 const columns = (
   showHeader: boolean

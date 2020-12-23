@@ -72,6 +72,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       }}
     />,
     <DropdownItem
+      key="disable-button"
       data-cy="disable"
       disabled={false}
       onClick={() => {
