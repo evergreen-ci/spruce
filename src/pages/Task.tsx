@@ -39,8 +39,8 @@ import { Logs } from "pages/task/Logs";
 import { Metadata } from "pages/task/Metadata";
 import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
-import { TaskTab, RequiredQueryParams } from "types/task";
-import { TaskStatus } from "types/task";
+import { TaskTab, RequiredQueryParams, TaskStatus } from "types/task";
+
 import { parseQueryString } from "utils";
 
 const tabToIndexMap = {

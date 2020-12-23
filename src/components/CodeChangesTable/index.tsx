@@ -1,14 +1,17 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Table } from "antd";
+import { FileDiffText } from "components/CodeChangesBadge";
 import { CodeChangesTableFileDiffsFragment } from "gql/generated/types";
 
-const { green, red } = uiColors;
-export const CodeChangesTable: React.FC<{
+interface CodeChangesTableProps {
   fileDiffs: CodeChangesTableFileDiffsFragment[];
   showHeader?: boolean;
-}> = ({ fileDiffs, showHeader = true }) => (
+}
+export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
+  fileDiffs,
+  showHeader = true,
+}) => (
   <StyledTable
     data-cy="code-changes-table"
     rowKey={rowKey}
@@ -18,21 +21,6 @@ export const CodeChangesTable: React.FC<{
     showHeader={showHeader}
   />
 );
-
-interface FileDiffTextProps {
-  type: string;
-  value: number;
-}
-
-export const FileDiffText: React.FC<FileDiffTextProps> = ({ value, type }) => {
-  const hasValue = value > 0;
-  return (
-    <FileDiffTextContainer hasValue={hasValue} type={type}>
-      {hasValue && type}
-      {value}
-    </FileDiffTextContainer>
-  );
-};
 
 const rowKey = (
   record: CodeChangesTableFileDiffsFragment,
@@ -91,13 +79,4 @@ const columns = (
 
 const StyledTable = styled(Table)`
   margin-top: 13px;
-  margin-bottom: 50px;
-`;
-const FileDiffTextContainer = styled("span")`
-  ${(props: { type: string; hasValue: boolean }): string =>
-    props.hasValue &&
-    (props.type === "+" ? `color: ${green.base};` : `color: ${red.base};`)}
-  &:nth-of-type(2) {
-    margin-left: 16px;
-  }
 `;
