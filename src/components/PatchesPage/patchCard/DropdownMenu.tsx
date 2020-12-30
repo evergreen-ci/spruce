@@ -14,11 +14,13 @@ interface Props {
   patchId: string;
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchDescription: string;
 }
 export const DropdownMenu: React.FC<Props> = ({
   patchId,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchDescription,
 }) => {
   const restartModalVisibilityControl = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
@@ -79,6 +81,7 @@ export const DropdownMenu: React.FC<Props> = ({
     <EnqueuePatch
       key="enqueue"
       patchId={patchId}
+      commitMessage={patchDescription}
       hideMenu={hideMenu}
       disabled={isActionLoading || !canEnqueueToCommitQueue}
       refetchQueries={refetchQueries}

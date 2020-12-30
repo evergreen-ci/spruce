@@ -23,11 +23,13 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchDescription: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchDescription,
 }) => {
   const wrapperRef = useRef(null);
   const [isVisible, setIsVisible] = useState(false);
@@ -96,6 +98,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <EnqueuePatch
       {...{
         patchId,
+        commitMessage: patchDescription,
         hideMenu,
         key: "enqueue",
         disabled: isActionLoading || !canEnqueueToCommitQueue,

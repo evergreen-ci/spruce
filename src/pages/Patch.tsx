@@ -96,6 +96,7 @@ const PatchCore: React.FC = () => {
           <ActionButtons
             canEnqueueToCommitQueue={patch?.canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
+            patchDescription={description}
           />
         }
       />
