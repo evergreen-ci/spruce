@@ -23,24 +23,24 @@ export const DropdownMenu: React.FC<Props> = ({
   patchDescription,
 }) => {
   const restartModalVisibilityControl = useState(false);
+  const enqueueModalVisibilityControl = useState(false);
   const [isActionLoading, setIsActionLoading] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   const hideMenu = () => setIsVisible(false);
   const popconfirmRef = useRef(null);
-  const scheduleTasksRef = useRef(null); // schedule, unschedule, and enqueue refs must be different for useOnClickOutside to work
-  const enqueueRef = useRef(null);
+  const scheduleTasksRef = useRef(null); // schedule and unschedule refs must be different for useOnClickOutside to work
   const dropdownWrapperRef = useRef(null);
 
   useOnClickOutside(dropdownWrapperRef, () => {
     if (
       !restartModalVisibilityControl[0] &&
+      !enqueueModalVisibilityControl[0] &&
       !get(popconfirmRef, "current.className", "").includes(
         "ant-popover-open"
       ) &&
       !get(scheduleTasksRef, "current.className", "").includes(
         "ant-popover-open"
-      ) &&
-      !get(enqueueRef, "current.className", "").includes("ant-popover-open")
+      )
     ) {
       hideMenu();
     }
@@ -79,14 +79,13 @@ export const DropdownMenu: React.FC<Props> = ({
       refetchQueries={refetchQueries}
     />,
     <EnqueuePatch
+      visibilityControl={enqueueModalVisibilityControl}
       key="enqueue"
       patchId={patchId}
       commitMessage={patchDescription}
-      hideMenu={hideMenu}
       disabled={isActionLoading || !canEnqueueToCommitQueue}
+      hideMenu={hideMenu}
       refetchQueries={refetchQueries}
-      setParentLoading={setIsActionLoading}
-      ref={enqueueRef}
     />,
   ];
 
