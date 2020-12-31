@@ -19,12 +19,11 @@ interface EnqueueProps {
   patchId: string;
   commitMessage: string;
   visible: boolean;
-  onOk: () => void;
-  onCancel: () => void;
+  onFinished: () => void;
   refetchQueries: string[];
 }
 export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
-  ({ patchId, commitMessage, visible, onOk, onCancel, refetchQueries }) => {
+  ({ patchId, commitMessage, visible, onFinished, refetchQueries }) => {
     const { successBanner, errorBanner } = useBannerDispatchContext();
 
     const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
@@ -50,17 +49,20 @@ export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
       <Modal
         title="Enqueue Patch"
         visible={visible}
-        onOk={onOk}
-        onCancel={onCancel}
+        onOk={onFinished}
+        onCancel={onFinished}
         footer={[
-          <Button key="cancel" onClick={onCancel}>
+          <Button key="cancel" onClick={onFinished}>
             Cancel
           </Button>,
           <Button
             key="enqueue"
             disabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
             onClick={() => {
-              enqueuePatch({ variables: { patchId, commitMessage } });
+              onFinished();
+              enqueuePatch({
+                variables: { patchId, commitMessage: commitMessageValue },
+              });
               patchAnalytics.sendEvent({ name: "Enqueue" });
             }}
             variant="primary"

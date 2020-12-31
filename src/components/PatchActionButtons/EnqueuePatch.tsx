@@ -26,7 +26,10 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
       : fallbackVisibilityControl;
 
   const onClick = () => setIsVisible(!isVisible);
-
+  const onFinished = () => {
+    setIsVisible(false);
+    hideMenu();
+  };
   return (
     <>
       <DropdownItem
@@ -40,14 +43,7 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
         patchId={patchId}
         commitMessage={commitMessage}
         visible={isVisible}
-        onOk={() => {
-          setIsVisible(false);
-          hideMenu();
-        }}
-        onCancel={() => {
-          setIsVisible(false);
-          hideMenu();
-        }}
+        onFinished={onFinished}
         refetchQueries={refetchQueries}
       />
     </>
