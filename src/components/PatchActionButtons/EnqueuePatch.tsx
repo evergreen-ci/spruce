@@ -10,6 +10,7 @@ interface EnqueuePatchProps {
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
   hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
+  setParentLoading?: (loading: boolean) => void;
 }
 export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
   patchId,
@@ -18,6 +19,7 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
   refetchQueries,
   hideMenu,
   visibilityControl,
+  setParentLoading = () => undefined,
 }) => {
   const fallbackVisibilityControl = useState(false);
   const [isVisible, setIsVisible] =
@@ -45,6 +47,7 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
         visible={isVisible}
         onFinished={onFinished}
         refetchQueries={refetchQueries}
+        setParentLoading={setParentLoading}
       />
     </>
   );

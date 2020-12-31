@@ -21,9 +21,17 @@ interface EnqueueProps {
   visible: boolean;
   onFinished: () => void;
   refetchQueries: string[];
+  setParentLoading?: (loading: boolean) => void;
 }
 export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
-  ({ patchId, commitMessage, visible, onFinished, refetchQueries }) => {
+  ({
+    patchId,
+    commitMessage,
+    visible,
+    onFinished,
+    refetchQueries,
+    setParentLoading = () => undefined,
+  }) => {
     const { successBanner, errorBanner } = useBannerDispatchContext();
 
     const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
@@ -32,9 +40,11 @@ export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
     >(ENQUEUE_PATCH, {
       onCompleted: () => {
         successBanner(`Enqueued patch`);
+        setParentLoading(false);
       },
       onError: (err) => {
         errorBanner(`Error enqueueing patch: ${err.message}`);
+        setParentLoading(false);
       },
       refetchQueries,
     });
@@ -60,6 +70,7 @@ export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
             data-cy="enqueue-patch-button"
             disabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
             onClick={() => {
+              setParentLoading(true);
               onFinished();
               enqueuePatch({
                 variables: { patchId, commitMessage: commitMessageValue },

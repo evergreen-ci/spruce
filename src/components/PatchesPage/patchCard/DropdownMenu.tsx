@@ -85,6 +85,7 @@ export const DropdownMenu: React.FC<Props> = ({
       commitMessage={patchDescription}
       disabled={isActionLoading || !canEnqueueToCommitQueue}
       hideMenu={hideMenu}
+      setParentLoading={setIsActionLoading}
       refetchQueries={refetchQueries}
     />,
   ];
