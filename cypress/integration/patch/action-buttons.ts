@@ -103,12 +103,10 @@ describe("Patch Action Buttons", () => {
       .should("exist");
   });
 
-  it("Clicking 'Enqueue Patch' button shows popconfirm with input and banner on success", () => {
+  it("Clicking 'Enqueue Patch' button shows enqueue modal with input and banner on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("enqueue-patch").click();
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
+    cy.dataCy("enqueue-patch-button").click();
     cy.dataCy("banner")
       .should("exist")
       .contains("Enqueued patch");

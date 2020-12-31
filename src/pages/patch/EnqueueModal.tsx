@@ -57,6 +57,7 @@ export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
           </Button>,
           <Button
             key="enqueue"
+            data-cy="enqueue-patch-button"
             disabled={commitMessageValue.length === 0 || loadingEnqueuePatch}
             onClick={() => {
               onFinished();

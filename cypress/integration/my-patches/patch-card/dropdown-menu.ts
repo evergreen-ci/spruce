@@ -79,12 +79,17 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("card-dropdown").should("not.exist");
   });
 
-  it("'Add to commit queue' button appears", () => {
-    cy.dataCy("patch-card")
-      .first()
-      .within(() => {
+  it("'Add to commit queue' shows enqueue modal", () => {
+    getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
+      () => {
         cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("enqueue-patch").should("exist");
-      });
+        cy.dataCy("enqueue-patch").click({ force: true });
+      }
+    );
+    cy.dataCy("enqueue-patch-button").click();
+    cy.dataCy("banner")
+      .should("exist")
+      .contains("Enqueued patch");
+    cy.dataCy("card-dropdown").should("not.exist");
   });
 });
