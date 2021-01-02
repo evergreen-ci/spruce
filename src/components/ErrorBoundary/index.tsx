@@ -40,7 +40,7 @@ const getBoundary = () => {
 
 export const initializeBugsnag = () => {
   // Only need to Bugsnag.start once, will throw console warnings otherwise
-  if (bugsnagStarted || isProduction()) {
+  if (bugsnagStarted || !isProduction()) {
     return;
   }
   try {
