@@ -157,8 +157,8 @@ describe("Host events", () => {
       },
     ];
     cy.visit(pathWithEvents);
-    cy.dataTestId("host-event-table-page-size-selector").click();
-    cy.dataTestId("host-event-table-page-size-selector-100").click();
+    cy.dataCy("host-event-table-page-size-selector").click();
+    cy.dataCy("host-event-table-page-size-selector-100").click();
     hostTypes.forEach(({ hostType, text, logsTitle }) => {
       cy.dataCy(hostType)
         .contains(text)
@@ -169,8 +169,8 @@ describe("Host events", () => {
   });
 
   it("host events logs do not display when not available", () => {
-    cy.dataTestId("host-event-table-page-size-selector").click();
-    cy.dataTestId("host-event-table-page-size-selector-100").click();
+    cy.dataCy("host-event-table-page-size-selector").click();
+    cy.dataCy("host-event-table-page-size-selector-100").click();
     cy.dataCy("host-status-changed")
       .contains("Status changed from running to unreachable")
       .within(() => {
