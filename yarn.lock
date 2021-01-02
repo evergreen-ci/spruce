@@ -2396,6 +2396,16 @@
   dependencies:
     "@leafygreen-ui/lib" "^5.1.1"
 
+"@leafygreen-ui/interaction-ring@^1.0.0":
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-1.0.1.tgz#645b954dfbd47d89449ab05ef17ff28bb0f23dc8"
+  integrity sha512-Q7Vj07vkAtZdA99PWv80Z9mswseDIZBTYTwEfjfeKkUyE04+YLrafAhOR7lZGjgaO/1HUBhx07mPUxAcUWqs9Q==
+  dependencies:
+    "@leafygreen-ui/emotion" "^3.0.1"
+    "@leafygreen-ui/leafygreen-provider" "^2.0.1"
+    "@leafygreen-ui/lib" "^6.1.2"
+    "@leafygreen-ui/palette" "^3.1.0"
+
 "@leafygreen-ui/leafygreen-provider@1.1.1":
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-1.1.1.tgz#807bc0b240b3bd1ae76580b12f3419b2c9abc0f8"
@@ -2412,7 +2422,7 @@
     "@leafygreen-ui/hooks" "^4.0.1"
     "@leafygreen-ui/lib" "^5.1.1"
 
-"@leafygreen-ui/leafygreen-provider@^2.0.2":
+"@leafygreen-ui/leafygreen-provider@^2.0.1", "@leafygreen-ui/leafygreen-provider@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.0.2.tgz#d03b898a21dc2969bfd9e23a472c8f72b7e5c8c2"
   integrity sha512-0lGFRJWuhao4OcPtMYhA+tH8VceCdz8HCL7oDylJTCDhw4NbFATsyy4abeJc+WKFngzR6EwlOaLeC5HFsJMu9A==
@@ -2439,16 +2449,7 @@
     facepaint "^1.2.1"
     polished "^2.3.0"
 
-"@leafygreen-ui/lib@^6.0.1":
-  version "6.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-6.1.0.tgz#1f977dce3ab75f7be9ed5dcdb1acb20ffb2b56f4"
-  integrity sha512-wc554gdNXzvsWceHp2wzRM/5SFCAMpwXdxWNlgui2JDTZXtQ8oRZE9alouCcQb3WNhY2AaAzoXnx5K40uO+snw==
-  dependencies:
-    "@leafygreen-ui/emotion" "^3.0.1"
-    facepaint "^1.2.1"
-    polished "^2.3.0"
-
-"@leafygreen-ui/lib@^6.1.1", "@leafygreen-ui/lib@^6.1.2":
+"@leafygreen-ui/lib@^6.0.1", "@leafygreen-ui/lib@^6.1.1", "@leafygreen-ui/lib@^6.1.2":
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-6.1.2.tgz#6657619fa2493cc9d25f304d807be607c496a281"
   integrity sha512-byZDRlDtVO78GSX/2rsumgzGTMJAi4mrxB0ZFgnMrcHF2BFQTCjSF7KNFaZSpk4oRB+HKcbuR/FN/X7xIjnNIg==
@@ -2487,7 +2488,7 @@
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-2.0.2.tgz#dc9e1c11079e043572ed746d734fb4fb8db47a7c"
   integrity sha512-QxjLcJu1WqKjJvlTw6nmq3gdjBEVy9rXdxBlkMR0hgvyzK3qW6w+iGaJExnjMRppzND7ijzsF0IJn1TYKNmevg==
 
-"@leafygreen-ui/palette@^3.1.0":
+"@leafygreen-ui/palette@^3.0.1", "@leafygreen-ui/palette@^3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.1.0.tgz#9e71e641944a1922aed11c80f1af9005abfb4645"
   integrity sha512-+KuBtiSD72vwWb2VMoDX1AJ6eLjsbWcQcJgmkNxWNih4DtJieufNxTxsJwvPRWoe6ik1yfchBJnugehLEAvHIQ==
@@ -2510,13 +2511,14 @@
   dependencies:
     "@leafygreen-ui/lib" "^5.1.1"
 
-"@leafygreen-ui/radio-box-group@3.0.3":
-  version "3.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-3.0.3.tgz#fac07faa876ab58c042f83fa511da3944a27faee"
-  integrity sha512-/yReSQkTK/vOqdUniVti2vMmpFb0wtJ4C/8vyKK5/Wx5980RCNxWpkFBg+fP/slSaY/LWGIAVJFf2ZRPVCkQxg==
+"@leafygreen-ui/radio-box-group@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-5.0.1.tgz#41d691932be550e6b9155e1470b71dee9e63c3f1"
+  integrity sha512-MJLQ8Z6bZT36CnzYkury+R0P2sLWdCK/NArysgVzw/e/d80C8MtRJvNwtJeembi9Z5r54u1p9+XHTI9Fg24I6w==
   dependencies:
-    "@leafygreen-ui/lib" "^5.1.1"
-    "@leafygreen-ui/palette" "^2.0.2"
+    "@leafygreen-ui/interaction-ring" "^1.0.0"
+    "@leafygreen-ui/lib" "^6.1.2"
+    "@leafygreen-ui/palette" "^3.0.1"
 
 "@leafygreen-ui/radio-group@2.0.1":
   version "2.0.1"
