@@ -3,9 +3,9 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Popconfirm as AntPopconfirm } from "antd";
 
-export const Popconfirm: React.FC<React.ComponentProps<
-  typeof AntPopconfirm
->> = ({ children, ...props }) => (
+export const Popconfirm: React.FC<
+  React.ComponentProps<typeof AntPopconfirm>
+> = ({ children, ...props }) => (
   // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
   <span
     onClick={(e) => {

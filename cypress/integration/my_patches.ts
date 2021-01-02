@@ -44,7 +44,7 @@ describe("My Patches Page", () => {
     cy.contains("Regular User's Patches").should("exist");
   });
 
-  it("Typing in patch description input updates the url, requests patches and renders patches", () => {
+  it.skip("Typing in patch description input updates the url, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     const inputVal = "testtest";
     cy.dataCy("patch-description-input").type(inputVal);
@@ -78,7 +78,7 @@ describe("My Patches Page", () => {
       );
   });
 
-  it("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
+  it.skip("Clicking the commit queue checkbox updates the URL, requests patches and renders patches", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("commit-queue-checkbox").click({ force: true });
     urlSearchParamsAreUpdated({
@@ -150,8 +150,8 @@ describe("My Patches Page", () => {
       cy.wrap([20, 10, 50, 100]).each((pageSize) => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=my-patches-page-size-selector]",
-          `[data-test-id=my-patches-page-size-selector-${pageSize}]`,
+          "my-patches-page-size-selector",
+          `my-patches-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });

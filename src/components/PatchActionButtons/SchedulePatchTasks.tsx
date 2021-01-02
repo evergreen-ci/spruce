@@ -75,7 +75,7 @@ export const SchedulePatchTasks = forwardRef<
         {isButton ? (
           <Button
             size="small"
-            dataCy="schedule-patch"
+            data-cy="schedule-patch"
             disabled={loadingSchedulePatchTasks || disabled}
             loading={loadingSchedulePatchTasks}
           >

@@ -20,18 +20,12 @@ describe("Public Key Management Page", () => {
       );
     });
     it("Removes a public key from the table after deletion", () => {
-      cy.dataCy("delete-btn")
-        .first()
-        .click();
+      cy.dataCy("delete-btn").first().click();
       cy.get(popconfirmYesClassName).click();
-      cy.dataCy("table-key-name")
-        .first()
-        .contains(keyName2);
+      cy.dataCy("table-key-name").first().contains(keyName2);
     });
     it('Displays "No keys saved. Add a new key to populate the list." when no keys are available', () => {
-      cy.dataCy("delete-btn")
-        .first()
-        .click();
+      cy.dataCy("delete-btn").first().click();
       cy.get(popconfirmYesClassName).click();
       cy.contains("No keys saved. Add a new key to populate the list.");
     });
@@ -58,18 +52,14 @@ describe("Public Key Management Page", () => {
         .type(pubKey)
         .then(() => {
           cy.dataCy("save-key-button").click();
-          cy.dataCy("table-key-name")
-            .first()
-            .contains(keyName3);
+          cy.dataCy("table-key-name").first().contains(keyName3);
         });
     });
 
     it("Should show an error if the key name already exists", () => {
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type(keyName3);
-      cy.dataCy("error-message")
-        .first()
-        .contains(err3);
+      cy.dataCy("error-message").first().contains(err3);
     });
 
     it("Modal has correct title", () => {
@@ -80,9 +70,7 @@ describe("Public Key Management Page", () => {
   describe("Edit Key Modal", () => {
     it("Should not have any errors when the modal opens", () => {
       cy.visit(route);
-      cy.dataCy("edit-btn")
-        .first()
-        .click();
+      cy.dataCy("edit-btn").first().click();
       cy.dataCy("error-message").should("have.length", 0);
     });
 
@@ -93,12 +81,8 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-value-input").type(pubKey2);
       cy.dataCy("save-key-button").click();
       cy.wait(200); // prevent race condition caused by modal close animation
-      cy.dataCy("table-key-name")
-        .first()
-        .contains(keyName4);
-      cy.dataCy("edit-btn")
-        .first()
-        .click();
+      cy.dataCy("table-key-name").first().contains(keyName4);
+      cy.dataCy("edit-btn").first().click();
       cy.dataCy("key-name-input").should("have.value", keyName4);
       cy.dataCy("key-value-input").should("have.value", pubKey2);
     });
@@ -115,9 +99,7 @@ describe("Public Key Management Page", () => {
       cy.dataCy("key-name-input").type("rsioeantarsn");
       cy.dataCy("key-value-input").type("ssh-rsa");
       cy.dataCy("save-key-button").click();
-      cy.dataCy("banner")
-        .first()
-        .should("exist");
+      cy.dataCy("banner").first().should("exist");
     });
   });
 });

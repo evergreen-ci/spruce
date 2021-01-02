@@ -68,29 +68,19 @@ describe("Tests Table", () => {
       .should("eq", "20");
 
     cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    cy.get(".cy-checkbox")
-      .contains("Fail")
-      .click({ force: true });
+    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
 
     waitForTestsQuery();
 
-    cy.get("@filtered-count")
-      .invoke("text")
-      .should("eq", "1");
-    cy.get("@total-count")
-      .invoke("text")
-      .should("eq", "20");
+    cy.get("@filtered-count").invoke("text").should("eq", "1");
+    cy.get("@total-count").invoke("text").should("eq", "20");
 
     cy.dataCy("testname-input").type("hello");
 
     waitForTestsQuery();
 
-    cy.get("@filtered-count")
-      .invoke("text")
-      .should("eq", "0");
-    cy.get("@total-count")
-      .invoke("text")
-      .should("eq", "20");
+    cy.get("@filtered-count").invoke("text").should("eq", "0");
+    cy.get("@total-count").invoke("text").should("eq", "20");
   });
 
   it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
@@ -226,9 +216,7 @@ describe("Tests Table", () => {
 
     it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click({ force: true });
+        cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
@@ -312,8 +300,8 @@ describe("Tests Table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=tests-table-page-size-selector]",
-          `[data-test-id=tests-table-page-size-selector-${pageSize}]`,
+          "tests-table-page-size-selector",
+          `tests-table-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });

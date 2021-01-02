@@ -65,8 +65,9 @@ describe("Task Metadata Card", () => {
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
-    it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${i +
-      1})`, () => {
+    it(`Date labels in the Depends On sections have text if their data in the GetTask GQL response exists, otherwise the date labels are empty (route ${
+      i + 1
+    })`, () => {
       cy.visit(route);
       const ingestTimePath = "responseBody.data.task.ingestTime";
       const startTimePath = "responseBody.data.task.startTime";
@@ -91,8 +92,9 @@ describe("Task Metadata Card", () => {
   });
 
   [taskRoute, taskRouteWithoutDependsOn].forEach((route, i) => {
-    it(`Then "Spawn host" link is shown with href when the spawnHostLink field in the GetTask GQL response exists, otherwise the "Spawn host" link is not shown (route ${i +
-      1})`, () => {
+    it(`Then "Spawn host" link is shown with href when the spawnHostLink field in the GetTask GQL response exists, otherwise the "Spawn host" link is not shown (route ${
+      i + 1
+    })`, () => {
       cy.visit(route);
       const spawnHostLinkPath = "responseBody.data.task.spawnHostLink";
       const valExists = (v) => v !== undefined;

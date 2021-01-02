@@ -6,10 +6,9 @@ export const loadable = <
   >
 >(
   loadableComponent: () => Promise<{ default: C }>
-): React.ComponentType<JSX.LibraryManagedAttributes<
-  C,
-  React.ComponentProps<C>
->> => {
+): React.ComponentType<
+  JSX.LibraryManagedAttributes<C, React.ComponentProps<C>>
+> => {
   const LoadableComponent = lazy(() => loadableComponent());
   const Loadable = (props) => (
     <Suspense fallback="Loading...">

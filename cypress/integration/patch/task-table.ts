@@ -24,8 +24,8 @@ describe("Task table", () => {
     cy.dataCy("patch-card-patch-link")
       .filter(`:contains(${patchDescriptionTasksExist})`)
       .click();
-    cy.dataTestId("tasks-table-page-size-selector").click();
-    cy.dataTestId("tasks-table-page-size-selector-20").click();
+    cy.dataCy("tasks-table-page-size-selector").click();
+    cy.dataCy("tasks-table-page-size-selector-20").click();
     cy.dataTestId("tasks-table").should("exist");
   });
 
@@ -54,9 +54,7 @@ describe("Task table", () => {
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
     cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a")
-        .should("have.attr", "href")
-        .and("include", "/task");
+      cy.get("a").should("have.attr", "href").and("include", "/task");
     });
   });
 
@@ -132,8 +130,8 @@ describe("Task table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=tasks-table-page-size-selector]",
-          `[data-test-id=tasks-table-page-size-selector-${pageSize}]`,
+          "tasks-table-page-size-selector",
+          `tasks-table-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });

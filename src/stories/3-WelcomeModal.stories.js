@@ -1,5 +1,4 @@
-import React from "react";
-import { MockedProvider } from "@apollo/react-testing";
+import { MockedProvider } from "@apollo/client/testing";
 import { WelcomeModal } from "components/WelcomeModal";
 import "antd/es/modal/style/css";
 import "antd/es/carousel/style/css";
