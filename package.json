@@ -30,7 +30,7 @@
     "antd": "4.7.2",
     "antd-table-infinity": "1.1.6",
     "axios": "0.19.2",
-    "date-fns": "2.14.0",
+    "date-fns": "2.16.1",
     "date-fns-timezone": "0.1.4",
     "deep-object-diff": "1.1.0",
     "env-cmd": "10.1.0",
