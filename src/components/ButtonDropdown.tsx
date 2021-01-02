@@ -31,7 +31,7 @@ export const ButtonDropdown: React.FC<Props> = ({
     <Container>
       <Button
         size="small"
-        dataCy={dataCyBtn}
+        data-cy={dataCyBtn}
         disabled={disabled}
         loading={loading}
         onClick={toggleDropdown}

@@ -44,7 +44,7 @@ export const TestsTable: React.FC = () => {
           state={statusVal}
           tData={treeData}
           inputLabel="Test Status:  "
-          dataCy="test-status-select"
+          data-cy="test-status-select"
           width="25%"
         />
       </FiltersWrapper>

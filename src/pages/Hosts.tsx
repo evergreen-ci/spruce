@@ -101,7 +101,7 @@ const Hosts: React.FC = () => {
               </Badge>
               <ButtonWrapper>
                 <Button
-                  dataCy="update-status-button"
+                  data-cy="update-status-button"
                   disabled={selectedHostIds.length === 0}
                   onClick={() => setIsUpdateStatusModalVisible(true)}
                 >
@@ -140,7 +140,7 @@ const Hosts: React.FC = () => {
           />
         </TableContainer>
         <UpdateStatusModal
-          dataCy="update-host-status-modal"
+          data-cy="update-host-status-modal"
           hostIds={selectedHostIds}
           visible={isUpdateStatusModalVisible}
           closeModal={() => setIsUpdateStatusModalVisible(false)}

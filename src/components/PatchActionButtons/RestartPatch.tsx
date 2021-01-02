@@ -33,7 +33,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
       {isButton ? (
         <Button
           size="small"
-          dataCy="restart-patch"
+          data-cy="restart-patch"
           disabled={false}
           loading={false}
           onClick={onClick}
