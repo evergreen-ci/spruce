@@ -69,14 +69,16 @@ describe("Restarting a patch", () => {
 
   it("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
     cy.visit(path);
-    cy.get(versionPageStatusFitler).click();
-    cy.get(versionPageStatusFitler).contains("Success").click();
+    cy.dataCy(versionPageStatusFilter).click();
+    cy.dataCy(versionPageStatusFilter).contains("Success").click();
     cy.wait(100);
-    cy.get(versionPageStatusFitler).contains("Undispatched or Blocked").click();
-    cy.get(versionPageBaseStatusFitler).click();
-    cy.get(versionPageBaseStatusFitler).contains("Running").click();
+    cy.dataCy(versionPageStatusFilter)
+      .contains("Undispatched or Blocked")
+      .click();
+    cy.get(versionPageBaseStatusFilter).click();
+    cy.get(versionPageBaseStatusFilter).contains("Running").click();
     cy.wait(100);
-    cy.get(versionPageBaseStatusFitler).contains("Dispatched").click();
+    cy.get(versionPageBaseStatusFilter).contains("Dispatched").click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
       "Task Status: Success, Undispatched or Blocked"
@@ -86,10 +88,10 @@ describe("Restarting a patch", () => {
     // close modal and do the same thing again
     cy.dataCy("cancel-restart-modal-button").click();
 
-    cy.get(versionPageStatusFitler).click();
-    cy.get(versionPageStatusFitler).contains("Aborted").click();
-    cy.get(versionPageBaseStatusFitler).click();
-    cy.get(versionPageBaseStatusFitler).contains("All").click();
+    cy.dataCy(versionPageStatusFilter).click();
+    cy.dataCy(versionPageStatusFilter).contains("Aborted").click();
+    cy.get(versionPageBaseStatusFilter).click();
+    cy.get(versionPageBaseStatusFilter).contains("All").click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
       "Task Status: Success, Undispatched or Blocked, Aborted"
@@ -105,8 +107,7 @@ describe("Restarting a patch", () => {
   const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
     ".ant-modal-body > div > [data-cy=task-base-status-filter]";
-  const versionPageStatusFitler =
-    "[data-cy=task-tab] > div > div > [data-cy=task-status-filter]";
-  const versionPageBaseStatusFitler =
+  const versionPageStatusFilter = "task-status-filter";
+  const versionPageBaseStatusFilter =
     "[data-cy=task-tab] > div > div > [data-cy=task-base-status-filter]";
 });
