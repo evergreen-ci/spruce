@@ -34,12 +34,12 @@ export const InputFilter: React.FC<InputFilterProps> = ({
     />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button dataCy="reset-button" size="small" onClick={resetUrlParam}>
+        <Button data-cy="reset-button" size="small" onClick={resetUrlParam}>
           Reset
         </Button>
       </ButtonWrapper>
       <Button
-        dataCy="filter-button"
+        data-cy="filter-button"
         size="small"
         variant="primary"
         onClick={updateUrlParam}
@@ -99,12 +99,12 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button dataCy="reset-button" onClick={resetUrlParam} size="small">
+        <Button data-cy="reset-button" onClick={resetUrlParam} size="small">
           Reset
         </Button>
       </ButtonWrapper>
       <Button
-        dataCy="filter-button"
+        data-cy="filter-button"
         size="small"
         variant="primary"
         onClick={updateUrlParam}

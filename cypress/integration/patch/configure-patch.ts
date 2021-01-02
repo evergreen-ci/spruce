@@ -1,38 +1,6 @@
 // / <reference types="Cypress" />
 // / <reference path="../../support/index.d.ts" />
 
-type ProjectVariants = Array<{
-  name: string;
-  displayName: string;
-  tasks: string[];
-}>;
-interface PatchProject {
-  tasks?: string[];
-  variants?: ProjectVariants;
-}
-type VariantsTasks = Array<{
-  name: string;
-  tasks: string[];
-}>;
-interface ConfigurePatchData {
-  id: string;
-  description: string;
-  author: string;
-  version: string;
-  status: string;
-  activated: boolean;
-  time: {
-    submittedAt: string;
-  };
-  project: PatchProject;
-  variantsTasks: VariantsTasks;
-}
-interface ConfigurePatchQuery {
-  data: {
-    patch: ConfigurePatchData;
-  };
-}
-
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 
 describe("Configure Patch Page", () => {
@@ -425,9 +393,7 @@ describe("Configure Patch Page", () => {
         .as("patchNameInput")
         .clear()
         .type(val);
-      cy.get("@patchNameInput")
-        .invoke("val")
-        .should("eq", val);
+      cy.get("@patchNameInput").invoke("val").should("eq", val);
     });
     it("Selecting build variant displays tasks of that variant", () => {
       patch.project.variants.forEach(({ name, tasks }) => {
@@ -446,9 +412,7 @@ describe("Configure Patch Page", () => {
       const { variants } = patch.project;
       const lastVariantInList = variants[variants.length - 1];
       const firstTask = lastVariantInList.tasks[0];
-      cy.get(`[data-cy-name=${lastVariantInList.name}]`)
-        .as("variant")
-        .click();
+      cy.get(`[data-cy-name=${lastVariantInList.name}]`).as("variant").click();
 
       cy.get("@variant").then(($variant) => {
         const taskCountBadge = `[data-cy=configurePatch-taskCountBadge-${lastVariantInList.name}]`;
@@ -631,9 +595,7 @@ describe("Configure Patch Page", () => {
       it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
         cy.get("body").type("{shift}", { release: false }); // hold shift
         cy.get('[data-cy-name="windows"]').click();
-        cy.get("[data-cy-selected=true]")
-          .its("length")
-          .should("eq", 7);
+        cy.get("[data-cy-selected=true]").its("length").should("eq", 7);
         const variantsFirstTime = [
           "RHEL 7.1 POWER81",
           "RHEL 7.2 zLinux",
@@ -660,9 +622,7 @@ describe("Configure Patch Page", () => {
         cy.get("[data-cy-selected=true]").each((v, i) => {
           cy.wrap(v).contains(variantsSecondTime[i]);
         });
-        cy.get("[data-cy-selected=true]")
-          .its("length")
-          .should("eq", 10);
+        cy.get("[data-cy-selected=true]").its("length").should("eq", 10);
       });
     });
   });

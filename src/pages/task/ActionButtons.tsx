@@ -228,7 +228,7 @@ export const ActionButtons = ({
       <PageButtonRow ref={wrapperRef}>
         <Button
           size="small"
-          dataCy="schedule-task"
+          data-cy="schedule-task"
           key="schedule"
           disabled={disabled || !canSchedule}
           loading={loadingScheduleTask}
@@ -241,7 +241,7 @@ export const ActionButtons = ({
         </Button>
         <Button
           size="small"
-          dataCy="restart-task"
+          data-cy="restart-task"
           key="restart"
           disabled={disabled || !canRestart}
           loading={loadingRestartTask}
@@ -254,7 +254,7 @@ export const ActionButtons = ({
         </Button>
         <Button
           size="small"
-          dataCy="notify-task"
+          data-cy="notify-task"
           key="notifications"
           disabled={disabled}
           onClick={() => {

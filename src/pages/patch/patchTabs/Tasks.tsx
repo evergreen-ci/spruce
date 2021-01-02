@@ -104,7 +104,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             totalResults={get(data, "patchTasks.count", 0)}
           />
           <PageSizeSelector
-            dataTestId="tasks-table-page-size-selector"
+            data-cy="tasks-table-page-size-selector"
             value={limit}
             sendAnalyticsEvent={() =>
               patchAnalytics.sendEvent({ name: "Change Page Size" })

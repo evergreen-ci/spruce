@@ -15,7 +15,7 @@ interface Props {
   tData: TreeDataEntry[];
   onChange: (v: string[]) => void;
   inputLabel: string;
-  dataCy: string;
+  "data-cy": string;
   width?: string;
 }
 export interface TreeDataChildEntry {
@@ -34,7 +34,7 @@ export const TreeSelect: React.FC<Props> = ({
   tData,
   onChange,
   inputLabel, // label for the select
-  dataCy, // for testing only
+  "data-cy": dataCy, // for testing only
   width,
 }) => {
   const wrapperRef = useRef(null);

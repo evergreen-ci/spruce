@@ -99,7 +99,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       type: "setSize",
       data: maxSpawnableLimit > 500 ? 500 : maxSpawnableLimit,
     });
-  }, [maxSpawnableLimit]);
+  }, [maxSpawnableLimit, totalVolumeSize, volumeLimit]);
 
   return (
     <Modal

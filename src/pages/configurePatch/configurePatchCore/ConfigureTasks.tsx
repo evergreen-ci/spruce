@@ -100,7 +100,7 @@ export const ConfigureTasks: React.FC<Props> = ({
     <TabContentWrapper>
       <Actions>
         <Button
-          dataCy="schedule-patch"
+          data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
           disabled={isEmpty(selectedVariantTasks) || loading}
