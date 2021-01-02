@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Select } from "antd";
 import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
@@ -7,13 +7,13 @@ const { Option } = Select;
 
 interface Props {
   value: number;
-  dataCy?: string;
+  "data-cy"?: string;
   sendAnalyticsEvent?: () => void;
 }
 
 export const PageSizeSelector: React.FC<Props> = ({
   value,
-  dataCy,
+  "data-cy": dataCy,
   sendAnalyticsEvent = () => undefined,
 }) => {
   const { replace } = useHistory();
@@ -33,10 +33,6 @@ export const PageSizeSelector: React.FC<Props> = ({
     );
     sendAnalyticsEvent();
   };
-
-  useEffect(() => {
-    console.log("Was rendered");
-  });
 
   return (
     <Select

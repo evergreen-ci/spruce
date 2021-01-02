@@ -58,7 +58,7 @@ export const HostTable: React.FC<{
             totalResults={eventsCount}
           />
           <PageSizeSelector
-            dataCy="host-event-table-page-size-selector"
+            data-cy="host-event-table-page-size-selector"
             value={limit}
             sendAnalyticsEvent={() =>
               hostsTableAnalytics.sendEvent({
