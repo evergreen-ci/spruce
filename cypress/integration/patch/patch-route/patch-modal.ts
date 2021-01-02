@@ -86,15 +86,14 @@ describe("Restarting a patch", () => {
     cy.get(baseStatusFilter).contains("Task Base Status: Running, Dispatched");
 
     // close modal and do the same thing again
-    cy.dataCy("cancel-restart-modal-button").click();
-
-    cy.dataCy(versionPageStatusFilter).click();
-    cy.dataCy(versionPageStatusFilter).contains("Aborted").click();
+    cy.dataCy("cancel-restart-modal-button").click({ force: true });
+    cy.dataCy(versionPageStatusFilter).first().click();
+    cy.dataCy(versionPageStatusFilter).first().contains("Failed").click();
     cy.get(versionPageBaseStatusFilter).click();
     cy.get(versionPageBaseStatusFilter).contains("All").click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
-      "Task Status: Success, Undispatched or Blocked, Aborted"
+      "Task Status: Success, Undispatched or Blocked, Failed"
     );
     cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
