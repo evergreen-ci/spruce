@@ -24,8 +24,8 @@ describe("Task table", () => {
     cy.dataCy("patch-card-patch-link")
       .filter(`:contains(${patchDescriptionTasksExist})`)
       .click();
-    cy.dataTestId("tasks-table-page-size-selector").click();
-    cy.dataTestId("tasks-table-page-size-selector-20").click();
+    cy.dataCy("tasks-table-page-size-selector").click();
+    cy.dataCy("tasks-table-page-size-selector-20").click();
     cy.dataTestId("tasks-table").should("exist");
   });
 
