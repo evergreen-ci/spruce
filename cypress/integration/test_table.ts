@@ -300,8 +300,8 @@ describe("Tests Table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=tests-table-page-size-selector]",
-          `[data-test-id=tests-table-page-size-selector-${pageSize}]`,
+          "tests-table-page-size-selector",
+          `tests-table-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });

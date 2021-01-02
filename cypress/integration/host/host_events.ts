@@ -12,8 +12,8 @@ describe("Host events", () => {
 
   it("host events display the correct text", () => {
     cy.visit(pathWithEvents);
-    cy.dataTestId("host-event-table-page-size-selector").click();
-    cy.dataTestId("host-event-table-page-size-selector-100").click();
+    cy.dataCy("host-event-table-page-size-selector").click();
+    cy.dataCy("host-event-table-page-size-selector-100").click();
 
     const dataCyTableRows =
       "[data-test-id=host-events-table] tr td:first-child";

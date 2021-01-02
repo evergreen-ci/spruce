@@ -121,7 +121,7 @@ const Hosts: React.FC = () => {
               totalResults={hasFilters ? filteredHostCount : totalHostsCount}
             />
             <PageSizeSelector
-              dataTestId="tasks-table-page-size-selector"
+              dataCy="tasks-table-page-size-selector"
               value={limit}
               sendAnalyticsEvent={() =>
                 hostsTableAnalytics.sendEvent({ name: "Change Page Size" })

@@ -114,7 +114,7 @@ const PatchesPageCore: React.FC<Props> = ({
           dataTestId="my-patches-pagination"
         />
         <PageSizeSelector
-          dataTestId="my-patches-page-size-selector"
+          dataCy="my-patches-page-size-selector"
           value={limit}
           sendAnalyticsEvent={() =>
             analyticsObject?.sendEvent({ name: "Change Page Size" })
