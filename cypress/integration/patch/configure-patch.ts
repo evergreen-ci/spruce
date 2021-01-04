@@ -406,9 +406,7 @@ describe("Configure Patch Page", () => {
       cy.dataCy("user-tag-key-field").type("testKey");
       cy.dataCy("user-tag-value-field").type("testValue");
       cy.dataCy("user-tag-edit-icon").click();
-      cy.dataCy("user-tag-row")
-        .its("length")
-        .should("eq", 1);
+      cy.dataCy("user-tag-row").its("length").should("eq", 1);
     });
     it("Parameters cannot be added once activated", () => {
       cy.login();
@@ -422,6 +420,8 @@ describe("Configure Patch Page", () => {
 
   describe("Configuring a patch", () => {
     it("Can update patch description by typing into `Patch Name` input field", () => {
+      cy.login();
+      cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       const val = "michelle obama";
       cy.get(`[data-cy=configurePatch-nameInput]`)
         .as("patchNameInput")
