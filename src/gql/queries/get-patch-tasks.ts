@@ -35,6 +35,8 @@ export const GET_PATCH_TASKS = gql`
           id
           displayName
           status
+          buildVariant
+          baseStatus
         }
       }
     }
