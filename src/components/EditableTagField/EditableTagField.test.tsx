@@ -32,7 +32,11 @@ test("Renders editable tags", async () => {
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <EditableTagField inputTags={editableTags} onChange={updateData} />
+    <EditableTagField
+      inputTags={editableTags}
+      onChange={updateData}
+      buttonText="Add Tag"
+    />
   );
 
   expect(queryAllByDataCy("user-tag-row")).toHaveLength(3);
@@ -47,7 +51,11 @@ test("Editing a tag value should update the tags", async () => {
   });
 
   const { queryAllByDataCy } = render(
-    <EditableTagField inputTags={editableTags} onChange={updateData} />
+    <EditableTagField
+      inputTags={editableTags}
+      onChange={updateData}
+      buttonText="Add Tag"
+    />
   );
 
   expect(data).toEqual(defaultData);
@@ -75,7 +83,11 @@ test("Deleting a tag should remove it from the array", async () => {
   });
 
   const { queryAllByDataCy, queryByText } = render(
-    <EditableTagField inputTags={editableTags} onChange={updateData} />
+    <EditableTagField
+      inputTags={editableTags}
+      onChange={updateData}
+      buttonText="Add Tag"
+    />
   );
 
   expect(data).toEqual(defaultData);
@@ -95,7 +107,11 @@ test("Editing a tag key should remove the old tag and replace it with a newer ta
   });
 
   const { queryAllByDataCy } = render(
-    <EditableTagField inputTags={editableTags} onChange={updateData} />
+    <EditableTagField
+      inputTags={editableTags}
+      onChange={updateData}
+      buttonText="Add Tag"
+    />
   );
 
   expect(data).toEqual(defaultData);
@@ -123,7 +139,11 @@ test("Should be able to add an new tag with the add tag button", async () => {
   });
 
   const { queryAllByDataCy, queryByDataCy } = render(
-    <EditableTagField inputTags={editableTags} onChange={updateData} />
+    <EditableTagField
+      inputTags={editableTags}
+      onChange={updateData}
+      buttonText="Add Tag"
+    />
   );
 
   expect(data).toEqual(defaultData);
