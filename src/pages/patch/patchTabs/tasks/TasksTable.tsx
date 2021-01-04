@@ -2,10 +2,10 @@ import React from "react";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
-import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
+import { stringifyQuery, parseQueryString } from "utils/queryString";
 
 interface Props {
   data?: PatchTasks;
@@ -19,16 +19,13 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
   const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
 
-    const nextQueryParams = queryString.stringify(
-      {
-        ...queryString.parse(search, { arrayFormat }),
-        [PatchTasksQueryParams.SortDir]:
-          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-        [PatchTasksQueryParams.SortBy]: columnKey,
-        [PatchTasksQueryParams.Page]: "0",
-      },
-      { arrayFormat }
-    );
+    const nextQueryParams = stringifyQuery({
+      ...parseQueryString(search),
+      [PatchTasksQueryParams.SortDir]:
+        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+      [PatchTasksQueryParams.SortBy]: columnKey,
+      [PatchTasksQueryParams.Page]: "0",
+    });
     if (nextQueryParams !== search.split("?")[1]) {
       replace(`${pathname}?${nextQueryParams}`);
     }
@@ -46,7 +43,5 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
     />
   );
 };
-
-const arrayFormat = "comma";
 
 const rowKey = ({ id }: { id: string }): string => id;
