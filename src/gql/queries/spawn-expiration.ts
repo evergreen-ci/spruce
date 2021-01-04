@@ -10,11 +10,5 @@ export const GET_SPAWN_EXPIRATION_INFO = gql`
       noExpiration
       id
     }
-    spruceConfig {
-      spawnHost {
-        unexpirableHostsPerUser
-        unexpirableVolumesPerUser
-      }
-    }
   }
 `;

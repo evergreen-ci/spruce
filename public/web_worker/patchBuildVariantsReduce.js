@@ -1,7 +1,7 @@
 // Iterate through PatchBuildVariants and determine if a task should be
 // selected or not based on if the task status correlates with the 2 filters.
 // if 1 of the 2 filters is empty, ignore the empty filter
-onmessage = function(e) {
+onmessage = function (e) {
   const {
     patchBuildVariants,
     patchStatusFilterTerm,

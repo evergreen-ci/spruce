@@ -16,6 +16,11 @@ export const GET_SPRUCE_CONFIG = gql`
           maxVolumeSizePerUser
         }
       }
+      spawnHost {
+        spawnHostsPerUser
+        unexpirableHostsPerUser
+        unexpirableVolumesPerUser
+      }
     }
   }
 `;

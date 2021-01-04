@@ -11,15 +11,15 @@ export const useLegacyUIURL = (): string | null => {
 
   const uiURL = getUiUrl();
 
-  const legacyUIMap = {
-    [routes.version]: `${uiURL}/version/${id}`,
-    [routes.configurePatch]: `${uiURL}/patch/${id}`,
-    [routes.userPatches]: `${uiURL}/patches/user/${id}`,
-    [routes.task]: `${uiURL}/task/${id}`,
-    [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
-    [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
-  };
   useEffect(() => {
+    const legacyUIMap = {
+      [routes.version]: `${uiURL}/version/${id}`,
+      [routes.configurePatch]: `${uiURL}/patch/${id}`,
+      [routes.userPatches]: `${uiURL}/patches/user/${id}`,
+      [routes.task]: `${uiURL}/task/${id}`,
+      [routes.spawnHost]: `${uiURL}/spawn#?resourcetype=hosts`,
+      [routes.spawnVolume]: `${uiURL}/spawn#?resourcetype=volumes`,
+    };
     const legacyUIKeys = Object.keys(legacyUIMap);
     for (let i = 0; i < legacyUIKeys.length; i++) {
       const matchedPath = matchPath(pathname, {
@@ -32,7 +32,7 @@ export const useLegacyUIURL = (): string | null => {
         break;
       }
     }
-  }, [id, pathname, legacyUIMap]);
+  }, [id, pathname, uiURL]);
 
   return legacyUIUrl;
 };

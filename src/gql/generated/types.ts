@@ -1,4 +1,11 @@
 export type Maybe<T> = T | null;
+export type Exact<T extends { [key: string]: unknown }> = {
+  [K in keyof T]: T[K];
+};
+export type MakeOptional<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]?: Maybe<T[SubKey]> };
+export type MakeMaybe<T, K extends keyof T> = Omit<T, K> &
+  { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
 export type Scalars = {
   ID: string;
@@ -463,11 +470,11 @@ export type UseSpruceOptionsInput = {
 };
 
 export type PatchesInput = {
-  limit: Scalars["Int"];
-  page: Scalars["Int"];
-  patchName: Scalars["String"];
-  statuses: Array<Scalars["String"]>;
-  includeCommitQueue: Scalars["Boolean"];
+  limit?: Scalars["Int"];
+  page?: Scalars["Int"];
+  patchName?: Scalars["String"];
+  statuses?: Array<Scalars["String"]>;
+  includeCommitQueue?: Scalars["Boolean"];
 };
 
 export type SpawnHostInput = {
@@ -1170,15 +1177,15 @@ export type Source = {
   requester: Scalars["String"];
 };
 
-export type GetPatchEventDataQueryVariables = {
+export type GetPatchEventDataQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
 
-export type GetTaskEventDataQueryVariables = {
+export type GetTaskEventDataQueryVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type GetTaskEventDataQuery = {
   task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
@@ -1198,37 +1205,39 @@ export type PatchesPagePatchesFragment = {
   }>;
 };
 
-export type AbortTaskMutationVariables = {
+export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
-export type AttachVolumeToHostMutationVariables = {
+export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
-};
+}>;
 
 export type AttachVolumeToHostMutation = { attachVolumeToHost: boolean };
 
-export type ClearMySubscriptionsMutationVariables = {};
+export type ClearMySubscriptionsMutationVariables = Exact<{
+  [key: string]: never;
+}>;
 
 export type ClearMySubscriptionsMutation = { clearMySubscriptions: number };
 
-export type CreatePublicKeyMutationVariables = {
+export type CreatePublicKeyMutationVariables = Exact<{
   publicKeyInput: PublicKeyInput;
-};
+}>;
 
 export type CreatePublicKeyMutation = {
   createPublicKey: Array<{ key: string; name: string }>;
 };
 
-export type DetachVolumeFromHostMutationVariables = {
+export type DetachVolumeFromHostMutationVariables = Exact<{
   volumeId: Scalars["String"];
-};
+}>;
 
 export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
 
-export type EditSpawnHostMutationVariables = {
+export type EditSpawnHostMutationVariables = Exact<{
   hostId: Scalars["String"];
   displayName?: Maybe<Scalars["String"]>;
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
@@ -1237,7 +1246,7 @@ export type EditSpawnHostMutationVariables = {
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
-};
+}>;
 
 export type EditSpawnHostMutation = {
   editSpawnHost: {
@@ -1252,78 +1261,78 @@ export type EditSpawnHostMutation = {
   };
 };
 
-export type EnqueuePatchMutationVariables = {
+export type EnqueuePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
   commitMessage: Scalars["String"];
-};
+}>;
 
 export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
 
-export type BbCreateTicketMutationVariables = {
+export type BbCreateTicketMutationVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
-export type RemoveItemFromCommitQueueMutationVariables = {
+export type RemoveItemFromCommitQueueMutationVariables = Exact<{
   commitQueueId: Scalars["String"];
   issue: Scalars["String"];
-};
+}>;
 
 export type RemoveItemFromCommitQueueMutation = {
   removeItemFromCommitQueue?: Maybe<string>;
 };
 
-export type RemovePublicKeyMutationVariables = {
+export type RemovePublicKeyMutationVariables = Exact<{
   keyName: Scalars["String"];
-};
+}>;
 
 export type RemovePublicKeyMutation = {
   removePublicKey: Array<{ key: string; name: string }>;
 };
 
-export type RemoveVolumeMutationVariables = {
+export type RemoveVolumeMutationVariables = Exact<{
   volumeId: Scalars["String"];
-};
+}>;
 
 export type RemoveVolumeMutation = { removeVolume: boolean };
 
-export type RestartJasperMutationVariables = {
+export type RestartJasperMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
-};
+}>;
 
 export type RestartJasperMutation = { restartJasper: number };
 
-export type RestartPatchMutationVariables = {
+export type RestartPatchMutationVariables = Exact<{
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
-};
+}>;
 
 export type RestartPatchMutation = { restartPatch?: Maybe<string> };
 
-export type RestartTaskMutationVariables = {
+export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type RestartTaskMutation = { restartTask: { id: string } };
 
-export type SaveSubscriptionMutationVariables = {
+export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
-};
+}>;
 
 export type SaveSubscriptionMutation = { saveSubscription: boolean };
 
-export type SchedulePatchTasksMutationVariables = {
+export type SchedulePatchTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
-};
+}>;
 
 export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
-export type SchedulePatchMutationVariables = {
+export type SchedulePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
-  reconfigure: PatchConfigure;
-};
+  configure: PatchConfigure;
+}>;
 
 export type SchedulePatchMutation = {
   schedulePatch: {
@@ -1335,103 +1344,104 @@ export type SchedulePatchMutation = {
     tasks: Array<string>;
     variants: Array<string>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 
-export type ScheduleTaskMutationVariables = {
+export type ScheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type ScheduleTaskMutation = { scheduleTask: { id: string } };
 
-export type SetPatchPriorityMutationVariables = {
+export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
   priority: Scalars["Int"];
-};
+}>;
 
 export type SetPatchPriorityMutation = { setPatchPriority?: Maybe<string> };
 
-export type SetTaskPriorityMutationVariables = {
+export type SetTaskPriorityMutationVariables = Exact<{
   taskId: Scalars["String"];
   priority: Scalars["Int"];
-};
+}>;
 
 export type SetTaskPriorityMutation = {
   setTaskPriority: { id: string; priority?: Maybe<number> };
 };
 
-export type SpawnHostMutationVariables = {
+export type SpawnHostMutationVariables = Exact<{
   SpawnHostInput?: Maybe<SpawnHostInput>;
-};
+}>;
 
 export type SpawnHostMutation = { spawnHost: { id: string; status: string } };
 
-export type SpawnVolumeMutationVariables = {
+export type SpawnVolumeMutationVariables = Exact<{
   SpawnVolumeInput: SpawnVolumeInput;
-};
+}>;
 
 export type SpawnVolumeMutation = { spawnVolume: boolean };
 
-export type UnschedulePatchTasksMutationVariables = {
+export type UnschedulePatchTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
-};
+}>;
 
 export type UnschedulePatchTasksMutation = {
   unschedulePatchTasks?: Maybe<string>;
 };
 
-export type UnscheduleTaskMutationVariables = {
+export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
 
-export type UpdateHostStatusMutationVariables = {
+export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
   status: Scalars["String"];
   notes?: Maybe<Scalars["String"]>;
-};
+}>;
 
 export type UpdateHostStatusMutation = { updateHostStatus: number };
 
-export type UpdatePublicKeyMutationVariables = {
+export type UpdatePublicKeyMutationVariables = Exact<{
   targetKeyName: Scalars["String"];
   updateInfo: PublicKeyInput;
-};
+}>;
 
 export type UpdatePublicKeyMutation = {
   updatePublicKey: Array<{ key: string; name: string }>;
 };
 
-export type UpdateSpawnHostStatusMutationVariables = {
+export type UpdateSpawnHostStatusMutationVariables = Exact<{
   hostId: Scalars["String"];
   action: SpawnHostStatusActions;
-};
+}>;
 
 export type UpdateSpawnHostStatusMutation = {
   updateSpawnHostStatus: { id: string; status: string };
 };
 
-export type UpdateVolumeMutationVariables = {
+export type UpdateVolumeMutationVariables = Exact<{
   UpdateVolumeInput: UpdateVolumeInput;
-};
+}>;
 
 export type UpdateVolumeMutation = { updateVolume: boolean };
 
-export type UpdateUserSettingsMutationVariables = {
+export type UpdateUserSettingsMutationVariables = Exact<{
   userSettings: UserSettingsInput;
-};
+}>;
 
 export type UpdateUserSettingsMutation = { updateUserSettings: boolean };
 
-export type AwsRegionsQueryVariables = {};
+export type AwsRegionsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type AwsRegionsQuery = { awsRegions?: Maybe<Array<string>> };
 
-export type DistroTaskQueueQueryVariables = {
+export type DistroTaskQueueQueryVariables = Exact<{
   distroId: Scalars["String"];
-};
+}>;
 
 export type DistroTaskQueueQuery = {
   distroTaskQueue: Array<{
@@ -1446,10 +1456,10 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
-export type BuildBaronQueryVariables = {
+export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
-};
+}>;
 
 export type BuildBaronQuery = {
   buildBaron: {
@@ -1473,7 +1483,7 @@ export type BuildBaronQuery = {
   };
 };
 
-export type ClientConfigQueryVariables = {};
+export type ClientConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ClientConfigQuery = {
   clientConfig?: Maybe<{
@@ -1489,9 +1499,9 @@ export type ClientConfigQuery = {
   }>;
 };
 
-export type CodeChangesQueryVariables = {
+export type CodeChangesQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type CodeChangesQuery = {
   patch: {
@@ -1510,9 +1520,9 @@ export type CodeChangesQuery = {
   };
 };
 
-export type CommitQueueQueryVariables = {
+export type CommitQueueQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type CommitQueueQuery = {
   commitQueue: {
@@ -1545,9 +1555,9 @@ export type CommitQueueQuery = {
   };
 };
 
-export type GetCreatedTicketsQueryVariables = {
+export type GetCreatedTicketsQueryVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type GetCreatedTicketsQuery = {
   bbGetCreatedTickets: Array<{
@@ -1563,9 +1573,9 @@ export type GetCreatedTicketsQuery = {
   }>;
 };
 
-export type DistrosQueryVariables = {
+export type DistrosQueryVariables = Exact<{
   onlySpawnable: Scalars["Boolean"];
-};
+}>;
 
 export type DistrosQuery = {
   distros: Array<
@@ -1573,12 +1583,12 @@ export type DistrosQuery = {
   >;
 };
 
-export type HostEventsQueryVariables = {
+export type HostEventsQueryVariables = Exact<{
   id: Scalars["String"];
   tag: Scalars["String"];
   limit?: Maybe<Scalars["Int"]>;
   page?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type HostEventsQuery = {
   hostEvents: {
@@ -1611,9 +1621,9 @@ export type HostEventsQuery = {
   };
 };
 
-export type HostQueryVariables = {
+export type HostQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type HostQuery = {
   host?: Maybe<{
@@ -1630,11 +1640,11 @@ export type HostQuery = {
   }>;
 };
 
-export type InstanceTypesQueryVariables = {};
+export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
-export type MyHostsQueryVariables = {};
+export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = {
   myHosts: Array<{
@@ -1661,10 +1671,9 @@ export type MyHostsQuery = {
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
-  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
-export type MyVolumesQueryVariables = {};
+export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyVolumesQuery = {
   myVolumes: Array<{
@@ -1684,9 +1693,9 @@ export type MyVolumesQuery = {
   }>;
 };
 
-export type PatchBuildVariantsQueryVariables = {
+export type PatchBuildVariantsQueryVariables = Exact<{
   patchId: Scalars["String"];
-};
+}>;
 
 export type PatchBuildVariantsQuery = {
   patchBuildVariants: Array<{
@@ -1705,9 +1714,9 @@ export type PatchBuildVariantsQuery = {
   }>;
 };
 
-export type GetPatchTaskStatusesQueryVariables = {
+export type GetPatchTaskStatusesQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type GetPatchTaskStatusesQuery = {
   patch: {
@@ -1717,7 +1726,7 @@ export type GetPatchTaskStatusesQuery = {
   };
 };
 
-export type PatchTasksQueryVariables = {
+export type PatchTasksQueryVariables = Exact<{
   patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
   sortDir?: Maybe<SortDirection>;
@@ -1727,7 +1736,7 @@ export type PatchTasksQueryVariables = {
   variant?: Maybe<Scalars["String"]>;
   taskName?: Maybe<Scalars["String"]>;
   limit?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type PatchTasksQuery = {
   patchTasks: {
@@ -1743,7 +1752,7 @@ export type PatchTasksQuery = {
   };
 };
 
-export type ProjectsQueryVariables = {};
+export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ProjectsQuery = {
   projects: {
@@ -1765,13 +1774,13 @@ export type ProjectsQuery = {
   };
 };
 
-export type GetMyPublicKeysQueryVariables = {};
+export type GetMyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetMyPublicKeysQuery = {
   myPublicKeys: Array<{ name: string; key: string }>;
 };
 
-export type GetSpruceConfigQueryVariables = {};
+export type GetSpruceConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetSpruceConfigQuery = {
   spruceConfig?: Maybe<{
@@ -1782,12 +1791,17 @@ export type GetSpruceConfigQuery = {
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
     }>;
+    spawnHost: {
+      spawnHostsPerUser: number;
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
   }>;
 };
 
-export type GetTaskAllExecutionsQueryVariables = {
+export type GetTaskAllExecutionsQueryVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
@@ -1798,10 +1812,10 @@ export type GetTaskAllExecutionsQuery = {
   }>;
 };
 
-export type TaskFilesQueryVariables = {
+export type TaskFilesQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type TaskFilesQuery = {
   taskFiles: {
@@ -1813,9 +1827,9 @@ export type TaskFilesQuery = {
   };
 };
 
-export type EventLogsQueryVariables = {
+export type EventLogsQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type EventLogsQuery = {
   taskLogs: {
@@ -1835,9 +1849,9 @@ export type EventLogsQuery = {
   };
 };
 
-export type TaskLogsQueryVariables = {
+export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type TaskLogsQuery = {
   taskLogs: {
@@ -1849,9 +1863,9 @@ export type TaskLogsQuery = {
   };
 };
 
-export type AgentLogsQueryVariables = {
+export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type AgentLogsQuery = {
   taskLogs: {
@@ -1863,9 +1877,9 @@ export type AgentLogsQuery = {
   };
 };
 
-export type SystemLogsQueryVariables = {
+export type SystemLogsQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type SystemLogsQuery = {
   taskLogs: {
@@ -1877,7 +1891,7 @@ export type SystemLogsQuery = {
   };
 };
 
-export type TaskTestsQueryVariables = {
+export type TaskTestsQueryVariables = Exact<{
   dir?: Maybe<SortDirection>;
   id: Scalars["String"];
   cat?: Maybe<TestSortCategory>;
@@ -1886,7 +1900,7 @@ export type TaskTestsQueryVariables = {
   statusList: Array<Scalars["String"]>;
   testName: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type TaskTestsQuery = {
   taskTests: {
@@ -1903,10 +1917,10 @@ export type TaskTestsQuery = {
   };
 };
 
-export type GetTaskQueryVariables = {
+export type GetTaskQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type GetTaskQuery = {
   taskFiles: { fileCount: number };
@@ -2018,15 +2032,15 @@ export type GetTaskQuery = {
   }>;
 };
 
-export type GetTaskLatestExecutionQueryVariables = {
+export type GetTaskLatestExecutionQueryVariables = Exact<{
   taskId: Scalars["String"];
-};
+}>;
 
 export type GetTaskLatestExecutionQuery = {
   task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
-export type GetUserConfigQueryVariables = {};
+export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserConfigQuery = {
   userConfig?: Maybe<{
@@ -2037,7 +2051,7 @@ export type GetUserConfigQuery = {
   }>;
 };
 
-export type GetUserSettingsQueryVariables = {};
+export type GetUserSettingsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserSettingsQuery = {
   userSettings?: Maybe<{
@@ -2060,22 +2074,22 @@ export type GetUserSettingsQuery = {
   }>;
 };
 
-export type GetUserQueryVariables = {};
+export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
 };
 
-export type GetOtherUserQueryVariables = {
+export type GetOtherUserQueryVariables = Exact<{
   userId?: Maybe<Scalars["String"]>;
-};
+}>;
 
 export type GetOtherUserQuery = {
   otherUser: { userId: string; displayName: string };
   currentUser: { userId: string };
 };
 
-export type HostsQueryVariables = {
+export type HostsQueryVariables = Exact<{
   hostId?: Maybe<Scalars["String"]>;
   distroId?: Maybe<Scalars["String"]>;
   currentTaskId?: Maybe<Scalars["String"]>;
@@ -2085,7 +2099,7 @@ export type HostsQueryVariables = {
   sortDir?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
-};
+}>;
 
 export type HostsQuery = {
   hosts: {
@@ -2108,9 +2122,9 @@ export type HostsQuery = {
   };
 };
 
-export type PatchQueryVariables = {
+export type PatchQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type PatchQuery = {
   patch: {
@@ -2139,9 +2153,9 @@ export type PatchQuery = {
   };
 };
 
-export type ConfigurePatchQueryVariables = {
+export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"];
-};
+}>;
 
 export type ConfigurePatchQuery = {
   patch: {
@@ -2162,13 +2176,14 @@ export type ConfigurePatchQuery = {
       }>;
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 
-export type ProjectPatchesQueryVariables = {
+export type ProjectPatchesQueryVariables = Exact<{
   projectId: Scalars["String"];
   patchesInput: PatchesInput;
-};
+}>;
 
 export type ProjectPatchesQuery = {
   project: {
@@ -2178,35 +2193,31 @@ export type ProjectPatchesQuery = {
   };
 };
 
-export type SpawnExpirationInfoQueryVariables = {};
+export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 
 export type SpawnExpirationInfoQuery = {
   myHosts: Array<{ noExpiration: boolean; id: string }>;
   myVolumes: Array<{ noExpiration: boolean; id: string }>;
-  spruceConfig?: Maybe<{
-    spawnHost: {
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
-    };
-  }>;
 };
 
-export type SubnetAvailabilityZonesQueryVariables = {};
+export type SubnetAvailabilityZonesQueryVariables = Exact<{
+  [key: string]: never;
+}>;
 
 export type SubnetAvailabilityZonesQuery = {
   subnetAvailabilityZones: Array<string>;
 };
 
-export type TaskQueueDistrosQueryVariables = {};
+export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
 };
 
-export type UserPatchesQueryVariables = {
+export type UserPatchesQueryVariables = Exact<{
   userId: Scalars["String"];
   patchesInput: PatchesInput;
-};
+}>;
 
 export type UserPatchesQuery = {
   user: { userId: string; patches: PatchesPagePatchesFragment };

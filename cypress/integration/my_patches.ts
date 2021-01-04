@@ -150,8 +150,8 @@ describe("My Patches Page", () => {
       cy.wrap([20, 10, 50, 100]).each((pageSize) => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=my-patches-page-size-selector]",
-          `[data-test-id=my-patches-page-size-selector-${pageSize}]`,
+          "my-patches-page-size-selector",
+          `my-patches-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });

@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Table } from "antd";
-import { GetCreatedTicketsQuery, GetTaskQuery } from "gql/generated/types";
+import { GetTaskQuery } from "gql/generated/types";
 import { AnnotationTicketRow } from "./BBComponents";
 
-type CreatedTickets = GetCreatedTicketsQuery["bbGetCreatedTickets"];
 type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
 
 const columns = [
