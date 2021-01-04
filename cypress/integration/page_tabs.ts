@@ -100,8 +100,9 @@ describe("Tabs", () => {
     });
 
     [taskRoute, taskRouteNoFailedTests].forEach((route, i) => {
-      it(`Should display a badge with the number of failed tests in the Test tab if the failedTestCount field from the Task gql query is above 0 (${i +
-        1})`, () => {
+      it(`Should display a badge with the number of failed tests in the Test tab if the failedTestCount field from the Task gql query is above 0 (${
+        i + 1
+      })`, () => {
         cy.visit(route);
         const failedTestCountPath = "responseBody.data.task.failedTestCount";
         cy.waitForGQL("GetTask", {

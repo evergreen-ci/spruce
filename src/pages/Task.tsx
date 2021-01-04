@@ -40,7 +40,6 @@ import { Metadata } from "pages/task/Metadata";
 import { TestsTable } from "pages/task/TestsTable";
 import { ExecutionAsDisplay, ExecutionAsData } from "pages/task/util/execution";
 import { TaskTab, RequiredQueryParams, TaskStatus } from "types/task";
-
 import { parseQueryString } from "utils";
 
 const tabToIndexMap = {

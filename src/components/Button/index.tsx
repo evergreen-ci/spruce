@@ -16,7 +16,7 @@ interface Props {
   variant?: ButtonTypeKeys;
   onClick?: () => void;
   disabled?: boolean;
-  dataCy?: string;
+  "data-cy"?: string;
   glyph?: React.ReactElement;
   size?: Size;
   href?: string;
@@ -29,7 +29,7 @@ export const Button: React.FC<Props> = ({
   variant = "default",
   onClick,
   disabled,
-  dataCy,
+  "data-cy": dataCy,
   glyph,
   href,
   target,

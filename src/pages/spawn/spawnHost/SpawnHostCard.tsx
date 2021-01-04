@@ -71,9 +71,7 @@ const spawnHostCardFieldMaps = {
       <span>
         <StyledLink href={getIdeUrl(host.id)}>Open IDE</StyledLink>
       </span>
-    ) : (
-      undefined
-    ),
+    ) : undefined,
 };
 
 const PaddedBadge = styled(Badge)`

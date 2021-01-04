@@ -13,9 +13,7 @@ describe("Project Patches Page", () => {
 
   it("Patch card links to project patches page.", () => {
     cy.visit("/user/admin/patches");
-    cy.dataCy("project-patches-link")
-      .first()
-      .click();
+    cy.dataCy("project-patches-link").first().click();
     cy.location("pathname").should("eq", route);
   });
 

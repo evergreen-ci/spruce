@@ -101,7 +101,7 @@ export const TestsTableCore: React.FC = () => {
             dataTestId="tests-table-pagination"
           />
           <PageSizeSelector
-            dataTestId="tests-table-page-size-selector"
+            data-cy="tests-table-page-size-selector"
             value={limitNum}
             sendAnalyticsEvent={() =>
               taskAnalytics.sendEvent({ name: "Change Page Size" })

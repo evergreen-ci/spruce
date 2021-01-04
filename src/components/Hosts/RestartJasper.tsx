@@ -65,7 +65,7 @@ export const RestartJasper: React.FC<Props> = ({
       cancelButtonProps={{ disabled: loadingRestartJasper }}
     >
       <Button
-        dataCy="restart-jasper-button"
+        data-cy="restart-jasper-button"
         disabled={selectedHostIds.length === 0}
       >
         Restart Jasper

@@ -46,7 +46,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
         state={selectedStatuses}
         tData={getCurrentStatuses(statuses, options)}
         inputLabel="Task Status: "
-        dataCy="task-status-filter"
+        data-cy="task-status-filter"
         width={filterWidth}
         onChange={onChangeStatusFilter}
       />
@@ -54,7 +54,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
         state={selectedBaseStatuses}
         tData={getCurrentStatuses(baseStatuses, options)}
         inputLabel="Task Base Status: "
-        dataCy="task-base-status-filter"
+        data-cy="task-base-status-filter"
         width={filterWidth}
         onChange={onChangeBaseStatusFilter}
       />

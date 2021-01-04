@@ -240,9 +240,7 @@ describe("Hosts page filtering from table filters", () => {
 
       cy.dataCy(`${filterIconDataCy}-wrapper`).within(() => {
         if (param === statusesParam) {
-          cy.get(".cy-checkbox")
-            .contains("Running")
-            .click({ force: true });
+          cy.get(".cy-checkbox").contains("Running").click({ force: true });
 
           cy.get(".cy-checkbox")
             .contains("Provisioning")

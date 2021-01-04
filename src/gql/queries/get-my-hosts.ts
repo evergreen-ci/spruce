@@ -33,10 +33,5 @@ export const GET_MY_HOSTS = gql`
       displayName
       availabilityZone
     }
-    spruceConfig {
-      spawnHost {
-        spawnHostsPerUser
-      }
-    }
   }
 `;

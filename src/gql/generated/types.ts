@@ -1658,7 +1658,6 @@ export type MyHostsQuery = {
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
-  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
 export type MyVolumesQueryVariables = {};
@@ -1779,6 +1778,11 @@ export type GetSpruceConfigQuery = {
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
     }>;
+    spawnHost: {
+      spawnHostsPerUser: number;
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
   }>;
 };
 
@@ -2180,12 +2184,6 @@ export type SpawnExpirationInfoQueryVariables = {};
 export type SpawnExpirationInfoQuery = {
   myHosts: Array<{ noExpiration: boolean; id: string }>;
   myVolumes: Array<{ noExpiration: boolean; id: string }>;
-  spruceConfig?: Maybe<{
-    spawnHost: {
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
-    };
-  }>;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = {};

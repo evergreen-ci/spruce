@@ -117,13 +117,13 @@ const WelcomeModal = () => {
   );
 };
 
-type CarouselCard = {
+type CarouselCardProps = {
   img: string;
   subtitle: string;
   description: string;
 };
 
-const CarouselCard: React.FC<CarouselCard> = ({
+const CarouselCard: React.FC<CarouselCardProps> = ({
   img,
   subtitle,
   description,
@@ -139,7 +139,7 @@ const CarouselCard: React.FC<CarouselCard> = ({
 
 interface CarouselDotProps {
   activeSlide: number;
-  cards: CarouselCard[];
+  cards: CarouselCardProps[];
   slider: React.MutableRefObject<Carousel>;
 }
 

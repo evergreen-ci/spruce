@@ -1,19 +1,66 @@
 import React from "react";
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import { getBugsnagApiKey } from "utils/getEnvironmentVariables";
+import { getBugsnagApiKey, isProduction } from "utils/getEnvironmentVariables";
 
-Bugsnag.start({
-  apiKey: getBugsnagApiKey(),
-  plugins: [new BugsnagPluginReact()],
-});
+let bugsnagStarted = false;
 
-const ErrorBoundaryComp = Bugsnag.getPlugin("react").createErrorBoundary(React);
+// This error boundary is used during local development
+class DefaultErrorBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
 
-const ErrorBoundary: React.FC = ({ children }) => (
-  <ErrorBoundaryComp FallbackComponent={() => <h1>Something went wrong.</h1>}>
-    {children}
-  </ErrorBoundaryComp>
-);
+  static getDerivedStateFromError() {
+    // Update state so the next render will show the fallback UI.
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, errorInfo) {
+    console.log({ error, errorInfo });
+  }
+
+  render() {
+    const { hasError } = this.state as { hasError: boolean };
+    if (hasError) {
+      return <h1>Something went wrong.</h1>;
+    }
+    const { children } = this.props;
+    return children;
+  }
+}
+
+const getBoundary = () => {
+  if (bugsnagStarted && Bugsnag.getPlugin("react")) {
+    return Bugsnag.getPlugin("react").createErrorBoundary(React);
+  }
+  return DefaultErrorBoundary;
+};
+
+export const initializeBugsnag = () => {
+  // Only need to Bugsnag.start once, will throw console warnings otherwise
+  if (bugsnagStarted || !isProduction()) {
+    return;
+  }
+  try {
+    Bugsnag.start({
+      apiKey: getBugsnagApiKey(),
+      plugins: [new BugsnagPluginReact()],
+    });
+    bugsnagStarted = true;
+  } catch (e) {}
+};
+
+const ErrorBoundary: React.FC = ({ children }) => {
+  // In some cases we do not want to enable bugsnag (ex: testing environments).
+  // In these cases we will return a fallback element
+  const ErrorBoundaryComp = getBoundary();
+  return (
+    <ErrorBoundaryComp FallbackComponent={() => <h1>Something went wrong.</h1>}>
+      {children}
+    </ErrorBoundaryComp>
+  );
+};
 
 export { ErrorBoundary };
