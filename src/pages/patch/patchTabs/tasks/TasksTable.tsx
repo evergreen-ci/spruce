@@ -12,8 +12,6 @@ interface Props {
   columns: Array<ColumnProps<TaskResult>>;
 }
 
-type Tasks = PatchTasks["tasks"];
-
 export const TasksTable: React.FC<Props> = ({ data, columns }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -36,19 +34,13 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
     }
   };
 
-  const transformData = (tasks: Tasks) =>
-    tasks.map((task) => {
-      const t = { ...task, children: undefined };
-      t.children = t.executionTasksFull;
-      return t;
-    });
   return (
     <Table
       data-test-id="tasks-table"
       rowKey={rowKey}
       pagination={false}
       columns={columns}
-      dataSource={transformData(get(data, "tasks", [])) as TaskResult[]}
+      dataSource={get(data, "tasks", []) as TaskResult[]}
       onChange={tableChangeHandler}
       childrenColumnName="executionTasksFull"
     />
