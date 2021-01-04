@@ -17,6 +17,7 @@ interface TagRowProps {
   onUpdateTag?: (tag: Tag, deleteKey?: string) => void;
   isValidKey: (key: string) => boolean; // function to validate if a key has been duplicated
   isNewTag?: boolean;
+  buttonText: string;
 }
 export const TagRow: React.FC<TagRowProps> = ({
   tag,
@@ -24,6 +25,7 @@ export const TagRow: React.FC<TagRowProps> = ({
   onUpdateTag,
   isValidKey,
   isNewTag = false,
+  buttonText,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
@@ -109,7 +111,7 @@ export const TagRow: React.FC<TagRowProps> = ({
             onClick={() => dispatch({ type: "newTag" })}
             data-cy="add-tag-button"
           >
-            Add Tag
+            {buttonText}
           </PlusButton>
         </ButtonContainer>
       )}

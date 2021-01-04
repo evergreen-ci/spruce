@@ -17,7 +17,13 @@ const instanceTags = [
 export const EditableTagFieldView = () => {
   const [state, setState] = useState([]);
   console.log({ state });
-  return <EditableTagField inputTags={instanceTags} onChange={setState} />;
+  return (
+    <EditableTagField
+      inputTags={instanceTags}
+      onChange={setState}
+      buttonText="Add Tag"
+    />
+  );
 };
 
 export default {

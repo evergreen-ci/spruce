@@ -644,6 +644,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -1332,7 +1333,7 @@ export type SchedulePatchTasksMutation = { schedulePatchTasks?: Maybe<string> };
 
 export type SchedulePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
-  reconfigure: PatchConfigure;
+  configure: PatchConfigure;
 }>;
 
 export type SchedulePatchMutation = {
@@ -1345,6 +1346,7 @@ export type SchedulePatchMutation = {
     tasks: Array<string>;
     variants: Array<string>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 
@@ -1515,6 +1517,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1543,6 +1546,7 @@ export type CommitQueueQuery = {
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              description: string;
               fileName: string;
               additions: number;
               deletions: number;
@@ -2185,6 +2189,7 @@ export type ConfigurePatchQuery = {
       }>;
     }>;
     variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
   };
 };
 
