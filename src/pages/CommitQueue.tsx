@@ -26,7 +26,7 @@ import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 const { gray } = uiColors;
 
 const CommitQueueCore: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const { data, loading } = useQuery<

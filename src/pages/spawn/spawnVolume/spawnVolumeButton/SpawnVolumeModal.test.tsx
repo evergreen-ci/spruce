@@ -7,7 +7,6 @@ import {
   GET_SUBNET_AVAILABILITY_ZONES,
   GET_USER,
   GET_MY_VOLUMES,
-  GET_SPAWN_EXPIRATION_INFO,
 } from "gql/queries";
 
 import {
@@ -17,53 +16,6 @@ import {
   act,
 } from "test_utils/test-utils";
 import { SpawnVolumeModal } from "./SpawnVolumeModal";
-
-const spawnExpirationMock = {
-  request: {
-    query: GET_SPAWN_EXPIRATION_INFO,
-    variables: {},
-  },
-  result: {
-    data: {
-      myHosts: [
-        { noExpiration: false, id: "i-05a2f286b802fd144", __typename: "Host" },
-        { noExpiration: false, id: "i-09d810d09f9cd9a1d", __typename: "Host" },
-        { noExpiration: true, id: "i-010cb384f2a0af1f4", __typename: "Host" },
-        { noExpiration: false, id: "i-08bc47799b6331c58", __typename: "Host" },
-      ],
-      myVolumes: [
-        {
-          noExpiration: false,
-          id: "vol-0a7fa1af4c970e824",
-          __typename: "Volume",
-        },
-        {
-          noExpiration: false,
-          id: "vol-0270933468cf4712a",
-          __typename: "Volume",
-        },
-        {
-          noExpiration: true,
-          id: "vol-04f4e0b9c13b4d0ad",
-          __typename: "Volume",
-        },
-        {
-          noExpiration: true,
-          id: "vol-094dab1409b72c64a",
-          __typename: "Volume",
-        },
-      ],
-      spruceConfig: {
-        spawnHost: {
-          unexpirableHostsPerUser: 2,
-          unexpirableVolumesPerUser: 1,
-          __typename: "SpawnHostConfig",
-        },
-        __typename: "SpruceConfig",
-      },
-    },
-  },
-};
 
 const myHostsMock = {
   request: {
@@ -155,13 +107,6 @@ const myHostsMock = {
           __typename: "Host",
         },
       ],
-      spruceConfig: {
-        spawnHost: {
-          spawnHostsPerUser: 60,
-          __typename: "SpawnHostConfig",
-        },
-        __typename: "SpruceConfig",
-      },
     },
   },
 };
@@ -184,6 +129,12 @@ const spruceConfigMock = {
         providers: {
           aws: { maxVolumeSizePerUser: 1500, __typename: "AWSConfig" },
           __typename: "CloudProviderConfig",
+        },
+        spawnHost: {
+          spawnHostsPerUser: 6,
+          unexpirableHostsPerUser: 2,
+          unexpirableVolumesPerUser: 1,
+          __typename: "SpawnHostConfig",
         },
         __typename: "SpruceConfig",
       },
@@ -285,41 +236,23 @@ const baseMocks = [
   userMock,
   subnetZonesMock,
   myHostsMock,
-  myHostsMock,
-  spruceConfigMock,
-  spruceConfigMock,
-  spruceConfigMock,
   spruceConfigMock,
   myVolumesQueryMock,
-  myVolumesQueryMock,
-  myVolumesQueryMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spruceConfigMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
-  spawnExpirationMock,
 ];
 
 const mockSuccessBanner = jest.fn();
+const mockErrorBanner = jest.fn();
 jest.mock("context/banners", () => ({
   useBannerDispatchContext: () => ({
     successBanner: mockSuccessBanner,
-    errorBanner: (e) => {
-      console.log(e);
-    },
+    errorBanner: mockErrorBanner,
     clearAllBanners: () => {},
   }),
 }));
 
 beforeEach(() => {
   mockSuccessBanner.mockClear();
+  mockErrorBanner.mockClear();
 });
 
 test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
@@ -346,7 +279,6 @@ test("Form contains default volumes on initial render.", async () => {
       <SpawnVolumeModal visible onCancel={() => {}} />
     </MockedProvider>
   ));
-  await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   await waitFor(() => expect(queryByDataCy("volumeSize")).toHaveValue("500"));
 
@@ -392,7 +324,6 @@ test("Form submission succeeds with default values", async () => {
     myVolumesQueryMock,
     myVolumesQueryMock,
     spruceConfigMock,
-    spawnExpirationMock,
   ];
   const { queryByText } = render(() => (
     <MockedProvider mocks={mocks}>
@@ -401,7 +332,8 @@ test("Form submission succeeds with default values", async () => {
   ));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
+  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
@@ -411,7 +343,6 @@ test("Form submission succeeds after adjusting inputs", async () => {
     subnetZonesMock,
     myHostsMock,
     spruceConfigMock,
-    myVolumesQueryMock,
     myVolumesQueryMock,
     {
       request: {
@@ -430,20 +361,8 @@ test("Form submission succeeds after adjusting inputs", async () => {
       result: { data: { spawnVolume: true } },
     },
     myVolumesQueryMock,
-    myVolumesQueryMock,
-    myVolumesQueryMock,
     spruceConfigMock,
     myHostsMock,
-    myHostsMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spawnExpirationMock,
-    spruceConfigMock,
   ];
   const { queryByText, queryByDataCy } = render(() => (
     <MockedProvider addTypename={false} mocks={mocks}>
@@ -459,5 +378,6 @@ test("Form submission succeeds after adjusting inputs", async () => {
   fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
   fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toBeCalledTimes(1));
+  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
 });

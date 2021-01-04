@@ -173,6 +173,7 @@ export type Mutation = {
   editAnnotationNote: Scalars["Boolean"];
   moveAnnotationIssue: Scalars["Boolean"];
   addAnnotationIssue: Scalars["Boolean"];
+  removeAnnotationIssue: Scalars["Boolean"];
   removeItemFromCommitQueue?: Maybe<Scalars["String"]>;
   updateUserSettings: Scalars["Boolean"];
   restartJasper: Scalars["Int"];
@@ -268,6 +269,13 @@ export type MutationMoveAnnotationIssueArgs = {
 };
 
 export type MutationAddAnnotationIssueArgs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+};
+
+export type MutationRemoveAnnotationIssueArgs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
   apiIssue: IssueLinkInput;
@@ -724,6 +732,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -840,6 +849,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1165,14 +1175,28 @@ export type GetPatchEventDataQueryVariables = {
   id: Scalars["String"];
 };
 
-export type GetPatchEventDataQuery = { patch: { status: string } };
+export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
 
 export type GetTaskEventDataQueryVariables = {
   taskId: Scalars["String"];
 };
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ status: string; failedTestCount: number }>;
+  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+};
+
+export type PatchesPagePatchesFragment = {
+  filteredPatchCount: number;
+  patches: Array<{
+    id: string;
+    projectID: string;
+    description: string;
+    status: string;
+    createTime?: Maybe<Date>;
+    commitQueuePosition?: Maybe<number>;
+    canEnqueueToCommitQueue: boolean;
+    builds: Array<{ id: string; buildVariant: string; status: string }>;
+  }>;
 };
 
 export type AbortTaskMutationVariables = {
@@ -1638,7 +1662,6 @@ export type MyHostsQuery = {
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
   }>;
-  spruceConfig?: Maybe<{ spawnHost: { spawnHostsPerUser: number } }>;
 };
 
 export type MyVolumesQueryVariables = {};
@@ -1759,6 +1782,11 @@ export type GetSpruceConfigQuery = {
     providers?: Maybe<{
       aws?: Maybe<{ maxVolumeSizePerUser?: Maybe<number> }>;
     }>;
+    spawnHost: {
+      spawnHostsPerUser: number;
+      unexpirableHostsPerUser: number;
+      unexpirableVolumesPerUser: number;
+    };
   }>;
 };
 
@@ -1782,6 +1810,7 @@ export type TaskFilesQueryVariables = {
 
 export type TaskFilesQuery = {
   taskFiles: {
+    fileCount: number;
     groupedFiles: Array<{
       taskName?: Maybe<string>;
       files?: Maybe<Array<{ name: string; link: string }>>;
@@ -1941,6 +1970,56 @@ export type GetTaskQuery = {
     details?: Maybe<{
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
     }>;
+    annotation?: Maybe<{
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+    }>;
   }>;
 };
 
@@ -1949,7 +2028,7 @@ export type GetTaskLatestExecutionQueryVariables = {
 };
 
 export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ latestExecution: number }>;
+  task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = {};
@@ -2034,31 +2113,6 @@ export type HostsQuery = {
   };
 };
 
-export type UserPatchesQueryVariables = {
-  page?: Maybe<Scalars["Int"]>;
-  limit?: Maybe<Scalars["Int"]>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
-  patchName?: Maybe<Scalars["String"]>;
-  includeCommitQueue?: Maybe<Scalars["Boolean"]>;
-  userId?: Maybe<Scalars["String"]>;
-};
-
-export type UserPatchesQuery = {
-  userPatches: {
-    filteredPatchCount: number;
-    patches: Array<{
-      id: string;
-      projectID: string;
-      description: string;
-      status: string;
-      createTime?: Maybe<Date>;
-      commitQueuePosition?: Maybe<number>;
-      canEnqueueToCommitQueue: boolean;
-      builds: Array<{ id: string; buildVariant: string; status: string }>;
-    }>;
-  };
-};
-
 export type PatchQueryVariables = {
   id: Scalars["String"];
 };
@@ -2117,17 +2171,24 @@ export type ConfigurePatchQuery = {
   };
 };
 
+export type ProjectPatchesQueryVariables = {
+  projectId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type ProjectPatchesQuery = {
+  project: {
+    id: string;
+    displayName: string;
+    patches: PatchesPagePatchesFragment;
+  };
+};
+
 export type SpawnExpirationInfoQueryVariables = {};
 
 export type SpawnExpirationInfoQuery = {
   myHosts: Array<{ noExpiration: boolean; id: string }>;
   myVolumes: Array<{ noExpiration: boolean; id: string }>;
-  spruceConfig?: Maybe<{
-    spawnHost: {
-      unexpirableHostsPerUser: number;
-      unexpirableVolumesPerUser: number;
-    };
-  }>;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = {};
@@ -2140,4 +2201,13 @@ export type TaskQueueDistrosQueryVariables = {};
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type UserPatchesQueryVariables = {
+  userId: Scalars["String"];
+  patchesInput: PatchesInput;
+};
+
+export type UserPatchesQuery = {
+  user: { userId: string; patches: PatchesPagePatchesFragment };
 };

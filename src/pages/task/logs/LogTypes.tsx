@@ -182,7 +182,7 @@ const useRenderBody: React.FC<{
           <ButtonContainer>
             {htmlLink && (
               <Button
-                dataCy="html-log-btn"
+                data-cy="html-log-btn"
                 target="_blank"
                 href={htmlLink}
                 onClick={() =>
@@ -194,7 +194,7 @@ const useRenderBody: React.FC<{
             )}
             {rawLink && (
               <Button
-                dataCy="raw-log-btn"
+                data-cy="raw-log-btn"
                 target="_blank"
                 href={rawLink}
                 onClick={() =>

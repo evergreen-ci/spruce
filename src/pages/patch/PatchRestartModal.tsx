@@ -203,7 +203,7 @@ const ConfirmationMessage = styled(Body)`
 
 const Row = styled.div`
   display: flex;
-  > : first-child {
+  >: first-child {
     margin-right: 16px;
   }
 `;

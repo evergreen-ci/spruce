@@ -44,7 +44,7 @@ export const BuildVariants: React.FC = () => {
       {data &&
         data.patchBuildVariants.map(({ displayName, tasks, variant }) => (
           <BuildVariant
-            key={`buildVariant_${displayName}`}
+            key={`buildVariant_${displayName}_${tasks.length}`}
             data-cy="patch-build-variant"
           >
             <P1>

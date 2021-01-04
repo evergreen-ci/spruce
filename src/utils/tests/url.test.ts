@@ -1,4 +1,3 @@
-import "jest-localstorage-mock";
 import { RECENT_PAGE_SIZE_KEY } from "components/PageSizeSelector";
 import { getLimitFromSearch } from "utils/url";
 

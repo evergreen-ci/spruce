@@ -18,7 +18,7 @@ export const AddNotification: React.FC<Props> = () => {
     <>
       <Button
         size="small"
-        dataCy="notify-patch"
+        data-cy="notify-patch"
         onClick={() => {
           patchAnalytics.sendEvent({ name: "Open Notification Modal" });
           setIsVisibleModal(true);

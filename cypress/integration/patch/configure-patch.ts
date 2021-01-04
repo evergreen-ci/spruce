@@ -1,50 +1,355 @@
 // / <reference types="Cypress" />
 // / <reference path="../../support/index.d.ts" />
 
-type ProjectVariants = Array<{
-  name: string;
-  displayName: string;
-  tasks: string[];
-}>;
-interface PatchProject {
-  tasks?: string[];
-  variants?: ProjectVariants;
-}
-type VariantsTasks = Array<{
-  name: string;
-  tasks: string[];
-}>;
-interface ConfigurePatchData {
-  id: string;
-  description: string;
-  author: string;
-  version: string;
-  status: string;
-  activated: boolean;
-  time: {
-    submittedAt: string;
-  };
-  project: PatchProject;
-  variantsTasks: VariantsTasks;
-}
-interface ConfigurePatchQuery {
-  data: {
-    patch: ConfigurePatchData;
-  };
-}
-
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
 
 describe("Configure Patch Page", () => {
-  let patch: ConfigurePatchData;
+  const patch = {
+    id: "5e6bb9e23066155a993e0f1a",
+    description: "test meee",
+    author: "admin",
+    alias: "",
+    status: "created",
+    activated: false,
+    commitQueuePosition: null,
+    time: { submittedAt: "March 13, 2020, 4:50PM", __typename: "PatchTime" },
+    project: {
+      tasks: [
+        "coverage",
+        "smoke-test-task",
+        "smoke-test-endpoints",
+        "smoke-test-agent-monitor",
+        "generate-lint",
+        "js-test",
+        "dist",
+        "test-thirdparty-docker",
+        "test-auth",
+        "test-rest-route",
+        "test-rest-client",
+        "test-rest-model",
+        "test-command",
+        "test-units",
+        "test-agent",
+        "test-rest-data",
+        "test-operations",
+        "test-db",
+        "test-cloud",
+        "test-scheduler",
+        "test-service",
+        "test-monitor",
+        "test-evergreen",
+        "test-thirdparty",
+        "test-trigger",
+        "test-util",
+        "test-validator",
+        "test-model",
+        "test-model-alertrecord",
+        "test-model-artifact",
+        "test-model-build",
+        "test-model-event",
+        "test-model-host",
+        "test-model-notification",
+        "test-model-patch",
+        "test-model-stats",
+        "test-model-task",
+        "test-model-testresult",
+        "test-model-user",
+        "test-model-distro",
+        "test-model-commitqueue",
+        "test-model-manifest",
+        "test-plugin",
+        "test-migrations",
+        "test-model-grid",
+        "test-graphql",
+        "docker-cleanup",
+        "test-repotracker",
+      ],
+      variants: [
+        {
+          name: "linux-docker",
+          displayName: "ArchLinux (Docker)",
+          tasks: ["docker-cleanup"],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "coverage",
+          displayName: "Coverage",
+          tasks: ["coverage"],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "lint",
+          displayName: "Lint",
+          tasks: ["generate-lint"],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "osx",
+          displayName: "OSX",
+          tasks: [
+            "dist",
+            "test-agent",
+            "test-auth",
+            "test-cloud",
+            "test-command",
+            "test-db",
+            "test-evergreen",
+            "test-graphql",
+            "test-migrations",
+            "test-model",
+            "test-model-alertrecord",
+            "test-model-artifact",
+            "test-model-build",
+            "test-model-commitqueue",
+            "test-model-distro",
+            "test-model-event",
+            "test-model-grid",
+            "test-model-host",
+            "test-model-manifest",
+            "test-model-notification",
+            "test-model-patch",
+            "test-model-stats",
+            "test-model-task",
+            "test-model-testresult",
+            "test-model-user",
+            "test-monitor",
+            "test-operations",
+            "test-plugin",
+            "test-repotracker",
+            "test-rest-client",
+            "test-rest-data",
+            "test-rest-model",
+            "test-rest-route",
+            "test-scheduler",
+            "test-service",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-trigger",
+            "test-units",
+            "test-util",
+            "test-validator",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "rhel71-power8",
+          displayName: "RHEL 7.1 POWER8",
+          tasks: [
+            "test-agent",
+            "test-command",
+            "test-rest-client",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-util",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "rhel72-s390x",
+          displayName: "RHEL 7.2 zLinux",
+          tasks: [
+            "test-agent",
+            "test-command",
+            "test-rest-client",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-util",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "race-detector",
+          displayName: "Race Detector",
+          tasks: [
+            "test-agent",
+            "test-auth",
+            "test-cloud",
+            "test-command",
+            "test-db",
+            "test-evergreen",
+            "test-graphql",
+            "test-migrations",
+            "test-model",
+            "test-model-alertrecord",
+            "test-model-artifact",
+            "test-model-build",
+            "test-model-commitqueue",
+            "test-model-distro",
+            "test-model-event",
+            "test-model-grid",
+            "test-model-host",
+            "test-model-manifest",
+            "test-model-notification",
+            "test-model-patch",
+            "test-model-stats",
+            "test-model-task",
+            "test-model-testresult",
+            "test-model-user",
+            "test-monitor",
+            "test-operations",
+            "test-plugin",
+            "test-repotracker",
+            "test-rest-client",
+            "test-rest-data",
+            "test-rest-model",
+            "test-rest-route",
+            "test-scheduler",
+            "test-service",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-trigger",
+            "test-units",
+            "test-util",
+            "test-validator",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "ubuntu1604",
+          displayName: "Ubuntu 16.04",
+          tasks: [
+            "dist",
+            "js-test",
+            "smoke-test-agent-monitor",
+            "smoke-test-endpoints",
+            "smoke-test-task",
+            "test-agent",
+            "test-auth",
+            "test-cloud",
+            "test-command",
+            "test-db",
+            "test-evergreen",
+            "test-graphql",
+            "test-migrations",
+            "test-model",
+            "test-model-alertrecord",
+            "test-model-artifact",
+            "test-model-build",
+            "test-model-commitqueue",
+            "test-model-distro",
+            "test-model-event",
+            "test-model-grid",
+            "test-model-host",
+            "test-model-manifest",
+            "test-model-notification",
+            "test-model-patch",
+            "test-model-stats",
+            "test-model-task",
+            "test-model-testresult",
+            "test-model-user",
+            "test-monitor",
+            "test-operations",
+            "test-plugin",
+            "test-repotracker",
+            "test-rest-client",
+            "test-rest-data",
+            "test-rest-model",
+            "test-rest-route",
+            "test-scheduler",
+            "test-service",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-trigger",
+            "test-units",
+            "test-util",
+            "test-validator",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "ubuntu1604-docker",
+          displayName: "Ubuntu 16.04 (Docker)",
+          tasks: [
+            "dist",
+            "smoke-test-agent-monitor",
+            "smoke-test-endpoints",
+            "smoke-test-task",
+            "test-agent",
+            "test-auth",
+            "test-cloud",
+            "test-command",
+            "test-db",
+            "test-evergreen",
+            "test-graphql",
+            "test-migrations",
+            "test-model",
+            "test-model-alertrecord",
+            "test-model-artifact",
+            "test-model-build",
+            "test-model-commitqueue",
+            "test-model-distro",
+            "test-model-event",
+            "test-model-grid",
+            "test-model-host",
+            "test-model-manifest",
+            "test-model-notification",
+            "test-model-patch",
+            "test-model-stats",
+            "test-model-task",
+            "test-model-testresult",
+            "test-model-user",
+            "test-monitor",
+            "test-operations",
+            "test-plugin",
+            "test-repotracker",
+            "test-rest-client",
+            "test-rest-data",
+            "test-rest-model",
+            "test-rest-route",
+            "test-scheduler",
+            "test-service",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-trigger",
+            "test-units",
+            "test-util",
+            "test-validator",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "ubuntu1604-arm64",
+          displayName: "Ubuntu 16.04 ARM",
+          tasks: [
+            "test-agent",
+            "test-command",
+            "test-rest-client",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-util",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+        {
+          name: "windows",
+          displayName: "Windows",
+          tasks: [
+            "test-agent",
+            "test-command",
+            "test-operations",
+            "test-rest-client",
+            "test-thirdparty",
+            "test-thirdparty-docker",
+            "test-util",
+          ],
+          __typename: "ProjectBuildVariant",
+        },
+      ],
+      __typename: "PatchProject",
+    },
+    variantsTasks: [
+      {
+        name: "ubuntu1604",
+        tasks: ["test-graphql"],
+        __typename: "VariantTask",
+      },
+    ],
+    __typename: "Patch",
+  };
   before(() => {
     cy.login();
-    cy.visit(`/version/${unactivatedPatchId}`);
     cy.listenGQL();
-    cy.waitForGQL("ConfigurePatch").then(({ responseBody }) => {
-      const { data } = responseBody as ConfigurePatchQuery;
-      patch = data.patch;
-    });
+    cy.visit(`/version/${unactivatedPatchId}`);
   });
   describe("Initial state reflects patch data", () => {
     it("Configure patch path is present in url", () => {
@@ -122,9 +427,7 @@ describe("Configure Patch Page", () => {
         .as("patchNameInput")
         .clear()
         .type(val);
-      cy.get("@patchNameInput")
-        .invoke("val")
-        .should("eq", val);
+      cy.get("@patchNameInput").invoke("val").should("eq", val);
     });
     it("Selecting build variant displays tasks of that variant", () => {
       patch.project.variants.forEach(({ name, tasks }) => {
@@ -143,9 +446,7 @@ describe("Configure Patch Page", () => {
       const { variants } = patch.project;
       const lastVariantInList = variants[variants.length - 1];
       const firstTask = lastVariantInList.tasks[0];
-      cy.get(`[data-cy-name=${lastVariantInList.name}]`)
-        .as("variant")
-        .click();
+      cy.get(`[data-cy-name=${lastVariantInList.name}]`).as("variant").click();
 
       cy.get("@variant").then(($variant) => {
         const taskCountBadge = `[data-cy=configurePatch-taskCountBadge-${lastVariantInList.name}]`;
@@ -328,9 +629,7 @@ describe("Configure Patch Page", () => {
       it("Shift+click will select the clicked build variant along with all build variants between the clicked build variant and the first selected build variant in the list", () => {
         cy.get("body").type("{shift}", { release: false }); // hold shift
         cy.get('[data-cy-name="windows"]').click();
-        cy.get("[data-cy-selected=true]")
-          .its("length")
-          .should("eq", 7);
+        cy.get("[data-cy-selected=true]").its("length").should("eq", 7);
         const variantsFirstTime = [
           "RHEL 7.1 POWER81",
           "RHEL 7.2 zLinux",
@@ -357,9 +656,7 @@ describe("Configure Patch Page", () => {
         cy.get("[data-cy-selected=true]").each((v, i) => {
           cy.wrap(v).contains(variantsSecondTime[i]);
         });
-        cy.get("[data-cy-selected=true]")
-          .its("length")
-          .should("eq", 10);
+        cy.get("[data-cy-selected=true]").its("length").should("eq", 10);
       });
     });
   });

@@ -19,7 +19,7 @@ const { TextArea } = Input;
 
 interface Props {
   visible: boolean;
-  dataCy: string;
+  "data-cy": string;
   hostIds: string[];
   closeModal: () => void;
   isSingleHost?: boolean;
@@ -27,7 +27,7 @@ interface Props {
 
 export const UpdateStatusModal: React.FC<Props> = ({
   visible,
-  dataCy,
+  "data-cy": dataCy,
   hostIds,
   closeModal,
   isSingleHost = false,
@@ -88,11 +88,11 @@ export const UpdateStatusModal: React.FC<Props> = ({
       onCancel={onClickCancel}
       title="Update Host Status"
       footer={[
-        <Button dataCy="modal-cancel-button" onClick={onClickCancel}>
+        <Button data-cy="modal-cancel-button" onClick={onClickCancel}>
           Cancel
         </Button>,
         <Button
-          dataCy="modal-update-button"
+          data-cy="modal-update-button"
           variant="primary"
           disabled={!status}
           loading={loadingUpdateHostStatus}

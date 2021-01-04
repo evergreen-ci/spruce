@@ -36,9 +36,7 @@ describe("Update Status Modal", () => {
       cy.get(".ant-select-selection-item").should("not.exist");
     });
 
-    cy.dataCy("host-status-notes")
-      .invoke("val")
-      .should("eq", "");
+    cy.dataCy("host-status-notes").invoke("val").should("eq", "");
   });
 
   it("Clears form values when modal is closed", () => {
@@ -62,8 +60,6 @@ describe("Update Status Modal", () => {
       cy.get(".ant-select-selection-item").should("not.exist");
     });
 
-    cy.dataCy("host-status-notes")
-      .invoke("val")
-      .should("eq", "");
+    cy.dataCy("host-status-notes").invoke("val").should("eq", "");
   });
 });

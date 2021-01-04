@@ -64,9 +64,12 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string[]>([
     get(variants[0], "name", ""),
   ]);
-  const [selectedVariantTasks, setSelectedVariantTasks] = useState<
-    VariantTasksState
-  >(convertPatchVariantTasksToStateShape(variantsTasks));
+  const [
+    selectedVariantTasks,
+    setSelectedVariantTasks,
+  ] = useState<VariantTasksState>(
+    convertPatchVariantTasksToStateShape(variantsTasks)
+  );
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description || ""
   );
