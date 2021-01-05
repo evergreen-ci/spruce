@@ -55,7 +55,7 @@ const columns: Array<ColumnProps<MyVolume>> = [
     width: 400,
   },
   {
-    title: <span data-cy="mounted-on-column">Mounted On</span>,
+    title: "Mounted On",
     key: "mountedOn",
     sorter: sortByHost,
     render: (_, volume: MyVolume) => (
@@ -66,14 +66,14 @@ const columns: Array<ColumnProps<MyVolume>> = [
     width: 400,
   },
   {
-    title: <span data-cy="status-column">Status</span>,
+    title: "Status",
     key: "status",
     sorter: sortByHost,
     defaultSortOrder: "ascend",
     render: (_, volume: MyVolume) => <VolumeStatusBadge volume={volume} />,
   },
   {
-    title: <span data-cy="expires-in-column">Expires In</span>,
+    title: "Expires In",
     dataIndex: "expiration",
     sorter: (a: MyVolume, b: MyVolume) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: MyVolume) =>
@@ -82,7 +82,7 @@ const columns: Array<ColumnProps<MyVolume>> = [
         : formatDistanceToNow(new Date(expiration)),
   },
   {
-    title: <span data-cy="actions-column">Actions</span>,
+    title: "Actions",
     render: (volume: MyVolume) => <SpawnVolumeTableActions volume={volume} />,
   },
 ];
