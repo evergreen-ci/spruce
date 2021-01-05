@@ -7,7 +7,6 @@ import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Modal } from "components/Modal";
 import { WideButton } from "components/Spawn";
 import { useBannerDispatchContext } from "context/banners";
-
 import {
   AddAnnotationIssueMutation,
   AddAnnotationIssueMutationVariables,
@@ -86,7 +85,7 @@ export const AddIssueModal: React.FC<Props> = ({
           <WideButton dataCy="modal-cancel-button" onClick={onClickCancel}>
             Cancel
           </WideButton>{" "}
-          <ConditionalWithMargin
+          <ConditionalWrapperWithMargin
             condition={url === "" || issueKey === ""}
             wrapper={(children) => (
               <Tooltip title="Url and display text are required">
@@ -103,7 +102,7 @@ export const AddIssueModal: React.FC<Props> = ({
             >
               Save
             </WideButton>
-          </ConditionalWithMargin>
+          </ConditionalWrapperWithMargin>
         </>,
       ]}
     >
@@ -130,6 +129,6 @@ const StyledTextArea = styled(TextArea)`
   resize: none;
 `;
 
-const ConditionalWithMargin = styled(ConditionalWrapper)`
+const ConditionalWrapperWithMargin = styled(ConditionalWrapper)`
   margin-left: 16px;
 `;

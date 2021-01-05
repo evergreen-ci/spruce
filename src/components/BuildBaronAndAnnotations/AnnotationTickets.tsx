@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import Tooltip from "antd/es/tooltip";
+import { Tooltip } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
 import { IssueLink } from "gql/generated/types";
@@ -23,6 +23,8 @@ export const AnnotationTickets: React.FC<Props> = ({
   isIssue,
   userCanModify,
 }) => {
+  // eslint-disable-next-line no-param-reassign
+  userCanModify = false;
   const title = isIssue ? "Issues" : "SuspectedIssues";
   const buttonText = isIssue ? "Add Issue" : "Add SuspectedIssue";
 
@@ -31,40 +33,38 @@ export const AnnotationTickets: React.FC<Props> = ({
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
   return (
-    <>
-      {tickets?.length && (
-        <>
-          <TitleAndButtons>
-            <TicketsTitle>{title} </TicketsTitle>
-            <ConditionalWrapper
-              condition={!userCanModify}
-              wrapper={(children) => (
-                <Tooltip title="You are not authorized to edit task annotations">
-                  <span>{children}</span>
-                </Tooltip>
-              )}
+    tickets?.length && (
+      <>
+        <TitleAndButtons>
+          <TicketsTitle>{title} </TicketsTitle>
+          <ConditionalWrapper
+            condition={!userCanModify}
+            wrapper={(children) => (
+              <Tooltip title="You are not authorized to edit task annotations">
+                <span>{children}</span>
+              </Tooltip>
+            )}
+          >
+            <StyledButton
+              onClick={() => setIsAddAnnotationModalVisible(true)}
+              data-cy="add-tag-button"
+              disabled={!userCanModify}
             >
-              <StyledButton
-                onClick={() => setIsAddAnnotationModalVisible(true)}
-                data-cy="add-tag-button"
-                disabled={!userCanModify}
-              >
-                {buttonText}
-              </StyledButton>
-            </ConditionalWrapper>
-          </TitleAndButtons>
-          <AnnotationTicketsTable jiraIssues={tickets} />{" "}
-          <AddIssueModal
-            dataCy="addIssueModal"
-            visible={isAddAnnotationModalVisible}
-            closeModal={() => setIsAddAnnotationModalVisible(false)}
-            taskId={taskId}
-            execution={execution}
-            isIssue={isIssue}
-          />
-        </>
-      )}
-    </>
+              {buttonText}
+            </StyledButton>
+          </ConditionalWrapper>
+        </TitleAndButtons>
+        <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+        <AddIssueModal
+          dataCy="addIssueModal"
+          visible={isAddAnnotationModalVisible}
+          closeModal={() => setIsAddAnnotationModalVisible(false)}
+          taskId={taskId}
+          execution={execution}
+          isIssue={isIssue}
+        />
+      </>
+    )
   );
 };
 
