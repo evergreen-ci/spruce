@@ -172,6 +172,7 @@ it("The BuildBaron component renders without crashing.", () => {
         bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
+        execution={execution}
         loading={false}
       />
     </MockedProvider>
@@ -193,6 +194,7 @@ it("Clicking on file a new ticket dispatches a banner.", async () => {
         bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
+        execution={execution}
         loading={false}
       />
     </MockedProvider>
@@ -220,6 +222,7 @@ it("The correct JiraTicket rows are rendered in the component", () => {
         bbData={buildBaronQuery}
         error={null}
         taskId={taskId}
+        execution={execution}
         loading={false}
       />
     </MockedProvider>

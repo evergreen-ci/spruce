@@ -1236,6 +1236,15 @@ export type DetachVolumeFromHostMutationVariables = Exact<{
 
 export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
 
+export type EditAnnotationNoteMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  originalMessage: Scalars["String"];
+  newMessage: Scalars["String"];
+}>;
+
+export type EditAnnotationNoteMutation = { editAnnotationNote: boolean };
+
 export type EditSpawnHostMutationVariables = Exact<{
   hostId: Scalars["String"];
   displayName?: Maybe<Scalars["String"]>;
