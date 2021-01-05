@@ -23,8 +23,6 @@ export const AnnotationTickets: React.FC<Props> = ({
   isIssue,
   userCanModify,
 }) => {
-  // eslint-disable-next-line no-param-reassign
-  userCanModify = false;
   const title = isIssue ? "Issues" : "SuspectedIssues";
   const buttonText = isIssue ? "Add Issue" : "Add SuspectedIssue";
 
