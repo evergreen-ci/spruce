@@ -84,15 +84,13 @@ export const EnqueuePatchModal = forwardRef<HTMLDivElement, EnqueueProps>(
         ]}
         data-cy="enqueue-modal"
       >
-        <>
-          <InputLabel htmlFor={COMMIT_MESSAGE_ID}>Commit Message</InputLabel>
-          <StyledTextArea
-            id={COMMIT_MESSAGE_ID}
-            value={commitMessageValue}
-            autoSize={{ minRows: 4, maxRows: 6 }}
-            onChange={(e) => setCommitMessageValue(e.target.value)}
-          />
-        </>
+        <InputLabel htmlFor={COMMIT_MESSAGE_ID}>Commit Message</InputLabel>
+        <StyledTextArea
+          id={COMMIT_MESSAGE_ID}
+          value={commitMessageValue}
+          autoSize={{ minRows: 4, maxRows: 6 }}
+          onChange={(e) => setCommitMessageValue(e.target.value)}
+        />
       </Modal>
     );
   }
