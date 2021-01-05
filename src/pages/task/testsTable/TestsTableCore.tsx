@@ -141,7 +141,7 @@ const statusCopy = {
 };
 const columnsTemplate: ColumnProps<TestResult>[] = [
   {
-    title: "Name",
+    title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
@@ -149,7 +149,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     sorter: true,
   },
   {
-    title: "Status",
+    title: <span data-cy="status-column">Status</span>,
     dataIndex: "status",
     key: TestSortCategory.Status,
     sorter: true,
@@ -165,7 +165,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Base Status",
+    title: <span data-cy="base-status-column">Base Status</span>,
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     sorter: true,
@@ -181,7 +181,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Time",
+    title: <span data-cy="time-column">Time</span>,
     dataIndex: "duration",
     key: TestSortCategory.Duration,
     sorter: true,
@@ -191,7 +191,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     },
   },
   {
-    title: "Logs",
+    title: <span data-cy="logs-column">Logs</span>,
     width: 150,
     dataIndex: "logs",
     key: "logs",
