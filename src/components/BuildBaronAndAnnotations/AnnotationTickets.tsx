@@ -13,7 +13,7 @@ interface Props {
   execution: number;
   tickets: IssueLink[];
   isIssue: boolean;
-  userModifyPermission: boolean;
+  userCanModify: boolean;
 }
 
 export const AnnotationTickets: React.FC<Props> = ({
@@ -21,7 +21,7 @@ export const AnnotationTickets: React.FC<Props> = ({
   taskId,
   execution,
   isIssue,
-  userModifyPermission,
+  userCanModify,
 }) => {
   const title = isIssue ? "Issues" : "SuspectedIssues";
   const buttonText = isIssue ? "Add Issue" : "Add SuspectedIssue";
@@ -37,7 +37,7 @@ export const AnnotationTickets: React.FC<Props> = ({
           <TitleAndButtons>
             <TicketsTitle>{title} </TicketsTitle>
             <ConditionalWrapper
-              condition={!userModifyPermission}
+              condition={!userCanModify}
               wrapper={(children) => (
                 <Tooltip title="You are not authorized to edit task annotations">
                   <span>{children}</span>
@@ -47,7 +47,7 @@ export const AnnotationTickets: React.FC<Props> = ({
               <StyledButton
                 onClick={() => setIsAddAnnotationModalVisible(true)}
                 data-cy="add-tag-button"
-                disabled={!userModifyPermission}
+                disabled={!userCanModify}
               >
                 {buttonText}
               </StyledButton>

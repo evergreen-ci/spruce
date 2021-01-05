@@ -284,7 +284,7 @@ const TaskCore: React.FC = () => {
                     taskId={id}
                     execution={execution}
                     loading={buildBaronLoading}
-                    userModifyPermission={annotation?.userModifyPermission}
+                    userCanModify={annotation?.userCanModify}
                   />
                 </Tab>
               )}

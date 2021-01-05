@@ -28,7 +28,7 @@ interface BuildBaronCoreProps {
   execution: number;
   loading: boolean;
   annotation: Annotation;
-  userModifyPermission: boolean;
+  userCanModify: boolean;
 }
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
@@ -37,7 +37,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   execution,
   loading,
   annotation,
-  userModifyPermission,
+  userCanModify,
 }) => {
   const annotationsReady = true;
   const dispatchBanner = useBannerDispatchContext();
@@ -86,14 +86,14 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
                 isIssue
                 taskId={taskId}
                 execution={execution}
-                userModifyPermission={userModifyPermission}
+                userCanModify={userCanModify}
               />
               <AnnotationTickets
                 tickets={annotation?.suspectedIssues}
                 isIssue={false}
                 taskId={taskId}
                 execution={execution}
-                userModifyPermission={userModifyPermission}
+                userCanModify={userCanModify}
               />
             </>
           )}

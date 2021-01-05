@@ -174,7 +174,7 @@ it("The BuildBaron component renders without crashing.", () => {
         taskId={taskId}
         execution={execution}
         loading={false}
-        userModifyPermission
+        userCanModify
       />
     </MockedProvider>
   );
@@ -197,7 +197,7 @@ it("Clicking on file a new ticket dispatches a banner.", async () => {
         taskId={taskId}
         execution={execution}
         loading={false}
-        userModifyPermission
+        userCanModify
       />
     </MockedProvider>
   );
@@ -226,7 +226,7 @@ it("The correct JiraTicket rows are rendered in the component", () => {
         taskId={taskId}
         execution={execution}
         loading={false}
-        userModifyPermission
+        userCanModify
       />
     </MockedProvider>
   );

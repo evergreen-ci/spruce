@@ -125,7 +125,7 @@ export const GET_TASK = gql`
             }
           }
         }
-        userModifyPermission
+        userCanModify
       }
     }
   }
