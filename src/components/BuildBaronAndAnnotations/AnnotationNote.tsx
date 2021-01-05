@@ -24,7 +24,7 @@ export const AnnotationNote: React.FC<Props> = ({
   taskId,
   execution,
 }) => {
-  let originalMessage = note?.message;
+  const originalMessage = note?.message;
   const dispatchBanner = useBannerDispatchContext();
   const [newMessage, setMessage] = useState(originalMessage);
   const [
@@ -35,8 +35,6 @@ export const AnnotationNote: React.FC<Props> = ({
     EditAnnotationNoteMutationVariables
   >(EDIT_ANNOTATION_NOTE, {
     onCompleted: () => {
-      console.log("NOTE AFTER UPDATING", note);
-      originalMessage = newMessage;
       dispatchBanner.successBanner(`Annotation note updated.`);
     },
     onError(error) {
@@ -44,6 +42,7 @@ export const AnnotationNote: React.FC<Props> = ({
         `There was an error updating this note: ${error.message}`
       );
     },
+    refetchQueries: ["GetTask"],
   });
   const saveAnnotationNote = () => {
     updateAnnotationNote({
