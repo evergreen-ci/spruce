@@ -16,6 +16,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -144,6 +145,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
+    render: (name: string) => <WordBreak>{name}</WordBreak>,
     sorter: true,
   },
   {
@@ -151,7 +153,6 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "status",
     key: TestSortCategory.Status,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -168,7 +169,6 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -182,7 +182,6 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
   },
   {
     title: "Time",
-    width: "20%",
     dataIndex: "duration",
     key: TestSortCategory.Duration,
     sorter: true,
@@ -193,7 +192,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
   },
   {
     title: "Logs",
-    width: "20%",
+    width: 150,
     dataIndex: "logs",
     key: "logs",
     sorter: false,

@@ -1,11 +1,10 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
-import { wordBreakCss } from "components/Typography";
+import { WordBreak } from "components/Typography";
 import { getSpawnHostRoute } from "constants/routes";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume } from "types/spawn";
@@ -56,25 +55,25 @@ const columns: Array<ColumnProps<MyVolume>> = [
     width: 400,
   },
   {
-    title: "Mounted On",
+    title: <span data-cy="mounted-on-column">Mounted On</span>,
     key: "mountedOn",
     sorter: sortByHost,
     render: (_, volume: MyVolume) => (
       <Link data-cy="host-link" to={getSpawnHostRoute({ host: volume.hostID })}>
-        <WordBreak> {getHostDisplayName(volume)}</WordBreak>
+        <WordBreak>{getHostDisplayName(volume)}</WordBreak>
       </Link>
     ),
     width: 400,
   },
   {
-    title: "Status",
+    title: <span data-cy="status-column">Status</span>,
     key: "status",
     sorter: sortByHost,
     defaultSortOrder: "ascend",
     render: (_, volume: MyVolume) => <VolumeStatusBadge volume={volume} />,
   },
   {
-    title: "Expires In",
+    title: <span data-cy="expires-in-column">Expires In</span>,
     dataIndex: "expiration",
     sorter: (a: MyVolume, b: MyVolume) => sortFunctionDate(a, b, "expiration"),
     render: (expiration, volume: MyVolume) =>
@@ -83,11 +82,7 @@ const columns: Array<ColumnProps<MyVolume>> = [
         : formatDistanceToNow(new Date(expiration)),
   },
   {
-    title: "Actions",
+    title: <span data-cy="actions-column">Actions</span>,
     render: (volume: MyVolume) => <SpawnVolumeTableActions volume={volume} />,
   },
 ];
-
-const WordBreak = styled.span`
-  ${wordBreakCss};
-`;
