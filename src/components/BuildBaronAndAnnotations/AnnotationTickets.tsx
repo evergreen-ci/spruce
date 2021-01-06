@@ -23,7 +23,7 @@ export const AnnotationTickets: React.FC<Props> = ({
   isIssue,
   userCanModify,
 }) => {
-  const title = isIssue ? "Issues" : "SuspectedIssues";
+  const title = isIssue ? "Issues" : "Suspected Issues";
   const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
 
   const [
