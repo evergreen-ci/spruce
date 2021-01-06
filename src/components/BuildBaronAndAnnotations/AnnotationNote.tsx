@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Input } from "antd";
@@ -58,36 +59,41 @@ export const AnnotationNote: React.FC<Props> = ({
   return (
     <TitleAndButtons>
       <TicketsTitle>Note</TicketsTitle>
-      <Input
-        id="noteInput"
-        style={{ width: 800 }}
-        value={newMessage}
-        onChange={(e) => setMessage(e.target.value)}
-      />
       {note && (
         <>
           <MetaDataWrapper data-cy={`${originalMessage}-metadata`}>
             <Disclaimer>
-              Updated: {getDateCopy(note.source.time, null, false)}{" "}
+              Updated: {getDateCopy(note.source.time, null, true)}{" "}
             </Disclaimer>
-            <Disclaimer>
-              {note.source.author
-                ? `Assignee: ${note.source.author}`
-                : "Unassigned"}{" "}
-            </Disclaimer>
+            <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
           </MetaDataWrapper>
         </>
       )}
-      <Button
-        data-cy="file-ticket-button"
-        variant={Variant.Primary}
-        size="xsmall"
-        loading={loadingAnnotationNote}
-        onClick={saveAnnotationNote}
-        disabled={originalMessage === newMessage}
-      >
-        Save Note
-      </Button>
+      <TextArea
+        id="noteInput"
+        rows={2}
+        style={{ width: 600 }}
+        value={newMessage}
+        onChange={(e) => setMessage(e.target.value)}
+      />
+      <ButtonWrapper>
+        <Button
+          data-cy="file-ticket-button"
+          variant={Variant.Primary}
+          size="xsmall"
+          loading={loadingAnnotationNote}
+          onClick={saveAnnotationNote}
+          disabled={originalMessage === newMessage}
+        >
+          Save Note
+        </Button>
+      </ButtonWrapper>
     </TitleAndButtons>
   );
 };
+
+const ButtonWrapper = styled.div`
+  margin-right: 8px;
+  padding-top: 5px;
+`;
+const { TextArea } = Input;

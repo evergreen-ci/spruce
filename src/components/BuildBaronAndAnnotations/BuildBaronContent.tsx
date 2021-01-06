@@ -80,15 +80,15 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
           </TitleAndButtons>
           {annotationsReady && (
             <>
-              <AnnotationTickets tickets={annotation?.issues} title="Issues" />
-              <AnnotationTickets
-                tickets={annotation?.suspectedIssues}
-                title="Suspected Issues"
-              />
               <AnnotationNote
                 note={annotation?.note}
                 taskId={taskId}
                 execution={execution}
+              />
+              <AnnotationTickets tickets={annotation?.issues} title="Issues" />
+              <AnnotationTickets
+                tickets={annotation?.suspectedIssues}
+                title="Suspected Issues"
               />
             </>
           )}
