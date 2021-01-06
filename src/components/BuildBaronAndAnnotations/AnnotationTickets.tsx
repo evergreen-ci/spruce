@@ -64,7 +64,7 @@ export const AnnotationTickets: React.FC<Props> = ({
   ) : null;
 };
 
-const StyledButton = styled(PlusButton)`
+export const StyledButton = styled(PlusButton)`
   margin-top: 10px;
   margin-bottom: 10px;
 `;

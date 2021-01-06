@@ -86,6 +86,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
                 note={annotation?.note}
                 taskId={taskId}
                 execution={execution}
+                userCanModify={userCanModify}
               />
               <AnnotationTickets
                 tickets={annotation?.issues}

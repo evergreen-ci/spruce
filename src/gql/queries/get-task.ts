@@ -69,6 +69,7 @@ export const GET_TASK = gql`
       annotation {
         taskId
         taskExecution
+        userCanModify
         note {
           source {
             author
