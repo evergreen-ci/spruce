@@ -4,9 +4,10 @@ import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
+import { TaskResult, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
+import { SorterResult } from "antd/es/table/interface";
 
 interface Props {
   data?: PatchTasks;
@@ -19,13 +20,9 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
 
   const patchAnalytics = usePatchAnalytics();
   const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
-    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
-
     const nextQueryParams = stringifyQuery({
       ...parseQueryString(search),
-      [PatchTasksQueryParams.SortDir]:
-        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-      [PatchTasksQueryParams.SortBy]: columnKey,
+      sorts: toSortString(sorter),
       [PatchTasksQueryParams.Page]: "0",
     });
     if (nextQueryParams !== search.split("?")[1]) {
@@ -55,3 +52,24 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
 };
 
 const rowKey = ({ id }: { id: string }): string => id;
+
+const toSortString = (
+  sorts: SorterResult<TaskResult> | SorterResult<TaskResult>[]
+) => {
+  let sortStrings: string[] = [];
+  const shortenSortOrder = (order: string) =>
+    order === "ascend" ? "ASC" : "DESC";
+  if (Array.isArray(sorts)) {
+    sorts.forEach((sort) => {
+      const singleSortString =
+        sort.columnKey + "," + shortenSortOrder(sort.order);
+      sortStrings = sortStrings.concat(singleSortString);
+    });
+  } else {
+    sortStrings = sortStrings.concat(
+      sorts.columnKey + "," + shortenSortOrder(sorts.order)
+    );
+  }
+
+  return sortStrings.join(";");
+};

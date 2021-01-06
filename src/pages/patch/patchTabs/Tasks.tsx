@@ -26,12 +26,12 @@ import { getVersionRoute } from "constants/routes";
 import {
   PatchTasksQuery,
   PatchTasksQueryVariables,
-  TaskSortCategory,
   TaskResult,
   SortDirection,
+  SortOrder,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { useSetColumnDefaultSortOrder, useNetworkStatus } from "hooks";
+import { useNetworkStatus } from "hooks";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
@@ -39,6 +39,13 @@ import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
 interface Props {
   taskCount: number;
+}
+
+enum TableColumnHeader {
+  Name = "NAME",
+  Status = "STATUS",
+  BaseStatus = "BASE_STATUS",
+  Variant = "VARIANT",
 }
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
@@ -49,13 +56,20 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const queryVariables = getQueryVariables(search, resourceId);
 
-  const { sortBy, sortDir, limit, page } = queryVariables;
+  let { sorts, limit, page } = queryVariables;
 
-  const columns = useSetColumnDefaultSortOrder<TaskResult>(
-    columnsTemplate,
-    sortBy,
-    sortDir
-  );
+  if (sorts.length === 0) {
+    sorts = [
+      {
+        Key: TableColumnHeader.Status,
+        Direction: 1,
+      },
+      {
+        Key: TableColumnHeader.BaseStatus,
+        Direction: 1,
+      },
+    ];
+  }
 
   const { data, error, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -70,6 +84,72 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     showSkeleton = false;
   }
   useNetworkStatus(startPolling, stopPolling);
+
+  let columnsTemplate: Array<ColumnProps<TaskResult>> = [
+    {
+      title: "Name",
+      dataIndex: "displayName",
+      key: TableColumnHeader.Name,
+      sorter: {
+        multiple: 4,
+      },
+      width: "40%",
+      className: "cy-task-table-col-NAME",
+      render: (name: string, { id }: TaskResult): JSX.Element => (
+        <TaskLink taskName={name} taskId={id} />
+      ),
+    },
+    {
+      title: "Patch Status",
+      dataIndex: "status",
+      key: TableColumnHeader.Status,
+      sorter: {
+        multiple: 4,
+      },
+      className: "cy-task-table-col-STATUS",
+      render: renderStatusBadge,
+    },
+    {
+      title: "Base Status",
+      dataIndex: "baseStatus",
+      key: TableColumnHeader.BaseStatus,
+      sorter: {
+        multiple: 4,
+      },
+      className: "cy-task-table-col-BASE_STATUS",
+      render: renderStatusBadge,
+    },
+    {
+      title: "Variant",
+      dataIndex: "buildVariant",
+      key: TableColumnHeader.Variant,
+      sorter: {
+        multiple: 4,
+      },
+      className: "cy-task-table-col-VARIANT",
+    },
+  ];
+  sorts.forEach((sort) => {
+    const direction = sort.Direction < 0 ? "descend" : "ascend";
+    switch (sort.Key) {
+      case TableColumnHeader.Name: {
+        columnsTemplate[0].defaultSortOrder = direction;
+        return;
+      }
+      case TableColumnHeader.Status: {
+        columnsTemplate[1].defaultSortOrder = direction;
+        return;
+      }
+      case TableColumnHeader.BaseStatus: {
+        columnsTemplate[2].defaultSortOrder = direction;
+        return;
+      }
+      case TableColumnHeader.Variant: {
+        columnsTemplate[3].defaultSortOrder = direction;
+        return;
+      }
+    }
+  });
 
   const patchAnalytics = usePatchAnalytics();
 
@@ -114,7 +194,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={showSkeleton}>
-        <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
+        <TasksTable
+          columns={columnsTemplate}
+          data={get(data, "patchTasks", [])}
+        />
       </TableContainer>
       {showSkeleton && (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
@@ -160,30 +243,21 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
   return statuses;
 };
 
-enum TableColumnHeader {
-  Name = "NAME",
-  Status = "STATUS",
-  BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT",
-}
-
 const getQueryVariables = (
   search: string,
   resourceId: string
 ): PatchTasksQueryVariables => {
   const {
-    sortBy,
-    sortDir,
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
+    [PatchTasksQueryParams.Sorts]: sorts,
   } = queryString.parse(search, { arrayFormat: "comma" });
 
   return {
     patchId: resourceId,
-    sortBy: (getString(sortBy) as TaskSortCategory) ?? TaskSortCategory.Status,
-    sortDir: (getString(sortDir) as SortDirection) ?? SortDirection.Asc,
+    sorts: parseSortString(sorts),
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
@@ -191,6 +265,29 @@ const getQueryVariables = (
     page: getPageFromSearch(search),
     limit: getLimitFromSearch(search),
   };
+};
+
+const parseSortString = (sortStr: string | string[]): SortOrder[] => {
+  let sorts: SortOrder[] = [];
+  if (typeof sortStr === "string") {
+    sortStr = sortStr.split(";");
+  }
+  if (sortStr?.length > 0) {
+    sortStr.forEach((singleSort) => {
+      const parts = singleSort.split(",");
+      let direction = 0;
+      if (parts[1] === SortDirection.Asc) {
+        direction = 1;
+      } else if (parts[1] === SortDirection.Desc) {
+        direction = -1;
+      }
+      sorts = sorts.concat({
+        Key: parts[0],
+        Direction: direction,
+      });
+    });
+  }
+  return sorts;
 };
 
 const renderStatusBadge = (
@@ -221,43 +318,6 @@ const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName }) => {
     </StyledRouterLink>
   );
 };
-
-const columnsTemplate: Array<ColumnProps<TaskResult>> = [
-  {
-    title: "Name",
-    dataIndex: "displayName",
-    key: TableColumnHeader.Name,
-    sorter: true,
-    width: "40%",
-    className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: TaskResult): JSX.Element => (
-      <TaskLink taskName={name} taskId={id} />
-    ),
-  },
-  {
-    title: "Patch Status",
-    dataIndex: "status",
-    key: TableColumnHeader.Status,
-    sorter: true,
-    className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge,
-  },
-  {
-    title: "Base Status",
-    dataIndex: "baseStatus",
-    key: TableColumnHeader.BaseStatus,
-    sorter: true,
-    className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
-  },
-  {
-    title: "Variant",
-    dataIndex: "buildVariant",
-    key: TableColumnHeader.Variant,
-    sorter: true,
-    className: "cy-task-table-col-VARIANT",
-  },
-];
 
 const FlexContainer = styled.div`
   display: flex;

@@ -3,8 +3,7 @@ import { gql } from "@apollo/client";
 export const GET_PATCH_TASKS = gql`
   query PatchTasks(
     $patchId: String!
-    $sortBy: TaskSortCategory
-    $sortDir: SortDirection
+    $sorts: [SortOrder!]
     $page: Int
     $statuses: [String!]
     $baseStatuses: [String!]
@@ -18,8 +17,7 @@ export const GET_PATCH_TASKS = gql`
       page: $page
       statuses: $statuses
       baseStatuses: $baseStatuses
-      sortDir: $sortDir
-      sortBy: $sortBy
+      sorts: $sorts
       variant: $variant
       taskName: $taskName
     ) {
@@ -27,7 +25,6 @@ export const GET_PATCH_TASKS = gql`
       tasks {
         id
         status
-        baseStatus
         displayName
         buildVariant
         blocked
@@ -37,6 +34,9 @@ export const GET_PATCH_TASKS = gql`
           status
           buildVariant
           baseStatus
+        }
+        baseTask {
+          status
         }
       }
     }

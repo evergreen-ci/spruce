@@ -33,28 +33,48 @@ describe("Task table", () => {
     cy.visit(pathTasks);
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC%3BNAME%2CASC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC%3BNAME%2CDESC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC%3BVARIANT%2CASC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC%3BVARIANT%2CDESC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC"
+    );
   });
 
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
     cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a").should("have.attr", "href").and("include", "/task");
+      cy.get("a")
+        .should("have.attr", "href")
+        .and("include", "/task");
     });
   });
 
@@ -181,18 +201,6 @@ const fourthPageDisplayNames = [
   "test-model-2",
 ];
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
-
-const locationHasUpdatedParams = (sortBy, sortDir) => {
-  cy.location().should((loc) => {
-    expect(loc.pathname).to.equal(pathTasks);
-    expect(loc.search).to.include(`sortBy=${sortBy}`);
-    if (!sortDir) {
-      expect(loc.search).to.not.include("sortDir");
-    } else {
-      expect(loc.search).to.include(`sortDir=${sortDir}`);
-    }
-  });
-};
 
 const dataCyNextPage =
   "[data-test-id=tasks-table-pagination] > .ant-pagination-next";
