@@ -31,4 +31,24 @@ describe("Task Annotation Tab", () => {
     cy.get(dataCyTableRows2).should("have.length", 1);
     cy.get(dataCyTableRows).should("have.length", 3);
   });
+
+  it("annotations can be moved between lists", () => {
+    cy.visit(taskRoute);
+    const dataCyTableRows =
+      "[data-test-id=suspected-issues-table] tr td:first-child";
+
+    const dataCyTableRows2 = "[data-test-id=issues-table] tr td:first-child";
+    cy.get(dataCyTableRows2).should("have.length", 1);
+    cy.get(dataCyTableRows).should("have.length", 3);
+
+    cy.dataCy("move-btn-AnotherOne").first().click();
+    cy.get(popconfirmYesClassName).click();
+    cy.get(dataCyTableRows2).should("have.length", 2);
+    cy.get(dataCyTableRows).should("have.length", 2);
+
+    cy.dataCy("move-btn-AnotherOne").first().click();
+    cy.get(popconfirmYesClassName).click();
+    cy.get(dataCyTableRows2).should("have.length", 1);
+    cy.get(dataCyTableRows).should("have.length", 3);
+  });
 });
