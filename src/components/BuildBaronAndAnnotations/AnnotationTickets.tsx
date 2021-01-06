@@ -30,40 +30,38 @@ export const AnnotationTickets: React.FC<Props> = ({
     isAddAnnotationModalVisible,
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
-  return (
-    tickets?.length && (
-      <>
-        <TitleAndButtons>
-          <TicketsTitle>{title} </TicketsTitle>
-          <ConditionalWrapper
-            condition={!userCanModify}
-            wrapper={(children) => (
-              <Tooltip title="You are not authorized to edit task annotations">
-                <span>{children}</span>
-              </Tooltip>
-            )}
+  return tickets?.length ? (
+    <>
+      <TitleAndButtons>
+        <TicketsTitle>{title} </TicketsTitle>
+        <ConditionalWrapper
+          condition={!userCanModify}
+          wrapper={(children) => (
+            <Tooltip title="You are not authorized to edit task annotations">
+              <span>{children}</span>
+            </Tooltip>
+          )}
+        >
+          <StyledButton
+            onClick={() => setIsAddAnnotationModalVisible(true)}
+            data-cy="add-tag-button"
+            disabled={!userCanModify}
           >
-            <StyledButton
-              onClick={() => setIsAddAnnotationModalVisible(true)}
-              data-cy="add-tag-button"
-              disabled={!userCanModify}
-            >
-              {buttonText}
-            </StyledButton>
-          </ConditionalWrapper>
-        </TitleAndButtons>
-        <AnnotationTicketsTable jiraIssues={tickets} />{" "}
-        <AddIssueModal
-          dataCy="addIssueModal"
-          visible={isAddAnnotationModalVisible}
-          closeModal={() => setIsAddAnnotationModalVisible(false)}
-          taskId={taskId}
-          execution={execution}
-          isIssue={isIssue}
-        />
-      </>
-    )
-  );
+            {buttonText}
+          </StyledButton>
+        </ConditionalWrapper>
+      </TitleAndButtons>
+      <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+      <AddIssueModal
+        dataCy="addIssueModal"
+        visible={isAddAnnotationModalVisible}
+        closeModal={() => setIsAddAnnotationModalVisible(false)}
+        taskId={taskId}
+        execution={execution}
+        isIssue={isIssue}
+      />
+    </>
+  ) : null;
 };
 
 const StyledButton = styled(PlusButton)`
