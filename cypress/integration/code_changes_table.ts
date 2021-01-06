@@ -15,6 +15,15 @@ describe("task logs view", () => {
     cy.preserveCookies();
   });
 
+  it("Shows all columns even when the file name is super long.", () => {
+    cy.visit("/version/52a630633ff1227909000021/changes");
+    cy.contains(
+      "superloooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggggg name"
+    ).should("be.visible");
+    cy.dataCy("additions-column").should("be.visible");
+    cy.dataCy("deletions-column").should("be.visible");
+  });
+
   it("HTML and Raw buttons should have href when there are code changes", () => {
     cy.visit(CODE_CHANGES_ROUTE);
     cy.waitForGQL("Patch");

@@ -1217,6 +1217,15 @@ export type AbortTaskMutationVariables = Exact<{
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type AddAnnotationIssueMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type AddAnnotationIssueMutation = { addAnnotationIssue: boolean };
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -1550,6 +1559,7 @@ export type CommitQueueQuery = {
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              description: string;
               fileName: string;
               additions: number;
               deletions: number;
@@ -1757,6 +1767,15 @@ export type PatchTasksQuery = {
       displayName: string;
       buildVariant: string;
       blocked: boolean;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          displayName: string;
+          status: string;
+          buildVariant: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >;
     }>;
   };
 };

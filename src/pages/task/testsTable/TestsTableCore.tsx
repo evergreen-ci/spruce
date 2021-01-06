@@ -16,6 +16,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -140,18 +141,18 @@ const statusCopy = {
 };
 const columnsTemplate: ColumnProps<TestResult>[] = [
   {
-    title: "Name",
+    title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
+    render: (name: string) => <WordBreak>{name}</WordBreak>,
     sorter: true,
   },
   {
-    title: "Status",
+    title: <span data-cy="status-column">Status</span>,
     dataIndex: "status",
     key: TestSortCategory.Status,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -164,11 +165,10 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Base Status",
+    title: <span data-cy="base-status-column">Base Status</span>,
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -181,8 +181,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Time",
-    width: "20%",
+    title: <span data-cy="time-column">Time</span>,
     dataIndex: "duration",
     key: TestSortCategory.Duration,
     sorter: true,
@@ -192,8 +191,8 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     },
   },
   {
-    title: "Logs",
-    width: "20%",
+    title: <span data-cy="logs-column">Logs</span>,
+    width: 150,
     dataIndex: "logs",
     key: "logs",
     sorter: false,

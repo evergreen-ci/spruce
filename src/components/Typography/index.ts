@@ -11,6 +11,10 @@ export const wordBreakCss = css`
   word-break: break-word;
 `;
 
+export const WordBreak = styled.span`
+  ${wordBreakCss};
+`;
+
 export const H1 = styled.h1`
   font-size: 30px;
   line-height: 36px;

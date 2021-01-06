@@ -126,6 +126,7 @@ export const GET_TASK = gql`
             }
           }
         }
+        userCanModify
       }
     }
   }
