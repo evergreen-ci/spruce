@@ -644,6 +644,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -739,6 +740,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -839,6 +841,7 @@ export type Task = {
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  baseStatus?: Maybe<Scalars["String"]>;
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
@@ -855,6 +858,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1523,6 +1527,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1551,6 +1556,7 @@ export type CommitQueueQuery = {
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              description: string;
               fileName: string;
               additions: number;
               deletions: number;
@@ -1756,6 +1762,15 @@ export type PatchTasksQuery = {
       displayName: string;
       buildVariant: string;
       blocked: boolean;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          displayName: string;
+          status: string;
+          buildVariant: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >;
     }>;
   };
 };
