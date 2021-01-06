@@ -13,7 +13,6 @@ export const GET_CODE_CHANGES = gql`
           additions
           deletions
           diffLink
-          description
         }
       }
     }
