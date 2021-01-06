@@ -502,6 +502,7 @@ export type EditSpawnHostInput = {
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -583,6 +584,7 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
+  isWindows?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Distro = {
@@ -644,6 +646,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -739,6 +742,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -839,6 +843,7 @@ export type Task = {
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  baseStatus?: Maybe<Scalars["String"]>;
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
@@ -855,6 +860,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1156,6 +1162,7 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  userCanModify: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1245,6 +1252,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -1513,6 +1521,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1545,6 +1554,7 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
+              description: string;
             }>;
           }>;
         }>;
@@ -1665,6 +1675,7 @@ export type MyHostsQuery = {
       id?: Maybe<string>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
+      isWindows?: Maybe<boolean>;
     }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
@@ -1980,6 +1991,7 @@ export type GetTaskQuery = {
     annotation?: Maybe<{
       taskId: string;
       taskExecution: number;
+      userCanModify: boolean;
       note?: Maybe<{
         message: string;
         source: { author: string; time: Date; requester: string };
