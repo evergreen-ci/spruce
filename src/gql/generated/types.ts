@@ -1564,7 +1564,6 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
-              description: string;
             }>;
           }>;
         }>;
