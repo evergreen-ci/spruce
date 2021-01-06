@@ -11,6 +11,7 @@ interface Props {
   execution: number;
   loading: boolean;
   annotation: Annotation;
+  userCanModify: boolean;
 }
 
 const BuildBaron: React.FC<Props> = ({
@@ -20,6 +21,7 @@ const BuildBaron: React.FC<Props> = ({
   execution,
   loading,
   annotation,
+  userCanModify,
 }) => (
   <>
     {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
@@ -36,6 +38,7 @@ const BuildBaron: React.FC<Props> = ({
         execution={execution}
         loading={loading}
         annotation={annotation}
+        userCanModify={userCanModify}
       />
     )}
   </>

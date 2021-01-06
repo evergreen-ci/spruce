@@ -271,7 +271,7 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-              {(showAnnotationsTab || tab === TaskTab.Annotations) && (
+              {showAnnotationsTab && (
                 <Tab
                   name="Task Annotations"
                   id="task-build-baron-tab"
@@ -284,6 +284,7 @@ const TaskCore: React.FC = () => {
                     taskId={id}
                     execution={execution}
                     loading={buildBaronLoading}
+                    userCanModify={annotation?.userCanModify}
                   />
                 </Tab>
               )}
