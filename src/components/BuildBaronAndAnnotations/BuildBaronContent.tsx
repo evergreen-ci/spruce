@@ -25,15 +25,19 @@ import { BuildBaronTable } from "./BuildBaronTable";
 interface BuildBaronCoreProps {
   bbData: BuildBaron;
   taskId: string;
+  execution: number;
   loading: boolean;
   annotation: Annotation;
+  userCanModify: boolean;
 }
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   bbData,
   taskId,
+  execution,
   loading,
   annotation,
+  userCanModify,
 }) => {
   const annotationsReady = true;
   const dispatchBanner = useBannerDispatchContext();
@@ -77,10 +81,19 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
           </TitleAndButtons>
           {annotationsReady && (
             <>
-              <AnnotationTickets tickets={annotation?.issues} title="Issues" />
+              <AnnotationTickets
+                tickets={annotation?.issues}
+                isIssue
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
+              />
               <AnnotationTickets
                 tickets={annotation?.suspectedIssues}
-                title="Suspected Issues"
+                isIssue={false}
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
               />
             </>
           )}
