@@ -253,9 +253,7 @@ describe("Tests Table", () => {
 
   describe("Changing page number", () => {
     before(() => {
-      cy.visit(
-        "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests?execution=1&limit=10&page=0"
-      );
+      cy.visit(TESTS_ROUTE);
     });
 
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
@@ -309,6 +307,7 @@ describe("Tests Table", () => {
   });
 
   it("All table columns are visible even when a long test name is present.", () => {
+    cy.visit(TESTS_ROUTE);
     cy.contains(longTestName).should("be.visible");
     cy.dataCy("name-column").should("be.visible");
     cy.dataCy("status-column").should("be.visible");
