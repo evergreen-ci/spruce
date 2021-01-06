@@ -24,7 +24,7 @@ export const AnnotationTickets: React.FC<Props> = ({
   userCanModify,
 }) => {
   const title = isIssue ? "Issues" : "SuspectedIssues";
-  const buttonText = isIssue ? "Add Issue" : "Add SuspectedIssue";
+  const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
 
   const [
     isAddAnnotationModalVisible,
