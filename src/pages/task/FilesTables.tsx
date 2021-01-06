@@ -9,7 +9,7 @@ import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { H3 } from "components/Typography";
+import { H3, WordBreak } from "components/Typography";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
@@ -33,7 +33,7 @@ const columns = [
         rel="noopener noreferrer"
         target="_blank"
       >
-        {text}
+        <WordBreak>{text}</WordBreak>
       </a>
     ),
     defaultSortOrder: "ascend" as SortOrder,

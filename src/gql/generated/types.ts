@@ -1565,6 +1565,7 @@ export type CommitQueueQuery = {
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              description: string;
               fileName: string;
               additions: number;
               deletions: number;
@@ -1771,6 +1772,15 @@ export type PatchTasksQuery = {
       displayName: string;
       buildVariant: string;
       blocked: boolean;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          displayName: string;
+          status: string;
+          buildVariant: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >;
     }>;
   };
 };

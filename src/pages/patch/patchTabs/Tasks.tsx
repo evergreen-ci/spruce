@@ -20,6 +20,7 @@ import {
   StyledRouterLink,
 } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
+import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import {
@@ -216,7 +217,7 @@ const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName }) => {
     patchAnalytics.sendEvent({ name: "Click Task Table Link", taskId });
   return (
     <StyledRouterLink onClick={onClick} to={`/task/${taskId}`}>
-      {taskName}
+      <WordBreak>{taskName}</WordBreak>
     </StyledRouterLink>
   );
 };

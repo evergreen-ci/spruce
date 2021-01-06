@@ -107,6 +107,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
   pageQueryParamValue,
   dataCyTableRows
 ) => {
+  cy.wait(400);
   cy.get(dataCyPageBtn).click();
   cy.wait(400);
   cy.get(dataCyTableRows).each(($el, index) => {

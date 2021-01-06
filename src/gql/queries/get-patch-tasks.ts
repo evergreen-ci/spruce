@@ -31,6 +31,13 @@ export const GET_PATCH_TASKS = gql`
         displayName
         buildVariant
         blocked
+        executionTasksFull {
+          id
+          displayName
+          status
+          buildVariant
+          baseStatus
+        }
       }
     }
   }
