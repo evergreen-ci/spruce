@@ -308,7 +308,7 @@ describe("Tests Table", () => {
     });
   });
 
-  describe("All table columns are visible even when a long test name is present.", () => {
+  it("All table columns are visible even when a long test name is present.", () => {
     cy.contains(longTestName).should("be.visible");
     cy.dataCy("name-column").should("be.visible");
     cy.dataCy("status-column").should("be.visible");
