@@ -1160,6 +1160,7 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  userCanModify: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1213,6 +1214,15 @@ export type AbortTaskMutationVariables = Exact<{
 }>;
 
 export type AbortTaskMutation = { abortTask: { id: string } };
+
+export type AddAnnotationIssueMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type AddAnnotationIssueMutation = { addAnnotationIssue: boolean };
 
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
@@ -1995,6 +2005,7 @@ export type GetTaskQuery = {
     annotation?: Maybe<{
       taskId: string;
       taskExecution: number;
+      userCanModify: boolean;
       note?: Maybe<{
         message: string;
         source: { author: string; time: Date; requester: string };

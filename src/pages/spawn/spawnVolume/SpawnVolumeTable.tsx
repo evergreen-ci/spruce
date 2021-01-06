@@ -1,11 +1,10 @@
 import React from "react";
-import styled from "@emotion/styled";
 import { ColumnProps } from "antd/es/table";
 import { formatDistanceToNow } from "date-fns";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
-import { wordBreakCss } from "components/Typography";
+import { WordBreak } from "components/Typography";
 import { getSpawnHostRoute } from "constants/routes";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume } from "types/spawn";
@@ -61,7 +60,7 @@ const columns: Array<ColumnProps<MyVolume>> = [
     sorter: sortByHost,
     render: (_, volume: MyVolume) => (
       <Link data-cy="host-link" to={getSpawnHostRoute({ host: volume.hostID })}>
-        <WordBreak> {getHostDisplayName(volume)}</WordBreak>
+        <WordBreak>{getHostDisplayName(volume)}</WordBreak>
       </Link>
     ),
     width: 400,
@@ -87,7 +86,3 @@ const columns: Array<ColumnProps<MyVolume>> = [
     render: (volume: MyVolume) => <SpawnVolumeTableActions volume={volume} />,
   },
 ];
-
-const WordBreak = styled.span`
-  ${wordBreakCss};
-`;

@@ -6,6 +6,7 @@ import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
 import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
+import { WordBreak } from "components/Typography";
 import { MyHost } from "types/spawn";
 import { parseQueryString } from "utils";
 import { sortFunctionDate, sortFunctionString } from "utils/string";
@@ -46,20 +47,19 @@ const columns = [
     render: (_, host: MyHost) =>
       host?.distro?.isVirtualWorkStation ? (
         <FlexContainer>
-          <HostIdSpan>{host.displayName || host.id}</HostIdSpan>
+          <WordBreak>{host.displayName || host.id}</WordBreak>
           <WorkstationBadge>WORKSTATION</WorkstationBadge>
         </FlexContainer>
       ) : (
-        <HostIdSpan>{host.displayName || host.id}</HostIdSpan>
+        <WordBreak>{host.displayName || host.id}</WordBreak>
       ),
   },
   {
     title: "Distro",
     dataIndex: "distro",
     key: "distro",
-    width: 100,
     sorter: (a: MyHost, b: MyHost) => sortFunctionString(a, b, "distro.id"),
-    render: (distro) => distro.id,
+    render: (distro) => <WordBreak>{distro.id}</WordBreak>,
   },
   {
     title: "Status",
@@ -100,11 +100,4 @@ const FlexContainer = styled.div`
 
 const WorkstationBadge = styled(Badge)`
   margin-left: 5px;
-`;
-
-const HostIdSpan = styled.div`
-  white-space: nowrap;
-  word-break: break-all;
-  overflow: scroll;
-  width: 160px;
 `;
