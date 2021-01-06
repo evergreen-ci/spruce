@@ -5,6 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
+import { WordBreak } from "components/Typography";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetMyPublicKeysQuery,
@@ -64,7 +65,7 @@ export const PublicKeysTab: React.FC = () => {
       dataIndex: "name",
       key: "name",
       render: (text: string): JSX.Element => (
-        <span data-cy="table-key-name">{text}</span>
+        <WordBreak data-cy="table-key-name">{text}</WordBreak>
       ),
     },
     {
