@@ -70,7 +70,7 @@ describe("My Patches Page", () => {
   it("Build status icon should link to version page with appropiate filters", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("build-status-icon-link")
-      .first()
+      .eq(1)
       .should("have.attr", "href")
       .and(
         "equals",
@@ -250,6 +250,7 @@ const secondPageDisplayNames = [
   "linux-64-duroff,linux-64-debug-duroff",
 ];
 const thirdPageDisplayNames = [
+  "all",
   "linux-64",
   "osx-108-cxx11-debug",
   "windows-64,windows-32,solaris-64-bit",
