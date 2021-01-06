@@ -89,7 +89,7 @@ export const AnnotationNote: React.FC<Props> = ({
       >
         <ButtonWrapper>
           <Button
-            data-cy="file-ticket-button"
+            data-cy="edit-annotation-button"
             variant={Variant.Primary}
             size="xsmall"
             loading={loadingAnnotationNote}
