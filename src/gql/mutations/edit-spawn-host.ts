@@ -10,6 +10,7 @@ export const EDIT_SPAWN_HOST = gql`
     $instanceType: String
     $expiration: Time
     $noExpiration: Boolean
+    $servicePassword: String
   ) {
     editSpawnHost(
       spawnHost: {
@@ -21,6 +22,7 @@ export const EDIT_SPAWN_HOST = gql`
         instanceType: $instanceType
         expiration: $expiration
         noExpiration: $noExpiration
+        servicePassword: $servicePassword
       }
     ) {
       id

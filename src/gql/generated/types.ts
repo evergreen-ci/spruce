@@ -1270,6 +1270,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -1692,6 +1693,7 @@ export type MyHostsQuery = {
       id?: Maybe<string>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
+      isWindows?: Maybe<boolean>;
     }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;

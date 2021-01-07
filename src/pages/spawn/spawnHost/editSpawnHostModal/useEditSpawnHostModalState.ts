@@ -12,6 +12,7 @@ export interface editSpawnHostStateType {
   volumeId?: string;
   addedInstanceTags?: InstanceTagInput[];
   deletedInstanceTags?: InstanceTagInput[];
+  servicePassword?: string;
 }
 
 export const useEditSpawnHostModalState = (host: MyHost) => ({
@@ -27,6 +28,7 @@ const init = (host: MyHost) => ({
   volumeId: "",
   addedInstanceTags: [],
   deletedInstanceTags: [],
+  servicePassword: null,
 });
 
 const reducer = (state: editSpawnHostStateType, action: Action) => {
@@ -57,6 +59,13 @@ const reducer = (state: editSpawnHostStateType, action: Action) => {
         deletedInstanceTags: action.deletedInstanceTags,
         addedInstanceTags: action.addedInstanceTags,
       };
+    case "editServicePassword":
+      return {
+        ...state,
+        servicePassword: action.servicePassword.length
+          ? action.servicePassword
+          : null,
+      };
     default:
       throw new Error();
   }
@@ -65,6 +74,7 @@ const reducer = (state: editSpawnHostStateType, action: Action) => {
 type Action =
   | { type: "editInstanceType"; instanceType: string }
   | { type: "editHostName"; displayName: string }
+  | { type: "editServicePassword"; servicePassword: string }
   | { type: "reset"; host: MyHost }
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editInstanceTags" } & UserTagsData)
