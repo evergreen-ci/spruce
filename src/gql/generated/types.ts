@@ -502,6 +502,7 @@ export type EditSpawnHostInput = {
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -583,6 +584,7 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
+  isWindows?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Distro = {
@@ -1570,7 +1572,6 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
-              description: string;
             }>;
           }>;
         }>;
