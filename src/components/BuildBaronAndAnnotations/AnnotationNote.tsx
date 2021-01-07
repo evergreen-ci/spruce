@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Input, Tooltip } from "antd";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { useBannerDispatchContext } from "context/banners";
 import {
   EditAnnotationNoteMutation,
   EditAnnotationNoteMutationVariables,
   Note,
 } from "gql/generated/types";
-import { useBannerDispatchContext } from "../../context/banners";
-import { EDIT_ANNOTATION_NOTE } from "../../gql/mutations/edit-annotation-note";
-import { getDateCopy } from "../../utils/string";
-import { ConditionalWrapper } from "../ConditionalWrapper";
+import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
+import { getDateCopy } from "utils/string";
 import { TicketsTitle, TitleAndButtons, MetaDataWrapper } from "./BBComponents";
+
+const { TextArea } = Input;
 
 interface Props {
   note: Note;
@@ -63,19 +65,16 @@ export const AnnotationNote: React.FC<Props> = ({
     <TitleAndButtons>
       <TicketsTitle>Note</TicketsTitle>
       {note && (
-        <>
-          <MetaDataWrapper data-cy={`${originalMessage}-metadata`}>
-            <Disclaimer>
-              Updated: {getDateCopy(note.source.time, null, true)}{" "}
-            </Disclaimer>
-            <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
-          </MetaDataWrapper>
-        </>
+        <MetaDataWrapper data-cy={`${originalMessage}-metadata`}>
+          <Disclaimer>
+            Updated: {getDateCopy(note.source.time, null, true)}{" "}
+          </Disclaimer>
+          <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
+        </MetaDataWrapper>
       )}
-      <TextArea
+      <StyledTextArea
         id="noteInput"
         rows={2}
-        style={{ width: 600 }}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
       />
@@ -91,7 +90,7 @@ export const AnnotationNote: React.FC<Props> = ({
           <Button
             data-cy="edit-annotation-button"
             variant={Variant.Primary}
-            size="xsmall"
+            size={Size.XSmall}
             loading={loadingAnnotationNote}
             onClick={saveAnnotationNote}
             disabled={originalMessage === newMessage || !userCanModify}
@@ -108,4 +107,7 @@ export const ButtonWrapper = styled.div`
   margin-right: 8px;
   padding-top: 5px;
 `;
-const { TextArea } = Input;
+
+const StyledTextArea = styled(TextArea)`
+  width: 50%;
+`;

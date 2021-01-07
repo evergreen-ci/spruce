@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
 import { useTaskAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
@@ -82,7 +82,7 @@ export const FileTicket: React.FC<FileTicketProps> = ({
         <Button
           data-cy="file-ticket-button"
           variant={Variant.Primary}
-          size="xsmall"
+          size={Size.XSmall}
         >
           {buttonText}
         </Button>
