@@ -20,7 +20,6 @@ import { AnnotationNote } from "./AnnotationNote";
 import { AnnotationTickets } from "./AnnotationTickets";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets } from "./BBCreatedTickets";
-import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
@@ -73,13 +72,6 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
             createdTicketsCount={createdTicketsCount}
           />
 
-          <TitleAndButtons>
-            <BBFileTicket
-              taskId={taskId}
-              setCreatedTicketsCount={setCreatedTicketsCount}
-              createdTicketsCount={createdTicketsCount}
-            />
-          </TitleAndButtons>
           {annotationsReady && (
             <>
               <AnnotationNote

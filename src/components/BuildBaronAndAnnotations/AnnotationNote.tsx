@@ -16,7 +16,7 @@ import { getDateCopy } from "utils/string";
 import {
   TicketsTitle,
   TitleAndButtons,
-  MetaDataWrapper,
+  TopMetaDataWrapper,
   ButtonWrapper,
 } from "./BBComponents";
 
@@ -70,12 +70,12 @@ export const AnnotationNote: React.FC<Props> = ({
     <TitleAndButtons>
       <TicketsTitle>Note</TicketsTitle>
       {note && (
-        <MetaDataWrapper data-cy={`${originalMessage}-metadata`}>
+        <TopMetaDataWrapper data-cy={`${originalMessage}-metadata`}>
           <Disclaimer>
             Updated: {getDateCopy(note.source.time, null, true)}{" "}
           </Disclaimer>
           <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
-        </MetaDataWrapper>
+        </TopMetaDataWrapper>
       )}
       <StyledTextArea
         id="noteInput"
