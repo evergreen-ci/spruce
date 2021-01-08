@@ -3,6 +3,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
+import { usePatchAnalytics } from "analytics";
 import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
@@ -16,6 +17,7 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
+  const patchAnalytics = usePatchAnalytics();
   const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
 
@@ -40,6 +42,14 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
       dataSource={get(data, "tasks", []) as TaskResult[]}
       onChange={tableChangeHandler}
       childrenColumnName="executionTasksFull"
+      expandable={{
+        onExpand: (expanded) => {
+          patchAnalytics.sendEvent({
+            name: "Toggle Display Task Dropdown",
+            expanded,
+          });
+        },
+      }}
     />
   );
 };
