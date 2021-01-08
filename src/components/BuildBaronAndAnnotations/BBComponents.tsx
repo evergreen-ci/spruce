@@ -145,3 +145,8 @@ export const MetaDataWrapper = styled.div`
 export const TitleAndButtons = styled.div`
   margin-left: 15px;
 `;
+
+export const ButtonWrapper = styled.div`
+  margin-right: 8px;
+  padding-top: 5px;
+`;

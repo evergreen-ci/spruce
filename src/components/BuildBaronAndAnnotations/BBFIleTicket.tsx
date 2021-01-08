@@ -9,7 +9,7 @@ import {
   BbCreateTicketMutationVariables,
 } from "gql/generated/types";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { ButtonWrapper } from "./AnnotationNote";
+import { ButtonWrapper } from "./BBComponents";
 
 interface BBFileTicketProps {
   taskId: string;

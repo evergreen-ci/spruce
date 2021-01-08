@@ -13,7 +13,12 @@ import {
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
 import { getDateCopy } from "utils/string";
-import { TicketsTitle, TitleAndButtons, MetaDataWrapper } from "./BBComponents";
+import {
+  TicketsTitle,
+  TitleAndButtons,
+  MetaDataWrapper,
+  ButtonWrapper,
+} from "./BBComponents";
 
 const { TextArea } = Input;
 
@@ -102,11 +107,6 @@ export const AnnotationNote: React.FC<Props> = ({
     </TitleAndButtons>
   );
 };
-
-export const ButtonWrapper = styled.div`
-  margin-right: 8px;
-  padding-top: 5px;
-`;
 
 const StyledTextArea = styled(TextArea)`
   width: 50%;
