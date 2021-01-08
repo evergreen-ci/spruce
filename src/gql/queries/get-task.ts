@@ -67,6 +67,7 @@ export const GET_TASK = gql`
         }
       }
       annotation {
+        id
         taskId
         taskExecution
         note {

@@ -502,6 +502,7 @@ export type EditSpawnHostInput = {
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -583,6 +584,7 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
+  isWindows?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Distro = {
@@ -644,6 +646,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -739,6 +742,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -839,6 +843,7 @@ export type Task = {
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  baseStatus?: Maybe<Scalars["String"]>;
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
@@ -855,6 +860,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1151,6 +1157,7 @@ export type JiraStatus = {
 };
 
 export type Annotation = {
+  id: Scalars["String"];
   taskId: Scalars["String"];
   taskExecution: Scalars["Int"];
   note?: Maybe<Note>;
@@ -1523,6 +1530,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1555,6 +1563,7 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
+              description: string;
             }>;
           }>;
         }>;
@@ -1988,6 +1997,7 @@ export type GetTaskQuery = {
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
     }>;
     annotation?: Maybe<{
+      id: string;
       taskId: string;
       taskExecution: number;
       userCanModify: boolean;
