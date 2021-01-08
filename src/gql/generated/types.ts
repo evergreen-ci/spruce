@@ -1157,6 +1157,7 @@ export type JiraStatus = {
 };
 
 export type Annotation = {
+  id: Scalars["String"];
   taskId: Scalars["String"];
   taskExecution: Scalars["Int"];
   note?: Maybe<Note>;
@@ -1564,6 +1565,7 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
+              description: string;
             }>;
           }>;
         }>;
@@ -2007,6 +2009,7 @@ export type GetTaskQuery = {
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
     }>;
     annotation?: Maybe<{
+      id: string;
       taskId: string;
       taskExecution: number;
       userCanModify: boolean;

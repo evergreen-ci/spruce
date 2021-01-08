@@ -24,6 +24,7 @@ export const GET_COMMIT_QUEUE = gql`
               additions
               deletions
               diffLink
+              description
             }
           }
         }
