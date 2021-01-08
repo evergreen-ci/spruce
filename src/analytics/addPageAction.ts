@@ -52,9 +52,7 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
 
   if (typeof newrelic !== "object") {
     // These will only print when new relic is not available such as during local development
-    console.log("____ ANALYTICS EVENT ____");
-    console.log({ name });
-    console.log({ attributesToSend });
+    console.log("ANALYTICS EVENT ", { name, attributesToSend });
     return;
   }
 
