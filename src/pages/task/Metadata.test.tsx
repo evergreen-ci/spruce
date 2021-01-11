@@ -141,7 +141,7 @@ test("Renders the metadata card with a pending status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskAboutToStart}
+        task={taskAboutToStart.task}
         error={undefined}
       />
     </MockedProvider>
@@ -164,7 +164,7 @@ test("Renders the metadata card with a started status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskStarted}
+        task={taskStarted.task}
         error={undefined}
       />
     </MockedProvider>
@@ -186,7 +186,7 @@ test("Renders the metadata card with a succeeded status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskSucceeded}
+        task={taskSucceeded.task}
         error={undefined}
       />
     </MockedProvider>
