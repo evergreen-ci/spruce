@@ -92,7 +92,7 @@ export type QueryPatchTasksArgs = {
 
 export type QueryTaskTestsArgs = {
   taskId: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
+  execution: Scalars["Int"];
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
@@ -1927,7 +1927,7 @@ export type TaskTestsQueryVariables = Exact<{
   limitNum?: Maybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
   testName: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
+  execution: Scalars["Int"];
 }>;
 
 export type TaskTestsQuery = {
@@ -2060,14 +2060,6 @@ export type GetTaskQuery = {
       >;
     }>;
   }>;
-};
-
-export type GetTaskLatestExecutionQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;

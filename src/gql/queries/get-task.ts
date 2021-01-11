@@ -132,15 +132,6 @@ export const GET_TASK = gql`
   }
 `;
 
-export const GET_TASK_LATEST_EXECUTION = gql`
-  query GetTaskLatestExecution($taskId: String!) {
-    task(taskId: $taskId) {
-      id
-      latestExecution
-    }
-  }
-`;
-
 export enum MetStatus {
   Met = "MET",
   Unmet = "UNMET",
