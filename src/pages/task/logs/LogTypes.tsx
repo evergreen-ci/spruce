@@ -221,7 +221,7 @@ const useRenderBody: React.FC<{
           </ButtonContainer>
         ) : null}
         <Radio
-          id="cy-task-radio"
+          data-cy="cy-task-radio"
           value={LogTypes.Task}
           onClick={() =>
             taskAnalytics.sendEvent({
@@ -233,7 +233,7 @@ const useRenderBody: React.FC<{
           Task Logs
         </Radio>
         <Radio
-          id="cy-agent-radio"
+          data-cy="cy-agent-radio"
           value={LogTypes.Agent}
           onClick={() =>
             taskAnalytics.sendEvent({
@@ -257,7 +257,7 @@ const useRenderBody: React.FC<{
           System Logs
         </Radio>
         <Radio
-          id="cy-event-radio"
+          data-cy="cy-event-radio"
           value={LogTypes.Event}
           onClick={() =>
             taskAnalytics.sendEvent({
@@ -270,7 +270,7 @@ const useRenderBody: React.FC<{
         </Radio>
       </StyledRadioGroup>
       {hideLogs ? (
-        <div id="cy-no-logs">No logs found</div>
+        <div data-cy="cy-no-logs">No logs found</div>
       ) : (
         <LogContainer>
           {data.map((d, index) =>
