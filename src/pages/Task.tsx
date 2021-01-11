@@ -254,32 +254,28 @@ const TaskCore: React.FC = () => {
               >
                 <FilesTables />
               </Tab>
-              {showAnnotationsTab && (
-                <Tab
-                  name="Task Annotations"
-                  id="task-build-baron-tab"
-                  disabled={!showAnnotationsTab}
-                >
-                  <BuildBaron
-                    annotation={annotation}
-                    bbData={buildBaronData}
-                    error={buildBaronError}
-                    taskId={id}
-                    execution={selectedExecution}
-                    loading={buildBaronLoading}
-                    userCanModify={annotation?.userCanModify}
-                  />
-                </Tab>
-              )}
-              {(isPerfPluginEnabled || tab === TaskTab.TrendCharts) && (
-                <Tab
-                  name="Trend Charts"
-                  id="trend-charts-tab"
-                  disabled={!isPerfPluginEnabled}
-                >
-                  <TrendChartsPlugin taskId={id} />
-                </Tab>
-              )}
+              <Tab
+                name="Task Annotations"
+                id="task-build-baron-tab"
+                disabled={!showAnnotationsTab}
+              >
+                <BuildBaron
+                  annotation={annotation}
+                  bbData={buildBaronData}
+                  error={buildBaronError}
+                  taskId={id}
+                  execution={selectedExecution}
+                  loading={buildBaronLoading}
+                  userCanModify={annotation?.userCanModify}
+                />
+              </Tab>
+              <Tab
+                name="Trend Charts"
+                id="trend-charts-tab"
+                disabled={!isPerfPluginEnabled}
+              >
+                <TrendChartsPlugin taskId={id} />
+              </Tab>
             </StyledTabs>
           </PageContent>
         </LogWrapper>
