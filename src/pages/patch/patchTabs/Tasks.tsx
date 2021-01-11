@@ -56,7 +56,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const queryVariables = getQueryVariables(search, resourceId);
 
-  let { sorts, limit, page } = queryVariables;
+  let { sorts } = queryVariables;
+  const { limit, page } = queryVariables;
 
   if (sorts.length === 0) {
     sorts = [
@@ -85,7 +86,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   useNetworkStatus(startPolling, stopPolling);
 
-  let columnsTemplate: Array<ColumnProps<TaskResult>> = [
+  const columnsTemplate: Array<ColumnProps<TaskResult>> = [
     {
       title: "Name",
       dataIndex: "displayName",
@@ -134,20 +135,22 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     switch (sort.Key) {
       case TableColumnHeader.Name: {
         columnsTemplate[0].defaultSortOrder = direction;
-        return;
+        break;
       }
       case TableColumnHeader.Status: {
         columnsTemplate[1].defaultSortOrder = direction;
-        return;
+        break;
       }
       case TableColumnHeader.BaseStatus: {
         columnsTemplate[2].defaultSortOrder = direction;
-        return;
+        break;
       }
       case TableColumnHeader.Variant: {
         columnsTemplate[3].defaultSortOrder = direction;
-        return;
+        break;
       }
+      default:
+        break;
     }
   });
 
@@ -267,13 +270,16 @@ const getQueryVariables = (
   };
 };
 
-const parseSortString = (sortStr: string | string[]): SortOrder[] => {
+const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
   let sorts: SortOrder[] = [];
-  if (typeof sortStr === "string") {
-    sortStr = sortStr.split(";");
+  let sortArray: string[] = [];
+  if (typeof sortQuery === "string") {
+    sortArray = sortQuery.split(";");
+  } else {
+    sortArray = sortQuery;
   }
-  if (sortStr?.length > 0) {
-    sortStr.forEach((singleSort) => {
+  if (sortArray?.length > 0) {
+    sortArray.forEach((singleSort) => {
       const parts = singleSort.split(",");
       let direction = 0;
       if (parts[1] === SortDirection.Asc) {

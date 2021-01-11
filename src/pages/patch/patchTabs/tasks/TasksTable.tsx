@@ -1,13 +1,13 @@
 import React from "react";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
+import { SorterResult } from "antd/es/table/interface";
 import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { TaskResult, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
-import { SorterResult } from "antd/es/table/interface";
 
 interface Props {
   data?: PatchTasks;
@@ -61,13 +61,14 @@ const toSortString = (
     order === "ascend" ? "ASC" : "DESC";
   if (Array.isArray(sorts)) {
     sorts.forEach((sort) => {
-      const singleSortString =
-        sort.columnKey + "," + shortenSortOrder(sort.order);
+      const singleSortString = `${sort.columnKey},${shortenSortOrder(
+        sort.order
+      )}`;
       sortStrings = sortStrings.concat(singleSortString);
     });
   } else {
     sortStrings = sortStrings.concat(
-      sorts.columnKey + "," + shortenSortOrder(sorts.order)
+      `${sorts.columnKey},${shortenSortOrder(sorts.order)}`
     );
   }
 

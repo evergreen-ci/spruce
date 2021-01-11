@@ -72,9 +72,7 @@ describe("Task table", () => {
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
     cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a")
-        .should("have.attr", "href")
-        .and("include", "/task");
+      cy.get("a").should("have.attr", "href").and("include", "/task");
     });
   });
 
