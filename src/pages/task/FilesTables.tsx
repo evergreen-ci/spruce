@@ -17,7 +17,7 @@ import {
   GroupedFiles,
 } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries/get-task-files";
-import { ExecutionAsData } from "pages/task/util/execution";
+import { executionAsData } from "pages/task/util/execution";
 import { RequiredQueryParams } from "types/task";
 import { queryParamAsNumber, parseQueryString } from "utils";
 
@@ -54,7 +54,7 @@ export const FilesTables: React.FC = () => {
   >(GET_TASK_FILES, {
     variables: {
       id,
-      execution: ExecutionAsData(initialExecution),
+      execution: executionAsData(initialExecution),
     },
   });
   const [filterStr, setFilterStr] = useState("");

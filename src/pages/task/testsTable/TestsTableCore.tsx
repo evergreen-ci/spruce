@@ -29,7 +29,7 @@ import {
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import { useNetworkStatus } from "hooks";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
-import { ExecutionAsData } from "pages/task/util/execution";
+import { executionAsData } from "pages/task/util/execution";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
 import { msToDuration } from "utils/string";
@@ -271,6 +271,6 @@ const getQueryVariables = (
     statusList,
     testName,
     pageNum: getPageFromSearch(search),
-    execution: ExecutionAsData(queryParamAsNumber(execution)),
+    execution: executionAsData(queryParamAsNumber(execution)),
   };
 };
