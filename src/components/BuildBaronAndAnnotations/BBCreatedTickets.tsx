@@ -9,6 +9,7 @@ import {
 } from "gql/generated/types";
 import { GET_CREATED_TICKETS } from "gql/queries";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
+import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
@@ -59,6 +60,16 @@ export const CreatedTickets: React.FC<Props> = ({
           <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
         </>
       )}
+      <TitleAndButtons>
+        {length === 0 && (
+          <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
+        )}
+        <BBFileTicket
+          taskId={taskId}
+          setCreatedTicketsCount={setCreatedTicketsCount}
+          createdTicketsCount={createdTicketsCount}
+        />
+      </TitleAndButtons>
     </>
   );
 };

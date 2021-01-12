@@ -16,10 +16,10 @@ import {
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
+import { AnnotationNote } from "./AnnotationNote";
 import { AnnotationTickets } from "./AnnotationTickets";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets } from "./BBCreatedTickets";
-import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
@@ -72,15 +72,14 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
             createdTicketsCount={createdTicketsCount}
           />
 
-          <TitleAndButtons>
-            <BBFileTicket
-              taskId={taskId}
-              setCreatedTicketsCount={setCreatedTicketsCount}
-              createdTicketsCount={createdTicketsCount}
-            />
-          </TitleAndButtons>
           {annotationsReady && (
             <>
+              <AnnotationNote
+                note={annotation?.note}
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
+              />
               <AnnotationTickets
                 tickets={annotation?.issues}
                 isIssue
