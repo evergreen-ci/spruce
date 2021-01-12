@@ -65,6 +65,7 @@ const TaskCore: React.FC = () => {
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
     pollInterval,
+    nextFetchPolicy: "cache-and-network",
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
@@ -202,6 +203,7 @@ const TaskCore: React.FC = () => {
               currentExecution={selectedExecution}
               latestExecution={latestExecution}
               updateExecution={(n: number) => {
+                taskAnalytics.sendEvent({ name: "Change Execution" });
                 updateQueryParams({
                   execution: `${n}`,
                 });
