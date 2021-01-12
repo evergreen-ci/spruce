@@ -1299,6 +1299,14 @@ export type BbCreateTicketMutationVariables = Exact<{
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
+export type MoveAnnotationIssueMutationVariables = Exact<{
+  annotationId: Scalars["String"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type MoveAnnotationIssueMutation = { moveAnnotationIssue: boolean };
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -1583,7 +1591,6 @@ export type CommitQueueQuery = {
               additions: number;
               deletions: number;
               diffLink: string;
-              description: string;
             }>;
           }>;
         }>;
