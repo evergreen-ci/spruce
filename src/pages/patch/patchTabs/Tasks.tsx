@@ -28,24 +28,19 @@ import {
   PatchTasksQueryVariables,
   TaskResult,
   SortDirection,
-  SortOrder,
+  TaskSortCategory,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { parseSortString } from "./Util";
 
 interface Props {
   taskCount: number;
-}
-
-enum TableColumnHeader {
-  Name = "NAME",
-  Status = "STATUS",
-  BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT",
 }
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
@@ -53,23 +48,16 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const { search } = useLocation();
   const router = useHistory();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = getQueryVariables(search, resourceId);
 
-  let { sorts } = queryVariables;
-  const { limit, page } = queryVariables;
+  const { sorts, limit, page } = queryVariables;
 
   if (sorts.length === 0) {
-    sorts = [
-      {
-        Key: TableColumnHeader.Status,
-        Direction: 1,
-      },
-      {
-        Key: TableColumnHeader.BaseStatus,
-        Direction: 1,
-      },
-    ];
+    updateQueryParams({
+      sorts: "STATUS,ASC;BASE_STATUS,ASC",
+    });
   }
 
   const { data, error, startPolling, stopPolling } = useQuery<
@@ -90,7 +78,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     {
       title: "Name",
       dataIndex: "displayName",
-      key: TableColumnHeader.Name,
+      key: TaskSortCategory.Name,
       sorter: {
         multiple: 4,
       },
@@ -103,7 +91,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     {
       title: "Patch Status",
       dataIndex: "status",
-      key: TableColumnHeader.Status,
+      key: TaskSortCategory.Status,
       sorter: {
         multiple: 4,
       },
@@ -113,7 +101,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     {
       title: "Base Status",
       dataIndex: "baseStatus",
-      key: TableColumnHeader.BaseStatus,
+      key: TaskSortCategory.BaseStatus,
       sorter: {
         multiple: 4,
       },
@@ -123,36 +111,44 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     {
       title: "Variant",
       dataIndex: "buildVariant",
-      key: TableColumnHeader.Variant,
+      key: TaskSortCategory.Variant,
       sorter: {
         multiple: 4,
       },
       className: "cy-task-table-col-VARIANT",
     },
   ];
-  sorts.forEach((sort) => {
-    const direction = sort.Direction < 0 ? "descend" : "ascend";
-    switch (sort.Key) {
-      case TableColumnHeader.Name: {
-        columnsTemplate[0].defaultSortOrder = direction;
-        break;
+  if (sorts.length === 0) {
+    // works around a quirk/bug in the antd table where default sorts don't
+    // get updated on subsequent renders
+    columnsTemplate[1].defaultSortOrder = "ascend";
+    columnsTemplate[2].defaultSortOrder = "ascend";
+  } else {
+    sorts.forEach((sort) => {
+      const direction =
+        sort.Direction === SortDirection.Desc ? "descend" : "ascend";
+      switch (sort.Key) {
+        case TaskSortCategory.Name: {
+          columnsTemplate[0].defaultSortOrder = direction;
+          break;
+        }
+        case TaskSortCategory.Status: {
+          columnsTemplate[1].defaultSortOrder = direction;
+          break;
+        }
+        case TaskSortCategory.BaseStatus: {
+          columnsTemplate[2].defaultSortOrder = direction;
+          break;
+        }
+        case TaskSortCategory.Variant: {
+          columnsTemplate[3].defaultSortOrder = direction;
+          break;
+        }
+        default:
+          break;
       }
-      case TableColumnHeader.Status: {
-        columnsTemplate[1].defaultSortOrder = direction;
-        break;
-      }
-      case TableColumnHeader.BaseStatus: {
-        columnsTemplate[2].defaultSortOrder = direction;
-        break;
-      }
-      case TableColumnHeader.Variant: {
-        columnsTemplate[3].defaultSortOrder = direction;
-        break;
-      }
-      default:
-        break;
-    }
-  });
+    });
+  }
 
   const patchAnalytics = usePatchAnalytics();
 
@@ -268,32 +264,6 @@ const getQueryVariables = (
     page: getPageFromSearch(search),
     limit: getLimitFromSearch(search),
   };
-};
-
-const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
-  let sorts: SortOrder[] = [];
-  let sortArray: string[] = [];
-  if (typeof sortQuery === "string") {
-    sortArray = sortQuery.split(";");
-  } else {
-    sortArray = sortQuery;
-  }
-  if (sortArray?.length > 0) {
-    sortArray.forEach((singleSort) => {
-      const parts = singleSort.split(",");
-      let direction = 0;
-      if (parts[1] === SortDirection.Asc) {
-        direction = 1;
-      } else if (parts[1] === SortDirection.Desc) {
-        direction = -1;
-      }
-      sorts = sorts.concat({
-        Key: parts[0],
-        Direction: direction,
-      });
-    });
-  }
-  return sorts;
 };
 
 const renderStatusBadge = (

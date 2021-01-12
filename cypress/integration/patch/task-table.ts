@@ -31,6 +31,10 @@ describe("Task table", () => {
 
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%2CASC%3BBASE_STATUS%2CASC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
     cy.location("search").should(
