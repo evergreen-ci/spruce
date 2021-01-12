@@ -1,7 +1,7 @@
 import { gql } from "@apollo/client";
 
 export const GET_EVENT_LOGS = gql`
-  query EventLogs($id: String!, $execution: Int) {
+  query EventLogs($id: String!, $execution: Int!) {
     taskLogs(taskId: $id, execution: $execution) {
       eventLogs {
         timestamp
@@ -21,7 +21,7 @@ export const GET_EVENT_LOGS = gql`
 `;
 
 export const GET_TASK_LOGS = gql`
-  query TaskLogs($id: String!, $execution: Int) {
+  query TaskLogs($id: String!, $execution: Int!) {
     taskLogs(taskId: $id, execution: $execution) {
       taskLogs {
         severity
@@ -33,7 +33,7 @@ export const GET_TASK_LOGS = gql`
 `;
 
 export const GET_AGENT_LOGS = gql`
-  query AgentLogs($id: String!, $execution: Int) {
+  query AgentLogs($id: String!, $execution: Int!) {
     taskLogs(taskId: $id, execution: $execution) {
       agentLogs {
         severity
@@ -45,7 +45,7 @@ export const GET_AGENT_LOGS = gql`
 `;
 
 export const GET_SYSTEM_LOGS = gql`
-  query SystemLogs($id: String!, $execution: Int) {
+  query SystemLogs($id: String!, $execution: Int!) {
     taskLogs(taskId: $id, execution: $execution) {
       systemLogs {
         severity
