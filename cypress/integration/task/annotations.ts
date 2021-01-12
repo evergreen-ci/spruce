@@ -9,11 +9,6 @@ describe("Task Annotation Tab", () => {
     cy.login();
   });
 
-  beforeEach(() => {
-    cy.preserveCookies();
-    cy.listenGQL();
-  });
-
   it("annotations add and delete correctly", () => {
     cy.visit(taskRoute);
     const dataCyTableRows =

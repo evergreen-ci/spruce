@@ -16,6 +16,7 @@ import { REMOVE_ANNOTATION } from "gql/mutations/remove-annotation";
 import { AnnotationTicketRow } from "./BBComponents";
 
 type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
+type AnnotationTicket = AnnotationTickets[0];
 interface Props {
   jiraIssues: AnnotationTickets;
   taskId: string;
@@ -36,7 +37,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     {
       render: (
         text: string,
-        { issueKey, url, source, jiraTicket }: AnnotationTickets[0]
+        { issueKey, url, source, jiraTicket }: AnnotationTicket
       ): JSX.Element => (
         <AnnotationTicketRow
           issueKey={issueKey}
@@ -50,7 +51,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       title: "Actions",
       render: (
         text: string,
-        { issueKey, url }: AnnotationTickets[0]
+        { issueKey, url }: AnnotationTicket
       ): JSX.Element => (
         <ConditionalWrapper
           condition={!userCanModify}
