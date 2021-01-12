@@ -1,7 +1,7 @@
 import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 const taskWithAnnotations =
-  "evergreen_ubuntu1604_test_cloud_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
+  "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskWithAnnotations}/annotations`;
 
 describe("Task Annotation Tab", () => {
