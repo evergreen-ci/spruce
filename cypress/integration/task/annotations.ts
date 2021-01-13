@@ -5,7 +5,7 @@ const taskWithAnnotations =
 const taskRoute = `/task/${taskWithAnnotations}/annotations`;
 
 describe("Task Annotation Tab", () => {
-  before(() => {
+  beforeEach(() => {
     cy.login();
   });
 
