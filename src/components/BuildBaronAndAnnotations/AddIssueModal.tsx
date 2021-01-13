@@ -94,7 +94,7 @@ export const AddIssueModal: React.FC<Props> = ({
             )}
           >
             <WideButton
-              dataCy="modal-update-button"
+              data-cy="add-issue-save-button"
               variant="primary"
               disabled={url === "" || issueKey === ""}
               loading={loadingAddAnnotation}
