@@ -30,7 +30,7 @@ export const AnnotationTickets: React.FC<Props> = ({
     isAddAnnotationModalVisible,
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
-  return tickets?.length ? (
+  return (
     <>
       <TitleAndButtons>
         <TicketsTitle>{title} </TicketsTitle>
@@ -51,17 +51,21 @@ export const AnnotationTickets: React.FC<Props> = ({
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      <AnnotationTicketsTable jiraIssues={tickets} />{" "}
-      <AddIssueModal
-        dataCy="addIssueModal"
-        visible={isAddAnnotationModalVisible}
-        closeModal={() => setIsAddAnnotationModalVisible(false)}
-        taskId={taskId}
-        execution={execution}
-        isIssue={isIssue}
-      />
+      {tickets?.length > 0 && (
+        <>
+          <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+          <AddIssueModal
+            dataCy="addIssueModal"
+            visible={isAddAnnotationModalVisible}
+            closeModal={() => setIsAddAnnotationModalVisible(false)}
+            taskId={taskId}
+            execution={execution}
+            isIssue={isIssue}
+          />
+        </>
+      )}
     </>
-  ) : null;
+  );
 };
 
 const StyledButton = styled(PlusButton)`
