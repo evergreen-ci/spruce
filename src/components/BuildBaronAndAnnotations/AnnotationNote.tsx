@@ -35,7 +35,7 @@ export const AnnotationNote: React.FC<Props> = ({
   execution,
   userCanModify,
 }) => {
-  const originalMessage = note?.message;
+  const originalMessage = note?.message || "";
   const dispatchBanner = useBannerDispatchContext();
   const [newMessage, setMessage] = useState(originalMessage);
   const [

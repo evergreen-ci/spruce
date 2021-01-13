@@ -847,6 +847,7 @@ export type Task = {
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
+  canModifyAnnotation: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
   canSchedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
@@ -1163,7 +1164,6 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
-  userCanModify: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1994,6 +1994,7 @@ export type GetTaskQuery = {
     generatedByName?: Maybe<string>;
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
+    canModifyAnnotation: boolean;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -2020,7 +2021,6 @@ export type GetTaskQuery = {
       id: string;
       taskId: string;
       taskExecution: number;
-      userCanModify: boolean;
       note?: Maybe<{
         message: string;
         source: { author: string; time: Date; requester: string };
