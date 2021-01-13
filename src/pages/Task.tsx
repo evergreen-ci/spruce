@@ -114,7 +114,7 @@ const TaskCore: React.FC = () => {
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
   const isPerfPluginEnabled = get(task, "isPerfPluginEnabled");
-  const canModifyAnnotation = get(task, "canModifyAnnotation");
+  const canModifyAnnotation = task?.canModifyAnnotation ?? false;
   const patchAuthor = data?.task.patchMetadata.author;
   const annotation = task?.annotation;
 
