@@ -92,7 +92,7 @@ export type QueryPatchTasksArgs = {
 
 export type QueryTaskTestsArgs = {
   taskId: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
   sortCategory?: Maybe<TestSortCategory>;
   sortDirection?: Maybe<SortDirection>;
   page?: Maybe<Scalars["Int"]>;
@@ -112,7 +112,7 @@ export type QueryUserArgs = {
 
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchBuildVariantsArgs = {
@@ -1884,7 +1884,7 @@ export type TaskFilesQuery = {
 
 export type EventLogsQueryVariables = Exact<{
   id: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type EventLogsQuery = {
@@ -1907,7 +1907,7 @@ export type EventLogsQuery = {
 
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type TaskLogsQuery = {
@@ -1922,7 +1922,7 @@ export type TaskLogsQuery = {
 
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type AgentLogsQuery = {
@@ -1937,7 +1937,7 @@ export type AgentLogsQuery = {
 
 export type SystemLogsQueryVariables = Exact<{
   id: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type SystemLogsQuery = {
@@ -1958,7 +1958,7 @@ export type TaskTestsQueryVariables = Exact<{
   limitNum?: Maybe<Scalars["Int"]>;
   statusList: Array<Scalars["String"]>;
   testName: Scalars["String"];
-  execution: Scalars["Int"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type TaskTestsQuery = {
