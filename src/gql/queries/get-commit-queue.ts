@@ -19,10 +19,12 @@ export const GET_COMMIT_QUEUE = gql`
             branchName
             htmlLink
             fileDiffs {
+              description
               fileName
               additions
               deletions
               diffLink
+              description
             }
           }
         }

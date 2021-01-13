@@ -33,6 +33,7 @@ import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
+import { omitTypename } from "utils/string";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
@@ -64,6 +65,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string[]>([
     get(variants[0], "name", ""),
   ]);
+
   const [
     selectedVariantTasks,
     setSelectedVariantTasks,
@@ -73,7 +75,9 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description || ""
   );
-  const [patchParams, setPatchParams] = useState<ParameterInput[]>();
+  const [patchParams, setPatchParams] = useState<ParameterInput[]>(
+    omitTypename(patch?.parameters)
+  );
 
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setdescriptionValue(e.target.value);
@@ -165,7 +169,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
               >
                 <ParametersContent
                   patchActivated={patch?.activated}
-                  patchParameters={patch?.parameters}
+                  patchParameters={patchParams}
                   setPatchParams={setPatchParams}
                 />
               </Tab>

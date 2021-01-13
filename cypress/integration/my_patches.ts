@@ -70,7 +70,7 @@ describe("My Patches Page", () => {
   it("Build status icon should link to version page with appropiate filters", () => {
     cy.visit(MY_PATCHES_ROUTE);
     cy.dataCy("build-status-icon-link")
-      .first()
+      .eq(1)
       .should("have.attr", "href")
       .and(
         "equals",
@@ -226,6 +226,7 @@ const dataCyPrevPage =
 const dataCyTableRows = tableRow;
 
 const firstPageDisplayNames = [
+  "master: EVG-7823 add a commit queue message (#4048)",
   "dist",
   "test meee",
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",
@@ -235,9 +236,9 @@ const firstPageDisplayNames = [
   "the right version of ssl_fips",
   "no description",
   "SERVER-11333 test run 4",
-  "linux-64",
 ];
 const secondPageDisplayNames = [
+  "linux-64",
   "linux-64",
   "all",
   "no description",
@@ -247,9 +248,9 @@ const secondPageDisplayNames = [
   "SERVER-11183 test run",
   "SERVER-10992 SERVER-11130 test run",
   "linux-64-duroff,linux-64-debug-duroff",
-  "all",
 ];
 const thirdPageDisplayNames = [
+  "all",
   "linux-64",
   "osx-108-cxx11-debug",
   "windows-64,windows-32,solaris-64-bit",

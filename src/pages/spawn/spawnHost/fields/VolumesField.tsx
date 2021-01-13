@@ -36,7 +36,6 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
         <Select
           id="volumesSelectDropown"
           data-cy="volume-select"
-          showSearch
           style={{ width: 200 }}
           placeholder="Select volume"
           onChange={(v) => onChange({ volumeId: v })}

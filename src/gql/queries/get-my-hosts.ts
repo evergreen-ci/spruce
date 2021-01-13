@@ -9,6 +9,7 @@ export const GET_MY_HOSTS = gql`
         id
         user
         workDir
+        isWindows
       }
       hostUrl
       homeVolumeID

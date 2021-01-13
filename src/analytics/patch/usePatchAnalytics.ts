@@ -26,7 +26,8 @@ type Action =
   | {
       name: "Add Notification";
       subscription: SaveSubscriptionMutationVariables["subscription"];
-    };
+    }
+  | { name: "Toggle Display Task Dropdown"; expanded: boolean };
 
 interface P extends Properties {
   patchId: string;

@@ -1,10 +1,13 @@
 import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
 import { Input, Select, Tooltip } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
+import Icon from "components/icons/Icon";
 import { Modal } from "components/Modal";
 import {
   ModalContent,
@@ -14,7 +17,8 @@ import {
   ExpirationField,
 } from "components/Spawn";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
-import { InputLabel } from "components/styles";
+import { InputLabel, StyledLink } from "components/styles";
+import { windowsPasswordRulesURL } from "constants/externalResources";
 import { useBannerDispatchContext } from "context/banners";
 import {
   InstanceTypesQuery,
@@ -122,7 +126,8 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   };
 
   const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
-
+  const canEditRDPPassword =
+    host.distro.isWindows && host.status === HostStatus.Running;
   return (
     <Modal
       title="Edit Host Details"
@@ -172,12 +177,13 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            <Tooltip
-              title={
-                !canEditInstanceType
-                  ? "Pause this host to adjust this field."
-                  : undefined
-              }
+            <ConditionalWrapper
+              condition={!canEditInstanceType}
+              wrapper={(children) => (
+                <Tooltip title="Pause this host to adjust this field.">
+                  {children}
+                </Tooltip>
+              )}
             >
               <Select
                 id="instanceTypeDropdown"
@@ -202,7 +208,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                   </Option>
                 ))}
               </Select>
-            </Tooltip>
+            </ConditionalWrapper>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
@@ -215,6 +221,45 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             volumes={volumes}
           />
         </SectionContainer>
+        {canEditRDPPassword && (
+          <SectionContainer>
+            <SectionLabel weight="medium">Set RDP Password</SectionLabel>
+
+            <ModalContent>
+              <InputLabel htmlFor="rdpPasswordInput">
+                Set New RDP Password
+              </InputLabel>
+              <FlexContainer>
+                <Input
+                  value={editSpawnHostState.servicePassword}
+                  onChange={(e) =>
+                    dispatch({
+                      type: "editServicePassword",
+                      servicePassword: e.target.value,
+                    })
+                  }
+                  id="rdpPasswordInput"
+                  type="password"
+                />
+                <Tooltip
+                  title={
+                    <>
+                      Password should match the criteria defined{" "}
+                      <StyledLink
+                        href={windowsPasswordRulesURL}
+                        target="__blank"
+                      >
+                        here.
+                      </StyledLink>
+                    </>
+                  }
+                >
+                  <PaddedIcon glyph="QuestionMarkWithCircle" />
+                </Tooltip>
+              </FlexContainer>
+            </ModalContent>
+          </SectionContainer>
+        )}
         <SectionContainer>
           <SectionLabel weight="medium">User Tags</SectionLabel>
           <UserTagsField
@@ -255,3 +300,11 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
 
   return [hasChanges, mutationParams];
 };
+
+const PaddedIcon = styled(Icon)`
+  margin-left: 16px;
+`;
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;

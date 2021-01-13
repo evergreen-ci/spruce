@@ -58,7 +58,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
         {status.name}
       </StyledBadge>
 
-      <MetaDataWrapper data-cy={`${jiraKey}-metadata`}>
+      <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>Created: {getDateCopy(created, null, true)} </Disclaimer>
         <Disclaimer>Updated: {getDateCopy(updated, null, true)} </Disclaimer>
         <Disclaimer>
@@ -66,7 +66,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
             ? `Assignee: ${assigneeDisplayName}`
             : "Unassigned"}{" "}
         </Disclaimer>
-      </MetaDataWrapper>
+      </BottomMetaDataWrapper>
     </div>
   );
 };
@@ -105,7 +105,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         </StyledBadge>
       )}
 
-      <MetaDataWrapper data-cy={`${issueKey}-metadata`}>
+      <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
         {created && (
           <Disclaimer>Created: {getDateCopy(created, null, true)}</Disclaimer>
         )}
@@ -117,7 +117,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
           <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
         )}
         {assignedTeam && <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>}{" "}
-      </MetaDataWrapper>
+      </BottomMetaDataWrapper>
     </div>
   );
 };
@@ -132,8 +132,18 @@ const StyledBadge = styled(Badge)`
   padding: 0px 15px 0px;
 `;
 
-const MetaDataWrapper = styled.div`
+export const BottomMetaDataWrapper = styled.div`
   margin-top: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  grid-template-rows: 1fr;
+  grid-row-gap: 0px;
+  width: 60%;
+`;
+
+export const TopMetaDataWrapper = styled.div`
+  margin-bottom: 7px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
   gap: 10px;
@@ -144,4 +154,9 @@ const MetaDataWrapper = styled.div`
 
 export const TitleAndButtons = styled.div`
   margin-left: 15px;
+`;
+
+export const ButtonWrapper = styled.div`
+  margin-right: 8px;
+  padding-top: 15px;
 `;

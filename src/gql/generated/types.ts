@@ -503,6 +503,7 @@ export type EditSpawnHostInput = {
   addedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -584,6 +585,7 @@ export type DistroInfo = {
   workDir?: Maybe<Scalars["String"]>;
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
+  isWindows?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Distro = {
@@ -645,6 +647,7 @@ export type FileDiff = {
   additions: Scalars["Int"];
   deletions: Scalars["Int"];
   diffLink: Scalars["String"];
+  description: Scalars["String"];
 };
 
 export type UserPatches = {
@@ -740,6 +743,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
+  executionTasksFull?: Maybe<Array<Task>>;
 };
 
 export type PatchDuration = {
@@ -840,6 +844,7 @@ export type Task = {
   ami?: Maybe<Scalars["String"]>;
   blocked: Scalars["Boolean"];
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  baseStatus?: Maybe<Scalars["String"]>;
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
@@ -856,6 +861,7 @@ export type Task = {
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution?: Maybe<Scalars["Int"]>;
   executionTasks?: Maybe<Array<Scalars["String"]>>;
+  executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
@@ -1152,11 +1158,13 @@ export type JiraStatus = {
 };
 
 export type Annotation = {
+  id: Scalars["String"];
   taskId: Scalars["String"];
   taskExecution: Scalars["Int"];
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  userCanModify: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1211,6 +1219,15 @@ export type AbortTaskMutationVariables = Exact<{
 
 export type AbortTaskMutation = { abortTask: { id: string } };
 
+export type AddAnnotationIssueMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type AddAnnotationIssueMutation = { addAnnotationIssue: boolean };
+
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
 }>;
@@ -1237,6 +1254,15 @@ export type DetachVolumeFromHostMutationVariables = Exact<{
 
 export type DetachVolumeFromHostMutation = { detachVolumeFromHost: boolean };
 
+export type EditAnnotationNoteMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  originalMessage: Scalars["String"];
+  newMessage: Scalars["String"];
+}>;
+
+export type EditAnnotationNoteMutation = { editAnnotationNote: boolean };
+
 export type EditSpawnHostMutationVariables = Exact<{
   hostId: Scalars["String"];
   displayName?: Maybe<Scalars["String"]>;
@@ -1246,6 +1272,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   instanceType?: Maybe<Scalars["String"]>;
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
+  servicePassword?: Maybe<Scalars["String"]>;
 }>;
 
 export type EditSpawnHostMutation = {
@@ -1515,6 +1542,7 @@ export type CodeChangesQuery = {
         additions: number;
         deletions: number;
         diffLink: string;
+        description: string;
       }>;
     }>;
   };
@@ -1543,6 +1571,7 @@ export type CommitQueueQuery = {
             branchName: string;
             htmlLink: string;
             fileDiffs: Array<{
+              description: string;
               fileName: string;
               additions: number;
               deletions: number;
@@ -1667,6 +1696,7 @@ export type MyHostsQuery = {
       id?: Maybe<string>;
       user?: Maybe<string>;
       workDir?: Maybe<string>;
+      isWindows?: Maybe<boolean>;
     }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
@@ -1748,6 +1778,15 @@ export type PatchTasksQuery = {
       displayName: string;
       buildVariant: string;
       blocked: boolean;
+      executionTasksFull?: Maybe<
+        Array<{
+          id: string;
+          displayName: string;
+          status: string;
+          buildVariant: string;
+          baseStatus?: Maybe<string>;
+        }>
+      >;
     }>;
   };
 };
@@ -1980,8 +2019,10 @@ export type GetTaskQuery = {
       oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
     }>;
     annotation?: Maybe<{
+      id: string;
       taskId: string;
       taskExecution: number;
+      userCanModify: boolean;
       note?: Maybe<{
         message: string;
         source: { author: string; time: Date; requester: string };
