@@ -99,7 +99,7 @@ describe("Restarting a patch", () => {
   });
 
   const allTasksSelectedConfirmationMessage =
-    "Are you sure you want to restart the 49 selected tasks?";
+    "Are you sure you want to restart the 50 selected tasks?";
   const someTasksSelected =
     "Are you sure you want to restart the 1 selected tasks?";
   const path = `/version/5e4ff3abe3c3317e352062e4`;
