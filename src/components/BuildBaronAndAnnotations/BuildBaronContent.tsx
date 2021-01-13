@@ -96,17 +96,20 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
               />
             </>
           )}
-
-          <TitleAndButtons>
-            <TicketsTitle>
-              Related tickets from Jira
-              <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                {"  "}(Jira Search)
-              </StyledLink>
-            </TicketsTitle>
-          </TitleAndButtons>
-          {/* build baron related jira tickets */}
-          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+          {bbData?.searchReturnInfo?.issues.length > 0 && (
+            <>
+              <TitleAndButtons>
+                <TicketsTitle>
+                  Related tickets from Jira
+                  <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+                    {"  "}(Jira Search)
+                  </StyledLink>
+                </TicketsTitle>
+              </TitleAndButtons>
+              {/* build baron related jira tickets */}
+              <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+            </>
+          )}
         </>
       )}
     </span>
