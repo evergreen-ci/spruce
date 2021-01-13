@@ -2,16 +2,19 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
-import Icon from "@leafygreen-ui/icon";
+import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { useBannerDispatchContext } from "context/banners";
 import {
   GetTaskQuery,
+  MoveAnnotationIssueMutation,
+  MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
+import { MOVE_ANNOTATION } from "gql/mutations/move-annotation";
 import { REMOVE_ANNOTATION } from "gql/mutations/remove-annotation";
 import { AnnotationTicketRow } from "./BBComponents";
 
@@ -19,6 +22,7 @@ type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
 interface Props {
   jiraIssues: AnnotationTickets;
+  annotationId: string;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -26,6 +30,7 @@ interface Props {
 }
 
 export const AnnotationTicketsTable: React.FC<Props> = ({
+  annotationId,
   taskId,
   execution,
   userCanModify,
@@ -33,6 +38,8 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   isIssue,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
+  const issueString = isIssue ? "issue" : "suspected issue";
+  const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
   const columns = [
     {
       render: (
@@ -48,7 +55,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       ),
     },
     {
-      title: "Actions",
+      title: "Delete",
       render: (
         text: string,
         { issueKey, url }: AnnotationTicket
@@ -62,11 +69,34 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
           )}
         >
           <BtnContainer>
-            {/* todo: add move button here */}
             <Popconfirm
               icon={null}
               placement="topRight"
-              title="Delete this ticket?"
+              title={`Do you want to move this ${issueString} to ${
+                isIssue ? "suspected issues" : "issues"
+              }?`}
+              onConfirm={() => {
+                onClickMove(url, issueKey);
+              }}
+              okText="Yes"
+              cancelText="Cancel"
+            >
+              <StyledButton
+                size={Size.Small}
+                data-cy={`move-btn-${issueKey}`}
+                disabled={!userCanModify}
+                glyph={icon}
+              >
+                <StyledText>
+                  Move To {isIssue ? "Suspected Issues" : "Issues"}
+                </StyledText>
+              </StyledButton>
+            </Popconfirm>
+
+            <Popconfirm
+              icon={null}
+              placement="topRight"
+              title={`Do you want to delete this ${issueString}?`}
               onConfirm={() => {
                 onClickRemove(url, issueKey);
               }}
@@ -90,11 +120,30 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     RemoveAnnotationIssueMutationVariables
   >(REMOVE_ANNOTATION, {
     onCompleted: () => {
-      dispatchBanner.successBanner(`Successfully removed issue`);
+      dispatchBanner.successBanner(`Successfully removed ${issueString}`);
     },
     onError(error) {
       dispatchBanner.errorBanner(
-        `There was an error removing the issue: ${error.message}`
+        `There was an error removing the ${issueString}: ${error.message}`
+      );
+    },
+    refetchQueries: ["GetTask"],
+  });
+
+  const [moveAnnotation] = useMutation<
+    MoveAnnotationIssueMutation,
+    MoveAnnotationIssueMutationVariables
+  >(MOVE_ANNOTATION, {
+    onCompleted: () => {
+      dispatchBanner.successBanner(
+        `Successfully moved ${issueString} to ${
+          isIssue ? "suspected issues" : "issues"
+        }`
+      );
+    },
+    onError(error) {
+      dispatchBanner.errorBanner(
+        `There was an error moving the ${issueString}: ${error.message}`
       );
     },
     refetchQueries: ["GetTask"],
@@ -106,6 +155,14 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       issueKey,
     };
     removeAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+  };
+
+  const onClickMove = (url, issueKey) => {
+    const apiIssue = {
+      url,
+      issueKey,
+    };
+    moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
   };
 
   return (
@@ -127,11 +184,17 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
 export const TableWrapper = styled.div`
   margin-top: 5px;
 `;
+export const StyledText = styled.div`
+  padding: 5px;
+`;
 
 const BtnContainer = styled.div`
   white-space: nowrap;
+  padding: 20px;
 `;
 
 const StyledButton = styled(Button)`
   margin-left: 8px;
+  margin-top: 8px;
+  height: 28px;
 `;
