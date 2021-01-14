@@ -113,6 +113,7 @@ export type QueryUserArgs = {
 
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchBuildVariantsArgs = {
