@@ -83,7 +83,7 @@ describe("Task table", () => {
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
     cy.waitForGQL("PatchTasks");
-    cy.get("[data-cy=total-task-count]").contains("49");
+    cy.dataCy("total-task-count").contains("50");
   });
 
   it("Sort buttons are disabled when fetching data", () => {

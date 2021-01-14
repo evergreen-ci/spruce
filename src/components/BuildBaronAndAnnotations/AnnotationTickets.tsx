@@ -9,6 +9,7 @@ import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
 interface Props {
+  annotationId: string;
   taskId: string;
   execution: number;
   tickets: IssueLink[];
@@ -17,6 +18,7 @@ interface Props {
 }
 
 export const AnnotationTickets: React.FC<Props> = ({
+  annotationId,
   tickets,
   taskId,
   execution,
@@ -25,12 +27,11 @@ export const AnnotationTickets: React.FC<Props> = ({
 }) => {
   const title = isIssue ? "Issues" : "Suspected Issues";
   const buttonText = isIssue ? "Add Issue" : "Add Suspected Issue";
-
   const [
     isAddAnnotationModalVisible,
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
-  return tickets?.length ? (
+  return (
     <>
       <TitleAndButtons>
         <TicketsTitle>{title} </TicketsTitle>
@@ -44,14 +45,23 @@ export const AnnotationTickets: React.FC<Props> = ({
         >
           <StyledButton
             onClick={() => setIsAddAnnotationModalVisible(true)}
-            data-cy="add-tag-button"
+            data-cy={
+              isIssue ? "add-issue-button" : "add-suspected-issue-button"
+            }
             disabled={!userCanModify}
           >
             {buttonText}
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      <AnnotationTicketsTable jiraIssues={tickets} />{" "}
+      <AnnotationTicketsTable
+        jiraIssues={tickets}
+        annotationId={annotationId}
+        taskId={taskId}
+        execution={execution}
+        isIssue={isIssue}
+        userCanModify={userCanModify}
+      />
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}
@@ -61,7 +71,7 @@ export const AnnotationTickets: React.FC<Props> = ({
         isIssue={isIssue}
       />
     </>
-  ) : null;
+  );
 };
 
 const StyledButton = styled(PlusButton)`

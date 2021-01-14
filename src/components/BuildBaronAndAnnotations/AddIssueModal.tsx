@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
@@ -35,13 +35,40 @@ export const AddIssueModal: React.FC<Props> = ({
   const title = isIssue ? "Add Issue" : "Add Suspected Issue";
   const issueString = isIssue ? "issue" : "suspected issue";
 
-  const [url, setUrlValue] = useState<string>("");
-  const [issueKey, setIssueKey] = useState<string>("");
+  const init = () => ({
+    url: "",
+    issueKey: "",
+  });
+  interface addIssueState {
+    url: string;
+    issueKey: string;
+  }
 
-  const resetForm = () => {
-    setUrlValue("");
-    setIssueKey("");
+  type Action =
+    | { type: "reset" }
+    | { type: "saveUrl"; url: string }
+    | { type: "saveKey"; issueKey: string };
+
+  const reducer = (state: addIssueState, action: Action) => {
+    switch (action.type) {
+      case "reset":
+        return init();
+      case "saveUrl":
+        return {
+          ...state,
+          url: action.url,
+        };
+      case "saveKey":
+        return {
+          ...state,
+          issueKey: action.issueKey,
+        };
+      default:
+        throw new Error();
+    }
   };
+
+  const [addIssueModalState, dispatch] = useReducer(reducer, init());
 
   const [addAnnotation, { loading: loadingAddAnnotation }] = useMutation<
     AddAnnotationIssueMutation,
@@ -61,16 +88,20 @@ export const AddIssueModal: React.FC<Props> = ({
   const onClickAdd = () => {
     // todo: add analytics
     const apiIssue = {
-      url,
-      issueKey,
+      url: addIssueModalState.url,
+      issueKey: addIssueModalState.issueKey,
     };
     addAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
-    resetForm();
+    dispatch({
+      type: "reset",
+    });
     closeModal();
   };
 
   const onClickCancel = () => {
-    resetForm();
+    dispatch({
+      type: "reset",
+    });
     closeModal();
   };
 
@@ -86,7 +117,10 @@ export const AddIssueModal: React.FC<Props> = ({
             Cancel
           </WideButton>{" "}
           <ConditionalWrapperWithMargin
-            condition={url === "" || issueKey === ""}
+            condition={
+              addIssueModalState.url === "" ||
+              addIssueModalState.issueKey === ""
+            }
             wrapper={(children) => (
               <Tooltip title="Url and display text are required">
                 <span>{children}</span>
@@ -94,9 +128,12 @@ export const AddIssueModal: React.FC<Props> = ({
             )}
           >
             <WideButton
-              dataCy="modal-update-button"
+              data-cy="add-issue-save-button"
               variant="primary"
-              disabled={url === "" || issueKey === ""}
+              disabled={
+                addIssueModalState.url === "" ||
+                addIssueModalState.issueKey === ""
+              }
               loading={loadingAddAnnotation}
               onClick={onClickAdd}
             >
@@ -110,15 +147,25 @@ export const AddIssueModal: React.FC<Props> = ({
       <StyledTextArea
         data-cy="url-text-area"
         autoSize={{ minRows: 1, maxRows: 2 }}
-        value={url}
-        onChange={(e) => setUrlValue(e.target.value)}
+        value={addIssueModalState.url}
+        onChange={(e) =>
+          dispatch({
+            type: "saveUrl",
+            url: e.target.value,
+          })
+        }
       />
       <Body weight="medium">Display Text</Body>
       <StyledTextArea
         data-cy="issue-key-text-area"
         autoSize={{ minRows: 1, maxRows: 2 }}
-        value={issueKey}
-        onChange={(e) => setIssueKey(e.target.value)}
+        value={addIssueModalState.issueKey}
+        onChange={(e) =>
+          dispatch({
+            type: "saveKey",
+            issueKey: e.target.value,
+          })
+        }
       />
     </Modal>
   );

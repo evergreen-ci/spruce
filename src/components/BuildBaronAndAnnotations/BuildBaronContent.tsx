@@ -24,6 +24,7 @@ import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
   bbData: BuildBaron;
+  annotationId: string;
   taskId: string;
   execution: number;
   loading: boolean;
@@ -33,6 +34,7 @@ interface BuildBaronCoreProps {
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   bbData,
+  annotationId,
   taskId,
   execution,
   loading,
@@ -83,6 +85,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
               <AnnotationTickets
                 tickets={annotation?.issues}
                 isIssue
+                annotationId={annotationId}
                 taskId={taskId}
                 execution={execution}
                 userCanModify={userCanModify}
@@ -90,6 +93,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
               <AnnotationTickets
                 tickets={annotation?.suspectedIssues}
                 isIssue={false}
+                annotationId={annotationId}
                 taskId={taskId}
                 execution={execution}
                 userCanModify={userCanModify}
