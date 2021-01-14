@@ -1164,6 +1164,7 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  userCanModify?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Note = {

@@ -68,11 +68,13 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
             removeBanner={dispatchBanner.removeBanner}
           />
 
-          <CreatedTickets
-            taskId={taskId}
-            setCreatedTicketsCount={setCreatedTicketsCount}
-            createdTicketsCount={createdTicketsCount}
-          />
+          {bbData.buildBaronConfigured && (
+            <CreatedTickets
+              taskId={taskId}
+              setCreatedTicketsCount={setCreatedTicketsCount}
+              createdTicketsCount={createdTicketsCount}
+            />
+          )}
 
           {annotationsReady && (
             <>
