@@ -117,6 +117,7 @@ const TaskCore: React.FC = () => {
   const canModifyAnnotation = task?.canModifyAnnotation ?? false;
   const patchAuthor = data?.task.patchMetadata.author;
   const annotation = task?.annotation;
+  const attributed = annotation?.issues?.length > 0;
 
   const {
     showBuildBaron,
@@ -199,6 +200,12 @@ const TaskCore: React.FC = () => {
         badge={
           <ErrorBoundary>
             <TaskStatusBadge status={status} blocked={blocked} />
+            {attributed && (
+              <>
+                <Space />
+                <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
+              </>
+            )}
           </ErrorBoundary>
         }
         buttons={
@@ -308,4 +315,8 @@ export const Task = withBannersContext(TaskCore);
 
 const LogWrapper = styled(PageLayout)`
   width: 100%;
+`;
+
+const Space = styled.div`
+  margin-left: 10px;
 `;

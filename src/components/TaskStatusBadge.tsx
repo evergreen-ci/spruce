@@ -18,6 +18,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.StatusBlocked]: Variant.LightGray,
   [TaskStatus.StatusPending]: Variant.LightGray,
   [TaskStatus.Aborted]: Variant.Red,
+  [TaskStatus.Known]: Variant.Blue,
 };
 
 const taskStatusToCopy = {
@@ -33,6 +34,7 @@ const taskStatusToCopy = {
   [TaskStatus.StatusBlocked]: "Blocked",
   [TaskStatus.StatusPending]: "Pending",
   [TaskStatus.Aborted]: "Aborted",
+  [TaskStatus.Known]: "Known Failure",
 };
 
 const failureColors = {
