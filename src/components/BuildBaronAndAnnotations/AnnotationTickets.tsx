@@ -31,6 +31,7 @@ export const AnnotationTickets: React.FC<Props> = ({
     isAddAnnotationModalVisible,
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
+  const [selectedRowKeys, setSelectedRowKeys] = useState("");
   return (
     <>
       <TitleAndButtons>
@@ -62,12 +63,14 @@ export const AnnotationTickets: React.FC<Props> = ({
           execution={execution}
           isIssue={isIssue}
           userCanModify={userCanModify}
+          selectedRowKeys={selectedRowKeys}
         />
       )}
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}
         closeModal={() => setIsAddAnnotationModalVisible(false)}
+        setSelectedRowKeys={setSelectedRowKeys}
         taskId={taskId}
         execution={execution}
         isIssue={isIssue}
