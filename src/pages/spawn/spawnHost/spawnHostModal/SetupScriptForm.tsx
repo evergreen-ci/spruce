@@ -4,8 +4,11 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
 import { useLocation } from "react-router";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { GET_TASK } from "gql/queries";
+import {
+  GetSpawnTaskQuery,
+  GetSpawnTaskQueryVariables,
+} from "gql/generated/types";
+import { GET_SPAWN_TASK } from "gql/queries";
 import { parseQueryString, getString } from "utils";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
@@ -33,23 +36,22 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   const [hasSetupScript, setHasSetupScript] = useState(false);
 
   const [getTask, { data: taskData }] = useLazyQuery<
-    GetTaskQuery,
-    GetTaskQueryVariables
-  >(GET_TASK);
+    GetSpawnTaskQuery,
+    GetSpawnTaskQueryVariables
+  >(GET_SPAWN_TASK);
 
   useEffect(() => {
     if (taskId && distroId) {
       getTask({ variables: { taskId: getString(taskId), execution: 0 } });
       onChange({
-        type: "setProjectSetupScript",
+        type: "ingestQueryParams",
         taskId: getString(taskId),
-        useProjectSetupScript: true,
         distroId: getString(distroId),
       });
     }
   }, [taskId, distroId, getTask, onChange]);
 
-  const { displayName, buildVariant, revision } = taskData?.task || {};
+  const { displayName, buildVariant, revision, project } = taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
   const toggleSetupScript = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -80,29 +82,34 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
       )}
       {hasTask && (
         <>
+          {project?.spawnHostScriptPath && (
+            <Checkbox
+              label={`Use project-specific setup script defined at ${project?.spawnHostScriptPath}`}
+              checked={useProjectSetupScript}
+              onChange={() =>
+                onChange({
+                  type: "setProjectSetupScript",
+                  useProjectSetupScript: !useProjectSetupScript,
+                })
+              }
+            />
+          )}
           <Checkbox
             label={
               <>
                 Load data for <b>{displayName}</b> on <b>{buildVariant}</b> @{" "}
-                <b>{revision.substring(0, 5)}</b> onto host at startup
+                <b>{revision.substring(0, 5)}</b> onto host at startup.
               </>
             }
-            checked={useProjectSetupScript}
-            onChange={(e) =>
-              onChange({
-                type: "setProjectSetupScript",
-                taskId: getString(taskId),
-                useProjectSetupScript: e.target.checked,
-              })
-            }
+            checked={true} // TODO: Condition is always true in EVG.
           />
           <Checkbox
             label={<>Also Start any hosts this task started (if applicable)</>}
             checked={spawnHostsStartedByTask}
-            onChange={(e) =>
+            onChange={() =>
               onChange({
                 type: "setSpawnHostsStartedByTask",
-                spawnHostsStartedByTask: e.target.checked,
+                spawnHostsStartedByTask: !spawnHostsStartedByTask,
               })
             }
           />

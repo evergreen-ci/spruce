@@ -47,6 +47,17 @@ const init = () => ({
 
 const reducer = (state: spawnHostState, action: Action) => {
   switch (action.type) {
+    case "ingestQueryParams":
+      return {
+        ...state,
+        taskId: action.taskId,
+        distroId: action.distroId,
+      };
+    case "setIsVirtualWorkstation":
+      return {
+        ...state,
+        isVirtualWorkstation: action.isVirtualWorkstation,
+      };
     case "reset":
       return init();
     case "editExpiration":
@@ -89,10 +100,7 @@ const reducer = (state: spawnHostState, action: Action) => {
     case "setProjectSetupScript":
       return {
         ...state,
-        taskId: action.taskId,
         useProjectSetupScript: action.useProjectSetupScript,
-        distroId:
-          action.distroId !== undefined ? action.distroId : state.distroId,
       };
     case "setSpawnHostsStartedByTask":
       return {
@@ -118,9 +126,7 @@ export type Action =
   | { type: "editSetupScript"; setUpScript: string }
   | {
       type: "setProjectSetupScript";
-      taskId: string;
       useProjectSetupScript: boolean;
-      distroId?: string;
     }
   | {
       type: "setSpawnHostsStartedByTask";
@@ -128,4 +134,6 @@ export type Action =
     }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
-  | ({ type: "editVolumes" } & VolumesData);
+  | ({ type: "editVolumes" } & VolumesData)
+  | { type: "ingestQueryParams"; distroId: string; taskId: string }
+  | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean };
