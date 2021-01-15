@@ -101,10 +101,10 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
                 <b>{revision.substring(0, 5)}</b> onto host at startup.
               </>
             }
-            checked={true} // TODO: Condition is always true in EVG.
+            checked
           />
           <Checkbox
-            label={<>Also Start any hosts this task started (if applicable)</>}
+            label="Also Start any hosts this task started (if applicable)"
             checked={spawnHostsStartedByTask}
             onChange={() =>
               onChange({
