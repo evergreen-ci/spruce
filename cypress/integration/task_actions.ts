@@ -1,7 +1,7 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../utils/popconfirm";
 
-describe("Task Action Buttons", () => {
+xdescribe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
@@ -13,10 +13,10 @@ describe("Task Action Buttons", () => {
 
     it("Schedule button should be disabled", () => {
       cy.visit(taskRoute1);
-      cy.dataCy("schedule-task").should("have.css", "pointer-events", "none");
+      cy.dataCy("schedule-task").should("be.disabled");
     });
 
-    it("Clicking Restart button should produce success banner", () => {
+    xit("Clicking Restart button should produce success banner", () => {
       cy.visit(taskRoute3);
       cy.dataCy("restart-task").click();
       cy.wait(200);
@@ -33,7 +33,7 @@ describe("Task Action Buttons", () => {
 
     it("Abort button should be disabled", () => {
       cy.dataCy("ellipsis-btn").click();
-      cy.dataCy("abort-task").should("have.css", "pointer-events", "none");
+      cy.dataCy("abort-task").should("be.disabled");
     });
 
     it("Clicking on set priority, entering a priority value and submitting should result in a success banner.", () => {

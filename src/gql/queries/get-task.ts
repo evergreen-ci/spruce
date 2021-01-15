@@ -66,6 +66,7 @@ export const GET_TASK = gql`
           pids
         }
       }
+      canModifyAnnotation
       annotation {
         id
         taskId
@@ -126,7 +127,6 @@ export const GET_TASK = gql`
             }
           }
         }
-        userCanModify
       }
     }
   }

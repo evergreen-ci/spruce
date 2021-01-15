@@ -54,14 +54,16 @@ export const AnnotationTickets: React.FC<Props> = ({
           </StyledButton>
         </ConditionalWrapper>
       </TitleAndButtons>
-      <AnnotationTicketsTable
-        jiraIssues={tickets}
-        annotationId={annotationId}
-        taskId={taskId}
-        execution={execution}
-        isIssue={isIssue}
-        userCanModify={userCanModify}
-      />
+      {tickets?.length > 0 && (
+        <AnnotationTicketsTable
+          jiraIssues={tickets}
+          annotationId={annotationId}
+          taskId={taskId}
+          execution={execution}
+          isIssue={isIssue}
+          userCanModify={userCanModify}
+        />
+      )}
       <AddIssueModal
         dataCy="addIssueModal"
         visible={isAddAnnotationModalVisible}

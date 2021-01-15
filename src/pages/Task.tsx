@@ -93,6 +93,7 @@ const TaskCore: React.FC = () => {
     annotation,
     latestExecution,
     patchMetadata,
+    canModifyAnnotation,
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
   const { author: patchAuthor } = patchMetadata ?? {};
@@ -120,7 +121,8 @@ const TaskCore: React.FC = () => {
     status === TaskStatus.TaskTimedOut ||
     status === TaskStatus.TestTimedOut;
 
-  const showAnnotationsTab = failedTask && (showBuildBaron || annotation);
+  const showAnnotationsTab =
+    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
@@ -268,7 +270,7 @@ const TaskCore: React.FC = () => {
                   taskId={id}
                   execution={selectedExecution}
                   loading={buildBaronLoading}
-                  userCanModify={annotation?.userCanModify}
+                  userCanModify={canModifyAnnotation}
                 />
               </Tab>
               <Tab
