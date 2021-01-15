@@ -26,7 +26,7 @@ export const Metadata: React.FC<{
   const runningTaskId = runningTask?.id;
   const runningTaskName = runningTask?.name;
 
-  const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
+  const taskLink = `/task/${runningTaskId}`;
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (
