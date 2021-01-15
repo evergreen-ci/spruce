@@ -212,7 +212,7 @@ export const getHostEventString = (
           Assigned to run task{" "}
           <StyledLink
             data-cy="host-running-task-set-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={`${getUiUrl()}/task/${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
@@ -225,7 +225,7 @@ export const getHostEventString = (
           Current running task cleared (was:
           <StyledLink
             data-cy="host-running-task-cleared-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={`${getUiUrl()}/task/${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
@@ -283,7 +283,7 @@ export const getHostEventString = (
           Task{" "}
           <StyledLink
             data-cy="host-task-finished-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={`${getUiUrl()}/task/${data.taskId}/${data.execution}`}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>{" "}
