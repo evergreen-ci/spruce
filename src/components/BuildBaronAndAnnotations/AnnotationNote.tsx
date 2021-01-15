@@ -35,7 +35,7 @@ export const AnnotationNote: React.FC<Props> = ({
   execution,
   userCanModify,
 }) => {
-  const originalMessage = note?.message;
+  const originalMessage = note?.message || "";
   const dispatchBanner = useBannerDispatchContext();
   const [newMessage, setMessage] = useState(originalMessage);
   const [
@@ -82,6 +82,7 @@ export const AnnotationNote: React.FC<Props> = ({
         rows={2}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
+        disabled={userCanModify}
       />
       <ConditionalWrapper
         condition={!userCanModify}

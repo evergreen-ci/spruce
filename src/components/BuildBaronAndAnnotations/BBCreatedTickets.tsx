@@ -16,12 +16,14 @@ interface Props {
   taskId: string;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
+  buildBaronConfigured: boolean;
 }
 
 export const CreatedTickets: React.FC<Props> = ({
   taskId,
   setCreatedTicketsCount,
   createdTicketsCount,
+  buildBaronConfigured,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const { data, startPolling, stopPolling } = useQuery<
@@ -60,16 +62,18 @@ export const CreatedTickets: React.FC<Props> = ({
           <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
         </>
       )}
-      <TitleAndButtons>
-        {length === 0 && (
-          <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
-        )}
-        <BBFileTicket
-          taskId={taskId}
-          setCreatedTicketsCount={setCreatedTicketsCount}
-          createdTicketsCount={createdTicketsCount}
-        />
-      </TitleAndButtons>
+      {buildBaronConfigured && (
+        <TitleAndButtons>
+          {length === 0 && (
+            <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
+          )}
+          <BBFileTicket
+            taskId={taskId}
+            setCreatedTicketsCount={setCreatedTicketsCount}
+            createdTicketsCount={createdTicketsCount}
+          />
+        </TitleAndButtons>
+      )}
     </>
   );
 };
