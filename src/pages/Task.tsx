@@ -217,7 +217,7 @@ const TaskCore: React.FC = () => {
         <LogWrapper>
           <PageContent>
             <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-              <Tab name="Logs" id="task-logs-tab">
+              <Tab name="Logs" data-cy="task-logs-tab">
                 <Logs logLinks={logLinks} />
               </Tab>
               <Tab
@@ -228,14 +228,14 @@ const TaskCore: React.FC = () => {
                         tabLabel="Tests"
                         badgeVariant="red"
                         badgeText={failedTestCount}
-                        dataCyBadge="test-tab-badge"
+                        dataCyBadge="tests-tab-badge"
                       />
                     ) : (
                       "Tests"
                     )}
                   </span>
                 }
-                id="task-tests-tab"
+                data-cy="task-tests-tab"
               >
                 <TestsTable />
               </Tab>
@@ -254,13 +254,13 @@ const TaskCore: React.FC = () => {
                     )}
                   </span>
                 }
-                id="task-files-tab"
+                data-cy="task-files-tab"
               >
                 <FilesTables />
               </Tab>
               <Tab
                 name="Task Annotations"
-                id="task-build-baron-tab"
+                data-cy="task-build-baron-tab"
                 disabled={!showAnnotationsTab}
               >
                 <BuildBaron
@@ -275,7 +275,7 @@ const TaskCore: React.FC = () => {
               </Tab>
               <Tab
                 name="Trend Charts"
-                id="trend-charts-tab"
+                data-cy="trend-charts-tab"
                 disabled={!isPerfPluginEnabled}
               >
                 <TrendChartsPlugin taskId={id} />
