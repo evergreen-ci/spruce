@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -98,7 +98,15 @@ const TaskCore: React.FC = () => {
   const { fileCount } = taskFiles ?? {};
   const { author: patchAuthor } = patchMetadata ?? {};
 
-  if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
+  // Used to avoid an unnecessary render when a task data is loaded since it will be the latestExecution
+  // by default when we dont supply an execution in the query
+  const [initialFetch, setInitialFetch] = useState(true);
+  if (
+    Number.isNaN(selectedExecution) &&
+    latestExecution !== undefined &&
+    initialFetch
+  ) {
+    setInitialFetch(false);
     updateQueryParams({
       execution: `${latestExecution}`,
     });
@@ -143,10 +151,10 @@ const TaskCore: React.FC = () => {
     // 3. otherwise load the logs tab (this default is set in the useTabs hook)
     if (tab in tabToIndexMap) {
       selectTabHandler(tabToIndexMap[tab]);
-    } else if (!loading && totalTestCount > 0) {
+    } else if (data && totalTestCount > 0) {
       selectTabHandler(tabToIndexMap[TaskTab.Tests]);
     }
-  }, [loading, location.pathname]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [data, tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) {
     stopPolling();

@@ -179,6 +179,10 @@ const useRenderBody: React.FC<{
         { arrayFormat: "comma" }
       )}`
     );
+    taskAnalytics.sendEvent({
+      name: "Select Logs Type",
+      logsType: nextLogType,
+    });
   };
 
   if (loading) {
@@ -220,52 +224,16 @@ const useRenderBody: React.FC<{
             )}
           </ButtonContainer>
         ) : null}
-        <Radio
-          data-cy="cy-task-radio"
-          value={LogTypes.Task}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Task,
-            })
-          }
-        >
+        <Radio id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
-        <Radio
-          data-cy="cy-agent-radio"
-          value={LogTypes.Agent}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Agent,
-            })
-          }
-        >
+        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
           Agent Logs
         </Radio>
-        <Radio
-          id="cy-system-radio"
-          value={LogTypes.System}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.System,
-            })
-          }
-        >
+        <Radio id="cy-system-radio" value={LogTypes.System}>
           System Logs
         </Radio>
-        <Radio
-          data-cy="cy-event-radio"
-          value={LogTypes.Event}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Event,
-            })
-          }
-        >
+        <Radio id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
         </Radio>
       </StyledRadioGroup>
