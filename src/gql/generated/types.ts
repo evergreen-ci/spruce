@@ -82,6 +82,7 @@ export type QueryPatchTasksArgs = {
   patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
   sortDir?: Maybe<SortDirection>;
+  sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
@@ -527,6 +528,11 @@ export type IssueLinkInput = {
   issueKey: Scalars["String"];
 };
 
+export type SortOrder = {
+  Key: TaskSortCategory;
+  Direction: SortDirection;
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -741,9 +747,15 @@ export type TaskResult = {
   version: Scalars["String"];
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
+  baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
+};
+
+export type BaseTaskResult = {
+  id: Scalars["ID"];
+  status: Scalars["String"];
 };
 
 export type PatchDuration = {
@@ -983,6 +995,7 @@ export type CommitQueueItem = {
   version?: Maybe<Scalars["String"]>;
   enqueueTime?: Maybe<Scalars["Time"]>;
   patch?: Maybe<Patch>;
+  source?: Maybe<Scalars["String"]>;
   modules?: Maybe<Array<Module>>;
 };
 
@@ -1359,7 +1372,14 @@ export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type RestartTaskMutation = { restartTask: { id: string } };
+export type RestartTaskMutation = {
+  restartTask: {
+    id: string;
+    execution?: Maybe<number>;
+    status: string;
+    latestExecution: number;
+  };
+};
 
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
