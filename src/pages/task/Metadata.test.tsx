@@ -14,6 +14,7 @@ const taskQuery = {
   taskFiles: { __typename: "TaskFiles", fileCount: 38 },
   task: {
     id: "someTaskId",
+    execution: 0,
     isPerfPluginEnabled: false,
     __typename: "Task",
     activatedBy: "",
@@ -130,6 +131,7 @@ const mocks = [
           id: taskId,
           status: "started",
           failedTestCount: 0,
+          execution: 0,
         },
       },
     },

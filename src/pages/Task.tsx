@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -65,7 +65,6 @@ const TaskCore: React.FC = () => {
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
     pollInterval,
-    nextFetchPolicy: "cache-and-network",
     onError: (err) =>
       dispatchBanner.errorBanner(
         `There was an error loading the task: ${err.message}`
@@ -98,19 +97,13 @@ const TaskCore: React.FC = () => {
   const { fileCount } = taskFiles ?? {};
   const { author: patchAuthor } = patchMetadata ?? {};
 
-  // Used to avoid an unnecessary render when a task data is loaded since it will be the latestExecution
-  // by default when we dont supply an execution in the query
-  const [initialFetch, setInitialFetch] = useState(true);
-  if (
-    Number.isNaN(selectedExecution) &&
-    latestExecution !== undefined &&
-    initialFetch
-  ) {
-    setInitialFetch(false);
+  // Set the execution if it isnt provided
+  if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
     updateQueryParams({
       execution: `${latestExecution}`,
     });
   }
+
   const {
     showBuildBaron,
     buildBaronData,
