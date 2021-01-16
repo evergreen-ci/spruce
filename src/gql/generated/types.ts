@@ -1468,7 +1468,9 @@ export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+export type UnscheduleTaskMutation = {
+  unscheduleTask: { id: string; execution: number };
+};
 
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;

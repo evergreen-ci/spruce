@@ -1,7 +1,7 @@
 // / <reference types="Cypress" />
 import { popconfirmYesClassName } from "../utils/popconfirm";
 
-xdescribe("Task Action Buttons", () => {
+describe("Task Action Buttons", () => {
   before(() => {
     cy.login();
   });
@@ -16,7 +16,7 @@ xdescribe("Task Action Buttons", () => {
       cy.dataCy("schedule-task").should("be.disabled");
     });
 
-    xit("Clicking Restart button should produce success banner", () => {
+    it("Clicking Restart button should produce success banner", () => {
       cy.visit(taskRoute3);
       cy.dataCy("restart-task").click();
       cy.wait(200);
