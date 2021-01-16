@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Table, Skeleton } from "antd";
 import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import Badge, { Variant } from "components/Badge";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -27,10 +27,10 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
+import { parseQueryString, queryParamAsNumber } from "utils";
 import { msToDuration } from "utils/string";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
@@ -39,8 +39,8 @@ export interface UpdateQueryArg {
 }
 export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
-  const { replace } = useHistory();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
@@ -67,16 +67,12 @@ export const TestsTableCore: React.FC = () => {
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
 
-    const nextQueryParams = stringifyQuery({
-      ...parseQueryString(search),
-      [RequiredQueryParams.Category]: columnKey,
+    updateQueryParams({
+      [RequiredQueryParams.Category]: `${columnKey}`,
       [RequiredQueryParams.Sort]:
         order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
       [RequiredQueryParams.Page]: "0",
     });
-    if (nextQueryParams !== search.split("?")[1]) {
-      replace(`${pathname}?${nextQueryParams}`);
-    }
   };
 
   const taskAnalytics = useTaskAnalytics();

@@ -58,11 +58,11 @@ describe("Tests Table", () => {
 
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
 
-    cy.get("[data-cy=filtered-test-count]")
+    cy.dataCy("filtered-test-count")
       .as("filtered-count")
       .invoke("text")
       .should("eq", "20");
-    cy.get("[data-cy=total-test-count]")
+    cy.dataCy("total-test-count")
       .as("total-count")
       .invoke("text")
       .should("eq", "20");
@@ -83,7 +83,7 @@ describe("Tests Table", () => {
     cy.get("@total-count").invoke("text").should("eq", "20");
   });
 
-  it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
+  xit("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
@@ -139,16 +139,10 @@ describe("Tests Table", () => {
   });
 
   it("Buttons in log column should have target=_blank attribute", () => {
-    cy.get("[data-cy=test-table-html-btn").should(
-      "have.attr",
-      "target",
-      "_blank"
-    );
-    cy.get("[data-cy=test-table-raw-btn").should(
-      "have.attr",
-      "target",
-      "_blank"
-    );
+    cy.visit(TESTS_ROUTE);
+
+    cy.dataCy("test-table-html-btn").should("have.attr", "target", "_blank");
+    cy.dataCy("test-table-raw-btn").should("have.attr", "target", "_blank");
   });
 
   describe("Test Status Selector", () => {
@@ -158,7 +152,7 @@ describe("Tests Table", () => {
     });
 
     it("Status select says 'No filters selected' by default", () => {
-      cy.get("[data-cy=test-status-select]").contains("No filters selected");
+      cy.dataCy("test-status-select").contains("No filters selected");
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
@@ -214,7 +208,7 @@ describe("Tests Table", () => {
     //   });
     // });
 
-    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
+    xit("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
