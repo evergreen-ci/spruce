@@ -114,6 +114,7 @@ const TaskCore: React.FC = () => {
   const fileCount = get(data, "taskFiles.fileCount");
   const logLinks = get(task, "logs");
   const isPerfPluginEnabled = get(task, "isPerfPluginEnabled");
+  const canModifyAnnotation = task?.canModifyAnnotation ?? false;
   const patchAuthor = data?.task.patchMetadata.author;
   const annotation = task?.annotation;
 
@@ -135,7 +136,8 @@ const TaskCore: React.FC = () => {
     task?.status === TaskStatus.TaskTimedOut ||
     task?.status === TaskStatus.TestTimedOut;
 
-  const showAnnotationsTab = failedTask && (showBuildBaron || annotation);
+  const showAnnotationsTab =
+    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
 
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
@@ -284,7 +286,7 @@ const TaskCore: React.FC = () => {
                   taskId={id}
                   execution={execution}
                   loading={buildBaronLoading}
-                  userCanModify={annotation?.userCanModify}
+                  userCanModify={canModifyAnnotation}
                 />
               </Tab>
               <Tab

@@ -2031,6 +2031,7 @@ export type GetTaskQuery = {
     generatedByName?: Maybe<string>;
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
+    canModifyAnnotation: boolean;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
@@ -2057,7 +2058,6 @@ export type GetTaskQuery = {
       id: string;
       taskId: string;
       taskExecution: number;
-      userCanModify?: Maybe<boolean>;
       note?: Maybe<{
         message: string;
         source: { author: string; time: Date; requester: string };

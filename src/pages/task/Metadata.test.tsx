@@ -61,6 +61,7 @@ const taskQuery = {
     canSchedule: false,
     canUnschedule: false,
     canSetPriority: false,
+    canModifyAnnotation: false,
     ami: "ami-0c83bb0a9f48c15bf",
     distroId: "ubuntu1604-small",
     latestExecution: 0,
