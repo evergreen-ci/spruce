@@ -18,7 +18,7 @@ interface Props {
   visible: boolean;
   dataCy: string;
   closeModal: () => void;
-  setSelectedRowKeys: Dispatch<SetStateAction<string>>;
+  setSelectedRowKey: Dispatch<SetStateAction<string>>;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -28,7 +28,7 @@ export const AddIssueModal: React.FC<Props> = ({
   visible,
   dataCy,
   closeModal,
-  setSelectedRowKeys,
+  setSelectedRowKey,
   taskId,
   execution,
   isIssue,
@@ -83,6 +83,7 @@ export const AddIssueModal: React.FC<Props> = ({
       dispatchBanner.errorBanner(
         `There was an error adding the issue: ${error.message}`
       );
+      window.scrollTo(0, 0);
     },
     refetchQueries: ["GetTask"],
   });
@@ -97,7 +98,7 @@ export const AddIssueModal: React.FC<Props> = ({
     dispatch({
       type: "reset",
     });
-    setSelectedRowKeys(addIssueModalState.issueKey);
+    setSelectedRowKey(addIssueModalState.issueKey);
     closeModal();
   };
 

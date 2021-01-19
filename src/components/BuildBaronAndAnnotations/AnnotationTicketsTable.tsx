@@ -27,7 +27,7 @@ interface Props {
   execution: number;
   isIssue: boolean;
   userCanModify: boolean;
-  selectedRowKeys: string;
+  selectedRowKey: string;
 }
 
 export const AnnotationTicketsTable: React.FC<Props> = ({
@@ -37,7 +37,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   userCanModify,
   jiraIssues,
   isIssue,
-  selectedRowKeys,
+  selectedRowKey,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const issueString = isIssue ? "issue" : "suspected issue";
@@ -171,15 +171,13 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   const rowRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
-    if (selectedRowKeys && rowRef.current) {
+    if (selectedRowKey && rowRef.current) {
       rowRef.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
       });
     }
   });
-
-  console.log(selectedRowKeys);
 
   return (
     <TableWrapper>
@@ -194,11 +192,10 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
           showHeader={false}
           rowSelection={{
             hideSelectAll: true,
-            selectedRowKeys: [selectedRowKeys],
+            selectedRowKeys: [selectedRowKey],
             columnWidth: 0,
             renderCell: () => <span ref={rowRef} />,
           }}
-          rowClassName={(record, index) => (index === 0 ? "baseStyle" : "")}
         />
       </ErrorBoundary>
     </TableWrapper>

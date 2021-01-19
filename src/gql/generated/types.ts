@@ -82,6 +82,7 @@ export type QueryPatchTasksArgs = {
   patchId: Scalars["String"];
   sortBy?: Maybe<TaskSortCategory>;
   sortDir?: Maybe<SortDirection>;
+  sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
@@ -112,6 +113,7 @@ export type QueryUserArgs = {
 
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchBuildVariantsArgs = {
@@ -526,6 +528,11 @@ export type IssueLinkInput = {
   issueKey: Scalars["String"];
 };
 
+export type SortOrder = {
+  Key: TaskSortCategory;
+  Direction: SortDirection;
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -740,9 +747,15 @@ export type TaskResult = {
   version: Scalars["String"];
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
+  baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
+};
+
+export type BaseTaskResult = {
+  id: Scalars["ID"];
+  status: Scalars["String"];
 };
 
 export type PatchDuration = {
@@ -982,6 +995,7 @@ export type CommitQueueItem = {
   version?: Maybe<Scalars["String"]>;
   enqueueTime?: Maybe<Scalars["Time"]>;
   patch?: Maybe<Patch>;
+  source?: Maybe<Scalars["String"]>;
   modules?: Maybe<Array<Module>>;
 };
 
