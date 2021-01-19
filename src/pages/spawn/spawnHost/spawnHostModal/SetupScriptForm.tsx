@@ -49,7 +49,6 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
 
   useEffect(() => {
     if (taskId && distroId) {
-      console.log(taskId);
       getTask({ variables: { taskId: getString(taskId), execution: 0 } });
       onChange({
         type: "ingestQueryParams",
