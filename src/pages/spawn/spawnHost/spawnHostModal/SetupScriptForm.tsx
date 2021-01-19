@@ -2,8 +2,9 @@ import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Input } from "antd";
+import { Input, Tooltip } from "antd";
 import { useLocation } from "react-router";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import {
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
@@ -18,6 +19,7 @@ export type setupScriptType = {
   setUpScript?: string;
   useProjectSetupScript?: boolean;
   spawnHostsStartedByTask?: boolean;
+  taskSync: boolean;
 };
 
 interface SetupScriptFormProps {
@@ -28,7 +30,12 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   onChange,
   data,
 }) => {
-  const { setUpScript, useProjectSetupScript, spawnHostsStartedByTask } = data;
+  const {
+    setUpScript,
+    useProjectSetupScript,
+    spawnHostsStartedByTask,
+    taskSync,
+  } = data;
 
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
@@ -42,6 +49,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
 
   useEffect(() => {
     if (taskId && distroId) {
+      console.log(taskId);
       getTask({ variables: { taskId: getString(taskId), execution: 0 } });
       onChange({
         type: "ingestQueryParams",
@@ -51,7 +59,9 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
     }
   }, [taskId, distroId, getTask, onChange]);
 
-  const { displayName, buildVariant, revision, project } = taskData?.task || {};
+  console.log(taskData);
+  const { displayName, buildVariant, revision, project, canSync } =
+    taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
   const toggleSetupScript = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -103,8 +113,29 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
             }
             checked
           />
+          <ConditionalWrapper
+            condition={!canSync}
+            wrapper={(children) => (
+              <Tooltip title="Task must be flagged as syncable to use this option.">
+                <span>{children}</span>
+              </Tooltip>
+            )}
+          >
+            <Checkbox
+              label="Load from task sync"
+              data-cy="load-from-task-sync"
+              checked={taskSync}
+              onChange={() =>
+                onChange({
+                  type: "setTaskSync",
+                  taskSync: !taskSync,
+                })
+              }
+              disabled={!canSync}
+            />
+          </ConditionalWrapper>
           <Checkbox
-            label="Also Start any hosts this task started (if applicable)"
+            label="Also start any hosts this task started (if applicable)"
             checked={spawnHostsStartedByTask}
             onChange={() =>
               onChange({

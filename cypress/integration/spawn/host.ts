@@ -110,15 +110,33 @@ describe("Navigating to Spawn Host page", () => {
         cy.visit("/spawn/host?spawnHost=True ");
         cy.dataCy("spawn-host-modal").should("be.visible");
       });
-      it("Visiting the spawn host page with a task and distro supplied in the url should populate the spawn host modal", () => {
+      it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
         cy.visit(
-          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+          "spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46"
         );
-        cy.dataCy("spawn-host-modal").should("be.visible");
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Use project-specific setup script defined at /path"
+        );
         cy.dataCy("spawn-host-modal").should(
           "contain.text",
           "Load data for dist on ubuntu1604"
         );
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Load from task sync"
+        );
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Also start any hosts this task started (if applicable)"
+        );
+        cy.dataCy("load-from-task-sync").should("be.disabled");
+      });
+      it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+        );
+        cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");
       });
       it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {

@@ -25,6 +25,7 @@ export type hostDetailsStateType = {
   isVirtualWorkStation: boolean;
   setUpScript?: string;
   useProjectSetupScript: boolean;
+  taskSync: boolean;
 };
 
 interface HostDetailsFormProps {

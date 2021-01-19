@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -102,7 +102,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const fetchedDistros = distrosData?.distros ?? [];
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
@@ -141,21 +140,37 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     }
   }, [awsRegions, publicKeys, dispatch]);
 
-  // Need to initialize these here so they can be used in the useEffect hook
-  let virtualWorkstationDistros = [];
-  let notVirtualWorkstationDistros = [];
+  const virtualWorkstationDistros = useMemo(
+    () =>
+      (distrosData?.distros ?? [])
+        .filter((d) => d.name.includes(distroInput))
+        .filter((d) => d.isVirtualWorkStation)
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [distrosData?.distros, distroInput]
+  );
+  const notVirtualWorkstationDistros = useMemo(
+    () =>
+      (distrosData?.distros ?? [])
+        .filter((d) => d.name.includes(distroInput))
+        .filter((d) => !d.isVirtualWorkStation)
+        .sort((a, b) => a.name.localeCompare(b.name)),
+    [distrosData?.distros, distroInput]
+  );
+
+  // recalculate isVirtualWorkstation whenever distro changes
+  // initial distroId can be changed from URL
+  useEffect(() => {
+    dispatch({
+      type: "editDistroEffect",
+      isVirtualWorkstation: !!virtualWorkstationDistros.find(
+        (vd) => distroId === vd.name
+      ),
+    });
+  }, [distroId, dispatch, virtualWorkstationDistros]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
-
-  const distros = fetchedDistros.filter((d) => d.name.includes(distroInput));
-  virtualWorkstationDistros = distros
-    .filter((d) => d.isVirtualWorkStation)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  notVirtualWorkstationDistros = distros
-    .filter((d) => !d.isVirtualWorkStation)
-    .sort((a, b) => a.name.localeCompare(b.name));
 
   const distroOptions = [
     {

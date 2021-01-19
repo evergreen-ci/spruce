@@ -19,6 +19,7 @@ interface spawnHostState {
   taskId?: string;
   useProjectSetupScript: boolean;
   spawnHostsStartedByTask?: boolean;
+  taskSync: boolean;
 }
 
 export const useSpawnHostModalState = () => ({
@@ -42,7 +43,8 @@ const init = () => ({
   region: "",
   taskId: null,
   useProjectSetupScript: false,
-  spawnHostsStartedByTask: null,
+  spawnHostsStartedByTask: false,
+  taskSync: false,
 });
 
 const reducer = (state: spawnHostState, action: Action) => {
@@ -52,6 +54,11 @@ const reducer = (state: spawnHostState, action: Action) => {
         ...state,
         taskId: action.taskId,
         distroId: action.distroId,
+      };
+    case "setTaskSync":
+      return {
+        ...state,
+        taskSync: action.taskSync,
       };
     case "setIsVirtualWorkstation":
       return {
@@ -72,15 +79,18 @@ const reducer = (state: spawnHostState, action: Action) => {
         region: action.region,
       };
     case "editDistro": {
-      const { isVirtualWorkstation } = action;
       return {
         ...state,
         distroId: action.distroId,
-        isVirtualWorkStation: isVirtualWorkstation,
-        homeVolumeSize: isVirtualWorkstation ? 500 : null,
-        noExpiration: isVirtualWorkstation,
       };
     }
+    case "editDistroEffect":
+      return {
+        ...state,
+        isVirtualWorkStation: action.isVirtualWorkstation,
+        homeVolumeSize: action.isVirtualWorkstation ? 500 : null,
+        noExpiration: action.isVirtualWorkstation,
+      };
     case "editPublicKey":
       return {
         ...state,
@@ -136,4 +146,6 @@ export type Action =
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editVolumes" } & VolumesData)
   | { type: "ingestQueryParams"; distroId: string; taskId: string }
-  | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean };
+  | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean }
+  | { type: "setTaskSync"; taskSync: boolean }
+  | { type: "editDistroEffect"; isVirtualWorkstation: boolean };

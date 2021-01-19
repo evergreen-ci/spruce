@@ -7,6 +7,7 @@ export const GET_SPAWN_TASK = gql`
       displayName
       buildVariant
       revision
+      canSync
       project {
         spawnHostScriptPath
       }
