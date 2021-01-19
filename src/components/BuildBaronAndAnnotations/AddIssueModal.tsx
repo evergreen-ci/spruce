@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useReducer } from "react";
+import React, { useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
@@ -18,7 +18,7 @@ interface Props {
   visible: boolean;
   dataCy: string;
   closeModal: () => void;
-  setSelectedRowKey: Dispatch<SetStateAction<string>>;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
   taskId: string;
   execution: number;
   isIssue: boolean;
