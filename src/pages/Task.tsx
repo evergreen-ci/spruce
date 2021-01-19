@@ -199,13 +199,12 @@ const TaskCore: React.FC = () => {
         title={displayName}
         badge={
           <ErrorBoundary>
-            <TaskStatusBadge status={status} blocked={blocked} />
-            {attributed && (
-              <>
-                <Space />
+            <StyledBadgeWrapper>
+              <TaskStatusBadge status={status} blocked={blocked} />
+              {attributed && (
                 <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
-              </>
-            )}
+              )}
+            </StyledBadgeWrapper>
           </ErrorBoundary>
         }
         buttons={
@@ -317,6 +316,8 @@ const LogWrapper = styled(PageLayout)`
   width: 100%;
 `;
 
-const Space = styled.div`
-  margin-left: 10px;
+const StyledBadgeWrapper = styled.div`
+  > :nth-child(2) {
+    margin-left: 10px;
+  }
 `;
