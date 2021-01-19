@@ -10,7 +10,7 @@ describe("Task Page Route", () => {
   });
 
   it("shouldn't get stuck in a redirect loop when visiting the task page and trying to navigate to a previous page", () => {
-    cy.visit("/random");
+    cy.visit("/user/admin/patches");
     cy.visit(`/task/${tasks[1]}`);
     cy.go("back");
     cy.location("pathname").should("eq", "/random");
