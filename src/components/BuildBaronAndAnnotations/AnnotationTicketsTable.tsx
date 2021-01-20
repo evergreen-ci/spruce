@@ -42,6 +42,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
   const columns = [
     {
+      title: "Ticket",
       render: (
         text: string,
         { issueKey, url, source, jiraTicket }: AnnotationTicket
@@ -191,6 +192,7 @@ export const StyledText = styled.div`
 const BtnContainer = styled.div`
   white-space: nowrap;
   padding: 20px;
+  float: right;
 `;
 
 const StyledButton = styled(Button)`
