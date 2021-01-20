@@ -1218,6 +1218,70 @@ export type GetTaskEventDataQuery = {
   }>;
 };
 
+export type GetAnnotationEventDataQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetAnnotationEventDataQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    canModifyAnnotation: boolean;
+    annotation?: Maybe<{
+      id: string;
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<{
+              key: string;
+              fields: {
+                summary: string;
+                assigneeDisplayName?: Maybe<string>;
+                resolutionName?: Maybe<string>;
+                created: string;
+                updated: string;
+                assignedTeam?: Maybe<string>;
+                status: { id: string; name: string };
+              };
+            }>;
+          }>
+        >
+      >;
+    }>;
+  }>;
+};
+
 export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{

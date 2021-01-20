@@ -38,9 +38,7 @@ type Action =
   | { name: "Click Host Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
-  | { name: "Click Jira Summary Link" }
-  | { name: "Click Build Variant Link" }
-  | { name: "Build Baron File Ticket" };
+  | { name: "Click Build Variant Link" };
 
 interface P extends Properties {
   taskId: string;
