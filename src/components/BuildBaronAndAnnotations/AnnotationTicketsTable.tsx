@@ -169,6 +169,8 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   };
 
   // SCROLL TO added Issue
+  // Will add a span with a ref to the row that matches the selectedRowKey
+  // And will scroll to that ref.
   const rowRef = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
@@ -178,7 +180,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
         block: "start",
       });
     }
-  });
+  }, [selectedRowKey]);
 
   return (
     <TableWrapper>
@@ -192,10 +194,9 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
           pagination={false}
           showHeader={false}
           rowSelection={{
-            hideSelectAll: true,
+            renderCell: (checked, record) =>
+              record.issueKey === selectedRowKey && <span ref={rowRef} />,
             selectedRowKeys: [selectedRowKey],
-            columnWidth: 0,
-            renderCell: () => <span ref={rowRef} />,
           }}
         />
       </ErrorBoundary>

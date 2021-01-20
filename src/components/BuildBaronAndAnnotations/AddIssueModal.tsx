@@ -83,7 +83,6 @@ export const AddIssueModal: React.FC<Props> = ({
       dispatchBanner.errorBanner(
         `There was an error adding the issue: ${error.message}`
       );
-      window.scrollTo(0, 0);
     },
     refetchQueries: ["GetTask"],
   });
