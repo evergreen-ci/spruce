@@ -26,7 +26,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   const [state, dispatch] = useReducer(reducer, { numButtonsPressed: 0 });
   const keyDownCb = useMemo(
     () => (e: KeyboardEvent) => {
-      if (keys.has(e.key)) {
+      if (hotKeys.has(e.key)) {
         dispatch({ type: "increment" });
       }
     },
@@ -34,7 +34,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   );
   const keyUpCb = useMemo(
     () => (e: KeyboardEvent) => {
-      if (keys.has(e.key)) {
+      if (hotKeys.has(e.key)) {
         dispatch({ type: "decrement" });
       }
     },
@@ -120,7 +120,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   );
 };
 
-const keys = new Set(["Meta", "Shift", "Control"]);
+const hotKeys = new Set(["Meta", "Shift", "Control"]);
 interface State {
   numButtonsPressed: number;
 }
