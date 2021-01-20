@@ -2,9 +2,8 @@ import React, { useState, useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Input, Tooltip } from "antd";
+import { Input } from "antd";
 import { useLocation } from "react-router";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import {
   GetSpawnTaskQuery,
   GetSpawnTaskQueryVariables,
@@ -20,6 +19,7 @@ export type setupScriptType = {
   useProjectSetupScript?: boolean;
   spawnHostsStartedByTask?: boolean;
   taskSync: boolean;
+  taskId?: string;
 };
 
 interface SetupScriptFormProps {
@@ -39,7 +39,8 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
 
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
-  const { taskId, distroId } = queryParams;
+  const { distroId } = queryParams;
+  const taskIdQueryParam = getString(queryParams.taskId);
   const [hasSetupScript, setHasSetupScript] = useState(false);
 
   const [getTask, { data: taskData }] = useLazyQuery<
@@ -48,17 +49,16 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   >(GET_SPAWN_TASK);
 
   useEffect(() => {
-    if (taskId && distroId) {
-      getTask({ variables: { taskId: getString(taskId), execution: 0 } });
+    if (taskIdQueryParam && distroId) {
+      getTask({ variables: { taskId: taskIdQueryParam, execution: 0 } });
       onChange({
         type: "ingestQueryParams",
-        taskId: getString(taskId),
+        taskId: taskIdQueryParam,
         distroId: getString(distroId),
       });
     }
-  }, [taskId, distroId, getTask, onChange]);
+  }, [taskIdQueryParam, distroId, getTask, onChange]);
 
-  console.log(taskData);
   const { displayName, buildVariant, revision, project, canSync } =
     taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
@@ -91,64 +91,70 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
       )}
       {hasTask && (
         <>
-          {project?.spawnHostScriptPath && (
-            <Checkbox
-              label={`Use project-specific setup script defined at ${project?.spawnHostScriptPath}`}
-              checked={useProjectSetupScript}
-              onChange={() =>
-                onChange({
-                  type: "setProjectSetupScript",
-                  useProjectSetupScript: !useProjectSetupScript,
-                })
-              }
-            />
-          )}
           <Checkbox
             label={
               <>
                 Load data for <b>{displayName}</b> on <b>{buildVariant}</b> @{" "}
-                <b>{revision.substring(0, 5)}</b> onto host at startup.
+                <b>{revision.substring(0, 5)}</b> onto host at startup
               </>
             }
-            checked
+            checked={!!data.taskId}
+            onChange={() => {
+              onChange({
+                type: "loadDataOntoHost",
+                taskId: data.taskId ? "" : taskIdQueryParam,
+              });
+            }}
           />
-          <ConditionalWrapper
-            condition={!canSync}
-            wrapper={(children) => (
-              <Tooltip title="Task must be flagged as syncable to use this option.">
-                <span>{children}</span>
-              </Tooltip>
+          <Indent>
+            {project?.spawnHostScriptPath && (
+              <Checkbox
+                label={`Use project-specific setup script defined at ${project?.spawnHostScriptPath}`}
+                checked={useProjectSetupScript}
+                onChange={() =>
+                  onChange({
+                    type: "setProjectSetupScript",
+                    useProjectSetupScript: !useProjectSetupScript,
+                    taskId: taskIdQueryParam,
+                  })
+                }
+              />
             )}
-          >
+            {canSync && (
+              <Checkbox
+                label="Load from task sync"
+                data-cy="load-from-task-sync"
+                checked={taskSync}
+                onChange={() =>
+                  onChange({
+                    type: "setTaskSync",
+                    taskSync: !taskSync,
+                    taskId: taskIdQueryParam,
+                  })
+                }
+                disabled={!canSync}
+              />
+            )}
             <Checkbox
-              label="Load from task sync"
-              data-cy="load-from-task-sync"
-              checked={taskSync}
+              label="Also start any hosts this task started (if applicable)"
+              checked={spawnHostsStartedByTask}
               onChange={() =>
                 onChange({
-                  type: "setTaskSync",
-                  taskSync: !taskSync,
+                  type: "setSpawnHostsStartedByTask",
+                  spawnHostsStartedByTask: !spawnHostsStartedByTask,
+                  taskId: taskIdQueryParam,
                 })
               }
-              disabled={!canSync}
             />
-          </ConditionalWrapper>
-          <Checkbox
-            label="Also start any hosts this task started (if applicable)"
-            checked={spawnHostsStartedByTask}
-            onChange={() =>
-              onChange({
-                type: "setSpawnHostsStartedByTask",
-                spawnHostsStartedByTask: !spawnHostsStartedByTask,
-              })
-            }
-          />
+          </Indent>
         </>
       )}
     </div>
   );
 };
-
+const Indent = styled.div`
+  margin-left: 16px;
+`;
 const StyledTextArea = styled(TextArea)`
   margin: 15px 0;
 `;

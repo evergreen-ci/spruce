@@ -26,6 +26,7 @@ export type hostDetailsStateType = {
   setUpScript?: string;
   useProjectSetupScript: boolean;
   taskSync: boolean;
+  taskId?: string;
 };
 
 interface HostDetailsFormProps {

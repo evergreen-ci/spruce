@@ -59,6 +59,7 @@ const reducer = (state: spawnHostState, action: Action) => {
       return {
         ...state,
         taskSync: action.taskSync,
+        taskId: action.taskSync ? action.taskId : "",
       };
     case "setIsVirtualWorkstation":
       return {
@@ -111,17 +112,29 @@ const reducer = (state: spawnHostState, action: Action) => {
       return {
         ...state,
         useProjectSetupScript: action.useProjectSetupScript,
+        taskId: action.useProjectSetupScript ? action.taskId : "",
       };
     case "setSpawnHostsStartedByTask":
       return {
         ...state,
         spawnHostsStartedByTask: action.spawnHostsStartedByTask,
+        taskId: action.spawnHostsStartedByTask ? action.taskId : "",
       };
     case "editVolumes":
       return {
         ...state,
         volumeId: action.volumeId,
         homeVolumeSize: action.homeVolumeSize,
+      };
+    case "loadDataOntoHost":
+      return {
+        ...state,
+        taskId: action.taskId,
+        ...(!action.taskId && {
+          spawnHostsStartedByTask: false,
+          taskSync: false,
+          useProjectSetupScript: false,
+        }),
       };
     default:
       throw new Error();
@@ -137,15 +150,18 @@ export type Action =
   | {
       type: "setProjectSetupScript";
       useProjectSetupScript: boolean;
+      taskId: string;
     }
   | {
       type: "setSpawnHostsStartedByTask";
       spawnHostsStartedByTask: boolean;
+      taskId: string;
     }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editVolumes" } & VolumesData)
   | { type: "ingestQueryParams"; distroId: string; taskId: string }
   | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean }
-  | { type: "setTaskSync"; taskSync: boolean }
-  | { type: "editDistroEffect"; isVirtualWorkstation: boolean };
+  | { type: "setTaskSync"; taskSync: boolean; taskId: string }
+  | { type: "editDistroEffect"; isVirtualWorkstation: boolean }
+  | { type: "loadDataOntoHost"; taskId: string };
