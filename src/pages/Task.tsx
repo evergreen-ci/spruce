@@ -96,6 +96,7 @@ const TaskCore: React.FC = () => {
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
   const { author: patchAuthor } = patchMetadata ?? {};
+  const attributed = annotation?.issues?.length > 0;
 
   // Set the execution if it isnt provided
   if (Number.isNaN(selectedExecution) && latestExecution !== undefined) {
@@ -184,7 +185,12 @@ const TaskCore: React.FC = () => {
         title={displayName}
         badge={
           <ErrorBoundary>
-            <TaskStatusBadge status={status} blocked={blocked} />
+            <StyledBadgeWrapper>
+              <TaskStatusBadge status={status} blocked={blocked} />
+              {attributed && (
+                <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
+              )}
+            </StyledBadgeWrapper>
           </ErrorBoundary>
         }
         buttons={
@@ -293,4 +299,10 @@ export const Task = withBannersContext(TaskCore);
 
 const LogWrapper = styled(PageLayout)`
   width: 100%;
+`;
+
+const StyledBadgeWrapper = styled.div`
+  > :nth-child(2) {
+    margin-left: 10px;
+  }
 `;
