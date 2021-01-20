@@ -59,7 +59,12 @@ const reducer = (state: spawnHostState, action: Action) => {
       return {
         ...state,
         taskSync: action.taskSync,
-        taskId: action.taskSync ? action.taskId : "",
+        taskId:
+          action.taskSync ||
+          state.useProjectSetupScript ||
+          state.spawnHostsStartedByTask
+            ? action.taskId
+            : "",
       };
     case "setIsVirtualWorkstation":
       return {
@@ -112,13 +117,23 @@ const reducer = (state: spawnHostState, action: Action) => {
       return {
         ...state,
         useProjectSetupScript: action.useProjectSetupScript,
-        taskId: action.useProjectSetupScript ? action.taskId : "",
+        taskId:
+          action.useProjectSetupScript ||
+          state.taskSync ||
+          state.spawnHostsStartedByTask
+            ? action.taskId
+            : "",
       };
     case "setSpawnHostsStartedByTask":
       return {
         ...state,
         spawnHostsStartedByTask: action.spawnHostsStartedByTask,
-        taskId: action.spawnHostsStartedByTask ? action.taskId : "",
+        taskId:
+          action.spawnHostsStartedByTask ||
+          state.taskSync ||
+          state.useProjectSetupScript
+            ? action.taskId
+            : "",
       };
     case "editVolumes":
       return {
