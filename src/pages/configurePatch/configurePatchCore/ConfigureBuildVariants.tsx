@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useMemo, useReducer } from "react";
 import { css } from "@emotion/core";
 import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "@leafygreen-ui/badge";
@@ -23,6 +23,31 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   selectedBuildVariant,
   setSelectedBuildVariant,
 }) => {
+  const [state, dispatch] = useReducer(reducer, { numButtonsPressed: 0 });
+  const keyDownCb = useMemo(
+    () => (e: KeyboardEvent) => {
+      if (keys.has(e.key)) {
+        dispatch({ type: "increment" });
+      }
+    },
+    [dispatch]
+  );
+  const keyUpCb = useMemo(
+    () => (e: KeyboardEvent) => {
+      if (keys.has(e.key)) {
+        dispatch({ type: "decrement" });
+      }
+    },
+    [dispatch]
+  );
+  useEffect(() => {
+    window.addEventListener("keydown", keyDownCb);
+    window.addEventListener("keyup", keyUpCb);
+    return () => {
+      window.removeEventListener("keyDown", keyDownCb);
+      window.removeEventListener("keyup", keyUpCb);
+    };
+  }, [keyUpCb, keyDownCb]);
   const getClickVariantHandler = (variantName: string) => (e): void => {
     if (e.ctrlKey || e.metaKey) {
       const updatedBuildVariants = toggleArray(variantName, [
@@ -56,7 +81,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     }
   };
   return (
-    <StyledSiderCard>
+    <StyledSiderCard isHotKeyPressed={state.numButtonsPressed !== 0}>
       <Container>
         <Body weight="medium">Select Build Variants and Tasks</Body>
         <Divider />
@@ -95,8 +120,31 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   );
 };
 
+const keys = new Set(["Meta", "Shift", "Control"]);
+interface State {
+  numButtonsPressed: number;
+}
+type Action = { type: "increment" } | { type: "decrement" };
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "increment":
+      return {
+        numButtonsPressed: state.numButtonsPressed + 1,
+      };
+    case "decrement":
+      return {
+        numButtonsPressed: state.numButtonsPressed - 1,
+      };
+    default:
+      throw new Error();
+  }
+};
+
 interface VariantProps {
   isSelected: boolean;
+}
+interface StyledSiderCardProps {
+  isHotKeyPressed: boolean;
 }
 
 export const cardSidePadding = css`
@@ -106,11 +154,13 @@ export const cardSidePadding = css`
 const Container = styled.div`
   ${cardSidePadding}
 `;
-const StyledSiderCard = styled(SiderCard)`
+const StyledSiderCard = styled(SiderCard)<StyledSiderCardProps>`
   padding-left: 0px;
   padding-right: 0px;
+  ${(props: StyledSiderCardProps): string =>
+    props.isHotKeyPressed && "user-select: none;"}
 `;
-const BuildVariant = styled.div`
+const BuildVariant = styled.div<VariantProps>`
   display: flex;
   align-items: center;
   min-height: 32px;
