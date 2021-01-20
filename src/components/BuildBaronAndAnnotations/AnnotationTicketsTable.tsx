@@ -180,7 +180,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
         block: "start",
       });
     }
-  }, [selectedRowKey]);
+  });
 
   return (
     <TableWrapper>
