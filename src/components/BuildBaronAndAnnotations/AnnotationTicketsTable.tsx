@@ -197,6 +197,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
             renderCell: (checked, record) =>
               record.issueKey === selectedRowKey && <span ref={rowRef} />,
             selectedRowKeys: [selectedRowKey],
+            columnWidth: 0,
           }}
         />
       </ErrorBoundary>
