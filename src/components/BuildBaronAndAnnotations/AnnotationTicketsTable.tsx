@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -27,6 +27,7 @@ interface Props {
   execution: number;
   isIssue: boolean;
   userCanModify: boolean;
+  selectedRowKey: string;
 }
 
 export const AnnotationTicketsTable: React.FC<Props> = ({
@@ -36,6 +37,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   userCanModify,
   jiraIssues,
   isIssue,
+  selectedRowKey,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const issueString = isIssue ? "issue" : "suspected issue";
@@ -166,16 +168,37 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
   };
 
+  // SCROLL TO added Issue
+  // Will add a span with a ref to the row that matches the selectedRowKey
+  // And will scroll to that ref.
+  const rowRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (selectedRowKey && rowRef.current) {
+      rowRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
+
   return (
     <TableWrapper>
       <ErrorBoundary>
         <Table
+          tableLayout="fixed"
           data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
           dataSource={jiraIssues}
           rowKey={({ issueKey }) => issueKey}
           columns={columns}
           pagination={false}
           showHeader={false}
+          rowSelection={{
+            renderCell: (checked, record) =>
+              record.issueKey === selectedRowKey && <span ref={rowRef} />,
+            selectedRowKeys: [selectedRowKey],
+            columnWidth: 0,
+          }}
         />
       </ErrorBoundary>
     </TableWrapper>

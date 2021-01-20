@@ -18,6 +18,7 @@ interface Props {
   visible: boolean;
   dataCy: string;
   closeModal: () => void;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -27,6 +28,7 @@ export const AddIssueModal: React.FC<Props> = ({
   visible,
   dataCy,
   closeModal,
+  setSelectedRowKey,
   taskId,
   execution,
   isIssue,
@@ -95,6 +97,7 @@ export const AddIssueModal: React.FC<Props> = ({
     dispatch({
       type: "reset",
     });
+    setSelectedRowKey(addIssueModalState.issueKey);
     closeModal();
   };
 
