@@ -1225,9 +1225,6 @@ export type GetAnnotationEventDataQueryVariables = Exact<{
 
 export type GetAnnotationEventDataQuery = {
   task?: Maybe<{
-    id: string;
-    execution: number;
-    canModifyAnnotation: boolean;
     annotation?: Maybe<{
       id: string;
       taskId: string;
@@ -1242,18 +1239,6 @@ export type GetAnnotationEventDataQuery = {
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
             source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
           }>
         >
       >;
@@ -1263,18 +1248,6 @@ export type GetAnnotationEventDataQuery = {
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
             source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
           }>
         >
       >;

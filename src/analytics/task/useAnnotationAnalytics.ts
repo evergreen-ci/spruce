@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
 import { GET_ANNOTATION_EVENT_DATA } from "analytics/task/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
@@ -11,6 +11,8 @@ import {
   GetAnnotationEventDataQueryVariables,
 } from "gql/generated/types";
 import { GET_BUILD_BARON } from "gql/queries";
+import { RequiredQueryParams } from "types/task";
+import { parseQueryString } from "utils";
 
 type Action =
   | { name: "Click Jira Summary Link" }
@@ -34,26 +36,34 @@ interface AnnotationAnalytics extends Analytics<Action> {}
 
 export const useAnnotationAnalytics = (): AnnotationAnalytics => {
   const userId = useGetUserQuery();
-  const { id, execution } = useParams<{ id: string; execution: string }>();
+  const { id } = useParams<{ id: string }>();
 
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const execution = Number(parsed[RequiredQueryParams.Execution]);
+  console.log(execution);
   const { data: eventData } = useQuery<
     GetAnnotationEventDataQuery,
     GetAnnotationEventDataQueryVariables
   >(GET_ANNOTATION_EVENT_DATA, {
-    variables: { taskId: id, execution: parseInt(execution, 10) },
+    variables: { taskId: id, execution },
     fetchPolicy: "cache-first",
   });
 
   const { data: bbData } = useQuery<BuildBaronQuery, BuildBaronQueryVariables>(
     GET_BUILD_BARON,
     {
-      variables: { taskId: id, execution: parseInt(execution, 10) },
+      variables: { taskId: id, execution },
       fetchPolicy: "cache-first",
     }
   );
 
-  const annotation = get(eventData, "annotation.annotation", undefined);
-  const bbConfigured = get(bbData, "bbData.buildBaronConfigured", undefined);
+  const annotation = get(eventData, "task.annotation", undefined);
+  const bbConfigured = get(
+    bbData,
+    "buildBaron.buildBaronConfigured",
+    undefined
+  );
   const sendEvent: AnnotationAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Annotations",
