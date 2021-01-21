@@ -41,7 +41,6 @@ export const useAnnotationAnalytics = (): AnnotationAnalytics => {
   const location = useLocation();
   const parsed = parseQueryString(location.search);
   const execution = Number(parsed[RequiredQueryParams.Execution]);
-  console.log(execution);
   const { data: eventData } = useQuery<
     GetAnnotationEventDataQuery,
     GetAnnotationEventDataQueryVariables
