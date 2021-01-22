@@ -160,6 +160,7 @@ export const getHostEventString = (
             <HostEventLog
               title="Additional details"
               logs={data.logs}
+              data-cy="host-status-log"
               isCode={false}
             />
           ) : (
@@ -312,19 +313,22 @@ export const StyledCollapse = styled(Collapse)`
 
 export const HostEventLog: React.FC<{
   title: string;
-  logs: any;
+  logs: string;
   isCode: boolean;
-}> = ({ title, logs, isCode }) => (
+  "data-cy"?: string;
+}> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
   <span data-cy="host-event-logs">
     <StyledCollapse bordered={false}>
-      <Panel header={title} key="1">
-        {isCode ? (
-          <Code multiline={false} language="shell">
-            {logs}
-          </Code>
-        ) : (
-          { logs }
-        )}
+      <Panel header={<span data-cy={dataCy}>{title}</span>} key="1">
+        <span data-cy="host-event-log-content">
+          {isCode ? (
+            <Code multiline={false} language="shell">
+              {logs}
+            </Code>
+          ) : (
+            logs
+          )}
+        </span>
       </Panel>
     </StyledCollapse>
   </span>
