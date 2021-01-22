@@ -41,6 +41,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   annotation,
   userCanModify,
 }) => {
+  const [selectedRowKey, setSelectedRowKey] = useState("");
   const annotationsReady = true;
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
@@ -90,6 +91,8 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
                 taskId={taskId}
                 execution={execution}
                 userCanModify={userCanModify}
+                selectedRowKey={selectedRowKey}
+                setSelectedRowKey={setSelectedRowKey}
               />
               <AnnotationTickets
                 tickets={annotation?.suspectedIssues}
@@ -98,6 +101,8 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
                 taskId={taskId}
                 execution={execution}
                 userCanModify={userCanModify}
+                selectedRowKey={selectedRowKey}
+                setSelectedRowKey={setSelectedRowKey}
               />
             </>
           )}
