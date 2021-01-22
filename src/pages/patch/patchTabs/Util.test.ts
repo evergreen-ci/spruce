@@ -7,7 +7,7 @@ import {
 import { parseSortString, toSortString } from "./util";
 
 test("parseSortString", () => {
-  expect(parseSortString("NAME,ASC;STATUS,DESC")).toEqual([
+  expect(parseSortString("NAME:ASC;STATUS:DESC")).toEqual([
     {
       Key: TaskSortCategory.Name,
       Direction: SortDirection.Asc,
@@ -18,7 +18,7 @@ test("parseSortString", () => {
     },
   ]);
 
-  expect(parseSortString("FOO,ASC")).toEqual([]);
+  expect(parseSortString("FOO:ASC")).toEqual([]);
 });
 
 test("toSortString", () => {
@@ -26,5 +26,5 @@ test("toSortString", () => {
     columnKey: TaskSortCategory.Name,
     order: "descend",
   };
-  expect(toSortString(input)).toEqual("NAME,DESC");
+  expect(toSortString(input)).toEqual("NAME:DESC");
 });
