@@ -7,7 +7,7 @@ import { usePatchAnalytics } from "analytics";
 import { TaskResult, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
-import { toSortString } from "../Util";
+import { toSortString } from "../util";
 
 interface Props {
   data?: PatchTasks;

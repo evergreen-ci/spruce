@@ -4,7 +4,7 @@ import {
   TaskSortCategory,
   TaskResult,
 } from "gql/generated/types";
-import { parseSortString, toSortString } from "./Util";
+import { parseSortString, toSortString } from "./util";
 
 test("parseSortString", () => {
   expect(parseSortString("NAME,ASC;STATUS,DESC")).toEqual([

@@ -15,14 +15,14 @@ export const toSortString = (
     order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
   if (Array.isArray(sorts)) {
     sorts.forEach((sort) => {
-      const singleSortString = `${sort.columnKey},${shortenSortOrder(
+      const singleSortString = `${sort.columnKey}:${shortenSortOrder(
         sort.order
       )}`;
       sortStrings = sortStrings.concat(singleSortString);
     });
   } else {
     sortStrings = sortStrings.concat(
-      `${sorts.columnKey},${shortenSortOrder(sorts.order)}`
+      `${sorts.columnKey}:${shortenSortOrder(sorts.order)}`
     );
   }
 
@@ -40,7 +40,7 @@ export const parseSortString = (sortQuery: string | string[]): SortOrder[] => {
   }
   if (sortArray?.length > 0) {
     sortArray.forEach((singleSort) => {
-      const parts = singleSort.split(",");
+      const parts = singleSort.split(":");
       if (parts.length !== 2) {
         return;
       }

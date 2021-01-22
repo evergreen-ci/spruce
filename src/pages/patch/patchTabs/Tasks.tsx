@@ -39,7 +39,7 @@ import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
-import { parseSortString } from "./Util";
+import { parseSortString } from "./util";
 
 interface Props {
   taskCount: number;
@@ -58,7 +58,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   if (sorts.length === 0) {
     updateQueryParams({
-      sorts: "STATUS,ASC;BASE_STATUS,ASC",
+      sorts: "STATUS:ASC;BASE_STATUS:ASC",
     });
   }
 
