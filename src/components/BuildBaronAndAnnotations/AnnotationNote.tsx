@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { Input, Tooltip } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -35,7 +36,8 @@ export const AnnotationNote: React.FC<Props> = ({
   execution,
   userCanModify,
 }) => {
-  const originalMessage = note?.message;
+  const annotationAnalytics = useAnnotationAnalytics();
+  const originalMessage = note?.message || "";
   const dispatchBanner = useBannerDispatchContext();
   const [newMessage, setMessage] = useState(originalMessage);
   const [
@@ -64,6 +66,7 @@ export const AnnotationNote: React.FC<Props> = ({
         newMessage,
       },
     });
+    annotationAnalytics.sendEvent({ name: "Save Annotation Note" });
   };
 
   return (
@@ -82,6 +85,7 @@ export const AnnotationNote: React.FC<Props> = ({
         rows={2}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
+        disabled={userCanModify}
       />
       <ConditionalWrapper
         condition={!userCanModify}

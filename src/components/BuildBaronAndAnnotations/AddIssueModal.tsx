@@ -3,6 +3,7 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
 import { Input, Tooltip } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Modal } from "components/Modal";
 import { WideButton } from "components/Spawn";
@@ -18,6 +19,7 @@ interface Props {
   visible: boolean;
   dataCy: string;
   closeModal: () => void;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -27,10 +29,12 @@ export const AddIssueModal: React.FC<Props> = ({
   visible,
   dataCy,
   closeModal,
+  setSelectedRowKey,
   taskId,
   execution,
   isIssue,
 }) => {
+  const annotationAnalytics = useAnnotationAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const title = isIssue ? "Add Issue" : "Add Suspected Issue";
   const issueString = isIssue ? "issue" : "suspected issue";
@@ -86,7 +90,6 @@ export const AddIssueModal: React.FC<Props> = ({
   });
 
   const onClickAdd = () => {
-    // todo: add analytics
     const apiIssue = {
       url: addIssueModalState.url,
       issueKey: addIssueModalState.issueKey,
@@ -95,7 +98,12 @@ export const AddIssueModal: React.FC<Props> = ({
     dispatch({
       type: "reset",
     });
+    setSelectedRowKey(addIssueModalState.issueKey);
     closeModal();
+    const analyticsType = isIssue
+      ? "Add Task Annotation Issue"
+      : "Add Task Annotation Suspected Issue";
+    annotationAnalytics.sendEvent({ name: analyticsType });
   };
 
   const onClickCancel = () => {

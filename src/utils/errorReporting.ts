@@ -6,11 +6,19 @@ interface reportErrorResult {
   warning: () => void;
 }
 
-export const reportError = (err: NotifiableError): reportErrorResult => {
+type CustomBugsnagError = NotifiableError & {
+  metadata?: any;
+};
+
+export const reportError = (err: CustomBugsnagError): reportErrorResult => {
   if (!isProduction()) {
     return {
-      severe: () => {},
-      warning: () => {},
+      severe: () => {
+        console.log({ err, severity: "severe" });
+      },
+      warning: () => {
+        console.log({ err, severity: "warning" });
+      },
     };
   }
 
@@ -24,12 +32,19 @@ export const reportError = (err: NotifiableError): reportErrorResult => {
   };
 };
 
-const sendError = (err: NotifiableError, severity: Event["severity"]) => {
+const sendError = (err: CustomBugsnagError, severity: Event["severity"]) => {
   const userId = localStorage.getItem("userId");
+  let metadata;
+  if (err.metadata) {
+    metadata = err.metadata;
+  }
   Bugsnag.notify(err, (event) => {
     // reassigning param is reccomended useage in bugsnag docs
     // eslint-disable-next-line no-param-reassign
     event.severity = severity;
     event.setUser(userId);
+    if (metadata) {
+      event.addMetadata("metadata", { ...metadata });
+    }
   });
 };

@@ -7,6 +7,7 @@ export const GET_TASK = gql`
     }
     task(taskId: $taskId, execution: $execution) {
       id
+      execution
       activatedBy
       baseTaskMetadata {
         baseTaskDuration
@@ -66,6 +67,7 @@ export const GET_TASK = gql`
           pids
         }
       }
+      canModifyAnnotation
       annotation {
         id
         taskId
@@ -126,17 +128,7 @@ export const GET_TASK = gql`
             }
           }
         }
-        userCanModify
       }
-    }
-  }
-`;
-
-export const GET_TASK_LATEST_EXECUTION = gql`
-  query GetTaskLatestExecution($taskId: String!) {
-    task(taskId: $taskId) {
-      id
-      latestExecution
     }
   }
 `;

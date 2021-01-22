@@ -343,6 +343,7 @@ tasks:
     - func: get-project
     - func: setup-credentials
     - func: yarn-install
+    - func: sym-link
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { useBannerDispatchContext } from "context/banners";
@@ -27,6 +28,7 @@ interface Props {
   execution: number;
   isIssue: boolean;
   userCanModify: boolean;
+  selectedRowKey: string;
 }
 
 export const AnnotationTicketsTable: React.FC<Props> = ({
@@ -36,12 +38,15 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   userCanModify,
   jiraIssues,
   isIssue,
+  selectedRowKey,
 }) => {
+  const annotationAnalytics = useAnnotationAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
   const columns = [
     {
+      title: "Ticket",
       render: (
         text: string,
         { issueKey, url, source, jiraTicket }: AnnotationTicket
@@ -155,6 +160,12 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       issueKey,
     };
     removeAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    const analyticsType = isIssue
+      ? "Remove Annotation Issue"
+      : "Remove Annotation Suspected Issue";
+    annotationAnalytics.sendEvent({
+      name: analyticsType,
+    });
   };
 
   const onClickMove = (url, issueKey) => {
@@ -163,18 +174,45 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       issueKey,
     };
     moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
+    const analyticsType = isIssue
+      ? "Move Annotation Issue"
+      : "Move Annotation Suspected Issue";
+    annotationAnalytics.sendEvent({
+      name: analyticsType,
+    });
   };
+
+  // SCROLL TO added Issue
+  // Will add a span with a ref to the row that matches the selectedRowKey
+  // And will scroll to that ref.
+  const rowRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (selectedRowKey && rowRef.current) {
+      rowRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+    }
+  });
 
   return (
     <TableWrapper>
       <ErrorBoundary>
         <Table
+          tableLayout="fixed"
           data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
           dataSource={jiraIssues}
           rowKey={({ issueKey }) => issueKey}
           columns={columns}
           pagination={false}
           showHeader={false}
+          rowSelection={{
+            renderCell: (checked, record) =>
+              record.issueKey === selectedRowKey && <span ref={rowRef} />,
+            selectedRowKeys: [selectedRowKey],
+            columnWidth: 0,
+          }}
         />
       </ErrorBoundary>
     </TableWrapper>
@@ -191,6 +229,7 @@ export const StyledText = styled.div`
 const BtnContainer = styled.div`
   white-space: nowrap;
   padding: 20px;
+  float: right;
 `;
 
 const StyledButton = styled(Button)`

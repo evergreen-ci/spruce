@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
-import { useTaskAnalytics } from "analytics";
+import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import {
@@ -34,7 +34,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   jiraKey,
   fields,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
+  const annotationAnalytics = useAnnotationAnalytics();
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
   const spruceConfig = data?.spruceConfig;
@@ -48,7 +48,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
         href={url}
         data-cy={jiraKey}
         onClick={() =>
-          taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
+          annotationAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
       >
         {jiraKey}: {summary} {"   "}
@@ -82,6 +82,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   url,
   jiraTicket,
 }) => {
+  const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
   const {
     created,
@@ -94,7 +95,15 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
   return (
     <div data-cy="annotation-ticket-row">
-      <JiraSummaryLink href={url} data-cy={issueKey}>
+      <JiraSummaryLink
+        href={url}
+        data-cy={issueKey}
+        onClick={() =>
+          annotationAnalytics.sendEvent({
+            name: "Click Annotation Ticket Link",
+          })
+        }
+      >
         {issueKey}
         {summary && `: ${summary}`}
       </JiraSummaryLink>
