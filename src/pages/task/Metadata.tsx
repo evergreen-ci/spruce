@@ -25,12 +25,16 @@ const { red } = uiColors;
 interface Props {
   taskId: string;
   loading: boolean;
-  data: GetTaskQuery;
+  task: GetTaskQuery["task"];
   error: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
-  const task = data?.task ?? ({} as GetTaskQuery["task"]);
+export const Metadata: React.FC<Props> = ({
+  loading,
+  task = {},
+  error,
+  taskId,
+}) => {
   const taskAnalytics = useTaskAnalytics();
 
   const {

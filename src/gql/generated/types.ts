@@ -875,7 +875,7 @@ export type Task = {
   displayOnly?: Maybe<Scalars["Boolean"]>;
   distroId: Scalars["String"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
-  execution?: Maybe<Scalars["Int"]>;
+  execution: Scalars["Int"];
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
@@ -1215,7 +1215,49 @@ export type GetTaskEventDataQueryVariables = Exact<{
 }>;
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    status: string;
+    failedTestCount: number;
+  }>;
+};
+
+export type GetAnnotationEventDataQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetAnnotationEventDataQuery = {
+  task?: Maybe<{
+    annotation?: Maybe<{
+      id: string;
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+          }>
+        >
+      >;
+    }>;
+  }>;
 };
 
 export type PatchesPagePatchesFragment = {
@@ -1236,7 +1278,9 @@ export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type AbortTaskMutation = { abortTask: { id: string } };
+export type AbortTaskMutation = {
+  abortTask: { id: string; execution: number };
+};
 
 export type AddAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -1377,7 +1421,14 @@ export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type RestartTaskMutation = { restartTask: { id: string } };
+export type RestartTaskMutation = {
+  restartTask: {
+    id: string;
+    execution: number;
+    status: string;
+    latestExecution: number;
+  };
+};
 
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
@@ -1414,7 +1465,9 @@ export type ScheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type ScheduleTaskMutation = { scheduleTask: { id: string } };
+export type ScheduleTaskMutation = {
+  scheduleTask: { id: string; execution: number };
+};
 
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -1429,7 +1482,7 @@ export type SetTaskPriorityMutationVariables = Exact<{
 }>;
 
 export type SetTaskPriorityMutation = {
-  setTaskPriority: { id: string; priority?: Maybe<number> };
+  setTaskPriority: { id: string; execution: number; priority?: Maybe<number> };
 };
 
 export type SpawnHostMutationVariables = Exact<{
@@ -1457,7 +1510,9 @@ export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+export type UnscheduleTaskMutation = {
+  unscheduleTask: { id: string; execution: number };
+};
 
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
@@ -1816,6 +1871,7 @@ export type PatchTasksQuery = {
       executionTasksFull?: Maybe<
         Array<{
           id: string;
+          execution: number;
           displayName: string;
           status: string;
           buildVariant: string;
@@ -1879,7 +1935,8 @@ export type GetTaskAllExecutionsQueryVariables = Exact<{
 
 export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
-    execution?: Maybe<number>;
+    id: string;
+    execution: number;
     status: string;
     ingestTime?: Maybe<Date>;
     activatedTime?: Maybe<Date>;
@@ -1903,6 +1960,7 @@ export type TaskFilesQuery = {
 
 export type EventLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type EventLogsQuery = {
@@ -1925,6 +1983,7 @@ export type EventLogsQuery = {
 
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type TaskLogsQuery = {
@@ -1939,6 +1998,7 @@ export type TaskLogsQuery = {
 
 export type AgentLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type AgentLogsQuery = {
@@ -1953,6 +2013,7 @@ export type AgentLogsQuery = {
 
 export type SystemLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type SystemLogsQuery = {
@@ -2000,6 +2061,7 @@ export type GetTaskQuery = {
   taskFiles: { fileCount: number };
   task?: Maybe<{
     id: string;
+    execution: number;
     activatedBy?: Maybe<string>;
     buildVariant: string;
     ingestTime?: Maybe<Date>;
@@ -2106,14 +2168,6 @@ export type GetTaskQuery = {
       >;
     }>;
   }>;
-};
-
-export type GetTaskLatestExecutionQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ id: string; latestExecution: number }>;
 };
 
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;

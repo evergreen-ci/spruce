@@ -27,8 +27,8 @@ import { RESTART_TASK } from "gql/mutations/restart-task";
 import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
-import { useOnClickOutside } from "hooks";
-import { TaskNotificationModal } from "pages/task/actionButtons/TaskNotificationModal";
+import { useOnClickOutside, useUpdateURLQueryParams } from "hooks";
+import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
@@ -55,6 +55,7 @@ export const ActionButtons = ({
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTaskMutation,
@@ -105,8 +106,12 @@ export const ActionButtons = ({
     RestartTaskMutationVariables
   >(RESTART_TASK, {
     variables: { taskId },
-    onCompleted: () => {
+    onCompleted: (data) => {
+      const { latestExecution } = data.restartTask;
       successBanner("Task scheduled to restart");
+      updateQueryParams({
+        execution: `${latestExecution}`,
+      });
     },
     onError: (err) => {
       errorBanner(`Error restarting task: ${err.message}`);

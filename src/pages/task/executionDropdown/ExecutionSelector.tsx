@@ -9,7 +9,7 @@ import {
   GetTaskAllExecutionsQueryVariables,
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
-import { ExecutionAsDisplay } from "pages/task/util/execution";
+import { executionAsDisplay } from "pages/task/util/execution";
 import { shortDate } from "utils/string";
 
 interface ExecutionSelectProps {
@@ -41,7 +41,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
       disabled={executionsLoading}
       key={currentExecution}
       data-cy="execution-select"
-      value={`Execution ${ExecutionAsDisplay(currentExecution)}${
+      value={`Execution ${executionAsDisplay(currentExecution)}${
         currentExecution === latestExecution ? " (latest)" : ""
       }`}
       onChange={(selected: number | null) => {
@@ -59,7 +59,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           />
           <StyledP1>
             {" "}
-            Execution {ExecutionAsDisplay(singleExecution.execution)} -{" "}
+            Execution {executionAsDisplay(singleExecution.execution)} -{" "}
             {shortDate(
               singleExecution.activatedTime ?? singleExecution.ingestTime
             )}

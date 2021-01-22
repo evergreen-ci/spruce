@@ -1,6 +1,5 @@
 import React from "react";
 import { useQuery, ApolloError } from "@apollo/client";
-
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
@@ -8,7 +7,6 @@ import { Skeleton } from "antd";
 import get from "lodash/get";
 import queryString from "query-string";
 import { useParams, useLocation, useHistory } from "react-router-dom";
-import { v4 as uuid } from "uuid";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
@@ -33,6 +31,10 @@ import {
 import { useNetworkStatus } from "hooks";
 import { LogMessageLine } from "pages/task/logs/logTypes/LogMessageLine";
 import { TaskEventLogLine } from "pages/task/logs/logTypes/TaskEventLogLine";
+import { RequiredQueryParams } from "types/task";
+import { parseQueryString } from "utils";
+
+const { gray } = uiColors;
 
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
@@ -56,11 +58,14 @@ interface Props {
 }
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     EventLogsQuery,
     EventLogsQueryVariables
   >(GET_EVENT_LOGS, {
-    variables: { id },
+    variables: { id, execution: selectedExecution },
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
@@ -78,11 +83,14 @@ export const EventLog: React.FC<Props> = (props): JSX.Element => {
 
 export const SystemLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     SystemLogsQuery,
     SystemLogsQueryVariables
   >(GET_SYSTEM_LOGS, {
-    variables: { id },
+    variables: { id, execution: selectedExecution },
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
@@ -97,11 +105,14 @@ export const SystemLog: React.FC<Props> = (props): JSX.Element => {
 
 export const AgentLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     AgentLogsQuery,
     AgentLogsQueryVariables
   >(GET_AGENT_LOGS, {
-    variables: { id },
+    variables: { id, execution: selectedExecution },
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
@@ -116,11 +127,14 @@ export const AgentLog: React.FC<Props> = (props): JSX.Element => {
 
 export const TaskLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
+  const location = useLocation();
+  const parsed = parseQueryString(location.search);
+  const selectedExecution = Number(parsed[RequiredQueryParams.Execution]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     TaskLogsQuery,
     TaskLogsQueryVariables
   >(GET_TASK_LOGS, {
-    variables: { id },
+    variables: { id, execution: selectedExecution },
     pollInterval,
   });
   useNetworkStatus(startPolling, stopPolling);
@@ -165,6 +179,10 @@ const useRenderBody: React.FC<{
         { arrayFormat: "comma" }
       )}`
     );
+    taskAnalytics.sendEvent({
+      name: "Select Logs Type",
+      logsType: nextLogType,
+    });
   };
 
   if (loading) {
@@ -206,64 +224,34 @@ const useRenderBody: React.FC<{
             )}
           </ButtonContainer>
         ) : null}
-        <Radio
-          id="cy-task-radio"
-          value={LogTypes.Task}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Task,
-            })
-          }
-        >
+        <Radio id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
-        <Radio
-          id="cy-agent-radio"
-          value={LogTypes.Agent}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Agent,
-            })
-          }
-        >
+        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
           Agent Logs
         </Radio>
-        <Radio
-          id="cy-system-radio"
-          value={LogTypes.System}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.System,
-            })
-          }
-        >
+        <Radio id="cy-system-radio" value={LogTypes.System}>
           System Logs
         </Radio>
-        <Radio
-          id="cy-event-radio"
-          value={LogTypes.Event}
-          onClick={() =>
-            taskAnalytics.sendEvent({
-              name: "Select Logs Type",
-              logsType: LogTypes.Event,
-            })
-          }
-        >
+        <Radio id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
         </Radio>
       </StyledRadioGroup>
       {hideLogs ? (
-        <div id="cy-no-logs">No logs found</div>
+        <div data-cy="cy-no-logs">No logs found</div>
       ) : (
         <LogContainer>
-          {data.map((d) =>
+          {data.map((d, index) =>
             d.kind === "taskEventLogEntry" ? (
-              <TaskEventLogLine key={uuid()} {...d} />
+              <TaskEventLogLine
+                key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
+                {...d}
+              />
             ) : (
-              <LogMessageLine key={uuid()} {...d} />
+              <LogMessageLine
+                key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
+                {...d}
+              />
             )
           )}
         </LogContainer>
@@ -290,7 +278,7 @@ const StyledPre = styled.pre`
   padding: 8px;
   word-break: break-all;
   word-wrap: break-word;
-  border: 1px solid ${uiColors.gray.light2};
+  border: 1px solid ${gray.light2};
   border-radius: 4px;
   font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
   font-size: 13px;
