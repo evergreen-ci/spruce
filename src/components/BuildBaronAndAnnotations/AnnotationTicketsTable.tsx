@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
+import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { useBannerDispatchContext } from "context/banners";
@@ -39,6 +40,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   isIssue,
   selectedRowKey,
 }) => {
+  const annotationAnalytics = useAnnotationAnalytics();
   const dispatchBanner = useBannerDispatchContext();
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
@@ -158,6 +160,12 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       issueKey,
     };
     removeAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
+    const analyticsType = isIssue
+      ? "Remove Annotation Issue"
+      : "Remove Annotation Suspected Issue";
+    annotationAnalytics.sendEvent({
+      name: analyticsType,
+    });
   };
 
   const onClickMove = (url, issueKey) => {
@@ -166,6 +174,12 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
       issueKey,
     };
     moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
+    const analyticsType = isIssue
+      ? "Move Annotation Issue"
+      : "Move Annotation Suspected Issue";
+    annotationAnalytics.sendEvent({
+      name: analyticsType,
+    });
   };
 
   // SCROLL TO added Issue

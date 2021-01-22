@@ -1218,6 +1218,43 @@ export type GetTaskEventDataQuery = {
   }>;
 };
 
+export type GetAnnotationEventDataQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetAnnotationEventDataQuery = {
+  task?: Maybe<{
+    annotation?: Maybe<{
+      id: string;
+      taskId: string;
+      taskExecution: number;
+      note?: Maybe<{
+        message: string;
+        source: { author: string; time: Date; requester: string };
+      }>;
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+          }>
+        >
+      >;
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+          }>
+        >
+      >;
+    }>;
+  }>;
+};
+
 export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
