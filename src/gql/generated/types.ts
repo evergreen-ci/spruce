@@ -1843,8 +1843,7 @@ export type GetPatchTaskStatusesQuery = {
 
 export type PatchTasksQueryVariables = Exact<{
   patchId: Scalars["String"];
-  sortBy?: Maybe<TaskSortCategory>;
-  sortDir?: Maybe<SortDirection>;
+  sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
@@ -1859,7 +1858,6 @@ export type PatchTasksQuery = {
     tasks: Array<{
       id: string;
       status: string;
-      baseStatus?: Maybe<string>;
       displayName: string;
       buildVariant: string;
       blocked: boolean;
@@ -1873,6 +1871,7 @@ export type PatchTasksQuery = {
           baseStatus?: Maybe<string>;
         }>
       >;
+      baseTask?: Maybe<{ status: string }>;
     }>;
   };
 };
