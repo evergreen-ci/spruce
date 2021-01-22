@@ -160,7 +160,7 @@ export const getHostEventString = (
             <HostEventLog
               title="Additional details"
               logs={data.logs}
-              dataCy="host-status-log"
+              data-cy="host-status-log"
               isCode={false}
             />
           ) : (
@@ -315,8 +315,8 @@ export const HostEventLog: React.FC<{
   title: string;
   logs: string;
   isCode: boolean;
-  dataCy?: string;
-}> = ({ title, logs, isCode, dataCy = "host-event-logs-title" }) => (
+  "data-cy"?: string;
+}> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
   <span data-cy="host-event-logs">
     <StyledCollapse bordered={false}>
       <Panel header={<span data-cy={dataCy}>{title}</span>} key="1">
