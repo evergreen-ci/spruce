@@ -1809,7 +1809,7 @@ export type GetSpawnTaskQueryVariables = Exact<{
 }>;
 
 
-export type GetSpawnTaskQuery = { task?: Maybe<{ id: string, displayName: string, buildVariant: string, revision?: Maybe<string>, canSync: boolean, project?: Maybe<{ spawnHostScriptPath: string }> }> };
+export type GetSpawnTaskQuery = { task?: Maybe<{ id: string, execution: number, displayName: string, buildVariant: string, revision?: Maybe<string>, canSync: boolean, project?: Maybe<{ spawnHostScriptPath: string }> }> };
 
 export type SubnetAvailabilityZonesQueryVariables = Exact<{ [key: string]: never; }>;
 
