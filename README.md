@@ -99,7 +99,7 @@ Spruce has a combination of unit tests using Jest, and integration tests using C
 ### Unit tests
 TODO: write more here. The Jest tests can be run by typing `yarn test`
 
-### Integration tests
+### E2E tests
 At a high level, we use Cypress to start a virtual browser that is running Spruce. Cypress then is able to run our test specs, which tell it to interact with the browser in certain ways and makes assertions about what happens in the UI. Note that you must be running the Evergreen server on localhost:9090 for the front-end to work.
 
 In order to run the Cypress tests, do the following, assuming you have this repo checked out and all the dependencies installed by yarn:
