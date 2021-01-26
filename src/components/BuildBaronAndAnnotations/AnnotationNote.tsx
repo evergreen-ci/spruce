@@ -85,7 +85,7 @@ export const AnnotationNote: React.FC<Props> = ({
         rows={2}
         value={newMessage}
         onChange={(e) => setMessage(e.target.value)}
-        disabled={userCanModify}
+        disabled={!userCanModify}
       />
       <ConditionalWrapper
         condition={!userCanModify}
