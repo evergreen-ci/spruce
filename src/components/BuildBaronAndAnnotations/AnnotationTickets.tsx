@@ -16,6 +16,8 @@ interface Props {
   tickets: IssueLink[];
   isIssue: boolean;
   userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AnnotationTickets: React.FC<Props> = ({
@@ -25,6 +27,8 @@ export const AnnotationTickets: React.FC<Props> = ({
   execution,
   isIssue,
   userCanModify,
+  selectedRowKey,
+  setSelectedRowKey,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const title = isIssue ? "Issues" : "Suspected Issues";
@@ -33,7 +37,7 @@ export const AnnotationTickets: React.FC<Props> = ({
     isAddAnnotationModalVisible,
     setIsAddAnnotationModalVisible,
   ] = useState<boolean>(false);
-  const [selectedRowKey, setSelectedRowKey] = useState("");
+
   const onClickAdd = () => {
     setIsAddAnnotationModalVisible(true);
     const analyticsType = isIssue
@@ -73,6 +77,7 @@ export const AnnotationTickets: React.FC<Props> = ({
           isIssue={isIssue}
           userCanModify={userCanModify}
           selectedRowKey={selectedRowKey}
+          setSelectedRowKey={setSelectedRowKey}
         />
       )}
       <AddIssueModal
