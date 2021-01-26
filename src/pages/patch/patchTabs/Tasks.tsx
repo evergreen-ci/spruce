@@ -232,7 +232,7 @@ const getColumnDefs = (sortOrder: SortOrder[]): ColumnProps<TaskResult>[] => {
     },
     {
       title: "Base Status",
-      dataIndex: "baseStatus",
+      dataIndex: ["baseTask", "status"],
       key: TaskSortCategory.BaseStatus,
       sorter: {
         multiple: 4,
