@@ -58,7 +58,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   if (sorts.length === 0) {
     updateQueryParams({
-      sorts: "STATUS:ASC;BASE_STATUS:ASC",
+      sorts: "STATUS:ASC;BASE_STATUS:DESC",
     });
   }
 
