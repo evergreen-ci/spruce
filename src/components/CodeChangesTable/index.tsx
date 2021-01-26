@@ -1,7 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Table } from "antd";
+import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
+import { WordBreak } from "components/Typography";
 import { CodeChangesTableFileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
@@ -27,20 +29,13 @@ const rowKey = (
   index: number
 ): string => `${index}`;
 
-const columns = (
+const columns: (
   showHeader: boolean
-): Array<{
-  title: string;
-  dataIndex: string;
-  key: string;
-  width?: number;
-  render: (
-    text: string | number,
-    record?: CodeChangesTableFileDiffsFragment
-  ) => JSX.Element;
-}> => [
+) => Array<ColumnProps<CodeChangesTableFileDiffsFragment>> = (
+  showHeader: boolean
+) => [
   {
-    title: "File",
+    title: <span data-cy="file-column">File</span>,
     dataIndex: "fileName",
     key: "fileName",
     render: (
@@ -53,12 +48,12 @@ const columns = (
         rel="noopener noreferrer"
         target="_blank"
       >
-        {text}
+        <WordBreak>{text}</WordBreak>
       </a>
     ),
   },
   {
-    title: "Additions",
+    title: <span data-cy="additions-column">Additions</span>,
     dataIndex: "additions",
     key: "additions",
     width: !showHeader && 80,
@@ -67,7 +62,7 @@ const columns = (
     ),
   },
   {
-    title: "Deletions",
+    title: <span data-cy="deletions-column">Deletions</span>,
     dataIndex: "deletions",
     key: "deletions",
     width: !showHeader && 80,

@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { formatDistanceToNow } from "date-fns";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
+import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
 import { HostCard } from "pages/host/HostCard";
 import { getUiUrl } from "utils/getEnvironmentVariables";
@@ -26,7 +27,7 @@ export const Metadata: React.FC<{
   const runningTaskId = runningTask?.id;
   const runningTaskName = runningTask?.name;
 
-  const taskLink = `${getUiUrl()}/task/${runningTaskId}`;
+  const taskLink = getTaskRoute(runningTaskId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (

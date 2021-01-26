@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "1.14.1",
+  "version": "1.18.2",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.2.2",
@@ -29,7 +29,7 @@
     "ansi_up": "4.0.4",
     "antd": "4.7.2",
     "antd-table-infinity": "1.1.6",
-    "axios": "0.19.2",
+    "axios": "0.21.1",
     "date-fns": "2.14.0",
     "date-fns-timezone": "0.1.4",
     "deep-object-diff": "1.1.0",
@@ -62,6 +62,7 @@
     "build:prod": "env-cmd -e prod -r config/.cmdrc.json yarn build",
     "cy:open": "cypress open",
     "cy:run": "cypress run",
+    "cy:test": "cypress run --spec",
     "dev": "env-cmd -e devServer -r config/.cmdrc.json yarn start",
     "staging": "env-cmd -e devStaging -r config/.cmdrc.json yarn start",
     "prod": "env-cmd -e devProd -r config/.cmdrc.json yarn start",

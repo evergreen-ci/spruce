@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import { Table, Skeleton } from "antd";
 import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import Badge, { Variant } from "components/Badge";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -16,6 +16,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -26,11 +27,10 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
 import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
-import { ExecutionAsData } from "pages/task/util/execution";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import { stringifyQuery, parseQueryString, queryParamAsNumber } from "utils";
+import { parseQueryString, queryParamAsNumber } from "utils";
 import { msToDuration } from "utils/string";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
@@ -39,8 +39,8 @@ export interface UpdateQueryArg {
 }
 export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
-  const { replace } = useHistory();
-  const { search, pathname } = useLocation();
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
@@ -67,16 +67,12 @@ export const TestsTableCore: React.FC = () => {
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
 
-    const nextQueryParams = stringifyQuery({
-      ...parseQueryString(search),
-      [RequiredQueryParams.Category]: columnKey,
+    updateQueryParams({
+      [RequiredQueryParams.Category]: `${columnKey}`,
       [RequiredQueryParams.Sort]:
         order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
       [RequiredQueryParams.Page]: "0",
     });
-    if (nextQueryParams !== search.split("?")[1]) {
-      replace(`${pathname}?${nextQueryParams}`);
-    }
   };
 
   const taskAnalytics = useTaskAnalytics();
@@ -140,18 +136,18 @@ const statusCopy = {
 };
 const columnsTemplate: ColumnProps<TestResult>[] = [
   {
-    title: "Name",
+    title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
+    render: (name: string) => <WordBreak>{name}</WordBreak>,
     sorter: true,
   },
   {
-    title: "Status",
+    title: <span data-cy="status-column">Status</span>,
     dataIndex: "status",
     key: TestSortCategory.Status,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -164,11 +160,10 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Base Status",
+    title: <span data-cy="base-status-column">Base Status</span>,
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
     sorter: true,
-    width: "20%",
     render: (status: string): JSX.Element => (
       <span>
         <Badge
@@ -181,8 +176,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     ),
   },
   {
-    title: "Time",
-    width: "20%",
+    title: <span data-cy="time-column">Time</span>,
     dataIndex: "duration",
     key: TestSortCategory.Duration,
     sorter: true,
@@ -192,8 +186,8 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     },
   },
   {
-    title: "Logs",
-    width: "20%",
+    title: <span data-cy="logs-column">Logs</span>,
+    width: 150,
     dataIndex: "logs",
     key: "logs",
     sorter: false,
@@ -272,6 +266,6 @@ const getQueryVariables = (
     statusList,
     testName,
     pageNum: getPageFromSearch(search),
-    execution: ExecutionAsData(queryParamAsNumber(execution)),
+    execution: queryParamAsNumber(execution),
   };
 };

@@ -9,7 +9,7 @@ import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { H3 } from "components/Typography";
+import { H3, WordBreak } from "components/Typography";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
@@ -17,7 +17,6 @@ import {
   GroupedFiles,
 } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries/get-task-files";
-import { ExecutionAsData } from "pages/task/util/execution";
 import { RequiredQueryParams } from "types/task";
 import { queryParamAsNumber, parseQueryString } from "utils";
 
@@ -33,7 +32,7 @@ const columns = [
         rel="noopener noreferrer"
         target="_blank"
       >
-        {text}
+        <WordBreak>{text}</WordBreak>
       </a>
     ),
     defaultSortOrder: "ascend" as SortOrder,
@@ -54,7 +53,7 @@ export const FilesTables: React.FC = () => {
   >(GET_TASK_FILES, {
     variables: {
       id,
-      execution: ExecutionAsData(initialExecution),
+      execution: initialExecution,
     },
   });
   const [filterStr, setFilterStr] = useState("");

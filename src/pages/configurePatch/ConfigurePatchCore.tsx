@@ -24,6 +24,7 @@ import {
   VariantTasks,
   ConfigurePatchQuery,
   VariantTask,
+  ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
 import { withBannersContext } from "hoc/withBannersContext";
@@ -31,6 +32,8 @@ import { useTabs, useDefaultPath } from "hooks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
+import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
+import { omitTypename } from "utils/string";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
@@ -62,6 +65,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string[]>([
     get(variants[0], "name", ""),
   ]);
+
   const [
     selectedVariantTasks,
     setSelectedVariantTasks,
@@ -71,6 +75,10 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
   const [descriptionValue, setdescriptionValue] = useState<string>(
     patch.description || ""
   );
+  const [patchParams, setPatchParams] = useState<ParameterInput[]>(
+    omitTypename(patch?.parameters)
+  );
+
   const onChangePatchName = (e: React.ChangeEvent<HTMLInputElement>): void =>
     setdescriptionValue(e.target.value);
 
@@ -78,10 +86,11 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
     const configurePatchParam: PatchConfigure = {
       description: descriptionValue,
       variantsTasks: getGqlVariantTasksParamFromState(selectedVariantTasks),
+      parameters: patchParams,
     };
     try {
       await schedulePatch({
-        variables: { patchId: id, reconfigure: configurePatchParam },
+        variables: { patchId: id, configure: configurePatchParam },
       });
     } catch (error) {
       // TODO show error banner
@@ -153,6 +162,17 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
               <Tab data-cy="changes-tab" name="Changes" id="changes-tab">
                 <CodeChanges />
               </Tab>
+              <Tab
+                data-cy="parameters-tab"
+                name="Parameters"
+                id="parameters-tab"
+              >
+                <ParametersContent
+                  patchActivated={patch?.activated}
+                  patchParameters={patchParams}
+                  setPatchParams={setPatchParams}
+                />
+              </Tab>
             </StyledTabs>
           </PageContent>
         </PageLayout>
@@ -186,6 +206,7 @@ export interface VariantTasksState {
 enum PatchTab {
   Configure = "tasks",
   Changes = "changes",
+  Parameters = "parameters",
 }
 
 const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
@@ -206,6 +227,7 @@ const DEFAULT_TAB = PatchTab.Configure;
 const tabToIndexMap = {
   [PatchTab.Configure]: 0,
   [PatchTab.Changes]: 1,
+  [PatchTab.Parameters]: 2,
 };
 
 export const cardSidePadding = css`

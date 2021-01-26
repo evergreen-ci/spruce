@@ -56,7 +56,7 @@ describe("Patch Action Buttons", () => {
 
   it("Reconfigure link is disabled for patches on commit queue", () => {
     cy.dataCy("ellipsis-btn").click();
-    cy.dataCy("reconfigure-link").should("have.css", "pointer-events", "none");
+    cy.dataCy("reconfigure-link").should("have.attr", "disabled");
   });
 
   it("Clicking 'Set Priority' button shows popconfirm with input and banner on success", () => {

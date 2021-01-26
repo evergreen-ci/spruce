@@ -9,18 +9,21 @@ import {
 } from "gql/generated/types";
 import { GET_CREATED_TICKETS } from "gql/queries";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
+import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   taskId: string;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
+  buildBaronConfigured: boolean;
 }
 
 export const CreatedTickets: React.FC<Props> = ({
   taskId,
   setCreatedTicketsCount,
   createdTicketsCount,
+  buildBaronConfigured,
 }) => {
   const dispatchBanner = useBannerDispatchContext();
   const { data, startPolling, stopPolling } = useQuery<
@@ -58,6 +61,18 @@ export const CreatedTickets: React.FC<Props> = ({
           </TitleAndButtons>
           <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
         </>
+      )}
+      {buildBaronConfigured && (
+        <TitleAndButtons>
+          {length === 0 && (
+            <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
+          )}
+          <BBFileTicket
+            taskId={taskId}
+            setCreatedTicketsCount={setCreatedTicketsCount}
+            createdTicketsCount={createdTicketsCount}
+          />
+        </TitleAndButtons>
       )}
     </>
   );

@@ -32,6 +32,7 @@ const myHostsMock = {
             id: "ubuntu1804-workstation",
             user: "ubuntu",
             workDir: "/home/ubuntu",
+            isWindows: false,
             __typename: "DistroInfo",
           },
           hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
