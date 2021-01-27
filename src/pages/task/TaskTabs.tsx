@@ -1,0 +1,186 @@
+import { useState, useEffect, useRef } from "react";
+import { Tab } from "@leafygreen-ui/tabs";
+import { useParams, useHistory, useLocation } from "react-router-dom";
+import { useTaskAnalytics } from "analytics";
+import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
+import { TrendChartsPlugin } from "components/PerfPlugin";
+import { StyledTabs } from "components/styles/StyledTabs";
+import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { paths } from "constants/routes";
+import { GetTaskQuery } from "gql/generated/types";
+import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
+import { FilesTables } from "pages/task/FilesTables";
+import { Logs } from "pages/task/Logs";
+import { TestsTable } from "pages/task/TestsTable";
+import { TaskTab, TaskStatus } from "types/task";
+
+interface TaskTabProps {
+  task: GetTaskQuery["task"];
+  taskFiles: GetTaskQuery["taskFiles"];
+}
+export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
+  const { tab: urlTab } = useParams<{ id: string; tab: string | null }>();
+
+  const history = useHistory();
+  const location = useLocation();
+  const taskAnalytics = useTaskAnalytics();
+  const {
+    status,
+    failedTestCount,
+    logs: logLinks,
+    isPerfPluginEnabled,
+    annotation,
+    canModifyAnnotation,
+    id,
+    execution,
+    totalTestCount,
+  } = task ?? {};
+  const { fileCount } = taskFiles ?? {};
+
+  const {
+    showBuildBaron,
+    buildBaronData,
+    buildBaronError,
+    buildBaronLoading,
+  } = useBuildBaronVariables({
+    taskId: id,
+    execution,
+    taskStatus: status,
+  });
+
+  const failedTask =
+    status === TaskStatus.Failed ||
+    status === TaskStatus.SetupFailed ||
+    status === TaskStatus.SystemFailed ||
+    status === TaskStatus.TaskTimedOut ||
+    status === TaskStatus.TestTimedOut;
+
+  const showAnnotationsTab =
+    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
+
+  const tabMap = {
+    [TaskTab.Logs]: () => (
+      <Tab name="Logs" data-cy="task-logs-tab" key="task-logs-tab">
+        <Logs logLinks={logLinks} />
+      </Tab>
+    ),
+    [TaskTab.Tests]: () => (
+      <Tab
+        name={
+          <span>
+            {failedTestCount ? (
+              <TabLabelWithBadge
+                tabLabel="Tests"
+                badgeVariant="red"
+                badgeText={failedTestCount}
+                dataCyBadge="tests-tab-badge"
+              />
+            ) : (
+              "Tests"
+            )}
+          </span>
+        }
+        data-cy="task-tests-tab"
+        key="task-tests-tab"
+      >
+        <TestsTable />
+      </Tab>
+    ),
+    [TaskTab.Files]: () => (
+      <Tab
+        name={
+          <span>
+            {fileCount !== undefined ? (
+              <TabLabelWithBadge
+                tabLabel="Files"
+                badgeVariant="lightgray"
+                badgeText={fileCount}
+                dataCyBadge="files-tab-badge"
+              />
+            ) : (
+              "Files"
+            )}
+          </span>
+        }
+        data-cy="task-files-tab"
+        key="task-files-tab"
+      >
+        <FilesTables />
+      </Tab>
+    ),
+    [TaskTab.Annotations]: () => (
+      <Tab
+        name="Task Annotations"
+        data-cy="task-build-baron-tab"
+        key="task-build-baron-tab"
+      >
+        <BuildBaron
+          annotation={annotation}
+          bbData={buildBaronData}
+          error={buildBaronError}
+          taskId={id}
+          execution={execution}
+          loading={buildBaronLoading}
+          userCanModify={canModifyAnnotation}
+        />
+      </Tab>
+    ),
+    [TaskTab.TrendCharts]: () => (
+      <Tab
+        name="Trend Charts"
+        data-cy="trend-charts-tab"
+        key="trend-charts-tab"
+      >
+        <TrendChartsPlugin taskId={id} />
+      </Tab>
+    ),
+  };
+
+  const tabIsActive = {
+    [TaskTab.Logs]: true,
+    [TaskTab.Tests]: true,
+    [TaskTab.Files]: true,
+    [TaskTab.Annotations]: showAnnotationsTab,
+    [TaskTab.TrendCharts]: isPerfPluginEnabled,
+  };
+
+  const activeTabs = Object.keys(tabMap).filter((tab) => tabIsActive[tab]);
+
+  let defaultTab = 0;
+  if (urlTab) {
+    const tabIndex = activeTabs.indexOf(urlTab);
+    defaultTab = tabIndex > -1 ? tabIndex : 0;
+  } else if (totalTestCount > 0) {
+    defaultTab = 1;
+  }
+  const [selectedTab, setSelectedTab] = useState(defaultTab);
+
+  // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
+  const firstRender = useRef(true);
+  useEffect(() => {
+    if (id) {
+      const query = new URLSearchParams(location.search);
+      history.replace(
+        `${paths.task}/${id}/${activeTabs[selectedTab]}?${query.toString()}`
+      );
+      if (!firstRender.current) {
+        taskAnalytics.sendEvent({
+          name: "Change Tab",
+          tab: activeTabs[selectedTab],
+        });
+      } else {
+        firstRender.current = false;
+      }
+    }
+  }, [selectedTab, id]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  return (
+    <StyledTabs
+      selected={selectedTab}
+      setSelected={setSelectedTab}
+      aria-label="Task Page Tabs"
+    >
+      {activeTabs.map((tab: string) => tabMap[tab]())}
+    </StyledTabs>
+  );
+};
