@@ -36,7 +36,11 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   });
 
   return (
-    <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
+    <StyledTabs
+      selected={selectedTab}
+      setSelected={selectTabHandler}
+      aria-label="Patch Tabs"
+    >
       <Tab name="Tasks" id="task-tab" data-cy="task-tab">
         <Tasks taskCount={taskCount} />
       </Tab>
