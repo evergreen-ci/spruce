@@ -264,8 +264,7 @@ export const HostsTable: React.FC<Props> = ({
     let canRestart = true;
     let errorMessage = "Jasper cannot be restarted for:";
     const errorHosts = [];
-    for (let i = 0; i < selectedHosts.length; i++) {
-      const host = selectedHosts[i];
+    selectedHosts.forEach((host) => {
       const bootstrapMethod = host?.distro?.bootstrapMethod;
       if (
         !(
@@ -276,7 +275,7 @@ export const HostsTable: React.FC<Props> = ({
         canRestart = false;
         errorHosts.push(` ${host?.id}`);
       }
-    }
+    });
     errorMessage += ` ${errorHosts}`;
     setCanRestartJasper(canRestart);
     setRestartJasperError(errorMessage);

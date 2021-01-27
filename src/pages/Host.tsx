@@ -53,10 +53,8 @@ export const HostCore: React.FC = () => {
   });
 
   const host = hostData?.host;
-  const bootstrapMethod = host?.distro?.bootstrapMethod;
-  const hostId = host?.id;
-  const hostUrl = host?.hostUrl;
-  const user = host?.user;
+  const { distro, id: hostId, hostUrl, user } = host || {};
+  const bootstrapMethod = distro?.bootstrapMethod;
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const tag = host?.tag ?? "";
