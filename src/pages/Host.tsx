@@ -53,6 +53,7 @@ export const HostCore: React.FC = () => {
   });
 
   const host = hostData?.host;
+  const bootstrapMethod = host?.distro?.bootstrapMethod;
   const hostId = host?.id;
   const hostUrl = host?.hostUrl;
   const user = host?.user;
@@ -83,6 +84,9 @@ export const HostCore: React.FC = () => {
 
   usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 
+  const canRestartJasper =
+    host?.status === "running" &&
+    (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
   return (
     <PageWrapper data-cy="host-page">
       <Banners
@@ -112,6 +116,8 @@ export const HostCore: React.FC = () => {
                     selectedHostIds={[id]}
                     hostUrl={hostUrl}
                     isSingleHost
+                    canRestartJasper={canRestartJasper}
+                    jasperTooltipMessage="Jasper cannot be restarted for this host"
                   />
                 </ButtonsWrapper>
               </div>
