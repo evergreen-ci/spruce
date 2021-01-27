@@ -34,9 +34,11 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     id,
     execution,
     totalTestCount,
+    executionTasksFull,
   } = task ?? {};
   const { fileCount } = taskFiles ?? {};
 
+  const isDisplayTask = executionTasksFull != null;
   const {
     showBuildBaron,
     buildBaronData,
@@ -64,6 +66,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         <Logs logLinks={logLinks} />
       </Tab>
     ),
+
     [TaskTab.Tests]: () => (
       <Tab
         name={
@@ -84,6 +87,15 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         key="task-tests-tab"
       >
         <TestsTable />
+      </Tab>
+    ),
+    [TaskTab.ExecutionTasks]: () => (
+      <Tab
+        name="Execution Tasks"
+        data-cy="execution-tasks-tab"
+        key="execution-tasks-tab"
+      >
+        Execution Tasks
       </Tab>
     ),
     [TaskTab.Files]: () => (
@@ -137,7 +149,8 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   };
 
   const tabIsActive = {
-    [TaskTab.Logs]: true,
+    [TaskTab.Logs]: !isDisplayTask,
+    [TaskTab.ExecutionTasks]: isDisplayTask,
     [TaskTab.Tests]: true,
     [TaskTab.Files]: true,
     [TaskTab.Annotations]: showAnnotationsTab,
