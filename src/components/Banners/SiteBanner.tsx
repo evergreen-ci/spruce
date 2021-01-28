@@ -5,6 +5,7 @@ import IconButton from "@leafygreen-ui/icon-button";
 import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import { styles } from "components/Banners";
+import { getJiraTicketUrl } from "constants/externalResources";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 
@@ -34,7 +35,7 @@ export const SiteBanner = () => {
   const jiraLinkify = (unlinkified: string) => {
     const linkified = unlinkified.replace(
       /[A-Z]{1,10}-\d{1,6}/gi,
-      (match) => `<a href="https://${jiraHost}/browse/${match}">${match}</a>`
+      (match) => `<a href="${getJiraTicketUrl(jiraHost, match)}">${match}</a>`
     );
     return parse(linkified);
   };
