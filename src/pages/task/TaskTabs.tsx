@@ -166,9 +166,8 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   const activeTabs = Object.keys(tabMap).filter((tab) => tabIsActive[tab]);
 
   let defaultTab = 0;
-  if (urlTab) {
-    const tabIndex = activeTabs.indexOf(urlTab);
-    defaultTab = tabIndex > -1 ? tabIndex : 0;
+  if (urlTab && activeTabs.indexOf(urlTab) > -1) {
+    defaultTab = activeTabs.indexOf(urlTab);
   } else if (isDisplayTask) {
     defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
   } else if (totalTestCount > 0) {
