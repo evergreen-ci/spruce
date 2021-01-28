@@ -6,6 +6,9 @@ export const GET_HOST = gql`
       id
       hostUrl
       distroId
+      distro {
+        bootstrapMethod
+      }
       tag
       provider
       startedBy

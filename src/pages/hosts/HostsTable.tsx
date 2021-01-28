@@ -30,6 +30,8 @@ interface Props {
   selectedHostIds: string[];
   loading: boolean;
   setSelectedHostIds: React.Dispatch<React.SetStateAction<string[]>>;
+  setCanRestartJasper: React.Dispatch<React.SetStateAction<boolean>>;
+  setRestartJasperError: React.Dispatch<React.SetStateAction<string>>;
 }
 
 type Host = HostsQuery["hosts"]["hosts"][0];
@@ -42,6 +44,8 @@ export const HostsTable: React.FC<Props> = ({
   sortDir,
   selectedHostIds,
   setSelectedHostIds,
+  setCanRestartJasper,
+  setRestartJasperError,
   loading,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics();
@@ -256,9 +260,34 @@ export const HostsTable: React.FC<Props> = ({
     },
   ];
 
+  const canRestartJasper = (selectedHosts) => {
+    let canRestart = true;
+    let errorMessage = "Jasper cannot be restarted for:";
+    const errorHosts = [];
+    selectedHosts.forEach((host) => {
+      const bootstrapMethod = host?.distro?.bootstrapMethod;
+      if (
+        !(
+          host?.status === "running" &&
+          (bootstrapMethod === "ssh" || bootstrapMethod === "user-data")
+        )
+      ) {
+        canRestart = false;
+        errorHosts.push(` ${host?.id}`);
+      }
+    });
+    errorMessage += ` ${errorHosts}`;
+    setCanRestartJasper(canRestart);
+    setRestartJasperError(errorMessage);
+  };
+
   const onSelectChange: TableRowSelection<Host>["onChange"] = (
-    selectedRowKeys
-  ) => setSelectedHostIds(selectedRowKeys as string[]);
+    selectedRowKeys,
+    selectedRows
+  ) => {
+    setSelectedHostIds(selectedRowKeys as string[]);
+    canRestartJasper(selectedRows);
+  };
 
   return (
     <Table
