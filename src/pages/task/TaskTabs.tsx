@@ -9,11 +9,11 @@ import { TasksTable } from "components/Table/TasksTable";
 import { paths } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { BuildBaron } from "pages/task/taskTabs/BuildBaron";
-import { FilesTables } from "pages/task/taskTabs/FilesTables";
-import { Logs } from "pages/task/taskTabs/Logs";
-import { TestsTable } from "pages/task/taskTabs/TestsTable";
 import { TaskTab, TaskStatus } from "types/task";
+import { BuildBaron } from "./taskTabs/BuildBaron";
+import { FilesTables } from "./taskTabs/FilesTables";
+import { Logs } from "./taskTabs/Logs";
+import { TestsTable } from "./taskTabs/TestsTable";
 
 interface TaskTabProps {
   task: GetTaskQuery["task"];
