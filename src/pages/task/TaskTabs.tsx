@@ -6,6 +6,7 @@ import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
+import { TasksTable } from "components/Table/TasksTable";
 import { paths } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
@@ -61,13 +62,13 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     failedTask && (showBuildBaron || annotation || canModifyAnnotation);
 
   const tabMap = {
-    [TaskTab.Logs]: () => (
+    [TaskTab.Logs]: (
       <Tab name="Logs" data-cy="task-logs-tab" key="task-logs-tab">
         <Logs logLinks={logLinks} />
       </Tab>
     ),
 
-    [TaskTab.Tests]: () => (
+    [TaskTab.Tests]: (
       <Tab
         name={
           <span>
@@ -89,16 +90,21 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         <TestsTable />
       </Tab>
     ),
-    [TaskTab.ExecutionTasks]: () => (
+    [TaskTab.ExecutionTasks]: (
       <Tab
         name="Execution Tasks"
         data-cy="execution-tasks-tab"
         key="execution-tasks-tab"
       >
-        Execution Tasks
+        <TasksTable
+          tasks={executionTasksFull}
+          onClickTaskLink={() =>
+            taskAnalytics.sendEvent({ name: "Click Execution Task Link" })
+          }
+        />
       </Tab>
     ),
-    [TaskTab.Files]: () => (
+    [TaskTab.Files]: (
       <Tab
         name={
           <span>
@@ -120,7 +126,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         <FilesTables />
       </Tab>
     ),
-    [TaskTab.Annotations]: () => (
+    [TaskTab.Annotations]: (
       <Tab
         name="Task Annotations"
         data-cy="task-build-baron-tab"
@@ -137,7 +143,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         />
       </Tab>
     ),
-    [TaskTab.TrendCharts]: () => (
+    [TaskTab.TrendCharts]: (
       <Tab
         name="Trend Charts"
         data-cy="trend-charts-tab"
@@ -193,7 +199,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
       setSelected={setSelectedTab}
       aria-label="Task Page Tabs"
     >
-      {activeTabs.map((tab: string) => tabMap[tab]())}
+      {activeTabs.map((tab: string) => tabMap[tab])}
     </StyledTabs>
   );
 };
