@@ -592,6 +592,7 @@ export type DistroInfo = {
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
   isWindows?: Maybe<Scalars["Boolean"]>;
+  bootstrapMethod?: Maybe<Scalars["String"]>;
 };
 
 export type Distro = {
@@ -1746,6 +1747,7 @@ export type HostQuery = {
     user?: Maybe<string>;
     status: string;
     lastCommunicationTime?: Maybe<Date>;
+    distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
     runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
   }>;
 };
@@ -2237,6 +2239,7 @@ export type HostsQuery = {
       elapsed?: Maybe<Date>;
       provider: string;
       noExpiration: boolean;
+      distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
   };

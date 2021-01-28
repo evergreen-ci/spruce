@@ -3,7 +3,7 @@ import { popconfirmYesClassName } from "../../utils/popconfirm";
 describe("Host page restart jasper and update host status buttons", () => {
   before(() => {
     cy.login();
-    cy.visit("/host/i-092593689871a50dc");
+    cy.visit("/host/i-0d0ae8b83366d22be");
   });
 
   beforeEach(() => {
