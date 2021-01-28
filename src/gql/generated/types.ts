@@ -1256,6 +1256,14 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
+export type CodeChangesTableFileDiffsFragment = {
+  fileName: string;
+  additions: number;
+  deletions: number;
+  diffLink: string;
+  description: string;
+};
+
 export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
@@ -1623,13 +1631,7 @@ export type CodeChangesQuery = {
       branchName: string;
       htmlLink: string;
       rawLink: string;
-      fileDiffs: Array<{
-        fileName: string;
-        additions: number;
-        deletions: number;
-        diffLink: string;
-        description: string;
-      }>;
+      fileDiffs: Array<CodeChangesTableFileDiffsFragment>;
     }>;
   };
 };
@@ -1656,13 +1658,7 @@ export type CommitQueueQuery = {
             rawLink: string;
             branchName: string;
             htmlLink: string;
-            fileDiffs: Array<{
-              description: string;
-              fileName: string;
-              additions: number;
-              deletions: number;
-              diffLink: string;
-            }>;
+            fileDiffs: Array<CodeChangesTableFileDiffsFragment>;
           }>;
         }>;
       }>
