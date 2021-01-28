@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "1.18.2",
+  "version": "1.18.3",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "4.2.2",
