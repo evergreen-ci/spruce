@@ -29,6 +29,7 @@ interface Props {
   isIssue: boolean;
   userCanModify: boolean;
   selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const AnnotationTicketsTable: React.FC<Props> = ({
@@ -39,6 +40,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   jiraIssues,
   isIssue,
   selectedRowKey,
+  setSelectedRowKey,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const dispatchBanner = useBannerDispatchContext();
@@ -177,6 +179,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     const analyticsType = isIssue
       ? "Move Annotation Issue"
       : "Move Annotation Suspected Issue";
+    setSelectedRowKey(issueKey);
     annotationAnalytics.sendEvent({
       name: analyticsType,
     });

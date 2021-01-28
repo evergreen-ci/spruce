@@ -4,9 +4,10 @@ import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TaskResult, SortDirection, PatchTasks } from "gql/generated/types";
+import { TaskResult, PatchTasks } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
+import { toSortString } from "../util";
 
 interface Props {
   data?: PatchTasks;
@@ -19,13 +20,9 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
 
   const patchAnalytics = usePatchAnalytics();
   const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
-    const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
-
     const nextQueryParams = stringifyQuery({
       ...parseQueryString(search),
-      [PatchTasksQueryParams.SortDir]:
-        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
-      [PatchTasksQueryParams.SortBy]: columnKey,
+      sorts: toSortString(sorter),
       [PatchTasksQueryParams.Page]: "0",
     });
     if (nextQueryParams !== search.split("?")[1]) {
