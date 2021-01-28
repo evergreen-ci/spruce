@@ -32,7 +32,10 @@ export const CodeChangeModule: React.FC<{
     return (
       <CodeChangeModuleContainer>
         {description && (
-          <CommitName data-cy="commit-name">{description}</CommitName>
+          // This spans purpose is to hold data-cy
+          <span data-cy="commit-name">
+            <CommitName>{description}</CommitName>
+          </span>
         )}
         <Accordian
           title={
