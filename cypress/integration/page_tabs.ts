@@ -12,6 +12,7 @@ const tasks = {
     "evergreen_ubuntu1604_test_auth_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
   noTests:
     "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+  displayTask: "evergreen_ubuntu1604_89",
 };
 
 const taskRoute = (id: string) => `/task/${id}`;
@@ -29,6 +30,10 @@ const task = {
     route: `${taskRoute(tasks.withTests)}/files`,
     btn: "task-files-tab",
   },
+  display: {
+    route: `${taskRoute(tasks.displayTask)}/execution-task`,
+    btn: "task-execution-tab",
+  },
 };
 
 const locationPathEquals = (path) =>
@@ -43,7 +48,7 @@ describe("Tabs", () => {
     cy.preserveCookies();
   });
 
-  describe("patches page", () => {
+  describe("Patches page", () => {
     it("selects tasks tab by default", () => {
       cy.visit(patchRoute);
       cy.dataCy(patches.tasks.btn)
@@ -115,6 +120,13 @@ describe("Tabs", () => {
     it("Should display a badge with the number of files in the Files tab", () => {
       cy.visit(task.files.route);
       cy.dataCy("files-tab-badge").contains("0");
+    });
+
+    it("Should default to the execution task tab if the task is a display task", () => {
+      cy.visit(taskRoute(tasks.displayTask));
+      cy.dataCy(task.display.btn)
+        .should("have.attr", "aria-selected")
+        .and("eq", "true");
     });
   });
 });

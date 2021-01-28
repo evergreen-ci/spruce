@@ -93,7 +93,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     [TaskTab.ExecutionTasks]: (
       <Tab
         name="Execution Tasks"
-        data-cy="execution-tasks-tab"
+        data-cy="task-execution-tab"
         key="execution-tasks-tab"
       >
         <TasksTable
@@ -169,8 +169,10 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   if (urlTab) {
     const tabIndex = activeTabs.indexOf(urlTab);
     defaultTab = tabIndex > -1 ? tabIndex : 0;
+  } else if (isDisplayTask) {
+    defaultTab = activeTabs.indexOf(TaskTab.ExecutionTasks);
   } else if (totalTestCount > 0) {
-    defaultTab = 1;
+    defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
   const [selectedTab, setSelectedTab] = useState(defaultTab);
 
