@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
@@ -10,9 +9,10 @@ import { TasksTable } from "components/Table/TasksTable";
 import { paths } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { FilesTables } from "pages/task/FilesTables";
-import { Logs } from "pages/task/Logs";
-import { TestsTable } from "pages/task/TestsTable";
+import { BuildBaron } from "pages/task/taskTabs/BuildBaron";
+import { FilesTables } from "pages/task/taskTabs/FilesTables";
+import { Logs } from "pages/task/taskTabs/Logs";
+import { TestsTable } from "pages/task/taskTabs/TestsTable";
 import { TaskTab, TaskStatus } from "types/task";
 
 interface TaskTabProps {

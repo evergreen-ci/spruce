@@ -2,7 +2,6 @@ import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { withRouter } from "react-router-dom";
 import { GET_TASK_EVENT_DATA } from "analytics/task/query";
-import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
   GET_BUILD_BARON,
@@ -15,6 +14,7 @@ import {
   fireEvent,
   waitFor,
 } from "test_utils/test-utils";
+import BuildBaron from "./BuildBaron";
 import "test_utils/__mocks__/matchmedia.mock";
 
 const taskId =

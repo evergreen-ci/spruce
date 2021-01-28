@@ -27,12 +27,12 @@ import {
   GET_EVENT_LOGS,
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
-} from "gql/queries/get-task-logs";
+} from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { LogMessageLine } from "pages/task/logs/logTypes/LogMessageLine";
-import { TaskEventLogLine } from "pages/task/logs/logTypes/TaskEventLogLine";
 import { RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
+import { LogMessageLine } from "./logTypes/LogMessageLine";
+import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
 const { gray } = uiColors;
 

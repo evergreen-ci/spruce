@@ -4,7 +4,6 @@ import styled from "@emotion/styled/macro";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
 import { Table, Skeleton, Input } from "antd";
-
 import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
@@ -16,7 +15,7 @@ import {
   File,
   GroupedFiles,
 } from "gql/generated/types";
-import { GET_TASK_FILES } from "gql/queries/get-task-files";
+import { GET_TASK_FILES } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
 import { queryParamAsNumber, parseQueryString } from "utils";
 
