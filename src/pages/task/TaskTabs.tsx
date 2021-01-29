@@ -6,7 +6,7 @@ import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { TasksTable } from "components/Table/TasksTable";
-import { paths } from "constants/routes";
+import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab, TaskStatus } from "types/task";
@@ -181,7 +181,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     if (id) {
       const query = new URLSearchParams(location.search);
       history.replace(
-        `${paths.task}/${id}/${activeTabs[selectedTab]}?${query.toString()}`
+        getTaskRoute(id, activeTabs[selectedTab], query.toString())
       );
       if (!firstRender.current) {
         taskAnalytics.sendEvent({

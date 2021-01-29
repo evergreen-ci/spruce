@@ -65,16 +65,14 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<TaskResult>[] => [
     dataIndex: "status",
     key: TaskSortCategory.Status,
     sorter: (a, b) => a.status.localeCompare(b.status),
-
     className: "cy-task-table-col-STATUS",
     render: renderStatusBadge,
   },
   {
     title: "Base Status",
-    dataIndex: ["baseStatus"],
+    dataIndex: "baseStatus",
     key: TaskSortCategory.BaseStatus,
     sorter: (a, b) => a.baseStatus?.localeCompare(b.baseStatus),
-
     className: "cy-task-table-col-BASE_STATUS",
     render: renderStatusBadge,
   },
@@ -102,54 +100,38 @@ const getColumnDefsControlled = (
     }
     return undefined;
   };
-  return [
+  const sortProps = [
     {
-      title: "Name",
-      dataIndex: "displayName",
-      key: TaskSortCategory.Name,
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
-      width: "40%",
-      className: "cy-task-table-col-NAME",
-      render: (name: string, { id }: TaskResult): JSX.Element => (
-        <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
-      ),
     },
     {
-      title: "Patch Status",
-      dataIndex: "status",
-      key: TaskSortCategory.Status,
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
-      className: "cy-task-table-col-STATUS",
-      render: renderStatusBadge,
     },
     {
-      title: "Base Status",
       dataIndex: ["baseTask", "status"],
-      key: TaskSortCategory.BaseStatus,
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
-      className: "cy-task-table-col-BASE_STATUS",
-      render: renderStatusBadge,
     },
     {
-      title: "Variant",
-      dataIndex: "buildVariant",
-      key: TaskSortCategory.Variant,
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Variant, sortOrder),
-      className: "cy-task-table-col-VARIANT",
     },
   ];
+
+  return getColumnDefs(onClickTaskLink).map((columnDef, i) => ({
+    ...columnDef,
+    ...sortProps[i],
+  }));
 };
 
 const renderStatusBadge = (
@@ -176,4 +158,5 @@ const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName, onClick }) => (
     <WordBreak>{taskName}</WordBreak>
   </StyledRouterLink>
 );
+
 const rowKey = ({ id }: { id: string }): string => id;

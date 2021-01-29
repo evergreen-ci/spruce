@@ -91,8 +91,8 @@ export const getVersionRoute = (
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
-export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
-
+export const getTaskRoute = (taskId: string, tab?: string, options?: string) =>
+  `${paths.task}/${taskId}/${tab}${options && `?${options}`}`;
 export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 
