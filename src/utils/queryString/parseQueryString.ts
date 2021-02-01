@@ -1,6 +1,9 @@
 import queryString from "query-string";
 
-export const parseQueryString = (search: string) =>
+interface ParseQueryString {
+  [key: string]: string | string[];
+}
+export const parseQueryString = (search: string): ParseQueryString =>
   queryString.parse(search, { arrayFormat: "comma" });
 
 export const getString = (param: string | string[] = ""): string =>

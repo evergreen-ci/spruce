@@ -1,20 +1,19 @@
 import React from "react";
-import { Table } from "antd";
-import { ColumnProps } from "antd/es/table";
 import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TaskResult, PatchTasks } from "gql/generated/types";
+import { TasksTable } from "components/Table/TasksTable";
+import { TaskResult, PatchTasks, SortOrder } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
 import { toSortString } from "../util";
 
 interface Props {
   data?: PatchTasks;
-  columns: Array<ColumnProps<TaskResult>>;
+  sorts: SortOrder[];
 }
 
-export const TasksTable: React.FC<Props> = ({ data, columns }) => {
+export const PatchTasksTable: React.FC<Props> = ({ data, sorts }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
@@ -31,24 +30,22 @@ export const TasksTable: React.FC<Props> = ({ data, columns }) => {
   };
 
   return (
-    <Table
-      data-test-id="tasks-table"
-      rowKey={rowKey}
-      pagination={false}
-      columns={columns}
-      dataSource={get(data, "tasks", []) as TaskResult[]}
-      onChange={tableChangeHandler}
-      childrenColumnName="executionTasksFull"
-      expandable={{
-        onExpand: (expanded) => {
-          patchAnalytics.sendEvent({
-            name: "Toggle Display Task Dropdown",
-            expanded,
-          });
-        },
+    <TasksTable
+      sorts={sorts}
+      tableChangeHandler={tableChangeHandler}
+      tasks={get(data, "tasks", []) as TaskResult[]}
+      onExpand={(expanded) => {
+        patchAnalytics.sendEvent({
+          name: "Toggle Display Task Dropdown",
+          expanded,
+        });
       }}
+      onClickTaskLink={(taskId) =>
+        patchAnalytics.sendEvent({
+          name: "Click Task Table Link",
+          taskId,
+        })
+      }
     />
   );
 };
-
-const rowKey = ({ id }: { id: string }): string => id;

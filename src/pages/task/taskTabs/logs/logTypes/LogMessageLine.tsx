@@ -4,7 +4,7 @@ import { format } from "date-fns";
 import parse from "html-react-parser";
 import linkifyHtml from "linkifyjs/html";
 import { LogMessage } from "gql/generated/types";
-import { getLogLineWrapper } from "pages/task/logs/logTypes/logMessageLine/LogLines";
+import { getLogLineWrapper } from "./logMessageLine/LogLines";
 
 const FORMAT_STR = "yyyy/MM/d, HH:mm:ss.SSS";
 const ansiUp = new AnsiUp();

@@ -3,8 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
-import { ColumnProps } from "antd/lib/table";
-import { SortOrder as antSortOrder } from "antd/lib/table/interface";
+
 import every from "lodash.every";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -18,25 +17,15 @@ import {
   TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
-  StyledRouterLink,
 } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
-import {
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
-  TaskResult,
-  SortDirection,
-  TaskSortCategory,
-  SortOrder,
-} from "gql/generated/types";
+import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
-import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { parseSortString } from "./util";
@@ -119,10 +108,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={showSkeleton}>
-        <TasksTable
-          columns={getColumnDefs(sorts)}
-          data={get(data, "patchTasks", [])}
-        />
+        <PatchTasksTable sorts={sorts} data={get(data, "patchTasks", [])} />
       </TableContainer>
       {showSkeleton && (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
@@ -190,97 +176,6 @@ const getQueryVariables = (
     page: getPageFromSearch(search),
     limit: getLimitFromSearch(search),
   };
-};
-
-const getColumnDefs = (sortOrder: SortOrder[]): ColumnProps<TaskResult>[] => {
-  const getSortDir = (
-    key: string,
-    sorts: SortOrder[]
-  ): antSortOrder | undefined => {
-    for (let i = 0; i < sorts.length; i++) {
-      if (sorts[i].Key === key) {
-        return sorts[i].Direction === SortDirection.Desc ? "descend" : "ascend";
-      }
-    }
-    return undefined;
-  };
-  return [
-    {
-      title: "Name",
-      dataIndex: "displayName",
-      key: TaskSortCategory.Name,
-      sorter: {
-        multiple: 4,
-      },
-      sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
-      width: "40%",
-      className: "cy-task-table-col-NAME",
-      render: (name: string, { id }: TaskResult): JSX.Element => (
-        <TaskLink taskName={name} taskId={id} />
-      ),
-    },
-    {
-      title: "Patch Status",
-      dataIndex: "status",
-      key: TaskSortCategory.Status,
-      sorter: {
-        multiple: 4,
-      },
-      sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
-      className: "cy-task-table-col-STATUS",
-      render: renderStatusBadge,
-    },
-    {
-      title: "Base Status",
-      dataIndex: ["baseTask", "status"],
-      key: TaskSortCategory.BaseStatus,
-      sorter: {
-        multiple: 4,
-      },
-      sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
-      className: "cy-task-table-col-BASE_STATUS",
-      render: renderStatusBadge,
-    },
-    {
-      title: "Variant",
-      dataIndex: "buildVariant",
-      key: TaskSortCategory.Variant,
-      sorter: {
-        multiple: 4,
-      },
-      sortOrder: getSortDir(TaskSortCategory.Variant, sortOrder),
-      className: "cy-task-table-col-VARIANT",
-    },
-  ];
-};
-
-const renderStatusBadge = (
-  status: string,
-  { blocked }: TaskResult
-): null | JSX.Element => {
-  if (status === "" || !status) {
-    return null;
-  }
-  return (
-    <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
-    </ErrorBoundary>
-  );
-};
-
-interface TaskLinkProps {
-  taskId: string;
-  taskName: string;
-}
-const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName }) => {
-  const patchAnalytics = usePatchAnalytics();
-  const onClick = () =>
-    patchAnalytics.sendEvent({ name: "Click Task Table Link", taskId });
-  return (
-    <StyledRouterLink onClick={onClick} to={`/task/${taskId}`}>
-      <WordBreak>{taskName}</WordBreak>
-    </StyledRouterLink>
-  );
 };
 
 const FlexContainer = styled.div`

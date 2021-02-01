@@ -2091,6 +2091,16 @@ export type GetTaskQuery = {
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
     canModifyAnnotation: boolean;
+    executionTasksFull?: Maybe<
+      Array<{
+        displayName: string;
+        id: string;
+        execution: number;
+        status: string;
+        baseStatus?: Maybe<string>;
+        buildVariant: string;
+      }>
+    >;
     baseTaskMetadata?: Maybe<{
       baseTaskDuration?: Maybe<number>;
       baseTaskLink: string;
