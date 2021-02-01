@@ -125,7 +125,7 @@
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@storybook/addon-actions": "6.1.10",
-    "@storybook/addon-links": "6.1.10",
+    "@storybook/addon-links": "6.1.15",
     "@storybook/addons": "6.1.10",
     "@storybook/preset-create-react-app": "3.1.5",
     "@storybook/react": "6.1.10",
