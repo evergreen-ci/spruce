@@ -146,7 +146,11 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
+            <StyledTabs
+              selected={selectedTab}
+              setSelected={selectTabHandler}
+              aria-label="Configure Patch Tabs"
+            >
               <Tab name="Configure" id="task-tab">
                 <ConfigureTasks
                   {...{

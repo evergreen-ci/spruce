@@ -1,4 +1,5 @@
-import { PatchTasksQueryParams } from "types/task";
+import { PatchTab } from "types/patch";
+import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { stringifyQuery } from "utils";
 
 enum PageNames {
@@ -57,11 +58,6 @@ export const routes = {
   version: `${paths.version}/:id/:tab?`,
 };
 
-export enum PatchTab {
-  Tasks = "tasks",
-  Changes = "changes",
-}
-
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
 
 export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
@@ -91,8 +87,19 @@ export const getVersionRoute = (
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
-export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
-
+interface GetTaskRouteOptions {
+  tab?: TaskTab;
+  [key: string]: any;
+}
+export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
+  const { tab, ...rest } = options || {};
+  const queryParams = stringifyQuery({
+    ...rest,
+  });
+  return `${paths.task}/${taskId}${tab ? `/${tab}` : ""}${
+    queryParams ? `?${queryParams}` : ""
+  }`;
+};
 export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 

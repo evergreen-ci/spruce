@@ -9,6 +9,14 @@ export const GET_TASK = gql`
       id
       execution
       activatedBy
+      executionTasksFull {
+        displayName
+        id
+        execution
+        status
+        baseStatus
+        buildVariant
+      }
       baseTaskMetadata {
         baseTaskDuration
         baseTaskLink

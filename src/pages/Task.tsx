@@ -1,26 +1,20 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
-import BuildBaron from "components/BuildBaronAndAnnotations/BuildBaron";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
-import { TrendChartsPlugin } from "components/PerfPlugin";
 import {
   PageWrapper,
   PageContent,
   PageLayout,
   PageSider,
 } from "components/styles";
-import { StyledTabs } from "components/styles/StyledTabs";
-import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
-import { paths } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -28,28 +22,17 @@ import {
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
-import { useTabs, usePageTitle, useNetworkStatus } from "hooks";
-import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
+import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
-import { FilesTables } from "pages/task/FilesTables";
-import { Logs } from "pages/task/Logs";
 import { Metadata } from "pages/task/Metadata";
-import { TestsTable } from "pages/task/TestsTable";
-import { TaskTab, RequiredQueryParams, TaskStatus } from "types/task";
+import { RequiredQueryParams, TaskStatus } from "types/task";
 import { parseQueryString } from "utils";
-
-const tabToIndexMap = {
-  [TaskTab.Logs]: 0,
-  [TaskTab.Tests]: 1,
-  [TaskTab.Files]: 2,
-  [TaskTab.Annotations]: 3,
-  [TaskTab.TrendCharts]: 4,
-};
+import { TaskTabs } from "./task/TaskTabs";
 
 const TaskCore: React.FC = () => {
-  const { id, tab } = useParams<{ id: string; tab: string | null }>();
+  const { id } = useParams<{ id: string; tab: string | null }>();
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
   const taskAnalytics = useTaskAnalytics();
@@ -85,16 +68,10 @@ const TaskCore: React.FC = () => {
     priority,
     status,
     version,
-    totalTestCount,
-    failedTestCount,
-    logs: logLinks,
-    isPerfPluginEnabled,
     annotation,
     latestExecution,
     patchMetadata,
-    canModifyAnnotation,
   } = task ?? {};
-  const { fileCount } = taskFiles ?? {};
   const { author: patchAuthor } = patchMetadata ?? {};
   const attributed = annotation?.issues?.length > 0;
 
@@ -105,50 +82,7 @@ const TaskCore: React.FC = () => {
     });
   }
 
-  const {
-    showBuildBaron,
-    buildBaronData,
-    buildBaronError,
-    buildBaronLoading,
-  } = useBuildBaronVariables({
-    taskId: id,
-    execution: selectedExecution,
-    taskStatus: status,
-  });
-
-  const failedTask =
-    status === TaskStatus.Failed ||
-    status === TaskStatus.SetupFailed ||
-    status === TaskStatus.SystemFailed ||
-    status === TaskStatus.TaskTimedOut ||
-    status === TaskStatus.TestTimedOut;
-
-  const showAnnotationsTab =
-    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
-
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
-
-  // logic for tabs + updating url when they change
-  const [selectedTab, selectTabHandler] = useTabs({
-    tabToIndexMap,
-    defaultTab: TaskTab.Logs,
-    path: `${paths.task}/${id}`,
-    query: new URLSearchParams(location.search),
-    sendAnalyticsEvent: (newTab: string) =>
-      taskAnalytics.sendEvent({ name: "Change Tab", tab: newTab }),
-  });
-
-  useEffect(() => {
-    // the hierarchy of which tab loads first is:
-    // 1. if the URL contains a tab, that trumps everything
-    // 2. if the task has at least 1 test, load the tests tab
-    // 3. otherwise load the logs tab (this default is set in the useTabs hook)
-    if (tab in tabToIndexMap) {
-      selectTabHandler(tabToIndexMap[tab]);
-    } else if (data && totalTestCount > 0) {
-      selectTabHandler(tabToIndexMap[TaskTab.Tests]);
-    }
-  }, [data, tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   if (error) {
     stopPolling();
@@ -223,71 +157,7 @@ const TaskCore: React.FC = () => {
         </PageSider>
         <LogWrapper>
           <PageContent>
-            <StyledTabs selected={selectedTab} setSelected={selectTabHandler}>
-              <Tab name="Logs" data-cy="task-logs-tab">
-                <Logs logLinks={logLinks} />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {failedTestCount ? (
-                      <TabLabelWithBadge
-                        tabLabel="Tests"
-                        badgeVariant="red"
-                        badgeText={failedTestCount}
-                        dataCyBadge="tests-tab-badge"
-                      />
-                    ) : (
-                      "Tests"
-                    )}
-                  </span>
-                }
-                data-cy="task-tests-tab"
-              >
-                <TestsTable />
-              </Tab>
-              <Tab
-                name={
-                  <span>
-                    {fileCount !== undefined ? (
-                      <TabLabelWithBadge
-                        tabLabel="Files"
-                        badgeVariant="lightgray"
-                        badgeText={fileCount}
-                        dataCyBadge="files-tab-badge"
-                      />
-                    ) : (
-                      "Files"
-                    )}
-                  </span>
-                }
-                data-cy="task-files-tab"
-              >
-                <FilesTables />
-              </Tab>
-              <Tab
-                name="Task Annotations"
-                data-cy="task-build-baron-tab"
-                disabled={!showAnnotationsTab}
-              >
-                <BuildBaron
-                  annotation={annotation}
-                  bbData={buildBaronData}
-                  error={buildBaronError}
-                  taskId={id}
-                  execution={selectedExecution}
-                  loading={buildBaronLoading}
-                  userCanModify={canModifyAnnotation}
-                />
-              </Tab>
-              <Tab
-                name="Trend Charts"
-                data-cy="trend-charts-tab"
-                disabled={!isPerfPluginEnabled}
-              >
-                <TrendChartsPlugin taskId={id} />
-              </Tab>
-            </StyledTabs>
+            {task && <TaskTabs task={task} taskFiles={taskFiles} />}
           </PageContent>
         </LogWrapper>
       </PageLayout>
@@ -302,7 +172,7 @@ const LogWrapper = styled(PageLayout)`
 `;
 
 const StyledBadgeWrapper = styled.div`
-  > :nth-child(2) {
+  > :nth-of-type(2) {
     margin-left: 10px;
   }
 `;

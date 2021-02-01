@@ -5,7 +5,7 @@ import { FiltersWrapper, StyledInput } from "components/styles";
 import { TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
-import { TestsTableCore } from "pages/task/testsTable/TestsTableCore";
+import { TestsTableCore } from "pages/task/taskTabs/testsTable/TestsTableCore";
 import { RequiredQueryParams, TestStatus } from "types/task";
 
 export const TestsTable: React.FC = () => {

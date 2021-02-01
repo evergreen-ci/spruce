@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
-
 import {
   EventLog,
   AgentLog,
@@ -9,7 +8,7 @@ import {
   TaskLog,
   LogTypes,
   QueryParams,
-} from "pages/task/logs/LogTypes";
+} from "./logs/LogTypes";
 
 const DEFAULT_LOG_TYPE = LogTypes.Task;
 
