@@ -27,7 +27,7 @@
     "@leafygreen-ui/typography": "1.0.1",
     "@mongodb-dev-prod/trend-charts-ui": "~0.3.2",
     "ansi_up": "4.0.4",
-    "antd": "4.7.2",
+    "antd": "4.11.2",
     "antd-table-infinity": "1.1.6",
     "axios": "0.21.1",
     "date-fns": "2.14.0",
