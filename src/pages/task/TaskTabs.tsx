@@ -20,7 +20,7 @@ interface TaskTabProps {
   taskFiles: GetTaskQuery["taskFiles"];
 }
 export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
-  const { tab: urlTab } = useParams<{ id: string; tab: string | null }>();
+  const { tab: urlTab } = useParams<{ id: string; tab: TaskTab | null }>();
 
   const history = useHistory();
   const location = useLocation();
@@ -163,7 +163,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
   };
 
-  const activeTabs = Object.keys(tabMap).filter((tab) => tabIsActive[tab]);
+  const activeTabs = Object.keys(tabMap).filter(
+    (tab) => tabIsActive[tab]
+  ) as TaskTab[];
 
   let defaultTab = 0;
   if (urlTab && activeTabs.indexOf(urlTab) > -1) {
@@ -181,7 +183,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     if (id) {
       const query = new URLSearchParams(location.search);
       history.replace(
-        getTaskRoute(id, activeTabs[selectedTab], query.toString())
+        getTaskRoute(id, { tab: activeTabs[selectedTab], ...query })
       );
       if (!firstRender.current) {
         taskAnalytics.sendEvent({
