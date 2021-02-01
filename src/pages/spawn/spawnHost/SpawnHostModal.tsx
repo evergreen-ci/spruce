@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
@@ -140,46 +140,45 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     }
   }, [awsRegions, publicKeys, dispatch]);
 
-  const virtualWorkstationDistros = useMemo(
-    () =>
-      (distrosData?.distros ?? [])
-        .filter((d) => d.name.includes(distroInput))
-        .filter((d) => d.isVirtualWorkStation)
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [distrosData?.distros, distroInput]
-  );
-  const notVirtualWorkstationDistros = useMemo(
-    () =>
-      (distrosData?.distros ?? [])
-        .filter((d) => d.name.includes(distroInput))
-        .filter((d) => !d.isVirtualWorkStation)
-        .sort((a, b) => a.name.localeCompare(b.name)),
-    [distrosData?.distros, distroInput]
-  );
-
   // recalculate isVirtualWorkstation whenever distro changes
   // initial distroId can be changed from URL
   useEffect(() => {
     dispatch({
       type: "editDistroEffect",
-      isVirtualWorkstation: !!virtualWorkstationDistros.find(
+      isVirtualWorkstation: !!distrosData?.distros.find(
         (vd) => distroId === vd.name
-      ),
+      )?.isVirtualWorkStation,
     });
-  }, [distroId, dispatch, virtualWorkstationDistros]);
+  }, [distroId, dispatch, distrosData?.distros]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
 
+  const allDistroOptionsMinusCurrentSelection = (distrosData?.distros ?? [])
+    .filter((d) => d.name.includes(distroInput))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
+  const virtualWorkstationDistrosMinusCurrentSelection = allDistroOptionsMinusCurrentSelection.filter(
+    (d) => d.isVirtualWorkStation
+  );
+
+  const notVirtualWorkstationDistrosMinusCurrentSelection = allDistroOptionsMinusCurrentSelection.filter(
+    (d) => !d.isVirtualWorkStation
+  );
+
   const distroOptions = [
     {
       label: renderTitle("WORKSTATION DISTROS"),
-      options: virtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: virtualWorkstationDistrosMinusCurrentSelection.map((d) =>
+        renderItem(d.name)
+      ),
     },
     {
       label: renderTitle("OTHER DISTROS"),
-      options: notVirtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: notVirtualWorkstationDistrosMinusCurrentSelection.map((d) =>
+        renderItem(d.name)
+      ),
     },
   ];
 
@@ -204,9 +203,9 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     dispatch({
       type: "editDistro",
       distroId: d,
-      isVirtualWorkstation: !!virtualWorkstationDistros.find(
-        (vd) => d === vd.name
-      ),
+      isVirtualWorkstation: !!distrosData?.distros.find(
+        (vd) => distroId === vd.name
+      )?.isVirtualWorkStation,
     });
   };
 
