@@ -11,7 +11,6 @@ import {
 import { Feedback } from "components/Feedback";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
 import { Navbar } from "components/Navbar";
-import { PrivateRoute } from "components/PrivateRoute";
 import { PageLayout } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
@@ -35,7 +34,7 @@ import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
 
 export const Content: React.FC = () => {
-  const { isAuthenticated, initialLoad } = useAuthStateContext();
+  const { isAuthenticated } = useAuthStateContext();
 
   // this top-level query is required for authentication to work
   // afterware is used at apollo link level to authenticate or deauthenticate user based on response to query
@@ -44,18 +43,17 @@ export const Content: React.FC = () => {
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
     GET_USER_SETTINGS
   );
-
+  const hasUsedSpruceBefore =
+    userSettingsData?.userSettings?.useSpruceOptions?.hasUsedSpruceBefore ===
+    false;
   localStorage.setItem("userId", get(data, "user.userId", ""));
 
-  const hasUsedSpruceBefore = get(
-    userSettingsData,
-    "userSettings.useSpruceOptions.hasUsedSpruceBefore",
-    true
-  );
   useAnalyticsAttributes();
-  if (!isAuthenticated && initialLoad) {
+
+  if (!isAuthenticated) {
     return <FullPageLoad />;
   }
+
   return (
     <PageLayout>
       <Navbar />
@@ -63,29 +61,26 @@ export const Content: React.FC = () => {
       <SiteBanner />
       <SlackNotificationBanner />
       <Switch>
-        <PrivateRoute path={routes.task} component={Task} />
-        <PrivateRoute path={routes.configurePatch} component={ConfigurePatch} />
-        <PrivateRoute path={routes.patch} component={PatchRedirect} />
-        <PrivateRoute path={routes.version} component={Patch} />
-        <PrivateRoute path={routes.hosts} component={Hosts} />
-        <PrivateRoute path={routes.host} component={Host} />
-        <PrivateRoute exact path={routes.myPatches} component={MyPatches} />
-        <PrivateRoute path={routes.userPatches} component={UserPatches} />
-        <PrivateRoute path={routes.taskQueue} component={TaskQueue} />
-        <PrivateRoute path={routes.projectPatches} component={ProjectPatches} />
-        <PrivateRoute
-          path={`${paths.user}/:id`}
-          component={UserPatchesRedirect}
-        />
-        <PrivateRoute path={routes.spawn} component={Spawn} />
-        <PrivateRoute path={routes.commitQueue} component={CommitQueue} />
-        <PrivateRoute path={routes.preferences} component={Preferences} />
-        <PrivateRoute exact path="/">
+        <Route path={routes.task} component={Task} />
+        <Route path={routes.configurePatch} component={ConfigurePatch} />
+        <Route path={routes.patch} component={PatchRedirect} />
+        <Route path={routes.version} component={Patch} />
+        <Route path={routes.hosts} component={Hosts} />
+        <Route path={routes.host} component={Host} />
+        <Route exact path={routes.myPatches} component={MyPatches} />
+        <Route path={routes.userPatches} component={UserPatches} />
+        <Route path={routes.taskQueue} component={TaskQueue} />
+        <Route path={routes.projectPatches} component={ProjectPatches} />
+        <Route path={`${paths.user}/:id`} component={UserPatchesRedirect} />
+        <Route path={routes.spawn} component={Spawn} />
+        <Route path={routes.commitQueue} component={CommitQueue} />
+        <Route path={routes.preferences} component={Preferences} />
+        <Route exact path="/">
           <Redirect to={routes.myPatches} />
-        </PrivateRoute>
+        </Route>
         <Route component={PageDoesNotExist} />
       </Switch>
-      {!hasUsedSpruceBefore && <WelcomeModal />}
+      {hasUsedSpruceBefore && <WelcomeModal />}
       <Feedback />
     </PageLayout>
   );
