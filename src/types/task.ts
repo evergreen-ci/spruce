@@ -36,6 +36,7 @@ export enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
+  ExecutionTasks = "execution-tasks",
   Annotations = "annotations",
   TrendCharts = "trend-charts",
 }

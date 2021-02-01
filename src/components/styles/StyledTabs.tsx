@@ -11,7 +11,7 @@ export const StyledTabs: React.FC<StyledTabsProps> = ({
     {children.map(
       (c) =>
         c && (
-          <Tab {...c.props} key={`styled_tab_${c.props.name}`}>
+          <Tab {...c.props} key={`styled_tab_${c.key || c.props.name}`}>
             <PaddedContainer>{c.props.children}</PaddedContainer>
           </Tab>
         )
