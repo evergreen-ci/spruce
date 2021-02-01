@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
 import { Disclaimer, Subtitle } from "@leafygreen-ui/typography";
-import { useTaskAnalytics } from "analytics";
+import { useAnnotationAnalytics } from "analytics";
 import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 import {
@@ -34,7 +34,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
   jiraKey,
   fields,
 }) => {
-  const taskAnalytics = useTaskAnalytics();
+  const annotationAnalytics = useAnnotationAnalytics();
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
   const spruceConfig = data?.spruceConfig;
@@ -48,7 +48,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
         href={url}
         data-cy={jiraKey}
         onClick={() =>
-          taskAnalytics.sendEvent({ name: "Click Jira Summary Link" })
+          annotationAnalytics.sendEvent({ name: "Click Jira Summary Link" })
         }
       >
         {jiraKey}: {summary} {"   "}
@@ -58,7 +58,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
         {status.name}
       </StyledBadge>
 
-      <MetaDataWrapper data-cy={`${jiraKey}-metadata`}>
+      <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
         <Disclaimer>Created: {getDateCopy(created, null, true)} </Disclaimer>
         <Disclaimer>Updated: {getDateCopy(updated, null, true)} </Disclaimer>
         <Disclaimer>
@@ -66,7 +66,7 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
             ? `Assignee: ${assigneeDisplayName}`
             : "Unassigned"}{" "}
         </Disclaimer>
-      </MetaDataWrapper>
+      </BottomMetaDataWrapper>
     </div>
   );
 };
@@ -82,6 +82,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
   url,
   jiraTicket,
 }) => {
+  const annotationAnalytics = useAnnotationAnalytics();
   const fields = jiraTicket?.fields;
   const {
     created,
@@ -94,7 +95,15 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
   return (
     <div data-cy="annotation-ticket-row">
-      <JiraSummaryLink href={url} data-cy={issueKey}>
+      <JiraSummaryLink
+        href={url}
+        data-cy={issueKey}
+        onClick={() =>
+          annotationAnalytics.sendEvent({
+            name: "Click Annotation Ticket Link",
+          })
+        }
+      >
         {issueKey}
         {summary && `: ${summary}`}
       </JiraSummaryLink>
@@ -105,7 +114,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
         </StyledBadge>
       )}
 
-      <MetaDataWrapper data-cy={`${issueKey}-metadata`}>
+      <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
         {created && (
           <Disclaimer>Created: {getDateCopy(created, null, true)}</Disclaimer>
         )}
@@ -117,7 +126,7 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
           <Disclaimer>Assignee: {assigneeDisplayName}</Disclaimer>
         )}
         {assignedTeam && <Disclaimer>Assigned Team: {assignedTeam}</Disclaimer>}{" "}
-      </MetaDataWrapper>
+      </BottomMetaDataWrapper>
     </div>
   );
 };
@@ -132,8 +141,18 @@ const StyledBadge = styled(Badge)`
   padding: 0px 15px 0px;
 `;
 
-const MetaDataWrapper = styled.div`
+export const BottomMetaDataWrapper = styled.div`
   margin-top: 7px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  gap: 10px;
+  grid-template-rows: 1fr;
+  grid-row-gap: 0px;
+  width: 60%;
+`;
+
+export const TopMetaDataWrapper = styled.div`
+  margin-bottom: 7px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr auto;
   gap: 10px;
@@ -144,4 +163,9 @@ const MetaDataWrapper = styled.div`
 
 export const TitleAndButtons = styled.div`
   margin-left: 15px;
+`;
+
+export const ButtonWrapper = styled.div`
+  margin-right: 8px;
+  padding-top: 15px;
 `;

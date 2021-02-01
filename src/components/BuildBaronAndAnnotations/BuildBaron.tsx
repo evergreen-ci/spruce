@@ -8,16 +8,20 @@ interface Props {
   bbData: BuildBaronQuery;
   error: ApolloError;
   taskId: string;
+  execution: number;
   loading: boolean;
   annotation: Annotation;
+  userCanModify: boolean;
 }
 
 const BuildBaron: React.FC<Props> = ({
   bbData,
   error,
   taskId,
+  execution,
   loading,
   annotation,
+  userCanModify,
 }) => (
   <>
     {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
@@ -30,9 +34,12 @@ const BuildBaron: React.FC<Props> = ({
     {bbData && (
       <BuildBaronContent
         bbData={bbData.buildBaron}
+        annotationId={annotation?.id}
         taskId={taskId}
+        execution={execution}
         loading={loading}
         annotation={annotation}
+        userCanModify={userCanModify}
       />
     )}
   </>

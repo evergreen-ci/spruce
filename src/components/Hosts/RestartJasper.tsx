@@ -1,8 +1,9 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { Popconfirm } from "antd";
+import { Popconfirm, Tooltip } from "antd";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useBannerDispatchContext } from "context/banners";
 import {
   RestartJasperMutation,
@@ -14,12 +15,16 @@ interface Props {
   selectedHostIds: string[];
   hostUrl?: string;
   isSingleHost?: boolean;
+  canRestartJasper: boolean;
+  jasperTooltipMessage: string;
 }
 
 export const RestartJasper: React.FC<Props> = ({
   selectedHostIds,
   hostUrl,
   isSingleHost,
+  canRestartJasper,
+  jasperTooltipMessage,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
   const dispatchBanner = useBannerDispatchContext();
@@ -31,8 +36,8 @@ export const RestartJasper: React.FC<Props> = ({
   >(RESTART_JASPER, {
     onCompleted({ restartJasper: numberOfHostsUpdated }) {
       const successMessage = isSingleHost
-        ? `Jasper was restarted`
-        : `Jasper was restarted for ${numberOfHostsUpdated} host${
+        ? `Marked Jasper as restarting`
+        : `Marked Jasper as restarting for ${numberOfHostsUpdated} host${
             numberOfHostsUpdated === 1 ? "" : "s"
           }`;
       dispatchBanner.successBanner(successMessage);
@@ -54,22 +59,31 @@ export const RestartJasper: React.FC<Props> = ({
       }?`;
 
   return (
-    <Popconfirm
-      title={titleText}
-      onConfirm={onClickRestartJasperConfirm}
-      icon={null}
-      placement="bottom"
-      okText="Yes"
-      okButtonProps={{ loading: loadingRestartJasper }}
-      cancelText="No"
-      cancelButtonProps={{ disabled: loadingRestartJasper }}
+    <ConditionalWrapper
+      condition={!canRestartJasper}
+      wrapper={(children) => (
+        <Tooltip title={jasperTooltipMessage}>
+          <span>{children}</span>
+        </Tooltip>
+      )}
     >
-      <Button
-        dataCy="restart-jasper-button"
-        disabled={selectedHostIds.length === 0}
+      <Popconfirm
+        title={titleText}
+        onConfirm={onClickRestartJasperConfirm}
+        icon={null}
+        placement="bottom"
+        okText="Yes"
+        okButtonProps={{ loading: loadingRestartJasper }}
+        cancelText="No"
+        cancelButtonProps={{ disabled: loadingRestartJasper }}
       >
-        Restart Jasper
-      </Button>
-    </Popconfirm>
+        <Button
+          data-cy="restart-jasper-button"
+          disabled={selectedHostIds.length === 0 || !canRestartJasper}
+        >
+          Restart Jasper
+        </Button>
+      </Popconfirm>
+    </ConditionalWrapper>
   );
 };

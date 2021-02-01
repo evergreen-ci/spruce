@@ -88,12 +88,14 @@ functions:
         ln -s gopath/src/github.com/evergreen-ci/evergreen/graphql/schema.graphql sdlschema.graphql
 
   yarn-start:
-    command: subprocess.exec
+    command: shell.exec
     type: setup
     params:
       working_dir: spruce
       background: true
-      command: yarn run dev
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn run dev
 
   
   yarn-install:
@@ -113,22 +115,28 @@ functions:
         yarn test -u --reporters=default --reporters=jest-junit
 
   yarn-eslint:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn eslint
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn eslint
 
   yarn-tsc:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn check-types
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn check-types
 
   yarn-build:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn build
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn build
 
   yarn-coverage:
     command: shell.exec
@@ -139,10 +147,12 @@ functions:
         yarn coverage
 
   yarn-analyze:
-    command: subprocess.exec
+    command: shell.exec
     params:
       working_dir: spruce
-      command: yarn analyze
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn analyze
 
   run-cypress-tests:
     command: shell.exec
@@ -252,6 +262,7 @@ functions:
     params:
       working_dir: spruce
       script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
         yarn build:prod
   
   send-email:
@@ -262,7 +273,7 @@ functions:
         PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
         BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
         DATE=$(date +'%m/%d/%Y')
-        ~/evergreen -c .evergreen.yml notify email -f ${author}@mongodb.com -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+        ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
 
 #######################################
 #                Tasks                #
@@ -274,6 +285,7 @@ tasks:
     - func: get-project
     - func: yarn-install
     - func: copy-cmdrc
+    - func: sym-link
     - func: yarn-build
     - func: yarn-analyze
 
@@ -315,6 +327,7 @@ tasks:
       vars:
         target: local-evergreen
     - func: yarn-install
+    - func: sym-link
     - func: yarn-start
     - func: run-cypress-tests
     
@@ -330,6 +343,7 @@ tasks:
     - func: get-project
     - func: setup-credentials
     - func: yarn-install
+    - func: sym-link
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email

@@ -16,25 +16,32 @@ import {
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { withBannersContext } from "hoc/withBannersContext";
+import { AnnotationNote } from "./AnnotationNote";
 import { AnnotationTickets } from "./AnnotationTickets";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets } from "./BBCreatedTickets";
-import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
   bbData: BuildBaron;
+  annotationId: string;
   taskId: string;
+  execution: number;
   loading: boolean;
   annotation: Annotation;
+  userCanModify: boolean;
 }
 
 const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
   bbData,
+  annotationId,
   taskId,
+  execution,
   loading,
   annotation,
+  userCanModify,
 }) => {
+  const [selectedRowKey, setSelectedRowKey] = useState("");
   const annotationsReady = true;
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
@@ -66,35 +73,53 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
             taskId={taskId}
             setCreatedTicketsCount={setCreatedTicketsCount}
             createdTicketsCount={createdTicketsCount}
+            buildBaronConfigured={bbData.buildBaronConfigured}
           />
 
-          <TitleAndButtons>
-            <BBFileTicket
-              taskId={taskId}
-              setCreatedTicketsCount={setCreatedTicketsCount}
-              createdTicketsCount={createdTicketsCount}
-            />
-          </TitleAndButtons>
           {annotationsReady && (
             <>
-              <AnnotationTickets tickets={annotation?.issues} title="Issues" />
+              <AnnotationNote
+                note={annotation?.note}
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
+              />
+              <AnnotationTickets
+                tickets={annotation?.issues}
+                isIssue
+                annotationId={annotationId}
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
+                selectedRowKey={selectedRowKey}
+                setSelectedRowKey={setSelectedRowKey}
+              />
               <AnnotationTickets
                 tickets={annotation?.suspectedIssues}
-                title="Suspected Issues"
+                isIssue={false}
+                annotationId={annotationId}
+                taskId={taskId}
+                execution={execution}
+                userCanModify={userCanModify}
+                selectedRowKey={selectedRowKey}
+                setSelectedRowKey={setSelectedRowKey}
               />
             </>
           )}
-
-          <TitleAndButtons>
-            <TicketsTitle>
-              Related tickets from Jira
-              <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                {"  "}(Jira Search)
-              </StyledLink>
-            </TicketsTitle>
-          </TitleAndButtons>
-          {/* build baron related jira tickets */}
-          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+          {bbData?.searchReturnInfo?.issues.length > 0 && (
+            <>
+              <TitleAndButtons>
+                <TicketsTitle>
+                  Related tickets from Jira
+                  <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+                    {"  "}(Jira Search)
+                  </StyledLink>
+                </TicketsTitle>
+              </TitleAndButtons>
+              {/* build baron related jira tickets */}
+              <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+            </>
+          )}
         </>
       )}
     </span>

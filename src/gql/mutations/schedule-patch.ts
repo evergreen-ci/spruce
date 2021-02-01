@@ -1,8 +1,8 @@
 import { gql } from "@apollo/client";
 
 export const SCHEDULE_PATCH = gql`
-  mutation SchedulePatch($patchId: String!, $reconfigure: PatchConfigure!) {
-    schedulePatch(patchId: $patchId, configure: $reconfigure) {
+  mutation SchedulePatch($patchId: String!, $configure: PatchConfigure!) {
+    schedulePatch(patchId: $patchId, configure: $configure) {
       id
       activated
       version
@@ -15,6 +15,10 @@ export const SCHEDULE_PATCH = gql`
       variantsTasks {
         name
         tasks
+      }
+      parameters {
+        key
+        value
       }
     }
   }

@@ -107,6 +107,7 @@ export const clickOnPageBtnAndAssertURLandTableResults = (
   pageQueryParamValue,
   dataCyTableRows
 ) => {
+  cy.wait(400);
   cy.get(dataCyPageBtn).click();
   cy.wait(400);
   cy.get(dataCyTableRows).each(($el, index) => {
@@ -128,8 +129,8 @@ export const clickOnPageSizeBtnAndAssertURLandTableSize = (
   dataCyPageSizeBtn,
   dataCyTableRows
 ) => {
-  cy.get(dataCyPageSizeSelectorToggle).click();
-  cy.get(dataCyPageSizeBtn).click();
+  cy.dataCy(dataCyPageSizeSelectorToggle).click();
+  cy.dataCy(dataCyPageSizeBtn).click();
   cy.get(dataCyTableRows).should("have.length.of.at.most", pageSize);
   cy.location("search").should("include", `limit=${pageSize}`);
 };

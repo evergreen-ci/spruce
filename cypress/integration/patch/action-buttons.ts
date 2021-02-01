@@ -18,30 +18,22 @@ describe("Patch Action Buttons", () => {
 
   it("Clicking 'Schedule' button shows popconfirm and banner on success", () => {
     cy.dataCy("schedule-patch").click();
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
+    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("banner").should("exist");
   });
 
   it("Error scheduling a version shows error banner", () => {
     cy.dataCy("schedule-patch").click();
     mockErrorResponse({ errorMessage: "There was an error scheduling tasks" });
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
-    cy.dataCy("banner")
-      .contains("error")
-      .should("exist");
+    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+    cy.dataCy("banner").contains("error").should("exist");
   });
 
   it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a banner on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("unschedule-patch").click();
     cy.dataCy("abort-checkbox").check({ force: true });
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
+    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("banner").should("exist");
   });
 
@@ -51,12 +43,8 @@ describe("Patch Action Buttons", () => {
     mockErrorResponse({
       errorMessage: "There was an error unscheduling tasks",
     });
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
-    cy.dataCy("banner")
-      .contains("error")
-      .should("exist");
+    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+    cy.dataCy("banner").contains("error").should("exist");
   });
 
   it("Reconfigure button should have link to reconfigure page", () => {
@@ -68,49 +56,33 @@ describe("Patch Action Buttons", () => {
 
   it("Reconfigure link is disabled for patches on commit queue", () => {
     cy.dataCy("ellipsis-btn").click();
-    cy.dataCy("reconfigure-link").should("have.css", "pointer-events", "none");
+    cy.dataCy("reconfigure-link").should("have.attr", "disabled");
   });
 
   it("Clicking 'Set Priority' button shows popconfirm with input and banner on success", () => {
     const priority = "99";
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
-    cy.get(".ant-input-number-input")
-      .clear()
-      .type(priority);
-    cy.get(popconfirmYesClassName)
-      .contains("Set")
-      .click({ force: true });
-    cy.dataCy("banner")
-      .contains(priority)
-      .should("exist");
+    cy.get(".ant-input-number-input").clear().type(priority);
+    cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
+    cy.dataCy("banner").contains(priority).should("exist");
   });
 
   it("Error setting priority shows error banner", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
-    cy.get(".ant-input-number-input")
-      .clear()
-      .type("88");
+    cy.get(".ant-input-number-input").clear().type("88");
     mockErrorResponse({
       errorMessage: "There was an error setting priority",
     });
-    cy.get(popconfirmYesClassName)
-      .contains("Set")
-      .click({ force: true });
-    cy.dataCy("banner")
-      .contains("error")
-      .should("exist");
+    cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
+    cy.dataCy("banner").contains("error").should("exist");
   });
 
   it("Clicking 'Enqueue Patch' button shows popconfirm with input and banner on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("enqueue-patch").click();
-    cy.get(popconfirmYesClassName)
-      .contains("Yes")
-      .click({ force: true });
-    cy.dataCy("banner")
-      .should("exist")
-      .contains("Enqueued patch");
+    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+    cy.dataCy("banner").should("exist").contains("Enqueued patch");
   });
 });

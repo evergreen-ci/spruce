@@ -63,6 +63,10 @@ export const GET_PATCH_CONFIGURE = gql`
         name
         tasks
       }
+      parameters {
+        key
+        value
+      }
     }
   }
 `;

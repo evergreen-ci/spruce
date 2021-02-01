@@ -142,7 +142,7 @@ const GridField = styled.div`
 const StyledTextInput = styled(TextInput)`
   margin-bottom: 24px;
   width: 50%;
-  : last-child {
+  :last-child {
     margin-bottom: 40px;
   }
 `;

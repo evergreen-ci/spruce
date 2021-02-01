@@ -1,5 +1,7 @@
 import { gql } from "@apollo/client";
+import { CodeChangesTable } from "gql/fragments/codeChangesTable";
 
+/* eslint-disable */
 export const GET_CODE_CHANGES = gql`
   query CodeChanges($id: String!) {
     patch(id: $id) {
@@ -9,12 +11,10 @@ export const GET_CODE_CHANGES = gql`
         htmlLink
         rawLink
         fileDiffs {
-          fileName
-          additions
-          deletions
-          diffLink
+          ...CodeChangesTableFileDiffs
         }
       }
     }
   }
+  ${CodeChangesTable.fragments.fileDiffs}
 `;

@@ -14,6 +14,7 @@ export interface Analytics<Action> {
 type AnalyticsObject =
   | "Patch"
   | "Task"
+  | "Annotations"
   | "Navbar"
   | "Breadcrumb"
   | "UserPatches"
@@ -51,6 +52,8 @@ export const addPageAction = <A extends ActionType, P extends Properties>(
   };
 
   if (typeof newrelic !== "object") {
+    // These will only print when new relic is not available such as during local development
+    console.log("ANALYTICS EVENT ", { name, attributesToSend });
     return;
   }
 

@@ -41,6 +41,9 @@ const cache = new InMemoryCache({
     User: {
       keyFields: ["userId"],
     },
+    Task: {
+      keyFields: ["execution", "id"],
+    },
     Patch: {
       fields: {
         time: {
@@ -69,7 +72,11 @@ const authLink = (logout: () => void): ApolloLink =>
 const logErrorsLink = onError(({ graphQLErrors }) => {
   if (Array.isArray(graphQLErrors)) {
     graphQLErrors.forEach((gqlErr) => {
-      reportError(gqlErr).warning();
+      reportError({
+        name: "GraphQL Error",
+        message: gqlErr.message,
+        metadata: gqlErr,
+      }).warning();
     });
   }
   // dont track network errors here because they are

@@ -53,9 +53,8 @@ export const HostCore: React.FC = () => {
   });
 
   const host = hostData?.host;
-  const hostId = host?.id;
-  const hostUrl = host?.hostUrl;
-  const user = host?.user;
+  const { distro, id: hostId, hostUrl, user } = host || {};
+  const bootstrapMethod = distro?.bootstrapMethod;
   const status = host?.status as HostStatus;
   const sshCommand = `ssh ${user}@${hostUrl}`;
   const tag = host?.tag ?? "";
@@ -76,12 +75,16 @@ export const HostCore: React.FC = () => {
   const hostEvents = hostEventData?.hostEvents;
   const eventsCount = hostEvents?.count;
   // UPDATE STATUS MODAL VISIBILITY STATE
-  const [isUpdateStatusModalVisible, setIsUpdateStatusModalVisible] = useState<
-    boolean
-  >(false);
+  const [
+    isUpdateStatusModalVisible,
+    setIsUpdateStatusModalVisible,
+  ] = useState<boolean>(false);
 
   usePageTitle(`Host${hostId ? ` - ${hostId}` : ""}`);
 
+  const canRestartJasper =
+    host?.status === "running" &&
+    (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
   return (
     <PageWrapper data-cy="host-page">
       <Banners
@@ -101,7 +104,7 @@ export const HostCore: React.FC = () => {
                 <ButtonsWrapper>
                   <ButtonSpacer>
                     <Button
-                      dataCy="update-status-button"
+                      data-cy="update-status-button"
                       onClick={() => setIsUpdateStatusModalVisible(true)}
                     >
                       Update Status
@@ -111,6 +114,8 @@ export const HostCore: React.FC = () => {
                     selectedHostIds={[id]}
                     hostUrl={hostUrl}
                     isSingleHost
+                    canRestartJasper={canRestartJasper}
+                    jasperTooltipMessage="Jasper cannot be restarted for this host"
                   />
                 </ButtonsWrapper>
               </div>
@@ -147,7 +152,7 @@ export const HostCore: React.FC = () => {
         </>
       )}
       <UpdateStatusModal
-        dataCy="update-host-status-modal"
+        data-cy="update-host-status-modal"
         hostIds={[id]}
         visible={isUpdateStatusModalVisible}
         closeModal={() => setIsUpdateStatusModalVisible(false)}

@@ -84,8 +84,9 @@ export const getVersionRoute = (
   const queryParams = stringifyQuery({
     ...rest,
   });
-  return `${paths.version}/${versionId}/${tab ??
-    DEFAULT_PATCH_TAB}?${queryParams}`;
+  return `${paths.version}/${versionId}/${
+    tab ?? DEFAULT_PATCH_TAB
+  }?${queryParams}`;
 };
 
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;

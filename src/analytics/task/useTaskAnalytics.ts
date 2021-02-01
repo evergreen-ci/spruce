@@ -25,6 +25,7 @@ type Action =
   | { name: "Unschedule" }
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
+  | { name: "Change Execution" }
   | { name: "Click Logs HTML Button" }
   | { name: "Click Logs Raw Button" }
   | { name: "Select Logs Type"; logsType: LogTypes }
@@ -37,9 +38,8 @@ type Action =
   | { name: "Click Host Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
-  | { name: "Click Jira Summary Link" }
   | { name: "Click Build Variant Link" }
-  | { name: "Build Baron File Ticket" };
+  | { name: "Click Project Link" };
 
 interface P extends Properties {
   taskId: string;

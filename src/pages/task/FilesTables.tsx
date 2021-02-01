@@ -9,7 +9,7 @@ import { SortOrder } from "antd/es/table/interface";
 import debounce from "lodash.debounce";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
-import { H3 } from "components/Typography";
+import { H3, WordBreak } from "components/Typography";
 import {
   TaskFilesQuery,
   TaskFilesQueryVariables,
@@ -17,7 +17,6 @@ import {
   GroupedFiles,
 } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries/get-task-files";
-import { ExecutionAsData } from "pages/task/util/execution";
 import { RequiredQueryParams } from "types/task";
 import { queryParamAsNumber, parseQueryString } from "utils";
 
@@ -33,7 +32,7 @@ const columns = [
         rel="noopener noreferrer"
         target="_blank"
       >
-        {text}
+        <WordBreak>{text}</WordBreak>
       </a>
     ),
     defaultSortOrder: "ascend" as SortOrder,
@@ -42,7 +41,7 @@ const columns = [
 ];
 
 export const FilesTables: React.FC = () => {
-  const { id } = useParams();
+  const { id } = useParams<{ id: string }>();
   const { search: queryVars } = useLocation();
   const parsed = parseQueryString(queryVars);
   const initialExecution = queryParamAsNumber(
@@ -54,26 +53,27 @@ export const FilesTables: React.FC = () => {
   >(GET_TASK_FILES, {
     variables: {
       id,
-      execution: ExecutionAsData(initialExecution),
+      execution: initialExecution,
     },
   });
   const [filterStr, setFilterStr] = useState("");
   const [filteredData, setFilteredData] = useState<[GroupedFiles]>();
 
   useEffect(
-    debounce(() => {
-      if (data) {
-        const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
-          taskName: currVal.taskName,
-          files: filterStr.length
-            ? currVal.files.filter(({ name }) =>
-                name.toLowerCase().includes(filterStr.toLowerCase())
-              )
-            : currVal.files,
-        })) as [GroupedFiles];
-        setFilteredData(nextData);
-      }
-    }, 300),
+    () =>
+      debounce(() => {
+        if (data) {
+          const nextData = data.taskFiles.groupedFiles.map((currVal) => ({
+            taskName: currVal.taskName,
+            files: filterStr.length
+              ? currVal.files.filter(({ name }) =>
+                  name.toLowerCase().includes(filterStr.toLowerCase())
+                )
+              : currVal.files,
+          })) as [GroupedFiles];
+          setFilteredData(nextData);
+        }
+      }, 300)(),
     [data, filterStr]
   );
 

@@ -29,7 +29,8 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
   const [state, dispatch] = useReducer(reducer, initialState);
   const { shouldAddNewKey, disableKeySelect } = state;
   const { savePublicKey } = data;
-  const { key: publicKey, name: keyName } = data.publicKey;
+  const publicKey = data?.publicKey?.key;
+  const keyName = data?.publicKey?.name;
 
   const selectPublicKey = (name: string) => {
     const selectedKey = publicKeys.find((key) => key.name === name);
@@ -51,7 +52,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
           onChange={selectPublicKey}
           value={keyName}
           data-cy="public_key_dropdown"
-          disabled={disableKeySelect}
+          disabled={disableKeySelect || !data.publicKey}
         >
           {publicKeys?.map((pk) => (
             <Option key={`public_key_option_${pk.name}`} value={pk.name}>

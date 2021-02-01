@@ -18,36 +18,25 @@ describe("Restarting a patch", () => {
   });
 
   it("Clicking on a variant should toggle an accordian drop down of tasks", () => {
-    cy.dataCy("variant-accordian")
-      .first()
-      .click();
+    cy.dataCy("variant-accordian").first().click();
     cy.dataCy("patch-status-selector-container").should("exist");
   });
   it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {
     cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
-    cy.dataCy("variant-checkbox-select-all")
-      .first()
-      .click({ force: true });
+    cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
     cy.dataCy("task-status-badge").should("contain.text", "2 of 2 Selected");
-    cy.dataCy("variant-checkbox-select-all")
-      .first()
-      .click({ force: true });
+    cy.dataCy("variant-checkbox-select-all").first().click({ force: true });
     cy.dataCy("task-status-badge").should("contain.text", "0 of 2 Selected");
   });
   it("Clicking on a task should toggle its check box and select the task", () => {
-    cy.dataCy("task-status-checkbox")
-      .first()
-      .click({ force: true });
+    cy.dataCy("task-status-checkbox").first().click({ force: true });
     cy.dataCy("patch-status-selector-container").should("exist");
     cy.dataCy("task-status-badge").should("contain.text", "1 of 2 Selected");
   });
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
     cy.get(statusFilter).click();
-    cy.get(".cy-checkbox")
-      .contains("All")
-      .as("target")
-      .click({ force: true });
+    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
     cy.get(statusFilter).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
@@ -78,24 +67,15 @@ describe("Restarting a patch", () => {
     cy.dataCy("banner").should("contain.text", `Successfully restarted patch`);
   });
 
-  it("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
+  xit("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
     cy.visit(path);
-    cy.get(versionPageStatusFitler).click();
-    cy.get(versionPageStatusFitler)
-      .contains("Success")
-      .click();
+    cy.dataCy(versionPageStatusFilter).click();
+    cy.dataCy(versionPageStatusFilter).contains("Success").click();
+    cy.dataCy(versionPageStatusFilter).contains("Undispatched").click();
+    cy.get(versionPageBaseStatusFilter).click();
+    cy.get(versionPageBaseStatusFilter).contains("Running").click();
     cy.wait(100);
-    cy.get(versionPageStatusFitler)
-      .contains("Undispatched or Blocked")
-      .click();
-    cy.get(versionPageBaseStatusFitler).click();
-    cy.get(versionPageBaseStatusFitler)
-      .contains("Running")
-      .click();
-    cy.wait(100);
-    cy.get(versionPageBaseStatusFitler)
-      .contains("Dispatched")
-      .click();
+    cy.get(versionPageBaseStatusFilter).contains("Dispatched").click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
       "Task Status: Success, Undispatched or Blocked"
@@ -103,33 +83,27 @@ describe("Restarting a patch", () => {
     cy.get(baseStatusFilter).contains("Task Base Status: Running, Dispatched");
 
     // close modal and do the same thing again
-    cy.dataCy("cancel-restart-modal-button").click();
-
-    cy.get(versionPageStatusFitler).click();
-    cy.get(versionPageStatusFitler)
-      .contains("Aborted")
-      .click();
-    cy.get(versionPageBaseStatusFitler).click();
-    cy.get(versionPageBaseStatusFitler)
-      .contains("All")
-      .click();
+    cy.dataCy("cancel-restart-modal-button").click({ force: true });
+    cy.dataCy(versionPageStatusFilter).first().click();
+    cy.dataCy(versionPageStatusFilter).first().contains("Failed").click();
+    cy.get(versionPageBaseStatusFilter).click();
+    cy.get(versionPageBaseStatusFilter).contains("All").click();
     cy.dataCy("restart-patch").click();
     cy.get(statusFilter).contains(
-      "Task Status: Success, Undispatched or Blocked, Aborted"
+      "Task Status: Success, Undispatched or Blocked, Failed"
     );
     cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
 
   const allTasksSelectedConfirmationMessage =
-    "Are you sure you want to restart the 49 selected tasks?";
+    "Are you sure you want to restart the 50 selected tasks?";
   const someTasksSelected =
     "Are you sure you want to restart the 1 selected tasks?";
   const path = `/version/5e4ff3abe3c3317e352062e4`;
   const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
     ".ant-modal-body > div > [data-cy=task-base-status-filter]";
-  const versionPageStatusFitler =
-    "[data-cy=task-tab] > div > div > [data-cy=task-status-filter]";
-  const versionPageBaseStatusFitler =
+  const versionPageStatusFilter = "task-status-filter";
+  const versionPageBaseStatusFilter =
     "[data-cy=task-tab] > div > div > [data-cy=task-base-status-filter]";
 });

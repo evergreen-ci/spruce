@@ -28,6 +28,9 @@ export const HOSTS = gql`
       hosts {
         id
         distroId
+        distro {
+          bootstrapMethod
+        }
         status
         startedBy
         hostUrl

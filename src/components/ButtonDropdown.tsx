@@ -5,6 +5,8 @@ import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Button } from "components/Button";
 
+const { gray } = uiColors;
+
 interface Props {
   disabled?: boolean;
   setIsVisibleDropdown?: (v: boolean) => void;
@@ -31,7 +33,7 @@ export const ButtonDropdown: React.FC<Props> = ({
     <Container>
       <Button
         size="small"
-        dataCy={dataCyBtn}
+        data-cy={dataCyBtn}
         disabled={disabled}
         loading={loading}
         onClick={toggleDropdown}
@@ -53,8 +55,7 @@ export const DropdownItem = styled.div`
   }
   ${({ disabled }: CardItemProps) => disabled && "pointer-events: none;"}
   > small {
-    ${({ disabled }: CardItemProps) =>
-      disabled && `color: ${uiColors.gray.base};`}
+    ${({ disabled }: CardItemProps) => disabled && `color: ${gray.base};`}
   }
 `;
 

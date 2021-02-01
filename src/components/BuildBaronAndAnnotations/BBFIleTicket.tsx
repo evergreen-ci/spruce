@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import Button, { Variant } from "@leafygreen-ui/button";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
-import { useTaskAnalytics } from "analytics";
+import { useAnnotationAnalytics } from "analytics";
 import { useBannerDispatchContext } from "context/banners";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
 } from "gql/generated/types";
 import { FILE_JIRA_TICKET } from "gql/mutations";
-import { TicketsTitle } from "./BBComponents";
+import { ButtonWrapper } from "./BBComponents";
 
 interface BBFileTicketProps {
   taskId: string;
@@ -23,7 +23,6 @@ export const BBFileTicket: React.FC<BBFileTicketProps> = ({
   createdTicketsCount,
 }) => (
   <>
-    <TicketsTitle margin>Create a new ticket in Jira </TicketsTitle>
     <FileTicket
       taskId={taskId}
       setCreatedTicketsCount={setCreatedTicketsCount}
@@ -63,9 +62,9 @@ export const FileTicket: React.FC<FileTicketProps> = ({
   });
 
   const [buttonText, setButtonText] = useState<string>("FILE TICKET");
-  const taskAnalytics = useTaskAnalytics();
+  const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
-    taskAnalytics.sendEvent({ name: "Build Baron File Ticket" });
+    annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
     fileJiraTicket({ variables: { taskId } });
   };
 
@@ -79,13 +78,15 @@ export const FileTicket: React.FC<FileTicketProps> = ({
       okButtonProps={{ loading: loadingFileJiraTicket }}
       cancelButtonProps={{ disabled: loadingFileJiraTicket }}
     >
-      <Button
-        data-cy="file-ticket-button"
-        variant={Variant.Primary}
-        size="xsmall"
-      >
-        {buttonText}
-      </Button>
+      <ButtonWrapper>
+        <Button
+          data-cy="file-ticket-button"
+          variant={Variant.Primary}
+          size={Size.XSmall}
+        >
+          {buttonText}
+        </Button>
+      </ButtonWrapper>
     </Popconfirm>
   );
 };

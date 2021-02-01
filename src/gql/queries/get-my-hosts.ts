@@ -9,6 +9,7 @@ export const GET_MY_HOSTS = gql`
         id
         user
         workDir
+        isWindows
       }
       hostUrl
       homeVolumeID
@@ -32,11 +33,6 @@ export const GET_MY_HOSTS = gql`
       uptime
       displayName
       availabilityZone
-    }
-    spruceConfig {
-      spawnHost {
-        spawnHostsPerUser
-      }
     }
   }
 `;

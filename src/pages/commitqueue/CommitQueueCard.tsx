@@ -68,14 +68,14 @@ export const CommitQueueCard: React.FC<Props> = ({
             <CardMetaData>
               By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
             </CardMetaData>
-            <>
+            <Container>
               {moduleCodeChanges?.map((moduleCodeChange) => (
                 <CodeChangeModule
                   key={moduleCodeChange.rawLink}
                   moduleCodeChange={moduleCodeChange}
                 />
               ))}
-            </>
+            </Container>
           </CommitInfo>
         ) : (
           <CommitInfo>
@@ -144,4 +144,8 @@ const CommitQueueCardGrid = styled.div`
 
 const CommitQueueCardActions = styled.div`
   grid-area: 1 / 3 / 2 / 4;
+`;
+
+const Container = styled.div`
+  padding-top: 24px;
 `;

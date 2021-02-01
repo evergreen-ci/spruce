@@ -9,7 +9,6 @@ describe("task logs view", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Should render with task logs radio checked when logtype not indicated in URL query param", () => {
@@ -74,38 +73,28 @@ describe("task logs view", () => {
   });
   it("Should intially load with agent log radio checked when logtype query param is agent", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=agent`);
-    cy.get("#cy-agent-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-agent-radio").should("be.checked");
   });
   it("Should intially load with system log radio checked when logtype query param is system", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=system`);
-    cy.get("#cy-system-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-system-radio").should("be.checked");
   });
   it("Should intially load with event log radio checked when logtype query param is event", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=event`);
-    cy.get("#cy-event-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-event-radio").should("be.checked");
   });
   it("Should intially load with task log radio checked when logtype query param is task", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=task`);
-    cy.get("#cy-task-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-task-radio").should("be.checked");
   });
   it("Should initially load with task log radio checked as default when logtype query param is not a valid log type", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=soeiantsrein`);
-    cy.get("#cy-task-radio")
-      .check()
-      .should("be.checked");
+    cy.get("#cy-task-radio").should("be.checked");
   });
 
   it("Should display 'No logs' and hide HTML and Raw buttons when no logs found", () => {
     cy.visit(LOGS_ROUTE);
-    cy.get("#cy-no-logs").contains("No logs");
+    cy.dataCy("cy-no-logs").contains("No logs");
     cy.dataCy("html-log-btn").should("not.exist");
     cy.dataCy("raw-log-btn").should("not.exist");
   });

@@ -7,13 +7,13 @@ const { Option } = Select;
 
 interface Props {
   value: number;
-  dataTestId?: string;
+  "data-cy"?: string;
   sendAnalyticsEvent?: () => void;
 }
 
 export const PageSizeSelector: React.FC<Props> = ({
   value,
-  dataTestId,
+  "data-cy": dataCy,
   sendAnalyticsEvent = () => undefined,
 }) => {
   const { replace } = useHistory();
@@ -36,14 +36,14 @@ export const PageSizeSelector: React.FC<Props> = ({
 
   return (
     <Select
-      data-test-id={dataTestId}
+      data-cy={dataCy}
       value={value}
       style={{ width: 120 }}
       onChange={handleChange}
     >
       {PAGE_SIZES.map((limit) => (
         <Option
-          data-test-id={`${dataTestId}-${limit}`}
+          data-cy={`${dataCy}-${limit}`}
           key={limit}
           value={limit}
         >{`${limit} / page`}</Option>

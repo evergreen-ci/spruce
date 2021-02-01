@@ -12,6 +12,7 @@ import {
   paths,
   getSpawnHostRoute,
   getVersionRoute,
+  getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
@@ -25,12 +26,11 @@ const { red } = uiColors;
 interface Props {
   taskId: string;
   loading: boolean;
-  data: GetTaskQuery;
+  task: GetTaskQuery["task"];
   error: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
-  const task = data?.task ?? ({} as GetTaskQuery["task"]);
+export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
 
   const {
@@ -54,7 +54,8 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
-  } = task;
+    projectId,
+  } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
 
@@ -82,6 +83,18 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             }
           >
             {buildVariant}
+          </StyledRouterLink>
+        </P2>
+        <P2 data-cy="task-metadata-project">
+          Project:{" "}
+          <StyledRouterLink
+            data-cy="project-link"
+            to={getProjectPatchesRoute(projectId)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Project Link" })
+            }
+          >
+            {projectId}
           </StyledRouterLink>
         </P2>
         <P2>Submitted by: {author}</P2>

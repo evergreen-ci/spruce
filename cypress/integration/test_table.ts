@@ -58,42 +58,32 @@ describe("Tests Table", () => {
 
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
 
-    cy.get("[data-cy=filtered-test-count]")
+    cy.dataCy("filtered-test-count")
       .as("filtered-count")
       .invoke("text")
       .should("eq", "20");
-    cy.get("[data-cy=total-test-count]")
+    cy.dataCy("total-test-count")
       .as("total-count")
       .invoke("text")
       .should("eq", "20");
 
     cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    cy.get(".cy-checkbox")
-      .contains("Fail")
-      .click({ force: true });
+    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
 
     waitForTestsQuery();
 
-    cy.get("@filtered-count")
-      .invoke("text")
-      .should("eq", "1");
-    cy.get("@total-count")
-      .invoke("text")
-      .should("eq", "20");
+    cy.get("@filtered-count").invoke("text").should("eq", "1");
+    cy.get("@total-count").invoke("text").should("eq", "20");
 
     cy.dataCy("testname-input").type("hello");
 
     waitForTestsQuery();
 
-    cy.get("@filtered-count")
-      .invoke("text")
-      .should("eq", "0");
-    cy.get("@total-count")
-      .invoke("text")
-      .should("eq", "20");
+    cy.get("@filtered-count").invoke("text").should("eq", "0");
+    cy.get("@total-count").invoke("text").should("eq", "20");
   });
 
-  it("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
+  xit("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
     waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
@@ -149,16 +139,10 @@ describe("Tests Table", () => {
   });
 
   it("Buttons in log column should have target=_blank attribute", () => {
-    cy.get("[data-cy=test-table-html-btn").should(
-      "have.attr",
-      "target",
-      "_blank"
-    );
-    cy.get("[data-cy=test-table-raw-btn").should(
-      "have.attr",
-      "target",
-      "_blank"
-    );
+    cy.visit(TESTS_ROUTE);
+
+    cy.dataCy("test-table-html-btn").should("have.attr", "target", "_blank");
+    cy.dataCy("test-table-raw-btn").should("have.attr", "target", "_blank");
   });
 
   describe("Test Status Selector", () => {
@@ -168,7 +152,7 @@ describe("Tests Table", () => {
     });
 
     it("Status select says 'No filters selected' by default", () => {
-      cy.get("[data-cy=test-status-select]").contains("No filters selected");
+      cy.dataCy("test-status-select").contains("No filters selected");
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
@@ -224,11 +208,9 @@ describe("Tests Table", () => {
     //   });
     // });
 
-    it("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
+    xit("Checking multiple statuses adds them all to the URL as opposed to one, some or none and makes a GQL request including the statuses", () => {
       statuses.forEach(({ display }) => {
-        cy.get(".cy-checkbox")
-          .contains(display)
-          .click({ force: true });
+        cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
@@ -265,9 +247,7 @@ describe("Tests Table", () => {
 
   describe("Changing page number", () => {
     before(() => {
-      cy.visit(
-        "/task/clone_evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests?execution=1&limit=10&page=0"
-      );
+      cy.visit(TESTS_ROUTE);
     });
 
     it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
@@ -312,12 +292,22 @@ describe("Tests Table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=tests-table-page-size-selector]",
-          `[data-test-id=tests-table-page-size-selector-${pageSize}]`,
+          "tests-table-page-size-selector",
+          `tests-table-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });
     });
+  });
+
+  it("All table columns are visible even when a long test name is present.", () => {
+    cy.visit(TESTS_ROUTE);
+    cy.contains(longTestName).should("be.visible");
+    cy.dataCy("name-column").should("be.visible");
+    cy.dataCy("status-column").should("be.visible");
+    cy.dataCy("base-status-column").should("be.visible");
+    cy.dataCy("time-column").should("be.visible");
+    cy.dataCy("logs-column").should("be.visible");
   });
 });
 
@@ -328,12 +318,15 @@ const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
 const dataCyTableRows = "[data-test-id=tests-table] tr td:first-child";
+const longTestName =
+  "suuuuuupppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnggggggggggggggggggggggggg name";
+
 const firstPageDisplayNames = [
   "TestFinalizePatch",
   "TestHostTaskAuditing",
   "TestStuckHostAuditing",
   "TestGenerateSuite",
-  "TestGenerateSuite/TestSaveNewTasksWithCrossVariantDependencies",
+  longTestName,
   "TestGenerateSuite/TestSaveNewTasksWithDependencies",
   "TestGenerateSuite/TestValidateNoRedefine",
   "TestUpdateVersionAndParserProject",

@@ -25,9 +25,9 @@ export const ClearSubscriptionsCard: React.FC = () => {
     onCompleted: (result) => {
       setShowModal(false);
       dispatchBanner.successBanner(
-        `Successfully cleared ${
-          result.clearMySubscriptions
-        } subscription${result.clearMySubscriptions !== 1 && "s"}!`
+        `Successfully cleared ${result.clearMySubscriptions} subscription${
+          result.clearMySubscriptions !== 1 && "s"
+        }!`
       );
     },
     onError: (err) => {

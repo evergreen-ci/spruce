@@ -24,46 +24,66 @@ describe("Task table", () => {
     cy.dataCy("patch-card-patch-link")
       .filter(`:contains(${patchDescriptionTasksExist})`)
       .click();
-    cy.dataTestId("tasks-table-page-size-selector").click();
-    cy.dataTestId("tasks-table-page-size-selector-20").click();
+    cy.dataCy("tasks-table-page-size-selector").click();
+    cy.dataCy("tasks-table-page-size-selector-20").click();
     cy.dataTestId("tasks-table").should("exist");
   });
 
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
   });
 
   it("Clicking task name goes to task page for that task", () => {
     cy.visit(pathTasks);
     cy.get("td.cy-task-table-col-NAME:first").within(() => {
-      cy.get("a")
-        .should("have.attr", "href")
-        .and("include", "/task");
+      cy.get("a").should("have.attr", "href").and("include", "/task");
     });
   });
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
     cy.waitForGQL("PatchTasks");
-    cy.get("[data-cy=total-task-count]").contains("49");
+    cy.dataCy("total-task-count").contains("50");
   });
 
   it("Sort buttons are disabled when fetching data", () => {
@@ -132,8 +152,8 @@ describe("Task table", () => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
-          "[data-test-id=tasks-table-page-size-selector]",
-          `[data-test-id=tasks-table-page-size-selector-${pageSize}]`,
+          "tasks-table-page-size-selector",
+          `tasks-table-page-size-selector-${pageSize}`,
           dataCyTableRows
         );
       });
@@ -183,18 +203,6 @@ const fourthPageDisplayNames = [
   "test-model-2",
 ];
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
-
-const locationHasUpdatedParams = (sortBy, sortDir) => {
-  cy.location().should((loc) => {
-    expect(loc.pathname).to.equal(pathTasks);
-    expect(loc.search).to.include(`sortBy=${sortBy}`);
-    if (!sortDir) {
-      expect(loc.search).to.not.include("sortDir");
-    } else {
-      expect(loc.search).to.include(`sortDir=${sortDir}`);
-    }
-  });
-};
 
 const dataCyNextPage =
   "[data-test-id=tasks-table-pagination] > .ant-pagination-next";
