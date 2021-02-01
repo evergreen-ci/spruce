@@ -81,42 +81,44 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     }
   };
   return (
-    <StyledSiderCard isHotKeyPressed={state.numButtonsPressed !== 0}>
-      <Container>
-        <Body weight="medium">Select Build Variants and Tasks</Body>
-        <Divider />
-      </Container>
-      {variants.map(({ displayName, name }) => {
-        const taskCount = selectedVariantTasks[name]
-          ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
-          : null;
-        const isSelected = selectedBuildVariant.includes(name);
-        return (
-          <BuildVariant
-            data-cy="configurePatch-buildVariantListItem"
-            data-cy-name={name}
-            data-cy-selected={isSelected}
-            key={name}
-            isSelected={isSelected}
-            onClick={getClickVariantHandler(name)}
-          >
-            <VariantName>
-              <Body weight={isSelected ? "medium" : "regular"}>
-                {displayName}
-              </Body>
-            </VariantName>
-            {taskCount > 0 && (
-              <StyledBadge
-                data-cy={`configurePatch-taskCountBadge-${name}`}
-                variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-              >
-                {taskCount}
-              </StyledBadge>
-            )}
-          </BuildVariant>
-        );
-      })}
-    </StyledSiderCard>
+    <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
+      <StyledSiderCard>
+        <Container>
+          <Body weight="medium">Select Build Variants and Tasks</Body>
+          <Divider />
+        </Container>
+        {variants.map(({ displayName, name }) => {
+          const taskCount = selectedVariantTasks[name]
+            ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
+            : null;
+          const isSelected = selectedBuildVariant.includes(name);
+          return (
+            <BuildVariant
+              data-cy="configurePatch-buildVariantListItem"
+              data-cy-name={name}
+              data-cy-selected={isSelected}
+              key={name}
+              isSelected={isSelected}
+              onClick={getClickVariantHandler(name)}
+            >
+              <VariantName>
+                <Body weight={isSelected ? "medium" : "regular"}>
+                  {displayName}
+                </Body>
+              </VariantName>
+              {taskCount > 0 && (
+                <StyledBadge
+                  data-cy={`configurePatch-taskCountBadge-${name}`}
+                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+                >
+                  {taskCount}
+                </StyledBadge>
+              )}
+            </BuildVariant>
+          );
+        })}
+      </StyledSiderCard>
+    </UserSelectWrapper>
   );
 };
 
@@ -143,7 +145,7 @@ const reducer = (state: State, action: Action) => {
 interface VariantProps {
   isSelected: boolean;
 }
-interface StyledSiderCardProps {
+interface UserSelectWrapperProps {
   isHotKeyPressed: boolean;
 }
 
@@ -154,11 +156,13 @@ export const cardSidePadding = css`
 const Container = styled.div`
   ${cardSidePadding}
 `;
-const StyledSiderCard = styled(SiderCard)<StyledSiderCardProps>`
+const UserSelectWrapper = styled.span<UserSelectWrapperProps>`
+  ${(props: UserSelectWrapperProps): string =>
+    props.isHotKeyPressed && "user-select: none;"}
+`;
+const StyledSiderCard = styled(SiderCard)`
   padding-left: 0px;
   padding-right: 0px;
-  ${(props: StyledSiderCardProps): string =>
-    props.isHotKeyPressed && "user-select: none;"}
 `;
 const BuildVariant = styled.div<VariantProps>`
   display: flex;
