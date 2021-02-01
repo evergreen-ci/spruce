@@ -27,7 +27,7 @@ describe("getVersionRoute", () => {
   });
   it("Generates a version route with only an id and a tab", () => {
     expect(getVersionRoute("SomeId", { tab: "tasks" as PatchTab })).toEqual(
-      "/version/SomeId/logs?"
+      "/version/SomeId/tasks?"
     );
   });
   it("Generates a version route with only an id and some params", () => {
