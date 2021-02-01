@@ -28,14 +28,14 @@ describe("commit queue page", () => {
 
   it("Clicking on Total Code changes should toggle a drop down table", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.get("[data-cy=code-changes-table]").should("not.exist");
-    cy.get("[data-cy=accordian-toggle]").click();
-    cy.get("[data-cy=code-changes-table]").should("exist");
+    cy.dataCy("code-changes-table").should("not.exist");
+    cy.dataCy("accordian-toggle").click();
+    cy.dataCy("code-changes-table").should("exist");
   });
 
   it("visiting a page with multiple sets of code changes should have multiple tables", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_2);
-    cy.get("[data-cy=accordian-toggle]").should("have.length", 2);
+    cy.dataCy("accordian-toggle").should("have.length", 4);
   });
 
   xit("visiting a non existent commit queue page should display an error", () => {
@@ -69,6 +69,21 @@ describe("commit queue page", () => {
     cy.dataCy("commit-queue-message").should(
       "contain.text",
       "This is the commit queue"
+    );
+  });
+
+  it("should display the commit description above each table", () => {
+    cy.dataCy("commit-name").each(($el, index) =>
+      cy
+        .wrap($el)
+        .contains(
+          [
+            "ramen is amazing",
+            "some other commit",
+            "crazy cool commit!!!",
+            "mega commit",
+          ][index]
+        )
     );
   });
 });

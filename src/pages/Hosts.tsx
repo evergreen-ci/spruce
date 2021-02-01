@@ -61,6 +61,9 @@ const Hosts: React.FC = () => {
   // SELECTED HOST IDS STATE
   const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
 
+  const [canRestartJasper, setCanRestartJasper] = useState<boolean>(true);
+  const [restartJasperError, setRestartJasperError] = useState<string>("");
+
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [
     isUpdateStatusModalVisible,
@@ -109,7 +112,11 @@ const Hosts: React.FC = () => {
                 </Button>
               </ButtonWrapper>
               <ButtonWrapper>
-                <RestartJasper selectedHostIds={selectedHostIds} />
+                <RestartJasper
+                  selectedHostIds={selectedHostIds}
+                  canRestartJasper={canRestartJasper}
+                  jasperTooltipMessage={restartJasperError}
+                />
               </ButtonWrapper>
             </HostsSelectionWrapper>
           </SubtitleDataWrapper>
@@ -136,6 +143,8 @@ const Hosts: React.FC = () => {
             sortDir={sortDir}
             selectedHostIds={selectedHostIds}
             setSelectedHostIds={setSelectedHostIds}
+            setCanRestartJasper={setCanRestartJasper}
+            setRestartJasperError={setRestartJasperError}
             loading={loading}
           />
         </TableContainer>

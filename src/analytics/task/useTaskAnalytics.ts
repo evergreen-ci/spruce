@@ -38,7 +38,8 @@ type Action =
   | { name: "Click Host Link" }
   | { name: "Click Spawn Host" }
   | { name: "Click Distro Link" }
-  | { name: "Click Build Variant Link" };
+  | { name: "Click Build Variant Link" }
+  | { name: "Click Project Link" };
 
 interface P extends Properties {
   taskId: string;

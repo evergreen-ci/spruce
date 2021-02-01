@@ -12,6 +12,7 @@ import {
   paths,
   getSpawnHostRoute,
   getVersionRoute,
+  getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { DependsOn } from "pages/task/metadata/DependsOn";
@@ -29,12 +30,7 @@ interface Props {
   error: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({
-  loading,
-  task = {},
-  error,
-  taskId,
-}) => {
+export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
 
   const {
@@ -58,7 +54,8 @@ export const Metadata: React.FC<Props> = ({
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
-  } = task;
+    projectId,
+  } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
 
@@ -86,6 +83,18 @@ export const Metadata: React.FC<Props> = ({
             }
           >
             {buildVariant}
+          </StyledRouterLink>
+        </P2>
+        <P2 data-cy="task-metadata-project">
+          Project:{" "}
+          <StyledRouterLink
+            data-cy="project-link"
+            to={getProjectPatchesRoute(projectId)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Project Link" })
+            }
+          >
+            {projectId}
           </StyledRouterLink>
         </P2>
         <P2>Submitted by: {author}</P2>

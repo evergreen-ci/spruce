@@ -1,11 +1,11 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
+import { CodeChangesBadge } from "components/CodeChangesBadge";
+import { CodeChangesTable } from "components/CodeChangesTable";
 import { H2 } from "components/Typography";
 import {
   CodeChangesQuery,
@@ -48,7 +48,7 @@ export const CodeChanges: React.FC = () => {
           0
         );
         return (
-          <div key={branchName}>
+          <Container key={branchName}>
             <Title>Changes on {branchName}: </Title>
             <StyledButton
               className="cy-html-diff-btn"
@@ -68,12 +68,9 @@ export const CodeChanges: React.FC = () => {
             >
               Raw
             </StyledButton>
-            <StyledBadge>
-              <FileDiffText type="+" value={additions} />
-              <FileDiffText type="-" value={deletions} />
-            </StyledBadge>
+            <CodeChangesBadge additions={additions} deletions={deletions} />
             <CodeChangesTable fileDiffs={sortedFileDiffs} />
-          </div>
+          </Container>
         );
       })}
     </div>
@@ -81,13 +78,14 @@ export const CodeChanges: React.FC = () => {
 };
 
 const StyledButton = styled(Button)`
-  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 const Title = styled(H2)`
   font-weight: normal;
+  margin-right: 16px;
 `;
 
-const StyledBadge = styled(Badge)`
-  margin-left: 16px;
+const Container = styled.div`
+  padding-bottom: 48px;
 `;
