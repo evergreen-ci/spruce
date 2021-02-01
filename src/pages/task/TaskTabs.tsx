@@ -10,6 +10,7 @@ import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab, TaskStatus } from "types/task";
+import { parseQueryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
@@ -176,12 +177,11 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     defaultTab = activeTabs.indexOf(TaskTab.Tests);
   }
   const [selectedTab, setSelectedTab] = useState(defaultTab);
-
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
   const firstRender = useRef(true);
   useEffect(() => {
     if (id) {
-      const query = new URLSearchParams(location.search);
+      const query = parseQueryString(location.search);
       history.replace(
         getTaskRoute(id, { tab: activeTabs[selectedTab], ...query })
       );
