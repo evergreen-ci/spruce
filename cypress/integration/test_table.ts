@@ -336,6 +336,6 @@ const secondPageDisplayNames = [
 ];
 
 const dataCyNextPage =
-  "[data-test-id=tests-table-pagination] > .ant-pagination-next";
+  "[data-cy=tests-table-pagination] > .ant-pagination-next";
 const dataCyPrevPage =
-  "[data-test-id=tests-table-pagination] > .ant-pagination-prev";
+  "[data-cy=tests-table-pagination] > .ant-pagination-prev";

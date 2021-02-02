@@ -53,7 +53,7 @@ export const HostTable: React.FC<{
         <StyledSubtitle>Recent Events </StyledSubtitle>
         <PaginationWrapper>
           <Pagination
-            dataTestId="host-event-table-pagination"
+            data-cy="host-event-table-pagination"
             pageSize={limit}
             value={page}
             totalResults={eventsCount}

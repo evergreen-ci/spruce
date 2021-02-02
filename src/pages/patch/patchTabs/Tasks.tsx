@@ -92,7 +92,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </FlexContainer>
         <TableControlInnerRow>
           <Pagination
-            dataTestId="tasks-table-pagination"
+            data-cy="tasks-table-pagination"
             pageSize={limit}
             value={page}
             totalResults={get(data, "patchTasks.count", 0)}

@@ -111,7 +111,7 @@ const PatchesPageCore: React.FC<Props> = ({
           pageSize={limit}
           value={page}
           totalResults={patches?.filteredPatchCount ?? 0}
-          dataTestId="my-patches-pagination"
+          data-cy="my-patches-pagination"
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
