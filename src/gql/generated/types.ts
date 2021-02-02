@@ -492,7 +492,9 @@ export type SpawnHostInput = {
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
   useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
+  useTaskConfig?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
+  taskSync?: Maybe<Scalars["Boolean"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -853,11 +855,11 @@ export type Task = {
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
-  annotation?: Maybe<Annotation>;
   ami?: Maybe<Scalars["String"]>;
-  blocked: Scalars["Boolean"];
-  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  annotation?: Maybe<Annotation>;
   baseStatus?: Maybe<Scalars["String"]>;
+  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
@@ -865,6 +867,7 @@ export type Task = {
   canRestart: Scalars["Boolean"];
   canSchedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
+  canSync: Scalars["Boolean"];
   canUnschedule: Scalars["Boolean"];
   createTime?: Maybe<Scalars["Time"]>;
   details?: Maybe<TaskEndDetail>;
@@ -877,7 +880,6 @@ export type Task = {
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
-  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
@@ -886,11 +888,14 @@ export type Task = {
   hostId?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
+  isPerfPluginEnabled: Scalars["Boolean"];
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
+  minQueuePosition: Scalars["Int"];
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
   priority?: Maybe<Scalars["Int"]>;
+  project?: Maybe<Project>;
   projectId: Scalars["String"];
   reliesOn: Array<Dependency>;
   requester: Scalars["String"];
@@ -903,9 +908,8 @@ export type Task = {
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   version: Scalars["String"];
-  minQueuePosition: Scalars["Int"];
-  isPerfPluginEnabled: Scalars["Boolean"];
 };
 
 export type Projects = {
@@ -919,12 +923,13 @@ export type GroupedProjects = {
 };
 
 export type Project = {
-  identifier: Scalars["String"];
-  id: Scalars["String"];
   displayName: Scalars["String"];
-  repo: Scalars["String"];
+  id: Scalars["String"];
+  identifier: Scalars["String"];
   owner: Scalars["String"];
   patches: Patches;
+  repo: Scalars["String"];
+  spawnHostScriptPath: Scalars["String"];
 };
 
 export type ProjectPatchesArgs = {
