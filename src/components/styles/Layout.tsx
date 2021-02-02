@@ -35,7 +35,7 @@ export const PageTitle = styled(H2)`
 ` as typeof H2;
 
 export const TableContainer = styled.div`
-  ${(props: { hide: boolean }): string => props.hide && "display:none;"}
+  ${(props: { hide?: boolean }): string => props.hide && "display:none;"}
 `;
 
 export const TableControlInnerRow = styled.div`

@@ -175,6 +175,7 @@ export const ActionButtons = ({
     <DropdownItem
       data-cy="disable-enable"
       disabled={disabled}
+      key="disableTask"
       onClick={() => {
         setTaskPriority({
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
@@ -184,6 +185,7 @@ export const ActionButtons = ({
       <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
     </DropdownItem>,
     <ConditionalWrapper
+      key="taskPriorityWrapper"
       condition={canSetPriority}
       wrapper={(children) => (
         <Popconfirm
@@ -221,6 +223,7 @@ export const ActionButtons = ({
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
         ref={priorityRef}
+        key="setTaskPriority"
       >
         <Disclaimer>Set priority</Disclaimer>
       </DropdownItem>

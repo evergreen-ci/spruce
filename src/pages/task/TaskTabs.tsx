@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -9,8 +9,8 @@ import { TasksTable } from "components/Table/TasksTable";
 import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { TaskTab, TaskStatus } from "types/task";
-import { parseQueryString } from "utils";
+import { TaskTab } from "types/task";
+import { parseQueryString, isFailedTaskStatus } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
@@ -52,15 +52,11 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     taskStatus: status,
   });
 
-  const failedTask =
-    status === TaskStatus.Failed ||
-    status === TaskStatus.SetupFailed ||
-    status === TaskStatus.SystemFailed ||
-    status === TaskStatus.TaskTimedOut ||
-    status === TaskStatus.TestTimedOut;
+  const failedTask = isFailedTaskStatus(status);
 
   const showAnnotationsTab =
-    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
+    failedTask &&
+    (showBuildBaron || annotation !== undefined || canModifyAnnotation);
 
   const tabMap = {
     [TaskTab.Logs]: (
@@ -68,7 +64,6 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         <Logs logLinks={logLinks} />
       </Tab>
     ),
-
     [TaskTab.Tests]: (
       <Tab
         name={
@@ -164,9 +159,11 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
   };
 
-  const activeTabs = Object.keys(tabMap).filter(
-    (tab) => tabIsActive[tab]
-  ) as TaskTab[];
+  // showAnnotationsTab is the only thing that will change between renders since that is fetched after this component is already rendered
+  const activeTabs = useMemo(
+    () => Object.keys(tabMap).filter((tab) => tabIsActive[tab]) as TaskTab[],
+    [showAnnotationsTab] // eslint-disable-line react-hooks/exhaustive-deps
+  );
 
   let defaultTab = 0;
   if (urlTab && activeTabs.indexOf(urlTab) > -1) {
@@ -182,9 +179,13 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   useEffect(() => {
     if (id) {
       const query = parseQueryString(location.search);
-      history.replace(
-        getTaskRoute(id, { tab: activeTabs[selectedTab], ...query })
-      );
+      const newRoute = getTaskRoute(id, {
+        tab: activeTabs[selectedTab],
+        ...query,
+      });
+      if (newRoute !== location.pathname + location.search) {
+        history.replace(newRoute);
+      }
       if (!firstRender.current) {
         taskAnalytics.sendEvent({
           name: "Change Tab",
