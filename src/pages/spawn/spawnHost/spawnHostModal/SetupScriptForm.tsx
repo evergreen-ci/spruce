@@ -98,6 +98,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
                 <b>{revision.substring(0, 5)}</b> onto host at startup
               </>
             }
+            data-cy="parent-checkbox"
             checked={!!data.taskId}
             onChange={() => {
               onChange({
@@ -109,6 +110,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
           <Indent>
             {project?.spawnHostScriptPath && (
               <Checkbox
+                data-cy="use-psss"
                 label={`Use project-specific setup script defined at ${project?.spawnHostScriptPath}`}
                 checked={useProjectSetupScript}
                 onChange={() =>
@@ -137,6 +139,7 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
             )}
             <Checkbox
               label="Also start any hosts this task started (if applicable)"
+              data-cy="also-start-hosts"
               checked={spawnHostsStartedByTask}
               onChange={() =>
                 onChange({

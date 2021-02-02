@@ -130,8 +130,57 @@ describe("Navigating to Spawn Host page", () => {
           "contain.text",
           "Also start any hosts this task started (if applicable)"
         );
-        cy.dataCy("load-from-task-sync").should("be.disabled");
       });
+
+      it("If 'Load data for dist' is unchecked, selecting one of it's children will check it.'", () => {
+        cy.visit(
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+        );
+        cy.wait(200);
+        cy.dataCy("parent-checkbox").then((chk) => {
+          if (chk[0].checked) {
+            cy.dataCy("parent-checkbox").click({ force: true });
+          }
+        });
+        cy.dataCy("parent-checkbox").should("not.be.checked");
+        cy.dataCy("also-start-hosts").click({ force: true });
+        cy.dataCy("parent-checkbox").should("be.checked");
+      });
+
+      it("If 'Load data for dist' is checked, deselecting all of it's checked children will uncheck it.'", () => {
+        cy.visit(
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+        );
+        cy.wait(200);
+        cy.dataCy("parent-checkbox").then((chk) => {
+          if (!chk[0].checked) {
+            cy.dataCy("parent-checkbox").click({ force: true });
+          }
+        });
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("also-start-hosts").should("not.be.checked");
+        cy.dataCy("also-start-hosts").click({ force: true });
+        cy.dataCy("also-start-hosts").should("be.checked"); // check 1st child
+
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("use-psss").should("not.be.checked");
+        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").should("be.checked"); // check 2nd child
+
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("also-start-hosts").click({ force: true }); // uncheck 1st child
+        cy.dataCy("also-start-hosts").should("not.be.checked");
+        cy.dataCy("parent-checkbox").should("be.checked"); // parent should be unchecked bc child 2 is selected
+
+        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").should("not.be.checked"); // uncheck 2nd child
+
+        cy.dataCy("parent-checkbox").should("not.be.checked");
+      });
+
       it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
         cy.visit(
           `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
