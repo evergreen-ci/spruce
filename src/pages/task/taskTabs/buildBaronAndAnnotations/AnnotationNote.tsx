@@ -40,10 +40,7 @@ export const AnnotationNote: React.FC<Props> = ({
   const originalMessage = note?.message || "";
   const dispatchBanner = useBannerDispatchContext();
   const [newMessage, setMessage] = useState(originalMessage);
-  const [
-    updateAnnotationNote,
-    { loading: loadingAnnotationNote },
-  ] = useMutation<
+  const [updateAnnotationNote] = useMutation<
     EditAnnotationNoteMutation,
     EditAnnotationNoteMutationVariables
   >(EDIT_ANNOTATION_NOTE, {
@@ -100,7 +97,6 @@ export const AnnotationNote: React.FC<Props> = ({
             data-cy="edit-annotation-button"
             variant={Variant.Primary}
             size={Size.XSmall}
-            loading={loadingAnnotationNote}
             onClick={saveAnnotationNote}
             disabled={originalMessage === newMessage || !userCanModify}
           >

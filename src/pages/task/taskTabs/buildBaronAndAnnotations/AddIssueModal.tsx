@@ -74,7 +74,7 @@ export const AddIssueModal: React.FC<Props> = ({
 
   const [addIssueModalState, dispatch] = useReducer(reducer, init());
 
-  const [addAnnotation, { loading: loadingAddAnnotation }] = useMutation<
+  const [addAnnotation] = useMutation<
     AddAnnotationIssueMutation,
     AddAnnotationIssueMutationVariables
   >(ADD_ANNOTATION, {
@@ -142,7 +142,6 @@ export const AddIssueModal: React.FC<Props> = ({
                 addIssueModalState.url === "" ||
                 addIssueModalState.issueKey === ""
               }
-              loading={loadingAddAnnotation}
               onClick={onClickAdd}
             >
               Save
