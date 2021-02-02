@@ -13,18 +13,21 @@ import { ButtonWrapper } from "./BBComponents";
 
 interface BBFileTicketProps {
   taskId: string;
+  execution: number;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
 }
 
 export const BBFileTicket: React.FC<BBFileTicketProps> = ({
   taskId,
+  execution,
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => (
   <>
     <FileTicket
       taskId={taskId}
+      execution={execution}
       setCreatedTicketsCount={setCreatedTicketsCount}
       createdTicketsCount={createdTicketsCount}
     />
@@ -33,12 +36,14 @@ export const BBFileTicket: React.FC<BBFileTicketProps> = ({
 
 interface FileTicketProps {
   taskId: string;
+  execution: number;
   setCreatedTicketsCount;
   createdTicketsCount: number;
 }
 
 export const FileTicket: React.FC<FileTicketProps> = ({
   taskId,
+  execution,
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => {
@@ -65,7 +70,7 @@ export const FileTicket: React.FC<FileTicketProps> = ({
   const annotationAnalytics = useAnnotationAnalytics();
   const onClickFile = () => {
     annotationAnalytics.sendEvent({ name: "Build Baron File Ticket" });
-    fileJiraTicket({ variables: { taskId } });
+    fileJiraTicket({ variables: { taskId, execution } });
   };
 
   return (

@@ -93,7 +93,10 @@ const mocks = [
   {
     request: {
       query: FILE_JIRA_TICKET,
-      variables: { taskId },
+      variables: {
+        taskId,
+        execution,
+      },
     },
     result: {
       data: {
