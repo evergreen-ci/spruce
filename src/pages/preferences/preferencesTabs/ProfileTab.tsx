@@ -92,6 +92,7 @@ export const ProfileTab: React.FC = () => {
 
   return (
     <div>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <ContentWrapper>
           <StyledTextInput
@@ -153,15 +154,19 @@ const StyledSelect = styled(Select)`
     margin-bottom: 40px;
   }
 `;
+
 const StyledTextInput = styled(TextInput)`
   margin-bottom: 24px;
   :last-child {
     margin-bottom: 40px;
   }
 `;
+
 const ContentWrapper = styled.div`
   width: 50%;
 `;
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

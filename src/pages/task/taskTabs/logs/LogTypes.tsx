@@ -191,7 +191,7 @@ const useRenderBody: React.FC<{
   return (
     <>
       <StyledRadioGroup
-        variant="default"
+        size="default"
         onChange={onChangeLog}
         value={currentLog}
         name="log-select"
@@ -224,16 +224,20 @@ const useRenderBody: React.FC<{
             )}
           </ButtonContainer>
         ) : null}
-        <Radio id="cy-task-radio" value={LogTypes.Task}>
+        <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
-        <Radio id="cy-agent-radio" value={LogTypes.Agent}>
+        <Radio data-cy="agent-radio" id="cy-agent-radio" value={LogTypes.Agent}>
           Agent Logs
         </Radio>
-        <Radio id="cy-system-radio" value={LogTypes.System}>
+        <Radio
+          data-cy="system-radio"
+          id="cy-system-radio"
+          value={LogTypes.System}
+        >
           System Logs
         </Radio>
-        <Radio id="cy-event-radio" value={LogTypes.Event}>
+        <Radio data-cy="event-radio" id="cy-event-radio" value={LogTypes.Event}>
           Event Logs
         </Radio>
       </StyledRadioGroup>
@@ -266,6 +270,8 @@ const ButtonContainer = styled.div`
   }
   margin-right: 24px;
 `;
+
+// @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   align-items: center;

@@ -95,6 +95,7 @@ const WelcomeModal = () => {
         "data-cy": "welcome-modal",
       }}
     >
+      {/* @ts-expect-error */}
       <CardTitle>Welcome to the New Evergreen UI!</CardTitle>
       <Carousel
         afterChange={(number) => setActiveSlide(number)}
@@ -179,6 +180,7 @@ const CardWrapper = styled.div`
   text-align: center;
 `;
 
+// @ts-expect-error
 const CardTitle = styled(Subtitle)`
   display: flex;
   justify-content: center;

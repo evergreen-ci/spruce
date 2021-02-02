@@ -45,7 +45,6 @@ export const SiteBanner = () => {
       <span>{jiraLinkify(text)}</span>
       <IconButton
         aria-label="Close Site Banner"
-        variant="light"
         onClick={hideBanner}
         data-cy="dismiss-sitewide-banner-button"
       >

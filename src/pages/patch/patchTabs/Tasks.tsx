@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
-
 import every from "lodash.every";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -82,7 +81,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             numerator={get(data, "patchTasks.count", "-")}
             denominator={taskCount}
           />
-          <PaddedButton
+          <PaddedButton // @ts-expect-error
             onClick={() => {
               patchAnalytics.sendEvent({ name: "Clear all filter" });
               router.push(getVersionRoute(resourceId));
@@ -183,6 +182,7 @@ const FlexContainer = styled.div`
   align-items: center;
 `;
 
+// @ts-expect-error
 const PaddedButton = styled(Button)`
   margin-left: 15px;
 `;

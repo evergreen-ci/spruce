@@ -17,6 +17,7 @@ export const Node: React.FC<NodeProps> = ({ title, child, stepNumber }) => (
   <NodeContainer>
     <NodeHeader>
       <Step stepNumber={stepNumber} />
+      {/* @ts-expect-error */}
       <NodeTitle>{title}</NodeTitle>
     </NodeHeader>
     {child && <ChildContainer>{child}</ChildContainer>}
@@ -29,6 +30,7 @@ interface StepProps {
 
 const Step: React.FC<StepProps> = ({ stepNumber }) => (
   <Circle>
+    {/* @ts-expect-error */}
     <Index>{stepNumber}</Index>
   </Circle>
 );
@@ -44,14 +46,17 @@ const Circle = styled.div`
   z-index: 2;
 `;
 
+// @ts-expect-error
 const Index = styled(Subtitle)`
   color: ${white};
 `;
 
+// @ts-expect-error
 const NodeTitle = styled(Subtitle)`
   align-self: center;
   margin-left: 24px;
 `;
+
 const NodeContainer = styled.div`
   display: flex;
   flex-direction: column;

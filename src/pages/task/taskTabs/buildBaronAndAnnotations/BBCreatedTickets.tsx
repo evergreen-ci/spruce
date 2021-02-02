@@ -57,6 +57,7 @@ export const CreatedTickets: React.FC<Props> = ({
       {length > 0 && (
         <>
           <TitleAndButtons>
+            {/* @ts-expect-error */}
             <TicketsTitle>Tickets Created From This Task </TicketsTitle>
           </TitleAndButtons>
           <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
@@ -64,7 +65,7 @@ export const CreatedTickets: React.FC<Props> = ({
       )}
       {buildBaronConfigured && (
         <TitleAndButtons>
-          {length === 0 && (
+          {length === 0 && ( // @ts-expect-error
             <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
           )}
           <BBFileTicket

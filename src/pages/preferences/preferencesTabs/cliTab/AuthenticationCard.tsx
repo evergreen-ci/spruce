@@ -53,16 +53,20 @@ ui_server_host: "${config.ui_server_host}"
     document.body.removeChild(element);
   };
   return (
-    <Container>
-      <Subtitle>Authentication</Subtitle>
-      <CodeContainer>
-        <Code language="none">{authCode}</Code>
-      </CodeContainer>
-      <StyledButton variant={Variant.Primary} onClick={downloadFile}>
-        Download File
-      </StyledButton>
-      <Button onClick={resetKey}>Reset Key</Button>
-    </Container>
+    <>
+      {/* @ts-expect-error */}
+      <Container>
+        <Subtitle>Authentication</Subtitle>
+        <CodeContainer>
+          <Code language="yaml">{authCode}</Code>
+        </CodeContainer>{" "}
+        {/* @ts-expect-error */}
+        <StyledButton variant={Variant.Primary} onClick={downloadFile}>
+          Download File
+        </StyledButton>
+        <Button onClick={resetKey}>Reset Key</Button>
+      </Container>
+    </>
   );
 };
 
@@ -77,6 +81,7 @@ const CodeContainer = styled.div`
   margin-bottom: 30px;
 `;
 
+// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: 16px;
 `;

@@ -51,8 +51,8 @@ export const CodeChanges: React.FC = () => {
           <Container key={branchName}>
             <Title>Changes on {branchName}: </Title>
             <StyledButton
-              className="cy-html-diff-btn"
-              size="small"
+              data-cy="html-diff-btn"
+              size="small" // @ts-expect-error
               title="Open diff as html file"
               href={htmlLink}
               target="_blank"
@@ -60,8 +60,8 @@ export const CodeChanges: React.FC = () => {
               HTML
             </StyledButton>
             <StyledButton
-              className="cy-raw-diff-btn"
-              size="small"
+              data-cy="raw-diff-btn"
+              size="small" // @ts-expect-error
               title="Open diff as raw file"
               href={rawLink}
               target="_blank"
@@ -77,6 +77,7 @@ export const CodeChanges: React.FC = () => {
   );
 };
 
+// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-right: 16px;
 `;

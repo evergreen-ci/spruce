@@ -74,7 +74,7 @@ export const AddIssueModal: React.FC<Props> = ({
 
   const [addIssueModalState, dispatch] = useReducer(reducer, init());
 
-  const [addAnnotation, { loading: loadingAddAnnotation }] = useMutation<
+  const [addAnnotation] = useMutation<
     AddAnnotationIssueMutation,
     AddAnnotationIssueMutationVariables
   >(ADD_ANNOTATION, {
@@ -121,7 +121,8 @@ export const AddIssueModal: React.FC<Props> = ({
       title={title}
       footer={[
         <>
-          <WideButton dataCy="modal-cancel-button" onClick={onClickCancel}>
+          {/*  @ts-expect-error */}
+          <WideButton data-cy="modal-cancel-button" onClick={onClickCancel}>
             Cancel
           </WideButton>{" "}
           <ConditionalWrapperWithMargin
@@ -141,8 +142,7 @@ export const AddIssueModal: React.FC<Props> = ({
               disabled={
                 addIssueModalState.url === "" ||
                 addIssueModalState.issueKey === ""
-              }
-              loading={loadingAddAnnotation}
+              } // @ts-expect-error
               onClick={onClickAdd}
             >
               Save

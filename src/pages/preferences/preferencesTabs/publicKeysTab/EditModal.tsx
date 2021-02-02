@@ -141,7 +141,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       footer={
         <>
           <LeftButton
-            key="cancel"
+            key="cancel" // @ts-expect-error
             onClick={closeModal}
             data-cy="cancel-subscription-button"
           >
@@ -189,6 +189,7 @@ export const EditModal: React.FC<EditModalProps> = ({
   );
 };
 
+// @ts-expect-error
 const LeftButton = styled(Button)`
   margin-right: 16px;
 `;

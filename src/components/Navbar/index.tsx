@@ -36,6 +36,7 @@ export const Navbar: React.FC = () => {
           >
             <Logo>
               <Icon glyph="EvergreenLogo" />
+              {/* @ts-expect-error */}
               <StyledSubtitle>Evergreen</StyledSubtitle>
             </Logo>
           </Link>
@@ -83,6 +84,8 @@ const Logo = styled.div`
   display: flex;
   align-items: center;
 `;
+
+/* @ts-expect-error */
 const StyledSubtitle = styled(Subtitle)`
   color: ${white};
   margin-left: 8px;

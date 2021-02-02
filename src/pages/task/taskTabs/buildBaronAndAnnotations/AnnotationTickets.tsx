@@ -48,6 +48,7 @@ export const AnnotationTickets: React.FC<Props> = ({
   return (
     <>
       <TitleAndButtons>
+        {/* @ts-expect-error */}
         <TicketsTitle>{title} </TicketsTitle>
         <ConditionalWrapper
           condition={!userCanModify}

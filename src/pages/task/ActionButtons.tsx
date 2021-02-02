@@ -3,11 +3,11 @@ import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -27,7 +27,7 @@ import { RESTART_TASK } from "gql/mutations/restart-task";
 import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
-import { useOnClickOutside, useUpdateURLQueryParams } from "hooks";
+import { useUpdateURLQueryParams } from "hooks";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -149,14 +149,6 @@ export const ActionButtons = ({
     }
   }, [disabled, setIsVisible]);
 
-  useOnClickOutside(wrapperRef, () => {
-    if (
-      !get(priorityRef, "current.className", "").includes("ant-popover-open")
-    ) {
-      setIsVisible(false);
-    }
-  });
-
   const dropdownItems = [
     <DropdownItem
       disabled={disabled || !canUnschedule}
@@ -191,32 +183,39 @@ export const ActionButtons = ({
     >
       <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
     </DropdownItem>,
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title={
-        <>
-          <StyledBody>Set new priority:</StyledBody>
-          <InputNumber
-            size="small"
-            min={0}
-            type="number"
-            max={Number.MAX_SAFE_INTEGER}
-            value={priority}
-            onChange={(val) => setPriority(val as number)}
-          />
-        </>
-      }
-      onConfirm={() => {
-        setTaskPriority({
-          variables: { taskId, priority },
-        });
-        taskAnalytics.sendEvent({ name: "Set Priority", priority });
-      }}
-      onCancel={() => setIsVisible(false)}
-      okText="Set"
-      cancelText="Cancel"
+    <ConditionalWrapper
+      condition={canSetPriority}
+      wrapper={(children) => (
+        <Popconfirm
+          key="priority"
+          icon={null}
+          placement="left"
+          title={
+            <>
+              <StyledBody>Set new priority:</StyledBody>
+              <InputNumber
+                size="small"
+                min={0}
+                type="number"
+                max={Number.MAX_SAFE_INTEGER}
+                value={priority}
+                onChange={(val) => setPriority(val as number)}
+              />
+            </>
+          }
+          onConfirm={() => {
+            setTaskPriority({
+              variables: { taskId, priority },
+            });
+            taskAnalytics.sendEvent({ name: "Set Priority", priority });
+          }}
+          onCancel={() => setIsVisible(false)}
+          okText="Set"
+          cancelText="Cancel"
+        >
+          {children}
+        </Popconfirm>
+      )}
     >
       <DropdownItem
         data-cy="prioritize-task"
@@ -225,7 +224,7 @@ export const ActionButtons = ({
       >
         <Disclaimer>Set priority</Disclaimer>
       </DropdownItem>
-    </Popconfirm>,
+    </ConditionalWrapper>,
   ];
 
   return (

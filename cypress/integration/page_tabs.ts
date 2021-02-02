@@ -63,7 +63,7 @@ describe("Tabs", () => {
 
     it("updates the url path when another tab is selected", () => {
       cy.visit(patchRoute);
-      cy.dataCy(patches.changes.btn).click();
+      cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       locationPathEquals(patches.changes.route);
     });
 
@@ -72,11 +72,11 @@ describe("Tabs", () => {
       locationPathEquals(patches.tasks.route);
     });
 
-    it("clicking away from each tab doesn't crash app", () => {
+    it("should be able to toggle between tabs", () => {
       cy.visit(patchRoute);
-      cy.dataCy(patches.changes.btn).click();
+      cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       cy.dataCy("code-changes").should("exist");
-      cy.dataCy(patches.tasks.btn).click();
+      cy.get(`button[data-cy='${patches.tasks.btn}']`).click();
       cy.dataCy("total-task-count").should("exist");
     });
   });
@@ -91,17 +91,17 @@ describe("Tabs", () => {
 
     it("selects logs tab by default if there are no tests and no tab is provided in url", () => {
       cy.visit(taskRoute(tasks.noTests));
-      cy.dataCy(task.logs.btn)
+      cy.get(`button[data-cy='${task.logs.btn}']`)
         .should("have.attr", "aria-selected")
         .and("eq", "true");
     });
 
-    it("switching between tabs updates the url with the tab name", () => {
+    it.only("toggling between tabs updates the url with the selected tab name", () => {
       cy.visit(taskRoute(tasks.withTests));
       locationPathEquals(task.tests.route);
-      cy.dataCy(task.logs.btn).click();
-      locationPathEquals(task.logs.route);
-      cy.dataCy(task.files.btn).click();
+      // cy.get(`button[data-cy='${task.logs.btn}']`).click();
+      // locationPathEquals(task.logs.route);
+      cy.get(`button[data-cy='${task.files.btn}']`).click();
       locationPathEquals(task.files.route);
     });
 
@@ -124,7 +124,7 @@ describe("Tabs", () => {
 
     it("Should default to the execution task tab if the task is a display task", () => {
       cy.visit(taskRoute(tasks.displayTask));
-      cy.dataCy(task.display.btn)
+      cy.get(`button[data-cy='${task.display.btn}']`)
         .should("have.attr", "aria-selected")
         .and("eq", "true");
     });
