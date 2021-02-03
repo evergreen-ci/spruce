@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useMemo } from "react";
+import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -8,6 +8,7 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { TasksTable } from "components/Table/TasksTable";
 import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
+import { usePrevious } from "hooks";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab } from "types/task";
 import { parseQueryString, isFailedTaskStatus } from "utils";
@@ -159,11 +160,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     [TaskTab.TrendCharts]: isPerfPluginEnabled,
   };
 
-  // showAnnotationsTab is the only thing that will change between renders since that is fetched after this component is already rendered
-  const activeTabs = useMemo(
-    () => Object.keys(tabMap).filter((tab) => tabIsActive[tab]) as TaskTab[],
-    [showAnnotationsTab] // eslint-disable-line react-hooks/exhaustive-deps
-  );
+  const activeTabs = Object.keys(tabMap).filter(
+    (tab) => tabIsActive[tab]
+  ) as TaskTab[];
 
   let defaultTab = 0;
   if (urlTab && activeTabs.indexOf(urlTab) > -1) {
@@ -175,27 +174,24 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   }
   const [selectedTab, setSelectedTab] = useState(defaultTab);
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
-  const firstRender = useRef(true);
+  const previousTab = usePrevious(selectedTab);
+
   useEffect(() => {
-    if (id) {
-      const query = parseQueryString(location.search);
-      const newRoute = getTaskRoute(id, {
-        tab: activeTabs[selectedTab],
-        ...query,
-      });
-      if (newRoute !== location.pathname + location.search) {
-        history.replace(newRoute);
-      }
-      if (!firstRender.current) {
-        taskAnalytics.sendEvent({
-          name: "Change Tab",
-          tab: activeTabs[selectedTab],
-        });
-      } else {
-        firstRender.current = false;
-      }
+    const query = parseQueryString(location.search);
+    const newRoute = getTaskRoute(id, {
+      tab: activeTabs[selectedTab],
+      ...query,
+    });
+    if (newRoute !== location.pathname + location.search) {
+      history.replace(newRoute);
     }
-  }, [selectedTab, id]); // eslint-disable-line react-hooks/exhaustive-deps
+    if (previousTab !== undefined && previousTab !== selectedTab) {
+      taskAnalytics.sendEvent({
+        name: "Change Tab",
+        tab: activeTabs[selectedTab],
+      });
+    }
+  }, [selectedTab, execution]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <StyledTabs
