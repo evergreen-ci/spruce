@@ -182,9 +182,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
       tab: activeTabs[selectedTab],
       ...query,
     });
-    if (newRoute !== location.pathname + location.search) {
-      history.replace(newRoute);
-    }
+    history.replace(newRoute);
     if (previousTab !== undefined && previousTab !== selectedTab) {
       taskAnalytics.sendEvent({
         name: "Change Tab",
