@@ -155,30 +155,22 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     return null;
   }
 
-  const allDistroOptionsMinusCurrentSelection = (distrosData?.distros ?? [])
+  const filteredDistros = (distrosData?.distros ?? [])
     .filter((d) => d.name.includes(distroInput))
     .sort((a, b) => a.name.localeCompare(b.name));
-
-  const virtualWorkstationDistrosMinusCurrentSelection = allDistroOptionsMinusCurrentSelection.filter(
-    (d) => d.isVirtualWorkStation
-  );
-
-  const notVirtualWorkstationDistrosMinusCurrentSelection = allDistroOptionsMinusCurrentSelection.filter(
-    (d) => !d.isVirtualWorkStation
-  );
 
   const distroOptions = [
     {
       label: renderTitle("WORKSTATION DISTROS"),
-      options: virtualWorkstationDistrosMinusCurrentSelection.map((d) =>
-        renderItem(d.name)
-      ),
+      options: filteredDistros
+        .filter((d) => d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
     {
       label: renderTitle("OTHER DISTROS"),
-      options: notVirtualWorkstationDistrosMinusCurrentSelection.map((d) =>
-        renderItem(d.name)
-      ),
+      options: filteredDistros
+        .filter((d) => !d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
   ];
 
@@ -203,9 +195,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     dispatch({
       type: "editDistro",
       distroId: d,
-      isVirtualWorkstation: !!distrosData?.distros.find(
-        (vd) => distroId === vd.name
-      )?.isVirtualWorkStation,
     });
   };
 
