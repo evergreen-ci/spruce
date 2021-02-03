@@ -14,6 +14,7 @@ import { BuildBaronTable } from "./BuildBaronTable";
 
 interface Props {
   taskId: string;
+  execution: number;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
   createdTicketsCount: number;
   buildBaronConfigured: boolean;
@@ -21,6 +22,7 @@ interface Props {
 
 export const CreatedTickets: React.FC<Props> = ({
   taskId,
+  execution,
   setCreatedTicketsCount,
   createdTicketsCount,
   buildBaronConfigured,
@@ -64,11 +66,10 @@ export const CreatedTickets: React.FC<Props> = ({
       )}
       {buildBaronConfigured && (
         <TitleAndButtons>
-          {length === 0 && (
-            <TicketsTitle>Create a New Ticket in Jira</TicketsTitle>
-          )}
+          {length === 0 && <TicketsTitle>Create a New Ticket</TicketsTitle>}
           <BBFileTicket
             taskId={taskId}
+            execution={execution}
             setCreatedTicketsCount={setCreatedTicketsCount}
             createdTicketsCount={createdTicketsCount}
           />
