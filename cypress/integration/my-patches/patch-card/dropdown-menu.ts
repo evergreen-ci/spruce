@@ -36,7 +36,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.location("pathname").should("eq", `/user/admin/patches`);
   });
 
-  it.only("'Schedule' link opens popconfirm and schedules patch", () => {
+  it("'Schedule' link opens popconfirm and schedules patch", () => {
     getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
       cy.dataCy("patch-card-dropdown").click();
     });
