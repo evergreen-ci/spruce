@@ -71,6 +71,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
 
           <CreatedTickets
             taskId={taskId}
+            execution={execution}
             setCreatedTicketsCount={setCreatedTicketsCount}
             createdTicketsCount={createdTicketsCount}
             buildBaronConfigured={bbData.buildBaronConfigured}

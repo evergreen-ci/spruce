@@ -358,6 +358,7 @@ export type MutationEditSpawnHostArgs = {
 
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export enum SpawnHostStatusActions {
@@ -1368,6 +1369,7 @@ export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
 
 export type BbCreateTicketMutationVariables = Exact<{
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
