@@ -1,5 +1,4 @@
 import React, { useState, useRef } from "react";
-import get from "lodash/get";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -8,7 +7,6 @@ import {
   RestartPatch,
   EnqueuePatch,
 } from "components/PatchActionButtons";
-import { useOnClickOutside } from "hooks";
 
 interface Props {
   patchId: string;
@@ -27,22 +25,6 @@ export const DropdownMenu: React.FC<Props> = ({
   const popconfirmRef = useRef(null);
   const scheduleTasksRef = useRef(null); // schedule, unschedule, and enqueue refs must be different for useOnClickOutside to work
   const enqueueRef = useRef(null);
-  const dropdownWrapperRef = useRef(null);
-
-  useOnClickOutside(dropdownWrapperRef, () => {
-    if (
-      !restartModalVisibilityControl[0] &&
-      !get(popconfirmRef, "current.className", "").includes(
-        "ant-popover-open"
-      ) &&
-      !get(scheduleTasksRef, "current.className", "").includes(
-        "ant-popover-open"
-      ) &&
-      !get(enqueueRef, "current.className", "").includes("ant-popover-open")
-    ) {
-      hideMenu();
-    }
-  });
 
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -88,14 +70,12 @@ export const DropdownMenu: React.FC<Props> = ({
   ];
 
   return (
-    <div ref={dropdownWrapperRef}>
-      <ButtonDropdown
-        dataCyBtn="patch-card-dropdown"
-        isVisibleDropdown={isVisible}
-        dropdownItems={dropdownItems}
-        setIsVisibleDropdown={setIsVisible}
-      />
-    </div>
+    <ButtonDropdown
+      dataCyBtn="patch-card-dropdown"
+      isVisibleDropdown={isVisible}
+      dropdownItems={dropdownItems}
+      setIsVisibleDropdown={setIsVisible}
+    />
   );
 };
 
