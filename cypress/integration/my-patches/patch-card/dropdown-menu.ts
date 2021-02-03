@@ -41,7 +41,6 @@ describe("Dropdown Menu of Patch Actions", () => {
       cy.dataCy("patch-card-dropdown").click();
     });
     cy.dataCy("schedule-patch").click({ force: true });
-
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("banner").should("exist");
     cy.dataCy("card-dropdown").should("not.exist");
@@ -83,7 +82,7 @@ describe("Dropdown Menu of Patch Actions", () => {
       .first()
       .within(() => {
         cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("enqueue-patch").should("exist");
       });
+    cy.dataCy("enqueue-patch").should("exist");
   });
 });
