@@ -17,7 +17,6 @@ import {
   TableControlInnerRow,
 } from "components/styles";
 import { WordBreak } from "components/Typography";
-import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
   TaskTestsQueryVariables,
@@ -27,7 +26,7 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
-import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
+import { useUpdateURLQueryParams } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { parseQueryString, queryParamAsNumber } from "utils";
 import { msToDuration } from "utils/string";
@@ -55,14 +54,13 @@ export const TestsTableCore: React.FC = () => {
   }));
 
   // initial request for task tests
-  const { data, startPolling, stopPolling } = useQuery<
-    TaskTestsQuery,
-    TaskTestsQueryVariables
-  >(GET_TASK_TESTS, {
-    variables: queryVariables,
-    pollInterval,
-  });
-  useNetworkStatus(startPolling, stopPolling);
+  const { data } = useQuery<TaskTestsQuery, TaskTestsQueryVariables>(
+    GET_TASK_TESTS,
+    {
+      variables: queryVariables,
+    }
+  );
+
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
