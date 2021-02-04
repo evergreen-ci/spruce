@@ -68,7 +68,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   >(GET_PATCH_BUILD_VARIANTS, {
     variables: { patchId },
   });
-  const { patchBuildVariants } = data;
+  const { patchBuildVariants } = data || {};
   const [
     selectedTasks,
     patchStatusFilterTerm,
