@@ -2492,6 +2492,13 @@
   dependencies:
     "@leafygreen-ui/lib" "^5.1.1"
 
+"@leafygreen-ui/portal@^3.1.0":
+  version "3.1.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/portal/-/portal-3.1.0.tgz#5f4a8bf802195d589d6f3a8979c47708d8f29517"
+  integrity sha512-0fs9GVqmAFGEkuz4Er7bjc6P3hbVbY87Xr3x46lx5tbMttz0aqPVExokA1VIjrVds1u+ufi9pYMkvGxbLv+heA==
+  dependencies:
+    "@leafygreen-ui/lib" "^6.1.2"
+
 "@leafygreen-ui/radio-box-group@3.0.3":
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/radio-box-group/-/radio-box-group-3.0.3.tgz#fac07faa876ab58c042f83fa511da3944a27faee"
@@ -2529,17 +2536,17 @@
     highlight.js "^9.15.6"
     highlightjs-graphql "^1.0.1"
 
-"@leafygreen-ui/tabs@4.0.5":
-  version "4.0.5"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-4.0.5.tgz#6ac7318c16360fe6595c563ba2fb6a54f80a2619"
-  integrity sha512-nfXg9EoPme2KKPgfcxS4rFXA8aGTask9Qt06lRXTg/LJpu1/hZcu49OmHjMpI98Gm2JRN9B89dRafQIRugRDcQ==
+"@leafygreen-ui/tabs@5.0.1":
+  version "5.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tabs/-/tabs-5.0.1.tgz#c5e7d5702b438fb253078e9783dc0118ed942b8a"
+  integrity sha512-jLueEe35OSGlrEqu0DsBsuNftbKzV+KDStilwU6yrzmuMAWFRlDJgChCmAHXQ6pYW2M5MDjpVjB6Dz34KMsPlA==
   dependencies:
     "@leafygreen-ui/box" "^3.0.1"
     "@leafygreen-ui/leafygreen-provider" "^2.0.2"
     "@leafygreen-ui/lib" "^6.1.2"
     "@leafygreen-ui/palette" "^3.1.0"
+    "@leafygreen-ui/portal" "^3.1.0"
     "@leafygreen-ui/tokens" "^0.5.0"
-    lodash "^4.17.20"
 
 "@leafygreen-ui/text-input@1.1.1":
   version "1.1.1"
