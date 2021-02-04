@@ -11,7 +11,7 @@ const git = simpleGit(path.resolve(__dirname, ".."));
 const checkIfOnMaster = async () => {
   await git.init();
   const { current } = await git.branchLocal();
-  if (current !== "master") {
+  if (current !== "main") {
     console.log("Current branch is", current);
     console.log(
       colors.red("Error: You must be on master branch to deploy to production")
