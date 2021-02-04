@@ -137,11 +137,7 @@ describe("Navigating to Spawn Host page", () => {
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
         );
         cy.wait(200);
-        cy.dataCy("parent-checkbox").then((chk) => {
-          if (chk[0].checked) {
-            cy.dataCy("parent-checkbox").click({ force: true });
-          }
-        });
+        cy.dataCy("parent-checkbox").click({ force: true });
         cy.dataCy("parent-checkbox").should("not.be.checked");
         cy.dataCy("also-start-hosts").click({ force: true });
         cy.dataCy("parent-checkbox").should("be.checked");
@@ -152,11 +148,6 @@ describe("Navigating to Spawn Host page", () => {
           `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
         );
         cy.wait(200);
-        cy.dataCy("parent-checkbox").then((chk) => {
-          if (!chk[0].checked) {
-            cy.dataCy("parent-checkbox").click({ force: true });
-          }
-        });
         cy.dataCy("parent-checkbox").should("be.checked");
 
         cy.dataCy("also-start-hosts").should("not.be.checked");
