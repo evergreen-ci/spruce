@@ -23,8 +23,9 @@ const checkIfOnMaster = async () => {
 
 // Runs the script to build and deploy to production
 const deployProcess = () => {
+  console.log("Pushing deploy tags");
   promptRun({
-    command: "yarn run deploy-prod:do-not-use-directly",
+    command: "git push upstream && git push upstream --tags",
     options: {},
     questions: {
       env: [],
@@ -32,11 +33,7 @@ const deployProcess = () => {
     },
   }).then((childProcess) => {
     childProcess.on("close", () => {
-      console.log("Deploy Complete! 🎉");
-      console.log("Don't forget to push tags");
-      console.log(
-        colors.green("git push upstream && git push upstream --tags")
-      );
+      console.log("Successfully Scheduled Deploy! 🎉");
     });
   });
 };
@@ -84,15 +81,7 @@ const deployProd = async () => {
               const choice = version.toLowerCase();
               if (versionChoices.includes(choice)) {
                 promptRun({
-                  command: `yarn run notify-email`,
-                  options: {},
-                  questions: {
-                    env: [],
-                    args: [],
-                  },
-                });
-                promptRun({
-                  command: `yarn version --${choice}`,
+                  command: `yarn version --new-version ${choice}`,
                   options: {},
                   questions: {
                     env: [],
@@ -120,7 +109,7 @@ const deployProd = async () => {
         properties: {
           confirmDeploy: {
             description: colors.magenta(
-              "Would you like to deploy anyways? [Y | N]"
+              "Would you like to deploy manually anyways? [Y | N]"
             ),
           },
         },
@@ -130,7 +119,18 @@ const deployProd = async () => {
         const isConfirmed =
           confirmDeployLowerCased === "yes" || confirmDeployLowerCased === "y";
         if (isConfirmed) {
-          deployProcess();
+          promptRun({
+            command: "yarn deploy-prod:do-not-use-directly",
+            options: {},
+            questions: {
+              env: [],
+              args: [],
+            },
+          }).then((childProcess) => {
+            childProcess.on("close", () => {
+              console.log("Successfully Deployed! 🎉");
+            });
+          });
         } else {
           console.log(colors.cyan("Okay, no deploy"));
           prompt.stop();
