@@ -1,6 +1,7 @@
 import React from "react";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
+import OutsideClickHandler from "react-outside-click-handler";
 import { Button } from "components/Button";
 
 interface Props {
@@ -40,7 +41,19 @@ export const ButtonDropdown: React.FC<Props> = ({
       open={isVisibleDropdown}
       data-cy={dataCyDropdown}
     >
-      {dropdownItems}
+      <OutsideClickHandler
+        onOutsideClick={(e) => {
+          if (
+            isVisibleDropdown &&
+            e.path[0]?.dataset.cy !== "patch-restart-modal" &&
+            e.path[0]?.classList[0] !== "ant-modal-wrap"
+          ) {
+            setIsVisibleDropdown(false);
+          }
+        }}
+      >
+        {dropdownItems}
+      </OutsideClickHandler>
     </Menu>
   );
 };
