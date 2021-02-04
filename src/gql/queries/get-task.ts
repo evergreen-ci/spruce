@@ -8,6 +8,15 @@ export const GET_TASK = gql`
     task(taskId: $taskId, execution: $execution) {
       id
       execution
+      aborted
+      abortInfo {
+        user
+        taskDisplayName
+        taskID
+        buildVariantDisplayName
+        newVersion
+        prClosed
+      }
       activatedBy
       executionTasksFull {
         displayName
