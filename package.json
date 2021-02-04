@@ -123,7 +123,7 @@
     "@cypress/webpack-preprocessor": "5.4.6",
     "@graphql-codegen/cli": "1.19.4",
     "@graphql-codegen/typescript": "1.19.0",
-    "@graphql-codegen/typescript-operations": "1.17.12",
+    "@graphql-codegen/typescript-operations": "1.17.14",
     "@storybook/addon-actions": "6.1.10",
     "@storybook/addon-links": "6.1.10",
     "@storybook/addons": "6.1.10",
