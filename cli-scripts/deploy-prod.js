@@ -104,6 +104,7 @@ const deployProd = async () => {
       }
     );
   } else if (onMaster) {
+    // In case user wants to kick of a manual deploy if the automated deploy fails or we want to roll back
     prompt.get(
       {
         properties: {
