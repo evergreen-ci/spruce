@@ -14,7 +14,6 @@ import {
   getVersionRoute,
   getProjectPatchesRoute,
 } from "constants/routes";
-
 import { GetTaskQuery } from "gql/generated/types";
 import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
