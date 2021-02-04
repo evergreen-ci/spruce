@@ -1,5 +1,5 @@
 import React from "react";
-import { StyledLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
@@ -19,23 +19,23 @@ export const AbortMessage = ({
         {taskID && buildVariantDisplayName && taskDisplayName && (
           <span>
             because of failing task:{" "}
-            <StyledLink
+            <StyledRouterLink
               data-cy="abort-message-failing-task"
-              href={getTaskRoute(taskID)}
+              to={getTaskRoute(taskID)}
             >
               {`${buildVariantDisplayName}: ${taskDisplayName}`}
-            </StyledLink>
+            </StyledRouterLink>
           </span>
         )}
         {newVersion && (
           <span>
             because of a new version:{" "}
-            <StyledLink
+            <StyledRouterLink
               data-cy="abort-message-new-version"
-              href={getVersionRoute(newVersion)}
+              to={getVersionRoute(newVersion)}
             >
               {newVersion}
-            </StyledLink>
+            </StyledRouterLink>
           </span>
         )}
         {prClosed && <span>because the GitHub PR was closed</span>}
