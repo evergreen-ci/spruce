@@ -2368,10 +2368,12 @@
     "@leafygreen-ui/lib" "^5.1.1"
     "@leafygreen-ui/palette" "^2.0.2"
 
-"@leafygreen-ui/icon@4.1.0":
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-4.1.0.tgz#1cf656fa3688c79783b28a392feb1de8a3a645f2"
-  integrity sha512-E6BawBhq1hK+y0D3R2++a70afeCCQxIKX0JsecWIyePxkuPllIpkaqX8WjDef3ZlfXjzrTFoVrC8SKc35u9q/g==
+"@leafygreen-ui/icon@9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/icon/-/icon-9.0.0.tgz#7007ad2f2f68cb9ba044ce325b757eb8a3519afc"
+  integrity sha512-CoFB1Cuunu5uvGiy3FSLKr2Na2suzyZ3uNYuAGXHmqlTOfD62eYODedwmOWeFTTCYJE9AWLZ3BFTxL8rn4OFOA==
+  dependencies:
+    "@leafygreen-ui/lib" "^6.1.2"
 
 "@leafygreen-ui/icon@^5.2.0":
   version "5.2.0"
