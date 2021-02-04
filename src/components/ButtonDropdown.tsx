@@ -5,44 +5,32 @@ import { Button } from "components/Button";
 
 interface Props {
   disabled?: boolean;
-  setIsVisibleDropdown?: (v: boolean) => void;
   loading?: boolean;
-  isVisibleDropdown?: boolean;
   dropdownItems: JSX.Element[];
-  dataCyBtn?: string;
-  dataCyDropdown?: string;
+  "data-cy"?: string;
 }
 
 export const ButtonDropdown: React.FC<Props> = ({
   disabled = false,
   loading = false,
-  setIsVisibleDropdown = () => undefined,
-  isVisibleDropdown = true,
   dropdownItems,
-  dataCyBtn = "ellipsis-btn",
-  dataCyDropdown = "card-dropdown",
-}: Props) => {
-  const toggleDropdown = () => {
-    setIsVisibleDropdown(!isVisibleDropdown);
-  };
-  return (
-    <Menu
-      trigger={
-        <Button
-          size="small"
-          data-cy={dataCyBtn}
-          disabled={disabled}
-          loading={loading}
-          onClick={toggleDropdown}
-          glyph={<Icon glyph="Ellipsis" />}
-        />
-      }
-      open={isVisibleDropdown}
-      data-cy={dataCyDropdown}
-    >
-      {dropdownItems}
-    </Menu>
-  );
-};
+  "data-cy": dataCy = "ellipsis-btn",
+}: Props) => (
+  <Menu
+    trigger={
+      <Button
+        size="small"
+        data-cy={dataCy}
+        disabled={disabled}
+        loading={loading}
+        glyph={<Icon glyph="Ellipsis" />}
+      />
+    }
+    data-cy="card-dropdown"
+    adjustOnMutation
+  >
+    {dropdownItems}
+  </Menu>
+);
 
 export const DropdownItem = MenuItem;

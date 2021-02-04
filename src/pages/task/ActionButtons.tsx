@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
@@ -48,9 +48,6 @@ export const ActionButtons = ({
   initialPriority = 1,
 }: Props) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
-  const wrapperRef = useRef(null);
-  const priorityRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
@@ -143,12 +140,6 @@ export const ActionButtons = ({
     loadingUnscheduleTask ||
     loadingScheduleTask;
 
-  useEffect(() => {
-    if (disabled) {
-      setIsVisible(false);
-    }
-  }, [disabled, setIsVisible]);
-
   const dropdownItems = [
     <DropdownItem
       disabled={disabled || !canUnschedule}
@@ -211,7 +202,6 @@ export const ActionButtons = ({
             });
             taskAnalytics.sendEvent({ name: "Set Priority", priority });
           }}
-          onCancel={() => setIsVisible(false)}
           okText="Set"
           cancelText="Cancel"
         >
@@ -222,7 +212,6 @@ export const ActionButtons = ({
       <DropdownItem
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
-        ref={priorityRef}
         key="setTaskPriority"
       >
         <Disclaimer>Set priority</Disclaimer>
@@ -232,7 +221,7 @@ export const ActionButtons = ({
 
   return (
     <>
-      <PageButtonRow ref={wrapperRef}>
+      <PageButtonRow>
         <Button
           size="small"
           data-cy="schedule-task"
@@ -274,8 +263,6 @@ export const ActionButtons = ({
         <ButtonDropdown
           disabled={disabled}
           dropdownItems={dropdownItems}
-          isVisibleDropdown={isVisible}
-          setIsVisibleDropdown={setIsVisible}
           loading={
             loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
           }

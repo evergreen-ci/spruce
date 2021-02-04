@@ -43,7 +43,6 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("schedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
   });
 
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
@@ -55,7 +54,6 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
     cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
   });
 
   it("'Restart' link shows restart patch modal", () => {
@@ -74,7 +72,6 @@ describe("Dropdown Menu of Patch Actions", () => {
     cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
   });
 
   it("'Add to commit queue' button appears", () => {

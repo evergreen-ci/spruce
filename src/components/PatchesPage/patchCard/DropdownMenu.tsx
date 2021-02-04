@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -19,12 +19,6 @@ export const DropdownMenu: React.FC<Props> = ({
   isPatchOnCommitQueue,
 }) => {
   const restartModalVisibilityControl = useState(false);
-  const [isActionLoading, setIsActionLoading] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const hideMenu = () => setIsVisible(false);
-  const popconfirmRef = useRef(null);
-  const scheduleTasksRef = useRef(null); // schedule, unschedule, and enqueue refs must be different for useOnClickOutside to work
-  const enqueueRef = useRef(null);
 
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -35,46 +29,31 @@ export const DropdownMenu: React.FC<Props> = ({
     <SchedulePatchTasks
       key="schedule"
       patchId={patchId}
-      hideMenu={hideMenu}
       refetchQueries={refetchQueries}
-      disabled={isActionLoading}
-      setParentLoading={setIsActionLoading}
-      ref={scheduleTasksRef}
     />,
     <UnschedulePatchTasks
       key="unschedule"
       patchId={patchId}
-      hideMenu={hideMenu}
       refetchQueries={refetchQueries}
-      disabled={isActionLoading}
-      setParentLoading={setIsActionLoading}
-      ref={popconfirmRef}
     />,
     <RestartPatch
       visibilityControl={restartModalVisibilityControl}
       key="restart"
       patchId={patchId}
-      disabled={isActionLoading}
-      hideMenu={hideMenu}
       refetchQueries={refetchQueries}
     />,
     <EnqueuePatch
       key="enqueue"
       patchId={patchId}
-      hideMenu={hideMenu}
-      disabled={isActionLoading || !canEnqueueToCommitQueue}
+      disabled={!canEnqueueToCommitQueue}
       refetchQueries={refetchQueries}
-      setParentLoading={setIsActionLoading}
-      ref={enqueueRef}
     />,
   ];
 
   return (
     <ButtonDropdown
-      dataCyBtn="patch-card-dropdown"
-      isVisibleDropdown={isVisible}
+      data-cy="patch-card-dropdown"
       dropdownItems={dropdownItems}
-      setIsVisibleDropdown={setIsVisible}
     />
   );
 };

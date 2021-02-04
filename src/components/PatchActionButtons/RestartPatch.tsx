@@ -6,18 +6,16 @@ import { PatchRestartModal } from "pages/patch/index";
 
 interface RestartPatchProps {
   patchId: string;
-  disabled: boolean;
+  disabled?: boolean;
   isButton?: boolean;
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-  hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
   disabled,
   patchId,
   refetchQueries,
-  hideMenu,
   visibilityControl,
 }) => {
   const fallbackVisibilityControl = useState(false);
@@ -54,7 +52,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         visible={isVisible}
         onOk={() => {
           setIsVisible(false);
-          hideMenu();
         }}
         onCancel={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
