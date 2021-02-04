@@ -102,7 +102,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const fetchedDistros = distrosData?.distros ?? [];
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
@@ -141,30 +140,37 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     }
   }, [awsRegions, publicKeys, dispatch]);
 
-  // Need to initialize these here so they can be used in the useEffect hook
-  let virtualWorkstationDistros = [];
-  let notVirtualWorkstationDistros = [];
+  // recalculate isVirtualWorkstation whenever distro changes
+  // initial distroId can be changed from URL
+  useEffect(() => {
+    dispatch({
+      type: "editDistroEffect",
+      isVirtualWorkstation: !!distrosData?.distros.find(
+        (vd) => distroId === vd.name
+      )?.isVirtualWorkStation,
+    });
+  }, [distroId, dispatch, distrosData?.distros]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
 
-  const distros = fetchedDistros.filter((d) => d.name.includes(distroInput));
-  virtualWorkstationDistros = distros
-    .filter((d) => d.isVirtualWorkStation)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  notVirtualWorkstationDistros = distros
-    .filter((d) => !d.isVirtualWorkStation)
+  const filteredDistros = (distrosData?.distros ?? [])
+    .filter((d) => d.name.includes(distroInput))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const distroOptions = [
     {
       label: renderTitle("WORKSTATION DISTROS"),
-      options: virtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: filteredDistros
+        .filter((d) => d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
     {
       label: renderTitle("OTHER DISTROS"),
-      options: notVirtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: filteredDistros
+        .filter((d) => !d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
   ];
 
@@ -189,9 +195,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     dispatch({
       type: "editDistro",
       distroId: d,
-      isVirtualWorkstation: !!virtualWorkstationDistros.find(
-        (vd) => d === vd.name
-      ),
     });
   };
 
