@@ -8,13 +8,13 @@ const { getLatestCommitsSinceLastRelease } = require("./deploy-utils");
 
 const git = simpleGit(path.resolve(__dirname, ".."));
 
-const checkIfOnMaster = async () => {
+const checkIfOnMain = async () => {
   await git.init();
   const { current } = await git.branchLocal();
   if (current !== "main") {
     console.log("Current branch is", current);
     console.log(
-      colors.red("Error: You must be on master branch to deploy to production")
+      colors.red("Error: You must be on main branch to deploy to production")
     );
     return false;
   }
@@ -39,7 +39,7 @@ const deployProcess = () => {
 };
 
 const deployProd = async () => {
-  const onMaster = await checkIfOnMaster();
+  const onMain = await checkIfOnMain();
   const latestCommits = await getLatestCommitsSinceLastRelease();
   const anyChangesFound = latestCommits.length > 0;
   if (anyChangesFound) {
@@ -47,7 +47,7 @@ const deployProd = async () => {
   } else {
     console.log(colors.red("No Changes found"));
   }
-  if (onMaster && anyChangesFound) {
+  if (onMain && anyChangesFound) {
     prompt.start();
     prompt.get(
       {
@@ -103,7 +103,7 @@ const deployProd = async () => {
         }
       }
     );
-  } else if (onMaster) {
+  } else if (onMain) {
     // In case user wants to kick of a manual deploy if the automated deploy fails or we want to roll back
     prompt.get(
       {
@@ -139,7 +139,7 @@ const deployProd = async () => {
       }
     );
   } else {
-    console.log("Aborting deploy, you must be on master to deploy!");
+    console.log("Aborting deploy, you must be on main to deploy!");
   }
 };
 
