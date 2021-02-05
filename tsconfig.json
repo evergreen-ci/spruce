@@ -1,3 +1,4 @@
+// <Reference path="./config/globals.d.ts" />
 {
   "compilerOptions": {
     "target": "es5",
@@ -20,7 +21,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "baseUrl": "src",
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "typeRoots": [
+      "config/globals.d.ts"
+    ]
   },
   "exclude": [
     "node_modules"
