@@ -3,7 +3,7 @@ import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
-import { paths } from "constants/routes";
+import { getCommitQueueRoute } from "constants/routes";
 import { PatchQuery } from "gql/generated/types";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { ParametersModal } from "./ParametersModal";
@@ -50,7 +50,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
         <P2>
           <StyledLink
             data-cy="commit-queue-position"
-            href={`${paths.commitQueue}/${projectID}`}
+            href={getCommitQueueRoute(projectID)}
           >
             Commit queue position: {commitQueuePosition}
           </StyledLink>

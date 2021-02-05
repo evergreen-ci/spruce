@@ -5,7 +5,7 @@ import { Breadcrumb } from "antd";
 import { useBreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles/StyledLink";
 import { H3, P1 } from "components/Typography";
-import { paths } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const { blue } = uiColors;
@@ -52,7 +52,7 @@ export const BreadCrumb: React.FC<Props> = ({
           <StyledP1>
             <StyledBreadcrumbLink
               id="bc-patch"
-              to={`${paths.version}/${versionId}`}
+              to={getVersionRoute(versionId)}
               onClick={() =>
                 breadcrumbAnalytics.sendEvent({
                   name: "Click Link",

@@ -18,7 +18,7 @@ export const Feedback: React.FC = () => {
 
   const hideFeeback =
     Cookies.get("HIDE_FEEDBACK") !== undefined
-      ? Cookies.get("HIDE_FEEDBACK")
+      ? Cookies.get("HIDE_FEEDBACK") === "true"
       : false;
   const [isHidden, setIsHidden] = useState(hideFeeback);
   return (

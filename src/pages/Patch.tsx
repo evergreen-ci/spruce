@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
@@ -13,7 +13,7 @@ import {
 } from "components/styles";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
-import { paths } from "constants/routes";
+import { getPatchRoute } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -33,7 +33,6 @@ const PatchCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
-  const router = useHistory();
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
@@ -61,15 +60,13 @@ const PatchCore: React.FC = () => {
     taskCount,
   } = patch || {};
 
-  console.log({ commitQueuePosition });
   const isPatchOnCommitQueue = commitQueuePosition !== null;
-
-  if (activated === false && alias !== commitQueueAlias) {
-    router.replace(`${paths.patch}/${id}/configure`);
-  }
 
   usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
 
+  if (activated === false && alias !== commitQueueAlias) {
+    return <Redirect to={getPatchRoute(id, { configure: true })} />;
+  }
   if (error) {
     return (
       <PageWrapper>

@@ -19,7 +19,7 @@ export enum PreferencesTabRoutes {
   PublicKeys = "publickeys",
 }
 
-export const paths = {
+const paths = {
   commitQueue: "/commit-queue",
   host: "/host",
   hosts: "/hosts",
@@ -85,6 +85,24 @@ export const getVersionRoute = (
   }?${queryParams}`;
 };
 
+interface GetPatchRouteOptions {
+  tab?: string;
+  configure?: boolean;
+}
+
+export const getPatchRoute = (
+  patchId: string,
+  options: GetPatchRouteOptions
+) => {
+  const { tab, configure, ...rest } = options || {};
+  const queryParams = stringifyQuery({
+    ...rest,
+  });
+  return `${paths.patch}/${patchId}${configure && `/${PatchTab.Configure}`}/${
+    tab ?? DEFAULT_PATCH_TAB
+  }?${queryParams}`;
+};
+
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
 interface GetTaskRouteOptions {
@@ -100,7 +118,7 @@ export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
     queryParams ? `?${queryParams}` : ""
   }`;
 };
-export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
+export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 
 export const getTaskQueueRoute = (distro: string, taskId?: string) =>
@@ -134,5 +152,8 @@ export const getSpawnVolumeRoute = (volume: string) => {
   return `${routes.spawnVolume}?${queryParams}`;
 };
 
-export const getProjectPatchesRoute = (projectId) =>
+export const getProjectPatchesRoute = (projectId: string) =>
   `${paths.project}/${projectId}/${PageNames.Patches}`;
+
+export const getCommitQueueRoute = (projectId: string) =>
+  `${paths.commitQueue}/${projectId}`;
