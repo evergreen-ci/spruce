@@ -22,13 +22,7 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
-    "typeRoots": [
-      "config/globals.d.ts"
-    ]
   },
-  "exclude": [
-    "node_modules"
-  ],
   "include": [
     "src",
     "test_utils/test-utils.ts",
