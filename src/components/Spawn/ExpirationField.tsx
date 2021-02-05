@@ -123,6 +123,7 @@ const PaddedBody = styled.span`
   margin-top: 22px;
 `;
 
+// @ts-ignore
 const PaddedCheckbox = styled(Checkbox)`
   margin-top: 22px;
-`;
+` as typeof Checkbox;

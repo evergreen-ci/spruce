@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Global, css } from "@emotion/core";
+import { Global, css } from "@emotion/react";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Content } from "components/Content";
 import { ErrorBoundary } from "components/ErrorBoundary";

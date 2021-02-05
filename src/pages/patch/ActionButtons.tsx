@@ -1,7 +1,5 @@
-import React, { useRef, useState, useEffect } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -23,16 +21,14 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchId,
 }) => {
-  const wrapperRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
-  const { id: patchId } = useParams<{ id: string }>();
-  const [isActionLoading, setIsActionLoading] = useState(false);
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,
@@ -47,14 +43,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     refetchQueries: ["Patch"],
   });
 
-  const hideMenu = () => setIsVisible(false);
-
-  useEffect(() => {
-    if (isActionLoading) {
-      setIsVisible(false);
-    }
-  }, [isActionLoading, setIsVisible]);
-
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -62,14 +50,9 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       disabled={isPatchOnCommitQueue}
     />,
     <UnschedulePatchTasks
-      {...{
-        patchId,
-        hideMenu,
-        refetchQueries: ["Patch"],
-        key: "unschedule",
-        setParentLoading: setIsActionLoading,
-        disabled: isActionLoading,
-      }}
+      patchId={patchId}
+      refetchQueries={["Patch"]}
+      key="unschedule"
     />,
     <DropdownItem
       key="disable-button"
@@ -81,69 +64,32 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         });
       }}
     >
-      <Disclaimer>Disable all tasks</Disclaimer>
+      Disable all tasks
     </DropdownItem>,
     <SetPatchPriority
-      {...{
-        patchId,
-        hideMenu,
-        key: "priority",
-        disabled: isActionLoading,
-        refetchQueries: ["Patch"],
-        setParentLoading: setIsActionLoading,
-      }}
+      patchId={patchId}
+      key="priority"
+      refetchQueries={["Patch"]}
     />,
     <EnqueuePatch
-      {...{
-        patchId,
-        hideMenu,
-        key: "enqueue",
-        disabled: isActionLoading || !canEnqueueToCommitQueue,
-        refetchQueries: ["Patch"],
-        setParentLoading: setIsActionLoading,
-      }}
+      patchId={patchId}
+      key="enqueue"
+      disabled={!canEnqueueToCommitQueue}
+      refetchQueries={["Patch"]}
     />,
   ];
 
   return (
     <>
-      <PageButtonRow ref={wrapperRef}>
+      <PageButtonRow>
         <SchedulePatchTasks
-          {...{
-            patchId,
-            hideMenu,
-            isButton: true,
-            disabled: isActionLoading,
-            setParentLoading: setIsActionLoading,
-            refetchQueries: ["Patch"],
-          }}
+          patchId={patchId}
+          isButton
+          refetchQueries={["Patch"]}
         />
-        <RestartPatch
-          {...{
-            patchId,
-            hideMenu,
-            isButton: true,
-            disabled: isActionLoading,
-            refetchQueries: ["Patch"],
-          }}
-        />
-        <AddNotification
-          {...{
-            patchId,
-            hideMenu,
-            refetchQueries: ["Patch"],
-            key: "notification",
-            setParentLoading: setIsActionLoading,
-            disabled: isActionLoading,
-          }}
-        />
-        <ButtonDropdown
-          disabled={isActionLoading}
-          dropdownItems={dropdownItems}
-          isVisibleDropdown={isVisible}
-          setIsVisibleDropdown={setIsVisible}
-          loading={false}
-        />
+        <RestartPatch patchId={patchId} isButton refetchQueries={["Patch"]} />
+        <AddNotification patchId={patchId} refetchQueries={["Patch"]} />
+        <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>
     </>
   );

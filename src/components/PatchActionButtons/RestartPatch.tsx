@@ -1,23 +1,20 @@
 import React, { useState } from "react";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
 import { PatchRestartModal } from "pages/patch/index";
 
 interface RestartPatchProps {
   patchId: string;
-  disabled: boolean;
+  disabled?: boolean;
   isButton?: boolean;
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-  hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
   disabled,
   patchId,
   refetchQueries,
-  hideMenu,
   visibilityControl,
 }) => {
   const fallbackVisibilityControl = useState(false);
@@ -46,7 +43,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
           data-cy="restart-patch"
           onClick={onClick}
         >
-          <Disclaimer>Restart</Disclaimer>
+          Restart
         </DropdownItem>
       )}
       <PatchRestartModal
@@ -54,7 +51,6 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         visible={isVisible}
         onOk={() => {
           setIsVisible(false);
-          hideMenu();
         }}
         onCancel={() => setIsVisible(false)}
         refetchQueries={refetchQueries}

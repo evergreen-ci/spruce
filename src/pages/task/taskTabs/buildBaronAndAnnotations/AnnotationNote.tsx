@@ -68,6 +68,7 @@ export const AnnotationNote: React.FC<Props> = ({
 
   return (
     <TitleAndButtons>
+      {/* @ts-expect-error */}
       <TicketsTitle>Note</TicketsTitle>
       {note && (
         <TopMetaDataWrapper data-cy={`${originalMessage}-metadata`}>

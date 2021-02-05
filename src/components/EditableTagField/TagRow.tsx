@@ -68,7 +68,6 @@ export const TagRow: React.FC<TagRowProps> = ({
           <IconButtonContainer>
             {canSave ? (
               <IconButton
-                variant="light"
                 aria-label="Update tag"
                 disabled={
                   !isInputValid ||
@@ -90,7 +89,7 @@ export const TagRow: React.FC<TagRowProps> = ({
                 />
               </IconButton>
             ) : (
-              <IconButton variant="light" aria-label="Delete Tag">
+              <IconButton aria-label="Delete Tag">
                 <Icon
                   glyph="Trash"
                   onClick={

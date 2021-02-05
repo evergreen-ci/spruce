@@ -2340,6 +2340,23 @@ export type SpawnExpirationInfoQuery = {
   myVolumes: Array<{ noExpiration: boolean; id: string }>;
 };
 
+export type GetSpawnTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetSpawnTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    displayName: string;
+    buildVariant: string;
+    revision?: Maybe<string>;
+    canSync: boolean;
+    project?: Maybe<{ spawnHostScriptPath: string }>;
+  }>;
+};
+
 export type SubnetAvailabilityZonesQueryVariables = Exact<{
   [key: string]: never;
 }>;

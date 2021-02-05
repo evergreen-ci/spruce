@@ -32,7 +32,7 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
       >
         <PaddedButton
           size={Size.XSmall}
-          disabled={!canEditSpawnHost}
+          disabled={!canEditSpawnHost} // @ts-expect-error
           onClick={(e) => {
             e.stopPropagation();
             setOpenModal(true);

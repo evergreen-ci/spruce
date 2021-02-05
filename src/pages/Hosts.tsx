@@ -122,13 +122,13 @@ const Hosts: React.FC = () => {
           </SubtitleDataWrapper>
           <TableControlInnerRow>
             <Pagination
-              dataTestId="tasks-table-pagination"
+              data-cy="hosts-table-pagination"
               pageSize={limit}
               value={page}
               totalResults={hasFilters ? filteredHostCount : totalHostsCount}
             />
             <PageSizeSelector
-              data-cy="tasks-table-page-size-selector"
+              data-cy="hosts-table-page-size-selector"
               value={limit}
               sendAnalyticsEvent={() =>
                 hostsTableAnalytics.sendEvent({ name: "Change Page Size" })

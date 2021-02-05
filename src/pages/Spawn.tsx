@@ -31,7 +31,7 @@ const SpawnTabs = () => {
       <SideNav>
         <SideNavGroup header="Hosts & Volumes">
           <PaddedSideNavItem
-            active={tab === SpawnTab.Host}
+            active={tab === SpawnTab.Host} // @ts-expect-error
             to={routes.spawnHost}
             as={Link}
             data-cy="host-nav-tab"
@@ -45,7 +45,7 @@ const SpawnTabs = () => {
             Hosts
           </PaddedSideNavItem>
           <PaddedSideNavItem
-            active={tab === SpawnTab.Volume}
+            active={tab === SpawnTab.Volume} // @ts-expect-error
             to={routes.spawnVolume}
             as={Link}
             data-cy="volume-nav-tab"

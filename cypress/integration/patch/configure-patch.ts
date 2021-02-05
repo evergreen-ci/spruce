@@ -391,7 +391,7 @@ describe("Configure Patch Page", () => {
     it("Navigating to 'Parameters' tab shows the existing parameters", () => {
       cy.login();
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
-      cy.dataCy("parameters-tab").click();
+      cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
         "pointer-events",
@@ -401,7 +401,7 @@ describe("Configure Patch Page", () => {
     it("Adding a parameter is reflected on the page", () => {
       cy.login();
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
-      cy.dataCy("parameters-tab").click();
+      cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("add-tag-button").click();
       cy.dataCy("user-tag-key-field").type("testKey");
       cy.dataCy("user-tag-value-field").type("testValue");
@@ -411,7 +411,7 @@ describe("Configure Patch Page", () => {
     it("Parameters cannot be added once activated", () => {
       cy.login();
       cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
-      cy.dataCy("parameters-tab").click();
+      cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("parameters-disclaimer").should("exist");
       cy.dataCy("badge-this-is-a-parameter").should("exist");
       cy.dataCy("badge-my_team").should("exist");
@@ -721,7 +721,7 @@ describe("Configure Patch Page", () => {
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.login();
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
-      cy.dataCy("changes-tab").click();
+      cy.get('button[data-cy="changes-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
         "pointer-events",

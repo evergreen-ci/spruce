@@ -40,19 +40,19 @@ export const NewUITab: React.FC = () => {
     return loadingComp;
   }
 
-  const handleToggle = async (e): Promise<void> => {
+  const handleToggle = async (c, e): Promise<void> => {
     e.preventDefault();
     dispatchBanner.clearAllBanners();
-    setChecked(e.target.checked);
+    setChecked(c);
     sendEvent({
-      name: e.target.checked ? "Opt into Spruce" : "Opt out of Spruce",
+      name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
     try {
       await updateUserSettings({
         variables: {
           userSettings: {
             useSpruceOptions: {
-              spruceV1: e.target.checked,
+              spruceV1: c,
               hasUsedSpruceBefore,
             },
           },
@@ -62,19 +62,25 @@ export const NewUITab: React.FC = () => {
     } catch (err) {}
   };
   return (
-    <PreferencesCard>
-      <PaddedBody>
-        Direct all inbound links to the new Evergreen UI, whenever possible
-        (e.g. from the CLI, GitHub, etc.)
-      </PaddedBody>
-      <Toggle
-        checked={checked}
-        disabled={updateLoading}
-        onClick={handleToggle}
-      />
-    </PreferencesCard>
+    <>
+      {/* @ts-expect-error */}
+      <PreferencesCard>
+        <PaddedBody>
+          Direct all inbound links to the new Evergreen UI, whenever possible
+          (e.g. from the CLI, GitHub, etc.)
+        </PaddedBody>
+        <Toggle
+          checked={checked}
+          disabled={updateLoading}
+          onChange={handleToggle}
+          aria-label="Toggle new evergreen ui"
+        />
+      </PreferencesCard>
+    </>
   );
 };
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;

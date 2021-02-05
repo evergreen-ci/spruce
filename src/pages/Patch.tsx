@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
 import { useParams, useHistory } from "react-router-dom";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
@@ -47,22 +46,29 @@ const PatchCore: React.FC = () => {
       ),
   });
 
-  useEffect(() => stopPolling, [stopPolling]);
   useNetworkStatus(startPolling, stopPolling);
-  const patch = get(data, "patch");
-  const status = get(patch, "status");
-  const description = get(patch, "description");
-  const activated = get(patch, "activated");
 
-  const alias = patch?.alias ?? null;
-  const commitQueuePosition = patch?.commitQueuePosition ?? null;
+  const { patch } = data || {};
+  const {
+    status,
+    description,
+    activated,
+    commitQueuePosition,
+    alias,
+    patchNumber,
+    author,
+    canEnqueueToCommitQueue,
+    taskCount,
+  } = patch || {};
+
+  console.log({ commitQueuePosition });
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   if (activated === false && alias !== commitQueueAlias) {
     router.replace(`${paths.patch}/${id}/configure`);
   }
 
-  usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
+  usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
 
   if (error) {
     return (
@@ -81,21 +87,17 @@ const PatchCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {patch && (
-        <BreadCrumb
-          patchAuthor={patch.author}
-          patchNumber={patch.patchNumber}
-        />
-      )}
+      {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
         hasData={!!patch}
-        title={description || `Patch ${get(patch, "patchNumber")}`}
+        title={description || `Patch ${patchNumber}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            canEnqueueToCommitQueue={patch?.canEnqueueToCommitQueue}
+            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
+            patchId={id}
           />
         }
       />
@@ -106,7 +108,7 @@ const PatchCore: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={patch ? patch.taskCount : null} />
+            <PatchTabs taskCount={patch ? taskCount : null} />
           </PageContent>
         </PageLayout>
       </PageLayout>

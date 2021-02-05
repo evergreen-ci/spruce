@@ -39,11 +39,13 @@ Cypress.Commands.add("waitForGQL", (queryName, options = {}) =>
   waitForGQL(`@${GQL_QUERY}`, queryName, options)
 );
 
-Cypress.Commands.add("dataCy", (value) => cy.get(`[data-cy=${value}]`));
-Cypress.Commands.add("dataRowKey", (value) =>
-  cy.get(`[data-row-key=${value}]`)
+Cypress.Commands.add("dataCy", (value, options) =>
+  cy.get(`[data-cy=${value}]`, options)
+);
+Cypress.Commands.add("dataRowKey", (value, options) =>
+  cy.get(`[data-row-key=${value}]`, options)
 );
 
-Cypress.Commands.add("dataTestId", (value) =>
-  cy.get(`[data-test-id=${value}]`)
+Cypress.Commands.add("dataTestId", (value, options) =>
+  cy.get(`[data-test-id=${value}]`, options)
 );

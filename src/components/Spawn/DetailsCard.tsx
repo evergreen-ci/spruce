@@ -40,20 +40,23 @@ interface DetailsCardProps {
 const CardContainer = styled(SiderCard)`
   width: 80%;
   padding-bottom: 32px;
-`;
+` as typeof SiderCard;
 
 export const DetailsCard: React.FC<DetailsCardProps> = ({
   type,
   "data-cy": dataCy,
   fieldMaps,
 }) => (
-  <CardContainer data-cy={dataCy}>
-    {Object.keys(fieldMaps).map((key) => (
-      <CardField
-        key={`${key}_${type.id}`}
-        label={key}
-        value={fieldMaps[key](type)}
-      />
-    ))}
-  </CardContainer>
+  <>
+    {/* @ts-expect-error */}
+    <CardContainer data-cy={dataCy}>
+      {Object.keys(fieldMaps).map((key) => (
+        <CardField
+          key={`${key}_${type.id}`}
+          label={key}
+          value={fieldMaps[key](type)}
+        />
+      ))}
+    </CardContainer>
+  </>
 );

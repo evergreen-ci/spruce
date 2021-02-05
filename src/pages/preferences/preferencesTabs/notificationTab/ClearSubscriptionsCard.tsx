@@ -40,6 +40,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
 
   return (
     <>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <ContentWrapper>
           <Body>
@@ -48,7 +49,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
           </Body>
           <StyledClearSubscriptionButton
             data-cy="clear-subscriptions-button"
-            variant={Variant.Danger}
+            variant={Variant.Danger} // @ts-expect-error
             onClick={() => setShowModal(true)}
           >
             Clear all previous subscriptions
@@ -72,6 +73,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
   );
 };
 
+// @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
   margin-top: 36px;
 `;
@@ -79,6 +81,8 @@ const StyledClearSubscriptionButton = styled(Button)`
 const ContentWrapper = styled.div`
   width: 50%;
 `;
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

@@ -97,7 +97,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         <PaddedButton
           disabled={loading}
           glyph={<Icon glyph={glyph} />}
-          size={Size.XSmall}
+          size={Size.XSmall} // @ts-expect-error
           onClick={onClick(action)}
         />
       ) : null}
@@ -106,6 +106,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         title={`Delete host ${host.displayName || host.id}?`}
         checkboxLabel={checkboxLabel}
       >
+        {/* @ts-expect-error */}
         <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
       </PopconfirmWithCheckbox>
     </>

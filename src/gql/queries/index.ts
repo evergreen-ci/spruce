@@ -35,3 +35,4 @@ export { GET_BUILD_BARON } from "./get-build-baron";
 export { GET_SUBNET_AVAILABILITY_ZONES } from "./subnet-availability-zones";
 export { GET_CREATED_TICKETS } from "./get-created-tickets";
 export { GET_SPAWN_EXPIRATION_INFO } from "./spawn-expiration";
+export { GET_SPAWN_TASK } from "./spawn-task";
