@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Disclaimer, Body } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -75,7 +75,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
         data-cy="unschedule-patch"
         disabled={loadingUnschedulePatchTasks || disabled}
       >
-        <Disclaimer>Unschedule all tasks</Disclaimer>
+        Unschedule all tasks
       </DropdownItem>
     </Popconfirm>
   );

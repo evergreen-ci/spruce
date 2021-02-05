@@ -1,9 +1,9 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useBannerDispatchContext } from "context/banners";
 import {
   EnqueuePatchMutation,
@@ -40,24 +40,31 @@ export const EnqueuePatch: React.FC<EnqueueProps> = ({
   const patchAnalytics = usePatchAnalytics();
 
   return (
-    <Popconfirm
-      key="enqueue"
-      icon={null}
-      placement="left"
-      title={<StyledBody>Enqueue patch on the commit queue?</StyledBody>}
-      onConfirm={() => {
-        enqueuePatch({ variables: { patchId } });
-        patchAnalytics.sendEvent({ name: "Enqueue" });
-      }}
-      okText="Yes"
-      cancelText="Cancel"
+    <ConditionalWrapper
+      condition={!disabled || !loadingEnqueuePatch}
+      wrapper={(children) => (
+        <Popconfirm
+          key="enqueue"
+          icon={null}
+          placement="left"
+          title={<StyledBody>Enqueue patch on the commit queue?</StyledBody>}
+          onConfirm={() => {
+            enqueuePatch({ variables: { patchId } });
+            patchAnalytics.sendEvent({ name: "Enqueue" });
+          }}
+          okText="Yes"
+          cancelText="Cancel"
+        >
+          {children}
+        </Popconfirm>
+      )}
     >
       <DropdownItem
         data-cy="enqueue-patch"
         disabled={disabled || loadingEnqueuePatch}
       >
-        <Disclaimer>Add to commit queue</Disclaimer>
+        Add to commit queue
       </DropdownItem>
-    </Popconfirm>
+    </ConditionalWrapper>
   );
 };

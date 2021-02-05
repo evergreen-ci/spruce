@@ -1,7 +1,5 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
 import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
@@ -23,13 +21,14 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchId,
 }) => {
-  const { id: patchId } = useParams<{ id: string }>();
   const { successBanner, errorBanner } = useBannerDispatchContext();
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,
@@ -65,7 +64,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
         });
       }}
     >
-      <Disclaimer>Disable all tasks</Disclaimer>
+      Disable all tasks
     </DropdownItem>,
     <SetPatchPriority
       patchId={patchId}

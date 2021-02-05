@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -150,7 +150,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Unschedule" });
       }}
     >
-      <Disclaimer>Unschedule</Disclaimer>
+      Unschedule
     </DropdownItem>,
     <DropdownItem
       data-cy="abort-task"
@@ -161,7 +161,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Abort" });
       }}
     >
-      <Disclaimer>Abort</Disclaimer>
+      Abort
     </DropdownItem>,
     <DropdownItem
       data-cy="disable-enable"
@@ -173,7 +173,7 @@ export const ActionButtons = ({
         });
       }}
     >
-      <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
+      {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
     <ConditionalWrapper
       key="taskPriorityWrapper"
@@ -214,7 +214,7 @@ export const ActionButtons = ({
         disabled={disabled || !canSetPriority}
         key="setTaskPriority"
       >
-        <Disclaimer>Set priority</Disclaimer>
+        Set priority
       </DropdownItem>
     </ConditionalWrapper>,
   ];

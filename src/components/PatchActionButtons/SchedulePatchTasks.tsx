@@ -1,6 +1,5 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { Button } from "components/Button";
@@ -70,7 +69,7 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
           data-cy="schedule-patch"
           disabled={loadingSchedulePatchTasks || disabled}
         >
-          <Disclaimer>Schedule All Tasks</Disclaimer>
+          Schedule All Tasks
         </DropdownItem>
       )}
     </Popconfirm>

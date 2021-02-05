@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -56,6 +55,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
             max={Number.MAX_SAFE_INTEGER}
             value={priority}
             onChange={(value) => setPriority(value as number)}
+            data-cy="priority-input"
           />
         </>
       }
@@ -70,7 +70,7 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
         data-cy="prioritize-patch"
         disabled={disabled || loadingSetPatchPriority}
       >
-        <Disclaimer>Set priority</Disclaimer>
+        Set priority
       </DropdownItem>
     </Popconfirm>
   );

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
 import { PatchRestartModal } from "pages/patch/index";
@@ -44,7 +43,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
           data-cy="restart-patch"
           onClick={onClick}
         >
-          <Disclaimer>Restart</Disclaimer>
+          Restart
         </DropdownItem>
       )}
       <PatchRestartModal

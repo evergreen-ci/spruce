@@ -19,7 +19,6 @@ export const DropdownMenu: React.FC<Props> = ({
   isPatchOnCommitQueue,
 }) => {
   const restartModalVisibilityControl = useState(false);
-
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
