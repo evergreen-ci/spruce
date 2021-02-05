@@ -82,7 +82,6 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
                 data-cy={`${dataCyPrefix}-regex-selector-trash`}
                 onClick={onDelete}
                 aria-label="Remove regex selector row"
-                variant="dark"
               >
                 <Icon glyph="Trash" />
               </IconButton>

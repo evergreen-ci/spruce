@@ -105,9 +105,10 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       title="Add Subscription"
       footer={
         <>
+          {}
           <LeftButton
-            key="cancel"
-            onClick={onCancel}
+            key="cancel" /* ts-expect-error */
+            /* ts-expect-error */ onClick={onCancel} /* ts-expect-error */
             data-cy="cancel-subscription-button"
           >
             Cancel
@@ -277,9 +278,10 @@ const SectionLabelContainer = styled.div`
   padding-top: 16px;
 `;
 
+/* @ts-expect-error */
 const LeftButton = styled(Button)`
   margin-right: 16px;
-`;
+` as typeof Button;
 
 const InputLabel = styled.label`
   font-size: 14px;

@@ -90,7 +90,7 @@ export const EditVolumeModal: React.FC<Props> = ({
       onCancel={onCancel}
       footer={[
         <WideButton
-          data-cy="cancel-volume-button"
+          data-cy="cancel-volume-button" // @ts-expect-error
           onClick={onCancel}
           key="cancel-button"
         >
@@ -99,7 +99,7 @@ export const EditVolumeModal: React.FC<Props> = ({
         <WideButton
           data-cy="update-volume-button"
           disabled={loading || noChange}
-          key="update-volume-button"
+          key="update-volume-button" // @ts-expect-error
           onClick={updateVolume}
           variant={Variant.Primary}
         >

@@ -15,9 +15,11 @@ export const PatchAndTaskFullPageLoad: React.FC = () => (
     </H2>
     <PageLayout>
       <PageSider>
+        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>
+        {/* @ts-expect-error */}
         <SiderCard>
           <Skeleton active title={false} paragraph={{ rows: 4 }} />
         </SiderCard>

@@ -23,7 +23,7 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
 
   return (
     <Tooltip placement="top" title="Copied!" trigger="click">
-      <PaddedButton
+      <PaddedButton // @ts-expect-error
         onClick={(e: React.MouseEvent) => {
           e.stopPropagation();
           copyToClipboard(sshCommand);

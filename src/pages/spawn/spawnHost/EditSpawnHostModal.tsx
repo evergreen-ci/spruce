@@ -134,12 +134,13 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton onClick={onCancel} key="cancel_button">
           Cancel
         </WideButton>,
         <WideButton
           data-cy="save-spawn-host-button"
-          disabled={hasChanges || loadingSpawnHost}
+          disabled={hasChanges || loadingSpawnHost} // @ts-expect-error
           onClick={onSubmit}
           variant={Variant.Primary}
           key="save_spawn_host_button"

@@ -59,6 +59,7 @@ export const HostDetailsForm: React.FC<HostDetailsFormProps> = ({
   };
   return (
     <Container>
+      {/* @ts-expect-error */}
       <StyledSubtitle> Optional Host Details</StyledSubtitle>
       <Checkbox
         label="Run Userdata script on start"
@@ -115,6 +116,7 @@ const Container = styled(ModalContent)`
   width: 90%;
 `;
 
+// @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   padding-bottom: 20px;
 `;

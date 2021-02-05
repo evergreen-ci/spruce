@@ -2,9 +2,9 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import Button from "@leafygreen-ui/button";
-import { Table, Skeleton } from "antd";
+import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
-import get from "lodash/get";
+import { SortOrder } from "antd/es/table/interface";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import Badge, { Variant } from "components/Badge";
@@ -27,7 +27,6 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
 import { useUpdateURLQueryParams } from "hooks";
-import { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { parseQueryString, queryParamAsNumber } from "utils";
 import { msToDuration } from "utils/string";
@@ -43,11 +42,16 @@ export const TestsTableCore: React.FC = () => {
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
-  const columns = useSetColumnDefaultSortOrder<TestResult>(
-    columnsTemplate,
-    cat,
-    dir
-  );
+
+  // Apply sorts to columns
+  const columns = columnsTemplate.map((column) => ({
+    ...column,
+    ...(column.key === cat && {
+      sortOrder: (dir === SortDirection.Asc
+        ? "ascend"
+        : "descend") as SortOrder,
+    }),
+  }));
 
   // initial request for task tests
   const { data } = useQuery<TaskTestsQuery, TaskTestsQueryVariables>(
@@ -57,26 +61,28 @@ export const TestsTableCore: React.FC = () => {
     }
   );
 
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
     const { order, columnKey } = Array.isArray(sorter) ? sorter[0] : sorter;
-
-    updateQueryParams({
-      [RequiredQueryParams.Category]: `${columnKey}`,
-      [RequiredQueryParams.Sort]:
-        order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+    let queryParams = {
+      [RequiredQueryParams.Category]: undefined,
+      [RequiredQueryParams.Sort]: undefined,
       [RequiredQueryParams.Page]: "0",
-    });
+    };
+    if (order !== undefined) {
+      queryParams = {
+        ...queryParams,
+        [RequiredQueryParams.Category]: `${columnKey}`,
+        [RequiredQueryParams.Sort]:
+          order === "ascend" ? SortDirection.Asc : SortDirection.Desc,
+      };
+    }
+    updateQueryParams(queryParams);
   };
-
   const taskAnalytics = useTaskAnalytics();
 
-  const dataSource: [TestResult] = get(data, "taskTests.testResults", []);
-
+  const { taskTests } = data ?? {};
+  const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
   return (
     <>
       <TableControlOuterRow>
@@ -84,15 +90,15 @@ export const TestsTableCore: React.FC = () => {
           dataCyNumerator="filtered-test-count"
           dataCyDenominator="total-test-count"
           label="tests"
-          numerator={get(data, "taskTests.filteredTestCount", "-")}
-          denominator={get(data, "taskTests.totalTestCount", "-")}
+          numerator={filteredTestCount}
+          denominator={totalTestCount}
         />
         <TableControlInnerRow>
           <Pagination
             pageSize={limitNum}
             value={pageNum}
-            totalResults={get(data, "taskTests.filteredTestCount", 0)}
-            dataTestId="tests-table-pagination"
+            totalResults={filteredTestCount}
+            data-cy="tests-table-pagination"
           />
           <PageSizeSelector
             data-cy="tests-table-page-size-selector"
@@ -103,19 +109,16 @@ export const TestsTableCore: React.FC = () => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={showSkeleton}>
+      <TableContainer>
         <Table
           data-test-id="tests-table"
           rowKey={rowKey}
           pagination={false}
           columns={columns}
-          dataSource={dataSource}
+          dataSource={testResults}
           onChange={tableChangeHandler}
         />
       </TableContainer>
-      {showSkeleton && (
-        <Skeleton active title={false} paragraph={{ rows: 8 }} />
-      )}
     </>
   );
 };
@@ -240,16 +243,18 @@ const getQueryVariables = (
   const category = (parsed[RequiredQueryParams.Category] ?? "")
     .toString()
     .toUpperCase();
-  const cat =
-    category === TestSortCategory.TestName ||
-    category === TestSortCategory.Status ||
-    category === TestSortCategory.Duration
-      ? (category as TestSortCategory)
-      : TestSortCategory.Status;
+
+  const TestSortCategories = Object.keys(TestSortCategory).map(
+    (k) => TestSortCategory[k]
+  );
+  const cat = TestSortCategories.includes(category)
+    ? (category as TestSortCategory)
+    : undefined;
   const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
   const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
   const dir =
-    sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc;
+    cat &&
+    (sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc);
   const rawStatuses = parsed[RequiredQueryParams.Statuses];
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses

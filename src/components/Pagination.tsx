@@ -6,19 +6,19 @@ interface Props {
   totalResults: number;
   value: number;
   pageSize: number;
-  dataTestId?: string;
+  "data-cy"?: string;
 }
 
 export const Pagination: React.FC<Props> = ({
   totalResults,
   value,
   pageSize,
-  dataTestId,
+  "data-cy": dataCy,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
   return (
     <AntPagination
-      data-test-id={dataTestId}
+      data-cy={dataCy}
       simple
       pageSize={pageSize}
       current={value + 1}

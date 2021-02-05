@@ -6,7 +6,7 @@ import { Table } from "antd";
 import Badge from "components/Badge";
 import Icon from "components/icons/Icon";
 
-export const Title = styled(H2)``;
+export const Title = H2;
 
 export const TitleContainer = styled.div`
   display: flex;
@@ -22,11 +22,10 @@ export const StyledBadge = styled(Badge)`
   margin-left: 10px;
 `;
 
-export const PlusButton = ({
-  children,
-  ...props
-}: React.ComponentProps<typeof Button>) => (
-  <Button {...{ ...props, glyph: <Icon glyph="Plus" /> }}>{children}</Button>
+export const PlusButton = ({ children, ...props }) => (
+  <Button {...{ ...props, glyph: <Icon glyph="Plus" /> }} as="button">
+    {children}
+  </Button>
 );
 
 const TableContainer = styled.div`
@@ -66,6 +65,7 @@ export const SpawnTable = (props: React.ComponentProps<typeof Table>) => (
 
 export const DoesNotExpire = "Does not expire";
 
+// @ts-expect-error
 export const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
@@ -92,6 +92,7 @@ export const SectionLabel = styled(Body)`
   min-width: 175px;
 `;
 
+// @ts-expect-error
 export const PaddedButton = styled(Button)`
   margin-left: 5px;
   margin-right: 5px;

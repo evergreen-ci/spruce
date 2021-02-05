@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useReducer } from "react";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -82,6 +82,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   };
   return (
     <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
+      {/* @ts-expect-error */}
       <StyledSiderCard>
         <Container>
           <Body weight="medium">Select Build Variants and Tasks</Body>
