@@ -1,10 +1,13 @@
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import { paths } from "constants/routes";
+import { useParams, useLocation, Redirect } from "react-router-dom";
+import { getVersionRoute } from "constants/routes";
+import { PatchTab } from "types/patch";
+import { parseQueryString } from "utils/queryString";
 
 export const PatchRedirect = () => {
-  const { id, tab } = useParams<{ id: string; tab: string }>();
+  const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const { search } = useLocation();
-  const router = useHistory();
-  router.replace(`${paths.version}/${id}${tab ? `/${tab}` : ""}${search}`);
-  return null;
+
+  return (
+    <Redirect to={getVersionRoute(id, { tab, ...parseQueryString(search) })} />
+  );
 };
