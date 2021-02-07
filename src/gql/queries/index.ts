@@ -1,5 +1,3 @@
-/// <reference path="../graphql.d.ts" />
-
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 
 export { GET_USER_CONFIG } from "./get-user-config";

@@ -1,4 +1,3 @@
-// <Reference path="./config/globals.d.ts" />
 {
   "compilerOptions": {
     "target": "es5",
@@ -23,6 +22,9 @@
     "baseUrl": "src",
     "noFallthroughCasesInSwitch": true,
   },
+  "exclude": [
+    "node_modules"
+  ],
   "include": [
     "src",
     "test_utils/test-utils.ts",

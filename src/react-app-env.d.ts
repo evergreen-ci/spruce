@@ -70,4 +70,14 @@ declare module "*.module.sass" {
   export default classes;
 }
 
+declare module "*.gql" {
+  const content: any;
+  export default content;
+}
+
+declare module "*.graphql" {
+  const content: any;
+  export default content;
+}
+
 // / <reference types="react-scripts" />

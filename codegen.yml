@@ -9,10 +9,10 @@
       plugins:
       - typescript
       - typescript-operations
-      - config:
-        - skipTypename: true,
-        - preResolveTypes: true,
+      config:
+        skipTypename: true,
+        preResolveTypes: true,
         scalars:
-          - StringMap: "{ [key: string]: any }"
-          - Time: Date,
-          - Duration: number,
+          StringMap: "{ [key: string]: any }"
+          Time: Date
+          Duration: number
