@@ -22,7 +22,7 @@ module.exports = {
     "^react-native$": "react-native-web",
     "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy",
   },
-  modulePaths: ["/Users/mohamedkhelif/Documents/evergreen/spruce/src"],
+  modulePaths: ["<rootDir>/src"],
   resetMocks: true,
   roots: ["<rootDir>/src"],
   setupFiles: ["react-app-polyfill/jsdom"],
@@ -32,8 +32,7 @@ module.exports = {
     "<rootDir>/src/**/__tests__/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}",
   ],
-  testRunner:
-    "/Users/mohamedkhelif/Documents/evergreen/spruce/node_modules/jest-circus/runner.js",
+  testRunner: "<rootDir>/node_modules/jest-circus/runner.js",
   transform: {
     "^.+\\.(js|jsx|mjs|cjs|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.css$": "<rootDir>/config/jest/cssTransform.js",
