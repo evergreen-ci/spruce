@@ -110,6 +110,7 @@
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
     "@babel/core": "7.12.3",
+    "@babel/preset-react": "^7.12.13",
     "@cypress/webpack-preprocessor": "5.4.6",
     "@emotion/babel-plugin": "^11.1.2",
     "@graphql-codegen/cli": "1.20.1",
