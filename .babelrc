@@ -11,6 +11,7 @@
                 "style": "css"
             },
             "antd"
-        ]
+        ],
+        "@emotion"
     ]
 }
