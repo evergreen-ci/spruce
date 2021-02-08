@@ -6,9 +6,9 @@ import { Analytics } from "analytics/addPageAction";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import {
-  paths,
   getBuildStatusIconLink,
   getProjectPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
@@ -58,7 +58,7 @@ export const PatchCard: React.FC<Props> = ({
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
-          to={`${paths.patch}/${id}`}
+          to={getVersionRoute(id)}
           onClick={() =>
             analyticsObject?.sendEvent({ name: "Click Patch Link" })
           }

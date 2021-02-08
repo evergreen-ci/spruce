@@ -3,7 +3,7 @@ import { Tab } from "@leafygreen-ui/tabs";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { StyledTabs } from "components/styles/StyledTabs";
-import { paths, DEFAULT_PATCH_TAB } from "constants/routes";
+import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
 import { useTabs, useDefaultPath } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
@@ -23,7 +23,7 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
 
   useDefaultPath({
     tabToIndexMap,
-    defaultPath: `${paths.version}/${id}/${DEFAULT_PATCH_TAB}`,
+    defaultPath: getVersionRoute(id, { tab: DEFAULT_PATCH_TAB }),
   });
 
   const patchAnalytics = usePatchAnalytics();
@@ -31,7 +31,7 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
   const [selectedTab, selectTabHandler] = useTabs({
     tabToIndexMap,
     defaultTab: DEFAULT_PATCH_TAB,
-    path: `${paths.version}/${id}`,
+    path: getVersionRoute(id),
     sendAnalyticsEvent: (tab: string) =>
       patchAnalytics.sendEvent({ name: "Change Tab", tab }),
   });

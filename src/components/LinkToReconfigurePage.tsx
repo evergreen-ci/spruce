@@ -2,7 +2,7 @@ import React from "react";
 import { useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { paths } from "constants/routes";
+import { getPatchRoute } from "constants/routes";
 
 export const LinkToReconfigurePage: React.FC<{
   patchId: string;
@@ -19,7 +19,7 @@ export const LinkToReconfigurePage: React.FC<{
       onClick={() => {
         if (!disabled) {
           patchAnalytics.sendEvent({ name: "Click Reconfigure Link" });
-          router.push(`${paths.patch}/${patchId}/configure`);
+          router.push(getPatchRoute(patchId, { configure: true }));
         }
       }}
     >

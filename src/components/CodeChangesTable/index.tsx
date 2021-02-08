@@ -25,10 +25,8 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   />
 );
 
-const rowKey = (
-  record: CodeChangesTableFileDiffsFragment,
-  index: number
-): string => `${index}`;
+const rowKey = (record: CodeChangesTableFileDiffsFragment): string =>
+  `${record.diffLink}_code_table`;
 
 const columns: (
   showHeader: boolean

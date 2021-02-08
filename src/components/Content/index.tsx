@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import get from "lodash/get";
-import { Route, Redirect, Switch } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
 import {
   SiteBanner,
@@ -14,7 +14,7 @@ import { Navbar } from "components/Navbar";
 import { PageLayout } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
-import { routes, paths } from "constants/routes";
+import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
@@ -63,21 +63,24 @@ export const Content: React.FC = () => {
       <Switch>
         <Route path={routes.task} component={Task} />
         <Route path={routes.configurePatch} component={ConfigurePatch} />
-        <Route path={routes.patch} component={PatchRedirect} />
+        <Route exact path={routes.patch} component={PatchRedirect} />
         <Route path={routes.version} component={Patch} />
         <Route path={routes.hosts} component={Hosts} />
         <Route path={routes.host} component={Host} />
-        <Route exact path={routes.myPatches} component={MyPatches} />
+        <Route path={routes.myPatches} component={MyPatches} />
+        <Route
+          exact
+          path={routes.userPatchesRedirect}
+          component={UserPatchesRedirect}
+        />
         <Route path={routes.userPatches} component={UserPatches} />
         <Route path={routes.taskQueue} component={TaskQueue} />
         <Route path={routes.projectPatches} component={ProjectPatches} />
-        <Route path={`${paths.user}/:id`} component={UserPatchesRedirect} />
         <Route path={routes.spawn} component={Spawn} />
         <Route path={routes.commitQueue} component={CommitQueue} />
         <Route path={routes.preferences} component={Preferences} />
-        <Route exact path="/">
-          <Redirect to={routes.myPatches} />
-        </Route>
+        <Route exact path="/" component={MyPatches} />
+
         <Route component={PageDoesNotExist} />
       </Switch>
       {hasUsedSpruceBefore && <WelcomeModal />}
