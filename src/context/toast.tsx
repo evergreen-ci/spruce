@@ -1,45 +1,54 @@
-import React from "react";
-import { message } from "antd";
-import { MessageType } from "antd/es/message";
+import React, { useState, useCallback } from "react";
+import Toast, { Variant } from "@leafygreen-ui/toast";
 
-type Message = (toastMessage: string) => MessageType;
+type ToastType = { variant: Variant; message: string };
 
-interface ToastDispatchValue {
-  success: Message;
-  warning: Message;
-  error: Message;
-  info: Message;
-}
+const variantToTitleMap = {
+  [Variant.Success]: "Success!",
+  [Variant.Important]: "Warning!",
+  [Variant.Warning]: "Error!",
+  [Variant.Note]: "Something Happened!",
+};
+const ToastDispatchContext = React.createContext<any | null>(null);
 
-const MessagesDispatchContext = React.createContext<ToastDispatchValue | null>(
-  null
-);
+const ToastProvider: React.FC = ({ children }) => {
+  const [visibleToast, setVisibleToast] = useState<ToastType>({
+    variant: Variant.Note,
+    message: "",
+  });
+  const [toastOpen, setToastOpen] = useState(false);
+  const addToast = useCallback(
+    (toast: ToastType) => {
+      setVisibleToast(toast);
+      setToastOpen(true);
+    },
+    [setVisibleToast, setToastOpen]
+  );
 
-enum Toast {
-  success = "success",
-  warning = "warning",
-  error = "error",
-  info = "info",
-}
-
-const showToastMessage = (t: Toast) => (toastMessage: string): MessageType =>
-  message[t](toastMessage);
-
-const toast: ToastDispatchValue = {
-  success: showToastMessage(Toast.success),
-  warning: showToastMessage(Toast.warning),
-  error: showToastMessage(Toast.error),
-  info: showToastMessage(Toast.info),
+  const toastContext = {
+    success: (message: string) =>
+      addToast({ variant: Variant.Success, message }),
+    warning: (message: string) =>
+      addToast({ variant: Variant.Important, message }),
+    error: (message: string) => addToast({ variant: Variant.Warning, message }),
+    info: (message: string) => addToast({ variant: Variant.Note, message }),
+  };
+  return (
+    <ToastDispatchContext.Provider value={toastContext}>
+      {children}
+      <Toast
+        variant={visibleToast?.variant}
+        title={variantToTitleMap[visibleToast?.variant]}
+        body={visibleToast?.message}
+        open={toastOpen}
+        close={() => setToastOpen(false)}
+      />
+    </ToastDispatchContext.Provider>
+  );
 };
 
-const ToastProvider: React.FC = ({ children }) => (
-  <MessagesDispatchContext.Provider value={toast}>
-    {children}
-  </MessagesDispatchContext.Provider>
-);
-
-const useToastContext = (): ToastDispatchValue => {
-  const context = React.useContext(MessagesDispatchContext);
+const useToastContext = () => {
+  const context = React.useContext(ToastDispatchContext);
   if (context === undefined) {
     throw new Error("useToastContext must be used within a ToastProvider");
   }
