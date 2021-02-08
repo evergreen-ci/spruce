@@ -2,7 +2,7 @@ import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { stringifyQuery } from "utils";
 
-enum PageNames {
+export enum PageNames {
   Patches = "patches",
 }
 
@@ -54,6 +54,7 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:id/:tab?`,
   taskQueue: `${paths.taskQueue}/:distro?/:taskId?`,
+  userPatchesRedirect: `${paths.user}/:id`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
 };
@@ -87,7 +88,7 @@ export const getVersionRoute = (
 
 interface GetPatchRouteOptions {
   tab?: string;
-  configure?: boolean;
+  configure: boolean;
 }
 
 export const getPatchRoute = (
@@ -98,7 +99,8 @@ export const getPatchRoute = (
   const queryParams = stringifyQuery({
     ...rest,
   });
-  return `${paths.patch}/${patchId}${configure && `/${PatchTab.Configure}`}/${
+  if (!configure) return getVersionRoute(patchId);
+  return `${paths.patch}/${patchId}/${PatchTab.Configure}/${
     tab ?? DEFAULT_PATCH_TAB
   }?${queryParams}`;
 };

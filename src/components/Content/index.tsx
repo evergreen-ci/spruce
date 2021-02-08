@@ -68,10 +68,14 @@ export const Content: React.FC = () => {
         <Route path={routes.hosts} component={Hosts} />
         <Route path={routes.host} component={Host} />
         <Route path={routes.myPatches} component={MyPatches} />
+        <Route
+          exact
+          path={routes.userPatchesRedirect}
+          component={UserPatchesRedirect}
+        />
         <Route path={routes.userPatches} component={UserPatches} />
         <Route path={routes.taskQueue} component={TaskQueue} />
         <Route path={routes.projectPatches} component={ProjectPatches} />
-        <Route path={routes.userPatches} component={UserPatchesRedirect} />
         <Route path={routes.spawn} component={Spawn} />
         <Route path={routes.commitQueue} component={CommitQueue} />
         <Route path={routes.preferences} component={Preferences} />
