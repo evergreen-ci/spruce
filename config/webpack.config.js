@@ -529,10 +529,21 @@ module.exports = function (webpackEnv) {
                 "sass-loader"
               ),
             },
+            // Graphql loader to resolve *.graphql and *.gql files
             {
               test: /\.(graphql|gql)$/,
               exclude: paths.appNodeModules,
               loader: require.resolve("graphql-tag/loader"),
+            },
+            // webworker loader
+            {
+              test: /\.worker\.js$/,
+              use: {
+                loader: require.resolve("worker-loader"),
+                options: {
+                  publicPath: "/public/",
+                },
+              },
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
