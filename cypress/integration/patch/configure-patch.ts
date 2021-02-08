@@ -678,7 +678,7 @@ describe("Configure Patch Page", () => {
       cy.get("[data-checked=selectAll-indeterminate]").should("exist");
     });
   });
-  describe.only("Scheduling a patch", () => {
+  describe("Scheduling a patch", () => {
     before(() => {
       cy.login();
     });

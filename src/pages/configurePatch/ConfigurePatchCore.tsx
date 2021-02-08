@@ -67,7 +67,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
     history.replace(
       getPatchRoute(id, {
         configure: true,
-        tab: Object.keys(PatchTab)[selectedTab],
+        tab: Object.values(PatchTab)[selectedTab],
         ...query,
       })
     );
