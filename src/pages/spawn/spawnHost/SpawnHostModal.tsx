@@ -177,7 +177,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const canSubmitSpawnHost = !(
     distroId === "" ||
     region === "" ||
-    publicKey.key === ""
+    publicKey?.key === ""
   );
 
   const spawnHost = (e) => {
