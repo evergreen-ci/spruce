@@ -42,7 +42,6 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
 
-  const volumeName = volume.displayName ? volume.displayName : volume.id;
   const hostName = volume.host?.displayName
     ? volume.host.displayName
     : volume.host?.id;
@@ -61,7 +60,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
         <Popconfirm
           icon={null}
           placement="left"
-          title={`Detach this volume ${volumeName} from host ${hostName}?`}
+          title={`Detach this volume ${volume.uiDisplayName} from host ${hostName}?`}
           onConfirm={() => {
             spawnAnalytics.sendEvent({
               name: "Unmount volume",
@@ -79,7 +78,7 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     >
       <Button
         size={Size.XSmall}
-        data-cy={`detach-btn-${volume.displayName || volume.id}`}
+        data-cy={`detach-btn-${volume.uiDisplayName}`}
         disabled={loadingDetachVolume || isHomeVolume}
       >
         Unmount

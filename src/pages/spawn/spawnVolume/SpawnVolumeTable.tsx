@@ -34,9 +34,6 @@ export const SpawnVolumeTable: React.FC<SpawnVolumeTableProps> = ({
   );
 };
 
-const getVolumeDisplayName = (v: MyVolume) =>
-  v.displayName ? v.displayName : v.id;
-
 const getHostDisplayName = (v: MyVolume) =>
   v?.host?.displayName ? v.host.displayName : v.hostID;
 
@@ -48,9 +45,9 @@ const columns: Array<ColumnProps<MyVolume>> = [
     title: "Volume",
     key: "displayName",
     sorter: (a: MyVolume, b: MyVolume) =>
-      getVolumeDisplayName(a).localeCompare(getVolumeDisplayName(b)),
+      a.uiDisplayName.localeCompare(b.uiDisplayName),
     render: (_, volume: MyVolume) => (
-      <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
+      <WordBreak data-cy="vol-name">{volume.uiDisplayName}</WordBreak>
     ),
     width: 400,
   },

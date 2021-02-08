@@ -1801,7 +1801,7 @@ export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;
 export type MyVolumesQuery = {
   myVolumes: Array<{
     id: string;
-    displayName: string;
+    uiDisplayName: string;
     createdBy: string;
     type: string;
     availabilityZone: string;

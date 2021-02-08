@@ -14,7 +14,7 @@ export const MountBtn: React.FC<Props> = ({ volume }) => {
     <>
       <Button
         size={Size.XSmall}
-        data-cy={`attach-btn-${volume.displayName || volume.id}`}
+        data-cy={`attach-btn-${volume.uiDisplayName}`}
         onClick={(e) => {
           e.stopPropagation();
           setOpenModal(true);

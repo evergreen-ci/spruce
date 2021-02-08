@@ -39,7 +39,7 @@ const spruceConfigMock = {
 };
 
 const myVolumesBase = {
-  displayName: "",
+  uiDisplayName: "a",
   createdBy: "arjrsatun.psratatel",
   type: "gp2",
   availabilityZone: "us-east-1d",
@@ -117,9 +117,9 @@ const host = {
 };
 
 const volume = {
-  id: "705cbc9010f090b600639e7223a21e68fe35508a12d8c63a34662d01ddf13302",
-  displayName:
+  uiDisplayName:
     "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b857",
+  id: "705cbc9010f090b600639e7223a21e68fe35508a12d8c63a34662d01ddf13302",
   createdBy: "admin",
   type: "82e62e24ad48ffc0292b9c2846b98e567e634d5df4771977dbedf1ee44134762",
   availabilityZone:

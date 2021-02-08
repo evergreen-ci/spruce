@@ -13,7 +13,7 @@ export const getInitialState = (volume: MyVolume) => ({
   expiration: new Date(volume.expiration),
   volumeId: volume.id,
   noExpiration: volume.noExpiration,
-  name: volume.displayName,
+  name: volume.uiDisplayName,
 });
 
 export function reducer(
