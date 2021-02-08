@@ -33,6 +33,9 @@ export const GET_MY_HOSTS = gql`
       uptime
       displayName
       availabilityZone
+      homeVolume {
+        uiDisplayName
+      }
     }
   }
 `;
