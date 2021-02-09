@@ -5,16 +5,13 @@ import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
 export const AbortMessage: React.FC<AbortInfo> = ({
- abortInfo }) => {
-const {
-  user,
-  taskID,
+  buildVariantDisplayName,
   newVersion,
   prClosed,
-  buildVariantDisplayName,
   taskDisplayName,
-  } = abortInfo;
-return (
+  taskID,
+  user,
+}) => (
   <>
     {user && (
       <P2>
@@ -46,4 +43,3 @@ return (
     )}
   </>
 );
-}
