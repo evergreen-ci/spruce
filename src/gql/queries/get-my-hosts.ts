@@ -24,6 +24,9 @@ export const GET_MY_HOSTS = gql`
         displayName
         id
       }
+      homeVolume {
+        displayName
+      }
       noExpiration
       provider
       status
