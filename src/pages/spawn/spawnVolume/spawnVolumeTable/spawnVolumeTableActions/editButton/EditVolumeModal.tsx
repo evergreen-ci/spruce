@@ -12,7 +12,7 @@ import {
   WideButton,
 } from "components/Spawn";
 import { InputLabel } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateVolumeMutation,
   UpdateVolumeMutationVariables,
@@ -33,7 +33,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   volume,
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(volume));
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [updateVolumeMutation, { loading }] = useMutation<
     UpdateVolumeMutation,
@@ -41,12 +41,12 @@ export const EditVolumeModal: React.FC<Props> = ({
   >(UPDATE_SPAWN_VOLUME, {
     onCompleted() {
       onCancel();
-      dispatchBanner.successBanner("Successfully updated volume");
+      dispatchToast.success("Successfully updated volume");
     },
     onError(err) {
       onCancel();
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.errorBanner(
+
+      dispatchToast.error(
         `There was an error while updating your volume: ${err.message}`
       );
     },

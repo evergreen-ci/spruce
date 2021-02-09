@@ -3,25 +3,15 @@ import styled from "@emotion/styled";
 import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Route, useParams, Redirect, Link } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
-import { Banners } from "components/Banners";
 import { PaddedSideNavItem, PageWrapper } from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
-import { withBannersContext } from "hoc/withBannersContext";
 import { SpawnHost } from "pages/spawn/SpawnHost";
 import { SpawnVolume } from "pages/spawn/SpawnVolume";
 
-const SpawnTabs = () => {
+export const Spawn: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
   const spawnAnalytics = useSpawnAnalytics();
-  useEffect(() => {
-    dispatchBanner.clearAllBanners();
-  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   if (!tabRouteValues.includes(tab as SpawnTab)) {
     return <Redirect to={routes.spawnHost} />;
   }
@@ -61,10 +51,6 @@ const SpawnTabs = () => {
         </SideNavGroup>
       </SideNav>
       <Container>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
         <Route path={routes.spawnHost} component={SpawnHost} />
         <Route path={routes.spawnVolume} component={SpawnVolume} />
       </Container>
@@ -83,5 +69,3 @@ const Container = styled.div`
   margin-left: 60px;
   width: 100%;
 `;
-
-export const Spawn = withBannersContext(SpawnTabs);

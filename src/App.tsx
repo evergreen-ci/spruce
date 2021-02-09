@@ -31,8 +31,8 @@ import { Login } from "pages/Login";
 
 const App: React.FC = () => (
   <ErrorBoundary>
-    <ContextProviders>
-      <Router>
+    <Router>
+      <ContextProviders>
         <Route path={routes.login} component={Login} />
         <GQLWrapper>
           <Global
@@ -43,8 +43,8 @@ const App: React.FC = () => (
           />
           <Content />
         </GQLWrapper>
-      </Router>
-    </ContextProviders>
+      </ContextProviders>
+    </Router>
   </ErrorBoundary>
 );
 

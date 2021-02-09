@@ -3,12 +3,7 @@ import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { Analytics } from "analytics/addPageAction";
-import { Banners } from "components/Banners";
 import { PageWrapper } from "components/styles";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
 import { PatchesPagePatchesFragment } from "gql/generated/types";
 import { PatchCard } from "./PatchCard";
 
@@ -23,17 +18,8 @@ export const ListArea: React.FC<{
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
 }> = ({ patches, error, analyticsObject }) => {
-  const bannersState = useBannerStateContext();
-  const dispatchBanner = useBannerDispatchContext();
   if (error) {
-    return (
-      <PageWrapper>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
-      </PageWrapper>
-    );
+    return <PageWrapper>ERROR</PageWrapper>;
   }
   if (!patches) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;

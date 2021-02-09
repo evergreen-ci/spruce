@@ -4,7 +4,7 @@ import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SchedulePatchTasksMutation,
   SchedulePatchTasksMutationVariables,
@@ -24,7 +24,7 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
   disabled,
   refetchQueries,
 }) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [
     schedulePatchTasks,
     { loading: loadingSchedulePatchTasks },
@@ -34,10 +34,10 @@ export const SchedulePatchTasks: React.FC<SchedulePatchTasksProps> = ({
   >(SCHEDULE_PATCH_TASKS, {
     variables: { patchId },
     onCompleted: () => {
-      successBanner("All tasks were scheduled");
+      dispatchToast.success("All tasks were scheduled");
     },
     onError: (err) => {
-      errorBanner(`Error scheduling tasks: ${err.message}`);
+      dispatchToast.error(`Error scheduling tasks: ${err.message}`);
     },
     refetchQueries,
   });

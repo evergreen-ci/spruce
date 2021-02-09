@@ -6,7 +6,7 @@ import Icon from "@leafygreen-ui/icon";
 import { Table, Skeleton, Popconfirm } from "antd";
 import { usePreferencesAnalytics } from "analytics";
 import { WordBreak } from "components/Typography";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   GetMyPublicKeysQuery,
   GetMyPublicKeysQueryVariables,
@@ -21,7 +21,7 @@ import {
 } from "pages/preferences/preferencesTabs/publicKeysTab/EditModal";
 
 export const PublicKeysTab: React.FC = () => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { sendEvent } = usePreferencesAnalytics();
   const [editModalProps, setEditModalProps] = useState<EditModalPropsState>(
     defaultEditModalProps
@@ -34,20 +34,18 @@ export const PublicKeysTab: React.FC = () => {
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, {
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error fetching your public keys: ${error.message}`
       );
     },
-    onCompleted() {
-      dispatchBanner.clearAllBanners();
-    },
+    onCompleted() {},
   });
   const [removePublicKey, { loading: loadingRemovePublicKey }] = useMutation<
     RemovePublicKeyMutation,
     RemovePublicKeyMutationVariables
   >(REMOVE_PUBLIC_KEY, {
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error removing the public key: ${error.message}`
       );
     },

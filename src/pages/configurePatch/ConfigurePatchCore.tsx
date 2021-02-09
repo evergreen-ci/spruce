@@ -7,16 +7,13 @@ import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import get from "lodash/get";
 import { useHistory, useLocation, useParams, Redirect } from "react-router-dom";
-import { Banners } from "components/Banners";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { getPatchRoute, getVersionRoute } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+
+import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
   PatchConfigure,
@@ -27,7 +24,6 @@ import {
   ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
-import { withBannersContext } from "hoc/withBannersContext";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
@@ -39,16 +35,15 @@ import { omitTypename } from "utils/string";
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
-const ConfigurePatch: React.FC<Props> = ({ patch }) => {
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
+  const dispatchToast = useToastContext();
 
   const [schedulePatch, { data, loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
     SchedulePatchMutationVariables
   >(SCHEDULE_PATCH, {
     onError(err) {
-      dispatchBanner.errorBanner(err.message);
+      dispatchToast.error(err.message);
     },
   });
   const history = useHistory();
@@ -127,10 +122,6 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
 
   return (
     <>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         data-cy="configurePatch-nameInput"
@@ -256,5 +247,3 @@ const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>
     props.disabled && "opacity:0.4;pointer-events:none;"}
 `;
-
-export const ConfigurePatchCore = withBannersContext(ConfigurePatch);

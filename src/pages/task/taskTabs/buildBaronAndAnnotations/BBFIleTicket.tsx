@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { Popconfirm } from "antd";
 import { useAnnotationAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   BbCreateTicketMutation,
   BbCreateTicketMutationVariables,
@@ -47,20 +47,18 @@ export const FileTicket: React.FC<FileTicketProps> = ({
   setCreatedTicketsCount,
   createdTicketsCount,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<
     BbCreateTicketMutation,
     BbCreateTicketMutationVariables
   >(FILE_JIRA_TICKET, {
     onCompleted: () => {
       setButtonText("FILE ANOTHER TICKET");
-      dispatchBanner.successBanner(
-        `Ticket successfully created for this task.`
-      );
+      dispatchToast.success(`Ticket successfully created for this task.`);
       setCreatedTicketsCount(createdTicketsCount + 1);
     },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error filing the ticket: ${error.message}`
       );
     },

@@ -6,7 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Modal } from "components/Modal";
 import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   AttachVolumeToHostMutation,
   AttachVolumeToHostMutationVariables,
@@ -25,17 +25,16 @@ export const MountVolumeModal: React.FC<Props> = ({
   onCancel,
   volume,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [attachVolume, { loading: loadingAttachVolume }] = useMutation<
     AttachVolumeToHostMutation,
     AttachVolumeToHostMutationVariables
   >(ATTACH_VOLUME, {
     onError: (err) =>
-      dispatchBanner.errorBanner(`Error attaching volume: '${err.message}'`),
+      dispatchToast.error(`Error attaching volume: '${err.message}'`),
     onCompleted: () => {
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner("Successfully mounted the volume.");
+      dispatchToast.success("Successfully mounted the volume.");
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
