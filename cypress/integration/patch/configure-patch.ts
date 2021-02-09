@@ -698,7 +698,7 @@ describe("Configure Patch Page", () => {
         url: "/graphql/query",
         response: mockedSuccessfulConfigureResponse,
       });
-      cy.dataCy("schedule-patch]").click();
+      cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
         `/version/${unactivatedPatchId}/tasks`
