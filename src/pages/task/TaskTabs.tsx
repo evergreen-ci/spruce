@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
@@ -8,9 +8,10 @@ import { TabLabelWithBadge } from "components/TabLabelWithBadge";
 import { TasksTable } from "components/Table/TasksTable";
 import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
+import { usePrevious } from "hooks";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
-import { TaskTab, TaskStatus } from "types/task";
-import { parseQueryString } from "utils";
+import { TaskTab } from "types/task";
+import { parseQueryString, isFailedTaskStatus } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
@@ -52,15 +53,11 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     taskStatus: status,
   });
 
-  const failedTask =
-    status === TaskStatus.Failed ||
-    status === TaskStatus.SetupFailed ||
-    status === TaskStatus.SystemFailed ||
-    status === TaskStatus.TaskTimedOut ||
-    status === TaskStatus.TestTimedOut;
+  const failedTask = isFailedTaskStatus(status);
 
   const showAnnotationsTab =
-    failedTask && (showBuildBaron || annotation || canModifyAnnotation);
+    failedTask &&
+    (showBuildBaron || annotation !== undefined || canModifyAnnotation);
 
   const tabMap = {
     [TaskTab.Logs]: (
@@ -68,7 +65,6 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         <Logs logLinks={logLinks} />
       </Tab>
     ),
-
     [TaskTab.Tests]: (
       <Tab
         name={
@@ -178,23 +174,22 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   }
   const [selectedTab, setSelectedTab] = useState(defaultTab);
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
-  const firstRender = useRef(true);
+  const previousTab = usePrevious(selectedTab);
+
   useEffect(() => {
-    if (id) {
-      const query = parseQueryString(location.search);
-      history.replace(
-        getTaskRoute(id, { tab: activeTabs[selectedTab], ...query })
-      );
-      if (!firstRender.current) {
-        taskAnalytics.sendEvent({
-          name: "Change Tab",
-          tab: activeTabs[selectedTab],
-        });
-      } else {
-        firstRender.current = false;
-      }
+    const query = parseQueryString(location.search);
+    const newRoute = getTaskRoute(id, {
+      tab: activeTabs[selectedTab],
+      ...query,
+    });
+    history.replace(newRoute);
+    if (previousTab !== undefined && previousTab !== selectedTab) {
+      taskAnalytics.sendEvent({
+        name: "Change Tab",
+        tab: activeTabs[selectedTab],
+      });
     }
-  }, [selectedTab, id]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [selectedTab, execution]); // eslint-disable-line react-hooks/exhaustive-deps
 
   return (
     <StyledTabs

@@ -18,15 +18,20 @@ export const MetadataCard: React.FC<Props> = ({
   error,
   loading,
 }) => (
-  <SiderCard>
-    <Body weight="medium">{title}</Body>
-    <Divider />
-    {loading && !error && (
-      <Skeleton active title={false} paragraph={{ rows: 4 }} />
-    )}
-    {error && !loading && (
-      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
-    )}
-    {!loading && !error && children}
-  </SiderCard>
+  <>
+    {/* @ts-expect-error */}
+    <SiderCard>
+      <Body weight="medium">{title}</Body>
+      <Divider />
+      {loading && !error && (
+        <Skeleton active title={false} paragraph={{ rows: 4 }} />
+      )}
+      {error && !loading && (
+        <ErrorWrapper data-cy="metadata-card-error">
+          {error.message}
+        </ErrorWrapper>
+      )}
+      {!loading && !error && children}
+    </SiderCard>
+  </>
 );

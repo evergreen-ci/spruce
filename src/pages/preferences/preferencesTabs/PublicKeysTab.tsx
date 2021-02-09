@@ -94,6 +94,7 @@ export const PublicKeysTab: React.FC = () => {
             okText="Yes"
             cancelText="Cancel"
           >
+            {/* @ts-expect-error */}
             <StyledButton
               size="small"
               data-cy="delete-btn"
@@ -159,6 +160,7 @@ const TableContainer = styled.div`
   margin-top: 48px;
 `;
 
+// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: 8px;
 `;

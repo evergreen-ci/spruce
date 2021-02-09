@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
 import { GET_BUILD_BARON } from "gql/queries";
-import { TaskStatus } from "types/task";
+import { isFailedTaskStatus } from "utils";
 
 interface Props {
   taskId: string;
@@ -24,18 +24,13 @@ export const useBuildBaronVariables = ({
     },
   ] = useLazyQuery<BuildBaronQuery, BuildBaronQueryVariables>(GET_BUILD_BARON);
 
-  const failedTask =
-    taskStatus === TaskStatus.Failed ||
-    taskStatus === TaskStatus.SetupFailed ||
-    taskStatus === TaskStatus.SystemFailed ||
-    taskStatus === TaskStatus.TaskTimedOut ||
-    taskStatus === TaskStatus.TestTimedOut;
+  const isFailedTask = isFailedTaskStatus(taskStatus);
 
   useEffect(() => {
-    if (failedTask && execution !== undefined) {
+    if (isFailedTask && execution !== undefined) {
       fetchBuildBaronData({ variables: { taskId, execution } });
     }
-  }, [execution, taskId, failedTask, fetchBuildBaronData]);
+  }, [execution, taskId, isFailedTask, fetchBuildBaronData]);
 
   const buildBaron = buildBaronData?.buildBaron;
   const buildBaronConfigured = buildBaron?.buildBaronConfigured;

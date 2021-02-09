@@ -219,10 +219,8 @@ describe("My Patches Page", () => {
   });
 });
 
-const dataCyNextPage =
-  "[data-test-id=my-patches-pagination] > .ant-pagination-next";
-const dataCyPrevPage =
-  "[data-test-id=my-patches-pagination] > .ant-pagination-prev";
+const dataCyNextPage = "[data-cy=my-patches-pagination] > .ant-pagination-next";
+const dataCyPrevPage = "[data-cy=my-patches-pagination] > .ant-pagination-prev";
 const dataCyTableRows = tableRow;
 
 const firstPageDisplayNames = [

@@ -205,9 +205,9 @@ const fourthPageDisplayNames = [
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 
 const dataCyNextPage =
-  "[data-test-id=tasks-table-pagination] > .ant-pagination-next";
+  "[data-cy=tasks-table-pagination] > .ant-pagination-next";
 const dataCyPrevPage =
-  "[data-test-id=tasks-table-pagination] > .ant-pagination-prev";
+  "[data-cy=tasks-table-pagination] > .ant-pagination-prev";
 
 const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")

@@ -24,15 +24,20 @@ export const VerifyCard = () => {
 "[message='Binary is already up to date - not updating.' revision='${latestRevision}']"`;
 
   return (
-    <Container>
-      <Body>At the command line, type &quot;</Body>
+    <>
+      {/* @ts-expect-error */}
+      <Container>
+        <Body>At the command line, type &quot;</Body>
 
-      <InlinePre>evergreen get-update</InlinePre>
-      <Body>&quot;. It should display :</Body>
-      <CodeContainer>
-        <Code copyable={false}>{verificationCode}</Code>
-      </CodeContainer>
-    </Container>
+        <InlinePre>evergreen get-update</InlinePre>
+        <Body>&quot;. It should display :</Body>
+        <CodeContainer>
+          <Code copyable={false} language="shell">
+            {verificationCode}
+          </Code>
+        </CodeContainer>
+      </Container>
+    </>
   );
 };
 

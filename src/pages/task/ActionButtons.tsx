@@ -1,13 +1,13 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
 import { useBannerDispatchContext } from "context/banners";
 import {
@@ -27,7 +27,7 @@ import { RESTART_TASK } from "gql/mutations/restart-task";
 import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
 import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
 import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
-import { useOnClickOutside, useUpdateURLQueryParams } from "hooks";
+import { useUpdateURLQueryParams } from "hooks";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -48,9 +48,6 @@ export const ActionButtons = ({
   initialPriority = 1,
 }: Props) => {
   const { successBanner, errorBanner } = useBannerDispatchContext();
-  const wrapperRef = useRef(null);
-  const priorityRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
@@ -143,20 +140,6 @@ export const ActionButtons = ({
     loadingUnscheduleTask ||
     loadingScheduleTask;
 
-  useEffect(() => {
-    if (disabled) {
-      setIsVisible(false);
-    }
-  }, [disabled, setIsVisible]);
-
-  useOnClickOutside(wrapperRef, () => {
-    if (
-      !get(priorityRef, "current.className", "").includes("ant-popover-open")
-    ) {
-      setIsVisible(false);
-    }
-  });
-
   const dropdownItems = [
     <DropdownItem
       disabled={disabled || !canUnschedule}
@@ -167,7 +150,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Unschedule" });
       }}
     >
-      <Disclaimer>Unschedule</Disclaimer>
+      Unschedule
     </DropdownItem>,
     <DropdownItem
       data-cy="abort-task"
@@ -178,59 +161,67 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Abort" });
       }}
     >
-      <Disclaimer>Abort</Disclaimer>
+      Abort
     </DropdownItem>,
     <DropdownItem
       data-cy="disable-enable"
       disabled={disabled}
+      key="disableTask"
       onClick={() => {
         setTaskPriority({
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
     >
-      <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
+      {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title={
-        <>
-          <StyledBody>Set new priority:</StyledBody>
-          <InputNumber
-            size="small"
-            min={0}
-            type="number"
-            max={Number.MAX_SAFE_INTEGER}
-            value={priority}
-            onChange={(val) => setPriority(val as number)}
-          />
-        </>
-      }
-      onConfirm={() => {
-        setTaskPriority({
-          variables: { taskId, priority },
-        });
-        taskAnalytics.sendEvent({ name: "Set Priority", priority });
-      }}
-      onCancel={() => setIsVisible(false)}
-      okText="Set"
-      cancelText="Cancel"
+    <ConditionalWrapper
+      key="taskPriorityWrapper"
+      condition={canSetPriority}
+      wrapper={(children) => (
+        <Popconfirm
+          key="priority"
+          icon={null}
+          placement="left"
+          title={
+            <>
+              <StyledBody>Set new priority:</StyledBody>
+              <InputNumber
+                size="small"
+                min={0}
+                type="number"
+                max={Number.MAX_SAFE_INTEGER}
+                value={priority}
+                onChange={(val) => setPriority(val as number)}
+              />
+            </>
+          }
+          onConfirm={() => {
+            setTaskPriority({
+              variables: { taskId, priority },
+            });
+            taskAnalytics.sendEvent({ name: "Set Priority", priority });
+          }}
+          okText="Set"
+          cancelText="Cancel"
+        >
+          {children}
+        </Popconfirm>
+      )}
     >
       <DropdownItem
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
-        ref={priorityRef}
+        key="setTaskPriority"
       >
-        <Disclaimer>Set priority</Disclaimer>
+        Set priority
       </DropdownItem>
-    </Popconfirm>,
+    </ConditionalWrapper>,
   ];
 
   return (
     <>
-      <PageButtonRow ref={wrapperRef}>
+      <PageButtonRow>
         <Button
           size="small"
           data-cy="schedule-task"
@@ -272,8 +263,6 @@ export const ActionButtons = ({
         <ButtonDropdown
           disabled={disabled}
           dropdownItems={dropdownItems}
-          isVisibleDropdown={isVisible}
-          setIsVisibleDropdown={setIsVisible}
           loading={
             loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
           }

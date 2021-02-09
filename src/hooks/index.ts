@@ -4,7 +4,6 @@ export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTi
 export { useNotificationModal } from "hooks/useNotificationModal";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
 export { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
-export { useSetColumnDefaultSortOrder } from "hooks/useSetColumnDefaultSortOrder";
 export { useLegacyUIURL } from "hooks/useLegacyUIURL";
 export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";

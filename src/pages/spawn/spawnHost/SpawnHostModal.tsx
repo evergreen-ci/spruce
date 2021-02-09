@@ -177,7 +177,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const canSubmitSpawnHost = !(
     distroId === "" ||
     region === "" ||
-    publicKey.key === ""
+    publicKey?.key === ""
   );
 
   const spawnHost = (e) => {
@@ -204,12 +204,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton onClick={onCancel} key="cancel_button">
           Cancel
         </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
-          disabled={!canSubmitSpawnHost || loadingSpawnHost}
+          disabled={!canSubmitSpawnHost || loadingSpawnHost} // @ts-expect-error
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
@@ -280,6 +281,7 @@ const Section = styled(ModalContent)`
   margin-top: 20px;
 `;
 
+// @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;

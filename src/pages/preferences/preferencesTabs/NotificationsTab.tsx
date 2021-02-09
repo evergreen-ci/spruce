@@ -81,6 +81,7 @@ export const NotificationsTab: React.FC = () => {
   const newPayload = omitTypename(notificationStatus);
   return (
     <div>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <StyledTextInput
           label="Slack Username"
@@ -147,6 +148,7 @@ const StyledTextInput = styled(TextInput)`
   }
 `;
 
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

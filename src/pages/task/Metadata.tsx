@@ -9,7 +9,7 @@ import { H3, P2 } from "components/Typography";
 import {
   getTaskQueueRoute,
   getTaskRoute,
-  paths,
+  getHostRoute,
   getSpawnHostRoute,
   getVersionRoute,
   getProjectPatchesRoute,
@@ -66,7 +66,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const { author, patchID } = patchMetadata ?? {};
   const oomTracker = details?.oomTracker;
 
-  const hostLink = `${paths.host}/${hostId}`;
+  const hostLink = getHostRoute(hostId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (

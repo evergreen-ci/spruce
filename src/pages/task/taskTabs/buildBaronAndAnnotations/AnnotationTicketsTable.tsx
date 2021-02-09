@@ -88,6 +88,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
               okText="Yes"
               cancelText="Cancel"
             >
+              {/* @ts-expect-error */}
               <StyledButton
                 size={Size.Small}
                 data-cy={`move-btn-${issueKey}`}
@@ -110,6 +111,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
               okText="Yes"
               cancelText="Cancel"
             >
+              {/* @ts-expect-error */}
               <StyledButton
                 size="small"
                 data-cy={`${issueKey}-delete-btn`}
@@ -235,6 +237,7 @@ const BtnContainer = styled.div`
   float: right;
 `;
 
+// @ts-expect-error
 const StyledButton = styled(Button)`
   margin-left: 8px;
   margin-top: 8px;

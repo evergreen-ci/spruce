@@ -1,14 +1,15 @@
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 
+const { gray, white, red } = uiColors;
 const { Content, Sider } = Layout;
 
 const whiteBackground = css`
-  background: white;
-  background-color: white;
+  background: ${white};
+  background-color: ${white};
 `;
 
 export const PageContent = styled(Content)`
@@ -28,12 +29,13 @@ export const PageSider = styled(Sider)`
 
 PageSider.defaultProps = { width: 275 };
 
+// @ts-expect-error
 export const PageTitle = styled(H2)`
   margin-bottom: 16px;
-`;
+` as typeof H2;
 
 export const TableContainer = styled.div`
-  ${(props: { hide: boolean }): string => props.hide && "display:none;"}
+  ${(props: { hide?: boolean }): string => props.hide && "display:none;"}
 `;
 
 export const TableControlInnerRow = styled.div`
@@ -47,12 +49,9 @@ export const TableControlOuterRow = styled(TableControlInnerRow)`
 `;
 
 export const PageButtonRow = styled.div`
-  > button {
-    margin-right: 24px;
-    flex-shrink: 0;
-  }
   display: flex;
-  padding-right: 40px;
+  justify-content: space-between;
+  width: 350px;
 `;
 
 export const InputLabel = styled.label`
@@ -61,11 +60,11 @@ export const InputLabel = styled.label`
 `;
 
 export const ErrorMessage = styled(Body)`
-  color: ${uiColors.red.base};
+  color: ${red.base};
 `;
 
 export const HR = styled("hr")`
-  background-color: ${uiColors.gray.light2};
+  background-color: ${gray.light2};
   border: 0;
   height: 1px;
   width: 100%;

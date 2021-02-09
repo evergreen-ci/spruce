@@ -1,9 +1,9 @@
-import React, { forwardRef } from "react";
+import React from "react";
 import { useMutation } from "@apollo/client";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useBannerDispatchContext } from "context/banners";
 import {
   EnqueuePatchMutation,
@@ -15,64 +15,56 @@ import { StyledBody } from "./UnschedulePatchTasks";
 interface EnqueueProps {
   patchId: string;
   disabled: boolean;
-  hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   refetchQueries: string[];
-  setParentLoading?: (loading: boolean) => void; // used to toggle loading state of parent
 }
-export const EnqueuePatch = forwardRef<HTMLDivElement, EnqueueProps>(
-  (
-    {
-      patchId,
-      disabled,
-      hideMenu,
-      refetchQueries,
-      setParentLoading = () => undefined,
+export const EnqueuePatch: React.FC<EnqueueProps> = ({
+  patchId,
+  disabled,
+  refetchQueries,
+}) => {
+  const { successBanner, errorBanner } = useBannerDispatchContext();
+
+  const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
+    EnqueuePatchMutation,
+    EnqueuePatchMutationVariables
+  >(ENQUEUE_PATCH, {
+    onCompleted: () => {
+      successBanner(`Enqueued patch`);
     },
-    ref
-  ) => {
-    const { successBanner, errorBanner } = useBannerDispatchContext();
+    onError: (err) => {
+      errorBanner(`Error enqueueing patch: ${err.message}`);
+    },
+    refetchQueries,
+  });
 
-    const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
-      EnqueuePatchMutation,
-      EnqueuePatchMutationVariables
-    >(ENQUEUE_PATCH, {
-      onCompleted: () => {
-        successBanner(`Enqueued patch`);
-        setParentLoading(false);
-        hideMenu();
-      },
-      onError: (err) => {
-        errorBanner(`Error enqueueing patch: ${err.message}`);
-        setParentLoading(false);
-      },
-      refetchQueries,
-    });
+  const patchAnalytics = usePatchAnalytics();
 
-    const patchAnalytics = usePatchAnalytics();
-
-    return (
-      <Popconfirm
-        key="enqueue"
-        icon={null}
-        placement="left"
-        title={<StyledBody>Enqueue patch on the commit queue?</StyledBody>}
-        onConfirm={() => {
-          setParentLoading(true);
-          enqueuePatch({ variables: { patchId } });
-          patchAnalytics.sendEvent({ name: "Enqueue" });
-        }}
-        onCancel={hideMenu}
-        okText="Yes"
-        cancelText="Cancel"
-      >
-        <DropdownItem
-          data-cy="enqueue-patch"
-          disabled={disabled || loadingEnqueuePatch}
-          ref={ref}
+  return (
+    <ConditionalWrapper
+      condition={!disabled || !loadingEnqueuePatch}
+      wrapper={(children) => (
+        <Popconfirm
+          key="enqueue"
+          icon={null}
+          placement="left"
+          title={<StyledBody>Enqueue patch on the commit queue?</StyledBody>}
+          onConfirm={() => {
+            enqueuePatch({ variables: { patchId } });
+            patchAnalytics.sendEvent({ name: "Enqueue" });
+          }}
+          okText="Yes"
+          cancelText="Cancel"
         >
-          <Disclaimer>Add to commit queue</Disclaimer>
-        </DropdownItem>
-      </Popconfirm>
-    );
-  }
-);
+          {children}
+        </Popconfirm>
+      )}
+    >
+      <DropdownItem
+        data-cy="enqueue-patch"
+        disabled={disabled || loadingEnqueuePatch}
+      >
+        Add to commit queue
+      </DropdownItem>
+    </ConditionalWrapper>
+  );
+};

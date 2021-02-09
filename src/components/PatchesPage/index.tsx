@@ -99,7 +99,7 @@ const PatchesPageCore: React.FC<Props> = ({
           />
           <StatusSelector />
         </FlexRow>
-        <StyledCheckbox
+        <Checkbox
           data-cy="commit-queue-checkbox"
           onChange={onCheckboxChange}
           label="Show Commit Queue"
@@ -111,7 +111,7 @@ const PatchesPageCore: React.FC<Props> = ({
           pageSize={limit}
           value={page}
           totalResults={patches?.filteredPatchCount ?? 0}
-          dataTestId="my-patches-pagination"
+          data-cy="my-patches-pagination"
         />
         <PageSizeSelector
           data-cy="my-patches-page-size-selector"
@@ -153,10 +153,6 @@ export const getPatchesInputFromURLSearch = (
     limit: getLimitFromSearch(search),
   };
 };
-
-const StyledCheckbox = styled(Checkbox)`
-  margin-left: 16px;
-`;
 
 const FlexRow = styled.div`
   display: flex;

@@ -5,7 +5,6 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import get from "lodash/get";
 import { useLocation, useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
@@ -63,13 +62,13 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     },
     refetchQueries,
   });
-  const { data, loading } = useQuery<
+  const { data } = useQuery<
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
     variables: { patchId },
   });
-  const patchBuildVariants = get(data, "patchBuildVariants");
+  const { patchBuildVariants } = data || {};
   const [
     selectedTasks,
     patchStatusFilterTerm,
@@ -139,7 +138,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       ]}
       data-cy="patch-restart-modal"
     >
-      {!loading && patchBuildVariants && (
+      {patchBuildVariants && (
         <>
           <Row>
             <TaskStatusFilters

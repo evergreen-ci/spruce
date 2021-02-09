@@ -20,15 +20,21 @@ export const HostCard: React.FC<Props> = ({
   loading,
   metaData,
 }) => (
-  <SiderCard metaData={metaData}>
-    {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-    {error && (
-      <ErrorWrapper data-cy="metadata-card-error">{error.message}</ErrorWrapper>
-    )}
-    {children}
-  </SiderCard>
+  <>
+    {/* @ts-expect-error */}
+    <SiderCard metaData={metaData}>
+      {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+      {error && (
+        <ErrorWrapper data-cy="metadata-card-error">
+          {error.message}
+        </ErrorWrapper>
+      )}
+      {children}
+    </SiderCard>
+  </>
 );
 
+// @ts-expect-error
 const SiderCard = styled(Card)<StylingProps>`
   padding-top: 12px;
   padding-bottom: 25px;

@@ -1,5 +1,5 @@
 import React from "react";
-import { css } from "@emotion/core";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled/macro";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";

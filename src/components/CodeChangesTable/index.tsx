@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
+import { StyledLink } from "components/styles";
 import { WordBreak } from "components/Typography";
 import { CodeChangesTableFileDiffsFragment } from "gql/generated/types";
 
@@ -24,10 +25,8 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   />
 );
 
-const rowKey = (
-  record: CodeChangesTableFileDiffsFragment,
-  index: number
-): string => `${index}`;
+const rowKey = (record: CodeChangesTableFileDiffsFragment): string =>
+  `${record.diffLink}_code_table`;
 
 const columns: (
   showHeader: boolean
@@ -42,14 +41,14 @@ const columns: (
       text: string,
       record: CodeChangesTableFileDiffsFragment
     ): JSX.Element => (
-      <a
-        className="fileLink"
+      <StyledLink
+        data-cy="fileLink"
         href={record.diffLink}
         rel="noopener noreferrer"
         target="_blank"
       >
         <WordBreak>{text}</WordBreak>
-      </a>
+      </StyledLink>
     ),
   },
   {

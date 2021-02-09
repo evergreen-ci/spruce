@@ -8,13 +8,13 @@ const { getLatestCommitsSinceLastRelease } = require("./deploy-utils");
 
 const git = simpleGit(path.resolve(__dirname, ".."));
 
-const checkIfOnMaster = async () => {
+const checkIfOnMain = async () => {
   await git.init();
   const { current } = await git.branchLocal();
-  if (current !== "master") {
+  if (current !== "main") {
     console.log("Current branch is", current);
     console.log(
-      colors.red("Error: You must be on master branch to deploy to production")
+      colors.red("Error: You must be on main branch to deploy to production")
     );
     return false;
   }
@@ -23,8 +23,9 @@ const checkIfOnMaster = async () => {
 
 // Runs the script to build and deploy to production
 const deployProcess = () => {
+  console.log("Pushing deploy tags");
   promptRun({
-    command: "yarn run deploy-prod:do-not-use-directly",
+    command: "git push upstream && git push upstream --tags",
     options: {},
     questions: {
       env: [],
@@ -32,17 +33,13 @@ const deployProcess = () => {
     },
   }).then((childProcess) => {
     childProcess.on("close", () => {
-      console.log("Deploy Complete! 🎉");
-      console.log("Don't forget to push tags");
-      console.log(
-        colors.green("git push upstream && git push upstream --tags")
-      );
+      console.log("Successfully Scheduled Deploy! 🎉");
     });
   });
 };
 
 const deployProd = async () => {
-  const onMaster = await checkIfOnMaster();
+  const onMain = await checkIfOnMain();
   const latestCommits = await getLatestCommitsSinceLastRelease();
   const anyChangesFound = latestCommits.length > 0;
   if (anyChangesFound) {
@@ -50,7 +47,7 @@ const deployProd = async () => {
   } else {
     console.log(colors.red("No Changes found"));
   }
-  if (onMaster && anyChangesFound) {
+  if (onMain && anyChangesFound) {
     prompt.start();
     prompt.get(
       {
@@ -84,15 +81,7 @@ const deployProd = async () => {
               const choice = version.toLowerCase();
               if (versionChoices.includes(choice)) {
                 promptRun({
-                  command: `yarn run notify-email`,
-                  options: {},
-                  questions: {
-                    env: [],
-                    args: [],
-                  },
-                });
-                promptRun({
-                  command: `yarn version --${choice}`,
+                  command: `yarn version --new-version ${choice}`,
                   options: {},
                   questions: {
                     env: [],
@@ -114,13 +103,14 @@ const deployProd = async () => {
         }
       }
     );
-  } else if (onMaster) {
+  } else if (onMain) {
+    // In case user wants to kick of a manual deploy if the automated deploy fails or we want to roll back
     prompt.get(
       {
         properties: {
           confirmDeploy: {
             description: colors.magenta(
-              "Would you like to deploy anyways? [Y | N]"
+              "Would you like to deploy manually anyways? [Y | N]"
             ),
           },
         },
@@ -130,7 +120,18 @@ const deployProd = async () => {
         const isConfirmed =
           confirmDeployLowerCased === "yes" || confirmDeployLowerCased === "y";
         if (isConfirmed) {
-          deployProcess();
+          promptRun({
+            command: "yarn deploy-prod:do-not-use-directly",
+            options: {},
+            questions: {
+              env: [],
+              args: [],
+            },
+          }).then((childProcess) => {
+            childProcess.on("close", () => {
+              console.log("Successfully Deployed! 🎉");
+            });
+          });
         } else {
           console.log(colors.cyan("Okay, no deploy"));
           prompt.stop();
@@ -138,7 +139,7 @@ const deployProd = async () => {
       }
     );
   } else {
-    console.log("Aborting deploy, you must be on master to deploy!");
+    console.log("Aborting deploy, you must be on main to deploy!");
   }
 };
 
