@@ -22,6 +22,7 @@ const path = require("path");
 const getClientEnvironment = require("./env");
 const modules = require("./modules");
 const paths = require("./paths");
+const SpeedMeasurePlugin = require("speed-measure-webpack-plugin");
 
 const appPackageJson = require(paths.appPackageJson);
 
@@ -123,8 +124,9 @@ module.exports = function (webpackEnv) {
     }
     return loaders;
   };
+  const smp = new SpeedMeasurePlugin();
 
-  return {
+  return smp.wrap({
     mode: isEnvProduction ? "production" : isEnvDevelopment && "development",
     // Stop compilation early in production
     bail: isEnvProduction,
@@ -705,5 +707,5 @@ module.exports = function (webpackEnv) {
     // Turn off performance processing because we utilize
     // our own hints via the FileSizeReporter
     performance: false,
-  };
+  });
 };
