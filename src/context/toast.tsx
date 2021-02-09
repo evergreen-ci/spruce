@@ -1,5 +1,6 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import Toast, { Variant } from "@leafygreen-ui/toast";
+import { TOAST_TIMEOUT } from "constants/index";
 
 type ToastType = { variant: Variant; message: string; closable: boolean };
 
@@ -53,6 +54,14 @@ const ToastProvider: React.FC = ({ children }) => {
       addToast({ variant: Variant.Note, message, closable }),
     hide: () => hideToast(),
   };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      hideToast();
+    }, TOAST_TIMEOUT);
+    return () => clearTimeout(timeout);
+  });
+
   return (
     <ToastDispatchContext.Provider value={toastContext}>
       {children}
