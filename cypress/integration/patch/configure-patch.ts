@@ -376,11 +376,11 @@ describe("Configure Patch Page", () => {
     it("Patch tasks are selected by default", () => {
       const { variantsTasks } = patch;
       variantsTasks.forEach(({ name, tasks }) => {
-        cy.get(`[data-cy-name=${name}]`)
+        cy.get(`[data-cy-name=${name}`)
           .click()
           .then(() => {
             tasks.forEach((task) => {
-              cy.get(`[data-cy=configurePatch-${task}]`).should("be.checked");
+              cy.dataCy(`configurePatch-${task}`).should("be.checked");
             });
           });
       });
@@ -429,7 +429,7 @@ describe("Configure Patch Page", () => {
     it("Can update patch description by typing into `Patch Name` input field", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       const val = "michelle obama";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -437,10 +437,10 @@ describe("Configure Patch Page", () => {
     });
     it("Selecting build variant displays tasks of that variant", () => {
       patch.project.variants.forEach(({ name, tasks }) => {
-        cy.get(`[data-cy-name=${name}]`)
+        cy.get(`[data-cy-name=${name}`)
           .click()
           .then(() => {
-            cy.get(`[data-cy=configurePatch-tasks]`)
+            cy.dataCy(`configurePatch-tasks`)
               .children()
               .its("length")
               .should("eq", tasks.length);
@@ -452,7 +452,7 @@ describe("Configure Patch Page", () => {
       const { variants } = patch.project;
       const lastVariantInList = variants[variants.length - 1];
       const firstTask = lastVariantInList.tasks[0];
-      cy.get(`[data-cy-name=${lastVariantInList.name}]`).as("variant").click();
+      cy.get(`[data-cy-name=${lastVariantInList.name}`).as("variant").click();
 
       cy.get("@variant").then(($variant) => {
         const taskCountBadge = `[data-cy=configurePatch-taskCountBadge-${lastVariantInList.name}]`;
@@ -462,7 +462,7 @@ describe("Configure Patch Page", () => {
             .invoke("text")
             .then(($taskCount) => {
               const firstTask1 = lastVariantInList.tasks[0];
-              cy.get(`[data-cy=configurePatch-${firstTask1}]`).check({
+              cy.dataCy(`configurePatch-${firstTask1}`).check({
                 force: true,
               });
               cy.get("@taskCount")
@@ -480,11 +480,9 @@ describe("Configure Patch Page", () => {
                 });
             });
         } else {
-          cy.get(`[data-cy=configurePatch-${firstTask}]`)
-            .as("taskCheckbox")
-            .check({
-              force: true,
-            });
+          cy.dataCy(`configurePatch-${firstTask}`).as("taskCheckbox").check({
+            force: true,
+          });
           cy.get(taskCountBadge)
             .invoke("text")
             .then(($newTaskCount) => {
@@ -509,13 +507,13 @@ describe("Configure Patch Page", () => {
         "test-util",
       ];
       it("Clicking Select All should check all task checkboxes when all of the task checkboxes unchecked", () => {
-        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
           .should("eq", 7);
       });
       it("Clicking on Select All should uncheck all task checkboxes when all of the task checkboxes are checked", () => {
-        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-unchecked]")
           .its("length")
           .should("eq", 7);
@@ -542,17 +540,17 @@ describe("Configure Patch Page", () => {
       it("Selecting multiple build variants should display deduplicated task checkboxes", () => {
         cy.get("body").type("{meta}", { release: false });
         cy.get('[data-cy-name="rhel72-s390x"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
         cy.get('[data-cy-name="rhel71-power8"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
         cy.get('[data-cy-name="race-detector"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
@@ -562,17 +560,17 @@ describe("Configure Patch Page", () => {
       it("Deselecting multiple build variants should display deduplicated task checkboxes", () => {
         cy.get("body").type("{meta}", { release: false });
         cy.get('[data-cy-name="rhel72-s390x"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
         cy.get('[data-cy-name="rhel71-power8"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
         cy.get('[data-cy-name="race-detector"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
@@ -691,7 +689,7 @@ describe("Configure Patch Page", () => {
     it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
       cy.visit(`/patch/${unactivatedPatchId}`);
       const val = "hello world";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -700,7 +698,7 @@ describe("Configure Patch Page", () => {
         url: "/graphql/query",
         response: mockedSuccessfulConfigureResponse,
       });
-      cy.get("[data-cy=schedule-patch]").click();
+      cy.dataCy("schedule-patch]").click();
       cy.location("pathname").should(
         "eq",
         `/version/${unactivatedPatchId}/tasks`
@@ -710,7 +708,7 @@ describe("Configure Patch Page", () => {
     it("Shows error toast if unsuccessful and keeps data", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -719,12 +717,12 @@ describe("Configure Patch Page", () => {
         url: "/graphql/query",
         response: mockedErrorConfigureResponse,
       });
-      cy.get("[data-cy=schedule-patch]").click();
+      cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.get("[data-cy=toast]").contains("WAH WAH CHICKEN WAH");
+      cy.dataCy("toast").contains("WAH WAH CHICKEN WAH");
     });
   });
 

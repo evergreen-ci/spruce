@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
-import { useParams } from "react-router-dom";
 import { StyledLink } from "components/styles";
 import { getJiraSearchUrl } from "constants/externalResources";
 import {
@@ -37,8 +36,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
   const annotationsReady = true;
-  const { tab } = useParams<{ tab: string }>();
-  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
   const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);

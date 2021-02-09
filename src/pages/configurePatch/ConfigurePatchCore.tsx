@@ -12,7 +12,6 @@ import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
 import { getPatchRoute, getVersionRoute } from "constants/routes";
-
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
