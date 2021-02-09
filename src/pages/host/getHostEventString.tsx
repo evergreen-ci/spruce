@@ -321,13 +321,7 @@ export const HostEventLog: React.FC<{
     <StyledCollapse bordered={false}>
       <Panel header={<span data-cy={dataCy}>{title}</span>} key="1">
         <span data-cy="host-event-log-content">
-          {isCode ? (
-            <Code multiline={false} language="shell">
-              {logs}
-            </Code>
-          ) : (
-            logs
-          )}
+          {isCode ? <Code language="shell">{logs}</Code> : logs}
         </span>
       </Panel>
     </StyledCollapse>

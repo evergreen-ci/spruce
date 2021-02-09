@@ -5,7 +5,7 @@ import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 const patchIdWithWorkingReconfigureLink = "5ecedafb562343215a7ff297";
 const patchId = "5e4ff3abe3c3317e352062e4";
-const path = `/patch/${patchId}`;
+const patchPath = (id) => `/patch/${id}`;
 
 describe("Patch Action Buttons", () => {
   before(() => {
@@ -13,7 +13,7 @@ describe("Patch Action Buttons", () => {
   });
   beforeEach(() => {
     cy.preserveCookies();
-    cy.visit(path);
+    cy.visit(patchPath(patchId));
   });
 
   it("Clicking 'Schedule' button shows popconfirm and banner on success", () => {
@@ -48,7 +48,7 @@ describe("Patch Action Buttons", () => {
   });
 
   it("Reconfigure button should have link to reconfigure page", () => {
-    cy.visit(`/patch/${patchIdWithWorkingReconfigureLink}`);
+    cy.visit(patchPath(patchIdWithWorkingReconfigureLink));
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("reconfigure-link").click();
     cy.location("pathname").should("include", "configure");
@@ -63,7 +63,7 @@ describe("Patch Action Buttons", () => {
     const priority = "99";
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
-    cy.get(".ant-input-number-input").clear().type(priority);
+    cy.dataCy("priority-input").clear().type(priority);
     cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
     cy.dataCy("banner").contains(priority).should("exist");
   });
@@ -71,7 +71,7 @@ describe("Patch Action Buttons", () => {
   it("Error setting priority shows error banner", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
-    cy.get(".ant-input-number-input").clear().type("88");
+    cy.dataCy("priority-input").clear().type("88");
     mockErrorResponse({
       errorMessage: "There was an error setting priority",
     });

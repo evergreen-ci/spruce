@@ -24,27 +24,24 @@ export const Modal: React.FC<ModalProps> = ({
   onOk,
   "data-cy": dataCy,
 }) => (
-  // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
-  <div onClick={(e) => e.stopPropagation()}>
-    <StyledModal
-      maskStyle={{
-        backgroundColor,
-      }}
-      onOk={onOk}
-      centered
-      footer={footer}
-      visible={visible}
-      onCancel={onCancel}
-      width="50%"
-      wrapProps={{
-        "data-cy": dataCy,
-      }}
-    >
-      <H2 data-cy="modal-title">{title}</H2>
-      <StyledHR />
-      {children}
-    </StyledModal>
-  </div>
+  <StyledModal
+    maskStyle={{
+      backgroundColor,
+    }}
+    onOk={onOk}
+    centered
+    footer={footer}
+    visible={visible}
+    onCancel={onCancel}
+    width="50%"
+    wrapProps={{
+      "data-cy": dataCy,
+    }}
+  >
+    <H2 data-cy="modal-title">{title}</H2>
+    <StyledHR />
+    {children}
+  </StyledModal>
 );
 
 const backgroundColor = hexToRGBA(uiColors.black, 0.9);

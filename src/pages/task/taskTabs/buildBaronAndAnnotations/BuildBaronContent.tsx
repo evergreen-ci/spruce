@@ -110,6 +110,7 @@ const BuildBaronCore: React.FC<BuildBaronCoreProps> = ({
           {bbData?.searchReturnInfo?.issues.length > 0 && (
             <>
               <TitleAndButtons>
+                {/* @ts-expect-error */}
                 <TicketsTitle>
                   Related tickets from Jira
                   <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>

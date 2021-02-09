@@ -1,6 +1,7 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 
+/* @ts-expect-error */
 export const SiderCard = styled(Card)`
   padding-top: 10px;
   padding-right: 8px;

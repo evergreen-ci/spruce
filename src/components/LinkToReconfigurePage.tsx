@@ -1,14 +1,13 @@
 import React from "react";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { paths } from "constants/routes";
+import { getPatchRoute } from "constants/routes";
 
 export const LinkToReconfigurePage: React.FC<{
   patchId: string;
   disabled?: boolean;
-}> = ({ patchId, disabled = false }) => {
+}> = ({ patchId, disabled }) => {
   const patchAnalytics = usePatchAnalytics();
 
   const router = useHistory();
@@ -20,11 +19,11 @@ export const LinkToReconfigurePage: React.FC<{
       onClick={() => {
         if (!disabled) {
           patchAnalytics.sendEvent({ name: "Click Reconfigure Link" });
-          router.push(`${paths.patch}/${patchId}/configure`);
+          router.push(getPatchRoute(patchId, { configure: true }));
         }
       }}
     >
-      <Disclaimer>Reconfigure tasks/variants</Disclaimer>
+      Reconfigure tasks/variants
     </DropdownItem>
   );
 };

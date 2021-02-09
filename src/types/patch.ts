@@ -16,6 +16,8 @@ export enum PatchStatus {
 export enum PatchTab {
   Tasks = "tasks",
   Changes = "changes",
+  Parameters = "parameters",
+  Configure = "configure",
 }
 
 export const ALL_PATCH_STATUS = "all";

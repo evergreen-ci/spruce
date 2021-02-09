@@ -22,11 +22,13 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
 }) => (
   <Modal visible={visible} footer={null} onCancel={onCancel}>
     <Container>
+      {/* @ts-expect-error */}
       <Title>{title}</Title>
       <ModalActionContainer>
+        {/* @ts-expect-error */}
         <WideButton onClick={onCancel}>Cancel</WideButton>
         <WideButton
-          variant={Variant.Danger}
+          variant={Variant.Danger} // @ts-expect-error
           onClick={onSubmit}
           disabled={disabled}
         >
@@ -37,10 +39,13 @@ export const PreferencesModal: React.FC<PreferencesModalProps> = ({
   </Modal>
 );
 
+// @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;
 `;
+
+// @ts-expect-error
 const Title = styled(Subtitle)`
   margin-top: 25px;
   text-align: center;

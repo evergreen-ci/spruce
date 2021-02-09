@@ -98,6 +98,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
                 })
               }
             />
+            {/* @ts-expect-error */}
             <StyledInput
               id="keyNameInput"
               value={keyName}
@@ -107,6 +108,7 @@ export const PublicKeyForm: React.FC<PublicKeyFormProps> = ({
               }}
               disabled={!savePublicKey}
               data-cy="key-name-input"
+              aria-label="Public Key Name"
             />
           </KeyNameContainer>
         </FlexColumnContainer>

@@ -21,7 +21,7 @@ export const Preferences: React.FC = () => {
         <SideNav>
           <SideNavGroup header="Preferences">
             <PaddedSideNavItem
-              active={tab === PreferencesTabRoutes.Profile}
+              active={tab === PreferencesTabRoutes.Profile} // @ts-expect-error
               to={getPreferencesRoute(PreferencesTabRoutes.Profile)}
               as={Link}
               data-cy="profile-nav-tab"
@@ -35,7 +35,7 @@ export const Preferences: React.FC = () => {
               Profile
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === PreferencesTabRoutes.Notifications}
+              active={tab === PreferencesTabRoutes.Notifications} // @ts-expect-error
               to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
               as={Link}
               data-cy="notifications-nav-tab"
@@ -49,7 +49,7 @@ export const Preferences: React.FC = () => {
               Notifications
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === PreferencesTabRoutes.CLI}
+              active={tab === PreferencesTabRoutes.CLI} // @ts-expect-error
               to={getPreferencesRoute(PreferencesTabRoutes.CLI)}
               as={Link}
               data-cy="cli-nav-tab"
@@ -63,7 +63,7 @@ export const Preferences: React.FC = () => {
               CLI & API
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === PreferencesTabRoutes.PublicKeys}
+              active={tab === PreferencesTabRoutes.PublicKeys} // @ts-expect-error
               to={getPreferencesRoute(PreferencesTabRoutes.PublicKeys)}
               as={Link}
               data-cy="publickeys-nav-tab"
@@ -77,7 +77,7 @@ export const Preferences: React.FC = () => {
               Manage Public Keys
             </PaddedSideNavItem>
             <PaddedSideNavItem
-              active={tab === PreferencesTabRoutes.NewUI}
+              active={tab === PreferencesTabRoutes.NewUI} // @ts-expect-error
               to={getPreferencesRoute(PreferencesTabRoutes.NewUI)}
               as={Link}
               data-cy="newui-nav-tab"

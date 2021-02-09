@@ -85,9 +85,10 @@ module.exports = {
     curly: [errorIfStrict, "multi-line"],
     eqeqeq: [errorIfStrict, "always", { null: "ignore" }],
     // Help us with emotion
-    "@emotion/syntax-preference": [errorIfStrict, "string"],
-    "@emotion/no-vanilla": errorIfStrict,
     "@emotion/import-from-emotion": ERROR,
+    "@emotion/no-vanilla": errorIfStrict,
+    "@emotion/pkg-renaming": ERROR,
+    "@emotion/syntax-preference": [errorIfStrict, "string"],
     "graphql/template-strings": [
       ERROR,
       {

@@ -107,7 +107,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton
+        <WideButton // @ts-expect-error
           onClick={onCancel}
           data-cy="cancel-button"
           key="cancel-button"
@@ -117,7 +117,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         <WideButton
           data-cy="spawn-volume-button"
           disabled={loadingSpawnVolume || state.size === 0}
-          key="spawn-volume-button"
+          key="spawn-volume-button" // @ts-expect-error
           onClick={spawnVolume}
           variant={Variant.Primary}
         >

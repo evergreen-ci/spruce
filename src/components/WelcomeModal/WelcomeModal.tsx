@@ -5,6 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Modal, Carousel } from "antd";
+import { CarouselRef } from "antd/es/carousel";
 import get from "lodash/get";
 import {
   GetUserSettingsQuery,
@@ -42,7 +43,7 @@ const carouselCards = [
 const WelcomeModal = () => {
   const [visible, setVisible] = useState(true);
   const [activeSlide, setActiveSlide] = useState(0);
-  const slider = useRef() as React.MutableRefObject<Carousel>;
+  const slider = useRef<CarouselRef>(null);
   const [updateUserSettings] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
@@ -95,6 +96,7 @@ const WelcomeModal = () => {
         "data-cy": "welcome-modal",
       }}
     >
+      {/* @ts-expect-error */}
       <CardTitle>Welcome to the New Evergreen UI!</CardTitle>
       <Carousel
         afterChange={(number) => setActiveSlide(number)}
@@ -140,7 +142,7 @@ const CarouselCard: React.FC<CarouselCardProps> = ({
 interface CarouselDotProps {
   activeSlide: number;
   cards: CarouselCardProps[];
-  slider: React.MutableRefObject<Carousel>;
+  slider: React.MutableRefObject<CarouselRef>;
 }
 
 const CarouselDots: React.FC<CarouselDotProps> = ({
@@ -179,6 +181,7 @@ const CardWrapper = styled.div`
   text-align: center;
 `;
 
+// @ts-expect-error
 const CardTitle = styled(Subtitle)`
   display: flex;
   justify-content: center;

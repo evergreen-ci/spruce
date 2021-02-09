@@ -47,13 +47,14 @@ export const MountVolumeModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton key="cancel" onClick={onCancel}>
           Cancel
         </WideButton>,
         <WideButton
           key="mount"
           data-cy="mount-volume-button"
-          disabled={!selectedHostId || loadingAttachVolume}
+          disabled={!selectedHostId || loadingAttachVolume} // @ts-expect-error
           onClick={() => {
             spawnAnalytics.sendEvent({
               name: "Mount volume to host",

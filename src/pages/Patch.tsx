@@ -1,7 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, Redirect } from "react-router-dom";
 import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
@@ -14,7 +13,7 @@ import {
 } from "components/styles";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
-import { paths } from "constants/routes";
+import { getPatchRoute } from "constants/routes";
 import {
   useBannerDispatchContext,
   useBannerStateContext,
@@ -34,7 +33,6 @@ const PatchCore: React.FC = () => {
   const dispatchBanner = useBannerDispatchContext();
   const bannersState = useBannerStateContext();
 
-  const router = useHistory();
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
@@ -47,23 +45,28 @@ const PatchCore: React.FC = () => {
       ),
   });
 
-  useEffect(() => stopPolling, [stopPolling]);
   useNetworkStatus(startPolling, stopPolling);
-  const patch = get(data, "patch");
-  const status = get(patch, "status");
-  const description = get(patch, "description");
-  const activated = get(patch, "activated");
 
-  const alias = patch?.alias ?? null;
-  const commitQueuePosition = patch?.commitQueuePosition ?? null;
+  const { patch } = data || {};
+  const {
+    status,
+    description,
+    activated,
+    commitQueuePosition,
+    alias,
+    patchNumber,
+    author,
+    canEnqueueToCommitQueue,
+    taskCount,
+  } = patch || {};
+
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
+  usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
+
   if (activated === false && alias !== commitQueueAlias) {
-    router.replace(`${paths.patch}/${id}/configure`);
+    return <Redirect to={getPatchRoute(id, { configure: true })} />;
   }
-
-  usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
-
   if (error) {
     return (
       <PageWrapper>
@@ -81,21 +84,17 @@ const PatchCore: React.FC = () => {
         banners={bannersState}
         removeBanner={dispatchBanner.removeBanner}
       />
-      {patch && (
-        <BreadCrumb
-          patchAuthor={patch.author}
-          patchNumber={patch.patchNumber}
-        />
-      )}
+      {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
         hasData={!!patch}
-        title={description || `Patch ${get(patch, "patchNumber")}`}
+        title={description || `Patch ${patchNumber}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            canEnqueueToCommitQueue={patch?.canEnqueueToCommitQueue}
+            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
+            patchId={id}
           />
         }
       />
@@ -106,7 +105,7 @@ const PatchCore: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={patch ? patch.taskCount : null} />
+            <PatchTabs taskCount={patch ? taskCount : null} />
           </PageContent>
         </PageLayout>
       </PageLayout>

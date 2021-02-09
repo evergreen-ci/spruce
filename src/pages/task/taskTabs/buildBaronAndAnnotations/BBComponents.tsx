@@ -19,13 +19,6 @@ interface TitleProps {
   margin?: boolean;
 }
 
-export const TicketsTitle = styled(Subtitle)<TitleProps>`
-  margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
-  margin-top: ${(props) => (props.margin ? "25px" : "35px")};
-  line-height: 24px;
-  font-weight: bold;
-`;
-
 interface JiraTicketRowProps {
   jiraKey: string;
   fields: TicketFields;
@@ -130,6 +123,14 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
     </div>
   );
 };
+
+// @ts-expect-error
+export const TicketsTitle = styled(Subtitle)<TitleProps>`
+  margin-bottom: ${(props) => (props.margin ? "15px" : "5px")};
+  margin-top: ${(props) => (props.margin ? "25px" : "35px")};
+  line-height: 24px;
+  font-weight: bold;
+`;
 
 const JiraSummaryLink = styled(StyledLink)`
   font-weight: bold;
