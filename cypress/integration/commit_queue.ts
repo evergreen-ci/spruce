@@ -23,7 +23,7 @@ describe("commit queue page", () => {
 
   it("Should render the commit queue page with one card", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
+    cy.dataCy("commit-queue-card").should("have.length", 1);
   });
 
   it("Clicking on Total Code changes should toggle a drop down table", () => {
@@ -41,26 +41,26 @@ describe("commit queue page", () => {
   xit("visiting a non existent commit queue page should display an error", () => {
     cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
     // TODO: converting these requests to an xhr requests(in cypress/support/hooks.js)
-    // breaks the onError callback apollo uses to trigger the banner. So the functionality
+    // breaks the onError callback apollo uses to trigger the toast. So the functionality
     // Will fail when running in cypress. This should be refactored to remove that dependency
-    cy.dataCy("banner").should("exist");
-    cy.dataCy("banner").should("contain.text", `Some Error Message`);
+    cy.dataCy("toast").should("exist");
+    cy.dataCy("toast").should("contain.text", `Some Error Message`);
   });
 
   it("Clicking on remove a patch from the commit queue should work", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.get("[data-cy=commit-queue-card]").should("exist");
-    cy.get("[data-cy=commit-queue-patch-button]").should("exist");
-    cy.get("[data-cy=commit-queue-patch-button]").click();
-    cy.get("[data-cy=commit-queue-card]").should("not.exist");
+    cy.dataCy("commit-queue-card").should("exist");
+    cy.dataCy("commit-queue-patch-button").should("exist");
+    cy.dataCy("commit-queue-patch-button").click();
+    cy.dataCy("commit-queue-card").should("not.exist");
   });
 
   it("Clicking on remove a patch for the PR commit queue should work", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_PR);
-    cy.get("[data-cy=commit-queue-card]").should("have.length", 1);
-    cy.get("[data-cy=commit-queue-patch-button]").should("exist");
-    cy.get("[data-cy=commit-queue-patch-button]").click();
-    cy.get("[data-cy=commit-queue-card]").should("not.exist");
+    cy.dataCy("commit-queue-card").should("have.length", 1);
+    cy.dataCy("commit-queue-patch-button").should("exist");
+    cy.dataCy("commit-queue-patch-button").click();
+    cy.dataCy("commit-queue-card").should("not.exist");
   });
 
   it("should display the commit queue message if there is one", () => {

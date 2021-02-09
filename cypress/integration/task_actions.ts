@@ -16,14 +16,14 @@ describe("Task Action Buttons", () => {
       cy.dataCy("schedule-task").should("be.disabled");
     });
 
-    it("Clicking Restart button should restart a task and display a success banner", () => {
+    it("Clicking Restart button should restart a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("restart-task").click();
       cy.wait(200);
       cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
     });
 
-    it("Clicking Unschedule button should unschedule a task and display a success banner", () => {
+    it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
@@ -37,7 +37,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("abort-task").should("have.attr", "disabled");
     });
 
-    it("Clicking on set priority, entering a priority value and submitting should result in a success banner.", () => {
+    it("Clicking on set priority, entering a priority value and submitting should result in a success toast.", () => {
       cy.dataCy("prioritize-task").click();
       cy.get(".ant-input-number-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
@@ -80,4 +80,4 @@ const tasks = {
   2: "/task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
   3: "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46",
 };
-const bannerDataCy = "banner";
+const bannerDataCy = "toast";

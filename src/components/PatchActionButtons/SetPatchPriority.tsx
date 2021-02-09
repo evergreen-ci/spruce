@@ -3,7 +3,7 @@ import { useMutation } from "@apollo/client";
 import { InputNumber, Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
   SetPatchPriorityMutationVariables,
@@ -23,17 +23,16 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
   refetchQueries,
 }) => {
   const [priority, setPriority] = useState<number>(0);
-  const { successBanner, errorBanner } = useBannerDispatchContext();
-
+  const dispatchToast = useToastContext();
   const [setPatchPriority, { loading: loadingSetPatchPriority }] = useMutation<
     SetPatchPriorityMutation,
     SetPatchPriorityMutationVariables
   >(SET_PATCH_PRIORITY, {
     onCompleted: () => {
-      successBanner(`Priority was set to ${priority}`);
+      dispatchToast.success(`Priority was set to ${priority}`);
     },
     onError: (err) => {
-      errorBanner(`Error setting priority: ${err.message}`);
+      dispatchToast.error(`Error setting priority: ${err.message}`);
     },
     refetchQueries,
   });

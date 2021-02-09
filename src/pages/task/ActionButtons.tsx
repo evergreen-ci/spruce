@@ -9,7 +9,7 @@ import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -47,7 +47,7 @@ export const ActionButtons = ({
   canUnschedule,
   initialPriority = 1,
 }: Props) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
@@ -60,10 +60,10 @@ export const ActionButtons = ({
   >(SCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      successBanner("Task marked as scheduled");
+      dispatchToast.success("Task marked as scheduled");
     },
     onError: (err) => {
-      errorBanner(`Error scheduling task: ${err.message}`);
+      dispatchToast.error(`Error scheduling task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -74,10 +74,10 @@ export const ActionButtons = ({
   >(UNSCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      successBanner("Task marked as unscheduled");
+      dispatchToast.success("Task marked as unscheduled");
     },
     onError: (err) => {
-      errorBanner(`Error unscheduling task: ${err.message}`);
+      dispatchToast.error(`Error unscheduling task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -90,10 +90,10 @@ export const ActionButtons = ({
       taskId,
     },
     onCompleted: () => {
-      successBanner("Task aborted");
+      dispatchToast.success("Task aborted");
     },
     onError: (err) => {
-      errorBanner(`Error aborting task: ${err.message}`);
+      dispatchToast.error(`Error aborting task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -105,13 +105,13 @@ export const ActionButtons = ({
     variables: { taskId },
     onCompleted: (data) => {
       const { latestExecution } = data.restartTask;
-      successBanner("Task scheduled to restart");
+      dispatchToast.success("Task scheduled to restart");
       updateQueryParams({
         execution: `${latestExecution}`,
       });
     },
     onError: (err) => {
-      errorBanner(`Error restarting task: ${err.message}`);
+      dispatchToast.error(`Error restarting task: ${err.message}`);
     },
     refetchQueries,
   });
@@ -121,14 +121,14 @@ export const ActionButtons = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
-      successBanner(
+      dispatchToast.success(
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`
       );
     },
     onError: (err) => {
-      errorBanner(`Error updating priority for task: ${err.message}`);
+      dispatchToast.error(`Error updating priority for task: ${err.message}`);
     },
     refetchQueries,
   });

@@ -6,7 +6,7 @@ import { Select, Input } from "antd";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { Modal } from "components/Modal";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateHostStatusMutation,
   UpdateHostStatusMutationVariables,
@@ -32,7 +32,7 @@ export const UpdateStatusModal: React.FC<Props> = ({
   closeModal,
   isSingleHost = false,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const [status, setHostStatus] = useState<UpdateHostStatus>(null);
 
@@ -58,13 +58,13 @@ export const UpdateStatusModal: React.FC<Props> = ({
             numberOfHostsUpdated === 1 ? "" : "s"
           }`;
 
-      dispatchBanner.successBanner(message);
+      dispatchToast.success(message);
 
       resetForm();
     },
     onError(error) {
       closeModal();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error updating hosts status: ${error.message}`
       );
     },

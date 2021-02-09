@@ -10,7 +10,7 @@ import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { HR } from "components/styles/Layout";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -46,7 +46,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
@@ -84,12 +84,11 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost;
       onCancel();
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner(`Successfully spawned host: ${id}`);
+      dispatchToast.success(`Successfully spawned host: ${id}`);
     },
     onError(err) {
       onCancel();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while spawning your host: ${err.message}`
       );
     },
@@ -177,7 +176,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   const canSubmitSpawnHost = !(
     distroId === "" ||
     region === "" ||
-    publicKey.key === ""
+    publicKey?.key === ""
   );
 
   const spawnHost = (e) => {

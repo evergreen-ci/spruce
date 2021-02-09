@@ -1,6 +1,11 @@
 import { PatchTab } from "types/patch";
 import { TaskTab } from "types/task";
-import { getTaskRoute, getVersionRoute, getSpawnHostRoute } from "./routes";
+import {
+  getTaskRoute,
+  getVersionRoute,
+  getSpawnHostRoute,
+  getPatchRoute,
+} from "./routes";
 
 describe("getTaskRoute", () => {
   it("Generates a test route with only an id", () => {
@@ -54,5 +59,31 @@ describe("getSpawnHostRoute", () => {
         spawnHost: true,
       })
     ).toEqual("/spawn/host?distroId=ubuntu1604&spawnHost=True&taskId=someTask");
+  });
+});
+
+describe("getPatchRoute", () => {
+  it("Generates a link to the version page if it is not provided with a configurable option", () => {
+    expect(getPatchRoute("somePatchId", { configure: false })).toEqual(
+      "/version/somePatchId/tasks?"
+    );
+  });
+  it("Generates a link to the patch configure page if it is  provided with a configurable option", () => {
+    expect(getPatchRoute("somePatchId", { configure: true })).toEqual(
+      "/patch/somePatchId/configure/tasks?"
+    );
+  });
+  it("Generates a link with a default tab when none is provided", () => {
+    expect(getPatchRoute("somePatchId", { configure: true })).toEqual(
+      "/patch/somePatchId/configure/tasks?"
+    );
+  });
+  it("Generates a link with a provided tab ", () => {
+    expect(
+      getPatchRoute("somePatchId", { configure: true, tab: "parameters" })
+    ).toEqual("/patch/somePatchId/configure/parameters?");
+    expect(
+      getPatchRoute("somePatchId", { configure: true, tab: "someTab" })
+    ).toEqual("/patch/somePatchId/configure/someTab?");
   });
 });

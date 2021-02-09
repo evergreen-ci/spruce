@@ -1,7 +1,6 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
-import { useParams, useHistory } from "react-router-dom";
-import { Banners } from "components/Banners";
+import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -13,27 +12,22 @@ import {
 } from "components/styles";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
-import { paths } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { getPatchRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { GET_PATCH } from "gql/queries/patch";
-import { withBannersContext } from "hoc/withBannersContext";
 import { usePageTitle, useNetworkStatus } from "hooks";
+import { PageDoesNotExist } from "pages/404";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import { ActionButtons } from "pages/patch/index";
 import { Metadata } from "pages/patch/Metadata";
 import { PatchTabs } from "pages/patch/PatchTabs";
 
-const PatchCore: React.FC = () => {
+export const Patch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+  const dispatchToast = useToastContext();
 
-  const router = useHistory();
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
@@ -41,9 +35,7 @@ const PatchCore: React.FC = () => {
     variables: { id },
     pollInterval,
     onError: (e) =>
-      dispatchBanner.errorBanner(
-        `There was an error loading the patch: ${e.message}`
-      ),
+      dispatchToast.error(`There was an error loading the patch: ${e.message}`),
   });
 
   useNetworkStatus(startPolling, stopPolling);
@@ -61,32 +53,19 @@ const PatchCore: React.FC = () => {
     taskCount,
   } = patch || {};
 
-  console.log({ commitQueuePosition });
   const isPatchOnCommitQueue = commitQueuePosition !== null;
-
-  if (activated === false && alias !== commitQueueAlias) {
-    router.replace(`${paths.patch}/${id}/configure`);
-  }
 
   usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
 
+  if (activated === false && alias !== commitQueueAlias) {
+    return <Redirect to={getPatchRoute(id, { configure: true })} />;
+  }
   if (error) {
-    return (
-      <PageWrapper>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
-      </PageWrapper>
-    );
+    return <PageDoesNotExist />;
   }
 
   return (
     <PageWrapper data-cy="patch-page">
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
@@ -115,5 +94,3 @@ const PatchCore: React.FC = () => {
     </PageWrapper>
   );
 };
-
-export const Patch = withBannersContext(PatchCore);

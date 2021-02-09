@@ -12,7 +12,7 @@ import {
 } from "components/Spawn";
 import { ExpirationField } from "components/Spawn/ExpirationField";
 import { HR } from "components/styles/Layout";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
@@ -38,7 +38,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const spawnAnalytics = useSpawnAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data: spruceConfig } = useQuery<GetSpruceConfigQuery>(
     GET_SPRUCE_CONFIG
   );
@@ -53,12 +53,12 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   >(SPAWN_VOLUME, {
     onCompleted() {
       onCancel();
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner("Successfully spawned volume");
+
+      dispatchToast.success("Successfully spawned volume");
     },
     onError(err) {
       onCancel();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while spawning your volume: ${err.message}`
       );
     },

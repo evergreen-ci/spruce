@@ -2,350 +2,350 @@
 // / <reference path="../../support/index.d.ts" />
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
-
-describe("Configure Patch Page", () => {
-  const patch = {
-    id: "5e6bb9e23066155a993e0f1a",
-    description: "test meee",
-    author: "admin",
-    alias: "",
-    status: "created",
-    activated: false,
-    commitQueuePosition: null,
-    time: { submittedAt: "March 13, 2020, 4:50PM", __typename: "PatchTime" },
-    project: {
-      tasks: [
-        "coverage",
-        "smoke-test-task",
-        "smoke-test-endpoints",
-        "smoke-test-agent-monitor",
-        "generate-lint",
-        "js-test",
-        "dist",
-        "test-thirdparty-docker",
-        "test-auth",
-        "test-rest-route",
-        "test-rest-client",
-        "test-rest-model",
-        "test-command",
-        "test-units",
-        "test-agent",
-        "test-rest-data",
-        "test-operations",
-        "test-db",
-        "test-cloud",
-        "test-scheduler",
-        "test-service",
-        "test-monitor",
-        "test-evergreen",
-        "test-thirdparty",
-        "test-trigger",
-        "test-util",
-        "test-validator",
-        "test-model",
-        "test-model-alertrecord",
-        "test-model-artifact",
-        "test-model-build",
-        "test-model-event",
-        "test-model-host",
-        "test-model-notification",
-        "test-model-patch",
-        "test-model-stats",
-        "test-model-task",
-        "test-model-testresult",
-        "test-model-user",
-        "test-model-distro",
-        "test-model-commitqueue",
-        "test-model-manifest",
-        "test-plugin",
-        "test-migrations",
-        "test-model-grid",
-        "test-graphql",
-        "docker-cleanup",
-        "test-repotracker",
-      ],
-      variants: [
-        {
-          name: "linux-docker",
-          displayName: "ArchLinux (Docker)",
-          tasks: ["docker-cleanup"],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "coverage",
-          displayName: "Coverage",
-          tasks: ["coverage"],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "lint",
-          displayName: "Lint",
-          tasks: ["generate-lint"],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "osx",
-          displayName: "OSX",
-          tasks: [
-            "dist",
-            "test-agent",
-            "test-auth",
-            "test-cloud",
-            "test-command",
-            "test-db",
-            "test-evergreen",
-            "test-graphql",
-            "test-migrations",
-            "test-model",
-            "test-model-alertrecord",
-            "test-model-artifact",
-            "test-model-build",
-            "test-model-commitqueue",
-            "test-model-distro",
-            "test-model-event",
-            "test-model-grid",
-            "test-model-host",
-            "test-model-manifest",
-            "test-model-notification",
-            "test-model-patch",
-            "test-model-stats",
-            "test-model-task",
-            "test-model-testresult",
-            "test-model-user",
-            "test-monitor",
-            "test-operations",
-            "test-plugin",
-            "test-repotracker",
-            "test-rest-client",
-            "test-rest-data",
-            "test-rest-model",
-            "test-rest-route",
-            "test-scheduler",
-            "test-service",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-trigger",
-            "test-units",
-            "test-util",
-            "test-validator",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "rhel71-power8",
-          displayName: "RHEL 7.1 POWER8",
-          tasks: [
-            "test-agent",
-            "test-command",
-            "test-rest-client",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-util",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "rhel72-s390x",
-          displayName: "RHEL 7.2 zLinux",
-          tasks: [
-            "test-agent",
-            "test-command",
-            "test-rest-client",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-util",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "race-detector",
-          displayName: "Race Detector",
-          tasks: [
-            "test-agent",
-            "test-auth",
-            "test-cloud",
-            "test-command",
-            "test-db",
-            "test-evergreen",
-            "test-graphql",
-            "test-migrations",
-            "test-model",
-            "test-model-alertrecord",
-            "test-model-artifact",
-            "test-model-build",
-            "test-model-commitqueue",
-            "test-model-distro",
-            "test-model-event",
-            "test-model-grid",
-            "test-model-host",
-            "test-model-manifest",
-            "test-model-notification",
-            "test-model-patch",
-            "test-model-stats",
-            "test-model-task",
-            "test-model-testresult",
-            "test-model-user",
-            "test-monitor",
-            "test-operations",
-            "test-plugin",
-            "test-repotracker",
-            "test-rest-client",
-            "test-rest-data",
-            "test-rest-model",
-            "test-rest-route",
-            "test-scheduler",
-            "test-service",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-trigger",
-            "test-units",
-            "test-util",
-            "test-validator",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "ubuntu1604",
-          displayName: "Ubuntu 16.04",
-          tasks: [
-            "dist",
-            "js-test",
-            "smoke-test-agent-monitor",
-            "smoke-test-endpoints",
-            "smoke-test-task",
-            "test-agent",
-            "test-auth",
-            "test-cloud",
-            "test-command",
-            "test-db",
-            "test-evergreen",
-            "test-graphql",
-            "test-migrations",
-            "test-model",
-            "test-model-alertrecord",
-            "test-model-artifact",
-            "test-model-build",
-            "test-model-commitqueue",
-            "test-model-distro",
-            "test-model-event",
-            "test-model-grid",
-            "test-model-host",
-            "test-model-manifest",
-            "test-model-notification",
-            "test-model-patch",
-            "test-model-stats",
-            "test-model-task",
-            "test-model-testresult",
-            "test-model-user",
-            "test-monitor",
-            "test-operations",
-            "test-plugin",
-            "test-repotracker",
-            "test-rest-client",
-            "test-rest-data",
-            "test-rest-model",
-            "test-rest-route",
-            "test-scheduler",
-            "test-service",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-trigger",
-            "test-units",
-            "test-util",
-            "test-validator",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "ubuntu1604-docker",
-          displayName: "Ubuntu 16.04 (Docker)",
-          tasks: [
-            "dist",
-            "smoke-test-agent-monitor",
-            "smoke-test-endpoints",
-            "smoke-test-task",
-            "test-agent",
-            "test-auth",
-            "test-cloud",
-            "test-command",
-            "test-db",
-            "test-evergreen",
-            "test-graphql",
-            "test-migrations",
-            "test-model",
-            "test-model-alertrecord",
-            "test-model-artifact",
-            "test-model-build",
-            "test-model-commitqueue",
-            "test-model-distro",
-            "test-model-event",
-            "test-model-grid",
-            "test-model-host",
-            "test-model-manifest",
-            "test-model-notification",
-            "test-model-patch",
-            "test-model-stats",
-            "test-model-task",
-            "test-model-testresult",
-            "test-model-user",
-            "test-monitor",
-            "test-operations",
-            "test-plugin",
-            "test-repotracker",
-            "test-rest-client",
-            "test-rest-data",
-            "test-rest-model",
-            "test-rest-route",
-            "test-scheduler",
-            "test-service",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-trigger",
-            "test-units",
-            "test-util",
-            "test-validator",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "ubuntu1604-arm64",
-          displayName: "Ubuntu 16.04 ARM",
-          tasks: [
-            "test-agent",
-            "test-command",
-            "test-rest-client",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-util",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-        {
-          name: "windows",
-          displayName: "Windows",
-          tasks: [
-            "test-agent",
-            "test-command",
-            "test-operations",
-            "test-rest-client",
-            "test-thirdparty",
-            "test-thirdparty-docker",
-            "test-util",
-          ],
-          __typename: "ProjectBuildVariant",
-        },
-      ],
-      __typename: "PatchProject",
-    },
-    variantsTasks: [
+const patch = {
+  id: "5e6bb9e23066155a993e0f1a",
+  description: "test meee",
+  author: "admin",
+  alias: "",
+  status: "created",
+  activated: false,
+  commitQueuePosition: null,
+  time: { submittedAt: "March 13, 2020, 4:50PM", __typename: "PatchTime" },
+  project: {
+    tasks: [
+      "coverage",
+      "smoke-test-task",
+      "smoke-test-endpoints",
+      "smoke-test-agent-monitor",
+      "generate-lint",
+      "js-test",
+      "dist",
+      "test-thirdparty-docker",
+      "test-auth",
+      "test-rest-route",
+      "test-rest-client",
+      "test-rest-model",
+      "test-command",
+      "test-units",
+      "test-agent",
+      "test-rest-data",
+      "test-operations",
+      "test-db",
+      "test-cloud",
+      "test-scheduler",
+      "test-service",
+      "test-monitor",
+      "test-evergreen",
+      "test-thirdparty",
+      "test-trigger",
+      "test-util",
+      "test-validator",
+      "test-model",
+      "test-model-alertrecord",
+      "test-model-artifact",
+      "test-model-build",
+      "test-model-event",
+      "test-model-host",
+      "test-model-notification",
+      "test-model-patch",
+      "test-model-stats",
+      "test-model-task",
+      "test-model-testresult",
+      "test-model-user",
+      "test-model-distro",
+      "test-model-commitqueue",
+      "test-model-manifest",
+      "test-plugin",
+      "test-migrations",
+      "test-model-grid",
+      "test-graphql",
+      "docker-cleanup",
+      "test-repotracker",
+    ],
+    variants: [
+      {
+        name: "linux-docker",
+        displayName: "ArchLinux (Docker)",
+        tasks: ["docker-cleanup"],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "coverage",
+        displayName: "Coverage",
+        tasks: ["coverage"],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "lint",
+        displayName: "Lint",
+        tasks: ["generate-lint"],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "osx",
+        displayName: "OSX",
+        tasks: [
+          "dist",
+          "test-agent",
+          "test-auth",
+          "test-cloud",
+          "test-command",
+          "test-db",
+          "test-evergreen",
+          "test-graphql",
+          "test-migrations",
+          "test-model",
+          "test-model-alertrecord",
+          "test-model-artifact",
+          "test-model-build",
+          "test-model-commitqueue",
+          "test-model-distro",
+          "test-model-event",
+          "test-model-grid",
+          "test-model-host",
+          "test-model-manifest",
+          "test-model-notification",
+          "test-model-patch",
+          "test-model-stats",
+          "test-model-task",
+          "test-model-testresult",
+          "test-model-user",
+          "test-monitor",
+          "test-operations",
+          "test-plugin",
+          "test-repotracker",
+          "test-rest-client",
+          "test-rest-data",
+          "test-rest-model",
+          "test-rest-route",
+          "test-scheduler",
+          "test-service",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-trigger",
+          "test-units",
+          "test-util",
+          "test-validator",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "rhel71-power8",
+        displayName: "RHEL 7.1 POWER8",
+        tasks: [
+          "test-agent",
+          "test-command",
+          "test-rest-client",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-util",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "rhel72-s390x",
+        displayName: "RHEL 7.2 zLinux",
+        tasks: [
+          "test-agent",
+          "test-command",
+          "test-rest-client",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-util",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "race-detector",
+        displayName: "Race Detector",
+        tasks: [
+          "test-agent",
+          "test-auth",
+          "test-cloud",
+          "test-command",
+          "test-db",
+          "test-evergreen",
+          "test-graphql",
+          "test-migrations",
+          "test-model",
+          "test-model-alertrecord",
+          "test-model-artifact",
+          "test-model-build",
+          "test-model-commitqueue",
+          "test-model-distro",
+          "test-model-event",
+          "test-model-grid",
+          "test-model-host",
+          "test-model-manifest",
+          "test-model-notification",
+          "test-model-patch",
+          "test-model-stats",
+          "test-model-task",
+          "test-model-testresult",
+          "test-model-user",
+          "test-monitor",
+          "test-operations",
+          "test-plugin",
+          "test-repotracker",
+          "test-rest-client",
+          "test-rest-data",
+          "test-rest-model",
+          "test-rest-route",
+          "test-scheduler",
+          "test-service",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-trigger",
+          "test-units",
+          "test-util",
+          "test-validator",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
       {
         name: "ubuntu1604",
-        tasks: ["test-graphql"],
-        __typename: "VariantTask",
+        displayName: "Ubuntu 16.04",
+        tasks: [
+          "dist",
+          "js-test",
+          "smoke-test-agent-monitor",
+          "smoke-test-endpoints",
+          "smoke-test-task",
+          "test-agent",
+          "test-auth",
+          "test-cloud",
+          "test-command",
+          "test-db",
+          "test-evergreen",
+          "test-graphql",
+          "test-migrations",
+          "test-model",
+          "test-model-alertrecord",
+          "test-model-artifact",
+          "test-model-build",
+          "test-model-commitqueue",
+          "test-model-distro",
+          "test-model-event",
+          "test-model-grid",
+          "test-model-host",
+          "test-model-manifest",
+          "test-model-notification",
+          "test-model-patch",
+          "test-model-stats",
+          "test-model-task",
+          "test-model-testresult",
+          "test-model-user",
+          "test-monitor",
+          "test-operations",
+          "test-plugin",
+          "test-repotracker",
+          "test-rest-client",
+          "test-rest-data",
+          "test-rest-model",
+          "test-rest-route",
+          "test-scheduler",
+          "test-service",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-trigger",
+          "test-units",
+          "test-util",
+          "test-validator",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "ubuntu1604-docker",
+        displayName: "Ubuntu 16.04 (Docker)",
+        tasks: [
+          "dist",
+          "smoke-test-agent-monitor",
+          "smoke-test-endpoints",
+          "smoke-test-task",
+          "test-agent",
+          "test-auth",
+          "test-cloud",
+          "test-command",
+          "test-db",
+          "test-evergreen",
+          "test-graphql",
+          "test-migrations",
+          "test-model",
+          "test-model-alertrecord",
+          "test-model-artifact",
+          "test-model-build",
+          "test-model-commitqueue",
+          "test-model-distro",
+          "test-model-event",
+          "test-model-grid",
+          "test-model-host",
+          "test-model-manifest",
+          "test-model-notification",
+          "test-model-patch",
+          "test-model-stats",
+          "test-model-task",
+          "test-model-testresult",
+          "test-model-user",
+          "test-monitor",
+          "test-operations",
+          "test-plugin",
+          "test-repotracker",
+          "test-rest-client",
+          "test-rest-data",
+          "test-rest-model",
+          "test-rest-route",
+          "test-scheduler",
+          "test-service",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-trigger",
+          "test-units",
+          "test-util",
+          "test-validator",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "ubuntu1604-arm64",
+        displayName: "Ubuntu 16.04 ARM",
+        tasks: [
+          "test-agent",
+          "test-command",
+          "test-rest-client",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-util",
+        ],
+        __typename: "ProjectBuildVariant",
+      },
+      {
+        name: "windows",
+        displayName: "Windows",
+        tasks: [
+          "test-agent",
+          "test-command",
+          "test-operations",
+          "test-rest-client",
+          "test-thirdparty",
+          "test-thirdparty-docker",
+          "test-util",
+        ],
+        __typename: "ProjectBuildVariant",
       },
     ],
-    __typename: "Patch",
-  };
+    __typename: "PatchProject",
+  },
+  variantsTasks: [
+    {
+      name: "ubuntu1604",
+      tasks: ["test-graphql"],
+      __typename: "VariantTask",
+    },
+  ],
+  __typename: "Patch",
+};
+
+describe("Configure Patch Page", () => {
   before(() => {
     cy.login();
     cy.listenGQL();
@@ -360,7 +360,7 @@ describe("Configure Patch Page", () => {
       );
     });
     it("Patch name input field value is patch description", () => {
-      cy.get("[data-cy=configurePatch-nameInput]")
+      cy.dataCy("configurePatch-nameInput")
         .invoke("val")
         .then((text) => {
           expect(text).to.equal(patch.description);
@@ -376,11 +376,11 @@ describe("Configure Patch Page", () => {
     it("Patch tasks are selected by default", () => {
       const { variantsTasks } = patch;
       variantsTasks.forEach(({ name, tasks }) => {
-        cy.get(`[data-cy-name=${name}]`)
+        cy.get(`[data-cy-name=${name}`)
           .click()
           .then(() => {
             tasks.forEach((task) => {
-              cy.get(`[data-cy=configurePatch-${task}]`).should("be.checked");
+              cy.dataCy(`configurePatch-${task}`).should("be.checked");
             });
           });
       });
@@ -388,8 +388,13 @@ describe("Configure Patch Page", () => {
   });
 
   describe("Add parameters", () => {
-    it("Navigating to 'Parameters' tab shows the existing parameters", () => {
+    before(() => {
       cy.login();
+    });
+    beforeEach(() => {
+      cy.preserveCookies();
+    });
+    it("Navigating to 'Parameters' tab shows the existing parameters", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
@@ -399,7 +404,6 @@ describe("Configure Patch Page", () => {
       );
     });
     it("Adding a parameter is reflected on the page", () => {
-      cy.login();
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("add-tag-button").click();
@@ -409,7 +413,6 @@ describe("Configure Patch Page", () => {
       cy.dataCy("user-tag-row").its("length").should("eq", 1);
     });
     it("Parameters cannot be added once activated", () => {
-      cy.login();
       cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("parameters-disclaimer").should("exist");
@@ -419,11 +422,14 @@ describe("Configure Patch Page", () => {
   });
 
   describe("Configuring a patch", () => {
-    it("Can update patch description by typing into `Patch Name` input field", () => {
+    before(() => {
       cy.login();
+      cy.preserveCookies();
+    });
+    it("Can update patch description by typing into `Patch Name` input field", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       const val = "michelle obama";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -431,10 +437,10 @@ describe("Configure Patch Page", () => {
     });
     it("Selecting build variant displays tasks of that variant", () => {
       patch.project.variants.forEach(({ name, tasks }) => {
-        cy.get(`[data-cy-name=${name}]`)
+        cy.get(`[data-cy-name=${name}`)
           .click()
           .then(() => {
-            cy.get(`[data-cy=configurePatch-tasks]`)
+            cy.dataCy(`configurePatch-tasks`)
               .children()
               .its("length")
               .should("eq", tasks.length);
@@ -446,7 +452,7 @@ describe("Configure Patch Page", () => {
       const { variants } = patch.project;
       const lastVariantInList = variants[variants.length - 1];
       const firstTask = lastVariantInList.tasks[0];
-      cy.get(`[data-cy-name=${lastVariantInList.name}]`).as("variant").click();
+      cy.get(`[data-cy-name=${lastVariantInList.name}`).as("variant").click();
 
       cy.get("@variant").then(($variant) => {
         const taskCountBadge = `[data-cy=configurePatch-taskCountBadge-${lastVariantInList.name}]`;
@@ -456,7 +462,7 @@ describe("Configure Patch Page", () => {
             .invoke("text")
             .then(($taskCount) => {
               const firstTask1 = lastVariantInList.tasks[0];
-              cy.get(`[data-cy=configurePatch-${firstTask1}]`).check({
+              cy.dataCy(`configurePatch-${firstTask1}`).check({
                 force: true,
               });
               cy.get("@taskCount")
@@ -474,11 +480,9 @@ describe("Configure Patch Page", () => {
                 });
             });
         } else {
-          cy.get(`[data-cy=configurePatch-${firstTask}]`)
-            .as("taskCheckbox")
-            .check({
-              force: true,
-            });
+          cy.dataCy(`configurePatch-${firstTask}`).as("taskCheckbox").check({
+            force: true,
+          });
           cy.get(taskCountBadge)
             .invoke("text")
             .then(($newTaskCount) => {
@@ -503,13 +507,13 @@ describe("Configure Patch Page", () => {
         "test-util",
       ];
       it("Clicking Select All should check all task checkboxes when all of the task checkboxes unchecked", () => {
-        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-checked]")
           .its("length")
           .should("eq", 7);
       });
       it("Clicking on Select All should uncheck all task checkboxes when all of the task checkboxes are checked", () => {
-        cy.get("[data-cy=configurePatch-selectAll").click({ force: true });
+        cy.dataCy("configurePatch-selectAll").click({ force: true });
         cy.get("[data-checked=task-checkbox-unchecked]")
           .its("length")
           .should("eq", 7);
@@ -536,17 +540,17 @@ describe("Configure Patch Page", () => {
       it("Selecting multiple build variants should display deduplicated task checkboxes", () => {
         cy.get("body").type("{meta}", { release: false });
         cy.get('[data-cy-name="rhel72-s390x"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
         cy.get('[data-cy-name="rhel71-power8"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
         cy.get('[data-cy-name="race-detector"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
@@ -556,17 +560,17 @@ describe("Configure Patch Page", () => {
       it("Deselecting multiple build variants should display deduplicated task checkboxes", () => {
         cy.get("body").type("{meta}", { release: false });
         cy.get('[data-cy-name="rhel72-s390x"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
         cy.get('[data-cy-name="rhel71-power8"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 40);
         cy.get('[data-cy-name="race-detector"]').click();
-        cy.get("[data-cy=configurePatch-tasks")
+        cy.dataCy("configurePatch-tasks")
           .children()
           .its("length")
           .should("eq", 7);
@@ -673,14 +677,19 @@ describe("Configure Patch Page", () => {
     });
   });
   describe("Scheduling a patch", () => {
-    beforeEach(() => {
+    before(() => {
       cy.login();
+    });
+    beforeEach(() => {
+      cy.preserveCookies();
       cy.listenGQL();
+
+      cy.server();
     });
     it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
       cy.visit(`/patch/${unactivatedPatchId}`);
       const val = "hello world";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -689,17 +698,17 @@ describe("Configure Patch Page", () => {
         url: "/graphql/query",
         response: mockedSuccessfulConfigureResponse,
       });
-      cy.get("[data-cy=schedule-patch]").click();
+      cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
         `/version/${unactivatedPatchId}/tasks`
       );
     });
 
-    it("Shows error banner if unsuccessful and keeps data", () => {
+    it("Shows error toast if unsuccessful and keeps data", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
-      cy.get(`[data-cy=configurePatch-nameInput]`)
+      cy.dataCy(`configurePatch-nameInput`)
         .as("patchNameInput")
         .clear()
         .type(val);
@@ -708,18 +717,21 @@ describe("Configure Patch Page", () => {
         url: "/graphql/query",
         response: mockedErrorConfigureResponse,
       });
-      cy.get("[data-cy=schedule-patch]").click();
+      cy.dataCy("schedule-patch").click();
       cy.location("pathname").should(
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.get("[data-cy=banner]").contains("WAH WAH CHICKEN WAH");
+      cy.dataCy("toast").contains("WAH WAH CHICKEN WAH");
     });
   });
 
   describe("Switching tabs", () => {
-    it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
+    before(() => {
       cy.login();
+      cy.preserveCookies();
+    });
+    it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
       cy.get('button[data-cy="changes-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(

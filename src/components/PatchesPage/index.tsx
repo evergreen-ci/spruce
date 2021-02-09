@@ -5,7 +5,6 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
 import { useLocation, useHistory } from "react-router-dom";
 import { Analytics } from "analytics/addPageAction";
-import { Banners } from "components/Banners";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import {
@@ -15,14 +14,9 @@ import {
   PageTitle,
 } from "components/styles";
 import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
-import {
   UserPatchesQueryVariables,
   PatchesPagePatchesFragment,
 } from "gql/generated/types";
-import { withBannersContext } from "hoc/withBannersContext";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
 import { parseQueryString, stringifyQuery } from "utils";
@@ -46,14 +40,12 @@ interface Props {
   error?: ApolloError;
 }
 
-const PatchesPageCore: React.FC<Props> = ({
+export const PatchesPage: React.FC<Props> = ({
   analyticsObject,
   pageTitle,
   patches,
   error,
 }) => {
-  const bannersState = useBannerStateContext();
-  const dispatchBanner = useBannerDispatchContext();
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
   const { limit, page, includeCommitQueue } = getPatchesInputFromURLSearch(
@@ -82,10 +74,6 @@ const PatchesPageCore: React.FC<Props> = ({
 
   return (
     <PageWrapper>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
@@ -129,8 +117,6 @@ const PatchesPageCore: React.FC<Props> = ({
     </PageWrapper>
   );
 };
-
-export const PatchesPage = withBannersContext(PatchesPageCore);
 
 export const getPatchesInputFromURLSearch = (
   search: string

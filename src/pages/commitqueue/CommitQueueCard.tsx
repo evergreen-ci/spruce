@@ -6,7 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
-import { paths } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import {
   ModuleCodeChange,
   RemoveItemFromCommitQueueMutation,
@@ -64,7 +64,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            <CardTitle to={`${paths.version}/${patchId}`}>{title}</CardTitle>
+            <CardTitle to={getVersionRoute(patchId)}>{title}</CardTitle>
             <CardMetaData>
               By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
             </CardMetaData>

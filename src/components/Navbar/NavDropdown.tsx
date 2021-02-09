@@ -4,11 +4,9 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Menu, Dropdown } from "antd";
-import get from "lodash/get";
 import { Link } from "react-router-dom";
 import { legacyRoutes } from "constants/externalResources";
 import {
-  paths,
   PreferencesTabRoutes,
   getUserPatchesRoute,
   getPreferencesRoute,
@@ -22,13 +20,9 @@ const { white } = uiColors;
 
 export const NavDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
-  const displayName = get(data, "user.displayName");
+  const { user } = data || {};
+  const { displayName, userId } = user || {};
 
-  // Could not query for the userId field with useQuery or pass it in as a prop because
-  // Of how the antd Dropdown component is built. It will not render MenuItems as a
-  // Functional component so i can not use hooks. If i pass in the component as JSX
-  // with props the styling of the component will break.
-  const userId = localStorage.getItem("userId");
   const uiURL = getUiUrl();
 
   const menuItems = (
@@ -46,7 +40,9 @@ export const NavDropdown = () => {
       </Menu.Item>
       <Menu.Divider />
       <Menu.Item>
-        <Link to={paths.preferences}>Preferences</Link>
+        <Link to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
+          Preferences
+        </Link>
       </Menu.Item>
       <Menu.Item>
         <Link to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}>

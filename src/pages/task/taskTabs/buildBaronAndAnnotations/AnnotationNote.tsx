@@ -6,7 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { Input, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   EditAnnotationNoteMutation,
   EditAnnotationNoteMutationVariables,
@@ -38,17 +38,17 @@ export const AnnotationNote: React.FC<Props> = ({
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
   const originalMessage = note?.message || "";
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [newMessage, setMessage] = useState(originalMessage);
   const [updateAnnotationNote] = useMutation<
     EditAnnotationNoteMutation,
     EditAnnotationNoteMutationVariables
   >(EDIT_ANNOTATION_NOTE, {
     onCompleted: () => {
-      dispatchBanner.successBanner(`Annotation note updated.`);
+      dispatchToast.success(`Annotation note updated.`);
     },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error updating this note: ${error.message}`
       );
     },

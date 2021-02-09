@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
-import { Banners } from "components/Banners";
 import { BreadCrumb } from "components/Breadcrumb";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
@@ -15,15 +14,12 @@ import {
 } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
-import { withBannersContext } from "hoc/withBannersContext";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PageDoesNotExist } from "pages/404";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import { Metadata } from "pages/task/Metadata";
@@ -31,10 +27,9 @@ import { RequiredQueryParams, TaskStatus } from "types/task";
 import { parseQueryString } from "utils";
 import { TaskTabs } from "./task/TaskTabs";
 
-const TaskCore: React.FC = () => {
+export const Task: React.FC = () => {
   const { id } = useParams<{ id: string; tab: string | null }>();
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+  const dispatchToast = useToastContext();
   const taskAnalytics = useTaskAnalytics();
   const location = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -49,7 +44,7 @@ const TaskCore: React.FC = () => {
     variables: { taskId: id, execution: selectedExecution },
     pollInterval,
     onError: (err) =>
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error loading the task: ${err.message}`
       ),
   });
@@ -85,26 +80,11 @@ const TaskCore: React.FC = () => {
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   if (error) {
-    stopPolling();
-  }
-
-  if (error) {
-    return (
-      <PageWrapper>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
-      </PageWrapper>
-    );
+    return <PageDoesNotExist />;
   }
 
   return (
     <PageWrapper>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       {task && (
         <BreadCrumb
           patchAuthor={patchAuthor}
@@ -164,8 +144,6 @@ const TaskCore: React.FC = () => {
     </PageWrapper>
   );
 };
-
-export const Task = withBannersContext(TaskCore);
 
 const LogWrapper = styled(PageLayout)`
   width: 100%;

@@ -56,9 +56,9 @@ describe("Version Subscription Modal", () => {
       cy.dataTestId("jira-comment-option").click();
       cy.dataTestId("jira-comment-input").type("EVG-2000");
       cy.dataCy("save-subscription-button").should("not.be.disabled");
-      cy.dataCy("banner").should("not.exist");
+      cy.dataCy("toast").should("not.exist");
       cy.dataCy("save-subscription-button").click();
-      cy.dataCy("banner").contains("Your subscription has been added");
+      cy.dataCy("toast").contains("Your subscription has been added");
     });
 
     it("Switching between Event types should either hide or reset regex selector inputs", () => {
@@ -97,7 +97,7 @@ describe("Version Subscription Modal", () => {
       cy.dataCy("0-regex-selector-input").should("have.value", "");
     });
 
-    it("Display success banner after submitting a valid form with regex selectors inputs and request succeeds", () => {
+    it("Display success toast after submitting a valid form with regex selectors inputs and request succeeds", () => {
       openModal();
       cy.dataTestId("trigger_5-option").click();
       cy.dataTestId("0-regex-selector-dropdown").click();
@@ -106,9 +106,9 @@ describe("Version Subscription Modal", () => {
       cy.dataTestId("notify-by-select").click();
       cy.dataTestId("jira-comment-option").click();
       cy.dataTestId("jira-comment-input").type("EVG-2000");
-      cy.dataCy("banner").should("not.exist");
+      cy.dataCy("toast").should("not.exist");
       cy.dataCy("save-subscription-button").click();
-      cy.dataCy("banner").contains("Your subscription has been added");
+      cy.dataCy("toast").contains("Your subscription has been added");
     });
 
     it("'Add Additional Criteria' button should be disabled when there are enough 'Field name' dropdowns to represent all possible regex selector types for a trigger", () => {

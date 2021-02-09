@@ -5,7 +5,7 @@ import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -19,20 +19,16 @@ export const NewUITab: React.FC = () => {
   const { spruceV1, hasUsedSpruceBefore } =
     data?.userSettings?.useSpruceOptions ?? {};
   const [checked, setChecked] = useState(spruceV1);
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
     onCompleted: () => {
-      dispatchBanner.successBanner(
-        `Your changes have successfully been saved.`
-      );
+      dispatchToast.success(`Your changes have successfully been saved.`);
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error while saving settings: '${err.message}'`
-      );
+      dispatchToast.error(`Error while saving settings: '${err.message}'`);
     },
   });
 
@@ -42,7 +38,6 @@ export const NewUITab: React.FC = () => {
 
   const handleToggle = async (c, e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
     setChecked(c);
     sendEvent({
       name: c ? "Opt into Spruce" : "Opt out of Spruce",

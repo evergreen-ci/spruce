@@ -7,7 +7,7 @@ import { v4 as uuid } from "uuid";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { InputLabel, ErrorMessage } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   GetMyPublicKeysQuery,
   UpdatePublicKeyMutation,
@@ -41,20 +41,18 @@ export const EditModal: React.FC<EditModalProps> = ({
     GetMyPublicKeysQueryVariables
   >(GET_MY_PUBLIC_KEYS, { fetchPolicy: "cache-only" });
   const { sendEvent } = usePreferencesAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [errors, setErrors] = useState<string[]>([]);
   const [updatePublicKey] = useMutation<
     UpdatePublicKeyMutation,
     UpdatePublicKeyMutationVariables
   >(UPDATE_PUBLIC_KEY, {
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error editing the public key: ${error.message}`
       );
     },
-    onCompleted() {
-      dispatchBanner.clearAllBanners();
-    },
+    onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,
@@ -67,13 +65,11 @@ export const EditModal: React.FC<EditModalProps> = ({
     CreatePublicKeyMutationVariables
   >(CREATE_PUBLIC_KEY, {
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error creating the public key: ${error.message}`
       );
     },
-    onCompleted() {
-      dispatchBanner.clearAllBanners();
-    },
+    onCompleted() {},
     update(cache, { data }) {
       cache.writeQuery<GetMyPublicKeysQuery, GetMyPublicKeysQueryVariables>({
         query: GET_MY_PUBLIC_KEYS,

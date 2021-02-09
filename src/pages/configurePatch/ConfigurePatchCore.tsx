@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled/macro";
@@ -6,17 +6,13 @@ import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import get from "lodash/get";
-import { useHistory } from "react-router-dom";
-import { Banners } from "components/Banners";
+import { useHistory, useLocation, useParams, Redirect } from "react-router-dom";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
-import { paths } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { getPatchRoute, getVersionRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
   PatchConfigure,
@@ -27,43 +23,53 @@ import {
   ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
-import { withBannersContext } from "hoc/withBannersContext";
-import { useTabs, useDefaultPath } from "hooks";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
+import { PatchTab } from "types/patch";
+import { parseQueryString } from "utils";
 import { omitTypename } from "utils/string";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
-const ConfigurePatch: React.FC<Props> = ({ patch }) => {
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
+  const dispatchToast = useToastContext();
 
   const [schedulePatch, { data, loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
     SchedulePatchMutationVariables
   >(SCHEDULE_PATCH, {
     onError(err) {
-      dispatchBanner.errorBanner(err.message);
+      dispatchToast.error(err.message);
     },
   });
-  const router = useHistory();
+  const history = useHistory();
+  const location = useLocation();
+  const { tab: urlTab } = useParams<{ tab: PatchTab | null }>();
+
   const { project, variantsTasks, id } = patch;
   const { variants, tasks } = project;
-  const [selectedTab, selectTabHandler] = useTabs({
-    tabToIndexMap,
-    defaultTab: DEFAULT_TAB,
-    path: `${paths.patch}/${patch.id}/configure`,
-  });
-  useDefaultPath({
-    tabToIndexMap,
-    defaultPath: `${paths.patch}/${patch.id}/configure/${DEFAULT_TAB}`,
-  });
+
+  const [selectedTab, selectTabHandler] = useState(
+    tabToIndexMap[urlTab] || tabToIndexMap[DEFAULT_TAB]
+  );
+
+  useEffect(() => {
+    const query = parseQueryString(location.search);
+    history.replace(
+      getPatchRoute(id, {
+        configure: true,
+        tab: Object.values(PatchTab)[selectedTab],
+        ...query,
+      })
+    );
+  }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const defaultSelectedVariant = variants[0]?.name;
   const [selectedBuildVariant, setSelectedBuildVariant] = useState<string[]>([
-    get(variants[0], "name", ""),
+    defaultSelectedVariant,
   ]);
 
   const [
@@ -99,7 +105,7 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
 
   const scheduledPatchId = get(data, "schedulePatch.id");
   if (scheduledPatchId) {
-    router.replace(`${paths.version}/${scheduledPatchId}`);
+    return <Redirect to={getVersionRoute(scheduledPatchId)} />;
   }
   if (variants.length === 0 || tasks.length === 0) {
     return (
@@ -115,10 +121,6 @@ const ConfigurePatch: React.FC<Props> = ({ patch }) => {
 
   return (
     <>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       <StyledBody weight="medium">Patch Name</StyledBody>
       <StyledInput
         data-cy="configurePatch-nameInput"
@@ -207,11 +209,6 @@ interface TasksState {
 export interface VariantTasksState {
   [variant: string]: TasksState;
 }
-enum PatchTab {
-  Configure = "tasks",
-  Changes = "changes",
-  Parameters = "parameters",
-}
 
 const convertArrayOfStringsToMap = (arrayOfStrings: string[]): TasksState =>
   arrayOfStrings.reduce((prev, curr) => ({ ...prev, [curr]: true }), {});
@@ -249,5 +246,3 @@ const DisableWrapper = styled.div`
   ${(props: { disabled: boolean }) =>
     props.disabled && "opacity:0.4;pointer-events:none;"}
 `;
-
-export const ConfigurePatchCore = withBannersContext(ConfigurePatch);

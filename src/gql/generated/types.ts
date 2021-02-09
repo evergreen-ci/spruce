@@ -232,6 +232,7 @@ export type MutationRestartPatchArgs = {
 
 export type MutationEnqueuePatchArgs = {
   patchId: Scalars["String"];
+  commitMessage?: Maybe<Scalars["String"]>;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -1862,6 +1863,7 @@ export type PatchTasksQuery = {
     count: number;
     tasks: Array<{
       id: string;
+      aborted: boolean;
       status: string;
       displayName: string;
       buildVariant: string;
@@ -2061,6 +2063,7 @@ export type GetTaskQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
+    aborted?: Maybe<boolean>;
     activatedBy?: Maybe<string>;
     buildVariant: string;
     ingestTime?: Maybe<Date>;
@@ -2093,6 +2096,14 @@ export type GetTaskQuery = {
     isPerfPluginEnabled: boolean;
     minQueuePosition: number;
     canModifyAnnotation: boolean;
+    abortInfo?: Maybe<{
+      user?: Maybe<string>;
+      taskDisplayName?: Maybe<string>;
+      taskID?: Maybe<string>;
+      buildVariantDisplayName?: Maybe<string>;
+      newVersion?: Maybe<string>;
+      prClosed?: Maybe<boolean>;
+    }>;
     executionTasksFull?: Maybe<
       Array<{
         displayName: string;

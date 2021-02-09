@@ -7,7 +7,7 @@ import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Modal } from "components/Modal";
 import { WideButton } from "components/Spawn";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   AddAnnotationIssueMutation,
   AddAnnotationIssueMutationVariables,
@@ -35,7 +35,7 @@ export const AddIssueModal: React.FC<Props> = ({
   isIssue,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const title = isIssue ? "Add Issue" : "Add Suspected Issue";
   const issueString = isIssue ? "issue" : "suspected issue";
 
@@ -79,10 +79,10 @@ export const AddIssueModal: React.FC<Props> = ({
     AddAnnotationIssueMutationVariables
   >(ADD_ANNOTATION, {
     onCompleted: () => {
-      dispatchBanner.successBanner(`Successfully added ${issueString}`);
+      dispatchToast.success(`Successfully added ${issueString}`);
     },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error adding the issue: ${error.message}`
       );
     },

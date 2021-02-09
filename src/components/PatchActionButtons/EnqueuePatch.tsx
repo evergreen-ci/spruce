@@ -4,7 +4,7 @@ import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   EnqueuePatchMutation,
   EnqueuePatchMutationVariables,
@@ -22,17 +22,17 @@ export const EnqueuePatch: React.FC<EnqueueProps> = ({
   disabled,
   refetchQueries,
 }) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
     EnqueuePatchMutation,
     EnqueuePatchMutationVariables
   >(ENQUEUE_PATCH, {
     onCompleted: () => {
-      successBanner(`Enqueued patch`);
+      dispatchToast.success(`Enqueued patch`);
     },
     onError: (err) => {
-      errorBanner(`Error enqueueing patch: ${err.message}`);
+      dispatchToast.error(`Error enqueueing patch: ${err.message}`);
     },
     refetchQueries,
   });

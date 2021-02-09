@@ -49,6 +49,6 @@ describe("Select hosts in hosts page table", () => {
 
     cy.get(popconfirmYesClassName).click();
 
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 });

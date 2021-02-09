@@ -1,14 +1,14 @@
 import React from "react";
-import Button from "@leafygreen-ui/button";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
+import { Subtitle } from "@leafygreen-ui/typography";
 import { Banners } from "components/Banners";
+import { Banner } from "components/Banners/Banner";
 import {
   BannerContextProvider,
   useBannerDispatchContext,
   useBannerStateContext,
 } from "context/banners";
-import { Subtitle } from "@leafygreen-ui/typography";
-import { Banner } from "components/Banners/Banner";
 
 export default {
   title: "Banners",
