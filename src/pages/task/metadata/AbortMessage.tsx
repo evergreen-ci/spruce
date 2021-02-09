@@ -4,14 +4,17 @@ import { P2 } from "components/Typography";
 import { getTaskRoute, getVersionRoute } from "constants/routes";
 import { AbortInfo } from "gql/generated/types";
 
-export const AbortMessage = ({
+export const AbortMessage: React.FC<AbortInfo> = ({
+ abortInfo }) => {
+const {
   user,
   taskID,
   newVersion,
   prClosed,
   buildVariantDisplayName,
   taskDisplayName,
-}: AbortInfo) => (
+  } = abortInfo;
+return (
   <>
     {user && (
       <P2>
@@ -43,3 +46,4 @@ export const AbortMessage = ({
     )}
   </>
 );
+}
