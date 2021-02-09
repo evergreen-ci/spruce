@@ -4,7 +4,7 @@ import { Popconfirm, Tooltip } from "antd";
 import { useHostsTableAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   RestartJasperMutation,
   RestartJasperMutationVariables,
@@ -27,7 +27,7 @@ export const RestartJasper: React.FC<Props> = ({
   jasperTooltipMessage,
 }) => {
   const hostsTableAnalytics = useHostsTableAnalytics(isSingleHost);
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   // RESTART JASPER MUTATION
   const [restartJasper, { loading: loadingRestartJasper }] = useMutation<
@@ -40,10 +40,10 @@ export const RestartJasper: React.FC<Props> = ({
         : `Marked Jasper as restarting for ${numberOfHostsUpdated} host${
             numberOfHostsUpdated === 1 ? "" : "s"
           }`;
-      dispatchBanner.successBanner(successMessage);
+      dispatchToast.success(successMessage);
     },
     onError({ message }) {
-      dispatchBanner.errorBanner(message);
+      dispatchToast.error(message);
     },
   });
 

@@ -5,7 +5,7 @@ import {
   SectionContainer,
   SectionLabel,
 } from "components/Spawn";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SubnetAvailabilityZonesQuery,
   SubnetAvailabilityZonesQueryVariables,
@@ -21,15 +21,13 @@ export const AvailabilityZoneSelector: React.FC<Props> = ({
   onChange,
   value,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data } = useQuery<
     SubnetAvailabilityZonesQuery,
     SubnetAvailabilityZonesQueryVariables
   >(GET_SUBNET_AVAILABILITY_ZONES, {
     onError: (e) => {
-      dispatchBanner.errorBanner(
-        `Unable to fetch subnet availability zones: ${e}`
-      );
+      dispatchToast.error(`Unable to fetch subnet availability zones: ${e}`);
     },
   });
 

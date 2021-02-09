@@ -5,7 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   ClearMySubscriptionsMutation,
   ClearMySubscriptionsMutationVariables,
@@ -16,7 +16,7 @@ import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesM
 export const ClearSubscriptionsCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const [clearMySubscriptions, { loading }] = useMutation<
     ClearMySubscriptionsMutation,
@@ -24,7 +24,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
   >(CLEAR_MY_SUBSCRIPTIONS, {
     onCompleted: (result) => {
       setShowModal(false);
-      dispatchBanner.successBanner(
+      dispatchToast.success(
         `Successfully cleared ${result.clearMySubscriptions} subscription${
           result.clearMySubscriptions !== 1 && "s"
         }!`
@@ -32,7 +32,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
     },
     onError: (err) => {
       setShowModal(false);
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `Error while clearing subscriptions: '${err.message}'`
       );
     },

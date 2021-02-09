@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   GetUserSettingsQuery,
   GetUserSettingsQueryVariables,
@@ -13,13 +13,13 @@ interface HookResult {
   loadingComp: JSX.Element;
 }
 export const useUserSettingsQuery = (): HookResult => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     GetUserSettingsQuery,
     GetUserSettingsQueryVariables
   >(GET_USER_SETTINGS, {
     onError(err) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error fetching your user settings: ${err.message}`
       );
     },

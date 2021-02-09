@@ -241,19 +241,18 @@ const baseMocks = [
   myVolumesQueryMock,
 ];
 
-const mockSuccessBanner = jest.fn();
-const mockErrorBanner = jest.fn();
-jest.mock("context/banners", () => ({
-  useBannerDispatchContext: () => ({
-    successBanner: mockSuccessBanner,
-    errorBanner: mockErrorBanner,
-    clearAllBanners: () => {},
+const mockSuccessToast = jest.fn();
+const mockErrorToast = jest.fn();
+jest.mock("context/toast", () => ({
+  useToastContext: () => ({
+    success: mockSuccessToast,
+    error: mockErrorToast,
   }),
 }));
 
 beforeEach(() => {
-  mockSuccessBanner.mockClear();
-  mockErrorBanner.mockClear();
+  mockSuccessToast.mockClear();
+  mockErrorToast.mockClear();
 });
 
 test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
@@ -333,8 +332,8 @@ test("Form submission succeeds with default values", async () => {
   ));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
@@ -379,6 +378,6 @@ test("Form submission succeeds after adjusting inputs", async () => {
   fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
   fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
 });

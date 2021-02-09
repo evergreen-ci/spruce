@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
 import { useParams, useLocation } from "react-router-dom";
-import { Banners } from "components/Banners";
 import { Button } from "components/Button";
 import { UpdateStatusModal } from "components/Hosts";
 import { RestartJasper } from "components/Hosts/RestartJasper";
@@ -15,10 +14,7 @@ import {
   PageLayout,
   PageContent,
 } from "components/styles";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   HostQuery,
   HostQueryVariables,
@@ -27,7 +23,6 @@ import {
 } from "gql/generated/types";
 import { GET_HOST } from "gql/queries/get-host";
 import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
-import { withBannersContext } from "hoc/withBannersContext";
 import { usePageTitle } from "hooks/usePageTitle";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
@@ -35,9 +30,8 @@ import { HostStatus } from "types/host";
 import { useUserTimeZone } from "utils/string";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
-export const HostCore: React.FC = () => {
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+export const Host: React.FC = () => {
+  const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   // Query host data
   const { data: hostData, loading: hostMetaDataLoading, error } = useQuery<
@@ -46,7 +40,7 @@ export const HostCore: React.FC = () => {
   >(GET_HOST, {
     variables: { id },
     onError: (err) => {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error loading the host: ${err.message}`
       );
     },
@@ -87,10 +81,6 @@ export const HostCore: React.FC = () => {
     (bootstrapMethod === "ssh" || bootstrapMethod === "user-data");
   return (
     <PageWrapper data-cy="host-page">
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       {host && (
         <>
           <PageTitle
@@ -168,5 +158,3 @@ const ButtonSpacer = styled.span`
 const ButtonsWrapper = styled.div`
   white-space: nowrap;
 `;
-
-export const Host = withBannersContext(HostCore);

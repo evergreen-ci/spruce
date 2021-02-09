@@ -16,35 +16,35 @@ describe("Patch Action Buttons", () => {
     cy.visit(patchPath(patchId));
   });
 
-  it("Clicking 'Schedule' button shows popconfirm and banner on success", () => {
+  it("Clicking 'Schedule' button shows popconfirm and toast on success", () => {
     cy.dataCy("schedule-patch").click();
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 
-  it("Error scheduling a version shows error banner", () => {
+  it("Error scheduling a version shows error toast", () => {
     cy.dataCy("schedule-patch").click();
     mockErrorResponse({ errorMessage: "There was an error scheduling tasks" });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").contains("error").should("exist");
+    cy.dataCy("toast").contains("error").should("exist");
   });
 
-  it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a banner on success", () => {
+  it("Clicking 'Unschedule' button show popconfirm with abort checkbox and a toast on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("unschedule-patch").click();
     cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 
-  it("Error unscheduling a version shows error banner", () => {
+  it("Error unscheduling a version shows error toast", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("unschedule-patch").click();
     mockErrorResponse({
       errorMessage: "There was an error unscheduling tasks",
     });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").contains("error").should("exist");
+    cy.dataCy("toast").contains("error").should("exist");
   });
 
   it("Reconfigure button should have link to reconfigure page", () => {
@@ -59,16 +59,16 @@ describe("Patch Action Buttons", () => {
     cy.dataCy("reconfigure-link").should("have.attr", "disabled");
   });
 
-  it("Clicking 'Set Priority' button shows popconfirm with input and banner on success", () => {
+  it("Clicking 'Set Priority' button shows popconfirm with input and toast on success", () => {
     const priority = "99";
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
     cy.dataCy("priority-input").clear().type(priority);
     cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-    cy.dataCy("banner").contains(priority).should("exist");
+    cy.dataCy("toast").contains(priority).should("exist");
   });
 
-  it("Error setting priority shows error banner", () => {
+  it("Error setting priority shows error toast", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("prioritize-patch").click();
     cy.dataCy("priority-input").clear().type("88");
@@ -76,13 +76,13 @@ describe("Patch Action Buttons", () => {
       errorMessage: "There was an error setting priority",
     });
     cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-    cy.dataCy("banner").contains("error").should("exist");
+    cy.dataCy("toast").contains("error").should("exist");
   });
 
-  it("Clicking 'Enqueue Patch' button shows popconfirm with input and banner on success", () => {
+  it("Clicking 'Enqueue Patch' button shows popconfirm with input and toast on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("enqueue-patch").click();
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").should("exist").contains("Enqueued patch");
+    cy.dataCy("toast").should("exist").contains("Enqueued patch");
   });
 });

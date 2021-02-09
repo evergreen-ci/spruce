@@ -11,7 +11,7 @@ import {
   AddNotification,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SetPatchPriorityMutation,
   SetPatchPriorityMutationVariables,
@@ -29,16 +29,16 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   isPatchOnCommitQueue,
   patchId,
 }) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [disablePatch] = useMutation<
     SetPatchPriorityMutation,
     SetPatchPriorityMutationVariables
   >(SET_PATCH_PRIORITY, {
     onCompleted: () => {
-      successBanner(`Tasks in this patch were disabled`);
+      dispatchToast.success(`Tasks in this patch were disabled`);
     },
     onError: (err) => {
-      errorBanner(`Unable to disable patch tasks: ${err.message}`);
+      dispatchToast.error(`Unable to disable patch tasks: ${err.message}`);
     },
     refetchQueries: ["Patch"],
   });

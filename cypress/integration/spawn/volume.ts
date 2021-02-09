@@ -59,7 +59,7 @@ describe("Navigating to Spawn Volume page", () => {
       cy.dataCy("update-volume-button").should("not.be.disabled");
     });
 
-    it("Clicking on save button should close the modal and show a success banner", () => {
+    it("Clicking on save button should close the modal and show a success toast", () => {
       cy.dataCy("update-volume-button").click();
       cy.contains("Successfully updated volume");
       cy.dataCy("update-volume-modal").should("not.be.visible");
@@ -145,7 +145,7 @@ describe("Navigating to Spawn Volume page", () => {
     cy.dataCy("free-badge").contains("3 Free");
   });
 
-  it("Clicking on unmount should result in a new error banner appearing.", () => {
+  it("Clicking on unmount should result in a new error toast appearing.", () => {
     cy.contains(errorBannerCopy).should("not.exist");
     cy.dataCy(
       "detach-btn-e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b835"
@@ -154,13 +154,13 @@ describe("Navigating to Spawn Volume page", () => {
     cy.contains(errorBannerCopy).should("exist");
   });
 
-  it("Switching tabs should clear the error banner.", () => {
+  it("Switching tabs should clear the error toast.", () => {
     cy.dataCy("host-nav-tab").click();
     cy.dataCy("volume-nav-tab").click();
     cy.contains(errorBannerCopy).should("not.exist");
   });
 
-  it("Clicking on mount, selecting a host and submitting should result in a new error banner appearing.", () => {
+  it("Clicking on mount, selecting a host and submitting should result in a new error toast appearing.", () => {
     cy.dataCy("attach-btn-vol-0ea662ac92f611ed4").click();
     cy.contains(errorBannerCopy2).should("not.exist");
     cy.dataCy("mount-volume-button").click();

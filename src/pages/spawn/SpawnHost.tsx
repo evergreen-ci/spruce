@@ -10,7 +10,7 @@ import {
   StyledBadge,
 } from "components/Spawn";
 import { pollInterval } from "constants/index";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus, usePageTitle } from "hooks";
@@ -18,7 +18,7 @@ import { SpawnHostButton, SpawnHostTable } from "pages/spawn/spawnHost/index";
 import { HostStatus } from "types/host";
 
 export const SpawnHost = () => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const { data, loading, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
@@ -26,7 +26,7 @@ export const SpawnHost = () => {
   >(GET_MY_HOSTS, {
     pollInterval,
     onError: (e) => {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error loading your spawn hosts: ${e.message}`
       );
     },

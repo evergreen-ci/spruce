@@ -25,6 +25,7 @@
     "@leafygreen-ui/side-nav": "5.0.2",
     "@leafygreen-ui/tabs": "5.0.1",
     "@leafygreen-ui/text-input": "5.0.8",
+    "@leafygreen-ui/toast": "^0.4.2",
     "@leafygreen-ui/toggle": "7.0.1",
     "@leafygreen-ui/typography": "7.3.2",
     "@mongodb-dev-prod/trend-charts-ui": "~0.3.2",

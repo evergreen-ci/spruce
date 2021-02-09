@@ -6,7 +6,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UnschedulePatchTasksMutation,
   UnschedulePatchTasksMutationVariables,
@@ -23,7 +23,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
   refetchQueries,
   disabled,
 }) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [abort, setAbort] = useState(false);
   const [
     unschedulePatchTasks,
@@ -33,7 +33,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
     UnschedulePatchTasksMutationVariables
   >(UNSCHEDULE_PATCH_TASKS, {
     onCompleted: () => {
-      successBanner(
+      dispatchToast.success(
         `All tasks were unscheduled ${
           abort ? "and tasks that already started were aborted" : ""
         }`
@@ -41,7 +41,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
       setAbort(false);
     },
     onError: (err) => {
-      errorBanner(`Error unscheduling tasks: ${err.message}`);
+      dispatchToast.error(`Error unscheduling tasks: ${err.message}`);
     },
     refetchQueries,
   });

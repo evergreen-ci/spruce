@@ -2,7 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { Skeleton } from "antd";
 import { SECOND } from "constants/index";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
@@ -27,14 +27,14 @@ export const CreatedTickets: React.FC<Props> = ({
   createdTicketsCount,
   buildBaronConfigured,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data, startPolling, stopPolling } = useQuery<
     GetCreatedTicketsQuery,
     GetCreatedTicketsQueryVariables
   >(GET_CREATED_TICKETS, {
     variables: { taskId },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error getting tickets created for this task: ${error.message}`
       );
     },
