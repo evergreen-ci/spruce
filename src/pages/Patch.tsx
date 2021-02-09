@@ -17,6 +17,7 @@ import { useToastContext } from "context/toast";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { GET_PATCH } from "gql/queries/patch";
 import { usePageTitle, useNetworkStatus } from "hooks";
+import { PageDoesNotExist } from "pages/404";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import { ActionButtons } from "pages/patch/index";
 import { Metadata } from "pages/patch/Metadata";
@@ -34,10 +35,7 @@ export const Patch: React.FC = () => {
     variables: { id },
     pollInterval,
     onError: (e) =>
-      dispatchToast.error(
-        `There was an error loading the patch: ${e.message}`,
-        false
-      ),
+      dispatchToast.error(`There was an error loading the patch: ${e.message}`),
   });
 
   useNetworkStatus(startPolling, stopPolling);
@@ -63,7 +61,7 @@ export const Patch: React.FC = () => {
     return <Redirect to={getPatchRoute(id, { configure: true })} />;
   }
   if (error) {
-    return <PageWrapper>Error</PageWrapper>;
+    return <PageDoesNotExist />;
   }
 
   return (

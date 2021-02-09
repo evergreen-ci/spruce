@@ -19,6 +19,7 @@ import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PageDoesNotExist } from "pages/404";
 import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import { Metadata } from "pages/task/Metadata";
@@ -44,8 +45,7 @@ export const Task: React.FC = () => {
     pollInterval,
     onError: (err) =>
       dispatchToast.error(
-        `There was an error loading the task: ${err.message}`,
-        false
+        `There was an error loading the task: ${err.message}`
       ),
   });
 
@@ -80,7 +80,7 @@ export const Task: React.FC = () => {
   usePageTitle(`Task${displayName ? ` - ${displayName}` : ""}`);
 
   if (error) {
-    return <PageWrapper />;
+    return <PageDoesNotExist />;
   }
 
   return (
