@@ -554,7 +554,6 @@ export type TaskQueueDistro = {
 };
 
 export type Host = {
-  homeVolume?: Maybe<Volume>;
   id: Scalars["ID"];
   hostUrl: Scalars["String"];
   tag: Scalars["String"];
@@ -722,7 +721,6 @@ export type Volume = {
   homeVolume: Scalars["Boolean"];
   host?: Maybe<Host>;
   creationTime?: Maybe<Scalars["Time"]>;
-  uiDisplayName: Scalars["String"];
 };
 
 export type PatchProject = {
@@ -1792,7 +1790,6 @@ export type MyHostsQuery = {
     }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
-    homeVolume?: Maybe<{ uiDisplayName: string }>;
   }>;
 };
 
