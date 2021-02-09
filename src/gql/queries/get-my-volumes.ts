@@ -4,7 +4,7 @@ export const GET_MY_VOLUMES = gql`
   query MyVolumes {
     myVolumes {
       id
-      uiDisplayName
+      displayName
       createdBy
       type
       availabilityZone

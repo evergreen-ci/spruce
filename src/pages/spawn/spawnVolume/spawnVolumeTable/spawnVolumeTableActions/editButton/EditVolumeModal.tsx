@@ -61,7 +61,7 @@ export const EditVolumeModal: React.FC<Props> = ({
 
   const updateVolume = () => {
     const mutationVars = { ...state };
-    if (mutationVars.name === volume.uiDisplayName) {
+    if (mutationVars.name === volume.displayName) {
       delete mutationVars.name;
     }
     if (mutationVars.noExpiration === true) {
@@ -78,7 +78,7 @@ export const EditVolumeModal: React.FC<Props> = ({
   };
 
   const noChange =
-    state.name === volume.uiDisplayName &&
+    state.name === volume.displayName &&
     new Date(state.expiration).getTime() ===
       new Date(volume.expiration).getTime() &&
     state.noExpiration === volume.noExpiration;

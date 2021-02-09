@@ -31,10 +31,11 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     },
   });
 
+  const volumeName = volume.displayName ? volume.displayName : volume.id;
   const spawnAnalytics = useSpawnAnalytics();
   return (
     <PopconfirmWithCheckbox
-      title={`Delete this volume ${volume.uiDisplayName}?`}
+      title={`Delete this volume ${volumeName}?`}
       checkboxLabel={
         volume.hostID
           ? "I understand this volume is currently mounted to a host."
@@ -50,7 +51,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
     >
       <Button
         size={Size.XSmall}
-        data-cy={`trash-${volume.uiDisplayName}`}
+        data-cy={`trash-${volume.displayName || volume.id}`}
         glyph={<Icon glyph="Trash" />}
         disabled={loadingRemoveVolume}
       />

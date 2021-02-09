@@ -47,7 +47,7 @@ export const VolumesField: React.FC<VolumesFieldProps> = ({
               key={`volume_option_${v.id}`}
               disabled={v.hostID == null}
             >
-              ({v.size}gb) {v.uiDisplayName}
+              ({v.size}gb) {v.displayName || v.id}
             </Option>
           ))}
         </Select>
