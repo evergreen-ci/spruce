@@ -1,44 +1,3 @@
-const patchId = "5e4ff3abe3c3317e352062e4";
-const patchRoute = `/version/${patchId}`;
-const patches = {
-  changes: { route: `${patchRoute}/changes`, btn: "changes-tab" },
-  tasks: { route: `${patchRoute}/tasks`, btn: "task-tab" },
-};
-
-const tasks = {
-  withTests:
-    "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-  noFailedTests:
-    "evergreen_ubuntu1604_test_auth_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-  noTests:
-    "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
-  displayTask: "evergreen_ubuntu1604_89",
-};
-
-const taskRoute = (id: string) => `/task/${id}`;
-
-const task = {
-  logs: {
-    route: `${taskRoute(tasks.withTests)}/logs`,
-    btn: "task-logs-tab",
-  },
-  tests: {
-    route: `${taskRoute(tasks.withTests)}/tests`,
-    btn: "task-tests-tab",
-  },
-  files: {
-    route: `${taskRoute(tasks.withTests)}/files`,
-    btn: "task-files-tab",
-  },
-  display: {
-    route: `${taskRoute(tasks.displayTask)}/execution-task`,
-    btn: "task-execution-tab",
-  },
-};
-
-const locationPathEquals = (path) =>
-  cy.location().should((loc) => expect(loc.pathname).to.eq(path));
-
 describe("Tabs", () => {
   before(() => {
     cy.login();
@@ -129,4 +88,45 @@ describe("Tabs", () => {
         .and("eq", "true");
     });
   });
+
+  const patchId = "5e4ff3abe3c3317e352062e4";
+  const patchRoute = `/version/${patchId}`;
+  const patches = {
+    changes: { route: `${patchRoute}/changes`, btn: "changes-tab" },
+    tasks: { route: `${patchRoute}/tasks`, btn: "task-tab" },
+  };
+
+  const tasks = {
+    withTests:
+      "evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+    noFailedTests:
+      "evergreen_ubuntu1604_test_auth_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+    noTests:
+      "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
+    displayTask: "evergreen_ubuntu1604_89",
+  };
+
+  const taskRoute = (id: string) => `/task/${id}`;
+
+  const task = {
+    logs: {
+      route: `${taskRoute(tasks.withTests)}/logs`,
+      btn: "task-logs-tab",
+    },
+    tests: {
+      route: `${taskRoute(tasks.withTests)}/tests`,
+      btn: "task-tests-tab",
+    },
+    files: {
+      route: `${taskRoute(tasks.withTests)}/files`,
+      btn: "task-files-tab",
+    },
+    display: {
+      route: `${taskRoute(tasks.displayTask)}/execution-task`,
+      btn: "task-execution-tab",
+    },
+  };
+
+  const locationPathEquals = (path) =>
+    cy.location().should((loc) => expect(loc.pathname).to.eq(path));
 });
