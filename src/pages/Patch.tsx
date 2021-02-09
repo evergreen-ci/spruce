@@ -34,7 +34,10 @@ export const Patch: React.FC = () => {
     variables: { id },
     pollInterval,
     onError: (e) =>
-      dispatchToast.error(`There was an error loading the patch: ${e.message}`),
+      dispatchToast.error(
+        `There was an error loading the patch: ${e.message}`,
+        false
+      ),
   });
 
   useNetworkStatus(startPolling, stopPolling);

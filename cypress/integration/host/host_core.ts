@@ -10,7 +10,7 @@ describe("Host load page with nonexistent host", () => {
 
   it("Should show an error message when navigating to a nonexistent host id", () => {
     cy.visit("host/not-real");
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 });
 

@@ -707,7 +707,7 @@ describe("Configure Patch Page", () => {
       );
     });
 
-    it("Shows error banner if unsuccessful and keeps data", () => {
+    it("Shows error toast if unsuccessful and keeps data", () => {
       cy.visit(`/version/${unactivatedPatchId}`);
       const val = "hello world";
       cy.get(`[data-cy=configurePatch-nameInput]`)
@@ -724,7 +724,7 @@ describe("Configure Patch Page", () => {
         "eq",
         `/patch/${unactivatedPatchId}/configure/tasks`
       );
-      cy.get("[data-cy=banner]").contains("WAH WAH CHICKEN WAH");
+      cy.get("[data-cy=toast]").contains("WAH WAH CHICKEN WAH");
     });
   });
 

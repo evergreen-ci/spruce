@@ -37,10 +37,10 @@ describe("Tests Table", () => {
     });
   });
 
-  it("Should display error banner when given an invalid TaskID in the url", () => {
+  it("Should display error toast when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     cy.waitForGQL("GetTask");
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 
   it("Should have sort buttons disabled when fetching data", () => {
