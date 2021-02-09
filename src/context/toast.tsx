@@ -52,7 +52,7 @@ const ToastProvider: React.FC = ({ children }) => {
       addToast({ variant: Variant.Warning, message, closable }),
     info: (message: string, closable: boolean = true) =>
       addToast({ variant: Variant.Note, message, closable }),
-    hide: () => hideToast(),
+    hide: hideToast,
   };
 
   useEffect(() => {
