@@ -10,6 +10,7 @@ interface DispatchToast {
   warning: AddToast;
   error: AddToast;
   info: AddToast;
+  hide: () => void;
 }
 
 const variantToTitleMap = {
@@ -37,6 +38,10 @@ const ToastProvider: React.FC = ({ children }) => {
     [setVisibleToast, setToastOpen]
   );
 
+  const hideToast = useCallback(() => {
+    setToastOpen(false);
+  }, [setToastOpen]);
+
   const toastContext = {
     success: (message: string, closable: boolean = true) =>
       addToast({ variant: Variant.Success, message, closable }),
@@ -46,6 +51,7 @@ const ToastProvider: React.FC = ({ children }) => {
       addToast({ variant: Variant.Warning, message, closable }),
     info: (message: string, closable: boolean = true) =>
       addToast({ variant: Variant.Note, message, closable }),
+    hide: () => hideToast(),
   };
   return (
     <ToastDispatchContext.Provider value={toastContext}>
