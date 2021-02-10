@@ -1,4 +1,5 @@
 import React from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Tooltip } from "antd";
@@ -6,6 +7,11 @@ import { set } from "date-fns";
 import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
+import {
+  GetPatchTaskStatusesQueryVariables,
+  GetSpruceConfigQuery,
+} from "gql/generated/types";
+import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { MyHost, MyVolume } from "types/spawn";
 import { SectionContainer, SectionLabel } from "./Layout";
@@ -28,6 +34,11 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   isVolume,
   targetItem,
 }) => {
+  const { data: spruceConfigData } = useQuery<
+    GetSpruceConfigQuery,
+    GetPatchTaskStatusesQueryVariables
+  >(GET_SPRUCE_CONFIG);
+
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
     isVolume,
     targetItem
@@ -55,6 +66,8 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
   };
 
   const disabledDate = (current) => current < Date.now();
+  const { unexpirableHostsPerUser, unexpirableVolumesPerUser } =
+    spruceConfigData?.spruceConfig.spawnHost ?? {};
   return (
     <SectionContainer>
       <SectionLabel weight="medium">Expiration</SectionLabel>
@@ -88,7 +101,9 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
           title={
             disableExpirationCheckbox
               ? `You have reached the max number of unexpirable ${
-                  isVolume ? "volumes" : "hosts"
+                  isVolume
+                    ? `volumes (${unexpirableVolumesPerUser})`
+                    : `hosts (${unexpirableHostsPerUser})`
                 }. Toggle an existing ${
                   isVolume ? "volume" : "host"
                 } to expirable to enable this checkbox.`
