@@ -71,6 +71,7 @@ const taskQuery = {
     buildVariant: "ubuntu1604",
     minQueuePosition: 0,
     projectId: "spruce",
+    aborted: false,
   },
 };
 

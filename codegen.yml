@@ -3,7 +3,10 @@
     - ./src/**/*.ts
     - ./src/**/*.graphql
     - ./src/**/*.gql
-  overwrite: true,
+  hooks:
+    afterAllFileWrite:
+      - prettier --write
+  overwrite: true
   generates: 
     ./src/gql/generated/types.ts: 
       plugins:
