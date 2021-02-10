@@ -30,6 +30,7 @@ import {
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
 } from "gql/queries";
+import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { omitTypename } from "utils/string";
 import {
   HostDetailsForm,
@@ -139,16 +140,21 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     }
   }, [awsRegions, publicKeys, dispatch]);
 
+  const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
+
   // recalculate isVirtualWorkstation whenever distro changes
   // initial distroId can be changed from URL
   useEffect(() => {
+    const isVirtualWorkstation = !!distrosData?.distros.find(
+      (vd) => distroId === vd.name
+    )?.isVirtualWorkStation;
+    console.log("here", isVirtualWorkstation, unexpirableCountReached);
     dispatch({
       type: "editDistroEffect",
-      isVirtualWorkstation: !!distrosData?.distros.find(
-        (vd) => distroId === vd.name
-      )?.isVirtualWorkStation,
+      isVirtualWorkstation,
+      noExpiration: isVirtualWorkstation && !unexpirableCountReached, // only default virtual workstations to unexpirable if possible
     });
-  }, [distroId, dispatch, distrosData?.distros]);
+  }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
