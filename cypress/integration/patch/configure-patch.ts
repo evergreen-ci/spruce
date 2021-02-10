@@ -396,6 +396,7 @@ describe("Configure Patch Page", () => {
     });
     it("Navigating to 'Parameters' tab shows the existing parameters", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
@@ -405,6 +406,7 @@ describe("Configure Patch Page", () => {
     });
     it("Adding a parameter is reflected on the page", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("add-tag-button").click();
       cy.dataCy("user-tag-key-field").type("testKey");
@@ -414,6 +416,7 @@ describe("Configure Patch Page", () => {
     });
     it("Parameters cannot be added once activated", () => {
       cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("parameters-disclaimer").should("exist");
       cy.dataCy("badge-this-is-a-parameter").should("exist");

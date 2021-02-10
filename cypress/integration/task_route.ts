@@ -26,9 +26,6 @@ describe("Task Page Route", () => {
     cy.dataCy("task-status-badge").contains("Dispatched");
     cy.visit(`/task/${tasks[2]}/logs`);
     cy.dataCy("task-status-badge").contains("Running");
-  });
-
-  it("should display a blocked status badge when visiting task pages that have unmet dependencies", () => {
     cy.visit(`/task/${tasks[3]}`);
     cy.dataCy("task-status-badge").contains("Blocked");
   });
