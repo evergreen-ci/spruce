@@ -7,7 +7,7 @@ ignore:
 modules:
 - name: evergreen
   repo: git@github.com:evergreen-ci/evergreen.git
-  branch: master
+  branch: main
   prefix: gopath/src/github.com/evergreen-ci
 
 #######################################
