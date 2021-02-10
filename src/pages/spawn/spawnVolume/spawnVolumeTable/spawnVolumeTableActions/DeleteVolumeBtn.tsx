@@ -4,7 +4,7 @@ import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import Icon from "components/icons/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   RemoveVolumeMutation,
   RemoveVolumeMutationVariables,
@@ -17,17 +17,16 @@ interface Props {
 }
 
 export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [removeVolume, { loading: loadingRemoveVolume }] = useMutation<
     RemoveVolumeMutation,
     RemoveVolumeMutationVariables
   >(REMOVE_VOLUME, {
     refetchQueries: ["MyVolumes", "MyHosts"],
     onError: (err) =>
-      dispatchBanner.errorBanner(`Error removing volume: '${err.message}'`),
+      dispatchToast.error(`Error removing volume: '${err.message}'`),
     onCompleted: () => {
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner("Successfully deleted the volume.");
+      dispatchToast.success("Successfully deleted the volume.");
     },
   });
 

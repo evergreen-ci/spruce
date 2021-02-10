@@ -5,7 +5,7 @@ import { useSpawnAnalytics } from "analytics";
 import Icon from "components/icons/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { PaddedButton } from "components/Spawn";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateSpawnHostStatusMutation,
   UpdateSpawnHostStatusMutationVariables,
@@ -20,7 +20,7 @@ import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const glyph = mapStatusToGlyph[host.status];
   const action = mapStatusToAction[host.status];
@@ -35,7 +35,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   >(GET_MY_HOSTS, {
     pollInterval: 3000,
     onError: (e) => {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error loading your spawn hosts: ${e.message}`
       );
     },
@@ -55,14 +55,11 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
     UpdateSpawnHostStatusMutationVariables
   >(UPDATE_SPAWN_HOST_STATUS, {
     onCompleted() {
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner(
-        `Successfully triggered host status update!`
-      );
+      dispatchToast.success(`Successfully triggered host status update!`);
       getMyHosts();
     },
     onError(err) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while updating your host: ${err.message}`
       );
     },
@@ -72,7 +69,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const onClick = (a) => (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    dispatchBanner.clearAllBanners();
+
     spawnAnalytics.sendEvent({ name: "Change Host Status", status: a });
     updateSpawnHostStatus({
       variables: {

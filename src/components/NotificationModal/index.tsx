@@ -11,7 +11,7 @@ import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
@@ -45,18 +45,16 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   sendAnalyticsEvent,
   "data-cy": dataCy,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
     SaveSubscriptionMutation,
     SaveSubscriptionMutationVariables
   >(SAVE_SUBSCRIPTION, {
     onCompleted: () => {
-      dispatchBanner.successBanner("Your subscription has been added");
+      dispatchToast.success("Your subscription has been added");
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error adding your subscription: '${err.message}'`
-      );
+      dispatchToast.error(`Error adding your subscription: '${err.message}'`);
     },
   });
 

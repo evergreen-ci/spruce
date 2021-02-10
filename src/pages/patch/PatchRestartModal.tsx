@@ -9,7 +9,7 @@ import { useLocation, useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
@@ -40,7 +40,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   patchId: patchIdFromProps,
   refetchQueries,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const patchId = patchIdFromProps ?? id;
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
@@ -52,13 +52,11 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   >(RESTART_PATCH, {
     onCompleted: () => {
       onOk();
-      dispatchBanner.successBanner(`Successfully restarted patch!`);
+      dispatchToast.success(`Successfully restarted patch!`);
     },
     onError: (err) => {
       onOk();
-      dispatchBanner.errorBanner(
-        `Error while restarting patch: '${err.message}'`
-      );
+      dispatchToast.error(`Error while restarting patch: '${err.message}'`);
     },
     refetchQueries,
   });
@@ -92,7 +90,6 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
     try {
       patchAnalytics.sendEvent({
         name: "Restart",

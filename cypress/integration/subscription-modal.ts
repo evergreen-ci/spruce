@@ -18,7 +18,7 @@ describe("Subscription Modals - Shared functionality", () => {
     description: string
   ) => {
     describe(description, () => {
-      it("Display success banner after submitting a valid form and request succeeds", () => {
+      it("Display success toast after submitting a valid form and request succeeds", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataTestId("trigger_0-option").click();
         cy.dataTestId("notify-by-select").click();
@@ -67,7 +67,7 @@ describe("Subscription Modals - Shared functionality", () => {
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
 
-      it("Display error banner when save subscription request fails", () => {
+      it("Display error toast when save subscription request fails", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.dataTestId("trigger_0-option").click();
         cy.dataTestId("notify-by-select").click();
@@ -123,7 +123,7 @@ describe("Subscription Modals - Shared functionality", () => {
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
 
-      const bannerDataCy = "banner";
+      const bannerDataCy = "toast";
       const successText = "Your subscription has been added";
       const errorTextNegativeDuration = "Duration cannot be negative";
       const errorTextNegativePercent = "Percent must be a positive number";

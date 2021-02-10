@@ -5,7 +5,7 @@ import { Tooltip } from "antd";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { Popconfirm } from "components/Popconfirm";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   MyHostsQuery,
   MyHostsQueryVariables,
@@ -21,7 +21,7 @@ interface Props {
 }
 
 export const UnmountBtn: React.FC<Props> = ({ volume }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
 
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
@@ -35,9 +35,9 @@ export const UnmountBtn: React.FC<Props> = ({ volume }) => {
     DetachVolumeFromHostMutationVariables
   >(DETACH_VOLUME, {
     onError: (err) =>
-      dispatchBanner.errorBanner(`Error detaching volume: '${err.message}'`),
+      dispatchToast.error(`Error detaching volume: '${err.message}'`),
     onCompleted: () => {
-      dispatchBanner.successBanner("Successfully unmounted the volume.");
+      dispatchToast.success("Successfully unmounted the volume.");
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
   });

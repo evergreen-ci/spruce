@@ -4,7 +4,7 @@ import { Select } from "antd";
 import { ModalContent } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { pollInterval } from "constants/index";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import { MyHostsQuery, MyHostsQueryVariables } from "gql/generated/types";
 import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks/useNetworkStatus";
@@ -31,7 +31,7 @@ export const MountVolumeSelect = ({
   label,
   autofill,
 }: Props) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [hostOptions, setHostOptions] = useState<HostOption[]>([]); // dropdown option
   const { data, startPolling, stopPolling } = useQuery<
     MyHostsQuery,
@@ -39,9 +39,7 @@ export const MountVolumeSelect = ({
   >(GET_MY_HOSTS, {
     pollInterval,
     onError: (e) => {
-      dispatchBanner.errorBanner(
-        `There was an error loading hosts: ${e.message}`
-      );
+      dispatchToast.error(`There was an error loading hosts: ${e.message}`);
     },
   });
   useNetworkStatus(startPolling, stopPolling);

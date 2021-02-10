@@ -1,45 +1,84 @@
-import React from "react";
-import { message } from "antd";
-import { MessageType } from "antd/es/message";
+import React, { useState, useCallback, useEffect } from "react";
+import Toast, { Variant } from "@leafygreen-ui/toast";
+import { TOAST_TIMEOUT } from "constants/index";
 
-type Message = (toastMessage: string) => MessageType;
+type ToastType = { variant: Variant; message: string; closable: boolean };
 
-interface ToastDispatchValue {
-  success: Message;
-  warning: Message;
-  error: Message;
-  info: Message;
+type AddToast = (message: string, closable?: boolean) => void;
+
+interface DispatchToast {
+  success: AddToast;
+  warning: AddToast;
+  error: AddToast;
+  info: AddToast;
+  hide: () => void;
 }
 
-const MessagesDispatchContext = React.createContext<ToastDispatchValue | null>(
-  null
-);
-
-enum Toast {
-  success = "success",
-  warning = "warning",
-  error = "error",
-  info = "info",
-}
-
-const showToastMessage = (t: Toast) => (toastMessage: string): MessageType =>
-  message[t](toastMessage);
-
-const toast: ToastDispatchValue = {
-  success: showToastMessage(Toast.success),
-  warning: showToastMessage(Toast.warning),
-  error: showToastMessage(Toast.error),
-  info: showToastMessage(Toast.info),
+const variantToTitleMap = {
+  [Variant.Success]: "Success!",
+  [Variant.Important]: "Warning!",
+  [Variant.Warning]: "Error!",
+  [Variant.Note]: "Something Happened!",
 };
 
-const ToastProvider: React.FC = ({ children }) => (
-  <MessagesDispatchContext.Provider value={toast}>
-    {children}
-  </MessagesDispatchContext.Provider>
-);
+const ToastDispatchContext = React.createContext<any | null>(null);
 
-const useToastContext = (): ToastDispatchValue => {
-  const context = React.useContext(MessagesDispatchContext);
+const ToastProvider: React.FC = ({ children }) => {
+  const [visibleToast, setVisibleToast] = useState<ToastType>({
+    variant: Variant.Note,
+    message: "",
+    closable: true,
+  });
+  const [toastOpen, setToastOpen] = useState(false);
+
+  const addToast = useCallback(
+    (toast: ToastType) => {
+      setVisibleToast(toast);
+      setToastOpen(true);
+    },
+    [setVisibleToast, setToastOpen]
+  );
+
+  const hideToast = useCallback(() => {
+    setToastOpen(false);
+  }, [setToastOpen]);
+
+  const toastContext = {
+    success: (message: string, closable: boolean = true) =>
+      addToast({ variant: Variant.Success, message, closable }),
+    warning: (message: string, closable: boolean = true) =>
+      addToast({ variant: Variant.Important, message, closable }),
+    error: (message: string, closable: boolean = true) =>
+      addToast({ variant: Variant.Warning, message, closable }),
+    info: (message: string, closable: boolean = true) =>
+      addToast({ variant: Variant.Note, message, closable }),
+    hide: hideToast,
+  };
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      hideToast();
+    }, TOAST_TIMEOUT);
+    return () => clearTimeout(timeout);
+  });
+
+  return (
+    <ToastDispatchContext.Provider value={toastContext}>
+      {children}
+      <Toast
+        variant={visibleToast.variant}
+        title={variantToTitleMap[visibleToast?.variant]}
+        body={visibleToast.message}
+        open={toastOpen}
+        close={visibleToast.closable && (() => setToastOpen(false))}
+        data-cy="toast"
+      />
+    </ToastDispatchContext.Provider>
+  );
+};
+
+const useToastContext = (): DispatchToast => {
+  const context = React.useContext(ToastDispatchContext);
   if (context === undefined) {
     throw new Error("useToastContext must be used within a ToastProvider");
   }

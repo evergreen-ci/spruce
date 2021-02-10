@@ -2,28 +2,17 @@ import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
-import { Banners } from "components/Banners";
 import { routes, PreferencesTabRoutes } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
-import { withBannersContext } from "hoc/withBannersContext";
 import { CliTab } from "./preferencesTabs/CliTab";
 import { NewUITab } from "./preferencesTabs/NewUITab";
 import { NotificationsTab } from "./preferencesTabs/NotificationsTab";
 import { ProfileTab } from "./preferencesTabs/ProfileTab";
 import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
-const Tabs: React.FC = () => {
-  const dispatchBanner = useBannerDispatchContext();
-
+export const PreferencesTabs: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
-  const bannersState = useBannerStateContext();
 
-  useEffect(() => {
-    dispatchBanner.clearAllBanners();
-  }, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
+  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
 
@@ -33,10 +22,7 @@ const Tabs: React.FC = () => {
         <H2 data-cy="preferences-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
       </TitleContainer>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
+
       <Route path={routes.profilePreferences} component={ProfileTab} />
       <Route
         path={routes.notificationsPreferences}
@@ -87,4 +73,3 @@ const TitleContainer = styled.div`
 const Subtitle = styled(Disclaimer)`
   padding-top: 16px;
 `;
-export const PreferencesTabs = withBannersContext(Tabs);

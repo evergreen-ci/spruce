@@ -7,7 +7,7 @@ import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { ErrorBoundary } from "components/ErrorBoundary";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   GetTaskQuery,
   MoveAnnotationIssueMutation,
@@ -43,7 +43,7 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
   setSelectedRowKey,
 }) => {
   const annotationAnalytics = useAnnotationAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const issueString = isIssue ? "issue" : "suspected issue";
   const icon = <Icon glyph={isIssue ? "ArrowDown" : "ArrowUp"} />;
   const columns = [
@@ -129,10 +129,10 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     RemoveAnnotationIssueMutationVariables
   >(REMOVE_ANNOTATION, {
     onCompleted: () => {
-      dispatchBanner.successBanner(`Successfully removed ${issueString}`);
+      dispatchToast.success(`Successfully removed ${issueString}`);
     },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error removing the ${issueString}: ${error.message}`
       );
     },
@@ -144,14 +144,14 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
     MoveAnnotationIssueMutationVariables
   >(MOVE_ANNOTATION, {
     onCompleted: () => {
-      dispatchBanner.successBanner(
+      dispatchToast.success(
         `Successfully moved ${issueString} to ${
           isIssue ? "suspected issues" : "issues"
         }`
       );
     },
     onError(error) {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error moving the ${issueString}: ${error.message}`
       );
     },
