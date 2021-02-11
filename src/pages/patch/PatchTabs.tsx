@@ -20,13 +20,13 @@ interface Props {
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
-  const { id } = useParams<{ id: string }>();
+  const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const history = useHistory();
   const location = useLocation();
 
   const patchAnalytics = usePatchAnalytics();
   const [selectedTab, setSelectedTab] = useState(
-    tabToIndexMap[DEFAULT_PATCH_TAB]
+    tabToIndexMap[tab] || tabToIndexMap[DEFAULT_PATCH_TAB]
   );
   // This is used to keep track of the first tab transition so we dont accidently trigger an analytics event for it
   const previousTab = usePrevious(selectedTab);
