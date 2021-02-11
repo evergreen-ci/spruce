@@ -13,9 +13,12 @@ import GET_HOST from "./get-host.graphql";
 import GET_INSTANCE_TYPES from "./get-instance-types.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
 import GET_MY_VOLUMES from "./get-my-volumes.graphql";
+import GET_OTHER_USER from "./get-other-user.graphql";
 import GET_PATCH_BUILD_VARIANTS from "./get-patch-build-variants.graphql";
+import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH_TASKS from "./get-patch-tasks.graphql";
+import GET_PATCH from "./get-patch.graphql";
 import GET_PROJECTS from "./get-projects.graphql";
 import GET_MY_PUBLIC_KEYS from "./get-public-keys.graphql";
 import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
@@ -27,6 +30,7 @@ import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
+import GET_USER from "./get-user.graphql";
 import HOSTS from "./hosts.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
@@ -35,8 +39,6 @@ import GET_SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import GET_USER_PATCHES from "./user-patches.graphql";
 
-export { GET_PATCH, GET_PATCH_CONFIGURE } from "./patch";
-export { GET_USER, GET_OTHER_USER } from "./get-user";
 export {
   TASK_QUEUE_DISTROS,
   GET_AWS_REGIONS,
@@ -74,4 +76,8 @@ export {
   GET_SYSTEM_LOGS,
   GET_PROJECT_PATCHES,
   GET_USER_PATCHES,
+  GET_USER,
+  GET_OTHER_USER,
+  GET_PATCH,
+  GET_PATCH_CONFIGURE,
 };

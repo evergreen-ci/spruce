@@ -1,0 +1,35 @@
+query Patch($id: String!) {
+  patch(id: $id) {
+    id
+    description
+    projectID
+    githash
+    patchNumber
+    author
+    version
+    status
+    activated
+    alias
+    taskCount
+    commitQueuePosition
+    baseVersionID
+    parameters {
+      key
+      value
+    }
+    duration {
+      makespan
+      timeTaken
+    }
+    time {
+      started
+      submittedAt
+      finished
+    }
+    variantsTasks {
+      name
+      tasks
+    }
+    canEnqueueToCommitQueue
+  }
+}

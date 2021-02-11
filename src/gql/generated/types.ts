@@ -1852,6 +1852,15 @@ export type MyVolumesQuery = {
   }>;
 };
 
+export type GetOtherUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars["String"]>;
+}>;
+
+export type GetOtherUserQuery = {
+  otherUser: { userId: string; displayName: string };
+  currentUser: { userId: string };
+};
+
 export type PatchBuildVariantsQueryVariables = Exact<{
   patchId: Scalars["String"];
 }>;
@@ -1871,6 +1880,33 @@ export type PatchBuildVariantsQuery = {
       >
     >;
   }>;
+};
+
+export type ConfigurePatchQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type ConfigurePatchQuery = {
+  patch: {
+    id: string;
+    description: string;
+    author: string;
+    alias?: Maybe<string>;
+    status: string;
+    activated: boolean;
+    commitQueuePosition?: Maybe<number>;
+    time?: Maybe<{ submittedAt: string }>;
+    project?: Maybe<{
+      tasks: Array<string>;
+      variants: Array<{
+        name: string;
+        displayName: string;
+        tasks: Array<string>;
+      }>;
+    }>;
+    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    parameters: Array<{ key: string; value: string }>;
+  };
 };
 
 export type GetPatchTaskStatusesQueryVariables = Exact<{
@@ -1918,6 +1954,37 @@ export type PatchTasksQuery = {
       >;
       baseTask?: Maybe<{ status: string }>;
     }>;
+  };
+};
+
+export type PatchQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type PatchQuery = {
+  patch: {
+    id: string;
+    description: string;
+    projectID: string;
+    githash: string;
+    patchNumber: number;
+    author: string;
+    version: string;
+    status: string;
+    activated: boolean;
+    alias?: Maybe<string>;
+    taskCount?: Maybe<number>;
+    commitQueuePosition?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
+    canEnqueueToCommitQueue: boolean;
+    parameters: Array<{ key: string; value: string }>;
+    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
+    time?: Maybe<{
+      started?: Maybe<string>;
+      submittedAt: string;
+      finished?: Maybe<string>;
+    }>;
+    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
   };
 };
 
@@ -2230,15 +2297,6 @@ export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
 };
 
-export type GetOtherUserQueryVariables = Exact<{
-  userId?: Maybe<Scalars["String"]>;
-}>;
-
-export type GetOtherUserQuery = {
-  otherUser: { userId: string; displayName: string };
-  currentUser: { userId: string };
-};
-
 export type HostsQueryVariables = Exact<{
   hostId?: Maybe<Scalars["String"]>;
   distroId?: Maybe<Scalars["String"]>;
@@ -2270,64 +2328,6 @@ export type HostsQuery = {
       distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
-  };
-};
-
-export type PatchQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type PatchQuery = {
-  patch: {
-    id: string;
-    description: string;
-    projectID: string;
-    githash: string;
-    patchNumber: number;
-    author: string;
-    version: string;
-    status: string;
-    activated: boolean;
-    alias?: Maybe<string>;
-    taskCount?: Maybe<number>;
-    commitQueuePosition?: Maybe<number>;
-    baseVersionID?: Maybe<string>;
-    canEnqueueToCommitQueue: boolean;
-    parameters: Array<{ key: string; value: string }>;
-    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
-    time?: Maybe<{
-      started?: Maybe<string>;
-      submittedAt: string;
-      finished?: Maybe<string>;
-    }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-  };
-};
-
-export type ConfigurePatchQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type ConfigurePatchQuery = {
-  patch: {
-    id: string;
-    description: string;
-    author: string;
-    alias?: Maybe<string>;
-    status: string;
-    activated: boolean;
-    commitQueuePosition?: Maybe<number>;
-    time?: Maybe<{ submittedAt: string }>;
-    project?: Maybe<{
-      tasks: Array<string>;
-      variants: Array<{
-        name: string;
-        displayName: string;
-        tasks: Array<string>;
-      }>;
-    }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
   };
 };
 

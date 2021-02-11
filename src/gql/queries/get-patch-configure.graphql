@@ -1,0 +1,30 @@
+  query ConfigurePatch($id: String!) {
+    patch(id: $id) {
+      id
+      description
+      author
+      alias
+      status
+      activated
+      commitQueuePosition
+      time {
+        submittedAt
+      }
+      project {
+        tasks
+        variants {
+          name
+          displayName
+          tasks
+        }
+      }
+      variantsTasks {
+        name
+        tasks
+      }
+      parameters {
+        key
+        value
+      }
+    }
+  }
