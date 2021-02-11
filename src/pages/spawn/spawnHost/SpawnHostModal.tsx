@@ -148,7 +148,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     const isVirtualWorkstation = !!distrosData?.distros.find(
       (vd) => distroId === vd.name
     )?.isVirtualWorkStation;
-    console.log("here", isVirtualWorkstation, unexpirableCountReached);
     dispatch({
       type: "editDistroEffect",
       isVirtualWorkstation,
