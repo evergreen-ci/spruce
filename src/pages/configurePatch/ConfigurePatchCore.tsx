@@ -99,7 +99,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         variables: { patchId: id, configure: configurePatchParam },
       });
     } catch (error) {
-      // TODO show error banner
+      dispatchToast.error(
+        `There was an error scheduling this patch: ${error.message}`
+      );
     }
   };
 

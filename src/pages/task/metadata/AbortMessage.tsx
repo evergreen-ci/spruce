@@ -15,7 +15,7 @@ export const AbortMessage: React.FC<AbortInfo> = ({
   <>
     {user && (
       <P2>
-        {`Aborted by ${user} `}
+        {`Aborted by: ${user} `}
         {taskID && buildVariantDisplayName && taskDisplayName && (
           <span>
             because of failing task:{" "}
