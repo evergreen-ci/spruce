@@ -9,7 +9,7 @@ import {
   MyHostsQuery,
   MyHostsQueryVariables,
   GetSpruceConfigQuery,
-  GetPatchTaskStatusesQueryVariables,
+  GetSpruceConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
@@ -21,7 +21,7 @@ export const SpawnHostButton = () => {
   );
   const { data: spruceConfigData } = useQuery<
     GetSpruceConfigQuery,
-    GetPatchTaskStatusesQueryVariables
+    GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG);
   const { search } = useLocation<{ search: string }>();
   const queryParams = parseQueryString(search);

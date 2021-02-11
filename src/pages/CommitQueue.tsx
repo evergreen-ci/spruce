@@ -14,7 +14,7 @@ import {
   CommitQueueQuery,
   CommitQueueQueryVariables,
 } from "gql/generated/types";
-import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
+import { GET_COMMIT_QUEUE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
