@@ -1263,7 +1263,7 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
-export type CodeChangesTableFileDiffsFragment = {
+export type FileDiffsFragment = {
   fileName: string;
   additions: number;
   deletions: number;
@@ -1639,7 +1639,7 @@ export type CodeChangesQuery = {
       branchName: string;
       htmlLink: string;
       rawLink: string;
-      fileDiffs: Array<CodeChangesTableFileDiffsFragment>;
+      fileDiffs: Array<FileDiffsFragment>;
     }>;
   };
 };
@@ -1666,7 +1666,7 @@ export type CommitQueueQuery = {
             rawLink: string;
             branchName: string;
             htmlLink: string;
-            fileDiffs: Array<CodeChangesTableFileDiffsFragment>;
+            fileDiffs: Array<FileDiffsFragment>;
           }>;
         }>;
       }>

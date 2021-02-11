@@ -4,14 +4,11 @@ import { Body } from "@leafygreen-ui/typography";
 import { Accordian } from "components/Accordian";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
-import {
-  CodeChangesTableFileDiffsFragment,
-  ModuleCodeChange,
-} from "gql/generated/types";
+import { FileDiffsFragment, ModuleCodeChange } from "gql/generated/types";
 import { bucketByCommit } from "utils/fileDiffs/bucketByCommit";
 
 const totalFileDiffs = (
-  fileDiffs: CodeChangesTableFileDiffsFragment[]
+  fileDiffs: FileDiffsFragment[]
 ): { additions: number; deletions: number } => {
   let additions = 0;
   let deletions = 0;
