@@ -1585,6 +1585,21 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type AgentLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type AgentLogsQuery = {
+  taskLogs: {
+    agentLogs: Array<{
+      severity?: Maybe<string>;
+      message?: Maybe<string>;
+      timestamp?: Maybe<Date>;
+    }>;
+  };
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -1700,6 +1715,29 @@ export type DistrosQuery = {
   distros: Array<
     Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
   >;
+};
+
+export type EventLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type EventLogsQuery = {
+  taskLogs: {
+    eventLogs: Array<{
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      data: {
+        hostId?: Maybe<string>;
+        jiraIssue?: Maybe<string>;
+        jiraLink?: Maybe<string>;
+        priority?: Maybe<number>;
+        status?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+        userId?: Maybe<string>;
+      };
+    }>;
+  };
 };
 
 export type HostEventsQueryVariables = Exact<{
@@ -1930,6 +1968,21 @@ export type GetSpruceConfigQuery = {
   }>;
 };
 
+export type SystemLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type SystemLogsQuery = {
+  taskLogs: {
+    systemLogs: Array<{
+      severity?: Maybe<string>;
+      message?: Maybe<string>;
+      timestamp?: Maybe<Date>;
+    }>;
+  };
+};
+
 export type GetTaskAllExecutionsQueryVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -1959,29 +2012,6 @@ export type TaskFilesQuery = {
   };
 };
 
-export type EventLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
-}>;
-
-export type EventLogsQuery = {
-  taskLogs: {
-    eventLogs: Array<{
-      timestamp?: Maybe<Date>;
-      eventType?: Maybe<string>;
-      data: {
-        hostId?: Maybe<string>;
-        jiraIssue?: Maybe<string>;
-        jiraLink?: Maybe<string>;
-        priority?: Maybe<number>;
-        status?: Maybe<string>;
-        timestamp?: Maybe<Date>;
-        userId?: Maybe<string>;
-      };
-    }>;
-  };
-};
-
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -1990,36 +2020,6 @@ export type TaskLogsQueryVariables = Exact<{
 export type TaskLogsQuery = {
   taskLogs: {
     taskLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
-};
-
-export type AgentLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
-}>;
-
-export type AgentLogsQuery = {
-  taskLogs: {
-    agentLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
-};
-
-export type SystemLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
-}>;
-
-export type SystemLogsQuery = {
-  taskLogs: {
-    systemLogs: Array<{
       severity?: Maybe<string>;
       message?: Maybe<string>;
       timestamp?: Maybe<Date>;

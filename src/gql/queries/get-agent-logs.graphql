@@ -1,0 +1,9 @@
+  query AgentLogs($id: String!, $execution: Int) {
+    taskLogs(taskId: $id, execution: $execution) {
+      agentLogs {
+        severity
+        message
+        timestamp
+      }
+    }
+  }
