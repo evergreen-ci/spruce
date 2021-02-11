@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_TASK = gql`
   query GetTask($taskId: String!, $execution: Int) {
     taskFiles(taskId: $taskId, execution: $execution) {
       fileCount
@@ -148,16 +146,3 @@ export const GET_TASK = gql`
       }
     }
   }
-`;
-
-export enum MetStatus {
-  Met = "MET",
-  Unmet = "UNMET",
-  Pending = "PENDING",
-}
-
-export enum RequiredStatus {
-  MustFail = "MUST_FAIL",
-  MustSucceed = "MUST_SUCCEED",
-  MustFinish = "MUST_FINISH",
-}

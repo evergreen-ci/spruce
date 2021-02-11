@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_PATCH_BUILD_VARIANTS = gql`
   query PatchBuildVariants($patchId: String!) {
     patchBuildVariants(patchId: $patchId) {
       variant
@@ -13,4 +11,3 @@ export const GET_PATCH_BUILD_VARIANTS = gql`
       }
     }
   }
-`;

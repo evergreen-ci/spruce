@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_USER_SETTINGS = gql`
   query GetUserSettings {
     userSettings {
       timezone
@@ -23,4 +21,3 @@ export const GET_USER_SETTINGS = gql`
       }
     }
   }
-`;

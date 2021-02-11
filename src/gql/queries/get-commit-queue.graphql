@@ -1,8 +1,6 @@
-import { gql } from "@apollo/client";
-import { CodeChangesTable } from "gql/fragments/codeChangesTable";
+#import "../fragments/fileDiffs.graphql";
 
-/* eslint-disable */
-export const GET_COMMIT_QUEUE = gql`
+
   query CommitQueue($id: String!) {
     commitQueue(id: $id) {
       projectId
@@ -21,12 +19,10 @@ export const GET_COMMIT_QUEUE = gql`
             branchName
             htmlLink
             fileDiffs {
-              ...CodeChangesTableFileDiffs
+              ...fileDiffs
             }
           }
         }
       }
     }
   }
-  ${CodeChangesTable.fragments.fileDiffs}
-`;

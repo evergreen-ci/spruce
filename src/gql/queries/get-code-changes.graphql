@@ -1,0 +1,15 @@
+#import "../fragments/fileDiffs.graphql"
+
+query CodeChanges($id: String!) {
+    patch(id: $id) {
+      id
+      moduleCodeChanges {
+        branchName
+        htmlLink
+        rawLink
+        fileDiffs {
+          ...fileDiffs
+        }
+      }
+    }
+  }

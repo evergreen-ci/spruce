@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_CREATED_TICKETS = gql`
   query GetCreatedTickets($taskId: String!) {
     bbGetCreatedTickets(taskId: $taskId) {
       key
@@ -17,4 +15,3 @@ export const GET_CREATED_TICKETS = gql`
       }
     }
   }
-`;

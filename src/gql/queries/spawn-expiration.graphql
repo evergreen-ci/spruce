@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_SPAWN_EXPIRATION_INFO = gql`
   query SpawnExpirationInfo {
     myHosts {
       noExpiration
@@ -11,4 +9,3 @@ export const GET_SPAWN_EXPIRATION_INFO = gql`
       id
     }
   }
-`;

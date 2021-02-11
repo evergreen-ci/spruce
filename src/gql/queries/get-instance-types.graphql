@@ -1,0 +1,4 @@
+
+  query InstanceTypes {
+    instanceTypes
+  }

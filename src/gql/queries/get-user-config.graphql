@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_USER_CONFIG = gql`
   query GetUserConfig {
     userConfig {
       api_key
@@ -9,4 +7,3 @@ export const GET_USER_CONFIG = gql`
       user
     }
   }
-`;

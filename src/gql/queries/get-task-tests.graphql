@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_TASK_TESTS = gql`
   query TaskTests(
     $dir: SortDirection
     $id: String!
@@ -36,4 +34,3 @@ export const GET_TASK_TESTS = gql`
       totalTestCount
     }
   }
-`;

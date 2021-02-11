@@ -1,6 +1,3 @@
-import { gql } from "@apollo/client";
-
-export const GET_HOST_EVENTS = gql`
   query hostEvents($id: String!, $tag: String!, $limit: Int, $page: Int) {
     hostEvents(hostId: $id, hostTag: $tag, limit: $limit, page: $page) {
       eventLogEntries {
@@ -32,4 +29,3 @@ export const GET_HOST_EVENTS = gql`
       count
     }
   }
-`;

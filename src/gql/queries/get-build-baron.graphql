@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_BUILD_BARON = gql`
   query BuildBaron($taskId: String!, $execution: Int!) {
     buildBaron(taskId: $taskId, execution: $execution) {
       buildBaronConfigured
@@ -25,4 +23,3 @@ export const GET_BUILD_BARON = gql`
       }
     }
   }
-`;

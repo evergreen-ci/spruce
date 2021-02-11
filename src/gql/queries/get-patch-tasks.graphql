@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_PATCH_TASKS = gql`
   query PatchTasks(
     $patchId: String!
     $sorts: [SortOrder!]
@@ -43,4 +41,3 @@ export const GET_PATCH_TASKS = gql`
       }
     }
   }
-`;

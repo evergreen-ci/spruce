@@ -1,6 +1,4 @@
-import { gql } from "@apollo/client";
 
-export const GET_MY_HOSTS = gql`
   query MyHosts {
     myHosts {
       expiration
@@ -35,4 +33,3 @@ export const GET_MY_HOSTS = gql`
       availabilityZone
     }
   }
-`;
