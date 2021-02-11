@@ -386,7 +386,6 @@ describe("Configure Patch Page", () => {
       });
     });
   });
-
   describe("Add parameters", () => {
     before(() => {
       cy.login();
@@ -728,10 +727,11 @@ describe("Configure Patch Page", () => {
       cy.dataCy("toast").contains("WAH WAH CHICKEN WAH");
     });
   });
-
   describe("Switching tabs", () => {
     before(() => {
       cy.login();
+    });
+    beforeEach(() => {
       cy.preserveCookies();
     });
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {

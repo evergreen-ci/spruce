@@ -55,11 +55,11 @@ describe("Tabs", () => {
         .and("eq", "true");
     });
 
-    it.only("toggling between tabs updates the url with the selected tab name", () => {
+    it("toggling between tabs updates the url with the selected tab name", () => {
       cy.visit(taskRoute(tasks.withTests));
       locationPathEquals(task.tests.route);
-      // cy.get(`button[data-cy='${task.logs.btn}']`).click();
-      // locationPathEquals(task.logs.route);
+      cy.get(`button[data-cy='${task.logs.btn}']`).click();
+      locationPathEquals(task.logs.route);
       cy.get(`button[data-cy='${task.files.btn}']`).click();
       locationPathEquals(task.files.route);
     });
