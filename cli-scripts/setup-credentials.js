@@ -1,7 +1,7 @@
 const fs = require("fs");
 const path = require("path");
 
-const file = path.join(__dirname, "../config", ".cmdrc.json");
+const file = path.join(__dirname, "../env", ".cmdrc.json");
 const prod = {
   REACT_APP_SIGNAL_PROCESSING_URL:
     "https://signal-processing-service.server-tig.prod.corp.mongodb.com",
