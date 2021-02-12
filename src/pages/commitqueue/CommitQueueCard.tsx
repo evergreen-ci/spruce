@@ -8,7 +8,7 @@ import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
 import { getVersionRoute } from "constants/routes";
 import {
-  ModuleCodeChange,
+  ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
@@ -26,7 +26,7 @@ interface Props {
   patchId: string;
   owner: string;
   repo: string;
-  moduleCodeChanges: ModuleCodeChange[];
+  moduleCodeChanges: ModuleCodeChangeFragment[];
   commitQueueId: string;
 }
 const { blue, gray } = uiColors;

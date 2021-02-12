@@ -1,15 +1,10 @@
-#import "../fragments/fileDiffs.graphql"
+#import "../fragments/moduleCodeChanges.graphql"
 
 query CodeChanges($id: String!) {
     patch(id: $id) {
       id
       moduleCodeChanges {
-        branchName
-        htmlLink
-        rawLink
-        fileDiffs {
-          ...fileDiffs
-        }
+        ...moduleCodeChange
       }
     }
   }

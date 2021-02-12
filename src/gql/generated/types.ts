@@ -1297,6 +1297,13 @@ export type LogMessageFragment = {
   timestamp?: Maybe<Date>;
 };
 
+export type ModuleCodeChangeFragment = {
+  rawLink: string;
+  branchName: string;
+  htmlLink: string;
+  fileDiffs: Array<FileDiffsFragment>;
+};
+
 export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
@@ -1668,15 +1675,7 @@ export type CodeChangesQueryVariables = Exact<{
 }>;
 
 export type CodeChangesQuery = {
-  patch: {
-    id: string;
-    moduleCodeChanges: Array<{
-      branchName: string;
-      htmlLink: string;
-      rawLink: string;
-      fileDiffs: Array<FileDiffsFragment>;
-    }>;
-  };
+  patch: { id: string; moduleCodeChanges: Array<ModuleCodeChangeFragment> };
 };
 
 export type CommitQueueQueryVariables = Exact<{
@@ -1697,12 +1696,7 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          moduleCodeChanges: Array<{
-            rawLink: string;
-            branchName: string;
-            htmlLink: string;
-            fileDiffs: Array<FileDiffsFragment>;
-          }>;
+          moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
     >;

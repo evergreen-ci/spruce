@@ -1,4 +1,4 @@
-#import "../fragments/fileDiffs.graphql"
+#import "../fragments/moduleCodeChanges.graphql"
 
 query CommitQueue($id: String!) {
   commitQueue(id: $id) {
@@ -14,12 +14,7 @@ query CommitQueue($id: String!) {
         author
         description
         moduleCodeChanges {
-          rawLink
-          branchName
-          htmlLink
-          fileDiffs {
-            ...fileDiffs
-          }
+          ...moduleCodeChange
         }
       }
     }
