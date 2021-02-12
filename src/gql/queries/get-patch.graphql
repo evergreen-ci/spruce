@@ -1,22 +1,14 @@
+#import "../fragments/basePatch.graphql"
+
 query Patch($id: String!) {
   patch(id: $id) {
-    id
-    description
+    ...basePatch
     projectID
     githash
     patchNumber
-    author
     version
-    status
-    activated
-    alias
     taskCount
-    commitQueuePosition
     baseVersionID
-    parameters {
-      key
-      value
-    }
     duration {
       makespan
       timeTaken
@@ -25,10 +17,6 @@ query Patch($id: String!) {
       started
       submittedAt
       finished
-    }
-    variantsTasks {
-      name
-      tasks
     }
     canEnqueueToCommitQueue
   }

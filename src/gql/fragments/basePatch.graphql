@@ -1,0 +1,17 @@
+fragment basePatch on Patch {
+    id
+    description
+    author
+    status
+    activated
+    alias
+    commitQueuePosition
+    variantsTasks {
+      name
+      tasks
+    }
+          parameters {
+        key
+        value
+      }
+}

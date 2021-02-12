@@ -1263,6 +1263,18 @@ export type GetAnnotationEventDataQuery = {
   }>;
 };
 
+export type BasePatchFragment = {
+  id: string;
+  description: string;
+  author: string;
+  status: string;
+  activated: boolean;
+  alias?: Maybe<string>;
+  commitQueuePosition?: Maybe<number>;
+  variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+  parameters: Array<{ key: string; value: string }>;
+};
+
 export type FileDiffsFragment = {
   fileName: string;
   additions: number;
@@ -1888,13 +1900,6 @@ export type ConfigurePatchQueryVariables = Exact<{
 
 export type ConfigurePatchQuery = {
   patch: {
-    id: string;
-    description: string;
-    author: string;
-    alias?: Maybe<string>;
-    status: string;
-    activated: boolean;
-    commitQueuePosition?: Maybe<number>;
     time?: Maybe<{ submittedAt: string }>;
     project?: Maybe<{
       tasks: Array<string>;
@@ -1904,9 +1909,7 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
-  };
+  } & BasePatchFragment;
 };
 
 export type GetPatchTaskStatusesQueryVariables = Exact<{
@@ -1963,29 +1966,20 @@ export type PatchQueryVariables = Exact<{
 
 export type PatchQuery = {
   patch: {
-    id: string;
-    description: string;
     projectID: string;
     githash: string;
     patchNumber: number;
-    author: string;
     version: string;
-    status: string;
-    activated: boolean;
-    alias?: Maybe<string>;
     taskCount?: Maybe<number>;
-    commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
-    parameters: Array<{ key: string; value: string }>;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
       submittedAt: string;
       finished?: Maybe<string>;
     }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-  };
+  } & BasePatchFragment;
 };
 
 export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
