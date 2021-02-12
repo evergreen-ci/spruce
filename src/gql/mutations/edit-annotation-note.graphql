@@ -1,0 +1,14 @@
+
+  mutation editAnnotationNote(
+    $taskId: String!
+    $execution: Int!
+    $originalMessage: String!
+    $newMessage: String!
+  ) {
+    editAnnotationNote(
+      taskId: $taskId
+      execution: $execution
+      originalMessage: $originalMessage
+      newMessage: $newMessage
+    )
+  }

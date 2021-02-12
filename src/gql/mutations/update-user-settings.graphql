@@ -1,0 +1,4 @@
+
+  mutation UpdateUserSettings($userSettings: UserSettingsInput!) {
+    updateUserSettings(userSettings: $userSettings)
+  }

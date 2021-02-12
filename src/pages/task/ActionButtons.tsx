@@ -22,11 +22,13 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { ABORT_TASK } from "gql/mutations/abort-task";
-import { RESTART_TASK } from "gql/mutations/restart-task";
-import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
-import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
-import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
+import {
+  ABORT_TASK,
+  RESTART_TASK,
+  SCHEDULE_TASK,
+  SET_TASK_PRIORTY,
+  UNSCHEDULE_TASK,
+} from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 

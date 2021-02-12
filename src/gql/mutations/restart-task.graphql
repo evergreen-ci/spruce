@@ -1,0 +1,9 @@
+
+  mutation RestartTask($taskId: String!) {
+    restartTask(taskId: $taskId) {
+      id
+      execution
+      status
+      latestExecution
+    }
+  }

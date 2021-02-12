@@ -1,0 +1,3 @@
+mutation AttachVolumeToHost($volumeAndHost: VolumeHost!) {
+  attachVolumeToHost(volumeAndHost: $volumeAndHost)
+}

@@ -12,7 +12,7 @@ import {
   RemoveItemFromCommitQueueMutation,
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
-import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations/remove-item-from-commit-queue";
+import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";

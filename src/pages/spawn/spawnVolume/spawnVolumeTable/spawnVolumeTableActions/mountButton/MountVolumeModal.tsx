@@ -11,7 +11,7 @@ import {
   AttachVolumeToHostMutation,
   AttachVolumeToHostMutationVariables,
 } from "gql/generated/types";
-import { ATTACH_VOLUME } from "gql/mutations/attach-volume";
+import { ATTACH_VOLUME } from "gql/mutations";
 import { MyVolume } from "types/spawn";
 
 interface Props {

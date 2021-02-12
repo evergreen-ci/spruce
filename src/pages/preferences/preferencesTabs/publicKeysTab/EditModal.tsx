@@ -16,8 +16,8 @@ import {
   CreatePublicKeyMutation,
   CreatePublicKeyMutationVariables,
 } from "gql/generated/types";
-import { CREATE_PUBLIC_KEY } from "gql/mutations/create-public-key";
-import { UPDATE_PUBLIC_KEY } from "gql/mutations/update-public-key";
+import { CREATE_PUBLIC_KEY } from "gql/mutations";
+import { UPDATE_PUBLIC_KEY } from "gql/mutations";
 import { GET_MY_PUBLIC_KEYS } from "gql/queries";
 
 const { TextArea } = Input;

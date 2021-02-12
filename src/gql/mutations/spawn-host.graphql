@@ -1,0 +1,7 @@
+
+  mutation SpawnHost($SpawnHostInput: SpawnHostInput) {
+    spawnHost(spawnHostInput: $SpawnHostInput) {
+      id
+      status
+    }
+  }
