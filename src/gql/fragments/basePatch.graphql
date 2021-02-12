@@ -10,8 +10,8 @@ fragment basePatch on Patch {
       name
       tasks
     }
-          parameters {
+    parameters {
         key
         value
-      }
+    }
 }
