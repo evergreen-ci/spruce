@@ -1275,6 +1275,14 @@ export type BasePatchFragment = {
   parameters: Array<{ key: string; value: string }>;
 };
 
+export type BaseTaskFragment = {
+  id: string;
+  execution: number;
+  buildVariant: string;
+  displayName: string;
+  revision?: Maybe<string>;
+};
+
 export type FileDiffsFragment = {
   fileName: string;
   additions: number;
@@ -2109,134 +2117,131 @@ export type GetTaskQueryVariables = Exact<{
 
 export type GetTaskQuery = {
   taskFiles: { fileCount: number };
-  task?: Maybe<{
-    id: string;
-    execution: number;
-    aborted: boolean;
-    activatedBy?: Maybe<string>;
-    buildVariant: string;
-    ingestTime?: Maybe<Date>;
-    estimatedStart?: Maybe<number>;
-    displayName: string;
-    finishTime?: Maybe<Date>;
-    hostId?: Maybe<string>;
-    projectId: string;
-    patchNumber?: Maybe<number>;
-    startTime?: Maybe<Date>;
-    status: string;
-    timeTaken?: Maybe<number>;
-    version: string;
-    revision?: Maybe<string>;
-    totalTestCount: number;
-    failedTestCount: number;
-    spawnHostLink?: Maybe<string>;
-    priority?: Maybe<number>;
-    canRestart: boolean;
-    canAbort: boolean;
-    canSchedule: boolean;
-    canUnschedule: boolean;
-    canSetPriority: boolean;
-    ami?: Maybe<string>;
-    distroId: string;
-    latestExecution: number;
-    blocked: boolean;
-    generatedBy?: Maybe<string>;
-    generatedByName?: Maybe<string>;
-    isPerfPluginEnabled: boolean;
-    minQueuePosition: number;
-    canModifyAnnotation: boolean;
-    abortInfo?: Maybe<{
-      user: string;
-      taskDisplayName: string;
-      taskID: string;
-      buildVariantDisplayName: string;
-      newVersion: string;
-      prClosed: boolean;
-    }>;
-    executionTasksFull?: Maybe<
-      Array<{
-        displayName: string;
-        id: string;
-        execution: number;
-        status: string;
-        baseStatus?: Maybe<string>;
-        buildVariant: string;
-      }>
-    >;
-    baseTaskMetadata?: Maybe<{
-      baseTaskDuration?: Maybe<number>;
-      baseTaskLink: string;
-    }>;
-    patchMetadata: { author: string; patchID: string };
-    reliesOn: Array<{
-      buildVariant: string;
-      metStatus: MetStatus;
-      name: string;
-      requiredStatus: RequiredStatus;
-      uiLink: string;
-    }>;
-    logs: {
-      allLogLink?: Maybe<string>;
-      agentLogLink?: Maybe<string>;
-      systemLogLink?: Maybe<string>;
-      taskLogLink?: Maybe<string>;
-      eventLogLink?: Maybe<string>;
-    };
-    details?: Maybe<{
-      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
-    }>;
-    annotation?: Maybe<{
-      id: string;
-      taskId: string;
-      taskExecution: number;
-      note?: Maybe<{
-        message: string;
-        source: { author: string; time: Date; requester: string };
+  task?: Maybe<
+    {
+      aborted: boolean;
+      activatedBy?: Maybe<string>;
+      ingestTime?: Maybe<Date>;
+      estimatedStart?: Maybe<number>;
+      finishTime?: Maybe<Date>;
+      hostId?: Maybe<string>;
+      projectId: string;
+      patchNumber?: Maybe<number>;
+      startTime?: Maybe<Date>;
+      status: string;
+      timeTaken?: Maybe<number>;
+      version: string;
+      totalTestCount: number;
+      failedTestCount: number;
+      spawnHostLink?: Maybe<string>;
+      priority?: Maybe<number>;
+      canRestart: boolean;
+      canAbort: boolean;
+      canSchedule: boolean;
+      canUnschedule: boolean;
+      canSetPriority: boolean;
+      ami?: Maybe<string>;
+      distroId: string;
+      latestExecution: number;
+      blocked: boolean;
+      generatedBy?: Maybe<string>;
+      generatedByName?: Maybe<string>;
+      isPerfPluginEnabled: boolean;
+      minQueuePosition: number;
+      canModifyAnnotation: boolean;
+      abortInfo?: Maybe<{
+        user: string;
+        taskDisplayName: string;
+        taskID: string;
+        buildVariantDisplayName: string;
+        newVersion: string;
+        prClosed: boolean;
       }>;
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
-          }>
-        >
+      executionTasksFull?: Maybe<
+        Array<{
+          displayName: string;
+          id: string;
+          execution: number;
+          status: string;
+          baseStatus?: Maybe<string>;
+          buildVariant: string;
+        }>
       >;
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
-          }>
-        >
-      >;
-    }>;
-  }>;
+      baseTaskMetadata?: Maybe<{
+        baseTaskDuration?: Maybe<number>;
+        baseTaskLink: string;
+      }>;
+      patchMetadata: { author: string; patchID: string };
+      reliesOn: Array<{
+        buildVariant: string;
+        metStatus: MetStatus;
+        name: string;
+        requiredStatus: RequiredStatus;
+        uiLink: string;
+      }>;
+      logs: {
+        allLogLink?: Maybe<string>;
+        agentLogLink?: Maybe<string>;
+        systemLogLink?: Maybe<string>;
+        taskLogLink?: Maybe<string>;
+        eventLogLink?: Maybe<string>;
+      };
+      details?: Maybe<{
+        oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+      }>;
+      annotation?: Maybe<{
+        id: string;
+        taskId: string;
+        taskExecution: number;
+        note?: Maybe<{
+          message: string;
+          source: { author: string; time: Date; requester: string };
+        }>;
+        issues?: Maybe<
+          Array<
+            Maybe<{
+              issueKey?: Maybe<string>;
+              url?: Maybe<string>;
+              source: { author: string; time: Date; requester: string };
+              jiraTicket?: Maybe<{
+                key: string;
+                fields: {
+                  summary: string;
+                  assigneeDisplayName?: Maybe<string>;
+                  resolutionName?: Maybe<string>;
+                  created: string;
+                  updated: string;
+                  assignedTeam?: Maybe<string>;
+                  status: { id: string; name: string };
+                };
+              }>;
+            }>
+          >
+        >;
+        suspectedIssues?: Maybe<
+          Array<
+            Maybe<{
+              issueKey?: Maybe<string>;
+              url?: Maybe<string>;
+              source: { author: string; time: Date; requester: string };
+              jiraTicket?: Maybe<{
+                key: string;
+                fields: {
+                  summary: string;
+                  assigneeDisplayName?: Maybe<string>;
+                  resolutionName?: Maybe<string>;
+                  created: string;
+                  updated: string;
+                  assignedTeam?: Maybe<string>;
+                  status: { id: string; name: string };
+                };
+              }>;
+            }>
+          >
+        >;
+      }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;
@@ -2339,15 +2344,12 @@ export type GetSpawnTaskQueryVariables = Exact<{
 }>;
 
 export type GetSpawnTaskQuery = {
-  task?: Maybe<{
-    id: string;
-    execution: number;
-    displayName: string;
-    buildVariant: string;
-    revision?: Maybe<string>;
-    canSync: boolean;
-    project?: Maybe<{ spawnHostScriptPath: string }>;
-  }>;
+  task?: Maybe<
+    {
+      canSync: boolean;
+      project?: Maybe<{ spawnHostScriptPath: string }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = Exact<{
