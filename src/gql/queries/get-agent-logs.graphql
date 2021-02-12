@@ -1,9 +1,9 @@
-  query AgentLogs($id: String!, $execution: Int) {
-    taskLogs(taskId: $id, execution: $execution) {
-      agentLogs {
-        severity
-        message
-        timestamp
-      }
+#import "../fragments/logMessage.graphql"
+
+query AgentLogs($id: String!, $execution: Int) {
+taskLogs(taskId: $id, execution: $execution) {
+    agentLogs {
+    ...logMessage
     }
-  }
+}
+}

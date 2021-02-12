@@ -1,9 +1,9 @@
-  query TaskLogs($id: String!, $execution: Int) {
-    taskLogs(taskId: $id, execution: $execution) {
-      taskLogs {
-        severity
-        message
-        timestamp
-      }
+#import "../fragments/logMessage.graphql"
+
+query TaskLogs($id: String!, $execution: Int) {
+  taskLogs(taskId: $id, execution: $execution) {
+    taskLogs {
+      ...logMessage
     }
   }
+}

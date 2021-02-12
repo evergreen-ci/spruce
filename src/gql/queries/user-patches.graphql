@@ -1,4 +1,4 @@
-#import PatchesPagePatches from "../fragments/patchesPage.graphql"
+#import "../fragments/patchesPage.graphql"
 
 query UserPatches($userId: String!, $patchesInput: PatchesInput!) {
   user(userId: $userId) {

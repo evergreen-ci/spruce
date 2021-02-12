@@ -1271,6 +1271,12 @@ export type FileDiffsFragment = {
   description: string;
 };
 
+export type LogMessageFragment = {
+  severity?: Maybe<string>;
+  message?: Maybe<string>;
+  timestamp?: Maybe<Date>;
+};
+
 export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
@@ -1591,13 +1597,7 @@ export type AgentLogsQueryVariables = Exact<{
 }>;
 
 export type AgentLogsQuery = {
-  taskLogs: {
-    agentLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+  taskLogs: { agentLogs: Array<LogMessageFragment> };
 };
 
 export type BuildBaronQueryVariables = Exact<{
@@ -2041,13 +2041,7 @@ export type SystemLogsQueryVariables = Exact<{
 }>;
 
 export type SystemLogsQuery = {
-  taskLogs: {
-    systemLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+  taskLogs: { systemLogs: Array<LogMessageFragment> };
 };
 
 export type GetTaskAllExecutionsQueryVariables = Exact<{
@@ -2085,13 +2079,7 @@ export type TaskLogsQueryVariables = Exact<{
 }>;
 
 export type TaskLogsQuery = {
-  taskLogs: {
-    taskLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+  taskLogs: { taskLogs: Array<LogMessageFragment> };
 };
 
 export type TaskTestsQueryVariables = Exact<{
