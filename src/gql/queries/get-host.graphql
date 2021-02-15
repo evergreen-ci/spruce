@@ -1,20 +1,16 @@
-  query Host($id: String!) {
-    host(hostId: $id) {
-      id
-      hostUrl
-      distroId
-      distro {
-        bootstrapMethod
-      }
-      tag
-      provider
-      startedBy
-      user
-      status
-      runningTask {
-        id
-        name
-      }
-      lastCommunicationTime
+#import "../fragments/baseHost.graphql"
+
+query Host($id: String!) {
+  host(hostId: $id) {
+    ...baseHost
+    distroId
+    distro {
+      bootstrapMethod
     }
+    runningTask {
+      id
+      name
+    }
+    lastCommunicationTime
   }
+}

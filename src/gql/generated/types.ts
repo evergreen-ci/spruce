@@ -80,8 +80,6 @@ export type QueryProjectArgs = {
 
 export type QueryPatchTasksArgs = {
   patchId: Scalars["String"];
-  sortBy?: Maybe<TaskSortCategory>;
-  sortDir?: Maybe<SortDirection>;
   sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
@@ -1186,6 +1184,7 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   userCanModify?: Maybe<Scalars["Boolean"]>;
 };
 
@@ -1261,6 +1260,16 @@ export type GetAnnotationEventDataQuery = {
       >;
     }>;
   }>;
+};
+
+export type BaseHostFragment = {
+  id: string;
+  hostUrl: string;
+  status: string;
+  startedBy: string;
+  user?: Maybe<string>;
+  tag: string;
+  provider: string;
 };
 
 export type BasePatchFragment = {
@@ -1797,19 +1806,14 @@ export type HostQueryVariables = Exact<{
 }>;
 
 export type HostQuery = {
-  host?: Maybe<{
-    id: string;
-    hostUrl: string;
-    distroId?: Maybe<string>;
-    tag: string;
-    provider: string;
-    startedBy: string;
-    user?: Maybe<string>;
-    status: string;
-    lastCommunicationTime?: Maybe<Date>;
-    distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
-    runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
-  }>;
+  host?: Maybe<
+    {
+      distroId?: Maybe<string>;
+      lastCommunicationTime?: Maybe<Date>;
+      distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
+      runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+    } & BaseHostFragment
+  >;
 };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
@@ -1819,31 +1823,30 @@ export type InstanceTypesQuery = { instanceTypes: Array<string> };
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = {
-  myHosts: Array<{
-    expiration?: Maybe<Date>;
-    hostUrl: string;
-    homeVolumeID?: Maybe<string>;
-    id: string;
-    instanceType?: Maybe<string>;
-    noExpiration: boolean;
-    provider: string;
-    status: string;
-    startedBy: string;
-    tag: string;
-    user?: Maybe<string>;
-    uptime?: Maybe<Date>;
-    displayName?: Maybe<string>;
-    availabilityZone?: Maybe<string>;
-    distro?: Maybe<{
-      isVirtualWorkStation?: Maybe<boolean>;
-      id?: Maybe<string>;
-      user?: Maybe<string>;
-      workDir?: Maybe<string>;
-      isWindows?: Maybe<boolean>;
-    }>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
-  }>;
+  myHosts: Array<
+    {
+      expiration?: Maybe<Date>;
+      homeVolumeID?: Maybe<string>;
+      instanceType?: Maybe<string>;
+      noExpiration: boolean;
+      uptime?: Maybe<Date>;
+      displayName?: Maybe<string>;
+      availabilityZone?: Maybe<string>;
+      distro?: Maybe<{
+        isVirtualWorkStation?: Maybe<boolean>;
+        id?: Maybe<string>;
+        user?: Maybe<string>;
+        workDir?: Maybe<string>;
+        isWindows?: Maybe<boolean>;
+      }>;
+      instanceTags: Array<{
+        key: string;
+        value: string;
+        canBeModified: boolean;
+      }>;
+      volumes: Array<{ displayName: string; id: string }>;
+    } & BaseHostFragment
+  >;
 };
 
 export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;

@@ -1,35 +1,30 @@
+#import "../fragments/baseHost.graphql"
 
-  query MyHosts {
-    myHosts {
-      expiration
-      distro {
-        isVirtualWorkStation
-        id
-        user
-        workDir
-        isWindows
-      }
-      hostUrl
-      homeVolumeID
+query MyHosts {
+  myHosts {
+    ...baseHost
+    expiration
+    distro {
+      isVirtualWorkStation
       id
-      instanceType
-      instanceTags {
-        key
-        value
-        canBeModified
-      }
-      volumes {
-        displayName
-        id
-      }
-      noExpiration
-      provider
-      status
-      startedBy
-      tag
       user
-      uptime
-      displayName
-      availabilityZone
+      workDir
+      isWindows
     }
+    homeVolumeID
+    instanceType
+    instanceTags {
+      key
+      value
+      canBeModified
+    }
+    volumes {
+      displayName
+      id
+    }
+    noExpiration
+    uptime
+    displayName
+    availabilityZone
   }
+}
