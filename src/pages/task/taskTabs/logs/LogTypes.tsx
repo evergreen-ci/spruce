@@ -185,9 +185,31 @@ const useRenderBody: React.FC<{
     });
   };
 
+  let body = null;
   if (loading) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+    body = <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+  } else if (hideLogs) {
+    body = <div data-cy="cy-no-logs">No logs found</div>;
+  } else {
+    body = (
+      <LogContainer>
+        {data.map((d, index) =>
+          d.kind === "taskEventLogEntry" ? (
+            <TaskEventLogLine
+              key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
+              {...d}
+            />
+          ) : (
+            <LogMessageLine
+              key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
+              {...d}
+            />
+          )
+        )}
+      </LogContainer>
+    );
   }
+
   return (
     <>
       <StyledRadioGroup
@@ -196,34 +218,32 @@ const useRenderBody: React.FC<{
         value={currentLog}
         name="log-select"
       >
-        {!hideLogs ? (
-          <ButtonContainer>
-            {htmlLink && (
-              <Button
-                data-cy="html-log-btn"
-                target="_blank"
-                href={htmlLink}
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
-                }
-              >
-                HTML
-              </Button>
-            )}
-            {rawLink && (
-              <Button
-                data-cy="raw-log-btn"
-                target="_blank"
-                href={rawLink}
-                onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
-                }
-              >
-                Raw
-              </Button>
-            )}
-          </ButtonContainer>
-        ) : null}
+        <ButtonContainer>
+          {htmlLink && (
+            <Button
+              data-cy="html-log-btn"
+              target="_blank"
+              href={htmlLink}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
+              }
+            >
+              HTML
+            </Button>
+          )}
+          {rawLink && (
+            <Button
+              data-cy="raw-log-btn"
+              target="_blank"
+              href={rawLink}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+              }
+            >
+              Raw
+            </Button>
+          )}
+        </ButtonContainer>
         <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
@@ -241,25 +261,7 @@ const useRenderBody: React.FC<{
           Event Logs
         </Radio>
       </StyledRadioGroup>
-      {hideLogs ? (
-        <div data-cy="cy-no-logs">No logs found</div>
-      ) : (
-        <LogContainer>
-          {data.map((d, index) =>
-            d.kind === "taskEventLogEntry" ? (
-              <TaskEventLogLine
-                key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
-                {...d}
-              />
-            ) : (
-              <LogMessageLine
-                key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
-                {...d}
-              />
-            )
-          )}
-        </LogContainer>
-      )}
+      {body}
     </>
   );
 };
@@ -278,6 +280,7 @@ const StyledRadioGroup = styled(RadioGroup)`
   label {
     margin-right: 24px;
   }
+  padding-bottom: 8px;
 `;
 
 const StyledPre = styled.pre`
