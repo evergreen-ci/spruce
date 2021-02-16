@@ -61,7 +61,7 @@ const spawnHostCardFieldMaps = {
   "Home Volume": (host: MyHost) => (
     <span>
       <StyledRouterLink to={getSpawnVolumeRoute(host?.homeVolumeID)}>
-        {host?.homeVolumeID}
+        {host?.homeVolume?.displayName || host?.homeVolumeID}
       </StyledRouterLink>
     </span>
   ),

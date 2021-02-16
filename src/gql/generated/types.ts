@@ -1791,6 +1791,7 @@ export type MyHostsQuery = {
     }>;
     instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
     volumes: Array<{ displayName: string; id: string }>;
+    homeVolume?: Maybe<{ id: string; displayName: string }>;
   }>;
 };
 
