@@ -6,13 +6,15 @@ import { useToastContext } from "context/toast";
 import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
+  IssueLink,
 } from "gql/generated/types";
 import { GET_CREATED_TICKETS } from "gql/queries";
+import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { BBFileTicket } from "./BBFIleTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
-interface Props {
+interface CreatedTicketsProps {
   taskId: string;
   execution: number;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
@@ -20,7 +22,7 @@ interface Props {
   buildBaronConfigured: boolean;
 }
 
-export const CreatedTickets: React.FC<Props> = ({
+export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
   taskId,
   execution,
   setCreatedTicketsCount,
@@ -80,3 +82,22 @@ export const CreatedTickets: React.FC<Props> = ({
     </>
   );
 };
+
+// CUSTOM CREATED TICKETS
+interface CustomCreatedTicketProps {
+  tickets: IssueLink[];
+}
+
+export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
+  tickets,
+}) => (
+  <>
+    <TitleAndButtons>
+      {/* @ts-expect-error */}
+      <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+    </TitleAndButtons>
+    {tickets?.length > 0 && (
+      <CustomCreatedTicketsTable createdIssues={tickets} />
+    )}
+  </>
+);

@@ -12,7 +12,7 @@ import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { AnnotationNote } from "./AnnotationNote";
 import { AnnotationTickets } from "./AnnotationTickets";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { CreatedTickets } from "./BBCreatedTickets";
+import { CreatedTickets, CustomCreatedTickets } from "./BBCreatedTickets";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface BuildBaronCoreProps {
@@ -51,13 +51,17 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {bbData && (
         <>
-          <CreatedTickets
-            taskId={taskId}
-            execution={execution}
-            setCreatedTicketsCount={setCreatedTicketsCount}
-            createdTicketsCount={createdTicketsCount}
-            buildBaronConfigured={bbData.buildBaronConfigured}
-          />
+          {annotation?.webhookConfigured ? (
+            <CustomCreatedTickets tickets={annotation?.createdIssues} />
+          ) : (
+            <CreatedTickets
+              taskId={taskId}
+              execution={execution}
+              setCreatedTicketsCount={setCreatedTicketsCount}
+              createdTicketsCount={createdTicketsCount}
+              buildBaronConfigured={bbData.buildBaronConfigured}
+            />
+          )}
 
           {annotationsReady && (
             <>
