@@ -23,7 +23,8 @@ export const getGQLUrl: () => string = () =>
 export const getWebWorkerURL = (webWorkerFilename: string): string =>
   `${process.env.PUBLIC_URL}/web_worker/${webWorkerFilename}`;
 
-export const getLobsterURL = (): string => process.env.REACT_LOBSTER_URL || "";
+export const getLobsterURL = (): string =>
+  process.env.REACT_APP_LOBSTER_URL || "";
 
 // in development, the dev server on port 3000 proxies the local evergreen server on port 9090
 // therefore in dev we want the login domain to be localhost:3000
