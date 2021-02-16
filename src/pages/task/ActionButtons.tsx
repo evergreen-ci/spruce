@@ -67,7 +67,6 @@ export const ActionButtons = ({
     onError: (err) => {
       dispatchToast.error(`Error scheduling task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
@@ -81,7 +80,6 @@ export const ActionButtons = ({
     onError: (err) => {
       dispatchToast.error(`Error unscheduling task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [abortTask, { loading: loadingAbortTask }] = useMutation<
@@ -97,7 +95,6 @@ export const ActionButtons = ({
     onError: (err) => {
       dispatchToast.error(`Error aborting task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [restartTask, { loading: loadingRestartTask }] = useMutation<
@@ -115,7 +112,6 @@ export const ActionButtons = ({
     onError: (err) => {
       dispatchToast.error(`Error restarting task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
@@ -132,7 +128,6 @@ export const ActionButtons = ({
     onError: (err) => {
       dispatchToast.error(`Error updating priority for task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const disabled =
@@ -278,7 +273,6 @@ export const ActionButtons = ({
   );
 };
 
-const refetchQueries = ["GetTask"];
 const StyledBody = styled(Body)`
   padding-right: 8px;
 `;

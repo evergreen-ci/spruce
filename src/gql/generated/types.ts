@@ -1309,6 +1309,7 @@ export type BaseTaskFragment = {
   buildVariant: string;
   displayName: string;
   revision?: Maybe<string>;
+  status: string;
 };
 
 export type FileDiffsFragment = {
@@ -1350,9 +1351,7 @@ export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type AbortTaskMutation = {
-  abortTask: { id: string; execution: number };
-};
+export type AbortTaskMutation = { abortTask: BaseTaskFragment };
 
 export type AddAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -1485,11 +1484,9 @@ export type RestartTaskMutationVariables = Exact<{
 
 export type RestartTaskMutation = {
   restartTask: {
-    id: string;
-    execution: number;
-    status: string;
     latestExecution: number;
-  };
+    execution: number;
+  } & BaseTaskFragment;
 };
 
 export type SaveSubscriptionMutationVariables = Exact<{
@@ -1511,25 +1508,17 @@ export type SchedulePatchMutationVariables = Exact<{
 
 export type SchedulePatchMutation = {
   schedulePatch: {
-    id: string;
-    activated: boolean;
     version: string;
-    description: string;
-    status: string;
     tasks: Array<string>;
     variants: Array<string>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
-  };
+  } & BasePatchFragment;
 };
 
 export type ScheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type ScheduleTaskMutation = {
-  scheduleTask: { id: string; execution: number };
-};
+export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
 
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -2108,7 +2097,6 @@ export type GetTaskQuery = {
       projectId: string;
       patchNumber?: Maybe<number>;
       startTime?: Maybe<Date>;
-      status: string;
       timeTaken?: Maybe<number>;
       version: string;
       totalTestCount: number;

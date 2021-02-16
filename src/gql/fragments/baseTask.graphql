@@ -4,4 +4,5 @@ fragment baseTask on Task {
     buildVariant
     displayName
     revision
+    status
 }
