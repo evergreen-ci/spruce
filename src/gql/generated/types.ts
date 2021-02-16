@@ -1299,6 +1299,7 @@ export type BaseSpawnHostFragment = {
     workDir?: Maybe<string>;
     isWindows?: Maybe<boolean>;
   }>;
+  homeVolume?: Maybe<{ displayName: string }>;
   instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
   volumes: Array<{ displayName: string; id: string }>;
 } & BaseHostFragment;

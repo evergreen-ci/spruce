@@ -101,7 +101,29 @@ describe("Navigating to Spawn Host page", () => {
     });
 
     describe("Spawn host modal", () => {
+      it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
+        cy.visit("/spawn/host");
+        cy.contains("Spawn a host").click();
+        cy.dataCy("distro-input").click().type("{downarrow}").type("{enter}");
+        cy.dataCy("distro-input").should(
+          "have.attr",
+          "value",
+          "ubuntu1804-workstation"
+        );
+        cy.dataCy("neverExpireCheckbox").should(
+          "have.attr",
+          "aria-checked",
+          "false"
+        );
+        cy.dataCy("neverExpireCheckbox").should(
+          "have.css",
+          "pointer-events",
+          "none"
+        );
+      });
+
       it("Clicking on the spawn host button should open a spawn host modal.", () => {
+        cy.visit("/spawn/host");
         cy.dataCy("spawn-host-modal").should("not.be.visible");
         cy.dataCy("spawn-host-button").click();
         cy.dataCy("spawn-host-modal").should("be.visible");

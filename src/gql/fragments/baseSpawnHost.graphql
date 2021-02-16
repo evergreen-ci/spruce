@@ -13,6 +13,9 @@ fragment baseSpawnHost on Host {
     }
     expiration
     homeVolumeID
+    homeVolume {
+       displayName
+    }
     instanceType
     instanceTags {
       key
