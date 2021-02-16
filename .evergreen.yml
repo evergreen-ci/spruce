@@ -168,7 +168,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        cp config/.cmdrc_sample.json config/.cmdrc.json
+        cp env/.cmdrc_sample.json env/.cmdrc.json
 
   attach-results:
     command: attach.xunit_results

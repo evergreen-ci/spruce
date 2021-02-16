@@ -386,7 +386,6 @@ describe("Configure Patch Page", () => {
       });
     });
   });
-
   describe("Add parameters", () => {
     before(() => {
       cy.login();
@@ -396,6 +395,7 @@ describe("Configure Patch Page", () => {
     });
     it("Navigating to 'Parameters' tab shows the existing parameters", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
@@ -405,6 +405,7 @@ describe("Configure Patch Page", () => {
     });
     it("Adding a parameter is reflected on the page", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("add-tag-button").click();
       cy.dataCy("user-tag-key-field").type("testKey");
@@ -414,6 +415,7 @@ describe("Configure Patch Page", () => {
     });
     it("Parameters cannot be added once activated", () => {
       cy.visit(`patch/5ecedafb562343215a7ff297/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="parameters-tab"]').click();
       cy.dataCy("parameters-disclaimer").should("exist");
       cy.dataCy("badge-this-is-a-parameter").should("exist");
@@ -725,14 +727,16 @@ describe("Configure Patch Page", () => {
       cy.dataCy("toast").contains("WAH WAH CHICKEN WAH");
     });
   });
-
   describe("Switching tabs", () => {
     before(() => {
       cy.login();
+    });
+    beforeEach(() => {
       cy.preserveCookies();
     });
     it("Navigating to 'Changes' tab from 'Configure' disables the 'Select Build Variants and Tasks' card", () => {
       cy.visit(`patch/${unactivatedPatchId}/configure/tasks`);
+      cy.wait(10);
       cy.get('button[data-cy="changes-tab"]').click();
       cy.dataCy("select-variants-and-task-card-wrapper").should(
         "have.css",
