@@ -1284,6 +1284,25 @@ export type BasePatchFragment = {
   parameters: Array<{ key: string; value: string }>;
 };
 
+export type BaseSpawnHostFragment = {
+  availabilityZone?: Maybe<string>;
+  displayName?: Maybe<string>;
+  expiration?: Maybe<Date>;
+  homeVolumeID?: Maybe<string>;
+  instanceType?: Maybe<string>;
+  noExpiration: boolean;
+  uptime?: Maybe<Date>;
+  distro?: Maybe<{
+    isVirtualWorkStation?: Maybe<boolean>;
+    id?: Maybe<string>;
+    user?: Maybe<string>;
+    workDir?: Maybe<string>;
+    isWindows?: Maybe<boolean>;
+  }>;
+  instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
+  volumes: Array<{ displayName: string; id: string }>;
+} & BaseHostFragment;
+
 export type BaseTaskFragment = {
   id: string;
   execution: number;
@@ -1391,18 +1410,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   servicePassword?: Maybe<Scalars["String"]>;
 }>;
 
-export type EditSpawnHostMutation = {
-  editSpawnHost: {
-    id: string;
-    displayName?: Maybe<string>;
-    status: string;
-    instanceType?: Maybe<string>;
-    noExpiration: boolean;
-    expiration?: Maybe<Date>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
-  };
-};
+export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
 
 export type EnqueuePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -1822,32 +1830,7 @@ export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MyHostsQuery = {
-  myHosts: Array<
-    {
-      expiration?: Maybe<Date>;
-      homeVolumeID?: Maybe<string>;
-      instanceType?: Maybe<string>;
-      noExpiration: boolean;
-      uptime?: Maybe<Date>;
-      displayName?: Maybe<string>;
-      availabilityZone?: Maybe<string>;
-      distro?: Maybe<{
-        isVirtualWorkStation?: Maybe<boolean>;
-        id?: Maybe<string>;
-        user?: Maybe<string>;
-        workDir?: Maybe<string>;
-        isWindows?: Maybe<boolean>;
-      }>;
-      instanceTags: Array<{
-        key: string;
-        value: string;
-        canBeModified: boolean;
-      }>;
-      volumes: Array<{ displayName: string; id: string }>;
-    } & BaseHostFragment
-  >;
-};
+export type MyHostsQuery = { myHosts: Array<BaseSpawnHostFragment> };
 
 export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;
 
