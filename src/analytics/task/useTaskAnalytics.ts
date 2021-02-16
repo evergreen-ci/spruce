@@ -46,6 +46,7 @@ interface P extends Properties {
   taskStatus: string;
   failedTestCount: number;
   execution: number;
+  isLatestExecution: string;
 }
 interface Analytics extends A<Action> {}
 
@@ -63,15 +64,17 @@ export const useTaskAnalytics = (): Analytics => {
       fetchPolicy: "cache-first",
     }
   );
-  const taskStatus = eventData?.task?.status;
-  const failedTestCount = eventData?.task?.failedTestCount;
 
+  const { status: taskStatus, failedTestCount, latestExecution } =
+    eventData?.task || {};
+  const isLatestExecution = latestExecution === execution;
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Task",
       userId,
       taskStatus,
       execution,
+      isLatestExecution: isLatestExecution.toString(),
       taskId: id,
       failedTestCount,
     });
