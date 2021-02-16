@@ -1,0 +1,31 @@
+fragment annotation on Annotation {
+    id
+    taskId
+    taskExecution
+    note {
+        source {
+        author
+        time
+        requester
+        }
+        message
+    }
+    issues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+    }
+    suspectedIssues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+    }
+}

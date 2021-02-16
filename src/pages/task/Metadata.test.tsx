@@ -2,7 +2,6 @@ import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
-import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { GET_USER } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
@@ -115,25 +114,6 @@ const mocks = [
       data: {
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
-      },
-    },
-  },
-  {
-    request: {
-      query: GET_TASK_EVENT_DATA,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        task: {
-          __typename: "Task",
-          id: taskId,
-          status: "started",
-          failedTestCount: 0,
-          execution: 0,
-        },
       },
     },
   },

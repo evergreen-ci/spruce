@@ -1,4 +1,6 @@
 #import "../fragments/baseTask.graphql"
+#import "../fragments/annotation.graphql"
+#import "../fragments/jiraTicket.graphql"
 
 query GetTask($taskId: String!, $execution: Int) {
   taskFiles(taskId: $taskId, execution: $execution) {
@@ -81,65 +83,17 @@ query GetTask($taskId: String!, $execution: Int) {
     }
     canModifyAnnotation
     annotation {
-      id
-      taskId
-      taskExecution
-      note {
-        source {
-          author
-          time
-          requester
-        }
-        message
-      }
+      ...annotation
       issues {
-        issueKey
-        url
-        source {
-          author
-          time
-          requester
-        }
         jiraTicket {
-          key
-          fields {
-            summary
-            assigneeDisplayName
-            resolutionName
-            created
-            updated
-            status {
-              id
-              name
-            }
-            assignedTeam
-          }
+          ...jiraTicket
         }
       }
       suspectedIssues {
-        issueKey
-        url
-        source {
-          author
-          time
-          requester
-        }
         jiraTicket {
-          key
-          fields {
-            summary
-            assigneeDisplayName
-            resolutionName
-            created
-            updated
-            status {
-              id
-              name
-            }
-            assignedTeam
-          }
+          ...jiraTicket
         }
       }
+      }
     }
-  }
 }

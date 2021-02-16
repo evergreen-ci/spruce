@@ -1,20 +1,19 @@
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import {
   addPageAction,
   Properties,
   Analytics as A,
 } from "analytics/addPageAction";
-import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
-
 import {
   SaveSubscriptionMutationVariables,
-  GetTaskEventDataQuery,
-  GetTaskEventDataQueryVariables,
+  GetTaskQuery,
+  GetTaskQueryVariables,
 } from "gql/generated/types";
-import { TaskStatus, LogTypes } from "types/task";
+import { GET_TASK } from "gql/queries";
+import { RequiredQueryParams, LogTypes } from "types/task";
+import { parseQueryString } from "utils";
 
 type Action =
   | { name: "Filter Tests"; filterBy: string }
@@ -44,29 +43,35 @@ type Action =
 
 interface P extends Properties {
   taskId: string;
-  taskStatus: TaskStatus;
+  taskStatus: string;
   failedTestCount: number;
+  execution: number;
 }
 interface Analytics extends A<Action> {}
 
 export const useTaskAnalytics = (): Analytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
-  const { data: eventData } = useQuery<
-    GetTaskEventDataQuery,
-    GetTaskEventDataQueryVariables
-  >(GET_TASK_EVENT_DATA, {
-    variables: { taskId: id },
-    fetchPolicy: "cache-first",
-  });
-  const taskStatus = get(eventData, "task.status", undefined);
-  const failedTestCount = get(eventData, "task.failedTestCount", undefined);
+  const location = useLocation();
+
+  const parsed = parseQueryString(location.search);
+  const execution = Number(parsed[RequiredQueryParams.Execution]);
+  const { data: eventData } = useQuery<GetTaskQuery, GetTaskQueryVariables>(
+    GET_TASK,
+    {
+      variables: { taskId: id, execution },
+      fetchPolicy: "cache-first",
+    }
+  );
+  const taskStatus = eventData?.task?.status;
+  const failedTestCount = eventData?.task?.failedTestCount;
 
   const sendEvent: Analytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {
       object: "Task",
       userId,
       taskStatus,
+      execution,
       taskId: id,
       failedTestCount,
     });

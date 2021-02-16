@@ -2,7 +2,6 @@ import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { useParams, useLocation } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
-import { GET_ANNOTATION_EVENT_DATA } from "analytics/task/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 import {
   BuildBaronQuery,
@@ -10,7 +9,7 @@ import {
   GetAnnotationEventDataQuery,
   GetAnnotationEventDataQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_BARON } from "gql/queries";
+import { GET_ANNOTATION_EVENT_DATA, GET_BUILD_BARON } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
 import { parseQueryString } from "utils";
 

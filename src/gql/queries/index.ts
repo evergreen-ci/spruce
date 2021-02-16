@@ -1,6 +1,7 @@
 import GET_AWS_REGIONS from "./aws-regions.graphql";
 import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
+import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
 import GET_CLIENT_CONFIG from "./get-client-config.graphql";
 import GET_CODE_CHANGES from "./get-code-changes.graphql";
@@ -43,6 +44,7 @@ export {
   TASK_QUEUE_DISTROS,
   GET_AWS_REGIONS,
   DISTRO_TASK_QUEUE,
+  GET_ANNOTATION_EVENT_DATA,
   GET_BUILD_BARON,
   GET_CLIENT_CONFIG,
   GET_COMMIT_QUEUE,
