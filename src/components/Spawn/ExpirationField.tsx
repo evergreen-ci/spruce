@@ -8,8 +8,8 @@ import DatePicker from "components/DatePicker";
 import { InputLabel } from "components/styles";
 import TimePicker from "components/TimePicker";
 import {
-  GetPatchTaskStatusesQueryVariables,
   GetSpruceConfigQuery,
+  GetSpruceConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
@@ -36,7 +36,7 @@ export const ExpirationField: React.FC<ExpirationFieldProps> = ({
 }) => {
   const { data: spruceConfigData } = useQuery<
     GetSpruceConfigQuery,
-    GetPatchTaskStatusesQueryVariables
+    GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG);
 
   const disableExpirationCheckbox = useDisableSpawnExpirationCheckbox(
