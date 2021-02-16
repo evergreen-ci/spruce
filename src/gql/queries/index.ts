@@ -1,3 +1,5 @@
+import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
+
 export { GET_USER_CONFIG } from "./get-user-config";
 export { GET_USER_SETTINGS } from "./get-user-settings";
 export { GET_PATCH, GET_PATCH_CONFIGURE } from "./patch";
@@ -27,7 +29,6 @@ export { GET_MY_PUBLIC_KEYS } from "./get-public-keys";
 export { GET_MY_HOSTS } from "./get-my-hosts";
 export { DISTRO_TASK_QUEUE } from "./distro-task-queue";
 export { GET_DISTROS } from "./get-distros";
-export { TASK_QUEUE_DISTROS } from "./task-queue-distros";
 export { GET_MY_VOLUMES } from "./get-my-volumes";
 export { GET_INSTANCE_TYPES } from "./get-instance-types";
 export { GET_SPRUCE_CONFIG } from "./get-spruce-config";
@@ -36,3 +37,4 @@ export { GET_SUBNET_AVAILABILITY_ZONES } from "./subnet-availability-zones";
 export { GET_CREATED_TICKETS } from "./get-created-tickets";
 export { GET_SPAWN_EXPIRATION_INFO } from "./spawn-expiration";
 export { GET_SPAWN_TASK } from "./spawn-task";
+export { TASK_QUEUE_DISTROS };

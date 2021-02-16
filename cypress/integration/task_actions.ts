@@ -31,7 +31,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy(bannerDataCy).contains(unscheduleSuccessBannerText);
     });
 
-    it.only("Abort button should be disabled on completed tasks", () => {
+    it("Abort button should be disabled on completed tasks", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("abort-task").should("have.attr", "disabled");

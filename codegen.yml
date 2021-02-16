@@ -1,0 +1,21 @@
+  schema: sdlschema.graphql
+  documents: 
+    - ./src/**/*.ts
+    - ./src/**/*.graphql
+    - ./src/**/*.gql
+  hooks:
+    afterAllFileWrite:
+      - prettier --write
+  overwrite: true
+  generates: 
+    ./src/gql/generated/types.ts: 
+      plugins:
+      - typescript
+      - typescript-operations
+      config:
+        skipTypename: true,
+        preResolveTypes: true,
+        scalars:
+          StringMap: "{ [key: string]: any }"
+          Time: Date
+          Duration: number

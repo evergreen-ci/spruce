@@ -21,14 +21,11 @@ describe("Task Page Route", () => {
     cy.location("pathname").should("eq", `/task/${tasks[1]}/files`);
   });
 
-  it("should display an appropriate status badge when visiting task pages", () => {
+  it.only("should display an appropriate status badge when visiting task pages", () => {
     cy.visit(`/task/${tasks[1]}`);
     cy.dataCy("task-status-badge").contains("Dispatched");
-    cy.visit(`/task/${tasks[2]}/logs`);
+    cy.visit(`/task/${tasks[2]}`);
     cy.dataCy("task-status-badge").contains("Running");
-  });
-
-  it("should display a blocked status badge when visiting task pages that have unmet dependencies", () => {
     cy.visit(`/task/${tasks[3]}`);
     cy.dataCy("task-status-badge").contains("Blocked");
   });

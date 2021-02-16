@@ -232,7 +232,6 @@ export type MutationRestartPatchArgs = {
 
 export type MutationEnqueuePatchArgs = {
   patchId: Scalars["String"];
-  commitMessage?: Maybe<Scalars["String"]>;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -686,7 +685,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
-  alias: Scalars["String"];
+  alias?: Maybe<Scalars["String"]>;
   duration?: Maybe<PatchDuration>;
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
@@ -844,16 +843,16 @@ export type BaseTaskMetadata = {
 };
 
 export type AbortInfo = {
-  user?: Maybe<Scalars["String"]>;
-  taskID?: Maybe<Scalars["String"]>;
-  taskDisplayName?: Maybe<Scalars["String"]>;
-  buildVariantDisplayName?: Maybe<Scalars["String"]>;
-  newVersion?: Maybe<Scalars["String"]>;
-  prClosed?: Maybe<Scalars["Boolean"]>;
+  user: Scalars["String"];
+  taskID: Scalars["String"];
+  taskDisplayName: Scalars["String"];
+  buildVariantDisplayName: Scalars["String"];
+  newVersion: Scalars["String"];
+  prClosed: Scalars["Boolean"];
 };
 
 export type Task = {
-  aborted?: Maybe<Scalars["Boolean"]>;
+  aborted: Scalars["Boolean"];
   abortInfo?: Maybe<AbortInfo>;
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
@@ -2065,7 +2064,7 @@ export type GetTaskQuery = {
   task?: Maybe<{
     id: string;
     execution: number;
-    aborted?: Maybe<boolean>;
+    aborted: boolean;
     activatedBy?: Maybe<string>;
     buildVariant: string;
     ingestTime?: Maybe<Date>;
@@ -2099,12 +2098,12 @@ export type GetTaskQuery = {
     minQueuePosition: number;
     canModifyAnnotation: boolean;
     abortInfo?: Maybe<{
-      user?: Maybe<string>;
-      taskDisplayName?: Maybe<string>;
-      taskID?: Maybe<string>;
-      buildVariantDisplayName?: Maybe<string>;
-      newVersion?: Maybe<string>;
-      prClosed?: Maybe<boolean>;
+      user: string;
+      taskDisplayName: string;
+      taskID: string;
+      buildVariantDisplayName: string;
+      newVersion: string;
+      prClosed: boolean;
     }>;
     executionTasksFull?: Maybe<
       Array<{
@@ -2290,7 +2289,7 @@ export type PatchQuery = {
     version: string;
     status: string;
     activated: boolean;
-    alias: string;
+    alias?: Maybe<string>;
     taskCount?: Maybe<number>;
     commitQueuePosition?: Maybe<number>;
     baseVersionID?: Maybe<string>;
@@ -2315,7 +2314,7 @@ export type ConfigurePatchQuery = {
     id: string;
     description: string;
     author: string;
-    alias: string;
+    alias?: Maybe<string>;
     status: string;
     activated: boolean;
     commitQueuePosition?: Maybe<number>;

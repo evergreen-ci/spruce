@@ -23,8 +23,11 @@ describe("Code Changes Table", () => {
     cy.dataCy("deletions-column").should("be.visible");
   });
 
-  it("HTML and Raw buttons should have href when there are code changes", () => {
+  it("Should display at least one table when there are code changes", () => {
     cy.visit(CODE_CHANGES_ROUTE);
+    cy.dataCy("code-changes-table").should("exist");
+  });
+  it("HTML and Raw buttons should have href when there are code changes", () => {
     cy.dataCy("html-diff-btn")
       .should("have.attr", "href")
       .and("include", `filediff/${patchWithChanges}`);
@@ -33,20 +36,14 @@ describe("Code Changes Table", () => {
       .and("include", `rawdiff/${patchWithChanges}`);
   });
 
-  it("Should display at least one table when there are code changes", () => {
-    cy.visit(CODE_CHANGES_ROUTE);
-    cy.dataCy("code-changes-table").should("exist");
+  it("File names in table should have href", () => {
+    cy.dataCy("fileLink")
+      .should("have.attr", "href")
+      .and("include", `filediff/${patchWithChanges}`);
   });
 
   it("Should display 'No code changes' when there are no code changes", () => {
     cy.visit(NO_CODE_CHANGES_ROUTE);
     cy.contains("No code changes");
-  });
-
-  it("File names in table should have href", () => {
-    cy.visit(CODE_CHANGES_ROUTE);
-    cy.dataCy("fileLink")
-      .should("have.attr", "href")
-      .and("include", `filediff/${patchWithChanges}`);
   });
 });
