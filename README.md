@@ -52,7 +52,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
-    "REACT_APP_SPRUCE_URL": "http://localhost:3000"
+    "REACT_APP_SPRUCE_URL": "http://localhost:3000",
   },
   "staging": {
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
@@ -65,6 +65,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
     "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen.mongodb.com",
+    "REACT_APP_LOBSTER_URL": "https://logkeeper.mongodb.org",
     "REACT_APP_NEW_RELIC_ACCOUNT_ID": "dummy-new-relic-account-id",
     "REACT_APP_NEW_RELIC_AGENT_ID": "dummy-new-relic-agent-id",
     "REACT_APP_NEW_RELIC_APPLICATION_ID": "dummy-new-relic-application-id",
