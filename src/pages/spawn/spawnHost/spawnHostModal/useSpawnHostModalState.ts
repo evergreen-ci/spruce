@@ -95,7 +95,7 @@ const reducer = (state: spawnHostState, action: Action) => {
         ...state,
         isVirtualWorkStation: action.isVirtualWorkstation,
         homeVolumeSize: action.isVirtualWorkstation ? 500 : null,
-        noExpiration: action.isVirtualWorkstation,
+        noExpiration: action.noExpiration,
       };
     case "editPublicKey":
       return {
@@ -178,5 +178,9 @@ export type Action =
   | { type: "ingestQueryParams"; distroId: string; taskId: string }
   | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean }
   | { type: "setTaskSync"; taskSync: boolean; taskId: string }
-  | { type: "editDistroEffect"; isVirtualWorkstation: boolean }
+  | {
+      type: "editDistroEffect";
+      isVirtualWorkstation: boolean;
+      noExpiration: boolean;
+    }
   | { type: "loadDataOntoHost"; taskId: string };

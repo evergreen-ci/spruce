@@ -36,6 +36,8 @@ export const SpawnVolumeButton: React.FC = () => {
 
 const PaddedContainer = styled.div`
   padding: 30px 0px 30px 0px;
+  display: flex;
+  align-items: center;
 `;
 
 const Info = styled(Disclaimer)`
