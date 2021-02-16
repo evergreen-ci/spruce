@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import { getLobsterTaskLink } from "constants/routes";
 import {
   EventLog,
   AgentLog,
@@ -29,8 +30,10 @@ interface LogLinks {
 
 interface Props {
   logLinks: LogLinks;
+  taskId: string;
+  execution: number;
 }
-export const Logs: React.FC<Props> = ({ logLinks }) => {
+export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
   const { search } = useLocation();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
   const parsed = queryString.parse(search);
@@ -52,7 +55,12 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
     }
   }, [logTypeParam]);
 
-  const { htmlLink, rawLink } = getLinks(logLinks, currentLog);
+  const { htmlLink, rawLink } = getLinks(
+    logLinks,
+    currentLog,
+    taskId,
+    execution
+  );
   const LogComp = options[currentLog];
   return (
     LogComp && (
@@ -66,22 +74,26 @@ interface GetLinksResult {
   rawLink?: string;
 }
 
-const getLinks = (logLinks: LogLinks, logType: LogTypes): GetLinksResult => {
+const getLinks = (
+  logLinks: LogLinks,
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+): GetLinksResult => {
   if (!logLinks) {
     return {};
   }
-  const linkTypes = {
-    [LogTypes.Agent]: logLinks.agentLogLink,
-    [LogTypes.Event]: logLinks.eventLogLink,
-    [LogTypes.System]: logLinks.systemLogLink,
-    [LogTypes.Task]: logLinks.taskLogLink,
-  };
-  const url = linkTypes[logType];
-  if (!url) {
-    return {};
-  }
   if (logType === LogTypes.Event) {
-    return { htmlLink: url };
+    return { htmlLink: logLinks.eventLogLink };
   }
-  return { htmlLink: url, rawLink: `${url}&text=true` };
+  return {
+    htmlLink: getLobsterTaskLink(logType, taskId, execution),
+    rawLink: `${
+      {
+        [LogTypes.Agent]: logLinks.agentLogLink,
+        [LogTypes.System]: logLinks.systemLogLink,
+        [LogTypes.Task]: logLinks.taskLogLink,
+      }[logType] ?? ""
+    }&text=true`,
+  };
 };

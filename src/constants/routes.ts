@@ -1,6 +1,7 @@
 import { PatchTab } from "types/patch";
-import { PatchTasksQueryParams, TaskTab } from "types/task";
+import { LogTypes, PatchTasksQueryParams, TaskTab } from "types/task";
 import { stringifyQuery } from "utils";
+import { getLobsterURL } from "utils/getEnvironmentVariables";
 
 export enum PageNames {
   Patches = "patches",
@@ -66,6 +67,13 @@ export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
 
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
+
+export const getLobsterTaskLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) =>
+  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
 interface GetVersionRouteOptions {
   tab?: PatchTab;
