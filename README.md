@@ -52,7 +52,7 @@ Follow these directions to enable query linting during local development so your
     "REACT_APP_GQL_URL": "http://localhost:9090/graphql/query",
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
-    "REACT_APP_SPRUCE_URL": "http://localhost:3000",
+    "REACT_APP_SPRUCE_URL": "http://localhost:3000"
   },
   "staging": {
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
