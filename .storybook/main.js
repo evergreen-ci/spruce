@@ -19,7 +19,14 @@ function getPackageDir(filepath) {
 }
 module.exports = {
   stories: ["../src/**/*.stories.@(js|jsx|ts|tsx)"],
-  addons: ["@storybook/addon-links"],
+  addons: [
+    "@storybook/addon-links",
+    "@storybook/addon-a11y",
+    "@storybook/addon-knobs",
+    "@storybook/addon-storyshots",
+    "@storybook/addon-actions",
+    "@storybook/addon-queryparams",
+  ],
   presets: ["@storybook/preset-ant-design"],
   webpackFinal: async (config) => {
     return merge(config, {
