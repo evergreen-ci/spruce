@@ -57,4 +57,4 @@ export const DropdownMenu: React.FC<Props> = ({
   );
 };
 
-const refetchQueries = ["patchBuildVariants"];
+const refetchQueries = ["PatchBuildVariants"];
