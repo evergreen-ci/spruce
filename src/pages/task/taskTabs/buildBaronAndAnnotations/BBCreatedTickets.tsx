@@ -86,18 +86,29 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
 // CUSTOM CREATED TICKETS
 interface CustomCreatedTicketProps {
   tickets: IssueLink[];
+  taskId;
+  execution;
 }
 
 export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
   tickets,
+  taskId,
+  execution,
 }) => (
   <>
+    {tickets?.length > 0 && (
+      <>
+        <TitleAndButtons>
+          {/* @ts-expect-error */}
+          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+        </TitleAndButtons>
+        <CustomCreatedTicketsTable createdIssues={tickets} />
+      </>
+    )}
     <TitleAndButtons>
       {/* @ts-expect-error */}
-      <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+      <TicketsTitle>Create a New Ticket</TicketsTitle>
+      <BBFileTicket taskId={taskId} execution={execution} />
     </TitleAndButtons>
-    {tickets?.length > 0 && (
-      <CustomCreatedTicketsTable createdIssues={tickets} />
-    )}
   </>
 );

@@ -35,7 +35,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
-  const annotationsReady = true;
   const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
@@ -49,67 +48,66 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   return (
     <span data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      {bbData && (
-        <>
-          {annotation?.webhookConfigured ? (
-            <CustomCreatedTickets tickets={annotation?.createdIssues} />
-          ) : (
-            <CreatedTickets
-              taskId={taskId}
-              execution={execution}
-              setCreatedTicketsCount={setCreatedTicketsCount}
-              createdTicketsCount={createdTicketsCount}
-              buildBaronConfigured={bbData.buildBaronConfigured}
-            />
-          )}
+      <>
+        {annotation?.webhookConfigured ? (
+          <CustomCreatedTickets
+            tickets={annotation?.createdIssues}
+            taskId={taskId}
+            execution={execution}
+          />
+        ) : (
+          <CreatedTickets
+            taskId={taskId}
+            execution={execution}
+            setCreatedTicketsCount={setCreatedTicketsCount}
+            createdTicketsCount={createdTicketsCount}
+            buildBaronConfigured={bbData.buildBaronConfigured}
+          />
+        )}
 
-          {annotationsReady && (
-            <>
-              <AnnotationNote
-                note={annotation?.note}
-                taskId={taskId}
-                execution={execution}
-                userCanModify={userCanModify}
-              />
-              <AnnotationTickets
-                tickets={annotation?.issues}
-                isIssue
-                annotationId={annotationId}
-                taskId={taskId}
-                execution={execution}
-                userCanModify={userCanModify}
-                selectedRowKey={selectedRowKey}
-                setSelectedRowKey={setSelectedRowKey}
-              />
-              <AnnotationTickets
-                tickets={annotation?.suspectedIssues}
-                isIssue={false}
-                annotationId={annotationId}
-                taskId={taskId}
-                execution={execution}
-                userCanModify={userCanModify}
-                selectedRowKey={selectedRowKey}
-                setSelectedRowKey={setSelectedRowKey}
-              />
-            </>
-          )}
-          {bbData?.searchReturnInfo?.issues.length > 0 && (
-            <>
-              <TitleAndButtons>
-                {/* @ts-expect-error */}
-                <TicketsTitle>
-                  Related tickets from Jira
-                  <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                    {"  "}(Jira Search)
-                  </StyledLink>
-                </TicketsTitle>
-              </TitleAndButtons>
-              {/* build baron related jira tickets */}
-              <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
-            </>
-          )}
-        </>
-      )}
+        <AnnotationNote
+          note={annotation?.note}
+          taskId={taskId}
+          execution={execution}
+          userCanModify={userCanModify}
+        />
+        <AnnotationTickets
+          tickets={annotation?.issues}
+          isIssue
+          annotationId={annotationId}
+          taskId={taskId}
+          execution={execution}
+          userCanModify={userCanModify}
+          selectedRowKey={selectedRowKey}
+          setSelectedRowKey={setSelectedRowKey}
+        />
+        <AnnotationTickets
+          tickets={annotation?.suspectedIssues}
+          isIssue={false}
+          annotationId={annotationId}
+          taskId={taskId}
+          execution={execution}
+          userCanModify={userCanModify}
+          selectedRowKey={selectedRowKey}
+          setSelectedRowKey={setSelectedRowKey}
+        />
+
+        {bbData?.searchReturnInfo?.issues.length > 0 && (
+          <>
+            <TitleAndButtons>
+              {/* @ts-expect-error */}
+              <TicketsTitle>
+                Related tickets from Jira
+                <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+                  {"  "}(Jira Search)
+                </StyledLink>
+              </TicketsTitle>
+            </TitleAndButtons>
+            {/* build baron related jira tickets */}
+            <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+          </>
+        )}
+      </>
     </span>
   );
 };
