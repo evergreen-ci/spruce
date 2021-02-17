@@ -41,6 +41,7 @@ const host = {
       canBeModified: false,
     },
   ],
+  volumes: [],
   noExpiration: true,
   provider: "ec2-ondemand",
   status: "running",
