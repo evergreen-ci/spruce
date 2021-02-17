@@ -138,6 +138,14 @@ functions:
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
         yarn build
 
+  yarn-build-storybook:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn build-storybook
+
   yarn-coverage:
     command: shell.exec
     params:
@@ -231,6 +239,20 @@ functions:
       permissions: public-read
       display_name: "source map"
 
+  attach-storybook:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        - storybook-static/
+      remote_file: spruce/${task_id}/storybook/
+      bucket: mciuploads
+      content_type: text/html
+      permissions: public-read
+      display_name: storybook-
+    
   setup-credentials:
     command: shell.exec
     params:
@@ -288,6 +310,13 @@ tasks:
     - func: sym-link
     - func: yarn-build
     - func: yarn-analyze
+
+  - name: storybook
+    commands:
+    - func: get-project
+    - func: yarn-install
+    - func: yarn-build-storybook
+    - func: attach-storybook
 
   - name: test
     commands:
@@ -362,6 +391,7 @@ buildvariants:
     - name: type_check
     - name: coverage
     - name: e2e_test
+    - name: storybook
     - name: deploy_to_prod
       git_tag_only: true
       patchable: false
