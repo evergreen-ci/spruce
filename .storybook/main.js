@@ -1,7 +1,8 @@
 const path = require("path");
 const fs = require("fs");
-
 const { merge } = require("webpack-merge");
+
+// https://stackoverflow.com/questions/65894711/module-not-found-error-cant-resolve-emotion-styled-base-when-running-story
 function getPackageDir(filepath) {
   let currDir = path.dirname(require.resolve(filepath));
   while (true) {
