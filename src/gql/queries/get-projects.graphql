@@ -1,0 +1,20 @@
+
+  query Projects {
+    projects {
+      favorites {
+        identifier
+        repo
+        owner
+        displayName
+      }
+      otherProjects {
+        name
+        projects {
+          identifier
+          repo
+          owner
+          displayName
+        }
+      }
+    }
+  }

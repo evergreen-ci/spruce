@@ -8,11 +8,11 @@ import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
 import { getVersionRoute } from "constants/routes";
 import {
-  ModuleCodeChange,
+  ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
-import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations/remove-item-from-commit-queue";
+import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
@@ -26,7 +26,7 @@ interface Props {
   patchId: string;
   owner: string;
   repo: string;
-  moduleCodeChanges: ModuleCodeChange[];
+  moduleCodeChanges: ModuleCodeChangeFragment[];
   commitQueueId: string;
 }
 const { blue, gray } = uiColors;

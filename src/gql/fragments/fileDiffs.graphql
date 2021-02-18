@@ -1,0 +1,8 @@
+fragment fileDiffs on FileDiff {
+        fileName
+        additions
+        deletions
+        diffLink
+        description
+}
+

@@ -1,0 +1,9 @@
+#import "../fragments/logMessage.graphql"
+
+query SystemLogs($id: String!, $execution: Int) {
+taskLogs(taskId: $id, execution: $execution) {
+    systemLogs {
+    ...logMessage
+    }
+}
+}

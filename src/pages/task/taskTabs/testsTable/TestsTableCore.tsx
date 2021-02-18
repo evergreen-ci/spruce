@@ -26,7 +26,7 @@ import {
   TestResult,
   TaskTestResult,
 } from "gql/generated/types";
-import { GET_TASK_TESTS } from "gql/queries/get-task-tests";
+import { GET_TASK_TESTS } from "gql/queries";
 import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { parseQueryString, queryParamAsNumber } from "utils";

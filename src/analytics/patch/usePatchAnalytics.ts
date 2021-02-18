@@ -1,11 +1,13 @@
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { addPageAction, Properties, Analytics } from "analytics/addPageAction";
-import { GET_PATCH_EVENT_DATA } from "analytics/patch/query";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
-import { SaveSubscriptionMutationVariables } from "gql/generated/types";
-import { PatchStatus } from "types/patch";
+import {
+  SaveSubscriptionMutationVariables,
+  PatchQuery,
+  PatchQueryVariables,
+} from "gql/generated/types";
+import { GET_PATCH } from "gql/queries";
 
 type Action =
   | { name: "Filter Tasks"; filterBy: string }
@@ -31,17 +33,21 @@ type Action =
 
 interface P extends Properties {
   patchId: string;
-  patchStatus: PatchStatus;
+  patchStatus: string;
 }
 interface PatchAnalytics extends Analytics<Action> {}
 
 export const usePatchAnalytics = (): PatchAnalytics => {
   const userId = useGetUserQuery();
   const { id } = useParams<{ id: string }>();
-  const { data: eventData } = useQuery(GET_PATCH_EVENT_DATA, {
-    variables: { id },
-  });
-  const status = get(eventData, "patch.status", undefined);
+  const { data: eventData } = useQuery<PatchQuery, PatchQueryVariables>(
+    GET_PATCH,
+    {
+      variables: { id },
+      fetchPolicy: "cache-only",
+    }
+  );
+  const { status } = eventData?.patch || {};
 
   const sendEvent: PatchAnalytics["sendEvent"] = (action) => {
     addPageAction<Action, P>(action, {

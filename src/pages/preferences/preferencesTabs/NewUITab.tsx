@@ -10,7 +10,7 @@ import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {

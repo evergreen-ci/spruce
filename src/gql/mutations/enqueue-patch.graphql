@@ -1,0 +1,6 @@
+
+  mutation EnqueuePatch($patchId: String!) {
+    enqueuePatch(patchId: $patchId) {
+      id
+    }
+  }

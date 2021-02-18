@@ -21,8 +21,7 @@ import {
   HostEventsQuery,
   HostEventsQueryVariables,
 } from "gql/generated/types";
-import { GET_HOST } from "gql/queries/get-host";
-import { GET_HOST_EVENTS } from "gql/queries/get-host-events";
+import { GET_HOST, GET_HOST_EVENTS } from "gql/queries/index";
 import { usePageTitle } from "hooks/usePageTitle";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";

@@ -1,0 +1,18 @@
+fragment PatchesPagePatches on Patches {
+  patches {
+    id
+    projectID
+    description
+    status
+    createTime
+    commitQueuePosition
+    builds {
+      id
+      buildVariant
+      status
+    }
+    canEnqueueToCommitQueue
+  }
+  filteredPatchCount
+}
+

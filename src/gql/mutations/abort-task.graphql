@@ -1,0 +1,7 @@
+#import "../fragments/baseTask.graphql"
+
+mutation AbortTask($taskId: String!) {
+  abortTask(taskId: $taskId) {
+    ...baseTask
+  }
+}

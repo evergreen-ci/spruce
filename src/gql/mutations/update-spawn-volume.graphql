@@ -1,0 +1,4 @@
+
+  mutation UpdateVolume($UpdateVolumeInput: UpdateVolumeInput!) {
+    updateVolume(updateVolumeInput: $UpdateVolumeInput)
+  }

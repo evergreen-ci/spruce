@@ -40,7 +40,7 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
     if (previousTab !== undefined && previousTab !== selectedTab) {
       patchAnalytics.sendEvent({
         name: "Change Tab",
-        tab: tabToIndexMap[selectedTab],
+        tab: Object.keys(tabToIndexMap)[selectedTab] as PatchTab,
       });
     }
   }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
