@@ -1,0 +1,4 @@
+
+  mutation RestartJasper($hostIds: [String!]!) {
+    restartJasper(hostIds: $hostIds)
+  }

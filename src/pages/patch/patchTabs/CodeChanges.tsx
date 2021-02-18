@@ -11,7 +11,7 @@ import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
 } from "gql/generated/types";
-import { GET_CODE_CHANGES } from "gql/queries/get-code-changes";
+import { GET_CODE_CHANGES } from "gql/queries";
 
 export const CodeChanges: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,6 +21,7 @@ export const CodeChanges: React.FC = () => {
   >(GET_CODE_CHANGES, {
     variables: { id },
   });
+
   if (loading) {
     return <Skeleton active title paragraph={{ rows: 8 }} />;
   }

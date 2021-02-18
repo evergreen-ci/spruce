@@ -1,0 +1,4 @@
+
+  mutation removeVolume($volumeId: String!) {
+    removeVolume(volumeId: $volumeId)
+  }

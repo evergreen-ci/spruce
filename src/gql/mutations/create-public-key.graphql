@@ -1,0 +1,7 @@
+
+  mutation CreatePublicKey($publicKeyInput: PublicKeyInput!) {
+    createPublicKey(publicKeyInput: $publicKeyInput) {
+      key
+      name
+    }
+  }

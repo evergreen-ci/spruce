@@ -19,8 +19,8 @@ import {
   AgentLogsQueryVariables,
   TaskLogsQuery,
   TaskLogsQueryVariables,
-  LogMessage,
   TaskEventLogEntry,
+  LogMessageFragment,
 } from "gql/generated/types";
 import {
   GET_AGENT_LOGS,
@@ -39,7 +39,7 @@ const { gray } = uiColors;
 interface TaskEventLogEntryType extends TaskEventLogEntry {
   kind?: "taskEventLogEntry";
 }
-interface LogMessageType extends LogMessage {
+interface LogMessageType extends LogMessageFragment {
   kind?: "logMessage";
 }
 export enum QueryParams {

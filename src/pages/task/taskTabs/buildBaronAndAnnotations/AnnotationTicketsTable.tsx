@@ -15,8 +15,7 @@ import {
   RemoveAnnotationIssueMutation,
   RemoveAnnotationIssueMutationVariables,
 } from "gql/generated/types";
-import { MOVE_ANNOTATION } from "gql/mutations/move-annotation";
-import { REMOVE_ANNOTATION } from "gql/mutations/remove-annotation";
+import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { AnnotationTicketRow } from "./BBComponents";
 
 type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];

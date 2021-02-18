@@ -1,0 +1,29 @@
+#import "../fragments/baseSpawnHost.graphql"
+
+mutation EditSpawnHost(
+  $hostId: String!
+  $displayName: String
+  $addedInstanceTags: [InstanceTagInput!]
+  $deletedInstanceTags: [InstanceTagInput!]
+  $volumeId: String
+  $instanceType: String
+  $expiration: Time
+  $noExpiration: Boolean
+  $servicePassword: String
+) {
+  editSpawnHost(
+    spawnHost: {
+      hostId: $hostId
+      displayName: $displayName
+      addedInstanceTags: $addedInstanceTags
+      deletedInstanceTags: $deletedInstanceTags
+      volume: $volumeId
+      instanceType: $instanceType
+      expiration: $expiration
+      noExpiration: $noExpiration
+      servicePassword: $servicePassword
+    }
+  ) {
+    ...baseSpawnHost
+  }
+}

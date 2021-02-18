@@ -5,10 +5,10 @@ import { ColumnProps } from "antd/es/table";
 import { FileDiffText } from "components/CodeChangesBadge";
 import { StyledLink } from "components/styles";
 import { WordBreak } from "components/Typography";
-import { CodeChangesTableFileDiffsFragment } from "gql/generated/types";
+import { FileDiffsFragment } from "gql/generated/types";
 
 interface CodeChangesTableProps {
-  fileDiffs: CodeChangesTableFileDiffsFragment[];
+  fileDiffs: FileDiffsFragment[];
   showHeader?: boolean;
 }
 export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
@@ -25,22 +25,17 @@ export const CodeChangesTable: React.FC<CodeChangesTableProps> = ({
   />
 );
 
-const rowKey = (record: CodeChangesTableFileDiffsFragment): string =>
+const rowKey = (record: FileDiffsFragment): string =>
   `${record.diffLink}_code_table`;
 
 const columns: (
   showHeader: boolean
-) => Array<ColumnProps<CodeChangesTableFileDiffsFragment>> = (
-  showHeader: boolean
-) => [
+) => Array<ColumnProps<FileDiffsFragment>> = (showHeader: boolean) => [
   {
     title: <span data-cy="file-column">File</span>,
     dataIndex: "fileName",
     key: "fileName",
-    render: (
-      text: string,
-      record: CodeChangesTableFileDiffsFragment
-    ): JSX.Element => (
+    render: (text: string, record: FileDiffsFragment): JSX.Element => (
       <StyledLink
         data-cy="fileLink"
         href={record.diffLink}

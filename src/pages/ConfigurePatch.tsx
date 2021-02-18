@@ -10,7 +10,7 @@ import {
   ConfigurePatchQuery,
   ConfigurePatchQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_CONFIGURE } from "gql/queries/patch";
+import { GET_PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";

@@ -19,6 +19,7 @@
             },
             "antd"
         ],
-        "@emotion/babel-plugin"
+        "@emotion/babel-plugin",
+        "import-graphql"
     ]
 }

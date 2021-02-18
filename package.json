@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.2.1",
+  "version": "2.3.0",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -27,7 +27,7 @@
     "prettier": "prettier --write",
     "prod": "env-cmd -e devProd -r env/.cmdrc.json yarn start",
     "staging": "env-cmd -e devStaging -r env/.cmdrc.json yarn start",
-    "start": "node scripts/start.js",
+    "start": "rm -rf ./node_modules/.cache/babel-loader && node scripts/start.js",
     "storybook": "start-storybook -p 9009 -s public",
     "test": "node scripts/test.js  --watchAll=false",
     "test:watch": "node scripts/test.js  --verbose",
@@ -143,6 +143,7 @@
     "babel-loader": "8.1.0",
     "babel-plugin-graphql-tag": "^3.2.0",
     "babel-plugin-import": "^1.13.3",
+    "babel-plugin-import-graphql": "^2.8.1",
     "babel-plugin-named-asset-import": "^0.3.7",
     "babel-preset-react-app": "^10.0.0",
     "bfj": "^7.0.2",

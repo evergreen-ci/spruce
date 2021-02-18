@@ -22,7 +22,7 @@ import {
   VariantTask,
   ParameterInput,
 } from "gql/generated/types";
-import { SCHEDULE_PATCH } from "gql/mutations/schedule-patch";
+import { SCHEDULE_PATCH } from "gql/mutations";
 import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";

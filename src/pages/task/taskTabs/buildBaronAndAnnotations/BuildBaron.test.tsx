@@ -1,7 +1,6 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { withRouter } from "react-router-dom";
-import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import {
   GET_BUILD_BARON,
@@ -144,24 +143,6 @@ const mocks = [
       data: {
         userId: "mohamed.khelif",
         displayName: "Mohamed Khelif",
-      },
-    },
-  },
-  {
-    request: {
-      query: GET_TASK_EVENT_DATA,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        task: {
-          __typename: "Task",
-          id: taskId,
-          status: "started",
-          failedTestCount: 0,
-        },
       },
     },
   },

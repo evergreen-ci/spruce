@@ -15,7 +15,7 @@ import { commitQueueAlias } from "constants/patch";
 import { getPatchRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
-import { GET_PATCH } from "gql/queries/patch";
+import { GET_PATCH } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { BuildVariants } from "pages/patch/BuildVariants";

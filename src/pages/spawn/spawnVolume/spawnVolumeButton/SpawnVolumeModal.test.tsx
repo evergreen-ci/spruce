@@ -1,6 +1,6 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SPRUCE_CONFIG,

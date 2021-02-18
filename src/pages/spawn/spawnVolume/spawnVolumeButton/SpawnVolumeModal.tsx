@@ -20,7 +20,7 @@ import {
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";
-import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { SPAWN_VOLUME } from "gql/mutations";
 import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
 import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { reducer, initialState } from "./spawnVolumeModal/reducer";

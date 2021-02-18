@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import { TaskLogLinks } from "gql/generated/types";
 import {
   EventLog,
   AgentLog,
@@ -19,16 +20,8 @@ const options = {
   [LogTypes.Event]: EventLog,
 };
 
-interface LogLinks {
-  allLogLink?: string;
-  agentLogLink?: string;
-  systemLogLink?: string;
-  taskLogLink?: string;
-  eventLogLink?: string;
-}
-
 interface Props {
-  logLinks: LogLinks;
+  logLinks: TaskLogLinks;
 }
 export const Logs: React.FC<Props> = ({ logLinks }) => {
   const { search } = useLocation();
@@ -66,7 +59,10 @@ interface GetLinksResult {
   rawLink?: string;
 }
 
-const getLinks = (logLinks: LogLinks, logType: LogTypes): GetLinksResult => {
+const getLinks = (
+  logLinks: TaskLogLinks,
+  logType: LogTypes
+): GetLinksResult => {
   if (!logLinks) {
     return {};
   }

@@ -1,0 +1,13 @@
+
+  query PatchBuildVariants($patchId: String!) {
+    patchBuildVariants(patchId: $patchId) {
+      variant
+      displayName
+      tasks {
+        id
+        name
+        status
+        baseStatus
+      }
+    }
+  }

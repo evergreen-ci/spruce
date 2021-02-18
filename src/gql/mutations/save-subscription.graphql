@@ -1,0 +1,4 @@
+
+  mutation SaveSubscription($subscription: SubscriptionInput!) {
+    saveSubscription(subscription: $subscription)
+  }

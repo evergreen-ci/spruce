@@ -16,7 +16,7 @@ import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
-import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
+import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import {
   useNotificationModal,
   UseNotificationModalProps,
