@@ -1,8 +1,6 @@
 import React, { useState } from "react";
 import { InstanceTag } from "gql/generated/types";
 import { UserTagsField, UserTagsData } from "./UserTagsField";
-import "antd/es/select/style/css";
-import "antd/es/carousel/style/css";
 
 const instanceTags: InstanceTag[] = [
   { key: "keyA", value: "valueA", canBeModified: true },

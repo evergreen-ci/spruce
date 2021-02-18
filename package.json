@@ -53,9 +53,6 @@
   "eslintConfig": {
     "extends": "react-app"
   },
-  "resolutions": {
-    "@storybook/react/babel-loader": "8.1.0"
-  },
   "dependencies": {
     "@ant-design/icons": "4.4.0",
     "@apollo/client": "3.3.7",
@@ -108,6 +105,7 @@
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
     "@babel/core": "7.12.3",
+    "@babel/parser": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
     "@cypress/webpack-preprocessor": "5.4.6",
     "@emotion/babel-plugin": "^11.1.2",
@@ -115,11 +113,16 @@
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
-    "@storybook/addon-actions": "6.1.10",
-    "@storybook/addon-links": "6.1.10",
-    "@storybook/addons": "6.1.10",
-    "@storybook/preset-create-react-app": "3.1.5",
-    "@storybook/react": "6.1.10",
+    "@storybook/addon-a11y": "^6.1.18",
+    "@storybook/addon-actions": "^6.1.18",
+    "@storybook/addon-knobs": "^6.1.18",
+    "@storybook/addon-links": "6.1.18",
+    "@storybook/addon-queryparams": "^6.1.18",
+    "@storybook/addon-storyshots": "^6.1.18",
+    "@storybook/addons": "6.1.18",
+    "@storybook/preset-ant-design": "^0.0.2",
+    "@storybook/preset-create-react-app": "3.1.6",
+    "@storybook/react": "6.1.18",
     "@svgr/webpack": "5.4.0",
     "@testing-library/jest-dom": "5.11.6",
     "@testing-library/react": "11.2.2",
@@ -213,6 +216,7 @@
     "webpack": "4.44.2",
     "webpack-dev-server": "3.11.0",
     "webpack-manifest-plugin": "2.2.0",
+    "webpack-merge": "^5.7.3",
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
   },

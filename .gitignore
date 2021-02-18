@@ -8,6 +8,9 @@ cypress/screenshots/
 # production
 /build
 
+# storybook
+storybook-static
+
 # artifacts
 /bin
 /src/**/*.css
@@ -30,3 +33,5 @@ yarn-error.log*
 sdlschema
 sdlschema.graphql
 .eslintcache
+
+
