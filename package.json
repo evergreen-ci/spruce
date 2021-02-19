@@ -29,6 +29,7 @@
     "staging": "env-cmd -e devStaging -r env/.cmdrc.json yarn start",
     "start": "rm -rf ./node_modules/.cache/babel-loader && node scripts/start.js",
     "storybook": "start-storybook -p 9009 -s public",
+    "snapshot": "node scripts/test.js -- storybook.test.ts",
     "test": "node scripts/test.js  --watchAll=false",
     "test:watch": "node scripts/test.js  --verbose",
     "upload-source-maps": "env-cmd -e prod -r env/.cmdrc.json node ./upload-bugsnag-sourcemaps"
@@ -109,6 +110,7 @@
     "@babel/preset-react": "^7.12.13",
     "@cypress/webpack-preprocessor": "5.4.6",
     "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/jest": "^11.2.0",
     "@graphql-codegen/cli": "1.19.4",
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
