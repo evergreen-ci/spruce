@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
+import { action } from "@storybook/addon-actions";
 import { EditableTagField } from "./index";
 
 const instanceTags = [
@@ -12,17 +13,13 @@ const instanceTags = [
     value: "valueC",
   },
 ];
-export const EditableTagFieldView = () => {
-  const [state, setState] = useState([]);
-  console.log({ state });
-  return (
-    <EditableTagField
-      inputTags={instanceTags}
-      onChange={setState}
-      buttonText="Add Tag"
-    />
-  );
-};
+export const EditableTagFieldView = () => (
+  <EditableTagField
+    inputTags={instanceTags}
+    onChange={action("Change Tag")}
+    buttonText="Add Tag"
+  />
+);
 
 export default {
   title: "Editable Tags Field",

@@ -1314,6 +1314,633 @@ exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
 </div>
 `;
 
+exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  max-width: 70%;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.emotion-10 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.emotion-18 {
+  margin-top: 42px;
+}
+
+.emotion-20 {
+  border: none;
+  -webkit-appearance: unset;
+  padding: unset;
+  display: inline-block;
+  border-radius: 100px;
+  color: #89989B;
+  position: relative;
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: rgba(255,255,255,0);
+  height: 28px;
+  width: 28px;
+}
+
+.emotion-20:before {
+  content: '';
+  -webkit-transition: 150ms all ease-in-out;
+  transition: 150ms all ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.emotion-20:hover:before,
+.emotion-20:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.emotion-20:focus {
+  outline: none;
+}
+
+.emotion-20:hover {
+  color: #3D4F58;
+}
+
+.emotion-20:hover:before {
+  background-color: #E7EEEC;
+}
+
+.emotion-20:focus {
+  color: #007CAD;
+}
+
+.emotion-20:focus:before {
+  background-color: #C5E4F2;
+}
+
+.emotion-21 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-64 {
+  margin-top: 25px;
+}
+
+.emotion-66 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  height: 32px;
+}
+
+.emotion-66:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-67 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  position: relative;
+  z-index: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: none;
+  -webkit-transition: all 120ms ease;
+  transition: all 120ms ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0;
+  font-size: 14px;
+  color: #3D4F58;
+  border: 1px solid #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient( #FFFFFF, #E7EEEC );
+  box-shadow: inset 0 -1px 0 #B8C4C2;
+}
+
+.emotion-67:focus {
+  outline: none;
+}
+
+.emotion-67:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:before,
+.emotion-67:after {
+  content: '';
+  -webkit-transition: 0.15s opacity ease-in-out;
+  transition: 0.15s opacity ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+}
+
+.emotion-67:not(:disabled):focus:before,
+.emotion-67:not(:disabled):hover:before {
+  opacity: 1;
+}
+
+.emotion-67:not(:disabled):active:after {
+  opacity: 1;
+}
+
+.emotion-67:before {
+  border-color: #B8C4C2;
+  background-color: #E7EEEC;
+  background-image: linear-gradient(#F9FBFA,#dde4e2);
+  box-shadow: inset 0 -1px 0 #B8C4C2,0 1px 4px rgba(6,22,33,0.1);
+}
+
+.emotion-67:after {
+  border-color: #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient(#dde4e2,#F9FBFA);
+  box-shadow: inset 0 2px 2px rgba(6,22,33,0.1);
+}
+
+.emotion-67:focus,
+.emotion-67:hover {
+  color: #3D4F58;
+}
+
+.emotion-67:focus {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:focus:not(:disabled):before {
+  opacity: 1;
+}
+
+.emotion-68 {
+  z-index: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 12px;
+}
+
+.emotion-69 {
+  margin-right: 5px;
+}
+
+.emotion-70 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 3px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="add-tag-button-row"
+  >
+    <div
+      className="emotion-64 emotion-65"
+    >
+      <div
+        className="emotion-66"
+      >
+        <button
+          aria-disabled={false}
+          className="emotion-67"
+          data-cy="add-tag-button"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          type="button"
+        >
+          <span
+            className="emotion-68"
+          >
+            <svg
+              aria-label="Plus Icon"
+              className="emotion-69"
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+            Add Tag
+          </span>
+        </button>
+        <div
+          className="emotion-70"
+          data-leafygreen-ui="interaction-ring"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Node List Node Element 1`] = `
 .emotion-0 {
   display: -webkit-box;
@@ -2454,633 +3081,6 @@ exports[`Storyshots TreeSelect No Initial Values 1`] = `
         </svg>
       </div>
     </span>
-  </div>
-</div>
-`;
-
-exports[`Storyshots User Tags Field User Tags Field View 1`] = `
-.emotion-0 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-right: 10px;
-  max-width: 70%;
-}
-
-.emotion-2 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-right: 10px;
-}
-
-.emotion-4 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-box-pack: justify;
-  -webkit-justify-content: space-between;
-  justify-content: space-between;
-}
-
-.emotion-8 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
-  margin-right: 10px;
-  margin-top: 20px;
-}
-
-.emotion-10 {
-  font-size: 14px;
-  font-weight: bold;
-}
-
-.emotion-18 {
-  margin-top: 42px;
-}
-
-.emotion-20 {
-  border: none;
-  -webkit-appearance: unset;
-  padding: unset;
-  display: inline-block;
-  border-radius: 100px;
-  color: #89989B;
-  position: relative;
-  cursor: pointer;
-  -webkit-flex-shrink: 0;
-  -ms-flex-negative: 0;
-  flex-shrink: 0;
-  background-color: rgba(255,255,255,0);
-  height: 28px;
-  width: 28px;
-}
-
-.emotion-20:before {
-  content: '';
-  -webkit-transition: 150ms all ease-in-out;
-  transition: 150ms all ease-in-out;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 100%;
-  opacity: 0;
-  -webkit-transform: scale(0.8);
-  -ms-transform: scale(0.8);
-  transform: scale(0.8);
-}
-
-.emotion-20:hover:before,
-.emotion-20:focus:before {
-  opacity: 1;
-  -webkit-transform: scale(1);
-  -ms-transform: scale(1);
-  transform: scale(1);
-}
-
-.emotion-20:focus {
-  outline: none;
-}
-
-.emotion-20:hover {
-  color: #3D4F58;
-}
-
-.emotion-20:hover:before {
-  background-color: #E7EEEC;
-}
-
-.emotion-20:focus {
-  color: #007CAD;
-}
-
-.emotion-20:focus:before {
-  background-color: #C5E4F2;
-}
-
-.emotion-21 {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-}
-
-.emotion-64 {
-  margin-top: 25px;
-}
-
-.emotion-66 {
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  position: relative;
-  z-index: 0;
-  height: 32px;
-}
-
-.emotion-66:hover>[data-leafygreen-ui="interaction-ring"] {
-  box-shadow: 0 0 0 3px #E7EEEC;
-}
-
-.emotion-67 {
-  width: 100%;
-  height: 100%;
-  font-family: inherit;
-  font-size: 100%;
-  position: relative;
-  z-index: 0;
-  border-radius: 3px;
-  box-sizing: border-box;
-  cursor: pointer;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-align-items: stretch;
-  -webkit-box-align: stretch;
-  -ms-flex-align: stretch;
-  align-items: stretch;
-  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
-  font-weight: normal;
-  -webkit-text-decoration: none;
-  text-decoration: none;
-  text-transform: none;
-  -webkit-transition: all 120ms ease;
-  transition: all 120ms ease;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  padding: 0;
-  font-size: 14px;
-  color: #3D4F58;
-  border: 1px solid #B8C4C2;
-  background-color: #F9FBFA;
-  background-image: linear-gradient( #FFFFFF, #E7EEEC );
-  box-shadow: inset 0 -1px 0 #B8C4C2;
-}
-
-.emotion-67:focus {
-  outline: none;
-}
-
-.emotion-67:hover {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-67:before,
-.emotion-67:after {
-  content: '';
-  -webkit-transition: 0.15s opacity ease-in-out;
-  transition: 0.15s opacity ease-in-out;
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  border-radius: 2px;
-}
-
-.emotion-67:not(:disabled):focus:before,
-.emotion-67:not(:disabled):hover:before {
-  opacity: 1;
-}
-
-.emotion-67:not(:disabled):active:after {
-  opacity: 1;
-}
-
-.emotion-67:before {
-  border-color: #B8C4C2;
-  background-color: #E7EEEC;
-  background-image: linear-gradient(#F9FBFA,#dde4e2);
-  box-shadow: inset 0 -1px 0 #B8C4C2,0 1px 4px rgba(6,22,33,0.1);
-}
-
-.emotion-67:after {
-  border-color: #B8C4C2;
-  background-color: #F9FBFA;
-  background-image: linear-gradient(#dde4e2,#F9FBFA);
-  box-shadow: inset 0 2px 2px rgba(6,22,33,0.1);
-}
-
-.emotion-67:focus,
-.emotion-67:hover {
-  color: #3D4F58;
-}
-
-.emotion-67:focus {
-  -webkit-text-decoration: none;
-  text-decoration: none;
-}
-
-.emotion-67:focus:not(:disabled):before {
-  opacity: 1;
-}
-
-.emotion-68 {
-  z-index: 1;
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-align-items: center;
-  -webkit-box-align: center;
-  -ms-flex-align: center;
-  align-items: center;
-  overflow: hidden;
-  padding: 0 12px;
-}
-
-.emotion-69 {
-  margin-right: 5px;
-}
-
-.emotion-70 {
-  -webkit-transition: all 150ms ease-in-out;
-  transition: all 150ms ease-in-out;
-  position: absolute;
-  z-index: -1;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  pointer-events: none;
-  border-radius: 3px;
-}
-
-<div
-  className="emotion-0 emotion-1"
->
-  <div
-    className="emotion-2 emotion-3"
-    data-cy="user-tag-row"
-  >
-    <div
-      className="emotion-4 emotion-5"
-    >
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_key_undefined"
-          >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyA"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_value_undefined"
-          >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueA"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-18 emotion-19"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="emotion-20"
-          tabIndex={0}
-        >
-          <div
-            className="emotion-21"
-          >
-            <svg
-              aria-label="Trash Icon"
-              data-cy="user-tag-trash-icon"
-              fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-2 emotion-3"
-    data-cy="user-tag-row"
-  >
-    <div
-      className="emotion-4 emotion-5"
-    >
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_key_undefined"
-          >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyB"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_value_undefined"
-          >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueB"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-18 emotion-19"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="emotion-20"
-          tabIndex={0}
-        >
-          <div
-            className="emotion-21"
-          >
-            <svg
-              aria-label="Trash Icon"
-              data-cy="user-tag-trash-icon"
-              fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-2 emotion-3"
-    data-cy="user-tag-row"
-  >
-    <div
-      className="emotion-4 emotion-5"
-    >
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_key_undefined"
-          >
-            Key
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-key-field"
-            id="tag_key_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="keyC"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-2 emotion-3"
-      >
-        <div
-          className="emotion-8 emotion-9"
-        >
-          <label
-            className="emotion-10 emotion-11"
-            htmlFor="tag_value_undefined"
-          >
-            Value
-          </label>
-          <input
-            className="ant-input"
-            data-cy="user-tag-value-field"
-            id="tag_value_undefined"
-            onBlur={[Function]}
-            onChange={[Function]}
-            onFocus={[Function]}
-            onKeyDown={[Function]}
-            type="text"
-            value="valueC"
-          />
-        </div>
-      </div>
-      <div
-        className="emotion-18 emotion-19"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Delete Tag"
-          className="emotion-20"
-          tabIndex={0}
-        >
-          <div
-            className="emotion-21"
-          >
-            <svg
-              aria-label="Trash Icon"
-              data-cy="user-tag-trash-icon"
-              fill="none"
-              height={16}
-              onClick={[Function]}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-          </div>
-        </button>
-      </div>
-    </div>
-  </div>
-  <div
-    className="emotion-2 emotion-3"
-    data-cy="add-tag-button-row"
-  >
-    <div
-      className="emotion-64 emotion-65"
-    >
-      <div
-        className="emotion-66"
-      >
-        <button
-          aria-disabled={false}
-          className="emotion-67"
-          data-cy="add-tag-button"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          type="button"
-        >
-          <span
-            className="emotion-68"
-          >
-            <svg
-              aria-label="Plus Icon"
-              className="emotion-69"
-              fill="none"
-              height={16}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-            Add Tag
-          </span>
-        </button>
-        <div
-          className="emotion-70"
-          data-leafygreen-ui="interaction-ring"
-        />
-      </div>
-    </div>
   </div>
 </div>
 `;

@@ -29,7 +29,7 @@
     "staging": "env-cmd -e devStaging -r env/.cmdrc.json yarn start",
     "start": "rm -rf ./node_modules/.cache/babel-loader && node scripts/start.js",
     "storybook": "start-storybook -p 9009 -s public",
-    "snapshot": "node scripts/test.js -- storybook.test.ts",
+    "snapshot": "node scripts/test.js storybook.test.ts --watchAll=false",
     "test": "node scripts/test.js  --watchAll=false",
     "test:watch": "node scripts/test.js  --verbose",
     "upload-source-maps": "env-cmd -e prod -r env/.cmdrc.json node ./upload-bugsnag-sourcemaps"
