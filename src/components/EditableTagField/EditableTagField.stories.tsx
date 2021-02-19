@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { EditableTagField } from "./index";
-import "antd/es/select/style/css";
-import "antd/es/carousel/style/css";
 
 const instanceTags = [
   { key: "keyA", value: "valueA" },
