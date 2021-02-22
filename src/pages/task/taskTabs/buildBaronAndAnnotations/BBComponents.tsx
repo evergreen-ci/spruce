@@ -155,11 +155,11 @@ export const BottomMetaDataWrapper = styled.div`
 export const TopMetaDataWrapper = styled.div`
   margin-bottom: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr auto;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
-  width: 60%;
+  width: 50%;
 `;
 
 export const TitleAndButtons = styled.div`
