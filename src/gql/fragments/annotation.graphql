@@ -2,6 +2,7 @@ fragment annotation on Annotation {
     id
     taskId
     taskExecution
+    webhookConfigured
     note {
         source {
         author

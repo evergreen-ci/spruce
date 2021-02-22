@@ -14,8 +14,18 @@ import {
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
 
+// Type needed to render the task table
+type TaskTableInfo = {
+  id: string;
+  displayName: string;
+  status: string;
+  baseStatus?: string;
+  buildVariantDisplayName?: string;
+  executionTasksFull?: TaskTableInfo[];
+};
+
 interface TasksTableProps {
-  tasks: any;
+  tasks: TaskTableInfo[];
   tableChangeHandler?: TableOnChange<TaskResult>;
   onExpand?: (expanded: boolean) => void;
   onClickTaskLink?: (taskId: string) => void;
@@ -78,7 +88,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<TaskResult>[] => [
   },
   {
     title: "Variant",
-    dataIndex: "buildVariant",
+    dataIndex: "buildVariantDisplayName",
     key: TaskSortCategory.Variant,
     sorter: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
     className: "cy-task-table-col-VARIANT",

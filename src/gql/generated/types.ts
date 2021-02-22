@@ -752,6 +752,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
+  buildVariantDisplayName: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
 };
@@ -862,6 +863,7 @@ export type Task = {
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
+  buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
@@ -1186,6 +1188,7 @@ export type Annotation = {
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   userCanModify?: Maybe<Scalars["Boolean"]>;
+  webhookConfigured: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1206,29 +1209,11 @@ export type Source = {
   requester: Scalars["String"];
 };
 
-export type GetPatchEventDataQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
-
-export type GetTaskEventDataQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type GetTaskEventDataQuery = {
-  task?: Maybe<{
-    id: string;
-    execution: number;
-    status: string;
-    failedTestCount: number;
-  }>;
-};
-
 export type AnnotationFragment = {
   id: string;
   taskId: string;
   taskExecution: number;
+  webhookConfigured: boolean;
   note?: Maybe<{
     message: string;
     source: { author: string; time: Date; requester: string };
@@ -1935,6 +1920,7 @@ export type PatchTasksQuery = {
       status: string;
       displayName: string;
       buildVariant: string;
+      buildVariantDisplayName: string;
       blocked: boolean;
       executionTasksFull?: Maybe<
         Array<{
@@ -1944,6 +1930,7 @@ export type PatchTasksQuery = {
           status: string;
           buildVariant: string;
           baseStatus?: Maybe<string>;
+          buildVariantDisplayName?: Maybe<string>;
         }>
       >;
       baseTask?: Maybe<{ status: string }>;
@@ -2147,6 +2134,7 @@ export type GetTaskQuery = {
           status: string;
           baseStatus?: Maybe<string>;
           buildVariant: string;
+          buildVariantDisplayName?: Maybe<string>;
         }>
       >;
       baseTaskMetadata?: Maybe<{
