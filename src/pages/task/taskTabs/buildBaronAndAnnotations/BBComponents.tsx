@@ -145,21 +145,21 @@ const StyledBadge = styled(Badge)`
 export const BottomMetaDataWrapper = styled.div`
   margin-top: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 1fr auto;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
-  width: 60%;
+  width: 80%;
 `;
 
 export const TopMetaDataWrapper = styled.div`
   margin-bottom: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr auto;
+  grid-template-columns: 1fr 3fr;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
-  width: 50%;
+  width: 80%;
 `;
 
 export const TitleAndButtons = styled.div`
