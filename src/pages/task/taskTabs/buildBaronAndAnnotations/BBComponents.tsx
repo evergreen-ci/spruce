@@ -155,7 +155,7 @@ export const BottomMetaDataWrapper = styled.div`
 export const TopMetaDataWrapper = styled.div`
   margin-bottom: 7px;
   display: grid;
-  grid-template-columns: 1fr 3fr;
+  grid-template-columns: 1fr 4fr;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
