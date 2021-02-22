@@ -260,5 +260,3 @@ describe.only("getDateCopy", () => {
     );
   });
 });
-
-// DONT FORGET TO POP CHANGES FROM EVG-12844 branch
