@@ -11,7 +11,7 @@ import {
 import { GET_CREATED_TICKETS } from "gql/queries";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { BBFileTicket } from "./BBFIleTicket";
+import { BBFileTicket } from "./BBFileTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface CreatedTicketsProps {
@@ -86,8 +86,8 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
 // CUSTOM CREATED TICKETS
 interface CustomCreatedTicketProps {
   tickets: IssueLink[];
-  taskId;
-  execution;
+  taskId: string;
+  execution: number;
 }
 
 export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
