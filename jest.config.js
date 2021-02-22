@@ -49,4 +49,5 @@ module.exports = {
     "jest-watch-typeahead/filename",
     "jest-watch-typeahead/testname",
   ],
+  globalSetup: "<rootDir>/global-setup.js",
 };

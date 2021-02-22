@@ -3,6 +3,7 @@ import {
   sortFunctionDate,
   sortFunctionString,
   omitTypename,
+  getDateCopy,
 } from "utils/string";
 
 describe("msToDuration", () => {
@@ -220,3 +221,44 @@ describe("omitTypename", () => {
     });
   });
 });
+
+describe.only("getDateCopy", () => {
+  test("converts strings to a date with no options", () => {
+    expect(getDateCopy("08/31/1996")).toEqual("Aug 31, 1996, 12:00:00 AM");
+    expect(getDateCopy("12-23-2014")).toEqual("Dec 23, 2014, 12:00:00 AM");
+    expect(getDateCopy("2020-11-16T22:17:29")).toEqual(
+      "Nov 16, 2020, 10:17:29 PM"
+    );
+  });
+  test("converts strings with a supplied timezone to the users timezone", () => {
+    expect(getDateCopy("2020-11-16T22:17:29z")).toEqual(
+      "Nov 16, 2020, 10:17:29 PM"
+    );
+  });
+  test("converts date objects to a formatted date with no options", () => {
+    expect(getDateCopy(new Date("2020-11-16T22:17:29z"))).toEqual(
+      "Nov 16, 2020, 10:17:29 PM"
+    );
+  });
+  test("converts date objects to a supplied timezone", () => {
+    expect(
+      getDateCopy("2020-11-16T22:17:29", { tz: "America/New_York" })
+    ).toEqual("Nov 16, 2020, 5:17:29 PM");
+  });
+  test("returns date only when supplied with the option", () => {
+    expect(
+      getDateCopy(new Date("2020-11-16T22:17:29z"), { dateOnly: true })
+    ).toEqual("Nov 16, 2020");
+    expect(
+      getDateCopy("2020-11-16T22:17:29", {
+        tz: "America/New_York",
+        dateOnly: true,
+      })
+    ).toEqual("Nov 16, 2020");
+    expect(getDateCopy("08/31/1996", { dateOnly: true })).toEqual(
+      "Aug 31, 1996"
+    );
+  });
+});
+
+// DONT FORGET TO POP CHANGES FROM EVG-12844 branch
