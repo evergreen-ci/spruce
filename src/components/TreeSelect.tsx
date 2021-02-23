@@ -1,9 +1,8 @@
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
-import { usePrevious } from "hooks";
 import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 const { gray, white } = uiColors;
@@ -38,21 +37,8 @@ export const TreeSelect: React.FC<Props> = ({
   width,
 }) => {
   const wrapperRef = useRef(null);
-  const prevWrapperRef = usePrevious(wrapperRef);
-  const [optionWidth, setOptionWidth] = useState(0);
 
-  useEffect(() => {
-    if (wrapperRef) {
-      const handleResize: () => void = () => {
-        setOptionWidth(wrapperRef.current.clientWidth);
-      };
-      setOptionWidth(wrapperRef.current.clientWidth);
-      window.addEventListener("resize", handleResize);
-      return (): void => window.removeEventListener("resize", handleResize);
-    }
-  }, [setOptionWidth, prevWrapperRef]);
-
-  const [isVisible, setisVisible] = useState<boolean>(false);
+  const [isVisible, setisVisible] = useState(false);
   useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions: () => void = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
@@ -78,7 +64,7 @@ export const TreeSelect: React.FC<Props> = ({
         .join(", ");
 
   return (
-    <Wrapper data-cy={dataCy} ref={wrapperRef} width={width}>
+    <Wrapper data-cy={dataCy} width={width}>
       <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
         <LabelWrapper>
           {inputLabel}
@@ -91,9 +77,11 @@ export const TreeSelect: React.FC<Props> = ({
         </ArrowWrapper>
       </BarWrapper>
       {isVisible && (
-        <OptionsWrapper width={optionWidth}>
-          {renderCheckboxes({ state: filteredState, tData, onChange })}
-        </OptionsWrapper>
+        <RelativeWrapper>
+          <OptionsWrapper>
+            {renderCheckboxes({ state: filteredState, tData, onChange })}
+          </OptionsWrapper>
+        </RelativeWrapper>
       )}
     </Wrapper>
   );
@@ -318,11 +306,13 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
     border-bottom: 1px solid ${gray.light2};
   }
 `;
+
 const LabelWrapper = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 `;
+
 const BarWrapper = styled.div`
   border: 1px solid ${gray.light1};
   border-radius: 3px;
@@ -334,6 +324,7 @@ const BarWrapper = styled.div`
   display: flex;
   justify-content: space-between;
 `;
+
 const OptionsWrapper = styled.div`
   border-radius: 5px;
   background-color: ${white};
@@ -343,10 +334,15 @@ const OptionsWrapper = styled.div`
   position: absolute;
   z-index: 5;
   margin-top: 5px;
-  width: ${(props: { width: number }): string =>
-    props.width ? `${props.width}px` : ""};
+  width: 100%;
   overflow: hidden;
 `;
+
+// Used to provide a basis for the absolutely positions OptionsWrapper
+const RelativeWrapper = styled.div`
+  position: relative;
+`;
+
 const ArrowWrapper = styled.span`
   border-left: 1px solid ${gray.light1};
   padding-left: 5px;
@@ -355,6 +351,7 @@ const ArrowWrapper = styled.span`
     top: 2px;
   }
 `;
+
 const Wrapper = styled.div`
   width: ${(props: { width?: string }): string =>
     props.width ? props.width : ""};

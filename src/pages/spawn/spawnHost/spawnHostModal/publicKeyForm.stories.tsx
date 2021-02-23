@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 import { PublicKeyForm, publicKeyStateType } from "./PublicKeyForm";
-import "antd/es/select/style/css";
-import "antd/es/carousel/style/css";
 
 const publicKeys = [
   { key: "ssh key some long key name", name: "MyFirstKey.pub" },
