@@ -73,7 +73,7 @@ export const AnnotationNote: React.FC<Props> = ({
       {note && (
         <TopMetaDataWrapper data-cy={`${originalMessage}-metadata`}>
           <Disclaimer>
-            Updated: {getDateCopy(note.source.time, null, true)}{" "}
+            Updated: {getDateCopy(note.source.time, { dateOnly: true })}{" "}
           </Disclaimer>
           <Disclaimer>Last Edited By: {note.source.author}</Disclaimer>
         </TopMetaDataWrapper>

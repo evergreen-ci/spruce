@@ -1,6 +1,5 @@
 import { useQuery } from "@apollo/client";
-import { format } from "date-fns";
-import { formatToTimeZone } from "date-fns-timezone";
+import { format, utcToZonedTime } from "date-fns-tz";
 import get from "lodash/get";
 import { GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER_SETTINGS } from "gql/queries";
@@ -110,25 +109,23 @@ export const omitTypename = (object) =>
     key === "__typename" ? undefined : value
   );
 
-export const getDateCopy = (
-  time: string | Date,
-  tz?: string,
-  dateOnly?: boolean
-) => {
-  if (tz) {
-    const dateFormat = dateOnly ? "MMM D, YYYY" : "MMM D, YYYY h:mm:ss a";
+type DateCopyOptions = {
+  tz?: string;
+  dateOnly?: boolean;
+};
 
-    return formatToTimeZone(time, dateFormat, {
-      timeZone: tz,
-    });
+// Will return a time in the users local timezone when one is not provided
+export const getDateCopy = (
+  time: string | number | Date,
+  options?: DateCopyOptions
+) => {
+  const { tz, dateOnly } = options || {};
+  const dateFormat = dateOnly ? "MMM d, yyyy" : "MMM d, yyyy, h:mm:ss aa";
+  if (tz) {
+    return format(utcToZonedTime(time, tz), dateFormat);
   }
-  if (time) {
-    const dateFormat = dateOnly
-      ? "MMM d, yyyy"
-      : "MMM d, yyyy, h:mm:ss aaaaa'm";
-    return format(new Date(time), dateFormat);
-  }
-  return "";
+
+  return format(new Date(time), dateFormat);
 };
 
 const SHORT_DATE_FORMAT = "M/d/yy h:mm aa";

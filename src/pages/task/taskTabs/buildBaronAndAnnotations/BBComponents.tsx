@@ -52,8 +52,12 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
       </StyledBadge>
 
       <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
-        <Disclaimer>Created: {getDateCopy(created, null, true)} </Disclaimer>
-        <Disclaimer>Updated: {getDateCopy(updated, null, true)} </Disclaimer>
+        <Disclaimer>
+          Created: {getDateCopy(created, { dateOnly: true })}{" "}
+        </Disclaimer>
+        <Disclaimer>
+          Updated: {getDateCopy(updated, { dateOnly: true })}{" "}
+        </Disclaimer>
         <Disclaimer>
           {assigneeDisplayName
             ? `Assignee: ${assigneeDisplayName}`
@@ -109,10 +113,14 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
       <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
         {created && (
-          <Disclaimer>Created: {getDateCopy(created, null, true)}</Disclaimer>
+          <Disclaimer>
+            Created: {getDateCopy(created, { dateOnly: true })}
+          </Disclaimer>
         )}
         {updated && (
-          <Disclaimer>Updated: {getDateCopy(updated, null, true)}</Disclaimer>
+          <Disclaimer>
+            Updated: {getDateCopy(updated, { dateOnly: true })}
+          </Disclaimer>
         )}
         {fields && !assigneeDisplayName && <Disclaimer>Unassigned</Disclaimer>}{" "}
         {assigneeDisplayName && (
