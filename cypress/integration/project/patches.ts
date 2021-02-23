@@ -21,6 +21,7 @@ describe("Project Patches Page", () => {
     cy.visit(route);
     cy.dataCy("patches-page-title").contains("evergreen smoke test Patches");
     const patchDisplayNames = [
+      "main: EVG-7823 add a commit queue message (#4048)",
       "dist",
       "dist",
       "test meee",
