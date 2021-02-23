@@ -21,7 +21,7 @@ describe("Project Patches Page", () => {
     cy.visit(route);
     cy.dataCy("patches-page-title").contains("evergreen smoke test Patches");
     const patchDisplayNames = [
-      "Commit Queue Merge: No Commits Added",
+      "Commit Queue Merge:",
       "dist",
       "dist",
       "test meee",
