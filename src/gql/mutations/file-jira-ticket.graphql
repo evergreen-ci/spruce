@@ -1,0 +1,4 @@
+
+  mutation bbCreateTicket($taskId: String!, $execution: Int) {
+    bbCreateTicket(taskId: $taskId, execution: $execution)
+  }

@@ -7,8 +7,11 @@ import { TaskEventLogEntry } from "gql/generated/types";
 
 const FORMAT_STR = "MMM d, yyyy, h:mm:ss aaaa";
 
-export const TaskEventLogLine: React.FC<TaskEventLogEntry> = (props) => {
-  const { timestamp, eventType, data } = props;
+export const TaskEventLogLine: React.FC<TaskEventLogEntry> = ({
+  timestamp,
+  eventType,
+  data,
+}) => {
   const { hostId, status, userId, jiraIssue, jiraLink, priority } = data;
   const hostLink = getHostRoute(hostId);
   let message: JSX.Element;

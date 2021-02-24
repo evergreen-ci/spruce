@@ -1,0 +1,23 @@
+
+  query GetSpruceConfig {
+    spruceConfig {
+      bannerTheme
+      banner
+      ui {
+        userVoice
+      }
+      jira {
+        host
+      }
+      providers {
+        aws {
+          maxVolumeSizePerUser
+        }
+      }
+      spawnHost {
+        spawnHostsPerUser
+        unexpirableHostsPerUser
+        unexpirableVolumesPerUser
+      }
+    }
+  }

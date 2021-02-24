@@ -16,8 +16,8 @@ import {
   RestartPatchMutation,
   RestartPatchMutationVariables,
 } from "gql/generated/types";
-import { RESTART_PATCH } from "gql/mutations/restart-patch";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
+import { RESTART_PATCH } from "gql/mutations";
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";

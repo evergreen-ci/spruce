@@ -12,7 +12,7 @@ import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
 import { reportError } from "utils/errorReporting";
 

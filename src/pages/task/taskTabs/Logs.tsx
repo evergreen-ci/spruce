@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
 import { getLobsterTaskLink } from "constants/routes";
+import { TaskLogLinks } from "gql/generated/types";
 import {
   EventLog,
   AgentLog,
@@ -20,16 +21,8 @@ const options = {
   [LogTypes.Event]: EventLog,
 };
 
-interface LogLinks {
-  allLogLink?: string;
-  agentLogLink?: string;
-  systemLogLink?: string;
-  taskLogLink?: string;
-  eventLogLink?: string;
-}
-
 interface Props {
-  logLinks: LogLinks;
+  logLinks: TaskLogLinks;
   taskId: string;
   execution: number;
 }
@@ -71,11 +64,12 @@ export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
 
 interface GetLinksResult {
   htmlLink?: string;
+  lobsterLink?: string;
   rawLink?: string;
 }
 
 const getLinks = (
-  logLinks: LogLinks,
+  logLinks: TaskLogLinks,
   logType: LogTypes,
   taskId: string,
   execution: number
@@ -86,14 +80,16 @@ const getLinks = (
   if (logType === LogTypes.Event) {
     return { htmlLink: logLinks.eventLogLink };
   }
+  const htmlLink = `${
+    {
+      [LogTypes.Agent]: logLinks.agentLogLink,
+      [LogTypes.System]: logLinks.systemLogLink,
+      [LogTypes.Task]: logLinks.taskLogLink,
+    }[logType] ?? ""
+  }`;
   return {
-    htmlLink: getLobsterTaskLink(logType, taskId, execution),
-    rawLink: `${
-      {
-        [LogTypes.Agent]: logLinks.agentLogLink,
-        [LogTypes.System]: logLinks.systemLogLink,
-        [LogTypes.Task]: logLinks.taskLogLink,
-      }[logType] ?? ""
-    }&text=true`,
+    htmlLink,
+    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
+    rawLink: `${htmlLink}&text=true`,
   };
 };

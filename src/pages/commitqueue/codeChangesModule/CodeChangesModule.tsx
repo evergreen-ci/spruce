@@ -5,13 +5,13 @@ import { Accordian } from "components/Accordian";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import {
-  CodeChangesTableFileDiffsFragment,
-  ModuleCodeChange,
+  FileDiffsFragment,
+  ModuleCodeChangeFragment,
 } from "gql/generated/types";
 import { bucketByCommit } from "utils/fileDiffs/bucketByCommit";
 
 const totalFileDiffs = (
-  fileDiffs: CodeChangesTableFileDiffsFragment[]
+  fileDiffs: FileDiffsFragment[]
 ): { additions: number; deletions: number } => {
   let additions = 0;
   let deletions = 0;
@@ -23,7 +23,7 @@ const totalFileDiffs = (
 };
 
 export const CodeChangeModule: React.FC<{
-  moduleCodeChange: ModuleCodeChange;
+  moduleCodeChange: ModuleCodeChangeFragment;
 }> = ({ moduleCodeChange }) => {
   const { fileDiffs } = moduleCodeChange;
 

@@ -1,0 +1,3 @@
+mutation RemoveItemFromCommitQueue($commitQueueId: String!, $issue: String!) {
+  removeItemFromCommitQueue(commitQueueId: $commitQueueId, issue: $issue)
+}

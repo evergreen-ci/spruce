@@ -1,6 +1,6 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SPRUCE_CONFIG,
@@ -37,6 +37,9 @@ const myHostsMock = {
           },
           hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
           homeVolumeID: "vol-07fa9f6b5c2067e34",
+          homeVolume: {
+            displayName: "",
+          },
           id: "i-00b212e96b3f91079",
           instanceType: "m5.xlarge",
           instanceTags: [

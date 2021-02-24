@@ -1,0 +1,3 @@
+mutation DetachVolumeFromHost($volumeId: String!) {
+  detachVolumeFromHost(volumeId: $volumeId)
+}

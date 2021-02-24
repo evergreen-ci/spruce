@@ -68,13 +68,6 @@ export const getBuildStatusIconLink = (patchId: string, buildVariant: string) =>
 export const getUserPatchesRoute = (userId: string): string =>
   `${paths.user}/${userId}/${PageNames.Patches}`;
 
-export const getLobsterTaskLink = (
-  logType: LogTypes,
-  taskId: string,
-  execution: number
-) =>
-  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
-
 interface GetVersionRouteOptions {
   tab?: PatchTab;
   variant?: string;

@@ -12,7 +12,7 @@ import {
   AddAnnotationIssueMutation,
   AddAnnotationIssueMutationVariables,
 } from "gql/generated/types";
-import { ADD_ANNOTATION } from "gql/mutations/add-annotation";
+import { ADD_ANNOTATION } from "gql/mutations";
 
 const { TextArea } = Input;
 interface Props {

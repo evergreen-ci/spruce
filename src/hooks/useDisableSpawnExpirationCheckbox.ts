@@ -1,11 +1,11 @@
 import { useQuery } from "@apollo/client";
 import {
   GetSpruceConfigQuery,
-  GetPatchTaskStatusesQueryVariables,
   MyHostsQuery,
   MyHostsQueryVariables,
   MyVolumesQuery,
   MyVolumesQueryVariables,
+  GetSpruceConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_MY_VOLUMES, GET_SPRUCE_CONFIG } from "gql/queries";
 import { MyHost, MyVolume } from "types/spawn";
@@ -31,7 +31,7 @@ export const useDisableSpawnExpirationCheckbox = (
   >(GET_MY_VOLUMES);
   const { data: spruceConfigData } = useQuery<
     GetSpruceConfigQuery,
-    GetPatchTaskStatusesQueryVariables
+    GetSpruceConfigQueryVariables
   >(GET_SPRUCE_CONFIG);
 
   const currentUnexpirableCount = (

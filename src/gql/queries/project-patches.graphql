@@ -1,0 +1,11 @@
+#import "../fragments/patchesPage.graphql"
+
+query ProjectPatches($projectId: String!, $patchesInput: PatchesInput!) {
+    project(projectId: $projectId) {
+      id
+      displayName
+      patches(patchesInput: $patchesInput) {
+        ...PatchesPagePatches
+      }
+    }
+  }

@@ -1,0 +1,99 @@
+#import "../fragments/baseTask.graphql"
+#import "../fragments/annotation.graphql"
+#import "../fragments/jiraTicket.graphql"
+
+query GetTask($taskId: String!, $execution: Int) {
+  taskFiles(taskId: $taskId, execution: $execution) {
+    fileCount
+  }
+  task(taskId: $taskId, execution: $execution) {
+    ...baseTask
+    aborted
+    abortInfo {
+      user
+      taskDisplayName
+      taskID
+      buildVariantDisplayName
+      newVersion
+      prClosed
+    }
+    activatedBy
+    executionTasksFull {
+      displayName
+      id
+      execution
+      status
+      baseStatus
+      buildVariant
+    }
+    baseTaskMetadata {
+      baseTaskDuration
+      baseTaskLink
+    }
+  
+    ingestTime
+    estimatedStart
+    finishTime
+    hostId
+    patchMetadata {
+      author
+      patchID
+    }
+    projectId
+    patchNumber
+    reliesOn {
+      buildVariant
+      metStatus
+      name
+      requiredStatus
+      uiLink
+    }
+    logs {
+      allLogLink
+      agentLogLink
+      systemLogLink
+      taskLogLink
+      eventLogLink
+    }
+    startTime
+    timeTaken
+    version
+    totalTestCount
+    failedTestCount
+    spawnHostLink
+    priority
+    canRestart
+    canAbort
+    canSchedule
+    canUnschedule
+    canSetPriority
+    ami
+    distroId
+    latestExecution
+    blocked
+    generatedBy
+    generatedByName
+    isPerfPluginEnabled
+    minQueuePosition
+    details {
+      oomTracker {
+        detected
+        pids
+      }
+    }
+    canModifyAnnotation
+    annotation {
+      ...annotation
+      issues {
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+      suspectedIssues {
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+      }
+    }
+}
