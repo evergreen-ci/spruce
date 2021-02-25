@@ -1,0 +1,6 @@
+  query TaskQueueDistros {
+    taskQueueDistros {
+      id
+      queueCount
+    }
+  }

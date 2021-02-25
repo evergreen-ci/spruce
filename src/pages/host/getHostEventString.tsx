@@ -3,9 +3,9 @@ import styled from "@emotion/styled/macro";
 import Code from "@leafygreen-ui/code";
 import { Collapse } from "antd";
 import { StyledLink } from "components/styles";
+import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
-import { getUiUrl } from "utils/getEnvironmentVariables";
 import { stringifyNanoseconds, shortenString } from "utils/string";
 
 const { Panel } = Collapse;
@@ -34,7 +34,6 @@ export const getHostEventString = (
   data: HostEventLogData
 ) => {
   const succeededString = "succeeded";
-
   switch (eventType) {
     case HostEvent.Created:
       return <span data-cy="created">Host created</span>;
@@ -161,6 +160,7 @@ export const getHostEventString = (
             <HostEventLog
               title="Additional details"
               logs={data.logs}
+              data-cy="host-status-log"
               isCode={false}
             />
           ) : (
@@ -212,7 +212,7 @@ export const getHostEventString = (
           Assigned to run task{" "}
           <StyledLink
             data-cy="host-running-task-set-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
@@ -225,7 +225,7 @@ export const getHostEventString = (
           Current running task cleared (was:
           <StyledLink
             data-cy="host-running-task-cleared-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>
@@ -283,7 +283,7 @@ export const getHostEventString = (
           Task{" "}
           <StyledLink
             data-cy="host-task-finished-link"
-            href={`${getUiUrl()}/task${data.taskId}/${data.execution}`}
+            href={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
           </StyledLink>{" "}
@@ -313,19 +313,16 @@ export const StyledCollapse = styled(Collapse)`
 
 export const HostEventLog: React.FC<{
   title: string;
-  logs: any;
+  logs: string;
   isCode: boolean;
-}> = ({ title, logs, isCode }) => (
+  "data-cy"?: string;
+}> = ({ title, logs, isCode, "data-cy": dataCy = "host-event-logs-title" }) => (
   <span data-cy="host-event-logs">
     <StyledCollapse bordered={false}>
-      <Panel header={title} key="1">
-        {isCode ? (
-          <Code multiline={false} language="shell">
-            {logs}
-          </Code>
-        ) : (
-          { logs }
-        )}
+      <Panel header={<span data-cy={dataCy}>{title}</span>} key="1">
+        <span data-cy="host-event-log-content">
+          {isCode ? <Code language="shell">{logs}</Code> : logs}
+        </span>
       </Panel>
     </StyledCollapse>
   </span>

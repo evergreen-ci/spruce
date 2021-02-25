@@ -5,20 +5,19 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import get from "lodash/get";
 import { useLocation, useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
   RestartPatchMutation,
   RestartPatchMutationVariables,
 } from "gql/generated/types";
-import { RESTART_PATCH } from "gql/mutations/restart-patch";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries/get-patch-build-variants";
+import { RESTART_PATCH } from "gql/mutations";
+import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
@@ -41,7 +40,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   patchId: patchIdFromProps,
   refetchQueries,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
   const patchId = patchIdFromProps ?? id;
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
@@ -53,23 +52,21 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   >(RESTART_PATCH, {
     onCompleted: () => {
       onOk();
-      dispatchBanner.successBanner(`Successfully restarted patch!`);
+      dispatchToast.success(`Successfully restarted patch!`);
     },
     onError: (err) => {
       onOk();
-      dispatchBanner.errorBanner(
-        `Error while restarting patch: '${err.message}'`
-      );
+      dispatchToast.error(`Error while restarting patch: '${err.message}'`);
     },
     refetchQueries,
   });
-  const { data, loading } = useQuery<
+  const { data } = useQuery<
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
     variables: { patchId },
   });
-  const patchBuildVariants = get(data, "patchBuildVariants");
+  const { patchBuildVariants } = data || {};
   const [
     selectedTasks,
     patchStatusFilterTerm,
@@ -93,7 +90,6 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
     try {
       patchAnalytics.sendEvent({
         name: "Restart",
@@ -139,7 +135,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       ]}
       data-cy="patch-restart-modal"
     >
-      {!loading && patchBuildVariants && (
+      {patchBuildVariants && (
         <>
           <Row>
             <TaskStatusFilters

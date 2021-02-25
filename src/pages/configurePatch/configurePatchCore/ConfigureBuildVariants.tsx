@@ -1,5 +1,5 @@
-import React from "react";
-import { css } from "@emotion/core";
+import React, { useEffect, useMemo, useReducer } from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -23,6 +23,31 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   selectedBuildVariant,
   setSelectedBuildVariant,
 }) => {
+  const [state, dispatch] = useReducer(reducer, { numButtonsPressed: 0 });
+  const keyDownCb = useMemo(
+    () => (e: KeyboardEvent) => {
+      if (hotKeys.has(e.key)) {
+        dispatch({ type: "increment" });
+      }
+    },
+    [dispatch]
+  );
+  const keyUpCb = useMemo(
+    () => (e: KeyboardEvent) => {
+      if (hotKeys.has(e.key)) {
+        dispatch({ type: "decrement" });
+      }
+    },
+    [dispatch]
+  );
+  useEffect(() => {
+    window.addEventListener("keydown", keyDownCb);
+    window.addEventListener("keyup", keyUpCb);
+    return () => {
+      window.removeEventListener("keyDown", keyDownCb);
+      window.removeEventListener("keyup", keyUpCb);
+    };
+  }, [keyUpCb, keyDownCb]);
   const getClickVariantHandler = (variantName: string) => (e): void => {
     if (e.ctrlKey || e.metaKey) {
       const updatedBuildVariants = toggleArray(variantName, [
@@ -56,47 +81,73 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     }
   };
   return (
-    <StyledSiderCard>
-      <Container>
-        <Body weight="medium">Select Build Variants and Tasks</Body>
-        <Divider />
-      </Container>
-      {variants.map(({ displayName, name }) => {
-        const taskCount = selectedVariantTasks[name]
-          ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
-          : null;
-        const isSelected = selectedBuildVariant.includes(name);
-        return (
-          <BuildVariant
-            data-cy="configurePatch-buildVariantListItem"
-            data-cy-name={name}
-            data-cy-selected={isSelected}
-            key={name}
-            isSelected={isSelected}
-            onClick={getClickVariantHandler(name)}
-          >
-            <VariantName>
-              <Body weight={isSelected ? "medium" : "regular"}>
-                {displayName}
-              </Body>
-            </VariantName>
-            {taskCount > 0 && (
-              <StyledBadge
-                data-cy={`configurePatch-taskCountBadge-${name}`}
-                variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-              >
-                {taskCount}
-              </StyledBadge>
-            )}
-          </BuildVariant>
-        );
-      })}
-    </StyledSiderCard>
+    <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
+      {/* @ts-expect-error */}
+      <StyledSiderCard>
+        <Container>
+          <Body weight="medium">Select Build Variants and Tasks</Body>
+          <Divider />
+        </Container>
+        {variants.map(({ displayName, name }) => {
+          const taskCount = selectedVariantTasks[name]
+            ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
+            : null;
+          const isSelected = selectedBuildVariant.includes(name);
+          return (
+            <BuildVariant
+              data-cy="configurePatch-buildVariantListItem"
+              data-cy-name={name}
+              data-cy-selected={isSelected}
+              key={name}
+              isSelected={isSelected}
+              onClick={getClickVariantHandler(name)}
+            >
+              <VariantName>
+                <Body weight={isSelected ? "medium" : "regular"}>
+                  {displayName}
+                </Body>
+              </VariantName>
+              {taskCount > 0 && (
+                <StyledBadge
+                  data-cy={`configurePatch-taskCountBadge-${name}`}
+                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+                >
+                  {taskCount}
+                </StyledBadge>
+              )}
+            </BuildVariant>
+          );
+        })}
+      </StyledSiderCard>
+    </UserSelectWrapper>
   );
+};
+
+const hotKeys = new Set(["Meta", "Shift", "Control"]);
+interface State {
+  numButtonsPressed: number;
+}
+type Action = { type: "increment" } | { type: "decrement" };
+const reducer = (state: State, action: Action) => {
+  switch (action.type) {
+    case "increment":
+      return {
+        numButtonsPressed: state.numButtonsPressed + 1,
+      };
+    case "decrement":
+      return {
+        numButtonsPressed: state.numButtonsPressed - 1,
+      };
+    default:
+      throw new Error();
+  }
 };
 
 interface VariantProps {
   isSelected: boolean;
+}
+interface UserSelectWrapperProps {
+  isHotKeyPressed: boolean;
 }
 
 export const cardSidePadding = css`
@@ -106,11 +157,15 @@ export const cardSidePadding = css`
 const Container = styled.div`
   ${cardSidePadding}
 `;
+const UserSelectWrapper = styled.span<UserSelectWrapperProps>`
+  ${(props: UserSelectWrapperProps): string =>
+    props.isHotKeyPressed && "user-select: none;"}
+`;
 const StyledSiderCard = styled(SiderCard)`
   padding-left: 0px;
   padding-right: 0px;
 `;
-const BuildVariant = styled.div`
+const BuildVariant = styled.div<VariantProps>`
   display: flex;
   align-items: center;
   min-height: 32px;

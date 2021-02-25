@@ -2,7 +2,6 @@ import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
 import { addMilliseconds } from "date-fns";
 import { withRouter } from "react-router-dom";
-import { GET_TASK_EVENT_DATA } from "analytics/task/query";
 import { GET_USER } from "gql/queries";
 import { customRenderWithRouterMatch as render } from "test_utils/test-utils";
 import { Metadata } from "./Metadata";
@@ -14,6 +13,7 @@ const taskQuery = {
   taskFiles: { __typename: "TaskFiles", fileCount: 38 },
   task: {
     id: "someTaskId",
+    execution: 0,
     isPerfPluginEnabled: false,
     __typename: "Task",
     activatedBy: "",
@@ -61,6 +61,7 @@ const taskQuery = {
     canSchedule: false,
     canUnschedule: false,
     canSetPriority: false,
+    canModifyAnnotation: false,
     ami: "ami-0c83bb0a9f48c15bf",
     distroId: "ubuntu1604-small",
     latestExecution: 0,
@@ -69,6 +70,7 @@ const taskQuery = {
     buildVariant: "ubuntu1604",
     minQueuePosition: 0,
     projectId: "spruce",
+    aborted: false,
   },
 };
 
@@ -115,24 +117,6 @@ const mocks = [
       },
     },
   },
-  {
-    request: {
-      query: GET_TASK_EVENT_DATA,
-      variables: {
-        taskId,
-      },
-    },
-    result: {
-      data: {
-        task: {
-          __typename: "Task",
-          id: taskId,
-          status: "started",
-          failedTestCount: 0,
-        },
-      },
-    },
-  },
 ];
 
 test("Renders the metadata card with a pending status", async () => {
@@ -141,7 +125,7 @@ test("Renders the metadata card with a pending status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskAboutToStart}
+        task={taskAboutToStart.task}
         error={undefined}
       />
     </MockedProvider>
@@ -164,7 +148,7 @@ test("Renders the metadata card with a started status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskStarted}
+        task={taskStarted.task}
         error={undefined}
       />
     </MockedProvider>
@@ -186,7 +170,7 @@ test("Renders the metadata card with a succeeded status", async () => {
       <Metadata
         taskId={taskId}
         loading={false}
-        data={taskSucceeded}
+        task={taskSucceeded.task}
         error={undefined}
       />
     </MockedProvider>

@@ -13,6 +13,7 @@ export enum RequiredQueryParams {
 export enum PatchTasksQueryParams {
   SortBy = "sortBy",
   SortDir = "sortDir",
+  Sorts = "sorts",
   Page = "page",
   Limit = "limit",
   Statuses = "statuses",
@@ -35,6 +36,7 @@ export enum TaskTab {
   Logs = "logs",
   Tests = "tests",
   Files = "files",
+  ExecutionTasks = "execution-tasks",
   Annotations = "annotations",
   TrendCharts = "trend-charts",
 }
@@ -90,4 +92,6 @@ export enum TaskStatus {
   // not satisfied
   StatusBlocked = "blocked",
   Aborted = "aborted",
+
+  Known = "known-failure",
 }

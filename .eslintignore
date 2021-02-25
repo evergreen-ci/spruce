@@ -1,2 +1,3 @@
 src/gql/generated/types.ts
 src/serviceWorker.ts
+config/*

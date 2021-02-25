@@ -219,14 +219,12 @@ describe("My Patches Page", () => {
   });
 });
 
-const dataCyNextPage =
-  "[data-test-id=my-patches-pagination] > .ant-pagination-next";
-const dataCyPrevPage =
-  "[data-test-id=my-patches-pagination] > .ant-pagination-prev";
+const dataCyNextPage = "[data-cy=my-patches-pagination] > .ant-pagination-next";
+const dataCyPrevPage = "[data-cy=my-patches-pagination] > .ant-pagination-prev";
 const dataCyTableRows = tableRow;
 
 const firstPageDisplayNames = [
-  "master: EVG-7823 add a commit queue message (#4048)",
+  "main: EVG-7823 add a commit queue message (#4048)",
   "dist",
   "test meee",
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",

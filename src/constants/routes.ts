@@ -1,7 +1,8 @@
-import { PatchTasksQueryParams } from "types/task";
+import { PatchTab } from "types/patch";
+import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { stringifyQuery } from "utils";
 
-enum PageNames {
+export enum PageNames {
   Patches = "patches",
 }
 
@@ -18,7 +19,7 @@ export enum PreferencesTabRoutes {
   PublicKeys = "publickeys",
 }
 
-export const paths = {
+const paths = {
   commitQueue: "/commit-queue",
   host: "/host",
   hosts: "/hosts",
@@ -53,14 +54,10 @@ export const routes = {
   spawnVolume: `${paths.spawn}/${SpawnTab.Volume}`,
   task: `${paths.task}/:id/:tab?`,
   taskQueue: `${paths.taskQueue}/:distro?/:taskId?`,
+  userPatchesRedirect: `${paths.user}/:id`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
 };
-
-export enum PatchTab {
-  Tasks = "tasks",
-  Changes = "changes",
-}
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
 
@@ -89,11 +86,41 @@ export const getVersionRoute = (
   }?${queryParams}`;
 };
 
+interface GetPatchRouteOptions {
+  tab?: string;
+  configure: boolean;
+}
+
+export const getPatchRoute = (
+  patchId: string,
+  options: GetPatchRouteOptions
+) => {
+  const { tab, configure, ...rest } = options || {};
+  const queryParams = stringifyQuery({
+    ...rest,
+  });
+  if (!configure) return getVersionRoute(patchId);
+  return `${paths.patch}/${patchId}/${PatchTab.Configure}/${
+    tab ?? DEFAULT_PATCH_TAB
+  }?${queryParams}`;
+};
+
 export const getHostRoute = (hostId: string) => `${paths.host}/${hostId}`;
 
-export const getTaskRoute = (taskId: string) => `${paths.task}/${taskId}`;
-
-export const getPreferencesRoute = (tab: PreferencesTabRoutes) =>
+interface GetTaskRouteOptions {
+  tab?: TaskTab;
+  [key: string]: any;
+}
+export const getTaskRoute = (taskId: string, options?: GetTaskRouteOptions) => {
+  const { tab, ...rest } = options || {};
+  const queryParams = stringifyQuery({
+    ...rest,
+  });
+  return `${paths.task}/${taskId}${tab ? `/${tab}` : ""}${
+    queryParams ? `?${queryParams}` : ""
+  }`;
+};
+export const getPreferencesRoute = (tab?: PreferencesTabRoutes) =>
   `${paths.preferences}/${tab}`;
 
 export const getTaskQueueRoute = (distro: string, taskId?: string) =>
@@ -127,5 +154,8 @@ export const getSpawnVolumeRoute = (volume: string) => {
   return `${routes.spawnVolume}?${queryParams}`;
 };
 
-export const getProjectPatchesRoute = (projectId) =>
+export const getProjectPatchesRoute = (projectId: string) =>
   `${paths.project}/${projectId}/${PageNames.Patches}`;
+
+export const getCommitQueueRoute = (projectId: string) =>
+  `${paths.commitQueue}/${projectId}`;

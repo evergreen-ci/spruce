@@ -6,36 +6,30 @@ import { Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import Badge from "components/Badge";
-import { Banners } from "components/Banners";
 import { PageTitle } from "components/PageTitle";
 import { PageWrapper } from "components/styles";
 import { P1 } from "components/Typography";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   CommitQueueQuery,
   CommitQueueQueryVariables,
 } from "gql/generated/types";
-import { GET_COMMIT_QUEUE } from "gql/queries/get-commit-queue";
-import { withBannersContext } from "hoc/withBannersContext";
+import { GET_COMMIT_QUEUE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { CommitQueueCard } from "./commitqueue/CommitQueueCard";
 
 const { gray } = uiColors;
 
-const CommitQueueCore: React.FC = () => {
+export const CommitQueue: React.FC = () => {
   const { id } = useParams<{ id: string }>();
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+  const dispatchToast = useToastContext();
   const { data, loading } = useQuery<
     CommitQueueQuery,
     CommitQueueQueryVariables
   >(GET_COMMIT_QUEUE, {
     variables: { id },
     onError: (err) => {
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error loading the commit queue: ${err.message}`
       );
     },
@@ -46,10 +40,6 @@ const CommitQueueCore: React.FC = () => {
   usePageTitle(`Commit Queue - ${id}`);
   return (
     <PageWrapper>
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       <PageTitle
         title="Commit Queue"
         badge={
@@ -99,5 +89,3 @@ const buildBadgeString = (queueLength: number): string => {
   }
   return `${queueLength} Item`;
 };
-
-export const CommitQueue = withBannersContext(CommitQueueCore);

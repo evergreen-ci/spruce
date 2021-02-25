@@ -3,7 +3,7 @@ import { popconfirmYesClassName } from "../../utils/popconfirm";
 describe("Host page restart jasper and update host status buttons", () => {
   before(() => {
     cy.login();
-    cy.visit("/host/i-092593689871a50dc");
+    cy.visit("/host/i-0d0ae8b83366d22be");
   });
 
   beforeEach(() => {
@@ -11,10 +11,10 @@ describe("Host page restart jasper and update host status buttons", () => {
     cy.preserveCookies();
   });
 
-  it("Should show a banner when jasper restarted", () => {
+  it("Should show a toast when jasper restarted", () => {
     cy.dataCy("restart-jasper-button").click();
     cy.get(popconfirmYesClassName).click();
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 
   it("Should show and hide the modal for update status", () => {
@@ -25,7 +25,7 @@ describe("Host page restart jasper and update host status buttons", () => {
     cy.dataCy("decommissioned-option").click();
     cy.dataCy("modal-update-button").click();
 
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
     cy.dataCy("update-host-status-modal").should("not.be.visible");
   });
 });

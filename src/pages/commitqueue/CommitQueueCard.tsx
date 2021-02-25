@@ -6,13 +6,13 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
-import { paths } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import {
-  ModuleCodeChange,
+  ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,
   RemoveItemFromCommitQueueMutationVariables,
 } from "gql/generated/types";
-import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations/remove-item-from-commit-queue";
+import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
@@ -26,7 +26,7 @@ interface Props {
   patchId: string;
   owner: string;
   repo: string;
-  moduleCodeChanges: ModuleCodeChange[];
+  moduleCodeChanges: ModuleCodeChangeFragment[];
   commitQueueId: string;
 }
 const { blue, gray } = uiColors;
@@ -64,18 +64,18 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            <CardTitle to={`${paths.version}/${patchId}`}>{title}</CardTitle>
+            <CardTitle to={getVersionRoute(patchId)}>{title}</CardTitle>
             <CardMetaData>
               By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
             </CardMetaData>
-            <>
+            <Container>
               {moduleCodeChanges?.map((moduleCodeChange) => (
                 <CodeChangeModule
                   key={moduleCodeChange.rawLink}
                   moduleCodeChange={moduleCodeChange}
                 />
               ))}
-            </>
+            </Container>
           </CommitInfo>
         ) : (
           <CommitInfo>
@@ -144,4 +144,8 @@ const CommitQueueCardGrid = styled.div`
 
 const CommitQueueCardActions = styled.div`
   grid-area: 1 / 3 / 2 / 4;
+`;
+
+const Container = styled.div`
+  padding-top: 24px;
 `;

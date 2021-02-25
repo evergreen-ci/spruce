@@ -80,8 +80,7 @@ export type QueryProjectArgs = {
 
 export type QueryPatchTasksArgs = {
   patchId: Scalars["String"];
-  sortBy?: Maybe<TaskSortCategory>;
-  sortDir?: Maybe<SortDirection>;
+  sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   limit?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
@@ -112,6 +111,7 @@ export type QueryUserArgs = {
 
 export type QueryTaskLogsArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type QueryPatchBuildVariantsArgs = {
@@ -357,6 +357,7 @@ export type MutationEditSpawnHostArgs = {
 
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export enum SpawnHostStatusActions {
@@ -491,7 +492,9 @@ export type SpawnHostInput = {
   volumeId?: Maybe<Scalars["String"]>;
   taskId?: Maybe<Scalars["String"]>;
   useProjectSetupScript?: Maybe<Scalars["Boolean"]>;
+  useTaskConfig?: Maybe<Scalars["Boolean"]>;
   spawnHostsStartedByTask?: Maybe<Scalars["Boolean"]>;
+  taskSync?: Maybe<Scalars["Boolean"]>;
 };
 
 export type EditSpawnHostInput = {
@@ -527,6 +530,11 @@ export type IssueLinkInput = {
   issueKey: Scalars["String"];
 };
 
+export type SortOrder = {
+  Key: TaskSortCategory;
+  Direction: SortDirection;
+};
+
 export type TaskQueueItem = {
   id: Scalars["ID"];
   displayName: Scalars["String"];
@@ -545,6 +553,7 @@ export type TaskQueueDistro = {
 };
 
 export type Host = {
+  homeVolume?: Maybe<Volume>;
   id: Scalars["ID"];
   hostUrl: Scalars["String"];
   tag: Scalars["String"];
@@ -586,6 +595,7 @@ export type DistroInfo = {
   isVirtualWorkStation?: Maybe<Scalars["Boolean"]>;
   user?: Maybe<Scalars["String"]>;
   isWindows?: Maybe<Scalars["Boolean"]>;
+  bootstrapMethod?: Maybe<Scalars["String"]>;
 };
 
 export type Distro = {
@@ -674,7 +684,7 @@ export type Patch = {
   tasks: Array<Scalars["String"]>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
-  alias: Scalars["String"];
+  alias?: Maybe<Scalars["String"]>;
   duration?: Maybe<PatchDuration>;
   time?: Maybe<PatchTime>;
   taskCount?: Maybe<Scalars["Int"]>;
@@ -741,9 +751,15 @@ export type TaskResult = {
   version: Scalars["String"];
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
+  baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
+};
+
+export type BaseTaskResult = {
+  id: Scalars["ID"];
+  status: Scalars["String"];
 };
 
 export type PatchDuration = {
@@ -826,31 +842,33 @@ export type BaseTaskMetadata = {
 };
 
 export type AbortInfo = {
-  user?: Maybe<Scalars["String"]>;
-  taskID?: Maybe<Scalars["String"]>;
-  taskDisplayName?: Maybe<Scalars["String"]>;
-  buildVariantDisplayName?: Maybe<Scalars["String"]>;
-  newVersion?: Maybe<Scalars["String"]>;
-  prClosed?: Maybe<Scalars["Boolean"]>;
+  user: Scalars["String"];
+  taskID: Scalars["String"];
+  taskDisplayName: Scalars["String"];
+  buildVariantDisplayName: Scalars["String"];
+  newVersion: Scalars["String"];
+  prClosed: Scalars["Boolean"];
 };
 
 export type Task = {
-  aborted?: Maybe<Scalars["Boolean"]>;
+  aborted: Scalars["Boolean"];
   abortInfo?: Maybe<AbortInfo>;
   activated: Scalars["Boolean"];
   activatedBy?: Maybe<Scalars["String"]>;
   activatedTime?: Maybe<Scalars["Time"]>;
-  annotation?: Maybe<Annotation>;
   ami?: Maybe<Scalars["String"]>;
-  blocked: Scalars["Boolean"];
-  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  annotation?: Maybe<Annotation>;
   baseStatus?: Maybe<Scalars["String"]>;
+  baseTaskMetadata?: Maybe<BaseTaskMetadata>;
+  blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
   canAbort: Scalars["Boolean"];
+  canModifyAnnotation: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
   canSchedule: Scalars["Boolean"];
   canSetPriority: Scalars["Boolean"];
+  canSync: Scalars["Boolean"];
   canUnschedule: Scalars["Boolean"];
   createTime?: Maybe<Scalars["Time"]>;
   details?: Maybe<TaskEndDetail>;
@@ -859,11 +877,10 @@ export type Task = {
   displayOnly?: Maybe<Scalars["Boolean"]>;
   distroId: Scalars["String"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
-  execution?: Maybe<Scalars["Int"]>;
+  execution: Scalars["Int"];
   executionTasks?: Maybe<Array<Scalars["String"]>>;
   executionTasksFull?: Maybe<Array<Task>>;
   expectedDuration?: Maybe<Scalars["Duration"]>;
-  totalTestCount: Scalars["Int"];
   failedTestCount: Scalars["Int"];
   finishTime?: Maybe<Scalars["Time"]>;
   generatedBy?: Maybe<Scalars["String"]>;
@@ -872,11 +889,14 @@ export type Task = {
   hostId?: Maybe<Scalars["String"]>;
   id: Scalars["String"];
   ingestTime?: Maybe<Scalars["Time"]>;
+  isPerfPluginEnabled: Scalars["Boolean"];
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
+  minQueuePosition: Scalars["Int"];
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
   priority?: Maybe<Scalars["Int"]>;
+  project?: Maybe<Project>;
   projectId: Scalars["String"];
   reliesOn: Array<Dependency>;
   requester: Scalars["String"];
@@ -889,9 +909,8 @@ export type Task = {
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
+  totalTestCount: Scalars["Int"];
   version: Scalars["String"];
-  minQueuePosition: Scalars["Int"];
-  isPerfPluginEnabled: Scalars["Boolean"];
 };
 
 export type Projects = {
@@ -905,12 +924,13 @@ export type GroupedProjects = {
 };
 
 export type Project = {
-  identifier: Scalars["String"];
-  id: Scalars["String"];
   displayName: Scalars["String"];
-  repo: Scalars["String"];
+  id: Scalars["String"];
+  identifier: Scalars["String"];
   owner: Scalars["String"];
   patches: Patches;
+  repo: Scalars["String"];
+  spawnHostScriptPath: Scalars["String"];
 };
 
 export type ProjectPatchesArgs = {
@@ -982,6 +1002,7 @@ export type CommitQueueItem = {
   version?: Maybe<Scalars["String"]>;
   enqueueTime?: Maybe<Scalars["Time"]>;
   patch?: Maybe<Patch>;
+  source?: Maybe<Scalars["String"]>;
   modules?: Maybe<Array<Module>>;
 };
 
@@ -1164,7 +1185,8 @@ export type Annotation = {
   note?: Maybe<Note>;
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
-  userCanModify: Scalars["Boolean"];
+  createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
+  userCanModify?: Maybe<Scalars["Boolean"]>;
 };
 
 export type Note = {
@@ -1196,7 +1218,125 @@ export type GetTaskEventDataQueryVariables = Exact<{
 }>;
 
 export type GetTaskEventDataQuery = {
-  task?: Maybe<{ id: string; status: string; failedTestCount: number }>;
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    status: string;
+    failedTestCount: number;
+  }>;
+};
+
+export type AnnotationFragment = {
+  id: string;
+  taskId: string;
+  taskExecution: number;
+  note?: Maybe<{
+    message: string;
+    source: { author: string; time: Date; requester: string };
+  }>;
+  issues?: Maybe<
+    Array<
+      Maybe<{
+        issueKey?: Maybe<string>;
+        url?: Maybe<string>;
+        source: { author: string; time: Date; requester: string };
+      }>
+    >
+  >;
+  suspectedIssues?: Maybe<
+    Array<
+      Maybe<{
+        issueKey?: Maybe<string>;
+        url?: Maybe<string>;
+        source: { author: string; time: Date; requester: string };
+      }>
+    >
+  >;
+};
+
+export type BaseHostFragment = {
+  id: string;
+  hostUrl: string;
+  status: string;
+  startedBy: string;
+  user?: Maybe<string>;
+  tag: string;
+  provider: string;
+};
+
+export type BasePatchFragment = {
+  id: string;
+  description: string;
+  author: string;
+  status: string;
+  activated: boolean;
+  alias?: Maybe<string>;
+  commitQueuePosition?: Maybe<number>;
+  variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+  parameters: Array<{ key: string; value: string }>;
+};
+
+export type BaseSpawnHostFragment = {
+  availabilityZone?: Maybe<string>;
+  displayName?: Maybe<string>;
+  expiration?: Maybe<Date>;
+  homeVolumeID?: Maybe<string>;
+  instanceType?: Maybe<string>;
+  noExpiration: boolean;
+  uptime?: Maybe<Date>;
+  distro?: Maybe<{
+    isVirtualWorkStation?: Maybe<boolean>;
+    id?: Maybe<string>;
+    user?: Maybe<string>;
+    workDir?: Maybe<string>;
+    isWindows?: Maybe<boolean>;
+  }>;
+  homeVolume?: Maybe<{ displayName: string }>;
+  instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
+  volumes: Array<{ displayName: string; id: string }>;
+} & BaseHostFragment;
+
+export type BaseTaskFragment = {
+  id: string;
+  execution: number;
+  buildVariant: string;
+  displayName: string;
+  revision?: Maybe<string>;
+  status: string;
+};
+
+export type FileDiffsFragment = {
+  fileName: string;
+  additions: number;
+  deletions: number;
+  diffLink: string;
+  description: string;
+};
+
+export type JiraTicketFragment = {
+  key: string;
+  fields: {
+    summary: string;
+    assigneeDisplayName?: Maybe<string>;
+    resolutionName?: Maybe<string>;
+    created: string;
+    updated: string;
+    assignedTeam?: Maybe<string>;
+    status: { id: string; name: string };
+  };
+};
+
+export type LogMessageFragment = {
+  severity?: Maybe<string>;
+  message?: Maybe<string>;
+  timestamp?: Maybe<Date>;
+};
+
+export type ModuleCodeChangeFragment = {
+  rawLink: string;
+  branchName: string;
+  htmlLink: string;
+  fileDiffs: Array<FileDiffsFragment>;
 };
 
 export type PatchesPagePatchesFragment = {
@@ -1217,7 +1357,7 @@ export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type AbortTaskMutation = { abortTask: { id: string } };
+export type AbortTaskMutation = { abortTask: BaseTaskFragment };
 
 export type AddAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -1275,18 +1415,7 @@ export type EditSpawnHostMutationVariables = Exact<{
   servicePassword?: Maybe<Scalars["String"]>;
 }>;
 
-export type EditSpawnHostMutation = {
-  editSpawnHost: {
-    id: string;
-    displayName?: Maybe<string>;
-    status: string;
-    instanceType?: Maybe<string>;
-    noExpiration: boolean;
-    expiration?: Maybe<Date>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
-  };
-};
+export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
 
 export type EnqueuePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -1297,9 +1426,27 @@ export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
 
 export type BbCreateTicketMutationVariables = Exact<{
   taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
+
+export type MoveAnnotationIssueMutationVariables = Exact<{
+  annotationId: Scalars["String"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type MoveAnnotationIssueMutation = { moveAnnotationIssue: boolean };
+
+export type RemoveAnnotationIssueMutationVariables = Exact<{
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
+  apiIssue: IssueLinkInput;
+  isIssue: Scalars["Boolean"];
+}>;
+
+export type RemoveAnnotationIssueMutation = { removeAnnotationIssue: boolean };
 
 export type RemoveItemFromCommitQueueMutationVariables = Exact<{
   commitQueueId: Scalars["String"];
@@ -1342,7 +1489,12 @@ export type RestartTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type RestartTaskMutation = { restartTask: { id: string } };
+export type RestartTaskMutation = {
+  restartTask: {
+    latestExecution: number;
+    execution: number;
+  } & BaseTaskFragment;
+};
 
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;
@@ -1363,23 +1515,17 @@ export type SchedulePatchMutationVariables = Exact<{
 
 export type SchedulePatchMutation = {
   schedulePatch: {
-    id: string;
-    activated: boolean;
     version: string;
-    description: string;
-    status: string;
     tasks: Array<string>;
     variants: Array<string>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
-  };
+  } & BasePatchFragment;
 };
 
 export type ScheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type ScheduleTaskMutation = { scheduleTask: { id: string } };
+export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
 
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -1394,7 +1540,7 @@ export type SetTaskPriorityMutationVariables = Exact<{
 }>;
 
 export type SetTaskPriorityMutation = {
-  setTaskPriority: { id: string; priority?: Maybe<number> };
+  setTaskPriority: { id: string; execution: number; priority?: Maybe<number> };
 };
 
 export type SpawnHostMutationVariables = Exact<{
@@ -1422,7 +1568,9 @@ export type UnscheduleTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type UnscheduleTaskMutation = { unscheduleTask: { id: string } };
+export type UnscheduleTaskMutation = {
+  unscheduleTask: { id: string; execution: number };
+};
 
 export type UpdateHostStatusMutationVariables = Exact<{
   hostIds: Array<Scalars["String"]>;
@@ -1483,6 +1631,24 @@ export type DistroTaskQueueQuery = {
   }>;
 };
 
+export type AgentLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type AgentLogsQuery = {
+  taskLogs: { agentLogs: Array<LogMessageFragment> };
+};
+
+export type GetAnnotationEventDataQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetAnnotationEventDataQuery = {
+  task?: Maybe<{ annotation?: Maybe<AnnotationFragment> }>;
+};
+
 export type BuildBaronQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -1531,21 +1697,7 @@ export type CodeChangesQueryVariables = Exact<{
 }>;
 
 export type CodeChangesQuery = {
-  patch: {
-    id: string;
-    moduleCodeChanges: Array<{
-      branchName: string;
-      htmlLink: string;
-      rawLink: string;
-      fileDiffs: Array<{
-        fileName: string;
-        additions: number;
-        deletions: number;
-        diffLink: string;
-        description: string;
-      }>;
-    }>;
-  };
+  patch: { id: string; moduleCodeChanges: Array<ModuleCodeChangeFragment> };
 };
 
 export type CommitQueueQueryVariables = Exact<{
@@ -1566,18 +1718,7 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
-          moduleCodeChanges: Array<{
-            rawLink: string;
-            branchName: string;
-            htmlLink: string;
-            fileDiffs: Array<{
-              description: string;
-              fileName: string;
-              additions: number;
-              deletions: number;
-              diffLink: string;
-            }>;
-          }>;
+          moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
     >;
@@ -1610,6 +1751,29 @@ export type DistrosQuery = {
   distros: Array<
     Maybe<{ name?: Maybe<string>; isVirtualWorkStation: boolean }>
   >;
+};
+
+export type EventLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type EventLogsQuery = {
+  taskLogs: {
+    eventLogs: Array<{
+      timestamp?: Maybe<Date>;
+      eventType?: Maybe<string>;
+      data: {
+        hostId?: Maybe<string>;
+        jiraIssue?: Maybe<string>;
+        jiraLink?: Maybe<string>;
+        priority?: Maybe<number>;
+        status?: Maybe<string>;
+        timestamp?: Maybe<Date>;
+        userId?: Maybe<string>;
+      };
+    }>;
+  };
 };
 
 export type HostEventsQueryVariables = Exact<{
@@ -1655,18 +1819,14 @@ export type HostQueryVariables = Exact<{
 }>;
 
 export type HostQuery = {
-  host?: Maybe<{
-    id: string;
-    hostUrl: string;
-    distroId?: Maybe<string>;
-    tag: string;
-    provider: string;
-    startedBy: string;
-    user?: Maybe<string>;
-    status: string;
-    lastCommunicationTime?: Maybe<Date>;
-    runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
-  }>;
+  host?: Maybe<
+    {
+      distroId?: Maybe<string>;
+      lastCommunicationTime?: Maybe<Date>;
+      distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
+      runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
+    } & BaseHostFragment
+  >;
 };
 
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
@@ -1675,33 +1835,7 @@ export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type MyHostsQuery = {
-  myHosts: Array<{
-    expiration?: Maybe<Date>;
-    hostUrl: string;
-    homeVolumeID?: Maybe<string>;
-    id: string;
-    instanceType?: Maybe<string>;
-    noExpiration: boolean;
-    provider: string;
-    status: string;
-    startedBy: string;
-    tag: string;
-    user?: Maybe<string>;
-    uptime?: Maybe<Date>;
-    displayName?: Maybe<string>;
-    availabilityZone?: Maybe<string>;
-    distro?: Maybe<{
-      isVirtualWorkStation?: Maybe<boolean>;
-      id?: Maybe<string>;
-      user?: Maybe<string>;
-      workDir?: Maybe<string>;
-      isWindows?: Maybe<boolean>;
-    }>;
-    instanceTags: Array<{ key: string; value: string; canBeModified: boolean }>;
-    volumes: Array<{ displayName: string; id: string }>;
-  }>;
-};
+export type MyHostsQuery = { myHosts: Array<BaseSpawnHostFragment> };
 
 export type MyVolumesQueryVariables = Exact<{ [key: string]: never }>;
 
@@ -1721,6 +1855,15 @@ export type MyVolumesQuery = {
     creationTime?: Maybe<Date>;
     host?: Maybe<{ displayName?: Maybe<string>; id: string }>;
   }>;
+};
+
+export type GetOtherUserQueryVariables = Exact<{
+  userId?: Maybe<Scalars["String"]>;
+}>;
+
+export type GetOtherUserQuery = {
+  otherUser: { userId: string; displayName: string };
+  currentUser: { userId: string };
 };
 
 export type PatchBuildVariantsQueryVariables = Exact<{
@@ -1744,6 +1887,24 @@ export type PatchBuildVariantsQuery = {
   }>;
 };
 
+export type ConfigurePatchQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type ConfigurePatchQuery = {
+  patch: {
+    time?: Maybe<{ submittedAt: string }>;
+    project?: Maybe<{
+      tasks: Array<string>;
+      variants: Array<{
+        name: string;
+        displayName: string;
+        tasks: Array<string>;
+      }>;
+    }>;
+  } & BasePatchFragment;
+};
+
 export type GetPatchTaskStatusesQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -1758,8 +1919,7 @@ export type GetPatchTaskStatusesQuery = {
 
 export type PatchTasksQueryVariables = Exact<{
   patchId: Scalars["String"];
-  sortBy?: Maybe<TaskSortCategory>;
-  sortDir?: Maybe<SortDirection>;
+  sorts?: Maybe<Array<SortOrder>>;
   page?: Maybe<Scalars["Int"]>;
   statuses?: Maybe<Array<Scalars["String"]>>;
   baseStatuses?: Maybe<Array<Scalars["String"]>>;
@@ -1773,22 +1933,46 @@ export type PatchTasksQuery = {
     count: number;
     tasks: Array<{
       id: string;
+      aborted: boolean;
       status: string;
-      baseStatus?: Maybe<string>;
       displayName: string;
       buildVariant: string;
       blocked: boolean;
       executionTasksFull?: Maybe<
         Array<{
           id: string;
+          execution: number;
           displayName: string;
           status: string;
           buildVariant: string;
           baseStatus?: Maybe<string>;
         }>
       >;
+      baseTask?: Maybe<{ status: string }>;
     }>;
   };
+};
+
+export type PatchQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type PatchQuery = {
+  patch: {
+    projectID: string;
+    githash: string;
+    patchNumber: number;
+    version: string;
+    taskCount?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
+    canEnqueueToCommitQueue: boolean;
+    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
+    time?: Maybe<{
+      started?: Maybe<string>;
+      submittedAt: string;
+      finished?: Maybe<string>;
+    }>;
+  } & BasePatchFragment;
 };
 
 export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
@@ -1838,13 +2022,23 @@ export type GetSpruceConfigQuery = {
   }>;
 };
 
+export type SystemLogsQueryVariables = Exact<{
+  id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type SystemLogsQuery = {
+  taskLogs: { systemLogs: Array<LogMessageFragment> };
+};
+
 export type GetTaskAllExecutionsQueryVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
 export type GetTaskAllExecutionsQuery = {
   taskAllExecutions: Array<{
-    execution?: Maybe<number>;
+    id: string;
+    execution: number;
     status: string;
     ingestTime?: Maybe<Date>;
     activatedTime?: Maybe<Date>;
@@ -1866,68 +2060,13 @@ export type TaskFilesQuery = {
   };
 };
 
-export type EventLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type EventLogsQuery = {
-  taskLogs: {
-    eventLogs: Array<{
-      timestamp?: Maybe<Date>;
-      eventType?: Maybe<string>;
-      data: {
-        hostId?: Maybe<string>;
-        jiraIssue?: Maybe<string>;
-        jiraLink?: Maybe<string>;
-        priority?: Maybe<number>;
-        status?: Maybe<string>;
-        timestamp?: Maybe<Date>;
-        userId?: Maybe<string>;
-      };
-    }>;
-  };
-};
-
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
 }>;
 
 export type TaskLogsQuery = {
-  taskLogs: {
-    taskLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
-};
-
-export type AgentLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type AgentLogsQuery = {
-  taskLogs: {
-    agentLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
-};
-
-export type SystemLogsQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type SystemLogsQuery = {
-  taskLogs: {
-    systemLogs: Array<{
-      severity?: Maybe<string>;
-      message?: Maybe<string>;
-      timestamp?: Maybe<Date>;
-    }>;
-  };
+  taskLogs: { taskLogs: Array<LogMessageFragment> };
 };
 
 export type TaskTestsQueryVariables = Exact<{
@@ -1963,122 +2102,89 @@ export type GetTaskQueryVariables = Exact<{
 
 export type GetTaskQuery = {
   taskFiles: { fileCount: number };
-  task?: Maybe<{
-    id: string;
-    activatedBy?: Maybe<string>;
-    buildVariant: string;
-    ingestTime?: Maybe<Date>;
-    estimatedStart?: Maybe<number>;
-    displayName: string;
-    finishTime?: Maybe<Date>;
-    hostId?: Maybe<string>;
-    projectId: string;
-    patchNumber?: Maybe<number>;
-    startTime?: Maybe<Date>;
-    status: string;
-    timeTaken?: Maybe<number>;
-    version: string;
-    revision?: Maybe<string>;
-    totalTestCount: number;
-    failedTestCount: number;
-    spawnHostLink?: Maybe<string>;
-    priority?: Maybe<number>;
-    canRestart: boolean;
-    canAbort: boolean;
-    canSchedule: boolean;
-    canUnschedule: boolean;
-    canSetPriority: boolean;
-    ami?: Maybe<string>;
-    distroId: string;
-    latestExecution: number;
-    blocked: boolean;
-    generatedBy?: Maybe<string>;
-    generatedByName?: Maybe<string>;
-    isPerfPluginEnabled: boolean;
-    minQueuePosition: number;
-    baseTaskMetadata?: Maybe<{
-      baseTaskDuration?: Maybe<number>;
-      baseTaskLink: string;
-    }>;
-    patchMetadata: { author: string; patchID: string };
-    reliesOn: Array<{
-      buildVariant: string;
-      metStatus: MetStatus;
-      name: string;
-      requiredStatus: RequiredStatus;
-      uiLink: string;
-    }>;
-    logs: {
-      allLogLink?: Maybe<string>;
-      agentLogLink?: Maybe<string>;
-      systemLogLink?: Maybe<string>;
-      taskLogLink?: Maybe<string>;
-      eventLogLink?: Maybe<string>;
-    };
-    details?: Maybe<{
-      oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
-    }>;
-    annotation?: Maybe<{
-      id: string;
-      taskId: string;
-      taskExecution: number;
-      userCanModify: boolean;
-      note?: Maybe<{
-        message: string;
-        source: { author: string; time: Date; requester: string };
+  task?: Maybe<
+    {
+      aborted: boolean;
+      activatedBy?: Maybe<string>;
+      ingestTime?: Maybe<Date>;
+      estimatedStart?: Maybe<number>;
+      finishTime?: Maybe<Date>;
+      hostId?: Maybe<string>;
+      projectId: string;
+      patchNumber?: Maybe<number>;
+      startTime?: Maybe<Date>;
+      timeTaken?: Maybe<number>;
+      version: string;
+      totalTestCount: number;
+      failedTestCount: number;
+      spawnHostLink?: Maybe<string>;
+      priority?: Maybe<number>;
+      canRestart: boolean;
+      canAbort: boolean;
+      canSchedule: boolean;
+      canUnschedule: boolean;
+      canSetPriority: boolean;
+      ami?: Maybe<string>;
+      distroId: string;
+      latestExecution: number;
+      blocked: boolean;
+      generatedBy?: Maybe<string>;
+      generatedByName?: Maybe<string>;
+      isPerfPluginEnabled: boolean;
+      minQueuePosition: number;
+      canModifyAnnotation: boolean;
+      abortInfo?: Maybe<{
+        user: string;
+        taskDisplayName: string;
+        taskID: string;
+        buildVariantDisplayName: string;
+        newVersion: string;
+        prClosed: boolean;
       }>;
-      issues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
-          }>
-        >
+      executionTasksFull?: Maybe<
+        Array<{
+          displayName: string;
+          id: string;
+          execution: number;
+          status: string;
+          baseStatus?: Maybe<string>;
+          buildVariant: string;
+        }>
       >;
-      suspectedIssues?: Maybe<
-        Array<
-          Maybe<{
-            issueKey?: Maybe<string>;
-            url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
-            jiraTicket?: Maybe<{
-              key: string;
-              fields: {
-                summary: string;
-                assigneeDisplayName?: Maybe<string>;
-                resolutionName?: Maybe<string>;
-                created: string;
-                updated: string;
-                assignedTeam?: Maybe<string>;
-                status: { id: string; name: string };
-              };
-            }>;
-          }>
-        >
+      baseTaskMetadata?: Maybe<{
+        baseTaskDuration?: Maybe<number>;
+        baseTaskLink: string;
+      }>;
+      patchMetadata: { author: string; patchID: string };
+      reliesOn: Array<{
+        buildVariant: string;
+        metStatus: MetStatus;
+        name: string;
+        requiredStatus: RequiredStatus;
+        uiLink: string;
+      }>;
+      logs: {
+        allLogLink?: Maybe<string>;
+        agentLogLink?: Maybe<string>;
+        systemLogLink?: Maybe<string>;
+        taskLogLink?: Maybe<string>;
+        eventLogLink?: Maybe<string>;
+      };
+      details?: Maybe<{
+        oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
+      }>;
+      annotation?: Maybe<
+        {
+          issues?: Maybe<
+            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
+          >;
+          suspectedIssues?: Maybe<
+            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
+          >;
+        } & AnnotationFragment
       >;
-    }>;
-  }>;
-};
-
-export type GetTaskLatestExecutionQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type GetTaskLatestExecutionQuery = {
-  task?: Maybe<{ id: string; latestExecution: number }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;
@@ -2121,15 +2227,6 @@ export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
 };
 
-export type GetOtherUserQueryVariables = Exact<{
-  userId?: Maybe<Scalars["String"]>;
-}>;
-
-export type GetOtherUserQuery = {
-  otherUser: { userId: string; displayName: string };
-  currentUser: { userId: string };
-};
-
 export type HostsQueryVariables = Exact<{
   hostId?: Maybe<Scalars["String"]>;
   distroId?: Maybe<Scalars["String"]>;
@@ -2158,66 +2255,9 @@ export type HostsQuery = {
       elapsed?: Maybe<Date>;
       provider: string;
       noExpiration: boolean;
+      distro?: Maybe<{ bootstrapMethod?: Maybe<string> }>;
       runningTask?: Maybe<{ id?: Maybe<string>; name?: Maybe<string> }>;
     }>;
-  };
-};
-
-export type PatchQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type PatchQuery = {
-  patch: {
-    id: string;
-    description: string;
-    projectID: string;
-    githash: string;
-    patchNumber: number;
-    author: string;
-    version: string;
-    status: string;
-    activated: boolean;
-    alias: string;
-    taskCount?: Maybe<number>;
-    commitQueuePosition?: Maybe<number>;
-    baseVersionID?: Maybe<string>;
-    canEnqueueToCommitQueue: boolean;
-    parameters: Array<{ key: string; value: string }>;
-    duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
-    time?: Maybe<{
-      started?: Maybe<string>;
-      submittedAt: string;
-      finished?: Maybe<string>;
-    }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-  };
-};
-
-export type ConfigurePatchQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type ConfigurePatchQuery = {
-  patch: {
-    id: string;
-    description: string;
-    author: string;
-    alias: string;
-    status: string;
-    activated: boolean;
-    commitQueuePosition?: Maybe<number>;
-    time?: Maybe<{ submittedAt: string }>;
-    project?: Maybe<{
-      tasks: Array<string>;
-      variants: Array<{
-        name: string;
-        displayName: string;
-        tasks: Array<string>;
-      }>;
-    }>;
-    variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
-    parameters: Array<{ key: string; value: string }>;
   };
 };
 
@@ -2239,6 +2279,20 @@ export type SpawnExpirationInfoQueryVariables = Exact<{ [key: string]: never }>;
 export type SpawnExpirationInfoQuery = {
   myHosts: Array<{ noExpiration: boolean; id: string }>;
   myVolumes: Array<{ noExpiration: boolean; id: string }>;
+};
+
+export type GetSpawnTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetSpawnTaskQuery = {
+  task?: Maybe<
+    {
+      canSync: boolean;
+      project?: Maybe<{ spawnHostScriptPath: string }>;
+    } & BaseTaskFragment
+  >;
 };
 
 export type SubnetAvailabilityZonesQueryVariables = Exact<{

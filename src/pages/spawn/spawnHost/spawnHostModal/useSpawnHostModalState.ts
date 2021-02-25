@@ -19,6 +19,7 @@ interface spawnHostState {
   taskId?: string;
   useProjectSetupScript: boolean;
   spawnHostsStartedByTask?: boolean;
+  taskSync: boolean;
 }
 
 export const useSpawnHostModalState = () => ({
@@ -42,11 +43,34 @@ const init = () => ({
   region: "",
   taskId: null,
   useProjectSetupScript: false,
-  spawnHostsStartedByTask: null,
+  spawnHostsStartedByTask: false,
+  taskSync: false,
 });
 
 const reducer = (state: spawnHostState, action: Action) => {
   switch (action.type) {
+    case "ingestQueryParams":
+      return {
+        ...state,
+        taskId: action.taskId,
+        distroId: action.distroId,
+      };
+    case "setTaskSync":
+      return {
+        ...state,
+        taskSync: action.taskSync,
+        taskId:
+          action.taskSync ||
+          state.useProjectSetupScript ||
+          state.spawnHostsStartedByTask
+            ? action.taskId
+            : "",
+      };
+    case "setIsVirtualWorkstation":
+      return {
+        ...state,
+        isVirtualWorkstation: action.isVirtualWorkstation,
+      };
     case "reset":
       return init();
     case "editExpiration":
@@ -61,15 +85,18 @@ const reducer = (state: spawnHostState, action: Action) => {
         region: action.region,
       };
     case "editDistro": {
-      const { isVirtualWorkstation } = action;
       return {
         ...state,
         distroId: action.distroId,
-        isVirtualWorkStation: isVirtualWorkstation,
-        homeVolumeSize: isVirtualWorkstation ? 500 : null,
-        noExpiration: isVirtualWorkstation,
       };
     }
+    case "editDistroEffect":
+      return {
+        ...state,
+        isVirtualWorkStation: action.isVirtualWorkstation,
+        homeVolumeSize: action.isVirtualWorkstation ? 500 : null,
+        noExpiration: action.noExpiration,
+      };
     case "editPublicKey":
       return {
         ...state,
@@ -89,21 +116,40 @@ const reducer = (state: spawnHostState, action: Action) => {
     case "setProjectSetupScript":
       return {
         ...state,
-        taskId: action.taskId,
         useProjectSetupScript: action.useProjectSetupScript,
-        distroId:
-          action.distroId !== undefined ? action.distroId : state.distroId,
+        taskId:
+          action.useProjectSetupScript ||
+          state.taskSync ||
+          state.spawnHostsStartedByTask
+            ? action.taskId
+            : "",
       };
     case "setSpawnHostsStartedByTask":
       return {
         ...state,
         spawnHostsStartedByTask: action.spawnHostsStartedByTask,
+        taskId:
+          action.spawnHostsStartedByTask ||
+          state.taskSync ||
+          state.useProjectSetupScript
+            ? action.taskId
+            : "",
       };
     case "editVolumes":
       return {
         ...state,
         volumeId: action.volumeId,
         homeVolumeSize: action.homeVolumeSize,
+      };
+    case "loadDataOntoHost":
+      return {
+        ...state,
+        taskId: action.taskId,
+        ...(!action.taskId && {
+          spawnHostsStartedByTask: false,
+          taskSync: false,
+          useProjectSetupScript: false,
+        }),
       };
     default:
       throw new Error();
@@ -118,14 +164,23 @@ export type Action =
   | { type: "editSetupScript"; setUpScript: string }
   | {
       type: "setProjectSetupScript";
-      taskId: string;
       useProjectSetupScript: boolean;
-      distroId?: string;
+      taskId: string;
     }
   | {
       type: "setSpawnHostsStartedByTask";
       spawnHostsStartedByTask: boolean;
+      taskId: string;
     }
   | ({ type: "editPublicKey" } & publicKeyStateType)
   | ({ type: "editExpiration" } & ExpirationDateType)
-  | ({ type: "editVolumes" } & VolumesData);
+  | ({ type: "editVolumes" } & VolumesData)
+  | { type: "ingestQueryParams"; distroId: string; taskId: string }
+  | { type: "setIsVirtualWorkstation"; isVirtualWorkstation: boolean }
+  | { type: "setTaskSync"; taskSync: boolean; taskId: string }
+  | {
+      type: "editDistroEffect";
+      isVirtualWorkstation: boolean;
+      noExpiration: boolean;
+    }
+  | { type: "loadDataOntoHost"; taskId: string };

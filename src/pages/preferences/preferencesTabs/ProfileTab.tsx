@@ -8,7 +8,7 @@ import { Select } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
 import { timeZones } from "constants/fieldMaps";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -36,20 +36,16 @@ export const ProfileTab: React.FC = () => {
     setTimezoneField(timezone);
     setRegionField(region);
   }, [githubUser, timezone, region]);
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
     onCompleted: () => {
-      dispatchBanner.successBanner(
-        `Your changes have successfully been saved.`
-      );
+      dispatchToast.success(`Your changes have successfully been saved.`);
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error while saving settings: '${err.message}'`
-      );
+      dispatchToast.error(`Error while saving settings: '${err.message}'`);
     },
   });
 
@@ -62,7 +58,7 @@ export const ProfileTab: React.FC = () => {
   const awsRegions = get(awsRegionData, "awsRegions", []);
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
+
     const variables = {
       userSettings: {
         githubUser: {
@@ -92,6 +88,7 @@ export const ProfileTab: React.FC = () => {
 
   return (
     <div>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <ContentWrapper>
           <StyledTextInput
@@ -153,15 +150,19 @@ const StyledSelect = styled(Select)`
     margin-bottom: 40px;
   }
 `;
+
 const StyledTextInput = styled(TextInput)`
   margin-bottom: 24px;
   :last-child {
     margin-bottom: 40px;
   }
 `;
+
 const ContentWrapper = styled.div`
   width: 50%;
 `;
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

@@ -11,12 +11,12 @@ import set from "lodash/set";
 import { Modal } from "components/Modal";
 import { RegexSelectorInput } from "components/NotificationModal/RegexSelectorInput";
 import { ErrorMessage } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SaveSubscriptionMutation,
   SaveSubscriptionMutationVariables,
 } from "gql/generated/types";
-import { SAVE_SUBSCRIPTION } from "gql/mutations/save-subscription";
+import { SAVE_SUBSCRIPTION } from "gql/mutations";
 import {
   useNotificationModal,
   UseNotificationModalProps,
@@ -45,18 +45,16 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   sendAnalyticsEvent,
   "data-cy": dataCy,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
     SaveSubscriptionMutation,
     SaveSubscriptionMutationVariables
   >(SAVE_SUBSCRIPTION, {
     onCompleted: () => {
-      dispatchBanner.successBanner("Your subscription has been added");
+      dispatchToast.success("Your subscription has been added");
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error adding your subscription: '${err.message}'`
-      );
+      dispatchToast.error(`Error adding your subscription: '${err.message}'`);
     },
   });
 
@@ -105,9 +103,10 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
       title="Add Subscription"
       footer={
         <>
+          {}
           <LeftButton
-            key="cancel"
-            onClick={onCancel}
+            key="cancel" /* ts-expect-error */
+            /* ts-expect-error */ onClick={onCancel} /* ts-expect-error */
             data-cy="cancel-subscription-button"
           >
             Cancel
@@ -277,9 +276,10 @@ const SectionLabelContainer = styled.div`
   padding-top: 16px;
 `;
 
+/* @ts-expect-error */
 const LeftButton = styled(Button)`
   margin-right: 16px;
-`;
+` as typeof Button;
 
 const InputLabel = styled.label`
   font-size: 14px;

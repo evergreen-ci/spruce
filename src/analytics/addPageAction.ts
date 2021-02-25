@@ -14,6 +14,7 @@ export interface Analytics<Action> {
 type AnalyticsObject =
   | "Patch"
   | "Task"
+  | "Annotations"
   | "Navbar"
   | "Breadcrumb"
   | "UserPatches"

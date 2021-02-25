@@ -1,6 +1,6 @@
 import React from "react";
 import { MockedProvider } from "@apollo/client/testing";
-import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { SPAWN_VOLUME } from "gql/mutations";
 import {
   GET_MY_HOSTS,
   GET_SPRUCE_CONFIG,
@@ -37,6 +37,9 @@ const myHostsMock = {
           },
           hostUrl: "ec2-34-201-138-106.compute-1.amazonaws.com",
           homeVolumeID: "vol-07fa9f6b5c2067e34",
+          homeVolume: {
+            displayName: "",
+          },
           id: "i-00b212e96b3f91079",
           instanceType: "m5.xlarge",
           instanceTags: [
@@ -241,19 +244,18 @@ const baseMocks = [
   myVolumesQueryMock,
 ];
 
-const mockSuccessBanner = jest.fn();
-const mockErrorBanner = jest.fn();
-jest.mock("context/banners", () => ({
-  useBannerDispatchContext: () => ({
-    successBanner: mockSuccessBanner,
-    errorBanner: mockErrorBanner,
-    clearAllBanners: () => {},
+const mockSuccessToast = jest.fn();
+const mockErrorToast = jest.fn();
+jest.mock("context/toast", () => ({
+  useToastContext: () => ({
+    success: mockSuccessToast,
+    error: mockErrorToast,
   }),
 }));
 
 beforeEach(() => {
-  mockSuccessBanner.mockClear();
-  mockErrorBanner.mockClear();
+  mockSuccessToast.mockClear();
+  mockErrorToast.mockClear();
 });
 
 test("Renders the Spawn Volume Modal when the visible prop is true", async () => {
@@ -333,8 +335,8 @@ test("Form submission succeeds with default values", async () => {
   ));
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
 });
 
 test("Form submission succeeds after adjusting inputs", async () => {
@@ -379,6 +381,6 @@ test("Form submission succeeds after adjusting inputs", async () => {
   fireEvent.mouseDown(queryByDataCy("host-select").firstElementChild);
   fireEvent.click(queryByDataCy("i-00b212e96b3f91079-option"));
   fireEvent.click(queryByText("Spawn"));
-  await waitFor(() => expect(mockSuccessBanner).toHaveBeenCalledTimes(1));
-  await waitFor(() => expect(mockErrorBanner).toHaveBeenCalledTimes(0));
+  await waitFor(() => expect(mockSuccessToast).toHaveBeenCalledTimes(1));
+  await waitFor(() => expect(mockErrorToast).toHaveBeenCalledTimes(0));
 });

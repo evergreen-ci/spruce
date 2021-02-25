@@ -5,7 +5,6 @@ import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { useLocation } from "react-router-dom";
 import { useHostsTableAnalytics } from "analytics";
 import Badge, { Variant } from "components/Badge";
-import { Banners } from "components/Banners";
 import { Button } from "components/Button";
 import { ErrorBoundary } from "components/ErrorBoundary";
 import { UpdateStatusModal } from "components/Hosts";
@@ -19,25 +18,17 @@ import {
   PageWrapper,
 } from "components/styles";
 import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
-import {
   HostsQuery,
   HostsQueryVariables,
   HostSortBy,
   SortDirection,
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
-import { withBannersContext } from "hoc/withBannersContext";
 import { HostsTable } from "pages/hosts/HostsTable";
 import { parseQueryString, getArray, getString } from "utils";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
-const Hosts: React.FC = () => {
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
-
+export const Hosts: React.FC = () => {
   const hostsTableAnalytics = useHostsTableAnalytics();
 
   const { search } = useLocation();
@@ -61,6 +52,9 @@ const Hosts: React.FC = () => {
   // SELECTED HOST IDS STATE
   const [selectedHostIds, setSelectedHostIds] = useState<string[]>([]);
 
+  const [canRestartJasper, setCanRestartJasper] = useState<boolean>(true);
+  const [restartJasperError, setRestartJasperError] = useState<string>("");
+
   // UPDATE STATUS MODAL VISIBILITY STATE
   const [
     isUpdateStatusModalVisible,
@@ -82,10 +76,6 @@ const Hosts: React.FC = () => {
 
   return (
     <PageWrapper data-cy="hosts-page">
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
       <H2>Evergreen Hosts</H2>
       <ErrorBoundary>
         <TableControlOuterRow>
@@ -109,19 +99,23 @@ const Hosts: React.FC = () => {
                 </Button>
               </ButtonWrapper>
               <ButtonWrapper>
-                <RestartJasper selectedHostIds={selectedHostIds} />
+                <RestartJasper
+                  selectedHostIds={selectedHostIds}
+                  canRestartJasper={canRestartJasper}
+                  jasperTooltipMessage={restartJasperError}
+                />
               </ButtonWrapper>
             </HostsSelectionWrapper>
           </SubtitleDataWrapper>
           <TableControlInnerRow>
             <Pagination
-              dataTestId="tasks-table-pagination"
+              data-cy="hosts-table-pagination"
               pageSize={limit}
               value={page}
               totalResults={hasFilters ? filteredHostCount : totalHostsCount}
             />
             <PageSizeSelector
-              data-cy="tasks-table-page-size-selector"
+              data-cy="hosts-table-page-size-selector"
               value={limit}
               sendAnalyticsEvent={() =>
                 hostsTableAnalytics.sendEvent({ name: "Change Page Size" })
@@ -136,6 +130,8 @@ const Hosts: React.FC = () => {
             sortDir={sortDir}
             selectedHostIds={selectedHostIds}
             setSelectedHostIds={setSelectedHostIds}
+            setCanRestartJasper={setCanRestartJasper}
+            setRestartJasperError={setRestartJasperError}
             loading={loading}
           />
         </TableContainer>
@@ -207,7 +203,3 @@ const HostsSelectionWrapper = styled.div`
 const ButtonWrapper = styled.div`
   margin-left: 24px;
 `;
-
-const HostsWithBannersContext = withBannersContext(Hosts);
-
-export { HostsWithBannersContext as Hosts };

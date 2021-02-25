@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { wordBreakCss } from "components/Typography";
 import { BannerTypeKeys } from "types/banner";
 
 const { green, red, yellow, blue, gray } = uiColors;
@@ -67,6 +68,7 @@ const Wrapper = styled.div`
 `;
 const StyledBody = styled(Body)`
   color: ${({ type }: StyleProps) => mapTypeToTextColor[type]};
+  ${wordBreakCss}
 `;
 const X = styled.div`
   margin-left: 16px;

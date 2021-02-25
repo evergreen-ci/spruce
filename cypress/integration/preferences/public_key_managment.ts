@@ -93,13 +93,13 @@ describe("Public Key Management Page", () => {
   });
 
   describe("Network errors", () => {
-    it("should show an error banner after submitting an invalid public key", () => {
+    it("should show an error toast after submitting an invalid public key", () => {
       cy.visit(route);
       cy.dataCy("add-key-button").click();
       cy.dataCy("key-name-input").type("rsioeantarsn");
       cy.dataCy("key-value-input").type("ssh-rsa");
       cy.dataCy("save-key-button").click();
-      cy.dataCy("banner").first().should("exist");
+      cy.dataCy("toast").first().should("exist");
     });
   });
 });

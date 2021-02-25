@@ -10,7 +10,7 @@ import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { HR } from "components/styles/Layout";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   DistrosQuery,
   DistrosQueryVariables,
@@ -30,6 +30,7 @@ import {
   GET_AWS_REGIONS,
   GET_MY_VOLUMES,
 } from "gql/queries";
+import { useDisableSpawnExpirationCheckbox } from "hooks";
 import { omitTypename } from "utils/string";
 import {
   HostDetailsForm,
@@ -46,7 +47,7 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
   visible,
   onCancel,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   // QUERY distros
   const { data: distrosData, loading: distroLoading } = useQuery<
@@ -84,12 +85,11 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     onCompleted(hostMutation) {
       const { id } = hostMutation?.spawnHost;
       onCancel();
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner(`Successfully spawned host: ${id}`);
+      dispatchToast.success(`Successfully spawned host: ${id}`);
     },
     onError(err) {
       onCancel();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while spawning your host: ${err.message}`
       );
     },
@@ -102,7 +102,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
 
   const { distroId, region, publicKey } = spawnHostModalState;
 
-  const fetchedDistros = distrosData?.distros ?? [];
   const publicKeys = publicKeysData?.myPublicKeys;
   const awsRegions = awsData?.awsRegions;
   const volumes = volumesData?.myVolumes ?? [];
@@ -141,37 +140,48 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     }
   }, [awsRegions, publicKeys, dispatch]);
 
-  // Need to initialize these here so they can be used in the useEffect hook
-  let virtualWorkstationDistros = [];
-  let notVirtualWorkstationDistros = [];
+  const unexpirableCountReached = useDisableSpawnExpirationCheckbox(false);
+
+  // recalculate isVirtualWorkstation whenever distro changes
+  // initial distroId can be changed from URL
+  useEffect(() => {
+    const isVirtualWorkstation = !!distrosData?.distros.find(
+      (vd) => distroId === vd.name
+    )?.isVirtualWorkStation;
+    dispatch({
+      type: "editDistroEffect",
+      isVirtualWorkstation,
+      noExpiration: isVirtualWorkstation && !unexpirableCountReached, // only default virtual workstations to unexpirable if possible
+    });
+  }, [distroId, dispatch, distrosData?.distros, unexpirableCountReached]);
 
   if (distroLoading || publicKeyLoading || awsLoading || volumesLoading) {
     return null;
   }
 
-  const distros = fetchedDistros.filter((d) => d.name.includes(distroInput));
-  virtualWorkstationDistros = distros
-    .filter((d) => d.isVirtualWorkStation)
-    .sort((a, b) => a.name.localeCompare(b.name));
-  notVirtualWorkstationDistros = distros
-    .filter((d) => !d.isVirtualWorkStation)
+  const filteredDistros = (distrosData?.distros ?? [])
+    .filter((d) => d.name.includes(distroInput))
     .sort((a, b) => a.name.localeCompare(b.name));
 
   const distroOptions = [
     {
       label: renderTitle("WORKSTATION DISTROS"),
-      options: virtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: filteredDistros
+        .filter((d) => d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
     {
       label: renderTitle("OTHER DISTROS"),
-      options: notVirtualWorkstationDistros.map((d) => renderItem(d.name)),
+      options: filteredDistros
+        .filter((d) => !d.isVirtualWorkStation)
+        .map((d) => renderItem(d.name)),
     },
   ];
 
   const canSubmitSpawnHost = !(
     distroId === "" ||
     region === "" ||
-    publicKey.key === ""
+    publicKey?.key === ""
   );
 
   const spawnHost = (e) => {
@@ -189,9 +199,6 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
     dispatch({
       type: "editDistro",
       distroId: d,
-      isVirtualWorkstation: !!virtualWorkstationDistros.find(
-        (vd) => d === vd.name
-      ),
     });
   };
 
@@ -201,12 +208,13 @@ export const SpawnHostModal: React.FC<SpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton onClick={onCancel} key="cancel_button">
           Cancel
         </WideButton>,
         <WideButton
           data-cy="spawn-host-button"
-          disabled={!canSubmitSpawnHost || loadingSpawnHost}
+          disabled={!canSubmitSpawnHost || loadingSpawnHost} // @ts-expect-error
           onClick={spawnHost}
           variant={Variant.Primary}
           key="spawn_host_button"
@@ -277,6 +285,7 @@ const Section = styled(ModalContent)`
   margin-top: 20px;
 `;
 
+// @ts-expect-error
 const WideButton = styled(Button)`
   justify-content: center;
   width: 140px;

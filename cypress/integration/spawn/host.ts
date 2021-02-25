@@ -101,7 +101,29 @@ describe("Navigating to Spawn Host page", () => {
     });
 
     describe("Spawn host modal", () => {
+      it("Should disable 'Never expire' checkbox when max number of unexpirable hosts is met (2)", () => {
+        cy.visit("/spawn/host");
+        cy.contains("Spawn a host").click();
+        cy.dataCy("distro-input").click().type("{downarrow}").type("{enter}");
+        cy.dataCy("distro-input").should(
+          "have.attr",
+          "value",
+          "ubuntu1804-workstation"
+        );
+        cy.dataCy("neverExpireCheckbox").should(
+          "have.attr",
+          "aria-checked",
+          "false"
+        );
+        cy.dataCy("neverExpireCheckbox").should(
+          "have.css",
+          "pointer-events",
+          "none"
+        );
+      });
+
       it("Clicking on the spawn host button should open a spawn host modal.", () => {
+        cy.visit("/spawn/host");
         cy.dataCy("spawn-host-modal").should("not.be.visible");
         cy.dataCy("spawn-host-button").click();
         cy.dataCy("spawn-host-modal").should("be.visible");
@@ -110,15 +132,73 @@ describe("Navigating to Spawn Host page", () => {
         cy.visit("/spawn/host?spawnHost=True ");
         cy.dataCy("spawn-host-modal").should("be.visible");
       });
-      it("Visiting the spawn host page with a task and distro supplied in the url should populate the spawn host modal", () => {
+      it("Visiting the spawn host page with a taskId url param should render additional options at the bottom of the modal.", () => {
         cy.visit(
-          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
         );
-        cy.dataCy("spawn-host-modal").should("be.visible");
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Use project-specific setup script defined at /path"
+        );
         cy.dataCy("spawn-host-modal").should(
           "contain.text",
           "Load data for dist on ubuntu1604"
         );
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Load from task sync"
+        );
+        cy.dataCy("spawn-host-modal").should(
+          "contain.text",
+          "Also start any hosts this task started (if applicable)"
+        );
+      });
+
+      it("If 'Load data for dist' is unchecked, selecting one of it's children will check it.'", () => {
+        cy.visit(
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+        );
+        cy.wait(200);
+        cy.dataCy("parent-checkbox").click({ force: true });
+        cy.dataCy("parent-checkbox").should("not.be.checked");
+        cy.dataCy("also-start-hosts").click({ force: true });
+        cy.dataCy("parent-checkbox").should("be.checked");
+      });
+
+      it("If 'Load data for dist' is checked, deselecting all of it's checked children will uncheck it.'", () => {
+        cy.visit(
+          `spawn/host?spawnHost=True&distroId=rhel71-power8-large&taskId=${taskId}`
+        );
+        cy.wait(200);
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("also-start-hosts").should("not.be.checked");
+        cy.dataCy("also-start-hosts").click({ force: true });
+        cy.dataCy("also-start-hosts").should("be.checked"); // check 1st child
+
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("use-psss").should("not.be.checked");
+        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").should("be.checked"); // check 2nd child
+
+        cy.dataCy("parent-checkbox").should("be.checked");
+
+        cy.dataCy("also-start-hosts").click({ force: true }); // uncheck 1st child
+        cy.dataCy("also-start-hosts").should("not.be.checked");
+        cy.dataCy("parent-checkbox").should("be.checked"); // parent should be unchecked bc child 2 is selected
+
+        cy.dataCy("use-psss").click({ force: true });
+        cy.dataCy("use-psss").should("not.be.checked"); // uncheck 2nd child
+
+        cy.dataCy("parent-checkbox").should("not.be.checked");
+      });
+
+      it("Visiting the spawn host page with a task and distro supplied in the url should populate the distro input", () => {
+        cy.visit(
+          `/spawn/host?spawnHost=True&distroId=${distroId}&taskId=${taskId}`
+        );
+        cy.dataCy("spawn-host-modal").should("be.visible");
         cy.dataCy("distro-input").should("have.value", "ubuntu1604-small");
       });
       it("The virtual workstation dropdown should filter any volumes that aren't a home volume", () => {

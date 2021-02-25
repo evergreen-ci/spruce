@@ -19,7 +19,7 @@ import {
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
 import { InputLabel, StyledLink } from "components/styles";
 import { windowsPasswordRulesURL } from "constants/externalResources";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   InstanceTypesQuery,
   InstanceTypesQueryVariables,
@@ -53,7 +53,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   onCancel,
   host,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const spawnAnalytics = useSpawnAnalytics();
   const { reducer, defaultEditSpawnHostState } = useEditSpawnHostModalState(
@@ -84,13 +84,13 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   >(EDIT_SPAWN_HOST, {
     onCompleted(mutationResult) {
       const { id } = mutationResult?.editSpawnHost;
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner(`Successfully modified spawned host: ${id}`);
+
+      dispatchToast.success(`Successfully modified spawned host: ${id}`);
       onCancel();
     },
     onError(err) {
       onCancel();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while modifying your host: ${err.message}`
       );
     },
@@ -109,7 +109,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
 
   const onSubmit = (e) => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
+
     spawnAnalytics.sendEvent({
       name: "Edited a Spawn Host",
       params: {
@@ -134,12 +134,13 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton onClick={onCancel} key="cancel_button">
           Cancel
         </WideButton>,
         <WideButton
           data-cy="save-spawn-host-button"
-          disabled={hasChanges || loadingSpawnHost}
+          disabled={hasChanges || loadingSpawnHost} // @ts-expect-error
           onClick={onSubmit}
           variant={Variant.Primary}
           key="save_spawn_host_button"

@@ -1,17 +1,17 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
-import { CodeChangesTable, FileDiffText } from "components/CodeChangesTable";
+import { CodeChangesBadge } from "components/CodeChangesBadge";
+import { CodeChangesTable } from "components/CodeChangesTable";
 import { H2 } from "components/Typography";
 import {
   CodeChangesQuery,
   CodeChangesQueryVariables,
 } from "gql/generated/types";
-import { GET_CODE_CHANGES } from "gql/queries/get-code-changes";
+import { GET_CODE_CHANGES } from "gql/queries";
 
 export const CodeChanges: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -21,6 +21,7 @@ export const CodeChanges: React.FC = () => {
   >(GET_CODE_CHANGES, {
     variables: { id },
   });
+
   if (loading) {
     return <Skeleton active title paragraph={{ rows: 8 }} />;
   }
@@ -48,11 +49,11 @@ export const CodeChanges: React.FC = () => {
           0
         );
         return (
-          <div key={branchName}>
+          <Container key={branchName}>
             <Title>Changes on {branchName}: </Title>
             <StyledButton
-              className="cy-html-diff-btn"
-              size="small"
+              data-cy="html-diff-btn"
+              size="small" // @ts-expect-error
               title="Open diff as html file"
               href={htmlLink}
               target="_blank"
@@ -60,34 +61,33 @@ export const CodeChanges: React.FC = () => {
               HTML
             </StyledButton>
             <StyledButton
-              className="cy-raw-diff-btn"
-              size="small"
+              data-cy="raw-diff-btn"
+              size="small" // @ts-expect-error
               title="Open diff as raw file"
               href={rawLink}
               target="_blank"
             >
               Raw
             </StyledButton>
-            <StyledBadge>
-              <FileDiffText type="+" value={additions} />
-              <FileDiffText type="-" value={deletions} />
-            </StyledBadge>
+            <CodeChangesBadge additions={additions} deletions={deletions} />
             <CodeChangesTable fileDiffs={sortedFileDiffs} />
-          </div>
+          </Container>
         );
       })}
     </div>
   );
 };
 
+// @ts-expect-error
 const StyledButton = styled(Button)`
-  margin-left: 16px;
+  margin-right: 16px;
 `;
 
 const Title = styled(H2)`
   font-weight: normal;
+  margin-right: 16px;
 `;
 
-const StyledBadge = styled(Badge)`
-  margin-left: 16px;
+const Container = styled.div`
+  padding-bottom: 48px;
 `;

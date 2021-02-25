@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { Disclaimer } from "@leafygreen-ui/typography";
 import { DropdownItem } from "components/ButtonDropdown";
 import { EnqueuePatchModal } from "pages/patch/index";
 
@@ -9,17 +8,14 @@ interface EnqueuePatchProps {
   disabled: boolean;
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-  hideMenu: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
-  setParentLoading?: (loading: boolean) => void;
 }
+
 export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
   patchId,
   commitMessage,
   disabled,
   refetchQueries,
-  hideMenu,
   visibilityControl,
-  setParentLoading = () => undefined,
 }) => {
   const fallbackVisibilityControl = useState(false);
   const [isVisible, setIsVisible] =
@@ -27,27 +23,21 @@ export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
       ? visibilityControl
       : fallbackVisibilityControl;
 
-  const onClick = () => setIsVisible(!isVisible);
-  const onFinished = () => {
-    setIsVisible(false);
-    hideMenu();
-  };
   return (
     <>
       <DropdownItem
-        disabled={disabled}
         data-cy="enqueue-patch"
-        onClick={onClick}
+        disabled={disabled}
+        onClick={() => setIsVisible(!isVisible)}
       >
-        <Disclaimer>Add to commit queue</Disclaimer>
+        Add to commit queue
       </DropdownItem>
       <EnqueuePatchModal
         patchId={patchId}
         commitMessage={commitMessage}
         visible={isVisible}
-        onFinished={onFinished}
+        onFinished={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
-        setParentLoading={setParentLoading}
       />
     </>
   );

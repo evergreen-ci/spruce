@@ -13,7 +13,7 @@ describe("Select hosts in hosts page table", () => {
   });
 
   it("Selecting hosts shows hosts selection data", () => {
-    cy.visit(`${hostsRoute}?limit=100&page=0`);
+    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
 
     cy.waitForGQL("Hosts");
 
@@ -37,7 +37,7 @@ describe("Select hosts in hosts page table", () => {
   });
 
   it("Can restart jasper for selected hosts", () => {
-    cy.visit(`${hostsRoute}?limit=100&page=0`);
+    cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
 
     cy.waitForGQL("Hosts");
 
@@ -49,6 +49,6 @@ describe("Select hosts in hosts page table", () => {
 
     cy.get(popconfirmYesClassName).click();
 
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
   });
 });

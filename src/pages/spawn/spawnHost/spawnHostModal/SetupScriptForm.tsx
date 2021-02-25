@@ -4,8 +4,11 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Input } from "antd";
 import { useLocation } from "react-router";
-import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
-import { GET_TASK } from "gql/queries";
+import {
+  GetSpawnTaskQuery,
+  GetSpawnTaskQueryVariables,
+} from "gql/generated/types";
+import { GET_SPAWN_TASK } from "gql/queries";
 import { parseQueryString, getString } from "utils";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
@@ -15,6 +18,8 @@ export type setupScriptType = {
   setUpScript?: string;
   useProjectSetupScript?: boolean;
   spawnHostsStartedByTask?: boolean;
+  taskSync: boolean;
+  taskId?: string;
 };
 
 interface SetupScriptFormProps {
@@ -25,31 +30,37 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
   onChange,
   data,
 }) => {
-  const { setUpScript, useProjectSetupScript, spawnHostsStartedByTask } = data;
+  const {
+    setUpScript,
+    useProjectSetupScript,
+    spawnHostsStartedByTask,
+    taskSync,
+  } = data;
 
   const { search } = useLocation();
   const queryParams = parseQueryString(search);
-  const { taskId, distroId } = queryParams;
+  const { distroId } = queryParams;
+  const taskIdQueryParam = getString(queryParams.taskId);
   const [hasSetupScript, setHasSetupScript] = useState(false);
 
   const [getTask, { data: taskData }] = useLazyQuery<
-    GetTaskQuery,
-    GetTaskQueryVariables
-  >(GET_TASK);
+    GetSpawnTaskQuery,
+    GetSpawnTaskQueryVariables
+  >(GET_SPAWN_TASK);
 
   useEffect(() => {
-    if (taskId && distroId) {
-      getTask({ variables: { taskId: getString(taskId), execution: 0 } });
+    if (taskIdQueryParam && distroId) {
+      getTask({ variables: { taskId: taskIdQueryParam, execution: 0 } });
       onChange({
-        type: "setProjectSetupScript",
-        taskId: getString(taskId),
-        useProjectSetupScript: true,
+        type: "ingestQueryParams",
+        taskId: taskIdQueryParam,
         distroId: getString(distroId),
       });
     }
-  }, [taskId, distroId, getTask, onChange]);
+  }, [taskIdQueryParam, distroId, getTask, onChange]);
 
-  const { displayName, buildVariant, revision } = taskData?.task || {};
+  const { displayName, buildVariant, revision, project, canSync } =
+    taskData?.task || {};
   const hasTask = displayName && buildVariant && revision;
   const toggleSetupScript = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { checked } = e.target;
@@ -87,31 +98,66 @@ export const SetupScriptForm: React.FC<SetupScriptFormProps> = ({
                 <b>{revision.substring(0, 5)}</b> onto host at startup
               </>
             }
-            checked={useProjectSetupScript}
-            onChange={(e) =>
+            data-cy="parent-checkbox"
+            checked={!!data.taskId}
+            onChange={() => {
               onChange({
-                type: "setProjectSetupScript",
-                taskId: getString(taskId),
-                useProjectSetupScript: e.target.checked,
-              })
-            }
+                type: "loadDataOntoHost",
+                taskId: data.taskId ? "" : taskIdQueryParam,
+              });
+            }}
           />
-          <Checkbox
-            label={<>Also Start any hosts this task started (if applicable)</>}
-            checked={spawnHostsStartedByTask}
-            onChange={(e) =>
-              onChange({
-                type: "setSpawnHostsStartedByTask",
-                spawnHostsStartedByTask: e.target.checked,
-              })
-            }
-          />
+          <Indent>
+            {project?.spawnHostScriptPath && (
+              <Checkbox
+                data-cy="use-psss"
+                label={`Use project-specific setup script defined at ${project?.spawnHostScriptPath}`}
+                checked={useProjectSetupScript}
+                onChange={() =>
+                  onChange({
+                    type: "setProjectSetupScript",
+                    useProjectSetupScript: !useProjectSetupScript,
+                    taskId: taskIdQueryParam,
+                  })
+                }
+              />
+            )}
+            {canSync && (
+              <Checkbox
+                label="Load from task sync"
+                data-cy="load-from-task-sync"
+                checked={taskSync}
+                onChange={() =>
+                  onChange({
+                    type: "setTaskSync",
+                    taskSync: !taskSync,
+                    taskId: taskIdQueryParam,
+                  })
+                }
+                disabled={!canSync}
+              />
+            )}
+            <Checkbox
+              label="Also start any hosts this task started (if applicable)"
+              data-cy="also-start-hosts"
+              checked={spawnHostsStartedByTask}
+              onChange={() =>
+                onChange({
+                  type: "setSpawnHostsStartedByTask",
+                  spawnHostsStartedByTask: !spawnHostsStartedByTask,
+                  taskId: taskIdQueryParam,
+                })
+              }
+            />
+          </Indent>
         </>
       )}
     </div>
   );
 };
-
+const Indent = styled.div`
+  margin-left: 16px;
+`;
 const StyledTextArea = styled(TextArea)`
   margin: 15px 0;
 `;

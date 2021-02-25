@@ -35,36 +35,39 @@ export const DownloadCard = () => {
   );
 
   return (
-    <Container>
-      <Subtitle>Command-Line Client</Subtitle>
-      <CardDescription>
-        <Body>
-          View the{" "}
-          <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
-          run &nbsp;{" "}
-        </Body>
-        <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
-        <Body>for additional assistance.</Body>
-      </CardDescription>
-      <CardGroup>
-        {topBinaries.map((binary) => (
-          <CliDownloadBox
-            key={`downloadBox_${binary.url}`}
-            title={
-              prettyDisplayNameTop[binary.displayName] || binary.displayName
-            }
-            link={binary.url}
-          />
-        ))}
-      </CardGroup>
-      <Accordian
-        title={<StyledLink>Show More</StyledLink>}
-        toggledTitle={<StyledLink>Show Less</StyledLink>}
-        contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
-        toggleFromBottom
-        showCaret={false}
-      />
-    </Container>
+    <>
+      {/* @ts-expect-error */}
+      <Container>
+        <Subtitle>Command-Line Client</Subtitle>
+        <CardDescription>
+          <Body>
+            View the{" "}
+            <StyledLink href={cliDocumentationUrl}>documentation</StyledLink> or
+            run &nbsp;{" "}
+          </Body>
+          <InlinePre>evergreen --help or evergreen [command] --help</InlinePre>{" "}
+          <Body>for additional assistance.</Body>
+        </CardDescription>
+        <CardGroup>
+          {topBinaries.map((binary) => (
+            <CliDownloadBox
+              key={`downloadBox_${binary.url}`}
+              title={
+                prettyDisplayNameTop[binary.displayName] || binary.displayName
+              }
+              link={binary.url}
+            />
+          ))}
+        </CardGroup>
+        <Accordian
+          title={<StyledLink>Show More</StyledLink>}
+          toggledTitle={<StyledLink>Show Less</StyledLink>}
+          contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
+          toggleFromBottom
+          showCaret={false}
+        />
+      </Container>
+    </>
   );
 };
 
@@ -75,22 +78,26 @@ interface CliDownloadBoxProps {
 const CliDownloadBox: React.FC<CliDownloadBoxProps> = ({ title, link }) => {
   const { sendEvent } = usePreferencesAnalytics();
   return (
-    <CliDownloadCard>
-      <CliDownloadTitle>{title}</CliDownloadTitle>
-      <CliDownloadButton
-        onClick={() => {
-          sendEvent({
-            name: "CLI Download Link",
-            downloadName: title,
-          });
-        }}
-        href={link}
-        disabled={!link}
-        as="a"
-      >
-        Download
-      </CliDownloadButton>
-    </CliDownloadCard>
+    <>
+      {/* @ts-expect-error */}
+      <CliDownloadCard>
+        {/* @ts-expect-error */}
+        <CliDownloadTitle>{title}</CliDownloadTitle>
+        <CliDownloadButton
+          onClick={() => {
+            sendEvent({
+              name: "CLI Download Link",
+              downloadName: title,
+            });
+          }}
+          href={link}
+          disabled={!link} // @ts-expect-error
+          as="a"
+        >
+          Download
+        </CliDownloadButton>
+      </CliDownloadCard>
+    </>
   );
 };
 
@@ -151,11 +158,12 @@ const CliDownloadCard = styled(SiderCard)`
   padding-left: 20px;
   margin-right: 16px;
 `;
-
+// @ts-expect-error
 const CliDownloadButton = styled(Button)`
   align-self: flex-start;
 `;
 
+// @ts-expect-error
 const CliDownloadTitle = styled(Subtitle)`
   font-weight: bold;
   padding-bottom: 45px;

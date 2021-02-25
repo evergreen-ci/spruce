@@ -70,7 +70,7 @@ describe("Patch route", () => {
 
   it("Shows a message if there was a problem loading data", () => {
     cy.visit(`/patch/${badPatch.id}`);
-    cy.dataCy("banner").should("exist");
+    cy.dataCy("toast").should("exist");
     cy.get("#task-count").should("not.exist");
   });
 

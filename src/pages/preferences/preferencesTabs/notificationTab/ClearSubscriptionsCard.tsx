@@ -5,7 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   ClearMySubscriptionsMutation,
   ClearMySubscriptionsMutationVariables,
@@ -16,7 +16,7 @@ import { PreferencesModal } from "pages/preferences/preferencesTabs/PreferencesM
 export const ClearSubscriptionsCard: React.FC = () => {
   const [showModal, setShowModal] = useState(false);
   const { sendEvent } = usePreferencesAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
 
   const [clearMySubscriptions, { loading }] = useMutation<
     ClearMySubscriptionsMutation,
@@ -24,7 +24,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
   >(CLEAR_MY_SUBSCRIPTIONS, {
     onCompleted: (result) => {
       setShowModal(false);
-      dispatchBanner.successBanner(
+      dispatchToast.success(
         `Successfully cleared ${result.clearMySubscriptions} subscription${
           result.clearMySubscriptions !== 1 && "s"
         }!`
@@ -32,7 +32,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
     },
     onError: (err) => {
       setShowModal(false);
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `Error while clearing subscriptions: '${err.message}'`
       );
     },
@@ -40,6 +40,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
 
   return (
     <>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <ContentWrapper>
           <Body>
@@ -48,7 +49,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
           </Body>
           <StyledClearSubscriptionButton
             data-cy="clear-subscriptions-button"
-            variant={Variant.Danger}
+            variant={Variant.Danger} // @ts-expect-error
             onClick={() => setShowModal(true)}
           >
             Clear all previous subscriptions
@@ -72,6 +73,7 @@ export const ClearSubscriptionsCard: React.FC = () => {
   );
 };
 
+// @ts-expect-error
 const StyledClearSubscriptionButton = styled(Button)`
   margin-top: 36px;
 `;
@@ -79,6 +81,8 @@ const StyledClearSubscriptionButton = styled(Button)`
 const ContentWrapper = styled.div`
   width: 50%;
 `;
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

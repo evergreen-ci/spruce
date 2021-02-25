@@ -1,0 +1,8 @@
+
+  query GetPatchTaskStatuses($id: String!) {
+    patch(id: $id) {
+      id
+      taskStatuses
+      baseTaskStatuses
+    }
+  }

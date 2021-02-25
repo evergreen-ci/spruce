@@ -9,6 +9,7 @@ describe("Error reporting", () => {
   beforeEach(() => {
     jest.resetModules(); // this is important - it clears the cache
     process.env = { ...OLD_ENV };
+    // @ts-ignore
     delete process.env.NODE_ENV;
   });
 
@@ -26,6 +27,7 @@ describe("Error reporting", () => {
   });
 
   test("Returns a map of functions that call Bugsnag.notify and newrelic.noticeError with an error object when environment is Production", () => {
+    // @ts-ignore
     process.env.NODE_ENV = "production";
     const notifySpy = jest.spyOn(Bugsnag, "notify");
     const result = reportError(err);

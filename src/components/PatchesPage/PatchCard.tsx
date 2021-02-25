@@ -6,13 +6,15 @@ import { Analytics } from "analytics/addPageAction";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import {
-  paths,
   getBuildStatusIconLink,
   getProjectPatchesRoute,
+  getVersionRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
+
+const { gray } = uiColors;
 
 interface Build {
   id: string;
@@ -56,7 +58,7 @@ export const PatchCard: React.FC<Props> = ({
       <Left>
         <DescriptionLink
           data-cy="patch-card-patch-link"
-          to={`${paths.patch}/${id}`}
+          to={getVersionRoute(id)}
           onClick={() =>
             analyticsObject?.sendEvent({ name: "Click Patch Link" })
           }
@@ -121,7 +123,7 @@ const CardWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 12px 5px 12px;
-  border-bottom: 1px solid ${uiColors.gray.light2};
+  border-bottom: 1px solid ${gray.light2};
 `;
 
 const Center = styled.div`
@@ -151,5 +153,5 @@ const BadgeContainer = styled.div`
 `;
 
 const TimeAndProject = styled.div`
-  color: ${uiColors.gray.base};
+  color: ${gray.base};
 `;

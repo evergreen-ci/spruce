@@ -3,7 +3,6 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
-import { ColumnProps } from "antd/lib/table";
 import every from "lodash.every";
 import get from "lodash.get";
 import queryString from "query-string";
@@ -17,25 +16,18 @@ import {
   TableContainer,
   TableControlOuterRow,
   TableControlInnerRow,
-  StyledRouterLink,
 } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
-import { WordBreak } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
-import {
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
-  TaskSortCategory,
-  TaskResult,
-  SortDirection,
-} from "gql/generated/types";
+import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { useSetColumnDefaultSortOrder, useNetworkStatus } from "hooks";
+import { useNetworkStatus } from "hooks";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
-import { TasksTable } from "pages/patch/patchTabs/tasks/TasksTable";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { parseSortString } from "./util";
 
 interface Props {
   taskCount: number;
@@ -46,16 +38,17 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const { search } = useLocation();
   const router = useHistory();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const queryVariables = getQueryVariables(search, resourceId);
 
-  const { sortBy, sortDir, limit, page } = queryVariables;
+  const { sorts, limit, page } = queryVariables;
 
-  const columns = useSetColumnDefaultSortOrder<TaskResult>(
-    columnsTemplate,
-    sortBy,
-    sortDir
-  );
+  if (sorts.length === 0) {
+    updateQueryParams({
+      sorts: "STATUS:ASC;BASE_STATUS:DESC",
+    });
+  }
 
   const { data, error, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -88,7 +81,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             numerator={get(data, "patchTasks.count", "-")}
             denominator={taskCount}
           />
-          <PaddedButton
+          <PaddedButton // @ts-expect-error
             onClick={() => {
               patchAnalytics.sendEvent({ name: "Clear all filter" });
               router.push(getVersionRoute(resourceId));
@@ -99,7 +92,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </FlexContainer>
         <TableControlInnerRow>
           <Pagination
-            dataTestId="tasks-table-pagination"
+            data-cy="tasks-table-pagination"
             pageSize={limit}
             value={page}
             totalResults={get(data, "patchTasks.count", 0)}
@@ -114,7 +107,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
         </TableControlInnerRow>
       </TableControlOuterRow>
       <TableContainer hide={showSkeleton}>
-        <TasksTable columns={columns} data={get(data, "patchTasks", [])} />
+        <PatchTasksTable sorts={sorts} data={get(data, "patchTasks", [])} />
       </TableContainer>
       {showSkeleton && (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
@@ -143,6 +136,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.TestTimedOut]: true,
   [TaskStatus.Undispatched]: true,
   [TaskStatus.Unstarted]: true,
+  [TaskStatus.Aborted]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
@@ -160,30 +154,21 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
   return statuses;
 };
 
-enum TableColumnHeader {
-  Name = "NAME",
-  Status = "STATUS",
-  BaseStatus = "BASE_STATUS",
-  Variant = "VARIANT",
-}
-
 const getQueryVariables = (
   search: string,
   resourceId: string
 ): PatchTasksQueryVariables => {
   const {
-    sortBy,
-    sortDir,
     [PatchTasksQueryParams.Variant]: variant,
     [PatchTasksQueryParams.TaskName]: taskName,
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
+    [PatchTasksQueryParams.Sorts]: sorts,
   } = queryString.parse(search, { arrayFormat: "comma" });
 
   return {
     patchId: resourceId,
-    sortBy: (getString(sortBy) as TaskSortCategory) ?? TaskSortCategory.Status,
-    sortDir: (getString(sortDir) as SortDirection) ?? SortDirection.Asc,
+    sorts: parseSortString(sorts),
     variant: getString(variant),
     taskName: getString(taskName),
     statuses: getStatuses(rawStatuses),
@@ -193,77 +178,12 @@ const getQueryVariables = (
   };
 };
 
-const renderStatusBadge = (
-  status: string,
-  { blocked }: TaskResult
-): null | JSX.Element => {
-  if (status === "" || !status) {
-    return null;
-  }
-  return (
-    <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
-    </ErrorBoundary>
-  );
-};
-
-interface TaskLinkProps {
-  taskId: string;
-  taskName: string;
-}
-const TaskLink: React.FC<TaskLinkProps> = ({ taskId, taskName }) => {
-  const patchAnalytics = usePatchAnalytics();
-  const onClick = () =>
-    patchAnalytics.sendEvent({ name: "Click Task Table Link", taskId });
-  return (
-    <StyledRouterLink onClick={onClick} to={`/task/${taskId}`}>
-      <WordBreak>{taskName}</WordBreak>
-    </StyledRouterLink>
-  );
-};
-
-const columnsTemplate: Array<ColumnProps<TaskResult>> = [
-  {
-    title: "Name",
-    dataIndex: "displayName",
-    key: TableColumnHeader.Name,
-    sorter: true,
-    width: "40%",
-    className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: TaskResult): JSX.Element => (
-      <TaskLink taskName={name} taskId={id} />
-    ),
-  },
-  {
-    title: "Patch Status",
-    dataIndex: "status",
-    key: TableColumnHeader.Status,
-    sorter: true,
-    className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge,
-  },
-  {
-    title: "Base Status",
-    dataIndex: "baseStatus",
-    key: TableColumnHeader.BaseStatus,
-    sorter: true,
-    className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
-  },
-  {
-    title: "Variant",
-    dataIndex: "buildVariant",
-    key: TableColumnHeader.Variant,
-    sorter: true,
-    className: "cy-task-table-col-VARIANT",
-  },
-];
-
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
 `;
 
+// @ts-expect-error
 const PaddedButton = styled(Button)`
   margin-left: 15px;
 `;

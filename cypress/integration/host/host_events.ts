@@ -155,6 +155,11 @@ describe("Host events", () => {
         text: "Host encountered error when converting reprovisioning",
         logsTitle: "Provisioning logs",
       },
+      {
+        hostType: "host-status-changed",
+        text: "Status changed from running to unreachable by chaya.malik",
+        logsTitle: "Additional details",
+      },
     ];
     cy.visit(pathWithEvents);
     cy.dataCy("host-event-table-page-size-selector").click();
@@ -166,13 +171,17 @@ describe("Host events", () => {
           cy.dataCy("host-event-logs").should("exist").contains(logsTitle);
         });
     });
+    cy.dataCy("host-status-log").click();
+    cy.dataCy("host-event-log-content")
+      .should("exist")
+      .contains("terminated via UI by chaya.malik");
   });
 
   it("host events logs do not display when not available", () => {
     cy.dataCy("host-event-table-page-size-selector").click();
     cy.dataCy("host-event-table-page-size-selector-100").click();
     cy.dataCy("host-status-changed")
-      .contains("Status changed from running to unreachable")
+      .contains("Status changed from running to stopping")
       .within(() => {
         cy.dataCy("host-event-logs").should("not.exist");
       });
@@ -205,7 +214,7 @@ describe("Host events", () => {
 
     cy.visit(pathWithEvents);
     cy.dataCy("HOST_JASPER_RESTARTING-time").contains(
-      "Sep 30, 2017 9:11:16 am"
+      "Sep 30, 2017, 9:11:16 AM"
     );
   });
 });

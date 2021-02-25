@@ -43,7 +43,7 @@ Follow these directions to enable query linting during local development so your
 
 ### Environment Variables
 
-[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production, staging and development. This file is git ignored because it contains API keys that we do not want to publish. It should be named `.cmdrc.json` and placed in the config folder at the root of the project. This file is required to deploy Spruce to production and to staging. Ask a team member to send you their copy of the file, which should look like the following:
+[env-cmd](https://github.com/toddbluhm/env-cmd#readme) is used to configure build environments for production, staging and development. This file is git ignored because it contains API keys that we do not want to publish. It should be named `.cmdrc.json` and placed in the `env/` folder at the root of the project. This file is required to deploy Spruce to production and to staging. Ask a team member to send you their copy of the file, which should look like the following:
 
 ```js
 {
@@ -92,6 +92,23 @@ We use Code generation to generate our types for our GraphQL queries and mutatio
 - Queries should be declared with a query name so the code generation knows what to name the corresponding type.
 - Each query and mutation should have a unique name.
 - Since query analysis for type generation occurs statically we cant place dynamic variables with in query strings we instead have to hard code the variable in the query or pass it in as query variable.
+
+## Testing
+Spruce has a combination of unit tests using Jest, and integration tests using Cypress.
+
+### Unit tests
+TODO: write more here. The Jest tests can be run by typing `yarn test`
+
+### E2E tests
+At a high level, we use Cypress to start a virtual browser that is running Spruce. Cypress then is able to run our test specs, which tell it to interact with the browser in certain ways and makes assertions about what happens in the UI. Note that you must be running the Evergreen server on localhost:9090 for the front-end to work.
+
+In order to run the Cypress tests, do the following, assuming you have this repo checked out and all the dependencies installed by yarn:
+1. Start the evergreen back-end with the sample local test data. You can do this by typing `make local-evergreen` in your evergreen folder.
+2. Start the Spruce dev server by typing `yarn dev` in this repo.
+3. Run Cypress by typing one of the following:
+    - `yarn cy:open` - opens the Cypress app in interactive mode. You can select tests to run from here in the Cypress browser.
+    - `yarn cy:run` - runs all the Cypress tests at the command-line and reports the results
+    - `yarn cy:test cypress/integration/hosts/hosts-filtering.ts` - runs tests in a specific file at the command-line. Replace the final argument with the relative path to your test file
 
 ## How to get data for your feature
 If you need more data to be able to test out your feature locally the easiest way to do it is to populate the local db using real data from the staging or production environments.

@@ -23,7 +23,7 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
         label={title}
         checked={value.includes(checkboxValue)}
         bold={false}
-        data-testid={title}
+        data-cy={title}
       />
     ))}
   </CheckboxesWrapper>
@@ -32,6 +32,8 @@ export const CheckboxGroup: React.FC<CheckboxesProps> = ({
 const CheckboxesWrapper = styled.div`
   padding: 4px;
 `;
+
+/* @ts-expect-error */
 const StyledCheckbox = styled(Checkbox)`
   margin-bottom: 8px;
 

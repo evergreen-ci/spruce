@@ -2,7 +2,7 @@ module.exports = {
   extends: ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   linterOptions: {
     exclude: [
-      "config/**/*.js",
+      "env/**/*.js",
       "node_modules/**/*.ts",
       "coverage/lcov-report/*.js",
       "scripts/*",

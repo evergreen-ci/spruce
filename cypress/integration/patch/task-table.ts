@@ -31,24 +31,46 @@ describe("Task table", () => {
 
   it("Updates the url when column headers are clicked", () => {
     cy.visit(pathTasks);
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-NAME").click();
-    locationHasUpdatedParams("NAME", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "ASC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC"
+    );
 
     cy.get("th.cy-task-table-col-VARIANT").click();
-    locationHasUpdatedParams("VARIANT", "DESC");
+    cy.location("search").should(
+      "contain",
+      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
+    );
   });
 
   it("Clicking task name goes to task page for that task", () => {
@@ -182,22 +204,10 @@ const fourthPageDisplayNames = [
 ];
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 
-const locationHasUpdatedParams = (sortBy, sortDir) => {
-  cy.location().should((loc) => {
-    expect(loc.pathname).to.equal(pathTasks);
-    expect(loc.search).to.include(`sortBy=${sortBy}`);
-    if (!sortDir) {
-      expect(loc.search).to.not.include("sortDir");
-    } else {
-      expect(loc.search).to.include(`sortDir=${sortDir}`);
-    }
-  });
-};
-
 const dataCyNextPage =
-  "[data-test-id=tasks-table-pagination] > .ant-pagination-next";
+  "[data-cy=tasks-table-pagination] > .ant-pagination-next";
 const dataCyPrevPage =
-  "[data-test-id=tasks-table-pagination] > .ant-pagination-prev";
+  "[data-cy=tasks-table-pagination] > .ant-pagination-prev";
 
 const assertCorrectRequestVariables = (sortBy, sortDir) => {
   cy.get("@gqlQuery")

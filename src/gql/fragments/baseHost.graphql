@@ -1,0 +1,9 @@
+fragment baseHost on Host {
+    id
+    hostUrl
+    status
+    startedBy
+    user
+    tag
+    provider
+}

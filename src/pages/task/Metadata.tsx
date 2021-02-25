@@ -9,28 +9,29 @@ import { H3, P2 } from "components/Typography";
 import {
   getTaskQueueRoute,
   getTaskRoute,
-  paths,
+  getHostRoute,
   getSpawnHostRoute,
   getVersionRoute,
+  getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
+import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
+import { ETATimer } from "pages/task/metadata/ETATimer";
 import { TaskStatus } from "types/task";
 import { getUiUrl } from "utils/getEnvironmentVariables";
 import { msToDuration, getDateCopy } from "utils/string";
-import { ETATimer } from "./metadata/ETATimer";
 
 const { red } = uiColors;
 
 interface Props {
   taskId: string;
   loading: boolean;
-  data: GetTaskQuery;
+  task: GetTaskQuery["task"];
   error: ApolloError;
 }
 
-export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
-  const task = data?.task ?? ({} as GetTaskQuery["task"]);
+export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
 
   const {
@@ -54,7 +55,9 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
     generatedBy,
     generatedByName,
     minQueuePosition: taskQueuePosition,
-  } = task;
+    projectId,
+    abortInfo,
+  } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
 
@@ -63,7 +66,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
   const { author, patchID } = patchMetadata ?? {};
   const oomTracker = details?.oomTracker;
 
-  const hostLink = `${paths.host}/${hostId}`;
+  const hostLink = getHostRoute(hostId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
 
   return (
@@ -82,6 +85,18 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             }
           >
             {buildVariant}
+          </StyledRouterLink>
+        </P2>
+        <P2 data-cy="task-metadata-project">
+          Project:{" "}
+          <StyledRouterLink
+            data-cy="project-link"
+            to={getProjectPatchesRoute(projectId)}
+            onClick={() =>
+              taskAnalytics.sendEvent({ name: "Click Project Link" })
+            }
+          >
+            {projectId}
           </StyledRouterLink>
         </P2>
         <P2>Submitted by: {author}</P2>
@@ -212,6 +227,7 @@ export const Metadata: React.FC<Props> = ({ loading, data, error, taskId }) => {
             </StyledRouterLink>
           </P2>
         )}
+        {abortInfo && <AbortMessage {...abortInfo} />}
         {oomTracker && oomTracker.detected && (
           <RedP2>
             Out of Memory Kill detected

@@ -6,12 +6,12 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
 import { Modal } from "components/Modal";
 import { ModalContent, MountVolumeSelect, WideButton } from "components/Spawn";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   AttachVolumeToHostMutation,
   AttachVolumeToHostMutationVariables,
 } from "gql/generated/types";
-import { ATTACH_VOLUME } from "gql/mutations/attach-volume";
+import { ATTACH_VOLUME } from "gql/mutations";
 import { MyVolume } from "types/spawn";
 
 interface Props {
@@ -25,17 +25,16 @@ export const MountVolumeModal: React.FC<Props> = ({
   onCancel,
   volume,
 }) => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const spawnAnalytics = useSpawnAnalytics();
   const [attachVolume, { loading: loadingAttachVolume }] = useMutation<
     AttachVolumeToHostMutation,
     AttachVolumeToHostMutationVariables
   >(ATTACH_VOLUME, {
     onError: (err) =>
-      dispatchBanner.errorBanner(`Error attaching volume: '${err.message}'`),
+      dispatchToast.error(`Error attaching volume: '${err.message}'`),
     onCompleted: () => {
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner("Successfully mounted the volume.");
+      dispatchToast.success("Successfully mounted the volume.");
     },
     refetchQueries: ["MyVolumes", "MyHosts"],
   });
@@ -47,13 +46,14 @@ export const MountVolumeModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
+        // @ts-expect-error
         <WideButton key="cancel" onClick={onCancel}>
           Cancel
         </WideButton>,
         <WideButton
           key="mount"
           data-cy="mount-volume-button"
-          disabled={!selectedHostId || loadingAttachVolume}
+          disabled={!selectedHostId || loadingAttachVolume} // @ts-expect-error
           onClick={() => {
             spawnAnalytics.sendEvent({
               name: "Mount volume to host",

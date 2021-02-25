@@ -14,13 +14,13 @@ import { reportError } from "utils/errorReporting";
 import { getGQLUrl } from "utils/getEnvironmentVariables";
 
 const GQLWrapper: React.FC = ({ children }) => {
-  const { logout, dispatchAuthenticated } = useAuthDispatchContext();
+  const { logoutAndRedirect, dispatchAuthenticated } = useAuthDispatchContext();
   return (
     <ApolloProvider
       client={getGQLClient({
         credentials: "include",
         gqlURL: getGQLUrl(),
-        logout,
+        logoutAndRedirect,
         dispatchAuthenticated,
       })}
     >
@@ -32,7 +32,7 @@ const GQLWrapper: React.FC = ({ children }) => {
 interface ClientLinkParams {
   credentials?: string;
   gqlURL?: string;
-  logout?: () => void;
+  logoutAndRedirect?: () => void;
   dispatchAuthenticated?: () => void;
 }
 
@@ -40,6 +40,9 @@ const cache = new InMemoryCache({
   typePolicies: {
     User: {
       keyFields: ["userId"],
+    },
+    Task: {
+      keyFields: ["execution", "id"],
     },
     Patch: {
       fields: {
@@ -69,7 +72,11 @@ const authLink = (logout: () => void): ApolloLink =>
 const logErrorsLink = onError(({ graphQLErrors }) => {
   if (Array.isArray(graphQLErrors)) {
     graphQLErrors.forEach((gqlErr) => {
-      reportError(gqlErr).warning();
+      reportError({
+        name: "GraphQL Error",
+        message: gqlErr.message,
+        metadata: gqlErr,
+      }).warning();
     });
   }
   // dont track network errors here because they are
@@ -103,7 +110,7 @@ const retryLink = new RetryLink({
 const getGQLClient = ({
   credentials,
   gqlURL,
-  logout,
+  logoutAndRedirect,
   dispatchAuthenticated,
 }: ClientLinkParams) => {
   const link = new HttpLink({
@@ -114,7 +121,7 @@ const getGQLClient = ({
   const client = new ApolloClient({
     cache,
     link: authenticateIfSuccessfulLink(dispatchAuthenticated)
-      .concat(authLink(logout))
+      .concat(authLink(logoutAndRedirect))
       .concat(logErrorsLink)
       .concat(retryLink)
       .concat(link),

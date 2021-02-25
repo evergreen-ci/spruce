@@ -5,12 +5,12 @@ import Card from "@leafygreen-ui/card";
 import Toggle from "@leafygreen-ui/toggle";
 import { Body } from "@leafygreen-ui/typography";
 import { usePreferencesAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
 } from "gql/generated/types";
-import { UPDATE_USER_SETTINGS } from "gql/mutations/update-user-settings";
+import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
 
 export const NewUITab: React.FC = () => {
@@ -19,20 +19,16 @@ export const NewUITab: React.FC = () => {
   const { spruceV1, hasUsedSpruceBefore } =
     data?.userSettings?.useSpruceOptions ?? {};
   const [checked, setChecked] = useState(spruceV1);
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const [updateUserSettings, { loading: updateLoading }] = useMutation<
     UpdateUserSettingsMutation,
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
     onCompleted: () => {
-      dispatchBanner.successBanner(
-        `Your changes have successfully been saved.`
-      );
+      dispatchToast.success(`Your changes have successfully been saved.`);
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error while saving settings: '${err.message}'`
-      );
+      dispatchToast.error(`Error while saving settings: '${err.message}'`);
     },
   });
 
@@ -40,19 +36,18 @@ export const NewUITab: React.FC = () => {
     return loadingComp;
   }
 
-  const handleToggle = async (e): Promise<void> => {
+  const handleToggle = async (c, e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
-    setChecked(e.target.checked);
+    setChecked(c);
     sendEvent({
-      name: e.target.checked ? "Opt into Spruce" : "Opt out of Spruce",
+      name: c ? "Opt into Spruce" : "Opt out of Spruce",
     });
     try {
       await updateUserSettings({
         variables: {
           userSettings: {
             useSpruceOptions: {
-              spruceV1: e.target.checked,
+              spruceV1: c,
               hasUsedSpruceBefore,
             },
           },
@@ -62,19 +57,25 @@ export const NewUITab: React.FC = () => {
     } catch (err) {}
   };
   return (
-    <PreferencesCard>
-      <PaddedBody>
-        Direct all inbound links to the new Evergreen UI, whenever possible
-        (e.g. from the CLI, GitHub, etc.)
-      </PaddedBody>
-      <Toggle
-        checked={checked}
-        disabled={updateLoading}
-        onClick={handleToggle}
-      />
-    </PreferencesCard>
+    <>
+      {/* @ts-expect-error */}
+      <PreferencesCard>
+        <PaddedBody>
+          Direct all inbound links to the new Evergreen UI, whenever possible
+          (e.g. from the CLI, GitHub, etc.)
+        </PaddedBody>
+        <Toggle
+          checked={checked}
+          disabled={updateLoading}
+          onChange={handleToggle}
+          aria-label="Toggle new evergreen ui"
+        />
+      </PreferencesCard>
+    </>
   );
 };
+
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   display: flex;
   flex-direction: column;

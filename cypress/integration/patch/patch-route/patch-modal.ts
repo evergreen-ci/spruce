@@ -63,18 +63,15 @@ describe("Restarting a patch", () => {
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("restart-patch-button").click();
     cy.dataCy("patch-restart-modal").should("not.be.be.visible");
-    cy.dataCy("banner").should("exist");
-    cy.dataCy("banner").should("contain.text", `Successfully restarted patch`);
+    cy.dataCy("toast").should("exist");
+    cy.dataCy("toast").should("contain.text", `Successfully restarted patch`);
   });
 
-  it("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
+  xit("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
     cy.visit(path);
     cy.dataCy(versionPageStatusFilter).click();
     cy.dataCy(versionPageStatusFilter).contains("Success").click();
-    cy.wait(100);
-    cy.dataCy(versionPageStatusFilter)
-      .contains("Undispatched or Blocked")
-      .click();
+    cy.dataCy(versionPageStatusFilter).contains("Undispatched").click();
     cy.get(versionPageBaseStatusFilter).click();
     cy.get(versionPageBaseStatusFilter).contains("Running").click();
     cy.wait(100);

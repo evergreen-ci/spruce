@@ -5,7 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import Card from "@leafygreen-ui/card";
 import TextInput from "@leafygreen-ui/text-input";
 import { usePreferencesAnalytics } from "analytics";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
   UpdateUserSettingsMutationVariables,
@@ -17,7 +17,7 @@ import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard
 import { NotificationField } from "./notificationTab/NotificationField";
 
 export const NotificationsTab: React.FC = () => {
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data, loadingComp } = useUserSettingsQuery();
   const { slackUsername, notifications } = data?.userSettings ?? {};
   const [slackUsernameField, setSlackUsernameField] = useState(slackUsername);
@@ -34,14 +34,10 @@ export const NotificationsTab: React.FC = () => {
     UpdateUserSettingsMutationVariables
   >(UPDATE_USER_SETTINGS, {
     onCompleted: () => {
-      dispatchBanner.successBanner(
-        `Your changes have successfully been saved.`
-      );
+      dispatchToast.success(`Your changes have successfully been saved.`);
     },
     onError: (err) => {
-      dispatchBanner.errorBanner(
-        `Error while saving settings: '${err.message}'`
-      );
+      dispatchToast.error(`Error while saving settings: '${err.message}'`);
     },
   });
 
@@ -55,7 +51,7 @@ export const NotificationsTab: React.FC = () => {
 
   const handleSave = async (e): Promise<void> => {
     e.preventDefault();
-    dispatchBanner.clearAllBanners();
+
     const variables = {
       userSettings: {
         slackUsername: slackUsernameField,
@@ -81,6 +77,7 @@ export const NotificationsTab: React.FC = () => {
   const newPayload = omitTypename(notificationStatus);
   return (
     <div>
+      {/* @ts-expect-error */}
       <PreferencesCard>
         <StyledTextInput
           label="Slack Username"
@@ -147,6 +144,7 @@ const StyledTextInput = styled(TextInput)`
   }
 `;
 
+// @ts-expect-error
 const PreferencesCard = styled(Card)`
   padding-left: 25px;
   padding-top: 25px;

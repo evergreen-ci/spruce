@@ -32,7 +32,7 @@ export const HostTable: React.FC<{
       width: "25%",
       render: (_, { eventType, timestamp }: HostEventLogEntry): JSX.Element => (
         <div data-cy={`${eventType}-time`}>
-          {getDateCopy(timestamp, timeZone)}
+          {getDateCopy(timestamp, { tz: timeZone })}
         </div>
       ),
     },
@@ -49,10 +49,11 @@ export const HostTable: React.FC<{
   return (
     <HostCard error={error} loading={loading} metaData={false}>
       <TableTitle>
+        {/* @ts-expect-error */}
         <StyledSubtitle>Recent Events </StyledSubtitle>
         <PaginationWrapper>
           <Pagination
-            dataTestId="host-event-table-pagination"
+            data-cy="host-event-table-pagination"
             pageSize={limit}
             value={page}
             totalResults={eventsCount}
@@ -82,6 +83,7 @@ export const HostTable: React.FC<{
 
 const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
 
+// @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`
   margin-bottom: 20px;
   margin-top: 15px;

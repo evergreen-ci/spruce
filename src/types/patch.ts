@@ -13,4 +13,11 @@ export enum PatchStatus {
   Success = "succeeded",
 }
 
+export enum PatchTab {
+  Tasks = "tasks",
+  Changes = "changes",
+  Parameters = "parameters",
+  Configure = "configure",
+}
+
 export const ALL_PATCH_STATUS = "all";

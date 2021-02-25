@@ -19,49 +19,51 @@ describe("Dropdown Menu of Patch Actions", () => {
   it("'Reconfigure' link takes user to patch configure page", () => {
     getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
       cy.dataCy("patch-card-dropdown").click();
-      cy.dataCy("reconfigure-link").click({ force: true });
-      cy.location("pathname").should("include", `/configure`);
     });
+    cy.dataCy("card-dropdown").should("be.visible");
+    cy.dataCy("reconfigure-link").should("be.visible");
+    cy.dataCy("reconfigure-link").click({ force: true });
+    cy.location("pathname").should("include", `/configure`);
   });
 
   it("Reconfigure link is disabled for patches on commit queue", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
         cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("reconfigure-link").click({ force: true });
-        cy.location("pathname").should("eq", `/user/admin/patches`);
       }
     );
+    cy.dataCy("reconfigure-link").click({ force: true });
+    cy.location("pathname").should("eq", `/user/admin/patches`);
   });
 
   it("'Schedule' link opens popconfirm and schedules patch", () => {
     getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
       cy.dataCy("patch-card-dropdown").click();
-      cy.dataCy("schedule-patch").click({ force: true });
     });
+    cy.dataCy("schedule-patch").click({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
+    cy.dataCy("toast").should("exist");
   });
 
   it("'Unschedule' link opens popconfirm and schedules patch", () => {
     getPatchCardByDescription(patchDescriptionCanReconfigure).within(() => {
       cy.dataCy("patch-card-dropdown").click();
-      cy.dataCy("unschedule-patch").click({ force: true });
     });
+    cy.dataCy("unschedule-patch").click({ force: true });
+
     cy.dataCy("abort-checkbox").check({ force: true });
     cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
-    cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
+    cy.dataCy("toast").should("exist");
   });
 
   it("'Restart' link shows restart patch modal", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
         cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("restart-patch").click({ force: true });
       }
     );
+    cy.dataCy("restart-patch").click({ force: true });
+
     cy.dataCy("accordian-toggle").first().click();
     cy.dataCy("patch-status-selector-container")
       .children()
@@ -69,19 +71,15 @@ describe("Dropdown Menu of Patch Actions", () => {
       .click({ force: true });
     cy.contains("generate-lint").click();
     cy.dataCy("restart-patch-button").click();
-    cy.dataCy("banner").should("exist");
-    cy.dataCy("card-dropdown").should("not.exist");
+    cy.dataCy("toast").should("exist");
   });
 
   it("'Add to commit queue' shows enqueue modal", () => {
     getPatchCardByDescription(patchDescriptionReconfigureDisabled).within(
       () => {
         cy.dataCy("patch-card-dropdown").click();
-        cy.dataCy("enqueue-patch").click({ force: true });
       }
     );
-    cy.dataCy("enqueue-patch-button").click();
-    cy.dataCy("banner").should("exist").contains("Enqueued patch");
-    cy.dataCy("card-dropdown").should("not.exist");
+    cy.dataCy("enqueue-patch").should("exist");
   });
 });

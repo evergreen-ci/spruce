@@ -1,0 +1,7 @@
+
+  mutation UnscheduleTask($taskId: String!) {
+    unscheduleTask(taskId: $taskId) {
+      id
+      execution
+    }
+  }

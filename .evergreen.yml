@@ -7,7 +7,7 @@ ignore:
 modules:
 - name: evergreen
   repo: git@github.com:evergreen-ci/evergreen.git
-  branch: master
+  branch: main
   prefix: gopath/src/github.com/evergreen-ci
 
 #######################################
@@ -138,6 +138,14 @@ functions:
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
         yarn build
 
+  yarn-build-storybook:
+    command: shell.exec
+    params:
+      working_dir: spruce
+      script: |
+        export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
+        yarn build-storybook
+
   yarn-coverage:
     command: shell.exec
     params:
@@ -168,7 +176,7 @@ functions:
     params:
       working_dir: spruce
       script: |
-        cp config/.cmdrc_sample.json config/.cmdrc.json
+        cp env/.cmdrc_sample.json env/.cmdrc.json
 
   attach-results:
     command: attach.xunit_results
@@ -231,6 +239,20 @@ functions:
       permissions: public-read
       display_name: "source map"
 
+  attach-storybook:
+    command: s3.put
+    type: system
+    params:
+      aws_key: ${aws_key}
+      aws_secret: ${aws_secret}
+      local_files_include_filter:
+        - storybook-static/
+      remote_file: spruce/${task_id}/storybook/
+      bucket: mciuploads
+      content_type: text/html
+      permissions: public-read
+      display_name: storybook-
+    
   setup-credentials:
     command: shell.exec
     params:
@@ -273,7 +295,7 @@ functions:
         PREVIOUS_VERSION=$(git describe --tags  --abbrev=0  `git rev-list --tags --max-count=1 --skip=1`)
         BODY=$(git log --no-merges $PREVIOUS_VERSION..HEAD --pretty="format:%s (%h)")
         DATE=$(date +'%m/%d/%Y')
-        ~/evergreen -c .evergreen.yml notify email -f ${author}@mongodb.com -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
+        ~/evergreen -c .evergreen.yml notify email -f ${author_email} -r ${REACT_APP_DEPLOYS_EMAIL} -s "$DATE Spruce Deploy ${task_name}" -b "$BODY"
 
 #######################################
 #                Tasks                #
@@ -288,6 +310,13 @@ tasks:
     - func: sym-link
     - func: yarn-build
     - func: yarn-analyze
+
+  - name: storybook
+    commands:
+    - func: get-project
+    - func: yarn-install
+    - func: yarn-build-storybook
+    - func: attach-storybook
 
   - name: test
     commands:
@@ -343,6 +372,7 @@ tasks:
     - func: get-project
     - func: setup-credentials
     - func: yarn-install
+    - func: sym-link
     - func: build-prod
     - func: deploy-to-prod
     - func: send-email
@@ -361,6 +391,7 @@ buildvariants:
     - name: type_check
     - name: coverage
     - name: e2e_test
+    - name: storybook
     - name: deploy_to_prod
       git_tag_only: true
       patchable: false

@@ -1,8 +1,6 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useQuery } from "@apollo/client";
-import get from "lodash/get";
-import { useParams, useHistory } from "react-router-dom";
-import { Banners } from "components/Banners";
+import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -14,27 +12,22 @@ import {
 } from "components/styles";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
-import { paths } from "constants/routes";
-import {
-  useBannerDispatchContext,
-  useBannerStateContext,
-} from "context/banners";
+import { getPatchRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
-import { GET_PATCH } from "gql/queries/patch";
-import { withBannersContext } from "hoc/withBannersContext";
+import { GET_PATCH } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
+import { PageDoesNotExist } from "pages/404";
 import { BuildVariants } from "pages/patch/BuildVariants";
 import { ActionButtons } from "pages/patch/index";
 import { Metadata } from "pages/patch/Metadata";
 import { PatchTabs } from "pages/patch/PatchTabs";
 
-const PatchCore: React.FC = () => {
+export const Patch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
-  const dispatchBanner = useBannerDispatchContext();
-  const bannersState = useBannerStateContext();
+  const dispatchToast = useToastContext();
 
-  const router = useHistory();
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     PatchQuery,
     PatchQueryVariables
@@ -42,61 +35,49 @@ const PatchCore: React.FC = () => {
     variables: { id },
     pollInterval,
     onError: (e) =>
-      dispatchBanner.errorBanner(
-        `There was an error loading the patch: ${e.message}`
-      ),
+      dispatchToast.error(`There was an error loading the patch: ${e.message}`),
   });
 
-  useEffect(() => stopPolling, [stopPolling]);
   useNetworkStatus(startPolling, stopPolling);
-  const patch = get(data, "patch");
-  const status = get(patch, "status");
-  const description = get(patch, "description");
-  const activated = get(patch, "activated");
 
-  const alias = patch?.alias ?? null;
-  const commitQueuePosition = patch?.commitQueuePosition ?? null;
+  const { patch } = data || {};
+  const {
+    status,
+    description,
+    activated,
+    commitQueuePosition,
+    alias,
+    patchNumber,
+    author,
+    canEnqueueToCommitQueue,
+    taskCount,
+  } = patch || {};
+
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
+  usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
+
   if (activated === false && alias !== commitQueueAlias) {
-    router.replace(`${paths.patch}/${id}/configure`);
+    return <Redirect to={getPatchRoute(id, { configure: true })} />;
   }
-
-  usePageTitle(`Patch${patch ? ` - ${patch.patchNumber} ` : ""}`);
-
   if (error) {
-    return (
-      <PageWrapper>
-        <Banners
-          banners={bannersState}
-          removeBanner={dispatchBanner.removeBanner}
-        />
-      </PageWrapper>
-    );
+    return <PageDoesNotExist />;
   }
 
   return (
     <PageWrapper data-cy="patch-page">
-      <Banners
-        banners={bannersState}
-        removeBanner={dispatchBanner.removeBanner}
-      />
-      {patch && (
-        <BreadCrumb
-          patchAuthor={patch.author}
-          patchNumber={patch.patchNumber}
-        />
-      )}
+      {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
         hasData={!!patch}
-        title={description || `Patch ${get(patch, "patchNumber")}`}
+        title={description || `Patch ${patchNumber}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
-            canEnqueueToCommitQueue={patch?.canEnqueueToCommitQueue}
+            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
             patchDescription={description}
+            patchId={id}
           />
         }
       />
@@ -107,12 +88,10 @@ const PatchCore: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={patch ? patch.taskCount : null} />
+            <PatchTabs taskCount={patch ? taskCount : null} />
           </PageContent>
         </PageLayout>
       </PageLayout>
     </PageWrapper>
   );
 };
-
-export const Patch = withBannersContext(PatchCore);

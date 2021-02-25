@@ -1,0 +1,22 @@
+#import "../fragments/moduleCodeChanges.graphql"
+
+query CommitQueue($id: String!) {
+  commitQueue(id: $id) {
+    projectId
+    message
+    owner
+    repo
+    queue {
+      issue
+      enqueueTime
+      patch {
+        id
+        author
+        description
+        moduleCodeChanges {
+          ...moduleCodeChange
+        }
+      }
+    }
+  }
+}

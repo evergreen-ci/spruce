@@ -2,7 +2,7 @@ import styled from "@emotion/styled/macro";
 import { uiColors } from "@leafygreen-ui/palette";
 import { TaskStatus } from "types/task";
 
-const { green, gray, yellow, red } = uiColors;
+const { green, gray, yellow, red, blue } = uiColors;
 
 const failureLavender = "#F3EDF5";
 const failureLavendarDark = "#9982A4";
@@ -25,6 +25,7 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.StatusBlocked]: gray.dark1,
   [TaskStatus.StatusPending]: yellow.base,
+  [TaskStatus.Known]: blue.base,
 };
 
 export const mapVariantTaskStatusToDarkColor = {
@@ -43,6 +44,7 @@ export const mapVariantTaskStatusToDarkColor = {
   [TaskStatus.SetupFailed]: failureLavendarDark,
   [TaskStatus.StatusBlocked]: gray.dark3,
   [TaskStatus.StatusPending]: yellow.dark3,
+  [TaskStatus.Known]: blue.dark3,
 };
 
 export const Square = styled.div`

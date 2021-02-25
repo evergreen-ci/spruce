@@ -1,0 +1,8 @@
+#import "../fragments/baseTask.graphql"
+  mutation RestartTask($taskId: String!) {
+    restartTask(taskId: $taskId) {
+      ...baseTask
+      latestExecution
+      execution
+    }
+  }

@@ -1,15 +1,15 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
-import get from "lodash/get";
 import { useParams } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { DropdownItem, ButtonDropdown } from "components/ButtonDropdown";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PageButtonRow } from "components/styles";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SetTaskPriorityMutation,
   SetTaskPriorityMutationVariables,
@@ -22,13 +22,15 @@ import {
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
 } from "gql/generated/types";
-import { ABORT_TASK } from "gql/mutations/abort-task";
-import { RESTART_TASK } from "gql/mutations/restart-task";
-import { SCHEDULE_TASK } from "gql/mutations/schedule-task";
-import { SET_TASK_PRIORTY } from "gql/mutations/set-task-priority";
-import { UNSCHEDULE_TASK } from "gql/mutations/unschedule-task";
-import { useOnClickOutside } from "hooks";
-import { TaskNotificationModal } from "pages/task/actionButtons/TaskNotificationModal";
+import {
+  ABORT_TASK,
+  RESTART_TASK,
+  SCHEDULE_TASK,
+  SET_TASK_PRIORTY,
+  UNSCHEDULE_TASK,
+} from "gql/mutations";
+import { useUpdateURLQueryParams } from "hooks";
+import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
   initialPriority?: number;
@@ -47,14 +49,12 @@ export const ActionButtons = ({
   canUnschedule,
   initialPriority = 1,
 }: Props) => {
-  const { successBanner, errorBanner } = useBannerDispatchContext();
-  const wrapperRef = useRef(null);
-  const priorityRef = useRef(null);
-  const [isVisible, setIsVisible] = useState(false);
+  const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
   const { id: taskId } = useParams<{ id: string }>();
   const taskAnalytics = useTaskAnalytics();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const [scheduleTask, { loading: loadingScheduleTask }] = useMutation<
     ScheduleTaskMutation,
@@ -62,12 +62,11 @@ export const ActionButtons = ({
   >(SCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      successBanner("Task marked as scheduled");
+      dispatchToast.success("Task marked as scheduled");
     },
     onError: (err) => {
-      errorBanner(`Error scheduling task: ${err.message}`);
+      dispatchToast.error(`Error scheduling task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [unscheduleTask, { loading: loadingUnscheduleTask }] = useMutation<
@@ -76,12 +75,11 @@ export const ActionButtons = ({
   >(UNSCHEDULE_TASK, {
     variables: { taskId },
     onCompleted: () => {
-      successBanner("Task marked as unscheduled");
+      dispatchToast.success("Task marked as unscheduled");
     },
     onError: (err) => {
-      errorBanner(`Error unscheduling task: ${err.message}`);
+      dispatchToast.error(`Error unscheduling task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [abortTask, { loading: loadingAbortTask }] = useMutation<
@@ -92,12 +90,11 @@ export const ActionButtons = ({
       taskId,
     },
     onCompleted: () => {
-      successBanner("Task aborted");
+      dispatchToast.success("Task aborted");
     },
     onError: (err) => {
-      errorBanner(`Error aborting task: ${err.message}`);
+      dispatchToast.error(`Error aborting task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [restartTask, { loading: loadingRestartTask }] = useMutation<
@@ -105,13 +102,16 @@ export const ActionButtons = ({
     RestartTaskMutationVariables
   >(RESTART_TASK, {
     variables: { taskId },
-    onCompleted: () => {
-      successBanner("Task scheduled to restart");
+    onCompleted: (data) => {
+      const { latestExecution } = data.restartTask;
+      dispatchToast.success("Task scheduled to restart");
+      updateQueryParams({
+        execution: `${latestExecution}`,
+      });
     },
     onError: (err) => {
-      errorBanner(`Error restarting task: ${err.message}`);
+      dispatchToast.error(`Error restarting task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const [setTaskPriority, { loading: loadingSetPriority }] = useMutation<
@@ -119,16 +119,15 @@ export const ActionButtons = ({
     SetTaskPriorityMutationVariables
   >(SET_TASK_PRIORTY, {
     onCompleted: (data) => {
-      successBanner(
+      dispatchToast.success(
         data.setTaskPriority.priority >= 0
           ? `Priority for task updated to ${data.setTaskPriority.priority}`
           : `Task was successfully disabled`
       );
     },
     onError: (err) => {
-      errorBanner(`Error updating priority for task: ${err.message}`);
+      dispatchToast.error(`Error updating priority for task: ${err.message}`);
     },
-    refetchQueries,
   });
 
   const disabled =
@@ -137,20 +136,6 @@ export const ActionButtons = ({
     loadingSetPriority ||
     loadingUnscheduleTask ||
     loadingScheduleTask;
-
-  useEffect(() => {
-    if (disabled) {
-      setIsVisible(false);
-    }
-  }, [disabled, setIsVisible]);
-
-  useOnClickOutside(wrapperRef, () => {
-    if (
-      !get(priorityRef, "current.className", "").includes("ant-popover-open")
-    ) {
-      setIsVisible(false);
-    }
-  });
 
   const dropdownItems = [
     <DropdownItem
@@ -162,7 +147,7 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Unschedule" });
       }}
     >
-      <Disclaimer>Unschedule</Disclaimer>
+      Unschedule
     </DropdownItem>,
     <DropdownItem
       data-cy="abort-task"
@@ -173,59 +158,67 @@ export const ActionButtons = ({
         taskAnalytics.sendEvent({ name: "Abort" });
       }}
     >
-      <Disclaimer>Abort</Disclaimer>
+      Abort
     </DropdownItem>,
     <DropdownItem
       data-cy="disable-enable"
       disabled={disabled}
+      key="disableTask"
       onClick={() => {
         setTaskPriority({
           variables: { taskId, priority: initialPriority < 0 ? 0 : -1 },
         });
       }}
     >
-      <Disclaimer>{initialPriority < 0 ? "Enable" : "Disable"}</Disclaimer>
+      {initialPriority < 0 ? "Enable" : "Disable"}
     </DropdownItem>,
-    <Popconfirm
-      key="priority"
-      icon={null}
-      placement="left"
-      title={
-        <>
-          <StyledBody>Set new priority:</StyledBody>
-          <InputNumber
-            size="small"
-            min={0}
-            type="number"
-            max={Number.MAX_SAFE_INTEGER}
-            value={priority}
-            onChange={(val) => setPriority(val as number)}
-          />
-        </>
-      }
-      onConfirm={() => {
-        setTaskPriority({
-          variables: { taskId, priority },
-        });
-        taskAnalytics.sendEvent({ name: "Set Priority", priority });
-      }}
-      onCancel={() => setIsVisible(false)}
-      okText="Set"
-      cancelText="Cancel"
+    <ConditionalWrapper
+      key="taskPriorityWrapper"
+      condition={canSetPriority}
+      wrapper={(children) => (
+        <Popconfirm
+          key="priority"
+          icon={null}
+          placement="left"
+          title={
+            <>
+              <StyledBody>Set new priority:</StyledBody>
+              <InputNumber
+                size="small"
+                min={0}
+                type="number"
+                max={Number.MAX_SAFE_INTEGER}
+                value={priority}
+                onChange={(val) => setPriority(val as number)}
+              />
+            </>
+          }
+          onConfirm={() => {
+            setTaskPriority({
+              variables: { taskId, priority },
+            });
+            taskAnalytics.sendEvent({ name: "Set Priority", priority });
+          }}
+          okText="Set"
+          cancelText="Cancel"
+        >
+          {children}
+        </Popconfirm>
+      )}
     >
       <DropdownItem
         data-cy="prioritize-task"
         disabled={disabled || !canSetPriority}
-        ref={priorityRef}
+        key="setTaskPriority"
       >
-        <Disclaimer>Set priority</Disclaimer>
+        Set priority
       </DropdownItem>
-    </Popconfirm>,
+    </ConditionalWrapper>,
   ];
 
   return (
     <>
-      <PageButtonRow ref={wrapperRef}>
+      <PageButtonRow>
         <Button
           size="small"
           data-cy="schedule-task"
@@ -267,8 +260,6 @@ export const ActionButtons = ({
         <ButtonDropdown
           disabled={disabled}
           dropdownItems={dropdownItems}
-          isVisibleDropdown={isVisible}
-          setIsVisibleDropdown={setIsVisible}
           loading={
             loadingUnscheduleTask || loadingAbortTask || loadingSetPriority
           }
@@ -282,7 +273,6 @@ export const ActionButtons = ({
   );
 };
 
-const refetchQueries = ["GetTask"];
 const StyledBody = styled(Body)`
   padding-right: 8px;
 `;

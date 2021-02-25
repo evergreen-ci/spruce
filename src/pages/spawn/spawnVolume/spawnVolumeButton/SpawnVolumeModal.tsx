@@ -12,7 +12,7 @@ import {
 } from "components/Spawn";
 import { ExpirationField } from "components/Spawn/ExpirationField";
 import { HR } from "components/styles/Layout";
-import { useBannerDispatchContext } from "context/banners";
+import { useToastContext } from "context/toast";
 import {
   SpawnVolumeMutation,
   SpawnVolumeMutationVariables,
@@ -20,7 +20,7 @@ import {
   MyVolumesQuery,
   MyVolumesQueryVariables,
 } from "gql/generated/types";
-import { SPAWN_VOLUME } from "gql/mutations/spawn-volume";
+import { SPAWN_VOLUME } from "gql/mutations";
 import { GET_SPRUCE_CONFIG, GET_MY_VOLUMES } from "gql/queries";
 import { AvailabilityZoneSelector } from "./spawnVolumeModal/AvailabilityZoneSelector";
 import { reducer, initialState } from "./spawnVolumeModal/reducer";
@@ -38,7 +38,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const spawnAnalytics = useSpawnAnalytics();
-  const dispatchBanner = useBannerDispatchContext();
+  const dispatchToast = useToastContext();
   const { data: spruceConfig } = useQuery<GetSpruceConfigQuery>(
     GET_SPRUCE_CONFIG
   );
@@ -53,12 +53,12 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
   >(SPAWN_VOLUME, {
     onCompleted() {
       onCancel();
-      dispatchBanner.clearAllBanners();
-      dispatchBanner.successBanner("Successfully spawned volume");
+
+      dispatchToast.success("Successfully spawned volume");
     },
     onError(err) {
       onCancel();
-      dispatchBanner.errorBanner(
+      dispatchToast.error(
         `There was an error while spawning your volume: ${err.message}`
       );
     },
@@ -107,7 +107,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
       visible={visible}
       onCancel={onCancel}
       footer={[
-        <WideButton
+        <WideButton // @ts-expect-error
           onClick={onCancel}
           data-cy="cancel-button"
           key="cancel-button"
@@ -117,7 +117,7 @@ export const SpawnVolumeModal: React.FC<SpawnVolumeModalProps> = ({
         <WideButton
           data-cy="spawn-volume-button"
           disabled={loadingSpawnVolume || state.size === 0}
-          key="spawn-volume-button"
+          key="spawn-volume-button" // @ts-expect-error
           onClick={spawnVolume}
           variant={Variant.Primary}
         >
