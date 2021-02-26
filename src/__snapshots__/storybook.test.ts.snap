@@ -1941,6 +1941,102 @@ exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
 </div>
 `;
 
+exports[`Storyshots Error Fallback Default Error 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+}
+
+.emotion-2 {
+  position: absolute;
+  color: white;
+  margin-left: 5%;
+  margin-top: 10%;
+}
+
+.emotion-4 {
+  color: #FFFFFF;
+}
+
+.emotion-6 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-weight: 500;
+  font-size: 60px;
+  line-height: 68px;
+  -webkit-letter-spacing: -0.3px;
+  -moz-letter-spacing: -0.3px;
+  -ms-letter-spacing: -0.3px;
+  letter-spacing: -0.3px;
+}
+
+.emotion-7 {
+  color: #FFFFFF;
+}
+
+.emotion-9 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 32px;
+  line-height: 40px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.emotion-10 {
+  padding-top: 64px;
+  color: #FFFFFF;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<div
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="emotion-0 emotion-1"
+  >
+    <div
+      className="emotion-2 emotion-3"
+    >
+      <h1
+        className="emotion-4 emotion-5 emotion-6"
+      >
+        Error
+      </h1>
+      <h2
+        className="emotion-7 emotion-8 emotion-9"
+      >
+        Ouch! That's gotta hurt,
+        <br />
+         sorry about that!
+      </h2>
+      <a
+        className="emotion-10 emotion-11"
+      >
+        Back To Home
+      </a>
+    </div>
+    <img
+      alt="Error Background"
+      src="errorPage.svg"
+    />
+  </div>
+</div>
+`;
+
 exports[`Storyshots Node List Node Element 1`] = `
 .emotion-0 {
   display: -webkit-box;
@@ -2208,6 +2304,23 @@ exports[`Storyshots Node List Node List Full 1`] = `
       </div>
     </div>
   </div>
+</div>
+`;
+
+exports[`Storyshots Not Found Default 404 1`] = `
+<div
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <img
+    alt="Page not found"
+    data-cy="404"
+    src="notFound.svg"
+  />
 </div>
 `;
 
