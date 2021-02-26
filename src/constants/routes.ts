@@ -32,6 +32,9 @@ const paths = {
   taskQueue: "/task-queue",
   user: "/user",
   version: "/version",
+  commits: "/commits",
+  variantHistory: "/variant-history",
+  taskHistory: "/task-history",
 };
 
 export const routes = {
@@ -57,6 +60,9 @@ export const routes = {
   userPatchesRedirect: `${paths.user}/:id`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
+  commits: `${paths.commits}/:projectId`,
+  variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
+  taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
