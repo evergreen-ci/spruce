@@ -17,26 +17,6 @@ describe("Tests Table", () => {
     cy.preserveCookies();
   });
 
-  it("Should make GQL request with default query variables when no query params are provided", () => {
-    cy.visit(TESTS_ROUTE);
-    assertQueryVariables("TaskTests", {
-      cat: "STATUS",
-      dir: "ASC",
-      testName: "",
-      pageNum: 0,
-    });
-  });
-
-  it("Should make GQL request with default query variables when invalid query params are provided", () => {
-    cy.visit(`${TESTS_ROUTE}?sortBy=INVALID&sortDir=INVALID`);
-    assertQueryVariables("TaskTests", {
-      cat: "STATUS",
-      dir: "ASC",
-      testName: "",
-      pageNum: 0,
-    });
-  });
-
   it("Should display error toast when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
     cy.waitForGQL("GetTask");
@@ -288,16 +268,6 @@ describe("Tests Table", () => {
       });
     });
   });
-
-  it("All table columns are visible even when a long test name is present.", () => {
-    cy.visit(TESTS_ROUTE);
-    cy.contains(longTestName).should("be.visible");
-    cy.dataCy("name-column").should("be.visible");
-    cy.dataCy("status-column").should("be.visible");
-    cy.dataCy("base-status-column").should("be.visible");
-    cy.dataCy("time-column").should("be.visible");
-    cy.dataCy("logs-column").should("be.visible");
-  });
 });
 
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
@@ -311,28 +281,28 @@ const longTestName =
   "suuuuuupppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnggggggggggggggggggggggggg name";
 
 const firstPageDisplayNames = [
-  "TestFinalizePatch",
-  "TestHostTaskAuditing",
-  "TestStuckHostAuditing",
-  "TestGenerateSuite",
-  longTestName,
-  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
-  "TestGenerateSuite/TestValidateNoRedefine",
-  "TestUpdateVersionAndParserProject",
-  "TestSetVersionActivation",
+  "TestCreateIntermediateProjectRequirements",
   "TestCreateTaskGroup",
+  "TestDepsMatrixIntegration",
+  "TestFinalizePatch",
+  "TestGenerateSuite",
+  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
+  "TestGenerateSuite/TestValidate",
+  "TestGetActivationTimeWithCron/Interval",
+  "TestHostTaskAuditing",
+  "TestMergeAxisValue",
 ];
 const secondPageDisplayNames = [
-  "TestSortTasks",
-  "TestDepsMatrixIntegration",
-  "TestRetryCommitQueueItems",
   "TestProjectAliasSuite/TestInsertTagsAndNoVariant",
   "TestProjectEventSuite/TestModifyProjectNonEvent",
+  "TestRetryCommitQueueItems",
+  "TestSetVersionActivation",
+  "TestSortTasks",
+  "TestStuckHostAuditing",
   "TestTaskGroupWithDisplayTask",
   "TestTryUpsert/configNumberMatches",
-  "TestGetActivationTimeWithCron/Interval",
-  "TestCreateIntermediateProjectRequirements",
-  "TestMergeAxisValue",
+  "TestUpdateVersionAndParserProject",
+  longTestName,
 ];
 
 const dataCyNextPage =
