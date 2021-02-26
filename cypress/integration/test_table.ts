@@ -228,7 +228,7 @@ describe("Tests Table", () => {
       cy.dataCy("testname-input").first().focus().type(testNameInputValue);
     });
 
-    it.only("Typing in test name filter updates testname query param", () => {
+    it("Typing in test name filter updates testname query param", () => {
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });

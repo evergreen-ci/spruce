@@ -21,7 +21,7 @@ describe("Task Page Route", () => {
     cy.location("pathname").should("eq", `/task/${tasks[1]}/files`);
   });
 
-  it.only("should display an appropriate status badge when visiting task pages", () => {
+  it("should display an appropriate status badge when visiting task pages", () => {
     cy.visit(`/task/${tasks[1]}`);
     cy.dataCy("task-status-badge").contains("Dispatched");
     cy.visit(`/task/${tasks[2]}`);
