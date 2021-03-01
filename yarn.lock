@@ -2447,10 +2447,10 @@
   dependencies:
     "@leafygreen-ui/lib" "^6.1.2"
 
-"@leafygreen-ui/code@8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-8.0.3.tgz#39283df129bdc48780143f0c2e92a8b98f5fe079"
-  integrity sha512-hiXlZsRiYkvurQr28dP1TsAXyBxYtpWOq0u9Dse2SehjtLV9ixd1djSe0TRXw7+ylp3qXCsoW9YLTFVm1EBIpA==
+"@leafygreen-ui/code@8.0.6":
+  version "8.0.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/code/-/code-8.0.6.tgz#12d1b522f7e34632e50f268f93b119c20c9aea88"
+  integrity sha512-7ZPk2yHpnZlbUGwnUhgGrexk/3NosfeJEufG+EXrdiGPhMb3GTcBtNsoash4zBo71zcL7gbzkQ4FE82wfiP8Tg==
   dependencies:
     "@leafygreen-ui/hooks" "^6.0.0"
     "@leafygreen-ui/icon" "^9.0.0"
