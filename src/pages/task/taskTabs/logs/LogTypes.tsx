@@ -218,32 +218,34 @@ const useRenderBody: React.FC<{
         value={currentLog}
         name="log-select"
       >
-        <ButtonContainer>
-          {htmlLink && (
-            <Button
-              data-cy="html-log-btn"
-              target="_blank"
-              href={htmlLink}
-              onClick={() =>
-                taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
-              }
-            >
-              HTML
-            </Button>
-          )}
-          {rawLink && (
-            <Button
-              data-cy="raw-log-btn"
-              target="_blank"
-              href={rawLink}
-              onClick={() =>
-                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
-              }
-            >
-              Raw
-            </Button>
-          )}
-        </ButtonContainer>
+        {(htmlLink || rawLink) && (
+          <ButtonContainer>
+            {htmlLink && (
+              <Button
+                data-cy="html-log-btn"
+                target="_blank"
+                href={htmlLink}
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
+                }
+              >
+                HTML
+              </Button>
+            )}
+            {rawLink && (
+              <Button
+                data-cy="raw-log-btn"
+                target="_blank"
+                href={rawLink}
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+                }
+              >
+                Raw
+              </Button>
+            )}
+          </ButtonContainer>
+        )}
         <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
