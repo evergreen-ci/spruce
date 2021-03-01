@@ -168,7 +168,7 @@ const useRenderBody: React.FC<{
   const { replace } = useHistory();
   const taskAnalytics = useTaskAnalytics();
 
-  const hideLogs = error || !data.length;
+  const noLogs = !!(error || !data.length);
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     replace(
@@ -188,7 +188,7 @@ const useRenderBody: React.FC<{
   let body = null;
   if (loading) {
     body = <Skeleton active title={false} paragraph={{ rows: 8 }} />;
-  } else if (hideLogs) {
+  } else if (noLogs) {
     body = <div data-cy="cy-no-logs">No logs found</div>;
   } else {
     body = (
@@ -223,8 +223,9 @@ const useRenderBody: React.FC<{
             {htmlLink && (
               <Button
                 data-cy="html-log-btn"
-                target="_blank"
+                disabled={noLogs}
                 href={htmlLink}
+                target="_blank"
                 onClick={() =>
                   taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
                 }
@@ -235,8 +236,9 @@ const useRenderBody: React.FC<{
             {rawLink && (
               <Button
                 data-cy="raw-log-btn"
-                target="_blank"
+                disabled={noLogs}
                 href={rawLink}
+                target="_blank"
                 onClick={() =>
                   taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
                 }

@@ -1,7 +1,6 @@
 import { PatchTab } from "types/patch";
-import { LogTypes, PatchTasksQueryParams, TaskTab } from "types/task";
+import { PatchTasksQueryParams, TaskTab } from "types/task";
 import { stringifyQuery } from "utils";
-import { getLobsterURL } from "utils/getEnvironmentVariables";
 
 export enum PageNames {
   Patches = "patches",
