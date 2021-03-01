@@ -11,7 +11,7 @@ import {
 import { GET_CREATED_TICKETS } from "gql/queries";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { BBFileTicket } from "./BBFileTicket";
+import { FileTicket } from "./BBFileTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
 interface CreatedTicketsProps {
@@ -71,7 +71,7 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
         <TitleAndButtons>
           {/* @ts-expect-error */}
           {length === 0 && <TicketsTitle>Create a New Ticket</TicketsTitle>}
-          <BBFileTicket
+          <FileTicket
             taskId={taskId}
             execution={execution}
             setCreatedTicketsCount={setCreatedTicketsCount}
@@ -108,7 +108,7 @@ export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
     <TitleAndButtons>
       {/* @ts-expect-error */}
       <TicketsTitle>Create a New Ticket</TicketsTitle>
-      <BBFileTicket taskId={taskId} execution={execution} />
+      <FileTicket taskId={taskId} execution={execution} />
     </TitleAndButtons>
   </>
 );

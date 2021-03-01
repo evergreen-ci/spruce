@@ -11,29 +11,6 @@ import {
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { ButtonWrapper } from "./BBComponents";
 
-interface BBFileTicketProps {
-  taskId: string;
-  execution: number;
-  setCreatedTicketsCount?: React.Dispatch<React.SetStateAction<number>>;
-  createdTicketsCount?: number;
-}
-
-export const BBFileTicket: React.FC<BBFileTicketProps> = ({
-  taskId,
-  execution,
-  setCreatedTicketsCount,
-  createdTicketsCount,
-}) => (
-  <>
-    <FileTicket
-      taskId={taskId}
-      execution={execution}
-      setCreatedTicketsCount={setCreatedTicketsCount}
-      createdTicketsCount={createdTicketsCount}
-    />
-  </>
-);
-
 interface FileTicketProps {
   taskId: string;
   execution: number;

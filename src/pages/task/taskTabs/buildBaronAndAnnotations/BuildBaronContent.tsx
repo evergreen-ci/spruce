@@ -46,68 +46,66 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   const jiraSearchLink = getJiraSearchUrl(jiraHost, jqlEscaped);
 
   return (
-    <span data-cy="bb-content">
+    <div data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-      <>
-        {annotation?.webhookConfigured ? (
-          <CustomCreatedTickets
-            tickets={annotation?.createdIssues}
-            taskId={taskId}
-            execution={execution}
-          />
-        ) : (
-          <CreatedTickets
-            taskId={taskId}
-            execution={execution}
-            setCreatedTicketsCount={setCreatedTicketsCount}
-            createdTicketsCount={createdTicketsCount}
-            buildBaronConfigured={bbData.buildBaronConfigured}
-          />
-        )}
+      {annotation?.webhookConfigured ? (
+        <CustomCreatedTickets
+          tickets={annotation?.createdIssues}
+          taskId={taskId}
+          execution={execution}
+        />
+      ) : (
+        <CreatedTickets
+          taskId={taskId}
+          execution={execution}
+          setCreatedTicketsCount={setCreatedTicketsCount}
+          createdTicketsCount={createdTicketsCount}
+          buildBaronConfigured={bbData.buildBaronConfigured}
+        />
+      )}
 
-        <AnnotationNote
-          note={annotation?.note}
-          taskId={taskId}
-          execution={execution}
-          userCanModify={userCanModify}
-        />
-        <AnnotationTickets
-          tickets={annotation?.issues}
-          isIssue
-          annotationId={annotationId}
-          taskId={taskId}
-          execution={execution}
-          userCanModify={userCanModify}
-          selectedRowKey={selectedRowKey}
-          setSelectedRowKey={setSelectedRowKey}
-        />
-        <AnnotationTickets
-          tickets={annotation?.suspectedIssues}
-          isIssue={false}
-          annotationId={annotationId}
-          taskId={taskId}
-          execution={execution}
-          userCanModify={userCanModify}
-          selectedRowKey={selectedRowKey}
-          setSelectedRowKey={setSelectedRowKey}
-        />
+      <AnnotationNote
+        note={annotation?.note}
+        taskId={taskId}
+        execution={execution}
+        userCanModify={userCanModify}
+      />
+      <AnnotationTickets
+        tickets={annotation?.issues}
+        isIssue
+        annotationId={annotationId}
+        taskId={taskId}
+        execution={execution}
+        userCanModify={userCanModify}
+        selectedRowKey={selectedRowKey}
+        setSelectedRowKey={setSelectedRowKey}
+      />
+      <AnnotationTickets
+        tickets={annotation?.suspectedIssues}
+        isIssue={false}
+        annotationId={annotationId}
+        taskId={taskId}
+        execution={execution}
+        userCanModify={userCanModify}
+        selectedRowKey={selectedRowKey}
+        setSelectedRowKey={setSelectedRowKey}
+      />
 
-        {bbData?.searchReturnInfo?.issues.length > 0 && (
-          <>
-            <TitleAndButtons>
-              {/* @ts-expect-error */}
-              <TicketsTitle>
-                Related tickets from Jira
-                <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
-                  {"  "}(Jira Search)
-                </StyledLink>
-              </TicketsTitle>
-            </TitleAndButtons>
-            {/* build baron related jira tickets */}
-            <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
-          </>
-        )}
-      </>
-    </span>
+      {bbData?.searchReturnInfo?.issues.length > 0 && (
+        <>
+          <TitleAndButtons>
+            {/* @ts-expect-error */}
+            <TicketsTitle>
+              Related tickets from Jira
+              <StyledLink data-cy="jira-search-link" href={jiraSearchLink}>
+                {"  "}(Jira Search)
+              </StyledLink>
+            </TicketsTitle>
+          </TitleAndButtons>
+          {/* build baron related jira tickets */}
+          <BuildBaronTable jiraIssues={bbData?.searchReturnInfo?.issues} />
+        </>
+      )}
+    </div>
   );
 };
