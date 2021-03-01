@@ -55,6 +55,7 @@ interface Props {
   currentLog: LogTypes;
   htmlLink: string;
   rawLink: string;
+  lobsterLink: string;
 }
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
@@ -155,6 +156,7 @@ const useRenderBody: React.FC<{
   LogContainer?: React.FC;
   htmlLink: string;
   rawLink: string;
+  lobsterLink: string;
 }> = ({
   loading,
   error,
@@ -162,6 +164,7 @@ const useRenderBody: React.FC<{
   currentLog,
   rawLink,
   htmlLink,
+  lobsterLink,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
 }) => {
   const { pathname } = useLocation();
@@ -218,8 +221,21 @@ const useRenderBody: React.FC<{
         value={currentLog}
         name="log-select"
       >
-        {(htmlLink || rawLink) && (
+        {(htmlLink || rawLink || lobsterLink) && (
           <ButtonContainer>
+            {htmlLink && (
+              <Button
+                data-cy="html-log-btn"
+                disabled={noLogs}
+                href={lobsterLink}
+                target="_blank"
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs Lobster Button" })
+                }
+              >
+                Lobster
+              </Button>
+            )}
             {htmlLink && (
               <Button
                 data-cy="html-log-btn"

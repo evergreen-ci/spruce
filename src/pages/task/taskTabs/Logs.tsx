@@ -48,7 +48,7 @@ export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
     }
   }, [logTypeParam]);
 
-  const { htmlLink, rawLink } = getLinks(
+  const { htmlLink, rawLink, lobsterLink } = getLinks(
     logLinks,
     currentLog,
     taskId,
@@ -57,7 +57,12 @@ export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
   const LogComp = options[currentLog];
   return (
     LogComp && (
-      <LogComp htmlLink={htmlLink} rawLink={rawLink} currentLog={currentLog} />
+      <LogComp
+        htmlLink={htmlLink}
+        rawLink={rawLink}
+        lobsterLink={lobsterLink}
+        currentLog={currentLog}
+      />
     )
   );
 };
