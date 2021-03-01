@@ -29,5 +29,5 @@ export const UserTagsFieldView = () => {
 };
 
 export default {
-  title: "User Tags Field",
+  title: "Editable Tags Field",
 };
