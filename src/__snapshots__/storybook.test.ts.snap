@@ -1,0 +1,3088 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Banners Banner Context 1`] = `
+Array [
+  .emotion-0 {
+  margin-top: 16px;
+}
+
+.emotion-2 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+<h6
+    className="emotion-0 emotion-1 emotion-2"
+  >
+    Click a button to render a banner
+  </h6>,
+  .emotion-0 {
+  margin-top: 16px;
+}
+
+.emotion-0>:not(:last-child) {
+  margin-right: 8px;
+}
+
+.emotion-2 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  height: 32px;
+}
+
+.emotion-2:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-3 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  position: relative;
+  z-index: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: none;
+  -webkit-transition: all 120ms ease;
+  transition: all 120ms ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0;
+  font-size: 14px;
+  color: #3D4F58;
+  border: 1px solid #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient( #FFFFFF, #E7EEEC );
+  box-shadow: inset 0 -1px 0 #B8C4C2;
+}
+
+.emotion-3:focus {
+  outline: none;
+}
+
+.emotion-3:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-3:before,
+.emotion-3:after {
+  content: '';
+  -webkit-transition: 0.15s opacity ease-in-out;
+  transition: 0.15s opacity ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+}
+
+.emotion-3:not(:disabled):focus:before,
+.emotion-3:not(:disabled):hover:before {
+  opacity: 1;
+}
+
+.emotion-3:not(:disabled):active:after {
+  opacity: 1;
+}
+
+.emotion-3:before {
+  border-color: #B8C4C2;
+  background-color: #E7EEEC;
+  background-image: linear-gradient(#F9FBFA,#dde4e2);
+  box-shadow: inset 0 -1px 0 #B8C4C2,0 1px 4px rgba(6,22,33,0.1);
+}
+
+.emotion-3:after {
+  border-color: #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient(#dde4e2,#F9FBFA);
+  box-shadow: inset 0 2px 2px rgba(6,22,33,0.1);
+}
+
+.emotion-3:focus,
+.emotion-3:hover {
+  color: #3D4F58;
+}
+
+.emotion-3:focus {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-3:focus:not(:disabled):before {
+  opacity: 1;
+}
+
+.emotion-4 {
+  z-index: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 12px;
+}
+
+.emotion-5 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 3px;
+}
+
+<div
+    className="emotion-0 emotion-1"
+  >
+    <div
+      className="emotion-2"
+    >
+      <button
+        aria-disabled={false}
+        className="emotion-3"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+      >
+        <span
+          className="emotion-4"
+        >
+          Success
+        </span>
+      </button>
+      <div
+        className="emotion-5"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+    <div
+      className="emotion-2"
+    >
+      <button
+        aria-disabled={false}
+        className="emotion-3"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+      >
+        <span
+          className="emotion-4"
+        >
+          Error
+        </span>
+      </button>
+      <div
+        className="emotion-5"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+    <div
+      className="emotion-2"
+    >
+      <button
+        aria-disabled={false}
+        className="emotion-3"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+      >
+        <span
+          className="emotion-4"
+        >
+          Warning
+        </span>
+      </button>
+      <div
+        className="emotion-5"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+    <div
+      className="emotion-2"
+    >
+      <button
+        aria-disabled={false}
+        className="emotion-3"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+      >
+        <span
+          className="emotion-4"
+        >
+          Info
+        </span>
+      </button>
+      <div
+        className="emotion-5"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+    <div
+      className="emotion-2"
+    >
+      <button
+        aria-disabled={false}
+        className="emotion-3"
+        disabled={false}
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+      >
+        <span
+          className="emotion-4"
+        >
+          Clear All
+        </span>
+      </button>
+      <div
+        className="emotion-5"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Banners Error 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #F9D3C5;
+  background-color: #FCEBE2;
+}
+
+.emotion-2 {
+  color: #8F221B;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-4 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+<div
+  className="emotion-0 emotion-1"
+  data-cy="banner"
+  type="error"
+>
+  <div
+    className="emotion-2 emotion-3 emotion-4"
+    type="error"
+  >
+    I am a banner and I have something to say!
+  </div>
+</div>
+`;
+
+exports[`Storyshots Banners Info 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #C5E4F2;
+  background-color: #E1F2F6;
+}
+
+.emotion-2 {
+  color: #1A567E;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-4 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.emotion-5 {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.emotion-7 {
+  color: #89989B;
+}
+
+<div
+  className="emotion-0 emotion-1"
+  data-cy="banner"
+  type="info"
+>
+  <div
+    className="emotion-2 emotion-3 emotion-4"
+    type="info"
+  >
+    I am a banner and I have something to say!
+  </div>
+  <div
+    className="emotion-5 emotion-6"
+    onClick={[Function]}
+  >
+    <svg
+      aria-label="X Icon"
+      className="emotion-7"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Banners Multiple Lines Of Text 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #C3E7CA;
+  background-color: #E4F4E4;
+}
+
+.emotion-2 {
+  color: #116149;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-4 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.emotion-5 {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.emotion-7 {
+  color: #89989B;
+}
+
+<div
+  className="emotion-0 emotion-1"
+  data-cy="banner"
+  type="success"
+>
+  <div
+    className="emotion-2 emotion-3 emotion-4"
+    type="success"
+  >
+    Now this is a story all about how my life got flipped-turned upside down and I'd like to take a minute just sit right there I'll tell you how I became the prince of a town called Bel-Air. In west philadelphia born and raised on the playground was where I spent most of my days. Chillin' out maxin' relaxin' all cool and all shooting some b-ball outside of the school when a couple of guys who were up to no good started making trouble in my neighborhood. I got in one little fight and my mom got scared she said, "You're moving with your auntie and uncle in Bel-Air"
+  </div>
+  <div
+    className="emotion-5 emotion-6"
+    onClick={[Function]}
+  >
+    <svg
+      aria-label="X Icon"
+      className="emotion-7"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Banners Success 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #C3E7CA;
+  background-color: #E4F4E4;
+}
+
+.emotion-2 {
+  color: #116149;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-4 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.emotion-5 {
+  margin-left: 16px;
+  cursor: pointer;
+}
+
+.emotion-7 {
+  color: #89989B;
+}
+
+<div
+  className="emotion-0 emotion-1"
+  data-cy="banner"
+  type="success"
+>
+  <div
+    className="emotion-2 emotion-3 emotion-4"
+    type="success"
+  >
+    I am a banner and I have something to say!
+  </div>
+  <div
+    className="emotion-5 emotion-6"
+    onClick={[Function]}
+  >
+    <svg
+      aria-label="X Icon"
+      className="emotion-7"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Banners Warning 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding: 16px 16px;
+  border: 1px solid;
+  border-radius: 4px;
+  border-color: #FEF2C8;
+  background-color: #FEF7E3;
+}
+
+.emotion-2 {
+  color: #86681D;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-4 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+<div
+  className="emotion-0 emotion-1"
+  data-cy="banner"
+  type="warning"
+>
+  <div
+    className="emotion-2 emotion-3 emotion-4"
+    type="warning"
+  >
+    I am a banner and I have something to say!
+  </div>
+</div>
+`;
+
+exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  max-width: 70%;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.emotion-10 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.emotion-18 {
+  margin-top: 42px;
+}
+
+.emotion-20 {
+  border: none;
+  -webkit-appearance: unset;
+  padding: unset;
+  display: inline-block;
+  border-radius: 100px;
+  color: #89989B;
+  position: relative;
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: rgba(255,255,255,0);
+  height: 28px;
+  width: 28px;
+}
+
+.emotion-20:before {
+  content: '';
+  -webkit-transition: 150ms all ease-in-out;
+  transition: 150ms all ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.emotion-20:hover:before,
+.emotion-20:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.emotion-20:focus {
+  outline: none;
+}
+
+.emotion-20:hover {
+  color: #3D4F58;
+}
+
+.emotion-20:hover:before {
+  background-color: #E7EEEC;
+}
+
+.emotion-20:focus {
+  color: #007CAD;
+}
+
+.emotion-20:focus:before {
+  background-color: #C5E4F2;
+}
+
+.emotion-21 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-64 {
+  margin-top: 25px;
+}
+
+.emotion-66 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  height: 32px;
+}
+
+.emotion-66:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-67 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  position: relative;
+  z-index: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: none;
+  -webkit-transition: all 120ms ease;
+  transition: all 120ms ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0;
+  font-size: 14px;
+  color: #3D4F58;
+  border: 1px solid #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient( #FFFFFF, #E7EEEC );
+  box-shadow: inset 0 -1px 0 #B8C4C2;
+}
+
+.emotion-67:focus {
+  outline: none;
+}
+
+.emotion-67:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:before,
+.emotion-67:after {
+  content: '';
+  -webkit-transition: 0.15s opacity ease-in-out;
+  transition: 0.15s opacity ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+}
+
+.emotion-67:not(:disabled):focus:before,
+.emotion-67:not(:disabled):hover:before {
+  opacity: 1;
+}
+
+.emotion-67:not(:disabled):active:after {
+  opacity: 1;
+}
+
+.emotion-67:before {
+  border-color: #B8C4C2;
+  background-color: #E7EEEC;
+  background-image: linear-gradient(#F9FBFA,#dde4e2);
+  box-shadow: inset 0 -1px 0 #B8C4C2,0 1px 4px rgba(6,22,33,0.1);
+}
+
+.emotion-67:after {
+  border-color: #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient(#dde4e2,#F9FBFA);
+  box-shadow: inset 0 2px 2px rgba(6,22,33,0.1);
+}
+
+.emotion-67:focus,
+.emotion-67:hover {
+  color: #3D4F58;
+}
+
+.emotion-67:focus {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:focus:not(:disabled):before {
+  opacity: 1;
+}
+
+.emotion-68 {
+  z-index: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 12px;
+}
+
+.emotion-69 {
+  margin-right: 5px;
+}
+
+.emotion-70 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 3px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="add-tag-button-row"
+  >
+    <div
+      className="emotion-64 emotion-65"
+    >
+      <div
+        className="emotion-66"
+      >
+        <button
+          aria-disabled={false}
+          className="emotion-67"
+          data-cy="add-tag-button"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          type="button"
+        >
+          <span
+            className="emotion-68"
+          >
+            <svg
+              aria-label="Plus Icon"
+              className="emotion-69"
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+            Add Tag
+          </span>
+        </button>
+        <div
+          className="emotion-70"
+          data-leafygreen-ui="interaction-ring"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  max-width: 70%;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-right: 10px;
+  margin-top: 20px;
+}
+
+.emotion-10 {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.emotion-18 {
+  margin-top: 42px;
+}
+
+.emotion-20 {
+  border: none;
+  -webkit-appearance: unset;
+  padding: unset;
+  display: inline-block;
+  border-radius: 100px;
+  color: #89989B;
+  position: relative;
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: rgba(255,255,255,0);
+  height: 28px;
+  width: 28px;
+}
+
+.emotion-20:before {
+  content: '';
+  -webkit-transition: 150ms all ease-in-out;
+  transition: 150ms all ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.emotion-20:hover:before,
+.emotion-20:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.emotion-20:focus {
+  outline: none;
+}
+
+.emotion-20:hover {
+  color: #3D4F58;
+}
+
+.emotion-20:hover:before {
+  background-color: #E7EEEC;
+}
+
+.emotion-20:focus {
+  color: #007CAD;
+}
+
+.emotion-20:focus:before {
+  background-color: #C5E4F2;
+}
+
+.emotion-21 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-64 {
+  margin-top: 25px;
+}
+
+.emotion-66 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  height: 32px;
+}
+
+.emotion-66:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-67 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  position: relative;
+  z-index: 0;
+  border-radius: 3px;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  font-weight: normal;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  text-transform: none;
+  -webkit-transition: all 120ms ease;
+  transition: all 120ms ease;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  padding: 0;
+  font-size: 14px;
+  color: #3D4F58;
+  border: 1px solid #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient( #FFFFFF, #E7EEEC );
+  box-shadow: inset 0 -1px 0 #B8C4C2;
+}
+
+.emotion-67:focus {
+  outline: none;
+}
+
+.emotion-67:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:before,
+.emotion-67:after {
+  content: '';
+  -webkit-transition: 0.15s opacity ease-in-out;
+  transition: 0.15s opacity ease-in-out;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 2px;
+}
+
+.emotion-67:not(:disabled):focus:before,
+.emotion-67:not(:disabled):hover:before {
+  opacity: 1;
+}
+
+.emotion-67:not(:disabled):active:after {
+  opacity: 1;
+}
+
+.emotion-67:before {
+  border-color: #B8C4C2;
+  background-color: #E7EEEC;
+  background-image: linear-gradient(#F9FBFA,#dde4e2);
+  box-shadow: inset 0 -1px 0 #B8C4C2,0 1px 4px rgba(6,22,33,0.1);
+}
+
+.emotion-67:after {
+  border-color: #B8C4C2;
+  background-color: #F9FBFA;
+  background-image: linear-gradient(#dde4e2,#F9FBFA);
+  box-shadow: inset 0 2px 2px rgba(6,22,33,0.1);
+}
+
+.emotion-67:focus,
+.emotion-67:hover {
+  color: #3D4F58;
+}
+
+.emotion-67:focus {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-67:focus:not(:disabled):before {
+  opacity: 1;
+}
+
+.emotion-68 {
+  z-index: 1;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-flex: 1;
+  -webkit-flex-grow: 1;
+  -ms-flex-positive: 1;
+  flex-grow: 1;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  overflow: hidden;
+  padding: 0 12px;
+}
+
+.emotion-69 {
+  margin-right: 5px;
+}
+
+.emotion-70 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 3px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueA"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueB"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="user-tag-row"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_key_undefined"
+          >
+            Key
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-key-field"
+            id="tag_key_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="keyC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-2 emotion-3"
+      >
+        <div
+          className="emotion-8 emotion-9"
+        >
+          <label
+            className="emotion-10 emotion-11"
+            htmlFor="tag_value_undefined"
+          >
+            Value
+          </label>
+          <input
+            className="ant-input"
+            data-cy="user-tag-value-field"
+            id="tag_value_undefined"
+            onBlur={[Function]}
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyDown={[Function]}
+            type="text"
+            value="valueC"
+          />
+        </div>
+      </div>
+      <div
+        className="emotion-18 emotion-19"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Delete Tag"
+          className="emotion-20"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-21"
+          >
+            <svg
+              aria-label="Trash Icon"
+              data-cy="user-tag-trash-icon"
+              fill="none"
+              height={16}
+              onClick={[Function]}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div
+    className="emotion-2 emotion-3"
+    data-cy="add-tag-button-row"
+  >
+    <div
+      className="emotion-64 emotion-65"
+    >
+      <div
+        className="emotion-66"
+      >
+        <button
+          aria-disabled={false}
+          className="emotion-67"
+          data-cy="add-tag-button"
+          disabled={false}
+          onBlur={[Function]}
+          onClick={[Function]}
+          onFocus={[Function]}
+          type="button"
+        >
+          <span
+            className="emotion-68"
+          >
+            <svg
+              aria-label="Plus Icon"
+              className="emotion-69"
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+            Add Tag
+          </span>
+        </button>
+        <div
+          className="emotion-70"
+          data-leafygreen-ui="interaction-ring"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Node List Node Element 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 80px;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-4 {
+  min-height: 56px;
+  min-width: 56px;
+  background-color: #13AA52;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.emotion-6 {
+  color: #FFFFFF;
+}
+
+.emotion-8 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.emotion-9 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  margin-left: 24px;
+}
+
+.emotion-12 {
+  margin-left: 80px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="emotion-2 emotion-3"
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <h6
+        className="emotion-6 emotion-7 emotion-8"
+      >
+        1
+      </h6>
+    </div>
+    <h6
+      className="emotion-9 emotion-10 emotion-8"
+    >
+      Download the Command-Line Client.
+    </h6>
+  </div>
+  <div
+    className="emotion-12 emotion-13"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "red",
+          "height": 300,
+          "width": 500,
+        }
+      }
+    >
+      Test
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Node List Node List Full 1`] = `
+.emotion-0:after {
+  background: #E7EEEC;
+  content: "";
+  left: 28px;
+  position: absolute;
+  top: 0%;
+  height: 80%;
+  width: 1px;
+  z-index: 0;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  margin-bottom: 80px;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-6 {
+  min-height: 56px;
+  min-width: 56px;
+  background-color: #13AA52;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 2;
+}
+
+.emotion-8 {
+  color: #FFFFFF;
+}
+
+.emotion-10 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.emotion-11 {
+  -webkit-align-self: center;
+  -ms-flex-item-align: center;
+  align-self: center;
+  margin-left: 24px;
+}
+
+.emotion-14 {
+  margin-left: 80px;
+}
+
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="emotion-0 emotion-1"
+  >
+    <div
+      className="emotion-2 emotion-3"
+    >
+      <div
+        className="emotion-4 emotion-5"
+      >
+        <div
+          className="emotion-6 emotion-7"
+        >
+          <h6
+            className="emotion-8 emotion-9 emotion-10"
+          >
+            1
+          </h6>
+        </div>
+        <h6
+          className="emotion-11 emotion-12 emotion-10"
+        >
+          Download the Command-Line Client.
+        </h6>
+      </div>
+      <div
+        className="emotion-14 emotion-15"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "red",
+              "height": 300,
+              "width": 500,
+            }
+          }
+        >
+          Test
+        </div>
+      </div>
+    </div>
+    <div
+      className="emotion-2 emotion-3"
+    >
+      <div
+        className="emotion-4 emotion-5"
+      >
+        <div
+          className="emotion-6 emotion-7"
+        >
+          <h6
+            className="emotion-8 emotion-9 emotion-10"
+          >
+            2
+          </h6>
+        </div>
+        <h6
+          className="emotion-11 emotion-12 emotion-10"
+        >
+          Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.
+        </h6>
+      </div>
+      <div
+        className="emotion-14 emotion-15"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "red",
+              "height": 300,
+              "width": 500,
+            }
+          }
+        >
+          Test
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Public Key Form Public Key Form View 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 80%;
+}
+
+.emotion-2 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-5 {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  z-index: 0;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-7:not(:last-of-type) {
+  margin-right: 12px;
+}
+
+.emotion-8 {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.emotion-9 {
+  border: 1px solid #B8C4C2;
+  border-radius: 2px;
+  cursor: pointer;
+  position: relative;
+  pointer-events: none;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-10 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+  z-index: -1;
+}
+
+.emotion-10:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-11 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  -webkit-transition: box-shadow 150ms ease-in-out;
+  transition: box-shadow 150ms ease-in-out;
+  padding: 15px;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  vertical-align: top;
+  overflow-wrap: break-word;
+  background-color: white;
+  border-radius: 2px;
+  color: #3D4F58;
+  pointer-events: auto;
+  z-index: 2;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-12 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 1px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <h6
+    className="emotion-2"
+  >
+    Public Key
+  </h6>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="ant-select ant-select-single ant-select-show-arrow ant-select-show-search"
+      data-cy="public_key_dropdown"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      style={
+        Object {
+          "width": 200,
+        }
+      }
+    >
+      <div
+        className="ant-select-selector"
+        onClick={[Function]}
+        onMouseDown={[Function]}
+      >
+        <span
+          className="ant-select-selection-search"
+        >
+          <input
+            aria-activedescendant="undefined_list_0"
+            aria-autocomplete="list"
+            aria-controls="undefined_list"
+            aria-haspopup="listbox"
+            aria-owns="undefined_list"
+            autoComplete="off"
+            className="ant-select-selection-search-input"
+            disabled={false}
+            onChange={[Function]}
+            onCompositionEnd={[Function]}
+            onCompositionStart={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onPaste={[Function]}
+            readOnly={false}
+            role="combobox"
+            style={
+              Object {
+                "opacity": null,
+              }
+            }
+            type="search"
+            unselectable={null}
+            value=""
+          />
+        </span>
+        <span
+          className="ant-select-selection-item"
+          title=""
+        >
+          
+        </span>
+      </div>
+      <span
+        aria-hidden={true}
+        className="ant-select-arrow"
+        onMouseDown={[Function]}
+        style={
+          Object {
+            "WebkitUserSelect": "none",
+            "userSelect": "none",
+          }
+        }
+        unselectable="on"
+      >
+        <span
+          aria-label="down"
+          className="anticon anticon-down ant-select-suffix"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+    <span
+      className="emotion-5 emotion-6"
+    >
+      or
+    </span>
+    <label
+      className="emotion-7"
+      data-leafygreen-ui="radio-box-wrapper"
+    >
+      <input
+        aria-checked={false}
+        aria-disabled={false}
+        checked={false}
+        className="emotion-8"
+        data-cy="add_public_key_button"
+        data-leafygreen-ui="radio-box-input"
+        disabled={false}
+        onChange={[Function]}
+        onClick={[Function]}
+        type="radio"
+        value="addKey"
+      />
+      <div
+        className="emotion-9"
+      >
+        <div
+          className="emotion-10"
+        >
+          <div
+            className="emotion-11"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Add new key
+          </div>
+          <div
+            className="emotion-12"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
+.emotion-0 {
+  padding-top: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
+  margin-bottom: 12px;
+  width: 80%;
+  padding-bottom: 32px;
+}
+
+.emotion-2 {
+  position: relative;
+  border-radius: 7px;
+  -webkit-transition: border 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  transition: border 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  border: 1px solid #E7EEEC;
+  box-shadow: 0 4px 10px -4px rgba(6,22,33,0.3);
+  background-color: white;
+  color: #21313C;
+}
+
+.emotion-3 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.emotion-5 {
+  min-width: 150px;
+}
+
+.emotion-51 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #007CAD;
+}
+
+.emotion-51:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-57 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #007CAD;
+}
+
+.emotion-57:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<div
+  className="emotion-0 emotion-1 emotion-2"
+  data-cy="spawn-host-card"
+>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      ID
+    </div>
+    <div>
+      <span>
+        i-04ade558e1e26b0ad
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Created at
+    </div>
+    <div>
+      <span>
+        Jun 15, 2020, 11:10:44 AM
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Started at
+    </div>
+    <div>
+      <span>
+        Jun 15, 2020, 11:10:44 AM
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Expires at
+    </div>
+    <div>
+      <span>
+        Does not expire
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      SSH User
+    </div>
+    <div>
+      <span>
+        ubuntu
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      DNS Name
+    </div>
+    <div>
+      <span>
+        ec2-54-242-162-135.compute-1.amazonaws.com
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Working Directory
+    </div>
+    <div>
+      <span>
+        /home/ubuntu
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Availability Zone
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      User Tags
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Instance Type
+    </div>
+    <div>
+      <span>
+        m5.xlarge
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Mounted Volumes
+    </div>
+    <div />
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      Home Volume
+    </div>
+    <div>
+      <span>
+        <a
+          className="emotion-51 emotion-52"
+          href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
+          onClick={[Function]}
+        >
+          vol-0ea662ac92f611ed4
+        </a>
+      </span>
+    </div>
+  </div>
+  <div
+    className="emotion-3 emotion-4"
+  >
+    <div
+      className="emotion-5 emotion-6"
+    >
+      IDE
+    </div>
+    <div>
+      <span>
+        <a
+          className="emotion-57 emotion-58"
+          href="/host/i-04ade558e1e26b0ad/ide"
+        >
+          Open IDE
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Task Abort Message Aborted Because Of Failing Task 1`] = `
+.emotion-0 {
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 13px;
+  color: #21313C;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #007CAD;
+}
+
+.emotion-2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<p
+  className="emotion-0 emotion-1"
+>
+  Aborted by: apiserver 
+  <span>
+    because of failing task:
+     
+    <a
+      className="emotion-2 emotion-3"
+      data-cy="abort-message-failing-task"
+      href="/task/abc"
+      onClick={[Function]}
+    >
+      ~ Commit Queue: api-task-server
+    </a>
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message Aborted Because Of New Version 1`] = `
+.emotion-0 {
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 13px;
+  color: #21313C;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+.emotion-2 {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+  color: #007CAD;
+}
+
+.emotion-2:hover {
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+<p
+  className="emotion-0 emotion-1"
+>
+  Aborted by: apiserver 
+  <span>
+    because of a new version:
+     
+    <a
+      className="emotion-2 emotion-3"
+      data-cy="abort-message-new-version"
+      href="/version/5ee1efb3d1fe073e194e8b5c/tasks"
+      onClick={[Function]}
+    >
+      5ee1efb3d1fe073e194e8b5c
+    </a>
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message Aborted Because PR Closed 1`] = `
+.emotion-0 {
+  font-size: 12px;
+  line-height: 14px;
+  margin-bottom: 13px;
+  color: #21313C;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -webkit-hyphens: auto;
+  -moz-hyphens: auto;
+  -ms-hyphens: auto;
+  hyphens: auto;
+  word-break: break-word;
+}
+
+<p
+  className="emotion-0 emotion-1"
+>
+  Aborted by: apiserver 
+  <span>
+    because the GitHub PR was closed
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message No User 1`] = `null`;
+
+exports[`Storyshots TreeSelect Ellipsis 1`] = `
+.emotion-2 {
+  border: 1px solid #B8C4C2;
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emotion-6 {
+  border-left: 1px solid #B8C4C2;
+  padding-left: 5px;
+}
+
+.emotion-6>div {
+  position: relative;
+  top: 2px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="cy-treeselect-bar emotion-2 emotion-3"
+    onClick={[Function]}
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      Items: 
+      REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!, Skip, Silent Fail, Pass
+    </div>
+    <span
+      className="emotion-6 emotion-7"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots TreeSelect No All Button 1`] = `
+.emotion-2 {
+  border: 1px solid #B8C4C2;
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emotion-6 {
+  border-left: 1px solid #B8C4C2;
+  padding-left: 5px;
+}
+
+.emotion-6>div {
+  position: relative;
+  top: 2px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="cy-treeselect-bar emotion-2 emotion-3"
+    onClick={[Function]}
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      Items: 
+      Skip, Failed, Skip, Silent Fail, Pass
+    </div>
+    <span
+      className="emotion-6 emotion-7"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots TreeSelect No Initial Values 1`] = `
+.emotion-2 {
+  border: 1px solid #B8C4C2;
+  border-radius: 3px;
+  padding: 8px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+}
+
+.emotion-4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emotion-6 {
+  border-left: 1px solid #B8C4C2;
+  padding-left: 5px;
+}
+
+.emotion-6>div {
+  position: relative;
+  top: 2px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="cy-treeselect-bar emotion-2 emotion-3"
+    onClick={[Function]}
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      Items: 
+      No filters selected
+    </div>
+    <span
+      className="emotion-6 emotion-7"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Welcome Modal Welcome Modal View 1`] = `"Loading..."`;

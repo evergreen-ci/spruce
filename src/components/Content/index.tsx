@@ -20,6 +20,7 @@ import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
+import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
@@ -30,8 +31,10 @@ import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
 import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
+import { TaskHistory } from "pages/TaskHistory";
 import { TaskQueue } from "pages/TaskQueue";
 import { UserPatches } from "pages/UserPatches";
+import { VariantHistory } from "pages/VariantHistory";
 
 export const Content: React.FC = () => {
   const { isAuthenticated } = useAuthStateContext();
@@ -79,6 +82,9 @@ export const Content: React.FC = () => {
         <Route path={routes.spawn} component={Spawn} />
         <Route path={routes.commitQueue} component={CommitQueue} />
         <Route path={routes.preferences} component={Preferences} />
+        <Route path={routes.commits} component={Commits} />
+        <Route path={routes.taskHistory} component={TaskHistory} />
+        <Route path={routes.variantHistory} component={VariantHistory} />
         <Route exact path="/" component={MyPatches} />
 
         <Route component={PageDoesNotExist} />

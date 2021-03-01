@@ -32,7 +32,7 @@ export const HostTable: React.FC<{
       width: "25%",
       render: (_, { eventType, timestamp }: HostEventLogEntry): JSX.Element => (
         <div data-cy={`${eventType}-time`}>
-          {getDateCopy(timestamp, timeZone)}
+          {getDateCopy(timestamp, { tz: timeZone })}
         </div>
       ),
     },

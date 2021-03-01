@@ -52,8 +52,12 @@ export const JiraTicketRow: React.FC<JiraTicketRowProps> = ({
       </StyledBadge>
 
       <BottomMetaDataWrapper data-cy={`${jiraKey}-metadata`}>
-        <Disclaimer>Created: {getDateCopy(created, null, true)} </Disclaimer>
-        <Disclaimer>Updated: {getDateCopy(updated, null, true)} </Disclaimer>
+        <Disclaimer>
+          Created: {getDateCopy(created, { dateOnly: true })}{" "}
+        </Disclaimer>
+        <Disclaimer>
+          Updated: {getDateCopy(updated, { dateOnly: true })}{" "}
+        </Disclaimer>
         <Disclaimer>
           {assigneeDisplayName
             ? `Assignee: ${assigneeDisplayName}`
@@ -109,10 +113,14 @@ export const AnnotationTicketRow: React.FC<AnnotationTicketRowProps> = ({
 
       <BottomMetaDataWrapper data-cy={`${issueKey}-metadata`}>
         {created && (
-          <Disclaimer>Created: {getDateCopy(created, null, true)}</Disclaimer>
+          <Disclaimer>
+            Created: {getDateCopy(created, { dateOnly: true })}
+          </Disclaimer>
         )}
         {updated && (
-          <Disclaimer>Updated: {getDateCopy(updated, null, true)}</Disclaimer>
+          <Disclaimer>
+            Updated: {getDateCopy(updated, { dateOnly: true })}
+          </Disclaimer>
         )}
         {fields && !assigneeDisplayName && <Disclaimer>Unassigned</Disclaimer>}{" "}
         {assigneeDisplayName && (
@@ -145,21 +153,21 @@ const StyledBadge = styled(Badge)`
 export const BottomMetaDataWrapper = styled.div`
   margin-top: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 1fr 2fr 1fr;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
-  width: 60%;
+  width: 80%;
 `;
 
 export const TopMetaDataWrapper = styled.div`
   margin-bottom: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr auto;
+  grid-template-columns: 1fr 4fr;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
-  width: 60%;
+  width: 80%;
 `;
 
 export const TitleAndButtons = styled.div`
