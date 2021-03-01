@@ -287,18 +287,20 @@ const useRenderBody: React.FC<{
 };
 
 const ButtonContainer = styled.div`
+  display: flex;
   a:first-of-type {
     margin-right: 8px;
   }
-  margin-right: 24px;
+  margin-right: 16px;
 `;
 
 // @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   align-items: center;
+  white-space: nowrap;
   label {
-    margin-right: 24px;
+    margin-right: 16px;
   }
   padding-bottom: 8px;
 `;
