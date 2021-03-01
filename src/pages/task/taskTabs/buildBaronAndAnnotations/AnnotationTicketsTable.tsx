@@ -250,17 +250,15 @@ export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
 
   return (
     <TableWrapper>
-      <ErrorBoundary>
-        <Table
-          tableLayout="fixed"
-          data-test-id="created-issues-table"
-          dataSource={createdIssues}
-          rowKey={({ issueKey }) => issueKey}
-          columns={columns}
-          pagination={false}
-          showHeader={false}
-        />
-      </ErrorBoundary>
+      <Table
+        tableLayout="fixed"
+        data-test-id="created-issues-table"
+        dataSource={createdIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
+      />
     </TableWrapper>
   );
 };
