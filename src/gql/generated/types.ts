@@ -230,7 +230,7 @@ export type MutationRestartPatchArgs = {
 
 export type MutationEnqueuePatchArgs = {
   patchId: Scalars["String"];
-  commitMessage: Scalars["String"];
+  commitMessage?: Maybe<Scalars["String"]>;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -753,6 +753,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
+  buildVariantDisplayName: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
 };
@@ -863,6 +864,7 @@ export type Task = {
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
+  buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
@@ -1411,7 +1413,7 @@ export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
 
 export type EnqueuePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
-  commitMessage: Scalars["String"];
+  commitMessage?: Maybe<Scalars["String"]>;
 }>;
 
 export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
