@@ -4,10 +4,10 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import parse from "html-react-parser";
 import Cookies from "js-cookie";
-import { styles } from "components/Banners";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
+import * as styles from "./styles";
 
 const { Banner, BannerPadding } = styles;
 
