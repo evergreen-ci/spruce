@@ -20,7 +20,7 @@ describe("Task Action Buttons", () => {
       cy.visit(tasks[3]);
       cy.dataCy("restart-task").click();
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains(restartSuccessBannerText);
+      cy.dataCy("toast").contains(restartSuccessBannerText);
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
@@ -28,7 +28,7 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains(unscheduleSuccessBannerText);
+      cy.dataCy("toast").contains(unscheduleSuccessBannerText);
     });
 
     it("Abort button should be disabled on completed tasks", () => {
@@ -42,31 +42,32 @@ describe("Task Action Buttons", () => {
       cy.get(".ant-input-number-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains(prioritySuccessBannerText);
+      cy.dataCy("toast").contains(prioritySuccessBannerText);
     });
 
     it("Visiting a different task page should clear all banners", () => {
       cy.visit(tasks[2]);
-      cy.dataCy(bannerDataCy).should("not.exist");
+      cy.dataCy("toast").should("not.exist");
     });
 
     it("Should be able to abort an incomplete task", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("abort-task").click();
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains("Task aborted");
+      cy.dataCy("toast").contains("Task aborted");
     });
 
     it("Should correctly disable/enable the task when clicked", () => {
       cy.visit(tasks[1]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
+      cy.dataCy("ellipsis-btn").click(); // temporary manually close menu button TODO: Remove when PD-1207 is fixed
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains("Task was successfully disabled");
+      cy.dataCy("toast").contains("Task was successfully disabled");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
       cy.wait(200);
-      cy.dataCy(bannerDataCy).contains("Priority for task updated to 0");
+      cy.dataCy("toast").contains("Priority for task updated to 0");
     });
   });
 });
@@ -80,4 +81,3 @@ const tasks = {
   2: "/task/evergreen_lint_lint_service_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48",
   3: "/task/evergreen_ubuntu1604_dist_patch_33016573166a36bd5f46b4111151899d5c4e95b1_5ecedafb562343215a7ff297_20_05_27_21_39_46",
 };
-const bannerDataCy = "toast";
