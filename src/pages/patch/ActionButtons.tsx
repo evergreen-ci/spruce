@@ -21,12 +21,14 @@ import { SET_PATCH_PRIORITY } from "gql/mutations";
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchDescription: string;
   patchId: string;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchDescription,
   patchId,
 }) => {
   const dispatchToast = useToastContext();
@@ -73,6 +75,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     />,
     <EnqueuePatch
       patchId={patchId}
+      commitMessage={patchDescription}
       key="enqueue"
       disabled={!canEnqueueToCommitQueue}
       refetchQueries={["Patch"]}

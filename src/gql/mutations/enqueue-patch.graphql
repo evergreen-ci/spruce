@@ -1,6 +1,5 @@
-
-  mutation EnqueuePatch($patchId: String!) {
-    enqueuePatch(patchId: $patchId) {
-      id
-    }
+mutation EnqueuePatch($patchId: String!, $commitMessage: String) {
+  enqueuePatch(patchId: $patchId, commitMessage: $commitMessage) {
+    id
   }
+}
