@@ -76,6 +76,7 @@ export const Patch: React.FC = () => {
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
+            patchDescription={description}
             patchId={id}
           />
         }

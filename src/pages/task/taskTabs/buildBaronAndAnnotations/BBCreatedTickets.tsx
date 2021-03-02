@@ -6,13 +6,15 @@ import { useToastContext } from "context/toast";
 import {
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
+  IssueLink,
 } from "gql/generated/types";
 import { GET_CREATED_TICKETS } from "gql/queries";
+import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
-import { BBFileTicket } from "./BBFIleTicket";
+import { FileTicket } from "./BBFileTicket";
 import { BuildBaronTable } from "./BuildBaronTable";
 
-interface Props {
+interface CreatedTicketsProps {
   taskId: string;
   execution: number;
   setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
@@ -20,7 +22,7 @@ interface Props {
   buildBaronConfigured: boolean;
 }
 
-export const CreatedTickets: React.FC<Props> = ({
+export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
   taskId,
   execution,
   setCreatedTicketsCount,
@@ -69,7 +71,7 @@ export const CreatedTickets: React.FC<Props> = ({
         <TitleAndButtons>
           {/* @ts-expect-error */}
           {length === 0 && <TicketsTitle>Create a New Ticket</TicketsTitle>}
-          <BBFileTicket
+          <FileTicket
             taskId={taskId}
             execution={execution}
             setCreatedTicketsCount={setCreatedTicketsCount}
@@ -80,3 +82,33 @@ export const CreatedTickets: React.FC<Props> = ({
     </>
   );
 };
+
+// CUSTOM CREATED TICKETS
+interface CustomCreatedTicketProps {
+  tickets: IssueLink[];
+  taskId: string;
+  execution: number;
+}
+
+export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
+  tickets,
+  taskId,
+  execution,
+}) => (
+  <>
+    {tickets?.length > 0 && (
+      <>
+        <TitleAndButtons>
+          {/* @ts-expect-error */}
+          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+        </TitleAndButtons>
+        <CustomCreatedTicketsTable createdIssues={tickets} />
+      </>
+    )}
+    <TitleAndButtons>
+      {/* @ts-expect-error */}
+      <TicketsTitle>Create a New Ticket</TicketsTitle>
+      <FileTicket taskId={taskId} execution={execution} />
+    </TitleAndButtons>
+  </>
+);
