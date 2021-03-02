@@ -190,18 +190,17 @@ const patchBuildVariants = [
     tasks: [
       {
         id: "evergreen_lint_generate_lint",
-        name: "generate-lint",
+        execution: 0,
+        displayName: "generate-lint",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_lint_lint_service",
-        name: "lint-service",
+        execution: 0,
+        displayName: "lint-service",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
     ],
-    __typename: "PatchBuildVariant",
   },
   {
     variant: "ubuntu1604",
@@ -209,43 +208,42 @@ const patchBuildVariants = [
     tasks: [
       {
         id: "evergreen_ubuntu1604_js_test",
-        name: "js-test",
+        execution: 0,
+        displayName: "js-test",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_ubuntu1604_test_model_distro",
-        name: "test-model-distro",
+        execution: 0,
+        displayName: "test-model-distro",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_ubuntu1604_test_model_event",
-        name: "test-model-event",
+        execution: 0,
+        displayName: "test-model-event",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_ubuntu1604_test_model_grid",
-        name: "test-model-grid",
+        execution: 0,
+        displayName: "test-model-grid",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_ubuntu1604_test_model_host",
-        name: "test-model-host",
+        execution: 0,
+        displayName: "test-model-host",
         status: "success",
-        __typename: "PatchBuildVariantTask",
       },
       {
         id: "evergreen_ubuntu1604_test_service",
-        name: "test-service",
+        execution: 0,
+        displayName: "test-service",
         status: "failed",
         baseStatus: "success",
-        __typename: "PatchBuildVariantTask",
       },
     ],
-    __typename: "PatchBuildVariant",
   },
   {
     variant: "variant",
@@ -253,12 +251,11 @@ const patchBuildVariants = [
     tasks: [
       {
         id: "evergreen_ubuntu1604_89",
-        name: "test-thirdparty",
+        execution: 0,
+        displayName: "test-thirdparty",
         status: "started",
-        __typename: "PatchBuildVariantTask",
       },
     ],
-    __typename: "PatchBuildVariant",
   },
 ];
 

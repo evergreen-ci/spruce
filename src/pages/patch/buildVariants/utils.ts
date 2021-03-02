@@ -2,9 +2,8 @@ import {
   mapVariantTaskStatusToColor,
   mapVariantTaskStatusToDarkColor,
 } from "components/StatusSquare";
-import { PatchBuildVariantTask } from "gql/generated/types";
 
-export const groupTasksByColor = (tasks: PatchBuildVariantTask[]) => {
+export const groupTasksByColor = (tasks: { status: string }[]) => {
   const taskColors: {
     [key: string]: { count: number; statuses: string[]; textColor: string };
   } = {};

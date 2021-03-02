@@ -5,7 +5,8 @@
       displayName
       tasks {
         id
-        name
+        displayName
+        execution
         status
         baseStatus
       }
