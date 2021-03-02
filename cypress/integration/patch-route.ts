@@ -76,10 +76,8 @@ describe("Patch route", () => {
 
   describe("Build Variants", () => {
     beforeEach(() => {
-      cy.listenGQL();
       cy.preserveCookies();
       cy.visit(path);
-      cy.waitForGQL("PatchBuildVariants");
     });
 
     it("Lists the patch's build variants", () => {

@@ -11,7 +11,6 @@ describe("TaskBreadcrumb", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Shows tasks display name", () => {

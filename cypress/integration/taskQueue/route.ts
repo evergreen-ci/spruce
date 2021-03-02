@@ -5,7 +5,6 @@ describe("Task Queue", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Sets first distro in list as default if no distro in url", () => {

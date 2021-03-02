@@ -8,7 +8,6 @@ describe("Hosts Page Default", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
     cy.visit("/hosts");
   });
 
