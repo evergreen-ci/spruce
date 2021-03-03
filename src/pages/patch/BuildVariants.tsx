@@ -12,7 +12,6 @@ import { getVersionRoute } from "constants/routes";
 import {
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
-  PatchBuildVariantTask,
 } from "gql/generated/types";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
@@ -73,7 +72,7 @@ export const BuildVariants: React.FC = () => {
 };
 
 interface VariantTaskGroupProps {
-  tasks: PatchBuildVariantTask[];
+  tasks: { status: string }[];
   variant: string;
 }
 const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({

@@ -1,11 +1,15 @@
 import React from "react";
 import { FixedSizeList } from "react-window";
-import { PatchBuildVariantTask } from "gql/generated/types";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "pages/patch/patchRestartModal/TaskStatusCheckbox";
 
 interface PatchStatusCheckboxContainerProps {
-  tasks: PatchBuildVariantTask[];
+  tasks: {
+    id: string;
+    status: string;
+    baseStatus?: string;
+    displayName: string;
+  }[];
   selectedTasks: selectedStrings;
   toggleSelectedTask: (id: string) => void;
 }
@@ -33,9 +37,7 @@ export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainer
         itemData={tasks}
       >
         {({ style, data, index }) => {
-          const { id: taskId, status, baseStatus, name: displayName } = data[
-            index
-          ];
+          const { id: taskId, status, baseStatus, displayName } = data[index];
           const checked = !!selectedTasks[taskId];
           return (
             <TaskStatusCheckbox

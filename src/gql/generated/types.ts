@@ -630,6 +630,8 @@ export type PatchBuildVariant = {
 
 export type PatchBuildVariantTask = {
   id: Scalars["ID"];
+  execution: Scalars["Int"];
+  displayName: Scalars["String"];
   name: Scalars["String"];
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
@@ -746,6 +748,7 @@ export type ParameterInput = {
 
 export type TaskResult = {
   id: Scalars["ID"];
+  execution: Scalars["Int"];
   aborted: Scalars["Boolean"];
   displayName: Scalars["String"];
   version: Scalars["String"];
@@ -1872,7 +1875,8 @@ export type PatchBuildVariantsQuery = {
       Array<
         Maybe<{
           id: string;
-          name: string;
+          displayName: string;
+          execution: number;
           status: string;
           baseStatus?: Maybe<string>;
         }>
@@ -1927,6 +1931,7 @@ export type PatchTasksQuery = {
     count: number;
     tasks: Array<{
       id: string;
+      execution: number;
       aborted: boolean;
       status: string;
       displayName: string;
