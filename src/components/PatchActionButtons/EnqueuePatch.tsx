@@ -1,70 +1,44 @@
-import React from "react";
-import { useMutation } from "@apollo/client";
-import { Popconfirm } from "antd";
-import { usePatchAnalytics } from "analytics";
+import React, { useState } from "react";
 import { DropdownItem } from "components/ButtonDropdown";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { useToastContext } from "context/toast";
-import {
-  EnqueuePatchMutation,
-  EnqueuePatchMutationVariables,
-} from "gql/generated/types";
-import { ENQUEUE_PATCH } from "gql/mutations";
-import { StyledBody } from "./UnschedulePatchTasks";
+import { EnqueuePatchModal } from "pages/patch/index";
 
-interface EnqueueProps {
+interface EnqueuePatchProps {
   patchId: string;
+  commitMessage: string;
   disabled: boolean;
   refetchQueries: string[];
+  visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
-export const EnqueuePatch: React.FC<EnqueueProps> = ({
+
+export const EnqueuePatch: React.FC<EnqueuePatchProps> = ({
   patchId,
+  commitMessage,
   disabled,
   refetchQueries,
+  visibilityControl,
 }) => {
-  const dispatchToast = useToastContext();
-
-  const [enqueuePatch, { loading: loadingEnqueuePatch }] = useMutation<
-    EnqueuePatchMutation,
-    EnqueuePatchMutationVariables
-  >(ENQUEUE_PATCH, {
-    onCompleted: () => {
-      dispatchToast.success(`Enqueued patch`);
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error enqueueing patch: ${err.message}`);
-    },
-    refetchQueries,
-  });
-
-  const patchAnalytics = usePatchAnalytics();
+  const fallbackVisibilityControl = useState(false);
+  const [isVisible, setIsVisible] =
+    visibilityControl !== undefined
+      ? visibilityControl
+      : fallbackVisibilityControl;
 
   return (
-    <ConditionalWrapper
-      condition={!disabled || !loadingEnqueuePatch}
-      wrapper={(children) => (
-        <Popconfirm
-          key="enqueue"
-          icon={null}
-          placement="left"
-          title={<StyledBody>Enqueue patch on the commit queue?</StyledBody>}
-          onConfirm={() => {
-            enqueuePatch({ variables: { patchId } });
-            patchAnalytics.sendEvent({ name: "Enqueue" });
-          }}
-          okText="Yes"
-          cancelText="Cancel"
-        >
-          {children}
-        </Popconfirm>
-      )}
-    >
+    <>
       <DropdownItem
         data-cy="enqueue-patch"
-        disabled={disabled || loadingEnqueuePatch}
+        disabled={disabled}
+        onClick={() => setIsVisible(!isVisible)}
       >
         Add to commit queue
       </DropdownItem>
-    </ConditionalWrapper>
+      <EnqueuePatchModal
+        patchId={patchId}
+        commitMessage={commitMessage}
+        visible={isVisible}
+        onFinished={() => setIsVisible(false)}
+        refetchQueries={refetchQueries}
+      />
+    </>
   );
 };

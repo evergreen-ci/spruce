@@ -94,6 +94,11 @@ query GetTask($taskId: String!, $execution: Int) {
           ...jiraTicket
         }
       }
+      createdIssues {
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
       }
     }
 }

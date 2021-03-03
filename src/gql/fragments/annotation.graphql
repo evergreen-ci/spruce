@@ -2,6 +2,7 @@ fragment annotation on Annotation {
     id
     taskId
     taskExecution
+    webhookConfigured
     note {
         source {
         author
@@ -20,6 +21,15 @@ fragment annotation on Annotation {
         }
     }
     suspectedIssues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+    }
+    createdIssues {
         issueKey
         url
         source {
