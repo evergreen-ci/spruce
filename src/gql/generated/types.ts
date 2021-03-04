@@ -618,14 +618,14 @@ export type HostsResponse = {
 };
 
 export type PatchTasks = {
-  tasks: Array<TaskResult>;
+  tasks: Array<Task>;
   count: Scalars["Int"];
 };
 
 export type PatchBuildVariant = {
   variant: Scalars["String"];
   displayName: Scalars["String"];
-  tasks?: Maybe<Array<Maybe<PatchBuildVariantTask>>>;
+  tasks?: Maybe<Array<Maybe<Task>>>;
 };
 
 export type PatchBuildVariantTask = {
@@ -862,6 +862,7 @@ export type Task = {
   activatedTime?: Maybe<Scalars["Time"]>;
   ami?: Maybe<Scalars["String"]>;
   annotation?: Maybe<Annotation>;
+  baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
@@ -916,6 +917,11 @@ export type Task = {
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   version: Scalars["String"];
+};
+
+export type BaseTaskInfo = {
+  id?: Maybe<Scalars["String"]>;
+  status?: Maybe<Scalars["String"]>;
 };
 
 export type Projects = {
@@ -1945,9 +1951,10 @@ export type PatchTasksQuery = {
           status: string;
           buildVariant: string;
           baseStatus?: Maybe<string>;
+          baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
-      baseTask?: Maybe<{ status: string }>;
+      baseTask?: Maybe<{ id: string; execution: number; status: string }>;
     }>;
   };
 };

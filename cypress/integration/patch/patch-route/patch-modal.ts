@@ -48,9 +48,11 @@ describe("Restarting a patch", () => {
   });
 
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
-    cy.get(baseStatusFilter).click();
+    cy.dataCy("patch-restart-modal").within(() =>
+      cy.get(baseStatusFilter).click()
+    );
     cy.get(".cy-checkbox")
-      .contains("Dispatched")
+      .contains("Running")
       .as("target")
       .click({ force: true });
     cy.get(baseStatusFilter).click();
@@ -98,7 +100,7 @@ describe("Restarting a patch", () => {
   const allTasksSelectedConfirmationMessage =
     "Are you sure you want to restart the 50 selected tasks?";
   const someTasksSelected =
-    "Are you sure you want to restart the 1 selected tasks?";
+    "Are you sure you want to restart the 2 selected tasks?";
   const path = `/version/5e4ff3abe3c3317e352062e4`;
   const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =

@@ -34,9 +34,16 @@
           displayName
           status
           buildVariant
+          baseTask {
+            id
+            execution
+            status
+          }
           baseStatus
         }
         baseTask {
+          id
+          execution
           status
         }
       }
