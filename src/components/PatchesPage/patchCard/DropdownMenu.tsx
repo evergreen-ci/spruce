@@ -12,13 +12,16 @@ interface Props {
   patchId: string;
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
+  patchDescription: string;
 }
 export const DropdownMenu: React.FC<Props> = ({
   patchId,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
+  patchDescription,
 }) => {
   const restartModalVisibilityControl = useState(false);
+  const enqueueModalVisibilityControl = useState(false);
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -42,8 +45,10 @@ export const DropdownMenu: React.FC<Props> = ({
       refetchQueries={refetchQueries}
     />,
     <EnqueuePatch
+      visibilityControl={enqueueModalVisibilityControl}
       key="enqueue"
       patchId={patchId}
+      commitMessage={patchDescription}
       disabled={!canEnqueueToCommitQueue}
       refetchQueries={refetchQueries}
     />,

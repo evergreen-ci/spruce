@@ -31,9 +31,9 @@ const BuildBaron: React.FC<Props> = ({
       </div>
     )}
 
-    {bbData && (
+    {(bbData || annotation) && (
       <BuildBaronContent
-        bbData={bbData.buildBaron}
+        bbData={bbData?.buildBaron}
         annotationId={annotation?.id}
         taskId={taskId}
         execution={execution}

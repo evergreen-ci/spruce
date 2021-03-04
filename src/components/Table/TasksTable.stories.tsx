@@ -1,9 +1,8 @@
 import { withQuery } from "@storybook/addon-queryparams";
 import { MemoryRouter } from "react-router-dom";
-import { TaskResult } from "gql/generated/types";
 import { TasksTable } from "./TasksTable";
 
-const tasks: TaskResult[] = [
+const tasks = [
   {
     id: "some_id",
     aborted: false,

@@ -11,41 +11,18 @@ import {
 import { FILE_JIRA_TICKET } from "gql/mutations";
 import { ButtonWrapper } from "./BBComponents";
 
-interface BBFileTicketProps {
-  taskId: string;
-  execution: number;
-  setCreatedTicketsCount: React.Dispatch<React.SetStateAction<number>>;
-  createdTicketsCount: number;
-}
-
-export const BBFileTicket: React.FC<BBFileTicketProps> = ({
-  taskId,
-  execution,
-  setCreatedTicketsCount,
-  createdTicketsCount,
-}) => (
-  <>
-    <FileTicket
-      taskId={taskId}
-      execution={execution}
-      setCreatedTicketsCount={setCreatedTicketsCount}
-      createdTicketsCount={createdTicketsCount}
-    />
-  </>
-);
-
 interface FileTicketProps {
   taskId: string;
   execution: number;
-  setCreatedTicketsCount;
-  createdTicketsCount: number;
+  setCreatedTicketsCount?: React.Dispatch<React.SetStateAction<number>>;
+  createdTicketsCount?: number;
 }
 
 export const FileTicket: React.FC<FileTicketProps> = ({
   taskId,
   execution,
   setCreatedTicketsCount,
-  createdTicketsCount,
+  createdTicketsCount = 0,
 }) => {
   const dispatchToast = useToastContext();
   const [fileJiraTicket, { loading: loadingFileJiraTicket }] = useMutation<
@@ -55,7 +32,9 @@ export const FileTicket: React.FC<FileTicketProps> = ({
     onCompleted: () => {
       setButtonText("FILE ANOTHER TICKET");
       dispatchToast.success(`Ticket successfully created for this task.`);
-      setCreatedTicketsCount(createdTicketsCount + 1);
+      if (setCreatedTicketsCount) {
+        setCreatedTicketsCount(createdTicketsCount + 1);
+      }
     },
     onError(error) {
       dispatchToast.error(

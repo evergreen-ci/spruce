@@ -29,4 +29,13 @@ fragment annotation on Annotation {
         requester
         }
     }
+    createdIssues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+    }
 }

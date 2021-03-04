@@ -4,7 +4,6 @@ describe("Host load page with nonexistent host", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
@@ -20,7 +19,6 @@ describe("Host page title is displayed ", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 

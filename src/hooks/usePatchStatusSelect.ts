@@ -53,8 +53,17 @@ type HookResult = [
   }
 ];
 
+type UpdatedPatchBuildVariantType = Omit<PatchBuildVariant, "tasks"> & {
+  tasks?: {
+    id: string;
+    execution: number;
+    displayName: string;
+    status: string;
+    baseStatus?: string;
+  }[];
+};
 export const usePatchStatusSelect = (
-  patchBuildVariants: PatchBuildVariant[]
+  patchBuildVariants: UpdatedPatchBuildVariantType[]
 ): HookResult => {
   const [webWorker, setWebWorker] = useState<Worker>();
   useEffect(() => {
