@@ -225,7 +225,7 @@ const useRenderBody: React.FC<{
           <ButtonContainer>
             {htmlLink && (
               <Button
-                data-cy="html-log-btn"
+                data-cy="lobster-log-btn"
                 disabled={noLogs}
                 href={lobsterLink}
                 target="_blank"

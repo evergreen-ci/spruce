@@ -16,7 +16,7 @@ describe("task logs", () => {
     cy.dataCy("task-radio").should("be.checked");
   });
 
-  it("Should link to html and raw version of logs", () => {
+  it("Should link to lobster, html and raw version of logs", () => {
     cy.visit(LOGS_ROUTE);
     cy.dataCy("system-radio").click({ force: true });
     cy.dataCy("html-log-btn")
@@ -83,10 +83,17 @@ describe("task logs", () => {
     cy.dataCy("task-radio").should("be.checked");
   });
 
-  it("Should display 'No logs' and hide HTML and Raw buttons when no logs found", () => {
+  it("Should display 'No logs' and disable Lobster, HTML and Raw buttons when no logs are found.", () => {
     cy.visit(LOGS_ROUTE);
     cy.dataCy("cy-no-logs").contains("No logs");
-    cy.dataCy("html-log-btn").should("not.exist");
-    cy.dataCy("raw-log-btn").should("not.exist");
+    cy.dataCy("lobster-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("html-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("raw-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
   });
 });
