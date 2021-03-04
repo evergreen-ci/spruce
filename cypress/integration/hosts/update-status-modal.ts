@@ -8,8 +8,6 @@ describe("Update Status Modal", () => {
   beforeEach(() => {
     cy.preserveCookies();
     cy.visit(`${hostsRoute}?limit=100&page=0`);
-    cy.listenGQL();
-    cy.waitForGQL("Hosts");
   });
 
   it("Update status for selected hosts", () => {

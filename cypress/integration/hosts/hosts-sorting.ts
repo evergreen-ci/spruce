@@ -159,7 +159,6 @@ describe("Hosts page sorting", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Status sorter is selected by default if no sort params in url", () => {

@@ -15,7 +15,6 @@ describe("Task table", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
@@ -82,7 +81,6 @@ describe("Task table", () => {
 
   it("Task count displays total tasks", () => {
     cy.visit(pathTasks);
-    cy.waitForGQL("PatchTasks");
     cy.dataCy("total-task-count").contains("50");
   });
 

@@ -130,7 +130,6 @@ describe("Hosts page filtering from URL", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Calculates number of pages based on total hosts count if no filters", () => {
@@ -164,7 +163,6 @@ describe("Hosts page filtering from table filters", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
     cy.visit(hostsRoute);
   });
 
@@ -176,8 +174,6 @@ describe("Hosts page filtering from table filters", () => {
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
       cy.dataCy("input-filter").type("centos6-perf{enter}");
     });
-
-    cy.waitForGQL("Hosts");
 
     cy.get(tableRow).each(($el, index) =>
       cy
@@ -209,8 +205,6 @@ describe("Hosts page filtering from table filters", () => {
     cy.dataCy(`${distroFilterIconDataCy}-wrapper`).within(() => {
       cy.dataCy("input-filter").type("      centos6-perf     {enter}");
     });
-
-    cy.waitForGQL("Hosts");
 
     cy.get(tableRow).each(($el, index) =>
       cy

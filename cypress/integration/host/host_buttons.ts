@@ -7,7 +7,6 @@ describe("Host page restart jasper and update host status buttons", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
