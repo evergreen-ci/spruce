@@ -13,13 +13,11 @@ describe("Tests Table", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 
   it("Should display error toast when given an invalid TaskID in the url", () => {
     cy.visit("/task/NO-SUCH-THANG/tests");
-    cy.waitForGQL("GetTask");
     cy.dataCy("toast").should("exist");
   });
 
@@ -50,14 +48,10 @@ describe("Tests Table", () => {
     cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
     cy.get(".cy-checkbox").contains("Fail").click({ force: true });
 
-    waitForTestsQuery();
-
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
     cy.dataCy("testname-input").type("hello");
-
-    waitForTestsQuery();
 
     cy.get("@filtered-count").invoke("text").should("eq", "0");
     cy.get("@total-count").invoke("text").should("eq", "20");
@@ -65,7 +59,6 @@ describe("Tests Table", () => {
 
   xit("Adjusts query params when table headers are clicked and makes GQL request with correct variables", () => {
     cy.visit(TESTS_ROUTE);
-    waitForTestsQuery();
     cy.contains(TABLE_SORT_SELECTOR, "Name").click();
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(TESTS_ROUTE);
@@ -273,7 +266,6 @@ describe("Tests Table", () => {
 const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 const DESCEND_PARAM = "sortDir=DESC";
 const ASCEND_PARAM = "sortDir=ASC";
-const waitForTestsQuery = () => cy.waitForGQL("TaskTests");
 const TESTS_ROUTE =
   "/task/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/tests";
 const dataCyTableRows = "[data-test-id=tests-table] tr td:first-child";
