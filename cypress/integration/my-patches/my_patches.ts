@@ -3,7 +3,7 @@ import {
   urlSearchParamsAreUpdated,
   clickOnPageBtnAndAssertURLandTableResults,
   clickOnPageSizeBtnAndAssertURLandTableSize,
-} from "../utils";
+} from "../../utils";
 
 const tableRow = "[data-cy=patch-card]";
 const MY_PATCHES_ROUTE = "/user/admin/patches";

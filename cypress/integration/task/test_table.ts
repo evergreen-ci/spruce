@@ -4,7 +4,7 @@ import {
   clickingCheckboxUpdatesUrlAndRendersFetchedResults,
   clickOnPageBtnAndAssertURLandTableResults,
   clickOnPageSizeBtnAndAssertURLandTableSize,
-} from "../utils";
+} from "../../utils";
 
 describe("Tests Table", () => {
   before(() => {
