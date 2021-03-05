@@ -1,90 +1,35 @@
 // / <reference types="Cypress" />
-import {
-  clickingCheckboxUpdatesUrlAndRendersFetchedResults,
-  urlSearchParamsAreUpdated,
-  resultsAreFetchedAndRendered,
-} from "../../../utils";
+import { urlSearchParamsAreUpdated } from "../../../utils";
 
 const patch = {
   id: "5e4ff3abe3c3317e352062e4",
 };
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-const allStatuses = `all,all-failures,failed,test-timed-out,success,dispatched,started,scheduled,unstarted,undispatched,system-issues,system-failed,setup-failed,blocked`;
-const gqlQuery = { name: "PatchTasks", responseName: "patchTasks.tasks" };
+const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=all,failed,success,dispatched,started,undispatched&taskName=test-thirdparty`;
 
-const parentStatuses = [
-  {
-    title: "Failures",
-    statuses: "all-failures,failed,test-timed-out",
-  },
-  {
-    title: "Scheduled",
-    statuses: "scheduled,unstarted,undispatched",
-  },
-  {
-    title: "System Issues",
-    statuses: "system-issues,system-failed",
-  },
-];
-
-const singularStatuses = [
-  {
-    title: "Failed",
-    paramValue: "failed",
-  },
-  {
-    title: "Test Timed Out",
-    paramValue: "test-timed-out",
-  },
-  {
-    title: "Success",
-    paramValue: "success",
-  },
-  {
-    title: "Running",
-    paramValue: "dispatched",
-  },
-  {
-    title: "Started",
-    paramValue: "started",
-  },
-  {
-    title: "Unstarted",
-    paramValue: "unstarted",
-  },
-  {
-    title: "Undispatched or Blocked",
-    paramValue: "undispatched",
-  },
-  {
-    title: "System Failed",
-    paramValue: "system-failed",
-  },
-  {
-    title: "Setup Failed",
-    paramValue: "setup-failed",
-  },
-  {
-    title: "Blocked",
-    paramValue: "blocked",
-  },
-  {
-    title: "Won't Run",
-    paramValue: "inactive",
-  },
-];
-
-// TODO: refactor to not wait for / inspect gql query. Use defined data set and test against it.
-xdescribe("Tasks filters", () => {
+describe("Tasks filters", () => {
   before(() => {
     cy.login();
+    cy.visit(pathTasks);
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
-    cy.visit(pathTasks);
+  });
+
+  afterEach(() => {
+    cy.dataCy("clear-all-filters").click();
+  });
+
+  it("Should clear any filters with the Clear All Filters button", () => {
+    cy.visit(pathURLWithFilters);
+    cy.dataCy("current-task-count").should("have.text", 4);
+    cy.dataCy("clear-all-filters").click();
+    cy.dataCy("current-task-count").should("have.text", 50);
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal(pathTasks);
+    });
   });
 
   describe("Variant input field", () => {
@@ -92,28 +37,21 @@ xdescribe("Tasks filters", () => {
     const urlParam = "variant";
 
     it("Updates url with input value and fetches tasks filtered by variant", () => {
-      cy.get("[data-cy=variant-input]").type(variantInputValue);
-      resultsAreFetchedAndRendered({
-        queryName: "PatchTasks",
-        responseName: "patchTasks.tasks",
-      }).then(() =>
-        urlSearchParamsAreUpdated({
-          pathname: pathTasks,
-          paramName: urlParam,
-          search: variantInputValue,
-        })
-      );
-      cy.get("[data-cy=variant-input]").clear();
-      resultsAreFetchedAndRendered({
-        queryName: "PatchTasks",
-        responseName: "patchTasks.tasks",
-      }).then(() =>
-        urlSearchParamsAreUpdated({
-          pathname: pathTasks,
-          paramName: urlParam,
-          search: null,
-        })
-      );
+      cy.dataCy("variant-input").type(variantInputValue);
+
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: variantInputValue,
+      });
+      cy.dataCy("current-task-count").should("contain.text", 2);
+      cy.dataCy("variant-input").clear();
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: null,
+      });
+      cy.dataCy("current-task-count").should("contain.text", 50);
     });
   });
 
@@ -123,89 +61,161 @@ xdescribe("Tasks filters", () => {
     });
 
     beforeEach(() => {
-      cy.listenGQL();
       cy.preserveCookies();
-      cy.visit(pathTasks);
     });
 
     const taskNameInputValue = "test-cloud";
     const urlParam = "taskName";
 
     it("Updates url with input value and fetches tasks filtered by task name", () => {
-      cy.get("[data-cy=task-name-input]").type(taskNameInputValue);
-      resultsAreFetchedAndRendered({
-        queryName: "PatchTasks",
-        responseName: "patchTasks.tasks",
-      }).then(() =>
-        urlSearchParamsAreUpdated({
-          pathname: pathTasks,
-          paramName: urlParam,
-          search: taskNameInputValue,
-        })
-      );
-      cy.get("[data-cy=task-name-input]").clear();
-      resultsAreFetchedAndRendered({
-        queryName: "PatchTasks",
-        responseName: "patchTasks.tasks",
-      }).then(() =>
-        urlSearchParamsAreUpdated({
-          pathname: pathTasks,
-          paramName: urlParam,
-          search: null,
-        })
-      );
+      cy.dataCy("task-name-input").type(taskNameInputValue);
+
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: taskNameInputValue,
+      });
+      cy.dataCy("task-name-input").clear();
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: null,
+      });
     });
   });
 
-  [
-    {
-      filterName: "Statuses",
-      dataCy: "task-status-filter",
-      paramName: "statuses",
-    },
-    {
-      filterName: "Base Statuses",
-      dataCy: "task-base-status-filter",
-      paramName: "baseStatuses",
-    },
-  ].forEach(({ filterName, dataCy, paramName }) => {
-    describe(`${filterName} select`, () => {
-      beforeEach(() => {
-        cy.get(`[data-cy=${dataCy}] > .cy-treeselect-bar`).click();
+  describe(`Task Statuses select`, () => {
+    const urlParam = "statuses";
+    beforeEach(() => {
+      cy.get(`[data-cy=task-status-filter] > .cy-treeselect-bar`).click();
+    });
+    afterEach(() => {
+      cy.get(`[data-cy=task-status-filter] > .cy-treeselect-bar`).click();
+    });
+
+    it("Clicking on a status filter filters the tasks to only those statuses", () => {
+      cy.get("label").contains("Failed").click({ force: true });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "failed",
+      });
+      cy.dataCy("current-task-count").should("have.text", 3);
+      cy.get("label").contains("Success").click({ force: true });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "failed,success",
+      });
+      cy.dataCy("current-task-count").should("have.text", 44);
+    });
+    it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
+      const taskStatuses = [
+        "All",
+        "Failed",
+        "Success",
+        "Dispatched",
+        "Running",
+        "Undispatched or Blocked",
+      ];
+      cy.get("label").contains("All").click({ force: true });
+
+      taskStatuses.forEach((status) => {
+        cy.get(".cy-checkbox")
+          .should("contain.text", status)
+          .as("checkbox-label");
+        cy.get("@checkbox-label").within(() =>
+          cy.dataCy("checkbox").should("have.attr", "aria-checked", "true")
+        );
+      });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "all,failed,success,dispatched,started,undispatched",
       });
 
-      it("Clicking on 'All' checkbox adds all statuses to URL. Clicking again removes all statuses.", () => {
-        clickingCheckboxUpdatesUrlAndRendersFetchedResults({
-          checkboxDisplayName: "All",
-          pathname: pathTasks,
-          paramName,
-          search: allStatuses,
-          query: gqlQuery,
-        });
+      cy.get("label").contains("All").click({ force: true });
+
+      taskStatuses.forEach((status) => {
+        cy.get(".cy-checkbox")
+          .should("contain.text", status)
+          .as("checkbox-label");
+        cy.get("@checkbox-label").within(() =>
+          cy.dataCy("checkbox").should("have.attr", "aria-checked", "false")
+        );
+      });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "",
+      });
+    });
+  });
+
+  describe(`Task Base Statuses select`, () => {
+    const urlParam = "baseStatuses";
+    beforeEach(() => {
+      cy.get(`[data-cy=task-base-status-filter] > .cy-treeselect-bar`).click();
+    });
+    afterEach(() => {
+      cy.get(`[data-cy=task-base-status-filter] > .cy-treeselect-bar`).click();
+    });
+
+    it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
+      cy.get("label").contains("Running").click({ force: true });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "started",
+      });
+      cy.dataCy("current-task-count").should("have.text", 2);
+      cy.get("label").contains("Success").click({ force: true });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "started,success",
+      });
+      cy.dataCy("current-task-count").should("have.text", 46);
+    });
+    it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
+      const taskStatuses = [
+        "All",
+        "Failed",
+        "Success",
+        "Dispatched",
+        "Running",
+        "Undispatched or Blocked",
+      ];
+      cy.get("label").contains("All").click({ force: true });
+
+      taskStatuses.forEach((status) => {
+        cy.get(".cy-checkbox")
+          .should("contain.text", status)
+          .as("checkbox-label");
+        cy.get("@checkbox-label").within(() =>
+          cy.dataCy("checkbox").should("have.attr", "aria-checked", "true")
+        );
+      });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "all,failed,success,dispatched,started,undispatched",
       });
 
-      parentStatuses.forEach(({ title, statuses }) => {
-        it(`Clicking on a parent selector '${title}' updates url status param with it and all its children`, () => {
-          clickingCheckboxUpdatesUrlAndRendersFetchedResults({
-            checkboxDisplayName: title,
-            pathname: pathTasks,
-            paramName,
-            search: statuses,
-            query: gqlQuery,
-          });
-        });
-      });
+      cy.get("label").contains("All").click({ force: true });
 
-      singularStatuses.forEach(({ title, paramValue }) => {
-        it(`Clicking on singular status '${title}' updates url status with '${paramValue}'`, () => {
-          clickingCheckboxUpdatesUrlAndRendersFetchedResults({
-            checkboxDisplayName: title,
-            pathname: pathTasks,
-            paramName,
-            search: paramValue,
-            query: gqlQuery,
-          });
-        });
+      taskStatuses.forEach((status) => {
+        cy.get(".cy-checkbox")
+          .should("contain.text", status)
+          .as("checkbox-label");
+        cy.get("@checkbox-label").within(() =>
+          cy.dataCy("checkbox").should("have.attr", "aria-checked", "false")
+        );
+      });
+      urlSearchParamsAreUpdated({
+        pathname: pathTasks,
+        paramName: urlParam,
+        search: "",
       });
     });
   });
