@@ -27,19 +27,16 @@ describe("Code Changes Table", () => {
     cy.visit(CODE_CHANGES_ROUTE);
     cy.dataCy("code-changes-table").should("exist");
   });
-  it("HTML and Raw buttons should have href when there are code changes", () => {
+  it("Should link to code changes when they exist", () => {
+    cy.dataCy("fileLink")
+      .should("have.attr", "href")
+      .and("include", `filediff/${patchWithChanges}`);
     cy.dataCy("html-diff-btn")
       .should("have.attr", "href")
       .and("include", `filediff/${patchWithChanges}`);
     cy.dataCy("raw-diff-btn")
       .should("have.attr", "href")
       .and("include", `rawdiff/${patchWithChanges}`);
-  });
-
-  it("File names in table should have href", () => {
-    cy.dataCy("fileLink")
-      .should("have.attr", "href")
-      .and("include", `filediff/${patchWithChanges}`);
   });
 
   it("Should display 'No code changes' when there are no code changes", () => {
