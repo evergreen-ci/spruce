@@ -1,5 +1,5 @@
 // / <reference types="Cypress" />
-import { popconfirmYesClassName } from "../utils/popconfirm";
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
   before(() => {
