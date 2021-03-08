@@ -43,7 +43,7 @@ describe("Restarting a patch", () => {
     // support cy-data elements currently
     cy.dataCy("patch-restart-modal").should(
       "contain.text",
-      allTasksSelectedConfirmationMessage
+      "Are you sure you want to restart the 50 selected tasks?"
     );
   });
 
@@ -59,7 +59,10 @@ describe("Restarting a patch", () => {
 
     // ideally this would target the text field itself but leafygreen Body tags dont
     // support cy-data elements currently
-    cy.dataCy("patch-restart-modal").should("contain.text", someTasksSelected);
+    cy.dataCy("patch-restart-modal").should(
+      "contain.text",
+      "Are you sure you want to restart the 2 selected tasks?"
+    );
   });
 
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
@@ -97,10 +100,6 @@ describe("Restarting a patch", () => {
     cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
 
-  const allTasksSelectedConfirmationMessage =
-    "Are you sure you want to restart the 50 selected tasks?";
-  const someTasksSelected =
-    "Are you sure you want to restart the 2 selected tasks?";
   const path = `/version/5e4ff3abe3c3317e352062e4`;
   const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
