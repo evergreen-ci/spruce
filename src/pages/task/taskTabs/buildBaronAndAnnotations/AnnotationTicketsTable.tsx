@@ -6,7 +6,6 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { useToastContext } from "context/toast";
 import {
   GetTaskQuery,
@@ -202,23 +201,21 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
 
   return (
     <TableWrapper>
-      <ErrorBoundary>
-        <Table
-          tableLayout="fixed"
-          data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
-          dataSource={jiraIssues}
-          rowKey={({ issueKey }) => issueKey}
-          columns={columns}
-          pagination={false}
-          showHeader={false}
-          rowSelection={{
-            renderCell: (checked, record) =>
-              record.issueKey === selectedRowKey && <span ref={rowRef} />,
-            selectedRowKeys: [selectedRowKey],
-            columnWidth: 0,
-          }}
-        />
-      </ErrorBoundary>
+      <Table
+        tableLayout="fixed"
+        data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
+        dataSource={jiraIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
+        rowSelection={{
+          renderCell: (checked, record) =>
+            record.issueKey === selectedRowKey && <span ref={rowRef} />,
+          selectedRowKeys: [selectedRowKey],
+          columnWidth: 0,
+        }}
+      />
     </TableWrapper>
   );
 };

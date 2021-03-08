@@ -1,7 +1,6 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
@@ -141,11 +140,7 @@ const renderStatusBadge = (
   if (status === "" || !status) {
     return null;
   }
-  return (
-    <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
-    </ErrorBoundary>
-  );
+  return <TaskStatusBadge status={status} blocked={blocked} />;
 };
 
 interface TaskLinkProps {
