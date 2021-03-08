@@ -7,6 +7,7 @@ const patch = {
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=all,failed,success,dispatched,started,undispatched&taskName=test-thirdparty`;
+const defaultSortParams = `?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 
 describe("Tasks filters", () => {
   before(() => {
@@ -22,14 +23,14 @@ describe("Tasks filters", () => {
     cy.dataCy("clear-all-filters").click();
   });
 
-  it("Should clear any filters with the Clear All Filters button", () => {
+  it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
     cy.visit(pathURLWithFilters);
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(pathURLWithFilters);
+      expect(loc.href).to.equal(loc.origin + pathURLWithFilters);
     });
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(pathTasks);
+      expect(loc.href).to.equal(loc.origin + pathTasks + defaultSortParams);
     });
   });
 
@@ -107,7 +108,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "failed,success",
       });
-      cy.dataCy("current-task-count").should("have.text", 43);
+      cy.dataCy("current-task-count").should("have.text", 44);
     });
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
