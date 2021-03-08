@@ -25,6 +25,7 @@ query GetTask($taskId: String!, $execution: Int) {
       status
       baseStatus
       buildVariant
+      buildVariantDisplayName
     }
     baseTaskMetadata {
       baseTaskDuration

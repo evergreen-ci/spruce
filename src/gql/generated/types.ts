@@ -1942,6 +1942,7 @@ export type PatchTasksQuery = {
       status: string;
       displayName: string;
       buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
       executionTasksFull?: Maybe<
         Array<{
@@ -1951,6 +1952,7 @@ export type PatchTasksQuery = {
           status: string;
           buildVariant: string;
           baseStatus?: Maybe<string>;
+          buildVariantDisplayName?: Maybe<string>;
           baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
@@ -2155,6 +2157,7 @@ export type GetTaskQuery = {
           status: string;
           baseStatus?: Maybe<string>;
           buildVariant: string;
+          buildVariantDisplayName?: Maybe<string>;
         }>
       >;
       baseTaskMetadata?: Maybe<{
