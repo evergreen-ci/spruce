@@ -47,7 +47,10 @@ describe("commit queue page", () => {
   it("visiting a non existent commit queue page should display an error", () => {
     cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
     cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should("contain.text", `Some Error Message`);
+    cy.dataCy("toast").should(
+      "contain.text",
+      "There was an error loading the commit queue"
+    );
   });
 
   it("Clicking on remove a patch for the PR commit queue should work", () => {

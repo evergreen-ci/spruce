@@ -24,9 +24,10 @@ describe("Tasks filters", () => {
 
   it("Should clear any filters with the Clear All Filters button", () => {
     cy.visit(pathURLWithFilters);
-    cy.dataCy("current-task-count").should("have.text", 4);
+    cy.location().should((loc) => {
+      expect(loc.pathname).to.equal(pathURLWithFilters);
+    });
     cy.dataCy("clear-all-filters").click();
-    cy.dataCy("current-task-count").should("have.text", 50);
     cy.location().should((loc) => {
       expect(loc.pathname).to.equal(pathTasks);
     });
@@ -35,7 +36,6 @@ describe("Tasks filters", () => {
   describe("Variant input field", () => {
     const variantInputValue = "lint";
     const urlParam = "variant";
-
     it("Updates url with input value and fetches tasks filtered by variant", () => {
       cy.dataCy("variant-input").type(variantInputValue);
 
@@ -107,7 +107,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "failed,success",
       });
-      cy.dataCy("current-task-count").should("have.text", 44);
+      cy.dataCy("current-task-count").should("have.text", 43);
     });
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
