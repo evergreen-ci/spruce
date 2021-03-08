@@ -19,7 +19,7 @@ import { AnnotationTicketRow } from "./BBComponents";
 
 type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
-interface Props {
+interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
   annotationId: string;
   taskId: string;
@@ -30,7 +30,7 @@ interface Props {
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const AnnotationTicketsTable: React.FC<Props> = ({
+export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   annotationId,
   taskId,
   execution,
@@ -215,6 +215,46 @@ export const AnnotationTicketsTable: React.FC<Props> = ({
           selectedRowKeys: [selectedRowKey],
           columnWidth: 0,
         }}
+      />
+    </TableWrapper>
+  );
+};
+
+// CREATED TICKETS
+interface CreatedTicketsProps {
+  createdIssues: AnnotationTickets;
+}
+
+export const CustomCreatedTicketsTable: React.FC<CreatedTicketsProps> = ({
+  createdIssues,
+}) => {
+  const columns = [
+    {
+      title: "Ticket",
+      render: (
+        text: string,
+        { issueKey, url, source, jiraTicket }: AnnotationTicket
+      ): JSX.Element => (
+        <AnnotationTicketRow
+          issueKey={issueKey}
+          url={url}
+          source={source}
+          jiraTicket={jiraTicket}
+        />
+      ),
+    },
+  ];
+
+  return (
+    <TableWrapper>
+      <Table
+        tableLayout="fixed"
+        data-test-id="created-issues-table"
+        dataSource={createdIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
       />
     </TableWrapper>
   );

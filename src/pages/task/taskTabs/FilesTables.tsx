@@ -26,7 +26,7 @@ const columns = [
     key: "name",
     render: (text: string, record: File): JSX.Element => (
       <a
-        className="fileLink"
+        data-cy="fileLink"
         href={record.link}
         rel="noopener noreferrer"
         target="_blank"
@@ -116,6 +116,7 @@ export const FilesTables: React.FC = () => {
           placeholder="Search File Names"
           onChange={onSearch}
           suffix={<Icon glyph="MagnifyingGlass" />}
+          data-cy="file-input"
         />
       </div>
       {renderTable()}

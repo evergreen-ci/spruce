@@ -230,6 +230,7 @@ export type MutationRestartPatchArgs = {
 
 export type MutationEnqueuePatchArgs = {
   patchId: Scalars["String"];
+  commitMessage?: Maybe<Scalars["String"]>;
 };
 
 export type MutationSetPatchPriorityArgs = {
@@ -617,18 +618,20 @@ export type HostsResponse = {
 };
 
 export type PatchTasks = {
-  tasks: Array<TaskResult>;
+  tasks: Array<Task>;
   count: Scalars["Int"];
 };
 
 export type PatchBuildVariant = {
   variant: Scalars["String"];
   displayName: Scalars["String"];
-  tasks?: Maybe<Array<Maybe<PatchBuildVariantTask>>>;
+  tasks?: Maybe<Array<Maybe<Task>>>;
 };
 
 export type PatchBuildVariantTask = {
   id: Scalars["ID"];
+  execution: Scalars["Int"];
+  displayName: Scalars["String"];
   name: Scalars["String"];
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
@@ -745,6 +748,7 @@ export type ParameterInput = {
 
 export type TaskResult = {
   id: Scalars["ID"];
+  execution: Scalars["Int"];
   aborted: Scalars["Boolean"];
   displayName: Scalars["String"];
   version: Scalars["String"];
@@ -752,6 +756,7 @@ export type TaskResult = {
   baseStatus?: Maybe<Scalars["String"]>;
   baseTask?: Maybe<BaseTaskResult>;
   buildVariant: Scalars["String"];
+  buildVariantDisplayName: Scalars["String"];
   blocked: Scalars["Boolean"];
   executionTasksFull?: Maybe<Array<Task>>;
 };
@@ -857,11 +862,13 @@ export type Task = {
   activatedTime?: Maybe<Scalars["Time"]>;
   ami?: Maybe<Scalars["String"]>;
   annotation?: Maybe<Annotation>;
+  baseTask?: Maybe<Task>;
   baseStatus?: Maybe<Scalars["String"]>;
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
   buildVariant: Scalars["String"];
+  buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
   canModifyAnnotation: Scalars["Boolean"];
   canRestart: Scalars["Boolean"];
@@ -910,6 +917,11 @@ export type Task = {
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
   version: Scalars["String"];
+};
+
+export type BaseTaskInfo = {
+  id?: Maybe<Scalars["String"]>;
+  status?: Maybe<Scalars["String"]>;
 };
 
 export type Projects = {
@@ -1186,6 +1198,7 @@ export type Annotation = {
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
   userCanModify?: Maybe<Scalars["Boolean"]>;
+  webhookConfigured: Scalars["Boolean"];
 };
 
 export type Note = {
@@ -1206,29 +1219,11 @@ export type Source = {
   requester: Scalars["String"];
 };
 
-export type GetPatchEventDataQueryVariables = Exact<{
-  id: Scalars["String"];
-}>;
-
-export type GetPatchEventDataQuery = { patch: { id: string; status: string } };
-
-export type GetTaskEventDataQueryVariables = Exact<{
-  taskId: Scalars["String"];
-}>;
-
-export type GetTaskEventDataQuery = {
-  task?: Maybe<{
-    id: string;
-    execution: number;
-    status: string;
-    failedTestCount: number;
-  }>;
-};
-
 export type AnnotationFragment = {
   id: string;
   taskId: string;
   taskExecution: number;
+  webhookConfigured: boolean;
   note?: Maybe<{
     message: string;
     source: { author: string; time: Date; requester: string };
@@ -1243,6 +1238,15 @@ export type AnnotationFragment = {
     >
   >;
   suspectedIssues?: Maybe<
+    Array<
+      Maybe<{
+        issueKey?: Maybe<string>;
+        url?: Maybe<string>;
+        source: { author: string; time: Date; requester: string };
+      }>
+    >
+  >;
+  createdIssues?: Maybe<
     Array<
       Maybe<{
         issueKey?: Maybe<string>;
@@ -1418,6 +1422,7 @@ export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
 
 export type EnqueuePatchMutationVariables = Exact<{
   patchId: Scalars["String"];
+  commitMessage?: Maybe<Scalars["String"]>;
 }>;
 
 export type EnqueuePatchMutation = { enqueuePatch: { id: string } };
@@ -1876,7 +1881,8 @@ export type PatchBuildVariantsQuery = {
       Array<
         Maybe<{
           id: string;
-          name: string;
+          displayName: string;
+          execution: number;
           status: string;
           baseStatus?: Maybe<string>;
         }>
@@ -1931,10 +1937,12 @@ export type PatchTasksQuery = {
     count: number;
     tasks: Array<{
       id: string;
+      execution: number;
       aborted: boolean;
       status: string;
       displayName: string;
       buildVariant: string;
+      buildVariantDisplayName?: Maybe<string>;
       blocked: boolean;
       executionTasksFull?: Maybe<
         Array<{
@@ -1944,9 +1952,11 @@ export type PatchTasksQuery = {
           status: string;
           buildVariant: string;
           baseStatus?: Maybe<string>;
+          buildVariantDisplayName?: Maybe<string>;
+          baseTask?: Maybe<{ id: string; execution: number; status: string }>;
         }>
       >;
-      baseTask?: Maybe<{ status: string }>;
+      baseTask?: Maybe<{ id: string; execution: number; status: string }>;
     }>;
   };
 };
@@ -2147,6 +2157,7 @@ export type GetTaskQuery = {
           status: string;
           baseStatus?: Maybe<string>;
           buildVariant: string;
+          buildVariantDisplayName?: Maybe<string>;
         }>
       >;
       baseTaskMetadata?: Maybe<{
@@ -2177,6 +2188,9 @@ export type GetTaskQuery = {
             Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
           >;
           suspectedIssues?: Maybe<
+            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
+          >;
+          createdIssues?: Maybe<
             Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
           >;
         } & AnnotationFragment

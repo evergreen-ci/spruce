@@ -2,26 +2,28 @@ import {
   mapVariantTaskStatusToColor,
   mapVariantTaskStatusToDarkColor,
 } from "components/StatusSquare";
-import { PatchBuildVariantTask } from "gql/generated/types";
 import { TaskStatus } from "types/task";
 import { groupTasksByColor } from "./utils";
 
 describe("groupTasksByColor", () => {
   test("Seperates tasks into groups based on the color of the status", () => {
-    const tasks: PatchBuildVariantTask[] = [
+    const tasks = [
       {
         id: "123",
-        name: "some-task",
+        execution: 0,
+        displayName: "some-task",
         status: TaskStatus.Failed,
       },
       {
         id: "234",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Succeeded,
       },
       {
         id: "2020",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Started,
       },
     ];
@@ -44,25 +46,29 @@ describe("groupTasksByColor", () => {
     });
   });
   test("Groups tasks with different statuses but the same color", () => {
-    const tasks: PatchBuildVariantTask[] = [
+    const tasks = [
       {
         id: "123",
-        name: "some-task",
+        execution: 0,
+        displayName: "some-task",
         status: TaskStatus.Failed,
       },
       {
         id: "1996",
-        name: "some-failed-task",
+        execution: 0,
+        displayName: "some-failed-task",
         status: TaskStatus.TaskTimedOut,
       },
       {
         id: "234",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Succeeded,
       },
       {
         id: "2020",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Started,
       },
     ];
@@ -85,25 +91,29 @@ describe("groupTasksByColor", () => {
     });
   });
   test("Keeps an accurate count of tasks with the same status and doesnt duplicate statuses", () => {
-    const tasks: PatchBuildVariantTask[] = [
+    const tasks = [
       {
         id: "123",
-        name: "some-task",
+        execution: 0,
+        displayName: "some-task",
         status: TaskStatus.Failed,
       },
       {
         id: "1996",
-        name: "some-failed-task",
+        execution: 0,
+        displayName: "some-failed-task",
         status: TaskStatus.Failed,
       },
       {
         id: "234",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Succeeded,
       },
       {
         id: "2020",
-        name: "some-other-task",
+        execution: 0,
+        displayName: "some-other-task",
         status: TaskStatus.Started,
       },
     ];

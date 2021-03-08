@@ -9,13 +9,10 @@ describe("Select hosts in hosts page table", () => {
 
   beforeEach(() => {
     cy.preserveCookies();
-    cy.listenGQL();
   });
 
   it("Selecting hosts shows hosts selection data", () => {
     cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
-
-    cy.waitForGQL("Hosts");
 
     cy.dataCy("restart-jasper-button")
       .should("have.attr", "aria-disabled")
@@ -38,8 +35,6 @@ describe("Select hosts in hosts page table", () => {
 
   it("Can restart jasper for selected hosts", () => {
     cy.visit(`${hostsRoute}?distroId=ubuntu1604-large&page=0&statuses=running`);
-
-    cy.waitForGQL("Hosts");
 
     cy.get(".ant-table-selection-column").within(() => {
       cy.get(".ant-checkbox-input").check({ force: true });

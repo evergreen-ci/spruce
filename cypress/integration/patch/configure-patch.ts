@@ -348,7 +348,6 @@ const patch = {
 describe("Configure Patch Page", () => {
   before(() => {
     cy.login();
-    cy.listenGQL();
     cy.visit(`/version/${unactivatedPatchId}`);
   });
   describe("Initial state reflects patch data", () => {

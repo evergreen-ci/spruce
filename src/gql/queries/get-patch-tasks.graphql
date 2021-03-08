@@ -22,10 +22,12 @@
       count
       tasks {
         id
+        execution
         aborted
         status
         displayName
         buildVariant
+        buildVariantDisplayName
         blocked
         executionTasksFull {
           id
@@ -33,9 +35,17 @@
           displayName
           status
           buildVariant
+          baseTask {
+            id
+            execution
+            status
+          }
           baseStatus
+          buildVariantDisplayName
         }
         baseTask {
+          id
+          execution
           status
         }
       }

@@ -79,10 +79,10 @@ describe("Patch Action Buttons", () => {
     cy.dataCy("toast").contains("error").should("exist");
   });
 
-  it("Clicking 'Enqueue Patch' button shows popconfirm with input and toast on success", () => {
+  it("Clicking 'Enqueue Patch' button shows enqueue modal with input and banner on success", () => {
     cy.dataCy("ellipsis-btn").click();
     cy.dataCy("enqueue-patch").click();
-    cy.get(popconfirmYesClassName).contains("Yes").click({ force: true });
+    cy.dataCy("enqueue-patch-button").click();
     cy.dataCy("toast").should("exist").contains("Enqueued patch");
   });
 });

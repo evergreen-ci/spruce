@@ -25,6 +25,7 @@ query GetTask($taskId: String!, $execution: Int) {
       status
       baseStatus
       buildVariant
+      buildVariantDisplayName
     }
     baseTaskMetadata {
       baseTaskDuration
@@ -90,6 +91,11 @@ query GetTask($taskId: String!, $execution: Int) {
         }
       }
       suspectedIssues {
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+      createdIssues {
         jiraTicket {
           ...jiraTicket
         }
