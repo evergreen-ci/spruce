@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { BreadCrumb } from "components/Breadcrumb";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageTitle } from "components/PageTitle";
 import {
   PageWrapper,
@@ -98,14 +97,12 @@ export const Task: React.FC = () => {
         hasData={!!(displayName && status)}
         title={displayName}
         badge={
-          <ErrorBoundary>
-            <StyledBadgeWrapper>
-              <TaskStatusBadge status={status} blocked={blocked} />
-              {attributed && (
-                <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
-              )}
-            </StyledBadgeWrapper>
-          </ErrorBoundary>
+          <StyledBadgeWrapper>
+            <TaskStatusBadge status={status} blocked={blocked} />
+            {attributed && (
+              <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
+            )}
+          </StyledBadgeWrapper>
         }
         buttons={
           <ActionButtons
