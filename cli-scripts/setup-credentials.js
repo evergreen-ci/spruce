@@ -18,6 +18,7 @@ const prod = {
   REACT_APP_NEW_RELIC_TRUST_KEY: process.env.REACT_APP_NEW_RELIC_TRUST_KEY,
   REACT_APP_DEPLOYS_EMAIL: process.env.REACT_APP_DEPLOYS_EMAIL,
 };
+// comment
 fs.writeFile(file, JSON.stringify({ prod }), (err) => {
   if (err) {
     return console.error(err);
