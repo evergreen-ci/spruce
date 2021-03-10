@@ -1,0 +1,7 @@
+fragment project on Project {
+    identifier
+    repo
+    owner
+    displayName
+}
+

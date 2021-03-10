@@ -1,20 +1,15 @@
+#import "../fragments/project.graphql"
 
-  query Projects {
-    projects {
-      favorites {
-        identifier
-        repo
-        owner
-        displayName
-      }
-      otherProjects {
-        name
-        projects {
-          identifier
-          repo
-          owner
-          displayName
-        }
+query GetProjects {
+  projects {
+    favorites {
+      ...project
+    }
+    otherProjects {
+      name
+      projects {
+        ...project
       }
     }
   }
+}

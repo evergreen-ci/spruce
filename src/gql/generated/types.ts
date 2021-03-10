@@ -812,6 +812,7 @@ export type TaskTestResult = {
 
 export type TestResult = {
   id: Scalars["String"];
+  groupID?: Maybe<Scalars["String"]>;
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
@@ -1354,6 +1355,13 @@ export type PatchesPagePatchesFragment = {
     canEnqueueToCommitQueue: boolean;
     builds: Array<{ id: string; buildVariant: string; status: string }>;
   }>;
+};
+
+export type ProjectFragment = {
+  identifier: string;
+  repo: string;
+  owner: string;
+  displayName: string;
 };
 
 export type AbortTaskMutationVariables = Exact<{
@@ -1983,25 +1991,12 @@ export type PatchQuery = {
   } & BasePatchFragment;
 };
 
-export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type ProjectsQuery = {
+export type GetProjectsQuery = {
   projects: {
-    favorites: Array<{
-      identifier: string;
-      repo: string;
-      owner: string;
-      displayName: string;
-    }>;
-    otherProjects: Array<{
-      name: string;
-      projects: Array<{
-        identifier: string;
-        repo: string;
-        owner: string;
-        displayName: string;
-      }>;
-    }>;
+    favorites: Array<ProjectFragment>;
+    otherProjects: Array<{ name: string; projects: Array<ProjectFragment> }>;
   };
 };
 
