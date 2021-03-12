@@ -12,57 +12,75 @@ import {
   ProjectFragment,
 } from "gql/generated/types";
 import { GET_PROJECTS } from "gql/queries";
+import { FavoriteStar } from "./projectSelect/FavoriteStar";
 import { ProjectOptionGroup } from "./projectSelect/ProjectOptionGroup";
 
 const { Search } = Input;
 const { gray, white } = uiColors;
 
-const filterProjects = (projects: ProjectFragment[], search: string) => {
+const filterProjects = (
+  projects: ProjectFragment[],
+  search: string,
+  favoriteIdentifiers: string[]
+) => {
   if (search !== "") {
     return projects.filter((project) => project.displayName.includes(search));
   }
-  return projects;
+
+  return projects.filter(
+    (project) => !favoriteIdentifiers.includes(project.identifier)
+  );
 };
 
-export const ProjectSelect = () => {
+interface ProjectSelectProps {
+  selectedProject: string;
+}
+export const ProjectSelect: React.FC<ProjectSelectProps> = ({
+  selectedProject,
+}) => {
   const { data } = useQuery<GetProjectsQuery, GetProjectsQueryVariables>(
     GET_PROJECTS
   );
   const [isVisible, setisVisible] = useState(false);
   const [search, setSearch] = useState("");
   const { projects } = data || {};
-  const { favorites, otherProjects } = projects || {};
-
+  const favorites = projects?.flatMap((g) =>
+    g.projects.filter((p) => p.isFavorite)
+  );
   const favoriteIdentifiers = favorites?.map((p) => p.identifier);
-  const filteredProjects = otherProjects?.reduce((op, p) => {
-    const fp = filterProjects(p.projects, search);
+
+  const filteredProjects = projects?.reduce((op, p) => {
+    const fp = filterProjects(p.projects, search, favoriteIdentifiers);
     if (fp.length > 0) {
-      const fpWithFavorites = fp.map((f) => ({
-        ...f,
-        favorite: favoriteIdentifiers.includes(f.identifier),
-      }));
       op.push({
         name: p.name,
-        projects: fpWithFavorites,
+        projects: fp,
       });
     }
     return op;
   }, []);
 
-  const updatedFavorites = favorites?.map((p) => ({
-    ...p,
-    favorite: true,
-  }));
+  const isFavoriteSelected =
+    favoriteIdentifiers?.indexOf(selectedProject) !== -1;
+
+  const sp = projects
+    ?.flatMap((g) => g.projects)
+    .find((p) => p.identifier === selectedProject);
   return (
     <Wrapper>
-      <BarWrapper onClick={() => setisVisible(!isVisible)}>
+      <BarWrapper
+        onClick={() => {
+          setisVisible(!isVisible);
+        }}
+      >
         <LabelWrapper>
-          <Body>Project: </Body>
+          <Body>Project: {sp?.displayName}</Body>
         </LabelWrapper>
         <FlexWrapper>
-          <IconButton aria-label="Add To Favorites">
-            <Icon glyph="Favorite" />
-          </IconButton>
+          <FavoriteStar
+            isFavorite={isFavoriteSelected}
+            identifier={selectedProject}
+          />
           <ArrowWrapper>
             <IconButton aria-label="Toggle Dropdown">
               <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
@@ -78,7 +96,7 @@ export const ProjectSelect = () => {
               value={search}
               onChange={(e) => setSearch(e.target.value)}
             />
-            <ProjectOptionGroup name="Favorites" projects={updatedFavorites} />
+            <ProjectOptionGroup name="Favorites" projects={favorites} />
             {filteredProjects.map((p) => (
               <ProjectOptionGroup key={p.name} {...p} />
             ))}
@@ -98,13 +116,14 @@ const LabelWrapper = styled.div`
 const BarWrapper = styled.div`
   border: 1px solid ${gray.light1};
   border-radius: 3px;
-  padding: 8px;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  padding-left: 8px;
 `;
 
 const OptionsWrapper = styled.div`

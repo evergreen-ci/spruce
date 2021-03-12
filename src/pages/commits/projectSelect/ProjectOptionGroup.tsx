@@ -1,33 +1,35 @@
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Overline, Disclaimer } from "@leafygreen-ui/typography";
-import Icon from "components/icons/Icon";
+import { useHistory } from "react-router-dom";
+import { getCommitRoute } from "constants/routes";
+import { FavoriteStar } from "./FavoriteStar";
 
-const { green } = uiColors;
 interface OptionProps {
   displayName: string;
   identifier: string;
-  favorite: boolean;
+  isFavorite: boolean;
 }
-const ProjectOption: React.FC<OptionProps> = ({ displayName, favorite }) => (
-  <li>
-    <ProjectContainer>
-      <Disclaimer>{displayName}</Disclaimer>
+const ProjectOption: React.FC<OptionProps> = ({
+  displayName,
+  isFavorite,
+  identifier,
+}) => {
+  const history = useHistory();
 
-      <IconButton aria-label="Add To Favorites">
-        <Icon glyph="Favorite" fill={favorite && green.dark2} />
-      </IconButton>
+  return (
+    <ProjectContainer onClick={() => history.push(getCommitRoute(identifier))}>
+      <Disclaimer>{displayName}</Disclaimer>
+      <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
     </ProjectContainer>
-  </li>
-);
+  );
+};
 
 interface OptionGroupProps {
   name: string;
   projects: {
     displayName: string;
     identifier: string;
-    favorite: boolean;
+    isFavorite: boolean;
   }[];
 }
 export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
@@ -36,7 +38,6 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
 }) => (
   <OptionGroupContainer>
     <Overline>{name}</Overline>
-
     <ListContainer>
       {projects?.map((project) => (
         <ProjectOption key={project.identifier} {...project} />
@@ -45,8 +46,7 @@ export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   </OptionGroupContainer>
 );
 
-const ListContainer = styled.ul`
-  list-style-type: none;
+const ListContainer = styled.div`
   margin: 0;
   padding: 0;
 `;
@@ -55,6 +55,7 @@ const ProjectContainer = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  cursor: pointer;
 `;
 
 const OptionGroupContainer = styled.div`

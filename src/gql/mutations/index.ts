@@ -1,5 +1,6 @@
 import ABORT_TASK from "./abort-task.graphql";
 import ADD_ANNOTATION from "./add-annotation.graphql";
+import ADD_FAVORITE_PROJECT from "./add-favorite-project.graphql";
 import ATTACH_VOLUME from "./attach-volume.graphql";
 import CLEAR_MY_SUBSCRIPTIONS from "./clear-my-subscriptions.graphql";
 import CREATE_PUBLIC_KEY from "./create-public-key.graphql";
@@ -10,6 +11,7 @@ import ENQUEUE_PATCH from "./enqueue-patch.graphql";
 import FILE_JIRA_TICKET from "./file-jira-ticket.graphql";
 import MOVE_ANNOTATION from "./move-annotation.graphql";
 import REMOVE_ANNOTATION from "./remove-annotation.graphql";
+import REMOVE_FAVORITE_PROJECT from "./remove-favorite-project.graphql";
 import REMOVE_ITEM_FROM_COMMIT_QUEUE from "./remove-item-from-commit-queue.graphql";
 import REMOVE_PUBLIC_KEY from "./remove-public-key.graphql";
 import REMOVE_VOLUME from "./remove-volume.graphql";
@@ -34,6 +36,7 @@ import UPDATE_USER_SETTINGS from "./update-user-settings.graphql";
 
 export {
   ABORT_TASK,
+  ADD_FAVORITE_PROJECT,
   CLEAR_MY_SUBSCRIPTIONS,
   DETACH_VOLUME,
   EDIT_ANNOTATION_NOTE,
@@ -60,6 +63,7 @@ export {
   UPDATE_SPAWN_VOLUME,
   MOVE_ANNOTATION,
   REMOVE_ANNOTATION,
+  REMOVE_FAVORITE_PROJECT,
   ADD_ANNOTATION,
   ATTACH_VOLUME,
   CREATE_PUBLIC_KEY,
