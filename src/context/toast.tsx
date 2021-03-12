@@ -21,7 +21,7 @@ const variantToTitleMap = {
   [Variant.Note]: "Something Happened!",
 };
 
-const ToastDispatchContext = React.createContext<any | null>(null);
+export const ToastDispatchContext = React.createContext<any | null>(null);
 
 const ToastProvider: React.FC = ({ children }) => {
   const [visibleToast, setVisibleToast] = useState<ToastType>({
