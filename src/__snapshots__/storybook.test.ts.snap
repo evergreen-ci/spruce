@@ -1524,6 +1524,226 @@ exports[`Storyshots Node List Node List Full 1`] = `
 </div>
 `;
 
+exports[`Storyshots ProjectSelect Story 1`] = `
+.emotion-2 {
+  border: 1px solid #B8C4C2;
+  border-radius: 3px;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  justify-content: space-between;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  padding-left: 8px;
+}
+
+.emotion-4 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.emotion-6 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+  font-weight: 400;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.emotion-9 {
+  border: none;
+  -webkit-appearance: unset;
+  padding: unset;
+  display: inline-block;
+  border-radius: 100px;
+  color: #89989B;
+  position: relative;
+  cursor: pointer;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background-color: rgba(255,255,255,0);
+  height: 28px;
+  width: 28px;
+}
+
+.emotion-9:before {
+  content: '';
+  -webkit-transition: 150ms all ease-in-out;
+  transition: 150ms all ease-in-out;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-radius: 100%;
+  opacity: 0;
+  -webkit-transform: scale(0.8);
+  -ms-transform: scale(0.8);
+  transform: scale(0.8);
+}
+
+.emotion-9:hover:before,
+.emotion-9:focus:before {
+  opacity: 1;
+  -webkit-transform: scale(1);
+  -ms-transform: scale(1);
+  transform: scale(1);
+}
+
+.emotion-9:focus {
+  outline: none;
+}
+
+.emotion-9:hover {
+  color: #3D4F58;
+}
+
+.emotion-9:hover:before {
+  background-color: #E7EEEC;
+}
+
+.emotion-9:focus {
+  color: #007CAD;
+}
+
+.emotion-9:focus:before {
+  background-color: #C5E4F2;
+}
+
+.emotion-10 {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+
+.emotion-11 {
+  color: #116149;
+}
+
+.emotion-12 {
+  border-left: 1px solid #B8C4C2;
+  padding-left: 5px;
+}
+
+<div
+  className="emotion-0 emotion-1"
+>
+  <div
+    className="emotion-2 emotion-3"
+    onClick={[Function]}
+  >
+    <div
+      className="emotion-4 emotion-5"
+    >
+      <div
+        className="emotion-6"
+      >
+        Project: 
+      </div>
+    </div>
+    <div
+      className="emotion-7 emotion-8"
+    >
+      <button
+        aria-disabled={false}
+        aria-label="Add To Favorites"
+        className="emotion-9"
+        onClick={[Function]}
+        tabIndex={0}
+      >
+        <div
+          className="emotion-10"
+        >
+          <svg
+            aria-label="Favorite Icon"
+            className="emotion-11"
+            fill="none"
+            height={16}
+            role="img"
+            viewBox="0 0 16 16"
+            width={16}
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M7.538 1.11a.5.5 0 01.924 0l1.537 3.696a.5.5 0 00.421.306l3.99.32a.5.5 0 01.285.878l-3.04 2.604a.5.5 0 00-.16.496l.928 3.893a.5.5 0 01-.747.542L8.261 11.76a.5.5 0 00-.522 0l-3.415 2.086a.5.5 0 01-.747-.542l.928-3.893a.5.5 0 00-.16-.496L1.304 6.31a.5.5 0 01.285-.878l3.99-.32A.5.5 0 006 4.806L7.538 1.11z"
+              fill="currentColor"
+            />
+          </svg>
+        </div>
+      </button>
+      <span
+        className="emotion-12 emotion-13"
+      >
+        <button
+          aria-disabled={false}
+          aria-label="Toggle Dropdown"
+          className="emotion-9"
+          tabIndex={0}
+        >
+          <div
+            className="emotion-10"
+          >
+            <svg
+              aria-label="Chevron Down Icon"
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clipRule="evenodd"
+                d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+                fill="currentColor"
+                fillRule="evenodd"
+              />
+            </svg>
+          </div>
+        </button>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
 exports[`Storyshots Public Key Form Public Key Form View 1`] = `
 .emotion-0 {
   display: -webkit-box;
