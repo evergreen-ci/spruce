@@ -13,7 +13,16 @@ import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 
 const { green, gray } = uiColors;
 
-export const FavoriteStar = ({ identifier, isFavorite }) => {
+interface FavoriteStarProps {
+  identifier: string;
+  isFavorite: boolean;
+  ["data-cy"]?: string;
+}
+export const FavoriteStar: React.FC<FavoriteStarProps> = ({
+  identifier,
+  isFavorite,
+  "data-cy": dataCy,
+}) => {
   const dispatchToast = useToastContext();
 
   const [addFavoriteProject] = useMutation<
@@ -51,7 +60,11 @@ export const FavoriteStar = ({ identifier, isFavorite }) => {
     }
   };
   return (
-    <IconButton aria-label="Add To Favorites" onClick={onClick}>
+    <IconButton
+      aria-label="Add To Favorites"
+      data-cy={dataCy}
+      onClick={onClick}
+    >
       <Icon glyph="Favorite" fill={isFavorite ? green.dark2 : gray.light2} />
     </IconButton>
   );

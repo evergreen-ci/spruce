@@ -72,14 +72,16 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
         onClick={() => {
           setisVisible(!isVisible);
         }}
+        data-cy="project-select"
       >
         <LabelWrapper>
-          <Body>Project: {sp?.displayName}</Body>
+          <Body data-cy="project-name">Project: {sp?.displayName}</Body>
         </LabelWrapper>
         <FlexWrapper>
           <FavoriteStar
             isFavorite={isFavoriteSelected}
             identifier={selectedProject}
+            data-cy="favorite-selected-project"
           />
           <ArrowWrapper>
             <IconButton aria-label="Toggle Dropdown">
@@ -90,11 +92,12 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       </BarWrapper>
       {isVisible && (
         <RelativeWrapper>
-          <OptionsWrapper>
+          <OptionsWrapper data-cy="project-select-options">
             <Search
               placeholder="Search for project"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
+              data-cy="project-search"
             />
             <ProjectOptionGroup name="Favorites" projects={favorites} />
             {filteredProjects.map((p) => (

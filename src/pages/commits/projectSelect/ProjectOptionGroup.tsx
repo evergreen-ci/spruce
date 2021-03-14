@@ -18,7 +18,7 @@ const ProjectOption: React.FC<OptionProps> = ({
 
   return (
     <ProjectContainer onClick={() => history.push(getCommitRoute(identifier))}>
-      <Disclaimer>{displayName}</Disclaimer>
+      <Disclaimer data-cy="project-display-name">{displayName}</Disclaimer>
       <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
     </ProjectContainer>
   );
