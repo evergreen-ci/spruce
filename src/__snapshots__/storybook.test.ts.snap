@@ -2381,7 +2381,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
     >
       <div
         className="ant-table"
-        data-test-id="tasks-table"
+        data-cy="tasks-table"
       >
         <div
           className="ant-table-container"
@@ -2961,7 +2961,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
     >
       <div
         className="ant-table"
-        data-test-id="tasks-table"
+        data-cy="tasks-table"
       >
         <div
           className="ant-table-container"
