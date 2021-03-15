@@ -81,7 +81,7 @@ export const HostTable: React.FC<{
   );
 };
 
-const rowKey = (record: HostEventLogEntry, index: number): string => `${index}`;
+const rowKey = (record: HostEventLogEntry): string => `${record.id}`;
 
 // @ts-expect-error
 const StyledSubtitle = styled(Subtitle)`

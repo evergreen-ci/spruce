@@ -2,6 +2,7 @@ import React from "react";
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
 import { getBugsnagApiKey, isProduction } from "utils/getEnvironmentVariables";
+import ErrorFallback from "./ErrorFallback";
 
 let bugsnagStarted = false;
 
@@ -24,7 +25,7 @@ class DefaultErrorBoundary extends React.Component {
   render() {
     const { hasError } = this.state as { hasError: boolean };
     if (hasError) {
-      return <h1>Something went wrong.</h1>;
+      return <ErrorFallback />;
     }
     const { children } = this.props;
     return children;
@@ -57,7 +58,7 @@ const ErrorBoundary: React.FC = ({ children }) => {
   // In these cases we will return a fallback element
   const ErrorBoundaryComp = getBoundary();
   return (
-    <ErrorBoundaryComp FallbackComponent={() => <h1>Something went wrong.</h1>}>
+    <ErrorBoundaryComp FallbackComponent={() => <ErrorFallback />}>
       {children}
     </ErrorBoundaryComp>
   );

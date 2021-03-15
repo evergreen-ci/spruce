@@ -1,7 +1,6 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
@@ -14,9 +13,19 @@ import {
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
 
+// Type needed to render the task table
+type TaskTableInfo = {
+  id: string;
+  displayName: string;
+  status: string;
+  baseStatus?: string;
+  buildVariantDisplayName?: string;
+  executionTasksFull?: TaskTableInfo[];
+};
+
 interface TasksTableProps {
-  tasks: any;
-  tableChangeHandler?: TableOnChange<Task>;
+  tasks: TaskTableInfo[];
+  tableChangeHandler?: TableOnChange<TaskTableInfo>;
   onExpand?: (expanded: boolean) => void;
   onClickTaskLink?: (taskId: string) => void;
   sorts?: SortOrder[];
@@ -78,7 +87,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
   },
   {
     title: "Variant",
-    dataIndex: "buildVariant",
+    dataIndex: "buildVariantDisplayName",
     key: TaskSortCategory.Variant,
     sorter: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
     className: "cy-task-table-col-VARIANT",
@@ -141,11 +150,7 @@ const renderStatusBadge = (
   if (status === "" || !status) {
     return null;
   }
-  return (
-    <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
-    </ErrorBoundary>
-  );
+  return <TaskStatusBadge status={status} blocked={blocked} />;
 };
 
 interface TaskLinkProps {

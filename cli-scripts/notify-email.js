@@ -25,7 +25,7 @@ const sendEmail = async () =>
           const messageBody = await getLatestCommitsSinceLastRelease();
           const formattedBody = messageBody.replace("\n", "<br />");
           exec(
-            `evergreen notify email -f ${formattedEmail} -r ${recipient} -s "${subject}" -b "${formattedBody} <br/>Check it out <a href="${process.env.REACT_APP_SITE_URL}">here!</a>"`,
+            `evergreen notify email -f ${formattedEmail} -r ${recipient} -s "${subject}" -b "${formattedBody} <br/>Check it out <a href="${process.env.REACT_APP_SPRUCE_URL}">here!</a>"`,
             (notifyErr, notifyStdOut, notifyStdErr) => {
               if (notifyErr) {
                 console.error(errorMessage, notifyErr);
