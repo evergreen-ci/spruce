@@ -1435,7 +1435,8 @@ export type BbCreateTicketMutationVariables = Exact<{
 export type BbCreateTicketMutation = { bbCreateTicket: boolean };
 
 export type MoveAnnotationIssueMutationVariables = Exact<{
-  annotationId: Scalars["String"];
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 }>;
