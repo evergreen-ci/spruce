@@ -1,13 +1,12 @@
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { StyledRouterLink } from "components/styles";
 import { TaskStatusBadge } from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import {
-  TaskResult,
+  Task,
   SortDirection,
   TaskSortCategory,
   SortOrder,
@@ -26,7 +25,7 @@ type TaskTableInfo = {
 
 interface TasksTableProps {
   tasks: TaskTableInfo[];
-  tableChangeHandler?: TableOnChange<TaskResult>;
+  tableChangeHandler?: TableOnChange<TaskTableInfo>;
   onExpand?: (expanded: boolean) => void;
   onClickTaskLink?: (taskId: string) => void;
   sorts?: SortOrder[];
@@ -58,7 +57,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   />
 );
 
-const getColumnDefs = (onClickTaskLink): ColumnProps<TaskResult>[] => [
+const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
   {
     title: "Name",
     dataIndex: "displayName",
@@ -66,7 +65,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<TaskResult>[] => [
     sorter: (a, b) => a.displayName.localeCompare(b.displayName),
     width: "40%",
     className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: TaskResult): JSX.Element => (
+    render: (name: string, { id }: Task): JSX.Element => (
       <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
     ),
   },
@@ -98,7 +97,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<TaskResult>[] => [
 const getColumnDefsControlled = (
   sortOrder: SortOrder[],
   onClickTaskLink: (taskId: string) => void
-): ColumnProps<TaskResult>[] => {
+): ColumnProps<Task>[] => {
   const getSortDir = (
     key: string,
     sorts: SortOrder[]
@@ -146,16 +145,12 @@ const getColumnDefsControlled = (
 
 const renderStatusBadge = (
   status: string,
-  { blocked }: TaskResult
+  { blocked }: Task
 ): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
-  return (
-    <ErrorBoundary>
-      <TaskStatusBadge status={status} blocked={blocked} />
-    </ErrorBoundary>
-  );
+  return <TaskStatusBadge status={status} blocked={blocked} />;
 };
 
 interface TaskLinkProps {

@@ -114,10 +114,13 @@ export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
       </StyledBadge>
     );
   }
-
-  const err = new Error(`Status '${status}' is not a valid task status`);
-  reportError(err).severe();
-  throw err;
+  const err = new Error(`Status '${status} is not a valid task status`);
+  reportError(err).warning();
+  return (
+    <BadgeWidthMaxContent variant={Variant.LightGray}>
+      {status}
+    </BadgeWidthMaxContent>
+  );
 };
 
 const dataCy = "task-status-badge";
