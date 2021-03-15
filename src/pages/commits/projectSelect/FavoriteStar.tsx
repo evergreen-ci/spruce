@@ -42,8 +42,7 @@ export const FavoriteStar: React.FC<FavoriteStarProps> = ({
     RemoveFavoriteProjectMutation,
     RemoveFavoriteProjectMutationVariables
   >(REMOVE_FAVORITE_PROJECT, {
-    onCompleted(data) {
-      const { removeFavoriteProject: project } = data;
+    onCompleted({ removeFavoriteProject: project }) {
       dispatchToast.success(`Removed ${project.displayName} from favorites!`);
     },
     onError({ message }) {

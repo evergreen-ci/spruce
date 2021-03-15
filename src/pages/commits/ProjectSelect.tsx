@@ -100,7 +100,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
               data-cy="project-search"
             />
             <ProjectOptionGroup name="Favorites" projects={favorites} />
-            {filteredProjects.map((p) => (
+            {filteredProjects?.map((p) => (
               <ProjectOptionGroup key={p.name} {...p} />
             ))}
           </OptionsWrapper>
