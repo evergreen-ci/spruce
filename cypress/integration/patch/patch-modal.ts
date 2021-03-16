@@ -48,21 +48,28 @@ describe("Restarting a patch", () => {
   });
 
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
-    cy.dataCy("patch-restart-modal").within(() =>
-      cy.get(baseStatusFilter).click()
-    );
-    cy.get(".cy-checkbox")
-      .contains("Running")
-      .as("target")
-      .click({ force: true });
-    cy.get(baseStatusFilter).click();
+    cy.dataCy("patch-restart-modal").within(() => {
+      cy.get(baseStatusFilter).click();
+      cy.get(".cy-checkbox")
+        .contains("Success")
+        .as("target")
+        .click({ force: true });
+      cy.get(baseStatusFilter).click();
 
-    // ideally this would target the text field itself but leafygreen Body tags dont
-    // support cy-data elements currently
-    cy.dataCy("patch-restart-modal").should(
-      "contain.text",
-      "Are you sure you want to restart the 2 selected tasks?"
-    );
+      // ideally this would target the text field itself but leafygreen Body tags dont
+      // support cy-data elements currently
+      cy.dataCy("confirmation-message").should(
+        "contain.text",
+        "Are you sure you want to restart the 44 selected tasks?"
+      );
+      cy.get(baseStatusFilter).click();
+
+      cy.get(".cy-checkbox")
+        .contains("Success")
+        .as("target")
+        .click({ force: true });
+      cy.get(baseStatusFilter).click();
+    });
   });
 
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
