@@ -182,7 +182,7 @@ functions:
     command: attach.xunit_results
     params:
       files:
-        - "./spruce/junit.xml"
+        - "./spruce/bin/cypress/*.xml"
 
   attach-cypress-screenshots:
     command: s3.put
