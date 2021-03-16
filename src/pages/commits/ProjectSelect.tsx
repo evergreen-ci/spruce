@@ -24,7 +24,9 @@ const filterProjects = (
   favoriteIdentifiers: string[]
 ) => {
   if (search !== "") {
-    return projects.filter((project) => project.displayName.includes(search));
+    return projects.filter((project) =>
+      project.displayName.toLowerCase().includes(search.toLowerCase())
+    );
   }
 
   return projects.filter(
