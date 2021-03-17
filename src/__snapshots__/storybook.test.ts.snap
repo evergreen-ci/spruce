@@ -1261,6 +1261,11 @@ exports[`Storyshots Error Fallback Default Error 1`] = `
   display: -ms-flexbox;
   display: flex;
   height: 100%;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  background-color: #5bbf7d;
 }
 
 .emotion-2 {
