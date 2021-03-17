@@ -1,6 +1,6 @@
 import { SorterResult } from "antd/es/table/interface";
 import {
-  TaskResult,
+  Task,
   SortDirection,
   SortOrder,
   TaskSortCategory,
@@ -8,7 +8,7 @@ import {
 
 // takes sort input from the antd table and translates into part of the query string
 export const toSortString = (
-  sorts: SorterResult<TaskResult> | SorterResult<TaskResult>[]
+  sorts: SorterResult<Task> | SorterResult<Task>[]
 ) => {
   let sortStrings: string[] = [];
   const shortenSortOrder = (order: string) =>

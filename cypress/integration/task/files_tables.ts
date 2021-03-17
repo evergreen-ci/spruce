@@ -14,11 +14,6 @@ describe("files table", () => {
     cy.preserveCookies();
   });
 
-  it("Should not render table when invalid TaskID in the url", () => {
-    cy.visit("/task/NO-SUCH-THANG/files");
-    cy.get(".ant-table").should("not.exist");
-  });
-
   it("File names under name column should link to a new tab", () => {
     cy.visit(FILES_ROUTE);
     cy.dataCy("fileLink").should("have.attr", "target", "_blank");
@@ -26,10 +21,8 @@ describe("files table", () => {
 
   it("Searching for a non existent value yields 0 results, tables will not render and will display 'No files found'", () => {
     cy.visit(FILES_ROUTE);
-    cy.wait(500);
-    cy.get(".ant-input").type("Hello world");
-    cy.wait(350); // wait because input has debounce
-    cy.get(".ant-table").should("not.exist");
+    cy.dataCy("file-input").type("Hello world");
+    cy.dataCy("files-table").should("not.exist");
     cy.dataCy("fileLink").should("not.exist");
     cy.contains("No files found");
   });
@@ -37,7 +30,6 @@ describe("files table", () => {
   it("Searching for a value yields results across multiple tables", () => {
     cy.visit(FILES_ROUTE);
     cy.dataCy("file-input").type("458");
-    cy.wait(350); // wait because input has debounce
     cy.dataCy("fileLink").should("have.length", 4);
   });
 
