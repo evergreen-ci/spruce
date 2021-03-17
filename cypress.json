@@ -2,7 +2,7 @@
   "baseUrl": "http://localhost:3000",
   "projectId": "yshv48",
   "reporterOptions": {
-    "mochaFile": "junit.xml"
+    "mochaFile": "bin/cypress/junit-[hash].xml"
   },
   "defaultCommandTimeout": 15000,
   "retries": 4

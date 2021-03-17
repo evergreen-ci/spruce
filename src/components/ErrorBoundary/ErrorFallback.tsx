@@ -48,4 +48,6 @@ const Text = styled.div`
 const Center = styled.div`
   display: flex;
   height: 100%;
+  justify-content: center;
+  background-color: #5bbf7d; // Green Color from image
 `;

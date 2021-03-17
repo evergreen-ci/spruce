@@ -1,9 +1,5 @@
 import { SorterResult } from "antd/es/table/interface";
-import {
-  SortDirection,
-  TaskSortCategory,
-  TaskResult,
-} from "gql/generated/types";
+import { SortDirection, TaskSortCategory, Task } from "gql/generated/types";
 import { parseSortString, toSortString } from "./util";
 
 test("parseSortString", () => {
@@ -22,7 +18,7 @@ test("parseSortString", () => {
 });
 
 test("toSortString", () => {
-  const input: SorterResult<TaskResult> = {
+  const input: SorterResult<Task> = {
     columnKey: TaskSortCategory.Name,
     order: "descend",
   };

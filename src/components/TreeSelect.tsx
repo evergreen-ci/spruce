@@ -274,6 +274,7 @@ const renderCheckboxesHelper = ({
         label={data.title}
         checked={state.includes(data.value)}
         bold={false}
+        data-cy="checkbox"
       />
     </ParentCheckboxWrapper>
   );
@@ -291,6 +292,7 @@ const renderCheckboxesHelper = ({
             label={child.title}
             checked={state.includes(child.value)}
             bold={false}
+            data-cy="checkbox"
           />
         </ChildCheckboxWrapper>
       );
