@@ -19,3 +19,11 @@ export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
 
 export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
   `https://${jiraHost}/browse/${jiraKey}`;
+
+export const getLobsterTestLogUrl = (
+  taskId: string,
+  execution: string,
+  testId: string,
+  groupId: string
+) =>
+  `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${groupId}`;

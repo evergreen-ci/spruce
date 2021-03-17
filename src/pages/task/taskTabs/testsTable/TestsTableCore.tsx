@@ -85,6 +85,12 @@ export const TestsTableCore: React.FC = () => {
 
   const { taskTests } = data ?? {};
   const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
+  const [formattedTableData, setFormattedTableData] = useState(
+    testResults || []
+  );
+  useEffect(() => {
+    setFormattedTableData(testResults.map(v));
+  }, [testResults]);
   return (
     <>
       <TableControlOuterRow>
@@ -202,6 +208,19 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
       rawDisplayURL: string;
     }): JSX.Element => (
       <>
+        {!isLobsterLink(htmlDisplayURL) && (
+          <ButtonWrapper>
+            <Button
+              data-cy="test-table-html-btn"
+              size="small"
+              target="_blank"
+              variant="default"
+              href={htmlDisplayURL}
+            >
+              Lobster
+            </Button>
+          </ButtonWrapper>
+        )}
         {htmlDisplayURL && (
           <ButtonWrapper>
             <Button
@@ -274,3 +293,5 @@ const getQueryVariables = (
     execution: queryParamAsNumber(execution),
   };
 };
+
+const isLobsterLink = (url: string) => url.split("/")[3] === "lobster";
