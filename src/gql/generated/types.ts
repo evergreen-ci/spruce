@@ -23,7 +23,7 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
-  projects: Projects;
+  projects: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
   taskTests: TaskTestResult;
@@ -812,6 +812,7 @@ export type TaskTestResult = {
 
 export type TestResult = {
   id: Scalars["String"];
+  groupID?: Maybe<Scalars["String"]>;
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
@@ -924,11 +925,6 @@ export type BaseTaskInfo = {
   status?: Maybe<Scalars["String"]>;
 };
 
-export type Projects = {
-  favorites: Array<Project>;
-  otherProjects: Array<GroupedProjects>;
-};
-
 export type GroupedProjects = {
   name: Scalars["String"];
   projects: Array<Project>;
@@ -938,6 +934,7 @@ export type Project = {
   displayName: Scalars["String"];
   id: Scalars["String"];
   identifier: Scalars["String"];
+  isFavorite: Scalars["Boolean"];
   owner: Scalars["String"];
   patches: Patches;
   repo: Scalars["String"];
@@ -1197,7 +1194,6 @@ export type Annotation = {
   issues?: Maybe<Array<Maybe<IssueLink>>>;
   suspectedIssues?: Maybe<Array<Maybe<IssueLink>>>;
   createdIssues?: Maybe<Array<Maybe<IssueLink>>>;
-  userCanModify?: Maybe<Scalars["Boolean"]>;
   webhookConfigured: Scalars["Boolean"];
 };
 
@@ -1356,6 +1352,13 @@ export type PatchesPagePatchesFragment = {
   }>;
 };
 
+export type ProjectFragment = {
+  identifier: string;
+  repo: string;
+  owner: string;
+  displayName: string;
+};
+
 export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
@@ -1370,6 +1373,20 @@ export type AddAnnotationIssueMutationVariables = Exact<{
 }>;
 
 export type AddAnnotationIssueMutation = { addAnnotationIssue: boolean };
+
+export type AddFavoriteProjectMutationVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type AddFavoriteProjectMutation = {
+  addFavoriteProject: {
+    identifier: string;
+    repo: string;
+    owner: string;
+    displayName: string;
+    isFavorite: boolean;
+  };
+};
 
 export type AttachVolumeToHostMutationVariables = Exact<{
   volumeAndHost: VolumeHost;
@@ -1450,6 +1467,20 @@ export type RemoveAnnotationIssueMutationVariables = Exact<{
 }>;
 
 export type RemoveAnnotationIssueMutation = { removeAnnotationIssue: boolean };
+
+export type RemoveFavoriteProjectMutationVariables = Exact<{
+  identifier: Scalars["String"];
+}>;
+
+export type RemoveFavoriteProjectMutation = {
+  removeFavoriteProject: {
+    identifier: string;
+    repo: string;
+    owner: string;
+    displayName: string;
+    isFavorite: boolean;
+  };
+};
 
 export type RemoveItemFromCommitQueueMutationVariables = Exact<{
   commitQueueId: Scalars["String"];
@@ -1983,26 +2014,21 @@ export type PatchQuery = {
   } & BasePatchFragment;
 };
 
-export type ProjectsQueryVariables = Exact<{ [key: string]: never }>;
+export type GetProjectsQueryVariables = Exact<{ [key: string]: never }>;
 
-export type ProjectsQuery = {
-  projects: {
-    favorites: Array<{
-      identifier: string;
-      repo: string;
-      owner: string;
-      displayName: string;
-    }>;
-    otherProjects: Array<{
+export type GetProjectsQuery = {
+  projects: Array<
+    Maybe<{
       name: string;
       projects: Array<{
         identifier: string;
         repo: string;
         owner: string;
         displayName: string;
+        isFavorite: boolean;
       }>;
-    }>;
-  };
+    }>
+  >;
 };
 
 export type GetMyPublicKeysQueryVariables = Exact<{ [key: string]: never }>;
