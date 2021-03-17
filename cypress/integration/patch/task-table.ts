@@ -106,37 +106,22 @@ describe("Task table", () => {
       cy.preserveCookies();
     });
     // Instead of checking the entire table rows lets just check if the elements on the table have changed
-    it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", async () => {
+    it("Displays the next page of results and updates URL when right arrow is clicked and next page exists", () => {
       cy.contains("test-cloud");
-      const firstPageRows = await new Cypress.Promise<string>((resolve) => {
-        cy.get(dataCyTableRows)
-          .invoke("text")
-          .then((txt) => resolve(txt.toString()));
-      });
+      const firstPageRows = tableRowToText(dataCyTableRows);
       cy.get(dataCyNextPage).click();
       cy.contains("js-test");
-      const secondPageRows = await new Cypress.Promise<string>((resolve) => {
-        cy.get(dataCyTableRows)
-          .invoke("text")
-          .then((txt) => resolve(txt.toString()));
-      });
+      const secondPageRows = tableRowToText(dataCyTableRows);
+
       expect(firstPageRows).to.not.eq(secondPageRows);
     });
 
-    it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", async () => {
+    it("Displays the previous page of results and updates URL when the left arrow is clicked and previous page exists", () => {
       cy.contains("js-test");
-      const secondPageRows = await new Cypress.Promise<string>((resolve) => {
-        cy.get(dataCyTableRows)
-          .invoke("text")
-          .then((txt) => resolve(txt.toString()));
-      });
+      const secondPageRows = tableRowToText(dataCyTableRows);
       cy.get(dataCyPrevPage).click();
       cy.contains("test-cloud");
-      const firstPageRows = await new Cypress.Promise<string>((resolve) => {
-        cy.get(dataCyTableRows)
-          .invoke("text")
-          .then((txt) => resolve(txt.toString()));
-      });
+      const firstPageRows = tableRowToText(dataCyTableRows);
       expect(firstPageRows).to.not.eq(secondPageRows);
     });
 
@@ -170,3 +155,10 @@ const TABLE_SORT_SELECTOR = ".ant-table-column-sorters";
 
 const dataCyNextPage = ".ant-pagination-next";
 const dataCyPrevPage = ".ant-pagination-prev";
+
+const tableRowToText = (selector: string) =>
+  new Cypress.Promise((resolve) => {
+    cy.get(selector)
+      .invoke("text")
+      .then((txt) => resolve(txt.toString()));
+  });
