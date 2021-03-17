@@ -113,10 +113,10 @@ describe("Tasks filters", () => {
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
         "All",
+        "Failures",
         "Failed",
+        "Aborted",
         "Success",
-        "Dispatched",
-        "Running",
         "Undispatched or Blocked",
       ];
       cy.get("label").contains("All").click({ force: true });
@@ -132,7 +132,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,dispatched,started,undispatched",
+        search: "all,all-failures,failed,aborted,success,undispatched",
       });
 
       cy.get("label").contains("All").click({ force: true });
@@ -163,20 +163,24 @@ describe("Tasks filters", () => {
     });
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
+      const preFilterCount = cy.dataCy("current-task-count").invoke("text");
       cy.get("label").contains("Running").click({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: "started",
       });
-      cy.dataCy("current-task-count").should("have.text", 2);
+      const postFilterCount = cy.dataCy("current-task-count").invoke("text");
+      expect(preFilterCount).to.not.eq(postFilterCount);
       cy.get("label").contains("Success").click({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: "started,success",
       });
-      cy.dataCy("current-task-count").should("have.text", 46);
+      const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
+
+      expect(postFilterCount).to.not.eq(multiFilterCount);
     });
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
       const taskStatuses = [
