@@ -60,7 +60,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
           execution={execution}
           setCreatedTicketsCount={setCreatedTicketsCount}
           createdTicketsCount={createdTicketsCount}
-          buildBaronConfigured={bbData.buildBaronConfigured}
+          buildBaronConfigured={bbData?.buildBaronConfigured}
         />
       )}
 
