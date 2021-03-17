@@ -27,6 +27,7 @@ module.exports = {
     "@storybook/addon-storyshots",
     "@storybook/addon-actions",
     "@storybook/addon-queryparams",
+    "storybook-addon-apollo-client",
   ],
   presets: ["@storybook/preset-ant-design"],
   webpackFinal: async (config) => {
