@@ -38,7 +38,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   sorts,
 }) => (
   <Table
-    data-test-id="tasks-table"
+    data-cy="tasks-table"
     rowKey={rowKey}
     pagination={false}
     columns={

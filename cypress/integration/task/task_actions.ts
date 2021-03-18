@@ -1,5 +1,5 @@
 // / <reference types="Cypress" />
-import { popconfirmYesClassName } from "../utils/popconfirm";
+import { popconfirmYesClassName } from "../../utils/popconfirm";
 
 describe("Task Action Buttons", () => {
   before(() => {
@@ -19,16 +19,19 @@ describe("Task Action Buttons", () => {
     it("Clicking Restart button should restart a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("restart-task").click();
-      cy.wait(200);
-      cy.dataCy("toast").contains(restartSuccessBannerText);
+      cy.dataCy("toast")
+        .contains(restartSuccessBannerText)
+        .should("be.visible");
     });
 
     it("Clicking Unschedule button should unschedule a task and display a success toast", () => {
       cy.visit(tasks[3]);
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("unschedule-task").click();
-      cy.wait(200);
-      cy.dataCy("toast").contains(unscheduleSuccessBannerText);
+
+      cy.dataCy("toast")
+        .contains(unscheduleSuccessBannerText)
+        .should("be.visible");
     });
 
     it("Abort button should be disabled on completed tasks", () => {
@@ -41,8 +44,10 @@ describe("Task Action Buttons", () => {
       cy.dataCy("prioritize-task").click();
       cy.get(".ant-input-number-input").clear().type("99");
       cy.get(popconfirmYesClassName).contains("Set").click({ force: true });
-      cy.wait(200);
-      cy.dataCy("toast").contains(prioritySuccessBannerText);
+
+      cy.dataCy("toast")
+        .contains(prioritySuccessBannerText)
+        .should("be.visible");
     });
 
     it("Visiting a different task page should clear all banners", () => {
@@ -53,8 +58,8 @@ describe("Task Action Buttons", () => {
     it("Should be able to abort an incomplete task", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("abort-task").click();
-      cy.wait(200);
-      cy.dataCy("toast").contains("Task aborted");
+
+      cy.dataCy("toast").contains("Task aborted").should("be.visible");
     });
 
     it("Should correctly disable/enable the task when clicked", () => {
@@ -62,12 +67,16 @@ describe("Task Action Buttons", () => {
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
       cy.dataCy("ellipsis-btn").click(); // temporary manually close menu button TODO: Remove when PD-1207 is fixed
-      cy.wait(200);
-      cy.dataCy("toast").contains("Task was successfully disabled");
+
+      cy.dataCy("toast")
+        .contains("Task was successfully disabled")
+        .should("be.visible");
       cy.dataCy("ellipsis-btn").click();
       cy.dataCy("disable-enable").click();
-      cy.wait(200);
-      cy.dataCy("toast").contains("Priority for task updated to 0");
+
+      cy.dataCy("toast")
+        .contains("Priority for task updated to 0")
+        .should("be.visible");
     });
   });
 });

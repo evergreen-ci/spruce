@@ -104,6 +104,7 @@ export const FilesTables: React.FC = () => {
           columns={columns}
           dataSource={files}
           pagination={false}
+          data-cy="files-table"
         />
       </Fragment>
     ));

@@ -27,10 +27,16 @@ describe("commit queue page", () => {
   });
 
   it("Clicking on Total Code changes should toggle a drop down table", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.dataCy("code-changes-table").should("not.exist");
+    cy.dataCy("code-changes-table").should("not.be.visible");
     cy.dataCy("accordian-toggle").click();
-    cy.dataCy("code-changes-table").should("exist");
+    cy.dataCy("code-changes-table").should("be.visible");
+  });
+
+  it("Clicking on remove a patch from the commit queue should work", () => {
+    cy.dataCy("commit-queue-card").should("exist");
+    cy.dataCy("commit-queue-patch-button").should("exist");
+    cy.dataCy("commit-queue-patch-button").click();
+    cy.dataCy("commit-queue-card").should("not.exist");
   });
 
   it("visiting a page with multiple sets of code changes should have multiple tables", () => {
@@ -38,21 +44,13 @@ describe("commit queue page", () => {
     cy.dataCy("accordian-toggle").should("have.length", 4);
   });
 
-  xit("visiting a non existent commit queue page should display an error", () => {
+  it("visiting a non existent commit queue page should display an error", () => {
     cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
-    // TODO: converting these requests to an xhr requests(in cypress/support/hooks.js)
-    // breaks the onError callback apollo uses to trigger the toast. So the functionality
-    // Will fail when running in cypress. This should be refactored to remove that dependency
     cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should("contain.text", `Some Error Message`);
-  });
-
-  it("Clicking on remove a patch from the commit queue should work", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.dataCy("commit-queue-card").should("exist");
-    cy.dataCy("commit-queue-patch-button").should("exist");
-    cy.dataCy("commit-queue-patch-button").click();
-    cy.dataCy("commit-queue-card").should("not.exist");
+    cy.dataCy("toast").should(
+      "contain.text",
+      "There was an error loading the commit queue"
+    );
   });
 
   it("Clicking on remove a patch for the PR commit queue should work", () => {

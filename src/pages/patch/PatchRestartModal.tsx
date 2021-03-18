@@ -157,7 +157,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
             />
           ))}
           <HR />
-          <ConfirmationMessage weight="medium">
+          <ConfirmationMessage weight="medium" data-cy="confirmation-message">
             Are you sure you want to restart the{" "}
             {selectedArray(selectedTasks).length} selected tasks?
           </ConfirmationMessage>

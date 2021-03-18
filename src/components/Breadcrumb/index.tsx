@@ -51,7 +51,7 @@ export const BreadCrumb: React.FC<Props> = ({
         {taskName ? (
           <StyledP1>
             <StyledBreadcrumbLink
-              id="bc-patch"
+              data-cy="bc-patch"
               to={getVersionRoute(versionId)}
               onClick={() =>
                 breadcrumbAnalytics.sendEvent({
@@ -64,12 +64,12 @@ export const BreadCrumb: React.FC<Props> = ({
             </StyledBreadcrumbLink>
           </StyledP1>
         ) : (
-          <H3 id="bc-patch">{patch}</H3>
+          <H3 data-cy="bc-patch">{patch}</H3>
         )}
       </Breadcrumb.Item>
       {taskName && (
         <Breadcrumb.Item>
-          <H3 id="bc-task">{taskName}</H3>
+          <H3 data-cy="bc-task">{taskName}</H3>
         </Breadcrumb.Item>
       )}
     </StyledBreadcrumb>

@@ -3,7 +3,7 @@ import get from "lodash/get";
 import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { TasksTable } from "components/Table/TasksTable";
-import { TaskResult, PatchTasks, SortOrder } from "gql/generated/types";
+import { Task, PatchTasks, SortOrder } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { stringifyQuery, parseQueryString } from "utils/queryString";
 import { toSortString } from "../util";
@@ -18,7 +18,7 @@ export const PatchTasksTable: React.FC<Props> = ({ data, sorts }) => {
   const { search, pathname } = useLocation();
 
   const patchAnalytics = usePatchAnalytics();
-  const tableChangeHandler: TableOnChange<TaskResult> = (...[, , sorter]) => {
+  const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     const nextQueryParams = stringifyQuery({
       ...parseQueryString(search),
       sorts: toSortString(sorter),
@@ -33,7 +33,7 @@ export const PatchTasksTable: React.FC<Props> = ({ data, sorts }) => {
     <TasksTable
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
-      tasks={get(data, "tasks", []) as TaskResult[]}
+      tasks={get(data, "tasks", [])}
       onExpand={(expanded) => {
         patchAnalytics.sendEvent({
           name: "Toggle Display Task Dropdown",

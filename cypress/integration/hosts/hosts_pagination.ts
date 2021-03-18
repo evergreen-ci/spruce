@@ -1,4 +1,4 @@
-import { defaultHostsFirstPage } from "./hosts-page-default";
+import { defaultHostsFirstPage } from "./hosts_page_default";
 
 const tableRow = "tr.ant-table-row";
 

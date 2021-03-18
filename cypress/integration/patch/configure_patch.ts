@@ -683,8 +683,6 @@ describe("Configure Patch Page", () => {
     });
     beforeEach(() => {
       cy.preserveCookies();
-      cy.listenGQL();
-
       cy.server();
     });
     it("Clicking `Schedule` button schedules patch and redirects to patch page", () => {
