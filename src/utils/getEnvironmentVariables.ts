@@ -23,6 +23,9 @@ export const isTest: () => boolean = () => process.env.NODE_ENV === "test";
 export const getGQLUrl: () => string = () =>
   process.env.REACT_APP_GQL_URL || "";
 
+export const getLobsterURL = (): string =>
+  process.env.REACT_APP_LOBSTER_URL || "";
+
 export const getWebWorkerURL = (webWorkerFilename: string): string =>
   `${process.env.PUBLIC_URL}/web_worker/${webWorkerFilename}`;
 
