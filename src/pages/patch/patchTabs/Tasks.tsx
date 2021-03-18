@@ -86,6 +86,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
               patchAnalytics.sendEvent({ name: "Clear all filter" });
               router.push(getVersionRoute(resourceId));
             }}
+            data-cy="clear-all-filters"
           >
             Clear All Filters
           </PaddedButton>

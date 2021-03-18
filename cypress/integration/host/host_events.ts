@@ -6,7 +6,6 @@ describe("Host events", () => {
   });
 
   beforeEach(() => {
-    cy.listenGQL();
     cy.preserveCookies();
   });
 

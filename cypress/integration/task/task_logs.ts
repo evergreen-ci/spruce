@@ -5,6 +5,7 @@ const LOGS_ROUTE =
 describe("task logs", () => {
   before(() => {
     cy.login();
+    cy.visit(LOGS_ROUTE);
   });
 
   beforeEach(() => {
@@ -12,8 +13,21 @@ describe("task logs", () => {
   });
 
   it("Should default to the  task logs page when logtype is not indicated in URL query param", () => {
-    cy.visit(LOGS_ROUTE);
     cy.dataCy("task-radio").should("be.checked");
+  });
+
+  it("Should display 'No logs' and disable Lobster, HTML and Raw buttons when no logs are found.", () => {
+    cy.visit(LOGS_ROUTE);
+    cy.dataCy("cy-no-logs").contains("No logs");
+    cy.dataCy("lobster-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("html-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("raw-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
   });
 
   it("Should link to lobster, html and raw version of logs", () => {
@@ -62,6 +76,7 @@ describe("task logs", () => {
       expect(loc.search).to.include("logtype=system");
     });
   });
+
   it("Should intially load with agent log radio checked when logtype query param is agent", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=agent`);
     cy.dataCy("agent-radio").should("be.checked");
@@ -81,19 +96,5 @@ describe("task logs", () => {
   it("Should initially load with task log radio checked as default when logtype query param is not a valid log type", () => {
     cy.visit(`${LOGS_ROUTE}?logtype=soeiantsrein`);
     cy.dataCy("task-radio").should("be.checked");
-  });
-
-  it("Should display 'No logs' and disable Lobster, HTML and Raw buttons when no logs are found.", () => {
-    cy.visit(LOGS_ROUTE);
-    cy.dataCy("cy-no-logs").contains("No logs");
-    cy.dataCy("lobster-log-btn")
-      .should("have.attr", "aria-disabled")
-      .and("eq", "true");
-    cy.dataCy("html-log-btn")
-      .should("have.attr", "aria-disabled")
-      .and("eq", "true");
-    cy.dataCy("raw-log-btn")
-      .should("have.attr", "aria-disabled")
-      .and("eq", "true");
   });
 });

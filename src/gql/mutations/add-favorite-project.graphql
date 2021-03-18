@@ -1,0 +1,10 @@
+mutation AddFavoriteProject($identifier: String!){
+  addFavoriteProject(identifier: $identifier){
+    id
+    identifier
+    repo
+    owner
+    displayName
+    isFavorite
+  }
+}

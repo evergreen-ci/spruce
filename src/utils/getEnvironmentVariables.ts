@@ -9,6 +9,9 @@ export const getUserVoiceKey: () => string = () =>
 
 export const getUiUrl: () => string = () => process.env.REACT_APP_UI_URL || "";
 
+export const getSpruceURL: () => string = () =>
+  process.env.REACT_APP_SPRUCE_URL;
+
 export const isDevelopment: () => boolean = () =>
   process.env.NODE_ENV === "development";
 

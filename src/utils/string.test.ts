@@ -222,7 +222,7 @@ describe("omitTypename", () => {
   });
 });
 
-describe.only("getDateCopy", () => {
+describe("getDateCopy", () => {
   test("converts strings to a date with no options", () => {
     expect(getDateCopy("08/31/1996")).toEqual("Aug 31, 1996, 12:00:00 AM");
     expect(getDateCopy("12-23-2014")).toEqual("Dec 23, 2014, 12:00:00 AM");

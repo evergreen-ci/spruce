@@ -33,6 +33,8 @@ module.exports = {
     "prettier",
     "prettier/react",
     "prettier/@typescript-eslint",
+    "plugin:testing-library/recommended",
+    "plugin:testing-library/react",
   ],
   globals: {
     Atomics: "readonly",
@@ -55,6 +57,7 @@ module.exports = {
     "react-hooks",
     "prettier",
     "@emotion",
+    "testing-library",
   ],
   settings: {
     "import/resolver": {

@@ -56,12 +56,13 @@ Follow these directions to enable query linting during local development so your
   },
   "staging": {
     "REACT_APP_API_URL": "https://evergreen-staging.corp.mongodb.com/api",
-    "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com"
+    "REACT_APP_UI_URL": "https://evergreen-staging.corp.mongodb.com",
+    "REACT_APP_SPRUCE_URL": "https://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com"
   },
   "prod": {
     "REACT_APP_SIGNAL_PROCESSING_URL": "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
     "REACT_APP_DEPLOYS_EMAIL": "something@something.com", 
-    "REACT_APP_SITE_URL": "https://spruce.mongodb.com",
+    "REACT_APP_SPRUCE_URL": "https://spruce.mongodb.com",
     "REACT_APP_BUGSNAG_API_KEY": "this-is-the-api-key",
     "REACT_APP_API_URL": "https://evergreen.mongodb.com/api",
     "REACT_APP_UI_URL": "https://evergreen.mongodb.com",

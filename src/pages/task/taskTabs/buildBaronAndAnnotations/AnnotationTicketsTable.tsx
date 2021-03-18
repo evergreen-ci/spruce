@@ -6,7 +6,6 @@ import Icon, { Size } from "@leafygreen-ui/icon";
 import { Table, Popconfirm, Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { useToastContext } from "context/toast";
 import {
   GetTaskQuery,
@@ -22,7 +21,6 @@ type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
-  annotationId: string;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -32,7 +30,6 @@ interface AnnotationTicketsProps {
 }
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
-  annotationId,
   taskId,
   execution,
   userCanModify,
@@ -176,7 +173,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       url,
       issueKey,
     };
-    moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
+    moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
     const analyticsType = isIssue
       ? "Move Annotation Issue"
       : "Move Annotation Suspected Issue";
@@ -202,23 +199,21 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
 
   return (
     <TableWrapper>
-      <ErrorBoundary>
-        <Table
-          tableLayout="fixed"
-          data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
-          dataSource={jiraIssues}
-          rowKey={({ issueKey }) => issueKey}
-          columns={columns}
-          pagination={false}
-          showHeader={false}
-          rowSelection={{
-            renderCell: (checked, record) =>
-              record.issueKey === selectedRowKey && <span ref={rowRef} />,
-            selectedRowKeys: [selectedRowKey],
-            columnWidth: 0,
-          }}
-        />
-      </ErrorBoundary>
+      <Table
+        tableLayout="fixed"
+        data-test-id={isIssue ? "issues-table" : "suspected-issues-table"}
+        dataSource={jiraIssues}
+        rowKey={({ issueKey }) => issueKey}
+        columns={columns}
+        pagination={false}
+        showHeader={false}
+        rowSelection={{
+          renderCell: (checked, record) =>
+            record.issueKey === selectedRowKey && <span ref={rowRef} />,
+          selectedRowKeys: [selectedRowKey],
+          columnWidth: 0,
+        }}
+      />
     </TableWrapper>
   );
 };
