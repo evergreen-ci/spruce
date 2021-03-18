@@ -10,7 +10,6 @@ import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
 interface Props {
-  annotationId: string;
   taskId: string;
   execution: number;
   tickets: IssueLink[];
@@ -21,7 +20,6 @@ interface Props {
 }
 
 export const AnnotationTickets: React.FC<Props> = ({
-  annotationId,
   tickets,
   taskId,
   execution,
@@ -72,7 +70,6 @@ export const AnnotationTickets: React.FC<Props> = ({
       {tickets?.length > 0 && (
         <AnnotationTicketsTable
           jiraIssues={tickets}
-          annotationId={annotationId}
           taskId={taskId}
           execution={execution}
           isIssue={isIssue}

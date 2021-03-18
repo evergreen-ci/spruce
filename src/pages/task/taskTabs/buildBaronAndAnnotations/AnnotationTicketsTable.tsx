@@ -21,7 +21,6 @@ type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;
-  annotationId: string;
   taskId: string;
   execution: number;
   isIssue: boolean;
@@ -31,7 +30,6 @@ interface AnnotationTicketsProps {
 }
 
 export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
-  annotationId,
   taskId,
   execution,
   userCanModify,
@@ -175,7 +173,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
       url,
       issueKey,
     };
-    moveAnnotation({ variables: { annotationId, apiIssue, isIssue } });
+    moveAnnotation({ variables: { taskId, execution, apiIssue, isIssue } });
     const analyticsType = isIssue
       ? "Move Annotation Issue"
       : "Move Annotation Suspected Issue";
