@@ -29,6 +29,8 @@
           htmlDisplayURL
           rawDisplayURL
         }
+        execution
+        taskId
       }
       filteredTestCount
       totalTestCount

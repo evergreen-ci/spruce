@@ -271,7 +271,8 @@ export type MutationEditAnnotationNoteArgs = {
 };
 
 export type MutationMoveAnnotationIssueArgs = {
-  annotationId: Scalars["String"];
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   apiIssue: IssueLinkInput;
   isIssue: Scalars["Boolean"];
 };
@@ -821,6 +822,8 @@ export type TestResult = {
   startTime?: Maybe<Scalars["Time"]>;
   duration?: Maybe<Scalars["Float"]>;
   endTime?: Maybe<Scalars["Time"]>;
+  taskId?: Maybe<Scalars["String"]>;
+  execution?: Maybe<Scalars["Int"]>;
 };
 
 export type TestLog = {
@@ -1380,6 +1383,7 @@ export type AddFavoriteProjectMutationVariables = Exact<{
 
 export type AddFavoriteProjectMutation = {
   addFavoriteProject: {
+    id: string;
     identifier: string;
     repo: string;
     owner: string;
@@ -1475,6 +1479,7 @@ export type RemoveFavoriteProjectMutationVariables = Exact<{
 
 export type RemoveFavoriteProjectMutation = {
   removeFavoriteProject: {
+    id: string;
     identifier: string;
     repo: string;
     owner: string;
@@ -2022,6 +2027,7 @@ export type GetProjectsQuery = {
     Maybe<{
       name: string;
       projects: Array<{
+        id: string;
         identifier: string;
         repo: string;
         owner: string;
@@ -2125,6 +2131,8 @@ export type TaskTestsQuery = {
       baseStatus?: Maybe<string>;
       testFile: string;
       duration?: Maybe<number>;
+      execution?: Maybe<number>;
+      taskId?: Maybe<string>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
   };
