@@ -44,6 +44,12 @@ export const TestsTableCore: React.FC = () => {
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
 
+  if (cat === undefined) {
+    updateQueryParams({
+      [RequiredQueryParams.Category]: TestSortCategory.Status,
+      [RequiredQueryParams.Sort]: SortDirection.Asc,
+    });
+  }
   // Apply sorts to columns
   const columns = columnsTemplate.map((column) => ({
     ...column,
