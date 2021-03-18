@@ -24,6 +24,9 @@ export const getLobsterTestLogUrl = (
   taskId: string,
   execution: number,
   testId: string,
-  groupId: string
+  groupId: string,
+  lineNum?: string
 ) =>
-  `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${groupId}`;
+  `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${groupId}${
+    lineNum ? `#bookmarks=${lineNum}` : ""
+  }`;

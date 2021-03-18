@@ -203,6 +203,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
       id,
       rawDisplayURL,
       taskId,
+      lineNum,
     }: {
       execution: number;
       groupID: string;
@@ -210,6 +211,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
       id: string;
       rawDisplayURL: string;
       taskId: string;
+      lineNum: string;
     }): JSX.Element => (
       <>
         {!isLobsterLink(htmlDisplayURL) && (
@@ -219,7 +221,13 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
               size="small"
               target="_blank"
               variant="default"
-              href={getLobsterTestLogUrl(taskId, execution, id, groupID)}
+              href={getLobsterTestLogUrl(
+                taskId,
+                execution,
+                id,
+                groupID,
+                lineNum
+              )}
             >
               Lobster
             </Button>

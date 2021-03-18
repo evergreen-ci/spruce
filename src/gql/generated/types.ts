@@ -824,6 +824,7 @@ export type TestResult = {
   endTime?: Maybe<Scalars["Time"]>;
   taskId?: Maybe<Scalars["String"]>;
   execution?: Maybe<Scalars["Int"]>;
+  lineNum?: Maybe<Scalars["Int"]>;
 };
 
 export type TestLog = {
@@ -2133,6 +2134,7 @@ export type TaskTestsQuery = {
       duration?: Maybe<number>;
       execution?: Maybe<number>;
       taskId?: Maybe<string>;
+      lineNum?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
   };
