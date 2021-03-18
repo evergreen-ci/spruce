@@ -17,7 +17,10 @@ import {
   TableControlInnerRow,
 } from "components/styles";
 import { WordBreak } from "components/Typography";
-import { getLobsterTestLogUrl } from "constants/externalResources";
+import {
+  getLobsterTestLogUrl,
+  isLobsterLink,
+} from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -305,5 +308,3 @@ const getQueryVariables = (
     execution: queryParamAsNumber(execution),
   };
 };
-
-const isLobsterLink = (url: string) => url.split("/")[3] === "lobster";
