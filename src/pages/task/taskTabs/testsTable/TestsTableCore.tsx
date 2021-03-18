@@ -17,6 +17,7 @@ import {
   TableControlInnerRow,
 } from "components/styles";
 import { WordBreak } from "components/Typography";
+import { getLobsterTestLogUrl } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -191,16 +192,24 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
   },
   {
     title: <span data-cy="logs-column">Logs</span>,
-    width: 150,
+    width: 230,
     dataIndex: "logs",
     key: "logs",
     sorter: false,
     render: ({
+      execution,
+      groupID,
       htmlDisplayURL,
+      id,
       rawDisplayURL,
+      taskId,
     }: {
+      execution: number;
+      groupID: string;
       htmlDisplayURL: string;
+      id: string;
       rawDisplayURL: string;
+      taskId: string;
     }): JSX.Element => (
       <>
         {!isLobsterLink(htmlDisplayURL) && (
@@ -210,7 +219,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
               size="small"
               target="_blank"
               variant="default"
-              href={htmlDisplayURL}
+              href={getLobsterTestLogUrl(taskId, execution, id, groupID)}
             >
               Lobster
             </Button>
