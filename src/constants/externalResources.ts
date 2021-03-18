@@ -22,7 +22,7 @@ export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
 
 export const getLobsterTestLogUrl = (
   taskId: string,
-  execution: string,
+  execution: number,
   testId: string,
   groupId: string
 ) =>
