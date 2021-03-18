@@ -85,12 +85,7 @@ export const TestsTableCore: React.FC = () => {
 
   const { taskTests } = data ?? {};
   const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
-  const [formattedTableData, setFormattedTableData] = useState(
-    testResults || []
-  );
-  useEffect(() => {
-    setFormattedTableData(testResults.map(v));
-  }, [testResults]);
+
   return (
     <>
       <TableControlOuterRow>
