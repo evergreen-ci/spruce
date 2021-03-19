@@ -4,13 +4,13 @@ describe("getLobsterTestLogUrl", () => {
   it("Generates correct URL based on function params.", () => {
     const path = "/lobster/evergreen/test/taskId/44/testId/groupId";
     expect(
-      getLobsterTestLogUrl("taskId", 44, "testId", "groupId", "0")
+      getLobsterTestLogUrl("taskId", 44, "testId", "groupId", 0)
     ).toEqual(path);
     expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupId")).toEqual(
       path
     );
     expect(
-      getLobsterTestLogUrl("taskId", 44, "testId", "groupId", "10")
+      getLobsterTestLogUrl("taskId", 44, "testId", "groupId", 10)
     ).toEqual(`${path}#bookmarks=10`);
   });
 });
