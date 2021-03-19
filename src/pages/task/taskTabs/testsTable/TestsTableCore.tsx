@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import Button from "@leafygreen-ui/button";
@@ -44,12 +44,14 @@ export const TestsTableCore: React.FC = () => {
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
 
-  if (cat === undefined) {
-    updateQueryParams({
-      [RequiredQueryParams.Category]: TestSortCategory.Status,
-      [RequiredQueryParams.Sort]: SortDirection.Asc,
-    });
-  }
+  useEffect(() => {
+    if (cat === undefined) {
+      updateQueryParams({
+        [RequiredQueryParams.Category]: TestSortCategory.Status,
+        [RequiredQueryParams.Sort]: SortDirection.Asc,
+      });
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // Apply sorts to columns
   const columns = columnsTemplate.map((column) => ({
     ...column,
