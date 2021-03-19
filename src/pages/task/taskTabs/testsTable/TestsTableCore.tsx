@@ -214,7 +214,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
       id: string;
       rawDisplayURL: string;
       taskId: string;
-      lineNum: string;
+      lineNum: number;
     }): JSX.Element => (
       <>
         {!isLobsterLink(htmlDisplayURL) && (
