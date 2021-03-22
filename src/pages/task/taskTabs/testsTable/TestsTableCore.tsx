@@ -217,7 +217,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
       lineNum: number;
     }): JSX.Element => (
       <>
-        {!isLobsterLink(htmlDisplayURL) && (
+        {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && (
           <ButtonWrapper>
             <Button
               data-cy="test-table-lobster-btn"
