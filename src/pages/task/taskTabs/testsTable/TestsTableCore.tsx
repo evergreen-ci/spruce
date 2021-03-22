@@ -220,7 +220,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
         {!isLobsterLink(htmlDisplayURL) && (
           <ButtonWrapper>
             <Button
-              data-cy="test-table-html-btn"
+              data-cy="test-table-lobster-btn"
               size="small"
               target="_blank"
               variant="default"
