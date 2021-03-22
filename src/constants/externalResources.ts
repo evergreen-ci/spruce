@@ -31,4 +31,4 @@ export const getLobsterTestLogUrl = (
     lineNum ? `#bookmarks=${lineNum}` : ""
   }`;
 
-export const isLobsterLink = (url: string) => url.split("/")[3] === "lobster";
+export const isLobsterLink = (url: string) => url?.split("/")[3] === "lobster";
