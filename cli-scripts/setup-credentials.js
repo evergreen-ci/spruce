@@ -3,6 +3,7 @@ const path = require("path");
 
 const file = path.join(__dirname, "../env", ".cmdrc.json");
 const prod = {
+  REACT_APP_LOBSTER_URL: "https://evergreen.mongodb.com",
   REACT_APP_SIGNAL_PROCESSING_URL:
     "https://signal-processing-service.server-tig.prod.corp.mongodb.com",
   REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
