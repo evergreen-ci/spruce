@@ -193,28 +193,28 @@ const longTestName =
   "suuuuuupppppaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa-loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooonnnnnnnnnnnnnnnnnggggggggggggggggggggggggg name";
 
 const firstPageDisplayNames = [
-  "TestCreateIntermediateProjectRequirements",
-  "TestCreateTaskGroup",
-  "TestDepsMatrixIntegration",
   "TestFinalizePatch",
-  "TestGenerateSuite",
-  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
-  "TestGenerateSuite/TestValidate",
-  "TestGetActivationTimeWithCron/Interval",
   "TestHostTaskAuditing",
-  "TestMergeAxisValue",
+  "TestStuckHostAuditing",
+  "TestGenerateSuite",
+  longTestName,
+  "TestGenerateSuite/TestSaveNewTasksWithDependencies",
+  "TestGenerateSuite/TestValidateNoRedefine",
+  "TestUpdateVersionAndParserProject",
+  "TestSetVersionActivation",
+  "TestCreateTaskGroup",
 ];
 const secondPageDisplayNames = [
+  "TestSortTasks",
+  "TestDepsMatrixIntegration",
+  "TestRetryCommitQueueItems",
   "TestProjectAliasSuite/TestInsertTagsAndNoVariant",
   "TestProjectEventSuite/TestModifyProjectNonEvent",
-  "TestRetryCommitQueueItems",
-  "TestSetVersionActivation",
-  "TestSortTasks",
-  "TestStuckHostAuditing",
   "TestTaskGroupWithDisplayTask",
   "TestTryUpsert/configNumberMatches",
-  "TestUpdateVersionAndParserProject",
-  longTestName,
+  "TestGetActivationTimeWithCron/Interval",
+  "TestCreateIntermediateProjectRequirements",
+  "TestMergeAxisValue",
 ];
 
 const dataCyNextPage =
