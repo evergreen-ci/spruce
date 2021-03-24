@@ -2,15 +2,21 @@ import { getLobsterTestLogUrl, isLobsterLink } from "./externalResources";
 
 describe("getLobsterTestLogUrl", () => {
   it("Generates correct URL based on function params.", () => {
-    const path = "/lobster/evergreen/test/taskId/44/testId/groupId";
-    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupId", 0)).toEqual(
+    const path = "/lobster/evergreen/test/taskId/44/testId/groupID";
+    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupID", 0)).toEqual(
       path
     );
-    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupId")).toEqual(
+    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupID")).toEqual(
       path
     );
-    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupId", 10)).toEqual(
+    expect(getLobsterTestLogUrl("taskId", 44, "testId", "groupID", 10)).toEqual(
       `${path}#bookmarks=10`
+    );
+    expect(getLobsterTestLogUrl("taskId", 44, "testId", null, 10)).toEqual(
+      `/lobster/evergreen/test/taskId/44/testId#bookmarks=10`
+    );
+    expect(getLobsterTestLogUrl("taskId", 44, "testId")).toEqual(
+      `/lobster/evergreen/test/taskId/44/testId`
     );
   });
 });

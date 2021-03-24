@@ -148,7 +148,9 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
-    render: (name: string) => <WordBreak>{name}</WordBreak>,
+    render: (a, b): JSX.Element => (
+      <WordBreak>{b.displayTestName || b.testFile}</WordBreak>
+    ),
     sorter: true,
   },
   {
@@ -199,69 +201,59 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: ({
-      execution,
-      groupID,
-      htmlDisplayURL,
-      id,
-      rawDisplayURL,
-      taskId,
-      lineNum,
-    }: {
-      execution: number;
-      groupID: string;
-      htmlDisplayURL: string;
-      id: string;
-      rawDisplayURL: string;
-      taskId: string;
-      lineNum: number;
-    }): JSX.Element => (
-      <>
-        {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && (
-          <ButtonWrapper>
+    render: (a, b): JSX.Element => {
+      const { execution, groupID, lineNum, taskId, testFile, logTestName } =
+        b || {};
+      const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
+      const lobsterLink = getLobsterTestLogUrl(
+        taskId,
+        execution,
+        logTestName || testFile,
+        groupID,
+        lineNum
+      );
+      return (
+        <>
+          {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
+            <ButtonWrapper>
+              <Button
+                data-cy="test-table-lobster-btn"
+                size="small"
+                target="_blank"
+                variant="default"
+                href={lobsterLink}
+              >
+                Lobster
+              </Button>
+            </ButtonWrapper>
+          )}
+          {htmlDisplayURL && (
+            <ButtonWrapper>
+              <Button
+                data-cy="test-table-html-btn"
+                size="small"
+                target="_blank"
+                variant="default"
+                href={htmlDisplayURL}
+              >
+                HTML
+              </Button>
+            </ButtonWrapper>
+          )}
+          {rawDisplayURL && (
             <Button
-              data-cy="test-table-lobster-btn"
+              data-cy="test-table-raw-btn"
               size="small"
               target="_blank"
               variant="default"
-              href={getLobsterTestLogUrl(
-                taskId,
-                execution,
-                id,
-                groupID,
-                lineNum
-              )}
+              href={rawDisplayURL}
             >
-              Lobster
+              Raw
             </Button>
-          </ButtonWrapper>
-        )}
-        {htmlDisplayURL && (
-          <ButtonWrapper>
-            <Button
-              data-cy="test-table-html-btn"
-              size="small"
-              target="_blank"
-              variant="default"
-              href={htmlDisplayURL}
-            >
-              HTML
-            </Button>
-          </ButtonWrapper>
-        )}
-        {rawDisplayURL && (
-          <Button
-            data-cy="test-table-raw-btn"
-            size="small"
-            target="_blank"
-            variant="default"
-            href={rawDisplayURL}
-          >
-            Raw
-          </Button>
-        )}
-      </>
-    ),
+          )}
+        </>
+      );
+    },
   },
 ];
 

@@ -817,6 +817,7 @@ export type TestResult = {
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
+  displayTestName?: Maybe<Scalars["String"]>;
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
   startTime?: Maybe<Scalars["Time"]>;
@@ -824,6 +825,7 @@ export type TestResult = {
   endTime?: Maybe<Scalars["Time"]>;
   taskId?: Maybe<Scalars["String"]>;
   execution?: Maybe<Scalars["Int"]>;
+  logTestName?: Maybe<Scalars["String"]>;
   lineNum?: Maybe<Scalars["Int"]>;
 };
 
@@ -2127,10 +2129,13 @@ export type TaskTestsQuery = {
     filteredTestCount: number;
     totalTestCount: number;
     testResults: Array<{
+      groupID?: Maybe<string>;
+      logTestName?: Maybe<string>;
+      displayTestName?: Maybe<string>;
+      testFile: string;
       id: string;
       status: string;
       baseStatus?: Maybe<string>;
-      testFile: string;
       duration?: Maybe<number>;
       execution?: Maybe<number>;
       taskId?: Maybe<string>;
