@@ -27,8 +27,10 @@ export const getLobsterTestLogUrl = (
   groupId: string,
   lineNum?: number
 ) =>
-  `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${groupId}${
-    lineNum ? `#bookmarks=${lineNum}` : ""
-  }`;
+  !taskId || Number.isNaN(execution) || !testId || !groupId
+    ? ""
+    : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${groupId}${
+        lineNum ? `#bookmarks=${lineNum}` : ""
+      }`;
 
 export const isLobsterLink = (url: string) => url?.split("/")[3] === "lobster";
