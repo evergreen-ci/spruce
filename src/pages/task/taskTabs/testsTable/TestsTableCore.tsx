@@ -212,6 +212,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
         groupID,
         lineNum
       );
+
       return (
         <>
           {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
@@ -236,7 +237,7 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
                 variant="default"
                 href={htmlDisplayURL}
               >
-                HTML
+                {isLobsterLink(htmlDisplayURL) ? "Lobster" : "HTML"}
               </Button>
             </ButtonWrapper>
           )}
