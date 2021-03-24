@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import Button from "@leafygreen-ui/button";
@@ -7,6 +7,7 @@ import { ColumnProps } from "antd/es/table";
 import { SortOrder } from "antd/es/table/interface";
 import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
+import { Analytics } from "analytics/addPageAction";
 import Badge, { Variant } from "components/Badge";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -44,6 +45,10 @@ export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
+  const taskAnalytics = useTaskAnalytics();
+  const [columnsTemplate] = useState<ColumnProps<TestResult>[]>(
+    getColumnsTemplate(taskAnalytics)
+  );
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
@@ -85,7 +90,6 @@ export const TestsTableCore: React.FC = () => {
     }
     updateQueryParams(queryParams);
   };
-  const taskAnalytics = useTaskAnalytics();
 
   const { taskTests } = data ?? {};
   const { filteredTestCount, totalTestCount, testResults } = taskTests ?? {};
@@ -142,7 +146,58 @@ const statusCopy = {
   [TestStatus.Skip]: "Skip",
   [TestStatus.SilentFail]: "Silent Fail",
 };
-const columnsTemplate: ColumnProps<TestResult>[] = [
+
+export const rowKey = ({ id }: { id: string }): string => id;
+
+const ButtonWrapper = styled("span")`
+  margin-right: 8px;
+`;
+
+const getQueryVariables = (
+  search: string,
+  resourceId: string
+): TaskTestsQueryVariables => {
+  const parsed = parseQueryString(search);
+  const category = (parsed[RequiredQueryParams.Category] ?? "")
+    .toString()
+    .toUpperCase();
+
+  const TestSortCategories = Object.keys(TestSortCategory).map(
+    (k) => TestSortCategory[k]
+  );
+  const cat = TestSortCategories.includes(category)
+    ? (category as TestSortCategory)
+    : undefined;
+  const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
+  const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
+  const dir =
+    cat &&
+    (sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc);
+  const rawStatuses = parsed[RequiredQueryParams.Statuses];
+  const statusList = (Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses]
+  ).filter((v) => v && v !== TestStatus.All);
+  const execution = parsed[RequiredQueryParams.Execution];
+  return {
+    id: resourceId,
+    cat,
+    dir,
+    limitNum: getLimitFromSearch(search),
+    statusList,
+    testName,
+    pageNum: getPageFromSearch(search),
+    execution: queryParamAsNumber(execution),
+  };
+};
+
+const getColumnsTemplate = (
+  taskAnalytics: Analytics<
+    | { name: "Click Logs Lobster Button" }
+    | { name: "Click Logs HTML Button" }
+    | { name: "Click Logs Raw Button" }
+  >
+) => [
   {
     title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
@@ -223,6 +278,11 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
                 target="_blank"
                 variant="default"
                 href={lobsterLink}
+                onClick={() =>
+                  taskAnalytics.sendEvent({
+                    name: "Click Logs Lobster Button",
+                  })
+                }
               >
                 Lobster
               </Button>
@@ -236,6 +296,15 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
                 target="_blank"
                 variant="default"
                 href={htmlDisplayURL}
+                onClick={() =>
+                  isLobsterLink(htmlDisplayURL)
+                    ? taskAnalytics.sendEvent({
+                        name: "Click Logs Lobster Button",
+                      })
+                    : taskAnalytics.sendEvent({
+                        name: "Click Logs HTML Button",
+                      })
+                }
               >
                 {isLobsterLink(htmlDisplayURL) ? "Lobster" : "HTML"}
               </Button>
@@ -248,6 +317,9 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
               target="_blank"
               variant="default"
               href={rawDisplayURL}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+              }
             >
               Raw
             </Button>
@@ -257,47 +329,3 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     },
   },
 ];
-
-export const rowKey = ({ id }: { id: string }): string => id;
-
-const ButtonWrapper = styled("span")`
-  margin-right: 8px;
-`;
-
-const getQueryVariables = (
-  search: string,
-  resourceId: string
-): TaskTestsQueryVariables => {
-  const parsed = parseQueryString(search);
-  const category = (parsed[RequiredQueryParams.Category] ?? "")
-    .toString()
-    .toUpperCase();
-
-  const TestSortCategories = Object.keys(TestSortCategory).map(
-    (k) => TestSortCategory[k]
-  );
-  const cat = TestSortCategories.includes(category)
-    ? (category as TestSortCategory)
-    : undefined;
-  const testName = (parsed[RequiredQueryParams.TestName] ?? "").toString();
-  const sort = (parsed[RequiredQueryParams.Sort] ?? "").toString();
-  const dir =
-    cat &&
-    (sort === SortDirection.Desc ? SortDirection.Desc : SortDirection.Asc);
-  const rawStatuses = parsed[RequiredQueryParams.Statuses];
-  const statusList = (Array.isArray(rawStatuses)
-    ? rawStatuses
-    : [rawStatuses]
-  ).filter((v) => v && v !== TestStatus.All);
-  const execution = parsed[RequiredQueryParams.Execution];
-  return {
-    id: resourceId,
-    cat,
-    dir,
-    limitNum: getLimitFromSearch(search),
-    statusList,
-    testName,
-    pageNum: getPageFromSearch(search),
-    execution: queryParamAsNumber(execution),
-  };
-};
