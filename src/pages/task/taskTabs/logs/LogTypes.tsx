@@ -223,7 +223,7 @@ const useRenderBody: React.FC<{
       >
         {(htmlLink || rawLink || lobsterLink) && (
           <ButtonContainer>
-            {htmlLink && (
+            {rawLink && (
               <Button
                 data-cy="lobster-log-btn"
                 disabled={noLogs}

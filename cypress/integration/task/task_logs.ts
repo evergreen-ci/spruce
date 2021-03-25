@@ -47,10 +47,11 @@ describe("task logs", () => {
       );
   });
 
-  it("Event logs should have an HTML button but not a Raw button", () => {
+  it("Event logs should have an HTML button but not a Raw button nor Lobster button", () => {
     cy.dataCy("event-radio").click({ force: true });
     cy.dataCy("html-log-btn").should("exist");
     cy.dataCy("raw-log-btn").should("not.exist");
+    cy.dataCy("lobster-log-btn").should("not.exist");
   });
 
   it("Should update logtype query param to agent after checking agent radio button", () => {
