@@ -24,6 +24,7 @@ interface Props {
   author: string;
   commitTime: Date;
   patchId: string;
+  versionId: string | undefined;
   owner: string;
   repo: string;
   moduleCodeChanges: ModuleCodeChangeFragment[];
@@ -38,6 +39,7 @@ export const CommitQueueCard: React.FC<Props> = ({
   author,
   commitTime,
   patchId,
+  versionId,
   owner,
   repo,
   moduleCodeChanges,
@@ -64,7 +66,21 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            <CardTitle to={getVersionRoute(patchId)}>{title}</CardTitle>
+            {versionId && versionId !== "" ? (
+              <CardTitle
+                data-cy="commit-queue-card-title"
+                to={getVersionRoute(patchId)}
+              >
+                {title}
+              </CardTitle>
+            ) : (
+              <PRCardTitle
+                data-cy="commit-queue-card-title"
+                href={`https://github.com/${owner}/${repo}/pull/${issue}`}
+              >
+                {title}
+              </PRCardTitle>
+            )}
             <CardMetaData>
               By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
             </CardMetaData>
@@ -78,6 +94,7 @@ export const CommitQueueCard: React.FC<Props> = ({
             </Container>
           </CommitInfo>
         ) : (
+          // valid data should not get to here anymore, but this is left as a sanity check
           <CommitInfo>
             <PRCardTitle
               href={`https://github.com/${owner}/${repo}/pull/${issue}`}

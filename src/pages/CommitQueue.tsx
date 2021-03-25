@@ -63,6 +63,7 @@ export const CommitQueue: React.FC = () => {
             title={queueItems.patch && queueItems.patch.description}
             author={queueItems.patch && queueItems.patch.author}
             patchId={queueItems.patch && queueItems.patch.id}
+            versionId={queueItems.patch && queueItems.patch.version}
             repo={commitQueue?.repo}
             owner={commitQueue?.owner}
             commitTime={queueItems.enqueueTime}

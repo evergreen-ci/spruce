@@ -56,6 +56,15 @@ describe("commit queue page", () => {
   it("Clicking on remove a patch for the PR commit queue should work", () => {
     cy.visit(COMMIT_QUEUE_ROUTE_PR);
     cy.dataCy("commit-queue-card").should("have.length", 1);
+    cy.dataCy("commit-queue-card-title").should(
+      "have.text",
+      "patch description here"
+    );
+    cy.dataCy("commit-queue-card-title").should(
+      "have.attr",
+      "href",
+      "https://github.com/logkeeper/logkeeper/pull/1234"
+    );
     cy.dataCy("commit-queue-patch-button").should("exist");
     cy.dataCy("commit-queue-patch-button").click();
     cy.dataCy("commit-queue-card").should("not.exist");
