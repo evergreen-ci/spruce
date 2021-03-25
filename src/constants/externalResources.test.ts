@@ -24,9 +24,13 @@ describe("getLobsterTestLogUrl", () => {
 describe("isLobsterLink", () => {
   it("Detects whether a supplied string could be a link to lobster", () => {
     expect(isLobsterLink("")).toEqual(false);
-    expect(isLobsterLink("https://blah.com/lobster")).toEqual(true);
-    expect(isLobsterLink("https://blah.com/lobster/arst/sart")).toEqual(true);
-    expect(isLobsterLink("rsatrast//blah.com/lobster/arst/sart")).toEqual(true);
+    expect(
+      isLobsterLink("https://logkeeper.mongodb.org/build/artarstrast")
+    ).toEqual(true);
+    expect(isLobsterLink("https://blah.com/build/arst/sart/")).toEqual(true);
+    expect(isLobsterLink("rsatrast//blah.com/lobster/arst/build")).toEqual(
+      false
+    );
     expect(isLobsterLink("blah.com/lobster/arst/sart")).toEqual(false);
   });
 });
