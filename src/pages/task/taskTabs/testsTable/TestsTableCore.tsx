@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled/macro";
 import Button from "@leafygreen-ui/button";
@@ -46,9 +46,6 @@ export const TestsTableCore: React.FC = () => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
-  const [columnsTemplate] = useState<ColumnProps<TestResult>[]>(
-    getColumnsTemplate(taskAnalytics)
-  );
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
@@ -62,7 +59,7 @@ export const TestsTableCore: React.FC = () => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
   // Apply sorts to columns
-  const columns = columnsTemplate.map((column) => ({
+  const columns = getColumnsTemplate(taskAnalytics).map((column) => ({
     ...column,
     ...(column.key === cat && {
       sortOrder: (dir === SortDirection.Asc
@@ -185,7 +182,7 @@ const getQueryVariables = (
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
-  ).filter((v) => v && v !== TestStatus.All);
+  ).filter((v) => v !== TestStatus.All);
   const execution = parsed[RequiredQueryParams.Execution];
   return {
     id: resourceId,
@@ -205,7 +202,7 @@ const getColumnsTemplate = (
     | { name: "Click Logs HTML Button" }
     | { name: "Click Logs Raw Button" }
   >
-) => [
+): ColumnProps<TestResult>[] => [
   {
     title: <span data-cy="name-column">Name</span>,
     dataIndex: "testFile",
