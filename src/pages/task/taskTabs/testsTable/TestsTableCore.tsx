@@ -182,7 +182,7 @@ const getQueryVariables = (
   const statusList = (Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses]
-  ).filter((v) => v !== TestStatus.All);
+  ).filter((v) => v && v !== TestStatus.All);
   const execution = parsed[RequiredQueryParams.Execution];
   return {
     id: resourceId,
