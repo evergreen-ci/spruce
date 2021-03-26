@@ -15,12 +15,23 @@ describe("task logs", () => {
   it("Should default to the  task logs page when logtype is not indicated in URL query param", () => {
     cy.dataCy("task-radio").should("be.checked");
   });
-  it("Should display 'No logs' and hide HTML and Raw buttons when no logs found", () => {
+
+  it("Should display 'No logs' and disable Lobster, HTML and Raw buttons when no logs are found.", () => {
+    cy.visit(LOGS_ROUTE);
     cy.dataCy("cy-no-logs").contains("No logs");
-    cy.dataCy("html-log-btn").should("not.exist");
-    cy.dataCy("raw-log-btn").should("not.exist");
+    cy.dataCy("lobster-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("html-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
+    cy.dataCy("raw-log-btn")
+      .should("have.attr", "aria-disabled")
+      .and("eq", "true");
   });
-  it("Should link to html and raw version of logs", () => {
+
+  it("Should link to lobster, html and raw version of logs", () => {
+    cy.visit(LOGS_ROUTE);
     cy.dataCy("system-radio").click({ force: true });
     cy.dataCy("html-log-btn")
       .should("have.attr", "href")
@@ -36,10 +47,11 @@ describe("task logs", () => {
       );
   });
 
-  it("Event logs should have an HTML button but not a Raw button", () => {
+  it("Event logs should have an HTML button but not a Raw button nor Lobster button", () => {
     cy.dataCy("event-radio").click({ force: true });
     cy.dataCy("html-log-btn").should("exist");
     cy.dataCy("raw-log-btn").should("not.exist");
+    cy.dataCy("lobster-log-btn").should("not.exist");
   });
 
   it("Should update logtype query param to agent after checking agent radio button", () => {
