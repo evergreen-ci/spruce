@@ -1,9 +1,8 @@
-import React, { useState, useRef } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
-import { useOnClickOutside } from "hooks/useOnClickOutside";
 
 const { gray, white } = uiColors;
 
@@ -36,10 +35,7 @@ export const TreeSelect: React.FC<Props> = ({
   "data-cy": dataCy, // for testing only
   width,
 }) => {
-  const wrapperRef = useRef(null);
-
   const [isVisible, setisVisible] = useState(false);
-  useOnClickOutside(wrapperRef, () => setisVisible(false));
   const toggleOptions: () => void = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
