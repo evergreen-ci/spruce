@@ -7,7 +7,6 @@ const patch = {
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
 const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=all,failed,success,dispatched,started,undispatched&taskName=test-thirdparty`;
-const defaultSortParams = `?sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC`;
 
 describe("Tasks filters", () => {
   before(() => {
@@ -30,7 +29,7 @@ describe("Tasks filters", () => {
     });
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
-      expect(loc.href).to.equal(loc.origin + pathTasks + defaultSortParams);
+      expect(loc.href).to.equal(loc.origin + pathTasks);
     });
   });
 
