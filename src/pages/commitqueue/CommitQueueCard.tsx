@@ -7,6 +7,7 @@ import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
 import { getVersionRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import {
   ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,
@@ -43,20 +44,25 @@ export const CommitQueueCard: React.FC<Props> = ({
   moduleCodeChanges,
   commitQueueId,
 }) => {
-  const [removeItemFromCommitQueue, { loading, error }] = useMutation<
+  const dispatchToast = useToastContext();
+
+  const [removeItemFromCommitQueue, { loading }] = useMutation<
     RemoveItemFromCommitQueueMutation,
     RemoveItemFromCommitQueueMutationVariables
-  >(REMOVE_ITEM_FROM_COMMIT_QUEUE);
+  >(REMOVE_ITEM_FROM_COMMIT_QUEUE, {
+    onCompleted: () => {
+      dispatchToast.success("Successfully removed item from commit queue");
+    },
+    onError: (err) => {
+      dispatchToast.error(`Error removing item from commit queue ${err}`);
+    },
+  });
   const handleEnroll = async (e): Promise<void> => {
     e.preventDefault();
-    try {
-      await removeItemFromCommitQueue({
-        variables: { issue, commitQueueId },
-        refetchQueries: ["CommitQueue"],
-      });
-    } catch (err) {
-      // TODO show error banner
-    }
+    removeItemFromCommitQueue({
+      variables: { issue, commitQueueId },
+      refetchQueries: ["CommitQueue"],
+    });
   };
   return (
     <Card data-cy="commit-queue-card">
@@ -94,7 +100,6 @@ export const CommitQueueCard: React.FC<Props> = ({
           >
             Remove Patch From Queue
           </Button>
-          {error && <div data-cy="error-banner">{error.message}</div>}
         </CommitQueueCardActions>
       </CommitQueueCardGrid>
     </Card>
