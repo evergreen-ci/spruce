@@ -44,7 +44,7 @@ export const usePatchAnalytics = (): PatchAnalytics => {
     GET_PATCH,
     {
       variables: { id },
-      fetchPolicy: "cache-only",
+      fetchPolicy: "cache-first",
     }
   );
   const { status } = eventData?.patch || {};
