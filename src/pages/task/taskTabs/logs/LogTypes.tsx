@@ -55,6 +55,7 @@ interface Props {
   currentLog: LogTypes;
   htmlLink: string;
   rawLink: string;
+  lobsterLink: string;
 }
 export const EventLog: React.FC<Props> = (props): JSX.Element => {
   const { id } = useParams<{ id: string }>();
@@ -155,6 +156,7 @@ const useRenderBody: React.FC<{
   LogContainer?: React.FC;
   htmlLink: string;
   rawLink: string;
+  lobsterLink: string;
 }> = ({
   loading,
   error,
@@ -162,13 +164,14 @@ const useRenderBody: React.FC<{
   currentLog,
   rawLink,
   htmlLink,
+  lobsterLink,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
 }) => {
   const { pathname } = useLocation();
   const { replace } = useHistory();
   const taskAnalytics = useTaskAnalytics();
 
-  const hideLogs = error || !data.length;
+  const noLogs = !!(error || !data.length);
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     replace(
@@ -185,9 +188,31 @@ const useRenderBody: React.FC<{
     });
   };
 
+  let body = null;
   if (loading) {
-    return <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+    body = <Skeleton active title={false} paragraph={{ rows: 8 }} />;
+  } else if (noLogs) {
+    body = <div data-cy="cy-no-logs">No logs found</div>;
+  } else {
+    body = (
+      <LogContainer>
+        {data.map((d, index) =>
+          d.kind === "taskEventLogEntry" ? (
+            <TaskEventLogLine
+              key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
+              {...d}
+            />
+          ) : (
+            <LogMessageLine
+              key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
+              {...d}
+            />
+          )
+        )}
+      </LogContainer>
+    );
   }
+
   return (
     <>
       <StyledRadioGroup
@@ -196,13 +221,27 @@ const useRenderBody: React.FC<{
         value={currentLog}
         name="log-select"
       >
-        {!hideLogs ? (
+        {(htmlLink || rawLink || lobsterLink) && (
           <ButtonContainer>
+            {rawLink && (
+              <Button
+                data-cy="lobster-log-btn"
+                disabled={noLogs}
+                href={lobsterLink}
+                target="_blank"
+                onClick={() =>
+                  taskAnalytics.sendEvent({ name: "Click Logs Lobster Button" })
+                }
+              >
+                Lobster
+              </Button>
+            )}
             {htmlLink && (
               <Button
                 data-cy="html-log-btn"
-                target="_blank"
+                disabled={noLogs}
                 href={htmlLink}
+                target="_blank"
                 onClick={() =>
                   taskAnalytics.sendEvent({ name: "Click Logs HTML Button" })
                 }
@@ -213,8 +252,9 @@ const useRenderBody: React.FC<{
             {rawLink && (
               <Button
                 data-cy="raw-log-btn"
-                target="_blank"
+                disabled={noLogs}
                 href={rawLink}
+                target="_blank"
                 onClick={() =>
                   taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
                 }
@@ -223,7 +263,7 @@ const useRenderBody: React.FC<{
               </Button>
             )}
           </ButtonContainer>
-        ) : null}
+        )}
         <Radio data-cy="task-radio" id="cy-task-radio" value={LogTypes.Task}>
           Task Logs
         </Radio>
@@ -241,43 +281,28 @@ const useRenderBody: React.FC<{
           Event Logs
         </Radio>
       </StyledRadioGroup>
-      {hideLogs ? (
-        <div data-cy="cy-no-logs">No logs found</div>
-      ) : (
-        <LogContainer>
-          {data.map((d, index) =>
-            d.kind === "taskEventLogEntry" ? (
-              <TaskEventLogLine
-                key={`${d.resourceId}_${d.id}_${index}`} // eslint-disable-line react/no-array-index-key
-                {...d}
-              />
-            ) : (
-              <LogMessageLine
-                key={`${d.message}_${d.timestamp}_${index}`} // eslint-disable-line react/no-array-index-key
-                {...d}
-              />
-            )
-          )}
-        </LogContainer>
-      )}
+      {body}
     </>
   );
 };
 
 const ButtonContainer = styled.div`
+  display: flex;
   a:first-of-type {
     margin-right: 8px;
   }
-  margin-right: 24px;
+  margin-right: 16px;
 `;
 
 // @ts-expect-error
 const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
   align-items: center;
+  white-space: nowrap;
   label {
-    margin-right: 24px;
+    margin-right: 16px;
   }
+  padding-bottom: 8px;
 `;
 
 const StyledPre = styled.pre`

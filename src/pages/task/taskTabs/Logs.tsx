@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useLocation } from "react-router-dom";
+import { getLobsterTaskLink } from "constants/externalResources";
 import { TaskLogLinks } from "gql/generated/types";
 import {
   EventLog,
@@ -22,8 +23,10 @@ const options = {
 
 interface Props {
   logLinks: TaskLogLinks;
+  taskId: string;
+  execution: number;
 }
-export const Logs: React.FC<Props> = ({ logLinks }) => {
+export const Logs: React.FC<Props> = ({ logLinks, taskId, execution }) => {
   const { search } = useLocation();
   const [currentLog, setCurrentLog] = useState<LogTypes>(DEFAULT_LOG_TYPE);
   const parsed = queryString.parse(search);
@@ -45,39 +48,53 @@ export const Logs: React.FC<Props> = ({ logLinks }) => {
     }
   }, [logTypeParam]);
 
-  const { htmlLink, rawLink } = getLinks(logLinks, currentLog);
+  const { htmlLink, rawLink, lobsterLink } = getLinks(
+    logLinks,
+    currentLog,
+    taskId,
+    execution
+  );
   const LogComp = options[currentLog];
   return (
     LogComp && (
-      <LogComp htmlLink={htmlLink} rawLink={rawLink} currentLog={currentLog} />
+      <LogComp
+        htmlLink={htmlLink}
+        rawLink={rawLink}
+        lobsterLink={lobsterLink}
+        currentLog={currentLog}
+      />
     )
   );
 };
 
 interface GetLinksResult {
   htmlLink?: string;
+  lobsterLink?: string;
   rawLink?: string;
 }
 
 const getLinks = (
   logLinks: TaskLogLinks,
-  logType: LogTypes
+  logType: LogTypes,
+  taskId: string,
+  execution: number
 ): GetLinksResult => {
   if (!logLinks) {
     return {};
   }
-  const linkTypes = {
-    [LogTypes.Agent]: logLinks.agentLogLink,
-    [LogTypes.Event]: logLinks.eventLogLink,
-    [LogTypes.System]: logLinks.systemLogLink,
-    [LogTypes.Task]: logLinks.taskLogLink,
-  };
-  const url = linkTypes[logType];
-  if (!url) {
-    return {};
-  }
   if (logType === LogTypes.Event) {
-    return { htmlLink: url };
+    return { htmlLink: logLinks.eventLogLink };
   }
-  return { htmlLink: url, rawLink: `${url}&text=true` };
+  const htmlLink = `${
+    {
+      [LogTypes.Agent]: logLinks.agentLogLink,
+      [LogTypes.System]: logLinks.systemLogLink,
+      [LogTypes.Task]: logLinks.taskLogLink,
+    }[logType] ?? ""
+  }`;
+  return {
+    htmlLink,
+    lobsterLink: getLobsterTaskLink(logType, taskId, execution),
+    rawLink: `${htmlLink}&text=true`,
+  };
 };

@@ -8,6 +8,7 @@ const prod = {
   REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
   REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   REACT_APP_GQL_URL: "https://evergreen.mongodb.com/graphql/query",
+  REACT_APP_LOBSTER_URL: "https://evergreen.mongodb.com",
   REACT_APP_SPRUCE_URL: "https://spruce.mongodb.com",
   REACT_APP_BUGSNAG_API_KEY: process.env.REACT_APP_BUGSNAG_API_KEY,
   REACT_APP_NEW_RELIC_ACCOUNT_ID: process.env.REACT_APP_NEW_RELIC_ACCOUNT_ID,
