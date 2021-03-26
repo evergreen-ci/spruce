@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.4.3",
+  "version": "2.4.4",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -82,6 +82,7 @@
     "@leafygreen-ui/toggle": "7.0.1",
     "@leafygreen-ui/typography": "7.3.2",
     "@mongodb-dev-prod/trend-charts-ui": "~0.3.2",
+    "@rjsf/core": "^2.5.1",
     "ansi_up": "5.0.0",
     "antd": "4.12.1",
     "axios": "0.21.1",
