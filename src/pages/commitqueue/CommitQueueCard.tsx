@@ -25,7 +25,7 @@ interface Props {
   author: string;
   commitTime: Date;
   patchId: string;
-  versionId: string | undefined;
+  versionId: string;
   owner: string;
   repo: string;
   moduleCodeChanges: ModuleCodeChangeFragment[];
@@ -97,9 +97,7 @@ export const CommitQueueCard: React.FC<Props> = ({
         ) : (
           // should only get here for pull requests not processed yet (ie. added in the past minute)
           <CommitInfo>
-            <PRCardTitle
-              href={`https://github.com/${owner}/${repo}/pull/${issue}`}
-            >
+            <PRCardTitle href={getGithubPullRequestUrl(owner, repo, issue)}>
               Pull Request #{issue}
             </PRCardTitle>
           </CommitInfo>
