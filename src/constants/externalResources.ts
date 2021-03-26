@@ -21,6 +21,11 @@ export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
 export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
   `https://${jiraHost}/browse/${jiraKey}`;
 
+export const getGithubPullRequestUrl = (
+  owner: string,
+  repo: string,
+  issue: number | string
+) => `https://github.com/${owner}/${repo}/pull/${issue}`;
 export const getLobsterTaskLink = (
   logType: LogTypes,
   taskId: string,
