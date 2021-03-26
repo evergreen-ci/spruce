@@ -6,6 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
+import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
 import {
   ModuleCodeChangeFragment,
@@ -66,7 +67,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            {versionId && versionId !== "" ? (
+            {versionId !== "" || issue === "" ? (
               <CardTitle
                 data-cy="commit-queue-card-title"
                 to={getVersionRoute(patchId)}
@@ -76,7 +77,7 @@ export const CommitQueueCard: React.FC<Props> = ({
             ) : (
               <PRCardTitle
                 data-cy="commit-queue-card-title"
-                href={`https://github.com/${owner}/${repo}/pull/${issue}`}
+                href={getGithubPullRequestUrl(owner, repo, issue)}
               >
                 {title}
               </PRCardTitle>
@@ -94,7 +95,7 @@ export const CommitQueueCard: React.FC<Props> = ({
             </Container>
           </CommitInfo>
         ) : (
-          // valid data should not get to here anymore, but this is left as a sanity check
+          // should only get here for pull requests not processed yet (ie. added in the past minute)
           <CommitInfo>
             <PRCardTitle
               href={`https://github.com/${owner}/${repo}/pull/${issue}`}
