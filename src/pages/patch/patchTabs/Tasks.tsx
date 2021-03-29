@@ -42,7 +42,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { sorts, limit, page } = queryVariables;
 
   useEffect(() => {
-    if (sorts === undefined) {
+    if (sorts.length === 0) {
       updateQueryParams({
         sorts: "STATUS:ASC;BASE_STATUS:DESC",
       });
