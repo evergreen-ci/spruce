@@ -1,39 +1,32 @@
 import React from "react";
-import get from "lodash/get";
-import { useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { TasksTable } from "components/Table/TasksTable";
-import { Task, PatchTasks, SortOrder } from "gql/generated/types";
+import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { stringifyQuery, parseQueryString } from "utils/queryString";
 import { toSortString } from "../util";
 
 interface Props {
-  data?: PatchTasks;
+  patchTasks: PatchTasksQuery["patchTasks"];
   sorts: SortOrder[];
 }
 
-export const PatchTasksTable: React.FC<Props> = ({ data, sorts }) => {
-  const { replace } = useHistory();
-  const { search, pathname } = useLocation();
+export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const patchAnalytics = usePatchAnalytics();
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
-    const nextQueryParams = stringifyQuery({
-      ...parseQueryString(search),
+    updateQueryParams({
       sorts: toSortString(sorter),
       [PatchTasksQueryParams.Page]: "0",
     });
-    if (nextQueryParams !== search.split("?")[1]) {
-      replace(`${pathname}?${nextQueryParams}`);
-    }
   };
 
   return (
     <TasksTable
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
-      tasks={get(data, "tasks", [])}
+      tasks={patchTasks?.tasks}
       onExpand={(expanded) => {
         patchAnalytics.sendEvent({
           name: "Toggle Display Task Dropdown",
