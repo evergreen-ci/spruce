@@ -10,11 +10,7 @@ import { usePatchAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import {
-  TableContainer,
-  TableControlOuterRow,
-  TableControlInnerRow,
-} from "components/styles";
+import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
@@ -74,50 +70,45 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   return (
     <>
       <TaskFilters />
-      {!showSkeleton && (
-        <>
-          <TableControlOuterRow>
-            <FlexContainer>
-              <ResultCountLabel
-                dataCyNumerator="current-task-count"
-                dataCyDenominator="total-task-count"
-                label="tasks"
-                numerator={patchTasks?.count}
-                denominator={taskCount}
-              />
-              <PaddedButton // @ts-expect-error
-                onClick={() => {
-                  patchAnalytics.sendEvent({ name: "Clear all filter" });
-                  router.push(getVersionRoute(resourceId));
-                }}
-                data-cy="clear-all-filters"
-              >
-                Clear All Filters
-              </PaddedButton>
-            </FlexContainer>
-            <TableControlInnerRow>
-              <Pagination
-                data-cy="tasks-table-pagination"
-                pageSize={limit}
-                value={page}
-                totalResults={patchTasks?.count}
-              />
-              <PageSizeSelector
-                data-cy="tasks-table-page-size-selector"
-                value={limit}
-                sendAnalyticsEvent={() =>
-                  patchAnalytics.sendEvent({ name: "Change Page Size" })
-                }
-              />
-            </TableControlInnerRow>
-          </TableControlOuterRow>
-          <TableContainer hide={showSkeleton}>
-            <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
-          </TableContainer>
-        </>
-      )}
-      {showSkeleton && (
+      <TableControlOuterRow>
+        <FlexContainer>
+          <ResultCountLabel
+            dataCyNumerator="current-task-count"
+            dataCyDenominator="total-task-count"
+            label="tasks"
+            numerator={patchTasks?.count}
+            denominator={taskCount}
+          />
+          <PaddedButton // @ts-expect-error
+            onClick={() => {
+              patchAnalytics.sendEvent({ name: "Clear all filter" });
+              router.push(getVersionRoute(resourceId));
+            }}
+            data-cy="clear-all-filters"
+          >
+            Clear All Filters
+          </PaddedButton>
+        </FlexContainer>
+        <TableControlInnerRow>
+          <Pagination
+            data-cy="tasks-table-pagination"
+            pageSize={limit}
+            value={page}
+            totalResults={patchTasks?.count}
+          />
+          <PageSizeSelector
+            data-cy="tasks-table-page-size-selector"
+            value={limit}
+            sendAnalyticsEvent={() =>
+              patchAnalytics.sendEvent({ name: "Change Page Size" })
+            }
+          />
+        </TableControlInnerRow>
+      </TableControlOuterRow>
+      {showSkeleton ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
+      ) : (
+        <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
       )}
     </>
   );
