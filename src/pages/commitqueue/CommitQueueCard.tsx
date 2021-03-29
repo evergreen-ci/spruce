@@ -73,7 +73,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            {versionId !== "" || issue === "" ? (
+            {versionId !== "" || issue === "" || Number.isNaN(Number(issue)) ? (
               <CardTitle
                 data-cy="commit-queue-card-title"
                 to={getVersionRoute(patchId)}
