@@ -57,6 +57,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     minQueuePosition: taskQueuePosition,
     projectId,
     abortInfo,
+    displayTask,
   } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
@@ -76,10 +77,10 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           Build Variant Name:{" "}
           <StyledRouterLink
             data-cy="build-variant-link"
-            to={`${getVersionRoute(patchID, {
+            to={getVersionRoute(patchID, {
               page: 0,
               variant: buildVariant,
-            })}?`}
+            })}
             onClick={() =>
               taskAnalytics.sendEvent({ name: "Click Build Variant Link" })
             }
@@ -167,18 +168,35 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             </StyledLink>
           </P2>
         )}
-        <P2>
-          Distro:{" "}
-          <StyledLink
-            data-cy="task-distro-link"
-            href={distroLink}
-            onClick={() =>
-              taskAnalytics.sendEvent({ name: "Click Distro Link" })
-            }
-          >
-            {distroId}
-          </StyledLink>
-        </P2>
+        {displayTask && (
+          <P2>
+            Display Task:{" "}
+            <StyledRouterLink
+              to={getTaskRoute(displayTask.id, {
+                execution: displayTask.execution,
+              })}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Display Task Link" })
+              }
+            >
+              {displayTask.displayName}
+            </StyledRouterLink>
+          </P2>
+        )}
+        {distroId && (
+          <P2>
+            Distro:{" "}
+            <StyledLink
+              data-cy="task-distro-link"
+              href={distroLink}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Distro Link" })
+              }
+            >
+              {distroId}
+            </StyledLink>
+          </P2>
+        )}
         {ami && <P2 data-cy="task-metadata-ami">AMI: {ami}</P2>}
         {hostId && (
           <P2>
