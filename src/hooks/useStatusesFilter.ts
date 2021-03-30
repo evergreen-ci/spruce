@@ -1,6 +1,6 @@
-import queryString from "query-string";
-import { useLocation, useHistory } from "react-router-dom";
-
+import { useLocation } from "react-router-dom";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { parseQueryString } from "utils";
 /**
  * @param  {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
  * @param {boolean} page reset url page param to 0 if true
@@ -14,30 +14,21 @@ export const useStatusesFilter = (
   resetPage?: boolean,
   sendAnalyticsEvent: (filterBy: string) => void = () => undefined
 ): [string[], (newValue: string[]) => void] => {
-  const { pathname, search } = useLocation();
-  const { replace } = useHistory();
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
 
   const onChange = (newValue: string[]): void => {
-    const parsed = queryString.parse(search, { arrayFormat });
-    const nextQueryParams = queryString.stringify(
-      {
-        ...parsed,
-        [urlParam]: newValue,
-        ...(resetPage && { page: 0 }),
-      },
-      { arrayFormat }
-    );
-    replace(`${pathname}?${nextQueryParams}`);
+    updateQueryParams({
+      [urlParam]: newValue,
+      ...(resetPage && { page: "0" }),
+    });
+
     sendAnalyticsEvent(urlParam);
   };
 
-  const { [urlParam]: rawStatuses } = queryString.parse(search, {
-    arrayFormat,
-  });
+  const { [urlParam]: rawStatuses } = parseQueryString(search);
   const value = Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses].filter((v) => v);
   return [value, onChange];
 };
-
-const arrayFormat = "comma";

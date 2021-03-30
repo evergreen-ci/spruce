@@ -27,6 +27,7 @@ type Action =
   | { name: "Change Execution" }
   | { name: "Click Logs Lobster Button" }
   | { name: "Click Logs HTML Button" }
+  | { name: "Click Logs Lobster Button" }
   | { name: "Click Logs Raw Button" }
   | { name: "Select Logs Type"; logsType: LogTypes }
   | { name: "Open Notification Modal" }

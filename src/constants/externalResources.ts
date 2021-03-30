@@ -1,4 +1,5 @@
-import { getUiUrl, getLobsterURL } from "utils/getEnvironmentVariables";
+import { LogTypes } from "types/task";
+import { getLobsterURL, getUiUrl } from "utils/getEnvironmentVariables";
 
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";
@@ -34,3 +35,14 @@ export const getLobsterTestLogUrl = (
       }${lineNum ? `#bookmarks=${lineNum}` : ""}`;
 
 export const isLobsterLink = (url: string) => url.includes("/build/");
+export const getGithubPullRequestUrl = (
+  owner: string,
+  repo: string,
+  issue: number | string
+) => `https://github.com/${owner}/${repo}/pull/${issue}`;
+export const getLobsterTaskLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) =>
+  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;

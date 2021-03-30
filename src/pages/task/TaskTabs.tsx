@@ -62,7 +62,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   const tabMap = {
     [TaskTab.Logs]: (
       <Tab name="Logs" data-cy="task-logs-tab" key="task-logs-tab">
-        <Logs logLinks={logLinks} />
+        <Logs taskId={id} execution={execution} logLinks={logLinks} />
       </Tab>
     ),
     [TaskTab.Tests]: (

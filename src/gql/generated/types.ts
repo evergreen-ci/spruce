@@ -1761,6 +1761,7 @@ export type CommitQueueQuery = {
           id: string;
           author: string;
           description: string;
+          version: string;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>

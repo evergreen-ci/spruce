@@ -1,24 +1,19 @@
-import React from "react";
+import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
-import get from "lodash.get";
 import queryString from "query-string";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { ErrorBoundary } from "components/ErrorBoundary";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
 import { ResultCountLabel } from "components/ResultCountLabel";
-import {
-  TableContainer,
-  TableControlOuterRow,
-  TableControlInnerRow,
-} from "components/styles";
+import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
@@ -38,39 +33,42 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   const { search } = useLocation();
   const router = useHistory();
-  const updateQueryParams = useUpdateURLQueryParams();
+  const patchAnalytics = usePatchAnalytics();
+  const dispatchToast = useToastContext();
 
+  const updateQueryParams = useUpdateURLQueryParams();
   const queryVariables = getQueryVariables(search, resourceId);
 
   const { sorts, limit, page } = queryVariables;
 
-  if (sorts.length === 0) {
-    updateQueryParams({
-      sorts: "STATUS:ASC;BASE_STATUS:DESC",
-    });
-  }
+  useEffect(() => {
+    if (sorts.length === 0) {
+      updateQueryParams({
+        sorts: "STATUS:ASC;BASE_STATUS:DESC",
+      });
+    }
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { data, error, startPolling, stopPolling } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
     pollInterval,
     fetchPolicy: "cache-and-network",
+    onError: (err) => {
+      dispatchToast.error(`Error fetching patch tasks ${err}`);
+    },
   });
   let showSkeleton = true;
   if (data) {
     showSkeleton = false;
   }
   useNetworkStatus(startPolling, stopPolling);
+  const { patchTasks } = data || {};
 
-  const patchAnalytics = usePatchAnalytics();
-
-  if (error) {
-    return <div>{error.message}</div>;
-  }
   return (
-    <ErrorBoundary>
+    <>
       <TaskFilters />
       <TableControlOuterRow>
         <FlexContainer>
@@ -78,7 +76,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             dataCyNumerator="current-task-count"
             dataCyDenominator="total-task-count"
             label="tasks"
-            numerator={get(data, "patchTasks.count", "-")}
+            numerator={patchTasks?.count}
             denominator={taskCount}
           />
           <PaddedButton // @ts-expect-error
@@ -96,7 +94,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
             data-cy="tasks-table-pagination"
             pageSize={limit}
             value={page}
-            totalResults={get(data, "patchTasks.count", 0)}
+            totalResults={patchTasks?.count}
           />
           <PageSizeSelector
             data-cy="tasks-table-page-size-selector"
@@ -107,13 +105,12 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           />
         </TableControlInnerRow>
       </TableControlOuterRow>
-      <TableContainer hide={showSkeleton}>
-        <PatchTasksTable sorts={sorts} data={get(data, "patchTasks", [])} />
-      </TableContainer>
-      {showSkeleton && (
+      {showSkeleton ? (
         <Skeleton active title={false} paragraph={{ rows: 8 }} />
+      ) : (
+        <PatchTasksTable sorts={sorts} patchTasks={patchTasks} />
       )}
-    </ErrorBoundary>
+    </>
   );
 };
 

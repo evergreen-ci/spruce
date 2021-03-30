@@ -6,7 +6,9 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
+import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import {
   ModuleCodeChangeFragment,
   RemoveItemFromCommitQueueMutation,
@@ -24,6 +26,7 @@ interface Props {
   author: string;
   commitTime: Date;
   patchId: string;
+  versionId: string;
   owner: string;
   repo: string;
   moduleCodeChanges: ModuleCodeChangeFragment[];
@@ -38,25 +41,31 @@ export const CommitQueueCard: React.FC<Props> = ({
   author,
   commitTime,
   patchId,
+  versionId,
   owner,
   repo,
   moduleCodeChanges,
   commitQueueId,
 }) => {
-  const [removeItemFromCommitQueue, { loading, error }] = useMutation<
+  const dispatchToast = useToastContext();
+
+  const [removeItemFromCommitQueue, { loading }] = useMutation<
     RemoveItemFromCommitQueueMutation,
     RemoveItemFromCommitQueueMutationVariables
-  >(REMOVE_ITEM_FROM_COMMIT_QUEUE);
+  >(REMOVE_ITEM_FROM_COMMIT_QUEUE, {
+    onCompleted: () => {
+      dispatchToast.success("Successfully removed item from commit queue");
+    },
+    onError: (err) => {
+      dispatchToast.error(`Error removing item from commit queue ${err}`);
+    },
+  });
   const handleEnroll = async (e): Promise<void> => {
     e.preventDefault();
-    try {
-      await removeItemFromCommitQueue({
-        variables: { issue, commitQueueId },
-        refetchQueries: ["CommitQueue"],
-      });
-    } catch (err) {
-      // TODO show error banner
-    }
+    removeItemFromCommitQueue({
+      variables: { issue, commitQueueId },
+      refetchQueries: ["CommitQueue"],
+    });
   };
   return (
     <Card data-cy="commit-queue-card">
@@ -64,7 +73,21 @@ export const CommitQueueCard: React.FC<Props> = ({
       <CommitQueueCardGrid>
         {patchId ? (
           <CommitInfo>
-            <CardTitle to={getVersionRoute(patchId)}>{title}</CardTitle>
+            {versionId !== "" || issue === "" || Number.isNaN(issue) ? (
+              <CardTitle
+                data-cy="commit-queue-card-title"
+                to={getVersionRoute(patchId)}
+              >
+                {title}
+              </CardTitle>
+            ) : (
+              <PRCardTitle
+                data-cy="commit-queue-card-title"
+                href={getGithubPullRequestUrl(owner, repo, issue)}
+              >
+                {title}
+              </PRCardTitle>
+            )}
             <CardMetaData>
               By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
             </CardMetaData>
@@ -78,10 +101,9 @@ export const CommitQueueCard: React.FC<Props> = ({
             </Container>
           </CommitInfo>
         ) : (
+          // should only get here for pull requests not processed yet (ie. added in the past minute)
           <CommitInfo>
-            <PRCardTitle
-              href={`https://github.com/${owner}/${repo}/pull/${issue}`}
-            >
+            <PRCardTitle href={getGithubPullRequestUrl(owner, repo, issue)}>
               Pull Request #{issue}
             </PRCardTitle>
           </CommitInfo>
@@ -94,7 +116,6 @@ export const CommitQueueCard: React.FC<Props> = ({
           >
             Remove Patch From Queue
           </Button>
-          {error && <div data-cy="error-banner">{error.message}</div>}
         </CommitQueueCardActions>
       </CommitQueueCardGrid>
     </Card>
