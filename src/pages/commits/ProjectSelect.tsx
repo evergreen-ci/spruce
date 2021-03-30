@@ -65,9 +65,10 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const isFavoriteSelected =
     favoriteIdentifiers?.indexOf(selectedProject) !== -1;
 
-  const sp = projects
+  const currentProject = projects
     ?.flatMap((g) => g.projects)
     .find((p) => p.identifier === selectedProject);
+
   return (
     <Wrapper>
       <BarWrapper
@@ -77,7 +78,9 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
         data-cy="project-select"
       >
         <LabelWrapper>
-          <Body data-cy="project-name">Project: {sp?.displayName}</Body>
+          <Body data-cy="project-name">
+            Project: {currentProject?.displayName || currentProject?.identifier}
+          </Body>
         </LabelWrapper>
         <FlexWrapper>
           <FavoriteStar
@@ -141,7 +144,8 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   margin-top: 5px;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll;
+  max-height: 400px;
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper
