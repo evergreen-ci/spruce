@@ -31,8 +31,8 @@ export const getLobsterTestLogUrl = (
   !taskId || Number.isNaN(execution) || !testId
     ? ""
     : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
-        groupID ? `/${groupID}` : ""
-      }${lineNum ? `#bookmarks=${lineNum}` : ""}`;
+        lineNum ? `#bookmarks=${lineNum}` : ""
+      }`;
 
 export const isLobsterLink = (url: string) => url.includes("/build/");
 export const getGithubPullRequestUrl = (

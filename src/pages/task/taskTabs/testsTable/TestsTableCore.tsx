@@ -76,6 +76,7 @@ export const TestsTableCore: React.FC = () => {
     variables: queryVariables,
     pollInterval,
   });
+  console.log(data)
   useNetworkStatus(startPolling, stopPolling);
   // update url query params when user event triggers change
   const tableChangeHandler: TableOnChange<TestResult> = (...[, , sorter]) => {
@@ -262,13 +263,12 @@ const getColumnsTemplate = (
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => {
-      const { execution, groupID, lineNum, taskId, testFile, logTestName } =
-        b || {};
+      const { execution, groupID, lineNum, taskId, testFile } = b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
       const lobsterLink = getLobsterTestLogUrl(
         taskId,
         execution,
-        logTestName || testFile,
+        testFile,
         groupID,
         lineNum
       );
