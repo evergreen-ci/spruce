@@ -797,6 +797,7 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  timeoutType?: Maybe<Scalars["String"]>;
   oomTracker: OomTrackerInfo;
 };
 
@@ -888,6 +889,7 @@ export type Task = {
   dispatchTime?: Maybe<Scalars["Time"]>;
   displayName: Scalars["String"];
   displayOnly?: Maybe<Scalars["Boolean"]>;
+  displayTask?: Maybe<Task>;
   distroId: Scalars["String"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution: Scalars["Int"];
@@ -2217,6 +2219,11 @@ export type GetTaskQuery = {
         eventLogLink?: Maybe<string>;
       };
       details?: Maybe<{
+        status: string;
+        type: string;
+        description?: Maybe<string>;
+        timedOut?: Maybe<boolean>;
+        timeoutType?: Maybe<string>;
         oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
       }>;
       annotation?: Maybe<

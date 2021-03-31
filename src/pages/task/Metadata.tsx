@@ -167,6 +167,12 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             </StyledLink>
           </P2>
         )}
+        {details?.status === TaskStatus.Failed && (
+          <P2>Failing command: {details?.description}</P2>
+        )}
+        {details?.timeoutType && details?.timeoutType !== "" && (
+          <P2>Timeout type: {details?.timeoutType}</P2>
+        )}
         <P2>
           Distro:{" "}
           <StyledLink
