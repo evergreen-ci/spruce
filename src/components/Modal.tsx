@@ -8,8 +8,8 @@ import { hexToRGBA } from "utils/color";
 
 interface ModalProps {
   footer: JSX.Element[] | JSX.Element;
-  title: string | JSX.Element;
-  "data-cy": string;
+  title?: string | JSX.Element;
+  "data-cy"?: string;
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   onOk?: () => void;
@@ -38,8 +38,13 @@ export const Modal: React.FC<ModalProps> = ({
       "data-cy": dataCy,
     }}
   >
-    <H2 data-cy="modal-title">{title}</H2>
-    <StyledHR />
+    {title && (
+      <>
+        <H2 data-cy="modal-title">{title}</H2>
+        <StyledHR />
+      </>
+    )}
+
     {children}
   </StyledModal>
 );
