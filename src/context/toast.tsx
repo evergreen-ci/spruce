@@ -1,10 +1,19 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useState, useCallback, useEffect, ReactNode } from "react";
 import Toast, { Variant } from "@leafygreen-ui/toast";
 import { TOAST_TIMEOUT } from "constants/index";
 
-type ToastType = { variant: Variant; message: string; closable: boolean };
+type ToastType = {
+  variant: Variant;
+  message: ReactNode;
+  closable: boolean;
+  title: ReactNode;
+};
 
-type AddToast = (message: string, closable?: boolean) => void;
+type AddToast = (
+  message: ReactNode,
+  closable?: boolean,
+  title?: string
+) => void;
 
 interface DispatchToast {
   success: AddToast;
@@ -14,7 +23,7 @@ interface DispatchToast {
   hide: () => void;
 }
 
-const variantToTitleMap = {
+const variantToDefaultTitleMap = {
   [Variant.Success]: "Success!",
   [Variant.Important]: "Warning!",
   [Variant.Warning]: "Error!",
@@ -26,6 +35,7 @@ export const ToastDispatchContext = React.createContext<any | null>(null);
 const ToastProvider: React.FC = ({ children }) => {
   const [visibleToast, setVisibleToast] = useState<ToastType>({
     variant: Variant.Note,
+    title: variantToDefaultTitleMap[Variant.Note],
     message: "",
     closable: true,
   });
@@ -44,14 +54,26 @@ const ToastProvider: React.FC = ({ children }) => {
   }, [setToastOpen]);
 
   const toastContext = {
-    success: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Success, message, closable }),
-    warning: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Important, message, closable }),
-    error: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Warning, message, closable }),
-    info: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Note, message, closable }),
+    success: (
+      message: ReactNode,
+      closable: boolean = true,
+      title: ReactNode = variantToDefaultTitleMap[Variant.Success]
+    ) => addToast({ variant: Variant.Success, message, closable, title }),
+    warning: (
+      message: ReactNode,
+      closable: boolean = true,
+      title: ReactNode = variantToDefaultTitleMap[Variant.Important]
+    ) => addToast({ variant: Variant.Important, message, closable, title }),
+    error: (
+      message: ReactNode,
+      closable: boolean = true,
+      title: ReactNode = variantToDefaultTitleMap[Variant.Warning]
+    ) => addToast({ variant: Variant.Warning, message, closable, title }),
+    info: (
+      message: ReactNode,
+      closable: boolean = true,
+      title: ReactNode = variantToDefaultTitleMap[Variant.Note]
+    ) => addToast({ variant: Variant.Note, message, closable, title }),
     hide: hideToast,
   };
 
@@ -67,7 +89,7 @@ const ToastProvider: React.FC = ({ children }) => {
       {children}
       <Toast
         variant={visibleToast.variant}
-        title={variantToTitleMap[visibleToast?.variant]}
+        title={visibleToast.title}
         body={visibleToast.message}
         open={toastOpen}
         close={visibleToast.closable && (() => setToastOpen(false))}
