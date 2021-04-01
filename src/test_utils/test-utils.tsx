@@ -29,6 +29,7 @@ export const renderWithRouterMatch = (
     history = createMemoryHistory({ initialEntries: [route] }),
   } = {}
 ) => ({
+  history,
   ...render(
     <Router history={history}>
       <Route path={path} component={ui} />
@@ -44,6 +45,7 @@ export const customRenderWithRouterMatch = (
     history = createMemoryHistory({ initialEntries: [route] }),
   } = {}
 ) => ({
+  history,
   ...customRender(
     <Router history={history}>
       <Route path={path} component={ui} />
