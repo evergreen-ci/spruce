@@ -25,7 +25,7 @@ export const Prank = () => {
             <>
               <StyledLink
                 onClick={() => {
-                  //   Cookies.set(COOKIE_NAME, "true");
+                  Cookies.set(COOKIE_NAME, "true");
                   setIsVisibleModal(true);
                 }}
               >
