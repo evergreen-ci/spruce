@@ -888,6 +888,7 @@ export type Task = {
   dispatchTime?: Maybe<Scalars["Time"]>;
   displayName: Scalars["String"];
   displayOnly?: Maybe<Scalars["Boolean"]>;
+  displayTask?: Maybe<Task>;
   distroId: Scalars["String"];
   estimatedStart?: Maybe<Scalars["Duration"]>;
   execution: Scalars["Int"];
@@ -2200,6 +2201,11 @@ export type GetTaskQuery = {
       baseTaskMetadata?: Maybe<{
         baseTaskDuration?: Maybe<number>;
         baseTaskLink: string;
+      }>;
+      displayTask?: Maybe<{
+        id: string;
+        execution: number;
+        displayName: string;
       }>;
       patchMetadata: { author: string; patchID: string };
       reliesOn: Array<{
