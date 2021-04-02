@@ -1,3 +1,4 @@
+import { H2 } from "@leafygreen-ui/typography";
 import { useParams } from "react-router-dom";
 import { PageWrapper } from "components/styles";
 import { usePageTitle } from "hooks";
@@ -10,5 +11,9 @@ export const VariantHistory = () => {
 
   usePageTitle(`Variant History | ${projectId} | ${variantId}`);
 
-  return <PageWrapper>The Future home of the Variant History page</PageWrapper>;
+  return (
+    <PageWrapper>
+      <H2>Build Variant: Code Health[code_health]</H2>
+    </PageWrapper>
+  );
 };

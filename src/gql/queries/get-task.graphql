@@ -31,7 +31,11 @@ query GetTask($taskId: String!, $execution: Int) {
       baseTaskDuration
       baseTaskLink
     }
-  
+    displayTask {
+      id
+      execution
+      displayName
+    }
     ingestTime
     estimatedStart
     finishTime

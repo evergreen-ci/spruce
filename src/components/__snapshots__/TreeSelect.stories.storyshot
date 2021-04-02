@@ -1,0 +1,124 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots TreeSelect Ellipsis 1`] = `
+<div
+  className="css-gte0m8-Wrapper e1s7j75b0"
+>
+  <div
+    className="cy-treeselect-bar css-ytn8yo-BarWrapper e1s7j75b4"
+    onClick={[Function]}
+  >
+    <div
+      className="css-soeq2u-LabelWrapper e1s7j75b5"
+    >
+      Items: 
+      REALLY LONG TITLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE EXAMPLE!!!!!!!!!!!!!!!!!, Skip, Silent Fail, Pass
+    </div>
+    <span
+      className="css-1hur1xy-ArrowWrapper e1s7j75b1"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          className=""
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots TreeSelect No All Button 1`] = `
+<div
+  className="css-gte0m8-Wrapper e1s7j75b0"
+>
+  <div
+    className="cy-treeselect-bar css-ytn8yo-BarWrapper e1s7j75b4"
+    onClick={[Function]}
+  >
+    <div
+      className="css-soeq2u-LabelWrapper e1s7j75b5"
+    >
+      Items: 
+      Skip, Failed, Skip, Silent Fail, Pass
+    </div>
+    <span
+      className="css-1hur1xy-ArrowWrapper e1s7j75b1"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          className=""
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Storyshots TreeSelect No Initial Values 1`] = `
+<div
+  className="css-gte0m8-Wrapper e1s7j75b0"
+>
+  <div
+    className="cy-treeselect-bar css-ytn8yo-BarWrapper e1s7j75b4"
+    onClick={[Function]}
+  >
+    <div
+      className="css-soeq2u-LabelWrapper e1s7j75b5"
+    >
+      Items: 
+      No filters selected
+    </div>
+    <span
+      className="css-1hur1xy-ArrowWrapper e1s7j75b1"
+    >
+      <div>
+        <svg
+          aria-label="Chevron Down Icon"
+          className=""
+          fill="none"
+          height={16}
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            clipRule="evenodd"
+            d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </div>
+    </span>
+  </div>
+</div>
+`;

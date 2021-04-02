@@ -1,0 +1,194 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Spawn Host Card Spawn Host Card Story 1`] = `
+<div
+  className="css-fhulju-SiderCard-CardContainer e9wutqn0 leafygreen-ui-o2xit9"
+  data-cy="spawn-host-card"
+>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      ID
+    </div>
+    <div>
+      <span>
+        i-04ade558e1e26b0ad
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Created at
+    </div>
+    <div>
+      <span>
+        Jun 15, 2020, 11:10:44 AM
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Started at
+    </div>
+    <div>
+      <span>
+        Jun 15, 2020, 11:10:44 AM
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Expires at
+    </div>
+    <div>
+      <span>
+        Does not expire
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      SSH User
+    </div>
+    <div>
+      <span>
+        ubuntu
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      DNS Name
+    </div>
+    <div>
+      <span>
+        ec2-54-242-162-135.compute-1.amazonaws.com
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Working Directory
+    </div>
+    <div>
+      <span>
+        /home/ubuntu
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Availability Zone
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      User Tags
+    </div>
+    <div>
+      <span />
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Instance Type
+    </div>
+    <div>
+      <span>
+        m5.xlarge
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Mounted Volumes
+    </div>
+    <div />
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      Home Volume
+    </div>
+    <div>
+      <span>
+        <a
+          className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+          href="/spawn/volume?volume=vol-0ea662ac92f611ed4"
+          onClick={[Function]}
+        >
+          vol-0ea662ac92f611ed4
+        </a>
+      </span>
+    </div>
+  </div>
+  <div
+    className="css-7frn0z-FieldContainer e9wutqn2"
+  >
+    <div
+      className="css-o728yg-FieldName e9wutqn1"
+    >
+      IDE
+    </div>
+    <div>
+      <span>
+        <a
+          className="css-1yjsn23-StyledLink-linkStyles es7lfqt2"
+          href="/host/i-04ade558e1e26b0ad/ide"
+        >
+          Open IDE
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
