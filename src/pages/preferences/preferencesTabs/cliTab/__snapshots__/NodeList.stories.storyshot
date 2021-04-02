@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Node List Node Element 1`] = `
+<div
+  className="css-1xofbf3-NodeContainer e1k5prvz2"
+>
+  <div
+    className="css-noe96r-NodeHeader e1k5prvz1"
+  >
+    <div
+      className="css-xu4var-Circle e1k5prvz5"
+    >
+      <h6
+        className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+      >
+        1
+      </h6>
+    </div>
+    <h6
+      className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+    >
+      Download the Command-Line Client.
+    </h6>
+  </div>
+  <div
+    className="css-1oy5nku-ChildContainer e1k5prvz0"
+  >
+    <div
+      style={
+        Object {
+          "backgroundColor": "red",
+          "height": 300,
+          "width": 500,
+        }
+      }
+    >
+      Test
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Node List Node List Full 1`] = `
+<div
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
+>
+  <div
+    className="css-17mpqbw-NodeContainer eb6wkmd0"
+  >
+    <div
+      className="css-1xofbf3-NodeContainer e1k5prvz2"
+    >
+      <div
+        className="css-noe96r-NodeHeader e1k5prvz1"
+      >
+        <div
+          className="css-xu4var-Circle e1k5prvz5"
+        >
+          <h6
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+          >
+            1
+          </h6>
+        </div>
+        <h6
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+        >
+          Download the Command-Line Client.
+        </h6>
+      </div>
+      <div
+        className="css-1oy5nku-ChildContainer e1k5prvz0"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "red",
+              "height": 300,
+              "width": 500,
+            }
+          }
+        >
+          Test
+        </div>
+      </div>
+    </div>
+    <div
+      className="css-1xofbf3-NodeContainer e1k5prvz2"
+    >
+      <div
+        className="css-noe96r-NodeHeader e1k5prvz1"
+      >
+        <div
+          className="css-xu4var-Circle e1k5prvz5"
+        >
+          <h6
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+          >
+            2
+          </h6>
+        </div>
+        <h6
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+        >
+          Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.
+        </h6>
+      </div>
+      <div
+        className="css-1oy5nku-ChildContainer e1k5prvz0"
+      >
+        <div
+          style={
+            Object {
+              "backgroundColor": "red",
+              "height": 300,
+              "width": 500,
+            }
+          }
+        >
+          Test
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
