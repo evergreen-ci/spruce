@@ -1,0 +1,1122 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Tasks Table Base Task Table 1`] = `
+<div
+  className="ant-table-wrapper"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <div
+        className="ant-table"
+        data-cy="tasks-table"
+      >
+        <div
+          className="ant-table-container"
+        >
+          <div
+            className="ant-table-content"
+            onScroll={[Function]}
+            style={Object {}}
+          >
+            <table
+              style={
+                Object {
+                  "tableLayout": "auto",
+                }
+              }
+            >
+              <colgroup>
+                <col
+                  style={
+                    Object {
+                      "minWidth": "40%",
+                      "width": "40%",
+                    }
+                  }
+                />
+              </colgroup>
+              <thead
+                className="ant-table-thead"
+              >
+                <tr>
+                  <th
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Name
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-STATUS ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Patch Status
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Base Status
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-VARIANT ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Variant
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                className="ant-table-tbody"
+              >
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Ubuntu 16.04
+                  </td>
+                </tr>
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id_2"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id_2"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some other Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Ubuntu 16.04
+                  </td>
+                </tr>
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id_3"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id_3"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some different Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Windows 97
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
+<div
+  className="ant-table-wrapper"
+>
+  <div
+    className="ant-spin-nested-loading"
+  >
+    <div
+      className="ant-spin-container"
+    >
+      <div
+        className="ant-table"
+        data-cy="tasks-table"
+      >
+        <div
+          className="ant-table-container"
+        >
+          <div
+            className="ant-table-content"
+            onScroll={[Function]}
+            style={Object {}}
+          >
+            <table
+              style={
+                Object {
+                  "tableLayout": "auto",
+                }
+              }
+            >
+              <colgroup>
+                <col
+                  style={
+                    Object {
+                      "minWidth": "40%",
+                      "width": "40%",
+                    }
+                  }
+                />
+              </colgroup>
+              <thead
+                className="ant-table-thead"
+              >
+                <tr>
+                  <th
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Name
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-STATUS ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Patch Status
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Base Status
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                  <th
+                    className="ant-table-cell cy-task-table-col-VARIANT ant-table-column-has-sorters"
+                    colSpan={null}
+                    onClick={[Function]}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="ant-table-column-sorters-with-tooltip"
+                      onMouseEnter={[Function]}
+                      onMouseLeave={[Function]}
+                    >
+                      <div
+                        className="ant-table-column-sorters"
+                      >
+                        <span>
+                          Variant
+                        </span>
+                        <span
+                          className="ant-table-column-sorter ant-table-column-sorter-full"
+                        >
+                          <span
+                            className="ant-table-column-sorter-inner"
+                          >
+                            <span
+                              aria-label="caret-up"
+                              className="anticon anticon-caret-up ant-table-column-sorter-up"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-up"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M858.9 689L530.5 308.2c-9.4-10.9-27.5-10.9-37 0L165.1 689c-12.2 14.2-1.2 35 18.5 35h656.8c19.7 0 30.7-20.8 18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                            <span
+                              aria-label="caret-down"
+                              className="anticon anticon-caret-down ant-table-column-sorter-down"
+                              role="img"
+                            >
+                              <svg
+                                aria-hidden="true"
+                                data-icon="caret-down"
+                                fill="currentColor"
+                                focusable="false"
+                                height="1em"
+                                viewBox="0 0 1024 1024"
+                                width="1em"
+                              >
+                                <path
+                                  d="M840.4 300H183.6c-19.7 0-30.7 20.8-18.5 35l328.4 380.8c9.4 10.9 27.5 10.9 37 0L858.9 335c12.2-14.2 1.2-35-18.5-35z"
+                                />
+                              </svg>
+                            </span>
+                          </span>
+                        </span>
+                      </div>
+                    </div>
+                  </th>
+                </tr>
+              </thead>
+              <tbody
+                className="ant-table-tbody"
+              >
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <span
+                      className="ant-table-row-indent indent-level-0"
+                      style={
+                        Object {
+                          "paddingLeft": "0px",
+                        }
+                      }
+                    />
+                    <button
+                      aria-label="Expand row"
+                      className="ant-table-row-expand-icon ant-table-row-expand-icon-spaced"
+                      onClick={[Function]}
+                      type="button"
+                    />
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Ubuntu 16.04
+                  </td>
+                </tr>
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id_2"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <span
+                      className="ant-table-row-indent indent-level-0"
+                      style={
+                        Object {
+                          "paddingLeft": "0px",
+                        }
+                      }
+                    />
+                    <button
+                      aria-label="Expand row"
+                      className="ant-table-row-expand-icon ant-table-row-expand-icon-spaced"
+                      onClick={[Function]}
+                      type="button"
+                    />
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id_2"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some other Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Ubuntu 16.04
+                  </td>
+                </tr>
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id_3"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <span
+                      className="ant-table-row-indent indent-level-0"
+                      style={
+                        Object {
+                          "paddingLeft": "0px",
+                        }
+                      }
+                    />
+                    <button
+                      aria-label="Expand row"
+                      className="ant-table-row-expand-icon ant-table-row-expand-icon-spaced"
+                      onClick={[Function]}
+                      type="button"
+                    />
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id_3"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some different Fancy ID
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Windows 97
+                  </td>
+                </tr>
+                <tr
+                  className="ant-table-row ant-table-row-level-0"
+                  data-row-key="some_id_4"
+                  onClick={[Function]}
+                  style={Object {}}
+                >
+                  <td
+                    className="ant-table-cell cy-task-table-col-NAME ant-table-cell-with-append"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <span
+                      className="ant-table-row-indent indent-level-0"
+                      style={
+                        Object {
+                          "paddingLeft": "0px",
+                        }
+                      }
+                    />
+                    <button
+                      aria-label="Expand row"
+                      className="ant-table-row-expand-icon ant-table-row-expand-icon-collapsed"
+                      onClick={[Function]}
+                      type="button"
+                    />
+                    <a
+                      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+                      href="/task/some_id_4"
+                      onClick={[Function]}
+                    >
+                      <span
+                        className="css-uz9hsm-WordBreak-wordBreakCss eplk6ht5"
+                      >
+                        Some Fancy Display Task
+                      </span>
+                    </a>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      data-cy="task-status-badge"
+                    >
+                      Success
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-BASE_STATUS"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    <div
+                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      data-cy="task-status-badge"
+                    >
+                      Failed
+                    </div>
+                  </td>
+                  <td
+                    className="ant-table-cell cy-task-table-col-VARIANT"
+                    colSpan={null}
+                    rowSpan={null}
+                    style={Object {}}
+                  >
+                    Windows 97
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

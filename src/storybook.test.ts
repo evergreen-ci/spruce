@@ -1,4 +1,6 @@
-import initStoryshots from "@storybook/addon-storyshots";
+import initStoryshots, {
+  multiSnapshotWithOptions,
+} from "@storybook/addon-storyshots";
 import { v4 as uuid } from "uuid";
 import "test_utils/__mocks__/matchmedia.mock";
 
@@ -8,4 +10,4 @@ afterAll(() => {
   jest.restoreAllMocks();
 });
 
-initStoryshots();
+initStoryshots({ test: multiSnapshotWithOptions() });
