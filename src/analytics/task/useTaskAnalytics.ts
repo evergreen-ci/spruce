@@ -41,6 +41,7 @@ type Action =
   | { name: "Click Distro Link" }
   | { name: "Click Build Variant Link" }
   | { name: "Click Execution Task Link" }
+  | { name: "Click Display Task Link" }
   | { name: "Click Project Link" };
 
 interface P extends Properties {
