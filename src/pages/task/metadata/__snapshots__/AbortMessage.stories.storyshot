@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Task Abort Message Aborted Because Of Failing Task 1`] = `
+<p
+  className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+>
+  Aborted by: apiserver 
+  <span>
+    because of failing task:
+     
+    <a
+      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+      data-cy="abort-message-failing-task"
+      href="/task/abc"
+      onClick={[Function]}
+    >
+      ~ Commit Queue: api-task-server
+    </a>
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message Aborted Because Of New Version 1`] = `
+<p
+  className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+>
+  Aborted by: apiserver 
+  <span>
+    because of a new version:
+     
+    <a
+      className="css-1bct88o-StyledRouterLink-linkStyles es7lfqt0"
+      data-cy="abort-message-new-version"
+      href="/version/5ee1efb3d1fe073e194e8b5c/tasks"
+      onClick={[Function]}
+    >
+      5ee1efb3d1fe073e194e8b5c
+    </a>
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message Aborted Because PR Closed 1`] = `
+<p
+  className="css-1ui13f0-P2-wordBreakCss eplk6ht0"
+>
+  Aborted by: apiserver 
+  <span>
+    because the GitHub PR was closed
+  </span>
+</p>
+`;
+
+exports[`Storyshots Task Abort Message No User 1`] = `null`;

@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Error Fallback Default Error 1`] = `
+<div
+  style={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+>
+  <div
+    className="css-73tbsm-Center e1n39ls30"
+  >
+    <div
+      className="css-1ow8p7h-Text e1n39ls31"
+    >
+      <h1
+        className="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-19qj6pz"
+      >
+        Error
+      </h1>
+      <h2
+        className="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-1mpi1qm"
+      >
+        Ouch! That's gotta hurt,
+        <br />
+         sorry about that!
+      </h2>
+      <a
+        className="css-137t5xh-StyledLink e1n39ls32"
+      >
+        Back To Home
+      </a>
+    </div>
+    <img
+      alt="Error Background"
+      src="errorPage.svg"
+    />
+  </div>
+</div>
+`;

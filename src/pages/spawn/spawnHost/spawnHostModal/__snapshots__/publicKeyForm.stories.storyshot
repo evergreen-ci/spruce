@@ -1,0 +1,148 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Public Key Form Public Key Form View 1`] = `
+<div
+  className="css-1s5fzt1-FlexColumnContainer-Container edx7lnf4"
+>
+  <h6
+    className="leafygreen-ui-16zt3i0"
+  >
+    Public Key
+  </h6>
+  <div
+    className="css-1nt06cj-SelectContainer edx7lnf2"
+  >
+    <div
+      className="ant-select ant-select-single ant-select-show-arrow ant-select-show-search"
+      data-cy="public_key_dropdown"
+      onBlur={[Function]}
+      onFocus={[Function]}
+      onKeyDown={[Function]}
+      onKeyUp={[Function]}
+      onMouseDown={[Function]}
+      style={
+        Object {
+          "width": 200,
+        }
+      }
+    >
+      <div
+        className="ant-select-selector"
+        onClick={[Function]}
+        onMouseDown={[Function]}
+      >
+        <span
+          className="ant-select-selection-search"
+        >
+          <input
+            aria-activedescendant="undefined_list_0"
+            aria-autocomplete="list"
+            aria-controls="undefined_list"
+            aria-haspopup="listbox"
+            aria-owns="undefined_list"
+            autoComplete="off"
+            className="ant-select-selection-search-input"
+            disabled={false}
+            onChange={[Function]}
+            onCompositionEnd={[Function]}
+            onCompositionStart={[Function]}
+            onKeyDown={[Function]}
+            onMouseDown={[Function]}
+            onPaste={[Function]}
+            readOnly={false}
+            role="combobox"
+            style={
+              Object {
+                "opacity": null,
+              }
+            }
+            type="search"
+            unselectable={null}
+            value=""
+          />
+        </span>
+        <span
+          className="ant-select-selection-item"
+          title=""
+        >
+          
+        </span>
+      </div>
+      <span
+        aria-hidden={true}
+        className="ant-select-arrow"
+        onMouseDown={[Function]}
+        style={
+          Object {
+            "WebkitUserSelect": "none",
+            "userSelect": "none",
+          }
+        }
+        unselectable="on"
+      >
+        <span
+          aria-label="down"
+          className="anticon anticon-down ant-select-suffix"
+          role="img"
+        >
+          <svg
+            aria-hidden="true"
+            data-icon="down"
+            fill="currentColor"
+            focusable="false"
+            height="1em"
+            viewBox="64 64 896 896"
+            width="1em"
+          >
+            <path
+              d="M884 256h-75c-5.1 0-9.9 2.5-12.9 6.6L512 654.2 227.9 262.6c-3-4.1-7.8-6.6-12.9-6.6h-75c-6.5 0-10.3 7.4-6.5 12.7l352.6 486.1c12.8 17.6 39 17.6 51.7 0l352.6-486.1c3.9-5.3.1-12.7-6.4-12.7z"
+            />
+          </svg>
+        </span>
+      </span>
+    </div>
+    <span
+      className="css-1x52a9r-PaddedText edx7lnf3"
+    >
+      or
+    </span>
+    <label
+      className="leafygreen-ui-1ah1232"
+      data-leafygreen-ui="radio-box-wrapper"
+    >
+      <input
+        aria-checked={false}
+        aria-disabled={false}
+        checked={false}
+        className="leafygreen-ui-sjbfy8"
+        data-cy="add_public_key_button"
+        data-leafygreen-ui="radio-box-input"
+        disabled={false}
+        onChange={[Function]}
+        onClick={[Function]}
+        type="radio"
+        value="addKey"
+      />
+      <div
+        className="leafygreen-ui-16ppuex"
+      >
+        <div
+          className="leafygreen-ui-1nn95l3"
+        >
+          <div
+            className="leafygreen-ui-1cg0cdd"
+            onBlur={[Function]}
+            onFocus={[Function]}
+          >
+            Add new key
+          </div>
+          <div
+            className="leafygreen-ui-16qo22x"
+            data-leafygreen-ui="interaction-ring"
+          />
+        </div>
+      </div>
+    </label>
+  </div>
+</div>
+`;

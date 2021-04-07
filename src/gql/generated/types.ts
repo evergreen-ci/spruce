@@ -2136,6 +2136,7 @@ export type TaskTestsQuery = {
       status: string;
       baseStatus?: Maybe<string>;
       testFile: string;
+      displayTestName?: Maybe<string>;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
@@ -2202,6 +2203,11 @@ export type GetTaskQuery = {
       baseTaskMetadata?: Maybe<{
         baseTaskDuration?: Maybe<number>;
         baseTaskLink: string;
+      }>;
+      displayTask?: Maybe<{
+        id: string;
+        execution: number;
+        displayName: string;
       }>;
       patchMetadata: { author: string; patchID: string };
       reliesOn: Array<{

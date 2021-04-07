@@ -4,7 +4,6 @@ import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
-import { Prank } from "components/Prank";
 import {
   PageWrapper,
   PageContent,
@@ -67,7 +66,6 @@ export const Patch: React.FC = () => {
 
   return (
     <PageWrapper data-cy="patch-page">
-      <Prank />
       {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
