@@ -45,6 +45,9 @@ query GetTask($taskId: String!, $execution: Int) {
       patchID
     }
     projectId
+    project {
+      identifier
+    }
     patchNumber
     reliesOn {
       buildVariant

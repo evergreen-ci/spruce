@@ -4,6 +4,7 @@ query Patch($id: String!) {
   patch(id: $id) {
     ...basePatch
     projectID
+    projectIdentifier
     githash
     patchNumber
     version
