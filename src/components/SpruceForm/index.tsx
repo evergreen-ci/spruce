@@ -2,8 +2,8 @@ import styled from "@emotion/styled";
 import { Subtitle } from "@leafygreen-ui/typography";
 import Form, { FormProps } from "@rjsf/core";
 import { SiderCard } from "components/styles";
-import fields from "./SpruceForm/Fields";
-import widgets from "./SpruceForm/Widgets";
+import fields from "./Fields";
+import widgets from "./Widgets";
 
 interface Props {
   title: string;

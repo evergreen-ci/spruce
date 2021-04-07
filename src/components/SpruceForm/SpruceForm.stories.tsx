@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { action } from "@storybook/addon-actions";
 import { object } from "@storybook/addon-knobs";
-import { SpruceForm } from "./SpruceForm";
+import { SpruceForm } from ".";
 
 export const Example1 = () => {
   const schema = object("schema", example1Def.schema);
