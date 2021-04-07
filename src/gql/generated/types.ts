@@ -2225,6 +2225,11 @@ export type GetTaskQuery = {
         eventLogLink?: Maybe<string>;
       };
       details?: Maybe<{
+        status: string;
+        type: string;
+        description?: Maybe<string>;
+        timedOut?: Maybe<boolean>;
+        timeoutType?: Maybe<string>;
         oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
       }>;
       annotation?: Maybe<

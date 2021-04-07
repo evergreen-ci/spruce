@@ -81,6 +81,11 @@ query GetTask($taskId: String!, $execution: Int) {
     isPerfPluginEnabled
     minQueuePosition
     details {
+      status
+      type
+      description
+      timedOut
+      timeoutType
       oomTracker {
         detected
         pids
