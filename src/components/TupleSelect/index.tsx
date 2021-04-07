@@ -44,7 +44,11 @@ export const TupleSelect: React.FC<TupleSelectProps> = ({ options }) => {
           data-cy="tuple-select-dropdown"
         >
           {options.map((o) => (
-            <Option key={o.value} value={o.value}>
+            <Option
+              key={o.value}
+              value={o.value}
+              data-cy={`tuple-select-option-${o.value}`}
+            >
               {o.displayName}
             </Option>
           ))}
