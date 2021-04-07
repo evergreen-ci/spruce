@@ -18,7 +18,7 @@ export const useUpdateURLQueryParams = () => {
 };
 
 interface StringMap {
-  [index: string]: string;
+  [index: string]: string | string[];
 }
 
 const arrayFormat = "comma";

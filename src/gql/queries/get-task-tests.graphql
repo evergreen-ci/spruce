@@ -27,6 +27,7 @@
         status
         baseStatus
         testFile
+        displayTestName
         duration
         logs {
           htmlDisplayURL

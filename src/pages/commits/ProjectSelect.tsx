@@ -3,7 +3,7 @@ import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Label } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import Icon from "components/icons/Icon";
 import {
@@ -65,50 +65,57 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
   const isFavoriteSelected =
     favoriteIdentifiers?.indexOf(selectedProject) !== -1;
 
-  const sp = projects
+  const currentProject = projects
     ?.flatMap((g) => g.projects)
     .find((p) => p.identifier === selectedProject);
+
   return (
-    <Wrapper>
-      <BarWrapper
-        onClick={() => {
-          setisVisible(!isVisible);
-        }}
-        data-cy="project-select"
-      >
-        <LabelWrapper>
-          <Body data-cy="project-name">Project: {sp?.displayName}</Body>
-        </LabelWrapper>
-        <FlexWrapper>
-          <FavoriteStar
-            isFavorite={isFavoriteSelected}
-            identifier={selectedProject}
-            data-cy="favorite-selected-project"
-          />
-          <ArrowWrapper>
-            <IconButton aria-label="Toggle Dropdown">
-              <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
-            </IconButton>
-          </ArrowWrapper>
-        </FlexWrapper>
-      </BarWrapper>
-      {isVisible && (
-        <RelativeWrapper>
-          <OptionsWrapper data-cy="project-select-options">
-            <Search
-              placeholder="Search for project"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              data-cy="project-search"
+    <>
+      <Label htmlFor="project-select">Project</Label>
+      <Wrapper>
+        <BarWrapper
+          onClick={() => {
+            setisVisible(!isVisible);
+          }}
+          data-cy="project-select"
+        >
+          <LabelWrapper>
+            <Body data-cy="project-name">
+              Project:{" "}
+              {currentProject?.displayName || currentProject?.identifier}
+            </Body>
+          </LabelWrapper>
+          <FlexWrapper>
+            <FavoriteStar
+              isFavorite={isFavoriteSelected}
+              identifier={selectedProject}
+              data-cy="favorite-selected-project"
             />
-            <ProjectOptionGroup name="Favorites" projects={favorites} />
-            {filteredProjects?.map((p) => (
-              <ProjectOptionGroup key={p.name} {...p} />
-            ))}
-          </OptionsWrapper>
-        </RelativeWrapper>
-      )}
-    </Wrapper>
+            <ArrowWrapper>
+              <IconButton aria-label="Toggle Dropdown">
+                <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
+              </IconButton>
+            </ArrowWrapper>
+          </FlexWrapper>
+        </BarWrapper>
+        {isVisible && (
+          <RelativeWrapper>
+            <OptionsWrapper data-cy="project-select-options">
+              <Search
+                placeholder="Search for project"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                data-cy="project-search"
+              />
+              <ProjectOptionGroup name="Favorites" projects={favorites} />
+              {filteredProjects?.map((p) => (
+                <ProjectOptionGroup key={p.name} {...p} />
+              ))}
+            </OptionsWrapper>
+          </RelativeWrapper>
+        )}
+      </Wrapper>
+    </>
   );
 };
 
@@ -141,7 +148,8 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   margin-top: 5px;
   width: 100%;
-  overflow: hidden;
+  overflow: scroll;
+  max-height: 400px;
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper
