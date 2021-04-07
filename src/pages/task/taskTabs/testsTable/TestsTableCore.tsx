@@ -151,7 +151,9 @@ const columnsTemplate: ColumnProps<TestResult>[] = [
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
-    render: (name: string) => <WordBreak>{name}</WordBreak>,
+    render: (name, { displayTestName }) => (
+      <WordBreak>{displayTestName || name}</WordBreak>
+    ),
     sorter: true,
   },
   {

@@ -797,6 +797,7 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  timeoutType?: Maybe<Scalars["String"]>;
   oomTracker: OomTrackerInfo;
 };
 
@@ -2135,6 +2136,7 @@ export type TaskTestsQuery = {
       status: string;
       baseStatus?: Maybe<string>;
       testFile: string;
+      displayTestName?: Maybe<string>;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
