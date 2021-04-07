@@ -8,6 +8,14 @@ exports[`Storyshots TupleSelect Waterfall 1`] = `
     }
   }
 >
+  <label
+    className="leafygreen-ui-1x9zy2h"
+    htmlFor="filter-input"
+  >
+    Add New 
+    Build Variant
+     Filter
+  </label>
   <span
     className="ant-input-group ant-input-group-compact"
   >
@@ -114,6 +122,7 @@ exports[`Storyshots TupleSelect Waterfall 1`] = `
         aria-label="Select Text Input"
         className="ant-input"
         data-cy="tuple-select-input"
+        id="filter-input"
         onBlur={[Function]}
         onChange={[Function]}
         onFocus={[Function]}
