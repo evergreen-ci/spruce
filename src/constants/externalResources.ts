@@ -25,7 +25,6 @@ export const getLobsterTestLogUrl = (
   taskId: string,
   execution: number,
   testId: string,
-  groupID?: string,
   lineNum?: number
 ) =>
   !taskId || Number.isNaN(execution) || !testId

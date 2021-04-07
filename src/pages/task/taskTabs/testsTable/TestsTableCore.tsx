@@ -262,15 +262,9 @@ const getColumnsTemplate = (
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => {
-      const { execution, groupID, lineNum, taskId, id } = b || {};
+      const { execution, lineNum, taskId, id } = b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-      const lobsterLink = getLobsterTestLogUrl(
-        taskId,
-        execution,
-        id,
-        groupID,
-        lineNum
-      );
+      const lobsterLink = getLobsterTestLogUrl(taskId, execution, id, lineNum);
 
       return (
         <>
