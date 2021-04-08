@@ -30,12 +30,9 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
   const { makespan, timeTaken } = duration || {};
   return (
     <MetadataCard loading={loading} error={error} title="Patch Metadata">
-      <P2 data-cy="task-metadata-project">
+      <P2>
         Project:{" "}
-        <StyledLink
-          data-cy="project-link"
-          href={getProjectPatchesRoute(projectID)}
-        >
+        <StyledLink href={getProjectPatchesRoute(projectID)}>
           {projectIdentifier}
         </StyledLink>
       </P2>
