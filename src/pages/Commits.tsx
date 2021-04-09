@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
+import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
 import { usePageTitle } from "hooks";
@@ -21,6 +22,9 @@ export const Commits = () => {
           <ProjectSelect selectedProject={projectId} />
         </ProjectSelectWrapper>
       </HeaderWrapper>
+      <BadgeWrapper>
+        <FilterBadges />
+      </BadgeWrapper>
     </PageWrapper>
   );
 };
@@ -31,6 +35,11 @@ const HeaderWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const BadgeWrapper = styled.div`
+  padding-top: 32px;
+  padding-bottom: 32px;
+  height: 32px;
+`;
 const TupleSelectWrapper = styled.div`
   width: 40%;
 `;
