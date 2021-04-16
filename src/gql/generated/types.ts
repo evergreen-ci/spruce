@@ -678,6 +678,7 @@ export type Patch = {
   id: Scalars["ID"];
   description: Scalars["String"];
   projectID: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   githash: Scalars["String"];
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
@@ -1351,6 +1352,7 @@ export type PatchesPagePatchesFragment = {
   patches: Array<{
     id: string;
     projectID: string;
+    projectIdentifier: string;
     description: string;
     status: string;
     createTime?: Maybe<Date>;
@@ -2011,6 +2013,7 @@ export type PatchQueryVariables = Exact<{
 export type PatchQuery = {
   patch: {
     projectID: string;
+    projectIdentifier: string;
     githash: string;
     patchNumber: number;
     version: string;
@@ -2210,6 +2213,7 @@ export type GetTaskQuery = {
         displayName: string;
       }>;
       patchMetadata: { author: string; patchID: string };
+      project?: Maybe<{ identifier: string }>;
       reliesOn: Array<{
         buildVariant: string;
         metStatus: MetStatus;

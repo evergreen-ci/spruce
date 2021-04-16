@@ -58,18 +58,17 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     projectId,
     abortInfo,
     displayTask,
+    project,
   } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
-
   const { baseTaskDuration, baseTaskLink } = baseTaskMetadata ?? {};
-
+  const projectIdentifier = project?.identifier;
   const { author, patchID } = patchMetadata ?? {};
   const oomTracker = details?.oomTracker;
 
   const hostLink = getHostRoute(hostId);
   const distroLink = `${getUiUrl()}/distros##${distroId}`;
-
   return (
     <>
       <MetadataCard error={error} loading={loading} title="Task Metadata">
@@ -97,7 +96,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
               taskAnalytics.sendEvent({ name: "Click Project Link" })
             }
           >
-            {projectId}
+            {projectIdentifier}
           </StyledRouterLink>
         </P2>
         <P2>Submitted by: {author}</P2>
