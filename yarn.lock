@@ -2800,16 +2800,16 @@
     "@leafygreen-ui/tokens" "^0.5.1"
     "@leafygreen-ui/typography" "^7.6.0"
 
-"@leafygreen-ui/text-input@5.0.8":
-  version "5.0.8"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-5.0.8.tgz#86212f51552bbf39110e09a1b0f0485a845d50b3"
-  integrity sha512-wTEM7Z8+JWEfPoz7wJ2Agxm7geV64mYaf1/XtjcjUOGslwV5KT9KQ56CUn0pJspwernJHphAUz14jHiwdAExOw==
+"@leafygreen-ui/text-input@5.0.11":
+  version "5.0.11"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-5.0.11.tgz#431a76fffccc0b744859d7ef1d41303c7dbfe6ad"
+  integrity sha512-OQDb4kCHEv2wGIRO1GJGRAzVvQsfWJUaBRbXU4Ncyy50iRTrVzTIy5t/U+SE5IwSV6Kvowwfk9ws4pxGEkDzkg==
   dependencies:
-    "@leafygreen-ui/icon" "^9.0.0"
-    "@leafygreen-ui/interaction-ring" "^1.0.0"
-    "@leafygreen-ui/lib" "^6.2.0"
-    "@leafygreen-ui/palette" "^3.1.0"
-    "@leafygreen-ui/typography" "^7.3.2"
+    "@leafygreen-ui/icon" "^10.2.1"
+    "@leafygreen-ui/interaction-ring" "^1.0.2"
+    "@leafygreen-ui/lib" "^7.0.0"
+    "@leafygreen-ui/palette" "^3.2.1"
+    "@leafygreen-ui/typography" "^7.6.0"
 
 "@leafygreen-ui/toast@0.4.2":
   version "0.4.2"
