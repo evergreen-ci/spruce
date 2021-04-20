@@ -9,7 +9,7 @@ interface Props {
   title: string;
   schema: FormProps<any>["schema"];
   onChange: (d: any) => void;
-  uiSchema: FormProps<any>["uiSchema"];
+  uiSchema?: FormProps<any>["uiSchema"];
   formData: FormProps<any>["formData"];
 }
 export const SpruceForm: React.FC<Props> = ({

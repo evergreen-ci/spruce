@@ -11,9 +11,11 @@ export const LeafyGreenTextInput: React.FC<WidgetProps> = ({
   title,
   placeholder,
   onChange,
+  options: { "data-cy": dataCy },
 }) => (
   <ElementWrapper>
     <TextInput
+      data-cy={dataCy}
       value={value}
       label={title}
       placeholder={placeholder}
@@ -28,9 +30,11 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
   label,
   onChange,
   disabled,
+  options: { "data-cy": dataCy },
 }) => (
   <ElementWrapper>
     <Checkbox
+      data-cy={dataCy}
       checked={value}
       label={label}
       onChange={(e) => onChange(e.target.checked)}
@@ -40,19 +44,24 @@ export const LeafyGreenCheckBox: React.FC<WidgetProps> = ({
 );
 
 export const LeafyGreenSelect: React.FC<WidgetProps> = ({
-  title,
+  label,
   options,
   value,
   onChange,
 }) => {
-  const { enumOptions } = options;
+  const { enumOptions, "data-cy": dataCy } = options;
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen select");
     return null;
   }
   return (
     <ElementWrapper>
-      <Select label={title} value={value} onChange={(v) => onChange(v)}>
+      <Select
+        label={label}
+        value={value}
+        onChange={(v) => onChange(v)}
+        data-cy={dataCy}
+      >
         {enumOptions.map((o) => (
           <Option key={o.value} value={o.value}>
             {o.label}
@@ -70,7 +79,7 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
   onChange,
   disabled,
 }) => {
-  const { enumOptions } = options;
+  const { enumOptions, "data-cy": dataCy } = options;
   if (!Array.isArray(enumOptions)) {
     console.error("Non Array passed into leafygreen radio");
     return null;
@@ -82,6 +91,7 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
         name={title}
         value={value}
         onChange={(e) => onChange(e.target.value)}
+        data-cy={dataCy}
       >
         {enumOptions.map((o) => (
           <Radio key={o.value} value={o.value} disabled={disabled}>
@@ -94,14 +104,16 @@ export const LeafyGreenRadio: React.FC<WidgetProps> = ({
 };
 
 export const LeafyGreenTextArea: React.FC<WidgetProps> = ({
-  title,
+  label,
   disabled,
   value,
   onChange,
+  options: { "data-cy": dataCy },
 }) => (
   <ElementWrapper>
     <TextArea
-      label={title}
+      data-cy={dataCy}
+      label={label}
       disabled={disabled}
       value={value}
       onChange={(e) => onChange(e.target.value)}
