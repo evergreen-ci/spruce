@@ -45,6 +45,9 @@ query GetTask($taskId: String!, $execution: Int) {
       patchID
     }
     projectId
+    project {
+      identifier
+    }
     patchNumber
     reliesOn {
       buildVariant
@@ -81,6 +84,11 @@ query GetTask($taskId: String!, $execution: Int) {
     isPerfPluginEnabled
     minQueuePosition
     details {
+      status
+      type
+      description
+      timedOut
+      timeoutType
       oomTracker {
         detected
         pids
