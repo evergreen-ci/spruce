@@ -88,36 +88,39 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           <Body weight="medium">Select Build Variants and Tasks</Body>
           <Divider />
         </Container>
-        {variants.map(({ displayName, name }) => {
-          const taskCount = selectedVariantTasks[name]
-            ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
-            : null;
-          const isSelected = selectedBuildVariant.includes(name);
-          return (
-            <BuildVariant
-              data-cy="configurePatch-buildVariantListItem"
-              data-cy-name={name}
-              data-cy-selected={isSelected}
-              key={name}
-              isSelected={isSelected}
-              onClick={getClickVariantHandler(name)}
-            >
-              <VariantName>
-                <Body weight={isSelected ? "medium" : "regular"}>
-                  {displayName}
-                </Body>
-              </VariantName>
-              {taskCount > 0 && (
-                <StyledBadge
-                  data-cy={`configurePatch-taskCountBadge-${name}`}
-                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-                >
-                  {taskCount}
-                </StyledBadge>
-              )}
-            </BuildVariant>
-          );
-        })}
+        <ScrollableBuildVariantContainer>
+          {variants.map(({ displayName, name }) => {
+            const taskCount = selectedVariantTasks[name]
+              ? Object.values(selectedVariantTasks[name]).filter((v) => v)
+                  .length
+              : null;
+            const isSelected = selectedBuildVariant.includes(name);
+            return (
+              <BuildVariant
+                data-cy="configurePatch-buildVariantListItem"
+                data-cy-name={name}
+                data-cy-selected={isSelected}
+                key={name}
+                isSelected={isSelected}
+                onClick={getClickVariantHandler(name)}
+              >
+                <VariantName>
+                  <Body weight={isSelected ? "medium" : "regular"}>
+                    {displayName}
+                  </Body>
+                </VariantName>
+                {taskCount > 0 && (
+                  <StyledBadge
+                    data-cy={`configurePatch-taskCountBadge-${name}`}
+                    variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+                  >
+                    {taskCount}
+                  </StyledBadge>
+                )}
+              </BuildVariant>
+            );
+          })}
+        </ScrollableBuildVariantContainer>
       </StyledSiderCard>
     </UserSelectWrapper>
   );
@@ -184,4 +187,9 @@ const VariantName = styled.div`
 `;
 const StyledBadge = styled(Badge)`
   margin-left: 8px;
+`;
+
+const ScrollableBuildVariantContainer = styled.div`
+  overflow: scroll;
+  max-height: 400px;
 `;
