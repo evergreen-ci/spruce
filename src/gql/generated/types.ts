@@ -678,6 +678,7 @@ export type Patch = {
   id: Scalars["ID"];
   description: Scalars["String"];
   projectID: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   githash: Scalars["String"];
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
@@ -797,6 +798,7 @@ export type TaskEndDetail = {
   type: Scalars["String"];
   description?: Maybe<Scalars["String"]>;
   timedOut?: Maybe<Scalars["Boolean"]>;
+  timeoutType?: Maybe<Scalars["String"]>;
   oomTracker: OomTrackerInfo;
 };
 
@@ -1350,6 +1352,7 @@ export type PatchesPagePatchesFragment = {
   patches: Array<{
     id: string;
     projectID: string;
+    projectIdentifier: string;
     description: string;
     status: string;
     createTime?: Maybe<Date>;
@@ -2010,6 +2013,7 @@ export type PatchQueryVariables = Exact<{
 export type PatchQuery = {
   patch: {
     projectID: string;
+    projectIdentifier: string;
     githash: string;
     patchNumber: number;
     version: string;
@@ -2135,6 +2139,7 @@ export type TaskTestsQuery = {
       status: string;
       baseStatus?: Maybe<string>;
       testFile: string;
+      displayTestName?: Maybe<string>;
       duration?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
@@ -2208,6 +2213,7 @@ export type GetTaskQuery = {
         displayName: string;
       }>;
       patchMetadata: { author: string; patchID: string };
+      project?: Maybe<{ identifier: string }>;
       reliesOn: Array<{
         buildVariant: string;
         metStatus: MetStatus;
@@ -2223,6 +2229,11 @@ export type GetTaskQuery = {
         eventLogLink?: Maybe<string>;
       };
       details?: Maybe<{
+        status: string;
+        type: string;
+        description?: Maybe<string>;
+        timedOut?: Maybe<boolean>;
+        timeoutType?: Maybe<string>;
         oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
       }>;
       annotation?: Maybe<
