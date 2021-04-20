@@ -10,6 +10,8 @@ import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { toggleArray } from "utils/array";
 
+const { green } = uiColors;
+
 interface Props {
   variants: ProjectBuildVariant[];
   selectedVariantTasks: VariantTasksState;
@@ -176,10 +178,10 @@ const BuildVariant = styled.div<VariantProps>`
   padding: 8px 0;
   ${cardSidePadding}
   background-color: ${(props: VariantProps): string =>
-    props.isSelected ? uiColors.green.light3 : "none"};
+    props.isSelected ? green.light3 : "none"};
   border-left: 3px solid white;
   border-left-color: ${(props: VariantProps): string =>
-    props.isSelected ? uiColors.green.base : "none"};
+    props.isSelected ? green.base : "none"};
 `;
 const VariantName = styled.div`
   word-break: break-all;
