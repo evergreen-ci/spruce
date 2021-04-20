@@ -24,6 +24,7 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.SystemUnresponsive]: failurePurple,
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.StatusBlocked]: gray.dark1,
+  [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.StatusPending]: yellow.base,
   [TaskStatus.Known]: blue.base,
 };
