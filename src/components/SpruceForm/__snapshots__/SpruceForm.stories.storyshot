@@ -24,69 +24,60 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
           <div
             className="form-group field field-string"
           >
-            <label
-              className="control-label"
-              htmlFor="root_cloneMethod"
-            >
-              Project Cloning Method
-            </label>
             <div
               className="css-j0rta5-ElementWrapper eyx6h6k0"
             >
               <div
                 className=""
               >
-                <div
-                  className="leafygreen-ui-i2gw6r"
+                <label
+                  className="leafygreen-ui-14b8p8r"
+                  id="select-0-label"
                 >
-                  <button
-                    aria-controls="select-0-menu"
-                    aria-describedby="select-0-description"
-                    aria-disabled={false}
-                    aria-expanded={false}
-                    aria-labelledby="select-0-label"
-                    className="leafygreen-ui-nzlvat"
-                    disabled={false}
-                    onBlur={[Function]}
-                    onClick={[Function]}
-                    onFocus={[Function]}
-                    onKeyDown={[Function]}
-                    type="button"
-                    value="legacy-ssh"
-                  >
-                    <span
-                      className="leafygreen-ui-tdo6z2"
-                    >
-                      <div
-                        className="leafygreen-ui-ogsjyj"
-                      >
-                        <span
-                          className="leafygreen-ui-plwatf"
-                        >
-                          Legacy SSH
-                        </span>
-                        <svg
-                          alt=""
-                          aria-hidden={true}
-                          className="leafygreen-ui-1jr2j1f"
-                          height={16}
-                          role="presentation"
-                          viewBox="0 0 16 16"
-                          width={16}
-                        >
-                          <path
-                            d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                            fill="currentColor"
-                          />
-                        </svg>
-                      </div>
-                    </span>
-                  </button>
+                  Project Cloning Method
+                </label>
+                <button
+                  aria-controls="select-0-menu"
+                  aria-describedby="select-0-description"
+                  aria-disabled={false}
+                  aria-expanded={false}
+                  aria-labelledby="select-0-label"
+                  className="leafygreen-ui-1558oyf"
+                  disabled={false}
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  type="button"
+                  value="legacy-ssh"
+                >
                   <div
-                    className="leafygreen-ui-1fqcwcg"
-                    data-leafygreen-ui="interaction-ring"
+                    className="leafygreen-ui-1ktj4tm"
                   />
-                </div>
+                  <div
+                    className="leafygreen-ui-ufcayr"
+                  >
+                    <span>
+                      <span
+                        className="leafygreen-ui-plwatf"
+                      >
+                        Legacy SSH
+                      </span>
+                    </span>
+                    <svg
+                      alt=""
+                      aria-hidden={true}
+                      className="leafygreen-ui-10ms05u"
+                      height={16}
+                      role="presentation"
+                      viewBox="0 0 16 16"
+                      width={16}
+                    >
+                      <path
+                        d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </button>
               </div>
             </div>
           </div>
@@ -96,8 +87,15 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
             <div
               className="css-j0rta5-ElementWrapper e63qz860"
             >
+              <label
+                className="leafygreen-ui-1x9zy2h"
+                htmlFor="editable_tag_field_Expansions"
+              >
+                Expansions
+              </label>
               <div
                 className="css-1ojulcu-FlexColumnContainer e1zn6k0"
+                id="editable_tag_field_Expansions"
               >
                 <div
                   className="css-ajmoyw-FlexColumnContainer e161fbrp2"
@@ -248,28 +246,29 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
           <div
             className="form-group field field-string"
           >
-            <label
-              className="control-label"
-              htmlFor="root_validProjects"
-            >
-              Valid Projects
-            </label>
             <div
               className="css-j0rta5-ElementWrapper eyx6h6k0"
             >
               <div
                 className="leafygreen-ui-1iyoj2o"
               >
+                <label
+                  className="leafygreen-ui-1x9zy2h"
+                  htmlFor="textarea-0"
+                >
+                  Valid Projects
+                </label>
                 <div
                   className="leafygreen-ui-19odf8z"
                 >
                   <textarea
-                    className="leafygreen-ui-19k69p8"
+                    className="leafygreen-ui-s8it2d"
                     disabled={false}
                     id="textarea-0"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
+                    title="Valid Projects"
                     value=""
                   />
                   <div
