@@ -2613,6 +2613,16 @@
     "@leafygreen-ui/lib" "^7.0.0"
     "@leafygreen-ui/palette" "^3.2.1"
 
+"@leafygreen-ui/interaction-ring@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-1.0.3.tgz#c5946834be65a1e8cd616cd2c6874faf3dd87393"
+  integrity sha512-D1/Jtt/WAj+sHzc0e51BdhtqJ0lCfx1759UMKhK7MOADS8/DG68ybRlaAO4wbaZ9dvumJr5eDS9Rt/Zghkuaaw==
+  dependencies:
+    "@leafygreen-ui/emotion" "^3.0.1"
+    "@leafygreen-ui/leafygreen-provider" "^2.0.3"
+    "@leafygreen-ui/lib" "^7.0.0"
+    "@leafygreen-ui/palette" "^3.2.1"
+
 "@leafygreen-ui/leafygreen-provider@2.0.2", "@leafygreen-ui/leafygreen-provider@^2.0.1", "@leafygreen-ui/leafygreen-provider@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.0.2.tgz#d03b898a21dc2969bfd9e23a472c8f72b7e5c8c2"
@@ -2800,13 +2810,13 @@
     "@leafygreen-ui/tokens" "^0.5.1"
     "@leafygreen-ui/typography" "^7.6.0"
 
-"@leafygreen-ui/text-input@5.0.11":
-  version "5.0.11"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-5.0.11.tgz#431a76fffccc0b744859d7ef1d41303c7dbfe6ad"
-  integrity sha512-OQDb4kCHEv2wGIRO1GJGRAzVvQsfWJUaBRbXU4Ncyy50iRTrVzTIy5t/U+SE5IwSV6Kvowwfk9ws4pxGEkDzkg==
+"@leafygreen-ui/text-input@5.0.12":
+  version "5.0.12"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-input/-/text-input-5.0.12.tgz#54d98baa629789300491494ba3f0f2a375bfd821"
+  integrity sha512-5a9L7OAA+KcA3xwoJbwFa90+Y4U3FjNZYAWIFq7+BnbVP1u2FqCel9p04i6uIZ2ni4GeBr8lZaj2MVVLBX2c6g==
   dependencies:
     "@leafygreen-ui/icon" "^10.2.1"
-    "@leafygreen-ui/interaction-ring" "^1.0.2"
+    "@leafygreen-ui/interaction-ring" "^1.0.3"
     "@leafygreen-ui/lib" "^7.0.0"
     "@leafygreen-ui/palette" "^3.2.1"
     "@leafygreen-ui/typography" "^7.6.0"
