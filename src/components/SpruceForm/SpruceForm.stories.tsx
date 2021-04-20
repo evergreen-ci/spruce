@@ -51,31 +51,31 @@ export default {
 
 const example1Def = {
   schema: {
-    type: "object" as any,
+    type: "object" as "object",
     properties: {
       cloneMethod: {
-        type: "string" as any,
+        type: "string" as "string",
         title: "Project Cloning Method",
         enum: ["legacy-ssh", "oath-token"],
         enumNames: ["Legacy SSH", "Oath Token"],
       },
       expansions: {
-        type: "array" as any,
+        type: "array" as "array",
         title: "Expansions",
         items: {
-          type: "object" as any,
+          type: "object" as "object",
           properties: {
             key: {
-              type: "string" as any,
+              type: "string" as "string",
             },
             value: {
-              type: "string" as any,
+              type: "string" as "string",
             },
           },
         },
       },
       validProjects: {
-        type: "string" as any,
+        type: "string" as "string",
         title: "Valid Projects",
         placeholder: "Sample input",
       },
@@ -86,6 +86,12 @@ const example1Def = {
       "ui:widget": "textarea",
       "ui:options": {
         rows: 5,
+        label: false,
+      },
+    },
+    cloneMethod: {
+      "ui:options": {
+        label: false,
       },
     },
   },
@@ -97,29 +103,29 @@ const example1Def = {
 
 const example2Def = {
   schema: {
-    type: "object" as any,
+    type: "object" as "object",
     properties: {
       distroIsCluster: {
-        type: "boolean" as any,
+        type: "boolean" as "boolean",
         title:
           "Mark distro as a cluster (jobs are not run on this host, used for special purposes).",
       },
       disableShallowClone: {
-        type: "boolean" as any,
+        type: "boolean" as "boolean",
         title: "Disable shallow clone for this distro.",
       },
       disableQueue: {
-        type: "boolean" as any,
+        type: "boolean" as "boolean",
         title:
           "Disable queueing this distro. Tasks already in the task queue will be removed.",
       },
       decommissionHosts: {
-        type: "boolean" as any,
+        type: "boolean" as "boolean",
         title: "Decommission hosts of this distro for this update",
       },
       reprovisionMethod: {
         title: "",
-        type: "string" as any,
+        type: "string" as "string",
         enum: ["restartJasper", "reprovisionHosts"],
         enumNames: [
           "Restart Jasper service on running hosts of this distro for this update",
@@ -134,6 +140,9 @@ const example2Def = {
       "ui:options": {
         label: false,
       },
+    },
+    "ui:options": {
+      label: false,
     },
   },
   formData: {
