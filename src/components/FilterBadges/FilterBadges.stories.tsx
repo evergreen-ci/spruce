@@ -1,6 +1,6 @@
+import { withKnobs, text, button } from "@storybook/addon-knobs";
 import { withQuery } from "@storybook/addon-queryparams";
 import { MemoryRouter } from "react-router-dom";
-// import { ProjectFilterOptions } from "types/commits";
 import { FilterBadges } from ".";
 
 export default {
@@ -8,15 +8,25 @@ export default {
   decorators: [
     (Story) => (
       <MemoryRouter>
-        Some Story
         <Story />
       </MemoryRouter>
     ),
     withQuery,
+    withKnobs,
   ],
 };
 
-export const Default = () => <FilterBadges />;
+export const Default = () => {
+  text("Badge Key", "someKey");
+  text("Badge Value", "someValue");
+  button("Add Badge", () => console.log("Added something"));
+
+  return (
+    <>
+      <FilterBadges />
+    </>
+  );
+};
 
 Default.parameters = {
   query: {
