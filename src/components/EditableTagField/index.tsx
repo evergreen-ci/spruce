@@ -10,6 +10,7 @@ type EditableTagFieldProps = {
   inputTags: Tag[];
   visible?: boolean;
   buttonText: string;
+  id?: string;
 };
 
 export const EditableTagField: React.FC<EditableTagFieldProps> = ({
@@ -17,6 +18,7 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   inputTags,
   visible,
   buttonText,
+  id,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
@@ -54,7 +56,7 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
     setVisibleTags(inputTags);
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <FlexColumnContainer>
+    <FlexColumnContainer id={id}>
       {visibleTags.map((tag) => (
         <TagRow
           tag={tag}
