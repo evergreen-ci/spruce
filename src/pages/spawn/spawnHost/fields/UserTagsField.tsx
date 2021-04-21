@@ -1,7 +1,9 @@
 import React from "react";
 import { EditableTagField } from "components/EditableTagField";
 import { InstanceTag, InstanceTagInput } from "gql/generated/types";
-import { convertArrayToObject } from "utils/array";
+import { array } from "utils";
+
+const { convertArrayToObject } = array;
 
 export type UserTagsData = {
   deletedInstanceTags: InstanceTagInput[];

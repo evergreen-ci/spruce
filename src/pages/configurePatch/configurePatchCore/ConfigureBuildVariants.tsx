@@ -8,8 +8,9 @@ import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
-import { toggleArray } from "utils/array";
+import { array } from "utils";
 
+const { toggleArray } = array;
 interface Props {
   variants: ProjectBuildVariant[];
   selectedVariantTasks: VariantTasksState;
