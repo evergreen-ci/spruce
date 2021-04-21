@@ -4,7 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { Body, H2 } from "@leafygreen-ui/typography";
 import { Table } from "antd";
 import Badge from "components/Badge";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icons";
 
 export const Title = H2;
 
