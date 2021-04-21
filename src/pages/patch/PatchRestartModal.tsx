@@ -22,8 +22,9 @@ import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
 import { PatchTasksQueryParams } from "types/task";
-import { getArray, parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { getArray, parseQueryString } = queryString;
 const { gray } = uiColors;
 
 interface PatchModalProps {

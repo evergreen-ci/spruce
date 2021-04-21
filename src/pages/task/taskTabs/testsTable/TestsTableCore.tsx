@@ -29,10 +29,11 @@ import {
 import { GET_TASK_TESTS } from "gql/queries";
 import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import { parseQueryString, queryParamAsNumber } from "utils";
+import { queryString } from "utils";
 import { msToDuration } from "utils/string";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 
+const { parseQueryString, queryParamAsNumber } = queryString;
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }

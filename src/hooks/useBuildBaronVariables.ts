@@ -2,8 +2,9 @@ import { useEffect } from "react";
 import { useLazyQuery } from "@apollo/client";
 import { BuildBaronQuery, BuildBaronQueryVariables } from "gql/generated/types";
 import { GET_BUILD_BARON } from "gql/queries";
-import { isFailedTaskStatus } from "utils";
+import { statuses } from "utils";
 
+const { isFailedTaskStatus } = statuses;
 interface Props {
   taskId: string;
   execution: number;

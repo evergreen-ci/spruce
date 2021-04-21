@@ -1,1 +1,0 @@
-export { getStatusBadgeCopy } from "./getStatusBadgeCopy";

@@ -1,5 +1,7 @@
 import NewRelicAPI from "new-relic-browser";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
+
+const { parseQueryString } = queryString;
 
 declare global {
   interface Window {

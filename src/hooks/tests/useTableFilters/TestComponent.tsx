@@ -2,8 +2,9 @@ import React from "react";
 import { useLocation } from "react-router";
 import { CheckboxFilter, InputFilter } from "components/Table/Filters";
 import { useTableInputFilter, useTableCheckboxFilter } from "hooks";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString } = queryString;
 const hostIdUrlParam = "hostId";
 
 export const InputFilterTestComponent = () => {

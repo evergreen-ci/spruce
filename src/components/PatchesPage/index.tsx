@@ -19,11 +19,12 @@ import {
 } from "gql/generated/types";
 import { useFilterInputChangeHandler, usePageTitle } from "hooks";
 import { MyPatchesQueryParams, ALL_PATCH_STATUS } from "types/patch";
-import { parseQueryString, stringifyQuery } from "utils";
+import { queryString } from "utils";
 import { getPageFromSearch, getLimitFromSearch } from "utils/url";
 import { ListArea } from "./ListArea";
 import { StatusSelector } from "./StatusSelector";
 
+const { parseQueryString, stringifyQuery } = queryString;
 interface Props {
   analyticsObject?: Analytics<
     | { name: "Filter Patches"; filterBy: string }

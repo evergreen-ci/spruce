@@ -23,8 +23,10 @@ import { ActionButtons } from "pages/task/ActionButtons";
 import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
 import { Metadata } from "pages/task/Metadata";
 import { RequiredQueryParams, TaskStatus } from "types/task";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { TaskTabs } from "./task/TaskTabs";
+
+const { parseQueryString } = queryString;
 
 export const Task: React.FC = () => {
   const { id } = useParams<{ id: string; tab: string | null }>();

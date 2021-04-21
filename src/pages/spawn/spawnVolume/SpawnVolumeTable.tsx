@@ -8,10 +8,12 @@ import { WordBreak } from "components/Typography";
 import { getSpawnHostRoute } from "constants/routes";
 import { SpawnVolumeCard } from "pages/spawn/spawnVolume/spawnVolumeTable/SpawnVolumeCard";
 import { MyVolume } from "types/spawn";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { sortFunctionDate } from "utils/string";
 import { SpawnVolumeTableActions } from "./spawnVolumeTable/SpawnVolumeTableActions";
 import { VolumeStatusBadge } from "./spawnVolumeTable/VolumeStatusBadge";
+
+const { parseQueryString } = queryString;
 
 interface SpawnVolumeTableProps {
   volumes: MyVolume[];

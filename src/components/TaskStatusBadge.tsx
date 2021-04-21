@@ -3,7 +3,7 @@ import styled from "@emotion/styled/macro";
 import Badge, { Variant } from "components/Badge";
 import { TaskStatus } from "types/task";
 import { reportError } from "utils/errorReporting";
-import { getStatusBadgeCopy } from "utils/string";
+import { getStatusBadgeCopy } from "utils/statuses";
 
 const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,

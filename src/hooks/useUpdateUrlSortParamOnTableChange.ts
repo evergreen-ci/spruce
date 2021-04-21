@@ -1,8 +1,9 @@
 import { useHistory, useLocation } from "react-router-dom";
 import { SortDirection } from "gql/generated/types";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { parseQueryString, stringifyQuery } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString, stringifyQuery } = queryString;
 interface Params {
   sendAnalyticsEvents?: () => void;
 }

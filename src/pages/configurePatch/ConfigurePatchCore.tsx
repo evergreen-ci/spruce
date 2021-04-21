@@ -28,8 +28,10 @@ import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/Configur
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { omitTypename } from "utils/string";
+
+const { parseQueryString } = queryString;
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];

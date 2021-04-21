@@ -4,8 +4,10 @@ import { Input, Select } from "antd";
 import { useLocation } from "react-router";
 import Icon from "components/Icons";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { upsertQueryParam } from "utils/url";
+
+const { parseQueryString } = queryString;
 
 const { Option } = Select;
 type option = {

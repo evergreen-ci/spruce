@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { updateUrlQueryParam } from "utils/url";
+
+const { parseQueryString } = queryString;
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;
 

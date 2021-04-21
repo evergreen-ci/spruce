@@ -11,8 +11,9 @@ import {
 } from "gql/generated/types";
 import { GET_ANNOTATION_EVENT_DATA, GET_BUILD_BARON } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString } = queryString;
 type Action =
   | { name: "Click Jira Summary Link" }
   | { name: "Build Baron File Ticket" }

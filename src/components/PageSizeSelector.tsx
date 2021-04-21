@@ -1,7 +1,9 @@
 import React from "react";
 import { Select } from "antd";
-import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
+import { queryString } from "utils";
+
+const { stringifyQuery, parseQueryString } = queryString;
 
 const { Option } = Select;
 
@@ -22,14 +24,11 @@ export const PageSizeSelector: React.FC<Props> = ({
   const handleChange = (pageSize: number) => {
     localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
     replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          limit: pageSize,
-          page: 0,
-        },
-        { arrayFormat }
-      )}`
+      `${pathname}?${stringifyQuery({
+        ...parseQueryString(search),
+        limit: pageSize,
+        page: 0,
+      })}`
     );
     sendAnalyticsEvent();
   };
@@ -55,8 +54,6 @@ export const PageSizeSelector: React.FC<Props> = ({
 export const RECENT_PAGE_SIZE_KEY = "recentPageSize";
 
 const DEFAULT_PAGE_SIZE = 10;
-
-const arrayFormat = "comma";
 
 export const PAGE_SIZES = [10, 20, 50, 100];
 
