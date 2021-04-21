@@ -1,4 +1,4 @@
-import React, { useReducer } from "react";
+import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
@@ -29,8 +29,7 @@ export const TagRow: React.FC<TagRowProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
-  const tagId = uuid();
-
+  const tagId = useMemo(() => uuid(), []);
   const { key, value, canSave, isInputValid, shouldShowNewTag } = state;
 
   return (
