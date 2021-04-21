@@ -25,9 +25,9 @@ import {
 } from "gql/generated/types";
 import { HOSTS } from "gql/queries";
 import { HostsTable } from "pages/hosts/HostsTable";
-import { queryString } from "utils";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { queryString, url } from "utils";
 
+const { getPageFromSearch, getLimitFromSearch } = url;
 const { getArray, getString, parseQueryString } = queryString;
 
 export const Hosts: React.FC = () => {

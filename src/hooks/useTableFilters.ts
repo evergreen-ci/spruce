@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useLocation, useHistory } from "react-router-dom";
-import { queryString } from "utils";
-import { updateUrlQueryParam } from "utils/url";
+import { queryString, url } from "utils";
 
+const { updateUrlQueryParam } = url;
 const { parseQueryString } = queryString;
 
 type InputEvent = React.ChangeEvent<HTMLInputElement>;

@@ -4,9 +4,9 @@ import { Input, Select } from "antd";
 import { useLocation } from "react-router";
 import Icon from "components/Icons";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { queryString } from "utils";
-import { upsertQueryParam } from "utils/url";
+import { queryString, url } from "utils";
 
+const { upsertQueryParam } = url;
 const { parseQueryString } = queryString;
 
 const { Option } = Select;

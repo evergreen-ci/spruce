@@ -26,8 +26,10 @@ import { usePageTitle } from "hooks/usePageTitle";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
+import { url } from "utils";
 import { useUserTimeZone } from "utils/string";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+
+const { getPageFromSearch, getLimitFromSearch } = url;
 
 export const Host: React.FC = () => {
   const dispatchToast = useToastContext();
