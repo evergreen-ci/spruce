@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
 import { v4 as uuid } from "uuid";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { ParameterInput, InstanceTag } from "gql/generated/types";

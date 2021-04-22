@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import { useLocation } from "react-router";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString, url } from "utils";
 

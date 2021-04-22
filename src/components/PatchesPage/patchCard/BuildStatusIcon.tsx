@@ -1,7 +1,7 @@
 import React from "react";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { BuildStatus } from "types/build";
 import { CreatedIcon } from "./buildStatusIcon/CreatedIcon";
 

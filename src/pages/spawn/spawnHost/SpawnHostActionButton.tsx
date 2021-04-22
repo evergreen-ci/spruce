@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { PaddedButton } from "components/Spawn";
 import { useToastContext } from "context/toast";

@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import Cookies from "js-cookie";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { StyledLink as Link } from "components/styles";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";

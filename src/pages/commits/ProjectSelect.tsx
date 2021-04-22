@@ -5,7 +5,7 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import {
   GetProjectsQuery,
   GetProjectsQueryVariables,

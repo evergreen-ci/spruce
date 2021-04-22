@@ -7,7 +7,7 @@ import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import {
   ModalContent,

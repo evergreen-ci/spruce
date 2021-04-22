@@ -5,7 +5,7 @@ import { Subtitle } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
-import Icon from "components/Icons";
+import Icon from "components/Icon";
 import { StyledLink } from "components/styles";
 import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
