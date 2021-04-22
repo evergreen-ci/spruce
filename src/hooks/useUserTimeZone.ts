@@ -8,6 +8,6 @@ export const useUserTimeZone = () => {
     GET_USER_SETTINGS
   );
   const { userSettings } = userSettingsData || {};
-  const { timezone } = userSettings;
+  const { timezone } = userSettings || {};
   return timezone;
 };
