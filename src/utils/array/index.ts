@@ -5,7 +5,6 @@ export const toggleArray = <T>(id: T, array: T[]) => {
   const idIndex = tempArray.findIndex(
     (e) => JSON.stringify(id) === JSON.stringify(e)
   );
-  console.log({ idIndex });
   if (idIndex !== -1) {
     tempArray.splice(idIndex, 1);
   } else {
