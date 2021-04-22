@@ -17,8 +17,10 @@ import {
 } from "gql/generated/types";
 import { DISTRO_TASK_QUEUE } from "gql/queries";
 import { usePrevious } from "hooks";
-import { getUiUrl } from "utils/getEnvironmentVariables";
-import { msToDuration } from "utils/string";
+import { environmentalVariables, string } from "utils";
+
+const { msToDuration } = string;
+const { getUiUrl } = environmentalVariables;
 
 export const TaskQueueTable = () => {
   const taskQueueAnalytics = useTaskQueueAnalytics();

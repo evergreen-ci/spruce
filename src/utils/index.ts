@@ -1,7 +1,21 @@
 import * as array from "./array";
 import * as color from "./color";
+import * as environmentalVariables from "./environmentalVariables";
+import * as errorReporting from "./errorReporting";
 import * as queryString from "./queryString";
 import * as statuses from "./statuses";
+import * as string from "./string";
 import * as url from "./url";
+import * as validators from "./validators";
 
-export { queryString, statuses, array, url, color };
+export {
+  queryString,
+  statuses,
+  array,
+  url,
+  color,
+  validators,
+  environmentalVariables,
+  string,
+  errorReporting,
+};

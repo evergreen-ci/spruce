@@ -1,6 +1,8 @@
 import axios from "axios";
-import { reportError } from "utils/errorReporting";
-import { getLoginDomain } from "utils/getEnvironmentVariables";
+import { environmentalVariables, errorReporting } from "utils";
+
+const { reportError } = errorReporting;
+const { getLoginDomain } = environmentalVariables;
 
 type optionsType = {
   onFailure?: (e) => void;

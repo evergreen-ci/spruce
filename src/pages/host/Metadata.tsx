@@ -7,7 +7,9 @@ import { P2 } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import { HostQuery } from "gql/generated/types";
 import { HostCard } from "pages/host/HostCard";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
+
+const { getUiUrl } = environmentalVariables;
 
 export const Metadata: React.FC<{
   loading: boolean;

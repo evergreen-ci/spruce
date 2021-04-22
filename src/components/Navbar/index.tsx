@@ -10,8 +10,10 @@ import { StyledLink } from "components/styles";
 import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { useLegacyUIURL } from "hooks";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import { NavDropdown } from "./NavDropdown";
+
+const { getUiUrl } = environmentalVariables;
 
 const { Header } = Layout;
 const { white, blue, gray } = uiColors;

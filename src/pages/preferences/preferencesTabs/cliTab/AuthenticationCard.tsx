@@ -13,8 +13,10 @@ import {
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import { post } from "utils/request";
+
+const { getUiUrl } = environmentalVariables;
 
 export const AuthenticationCard = () => {
   const { data, loading, refetch } = useQuery<

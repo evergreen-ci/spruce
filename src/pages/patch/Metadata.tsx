@@ -5,8 +5,10 @@ import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
 import { PatchQuery } from "gql/generated/types";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import { ParametersModal } from "./ParametersModal";
+
+const { getUiUrl } = environmentalVariables;
 
 interface Props {
   loading: boolean;
