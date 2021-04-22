@@ -1,5 +1,7 @@
-import queryString from "query-string";
 import { useHistory, useLocation } from "react-router-dom";
+import { queryString } from "utils";
+
+const { stringifyQuery, parseQueryString } = queryString;
 
 export const useUpdateURLQueryParams = () => {
   const { replace } = useHistory();
@@ -7,18 +9,13 @@ export const useUpdateURLQueryParams = () => {
 
   return (nextQueryParams: StringMap) =>
     replace(
-      `${pathname}?${queryString.stringify(
-        {
-          ...queryString.parse(search, { arrayFormat }),
-          ...nextQueryParams,
-        },
-        { arrayFormat }
-      )}`
+      `${pathname}?${stringifyQuery({
+        ...parseQueryString(search),
+        ...nextQueryParams,
+      })}`
     );
 };
 
 interface StringMap {
   [index: string]: string | string[];
 }
-
-const arrayFormat = "comma";

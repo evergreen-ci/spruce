@@ -1,9 +1,11 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Badge, { Variant } from "components/Badge";
 import { TaskStatus } from "types/task";
-import { reportError } from "utils/errorReporting";
-import { getStatusBadgeCopy } from "utils/string";
+import { statuses, errorReporting } from "utils";
+
+const { reportError } = errorReporting;
+const { getStatusBadgeCopy } = statuses;
 
 const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,

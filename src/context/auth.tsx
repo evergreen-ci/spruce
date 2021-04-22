@@ -1,7 +1,8 @@
 import React, { useContext, useReducer } from "react";
 import axios from "axios";
-import { getLoginDomain } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 
+const { getLoginDomain } = environmentalVariables;
 interface AuthState {
   isAuthenticated: boolean;
 }

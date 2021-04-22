@@ -1,4 +1,4 @@
-import { RECENT_PAGE_SIZE_KEY } from "components/PageSizeSelector";
+import { RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { getLimitFromSearch, upsertQueryParam } from ".";
 
 describe("getLimitFromSearch", () => {

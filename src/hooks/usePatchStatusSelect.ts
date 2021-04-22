@@ -1,8 +1,9 @@
 import { useEffect, useReducer, useState } from "react";
 import { PatchBuildVariant } from "gql/generated/types";
 import { usePrevious } from "hooks";
-import { getWebWorkerURL } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 
+const { getWebWorkerURL } = environmentalVariables;
 export interface selectedStrings {
   [id: string]: boolean | undefined;
 }

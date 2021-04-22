@@ -1,8 +1,9 @@
 import React from "react";
 import { DoesNotExpire, DetailsCard } from "components/Spawn";
 import { MyVolume } from "types/spawn";
-import { getDateCopy } from "utils/string";
+import { string } from "utils";
 
+const { getDateCopy } = string;
 interface Props {
   volume: MyVolume;
 }

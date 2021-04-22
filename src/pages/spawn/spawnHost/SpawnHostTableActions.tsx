@@ -5,9 +5,11 @@ import { Tooltip } from "antd";
 import { useSpawnAnalytics } from "analytics";
 import { PaddedButton } from "components/Spawn";
 import { MyHost } from "types/spawn";
-import { copyToClipboard } from "utils/string";
+import { string } from "utils";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
 import { SpawnHostActionButton } from "./SpawnHostActionButton";
+
+const { copyToClipboard } = string;
 
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>

@@ -3,7 +3,6 @@ import { useMutation, useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button, { Variant } from "@leafygreen-ui/button";
 import { Input } from "antd";
-import { v4 as uuid } from "uuid";
 import { usePreferencesAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { InputLabel, ErrorMessage } from "components/styles";
@@ -175,7 +174,7 @@ export const EditModal: React.FC<EditModalProps> = ({
       <ErrorContainer>
         {visible &&
           errors.map((text) => (
-            <div key={uuid()} data-cy="error-message">
+            <div key={`error_message_${text}`} data-cy="error-message">
               <ErrorMessage>{text}</ErrorMessage>
             </div>
           ))}

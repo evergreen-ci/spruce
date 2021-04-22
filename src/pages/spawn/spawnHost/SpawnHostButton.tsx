@@ -13,8 +13,9 @@ import {
 } from "gql/generated/types";
 import { GET_MY_HOSTS, GET_SPRUCE_CONFIG } from "gql/queries";
 import { SpawnHostModal } from "pages/spawn/spawnHost/index";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString } = queryString;
 export const SpawnHostButton = () => {
   const { data: myHostsData } = useQuery<MyHostsQuery, MyHostsQueryVariables>(
     GET_MY_HOSTS

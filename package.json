@@ -1,6 +1,6 @@
 {
   "name": "spruce",
-  "version": "2.4.9",
+  "version": "2.4.10",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
@@ -75,10 +75,12 @@
     "@leafygreen-ui/palette": "3.1.0",
     "@leafygreen-ui/radio-box-group": "5.0.1",
     "@leafygreen-ui/radio-group": "7.0.1",
+    "@leafygreen-ui/select": "^2.0.4",
     "@leafygreen-ui/side-nav": "5.0.2",
     "@leafygreen-ui/tabs": "5.0.1",
-    "@leafygreen-ui/text-input": "5.0.8",
-    "@leafygreen-ui/toast": "^0.4.2",
+    "@leafygreen-ui/text-area": "^3.0.4",
+    "@leafygreen-ui/text-input": "5.0.12",
+    "@leafygreen-ui/toast": "0.4.2",
     "@leafygreen-ui/toggle": "7.0.1",
     "@leafygreen-ui/typography": "7.3.2",
     "@mongodb-dev-prod/trend-charts-ui": "~0.3.2",

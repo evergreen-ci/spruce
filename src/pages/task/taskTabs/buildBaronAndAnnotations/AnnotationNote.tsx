@@ -13,7 +13,7 @@ import {
   Note,
 } from "gql/generated/types";
 import { EDIT_ANNOTATION_NOTE } from "gql/mutations";
-import { getDateCopy } from "utils/string";
+import { string } from "utils";
 import {
   TicketsTitle,
   TitleAndButtons,
@@ -21,6 +21,7 @@ import {
   ButtonWrapper,
 } from "./BBComponents";
 
+const { getDateCopy } = string;
 const { TextArea } = Input;
 
 interface Props {

@@ -21,9 +21,10 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { url } from "utils";
 import { parseSortString } from "./util";
 
+const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
 }

@@ -4,7 +4,7 @@ import {
   sortFunctionString,
   omitTypename,
   getDateCopy,
-} from "utils/string";
+} from ".";
 
 describe("msToDuration", () => {
   test("converts milli to 1h 20m", () => {

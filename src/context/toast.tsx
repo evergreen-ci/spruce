@@ -1,5 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import Toast, { Variant } from "@leafygreen-ui/toast";
+import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 
 type ToastType = { variant: Variant; message: string; closable: boolean };
@@ -68,7 +69,7 @@ const ToastProvider: React.FC = ({ children }) => {
       <Toast
         variant={visibleToast.variant}
         title={variantToTitleMap[visibleToast?.variant]}
-        body={visibleToast.message}
+        body={<WordBreak>{visibleToast.message}</WordBreak>}
         open={toastOpen}
         close={visibleToast.closable && (() => setToastOpen(false))}
         data-cy="toast"

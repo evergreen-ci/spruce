@@ -12,9 +12,11 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 import { ClearSubscriptionsCard } from "./notificationTab/ClearSubscriptionsCard";
 import { NotificationField } from "./notificationTab/NotificationField";
+
+const { omitTypename } = string;
 
 export const NotificationsTab: React.FC = () => {
   const dispatchToast = useToastContext();

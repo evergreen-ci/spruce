@@ -12,13 +12,15 @@ import {
   SUBSCRIPTION_SLACK,
   SUBSCRIPTION_EMAIL,
 } from "types/subscription";
-import {
+import { validators } from "utils";
+
+const {
   validateDuration,
   validatePercentage,
   validateEmail,
   validateJira,
   validateSlack,
-} from "utils/validators";
+} = validators;
 
 interface ModalProps {
   visible: boolean;

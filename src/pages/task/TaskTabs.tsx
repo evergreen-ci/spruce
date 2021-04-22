@@ -11,12 +11,14 @@ import { GetTaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab } from "types/task";
-import { parseQueryString, isFailedTaskStatus } from "utils";
+import { statuses, queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
 import { TestsTable } from "./taskTabs/TestsTable";
 
+const { parseQueryString } = queryString;
+const { isFailedTaskStatus } = statuses;
 interface TaskTabProps {
   task: GetTaskQuery["task"];
   taskFiles: GetTaskQuery["taskFiles"];

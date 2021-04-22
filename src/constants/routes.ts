@@ -1,6 +1,8 @@
 import { PatchTab } from "types/patch";
 import { PatchTasksQueryParams, TaskTab } from "types/task";
-import { stringifyQuery } from "utils";
+import { queryString } from "utils";
+
+const { stringifyQuery } = queryString;
 
 export enum PageNames {
   Patches = "patches",

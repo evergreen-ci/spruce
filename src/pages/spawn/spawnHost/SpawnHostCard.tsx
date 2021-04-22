@@ -7,7 +7,9 @@ import { getIdeUrl } from "constants/externalResources";
 import { getSpawnVolumeRoute } from "constants/routes";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { getDateCopy } from "utils/string";
+import { string } from "utils";
+
+const { getDateCopy } = string;
 
 interface SpawnHostCardProps {
   host: MyHost;

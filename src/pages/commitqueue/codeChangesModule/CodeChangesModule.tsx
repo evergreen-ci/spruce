@@ -8,7 +8,7 @@ import {
   FileDiffsFragment,
   ModuleCodeChangeFragment,
 } from "gql/generated/types";
-import { bucketByCommit } from "utils/fileDiffs/bucketByCommit";
+import { bucketByCommit } from "./bucketByCommit";
 
 const totalFileDiffs = (
   fileDiffs: FileDiffsFragment[]
@@ -32,10 +32,7 @@ export const CodeChangeModule: React.FC<{
     return (
       <CodeChangeModuleContainer>
         {description && (
-          // This spans purpose is to hold data-cy
-          <span data-cy="commit-name">
-            <CommitName>{description}</CommitName>
-          </span>
+          <CommitName data-cy="commit-name">{description}</CommitName>
         )}
         <Accordian
           title={

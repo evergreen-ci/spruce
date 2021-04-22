@@ -14,8 +14,9 @@ import {
 } from "gql/generated/types";
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_USER_SETTINGS } from "gql/queries";
-import { reportError } from "utils/errorReporting";
+import { errorReporting } from "utils";
 
+const { reportError } = errorReporting;
 const { gray, green, black } = uiColors;
 
 const carouselCards = [

@@ -10,7 +10,9 @@ import { Pagination } from "components/Pagination";
 import { HostEventsQuery, HostEventLogEntry } from "gql/generated/types";
 import { getHostEventString } from "pages/host/getHostEventString";
 import { HostCard } from "pages/host/HostCard";
-import { getDateCopy } from "utils/string";
+import { string } from "utils";
+
+const { getDateCopy } = string;
 
 export const HostTable: React.FC<{
   loading: boolean;

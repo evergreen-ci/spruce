@@ -1,5 +1,7 @@
 import { LogTypes } from "types/task";
-import { getLobsterURL, getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
+
+const { getLobsterURL, getUiUrl } = environmentalVariables;
 
 export const cliDocumentationUrl =
   "https://github.com/evergreen-ci/evergreen/wiki/Using-the-Command-Line-Tool";

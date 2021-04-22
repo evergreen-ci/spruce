@@ -1,16 +1,5 @@
-import { useQuery } from "@apollo/client";
 import { format, utcToZonedTime } from "date-fns-tz";
 import get from "lodash/get";
-import { GetUserSettingsQuery } from "gql/generated/types";
-import { GET_USER_SETTINGS } from "gql/queries";
-
-// get the timezone for the user
-export const useUserTimeZone = () => {
-  const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
-    GET_USER_SETTINGS
-  );
-  return get(userSettingsData, "userSettings.timezone", "");
-};
 
 // shortenString takes a string and shortens it
 // Useful for displaying part of a long string, such as a long taskId
@@ -164,5 +153,3 @@ export const sortFunctionDate = (a, b, key) => {
   }
   return dateA - dateB;
 };
-
-export { getStatusBadgeCopy } from "./getStatusBadgeCopy";

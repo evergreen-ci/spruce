@@ -170,6 +170,8 @@ const Tasks = styled.div`
   grid-auto-rows: auto;
   grid-column-gap: 30px;
   grid-row-gap: 12px;
+  overflow: scroll;
+  max-height: 60vh;
 `;
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: 8px;
