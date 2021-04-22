@@ -1,6 +1,4 @@
-import { queryString } from "utils";
-
-const { parseQueryString, stringifyQuery } = queryString;
+import { parseQueryString, stringifyQuery } from "utils/queryString";
 
 export const updateUrlQueryParam = (
   urlSearchParam: string,

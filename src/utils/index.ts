@@ -3,6 +3,7 @@ import * as color from "./color";
 import * as environmentalVariables from "./environmentalVariables";
 import * as errorReporting from "./errorReporting";
 import * as queryString from "./queryString";
+import * as request from "./request";
 import * as statuses from "./statuses";
 import * as string from "./string";
 import * as url from "./url";
@@ -18,4 +19,5 @@ export {
   environmentalVariables,
   string,
   errorReporting,
+  request,
 };

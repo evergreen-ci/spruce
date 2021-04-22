@@ -1,6 +1,7 @@
 import React from "react";
 import { Select } from "antd";
 import { useHistory, useLocation } from "react-router-dom";
+import { PAGE_SIZES, RECENT_PAGE_SIZE_KEY } from "constants/index";
 import { queryString } from "utils";
 
 const { stringifyQuery, parseQueryString } = queryString;
@@ -49,21 +50,4 @@ export const PageSizeSelector: React.FC<Props> = ({
       ))}
     </Select>
   );
-};
-
-export const RECENT_PAGE_SIZE_KEY = "recentPageSize";
-
-const DEFAULT_PAGE_SIZE = 10;
-
-export const PAGE_SIZES = [10, 20, 50, 100];
-
-export const getDefaultPageSize = () => {
-  const pageSizeFromLocalStorage: number = parseInt(
-    localStorage.getItem(RECENT_PAGE_SIZE_KEY),
-    DEFAULT_PAGE_SIZE
-  );
-
-  return PAGE_SIZES.includes(pageSizeFromLocalStorage)
-    ? pageSizeFromLocalStorage
-    : DEFAULT_PAGE_SIZE;
 };

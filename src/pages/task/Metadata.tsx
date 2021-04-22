@@ -19,11 +19,10 @@ import { AbortMessage } from "pages/task/metadata/AbortMessage";
 import { DependsOn } from "pages/task/metadata/DependsOn";
 import { ETATimer } from "pages/task/metadata/ETATimer";
 import { TaskStatus } from "types/task";
-import { environmentalVariables } from "utils";
-import { msToDuration, getDateCopy } from "utils/string";
+import { environmentalVariables, string } from "utils";
 
+const { msToDuration, getDateCopy } = string;
 const { getUiUrl } = environmentalVariables;
-
 const { red } = uiColors;
 
 interface Props {

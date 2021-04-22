@@ -38,10 +38,11 @@ import {
 } from "pages/spawn/spawnHost/fields";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
+const { omitTypename } = string;
 
 interface EditSpawnHostModalProps {
   visible?: boolean;

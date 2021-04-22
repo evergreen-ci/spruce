@@ -10,8 +10,9 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_ALL_EXECUTIONS } from "gql/queries";
 import { executionAsDisplay } from "pages/task/util/execution";
-import { shortDate } from "utils/string";
+import { string } from "utils";
 
+const { shortDate } = string;
 interface ExecutionSelectProps {
   id: string;
   currentExecution: number;

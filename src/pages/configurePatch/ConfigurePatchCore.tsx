@@ -28,9 +28,9 @@ import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/Configur
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
-import { queryString } from "utils";
-import { omitTypename } from "utils/string";
+import { queryString, string } from "utils";
 
+const { omitTypename } = string;
 const { parseQueryString } = queryString;
 
 interface Props {

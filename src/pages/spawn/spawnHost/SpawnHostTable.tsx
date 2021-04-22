@@ -8,12 +8,12 @@ import { HostStatusBadge } from "components/HostStatusBadge";
 import { DoesNotExpire, SpawnTable } from "components/Spawn";
 import { WordBreak } from "components/Typography";
 import { MyHost } from "types/spawn";
-import { queryString } from "utils";
-import { sortFunctionDate, sortFunctionString } from "utils/string";
+import { queryString, string } from "utils";
 import { SpawnHostCard } from "./SpawnHostCard";
 import { SpawnHostTableActions } from "./SpawnHostTableActions";
 
 const { parseQueryString } = queryString;
+const { sortFunctionDate, sortFunctionString } = string;
 
 interface SpawnHostTableProps {
   hosts: MyHost[];

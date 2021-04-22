@@ -13,9 +13,9 @@ import {
   GetUserConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_USER_CONFIG } from "gql/queries";
-import { environmentalVariables } from "utils";
-import { post } from "utils/request";
+import { environmentalVariables, request } from "utils";
 
+const { post } = request;
 const { getUiUrl } = environmentalVariables;
 
 export const AuthenticationCard = () => {

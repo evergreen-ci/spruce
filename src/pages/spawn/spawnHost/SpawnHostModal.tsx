@@ -31,7 +31,7 @@ import {
   GET_MY_VOLUMES,
 } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 import {
   HostDetailsForm,
   PublicKeyForm,
@@ -39,6 +39,7 @@ import {
   useSpawnHostModalState,
 } from "./spawnHostModal/index";
 
+const { omitTypename } = string;
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;

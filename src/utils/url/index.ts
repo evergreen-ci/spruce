@@ -1,7 +1,9 @@
-import { PAGE_SIZES, getDefaultPageSize } from "components/PageSizeSelector";
-import { queryString } from "utils";
-
-const { parseQueryString } = queryString;
+import {
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+  RECENT_PAGE_SIZE_KEY,
+} from "constants/index";
+import { parseQueryString } from "utils/queryString";
 
 const pageKey = "page";
 const limitKey = "limit";
@@ -36,4 +38,15 @@ export const upsertQueryParam = (params: string[] | string, value: string) => {
   return Array.isArray(params) ? [...params, value] : [params, value];
 };
 
-export { updateUrlQueryParam } from "./updateUrlQueryParam";
+export const getDefaultPageSize = () => {
+  const pageSizeFromLocalStorage: number = parseInt(
+    localStorage.getItem(RECENT_PAGE_SIZE_KEY),
+    DEFAULT_PAGE_SIZE
+  );
+
+  return PAGE_SIZES.includes(pageSizeFromLocalStorage)
+    ? pageSizeFromLocalStorage
+    : DEFAULT_PAGE_SIZE;
+};
+
+export * from "./updateUrlQueryParam";

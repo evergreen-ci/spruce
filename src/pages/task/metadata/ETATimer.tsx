@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { addMilliseconds, differenceInMilliseconds } from "date-fns";
 import { P2 } from "components/Typography";
-import { msToDuration } from "utils/string";
+import { string } from "utils";
 
+const { msToDuration } = string;
 interface ETATimerProps {
   startTime: Date;
   baseTaskDuration: number;
