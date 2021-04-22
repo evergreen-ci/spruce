@@ -4,8 +4,9 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { H2 } from "@leafygreen-ui/typography";
 import { Modal as AntdModal } from "antd";
 import { HR } from "components/styles/Layout";
-import { hexToRGBA } from "utils/color";
+import { color } from "utils";
 
+const { hexToRGBA } = color;
 interface ModalProps {
   footer: JSX.Element[] | JSX.Element;
   title: string | JSX.Element;

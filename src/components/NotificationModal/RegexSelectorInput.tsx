@@ -1,4 +1,4 @@
-import React from "react";
+import { useMemo } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
@@ -34,8 +34,8 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
   dataCyPrefix,
   canDelete,
 }) => {
-  const dropdownId = uuid();
-  const inputId = uuid();
+  const dropdownId = useMemo(() => uuid(), []);
+  const inputId = useMemo(() => uuid(), []);
   return (
     <Container
       canDelete={canDelete}

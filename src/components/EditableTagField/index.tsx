@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
-import { convertArrayToObject } from "utils/array";
+import { array } from "utils";
 import { TagRow } from "./TagRow";
+
+const { convertArrayToObject } = array;
 
 type Tag = InstanceTag | ParameterInput;
 type EditableTagFieldProps = {

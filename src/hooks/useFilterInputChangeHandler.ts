@@ -1,8 +1,10 @@
 import { useState } from "react";
 import debounce from "lodash.debounce";
 import { useLocation, useHistory } from "react-router-dom";
-import { parseQueryString } from "utils/queryString/parseQueryString";
-import { updateUrlQueryParam } from "utils/url";
+import { url, queryString } from "utils";
+
+const { parseQueryString } = queryString;
+const { updateUrlQueryParam } = url;
 
 const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
 

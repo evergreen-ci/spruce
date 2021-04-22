@@ -1,18 +1,21 @@
-import queryString from "query-string";
-import { PAGE_SIZES, getDefaultPageSize } from "components/PageSizeSelector";
+import {
+  PAGE_SIZES,
+  DEFAULT_PAGE_SIZE,
+  RECENT_PAGE_SIZE_KEY,
+} from "constants/index";
+import { parseQueryString } from "utils/queryString";
 
-const arrayFormat = "comma";
 const pageKey = "page";
 const limitKey = "limit";
 
 export const getPageFromSearch = (search: string): number => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const page = parseInt((parsed[pageKey] ?? "").toString(), 10);
   return !Number.isNaN(page) && page >= 0 ? page : 0;
 };
 
 export const getLimitFromSearch = (search: string): number => {
-  const parsed = queryString.parse(search, { arrayFormat });
+  const parsed = parseQueryString(search);
   const limit = parseInt((parsed[limitKey] ?? "").toString(), 10);
   return !Number.isNaN(limit) && PAGE_SIZES.includes(limit)
     ? limit
@@ -35,4 +38,15 @@ export const upsertQueryParam = (params: string[] | string, value: string) => {
   return Array.isArray(params) ? [...params, value] : [params, value];
 };
 
-export { updateUrlQueryParam } from "./updateUrlQueryParam";
+export const getDefaultPageSize = () => {
+  const pageSizeFromLocalStorage: number = parseInt(
+    localStorage.getItem(RECENT_PAGE_SIZE_KEY),
+    DEFAULT_PAGE_SIZE
+  );
+
+  return PAGE_SIZES.includes(pageSizeFromLocalStorage)
+    ? pageSizeFromLocalStorage
+    : DEFAULT_PAGE_SIZE;
+};
+
+export * from "./updateUrlQueryParam";

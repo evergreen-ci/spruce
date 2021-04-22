@@ -1,6 +1,7 @@
 import Bugsnag from "@bugsnag/js";
-import { reportError } from "utils/errorReporting";
+import { errorReporting } from "utils";
 
+const { reportError } = errorReporting;
 const err = new Error("test error");
 
 describe("Error reporting", () => {

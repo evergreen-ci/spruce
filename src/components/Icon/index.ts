@@ -1,5 +1,5 @@
 import { createIconComponent, glyphs } from "@leafygreen-ui/icon";
-import * as icons from "./Icons";
+import * as icons from "./icons";
 
 const glyphMap = {
   ...glyphs,

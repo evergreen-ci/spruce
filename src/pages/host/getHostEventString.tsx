@@ -6,8 +6,9 @@ import { StyledLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
-import { stringifyNanoseconds, shortenString } from "utils/string";
+import { string } from "utils";
 
+const { stringifyNanoseconds, shortenString } = string;
 const { Panel } = Collapse;
 
 const getTerminationString = (monitorOp: string) => {

@@ -9,9 +9,10 @@ import {
   GetSpawnTaskQueryVariables,
 } from "gql/generated/types";
 import { GET_SPAWN_TASK } from "gql/queries";
-import { parseQueryString, getString } from "utils";
+import { queryString } from "utils";
 import { Action as SpawnHostModalAction } from "./useSpawnHostModalState";
 
+const { getString, parseQueryString } = queryString;
 const { TextArea } = Input;
 
 export type setupScriptType = {

@@ -2,10 +2,12 @@ import { useState } from "react";
 import { Label } from "@leafygreen-ui/typography";
 import { Input, Select } from "antd";
 import { useLocation } from "react-router";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseQueryString } from "utils";
-import { upsertQueryParam } from "utils/url";
+import { queryString, url } from "utils";
+
+const { upsertQueryParam } = url;
+const { parseQueryString } = queryString;
 
 const { Option } = Select;
 type option = {

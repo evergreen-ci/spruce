@@ -1,9 +1,10 @@
 import React from "react";
 import Bugsnag from "@bugsnag/js";
 import BugsnagPluginReact from "@bugsnag/plugin-react";
-import { getBugsnagApiKey, isProduction } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import ErrorFallback from "./ErrorFallback";
 
+const { getBugsnagApiKey, isProduction } = environmentalVariables;
 let bugsnagStarted = false;
 
 // This error boundary is used during local development

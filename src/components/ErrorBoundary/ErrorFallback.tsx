@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { H1, H2 } from "@leafygreen-ui/typography";
-import { getSpruceURL } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import errorPage from "./errorPage.svg";
 
+const { getSpruceURL } = environmentalVariables;
 const { white } = uiColors;
 
 const ErrorFallback = () => (

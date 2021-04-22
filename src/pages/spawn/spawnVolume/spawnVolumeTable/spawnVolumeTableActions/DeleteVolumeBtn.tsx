@@ -2,7 +2,7 @@ import React from "react";
 import { useMutation } from "@apollo/client";
 import Button, { Size } from "@leafygreen-ui/button";
 import { useSpawnAnalytics } from "analytics/spawn/useSpawnAnalytics";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
 import { useToastContext } from "context/toast";
 import {

@@ -17,7 +17,9 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_FILES } from "gql/queries";
 import { RequiredQueryParams } from "types/task";
-import { queryParamAsNumber, parseQueryString } from "utils";
+import { queryString } from "utils";
+
+const { parseQueryString, queryParamAsNumber } = queryString;
 
 const columns = [
   {

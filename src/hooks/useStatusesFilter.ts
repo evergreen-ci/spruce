@@ -1,6 +1,8 @@
 import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
+
+const { parseQueryString } = queryString;
 /**
  * @param  {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
  * @param {boolean} page reset url page param to 0 if true

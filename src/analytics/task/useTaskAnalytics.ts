@@ -13,8 +13,9 @@ import {
 } from "gql/generated/types";
 import { GET_TASK } from "gql/queries";
 import { RequiredQueryParams, LogTypes } from "types/task";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString } = queryString;
 type Action =
   | { name: "Filter Tests"; filterBy: string }
   | { name: "Restart" }

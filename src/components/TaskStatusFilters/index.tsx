@@ -9,7 +9,7 @@ import {
 } from "gql/generated/types";
 import { GET_PATCH_TASK_STATUSES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { getCurrentStatuses } from "utils/statuses/getCurrentStatuses";
+import { getCurrentStatuses } from "./getCurrentStatuses";
 
 interface Props {
   patchId: string;

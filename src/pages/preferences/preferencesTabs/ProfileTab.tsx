@@ -17,9 +17,10 @@ import {
 import { UPDATE_USER_SETTINGS } from "gql/mutations";
 import { GET_AWS_REGIONS } from "gql/queries";
 import { useUserSettingsQuery } from "hooks/useUserSettingsQuery";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 
 const { Option } = Select;
+const { omitTypename } = string;
 
 export const ProfileTab: React.FC = () => {
   const { data, loadingComp } = useUserSettingsQuery();
