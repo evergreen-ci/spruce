@@ -10,6 +10,8 @@ import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { toggleArray } from "utils/array";
 
+const { green } = uiColors;
+
 interface Props {
   variants: ProjectBuildVariant[];
   selectedVariantTasks: VariantTasksState;
@@ -88,36 +90,39 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           <Body weight="medium">Select Build Variants and Tasks</Body>
           <Divider />
         </Container>
-        {variants.map(({ displayName, name }) => {
-          const taskCount = selectedVariantTasks[name]
-            ? Object.values(selectedVariantTasks[name]).filter((v) => v).length
-            : null;
-          const isSelected = selectedBuildVariant.includes(name);
-          return (
-            <BuildVariant
-              data-cy="configurePatch-buildVariantListItem"
-              data-cy-name={name}
-              data-cy-selected={isSelected}
-              key={name}
-              isSelected={isSelected}
-              onClick={getClickVariantHandler(name)}
-            >
-              <VariantName>
-                <Body weight={isSelected ? "medium" : "regular"}>
-                  {displayName}
-                </Body>
-              </VariantName>
-              {taskCount > 0 && (
-                <StyledBadge
-                  data-cy={`configurePatch-taskCountBadge-${name}`}
-                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
-                >
-                  {taskCount}
-                </StyledBadge>
-              )}
-            </BuildVariant>
-          );
-        })}
+        <ScrollableBuildVariantContainer>
+          {variants.map(({ displayName, name }) => {
+            const taskCount = selectedVariantTasks[name]
+              ? Object.values(selectedVariantTasks[name]).filter((v) => v)
+                  .length
+              : null;
+            const isSelected = selectedBuildVariant.includes(name);
+            return (
+              <BuildVariant
+                data-cy="configurePatch-buildVariantListItem"
+                data-cy-name={name}
+                data-cy-selected={isSelected}
+                key={name}
+                isSelected={isSelected}
+                onClick={getClickVariantHandler(name)}
+              >
+                <VariantName>
+                  <Body weight={isSelected ? "medium" : "regular"}>
+                    {displayName}
+                  </Body>
+                </VariantName>
+                {taskCount > 0 && (
+                  <StyledBadge
+                    data-cy={`configurePatch-taskCountBadge-${name}`}
+                    variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+                  >
+                    {taskCount}
+                  </StyledBadge>
+                )}
+              </BuildVariant>
+            );
+          })}
+        </ScrollableBuildVariantContainer>
       </StyledSiderCard>
     </UserSelectWrapper>
   );
@@ -173,10 +178,10 @@ const BuildVariant = styled.div<VariantProps>`
   padding: 8px 0;
   ${cardSidePadding}
   background-color: ${(props: VariantProps): string =>
-    props.isSelected ? uiColors.green.light3 : "none"};
+    props.isSelected ? green.light3 : "none"};
   border-left: 3px solid white;
   border-left-color: ${(props: VariantProps): string =>
-    props.isSelected ? uiColors.green.base : "none"};
+    props.isSelected ? green.base : "none"};
 `;
 const VariantName = styled.div`
   word-break: break-all;
@@ -184,4 +189,21 @@ const VariantName = styled.div`
 `;
 const StyledBadge = styled(Badge)`
   margin-left: 8px;
+`;
+
+const ScrollableBuildVariantContainer = styled.div`
+  overflow: scroll;
+  max-height: 60vh;
+
+  // Styles to always show scrollbar
+  ::-webkit-scrollbar {
+    -webkit-appearance: none;
+    width: 7px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  }
 `;
