@@ -23,7 +23,7 @@ export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => (
 
 const ClickableIcon = styled(Icon)`
   position: absolute;
-  right: 2%;
+  right: 0%;
   :hover {
     cursor: pointer;
     color: ${gray.light1};
@@ -34,7 +34,7 @@ const PaddedBadge = styled(Badge)`
     margin-left: 16px;
   }
   margin-right: 16px;
-  margin-bottom: 21px;
+  margin-bottom: 24px;
   width: 260px;
 `;
 

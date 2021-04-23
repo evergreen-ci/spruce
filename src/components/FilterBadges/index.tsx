@@ -70,6 +70,6 @@ const popQueryParams = (param: string | string[], value: string) => {
 };
 
 const Container = styled.div`
-  max-height: 70px; // height of 2 rows of @leafygreen-ui/badge elements
+  max-height: 72px; // height of 2 rows of @leafygreen-ui/badge elements
   overflow: hidden;
 `;

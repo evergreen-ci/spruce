@@ -2,10 +2,10 @@
 
 exports[`Storyshots FilterBadges Default 1`] = `
 <div
-  className="css-1h0i02j-Container e3qndfh0"
+  className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-hu5l8i-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -15,7 +15,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       ! Enterprise Clang Tidy
       <svg
         aria-label="X Icon"
-        className="css-qi3s8p-ClickableIcon e1vs77ku2"
+        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
         fill="none"
         height={16}
         onClick={[Function]}
@@ -34,7 +34,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-hu5l8i-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -44,7 +44,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       ! Enterprise Windows
       <svg
         aria-label="X Icon"
-        className="css-qi3s8p-ClickableIcon e1vs77ku2"
+        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
         fill="none"
         height={16}
         onClick={[Function]}
@@ -63,7 +63,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-hu5l8i-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -73,7 +73,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       Enterprise RHEL 8.0 (Lock Free Reads disabled)
       <svg
         aria-label="X Icon"
-        className="css-qi3s8p-ClickableIcon e1vs77ku2"
+        className="css-1qoqp9c-ClickableIcon e1vs77ku2"
         fill="none"
         height={16}
         onClick={[Function]}
