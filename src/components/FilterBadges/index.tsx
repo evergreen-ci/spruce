@@ -21,7 +21,7 @@ export const FilterBadges: React.FC = () => {
     updateQueryParams({ [key]: updatedParam });
   };
 
-  const onClearAllClick = () => {
+  const onClearAll = () => {
     // Need to manually set keys to undefined inorder to overwrite and clear queryParams
     const params = { ...queryParams };
     Object.keys(params).forEach((v) => {
@@ -46,13 +46,14 @@ export const FilterBadges: React.FC = () => {
           badges={queryParamsList}
           notVisibleCount={notVisibleCount}
           onRemoveBadge={onRemove}
+          onClearAll={onClearAll}
         />
       )}
       {queryParamsList.length > 0 && (
         <Button
           variant={Variant.Default}
           size={Size.XSmall}
-          onClick={onClearAllClick}
+          onClick={onClearAll}
         >
           CLEAR ALL FILTERS
         </Button>

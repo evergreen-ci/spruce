@@ -1,5 +1,6 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import Modal from "@leafygreen-ui/modal";
 import { Link, H3 } from "@leafygreen-ui/typography";
 import { FilterBadge } from "./FilterBadge";
@@ -10,12 +11,14 @@ interface SeeMoreModalProps {
     value: string;
   }[];
   notVisibleCount: number;
-  onRemoveBadge: any;
+  onRemoveBadge: (key: string, value: string) => void;
+  onClearAll: () => void;
 }
 export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
   badges,
   notVisibleCount,
   onRemoveBadge,
+  onClearAll,
 }) => {
   const [open, setOpen] = useState(false);
   return (
@@ -35,14 +38,19 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
               />
             ))}
           </BadgeContainer>
+          <Button
+            variant={Variant.Default}
+            size={Size.XSmall}
+            onClick={onClearAll}
+          >
+            CLEAR ALL FILTERS
+          </Button>
         </ContentWrapper>
       </Modal>
     </>
   );
 };
-const ContentWrapper = styled.div`
-  text-align: center;
-`;
+const ContentWrapper = styled.div``;
 
 const BadgeContainer = styled.div`
   padding-top: 8px;
