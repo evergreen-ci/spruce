@@ -30,22 +30,6 @@ export const renderWithRouterMatch = (
   } = {}
 ) => ({
   history,
-  ...render(
-    <Router history={history}>
-      <Route path={path} component={ui} />
-    </Router>
-  ),
-});
-
-export const customRenderWithRouterMatch = (
-  ui,
-  {
-    path = "/",
-    route = "/",
-    history = createMemoryHistory({ initialEntries: [route] }),
-  } = {}
-) => ({
-  history,
   ...customRender(
     <Router history={history}>
       <Route path={path} component={ui} />

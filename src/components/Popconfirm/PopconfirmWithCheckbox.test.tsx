@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  customRenderWithRouterMatch as render,
+  renderWithRouterMatch as render,
   fireEvent,
   waitFor,
 } from "test_utils/test-utils";

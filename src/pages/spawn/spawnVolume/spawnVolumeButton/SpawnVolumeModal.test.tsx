@@ -10,7 +10,7 @@ import {
 } from "gql/queries";
 
 import {
-  customRenderWithRouterMatch as render,
+  renderWithRouterMatch as render,
   fireEvent,
   waitFor,
   act,
