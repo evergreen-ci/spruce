@@ -1,45 +1,53 @@
 import styled from "@emotion/styled";
-import Badge from "@leafygreen-ui/badge";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
 import { useLocation } from "react-router";
-import Icon from "components/icons/Icon";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseQueryString } from "utils";
+import { queryString, array } from "utils";
+import { FilterBadge } from "./FilterBadge";
+import { SeeMoreModal } from "./SeeMoreModal";
 
-const { gray } = uiColors;
+const { convertObjectToArray, removeFromArray } = array;
+const { parseQueryString } = queryString;
+
 export const FilterBadges: React.FC = () => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
   const { search } = location;
   const queryParams = parseQueryString(search);
-  const queryParamsList = arrayifyQueryParams(queryParams);
-  const onRemove = (key: string, value: string) => () => {
+  const queryParamsList = convertObjectToArray(queryParams);
+
+  const onRemove = (key: string, value: string) => {
     const updatedParam = popQueryParams(queryParams[key], value);
     updateQueryParams({ [key]: updatedParam });
   };
 
   const onClearAllClick = () => {
-    // We want to clear our query params
+    // Need to manually set keys to undefined inorder to overwrite and clear queryParams
     const params = { ...queryParams };
     Object.keys(params).forEach((v) => {
       params[v] = undefined;
     });
-
     updateQueryParams(params);
   };
+  const visibileQueryParams = queryParamsList.slice(0, 8);
+  const notVisibleCount = queryParamsList.slice(8, queryParamsList.length)
+    .length;
   return (
-    <div style={{ overflowX: "scroll" }}>
-      {queryParamsList.map((p) => (
-        <PaddedBadge key={`filter_badge_${p.key}_${p.value}`}>
-          <BadgeContent>
-            <TextWrapper>
-              {p.key} : {p.value}
-            </TextWrapper>
-            <ClickableIcon glyph="X" onClick={onRemove(p.key, p.value)} />
-          </BadgeContent>
-        </PaddedBadge>
+    <Container>
+      {visibileQueryParams.map((p) => (
+        <FilterBadge
+          key={`filter_badge_${p.key}_${p.value}`}
+          badge={p}
+          onClose={() => onRemove(p.key, p.value)}
+        />
       ))}
+      {queryParamsList.length > 8 && (
+        <SeeMoreModal
+          badges={queryParamsList}
+          notVisibleCount={notVisibleCount}
+          onRemoveBadge={onRemove}
+        />
+      )}
       {queryParamsList.length > 0 && (
         <Button
           variant={Variant.Default}
@@ -49,60 +57,18 @@ export const FilterBadges: React.FC = () => {
           CLEAR ALL FILTERS
         </Button>
       )}
-    </div>
+    </Container>
   );
 };
 
 const popQueryParams = (param: string | string[], value: string) => {
   if (Array.isArray(param)) {
-    const index = param.indexOf(value);
-    if (index > -1) {
-      param.splice(index, 1);
-    }
-    return param;
+    return removeFromArray(value, param);
   }
   return undefined;
 };
-const arrayifyQueryParams = (params) => {
-  const result = [];
-  if (params === undefined) return result;
-  const queryParamsList = Object.keys(params);
-  queryParamsList.forEach((key) => {
-    const value = params[key];
-    if (!Array.isArray(value)) {
-      result.push({ key, value });
-      return;
-    }
-    value.forEach((v) => {
-      result.push({ key, value: v });
-    });
-  });
-  return result;
-};
-const ClickableIcon = styled(Icon)`
-  position: absolute;
-  right: 2%;
-  :hover {
-    cursor: pointer;
 
-    color: ${gray.light1};
-  }
+const Container = styled.div`
+  max-height: 70px; // height of 2 rows of @leafygreen-ui/badge elements
+  overflow: hidden;
 `;
-const PaddedBadge = styled(Badge)`
-  :nth-of-type {
-    margin-left: 16px;
-  }
-  margin-right: 16px;
-  margin-bottom: 21px;
-  width: 260px;
-`;
-
-const BadgeContent = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  position: relative;
-`;
-
-const TextWrapper = styled.div``;
