@@ -6,6 +6,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
 >
   <div
     className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    data-cy="filter-badge"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -16,6 +17,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       <svg
         aria-label="X Icon"
         className="css-1qoqp9c-ClickableIcon e1vs77ku2"
+        data-cy="close-badge"
         fill="none"
         height={16}
         onClick={[Function]}
@@ -35,6 +37,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
   </div>
   <div
     className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    data-cy="filter-badge"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -45,6 +48,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       <svg
         aria-label="X Icon"
         className="css-1qoqp9c-ClickableIcon e1vs77ku2"
+        data-cy="close-badge"
         fill="none"
         height={16}
         onClick={[Function]}
@@ -64,6 +68,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
   </div>
   <div
     className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    data-cy="filter-badge"
   >
     <div
       className="css-d7bq0k-BadgeContent e1vs77ku0"
@@ -74,6 +79,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
       <svg
         aria-label="X Icon"
         className="css-1qoqp9c-ClickableIcon e1vs77ku2"
+        data-cy="close-badge"
         fill="none"
         height={16}
         onClick={[Function]}
@@ -97,6 +103,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     <button
       aria-disabled={false}
       className="leafygreen-ui-1h100jh"
+      data-cy="clear-all-filters"
       disabled={false}
       onBlur={[Function]}
       onClick={[Function]}
