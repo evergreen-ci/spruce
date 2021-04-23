@@ -1,4 +1,9 @@
-import { toggleArray, convertArrayToObject, convertObjectToArray } from ".";
+import {
+  toggleArray,
+  removeFromArray,
+  convertArrayToObject,
+  convertObjectToArray,
+} from ".";
 
 describe("toggleArray", () => {
   test("Should add an element to the array if the array is empty", () => {
@@ -20,6 +25,28 @@ describe("toggleArray", () => {
     ]);
   });
 });
+
+describe("removeFromArray", () => {
+  test("should remove elements from an array if they exist", () => {
+    expect(removeFromArray(1, [1])).toStrictEqual([]);
+    expect(removeFromArray("Arjun", ["Arjun"])).toStrictEqual([]);
+    expect(removeFromArray(1, [1, 2])).toStrictEqual([2]);
+    expect(removeFromArray("Chaya", ["Chaya", "Arjun"])).toStrictEqual([
+      "Arjun",
+    ]);
+    expect(removeFromArray({ someArray: 1 }, [{ someArray: 1 }])).toStrictEqual(
+      []
+    );
+  });
+  test("should do nothing if an element is not found", () => {
+    expect(removeFromArray(1, [2])).toStrictEqual([2]);
+    expect(removeFromArray("Mohamed", ["khelif"])).toStrictEqual(["khelif"]);
+    expect(
+      removeFromArray({ someArray: 1 }, [{ someArray: 2 }])
+    ).toStrictEqual([{ someArray: 2 }]);
+  });
+});
+
 describe("convertObjectToArray", () => {
   test("Should return an empty array for an empty object", () => {
     expect(convertObjectToArray({})).toStrictEqual([]);

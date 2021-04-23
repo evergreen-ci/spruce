@@ -1,14 +1,26 @@
 // This takes in an array and an id and safely inserts or removes the value from
 // the array so that there is never a duplicate value
-export const toggleArray = <T>(id: T, array: T[]) => {
+export const toggleArray = <T>(value: T, array: T[]) => {
   const tempArray = [...array];
   const idIndex = tempArray.findIndex(
-    (e) => JSON.stringify(id) === JSON.stringify(e)
+    (e) => JSON.stringify(value) === JSON.stringify(e)
   );
   if (idIndex !== -1) {
     tempArray.splice(idIndex, 1);
   } else {
-    tempArray.push(id);
+    tempArray.push(value);
+  }
+  return tempArray;
+};
+
+// This takes an array and safely removes a value from the array
+export const removeFromArray = <T>(value: T, array: T[]) => {
+  const tempArray = [...array];
+  const idIndex = tempArray.findIndex(
+    (e) => JSON.stringify(value) === JSON.stringify(e)
+  );
+  if (idIndex !== -1) {
+    tempArray.splice(idIndex, 1);
   }
   return tempArray;
 };
