@@ -1,35 +1,43 @@
 import { withKnobs, text, button } from "@storybook/addon-knobs";
 import { withQuery } from "@storybook/addon-queryparams";
-import { MemoryRouter } from "react-router-dom";
+import { useLocation, BrowserRouter } from "react-router-dom";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { queryString, url } from "utils";
 import { FilterBadges } from ".";
+
+const { upsertQueryParam } = url;
+const { parseQueryString } = queryString;
 
 export default {
   title: "FilterBadges",
   decorators: [
     (Story) => (
-      <MemoryRouter>
+      <BrowserRouter>
         <Story />
-      </MemoryRouter>
+      </BrowserRouter>
     ),
-    withQuery,
     withKnobs,
+    withQuery,
   ],
 };
-
 export const Default = () => {
-  text("Badge Key", "someKey");
-  text("Badge Value", "someValue");
-  button("Add Badge", () => console.log("Added something"));
+  const updateQueryParams = useUpdateURLQueryParams();
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
 
-  return (
-    <>
-      <FilterBadges />
-    </>
-  );
+  const badgeKey = text("Badge Key", "");
+  const badgeValue = text("Badge Value", "");
+  const addBadge = () => {
+    const params = upsertQueryParam(queryParams[badgeKey], badgeValue);
+    updateQueryParams({ [badgeKey]: params });
+  };
+  button("Add Badge", addBadge);
+  return <FilterBadges />;
 };
 
 Default.parameters = {
   query: {
-    mock: ["Hello world!", "something"],
+    buildvariants:
+      "! Enterprise Clang Tidy,! Enterprise Windows,Enterprise RHEL 8.0 (Lock Free Reads disabled)",
   },
 };
