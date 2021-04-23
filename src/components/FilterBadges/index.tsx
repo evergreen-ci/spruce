@@ -54,6 +54,7 @@ export const FilterBadges: React.FC = () => {
           variant={Variant.Default}
           size={Size.XSmall}
           onClick={onClearAll}
+          data-cy="clear-all-filters"
         >
           CLEAR ALL FILTERS
         </Button>

@@ -33,6 +33,7 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
           <BadgeContainer>
             {badges.map((b) => (
               <FilterBadge
+                key={`filter_badge_${b.key}_${b.value}`}
                 badge={b}
                 onClose={() => onRemoveBadge(b.key, b.value)}
               />

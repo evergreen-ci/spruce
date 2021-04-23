@@ -13,10 +13,13 @@ interface FilterBadgeProps {
   onClose: () => void;
 }
 export const FilterBadge: React.FC<FilterBadgeProps> = ({ badge, onClose }) => (
-  <PaddedBadge key={`filter_badge_${badge.key}_${badge.value}`}>
+  <PaddedBadge
+    key={`filter_badge_${badge.key}_${badge.value}`}
+    data-cy="filter-badge"
+  >
     <BadgeContent>
       {badge.key} : {badge.value}
-      <ClickableIcon glyph="X" onClick={onClose} />
+      <ClickableIcon data-cy="close-badge" glyph="X" onClick={onClose} />
     </BadgeContent>
   </PaddedBadge>
 );
