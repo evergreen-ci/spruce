@@ -3,10 +3,12 @@ import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
-import { getCommitQueueRoute } from "constants/routes";
+import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
 import { PatchQuery } from "gql/generated/types";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 import { ParametersModal } from "./ParametersModal";
+
+const { getUiUrl } = environmentalVariables;
 
 interface Props {
   loading: boolean;
@@ -21,6 +23,7 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
     time,
     duration,
     projectID,
+    projectIdentifier,
     baseVersionID,
     commitQueuePosition,
     parameters,
@@ -29,7 +32,12 @@ export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
   const { makespan, timeTaken } = duration || {};
   return (
     <MetadataCard loading={loading} error={error} title="Patch Metadata">
-      <P2>Project Name: {projectID}</P2>
+      <P2>
+        Project:{" "}
+        <StyledLink href={getProjectPatchesRoute(projectID)}>
+          {projectIdentifier}
+        </StyledLink>
+      </P2>
       <P2>Makespan: {makespan && makespan}</P2>
       <P2>Time taken: {timeTaken && timeTaken}</P2>
       <P2>Submitted at: {submittedAt}</P2>

@@ -16,6 +16,7 @@ export const convertArrayToObject = <T>(
   key: string
 ): { [key: string]: T } => {
   const initialValue = {};
+  if (array === undefined) return initialValue;
   return array.reduce(
     (obj, item) => ({
       ...obj,

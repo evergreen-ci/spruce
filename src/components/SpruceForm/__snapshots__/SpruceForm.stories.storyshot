@@ -1,0 +1,573 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Spruce Form Example 1 1`] = `
+<div>
+  <h6
+    className="leafygreen-ui-16zt3i0"
+  >
+    Distro Projects
+  </h6>
+  <div
+    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-o2xit9"
+  >
+    <form
+      className="rjsf"
+      noValidate={false}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group field field-object"
+      >
+        <fieldset
+          id="root"
+        >
+          <div
+            className="form-group field field-string"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <div
+                className=""
+              >
+                <label
+                  className="leafygreen-ui-14b8p8r"
+                  id="select-0-label"
+                >
+                  Project Cloning Method
+                </label>
+                <button
+                  aria-controls="select-0-menu"
+                  aria-describedby="select-0-description"
+                  aria-disabled={false}
+                  aria-expanded={false}
+                  aria-labelledby="select-0-label"
+                  className="leafygreen-ui-1558oyf"
+                  disabled={false}
+                  onClick={[Function]}
+                  onKeyDown={[Function]}
+                  type="button"
+                  value="legacy-ssh"
+                >
+                  <div
+                    className="leafygreen-ui-1ktj4tm"
+                  />
+                  <div
+                    className="leafygreen-ui-ufcayr"
+                  >
+                    <span>
+                      <span
+                        className="leafygreen-ui-plwatf"
+                      >
+                        Legacy SSH
+                      </span>
+                    </span>
+                    <svg
+                      alt=""
+                      aria-hidden={true}
+                      className="leafygreen-ui-10ms05u"
+                      height={16}
+                      role="presentation"
+                      viewBox="0 0 16 16"
+                      width={16}
+                    >
+                      <path
+                        d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            className="form-group field field-array"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper e63qz860"
+            >
+              <label
+                className="leafygreen-ui-1x9zy2h"
+                htmlFor="editable_tag_field_Expansions"
+              >
+                Expansions
+              </label>
+              <div
+                className="css-1ojulcu-FlexColumnContainer e1zn6k0"
+                id="editable_tag_field_Expansions"
+              >
+                <div
+                  className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+                  data-cy="user-tag-row"
+                >
+                  <div
+                    className="css-3oy7y7-FlexContainer e161fbrp3"
+                  >
+                    <div
+                      className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+                    >
+                      <div
+                        className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+                      >
+                        <label
+                          className="css-c0hrp-InputLabel e1xf068s2"
+                          htmlFor="tag_key_undefined"
+                        >
+                          Key
+                        </label>
+                        <input
+                          className="ant-input"
+                          data-cy="user-tag-key-field"
+                          id="tag_key_undefined"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="text"
+                          value="Sample Input"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+                    >
+                      <div
+                        className="css-8jhme8-FlexColumnContainer-Section e161fbrp1"
+                      >
+                        <label
+                          className="css-c0hrp-InputLabel e1xf068s2"
+                          htmlFor="tag_value_undefined"
+                        >
+                          Value
+                        </label>
+                        <input
+                          className="ant-input"
+                          data-cy="user-tag-value-field"
+                          id="tag_value_undefined"
+                          onBlur={[Function]}
+                          onChange={[Function]}
+                          onFocus={[Function]}
+                          onKeyDown={[Function]}
+                          type="text"
+                          value="Sample Input"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      className="css-1ys6knn-IconButtonContainer e161fbrp0"
+                    >
+                      <button
+                        aria-disabled={false}
+                        aria-label="Delete Tag"
+                        className="leafygreen-ui-556onv"
+                        tabIndex={0}
+                      >
+                        <div
+                          className="leafygreen-ui-xhlipt"
+                        >
+                          <svg
+                            aria-label="Trash Icon"
+                            className=""
+                            data-cy="user-tag-trash-icon"
+                            fill="none"
+                            height={16}
+                            onClick={[Function]}
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clipRule="evenodd"
+                              d="M5 2a1 1 0 011-1h4a1 1 0 011 1h2a1 1 0 011 1v1H2V3a1 1 0 011-1h2zm9 3H2l1.678 8.392A2 2 0 005.64 15h4.72a2 2 0 001.962-1.608L14 5z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div
+                  className="css-ajmoyw-FlexColumnContainer e161fbrp2"
+                  data-cy="add-tag-button-row"
+                >
+                  <div
+                    className="css-10b13qw-ButtonContainer e161fbrp4"
+                  >
+                    <div
+                      className="leafygreen-ui-vdmjox"
+                    >
+                      <button
+                        aria-disabled={false}
+                        className="leafygreen-ui-nzlvat"
+                        data-cy="add-tag-button"
+                        disabled={false}
+                        onBlur={[Function]}
+                        onClick={[Function]}
+                        onFocus={[Function]}
+                        type="button"
+                      >
+                        <span
+                          className="leafygreen-ui-tdo6z2"
+                        >
+                          <svg
+                            aria-label="Plus Icon"
+                            className="leafygreen-ui-h988x4"
+                            fill="none"
+                            height={16}
+                            role="img"
+                            viewBox="0 0 16 16"
+                            width={16}
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clipRule="evenodd"
+                              d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
+                              fill="currentColor"
+                              fillRule="evenodd"
+                            />
+                          </svg>
+                          Add New Expansion
+                        </span>
+                      </button>
+                      <div
+                        className="leafygreen-ui-1fqcwcg"
+                        data-leafygreen-ui="interaction-ring"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div
+            className="form-group field field-string"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <div
+                className="leafygreen-ui-1iyoj2o"
+              >
+                <label
+                  className="leafygreen-ui-1x9zy2h"
+                  htmlFor="textarea-0"
+                >
+                  Valid Projects
+                </label>
+                <div
+                  className="leafygreen-ui-19odf8z"
+                >
+                  <textarea
+                    className="leafygreen-ui-s8it2d"
+                    disabled={false}
+                    id="textarea-0"
+                    onBlur={[Function]}
+                    onChange={[Function]}
+                    onFocus={[Function]}
+                    title="Valid Projects"
+                    value=""
+                  />
+                  <div
+                    className="leafygreen-ui-6bqmxk"
+                    data-leafygreen-ui="interaction-ring"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+</div>
+`;
+
+exports[`Storyshots Spruce Form Example 2 1`] = `
+<div>
+  <h6
+    className="leafygreen-ui-16zt3i0"
+  >
+    Admin Options
+  </h6>
+  <div
+    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-o2xit9"
+  >
+    <form
+      className="rjsf"
+      noValidate={false}
+      onSubmit={[Function]}
+    >
+      <div
+        className="form-group field field-object"
+      >
+        <fieldset
+          id="root"
+        >
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-0"
+                id="checkbox-0-label"
+              >
+                <input
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-0-label"
+                  checked={false}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-0"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-cho4qd"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-68852y"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-pxtafh"
+                >
+                  Mark distro as a cluster (jobs are not run on this host, used for special purposes).
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-1"
+                id="checkbox-1-label"
+              >
+                <input
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-1-label"
+                  checked={false}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-1"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-cho4qd"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-68852y"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-pxtafh"
+                >
+                  Disable shallow clone for this distro.
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-2"
+                id="checkbox-2-label"
+              >
+                <input
+                  aria-checked={false}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-2-label"
+                  checked={false}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-2"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-cho4qd"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-68852y"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-pxtafh"
+                >
+                  Disable queueing this distro. Tasks already in the task queue will be removed.
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-3"
+                id="checkbox-3-label"
+              >
+                <input
+                  aria-checked={true}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-3-label"
+                  checked={true}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-3"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-1h4qwc1"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-lsrlgh"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-pxtafh"
+                >
+                  Decommission hosts of this distro for this update
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="form-group field field-string"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <div
+                aria-label="radio-group-0"
+                className="leafygreen-ui-sgfp3"
+                role="group"
+              >
+                <div
+                  className="leafygreen-ui-1s4vgyd"
+                >
+                  <label
+                    className="leafygreen-ui-9bibpa"
+                    htmlFor="radio-group-0-0"
+                  >
+                    <input
+                      aria-checked={false}
+                      aria-disabled={false}
+                      checked={false}
+                      className="leafygreen-ui-cs3dze"
+                      data-leafygreen-ui="input-element"
+                      disabled={false}
+                      id="radio-group-0-0"
+                      name="radio-group-0"
+                      onChange={[Function]}
+                      type="radio"
+                      value="restartJasper"
+                    />
+                    <div
+                      className="leafygreen-ui-20lkw3"
+                      data-leafygreen-ui="radio-input-display-wrapper"
+                    >
+                      <div
+                        className="leafygreen-ui-6wzjga"
+                        data-leafygreen-ui="radio-input-display"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                      />
+                      <div
+                        className="leafygreen-ui-i109xq"
+                        data-leafygreen-ui="interaction-ring"
+                      />
+                    </div>
+                    <div
+                      className="leafygreen-ui-1v34s2c"
+                    >
+                      Restart Jasper service on running hosts of this distro for this update
+                    </div>
+                  </label>
+                </div>
+                <div
+                  className="leafygreen-ui-1s4vgyd"
+                >
+                  <label
+                    className="leafygreen-ui-9bibpa"
+                    htmlFor="radio-group-0-1"
+                  >
+                    <input
+                      aria-checked={false}
+                      aria-disabled={false}
+                      checked={false}
+                      className="leafygreen-ui-cs3dze"
+                      data-leafygreen-ui="input-element"
+                      disabled={false}
+                      id="radio-group-0-1"
+                      name="radio-group-0"
+                      onChange={[Function]}
+                      type="radio"
+                      value="reprovisionHosts"
+                    />
+                    <div
+                      className="leafygreen-ui-20lkw3"
+                      data-leafygreen-ui="radio-input-display-wrapper"
+                    >
+                      <div
+                        className="leafygreen-ui-6wzjga"
+                        data-leafygreen-ui="radio-input-display"
+                        onBlur={[Function]}
+                        onFocus={[Function]}
+                      />
+                      <div
+                        className="leafygreen-ui-i109xq"
+                        data-leafygreen-ui="interaction-ring"
+                      />
+                    </div>
+                    <div
+                      className="leafygreen-ui-1v34s2c"
+                    >
+                      Reprovision running hosts of this distro for this update
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+</div>
+`;

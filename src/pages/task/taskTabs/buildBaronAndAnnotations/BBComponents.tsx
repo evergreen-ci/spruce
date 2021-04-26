@@ -13,8 +13,9 @@ import {
   TicketFields,
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
-import { getDateCopy } from "utils/string";
+import { string } from "utils";
 
+const { getDateCopy } = string;
 interface TitleProps {
   margin?: boolean;
 }

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { InstanceTag, ParameterInput } from "gql/generated/types";
-import { convertArrayToObject } from "utils/array";
+import { array } from "utils";
 import { TagRow } from "./TagRow";
+
+const { convertArrayToObject } = array;
 
 type Tag = InstanceTag | ParameterInput;
 type EditableTagFieldProps = {
@@ -10,6 +12,7 @@ type EditableTagFieldProps = {
   inputTags: Tag[];
   visible?: boolean;
   buttonText: string;
+  id?: string;
 };
 
 export const EditableTagField: React.FC<EditableTagFieldProps> = ({
@@ -17,6 +20,7 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
   inputTags,
   visible,
   buttonText,
+  id,
 }) => {
   const [visibleTags, setVisibleTags] = useState(inputTags);
   // Convert this tag array to an object it makes searching through them faster if there are allot of tags
@@ -54,7 +58,7 @@ export const EditableTagField: React.FC<EditableTagFieldProps> = ({
     setVisibleTags(inputTags);
   }, [visible]); // eslint-disable-line react-hooks/exhaustive-deps
   return (
-    <FlexColumnContainer>
+    <FlexColumnContainer id={id}>
       {visibleTags.map((tag) => (
         <TagRow
           tag={tag}

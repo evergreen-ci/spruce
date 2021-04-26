@@ -1,0 +1,442 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`basic form should render as expected 1`] = `
+.emotion-0 {
+  margin: unset;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  color: #21313C;
+  font-size: 18px;
+  line-height: 24px;
+  -webkit-letter-spacing: 0px;
+  -moz-letter-spacing: 0px;
+  -ms-letter-spacing: 0px;
+  letter-spacing: 0px;
+}
+
+.emotion-1 {
+  padding-top: 10px;
+  padding-right: 8px;
+  padding-left: 8px;
+  margin-bottom: 12px;
+  margin-top: 22px;
+  padding-bottom: 60px;
+  padding-right: 22px;
+}
+
+.emotion-3 {
+  position: relative;
+  border-radius: 7px;
+  -webkit-transition: border 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  transition: border 300ms ease-in-out,box-shadow 300ms ease-in-out;
+  border: 1px solid #E7EEEC;
+  box-shadow: 0 4px 10px -4px rgba(6,22,33,0.3);
+  background-color: white;
+  color: #21313C;
+}
+
+.emotion-4 {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.emotion-6 {
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  display: block;
+  margin-bottom: 2px;
+  font-weight: bold;
+  color: #21313C;
+  font-size: 14px;
+  line-height: 16px;
+}
+
+@media only screen and (max-width:1024px) {
+  .emotion-6 {
+    font-size: 16px;
+    line-height: 19px;
+  }
+}
+
+.emotion-7 {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  background-color: transparent;
+  border: 0px solid transparent;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  border-radius: 4px;
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: relative;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  z-index: 0;
+  background-color: #F9FBFA;
+  border: 1px solid #89979B;
+  box-shadow: 0px 1px 2px rgba(6,22,33,0.3);
+  color: #3D4F58;
+  font-size: 14px;
+  height: 36px;
+  margin-top: 2px;
+  height: 36px;
+  font-size: 14px;
+  width: 100%;
+  color: #21313C;
+  border-color: #B8C4C2;
+}
+
+.emotion-7:focus {
+  outline: none;
+}
+
+.emotion-7:disabled {
+  pointer-events: none;
+}
+
+.emotion-7:hover,
+.emotion-7:active {
+  background-color: #FFFFFF;
+  border: 1px solid #5D6C74;
+  box-shadow: 0px 4px 4px rgba(0,0,0,0.3),0px 0px 0px 3px #E7EEEC;
+}
+
+.emotion-7:focus {
+  background: #FFFFFF;
+  border: 1px solid #5D6C74;
+  box-shadow: 0px 4px 4px rgba(0,124,173,0.4),0px 0px 0px 3px #019EE2;
+}
+
+.emotion-7>span {
+  padding: 0;
+}
+
+@media only screen and (max-width:1024px) {
+  .emotion-7 {
+    height: 36px;
+    font-size: 16px;
+  }
+}
+
+.emotion-8 {
+  overflow: hidden;
+  border-radius: 3px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+  pointer-events: none;
+  position: relative;
+  z-index: 0;
+  font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding-left: 12px;
+  padding-right: 12px;
+}
+
+.emotion-10 {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.emotion-11 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #5D6C74;
+  height: 16px;
+  width: 16px;
+  margin-left: 6px;
+}
+
+.emotion-14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-15 {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  z-index: 0;
+}
+
+.emotion-16 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: stretch;
+  -webkit-box-align: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
+  position: relative;
+  z-index: 0;
+  width: 100%;
+}
+
+.emotion-16:hover>[data-leafygreen-ui="interaction-ring"] {
+  box-shadow: 0 0 0 3px #E7EEEC;
+}
+
+.emotion-17 {
+  width: 100%;
+  height: 100%;
+  font-family: inherit;
+  font-size: 100%;
+  width: 100%;
+  height: 36px;
+  border-radius: 4px;
+  padding-left: 12px;
+  font-size: 14px;
+  font-weight: normal;
+  font-family: Akzidenz,‘Helvetica Neue’,Helvetica,Arial,sans-serif;
+  border: 1px solid;
+  -webkit-transition: border-color 150ms ease-in-out;
+  transition: border-color 150ms ease-in-out;
+  z-index: 1;
+  outline: none;
+  color: #21313C;
+  background-color: #FFFFFF;
+  padding-right: 12px;
+  border-color: #B8C4C2;
+}
+
+.emotion-17::-webkit-input-placeholder {
+  color: #89979B;
+}
+
+.emotion-17::-moz-placeholder {
+  color: #89979B;
+}
+
+.emotion-17:-ms-input-placeholder {
+  color: #89979B;
+}
+
+.emotion-17::placeholder {
+  color: #89979B;
+}
+
+.emotion-17:disabled {
+  cursor: not-allowed;
+}
+
+.emotion-17:disabled {
+  color: #89979B;
+  background-color: #E7EEEC;
+}
+
+.emotion-17:disabled:-webkit-autofill,
+.emotion-17:disabled:-webkit-autofill:hover,
+.emotion-17:disabled:-webkit-autofill:focus {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  border: 1px solid #B8C4C2;
+  -webkit-text-fill-color: #89979B;
+  -webkit-box-shadow: 0 0 0px 1000px #E7EEEC inset;
+}
+
+.emotion-17:focus {
+  border: 1px solid #FFFFFF;
+}
+
+.emotion-18 {
+  -webkit-transition: all 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-radius: 4px;
+}
+
+.emotion-19 {
+  position: absolute;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  right: 12px;
+  z-index: 1;
+}
+
+<div>
+  <h6
+    class="emotion-0"
+  >
+    Just a test
+  </h6>
+  <div
+    class="emotion-1 emotion-2 emotion-3"
+  >
+    <form
+      class="rjsf"
+    >
+      <div
+        class="form-group field field-object"
+      >
+        <fieldset
+          id="root"
+        >
+          <div
+            class="form-group field field-string"
+          >
+            <label
+              class="control-label"
+              for="root_cloneMethod"
+            >
+              Project Cloning Method
+            </label>
+            <div
+              class="emotion-4 emotion-5"
+            >
+              <div
+                class=""
+              >
+                <label
+                  class="emotion-6"
+                  id="select-0-label"
+                >
+                  Project Cloning Method
+                </label>
+                <button
+                  aria-controls="select-0-menu"
+                  aria-describedby="select-0-description"
+                  aria-disabled="false"
+                  aria-expanded="false"
+                  aria-labelledby="select-0-label"
+                  class="emotion-7"
+                  type="button"
+                  value="legacy-ssh"
+                >
+                  <div
+                    class="emotion-8"
+                  />
+                  <div
+                    class="emotion-9"
+                  >
+                    <span>
+                      <span
+                        class="emotion-10"
+                      >
+                        Legacy SSH
+                      </span>
+                    </span>
+                    <svg
+                      alt=""
+                      aria-hidden="true"
+                      class="emotion-11"
+                      height="16"
+                      role="presentation"
+                      viewBox="0 0 16 16"
+                      width="16"
+                    >
+                      <path
+                        d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                        fill="currentColor"
+                      />
+                    </svg>
+                  </div>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="form-group field field-string"
+          >
+            <label
+              class="control-label"
+              for="root_validProjects"
+            >
+              Valid Projects
+            </label>
+            <div
+              class="emotion-4 emotion-5"
+            >
+              <div
+                class="emotion-14"
+              >
+                <div
+                  class="emotion-15"
+                >
+                  <div
+                    class="emotion-16"
+                  >
+                    <input
+                      autocomplete="on"
+                      class="emotion-17"
+                      id="text-input-0"
+                      placeholder=""
+                      required=""
+                      type="text"
+                      value="spruce"
+                    />
+                    <div
+                      class="emotion-18"
+                      data-leafygreen-ui="interaction-ring"
+                    />
+                  </div>
+                  <div
+                    class="emotion-19"
+                    data-leafygreen-ui="icon-selector"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </form>
+  </div>
+</div>
+`;

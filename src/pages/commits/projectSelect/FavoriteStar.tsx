@@ -1,7 +1,7 @@
 import { useMutation } from "@apollo/client";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { useToastContext } from "context/toast";
 import {
   AddFavoriteProjectMutation,

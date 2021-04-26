@@ -5,7 +5,7 @@ import Button, { Variant } from "@leafygreen-ui/button";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { AutoComplete, Input } from "antd";
 import { useSpawnAnalytics } from "analytics";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import { ModalContent, RegionSelector } from "components/Spawn";
 import { InputLabel } from "components/styles";
@@ -31,7 +31,7 @@ import {
   GET_MY_VOLUMES,
 } from "gql/queries";
 import { useDisableSpawnExpirationCheckbox } from "hooks";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 import {
   HostDetailsForm,
   PublicKeyForm,
@@ -39,6 +39,7 @@ import {
   useSpawnHostModalState,
 } from "./spawnHostModal/index";
 
+const { omitTypename } = string;
 interface SpawnHostModalProps {
   visible: boolean;
   onCancel: () => void;

@@ -8,8 +8,9 @@ import { usePrevious } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { PatchTab } from "types/patch";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 
+const { parseQueryString } = queryString;
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
   [PatchTab.Changes]: 1,

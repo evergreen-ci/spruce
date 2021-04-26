@@ -14,8 +14,9 @@ import {
 } from "constants/routes";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
-import { getUiUrl } from "utils/getEnvironmentVariables";
+import { environmentalVariables } from "utils";
 
+const { getUiUrl } = environmentalVariables;
 const { white } = uiColors;
 
 export const NavDropdown = () => {

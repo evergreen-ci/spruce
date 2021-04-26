@@ -5,7 +5,6 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Skeleton } from "antd";
 import get from "lodash/get";
-import queryString from "query-string";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
@@ -30,9 +29,11 @@ import {
 } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { RequiredQueryParams } from "types/task";
-import { parseQueryString } from "utils";
+import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
+
+const { parseQueryString, stringifyQuery } = queryString;
 
 const { gray } = uiColors;
 
@@ -175,12 +176,9 @@ const useRenderBody: React.FC<{
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
     replace(
-      `${pathname}?${queryString.stringify(
-        {
-          [QueryParams.LogType]: nextLogType,
-        },
-        { arrayFormat: "comma" }
-      )}`
+      `${pathname}?${stringifyQuery({
+        [QueryParams.LogType]: nextLogType,
+      })}`
     );
     taskAnalytics.sendEvent({
       name: "Select Logs Type",

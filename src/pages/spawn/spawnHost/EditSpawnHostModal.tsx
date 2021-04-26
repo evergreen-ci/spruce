@@ -7,7 +7,7 @@ import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import {
   ModalContent,
@@ -38,10 +38,11 @@ import {
 } from "pages/spawn/spawnHost/fields";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-import { omitTypename } from "utils/string";
+import { string } from "utils";
 import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
 
 const { Option } = Select;
+const { omitTypename } = string;
 
 interface EditSpawnHostModalProps {
   visible?: boolean;

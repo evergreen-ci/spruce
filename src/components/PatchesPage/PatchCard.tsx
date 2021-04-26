@@ -25,6 +25,7 @@ interface Build {
 interface Props {
   id: string;
   projectID: string;
+  projectIdentifier: string;
   description: string;
   status: string;
   createTime?: Maybe<Date>;
@@ -45,6 +46,7 @@ export const PatchCard: React.FC<Props> = ({
   description,
   createTime,
   projectID,
+  projectIdentifier,
   status,
   builds,
   canEnqueueToCommitQueue,
@@ -72,7 +74,7 @@ export const PatchCard: React.FC<Props> = ({
             to={getProjectPatchesRoute(projectID)}
             data-cy="project-patches-link"
           >
-            <b>{projectID}</b>
+            <b>{projectIdentifier}</b>
           </StyledRouterLink>
         </TimeAndProject>
       </Left>

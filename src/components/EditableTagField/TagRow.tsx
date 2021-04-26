@@ -1,9 +1,9 @@
-import React, { useReducer } from "react";
+import { useReducer, useMemo } from "react";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { Input } from "antd";
 import { v4 as uuid } from "uuid";
-import Icon from "components/icons/Icon";
+import Icon from "components/Icon";
 import { PlusButton } from "components/Spawn";
 import { InputLabel } from "components/styles";
 import { ParameterInput, InstanceTag } from "gql/generated/types";
@@ -29,8 +29,7 @@ export const TagRow: React.FC<TagRowProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, getInitialState(tag, isNewTag));
 
-  const tagId = uuid();
-
+  const tagId = useMemo(() => uuid(), []);
   const { key, value, canSave, isInputValid, shouldShowNewTag } = state;
 
   return (

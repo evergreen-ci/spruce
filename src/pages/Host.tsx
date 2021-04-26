@@ -23,11 +23,13 @@ import {
 } from "gql/generated/types";
 import { GET_HOST, GET_HOST_EVENTS } from "gql/queries/index";
 import { usePageTitle } from "hooks/usePageTitle";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { HostTable } from "pages/host/HostTable";
 import { Metadata } from "pages/host/Metadata";
 import { HostStatus } from "types/host";
-import { useUserTimeZone } from "utils/string";
-import { getPageFromSearch, getLimitFromSearch } from "utils/url";
+import { url } from "utils";
+
+const { getPageFromSearch, getLimitFromSearch } = url;
 
 export const Host: React.FC = () => {
   const dispatchToast = useToastContext();
