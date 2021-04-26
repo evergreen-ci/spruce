@@ -32,7 +32,7 @@ export const getLobsterTestLogUrl = (
   !taskId || Number.isNaN(execution) || !testId
     ? ""
     : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
-        lineNum ? `#bookmarks=${lineNum}` : ""
+        lineNum ? `#shareLine=${lineNum}` : ""
       }`;
 
 export const isLobsterLink = (url: string) => url.includes("/build/");
