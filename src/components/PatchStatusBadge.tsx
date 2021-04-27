@@ -18,6 +18,7 @@ const statusToBadgeVariant = {
   [PatchStatus.Failed]: Variant.Red,
   [PatchStatus.Started]: Variant.Yellow,
   [PatchStatus.Success]: Variant.Green,
+  [PatchStatus.Aborted]: Variant.LightGray,
 };
 
 const patchStatusToCopy = {
@@ -25,6 +26,7 @@ const patchStatusToCopy = {
   [PatchStatus.Failed]: "Failed",
   [PatchStatus.Started]: "Running",
   [PatchStatus.Success]: "Succeeded",
+  [PatchStatus.Aborted]: "Aborted",
 };
 
 const StyledBadge = styled(Badge)`

@@ -60,7 +60,7 @@ const nestedTasks = [
         buildVariant: "Windows",
         buildVariantDisplayName: "Windows 97",
         blocked: false,
-        baseStatus: "failed",
+        baseStatus: "aborted",
       },
       {
         id: "some_id_6",
