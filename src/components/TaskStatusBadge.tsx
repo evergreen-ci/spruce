@@ -19,7 +19,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.StatusBlocked]: Variant.LightGray,
   [TaskStatus.StatusPending]: Variant.LightGray,
-  [TaskStatus.Aborted]: Variant.Red,
+  [TaskStatus.Aborted]: Variant.LightGray,
   [TaskStatus.Known]: Variant.Blue,
 };
 

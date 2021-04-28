@@ -24,6 +24,7 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.SystemUnresponsive]: failurePurple,
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.StatusBlocked]: gray.dark1,
+  [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.StatusPending]: yellow.base,
   [TaskStatus.Known]: blue.base,
 };
@@ -45,6 +46,7 @@ export const mapVariantTaskStatusToDarkColor = {
   [TaskStatus.StatusBlocked]: gray.dark3,
   [TaskStatus.StatusPending]: yellow.dark3,
   [TaskStatus.Known]: blue.dark3,
+  [TaskStatus.Aborted]: gray.dark3,
 };
 
 export const Square = styled.div`

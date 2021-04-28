@@ -11,6 +11,7 @@ export enum PatchStatus {
   Failed = "failed",
   Started = "started",
   Success = "succeeded",
+  Aborted = "aborted",
 }
 
 export enum PatchTab {
