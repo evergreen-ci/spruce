@@ -9,7 +9,7 @@ describe("getLobsterTestLogUrl", () => {
       `${path}#bookmarks=10`
     );
     expect(getLobsterTestLogUrl("taskId", 44, "testId", 10)).toEqual(
-      `/lobster/evergreen/test/taskId/44/testId#bookmarks=10`
+      `/lobster/evergreen/test/taskId/44/testId#shareLine=10`
     );
     expect(getLobsterTestLogUrl("taskId", 44, "testId")).toEqual(
       `/lobster/evergreen/test/taskId/44/testId`
