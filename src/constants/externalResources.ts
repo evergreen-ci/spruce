@@ -23,6 +23,19 @@ export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
 export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
   `https://${jiraHost}/browse/${jiraKey}`;
 
+export const getLobsterTestLogUrl = (
+  taskId: string,
+  execution: number,
+  testId: string,
+  lineNum?: number
+) =>
+  !taskId || Number.isNaN(execution) || !testId
+    ? ""
+    : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
+        lineNum ? `#shareLine=${lineNum}` : ""
+      }`;
+
+export const isLobsterLink = (url: string) => url.includes("/build/");
 export const getGithubPullRequestUrl = (
   owner: string,
   repo: string,

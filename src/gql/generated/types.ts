@@ -2135,12 +2135,17 @@ export type TaskTestsQuery = {
     filteredTestCount: number;
     totalTestCount: number;
     testResults: Array<{
+      groupID?: Maybe<string>;
+      logTestName?: Maybe<string>;
+      displayTestName?: Maybe<string>;
+      testFile: string;
       id: string;
       status: string;
       baseStatus?: Maybe<string>;
-      testFile: string;
-      displayTestName?: Maybe<string>;
       duration?: Maybe<number>;
+      execution?: Maybe<number>;
+      taskId?: Maybe<string>;
+      lineNum?: Maybe<number>;
       logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
     }>;
   };

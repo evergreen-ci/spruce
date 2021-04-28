@@ -26,6 +26,7 @@ type Action =
   | { name: "Change Page Size" }
   | { name: "Change Tab"; tab: string }
   | { name: "Change Execution" }
+  | { name: "Click Logs Lobster Button" }
   | { name: "Click Logs HTML Button" }
   | { name: "Click Logs Lobster Button" }
   | { name: "Click Logs Raw Button" }

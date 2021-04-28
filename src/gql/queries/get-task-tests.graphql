@@ -1,4 +1,3 @@
-
   query TaskTests(
     $dir: SortDirection
     $id: String!
@@ -20,6 +19,10 @@
       execution: $execution
     ) {
       testResults {
+        groupID
+        logTestName
+        displayTestName
+        testFile
         id
         status
         baseStatus
@@ -30,6 +33,9 @@
           htmlDisplayURL
           rawDisplayURL
         }
+        execution
+        taskId
+        lineNum
       }
       filteredTestCount
       totalTestCount
