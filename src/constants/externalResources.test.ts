@@ -6,7 +6,7 @@ describe("getLobsterTestLogUrl", () => {
     expect(getLobsterTestLogUrl("taskId", 44, "testId", 0)).toEqual(path);
     expect(getLobsterTestLogUrl("taskId", 44, "testId")).toEqual(path);
     expect(getLobsterTestLogUrl("taskId", 44, "testId", 10)).toEqual(
-      `${path}#bookmarks=10`
+      `${path}#shareLine=10`
     );
     expect(getLobsterTestLogUrl("taskId", 44, "testId", 10)).toEqual(
       `/lobster/evergreen/test/taskId/44/testId#shareLine=10`
