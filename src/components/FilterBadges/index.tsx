@@ -6,7 +6,7 @@ import { queryString, array } from "utils";
 import { FilterBadge } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
 
-const { convertObjectToArray, removeFromArray } = array;
+const { convertObjectToArray } = array;
 const { parseQueryString } = queryString;
 
 export const FilterBadges: React.FC = () => {
@@ -65,7 +65,7 @@ export const FilterBadges: React.FC = () => {
 
 const popQueryParams = (param: string | string[], value: string) => {
   if (Array.isArray(param)) {
-    return removeFromArray(value, param);
+    return param.filter((p) => p === value);
   }
   return undefined;
 };

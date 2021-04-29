@@ -13,18 +13,6 @@ export const toggleArray = <T>(value: T, array: T[]) => {
   return tempArray;
 };
 
-// This takes an array and safely removes a value from the array
-export const removeFromArray = <T>(value: T, array: T[]) => {
-  const tempArray = [...array];
-  const idIndex = tempArray.findIndex(
-    (e) => JSON.stringify(value) === JSON.stringify(e)
-  );
-  if (idIndex !== -1) {
-    tempArray.splice(idIndex, 1);
-  }
-  return tempArray;
-};
-
 // Takes an array of objects and a key
 // and returns an object using the provided key as a key and the elements in the array as values
 export const convertArrayToObject = <T>(
