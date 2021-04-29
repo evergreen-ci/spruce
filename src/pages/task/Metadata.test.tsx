@@ -71,6 +71,7 @@ const taskQuery = {
     minQueuePosition: 0,
     projectId: "spruce",
     aborted: false,
+    expectedDuration: 123,
   },
 };
 

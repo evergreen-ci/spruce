@@ -124,8 +124,6 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             </span>
           </P2>
         )}
-        {/* Can only show the time running and eta if the task is running and 
-      it has a baseTaskDuration to calculate the eta with */}
         {status === TaskStatus.Started && expectedDuration > 0 && (
           <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
         )}
