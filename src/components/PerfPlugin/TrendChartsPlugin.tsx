@@ -1,8 +1,8 @@
 import React from "react";
+import styled from "@emotion/styled";
 import { environmentalVariables } from "utils";
 
 const { getSignalProcessingUrl } = environmentalVariables;
-import styled from "@emotion/styled";
 
 const StyledIframe = styled.iframe`
 width: 100%;
