@@ -1,12 +1,13 @@
 import React from "react";
-import {getSignalProcessingUrl} from "../../utils/environmentalVariables";
+import { environmentalVariables } from "utils";
+
+const { getSignalProcessingUrl } = environmentalVariables;
 import styled from "@emotion/styled";
 
 const StyledIframe = styled.iframe`
 width: 100%;
 height: 1000px;
 `;
-
 
 interface Props {
   taskId: string;
