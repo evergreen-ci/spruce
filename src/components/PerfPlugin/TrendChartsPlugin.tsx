@@ -1,5 +1,7 @@
 import React from "react";
-import {getSignalProcessingUrl} from "../../utils/environmentalVariables";
+import { environmentalVariables } from "utils";
+
+const { getSignalProcessingUrl } = environmentalVariables;
 
 interface Props {
   taskId: string;
