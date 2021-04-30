@@ -2188,6 +2188,7 @@ export type GetTaskQuery = {
       generatedByName?: Maybe<string>;
       isPerfPluginEnabled: boolean;
       minQueuePosition: number;
+      expectedDuration?: Maybe<number>;
       canModifyAnnotation: boolean;
       abortInfo?: Maybe<{
         user: string;

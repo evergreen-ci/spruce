@@ -60,6 +60,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     abortInfo,
     displayTask,
     project,
+    expectedDuration,
   } = task || {};
 
   const baseCommit = revision?.slice(0, 10);
@@ -123,10 +124,8 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             </span>
           </P2>
         )}
-        {/* Can only show the time running and eta if the task is running and 
-      it has a baseTaskDuration to calculate the eta with */}
-        {status === TaskStatus.Started && baseTaskDuration && (
-          <ETATimer startTime={startTime} baseTaskDuration={baseTaskDuration} />
+        {status === TaskStatus.Started && expectedDuration > 0 && (
+          <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
         )}
         {startTime && (
           <P2>

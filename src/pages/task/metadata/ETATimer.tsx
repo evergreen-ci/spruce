@@ -6,16 +6,16 @@ import { string } from "utils";
 const { msToDuration } = string;
 interface ETATimerProps {
   startTime: Date;
-  baseTaskDuration: number;
+  expectedDuration: number;
 }
 export const ETATimer: React.FC<ETATimerProps> = ({
   startTime,
-  baseTaskDuration,
+  expectedDuration,
 }) => {
   const parsedStartTime = new Date(startTime);
   const estimatedCompletionTime = addMilliseconds(
     parsedStartTime,
-    baseTaskDuration
+    expectedDuration
   );
 
   const currentTime = Date.now();
