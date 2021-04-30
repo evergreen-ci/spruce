@@ -3,7 +3,8 @@ const path = require("path");
 
 const file = path.join(__dirname, "../env", ".cmdrc.json");
 const prod = {
-  REACT_APP_SIGNAL_PROCESSING_URL: process.env.REACT_APP_SIGNAL_PROCESSING_URL,
+  REACT_APP_SIGNAL_PROCESSING_URL:
+    "https://performance-monitoring-and-analysis.server-tig.prod.corp.mongodb.com",
   REACT_APP_API_URL: "https://evergreen.mongodb.com/api",
   REACT_APP_UI_URL: "https://evergreen.mongodb.com",
   REACT_APP_GQL_URL: "https://evergreen.mongodb.com/graphql/query",
