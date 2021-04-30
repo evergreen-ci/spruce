@@ -120,7 +120,7 @@ functions:
       working_dir: spruce
       script: |
         export PATH=/opt/nodejs/node-v12.16.0-linux-x64/bin:$PATH
-        yarn eslint
+        yarn eslint:strict
 
   yarn-tsc:
     command: shell.exec
