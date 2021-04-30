@@ -9,12 +9,15 @@ interface Props {
 }
 
 const TrendChartsPlugin: React.FC<Props> = ({ taskId }) => (
-    <StyledIframe src={`${getSignalProcessingUrl()}/task/${taskId}/performanceData`} title="Task Performance Data"/>
+  <StyledIframe
+    src={`${getSignalProcessingUrl()}/task/${taskId}/performanceData`}
+    title="Task Performance Data"
+  />
 );
 
 const StyledIframe = styled.iframe`
-width: 100%;
-height: 1000px;
+  width: 100%;
+  height: 1000px;
 `;
 
 export default TrendChartsPlugin;
