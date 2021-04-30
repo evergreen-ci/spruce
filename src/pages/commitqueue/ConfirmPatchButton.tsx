@@ -24,6 +24,7 @@ export const ConfirmPatchButton: React.FC<ConfirmPatchButtonProps> = ({
         Remove Patch From Queue
       </Button>
       <ConfirmationModal
+        data-cy="commit-queue-confirmation-modal"
         open={open}
         onConfirm={() => {
           onConfirm();
