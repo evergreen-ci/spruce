@@ -21,76 +21,106 @@ describe("commit queue page", () => {
     cy.preserveCookies();
   });
 
-  it("Should render the commit queue page with one card", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_1);
-    cy.dataCy("commit-queue-card").should("have.length", 1);
+  describe(COMMIT_QUEUE_ROUTE_1, () => {
+    before(() => {
+      cy.visit(COMMIT_QUEUE_ROUTE_1);
+    });
+    it("Should render the commit queue page with one card", () => {
+      cy.dataCy("commit-queue-card").should("have.length", 1);
+    });
+
+    it("Clicking on Total Code changes should toggle a drop down table", () => {
+      cy.dataCy("code-changes-table").should("not.be.visible");
+      cy.dataCy("accordian-toggle").click();
+      cy.dataCy("code-changes-table").should("be.visible");
+    });
+
+    it("Clicking on remove a patch from the commit queue should work", () => {
+      cy.dataCy("commit-queue-card").should("exist");
+      cy.dataCy("commit-queue-patch-button").should("exist");
+      cy.dataCy("commit-queue-patch-button").click();
+      cy.dataCy("commit-queue-confirmation-modal").should("be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").within(() => {
+        cy.contains("Remove").click();
+      });
+      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-card").should("not.exist");
+    });
   });
 
-  it("Clicking on Total Code changes should toggle a drop down table", () => {
-    cy.dataCy("code-changes-table").should("not.be.visible");
-    cy.dataCy("accordian-toggle").click();
-    cy.dataCy("code-changes-table").should("be.visible");
+  describe(COMMIT_QUEUE_ROUTE_2, () => {
+    before(() => {
+      cy.visit(COMMIT_QUEUE_ROUTE_2);
+    });
+    it("visiting a page with multiple sets of code changes should have multiple tables", () => {
+      cy.dataCy("accordian-toggle").should("have.length", 4);
+    });
   });
 
-  it("Clicking on remove a patch from the commit queue should work", () => {
-    cy.dataCy("commit-queue-card").should("exist");
-    cy.dataCy("commit-queue-patch-button").should("exist");
-    cy.dataCy("commit-queue-patch-button").click();
-    cy.dataCy("commit-queue-card").should("not.exist");
+  describe(COMMIT_QUEUE_ROUTE_4, () => {
+    before(() => {
+      cy.visit(COMMIT_QUEUE_ROUTE_4);
+    });
+    it("should display the commit queue message if there is one", () => {
+      cy.dataCy("commit-queue-message").should("exist");
+      cy.dataCy("commit-queue-message").should(
+        "contain.text",
+        "This is the commit queue"
+      );
+    });
+
+    it("should display the commit description above each table", () => {
+      cy.dataCy("commit-name").each(($el, index) =>
+        cy
+          .wrap($el)
+          .contains(
+            [
+              "ramen is amazing",
+              "some other commit",
+              "crazy cool commit!!!",
+              "mega commit",
+            ][index]
+          )
+      );
+    });
   });
 
-  it("visiting a page with multiple sets of code changes should have multiple tables", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_2);
-    cy.dataCy("accordian-toggle").should("have.length", 4);
+  describe(INVALID_COMMIT_QUEUE_ROUTE, () => {
+    before(() => {
+      cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
+    });
+    it("visiting a non existent commit queue page should display an error", () => {
+      cy.dataCy("toast").should("exist");
+      cy.dataCy("toast").should(
+        "contain.text",
+        "There was an error loading the commit queue"
+      );
+    });
   });
 
-  it("visiting a non existent commit queue page should display an error", () => {
-    cy.visit(INVALID_COMMIT_QUEUE_ROUTE);
-    cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should(
-      "contain.text",
-      "There was an error loading the commit queue"
-    );
-  });
-
-  it("Clicking on remove a patch for the PR commit queue should work", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_PR);
-    cy.dataCy("commit-queue-card").should("have.length", 1);
-    cy.dataCy("commit-queue-card-title").should(
-      "have.text",
-      "patch description here"
-    );
-    cy.dataCy("commit-queue-card-title").should(
-      "have.attr",
-      "href",
-      "https://github.com/logkeeper/logkeeper/pull/1234"
-    );
-    cy.dataCy("commit-queue-patch-button").should("exist");
-    cy.dataCy("commit-queue-patch-button").click();
-    cy.dataCy("commit-queue-card").should("not.exist");
-  });
-
-  it("should display the commit queue message if there is one", () => {
-    cy.visit(COMMIT_QUEUE_ROUTE_4);
-    cy.dataCy("commit-queue-message").should("exist");
-    cy.dataCy("commit-queue-message").should(
-      "contain.text",
-      "This is the commit queue"
-    );
-  });
-
-  it("should display the commit description above each table", () => {
-    cy.dataCy("commit-name").each(($el, index) =>
-      cy
-        .wrap($el)
-        .contains(
-          [
-            "ramen is amazing",
-            "some other commit",
-            "crazy cool commit!!!",
-            "mega commit",
-          ][index]
-        )
-    );
+  describe(COMMIT_QUEUE_ROUTE_PR, () => {
+    before(() => {
+      cy.visit(COMMIT_QUEUE_ROUTE_PR);
+    });
+    it("Clicking on remove a patch for the PR commit queue should work", () => {
+      cy.dataCy("commit-queue-card").should("have.length", 1);
+      cy.dataCy("commit-queue-card-title").should(
+        "have.text",
+        "patch description here"
+      );
+      cy.dataCy("commit-queue-card-title").should(
+        "have.attr",
+        "href",
+        "https://github.com/logkeeper/logkeeper/pull/1234"
+      );
+      cy.dataCy("commit-queue-patch-button").should("exist");
+      cy.dataCy("commit-queue-patch-button").click();
+      cy.dataCy("commit-queue-confirmation-modal").should("be.visible");
+      cy.dataCy("commit-queue-confirmation-modal").within(() => {
+        cy.contains("Remove").click();
+      });
+      cy.dataCy("commit-queue-confirmation-modal").should("not.be.visible");
+      cy.dataCy("commit-queue-card").should("not.exist");
+    });
   });
 });
