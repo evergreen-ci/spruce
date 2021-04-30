@@ -1,5 +1,5 @@
 import {
-  customRenderWithRouterMatch as render,
+  renderWithRouterMatch as render,
   fireEvent,
   act,
 } from "test_utils/test-utils";

@@ -11,7 +11,7 @@ import {
 } from "gql/queries";
 import {
   act,
-  customRenderWithRouterMatch as render,
+  renderWithRouterMatch as render,
   waitFor,
 } from "test_utils/test-utils";
 import { SpawnHostButton } from "./SpawnHostButton";
