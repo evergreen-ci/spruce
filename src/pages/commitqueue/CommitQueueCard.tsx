@@ -1,7 +1,6 @@
 import React from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
@@ -16,6 +15,7 @@ import {
 } from "gql/generated/types";
 import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
+import { ConfirmPatchButton } from "./ConfirmPatchButton";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
@@ -60,8 +60,7 @@ export const CommitQueueCard: React.FC<Props> = ({
       dispatchToast.error(`Error removing item from commit queue ${err}`);
     },
   });
-  const handleEnroll = async (e): Promise<void> => {
-    e.preventDefault();
+  const handleEnroll = () => {
     removeItemFromCommitQueue({
       variables: { issue, commitQueueId },
       refetchQueries: ["CommitQueue"],
@@ -109,13 +108,11 @@ export const CommitQueueCard: React.FC<Props> = ({
           </CommitInfo>
         )}
         <CommitQueueCardActions>
-          <Button
-            data-cy="commit-queue-patch-button"
+          <ConfirmPatchButton
             disabled={loading}
-            onClick={handleEnroll}
-          >
-            Remove Patch From Queue
-          </Button>
+            onConfirm={handleEnroll}
+            commitTitle={title}
+          />
         </CommitQueueCardActions>
       </CommitQueueCardGrid>
     </Card>
