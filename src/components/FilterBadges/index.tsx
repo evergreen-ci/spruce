@@ -65,7 +65,7 @@ export const FilterBadges: React.FC = () => {
 
 const popQueryParams = (param: string | string[], value: string) => {
   if (Array.isArray(param)) {
-    return param.filter((p) => p === value);
+    return param.filter((p) => p !== value);
   }
   return undefined;
 };
