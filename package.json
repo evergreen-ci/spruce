@@ -78,7 +78,7 @@
     "@leafygreen-ui/radio-box-group": "5.0.1",
     "@leafygreen-ui/radio-group": "7.0.1",
     "@leafygreen-ui/select": "^2.0.4",
-    "@leafygreen-ui/side-nav": "5.0.2",
+    "@leafygreen-ui/side-nav": "6.0.0",
     "@leafygreen-ui/tabs": "5.0.1",
     "@leafygreen-ui/text-area": "^3.0.4",
     "@leafygreen-ui/text-input": "5.0.12",
