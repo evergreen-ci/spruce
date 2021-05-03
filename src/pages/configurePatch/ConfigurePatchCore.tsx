@@ -52,7 +52,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const { tab: urlTab } = useParams<{ tab: PatchTab | null }>();
 
   const { project, variantsTasks, id } = patch;
-  const { variants, tasks } = project;
+  const { variants } = project;
 
   const [selectedTab, selectTabHandler] = useState(
     tabToIndexMap[urlTab] || tabToIndexMap[DEFAULT_TAB]
@@ -111,7 +111,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   if (scheduledPatchId) {
     return <Redirect to={getVersionRoute(scheduledPatchId)} />;
   }
-  if (variants.length === 0 || tasks.length === 0) {
+  if (variants.length === 0) {
     return (
       // TODO: Full page error
       <PageLayout>
