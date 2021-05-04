@@ -1,5 +1,4 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
@@ -7,15 +6,8 @@ import { format } from "date-fns";
 import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
-import { useToastContext } from "context/toast";
-import {
-  ModuleCodeChangeFragment,
-  RemoveItemFromCommitQueueMutation,
-  RemoveItemFromCommitQueueMutationVariables,
-} from "gql/generated/types";
-import { REMOVE_ITEM_FROM_COMMIT_QUEUE } from "gql/mutations";
+import { ModuleCodeChangeFragment } from "gql/generated/types";
 import { CodeChangeModule } from "pages/commitqueue/codeChangesModule/CodeChangesModule";
-import { ConfirmPatchButton } from "./ConfirmPatchButton";
 
 const FORMAT_STR = "MM/dd/yy' at 'hh:mm:ss' 'aa";
 
@@ -45,79 +37,50 @@ export const CommitQueueCard: React.FC<Props> = ({
   owner,
   repo,
   moduleCodeChanges,
-  commitQueueId,
-}) => {
-  const dispatchToast = useToastContext();
-
-  const [removeItemFromCommitQueue, { loading }] = useMutation<
-    RemoveItemFromCommitQueueMutation,
-    RemoveItemFromCommitQueueMutationVariables
-  >(REMOVE_ITEM_FROM_COMMIT_QUEUE, {
-    onCompleted: () => {
-      dispatchToast.success("Successfully removed item from commit queue");
-    },
-    onError: (err) => {
-      dispatchToast.error(`Error removing item from commit queue ${err}`);
-    },
-  });
-  const handleEnroll = () => {
-    removeItemFromCommitQueue({
-      variables: { issue, commitQueueId },
-      refetchQueries: ["CommitQueue"],
-    });
-  };
-  return (
-    <Card data-cy="commit-queue-card">
-      <Subtitle>{index}.</Subtitle>
-      <CommitQueueCardGrid>
-        {patchId ? (
-          <CommitInfo>
-            {versionId !== "" || issue === "" || Number.isNaN(Number(issue)) ? (
-              <CardTitle
-                data-cy="commit-queue-card-title"
-                to={getVersionRoute(patchId)}
-              >
-                {title}
-              </CardTitle>
-            ) : (
-              <PRCardTitle
-                data-cy="commit-queue-card-title"
-                href={getGithubPullRequestUrl(owner, repo, issue)}
-              >
-                {title}
-              </PRCardTitle>
-            )}
-            <CardMetaData>
-              By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
-            </CardMetaData>
-            <Container>
-              {moduleCodeChanges?.map((moduleCodeChange) => (
-                <CodeChangeModule
-                  key={moduleCodeChange.rawLink}
-                  moduleCodeChange={moduleCodeChange}
-                />
-              ))}
-            </Container>
-          </CommitInfo>
-        ) : (
-          // should only get here for pull requests not processed yet (ie. added in the past minute)
-          <CommitInfo>
-            <PRCardTitle href={getGithubPullRequestUrl(owner, repo, issue)}>
-              Pull Request #{issue}
+}) => (
+  <Card data-cy="commit-queue-card">
+    <Subtitle>{index}.</Subtitle>
+    <CommitQueueCardGrid>
+      {patchId ? (
+        <CommitInfo>
+          {versionId !== "" || issue === "" || Number.isNaN(Number(issue)) ? (
+            <CardTitle
+              data-cy="commit-queue-card-title"
+              to={getVersionRoute(patchId)}
+            >
+              {title}
+            </CardTitle>
+          ) : (
+            <PRCardTitle
+              data-cy="commit-queue-card-title"
+              href={getGithubPullRequestUrl(owner, repo, issue)}
+            >
+              {title}
             </PRCardTitle>
-          </CommitInfo>
-        )}
-        <CommitQueueCardActions>
-          <ConfirmPatchButton
-            disabled={loading}
-            onConfirm={handleEnroll}
-            commitTitle={title}
-          />
-        </CommitQueueCardActions>
-      </CommitQueueCardGrid>
-    </Card>
-  );
-};
+          )}
+          <CardMetaData>
+            By <b>{author}</b> on {format(new Date(commitTime), FORMAT_STR)}
+          </CardMetaData>
+          <Container>
+            {moduleCodeChanges?.map((moduleCodeChange) => (
+              <CodeChangeModule
+                key={moduleCodeChange.rawLink}
+                moduleCodeChange={moduleCodeChange}
+              />
+            ))}
+          </Container>
+        </CommitInfo>
+      ) : (
+        // should only get here for pull requests not processed yet (ie. added in the past minute)
+        <CommitInfo>
+          <PRCardTitle href={getGithubPullRequestUrl(owner, repo, issue)}>
+            Pull Request #{issue}
+          </PRCardTitle>
+        </CommitInfo>
+      )}
+    </CommitQueueCardGrid>
+  </Card>
+);
 
 const Card = styled.div`
   display: flex;
@@ -158,10 +121,6 @@ const CommitQueueCardGrid = styled.div`
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   width: 100%;
-`;
-
-const CommitQueueCardActions = styled.div`
-  grid-area: 1 / 3 / 2 / 4;
 `;
 
 const Container = styled.div`
