@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled/macro";
 import Code from "@leafygreen-ui/code";
 import { Collapse } from "antd";
-import { StyledLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { getTaskRoute } from "constants/routes";
 import { HostEventLogData } from "gql/generated/types";
 import { HostEvent, HostMonitorOp } from "types/host";
@@ -211,12 +211,12 @@ export const getHostEventString = (
         <div data-cy="host-running-task-set">
           {" "}
           Assigned to run task{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="host-running-task-set-link"
-            href={getTaskRoute(data.taskId)}
+            to={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
-          </StyledLink>
+          </StyledRouterLink>
         </div>
       );
     case HostEvent.HostRunningTaskCleared:
@@ -224,12 +224,12 @@ export const getHostEventString = (
         <div data-cy="host-running-task-cleared">
           {" "}
           Current running task cleared (was:
-          <StyledLink
+          <StyledRouterLink
             data-cy="host-running-task-cleared-link"
-            href={getTaskRoute(data.taskId)}
+            to={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
-          </StyledLink>
+          </StyledRouterLink>
           )
         </div>
       );
@@ -282,12 +282,12 @@ export const getHostEventString = (
         <div data-cy="host-task-finished">
           {" "}
           Task{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="host-task-finished-link"
-            href={getTaskRoute(data.taskId)}
+            to={getTaskRoute(data.taskId)}
           >
             {shortenString(data.taskId, false, 50, "...")}
-          </StyledLink>{" "}
+          </StyledRouterLink>{" "}
           completed with status:
           <b> {data.taskStatus}</b>{" "}
         </div>
