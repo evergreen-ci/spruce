@@ -1,0 +1,21 @@
+#import "../fragments/jiraTicket.graphql"
+
+query GetIssues($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    annotation {
+      issues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+    }
+  }
+}
+

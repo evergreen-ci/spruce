@@ -2,11 +2,15 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useToastContext } from "context/toast";
 import {
+  GetCustomCreatedIssuesQuery,
+  GetCustomCreatedIssuesQueryVariables,
   GetCreatedTicketsQuery,
   GetCreatedTicketsQueryVariables,
-  IssueLink,
 } from "gql/generated/types";
-import { GET_CREATED_TICKETS } from "gql/queries";
+import {
+  GET_CREATED_TICKETS,
+  GET_JIRA_CUSTOM_CREATED_ISSUES,
+} from "gql/queries";
 import { CustomCreatedTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { FileTicket } from "./BBFileTicket";
@@ -61,30 +65,44 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
 
 // CUSTOM CREATED TICKETS
 interface CustomCreatedTicketProps {
-  tickets: IssueLink[];
   taskId: string;
   execution: number;
 }
 
 export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
-  tickets,
   taskId,
   execution,
-}) => (
-  <>
-    {tickets?.length > 0 && (
-      <>
-        <TitleAndButtons>
-          {/* @ts-expect-error */}
-          <TicketsTitle>Tickets Created From This Task</TicketsTitle>
-        </TitleAndButtons>
-        <CustomCreatedTicketsTable createdIssues={tickets} />
-      </>
-    )}
-    <TitleAndButtons>
-      {/* @ts-expect-error */}
-      <TicketsTitle>Create a New Ticket</TicketsTitle>
-      <FileTicket taskId={taskId} execution={execution} tickets={tickets} />
-    </TitleAndButtons>
-  </>
-);
+}) => {
+  const dispatchToast = useToastContext();
+  const { data } = useQuery<
+    GetCustomCreatedIssuesQuery,
+    GetCustomCreatedIssuesQueryVariables
+  >(GET_JIRA_CUSTOM_CREATED_ISSUES, {
+    variables: { taskId, execution },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading the ticket information from Jira: ${err.message}`
+      );
+    },
+  });
+  const tickets = data?.task?.annotation?.createdIssues;
+
+  return (
+    <>
+      {tickets?.length > 0 && (
+        <>
+          <TitleAndButtons>
+            {/* @ts-expect-error */}
+            <TicketsTitle>Tickets Created From This Task</TicketsTitle>
+          </TitleAndButtons>
+          <CustomCreatedTicketsTable createdIssues={tickets} />
+        </>
+      )}
+      <TitleAndButtons>
+        {/* @ts-expect-error */}
+        <TicketsTitle>Create a New Ticket</TicketsTitle>
+        <FileTicket taskId={taskId} execution={execution} />
+      </TitleAndButtons>
+    </>
+  );
+};

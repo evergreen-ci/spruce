@@ -1881,6 +1881,72 @@ export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
+export type GetCustomCreatedIssuesQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetCustomCreatedIssuesQuery = {
+  task?: Maybe<{
+    annotation?: Maybe<{
+      createdIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<JiraTicketFragment>;
+          }>
+        >
+      >;
+    }>;
+  }>;
+};
+
+export type GetIssuesQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetIssuesQuery = {
+  task?: Maybe<{
+    annotation?: Maybe<{
+      issues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<JiraTicketFragment>;
+          }>
+        >
+      >;
+    }>;
+  }>;
+};
+
+export type GetSuspectedIssuesQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetSuspectedIssuesQuery = {
+  task?: Maybe<{
+    annotation?: Maybe<{
+      suspectedIssues?: Maybe<
+        Array<
+          Maybe<{
+            issueKey?: Maybe<string>;
+            url?: Maybe<string>;
+            source: { author: string; time: Date; requester: string };
+            jiraTicket?: Maybe<JiraTicketFragment>;
+          }>
+        >
+      >;
+    }>;
+  }>;
+};
+
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = { myHosts: Array<BaseSpawnHostFragment> };
@@ -2242,19 +2308,7 @@ export type GetTaskQuery = {
         timeoutType?: Maybe<string>;
         oomTracker: { detected: boolean; pids?: Maybe<Array<Maybe<number>>> };
       }>;
-      annotation?: Maybe<
-        {
-          issues?: Maybe<
-            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
-          >;
-          suspectedIssues?: Maybe<
-            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
-          >;
-          createdIssues?: Maybe<
-            Array<Maybe<{ jiraTicket?: Maybe<JiraTicketFragment> }>>
-          >;
-        } & AnnotationFragment
-      >;
+      annotation?: Maybe<AnnotationFragment>;
     } & BaseTaskFragment
   >;
 };

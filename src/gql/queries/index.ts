@@ -12,6 +12,9 @@ import GET_EVENT_LOGS from "./get-event-logs.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
 import GET_HOST from "./get-host.graphql";
 import GET_INSTANCE_TYPES from "./get-instance-types.graphql";
+import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.graphql";
+import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
+import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
 import GET_MY_VOLUMES from "./get-my-volumes.graphql";
 import GET_OTHER_USER from "./get-other-user.graphql";
@@ -65,6 +68,9 @@ export {
   GET_DISTROS,
   GET_MY_VOLUMES,
   GET_INSTANCE_TYPES,
+  GET_JIRA_SUSPECTED_ISSUES,
+  GET_JIRA_ISSUES,
+  GET_JIRA_CUSTOM_CREATED_ISSUES,
   GET_SPRUCE_CONFIG,
   GET_SPAWN_EXPIRATION_INFO,
   GET_SPAWN_TASK,

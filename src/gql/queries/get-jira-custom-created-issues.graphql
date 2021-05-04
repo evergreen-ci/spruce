@@ -1,0 +1,20 @@
+#import "../fragments/jiraTicket.graphql"
+
+query GetCustomCreatedIssues($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    annotation {
+      createdIssues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+    }
+  }
+}

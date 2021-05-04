@@ -1,15 +1,24 @@
 import React, { useState } from "react";
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tooltip } from "antd";
 import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
-import { IssueLink } from "gql/generated/types";
+import { useToastContext } from "context/toast";
+import {
+  GetIssuesQuery,
+  GetIssuesQueryVariables,
+  GetSuspectedIssuesQuery,
+  GetSuspectedIssuesQueryVariables,
+  IssueLink,
+} from "gql/generated/types";
+import { GET_JIRA_ISSUES, GET_JIRA_SUSPECTED_ISSUES } from "gql/queries";
 import { AddIssueModal } from "./AddIssueModal";
 import { AnnotationTicketsTable } from "./AnnotationTicketsTable";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 
-interface Props {
+interface AnnotationTicketsProps {
   taskId: string;
   execution: number;
   tickets: IssueLink[];
@@ -19,7 +28,7 @@ interface Props {
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const AnnotationTickets: React.FC<Props> = ({
+export const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
   taskId,
   execution,
@@ -88,6 +97,94 @@ export const AnnotationTickets: React.FC<Props> = ({
         isIssue={isIssue}
       />
     </>
+  );
+};
+
+interface IssuesProps {
+  taskId: string;
+  execution: number;
+  isIssue: boolean;
+  userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const Issues: React.FC<IssuesProps> = ({
+  taskId,
+  execution,
+  isIssue,
+  userCanModify,
+  selectedRowKey,
+  setSelectedRowKey,
+}) => {
+  const dispatchToast = useToastContext();
+  // Query Jira ticket data
+  const { data } = useQuery<GetIssuesQuery, GetIssuesQueryVariables>(
+    GET_JIRA_ISSUES,
+    {
+      variables: { taskId, execution },
+      onError: (err) => {
+        dispatchToast.error(
+          `There was an error loading the ticket information from Jira: ${err.message}`
+        );
+      },
+    }
+  );
+
+  return (
+    <AnnotationTickets
+      tickets={data?.task?.annotation?.issues}
+      isIssue={isIssue}
+      taskId={taskId}
+      execution={execution}
+      userCanModify={userCanModify}
+      selectedRowKey={selectedRowKey}
+      setSelectedRowKey={setSelectedRowKey}
+    />
+  );
+};
+
+interface SuspectedIssuesProps {
+  taskId: string;
+  execution: number;
+  isIssue: boolean;
+  userCanModify: boolean;
+  selectedRowKey: string;
+  setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
+}
+
+export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
+  taskId,
+  execution,
+  isIssue,
+  userCanModify,
+  selectedRowKey,
+  setSelectedRowKey,
+}) => {
+  const dispatchToast = useToastContext();
+  // Query Jira ticket data
+  const { data } = useQuery<
+    GetSuspectedIssuesQuery,
+    GetSuspectedIssuesQueryVariables
+  >(GET_JIRA_SUSPECTED_ISSUES, {
+    variables: { taskId, execution },
+    onError: (err) => {
+      dispatchToast.error(
+        `There was an error loading the ticket information from Jira: ${err.message}`
+      );
+    },
+  });
+
+  return (
+    <AnnotationTickets
+      tickets={data?.task?.annotation?.suspectedIssues}
+      isIssue={isIssue}
+      taskId={taskId}
+      execution={execution}
+      userCanModify={userCanModify}
+      selectedRowKey={selectedRowKey}
+      setSelectedRowKey={setSelectedRowKey}
+    />
   );
 };
 

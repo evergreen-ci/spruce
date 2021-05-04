@@ -2695,7 +2695,11 @@
     "@leafygreen-ui/popover" "^7.1.0"
     react-transition-group "^4.4.1"
 
+<<<<<<< HEAD
 "@leafygreen-ui/modal@6.0.2", "@leafygreen-ui/modal@^6.0.2":
+=======
+"@leafygreen-ui/modal@6.0.2":
+>>>>>>> 7fd13d7... .
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/modal/-/modal-6.0.2.tgz#127e25be0911d88b59d44d1b58fec13dee034d76"
   integrity sha512-7BpiRVIoo3c2oKisDLA8GsFs05G/Q1Kb0/SwwNI5iyWvY7d98onGxs40I05GL/J16QGP/A5UOuGq5NS2iWyfyg==
