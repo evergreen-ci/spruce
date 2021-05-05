@@ -49,7 +49,7 @@ const columns = [
     render: (_, host: MyHost) =>
       host?.distro?.isVirtualWorkStation ? (
         <FlexContainer>
-          <WordBreak>{host.displayName || host.id}</WordBreak>
+          <NoWrap>{host.displayName || host.id}</NoWrap>
           <WorkstationBadge>WORKSTATION</WorkstationBadge>
         </FlexContainer>
       ) : (
@@ -102,4 +102,8 @@ const FlexContainer = styled.div`
 
 const WorkstationBadge = styled(Badge)`
   margin-left: 5px;
+`;
+
+const NoWrap = styled.span`
+  white-space: nowrap;
 `;
