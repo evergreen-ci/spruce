@@ -46,11 +46,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     <div data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {annotation?.webhookConfigured ? (
-        <CustomCreatedTickets
-          // tickets={annotation?.createdIssues}
-          taskId={taskId}
-          execution={execution}
-        />
+        <CustomCreatedTickets taskId={taskId} execution={execution} />
       ) : (
         <CreatedTickets
           taskId={taskId}

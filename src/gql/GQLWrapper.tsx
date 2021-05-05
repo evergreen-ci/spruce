@@ -46,6 +46,13 @@ const cache = new InMemoryCache({
     },
     Task: {
       keyFields: ["execution", "id"],
+      fields: {
+        annotation: {
+          merge(existing, incoming, { mergeObjects }) {
+            return mergeObjects(existing, incoming);
+          },
+        },
+      },
     },
     Patch: {
       fields: {

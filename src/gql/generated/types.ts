@@ -1900,7 +1900,7 @@ export type GetCustomCreatedIssuesQuery = {
           Maybe<{
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
+            source?: Maybe<{ author: string; time: Date; requester: string }>;
             jiraTicket?: Maybe<JiraTicketFragment>;
           }>
         >
@@ -1924,7 +1924,7 @@ export type GetIssuesQuery = {
           Maybe<{
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
+            source?: Maybe<{ author: string; time: Date; requester: string }>;
             jiraTicket?: Maybe<JiraTicketFragment>;
           }>
         >
@@ -1948,7 +1948,7 @@ export type GetSuspectedIssuesQuery = {
           Maybe<{
             issueKey?: Maybe<string>;
             url?: Maybe<string>;
-            source: { author: string; time: Date; requester: string };
+            source?: Maybe<{ author: string; time: Date; requester: string }>;
             jiraTicket?: Maybe<JiraTicketFragment>;
           }>
         >

@@ -28,7 +28,7 @@ interface AnnotationTicketsProps {
   setSelectedRowKey: React.Dispatch<React.SetStateAction<string>>;
 }
 
-export const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
+const AnnotationTickets: React.FC<AnnotationTicketsProps> = ({
   tickets,
   taskId,
   execution,
@@ -175,9 +175,10 @@ export const SuspectedIssues: React.FC<SuspectedIssuesProps> = ({
     },
   });
 
+  const suspectedIssues = data?.task?.annotation?.suspectedIssues;
   return (
     <AnnotationTickets
-      tickets={data?.task?.annotation?.suspectedIssues}
+      tickets={suspectedIssues}
       isIssue={isIssue}
       taskId={taskId}
       execution={execution}

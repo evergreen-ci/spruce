@@ -101,7 +101,7 @@ export const CustomCreatedTickets: React.FC<CustomCreatedTicketProps> = ({
       <TitleAndButtons>
         {/* @ts-expect-error */}
         <TicketsTitle>Create a New Ticket</TicketsTitle>
-        <FileTicket taskId={taskId} execution={execution} />
+        <FileTicket taskId={taskId} execution={execution} tickets={tickets} />
       </TitleAndButtons>
     </>
   );
