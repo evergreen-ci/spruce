@@ -1693,7 +1693,11 @@ export type GetAnnotationEventDataQueryVariables = Exact<{
 }>;
 
 export type GetAnnotationEventDataQuery = {
-  task?: Maybe<{ annotation?: Maybe<AnnotationFragment> }>;
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    annotation?: Maybe<AnnotationFragment>;
+  }>;
 };
 
 export type BuildBaronQueryVariables = Exact<{
@@ -1888,6 +1892,8 @@ export type GetCustomCreatedIssuesQueryVariables = Exact<{
 
 export type GetCustomCreatedIssuesQuery = {
   task?: Maybe<{
+    id: string;
+    execution: number;
     annotation?: Maybe<{
       createdIssues?: Maybe<
         Array<
@@ -1910,6 +1916,8 @@ export type GetIssuesQueryVariables = Exact<{
 
 export type GetIssuesQuery = {
   task?: Maybe<{
+    id: string;
+    execution: number;
     annotation?: Maybe<{
       issues?: Maybe<
         Array<
@@ -1932,6 +1940,8 @@ export type GetSuspectedIssuesQueryVariables = Exact<{
 
 export type GetSuspectedIssuesQuery = {
   task?: Maybe<{
+    id: string;
+    execution: number;
     annotation?: Maybe<{
       suspectedIssues?: Maybe<
         Array<
