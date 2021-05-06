@@ -45,6 +45,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
   const columns = [
     {
       title: "Ticket",
+      width: "70%",
       render: (
         text: string,
         { issueKey, url, source, jiraTicket }: AnnotationTicket
@@ -267,8 +268,9 @@ export const StyledText = styled.div`
 
 const BtnContainer = styled.div`
   white-space: nowrap;
-  padding: 20px;
+  margin-bottom: 35px;
   float: right;
+  white-space: nowrap;
 `;
 
 // @ts-expect-error

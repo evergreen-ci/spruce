@@ -154,7 +154,7 @@ const StyledBadge = styled(Badge)`
 export const BottomMetaDataWrapper = styled.div`
   margin-top: 7px;
   display: grid;
-  grid-template-columns: 1fr 1fr 2fr 1fr;
+  grid-template-columns: 1fr 1fr 2fr;
   gap: 10px;
   grid-template-rows: 1fr;
   grid-row-gap: 0px;
