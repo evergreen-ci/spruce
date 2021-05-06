@@ -33,7 +33,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
   userCanModify,
 }) => {
   const [selectedRowKey, setSelectedRowKey] = useState("");
-  const [createdTicketsCount, setCreatedTicketsCount] = useState<number>(0);
 
   const { data } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
   const spruceConfig = data?.spruceConfig;
@@ -56,8 +55,6 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         <CreatedTickets
           taskId={taskId}
           execution={execution}
-          setCreatedTicketsCount={setCreatedTicketsCount}
-          createdTicketsCount={createdTicketsCount}
           buildBaronConfigured={bbData?.buildBaronConfigured}
         />
       )}
