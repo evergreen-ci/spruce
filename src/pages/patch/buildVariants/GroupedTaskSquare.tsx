@@ -26,7 +26,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 
   const filteredRoute = `${getVersionRoute(id, {
     statuses,
-    variant,
+    variant: `^${variant}$`,
     page: 0,
   })}`;
   const multipleStatuses = statuses.length > 1;
