@@ -5,7 +5,9 @@ import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
+import { color as colorUtil } from "utils";
 
+const { hexToRGBA } = colorUtil;
 interface Props {
   count: number;
   statuses: string[];
@@ -59,7 +61,7 @@ interface TaskSquareProps {
 const TaskSquare = styled.div<TaskSquareProps>`
   ${({ color }) =>
     `
-    background-color: ${color}80;
+    background-color: ${hexToRGBA(color, 0.5)};
     `};
   margin: 0 3px;
   border-radius: 3px;
