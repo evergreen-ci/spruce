@@ -17413,7 +17413,7 @@ typedarray@^0.0.6:
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript-styled-plugin@^0.16.0:
+typescript-styled-plugin@0.16.0:
   version "0.16.0"
   resolved "https://registry.yarnpkg.com/typescript-styled-plugin/-/typescript-styled-plugin-0.16.0.tgz#b1bde49e259c9dc312afbc3e683e9e7e413f24d0"
   integrity sha512-I3UfkGzdy1js95EDtYMatBzDINOCWAW4E0+sE4+MG8gy3gaUyQOSi5NhvVNkF3zqWXY+z43g6MnmYy8QzqFhVQ==
