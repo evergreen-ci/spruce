@@ -36,7 +36,7 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
     },
   });
   const length = data?.bbGetCreatedTickets?.length ?? 0;
-
+  const tickets = data?.bbGetCreatedTickets;
   return (
     <>
       {length > 0 && (
@@ -45,18 +45,14 @@ export const CreatedTickets: React.FC<CreatedTicketsProps> = ({
             {/* @ts-expect-error */}
             <TicketsTitle>Tickets Created From This Task </TicketsTitle>
           </TitleAndButtons>
-          <BuildBaronTable jiraIssues={data?.bbGetCreatedTickets} />{" "}
+          <BuildBaronTable jiraIssues={tickets} />{" "}
         </>
       )}
       {buildBaronConfigured && (
         <TitleAndButtons>
           {/* @ts-expect-error */}
           {length === 0 && <TicketsTitle>Create a New Ticket</TicketsTitle>}
-          <FileTicket
-            taskId={taskId}
-            execution={execution}
-            tickets={data?.bbGetCreatedTickets}
-          />
+          <FileTicket taskId={taskId} execution={execution} tickets={tickets} />
         </TitleAndButtons>
       )}
     </>
