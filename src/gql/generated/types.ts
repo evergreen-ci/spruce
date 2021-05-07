@@ -1214,7 +1214,7 @@ export type Note = {
 export type IssueLink = {
   issueKey?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["String"]>;
-  source: Source;
+  source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
 };
 
@@ -1238,7 +1238,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
@@ -1247,7 +1247,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
@@ -1256,7 +1256,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
