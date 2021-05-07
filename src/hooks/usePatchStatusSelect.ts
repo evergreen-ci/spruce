@@ -1,5 +1,5 @@
 import { useEffect, useReducer, useState } from "react";
-import { PatchBuildVariant } from "gql/generated/types";
+import { GroupedBuildVariant } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { environmentalVariables } from "utils";
 
@@ -54,7 +54,7 @@ type HookResult = [
   }
 ];
 
-type UpdatedPatchBuildVariantType = Omit<PatchBuildVariant, "tasks"> & {
+type UpdatedPatchBuildVariantType = Omit<GroupedBuildVariant, "tasks"> & {
   tasks?: {
     id: string;
     execution: number;

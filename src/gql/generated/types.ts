@@ -30,7 +30,7 @@ export type Query = {
   taskFiles: TaskFiles;
   user: User;
   taskLogs: RecentTaskLogs;
-  patchBuildVariants: Array<PatchBuildVariant>;
+  patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
   spruceConfig?: Maybe<SpruceConfig>;
@@ -50,6 +50,7 @@ export type Query = {
   taskQueueDistros: Array<TaskQueueDistro>;
   buildBaron: BuildBaron;
   bbGetCreatedTickets: Array<JiraTicket>;
+  mainlineCommits: Array<MainlineCommit>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -160,6 +161,10 @@ export type QueryBuildBaronArgs = {
 
 export type QueryBbGetCreatedTicketsArgs = {
   taskId: Scalars["String"];
+};
+
+export type QueryMainlineCommitsArgs = {
+  options: MainlineCommitsOptions;
 };
 
 export type Mutation = {
@@ -359,6 +364,40 @@ export type MutationEditSpawnHostArgs = {
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type MainlineCommit = {
+  version?: Maybe<Version>;
+  versionMeta?: Maybe<VersionMeta>;
+};
+
+export type VersionMeta = {
+  id: Scalars["String"];
+  createTime: Scalars["Time"];
+  author: Scalars["String"];
+  message: Scalars["String"];
+};
+
+export type Version = {
+  id: Scalars["String"];
+  createTime: Scalars["Time"];
+  startTime: Scalars["Time"];
+  finishTime: Scalars["Time"];
+  revision: Scalars["String"];
+  author: Scalars["String"];
+  message: Scalars["String"];
+  status: Scalars["String"];
+  order: Scalars["Int"];
+  buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+};
+
+export type MainlineCommitsOptions = {
+  projectID: Scalars["String"];
+  variants?: Maybe<Array<Scalars["String"]>>;
+  tasks?: Maybe<Array<Scalars["String"]>>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
+  limit?: Maybe<Scalars["Int"]>;
+  page?: Maybe<Scalars["Int"]>;
 };
 
 export enum SpawnHostStatusActions {
@@ -623,19 +662,10 @@ export type PatchTasks = {
   count: Scalars["Int"];
 };
 
-export type PatchBuildVariant = {
+export type GroupedBuildVariant = {
   variant: Scalars["String"];
   displayName: Scalars["String"];
   tasks?: Maybe<Array<Maybe<Task>>>;
-};
-
-export type PatchBuildVariantTask = {
-  id: Scalars["ID"];
-  execution: Scalars["Int"];
-  displayName: Scalars["String"];
-  name: Scalars["String"];
-  status: Scalars["String"];
-  baseStatus?: Maybe<Scalars["String"]>;
 };
 
 export type TaskFiles = {
@@ -1214,7 +1244,7 @@ export type Note = {
 export type IssueLink = {
   issueKey?: Maybe<Scalars["String"]>;
   url?: Maybe<Scalars["String"]>;
-  source: Source;
+  source?: Maybe<Source>;
   jiraTicket?: Maybe<JiraTicket>;
 };
 
@@ -1238,7 +1268,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
@@ -1247,7 +1277,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
@@ -1256,7 +1286,7 @@ export type AnnotationFragment = {
       Maybe<{
         issueKey?: Maybe<string>;
         url?: Maybe<string>;
-        source: { author: string; time: Date; requester: string };
+        source?: Maybe<{ author: string; time: Date; requester: string }>;
       }>
     >
   >;
