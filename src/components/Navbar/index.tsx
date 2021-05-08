@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
 import { Layout } from "antd";

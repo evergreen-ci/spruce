@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Divider } from "antd";
 
 const StyledDivider = styled(Divider)`

@@ -1,6 +1,6 @@
 import React from "react";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";

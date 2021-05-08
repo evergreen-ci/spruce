@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
