@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { TaskStatus } from "types/task";
 

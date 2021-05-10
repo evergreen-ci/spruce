@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Body } from "@leafygreen-ui/typography";
 import { Table, Skeleton, Input } from "antd";

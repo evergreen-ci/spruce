@@ -1,5 +1,5 @@
 import { css } from "@emotion/react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Link } from "react-router-dom";
 

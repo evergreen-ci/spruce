@@ -1,4 +1,4 @@
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 
 export const PageWrapper = styled.div`
   padding: 0 36px;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Location } from "history";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { useAuthDispatchContext, useAuthStateContext } from "context/auth";
