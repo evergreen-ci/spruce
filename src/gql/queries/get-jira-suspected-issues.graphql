@@ -1,0 +1,22 @@
+#import "../fragments/jiraTicket.graphql"
+
+query GetSuspectedIssues($taskId: String!, $execution: Int) {
+  task(taskId: $taskId, execution: $execution) {
+    id
+    execution
+    annotation {
+      suspectedIssues {
+        issueKey
+        url
+        source {
+        author
+        time
+        requester
+        }
+        jiraTicket {
+          ...jiraTicket
+        }
+      }
+    }
+  }
+}

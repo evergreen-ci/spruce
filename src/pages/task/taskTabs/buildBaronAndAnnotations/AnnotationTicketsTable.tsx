@@ -8,7 +8,7 @@ import { useAnnotationAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { useToastContext } from "context/toast";
 import {
-  GetTaskQuery,
+  GetIssuesQuery,
   MoveAnnotationIssueMutation,
   MoveAnnotationIssueMutationVariables,
   RemoveAnnotationIssueMutation,
@@ -17,7 +17,7 @@ import {
 import { MOVE_ANNOTATION, REMOVE_ANNOTATION } from "gql/mutations";
 import { AnnotationTicketRow } from "./BBComponents";
 
-type AnnotationTickets = GetTaskQuery["task"]["annotation"]["issues"];
+type AnnotationTickets = GetIssuesQuery["task"]["annotation"]["issues"];
 type AnnotationTicket = AnnotationTickets[0];
 interface AnnotationTicketsProps {
   jiraIssues: AnnotationTickets;

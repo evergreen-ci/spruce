@@ -10,7 +10,7 @@ import {
 } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
 import { AnnotationNote } from "./AnnotationNote";
-import { AnnotationTickets } from "./AnnotationTickets";
+import { Issues, SuspectedIssues } from "./AnnotationTickets";
 import { TicketsTitle, TitleAndButtons } from "./BBComponents";
 import { CreatedTickets, CustomCreatedTickets } from "./BBCreatedTickets";
 import { BuildBaronTable } from "./BuildBaronTable";
@@ -46,11 +46,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
     <div data-cy="bb-content">
       {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
       {annotation?.webhookConfigured ? (
-        <CustomCreatedTickets
-          tickets={annotation?.createdIssues}
-          taskId={taskId}
-          execution={execution}
-        />
+        <CustomCreatedTickets taskId={taskId} execution={execution} />
       ) : (
         <CreatedTickets
           taskId={taskId}
@@ -65,8 +61,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         execution={execution}
         userCanModify={userCanModify}
       />
-      <AnnotationTickets
-        tickets={annotation?.issues}
+      <Issues
         isIssue
         taskId={taskId}
         execution={execution}
@@ -74,8 +69,7 @@ export const BuildBaronContent: React.FC<BuildBaronCoreProps> = ({
         selectedRowKey={selectedRowKey}
         setSelectedRowKey={setSelectedRowKey}
       />
-      <AnnotationTickets
-        tickets={annotation?.suspectedIssues}
+      <SuspectedIssues
         isIssue={false}
         taskId={taskId}
         execution={execution}
