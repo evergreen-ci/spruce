@@ -98,21 +98,6 @@ query GetTask($taskId: String!, $execution: Int) {
     canModifyAnnotation
     annotation {
       ...annotation
-      issues {
-        jiraTicket {
-          ...jiraTicket
-        }
-      }
-      suspectedIssues {
-        jiraTicket {
-          ...jiraTicket
-        }
-      }
-      createdIssues {
-        jiraTicket {
-          ...jiraTicket
-        }
-      }
-      }
     }
+  }
 }

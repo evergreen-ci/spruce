@@ -1,6 +1,6 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import Card from "@leafygreen-ui/card";
 import { Skeleton } from "antd";
 import { ErrorWrapper } from "components/ErrorWrapper";

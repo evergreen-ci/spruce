@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Tabs, Tab } from "@leafygreen-ui/tabs";
 
 type StyledTabsProps = React.ComponentProps<typeof Tabs>;

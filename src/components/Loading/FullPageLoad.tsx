@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 
 export const FullPageLoad: React.FC = () => (
   <FullPage>

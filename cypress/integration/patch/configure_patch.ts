@@ -2,6 +2,7 @@
 // / <reference path="../../support/index.d.ts" />
 
 const unactivatedPatchId = "5e6bb9e23066155a993e0f1a";
+const patchWithDisplayTasks = "5e6bb9e23066155a993e0f1b";
 const patch = {
   id: "5e6bb9e23066155a993e0f1a",
   description: "test meee",
@@ -663,6 +664,16 @@ describe("Configure Patch Page", () => {
         });
         cy.get("[data-cy-selected=true]").its("length").should("eq", 10);
       });
+    });
+  });
+  describe("visiting a configure page with display tasks", () => {
+    before(() => {
+      cy.login();
+      cy.preserveCookies();
+    });
+    it("should show display tasks if there are any", () => {
+      cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
+      cy.dataCy("configurePatch-display_task").should("exist");
     });
   });
   describe("Indeterminate task checkbox states", () => {

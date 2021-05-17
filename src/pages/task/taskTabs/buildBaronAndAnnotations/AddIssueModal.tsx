@@ -119,7 +119,7 @@ export const AddIssueModal: React.FC<Props> = ({
       visible={visible}
       onCancel={onClickCancel}
       title={title}
-      footer={[
+      footer={
         <>
           {/*  @ts-expect-error */}
           <WideButton data-cy="modal-cancel-button" onClick={onClickCancel}>
@@ -148,8 +148,8 @@ export const AddIssueModal: React.FC<Props> = ({
               Save
             </WideButton>
           </ConditionalWrapperWithMargin>
-        </>,
-      ]}
+        </>
+      }
     >
       <Body weight="medium">URL</Body>
       <StyledTextArea

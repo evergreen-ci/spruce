@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useMutation } from "@apollo/client";
 import { css } from "@emotion/react";
-import styled from "@emotion/styled/macro";
+import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
@@ -52,7 +52,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const { tab: urlTab } = useParams<{ tab: PatchTab | null }>();
 
   const { project, variantsTasks, id } = patch;
-  const { variants, tasks } = project;
+  const { variants } = project;
 
   const [selectedTab, selectTabHandler] = useState(
     tabToIndexMap[urlTab] || tabToIndexMap[DEFAULT_TAB]
@@ -111,7 +111,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   if (scheduledPatchId) {
     return <Redirect to={getVersionRoute(scheduledPatchId)} />;
   }
-  if (variants.length === 0 || tasks.length === 0) {
+  if (variants.length === 0) {
     return (
       // TODO: Full page error
       <PageLayout>
