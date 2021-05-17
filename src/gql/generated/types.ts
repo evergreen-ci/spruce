@@ -729,7 +729,6 @@ export type Volume = {
 
 export type PatchProject = {
   variants: Array<ProjectBuildVariant>;
-  tasks: Array<Scalars["String"]>;
 };
 
 export type ProjectBuildVariant = {
@@ -2020,7 +2019,6 @@ export type ConfigurePatchQuery = {
   patch: {
     time?: Maybe<{ submittedAt: string }>;
     project?: Maybe<{
-      tasks: Array<string>;
       variants: Array<{
         name: string;
         displayName: string;

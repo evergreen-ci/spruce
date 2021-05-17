@@ -7,7 +7,6 @@
         submittedAt
       }
       project {
-        tasks
         variants {
           name
           displayName
