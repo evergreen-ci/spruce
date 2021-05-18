@@ -37,8 +37,8 @@ export const convertObjectToArray = <T>(object: {
 }): { key: string; value: T }[] => {
   const result = [];
   if (object === undefined) return result;
-  const queryParamsList = Object.keys(object);
-  queryParamsList.forEach((key) => {
+  const objectKeys = Object.keys(object);
+  objectKeys.forEach((key) => {
     const value = object[key];
     if (!Array.isArray(value)) {
       result.push({ key, value });
