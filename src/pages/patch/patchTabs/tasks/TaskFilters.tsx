@@ -1,10 +1,24 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TaskStatusFilters } from "components/TaskStatusFilters";
-import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
+import { getCurrentStatuses } from "components/TaskStatusFilters/getCurrentStatuses";
+import { TreeSelect } from "components/TreeSelect";
+import { pollInterval } from "constants/index";
+import { taskStatusesFilterTreeData } from "constants/task";
+import {
+  GetPatchTaskStatusesQuery,
+  GetPatchTaskStatusesQueryVariables,
+} from "gql/generated/types";
+import { GET_PATCH_TASK_STATUSES } from "gql/queries";
+import {
+  useNetworkStatus,
+  useFilterInputChangeHandler,
+  useStatusesFilter,
+} from "hooks";
+
 import { PatchTasksQueryParams } from "types/task";
 
 export const TaskFilters: React.FC = () => {
@@ -12,6 +26,21 @@ export const TaskFilters: React.FC = () => {
   const sendFilterTasksEvent = (filterBy: string) =>
     patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
 
+  // top status
+  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
+    PatchTasksQueryParams.Statuses,
+    true,
+    sendFilterTasksEvent
+  );
+
+  // base status
+  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
+    PatchTasksQueryParams.BaseStatuses,
+    true,
+    sendFilterTasksEvent
+  );
+
+  // variant name
   const [
     variantFilterValue,
     variantFilterValueOnChange,
@@ -20,6 +49,8 @@ export const TaskFilters: React.FC = () => {
     true,
     sendFilterTasksEvent
   );
+
+  // task name
   const [
     taskNameFilterValue,
     taskNameFilterValueOnChange,
@@ -28,18 +59,18 @@ export const TaskFilters: React.FC = () => {
     true,
     sendFilterTasksEvent
   );
-  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
-    PatchTasksQueryParams.Statuses,
-    true,
-    sendFilterTasksEvent
-  );
-  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
-    PatchTasksQueryParams.BaseStatuses,
-    true,
-    sendFilterTasksEvent
-  );
 
   const { id: patchId } = useParams<{ id: string }>();
+
+  const { data, startPolling, stopPolling } = useQuery<
+    GetPatchTaskStatusesQuery,
+    GetPatchTaskStatusesQueryVariables
+  >(GET_PATCH_TASK_STATUSES, { variables: { id: patchId }, pollInterval });
+
+  useNetworkStatus(startPolling, stopPolling);
+
+  const statuses = data?.patch.taskStatuses ?? [];
+  const baseStatuses = data?.patch.baseTaskStatuses ?? [];
 
   return (
     <FiltersWrapper>
@@ -59,12 +90,21 @@ export const TaskFilters: React.FC = () => {
         value={variantFilterValue}
         onChange={variantFilterValueOnChange}
       />
-      <TaskStatusFilters
-        onChangeBaseStatusFilter={onChangeBaseStatusFilter}
-        onChangeStatusFilter={onChangeStatusFilter}
-        patchId={patchId}
-        selectedBaseStatuses={selectedBaseStatuses}
-        selectedStatuses={selectedStatuses}
+      <TreeSelect
+        state={selectedStatuses}
+        tData={getCurrentStatuses(statuses, taskStatusesFilterTreeData)}
+        inputLabel="Task Status: "
+        data-cy="task-status-filter"
+        width="25%"
+        onChange={onChangeStatusFilter}
+      />
+      <TreeSelect
+        state={selectedBaseStatuses}
+        tData={getCurrentStatuses(baseStatuses, taskStatusesFilterTreeData)}
+        inputLabel="Task Base Status: "
+        data-cy="task-base-status-filter"
+        width="25%"
+        onChange={onChangeBaseStatusFilter}
       />
     </FiltersWrapper>
   );

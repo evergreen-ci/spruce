@@ -11,7 +11,11 @@ import {
   TaskSortCategory,
   SortOrder,
 } from "gql/generated/types";
+import { TaskFilters } from "hooks/useTaskFilters";
+
 import { TableOnChange } from "types/task";
+
+type OnClickTaskLink = (taskId: string) => void;
 
 // Type needed to render the task table
 type TaskTableInfo = {
@@ -27,8 +31,9 @@ interface TasksTableProps {
   tasks: TaskTableInfo[];
   tableChangeHandler?: TableOnChange<TaskTableInfo>;
   onExpand?: (expanded: boolean) => void;
-  onClickTaskLink?: (taskId: string) => void;
+  onClickTaskLink?: OnClickTaskLink;
   sorts?: SortOrder[];
+  taskFilters?: TaskFilters;
 }
 export const TasksTable: React.FC<TasksTableProps> = ({
   tasks,
@@ -36,6 +41,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   onExpand,
   onClickTaskLink,
   sorts,
+  taskFilters,
 }) => (
   <Table
     data-cy="tasks-table"
@@ -43,7 +49,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
     pagination={false}
     columns={
       sorts
-        ? getColumnDefsControlled(sorts, onClickTaskLink)
+        ? getColumnDefsControlled(sorts, onClickTaskLink, taskFilters)
         : getColumnDefs(onClickTaskLink)
     }
     dataSource={tasks}
@@ -96,7 +102,8 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
 
 const getColumnDefsControlled = (
   sortOrder: SortOrder[],
-  onClickTaskLink: (taskId: string) => void
+  onClickTaskLink: OnClickTaskLink,
+  taskFilters: TaskFilters
 ): ColumnProps<Task>[] => {
   const getSortDir = (
     key: string,
@@ -115,12 +122,14 @@ const getColumnDefsControlled = (
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
+      ...taskFilters.name,
     },
     {
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
+      ...taskFilters.status,
     },
     {
       dataIndex: ["baseTask", "status"],
@@ -128,12 +137,14 @@ const getColumnDefsControlled = (
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
+      ...taskFilters.baseStatus,
     },
     {
       sorter: {
         multiple: 4,
       },
       sortOrder: getSortDir(TaskSortCategory.Variant, sortOrder),
+      ...taskFilters.variant,
     },
   ];
 

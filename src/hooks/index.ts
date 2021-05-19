@@ -17,3 +17,4 @@ export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTab
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
+export { useTaskFilters } from "hooks/useTaskFilters";
