@@ -13,10 +13,8 @@ import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 interface Props {
   variants: ProjectBuildVariant[];
   selectedBuildVariant: string[];
-  selectedVariantTasks: VariantTasksState;
-  setSelectedVariantTasks: React.Dispatch<
-    React.SetStateAction<VariantTasksState>
-  >;
+  selectedBuildVariantTasks: VariantTasksState;
+  setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
   loading: boolean;
   onClickSchedule: () => void;
 }
@@ -24,18 +22,18 @@ interface Props {
 export const ConfigureTasks: React.FC<Props> = ({
   variants,
   selectedBuildVariant,
-  selectedVariantTasks,
-  setSelectedVariantTasks,
+  selectedBuildVariantTasks,
+  setSelectedBuildVariantTasks,
   loading,
   onClickSchedule,
 }) => {
-  const buildVariantCount = Object.values(selectedVariantTasks).reduce(
+  const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskOb) =>
       count +
       (every(Object.values(taskOb), (isSelected) => !isSelected) ? 0 : 1),
     0
   );
-  const taskCount = Object.values(selectedVariantTasks).reduce(
+  const taskCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
@@ -53,11 +51,11 @@ export const ConfigureTasks: React.FC<Props> = ({
       getTaskCheckboxState(
         taskName,
         selectedBuildVariant,
-        selectedVariantTasks,
+        selectedBuildVariantTasks,
         variants
       ) === "unchecked";
 
-    setSelectedVariantTasks(
+    setSelectedBuildVariantTasks(
       selectedBuildVariant.reduce((accum, buildVariantName) => {
         const variantHasTask = taskExistsInVariant(
           taskName,
@@ -73,25 +71,29 @@ export const ConfigureTasks: React.FC<Props> = ({
               },
             }
           : accum;
-      }, selectedVariantTasks)
+      }, selectedBuildVariantTasks)
     );
   };
 
   const selectAllCheckboxState = getSelectAllCheckboxState(
     selectedBuildVariant,
-    selectedVariantTasks,
+    selectedBuildVariantTasks,
     variants
   );
 
   const selectAllCheckboxCopy = `Select all tasks in ${
     selectedBuildVariant.length > 1 ? "these variants" : "this variant"
   }`;
-
+  const selectedTaskDisclaimerCopy = `${taskCount} task${
+    taskCount !== 1 ? "s" : ""
+  } across ${buildVariantCount} build variant${
+    buildVariantCount !== 1 ? "s" : ""
+  }`;
   const onClickSelectAll = () => {
-    setSelectedVariantTasks(
+    setSelectedBuildVariantTasks(
       selectedBuildVariant.reduce(
         getSetAllCb(selectAllCheckboxState !== "checked", variants),
-        selectedVariantTasks
+        selectedBuildVariantTasks
       )
     );
   };
@@ -103,41 +105,34 @@ export const ConfigureTasks: React.FC<Props> = ({
           data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
-          disabled={isEmpty(selectedVariantTasks) || loading}
+          disabled={isEmpty(selectedBuildVariantTasks) || loading}
           loading={loading}
         >
           Schedule
         </Button>
         <Checkbox
-          data-cy="configurePatch-selectAll"
-          data-checked={`selectAll-${selectAllCheckboxState}`}
+          data-cy="selectAll-checkbox"
           indeterminate={selectAllCheckboxState === "indeterminate"}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === "checked"}
         />
       </Actions>
-      <StyledDisclaimer data-cy="x-tasks-across-y-variants">
-        {`${taskCount} task${
-          taskCount !== 1 ? "s" : ""
-        } across ${buildVariantCount} build variant${
-          buildVariantCount !== 1 ? "s" : ""
-        }`}
+      <StyledDisclaimer data-cy="selected-task-disclaimer">
+        {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
       <Tasks data-cy="configurePatch-tasks">
         {currentTasks.map((task) => {
           const checkboxState = getTaskCheckboxState(
             task,
             selectedBuildVariant,
-            selectedVariantTasks,
+            selectedBuildVariantTasks,
             variants
           );
           const isChecked = checkboxState === "checked";
           return (
             <Checkbox
-              data-cy={`configurePatch-${task}`}
-              data-checked={`task-checkbox-${checkboxState}`}
-              data-name-checked={`task-checkbox-${task}-${checkboxState}`}
+              data-cy="task-checkbox"
               key={task}
               indeterminate={checkboxState === "indeterminate"}
               onChange={() => onChangeCheckbox(task)}
