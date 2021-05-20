@@ -119,7 +119,6 @@ export const ConfigureTasks: React.FC<Props> = ({
 const getSelectAllCheckboxState = (buildVariants: {
   [task: string]: CheckboxState;
 }): CheckboxState => {
-  // iterate through selectedBuildVariants and see if all the checked items represent all the takss in variant
   let state;
   const allStatuses = Object.entries(buildVariants).map(
     ([, checked]) => checked
