@@ -47,3 +47,5 @@ export const getLobsterTaskLink = (
   execution: number
 ) =>
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
+
+export const deprecatedLogkeeperLobsterURL = "https://logkeeper.mongodb.org";

@@ -21,6 +21,7 @@ import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
   isLobsterLink,
+  deprecatedLogkeeperLobsterURL,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -40,8 +41,6 @@ const { getLobsterURL } = environmentalVariables;
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
-
-const DEPRECATED_LOGKEEPER_LOBSTER_URL = "https://logkeeper.mongodb.org";
 
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
@@ -300,7 +299,7 @@ const getColumnsTemplate = (
                 target="_blank"
                 variant="default"
                 href={htmlDisplayURL.replace(
-                  DEPRECATED_LOGKEEPER_LOBSTER_URL,
+                  deprecatedLogkeeperLobsterURL,
                   `${getLobsterURL()}/lobster`
                 )}
                 onClick={() =>
