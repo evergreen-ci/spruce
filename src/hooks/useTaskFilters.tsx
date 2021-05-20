@@ -82,7 +82,6 @@ export const useTaskFilters: () => TaskFilters = () => {
     name: {
       filterDropdown: (
         <Input
-          style={{ width: "25%" }}
           data-cy="task-name-filter-dropdown"
           placeholder="Search Task Name"
           suffix={<Icon glyph="MagnifyingGlass" />}
@@ -100,7 +99,6 @@ export const useTaskFilters: () => TaskFilters = () => {
     variant: {
       filterDropdown: (
         <Input
-          style={{ width: "25%" }}
           data-cy="variant-filter-dropdown"
           placeholder="Search Variant Name"
           suffix={<Icon glyph="MagnifyingGlass" />}
@@ -122,7 +120,6 @@ export const useTaskFilters: () => TaskFilters = () => {
           tData={getCurrentStatuses(baseStatuses, taskStatusesFilterTreeData)}
           inputLabel="Task Base Status: "
           data-cy="task-base-status-filter"
-          width="25%"
           onChange={onChangeBaseStatusFilter}
         />
       ),
@@ -140,7 +137,6 @@ export const useTaskFilters: () => TaskFilters = () => {
           tData={getCurrentStatuses(statuses, taskStatusesFilterTreeData)}
           inputLabel="Task Status: "
           data-cy="task-status-filter"
-          width="25%"
           onChange={onChangeStatusFilter}
         />
       ),
