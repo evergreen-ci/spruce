@@ -40,6 +40,9 @@ const { getLobsterURL } = environmentalVariables;
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+
+const DEPRECATED_LOGKEEPER_LOBSTER_URL = "https://logkeeper.mongodb.org";
+
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
@@ -297,7 +300,7 @@ const getColumnsTemplate = (
                 target="_blank"
                 variant="default"
                 href={htmlDisplayURL.replace(
-                  "https://logkeeper.mongodb.org",
+                  DEPRECATED_LOGKEEPER_LOBSTER_URL,
                   `${getLobsterURL()}/lobster`
                 )}
                 onClick={() =>
