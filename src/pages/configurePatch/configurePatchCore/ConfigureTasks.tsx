@@ -135,7 +135,6 @@ const getSelectAllCheckboxState = (buildVariants: {
   } else {
     state = CheckboxState.INDETERMINITE;
   }
-  console.log({ hasSelectedTasks, hasUnselectedTasks, state, allStatuses });
 
   return state;
 };
