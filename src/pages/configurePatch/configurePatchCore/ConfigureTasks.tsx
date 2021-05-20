@@ -4,15 +4,17 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
-import get from "lodash/get";
 import isEmpty from "lodash/isEmpty";
 import { Button } from "components/Button";
-import { ProjectBuildVariant } from "gql/generated/types";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 
+enum CheckboxState {
+  CHECKED = "CHECKED",
+  INDETERMINITE = "INDETERMINITE",
+  UNCHECKED = "UNCHECKED",
+}
 interface Props {
-  variants: ProjectBuildVariant[];
-  selectedBuildVariant: string[];
+  selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
   loading: boolean;
@@ -20,8 +22,7 @@ interface Props {
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
-  variants,
-  selectedBuildVariant,
+  selectedBuildVariants,
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
   loading,
@@ -37,66 +38,42 @@ export const ConfigureTasks: React.FC<Props> = ({
     (count, taskObj) => count + Object.values(taskObj).filter((v) => v).length,
     0
   );
-  // represents tasks from selected build variants
-  const currentTasks = Array.from(
-    new Set(
-      variants
-        .filter((v) => selectedBuildVariant.includes(v.name))
-        .reduce<string[]>((accum, { tasks }) => [...accum, ...tasks], [])
-    )
+
+  const tasks = selectedBuildVariants.map(
+    (bv) => selectedBuildVariantTasks[bv]
   );
 
-  const onChangeCheckbox = (taskName: string): void => {
-    const valueToSet =
-      getTaskCheckboxState(
-        taskName,
-        selectedBuildVariant,
-        selectedBuildVariantTasks,
-        variants
-      ) === "unchecked";
+  const currentTasks = deduplicateTasks(tasks);
 
-    setSelectedBuildVariantTasks(
-      selectedBuildVariant.reduce((accum, buildVariantName) => {
-        const variantHasTask = taskExistsInVariant(
-          taskName,
-          buildVariantName,
-          variants
-        );
-        return variantHasTask
-          ? {
-              ...accum,
-              [buildVariantName]: {
-                ...(accum[buildVariantName] ?? {}),
-                [taskName]: valueToSet,
-              },
-            }
-          : accum;
-      }, selectedBuildVariantTasks)
-    );
+  const onClickCheckbox = (taskName: string) => (e) => {
+    const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
+    selectedBuildVariants.forEach((bv) => {
+      if (selectedBuildVariantsCopy[bv][taskName] !== undefined) {
+        selectedBuildVariantsCopy[bv][taskName] = e.target.checked;
+      }
+    });
+    setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
   };
 
-  const selectAllCheckboxState = getSelectAllCheckboxState(
-    selectedBuildVariant,
-    selectedBuildVariantTasks,
-    variants
-  );
+  const onClickSelectAll = (e) => {
+    const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
+    selectedBuildVariants.forEach((bv) => {
+      Object.keys(selectedBuildVariantsCopy[bv]).forEach((task) => {
+        selectedBuildVariantsCopy[bv][task] = e.target.checked;
+      });
+    });
+    setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
+  };
 
+  const selectAllCheckboxState = getSelectAllCheckboxState(currentTasks);
   const selectAllCheckboxCopy = `Select all tasks in ${
-    selectedBuildVariant.length > 1 ? "these variants" : "this variant"
+    selectedBuildVariants.length > 1 ? "these variants" : "this variant"
   }`;
   const selectedTaskDisclaimerCopy = `${taskCount} task${
     taskCount !== 1 ? "s" : ""
   } across ${buildVariantCount} build variant${
     buildVariantCount !== 1 ? "s" : ""
   }`;
-  const onClickSelectAll = () => {
-    setSelectedBuildVariantTasks(
-      selectedBuildVariant.reduce(
-        getSetAllCb(selectAllCheckboxState !== "checked", variants),
-        selectedBuildVariantTasks
-      )
-    );
-  };
 
   return (
     <TabContentWrapper>
@@ -111,39 +88,88 @@ export const ConfigureTasks: React.FC<Props> = ({
           Schedule
         </Button>
         <Checkbox
-          data-cy="selectAll-checkbox"
-          indeterminate={selectAllCheckboxState === "indeterminate"}
+          data-cy="select-all-checkbox"
+          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
-          checked={selectAllCheckboxState === "checked"}
+          checked={
+            selectAllCheckboxState === CheckboxState.CHECKED ||
+            selectAllCheckboxState === CheckboxState.INDETERMINITE
+          }
         />
       </Actions>
       <StyledDisclaimer data-cy="selected-task-disclaimer">
         {selectedTaskDisclaimerCopy}
       </StyledDisclaimer>
       <Tasks data-cy="configurePatch-tasks">
-        {currentTasks.map((task) => {
-          const checkboxState = getTaskCheckboxState(
-            task,
-            selectedBuildVariant,
-            selectedBuildVariantTasks,
-            variants
-          );
-          const isChecked = checkboxState === "checked";
-          return (
-            <Checkbox
-              data-cy="task-checkbox"
-              key={task}
-              indeterminate={checkboxState === "indeterminate"}
-              onChange={() => onChangeCheckbox(task)}
-              label={task}
-              checked={isChecked}
-            />
-          );
-        })}
+        {Object.entries(currentTasks).map(([name, status]) => (
+          <Checkbox
+            data-cy="task-checkbox"
+            key={name}
+            onChange={onClickCheckbox(name)}
+            label={name}
+            indeterminate={status === CheckboxState.INDETERMINITE}
+            checked={status === CheckboxState.CHECKED}
+          />
+        ))}
       </Tasks>
     </TabContentWrapper>
   );
+};
+
+const getSelectAllCheckboxState = (buildVariants: {
+  [task: string]: CheckboxState;
+}): CheckboxState => {
+  // iterate through selectedBuildVariants and see if all the checked items represent all the takss in variant
+  let state;
+  const allStatuses = Object.entries(buildVariants).map(
+    ([, checked]) => checked
+  );
+
+  const hasSelectedTasks = allStatuses.includes(CheckboxState.CHECKED);
+  const hasUnselectedTasks = allStatuses.includes(CheckboxState.UNCHECKED);
+  if (hasSelectedTasks && !hasUnselectedTasks) {
+    state = CheckboxState.CHECKED;
+  } else if (!hasSelectedTasks && hasUnselectedTasks) {
+    state = CheckboxState.UNCHECKED;
+  } else {
+    state = CheckboxState.INDETERMINITE;
+  }
+  console.log({ hasSelectedTasks, hasUnselectedTasks, state, allStatuses });
+
+  return state;
+};
+
+const deduplicateTasks = (
+  currentTasks: {
+    [task: string]: boolean;
+  }[]
+) => {
+  const visibleTasks = {};
+  currentTasks.forEach((bv) => {
+    Object.entries(bv).forEach(([taskName, value]) => {
+      switch (visibleTasks[taskName]) {
+        case CheckboxState.UNCHECKED:
+          visibleTasks[taskName] = value
+            ? CheckboxState.INDETERMINITE
+            : CheckboxState.UNCHECKED;
+          break;
+        case CheckboxState.CHECKED:
+          visibleTasks[taskName] = value
+            ? CheckboxState.CHECKED
+            : CheckboxState.INDETERMINITE;
+          break;
+        case CheckboxState.INDETERMINITE:
+          break;
+        default:
+          visibleTasks[taskName] = value
+            ? CheckboxState.CHECKED
+            : CheckboxState.UNCHECKED;
+          break;
+      }
+    });
+  });
+  return visibleTasks;
 };
 
 const Actions = styled.div`
@@ -178,124 +204,3 @@ export const cardSidePadding = css`
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
 `;
-
-type CheckboxState = "checked" | "unchecked" | "indeterminate";
-
-const getTaskCheckboxState = (
-  taskName: string,
-  selectedBuildVariants: string[],
-  selectedBuildVariantTasks: VariantTasksState,
-  variants: ProjectBuildVariant[]
-): CheckboxState => {
-  const checkedCb = (
-    allChecked: boolean,
-    buildVariantName: string
-  ): boolean => {
-    const isTaskSelected =
-      selectedBuildVariantTasks[buildVariantName] &&
-      selectedBuildVariantTasks[buildVariantName][taskName];
-    return allChecked && isTaskSelected;
-  };
-  const checked: boolean = selectedBuildVariants
-    .filter((buildVariantName) =>
-      taskExistsInVariant(taskName, buildVariantName, variants)
-    )
-    .reduce(checkedCb, true);
-
-  if (checked) {
-    return "checked";
-  }
-
-  const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) => {
-    const isTaskSelected =
-      selectedBuildVariantTasks[buildVariantName] &&
-      selectedBuildVariantTasks[buildVariantName][taskName];
-    return allUnchecked && !isTaskSelected;
-  };
-  const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
-
-  if (unchecked) {
-    return "unchecked";
-  }
-
-  return "indeterminate";
-};
-
-const getSetAllCb = (value: boolean, variants: ProjectBuildVariant[]) => (
-  variantAccum,
-  buildVariantName: string
-) => {
-  const allTasks: string[] = get(
-    variants.find(({ name }) => name === buildVariantName),
-    "tasks",
-    []
-  );
-
-  const tasks = allTasks.reduce(
-    (taskObAccum, taskName) => ({
-      ...taskObAccum,
-      [taskName]: value,
-    }),
-    {}
-  );
-
-  return {
-    ...variantAccum,
-    [buildVariantName]: tasks,
-  };
-};
-
-const getSelectAllCheckboxState = (
-  selectedBuildVariants: string[],
-  selectedBuildVariantTasks: VariantTasksState,
-  variants: ProjectBuildVariant[]
-): CheckboxState => {
-  const checkedCb = (allChecked: boolean, buildVariantName: string) => {
-    const buildVariantTasksValues = Object.values(
-      get(selectedBuildVariantTasks, buildVariantName, {})
-    );
-    return (
-      allChecked &&
-      buildVariantTasksValues.reduce(
-        (allTasksChecked, taskVal) => allTasksChecked && taskVal,
-        true
-      ) &&
-      buildVariantTasksValues.length ===
-        get(
-          variants.find(({ name }) => name === buildVariantName),
-          "tasks",
-          []
-        ).length
-    );
-  };
-  const checked: boolean = selectedBuildVariants.reduce(checkedCb, true);
-
-  if (checked) {
-    return "checked";
-  }
-
-  const uncheckedCb = (allUnchecked: boolean, buildVariantName: string) =>
-    allUnchecked &&
-    Object.values(get(selectedBuildVariantTasks, buildVariantName, {})).reduce(
-      (allTasksUnchecked, taskVal) => allTasksUnchecked && !taskVal,
-      true
-    );
-  const unchecked: boolean = selectedBuildVariants.reduce(uncheckedCb, true);
-
-  if (unchecked) {
-    return "unchecked";
-  }
-
-  return "indeterminate";
-};
-
-const taskExistsInVariant = (
-  taskName: string,
-  variantName: string,
-  allVariants: ProjectBuildVariant[]
-): boolean =>
-  get(
-    allVariants.find(({ name }) => name === variantName),
-    "tasks",
-    []
-  ).includes(taskName);
