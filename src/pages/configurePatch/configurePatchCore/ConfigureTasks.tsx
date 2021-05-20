@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
-import isEmpty from "lodash/isEmpty";
 import { Button } from "components/Button";
 import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 
@@ -82,7 +81,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
-          disabled={isEmpty(selectedBuildVariantTasks) || loading}
+          disabled={taskCount === 0 || loading}
           loading={loading}
         >
           Schedule
