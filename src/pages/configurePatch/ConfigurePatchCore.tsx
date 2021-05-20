@@ -231,8 +231,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             >
               <Tab data-cy="tasks-tab" name="Configure">
                 <ConfigureTasks
-                  variants={variants}
-                  selectedBuildVariant={selectedBuildVariants}
+                  selectedBuildVariants={selectedBuildVariants}
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
                   setSelectedBuildVariantTasks={(variantTasks) =>
                     dispatch({
