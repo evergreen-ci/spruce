@@ -17,6 +17,7 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
+import { getColumnSearchFilterProps } from "components/Table/Filters";
 import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
@@ -32,7 +33,11 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries";
-import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
+import {
+  useFilterInputChangeHandler,
+  useUpdateURLQueryParams,
+  useNetworkStatus,
+} from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { queryString, url, string } from "utils";
 
@@ -61,6 +66,33 @@ export const TestsTableCore: React.FC = () => {
       });
     }
   }, [updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  const sendFilterTestsEvent = (filterBy: string) =>
+    taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
+
+  const [
+    testNameFilterValue,
+    _, // eslint-disable-line
+    onChangeTestName,
+    submitTestName,
+    resetTestName,
+  ] = useFilterInputChangeHandler(
+    RequiredQueryParams.TestName,
+    true,
+    sendFilterTestsEvent
+  );
+
+  const filters = {
+    [TestSortCategory.TestName]: getColumnSearchFilterProps({
+      dataCy: "testname-filter",
+      value: testNameFilterValue,
+      onChange: onChangeTestName,
+      updateUrlParam: submitTestName,
+      resetUrlParam: resetTestName,
+      placeholder: "Search Test Name",
+    }),
+  };
+
   // Apply sorts to columns
   const columns = getColumnsTemplate(taskAnalytics).map((column) => ({
     ...column,
@@ -69,8 +101,9 @@ export const TestsTableCore: React.FC = () => {
         ? "ascend"
         : "descend") as SortOrder,
     }),
+    ...filters[column.key],
   }));
-
+  console.log(columns);
   // initial request for task tests
   const { data, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
