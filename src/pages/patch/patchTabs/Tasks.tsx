@@ -136,6 +136,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Undispatched]: true,
   [TaskStatus.Unstarted]: true,
   [TaskStatus.Aborted]: true,
+  [TaskStatus.Known]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {

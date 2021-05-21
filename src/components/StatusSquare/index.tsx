@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { TaskStatus } from "types/task";
 
-const { green, gray, yellow, red, blue } = uiColors;
+const { green, gray, yellow, red } = uiColors;
 
 const failureLavender = "#F3EDF5";
 const failureLavendarDark = "#9982A4";
@@ -26,7 +26,7 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.StatusBlocked]: gray.dark1,
   [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.StatusPending]: yellow.base,
-  [TaskStatus.Known]: blue.base,
+  [TaskStatus.Known]: red.base,
 };
 
 export const mapVariantTaskStatusToDarkColor = {
@@ -45,7 +45,7 @@ export const mapVariantTaskStatusToDarkColor = {
   [TaskStatus.SetupFailed]: failureLavendarDark,
   [TaskStatus.StatusBlocked]: gray.dark3,
   [TaskStatus.StatusPending]: yellow.dark3,
-  [TaskStatus.Known]: blue.dark3,
+  [TaskStatus.Known]: red.dark3,
   [TaskStatus.Aborted]: gray.dark3,
 };
 
