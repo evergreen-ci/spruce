@@ -84,6 +84,7 @@
     "@leafygreen-ui/text-input": "5.0.12",
     "@leafygreen-ui/toast": "0.4.2",
     "@leafygreen-ui/toggle": "7.0.1",
+    "@leafygreen-ui/tooltip": "6.2.1",
     "@leafygreen-ui/typography": "7.3.2",
     "@rjsf/core": "^2.5.1",
     "ansi_up": "5.0.0",

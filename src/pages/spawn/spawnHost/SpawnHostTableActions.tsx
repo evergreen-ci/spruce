@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { PaddedButton } from "components/Spawn";
 import { MyHost } from "types/spawn";
@@ -24,18 +24,27 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const spawnAnalytics = useSpawnAnalytics();
 
   return (
-    <Tooltip placement="top" title="Copied!" trigger="click">
-      <PaddedButton // @ts-expect-error
-        onClick={(e: React.MouseEvent) => {
-          e.stopPropagation();
-          copyToClipboard(sshCommand);
-          spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
-        }}
-        size={Size.XSmall}
+    <FlexContainer onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+      <Tooltip
+        align="top"
+        justify="middle"
+        triggerEvent="click"
+        trigger={
+          <PaddedButton // @ts-expect-error
+            onClick={() => {
+              copyToClipboard(sshCommand);
+              spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+            }}
+            size={Size.XSmall}
+          >
+            <Label>Copy SSH command</Label>
+          </PaddedButton>
+        }
       >
-        <Label>Copy SSH command</Label>
-      </PaddedButton>
-    </Tooltip>
+        <Center>Copied!</Center>
+        <Center>Must be on VPN to connect to host</Center>
+      </Tooltip>
+    </FlexContainer>
   );
 };
 
@@ -45,4 +54,8 @@ const FlexContainer = styled.div`
 
 const Label = styled.div`
   width: 121px;
+`;
+
+const Center = styled.div`
+  text-align: center;
 `;
