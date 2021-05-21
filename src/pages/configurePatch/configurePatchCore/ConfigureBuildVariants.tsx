@@ -104,8 +104,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
               return (
                 <BuildVariant
                   data-cy="build-variant-list-item"
-                  data-cy-name={name}
-                  data-cy-selected={isSelected}
+                  data-selected={isSelected}
                   key={name}
                   isSelected={isSelected}
                   onClick={getClickVariantHandler(name)}

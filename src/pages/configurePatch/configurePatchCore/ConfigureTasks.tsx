@@ -88,13 +88,11 @@ export const ConfigureTasks: React.FC<Props> = ({
         </Button>
         <Checkbox
           data-cy="select-all-checkbox"
-          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
+          // TODO: Fix indeterminate state handling after PD-1386
+          data-state={selectAllCheckboxState}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
-          checked={
-            selectAllCheckboxState === CheckboxState.CHECKED ||
-            selectAllCheckboxState === CheckboxState.INDETERMINITE
-          }
+          checked={selectAllCheckboxState === CheckboxState.CHECKED}
         />
       </Actions>
       <StyledDisclaimer data-cy="selected-task-disclaimer">
@@ -104,10 +102,11 @@ export const ConfigureTasks: React.FC<Props> = ({
         {Object.entries(currentTasks).map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
+            data-state={status}
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            indeterminate={status === CheckboxState.INDETERMINITE}
+            // TODO: Fix indeterminate state handling after PD-1386
             checked={status === CheckboxState.CHECKED}
           />
         ))}
@@ -147,16 +146,20 @@ const deduplicateTasks = (
     Object.entries(bv).forEach(([taskName, value]) => {
       switch (visibleTasks[taskName]) {
         case CheckboxState.UNCHECKED:
+          // If a task is UNCHECKED and the next task of the same name is CHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
             ? CheckboxState.INDETERMINITE
             : CheckboxState.UNCHECKED;
           break;
         case CheckboxState.CHECKED:
+          // If a task is CHECKED and the next task of the same name is UNCHECKED it is INDETERMINATE
           visibleTasks[taskName] = value
             ? CheckboxState.CHECKED
             : CheckboxState.INDETERMINITE;
           break;
         case CheckboxState.INDETERMINITE:
+          // If a task is INDETERMINATE because of previous task statuses
+          // it wouldn't change when subsequent statuses are considered
           break;
         default:
           visibleTasks[taskName] = value
