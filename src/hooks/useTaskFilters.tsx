@@ -5,6 +5,13 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { Button } from "components/Button";
+import {
+  FilterWrapper,
+  ButtonsWrapper,
+  ButtonWrapper,
+} from "components/styles/Table";
+import { getColumnSearchFilterProps } from "components/Table/Filters";
 import { getCurrentStatuses } from "components/TaskStatusFilters/getCurrentStatuses";
 import { TreeSelect } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
@@ -19,7 +26,6 @@ import {
   useFilterInputChangeHandler,
   useStatusesFilter,
 } from "hooks";
-
 import { PatchTasksQueryParams } from "types/task";
 
 type DropdownAndIcon = {
@@ -41,7 +47,10 @@ export const useTaskFilters: () => TaskFilters = () => {
 
   const [
     variantFilterValue,
-    variantFilterValueOnChange,
+    _, // eslint-disable-line
+    onChangeVariantName,
+    submitVariantName,
+    resetVariantName,
   ] = useFilterInputChangeHandler(
     PatchTasksQueryParams.Variant,
     true,
@@ -49,7 +58,10 @@ export const useTaskFilters: () => TaskFilters = () => {
   );
   const [
     taskNameFilterValue,
-    taskNameFilterValueOnChange,
+    __, // eslint-disable-line
+    onChangeTaskName,
+    submitTaskName,
+    resetTaskName,
   ] = useFilterInputChangeHandler(
     PatchTasksQueryParams.TaskName,
     true,
@@ -81,13 +93,35 @@ export const useTaskFilters: () => TaskFilters = () => {
   return {
     name: {
       filterDropdown: (
-        <Input
-          data-cy="task-name-filter-dropdown"
-          placeholder="Search Task Name"
-          suffix={<Icon glyph="MagnifyingGlass" />}
-          value={taskNameFilterValue}
-          onChange={taskNameFilterValueOnChange}
-        />
+        <FilterWrapper>
+          <Input
+            data-cy="task-name-filter-dropdown"
+            placeholder="Search Task Name"
+            suffix={<Icon glyph="MagnifyingGlass" />}
+            value={taskNameFilterValue}
+            onChange={onChangeTaskName}
+            onPressEnter={submitTaskName}
+          />
+          <ButtonsWrapper>
+            <ButtonWrapper>
+              <Button
+                data-cy="reset-button"
+                onClick={resetTaskName}
+                size="small"
+              >
+                Reset
+              </Button>
+            </ButtonWrapper>
+            <Button
+              data-cy="filter-button"
+              size="small"
+              variant="primary"
+              onClick={submitTaskName}
+            >
+              Search
+            </Button>
+          </ButtonsWrapper>
+        </FilterWrapper>
       ),
       filterIcon: (
         <SearchOutlined
@@ -96,23 +130,14 @@ export const useTaskFilters: () => TaskFilters = () => {
         />
       ),
     },
-    variant: {
-      filterDropdown: (
-        <Input
-          data-cy="variant-filter-dropdown"
-          placeholder="Search Variant Name"
-          suffix={<Icon glyph="MagnifyingGlass" />}
-          value={variantFilterValue}
-          onChange={variantFilterValueOnChange}
-        />
-      ),
-      filterIcon: (
-        <SearchOutlined
-          data-cy="variant-filter-icon"
-          style={getStyle(variantFilterValue)}
-        />
-      ),
-    },
+    variant: getColumnSearchFilterProps({
+      dataCy: "variant-name",
+      placeholder: "Variant name",
+      value: variantFilterValue,
+      updateUrlParam: submitVariantName,
+      resetUrlParam: resetVariantName,
+      onChange: onChangeVariantName,
+    }),
     baseStatus: {
       filterDropdown: (
         <TreeSelect

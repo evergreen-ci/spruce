@@ -58,7 +58,7 @@ export const getColumnSearchFilterProps = ({
   updateUrlParam,
   resetUrlParam,
 }: InputFilterProps) => ({
-  filterDropdown: () => (
+  filterDropdown: (
     <InputFilter
       {...{
         placeholder,
@@ -70,7 +70,7 @@ export const getColumnSearchFilterProps = ({
       }}
     />
   ),
-  filterIcon: () => (
+  filterIcon: (
     <SearchOutlined
       data-cy={dataCy}
       style={{ color: value ? uiColors.blue.base : undefined }}
