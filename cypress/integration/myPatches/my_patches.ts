@@ -204,8 +204,8 @@ const patchOnCommitQueue =
 const firstPageDisplayNames = [
   "main: EVG-7823 add a commit queue message (#4048)",
   "dist",
-  "hello world",
   "test meee",
+  "Patch with display tasks",
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",
   "SERVER-12189 test",
   "testtest",
