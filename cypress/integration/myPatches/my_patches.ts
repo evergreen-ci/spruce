@@ -204,6 +204,7 @@ const patchOnCommitQueue =
 const firstPageDisplayNames = [
   "main: EVG-7823 add a commit queue message (#4048)",
   "dist",
+  "hello world",
   "test meee",
   "'evergreen-ci/evergreen' pull request #3186 by bsamek: EVG-7425 Don't send ShouldExit to unprovisioned hosts (https://github.com/evergreen-ci/evergreen/pull/3186)",
   "SERVER-12189 test",
@@ -211,9 +212,9 @@ const firstPageDisplayNames = [
   "Empty patch to run a lot of osx tasks",
   "the right version of ssl_fips",
   "no description",
-  "SERVER-11333 test run 4",
 ];
 const secondPageDisplayNames = [
+  "SERVER-11333 test run 4",
   "linux-64",
   "linux-64",
   "all",
@@ -223,9 +224,9 @@ const secondPageDisplayNames = [
   "SERVER-11183 test run 2",
   "SERVER-11183 test run",
   "SERVER-10992 SERVER-11130 test run",
-  "linux-64-duroff,linux-64-debug-duroff",
 ];
 const thirdPageDisplayNames = [
+  "linux-64-duroff,linux-64-debug-duroff",
   "all",
   "linux-64",
   "osx-108-cxx11-debug",
