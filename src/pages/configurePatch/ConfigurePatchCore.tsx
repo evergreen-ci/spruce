@@ -1,12 +1,10 @@
 import React, { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import get from "lodash/get";
-import { useHistory, useLocation, useParams, Redirect } from "react-router-dom";
+import { useHistory, useLocation, useParams } from "react-router-dom";
 import { MetadataCard } from "components/MetadataCard";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
@@ -23,13 +21,14 @@ import {
   ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
-import { ConfigureBuildVariants } from "pages/configurePatch/configurePatchCore/ConfigureBuildVariants";
-import { ConfigureTasks } from "pages/configurePatch/configurePatchCore/ConfigureTasks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
 import { mapStringArrayToObject } from "utils/array";
+import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
+import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
+import { VariantTasksState } from "./configurePatchCore/state";
 
 const { parseQueryString } = queryString;
 
@@ -47,14 +46,14 @@ type Action =
   | { type: "setSelectedBuildVariants"; buildVariants: string[] }
   | { type: "setPatchParams"; params: ParameterInput[] }
   | { type: "setSelectedBuildVariantTasks"; variantTasks: VariantTasksState }
-  | { type: "setSelectedTab"; tab: number };
+  | { type: "setSelectedTab"; tabIndex: number };
 
 const initialState = ({ selectedTab = 0 }) => ({
   description: "",
   selectedBuildVariants: [],
   selectedBuildVariantTasks: {},
   patchParams: null,
-  selectedTab: 0,
+  selectedTab,
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
 });
 const reducer = (state: configurePatchState, action: Action) => {
@@ -79,12 +78,19 @@ const reducer = (state: configurePatchState, action: Action) => {
         ...state,
         patchParams: action.params,
       };
-    case "setSelectedTab":
+    case "setSelectedTab": {
+      let tab = indexToTabMap.indexOf(PatchTab.Tasks);
+      if (action.tabIndex !== -1 && action.tabIndex < indexToTabMap.length) {
+        tab = action.tabIndex;
+      }
       return {
         ...state,
-        selectedTab: action.tab,
-        disableBuildVariantSelect: indexToTabMap[action.tab] !== PatchTab.Tasks,
+        selectedTab: tab,
+        disableBuildVariantSelect:
+          indexToTabMap[action.tabIndex] !== PatchTab.Tasks,
       };
+    }
+
     default:
       throw new Error();
   }
@@ -95,13 +101,26 @@ interface Props {
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const dispatchToast = useToastContext();
+  const history = useHistory();
+  const location = useLocation();
+  const { tab } = useParams<{ tab: PatchTab | null }>();
 
-  const [schedulePatch, { data, loading: loadingScheduledPatch }] = useMutation<
+  const [state, dispatch] = useReducer(
+    reducer,
+    initialState({ selectedTab: indexToTabMap.indexOf(tab) })
+  );
+
+  const { project, id } = patch;
+  const { variants } = project;
+
+  const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
     SchedulePatchMutationVariables
   >(SCHEDULE_PATCH, {
-    onCompleted() {
+    onCompleted(data) {
+      const { schedulePatch: scheduledPatch } = data;
       dispatchToast.success("Successfully scheduled the patch");
+      history.push(getVersionRoute(scheduledPatch.id));
     },
     onError(err) {
       dispatchToast.error(
@@ -110,17 +129,6 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     },
   });
 
-  const history = useHistory();
-  const location = useLocation();
-  const { tab } = useParams<{ tab: PatchTab | null }>();
-
-  const { project, id } = patch;
-  const { variants } = project;
-
-  const [state, dispatch] = useReducer(
-    reducer,
-    initialState({ selectedTab: tabToIndexMap[tab] })
-  );
   const {
     description,
     selectedBuildVariants,
@@ -167,21 +175,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       ),
       parameters: patchParams,
     };
-    try {
-      await schedulePatch({
-        variables: { patchId: id, configure: configurePatchParam },
-      });
-    } catch (error) {
-      dispatchToast.error(
-        `There was an error scheduling this patch: ${error.message}`
-      );
-    }
+    schedulePatch({
+      variables: { patchId: id, configure: configurePatchParam },
+    });
   };
-
-  const scheduledPatchId = get(data, "schedulePatch.id");
-  if (scheduledPatchId) {
-    return <Redirect to={getVersionRoute(scheduledPatchId)} />;
-  }
 
   if (variants.length === 0) {
     return (
@@ -226,7 +223,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
           <PageContent>
             <StyledTabs
               selected={selectedTab}
-              setSelected={(t) => dispatch({ type: "setSelectedTab", tab: t })}
+              setSelected={(i) =>
+                dispatch({ type: "setSelectedTab", tabIndex: i })
+              }
               aria-label="Configure Patch Tabs"
             >
               <Tab data-cy="tasks-tab" name="Configure">
@@ -279,13 +278,6 @@ const getGqlVariantTasksParamFromState = (
     })
     .filter(({ tasks }) => tasks.length);
 
-interface TasksState {
-  [task: string]: boolean;
-}
-export interface VariantTasksState {
-  [variant: string]: TasksState;
-}
-
 const convertPatchVariantTasksToStateShape = (
   variantsTasks?: VariantTask[]
 ): VariantTasksState =>
@@ -297,21 +289,14 @@ const convertPatchVariantTasksToStateShape = (
     {}
   );
 
-const indexToTabMap = {
-  0: PatchTab.Tasks,
-  1: PatchTab.Changes,
-  2: PatchTab.Parameters,
-};
+const indexToTabMap = [PatchTab.Tasks, PatchTab.Changes, PatchTab.Parameters];
 
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
   [PatchTab.Changes]: 1,
   [PatchTab.Parameters]: 2,
 };
-export const cardSidePadding = css`
-  padding-left: 8px;
-  padding-right: 8px;
-`;
+
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
   font-weight: 600;
