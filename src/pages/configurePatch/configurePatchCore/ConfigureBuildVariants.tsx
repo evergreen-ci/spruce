@@ -7,8 +7,8 @@ import { Body } from "@leafygreen-ui/typography";
 import { SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { ProjectBuildVariant } from "gql/generated/types";
-import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
 import { array } from "utils";
+import { VariantTasksState } from "./state";
 
 const { toggleArray } = array;
 const { green } = uiColors;
@@ -161,7 +161,7 @@ interface UserSelectWrapperProps {
   isHotKeyPressed: boolean;
 }
 
-export const cardSidePadding = css`
+const cardSidePadding = css`
   padding-left: 8px;
   padding-right: 8px;
 `;

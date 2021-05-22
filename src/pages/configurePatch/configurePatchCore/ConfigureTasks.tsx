@@ -5,7 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
-import { VariantTasksState } from "pages/configurePatch/ConfigurePatchCore";
+import { VariantTasksState } from "./state";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -197,7 +197,7 @@ const Tasks = styled.div`
 const StyledDisclaimer = styled(Disclaimer)`
   margin-bottom: 8px;
 `;
-export const cardSidePadding = css`
+const cardSidePadding = css`
   padding-left: 8px;
   padding-right: 8px;
 `;
