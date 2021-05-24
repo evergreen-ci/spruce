@@ -21,6 +21,7 @@ import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
   isLobsterLink,
+  deprecatedLogkeeperLobsterURL,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -34,11 +35,13 @@ import {
 import { GET_TASK_TESTS } from "gql/queries";
 import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import { queryString, url, string } from "utils";
+import { queryString, url, string, environmentalVariables } from "utils";
 
+const { getLobsterURL } = environmentalVariables;
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
@@ -268,7 +271,6 @@ const getColumnsTemplate = (
       const { execution, lineNum, taskId, id } = b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
       const lobsterLink = getLobsterTestLogUrl(taskId, execution, id, lineNum);
-
       return (
         <>
           {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
@@ -296,7 +298,10 @@ const getColumnsTemplate = (
                 size="small"
                 target="_blank"
                 variant="default"
-                href={htmlDisplayURL}
+                href={htmlDisplayURL.replace(
+                  deprecatedLogkeeperLobsterURL,
+                  `${getLobsterURL()}/lobster`
+                )}
                 onClick={() =>
                   isLobsterLink(htmlDisplayURL)
                     ? taskAnalytics.sendEvent({
