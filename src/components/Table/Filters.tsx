@@ -78,6 +78,10 @@ export const getColumnSearchFilterProps = ({
   ),
 });
 
+export const getColumnTreeSelectprops = ({
+  
+})
+
 export interface CheckboxFilterProps {
   dataCy?: string;
   statuses: TreeDataEntry[];
