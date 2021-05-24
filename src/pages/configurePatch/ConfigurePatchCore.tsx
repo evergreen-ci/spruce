@@ -46,9 +46,16 @@ type Action =
   | { type: "setSelectedBuildVariants"; buildVariants: string[] }
   | { type: "setPatchParams"; params: ParameterInput[] }
   | { type: "setSelectedBuildVariantTasks"; variantTasks: VariantTasksState }
-  | { type: "setSelectedTab"; tabIndex: number };
+  | { type: "setSelectedTab"; tabIndex: number }
+  | {
+      type: "updatePatchData";
+      description: string;
+      buildVariants: string[];
+      params: ParameterInput[];
+      variantTasks: VariantTasksState;
+    };
 
-const initialState = ({ selectedTab = 0 }) => ({
+const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   description: "",
   selectedBuildVariants: [],
   selectedBuildVariantTasks: {},
@@ -90,6 +97,14 @@ const reducer = (state: configurePatchState, action: Action) => {
           indexToTabMap[action.tabIndex] !== PatchTab.Tasks,
       };
     }
+    case "updatePatchData":
+      return {
+        ...state,
+        description: action.description,
+        selectedBuildVariants: action.buildVariants,
+        patchParams: action.params,
+        selectedBuildVariantTasks: action.variantTasks,
+      };
 
     default:
       throw new Error();
@@ -151,17 +166,11 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 
   useEffect(() => {
     if (patch) {
-      dispatch({ type: "setDescription", description: patch.description });
       dispatch({
-        type: "setSelectedBuildVariants",
+        type: "updatePatchData",
+        description: patch.description,
         buildVariants: [variants[0]?.name],
-      });
-      dispatch({
-        type: "setPatchParams",
-        params: patch?.parameters,
-      });
-      dispatch({
-        type: "setSelectedBuildVariantTasks",
+        params: patch.parameters,
         variantTasks: convertPatchVariantTasksToStateShape(variants),
       });
     }

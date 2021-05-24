@@ -88,8 +88,9 @@ export const ConfigureTasks: React.FC<Props> = ({
         </Button>
         <Checkbox
           data-cy="select-all-checkbox"
-          // TODO: Fix indeterminate state handling after PD-1386
           data-state={selectAllCheckboxState}
+          // TODO: Fix indeterminate state handling after PD-1386
+          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
@@ -107,6 +108,7 @@ export const ConfigureTasks: React.FC<Props> = ({
             onChange={onClickCheckbox(name)}
             label={name}
             // TODO: Fix indeterminate state handling after PD-1386
+            indeterminate={status === CheckboxState.INDETERMINITE}
             checked={status === CheckboxState.CHECKED}
           />
         ))}
