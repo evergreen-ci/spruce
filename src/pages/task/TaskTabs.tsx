@@ -127,7 +127,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
     ),
     [TaskTab.Annotations]: (
       <Tab
-        name="Task Annotations"
+        name="Failure Details"
         data-cy="task-build-baron-tab"
         key="task-build-baron-tab"
       >
