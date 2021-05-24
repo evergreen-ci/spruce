@@ -8,9 +8,10 @@ describe("Project Patches Page", () => {
     cy.preserveCookies();
   });
 
-  it("Patch card links to project patches page.", () => {
+  it("Should link to project patches page from the user patches page", () => {
     cy.visit("/user/admin/patches");
     cy.dataCy("project-patches-link").first().click();
     cy.location("pathname").should("eq", route);
+    cy.dataCy("patch-card").should("exist");
   });
 });
