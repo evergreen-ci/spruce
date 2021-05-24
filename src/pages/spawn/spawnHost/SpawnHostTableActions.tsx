@@ -14,7 +14,7 @@ const { copyToClipboard } = string;
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
-    <CopySSHCommandButton data-cy="copy-ssh-button" host={host} />
+    <CopySSHCommandButton host={host} />
     <EditSpawnHostButton host={host} />
   </FlexContainer>
 );
