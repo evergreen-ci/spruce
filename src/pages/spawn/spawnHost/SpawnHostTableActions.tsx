@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
@@ -14,7 +14,7 @@ const { copyToClipboard } = string;
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
-    <CopySSHCommandButton host={host} />
+    <CopySSHCommandButton data-cy="copy-ssh-button" host={host} />
     <EditSpawnHostButton host={host} />
   </FlexContainer>
 );
@@ -22,18 +22,36 @@ export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
 const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
+  const [hasCopied, setHasCopied] = useState(false);
+  const [openTooltip, setOpenTooltip] = useState(false);
+  useEffect(() => {
+    const timeout = setTimeout(() => setHasCopied(false), 10000);
+    return () => clearTimeout(timeout);
+  }, [hasCopied]);
 
   return (
-    <FlexContainer onClick={(e: React.MouseEvent) => e.stopPropagation()}>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <div
+      onClick={(e: React.MouseEvent) => e.stopPropagation()}
+      onMouseEnter={() => {
+        setOpenTooltip(true);
+      }}
+      onMouseLeave={() => {
+        setOpenTooltip(false);
+      }}
+    >
       <Tooltip
         align="top"
         justify="middle"
-        triggerEvent="click"
+        enabled
+        open={openTooltip}
+        data-cy="copy-ssh-tooltip"
         trigger={
           <PaddedButton // @ts-expect-error
             onClick={() => {
               copyToClipboard(sshCommand);
               spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
+              setHasCopied(!hasCopied);
             }}
             size={Size.XSmall}
           >
@@ -41,10 +59,13 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
           </PaddedButton>
         }
       >
-        <Center>Copied!</Center>
-        <Center>Must be on VPN to connect to host</Center>
+        {hasCopied ? (
+          <Center>Copied!</Center>
+        ) : (
+          <Center>Must be on VPN to connect to host</Center>
+        )}
       </Tooltip>
-    </FlexContainer>
+    </div>
   );
 };
 

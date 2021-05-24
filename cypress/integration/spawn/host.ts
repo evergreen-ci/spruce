@@ -51,6 +51,23 @@ describe("Navigating to Spawn Host page", () => {
     cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(2)').click();
     cy.dataCy("spawn-host-card").should("not.be.visible");
   });
+  it("Hovering over copy ssh button should toggle tooltip", () => {
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(7)').trigger(
+      "mouseover"
+    );
+    cy.dataCy("copy-ssh-tooltip").contains("Must be on VPN to connect to host");
+  });
+  it("Clicking on copy ssh button should change tooltip message", () => {
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(7)').click();
+    cy.dataCy("copy-ssh-tooltip").contains("Copied!");
+  });
+  it("Waiting should change tooltip message back ", () => {
+    cy.wait(10000);
+    cy.get('[data-row-key="i-092593689871a50dc"] > :nth-child(7)').trigger(
+      "mouseover"
+    );
+    cy.dataCy("copy-ssh-tooltip").contains("Must be on VPN to connect to host");
+  });
   it("Visiting the spawn host page with an id in the url should open the page with the row expanded", () => {
     cy.visit("/spawn/host?host=i-092593689871a50dc");
     cy.dataCy("spawn-host-card").should("be.visible");
