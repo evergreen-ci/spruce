@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import { StyledRouterLink } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -143,14 +143,11 @@ const getColumnDefsControlled = (
   }));
 };
 
-const renderStatusBadge = (
-  status: string,
-  { blocked }: Task
-): null | JSX.Element => {
+const renderStatusBadge = (status: string): null | JSX.Element => {
   if (status === "" || !status) {
     return null;
   }
-  return <TaskStatusBadge status={status} blocked={blocked} />;
+  return <TaskStatusBadge status={status} />;
 };
 
 interface TaskLinkProps {

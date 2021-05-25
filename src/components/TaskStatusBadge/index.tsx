@@ -1,6 +1,7 @@
 import React from "react";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Badge, { Variant } from "components/Badge";
+import Badge, { Variant } from "@leafygreen-ui/badge";
 import { TaskStatus } from "types/task";
 import { statuses, errorReporting } from "utils";
 
@@ -11,15 +12,17 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,
   [TaskStatus.Unstarted]: Variant.LightGray,
   [TaskStatus.Undispatched]: Variant.LightGray,
+  [TaskStatus.TaskWillRun]: Variant.LightGray,
+  [TaskStatus.StatusBlocked]: Variant.LightGray,
+  [TaskStatus.StatusPending]: Variant.LightGray,
+  [TaskStatus.TaskWillNotRun]: Variant.DarkGray,
+  [TaskStatus.Aborted]: Variant.LightGray,
   [TaskStatus.Started]: Variant.Yellow,
   [TaskStatus.Dispatched]: Variant.Yellow,
-  [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Failed]: Variant.Red,
   [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.TaskTimedOut]: Variant.Red,
-  [TaskStatus.StatusBlocked]: Variant.LightGray,
-  [TaskStatus.StatusPending]: Variant.LightGray,
-  [TaskStatus.Aborted]: Variant.LightGray,
+  [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Known]: Variant.Blue,
 };
 
@@ -28,6 +31,8 @@ const taskStatusToCopy = {
   [TaskStatus.Inactive]: "Inactive",
   [TaskStatus.Unstarted]: "Unstarted",
   [TaskStatus.Undispatched]: "Undispatched",
+  [TaskStatus.TaskWillRun]: "Will Run",
+  [TaskStatus.TaskWillNotRun]: "Will Not Run",
   [TaskStatus.Dispatched]: "Dispatched",
   [TaskStatus.Succeeded]: "Success",
   [TaskStatus.Failed]: "Failed",
@@ -37,6 +42,10 @@ const taskStatusToCopy = {
   [TaskStatus.StatusPending]: "Pending",
   [TaskStatus.Aborted]: "Aborted",
   [TaskStatus.Known]: "Known Failure",
+  [TaskStatus.SystemFailed]: "System Failed",
+  [TaskStatus.SystemTimedOut]: "System Time Out",
+  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
+  [TaskStatus.SetupFailed]: "Setup Failure",
 };
 
 const failureColors = {
@@ -63,66 +72,54 @@ interface BadgeColorProps {
   text: string;
 }
 
-// only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
-const StyledBadge = styled(Badge)`
-  border-color: ${(props: BadgeColorProps): string => props.border} !important;
-  background-color: ${(props: BadgeColorProps): string => props.fill} !important
-  color: ${(props: BadgeColorProps): string => props.text} !important;
+const badgeWidthMaxContent = css`
   width: max-content;
 `;
 
-const BadgeWidthMaxContent = styled(Badge)`
-  width: max-content;
+// only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
+const StyledBadge = styled(Badge)`
+  border-color: ${(props: BadgeColorProps): string => props.border} !important;
+  background-color: ${(props: BadgeColorProps): string =>
+    props.fill} !important;
+  color: ${(props: BadgeColorProps): string => props.text} !important;
+  ${badgeWidthMaxContent}
 `;
 
 interface TaskStatusBadgeProps {
   status: string;
-  blocked: boolean;
 }
-export const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({
-  status,
-  blocked,
-}) => {
-  // We have to do this assignment because Blocked is not an official Task
-  // status from the tasks collection but we want to represent it in the badge.
-  const adjustedTaskStatus = blocked
-    ? (TaskStatus.StatusBlocked as string)
-    : status;
+const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
+  console.log({ status });
+  console.log(taskStatusToCopy[status]);
+  const displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
 
-  const displayStatus = getStatusBadgeCopy(
-    taskStatusToCopy[adjustedTaskStatus] ?? adjustedTaskStatus
-  );
-
-  if (adjustedTaskStatus in mapTaskStatusToBadgeVariant) {
+  if (status in mapTaskStatusToBadgeVariant) {
     return (
-      <BadgeWidthMaxContent
-        data-cy={dataCy}
-        key={adjustedTaskStatus}
-        variant={mapTaskStatusToBadgeVariant[adjustedTaskStatus]}
+      <Badge
+        data-cy="task-status-badge"
+        key={status}
+        variant={mapTaskStatusToBadgeVariant[status]}
       >
         {displayStatus}
-      </BadgeWidthMaxContent>
+      </Badge>
     );
   }
 
-  if (adjustedTaskStatus in mapUnsupportedBadgeColors) {
+  if (status in mapUnsupportedBadgeColors) {
     return (
       <StyledBadge
-        data-cy={dataCy}
-        key={adjustedTaskStatus}
-        {...mapUnsupportedBadgeColors[adjustedTaskStatus]}
+        data-cy="task-status-badge"
+        key={status}
+        {...mapUnsupportedBadgeColors[status]}
       >
         {displayStatus}
       </StyledBadge>
     );
   }
+
   const err = new Error(`Status '${status} is not a valid task status`);
   reportError(err).warning();
-  return (
-    <BadgeWidthMaxContent variant={Variant.LightGray}>
-      {status}
-    </BadgeWidthMaxContent>
-  );
+  return <Badge variant={Variant.LightGray}>{status}</Badge>;
 };
 
-const dataCy = "task-status-badge";
+export default TaskStatusBadge;
