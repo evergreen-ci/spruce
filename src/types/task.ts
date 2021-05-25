@@ -60,6 +60,8 @@ export enum TaskStatus {
   //  1. a task is not scheduled to run (when Task.Activated == false)
   //  2. a task is scheduled to run (when Task.Activated == true)
   Undispatched = "undispatched",
+  TaskWillRun = "will-run",
+  TaskWillNotRun = "will-not-run",
 
   // TaskStarted indicates a task is currently running
   Started = "started",
