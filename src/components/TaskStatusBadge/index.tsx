@@ -89,8 +89,6 @@ interface TaskStatusBadgeProps {
   status: string;
 }
 const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
-  console.log({ status });
-  console.log(taskStatusToCopy[status]);
   const displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
 
   if (status in mapTaskStatusToBadgeVariant) {
