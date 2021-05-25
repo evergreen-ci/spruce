@@ -37,8 +37,8 @@ export const convertObjectToArray = <T>(object: {
 }): { key: string; value: T }[] => {
   const result = [];
   if (object === undefined) return result;
-  const queryParamsList = Object.keys(object);
-  queryParamsList.forEach((key) => {
+  const objectKeys = Object.keys(object);
+  objectKeys.forEach((key) => {
     const value = object[key];
     if (!Array.isArray(value)) {
       result.push({ key, value });
@@ -50,3 +50,16 @@ export const convertObjectToArray = <T>(object: {
   });
   return result;
 };
+
+// Takes a deduplicated string array and returns an object of key value pairs where the array keys  are the object key mapped to a value
+export const mapStringArrayToObject = <T>(
+  array: string[],
+  v: T
+): { [key: string]: T } =>
+  array.reduce((prev, curr) => {
+    let value = v;
+    if (typeof v === "function") {
+      value = v(curr);
+    }
+    return { ...prev, [curr]: value };
+  }, {});
