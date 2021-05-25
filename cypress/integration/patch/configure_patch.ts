@@ -526,24 +526,24 @@ const mockedSuccessfulConfigureResponse = {
               "mci_osx_dist_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
             name: "dist",
             status: "success",
-            __typename: "PatchBuildVariantTask",
+            __typename: "Task",
           },
           {
             id:
               "mci_osx_test_auth_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
             name: "test-auth",
             status: "success",
-            __typename: "PatchBuildVariantTask",
+            __typename: "Task",
           },
           {
             id:
               "mci_osx_test_graphql_patch_c12773e028910390ab4fda66e4b1745cfdc9ee65_5ea99425b23736089a09a98f_20_04_29_14_53_16",
             name: "test-graphql",
             status: "success",
-            __typename: "PatchBuildVariantTask",
+            __typename: "Task",
           },
         ],
-        __typename: "PatchBuildVariant",
+        __typename: "GroupedBuildVariant",
       },
     ],
     patch: {
