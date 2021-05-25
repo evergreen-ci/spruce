@@ -50,7 +50,7 @@ export type Query = {
   taskQueueDistros: Array<TaskQueueDistro>;
   buildBaron: BuildBaron;
   bbGetCreatedTickets: Array<JiraTicket>;
-  mainlineCommits: Array<MainlineCommit>;
+  mainlineCommits?: Maybe<MainlineCommits>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -366,38 +366,48 @@ export type MutationBbCreateTicketArgs = {
   execution?: Maybe<Scalars["Int"]>;
 };
 
-export type MainlineCommit = {
-  version?: Maybe<Version>;
-  versionMeta?: Maybe<VersionMeta>;
+export type MainlineCommits = {
+  nextPageOrderNumber?: Maybe<Scalars["Int"]>;
+  versions: Array<MainlineCommitVersion>;
 };
 
-export type VersionMeta = {
-  id: Scalars["String"];
-  createTime: Scalars["Time"];
-  author: Scalars["String"];
-  message: Scalars["String"];
+export type MainlineCommitVersion = {
+  version?: Maybe<Version>;
+  rolledUpVersions?: Maybe<Array<Version>>;
 };
 
 export type Version = {
   id: Scalars["String"];
   createTime: Scalars["Time"];
-  startTime: Scalars["Time"];
-  finishTime: Scalars["Time"];
+  startTime?: Maybe<Scalars["Time"]>;
+  finishTime?: Maybe<Scalars["Time"]>;
+  message: Scalars["String"];
   revision: Scalars["String"];
   author: Scalars["String"];
-  message: Scalars["String"];
   status: Scalars["String"];
   order: Scalars["Int"];
+  repo: Scalars["String"];
+  project: Scalars["String"];
+  branch: Scalars["String"];
+  requester: Scalars["String"];
+  activated?: Maybe<Scalars["Boolean"]>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+};
+
+export type VersionBuildVariantsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
+export type BuildVariantOptions = {
+  variants?: Maybe<Array<Scalars["String"]>>;
+  tasks?: Maybe<Array<Scalars["String"]>>;
+  statuses?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type MainlineCommitsOptions = {
   projectID: Scalars["String"];
-  variants?: Maybe<Array<Scalars["String"]>>;
-  tasks?: Maybe<Array<Scalars["String"]>>;
-  statuses?: Maybe<Array<Scalars["String"]>>;
   limit?: Maybe<Scalars["Int"]>;
-  page?: Maybe<Scalars["Int"]>;
+  skipOrderNumber?: Maybe<Scalars["Int"]>;
 };
 
 export enum SpawnHostStatusActions {
