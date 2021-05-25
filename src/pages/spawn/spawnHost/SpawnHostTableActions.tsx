@@ -14,13 +14,16 @@ const { copyToClipboard } = string;
 export const SpawnHostTableActions: React.FC<{ host: MyHost }> = ({ host }) => (
   <FlexContainer>
     <SpawnHostActionButton host={host} />
-    <CopySSHCommandButton host={host} />
+    <CopySSHCommandButton user={host.user} hostUrl={host.hostUrl} />
     <EditSpawnHostButton host={host} />
   </FlexContainer>
 );
 
-const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
-  const sshCommand = `ssh ${host.user}@${host.hostUrl}`;
+export const CopySSHCommandButton: React.FC<{
+  user: string;
+  hostUrl: string;
+}> = ({ user, hostUrl }) => {
+  const sshCommand = `ssh ${user}@${hostUrl}`;
   const spawnAnalytics = useSpawnAnalytics();
   const [hasCopied, setHasCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
@@ -54,6 +57,7 @@ const CopySSHCommandButton: React.FC<{ host: MyHost }> = ({ host }) => {
               setHasCopied(!hasCopied);
             }}
             size={Size.XSmall}
+            data-cy="copy-ssh-button"
           >
             <Label>Copy SSH command</Label>
           </PaddedButton>
