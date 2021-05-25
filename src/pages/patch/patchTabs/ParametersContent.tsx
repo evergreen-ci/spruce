@@ -8,7 +8,7 @@ import { ParameterInput, SchedulePatchMutation } from "gql/generated/types";
 interface Props {
   patchActivated: boolean;
   patchParameters: SchedulePatchMutation["schedulePatch"]["parameters"];
-  setPatchParams: React.Dispatch<React.SetStateAction<ParameterInput[]>>;
+  setPatchParams: (p: ParameterInput[]) => void;
 }
 
 export const ParametersContent: React.FC<Props> = ({
