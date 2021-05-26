@@ -4,6 +4,7 @@ import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { PaddedButton } from "components/Spawn";
+import { SECOND } from "constants/index";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
 import { EditSpawnHostButton } from "./EditSpawnHostButton";
@@ -28,7 +29,7 @@ export const CopySSHCommandButton: React.FC<{
   const [hasCopied, setHasCopied] = useState(false);
   const [openTooltip, setOpenTooltip] = useState(false);
   useEffect(() => {
-    const timeout = setTimeout(() => setHasCopied(false), 10000);
+    const timeout = setTimeout(() => setHasCopied(false), 10 * SECOND);
     return () => clearTimeout(timeout);
   }, [hasCopied]);
 
