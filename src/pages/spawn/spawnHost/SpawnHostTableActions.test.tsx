@@ -12,7 +12,8 @@ const execCommand = jest.fn();
 const user = "bynn.lee";
 const hostUrl = "ec2-54-242-162-135.compute-1.amazonaws.com";
 
-test("CopySSHCommandButton", async () => {
+describe("CopySSHCommandButton", async () => {
+test("Tooltip text should change after clicking on the copy button", async () => {
   const { queryByDataCy, queryByText } = render(
     <MockedProvider mocks={[getUserMock]}>
       <CopySSHCommandButton user={user} hostUrl={hostUrl} />
