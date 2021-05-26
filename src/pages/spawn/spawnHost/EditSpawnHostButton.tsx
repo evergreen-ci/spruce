@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Size } from "@leafygreen-ui/button";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PaddedButton } from "components/Spawn";
@@ -23,9 +23,9 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
       <ConditionalWrapper
         condition={!canEditSpawnHost}
         wrapper={(children) => (
-          <Tooltip
-            title={`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
-          >
+          <Tooltip trigger={<></>}>
+            {/* title={`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
+          > */}
             <span>{children}</span>
           </Tooltip>
         )}
