@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
+import { TreeSelect } from "components/TreeSelect";
 import { TreeDataEntry } from "components/TreeSelect";
 
 export interface InputFilterProps {
@@ -16,39 +17,8 @@ export interface InputFilterProps {
   resetUrlParam: () => void;
 }
 
-export const InputFilter: React.FC<InputFilterProps> = ({
-  placeholder,
-  value,
-  onChange,
-  updateUrlParam,
-  resetUrlParam,
-  dataCy,
-}) => (
-  <FilterWrapper data-cy={`${dataCy}-wrapper`}>
-    <Input
-      data-cy="input-filter"
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      onPressEnter={updateUrlParam}
-    />
-    <ButtonsWrapper>
-      <ButtonWrapper>
-        <Button data-cy="reset-button" size="small" onClick={resetUrlParam}>
-          Reset
-        </Button>
-      </ButtonWrapper>
-      <Button
-        data-cy="filter-button"
-        size="small"
-        variant="primary"
-        onClick={updateUrlParam}
-      >
-        Search
-      </Button>
-    </ButtonsWrapper>
-  </FilterWrapper>
-);
+const getStyle = (value: string[] | string) =>
+  value.length ? { color: uiColors.blue.base } : {};
 
 export const getColumnSearchFilterProps = ({
   dataCy,
@@ -58,29 +28,83 @@ export const getColumnSearchFilterProps = ({
   updateUrlParam,
   resetUrlParam,
 }: InputFilterProps) => ({
-  filterDropdown: (
-    <InputFilter
-      {...{
-        placeholder,
-        value,
-        onChange,
-        updateUrlParam,
-        resetUrlParam,
-        dataCy,
-      }}
-    />
-  ),
+  filterDropdown:
+    <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+      <Input
+        data-cy="input-filter"
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        onPressEnter={updateUrlParam}
+      />
+      <ButtonsWrapper>
+        <ButtonWrapper>
+          <Button data-cy="reset-button" size="small" onClick={resetUrlParam}>
+            Reset
+        </Button>
+        </ButtonWrapper>
+        <Button
+          data-cy="filter-button"
+          size="small"
+          variant="primary"
+          onClick={updateUrlParam}
+        >
+          Search
+      </Button>
+      </ButtonsWrapper>
+    </FilterWrapper>
+  ,
   filterIcon: (
     <SearchOutlined
       data-cy={dataCy}
-      style={{ color: value ? uiColors.blue.base : undefined }}
+      style={getStyle(value)}
     />
   ),
 });
 
-export const getColumnTreeSelectprops = ({
-  
-})
+export const getColumnTreeSelectProps = ({
+  dataCy,
+  statuses,
+  tData,
+  label,
+  onChange,
+  onSubmit,
+  onReset
+}: any) => ({
+  filterDropdown: (
+    <FilterWrapper data-cy={`${dataCy}-wrapper`}>
+      <TreeSelect
+        state={statuses}
+        tData={tData}
+        inputLabel={`${label}: `}
+        data-cy={`${dataCy}-treeselect`}
+        onChange={onChange}
+        alwaysOpen
+      />
+      <ButtonsWrapper>
+        <ButtonWrapper>
+          <Button data-cy={`${dataCy}-reset-btn`} size="small" onClick={onReset}>
+            Reset
+        </Button>
+        </ButtonWrapper>
+        <Button
+          data-cy={`${dataCy}-search-btn`}
+          size="small"
+          variant="primary"
+          onClick={onSubmit}
+        >
+          Search
+      </Button>
+      </ButtonsWrapper>
+    </FilterWrapper>
+  ),
+  filterIcon: (
+    <SearchOutlined
+      data-cy={dataCy}
+      style={getStyle(statuses)}
+    />
+  ),
+});
 
 export interface CheckboxFilterProps {
   dataCy?: string;
@@ -142,7 +166,7 @@ export const getColumnCheckboxFilterProps = ({
   filterIcon: () => (
     <FilterOutlined
       data-cy={dataCy}
-      style={{ color: value.length ? uiColors.blue.base : undefined }}
+      style={getStyle(value)}
     />
   ),
 });

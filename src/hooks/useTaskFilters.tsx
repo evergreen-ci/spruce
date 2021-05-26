@@ -11,7 +11,7 @@ import {
   ButtonsWrapper,
   ButtonWrapper,
 } from "components/styles/Table";
-import { getColumnSearchFilterProps } from "components/Table/Filters";
+import { getColumnSearchFilterProps, getColumnTreeSelectProps } from "components/Table/Filters";
 import { getCurrentStatuses } from "components/TaskStatusFilters/getCurrentStatuses";
 import { TreeSelect } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
@@ -47,7 +47,7 @@ export const useTaskFilters: () => TaskFilters = () => {
 
   const [
     variantFilterValue,
-    _, // eslint-disable-line
+    ,
     onChangeVariantName,
     submitVariantName,
     resetVariantName,
@@ -58,7 +58,7 @@ export const useTaskFilters: () => TaskFilters = () => {
   );
   const [
     taskNameFilterValue,
-    __, // eslint-disable-line
+    ,
     onChangeTaskName,
     submitTaskName,
     resetTaskName,
@@ -67,12 +67,16 @@ export const useTaskFilters: () => TaskFilters = () => {
     true,
     sendFilterTasksEvent
   );
-  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
+
+  // statuses
+  const [selectedStatuses, , updateStatuses, submitStatuses, resetStatuses] = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     true,
     sendFilterTasksEvent
   );
-  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
+
+  // base statuses
+  const [selectedBaseStatuses, , updateBaseStatuses, submitBaseStatuses, resetBaseStatuses] = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
     true,
     sendFilterTasksEvent
@@ -91,45 +95,14 @@ export const useTaskFilters: () => TaskFilters = () => {
   const baseStatuses = data?.patch.baseTaskStatuses ?? [];
 
   return {
-    name: {
-      filterDropdown: (
-        <FilterWrapper>
-          <Input
-            data-cy="task-name-filter-dropdown"
-            placeholder="Search Task Name"
-            suffix={<Icon glyph="MagnifyingGlass" />}
-            value={taskNameFilterValue}
-            onChange={onChangeTaskName}
-            onPressEnter={submitTaskName}
-          />
-          <ButtonsWrapper>
-            <ButtonWrapper>
-              <Button
-                data-cy="reset-button"
-                onClick={resetTaskName}
-                size="small"
-              >
-                Reset
-              </Button>
-            </ButtonWrapper>
-            <Button
-              data-cy="filter-button"
-              size="small"
-              variant="primary"
-              onClick={submitTaskName}
-            >
-              Search
-            </Button>
-          </ButtonsWrapper>
-        </FilterWrapper>
-      ),
-      filterIcon: (
-        <SearchOutlined
-          data-cy="task-name-filter-icon"
-          style={getStyle(taskNameFilterValue)}
-        />
-      ),
-    },
+    name: getColumnSearchFilterProps({
+      dataCy: "task-name",
+      placeholder: "Task name",
+      value: taskNameFilterValue,
+      updateUrlParam: submitTaskName,
+      resetUrlParam: resetTaskName,
+      onChange: onChangeTaskName,
+    }),
     variant: getColumnSearchFilterProps({
       dataCy: "variant-name",
       placeholder: "Variant name",
@@ -138,40 +111,24 @@ export const useTaskFilters: () => TaskFilters = () => {
       resetUrlParam: resetVariantName,
       onChange: onChangeVariantName,
     }),
-    baseStatus: {
-      filterDropdown: (
-        <TreeSelect
-          state={selectedBaseStatuses}
-          tData={getCurrentStatuses(baseStatuses, taskStatusesFilterTreeData)}
-          inputLabel="Task Base Status: "
-          data-cy="task-base-status-filter"
-          onChange={onChangeBaseStatusFilter}
-        />
-      ),
-      filterIcon: (
-        <FilterOutlined
-          data-cy="task-name-filter-icon"
-          style={getStyle(selectedBaseStatuses)}
-        />
-      ),
-    },
-    status: {
-      filterDropdown: (
-        <TreeSelect
-          state={selectedStatuses}
-          tData={getCurrentStatuses(statuses, taskStatusesFilterTreeData)}
-          inputLabel="Task Status: "
-          data-cy="task-status-filter"
-          onChange={onChangeStatusFilter}
-        />
-      ),
-      filterIcon: (
-        <FilterOutlined
-          data-cy="task-name-filter-icon"
-          style={getStyle(selectedBaseStatuses)}
-        />
-      ),
-    },
+    baseStatus: getColumnTreeSelectProps({
+      dataCy: "base-status",
+      statuses: selectedBaseStatuses,
+      tData: getCurrentStatuses(baseStatuses, taskStatusesFilterTreeData),
+      label: "Task Base Status",
+      onChange: updateBaseStatuses,
+      onSubmit: submitBaseStatuses,
+      onReset: resetBaseStatuses
+    }),
+    status: getColumnTreeSelectProps({
+      dataCy: "status",
+      statuses: selectedStatuses,
+      tData: getCurrentStatuses(statuses, taskStatusesFilterTreeData),
+      label: "Task Status",
+      onChange: updateStatuses,
+      onSubmit: submitStatuses,
+      onReset: resetStatuses
+    }),
   };
 };
 

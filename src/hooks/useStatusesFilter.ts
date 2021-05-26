@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { usePrevious } from "hooks"
+import { usePrevious } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
@@ -17,34 +17,44 @@ export const useStatusesFilter = (
   urlParam: string,
   resetPage?: boolean,
   sendAnalyticsEvent: (filterBy: string) => void = () => undefined
-): [string[], (newValue: string[]) => void, (newValue: string[]) => void, () => void, () => void] => {
+): [
+  string[],
+  (newValue: string[]) => void,
+  (newValue: string[]) => void,
+  () => void,
+  () => void
+] => {
   const { search } = useLocation();
   const { [urlParam]: rawStatuses } = parseQueryString(search);
   const currUrlStatuses = Array.isArray(rawStatuses)
     ? rawStatuses
     : [rawStatuses].filter((v) => v);
 
-  const prevUrlStatuses = usePrevious(currUrlStatuses)
+  const prevUrlStatuses = usePrevious(currUrlStatuses);
 
-  const [value, setValue] = useState(currUrlStatuses)
+  const [value, setValue] = useState(currUrlStatuses);
 
   // update value when URL params change
   useEffect(() => {
-    const prevSet = new Set(prevUrlStatuses)
-    const currSet = new Set(currUrlStatuses)
-    const areEqualUrlStatuses = prevSet.size === currSet.size && currUrlStatuses.reduce((accum, curr) => accum && prevSet.has(curr), true)
+    const prevSet = new Set(prevUrlStatuses);
+    const currSet = new Set(currUrlStatuses);
+    const areEqualUrlStatuses =
+      prevSet.size === currSet.size &&
+      currUrlStatuses.reduce((accum, curr) => accum && prevSet.has(curr), true);
 
-    const inputSet = new Set(value)
-    const areEqualCurrUrlStatusesAndInputValue = inputSet.size === currSet.size && value.reduce((accum, curr) => accum && currSet.has(curr), true)
+    const inputSet = new Set(value);
+    const areEqualCurrUrlStatusesAndInputValue =
+      inputSet.size === currSet.size &&
+      value.reduce((accum, curr) => accum && currSet.has(curr), true);
 
     if (!areEqualUrlStatuses && !areEqualCurrUrlStatusesAndInputValue) {
-      setValue(currUrlStatuses)
+      setValue(currUrlStatuses);
     }
-  }, [currUrlStatuses, prevUrlStatuses, value])
+  }, [currUrlStatuses, prevUrlStatuses, value]);
 
   const updateOnly = (newValue: string[]): void => {
-    setValue(newValue)
-  }
+    setValue(newValue);
+  };
 
   const submitOnly = () => {
     updateQueryParams({
@@ -52,19 +62,19 @@ export const useStatusesFilter = (
       ...(resetPage && { page: "0" }),
     });
     sendAnalyticsEvent(urlParam);
-  }
+  };
 
   const reset = () => {
     updateQueryParams({
       [urlParam]: [],
       ...(resetPage && { page: "0" }),
     });
-  }
+  };
 
   const updateQueryParams = useUpdateURLQueryParams();
 
   const onUpdateAndSubmit = (newValue: string[]): void => {
-    setValue(newValue)
+    setValue(newValue);
     updateQueryParams({
       [urlParam]: newValue,
       ...(resetPage && { page: "0" }),

@@ -19,8 +19,6 @@ import {
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
-  useTableInputFilter,
-  useTableCheckboxFilter,
 } from "hooks";
 
 interface Props {
