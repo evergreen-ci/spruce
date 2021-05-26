@@ -93,5 +93,5 @@ export enum TaskStatus {
   StatusBlocked = "blocked",
   Aborted = "aborted",
 
-  Known = "known-issue",
+  KnownIssue = "known-issue",
 }

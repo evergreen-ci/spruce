@@ -34,8 +34,8 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
       },
       {
         title: "Known Issue",
-        value: TaskStatus.Known,
-        key: TaskStatus.Known,
+        value: TaskStatus.KnownIssue,
+        key: TaskStatus.KnownIssue,
       },
     ],
   },

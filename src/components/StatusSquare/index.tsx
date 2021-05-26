@@ -26,7 +26,7 @@ export const mapVariantTaskStatusToColor = {
   [TaskStatus.StatusBlocked]: gray.dark1,
   [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.StatusPending]: yellow.base,
-  [TaskStatus.Known]: red.base,
+  [TaskStatus.KnownIssue]: red.base,
 };
 
 export const mapVariantTaskStatusToDarkColor = {
@@ -45,7 +45,7 @@ export const mapVariantTaskStatusToDarkColor = {
   [TaskStatus.SetupFailed]: failureLavendarDark,
   [TaskStatus.StatusBlocked]: gray.dark3,
   [TaskStatus.StatusPending]: yellow.dark3,
-  [TaskStatus.Known]: red.dark3,
+  [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Aborted]: gray.dark3,
 };
 

@@ -103,7 +103,10 @@ export const Task: React.FC = () => {
           <StyledBadgeWrapper>
             <TaskStatusBadge status={status} blocked={blocked} />
             {attributed && (
-              <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
+              <TaskStatusBadge
+                status={TaskStatus.KnownIssue}
+                blocked={blocked}
+              />
             )}
           </StyledBadgeWrapper>
         }
