@@ -66,17 +66,17 @@ export const TreeSelect: React.FC<Props> = ({
   const CheckboxContainerLayout = alwaysOpen ? "div" : RelativeWrapper
   return (
     <Wrapper data-cy={dataCy} width={width}>
-      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
+      {!alwaysOpen && <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
         <LabelWrapper>
           {inputLabel}
           {optionsLabel || "No filters selected"}
         </LabelWrapper>
-        {!alwaysOpen && <ArrowWrapper>
+         <ArrowWrapper>
           <div>
             <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
           </div>
-        </ArrowWrapper>}
-      </BarWrapper>
+        </ArrowWrapper>
+      </BarWrapper>}
       {isVisible && (
         <CheckboxContainerLayout>
           <OptionsWrapper alwaysOpen={alwaysOpen}>

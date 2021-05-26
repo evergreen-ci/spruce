@@ -7,7 +7,7 @@ import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import {
   getColumnSearchFilterProps,
-  getColumnCheckboxFilterProps,
+  getColumnTreeSelectProps
 } from "components/Table/Filters";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
@@ -19,6 +19,8 @@ import {
 } from "gql/generated/types";
 import {
   useUpdateUrlSortParamOnTableChange,
+  useFilterInputChangeHandler,
+  useStatusesFilter
 } from "hooks";
 
 interface Props {
@@ -68,57 +70,65 @@ export const HostsTable: React.FC<Props> = ({
   // HOST ID URL PARAM
   const [
     hostIdValue,
+    ,
     onChangeHostId,
     updateHostIdUrlParam,
     resetHostIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "hostId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  ] = useFilterInputChangeHandler(
+    "hostId",
+    true,
+    sendHostsTableFilterEvent
+  );
 
   // STATUSES URL PARAM
   const [
     statusesValue,
+    ,
     onChangeStatuses,
     updateStatusesUrlParam,
     resetStatusesUrlParam,
-  ] = useTableCheckboxFilter<HostsUrlParam>({
-    urlSearchParam: "statuses",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  ] = useStatusesFilter(
+    "statuses",
+    true,
+    sendHostsTableFilterEvent
+  );
 
   // DISTRO URL PARAM
   const [
     distroIdValue,
+    ,
     onChangeDistroId,
     updateDistroIdUrlParam,
     resetDistroIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "distroId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  ] = useFilterInputChangeHandler(
+    "distroId",
+    true,
+    sendHostsTableFilterEvent
+  );
 
   // CURRENT TASK ID URL PARAM
   const [
-    currentTaskIdValue,
+    currentTaskIdValue, ,
     onChangeCurrentTaskId,
     updateCurrentTaskIdUrlParam,
     resetCurrentTaskIdUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "currentTaskId",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  ] = useFilterInputChangeHandler(
+    "currentTaskId",
+    true,
+    sendHostsTableFilterEvent
+  );
 
   // OWNER URL PARAM
   const [
-    ownerValue,
+    ownerValue, ,
     onChangeOwner,
     updateOwnerUrlParam,
     resetOwnerUrlParam,
-  ] = useTableInputFilter<HostsUrlParam>({
-    urlSearchParam: "startedBy",
-    sendAnalyticsEvent: sendHostsTableFilterEvent,
-  });
+  ] = useFilterInputChangeHandler(
+    "startedBy",
+    true,
+    sendHostsTableFilterEvent
+  );
 
   // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [
@@ -169,13 +179,14 @@ export const HostsTable: React.FC<Props> = ({
       sorter: true,
       width: "15%",
       className: "cy-task-table-col-STATUS",
-      ...getColumnCheckboxFilterProps({
-        value: statusesValue,
+      ...getColumnTreeSelectProps({
+        label: "status",
+        tData: hostStatuses,
         onChange: onChangeStatuses,
         dataCy: "statuses-filter",
-        statuses: hostStatuses,
-        updateUrlParam: updateStatusesUrlParam,
-        resetUrlParam: resetStatusesUrlParam,
+        statuses: statusesValue,
+        onSubmit: updateStatusesUrlParam,
+        onReset: resetStatusesUrlParam,
       }),
     },
     {

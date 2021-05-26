@@ -62,6 +62,16 @@ export const getColumnSearchFilterProps = ({
   ),
 });
 
+interface GetColumnTreeSelectPropsParams {
+  dataCy: string;
+  statuses: string[];
+  tData: TreeDataEntry[],
+  label: string;
+  onChange: (v: string[]) => void,
+  onSubmit,
+  onReset
+}
+
 export const getColumnTreeSelectProps = ({
   dataCy,
   statuses,
@@ -70,7 +80,7 @@ export const getColumnTreeSelectProps = ({
   onChange,
   onSubmit,
   onReset
-}: any) => ({
+}: GetColumnTreeSelectPropsParams) => ({
   filterDropdown: (
     <FilterWrapper data-cy={`${dataCy}-wrapper`}>
       <TreeSelect
