@@ -7,7 +7,7 @@
  < add screenshots of visible changes >
 
 ### Testing 
-  < add description of how you tested it >
+  < add a description of how you tested it >
 
 ### Evergreen PR 
   < link to a corresponding evergreen PR if applicable >
