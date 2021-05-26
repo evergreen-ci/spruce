@@ -103,7 +103,6 @@ export const TestsTableCore: React.FC = () => {
     }),
     ...filters[column.key],
   }));
-  console.log(columns);
   // initial request for task tests
   const { data, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,

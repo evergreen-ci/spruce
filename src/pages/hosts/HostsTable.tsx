@@ -7,7 +7,7 @@ import { useHostsTableAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import {
   getColumnSearchFilterProps,
-  getColumnTreeSelectProps
+  getColumnTreeSelectProps,
 } from "components/Table/Filters";
 import { hostStatuses } from "constants/hosts";
 import { getHostRoute, getTaskRoute } from "constants/routes";
@@ -20,7 +20,7 @@ import {
 import {
   useUpdateUrlSortParamOnTableChange,
   useFilterInputChangeHandler,
-  useStatusesFilter
+  useStatusesFilter,
 } from "hooks";
 
 interface Props {
@@ -35,8 +35,6 @@ interface Props {
 }
 
 type Host = HostsQuery["hosts"]["hosts"][0];
-
-type HostsUrlParam = keyof HostsQueryVariables;
 
 export const HostsTable: React.FC<Props> = ({
   hosts,
@@ -74,11 +72,7 @@ export const HostsTable: React.FC<Props> = ({
     onChangeHostId,
     updateHostIdUrlParam,
     resetHostIdUrlParam,
-  ] = useFilterInputChangeHandler(
-    "hostId",
-    true,
-    sendHostsTableFilterEvent
-  );
+  ] = useFilterInputChangeHandler("hostId", true, sendHostsTableFilterEvent);
 
   // STATUSES URL PARAM
   const [
@@ -87,11 +81,7 @@ export const HostsTable: React.FC<Props> = ({
     onChangeStatuses,
     updateStatusesUrlParam,
     resetStatusesUrlParam,
-  ] = useStatusesFilter(
-    "statuses",
-    true,
-    sendHostsTableFilterEvent
-  );
+  ] = useStatusesFilter("statuses", true, sendHostsTableFilterEvent);
 
   // DISTRO URL PARAM
   const [
@@ -100,15 +90,12 @@ export const HostsTable: React.FC<Props> = ({
     onChangeDistroId,
     updateDistroIdUrlParam,
     resetDistroIdUrlParam,
-  ] = useFilterInputChangeHandler(
-    "distroId",
-    true,
-    sendHostsTableFilterEvent
-  );
+  ] = useFilterInputChangeHandler("distroId", true, sendHostsTableFilterEvent);
 
   // CURRENT TASK ID URL PARAM
   const [
-    currentTaskIdValue, ,
+    currentTaskIdValue,
+    ,
     onChangeCurrentTaskId,
     updateCurrentTaskIdUrlParam,
     resetCurrentTaskIdUrlParam,
@@ -120,15 +107,12 @@ export const HostsTable: React.FC<Props> = ({
 
   // OWNER URL PARAM
   const [
-    ownerValue, ,
+    ownerValue,
+    ,
     onChangeOwner,
     updateOwnerUrlParam,
     resetOwnerUrlParam,
-  ] = useFilterInputChangeHandler(
-    "startedBy",
-    true,
-    sendHostsTableFilterEvent
-  );
+  ] = useFilterInputChangeHandler("startedBy", true, sendHostsTableFilterEvent);
 
   // TABLE COLUMNS
   const columnsTemplate: Array<ColumnProps<Host>> = [

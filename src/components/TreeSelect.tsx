@@ -39,7 +39,7 @@ export const TreeSelect: React.FC<Props> = ({
 }) => {
   const [isVisible, setisVisible] = useState(alwaysOpen);
   const toggleOptions: () => void = alwaysOpen
-    ? () => { }
+    ? () => {}
     : () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
@@ -47,36 +47,38 @@ export const TreeSelect: React.FC<Props> = ({
   const optionsLabel = filteredState.includes(ALL_VALUE)
     ? ALL_COPY
     : filteredState
-      .reduce(
-        // remove children nodes if parent exists in state
-        (accum, value) => {
-          const { target } = findNode({ value, tData });
-          if (target.children) {
-            return accum.filter(
-              (v) => !target.children.find((child) => child.value === v)
-            );
-          }
-          return accum;
-        },
-        [...filteredState]
-      )
-      .map((value) => findNode({ value, tData }).target.title)
-      .join(", ");
+        .reduce(
+          // remove children nodes if parent exists in state
+          (accum, value) => {
+            const { target } = findNode({ value, tData });
+            if (target.children) {
+              return accum.filter(
+                (v) => !target.children.find((child) => child.value === v)
+              );
+            }
+            return accum;
+          },
+          [...filteredState]
+        )
+        .map((value) => findNode({ value, tData }).target.title)
+        .join(", ");
 
-  const CheckboxContainerLayout = alwaysOpen ? "div" : RelativeWrapper
+  const CheckboxContainerLayout = alwaysOpen ? "div" : RelativeWrapper;
   return (
     <Wrapper data-cy={dataCy} width={width}>
-      {!alwaysOpen && <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
-        <LabelWrapper>
-          {inputLabel}
-          {optionsLabel || "No filters selected"}
-        </LabelWrapper>
-         <ArrowWrapper>
-          <div>
-            <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
-          </div>
-        </ArrowWrapper>
-      </BarWrapper>}
+      {!alwaysOpen && (
+        <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
+          <LabelWrapper>
+            {inputLabel}
+            {optionsLabel || "No filters selected"}
+          </LabelWrapper>
+          <ArrowWrapper>
+            <div>
+              <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
+            </div>
+          </ArrowWrapper>
+        </BarWrapper>
+      )}
       {isVisible && (
         <CheckboxContainerLayout>
           <OptionsWrapper alwaysOpen={alwaysOpen}>
@@ -329,7 +331,7 @@ const BarWrapper = styled.div`
 `;
 
 interface OptionsWrapperProps {
-  alwaysOpen?: boolean
+  alwaysOpen?: boolean;
 }
 
 const OptionsWrapper = styled.div<OptionsWrapperProps>`
@@ -342,8 +344,7 @@ const OptionsWrapper = styled.div<OptionsWrapperProps>`
   margin-top: 5px;
   width: 100%;
   overflow: hidden;
-  ${({alwaysOpen}): string =>
-    alwaysOpen ? "" : "position: absolute;"};
+  ${({ alwaysOpen }): string => (alwaysOpen ? "" : "position: absolute;")};
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper

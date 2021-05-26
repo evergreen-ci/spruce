@@ -12,7 +12,6 @@ import {
   SortOrder,
 } from "gql/generated/types";
 import { TaskFilters } from "hooks/useTaskFilters";
-
 import { TableOnChange } from "types/task";
 
 type OnClickTaskLink = (taskId: string) => void;

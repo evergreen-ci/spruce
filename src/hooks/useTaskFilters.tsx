@@ -11,7 +11,10 @@ import {
   ButtonsWrapper,
   ButtonWrapper,
 } from "components/styles/Table";
-import { getColumnSearchFilterProps, getColumnTreeSelectProps } from "components/Table/Filters";
+import {
+  getColumnSearchFilterProps,
+  getColumnTreeSelectProps,
+} from "components/Table/Filters";
 import { getCurrentStatuses } from "components/TaskStatusFilters/getCurrentStatuses";
 import { TreeSelect } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
@@ -69,14 +72,26 @@ export const useTaskFilters: () => TaskFilters = () => {
   );
 
   // statuses
-  const [selectedStatuses, , updateStatuses, submitStatuses, resetStatuses] = useStatusesFilter(
+  const [
+    selectedStatuses,
+    ,
+    updateStatuses,
+    submitStatuses,
+    resetStatuses,
+  ] = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     true,
     sendFilterTasksEvent
   );
 
   // base statuses
-  const [selectedBaseStatuses, , updateBaseStatuses, submitBaseStatuses, resetBaseStatuses] = useStatusesFilter(
+  const [
+    selectedBaseStatuses,
+    ,
+    updateBaseStatuses,
+    submitBaseStatuses,
+    resetBaseStatuses,
+  ] = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
     true,
     sendFilterTasksEvent
@@ -118,7 +133,7 @@ export const useTaskFilters: () => TaskFilters = () => {
       label: "Task Base Status",
       onChange: updateBaseStatuses,
       onSubmit: submitBaseStatuses,
-      onReset: resetBaseStatuses
+      onReset: resetBaseStatuses,
     }),
     status: getColumnTreeSelectProps({
       dataCy: "status",
@@ -127,7 +142,7 @@ export const useTaskFilters: () => TaskFilters = () => {
       label: "Task Status",
       onChange: updateStatuses,
       onSubmit: submitStatuses,
-      onReset: resetStatuses
+      onReset: resetStatuses,
     }),
   };
 };
