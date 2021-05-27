@@ -174,8 +174,8 @@ const statusesTreeData: TreeDataEntry[] = [
   },
   {
     title: "Blocked",
-    value: TaskStatus.StatusBlocked,
-    key: TaskStatus.StatusBlocked,
+    value: TaskStatus.Blocked,
+    key: TaskStatus.Blocked,
   },
   {
     title: "Won't Run",
