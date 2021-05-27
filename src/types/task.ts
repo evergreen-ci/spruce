@@ -72,7 +72,7 @@ export enum TaskStatus {
 
   // This is a temporary status which is the same as undispatched, but
   // with the additional info that it's waiting for a dependency
-  StatusPending = "pending",
+  Pending = "pending",
 
   // The statuses below indicate that a task has finished.
   Succeeded = "success",
@@ -92,7 +92,7 @@ export enum TaskStatus {
 
   // This status means that the task will not run because a dependency was
   // not satisfied
-  StatusBlocked = "blocked",
+  Blocked = "blocked",
   Aborted = "aborted",
 
   Known = "known-failure",
