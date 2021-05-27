@@ -35,7 +35,7 @@ describe("commit queue page", () => {
       cy.dataCy("code-changes-table").should("be.visible");
     });
 
-    it.skip("Clicking on remove a patch from the commit queue should work", () => {
+    it("Clicking on remove a patch from the commit queue should work", () => {
       cy.dataCy("commit-queue-card").should("exist");
       cy.dataCy("commit-queue-patch-button").should("exist");
       cy.dataCy("commit-queue-patch-button").click();
@@ -98,7 +98,7 @@ describe("commit queue page", () => {
     });
   });
 
-  describe.skip(COMMIT_QUEUE_ROUTE_PR, () => {
+  describe(COMMIT_QUEUE_ROUTE_PR, () => {
     before(() => {
       cy.visit(COMMIT_QUEUE_ROUTE_PR);
     });

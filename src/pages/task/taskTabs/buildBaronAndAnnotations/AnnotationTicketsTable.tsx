@@ -67,7 +67,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         <ConditionalWrapper
           condition={!userCanModify}
           wrapper={(children) => (
-            <Tooltip title="You are not authorized to edit task annotations">
+            <Tooltip title="You are not authorized to edit failure details">
               <span>{children}</span>
             </Tooltip>
           )}

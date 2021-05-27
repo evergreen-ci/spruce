@@ -17,13 +17,11 @@ import {
   TableControlOuterRow,
   TableControlInnerRow,
 } from "components/styles";
-import { getColumnSearchFilterProps, getColumnTreeSelectProps } from "components/Table/Filters";
-import { TreeDataEntry } from "components/TreeSelect"
 import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
   isLobsterLink,
-  deprecatedLogkeeperLobsterURL
+  deprecatedLogkeeperLobsterURL,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -35,22 +33,19 @@ import {
   TaskTestResult,
 } from "gql/generated/types";
 import { GET_TASK_TESTS } from "gql/queries";
-import {
-  useFilterInputChangeHandler,
-  useUpdateURLQueryParams,
-  useNetworkStatus,
-  useStatusesFilter,
-} from "hooks";
+import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
 import { queryString, url, string, environmentalVariables } from "utils";
 
+const { getLobsterURL } = environmentalVariables;
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
-export const TestsTable: React.FC = () => {
+export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
@@ -69,46 +64,6 @@ export const TestsTable: React.FC = () => {
       });
     }
   }, [updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  const sendFilterTestsEvent = (filterBy: string) =>
-    taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
-
-  const [
-    testNameFilterValue,
-    ,
-    onChangeTestName,
-    submitTestName,
-    resetTestName,
-  ] = useFilterInputChangeHandler(
-    RequiredQueryParams.TestName,
-    true,
-    sendFilterTestsEvent
-  );
-  const [selectedStatuses, , updateStatuses, submitStatuses, resetStatuses] = useStatusesFilter(
-    RequiredQueryParams.Statuses,
-    true,
-    sendFilterTestsEvent
-  );
-  const filters = {
-    [TestSortCategory.TestName]: getColumnSearchFilterProps({
-      dataCy: "testname-filter",
-      value: testNameFilterValue,
-      onChange: onChangeTestName,
-      updateUrlParam: submitTestName,
-      resetUrlParam: resetTestName,
-      placeholder: "Search Test Name",
-    }),
-    [TestSortCategory.Status]: getColumnTreeSelectProps({
-      dataCy: "test-status",
-      statuses: selectedStatuses,
-      tData: treeData,
-      label: "Test Status",
-      onChange: updateStatuses,
-      onSubmit: submitStatuses,
-      onReset: resetStatuses,
-    })
-  };
-
   // Apply sorts to columns
   const columns = getColumnsTemplate(taskAnalytics).map((column) => ({
     ...column,
@@ -117,8 +72,8 @@ export const TestsTable: React.FC = () => {
         ? "ascend"
         : "descend") as SortOrder,
     }),
-    ...filters[column.key],
   }));
+
   // initial request for task tests
   const { data, startPolling, stopPolling } = useQuery<
     TaskTestsQuery,
@@ -254,159 +209,129 @@ const getColumnsTemplate = (
     | { name: "Click Logs Raw Button" }
   >
 ): ColumnProps<TestResult>[] => [
-    {
-      title: <span data-cy="name-column">Name</span>,
-      dataIndex: "testFile",
-      key: TestSortCategory.TestName,
-      width: "40%",
-      render: (name, { displayTestName }) => (
-        <WordBreak>{displayTestName || name}</WordBreak>
-      ),
-      sorter: true,
+  {
+    title: <span data-cy="name-column">Name</span>,
+    dataIndex: "testFile",
+    key: TestSortCategory.TestName,
+    width: "40%",
+    render: (name, { displayTestName }) => (
+      <WordBreak>{displayTestName || name}</WordBreak>
+    ),
+    sorter: true,
+  },
+  {
+    title: <span data-cy="status-column">Status</span>,
+    dataIndex: "status",
+    key: TestSortCategory.Status,
+    sorter: true,
+    render: (status: string): JSX.Element => (
+      <span>
+        <Badge
+          variant={statusToBadgeColor[status] || Variant.LightGray}
+          key={status}
+        >
+          {statusCopy[status] || ""}
+        </Badge>
+      </span>
+    ),
+  },
+  {
+    title: <span data-cy="base-status-column">Base Status</span>,
+    dataIndex: "baseStatus",
+    key: TestSortCategory.BaseStatus,
+    sorter: true,
+    render: (status: string): JSX.Element => (
+      <span>
+        <Badge
+          variant={statusToBadgeColor[status] || Variant.LightGray}
+          key={status}
+        >
+          {statusCopy[status] || ""}
+        </Badge>
+      </span>
+    ),
+  },
+  {
+    title: <span data-cy="time-column">Time</span>,
+    dataIndex: "duration",
+    key: TestSortCategory.Duration,
+    sorter: true,
+    render: (text: number): string => {
+      const ms = text * 1000;
+      return msToDuration(Math.trunc(ms));
     },
-    {
-      title: <span data-cy="status-column">Status</span>,
-      dataIndex: "status",
-      key: TestSortCategory.Status,
-      sorter: true,
-      render: (status: string): JSX.Element => (
-        <span>
-          <Badge
-            variant={statusToBadgeColor[status] || Variant.LightGray}
-            key={status}
-          >
-            {statusCopy[status] || ""}
-          </Badge>
-        </span>
-      ),
-    },
-    {
-      title: <span data-cy="base-status-column">Base Status</span>,
-      dataIndex: "baseStatus",
-      key: TestSortCategory.BaseStatus,
-      sorter: true,
-      render: (status: string): JSX.Element => (
-        <span>
-          <Badge
-            variant={statusToBadgeColor[status] || Variant.LightGray}
-            key={status}
-          >
-            {statusCopy[status] || ""}
-          </Badge>
-        </span>
-      ),
-    },
-    {
-      title: <span data-cy="time-column">Time</span>,
-      dataIndex: "duration",
-      key: TestSortCategory.Duration,
-      sorter: true,
-      render: (text: number): string => {
-        const ms = text * 1000;
-        return msToDuration(Math.trunc(ms));
-      },
-    },
-    {
-      title: <span data-cy="logs-column">Logs</span>,
-      width: 230,
-      dataIndex: "logs",
-      key: "logs",
-      sorter: false,
-      render: (a, b): JSX.Element => {
-        const { execution, lineNum, taskId, id } = b || {};
-        const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-        const lobsterLink = getLobsterTestLogUrl(taskId, execution, id, lineNum);
-
-        return (
-          <>
-            {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
-              <ButtonWrapper>
-                <Button
-                  data-cy="test-table-lobster-btn"
-                  size="small"
-                  target="_blank"
-                  variant="default"
-                  href={lobsterLink}
-                  onClick={() =>
-                    taskAnalytics.sendEvent({
-                      name: "Click Logs Lobster Button",
-                    })
-                  }
-                >
-                  Lobster
-                </Button>
-              </ButtonWrapper>
-            )}
-            {htmlDisplayURL && (
-              <ButtonWrapper>
-                <Button
-                  data-cy="test-table-html-btn"
-                  size="small"
-                  target="_blank"
-                  variant="default"
-                  href={htmlDisplayURL.replace(
-                    deprecatedLogkeeperLobsterURL,
-                    `${getLobsterURL()}/lobster`
-                  )}
-                  onClick={() =>
-                    isLobsterLink(htmlDisplayURL)
-                      ? taskAnalytics.sendEvent({
-                        name: "Click Logs Lobster Button",
-                      })
-                      : taskAnalytics.sendEvent({
-                        name: "Click Logs HTML Button",
-                      })
-                  }
-                >
-                  {isLobsterLink(htmlDisplayURL) ? "Lobster" : "HTML"}
-                </Button>
-              </ButtonWrapper>
-            )}
-            {rawDisplayURL && (
+  },
+  {
+    title: <span data-cy="logs-column">Logs</span>,
+    width: 230,
+    dataIndex: "logs",
+    key: "logs",
+    sorter: false,
+    render: (a, b): JSX.Element => {
+      const { execution, lineNum, taskId, id } = b || {};
+      const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
+      const lobsterLink = getLobsterTestLogUrl(taskId, execution, id, lineNum);
+      return (
+        <>
+          {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
+            <ButtonWrapper>
               <Button
-                data-cy="test-table-raw-btn"
+                data-cy="test-table-lobster-btn"
                 size="small"
                 target="_blank"
                 variant="default"
-                href={rawDisplayURL}
+                href={lobsterLink}
                 onClick={() =>
-                  taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+                  taskAnalytics.sendEvent({
+                    name: "Click Logs Lobster Button",
+                  })
                 }
               >
-                Raw
+                Lobster
               </Button>
-            )}
-          </>
-        );
-      },
+            </ButtonWrapper>
+          )}
+          {htmlDisplayURL && (
+            <ButtonWrapper>
+              <Button
+                data-cy="test-table-html-btn"
+                size="small"
+                target="_blank"
+                variant="default"
+                href={htmlDisplayURL.replace(
+                  deprecatedLogkeeperLobsterURL,
+                  `${getLobsterURL()}/lobster`
+                )}
+                onClick={() =>
+                  isLobsterLink(htmlDisplayURL)
+                    ? taskAnalytics.sendEvent({
+                        name: "Click Logs Lobster Button",
+                      })
+                    : taskAnalytics.sendEvent({
+                        name: "Click Logs HTML Button",
+                      })
+                }
+              >
+                {isLobsterLink(htmlDisplayURL) ? "Lobster" : "HTML"}
+              </Button>
+            </ButtonWrapper>
+          )}
+          {rawDisplayURL && (
+            <Button
+              data-cy="test-table-raw-btn"
+              size="small"
+              target="_blank"
+              variant="default"
+              href={rawDisplayURL}
+              onClick={() =>
+                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
+              }
+            >
+              Raw
+            </Button>
+          )}
+        </>
+      );
     },
-  ];
-
-const treeData: TreeDataEntry[] = [
-  {
-    title: "All",
-    value: TestStatus.All,
-    key: TestStatus.All,
-  },
-  {
-    title: "Pass",
-    value: TestStatus.Pass,
-    key: TestStatus.Pass,
-  },
-  {
-    title: "Fail",
-    value: TestStatus.Fail,
-    key: TestStatus.Fail,
-  },
-  {
-    title: "Skip",
-    value: TestStatus.Skip,
-    key: TestStatus.Skip,
-  },
-  {
-    title: "Silent Fail",
-    value: TestStatus.SilentFail,
-    key: TestStatus.SilentFail,
   },
 ];
-

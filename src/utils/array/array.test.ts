@@ -1,4 +1,9 @@
-import { toggleArray, convertArrayToObject, convertObjectToArray } from ".";
+import {
+  toggleArray,
+  convertArrayToObject,
+  convertObjectToArray,
+  mapStringArrayToObject,
+} from ".";
 
 describe("toggleArray", () => {
   test("Should add an element to the array if the array is empty", () => {
@@ -88,5 +93,34 @@ describe("convertArrayToObject", () => {
     expect(
       convertArrayToObject([element1, element2, element3], "keyDNE")
     ).toStrictEqual({});
+  });
+});
+
+describe("mapStringArrayToObject", () => {
+  test("Should convert a string array to an array of key value pairs", () => {
+    const someArray = ["keyA", "keyB", "keyC", "keyD"];
+    expect(mapStringArrayToObject(someArray, "Value")).toStrictEqual({
+      keyA: "Value",
+      keyB: "Value",
+      keyC: "Value",
+      keyD: "Value",
+    });
+    expect(mapStringArrayToObject(someArray, true)).toStrictEqual({
+      keyA: true,
+      keyB: true,
+      keyC: true,
+      keyD: true,
+    });
+  });
+
+  test("Should handle functions for passed in values", () => {
+    const someArray = ["keyA", "keyB", "keyC", "keyD"];
+    const someFunc = (v: string) => v.toUpperCase();
+    expect(mapStringArrayToObject(someArray, someFunc)).toStrictEqual({
+      keyA: "KEYA",
+      keyB: "KEYB",
+      keyC: "KEYC",
+      keyD: "KEYD",
+    });
   });
 });
