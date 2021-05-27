@@ -126,7 +126,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Inactive]: true,
   [TaskStatus.SetupFailed]: true,
   [TaskStatus.Started]: true,
-  [TaskStatus.StatusBlocked]: true,
+  [TaskStatus.Blocked]: true,
   [TaskStatus.Succeeded]: true,
   [TaskStatus.SystemFailed]: true,
   [TaskStatus.SystemTimedOut]: true,

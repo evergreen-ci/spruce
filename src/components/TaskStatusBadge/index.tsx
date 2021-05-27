@@ -2,6 +2,7 @@ import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { statuses, errorReporting } from "utils";
 
@@ -13,8 +14,8 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Unstarted]: Variant.LightGray,
   [TaskStatus.Undispatched]: Variant.LightGray,
   [TaskStatus.TaskWillRun]: Variant.LightGray,
-  [TaskStatus.StatusBlocked]: Variant.LightGray,
-  [TaskStatus.StatusPending]: Variant.LightGray,
+  [TaskStatus.Blocked]: Variant.LightGray,
+  [TaskStatus.Pending]: Variant.LightGray,
   [TaskStatus.TaskWillNotRun]: Variant.DarkGray,
   [TaskStatus.Aborted]: Variant.LightGray,
   [TaskStatus.Started]: Variant.Yellow,
@@ -24,28 +25,6 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.Known]: Variant.Blue,
-};
-
-const taskStatusToCopy = {
-  [TaskStatus.Started]: "Running",
-  [TaskStatus.Inactive]: "Inactive",
-  [TaskStatus.Unstarted]: "Unstarted",
-  [TaskStatus.Undispatched]: "Undispatched",
-  [TaskStatus.TaskWillRun]: "Will Run",
-  [TaskStatus.TaskWillNotRun]: "Will Not Run",
-  [TaskStatus.Dispatched]: "Dispatched",
-  [TaskStatus.Succeeded]: "Success",
-  [TaskStatus.Failed]: "Failed",
-  [TaskStatus.TestTimedOut]: "Test-timed-out",
-  [TaskStatus.TaskTimedOut]: "Task-timed-out",
-  [TaskStatus.StatusBlocked]: "Blocked",
-  [TaskStatus.StatusPending]: "Pending",
-  [TaskStatus.Aborted]: "Aborted",
-  [TaskStatus.Known]: "Known Failure",
-  [TaskStatus.SystemFailed]: "System Failed",
-  [TaskStatus.SystemTimedOut]: "System Time Out",
-  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
-  [TaskStatus.SetupFailed]: "Setup Failure",
 };
 
 const failureColors = {
