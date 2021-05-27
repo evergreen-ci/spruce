@@ -2927,7 +2927,7 @@
   dependencies:
     "@leafygreen-ui/lib" "^6.0.1"
 
-"@leafygreen-ui/tooltip@^6.2.1":
+"@leafygreen-ui/tooltip@6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.2.1.tgz#c1bee65d646b3ddf1c0cd4534de2a8e11c6ce4b4"
   integrity sha512-VCH1XwFE4ckkCIeDva63EWdI41H6rNd0XEEZ8HMSwvq3rc71ll9JaeNHGTcUftCaPHKpDXKHNjnBdUDwPVUZWg==
