@@ -129,7 +129,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
   const canEditRDPPassword =
     host.distro.isWindows && host.status === HostStatus.Running;
-  const [openTooltip, setOpenTooltip] = useState(true);
+  const [openTooltip, setOpenTooltip] = useState(false);
   return (
     <Modal
       title="Edit Host Details"
@@ -181,51 +181,51 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
               Instance Types
             </InputLabel>
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <span
+            <div
               onMouseEnter={() => {
                 setOpenTooltip(true);
-                console.log(openTooltip);
               }}
               onMouseLeave={() => {
                 setOpenTooltip(false);
-                console.log(openTooltip);
               }}
             >
               <Tooltip
                 align="top"
                 justify="middle"
+                triggerEvent="hover"
                 usePortal={false}
-                enabled
-                open
+                open={!canEditInstanceType && openTooltip}
                 trigger={
-                  <Select
-                    id="instanceTypeDropdown"
-                    showSearch
-                    style={{ width: 200 }}
-                    placeholder="Select Instance Type"
-                    onChange={(v) =>
-                      dispatch({
-                        type: "editInstanceType",
-                        instanceType: v,
-                      })
-                    }
-                    value={editSpawnHostState.instanceType}
-                    disabled={!canEditInstanceType}
-                  >
-                    {instanceTypes?.map((instance) => (
-                      <Option
-                        value={instance}
-                        key={`instance_type_option_${instance}`}
-                      >
-                        {instance}
-                      </Option>
-                    ))}
-                  </Select>
+                  <div>
+                    <Select
+                      id="instanceTypeDropdown"
+                      showSearch
+                      style={{ width: 200 }}
+                      placeholder="Select Instance Type"
+                      onChange={(v) =>
+                        dispatch({
+                          type: "editInstanceType",
+                          instanceType: v,
+                        })
+                      }
+                      value={editSpawnHostState.instanceType}
+                      disabled={!canEditInstanceType}
+                    >
+                      {instanceTypes?.map((instance) => (
+                        <Option
+                          value={instance}
+                          key={`instance_type_option_${instance}`}
+                        >
+                          {instance}
+                        </Option>
+                      ))}
+                    </Select>
+                  </div>
                 }
               >
                 Pause this host to adjust this field.
               </Tooltip>
-            </span>
+            </div>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
@@ -260,12 +260,14 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                 />
                 <Tooltip
                   align="top"
-                  justify="middle"
-                  // triggerEvent="hover"
-                  enabled
-                  open
+                  justify="end"
+                  triggerEvent="hover"
                   usePortal={false}
-                  trigger={<PaddedIcon glyph="QuestionMarkWithCircle" />}
+                  trigger={
+                    <div>
+                      <PaddedIcon glyph="QuestionMarkWithCircle" />
+                    </div>
+                  }
                 >
                   <>
                     Password should match the criteria defined{" "}

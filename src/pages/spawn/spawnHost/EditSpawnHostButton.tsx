@@ -17,10 +17,12 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
   const spawnAnalytics = useSpawnAnalytics();
   const canEditSpawnHost =
     host.status === HostStatus.Stopped || host.status === HostStatus.Running;
-  const [openTooltip, setOpenTooltip] = useState(true);
+  const [openTooltip, setOpenTooltip] = useState(false);
   return (
     <>
+      {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions */}
       <div
+        onClick={(e: React.MouseEvent) => e.stopPropagation()}
         onMouseEnter={() => {
           setOpenTooltip(true);
           console.log(openTooltip);
@@ -55,7 +57,6 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
           {`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
         </Tooltip>
       </div>
-
       <EditSpawnHostModal
         onCancel={() => setOpenModal(false)}
         visible={openModal}
