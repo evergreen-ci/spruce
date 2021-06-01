@@ -192,7 +192,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
               <Tooltip
                 align="top"
                 justify="middle"
-                triggerEvent="hover"
                 usePortal={false}
                 open={!canEditInstanceType && openTooltip}
                 trigger={

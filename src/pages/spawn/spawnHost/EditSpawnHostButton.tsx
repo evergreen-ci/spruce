@@ -34,7 +34,6 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
         <Tooltip
           align="top"
           justify="middle"
-          triggerEvent="hover"
           open={!canEditSpawnHost && openTooltip}
           trigger={
             <PaddedButton
