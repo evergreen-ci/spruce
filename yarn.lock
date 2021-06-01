@@ -2927,7 +2927,7 @@
   dependencies:
     "@leafygreen-ui/lib" "^6.0.1"
 
-"@leafygreen-ui/tooltip@^6.2.1":
+"@leafygreen-ui/tooltip@6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.2.1.tgz#c1bee65d646b3ddf1c0cd4534de2a8e11c6ce4b4"
   integrity sha512-VCH1XwFE4ckkCIeDva63EWdI41H6rNd0XEEZ8HMSwvq3rc71ll9JaeNHGTcUftCaPHKpDXKHNjnBdUDwPVUZWg==
@@ -16769,21 +16769,21 @@ strip-json-comments@~2.0.1:
   resolved "https://registry.yarnpkg.com/strip-json-comments/-/strip-json-comments-2.0.1.tgz#3c531942e908c2697c0ec344858c286c7ca0a60a"
   integrity sha1-PFMZQukIwml8DsNEhYwobHygpgo=
 
-style-loader@1.3.0, style-loader@^1.2.1:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-1.3.0.tgz#828b4a3b3b7e7aa5847ce7bae9e874512114249e"
-  integrity sha512-V7TCORko8rs9rIqkSrlMfkqA63DfoGBBJmK1kKGCcSi+BWb4cqz0SRsnp4l6rU5iwOEd0/2ePv68SV22VXon4Q==
-  dependencies:
-    loader-utils "^2.0.0"
-    schema-utils "^2.7.0"
-
-style-loader@^2.0.0:
+style-loader@2.0.0, style-loader@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-2.0.0.tgz#9669602fd4690740eaaec137799a03addbbc393c"
   integrity sha512-Z0gYUJmzZ6ZdRUqpg1r8GsaFKypE+3xAzuFeMuoHgjc9KZv3wMyCRjQIWEbhoFSq7+7yoHXySDJyyWQaPajeiQ==
   dependencies:
     loader-utils "^2.0.0"
     schema-utils "^3.0.0"
+
+style-loader@^1.2.1:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/style-loader/-/style-loader-1.3.0.tgz#828b4a3b3b7e7aa5847ce7bae9e874512114249e"
+  integrity sha512-V7TCORko8rs9rIqkSrlMfkqA63DfoGBBJmK1kKGCcSi+BWb4cqz0SRsnp4l6rU5iwOEd0/2ePv68SV22VXon4Q==
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^2.7.0"
 
 style-to-js@1.1.0:
   version "1.1.0"
