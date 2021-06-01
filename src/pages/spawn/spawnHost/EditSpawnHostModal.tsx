@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
-import { Input, Select, Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
+import { Input, Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
-import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import {
@@ -129,6 +129,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
   const canEditRDPPassword =
     host.distro.isWindows && host.status === HostStatus.Running;
+  const [openTooltip, setOpenTooltip] = useState(true);
   return (
     <Modal
       title="Edit Host Details"
@@ -179,38 +180,52 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            <ConditionalWrapper
-              condition={!canEditInstanceType}
-              wrapper={(children) => (
-                <Tooltip title="Pause this host to adjust this field.">
-                  {children}
-                </Tooltip>
-              )}
+            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+            <span
+              onMouseEnter={() => {
+                setOpenTooltip(true);
+                console.log(openTooltip);
+              }}
+              onMouseLeave={() => {
+                setOpenTooltip(false);
+                console.log(openTooltip);
+              }}
             >
-              <Select
-                id="instanceTypeDropdown"
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select Instance Type"
-                onChange={(v) =>
-                  dispatch({
-                    type: "editInstanceType",
-                    instanceType: v,
-                  })
-                }
-                value={editSpawnHostState.instanceType}
-                disabled={!canEditInstanceType}
-              >
-                {instanceTypes?.map((instance) => (
-                  <Option
-                    value={instance}
-                    key={`instance_type_option_${instance}`}
+              <Tooltip
+                align="top"
+                justify="middle"
+                usePortal={false}
+                enabled
+                open
+                trigger={
+                  <Select
+                    id="instanceTypeDropdown"
+                    showSearch
+                    style={{ width: 200 }}
+                    placeholder="Select Instance Type"
+                    onChange={(v) =>
+                      dispatch({
+                        type: "editInstanceType",
+                        instanceType: v,
+                      })
+                    }
+                    value={editSpawnHostState.instanceType}
+                    disabled={!canEditInstanceType}
                   >
-                    {instance}
-                  </Option>
-                ))}
-              </Select>
-            </ConditionalWrapper>
+                    {instanceTypes?.map((instance) => (
+                      <Option
+                        value={instance}
+                        key={`instance_type_option_${instance}`}
+                      >
+                        {instance}
+                      </Option>
+                    ))}
+                  </Select>
+                }
+              >
+                Pause this host to adjust this field.
+              </Tooltip>
+            </span>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
@@ -244,19 +259,20 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                   type="password"
                 />
                 <Tooltip
-                  title={
-                    <>
-                      Password should match the criteria defined{" "}
-                      <StyledLink
-                        href={windowsPasswordRulesURL}
-                        target="__blank"
-                      >
-                        here.
-                      </StyledLink>
-                    </>
-                  }
+                  align="top"
+                  justify="middle"
+                  // triggerEvent="hover"
+                  enabled
+                  open
+                  usePortal={false}
+                  trigger={<PaddedIcon glyph="QuestionMarkWithCircle" />}
                 >
-                  <PaddedIcon glyph="QuestionMarkWithCircle" />
+                  <>
+                    Password should match the criteria defined{" "}
+                    <StyledLink href={windowsPasswordRulesURL} target="__blank">
+                      here.
+                    </StyledLink>
+                  </>
                 </Tooltip>
               </FlexContainer>
             </ModalContent>
