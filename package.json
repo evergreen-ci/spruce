@@ -117,7 +117,7 @@
     "@cypress/webpack-preprocessor": "5.4.6",
     "@emotion/babel-plugin": "^11.1.2",
     "@emotion/jest": "^11.2.0",
-    "@graphql-codegen/cli": "1.19.4",
+    "@graphql-codegen/cli": "1.21.5",
     "@graphql-codegen/typescript": "1.19.0",
     "@graphql-codegen/typescript-operations": "1.17.12",
     "@pmmmwh/react-refresh-webpack-plugin": "0.4.2",
