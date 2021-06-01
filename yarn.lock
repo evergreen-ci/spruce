@@ -2614,27 +2614,7 @@
   dependencies:
     "@leafygreen-ui/lib" "^7.0.0"
 
-"@leafygreen-ui/interaction-ring@^1.0.0":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-1.0.1.tgz#645b954dfbd47d89449ab05ef17ff28bb0f23dc8"
-  integrity sha512-Q7Vj07vkAtZdA99PWv80Z9mswseDIZBTYTwEfjfeKkUyE04+YLrafAhOR7lZGjgaO/1HUBhx07mPUxAcUWqs9Q==
-  dependencies:
-    "@leafygreen-ui/emotion" "^3.0.1"
-    "@leafygreen-ui/leafygreen-provider" "^2.0.1"
-    "@leafygreen-ui/lib" "^6.1.2"
-    "@leafygreen-ui/palette" "^3.1.0"
-
-"@leafygreen-ui/interaction-ring@^1.0.2":
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-1.0.2.tgz#177355033188d12d2f7ea285e24872b1cc72768e"
-  integrity sha512-+uOsbvQU7bpzht2uIwrbR50p1fRKbRm6F/HJg6w1xlAInkJtxbA+HIrJ5et/Q4cYgNB/tOpGMCrs5YefWWDAeg==
-  dependencies:
-    "@leafygreen-ui/emotion" "^3.0.1"
-    "@leafygreen-ui/leafygreen-provider" "^2.0.3"
-    "@leafygreen-ui/lib" "^7.0.0"
-    "@leafygreen-ui/palette" "^3.2.1"
-
-"@leafygreen-ui/interaction-ring@^1.0.3":
+"@leafygreen-ui/interaction-ring@^1.0.0", "@leafygreen-ui/interaction-ring@^1.0.2", "@leafygreen-ui/interaction-ring@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/interaction-ring/-/interaction-ring-1.0.3.tgz#c5946834be65a1e8cd616cd2c6874faf3dd87393"
   integrity sha512-D1/Jtt/WAj+sHzc0e51BdhtqJ0lCfx1759UMKhK7MOADS8/DG68ybRlaAO4wbaZ9dvumJr5eDS9Rt/Zghkuaaw==
@@ -2644,7 +2624,7 @@
     "@leafygreen-ui/lib" "^7.0.0"
     "@leafygreen-ui/palette" "^3.2.1"
 
-"@leafygreen-ui/leafygreen-provider@2.0.2", "@leafygreen-ui/leafygreen-provider@^2.0.1", "@leafygreen-ui/leafygreen-provider@^2.0.2":
+"@leafygreen-ui/leafygreen-provider@2.0.2", "@leafygreen-ui/leafygreen-provider@^2.0.2":
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/leafygreen-provider/-/leafygreen-provider-2.0.2.tgz#d03b898a21dc2969bfd9e23a472c8f72b7e5c8c2"
   integrity sha512-0lGFRJWuhao4OcPtMYhA+tH8VceCdz8HCL7oDylJTCDhw4NbFATsyy4abeJc+WKFngzR6EwlOaLeC5HFsJMu9A==
@@ -2724,12 +2704,12 @@
     focus-trap-react "8.4.2"
     react-transition-group "^4.4.1"
 
-"@leafygreen-ui/palette@3.1.0", "@leafygreen-ui/palette@^3.0.1", "@leafygreen-ui/palette@^3.1.0":
+"@leafygreen-ui/palette@3.1.0":
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.1.0.tgz#9e71e641944a1922aed11c80f1af9005abfb4645"
   integrity sha512-+KuBtiSD72vwWb2VMoDX1AJ6eLjsbWcQcJgmkNxWNih4DtJieufNxTxsJwvPRWoe6ik1yfchBJnugehLEAvHIQ==
 
-"@leafygreen-ui/palette@^3.2.1":
+"@leafygreen-ui/palette@^3.0.1", "@leafygreen-ui/palette@^3.1.0", "@leafygreen-ui/palette@^3.2.1":
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.2.1.tgz#f6171062f24918c66a7c4ad54fc0e3d67399a70c"
   integrity sha512-E7gAN6eEWqsNIQrySABesXckJDJMLnzr3Z0BDQOBEmUdnYzXefvBY1e/zhHE6jb4rxwiOWnzwi1Zb2me50nOmQ==
@@ -2855,17 +2835,17 @@
     "@leafygreen-ui/portal" "^3.1.0"
     "@leafygreen-ui/tokens" "^0.5.0"
 
-"@leafygreen-ui/text-area@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-3.0.4.tgz#b86c57acc02b42ae3ada540064149f501d1d0459"
-  integrity sha512-ojgfuz6ia4EJwJcBPoddXA3yuGdMoySwlr/+mhvrkMdeiSyVYLW2kSCs052noyhBVpcv0kaSMaCeokZncYMZrw==
+"@leafygreen-ui/text-area@^4.0.1":
+  version "4.0.1"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/text-area/-/text-area-4.0.1.tgz#93d56879e3558345f0bfefc6386af5fde2396e8d"
+  integrity sha512-3yJ96PM5Qc3gXDq784PKABpLhDzjFWdgP4j0tG17Wc0K6WjiUbgliIH3GD409GZUB85a/N+lmPINPuvRcG1inQ==
   dependencies:
     "@leafygreen-ui/emotion" "^3.0.1"
     "@leafygreen-ui/interaction-ring" "^1.0.2"
     "@leafygreen-ui/lib" "^7.0.0"
     "@leafygreen-ui/palette" "^3.2.1"
     "@leafygreen-ui/tokens" "^0.5.1"
-    "@leafygreen-ui/typography" "^7.6.0"
+    "@leafygreen-ui/typography" "^8.0.0"
 
 "@leafygreen-ui/text-input@5.0.12":
   version "5.0.12"
@@ -2913,21 +2893,14 @@
     "@leafygreen-ui/lib" "^6.2.0"
     "@leafygreen-ui/palette" "^3.0.1"
 
-"@leafygreen-ui/tokens@0.5.1", "@leafygreen-ui/tokens@^0.5.1":
+"@leafygreen-ui/tokens@0.5.1", "@leafygreen-ui/tokens@^0.5.0", "@leafygreen-ui/tokens@^0.5.1":
   version "0.5.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-0.5.1.tgz#efaaea7bc437fa351de1123d87541b195040c6a0"
   integrity sha512-ggfkuG7TEGoRjve1qGpWlvLpIRqcMjdpjwd9KqwOL/JFdnyIuxvVnCwC4tnUqncszWCOBtsdeqJ6ZkuU3BIMtA==
   dependencies:
     "@leafygreen-ui/lib" "^7.0.0"
 
-"@leafygreen-ui/tokens@^0.5.0":
-  version "0.5.0"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-0.5.0.tgz#85c9f7930571ea1c74b57213cecc918e0763e505"
-  integrity sha512-1rnFI1NSNtddMtRzwy4rS/4NF3rO7eK1dbw/+h+VAqY1OZHNJinV0R283QJajx2dMttm20mOpTN6v099kM0SxQ==
-  dependencies:
-    "@leafygreen-ui/lib" "^6.0.1"
-
-"@leafygreen-ui/tooltip@^6.2.1":
+"@leafygreen-ui/tooltip@6.2.1":
   version "6.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.2.1.tgz#c1bee65d646b3ddf1c0cd4534de2a8e11c6ce4b4"
   integrity sha512-VCH1XwFE4ckkCIeDva63EWdI41H6rNd0XEEZ8HMSwvq3rc71ll9JaeNHGTcUftCaPHKpDXKHNjnBdUDwPVUZWg==
@@ -2940,7 +2913,7 @@
     "@leafygreen-ui/tokens" "^0.5.1"
     lodash "^4.17.21"
 
-"@leafygreen-ui/typography@7.3.2", "@leafygreen-ui/typography@^7.3.2":
+"@leafygreen-ui/typography@7.3.2":
   version "7.3.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-7.3.2.tgz#56ac2bc2148846d7a2708836da94d1dc4a717382"
   integrity sha512-MsgsJFfP/VvngsR0VxcZGGF1j6IKiUKsHGN0PQWSox3u5+CIQh3ZtkiG3C3CziNbuJcqCw1ieMOxCHkRb07zNA==
@@ -2951,7 +2924,7 @@
     "@leafygreen-ui/palette" "^3.1.0"
     "@leafygreen-ui/tokens" "^0.5.0"
 
-"@leafygreen-ui/typography@^7.6.0":
+"@leafygreen-ui/typography@^7.3.2", "@leafygreen-ui/typography@^7.6.0":
   version "7.6.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/typography/-/typography-7.6.0.tgz#9555d7895484eb38b53e5e5c58744a827c38ad05"
   integrity sha512-O8TsLTbiBTlbT5fhbEpByUPLQxvkE09GO7WUecDMxqQXx3IcDWURNOBjm2t+xEXexgzq0HgO0zF7I8yZ9JLGIg==
