@@ -115,7 +115,7 @@
     "@babel/parser": "^7.12.16",
     "@babel/preset-react": "^7.12.13",
     "@cypress/webpack-preprocessor": "5.4.6",
-    "@emotion/babel-plugin": "^11.1.2",
+    "@emotion/babel-plugin": "^11.3.0",
     "@emotion/jest": "^11.2.0",
     "@graphql-codegen/cli": "1.19.4",
     "@graphql-codegen/typescript": "1.19.0",
