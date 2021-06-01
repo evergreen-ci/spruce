@@ -24,12 +24,13 @@ import { SCHEDULE_PATCH } from "gql/mutations";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
-import { queryString } from "utils";
+import { queryString, string } from "utils";
 import { mapStringArrayToObject } from "utils/array";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 import { VariantTasksState } from "./configurePatchCore/state";
 
+const { omitTypename } = string;
 const { parseQueryString } = queryString;
 
 type configurePatchState = {
@@ -83,7 +84,7 @@ const reducer = (state: configurePatchState, action: Action) => {
     case "setPatchParams":
       return {
         ...state,
-        patchParams: action.params,
+        patchParams: omitTypename(action.params),
       };
     case "setSelectedTab": {
       let tab = indexToTabMap.indexOf(PatchTab.Tasks);
@@ -102,7 +103,7 @@ const reducer = (state: configurePatchState, action: Action) => {
         ...state,
         description: action.description,
         selectedBuildVariants: action.buildVariants,
-        patchParams: action.params,
+        patchParams: omitTypename(action.params),
         selectedBuildVariantTasks: action.variantTasks,
       };
 
