@@ -286,7 +286,7 @@ const useRenderBody: React.FC<{
 
 const ButtonContainer = styled.div`
   display: flex;
-  a:first-of-type {
+  > div {
     margin-right: 8px;
   }
   margin-right: 16px;

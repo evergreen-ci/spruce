@@ -93,7 +93,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       {action ? (
         <PaddedButton
           disabled={loading}
-          glyph={<Icon glyph={glyph} />}
+          leftGlyph={<Icon glyph={glyph} />}
           size={Size.XSmall} // @ts-expect-error
           onClick={onClick(action)}
         />
@@ -104,7 +104,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
         checkboxLabel={checkboxLabel}
       >
         {/* @ts-expect-error */}
-        <PaddedButton glyph={<Icon glyph="Trash" />} size={Size.XSmall} />
+        <PaddedButton leftGlyph={<Icon glyph="Trash" />} size={Size.XSmall} />
       </PopconfirmWithCheckbox>
     </>
   );

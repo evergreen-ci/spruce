@@ -2462,17 +2462,6 @@
     "@leafygreen-ui/lib" "^7.0.0"
     lodash "^4.17.21"
 
-"@leafygreen-ui/button@10.0.1":
-  version "10.0.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-10.0.1.tgz#664cff534fbc52ffc420561e21369065f8c315b2"
-  integrity sha512-Lt1/3juStJAJsaOKptf89KoNwuuGKqKDFTJ71OQ5dsZvg6cnIVFpeb9trckfknc3xGZ3P0Jfj3T5R/V6n1jRtA==
-  dependencies:
-    "@leafygreen-ui/box" "^3.0.1"
-    "@leafygreen-ui/interaction-ring" "^1.0.0"
-    "@leafygreen-ui/lib" "^6.1.2"
-    "@leafygreen-ui/palette" "^3.1.0"
-    lodash "^4.17.20"
-
 "@leafygreen-ui/button@^11.0.2":
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-11.0.2.tgz#cc5e7c05283923623826200769a601fdd58ecaed"
@@ -2489,6 +2478,18 @@
   version "12.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-12.0.0.tgz#9b6c2569188eaf9c212a524e2915e3f4e3fde15b"
   integrity sha512-Lrh9U+j9WlYVHXww+H/qM40Y9moTssYhdfmU/LxTi2jBKBJ9NuSgslbtjr+F0DlSZ6tbtHTzFKeLwHDdhA9tTA==
+  dependencies:
+    "@leafygreen-ui/box" "^3.0.4"
+    "@leafygreen-ui/emotion" "^3.0.1"
+    "@leafygreen-ui/lib" "^7.0.0"
+    "@leafygreen-ui/palette" "^3.2.1"
+    "@leafygreen-ui/ripple" "^1.1.1"
+    "@leafygreen-ui/tokens" "^0.5.1"
+
+"@leafygreen-ui/button@^12.0.2":
+  version "12.0.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-12.0.2.tgz#d87c1a78f6efd74084bfafc5788d3adde385efac"
+  integrity sha512-PGo//TaHFLsm/2MM49woCfYXGyE3M2YQ6p12n3wNTW2YyxtQBNoL3/51VVQi7/rnrrv4ynMfDdSWQsRq9W6fww==
   dependencies:
     "@leafygreen-ui/box" "^3.0.4"
     "@leafygreen-ui/emotion" "^3.0.1"
