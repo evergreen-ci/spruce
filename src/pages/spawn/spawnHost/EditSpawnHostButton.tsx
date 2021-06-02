@@ -25,7 +25,6 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
         onClick={(e: React.MouseEvent) => e.stopPropagation()}
         onMouseEnter={() => {
           setOpenTooltip(true);
-          console.log(openTooltip);
         }}
         onMouseLeave={() => {
           setOpenTooltip(false);
