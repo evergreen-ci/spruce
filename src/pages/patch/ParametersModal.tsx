@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Badge from "@leafygreen-ui/badge";
-import { Modal } from "components/Modal";
+import { DisplayModal } from "components/DisplayModal";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { Parameter } from "gql/generated/types";
@@ -25,23 +25,24 @@ export const ParametersModal: React.FC<ParametersProps> = ({ parameters }) => {
         </P2>
       )}
 
-      <Modal
-        visible={showModal}
-        footer={null}
-        onCancel={() => setShowModal(false)}
-        data-cy="parameters-modal"
+      <DisplayModal
+        open={showModal}
+        setOpen={setShowModal}
         title="Patch Parameters"
+        data-cy="parameters-modal"
       >
         {parameters?.map((param) => (
           <StyledBadge key={`param_${param.key}`}>
             {param.key}:{param.value}
           </StyledBadge>
         ))}
-      </Modal>
+      </DisplayModal>
     </>
   );
 };
 
 const StyledBadge = styled(Badge)`
-  margin-left: 16px;
+  :not(:last-of-type) {
+    margin-right: 16px;
+  }
 `;
