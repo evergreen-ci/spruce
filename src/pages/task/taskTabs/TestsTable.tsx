@@ -23,7 +23,7 @@ import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
   isLobsterLink,
-  deprecatedLogkeeperLobsterURL
+  deprecatedLogkeeperLobsterURL,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -47,6 +47,7 @@ import { queryString, url, string, environmentalVariables } from "utils";
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
+const {getLobsterURL} = environmentalVariables
 export interface UpdateQueryArg {
   taskTests: TaskTestResult;
 }
@@ -302,7 +303,7 @@ const getColumnsTemplate = (
       key: TestSortCategory.Duration,
       sorter: true,
       render: (text: number): string => {
-        const ms = text * 1000;
+        const ms = text * 1000
         return msToDuration(Math.trunc(ms));
       },
     },
