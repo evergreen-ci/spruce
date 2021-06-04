@@ -26,7 +26,7 @@ export const PatchAndTaskFullPageLoad: React.FC = () => (
       </PageSider>
       <PageLayout>
         <PageContent>
-          <Skeleton active title paragraph={{ rows: 8 }} />;
+          <Skeleton active title paragraph={{ rows: 8 }} />
         </PageContent>
       </PageLayout>
     </PageLayout>
