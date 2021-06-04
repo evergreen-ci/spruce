@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
@@ -7,6 +7,7 @@ import { Input, Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import Icon from "components/Icon";
 import { Modal } from "components/Modal";
 import {
@@ -129,7 +130,6 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const canEditInstanceType = host.status === HostStatus.Stopped; // User can only update the instance type when it is paused
   const canEditRDPPassword =
     host.distro.isWindows && host.status === HostStatus.Running;
-  const [openTooltip, setOpenTooltip] = useState(false);
   return (
     <Modal
       title="Edit Host Details"
@@ -180,51 +180,46 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <InputLabel htmlFor="instanceTypeDropdown">
               Instance Types
             </InputLabel>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-            <div
-              onMouseEnter={() => {
-                setOpenTooltip(true);
-              }}
-              onMouseLeave={() => {
-                setOpenTooltip(false);
-              }}
+            <ConditionalWrapper
+              condition={!canEditInstanceType}
+              wrapper={(children) => (
+                <Tooltip
+                  align="top"
+                  justify="middle"
+                  usePortal={false}
+                  triggerEvent="hover"
+                  trigger={children}
+                >
+                  Pause this host to adjust this field.
+                </Tooltip>
+              )}
             >
-              <Tooltip
-                align="top"
-                justify="middle"
-                usePortal={false}
-                open={!canEditInstanceType && openTooltip}
-                trigger={
-                  <div>
-                    <Select
-                      id="instanceTypeDropdown"
-                      showSearch
-                      style={{ width: 200 }}
-                      placeholder="Select Instance Type"
-                      onChange={(v) =>
-                        dispatch({
-                          type: "editInstanceType",
-                          instanceType: v,
-                        })
-                      }
-                      value={editSpawnHostState.instanceType}
-                      disabled={!canEditInstanceType}
+              <div>
+                <Select
+                  id="instanceTypeDropdown"
+                  showSearch
+                  style={{ width: 200 }}
+                  placeholder="Select Instance Type"
+                  onChange={(v) =>
+                    dispatch({
+                      type: "editInstanceType",
+                      instanceType: v,
+                    })
+                  }
+                  value={editSpawnHostState.instanceType}
+                  disabled={!canEditInstanceType}
+                >
+                  {instanceTypes?.map((instance) => (
+                    <Option
+                      value={instance}
+                      key={`instance_type_option_${instance}`}
                     >
-                      {instanceTypes?.map((instance) => (
-                        <Option
-                          value={instance}
-                          key={`instance_type_option_${instance}`}
-                        >
-                          {instance}
-                        </Option>
-                      ))}
-                    </Select>
-                  </div>
-                }
-              >
-                Pause this host to adjust this field.
-              </Tooltip>
-            </div>
+                      {instance}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
+            </ConditionalWrapper>
           </ModalContent>
         </SectionContainer>
         <SectionContainer>
