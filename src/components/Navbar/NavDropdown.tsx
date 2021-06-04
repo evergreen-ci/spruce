@@ -34,6 +34,14 @@ export const NavDropdown = () => {
         </a>
       </Menu.Item>
       <Menu.Item>
+        <a
+          data-cy="legacy_route_project"
+          href={`${uiURL}${legacyRoutes.projects}`}
+        >
+          Projects
+        </a>
+      </Menu.Item>
+      <Menu.Item>
         <Link to={routes.spawnHost}>Hosts</Link>
       </Menu.Item>
       <Menu.Item>
