@@ -8,11 +8,10 @@ export default {
 
 export const badges = () => {
   const taskStatuses = Object.keys(TaskStatus);
-  console.log(taskStatuses);
   return (
     <Container>
       {taskStatuses.map((status) => (
-        <Wrapper>
+        <Wrapper key={`badge_${status}`}>
           <TaskStatusBadge status={TaskStatus[status]} />
         </Wrapper>
       ))}

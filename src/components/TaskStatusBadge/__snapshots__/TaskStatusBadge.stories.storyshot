@@ -38,7 +38,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="leafygreen-ui-337zlz"
       data-cy="task-status-badge"
     >
       Will Run
@@ -48,7 +48,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-337zlz"
+      className="leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Will Not Run
