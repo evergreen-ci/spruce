@@ -265,12 +265,12 @@ const renderCheckboxesHelper = ({
   state: string[];
   tData: TreeDataEntry[];
 }): void => {
-  const ParentCheckboxWrapper = getCheckboxWrapper(0);
+  const { children } = data;
   // push parent
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
-    <ParentCheckboxWrapper key={data.key}>
+    <CheckboxWrapper level={0} hasChildren={!!children?.length} key={data.key}>
       <Checkbox
         className="cy-checkbox"
         onChange={onChangeFn}
@@ -279,16 +279,19 @@ const renderCheckboxesHelper = ({
         bold={false}
         data-cy="checkbox"
       />
-    </ParentCheckboxWrapper>
+    </CheckboxWrapper>
   );
   // then examine children
-  const ChildCheckboxWrapper = getCheckboxWrapper(1);
-  if (data.children) {
-    data.children.forEach((child) => {
+  if (children) {
+    children.forEach((child, i) => {
       const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
-        <ChildCheckboxWrapper key={child.key}>
+        <CheckboxWrapper
+          level={1}
+          isLastChild={i === children.length - 1}
+          key={child.key}
+        >
           <Checkbox
             className="cy-checkbox"
             onChange={onChangeChildFn}
@@ -297,19 +300,22 @@ const renderCheckboxesHelper = ({
             bold={false}
             data-cy="checkbox"
           />
-        </ChildCheckboxWrapper>
+        </CheckboxWrapper>
       );
     });
   }
 };
 
-const getCheckboxWrapper = (level: number): React.FC => styled.div`
-  padding-left: ${level}em;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  :first-of-type {
-    border-bottom: 1px solid ${gray.light2};
-  }
+interface CheckboxWrapperProps {
+  level: number;
+  hasChildren?: boolean;
+  isLastChild?: boolean;
+}
+
+const CheckboxWrapper = styled.div<CheckboxWrapperProps>`
+  padding-left: ${({ level }) => level}em;
+  padding-bottom: ${({ hasChildren, level, isLastChild }) =>
+    !hasChildren && (level === 0 || isLastChild) ? "8px" : "0px"};
 `;
 
 const LabelWrapper = styled.div`
@@ -319,8 +325,6 @@ const LabelWrapper = styled.div`
 `;
 
 const BarWrapper = styled.div`
-  border: 1px solid ${gray.light1};
-  border-radius: 3px;
   padding: 8px;
   cursor: pointer;
   white-space: nowrap;
@@ -337,7 +341,6 @@ interface OptionsWrapperProps {
 const OptionsWrapper = styled.div<OptionsWrapperProps>`
   border-radius: 5px;
   background-color: ${white};
-  border: 1px solid ${gray.light1};
   padding: 8px;
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   z-index: 5;
