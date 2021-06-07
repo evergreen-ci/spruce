@@ -1,22 +1,11 @@
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import { useQuery } from "@apollo/client";
-import Icon from "@leafygreen-ui/icon";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Input } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { Button } from "components/Button";
-import {
-  FilterWrapper,
-  ButtonsWrapper,
-  ButtonWrapper,
-} from "components/styles/Table";
 import {
   getColumnSearchFilterProps,
   getColumnTreeSelectProps,
 } from "components/Table/Filters";
 import { getCurrentStatuses } from "components/TaskStatusFilters/getCurrentStatuses";
-import { TreeSelect } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {
@@ -146,6 +135,3 @@ export const useTaskFilters: () => TaskFilters = () => {
     }),
   };
 };
-
-const getStyle = (value: string[] | string) =>
-  value.length ? { color: uiColors.blue.base } : {};

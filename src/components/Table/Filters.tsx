@@ -1,10 +1,9 @@
 import React from "react";
-import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
 import { Button } from "components/Button";
-import { CheckboxGroup } from "components/Checkbox";
 import { TreeSelect, TreeDataEntry } from "components/TreeSelect";
 
 export interface InputFilterProps {
