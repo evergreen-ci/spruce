@@ -21,14 +21,20 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   size,
   title,
 }) => (
-  <Modal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
+  <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
     <ContentWrapper>
       {/* @ts-expect-error */}
       {title && <StyledHeader>{title}</StyledHeader>}
       {children}
     </ContentWrapper>
-  </Modal>
+  </StyledModal>
 );
+
+// @ts-expect-error
+const StyledModal = styled(Modal)`
+  /* Ensure modal appears above feedback dialog */
+  z-index: 40;
+`;
 
 // @ts-expect-error
 const StyledHeader = styled(H3)`
