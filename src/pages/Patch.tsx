@@ -65,33 +65,36 @@ export const Patch: React.FC = () => {
   }
 
   return (
-    <PageWrapper data-cy="patch-page">
-      {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
-      <PageTitle
-        loading={loading}
-        hasData={!!patch}
-        title={description || `Patch ${patchNumber}`}
-        badge={<PatchStatusBadge status={status} />}
-        buttons={
-          <ActionButtons
-            canEnqueueToCommitQueue={canEnqueueToCommitQueue}
-            isPatchOnCommitQueue={isPatchOnCommitQueue}
-            patchDescription={description}
-            patchId={id}
-          />
-        }
-      />
-      <PageLayout>
-        <PageSider>
-          <Metadata loading={loading} patch={patch} error={error} />
-          <BuildVariants />
-        </PageSider>
+    <div style={{ border: "1px solid blue" }}>
+      <div>{JSON.stringify(data)}</div>
+      <PageWrapper data-cy="patch-page">
+        {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
+        <PageTitle
+          loading={loading}
+          hasData={!!patch}
+          title={description || `Patch ${patchNumber}`}
+          badge={<PatchStatusBadge status={status} />}
+          buttons={
+            <ActionButtons
+              canEnqueueToCommitQueue={canEnqueueToCommitQueue}
+              isPatchOnCommitQueue={isPatchOnCommitQueue}
+              patchDescription={description}
+              patchId={id}
+            />
+          }
+        />
         <PageLayout>
-          <PageContent>
-            <PatchTabs taskCount={patch ? taskCount : null} />
-          </PageContent>
+          <PageSider>
+            <Metadata loading={loading} patch={patch} error={error} />
+            <BuildVariants />
+          </PageSider>
+          <PageLayout>
+            <PageContent>
+              <PatchTabs taskCount={patch ? taskCount : null} />
+            </PageContent>
+          </PageLayout>
         </PageLayout>
-      </PageLayout>
-    </PageWrapper>
+      </PageWrapper>
+    </div>
   );
 };
