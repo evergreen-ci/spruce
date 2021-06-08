@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -17,7 +16,7 @@ import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useTaskSortQueryParams } from "hooks/useTaskSortQueryParams";
 import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
@@ -37,18 +36,10 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const patchAnalytics = usePatchAnalytics();
   const dispatchToast = useToastContext();
 
-  const updateQueryParams = useUpdateURLQueryParams();
   const queryVariables = getQueryVariables(search, resourceId);
+  const { limit, page } = queryVariables;
 
-  const { sorts, limit, page } = queryVariables;
-
-  useEffect(() => {
-    if (sorts.length === 0) {
-      updateQueryParams({
-        sorts: "STATUS:ASC;BASE_STATUS:DESC",
-      });
-    }
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  const sorts = useTaskSortQueryParams();
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
