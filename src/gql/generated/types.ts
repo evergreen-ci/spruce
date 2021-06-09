@@ -1390,6 +1390,7 @@ export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
     id: string;
+    author: string;
     projectID: string;
     projectIdentifier: string;
     description: string;

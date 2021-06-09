@@ -1,6 +1,7 @@
 fragment PatchesPagePatches on Patches {
   patches {
     id
+    author
     projectID
     projectIdentifier
     description
