@@ -22,11 +22,9 @@ export const DisplayModal: React.FC<DisplayModalProps> = ({
   title,
 }) => (
   <StyledModal data-cy={dataCy} open={open} setOpen={setOpen} size={size}>
-    <ContentWrapper>
-      {/* @ts-expect-error */}
-      {title && <StyledHeader>{title}</StyledHeader>}
-      {children}
-    </ContentWrapper>
+    {/* @ts-expect-error */}
+    {title && <StyledHeader>{title}</StyledHeader>}
+    {children}
   </StyledModal>
 );
 
@@ -40,5 +38,3 @@ const StyledModal = styled(Modal)`
 const StyledHeader = styled(H3)`
   margin-bottom: 8px;
 `;
-
-const ContentWrapper = styled.div``;
