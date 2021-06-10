@@ -11,7 +11,8 @@ import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { useLegacyUIURL } from "hooks";
 import { environmentalVariables } from "utils";
-import { NavDropdown } from "./NavDropdown";
+import { AuxiliaryDropdown } from "./AuxiliaryDropdown";
+import { UserDropdown } from "./UserDropdown";
 
 const { getUiUrl } = environmentalVariables;
 
@@ -51,6 +52,7 @@ export const Navbar: React.FC = () => {
           >
             Waterfall
           </NavTitle>
+          <AuxiliaryDropdown />
         </NavActionContainer>
         <NavActionContainer>
           {legacyURL && (
@@ -64,7 +66,7 @@ export const Navbar: React.FC = () => {
               Switch to legacy UI
             </NavLink>
           )}
-          <NavDropdown />
+          <UserDropdown />
         </NavActionContainer>
       </InnerWrapper>
     </StyledHeader>
@@ -76,7 +78,7 @@ const StyledHeader = styled(Header)`
   padding: 0 36px;
 `;
 
-const InnerWrapper = styled.div`
+const InnerWrapper = styled.nav`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -95,13 +97,16 @@ const StyledSubtitle = styled(Subtitle)`
 
 const NavLink = styled(StyledLink)`
   color: ${blue.light2};
-  margin-right: 40px;
 `;
 
 const NavActionContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+
+  > :not(:last-child) {
+    margin-right: 40px;
+  }
 `;
 
 const NavTitle = styled.a`
@@ -109,5 +114,4 @@ const NavTitle = styled.a`
   align-items: center;
   justify-content: center;
   color: ${white};
-  margin-left: 40px;
 `;

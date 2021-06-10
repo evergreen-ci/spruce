@@ -1,9 +1,5 @@
-import React from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Menu, Dropdown } from "antd";
+import { Menu } from "antd";
 import { Link } from "react-router-dom";
 import { legacyRoutes } from "constants/externalResources";
 import {
@@ -15,11 +11,11 @@ import {
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
 import { environmentalVariables } from "utils";
+import { Dropdown } from "./Dropdown";
 
 const { getUiUrl } = environmentalVariables;
-const { white } = uiColors;
 
-export const NavDropdown = () => {
+export const UserDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const { user } = data || {};
   const { displayName, userId } = user || {};
@@ -54,22 +50,10 @@ export const NavDropdown = () => {
   );
 
   return (
-    <Dropdown overlay={menuItems}>
-      <NavDropdownTitle
-        className="ant-dropdown-link"
-        data-cy="nav-dropdown-link"
-        onClick={(e) => e.preventDefault()}
-      >
-        {displayName}
-        <Icon glyph="CaretDown" />
-      </NavDropdownTitle>
-    </Dropdown>
+    <Dropdown
+      dataCy="nav-dropdown-link"
+      menuItems={menuItems}
+      title={displayName}
+    />
   );
 };
-
-const NavDropdownTitle = styled.a`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: ${white};
-`;
