@@ -33,6 +33,7 @@ interface Props {
   createTime?: Maybe<Date>;
   builds: Build[];
   author: string;
+  authorDisplayName: string;
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
   analyticsObject?: Analytics<
@@ -49,6 +50,7 @@ export const PatchCard: React.FC<Props> = ({
   description,
   createTime,
   author,
+  authorDisplayName,
   projectID,
   projectIdentifier,
   status,
@@ -60,7 +62,7 @@ export const PatchCard: React.FC<Props> = ({
 }) => {
   const createDate = new Date(createTime);
   const { displayName: authorName } = useGetUserDisplayName(author);
-
+  const empty = ""
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -80,7 +82,7 @@ export const PatchCard: React.FC<Props> = ({
             ? <StyledRouterLink
               to={getUserPatchesRoute(author)}
               data-cy="project-patches-link">
-                <b>{authorName}</b>
+                <b>{empty}</b>
               </StyledRouterLink>
             : <StyledRouterLink
               to={getProjectPatchesRoute(projectID)}

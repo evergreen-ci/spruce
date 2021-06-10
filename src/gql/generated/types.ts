@@ -722,6 +722,7 @@ export type Patch = {
   githash: Scalars["String"];
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
+  authorDisplayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
@@ -1391,6 +1392,7 @@ export type PatchesPagePatchesFragment = {
   patches: Array<{
     id: string;
     author: string;
+    authorDisplayName: string;
     projectID: string;
     projectIdentifier: string;
     description: string;
