@@ -79,7 +79,6 @@ export const PatchesPage: React.FC<Props> = ({
 
   return (
     <PageWrapper>
-      <p>{pageTitle}</p>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
