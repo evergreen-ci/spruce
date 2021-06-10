@@ -34,6 +34,7 @@ export const ProjectPatches = () => {
       analyticsObject={analyticsObject}
       pageTitle={`${displayName ?? ""} Patches`}
       error={error}
+      type="project"
       patches={patches}
     />
   );

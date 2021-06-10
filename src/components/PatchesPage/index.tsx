@@ -40,6 +40,8 @@ interface Props {
   pageTitle: string;
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
+  type: string;
+
 }
 
 export const PatchesPage: React.FC<Props> = ({
@@ -47,6 +49,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageTitle,
   patches,
   error,
+  type,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -76,6 +79,7 @@ export const PatchesPage: React.FC<Props> = ({
 
   return (
     <PageWrapper>
+      <p>{pageTitle}</p>
       <PageTitle data-cy="patches-page-title">{pageTitle}</PageTitle>
       <FiltersWrapperSpaceBetween>
         <FlexRow>
@@ -114,6 +118,7 @@ export const PatchesPage: React.FC<Props> = ({
       <ListArea
         patches={patches}
         error={error}
+        type={type}
         analyticsObject={analyticsObject}
       />
     </PageWrapper>

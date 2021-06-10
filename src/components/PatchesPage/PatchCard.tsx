@@ -12,13 +12,11 @@ import {
   getVersionRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { string } from "utils";
+import { useGetUserDisplayName } from "hooks";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
-
 const { gray } = uiColors;
-
 interface Build {
   id: string;
   buildVariant: string;
@@ -30,6 +28,7 @@ interface Props {
   projectID: string;
   projectIdentifier: string;
   description: string;
+  type: string;
   status: string;
   createTime?: Maybe<Date>;
   builds: Build[];
@@ -53,12 +52,14 @@ export const PatchCard: React.FC<Props> = ({
   projectID,
   projectIdentifier,
   status,
+  type,
   builds,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   analyticsObject,
 }) => {
   const createDate = new Date(createTime);
+  const { displayName: authorName } = useGetUserDisplayName(author);
 
   return (
     <CardWrapper data-cy="patch-card">
@@ -75,12 +76,18 @@ export const PatchCard: React.FC<Props> = ({
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           on{" "}
-          <StyledRouterLink
-            to={getUserPatchesRoute(author)}
-            data-cy="project-patches-link"
-          >
-            <b>{author}</b>
-          </StyledRouterLink>
+          {type == "project"
+            ? <StyledRouterLink
+              to={getUserPatchesRoute(author)}
+              data-cy="project-patches-link">
+                <b>{authorName}</b>
+              </StyledRouterLink>
+            : <StyledRouterLink
+              to={getProjectPatchesRoute(projectID)}
+              data-cy="project-patches-link">
+                <b>{projectIdentifier}</b>
+              </StyledRouterLink>
+          }
         </TimeAndProject>
       </Left>
       <Center>
