@@ -15,6 +15,7 @@ interface Props {
   inputLabel: string;
   "data-cy": string;
   width?: string;
+  alwaysOpen?: boolean;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -34,9 +35,12 @@ export const TreeSelect: React.FC<Props> = ({
   inputLabel, // label for the select
   "data-cy": dataCy, // for testing only
   width,
+  alwaysOpen,
 }) => {
-  const [isVisible, setisVisible] = useState(false);
-  const toggleOptions: () => void = () => setisVisible(!isVisible);
+  const [isVisible, setisVisible] = useState(alwaysOpen);
+  const toggleOptions: () => void = alwaysOpen
+    ? () => {}
+    : () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
   const filteredState = state.filter((value) => allValues.includes(value));
@@ -59,25 +63,28 @@ export const TreeSelect: React.FC<Props> = ({
         .map((value) => findNode({ value, tData }).target.title)
         .join(", ");
 
+  const CheckboxContainerLayout = alwaysOpen ? "div" : RelativeWrapper;
   return (
     <Wrapper data-cy={dataCy} width={width}>
-      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
-        <LabelWrapper>
-          {inputLabel}
-          {optionsLabel || "No filters selected"}
-        </LabelWrapper>
-        <ArrowWrapper>
-          <div>
-            <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
-          </div>
-        </ArrowWrapper>
-      </BarWrapper>
+      {!alwaysOpen && (
+        <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
+          <LabelWrapper>
+            {inputLabel}
+            {optionsLabel || "No filters selected"}
+          </LabelWrapper>
+          <ArrowWrapper>
+            <div>
+              <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
+            </div>
+          </ArrowWrapper>
+        </BarWrapper>
+      )}
       {isVisible && (
-        <RelativeWrapper>
-          <OptionsWrapper>
+        <CheckboxContainerLayout>
+          <OptionsWrapper alwaysOpen={alwaysOpen}>
             {renderCheckboxes({ state: filteredState, tData, onChange })}
           </OptionsWrapper>
-        </RelativeWrapper>
+        </CheckboxContainerLayout>
       )}
     </Wrapper>
   );
@@ -258,12 +265,12 @@ const renderCheckboxesHelper = ({
   state: string[];
   tData: TreeDataEntry[];
 }): void => {
-  const ParentCheckboxWrapper = getCheckboxWrapper(0);
+  const { children } = data;
   // push parent
   const onChangeFn = (): void =>
     handleOnChange({ state, value: data.value, onChange, tData });
   rows.push(
-    <ParentCheckboxWrapper key={data.key}>
+    <CheckboxWrapper level={0} hasChildren={!!children?.length} key={data.key}>
       <Checkbox
         className="cy-checkbox"
         onChange={onChangeFn}
@@ -272,16 +279,19 @@ const renderCheckboxesHelper = ({
         bold={false}
         data-cy="checkbox"
       />
-    </ParentCheckboxWrapper>
+    </CheckboxWrapper>
   );
   // then examine children
-  const ChildCheckboxWrapper = getCheckboxWrapper(1);
-  if (data.children) {
-    data.children.forEach((child) => {
+  if (children) {
+    children.forEach((child, i) => {
       const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
-        <ChildCheckboxWrapper key={child.key}>
+        <CheckboxWrapper
+          level={1}
+          isLastChild={i === children.length - 1}
+          key={child.key}
+        >
           <Checkbox
             className="cy-checkbox"
             onChange={onChangeChildFn}
@@ -290,19 +300,22 @@ const renderCheckboxesHelper = ({
             bold={false}
             data-cy="checkbox"
           />
-        </ChildCheckboxWrapper>
+        </CheckboxWrapper>
       );
     });
   }
 };
 
-const getCheckboxWrapper = (level: number): React.FC => styled.div`
-  padding-left: ${level}em;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  :first-of-type {
-    border-bottom: 1px solid ${gray.light2};
-  }
+interface CheckboxWrapperProps {
+  level: number;
+  hasChildren?: boolean;
+  isLastChild?: boolean;
+}
+
+const CheckboxWrapper = styled.div<CheckboxWrapperProps>`
+  padding-left: ${({ level }) => level}em;
+  padding-bottom: ${({ hasChildren, level, isLastChild }) =>
+    !hasChildren && (level === 0 || isLastChild) ? "8px" : "0px"};
 `;
 
 const LabelWrapper = styled.div`
@@ -312,8 +325,6 @@ const LabelWrapper = styled.div`
 `;
 
 const BarWrapper = styled.div`
-  border: 1px solid ${gray.light1};
-  border-radius: 3px;
   padding: 8px;
   cursor: pointer;
   white-space: nowrap;
@@ -323,17 +334,20 @@ const BarWrapper = styled.div`
   justify-content: space-between;
 `;
 
-const OptionsWrapper = styled.div`
+interface OptionsWrapperProps {
+  alwaysOpen?: boolean;
+}
+
+const OptionsWrapper = styled.div<OptionsWrapperProps>`
   border-radius: 5px;
   background-color: ${white};
-  border: 1px solid ${gray.light1};
   padding: 8px;
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  position: absolute;
   z-index: 5;
   margin-top: 5px;
   width: 100%;
   overflow: hidden;
+  ${({ alwaysOpen }): string => (alwaysOpen ? "" : "position: absolute;")};
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper

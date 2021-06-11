@@ -2,7 +2,7 @@ import React from "react";
 import { usePatchAnalytics } from "analytics";
 import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { useTaskFilters, useUpdateURLQueryParams } from "hooks";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { toSortString } from "../util";
 
@@ -21,6 +21,7 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
       [PatchTasksQueryParams.Page]: "0",
     });
   };
+  const taskFilters = useTaskFilters();
 
   return (
     <TasksTable
@@ -39,6 +40,7 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
           taskId,
         })
       }
+      taskFilters={taskFilters}
     />
   );
 };

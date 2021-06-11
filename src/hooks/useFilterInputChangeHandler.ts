@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import debounce from "lodash.debounce";
 import { useLocation, useHistory } from "react-router-dom";
 import { url, queryString } from "utils";
@@ -22,7 +22,13 @@ export const useFilterInputChangeHandler = (
   urlSearchParam: string,
   resetPage: boolean,
   sendAnalyticsEvent: (filterBy: string) => void = () => undefined
-): [string, (e: InputEvent) => void] => {
+): [
+  string,
+  (e: InputEvent) => void,
+  (e: InputEvent) => void,
+  () => void,
+  () => void
+] => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
@@ -31,7 +37,11 @@ export const useFilterInputChangeHandler = (
 
   const [value, setValue] = useState(inputValue);
 
-  const onChange = (e: InputEvent): void => {
+  useEffect(() => {
+    setValue(inputValue);
+  }, [inputValue]);
+
+  const updateAndSubmitWithDebounce = (e: InputEvent): void => {
     setValue(e.target.value);
 
     sendAnalyticsEvent(urlSearchParam);
@@ -46,5 +56,32 @@ export const useFilterInputChangeHandler = (
     );
   };
 
-  return [value, onChange];
+  const updateOnly = (e: InputEvent): void => {
+    setValue(e.target.value);
+  };
+
+  const submitOnly = () => {
+    updateUrlQueryParam(
+      urlSearchParam,
+      value,
+      search,
+      replace,
+      pathname,
+      resetPage
+    );
+  };
+
+  const reset = (): void => {
+    setValue("");
+    updateUrlQueryParam(
+      urlSearchParam,
+      "",
+      search,
+      replace,
+      pathname,
+      resetPage
+    );
+  };
+
+  return [value, updateAndSubmitWithDebounce, updateOnly, submitOnly, reset];
 };

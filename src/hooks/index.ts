@@ -9,11 +9,8 @@ export { usePageTitle } from "hooks/usePageTitle";
 export { useNetworkStatus } from "hooks/useNetworkStatus";
 export { useStatusesFilter } from "hooks/useStatusesFilter";
 export { useTabs } from "hooks/useTabs";
-export {
-  useTableInputFilter,
-  useTableCheckboxFilter,
-} from "hooks/useTableFilters";
 export { useUpdateUrlSortParamOnTableChange } from "./useUpdateUrlSortParamOnTableChange";
 export { usePrevious } from "./usePrevious";
 export { useDisableSpawnExpirationCheckbox } from "./useDisableSpawnExpirationCheckbox";
 export { useUpdateURLQueryParams } from "./useUpdateURLQueryParams";
+export { useTaskFilters } from "hooks/useTaskFilters";

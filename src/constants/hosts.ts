@@ -1,12 +1,12 @@
+import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { HostStatus } from "types/host";
 
-interface Status {
-  title: keyof typeof HostStatus | "Provision Failed";
-  value: HostStatus;
-  key: HostStatus;
-}
-
-export const hostStatuses: Status[] = [
+export const hostStatuses: TreeDataEntry[] = [
+  {
+    title: "All",
+    value: ALL_VALUE,
+    key: ALL_VALUE,
+  },
   {
     title: "Running",
     value: HostStatus.Running,
@@ -22,7 +22,6 @@ export const hostStatuses: Status[] = [
     value: HostStatus.Uninitialized,
     key: HostStatus.Uninitialized,
   },
-
   {
     title: "Building",
     value: HostStatus.Building,

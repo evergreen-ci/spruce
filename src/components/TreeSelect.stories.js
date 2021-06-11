@@ -151,3 +151,16 @@ export const NoAllButton = () => {
     />
   );
 };
+
+export const AlwaysOpen = () => {
+  const [value, setValue] = useState([]);
+  return (
+    <TreeSelect
+      tData={treeData}
+      inputLabel="Items: "
+      state={value}
+      onChange={(v) => setValue(v)}
+      alwaysOpen
+    />
+  );
+};
