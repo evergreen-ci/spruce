@@ -23,6 +23,24 @@ export const getJiraSearchUrl = (jiraHost: string, jqlEscaped: string) =>
 export const getJiraTicketUrl = (jiraHost: string, jiraKey: string) =>
   `https://${jiraHost}/browse/${jiraKey}`;
 
+export const getGithubPullRequestUrl = (
+  owner: string,
+  repo: string,
+  issue: number | string
+) => `https://github.com/${owner}/${repo}/pull/${issue}`;
+
+export const getLobsterTaskLink = (
+  logType: LogTypes,
+  taskId: string,
+  execution: number
+) =>
+  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
+
+const deprecatedLogkeeperLobsterURL = "https://logkeeper.mongodb.org";
+
+export const getUpdatedLobsterUrl = (link: string) =>
+  link.replace(deprecatedLogkeeperLobsterURL, `${getLobsterURL()}/lobster`);
+
 export const getLobsterTestLogUrl = (
   taskId: string,
   execution: number,
@@ -35,17 +53,7 @@ export const getLobsterTestLogUrl = (
         lineNum ? `#shareLine=${lineNum}` : ""
       }`;
 
-export const isLobsterLink = (url: string) => url.includes("/build/");
-export const getGithubPullRequestUrl = (
-  owner: string,
-  repo: string,
-  issue: number | string
-) => `https://github.com/${owner}/${repo}/pull/${issue}`;
-export const getLobsterTaskLink = (
-  logType: LogTypes,
-  taskId: string,
-  execution: number
-) =>
-  `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
+export const isLobsterTestLogLink = (link: string) =>
+  link.includes(`${deprecatedLogkeeperLobsterURL}/build`);
 
-export const deprecatedLogkeeperLobsterURL = "https://logkeeper.mongodb.org";
+export const getLogLink = (logPath: string) => `${getUiUrl()}${logPath}`;
