@@ -12,7 +12,6 @@ import {
   getVersionRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
-import { useGetUserDisplayName } from "hooks";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
@@ -61,8 +60,7 @@ export const PatchCard: React.FC<Props> = ({
   analyticsObject,
 }) => {
   const createDate = new Date(createTime);
-  const { displayName: authorName } = useGetUserDisplayName(author);
-  const empty = ""
+  const verb = (type == "project") ? "by" : "on";
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -77,12 +75,12 @@ export const PatchCard: React.FC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          on{" "}
+          {verb}{" "}
           {type == "project"
             ? <StyledRouterLink
               to={getUserPatchesRoute(author)}
               data-cy="project-patches-link">
-                <b>{empty}</b>
+                <b>{authorDisplayName}</b>
               </StyledRouterLink>
             : <StyledRouterLink
               to={getProjectPatchesRoute(projectID)}

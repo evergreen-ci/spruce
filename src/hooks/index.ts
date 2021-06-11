@@ -1,7 +1,6 @@
 export { useDefaultPath } from "hooks/useDefaultPath";
 export { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 export { useGetUserPatchesPageTitleAndLink } from "hooks/useGetUserPatchesPageTitleAndLink";
-export { useGetUserDisplayName } from "hooks/useGetUserDisplayName";
 export { useNotificationModal } from "hooks/useNotificationModal";
 export { useOnClickOutside } from "hooks/useOnClickOutside";
 export { usePatchStatusSelect } from "hooks/usePatchStatusSelect";
