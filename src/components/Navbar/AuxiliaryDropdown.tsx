@@ -1,5 +1,7 @@
 import { Menu } from "antd";
+import { Link } from "react-router-dom";
 import { legacyRoutes } from "constants/externalResources";
+import { routes } from "constants/routes";
 import { environmentalVariables } from "utils";
 import { Dropdown } from "./Dropdown";
 
@@ -10,6 +12,14 @@ export const AuxiliaryDropdown = () => {
 
   const menuItems = (
     <Menu>
+      <Menu.Item>
+        <a data-cy="legacy_route" href={`${uiURL}${legacyRoutes.distros}`}>
+          Distros
+        </a>
+      </Menu.Item>
+      <Menu.Item>
+        <Link to={routes.hosts}>All Hosts</Link>
+      </Menu.Item>
       <Menu.Item>
         <a
           data-cy="legacy_route_project"
