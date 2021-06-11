@@ -34,13 +34,17 @@ describe("Configure Patch Page", () => {
         .first()
         .should("have.attr", "data-selected", "true");
     });
-    describe("visiting a configure page with display tasks", () => {
+    describe("Visiting a configure page with display tasks", () => {
       before(() => {
         cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
       });
       it("should show display tasks if there are any", () => {
         cy.contains("display_task");
       });
+    });
+    it("Required tasks should be auto selected", () => {
+      cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
+      getInputByLabel("test-graphql").should("be.checked");
     });
   });
 

@@ -36,11 +36,11 @@ describe("Patch route", () => {
   });
 
   it("Shows patch parameters if they exist", () => {
-    cy.dataCy("parameters-modal").should("not.be.visible");
+    cy.dataCy("parameters-modal").should("not.exist");
     cy.dataCy("parameters-link").click();
     cy.dataCy("parameters-modal").should("be.visible");
-    cy.get(".ant-modal-close-x").click();
-    cy.dataCy("parameters-modal").should("not.be.visible");
+    cy.get('button[aria-label="Close modal"]').click();
+    cy.dataCy("parameters-modal").should("not.exist");
   });
   it("'Base commit' link in metadata links to version page of legacy UI", () => {
     cy.dataCy("patch-base-commit")

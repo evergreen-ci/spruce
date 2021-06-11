@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Variant } from "@leafygreen-ui/button";
-import { Input, Select, Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
+import { Input, Select } from "antd";
 import { diff } from "deep-object-diff";
 import isEqual from "lodash.isequal";
 import { useSpawnAnalytics } from "analytics";
@@ -182,34 +183,42 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             <ConditionalWrapper
               condition={!canEditInstanceType}
               wrapper={(children) => (
-                <Tooltip title="Pause this host to adjust this field.">
-                  {children}
+                <Tooltip
+                  align="top"
+                  justify="middle"
+                  usePortal={false}
+                  triggerEvent="hover"
+                  trigger={children}
+                >
+                  Pause this host to adjust this field.
                 </Tooltip>
               )}
             >
-              <Select
-                id="instanceTypeDropdown"
-                showSearch
-                style={{ width: 200 }}
-                placeholder="Select Instance Type"
-                onChange={(v) =>
-                  dispatch({
-                    type: "editInstanceType",
-                    instanceType: v,
-                  })
-                }
-                value={editSpawnHostState.instanceType}
-                disabled={!canEditInstanceType}
-              >
-                {instanceTypes?.map((instance) => (
-                  <Option
-                    value={instance}
-                    key={`instance_type_option_${instance}`}
-                  >
-                    {instance}
-                  </Option>
-                ))}
-              </Select>
+              <div>
+                <Select
+                  id="instanceTypeDropdown"
+                  showSearch
+                  style={{ width: 200 }}
+                  placeholder="Select Instance Type"
+                  onChange={(v) =>
+                    dispatch({
+                      type: "editInstanceType",
+                      instanceType: v,
+                    })
+                  }
+                  value={editSpawnHostState.instanceType}
+                  disabled={!canEditInstanceType}
+                >
+                  {instanceTypes?.map((instance) => (
+                    <Option
+                      value={instance}
+                      key={`instance_type_option_${instance}`}
+                    >
+                      {instance}
+                    </Option>
+                  ))}
+                </Select>
+              </div>
             </ConditionalWrapper>
           </ModalContent>
         </SectionContainer>
@@ -244,19 +253,22 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
                   type="password"
                 />
                 <Tooltip
-                  title={
-                    <>
-                      Password should match the criteria defined{" "}
-                      <StyledLink
-                        href={windowsPasswordRulesURL}
-                        target="__blank"
-                      >
-                        here.
-                      </StyledLink>
-                    </>
+                  align="top"
+                  justify="end"
+                  triggerEvent="hover"
+                  usePortal={false}
+                  trigger={
+                    <div>
+                      <PaddedIcon glyph="QuestionMarkWithCircle" />
+                    </div>
                   }
                 >
-                  <PaddedIcon glyph="QuestionMarkWithCircle" />
+                  <>
+                    Password should match the criteria defined{" "}
+                    <StyledLink href={windowsPasswordRulesURL} target="__blank">
+                      here.
+                    </StyledLink>
+                  </>
                 </Tooltip>
               </FlexContainer>
             </ModalContent>
