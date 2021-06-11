@@ -53,7 +53,7 @@ export const getLobsterTestLogUrl = (
         lineNum ? `#shareLine=${lineNum}` : ""
       }`;
 
-export const isLobsterTestLogLink = (link: string) =>
+export const isLogkeeperLink = (link: string) =>
   link.includes(`${deprecatedLogkeeperLobsterURL}/build`);
 
 export const getLogLink = (logPath: string) => `${getUiUrl()}${logPath}`;

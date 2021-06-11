@@ -22,7 +22,7 @@ import {
   getLobsterTestLogUrl,
   getLogLink,
   getUpdatedLobsterUrl,
-  isLobsterTestLogLink,
+  isLogkeeperLink,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -270,12 +270,12 @@ const getColumnsTemplate = (
     render: (a, b): JSX.Element => {
       const { execution, lineNum, taskId, id } = b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-      const hasLobsterLink = isLobsterTestLogLink(htmlDisplayURL);
+      const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
       const lobsterLink = hasLobsterLink
         ? getUpdatedLobsterUrl(htmlDisplayURL)
         : getLobsterTestLogUrl(taskId, execution, id, lineNum);
 
-      const rawLink = isLobsterTestLogLink(rawDisplayURL)
+      const rawLink = isLogkeeperLink(rawDisplayURL)
         ? rawDisplayURL
         : getLogLink(rawDisplayURL);
 
