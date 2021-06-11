@@ -41,7 +41,6 @@ interface Props {
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
   type: string;
-
 }
 
 export const PatchesPage: React.FC<Props> = ({
