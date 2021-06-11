@@ -14,47 +14,23 @@ describe("Execution task table", () => {
 
   it("Should sort execution task table if no sort order is specified", () => {
     cy.visit(pathExecutionTasks);
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-    );
+    cy.location("search").should("contain", "sorts=STATUS%3AASC");
   });
 
   it("Updates the url when column headers are clicked", () => {
     cy.get("th.cy-task-table-col-NAME").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3AASC"
-    );
+    cy.location("search").should("contain", "sorts=NAME%3AASC");
 
     cy.get("th.cy-task-table-col-NAME").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BNAME%3ADESC"
-    );
+    cy.location("search").should("contain", "sorts=NAME%3ADESC");
 
-    cy.get("th.cy-task-table-col-NAME").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-    );
+    cy.get("th.cy-task-table-col-STATUS").click();
+    cy.location("search").should("contain", "sorts=STATUS%3AASC");
 
-    cy.get("th.cy-task-table-col-VARIANT").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3AASC"
-    );
+    cy.get("th.cy-task-table-col-STATUS").click();
+    cy.location("search").should("contain", "sorts=STATUS%3ADESC");
 
-    cy.get("th.cy-task-table-col-VARIANT").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC%3BVARIANT%3ADESC"
-    );
-
-    cy.get("th.cy-task-table-col-VARIANT").click();
-    cy.location("search").should(
-      "contain",
-      "sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC"
-    );
+    cy.get("th.cy-task-table-col-STATUS").click();
+    cy.location("search").should("not.contain", "sorts");
   });
 });
