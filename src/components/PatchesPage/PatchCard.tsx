@@ -79,7 +79,7 @@ export const PatchCard: React.FC<Props> = ({
           {type == "project"
             ? <StyledRouterLink
               to={getUserPatchesRoute(author)}
-              data-cy="project-patches-link">
+              data-cy="user-patches-link">
                 <b>{authorDisplayName}</b>
               </StyledRouterLink>
             : <StyledRouterLink
