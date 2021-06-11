@@ -30,11 +30,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
       },
-      {
-        title: "Aborted",
-        value: TaskStatus.Aborted,
-        key: TaskStatus.Aborted,
-      },
     ],
   },
   {
@@ -54,8 +49,8 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   },
   {
     title: "Unscheduled",
-    value: TaskStatus.TaskUnscheduled,
-    key: TaskStatus.TaskUnscheduled,
+    value: TaskStatus.Unscheduled,
+    key: TaskStatus.Unscheduled,
   },
   {
     title: "Scheduled",
@@ -74,8 +69,8 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
       },
       {
         title: "Will Run",
-        value: TaskStatus.TaskWillRun,
-        key: TaskStatus.TaskWillRun,
+        value: TaskStatus.WillRun,
+        key: TaskStatus.WillRun,
       },
     ],
   },
@@ -105,6 +100,11 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     title: "Setup Failed",
     value: TaskStatus.SetupFailed,
     key: TaskStatus.SetupFailed,
+  },
+  {
+    title: "Aborted",
+    value: TaskStatus.Aborted,
+    key: TaskStatus.Aborted,
   },
   {
     title: "Blocked",
@@ -138,12 +138,12 @@ export const mapTaskStatusToColor = {
   [TaskStatus.SystemFailed]: failurePurple,
   [TaskStatus.SystemTimedOut]: failurePurple,
   [TaskStatus.SystemUnresponsive]: failurePurple,
-  [TaskStatus.TaskWillRun]: gray.light1,
-  [TaskStatus.TaskUnscheduled]: gray.dark2,
   [TaskStatus.TaskTimedOut]: red.base,
   [TaskStatus.TestTimedOut]: red.base,
   [TaskStatus.Undispatched]: gray.light1,
   [TaskStatus.Unstarted]: gray.light1,
+  [TaskStatus.Unscheduled]: gray.dark1,
+  [TaskStatus.WillRun]: gray.light1,
 };
 
 // Represents text color for task statuses
@@ -165,6 +165,8 @@ export const mapTaskStatusToTextColor = {
   [TaskStatus.TaskTimedOut]: red.dark3,
   [TaskStatus.Undispatched]: gray.dark3,
   [TaskStatus.Unstarted]: gray.dark3,
+  [TaskStatus.Unscheduled]: gray.light3,
+  [TaskStatus.WillRun]: gray.dark1,
 };
 
 export const taskStatusToCopy = {
@@ -182,9 +184,9 @@ export const taskStatusToCopy = {
   [TaskStatus.SetupFailed]: "Setup Failure",
   [TaskStatus.Succeeded]: "Success",
   [TaskStatus.TaskTimedOut]: "Task-timed-out",
-  [TaskStatus.TaskWillRun]: "Will Run",
-  [TaskStatus.TaskUnscheduled]: "Unscheduled",
   [TaskStatus.TestTimedOut]: "Test-timed-out",
-  [TaskStatus.Unstarted]: "Unstarted",
   [TaskStatus.Undispatched]: "Undispatched",
+  [TaskStatus.Unstarted]: "Unstarted",
+  [TaskStatus.Unscheduled]: "Unscheduled",
+  [TaskStatus.WillRun]: "Will Run",
 };

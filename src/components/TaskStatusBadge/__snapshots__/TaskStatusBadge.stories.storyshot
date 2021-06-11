@@ -8,7 +8,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Inactive
@@ -18,7 +18,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Unstarted
@@ -28,7 +28,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Undispatched
@@ -38,8 +38,11 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-337zlz"
+      border="#3D4F58"
+      className="css-hjjb39-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
+      fill="#5D6C74"
+      text="#F9FBFA"
     >
       Will Run
     </div>
@@ -48,17 +51,17 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
-      Will Not Run
+      Unscheduled
     </div>
   </div>
   <div
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-108bzew"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-108bzew"
       data-cy="task-status-badge"
     >
       Running
@@ -68,7 +71,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-108bzew"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-108bzew"
       data-cy="task-status-badge"
     >
       Dispatched
@@ -78,7 +81,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Pending
@@ -88,7 +91,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-f8ffxa"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
       data-cy="task-status-badge"
     >
       Success
@@ -98,7 +101,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-fy8boj"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
       data-cy="task-status-badge"
     >
       Failed
@@ -108,7 +111,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-fy8boj"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
       data-cy="task-status-badge"
     >
       Test-Timed-Out
@@ -118,7 +121,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-fy8boj"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
       data-cy="task-status-badge"
     >
       Task-Timed-Out
@@ -129,7 +132,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#E7DBEC"
-      className="css-qcusjr-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      className="css-1fnb5zg-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
       fill="#F3EDF5"
       text="#877290"
@@ -142,7 +145,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#CC99CC"
-      className="css-1ntusrs-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
       fill="#E6CCE6"
       text="#800080"
@@ -155,7 +158,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#CC99CC"
-      className="css-1ntusrs-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
       fill="#E6CCE6"
       text="#800080"
@@ -168,7 +171,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#CC99CC"
-      className="css-1ntusrs-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
       fill="#E6CCE6"
       text="#800080"
@@ -180,7 +183,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Blocked
@@ -190,7 +193,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-17gpdot"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
     >
       Aborted
@@ -200,7 +203,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="leafygreen-ui-g4d1vq"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-g4d1vq"
       data-cy="task-status-badge"
     >
       Known Failure

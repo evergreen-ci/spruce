@@ -17,7 +17,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Undispatched]: Variant.LightGray,
   [TaskStatus.Blocked]: Variant.LightGray,
   [TaskStatus.Pending]: Variant.LightGray,
-  [TaskStatus.TaskUnscheduled]: Variant.LightGray,
+  [TaskStatus.Unscheduled]: Variant.LightGray,
   [TaskStatus.Aborted]: Variant.LightGray,
   [TaskStatus.Started]: Variant.Yellow,
   [TaskStatus.Dispatched]: Variant.Yellow,
@@ -43,7 +43,7 @@ const mapUnsupportedBadgeColors = {
     fill: "#F3EDF5",
     text: "#877290",
   },
-  [TaskStatus.TaskWillRun]: {
+  [TaskStatus.WillRun]: {
     border: gray.dark2,
     fill: gray.dark1,
     text: gray.light3,
@@ -52,9 +52,9 @@ const mapUnsupportedBadgeColors = {
 };
 
 interface BadgeColorProps {
-  border: string;
-  fill: string;
-  text: string;
+  border?: string;
+  fill?: string;
+  text?: string;
 }
 
 const badgeWidthMaxContent = css`
@@ -62,11 +62,10 @@ const badgeWidthMaxContent = css`
 `;
 
 // only use for statuses whose color is not supported by leafygreen badge variants, i.e. SystemFailed, TestTimedOut, SetupFailed
-const StyledBadge = styled(Badge)`
-  border-color: ${(props: BadgeColorProps): string => props.border} !important;
-  background-color: ${(props: BadgeColorProps): string =>
-    props.fill} !important;
-  color: ${(props: BadgeColorProps): string => props.text} !important;
+const StyledBadge = styled(Badge)<BadgeColorProps>`
+  ${({ border }) => border && `border-color: ${border} !important;`}
+  ${({ fill }) => fill && `background-color: ${fill} !important;`}
+  ${({ text }) => text && `color: ${text} !important;`}
   ${badgeWidthMaxContent}
 `;
 
@@ -78,13 +77,14 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
 
   if (status in mapTaskStatusToBadgeVariant) {
     return (
-      <Badge
+      <StyledBadge
         data-cy="task-status-badge"
         key={status}
         variant={mapTaskStatusToBadgeVariant[status]}
+        css={badgeWidthMaxContent}
       >
         {displayStatus}
-      </Badge>
+      </StyledBadge>
     );
   }
 
