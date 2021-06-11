@@ -2,10 +2,12 @@ import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
+import { uiColors } from "@leafygreen-ui/palette";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { statuses, errorReporting } from "utils";
 
+const { gray } = uiColors;
 const { reportError } = errorReporting;
 const { getStatusBadgeCopy } = statuses;
 
@@ -13,10 +15,9 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.Inactive]: Variant.LightGray,
   [TaskStatus.Unstarted]: Variant.LightGray,
   [TaskStatus.Undispatched]: Variant.LightGray,
-  [TaskStatus.TaskWillRun]: Variant.DarkGray,
   [TaskStatus.Blocked]: Variant.LightGray,
   [TaskStatus.Pending]: Variant.LightGray,
-  [TaskStatus.TaskWillNotRun]: Variant.LightGray,
+  [TaskStatus.TaskUnscheduled]: Variant.LightGray,
   [TaskStatus.Aborted]: Variant.LightGray,
   [TaskStatus.Started]: Variant.Yellow,
   [TaskStatus.Dispatched]: Variant.Yellow,
@@ -28,14 +29,13 @@ const mapTaskStatusToBadgeVariant = {
 };
 
 const failureColors = {
-  text: "#800080",
   border: "#CC99CC",
   fill: "#E6CCE6",
+  text: "#800080",
 };
 
 // the status colors that are not supported by the leafygreen Badge variants
 const mapUnsupportedBadgeColors = {
-  [TaskStatus.SystemFailed]: failureColors,
   [TaskStatus.SystemTimedOut]: failureColors,
   [TaskStatus.SystemUnresponsive]: failureColors,
   [TaskStatus.SetupFailed]: {
@@ -43,6 +43,12 @@ const mapUnsupportedBadgeColors = {
     fill: "#F3EDF5",
     text: "#877290",
   },
+  [TaskStatus.TaskWillRun]: {
+    border: gray.dark2,
+    fill: gray.dark1,
+    text: gray.light3,
+  },
+  [TaskStatus.SystemFailed]: failureColors,
 };
 
 interface BadgeColorProps {
@@ -94,7 +100,7 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
     );
   }
 
-  const err = new Error(`Status '${status} is not a valid task status`);
+  const err = new Error(`Status '${status}' is not a valid task status`);
   reportError(err).warning();
   return <Badge variant={Variant.LightGray}>{status}</Badge>;
 };
