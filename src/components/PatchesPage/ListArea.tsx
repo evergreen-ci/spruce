@@ -18,7 +18,7 @@ export const ListArea: React.FC<{
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
   type: string;
-}> = ({ patches, error, analyticsObject, type}) => {
+}> = ({ patches, error, analyticsObject, type }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }

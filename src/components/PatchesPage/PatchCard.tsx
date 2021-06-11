@@ -60,7 +60,7 @@ export const PatchCard: React.FC<Props> = ({
   analyticsObject,
 }) => {
   const createDate = new Date(createTime);
-  const verb = (type == "project") ? "by" : "on";
+  const verb = type == "project" ? "by" : "on";
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -76,18 +76,21 @@ export const PatchCard: React.FC<Props> = ({
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
           {verb}{" "}
-          {type == "project"
-            ? <StyledRouterLink
+          {type == "project" ? (
+            <StyledRouterLink
               to={getUserPatchesRoute(author)}
-              data-cy="user-patches-link">
-                <b>{authorDisplayName}</b>
-              </StyledRouterLink>
-            : <StyledRouterLink
+              data-cy="user-patches-link"
+            >
+              <b>{authorDisplayName}</b>
+            </StyledRouterLink>
+          ) : (
+            <StyledRouterLink
               to={getProjectPatchesRoute(projectID)}
-              data-cy="project-patches-link">
-                <b>{projectIdentifier}</b>
-              </StyledRouterLink>
-          }
+              data-cy="project-patches-link"
+            >
+              <b>{projectIdentifier}</b>
+            </StyledRouterLink>
+          )}
         </TimeAndProject>
       </Left>
       <Center>
