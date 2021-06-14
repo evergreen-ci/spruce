@@ -315,46 +315,6 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
             >
               <label
                 className="leafygreen-ui-hfnsvs"
-                htmlFor="checkbox-0"
-                id="checkbox-0-label"
-              >
-                <input
-                  aria-checked={false}
-                  aria-disabled={false}
-                  aria-label="checkbox"
-                  aria-labelledby="checkbox-0-label"
-                  checked={false}
-                  className="leafygreen-ui-3bropy"
-                  disabled={false}
-                  id="checkbox-0"
-                  onChange={[Function]}
-                  onClick={[Function]}
-                  type="checkbox"
-                />
-                <div
-                  className="leafygreen-ui-cho4qd"
-                  data-leafygreen-ui="checkbox-wrapper"
-                >
-                  <div
-                    className="leafygreen-ui-68852y"
-                  />
-                </div>
-                <span
-                  className="leafygreen-ui-pxtafh"
-                >
-                  Mark distro as a cluster (jobs are not run on this host, used for special purposes).
-                </span>
-              </label>
-            </div>
-          </div>
-          <div
-            className="form-group field field-boolean"
-          >
-            <div
-              className="css-j0rta5-ElementWrapper eyx6h6k0"
-            >
-              <label
-                className="leafygreen-ui-hfnsvs"
                 htmlFor="checkbox-1"
                 id="checkbox-1-label"
               >
@@ -382,7 +342,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-pxtafh"
                 >
-                  Disable shallow clone for this distro.
+                  Mark distro as a cluster (jobs are not run on this host, used for special purposes).
                 </span>
               </label>
             </div>
@@ -422,7 +382,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                 <span
                   className="leafygreen-ui-pxtafh"
                 >
-                  Disable queueing this distro. Tasks already in the task queue will be removed.
+                  Disable shallow clone for this distro.
                 </span>
               </label>
             </div>
@@ -439,11 +399,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                 id="checkbox-3-label"
               >
                 <input
-                  aria-checked={true}
+                  aria-checked={false}
                   aria-disabled={false}
                   aria-label="checkbox"
                   aria-labelledby="checkbox-3-label"
-                  checked={true}
+                  checked={false}
                   className="leafygreen-ui-3bropy"
                   disabled={false}
                   id="checkbox-3"
@@ -452,7 +412,47 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   type="checkbox"
                 />
                 <div
-                  className="leafygreen-ui-1h4qwc1"
+                  className="leafygreen-ui-cho4qd"
+                  data-leafygreen-ui="checkbox-wrapper"
+                >
+                  <div
+                    className="leafygreen-ui-68852y"
+                  />
+                </div>
+                <span
+                  className="leafygreen-ui-pxtafh"
+                >
+                  Disable queueing this distro. Tasks already in the task queue will be removed.
+                </span>
+              </label>
+            </div>
+          </div>
+          <div
+            className="form-group field field-boolean"
+          >
+            <div
+              className="css-j0rta5-ElementWrapper eyx6h6k0"
+            >
+              <label
+                className="leafygreen-ui-hfnsvs"
+                htmlFor="checkbox-4"
+                id="checkbox-4-label"
+              >
+                <input
+                  aria-checked={true}
+                  aria-disabled={false}
+                  aria-label="checkbox"
+                  aria-labelledby="checkbox-4-label"
+                  checked={true}
+                  className="leafygreen-ui-3bropy"
+                  disabled={false}
+                  id="checkbox-4"
+                  onChange={[Function]}
+                  onClick={[Function]}
+                  type="checkbox"
+                />
+                <div
+                  className="leafygreen-ui-cho4qd"
                   data-leafygreen-ui="checkbox-wrapper"
                 >
                   <div
