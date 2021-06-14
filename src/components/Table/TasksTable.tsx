@@ -75,7 +75,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     key: TaskSortCategory.Status,
     sorter: (a, b) => a.status.localeCompare(b.status),
     className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Base Status",
@@ -83,7 +83,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     key: TaskSortCategory.BaseStatus,
     sorter: (a, b) => a.baseStatus?.localeCompare(b.baseStatus),
     className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Variant",
@@ -141,13 +141,6 @@ const getColumnDefsControlled = (
     ...columnDef,
     ...sortProps[i],
   }));
-};
-
-const renderStatusBadge = (status: string): null | JSX.Element => {
-  if (status === "" || !status) {
-    return null;
-  }
-  return <TaskStatusBadge status={status} />;
 };
 
 interface TaskLinkProps {
