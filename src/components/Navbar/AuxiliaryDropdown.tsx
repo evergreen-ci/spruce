@@ -13,12 +13,12 @@ export const AuxiliaryDropdown = () => {
   const menuItems = (
     <Menu>
       <Menu.Item>
+        <Link to={routes.hosts}>All Hosts</Link>
+      </Menu.Item>
+      <Menu.Item>
         <a data-cy="legacy_route" href={`${uiURL}${legacyRoutes.distros}`}>
           Distros
         </a>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to={routes.hosts}>All Hosts</Link>
       </Menu.Item>
       <Menu.Item>
         <a
@@ -31,5 +31,11 @@ export const AuxiliaryDropdown = () => {
     </Menu>
   );
 
-  return <Dropdown menuItems={menuItems} title="More" />;
+  return (
+    <Dropdown
+      dataCy="auxiliary-dropdown-link"
+      menuItems={menuItems}
+      title="More"
+    />
+  );
 };

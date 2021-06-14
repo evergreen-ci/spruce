@@ -28,7 +28,7 @@ export const UserDropdown = () => {
 
   return (
     <Dropdown
-      dataCy="nav-dropdown-link"
+      dataCy="user-dropdown-link"
       menuItems={menuItems}
       title={displayName}
     />
