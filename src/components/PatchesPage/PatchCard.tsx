@@ -27,7 +27,7 @@ interface Props {
   projectID: string;
   projectIdentifier: string;
   description: string;
-  type: string;
+  pageType: "project" | "user";
   status: string;
   createTime?: Maybe<Date>;
   builds: Build[];
@@ -53,14 +53,13 @@ export const PatchCard: React.FC<Props> = ({
   projectID,
   projectIdentifier,
   status,
-  type,
+  pageType,
   builds,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   analyticsObject,
 }) => {
   const createDate = new Date(createTime);
-  const verb = type == "project" ? "by" : "on";
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -75,8 +74,8 @@ export const PatchCard: React.FC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          {verb}{" "}
-          {type == "project" ? (
+          {pageType == "project" ? "by" : "on"}{" "}
+          {pageType == "project" ? (
             <StyledRouterLink
               to={getUserPatchesRoute(author)}
               data-cy="user-patches-link"

@@ -17,8 +17,8 @@ export const ListArea: React.FC<{
   >;
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
-  type: string;
-}> = ({ patches, error, analyticsObject, type }) => {
+  pageType: "project" | "user";
+}> = ({ patches, error, analyticsObject, pageType }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
@@ -32,7 +32,7 @@ export const ListArea: React.FC<{
           <PatchCard
             analyticsObject={analyticsObject}
             key={p.id}
-            type={type}
+            pageType={pageType}
             {...p}
             isPatchOnCommitQueue={commitQueuePosition !== null}
           />
