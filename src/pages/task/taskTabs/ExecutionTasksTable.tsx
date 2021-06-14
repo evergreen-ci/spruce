@@ -4,13 +4,13 @@ import { useTaskAnalytics } from "analytics";
 import { TasksTable } from "components/Table/TasksTable";
 import { GetTaskQuery, Task } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { parseSortString, toSortString } from "pages/patch/patchTabs/util";
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
 
-const { parseQueryString } = queryString;
+const { parseQueryString, parseSortString, toSortString } = queryString;
 
 interface Props {
+  execution: number;
   executionTasksFull: GetTaskQuery["task"]["executionTasksFull"];
 }
 
@@ -22,11 +22,11 @@ const useSorts = () => {
 };
 
 export const ExecutionTasksTable: React.FC<Props> = ({
+  execution,
   executionTasksFull,
 }) => {
   const taskAnalytics = useTaskAnalytics();
   const updateQueryParams = useUpdateURLQueryParams();
-  // const sorts = useTaskSortQueryParams();
   const sorts = useSorts();
   useEffect(() => {
     if (sorts.length === 0) {
@@ -39,7 +39,7 @@ export const ExecutionTasksTable: React.FC<Props> = ({
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     updateQueryParams({
       sorts: toSortString(sorter),
-      [RequiredQueryParams.Execution]: "0",
+      [RequiredQueryParams.Execution]: `${execution}`,
     });
   };
 

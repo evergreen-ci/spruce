@@ -1,6 +1,6 @@
 import { SorterResult } from "antd/es/table/interface";
 import { SortDirection, TaskSortCategory, Task } from "gql/generated/types";
-import { parseSortString, toSortString } from "./util";
+import { parseSortString, toSortString } from "./sortString";
 
 test("parseSortString", () => {
   expect(parseSortString("NAME:ASC;STATUS:DESC")).toEqual([

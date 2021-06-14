@@ -95,7 +95,10 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         data-cy="task-execution-tab"
         key="execution-tasks-tab"
       >
-        <ExecutionTasksTable executionTasksFull={executionTasksFull} />
+        <ExecutionTasksTable
+          execution={execution}
+          executionTasksFull={executionTasksFull}
+        />
       </Tab>
     ),
     [TaskTab.Files]: (
