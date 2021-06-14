@@ -8,7 +8,6 @@ import { StyledRouterLink } from "components/styles";
 import {
   getBuildStatusIconLink,
   getProjectPatchesRoute,
-  getUserPatchesRoute,
   getVersionRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
