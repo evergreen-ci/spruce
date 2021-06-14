@@ -27,7 +27,7 @@ describe("Task Page Route", () => {
     cy.visit(`/task/${tasks[2]}`);
     cy.dataCy("task-status-badge").contains("Running");
     cy.visit(`/task/${tasks[3]}`);
-    cy.dataCy("task-status-badge").contains("Blocked");
+    cy.dataCy("task-status-badge").contains("Success");
   });
 
   const tasks = {
