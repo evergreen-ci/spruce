@@ -9,6 +9,7 @@ import {
   getBuildStatusIconLink,
   getProjectPatchesRoute,
   getVersionRoute,
+  getUserPatchesRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
