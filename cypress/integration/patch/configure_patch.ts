@@ -210,12 +210,27 @@ describe("Configure Patch Page", () => {
         });
         cy.dataCy("select-all-checkbox").should("not.be.checked");
       });
-      //   TODO: Fix this test after PD-1386
-      it.skip("A mixture of checked and unchecked task checkboxes sets the Select All checkbox in an indeterminate state", () => {
-        cy.dataCy("configurePatch-test-agent").click({
-          force: true,
+      it("A mixture of checked and unchecked task checkboxes sets the Select All checkbox in an indeterminate state", () => {
+        cy.dataCy("build-variant-list-item")
+          .contains("RHEL 7.2 zLinux")
+          .click();
+        cy.dataCy("task-checkbox").first().check({ force: true });
+        cy.dataCy("select-all-checkbox").should(
+          "have.attr",
+          "aria-checked",
+          "mixed"
+        );
+      });
+      it("Selecting all tasks on an an indeterminate state should check all the checkboxes", () => {
+        cy.dataCy("select-all-checkbox").check({ force: true });
+        cy.dataCy("task-checkbox").each(($el) => {
+          cy.wrap($el).should("be.checked");
         });
-        cy.get("[data-checked=selectAll-indeterminate]").should("exist");
+        cy.dataCy("select-all-checkbox").should("be.checked");
+        cy.dataCy("select-all-checkbox").uncheck({ force: true });
+        cy.dataCy("task-checkbox").each(($el) => {
+          cy.wrap($el).should("not.be.checked");
+        });
       });
     });
 
