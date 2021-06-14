@@ -117,11 +117,11 @@ describe("Tasks filters", () => {
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
         "All",
-        "Failures",
         "Failed",
-        "Aborted",
         "Success",
-        "Undispatched or Blocked",
+        "Unscheduled",
+        "Setup Failed",
+        "Aborted",
       ];
       cy.get("label").contains("All").click({ force: true });
 
@@ -136,7 +136,8 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,all-failures,failed,aborted,success,undispatched",
+        search:
+          "all,failed,success,dispatched,started,unscheduled,will-run,setup-failed,aborted",
       });
 
       cy.get("label").contains("All").click({ force: true });
@@ -193,7 +194,7 @@ describe("Tasks filters", () => {
         "Success",
         "Dispatched",
         "Running",
-        "Undispatched or Blocked",
+        "Unscheduled",
       ];
       cy.get("label").contains("All").click({ force: true });
 
@@ -208,7 +209,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,dispatched,started,undispatched",
+        search: "all,failed,success,dispatched,started,unscheduled",
       });
 
       cy.get("label").contains("All").click({ force: true });
