@@ -74,8 +74,8 @@ export const PatchCard: React.FC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          {pageType == "project" ? "by" : "on"}{" "}
-          {pageType == "project" ? (
+          {pageType === "project" ? "by" : "on"}{" "}
+          {pageType === "project" ? (
             <StyledRouterLink
               to={getUserPatchesRoute(author)}
               data-cy="user-patches-link"
