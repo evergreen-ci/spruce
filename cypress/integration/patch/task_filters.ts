@@ -119,9 +119,10 @@ describe("Tasks filters", () => {
         "All",
         "Failed",
         "Success",
-        "Unscheduled",
+        "Dispatched",
+        "Running",
+        "Will Run",
         "Setup Failed",
-        "Aborted",
       ];
       cy.get("label").contains("All").click({ force: true });
 
@@ -136,8 +137,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search:
-          "all,failed,success,dispatched,started,unscheduled,will-run,setup-failed,aborted",
+        search: "all,failed,success,dispatched,started,will-run,setup-failed",
       });
 
       cy.get("label").contains("All").click({ force: true });
