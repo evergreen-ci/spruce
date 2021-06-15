@@ -20,7 +20,6 @@ import {
 import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
-  getLogLink,
   getUpdatedLobsterUrl,
   isLogkeeperLink,
 } from "constants/externalResources";
@@ -275,10 +274,6 @@ const getColumnsTemplate = (
         ? getUpdatedLobsterUrl(htmlDisplayURL)
         : getLobsterTestLogUrl(taskId, execution, id, lineNum);
 
-      const rawLink = isLogkeeperLink(rawDisplayURL)
-        ? rawDisplayURL
-        : getLogLink(rawDisplayURL);
-
       return (
         <>
           {lobsterLink && (
@@ -306,7 +301,7 @@ const getColumnsTemplate = (
                 size="small"
                 target="_blank"
                 variant="default"
-                href={getLogLink(htmlDisplayURL)}
+                href={htmlDisplayURL}
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Click Logs HTML Button",
@@ -323,7 +318,7 @@ const getColumnsTemplate = (
               size="small"
               target="_blank"
               variant="default"
-              href={rawLink}
+              href={rawDisplayURL}
               onClick={() =>
                 taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
               }

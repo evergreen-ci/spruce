@@ -55,5 +55,3 @@ export const getLobsterTestLogUrl = (
 
 export const isLogkeeperLink = (link: string) =>
   link.includes(`${deprecatedLogkeeperLobsterURL}/build`);
-
-export const getLogLink = (logPath: string) => `${getUiUrl()}${logPath}`;
