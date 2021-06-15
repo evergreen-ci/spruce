@@ -77,6 +77,7 @@ describe("Tasks filters", () => {
   describe(`Task Statuses select`, () => {
     const urlParam = "statuses";
     beforeEach(() => {
+      cy.dataCy("clear-all-filters");
       cy.get(`[data-cy=task-status-filter] > .cy-treeselect-bar`).click();
       cy.dataCy("tree-select-options").should("be.visible");
     });
@@ -111,10 +112,9 @@ describe("Tasks filters", () => {
         "All",
         "Failed",
         "Success",
-        "Dispatched",
-        "Running",
-        "Will Run",
+        "Unscheduled",
         "Setup Failed",
+        "Aborted",
       ];
       cy.getInputByLabel("All").check({ force: true });
 
@@ -124,7 +124,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,dispatched,started,will-run,setup-failed",
+        search: "all,failed,success,unscheduled,setup-failed,aborted",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });
@@ -143,6 +143,7 @@ describe("Tasks filters", () => {
   describe(`Task Base Statuses select`, () => {
     const urlParam = "baseStatuses";
     beforeEach(() => {
+      cy.dataCy("clear-all-filters");
       cy.get(`[data-cy=task-base-status-filter] > .cy-treeselect-bar`).click();
       cy.dataCy("tree-select-options").should("be.visible");
     });
