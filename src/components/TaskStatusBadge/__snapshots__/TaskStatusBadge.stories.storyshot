@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Task Status Badges Badges 1`] = `
+<div
+  className="css-1nz4sst-Container e11i4bjx1"
+>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Inactive
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Unstarted
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Undispatched
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      border="#3D4F58"
+      className="css-hjjb39-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+      fill="#5D6C74"
+      text="#F9FBFA"
+    >
+      Will Run
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Unscheduled
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-108bzew"
+      data-cy="task-status-badge"
+    >
+      Running
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-108bzew"
+      data-cy="task-status-badge"
+    >
+      Dispatched
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Pending
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
+      data-cy="task-status-badge"
+    >
+      Success
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
+      data-cy="task-status-badge"
+    >
+      Failed
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
+      data-cy="task-status-badge"
+    >
+      Test-Timed-Out
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
+      data-cy="task-status-badge"
+    >
+      Task-Timed-Out
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      border="#E7DBEC"
+      className="css-1fnb5zg-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+      fill="#F3EDF5"
+      text="#877290"
+    >
+      Setup Failure
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      border="#CC99CC"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+      fill="#E6CCE6"
+      text="#800080"
+    >
+      System Failed
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      border="#CC99CC"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+      fill="#E6CCE6"
+      text="#800080"
+    >
+      System Time Out
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      border="#CC99CC"
+      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+      fill="#E6CCE6"
+      text="#800080"
+    >
+      System Unresponsive
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Blocked
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      data-cy="task-status-badge"
+    >
+      Aborted
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-g4d1vq"
+      data-cy="task-status-badge"
+    >
+      Known Failure
+    </div>
+  </div>
+</div>
+`;

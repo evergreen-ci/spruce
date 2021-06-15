@@ -11,7 +11,7 @@ import {
   PageLayout,
   PageSider,
 } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { pollInterval } from "constants/index";
 import { useToastContext } from "context/toast";
 import { GetTaskQuery, GetTaskQueryVariables } from "gql/generated/types";
@@ -19,11 +19,11 @@ import { GET_TASK } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PageDoesNotExist } from "pages/404";
-import { ActionButtons } from "pages/task/ActionButtons";
-import { ExecutionSelect } from "pages/task/executionDropdown/ExecutionSelector";
-import { Metadata } from "pages/task/Metadata";
 import { RequiredQueryParams, TaskStatus } from "types/task";
 import { queryString } from "utils";
+import { ActionButtons } from "./task/ActionButtons";
+import { ExecutionSelect } from "./task/executionDropdown/ExecutionSelector";
+import { Metadata } from "./task/Metadata";
 import { TaskTabs } from "./task/TaskTabs";
 
 const { parseQueryString } = queryString;
@@ -54,7 +54,6 @@ export const Task: React.FC = () => {
   const { task, taskFiles } = data ?? {};
   const {
     canAbort,
-    blocked,
     canRestart,
     canSchedule,
     canUnschedule,
@@ -100,10 +99,8 @@ export const Task: React.FC = () => {
         title={displayName}
         badge={
           <StyledBadgeWrapper>
-            <TaskStatusBadge status={status} blocked={blocked} />
-            {attributed && (
-              <TaskStatusBadge status={TaskStatus.Known} blocked={blocked} />
-            )}
+            <TaskStatusBadge status={status} />
+            {attributed && <TaskStatusBadge status={TaskStatus.Known} />}
           </StyledBadgeWrapper>
         }
         buttons={
