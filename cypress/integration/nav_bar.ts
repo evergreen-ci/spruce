@@ -44,7 +44,7 @@ describe("Nav Bar", () => {
   });
   it("Nav Dropdown should provide links to legacy pages", () => {
     cy.dataCy("legacy_route").should("not.exist");
-    cy.dataCy("auxiliary-dropdown-link").trigger("mouseover");
+    cy.dataCy("auxiliary-dropdown-link").click();
     cy.dataCy("legacy_route").should("exist");
     cy.dataCy("legacy_route")
       .should("have.attr", "href")

@@ -11,17 +11,45 @@ const DropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
   <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
 );
 
+interface MenuItemType {
+  "data-cy"?: string;
+  text: string;
+  href?: string;
+  to?: string;
+}
+
 interface DropdownProps {
   dataCy?: string;
+  menuItems: MenuItemType[];
   title: string;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
-  children,
   dataCy,
+  menuItems,
   title,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
+
+  const DropdownItem: React.FC<MenuItemType> = ({
+    "data-cy": itemDataCy,
+    href,
+    text,
+    to,
+  }) => (
+    <MenuItem
+      as={to && Link}
+      to={to}
+      href={href}
+      data-cy={itemDataCy}
+      onClick={() => {
+        setOpenMenu(false);
+      }}
+    >
+      {text}
+    </MenuItem>
+  );
+
   return (
     <Menu
       open={openMenu}
@@ -34,13 +62,9 @@ export const Dropdown: React.FC<DropdownProps> = ({
         </NavDropdownTitle>
       }
     >
-      {React.Children.map(children, (child) => {
-        if (React.isValidElement(child)) {
-          return React.cloneElement(child, {
-            closeModal: () => setOpenMenu(false),
-          });
-        }
-      })}
+      {menuItems.map((menuItem) => (
+        <DropdownItem key={`dropdown_${menuItem.text}`} {...menuItem} />
+      ))}
     </Menu>
   );
 };
