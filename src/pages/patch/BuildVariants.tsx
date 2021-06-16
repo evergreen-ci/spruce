@@ -31,41 +31,38 @@ export const BuildVariants: React.FC = () => {
   });
   useEffect(() => stopPolling, [stopPolling]);
   useNetworkStatus(startPolling, stopPolling);
-
+  const { patchBuildVariants } = data || {};
   return (
     <>
       {/* @ts-expect-error */}
       <SiderCard>
         <H3>Build Variants</H3>
         <Divider />
-        {error && !loading && <div>{error.message}</div>}{" "}
-        {loading && !error && (
-          <Skeleton active title={false} paragraph={{ rows: 4 }} />
-        )}
-        {data &&
-          data.patchBuildVariants.map(({ displayName, tasks, variant }) => (
-            <BuildVariant
-              key={`buildVariant_${displayName}_${tasks.length}`}
-              data-cy="patch-build-variant"
-            >
-              <P1>
-                <Link
-                  to={`${getVersionRoute(id, {
-                    page: 0,
-                    variant: `^${variant}$`, // strict regex
-                  })}`}
-                  onClick={() =>
-                    patchAnalytics.sendEvent({
-                      name: "Click Build Variant Grid Link",
-                    })
-                  }
-                >
-                  {displayName}
-                </Link>
-              </P1>
-              <VariantTaskGroup variant={variant} tasks={tasks} />
-            </BuildVariant>
-          ))}
+        {error && <div>{error.message}</div>}{" "}
+        {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
+        {patchBuildVariants?.map(({ displayName, tasks, variant }) => (
+          <BuildVariant
+            key={`buildVariant_${displayName}_${tasks.length}`}
+            data-cy="patch-build-variant"
+          >
+            <P1>
+              <Link
+                to={`${getVersionRoute(id, {
+                  page: 0,
+                  variant: `^${variant}$`, // strict regex
+                })}`}
+                onClick={() =>
+                  patchAnalytics.sendEvent({
+                    name: "Click Build Variant Grid Link",
+                  })
+                }
+              >
+                {displayName}
+              </Link>
+            </P1>
+            <VariantTaskGroup variant={variant} tasks={tasks} />
+          </BuildVariant>
+        ))}
       </SiderCard>
     </>
   );

@@ -1,5 +1,8 @@
+import { uiColors } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
+
+const { green, gray, yellow, red, blue } = uiColors;
 
 export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   {
@@ -27,11 +30,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
       },
-      {
-        title: "Aborted",
-        value: TaskStatus.Aborted,
-        key: TaskStatus.Aborted,
-      },
     ],
   },
   {
@@ -50,6 +48,11 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     key: TaskStatus.Started,
   },
   {
+    title: "Unscheduled",
+    value: TaskStatus.Unscheduled,
+    key: TaskStatus.Unscheduled,
+  },
+  {
     title: "Scheduled",
     value: "scheduled",
     key: "scheduled",
@@ -63,6 +66,11 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         title: "Undispatched or Blocked",
         value: TaskStatus.Undispatched,
         key: TaskStatus.Undispatched,
+      },
+      {
+        title: "Will Run",
+        value: TaskStatus.WillRun,
+        key: TaskStatus.WillRun,
       },
     ],
   },
@@ -94,9 +102,14 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     key: TaskStatus.SetupFailed,
   },
   {
+    title: "Aborted",
+    value: TaskStatus.Aborted,
+    key: TaskStatus.Aborted,
+  },
+  {
     title: "Blocked",
-    value: TaskStatus.StatusBlocked,
-    key: TaskStatus.StatusBlocked,
+    value: TaskStatus.Blocked,
+    key: TaskStatus.Blocked,
   },
   {
     title: "Won't Run",
@@ -104,3 +117,76 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     key: TaskStatus.Inactive,
   },
 ];
+
+const failureLavender = "#F3EDF5";
+const failureLavendarDark = "#9982A4";
+const failurePurple = "#E6CCE6";
+const failurePurpleDark = "#620662";
+
+// Represents background colors for task statuses
+export const mapTaskStatusToColor = {
+  [TaskStatus.Aborted]: gray.light1,
+  [TaskStatus.Blocked]: gray.dark1,
+  [TaskStatus.Dispatched]: gray.light1,
+  [TaskStatus.Failed]: red.base,
+  [TaskStatus.Inactive]: gray.light1,
+  [TaskStatus.Known]: blue.base,
+  [TaskStatus.Pending]: yellow.base,
+  [TaskStatus.SetupFailed]: failureLavender,
+  [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.Started]: yellow.base,
+  [TaskStatus.SystemFailed]: failurePurple,
+  [TaskStatus.SystemTimedOut]: failurePurple,
+  [TaskStatus.SystemUnresponsive]: failurePurple,
+  [TaskStatus.TaskTimedOut]: red.base,
+  [TaskStatus.TestTimedOut]: red.base,
+  [TaskStatus.Undispatched]: gray.light1,
+  [TaskStatus.Unstarted]: gray.light1,
+  [TaskStatus.Unscheduled]: gray.dark1,
+  [TaskStatus.WillRun]: gray.light1,
+};
+
+// Represents text color for task statuses
+export const mapTaskStatusToTextColor = {
+  [TaskStatus.Aborted]: gray.dark3,
+  [TaskStatus.Blocked]: gray.dark3,
+  [TaskStatus.Dispatched]: gray.dark3,
+  [TaskStatus.Failed]: red.dark3,
+  [TaskStatus.Inactive]: gray.dark3,
+  [TaskStatus.Known]: blue.dark3,
+  [TaskStatus.Pending]: yellow.dark3,
+  [TaskStatus.SetupFailed]: failureLavendarDark,
+  [TaskStatus.Started]: yellow.dark3,
+  [TaskStatus.Succeeded]: green.dark3,
+  [TaskStatus.SystemFailed]: failurePurpleDark,
+  [TaskStatus.SystemTimedOut]: failurePurpleDark,
+  [TaskStatus.SystemUnresponsive]: failurePurpleDark,
+  [TaskStatus.TestTimedOut]: red.dark3,
+  [TaskStatus.TaskTimedOut]: red.dark3,
+  [TaskStatus.Undispatched]: gray.dark3,
+  [TaskStatus.Unstarted]: gray.dark3,
+  [TaskStatus.Unscheduled]: gray.light3,
+  [TaskStatus.WillRun]: gray.dark1,
+};
+
+export const taskStatusToCopy = {
+  [TaskStatus.Aborted]: "Aborted",
+  [TaskStatus.Blocked]: "Blocked",
+  [TaskStatus.Dispatched]: "Dispatched",
+  [TaskStatus.Failed]: "Failed",
+  [TaskStatus.Inactive]: "Inactive",
+  [TaskStatus.Known]: "Known Failure",
+  [TaskStatus.Pending]: "Pending",
+  [TaskStatus.Started]: "Running",
+  [TaskStatus.SystemFailed]: "System Failed",
+  [TaskStatus.SystemTimedOut]: "System Time Out",
+  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
+  [TaskStatus.SetupFailed]: "Setup Failure",
+  [TaskStatus.Succeeded]: "Success",
+  [TaskStatus.TaskTimedOut]: "Task-timed-out",
+  [TaskStatus.TestTimedOut]: "Test-timed-out",
+  [TaskStatus.Undispatched]: "Undispatched",
+  [TaskStatus.Unstarted]: "Unstarted",
+  [TaskStatus.Unscheduled]: "Unscheduled",
+  [TaskStatus.WillRun]: "Will Run",
+};
