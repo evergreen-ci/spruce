@@ -722,6 +722,7 @@ export type Patch = {
   githash: Scalars["String"];
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
+  authorDisplayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
@@ -1991,6 +1992,43 @@ export type GetSuspectedIssuesQuery = {
             jiraTicket?: Maybe<JiraTicketFragment>;
           }>
         >
+      >;
+    }>;
+  }>;
+};
+
+export type MainlineCommitsQueryVariables = Exact<{
+  options: MainlineCommitsOptions;
+}>;
+
+export type MainlineCommitsQuery = {
+  mainlineCommits?: Maybe<{
+    nextPageOrderNumber?: Maybe<number>;
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        author: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              variant: string;
+              displayName: string;
+              tasks?: Maybe<
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    displayName: string;
+                    status: string;
+                  }>
+                >
+              >;
+            }>
+          >
+        >;
+      }>;
+      rolledUpVersions?: Maybe<
+        Array<{ id: string; activated?: Maybe<boolean> }>
       >;
     }>;
   }>;
