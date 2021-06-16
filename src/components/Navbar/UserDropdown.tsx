@@ -1,36 +1,24 @@
 import { useQuery } from "@apollo/client";
-import { Menu } from "antd";
-import { Link } from "react-router-dom";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { GetUserQuery } from "gql/generated/types";
 import { GET_USER } from "gql/queries";
-import { Dropdown } from "./Dropdown";
+import { DropdownItem, Dropdown } from "./Dropdown";
 
 export const UserDropdown = () => {
   const { data } = useQuery<GetUserQuery>(GET_USER);
   const { user } = data || {};
   const { displayName } = user || {};
 
-  const menuItems = (
-    <Menu>
-      <Menu.Item>
-        <Link to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
-          Preferences
-        </Link>
-      </Menu.Item>
-      <Menu.Item>
-        <Link to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}>
-          Notifications
-        </Link>
-      </Menu.Item>
-    </Menu>
-  );
-
   return (
-    <Dropdown
-      dataCy="user-dropdown-link"
-      menuItems={menuItems}
-      title={displayName}
-    />
+    <Dropdown dataCy="user-dropdown-link" title={displayName}>
+      <DropdownItem to={getPreferencesRoute(PreferencesTabRoutes.Profile)}>
+        Preferences
+      </DropdownItem>
+      <DropdownItem
+        to={getPreferencesRoute(PreferencesTabRoutes.Notifications)}
+      >
+        Notifications
+      </DropdownItem>
+    </Dropdown>
   );
 };

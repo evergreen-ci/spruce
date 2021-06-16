@@ -1,32 +1,54 @@
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
+import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Dropdown as AntdDropdown } from "antd";
+import { Link } from "react-router-dom";
 
 const { white } = uiColors;
 
+const DropdownMenuIcon: React.FC<{ open: boolean }> = ({ open }) => (
+  <Icon glyph={open ? "CaretUp" : "CaretDown"} role="presentation" />
+);
+
 interface DropdownProps {
   dataCy?: string;
-  menuItems: JSX.Element;
   title: string;
 }
 
 export const Dropdown: React.FC<DropdownProps> = ({
+  children,
   dataCy,
-  menuItems,
   title,
-}) => (
-  <AntdDropdown overlay={menuItems}>
-    <NavDropdownTitle
-      className="ant-dropdown-link"
-      data-cy={dataCy}
-      onClick={(e) => e.preventDefault()}
+}) => {
+  const [openMenu, setOpenMenu] = useState(false);
+  return (
+    <Menu
+      open={openMenu}
+      setOpen={setOpenMenu}
+      justify="start"
+      trigger={
+        <NavDropdownTitle data-cy={dataCy}>
+          {title}
+          <DropdownMenuIcon open={openMenu} />
+        </NavDropdownTitle>
+      }
     >
-      {title}
-      <Icon glyph="CaretDown" />
-    </NavDropdownTitle>
-  </AntdDropdown>
-);
+      {React.Children.map(children, (child) => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, {
+            closeModal: () => setOpenMenu(false),
+          });
+        }
+      })}
+    </Menu>
+  );
+};
+
+export const DropdownItem = (props) => {
+  const { closeModal, to } = props;
+  return <MenuItem as={to && Link} onClick={closeModal} {...props} />;
+};
 
 const NavDropdownTitle = styled.span`
   display: flex;
