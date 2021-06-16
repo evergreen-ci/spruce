@@ -74,7 +74,7 @@ export const TreeSelect: React.FC<Props> = ({
       </BarWrapper>
       {isVisible && (
         <RelativeWrapper>
-          <OptionsWrapper>
+          <OptionsWrapper data-cy="tree-select-options">
             {renderCheckboxes({ state: filteredState, tData, onChange })}
           </OptionsWrapper>
         </RelativeWrapper>

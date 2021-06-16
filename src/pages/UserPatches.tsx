@@ -34,6 +34,7 @@ export const UserPatches = () => {
       analyticsObject={analyticsObject}
       pageTitle={pageTitle}
       error={error}
+      pageType="user"
       patches={data?.user.patches}
     />
   );

@@ -2,8 +2,9 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Select } from "antd";
-import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
+import { Square } from "components/StatusSquare";
 import { P1 } from "components/Typography";
+import { mapTaskStatusToColor } from "constants/task";
 import {
   GetTaskAllExecutionsQuery,
   GetTaskAllExecutionsQueryVariables,
@@ -55,9 +56,7 @@ export const ExecutionSelect: React.FC<ExecutionSelectProps> = ({
           value={singleExecution.execution}
           data-cy={`execution-${singleExecution.execution}`}
         >
-          <StyledSquare
-            color={mapVariantTaskStatusToColor[singleExecution.status]}
-          />
+          <StyledSquare color={mapTaskStatusToColor[singleExecution.status]} />
           <StyledP1>
             {" "}
             Execution {executionAsDisplay(singleExecution.execution)} -{" "}

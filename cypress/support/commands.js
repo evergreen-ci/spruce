@@ -49,3 +49,12 @@ Cypress.Commands.add("dataRowKey", (value, options) =>
 Cypress.Commands.add("dataTestId", (value, options) =>
   cy.get(`[data-test-id=${value}]`, options)
 );
+
+Cypress.Commands.add("getInputByLabel", (label) =>
+  cy
+    .contains("label", label)
+    .invoke("attr", "for")
+    .then((id) => {
+      cy.get(`#${id}`);
+    })
+);

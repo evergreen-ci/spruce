@@ -44,7 +44,7 @@ describe("Configure Patch Page", () => {
     });
     it("Required tasks should be auto selected", () => {
       cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
-      getInputByLabel("test-graphql").should("be.checked");
+      cy.getInputByLabel("test-graphql").should("be.checked");
     });
   });
 
@@ -239,7 +239,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
-        getInputByLabel("test-agent").check({
+        cy.getInputByLabel("test-agent").check({
           force: true,
         });
         cy.dataCy("task-count-badge").should("have.length", 1);
@@ -248,7 +248,7 @@ describe("Configure Patch Page", () => {
         cy.dataCy("selected-task-disclaimer").contains(
           "1 task across 1 build variant"
         );
-        getInputByLabel("test-agent").uncheck({
+        cy.getInputByLabel("test-agent").uncheck({
           force: true,
         });
         cy.dataCy("task-count-badge").should("not.exist");
@@ -272,7 +272,7 @@ describe("Configure Patch Page", () => {
         cy.get("body").type("{meta}", {
           release: true,
         });
-        getInputByLabel("test-agent").should("have.length", 1);
+        cy.getInputByLabel("test-agent").should("have.length", 1);
       });
 
       it("Deselecting multiple build variants should remove the associated tasks ", () => {
@@ -304,8 +304,8 @@ describe("Configure Patch Page", () => {
         cy.get("body").type("{meta}", {
           release: true,
         });
-        getInputByLabel("test-agent").should("have.length", 1);
-        getInputByLabel("test-agent").check({
+        cy.getInputByLabel("test-agent").should("have.length", 1);
+        cy.getInputByLabel("test-agent").check({
           force: true,
         });
         cy.dataCy("build-variant-list-item").within(($el) => {
@@ -318,22 +318,22 @@ describe("Configure Patch Page", () => {
           .contains("RHEL 7.2 zLinux")
           .click();
 
-        getInputByLabel("test-agent").should("be.checked");
+        cy.getInputByLabel("test-agent").should("be.checked");
 
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.1 POWER8")
           .click();
-        getInputByLabel("test-agent").should("be.checked");
+        cy.getInputByLabel("test-agent").should("be.checked");
 
         // Deselect the buttons and reset                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                ;
-        getInputByLabel("test-agent").uncheck({
+        cy.getInputByLabel("test-agent").uncheck({
           force: true,
         });
         cy.dataCy("build-variant-list-item")
           .contains("RHEL 7.2 zLinux")
           .click();
 
-        getInputByLabel("test-agent").uncheck({
+        cy.getInputByLabel("test-agent").uncheck({
           force: true,
         });
       });
@@ -474,14 +474,6 @@ describe("Configure Patch Page", () => {
     });
   });
 });
-
-const getInputByLabel = (label) =>
-  cy
-    .contains("label", label)
-    .invoke("attr", "for")
-    .then((id) => {
-      cy.get(`#${id}`);
-    });
 
 const mockedErrorConfigureResponse = {
   errors: [

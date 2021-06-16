@@ -53,6 +53,11 @@ declare namespace Cypress {
      * @example cy.enterLoginCredentials()
      */
     enterLoginCredentials(): void;
+    /**
+     * Custom command to enter get an input by its label
+     * @example cy.getInputBylabel("Some Label")
+     */
+    getInputByLabel(label: string): Chainable<Element>;
   }
 }
 

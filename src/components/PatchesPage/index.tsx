@@ -40,6 +40,7 @@ interface Props {
   pageTitle: string;
   patches?: PatchesPagePatchesFragment;
   error?: ApolloError;
+  pageType: "project" | "user";
 }
 
 export const PatchesPage: React.FC<Props> = ({
@@ -47,6 +48,7 @@ export const PatchesPage: React.FC<Props> = ({
   pageTitle,
   patches,
   error,
+  pageType,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
@@ -114,6 +116,7 @@ export const PatchesPage: React.FC<Props> = ({
       <ListArea
         patches={patches}
         error={error}
+        pageType={pageType}
         analyticsObject={analyticsObject}
       />
     </PageWrapper>

@@ -9,13 +9,13 @@ import {
   getBuildStatusIconLink,
   getProjectPatchesRoute,
   getVersionRoute,
+  getUserPatchesRoute,
 } from "constants/routes";
 import { Maybe } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
 const { gray } = uiColors;
-
 interface Build {
   id: string;
   buildVariant: string;
@@ -27,9 +27,12 @@ interface Props {
   projectID: string;
   projectIdentifier: string;
   description: string;
+  pageType: "project" | "user";
   status: string;
   createTime?: Maybe<Date>;
   builds: Build[];
+  author: string;
+  authorDisplayName: string;
   canEnqueueToCommitQueue: boolean;
   isPatchOnCommitQueue: boolean;
   analyticsObject?: Analytics<
@@ -45,16 +48,18 @@ export const PatchCard: React.FC<Props> = ({
   id,
   description,
   createTime,
+  author,
+  authorDisplayName,
   projectID,
   projectIdentifier,
   status,
+  pageType,
   builds,
   canEnqueueToCommitQueue,
   isPatchOnCommitQueue,
   analyticsObject,
 }) => {
   const createDate = new Date(createTime);
-
   return (
     <CardWrapper data-cy="patch-card">
       <Left>
@@ -69,13 +74,22 @@ export const PatchCard: React.FC<Props> = ({
         </DescriptionLink>
         <TimeAndProject>
           {format(createDate, "M/d/yy")} at {format(createDate, "h:mm:ss aaaa")}{" "}
-          on{" "}
-          <StyledRouterLink
-            to={getProjectPatchesRoute(projectID)}
-            data-cy="project-patches-link"
-          >
-            <b>{projectIdentifier}</b>
-          </StyledRouterLink>
+          {pageType === "project" ? "by" : "on"}{" "}
+          {pageType === "project" ? (
+            <StyledRouterLink
+              to={getUserPatchesRoute(author)}
+              data-cy="user-patches-link"
+            >
+              <b>{authorDisplayName}</b>
+            </StyledRouterLink>
+          ) : (
+            <StyledRouterLink
+              to={getProjectPatchesRoute(projectID)}
+              data-cy="project-patches-link"
+            >
+              <b>{projectIdentifier}</b>
+            </StyledRouterLink>
+          )}
         </TimeAndProject>
       </Left>
       <Center>

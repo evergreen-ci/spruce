@@ -126,7 +126,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Inactive]: true,
   [TaskStatus.SetupFailed]: true,
   [TaskStatus.Started]: true,
-  [TaskStatus.StatusBlocked]: true,
+  [TaskStatus.Blocked]: true,
   [TaskStatus.Succeeded]: true,
   [TaskStatus.SystemFailed]: true,
   [TaskStatus.SystemTimedOut]: true,
@@ -136,6 +136,8 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Undispatched]: true,
   [TaskStatus.Unstarted]: true,
   [TaskStatus.Aborted]: true,
+  [TaskStatus.WillRun]: true,
+  [TaskStatus.Unscheduled]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {
