@@ -13,11 +13,9 @@ describe("Tasks filters", () => {
     cy.login();
     cy.visit(pathTasks);
   });
-
   beforeEach(() => {
     cy.preserveCookies();
   });
-
   afterEach(() => {
     cy.dataCy("clear-all-filters").click();
   });
@@ -56,14 +54,6 @@ describe("Tasks filters", () => {
   });
 
   describe("Task name input field", () => {
-    before(() => {
-      cy.login();
-    });
-
-    beforeEach(() => {
-      cy.preserveCookies();
-    });
-
     const taskNameInputValue = "test-cloud";
     const urlParam = "taskName";
 
@@ -87,16 +77,19 @@ describe("Tasks filters", () => {
   describe(`Task Statuses select`, () => {
     const urlParam = "statuses";
     beforeEach(() => {
+      cy.dataCy("clear-all-filters");
       cy.get(`[data-cy=task-status-filter] > .cy-treeselect-bar`).click();
+      cy.dataCy("tree-select-options").should("be.visible");
     });
     afterEach(() => {
       cy.get(`[data-cy=task-status-filter] > .cy-treeselect-bar`).click();
+      cy.dataCy("tree-select-options").should("not.be.visible");
     });
 
     it("Clicking on a status filter filters the tasks to only those statuses", () => {
       const preFilterCount = cy.dataCy("current-task-count").invoke("text");
 
-      cy.get("label").contains("Failed").click({ force: true });
+      cy.getInputByLabel("Failed").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -104,7 +97,7 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
-      cy.get("label").contains("Success").click({ force: true });
+      cy.getInputByLabel("Success").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -117,37 +110,27 @@ describe("Tasks filters", () => {
     it("Clicking on 'All' checkbox adds all the statuses and clicking again removes them", () => {
       const taskStatuses = [
         "All",
-        "Failures",
         "Failed",
-        "Aborted",
         "Success",
-        "Undispatched or Blocked",
+        "Unscheduled",
+        "Setup Failed",
+        "Aborted",
       ];
-      cy.get("label").contains("All").click({ force: true });
+      cy.getInputByLabel("All").check({ force: true });
 
       taskStatuses.forEach((status) => {
-        cy.get(".cy-checkbox")
-          .should("contain.text", status)
-          .as("checkbox-label");
-        cy.get("@checkbox-label").within(() =>
-          cy.dataCy("checkbox").should("have.attr", "aria-checked", "true")
-        );
+        cy.getInputByLabel(status).should("be.checked");
       });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,all-failures,failed,aborted,success,undispatched",
+        search: "all,failed,success,unscheduled,setup-failed,aborted",
       });
 
-      cy.get("label").contains("All").click({ force: true });
+      cy.getInputByLabel("All").uncheck({ force: true });
 
       taskStatuses.forEach((status) => {
-        cy.get(".cy-checkbox")
-          .should("contain.text", status)
-          .as("checkbox-label");
-        cy.get("@checkbox-label").within(() =>
-          cy.dataCy("checkbox").should("have.attr", "aria-checked", "false")
-        );
+        cy.getInputByLabel(status).should("not.be.checked");
       });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -160,15 +143,18 @@ describe("Tasks filters", () => {
   describe(`Task Base Statuses select`, () => {
     const urlParam = "baseStatuses";
     beforeEach(() => {
+      cy.dataCy("clear-all-filters");
       cy.get(`[data-cy=task-base-status-filter] > .cy-treeselect-bar`).click();
+      cy.dataCy("tree-select-options").should("be.visible");
     });
     afterEach(() => {
       cy.get(`[data-cy=task-base-status-filter] > .cy-treeselect-bar`).click();
+      cy.dataCy("tree-select-options").should("not.be.visible");
     });
 
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
       const preFilterCount = cy.dataCy("current-task-count").invoke("text");
-      cy.get("label").contains("Running").click({ force: true });
+      cy.getInputByLabel("Running").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -176,7 +162,7 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
-      cy.get("label").contains("Success").click({ force: true });
+      cy.getInputByLabel("Success").check({ force: true });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -193,33 +179,23 @@ describe("Tasks filters", () => {
         "Success",
         "Dispatched",
         "Running",
-        "Undispatched or Blocked",
+        "Unscheduled",
       ];
-      cy.get("label").contains("All").click({ force: true });
+      cy.getInputByLabel("All").check({ force: true });
 
       taskStatuses.forEach((status) => {
-        cy.get(".cy-checkbox")
-          .should("contain.text", status)
-          .as("checkbox-label");
-        cy.get("@checkbox-label").within(() =>
-          cy.dataCy("checkbox").should("have.attr", "aria-checked", "true")
-        );
+        cy.getInputByLabel(status).should("be.checked");
       });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,dispatched,started,undispatched",
+        search: "all,failed,success,dispatched,started,unscheduled",
       });
 
-      cy.get("label").contains("All").click({ force: true });
+      cy.getInputByLabel("All").uncheck({ force: true });
 
       taskStatuses.forEach((status) => {
-        cy.get(".cy-checkbox")
-          .should("contain.text", status)
-          .as("checkbox-label");
-        cy.get("@checkbox-label").within(() =>
-          cy.dataCy("checkbox").should("have.attr", "aria-checked", "false")
-        );
+        cy.getInputByLabel(status).should("not.be.checked");
       });
       urlSearchParamsAreUpdated({
         pathname: pathTasks,

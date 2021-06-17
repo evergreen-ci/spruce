@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
 import Button, { Variant, Size } from "@leafygreen-ui/button";
-import Modal from "@leafygreen-ui/modal";
-import { Link, H3 } from "@leafygreen-ui/typography";
+import { Link } from "@leafygreen-ui/typography";
+import { DisplayModal } from "components/DisplayModal";
 import { FilterBadge } from "./FilterBadge";
 
 interface SeeMoreModalProps {
@@ -27,31 +27,32 @@ export const SeeMoreModal: React.FC<SeeMoreModalProps> = ({
       <Link onClick={() => setOpen((curr) => !curr)}>
         see {notVisibleCount} more
       </Link>
-      <Modal open={open} setOpen={setOpen} size="large">
-        <ContentWrapper>
-          <H3>Applied Filters</H3>
-          <BadgeContainer>
-            {badges.map((b) => (
-              <FilterBadge
-                key={`filter_badge_${b.key}_${b.value}`}
-                badge={b}
-                onClose={() => onRemoveBadge(b.key, b.value)}
-              />
-            ))}
-          </BadgeContainer>
-          <Button
-            variant={Variant.Default}
-            size={Size.XSmall}
-            onClick={onClearAll}
-          >
-            CLEAR ALL FILTERS
-          </Button>
-        </ContentWrapper>
-      </Modal>
+      <DisplayModal
+        open={open}
+        setOpen={setOpen}
+        size="large"
+        title="Applied Filters"
+      >
+        <BadgeContainer>
+          {badges.map((b) => (
+            <FilterBadge
+              key={`filter_badge_${b.key}_${b.value}`}
+              badge={b}
+              onClose={() => onRemoveBadge(b.key, b.value)}
+            />
+          ))}
+        </BadgeContainer>
+        <Button
+          variant={Variant.Default}
+          size={Size.XSmall}
+          onClick={onClearAll}
+        >
+          CLEAR ALL FILTERS
+        </Button>
+      </DisplayModal>
     </>
   );
 };
-const ContentWrapper = styled.div``;
 
 const BadgeContainer = styled.div`
   padding-top: 8px;

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useLocation } from "react-router";
 import { useSpawnAnalytics } from "analytics";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PlusButton } from "components/Spawn";
 import {
   MyHostsQuery,
@@ -37,24 +38,34 @@ export const SpawnHostButton = () => {
 
   return (
     <PaddedContainer>
-      <Tooltip
-        title={
-          reachedMaxNumHosts
-            ? `You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`
-            : undefined
-        }
+      <ConditionalWrapper
+        condition={reachedMaxNumHosts}
+        wrapper={(children) => (
+          <Tooltip
+            align="top"
+            justify="middle"
+            triggerEvent="hover"
+            trigger={children}
+          >
+            {`You have reached the maximum number of hosts (${maxHosts}). Delete some hosts to spawn more.`}
+          </Tooltip>
+        )}
       >
-        <PlusButton
-          disabled={reachedMaxNumHosts}
-          onClick={() => {
-            setOpenModal(true);
-            spawnAnalytics.sendEvent({ name: "Opened the Spawn Host Modal" });
-          }}
-          data-cy="spawn-host-button"
-        >
-          Spawn a host
-        </PlusButton>
-      </Tooltip>
+        <span>
+          <PlusButton
+            disabled={reachedMaxNumHosts}
+            onClick={() => {
+              setOpenModal(true);
+              spawnAnalytics.sendEvent({
+                name: "Opened the Spawn Host Modal",
+              });
+            }}
+            data-cy="spawn-host-button"
+          >
+            Spawn a host
+          </PlusButton>
+        </span>
+      </ConditionalWrapper>
       <SpawnHostModal
         visible={openModal}
         onCancel={() => setOpenModal(false)}

@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import { StyledRouterLink } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -78,7 +78,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     key: TaskSortCategory.Status,
     sorter: (a, b) => sortTasks(a.status, b.status),
     className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Base Status",
@@ -86,7 +86,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     key: TaskSortCategory.BaseStatus,
     sorter: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
     className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Variant",
@@ -156,16 +156,6 @@ const getColumnDefsSort = (
     ...sortProps[i],
     ...(controlled && controlledSortProps[i]),
   }));
-};
-
-const renderStatusBadge = (
-  status: string,
-  { blocked }: Task
-): null | JSX.Element => {
-  if (status === "" || !status) {
-    return null;
-  }
-  return <TaskStatusBadge status={status} blocked={blocked} />;
 };
 
 interface TaskLinkProps {

@@ -347,7 +347,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -360,7 +360,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -406,7 +406,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -419,7 +419,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -465,7 +465,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -478,7 +478,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -864,7 +864,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -877,7 +877,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -937,7 +937,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -950,7 +950,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -1010,7 +1010,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -1023,7 +1023,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed
@@ -1083,7 +1083,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-f8ffxa"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-f8ffxa"
                       data-cy="task-status-badge"
                     >
                       Success
@@ -1096,7 +1096,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     style={Object {}}
                   >
                     <div
-                      className="css-zv0l7q-StyledBadge-BadgeWidthMaxContent ey928q10 leafygreen-ui-fy8boj"
+                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
                       data-cy="task-status-badge"
                     >
                       Failed

@@ -47,7 +47,6 @@ export const CopySSHCommandButton: React.FC<{
       <Tooltip
         align="top"
         justify="middle"
-        enabled
         open={openTooltip}
         data-cy="copy-ssh-tooltip"
         trigger={

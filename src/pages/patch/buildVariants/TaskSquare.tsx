@@ -1,8 +1,9 @@
 import React from "react";
 import { Tooltip } from "antd";
 import { usePatchAnalytics } from "analytics";
-import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
+import { Square } from "components/StatusSquare";
 import { StyledRouterLink } from "components/styles";
+import { mapTaskStatusToColor } from "constants/task";
 
 interface Props {
   id: string;
@@ -25,7 +26,7 @@ export const TaskSquare: React.FC<Props> = ({ id, name, status }) => {
       }
     >
       <Tooltip title={<span data-cy="task-square-tooltip">{name}</span>}>
-        <Square color={mapVariantTaskStatusToColor[status]} />
+        <Square color={mapTaskStatusToColor[status]} />
       </Tooltip>
     </StyledRouterLink>
   );

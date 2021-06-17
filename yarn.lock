@@ -2506,12 +2506,13 @@
     "@leafygreen-ui/lib" "^6.1.1"
     "@leafygreen-ui/palette" "^3.1.0"
 
-"@leafygreen-ui/checkbox@6.0.2":
-  version "6.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-6.0.2.tgz#0a4f6ff8e3c7beacb0dad6becd4ffe5acbf063f3"
-  integrity sha512-YHxiSyf7afNIV6U4tTQFSlUGQAt1M6rfJ/PnxEXSy1hAXOXI7zk0a84C3QQzoF11mDppCNbV7qM5f3d1wEXQjQ==
+"@leafygreen-ui/checkbox@6.0.5":
+  version "6.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/checkbox/-/checkbox-6.0.5.tgz#9ea92b82cec493f0ed031aa3ac8255fd896307d4"
+  integrity sha512-LZQ+gRGv4XhXW7jvk3LZsJulBBIhkyWAHCfpzgFMWhtfCw+3YqfydSIcPDfIVj/JACIj8EJ91rqI+tRYXsZWmQ==
   dependencies:
-    "@leafygreen-ui/lib" "^6.1.2"
+    "@leafygreen-ui/hooks" "^7.0.0"
+    "@leafygreen-ui/lib" "^8.0.0"
 
 "@leafygreen-ui/code@8.0.3":
   version "8.0.3"
@@ -2569,6 +2570,13 @@
   version "6.0.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-6.0.1.tgz#9123052438e8fa5837d6043fd229b80f4a517e5a"
   integrity sha512-u0Egx2IWGK4LNMsEbB49atD7MMv20Z6TuY0iGwtjwDMfSbaN5yLG4hvok7qG7kyHNUFbLlN2Yz15rk7/mPvcHQ==
+  dependencies:
+    lodash "^4.17.21"
+
+"@leafygreen-ui/hooks@^7.0.0":
+  version "7.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/hooks/-/hooks-7.0.0.tgz#8417d62c9df565d3e19f795f5a560f4d00448100"
+  integrity sha512-/UDdinXJbHcNvqodfY+5Ej4auxKdzbljJx0PkLy+bAUI0/P9W4xlYb2N0LZTIZBmKj4SUSQX3O/G7fvtSqJW7A==
   dependencies:
     lodash "^4.17.21"
 
@@ -2691,6 +2699,16 @@
   version "7.0.0"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-7.0.0.tgz#62ff2ec11dd503e17e5bc31cdc053e7f2f5c5954"
   integrity sha512-ZIqfa+XLD77KEDSPZPtuLxk2VuktFfLFghUViZEBissQ790gq2V9BXAzRgU5MCtaP6HlJ+kQ2BA5iv6iD5KgIQ==
+  dependencies:
+    "@leafygreen-ui/emotion" "^3.0.1"
+    facepaint "^1.2.1"
+    polished "^2.3.0"
+    prop-types "^15.0.0"
+
+"@leafygreen-ui/lib@^8.0.0":
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-8.0.0.tgz#f8d9f8eb9777750587bb5c06d57e360d6abfd58a"
+  integrity sha512-Iku3DfYHteSzl2oRdUkejn1h0gr0YC5d3kWfmeIFcpLvuUxLYROVd53EjlANqpP8ZHTZAAmQzi37GomrTwImcQ==
   dependencies:
     "@leafygreen-ui/emotion" "^3.0.1"
     facepaint "^1.2.1"

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Size } from "@leafygreen-ui/button";
-import { Tooltip } from "antd";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { PaddedButton } from "components/Spawn";
@@ -19,39 +19,48 @@ export const EditSpawnHostButton: React.FC<EditSpawnHostButtonProps> = ({
   const canEditSpawnHost =
     host.status === HostStatus.Stopped || host.status === HostStatus.Running;
   return (
-    <>
+    // eslint-disable-next-line jsx-a11y/click-events-have-key-events, jsx-a11y/no-static-element-interactions
+    <span
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
+    >
       <ConditionalWrapper
         condition={!canEditSpawnHost}
         wrapper={(children) => (
           <Tooltip
-            title={`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
+            align="top"
+            justify="middle"
+            triggerEvent="hover"
+            trigger={children}
           >
-            <span>{children}</span>
+            {`Can only edit a spawn host when the status is ${HostStatus.Stopped} or ${HostStatus.Running}`}
           </Tooltip>
         )}
       >
-        <PaddedButton
-          size={Size.XSmall}
-          disabled={!canEditSpawnHost} // @ts-expect-error
-          onClick={(e) => {
-            e.stopPropagation();
-            setOpenModal(true);
-            spawnAnalytics.sendEvent({
-              name: "Open the Edit Spawn Host Modal",
-              hostId: host.id,
-              status: host.status,
-            });
-          }}
-        >
-          Edit
-        </PaddedButton>
+        <span>
+          <PaddedButton
+            size={Size.XSmall}
+            disabled={!canEditSpawnHost} // @ts-expect-error
+            onClick={(e) => {
+              e.stopPropagation();
+              setOpenModal(true);
+              spawnAnalytics.sendEvent({
+                name: "Open the Edit Spawn Host Modal",
+                hostId: host.id,
+                status: host.status,
+              });
+            }}
+          >
+            Edit
+          </PaddedButton>
+        </span>
       </ConditionalWrapper>
-
       <EditSpawnHostModal
         onCancel={() => setOpenModal(false)}
         visible={openModal}
         host={host}
       />
-    </>
+    </span>
   );
 };
