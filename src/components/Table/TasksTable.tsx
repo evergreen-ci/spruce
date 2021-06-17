@@ -12,6 +12,7 @@ import {
   SortOrder,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
+import { sortTasks } from "utils/statuses";
 
 // Type needed to render the task table
 type TaskTableInfo = {
@@ -75,7 +76,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Patch Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
-    sorter: (a, b) => a.status.localeCompare(b.status),
+    sorter: (a, b) => sortTasks(a.status, b.status),
     className: "cy-task-table-col-STATUS",
     render: renderStatusBadge,
   },
@@ -83,7 +84,7 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Base Status",
     dataIndex: "baseStatus",
     key: TaskSortCategory.BaseStatus,
-    sorter: (a, b) => a.baseStatus?.localeCompare(b.baseStatus),
+    sorter: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
     className: "cy-task-table-col-BASE_STATUS",
     render: renderStatusBadge,
   },
