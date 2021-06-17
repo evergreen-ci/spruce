@@ -25,9 +25,11 @@ const ordering = [
 const greyStatusIndex = 3.5;
 
 export const sortTasks = (a, b): number => {
-  const findGroup = (needle) => {
-    const i = ordering.findIndex((haystack) => haystack.has(needle));
-    return i === -1 ? greyStatusIndex : i;
+  const findGroup = (status) => {
+    const groupIndex = ordering.findIndex((statusGroup) =>
+      statusGroup.has(status)
+    );
+    return groupIndex === -1 ? greyStatusIndex : groupIndex;
   };
 
   const aIndex = findGroup(a);
@@ -36,7 +38,7 @@ export const sortTasks = (a, b): number => {
   if (aIndex < bIndex) {
     return -1;
   }
-  if (bIndex < aIndex) {
+  if (aIndex > bIndex) {
     return 1;
   }
   return 0;
