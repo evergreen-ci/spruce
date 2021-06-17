@@ -5,7 +5,6 @@ import { useTaskAnalytics } from "analytics";
 import { TrendChartsPlugin } from "components/PerfPlugin";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { TabLabelWithBadge } from "components/TabLabelWithBadge";
-import { TasksTable } from "components/Table/TasksTable";
 import { getTaskRoute } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
 import { usePrevious } from "hooks";
@@ -13,6 +12,7 @@ import { useBuildBaronVariables } from "hooks/useBuildBaronVariables";
 import { TaskTab } from "types/task";
 import { statuses, queryString } from "utils";
 import { BuildBaron } from "./taskTabs/BuildBaron";
+import { ExecutionTasksTable } from "./taskTabs/ExecutionTasksTable";
 import { FilesTables } from "./taskTabs/FilesTables";
 import { Logs } from "./taskTabs/Logs";
 import { TestsTable } from "./taskTabs/TestsTable";
@@ -95,11 +95,9 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
         data-cy="task-execution-tab"
         key="execution-tasks-tab"
       >
-        <TasksTable
-          tasks={executionTasksFull}
-          onClickTaskLink={() =>
-            taskAnalytics.sendEvent({ name: "Click Execution Task Link" })
-          }
+        <ExecutionTasksTable
+          execution={execution}
+          executionTasksFull={executionTasksFull}
         />
       </Tab>
     ),
