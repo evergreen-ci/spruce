@@ -1,16 +1,45 @@
+import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
-import { usePageTitle } from "hooks";
+import { pollInterval } from "constants/index";
+import { useToastContext } from "context/toast";
+import {
+  MainlineCommitsQuery,
+  MainlineCommitsQueryVariables,
+} from "gql/generated/types";
+import { GET_MAINLINE_COMMITS } from "gql/queries";
+import { usePageTitle, useNetworkStatus } from "hooks";
+import { PageDoesNotExist } from "pages/404";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/ProjectSelect";
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const options = { projectID: projectId };
+  const dispatchToast = useToastContext();
 
   usePageTitle(`Project Health | ${projectId}`);
+  const { data, loading, error, startPolling, stopPolling } = useQuery<
+    MainlineCommitsQuery,
+    MainlineCommitsQueryVariables
+  >(GET_MAINLINE_COMMITS, {
+    variables: { options },
+    pollInterval,
+    onError: (e) =>
+      dispatchToast.error(`There was an error loading the page: ${e.message}`),
+  });
+
+  useNetworkStatus(startPolling, stopPolling);
+  const { mainlineCommits } = data || {};
+  const { versions, nextPageOrderNumber } = mainlineCommits || {};
+  console.log(versions, nextPageOrderNumber, loading);
+
+  if (error) {
+    return <PageDoesNotExist />;
+  }
 
   return (
     <PageWrapper>
