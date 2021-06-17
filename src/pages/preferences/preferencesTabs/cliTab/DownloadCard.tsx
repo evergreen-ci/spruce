@@ -129,7 +129,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
 };
 
 const prettyDisplayNameTop = {
-  "OSX 64-bit": "MacOS",
+  "OSX 64-bit": "macOS",
   "Windows 64-bit": "Windows",
   "Linux 64-bit": "Linux (64-bit)",
 };
