@@ -43,10 +43,7 @@ export const CommitGraphWrapper: React.FC<{
       setupFailure: 2,
     },
   ];
-  const title = "Merge branch 'master' into CLOUDP-68157";
-  const author = "Peter Vertenten";
-  const createTime = "11/5/20 2:19 PM";
-  const hash = "6b35c";
+
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
@@ -57,55 +54,13 @@ export const CommitGraphWrapper: React.FC<{
     return (
       <>
         <FlexRowContainer>
-          <CommitGraph
-            taskCounts={taskCounts}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts2}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts3}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts4}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
-          <CommitGraph
-            taskCounts={taskCounts}
-            createTime={createTime}
-            hash={hash}
-            title={title}
-            author={author}
-          />
+          <CommitGraph taskCounts={taskCounts} />
+          <CommitGraph taskCounts={taskCounts2} />
+          <CommitGraph taskCounts={taskCounts3} />
+          <CommitGraph taskCounts={taskCounts2} />
+          <CommitGraph taskCounts={taskCounts} />
+          <CommitGraph taskCounts={taskCounts4} />
+          <CommitGraph taskCounts={taskCounts3} />
         </FlexRowContainer>
       </>
     );
