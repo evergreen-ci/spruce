@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
+import { CommitGraphWrapper } from "components/CommitsPage/CommitGraphWrapper";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
@@ -54,6 +55,7 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
+      <CommitGraphWrapper versions={versions} error={error} />
     </PageWrapper>
   );
 };
