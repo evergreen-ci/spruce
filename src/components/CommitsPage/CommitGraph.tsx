@@ -1,17 +1,6 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import styled from "@emotion/styled";
-// import { Bar } from "./commitGraph/Bar";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-} from "recharts";
+import { BarChart, Bar, ResponsiveContainer } from "recharts";
 
 type TaskCounts = {
   success?: number;
@@ -25,31 +14,11 @@ type TaskCounts = {
 
 interface Props {
   taskCounts: TaskCounts[];
-  createTime: string;
-  hash: string;
-  title: string;
-  author: string;
 }
-const CustomTooltip = ({ success, failure }) => {
-  // if (active && payload && payload.length) {
-  //   return (
-  //     <div className="custom-tooltip">
-  //       <p className="label">{`${label} : ${payload[0].value}`}</p>
-  //       <p className="desc">Anything you want can be displayed here.</p>
-  //     </div>
-  //   );
-  // }
-  return <p>Hello</p>;
-};
 
-export const CommitGraph: React.FC<Props> = ({
-  taskCounts,
-  createTime,
-  hash,
-  title,
-  author,
-}) => {
+export const CommitGraph: React.FC<Props> = ({ taskCounts }) => {
   const width = (Object.keys(taskCounts[0]).length / 7) * 100;
+  const data = taskCounts[0];
   return (
     <>
       <RowContainer>
@@ -60,26 +29,21 @@ export const CommitGraph: React.FC<Props> = ({
             data={taskCounts}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
           >
-            <Tooltip content={<CustomTooltip success={1} failure={2} />} />
-            {taskCounts[0].success && (
-              <Bar dataKey="success" fill={barColors.success} />
-            )}
-            {taskCounts[0].failure && (
-              <Bar dataKey="failure" fill={barColors.failure} />
-            )}
-            {taskCounts[0].setupFailure && (
+            {data.success && <Bar dataKey="success" fill={barColors.success} />}
+            {data.failure && <Bar dataKey="failure" fill={barColors.failure} />}
+            {data.setupFailure && (
               <Bar dataKey="setupFailure" fill={barColors.setupFailure} />
             )}
-            {taskCounts[0].dispatched && (
+            {data.dispatched && (
               <Bar dataKey="dispatched" fill={barColors.dispatched} />
             )}
-            {taskCounts[0].scheduled && (
+            {data.scheduled && (
               <Bar dataKey="scheduled" fill={barColors.scheduled} />
             )}
-            {taskCounts[0].unscheduled && (
+            {data.unscheduled && (
               <Bar dataKey="unscheduled" fill={barColors.unscheduled} />
             )}
-            {taskCounts[0].systemFailure && (
+            {data.systemFailure && (
               <Bar dataKey="systemFailure" fill={barColors.systemFailure} />
             )}
           </BarChart>
