@@ -15,6 +15,7 @@ import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/ProjectSelect";
+import { StatusSelect } from "./commits/StatusSelect";
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -47,6 +48,9 @@ export const Commits = () => {
         <TupleSelectWrapper>
           <TupleSelect options={tupleSelectOptions} />
         </TupleSelectWrapper>
+        <StatusSelectWrapper>
+          <StatusSelect />
+        </StatusSelectWrapper>
         <ProjectSelectWrapper>
           <ProjectSelect selectedProject={projectId} />
         </ProjectSelectWrapper>
@@ -62,6 +66,10 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  > div:not(:last-of-type) {
+    margin-right: 16px;
+  }
 `;
 
 const BadgeWrapper = styled.div`
@@ -71,6 +79,20 @@ const BadgeWrapper = styled.div`
 `;
 const TupleSelectWrapper = styled.div`
   width: 40%;
+`;
+const StatusSelectWrapper = styled.div`
+  width: 30%;
+
+  .cy-treeselect-bar {
+    height: 32px;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    > div,
+    > span {
+      line-height: 30px;
+    }
+  }
 `;
 const ProjectSelectWrapper = styled.div`
   width: 30%;
