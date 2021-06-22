@@ -748,6 +748,8 @@ export type Patch = {
 export type ChildPatch = {
   project: Scalars["String"];
   patchID: Scalars["String"];
+  status: Scalars["String"];
+  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -2182,6 +2184,14 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    childPatches?: Maybe<
+      Array<{
+        project: string;
+        patchID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
