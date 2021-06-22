@@ -727,6 +727,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
+  childPatches?: Maybe<Array<ChildPatch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -742,6 +743,11 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
+};
+
+export type ChildPatch = {
+  project: Scalars["String"];
+  patchID: Scalars["String"];
 };
 
 export type Build = {
