@@ -4,7 +4,6 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { Skeleton } from "antd";
 import every from "lodash.every";
-import queryString from "query-string";
 import { useParams, useLocation, useHistory } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { PageSizeSelector } from "components/PageSizeSelector";
@@ -21,8 +20,9 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
 import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
-import { url } from "utils";
-import { parseSortString } from "./util";
+import { queryString, url } from "utils";
+
+const { parseQueryString, parseSortString } = queryString;
 
 const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
@@ -165,7 +165,7 @@ const getQueryVariables = (
     [PatchTasksQueryParams.Statuses]: rawStatuses,
     [PatchTasksQueryParams.BaseStatuses]: rawBaseStatuses,
     [PatchTasksQueryParams.Sorts]: sorts,
-  } = queryString.parse(search, { arrayFormat: "comma" });
+  } = parseQueryString(search);
 
   return {
     patchId: resourceId,
