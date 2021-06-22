@@ -203,10 +203,19 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-g4d1vq"
+      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
       data-cy="task-status-badge"
     >
       Known Issue
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-17gpdot"
+    >
+      StatusBlocked
     </div>
   </div>
 </div>
