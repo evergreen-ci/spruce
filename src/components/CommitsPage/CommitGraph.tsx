@@ -21,7 +21,7 @@ export const CommitGraph: React.FC<Props> = ({ taskCounts }) => {
   const data = taskCounts[0];
   return (
     <>
-      <RowContainer>
+      <GraphContainer>
         <ResponsiveContainer width={width} height={180}>
           <BarChart
             barSize={12}
@@ -48,7 +48,7 @@ export const CommitGraph: React.FC<Props> = ({ taskCounts }) => {
             )}
           </BarChart>
         </ResponsiveContainer>
-      </RowContainer>
+      </GraphContainer>
     </>
   );
 };
@@ -63,7 +63,7 @@ const barColors = {
   setupFailure: "#A075AF",
 };
 
-const RowContainer = styled.div`
+const GraphContainer = styled.div`
   margin-left: 0.5%;
   width: 100%;
 `;
