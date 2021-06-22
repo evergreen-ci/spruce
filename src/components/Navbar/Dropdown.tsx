@@ -81,4 +81,5 @@ const NavDropdownTitle = styled.span`
   align-items: center;
   justify-content: center;
   color: ${white};
+  cursor: pointer;
 `;
