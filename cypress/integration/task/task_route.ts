@@ -23,11 +23,11 @@ describe("Task Page Route", () => {
 
   it("should display an appropriate status badge when visiting task pages", () => {
     cy.visit(`/task/${tasks[1]}`);
-    cy.dataCy("task-status-badge").contains("Dispatched");
+    cy.dataCy("task-status-badge").contains("Aborted");
     cy.visit(`/task/${tasks[2]}`);
     cy.dataCy("task-status-badge").contains("Running");
     cy.visit(`/task/${tasks[3]}`);
-    cy.dataCy("task-status-badge").contains("Blocked");
+    cy.dataCy("task-status-badge").contains("Success");
   });
 
   const tasks = {

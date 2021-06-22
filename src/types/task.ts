@@ -60,6 +60,8 @@ export enum TaskStatus {
   //  1. a task is not scheduled to run (when Task.Activated == false)
   //  2. a task is scheduled to run (when Task.Activated == true)
   Undispatched = "undispatched",
+  WillRun = "will-run",
+  Unscheduled = "unscheduled",
 
   // TaskStarted indicates a task is currently running
   Started = "started",
@@ -70,7 +72,7 @@ export enum TaskStatus {
 
   // This is a temporary status which is the same as undispatched, but
   // with the additional info that it's waiting for a dependency
-  StatusPending = "pending",
+  Pending = "pending",
 
   // The statuses below indicate that a task has finished.
   Succeeded = "success",
@@ -90,8 +92,9 @@ export enum TaskStatus {
 
   // This status means that the task will not run because a dependency was
   // not satisfied
-  StatusBlocked = "blocked",
+  Blocked = "blocked",
   Aborted = "aborted",
 
   KnownIssue = "known-issue",
+  StatusBlocked = "StatusBlocked",
 }

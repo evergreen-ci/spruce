@@ -1,7 +1,8 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { mapVariantTaskStatusToColor, Square } from "components/StatusSquare";
+import { Square } from "components/StatusSquare";
+import { mapTaskStatusToColor } from "constants/task";
 
 interface TaskStatusCheckboxProps {
   displayName: string;
@@ -27,9 +28,9 @@ const CheckboxComponent: React.FC<TaskStatusCheckboxProps> = ({
     name={taskId}
     label={
       <StateItemWrapper>
-        <PaddedSquare color={mapVariantTaskStatusToColor[status]} />
+        <PaddedSquare color={mapTaskStatusToColor[status]} />
         {baseStatus && (
-          <PaddedSquare color={mapVariantTaskStatusToColor[baseStatus]} />
+          <PaddedSquare color={mapTaskStatusToColor[baseStatus]} />
         )}
         {displayName}
       </StateItemWrapper>

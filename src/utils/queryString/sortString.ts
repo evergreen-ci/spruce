@@ -1,4 +1,8 @@
-import { SorterResult } from "antd/es/table/interface";
+import {
+  Key,
+  SortOrder as SortLabel,
+  SorterResult,
+} from "antd/es/table/interface";
 import {
   Task,
   SortDirection,
@@ -7,26 +11,29 @@ import {
 } from "gql/generated/types";
 
 // takes sort input from the antd table and translates into part of the query string
+// if sort field is being unset, returns undefined
 export const toSortString = (
   sorts: SorterResult<Task> | SorterResult<Task>[]
 ) => {
   let sortStrings: string[] = [];
   const shortenSortOrder = (order: string) =>
     order === "ascend" ? SortDirection.Asc : SortDirection.Desc;
+  const getSortString = (columnKey: Key, order: SortLabel) =>
+    order ? `${columnKey}:${shortenSortOrder(order)}` : undefined;
   if (Array.isArray(sorts)) {
     sorts.forEach((sort) => {
-      const singleSortString = `${sort.columnKey}:${shortenSortOrder(
-        sort.order
-      )}`;
+      const singleSortString = getSortString(sort.columnKey, sort.order);
       sortStrings = sortStrings.concat(singleSortString);
     });
   } else {
     sortStrings = sortStrings.concat(
-      `${sorts.columnKey}:${shortenSortOrder(sorts.order)}`
+      getSortString(sorts.columnKey, sorts.order)
     );
   }
 
-  return sortStrings.join(";");
+  return sortStrings.some((s) => s)
+    ? sortStrings.filter(Boolean).join(";")
+    : undefined;
 };
 
 // takes a sort query string and parses it into valid GQL params

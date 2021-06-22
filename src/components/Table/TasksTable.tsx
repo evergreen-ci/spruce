@@ -2,7 +2,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import { StyledRouterLink } from "components/styles";
-import { TaskStatusBadge } from "components/TaskStatusBadge";
+import TaskStatusBadge from "components/TaskStatusBadge";
 import { WordBreak } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -12,6 +12,7 @@ import {
   SortOrder,
 } from "gql/generated/types";
 import { TableOnChange } from "types/task";
+import { sortTasks } from "utils/statuses";
 
 // Type needed to render the task table
 type TaskTableInfo = {
@@ -29,6 +30,7 @@ interface TasksTableProps {
   onExpand?: (expanded: boolean) => void;
   onClickTaskLink?: (taskId: string) => void;
   sorts?: SortOrder[];
+  controlled?: boolean;
 }
 export const TasksTable: React.FC<TasksTableProps> = ({
   tasks,
@@ -36,6 +38,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   onExpand,
   onClickTaskLink,
   sorts,
+  controlled = false,
 }) => (
   <Table
     data-cy="tasks-table"
@@ -43,7 +46,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
     pagination={false}
     columns={
       sorts
-        ? getColumnDefsControlled(sorts, onClickTaskLink)
+        ? getColumnDefsSort(sorts, controlled, onClickTaskLink)
         : getColumnDefs(onClickTaskLink)
     }
     dataSource={tasks}
@@ -73,17 +76,17 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Patch Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
-    sorter: (a, b) => a.status.localeCompare(b.status),
+    sorter: (a, b) => sortTasks(a.status, b.status),
     className: "cy-task-table-col-STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Base Status",
     dataIndex: "baseStatus",
     key: TaskSortCategory.BaseStatus,
-    sorter: (a, b) => a.baseStatus?.localeCompare(b.baseStatus),
+    sorter: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
     className: "cy-task-table-col-BASE_STATUS",
-    render: renderStatusBadge,
+    render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Variant",
@@ -94,8 +97,9 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
   },
 ];
 
-const getColumnDefsControlled = (
+const getColumnDefsSort = (
   sortOrder: SortOrder[],
+  controlled: boolean,
   onClickTaskLink: (taskId: string) => void
 ): ColumnProps<Task>[] => {
   const getSortDir = (
@@ -109,30 +113,40 @@ const getColumnDefsControlled = (
     }
     return undefined;
   };
-  const sortProps = [
+  const controlledSortProps = [
     {
       sorter: {
         multiple: 4,
       },
-      sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
     },
     {
       sorter: {
         multiple: 4,
       },
-      sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
     },
     {
       dataIndex: ["baseTask", "status"],
       sorter: {
         multiple: 4,
       },
-      sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
     },
     {
       sorter: {
         multiple: 4,
       },
+    },
+  ];
+  const sortProps = [
+    {
+      sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
+    },
+    {
+      sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
+    },
+    {
+      sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
+    },
+    {
       sortOrder: getSortDir(TaskSortCategory.Variant, sortOrder),
     },
   ];
@@ -140,17 +154,8 @@ const getColumnDefsControlled = (
   return getColumnDefs(onClickTaskLink).map((columnDef, i) => ({
     ...columnDef,
     ...sortProps[i],
+    ...(controlled && controlledSortProps[i]),
   }));
-};
-
-const renderStatusBadge = (
-  status: string,
-  { blocked }: Task
-): null | JSX.Element => {
-  if (status === "" || !status) {
-    return null;
-  }
-  return <TaskStatusBadge status={status} blocked={blocked} />;
 };
 
 interface TaskLinkProps {

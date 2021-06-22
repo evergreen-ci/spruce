@@ -1,7 +1,4 @@
-import {
-  mapVariantTaskStatusToColor,
-  mapVariantTaskStatusToDarkColor,
-} from "components/StatusSquare";
+import { mapTaskStatusToColor, mapTaskStatusToTextColor } from "constants/task";
 import { TaskStatus } from "types/task";
 import { groupTasksByColor } from "./utils";
 
@@ -28,20 +25,20 @@ describe("groupTasksByColor", () => {
       },
     ];
     expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapVariantTaskStatusToColor[TaskStatus.Succeeded]]: {
+      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Succeeded],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Failed]]: {
+      [mapTaskStatusToColor[TaskStatus.Failed]]: {
         count: 1,
         statuses: [TaskStatus.Failed],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Failed],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Started]]: {
+      [mapTaskStatusToColor[TaskStatus.Started]]: {
         count: 1,
         statuses: [TaskStatus.Started],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Started],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
       },
     });
   });
@@ -73,20 +70,20 @@ describe("groupTasksByColor", () => {
       },
     ];
     expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapVariantTaskStatusToColor[TaskStatus.Succeeded]]: {
+      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Succeeded],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Failed]]: {
+      [mapTaskStatusToColor[TaskStatus.Failed]]: {
         count: 2,
         statuses: [TaskStatus.Failed, TaskStatus.TaskTimedOut],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Failed],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Started]]: {
+      [mapTaskStatusToColor[TaskStatus.Started]]: {
         count: 1,
         statuses: [TaskStatus.Started],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Started],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
       },
     });
   });
@@ -118,20 +115,20 @@ describe("groupTasksByColor", () => {
       },
     ];
     expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapVariantTaskStatusToColor[TaskStatus.Succeeded]]: {
+      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Succeeded],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Failed]]: {
+      [mapTaskStatusToColor[TaskStatus.Failed]]: {
         count: 2,
         statuses: [TaskStatus.Failed],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Failed],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
       },
-      [mapVariantTaskStatusToColor[TaskStatus.Started]]: {
+      [mapTaskStatusToColor[TaskStatus.Started]]: {
         count: 1,
         statuses: [TaskStatus.Started],
-        textColor: mapVariantTaskStatusToDarkColor[TaskStatus.Started],
+        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
       },
     });
   });

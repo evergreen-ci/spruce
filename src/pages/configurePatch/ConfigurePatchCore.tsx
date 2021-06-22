@@ -24,12 +24,13 @@ import { SCHEDULE_PATCH } from "gql/mutations";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
-import { queryString } from "utils";
-import { mapStringArrayToObject } from "utils/array";
+import { queryString, string } from "utils";
+import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 import { VariantTasksState } from "./configurePatchCore/state";
 
+const { omitTypename } = string;
 const { parseQueryString } = queryString;
 
 type configurePatchState = {
@@ -83,7 +84,7 @@ const reducer = (state: configurePatchState, action: Action) => {
     case "setPatchParams":
       return {
         ...state,
-        patchParams: action.params,
+        patchParams: omitTypename(action.params),
       };
     case "setSelectedTab": {
       let tab = indexToTabMap.indexOf(PatchTab.Tasks);
@@ -102,7 +103,7 @@ const reducer = (state: configurePatchState, action: Action) => {
         ...state,
         description: action.description,
         selectedBuildVariants: action.buildVariants,
-        patchParams: action.params,
+        patchParams: omitTypename(action.params),
         selectedBuildVariantTasks: action.variantTasks,
       };
 
@@ -122,10 +123,12 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
 
   const [state, dispatch] = useReducer(
     reducer,
-    initialState({ selectedTab: indexToTabMap.indexOf(tab) })
+    initialState({
+      selectedTab: indexToTabMap.indexOf(tab || PatchTab.Configure),
+    })
   );
 
-  const { project, id } = patch;
+  const { project, id, author, time, activated } = patch;
   const { variants } = project;
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
@@ -171,7 +174,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         description: patch.description,
         buildVariants: [variants[0]?.name],
         params: patch.parameters,
-        variantTasks: convertPatchVariantTasksToStateShape(variants),
+        variantTasks: initializeTaskState(variants, patch.variantsTasks),
       });
     }
   }, [patch, variants]);
@@ -215,8 +218,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       <PageLayout>
         <PageSider>
           <MetadataCard error={null} title="Patch Metadata">
-            <P2>Submitted by: {patch?.author}</P2>
-            <P2>Submitted at: {patch?.time.submittedAt}</P2>
+            <P2>Submitted by: {author}</P2>
+            <P2>Submitted at: {time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
             variants={variants}
@@ -256,7 +259,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
               </Tab>
               <Tab data-cy="parameters-tab" name="Parameters">
                 <ParametersContent
-                  patchActivated={patch?.activated}
+                  patchActivated={activated}
                   patchParameters={patchParams}
                   setPatchParams={(params) =>
                     dispatch({ type: "setPatchParams", params })
@@ -287,16 +290,26 @@ const getGqlVariantTasksParamFromState = (
     })
     .filter(({ tasks }) => tasks.length);
 
-const convertPatchVariantTasksToStateShape = (
-  variantsTasks?: VariantTask[]
-): VariantTasksState =>
-  variantsTasks.reduce(
+// Takes in variant tasks and default selected tasks and returns an object
+// With merged variant and default selected tasks auto selected.
+const initializeTaskState = (
+  variantTasks: VariantTask[],
+  defaultSelectedTasks: VariantTask[]
+) => {
+  const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
+  return variantTasks.reduce(
     (prev, { name: variant, tasks }) => ({
       ...prev,
-      [variant]: mapStringArrayToObject(tasks, false),
+      [variant]: {
+        ...mapStringArrayToObject(tasks, false),
+        ...(defaultTasks[variant]
+          ? mapStringArrayToObject(defaultTasks[variant].tasks, true)
+          : {}),
+      },
     }),
     {}
   );
+};
 
 const indexToTabMap = [PatchTab.Tasks, PatchTab.Changes, PatchTab.Parameters];
 

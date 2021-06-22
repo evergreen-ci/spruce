@@ -1,29 +1,24 @@
-import {
-  mapVariantTaskStatusToColor,
-  mapVariantTaskStatusToDarkColor,
-} from "components/StatusSquare";
+import { mapTaskStatusToColor, mapTaskStatusToTextColor } from "constants/task";
 
 export const groupTasksByColor = (tasks: { status: string }[]) => {
-  const taskColors: {
+  const result: {
     [key: string]: { count: number; statuses: string[]; textColor: string };
   } = {};
   tasks.forEach((task) => {
-    const taskStatusToColor = mapVariantTaskStatusToColor[task.status];
-    if (taskColors[taskStatusToColor]) {
-      taskColors[taskStatusToColor].count += 1;
-      if (!taskColors[taskStatusToColor].statuses.includes(task.status)) {
-        taskColors[taskStatusToColor].statuses = [
-          ...taskColors[taskStatusToColor].statuses,
-          task.status,
-        ];
+    const taskStatusToColor = mapTaskStatusToColor[task.status];
+    if (result[taskStatusToColor]) {
+      const groupedTask = result[taskStatusToColor];
+      groupedTask.count += 1;
+      if (!groupedTask.statuses.includes(task.status)) {
+        groupedTask.statuses.push(task.status);
       }
     } else {
-      taskColors[taskStatusToColor] = {
+      result[taskStatusToColor] = {
         count: 1,
         statuses: [task.status],
-        textColor: mapVariantTaskStatusToDarkColor[task.status],
+        textColor: mapTaskStatusToTextColor[task.status],
       };
     }
   });
-  return taskColors;
+  return result;
 };

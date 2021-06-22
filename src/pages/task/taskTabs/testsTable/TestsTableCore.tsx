@@ -20,8 +20,8 @@ import {
 import { WordBreak } from "components/Typography";
 import {
   getLobsterTestLogUrl,
-  isLobsterLink,
-  deprecatedLogkeeperLobsterURL,
+  getUpdatedLobsterUrl,
+  isLogkeeperLink,
 } from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
@@ -35,9 +35,8 @@ import {
 import { GET_TASK_TESTS } from "gql/queries";
 import { useUpdateURLQueryParams, useNetworkStatus } from "hooks";
 import { TestStatus, RequiredQueryParams, TableOnChange } from "types/task";
-import { queryString, url, string, environmentalVariables } from "utils";
+import { queryString, url, string } from "utils";
 
-const { getLobsterURL } = environmentalVariables;
 const { msToDuration } = string;
 const { getPageFromSearch, getLimitFromSearch } = url;
 const { parseQueryString, queryParamAsNumber } = queryString;
@@ -270,10 +269,14 @@ const getColumnsTemplate = (
     render: (a, b): JSX.Element => {
       const { execution, lineNum, taskId, id } = b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-      const lobsterLink = getLobsterTestLogUrl(taskId, execution, id, lineNum);
+      const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
+      const lobsterLink = hasLobsterLink
+        ? getUpdatedLobsterUrl(htmlDisplayURL)
+        : getLobsterTestLogUrl(taskId, execution, id, lineNum);
+
       return (
         <>
-          {htmlDisplayURL && !isLobsterLink(htmlDisplayURL) && lobsterLink && (
+          {lobsterLink && (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-lobster-btn"
@@ -291,28 +294,21 @@ const getColumnsTemplate = (
               </Button>
             </ButtonWrapper>
           )}
-          {htmlDisplayURL && (
+          {!hasLobsterLink && (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-html-btn"
                 size="small"
                 target="_blank"
                 variant="default"
-                href={htmlDisplayURL.replace(
-                  deprecatedLogkeeperLobsterURL,
-                  `${getLobsterURL()}/lobster`
-                )}
+                href={htmlDisplayURL}
                 onClick={() =>
-                  isLobsterLink(htmlDisplayURL)
-                    ? taskAnalytics.sendEvent({
-                        name: "Click Logs Lobster Button",
-                      })
-                    : taskAnalytics.sendEvent({
-                        name: "Click Logs HTML Button",
-                      })
+                  taskAnalytics.sendEvent({
+                    name: "Click Logs HTML Button",
+                  })
                 }
               >
-                {isLobsterLink(htmlDisplayURL) ? "Lobster" : "HTML"}
+                HTML
               </Button>
             </ButtonWrapper>
           )}
