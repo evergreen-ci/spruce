@@ -1,6 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { BarChart, Bar, ResponsiveContainer } from "recharts";
+import {
+  BarChart,
+  Bar,
+  ResponsiveContainer,
+  // Tooltip,
+  // CartesianAxis,
+  // CartesianGrid,
+} from "recharts";
 
 type TaskCounts = {
   success?: number;
@@ -11,39 +18,48 @@ type TaskCounts = {
   systemFailure?: number;
   setupFailure?: number;
 };
-
 interface Props {
-  taskCounts: TaskCounts[];
+  taskCounts: TaskCounts;
 }
 
 export const CommitGraph: React.FC<Props> = ({ taskCounts }) => {
-  const width = (Object.keys(taskCounts[0]).length / 7) * 100;
-  const data = taskCounts[0];
   return (
     <>
       <GraphContainer>
-        <ResponsiveContainer width={width} height={180}>
+        <ResponsiveContainer width={Object.keys(taskCounts).length * 13}>
           <BarChart
-            barSize={12}
+            barSize={13}
             barGap={0}
-            data={taskCounts}
+            data={[taskCounts]}
             margin={{ top: 0, right: 0, left: 0, bottom: 0 }}
           >
-            {data.success && <Bar dataKey="success" fill={barColors.success} />}
-            {data.failure && <Bar dataKey="failure" fill={barColors.failure} />}
-            {data.setupFailure && (
+            {/* <CartesianAxis
+              width={4}
+              height={4}
+              viewBox={{ x: 100, y: 100, width: 100, height: 100 }}
+            /> */}
+            {/* <CartesianGrid /> */}
+            {/* <Tooltip /> */}
+
+            {taskCounts.success && (
+              <Bar dataKey="success" fill={barColors.success} />
+            )}
+            {taskCounts.failure && (
+              <Bar dataKey="failure" fill={barColors.failure} />
+            )}
+            {taskCounts.setupFailure && (
               <Bar dataKey="setupFailure" fill={barColors.setupFailure} />
             )}
-            {data.dispatched && (
+            {taskCounts.dispatched && (
               <Bar dataKey="dispatched" fill={barColors.dispatched} />
             )}
-            {data.scheduled && (
+            {taskCounts.scheduled && (
               <Bar dataKey="scheduled" fill={barColors.scheduled} />
             )}
-            {data.unscheduled && (
+            {taskCounts.unscheduled && (
               <Bar dataKey="unscheduled" fill={barColors.unscheduled} />
             )}
-            {data.systemFailure && (
+            {taskCounts.systemFailure && (
               <Bar dataKey="systemFailure" fill={barColors.systemFailure} />
             )}
           </BarChart>
@@ -63,7 +79,18 @@ const barColors = {
   setupFailure: "#A075AF",
 };
 
+const percentWidth = `${(1 / 7) * 100}%`;
 const GraphContainer = styled.div`
-  margin-left: 0.5%;
-  width: 100%;
+  height: 95%;
+  width: ${percentWidth};
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
 `;
+
+// Pro: 1. extra tooltop
+//      2. extra cartesian grid (but not sure if too dark),
+//         best if we get cartesianAxis working
+// Con: 1. Bars are always in the center of the chart, need to calculate exact width
+//      of the graph container based on how many bars it has
+//      2. Tooltip may not be completely customizable
