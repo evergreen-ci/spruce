@@ -18,6 +18,28 @@ interface MenuItemType {
   to?: string;
 }
 
+interface DropdownItemType extends MenuItemType {
+  closeMenu: () => void;
+}
+
+const DropdownItem: React.FC<DropdownItemType> = ({
+  "data-cy": itemDataCy,
+  closeMenu,
+  href,
+  text,
+  to,
+}) => (
+  <MenuItem
+    as={to && Link}
+    to={to}
+    href={href}
+    data-cy={itemDataCy}
+    onClick={closeMenu}
+  >
+    {text}
+  </MenuItem>
+);
+
 interface DropdownProps {
   dataCy?: string;
   menuItems: MenuItemType[];
@@ -30,25 +52,6 @@ export const Dropdown: React.FC<DropdownProps> = ({
   title,
 }) => {
   const [openMenu, setOpenMenu] = useState(false);
-
-  const DropdownItem: React.FC<MenuItemType> = ({
-    "data-cy": itemDataCy,
-    href,
-    text,
-    to,
-  }) => (
-    <MenuItem
-      as={to && Link}
-      to={to}
-      href={href}
-      data-cy={itemDataCy}
-      onClick={() => {
-        setOpenMenu(false);
-      }}
-    >
-      {text}
-    </MenuItem>
-  );
 
   return (
     <Menu
@@ -63,15 +66,14 @@ export const Dropdown: React.FC<DropdownProps> = ({
       }
     >
       {menuItems.map((menuItem) => (
-        <DropdownItem key={`dropdown_${menuItem.text}`} {...menuItem} />
+        <DropdownItem
+          key={`dropdown_${menuItem.text}`}
+          closeMenu={() => setOpenMenu(false)}
+          {...menuItem}
+        />
       ))}
     </Menu>
   );
-};
-
-export const DropdownItem = (props) => {
-  const { closeModal, to } = props;
-  return <MenuItem as={to && Link} onClick={closeModal} {...props} />;
 };
 
 const NavDropdownTitle = styled.span`
