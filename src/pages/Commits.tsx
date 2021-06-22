@@ -55,7 +55,11 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
-      <CommitGraphWrapper versions={versions} error={error} />
+      <CommitGraphWrapper
+        versions={versions}
+        error={error}
+        graphType="percentage"
+      />
     </PageWrapper>
   );
 };
