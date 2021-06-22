@@ -114,7 +114,6 @@ describe("Tasks filters", () => {
         "Known Issue",
         "Success",
         "Unscheduled",
-        "Setup Failed",
         "Aborted",
       ];
       cy.getInputByLabel("All").check({ force: true });
@@ -125,8 +124,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search:
-          "all,failed,known-issue,success,unscheduled,setup-failed,aborted",
+        search: "all,failed,known-issue,success,unscheduled,aborted",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });
