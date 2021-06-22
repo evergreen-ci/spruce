@@ -2010,6 +2010,8 @@ export type MainlineCommitsQuery = {
       version?: Maybe<{
         id: string;
         author: string;
+        order: number;
+        createTime: Date;
         buildVariants?: Maybe<
           Array<
             Maybe<{
@@ -2030,7 +2032,7 @@ export type MainlineCommitsQuery = {
         >;
       }>;
       rolledUpVersions?: Maybe<
-        Array<{ id: string; activated?: Maybe<boolean> }>
+        Array<{ id: string; createTime: Date; author: string }>
       >;
     }>;
   }>;
