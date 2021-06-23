@@ -136,6 +136,7 @@ const statusesToIncludeInQuery = {
   [TaskStatus.Undispatched]: true,
   [TaskStatus.Unstarted]: true,
   [TaskStatus.Aborted]: true,
+  [TaskStatus.KnownIssue]: true,
   [TaskStatus.WillRun]: true,
   [TaskStatus.Unscheduled]: true,
 };

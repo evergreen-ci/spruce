@@ -25,7 +25,7 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.TestTimedOut]: Variant.Red,
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
-  [TaskStatus.Known]: Variant.Blue,
+  [TaskStatus.KnownIssue]: Variant.Red,
 };
 
 const failureColors = {
@@ -73,7 +73,14 @@ interface TaskStatusBadgeProps {
   status: string;
 }
 const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
-  const displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
+  let displayStatus = getStatusBadgeCopy(status);
+
+  if (taskStatusToCopy[status] === undefined) {
+    const err = new Error(`Status '${status}' is not a valid task status`);
+    reportError(err).warning();
+  } else {
+    displayStatus = getStatusBadgeCopy(taskStatusToCopy[status]);
+  }
 
   if (status in mapTaskStatusToBadgeVariant) {
     return (
@@ -100,8 +107,6 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
     );
   }
 
-  const err = new Error(`Status '${status}' is not a valid task status`);
-  reportError(err).warning();
   return <Badge variant={Variant.LightGray}>{status}</Badge>;
 };
 
