@@ -6,7 +6,8 @@ const patch = {
 };
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=all,failed,known-issue,success,dispatched,started,undispatched&taskName=test-thirdparty`;
+const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=all,failed,success,dispatched,started,undispatched&taskName=test-thirdparty`;
+
 describe("Tasks filters", () => {
   before(() => {
     cy.login();
@@ -110,9 +111,9 @@ describe("Tasks filters", () => {
       const taskStatuses = [
         "All",
         "Failed",
+        "Known Issue",
         "Success",
         "Unscheduled",
-        "Known Issue",
         "Aborted",
       ];
       cy.getInputByLabel("All").check({ force: true });
@@ -123,7 +124,8 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,unscheduled,known-issue,aborted",
+        search:
+          "all,all-failures,failed,aborted,known-issue,success,unscheduled,aborted",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });
