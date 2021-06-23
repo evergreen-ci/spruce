@@ -58,7 +58,7 @@ export const Commits = () => {
       <CommitGraphWrapper
         versions={versions}
         error={error}
-        graphType="absolute"
+        graphType="percentage"
         isLoading={loading}
       />
     </PageWrapper>
