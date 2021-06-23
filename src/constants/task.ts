@@ -2,7 +2,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
 
-const { green, gray, yellow, red, blue } = uiColors;
+const { green, gray, yellow, red } = uiColors;
 
 export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   {
@@ -29,6 +29,16 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         title: "Test Timed Out",
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
+      },
+      {
+        title: "Aborted",
+        value: TaskStatus.Aborted,
+        key: TaskStatus.Aborted,
+      },
+      {
+        title: "Known Issue",
+        value: TaskStatus.KnownIssue,
+        key: TaskStatus.KnownIssue,
       },
     ],
   },
@@ -130,7 +140,7 @@ export const mapTaskStatusToColor = {
   [TaskStatus.Dispatched]: gray.light1,
   [TaskStatus.Failed]: red.base,
   [TaskStatus.Inactive]: gray.light1,
-  [TaskStatus.Known]: blue.base,
+  [TaskStatus.KnownIssue]: red.base,
   [TaskStatus.Pending]: yellow.base,
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.Succeeded]: green.base,
@@ -153,7 +163,7 @@ export const mapTaskStatusToTextColor = {
   [TaskStatus.Dispatched]: gray.dark3,
   [TaskStatus.Failed]: red.dark3,
   [TaskStatus.Inactive]: gray.dark3,
-  [TaskStatus.Known]: blue.dark3,
+  [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Pending]: yellow.dark3,
   [TaskStatus.SetupFailed]: failureLavendarDark,
   [TaskStatus.Started]: yellow.dark3,
@@ -175,7 +185,7 @@ export const taskStatusToCopy = {
   [TaskStatus.Dispatched]: "Dispatched",
   [TaskStatus.Failed]: "Failed",
   [TaskStatus.Inactive]: "Inactive",
-  [TaskStatus.Known]: "Known Failure",
+  [TaskStatus.KnownIssue]: "Known Issue",
   [TaskStatus.Pending]: "Pending",
   [TaskStatus.Started]: "Running",
   [TaskStatus.SystemFailed]: "System Failed",
