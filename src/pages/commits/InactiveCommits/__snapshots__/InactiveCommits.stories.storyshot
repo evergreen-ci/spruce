@@ -10,6 +10,7 @@ exports[`Storyshots Inactive Commits Story 1`] = `
 >
   <div
     className="css-9gwzin-ButtonText ezzuvrx0 leafygreen-ui-xsga32"
+    data-cy="inactive-commits-button"
   >
     <div
       className="css-hifh5j-TopText ezzuvrx1"
