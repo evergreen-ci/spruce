@@ -36,7 +36,7 @@ export const Commits = () => {
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber } = mainlineCommits || {};
-  console.log(versions, nextPageOrderNumber, loading);
+  console.log(nextPageOrderNumber);
 
   if (error) {
     return <PageDoesNotExist />;
