@@ -1,6 +1,7 @@
 import { Label } from "@leafygreen-ui/typography";
 import { usePatchAnalytics } from "analytics";
 import { TreeSelect } from "components/TreeSelect";
+import { TreeSelectDropdown } from "components/TreeSelectDropdown";
 import { taskStatusesFilterTreeData } from "constants/task";
 import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
@@ -28,12 +29,17 @@ export const StatusSelect = () => {
   return (
     <>
       <Label htmlFor="project-test-status-select">Status</Label>
-      <TreeSelect
-        onChange={onChangeStatusFilter}
-        tData={taskStatusesFilterTreeData}
-        state={selectedStatuses}
-        inputLabel="Task Status: "
+      <TreeSelectDropdown
         data-cy="project-test-status-select"
+        inputLabel="Task Status: "
+        render={({ getDropdownProps }) => (
+          <TreeSelect
+            {...getDropdownProps()}
+            onChange={onChangeStatusFilter}
+            tData={taskStatusesFilterTreeData}
+            state={selectedStatuses}
+          />
+        )}
       />
     </>
   );

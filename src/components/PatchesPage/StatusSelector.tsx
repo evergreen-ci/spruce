@@ -1,5 +1,6 @@
 import React from "react";
 import { TreeSelect } from "components/TreeSelect";
+import { TreeSelectDropdown } from "components/TreeSelectDropdown";
 import { useStatusesFilter } from "hooks";
 import {
   MyPatchesQueryParams,
@@ -13,13 +14,18 @@ export const StatusSelector: React.FC = () => {
   );
 
   return (
-    <TreeSelect
-      onChange={statusValOnChange}
-      state={statusVal}
-      tData={treeData}
-      inputLabel="Patch status:  "
+    <TreeSelectDropdown
       data-cy="my-patch-status-select"
+      inputLabel="Patch status:  "
       width="25%"
+      render={({ getDropdownProps }) => (
+        <TreeSelect
+          {...getDropdownProps()}
+          onChange={statusValOnChange}
+          state={statusVal}
+          tData={treeData}
+        />
+      )}
     />
   );
 };

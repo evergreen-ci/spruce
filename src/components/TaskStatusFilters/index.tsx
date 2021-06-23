@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import { TreeSelect, TreeDataEntry } from "components/TreeSelect";
+import { TreeSelectDropdown } from "components/TreeSelectDropdown";
 import { pollInterval } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {
@@ -42,21 +43,31 @@ export const TaskStatusFilters: React.FC<Props> = ({
 
   return (
     <>
-      <TreeSelect
-        state={selectedStatuses}
-        tData={getCurrentStatuses(statuses, options)}
-        inputLabel="Task Status: "
+      <TreeSelectDropdown
         data-cy="task-status-filter"
+        inputLabel="Task Status: "
         width={filterWidth}
-        onChange={onChangeStatusFilter}
+        render={({ getDropdownProps }) => (
+          <TreeSelect
+            {...getDropdownProps()}
+            state={selectedStatuses}
+            tData={getCurrentStatuses(statuses, options)}
+            onChange={onChangeStatusFilter}
+          />
+        )}
       />
-      <TreeSelect
-        state={selectedBaseStatuses}
-        tData={getCurrentStatuses(baseStatuses, options)}
-        inputLabel="Task Base Status: "
+      <TreeSelectDropdown
         data-cy="task-base-status-filter"
+        inputLabel="Task Base Status: "
         width={filterWidth}
-        onChange={onChangeBaseStatusFilter}
+        render={({ getDropdownProps }) => (
+          <TreeSelect
+            {...getDropdownProps()}
+            state={selectedBaseStatuses}
+            tData={getCurrentStatuses(baseStatuses, options)}
+            onChange={onChangeBaseStatusFilter}
+          />
+        )}
       />
     </>
   );
