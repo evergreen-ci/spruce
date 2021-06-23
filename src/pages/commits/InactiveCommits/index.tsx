@@ -28,23 +28,32 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
   let returnedCommits = [];
   if (shouldSplitCommits) {
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
-    returnedCommits = rolledUpVersions
-      .slice(0, 2)
-      .map((v) => <CommitText>{getCommitCopy(v)}</CommitText>);
+    returnedCommits = rolledUpVersions.slice(0, 2).map((v) => (
+      <CommitText key={v.githash} data-cy="commit-text">
+        {getCommitCopy(v)}
+      </CommitText>
+    ));
     returnedCommits.push(
-      <HiddenCommitsWrapper>{`${hiddenCommitCount} more commit${
+      <HiddenCommitsWrapper
+        key="hidden_commits"
+        data-cy="hidden-commits"
+      >{`${hiddenCommitCount} more commit${
         hiddenCommitCount !== 1 ? "s" : ""
       }`}</HiddenCommitsWrapper>
     );
     returnedCommits = [
       ...returnedCommits,
-      ...rolledUpVersions
-        .slice(-3)
-        .map((v) => <CommitText>{getCommitCopy(v)}</CommitText>),
+      ...rolledUpVersions.slice(-3).map((v) => (
+        <CommitText key={v.githash} data-cy="commit-text">
+          {getCommitCopy(v)}
+        </CommitText>
+      )),
     ];
   } else {
     returnedCommits = rolledUpVersions.map((v) => (
-      <CommitText>{getCommitCopy(v)}</CommitText>
+      <CommitText key={v.githash} data-cy="commit-text">
+        {getCommitCopy(v)}
+      </CommitText>
     ));
   }
 
@@ -54,7 +63,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
       justify="start"
       trigger={
         <ButtonContainer>
-          <ButtonText>
+          <ButtonText data-cy="inactive-commits-button">
             <TopText>{`${versionCount} Inactive`} </TopText>
             {`Commit${versionCount !== 1 && "s"}`}
           </ButtonText>
@@ -62,7 +71,9 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
       }
       triggerEvent="hover"
     >
-      <TooltipContainer>{returnedCommits}</TooltipContainer>
+      <TooltipContainer data-cy="inactive-commits-tooltip">
+        {returnedCommits}
+      </TooltipContainer>
     </Tooltip>
   );
 };

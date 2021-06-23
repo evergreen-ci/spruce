@@ -53,7 +53,7 @@ const versions = [
     createTime: "2021-06-16T23:38:13Z",
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
-    author: "Mohamed Khelif",
+    author: "Elena Chen",
     githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
   },
   {
@@ -61,7 +61,7 @@ const versions = [
     createTime: "2021-06-16T23:38:13Z",
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
-    author: "Arjun Patel",
+    author: "Sophie Stadler",
     githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
   },
 ];
