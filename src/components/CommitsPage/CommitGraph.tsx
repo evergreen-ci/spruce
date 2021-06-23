@@ -22,7 +22,7 @@ function calculateHeight(
   value: number,
   max: number,
   total: number,
-  graphType: string
+  graphType: "percentage" | "absolute"
 ) {
   if (graphType === "percentage") {
     return `${(value / total) * 100}%`;
