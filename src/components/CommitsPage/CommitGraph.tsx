@@ -118,10 +118,3 @@ const Bar = styled.div`
   background-color: ${(props: { color?: string }): string => props.color};
   width: 13px;
 `;
-
-// Pro: 1. Can make sure it is exactly aligned to the left end
-//      2. More customizable
-// Con: 1. Need to build our own tooltip
-//      2. Need to build our own cartesian grid (may need to do this either way)
-//      3. Way to calculate height of bars kinda janky
-//      4. additional field "total" from backend
