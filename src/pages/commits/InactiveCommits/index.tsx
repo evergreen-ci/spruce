@@ -1,59 +1,122 @@
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
+import { string } from "utils";
 
+const { getDateCopy } = string;
+const { gray } = uiColors;
+
+type rolledUpVersion = {
+  id: string;
+  author: string;
+  createTime: string;
+  order: number;
+  message: string;
+  githash: string;
+};
 interface InactiveCommitsProps {
-  rolledUpVersions: {
-    id: string;
-    author: string;
-    createTime: string;
-    order: number;
-    message: string;
-  }[];
+  rolledUpVersions: rolledUpVersion[];
 }
 export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
   rolledUpVersions,
 }) => {
   const versionCount = rolledUpVersions.length;
-  const columnCopy =
-    versionCount !== 1
-      ? `${versionCount} Inactive Commits`
-      : `${versionCount} Inactive Commit`;
+
+  const shouldSplitCommits = versionCount > MAX_COMMIT_COUNT;
+
+  let returnedCommits = [];
+  if (shouldSplitCommits) {
+    const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
+    returnedCommits = rolledUpVersions
+      .slice(0, 2)
+      .map((v) => <CommitText>{getCommitCopy(v)}</CommitText>);
+    returnedCommits.push(
+      <HiddenCommitsWrapper>{`${hiddenCommitCount} more commit${
+        hiddenCommitCount !== 1 ? "s" : ""
+      }`}</HiddenCommitsWrapper>
+    );
+    returnedCommits = [
+      ...returnedCommits,
+      ...rolledUpVersions
+        .slice(-3)
+        .map((v) => <CommitText>{getCommitCopy(v)}</CommitText>),
+    ];
+  } else {
+    returnedCommits = rolledUpVersions.map((v) => (
+      <CommitText>{getCommitCopy(v)}</CommitText>
+    ));
+  }
+
   return (
     <Tooltip
       align="top"
       justify="start"
       trigger={
         <ButtonContainer>
-          <Text>{columnCopy}</Text>
+          <ButtonText>
+            <TopText>{`${versionCount} Inactive`} </TopText>
+            {`Commit${versionCount !== 1 && "s"}`}
+          </ButtonText>
         </ButtonContainer>
       }
       triggerEvent="hover"
     >
-      {rolledUpVersions.map((v) => (
-        <TooltipContainer>
-          {v.createTime} {v.author} {v.message} (#{v.order})
-        </TooltipContainer>
-      ))}
+      <TooltipContainer>{returnedCommits}</TooltipContainer>
     </Tooltip>
   );
 };
 
-const TooltipContainer = styled.div`
-  width: 300px;
+const getCommitCopy = (v: rolledUpVersion) =>
+  `${v.githash.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
+    v.message
+  } (#${v.order})`;
+
+const CommitText = styled(Body)`
+  padding: 2px 0;
 `;
-const ButtonContainer = styled.div`
-  width: 100px;
+const HiddenCommitsWrapper = styled.div`
+  width: 180px;
+  border-bottom: 1px solid ${gray.dark2};
+  text-align: center;
+  padding: 8px 0;
+  margin-bottom: 8px;
 `;
 
-const Text = styled(Body)`
+const TooltipContainer = styled.div`
+  width: 300px;
+  margin: auto;
   display: flex;
-  flex-direction: row;
-  :before,
-  :after {
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const ButtonContainer = styled.div`
+  width: 100px;
+  cursor: pointer;
+`;
+const TopText = styled.div`
+  white-space: nowrap;
+`;
+const ButtonText = styled(Body)`
+  text-align: center;
+  display: table;
+  &:before,
+  &:after {
+    border-top: 1px solid black;
     content: "";
-    flex: 1 1;
-    border-bottom: 2px solid #000;
-    margin: auto;
+    display: table-cell;
+    position: relative;
+    top: 1.5em;
+    width: 45%;
+  }
+  &:before {
+    right: 1.5%;
+  }
+  &:after {
+    left: 1.5%;
   }
 `;
+
+const MAX_COMMIT_COUNT = 5;
