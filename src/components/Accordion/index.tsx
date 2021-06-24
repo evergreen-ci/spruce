@@ -2,60 +2,60 @@ import React, { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 
-interface AccordianProps {
+interface AccordionProps {
   title: React.ReactNode;
   toggledTitle?: React.ReactNode;
   toggleFromBottom?: boolean;
   showCaret?: boolean;
   contents: React.ReactNode;
 }
-export const Accordian: React.FC<AccordianProps> = ({
+export const Accordion: React.FC<AccordionProps> = ({
   title,
   toggledTitle,
   contents,
   toggleFromBottom = false,
   showCaret = true,
 }) => {
-  const [isAccordianDisplayed, setIsAccordianDisplayed] = useState(false);
-  const toggleAccordianHandler = (): void =>
-    setIsAccordianDisplayed(!isAccordianDisplayed);
+  const [isAccordionDisplayed, setIsAccordionDisplayed] = useState(false);
+  const toggleAccordionHandler = (): void =>
+    setIsAccordionDisplayed(!isAccordionDisplayed);
 
-  const showToggledTitle = isAccordianDisplayed ? toggledTitle : title;
+  const showToggledTitle = isAccordionDisplayed ? toggledTitle : title;
   return (
     <>
       {toggleFromBottom && (
-        <AnimatedAccordian hide={!isAccordianDisplayed}>
+        <AnimatedAccordion hide={!isAccordionDisplayed}>
           {contents}
-        </AnimatedAccordian>
+        </AnimatedAccordion>
       )}
-      <AccordianToggle
-        data-cy="accordian-toggle"
-        onClick={toggleAccordianHandler}
+      <AccordionToggle
+        data-cy="Accordion-toggle"
+        onClick={toggleAccordionHandler}
       >
         {showCaret && (
-          <Icon glyph={isAccordianDisplayed ? "CaretDown" : "CaretRight"} />
+          <Icon glyph={isAccordionDisplayed ? "CaretDown" : "CaretRight"} />
         )}
         {toggledTitle ? showToggledTitle : title}
-      </AccordianToggle>
+      </AccordionToggle>
       {!toggleFromBottom && (
-        <AnimatedAccordian hide={!isAccordianDisplayed}>
+        <AnimatedAccordion hide={!isAccordionDisplayed}>
           {contents}
-        </AnimatedAccordian>
+        </AnimatedAccordion>
       )}
     </>
   );
 };
 
-const AccordianToggle = styled.span`
+const AccordionToggle = styled.span`
   display: flex;
   align-items: center;
   :hover {
     cursor: pointer;
   }
 `;
-const AnimatedAccordian = styled.div`
+const AnimatedAccordion = styled.div`
   max-height: 0;
-  /* This is used to calculate a fixed height for the accordian since height
+  /* This is used to calculate a fixed height for the Accordion since height
      transitions require a fixed height for their end height */
   max-height: ${(props: { hide: boolean }): string => !props.hide && "1500px"};
   overflow-y: hidden;

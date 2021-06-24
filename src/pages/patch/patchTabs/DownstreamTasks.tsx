@@ -1,20 +1,18 @@
 import React from "react";
 import { Table } from "antd";
-import { useParams } from "react-router-dom";
 import { Patch } from "gql/generated/types";
-import { DownstreamProjectAccordian } from "../patchRestartModal/DownstreamProjectAccordian";
+import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
-type childPatches = Patch["childPatches"];
-type childPatch = childPatches[0];
+type childPatchesType = Patch["childPatches"];
+type childPatch = childPatchesType[0];
 
 interface DownstreamTasksProps {
-  childPatches: childPatches;
+  childPatches: childPatchesType;
 }
 
 export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
   childPatches,
 }) => {
-  const { id } = useParams<{ id: string }>();
   const columns = [
     {
       title: "childPatch",
@@ -22,8 +20,8 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
         text: string,
         { project, patchID, status, taskCount }: childPatch
       ): JSX.Element => (
-        <DownstreamProjectAccordian
-          key={`downstream_project_${id}`}
+        <DownstreamProjectAccordion
+          key={`downstream_project_${patchID}`}
           projectName={project}
           status={status}
           childPatchId={patchID}

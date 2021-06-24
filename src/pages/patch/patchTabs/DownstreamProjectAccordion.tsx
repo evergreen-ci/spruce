@@ -2,21 +2,21 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { Accordian } from "components/Accordian";
+import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { PatchTasksTable } from "../patchTabs/tasks/PatchTasksTable";
+import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
-interface DownstreamProjectAccordianProps {
+interface DownstreamProjectAccordionProps {
   projectName: string;
   status: string;
   taskCount: number;
   childPatchId: string;
 }
-export const DownstreamProjectAccordian: React.FC<DownstreamProjectAccordianProps> = ({
+export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
   projectName,
   childPatchId,
   status,
@@ -51,8 +51,8 @@ export const DownstreamProjectAccordian: React.FC<DownstreamProjectAccordianProp
     </>
   );
   return (
-    <AccordianWrapper data-cy="variant-accordian">
-      <Accordian
+    <AccordionWrapper data-cy="variant-Accordion">
+      <Accordion
         title={variantTitle}
         contents={
           <TableWrapper>
@@ -65,21 +65,21 @@ export const DownstreamProjectAccordian: React.FC<DownstreamProjectAccordianProp
           </TableWrapper>
         }
       />
-    </AccordianWrapper>
+    </AccordionWrapper>
   );
 };
 
-const AccordianWrapper = styled("div")`
+const AccordionWrapper = styled.div`
   padding-bottom: 12px;
   padding-top: 12px;
 `;
 
-const ProjectTitleWrapper = styled("div")`
+const ProjectTitleWrapper = styled.div`
   margin-right: 10px;
   font-weight: bold;
 `;
 
-const TableWrapper = styled("div")`
+const TableWrapper = styled.div`
   padding-bottom: 15px;
   padding-top: 15px;
 `;

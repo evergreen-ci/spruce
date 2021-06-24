@@ -38,7 +38,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  const queryVariables = GetQueryVariables(search, resourceId);
+  const queryVariables = getQueryVariables(search, resourceId);
 
   const { sorts, limit, page } = queryVariables;
 
@@ -156,7 +156,7 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
   return statuses;
 };
 
-export const GetQueryVariables = (
+const getQueryVariables = (
   search: string,
   resourceId: string
 ): PatchTasksQueryVariables => {

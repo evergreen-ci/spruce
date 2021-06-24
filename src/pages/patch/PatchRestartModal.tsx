@@ -20,7 +20,7 @@ import { RESTART_PATCH } from "gql/mutations";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { PatchBuildVariantAccordian } from "pages/patch/patchRestartModal/index";
+import { PatchBuildVariantAccordion } from "pages/patch/patchRestartModal/index";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
 
@@ -149,7 +149,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
             />
           </Row>
           {patchBuildVariants.map((patchBuildVariant) => (
-            <PatchBuildVariantAccordian
+            <PatchBuildVariantAccordion
               key={`accoridan_${patchBuildVariant.variant}`}
               tasks={patchBuildVariant.tasks}
               displayName={patchBuildVariant.displayName}
