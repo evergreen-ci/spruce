@@ -35,10 +35,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
     },
   });
-  let showSkeleton = true;
-  if (data) {
-    showSkeleton = false;
-  }
+  const showSkeleton = !data;
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
 
