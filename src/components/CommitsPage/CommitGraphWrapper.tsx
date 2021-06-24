@@ -11,30 +11,29 @@ export const CommitGraphWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
   graphType: "percentage" | "absolute";
-  isLoading: boolean;
-}> = ({ versions, isLoading, error, graphType }) => {
+}> = ({ versions, error, graphType }) => {
+  let max = -1;
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
-  if (isLoading) {
-    return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
+  if (!versions) {
+    return <StyledSkeleton active title={false} paragraph={{ rows: 4 }} />;
   }
-  if (versions?.length !== 0 && !isLoading) {
+  if (graphType === "absolute") {
+    max = findMax(data);
+  }
+  if (versions?.length !== 0) {
     return (
       <>
         <FlexRowContainer>
           {data.map((value) => (
-            <CommitGraph
-              taskCounts={value}
-              max={graphType === "absolute" ? findMax(data) : -1}
-              graphType={graphType}
-            />
+            <CommitGraph taskCounts={value} max={max} graphType={graphType} />
           ))}
         </FlexRowContainer>
       </>
     );
   }
-  return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
+  return <NoResults data-cy="no-patches-found">No commits found</NoResults>;
 };
 
 const StyledSkeleton = styled(Skeleton)`
@@ -61,7 +60,7 @@ function findMax(data: Array<Object>) {
       max,
       Math.max.apply(
         null,
-        Object.values(item).map((x) => x)
+        Object.keys(item).map((x) => item[x])
       )
     );
   });

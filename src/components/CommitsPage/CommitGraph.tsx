@@ -1,7 +1,5 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-const { green, gray, yellow, red } = uiColors;
 
 type TaskCounts = {
   success?: number;
@@ -24,7 +22,7 @@ function calculateHeight(
   value: number,
   max: number,
   total: number,
-  graphType: "percentage" | "absolute"
+  graphType: string
 ) {
   if (graphType === "percentage") {
     return `${(value / total) * 100}%`;
@@ -45,20 +43,20 @@ export const CommitGraph: React.FC<Props> = ({
     systemFailure,
     setupFailure,
     total,
-  } = taskCounts || {};
+  } = taskCounts;
   return (
     <>
       <GraphContainer>
         {success && (
           <Bar
             height={calculateHeight(success, max, total, graphType)}
-            color={green.base}
+            color={barColors.success}
           />
         )}
         {failure && (
           <Bar
             height={calculateHeight(failure, max, total, graphType)}
-            color={red.base}
+            color={barColors.failure}
           />
         )}
         {setupFailure && (
@@ -70,19 +68,19 @@ export const CommitGraph: React.FC<Props> = ({
         {dispatched && (
           <Bar
             height={calculateHeight(dispatched, max, total, graphType)}
-            color={yellow.base}
+            color={barColors.dispatched}
           />
         )}
         {scheduled && (
           <Bar
             height={calculateHeight(scheduled, max, total, graphType)}
-            color={gray.dark1}
+            color={barColors.scheduled}
           />
         )}
         {unscheduled && (
           <Bar
             height={calculateHeight(unscheduled, max, total, graphType)}
-            color={gray.light1}
+            color={barColors.unscheduled}
           />
         )}
         {systemFailure && (
@@ -97,6 +95,11 @@ export const CommitGraph: React.FC<Props> = ({
 };
 
 const barColors = {
+  success: "#13AA52",
+  failure: "#CF4A22",
+  dispatched: "#FFDD49",
+  scheduled: "#5D6C74",
+  unscheduled: "#B8C4C2",
   systemFailure: "#633F70",
   setupFailure: "#A075AF",
 };
