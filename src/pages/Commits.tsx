@@ -5,7 +5,7 @@ import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
 import { usePageTitle } from "hooks";
 import { ProjectFilterOptions } from "types/commits";
-import { ProjectSelect } from "./commits/ProjectSelect";
+import { ProjectSelect } from "./commits/projectSelect";
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
