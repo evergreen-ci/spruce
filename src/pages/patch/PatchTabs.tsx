@@ -65,7 +65,11 @@ export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {
         <CodeChanges />
       </Tab>
       {childPatches && (
-        <Tab data-cy="downstream-tasks-tab" name="Downstream Tasks">
+        <Tab
+          name="Downstream Tasks"
+          id="downstream-tab"
+          data-cy="downstream-tasks-tab"
+        >
           <DownstreamTasks childPatches={childPatches} />
         </Tab>
       )}

@@ -45,13 +45,13 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   const variantTitle = (
     <>
       <ProjectTitleWrapper>
-        <span data-cy="page-title">{projectName}</span>
+        <span data-cy="project-title">{projectName}</span>
       </ProjectTitleWrapper>
       <PatchStatusBadge status={status} />
     </>
   );
   return (
-    <AccordionWrapper data-cy="variant-Accordion">
+    <AccordionWrapper data-cy="project-accordion">
       <Accordion
         title={variantTitle}
         contents={

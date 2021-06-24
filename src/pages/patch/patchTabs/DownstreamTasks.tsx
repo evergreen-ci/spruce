@@ -15,7 +15,7 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
 }) => {
   const columns = [
     {
-      title: "childPatch",
+      title: <span data-cy="child-patch">Child Patch</span>,
       render: (
         text: string,
         { project, patchID, status, taskCount }: childPatch
