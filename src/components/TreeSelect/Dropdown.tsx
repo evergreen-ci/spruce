@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -20,18 +20,10 @@ interface Props {
     getDropdownProps: () => RenderProps;
   }) => JSX.Element;
 }
-export interface TreeDataChildEntry {
-  title: string;
-  value: string;
-  key: string;
-}
-export interface TreeDataEntry extends TreeDataChildEntry {
-  children?: TreeDataChildEntry[];
-}
 
 // including a TreeDataEntry with value = "all"
 // will serve as the 'All' button
-export const TreeSelectDropdown: React.FC<Props> = ({
+export const Dropdown: React.FC<Props> = ({
   inputLabel, // label for the select
   "data-cy": dataCy, // for testing only
   width,
@@ -39,11 +31,12 @@ export const TreeSelectDropdown: React.FC<Props> = ({
 }) => {
   const [isVisible, setisVisible] = useState(false);
   const toggleOptions: () => void = () => setisVisible(!isVisible);
-  const [optionsLabel, setOptionsLabel] = useState("No filters selected");
+  const [optionsLabel, setOptionsLabel] = useState(null);
 
   const getDropdownProps = () => ({
     isVisible,
     setOptionsLabel,
+    isDropdown: true,
   });
 
   return (
@@ -51,7 +44,7 @@ export const TreeSelectDropdown: React.FC<Props> = ({
       <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
         <LabelWrapper>
           {inputLabel}
-          {optionsLabel}
+          {optionsLabel || "No filters selected"}
         </LabelWrapper>
         <ArrowWrapper>
           <div>
@@ -59,7 +52,7 @@ export const TreeSelectDropdown: React.FC<Props> = ({
           </div>
         </ArrowWrapper>
       </BarWrapper>
-      <RelativeWrapper>{render({ getDropdownProps })}</RelativeWrapper>
+      {render({ getDropdownProps })}
     </Wrapper>
   );
 };
@@ -80,11 +73,6 @@ const BarWrapper = styled.div`
   text-overflow: ellipsis;
   display: flex;
   justify-content: space-between;
-`;
-
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
 `;
 
 const ArrowWrapper = styled.span`

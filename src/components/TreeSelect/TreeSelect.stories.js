@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TreeSelect } from "components/TreeSelect";
+import { Dropdown, TreeSelect } from "components/TreeSelect";
 
 const treeData = [
   {
@@ -60,11 +60,16 @@ export default {
 export const NoInitialValues = () => {
   const [value, setValue] = useState([]);
   return (
-    <TreeSelect
-      tData={treeData}
+    <Dropdown
       inputLabel="Items: "
-      state={value}
-      onChange={(v) => setValue(v)}
+      render={({ getDropdownProps }) => (
+        <TreeSelect
+          {...getDropdownProps()}
+          tData={treeData}
+          state={value}
+          onChange={(v) => setValue(v)}
+        />
+      )}
     />
   );
 };
@@ -78,11 +83,16 @@ export const Ellipsis = () => {
     "pass",
   ]);
   return (
-    <TreeSelect
-      tData={treeData}
+    <Dropdown
       inputLabel="Items: "
-      state={value}
-      onChange={(v) => setValue(v)}
+      render={({ getDropdownProps }) => (
+        <TreeSelect
+          {...getDropdownProps()}
+          tData={treeData}
+          state={value}
+          onChange={(v) => setValue(v)}
+        />
+      )}
     />
   );
 };
@@ -143,9 +153,33 @@ export const NoAllButton = () => {
     "pass",
   ]);
   return (
+    <Dropdown
+      inputLabel="Items: "
+      render={({ getDropdownProps }) => (
+        <TreeSelect
+          {...getDropdownProps()}
+          tData={noAllTreeData}
+          state={value}
+          onChange={(v) => setValue(v)}
+        />
+      )}
+    />
+  );
+};
+
+export const NoDropdown = () => {
+  const [value, setValue] = useState([
+    "kite",
+    "skip",
+    "trapezoid",
+    "failed",
+    "skip",
+    "silentfail",
+    "pass",
+  ]);
+  return (
     <TreeSelect
       tData={noAllTreeData}
-      inputLabel="Items: "
       state={value}
       onChange={(v) => setValue(v)}
     />

@@ -2,12 +2,14 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 
 const { gray, white } = uiColors;
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
+  isDropdown?: boolean;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
   setOptionsLabel?: (v: string) => void;
@@ -24,6 +26,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
 }
 
 export const TreeSelect: React.FC<Props> = ({
+  isDropdown = false,
   isVisible = true,
   onChange,
   setOptionsLabel = () => undefined,
@@ -61,13 +64,24 @@ export const TreeSelect: React.FC<Props> = ({
   }
 
   return (
-    <OptionsWrapper data-cy="tree-select-options">
-      {renderCheckboxes({
-        state: filteredState,
-        tData,
-        onChange,
-      })}
-    </OptionsWrapper>
+    <ConditionalWrapper
+      condition={isDropdown}
+      wrapper={(children) => (
+        <RelativeWrapper>
+          <OptionsWrapper data-cy="tree-select-options">
+            {children}
+          </OptionsWrapper>
+        </RelativeWrapper>
+      )}
+    >
+      <>
+        {renderCheckboxes({
+          state: filteredState,
+          tData,
+          onChange,
+        })}
+      </>
+    </ConditionalWrapper>
   );
 };
 
@@ -304,4 +318,9 @@ const OptionsWrapper = styled.div`
   margin-top: 5px;
   width: 100%;
   overflow: hidden;
+`;
+
+// Used to provide a basis for the absolutely positions OptionsWrapper
+const RelativeWrapper = styled.div`
+  position: relative;
 `;
