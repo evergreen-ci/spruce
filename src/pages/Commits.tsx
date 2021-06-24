@@ -36,7 +36,7 @@ export const Commits = () => {
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions, nextPageOrderNumber } = mainlineCommits || {};
-  console.log(nextPageOrderNumber);
+  console.log(versions, nextPageOrderNumber, loading);
 
   if (error) {
     return <PageDoesNotExist />;
@@ -59,7 +59,6 @@ export const Commits = () => {
         versions={versions}
         error={error}
         graphType="percentage"
-        isLoading={loading}
       />
     </PageWrapper>
   );
