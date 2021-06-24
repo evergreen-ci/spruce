@@ -37,67 +37,27 @@ export const CommitGraph: React.FC<Props> = ({
   max,
   graphType,
 }) => {
-  const {
-    success,
-    failure,
-    dispatched,
-    scheduled,
-    unscheduled,
-    systemFailure,
-    setupFailure,
-    total,
-  } = taskCounts || {};
+  const { total } = taskCounts || {};
   return (
     <>
       <GraphContainer>
-        {success && (
+        {Object.keys(taskCounts).map((status) => (
           <Bar
-            height={calculateHeight(success, max, total, graphType)}
-            color={green.base}
+            height={calculateHeight(taskCounts[status], max, total, graphType)}
+            color={barColors[status]}
           />
-        )}
-        {failure && (
-          <Bar
-            height={calculateHeight(failure, max, total, graphType)}
-            color={red.base}
-          />
-        )}
-        {setupFailure && (
-          <Bar
-            height={calculateHeight(setupFailure, max, total, graphType)}
-            color={barColors.setupFailure}
-          />
-        )}
-        {dispatched && (
-          <Bar
-            height={calculateHeight(dispatched, max, total, graphType)}
-            color={yellow.base}
-          />
-        )}
-        {scheduled && (
-          <Bar
-            height={calculateHeight(scheduled, max, total, graphType)}
-            color={gray.dark1}
-          />
-        )}
-        {unscheduled && (
-          <Bar
-            height={calculateHeight(unscheduled, max, total, graphType)}
-            color={gray.light1}
-          />
-        )}
-        {systemFailure && (
-          <Bar
-            height={calculateHeight(systemFailure, max, total, graphType)}
-            color={barColors.systemFailure}
-          />
-        )}
+        ))}
       </GraphContainer>
     </>
   );
 };
 
 const barColors = {
+  success: green.base,
+  failure: red.base,
+  dispatched: yellow.base,
+  scheduled: gray.dark1,
+  unscheduled: gray.light1,
   systemFailure: "#633F70",
   setupFailure: "#A075AF",
 };
