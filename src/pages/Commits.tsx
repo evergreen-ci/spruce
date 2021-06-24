@@ -59,6 +59,7 @@ export const Commits = () => {
         versions={versions}
         error={error}
         graphType="percentage"
+        isLoading={loading}
       />
     </PageWrapper>
   );
