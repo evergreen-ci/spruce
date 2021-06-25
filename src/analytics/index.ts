@@ -9,3 +9,4 @@ export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
 export { useSpawnAnalytics } from "./spawn/useSpawnAnalytics";
 export { usePreferencesAnalytics } from "./preferences/usePreferencesAnalytics";
+export { useProjectAnalytics } from "./commits/useProjectAnalytics";
