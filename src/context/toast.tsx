@@ -3,7 +3,13 @@ import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 
-type ToastType = { variant: Variant; message: string; closable: boolean };
+export type ToastType = {
+  variant: Variant;
+  message: string;
+  closable: boolean;
+  onClose: () => void;
+  title?: string;
+};
 
 type AddToast = (message: string, closable?: boolean) => void;
 
@@ -11,7 +17,7 @@ interface DispatchToast {
   success: AddToast;
   warning: AddToast;
   error: AddToast;
-  info: AddToast;
+  note: AddToast;
   hide: () => void;
 }
 
@@ -29,6 +35,8 @@ const ToastProvider: React.FC = ({ children }) => {
     variant: Variant.Note,
     message: "",
     closable: true,
+    onClose: () => {},
+    title: null,
   });
   const [toastOpen, setToastOpen] = useState(false);
 
@@ -45,14 +53,39 @@ const ToastProvider: React.FC = ({ children }) => {
   }, [setToastOpen]);
 
   const toastContext = {
-    success: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Success, message, closable }),
-    warning: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Important, message, closable }),
-    error: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Warning, message, closable }),
-    info: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Note, message, closable }),
+    success: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      title?: string
+    ) =>
+      addToast({ variant: Variant.Success, message, closable, onClose, title }),
+    warning: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      title?: string
+    ) =>
+      addToast({
+        variant: Variant.Important,
+        message,
+        closable,
+        onClose,
+        title,
+      }),
+    error: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      title?: string
+    ) =>
+      addToast({ variant: Variant.Warning, message, closable, onClose, title }),
+    note: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      title?: string
+    ) => addToast({ variant: Variant.Note, message, closable, onClose, title }),
     hide: hideToast,
   };
 
@@ -68,10 +101,16 @@ const ToastProvider: React.FC = ({ children }) => {
       {children}
       <Toast
         variant={visibleToast.variant}
-        title={variantToTitleMap[visibleToast?.variant]}
+        title={visibleToast?.title || variantToTitleMap[visibleToast?.variant]}
         body={<WordBreak>{visibleToast.message}</WordBreak>}
         open={toastOpen}
-        close={visibleToast.closable && (() => setToastOpen(false))}
+        close={
+          visibleToast.closable &&
+          (() => {
+            visibleToast.onClose();
+            setToastOpen(false);
+          })
+        }
         data-cy="toast"
       />
     </ToastDispatchContext.Provider>
