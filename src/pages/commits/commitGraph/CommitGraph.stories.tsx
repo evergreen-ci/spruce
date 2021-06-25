@@ -1,5 +1,5 @@
 import { CommitGraph } from "pages/commits/commitGraph/CommitGraph";
-import { FlexRowContainer } from "pages/commits/commitGraph/CommitsWrapper";
+import { FlexRowContainer } from "pages/commits/CommitsWrapper";
 
 export default {
   title: "Commit Graphs",
