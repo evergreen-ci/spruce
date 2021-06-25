@@ -4,7 +4,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 const { green, gray, yellow, red } = uiColors;
 
-export type TaskCounts = {
+export type TaskStats = {
   success?: number;
   failure?: number;
   dispatched?: number;
@@ -16,7 +16,7 @@ export type TaskCounts = {
 };
 
 interface Props {
-  taskCounts: TaskCounts;
+  taskStats: TaskStats;
   max: number;
   graphType: "percentage" | "absolute";
 }
@@ -32,18 +32,14 @@ function calculateHeight(
   }
   return `${(value / max) * 100}%`;
 }
-export const CommitGraph: React.FC<Props> = ({
-  taskCounts,
-  max,
-  graphType,
-}) => {
-  const { total } = taskCounts || {};
+export const CommitGraph: React.FC<Props> = ({ taskStats, max, graphType }) => {
+  const { total } = taskStats || {};
   return (
     <>
       <GraphContainer>
-        {Object.keys(taskCounts).map((status) => (
+        {Object.keys(taskStats).map((status) => (
           <Bar
-            height={calculateHeight(taskCounts[status], max, total, graphType)}
+            height={calculateHeight(taskStats[status], max, total, graphType)}
             color={barColors[status]}
           />
         ))}
