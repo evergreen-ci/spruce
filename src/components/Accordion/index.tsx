@@ -29,7 +29,7 @@ export const Accordion: React.FC<AccordionProps> = ({
         </AnimatedAccordion>
       )}
       <AccordionToggle
-        data-cy="Accordion-toggle"
+        data-cy="accordion-toggle"
         onClick={toggleAccordionHandler}
       >
         {showCaret && (

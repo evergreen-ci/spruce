@@ -43,7 +43,7 @@ export const PatchBuildVariantAccordion: React.FC<PatchBuildVariantAccordionProp
     </>
   );
   return (
-    <AccordionWrapper data-cy="variant-Accordion">
+    <AccordionWrapper data-cy="variant-accordion">
       <Accordion
         title={variantTitle}
         contents={
