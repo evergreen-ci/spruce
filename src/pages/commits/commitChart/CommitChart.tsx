@@ -64,6 +64,7 @@ const ChartContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-end;
 `;
+
 interface BarProps {
   height: string;
   color: string;
