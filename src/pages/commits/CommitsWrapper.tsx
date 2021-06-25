@@ -5,7 +5,7 @@ import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 
-export const CommitGraphWrapper: React.FC<{
+export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
   graphType: "percentage" | "absolute";
