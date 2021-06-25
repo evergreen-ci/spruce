@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useParams } from "react-router-dom";
-import { CommitGraphWrapper } from "components/CommitsPage/CommitGraphWrapper";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
@@ -14,6 +13,8 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { taskData } from "pages/commits/commitGraph/CommitGraph.stories";
+import { CommitGraphWrapper } from "pages/commits/commitGraph/CommitGraphWrapper";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/ProjectSelect";
 
@@ -56,7 +57,7 @@ export const Commits = () => {
         <FilterBadges />
       </BadgeWrapper>
       <CommitGraphWrapper
-        versions={versions}
+        taskCounts={taskData}
         error={error}
         graphType="percentage"
         isLoading={loading}

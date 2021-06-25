@@ -4,29 +4,28 @@ import styled from "@emotion/styled";
 import { Array } from "@ungap/global-this";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
-import { MainlineCommitsQuery } from "gql/generated/types";
-import { CommitGraph } from "./CommitGraph";
+import { CommitGraph, TaskCounts } from "pages/commits/commitGraph/CommitGraph";
 
 export const CommitGraphWrapper: React.FC<{
-  versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
+  taskCounts: TaskCounts[];
   error?: ApolloError;
   graphType: "percentage" | "absolute";
   isLoading: boolean;
-}> = ({ versions, isLoading, error, graphType }) => {
+}> = ({ taskCounts, isLoading, error, graphType }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
-  if (!isLoading && versions?.length !== 0) {
+  if (!isLoading && taskCounts?.length !== 0) {
     return (
       <>
         <FlexRowContainer>
-          {data.map((value) => (
+          {taskCounts.map((value) => (
             <CommitGraph
               taskCounts={value}
-              max={graphType === "absolute" ? findMax(data) : -1}
+              max={graphType === "absolute" ? findMax(taskCounts) : -1}
               graphType={graphType}
             />
           ))}
@@ -67,60 +66,3 @@ function findMax(data: Array<Object>) {
   });
   return max;
 }
-
-// Hard-coded data for now:
-const data = [
-  {
-    success: 6,
-    failure: 2,
-    dispatched: 4,
-    scheduled: 2,
-    unscheduled: 5,
-    total: 19,
-    max: 6,
-  },
-  {
-    success: 4,
-    failure: 3,
-    dispatched: 5,
-    setupFailure: 2,
-    total: 14,
-    max: 5,
-  },
-  {
-    success: 30,
-    total: 30,
-    max: 30,
-  },
-  {
-    success: 3,
-    failure: 4,
-    dispatched: 6,
-    scheduled: 5,
-    unscheduled: 1,
-    systemFailure: 4,
-    setupFailure: 2,
-    total: 25,
-    max: 6,
-  },
-  {
-    success: 6,
-    failure: 2,
-    unscheduled: 5,
-    total: 13,
-    max: 6,
-  },
-  {
-    success: 4,
-    failure: 3,
-    dispatched: 5,
-    total: 12,
-    max: 5,
-  },
-  {
-    success: 10,
-    failure: 20,
-    total: 30,
-    max: 20,
-  },
-];
