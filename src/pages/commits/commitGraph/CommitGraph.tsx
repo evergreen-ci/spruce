@@ -4,7 +4,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 const { green, gray, yellow, red } = uiColors;
 
-type TaskCounts = {
+export type TaskCounts = {
   success?: number;
   failure?: number;
   dispatched?: number;
