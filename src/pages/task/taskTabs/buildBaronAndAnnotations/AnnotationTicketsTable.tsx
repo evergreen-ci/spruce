@@ -133,7 +133,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         `There was an error removing the ${issueString}: ${error.message}`
       );
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
   const [moveAnnotation] = useMutation<
@@ -152,7 +152,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
         `There was an error moving the ${issueString}: ${error.message}`
       );
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
   const onClickRemove = (url, issueKey) => {

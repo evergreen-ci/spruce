@@ -183,6 +183,7 @@ functions:
     params:
       files:
         - "./spruce/bin/cypress/*.xml"
+        - "./spruce/bin/jest/*.xml"
 
   attach-cypress-screenshots:
     command: s3.put
