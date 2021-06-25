@@ -1,7 +1,6 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { Array } from "@ungap/global-this";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { CommitGraph, TaskCounts } from "pages/commits/commitGraph/CommitGraph";
@@ -15,6 +14,7 @@ export const CommitGraphWrapper: React.FC<{
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
+
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
@@ -42,7 +42,7 @@ const StyledSkeleton = styled(Skeleton)`
 
 const FlexRowContainer = styled.div`
   display: flex;
-  contents-direction: row;
+  flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
   height: 222px;
@@ -53,16 +53,10 @@ const NoResults = styled.div`
   margin-top: 12px;
 `;
 
-function findMax(data: Array<Object>) {
-  let max = -1;
-  data.forEach((item) => {
-    max = Math.max(
-      max,
-      Math.max.apply(
-        null,
-        Object.values(item).map((x) => x)
-      )
-    );
-  });
-  return max;
+function findMax(data: TaskCounts[]) {
+  const allCounts = data.reduce(
+    (accumulator, curr) => [...accumulator, ...Object.values(curr)],
+    []
+  );
+  return Math.max(...allCounts);
 }

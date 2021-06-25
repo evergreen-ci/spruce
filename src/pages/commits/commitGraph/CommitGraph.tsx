@@ -17,7 +17,7 @@ export type TaskCounts = {
 
 interface Props {
   taskCounts: TaskCounts;
-  max?: number;
+  max: number;
   graphType: "percentage" | "absolute";
 }
 

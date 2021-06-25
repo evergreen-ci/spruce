@@ -33,7 +33,6 @@ export const taskData = [
     scheduled: 2,
     unscheduled: 5,
     total: 19,
-    max: 6,
   },
   {
     success: 4,
@@ -41,12 +40,10 @@ export const taskData = [
     dispatched: 5,
     setupFailure: 2,
     total: 14,
-    max: 5,
   },
   {
     success: 30,
     total: 30,
-    max: 30,
   },
   {
     success: 3,
@@ -57,26 +54,22 @@ export const taskData = [
     systemFailure: 4,
     setupFailure: 2,
     total: 25,
-    max: 6,
   },
   {
     success: 6,
     failure: 2,
     unscheduled: 5,
     total: 13,
-    max: 6,
   },
   {
     success: 4,
     failure: 3,
     dispatched: 5,
     total: 12,
-    max: 5,
   },
   {
     success: 10,
     failure: 20,
     total: 30,
-    max: 20,
   },
 ];
