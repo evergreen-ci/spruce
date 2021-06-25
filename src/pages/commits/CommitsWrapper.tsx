@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
 
 const { gray } = uiColors;
 
@@ -32,6 +33,7 @@ export const CommitsWrapper: React.FC<{
           <DashedLine />
           <SolidLine />
         </ColumnContainer>
+        <ChartToggle />
       </Container>
     );
   }
@@ -47,8 +49,10 @@ export const FlexRowContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 222px;
+  height: 224px;
   width: 100%;
+  z-index: 1;
+  position: absolute;
 `;
 
 const Container = styled.div`
@@ -56,7 +60,7 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 222px;
+  height: 285px;
   width: 100%;
   position: relative;
 `;
@@ -64,12 +68,13 @@ const Container = styled.div`
 const ColumnContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 224px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
 `;
+
 const DashedLine = styled.div`
   width: 100%;
   border: 1px dashed ${gray.light2};
