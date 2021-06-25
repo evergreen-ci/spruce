@@ -748,6 +748,8 @@ export type Patch = {
 export type ChildPatch = {
   project: Scalars["String"];
   patchID: Scalars["String"];
+  status: Scalars["String"];
+  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
