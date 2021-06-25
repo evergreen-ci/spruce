@@ -8,22 +8,17 @@ import { MainlineCommitsQuery } from "gql/generated/types";
 export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
-  graphType: "percentage" | "absolute";
+  chartType: "percentage" | "absolute";
   isLoading: boolean;
 }> = ({ versions, isLoading, error }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
-
   if (isLoading) {
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
-    return (
-      <>
-        <FlexRowContainer />
-      </>
-    );
+    return <FlexRowContainer />;
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
 };
