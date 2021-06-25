@@ -86,7 +86,7 @@ export const AddIssueModal: React.FC<Props> = ({
         `There was an error adding the issue: ${error.message}`
       );
     },
-    refetchQueries: ["GetTask"],
+    refetchQueries: ["GetSuspectedIssues", "GetIssues"],
   });
 
   const onClickAdd = () => {
