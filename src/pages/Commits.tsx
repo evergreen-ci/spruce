@@ -13,7 +13,7 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { CommitGraphWrapper } from "pages/commits/CommitsWrapper";
+import { CommitsWrapper } from "pages/commits/CommitsWrapper";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/ProjectSelect";
 
@@ -55,7 +55,7 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
-      <CommitGraphWrapper
+      <CommitsWrapper
         versions={versions}
         error={error}
         graphType="absolute"

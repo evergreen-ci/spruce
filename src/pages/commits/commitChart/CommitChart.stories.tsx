@@ -1,15 +1,15 @@
-import { CommitGraph } from "pages/commits/commitGraph/CommitGraph";
+import { CommitChart } from "pages/commits/commitChart/CommitChart";
 import { FlexRowContainer } from "pages/commits/CommitsWrapper";
 
 export default {
-  title: "Commit Graphs",
-  component: CommitGraph,
+  title: "Commit Charts",
+  component: CommitChart,
 };
 
 export const AbsoluteChart = () => (
   <FlexRowContainer>
     {taskData.map((value) => (
-      <CommitGraph taskStats={value} max={30} graphType="absolute" />
+      <CommitChart taskStats={value} max={30} graphType="absolute" />
     ))}
   </FlexRowContainer>
 );
@@ -17,7 +17,7 @@ export const AbsoluteChart = () => (
 export const PercentChart = () => (
   <FlexRowContainer>
     {taskData.map((value) => (
-      <CommitGraph taskStats={value} max={30} graphType="percentage" />
+      <CommitChart taskStats={value} max={30} graphType="percentage" />
     ))}
   </FlexRowContainer>
 );

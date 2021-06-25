@@ -32,7 +32,7 @@ function calculateHeight(
   }
   return `${(value / max) * 100}%`;
 }
-export const CommitGraph: React.FC<Props> = ({ taskStats, max, graphType }) => {
+export const CommitChart: React.FC<Props> = ({ taskStats, max, graphType }) => {
   const { total } = taskStats || {};
   return (
     <>
