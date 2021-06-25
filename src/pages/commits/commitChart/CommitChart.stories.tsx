@@ -9,7 +9,7 @@ export default {
 export const AbsoluteChart = () => (
   <FlexRowContainer>
     {taskData.map((value) => (
-      <CommitChart taskStats={value} max={30} graphType="absolute" />
+      <CommitChart taskStats={value} max={30} chartType="absolute" />
     ))}
   </FlexRowContainer>
 );
@@ -17,7 +17,7 @@ export const AbsoluteChart = () => (
 export const PercentChart = () => (
   <FlexRowContainer>
     {taskData.map((value) => (
-      <CommitChart taskStats={value} max={30} graphType="percentage" />
+      <CommitChart taskStats={value} max={30} chartType="percentage" />
     ))}
   </FlexRowContainer>
 );

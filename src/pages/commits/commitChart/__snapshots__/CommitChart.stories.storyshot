@@ -5,7 +5,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
   className="css-fo2guw-FlexRowContainer ech0nhv1"
 >
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1nltr91-Bar e7hg92c0"
@@ -38,7 +38,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-lhwak2-Bar e7hg92c0"
@@ -66,7 +66,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-14ihtx5-Bar e7hg92c0"
@@ -79,7 +79,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1sabezq-Bar e7hg92c0"
@@ -122,7 +122,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1nltr91-Bar e7hg92c0"
@@ -145,7 +145,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-lhwak2-Bar e7hg92c0"
@@ -168,7 +168,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1j5oinm-Bar e7hg92c0"
@@ -193,7 +193,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
   className="css-fo2guw-FlexRowContainer ech0nhv1"
 >
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-sa8qko-Bar e7hg92c0"
@@ -226,7 +226,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1ptd2px-Bar e7hg92c0"
@@ -254,7 +254,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-14ihtx5-Bar e7hg92c0"
@@ -267,7 +267,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1yvfabt-Bar e7hg92c0"
@@ -310,7 +310,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-11rjzwc-Bar e7hg92c0"
@@ -333,7 +333,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1j5oinm-Bar e7hg92c0"
@@ -356,7 +356,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-1u0pht3-GraphContainer e7hg92c1"
+    className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
       className="css-1j5oinm-Bar e7hg92c0"

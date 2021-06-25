@@ -58,7 +58,7 @@ export const Commits = () => {
       <CommitsWrapper
         versions={versions}
         error={error}
-        graphType="absolute"
+        chartType="absolute"
         isLoading={loading}
       />
     </PageWrapper>
