@@ -32,16 +32,14 @@ export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
   ];
 
   return (
-    <div>
-      <Table
-        tableLayout="fixed"
-        data-test-id="downstream-tasks-table"
-        dataSource={childPatches}
-        rowKey={({ patchID }) => patchID}
-        columns={columns}
-        pagination={false}
-        showHeader={false}
-      />
-    </div>
+    <Table
+      tableLayout="fixed"
+      data-cy="downstream-tasks-table"
+      dataSource={childPatches}
+      rowKey={({ patchID }) => patchID}
+      columns={columns}
+      pagination={false}
+      showHeader={false}
+    />
   );
 };

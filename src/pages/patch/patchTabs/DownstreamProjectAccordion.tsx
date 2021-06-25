@@ -4,11 +4,11 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { TasksTable } from "components/Table/TasksTable";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { PatchTasksTable } from "./tasks/PatchTasksTable";
 
 interface DownstreamProjectAccordionProps {
   projectName: string;
@@ -57,7 +57,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
             {showSkeleton ? (
               <Skeleton active title={false} paragraph={{ rows: 8 }} />
             ) : (
-              <PatchTasksTable sorts={[]} patchTasks={patchTasks} />
+              <TasksTable tasks={patchTasks?.tasks} />
             )}
           </TableWrapper>
         }
