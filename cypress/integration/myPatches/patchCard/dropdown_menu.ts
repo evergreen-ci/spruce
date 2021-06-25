@@ -64,7 +64,7 @@ describe("Dropdown Menu of Patch Actions", () => {
     );
     cy.dataCy("restart-patch").click({ force: true });
 
-    cy.dataCy("accordian-toggle").first().click();
+    cy.dataCy("accordion-toggle").first().click();
     cy.dataCy("patch-status-selector-container")
       .children()
       .first()
