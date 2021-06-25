@@ -13,7 +13,6 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { taskData } from "pages/commits/commitGraph/CommitGraph.stories";
 import { CommitGraphWrapper } from "pages/commits/commitGraph/CommitGraphWrapper";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/ProjectSelect";
@@ -57,7 +56,7 @@ export const Commits = () => {
         <FilterBadges />
       </BadgeWrapper>
       <CommitGraphWrapper
-        taskCounts={taskData}
+        taskCounts={[]}
         error={error}
         graphType="percentage"
         isLoading={loading}
