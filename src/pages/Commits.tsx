@@ -14,10 +14,14 @@ import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 import { taskData } from "pages/commits/commitGraph/CommitGraph.stories";
 import { CommitGraphWrapper } from "pages/commits/commitGraph/CommitGraphWrapper";
 >>>>>>> resolved comments
+=======
+import { CommitGraphWrapper } from "pages/commits/commitGraph/CommitsWrapper";
+>>>>>>> changed taskCounts to taskStats, changed wrapper file name
 import { ProjectFilterOptions } from "types/commits";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
 import { ProjectSelect } from "./commits/projectSelect";

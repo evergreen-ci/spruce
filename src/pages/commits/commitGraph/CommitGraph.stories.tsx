@@ -1,31 +1,28 @@
-import { CommitGraphWrapper } from "pages/commits/commitGraph/CommitGraphWrapper";
+import { CommitGraph } from "pages/commits/commitGraph/CommitGraph";
+import { FlexRowContainer } from "pages/commits/commitGraph/CommitsWrapper";
 
 export default {
-  title: "Project Health Charts",
-  component: CommitGraphWrapper,
+  title: "Commit Graphs",
+  component: CommitGraph,
 };
 
 export const AbsoluteChart = () => (
-  <CommitGraphWrapper
-    taskCounts={taskData}
-    graphType="absolute"
-    isLoading={false}
-  />
+  <FlexRowContainer>
+    {taskData.map((value) => (
+      <CommitGraph taskStats={value} max={30} graphType="absolute" />
+    ))}
+  </FlexRowContainer>
 );
 
 export const PercentChart = () => (
-  <CommitGraphWrapper
-    taskCounts={taskData}
-    graphType="percentage"
-    isLoading={false}
-  />
+  <FlexRowContainer>
+    {taskData.map((value) => (
+      <CommitGraph taskStats={value} max={30} graphType="percentage" />
+    ))}
+  </FlexRowContainer>
 );
 
-export const LoadingChart = () => (
-  <CommitGraphWrapper taskCounts={taskData} graphType="percentage" isLoading />
-);
-
-export const taskData = [
+const taskData = [
   {
     success: 6,
     failure: 2,
