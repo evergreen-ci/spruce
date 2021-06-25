@@ -6,6 +6,7 @@ import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
+import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -44,8 +45,10 @@ export const FlexRowContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 222px;
+  height: 224px;
   width: 100%;
+  z-index: 1;
+  position: absolute;
 `;
 
 export const ProjectHealthWrapper = styled.div`
@@ -53,7 +56,7 @@ export const ProjectHealthWrapper = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 222px;
+  height: 285px;
   width: 100%;
   position: relative;
 `;
