@@ -27,8 +27,7 @@ type AnalyticsObject =
   | "TaskQueue"
   | "SpawnPages"
   | "PreferencesPages"
-  | "ProjectPatches"
-  | "Project";
+  | "ProjectPatches";
 
 interface RequiredProperties {
   object: AnalyticsObject;

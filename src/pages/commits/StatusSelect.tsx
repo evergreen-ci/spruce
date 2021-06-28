@@ -1,19 +1,13 @@
 import { Label } from "@leafygreen-ui/typography";
-import { useProjectAnalytics } from "analytics";
 import { Dropdown, TreeSelect } from "components/TreeSelect";
 import { taskStatusesFilterTreeData } from "constants/task";
 import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 
 export const StatusSelect = () => {
-  const projectAnalytics = useProjectAnalytics();
-  const sendFilterTasksEvent = (filterBy: string) =>
-    projectAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
-
   const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
-    false,
-    sendFilterTasksEvent
+    false
   );
   return (
     <>
