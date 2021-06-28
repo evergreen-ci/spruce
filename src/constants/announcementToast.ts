@@ -8,9 +8,4 @@ interface AnnouncementToast {
   variant: Variant;
 }
 
-export const toastData: AnnouncementToast | null = {
-  closable: true,
-  message: "Placeholder navigation copy text.",
-  title: "Navigation Update",
-  variant: "note",
-};
+export const toastData: AnnouncementToast | null = null;
