@@ -4,51 +4,53 @@ const taskWithAnnotations =
   "evergreen_ubuntu1604_test_annotations_b_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48";
 const taskRoute = `/task/${taskWithAnnotations}/annotations`;
 
+const suspectedIssuesTable =
+  "[data-test-id=suspected-issues-table] tr td:first-child";
+const issuesTable = "[data-test-id=issues-table] tr td:first-child";
+
 describe("Task Annotation Tab", () => {
-  beforeEach(() => {
+  before(() => {
     cy.login();
+    cy.visit(taskRoute);
   });
 
-  it("annotations add and delete correctly", () => {
-    cy.visit(taskRoute);
-    const dataCyTableRows =
-      "[data-test-id=suspected-issues-table] tr td:first-child";
-
-    const dataCyTableRows2 = "[data-test-id=issues-table] tr td:first-child";
-    cy.get(dataCyTableRows2).should("have.length", 1);
-    cy.get(dataCyTableRows).should("have.length", 3);
-
-    cy.dataCy("A-Random-Ticket-delete-btn").first().click();
-    cy.get(popconfirmYesClassName).click();
-    cy.get(dataCyTableRows2).should("have.length", 1);
-    cy.get(dataCyTableRows).should("have.length", 2);
-
-    cy.dataCy("add-suspected-issue-button").first().click();
-    cy.dataCy("url-text-area").type("https://example.com/");
-    cy.dataCy("issue-key-text-area").type("A-Random-Ticket");
-    cy.dataCy("add-issue-save-button").click();
-
-    cy.get(dataCyTableRows2).should("have.length", 1);
-    cy.get(dataCyTableRows).should("have.length", 3);
+  beforeEach(() => {
+    cy.preserveCookies();
   });
 
   it("annotations can be moved between lists", () => {
-    cy.visit(taskRoute);
-    const dataCyTableRows =
-      "[data-test-id=suspected-issues-table] tr td:first-child";
+    cy.get(issuesTable).should("have.length", 1);
+    cy.get(suspectedIssuesTable).should("have.length", 3);
 
-    const dataCyTableRows2 = "[data-test-id=issues-table] tr td:first-child";
-    cy.get(dataCyTableRows2).should("have.length", 1);
-    cy.get(dataCyTableRows).should("have.length", 3);
-
-    cy.dataCy("move-btn-AnotherOne").first().click();
+    // move from suspectedIssues to Issues
+    cy.dataCy("move-btn-AnotherOne").click();
     cy.get(popconfirmYesClassName).click();
-    cy.get(dataCyTableRows2).should("have.length", 2);
-    cy.get(dataCyTableRows).should("have.length", 2);
+    cy.get(issuesTable).should("have.length", 2);
+    cy.get(suspectedIssuesTable).should("have.length", 2);
 
-    cy.dataCy("move-btn-AnotherOne").first().click();
+    // move from Issues to suspectedIssues
+    cy.dataCy("move-btn-AnotherOne").click();
     cy.get(popconfirmYesClassName).click();
-    cy.get(dataCyTableRows2).should("have.length", 1);
-    cy.get(dataCyTableRows).should("have.length", 3);
+    cy.get(issuesTable).should("have.length", 1);
+    cy.get(suspectedIssuesTable).should("have.length", 3);
+  });
+
+  it("annotations add and delete correctly", () => {
+    cy.get(issuesTable).should("have.length", 1);
+    cy.get(suspectedIssuesTable).should("have.length", 3);
+
+    // add a ticket
+    cy.dataCy("add-suspected-issue-button").click();
+    cy.dataCy("url-text-area").type("https://example.com/");
+    cy.dataCy("issue-key-text-area").type("A-New-Ticket");
+    cy.dataCy("add-issue-save-button").click();
+    cy.get(issuesTable).should("have.length", 1);
+    cy.get(suspectedIssuesTable).should("have.length", 4);
+
+    // delete the added ticket
+    cy.dataCy("A-New-Ticket-delete-btn").click();
+    cy.get(popconfirmYesClassName).click();
+    cy.get(issuesTable).should("have.length", 1);
+    cy.get(suspectedIssuesTable).should("have.length", 3);
   });
 });
