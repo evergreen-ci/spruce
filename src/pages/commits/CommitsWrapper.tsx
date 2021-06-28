@@ -12,7 +12,6 @@ const { gray } = uiColors;
 export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
-  chartType: "percentage" | "absolute";
   isLoading: boolean;
 }> = ({ versions, isLoading, error }) => {
   if (error) {
@@ -23,7 +22,7 @@ export const CommitsWrapper: React.FC<{
   }
   if (!isLoading && versions?.length !== 0) {
     return (
-      <Container>
+      <CommitsContainer>
         <FlexRowContainer />
         <ColumnContainer>
           <DashedLine />
@@ -34,7 +33,7 @@ export const CommitsWrapper: React.FC<{
           <SolidLine />
         </ColumnContainer>
         <ChartToggle />
-      </Container>
+      </CommitsContainer>
     );
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
@@ -55,7 +54,7 @@ export const FlexRowContainer = styled.div`
   position: absolute;
 `;
 
-const Container = styled.div`
+const CommitsContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;

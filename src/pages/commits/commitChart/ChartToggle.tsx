@@ -12,11 +12,11 @@ export enum ChartTypes {
 }
 
 export const ChartToggle: React.FC = () => (
-  <>
-    <Container>
-      <ToggleWrapper>
-        <Label htmlFor="chart-toggle">View Options</Label>
-        <ToggleBox>
+  <Container>
+    <ToggleWrapper>
+      <Label htmlFor="chart-toggle">View Options</Label>
+      <ToggleBox>
+        <RadioGroup onChange={(event) => console.log(event)}>
           <Radio
             data-cy="chart-radio"
             id="cy-chart-radio"
@@ -31,10 +31,10 @@ export const ChartToggle: React.FC = () => (
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>
           </Radio>
-        </ToggleBox>
-      </ToggleWrapper>
-    </Container>
-  </>
+        </RadioGroup>
+      </ToggleBox>
+    </ToggleWrapper>
+  </Container>
 );
 
 const Container = styled.div`
@@ -57,7 +57,6 @@ const ToggleBox = styled.div`
   background: #ffffff;
   margin-top: 4px;
   padding-bottom: 6px;
-  padding-right: 3px;
   box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
 `;
 const ToggleWrapper = styled.div`

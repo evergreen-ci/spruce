@@ -55,12 +55,7 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
-      <CommitsWrapper
-        versions={versions}
-        error={error}
-        chartType="absolute"
-        isLoading={loading}
-      />
+      <CommitsWrapper versions={versions} error={error} isLoading={loading} />
     </PageWrapper>
   );
 };
