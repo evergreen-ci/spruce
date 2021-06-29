@@ -174,7 +174,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
-  scheduleFailingBasePatchTasks?: Maybe<Array<Task>>;
+  scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
@@ -234,7 +234,7 @@ export type MutationRestartPatchArgs = {
   taskIds: Array<Scalars["String"]>;
 };
 
-export type MutationScheduleFailingBasePatchTasksArgs = {
+export type MutationScheduleUndispatchedBaseTasksArgs = {
   patchId: Scalars["String"];
 };
 
@@ -1604,16 +1604,6 @@ export type SaveSubscriptionMutationVariables = Exact<{
 
 export type SaveSubscriptionMutation = { saveSubscription: boolean };
 
-export type ScheduleFailingBasePatchTasksMutationVariables = Exact<{
-  patchId: Scalars["String"];
-}>;
-
-export type ScheduleFailingBasePatchTasksMutation = {
-  scheduleFailingBasePatchTasks?: Maybe<
-    Array<{ id: string; execution: number; status: string }>
-  >;
-};
-
 export type SchedulePatchTasksMutationVariables = Exact<{
   patchId: Scalars["String"];
 }>;
@@ -1638,6 +1628,16 @@ export type ScheduleTaskMutationVariables = Exact<{
 }>;
 
 export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
+
+export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
+  patchId: Scalars["String"];
+}>;
+
+export type ScheduleUndispatchedBaseTasksMutation = {
+  scheduleUndispatchedBaseTasks?: Maybe<
+    Array<{ id: string; execution: number; status: string }>
+  >;
+};
 
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];

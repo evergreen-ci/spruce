@@ -11,7 +11,7 @@ import {
   DisablePatch,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
-import { ScheduleFailingBaseTasks } from "./ScheduleFailingBaseTasks";
+import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -42,7 +42,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       patchId={patchId}
       refetchQueries={["Patch"]}
     />,
-    <ScheduleFailingBaseTasks
+    <ScheduleUndispatchedBaseTasks
       key="schedule-failing-base-tasks"
       patchId={patchId}
     />,

@@ -19,10 +19,10 @@ import RESTART_JASPER from "./restart-jasper.graphql";
 import RESTART_PATCH from "./restart-patch.graphql";
 import RESTART_TASK from "./restart-task.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
-import SCHEDULE_FAILING_BASE_PATCH_TASKS from "./schedule-failing-base-patch-tasks.graphql";
 import SCHEDULE_PATCH_TASKS from "./schedule-patch-tasks.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
 import SCHEDULE_TASK from "./schedule-task.graphql";
+import SCHEDULE_UNDISPATCHED_BASE_TASKS from "./schedule-undispatched-base-tasks.graphql";
 import SET_PATCH_PRIORITY from "./set-patch-priority.graphql";
 import SET_TASK_PRIORTY from "./set-task-priority.graphql";
 import SPAWN_HOST from "./spawn-host.graphql";
@@ -50,7 +50,7 @@ export {
   RESTART_JASPER,
   RESTART_PATCH,
   RESTART_TASK,
-  SCHEDULE_FAILING_BASE_PATCH_TASKS,
+  SCHEDULE_UNDISPATCHED_BASE_TASKS,
   SCHEDULE_PATCH_TASKS,
   SCHEDULE_PATCH,
   SCHEDULE_TASK,

@@ -4,22 +4,22 @@ import { Popconfirm } from "antd";
 import { DropdownItem } from "components/ButtonDropdown";
 import { useToastContext } from "context/toast";
 import {
-  ScheduleFailingBasePatchTasksMutation,
-  ScheduleFailingBasePatchTasksMutationVariables,
+  ScheduleUndispatchedBaseTasksMutation,
+  ScheduleUndispatchedBaseTasksMutationVariables,
 } from "gql/generated/types";
-import { SCHEDULE_FAILING_BASE_PATCH_TASKS } from "gql/mutations";
+import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
 
 interface Props {
   patchId: string;
 }
-export const ScheduleFailingBaseTasks: React.FC<Props> = ({ patchId }) => {
+export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({ patchId }) => {
   const dispatchToast = useToastContext();
   const [scheduleBasePatchTasks] = useMutation<
-    ScheduleFailingBasePatchTasksMutation,
-    ScheduleFailingBasePatchTasksMutationVariables
-  >(SCHEDULE_FAILING_BASE_PATCH_TASKS, {
-    onCompleted({ scheduleFailingBasePatchTasks }) {
-      const successMessage = `Successfully scheduled ${scheduleFailingBasePatchTasks.length} tasks`;
+    ScheduleUndispatchedBaseTasksMutation,
+    ScheduleUndispatchedBaseTasksMutationVariables
+  >(SCHEDULE_UNDISPATCHED_BASE_TASKS, {
+    onCompleted({ scheduleUndispatchedBaseTasks }) {
+      const successMessage = `Successfully scheduled ${scheduleUndispatchedBaseTasks.length} tasks`;
       dispatchToast.success(successMessage);
     },
     onError({ message }) {
