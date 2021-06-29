@@ -9,15 +9,15 @@ Array [
     Project
   </label>,
   <div
-    className="css-gte0m8-Wrapper e18tc4421"
+    className="css-gte0m8-Wrapper e1ueffas1"
   >
     <div
-      className="css-1ldngto-BarWrapper e18tc4425"
+      className="css-1ldngto-BarWrapper e1ueffas5"
       data-cy="project-select"
       onClick={[Function]}
     >
       <div
-        className="css-soeq2u-LabelWrapper e18tc4426"
+        className="css-soeq2u-LabelWrapper e1ueffas6"
       >
         <div
           className="leafygreen-ui-xsga32"
@@ -28,7 +28,7 @@ Array [
         </div>
       </div>
       <div
-        className="css-uszjhy-FlexWrapper e18tc4420"
+        className="css-uszjhy-FlexWrapper e1ueffas0"
       >
         <button
           aria-disabled={false}
@@ -59,7 +59,7 @@ Array [
           </div>
         </button>
         <span
-          className="css-56nrj0-ArrowWrapper e18tc4422"
+          className="css-56nrj0-ArrowWrapper e1ueffas2"
         >
           <button
             aria-disabled={false}
