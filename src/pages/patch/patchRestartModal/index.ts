@@ -1,4 +1,4 @@
-import { PatchBuildVariantAccordian } from "./PatchBuildVariantAccordian";
+import { PatchBuildVariantAccordion } from "./PatchBuildVariantAccordion";
 import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
 
-export { PatchBuildVariantAccordian, PatchStatusCheckboxContainer };
+export { PatchBuildVariantAccordion, PatchStatusCheckboxContainer };

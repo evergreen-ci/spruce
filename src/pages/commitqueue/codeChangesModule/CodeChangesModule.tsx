@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { Body } from "@leafygreen-ui/typography";
-import { Accordian } from "components/Accordian";
+import { Accordion } from "components/Accordion";
 import { CodeChangesBadge } from "components/CodeChangesBadge";
 import { CodeChangesTable } from "components/CodeChangesTable";
 import {
@@ -34,7 +34,7 @@ export const CodeChangeModule: React.FC<{
         {description && (
           <CommitName data-cy="commit-name">{description}</CommitName>
         )}
-        <Accordian
+        <Accordion
           title={
             <DropDownText>
               <DropDownTextStyle>Total Code changes</DropDownTextStyle>
