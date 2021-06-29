@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { GroupedResult } from "pages/commits/commitChart/utils";
 
 export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -38,3 +39,8 @@ export const FlexRowContainer = styled.div`
 const NoResults = styled.div`
   margin-top: 12px;
 `;
+
+export function findMaxGroupedTaskStats(groupedTaskData: GroupedResult[]) {
+  const maxes = groupedTaskData.map((data) => data.max);
+  return Math.max(...maxes);
+}

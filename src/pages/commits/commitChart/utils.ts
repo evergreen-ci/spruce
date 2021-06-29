@@ -38,6 +38,5 @@ export const groupTasksByColor = (
   });
 
   // make sure it is sorted
-  const result = { stats: counts, max, total };
-  return result;
+  return { stats: counts, max, total };
 };

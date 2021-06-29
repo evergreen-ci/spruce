@@ -1,9 +1,9 @@
 import { CommitChart } from "pages/commits/commitChart/CommitChart";
+import { groupTasksByColor } from "pages/commits/commitChart/utils";
 import {
-  groupTasksByColor,
-  GroupedResult,
-} from "pages/commits/commitChart/utils";
-import { FlexRowContainer } from "pages/commits/CommitsWrapper";
+  FlexRowContainer,
+  findMaxGroupedTaskStats,
+} from "pages/commits/CommitsWrapper";
 
 export default {
   title: "Commit Charts",
@@ -80,11 +80,6 @@ const taskData = [
     ],
   },
 ];
-
-function findMaxGroupedTaskStats(groupedTaskData: GroupedResult[]) {
-  const maxes = groupedTaskData.map((data) => data.max);
-  return Math.max(...maxes);
-}
 
 const groupedTaskData = taskData.map((item) =>
   groupTasksByColor(item.statusCounts)
