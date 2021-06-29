@@ -8,7 +8,6 @@ import { MainlineCommitsQuery } from "gql/generated/types";
 export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
-  chartType: "percentage" | "absolute";
   isLoading: boolean;
 }> = ({ versions, isLoading, error }) => {
   if (error) {

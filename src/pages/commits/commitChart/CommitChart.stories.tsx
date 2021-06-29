@@ -1,4 +1,8 @@
 import { CommitChart } from "pages/commits/commitChart/CommitChart";
+import {
+  groupTasksByColor,
+  GroupedResult,
+} from "pages/commits/commitChart/utils";
 import { FlexRowContainer } from "pages/commits/CommitsWrapper";
 
 export default {
@@ -8,65 +12,81 @@ export default {
 
 export const AbsoluteChart = () => (
   <FlexRowContainer>
-    {taskData.map((value) => (
-      <CommitChart taskStats={value} max={30} chartType="absolute" />
+    {groupedTaskData.map((item) => (
+      <CommitChart
+        groupedTaskStats={item.stats}
+        total={item.total}
+        max={max}
+        chartType="absolute"
+      />
     ))}
   </FlexRowContainer>
 );
 
 export const PercentChart = () => (
   <FlexRowContainer>
-    {taskData.map((value) => (
-      <CommitChart taskStats={value} max={30} chartType="percentage" />
+    {groupedTaskData.map((item) => (
+      <CommitChart
+        groupedTaskStats={item.stats}
+        total={item.total}
+        max={-1}
+        chartType="percentage"
+      />
     ))}
   </FlexRowContainer>
 );
 
 const taskData = [
   {
-    Succeeded: 6,
-    Failed: 2,
-    Dispatched: 4,
-    Unscheduled: 5,
-    WillRun: 2,
-    total: 19,
+    statusCounts: [
+      { status: "Succeeded", count: 6 },
+      { status: "Failed", count: 2 },
+      { status: "Dispatched", count: 4 },
+      { status: "Unscheduled", count: 5 },
+      { status: "WillRun", count: 2 },
+    ],
   },
   {
-    Succeeded: 4,
-    Failed: 3,
-    Dispatched: 5,
-    SetupFailed: 2,
-    total: 14,
+    statusCounts: [
+      { status: "Succeeded", count: 4 },
+      { status: "Failed", count: 3 },
+      { status: "Dispatched", count: 5 },
+      { status: "Unscheduled", count: 2 },
+    ],
   },
   {
-    Succeeded: 30,
-    total: 30,
+    statusCounts: [
+      { status: "Succeeded", count: 4 },
+      { status: "Failed", count: 3 },
+      { status: "Dispatched", count: 5 },
+      { status: "Unscheduled", count: 2 },
+    ],
   },
   {
-    Succeeded: 3,
-    Failed: 4,
-    Dispatched: 6,
-    WillRun: 5,
-    Unscheduled: 1,
-    SystemFailed: 4,
-    SetupFailed: 2,
-    total: 25,
+    statusCounts: [
+      { status: "Succeeded", count: 6 },
+      { status: "Pending", count: 2 },
+      { status: "KnownIssue", count: 4 },
+      { status: "Unscheduled", count: 12 },
+      { status: "TaskTimedOut", count: 2 },
+    ],
   },
   {
-    Succeeded: 6,
-    Failed: 20,
-    Unscheduled: 5,
-    total: 13,
-  },
-  {
-    Succeeded: 4,
-    Failed: 3,
-    Dispatched: 5,
-    total: 12,
-  },
-  {
-    Succeeded: 10,
-    Failed: 20,
-    total: 30,
+    statusCounts: [
+      { status: "Succeeded", count: 4 },
+      { status: "Failed", count: 3 },
+      { status: "Dispatched", count: 5 },
+      { status: "Unscheduled", count: 2 },
+    ],
   },
 ];
+
+function findMaxGroupedTaskStats(groupedTaskData: GroupedResult[]) {
+  const maxes = groupedTaskData.map((data) => data.max);
+  return Math.max(...maxes);
+}
+
+const groupedTaskData = taskData.map((item) =>
+  groupTasksByColor(item.statusCounts)
+);
+const max = findMaxGroupedTaskStats(groupedTaskData);

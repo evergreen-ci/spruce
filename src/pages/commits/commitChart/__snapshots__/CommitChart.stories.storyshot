@@ -8,163 +8,24 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
-      className="css-1nltr91-Bar e7hg92c0"
+      className="css-j8vdl2-Bar e7hg92c0"
       color="#13AA52"
-      height="20%"
+      height="50%"
     />
     <div
-      className="css-igs64s-Bar e7hg92c0"
+      className="css-16xcq76-Bar e7hg92c0"
       color="#CF4A22"
-      height="6.666666666666667%"
+      height="16.666666666666664%"
     />
     <div
-      className="css-17clsd0-Bar e7hg92c0"
+      className="css-1mgn0aw-Bar e7hg92c0"
       color="#B8C4C2"
-      height="13.333333333333334%"
+      height="50%"
     />
     <div
-      className="css-v22gg7-Bar e7hg92c0"
+      className="css-5ehsrj-Bar e7hg92c0"
       color="#5D6C74"
-      height="16.666666666666664%"
-    />
-    <div
-      className="css-1fw0242-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="6.666666666666667%"
-    />
-    <div
-      className="css-jpp8up-Bar e7hg92c0"
-      height="63.33333333333333%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-lhwak2-Bar e7hg92c0"
-      color="#13AA52"
-      height="13.333333333333334%"
-    />
-    <div
-      className="css-y80ui1-Bar e7hg92c0"
-      color="#CF4A22"
-      height="10%"
-    />
-    <div
-      className="css-1ux8nd5-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="16.666666666666664%"
-    />
-    <div
-      className="css-hu5bws-Bar e7hg92c0"
-      color="#F3EDF5"
-      height="6.666666666666667%"
-    />
-    <div
-      className="css-sc7nc4-Bar e7hg92c0"
-      height="46.666666666666664%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-14ihtx5-Bar e7hg92c0"
-      color="#13AA52"
-      height="100%"
-    />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-1sabezq-Bar e7hg92c0"
-      color="#13AA52"
-      height="10%"
-    />
-    <div
-      className="css-n1ucq2-Bar e7hg92c0"
-      color="#CF4A22"
-      height="13.333333333333334%"
-    />
-    <div
-      className="css-15o2xg8-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="20%"
-    />
-    <div
-      className="css-1ux8nd5-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="16.666666666666664%"
-    />
-    <div
-      className="css-1e761oj-Bar e7hg92c0"
-      color="#5D6C74"
-      height="3.3333333333333335%"
-    />
-    <div
-      className="css-1ntcgf9-Bar e7hg92c0"
-      color="#E6CCE6"
-      height="13.333333333333334%"
-    />
-    <div
-      className="css-hu5bws-Bar e7hg92c0"
-      color="#F3EDF5"
-      height="6.666666666666667%"
-    />
-    <div
-      className="css-ijrnva-Bar e7hg92c0"
-      height="83.33333333333334%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-1nltr91-Bar e7hg92c0"
-      color="#13AA52"
-      height="20%"
-    />
-    <div
-      className="css-6vxyup-Bar e7hg92c0"
-      color="#CF4A22"
-      height="66.66666666666666%"
-    />
-    <div
-      className="css-v22gg7-Bar e7hg92c0"
-      color="#5D6C74"
-      height="16.666666666666664%"
-    />
-    <div
-      className="css-r6gyzd-Bar e7hg92c0"
-      height="43.333333333333336%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-lhwak2-Bar e7hg92c0"
-      color="#13AA52"
-      height="13.333333333333334%"
-    />
-    <div
-      className="css-y80ui1-Bar e7hg92c0"
-      color="#CF4A22"
-      height="10%"
-    />
-    <div
-      className="css-1ux8nd5-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="16.666666666666664%"
-    />
-    <div
-      className="css-was9pc-Bar e7hg92c0"
-      height="40%"
+      height="41.66666666666667%"
     />
   </div>
   <div
@@ -176,13 +37,91 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="33.33333333333333%"
     />
     <div
-      className="css-6vxyup-Bar e7hg92c0"
+      className="css-19fu4oo-Bar e7hg92c0"
       color="#CF4A22"
-      height="66.66666666666666%"
+      height="25%"
     />
     <div
-      className="css-hnjxze-Bar e7hg92c0"
+      className="css-itabzo-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="41.66666666666667%"
+    />
+    <div
+      className="css-v22gg7-Bar e7hg92c0"
+      color="#5D6C74"
+      height="16.666666666666664%"
+    />
+  </div>
+  <div
+    className="css-vpeskt-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-1j5oinm-Bar e7hg92c0"
+      color="#13AA52"
+      height="33.33333333333333%"
+    />
+    <div
+      className="css-19fu4oo-Bar e7hg92c0"
+      color="#CF4A22"
+      height="25%"
+    />
+    <div
+      className="css-itabzo-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="41.66666666666667%"
+    />
+    <div
+      className="css-v22gg7-Bar e7hg92c0"
+      color="#5D6C74"
+      height="16.666666666666664%"
+    />
+  </div>
+  <div
+    className="css-vpeskt-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-j8vdl2-Bar e7hg92c0"
+      color="#13AA52"
+      height="50%"
+    />
+    <div
+      className="css-9e1mhg-Bar e7hg92c0"
+      color="#FFDD49"
+      height="16.666666666666664%"
+    />
+    <div
+      className="css-1gxi13m-Bar e7hg92c0"
+      color="#CF4A22"
+      height="50%"
+    />
+    <div
+      className="css-pnxeiz-Bar e7hg92c0"
+      color="#5D6C74"
       height="100%"
+    />
+  </div>
+  <div
+    className="css-vpeskt-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-1j5oinm-Bar e7hg92c0"
+      color="#13AA52"
+      height="33.33333333333333%"
+    />
+    <div
+      className="css-19fu4oo-Bar e7hg92c0"
+      color="#CF4A22"
+      height="25%"
+    />
+    <div
+      className="css-itabzo-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="41.66666666666667%"
+    />
+    <div
+      className="css-v22gg7-Bar e7hg92c0"
+      color="#5D6C74"
+      height="16.666666666666664%"
     />
   </div>
 </div>
@@ -206,23 +145,14 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="10.526315789473683%"
     />
     <div
-      className="css-1uannye-Bar e7hg92c0"
+      className="css-17jyj5p-Bar e7hg92c0"
       color="#B8C4C2"
-      height="21.052631578947366%"
+      height="31.57894736842105%"
     />
     <div
       className="css-1rowktm-Bar e7hg92c0"
       color="#5D6C74"
       height="26.31578947368421%"
-    />
-    <div
-      className="css-1h3az87-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="10.526315789473683%"
-    />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
     />
   </div>
   <div
@@ -244,133 +174,81 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="35.714285714285715%"
     />
     <div
-      className="css-1l1efsp-Bar e7hg92c0"
-      color="#F3EDF5"
+      className="css-13f02ew-Bar e7hg92c0"
+      color="#5D6C74"
       height="14.285714285714285%"
     />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
-    />
   </div>
   <div
     className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
-      className="css-14ihtx5-Bar e7hg92c0"
+      className="css-1ptd2px-Bar e7hg92c0"
       color="#13AA52"
-      height="100%"
+      height="28.57142857142857%"
     />
     <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-1yvfabt-Bar e7hg92c0"
-      color="#13AA52"
-      height="12%"
-    />
-    <div
-      className="css-1ph6zcr-Bar e7hg92c0"
+      className="css-2tx86a-Bar e7hg92c0"
       color="#CF4A22"
-      height="16%"
+      height="21.428571428571427%"
     />
     <div
-      className="css-y837ep-Bar e7hg92c0"
+      className="css-coyjab-Bar e7hg92c0"
       color="#B8C4C2"
-      height="24%"
+      height="35.714285714285715%"
     />
     <div
-      className="css-15o2xg8-Bar e7hg92c0"
-      color="#B8C4C2"
-      height="20%"
-    />
-    <div
-      className="css-ab3tos-Bar e7hg92c0"
+      className="css-13f02ew-Bar e7hg92c0"
       color="#5D6C74"
-      height="4%"
-    />
-    <div
-      className="css-1v7hkpl-Bar e7hg92c0"
-      color="#E6CCE6"
-      height="16%"
-    />
-    <div
-      className="css-1zfp12-Bar e7hg92c0"
-      color="#F3EDF5"
-      height="8%"
-    />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
+      height="14.285714285714285%"
     />
   </div>
   <div
     className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
-      className="css-11rjzwc-Bar e7hg92c0"
+      className="css-1xhvuvz-Bar e7hg92c0"
       color="#13AA52"
+      height="23.076923076923077%"
+    />
+    <div
+      className="css-1ffkuay-Bar e7hg92c0"
+      color="#FFDD49"
+      height="7.6923076923076925%"
+    />
+    <div
+      className="css-1d41pnf-Bar e7hg92c0"
+      color="#CF4A22"
+      height="23.076923076923077%"
+    />
+    <div
+      className="css-tg5tbo-Bar e7hg92c0"
+      color="#5D6C74"
       height="46.15384615384615%"
     />
-    <div
-      className="css-16g31y6-Bar e7hg92c0"
-      color="#CF4A22"
-      height="153.84615384615387%"
-    />
-    <div
-      className="css-169zrai-Bar e7hg92c0"
-      color="#5D6C74"
-      height="38.46153846153847%"
-    />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
-    />
   </div>
   <div
     className="css-vpeskt-ChartContainer e7hg92c1"
   >
     <div
-      className="css-1j5oinm-Bar e7hg92c0"
+      className="css-1ptd2px-Bar e7hg92c0"
       color="#13AA52"
-      height="33.33333333333333%"
+      height="28.57142857142857%"
     />
     <div
-      className="css-19fu4oo-Bar e7hg92c0"
+      className="css-2tx86a-Bar e7hg92c0"
       color="#CF4A22"
-      height="25%"
+      height="21.428571428571427%"
     />
     <div
-      className="css-itabzo-Bar e7hg92c0"
+      className="css-coyjab-Bar e7hg92c0"
       color="#B8C4C2"
-      height="41.66666666666667%"
+      height="35.714285714285715%"
     />
     <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
-    />
-  </div>
-  <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
-  >
-    <div
-      className="css-1j5oinm-Bar e7hg92c0"
-      color="#13AA52"
-      height="33.33333333333333%"
-    />
-    <div
-      className="css-6vxyup-Bar e7hg92c0"
-      color="#CF4A22"
-      height="66.66666666666666%"
-    />
-    <div
-      className="css-hnjxze-Bar e7hg92c0"
-      height="100%"
+      className="css-13f02ew-Bar e7hg92c0"
+      color="#5D6C74"
+      height="14.285714285714285%"
     />
   </div>
 </div>

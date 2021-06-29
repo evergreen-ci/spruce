@@ -1,22 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { mapTaskStatusToColor } from "constants/task";
-import { TaskStatus } from "types/task";
 
-export type TaskStats = {
-  Succeeded?: number;
-  Failed?: number;
-  Dispatched?: number;
-  WillRun?: number;
-  Unscheduled?: number;
-  SystemFailed?: number;
-  SetupFailed?: number;
-  total: number;
+export type GroupedTaskStats = {
+  [key: string]: {
+    count: number;
+    statuses: string[];
+  };
 };
-
 interface Props {
-  taskStats: TaskStats;
+  groupedTaskStats: GroupedTaskStats;
   max: number;
+  total: number;
   chartType: "percentage" | "absolute";
 }
 
@@ -31,19 +25,28 @@ function calculateHeight(
   }
   return `${(value / max) * 100}%`;
 }
-export const CommitChart: React.FC<Props> = ({ taskStats, max, chartType }) => {
-  const { total } = taskStats || {};
-  return (
-    <ChartContainer>
-      {Object.keys(taskStats).map((status) => (
-        <Bar
-          height={calculateHeight(taskStats[status], max, total, chartType)}
-          color={mapTaskStatusToColor[TaskStatus[status]]}
-        />
-      ))}
-    </ChartContainer>
-  );
-};
+
+export const CommitChart: React.FC<Props> = ({
+  max,
+  chartType,
+  groupedTaskStats,
+  total,
+}) => (
+  <ChartContainer>
+    {Object.keys(groupedTaskStats).map((statusColor) => (
+      <Bar
+        key={statusColor}
+        height={calculateHeight(
+          groupedTaskStats[statusColor].count,
+          max,
+          total,
+          chartType
+        )}
+        color={statusColor}
+      />
+    ))}
+  </ChartContainer>
+);
 
 const ChartContainer = styled.div`
   height: 100%;
