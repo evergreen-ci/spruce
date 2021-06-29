@@ -4,7 +4,9 @@ import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
-import { toSortString } from "../util";
+import { queryString } from "utils";
+
+const { toSortString } = queryString;
 
 interface Props {
   patchTasks: PatchTasksQuery["patchTasks"];
@@ -24,6 +26,7 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
 
   return (
     <TasksTable
+      controlled
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={patchTasks?.tasks}

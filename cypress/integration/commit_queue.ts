@@ -31,7 +31,7 @@ describe("commit queue page", () => {
 
     it("Clicking on Total Code changes should toggle a drop down table", () => {
       cy.dataCy("code-changes-table").should("not.be.visible");
-      cy.dataCy("accordian-toggle").click();
+      cy.dataCy("accordion-toggle").click();
       cy.dataCy("code-changes-table").should("be.visible");
     });
 
@@ -53,7 +53,7 @@ describe("commit queue page", () => {
       cy.visit(COMMIT_QUEUE_ROUTE_2);
     });
     it("visiting a page with multiple sets of code changes should have multiple tables", () => {
-      cy.dataCy("accordian-toggle").should("have.length", 4);
+      cy.dataCy("accordion-toggle").should("have.length", 4);
     });
   });
 

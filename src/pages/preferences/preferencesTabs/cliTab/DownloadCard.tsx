@@ -7,7 +7,7 @@ import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import get from "lodash/get";
 import { usePreferencesAnalytics } from "analytics";
-import { Accordian } from "components/Accordian";
+import { Accordion } from "components/Accordion";
 import { SiderCard, StyledLink } from "components/styles";
 import { cliDocumentationUrl } from "constants/externalResources";
 import {
@@ -59,7 +59,7 @@ export const DownloadCard = () => {
             />
           ))}
         </CardGroup>
-        <Accordian
+        <Accordion
           title={<StyledLink>Show More</StyledLink>}
           toggledTitle={<StyledLink>Show Less</StyledLink>}
           contents={<ExpandableLinkContents clientBinaries={otherBinaries} />}
@@ -121,7 +121,7 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
           key={`link_${binary.url}`}
           href={binary.url}
         >
-          {prettyDisplayNameAccordian[binary.displayName] || binary.displayName}
+          {prettyDisplayNameAccordion[binary.displayName] || binary.displayName}
         </StyledLink>
       ))}
     </LinkContainer>
@@ -129,12 +129,12 @@ const ExpandableLinkContents: React.FC<ExpandableLinkContentsProps> = ({
 };
 
 const prettyDisplayNameTop = {
-  "OSX 64-bit": "MacOS",
+  "OSX 64-bit": "macOS",
   "Windows 64-bit": "Windows",
   "Linux 64-bit": "Linux (64-bit)",
 };
 
-const prettyDisplayNameAccordian = {
+const prettyDisplayNameAccordion = {
   "Linux 64-bit": "Linux (64-bit, Legacy)",
 };
 

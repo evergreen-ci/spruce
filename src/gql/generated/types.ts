@@ -722,10 +722,12 @@ export type Patch = {
   githash: Scalars["String"];
   patchNumber: Scalars["Int"];
   author: Scalars["String"];
+  authorDisplayName: Scalars["String"];
   version: Scalars["String"];
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
+  childPatches?: Maybe<Array<ChildPatch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -741,6 +743,13 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
+};
+
+export type ChildPatch = {
+  project: Scalars["String"];
+  patchID: Scalars["String"];
+  status: Scalars["String"];
+  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -1390,6 +1399,8 @@ export type PatchesPagePatchesFragment = {
   filteredPatchCount: number;
   patches: Array<{
     id: string;
+    author: string;
+    authorDisplayName: string;
     projectID: string;
     projectIdentifier: string;
     description: string;
@@ -1996,6 +2007,45 @@ export type GetSuspectedIssuesQuery = {
   }>;
 };
 
+export type MainlineCommitsQueryVariables = Exact<{
+  options: MainlineCommitsOptions;
+}>;
+
+export type MainlineCommitsQuery = {
+  mainlineCommits?: Maybe<{
+    nextPageOrderNumber?: Maybe<number>;
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        author: string;
+        order: number;
+        createTime: Date;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              variant: string;
+              displayName: string;
+              tasks?: Maybe<
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    displayName: string;
+                    status: string;
+                  }>
+                >
+              >;
+            }>
+          >
+        >;
+      }>;
+      rolledUpVersions?: Maybe<
+        Array<{ id: string; createTime: Date; author: string }>
+      >;
+    }>;
+  }>;
+};
+
 export type MyHostsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type MyHostsQuery = { myHosts: Array<BaseSpawnHostFragment> };
@@ -2134,6 +2184,14 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    childPatches?: Maybe<
+      Array<{
+        project: string;
+        patchID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
