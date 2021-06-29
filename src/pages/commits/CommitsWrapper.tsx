@@ -39,11 +39,3 @@ export const FlexRowContainer = styled.div`
 const NoResults = styled.div`
   margin-top: 12px;
 `;
-
-// function findMaxTaskStats(data: TaskStats[]) {
-//   const allCounts = data.reduce(
-//     (accumulator, curr) => [...accumulator, ...Object.values(curr)],
-//     []
-//   );
-//   return Math.max(...allCounts);
-// }

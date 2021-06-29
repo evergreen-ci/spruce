@@ -1,17 +1,16 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-
-const { green, gray, yellow, red } = uiColors;
+import { mapTaskStatusToColor } from "constants/task";
+import { TaskStatus } from "types/task";
 
 export type TaskStats = {
-  success?: number;
-  failure?: number;
-  dispatched?: number;
-  scheduled?: number;
-  unscheduled?: number;
-  systemFailure?: number;
-  setupFailure?: number;
+  Succeeded?: number;
+  Failed?: number;
+  Dispatched?: number;
+  WillRun?: number;
+  Unscheduled?: number;
+  SystemFailed?: number;
+  SetupFailed?: number;
   total: number;
 };
 
@@ -39,21 +38,11 @@ export const CommitChart: React.FC<Props> = ({ taskStats, max, chartType }) => {
       {Object.keys(taskStats).map((status) => (
         <Bar
           height={calculateHeight(taskStats[status], max, total, chartType)}
-          color={barColors[status]}
+          color={mapTaskStatusToColor[TaskStatus[status]]}
         />
       ))}
     </ChartContainer>
   );
-};
-
-const barColors = {
-  success: green.base,
-  failure: red.base,
-  dispatched: yellow.base,
-  scheduled: gray.dark1,
-  unscheduled: gray.light1,
-  systemFailure: "#633F70",
-  setupFailure: "#A075AF",
 };
 
 const ChartContainer = styled.div`
