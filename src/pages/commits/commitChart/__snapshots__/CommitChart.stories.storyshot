@@ -18,19 +18,19 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="6.666666666666667%"
     />
     <div
-      className="css-kq7atl-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-17clsd0-Bar e7hg92c0"
+      color="#B8C4C2"
       height="13.333333333333334%"
     />
     <div
-      className="css-9y7ux9-Bar e7hg92c0"
+      className="css-v22gg7-Bar e7hg92c0"
       color="#5D6C74"
-      height="6.666666666666667%"
+      height="16.666666666666664%"
     />
     <div
-      className="css-1ux8nd5-Bar e7hg92c0"
+      className="css-1fw0242-Bar e7hg92c0"
       color="#B8C4C2"
-      height="16.666666666666664%"
+      height="6.666666666666667%"
     />
     <div
       className="css-jpp8up-Bar e7hg92c0"
@@ -51,13 +51,13 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="10%"
     />
     <div
-      className="css-9e1mhg-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-1ux8nd5-Bar e7hg92c0"
+      color="#B8C4C2"
       height="16.666666666666664%"
     />
     <div
-      className="css-aa4kox-Bar e7hg92c0"
-      color="#A075AF"
+      className="css-hu5bws-Bar e7hg92c0"
+      color="#F3EDF5"
       height="6.666666666666667%"
     />
     <div
@@ -92,28 +92,28 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="13.333333333333334%"
     />
     <div
-      className="css-1plqsab-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-15o2xg8-Bar e7hg92c0"
+      color="#B8C4C2"
       height="20%"
     />
     <div
-      className="css-v22gg7-Bar e7hg92c0"
-      color="#5D6C74"
+      className="css-1ux8nd5-Bar e7hg92c0"
+      color="#B8C4C2"
       height="16.666666666666664%"
     />
     <div
-      className="css-1omp2yz-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-1e761oj-Bar e7hg92c0"
+      color="#5D6C74"
       height="3.3333333333333335%"
     />
     <div
-      className="css-1p2r9ib-Bar e7hg92c0"
-      color="#633F70"
+      className="css-1ntcgf9-Bar e7hg92c0"
+      color="#E6CCE6"
       height="13.333333333333334%"
     />
     <div
-      className="css-aa4kox-Bar e7hg92c0"
-      color="#A075AF"
+      className="css-hu5bws-Bar e7hg92c0"
+      color="#F3EDF5"
       height="6.666666666666667%"
     />
     <div
@@ -130,13 +130,13 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="20%"
     />
     <div
-      className="css-igs64s-Bar e7hg92c0"
+      className="css-6vxyup-Bar e7hg92c0"
       color="#CF4A22"
-      height="6.666666666666667%"
+      height="66.66666666666666%"
     />
     <div
-      className="css-1ux8nd5-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-v22gg7-Bar e7hg92c0"
+      color="#5D6C74"
       height="16.666666666666664%"
     />
     <div
@@ -158,8 +158,8 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="10%"
     />
     <div
-      className="css-9e1mhg-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-1ux8nd5-Bar e7hg92c0"
+      color="#B8C4C2"
       height="16.666666666666664%"
     />
     <div
@@ -206,19 +206,19 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="10.526315789473683%"
     />
     <div
-      className="css-1wc6dlu-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-1uannye-Bar e7hg92c0"
+      color="#B8C4C2"
       height="21.052631578947366%"
     />
     <div
-      className="css-acfhko-Bar e7hg92c0"
+      className="css-1rowktm-Bar e7hg92c0"
       color="#5D6C74"
-      height="10.526315789473683%"
+      height="26.31578947368421%"
     />
     <div
-      className="css-eb6ziy-Bar e7hg92c0"
+      className="css-1h3az87-Bar e7hg92c0"
       color="#B8C4C2"
-      height="26.31578947368421%"
+      height="10.526315789473683%"
     />
     <div
       className="css-hnjxze-Bar e7hg92c0"
@@ -239,13 +239,13 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="21.428571428571427%"
     />
     <div
-      className="css-1a071vo-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-coyjab-Bar e7hg92c0"
+      color="#B8C4C2"
       height="35.714285714285715%"
     />
     <div
-      className="css-incyq4-Bar e7hg92c0"
-      color="#A075AF"
+      className="css-1l1efsp-Bar e7hg92c0"
+      color="#F3EDF5"
       height="14.285714285714285%"
     />
     <div
@@ -280,28 +280,28 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="16%"
     />
     <div
-      className="css-x5yv1i-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-y837ep-Bar e7hg92c0"
+      color="#B8C4C2"
       height="24%"
     />
     <div
-      className="css-pt9h82-Bar e7hg92c0"
-      color="#5D6C74"
+      className="css-15o2xg8-Bar e7hg92c0"
+      color="#B8C4C2"
       height="20%"
     />
     <div
-      className="css-7yy8n3-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-ab3tos-Bar e7hg92c0"
+      color="#5D6C74"
       height="4%"
     />
     <div
-      className="css-f4zunu-Bar e7hg92c0"
-      color="#633F70"
+      className="css-1v7hkpl-Bar e7hg92c0"
+      color="#E6CCE6"
       height="16%"
     />
     <div
-      className="css-t45ury-Bar e7hg92c0"
-      color="#A075AF"
+      className="css-1zfp12-Bar e7hg92c0"
+      color="#F3EDF5"
       height="8%"
     />
     <div
@@ -318,13 +318,13 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="46.15384615384615%"
     />
     <div
-      className="css-2klkfw-Bar e7hg92c0"
+      className="css-16g31y6-Bar e7hg92c0"
       color="#CF4A22"
-      height="15.384615384615385%"
+      height="153.84615384615387%"
     />
     <div
-      className="css-1xvpj8q-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-169zrai-Bar e7hg92c0"
+      color="#5D6C74"
       height="38.46153846153847%"
     />
     <div
@@ -346,8 +346,8 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="25%"
     />
     <div
-      className="css-1a408d4-Bar e7hg92c0"
-      color="#FFDD49"
+      className="css-itabzo-Bar e7hg92c0"
+      color="#B8C4C2"
       height="41.66666666666667%"
     />
     <div
