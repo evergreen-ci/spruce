@@ -13,33 +13,15 @@ interface DownstreamTasksProps {
 export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
   childPatches,
 }) => {
-  const columns = [
-    {
-      title: <span data-cy="child-patch">Child Patch</span>,
-      render: (
-        text: string,
-        { project, patchID, status, taskCount }: childPatch
-      ): JSX.Element => (
-        <DownstreamProjectAccordion
+  return (
+    <>
+    {childPatches.map(({project,status,patchID, taskCount}) =>   <DownstreamProjectAccordion
           key={`downstream_project_${patchID}`}
           projectName={project}
           status={status}
           childPatchId={patchID}
           taskCount={taskCount}
-        />
-      ),
-    },
-  ];
-
-  return (
-    <Table
-      tableLayout="fixed"
-      data-cy="downstream-tasks-table"
-      dataSource={childPatches}
-      rowKey={({ patchID }) => patchID}
-      columns={columns}
-      pagination={false}
-      showHeader={false}
-    />
+        />)
+    </>
   );
 };
