@@ -4,11 +4,10 @@ import { useParams, useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
-import { Patch } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
-import { PatchTab } from "types/patch";
+import { ChildPatch, PatchTab } from "types/patch";
 import { queryString } from "utils";
 import { DownstreamTasks } from "./patchTabs/DownstreamTasks";
 
@@ -19,11 +18,9 @@ const tabToIndexMap = {
   [PatchTab.DownstreamTasks]: 2,
 };
 
-type childPatchesType = Patch["childPatches"];
-
 interface Props {
   taskCount: number;
-  childPatches: childPatchesType;
+  childPatches?: ChildPatch[];
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {

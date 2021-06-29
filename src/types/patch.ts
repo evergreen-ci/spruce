@@ -23,3 +23,12 @@ export enum PatchTab {
 }
 
 export const ALL_PATCH_STATUS = "all";
+
+export interface ChildPatch {
+  baseVersionID?: string;
+  githash: string;
+  id: string;
+  projectID: string;
+  taskCount?: number;
+  status: string;
+}

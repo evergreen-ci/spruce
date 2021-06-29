@@ -99,6 +99,7 @@ export type QueryTaskTestsArgs = {
   limit?: Maybe<Scalars["Int"]>;
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
+  groupId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -728,6 +729,7 @@ export type Patch = {
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
   childPatches?: Maybe<Array<ChildPatch>>;
+  childPatchesTemp?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -2188,6 +2190,16 @@ export type PatchQuery = {
       Array<{
         project: string;
         patchID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
+    childPatchesTemp?: Maybe<
+      Array<{
+        baseVersionID?: Maybe<string>;
+        githash: string;
+        id: string;
+        projectID: string;
         taskCount?: Maybe<number>;
         status: string;
       }>

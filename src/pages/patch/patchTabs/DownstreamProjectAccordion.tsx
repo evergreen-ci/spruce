@@ -1,6 +1,7 @@
 import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
@@ -9,14 +10,21 @@ import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { environmentalVariables } from "utils";
+
+const { getUiUrl } = environmentalVariables;
 
 interface DownstreamProjectAccordionProps {
+  baseVersionID: string;
+  githash: string;
   projectName: string;
   status: string;
   taskCount: number;
   childPatchId: string;
 }
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
+  baseVersionID,
+  githash,
   projectName,
   childPatchId,
   status,
@@ -52,14 +60,20 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
       <Accordion
         title={variantTitle}
         contents={
-          <TableWrapper>
-            {/* todo: add pagination and filtering  */}
-            {showSkeleton ? (
-              <Skeleton active title={false} paragraph={{ rows: 8 }} />
-            ) : (
-              <TasksTable tasks={patchTasks?.tasks} />
-            )}
-          </TableWrapper>
+          <AccordionContents>
+            Base commit:{" "}
+            <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
+              {githash.slice(0, 10)}
+            </InlineCode>
+            <TableWrapper>
+              {/* todo: add pagination and filtering  */}
+              {showSkeleton ? (
+                <Skeleton active title={false} paragraph={{ rows: 8 }} />
+              ) : (
+                <TasksTable tasks={patchTasks?.tasks} />
+              )}
+            </TableWrapper>
+          </AccordionContents>
         }
       />
     </AccordionWrapper>
@@ -79,4 +93,8 @@ const ProjectTitleWrapper = styled.div`
 const TableWrapper = styled.div`
   padding-bottom: 15px;
   padding-top: 15px;
+`;
+
+const AccordionContents = styled.div`
+  margin: 16px 0;
 `;
