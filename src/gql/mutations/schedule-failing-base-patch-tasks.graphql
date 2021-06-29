@@ -1,8 +1,7 @@
-
-  mutation ScheduleFailingBasePatchTasks($patchId: String!) {
-    scheduleFailingBasePatchTasks(patchId: $patchId){
-      id
-      execution
-      status
-    }
+mutation ScheduleFailingBasePatchTasks($patchId: String!) {
+  scheduleFailingBasePatchTasks(patchId: $patchId){
+    id
+    execution
+    status
   }
+}
