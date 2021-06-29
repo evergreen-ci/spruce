@@ -12,8 +12,8 @@ import {
   ProjectFragment,
 } from "gql/generated/types";
 import { GET_PROJECTS } from "gql/queries";
-import { FavoriteStar } from "./projectSelect/FavoriteStar";
-import { ProjectOptionGroup } from "./projectSelect/ProjectOptionGroup";
+import { FavoriteStar } from "./FavoriteStar";
+import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
 const { Search } = Input;
 const { gray, white } = uiColors;

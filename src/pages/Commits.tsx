@@ -14,7 +14,7 @@ import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ProjectFilterOptions } from "types/commits";
-import { ProjectSelect } from "./commits/ProjectSelect";
+import { ProjectSelect } from "./commits/projectSelect";
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
