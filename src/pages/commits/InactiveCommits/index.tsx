@@ -28,21 +28,18 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
   let returnedCommits = [];
   if (shouldSplitCommits) {
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
-    returnedCommits = rolledUpVersions.slice(0, 2).map((v) => (
-      <CommitText key={v.githash} data-cy="commit-text">
-        {getCommitCopy(v)}
-      </CommitText>
-    ));
-    returnedCommits.push(
+    returnedCommits = [
+      ...rolledUpVersions.slice(0, 2).map((v) => (
+        <CommitText key={v.githash} data-cy="commit-text">
+          {getCommitCopy(v)}
+        </CommitText>
+      )),
       <HiddenCommitsWrapper
         key="hidden_commits"
         data-cy="hidden-commits"
       >{`${hiddenCommitCount} more commit${
         hiddenCommitCount !== 1 ? "s" : ""
-      }`}</HiddenCommitsWrapper>
-    );
-    returnedCommits = [
-      ...returnedCommits,
+      }`}</HiddenCommitsWrapper>,
       ...rolledUpVersions.slice(-3).map((v) => (
         <CommitText key={v.githash} data-cy="commit-text">
           {getCommitCopy(v)}
@@ -59,8 +56,8 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
 
   return (
     <Tooltip
-      align="top"
-      justify="start"
+      align="bottom"
+      justify="middle"
       trigger={
         <ButtonContainer>
           <ButtonText data-cy="inactive-commits-button">

@@ -13,7 +13,9 @@ afterEach(() => {
 });
 describe("InactiveCommits", () => {
   test("Displays the correct count of inactive versions with the correct copy", () => {
-    const { queryByDataCy, rerender } = render(RenderInactiveCommits(versions));
+    const { queryByDataCy, rerender } = render(
+      <InactiveCommits rolledUpVersions={versions} />
+    );
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
       "6 Inactive Commits"
     );
@@ -24,7 +26,9 @@ describe("InactiveCommits", () => {
   });
 
   test("Hovering over the button should open a tooltip", async () => {
-    const { queryByDataCy } = render(RenderInactiveCommits(versions));
+    const { queryByDataCy } = render(
+      <InactiveCommits rolledUpVersions={versions} />
+    );
     jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
@@ -38,7 +42,7 @@ describe("InactiveCommits", () => {
 
   test("Should show all inactive commits if there are 5 or less commits ", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      RenderInactiveCommits(versions.slice(0, 4))
+      <InactiveCommits rolledUpVersions={versions.slice(0, 4)} />
     );
     jest.useFakeTimers();
 
@@ -54,7 +58,7 @@ describe("InactiveCommits", () => {
   });
   test("Should collapse some commits if there are more then 5 ", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      RenderInactiveCommits(versions)
+      <InactiveCommits rolledUpVersions={versions} />
     );
     jest.useFakeTimers();
 
