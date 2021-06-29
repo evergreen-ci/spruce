@@ -1,5 +1,5 @@
 import React from "react";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
@@ -11,6 +11,7 @@ import {
   DisablePatch,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
+import { ScheduleFailingBaseTasks } from "./ScheduleFailingBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -41,9 +42,10 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       patchId={patchId}
       refetchQueries={["Patch"]}
     />,
-    <DropdownItem key="reschedule-failing">
-      Schedule failing base tasks
-    </DropdownItem>,
+    <ScheduleFailingBaseTasks
+      key="schedule-failing-base-tasks"
+      patchId={patchId}
+    />,
     <SetPatchPriority
       patchId={patchId}
       key="priority"
