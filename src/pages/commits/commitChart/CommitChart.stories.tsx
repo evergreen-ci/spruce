@@ -75,7 +75,7 @@ const taskData = [
     statusCounts: [
       { status: "Succeeded", count: 4 },
       { status: "Failed", count: 3 },
-      { status: "Dispatched", count: 5 },
+      { status: "SetupFailed", count: 5 },
       { status: "Unscheduled", count: 2 },
     ],
   },

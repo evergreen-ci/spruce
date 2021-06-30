@@ -33,19 +33,21 @@ export const CommitChart: React.FC<Props> = ({
   total,
 }) => (
   <ChartContainer>
-    {Object.keys(groupedTaskStats).map((statusColor) => (
-      <Bar
-        key={statusColor}
-        height={calculateHeight(
-          groupedTaskStats[statusColor].count,
-          max,
-          total,
-          chartType
-        )}
-        color={statusColor}
-      />
-    ))}
-  </ChartContainer>
+  {Object.keys(groupedTaskStats).map((statusColor) => 
+      groupedTaskStats[statusColor].count ?
+        <Bar
+          key={statusColor}
+          height={calculateHeight(
+            groupedTaskStats[statusColor].count,
+            max,
+            total,
+            chartType
+          )}
+          color={statusColor}
+        />
+        : null
+  )}
+</ChartContainer>
 );
 
 const ChartContainer = styled.div`

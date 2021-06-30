@@ -85,14 +85,14 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="50%"
     />
     <div
-      className="css-9e1mhg-Bar e7hg92c0"
-      color="#FFDD49"
-      height="16.666666666666664%"
-    />
-    <div
       className="css-1gxi13m-Bar e7hg92c0"
       color="#CF4A22"
       height="50%"
+    />
+    <div
+      className="css-9e1mhg-Bar e7hg92c0"
+      color="#FFDD49"
+      height="16.666666666666664%"
     />
     <div
       className="css-pnxeiz-Bar e7hg92c0"
@@ -114,8 +114,8 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="25%"
     />
     <div
-      className="css-itabzo-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-1at4och-Bar e7hg92c0"
+      color="#F3EDF5"
       height="41.66666666666667%"
     />
     <div
@@ -212,14 +212,14 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="23.076923076923077%"
     />
     <div
-      className="css-1ffkuay-Bar e7hg92c0"
-      color="#FFDD49"
-      height="7.6923076923076925%"
-    />
-    <div
       className="css-1d41pnf-Bar e7hg92c0"
       color="#CF4A22"
       height="23.076923076923077%"
+    />
+    <div
+      className="css-1ffkuay-Bar e7hg92c0"
+      color="#FFDD49"
+      height="7.6923076923076925%"
     />
     <div
       className="css-tg5tbo-Bar e7hg92c0"
@@ -241,8 +241,8 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="21.428571428571427%"
     />
     <div
-      className="css-coyjab-Bar e7hg92c0"
-      color="#B8C4C2"
+      className="css-142mh4g-Bar e7hg92c0"
+      color="#F3EDF5"
       height="35.714285714285715%"
     />
     <div
