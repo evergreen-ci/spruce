@@ -18,6 +18,7 @@ import { routes } from "constants/routes";
 import { useAuthStateContext } from "context/auth";
 import { GetUserQuery, GetUserSettingsQuery } from "gql/generated/types";
 import { GET_USER, GET_USER_SETTINGS } from "gql/queries";
+import { useAnnouncementToast } from "hooks/useAnnouncementToast";
 import { PageDoesNotExist } from "pages/404";
 import { CommitQueue } from "pages/CommitQueue";
 import { Commits } from "pages/Commits";
@@ -52,6 +53,8 @@ export const Content: React.FC = () => {
   localStorage.setItem("userId", get(data, "user.userId", ""));
 
   useAnalyticsAttributes();
+
+  useAnnouncementToast();
 
   if (!isAuthenticated) {
     return <FullPageLoad />;
