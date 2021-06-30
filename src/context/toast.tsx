@@ -3,7 +3,7 @@ import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 
-export type ToastType = {
+export type ToastProps = {
   variant: Variant;
   message: string;
   closable: boolean;
@@ -12,6 +12,21 @@ export type ToastType = {
 };
 
 type AddToast = (message: string, closable?: boolean) => void;
+
+interface ToastType {
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+}
+export type ToastTypeKeys = keyof ToastType;
+
+const mapToastToLeafyGreenVariant: { [key in ToastTypeKeys]: Variant } = {
+  success: Variant.Success,
+  warning: Variant.Important,
+  error: Variant.Warning,
+  info: Variant.Note,
+};
 
 interface DispatchToast {
   success: AddToast;
@@ -31,7 +46,7 @@ const variantToTitleMap = {
 export const ToastDispatchContext = React.createContext<any | null>(null);
 
 const ToastProvider: React.FC = ({ children }) => {
-  const [visibleToast, setVisibleToast] = useState<ToastType>({
+  const [visibleToast, setVisibleToast] = useState<ToastProps>({
     variant: Variant.Note,
     message: "",
     closable: true,
@@ -41,7 +56,7 @@ const ToastProvider: React.FC = ({ children }) => {
   const [toastOpen, setToastOpen] = useState(false);
 
   const addToast = useCallback(
-    (toast: ToastType) => {
+    (toast: ToastProps) => {
       setVisibleToast(toast);
       setToastOpen(true);
     },
@@ -59,7 +74,13 @@ const ToastProvider: React.FC = ({ children }) => {
       onClose: () => void = () => {},
       title?: string
     ) =>
-      addToast({ variant: Variant.Success, message, closable, onClose, title }),
+      addToast({
+        variant: mapToastToLeafyGreenVariant.success,
+        message,
+        closable,
+        onClose,
+        title,
+      }),
     warning: (
       message: string,
       closable: boolean = true,
@@ -67,7 +88,7 @@ const ToastProvider: React.FC = ({ children }) => {
       title?: string
     ) =>
       addToast({
-        variant: Variant.Important,
+        variant: mapToastToLeafyGreenVariant.warning,
         message,
         closable,
         onClose,
@@ -79,13 +100,26 @@ const ToastProvider: React.FC = ({ children }) => {
       onClose: () => void = () => {},
       title?: string
     ) =>
-      addToast({ variant: Variant.Warning, message, closable, onClose, title }),
-    note: (
+      addToast({
+        variant: mapToastToLeafyGreenVariant.error,
+        message,
+        closable,
+        onClose,
+        title,
+      }),
+    info: (
       message: string,
       closable: boolean = true,
       onClose: () => void = () => {},
       title?: string
-    ) => addToast({ variant: Variant.Note, message, closable, onClose, title }),
+    ) =>
+      addToast({
+        variant: mapToastToLeafyGreenVariant.info,
+        message,
+        closable,
+        onClose,
+        title,
+      }),
     hide: hideToast,
   };
 
