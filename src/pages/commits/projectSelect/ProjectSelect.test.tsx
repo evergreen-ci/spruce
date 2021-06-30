@@ -3,7 +3,7 @@ import { MockedProvider } from "@apollo/client/testing";
 import userEvent from "@testing-library/user-event";
 import { GET_PROJECTS } from "gql/queries";
 import { render, act } from "test_utils/test-utils";
-import { ProjectSelect } from "./ProjectSelect";
+import { ProjectSelect } from ".";
 
 test("Sets the currently selected project to what ever is passed in's display name", async () => {
   const ContentWrapper = () => (
