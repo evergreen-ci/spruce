@@ -21,6 +21,7 @@ export const useAnnouncementToast = () => {
         message,
         closable,
         () => setClosedCookie(message, expires),
+        false,
         title
       );
     }
