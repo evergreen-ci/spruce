@@ -124,7 +124,7 @@
     "@storybook/addon-a11y": "^6.1.18",
     "@storybook/addon-actions": "^6.1.18",
     "@storybook/addon-knobs": "^6.1.18",
-    "@storybook/addon-links": "6.1.18",
+    "@storybook/addon-links": "6.3.2",
     "@storybook/addon-queryparams": "^6.1.18",
     "@storybook/addon-storyshots": "^6.1.18",
     "@storybook/addons": "6.1.18",
