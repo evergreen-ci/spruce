@@ -134,7 +134,7 @@ const failurePurple = "#E6CCE6";
 const failurePurpleDark = "#620662";
 
 // Represents the color order for commit bar charts
-export const sortedTaskColor = [
+export const sortedStatusColor = [
   green.base,
   red.base,
   failurePurple,

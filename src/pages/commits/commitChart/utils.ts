@@ -1,4 +1,4 @@
-import { mapTaskStatusToColor, sortedTaskColor } from "constants/task";
+import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
 import { TaskStatus } from "types/task";
 
 export type GroupedResult = {
@@ -9,20 +9,16 @@ export type GroupedResult = {
   total: number;
 };
 
-export const groupTasksByColor = (
+export const groupStatusesByColor = (
   statusCounts: { status: string; count: number }[]
 ) => {
   let max = -1;
   let total = 0;
-  const counts: {
-    [key: string]: { count: number; statuses: string[] };
-  } = {};
-  sortedTaskColor.forEach((color) => {
-    counts[color] = {
-      count: 0,
-      statuses: [],
-    };
+  const counts: { [key: string]: { count: number; statuses: string[] } } = {};
+  sortedStatusColor.forEach((color) => {
+    counts[color] = { count: 0, statuses: [] };
   });
+
   statusCounts.forEach((statusCount) => {
     const taskStatusToColor =
       mapTaskStatusToColor[TaskStatus[statusCount.status]];
@@ -30,8 +26,8 @@ export const groupTasksByColor = (
     const groupedTask = counts[taskStatusToColor];
     groupedTask.count += statusCount.count;
     max = Math.max(max, groupedTask.count);
-    if (!groupedTask.statuses.includes(statusCount.status)) {
-      groupedTask.statuses.push(statusCount.status);
+    if (!groupedTask.statuses.includes(TaskStatus[statusCount.status])) {
+      groupedTask.statuses.push(TaskStatus[statusCount.status]);
     }
   });
 
