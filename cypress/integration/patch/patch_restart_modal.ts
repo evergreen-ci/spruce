@@ -17,8 +17,8 @@ describe("Restarting a patch", () => {
     cy.dataCy("patch-restart-modal").should("be.be.visible");
   });
 
-  it("Clicking on a variant should toggle an accordian drop down of tasks", () => {
-    cy.dataCy("variant-accordian").first().click();
+  it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
+    cy.dataCy("variant-accordion").first().click();
     cy.dataCy("patch-status-selector-container").should("exist");
   });
   it("Clicking on a variant checkbox should toggle its textbox and all the associated tasks", () => {

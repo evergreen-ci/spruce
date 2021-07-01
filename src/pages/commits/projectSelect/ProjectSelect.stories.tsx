@@ -2,7 +2,7 @@ import StoryRouter from "storybook-react-router";
 import { ADD_FAVORITE_PROJECT, REMOVE_FAVORITE_PROJECT } from "gql/mutations";
 import { GET_PROJECTS } from "gql/queries";
 import WithToastContext from "test_utils/toast-decorator";
-import { ProjectSelect } from "./ProjectSelect";
+import { ProjectSelect } from ".";
 
 export default {
   title: "ProjectSelect",

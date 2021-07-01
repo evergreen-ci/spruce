@@ -4,23 +4,29 @@ import { useParams, useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
+import { Patch } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
+import { DownstreamTasks } from "./patchTabs/DownstreamTasks";
 
 const { parseQueryString } = queryString;
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
   [PatchTab.Changes]: 1,
+  [PatchTab.DownstreamTasks]: 2,
 };
+
+type childPatchesType = Patch["childPatches"];
 
 interface Props {
   taskCount: number;
+  childPatches: childPatchesType;
 }
 
-export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
+export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const history = useHistory();
   const location = useLocation();
@@ -58,6 +64,15 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
       <Tab name="Changes" id="changes-tab" data-cy="changes-tab">
         <CodeChanges />
       </Tab>
+      {childPatches && (
+        <Tab
+          name="Downstream Tasks"
+          id="downstream-tab"
+          data-cy="downstream-tasks-tab"
+        >
+          <DownstreamTasks childPatches={childPatches} />
+        </Tab>
+      )}
     </StyledTabs>
   );
 };

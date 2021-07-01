@@ -32,7 +32,7 @@
   ],
   "include": [
     "src",
-    "test_utils/test-utils.ts",
+    "test_utils/test-utils.tsx",
     "test_utils/custom-queries.ts"
   ]
 }
