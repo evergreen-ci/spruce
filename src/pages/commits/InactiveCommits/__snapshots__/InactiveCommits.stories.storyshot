@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Inactive Commits Story 1`] = `
+<div
+  className="leafygreen-ui-cssveg css-mltmfh-ButtonContainer ezzuvrx2"
+  onBlur={[Function]}
+  onFocus={[Function]}
+  onMouseEnter={[Function]}
+  onMouseLeave={[Function]}
+>
+  <div
+    className="css-9gwzin-ButtonText ezzuvrx0 leafygreen-ui-xsga32"
+    data-cy="inactive-commits-button"
+  >
+    <div
+      className="css-hifh5j-TopText ezzuvrx1"
+    >
+      6 Inactive
+       
+    </div>
+    Commits
+  </div>
+</div>
+`;
