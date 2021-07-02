@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { ChartToggle, ChartTypes } from "pages/commits/commitChart/ChartToggle";
 import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
-import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -30,6 +30,7 @@ export const CommitsWrapper: React.FC<Props> = ({
       <ProjectHealthWrapper>
         <FlexRowContainer />
         <Grid numDashedLine={5} />
+        <ChartToggle currentChartType={ChartTypes.Absolute} />
       </ProjectHealthWrapper>
     );
   }
@@ -39,7 +40,6 @@ export const CommitsWrapper: React.FC<Props> = ({
 const StyledSkeleton = styled(Skeleton)`
   margin-top: 12px;
 `;
-
 export const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;

@@ -3,20 +3,46 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
+import { useParams, useLocation, useHistory } from "react-router-dom";
+import { queryString } from "utils";
 
 const { gray } = uiColors;
+const { parseQueryString, stringifyQuery } = queryString;
 
 export enum ChartTypes {
   Absolute = "Absolute",
   Percentage = "Percentage",
 }
 
-export const ChartToggle: React.FC = () => (
-  <Container>
-    <ToggleWrapper>
-      <Label htmlFor="chart-toggle">View Options</Label>
-      <ToggleBox>
-        <RadioGroup onChange={(event) => console.log(event)}>
+export enum QueryParams {
+  ChartType = "chartType",
+}
+
+export const ChartToggle: React.FC<{
+  currentChartType: ChartTypes;
+}> = ({ currentChartType }) => {
+  let currChartType = currentChartType;
+  const { pathname } = useLocation();
+  const { replace } = useHistory();
+  const onChangeChart = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const nextChartType = event.target.value as ChartTypes;
+    replace(
+      `${pathname}?${stringifyQuery({
+        [QueryParams.ChartType]: nextChartType,
+      })}`
+    );
+    currChartType = nextChartType;
+  };
+  return (
+    <Container>
+      <ToggleWrapper>
+        <Label htmlFor="chart-toggle">View Options</Label>
+        <StyledRadioGroup
+          size="default"
+          onChange={console.log}
+          value={currChartType}
+          name="chart-select"
+        >
           <Radio
             data-cy="chart-radio"
             id="cy-chart-radio"
@@ -31,11 +57,11 @@ export const ChartToggle: React.FC = () => (
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>
           </Radio>
-        </RadioGroup>
-      </ToggleBox>
-    </ToggleWrapper>
-  </Container>
-);
+        </StyledRadioGroup>
+      </ToggleWrapper>
+    </Container>
+  );
+};
 
 const Container = styled.div`
   position: absolute;
@@ -45,8 +71,12 @@ const Container = styled.div`
   flex-direction: column;
   align-items: flex-end;
 `;
-const ToggleBox = styled.div`
+
+// @ts-expect-error
+const StyledRadioGroup = styled(RadioGroup)`
   display: flex;
+  align-items: center;
+  white-space: nowrap;
   flex-direction: row;
   align-items: center;
   justify-content: space-evenly;
@@ -54,11 +84,12 @@ const ToggleBox = styled.div`
   height: 59px;
   border-radius: 7px;
   border: 1px solid ${gray.light2};
-  background: #ffffff;
   margin-top: 4px;
   padding-bottom: 6px;
+  padding-right: 3px;
   box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
 `;
+
 const ToggleWrapper = styled.div`
   width: 286px;
 `;

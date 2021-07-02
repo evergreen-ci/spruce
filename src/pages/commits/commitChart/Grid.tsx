@@ -18,7 +18,7 @@ export const Grid: React.FC<{
 const ColumnContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 100%;
+  height: 224px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
