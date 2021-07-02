@@ -133,6 +133,17 @@ const failureLavendarDark = "#9982A4";
 const failurePurple = "#E6CCE6";
 const failurePurpleDark = "#620662";
 
+// Represents the color order for commit bar charts
+export const sortedStatusColor = [
+  green.base,
+  red.base,
+  failurePurple,
+  gray.light1,
+  failureLavender,
+  yellow.base,
+  gray.dark1,
+];
+
 // Represents background colors for task statuses
 export const mapTaskStatusToColor = {
   [TaskStatus.Aborted]: gray.light1,

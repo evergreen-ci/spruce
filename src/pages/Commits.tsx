@@ -14,6 +14,7 @@ import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ProjectFilterOptions } from "types/commits";
+import { CommitsWrapper } from "./commits/CommitsWrapper";
 import { ProjectSelect } from "./commits/projectSelect";
 
 export const Commits = () => {
@@ -54,6 +55,7 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
+      <CommitsWrapper versions={versions} error={error} isLoading={loading} />
     </PageWrapper>
   );
 };
