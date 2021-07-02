@@ -1,13 +1,11 @@
 import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
-
-const { gray } = uiColors;
 
 export const CommitsWrapper: React.FC<{
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -22,17 +20,10 @@ export const CommitsWrapper: React.FC<{
   }
   if (!isLoading && versions?.length !== 0) {
     return (
-      <Container>
+      <ProjectHealthWrapper>
         <FlexRowContainer />
-        <ColumnContainer>
-          <DashedLine />
-          <DashedLine />
-          <DashedLine />
-          <DashedLine />
-          <DashedLine />
-          <SolidLine />
-        </ColumnContainer>
-      </Container>
+        <Grid />
+      </ProjectHealthWrapper>
     );
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
@@ -51,7 +42,7 @@ export const FlexRowContainer = styled.div`
   width: 100%;
 `;
 
-const Container = styled.div`
+const ProjectHealthWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
@@ -59,25 +50,6 @@ const Container = styled.div`
   height: 222px;
   width: 100%;
   position: relative;
-`;
-
-const ColumnContainer = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: flex-end;
-`;
-const DashedLine = styled.div`
-  width: 100%;
-  border: 1px dashed ${gray.light2};
-`;
-
-const SolidLine = styled.div`
-  width: 100%;
-  border: 1px solid ${gray.light1};
 `;
 
 const NoResults = styled.div`
