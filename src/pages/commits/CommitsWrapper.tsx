@@ -7,11 +7,17 @@ import { MainlineCommitsQuery } from "gql/generated/types";
 import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
 
-export const CommitsWrapper: React.FC<{
+interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
   isLoading: boolean;
-}> = ({ versions, isLoading, error }) => {
+}
+
+export const CommitsWrapper: React.FC<Props> = ({
+  versions,
+  isLoading,
+  error,
+}) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
