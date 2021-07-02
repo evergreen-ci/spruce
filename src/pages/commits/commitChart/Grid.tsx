@@ -4,13 +4,13 @@ import { uiColors } from "@leafygreen-ui/palette";
 
 const { gray } = uiColors;
 
-export const Grid: React.FC = () => (
+export const Grid: React.FC<{
+  numDashedLine: number;
+}> = ({ numDashedLine }) => (
   <ColumnContainer>
-    <DashedLine />
-    <DashedLine />
-    <DashedLine />
-    <DashedLine />
-    <DashedLine />
+    {[...Array(numDashedLine)].map(() => (
+      <DashedLine />
+    ))}
     <SolidLine />
   </ColumnContainer>
 );
@@ -24,6 +24,7 @@ const ColumnContainer = styled.div`
   justify-content: space-between;
   align-items: flex-end;
 `;
+
 const DashedLine = styled.div`
   width: 100%;
   border: 1px dashed ${gray.light2};

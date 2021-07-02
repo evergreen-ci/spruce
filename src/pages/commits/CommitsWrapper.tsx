@@ -22,7 +22,7 @@ export const CommitsWrapper: React.FC<{
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer />
-        <Grid />
+        <Grid numDashedLine={5} />
       </ProjectHealthWrapper>
     );
   }
@@ -42,7 +42,7 @@ export const FlexRowContainer = styled.div`
   width: 100%;
 `;
 
-const ProjectHealthWrapper = styled.div`
+export const ProjectHealthWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
