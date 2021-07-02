@@ -7,6 +7,7 @@ export type GroupedTaskStats = {
     statuses: string[];
   };
 };
+
 interface Props {
   groupedTaskStats: GroupedTaskStats;
   max: number;
