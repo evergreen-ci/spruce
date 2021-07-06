@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { ChartTypes } from "pages/commits/CommitsWrapper";
 
 export type GroupedTaskStats = {
   [key: string]: {
@@ -12,7 +13,7 @@ interface Props {
   groupedTaskStats: GroupedTaskStats;
   max: number;
   total: number;
-  chartType: "percentage" | "absolute";
+  chartType: ChartTypes;
 }
 
 function calculateHeight(
@@ -21,7 +22,7 @@ function calculateHeight(
   total: number,
   chartType: string
 ) {
-  if (chartType === "percentage") {
+  if (chartType === ChartTypes.Percentage) {
     return `${(value / total) * 100}%`;
   }
   return `${(value / max) * 100}%`;

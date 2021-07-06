@@ -4,18 +4,16 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
 import { useParams, useLocation, useHistory } from "react-router-dom";
+import { routes, getCommitRoute } from "constants/routes";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { ChartTypes } from "pages/commits/CommitsWrapper";
 import { queryString } from "utils";
 
 const { gray } = uiColors;
 const { parseQueryString, stringifyQuery } = queryString;
 
-export enum ChartTypes {
-  Absolute = "Absolute",
-  Percentage = "Percentage",
-}
-
 export enum QueryParams {
-  ChartType = "chartType",
+  chartType = "chartType",
 }
 
 export const ChartToggle: React.FC<{
@@ -23,14 +21,14 @@ export const ChartToggle: React.FC<{
 }> = ({ currentChartType }) => {
   let currChartType = currentChartType;
   const { pathname } = useLocation();
+  const { projectId } = useParams<{ projectId: string }>();
   const { replace } = useHistory();
-  const onChangeChart = (event: React.ChangeEvent<HTMLInputElement>): void => {
+  const updateQueryParams = useUpdateURLQueryParams();
+  const onChangeChartType = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
     const nextChartType = event.target.value as ChartTypes;
-    replace(
-      `${pathname}?${stringifyQuery({
-        [QueryParams.ChartType]: nextChartType,
-      })}`
-    );
+    replace(`${getCommitRoute(projectId)}/${nextChartType}`);
     currChartType = nextChartType;
   };
   return (
@@ -39,20 +37,20 @@ export const ChartToggle: React.FC<{
         <Label htmlFor="chart-toggle">View Options</Label>
         <StyledRadioGroup
           size="default"
-          onChange={console.log}
+          onChange={onChangeChartType}
           value={currChartType}
           name="chart-select"
         >
           <Radio
-            data-cy="chart-radio"
-            id="cy-chart-radio"
+            data-cy="chart-abs-radio"
+            id="cy-chart-abs-radio"
             value={ChartTypes.Absolute}
           >
             <Label htmlFor="chart-radio-abs">Absolute Number</Label>
           </Radio>
           <Radio
-            data-cy="chart-radio"
-            id="cy-chart-radio"
+            data-cy="chart-percent-radio"
+            id="cy-chart-percent-radio"
             value={ChartTypes.Percentage}
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>
@@ -87,6 +85,7 @@ const StyledRadioGroup = styled(RadioGroup)`
   margin-top: 4px;
   padding-bottom: 6px;
   padding-right: 3px;
+  background: #ffffff;
   box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
 `;
 

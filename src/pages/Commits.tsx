@@ -13,12 +13,15 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { CommitsWrapper } from "pages/commits/CommitsWrapper";
+import { CommitsWrapper, ChartTypes } from "pages/commits/CommitsWrapper";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/projectSelect";
 
 export const Commits = () => {
-  const { projectId } = useParams<{ projectId: string }>();
+  const { projectId, chartType } = useParams<{
+    projectId: string;
+    chartType: ChartTypes;
+  }>();
   const options = { projectID: projectId };
   const dispatchToast = useToastContext();
 
@@ -55,7 +58,12 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
-      <CommitsWrapper versions={versions} error={error} isLoading={loading} />
+      <CommitsWrapper
+        versions={versions}
+        error={error}
+        isLoading={loading}
+        chartType={chartType}
+      />
     </PageWrapper>
   );
 };
