@@ -3,18 +3,12 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Label } from "@leafygreen-ui/typography";
-import { useParams, useLocation, useHistory } from "react-router-dom";
-import { routes, getCommitRoute } from "constants/routes";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { ChartTypes } from "pages/commits/CommitsWrapper";
+import { useLocation, useHistory } from "react-router-dom";
+import { ChartToggleQueryParams, ChartTypes } from "types/commits";
 import { queryString } from "utils";
 
 const { gray } = uiColors;
-const { parseQueryString, stringifyQuery } = queryString;
-
-export enum QueryParams {
-  chartType = "chartType",
-}
+const { stringifyQuery } = queryString;
 
 export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
@@ -28,7 +22,7 @@ export const ChartToggle: React.FC<{
     const nextChartType = event.target.value as ChartTypes;
     replace(
       `${pathname}?${stringifyQuery({
-        [QueryParams.chartType]: nextChartType,
+        [ChartToggleQueryParams.chartType]: nextChartType,
       })}`
     );
   };

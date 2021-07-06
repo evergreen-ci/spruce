@@ -15,9 +15,12 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { QueryParams } from "pages/commits/commitChart/ChartToggle";
-import { CommitsWrapper, ChartTypes } from "pages/commits/CommitsWrapper";
-import { ProjectFilterOptions } from "types/commits";
+import { CommitsWrapper } from "pages/commits/CommitsWrapper";
+import {
+  ChartToggleQueryParams,
+  ChartTypes,
+  ProjectFilterOptions,
+} from "types/commits";
 import { ProjectSelect } from "./commits/projectSelect";
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
@@ -31,7 +34,7 @@ export const Commits = () => {
     DEFAULT_CHART_TYPE
   );
   const parsed = queryString.parse(search);
-  const chartTypeParam = (parsed[QueryParams.chartType] || "")
+  const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
 

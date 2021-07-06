@@ -8,8 +8,8 @@ export const Grid: React.FC<{
   numDashedLine: number;
 }> = ({ numDashedLine }) => (
   <ColumnContainer>
-    {[...Array(numDashedLine)].map(() => (
-      <DashedLine />
+    {Array.from(Array(numDashedLine).keys()).map((number) => (
+      <DashedLine key={number} />
     ))}
     <SolidLine />
   </ColumnContainer>

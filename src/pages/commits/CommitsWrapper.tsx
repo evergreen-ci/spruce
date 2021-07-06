@@ -2,28 +2,18 @@ import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
-import { useParams } from "react-router-dom";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
-import { CommitChart } from "pages/commits/commitChart/CommitChart";
-import {
-  groupedTaskData,
-  max,
-} from "pages/commits/commitChart/CommitChart.stories";
 import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
+import { ChartTypes } from "types/commits";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
   isLoading: boolean;
   chartType?: ChartTypes;
-}
-
-export enum ChartTypes {
-  Absolute = "absolute",
-  Percentage = "percentage",
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -41,16 +31,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   if (!isLoading && versions?.length !== 0) {
     return (
       <ProjectHealthWrapper>
-        <FlexRowContainer>
-          {groupedTaskData.map((item) => (
-            <CommitChart
-              groupedTaskStats={item.stats}
-              total={item.total}
-              max={max}
-              chartType={chartType}
-            />
-          ))}
-        </FlexRowContainer>
+        <FlexRowContainer />
         <Grid numDashedLine={5} />
         <ChartToggle currentChartType={chartType} />
       </ProjectHealthWrapper>

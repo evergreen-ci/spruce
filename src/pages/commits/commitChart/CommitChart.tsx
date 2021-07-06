@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ChartTypes } from "pages/commits/CommitsWrapper";
+import { ChartTypes } from "types/commits";
 
 export type GroupedTaskStats = {
   [key: string]: {

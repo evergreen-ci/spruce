@@ -62,7 +62,7 @@ export const routes = {
   userPatchesRedirect: `${paths.user}/:id`,
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
-  commits: `${paths.commits}/:projectId/:chartType?`,
+  commits: `${paths.commits}/:projectId`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
 };
