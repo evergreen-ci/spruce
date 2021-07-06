@@ -3,8 +3,8 @@ import { groupStatusesByColor } from "pages/commits/commitChart/utils";
 import {
   FlexRowContainer,
   findMaxGroupedTaskStats,
+  ChartTypes,
 } from "pages/commits/CommitsWrapper";
-import { ChartTypes } from "types/commits";
 
 export default {
   title: "Commit Charts",
@@ -72,7 +72,7 @@ const commitTaskStats = [
   ],
 ];
 
-const groupedTaskData = commitTaskStats.map((item) =>
+export const groupedTaskData = commitTaskStats.map((item) =>
   groupStatusesByColor(item)
 );
-const max = findMaxGroupedTaskStats(groupedTaskData);
+export const max = findMaxGroupedTaskStats(groupedTaskData);

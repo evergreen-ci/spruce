@@ -6,6 +6,7 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
                 author
                 order
                 createTime
+                message
                 buildVariants(options: {}) {
                     variant
                     displayName
