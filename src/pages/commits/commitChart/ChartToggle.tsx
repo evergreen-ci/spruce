@@ -42,11 +42,11 @@ export const ChartToggle: React.FC<{
           name="chart-select"
         >
           <Radio
-            data-cy="chart-abs-radio"
-            id="cy-chart-abs-radio"
+            data-cy="chart-absolute-radio"
+            id="cy-chart-absolute-radio"
             value={ChartTypes.Absolute}
           >
-            <Label htmlFor="chart-radio-abs">Absolute Number</Label>
+            <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
           </Radio>
           <Radio
             data-cy="chart-percent-radio"
