@@ -33,5 +33,5 @@ const DashedLine = styled.div`
 
 const SolidLine = styled.div`
   width: 100%;
-  border: 0.95px solid ${gray.light1};
+  border: 0.9px solid ${gray.light1};
 `;
