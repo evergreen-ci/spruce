@@ -3,8 +3,10 @@ import Cookies from "js-cookie";
 import { toastData } from "constants/announcementToast";
 import { useToastContext } from "context/toast";
 
+const COOKIE_NAME = "announcement-toast";
+
 const setClosedCookie = (message: string, expires: number = 7) => {
-  Cookies.set(message, "closed", { expires });
+  Cookies.set(COOKIE_NAME, message, { expires });
 };
 
 export const useAnnouncementToast = () => {
@@ -16,7 +18,7 @@ export const useAnnouncementToast = () => {
     }
 
     const { closable, expires, message, title, variant } = toastData;
-    if (message !== "" && Cookies.get(message) === undefined) {
+    if (message !== "" && Cookies.get(COOKIE_NAME) !== message) {
       dispatchToast[variant](
         message,
         closable,
