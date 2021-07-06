@@ -1,6 +1,8 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import queryString from "query-string";
+import { useParams, useLocation } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
@@ -13,17 +15,37 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { QueryParams } from "pages/commits/commitChart/ChartToggle";
 import { CommitsWrapper, ChartTypes } from "pages/commits/CommitsWrapper";
 import { ProjectFilterOptions } from "types/commits";
 import { ProjectSelect } from "./commits/projectSelect";
 
+const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
+
 export const Commits = () => {
-  const { projectId, chartType } = useParams<{
-    projectId: string;
-    chartType: ChartTypes;
-  }>();
+  const { projectId } = useParams<{ projectId: string }>();
   const options = { projectID: projectId };
   const dispatchToast = useToastContext();
+  const { search } = useLocation();
+  const [currentChartType, setcurrentChartType] = useState<ChartTypes>(
+    DEFAULT_CHART_TYPE
+  );
+  const parsed = queryString.parse(search);
+  const chartTypeParam = (parsed[QueryParams.chartType] || "")
+    .toString()
+    .toLowerCase();
+
+  // set current chart type based on query param
+  useEffect(() => {
+    if (
+      chartTypeParam === ChartTypes.Absolute ||
+      chartTypeParam === ChartTypes.Percentage
+    ) {
+      setcurrentChartType(chartTypeParam);
+    } else {
+      setcurrentChartType(DEFAULT_CHART_TYPE);
+    }
+  }, [chartTypeParam]);
 
   usePageTitle(`Project Health | ${projectId}`);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
@@ -62,7 +84,7 @@ export const Commits = () => {
         versions={versions}
         error={error}
         isLoading={loading}
-        chartType={chartType}
+        chartType={currentChartType}
       />
     </PageWrapper>
   );
