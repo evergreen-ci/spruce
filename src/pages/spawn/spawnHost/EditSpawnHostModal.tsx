@@ -28,9 +28,15 @@ import {
   MyVolumesQueryVariables,
   EditSpawnHostMutation,
   EditSpawnHostMutationVariables,
+  GetMyPublicKeysQuery,
+  GetMyPublicKeysQueryVariables,
 } from "gql/generated/types";
 import { EDIT_SPAWN_HOST } from "gql/mutations";
-import { GET_INSTANCE_TYPES, GET_MY_VOLUMES } from "gql/queries";
+import {
+  GET_INSTANCE_TYPES,
+  GET_MY_PUBLIC_KEYS,
+  GET_MY_VOLUMES,
+} from "gql/queries";
 import {
   VolumesField,
   UserTagsField,
@@ -41,6 +47,10 @@ import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
 import { string } from "utils";
 import { useEditSpawnHostModalState } from "./editSpawnHostModal/useEditSpawnHostModalState";
+import {
+  PublicKeyForm,
+  publicKeyStateType,
+} from "./spawnHostModal/PublicKeyForm";
 
 const { Option } = Select;
 const { omitTypename } = string;
@@ -79,6 +89,12 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
     MyVolumesQueryVariables
   >(GET_MY_VOLUMES);
 
+  // QUERY public keys
+  const { data: publicKeysData } = useQuery<
+    GetMyPublicKeysQuery,
+    GetMyPublicKeysQueryVariables
+  >(GET_MY_PUBLIC_KEYS);
+
   // UPDATE HOST STATUS MUTATION
   const [editSpawnHostMutation, { loading: loadingSpawnHost }] = useMutation<
     EditSpawnHostMutation,
@@ -103,6 +119,7 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
   const volumes = volumesData?.myVolumes?.filter(
     (v) => v.availabilityZone === host.availabilityZone
   );
+  const publicKeys = publicKeysData?.myPublicKeys;
 
   const [hasChanges, mutationParams] = computeDiff(
     defaultEditSpawnHostState,
@@ -282,6 +299,16 @@ export const EditSpawnHostModal: React.FC<EditSpawnHostModalProps> = ({
             }
             instanceTags={host?.instanceTags}
             visible={visible}
+          />
+        </SectionContainer>
+        <SectionContainer>
+          <SectionLabel weight="medium">Add SSH Key</SectionLabel>
+          <PublicKeyForm
+            publicKeys={publicKeys}
+            data={editSpawnHostState}
+            onChange={(data: publicKeyStateType) =>
+              dispatch({ type: "editPublicKey", ...data })
+            }
           />
         </SectionContainer>
       </ModalContent>
