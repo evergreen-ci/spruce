@@ -69,7 +69,7 @@ const NoResults = styled.div`
   margin-top: 12px;
 `;
 
-export function findMaxGroupedTaskStats(taskData: GroupedResult[]) {
-  const maxes = taskData.map((data) => data.max);
+export function findMaxGroupedTaskStats(groupedTaskData: GroupedResult[]) {
+  const maxes = groupedTaskData.map((data) => data.max);
   return Math.max(...maxes);
 }
