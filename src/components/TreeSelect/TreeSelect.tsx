@@ -140,7 +140,7 @@ const renderCheckboxesHelper = ({
       const onChangeChildFn = (): void =>
         handleOnChange({ state, value: child.value, onChange, tData });
       rows.push(
-        <ChildCheckboxWrapper key={child.key}>
+        <ChildCheckboxWrapper key={`${data.key}-${child.key}`}>
           <Checkbox
             className="cy-checkbox"
             onChange={onChangeChildFn}

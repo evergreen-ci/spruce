@@ -67,7 +67,7 @@ export const NoInitialValues = () => {
           {...getDropdownProps()}
           tData={treeData}
           state={value}
-          onChange={(v) => setValue(v)}
+          onChange={setValue}
         />
       )}
     />
@@ -90,7 +90,7 @@ export const Ellipsis = () => {
           {...getDropdownProps()}
           tData={treeData}
           state={value}
-          onChange={(v) => setValue(v)}
+          onChange={setValue}
         />
       )}
     />
@@ -160,7 +160,7 @@ export const NoAllButton = () => {
           {...getDropdownProps()}
           tData={noAllTreeData}
           state={value}
-          onChange={(v) => setValue(v)}
+          onChange={setValue}
         />
       )}
     />
@@ -177,11 +177,5 @@ export const NoDropdown = () => {
     "silentfail",
     "pass",
   ]);
-  return (
-    <TreeSelect
-      tData={noAllTreeData}
-      state={value}
-      onChange={(v) => setValue(v)}
-    />
-  );
+  return <TreeSelect tData={noAllTreeData} state={value} onChange={setValue} />;
 };
