@@ -99,6 +99,7 @@ export type QueryTaskTestsArgs = {
   limit?: Maybe<Scalars["Int"]>;
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
+  groupId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -426,6 +427,7 @@ export enum TaskSortCategory {
 export enum TestSortCategory {
   BaseStatus = "BASE_STATUS",
   Status = "STATUS",
+  StartTime = "START_TIME",
   Duration = "DURATION",
   TestName = "TEST_NAME",
 }
@@ -2539,6 +2541,35 @@ export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
+};
+
+export type GetDisplayTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetDisplayTaskQuery = {
+  task?: Maybe<{ id: string; displayTask?: Maybe<{ id: string }> }>;
+};
+
+export type TestsQueryVariables = Exact<{
+  execution?: Maybe<Scalars["Int"]>;
+  groupId?: Maybe<Scalars["String"]>;
+  taskId: Scalars["String"];
+}>;
+
+export type TestsQuery = {
+  taskTests: {
+    testResults: Array<{
+      displayTestName?: Maybe<string>;
+      execution?: Maybe<number>;
+      groupID?: Maybe<string>;
+      id: string;
+      lineNum?: Maybe<number>;
+      taskId?: Maybe<string>;
+      testFile: string;
+    }>;
+  };
 };
 
 export type UserPatchesQueryVariables = Exact<{
