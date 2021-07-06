@@ -80,7 +80,7 @@ const StyledRadioGroup = styled(RadioGroup)`
   border: 1px solid ${gray.light2};
   margin-top: 4px;
   padding-bottom: 6px;
-  padding-right: 3px;
+  padding-right: 4px;
   background: #ffffff;
   box-shadow: 0px 4px 10px -4px rgba(0, 0, 0, 0.3);
 `;

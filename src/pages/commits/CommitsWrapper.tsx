@@ -20,7 +20,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   versions,
   isLoading,
   error,
-  chartType = ChartTypes.Absolute,
+  chartType,
 }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
