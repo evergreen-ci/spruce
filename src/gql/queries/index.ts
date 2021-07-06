@@ -43,6 +43,8 @@ import GET_SPAWN_TASK from "./spawn-task.graphql";
 import GET_SUBNET_AVAILABILITY_ZONES from "./subnet-availability-zones.graphql";
 import TASK_QUEUE_DISTROS from "./task-queue-distros.graphql";
 import GET_USER_PATCHES from "./user-patches.graphql";
+import GET_DISPLAY_TASK from "./testlogs/get-display-task.graphql"
+import GET_TESTS from "./testlogs/get-tests.graphql"
 
 export {
   TASK_QUEUE_DISTROS,
@@ -52,6 +54,7 @@ export {
   GET_BUILD_BARON,
   GET_CLIENT_CONFIG,
   GET_COMMIT_QUEUE,
+  GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_PATCH_BUILD_VARIANTS,
   GET_PATCH_TASKS,
@@ -60,6 +63,7 @@ export {
   GET_TASK_TESTS,
   GET_TASK,
   GET_TASK_ALL_EXECUTIONS,
+  GET_TESTS,
   GET_PATCH_TASK_STATUSES,
   GET_USER_CONFIG,
   HOSTS,

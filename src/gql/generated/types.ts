@@ -2552,13 +2552,13 @@ export type GetDisplayTaskQuery = {
   task?: Maybe<{ id: string; displayTask?: Maybe<{ id: string }> }>;
 };
 
-export type TestsQueryVariables = Exact<{
+export type GetTestsQueryVariables = Exact<{
   execution?: Maybe<Scalars["Int"]>;
   groupId?: Maybe<Scalars["String"]>;
   taskId: Scalars["String"];
 }>;
 
-export type TestsQuery = {
+export type GetTestsQuery = {
   taskTests: {
     testResults: Array<{
       displayTestName?: Maybe<string>;

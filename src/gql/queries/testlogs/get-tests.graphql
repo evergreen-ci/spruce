@@ -1,4 +1,4 @@
-query Tests(
+query GetTests(
   $execution: Int
   $groupId: String
   $taskId: String!
