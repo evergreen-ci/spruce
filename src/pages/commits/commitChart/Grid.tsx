@@ -23,7 +23,6 @@ const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
-  margin-bottom: -0.5px;
 `;
 
 const DashedLine = styled.div`
@@ -34,4 +33,5 @@ const DashedLine = styled.div`
 const SolidLine = styled.div`
   width: 100%;
   border: 0.9px solid ${gray.light1};
+  z-index: 2;
 `;

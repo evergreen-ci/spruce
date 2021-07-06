@@ -1,6 +1,6 @@
 // / <reference types="Cypress" />
 // / <reference path="../../support/index.d.ts" />
-const COMMITS_ROUTE = "commits/spruce";
+const COMMITS_ROUTE = "/commits/evergreen";
 describe("Waterfall Chart Toggle", () => {
   before(() => {
     cy.login();
@@ -32,16 +32,16 @@ describe("Waterfall Chart Toggle", () => {
   });
 
   it("Should intially load with absolute chart radio checked when chartType query param is absolute", () => {
-    cy.visit(`${COMMITS_ROUTE}?logtype=absolute`);
+    cy.visit(`${COMMITS_ROUTE}?chartType=absolute`);
     cy.dataCy("chart-absolute-radio").should("be.checked");
   });
   it("Should intially load with percentage chart radio checked when chartType query param is percentage", () => {
-    cy.visit(`${COMMITS_ROUTE}?logtype=percentage`);
+    cy.visit(`${COMMITS_ROUTE}?chartType=percentage`);
     cy.dataCy("chart-percent-radio").should("be.checked");
   });
 
   it("Should initially load with absolute chart radio checked as default when chartType query param is not a valid chart type", () => {
-    cy.visit(`${COMMITS_ROUTE}?logtype=soeiantsrein`);
+    cy.visit(`${COMMITS_ROUTE}?chartType=soeiantsrein`);
     cy.dataCy("chart-absolute-radio").should("be.checked");
   });
 });

@@ -19,18 +19,20 @@ export enum QueryParams {
 export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
 }> = ({ currentChartType }) => {
-  let currChartType = currentChartType;
   const { pathname } = useLocation();
-  const { projectId } = useParams<{ projectId: string }>();
   const { replace } = useHistory();
-  const updateQueryParams = useUpdateURLQueryParams();
+
   const onChangeChartType = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
     const nextChartType = event.target.value as ChartTypes;
-    replace(`${getCommitRoute(projectId)}/${nextChartType}`);
-    currChartType = nextChartType;
+    replace(
+      `${pathname}?${stringifyQuery({
+        [QueryParams.chartType]: nextChartType,
+      })}`
+    );
   };
+
   return (
     <Container>
       <ToggleWrapper>
@@ -38,7 +40,7 @@ export const ChartToggle: React.FC<{
         <StyledRadioGroup
           size="default"
           onChange={onChangeChartType}
-          value={currChartType}
+          value={currentChartType}
           name="chart-select"
         >
           <Radio
