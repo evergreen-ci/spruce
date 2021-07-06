@@ -1,5 +1,3 @@
-// / <reference types="Cypress" />
-// / <reference path="../../support/index.d.ts" />
 const COMMITS_ROUTE = "/commits/evergreen";
 describe("Waterfall Chart Toggle", () => {
   before(() => {
