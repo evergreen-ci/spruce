@@ -8,6 +8,7 @@ export type ToastProps = {
   message: string;
   closable: boolean;
   onClose: () => void;
+  shouldTimeout: boolean;
   title?: string;
 };
 
@@ -51,6 +52,7 @@ const ToastProvider: React.FC = ({ children }) => {
     message: "",
     closable: true,
     onClose: () => {},
+    shouldTimeout: true,
     title: null,
   });
   const [toastOpen, setToastOpen] = useState(false);
@@ -72,6 +74,7 @@ const ToastProvider: React.FC = ({ children }) => {
       message: string,
       closable: boolean = true,
       onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
       title?: string
     ) =>
       addToast({
@@ -79,12 +82,14 @@ const ToastProvider: React.FC = ({ children }) => {
         message,
         closable,
         onClose,
+        shouldTimeout,
         title,
       }),
     warning: (
       message: string,
       closable: boolean = true,
       onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
       title?: string
     ) =>
       addToast({
@@ -92,12 +97,14 @@ const ToastProvider: React.FC = ({ children }) => {
         message,
         closable,
         onClose,
+        shouldTimeout,
         title,
       }),
     error: (
       message: string,
       closable: boolean = true,
       onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
       title?: string
     ) =>
       addToast({
@@ -105,12 +112,14 @@ const ToastProvider: React.FC = ({ children }) => {
         message,
         closable,
         onClose,
+        shouldTimeout,
         title,
       }),
     info: (
       message: string,
       closable: boolean = true,
       onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
       title?: string
     ) =>
       addToast({
@@ -118,12 +127,17 @@ const ToastProvider: React.FC = ({ children }) => {
         message,
         closable,
         onClose,
+        shouldTimeout,
         title,
       }),
     hide: hideToast,
   };
 
   useEffect(() => {
+    if (!visibleToast.shouldTimeout) {
+      return;
+    }
+
     const timeout = setTimeout(() => {
       hideToast();
     }, TOAST_TIMEOUT);
