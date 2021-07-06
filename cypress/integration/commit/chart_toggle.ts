@@ -1,5 +1,7 @@
+// / <reference types="Cypress" />
+// / <reference path="../../support/index.d.ts" />
 const COMMITS_ROUTE = "commits/spruce";
-describe("spruce project health page", () => {
+describe("Waterfall Chart Toggle", () => {
   before(() => {
     cy.login();
     cy.visit(COMMITS_ROUTE);
