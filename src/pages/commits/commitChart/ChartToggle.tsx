@@ -19,7 +19,7 @@ export const ChartToggle: React.FC<{
   const onChangeChartType = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const nextChartType = event.target.value as ChartTypes;
+    const nextChartType = event.target.value;
     replace(
       `${pathname}?${stringifyQuery({
         [ChartToggleQueryParams.chartType]: nextChartType,
@@ -38,15 +38,15 @@ export const ChartToggle: React.FC<{
           name="chart-select"
         >
           <Radio
-            data-cy="chart-absolute-radio"
-            id="cy-chart-absolute-radio"
+            data-cy="cy-chart-absolute-radio"
+            id="chart-radio-absolute"
             value={ChartTypes.Absolute}
           >
             <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
           </Radio>
           <Radio
-            data-cy="chart-percent-radio"
-            id="cy-chart-percent-radio"
+            data-cy="cy-chart-percent-radio"
+            id="chart-radio-percent"
             value={ChartTypes.Percentage}
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>

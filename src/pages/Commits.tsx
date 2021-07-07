@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import queryString from "query-string";
 import { useParams, useLocation } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
@@ -21,6 +20,7 @@ import {
   ChartTypes,
   ProjectFilterOptions,
 } from "types/commits";
+import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
@@ -30,10 +30,10 @@ export const Commits = () => {
   const options = { projectID: projectId };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
-  const [currentChartType, setcurrentChartType] = useState<ChartTypes>(
+  const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
-  const parsed = queryString.parse(search);
+  const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
@@ -44,11 +44,11 @@ export const Commits = () => {
       chartTypeParam === ChartTypes.Absolute ||
       chartTypeParam === ChartTypes.Percentage
     ) {
-      setcurrentChartType(chartTypeParam);
+      setCurrentChartType(chartTypeParam);
     } else {
-      setcurrentChartType(DEFAULT_CHART_TYPE);
+      setCurrentChartType(DEFAULT_CHART_TYPE);
     }
-  }, [chartTypeParam]);
+  }, [chartTypeParam, setCurrentChartType]);
 
   usePageTitle(`Project Health | ${projectId}`);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
