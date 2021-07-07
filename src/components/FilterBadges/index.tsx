@@ -17,8 +17,9 @@ export const FilterBadges: React.FC = () => {
   const { search } = location;
   const queryParams = parseQueryString(search);
   const queryParamsList = convertObjectToArray(queryParams).filter(
-    ({ key }) => key !== ChartToggleQueryParams.chartType
-    ({ key }) => key !== PatchTasksQueryParams.Statuses
+    ({ key }) =>
+      key !== ChartToggleQueryParams.chartType &&
+      key !== PatchTasksQueryParams.Statuses
   );
 
   const onRemove = (key: string, value: string) => {
