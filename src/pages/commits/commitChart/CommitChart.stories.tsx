@@ -4,6 +4,7 @@ import {
   FlexRowContainer,
   findMaxGroupedTaskStats,
 } from "pages/commits/CommitsWrapper";
+import { ChartTypes } from "types/commits";
 
 export default {
   title: "Commit Charts",
@@ -17,7 +18,7 @@ export const AbsoluteChart = () => (
         groupedTaskStats={item.stats}
         total={item.total}
         max={max}
-        chartType="absolute"
+        chartType={ChartTypes.Absolute}
       />
     ))}
   </FlexRowContainer>
@@ -30,7 +31,7 @@ export const PercentChart = () => (
         groupedTaskStats={item.stats}
         total={item.total}
         max={-1}
-        chartType="percentage"
+        chartType={ChartTypes.Percentage}
       />
     ))}
   </FlexRowContainer>

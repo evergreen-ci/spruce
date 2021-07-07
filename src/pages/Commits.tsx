@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
 import { TupleSelect } from "components/TupleSelect";
@@ -13,15 +14,42 @@ import {
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { ProjectFilterOptions } from "types/commits";
-import { CommitsWrapper } from "./commits/CommitsWrapper";
+import { CommitsWrapper } from "pages/commits/CommitsWrapper";
+import {
+  ChartToggleQueryParams,
+  ChartTypes,
+  ProjectFilterOptions,
+} from "types/commits";
+import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
+
+const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const options = { projectID: projectId };
   const dispatchToast = useToastContext();
+  const { search } = useLocation();
+  const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
+    DEFAULT_CHART_TYPE
+  );
+  const parsed = queryString.parseQueryString(search);
+  const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
+    .toString()
+    .toLowerCase();
+
+  // set current chart type based on query param
+  useEffect(() => {
+    if (
+      chartTypeParam === ChartTypes.Absolute ||
+      chartTypeParam === ChartTypes.Percentage
+    ) {
+      setCurrentChartType(chartTypeParam);
+    } else {
+      setCurrentChartType(DEFAULT_CHART_TYPE);
+    }
+  }, [chartTypeParam, setCurrentChartType]);
 
   usePageTitle(`Project Health | ${projectId}`);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
@@ -59,7 +87,12 @@ export const Commits = () => {
       <BadgeWrapper>
         <FilterBadges />
       </BadgeWrapper>
-      <CommitsWrapper versions={versions} error={error} isLoading={loading} />
+      <CommitsWrapper
+        versions={versions}
+        error={error}
+        isLoading={loading}
+        chartType={currentChartType}
+      />
     </PageWrapper>
   );
 };
