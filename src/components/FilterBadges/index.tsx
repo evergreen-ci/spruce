@@ -3,6 +3,7 @@ import Button, { Variant, Size } from "@leafygreen-ui/button";
 import { useLocation } from "react-router";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { ChartToggleQueryParams } from "types/commits";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString, array } from "utils";
 import { FilterBadge } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
@@ -17,6 +18,7 @@ export const FilterBadges: React.FC = () => {
   const queryParams = parseQueryString(search);
   const queryParamsList = convertObjectToArray(queryParams).filter(
     ({ key }) => key !== ChartToggleQueryParams.chartType
+    ({ key }) => key !== PatchTasksQueryParams.Statuses
   );
 
   const onRemove = (key: string, value: string) => {

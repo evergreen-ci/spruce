@@ -1,20 +1,20 @@
-import React, { useState } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import Icon from "@leafygreen-ui/icon";
 import { uiColors } from "@leafygreen-ui/palette";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 
 const { gray, white } = uiColors;
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
 interface Props {
+  isDropdown?: boolean;
+  isVisible?: boolean;
+  onChange: (s: string[]) => void;
+  setOptionsLabel?: (v: string) => void;
   state: string[];
   tData: TreeDataEntry[];
-  onChange: (v: string[]) => void;
-  inputLabel: string;
-  "data-cy": string;
-  width?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -25,18 +25,14 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
-// including a TreeDataEntry with value = "all"
-// will serve as the 'All' button
 export const TreeSelect: React.FC<Props> = ({
+  isDropdown = false,
+  isVisible = true,
+  onChange,
+  setOptionsLabel = () => undefined,
   state,
   tData,
-  onChange,
-  inputLabel, // label for the select
-  "data-cy": dataCy, // for testing only
-  width,
 }) => {
-  const [isVisible, setisVisible] = useState(false);
-  const toggleOptions: () => void = () => setisVisible(!isVisible);
   const allValues = getAllValues(tData);
   // removes values not included in tData
   const filteredState = state.filter((value) => allValues.includes(value));
@@ -59,28 +55,104 @@ export const TreeSelect: React.FC<Props> = ({
         .map((value) => findNode({ value, tData }).target.title)
         .join(", ");
 
+  useEffect(() => {
+    setOptionsLabel(optionsLabel);
+  }, [optionsLabel, setOptionsLabel]);
+
+  if (!isVisible) {
+    return null;
+  }
+
   return (
-    <Wrapper data-cy={dataCy} width={width}>
-      <BarWrapper onClick={toggleOptions} className="cy-treeselect-bar">
-        <LabelWrapper>
-          {inputLabel}
-          {optionsLabel || "No filters selected"}
-        </LabelWrapper>
-        <ArrowWrapper>
-          <div>
-            <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
-          </div>
-        </ArrowWrapper>
-      </BarWrapper>
-      {isVisible && (
+    <ConditionalWrapper
+      condition={isDropdown}
+      wrapper={(children) => (
         <RelativeWrapper>
           <OptionsWrapper data-cy="tree-select-options">
-            {renderCheckboxes({ state: filteredState, tData, onChange })}
+            {children}
           </OptionsWrapper>
         </RelativeWrapper>
       )}
-    </Wrapper>
+    >
+      <>
+        {renderCheckboxes({
+          state: filteredState,
+          tData,
+          onChange,
+        })}
+      </>
+    </ConditionalWrapper>
   );
+};
+
+// depth first traversal checkbox data.
+// pushes parent then children to rows array
+// keeps track of level for indentation
+const renderCheckboxes = ({
+  tData,
+  state,
+  onChange,
+}: {
+  tData: TreeDataEntry[];
+  state: string[];
+  onChange: (v: [string]) => void;
+}): JSX.Element[] => {
+  const rows: JSX.Element[] = [];
+  tData.forEach((entry) => {
+    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
+  });
+  return rows;
+};
+
+const renderCheckboxesHelper = ({
+  rows,
+  data,
+  onChange,
+  state,
+  tData,
+}: {
+  rows: JSX.Element[];
+  data: TreeDataEntry;
+  onChange: (v: string[]) => void;
+  state: string[];
+  tData: TreeDataEntry[];
+}): void => {
+  const ParentCheckboxWrapper = getCheckboxWrapper(0);
+  // push parent
+  const onChangeFn = (): void =>
+    handleOnChange({ state, value: data.value, onChange, tData });
+  rows.push(
+    <ParentCheckboxWrapper key={data.key}>
+      <Checkbox
+        className="cy-checkbox"
+        onChange={onChangeFn}
+        label={data.title}
+        checked={state.includes(data.value)}
+        bold={false}
+        data-cy="checkbox"
+      />
+    </ParentCheckboxWrapper>
+  );
+  // then examine children
+  const ChildCheckboxWrapper = getCheckboxWrapper(1);
+  if (data.children) {
+    data.children.forEach((child) => {
+      const onChangeChildFn = (): void =>
+        handleOnChange({ state, value: child.value, onChange, tData });
+      rows.push(
+        <ChildCheckboxWrapper key={`${data.key}-${child.key}`}>
+          <Checkbox
+            className="cy-checkbox"
+            onChange={onChangeChildFn}
+            label={child.title}
+            checked={state.includes(child.value)}
+            bold={false}
+            data-cy="checkbox"
+          />
+        </ChildCheckboxWrapper>
+      );
+    });
+  }
 };
 
 // Executes when checkbox is clicked
@@ -226,76 +298,6 @@ const getAllValues = (tData: TreeDataEntry[]): string[] =>
     return accum.concat([currNode.value]).concat(childrenValues);
   }, []);
 
-// depth first traversal checkbox data.
-// pushes parent then children to rows array
-// keeps track of level for indentation
-const renderCheckboxes = ({
-  tData,
-  state,
-  onChange,
-}: {
-  tData: TreeDataEntry[];
-  state: string[];
-  onChange: (v: [string]) => void;
-}): JSX.Element[] => {
-  const rows: JSX.Element[] = [];
-  tData.forEach((entry) => {
-    renderCheckboxesHelper({ rows, data: entry, onChange, state, tData });
-  });
-  return rows;
-};
-
-const renderCheckboxesHelper = ({
-  rows,
-  data,
-  onChange,
-  state,
-  tData,
-}: {
-  rows: JSX.Element[];
-  data: TreeDataEntry;
-  onChange: (v: string[]) => void;
-  state: string[];
-  tData: TreeDataEntry[];
-}): void => {
-  const ParentCheckboxWrapper = getCheckboxWrapper(0);
-  // push parent
-  const onChangeFn = (): void =>
-    handleOnChange({ state, value: data.value, onChange, tData });
-  rows.push(
-    <ParentCheckboxWrapper key={data.key}>
-      <Checkbox
-        className="cy-checkbox"
-        onChange={onChangeFn}
-        label={data.title}
-        checked={state.includes(data.value)}
-        bold={false}
-        data-cy="checkbox"
-      />
-    </ParentCheckboxWrapper>
-  );
-  // then examine children
-  const ChildCheckboxWrapper = getCheckboxWrapper(1);
-  if (data.children) {
-    data.children.forEach((child) => {
-      const onChangeChildFn = (): void =>
-        handleOnChange({ state, value: child.value, onChange, tData });
-      rows.push(
-        <ChildCheckboxWrapper key={child.key}>
-          <Checkbox
-            className="cy-checkbox"
-            onChange={onChangeChildFn}
-            label={child.title}
-            checked={state.includes(child.value)}
-            bold={false}
-            data-cy="checkbox"
-          />
-        </ChildCheckboxWrapper>
-      );
-    });
-  }
-};
-
 const getCheckboxWrapper = (level: number): React.FC => styled.div`
   padding-left: ${level}em;
   padding-top: 4px;
@@ -303,24 +305,6 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
   :first-of-type {
     border-bottom: 1px solid ${gray.light2};
   }
-`;
-
-const LabelWrapper = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const BarWrapper = styled.div`
-  border: 1px solid ${gray.light1};
-  border-radius: 3px;
-  padding: 8px;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: flex;
-  justify-content: space-between;
 `;
 
 const OptionsWrapper = styled.div`
@@ -339,18 +323,4 @@ const OptionsWrapper = styled.div`
 // Used to provide a basis for the absolutely positions OptionsWrapper
 const RelativeWrapper = styled.div`
   position: relative;
-`;
-
-const ArrowWrapper = styled.span`
-  border-left: 1px solid ${gray.light1};
-  padding-left: 5px;
-  > div {
-    position: relative;
-    top: 2px;
-  }
-`;
-
-const Wrapper = styled.div`
-  width: ${(props: { width?: string }): string =>
-    props.width ? props.width : ""};
 `;
