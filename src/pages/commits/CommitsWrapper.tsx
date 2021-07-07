@@ -56,12 +56,9 @@ export const CommitsWrapper: React.FC<Props> = ({
           <ChartToggle currentChartType={chartType} />
         </CommitsContainer>
         <FlexRowContainerRelative>
-          <CommitChartLabel
-            githash="c8829"
-            createTime="11/5/20 12:58 PM"
-            author="Robert Mitashiro"
-            message="CLOUDP-75768: Implement search component for visual config editor (#34727)"
-          />
+          {versions.map((item) => (
+            <CommitChartLabel version={item.version} />
+          ))}
         </FlexRowContainerRelative>
       </ProjectHealthWrapper>
     );
@@ -111,7 +108,6 @@ export const ProjectHealthWrapper = styled.div`
   height: 100%;
   width: 100%;
   position: relative;
-  background-color: blue;
 `;
 
 const NoResults = styled.div`
