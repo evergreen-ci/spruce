@@ -2,7 +2,11 @@
 
 exports[`Storyshots Commit Charts Grid Grid Lines 1`] = `
 <div
+<<<<<<< HEAD
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
+=======
+  className="css-ao1h6p-ProjectHealthWrapper ech0nhv1"
+>>>>>>> main
 >
   <div
     className="css-16ru3vm-ColumnContainer e1xuhwwu2"

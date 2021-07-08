@@ -8,9 +8,9 @@ import {
 import {
   ActiveCommitWrapper,
   FlexRowContainer,
-  ChartTypes,
   ProjectHealthWrapper,
 } from "pages/commits/CommitsWrapper";
+import { ChartTypes } from "types/commits";
 
 // temporary type till the "taskStats field is added to Version on backend"
 export type Version = {

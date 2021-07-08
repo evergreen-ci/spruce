@@ -6,6 +6,7 @@ import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
 import { Grid } from "pages/commits/commitChart/Grid";
+import { ChartTypes } from "types/commits";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -14,16 +15,11 @@ interface Props {
   chartType?: ChartTypes;
 }
 
-export enum ChartTypes {
-  Absolute = "absolute",
-  Percentage = "percentage",
-}
-
 export const CommitsWrapper: React.FC<Props> = ({
   versions,
   isLoading,
   error,
-  chartType = ChartTypes.Absolute,
+  chartType,
 }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
@@ -56,15 +52,6 @@ export const FlexRowContainer = styled.div`
   margin-top: 65px;
   z-index: 1;
   position: absolute;
-`;
-
-export const FlexRowContainerRelative = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: flex-end;
-  height: 100%;
-  width: 100%;
 `;
 
 export const ProjectHealthWrapper = styled.div`

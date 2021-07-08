@@ -3,7 +3,8 @@ import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
 } from "pages/commits/commitChart/utils";
-import { FlexRowContainer, ChartTypes } from "pages/commits/CommitsWrapper";
+import { FlexRowContainer } from "pages/commits/CommitsWrapper";
+import { ChartTypes } from "types/commits";
 
 export default {
   title: "Commit Charts",

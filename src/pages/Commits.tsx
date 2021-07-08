@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
-import queryString from "query-string";
 import { useParams, useLocation } from "react-router-dom";
 import { FilterBadges } from "components/FilterBadges";
 import { PageWrapper } from "components/styles";
@@ -21,7 +20,9 @@ import {
   ChartTypes,
   ProjectFilterOptions,
 } from "types/commits";
+import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
+import { StatusSelect } from "./commits/StatusSelect";
 
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
@@ -30,10 +31,10 @@ export const Commits = () => {
   const options = { projectID: projectId };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
-  const [currentChartType, setcurrentChartType] = useState<ChartTypes>(
+  const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
-  const parsed = queryString.parse(search);
+  const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
@@ -44,11 +45,11 @@ export const Commits = () => {
       chartTypeParam === ChartTypes.Absolute ||
       chartTypeParam === ChartTypes.Percentage
     ) {
-      setcurrentChartType(chartTypeParam);
+      setCurrentChartType(chartTypeParam);
     } else {
-      setcurrentChartType(DEFAULT_CHART_TYPE);
+      setCurrentChartType(DEFAULT_CHART_TYPE);
     }
-  }, [chartTypeParam]);
+  }, [chartTypeParam, setCurrentChartType]);
 
   usePageTitle(`Project Health | ${projectId}`);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
@@ -76,6 +77,9 @@ export const Commits = () => {
         <TupleSelectWrapper>
           <TupleSelect options={tupleSelectOptions} />
         </TupleSelectWrapper>
+        <StatusSelectWrapper>
+          <StatusSelect />
+        </StatusSelectWrapper>
         <ProjectSelectWrapper>
           <ProjectSelect selectedProject={projectId} />
         </ProjectSelectWrapper>
@@ -97,6 +101,10 @@ const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  > div:not(:last-of-type) {
+    margin-right: 16px;
+  }
 `;
 
 const BadgeWrapper = styled.div`
@@ -106,6 +114,20 @@ const BadgeWrapper = styled.div`
 `;
 const TupleSelectWrapper = styled.div`
   width: 40%;
+`;
+const StatusSelectWrapper = styled.div`
+  width: 30%;
+
+  .cy-treeselect-bar {
+    height: 32px;
+    padding-bottom: 0;
+    padding-top: 0;
+
+    > div,
+    > span {
+      line-height: 30px;
+    }
+  }
 `;
 const ProjectSelectWrapper = styled.div`
   width: 30%;
