@@ -1,4 +1,5 @@
 import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
+import { Version } from "pages/commits/commitChart/ProjectHealth.stories";
 import { TaskStatus } from "types/task";
 
 export type GroupedResult = {
@@ -32,4 +33,26 @@ export const groupStatusesByColor = (
   });
 
   return { stats: counts, max, total };
+};
+
+export function findMaxGroupedTaskStats(groupedTaskStats: {
+  [id: string]: GroupedResult;
+}) {
+  const maxes = Object.keys(groupedTaskStats).map(
+    (id) => groupedTaskStats[id].max
+  );
+  return Math.max(...maxes);
+}
+
+export const getAllTaskStatsGroupedByColor = (versions: Version[]) => {
+  const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
+  versions.forEach((item) => {
+    if (item.version != null) {
+      idToGroupedTaskStats[item.version.id] = groupStatusesByColor(
+        item.version.taskStats
+      );
+    }
+  });
+
+  return idToGroupedTaskStats;
 };

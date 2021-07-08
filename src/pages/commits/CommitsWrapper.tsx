@@ -5,14 +5,7 @@ import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
-import { CommitChart } from "pages/commits/commitChart/CommitChart";
-import {
-  groupedTaskData,
-  max,
-} from "pages/commits/commitChart/CommitChart.stories";
-import { CommitChartLabel } from "pages/commits/commitChart/CommitChartLabel";
 import { Grid } from "pages/commits/commitChart/Grid";
-import { GroupedResult } from "pages/commits/commitChart/utils";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -41,40 +34,9 @@ export const CommitsWrapper: React.FC<Props> = ({
   if (!isLoading && versions?.length !== 0) {
     return (
       <ProjectHealthWrapper>
-        <FlexRowContainer>
-          {/* {versions.map((item) => (
-            <ActiveCommitWrapper>
-              <CommitChartLabel
-                githash={item.version.id.substring(item.version.id.length - 5)}
-                createTime={item.version.createTime}
-                author={item.version.author}
-                message={item.version.message}
-              />
-            </ActiveCommitWrapper>
-          ))} */}
-          {groupedTaskData.map((item) => (
-            <ActiveCommitWrapper>
-              <CommitChart
-                groupedTaskStats={item.stats}
-                total={item.total}
-                max={max}
-                chartType={chartType}
-              />
-            </ActiveCommitWrapper>
-          ))}
-        </FlexRowContainer>
+        <FlexRowContainer />
         <Grid numDashedLine={5} />
         <ChartToggle currentChartType={chartType} />
-        <FlexRowContainerRelative>
-          {/* {versions.map((item) => (
-            <CommitChartLabel
-              githash={item.version.id.substring(item.version.id.length - 5)}
-              createTime={item.version.createTime}
-              author={item.version.author}
-              message={item.version.message}
-            />
-          ))} */}
-        </FlexRowContainerRelative>
       </ProjectHealthWrapper>
     );
   }
@@ -115,7 +77,7 @@ export const ProjectHealthWrapper = styled.div`
   position: relative;
 `;
 
-// need to fix width to account for five active commits per page
+// need to fix width to account for five active commits per page in future
 export const ActiveCommitWrapper = styled.div`
   width: ${(1 / 7) * 100}%;
   display: flex;
@@ -128,15 +90,3 @@ export const ActiveCommitWrapper = styled.div`
 const NoResults = styled.div`
   margin-top: 12px;
 `;
-
-export function findMaxGroupedTaskStats(taskData: GroupedResult[]) {
-  const maxes = taskData.map((data) => data.max);
-  return Math.max(...maxes);
-}
-
-/* <CommitChartLabel
-                githash="4337c"
-                author="Case Kramer"
-                message="CLOUDP-76442 Add try/catch to
-                generate assignments call (#34810)"
-              /> */

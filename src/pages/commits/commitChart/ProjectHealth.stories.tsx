@@ -1,43 +1,62 @@
 import { CommitChart } from "pages/commits/commitChart/CommitChart";
+import { CommitChartLabel } from "pages/commits/commitChart/CommitChartLabel";
+import { Grid } from "pages/commits/commitChart/Grid";
 import {
-  findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
+  findMaxGroupedTaskStats,
 } from "pages/commits/commitChart/utils";
-import { FlexRowContainer, ChartTypes } from "pages/commits/CommitsWrapper";
+import {
+  ActiveCommitWrapper,
+  FlexRowContainer,
+  ChartTypes,
+  ProjectHealthWrapper,
+} from "pages/commits/CommitsWrapper";
 
-export default {
-  title: "Commit Charts",
-  component: CommitChart,
+// temporary type till the "taskStats field is added to Version on backend"
+export type Version = {
+  version?: {
+    id: string;
+    author: string;
+    createTime: Date;
+    message: string;
+    githash: string;
+    taskStats: { status: string; count: number }[];
+  };
+  rolledUpVersions?: {}[];
 };
 
-export const AbsoluteChart = () => (
-  <FlexRowContainer>
-    {versions.map((item) =>
-      item.version ? (
-        <CommitChart
-          groupedTaskStats={groupedTaskData[item.version.id].stats}
-          total={groupedTaskData[item.version.id].total}
-          max={max}
-          chartType={ChartTypes.Absolute}
-        />
-      ) : null
-    )}
-  </FlexRowContainer>
-);
+export default {
+  title: "Project Health Page",
+};
 
-export const PercentChart = () => (
-  <FlexRowContainer>
-    {versions.map((item) =>
-      item.version ? (
-        <CommitChart
-          groupedTaskStats={groupedTaskData[item.version.id].stats}
-          total={groupedTaskData[item.version.id].total}
-          max={max}
-          chartType={ChartTypes.Percentage}
-        />
-      ) : null
-    )}
-  </FlexRowContainer>
+export const ActiveCommits = () => (
+  <ProjectHealthWrapper>
+    <FlexRowContainer>
+      {versions.map((item) =>
+        item.version ? (
+          <ActiveCommitWrapper>
+            <CommitChart
+              groupedTaskStats={
+                IdToTaskStatsGroupedByColor[item.version.id].stats
+              }
+              total={IdToTaskStatsGroupedByColor[item.version.id].total}
+              max={max}
+              chartType={ChartTypes.Absolute}
+            />
+            <CommitChartLabel
+              githash={item.version.githash.substring(
+                item.version.githash.length - 5
+              )}
+              createTime={item.version.createTime}
+              author={item.version.author}
+              message={item.version.message}
+            />
+          </ActiveCommitWrapper>
+        ) : null
+      )}
+    </FlexRowContainer>
+    <Grid numDashedLine={5} />
+  </ProjectHealthWrapper>
 );
 
 const versions = [
@@ -158,5 +177,5 @@ const versions = [
   },
 ];
 
-const groupedTaskData = getAllTaskStatsGroupedByColor(versions);
-const max = findMaxGroupedTaskStats(groupedTaskData);
+const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+const max = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);

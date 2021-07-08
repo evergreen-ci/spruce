@@ -1,0 +1,338 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Project Health Page Active Commits 1`] = `
+<div
+  className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
+>
+  <div
+    className="css-1shq022-FlexRowContainer ech0nhv4"
+  >
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-j8vdl2-Bar e7hg92c0"
+          color="#13AA52"
+          height="50%"
+        />
+        <div
+          className="css-16xcq76-Bar e7hg92c0"
+          color="#CF4A22"
+          height="16.666666666666664%"
+        />
+        <div
+          className="css-1mgn0aw-Bar e7hg92c0"
+          color="#B8C4C2"
+          height="50%"
+        />
+        <div
+          className="css-1a408d4-Bar e7hg92c0"
+          color="#FFDD49"
+          height="41.66666666666667%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Mohamed Khelif
+           - 
+        </div>
+        <div>
+          SERVER-57332 Create skeleton InternalDocumentSourceDensify
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-16xcq76-Bar e7hg92c0"
+          color="#CF4A22"
+          height="16.666666666666664%"
+        />
+        <div
+          className="css-hv1o8l-Bar e7hg92c0"
+          color="#B8C4C2"
+          height="66.66666666666666%"
+        />
+        <div
+          className="css-7y3sh3-Bar e7hg92c0"
+          color="#5D6C74"
+          height="33.33333333333333%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Arjun Patel
+           - 
+        </div>
+        <div>
+          SERVER-57333 Some complicated server commit
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-1j5oinm-Bar e7hg92c0"
+          color="#13AA52"
+          height="33.33333333333333%"
+        />
+        <div
+          className="css-itabzo-Bar e7hg92c0"
+          color="#B8C4C2"
+          height="41.66666666666667%"
+        />
+        <div
+          className="css-1a408d4-Bar e7hg92c0"
+          color="#FFDD49"
+          height="41.66666666666667%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Mohamed Khelif
+           - 
+        </div>
+        <div>
+          SERVER-57332 Create skeleton InternalDocumentSourceDensify
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-16xcq76-Bar e7hg92c0"
+          color="#CF4A22"
+          height="16.666666666666664%"
+        />
+        <div
+          className="css-hv1o8l-Bar e7hg92c0"
+          color="#B8C4C2"
+          height="66.66666666666666%"
+        />
+        <div
+          className="css-7y3sh3-Bar e7hg92c0"
+          color="#5D6C74"
+          height="33.33333333333333%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Arjun Patel
+           - 
+        </div>
+        <div>
+          SERVER-57333 Some complicated server commit
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-itabzo-Bar e7hg92c0"
+          color="#B8C4C2"
+          height="41.66666666666667%"
+        />
+        <div
+          className="css-1avs6lz-Bar e7hg92c0"
+          color="#F3EDF5"
+          height="33.33333333333333%"
+        />
+        <div
+          className="css-1a408d4-Bar e7hg92c0"
+          color="#FFDD49"
+          height="41.66666666666667%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Elena Chen
+           - 
+        </div>
+        <div>
+          SERVER-57332 Create skeleton InternalDocumentSourceDensify
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-1gxi13m-Bar e7hg92c0"
+          color="#CF4A22"
+          height="50%"
+        />
+        <div
+          className="css-98gzrf-Bar e7hg92c0"
+          color="#E6CCE6"
+          height="50%"
+        />
+        <div
+          className="css-9e1mhg-Bar e7hg92c0"
+          color="#FFDD49"
+          height="16.666666666666664%"
+        />
+        <div
+          className="css-pnxeiz-Bar e7hg92c0"
+          color="#5D6C74"
+          height="100%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Sophie Stadler
+           - 
+        </div>
+        <div>
+          SERVER-57333 Some complicated server commit
+        </div>
+      </small>
+    </div>
+    <div
+      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+    >
+      <div
+        className="css-11qj1uy-ChartContainer e7hg92c1"
+      >
+        <div
+          className="css-12nh665-Bar e7hg92c0"
+          color="#E6CCE6"
+          height="58.333333333333336%"
+        />
+        <div
+          className="css-1at4och-Bar e7hg92c0"
+          color="#F3EDF5"
+          height="41.66666666666667%"
+        />
+        <div
+          className="css-v22gg7-Bar e7hg92c0"
+          color="#5D6C74"
+          height="16.666666666666664%"
+        />
+      </div>
+      <small
+        className="css-y99oji-LabelContainer e1adjmwx0 leafygreen-ui-18tqmm7"
+      >
+        <div>
+          6f112
+           
+          6/16/21
+           
+          11:38 PM
+           
+        </div>
+        <div>
+          Sophie Stadler
+           - 
+        </div>
+        <div>
+          SERVER-57333 Some complicated server commit
+        </div>
+      </small>
+    </div>
+  </div>
+  <div
+    className="css-16ru3vm-ColumnContainer e1xuhwwu2"
+  >
+    <div
+      className="css-oxpn1r-DashedLine e1xuhwwu1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e1xuhwwu1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e1xuhwwu1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e1xuhwwu1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e1xuhwwu1"
+    />
+    <div
+      className="css-1bpyomh-SolidLine e1xuhwwu0"
+    />
+  </div>
+</div>
+`;

@@ -60,16 +60,6 @@ const ChartContainer = styled.div`
   align-items: flex-end;
 `;
 
-// // need to fix width to account for five active commits per page
-// const ActiveCommitWrapper = styled.div`
-//   width: ${(1 / 7) * 100}%;
-//   display: flex;
-//   margin-left: 9px;
-//   justify-content: flex-start;
-//   align-items: flex-start;
-//   background-color: red;
-// `;
-
 interface BarProps {
   height: string;
   color: string;

@@ -2,10 +2,10 @@
 
 exports[`Storyshots Commit Charts Absolute Chart 1`] = `
 <div
-  className="css-90yj2j-FlexRowContainer ech0nhv2"
+  className="css-1shq022-FlexRowContainer ech0nhv4"
 >
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-j8vdl2-Bar e7hg92c0"
@@ -29,7 +29,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-16xcq76-Bar e7hg92c0"
@@ -48,7 +48,45 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-1j5oinm-Bar e7hg92c0"
+      color="#13AA52"
+      height="33.33333333333333%"
+    />
+    <div
+      className="css-itabzo-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="41.66666666666667%"
+    />
+    <div
+      className="css-1a408d4-Bar e7hg92c0"
+      color="#FFDD49"
+      height="41.66666666666667%"
+    />
+  </div>
+  <div
+    className="css-11qj1uy-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-16xcq76-Bar e7hg92c0"
+      color="#CF4A22"
+      height="16.666666666666664%"
+    />
+    <div
+      className="css-hv1o8l-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="66.66666666666666%"
+    />
+    <div
+      className="css-7y3sh3-Bar e7hg92c0"
+      color="#5D6C74"
+      height="33.33333333333333%"
+    />
+  </div>
+  <div
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-itabzo-Bar e7hg92c0"
@@ -67,7 +105,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-1gxi13m-Bar e7hg92c0"
@@ -91,7 +129,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-12nh665-Bar e7hg92c0"
@@ -114,10 +152,10 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
 
 exports[`Storyshots Commit Charts Percent Chart 1`] = `
 <div
-  className="css-90yj2j-FlexRowContainer ech0nhv2"
+  className="css-1shq022-FlexRowContainer ech0nhv4"
 >
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-sa8qko-Bar e7hg92c0"
@@ -141,7 +179,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-15gzlb8-Bar e7hg92c0"
@@ -160,7 +198,45 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-1ptd2px-Bar e7hg92c0"
+      color="#13AA52"
+      height="28.57142857142857%"
+    />
+    <div
+      className="css-coyjab-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="35.714285714285715%"
+    />
+    <div
+      className="css-1a071vo-Bar e7hg92c0"
+      color="#FFDD49"
+      height="35.714285714285715%"
+    />
+  </div>
+  <div
+    className="css-11qj1uy-ChartContainer e7hg92c1"
+  >
+    <div
+      className="css-15gzlb8-Bar e7hg92c0"
+      color="#CF4A22"
+      height="14.285714285714285%"
+    />
+    <div
+      className="css-9madw8-Bar e7hg92c0"
+      color="#B8C4C2"
+      height="57.14285714285714%"
+    />
+    <div
+      className="css-1gzx0ae-Bar e7hg92c0"
+      color="#5D6C74"
+      height="28.57142857142857%"
+    />
+  </div>
+  <div
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-coyjab-Bar e7hg92c0"
@@ -179,7 +255,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-1d41pnf-Bar e7hg92c0"
@@ -203,7 +279,7 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     />
   </div>
   <div
-    className="css-vpeskt-ChartContainer e7hg92c1"
+    className="css-11qj1uy-ChartContainer e7hg92c1"
   >
     <div
       className="css-98gzrf-Bar e7hg92c0"
