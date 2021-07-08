@@ -1,4 +1,4 @@
-import React from "react";
+import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
@@ -9,6 +9,7 @@ import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { FilterState, TaskFilters } from "./TaskFilters";
 
 interface DownstreamProjectAccordionProps {
   projectName: string;
@@ -16,6 +17,12 @@ interface DownstreamProjectAccordionProps {
   taskCount: number;
   childPatchId: string;
 }
+
+const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
+  ...state,
+  ...newFields,
+});
+
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
   projectName,
   childPatchId,
@@ -23,13 +30,21 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
 }) => {
   const dispatchToast = useToastContext();
 
+  const [variables, setVariables] = useReducer(reducer, {
+    baseStatuses: [],
+    limit: 10,
+    page: 0,
+    patchId: childPatchId,
+    statuses: [],
+    taskName: null,
+    variant: null,
+  });
+
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
-    variables: {
-      patchId: childPatchId,
-    },
+    variables,
     fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching downstream tasks ${err}`);
@@ -52,14 +67,21 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
       <Accordion
         title={variantTitle}
         contents={
-          <TableWrapper>
-            {/* todo: add pagination and filtering  */}
-            {showSkeleton ? (
-              <Skeleton active title={false} paragraph={{ rows: 8 }} />
-            ) : (
-              <TasksTable tasks={patchTasks?.tasks} />
-            )}
-          </TableWrapper>
+          <>
+            <TaskFilters
+              patchId={childPatchId}
+              filters={variables}
+              onFilterChange={setVariables}
+            />
+            <TableWrapper>
+              {/* todo: add pagination and filtering  */}
+              {showSkeleton ? (
+                <Skeleton active title={false} paragraph={{ rows: 8 }} />
+              ) : (
+                <TasksTable tasks={patchTasks?.tasks} />
+              )}
+            </TableWrapper>
+          </>
         }
       />
     </AccordionWrapper>
