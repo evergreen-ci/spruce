@@ -34,25 +34,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="41.66666666666667%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Mohamed Khelif
            - 
-        </div>
-        <div>
-          SERVER-57332 Create skeleton InternalDocumentSourceDensify
-        </div>
-      </small>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
+          SERVER-57332 Create skeleton Internal DocumentSourceDensify
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -76,25 +82,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="33.33333333333333%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Arjun Patel
            - 
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           SERVER-57333 Some complicated server commit
-        </div>
-      </small>
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -118,25 +130,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="41.66666666666667%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Mohamed Khelif
            - 
-        </div>
-        <div>
-          SERVER-57332 Create skeleton InternalDocumentSourceDensify
-        </div>
-      </small>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
+          SERVER-57332 Create skeleton Internal DocumentSourceDensify
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -160,25 +178,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="33.33333333333333%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Arjun Patel
            - 
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           SERVER-57333 Some complicated server commit
-        </div>
-      </small>
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -202,25 +226,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="41.66666666666667%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Elena Chen
            - 
-        </div>
-        <div>
-          SERVER-57332 Create skeleton InternalDocumentSourceDensify
-        </div>
-      </small>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
+          SERVER-57332 Create skeleton Internal DocumentSourceDensify
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -249,25 +279,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="100%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Sophie Stadler
            - 
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           SERVER-57333 Some complicated server commit
-        </div>
-      </small>
+        </small>
+      </div>
     </div>
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"
@@ -291,25 +327,31 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
           height="16.666666666666664%"
         />
       </div>
-      <small
-        className="css-y99oji-LabelContainer evlik6v0 leafygreen-ui-18tqmm7"
+      <div
+        className="css-2v8zgo-LabelContainer evlik6v1"
       >
-        <div>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           6f112
            
           6/16/21
            
           11:38 PM
            
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           Sophie Stadler
            - 
-        </div>
-        <div>
+        </small>
+        <small
+          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
+        >
           SERVER-57333 Some complicated server commit
-        </div>
-      </small>
+        </small>
+      </div>
     </div>
   </div>
   <div

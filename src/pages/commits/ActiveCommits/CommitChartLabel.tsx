@@ -22,16 +22,16 @@ export const CommitChartLabel: React.FC<Props> = ({
   const createDate = new Date(createTime);
   return (
     <LabelContainer>
-      <div>
+      <Text>
         {githash} {format(createDate, "M/d/yy")} {format(createDate, "h:mm a")}{" "}
-      </div>
-      <div>{author} - </div>
-      <div>{message}</div>
+      </Text>
+      <Text>{author} - </Text>
+      <Text>{message}</Text>
     </LabelContainer>
   );
 };
 
-const LabelContainer = styled(Disclaimer)`
+const LabelContainer = styled.div`
   height: 100%;
   width: 172px;
   display: flex;
@@ -39,5 +39,9 @@ const LabelContainer = styled(Disclaimer)`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+`;
+
+const Text = styled(Disclaimer)`
   color: ${gray.dark2};
+  width: 100%;
 `;

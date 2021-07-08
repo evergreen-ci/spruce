@@ -64,7 +64,7 @@ const versions = [
     version: {
       id: "123",
       createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStats: [
@@ -97,7 +97,7 @@ const versions = [
     version: {
       id: "13",
       createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStats: [
@@ -130,7 +130,7 @@ const versions = [
     version: {
       id: "15",
       createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Elena Chen",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStats: [
