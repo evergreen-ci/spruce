@@ -41,12 +41,19 @@ const deprecatedLogkeeperLobsterURL = "https://logkeeper.mongodb.org";
 export const getUpdatedLobsterUrl = (link: string) =>
   link.replace(deprecatedLogkeeperLobsterURL, `${getLobsterURL()}/lobster`);
 
-export const getLobsterTestLogUrl = (
-  taskId: string,
-  execution: number,
-  testId: string,
-  lineNum?: number
-) =>
+interface GetLobsterTestLogUrlParams {
+  taskId: string;
+  execution: number;
+  testId: string;
+  lineNum?: number;
+}
+
+export const getLobsterTestLogUrl = ({
+  taskId,
+  execution,
+  testId,
+  lineNum,
+}: GetLobsterTestLogUrlParams) =>
   !taskId || Number.isNaN(execution) || !testId
     ? ""
     : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${

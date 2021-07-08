@@ -760,6 +760,7 @@ export type Build = {
   status: Scalars["String"];
   predictedMakespan: Scalars["Duration"];
   actualMakespan: Scalars["Duration"];
+  revisionOrderNumber: Scalars["Int"];
 };
 
 export type Volume = {
@@ -926,6 +927,7 @@ export type Task = {
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
+  build?: Maybe<Build>;
   buildVariant: Scalars["String"];
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
@@ -2549,7 +2551,16 @@ export type GetDisplayTaskQueryVariables = Exact<{
 }>;
 
 export type GetDisplayTaskQuery = {
-  task?: Maybe<{ id: string; displayTask?: Maybe<{ id: string }> }>;
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    buildVariantDisplayName?: Maybe<string>;
+    displayTask?: Maybe<{
+      id: string;
+      execution: number;
+      buildVariantDisplayName?: Maybe<string>;
+    }>;
+  }>;
 };
 
 export type GetTestsQueryVariables = Exact<{

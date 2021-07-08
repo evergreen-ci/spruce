@@ -1,8 +1,13 @@
+#import "../fragments/baseTask.graphql"
 query GetDisplayTask($taskId: String!, $execution: Int) {
   task(taskId: $taskId, execution: $execution) {
+    ...baseTask
     id
+    execution
     displayTask {
+      ...baseTask
       id
+      execution
     }
   }
 }
