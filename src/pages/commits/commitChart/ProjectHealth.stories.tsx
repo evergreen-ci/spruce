@@ -34,7 +34,7 @@ export const ActiveCommits = () => (
     <FlexRowContainer>
       {versions.map((item) =>
         item.version ? (
-          <ActiveCommitWrapper>
+          <ActiveCommitWrapper key={item.version.id}>
             <CommitChart
               groupedTaskStats={
                 IdToTaskStatsGroupedByColor[item.version.id].stats

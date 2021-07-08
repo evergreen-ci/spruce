@@ -5,7 +5,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-1shq022-FlexRowContainer ech0nhv4"
+    className="css-1shq022-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-bau78-ActiveCommitWrapper ech0nhv1"

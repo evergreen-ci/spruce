@@ -16,6 +16,7 @@ export const AbsoluteChart = () => (
     {versions.map((item) =>
       item.version ? (
         <CommitChart
+          key={item.version.id}
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           total={groupedTaskData[item.version.id].total}
           max={max}
@@ -31,6 +32,7 @@ export const PercentChart = () => (
     {versions.map((item) =>
       item.version ? (
         <CommitChart
+          key={item.version.id}
           groupedTaskStats={groupedTaskData[item.version.id].stats}
           total={groupedTaskData[item.version.id].total}
           max={max}
