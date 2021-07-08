@@ -5,6 +5,7 @@ import Card from "@leafygreen-ui/card";
 import { H2, Subtitle, Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
+import { useTestLogsAnalytics } from "analytics";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import { getLobsterTestLogUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
@@ -18,6 +19,7 @@ import { GET_DISPLAY_TASK, GET_TESTS } from "gql/queries";
 import { usePrevious } from "hooks";
 
 export const TestLogs = () => {
+  const { sendEvent } = useTestLogsAnalytics();
   const { taskId, execution: execStr, groupId } = useParams<{
     taskId: string;
     execution: string;
@@ -81,6 +83,12 @@ export const TestLogs = () => {
                   lineNum,
                 })}
                 key={id}
+                onClick={() => {
+                  sendEvent({
+                    name: "Clicked lobster testlog url",
+                    testId: id,
+                  });
+                }}
                 target="_blank"
               >
                 {displayTestName || testFile}
