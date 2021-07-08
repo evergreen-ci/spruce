@@ -326,6 +326,9 @@ const computeDiff = (defaultEditSpawnHostState, editSpawnHostState) => {
     editSpawnHostState
   ) as EditSpawnHostMutationVariables;
 
+  if (mutationParams.publicKey) {
+    mutationParams.publicKey = omitTypename(mutationParams.publicKey);
+  }
   // diff returns na object to compare the differences in positions of an array. So we take this object
   // and convert it into an array for these fields
   if (mutationParams.addedInstanceTags) {
