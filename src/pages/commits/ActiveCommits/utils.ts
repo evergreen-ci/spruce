@@ -1,5 +1,5 @@
 import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
-import { Version } from "pages/commits/commitChart/ProjectHealth.stories";
+import { Version } from "pages/commits/ActiveCommits/ProjectHealth.stories";
 import { TaskStatus } from "types/task";
 
 export type GroupedResult = {

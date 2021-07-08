@@ -1,10 +1,10 @@
-import { CommitChart } from "pages/commits/commitChart/CommitChart";
-import { CommitChartLabel } from "pages/commits/commitChart/CommitChartLabel";
-import { Grid } from "pages/commits/commitChart/Grid";
+import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
+import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
+import { Grid } from "pages/commits/ActiveCommits/Grid";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
-} from "pages/commits/commitChart/utils";
+} from "pages/commits/ActiveCommits/utils";
 import {
   ActiveCommitWrapper,
   FlexRowContainer,

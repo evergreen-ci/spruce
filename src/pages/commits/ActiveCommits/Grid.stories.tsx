@@ -1,4 +1,4 @@
-import { Grid } from "pages/commits/commitChart/Grid";
+import { Grid } from "pages/commits/ActiveCommits/Grid";
 import { ProjectHealthWrapper } from "pages/commits/CommitsWrapper";
 
 export default {

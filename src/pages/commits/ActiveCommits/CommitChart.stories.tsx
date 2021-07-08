@@ -1,8 +1,8 @@
-import { CommitChart } from "pages/commits/commitChart/CommitChart";
+import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
 import {
   findMaxGroupedTaskStats,
   getAllTaskStatsGroupedByColor,
-} from "pages/commits/commitChart/utils";
+} from "pages/commits/ActiveCommits/utils";
 import { FlexRowContainer } from "pages/commits/CommitsWrapper";
 import { ChartTypes } from "types/commits";
 

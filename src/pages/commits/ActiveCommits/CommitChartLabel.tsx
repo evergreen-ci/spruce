@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
-import { Body, Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { Maybe } from "gql/generated/types";
 

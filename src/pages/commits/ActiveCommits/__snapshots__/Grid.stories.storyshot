@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Commit Charts Grid Grid Lines 1`] = `
+<div
+  className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
+>
+  <div
+    className="css-16ru3vm-ColumnContainer e15dc98b2"
+  >
+    <div
+      className="css-oxpn1r-DashedLine e15dc98b1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e15dc98b1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e15dc98b1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e15dc98b1"
+    />
+    <div
+      className="css-oxpn1r-DashedLine e15dc98b1"
+    />
+    <div
+      className="css-1bpyomh-SolidLine e15dc98b0"
+    />
+  </div>
+</div>
+`;
