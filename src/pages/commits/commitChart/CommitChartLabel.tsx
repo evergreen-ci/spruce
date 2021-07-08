@@ -1,37 +1,43 @@
 import React from "react";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Disclaimer } from "@leafygreen-ui/typography";
-import { Version } from "gql/generated/types";
+import { format } from "date-fns";
+import { Maybe } from "gql/generated/types";
 
+const { gray } = uiColors;
 interface Props {
-  version: Version
+  githash: string;
+  createTime: Maybe<Date>;
+  author: string;
+  message: string;
 }
 
 export const CommitChartLabel: React.FC<Props> = ({
-  version
-}) => (
-  <LabelContainer>
-    <Disclaimer>
-      {githash} {createTime}
-    </Disclaimer>
-    <Disclaimer>{author} - </Disclaimer>
-    <Disclaimer>{message}</Disclaimer>
-  </LabelContainer>
-);
+  githash,
+  createTime,
+  author,
+  message,
+}) => {
+  const createDate = new Date(createTime);
+  return (
+    <LabelContainer>
+      <div>
+        {githash} {format(createDate, "M/d/yy")} {format(createDate, "h:mm a")}{" "}
+      </div>
+      <div>{author} - </div>
+      <div>{message}</div>
+    </LabelContainer>
+  );
+};
 
-const LabelContainer = styled.div`
+const LabelContainer = styled(Disclaimer)`
   height: 100%;
   width: 172px;
   display: flex;
+  margin-top: 10px;
   flex-direction: column;
-  margin-left: 9px;
   justify-content: flex-start;
   align-items: flex-start;
-  color: red;
+  color: ${gray.dark2};
 `;
-
-
-githash={item.version.id.substring(item.version.id.length - 5)}
-createTime="11/5/20 12:58 PM"
-author="Robert Mitashiro"
-message="CLOUDP-75768: Implement search component for visual config editor (#34727)"

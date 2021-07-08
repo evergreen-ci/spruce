@@ -20,6 +20,7 @@ const ColumnContainer = styled.div`
   width: 100%;
   height: 224px;
   display: flex;
+  margin-top: 65px;
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;

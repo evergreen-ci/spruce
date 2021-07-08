@@ -53,13 +53,22 @@ export const CommitChart: React.FC<Props> = ({
 );
 
 const ChartContainer = styled.div`
-  height: 100%;
-  width: ${(1 / 7) * 100}%;
+  height: 224px;
+  width: 100%;
   display: flex;
-  margin-left: 9px;
   justify-content: flex-start;
   align-items: flex-end;
 `;
+
+// // need to fix width to account for five active commits per page
+// const ActiveCommitWrapper = styled.div`
+//   width: ${(1 / 7) * 100}%;
+//   display: flex;
+//   margin-left: 9px;
+//   justify-content: flex-start;
+//   align-items: flex-start;
+//   background-color: red;
+// `;
 
 interface BarProps {
   height: string;
