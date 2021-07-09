@@ -10,7 +10,7 @@ describe("Task table", () => {
   });
 
   it("Renders page title and testlog links.", () => {
-    cy.visit(`test-logs/${taskId}/${execution}/${groupId}`);
+    cy.visit(`job-logs/${taskId}/${execution}/${groupId}`);
     cy.dataCy("task-link").contains(taskId);
     cy.dataCy("execution").contains(execution);
     cy.dataCy("groupId").contains(groupId);

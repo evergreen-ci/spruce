@@ -66,7 +66,7 @@ export const JobLogs = () => {
               <Subtitle>
                 Execution: <span data-cy="execution">{task?.execution}</span>
                 <br />
-                Job Number: <span data-cy="groupId">{groupId}</span>
+                GroupID: <span data-cy="groupId">{groupId}</span>
               </Subtitle>
             </SubtitleContainer>
           </>

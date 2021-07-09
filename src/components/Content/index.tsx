@@ -25,6 +25,7 @@ import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
+import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
 import { Patch } from "pages/Patch";
 import { PatchRedirect } from "pages/PatchRedirect";
@@ -34,7 +35,6 @@ import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
 import { TaskHistory } from "pages/TaskHistory";
 import { TaskQueue } from "pages/TaskQueue";
-import { TestLogs } from "pages/TestLogs";
 import { UserPatches } from "pages/UserPatches";
 import { VariantHistory } from "pages/VariantHistory";
 
@@ -72,7 +72,7 @@ export const Content: React.FC = () => {
         <Route path={routes.configurePatch} component={ConfigurePatch} />
         <Route exact path={routes.patch} component={PatchRedirect} />
         <Route path={routes.version} component={Patch} />
-        <Route path={routes.testLogs} component={TestLogs} />
+        <Route path={routes.jobLogs} component={JobLogs} />
         <Route path={routes.hosts} component={Hosts} />
         <Route path={routes.host} component={Host} />
         <Route path={routes.myPatches} component={MyPatches} />
