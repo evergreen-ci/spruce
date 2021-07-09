@@ -99,6 +99,7 @@ export type QueryTaskTestsArgs = {
   limit?: Maybe<Scalars["Int"]>;
   testName?: Maybe<Scalars["String"]>;
   statuses?: Array<Scalars["String"]>;
+  groupId?: Maybe<Scalars["String"]>;
 };
 
 export type QueryTaskFilesArgs = {
@@ -426,6 +427,7 @@ export enum TaskSortCategory {
 export enum TestSortCategory {
   BaseStatus = "BASE_STATUS",
   Status = "STATUS",
+  StartTime = "START_TIME",
   Duration = "DURATION",
   TestName = "TEST_NAME",
 }
@@ -2184,14 +2186,6 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        project: string;
-        patchID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
