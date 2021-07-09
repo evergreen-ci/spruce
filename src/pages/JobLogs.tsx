@@ -9,6 +9,7 @@ import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { StyledRouterLink, StyledLink } from "components/styles";
 import { getLobsterTestLogUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
+import { useToastContext } from "context/toast";
 import {
   GetDisplayTaskQuery,
   GetDisplayTaskQueryVariables,
@@ -17,8 +18,10 @@ import {
 } from "gql/generated/types";
 import { GET_DISPLAY_TASK, GET_TESTS } from "gql/queries";
 import { usePrevious } from "hooks";
+import { PageDoesNotExist } from "pages/404";
 
 export const JobLogs = () => {
+  const dispatchToast = useToastContext();
   const { sendEvent } = useJobLogsAnalytics();
   const { taskId, execution: execStr, groupId } = useParams<{
     taskId: string;
@@ -26,14 +29,29 @@ export const JobLogs = () => {
     groupId: string;
   }>();
   const execution = parseInt(execStr, 10);
-  const { data: displayTaskResult, loading: isLoadingDisplayTask } = useQuery<
-    GetDisplayTaskQuery,
-    GetDisplayTaskQueryVariables
-  >(GET_DISPLAY_TASK, { variables: { taskId, execution } });
+  const {
+    data: displayTaskResult,
+    loading: isLoadingDisplayTask,
+    error: errorDisplayTask,
+  } = useQuery<GetDisplayTaskQuery, GetDisplayTaskQueryVariables>(
+    GET_DISPLAY_TASK,
+    {
+      variables: { taskId, execution },
+      onError: (err) =>
+        dispatchToast.error(
+          `There was an error loading the task: ${err.message}`
+        ),
+    }
+  );
   const [
     getTests,
-    { data: testsResult, loading: isLoadingTests },
-  ] = useLazyQuery<GetTestsQuery, GetTestsQueryVariables>(GET_TESTS);
+    { data: testsResult, loading: isLoadingTests, error: errorTests },
+  ] = useLazyQuery<GetTestsQuery, GetTestsQueryVariables>(GET_TESTS, {
+    onError: (err) =>
+      dispatchToast.error(
+        `There was an error loading test result data: ${err.message}`
+      ),
+  });
 
   const task = displayTaskResult?.task?.displayTask ?? displayTaskResult?.task;
   const prevTask = usePrevious(task);
@@ -48,9 +66,12 @@ export const JobLogs = () => {
       });
     }
   }, [task, prevTask, groupId, getTests]);
-  const isLoading = isLoadingDisplayTask || isLoadingTests;
 
-  return isLoading ? (
+  if (errorTests || errorDisplayTask) {
+    return <PageDoesNotExist />;
+  }
+
+  return isLoadingDisplayTask || isLoadingTests ? (
     <Skeleton paragraph={{ rows: 8 }} />
   ) : (
     <Row>
@@ -66,7 +87,7 @@ export const JobLogs = () => {
               <Subtitle>
                 Execution: <span data-cy="execution">{task?.execution}</span>
                 <br />
-                GroupID: <span data-cy="groupId">{groupId}</span>
+                Job Number: <span data-cy="groupId">{groupId}</span>
               </Subtitle>
             </SubtitleContainer>
           </>
