@@ -89,7 +89,7 @@ export const Patch: React.FC = () => {
           <PageContent>
             <PatchTabs
               taskCount={patch?.taskCount}
-              childPatches={patch?.childPatchesTemp}
+              childPatches={patch?.childPatches}
             />
           </PageContent>
         </PageLayout>

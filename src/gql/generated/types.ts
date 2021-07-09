@@ -427,6 +427,7 @@ export enum TaskSortCategory {
 export enum TestSortCategory {
   BaseStatus = "BASE_STATUS",
   Status = "STATUS",
+  StartTime = "START_TIME",
   Duration = "DURATION",
   TestName = "TEST_NAME",
 }
@@ -728,8 +729,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
-  childPatchesTemp?: Maybe<Array<Patch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -745,13 +745,6 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
-};
-
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -2187,14 +2180,6 @@ export type PatchQuery = {
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
     childPatches?: Maybe<
-      Array<{
-        project: string;
-        patchID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
-    childPatchesTemp?: Maybe<
       Array<{
         baseVersionID?: Maybe<string>;
         githash: string;

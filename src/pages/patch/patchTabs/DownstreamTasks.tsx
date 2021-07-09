@@ -1,9 +1,8 @@
 import React from "react";
-import { ChildPatch } from "types/patch";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
-  childPatches: ChildPatch[];
+  childPatches: any[];
 }
 
 export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
