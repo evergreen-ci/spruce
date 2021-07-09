@@ -50,9 +50,6 @@ export const TestLogs = () => {
   }, [task, prevTask, groupId, getTests]);
   const isLoading = isLoadingDisplayTask || isLoadingTests;
 
-  console.log(
-    testsResult?.taskTests.testResults.length !== undefined && isLoading
-  );
   return isLoading ? (
     <Skeleton paragraph={{ rows: 8 }} />
   ) : (
@@ -67,9 +64,9 @@ export const TestLogs = () => {
             </H2>
             <SubtitleContainer>
               <Subtitle>
-                Execution: {task?.execution}
+                Execution: <span data-cy="execution">{task?.execution}</span>
                 <br />
-                GroupID: {groupId}
+                GroupID: <span data-cy="groupId">{groupId}</span>
               </Subtitle>
             </SubtitleContainer>
           </>
@@ -82,6 +79,7 @@ export const TestLogs = () => {
                   testId: id,
                   lineNum,
                 })}
+                data-cy="testlog-link"
                 key={id}
                 onClick={() => {
                   sendEvent({
