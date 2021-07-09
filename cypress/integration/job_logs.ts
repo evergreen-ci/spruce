@@ -1,6 +1,4 @@
-// /<reference types="Cypress" />
-
-describe("Task table", () => {
+describe("Job Logs", () => {
   before(() => {
     cy.login();
   });
