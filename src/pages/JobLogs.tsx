@@ -61,7 +61,7 @@ export const JobLogs = () => {
         variables: {
           taskId: task.id,
           execution: task.execution,
-          groupId,
+          ...(groupId && { groupId }),
         },
       });
     }
@@ -87,7 +87,11 @@ export const JobLogs = () => {
               <Subtitle>
                 Execution: <span data-cy="execution">{task?.execution}</span>
                 <br />
-                Job Number: <span data-cy="groupId">{groupId}</span>
+                {groupId && (
+                  <>
+                    Job Number: <span data-cy="groupId">{groupId}</span>
+                  </>
+                )}
               </Subtitle>
             </SubtitleContainer>
           </>

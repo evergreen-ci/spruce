@@ -66,7 +66,7 @@ export const routes = {
   commits: `${paths.commits}/:projectId`,
   variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
-  jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId`,
+  jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
