@@ -2,7 +2,7 @@ import React from "react";
 import Icon from "@leafygreen-ui/icon";
 import { useTaskAnalytics } from "analytics";
 import { FiltersWrapper, StyledInput } from "components/styles";
-import { TreeSelect } from "components/TreeSelect";
+import { Dropdown, TreeSelect } from "components/TreeSelect";
 import { useStatusesFilter } from "hooks";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { TestsTableCore } from "pages/task/taskTabs/testsTable/TestsTableCore";
@@ -39,13 +39,18 @@ export const TestsTable: React.FC = () => {
           data-cy="testname-input"
           width="25%"
         />
-        <TreeSelect
-          onChange={statusValOnChange}
-          state={statusVal}
-          tData={treeData}
-          inputLabel="Test Status:  "
+        <Dropdown
           data-cy="test-status-select"
+          inputLabel="Test Status:  "
           width="25%"
+          render={({ getDropdownProps }) => (
+            <TreeSelect
+              {...getDropdownProps()}
+              onChange={statusValOnChange}
+              state={statusVal}
+              tData={treeData}
+            />
+          )}
         />
       </FiltersWrapper>
       <TestsTableCore />

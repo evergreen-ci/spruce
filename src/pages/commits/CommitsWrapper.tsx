@@ -4,13 +4,24 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { ChartToggle } from "pages/commits/commitChart/ChartToggle";
+import { Grid } from "pages/commits/commitChart/Grid";
 import { GroupedResult } from "pages/commits/commitChart/utils";
+import { ChartTypes } from "types/commits";
 
-export const CommitsWrapper: React.FC<{
+interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
   isLoading: boolean;
-}> = ({ versions, isLoading, error }) => {
+  chartType?: ChartTypes;
+}
+
+export const CommitsWrapper: React.FC<Props> = ({
+  versions,
+  isLoading,
+  error,
+  chartType,
+}) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
   }
@@ -18,7 +29,13 @@ export const CommitsWrapper: React.FC<{
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
-    return <FlexRowContainer />;
+    return (
+      <ProjectHealthWrapper>
+        <FlexRowContainer />
+        <Grid numDashedLine={5} />
+        <ChartToggle currentChartType={chartType} />
+      </ProjectHealthWrapper>
+    );
   }
   return <NoResults data-cy="no-commits-found">No commits found</NoResults>;
 };
@@ -32,8 +49,20 @@ export const FlexRowContainer = styled.div`
   flex-direction: row;
   justify-content: flex-start;
   align-items: flex-end;
-  height: 222px;
+  height: 224px;
   width: 100%;
+  z-index: 1;
+  position: absolute;
+`;
+
+export const ProjectHealthWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: flex-end;
+  height: 285px;
+  width: 100%;
+  position: relative;
 `;
 
 const NoResults = styled.div`

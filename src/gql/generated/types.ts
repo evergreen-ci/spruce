@@ -2188,14 +2188,6 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        project: string;
-        patchID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;

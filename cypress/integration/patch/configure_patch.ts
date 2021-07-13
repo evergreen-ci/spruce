@@ -34,6 +34,17 @@ describe("Configure Patch Page", () => {
         .first()
         .should("have.attr", "data-selected", "true");
     });
+    describe("Visiting configure page from a redirect", () => {
+      it("should default to the tasks tab when there isn't one in the url", () => {
+        cy.visit(`/patch/${unactivatedPatchId}/configure`);
+        cy.get('button[data-cy="tasks-tab"]').should(
+          "have.attr",
+          "aria-selected",
+          "true"
+        );
+        cy.dataCy("tasks-tab").should("be.visible");
+      });
+    });
     describe("Visiting a configure page with display tasks", () => {
       before(() => {
         cy.visit(`patch/${patchWithDisplayTasks}/configure/tasks`);
