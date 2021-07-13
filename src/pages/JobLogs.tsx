@@ -108,7 +108,6 @@ export const JobLogs = () => {
                     testId: id,
                   });
                 }}
-                target="_blank"
               >
                 {displayTestName || testFile}
               </StyledLink>
