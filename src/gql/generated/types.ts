@@ -392,11 +392,17 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
 };
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type StatusCount = {
+  status: Scalars["String"];
+  count: Scalars["Int"];
 };
 
 export type BuildVariantOptions = {
@@ -729,7 +735,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -747,20 +753,12 @@ export type Patch = {
   canEnqueueToCommitQueue: Scalars["Boolean"];
 };
 
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
-};
-
 export type Build = {
   id: Scalars["String"];
   buildVariant: Scalars["String"];
   status: Scalars["String"];
   predictedMakespan: Scalars["Duration"];
   actualMakespan: Scalars["Duration"];
-  revisionOrderNumber: Scalars["Int"];
 };
 
 export type Volume = {
@@ -927,7 +925,6 @@ export type Task = {
   baseTaskMetadata?: Maybe<BaseTaskMetadata>;
   blocked: Scalars["Boolean"];
   buildId: Scalars["String"];
-  build?: Maybe<Build>;
   buildVariant: Scalars["String"];
   buildVariantDisplayName?: Maybe<Scalars["String"]>;
   canAbort: Scalars["Boolean"];
@@ -1849,6 +1846,20 @@ export type GetCreatedTicketsQuery = {
   }>;
 };
 
+export type GetDisplayTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetDisplayTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    execution: number;
+    executionTasks?: Maybe<Array<string>>;
+    displayTask?: Maybe<{ id: string; execution: number }>;
+  }>;
+};
+
 export type DistrosQueryVariables = Exact<{
   onlySpawnable: Scalars["Boolean"];
 }>;
@@ -2415,6 +2426,26 @@ export type GetTaskQuery = {
   >;
 };
 
+export type GetTestsQueryVariables = Exact<{
+  execution?: Maybe<Scalars["Int"]>;
+  groupId?: Maybe<Scalars["String"]>;
+  taskId: Scalars["String"];
+}>;
+
+export type GetTestsQuery = {
+  taskTests: {
+    testResults: Array<{
+      displayTestName?: Maybe<string>;
+      execution?: Maybe<number>;
+      groupID?: Maybe<string>;
+      id: string;
+      lineNum?: Maybe<number>;
+      taskId?: Maybe<string>;
+      testFile: string;
+    }>;
+  };
+};
+
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserConfigQuery = {
@@ -2535,44 +2566,6 @@ export type TaskQueueDistrosQueryVariables = Exact<{ [key: string]: never }>;
 
 export type TaskQueueDistrosQuery = {
   taskQueueDistros: Array<{ id: string; queueCount: number }>;
-};
-
-export type GetDisplayTaskQueryVariables = Exact<{
-  taskId: Scalars["String"];
-  execution?: Maybe<Scalars["Int"]>;
-}>;
-
-export type GetDisplayTaskQuery = {
-  task?: Maybe<{
-    id: string;
-    execution: number;
-    buildVariantDisplayName?: Maybe<string>;
-    displayTask?: Maybe<{
-      id: string;
-      execution: number;
-      buildVariantDisplayName?: Maybe<string>;
-    }>;
-  }>;
-};
-
-export type GetTestsQueryVariables = Exact<{
-  execution?: Maybe<Scalars["Int"]>;
-  groupId?: Maybe<Scalars["String"]>;
-  taskId: Scalars["String"];
-}>;
-
-export type GetTestsQuery = {
-  taskTests: {
-    testResults: Array<{
-      displayTestName?: Maybe<string>;
-      execution?: Maybe<number>;
-      groupID?: Maybe<string>;
-      id: string;
-      lineNum?: Maybe<number>;
-      taskId?: Maybe<string>;
-      testFile: string;
-    }>;
-  };
 };
 
 export type UserPatchesQueryVariables = Exact<{
