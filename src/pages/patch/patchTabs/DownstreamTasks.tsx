@@ -1,8 +1,8 @@
-import React from "react";
+import { Patch } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
-  childPatches: any[];
+  childPatches: Partial<Patch>[];
 }
 
 export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
