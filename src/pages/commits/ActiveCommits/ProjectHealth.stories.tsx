@@ -1,3 +1,4 @@
+import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import {
   ActiveCommitWrapper,
@@ -31,9 +32,7 @@ export const ActiveCommits = () => (
               chartType={ChartTypes.Absolute}
             />
             <CommitChartLabel
-              githash={item.version.githash.substring(
-                item.version.githash.length - 5
-              )}
+              githash={item.version.id.substring(item.version.id.length - 5)}
               createTime={item.version.createTime}
               author={item.version.author}
               message={item.version.message}
@@ -46,14 +45,13 @@ export const ActiveCommits = () => (
   </ProjectHealthWrapper>
 );
 
-const versions = [
+const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   {
     version: {
       id: "123",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "success", count: 6 },
         { status: "failed", count: 2 },
@@ -70,7 +68,6 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "blocked", count: 4 },
         { status: "aborted", count: 3 },
@@ -86,7 +83,6 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "success", count: 4 },
         { status: "inactive", count: 3 },
@@ -101,9 +97,7 @@ const versions = [
       id: "14",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
-      order: 39366,
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "blocked", count: 4 },
         { status: "aborted", count: 3 },
@@ -119,7 +113,6 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Elena Chen",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "setup-failed", count: 4 },
         { status: "inactive", count: 3 },
@@ -135,7 +128,6 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "system-failed", count: 6 },
         { status: "pending", count: 2 },
@@ -152,7 +144,6 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "system-timed-out", count: 4 },
         { status: "system-unresponsive", count: 3 },
