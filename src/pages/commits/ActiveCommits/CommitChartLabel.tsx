@@ -1,14 +1,11 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { format } from "date-fns";
-import { Maybe } from "gql/generated/types";
+import { shortDate } from "utils/string/index";
 
-const { gray } = uiColors;
 interface Props {
   githash: string;
-  createTime: Maybe<Date>;
+  createTime: Date;
   author: string;
   message: string;
 }
@@ -23,7 +20,7 @@ export const CommitChartLabel: React.FC<Props> = ({
   return (
     <LabelContainer>
       <Text>
-        {githash} {format(createDate, "M/d/yy")} {format(createDate, "h:mm a")}{" "}
+        {githash} {shortDate(createDate)}
       </Text>
       <Text>{author} - </Text>
       <Text>{message}</Text>
@@ -42,6 +39,6 @@ const LabelContainer = styled.div`
 `;
 
 const Text = styled(Disclaimer)`
-  color: ${gray.dark2};
+  color: ${uiColors.gray.dark2};
   width: 100%;
 `;

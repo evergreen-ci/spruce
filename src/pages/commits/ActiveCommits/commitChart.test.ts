@@ -5,10 +5,10 @@ import { groupStatusesByColor, getAllTaskStatsGroupedByColor } from "./utils";
 describe("groupStatusesByColor", () => {
   test("Seperates statuses into groups based on the color of the status", () => {
     const tasks = [
-      { status: "Succeeded", count: 6 },
-      { status: "Failed", count: 2 },
-      { status: "Dispatched", count: 4 },
-      { status: "Started", count: 5 },
+      { status: "success", count: 6 },
+      { status: "failed", count: 2 },
+      { status: "dispatched", count: 4 },
+      { status: "started", count: 5 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
       stats: {
@@ -47,12 +47,12 @@ describe("groupStatusesByColor", () => {
   });
   test("Groups statuses with different statuses but the same color", () => {
     const tasks = [
-      { status: "TestTimedOut", count: 6 },
-      { status: "Failed", count: 2 },
-      { status: "Dispatched", count: 4 },
-      { status: "WillRun", count: 2 },
-      { status: "SystemTimedOut", count: 5 },
-      { status: "SystemUnresponsive", count: 2 },
+      { status: "test-timed-out", count: 6 },
+      { status: "failed", count: 2 },
+      { status: "dispatched", count: 4 },
+      { status: "will-run", count: 2 },
+      { status: "system-timed-out", count: 5 },
+      { status: "system-unresponsive", count: 2 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
       stats: {
@@ -91,14 +91,14 @@ describe("groupStatusesByColor", () => {
   });
   test("Returns the overall maximum and toatl", () => {
     const tasks = [
-      { status: "TaskTimedOut", count: 6 },
-      { status: "Inactive", count: 2 },
-      { status: "Succeeded", count: 4 },
-      { status: "Started", count: 3 },
-      { status: "SystemFailed", count: 5 },
-      { status: "Unscheduled", count: 2 },
-      { status: "SetupFailed", count: 3 },
-      { status: "SystemUnresponsive", count: 2 },
+      { status: "task-timed-out", count: 6 },
+      { status: "inactive", count: 2 },
+      { status: "success", count: 4 },
+      { status: "started", count: 3 },
+      { status: "system-failed", count: 5 },
+      { status: "unscheduled", count: 2 },
+      { status: "setup-failed", count: 3 },
+      { status: "system-unresponsive", count: 2 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
       stats: {
@@ -139,7 +139,7 @@ describe("groupStatusesByColor", () => {
 
 describe("getAllTaskStatsGroupedByColor", () => {
   test(
-    "Grab the taskStats field from all versions," +
+    "Grab the taskStatusCounts field from all versions," +
       "returns mapping between version id to its {grouped task stats, max, total}",
     () => {
       expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
@@ -301,15 +301,15 @@ const versions = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
-        { status: "TaskTimedOut", count: 6 },
-        { status: "Inactive", count: 2 },
-        { status: "Succeeded", count: 4 },
-        { status: "Started", count: 3 },
-        { status: "SystemFailed", count: 5 },
-        { status: "Unscheduled", count: 2 },
-        { status: "SetupFailed", count: 3 },
-        { status: "SystemUnresponsive", count: 2 },
+      taskStatusCounts: [
+        { status: "task-timed-out", count: 6 },
+        { status: "inactive", count: 2 },
+        { status: "success", count: 4 },
+        { status: "started", count: 3 },
+        { status: "system-failed", count: 5 },
+        { status: "unscheduled", count: 2 },
+        { status: "setup-failed", count: 3 },
+        { status: "system-unresponsive", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -321,13 +321,13 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
-        { status: "TestTimedOut", count: 6 },
-        { status: "Failed", count: 2 },
-        { status: "Dispatched", count: 4 },
-        { status: "WillRun", count: 2 },
-        { status: "SystemTimedOut", count: 5 },
-        { status: "SystemUnresponsive", count: 2 },
+      taskStatusCounts: [
+        { status: "test-timed-out", count: 6 },
+        { status: "failed", count: 2 },
+        { status: "dispatched", count: 4 },
+        { status: "will-run", count: 2 },
+        { status: "system-timed-out", count: 5 },
+        { status: "system-unresponsive", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -339,11 +339,11 @@ const versions = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
-        { status: "Succeeded", count: 6 },
-        { status: "Failed", count: 2 },
-        { status: "Dispatched", count: 4 },
-        { status: "Started", count: 5 },
+      taskStatusCounts: [
+        { status: "success", count: 6 },
+        { status: "failed", count: 2 },
+        { status: "dispatched", count: 4 },
+        { status: "started", count: 5 },
       ],
     },
     rolledUpVersions: null,
@@ -356,15 +356,15 @@ const versions = [
       order: 39366,
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
-        { status: "TaskTimedOut", count: 6 },
-        { status: "Inactive", count: 2 },
-        { status: "Succeeded", count: 4 },
-        { status: "Started", count: 3 },
-        { status: "SystemFailed", count: 5 },
-        { status: "Unscheduled", count: 2 },
-        { status: "SetupFailed", count: 3 },
-        { status: "SystemUnresponsive", count: 2 },
+      taskStatusCounts: [
+        { status: "task-timed-out", count: 6 },
+        { status: "inactive", count: 2 },
+        { status: "success", count: 4 },
+        { status: "started", count: 3 },
+        { status: "system-failed", count: 5 },
+        { status: "unscheduled", count: 2 },
+        { status: "setup-failed", count: 3 },
+        { status: "system-unresponsive", count: 2 },
       ],
     },
     rolledUpVersions: null,

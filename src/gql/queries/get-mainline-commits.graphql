@@ -4,8 +4,8 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
             version {
                 id
                 author
-                message
                 createTime
+                message
                 taskStatusCounts {
                     status
                     count

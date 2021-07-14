@@ -1,4 +1,4 @@
-const patchWithDownstreamTasks = "5f74d99ab2373627c047c5e5";
+/* const patchWithDownstreamTasks = "5f74d99ab2373627c047c5e5";
 const DOWNSTREAM_TASKS_ROUTE = `/version/${patchWithDownstreamTasks}/downstream%20tasks`;
 
 describe("Downstream Tasks Tab", () => {
@@ -19,4 +19,4 @@ describe("Downstream Tasks Tab", () => {
     cy.dataCy("tasks-table").should("be.visible");
     cy.dataCy("project-title").should("be.visible");
   });
-});
+}); */

@@ -1,29 +1,17 @@
-import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
-import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
-import { Grid } from "pages/commits/ActiveCommits/Grid";
-import {
-  getAllTaskStatsGroupedByColor,
-  findMaxGroupedTaskStats,
-} from "pages/commits/ActiveCommits/utils";
+import { MainlineCommitsQuery } from "gql/generated/types";
+import { ChartTypes } from "types/commits";
 import {
   ActiveCommitWrapper,
   FlexRowContainer,
   ProjectHealthWrapper,
-} from "pages/commits/CommitsWrapper";
-import { ChartTypes } from "types/commits";
-
-// temporary type till the "taskStats field is added to Version on backend"
-// export type Version = {
-//   version?: {
-//     id: string;
-//     author: string;
-//     createTime: Date;
-//     message: string;
-//     githash: string;
-//     taskStats: { status: string; count: number }[];
-//   };
-//   rolledUpVersions?: {}[];
-// };
+} from "../CommitsWrapper";
+import { CommitChart } from "./CommitChart";
+import { CommitChartLabel } from "./CommitChartLabel";
+import { Grid } from "./Grid";
+import {
+  getAllTaskStatsGroupedByColor,
+  findMaxGroupedTaskStats,
+} from "./utils";
 
 export default {
   title: "Project Health Page",
@@ -44,9 +32,7 @@ export const ActiveCommits = () => (
               chartType={ChartTypes.Absolute}
             />
             <CommitChartLabel
-              githash={item.version.githash.substring(
-                item.version.githash.length - 5
-              )}
+              githash={item.version.id.substring(item.version.id.length - 5)}
               createTime={item.version.createTime}
               author={item.version.author}
               message={item.version.message}
@@ -59,20 +45,19 @@ export const ActiveCommits = () => (
   </ProjectHealthWrapper>
 );
 
-const versions = [
+const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   {
     version: {
       id: "123",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "Succeeded", count: 6 },
-        { status: "Failed", count: 2 },
-        { status: "Dispatched", count: 4 },
-        { status: "Started", count: 5 },
-        { status: "WillRun", count: 2 },
+        { status: "success", count: 6 },
+        { status: "failed", count: 2 },
+        { status: "dispatched", count: 4 },
+        { status: "started", count: 5 },
+        { status: "will-run", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -83,12 +68,11 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "Blocked", count: 4 },
-        { status: "Aborted", count: 3 },
-        { status: "Undispatched", count: 5 },
-        { status: "TestTimedOut", count: 2 },
+        { status: "blocked", count: 4 },
+        { status: "aborted", count: 3 },
+        { status: "undispatched", count: 5 },
+        { status: "test-timed-out", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -99,12 +83,11 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "Succeeded", count: 4 },
-        { status: "Inactive", count: 3 },
-        { status: "Pending", count: 5 },
-        { status: "Aborted", count: 2 },
+        { status: "success", count: 4 },
+        { status: "inactive", count: 3 },
+        { status: "pending", count: 5 },
+        { status: "aborted", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -115,12 +98,11 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "Blocked", count: 4 },
-        { status: "Aborted", count: 3 },
-        { status: "Undispatched", count: 5 },
-        { status: "TestTimedOut", count: 2 },
+        { status: "blocked", count: 4 },
+        { status: "aborted", count: 3 },
+        { status: "undispatched", count: 5 },
+        { status: "test-timed-out", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -131,12 +113,11 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Elena Chen",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "SetupFailed", count: 4 },
-        { status: "Inactive", count: 3 },
-        { status: "Pending", count: 5 },
-        { status: "Unstarted", count: 2 },
+        { status: "setup-failed", count: 4 },
+        { status: "inactive", count: 3 },
+        { status: "pending", count: 5 },
+        { status: "unstarted", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -147,13 +128,12 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "SystemFailed", count: 6 },
-        { status: "Pending", count: 2 },
-        { status: "KnownIssue", count: 4 },
-        { status: "Unscheduled", count: 12 },
-        { status: "TaskTimedOut", count: 2 },
+        { status: "system-failed", count: 6 },
+        { status: "pending", count: 2 },
+        { status: "known-issue", count: 4 },
+        { status: "unscheduled", count: 12 },
+        { status: "task-timed-out", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -164,12 +144,11 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
-        { status: "SystemTimedOut", count: 4 },
-        { status: "SystemUnresponsive", count: 3 },
-        { status: "SetupFailed", count: 5 },
-        { status: "Unscheduled", count: 2 },
+        { status: "system-timed-out", count: 4 },
+        { status: "system-unresponsive", count: 3 },
+        { status: "setup-failed", count: 5 },
+        { status: "unscheduled", count: 2 },
       ],
     },
     rolledUpVersions: null,
@@ -177,4 +156,4 @@ const versions = [
 ];
 
 const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const max = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);

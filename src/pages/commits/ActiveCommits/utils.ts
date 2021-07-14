@@ -32,14 +32,12 @@ export const groupStatusesByColor = (
   return { stats: counts, max, total };
 };
 
-export function findMaxGroupedTaskStats(groupedTaskStats: {
+export const findMaxGroupedTaskStats = (groupedTaskStats: {
   [id: string]: GroupedResult;
-}) {
-  const maxes = Object.keys(groupedTaskStats).map(
-    (id) => groupedTaskStats[id].max
+}) =>
+  Object.values(groupedTaskStats).reduce((prev, curr) =>
+    prev.max > curr.max ? prev : curr
   );
-  return Math.max(...maxes);
-}
 
 export const getAllTaskStatsGroupedByColor = (
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"]

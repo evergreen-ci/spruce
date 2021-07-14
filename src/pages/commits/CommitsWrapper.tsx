@@ -1,18 +1,17 @@
-import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartToggle } from "pages/commits/ActiveCommits/ChartToggle";
 import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
 import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
-import { Grid } from "pages/commits/ActiveCommits/Grid";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "pages/commits/ActiveCommits/utils";
 import { ChartTypes } from "types/commits";
+import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { Grid } from "./ActiveCommits/Grid";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -35,7 +34,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   }
   if (!isLoading && versions?.length !== 0) {
     const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-    const max = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+    const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
 
     return (
       <ProjectHealthWrapper>

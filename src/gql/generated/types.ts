@@ -2025,8 +2025,8 @@ export type MainlineCommitsQuery = {
       version?: Maybe<{
         id: string;
         author: string;
-        message: string;
         createTime: Date;
+        message: string;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
       rolledUpVersions?: Maybe<
@@ -2174,14 +2174,6 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
-    childPatches?: Maybe<
-      Array<{
-        project: string;
-        patchID: string;
-        taskCount?: Maybe<number>;
-        status: string;
-      }>
-    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
