@@ -21,7 +21,7 @@ const tabToIndexMap = {
 
 interface Props {
   taskCount: number;
-  childPatches?: Partial<Patch>[];
+  childPatches: Partial<Patch>[];
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {
