@@ -12,6 +12,7 @@ import {
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
+import { InactiveCommits } from "./InactiveCommits/index";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -59,7 +60,9 @@ export const CommitsWrapper: React.FC<Props> = ({
                   message={item.version.message}
                 />
               </ActiveCommitWrapper>
-            ) : null
+            ) : (
+              <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+            )
           )}
         </FlexRowContainer>
         <Grid numDashedLine={5} />

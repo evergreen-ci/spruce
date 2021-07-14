@@ -10,10 +10,10 @@ const { gray } = uiColors;
 type rolledUpVersion = {
   id: string;
   author: string;
-  createTime: string;
+  createTime: Date;
   order: number;
   message: string;
-  githash: string;
+  githash?: string;
 };
 interface InactiveCommitsProps {
   rolledUpVersions: rolledUpVersion[];
