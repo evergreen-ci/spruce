@@ -139,7 +139,7 @@ describe("groupStatusesByColor", () => {
 
 describe("getAllTaskStatsGroupedByColor", () => {
   test(
-    "Grab the taskStats field from all versions," +
+    "Grab the taskStatusCounts field from all versions," +
       "returns mapping between version id to its {grouped task stats, max, total}",
     () => {
       expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
@@ -301,7 +301,7 @@ const versions = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "TaskTimedOut", count: 6 },
         { status: "Inactive", count: 2 },
         { status: "Succeeded", count: 4 },
@@ -321,7 +321,7 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "TestTimedOut", count: 6 },
         { status: "Failed", count: 2 },
         { status: "Dispatched", count: 4 },
@@ -339,7 +339,7 @@ const versions = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "Succeeded", count: 6 },
         { status: "Failed", count: 2 },
         { status: "Dispatched", count: 4 },
@@ -356,7 +356,7 @@ const versions = [
       order: 39366,
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "TaskTimedOut", count: 6 },
         { status: "Inactive", count: 2 },
         { status: "Succeeded", count: 4 },

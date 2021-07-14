@@ -4,9 +4,9 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
-import { ChartToggle } from "pages/commits/ActiveCommits/ChartToggle";
-import { Grid } from "pages/commits/ActiveCommits/Grid";
 import { ChartTypes } from "types/commits";
+import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { Grid } from "./ActiveCommits/Grid";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];

@@ -1,29 +1,16 @@
-import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
-import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
-import { Grid } from "pages/commits/ActiveCommits/Grid";
-import {
-  getAllTaskStatsGroupedByColor,
-  findMaxGroupedTaskStats,
-} from "pages/commits/ActiveCommits/utils";
+import { ChartTypes } from "types/commits";
 import {
   ActiveCommitWrapper,
   FlexRowContainer,
   ProjectHealthWrapper,
-} from "pages/commits/CommitsWrapper";
-import { ChartTypes } from "types/commits";
-
-// temporary type till the "taskStats field is added to Version on backend"
-export type Version = {
-  version?: {
-    id: string;
-    author: string;
-    createTime: Date;
-    message: string;
-    githash: string;
-    taskStats: { status: string; count: number }[];
-  };
-  rolledUpVersions?: {}[];
-};
+} from "../CommitsWrapper";
+import { CommitChart } from "./CommitChart";
+import { CommitChartLabel } from "./CommitChartLabel";
+import { Grid } from "./Grid";
+import {
+  getAllTaskStatsGroupedByColor,
+  findMaxGroupedTaskStats,
+} from "./utils";
 
 export default {
   title: "Project Health Page",
@@ -67,7 +54,7 @@ const versions = [
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "Succeeded", count: 6 },
         { status: "Failed", count: 2 },
         { status: "Dispatched", count: 4 },
@@ -84,7 +71,7 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "Blocked", count: 4 },
         { status: "Aborted", count: 3 },
         { status: "Undispatched", count: 5 },
@@ -100,7 +87,7 @@ const versions = [
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Mohamed Khelif",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "Succeeded", count: 4 },
         { status: "Inactive", count: 3 },
         { status: "Pending", count: 5 },
@@ -117,7 +104,7 @@ const versions = [
       order: 39366,
       author: "Arjun Patel",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "Blocked", count: 4 },
         { status: "Aborted", count: 3 },
         { status: "Undispatched", count: 5 },
@@ -133,7 +120,7 @@ const versions = [
       message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
       author: "Elena Chen",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "SetupFailed", count: 4 },
         { status: "Inactive", count: 3 },
         { status: "Pending", count: 5 },
@@ -149,7 +136,7 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "SystemFailed", count: 6 },
         { status: "Pending", count: 2 },
         { status: "KnownIssue", count: 4 },
@@ -166,7 +153,7 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       author: "Sophie Stadler",
       githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      taskStats: [
+      taskStatusCounts: [
         { status: "SystemTimedOut", count: 4 },
         { status: "SystemUnresponsive", count: 3 },
         { status: "SetupFailed", count: 5 },

@@ -938,6 +938,11 @@ export type SpruceConfig = {
   spawnHost: SpawnHostConfig;
 };
 
+export type StatusCount = {
+  status: Scalars["String"];
+  count: Scalars["Int"];
+};
+
 export type SubscriberInput = {
   type: Scalars["String"];
   target: Scalars["String"];
@@ -1245,6 +1250,7 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
 };
 
@@ -2019,27 +2025,9 @@ export type MainlineCommitsQuery = {
       version?: Maybe<{
         id: string;
         author: string;
-        order: number;
         createTime: Date;
         message: string;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              variant: string;
-              displayName: string;
-              tasks?: Maybe<
-                Array<
-                  Maybe<{
-                    id: string;
-                    execution: number;
-                    displayName: string;
-                    status: string;
-                  }>
-                >
-              >;
-            }>
-          >
-        >;
+        taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
       rolledUpVersions?: Maybe<
         Array<{ id: string; createTime: Date; author: string }>
