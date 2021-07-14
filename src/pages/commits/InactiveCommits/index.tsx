@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { string } from "utils";
 
 const { getDateCopy } = string;
@@ -61,8 +61,8 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
       trigger={
         <ButtonContainer>
           <ButtonText data-cy="inactive-commits-button">
-            <TopText>{`${versionCount} Inactive`} </TopText>
-            {`Commit${versionCount !== 1 && "s"}`}
+            <TopText>{`${versionCount}`} </TopText>
+            inactive
           </ButtonText>
         </ButtonContainer>
       }
@@ -101,30 +101,17 @@ const TooltipContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  width: 100px;
+  width: 58px;
   cursor: pointer;
 `;
 const TopText = styled.div`
   white-space: nowrap;
 `;
-const ButtonText = styled(Body)`
+const ButtonText = styled(Disclaimer)`
   text-align: center;
   display: table;
-  &:before,
-  &:after {
-    border-top: 1px solid black;
-    content: "";
-    display: table-cell;
-    position: relative;
-    top: 1.5em;
-    width: 45%;
-  }
-  &:before {
-    right: 1.5%;
-  }
-  &:after {
-    left: 1.5%;
-  }
+  color: ${uiColors.gray.dark2};
+  font-weight: bold;
 `;
 
 const MAX_COMMIT_COUNT = 5;
