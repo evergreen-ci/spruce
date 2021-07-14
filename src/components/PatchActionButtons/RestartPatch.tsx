@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
-import { PatchRestartModal } from "pages/patch/index";
+import { PatchRestartModal } from "pages/version/PatchRestartModal";
 
 interface RestartPatchProps {
   patchId: string;

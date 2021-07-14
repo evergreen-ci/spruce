@@ -23,6 +23,7 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
+  version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
@@ -72,6 +73,10 @@ export type QueryTaskAllExecutionsArgs = {
 };
 
 export type QueryPatchArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -392,11 +397,17 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
 };
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type StatusCount = {
+  status: Scalars["String"];
+  count: Scalars["Int"];
 };
 
 export type BuildVariantOptions = {
@@ -729,7 +740,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -745,13 +756,6 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
-};
-
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -2451,6 +2455,14 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
+};
+
+export type VersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type VersionQuery = {
+  version: { id: string; activated?: Maybe<boolean> };
 };
 
 export type HostsQueryVariables = Exact<{

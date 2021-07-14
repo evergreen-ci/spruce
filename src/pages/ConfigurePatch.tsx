@@ -14,6 +14,7 @@ import { GET_PATCH_CONFIGURE } from "gql/queries";
 import { usePageTitle } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { ConfigurePatchCore } from "pages/configurePatch/ConfigurePatchCore";
+import { validatePatchId } from "utils/validators";
 
 export const ConfigurePatch: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -30,6 +31,11 @@ export const ConfigurePatch: React.FC = () => {
 
   const { patch } = data || {};
   usePageTitle(`Configure Patch`);
+
+  // Cant configure a mainline version so should redirect to the version page
+  if (!validatePatchId(id)) {
+    return <Redirect to={getVersionRoute(id)} />;
+  }
 
   if (loading) {
     return <PatchAndTaskFullPageLoad />;

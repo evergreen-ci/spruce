@@ -2,6 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
+import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
 import { PageTitle } from "components/PageTitle";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
 import {
@@ -18,12 +19,12 @@ import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
 import { GET_PATCH } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
-import { BuildVariants } from "pages/patch/BuildVariants";
-import { ActionButtons } from "pages/patch/index";
-import { Metadata } from "pages/patch/Metadata";
-import { PatchTabs } from "pages/patch/PatchTabs";
+import { BuildVariants } from "./version/BuildVariants";
+import { ActionButtons } from "./version/index";
+import { Metadata } from "./version/Metadata";
+import { PatchTabs } from "./version/PatchTabs";
 
-export const Patch: React.FC = () => {
+export const VersionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
 
   const dispatchToast = useToastContext();
@@ -55,6 +56,10 @@ export const Patch: React.FC = () => {
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
+
+  if (loading) {
+    return <PatchAndTaskFullPageLoad />;
+  }
 
   if (activated === false && alias !== commitQueueAlias) {
     return <Redirect to={getPatchRoute(id, { configure: true })} />;

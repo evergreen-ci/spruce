@@ -20,9 +20,9 @@ import { RESTART_PATCH } from "gql/mutations";
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { PatchBuildVariantAccordion } from "pages/patch/patchRestartModal/index";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
+import { PatchBuildVariantAccordion } from "./patchRestartModal/index";
 
 const { getArray, parseQueryString } = queryString;
 const { gray } = uiColors;

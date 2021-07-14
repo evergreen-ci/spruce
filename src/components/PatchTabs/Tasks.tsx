@@ -17,10 +17,10 @@ import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
-import { PatchTasksTable } from "pages/patch/patchTabs/tasks/PatchTasksTable";
-import { TaskFilters } from "pages/patch/patchTabs/tasks/TaskFilters";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { queryString, url } from "utils";
+import { PatchTasksTable } from "./tasks/PatchTasksTable";
+import { TaskFilters } from "./tasks/TaskFilters";
 
 const { parseQueryString, parseSortString } = queryString;
 

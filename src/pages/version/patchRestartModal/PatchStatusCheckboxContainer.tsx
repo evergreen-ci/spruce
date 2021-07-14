@@ -1,7 +1,7 @@
 import React from "react";
 import { FixedSizeList } from "react-window";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { TaskStatusCheckbox } from "pages/patch/patchRestartModal/TaskStatusCheckbox";
+import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
 interface PatchStatusCheckboxContainerProps {
   tasks: {
