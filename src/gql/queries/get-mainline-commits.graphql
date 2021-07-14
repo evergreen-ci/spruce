@@ -6,10 +6,6 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
                 author
                 createTime
                 message
-                taskStatusCounts {
-                    status
-                    count
-                }
             }
             rolledUpVersions {
                 id

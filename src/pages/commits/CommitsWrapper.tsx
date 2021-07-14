@@ -1,4 +1,3 @@
-import React from "react";
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
