@@ -300,7 +300,7 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "task-timed-out", count: 6 },
         { status: "inactive", count: 2 },
@@ -320,7 +320,7 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "test-timed-out", count: 6 },
         { status: "failed", count: 2 },
@@ -338,7 +338,7 @@ const versions = [
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       author: "Mohamed Khelif",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "success", count: 6 },
         { status: "failed", count: 2 },
@@ -355,7 +355,7 @@ const versions = [
       message: "SERVER-57333 Some complicated server commit",
       order: 39366,
       author: "Arjun Patel",
-      githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "task-timed-out", count: 6 },
         { status: "inactive", count: 2 },

@@ -6,6 +6,7 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
                 author
                 createTime
                 message
+                revision
                 taskStatusCounts {
                     status
                     count
@@ -15,6 +16,7 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
                 id
                 createTime
                 author
+                revision
             }
         }
         nextPageOrderNumber
