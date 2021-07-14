@@ -60,5 +60,24 @@ export const getLobsterTestLogUrl = ({
         lineNum ? `#shareLine=${lineNum}` : ""
       }`;
 
+interface GetLobsterTestLogCompleteUrlParams {
+  taskId: string;
+  execution: number;
+  groupId: string;
+  lineNum?: number;
+}
+
+export const getLobsterTestLogCompleteUrl = ({
+  taskId,
+  execution,
+  groupId,
+  lineNum,
+}: GetLobsterTestLogCompleteUrlParams) =>
+  !taskId || Number.isNaN(execution) || !groupId
+    ? ""
+    : `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}/${groupId}${
+        lineNum ? `#shareLine=${lineNum}` : ""
+      }`;
+
 export const isLogkeeperLink = (link: string) =>
   link.includes(`${deprecatedLogkeeperLobsterURL}/build`);

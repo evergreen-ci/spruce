@@ -5,7 +5,9 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
-type Action = { name: "Clicked lobster testlog url"; testId: string };
+type Action =
+  | { name: "Clicked lobster testlog url"; testId: string }
+  | { name: "Clicked complete logs link"; taskId: string };
 
 interface P extends Properties {}
 interface Analytics extends A<Action> {}

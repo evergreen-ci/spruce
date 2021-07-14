@@ -1854,6 +1854,7 @@ export type GetDisplayTaskQueryVariables = Exact<{
 export type GetDisplayTaskQuery = {
   task?: Maybe<{
     id: string;
+    displayName: string;
     execution: number;
     executionTasks?: Maybe<Array<string>>;
     displayTask?: Maybe<{ id: string; execution: number }>;

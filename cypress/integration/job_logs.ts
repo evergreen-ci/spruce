@@ -12,6 +12,12 @@ describe("Job Logs", () => {
     cy.dataCy("task-link").contains(taskId);
     cy.dataCy("execution").contains(execution);
     cy.dataCy("groupId").contains(groupId);
+    cy.dataCy("complete-test-logs-link")
+      .should("have.attr", "href")
+      .and(
+        "include",
+        "evergreen.mongodb.com/lobster/evergreen/complete-test/evergreen_ubuntu1604_test_model_patch_5e823e1f28baeaa22ae00823d83e03082cd148ab_5e4ff3abe3c3317e352062e4_20_02_21_15_13_48/0/llama"
+      );
     cy.dataCy("testlog-link").each(($el, index) => {
       expect($el.text()).to.eq(testNames[index]);
       expect($el.attr("href")).to.eq(testHrefs[index]);

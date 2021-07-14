@@ -7,7 +7,10 @@ import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { StyledRouterLink, StyledLink } from "components/styles";
-import { getLobsterTestLogUrl } from "constants/externalResources";
+import {
+  getLobsterTestLogUrl,
+  getLobsterTestLogCompleteUrl,
+} from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -69,6 +72,7 @@ export const JobLogs = () => {
     return <PageDoesNotExist />;
   }
 
+  const { testResults } = testsResult?.taskTests ?? {};
   return isLoadingDisplayTask || isLoadingTests ? (
     <Skeleton paragraph={{ rows: 8 }} />
   ) : (
@@ -93,7 +97,27 @@ export const JobLogs = () => {
               </Subtitle>
             </SubtitleContainer>
           </>
-          {testsResult?.taskTests.testResults.map(
+          {testResults?.length &&
+          !displayTaskResult?.task.executionTasks?.length ? (
+            <SubtitleContainer>
+              <Subtitle>
+                <StyledLink
+                  data-cy="complete-test-logs-link"
+                  onClick={() => {
+                    sendEvent({ name: "Clicked complete logs link", taskId });
+                  }}
+                  href={getLobsterTestLogCompleteUrl({
+                    taskId,
+                    groupId,
+                    execution,
+                  })}
+                >
+                  Complete logs for all
+                </StyledLink>
+              </Subtitle>
+            </SubtitleContainer>
+          ) : null}
+          {testResults?.map(
             ({ id, lineNum, displayTestName, testFile, ...test }) => (
               <StyledLink
                 href={getLobsterTestLogUrl({
@@ -115,9 +139,7 @@ export const JobLogs = () => {
               </StyledLink>
             )
           )}
-          {testsResult?.taskTests.testResults.length === 0 && (
-            <Body>No test results found.</Body>
-          )}
+          {testResults?.length === 0 && <Body>No test results found.</Body>}
         </Column>
       </Card>
     </Row>
