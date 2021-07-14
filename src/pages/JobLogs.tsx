@@ -17,7 +17,6 @@ import {
   GetTestsQueryVariables,
 } from "gql/generated/types";
 import { GET_DISPLAY_TASK, GET_TESTS } from "gql/queries";
-import { usePrevious } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 
 export const JobLogs = () => {
@@ -54,9 +53,8 @@ export const JobLogs = () => {
   });
 
   const task = displayTaskResult?.task?.displayTask ?? displayTaskResult?.task;
-  const prevTask = usePrevious(task);
   useEffect(() => {
-    if (!prevTask && task) {
+    if (task) {
       getTests({
         variables: {
           taskId: task.id,
@@ -65,7 +63,7 @@ export const JobLogs = () => {
         },
       });
     }
-  }, [task, prevTask, groupId, getTests]);
+  }, [task, groupId, getTests]);
 
   if (errorTests || errorDisplayTask) {
     return <PageDoesNotExist />;
