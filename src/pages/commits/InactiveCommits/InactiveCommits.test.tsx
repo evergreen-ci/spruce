@@ -74,53 +74,54 @@ describe("InactiveCommits", () => {
   });
 });
 
+const time = new Date("2021-06-16T23:38:13Z");
 const versions = [
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
     author: "Mohamed Khelif",
-    githash: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
+    revision: "4137c33fa4a0d5c747a1115f0853b5f70e46f112",
   },
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
     author: "Arjun Patel",
-    githash: "4237c33fa4a0d5c747a1115f0853b5f70e46f113",
+    revision: "4237c33fa4a0d5c747a1115f0853b5f70e46f113",
   },
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
     author: "Mohamed Khelif",
-    githash: "4337c33fa4a0d5c747a1115f0853b5f70e46f114",
+    revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f114",
   },
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
     author: "Arjun Patel",
-    githash: "4437c33fa4a0d5c747a1115f0853b5f70e46f115",
+    revision: "4437c33fa4a0d5c747a1115f0853b5f70e46f115",
   },
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
     order: 39365,
     author: "Elena Chen",
-    githash: "4537c33fa4a0d5c747a1115f0853b5f70e46f116",
+    revision: "4537c33fa4a0d5c747a1115f0853b5f70e46f116",
   },
   {
     id: "123",
-    createTime: "2021-06-16T23:38:13Z",
+    createTime: time,
     message: "SERVER-57333 Some complicated server commit",
     order: 39366,
     author: "Sophie Stadler",
-    githash: "4637c33fa4a0d5c747a1115f0853b5f70e46f117",
+    revision: "4637c33fa4a0d5c747a1115f0853b5f70e46f117",
   },
 ];

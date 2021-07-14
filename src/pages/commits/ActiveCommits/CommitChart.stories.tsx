@@ -14,33 +14,29 @@ export default {
 
 export const AbsoluteChart = () => (
   <FlexRowContainer>
-    {versions.map((item) =>
-      item.version ? (
-        <CommitChart
-          key={item.version.id}
-          groupedTaskStats={groupedTaskData[item.version.id].stats}
-          total={groupedTaskData[item.version.id].total}
-          max={max}
-          chartType={ChartTypes.Absolute}
-        />
-      ) : null
-    )}
+    {versions.map((item) => (
+      <CommitChart
+        key={item.version.id}
+        groupedTaskStats={groupedTaskData[item.version.id].stats}
+        total={groupedTaskData[item.version.id].total}
+        max={max}
+        chartType={ChartTypes.Absolute}
+      />
+    ))}
   </FlexRowContainer>
 );
 
 export const PercentChart = () => (
   <FlexRowContainer>
-    {versions.map((item) =>
-      item.version ? (
-        <CommitChart
-          key={item.version.id}
-          groupedTaskStats={groupedTaskData[item.version.id].stats}
-          total={groupedTaskData[item.version.id].total}
-          max={max}
-          chartType={ChartTypes.Percentage}
-        />
-      ) : null
-    )}
+    {versions.map((item) => (
+      <CommitChart
+        key={item.version.id}
+        groupedTaskStats={groupedTaskData[item.version.id].stats}
+        total={groupedTaskData[item.version.id].total}
+        max={max}
+        chartType={ChartTypes.Percentage}
+      />
+    ))}
   </FlexRowContainer>
 );
 
@@ -50,6 +46,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "123",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
       taskStatusCounts: [
         { status: "success", count: 6 },
@@ -66,6 +63,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "12",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
       taskStatusCounts: [
         { status: "blocked", count: 4 },
@@ -81,6 +79,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "13",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
       taskStatusCounts: [
         { status: "success", count: 4 },
@@ -96,6 +95,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "14",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
       taskStatusCounts: [
         { status: "blocked", count: 4 },
@@ -111,6 +111,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "15",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Elena Chen",
       taskStatusCounts: [
         { status: "setup-failed", count: 4 },
@@ -126,6 +127,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "16",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
       taskStatusCounts: [
         { status: "system-failed", count: 6 },
@@ -142,6 +144,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       id: "17",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
+      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
       taskStatusCounts: [
         { status: "system-timed-out", count: 4 },

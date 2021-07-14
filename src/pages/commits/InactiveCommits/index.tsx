@@ -13,7 +13,7 @@ type rolledUpVersion = {
   createTime: Date;
   order: number;
   message: string;
-  githash?: string;
+  revision?: string;
 };
 interface InactiveCommitsProps {
   rolledUpVersions: rolledUpVersion[];
@@ -30,7 +30,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
       ...rolledUpVersions.slice(0, 2).map((v) => (
-        <CommitText key={v.githash} data-cy="commit-text">
+        <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
       )),
@@ -41,14 +41,14 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
         hiddenCommitCount !== 1 ? "s" : ""
       }`}</HiddenCommitsWrapper>,
       ...rolledUpVersions.slice(-3).map((v) => (
-        <CommitText key={v.githash} data-cy="commit-text">
+        <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
       )),
     ];
   } else {
     returnedCommits = rolledUpVersions.map((v) => (
-      <CommitText key={v.githash} data-cy="commit-text">
+      <CommitText key={v.revision} data-cy="commit-text">
         {getCommitCopy(v)}
       </CommitText>
     ));
@@ -76,7 +76,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
 };
 
 const getCommitCopy = (v: rolledUpVersion) =>
-  `${v.githash.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
+  `${v.revision.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
     v.message
   } (#${v.order})`;
 
