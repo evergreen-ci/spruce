@@ -394,15 +394,27 @@ export type Version = {
   order: Scalars["Int"];
   repo: Scalars["String"];
   project: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
   taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+  isPatch: Scalars["Boolean"];
+  patch?: Maybe<Patch>;
+  taskCount?: Maybe<Scalars["Int"]>;
+  baseVersionID?: Maybe<Scalars["String"]>;
+  versionTiming?: Maybe<VersionTiming>;
+  parameters: Array<Parameter>;
 };
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type VersionTiming = {
+  makespan?: Maybe<Scalars["Duration"]>;
+  timeTaken?: Maybe<Scalars["Duration"]>;
 };
 
 export type StatusCount = {
@@ -1783,6 +1795,27 @@ export type BuildBaronQuery = {
   };
 };
 
+export type BuildVariantsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type BuildVariantsQuery = {
+  version: {
+    id: string;
+    buildVariants?: Maybe<
+      Array<
+        Maybe<{
+          variant: string;
+          displayName: string;
+          tasks?: Maybe<
+            Array<Maybe<{ id: string; execution: number; status: string }>>
+          >;
+        }>
+      >
+    >;
+  };
+};
+
 export type ClientConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ClientConfigQuery = {
@@ -2462,7 +2495,37 @@ export type VersionQueryVariables = Exact<{
 }>;
 
 export type VersionQuery = {
-  version: { id: string; activated?: Maybe<boolean> };
+  version: {
+    id: string;
+    createTime: Date;
+    startTime?: Maybe<Date>;
+    finishTime?: Maybe<Date>;
+    revision: string;
+    author: string;
+    status: string;
+    order: number;
+    repo: string;
+    project: string;
+    activated?: Maybe<boolean>;
+    message: string;
+    isPatch: boolean;
+    taskCount?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
+    projectIdentifier: string;
+    versionTiming?: Maybe<{
+      makespan?: Maybe<number>;
+      timeTaken?: Maybe<number>;
+    }>;
+    parameters: Array<{ key: string; value: string }>;
+    patch?: Maybe<{
+      id: string;
+      commitQueuePosition?: Maybe<number>;
+      canEnqueueToCommitQueue: boolean;
+      activated: boolean;
+      alias?: Maybe<string>;
+      patchNumber: number;
+    }>;
+  };
 };
 
 export type HostsQueryVariables = Exact<{
