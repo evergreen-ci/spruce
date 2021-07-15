@@ -3,6 +3,7 @@ import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
+import GET_BUILD_VARIANTS from "./get-build-variants.graphql";
 import GET_CLIENT_CONFIG from "./get-client-config.graphql";
 import GET_CODE_CHANGES from "./get-code-changes.graphql";
 import GET_COMMIT_QUEUE from "./get-commit-queue.graphql";
@@ -36,6 +37,7 @@ import GET_TASK from "./get-task.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
+import GET_VERSION from "./get-version.graphql";
 import HOSTS from "./hosts.graphql";
 import GET_PROJECT_PATCHES from "./project-patches.graphql";
 import GET_SPAWN_EXPIRATION_INFO from "./spawn-expiration.graphql";
@@ -54,6 +56,7 @@ export {
   GET_COMMIT_QUEUE,
   GET_MY_HOSTS,
   GET_PATCH_BUILD_VARIANTS,
+  GET_BUILD_VARIANTS,
   GET_PATCH_TASKS,
   GET_PROJECTS,
   GET_TASK_FILES,
@@ -89,5 +92,6 @@ export {
   GET_USER,
   GET_OTHER_USER,
   GET_PATCH,
+  GET_VERSION,
   GET_PATCH_CONFIGURE,
 };
