@@ -11,36 +11,28 @@ describe("groupStatusesByColor", () => {
       { status: "started", count: 5 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
-      stats: {
-        [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+      stats: [
+        {
           count: 6,
           statuses: [TaskStatus.Succeeded],
+          color: mapTaskStatusToColor[TaskStatus.Succeeded],
         },
-        [mapTaskStatusToColor[TaskStatus.Failed]]: {
+        {
           count: 2,
           statuses: [TaskStatus.Failed],
+          color: mapTaskStatusToColor[TaskStatus.Failed],
         },
-        [mapTaskStatusToColor[TaskStatus.SystemFailed]]: {
-          count: 0,
-          statuses: [],
-        },
-        [mapTaskStatusToColor[TaskStatus.Dispatched]]: {
+        {
           count: 4,
           statuses: [TaskStatus.Dispatched],
+          color: mapTaskStatusToColor[TaskStatus.Dispatched],
         },
-        [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
-          count: 0,
-          statuses: [],
-        },
-        [mapTaskStatusToColor[TaskStatus.Started]]: {
+        {
           count: 5,
           statuses: [TaskStatus.Started],
+          color: mapTaskStatusToColor[TaskStatus.Started],
         },
-        [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
-          count: 0,
-          statuses: [],
-        },
-      },
+      ],
       max: 6,
       total: 17,
     });
@@ -55,36 +47,23 @@ describe("groupStatusesByColor", () => {
       { status: "system-unresponsive", count: 2 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
-      stats: {
-        [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-          count: 0,
-          statuses: [],
-        },
-        [mapTaskStatusToColor[TaskStatus.Failed]]: {
+      stats: [
+        {
           count: 8,
           statuses: [TaskStatus.TestTimedOut, TaskStatus.Failed],
+          color: mapTaskStatusToColor[TaskStatus.Failed],
         },
-        [mapTaskStatusToColor[TaskStatus.Dispatched]]: {
-          count: 6,
-          statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
-        },
-        [mapTaskStatusToColor[TaskStatus.SystemTimedOut]]: {
+        {
           count: 7,
           statuses: [TaskStatus.SystemTimedOut, TaskStatus.SystemUnresponsive],
+          color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
         },
-        [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
-          count: 0,
-          statuses: [],
+        {
+          count: 6,
+          statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
+          color: mapTaskStatusToColor[TaskStatus.Dispatched],
         },
-        [mapTaskStatusToColor[TaskStatus.Started]]: {
-          count: 0,
-          statuses: [],
-        },
-        [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
-          count: 0,
-          statuses: [],
-        },
-      },
+      ],
       max: 8,
       total: 21,
     });
@@ -101,36 +80,43 @@ describe("groupStatusesByColor", () => {
       { status: "system-unresponsive", count: 2 },
     ];
     expect(groupStatusesByColor(tasks)).toStrictEqual({
-      stats: {
-        [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+      stats: [
+        {
           count: 4,
           statuses: [TaskStatus.Succeeded],
+          color: mapTaskStatusToColor[TaskStatus.Succeeded],
         },
-        [mapTaskStatusToColor[TaskStatus.Failed]]: {
+        {
           count: 6,
           statuses: [TaskStatus.TaskTimedOut],
+          color: mapTaskStatusToColor[TaskStatus.Failed],
         },
-        [mapTaskStatusToColor[TaskStatus.SystemTimedOut]]: {
+        {
           count: 7,
           statuses: [TaskStatus.SystemFailed, TaskStatus.SystemUnresponsive],
+          color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
         },
-        [mapTaskStatusToColor[TaskStatus.Inactive]]: {
+        {
           count: 2,
           statuses: [TaskStatus.Inactive],
+          color: mapTaskStatusToColor[TaskStatus.Inactive],
         },
-        [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
+        {
           count: 3,
           statuses: [TaskStatus.SetupFailed],
+          color: mapTaskStatusToColor[TaskStatus.SetupFailed],
         },
-        [mapTaskStatusToColor[TaskStatus.Started]]: {
+        {
           count: 3,
           statuses: [TaskStatus.Started],
+          color: mapTaskStatusToColor[TaskStatus.Started],
         },
-        [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
+        {
           count: 2,
           statuses: [TaskStatus.Unscheduled],
+          color: mapTaskStatusToColor[TaskStatus.Unscheduled],
         },
-      },
+      ],
       max: 7,
       total: 27,
     });
@@ -144,147 +130,140 @@ describe("getAllTaskStatsGroupedByColor", () => {
     () => {
       expect(getAllTaskStatsGroupedByColor(versions)).toStrictEqual({
         "123": {
-          stats: {
-            [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+          stats: [
+            {
               count: 4,
               statuses: [TaskStatus.Succeeded],
+              color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
-            [mapTaskStatusToColor[TaskStatus.Failed]]: {
+            {
               count: 6,
               statuses: [TaskStatus.TaskTimedOut],
+              color: mapTaskStatusToColor[TaskStatus.Failed],
             },
-            [mapTaskStatusToColor[TaskStatus.SystemTimedOut]]: {
+            {
               count: 7,
               statuses: [
                 TaskStatus.SystemFailed,
                 TaskStatus.SystemUnresponsive,
               ],
+              color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
-            [mapTaskStatusToColor[TaskStatus.Inactive]]: {
+            {
               count: 2,
               statuses: [TaskStatus.Inactive],
+              color: mapTaskStatusToColor[TaskStatus.Inactive],
             },
-            [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
+            {
               count: 3,
               statuses: [TaskStatus.SetupFailed],
+              color: mapTaskStatusToColor[TaskStatus.SetupFailed],
             },
-            [mapTaskStatusToColor[TaskStatus.Started]]: {
+            {
               count: 3,
               statuses: [TaskStatus.Started],
+              color: mapTaskStatusToColor[TaskStatus.Started],
             },
-            [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
+            {
               count: 2,
               statuses: [TaskStatus.Unscheduled],
+              color: mapTaskStatusToColor[TaskStatus.Unscheduled],
             },
-          },
+          ],
           max: 7,
           total: 27,
         },
         "12": {
-          stats: {
-            [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-              count: 0,
-              statuses: [],
-            },
-            [mapTaskStatusToColor[TaskStatus.Failed]]: {
+          stats: [
+            {
               count: 8,
               statuses: [TaskStatus.TestTimedOut, TaskStatus.Failed],
+              color: mapTaskStatusToColor[TaskStatus.Failed],
             },
-            [mapTaskStatusToColor[TaskStatus.Dispatched]]: {
-              count: 6,
-              statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
-            },
-            [mapTaskStatusToColor[TaskStatus.SystemTimedOut]]: {
+            {
               count: 7,
               statuses: [
                 TaskStatus.SystemTimedOut,
                 TaskStatus.SystemUnresponsive,
               ],
+              color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
-            [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
-              count: 0,
-              statuses: [],
+            {
+              count: 6,
+              statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
+              color: mapTaskStatusToColor[TaskStatus.Dispatched],
             },
-            [mapTaskStatusToColor[TaskStatus.Started]]: {
-              count: 0,
-              statuses: [],
-            },
-            [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
-              count: 0,
-              statuses: [],
-            },
-          },
+          ],
           max: 8,
           total: 21,
         },
         "13": {
-          stats: {
-            [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+          stats: [
+            {
               count: 6,
               statuses: [TaskStatus.Succeeded],
+              color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
-            [mapTaskStatusToColor[TaskStatus.Failed]]: {
+            {
               count: 2,
               statuses: [TaskStatus.Failed],
+              color: mapTaskStatusToColor[TaskStatus.Failed],
             },
-            [mapTaskStatusToColor[TaskStatus.SystemFailed]]: {
-              count: 0,
-              statuses: [],
-            },
-            [mapTaskStatusToColor[TaskStatus.Dispatched]]: {
+            {
               count: 4,
               statuses: [TaskStatus.Dispatched],
+              color: mapTaskStatusToColor[TaskStatus.Dispatched],
             },
-            [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
-              count: 0,
-              statuses: [],
-            },
-            [mapTaskStatusToColor[TaskStatus.Started]]: {
+            {
               count: 5,
               statuses: [TaskStatus.Started],
+              color: mapTaskStatusToColor[TaskStatus.Started],
             },
-            [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
-              count: 0,
-              statuses: [],
-            },
-          },
+          ],
           max: 6,
           total: 17,
         },
         "14": {
-          stats: {
-            [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+          stats: [
+            {
               count: 4,
               statuses: [TaskStatus.Succeeded],
+              color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
-            [mapTaskStatusToColor[TaskStatus.Failed]]: {
+            {
               count: 6,
               statuses: [TaskStatus.TaskTimedOut],
+              color: mapTaskStatusToColor[TaskStatus.Failed],
             },
-            [mapTaskStatusToColor[TaskStatus.SystemTimedOut]]: {
+            {
               count: 7,
               statuses: [
                 TaskStatus.SystemFailed,
                 TaskStatus.SystemUnresponsive,
               ],
+              color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
-            [mapTaskStatusToColor[TaskStatus.Inactive]]: {
+            {
               count: 2,
               statuses: [TaskStatus.Inactive],
+              color: mapTaskStatusToColor[TaskStatus.Inactive],
             },
-            [mapTaskStatusToColor[TaskStatus.SetupFailed]]: {
+            {
               count: 3,
               statuses: [TaskStatus.SetupFailed],
+              color: mapTaskStatusToColor[TaskStatus.SetupFailed],
             },
-            [mapTaskStatusToColor[TaskStatus.Started]]: {
+            {
               count: 3,
               statuses: [TaskStatus.Started],
+              color: mapTaskStatusToColor[TaskStatus.Started],
             },
-            [mapTaskStatusToColor[TaskStatus.Unscheduled]]: {
+            {
               count: 2,
               statuses: [TaskStatus.Unscheduled],
+              color: mapTaskStatusToColor[TaskStatus.Unscheduled],
             },
-          },
+          ],
           max: 7,
           total: 27,
         },
