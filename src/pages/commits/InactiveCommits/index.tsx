@@ -56,6 +56,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
 
   return (
     <Tooltip
+      usePortal={false}
       align="bottom"
       justify="middle"
       trigger={
@@ -66,9 +67,10 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
           </ButtonText>
         </ButtonContainer>
       }
-      triggerEvent="hover"
+      triggerEvent="click"
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
+        <TitleText>{`${versionCount}`} Inactive Commits</TitleText>
         {returnedCommits}
       </TooltipContainer>
     </Tooltip>
@@ -96,22 +98,33 @@ const TooltipContainer = styled.div`
   margin: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  background-color: ${gray.light3};
+  color: ${gray.dark3};
 `;
 
 const ButtonContainer = styled.div`
   width: 58px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 `;
 const TopText = styled.div`
   white-space: nowrap;
 `;
 const ButtonText = styled(Disclaimer)`
+  margin-top: 10px;
   text-align: center;
   display: table;
-  color: ${uiColors.gray.dark2};
+  color: ${gray.dark2};
   font-weight: bold;
+`;
+
+const TitleText = styled(Disclaimer)`
+  margin-bottom: 16px;
+  font-weight: bold;
+  font-size: 14px;
 `;
 
 const MAX_COMMIT_COUNT = 5;

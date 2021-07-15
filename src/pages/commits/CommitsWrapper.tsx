@@ -1,5 +1,6 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
+import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
@@ -14,6 +15,7 @@ import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
 import { InactiveCommits } from "./InactiveCommits/index";
 
+const { gray } = uiColors;
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
@@ -49,7 +51,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                   }
                   total={IdToTaskStatsGroupedByColor[item.version.id].total}
                   max={max}
-                  chartType={ChartTypes.Absolute}
+                  chartType={chartType}
                 />
                 <CommitChartLabel
                   githash={item.version.revision.substring(0, 5)}
@@ -59,7 +61,10 @@ export const CommitsWrapper: React.FC<Props> = ({
                 />
               </ActiveCommitWrapper>
             ) : (
-              <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+              <InactiveCommitWrapper>
+                <InactiveCommitLine />
+                <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+              </InactiveCommitWrapper>
             )
           )}
         </FlexRowContainer>
@@ -104,6 +109,20 @@ export const ActiveCommitWrapper = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+`;
+
+const InactiveCommitWrapper = styled.div`
+  width: 58px;
+  display: flex;
+  margin-left: 9px;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+`;
+
+const InactiveCommitLine = styled.div`
+  height: 224px;
+  border: 1px dashed ${gray.light1};
 `;
 
 const NoResults = styled.div`

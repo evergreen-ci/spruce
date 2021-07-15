@@ -1,10 +1,10 @@
 import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
 import { MainlineCommitsQuery } from "gql/generated/types";
 
+type ColorCount = { count: number; statuses: string[]; color: string };
+
 export type GroupedResult = {
-  stats: {
-    [key: string]: { count: number; statuses: string[] };
-  };
+  stats: ColorCount[];
   max: number;
   total: number;
 };
@@ -12,24 +12,37 @@ export type GroupedResult = {
 export const groupStatusesByColor = (
   statusCounts: { status: string; count: number }[]
 ) => {
-  let max = -1;
-  let total = 0;
-  const counts: { [key: string]: { count: number; statuses: string[] } } = {};
-  sortedStatusColor.forEach((color) => {
-    counts[color] = { count: 0, statuses: [] };
-  });
-
-  statusCounts.forEach((statusCount) => {
-    const taskStatusToColor = mapTaskStatusToColor[statusCount.status];
-    total += statusCount.count;
-    const groupedTask = counts[taskStatusToColor];
-    groupedTask.count += statusCount.count;
-    max = Math.max(max, groupedTask.count);
-    if (!groupedTask.statuses.includes(statusCount.status)) {
-      groupedTask.statuses.push(statusCount.status);
+  const counts: { [key: string]: ColorCount } = {};
+  statusCounts.forEach((stat) => {
+    const statusColor = mapTaskStatusToColor[stat.status];
+    if (counts[statusColor]) {
+      counts[statusColor].count += stat.count;
+      if (!counts[statusColor].statuses.includes(stat.status)) {
+        counts[statusColor].statuses.push(stat.status);
+      }
+    } else {
+      counts[statusColor].count = stat.count;
+      counts[statusColor].statuses = [stat.status];
+      counts[statusColor].color = statusColor;
     }
   });
-  return { stats: counts, max, total };
+
+  let max = -1;
+  let total = 0;
+
+  let stats: ColorCount[] = [];
+
+  sortedStatusColor.forEach((color) => {
+    if (counts[color]) {
+      total += counts[color].count;
+      if (counts[color].count > max) {
+        max = counts[color].count;
+      }
+      stats.push(counts[color]);
+    }
+  });
+
+  return { stats, max, total };
 };
 
 export const findMaxGroupedTaskStats = (groupedTaskStats: {
