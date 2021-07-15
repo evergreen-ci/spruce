@@ -15,8 +15,8 @@ import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
 import { getPatchRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
-import { PatchQuery, PatchQueryVariables } from "gql/generated/types";
-import { GET_PATCH } from "gql/queries";
+import { VersionQuery, VersionQueryVariables } from "gql/generated/types";
+import { GET_VERSION } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
 import { BuildVariants } from "./version/BuildVariants";
@@ -30,9 +30,9 @@ export const VersionPage: React.FC = () => {
   const dispatchToast = useToastContext();
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
-    PatchQuery,
-    PatchQueryVariables
-  >(GET_PATCH, {
+    VersionQuery,
+    VersionQueryVariables
+  >(GET_VERSION, {
     variables: { id },
     pollInterval,
     onError: (e) =>
@@ -41,27 +41,32 @@ export const VersionPage: React.FC = () => {
 
   useNetworkStatus(startPolling, stopPolling);
 
-  const { patch } = data || {};
+  const { version } = data || {};
   const {
     status,
-    description,
     activated,
-    commitQueuePosition,
-    alias,
-    patchNumber,
+    patch,
+    isPatch,
+    revision,
     author,
-    canEnqueueToCommitQueue,
-  } = patch || {};
+    message,
+    order,
+  } = version || {};
 
+  const { commitQueuePosition, patchNumber, alias, canEnqueueToCommitQueue } =
+    patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
-  usePageTitle(`Patch${patch ? ` - ${patchNumber} ` : ""}`);
+  const title = isPatch
+    ? `Patch - ${patchNumber}`
+    : `Version - ${revision?.substr(6)}`;
+  usePageTitle(title);
 
   if (loading) {
     return <PatchAndTaskFullPageLoad />;
   }
 
-  if (activated === false && alias !== commitQueueAlias) {
+  if (activated === false && alias !== commitQueueAlias && isPatch) {
     return <Redirect to={getPatchRoute(id, { configure: true })} />;
   }
   if (error) {
@@ -69,30 +74,34 @@ export const VersionPage: React.FC = () => {
   }
 
   return (
-    <PageWrapper data-cy="patch-page">
-      {patch && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
+    <PageWrapper data-cy="version-page">
+      {version && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
       <PageTitle
         loading={loading}
-        hasData={!!patch}
-        title={description || `Patch ${patchNumber}`}
+        hasData={!!version}
+        title={message || `Version ${order}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             isPatchOnCommitQueue={isPatchOnCommitQueue}
-            patchDescription={description}
+            patchDescription={message}
             patchId={id}
           />
         }
       />
       <PageLayout>
         <PageSider>
-          <Metadata loading={loading} patch={patch} error={error} />
+          <Metadata loading={loading} version={version} />
           <BuildVariants />
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={patch?.taskCount} childPatches={null} />
+            <PatchTabs
+              taskCount={version?.taskCount}
+              childPatches={null}
+              isPatch={version.isPatch}
+            />
           </PageContent>
         </PageLayout>
       </PageLayout>

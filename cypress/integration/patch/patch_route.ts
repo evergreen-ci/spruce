@@ -32,7 +32,7 @@ describe("Patch route", () => {
   it("Renders patch info", () => {
     cy.visit(versionRoute(patches[0]));
     cy.dataCy("page-title").within(hasText);
-    cy.dataCy("patch-page").within(hasText);
+    cy.dataCy("version-page").within(hasText);
   });
 
   it("Shows patch parameters if they exist", () => {

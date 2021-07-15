@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
@@ -10,10 +9,10 @@ import { H3, P1 } from "components/Typography";
 import { pollInterval } from "constants/index";
 import { getVersionRoute } from "constants/routes";
 import {
-  PatchBuildVariantsQuery,
-  PatchBuildVariantsQueryVariables,
+  BuildVariantsQuery,
+  BuildVariantsQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
+import { GET_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
 import { groupTasksByColor } from "./buildVariants/utils";
@@ -23,15 +22,14 @@ export const BuildVariants: React.FC = () => {
   const patchAnalytics = usePatchAnalytics();
 
   const { data, loading, error, startPolling, stopPolling } = useQuery<
-    PatchBuildVariantsQuery,
-    PatchBuildVariantsQueryVariables
-  >(GET_PATCH_BUILD_VARIANTS, {
-    variables: { patchId: id },
+    BuildVariantsQuery,
+    BuildVariantsQueryVariables
+  >(GET_BUILD_VARIANTS, {
+    variables: { id },
     pollInterval,
   });
-  useEffect(() => stopPolling, [stopPolling]);
   useNetworkStatus(startPolling, stopPolling);
-  const { patchBuildVariants } = data || {};
+  const { version } = data || {};
   return (
     <>
       {/* @ts-expect-error */}
@@ -40,7 +38,7 @@ export const BuildVariants: React.FC = () => {
         <Divider />
         {error && <div>{error.message}</div>}{" "}
         {loading && <Skeleton active title={false} paragraph={{ rows: 4 }} />}
-        {patchBuildVariants?.map(({ displayName, tasks, variant }) => (
+        {version?.buildVariants?.map(({ displayName, tasks, variant }) => (
           <BuildVariant
             key={`buildVariant_${displayName}_${tasks.length}`}
             data-cy="patch-build-variant"

@@ -1,64 +1,87 @@
 import React from "react";
-import { ApolloError } from "@apollo/client";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
-import { PatchQuery } from "gql/generated/types";
-import { environmentalVariables } from "utils";
+import { environmentalVariables, string } from "utils";
 import { ParametersModal } from "./ParametersModal";
 
+const { msToDuration, getDateCopy } = string;
 const { getUiUrl } = environmentalVariables;
 
 interface Props {
   loading: boolean;
-  error: ApolloError;
-  patch: PatchQuery["patch"];
+  version: {
+    project: string;
+    author: string;
+    revision: string;
+    createTime: Date;
+    startTime?: Date;
+    finishTime?: Date;
+    projectIdentifier: string;
+    baseVersionID?: string;
+    versionTiming?: {
+      makespan?: number;
+      timeTaken?: number;
+    };
+    parameters: {
+      key: string;
+      value: string;
+    }[];
+    commitQueuePosition?: number;
+    isPatch: boolean;
+  };
 }
 
-export const Metadata: React.FC<Props> = ({ loading, patch, error }) => {
+export const Metadata: React.FC<Props> = ({ loading, version }) => {
   const {
     author,
-    githash,
-    time,
-    duration,
-    projectID,
+    revision,
+    project,
+    versionTiming,
+    createTime,
+    startTime,
+    finishTime,
+    commitQueuePosition,
     projectIdentifier,
     baseVersionID,
-    commitQueuePosition,
+    isPatch,
     parameters,
-  } = patch || {};
-  const { submittedAt, started, finished } = time || {};
-  const { makespan, timeTaken } = duration || {};
+  } = version || {};
+  const { makespan, timeTaken } = versionTiming || {};
   return (
-    <MetadataCard loading={loading} error={error} title="Patch Metadata">
+    <MetadataCard
+      loading={loading}
+      error={null}
+      title={isPatch ? "Patch Metadata" : "Version Metadata"}
+    >
       <P2>
         Project:{" "}
-        <StyledLink href={getProjectPatchesRoute(projectID)}>
+        <StyledLink href={getProjectPatchesRoute(project)}>
           {projectIdentifier}
         </StyledLink>
       </P2>
-      <P2>Makespan: {makespan && makespan}</P2>
-      <P2>Time taken: {timeTaken && timeTaken}</P2>
-      <P2>Submitted at: {submittedAt}</P2>
-      <P2>Started: {started && started}</P2>
-      <P2>Finished: {finished && finished}</P2>
+      <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
+      <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
+      <P2>Submitted at: {getDateCopy(createTime)}</P2>
+      <P2>Started: {startTime && getDateCopy(startTime)}</P2>
+      <P2>Finished: {finishTime && getDateCopy(finishTime)}</P2>
       <P2>{`Submitted by: ${author}`}</P2>
-      {baseVersionID && githash && (
+      {baseVersionID && revision && (
         <P2>
           <StyledLink
             data-cy="patch-base-commit"
             href={`${getUiUrl()}/version/${baseVersionID}`}
           >
-            Base commit: {githash.slice(0, 10)}
+            Base commit: {revision.slice(0, 10)}
           </StyledLink>
         </P2>
       )}
-      {commitQueuePosition !== null && (
+      {isPatch && commitQueuePosition !== undefined && (
         <P2>
           <StyledLink
             data-cy="commit-queue-position"
-            href={getCommitQueueRoute(projectID)}
+            href={getCommitQueueRoute(project)}
           >
             Commit queue position: {commitQueuePosition}
           </StyledLink>
