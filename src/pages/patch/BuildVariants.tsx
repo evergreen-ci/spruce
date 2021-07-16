@@ -16,7 +16,6 @@ import {
 import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { GroupedTaskSquare } from "pages/patch/buildVariants/GroupedTaskSquare";
-// import { groupStatusesByColor } from "utils/statuses"
 import { groupTasksByColor } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
