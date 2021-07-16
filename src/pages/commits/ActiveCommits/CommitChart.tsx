@@ -1,16 +1,10 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ChartTypes } from "types/commits";
-
-export type GroupedTaskStats = {
-  [key: string]: {
-    count: number;
-    statuses: string[];
-  };
-};
+import { ColorCount } from "./utils";
 
 interface Props {
-  groupedTaskStats: GroupedTaskStats;
+  groupedTaskStats: ColorCount[];
   max: number;
   total: number;
   chartType: ChartTypes;
@@ -35,20 +29,13 @@ export const CommitChart: React.FC<Props> = ({
   total,
 }) => (
   <ChartContainer>
-    {Object.keys(groupedTaskStats).map((statusColor) =>
-      groupedTaskStats[statusColor].count ? (
-        <Bar
-          key={statusColor}
-          height={calculateHeight(
-            groupedTaskStats[statusColor].count,
-            max,
-            total,
-            chartType
-          )}
-          color={statusColor}
-        />
-      ) : null
-    )}
+    {groupedTaskStats.map((colorCount) => (
+      <Bar
+        key={colorCount.color}
+        height={calculateHeight(colorCount.count, max, total, chartType)}
+        color={colorCount.color}
+      />
+    ))}
   </ChartContainer>
 );
 

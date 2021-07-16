@@ -76,13 +76,6 @@ export type BuildVariantOptions = {
   statuses?: Maybe<Array<Scalars["String"]>>;
 };
 
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
-};
-
 export type ClientBinary = {
   arch?: Maybe<Scalars["String"]>;
   os?: Maybe<Scalars["String"]>;
@@ -156,6 +149,8 @@ export type EditSpawnHostInput = {
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 };
 
 export type File = {
@@ -604,7 +599,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -1148,6 +1143,7 @@ export type TestResult = {
 export enum TestSortCategory {
   BaseStatus = "BASE_STATUS",
   Status = "STATUS",
+  StartTime = "START_TIME",
   Duration = "DURATION",
   TestName = "TEST_NAME",
 }
@@ -1501,6 +1497,8 @@ export type EditSpawnHostMutationVariables = Exact<{
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 }>;
 
 export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
