@@ -21,12 +21,17 @@ interface Props {
 
 const tabMap = ({ taskCount, childPatches }) => ({
   [PatchTab.Tasks]: (
-    <Tab name="Tasks" id="task-tab" data-cy="task-tab">
+    <Tab name="Tasks" id="task-tab" data-cy="task-tab" key="tasks-tab">
       <Tasks taskCount={taskCount} />
     </Tab>
   ),
   [PatchTab.Changes]: (
-    <Tab name="Changes" id="changes-tab" data-cy="changes-tab">
+    <Tab
+      name="Changes"
+      id="changes-tab"
+      data-cy="changes-tab"
+      key="changes-tab"
+    >
       <CodeChanges />
     </Tab>
   ),
@@ -35,6 +40,7 @@ const tabMap = ({ taskCount, childPatches }) => ({
       name="Downstream Tasks"
       id="downstream-tab"
       data-cy="downstream-tasks-tab"
+      key="downstream-tab"
     >
       <DownstreamTasks childPatches={childPatches} />
     </Tab>
@@ -90,7 +96,6 @@ export const PatchTabs: React.FC<Props> = ({
       setSelected={setSelectedTab}
       aria-label="Patch Tabs"
     >
-      {/* {Object.values(tabMap({taskCount, childPatches}))} */}
       {activeTabs.map((t: string) => tabMap({ taskCount, childPatches })[t])}
     </StyledTabs>
   );
