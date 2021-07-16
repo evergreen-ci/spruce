@@ -1,0 +1,9 @@
+
+query IsPatchConfigurable($id: String!) {
+  patch(id: $id) {
+    id
+    activated
+    alias
+    projectID
+  }
+}

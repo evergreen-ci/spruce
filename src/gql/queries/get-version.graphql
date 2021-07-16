@@ -25,5 +25,12 @@ query Version($id: String!) {
         key
         value
     }
+    patch {
+        id
+        patchNumber
+        alias
+        commitQueuePosition
+        canEnqueueToCommitQueue
+    }
     }
 }

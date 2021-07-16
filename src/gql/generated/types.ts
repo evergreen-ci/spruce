@@ -1974,6 +1974,19 @@ export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
+export type IsPatchConfigurableQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type IsPatchConfigurableQuery = {
+  patch: {
+    id: string;
+    activated: boolean;
+    alias?: Maybe<string>;
+    projectID: string;
+  };
+};
+
 export type GetCustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -2519,11 +2532,10 @@ export type VersionQuery = {
     parameters: Array<{ key: string; value: string }>;
     patch?: Maybe<{
       id: string;
+      patchNumber: number;
+      alias?: Maybe<string>;
       commitQueuePosition?: Maybe<number>;
       canEnqueueToCommitQueue: boolean;
-      activated: boolean;
-      alias?: Maybe<string>;
-      patchNumber: number;
     }>;
   };
 };
