@@ -17,22 +17,22 @@ describe("InactiveCommits", () => {
       <InactiveCommits rolledUpVersions={versions} />
     );
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "6 Inactive Commits"
+      "6 inactive"
     );
     rerender(RenderInactiveCommits(versions.slice(0, 1)));
     expect(queryByDataCy("inactive-commits-button")).toHaveTextContent(
-      "1 Inactive Commit"
+      "1 inactive"
     );
   });
 
-  test("Hovering over the button should open a tooltip", async () => {
+  test("clicking over the button should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
     jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.hover(queryByDataCy("inactive-commits-button"));
+    userEvent.click(queryByDataCy("inactive-commits-button"));
     //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     act(() => {
       jest.runAllTimers();
@@ -47,7 +47,7 @@ describe("InactiveCommits", () => {
     jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.hover(queryByDataCy("inactive-commits-button"));
+    userEvent.click(queryByDataCy("inactive-commits-button"));
     //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     act(() => {
       jest.runAllTimers();
@@ -63,7 +63,7 @@ describe("InactiveCommits", () => {
     jest.useFakeTimers();
 
     expect(queryByDataCy("inactive-commits-tooltip")).toBeNull();
-    userEvent.hover(queryByDataCy("inactive-commits-button"));
+    userEvent.click(queryByDataCy("inactive-commits-button"));
     //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
     act(() => {
       jest.runAllTimers();

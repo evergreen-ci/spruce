@@ -70,7 +70,10 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
       triggerEvent="click"
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
-        <TitleText>{`${versionCount}`} Inactive Commits</TitleText>
+        <TitleText>
+          {`${versionCount}`} Inactive{" "}
+          {`Commit${versionCount !== 1 ? "s" : ""}`}
+        </TitleText>
         {returnedCommits}
       </TooltipContainer>
     </Tooltip>
@@ -110,6 +113,13 @@ const ButtonContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
+export const InactiveCommitLine = styled.div`
+  margin-left: 29px;
+  height: 224px;
+  border: 1px dashed ${gray.light1};
+`;
+
 const TopText = styled.div`
   white-space: nowrap;
 `;
@@ -122,7 +132,7 @@ const ButtonText = styled(Disclaimer)`
 `;
 
 const TitleText = styled(Disclaimer)`
-  margin-bottom: 16px;
+  margin-bottom: 14px;
   font-weight: bold;
   font-size: 14px;
 `;

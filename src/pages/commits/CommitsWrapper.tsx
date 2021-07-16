@@ -1,6 +1,5 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
@@ -13,9 +12,8 @@ import {
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
-import { InactiveCommits } from "./InactiveCommits/index";
+import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
-const { gray } = uiColors;
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
   error?: ApolloError;
@@ -44,7 +42,10 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer>
           {versions.map((item) =>
             item.version ? (
-              <ActiveCommitWrapper key={item.version.id}>
+              <ColumnContainer
+                key={item.version.id}
+                numCharts={versions.length}
+              >
                 <CommitChart
                   groupedTaskStats={
                     IdToTaskStatsGroupedByColor[item.version.id].stats
@@ -59,12 +60,12 @@ export const CommitsWrapper: React.FC<Props> = ({
                   author={item.version.author}
                   message={item.version.message}
                 />
-              </ActiveCommitWrapper>
+              </ColumnContainer>
             ) : (
-              <InactiveCommitWrapper>
+              <ColumnContainer numCharts={versions.length}>
                 <InactiveCommitLine />
                 <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
-              </InactiveCommitWrapper>
+              </ColumnContainer>
             )
           )}
         </FlexRowContainer>
@@ -87,6 +88,7 @@ export const FlexRowContainer = styled.div`
   align-items: flex-start;
   width: 100%;
   margin-top: 65px;
+  padding-left: 9px;
   z-index: 1;
   position: absolute;
 `;
@@ -101,28 +103,15 @@ export const ProjectHealthWrapper = styled.div`
   position: relative;
 `;
 
-// need to fix width to account for five active commits per page in future
-export const ActiveCommitWrapper = styled.div`
-  width: ${(1 / 5) * 100}%;
+interface ActiveCommitWrapperProps {
+  numCharts: number;
+}
+export const ColumnContainer = styled.div<ActiveCommitWrapperProps>`
+  width: ${({ numCharts }) => (1 / numCharts) * 100}%;
   display: flex;
-  margin-left: 9px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-`;
-
-const InactiveCommitWrapper = styled.div`
-  width: 58px;
-  display: flex;
-  margin-left: 9px;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-`;
-
-const InactiveCommitLine = styled.div`
-  height: 224px;
-  border: 1px dashed ${gray.light1};
 `;
 
 const NoResults = styled.div`
