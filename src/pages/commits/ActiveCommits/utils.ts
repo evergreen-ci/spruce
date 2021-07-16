@@ -1,35 +1,12 @@
-import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
 import { MainlineCommitsQuery } from "gql/generated/types";
+import { groupStatusesByColor } from "utils/statuses";
+
+export type ColorCount = { count: number; statuses: string[]; color: string };
 
 export type GroupedResult = {
-  stats: {
-    [key: string]: { count: number; statuses: string[] };
-  };
+  stats: ColorCount[];
   max: number;
   total: number;
-};
-
-export const groupStatusesByColor = (
-  statusCounts: { status: string; count: number }[]
-) => {
-  let max = -1;
-  let total = 0;
-  const counts: { [key: string]: { count: number; statuses: string[] } } = {};
-  sortedStatusColor.forEach((color) => {
-    counts[color] = { count: 0, statuses: [] };
-  });
-
-  statusCounts.forEach((statusCount) => {
-    const taskStatusToColor = mapTaskStatusToColor[statusCount.status];
-    total += statusCount.count;
-    const groupedTask = counts[taskStatusToColor];
-    groupedTask.count += statusCount.count;
-    max = Math.max(max, groupedTask.count);
-    if (!groupedTask.statuses.includes(statusCount.status)) {
-      groupedTask.statuses.push(statusCount.status);
-    }
-  });
-  return { stats: counts, max, total };
 };
 
 export const findMaxGroupedTaskStats = (groupedTaskStats: {
@@ -43,10 +20,10 @@ export const getAllTaskStatsGroupedByColor = (
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"]
 ) => {
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
-  versions.forEach((item) => {
-    if (item.version != null) {
-      idToGroupedTaskStats[item.version.id] = groupStatusesByColor(
-        item.version.taskStatusCounts
+  versions.forEach((versionObj) => {
+    if (versionObj.version != null) {
+      idToGroupedTaskStats[versionObj.version.id] = groupStatusesByColor(
+        versionObj.version.taskStatusCounts
       );
     }
   });

@@ -2027,10 +2027,16 @@ export type MainlineCommitsQuery = {
         author: string;
         createTime: Date;
         message: string;
+        revision: string;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
       rolledUpVersions?: Maybe<
-        Array<{ id: string; createTime: Date; author: string }>
+        Array<{
+          id: string;
+          createTime: Date;
+          author: string;
+          revision: string;
+        }>
       >;
     }>;
   }>;

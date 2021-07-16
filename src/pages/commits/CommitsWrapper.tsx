@@ -48,7 +48,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                   }
                   total={IdToTaskStatsGroupedByColor[item.version.id].total}
                   max={max}
-                  chartType={ChartTypes.Absolute}
+                  chartType={chartType}
                 />
                 <CommitChartLabel
                   githash={item.version.id.substring(
