@@ -28,7 +28,7 @@ const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const options = { projectID: projectId };
+  const options = { projectID: projectId, limit: 5 };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(

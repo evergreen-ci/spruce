@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots Project Health Page Active Commits 1`] = `
+exports[`Storyshots Project Health Page Active Commits Only 1`] = `
 <div
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
@@ -8,7 +8,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
     className="css-1shq022-FlexRowContainer ech0nhv3"
   >
     <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+      className="css-1dbbjq0-ActiveCommitWrapper ech0nhv1"
     >
       <div
         className="css-11qj1uy-ChartContainer e1tzsy281"
@@ -58,7 +58,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
       </div>
     </div>
     <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+      className="css-1dbbjq0-ActiveCommitWrapper ech0nhv1"
     >
       <div
         className="css-11qj1uy-ChartContainer e1tzsy281"
@@ -103,97 +103,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
       </div>
     </div>
     <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
-    >
-      <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
-      >
-        <div
-          className="css-1j5oinm-Bar e1tzsy280"
-          color="#13AA52"
-          height="33.33333333333333%"
-        />
-        <div
-          className="css-itabzo-Bar e1tzsy280"
-          color="#B8C4C2"
-          height="41.66666666666667%"
-        />
-        <div
-          className="css-1a408d4-Bar e1tzsy280"
-          color="#FFDD49"
-          height="41.66666666666667%"
-        />
-      </div>
-      <div
-        className="css-2v8zgo-LabelContainer evlik6v1"
-      >
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          4337c
-           
-          6/16/21 11:38 PM
-        </small>
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          Mohamed Khelif
-           - 
-        </small>
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          SERVER-57332 Create skeleton Internal DocumentSourceDensify
-        </small>
-      </div>
-    </div>
-    <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
-    >
-      <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
-      >
-        <div
-          className="css-16xcq76-Bar e1tzsy280"
-          color="#CF4A22"
-          height="16.666666666666664%"
-        />
-        <div
-          className="css-hv1o8l-Bar e1tzsy280"
-          color="#B8C4C2"
-          height="66.66666666666666%"
-        />
-        <div
-          className="css-7y3sh3-Bar e1tzsy280"
-          color="#5D6C74"
-          height="33.33333333333333%"
-        />
-      </div>
-      <div
-        className="css-2v8zgo-LabelContainer evlik6v1"
-      >
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          4337c
-           
-          6/16/21 11:38 PM
-        </small>
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          Arjun Patel
-           - 
-        </small>
-        <small
-          className="css-7jff5-Text evlik6v0 leafygreen-ui-18tqmm7"
-        >
-          SERVER-57333 Some complicated server commit
-        </small>
-      </div>
-    </div>
-    <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+      className="css-1dbbjq0-ActiveCommitWrapper ech0nhv1"
     >
       <div
         className="css-11qj1uy-ChartContainer e1tzsy281"
@@ -238,7 +148,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
       </div>
     </div>
     <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+      className="css-1dbbjq0-ActiveCommitWrapper ech0nhv1"
     >
       <div
         className="css-11qj1uy-ChartContainer e1tzsy281"
@@ -288,7 +198,7 @@ exports[`Storyshots Project Health Page Active Commits 1`] = `
       </div>
     </div>
     <div
-      className="css-bau78-ActiveCommitWrapper ech0nhv1"
+      className="css-1dbbjq0-ActiveCommitWrapper ech0nhv1"
     >
       <div
         className="css-11qj1uy-ChartContainer e1tzsy281"

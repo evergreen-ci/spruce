@@ -17,7 +17,7 @@ export default {
   title: "Project Health Page",
 };
 
-export const ActiveCommits = () => (
+export const ActiveCommitsOnly = () => (
   <ProjectHealthWrapper>
     <FlexRowContainer>
       {versions.map((item) =>
@@ -66,38 +66,6 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   {
     version: {
       id: "12",
-      createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57333 Some complicated server commit",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Arjun Patel",
-      taskStatusCounts: [
-        { status: "blocked", count: 4 },
-        { status: "aborted", count: 3 },
-        { status: "undispatched", count: 5 },
-        { status: "test-timed-out", count: 2 },
-      ],
-    },
-    rolledUpVersions: null,
-  },
-  {
-    version: {
-      id: "13",
-      createTime: new Date("2021-06-16T23:38:13Z"),
-      message: "SERVER-57332 Create skeleton Internal DocumentSourceDensify",
-      revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
-      author: "Mohamed Khelif",
-      taskStatusCounts: [
-        { status: "success", count: 4 },
-        { status: "inactive", count: 3 },
-        { status: "pending", count: 5 },
-        { status: "aborted", count: 2 },
-      ],
-    },
-    rolledUpVersions: null,
-  },
-  {
-    version: {
-      id: "14",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",

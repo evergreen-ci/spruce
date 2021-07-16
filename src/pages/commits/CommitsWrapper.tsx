@@ -95,7 +95,7 @@ export const ProjectHealthWrapper = styled.div`
 
 // need to fix width to account for five active commits per page in future
 export const ActiveCommitWrapper = styled.div`
-  width: ${(1 / 7) * 100}%;
+  width: ${(1 / 5) * 100}%;
   display: flex;
   margin-left: 9px;
   flex-direction: column;
