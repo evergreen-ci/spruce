@@ -559,6 +559,8 @@ export type EditSpawnHostInput = {
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -1496,6 +1498,8 @@ export type EditSpawnHostMutationVariables = Exact<{
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 }>;
 
 export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
