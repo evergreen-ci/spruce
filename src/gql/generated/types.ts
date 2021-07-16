@@ -582,6 +582,8 @@ export type EditSpawnHostInput = {
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -1859,6 +1861,7 @@ export type CommitQueueQuery = {
           author: string;
           description: string;
           version: string;
+          activated: boolean;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>

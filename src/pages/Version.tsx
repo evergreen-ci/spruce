@@ -13,7 +13,7 @@ import {
 } from "components/styles";
 import { pollInterval } from "constants/index";
 import { commitQueueAlias } from "constants/patch";
-import { getPatchRoute } from "constants/routes";
+import { getCommitQueueRoute, getPatchRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   VersionQuery,
@@ -35,10 +35,8 @@ export const VersionPage: React.FC = () => {
 
   const dispatchToast = useToastContext();
 
-  const [
-    shouldRedirectToConfigurePatch,
-    setShouldRedirectToConfigurePatch,
-  ] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(false);
+  const [redirectURL, setRedirectURL] = useState("");
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   const [getPatch, { data: patchData }] = useLazyQuery<
@@ -50,10 +48,10 @@ export const VersionPage: React.FC = () => {
     },
   });
 
-  const [
-    getVersion,
-    { data, loading, error, startPolling, stopPolling },
-  ] = useLazyQuery<VersionQuery, VersionQueryVariables>(GET_VERSION, {
+  const [getVersion, { data, error, startPolling, stopPolling }] = useLazyQuery<
+    VersionQuery,
+    VersionQueryVariables
+  >(GET_VERSION, {
     variables: { id },
     pollInterval,
     onError: (e) =>
@@ -75,18 +73,25 @@ export const VersionPage: React.FC = () => {
     }
   }, [getPatch, getVersion, id]);
 
+  // If we are viewing an unconfigured patch thats not on the commit queue we should be taken to the configure view
+  // otherwise go to the commit queue
   useEffect(() => {
     if (patchData) {
       const { patch } = patchData;
-      const { activated, alias } = patch;
+      const { activated, alias, projectID } = patch;
       if (!activated && alias !== commitQueueAlias) {
-        setShouldRedirectToConfigurePatch(true);
+        setShouldRedirect(true);
+        setRedirectURL(getPatchRoute(id, { configure: true }));
+        setIsLoadingData(false);
+      } else if (!activated && alias === commitQueueAlias) {
+        setShouldRedirect(true);
+        setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
         getVersion();
       }
     }
-  }, [patchData, getVersion]);
+  }, [patchData, getVersion, id]);
 
   const { version } = data || {};
   const { status, patch, isPatch, revision, author, message, order } =
@@ -105,8 +110,8 @@ export const VersionPage: React.FC = () => {
     return <PatchAndTaskFullPageLoad />;
   }
 
-  if (shouldRedirectToConfigurePatch) {
-    return <Redirect to={getPatchRoute(id, { configure: true })} />;
+  if (shouldRedirect) {
+    return <Redirect to={redirectURL} />;
   }
   if (error) {
     return <PageDoesNotExist />;
@@ -114,10 +119,10 @@ export const VersionPage: React.FC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      {version && <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />}
+      <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />
       <PageTitle
-        loading={loading}
-        hasData={!!version}
+        loading={false}
+        hasData
         title={message || `Version ${order}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
@@ -131,7 +136,7 @@ export const VersionPage: React.FC = () => {
       />
       <PageLayout>
         <PageSider>
-          <Metadata loading={loading} version={version} />
+          <Metadata loading={false} version={version} />
           <BuildVariants />
         </PageSider>
         <PageLayout>

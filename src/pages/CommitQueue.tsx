@@ -55,22 +55,21 @@ export const CommitQueue: React.FC = () => {
       )}
       <HR />
       {queue &&
-        queue.map((queueItems, i) => (
+        queue.map(({ patch, issue, enqueueTime }, i) => (
           <CommitQueueCard
-            key={queueItems.issue}
-            issue={queueItems.issue}
+            key={issue}
+            issue={issue}
             index={i + 1}
-            title={queueItems.patch && queueItems.patch.description}
-            author={queueItems.patch && queueItems.patch.author}
-            patchId={queueItems.patch && queueItems.patch.id}
-            versionId={queueItems.patch && queueItems.patch.version}
+            title={patch && patch.description}
+            author={patch && patch.author}
+            patchId={patch && patch.id}
+            versionId={patch && patch.version}
             repo={commitQueue?.repo}
             owner={commitQueue?.owner}
-            commitTime={queueItems.enqueueTime}
-            moduleCodeChanges={
-              queueItems.patch && queueItems.patch.moduleCodeChanges
-            }
+            commitTime={enqueueTime}
+            moduleCodeChanges={patch && patch.moduleCodeChanges}
             commitQueueId={commitQueue.projectId}
+            activated={patch && patch.activated}
           />
         ))}
       {!queue && <Body>There are no items in this queue. </Body>}
