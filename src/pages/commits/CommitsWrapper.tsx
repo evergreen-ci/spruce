@@ -51,9 +51,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                   chartType={chartType}
                 />
                 <CommitChartLabel
-                  githash={item.version.id.substring(
-                    item.version.id.length - 5
-                  )}
+                  githash={item.version.revision.substring(0, 5)}
                   createTime={item.version.createTime}
                   author={item.version.author}
                   message={item.version.message}
