@@ -23,7 +23,7 @@ export const WaterfallAbsolute = () => (
     <FlexRowContainer>
       {versions.map((item) =>
         item.version ? (
-          <ColumnContainer key={item.version.id} numCharts={versions.length}>
+          <ColumnContainer key={item.version.id}>
             <CommitChart
               groupedTaskStats={
                 IdToTaskStatsGroupedByColor[item.version.id].stats
@@ -40,10 +40,7 @@ export const WaterfallAbsolute = () => (
             />
           </ColumnContainer>
         ) : (
-          <ColumnContainer
-            key={item.rolledUpVersions[0].id}
-            numCharts={versions.length}
-          >
+          <ColumnContainer key={item.rolledUpVersions[0].id}>
             <InactiveCommitLine />
             <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
           </ColumnContainer>
@@ -59,7 +56,7 @@ export const WaterfallPercentage = () => (
     <FlexRowContainer>
       {versions.map((item) =>
         item.version ? (
-          <ColumnContainer key={item.version.id} numCharts={versions.length}>
+          <ColumnContainer key={item.version.id}>
             <CommitChart
               groupedTaskStats={
                 IdToTaskStatsGroupedByColor[item.version.id].stats
@@ -76,10 +73,7 @@ export const WaterfallPercentage = () => (
             />
           </ColumnContainer>
         ) : (
-          <ColumnContainer
-            key={item.rolledUpVersions[0].id}
-            numCharts={versions.length}
-          >
+          <ColumnContainer key={item.rolledUpVersions[0].id}>
             <InactiveCommitLine />
             <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
           </ColumnContainer>

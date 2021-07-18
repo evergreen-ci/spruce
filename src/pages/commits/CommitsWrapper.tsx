@@ -42,10 +42,7 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer>
           {versions.map((item) =>
             item.version ? (
-              <ColumnContainer
-                key={item.version.id}
-                numCharts={versions.length}
-              >
+              <ColumnContainer key={item.version.id}>
                 <CommitChart
                   groupedTaskStats={
                     IdToTaskStatsGroupedByColor[item.version.id].stats
@@ -62,7 +59,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                 />
               </ColumnContainer>
             ) : (
-              <ColumnContainer numCharts={versions.length}>
+              <ColumnContainer>
                 <InactiveCommitLine />
                 <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
               </ColumnContainer>
@@ -84,7 +81,7 @@ const StyledSkeleton = styled(Skeleton)`
 export const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   width: 100%;
   margin-top: 65px;
@@ -103,11 +100,7 @@ export const ProjectHealthWrapper = styled.div`
   position: relative;
 `;
 
-interface ActiveCommitWrapperProps {
-  numCharts: number;
-}
-export const ColumnContainer = styled.div<ActiveCommitWrapperProps>`
-  width: ${({ numCharts }) => (1 / numCharts) * 100}%;
+export const ColumnContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
