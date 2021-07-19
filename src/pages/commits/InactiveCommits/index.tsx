@@ -92,9 +92,8 @@ const HiddenCommitsWrapper = styled.div`
   width: 180px;
   border-bottom: 1px solid ${gray.dark2};
   text-align: center;
-  padding: 8px 0;
-  margin-bottom: 8px;
-  margin-left: 60px;
+  padding: 4px 0;
+  margin: 18px 0px 28px 60px;
 `;
 
 const TooltipContainer = styled.div`
