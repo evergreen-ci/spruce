@@ -1,22 +1,26 @@
-import React from "react";
+import { Patch } from "gql/generated/types";
 import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
-  childPatches: any[];
+  childPatches: Partial<Patch>[];
 }
 
 export const DownstreamTasks: React.FC<DownstreamTasksProps> = ({
   childPatches,
 }) => (
   <>
-    {childPatches.map(({ project, status, patchID, taskCount }) => (
-      <DownstreamProjectAccordion
-        key={`downstream_project_${patchID}`}
-        projectName={project}
-        status={status}
-        childPatchId={patchID}
-        taskCount={taskCount}
-      />
-    ))}
+    {childPatches.map(
+      ({ baseVersionID, githash, id, projectID, status, taskCount }) => (
+        <DownstreamProjectAccordion
+          key={`downstream_project_${id}`}
+          projectName={projectID}
+          status={status}
+          childPatchId={id}
+          taskCount={taskCount}
+          githash={githash}
+          baseVersionID={baseVersionID}
+        />
+      )
+    )}
   </>
 );
