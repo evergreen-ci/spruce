@@ -3,15 +3,37 @@ import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
 
-type ToastType = { variant: Variant; message: string; closable: boolean };
+export type ToastProps = {
+  variant: Variant;
+  message: string;
+  closable: boolean;
+  onClose: () => void;
+  shouldTimeout: boolean;
+  title?: string;
+};
 
 type AddToast = (message: string, closable?: boolean) => void;
+
+interface ToastType {
+  success: string;
+  warning: string;
+  error: string;
+  info: string;
+}
+export type ToastTypeKeys = keyof ToastType;
+
+const mapToastToLeafyGreenVariant: { [key in ToastTypeKeys]: Variant } = {
+  success: Variant.Success,
+  warning: Variant.Important,
+  error: Variant.Warning,
+  info: Variant.Note,
+};
 
 interface DispatchToast {
   success: AddToast;
   warning: AddToast;
   error: AddToast;
-  info: AddToast;
+  note: AddToast;
   hide: () => void;
 }
 
@@ -25,15 +47,18 @@ const variantToTitleMap = {
 export const ToastDispatchContext = React.createContext<any | null>(null);
 
 const ToastProvider: React.FC = ({ children }) => {
-  const [visibleToast, setVisibleToast] = useState<ToastType>({
+  const [visibleToast, setVisibleToast] = useState<ToastProps>({
     variant: Variant.Note,
     message: "",
     closable: true,
+    onClose: () => {},
+    shouldTimeout: true,
+    title: null,
   });
   const [toastOpen, setToastOpen] = useState(false);
 
   const addToast = useCallback(
-    (toast: ToastType) => {
+    (toast: ToastProps) => {
       setVisibleToast(toast);
       setToastOpen(true);
     },
@@ -45,18 +70,74 @@ const ToastProvider: React.FC = ({ children }) => {
   }, [setToastOpen]);
 
   const toastContext = {
-    success: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Success, message, closable }),
-    warning: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Important, message, closable }),
-    error: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Warning, message, closable }),
-    info: (message: string, closable: boolean = true) =>
-      addToast({ variant: Variant.Note, message, closable }),
+    success: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
+      title?: string
+    ) =>
+      addToast({
+        variant: mapToastToLeafyGreenVariant.success,
+        message,
+        closable,
+        onClose,
+        shouldTimeout,
+        title,
+      }),
+    warning: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
+      title?: string
+    ) =>
+      addToast({
+        variant: mapToastToLeafyGreenVariant.warning,
+        message,
+        closable,
+        onClose,
+        shouldTimeout,
+        title,
+      }),
+    error: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
+      title?: string
+    ) =>
+      addToast({
+        variant: mapToastToLeafyGreenVariant.error,
+        message,
+        closable,
+        onClose,
+        shouldTimeout,
+        title,
+      }),
+    info: (
+      message: string,
+      closable: boolean = true,
+      onClose: () => void = () => {},
+      shouldTimeout: boolean = true,
+      title?: string
+    ) =>
+      addToast({
+        variant: mapToastToLeafyGreenVariant.info,
+        message,
+        closable,
+        onClose,
+        shouldTimeout,
+        title,
+      }),
     hide: hideToast,
   };
 
   useEffect(() => {
+    if (!visibleToast.shouldTimeout) {
+      return;
+    }
+
     const timeout = setTimeout(() => {
       hideToast();
     }, TOAST_TIMEOUT);
@@ -68,10 +149,16 @@ const ToastProvider: React.FC = ({ children }) => {
       {children}
       <Toast
         variant={visibleToast.variant}
-        title={variantToTitleMap[visibleToast?.variant]}
+        title={visibleToast?.title || variantToTitleMap[visibleToast?.variant]}
         body={<WordBreak>{visibleToast.message}</WordBreak>}
         open={toastOpen}
-        close={visibleToast.closable && (() => setToastOpen(false))}
+        close={
+          visibleToast.closable &&
+          (() => {
+            visibleToast.onClose();
+            setToastOpen(false);
+          })
+        }
         data-cy="toast"
       />
     </ToastDispatchContext.Provider>

@@ -2,6 +2,11 @@ import { waitForGQL } from "../utils/networking";
 
 const GQL_QUERY = "gqlQuery";
 const LOGIN_COOKIE = "mci-token";
+const TOAST_COOKIE = "announcement-toast";
+
+Cypress.Cookies.defaults({
+  preserve: TOAST_COOKIE,
+});
 
 function enterLoginCredentials() {
   cy.get("input[name=username]").type("admin");

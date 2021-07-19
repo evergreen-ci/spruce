@@ -9,18 +9,21 @@ import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
 import { Tasks } from "pages/patch/patchTabs/Tasks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
+import { DownstreamTasks } from "./patchTabs/DownstreamTasks";
 
 const { parseQueryString } = queryString;
 const tabToIndexMap = {
   [PatchTab.Tasks]: 0,
   [PatchTab.Changes]: 1,
+  [PatchTab.DownstreamTasks]: 2,
 };
 
 interface Props {
   taskCount: number;
+  childPatches: null;
 }
 
-export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
+export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const history = useHistory();
   const location = useLocation();
@@ -58,6 +61,15 @@ export const PatchTabs: React.FC<Props> = ({ taskCount }) => {
       <Tab name="Changes" id="changes-tab" data-cy="changes-tab">
         <CodeChanges />
       </Tab>
+      {childPatches && (
+        <Tab
+          name="Downstream Tasks"
+          id="downstream-tab"
+          data-cy="downstream-tasks-tab"
+        >
+          <DownstreamTasks childPatches={childPatches} />
+        </Tab>
+      )}
     </StyledTabs>
   );
 };

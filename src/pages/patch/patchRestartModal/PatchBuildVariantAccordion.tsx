@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
-import { Accordian } from "components/Accordian";
+import { Accordion } from "components/Accordion";
 import Badge from "components/Badge";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
 
-interface PatchBuildVariantAccordianProps {
+interface PatchBuildVariantAccordionProps {
   tasks: {
     id: string;
     status: string;
@@ -17,7 +17,7 @@ interface PatchBuildVariantAccordianProps {
   selectedTasks: selectedStrings;
   toggleSelectedTask: (id: string | string[]) => void;
 }
-export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProps> = ({
+export const PatchBuildVariantAccordion: React.FC<PatchBuildVariantAccordionProps> = ({
   tasks,
   displayName,
   selectedTasks,
@@ -43,8 +43,8 @@ export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProp
     </>
   );
   return (
-    <AccordianWrapper data-cy="variant-accordian">
-      <Accordian
+    <AccordionWrapper data-cy="variant-accordion">
+      <Accordion
         title={variantTitle}
         contents={
           <PatchStatusCheckboxContainer
@@ -54,7 +54,7 @@ export const PatchBuildVariantAccordian: React.FC<PatchBuildVariantAccordianProp
           />
         }
       />
-    </AccordianWrapper>
+    </AccordionWrapper>
   );
 };
 
@@ -71,7 +71,7 @@ const countMatchingTasks = (
   return matchingTasks;
 };
 
-const AccordianWrapper = styled("div")`
+const AccordionWrapper = styled("div")`
   padding-bottom: 12px;
   padding-top: 12px;
 `;

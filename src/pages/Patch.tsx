@@ -50,7 +50,6 @@ export const Patch: React.FC = () => {
     patchNumber,
     author,
     canEnqueueToCommitQueue,
-    taskCount,
   } = patch || {};
 
   const isPatchOnCommitQueue = commitQueuePosition !== null;
@@ -88,7 +87,7 @@ export const Patch: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs taskCount={patch ? taskCount : null} />
+            <PatchTabs taskCount={patch?.taskCount} childPatches={null} />
           </PageContent>
         </PageLayout>
       </PageLayout>
