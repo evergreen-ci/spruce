@@ -124,7 +124,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const [state, dispatch] = useReducer(
     reducer,
     initialState({
-      selectedTab: indexToTabMap.indexOf(tab || PatchTab.Configure),
+      selectedTab: tabToIndexMap[tab || PatchTab.Configure],
     })
   );
 

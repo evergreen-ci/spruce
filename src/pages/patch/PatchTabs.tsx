@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
@@ -19,11 +19,9 @@ const tabToIndexMap = {
   [PatchTab.DownstreamTasks]: 2,
 };
 
-type childPatchesType = Patch["childPatches"];
-
 interface Props {
   taskCount: number;
-  childPatches: childPatchesType;
+  childPatches: Partial<Patch>[];
 }
 
 export const PatchTabs: React.FC<Props> = ({ taskCount, childPatches }) => {
