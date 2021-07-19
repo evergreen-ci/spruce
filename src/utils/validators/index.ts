@@ -23,3 +23,13 @@ export const validatePercentage = (percent: any) => {
 
 export const validateSlack = (v: string): boolean =>
   v.match("(#|@).+") !== null;
+
+/**
+ *  validatePatchId tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version
+ *
+ */
+//
+export const validatePatchId = (id: string): boolean => {
+  const mgobsonRegex = /^[a-f\d]{24}$/i;
+  return mgobsonRegex.test(id);
+};

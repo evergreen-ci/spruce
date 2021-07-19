@@ -6,6 +6,8 @@ import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
 import { useHistory, useLocation, useParams } from "react-router-dom";
 import { MetadataCard } from "components/MetadataCard";
+import { CodeChanges } from "components/PatchTabs/CodeChanges";
+import { ParametersContent } from "components/PatchTabs/ParametersContent";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
@@ -21,8 +23,6 @@ import {
   ParameterInput,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
-import { CodeChanges } from "pages/patch/patchTabs/CodeChanges";
-import { ParametersContent } from "pages/patch/patchTabs/ParametersContent";
 import { PatchTab } from "types/patch";
 import { queryString, string } from "utils";
 import { convertArrayToObject, mapStringArrayToObject } from "utils/array";

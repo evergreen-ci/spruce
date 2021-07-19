@@ -23,6 +23,7 @@ export type Query = {
   task?: Maybe<Task>;
   taskAllExecutions: Array<Task>;
   patch: Patch;
+  version: Version;
   projects: Array<Maybe<GroupedProjects>>;
   project: Project;
   patchTasks: PatchTasks;
@@ -72,6 +73,10 @@ export type QueryTaskAllExecutionsArgs = {
 };
 
 export type QueryPatchArgs = {
+  id: Scalars["String"];
+};
+
+export type QueryVersionArgs = {
   id: Scalars["String"];
 };
 
@@ -389,14 +394,32 @@ export type Version = {
   order: Scalars["Int"];
   repo: Scalars["String"];
   project: Scalars["String"];
+  projectIdentifier: Scalars["String"];
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
+  isPatch: Scalars["Boolean"];
+  patch?: Maybe<Patch>;
+  taskCount?: Maybe<Scalars["Int"]>;
+  baseVersionID?: Maybe<Scalars["String"]>;
+  versionTiming?: Maybe<VersionTiming>;
+  parameters: Array<Parameter>;
 };
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type VersionTiming = {
+  makespan?: Maybe<Scalars["Duration"]>;
+  timeTaken?: Maybe<Scalars["Duration"]>;
+};
+
+export type StatusCount = {
+  status: Scalars["String"];
+  count: Scalars["Int"];
 };
 
 export type BuildVariantOptions = {
@@ -731,7 +754,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -747,13 +770,6 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
-};
-
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -1783,6 +1799,27 @@ export type BuildBaronQuery = {
   };
 };
 
+export type BuildVariantsQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type BuildVariantsQuery = {
+  version: {
+    id: string;
+    buildVariants?: Maybe<
+      Array<
+        Maybe<{
+          variant: string;
+          displayName: string;
+          tasks?: Maybe<
+            Array<Maybe<{ id: string; execution: number; status: string }>>
+          >;
+        }>
+      >
+    >;
+  };
+};
+
 export type ClientConfigQueryVariables = Exact<{ [key: string]: never }>;
 
 export type ClientConfigQuery = {
@@ -1826,6 +1863,7 @@ export type CommitQueueQuery = {
           author: string;
           description: string;
           version: string;
+          activated: boolean;
           moduleCodeChanges: Array<ModuleCodeChangeFragment>;
         }>;
       }>
@@ -1940,6 +1978,19 @@ export type HostQuery = {
 export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = { instanceTypes: Array<string> };
+
+export type IsPatchConfigurableQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type IsPatchConfigurableQuery = {
+  patch: {
+    id: string;
+    activated: boolean;
+    alias?: Maybe<string>;
+    projectID: string;
+  };
+};
 
 export type GetCustomCreatedIssuesQueryVariables = Exact<{
   taskId: Scalars["String"];
@@ -2455,6 +2506,43 @@ export type GetUserQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetUserQuery = {
   user: { userId: string; displayName: string; emailAddress: string };
+};
+
+export type VersionQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type VersionQuery = {
+  version: {
+    id: string;
+    createTime: Date;
+    startTime?: Maybe<Date>;
+    finishTime?: Maybe<Date>;
+    revision: string;
+    author: string;
+    status: string;
+    order: number;
+    repo: string;
+    project: string;
+    activated?: Maybe<boolean>;
+    message: string;
+    isPatch: boolean;
+    taskCount?: Maybe<number>;
+    baseVersionID?: Maybe<string>;
+    projectIdentifier: string;
+    versionTiming?: Maybe<{
+      makespan?: Maybe<number>;
+      timeTaken?: Maybe<number>;
+    }>;
+    parameters: Array<{ key: string; value: string }>;
+    patch?: Maybe<{
+      id: string;
+      patchNumber: number;
+      alias?: Maybe<string>;
+      commitQueuePosition?: Maybe<number>;
+      canEnqueueToCommitQueue: boolean;
+    }>;
+  };
 };
 
 export type HostsQueryVariables = Exact<{
