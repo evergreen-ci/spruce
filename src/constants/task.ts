@@ -211,3 +211,14 @@ export const taskStatusToCopy = {
   [TaskStatus.Unscheduled]: "Unscheduled",
   [TaskStatus.WillRun]: "Will Run",
 };
+
+// Represents background colors for task statuses
+export const mapColorToTaskUmbrellaStatus = {
+  [green.base]: taskStatusToCopy[TaskStatus.Succeeded],
+  [red.base]: taskStatusToCopy[TaskStatus.Failed],
+  [failurePurple]: taskStatusToCopy[TaskStatus.SystemFailed],
+  [gray.light1]: taskStatusToCopy[TaskStatus.Dispatched],
+  [failureLavender]: taskStatusToCopy[TaskStatus.SetupFailed],
+  [yellow.base]: taskStatusToCopy[TaskStatus.Started],
+  [gray.dark1]: taskStatusToCopy[TaskStatus.Unscheduled],
+};
