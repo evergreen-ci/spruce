@@ -31,12 +31,10 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({ patchId }) => {
       icon={null}
       placement="left"
       title={
-        <>
-          <Body>
-            Are you sure you want to schedule all the undispatched base tasks
-            for this patches failing tasks?
-          </Body>
-        </>
+        <Body>
+          Are you sure you want to schedule all the undispatched base tasks for
+          this patch&apos;s failing tasks?
+        </Body>
       }
       onConfirm={() => {
         scheduleBasePatchTasks({ variables: { patchId } });
