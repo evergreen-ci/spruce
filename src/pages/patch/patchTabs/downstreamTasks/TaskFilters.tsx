@@ -2,12 +2,14 @@ import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
+import { SortOrder } from "gql/generated/types";
 
 export interface FilterState {
   baseStatuses: string[];
   limit: number;
   page: number;
   patchId: string;
+  sorts: SortOrder[];
   statuses: string[];
   taskName?: string;
   variant?: string;
@@ -42,8 +44,10 @@ export const TaskFilters: React.FC<TaskFilterProps> = ({
       onChange={(e) => onFilterChange({ variant: e.target.value })}
     />
     <TaskStatusFilters
-      onChangeBaseStatusFilter={(arg) => onFilterChange({ baseStatuses: arg })}
-      onChangeStatusFilter={(arg) => onFilterChange({ statuses: arg })}
+      onChangeBaseStatusFilter={(baseStatuses) =>
+        onFilterChange({ baseStatuses })
+      }
+      onChangeStatusFilter={(statuses) => onFilterChange({ statuses })}
       patchId={patchId}
       selectedBaseStatuses={filters.baseStatuses}
       selectedStatuses={filters.statuses}

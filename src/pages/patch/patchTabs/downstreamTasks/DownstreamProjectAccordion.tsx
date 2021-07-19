@@ -1,19 +1,25 @@
 import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
+import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { Accordion } from "components/Accordion";
+import { PageSizeSelector } from "components/PageSizeSelector";
+import { Pagination } from "components/Pagination";
 import { PatchStatusBadge } from "components/PatchStatusBadge";
+import { ResultCountLabel } from "components/ResultCountLabel";
+import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
 import { useToastContext } from "context/toast";
 import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { environmentalVariables } from "utils";
+import { environmentalVariables, queryString } from "utils";
 import { FilterState, TaskFilters } from "./TaskFilters";
 
 const { getUiUrl } = environmentalVariables;
+const { parseSortString, toSortString } = queryString;
 
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
@@ -31,22 +37,26 @@ const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
 
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
   baseVersionID,
+  childPatchId,
   githash,
   projectName,
-  childPatchId,
   status,
+  taskCount,
 }) => {
   const dispatchToast = useToastContext();
 
-  const [variables, setVariables] = useReducer(reducer, {
+  const baseFilterVariables = {
     baseStatuses: [],
     limit: 10,
     page: 0,
     patchId: childPatchId,
+    sorts: [],
     statuses: [],
     taskName: null,
     variant: null,
-  });
+  };
+
+  const [variables, setVariables] = useReducer(reducer, baseFilterVariables);
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -70,27 +80,75 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
       <PatchStatusBadge status={status} />
     </>
   );
+
+  const tableChangeHandler = (...[, , sorter]) => {
+    setVariables({
+      sorts: parseSortString(toSortString(sorter)),
+      page: 0,
+    });
+  };
+
   return (
     <AccordionWrapper data-cy="project-accordion">
       <Accordion
         title={variantTitle}
         contents={
           <AccordionContents>
-            Base commit:{" "}
-            <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
-              {githash.slice(0, 10)}
-            </InlineCode>
+            <p>
+              Base commit:{" "}
+              <InlineCode href={`${getUiUrl()}/version/${baseVersionID}`}>
+                {githash.slice(0, 10)}
+              </InlineCode>
+            </p>
             <TaskFilters
               patchId={childPatchId}
               filters={variables}
               onFilterChange={setVariables}
             />
             <TableWrapper>
-              {/* todo: add pagination and filtering  */}
+              <TableControlOuterRow>
+                <FlexContainer>
+                  <ResultCountLabel
+                    dataCyNumerator="current-task-count"
+                    dataCyDenominator="total-task-count"
+                    label="tasks"
+                    numerator={patchTasks?.count}
+                    denominator={taskCount}
+                  />
+                  <PaddedButton // @ts-expect-error
+                    onClick={() => {
+                      setVariables(baseFilterVariables);
+                    }}
+                    data-cy="clear-all-filters"
+                  >
+                    Clear All Filters
+                  </PaddedButton>
+                </FlexContainer>
+                <TableControlInnerRow>
+                  <Pagination
+                    data-cy="downstream-tasks-table-pagination"
+                    onChange={(p) => setVariables({ page: p - 1 })}
+                    pageSize={variables.limit}
+                    totalResults={patchTasks?.count}
+                    value={variables.page}
+                  />
+                  <PageSizeSelector
+                    data-cy="tasks-table-page-size-selector"
+                    value={variables.limit}
+                    onClick={(l) => setVariables({ limit: l, page: 0 })}
+                    sendAnalyticsEvent={() => {
+                      // patchAnalytics.sendEvent({ name: "Change Page Size" })
+                    }}
+                  />
+                </TableControlInnerRow>
+              </TableControlOuterRow>
               {showSkeleton ? (
                 <Skeleton active title={false} paragraph={{ rows: 8 }} />
               ) : (
-                <TasksTable tasks={patchTasks?.tasks} />
+                <TasksTable
+                  tableChangeHandler={tableChangeHandler}
+                  tasks={patchTasks?.tasks}
+                />
               )}
             </TableWrapper>
           </AccordionContents>
@@ -117,4 +175,14 @@ const TableWrapper = styled.div`
 
 const AccordionContents = styled.div`
   margin: 16px 0;
+`;
+
+const FlexContainer = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+// @ts-expect-error
+const PaddedButton = styled(Button)`
+  margin-left: 15px;
 `;
