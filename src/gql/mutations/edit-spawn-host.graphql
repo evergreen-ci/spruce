@@ -10,6 +10,8 @@ mutation EditSpawnHost(
   $expiration: Time
   $noExpiration: Boolean
   $servicePassword: String
+  $publicKey: PublicKeyInput
+  $savePublicKey: Boolean
 ) {
   editSpawnHost(
     spawnHost: {
@@ -22,6 +24,8 @@ mutation EditSpawnHost(
       expiration: $expiration
       noExpiration: $noExpiration
       servicePassword: $servicePassword
+      publicKey: $publicKey
+      savePublicKey: $savePublicKey
     }
   ) {
     ...baseSpawnHost

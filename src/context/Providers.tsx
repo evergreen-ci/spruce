@@ -5,7 +5,7 @@ import { ToastProvider } from "context/toast";
 
 export const ContextProviders: React.FC = ({ children }) => (
   <AuthProvider>
-    <LeafyGreenProvider baseFontSize={16}>
+    <LeafyGreenProvider baseFontSize={14}>
       <ToastProvider>{children}</ToastProvider>
     </LeafyGreenProvider>
   </AuthProvider>

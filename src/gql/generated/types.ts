@@ -564,6 +564,8 @@ export type EditSpawnHostInput = {
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -734,7 +736,7 @@ export type Patch = {
   status: Scalars["String"];
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
-  childPatches?: Maybe<Array<ChildPatch>>;
+  childPatches?: Maybe<Array<Patch>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -750,13 +752,6 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
-};
-
-export type ChildPatch = {
-  project: Scalars["String"];
-  patchID: Scalars["String"];
-  status: Scalars["String"];
-  taskCount?: Maybe<Scalars["Int"]>;
 };
 
 export type Build = {
@@ -1501,6 +1496,8 @@ export type EditSpawnHostMutationVariables = Exact<{
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 }>;
 
 export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
@@ -2201,6 +2198,16 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    childPatches?: Maybe<
+      Array<{
+        baseVersionID?: Maybe<string>;
+        githash: string;
+        id: string;
+        projectID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
