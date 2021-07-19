@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { shortDate } from "utils/string/index";
+import { string } from "utils";
 
+const { gray } = uiColors;
+const { shortDate } = string;
 interface Props {
   githash: string;
   createTime: Date;
@@ -39,6 +41,6 @@ const LabelContainer = styled.div`
 `;
 
 const Text = styled(Disclaimer)`
-  color: ${uiColors.gray.dark2};
+  color: ${gray.dark2};
   width: 100%;
 `;
