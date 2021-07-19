@@ -33,7 +33,7 @@ export const TaskFilters: React.FC<TaskFilterProps> = ({
       placeholder="Search Task Name"
       suffix={<Icon glyph="MagnifyingGlass" />}
       value={filters.taskName}
-      onChange={(e) => onFilterChange({ taskName: e.target.value })}
+      onChange={(e) => onFilterChange({ taskName: e.target.value, page: 0 })}
     />
     <Input
       style={{ width: "25%" }}
@@ -41,13 +41,13 @@ export const TaskFilters: React.FC<TaskFilterProps> = ({
       placeholder="Search Variant Name"
       suffix={<Icon glyph="MagnifyingGlass" />}
       value={filters.variant}
-      onChange={(e) => onFilterChange({ variant: e.target.value })}
+      onChange={(e) => onFilterChange({ variant: e.target.value, page: 0 })}
     />
     <TaskStatusFilters
       onChangeBaseStatusFilter={(baseStatuses) =>
-        onFilterChange({ baseStatuses })
+        onFilterChange({ baseStatuses, page: 0 })
       }
-      onChangeStatusFilter={(statuses) => onFilterChange({ statuses })}
+      onChangeStatusFilter={(statuses) => onFilterChange({ statuses, page: 0 })}
       patchId={patchId}
       selectedBaseStatuses={filters.baseStatuses}
       selectedStatuses={filters.statuses}

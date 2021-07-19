@@ -116,9 +116,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                     denominator={taskCount}
                   />
                   <PaddedButton // @ts-expect-error
-                    onClick={() => {
-                      setVariables(baseFilterVariables);
-                    }}
+                    onClick={() => setVariables(baseFilterVariables)}
                     data-cy="clear-all-filters"
                   >
                     Clear All Filters
@@ -136,9 +134,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                     data-cy="tasks-table-page-size-selector"
                     value={variables.limit}
                     onClick={(l) => setVariables({ limit: l, page: 0 })}
-                    sendAnalyticsEvent={() => {
-                      // patchAnalytics.sendEvent({ name: "Change Page Size" })
-                    }}
                   />
                 </TableControlInnerRow>
               </TableControlOuterRow>
