@@ -64,8 +64,8 @@ functions:
       background: false
       env:
         GOPATH: ${workdir}/spruce/gopath
-        GO_BIN_PATH: /opt/golang/go1.13/bin/go
-        GOROOT: /opt/golang/go1.13
+        GO_BIN_PATH: /opt/golang/go1.16/bin/go
+        GOROOT: /opt/golang/go1.16
 
   run-make-background:
     command: subprocess.exec
@@ -77,8 +77,8 @@ functions:
       env:
         SETTINGS_OVERRIDE: file
         GOPATH: ${workdir}/spruce/gopath
-        GO_BIN_PATH: /opt/golang/go1.13/bin/go
-        GOROOT: /opt/golang/go1.13
+        GO_BIN_PATH: /opt/golang/go1.16/bin/go
+        GOROOT: /opt/golang/go1.16
 
   sym-link:
     command: shell.exec
