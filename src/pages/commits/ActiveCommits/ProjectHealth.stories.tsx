@@ -24,8 +24,8 @@ export const ActiveCommits = () => (
         version ? (
           <ActiveCommitWrapper key={version.id}>
             <CommitChart
-              groupedTaskStats={IdToTaskStatsGroupedByColor[version.id].stats}
-              total={IdToTaskStatsGroupedByColor[version.id].total}
+              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+              total={idToTaskStatsGroupedByColor[version.id].total}
               max={max}
               chartType={ChartTypes.Absolute}
             />
@@ -160,5 +160,5 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
 ];
 
-const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
