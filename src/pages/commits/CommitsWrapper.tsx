@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
-import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
-import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
+import { ChartTypes } from "types/commits";
+import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { CommitChart } from "./ActiveCommits/CommitChart";
+import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
+import { Grid } from "./ActiveCommits/Grid";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
-} from "pages/commits/ActiveCommits/utils";
-import { ChartTypes } from "types/commits";
-import { ChartToggle } from "./ActiveCommits/ChartToggle";
-import { Grid } from "./ActiveCommits/Grid";
+} from "./ActiveCommits/utils";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -39,22 +39,22 @@ export const CommitsWrapper: React.FC<Props> = ({
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer>
-          {versions.map((item) =>
-            item.version ? (
-              <ActiveCommitWrapper key={item.version.id}>
+          {versions.map(({ version }) =>
+            version ? (
+              <ActiveCommitWrapper key={version.id}>
                 <CommitChart
                   groupedTaskStats={
-                    idToTaskStatsGroupedByColor[item.version.id].stats
+                    idToTaskStatsGroupedByColor[version.id].stats
                   }
-                  total={idToTaskStatsGroupedByColor[item.version.id].total}
+                  total={idToTaskStatsGroupedByColor[version.id].total}
                   max={max}
                   chartType={chartType}
                 />
                 <CommitChartLabel
-                  githash={item.version.revision.substring(0, 5)}
-                  createTime={item.version.createTime}
-                  author={item.version.author}
-                  message={item.version.message}
+                  githash={version.revision.substring(0, 5)}
+                  createTime={version.createTime}
+                  author={version.author}
+                  message={version.message}
                 />
               </ActiveCommitWrapper>
             ) : null
