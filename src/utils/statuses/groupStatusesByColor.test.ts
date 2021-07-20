@@ -2,7 +2,7 @@ import { mapTaskStatusToColor } from "constants/task";
 import { TaskStatus } from "types/task";
 import { groupStatusesByColor } from "./groupStatusesByColor";
 
-test("Seperates statuses into groups based on the color of the status", () => {
+test("Separates statuses into groups based on the color of the status", () => {
   const tasks = [
     { status: "success", count: 6 },
     { status: "failed", count: 2 },
@@ -67,7 +67,7 @@ test("Groups statuses with different statuses but the same color", () => {
     total: 21,
   });
 });
-test("Returns the overall maximum and toatl", () => {
+test("Returns the overall maximum and total", () => {
   const tasks = [
     { status: "task-timed-out", count: 6 },
     { status: "inactive", count: 2 },

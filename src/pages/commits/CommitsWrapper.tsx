@@ -5,7 +5,13 @@ import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { CommitChart } from "./ActiveCommits/CommitChart";
+import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
 import { Grid } from "./ActiveCommits/Grid";
+import {
+  getAllTaskStatsGroupedByColor,
+  findMaxGroupedTaskStats,
+} from "./ActiveCommits/utils";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -27,9 +33,33 @@ export const CommitsWrapper: React.FC<Props> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
+    const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+    const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
+
     return (
       <ProjectHealthWrapper>
-        <FlexRowContainer />
+        <FlexRowContainer>
+          {versions.map(({ version }) =>
+            version ? (
+              <ActiveCommitWrapper key={version.id}>
+                <CommitChart
+                  groupedTaskStats={
+                    idToTaskStatsGroupedByColor[version.id].stats
+                  }
+                  total={idToTaskStatsGroupedByColor[version.id].total}
+                  max={max}
+                  chartType={chartType}
+                />
+                <CommitChartLabel
+                  githash={version.revision.substring(0, 5)}
+                  createTime={version.createTime}
+                  author={version.author}
+                  message={version.message}
+                />
+              </ActiveCommitWrapper>
+            ) : null
+          )}
+        </FlexRowContainer>
         <Grid numDashedLine={5} />
         <ChartToggle currentChartType={chartType} />
       </ProjectHealthWrapper>
@@ -65,7 +95,7 @@ export const ProjectHealthWrapper = styled.div`
 
 // need to fix width to account for five active commits per page in future
 export const ActiveCommitWrapper = styled.div`
-  width: ${(1 / 7) * 100}%;
+  width: ${(1 / 5) * 100}%;
   display: flex;
   margin-left: 9px;
   flex-direction: column;
