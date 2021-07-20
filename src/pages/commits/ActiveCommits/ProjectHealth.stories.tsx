@@ -21,28 +21,26 @@ export default {
 export const WaterfallAbsolute = () => (
   <ProjectHealthWrapper>
     <FlexRowContainer>
-      {versions.map((item) =>
-        item.version ? (
-          <ColumnContainer key={item.version.id}>
+      {versions.map(({ version, rolledUpVersions }) =>
+        version ? (
+          <ColumnContainer key={version.id}>
             <CommitChart
-              groupedTaskStats={
-                IdToTaskStatsGroupedByColor[item.version.id].stats
-              }
-              total={IdToTaskStatsGroupedByColor[item.version.id].total}
+              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+              total={idToTaskStatsGroupedByColor[version.id].total}
               max={max}
               chartType={ChartTypes.Absolute}
             />
             <CommitChartLabel
-              githash={item.version.revision.substring(0, 5)}
-              createTime={item.version.createTime}
-              author={item.version.author}
-              message={item.version.message}
+              githash={version.revision.substring(0, 5)}
+              createTime={version.createTime}
+              author={version.author}
+              message={version.message}
             />
           </ColumnContainer>
         ) : (
-          <ColumnContainer key={item.rolledUpVersions[0].id}>
+          <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />
-            <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+            <InactiveCommits rolledUpVersions={rolledUpVersions} />
           </ColumnContainer>
         )
       )}
@@ -54,28 +52,26 @@ export const WaterfallAbsolute = () => (
 export const WaterfallPercentage = () => (
   <ProjectHealthWrapper>
     <FlexRowContainer>
-      {versions.map((item) =>
-        item.version ? (
-          <ColumnContainer key={item.version.id}>
+      {versions.map(({ version, rolledUpVersions }) =>
+        version ? (
+          <ColumnContainer key={version.id}>
             <CommitChart
-              groupedTaskStats={
-                IdToTaskStatsGroupedByColor[item.version.id].stats
-              }
-              total={IdToTaskStatsGroupedByColor[item.version.id].total}
+              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+              total={idToTaskStatsGroupedByColor[version.id].total}
               max={max}
               chartType={ChartTypes.Percentage}
             />
             <CommitChartLabel
-              githash={item.version.revision.substring(0, 5)}
-              createTime={item.version.createTime}
-              author={item.version.author}
-              message={item.version.message}
+              githash={version.revision.substring(0, 5)}
+              createTime={version.createTime}
+              author={version.author}
+              message={version.message}
             />
           </ColumnContainer>
         ) : (
-          <ColumnContainer key={item.rolledUpVersions[0].id}>
+          <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />
-            <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+            <InactiveCommits rolledUpVersions={rolledUpVersions} />
           </ColumnContainer>
         )
       )}
@@ -183,5 +179,5 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
 ];
 
-const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);

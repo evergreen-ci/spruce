@@ -3,15 +3,15 @@ import styled from "@emotion/styled";
 import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
-import { CommitChart } from "pages/commits/ActiveCommits/CommitChart";
-import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
+import { ChartTypes } from "types/commits";
+import { ChartToggle } from "./ActiveCommits/ChartToggle";
+import { CommitChart } from "./ActiveCommits/CommitChart";
+import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
+import { Grid } from "./ActiveCommits/Grid";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
-} from "pages/commits/ActiveCommits/utils";
-import { ChartTypes } from "types/commits";
-import { ChartToggle } from "./ActiveCommits/ChartToggle";
-import { Grid } from "./ActiveCommits/Grid";
+} from "./ActiveCommits/utils";
 import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
 interface Props {
