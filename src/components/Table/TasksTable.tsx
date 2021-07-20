@@ -35,8 +35,8 @@ interface TasksTableProps {
 export const TasksTable: React.FC<TasksTableProps> = ({
   tasks,
   tableChangeHandler,
-  onExpand,
-  onClickTaskLink,
+  onExpand = () => {},
+  onClickTaskLink = () => {},
   sorts,
   controlled = false,
 }) => (
