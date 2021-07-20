@@ -34,34 +34,34 @@ export const CommitsWrapper: React.FC<Props> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
-    const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-    const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+    const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+    const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
 
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer>
-          {versions.map((item) =>
-            item.version ? (
-              <ColumnContainer key={item.version.id}>
+          {versions.map(({ version, rolledUpVersions }) =>
+            version ? (
+              <ColumnContainer key={version.id}>
                 <CommitChart
                   groupedTaskStats={
-                    IdToTaskStatsGroupedByColor[item.version.id].stats
+                    idToTaskStatsGroupedByColor[version.id].stats
                   }
-                  total={IdToTaskStatsGroupedByColor[item.version.id].total}
+                  total={idToTaskStatsGroupedByColor[version.id].total}
                   max={max}
                   chartType={chartType}
                 />
                 <CommitChartLabel
-                  githash={item.version.revision.substring(0, 5)}
-                  createTime={item.version.createTime}
-                  author={item.version.author}
-                  message={item.version.message}
+                  githash={version.revision.substring(0, 5)}
+                  createTime={version.createTime}
+                  author={version.author}
+                  message={version.message}
                 />
               </ColumnContainer>
             ) : (
               <ColumnContainer>
                 <InactiveCommitLine />
-                <InactiveCommits rolledUpVersions={item.rolledUpVersions} />
+                <InactiveCommits rolledUpVersions={rolledUpVersions} />
               </ColumnContainer>
             )
           )}
