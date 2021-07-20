@@ -5,7 +5,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { mapColorToTaskUmbrellaStatus } from "constants/task";
 import { ChartTypes } from "types/commits";
-import { ColorCount, getMissingColors, calculateHeight } from "./utils";
+import { ColorCount, getMissingColors, calculateBarHeight } from "./utils";
 
 const { gray } = uiColors;
 interface Props {
@@ -27,12 +27,19 @@ export const CommitChart: React.FC<Props> = ({
       usePortal={false}
       align="right"
       justify="middle"
+      popoverZIndex={1}
       trigger={
-        <ChartContainer>
+        <ChartContainer data-cy="commit-chart-container">
           {groupedTaskStats.map((colorCount) => (
             <Bar
+              data-cy="commit-chart-bar"
               key={colorCount.color}
-              height={calculateHeight(colorCount.count, max, total, chartType)}
+              height={calculateBarHeight(
+                colorCount.count,
+                max,
+                total,
+                chartType
+              )}
               color={colorCount.color}
             />
           ))}
@@ -42,14 +49,21 @@ export const CommitChart: React.FC<Props> = ({
     >
       <TooltipContainer data-cy="commit-chart-tooltip">
         {groupedTaskStats.map((colorCount) => (
-          <TotalCountContainer>
+          <TotalCountContainer
+            data-cy="current-statuses-count"
+            key={colorCount.color}
+          >
             <Circle color={colorCount.color} />
             {`Total ${mapColorToTaskUmbrellaStatus[colorCount.color]}`}
             <Number>{colorCount.count}</Number>
           </TotalCountContainer>
         ))}
         {missingColors.map((color) => (
-          <TotalCountContainer opacity={0.4}>
+          <TotalCountContainer
+            opacity={0.4}
+            data-cy="missing-statuses-count"
+            key={color}
+          >
             <Circle color={color} />
             {`Total ${mapColorToTaskUmbrellaStatus[color]}`}
             <Number>0</Number>
@@ -72,7 +86,7 @@ interface BarProps {
   color: string;
 }
 
-const Bar = styled.div<BarProps>`
+export const Bar = styled.div<BarProps>`
   height: ${({ height }) => height};
   background-color: ${({ color }) => color};
   width: 13px;

@@ -41,7 +41,7 @@ export const getAllTaskStatsGroupedByColor = (
 };
 
 // Used in Commit Chart Component to calculate bar heights
-export function calculateHeight(
+export function calculateBarHeight(
   value: number,
   max: number,
   total: number,
