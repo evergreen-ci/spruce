@@ -4,23 +4,19 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
             version {
                 id
                 author
-                order
                 createTime
-                buildVariants(options: {}) {
-                    variant
-                    displayName
-                    tasks {
-                        id
-                        execution
-                        displayName
-                        status
-                    }
+                message
+                revision
+                taskStatusCounts {
+                    status
+                    count
                 }
             }
             rolledUpVersions {
                 id
                 createTime
                 author
+                revision
             }
         }
         nextPageOrderNumber
