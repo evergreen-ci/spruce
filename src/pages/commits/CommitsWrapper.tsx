@@ -12,6 +12,7 @@ import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
+import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
 interface Props {
   versions: MainlineCommitsQuery["mainlineCommits"]["versions"];
@@ -39,9 +40,9 @@ export const CommitsWrapper: React.FC<Props> = ({
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer>
-          {versions.map(({ version }) =>
+          {versions.map(({ version, rolledUpVersions }) =>
             version ? (
-              <ActiveCommitWrapper key={version.id}>
+              <ColumnContainer key={version.id}>
                 <CommitChart
                   groupedTaskStats={
                     idToTaskStatsGroupedByColor[version.id].stats
@@ -56,8 +57,13 @@ export const CommitsWrapper: React.FC<Props> = ({
                   author={version.author}
                   message={version.message}
                 />
-              </ActiveCommitWrapper>
-            ) : null
+              </ColumnContainer>
+            ) : (
+              <ColumnContainer key={rolledUpVersions[0].id}>
+                <InactiveCommitLine />
+                <InactiveCommits rolledUpVersions={rolledUpVersions} />
+              </ColumnContainer>
+            )
           )}
         </FlexRowContainer>
         <Grid numDashedLine={5} />
@@ -75,10 +81,11 @@ const StyledSkeleton = styled(Skeleton)`
 export const FlexRowContainer = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: flex-start;
   width: 100%;
   margin-top: 65px;
+  padding: 0px 12px 0px 9px;
   z-index: 1;
   position: absolute;
 `;
@@ -93,11 +100,8 @@ export const ProjectHealthWrapper = styled.div`
   position: relative;
 `;
 
-// need to fix width to account for five active commits per page in future
-export const ActiveCommitWrapper = styled.div`
-  width: ${(1 / 5) * 100}%;
+export const ColumnContainer = styled.div`
   display: flex;
-  margin-left: 9px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;

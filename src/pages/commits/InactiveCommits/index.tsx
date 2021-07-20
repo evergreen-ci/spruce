@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Body } from "@leafygreen-ui/typography";
+import { Body, Disclaimer } from "@leafygreen-ui/typography";
 import { string } from "utils";
 
 const { getDateCopy } = string;
@@ -10,10 +10,10 @@ const { gray } = uiColors;
 type rolledUpVersion = {
   id: string;
   author: string;
-  createTime: string;
+  createTime: Date;
   order: number;
   message: string;
-  githash: string;
+  revision?: string;
 };
 interface InactiveCommitsProps {
   rolledUpVersions: rolledUpVersion[];
@@ -30,7 +30,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
     const hiddenCommitCount = versionCount - MAX_COMMIT_COUNT;
     returnedCommits = [
       ...rolledUpVersions.slice(0, 2).map((v) => (
-        <CommitText key={v.githash} data-cy="commit-text">
+        <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
       )),
@@ -41,14 +41,14 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
         hiddenCommitCount !== 1 ? "s" : ""
       }`}</HiddenCommitsWrapper>,
       ...rolledUpVersions.slice(-3).map((v) => (
-        <CommitText key={v.githash} data-cy="commit-text">
+        <CommitText key={v.revision} data-cy="commit-text">
           {getCommitCopy(v)}
         </CommitText>
       )),
     ];
   } else {
     returnedCommits = rolledUpVersions.map((v) => (
-      <CommitText key={v.githash} data-cy="commit-text">
+      <CommitText key={v.revision} data-cy="commit-text">
         {getCommitCopy(v)}
       </CommitText>
     ));
@@ -56,19 +56,24 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
 
   return (
     <Tooltip
+      usePortal={false}
       align="bottom"
       justify="middle"
       trigger={
         <ButtonContainer>
           <ButtonText data-cy="inactive-commits-button">
-            <TopText>{`${versionCount} Inactive`} </TopText>
-            {`Commit${versionCount !== 1 && "s"}`}
+            <TopText>{`${versionCount}`} </TopText>
+            inactive
           </ButtonText>
         </ButtonContainer>
       }
-      triggerEvent="hover"
+      triggerEvent="click"
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
+        <TitleText>
+          {`${versionCount}`} Inactive{" "}
+          {`Commit${versionCount !== 1 ? "s" : ""}`}
+        </TitleText>
         {returnedCommits}
       </TooltipContainer>
     </Tooltip>
@@ -76,7 +81,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
 };
 
 const getCommitCopy = (v: rolledUpVersion) =>
-  `${v.githash.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
+  `${v.revision.slice(0, 5)} ${getDateCopy(v.createTime)} ${v.author} ${
     v.message
   } (#${v.order})`;
 
@@ -87,8 +92,8 @@ const HiddenCommitsWrapper = styled.div`
   width: 180px;
   border-bottom: 1px solid ${gray.dark2};
   text-align: center;
-  padding: 8px 0;
-  margin-bottom: 8px;
+  padding: 4px 0;
+  margin: 18px 0px 28px 60px;
 `;
 
 const TooltipContainer = styled.div`
@@ -96,35 +101,40 @@ const TooltipContainer = styled.div`
   margin: auto;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   flex-direction: column;
+  background-color: ${gray.light3};
+  color: ${gray.dark3};
 `;
 
 const ButtonContainer = styled.div`
-  width: 100px;
+  width: 58px;
   cursor: pointer;
+  display: flex;
+  justify-content: center;
 `;
+
+export const InactiveCommitLine = styled.div`
+  margin-left: 29px;
+  height: 224px;
+  border: 1px dashed ${gray.light1};
+`;
+
 const TopText = styled.div`
   white-space: nowrap;
 `;
-const ButtonText = styled(Body)`
+const ButtonText = styled(Disclaimer)`
+  margin-top: 10px;
   text-align: center;
   display: table;
-  &:before,
-  &:after {
-    border-top: 1px solid black;
-    content: "";
-    display: table-cell;
-    position: relative;
-    top: 1.5em;
-    width: 45%;
-  }
-  &:before {
-    right: 1.5%;
-  }
-  &:after {
-    left: 1.5%;
-  }
+  color: ${gray.dark2};
+  font-weight: bold;
+`;
+
+const TitleText = styled(Disclaimer)`
+  margin-bottom: 14px;
+  font-weight: bold;
+  font-size: 14px;
 `;
 
 const MAX_COMMIT_COUNT = 5;

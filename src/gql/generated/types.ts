@@ -355,6 +355,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
@@ -412,6 +413,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationScheduleUndispatchedBaseTasksArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationEnqueuePatchArgs = {
@@ -2033,6 +2038,8 @@ export type MainlineCommitsQuery = {
           id: string;
           createTime: Date;
           author: string;
+          order: number;
+          message: string;
           revision: string;
         }>
       >;

@@ -18,7 +18,7 @@ export const Grid: React.FC<{
 const ColumnContainer = styled.div`
   position: absolute;
   width: 100%;
-  height: 224px;
+  height: 226px;
   display: flex;
   margin-top: 65px;
   flex-direction: column;
@@ -33,6 +33,5 @@ const DashedLine = styled.div`
 
 const SolidLine = styled.div`
   width: 100%;
-  border: 0.9px solid ${gray.light1};
-  z-index: 2;
+  border: 1px solid ${gray.light1};
 `;
