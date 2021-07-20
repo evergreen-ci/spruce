@@ -41,7 +41,7 @@ export const CommitChart: React.FC<Props> = ({
 
 const ChartContainer = styled.div`
   height: 224px;
-  width: 100%;
+  width: 172px;
   display: flex;
   justify-content: flex-start;
   align-items: flex-end;

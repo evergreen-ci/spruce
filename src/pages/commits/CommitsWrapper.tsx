@@ -85,7 +85,7 @@ export const FlexRowContainer = styled.div`
   align-items: flex-start;
   width: 100%;
   margin-top: 65px;
-  padding-left: 9px;
+  padding: 0px 12px 0px 9px;
   z-index: 1;
   position: absolute;
 `;

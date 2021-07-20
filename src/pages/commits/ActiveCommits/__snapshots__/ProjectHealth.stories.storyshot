@@ -5,13 +5,13 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-yflitv-FlexRowContainer ech0nhv3"
+    className="css-viknrc-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-12nh665-Bar e1tzsy280"
@@ -56,7 +56,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-1gxi13m-Bar e1tzsy280"
@@ -130,7 +130,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-itabzo-Bar e1tzsy280"
@@ -175,7 +175,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-16xcq76-Bar e1tzsy280"
@@ -220,7 +220,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-j8vdl2-Bar e1tzsy280"
@@ -268,7 +268,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
     </div>
   </div>
   <div
-    className="css-16ru3vm-ColumnContainer e15dc98b2"
+    className="css-1dysym0-ColumnContainer e15dc98b2"
   >
     <div
       className="css-oxpn1r-DashedLine e15dc98b1"
@@ -286,7 +286,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-oxpn1r-DashedLine e15dc98b1"
     />
     <div
-      className="css-1bpyomh-SolidLine e15dc98b0"
+      className="css-1sahvn-SolidLine e15dc98b0"
     />
   </div>
 </div>
@@ -297,13 +297,13 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-yflitv-FlexRowContainer ech0nhv3"
+    className="css-viknrc-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-98gzrf-Bar e1tzsy280"
@@ -348,7 +348,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-1d41pnf-Bar e1tzsy280"
@@ -422,7 +422,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-coyjab-Bar e1tzsy280"
@@ -467,7 +467,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-15gzlb8-Bar e1tzsy280"
@@ -512,7 +512,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="css-11qj1uy-ChartContainer e1tzsy281"
+        className="css-8ouqbx-ChartContainer e1tzsy281"
       >
         <div
           className="css-sa8qko-Bar e1tzsy280"
@@ -560,7 +560,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
     </div>
   </div>
   <div
-    className="css-16ru3vm-ColumnContainer e15dc98b2"
+    className="css-1dysym0-ColumnContainer e15dc98b2"
   >
     <div
       className="css-oxpn1r-DashedLine e15dc98b1"
@@ -578,7 +578,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-oxpn1r-DashedLine e15dc98b1"
     />
     <div
-      className="css-1bpyomh-SolidLine e15dc98b0"
+      className="css-1sahvn-SolidLine e15dc98b0"
     />
   </div>
 </div>
