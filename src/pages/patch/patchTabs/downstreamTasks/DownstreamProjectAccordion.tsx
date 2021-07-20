@@ -12,7 +12,13 @@ import { ResultCountLabel } from "components/ResultCountLabel";
 import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
 import { useToastContext } from "context/toast";
-import { PatchTasksQuery, PatchTasksQueryVariables } from "gql/generated/types";
+import {
+  PatchTasksQuery,
+  PatchTasksQueryVariables,
+  SortDirection,
+  SortOrder,
+  TaskSortCategory,
+} from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { environmentalVariables, queryString } from "utils";
@@ -45,6 +51,11 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
 }) => {
   const dispatchToast = useToastContext();
 
+  const defaultSort: SortOrder = {
+    Key: TaskSortCategory.Status,
+    Direction: SortDirection.Asc,
+  };
+
   const baseFilterVariables = {
     baseStatuses: [],
     limit: 10,
@@ -56,7 +67,10 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     variant: null,
   };
 
-  const [variables, setVariables] = useReducer(reducer, baseFilterVariables);
+  const [variables, setVariables] = useReducer(reducer, {
+    ...baseFilterVariables,
+    sorts: [defaultSort],
+  });
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -116,7 +130,9 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                     denominator={taskCount}
                   />
                   <PaddedButton // @ts-expect-error
-                    onClick={() => setVariables(baseFilterVariables)}
+                    onClick={() => {
+                      setVariables(baseFilterVariables);
+                    }}
                     data-cy="clear-all-filters"
                   >
                     Clear All Filters
@@ -141,6 +157,8 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 <Skeleton active title={false} paragraph={{ rows: 8 }} />
               ) : (
                 <TasksTable
+                  controlled
+                  sorts={variables.sorts}
                   tableChangeHandler={tableChangeHandler}
                   tasks={patchTasks?.tasks}
                 />
