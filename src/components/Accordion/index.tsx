@@ -39,7 +39,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       </AccordionToggle>
       {!toggleFromBottom && (
         <AnimatedAccordion hide={!isAccordionDisplayed}>
-          {contents}
+          <ContentsContainer indent={showCaret}>{contents}</ContentsContainer>
         </AnimatedAccordion>
       )}
     </>
@@ -60,4 +60,8 @@ const AnimatedAccordion = styled.div`
   max-height: ${(props: { hide: boolean }): string => !props.hide && "1500px"};
   overflow-y: hidden;
   transition: max-height 0.3s ease-in-out;
+`;
+const ContentsContainer = styled.div`
+  margin-left: ${(props: { indent: boolean }): string =>
+    props.indent && "16px"};
 `;
