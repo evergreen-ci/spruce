@@ -33,8 +33,8 @@ export const CommitsWrapper: React.FC<Props> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
-    const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-    const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+    const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+    const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
 
     return (
       <ProjectHealthWrapper>
@@ -44,9 +44,9 @@ export const CommitsWrapper: React.FC<Props> = ({
               <ActiveCommitWrapper key={item.version.id}>
                 <CommitChart
                   groupedTaskStats={
-                    IdToTaskStatsGroupedByColor[item.version.id].stats
+                    idToTaskStatsGroupedByColor[item.version.id].stats
                   }
-                  total={IdToTaskStatsGroupedByColor[item.version.id].total}
+                  total={idToTaskStatsGroupedByColor[item.version.id].total}
                   max={max}
                   chartType={chartType}
                 />
