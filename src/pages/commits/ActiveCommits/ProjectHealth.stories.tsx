@@ -17,7 +17,7 @@ export default {
   title: "Project Health Page",
 };
 
-export const ActiveCommitsOnly = () => (
+export const ActiveCommits = () => (
   <ProjectHealthWrapper>
     <FlexRowContainer>
       {versions.map(({ version }) =>
