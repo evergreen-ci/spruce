@@ -79,24 +79,22 @@ export const JobLogs = () => {
     <Row>
       <Card>
         <Column>
-          <>
-            <H2>
-              <StyledRouterLink to={getTaskRoute(task?.id)} data-cy="task-link">
-                {task?.id}
-              </StyledRouterLink>
-            </H2>
-            <SubtitleContainer>
-              <Subtitle>
-                Execution: <span data-cy="execution">{task?.execution}</span>
-                <br />
-                {groupId && (
-                  <>
-                    Job Number: <span data-cy="groupId">{groupId}</span>
-                  </>
-                )}
-              </Subtitle>
-            </SubtitleContainer>
-          </>
+          <H2>
+            <StyledRouterLink to={getTaskRoute(task?.id)} data-cy="task-link">
+              {task?.id}
+            </StyledRouterLink>
+          </H2>
+          <SubtitleContainer>
+            <Subtitle>
+              Execution: <span data-cy="execution">{task?.execution}</span>
+              <br />
+              {groupId && (
+                <>
+                  Job Number: <span data-cy="groupId">{groupId}</span>
+                </>
+              )}
+            </Subtitle>
+          </SubtitleContainer>
           {testResults?.length &&
           !displayTaskResult?.task.executionTasks?.length ? (
             <SubtitleContainer>
