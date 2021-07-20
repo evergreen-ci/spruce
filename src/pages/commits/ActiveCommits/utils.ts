@@ -1,4 +1,3 @@
-import { MainlineCommitsQuery } from "gql/generated/types";
 import { groupStatusesByColor } from "utils/statuses";
 
 export type ColorCount = { count: number; statuses: string[]; color: string };
@@ -17,13 +16,21 @@ export const findMaxGroupedTaskStats = (groupedTaskStats: {
   );
 
 export const getAllTaskStatsGroupedByColor = (
-  versions: MainlineCommitsQuery["mainlineCommits"]["versions"]
+  versions: {
+    version?: {
+      id: string;
+      taskStatusCounts?: {
+        status: string;
+        count: number;
+      }[];
+    };
+  }[]
 ) => {
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
-  versions.forEach((versionObj) => {
-    if (versionObj.version != null) {
-      idToGroupedTaskStats[versionObj.version.id] = groupStatusesByColor(
-        versionObj.version.taskStatusCounts
+  versions.forEach(({ version }) => {
+    if (version != null) {
+      idToGroupedTaskStats[version.id] = groupStatusesByColor(
+        version.taskStatusCounts
       );
     }
   });

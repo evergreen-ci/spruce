@@ -20,22 +20,20 @@ export default {
 export const ActiveCommitsOnly = () => (
   <ProjectHealthWrapper>
     <FlexRowContainer>
-      {versions.map((item) =>
-        item.version ? (
-          <ActiveCommitWrapper key={item.version.id}>
+      {versions.map(({ version }) =>
+        version ? (
+          <ActiveCommitWrapper key={version.id}>
             <CommitChart
-              groupedTaskStats={
-                IdToTaskStatsGroupedByColor[item.version.id].stats
-              }
-              total={IdToTaskStatsGroupedByColor[item.version.id].total}
+              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+              total={idToTaskStatsGroupedByColor[version.id].total}
               max={max}
               chartType={ChartTypes.Absolute}
             />
             <CommitChartLabel
-              githash={item.version.revision.substring(0, 5)}
-              createTime={item.version.createTime}
-              author={item.version.author}
-              message={item.version.message}
+              githash={version.revision.substring(0, 5)}
+              createTime={version.createTime}
+              author={version.author}
+              message={version.message}
             />
           </ActiveCommitWrapper>
         ) : null
@@ -130,5 +128,5 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
 ];
 
-const IdToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(IdToTaskStatsGroupedByColor);
+const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
+const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
