@@ -1,26 +1,26 @@
 query MainlineCommits($options: MainlineCommitsOptions!) {
-    mainlineCommits(options: $options) {
-        versions {
-            version {
-                id
-                author
-                createTime
-                message
-                revision
-                taskStatusCounts {
-                    status
-                    count
-                }
-            }
-            rolledUpVersions {
-                id
-                createTime
-                author
-                order
-                message
-                revision
-            }
+  mainlineCommits(options: $options) {
+    versions {
+      version {
+        id
+        author
+        createTime
+        message
+        revision
+        taskStatusCounts {
+          status
+          count
         }
-        nextPageOrderNumber
+      }
+      rolledUpVersions {
+        id
+        createTime
+        author
+        order
+        message
+        revision
+      }
     }
+    nextPageOrderNumber
+  }
 }
