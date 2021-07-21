@@ -54,16 +54,16 @@ export const getLobsterTestLogUrl = ({
   testId,
   lineNum,
 }: GetLobsterTestLogUrlParams) =>
-  !taskId || Number.isNaN(execution) || !testId
-    ? ""
-    : `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
+  taskId && Number.isFinite(execution) && testId
+    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
         lineNum ? `#shareLine=${lineNum}` : ""
-      }`;
+      }`
+    : "";
 
 interface GetLobsterTestLogCompleteUrlParams {
   taskId: string;
   execution: number;
-  groupId: string;
+  groupId?: string;
   lineNum?: number;
 }
 
@@ -73,11 +73,11 @@ export const getLobsterTestLogCompleteUrl = ({
   groupId,
   lineNum,
 }: GetLobsterTestLogCompleteUrlParams) =>
-  !taskId || Number.isNaN(execution) || !groupId
-    ? ""
-    : `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}/${groupId}${
-        lineNum ? `#shareLine=${lineNum}` : ""
-      }`;
+  taskId && Number.isFinite(execution)
+    ? `${getLobsterURL()}/lobster/evergreen/complete-test/${taskId}/${execution}${
+        groupId ? `/${groupId}` : ""
+      }${lineNum ? `#shareLine=${lineNum}` : ""}`
+    : "";
 
 export const isLogkeeperLink = (link: string) =>
   link.includes(`${deprecatedLogkeeperLobsterURL}/build`);
