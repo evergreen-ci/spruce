@@ -1,5 +1,5 @@
 import { Patch } from "gql/generated/types";
-import { DownstreamProjectAccordion } from "./DownstreamProjectAccordion";
+import { DownstreamProjectAccordion } from "./downstreamTasks/DownstreamProjectAccordion";
 
 interface DownstreamTasksProps {
   childPatches: Partial<Patch>[];

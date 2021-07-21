@@ -11,28 +11,32 @@ const { Option } = Select;
 interface Props {
   value: number;
   "data-cy"?: string;
+  onClick?: (i: number) => void;
   sendAnalyticsEvent?: () => void;
 }
 
 export const PageSizeSelector: React.FC<Props> = ({
   value,
   "data-cy": dataCy,
+  onClick,
   sendAnalyticsEvent = () => undefined,
 }) => {
   const { replace } = useHistory();
   const { search, pathname } = useLocation();
 
-  const handleChange = (pageSize: number) => {
-    localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
-    replace(
-      `${pathname}?${stringifyQuery({
-        ...parseQueryString(search),
-        limit: pageSize,
-        page: 0,
-      })}`
-    );
-    sendAnalyticsEvent();
-  };
+  const handleChange =
+    onClick ||
+    ((pageSize: number) => {
+      localStorage.setItem(RECENT_PAGE_SIZE_KEY, `${pageSize}`);
+      replace(
+        `${pathname}?${stringifyQuery({
+          ...parseQueryString(search),
+          limit: pageSize,
+          page: 0,
+        })}`
+      );
+      sendAnalyticsEvent();
+    });
 
   return (
     <Select
