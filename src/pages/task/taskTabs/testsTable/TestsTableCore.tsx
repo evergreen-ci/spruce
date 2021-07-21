@@ -46,23 +46,27 @@ export interface UpdateQueryArg {
 }
 export const TestsTableCore: React.FC = () => {
   const { id: resourceId } = useParams<{ id: string }>();
-  const { search } = useLocation();
+  const { pathname, search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const taskAnalytics = useTaskAnalytics();
 
   const queryVariables = getQueryVariables(search, resourceId);
   const { cat, dir, pageNum, limitNum } = queryVariables;
 
-  const appliedDefaultSort = useRef(false);
+  const appliedDefaultSort = useRef(null);
   useEffect(() => {
-    if (cat === undefined && updateQueryParams && !appliedDefaultSort.current) {
-      appliedDefaultSort.current = true;
+    if (
+      cat === undefined &&
+      updateQueryParams &&
+      appliedDefaultSort.current !== pathname
+    ) {
+      appliedDefaultSort.current = pathname;
       updateQueryParams({
         [RequiredQueryParams.Category]: TestSortCategory.Status,
         [RequiredQueryParams.Sort]: SortDirection.Asc,
       });
     }
-  }, [updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
   // Apply sorts to columns
   const columns = getColumnsTemplate(taskAnalytics).map((column) => ({
     ...column,
