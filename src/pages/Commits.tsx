@@ -27,17 +27,24 @@ import { StatusSelect } from "./commits/StatusSelect";
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
-  const { projectId } = useParams<{ projectId: string }>();
-  const options = { projectID: projectId, limit: 5 };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
+
+  // get query params from url
+  const { projectId } = useParams<{ projectId: string }>();
   const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
+  let filterStatuses = null;
+  if (parsed[ProjectFilterOptions.Status].length === 1) {
+    filterStatuses = [filterStatuses];
+  } else {
+    filterStatuses = parsed[ProjectFilterOptions.Status];
+  }
 
   // set current chart type based on query param
   useEffect(() => {
@@ -51,17 +58,20 @@ export const Commits = () => {
     }
   }, [chartTypeParam, setCurrentChartType]);
 
-  usePageTitle(`Project Health | ${projectId}`);
+  // query mainlineCommits data
+  const options = { projectID: projectId, limit: 5 };
+  const taskStatusCountsOptions = { statuses: filterStatuses };
+  console.log(parsed[ProjectFilterOptions.Status]);
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { options },
+    variables: { options, taskStatusCountsOptions },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-
+  usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions } = mainlineCommits || {};
@@ -136,11 +146,6 @@ const tupleSelectOptions = [
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
-  },
-  {
-    value: ProjectFilterOptions.Test,
-    displayName: "Test",
-    placeHolderText: "Search Test names",
   },
   {
     value: ProjectFilterOptions.Task,

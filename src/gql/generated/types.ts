@@ -1255,6 +1255,10 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
 };
 
+export type VersionTaskStatusCountsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
@@ -2019,6 +2023,7 @@ export type GetSuspectedIssuesQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   options: MainlineCommitsOptions;
+  taskStatusCountsOptions: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {

@@ -13,11 +13,6 @@ const options = [
     placeHolderText: "Search Build Variant names",
   },
   {
-    value: ProjectFilterOptions.Test,
-    displayName: "Test",
-    placeHolderText: "Search Test names",
-  },
-  {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
     placeHolderText: "Search Task names",
@@ -163,10 +158,6 @@ test("Should allow multiple input filters for different keys as query params", a
   // https://github.com/ant-design/ant-design/issues/22074
   fireEvent.mouseDown(dropdown.firstChild);
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  const testDropdown = queryByDataCy(
-    `tuple-select-option-${ProjectFilterOptions.Test}`
-  );
-  fireEvent.click(testDropdown.firstChild);
   expect(queryByText("Add New Test Filter")).toBeInTheDocument();
   fireEvent.change(input, {
     target: { value: "some-other-filter" },
@@ -176,8 +167,4 @@ test("Should allow multiple input filters for different keys as query params", a
     key: "Enter",
     keyCode: 13,
   });
-  const { location } = history;
-  expect(location.search).toBe(
-    `?${ProjectFilterOptions.BuildVariant}=some-filter&${ProjectFilterOptions.Test}=some-other-filter`
-  );
 });
