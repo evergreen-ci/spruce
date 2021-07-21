@@ -2,23 +2,20 @@
 
 exports[`Storyshots Inactive Commits Story 1`] = `
 <div
-  className="leafygreen-ui-cssveg css-mltmfh-ButtonContainer ezzuvrx2"
-  onBlur={[Function]}
-  onFocus={[Function]}
-  onMouseEnter={[Function]}
-  onMouseLeave={[Function]}
+  className="leafygreen-ui-cssveg css-ue3t3g-ButtonContainer ezzuvrx4"
+  onClick={[Function]}
 >
-  <div
-    className="css-9gwzin-ButtonText ezzuvrx0 leafygreen-ui-xsga32"
+  <small
+    className="css-nr1a01-ButtonText ezzuvrx1 leafygreen-ui-18tqmm7"
     data-cy="inactive-commits-button"
   >
     <div
-      className="css-hifh5j-TopText ezzuvrx1"
+      className="css-hifh5j-TopText ezzuvrx2"
     >
-      6 Inactive
+      6
        
     </div>
-    Commits
-  </div>
+    inactive
+  </small>
 </div>
 `;

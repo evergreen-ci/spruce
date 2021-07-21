@@ -1,10 +1,13 @@
 import { useReducer } from "react";
 import { ExpirationDateType } from "components/Spawn/ExpirationField";
-import { InstanceTagInput } from "gql/generated/types";
+import { InstanceTagInput, PublicKeyInput } from "gql/generated/types";
 import { MyHost } from "types/spawn";
 import { UserTagsData, VolumesData } from "../fields";
+import { publicKeyStateType } from "../spawnHostModal/PublicKeyForm";
 
 export interface editSpawnHostStateType {
+  publicKey: PublicKeyInput;
+  savePublicKey: boolean;
   expiration?: Date;
   noExpiration: boolean;
   displayName?: string;
@@ -29,6 +32,11 @@ const init = (host: MyHost) => ({
   addedInstanceTags: [],
   deletedInstanceTags: [],
   servicePassword: null,
+  publicKey: {
+    name: "",
+    key: "",
+  },
+  savePublicKey: false,
 });
 
 const reducer = (state: editSpawnHostStateType, action: Action) => {
@@ -66,6 +74,12 @@ const reducer = (state: editSpawnHostStateType, action: Action) => {
           ? action.servicePassword
           : null,
       };
+    case "editPublicKey":
+      return {
+        ...state,
+        publicKey: action.publicKey,
+        savePublicKey: action.savePublicKey,
+      };
     default:
       throw new Error();
   }
@@ -78,4 +92,5 @@ type Action =
   | { type: "reset"; host: MyHost }
   | ({ type: "editExpiration" } & ExpirationDateType)
   | ({ type: "editInstanceTags" } & UserTagsData)
-  | ({ type: "editVolumes" } & VolumesData);
+  | ({ type: "editVolumes" } & VolumesData)
+  | ({ type: "editPublicKey" } & publicKeyStateType);

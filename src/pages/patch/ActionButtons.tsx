@@ -1,6 +1,5 @@
 import React from "react";
-import { useMutation } from "@apollo/client";
-import { ButtonDropdown, DropdownItem } from "components/ButtonDropdown";
+import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
@@ -9,14 +8,10 @@ import {
   SetPatchPriority,
   EnqueuePatch,
   AddNotification,
+  DisablePatch,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
-import { useToastContext } from "context/toast";
-import {
-  SetPatchPriorityMutation,
-  SetPatchPriorityMutationVariables,
-} from "gql/generated/types";
-import { SET_PATCH_PRIORITY } from "gql/mutations";
+import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
@@ -31,20 +26,6 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   patchDescription,
   patchId,
 }) => {
-  const dispatchToast = useToastContext();
-  const [disablePatch] = useMutation<
-    SetPatchPriorityMutation,
-    SetPatchPriorityMutationVariables
-  >(SET_PATCH_PRIORITY, {
-    onCompleted: () => {
-      dispatchToast.success(`Tasks in this patch were disabled`);
-    },
-    onError: (err) => {
-      dispatchToast.error(`Unable to disable patch tasks: ${err.message}`);
-    },
-    refetchQueries: ["Patch"],
-  });
-
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
@@ -56,18 +37,15 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       refetchQueries={["Patch"]}
       key="unschedule"
     />,
-    <DropdownItem
-      key="disable-button"
-      data-cy="disable"
-      disabled={false}
-      onClick={() => {
-        disablePatch({
-          variables: { patchId, priority: -1 },
-        });
-      }}
-    >
-      Disable all tasks
-    </DropdownItem>,
+    <DisablePatch
+      key="disable-patch"
+      patchId={patchId}
+      refetchQueries={["Patch"]}
+    />,
+    <ScheduleUndispatchedBaseTasks
+      key="schedule-undispatched-base-tasks"
+      patchId={patchId}
+    />,
     <SetPatchPriority
       patchId={patchId}
       key="priority"

@@ -175,6 +175,7 @@ export type Mutation = {
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartPatch?: Maybe<Scalars["String"]>;
+  scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
   setPatchPriority?: Maybe<Scalars["String"]>;
   scheduleTask: Task;
@@ -232,6 +233,10 @@ export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
   taskIds: Array<Scalars["String"]>;
+};
+
+export type MutationScheduleUndispatchedBaseTasksArgs = {
+  patchId: Scalars["String"];
 };
 
 export type MutationEnqueuePatchArgs = {
@@ -565,6 +570,8 @@ export type EditSpawnHostInput = {
   deletedInstanceTags?: Maybe<Array<InstanceTagInput>>;
   volume?: Maybe<Scalars["String"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 };
 
 export type SpawnVolumeInput = {
@@ -1495,6 +1502,8 @@ export type EditSpawnHostMutationVariables = Exact<{
   expiration?: Maybe<Scalars["Time"]>;
   noExpiration?: Maybe<Scalars["Boolean"]>;
   servicePassword?: Maybe<Scalars["String"]>;
+  publicKey?: Maybe<PublicKeyInput>;
+  savePublicKey?: Maybe<Scalars["Boolean"]>;
 }>;
 
 export type EditSpawnHostMutation = { editSpawnHost: BaseSpawnHostFragment };
@@ -1624,6 +1633,16 @@ export type ScheduleTaskMutationVariables = Exact<{
 }>;
 
 export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
+
+export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
+  patchId: Scalars["String"];
+}>;
+
+export type ScheduleUndispatchedBaseTasksMutation = {
+  scheduleUndispatchedBaseTasks?: Maybe<
+    Array<{ id: string; execution: number; status: string }>
+  >;
+};
 
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
@@ -2034,29 +2053,20 @@ export type MainlineCommitsQuery = {
       version?: Maybe<{
         id: string;
         author: string;
-        order: number;
         createTime: Date;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              variant: string;
-              displayName: string;
-              tasks?: Maybe<
-                Array<
-                  Maybe<{
-                    id: string;
-                    execution: number;
-                    displayName: string;
-                    status: string;
-                  }>
-                >
-              >;
-            }>
-          >
-        >;
+        message: string;
+        revision: string;
+        taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
       rolledUpVersions?: Maybe<
-        Array<{ id: string; createTime: Date; author: string }>
+        Array<{
+          id: string;
+          createTime: Date;
+          author: string;
+          order: number;
+          message: string;
+          revision: string;
+        }>
       >;
     }>;
   }>;
@@ -2200,6 +2210,16 @@ export type PatchQuery = {
     taskCount?: Maybe<number>;
     baseVersionID?: Maybe<string>;
     canEnqueueToCommitQueue: boolean;
+    childPatches?: Maybe<
+      Array<{
+        baseVersionID?: Maybe<string>;
+        githash: string;
+        id: string;
+        projectID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
     duration?: Maybe<{ makespan?: Maybe<string>; timeTaken?: Maybe<string> }>;
     time?: Maybe<{
       started?: Maybe<string>;
