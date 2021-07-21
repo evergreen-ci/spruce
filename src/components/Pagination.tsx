@@ -5,6 +5,7 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 interface Props {
   totalResults: number;
   value: number;
+  onChange?: (i: number) => void;
   pageSize: number;
   "data-cy"?: string;
 }
@@ -12,10 +13,13 @@ interface Props {
 export const Pagination: React.FC<Props> = ({
   totalResults,
   value,
+  onChange,
   pageSize,
   "data-cy": dataCy,
 }) => {
   const updateQueryParams = useUpdateURLQueryParams();
+  const handleChange =
+    onChange || ((p) => updateQueryParams({ page: `${p - 1}` }));
   return (
     <AntPagination
       data-cy={dataCy}
@@ -23,7 +27,7 @@ export const Pagination: React.FC<Props> = ({
       pageSize={pageSize}
       current={value + 1}
       total={totalResults}
-      onChange={(p) => updateQueryParams({ page: `${p - 1}` })}
+      onChange={handleChange}
     />
   );
 };

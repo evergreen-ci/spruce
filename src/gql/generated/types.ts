@@ -397,11 +397,17 @@ export type Version = {
   branch: Scalars["String"];
   requester: Scalars["String"];
   activated?: Maybe<Scalars["Boolean"]>;
+  taskStatusCounts?: Maybe<Array<StatusCount>>;
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
 };
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type StatusCount = {
+  status: Scalars["String"];
+  count: Scalars["Int"];
 };
 
 export type BuildVariantOptions = {
@@ -2032,29 +2038,20 @@ export type MainlineCommitsQuery = {
       version?: Maybe<{
         id: string;
         author: string;
-        order: number;
         createTime: Date;
-        buildVariants?: Maybe<
-          Array<
-            Maybe<{
-              variant: string;
-              displayName: string;
-              tasks?: Maybe<
-                Array<
-                  Maybe<{
-                    id: string;
-                    execution: number;
-                    displayName: string;
-                    status: string;
-                  }>
-                >
-              >;
-            }>
-          >
-        >;
+        message: string;
+        revision: string;
+        taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
       }>;
       rolledUpVersions?: Maybe<
-        Array<{ id: string; createTime: Date; author: string }>
+        Array<{
+          id: string;
+          createTime: Date;
+          author: string;
+          order: number;
+          message: string;
+          revision: string;
+        }>
       >;
     }>;
   }>;
