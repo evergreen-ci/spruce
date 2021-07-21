@@ -16,6 +16,8 @@ query MainlineCommits($options: MainlineCommitsOptions!) {
                 id
                 createTime
                 author
+                order
+                message
                 revision
             }
         }
