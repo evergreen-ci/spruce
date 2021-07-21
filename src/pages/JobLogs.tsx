@@ -6,7 +6,7 @@ import { H2, Subtitle, Body } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
-import { StyledRouterLink, StyledLink } from "components/styles";
+import { StyledRouterLink, StyledLink, PageWrapper } from "components/styles";
 import {
   getLobsterTestLogUrl,
   getLobsterTestLogCompleteUrl,
@@ -71,77 +71,77 @@ export const JobLogs = () => {
   if (errorTests || errorDisplayTask) {
     return <PageDoesNotExist />;
   }
-
+  const isDisplayTask = displayTaskResult?.task.executionTasks;
   const { testResults } = testsResult?.taskTests ?? {};
-  return isLoadingDisplayTask || isLoadingTests ? (
-    <Skeleton paragraph={{ rows: 8 }} />
-  ) : (
-    <Row>
-      <Card>
-        <Column>
-          <H2>
-            <StyledRouterLink to={getTaskRoute(task?.id)} data-cy="task-link">
-              {task?.id}
-            </StyledRouterLink>
-          </H2>
-          <SubtitleContainer>
-            <Subtitle>
-              Execution: <span data-cy="execution">{task?.execution}</span>
-              <br />
-              {groupId && (
-                <>
-                  Job Number: <span data-cy="groupId">{groupId}</span>
-                </>
-              )}
-            </Subtitle>
-          </SubtitleContainer>
-          {testResults?.length &&
-          !displayTaskResult?.task.executionTasks?.length ? (
+  const hasTestResults = !!testResults?.length;
+  const contents =
+    isLoadingDisplayTask || isLoadingTests ? (
+      <Skeleton paragraph={{ rows: 8 }} />
+    ) : (
+      <Row>
+        <Card>
+          <Column>
+            <H2>
+              <StyledRouterLink to={getTaskRoute(task?.id)} data-cy="task-link">
+                {task?.id}
+              </StyledRouterLink>
+            </H2>
             <SubtitleContainer>
-              <Subtitle>
-                <StyledLink
-                  data-cy="complete-test-logs-link"
-                  onClick={() => {
-                    sendEvent({ name: "Clicked complete logs link", taskId });
-                  }}
-                  href={getLobsterTestLogCompleteUrl({
-                    taskId,
-                    groupId,
-                    execution,
-                  })}
-                >
-                  Complete logs for all
-                </StyledLink>
+              <Subtitle data-cy="execution">
+                Execution: {task?.execution}
               </Subtitle>
+              {groupId && (
+                <Subtitle data-cy="groupId">Job Number: {groupId}</Subtitle>
+              )}
             </SubtitleContainer>
-          ) : null}
-          {testResults?.map(
-            ({ id, lineNum, displayTestName, testFile, ...test }) => (
-              <StyledLink
-                href={getLobsterTestLogUrl({
-                  taskId: test.taskId,
-                  execution: test.execution,
-                  testId: id,
-                  lineNum,
-                })}
-                data-cy="testlog-link"
-                key={id}
-                onClick={() => {
-                  sendEvent({
-                    name: "Clicked lobster testlog url",
+            {hasTestResults && !isDisplayTask ? (
+              <SubtitleContainer>
+                <Subtitle>
+                  <StyledLink
+                    data-cy="complete-test-logs-link"
+                    onClick={() => {
+                      sendEvent({ name: "Clicked complete logs link", taskId });
+                    }}
+                    href={getLobsterTestLogCompleteUrl({
+                      taskId,
+                      groupId,
+                      execution,
+                    })}
+                  >
+                    Complete logs for all
+                  </StyledLink>
+                </Subtitle>
+              </SubtitleContainer>
+            ) : null}
+            {testResults?.map(
+              ({ id, lineNum, displayTestName, testFile, ...test }) => (
+                <StyledLink
+                  href={getLobsterTestLogUrl({
+                    taskId: test.taskId,
+                    execution: test.execution,
                     testId: id,
-                  });
-                }}
-              >
-                {displayTestName || testFile}
-              </StyledLink>
-            )
-          )}
-          {testResults?.length === 0 && <Body>No test results found.</Body>}
-        </Column>
-      </Card>
-    </Row>
-  );
+                    lineNum,
+                  })}
+                  data-cy="testlog-link"
+                  key={id}
+                  onClick={() => {
+                    sendEvent({
+                      name: "Clicked lobster testlog url",
+                      testId: id,
+                    });
+                  }}
+                >
+                  {displayTestName || testFile}
+                </StyledLink>
+              )
+            )}
+            {!hasTestResults && <Body>No test results found.</Body>}
+          </Column>
+        </Card>
+      </Row>
+    );
+
+  return <PageWrapper>{contents}</PageWrapper>;
 };
 
 const SubtitleContainer = styled.div`
