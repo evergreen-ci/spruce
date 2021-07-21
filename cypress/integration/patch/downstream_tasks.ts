@@ -15,16 +15,15 @@ describe("Downstream Tasks Tab", () => {
 
     cy.dataCy("project-accordion").should("have.length", 3);
 
-    cy.dataCy("project-accordion").eq(1).click();
+    cy.dataCy("project-accordion").first().click();
     cy.dataCy("tasks-table").should("be.visible");
     cy.dataCy("project-title").should("be.visible");
   });
 
   it("Correctly filters results", () => {
-    cy.get("tbody").eq(1).children().should("have.length", 10);
-    cy.dataCy("task-status-filter").eq(1).click();
-    cy.dataCy("checkbox").eq(1).click({ force: true });
-    cy.get("tbody").eq(1).children().should("have.length", 3);
+    cy.get("tbody").first().children().should("have.length", 1);
+    cy.dataCy("task-name-input").first().type("filter");
+    cy.get("tbody").first().contains("No Data");
   });
 
   it("Does not push query params to the URL", () => {
