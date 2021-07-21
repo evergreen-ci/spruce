@@ -15,8 +15,8 @@ describe("Job Logs", () => {
     cy.dataCy("complete-test-logs-link")
       .should("have.attr", "href")
       .and(
-        "include",
-        `evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0/llama`
+        "equal",
+        `https://www.evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0/llama`
       );
     cy.dataCy("testlog-link").each(($el, index) => {
       expect($el.text()).to.eq(testNames[index]);
@@ -43,20 +43,19 @@ describe("Job Logs", () => {
     "TestTryUpsert/configNumberMatches",
     "TestGetActivationTimeWithCron/Interval",
   ];
-  const base = "https://www.evergreen.mongodb.com/lobster/evergreen/test/";
   const testHrefs = [
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306165#shareLine=5555`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306233#shareLine=22`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306261#shareLine=36`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306265#shareLine=41`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306435#shareLine=116`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306464#shareLine=132`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306530#shareLine=152`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306636#shareLine=236`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306663#shareLine=251`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066306666#shareLine=261`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066313039#shareLine=285`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066313132#shareLine=302`,
-    `${base}${taskId}/0/356534666634326434653838666165613761393066313165#shareLine=324`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306165#shareLine=5555`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306233#shareLine=22`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306261#shareLine=36`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306265#shareLine=41`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306435#shareLine=116`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306464#shareLine=132`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306530#shareLine=152`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306636#shareLine=236`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306663#shareLine=251`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306666#shareLine=261`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313039#shareLine=285`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313132#shareLine=302`,
+    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313165#shareLine=324`,
   ];
 });
