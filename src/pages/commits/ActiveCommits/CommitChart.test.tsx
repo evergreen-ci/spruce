@@ -30,7 +30,7 @@ describe("CommitChart", () => {
     expect(queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
   });
 
-  test("hovering over the chart should open a tooltip", async () => {
+  test("Hovering over the chart should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <FlexRowContainer>
         {versions.map((item) => (

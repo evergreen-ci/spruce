@@ -5,7 +5,11 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { mapColorToTaskUmbrellaStatus } from "constants/task";
 import { ChartTypes } from "types/commits";
-import { ColorCount, getMissingColors, calculateBarHeight } from "./utils";
+import {
+  ColorCount,
+  getZeroCountStatusColors,
+  calculateBarHeight,
+} from "./utils";
 
 const { gray } = uiColors;
 interface Props {
@@ -21,7 +25,7 @@ export const CommitChart: React.FC<Props> = ({
   groupedTaskStats,
   total,
 }) => {
-  const missingColors = getMissingColors(groupedTaskStats);
+  const zeroCountStatusColors = getZeroCountStatusColors(groupedTaskStats);
   return (
     <Tooltip
       usePortal={false}
@@ -58,7 +62,7 @@ export const CommitChart: React.FC<Props> = ({
             <Number>{colorCount.count}</Number>
           </TotalCountContainer>
         ))}
-        {missingColors.map((color) => (
+        {zeroCountStatusColors.map((color) => (
           <TotalCountContainer
             opacity={0.4}
             data-cy="missing-statuses-count"
@@ -86,7 +90,7 @@ interface BarProps {
   color: string;
 }
 
-export const Bar = styled.div<BarProps>`
+const Bar = styled.div<BarProps>`
   height: ${({ height }) => height};
   background-color: ${({ color }) => color};
   width: 13px;
