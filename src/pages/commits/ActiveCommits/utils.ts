@@ -1,3 +1,5 @@
+import { sortedStatusColor } from "constants/task";
+import { ChartTypes } from "types/commits";
 import { groupStatusesByColor } from "utils/statuses";
 
 export type ColorCount = { count: number; statuses: string[]; color: string };
@@ -37,3 +39,29 @@ export const getAllTaskStatsGroupedByColor = (
 
   return idToGroupedTaskStats;
 };
+
+// Used in Commit Chart Component to calculate bar heights
+export function calculateBarHeight(
+  value: number,
+  max: number,
+  total: number,
+  chartType: string
+) {
+  if (chartType === ChartTypes.Percentage) {
+    return `${(value / total) * 100}%`;
+  }
+  return `${(value / max) * 100}%`;
+}
+
+// Find zero count status colors for commit chart tooltip
+export function getZeroCountStatusColors(currColors: ColorCount[]) {
+  const result = [...sortedStatusColor];
+  currColors.forEach((colorCount) => {
+    console.log(colorCount.color);
+    const index = result.indexOf(colorCount.color);
+    if (index > -1) {
+      result.splice(index, 1);
+    }
+  });
+  return result;
+}
