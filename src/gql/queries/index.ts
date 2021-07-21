@@ -7,6 +7,7 @@ import GET_CLIENT_CONFIG from "./get-client-config.graphql";
 import GET_CODE_CHANGES from "./get-code-changes.graphql";
 import GET_COMMIT_QUEUE from "./get-commit-queue.graphql";
 import GET_CREATED_TICKETS from "./get-created-tickets.graphql";
+import GET_DISPLAY_TASK from "./get-display-task.graphql";
 import GET_DISTROS from "./get-distros.graphql";
 import GET_EVENT_LOGS from "./get-event-logs.graphql";
 import GET_HOST_EVENTS from "./get-host-events.graphql";
@@ -33,6 +34,7 @@ import GET_TASK_FILES from "./get-task-files.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
+import GET_TESTS from "./get-tests.graphql";
 import GET_USER_CONFIG from "./get-user-config.graphql";
 import GET_USER_SETTINGS from "./get-user-settings.graphql";
 import GET_USER from "./get-user.graphql";
@@ -52,6 +54,7 @@ export {
   GET_BUILD_BARON,
   GET_CLIENT_CONFIG,
   GET_COMMIT_QUEUE,
+  GET_DISPLAY_TASK,
   GET_MY_HOSTS,
   GET_PATCH_BUILD_VARIANTS,
   GET_PATCH_TASKS,
@@ -60,6 +63,7 @@ export {
   GET_TASK_TESTS,
   GET_TASK,
   GET_TASK_ALL_EXECUTIONS,
+  GET_TESTS,
   GET_PATCH_TASK_STATUSES,
   GET_USER_CONFIG,
   HOSTS,
