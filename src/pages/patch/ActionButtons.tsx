@@ -43,7 +43,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
       refetchQueries={["Patch"]}
     />,
     <ScheduleUndispatchedBaseTasks
-      key="schedule-failing-base-tasks"
+      key="schedule-undispatched-base-tasks"
       patchId={patchId}
     />,
     <SetPatchPriority
