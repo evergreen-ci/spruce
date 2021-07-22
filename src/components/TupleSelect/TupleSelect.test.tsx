@@ -136,7 +136,7 @@ test("Should not allow duplicate input filters for the same key as query params"
 });
 
 test("Should allow multiple input filters for different keys as query params", async () => {
-  const { queryByDataCy, history, queryByText } = render(Content, {
+  const { queryByDataCy } = render(Content, {
     route: `/commits/evergreen`,
     path: "/commits/:projectId",
   });
@@ -158,7 +158,6 @@ test("Should allow multiple input filters for different keys as query params", a
   // https://github.com/ant-design/ant-design/issues/22074
   fireEvent.mouseDown(dropdown.firstChild);
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
-  expect(queryByText("Add New Test Filter")).toBeInTheDocument();
   fireEvent.change(input, {
     target: { value: "some-other-filter" },
   });
