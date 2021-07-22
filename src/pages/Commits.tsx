@@ -39,11 +39,26 @@ export const Commits = () => {
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
-  let filterStatuses = null;
-  if (parsed[ProjectFilterOptions.Status].length === 1) {
-    filterStatuses = [filterStatuses];
-  } else {
+  let filterStatuses;
+  if (parsed[ProjectFilterOptions.Status]) {
     filterStatuses = parsed[ProjectFilterOptions.Status];
+    if (!Array.isArray(filterStatuses)) {
+      filterStatuses = [filterStatuses];
+    }
+  }
+  let filterBuildVariants;
+  if (parsed[ProjectFilterOptions.BuildVariant]) {
+    filterBuildVariants = parsed[ProjectFilterOptions.BuildVariant];
+    if (!Array.isArray(filterBuildVariants)) {
+      filterBuildVariants = [filterBuildVariants];
+    }
+  }
+  let filterTasks;
+  if (parsed[ProjectFilterOptions.Task]) {
+    filterTasks = parsed[ProjectFilterOptions.Task];
+    if (!Array.isArray(filterTasks)) {
+      filterTasks = [filterTasks];
+    }
   }
 
   // set current chart type based on query param
@@ -60,8 +75,11 @@ export const Commits = () => {
 
   // query mainlineCommits data
   const options = { projectID: projectId, limit: 5 };
-  const taskStatusCountsOptions = { statuses: filterStatuses };
-  console.log(parsed[ProjectFilterOptions.Status]);
+  const taskStatusCountsOptions = {
+    statuses: filterStatuses,
+    variants: filterBuildVariants,
+    tasks: filterTasks,
+  };
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
