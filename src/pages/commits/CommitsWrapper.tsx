@@ -39,7 +39,7 @@ export const CommitsWrapper: React.FC<Props> = ({
 
     return (
       <ProjectHealthWrapper>
-        <FlexRowContainer>
+        <FlexRowContainer numCommits={versions.length}>
           {versions.map(({ version, rolledUpVersions }) =>
             version ? (
               <ColumnContainer key={version.id}>
@@ -78,12 +78,12 @@ const StyledSkeleton = styled(Skeleton)`
   margin-top: 12px;
 `;
 
-export const FlexRowContainer = styled.div`
+export const FlexRowContainer = styled.div<{ numCommits: number }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: 100%;
+  width: ${({ numCommits }) => numCommits / 3}%;
   margin-top: 65px;
   padding: 0px 12px 0px 9px;
   z-index: 1;

@@ -20,7 +20,7 @@ export default {
 
 export const WaterfallAbsolute = () => (
   <ProjectHealthWrapper>
-    <FlexRowContainer>
+    <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
           <ColumnContainer key={version.id}>
@@ -51,7 +51,7 @@ export const WaterfallAbsolute = () => (
 
 export const WaterfallPercentage = () => (
   <ProjectHealthWrapper>
-    <FlexRowContainer>
+    <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
           <ColumnContainer key={version.id}>
