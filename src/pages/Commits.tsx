@@ -93,7 +93,6 @@ export const Commits = () => {
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions } = mainlineCommits || {};
-
   if (error) {
     return <PageDoesNotExist />;
   }

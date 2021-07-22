@@ -78,12 +78,14 @@ const StyledSkeleton = styled(Skeleton)`
   margin-top: 12px;
 `;
 
+// If we have more than four commits, container should expand entire width
+// Else they should align left
 export const FlexRowContainer = styled.div<{ numCommits: number }>`
+  width: ${({ numCommits }) => (numCommits > 4 ? 1 : numCommits / 7) * 100}%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  width: ${({ numCommits }) => numCommits / 3}%;
   margin-top: 65px;
   padding: 0px 12px 0px 9px;
   z-index: 1;
