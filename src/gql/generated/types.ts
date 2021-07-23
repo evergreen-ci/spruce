@@ -2557,6 +2557,16 @@ export type VersionQuery = {
       alias?: Maybe<string>;
       commitQueuePosition?: Maybe<number>;
       canEnqueueToCommitQueue: boolean;
+      childPatches?: Maybe<
+        Array<{
+          baseVersionID?: Maybe<string>;
+          githash: string;
+          id: string;
+          projectID: string;
+          taskCount?: Maybe<number>;
+          status: string;
+        }>
+      >;
     }>;
   };
 };

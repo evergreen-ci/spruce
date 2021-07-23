@@ -96,8 +96,12 @@ export const VersionPage: React.FC = () => {
   const { status, patch, isPatch, revision, author, message, order } =
     version || {};
 
-  const { commitQueuePosition, patchNumber, canEnqueueToCommitQueue } =
-    patch || {};
+  const {
+    commitQueuePosition,
+    patchNumber,
+    canEnqueueToCommitQueue,
+    childPatches,
+  } = patch || {};
   const isPatchOnCommitQueue = commitQueuePosition !== null;
 
   const title = isPatch
@@ -142,7 +146,7 @@ export const VersionPage: React.FC = () => {
           <PageContent>
             <PatchTabs
               taskCount={version?.taskCount}
-              childPatches={null}
+              childPatches={childPatches}
               isPatch={version.isPatch}
             />
           </PageContent>

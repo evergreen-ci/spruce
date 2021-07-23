@@ -1,5 +1,5 @@
 query Version($id: String!) {
-    version(id: $id){
+  version(id: $id) {
     id
     createTime
     startTime
@@ -18,19 +18,27 @@ query Version($id: String!) {
     baseVersionID
     projectIdentifier
     versionTiming {
-        makespan
-        timeTaken
+      makespan
+      timeTaken
     }
     parameters {
-        key
-        value
+      key
+      value
     }
     patch {
+      id
+      patchNumber
+      alias
+      commitQueuePosition
+      canEnqueueToCommitQueue
+      childPatches {
+        baseVersionID
+        githash
         id
-        patchNumber
-        alias
-        commitQueuePosition
-        canEnqueueToCommitQueue
+        projectID
+        taskCount
+        status
+      }
     }
-    }
+  }
 }
