@@ -35,8 +35,7 @@ export const VersionPage: React.FC = () => {
 
   const dispatchToast = useToastContext();
 
-  const [shouldRedirect, setShouldRedirect] = useState(false);
-  const [redirectURL, setRedirectURL] = useState("");
+  const [redirectURL, setRedirectURL] = useState(undefined);
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   const [getPatch, { data: patchData }] = useLazyQuery<
@@ -55,7 +54,9 @@ export const VersionPage: React.FC = () => {
     variables: { id },
     pollInterval,
     onError: (e) =>
-      dispatchToast.error(`There was an error loading the patch: ${e.message}`),
+      dispatchToast.error(
+        `There was an error loading the version: ${e.message}`
+      ),
     onCompleted() {
       setIsLoadingData(false);
     },
@@ -80,11 +81,9 @@ export const VersionPage: React.FC = () => {
       const { patch } = patchData;
       const { activated, alias, projectID } = patch;
       if (!activated && alias !== commitQueueAlias) {
-        setShouldRedirect(true);
         setRedirectURL(getPatchRoute(id, { configure: true }));
         setIsLoadingData(false);
       } else if (!activated && alias === commitQueueAlias) {
-        setShouldRedirect(true);
         setRedirectURL(getCommitQueueRoute(projectID));
         setIsLoadingData(false);
       } else {
@@ -110,7 +109,7 @@ export const VersionPage: React.FC = () => {
     return <PatchAndTaskFullPageLoad />;
   }
 
-  if (shouldRedirect) {
+  if (redirectURL) {
     return <Redirect to={redirectURL} />;
   }
   if (error) {
