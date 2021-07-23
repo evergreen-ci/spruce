@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
@@ -7,6 +7,7 @@ import { DownstreamTasks } from "components/PatchTabs/DownstreamTasks";
 import { Tasks } from "components/PatchTabs/Tasks";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { getVersionRoute, DEFAULT_PATCH_TAB } from "constants/routes";
+import { Patch } from "gql/generated/types";
 import { usePrevious } from "hooks";
 import { PatchTab } from "types/patch";
 import { queryString } from "utils";
@@ -15,8 +16,8 @@ const { parseQueryString } = queryString;
 
 interface Props {
   taskCount: number;
-  childPatches: null;
   isPatch: boolean;
+  childPatches: Partial<Patch>[];
 }
 
 const tabMap = ({ taskCount, childPatches }) => ({

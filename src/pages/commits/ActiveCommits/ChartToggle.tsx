@@ -64,6 +64,7 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+  z-index: 3;
 `;
 
 // @ts-expect-error

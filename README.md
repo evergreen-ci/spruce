@@ -1,4 +1,4 @@
-# [Spruce](https://spruce.mongodb.com) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache2.0-blue.svg)](https://github.com/evergreen-ci/spruce/master/LICENSE)
+# [Spruce](https://spruce.mongodb.com) &middot; [![GitHub license](https://img.shields.io/badge/license-Apache2.0-blue.svg)](https://github.com/evergreen-ci/spruce/main/LICENSE)
 
 Spruce is the React UI for MongoDB's continuous integration software.
 
@@ -121,7 +121,7 @@ If you need more data to be able to test out your feature locally the easiest wa
 4. Identify the query you need to fetch the data you are looking for. 
 
     ```
-    mci:SECONDARY> rs.slaveOk() // Allows read operations on a secondary node
+    mci:SECONDARY> rs.secondaryOk() // Allows read operations on a secondary node
     mci:SECONDARY> use mci // use the correct db
     switched to db mci
     mci:SECONDARY>  db.distro.find({_id: "archlinux-small"}) // the full query
@@ -154,7 +154,7 @@ When creating your queries you should be sure to limit the amount of documents s
 
 ### Requirements
 
-You must be on the `master` Branch if deploying to prod.
+You must be on the `main` Branch if deploying to prod.
 
 A `.cmdrc.json` file is required to deploy because it sets the environment variables that the application needs in production and staging environments. See [Environment Variables](#environment-variables) section for more info about this file.
 
@@ -163,6 +163,6 @@ A `.cmdrc.json` file is required to deploy because it sets the environment varia
 Run the `deploy:prod` or `deploy:staging` yarn command
 
 1. `yarn run deploy:prod` = deploy to https://spruce.mongodb.com
-2. `yarn run deploy:staging` = deploy to http://evergreen-staging.spruce.s3-website-us-east-1.amazonaws.com/
+2. `yarn run deploy:staging` = deploy to https://spruce-staging.corp.mongodb.com
 
 After deploying you will be prompted to run `git push --tags` or `git push upstream --tags` depending on your setup, this is important so we can track releases. 
