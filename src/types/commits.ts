@@ -1,11 +1,15 @@
 export enum ProjectFilterOptions {
-  Test = "tests",
   BuildVariant = "buildVariants",
   Task = "taskNames",
+  Status = "statuses",
 }
 
 export enum ChartToggleQueryParams {
   chartType = "chartType",
+}
+
+export enum MainlineCommitsQueryParams {
+  statuses = "statuses",
 }
 
 export enum ChartTypes {

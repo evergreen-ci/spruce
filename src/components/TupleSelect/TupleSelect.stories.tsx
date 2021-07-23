@@ -22,11 +22,6 @@ const options = [
     placeHolderText: "Search Build Variant names",
   },
   {
-    value: ProjectFilterOptions.Test,
-    displayName: "Test",
-    placeHolderText: "Search Test names",
-  },
-  {
     value: ProjectFilterOptions.Task,
     displayName: "Task",
     placeHolderText: "Search Task names",

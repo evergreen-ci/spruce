@@ -13,7 +13,7 @@ export default {
 };
 
 export const AbsoluteChart = () => (
-  <FlexRowContainer>
+  <FlexRowContainer numCommits={versions.length}>
     {versions.map((item) => (
       <CommitChart
         key={item.version.id}
@@ -27,7 +27,7 @@ export const AbsoluteChart = () => (
 );
 
 export const PercentChart = () => (
-  <FlexRowContainer>
+  <FlexRowContainer numCommits={versions.length}>
     {versions.map((item) => (
       <CommitChart
         key={item.version.id}

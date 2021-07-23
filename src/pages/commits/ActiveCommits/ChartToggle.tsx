@@ -8,12 +8,12 @@ import { ChartToggleQueryParams, ChartTypes } from "types/commits";
 import { queryString } from "utils";
 
 const { gray } = uiColors;
-const { stringifyQuery } = queryString;
+const { stringifyQuery, parseQueryString } = queryString;
 
 export const ChartToggle: React.FC<{
   currentChartType: ChartTypes;
 }> = ({ currentChartType }) => {
-  const { pathname } = useLocation();
+  const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
   const onChangeChartType = (
@@ -22,6 +22,7 @@ export const ChartToggle: React.FC<{
     const nextChartType = event.target.value;
     replace(
       `${pathname}?${stringifyQuery({
+        ...parseQueryString(search),
         [ChartToggleQueryParams.chartType]: nextChartType,
       })}`
     );
