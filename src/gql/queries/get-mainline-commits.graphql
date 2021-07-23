@@ -1,26 +1,29 @@
-query MainlineCommits($options: MainlineCommitsOptions!, $taskStatusCountsOptions: BuildVariantOptions!) {
-    mainlineCommits(options: $options) {
-        versions {
-            version {
-                id
-                author
-                createTime
-                message
-                revision
-                taskStatusCounts(options: $taskStatusCountsOptions) {
-                    status
-                    count
-                }
-            }
-            rolledUpVersions {
-                id
-                createTime
-                author
-                order
-                message
-                revision
-            }
+query MainlineCommits(
+  $options: MainlineCommitsOptions!
+  $taskStatusCountsOptions: BuildVariantOptions!
+) {
+  mainlineCommits(options: $options) {
+    versions {
+      version {
+        id
+        author
+        createTime
+        message
+        revision
+        taskStatusCounts(options: $taskStatusCountsOptions) {
+          status
+          count
         }
-        nextPageOrderNumber
+      }
+      rolledUpVersions {
+        id
+        createTime
+        author
+        order
+        message
+        revision
+      }
     }
+    nextPageOrderNumber
+  }
 }

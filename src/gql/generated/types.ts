@@ -1638,6 +1638,16 @@ export type ScheduleTaskMutationVariables = Exact<{
 
 export type ScheduleTaskMutation = { scheduleTask: BaseTaskFragment };
 
+export type ScheduleUndispatchedBaseTasksMutationVariables = Exact<{
+  patchId: Scalars["String"];
+}>;
+
+export type ScheduleUndispatchedBaseTasksMutation = {
+  scheduleUndispatchedBaseTasks?: Maybe<
+    Array<{ id: string; execution: number; status: string }>
+  >;
+};
+
 export type SetPatchPriorityMutationVariables = Exact<{
   patchId: Scalars["String"];
   priority: Scalars["Int"];
