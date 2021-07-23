@@ -6,6 +6,7 @@ const patches = {
   1: "i-dont-exist", // non existant patch
   2: "52a630633ff1227909000021", // patch 2
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
+  4: "5e94c2dfe3c3312519b59480", // unactivated patch on commit queue
 };
 
 const versionRoute = (id) => `/version/${id}`;
@@ -13,7 +14,7 @@ const hasText = ($el) => {
   expect($el.text.length > 0).to.eq(true);
 };
 
-describe("Patch route", () => {
+describe("Version route", () => {
   before(() => {
     cy.login();
   });
@@ -22,10 +23,18 @@ describe("Patch route", () => {
     cy.preserveCookies();
   });
 
-  it("Redirects to configure patch page if patch is not activated", () => {
-    cy.visit(versionRoute(patches[3]));
-    cy.location().should((loc) => {
-      expect(loc.pathname).to.equal(`/patch/${patches[3]}/configure/tasks`);
+  describe("Redirects", () => {
+    it("Redirects to configure patch page if patch is not activated", () => {
+      cy.visit(versionRoute(patches[3]));
+      cy.location().should((loc) => {
+        expect(loc.pathname).to.equal(`/patch/${patches[3]}/configure/tasks`);
+      });
+    });
+    it("Redirects to the commit queue page if a patch is on the commit queue and has not been activated", () => {
+      cy.visit(versionRoute(patches[4]));
+      cy.location().should((loc) => {
+        expect(loc.pathname).to.equal(`/commit-queue/mongodb-mongo-master`);
+      });
     });
   });
 
