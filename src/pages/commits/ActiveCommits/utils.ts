@@ -12,10 +12,14 @@ export type GroupedResult = {
 
 export const findMaxGroupedTaskStats = (groupedTaskStats: {
   [id: string]: GroupedResult;
-}) =>
-  Object.values(groupedTaskStats).reduce((prev, curr) =>
+}) => {
+  if (Object.keys(groupedTaskStats).length === 0) {
+    return { max: 0 };
+  }
+  return Object.values(groupedTaskStats).reduce((prev, curr) =>
     prev.max > curr.max ? prev : curr
   );
+};
 
 export const getAllTaskStatsGroupedByColor = (
   versions: {

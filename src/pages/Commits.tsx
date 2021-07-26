@@ -27,17 +27,39 @@ import { StatusSelect } from "./commits/StatusSelect";
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
-  const { projectId } = useParams<{ projectId: string }>();
-  const options = { projectID: projectId, limit: 5 };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
+
+  // get query params from url
+  const { projectId } = useParams<{ projectId: string }>();
   const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
+  let filterStatuses;
+  if (parsed[ProjectFilterOptions.Status]) {
+    filterStatuses = parsed[ProjectFilterOptions.Status];
+    if (!Array.isArray(filterStatuses)) {
+      filterStatuses = [filterStatuses];
+    }
+  }
+  let filterBuildVariants;
+  if (parsed[ProjectFilterOptions.BuildVariant]) {
+    filterBuildVariants = parsed[ProjectFilterOptions.BuildVariant];
+    if (!Array.isArray(filterBuildVariants)) {
+      filterBuildVariants = [filterBuildVariants];
+    }
+  }
+  let filterTasks;
+  if (parsed[ProjectFilterOptions.Task]) {
+    filterTasks = parsed[ProjectFilterOptions.Task];
+    if (!Array.isArray(filterTasks)) {
+      filterTasks = [filterTasks];
+    }
+  }
 
   // set current chart type based on query param
   useEffect(() => {
@@ -51,21 +73,26 @@ export const Commits = () => {
     }
   }, [chartTypeParam, setCurrentChartType]);
 
-  usePageTitle(`Project Health | ${projectId}`);
+  // query mainlineCommits data
+  const options = { projectID: projectId, limit: 5 };
+  const taskStatusCountsOptions = {
+    statuses: filterStatuses,
+    variants: filterBuildVariants,
+    tasks: filterTasks,
+  };
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { options },
+    variables: { options, taskStatusCountsOptions },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-
+  usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions } = mainlineCommits || {};
-
   if (error) {
     return <PageDoesNotExist />;
   }
@@ -136,11 +163,6 @@ const tupleSelectOptions = [
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
-  },
-  {
-    value: ProjectFilterOptions.Test,
-    displayName: "Test",
-    placeHolderText: "Search Test names",
   },
   {
     value: ProjectFilterOptions.Task,

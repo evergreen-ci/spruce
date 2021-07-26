@@ -2,7 +2,7 @@
 
 exports[`Storyshots Commit Charts Absolute Chart 1`] = `
 <div
-  className="css-viknrc-FlexRowContainer ech0nhv3"
+  className="css-m3r1dt-FlexRowContainer ech0nhv3"
 >
   <div
     className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
@@ -210,7 +210,7 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
 
 exports[`Storyshots Commit Charts Percent Chart 1`] = `
 <div
-  className="css-viknrc-FlexRowContainer ech0nhv3"
+  className="css-m3r1dt-FlexRowContainer ech0nhv3"
 >
   <div
     className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
