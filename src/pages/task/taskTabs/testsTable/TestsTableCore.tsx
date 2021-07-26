@@ -276,7 +276,7 @@ const getColumnsTemplate = (
       const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
       const lobsterLink = hasLobsterLink
         ? getUpdatedLobsterUrl(htmlDisplayURL)
-        : getLobsterTestLogUrl(taskId, execution, id, lineNum);
+        : getLobsterTestLogUrl({ taskId, execution, testId: id, lineNum });
 
       return (
         <>
