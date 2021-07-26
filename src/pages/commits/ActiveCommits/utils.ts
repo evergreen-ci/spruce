@@ -55,13 +55,6 @@ export function calculateBarHeight(
 
 // Find zero count status colors for commit chart tooltip
 export function getZeroCountStatusColors(currColors: ColorCount[]) {
-  const result = [...sortedStatusColor];
-  currColors.forEach((colorCount) => {
-    console.log(colorCount.color);
-    const index = result.indexOf(colorCount.color);
-    if (index > -1) {
-      result.splice(index, 1);
-    }
-  });
-  return result;
+  const existingColorSet = new Set(currColors.map(({ color }) => color));
+  return sortedStatusColor.filter((color) => !existingColorSet.has(color));
 }

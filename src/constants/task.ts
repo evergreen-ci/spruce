@@ -213,7 +213,7 @@ export const taskStatusToCopy = {
 };
 
 // Represents background colors for task statuses
-export const mapColorToTaskUmbrellaStatus = {
+export const mapColorToTaskUmbrellaStatusCopy = {
   [green.base]: taskStatusToCopy[TaskStatus.Succeeded],
   [red.base]: taskStatusToCopy[TaskStatus.Failed],
   [failurePurple]: taskStatusToCopy[TaskStatus.SystemFailed],
