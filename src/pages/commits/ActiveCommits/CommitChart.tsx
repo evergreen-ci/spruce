@@ -35,17 +35,12 @@ export const CommitChart: React.FC<Props> = ({
       popoverZIndex={1}
       trigger={
         <ChartContainer data-cy="commit-chart-container">
-          {groupedTaskStats.map((colorCount) => (
+          {groupedTaskStats.map(({ color, count }) => (
             <Bar
               data-cy="commit-chart-bar"
-              key={colorCount.color}
-              height={calculateBarHeight(
-                colorCount.count,
-                max,
-                total,
-                chartType
-              )}
-              color={colorCount.color}
+              key={color}
+              height={calculateBarHeight(count, max, total, chartType)}
+              color={color}
             />
           ))}
         </ChartContainer>
@@ -53,18 +48,23 @@ export const CommitChart: React.FC<Props> = ({
       triggerEvent="hover"
     >
       <TooltipContainer data-cy="commit-chart-tooltip">
-        {groupedTaskStats.map((colorCount) => (
-          <TotalCountContainer
-            css={sharedFontCss}
-            data-cy="current-statuses-count"
-            key={colorCount.color}
-          >
-            <Circle color={colorCount.color} />
-            <Text css={sharedFontCss}>{`Total ${
-              mapColorToTaskUmbrellaStatusCopy[colorCount.color]
-            }`}</Text>
-            <Number css={sharedFontCss}>{colorCount.count}</Number>
-          </TotalCountContainer>
+        {groupedTaskStats.map(({ color, count, statuses }) => (
+          <FlexColumnContainer>
+            <TotalCountContainer
+              css={sharedFontCss}
+              data-cy="current-statuses-count"
+              key={color}
+            >
+              <Circle color={color} />
+              <Status
+                css={sharedFontCss}
+              >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</Status>
+              <Number css={sharedFontCss}>{count}</Number>
+            </TotalCountContainer>
+            <Substatus css={sharedFontCss}>{`(${statuses.join(
+              ", "
+            )})`}</Substatus>
+          </FlexColumnContainer>
         ))}
         {zeroCountStatusColors.map((color) => (
           <TotalCountContainer
@@ -74,9 +74,9 @@ export const CommitChart: React.FC<Props> = ({
             key={color}
           >
             <Circle color={color} />
-            <Text
+            <Status
               css={sharedFontCss}
-            >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</Text>
+            >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</Status>
             <Number css={sharedFontCss}>0</Number>
           </TotalCountContainer>
         ))}
@@ -104,11 +104,9 @@ const Bar = styled.div<BarProps>`
 `;
 
 const TooltipContainer = styled.div`
-  width: 150px;
-  height: 160px;
   margin: auto;
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: flex-start;
   flex-direction: column;
   background-color: ${gray.light3};
@@ -118,11 +116,19 @@ const Number = styled(Disclaimer)`
   width: 40px;
   font-weight: bold;
   text-align: center;
+  margin-left: 12px;
 `;
 
-const Text = styled(Disclaimer)`
+const Status = styled(Disclaimer)`
   width: 100px;
   text-align: left;
+`;
+
+const Substatus = styled(Disclaimer)`
+  width: 100px;
+  text-align: left;
+  margin-left: 20px;
+  line-height: 10px;
 `;
 
 const Circle = styled.div<{ color: string }>`
@@ -134,16 +140,26 @@ const Circle = styled.div<{ color: string }>`
 `;
 
 const TotalCountContainer = styled.div<{ opacity?: number }>`
-  width: 150px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  color: ${gray.dark2};
+  margin-top: 10px;
   opacity: ${({ opacity }) => opacity || 1};
+`;
+
+const FlexColumnContainer = styled.div`
+  width: 150px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  color: ${gray.dark2};
 `;
 
 const sharedFontCss = css`
   font-size: 9px;
   letter-spacing: 0.15px;
+  color: ${gray.dark2};
+  line-height: 12px;
 `;

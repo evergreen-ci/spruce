@@ -15,7 +15,7 @@ afterEach(() => {
 describe("CommitChart", () => {
   test("Display right amount of bars", () => {
     const { queryAllByDataCy } = render(
-      <FlexRowContainer>
+      <FlexRowContainer numCommits={versions.length}>
         {versions.map((item) => (
           <CommitChart
             key={item.version.id}
@@ -32,7 +32,7 @@ describe("CommitChart", () => {
 
   test("Hovering over the chart should open a tooltip", async () => {
     const { queryByDataCy } = render(
-      <FlexRowContainer>
+      <FlexRowContainer numCommits={versions.length}>
         {versions.map((item) => (
           <CommitChart
             key={item.version.id}
@@ -57,7 +57,7 @@ describe("CommitChart", () => {
 
   test("Should show all umbrella statuses (normal and dimmed) and their counts ", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <FlexRowContainer>
+      <FlexRowContainer numCommits={versions.length}>
         {versions.map((item) => (
           <CommitChart
             key={item.version.id}

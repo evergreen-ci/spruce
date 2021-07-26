@@ -1,4 +1,8 @@
-import { mapTaskStatusToColor, sortedStatusColor } from "constants/task";
+import {
+  mapTaskStatusToColor,
+  sortedStatusColor,
+  taskStatusToCopy,
+} from "constants/task";
 
 type ColorCount = { count: number; statuses: string[]; color: string };
 
@@ -12,12 +16,12 @@ export const groupStatusesByColor = (
     if (counts[statusColor]) {
       counts[statusColor].count += stat.count;
       if (!counts[statusColor].statuses.includes(stat.status)) {
-        counts[statusColor].statuses.push(stat.status);
+        counts[statusColor].statuses.push(taskStatusToCopy[stat.status]);
       }
     } else {
       counts[statusColor] = {
         count: stat.count,
-        statuses: [stat.status],
+        statuses: [taskStatusToCopy[stat.status]],
         color: statusColor,
       };
     }
