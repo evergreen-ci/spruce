@@ -11,7 +11,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -19,19 +19,19 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-12nh665-Bar e1tzsy284"
+          className="css-12nh665-Bar e1tzsy285"
           color="#E6CCE6"
           data-cy="commit-chart-bar"
           height="58.333333333333336%"
         />
         <div
-          className="css-1at4och-Bar e1tzsy284"
+          className="css-1at4och-Bar e1tzsy285"
           color="#F3EDF5"
           data-cy="commit-chart-bar"
           height="41.66666666666667%"
         />
         <div
-          className="css-v22gg7-Bar e1tzsy284"
+          className="css-v22gg7-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="16.666666666666664%"
@@ -64,7 +64,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -72,25 +72,25 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-1gxi13m-Bar e1tzsy284"
+          className="css-1gxi13m-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="50%"
         />
         <div
-          className="css-98gzrf-Bar e1tzsy284"
+          className="css-98gzrf-Bar e1tzsy285"
           color="#E6CCE6"
           data-cy="commit-chart-bar"
           height="50%"
         />
         <div
-          className="css-9e1mhg-Bar e1tzsy284"
+          className="css-9e1mhg-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="16.666666666666664%"
         />
         <div
-          className="css-pnxeiz-Bar e1tzsy284"
+          className="css-pnxeiz-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="100%"
@@ -147,7 +147,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -155,19 +155,19 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-itabzo-Bar e1tzsy284"
+          className="css-itabzo-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="41.66666666666667%"
         />
         <div
-          className="css-1avs6lz-Bar e1tzsy284"
+          className="css-1avs6lz-Bar e1tzsy285"
           color="#F3EDF5"
           data-cy="commit-chart-bar"
           height="33.33333333333333%"
         />
         <div
-          className="css-1a408d4-Bar e1tzsy284"
+          className="css-1a408d4-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="41.66666666666667%"
@@ -200,7 +200,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -208,19 +208,19 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-16xcq76-Bar e1tzsy284"
+          className="css-16xcq76-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="16.666666666666664%"
         />
         <div
-          className="css-hv1o8l-Bar e1tzsy284"
+          className="css-hv1o8l-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="66.66666666666666%"
         />
         <div
-          className="css-7y3sh3-Bar e1tzsy284"
+          className="css-7y3sh3-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="33.33333333333333%"
@@ -253,7 +253,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -261,25 +261,25 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-j8vdl2-Bar e1tzsy284"
+          className="css-j8vdl2-Bar e1tzsy285"
           color="#13AA52"
           data-cy="commit-chart-bar"
           height="50%"
         />
         <div
-          className="css-16xcq76-Bar e1tzsy284"
+          className="css-16xcq76-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="16.666666666666664%"
         />
         <div
-          className="css-1mgn0aw-Bar e1tzsy284"
+          className="css-1mgn0aw-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="50%"
         />
         <div
-          className="css-1a408d4-Bar e1tzsy284"
+          className="css-1a408d4-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="41.66666666666667%"
@@ -345,7 +345,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -353,19 +353,19 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-98gzrf-Bar e1tzsy284"
+          className="css-98gzrf-Bar e1tzsy285"
           color="#E6CCE6"
           data-cy="commit-chart-bar"
           height="50%"
         />
         <div
-          className="css-142mh4g-Bar e1tzsy284"
+          className="css-142mh4g-Bar e1tzsy285"
           color="#F3EDF5"
           data-cy="commit-chart-bar"
           height="35.714285714285715%"
         />
         <div
-          className="css-13f02ew-Bar e1tzsy284"
+          className="css-13f02ew-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="14.285714285714285%"
@@ -398,7 +398,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -406,25 +406,25 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-1d41pnf-Bar e1tzsy284"
+          className="css-1d41pnf-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="23.076923076923077%"
         />
         <div
-          className="css-7p9oo3-Bar e1tzsy284"
+          className="css-7p9oo3-Bar e1tzsy285"
           color="#E6CCE6"
           data-cy="commit-chart-bar"
           height="23.076923076923077%"
         />
         <div
-          className="css-1ffkuay-Bar e1tzsy284"
+          className="css-1ffkuay-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="7.6923076923076925%"
         />
         <div
-          className="css-tg5tbo-Bar e1tzsy284"
+          className="css-tg5tbo-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="46.15384615384615%"
@@ -481,7 +481,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -489,19 +489,19 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-coyjab-Bar e1tzsy284"
+          className="css-coyjab-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="35.714285714285715%"
         />
         <div
-          className="css-1777bzu-Bar e1tzsy284"
+          className="css-1777bzu-Bar e1tzsy285"
           color="#F3EDF5"
           data-cy="commit-chart-bar"
           height="28.57142857142857%"
         />
         <div
-          className="css-1a071vo-Bar e1tzsy284"
+          className="css-1a071vo-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="35.714285714285715%"
@@ -534,7 +534,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -542,19 +542,19 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-15gzlb8-Bar e1tzsy284"
+          className="css-15gzlb8-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="14.285714285714285%"
         />
         <div
-          className="css-9madw8-Bar e1tzsy284"
+          className="css-9madw8-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="57.14285714285714%"
         />
         <div
-          className="css-1gzx0ae-Bar e1tzsy284"
+          className="css-1gzx0ae-Bar e1tzsy285"
           color="#5D6C74"
           data-cy="commit-chart-bar"
           height="28.57142857142857%"
@@ -587,7 +587,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
       className="css-73nv4h-ColumnContainer ech0nhv1"
     >
       <div
-        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy285"
+        className="leafygreen-ui-cssveg css-tdhexo-ChartContainer e1tzsy286"
         data-cy="commit-chart-container"
         onBlur={[Function]}
         onFocus={[Function]}
@@ -595,25 +595,25 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         onMouseLeave={[Function]}
       >
         <div
-          className="css-sa8qko-Bar e1tzsy284"
+          className="css-sa8qko-Bar e1tzsy285"
           color="#13AA52"
           data-cy="commit-chart-bar"
           height="31.57894736842105%"
         />
         <div
-          className="css-cdpg9y-Bar e1tzsy284"
+          className="css-cdpg9y-Bar e1tzsy285"
           color="#CF4A22"
           data-cy="commit-chart-bar"
           height="10.526315789473683%"
         />
         <div
-          className="css-17jyj5p-Bar e1tzsy284"
+          className="css-17jyj5p-Bar e1tzsy285"
           color="#B8C4C2"
           data-cy="commit-chart-bar"
           height="31.57894736842105%"
         />
         <div
-          className="css-1gdglqb-Bar e1tzsy284"
+          className="css-1gdglqb-Bar e1tzsy285"
           color="#FFDD49"
           data-cy="commit-chart-bar"
           height="26.31578947368421%"
