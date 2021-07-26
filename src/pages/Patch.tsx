@@ -77,6 +77,7 @@ export const Patch: React.FC = () => {
             isPatchOnCommitQueue={isPatchOnCommitQueue}
             patchDescription={description}
             patchId={id}
+            childPatches={patch?.childPatches}
           />
         }
       />
