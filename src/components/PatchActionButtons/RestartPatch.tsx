@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
 import { Patch } from "gql/generated/types";
-import { PatchRestartModal } from "pages/patch/index";
+import { PatchRestartModal } from "pages/patch/PatchRestartModal";
 
 interface RestartPatchProps {
   patchId: string;
