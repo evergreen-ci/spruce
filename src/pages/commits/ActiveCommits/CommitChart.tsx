@@ -60,7 +60,9 @@ export const CommitChart: React.FC<Props> = ({
             key={colorCount.color}
           >
             <Circle color={colorCount.color} />
-            {`Total ${mapColorToTaskUmbrellaStatusCopy[colorCount.color]}`}
+            <Text css={sharedFontCss}>{`Total ${
+              mapColorToTaskUmbrellaStatusCopy[colorCount.color]
+            }`}</Text>
             <Number css={sharedFontCss}>{colorCount.count}</Number>
           </TotalCountContainer>
         ))}
@@ -72,7 +74,9 @@ export const CommitChart: React.FC<Props> = ({
             key={color}
           >
             <Circle color={color} />
-            {`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}
+            <Text
+              css={sharedFontCss}
+            >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</Text>
             <Number css={sharedFontCss}>0</Number>
           </TotalCountContainer>
         ))}
@@ -114,8 +118,11 @@ const Number = styled(Disclaimer)`
   width: 40px;
   font-weight: bold;
   text-align: center;
-  position: absolute;
-  margin-left: 120px;
+`;
+
+const Text = styled(Disclaimer)`
+  width: 100px;
+  text-align: left;
 `;
 
 const Circle = styled.div<{ color: string }>`
@@ -123,15 +130,14 @@ const Circle = styled.div<{ color: string }>`
   border-radius: 4px;
   width: 8px;
   height: 8px;
-  margin-right: 18px;
+  margin-right: 12px;
 `;
 
-const TotalCountContainer = styled(Disclaimer)<{ opacity?: number }>`
-  width: 116px;
-  text-align: left;
+const TotalCountContainer = styled.div<{ opacity?: number }>`
+  width: 150px;
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-between;
   align-items: center;
   color: ${gray.dark2};
   opacity: ${({ opacity }) => opacity || 1};
