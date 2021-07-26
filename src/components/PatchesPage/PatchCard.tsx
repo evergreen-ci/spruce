@@ -11,7 +11,7 @@ import {
   getVersionRoute,
   getUserPatchesRoute,
 } from "constants/routes";
-import { Maybe } from "gql/generated/types";
+import { Maybe, Patch } from "gql/generated/types";
 import { BuildStatusIcon } from "./patchCard/BuildStatusIcon";
 import { DropdownMenu } from "./patchCard/DropdownMenu";
 
@@ -24,6 +24,7 @@ interface Build {
 
 interface Props {
   id: string;
+  childPatches?: Partial<Patch>[];
   projectID: string;
   projectIdentifier: string;
   description: string;
@@ -46,6 +47,7 @@ interface Props {
 
 export const PatchCard: React.FC<Props> = ({
   id,
+  childPatches,
   description,
   createTime,
   author,
@@ -117,6 +119,7 @@ export const PatchCard: React.FC<Props> = ({
       <Right>
         <DropdownMenu
           patchId={id}
+          childPatches={childPatches}
           canEnqueueToCommitQueue={canEnqueueToCommitQueue}
           isPatchOnCommitQueue={isPatchOnCommitQueue}
           patchDescription={description}

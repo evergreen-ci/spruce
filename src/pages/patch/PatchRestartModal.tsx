@@ -11,6 +11,7 @@ import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { useToastContext } from "context/toast";
 import {
+  Patch,
   PatchBuildVariantsQuery,
   PatchBuildVariantsQueryVariables,
   RestartPatchMutation,
@@ -33,6 +34,7 @@ interface PatchModalProps {
   onCancel: () => void;
   patchId?: string;
   refetchQueries: string[];
+  childPatches: Partial<Patch>[];
 }
 export const PatchRestartModal: React.FC<PatchModalProps> = ({
   visible,
@@ -40,6 +42,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
   onCancel,
   patchId: patchIdFromProps,
   refetchQueries,
+  childPatches,
 }) => {
   const dispatchToast = useToastContext();
   const { id } = useParams<{ id: string }>();
@@ -90,6 +93,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
 
   const patchAnalytics = usePatchAnalytics();
   const handlePatchRestart = async (e): Promise<void> => {
+    console.log(childPatches);
     e.preventDefault();
     try {
       patchAnalytics.sendEvent({

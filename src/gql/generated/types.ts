@@ -1417,6 +1417,16 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
     builds: Array<{ id: string; buildVariant: string; status: string }>;
+    childPatches?: Maybe<
+      Array<{
+        baseVersionID?: Maybe<string>;
+        githash: string;
+        id: string;
+        projectID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
   }>;
 };
 
