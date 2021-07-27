@@ -24,6 +24,7 @@ import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
+const { getArray } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
@@ -39,27 +40,11 @@ export const Commits = () => {
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
-  let filterStatuses;
-  if (parsed[ProjectFilterOptions.Status]) {
-    filterStatuses = parsed[ProjectFilterOptions.Status];
-    if (!Array.isArray(filterStatuses)) {
-      filterStatuses = [filterStatuses];
-    }
-  }
-  let filterBuildVariants;
-  if (parsed[ProjectFilterOptions.BuildVariant]) {
-    filterBuildVariants = parsed[ProjectFilterOptions.BuildVariant];
-    if (!Array.isArray(filterBuildVariants)) {
-      filterBuildVariants = [filterBuildVariants];
-    }
-  }
-  let filterTasks;
-  if (parsed[ProjectFilterOptions.Task]) {
-    filterTasks = parsed[ProjectFilterOptions.Task];
-    if (!Array.isArray(filterTasks)) {
-      filterTasks = [filterTasks];
-    }
-  }
+  const filterStatuses = getArray(parsed[ProjectFilterOptions.Status] || []);
+  const filterVariants = getArray(
+    parsed[ProjectFilterOptions.BuildVariant] || []
+  );
+  const filterTasks = getArray(parsed[ProjectFilterOptions.Task] || []);
 
   // set current chart type based on query param
   useEffect(() => {
@@ -74,17 +59,17 @@ export const Commits = () => {
   }, [chartTypeParam, setCurrentChartType]);
 
   // query mainlineCommits data
-  const options = { projectID: projectId, limit: 5 };
+  const mainlineCommitsOptions = { projectID: projectId, limit: 5 };
   const taskStatusCountsOptions = {
     statuses: filterStatuses,
-    variants: filterBuildVariants,
+    variants: filterVariants,
     tasks: filterTasks,
   };
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { options, taskStatusCountsOptions },
+    variables: { mainlineCommitsOptions, taskStatusCountsOptions },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
