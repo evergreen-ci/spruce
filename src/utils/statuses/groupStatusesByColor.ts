@@ -2,9 +2,15 @@ import {
   mapTaskStatusToColor,
   sortedStatusColor,
   taskStatusToCopy,
+  mapTaskStatusToUmbrellaStatus,
 } from "constants/task";
 
-type ColorCount = { count: number; statuses: string[]; color: string };
+type ColorCount = {
+  count: number;
+  statuses: string[];
+  color: string;
+  umbrellaStatus: string;
+};
 
 export const groupStatusesByColor = (
   statusCounts: { status: string; count: number }[]
@@ -23,6 +29,7 @@ export const groupStatusesByColor = (
         count: stat.count,
         statuses: [taskStatusToCopy[stat.status]],
         color: statusColor,
+        umbrellaStatus: mapTaskStatusToUmbrellaStatus[stat.status],
       };
     }
   });

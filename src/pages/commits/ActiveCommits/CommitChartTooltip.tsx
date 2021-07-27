@@ -4,8 +4,9 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
-import { mapColorToTaskUmbrellaStatusCopy } from "constants/task";
-import { ColorCount, getZeroCountStatusColors } from "./utils";
+import { taskStatusToCopy, mapTaskStatusToColor } from "constants/task";
+import { TaskStatus } from "types/task";
+import { ColorCount, getZeroCountStatus } from "./utils";
 
 const { gray } = uiColors;
 interface Props {
@@ -17,7 +18,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
   groupedTaskStats,
   trigger,
 }) => {
-  const zeroCountStatusTextColors = getZeroCountStatusColors(groupedTaskStats);
+  const zeroCountStatus = getZeroCountStatus(groupedTaskStats);
   return (
     <Tooltip
       usePortal={false}
@@ -28,30 +29,32 @@ export const CommitChartTooltip: React.FC<Props> = ({
       triggerEvent="hover"
     >
       <TooltipContainer data-cy="commit-chart-tooltip" css={sharedCss}>
-        {groupedTaskStats.map(({ color, count, statuses }) => (
+        {groupedTaskStats.map(({ color, count, statuses, umbrellaStatus }) => (
           <FlexColumnContainer key={color}>
             <TotalCountContainer data-cy="current-status-count">
               <Circle color={color} />
               <StatusText
                 css={sharedCss}
-              >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</StatusText>
+              >{`Total ${taskStatusToCopy[umbrellaStatus]}`}</StatusText>
               <NumberText css={sharedCss}>{count}</NumberText>
             </TotalCountContainer>
-            <SubStatusText css={sharedCss}>{`(${statuses.join(
-              ", "
-            )})`}</SubStatusText>
+            {umbrellaStatus === TaskStatus.Failed && (
+              <SubStatusText css={sharedCss}>{`(${statuses.join(
+                ", "
+              )})`}</SubStatusText>
+            )}
           </FlexColumnContainer>
         ))}
-        {zeroCountStatusTextColors.map((color) => (
+        {zeroCountStatus.map((status) => (
           <TotalCountContainer
             opacity={0.4}
             data-cy="missing-status-count"
-            key={color}
+            key={status}
           >
-            <Circle color={color} />
+            <Circle color={mapTaskStatusToColor[status]} />
             <StatusText
               css={sharedCss}
-            >{`Total ${mapColorToTaskUmbrellaStatusCopy[color]}`}</StatusText>
+            >{`Total ${taskStatusToCopy[status]}`}</StatusText>
             <NumberText css={sharedCss}>0</NumberText>
           </TotalCountContainer>
         ))}
@@ -100,16 +103,15 @@ const NumberText = styled(Disclaimer)`
   width: 40px;
   font-weight: bold;
   text-align: center;
-  margin-left: 14px;
 `;
 
 const StatusText = styled(Disclaimer)`
-  width: 100px;
+  width: 90px;
   text-align: left;
 `;
 
 const SubStatusText = styled(Disclaimer)`
-  width: 100px;
+  width: 90px;
   text-align: left;
   margin: 2px 0px 0px 20px;
 `;

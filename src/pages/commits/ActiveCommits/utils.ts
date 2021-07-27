@@ -1,8 +1,13 @@
-import { sortedStatusColor } from "constants/task";
+import { mapTaskStatusToUmbrellaStatus } from "constants/task";
 import { ChartTypes } from "types/commits";
 import { groupStatusesByColor } from "utils/statuses";
 
-export type ColorCount = { count: number; statuses: string[]; color: string };
+export type ColorCount = {
+  count: number;
+  statuses: string[];
+  color: string;
+  umbrellaStatus: string;
+};
 
 export type GroupedResult = {
   stats: ColorCount[];
@@ -58,7 +63,16 @@ export function calculateBarHeight(
 }
 
 // Find zero count status colors for commit chart tooltip
-export function getZeroCountStatusColors(currColors: ColorCount[]) {
-  const existingColorSet = new Set(currColors.map(({ color }) => color));
-  return sortedStatusColor.filter((color) => !existingColorSet.has(color));
+export function getZeroCountStatus(currColors: ColorCount[]) {
+  const existingStatusSet = new Set(
+    currColors.map(({ umbrellaStatus }) => umbrellaStatus)
+  );
+  const umbrellaStatuses = Array.from(
+    new Set(
+      Object.values(mapTaskStatusToUmbrellaStatus).map((status) => status)
+    )
+  );
+  return umbrellaStatuses.filter(
+    (umbrellaStatus) => !existingStatusSet.has(umbrellaStatus)
+  );
 }
