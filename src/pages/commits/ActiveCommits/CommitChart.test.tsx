@@ -78,8 +78,8 @@ describe("CommitChart", () => {
       jest.runAllTimers();
     });
     expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
-    expect(queryAllByDataCy("current-statuses-count")).toHaveLength(4);
-    expect(queryAllByDataCy("missing-statuses-count")).toHaveLength(3);
+    expect(queryAllByDataCy("current-status-count")).toHaveLength(4);
+    expect(queryAllByDataCy("missing-status-count")).toHaveLength(3);
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("5");

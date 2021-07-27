@@ -1,4 +1,4 @@
-import { mapTaskStatusToColor } from "constants/task";
+import { mapTaskStatusToColor, taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 import { getAllTaskStatsGroupedByColor } from "./utils";
 
@@ -12,40 +12,40 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 4,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
             {
               count: 6,
-              statuses: [TaskStatus.TaskTimedOut],
+              statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemFailed,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemFailed],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
             {
               count: 2,
-              statuses: [TaskStatus.Inactive],
+              statuses: [taskStatusToCopy[TaskStatus.Inactive]],
               color: mapTaskStatusToColor[TaskStatus.Inactive],
             },
             {
               count: 3,
-              statuses: [TaskStatus.SetupFailed],
+              statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
               color: mapTaskStatusToColor[TaskStatus.SetupFailed],
             },
             {
               count: 3,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
             },
             {
               count: 2,
-              statuses: [TaskStatus.Unscheduled],
+              statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
               color: mapTaskStatusToColor[TaskStatus.Unscheduled],
             },
           ],
@@ -56,20 +56,26 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 8,
-              statuses: [TaskStatus.TestTimedOut, TaskStatus.Failed],
+              statuses: [
+                taskStatusToCopy[TaskStatus.TestTimedOut],
+                taskStatusToCopy[TaskStatus.Failed],
+              ],
               color: mapTaskStatusToColor[TaskStatus.Failed],
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemTimedOut,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemTimedOut],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
             {
               count: 6,
-              statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
+              statuses: [
+                taskStatusToCopy[TaskStatus.Dispatched],
+                taskStatusToCopy[TaskStatus.WillRun],
+              ],
               color: mapTaskStatusToColor[TaskStatus.Dispatched],
             },
           ],
@@ -80,22 +86,22 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 6,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
             {
               count: 2,
-              statuses: [TaskStatus.Failed],
+              statuses: [taskStatusToCopy[TaskStatus.Failed]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
             },
             {
               count: 4,
-              statuses: [TaskStatus.Dispatched],
+              statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
               color: mapTaskStatusToColor[TaskStatus.Dispatched],
             },
             {
               count: 5,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
             },
           ],
@@ -106,40 +112,40 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 4,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
             },
             {
               count: 6,
-              statuses: [TaskStatus.TaskTimedOut],
+              statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemFailed,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemFailed],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
             },
             {
               count: 2,
-              statuses: [TaskStatus.Inactive],
+              statuses: [taskStatusToCopy[TaskStatus.Inactive]],
               color: mapTaskStatusToColor[TaskStatus.Inactive],
             },
             {
               count: 3,
-              statuses: [TaskStatus.SetupFailed],
+              statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
               color: mapTaskStatusToColor[TaskStatus.SetupFailed],
             },
             {
               count: 3,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
             },
             {
               count: 2,
-              statuses: [TaskStatus.Unscheduled],
+              statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
               color: mapTaskStatusToColor[TaskStatus.Unscheduled],
             },
           ],

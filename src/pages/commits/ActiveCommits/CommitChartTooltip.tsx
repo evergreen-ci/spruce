@@ -29,11 +29,8 @@ export const CommitChartTooltip: React.FC<Props> = ({
     >
       <TooltipContainer data-cy="commit-chart-tooltip" css={sharedCss}>
         {groupedTaskStats.map(({ color, count, statuses }) => (
-          <FlexColumnContainer>
-            <TotalCountContainer
-              data-cy="current-StatusTextes-count"
-              key={color}
-            >
+          <FlexColumnContainer key={color}>
+            <TotalCountContainer data-cy="current-status-count">
               <Circle color={color} />
               <StatusText
                 css={sharedCss}
@@ -48,7 +45,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
         {zeroCountStatusTextColors.map((color) => (
           <TotalCountContainer
             opacity={0.4}
-            data-cy="missing-StatusTextes-count"
+            data-cy="missing-status-count"
             key={color}
           >
             <Circle color={color} />
