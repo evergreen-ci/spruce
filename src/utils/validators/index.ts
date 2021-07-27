@@ -26,10 +26,12 @@ export const validateSlack = (v: string): boolean =>
 
 /**
  *  validatePatchId tests if a provided id is a mongo objectId indicating that it likely belongs to a patch and not a version
- *
+ *  @param  {string} id - the id to test
+ * @return {boolean} - true if it is a mongo objectId, false otherwise
  */
 //
 export const validatePatchId = (id: string): boolean => {
-  const mgobsonRegex = /^[a-f\d]{24}$/i;
+  // Official regex mongodb bson specification uses https://github.com/mongodb/js-bson/blob/6ceaa05a68c1a89e43b3b6d0002e5bab69e2613f/src/objectid.ts#L6
+  const mgobsonRegex = /^[0-9a-fA-F]{24}$/i;
   return mgobsonRegex.test(id);
 };
