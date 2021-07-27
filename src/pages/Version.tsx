@@ -18,8 +18,8 @@ import { useToastContext } from "context/toast";
 import {
   VersionQuery,
   VersionQueryVariables,
-  IsPatchConfigurableQuery,
-  IsPatchConfigurableQueryVariables,
+  IsPatchConfiguredQuery,
+  IsPatchConfiguredQueryVariables,
 } from "gql/generated/types";
 import { GET_VERSION, GET_IS_PATCH_CONFIGURED } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
@@ -39,8 +39,8 @@ export const VersionPage: React.FC = () => {
   const [isLoadingData, setIsLoadingData] = useState(true);
 
   const [getPatch, { data: patchData }] = useLazyQuery<
-    IsPatchConfigurableQuery,
-    IsPatchConfigurableQueryVariables
+    IsPatchConfiguredQuery,
+    IsPatchConfiguredQueryVariables
   >(GET_IS_PATCH_CONFIGURED, {
     variables: {
       id,
@@ -64,7 +64,7 @@ export const VersionPage: React.FC = () => {
 
   useNetworkStatus(startPolling, stopPolling);
 
-  // If we are viewing a patch we should first check if its configured before trying to check
+  // If we are viewing a patch we should first check if its configured before trying to check,
   // for a version
   useEffect(() => {
     if (validatePatchId(id)) {
@@ -74,7 +74,7 @@ export const VersionPage: React.FC = () => {
     }
   }, [getPatch, getVersion, id]);
 
-  // If we are viewing an unconfigured patch thats not on the commit queue we should be taken to the configure view
+  // If we are viewing an unconfigured patch thats not on the commit queue we should be taken to the configure view,
   // otherwise go to the commit queue
   useEffect(() => {
     if (patchData) {

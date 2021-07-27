@@ -413,6 +413,10 @@ export type Version = {
   parameters: Array<Parameter>;
 };
 
+export type VersionTaskStatusCountsArgs = {
+  options?: Maybe<BuildVariantOptions>;
+};
+
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
 };
@@ -2019,11 +2023,11 @@ export type InstanceTypesQueryVariables = Exact<{ [key: string]: never }>;
 
 export type InstanceTypesQuery = { instanceTypes: Array<string> };
 
-export type IsPatchConfigurableQueryVariables = Exact<{
+export type IsPatchConfiguredQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
 
-export type IsPatchConfigurableQuery = {
+export type IsPatchConfiguredQuery = {
   patch: {
     id: string;
     activated: boolean;

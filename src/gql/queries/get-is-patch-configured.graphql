@@ -1,5 +1,4 @@
-
-query IsPatchConfigurable($id: String!) {
+query IsPatchConfigured($id: String!) {
   patch(id: $id) {
     id
     activated
