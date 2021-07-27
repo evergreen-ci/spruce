@@ -134,6 +134,7 @@ export const VersionPage: React.FC = () => {
             isPatchOnCommitQueue={isPatchOnCommitQueue}
             patchDescription={message}
             patchId={id}
+            childPatches={childPatches}
           />
         }
       />

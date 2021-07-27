@@ -1,0 +1,19 @@
+query GetTests($execution: Int, $groupId: String, $taskId: String!) {
+  taskTests(
+    execution: $execution
+    groupId: $groupId
+    sortCategory: START_TIME
+    sortDirection: ASC
+    taskId: $taskId
+  ) {
+    testResults {
+      displayTestName
+      execution
+      groupID
+      id
+      lineNum
+      taskId
+      testFile
+    }
+  }
+}

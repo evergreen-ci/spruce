@@ -25,6 +25,7 @@ import { Commits } from "pages/Commits";
 import { ConfigurePatch } from "pages/ConfigurePatch";
 import { Host } from "pages/Host";
 import { Hosts } from "pages/Hosts";
+import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
 import { PatchRedirect } from "pages/PatchRedirect";
 import { Preferences } from "pages/Preferences";
@@ -71,6 +72,7 @@ export const Content: React.FC = () => {
         <Route path={routes.configurePatch} component={ConfigurePatch} />
         <Route exact path={routes.patch} component={PatchRedirect} />
         <Route path={routes.version} component={VersionPage} />
+        <Route path={routes.jobLogs} component={JobLogs} />
         <Route path={routes.hosts} component={Hosts} />
         <Route path={routes.host} component={Host} />
         <Route path={routes.myPatches} component={MyPatches} />
