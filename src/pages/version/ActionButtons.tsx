@@ -16,7 +16,7 @@ import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
-  isPatchOnCommitQueue: boolean;
+  canReconfigure: boolean;
   patchDescription: string;
   patchId: string;
   childPatches: Partial<Patch>[];
@@ -24,7 +24,7 @@ interface ActionButtonProps {
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
-  isPatchOnCommitQueue,
+  canReconfigure,
   patchDescription,
   patchId,
   childPatches,
@@ -33,7 +33,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <LinkToReconfigurePage
       key="reconfigure"
       patchId={patchId}
-      disabled={isPatchOnCommitQueue}
+      disabled={!canReconfigure}
     />,
     <UnschedulePatchTasks
       patchId={patchId}
