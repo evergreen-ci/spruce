@@ -5,7 +5,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-viknrc-FlexRowContainer ech0nhv3"
+    className="css-m3r1dt-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-73nv4h-ColumnContainer ech0nhv1"
@@ -297,7 +297,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-viknrc-FlexRowContainer ech0nhv3"
+    className="css-m3r1dt-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-73nv4h-ColumnContainer ech0nhv1"

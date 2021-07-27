@@ -24,20 +24,27 @@ import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
+const { getArray } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
 
 export const Commits = () => {
-  const { projectId } = useParams<{ projectId: string }>();
-  const options = { projectID: projectId, limit: 5 };
   const dispatchToast = useToastContext();
   const { search } = useLocation();
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
+
+  // get query params from url
+  const { projectId } = useParams<{ projectId: string }>();
   const parsed = queryString.parseQueryString(search);
   const chartTypeParam = (parsed[ChartToggleQueryParams.chartType] || "")
     .toString()
     .toLowerCase();
+  const filterStatuses = getArray(parsed[ProjectFilterOptions.Status] || []);
+  const filterVariants = getArray(
+    parsed[ProjectFilterOptions.BuildVariant] || []
+  );
+  const filterTasks = getArray(parsed[ProjectFilterOptions.Task] || []);
 
   // set current chart type based on query param
   useEffect(() => {
@@ -51,21 +58,26 @@ export const Commits = () => {
     }
   }, [chartTypeParam, setCurrentChartType]);
 
-  usePageTitle(`Project Health | ${projectId}`);
+  // query mainlineCommits data
+  const mainlineCommitsOptions = { projectID: projectId, limit: 5 };
+  const buildVariantOptions = {
+    statuses: filterStatuses,
+    variants: filterVariants,
+    tasks: filterTasks,
+  };
   const { data, loading, error, startPolling, stopPolling } = useQuery<
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { options },
+    variables: { mainlineCommitsOptions, buildVariantOptions },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
   });
-
+  usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions } = mainlineCommits || {};
-
   if (error) {
     return <PageDoesNotExist />;
   }
@@ -136,11 +148,6 @@ const tupleSelectOptions = [
     value: ProjectFilterOptions.BuildVariant,
     displayName: "Build Variant",
     placeHolderText: "Search Build Variant names",
-  },
-  {
-    value: ProjectFilterOptions.Test,
-    displayName: "Test",
-    placeHolderText: "Search Test names",
   },
   {
     value: ProjectFilterOptions.Task,
