@@ -1,6 +1,6 @@
 import React from "react";
 import { MetadataCard } from "components/MetadataCard";
-import { StyledLink } from "components/styles";
+import { StyledLink, StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
 import { environmentalVariables, string } from "utils";
@@ -57,9 +57,9 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     >
       <P2>
         Project:{" "}
-        <StyledLink href={getProjectPatchesRoute(project)}>
+        <StyledRouterLink to={getProjectPatchesRoute(project)}>
           {projectIdentifier}
-        </StyledLink>
+        </StyledRouterLink>
       </P2>
       <P2>Makespan: {makespan && msToDuration(makespan)}</P2>
       <P2>Time taken: {timeTaken && msToDuration(timeTaken)}</P2>
@@ -79,12 +79,12 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       )}
       {isPatch && commitQueuePosition !== undefined && (
         <P2>
-          <StyledLink
+          <StyledRouterLink
             data-cy="commit-queue-position"
-            href={getCommitQueueRoute(project)}
+            to={getCommitQueueRoute(project)}
           >
             Commit queue position: {commitQueuePosition}
-          </StyledLink>
+          </StyledRouterLink>
         </P2>
       )}
       <ParametersModal parameters={parameters} />
