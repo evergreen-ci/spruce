@@ -60,16 +60,16 @@ export const CommitQueue: React.FC = () => {
             key={issue}
             issue={issue}
             index={i + 1}
-            title={patch && patch.description}
-            author={patch && patch.author}
-            patchId={patch && patch.id}
-            versionId={patch && patch.version}
+            title={patch?.description}
+            author={patch?.author}
+            patchId={patch?.id}
+            versionId={patch?.version}
             repo={commitQueue?.repo}
             owner={commitQueue?.owner}
             commitTime={enqueueTime}
-            moduleCodeChanges={patch && patch.moduleCodeChanges}
+            moduleCodeChanges={patch?.moduleCodeChanges}
             commitQueueId={commitQueue.projectId}
-            activated={patch && patch.activated}
+            activated={patch?.activated}
           />
         ))}
       {!queue && <Body>There are no items in this queue. </Body>}
