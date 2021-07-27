@@ -2033,7 +2033,7 @@ export type GetSuspectedIssuesQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
-  taskStatusCountsOptions: BuildVariantOptions;
+  buildVariantOptions: BuildVariantOptions;
 }>;
 
 export type MainlineCommitsQuery = {

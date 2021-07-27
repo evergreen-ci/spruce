@@ -60,7 +60,7 @@ export const Commits = () => {
 
   // query mainlineCommits data
   const mainlineCommitsOptions = { projectID: projectId, limit: 5 };
-  const taskStatusCountsOptions = {
+  const buildVariantOptions = {
     statuses: filterStatuses,
     variants: filterVariants,
     tasks: filterTasks,
@@ -69,7 +69,7 @@ export const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { mainlineCommitsOptions, taskStatusCountsOptions },
+    variables: { mainlineCommitsOptions, buildVariantOptions },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),

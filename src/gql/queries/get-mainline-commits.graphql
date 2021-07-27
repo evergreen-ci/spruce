@@ -1,6 +1,6 @@
 query MainlineCommits(
   $mainlineCommitsOptions: MainlineCommitsOptions!
-  $taskStatusCountsOptions: BuildVariantOptions!
+  $buildVariantOptions: BuildVariantOptions!
 ) {
   mainlineCommits(options: $mainlineCommitsOptions) {
     versions {
@@ -10,7 +10,7 @@ query MainlineCommits(
         createTime
         message
         revision
-        taskStatusCounts(options: $taskStatusCountsOptions) {
+        taskStatusCounts(options: $buildVariantOptions) {
           status
           count
         }
