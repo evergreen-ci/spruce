@@ -32,7 +32,7 @@ export const ConfigurePatch: React.FC = () => {
   const { patch } = data || {};
   usePageTitle(`Configure Patch`);
 
-  // Cant configure a mainline version so should redirect to the version page
+  // Can't configure a mainline version so should redirect to the version page
   if (!validatePatchId(id)) {
     return <Redirect to={getVersionRoute(id)} />;
   }

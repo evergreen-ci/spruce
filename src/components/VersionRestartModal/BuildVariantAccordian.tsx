@@ -4,9 +4,9 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Accordion } from "components/Accordion";
 import Badge from "components/Badge";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { PatchStatusCheckboxContainer } from "./PatchStatusCheckboxContainer";
+import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
-interface PatchBuildVariantAccordionProps {
+interface BuildVariantAccordianProps {
   tasks: {
     id: string;
     status: string;
@@ -17,7 +17,7 @@ interface PatchBuildVariantAccordionProps {
   selectedTasks: selectedStrings;
   toggleSelectedTask: (id: string | string[]) => void;
 }
-export const PatchBuildVariantAccordion: React.FC<PatchBuildVariantAccordionProps> = ({
+export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
   tasks,
   displayName,
   selectedTasks,
@@ -47,7 +47,7 @@ export const PatchBuildVariantAccordion: React.FC<PatchBuildVariantAccordionProp
       <Accordion
         title={variantTitle}
         contents={
-          <PatchStatusCheckboxContainer
+          <TaskStatusCheckboxContainer
             tasks={tasks}
             selectedTasks={selectedTasks}
             toggleSelectedTask={toggleSelectedTask}

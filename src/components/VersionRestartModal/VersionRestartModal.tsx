@@ -5,7 +5,7 @@ import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
@@ -23,30 +23,28 @@ import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchTasksQueryParams } from "types/task";
 import { queryString } from "utils";
-import { PatchBuildVariantAccordion } from "./patchRestartModal/index";
+import { BuildVariantAccordian } from "./BuildVariantAccordian";
 
 const { getArray, parseQueryString } = queryString;
 const { gray } = uiColors;
 
-interface PatchModalProps {
+interface Props {
   visible: boolean;
   onOk: () => void;
   onCancel: () => void;
-  patchId?: string;
+  versionId?: string;
   refetchQueries: string[];
   childPatches: Partial<Patch>[];
 }
-export const PatchRestartModal: React.FC<PatchModalProps> = ({
+const VersionRestartModal: React.FC<Props> = ({
   visible,
   onOk,
   onCancel,
-  patchId: patchIdFromProps,
+  versionId,
   refetchQueries,
   childPatches,
 }) => {
   const dispatchToast = useToastContext();
-  const { id } = useParams<{ id: string }>();
-  const patchId = patchIdFromProps ?? id;
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
     false
   );
@@ -68,7 +66,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
     PatchBuildVariantsQuery,
     PatchBuildVariantsQueryVariables
   >(GET_PATCH_BUILD_VARIANTS, {
-    variables: { patchId },
+    variables: { patchId: versionId },
   });
   const { patchBuildVariants } = data || {};
   const [
@@ -102,7 +100,7 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
       });
       await restartPatch({
         variables: {
-          patchId,
+          patchId: versionId,
           taskIds: selectedArray(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
@@ -146,14 +144,14 @@ export const PatchRestartModal: React.FC<PatchModalProps> = ({
             <TaskStatusFilters
               onChangeBaseStatusFilter={setBaseStatusFilterTerm}
               onChangeStatusFilter={setPatchStatusFilterTerm}
-              patchId={patchId}
+              patchId={versionId}
               selectedBaseStatuses={baseStatusFilterTerm}
               selectedStatuses={patchStatusFilterTerm}
               filterWidth="50%"
             />
           </Row>
           {patchBuildVariants.map((patchBuildVariant) => (
-            <PatchBuildVariantAccordion
+            <BuildVariantAccordian
               key={`accoridan_${patchBuildVariant.variant}`}
               tasks={patchBuildVariant.tasks}
               displayName={patchBuildVariant.displayName}
@@ -208,3 +206,5 @@ const Row = styled.div`
     margin-right: 16px;
   }
 `;
+
+export default VersionRestartModal;

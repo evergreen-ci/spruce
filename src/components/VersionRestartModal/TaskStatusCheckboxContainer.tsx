@@ -3,7 +3,7 @@ import { FixedSizeList } from "react-window";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
-interface PatchStatusCheckboxContainerProps {
+interface TaskStatusCheckboxContainerProps {
   tasks: {
     id: string;
     status: string;
@@ -13,7 +13,7 @@ interface PatchStatusCheckboxContainerProps {
   selectedTasks: selectedStrings;
   toggleSelectedTask: (id: string) => void;
 }
-export const PatchStatusCheckboxContainer: React.FC<PatchStatusCheckboxContainerProps> = ({
+export const TaskStatusCheckboxContainer: React.FC<TaskStatusCheckboxContainerProps> = ({
   tasks,
   selectedTasks,
   toggleSelectedTask,
