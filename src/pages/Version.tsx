@@ -64,8 +64,8 @@ export const VersionPage: React.FC = () => {
 
   useNetworkStatus(startPolling, stopPolling);
 
-  // If we are viewing a patch we should first check if its configured before trying to check,
-  // for a version
+  // First check if an id belongs to a patch if so we should fetch the patch,
+  //  to see if it has been activated; otherwise fetch the version directly
   useEffect(() => {
     if (validatePatchId(id)) {
       getPatch();
@@ -74,8 +74,8 @@ export const VersionPage: React.FC = () => {
     }
   }, [getPatch, getVersion, id]);
 
-  // If we are viewing an unconfigured patch thats not on the commit queue we should be taken to the configure view,
-  // otherwise go to the commit queue
+  // Decide where to redirect the user based off of whether or not the patch has been activated
+  // If this patch is activated and not on the commit queue we can safely fetch the associated version
   useEffect(() => {
     if (patchData) {
       const { patch } = patchData;
