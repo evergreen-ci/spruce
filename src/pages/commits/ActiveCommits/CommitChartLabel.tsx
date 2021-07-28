@@ -35,6 +35,7 @@ const LabelContainer = styled.div`
   width: 172px;
   display: flex;
   margin-top: 10px;
+  margin-bottom: 16px;
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;

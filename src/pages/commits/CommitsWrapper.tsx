@@ -12,6 +12,8 @@ import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
+
+import { BuildVariantAccordion } from "./BuildVariantAccordion";
 import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
 interface Props {
@@ -57,6 +59,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                   author={version.author}
                   message={version.message}
                 />
+                <BuildVariantAccordion buildVariants={version.buildVariants} />
               </ColumnContainer>
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
@@ -107,6 +110,7 @@ export const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-bottom: 40px;
 `;
 
 const NoResults = styled.div`

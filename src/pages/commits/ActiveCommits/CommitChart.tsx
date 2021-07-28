@@ -56,4 +56,5 @@ const Bar = styled.div<BarProps>`
   height: ${({ height }) => height};
   background-color: ${({ color }) => color};
   width: 13px;
+  cursor: pointer;
 `;
