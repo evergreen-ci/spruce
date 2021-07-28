@@ -242,7 +242,6 @@ const getColumnsTemplate = (
     title: <span data-cy="base-status-column">Base Status</span>,
     dataIndex: "baseStatus",
     key: TestSortCategory.BaseStatus,
-    sorter: true,
     render: (status: string): JSX.Element => (
       <span>
         <Badge
