@@ -1,6 +1,7 @@
 import { ApolloError } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Skeleton } from "antd";
+import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
@@ -56,6 +57,12 @@ export const CommitsWrapper: React.FC<Props> = ({
                   createTime={version.createTime}
                   author={version.author}
                   message={version.message}
+                />
+                <GroupedTaskStatusBadge
+                  color="red"
+                  count={3}
+                  status="ok"
+                  borderColor="red"
                 />
               </ColumnContainer>
             ) : (
