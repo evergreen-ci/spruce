@@ -42,7 +42,7 @@ export const ChartToggle: React.FC<{
             data-cy="cy-chart-absolute-radio"
             id="chart-radio-absolute"
             value={ChartTypes.Absolute}
-            checked={false}
+            checked={currentChartType === ChartTypes.Absolute}
           >
             <Label htmlFor="chart-radio-absolute">Absolute Number</Label>
           </Radio>
@@ -50,7 +50,7 @@ export const ChartToggle: React.FC<{
             data-cy="cy-chart-percent-radio"
             id="chart-radio-percent"
             value={ChartTypes.Percentage}
-            checked={false}
+            checked={currentChartType === ChartTypes.Percentage}
           >
             <Label htmlFor="chart-radio-percent">Percentage</Label>
           </Radio>
