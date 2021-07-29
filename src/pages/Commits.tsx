@@ -13,14 +13,14 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
-import { PageDoesNotExist } from "pages/404";
-import { CommitsWrapper } from "pages/commits/CommitsWrapper";
 import {
   ChartToggleQueryParams,
   ChartTypes,
   ProjectFilterOptions,
 } from "types/commits";
 import { queryString } from "utils";
+import { PageDoesNotExist } from "./404";
+import { CommitsWrapper } from "./commits/CommitsWrapper";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 

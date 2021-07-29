@@ -1,3 +1,4 @@
+import { css } from "@leafygreen-ui/emotion";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
@@ -130,8 +131,12 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
 
 const failureLavender = "#F3EDF5";
 const failureLavendarDark = "#9982A4";
+const failureLavendarGrouped = "#F1F0FC";
+const failureLavendarGroupedBorder = "#D5D4F9";
 const failurePurple = "#E6CCE6";
 const failurePurpleDark = "#620662";
+const failurePurpleGrouped = "#4F4FBF";
+const failurePurpleGroupedBorder = "#36367F";
 
 // Represents the color order for commit bar charts
 export const sortedStatusColor = [
@@ -165,6 +170,28 @@ export const mapTaskStatusToColor = {
   [TaskStatus.Unstarted]: gray.light1,
   [TaskStatus.Unscheduled]: gray.dark1,
   [TaskStatus.WillRun]: gray.light1,
+};
+
+// Represents background colors for grouped task statuses
+export const mapGroupedStatusToColor = {
+  [TaskStatus.Failed]: red.light3,
+  [TaskStatus.SetupFailed]: failureLavendarGrouped,
+  [TaskStatus.Succeeded]: green.light3,
+  [TaskStatus.Started]: yellow.light3,
+  [TaskStatus.SystemFailed]: failurePurpleGrouped,
+  [TaskStatus.Undispatched]: gray.light3,
+  [TaskStatus.WillRun]: gray.dark1,
+};
+
+// Represents border colors for grouped task statuses
+export const mapGroupedStatusToBorderColor = {
+  [TaskStatus.Failed]: red.light2,
+  [TaskStatus.SetupFailed]: failureLavendarGroupedBorder,
+  [TaskStatus.Succeeded]: green.light2,
+  [TaskStatus.Started]: yellow.light2,
+  [TaskStatus.SystemFailed]: failurePurpleGroupedBorder,
+  [TaskStatus.Undispatched]: gray.light2,
+  [TaskStatus.WillRun]: gray.dark2,
 };
 
 // Represents text color for task statuses
@@ -211,3 +238,24 @@ export const taskStatusToCopy = {
   [TaskStatus.Unscheduled]: "Unscheduled",
   [TaskStatus.WillRun]: "Will Run",
 };
+
+export const VariantPurple = {
+  DarkPurple: "darkpurple",
+  LightPurple: "lightpurple",
+} as const;
+
+export type VariantPurple2 = typeof VariantPurple[keyof typeof VariantPurple];
+
+export const badgeVariantPurples: { [K in VariantPurple2]: string } = {
+  [VariantPurple.DarkPurple]: css`
+    background-color: ${uiColors.gray.light3};
+    border-color: ${uiColors.gray.light2};
+    color: ${uiColors.gray.dark1};
+  `,
+
+  [VariantPurple.LightPurple]: css`
+    background-color: ${uiColors.gray.dark2};
+    border-color: ${uiColors.gray.dark3};
+    color: ${uiColors.white};
+  `,
+} as const;

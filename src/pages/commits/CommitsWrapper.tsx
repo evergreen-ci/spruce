@@ -5,6 +5,7 @@ import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
+import { TaskStatus } from "types/task";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { CommitChart } from "./ActiveCommits/CommitChart";
 import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
@@ -59,10 +60,8 @@ export const CommitsWrapper: React.FC<Props> = ({
                   message={version.message}
                 />
                 <GroupedTaskStatusBadge
-                  color="red"
                   count={3}
-                  status="ok"
-                  borderColor="red"
+                  status={TaskStatus.Succeeded}
                 />
               </ColumnContainer>
             ) : (

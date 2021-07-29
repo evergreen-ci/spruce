@@ -1,34 +1,41 @@
-import React from "react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-
-const { gray } = uiColors;
+import Badge, { Variant } from "components/Badge";
+import {
+  mapGroupedStatusToColor,
+  taskStatusToCopy,
+  mapGroupedStatusToBorderColor,
+  VariantPurple,
+} from "constants/task";
+import { TaskStatus } from "types/task";
 
 interface Props {
-  status: string;
-  color: string;
+  status: TaskStatus;
   count: number;
-  borderColor: string;
 }
-export const GroupedTaskStatusBadge: React.FC<Props> = ({
-  color,
-  count,
-  status,
-  borderColor,
-}) => (
-  <Container color={color} borderColor={borderColor}>
-    <Number>{count}</Number>
-    <Status>{status}</Status>
-  </Container>
-);
+export const GroupedTaskStatusBadge: React.FC<Props> = ({ count, status }) => {
+  return (
+    <StyledBadge variant={statusToBadgeVariant[status as TaskStatus]}>
+      <Number>{count}</Number>
+      <Status>{taskStatusToCopy[status]}</Status>
+    </StyledBadge>
+  );
+};
 
-const Container = styled.div<{ color: string; borderColor: string }>`
+const statusToBadgeVariant = {
+  [TaskStatus.Succeeded]: Variant.Green,
+  [TaskStatus.Failed]: Variant.Red,
+  [TaskStatus.Started]: Variant.Yellow,
+  [TaskStatus.Undispatched]: Variant.LightGray,
+  [TaskStatus.WillRun]: Variant.DarkGray,
+  [TaskStatus.SystemFailed]: VariantPurple.DarkPurple,
+  [TaskStatus.SetupFailed]: VariantPurple.LightPurple,
+};
+
+const StyledBadge = styled(Badge)`
   height: 27px;
   width: 55px;
   border-radius: 3px;
-  background: ${({ color }) => color};
-  border: 0.75px solid ${({ borderColor }) => borderColor};
   box-sizing: border-box;
   border-radius: 3px;
   display: flex;
