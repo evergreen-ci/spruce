@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Button } from "components/Button";
 import { DropdownItem } from "components/ButtonDropdown";
+import { Patch } from "gql/generated/types";
 import { PatchRestartModal } from "pages/patch/index";
 
 interface RestartPatchProps {
@@ -9,6 +10,7 @@ interface RestartPatchProps {
   isButton?: boolean;
   refetchQueries: string[];
   visibilityControl?: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+  childPatches: Partial<Patch>[];
 }
 export const RestartPatch: React.FC<RestartPatchProps> = ({
   isButton,
@@ -16,6 +18,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
   patchId,
   refetchQueries,
   visibilityControl,
+  childPatches,
 }) => {
   const fallbackVisibilityControl = useState(false);
   const [isVisible, setIsVisible] =
@@ -54,6 +57,7 @@ export const RestartPatch: React.FC<RestartPatchProps> = ({
         }}
         onCancel={() => setIsVisible(false)}
         refetchQueries={refetchQueries}
+        childPatches={childPatches}
       />
     </>
   );

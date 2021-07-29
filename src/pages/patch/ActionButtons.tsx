@@ -11,6 +11,7 @@ import {
   DisablePatch,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
+import { Patch } from "gql/generated/types";
 import { ScheduleUndispatchedBaseTasks } from "./ScheduleUndispatchedBaseTasks";
 
 interface ActionButtonProps {
@@ -18,6 +19,7 @@ interface ActionButtonProps {
   isPatchOnCommitQueue: boolean;
   patchDescription: string;
   patchId: string;
+  childPatches: Partial<Patch>[];
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
@@ -25,6 +27,7 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
   isPatchOnCommitQueue,
   patchDescription,
   patchId,
+  childPatches,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
@@ -68,7 +71,12 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
           isButton
           refetchQueries={["Patch"]}
         />
-        <RestartPatch patchId={patchId} isButton refetchQueries={["Patch"]} />
+        <RestartPatch
+          patchId={patchId}
+          childPatches={childPatches}
+          isButton
+          refetchQueries={["Patch"]}
+        />
         <AddNotification patchId={patchId} refetchQueries={["Patch"]} />
         <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>

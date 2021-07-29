@@ -14,8 +14,15 @@ fragment PatchesPagePatches on Patches {
       buildVariant
       status
     }
+    childPatches {
+      baseVersionID
+      githash
+      id
+      projectID
+      taskCount
+      status
+    }
     canEnqueueToCommitQueue
   }
   filteredPatchCount
 }
-

@@ -1421,6 +1421,16 @@ export type PatchesPagePatchesFragment = {
     commitQueuePosition?: Maybe<number>;
     canEnqueueToCommitQueue: boolean;
     builds: Array<{ id: string; buildVariant: string; status: string }>;
+    childPatches?: Maybe<
+      Array<{
+        baseVersionID?: Maybe<string>;
+        githash: string;
+        id: string;
+        projectID: string;
+        taskCount?: Maybe<number>;
+        status: string;
+      }>
+    >;
   }>;
 };
 
@@ -1869,6 +1879,21 @@ export type GetCreatedTicketsQuery = {
   }>;
 };
 
+export type GetDisplayTaskQueryVariables = Exact<{
+  taskId: Scalars["String"];
+  execution?: Maybe<Scalars["Int"]>;
+}>;
+
+export type GetDisplayTaskQuery = {
+  task?: Maybe<{
+    id: string;
+    displayName: string;
+    execution: number;
+    executionTasks?: Maybe<Array<string>>;
+    displayTask?: Maybe<{ id: string; execution: number }>;
+  }>;
+};
+
 export type DistrosQueryVariables = Exact<{
   onlySpawnable: Scalars["Boolean"];
 }>;
@@ -2032,7 +2057,7 @@ export type GetSuspectedIssuesQuery = {
 };
 
 export type MainlineCommitsQueryVariables = Exact<{
-  options: MainlineCommitsOptions;
+  mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptions: BuildVariantOptions;
 }>;
 
@@ -2435,6 +2460,26 @@ export type GetTaskQuery = {
       annotation?: Maybe<AnnotationFragment>;
     } & BaseTaskFragment
   >;
+};
+
+export type GetTestsQueryVariables = Exact<{
+  execution?: Maybe<Scalars["Int"]>;
+  groupId?: Maybe<Scalars["String"]>;
+  taskId: Scalars["String"];
+}>;
+
+export type GetTestsQuery = {
+  taskTests: {
+    testResults: Array<{
+      displayTestName?: Maybe<string>;
+      execution?: Maybe<number>;
+      groupID?: Maybe<string>;
+      id: string;
+      lineNum?: Maybe<number>;
+      taskId?: Maybe<string>;
+      testFile: string;
+    }>;
+  };
 };
 
 export type GetUserConfigQueryVariables = Exact<{ [key: string]: never }>;

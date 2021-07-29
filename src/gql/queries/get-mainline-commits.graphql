@@ -1,8 +1,8 @@
 query MainlineCommits(
-  $options: MainlineCommitsOptions!
+  $mainlineCommitsOptions: MainlineCommitsOptions!
   $buildVariantOptions: BuildVariantOptions!
 ) {
-  mainlineCommits(options: $options) {
+  mainlineCommits(options: $mainlineCommitsOptions) {
     versions {
       version {
         id
