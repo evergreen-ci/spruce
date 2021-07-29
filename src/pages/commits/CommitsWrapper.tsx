@@ -67,7 +67,7 @@ export const CommitsWrapper: React.FC<Props> = ({
           )}
         </FlexRowContainer>
         <Grid numDashedLine={5} />
-        <ChartToggle currentChartType={chartType} />
+        <ChartToggle />
       </ProjectHealthWrapper>
     );
   }

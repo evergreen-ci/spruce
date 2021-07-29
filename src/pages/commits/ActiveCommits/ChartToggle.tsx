@@ -10,9 +10,7 @@ import { queryString } from "utils";
 const { gray } = uiColors;
 const { stringifyQuery, parseQueryString } = queryString;
 
-export const ChartToggle: React.FC<{
-  currentChartType: ChartTypes;
-}> = ({ currentChartType }) => {
+export const ChartToggle: React.FC<{}> = () => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
