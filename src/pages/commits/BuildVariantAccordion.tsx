@@ -13,7 +13,7 @@ interface Props {
 export const BuildVariantAccordion: React.FC<Props> = ({ buildVariants }) => (
   <ColumnContainer>
     {buildVariants.map(({ displayName }) => (
-      <AccordionContainer>{displayName}</AccordionContainer>
+      <AccordionContainer>displayNameasjklhdkjhasj</AccordionContainer>
     ))}
   </ColumnContainer>
 );
@@ -22,10 +22,11 @@ const AccordionContainer = styled(Disclaimer)`
   margin-top: 20px;
   color: ${gray.dark2};
   font-size: 14px;
-  width: 123px;
+  width: 172px;
   cursor: pointer;
   display: flex;
   justify-content: flex-start;
+  background-color: gray;
 `;
 
 export const ColumnContainer = styled.div`
