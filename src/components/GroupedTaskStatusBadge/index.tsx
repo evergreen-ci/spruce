@@ -29,7 +29,7 @@ const BadgeContainer = styled.div`
   height: 27px;
   width: 57px;
   border-radius: 3px;
-  border: 0.75px solid;
+  border: 1px solid;
   box-sizing: border-box;
   border-radius: 3px;
   display: flex;
