@@ -9,20 +9,21 @@ interface Props {
   status: TaskStatus;
   count: number;
 }
-export const GroupedTaskStatusBadge: React.FC<Props> = ({ count, status }) => (
-  <BadgeContainer css={statusToColorVariant[status]}>
-    <Number css={statusToColorVariant[status]}>{count}</Number>
-    <Status css={statusToColorVariant[status]}>
-      {status === TaskStatus.Succeeded || status === TaskStatus.SetupFailed
-        ? [
-            status === TaskStatus.Succeeded
-              ? `${taskStatusToCopy[status]}${count !== 1 ? "es" : ""}`
-              : `${taskStatusToCopy[status]}${count !== 1 ? "s" : ""}`,
-          ]
-        : taskStatusToCopy[status]}
-    </Status>
-  </BadgeContainer>
-);
+export const GroupedTaskStatusBadge: React.FC<Props> = ({ count, status }) => {
+  let statusDisplayName = taskStatusToCopy[status];
+  if (statusDisplayName.slice(-1) === "s" && count !== 1) {
+    statusDisplayName += "es";
+  } else if (statusDisplayName.slice(-1) === "e" && count !== 1) {
+    statusDisplayName += "s";
+  }
+
+  return (
+    <BadgeContainer css={statusToColorVariant[status]}>
+      <Number css={statusToColorVariant[status]}>{count}</Number>
+      <Status css={statusToColorVariant[status]}>{statusDisplayName}</Status>
+    </BadgeContainer>
+  );
+};
 
 const BadgeContainer = styled.div`
   height: 27px;
