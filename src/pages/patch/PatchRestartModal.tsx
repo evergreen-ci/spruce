@@ -78,7 +78,7 @@ export const PatchRestartContent: React.FC<PatchRestartContentProps> = ({
       />
       <>
         {childPatches && (
-          <>
+          <div data-cy="select-downstream">
             <HR />
             <Accordion
               title={<StyledTitle> Select Downstream Tasks</StyledTitle>}
@@ -106,7 +106,7 @@ export const PatchRestartContent: React.FC<PatchRestartContentProps> = ({
                 />
               ))}
             />
-          </>
+          </div>
         )}
         <PatchRestartFooter
           setShouldAbortInProgressTasks={setShouldAbortInProgressTasks}
