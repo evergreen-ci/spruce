@@ -27,6 +27,7 @@ const groupedTaskStats = [
   { status: TaskStatus.SetupFailed, count: 4 },
   { status: TaskStatus.SetupFailed, count: 1 },
   { status: TaskStatus.Undispatched, count: 5 },
+  { status: TaskStatus.WillRun, count: 5 },
 ];
 
 const Container = styled.div`

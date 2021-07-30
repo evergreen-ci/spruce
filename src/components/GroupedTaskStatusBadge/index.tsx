@@ -1,3 +1,4 @@
+import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -5,11 +6,19 @@ import { Body } from "@leafygreen-ui/typography";
 import { taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
 
+const { gray, red, yellow, green } = uiColors;
 interface Props {
   status: TaskStatus;
   count: number;
+  href?: string;
+  onClick?: () => void;
 }
-export const GroupedTaskStatusBadge: React.FC<Props> = ({ count, status }) => {
+export const GroupedTaskStatusBadge: React.FC<Props> = ({
+  count,
+  status,
+  href = "",
+  onClick = () => undefined,
+}) => {
   let statusDisplayName = taskStatusToCopy[status];
   if (statusDisplayName.slice(-1) === "s" && count !== 1) {
     statusDisplayName += "es";
@@ -18,14 +27,19 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({ count, status }) => {
   }
 
   return (
-    <BadgeContainer css={statusToColorVariant[status]}>
+    <BadgeContainer
+      css={statusToColorVariant[status]}
+      onClick={onClick}
+      to={href}
+      clickable={href !== ""}
+    >
       <Number css={statusToColorVariant[status]}>{count}</Number>
       <Status css={statusToColorVariant[status]}>{statusDisplayName}</Status>
     </BadgeContainer>
   );
 };
 
-const BadgeContainer = styled.div`
+const BadgeContainer = styled.div<{ clickable: boolean }>`
   height: 27px;
   width: 57px;
   border-radius: 3px;
@@ -36,26 +50,25 @@ const BadgeContainer = styled.div`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
+  ${({ clickable }) => clickable && `cursor: pointer`};
 `;
 
 const Number = styled(Body)`
   font-weight: bold;
   font-size: 11px;
-  letter-spacing: 0.18px;
   line-height: 10px;
 `;
 
 const Status = styled(Body)`
   font-size: 8px;
-  letter-spacing: 0.13px;
   line-height: 10px;
 `;
 
 const statusToColorVariant = {
   [TaskStatus.Failed]: css`
-    background-color: ${uiColors.red.light3};
-    border-color: ${uiColors.red.light2};
-    color: ${uiColors.red.dark2};
+    background-color: ${red.light3};
+    border-color: ${red.light2};
+    color: ${red.dark2};
   `,
   [TaskStatus.SetupFailed]: css`
     background-color: #f1f0fc;
@@ -63,14 +76,14 @@ const statusToColorVariant = {
     color: #4f4fbf;
   `,
   [TaskStatus.Succeeded]: css`
-    background-color: ${uiColors.green.light3};
-    border-color: ${uiColors.green.light2};
-    color: ${uiColors.green.dark2};
+    background-color: ${green.light3};
+    border-color: ${green.light2};
+    color: ${green.dark2};
   `,
   [TaskStatus.Started]: css`
-    background-color: ${uiColors.yellow.light3};
-    border-color: ${uiColors.yellow.light2};
-    color: ${uiColors.yellow.dark2};
+    background-color: ${yellow.light3};
+    border-color: ${yellow.light2};
+    color: ${yellow.dark2};
   `,
   [TaskStatus.SystemFailed]: css`
     background-color: #4f4fbf;
@@ -78,13 +91,13 @@ const statusToColorVariant = {
     color: #f1f0fc;
   `,
   [TaskStatus.Undispatched]: css`
-    background-color: ${uiColors.gray.light3};
-    border-color: ${uiColors.gray.light2};
-    color: ${uiColors.gray.dark1};
+    background-color: ${gray.light3};
+    border-color: ${gray.light2};
+    color: ${gray.dark1};
   `,
   [TaskStatus.WillRun]: css`
-    background-color: ${uiColors.gray.dark1};
-    border-color: ${uiColors.gray.dark2};
-    color: ${uiColors.gray.light3};
+    background-color: ${gray.dark1};
+    border-color: ${gray.dark2};
+    color: ${gray.light3};
   `,
 };
