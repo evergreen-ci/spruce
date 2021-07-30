@@ -1,0 +1,120 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
+<div
+  className="css-1gttx0q-Container e1ub2bu20"
+>
+  <div
+    className="css-1ccba0n-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-1cey5yh-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      20
+    </div>
+    <div
+      className="css-1km3d53-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Successes
+    </div>
+  </div>
+  <div
+    className="css-1ccba0n-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-1cey5yh-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      1
+    </div>
+    <div
+      className="css-1km3d53-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Success
+    </div>
+  </div>
+  <div
+    className="css-1piz7ox-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-uo9hnf-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      1
+    </div>
+    <div
+      className="css-pchs7r-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Failed
+    </div>
+  </div>
+  <div
+    className="css-10okst8-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-7ulge0-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      2
+    </div>
+    <div
+      className="css-q1sqg5-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Running
+    </div>
+  </div>
+  <div
+    className="css-fqaikb-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-3cvswm-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      3
+    </div>
+    <div
+      className="css-1w4i1nu-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      System Failed
+    </div>
+  </div>
+  <div
+    className="css-1jzuaf0-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-nmno0s-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      4
+    </div>
+    <div
+      className="css-kxw3ii-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Setup Failures
+    </div>
+  </div>
+  <div
+    className="css-1jzuaf0-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-nmno0s-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      1
+    </div>
+    <div
+      className="css-kxw3ii-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Setup Failure
+    </div>
+  </div>
+  <div
+    className="css-1cigngw-BadgeContainer-statusToColorVariant emc61an2"
+  >
+    <div
+      className="css-p75ery-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+    >
+      5
+    </div>
+    <div
+      className="css-jdfttd-Status-statusToColorVariant emc61an0 leafygreen-ui-xsga32"
+    >
+      Undispatched
+    </div>
+  </div>
+</div>
+`;
