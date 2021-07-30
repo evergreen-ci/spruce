@@ -41,7 +41,7 @@ const Number = styled(Body)`
   font-weight: bold;
   font-size: 11px;
   letter-spacing: 0.18px;
-  line-height: 8px;
+  line-height: 10px;
 `;
 
 const Status = styled(Body)`

@@ -8,7 +8,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1ccba0n-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-1cey5yh-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-1oqka7u-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       20
     </div>
@@ -22,7 +22,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1ccba0n-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-1cey5yh-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-1oqka7u-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       1
     </div>
@@ -36,7 +36,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1piz7ox-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-uo9hnf-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-1y621kb-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       1
     </div>
@@ -50,7 +50,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-10okst8-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-7ulge0-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-15187zi-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       2
     </div>
@@ -64,7 +64,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-fqaikb-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-3cvswm-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-qr9x52-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       3
     </div>
@@ -78,7 +78,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1jzuaf0-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-nmno0s-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-1gvlr1q-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       4
     </div>
@@ -92,7 +92,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1jzuaf0-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-nmno0s-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-1gvlr1q-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       1
     </div>
@@ -106,7 +106,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     className="css-1cigngw-BadgeContainer-statusToColorVariant emc61an2"
   >
     <div
-      className="css-p75ery-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
+      className="css-wq2ktf-Number-statusToColorVariant emc61an1 leafygreen-ui-xsga32"
     >
       5
     </div>
