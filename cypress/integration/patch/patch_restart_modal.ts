@@ -43,7 +43,7 @@ describe("Restarting a patch", () => {
     // support cy-data elements currently
     cy.dataCy("patch-restart-modal").should(
       "contain.text",
-      "Are you sure you want to restart the 50 selected tasks?"
+      "Are you sure you want to restart the selected tasks?"
     );
     cy.get(statusFilter).click();
     cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
@@ -63,7 +63,7 @@ describe("Restarting a patch", () => {
       // support cy-data elements currently
       cy.dataCy("confirmation-message").should(
         "contain.text",
-        "Are you sure you want to restart the 44 selected tasks?"
+        "Are you sure you want to restart the selected tasks?"
       );
       cy.get(baseStatusFilter).click();
 
@@ -79,7 +79,7 @@ describe("Restarting a patch", () => {
     cy.dataCy("patch-restart-modal").within(() => {
       cy.get(statusFilter).click();
       cy.get(".cy-checkbox")
-        .contains("Aborted")
+        .contains("Failed")
         .as("target")
         .click({ force: true });
       cy.get(statusFilter).click();
