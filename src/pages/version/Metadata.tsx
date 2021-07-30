@@ -83,7 +83,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
             data-cy="commit-queue-position"
             to={getCommitQueueRoute(project)}
           >
-            Commit queue position: {commitQueuePosition}
+            Commit Queue Position: {commitQueuePosition}
           </StyledRouterLink>
         </P2>
       )}
