@@ -56,7 +56,7 @@
   },
   "dependencies": {
     "@ant-design/icons": "4.4.0",
-    "@apollo/client": "3.3.7",
+    "@apollo/client": "3.4.1",
     "@bugsnag/js": "7.6.0",
     "@bugsnag/plugin-react": "7.6.0",
     "@emotion/eslint-plugin": "11.0.0",
