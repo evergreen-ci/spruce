@@ -55,12 +55,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -119,12 +119,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -202,12 +202,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -261,12 +261,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -325,12 +325,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -417,12 +417,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -481,12 +481,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -564,12 +564,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -623,12 +623,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>
@@ -687,12 +687,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-73nv4h-ColumnContainer ejnodhn0"
       >
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           01. Code Health [code_health]
         </small>
         <small
-          className="css-fqhp0-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
+          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </small>

@@ -22,7 +22,7 @@ const AccordionContainer = styled(Disclaimer)`
   margin-top: 20px;
   color: ${gray.dark2};
   font-size: 14px;
-  width: 172px;
+  width: 124px;
   display: flex;
   justify-content: flex-start;
   word-break: break-word;
