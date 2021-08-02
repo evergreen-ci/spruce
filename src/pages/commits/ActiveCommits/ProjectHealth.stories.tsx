@@ -1,5 +1,6 @@
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
+import { BuildVariantAccordion } from "../BuildVariantAccordion";
 import {
   ColumnContainer,
   FlexRowContainer,
@@ -36,6 +37,7 @@ export const WaterfallAbsolute = () => (
               author={version.author}
               message={version.message}
             />
+            <BuildVariantAccordion buildVariants={version.buildVariants} />
           </ColumnContainer>
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -67,6 +69,7 @@ export const WaterfallPercentage = () => (
               author={version.author}
               message={version.message}
             />
+            <BuildVariantAccordion buildVariants={version.buildVariants} />
           </ColumnContainer>
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -94,6 +97,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "setup-failed", count: 5 },
         { status: "unscheduled", count: 2 },
       ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
+      ],
     },
     rolledUpVersions: null,
   },
@@ -110,6 +121,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "known-issue", count: 4 },
         { status: "unscheduled", count: 12 },
         { status: "task-timed-out", count: 2 },
+      ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
       ],
     },
     rolledUpVersions: null,
@@ -141,6 +160,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "pending", count: 5 },
         { status: "unstarted", count: 2 },
       ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
+      ],
     },
     rolledUpVersions: null,
   },
@@ -156,6 +183,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "aborted", count: 3 },
         { status: "undispatched", count: 5 },
         { status: "test-timed-out", count: 2 },
+      ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
       ],
     },
     rolledUpVersions: null,
@@ -173,6 +208,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "dispatched", count: 4 },
         { status: "started", count: 5 },
         { status: "will-run", count: 2 },
+      ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
       ],
     },
     rolledUpVersions: null,
