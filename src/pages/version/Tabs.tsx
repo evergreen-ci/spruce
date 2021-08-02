@@ -47,11 +47,7 @@ const tabMap = ({ taskCount, childPatches }) => ({
     </Tab>
   ),
 });
-export const PatchTabs: React.FC<Props> = ({
-  taskCount,
-  childPatches,
-  isPatch,
-}) => {
+export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   const { id, tab } = useParams<{ id: string; tab: PatchTab }>();
   const history = useHistory();
   const location = useLocation();
@@ -78,15 +74,18 @@ export const PatchTabs: React.FC<Props> = ({
   const previousTab = usePrevious(selectedTab);
   useEffect(() => {
     const query = parseQueryString(location.search);
+    const newTab = Object.keys(tabMap({ taskCount, childPatches }))[
+      selectedTab
+    ];
     const newRoute = getVersionRoute(id, {
-      tab: Object.keys(tabMap)[selectedTab] as PatchTab,
+      tab: newTab as PatchTab,
       ...query,
     });
     history.replace(newRoute);
     if (previousTab !== undefined && previousTab !== selectedTab) {
       patchAnalytics.sendEvent({
         name: "Change Tab",
-        tab: Object.keys(tabMap)[selectedTab] as PatchTab,
+        tab: newTab as PatchTab,
       });
     }
   }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
@@ -101,3 +100,6 @@ export const PatchTabs: React.FC<Props> = ({
     </StyledTabs>
   );
 };
+
+// const ActiveTabs = ({ taskCount, childPatches, isPatch }) => {
+//   return activateTabs.

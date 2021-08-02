@@ -28,7 +28,7 @@ import { validatePatchId } from "utils/validators";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
 import { Metadata } from "./version/Metadata";
-import { PatchTabs } from "./version/PatchTabs";
+import { Tabs } from "./version/Tabs";
 
 export const VersionPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -149,7 +149,7 @@ export const VersionPage: React.FC = () => {
         </PageSider>
         <PageLayout>
           <PageContent>
-            <PatchTabs
+            <Tabs
               taskCount={version?.taskCount}
               childPatches={childPatches}
               isPatch={version.isPatch}
