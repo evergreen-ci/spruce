@@ -57,15 +57,12 @@ export const VersionPage: React.FC = () => {
       dispatchToast.error(
         `There was an error loading the version: ${e.message}`
       ),
-    onCompleted() {
-      setIsLoadingData(false);
-    },
   });
 
   useNetworkStatus(startPolling, stopPolling);
 
   // First check if an id belongs to a patch if so we should fetch the patch,
-  //  to see if it has been activated; otherwise fetch the version directly
+  //  to see if it has been activated and has a version; otherwise fetch the version directly
   useEffect(() => {
     if (validatePatchId(id)) {
       getPatch();
@@ -92,6 +89,13 @@ export const VersionPage: React.FC = () => {
     }
   }, [patchData, getVersion, id]);
 
+  // If we have successfully loaded a version we can show the page
+  useEffect(() => {
+    if (data) {
+      setIsLoadingData(false);
+    }
+  }, [data]);
+
   const { version } = data || {};
   const { status, patch, isPatch, revision, message, order } = version || {};
 
@@ -115,6 +119,7 @@ export const VersionPage: React.FC = () => {
   if (redirectURL) {
     return <Redirect to={redirectURL} />;
   }
+
   if (error) {
     return <PageDoesNotExist />;
   }
