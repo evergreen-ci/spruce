@@ -986,6 +986,7 @@ export type Task = {
   latestExecution: Scalars["Int"];
   logs: TaskLogLinks;
   minQueuePosition: Scalars["Int"];
+  /** @deprecated patchMetadata is deprecated. Use versionMetadata instead. */
   patchMetadata: PatchMetadata;
   patchNumber?: Maybe<Scalars["Int"]>;
   priority?: Maybe<Scalars["Int"]>;
@@ -1003,7 +1004,9 @@ export type Task = {
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
   totalTestCount: Scalars["Int"];
+  /** @deprecated version is deprecated. Use versionMetadata instead. */
   version: Scalars["String"];
+  versionMetadata: Version;
 };
 
 export type BaseTaskInfo = {
@@ -2485,7 +2488,13 @@ export type GetTaskQuery = {
         execution: number;
         displayName: string;
       }>;
-      patchMetadata: { author: string; patchID: string };
+      versionMetadata: {
+        id: string;
+        author: string;
+        isPatch: boolean;
+        revision: string;
+        project: string;
+      };
       project?: Maybe<{ identifier: string }>;
       reliesOn: Array<{
         buildVariant: string;

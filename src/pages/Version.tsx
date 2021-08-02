@@ -93,8 +93,7 @@ export const VersionPage: React.FC = () => {
   }, [patchData, getVersion, id]);
 
   const { version } = data || {};
-  const { status, patch, isPatch, revision, author, message, order } =
-    version || {};
+  const { status, patch, isPatch, revision, message, order } = version || {};
 
   const {
     commitQueuePosition,
@@ -122,7 +121,7 @@ export const VersionPage: React.FC = () => {
 
   return (
     <PageWrapper data-cy="version-page">
-      <BreadCrumb patchAuthor={author} patchNumber={patchNumber} />
+      <BreadCrumb versionMetadata={version} patchNumber={patchNumber} />
       <PageTitle
         loading={false}
         hasData

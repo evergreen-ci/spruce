@@ -63,12 +63,10 @@ export const Task: React.FC = () => {
     patchNumber,
     priority,
     status,
-    version,
     annotation,
     latestExecution,
-    patchMetadata,
+    versionMetadata,
   } = task ?? {};
-  const { author: patchAuthor } = patchMetadata ?? {};
   const attributed = annotation?.issues?.length > 0;
 
   // Set the execution if it isnt provided
@@ -83,15 +81,14 @@ export const Task: React.FC = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
-
+  console.log({ task });
   return (
     <PageWrapper>
       {task && (
         <BreadCrumb
-          patchAuthor={patchAuthor}
-          patchNumber={patchNumber}
           taskName={displayName}
-          versionId={version}
+          patchNumber={patchNumber}
+          versionMetadata={versionMetadata}
         />
       )}
       <PageTitle
