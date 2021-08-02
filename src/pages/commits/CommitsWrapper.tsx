@@ -12,7 +12,6 @@ import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
-
 import { BuildVariantAccordion } from "./BuildVariantAccordion";
 import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
