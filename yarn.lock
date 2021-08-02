@@ -1353,6 +1353,13 @@
   dependencies:
     regenerator-runtime "^0.13.4"
 
+"@babel/runtime@^7.13.10":
+  version "7.14.8"
+  resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.14.8.tgz#7119a56f421018852694290b9f9148097391b446"
+  integrity sha512-twj3L8Og5SaCRCErB4x4ajbvBIVV77CGeFglHpeg5WC5FF8TZzBWXtTJ4MqaD9QszLYTtr+IsaAL2rEUevb+eg==
+  dependencies:
+    regenerator-runtime "^0.13.4"
+
 "@babel/runtime@^7.4.4":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/runtime/-/runtime-7.12.13.tgz#0a21452352b02542db0ffb928ac2d3ca7cb6d66d"
@@ -1594,6 +1601,17 @@
     "@emotion/weak-memoize" "^0.2.5"
     stylis "^4.0.3"
 
+"@emotion/cache@^11.4.0":
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/@emotion/cache/-/cache-11.4.0.tgz#293fc9d9a7a38b9aad8e9337e5014366c3b09ac0"
+  integrity sha512-Zx70bjE7LErRO9OaZrhf22Qye1y4F7iDl+ITjet0J+i+B88PrAOBkKvaAWhxsZf72tDLajwCgfCjJ2dvH77C3g==
+  dependencies:
+    "@emotion/memoize" "^0.7.4"
+    "@emotion/sheet" "^1.0.0"
+    "@emotion/utils" "^1.0.0"
+    "@emotion/weak-memoize" "^0.2.5"
+    stylis "^4.0.3"
+
 "@emotion/core@^10.0.9", "@emotion/core@^10.1.1":
   version "10.1.1"
   resolved "https://registry.yarnpkg.com/@emotion/core/-/core-10.1.1.tgz#c956c1365f2f2481960064bcb8c4732e5fb612c3"
@@ -1622,6 +1640,17 @@
     "@emotion/serialize" "^0.11.15"
     "@emotion/utils" "0.11.3"
     babel-plugin-emotion "^10.0.27"
+
+"@emotion/css@^11.1.3":
+  version "11.1.3"
+  resolved "https://registry.yarnpkg.com/@emotion/css/-/css-11.1.3.tgz#9ed44478b19e5d281ccbbd46d74d123d59be793f"
+  integrity sha512-RSQP59qtCNTf5NWD6xM08xsQdCZmVYnX/panPYvB6LQAPKQB6GL49Njf0EMbS3CyDtrlWsBcmqBtysFvfWT3rA==
+  dependencies:
+    "@emotion/babel-plugin" "^11.0.0"
+    "@emotion/cache" "^11.1.3"
+    "@emotion/serialize" "^1.0.0"
+    "@emotion/sheet" "^1.0.0"
+    "@emotion/utils" "^1.0.0"
 
 "@emotion/eslint-plugin@11.0.0":
   version "11.0.0"
@@ -1681,6 +1710,19 @@
     "@emotion/weak-memoize" "^0.2.5"
     hoist-non-react-statics "^3.3.1"
 
+"@emotion/react@^11.4.0":
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.4.0.tgz#2465ad7b073a691409b88dfd96dc17097ddad9b7"
+  integrity sha512-4XklWsl9BdtatLoJpSjusXhpKv9YVteYKh9hPKP1Sxl+mswEFoUe0WtmtWjxEjkA51DQ2QRMCNOvKcSlCQ7ivg==
+  dependencies:
+    "@babel/runtime" "^7.13.10"
+    "@emotion/cache" "^11.4.0"
+    "@emotion/serialize" "^1.0.2"
+    "@emotion/sheet" "^1.0.1"
+    "@emotion/utils" "^1.0.0"
+    "@emotion/weak-memoize" "^0.2.5"
+    hoist-non-react-statics "^3.3.1"
+
 "@emotion/serialize@^0.11.15", "@emotion/serialize@^0.11.16":
   version "0.11.16"
   resolved "https://registry.yarnpkg.com/@emotion/serialize/-/serialize-0.11.16.tgz#dee05f9e96ad2fb25a5206b6d759b2d1ed3379ad"
@@ -1702,6 +1744,27 @@
     "@emotion/unitless" "^0.7.5"
     "@emotion/utils" "^1.0.0"
     csstype "^3.0.2"
+
+"@emotion/serialize@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@emotion/serialize/-/serialize-1.0.2.tgz#77cb21a0571c9f68eb66087754a65fa97bfcd965"
+  integrity sha512-95MgNJ9+/ajxU7QIAruiOAdYNjxZX7G2mhgrtDWswA21VviYIRP1R5QilZ/bDY42xiKsaktP4egJb3QdYQZi1A==
+  dependencies:
+    "@emotion/hash" "^0.8.0"
+    "@emotion/memoize" "^0.7.4"
+    "@emotion/unitless" "^0.7.5"
+    "@emotion/utils" "^1.0.0"
+    csstype "^3.0.2"
+
+"@emotion/server@^11.4.0":
+  version "11.4.0"
+  resolved "https://registry.yarnpkg.com/@emotion/server/-/server-11.4.0.tgz#3ae1d74cb31c7d013c3c76e88c0c4439076e9f66"
+  integrity sha512-IHovdWA3V0DokzxLtUNDx4+hQI82zUXqQFcVz/om2t44O0YSc+NHB+qifnyAOoQwt3SXcBTgaSntobwUI9gnfA==
+  dependencies:
+    "@emotion/utils" "^1.0.0"
+    html-tokenize "^2.0.0"
+    multipipe "^1.0.2"
+    through "^2.3.8"
 
 "@emotion/sheet@0.9.4":
   version "0.9.4"
@@ -2462,6 +2525,14 @@
     "@leafygreen-ui/lib" "^7.0.0"
     lodash "^4.17.21"
 
+"@leafygreen-ui/box@^3.0.6":
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/box/-/box-3.0.6.tgz#319fa2e20c5565255c605cff27019f3d87964a85"
+  integrity sha512-KuefTm/DRWAhbw6eT7AEu+vg8XXQZPXJHsmnP8E6YDUswBage7jPcWgUSMCnV79ftvShFoVWEJ+wLeex89L2rA==
+  dependencies:
+    "@leafygreen-ui/lib" "^9.0.0"
+    lodash "^4.17.21"
+
 "@leafygreen-ui/button@^11.0.2":
   version "11.0.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-11.0.2.tgz#cc5e7c05283923623826200769a601fdd58ecaed"
@@ -2486,17 +2557,17 @@
     "@leafygreen-ui/ripple" "^1.1.1"
     "@leafygreen-ui/tokens" "^0.5.1"
 
-"@leafygreen-ui/button@^12.0.2":
-  version "12.0.2"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-12.0.2.tgz#d87c1a78f6efd74084bfafc5788d3adde385efac"
-  integrity sha512-PGo//TaHFLsm/2MM49woCfYXGyE3M2YQ6p12n3wNTW2YyxtQBNoL3/51VVQi7/rnrrv4ynMfDdSWQsRq9W6fww==
+"@leafygreen-ui/button@^12.0.5":
+  version "12.0.5"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/button/-/button-12.0.5.tgz#0ce0b076bdececa3cd02b1b9b0e6d134236b5120"
+  integrity sha512-Atr7y7BfewlcbqwZHHWo7yhP14EHxUSxJ7ao5jXJWVX6+x1hBVcfd9m3/nN6LBCLOpGf38jAXhT2iWBV7KtktA==
   dependencies:
-    "@leafygreen-ui/box" "^3.0.4"
-    "@leafygreen-ui/emotion" "^3.0.1"
-    "@leafygreen-ui/lib" "^7.0.0"
-    "@leafygreen-ui/palette" "^3.2.1"
+    "@leafygreen-ui/box" "^3.0.6"
+    "@leafygreen-ui/emotion" "^4.0.0"
+    "@leafygreen-ui/lib" "^9.0.0"
+    "@leafygreen-ui/palette" "^3.2.2"
     "@leafygreen-ui/ripple" "^1.1.1"
-    "@leafygreen-ui/tokens" "^0.5.1"
+    "@leafygreen-ui/tokens" "^0.5.3"
 
 "@leafygreen-ui/card@5.1.0":
   version "5.1.0"
@@ -2559,6 +2630,15 @@
     create-emotion "^10.0.7"
     create-emotion-server "10.0.27"
     emotion "^10.0.7"
+
+"@leafygreen-ui/emotion@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/emotion/-/emotion-4.0.0.tgz#49ce6c4a10dea037f5a9c20621f4dc1f10d915ed"
+  integrity sha512-nr2g6OFsy+psaMto3H4HQ1ivM1tCwd9k1bbR5WH4U7YibDagfBekFTwlhohmC/K7hUM/eDVPGw0w4zQyC+BwZg==
+  dependencies:
+    "@emotion/css" "^11.1.3"
+    "@emotion/react" "^11.4.0"
+    "@emotion/server" "^11.4.0"
 
 "@leafygreen-ui/hooks@^6.0.0":
   version "6.0.0"
@@ -2716,6 +2796,16 @@
     polished "^2.3.0"
     prop-types "^15.0.0"
 
+"@leafygreen-ui/lib@^9.0.0":
+  version "9.0.0"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/lib/-/lib-9.0.0.tgz#9dd517bce5d92f0dae7ca5a1ed18c90d5a4b79b4"
+  integrity sha512-Uo2tOfkhCYiSKrYCi8+CrTEcyPhf+iczNP+wPKlQjKOLa+6zJaWX/0AXLiQX1CuO0MXdYgNvsB5510q7hDiqdg==
+  dependencies:
+    "@leafygreen-ui/emotion" "^4.0.0"
+    facepaint "^1.2.1"
+    polished "^2.3.0"
+    prop-types "^15.0.0"
+
 "@leafygreen-ui/menu@9.1.2":
   version "9.1.2"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/menu/-/menu-9.1.2.tgz#6e472b38cb1ebb4b2e22e457f933a238ee181521"
@@ -2752,6 +2842,11 @@
   version "3.2.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.2.1.tgz#f6171062f24918c66a7c4ad54fc0e3d67399a70c"
   integrity sha512-E7gAN6eEWqsNIQrySABesXckJDJMLnzr3Z0BDQOBEmUdnYzXefvBY1e/zhHE6jb4rxwiOWnzwi1Zb2me50nOmQ==
+
+"@leafygreen-ui/palette@^3.2.2":
+  version "3.2.2"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/palette/-/palette-3.2.2.tgz#9fc9a8051d9a07cbc50a7f8918f33e146d717070"
+  integrity sha512-Oqjz6Qfapm8jB9rw4r9C1yq5XFJRSZ6xSCCGu6Oz8nR0o66xzCxsp0h96tPcrSFWwOrJJxYsQPSGHVsUmTJDzw==
 
 "@leafygreen-ui/popover@^7.1.0":
   version "7.1.2"
@@ -2945,6 +3040,13 @@
   integrity sha512-1rnFI1NSNtddMtRzwy4rS/4NF3rO7eK1dbw/+h+VAqY1OZHNJinV0R283QJajx2dMttm20mOpTN6v099kM0SxQ==
   dependencies:
     "@leafygreen-ui/lib" "^6.0.1"
+
+"@leafygreen-ui/tokens@^0.5.3":
+  version "0.5.3"
+  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tokens/-/tokens-0.5.3.tgz#1c6352501fbc59352848e449805bce8402917f51"
+  integrity sha512-3K51WA5F23GXpRNi2h4VWF5rIhWXaLK4vEocJCXmwG+2Bdo3uIS43VQmbT4KqVv9e25gzYNuJLBi7hyS6v1naw==
+  dependencies:
+    "@leafygreen-ui/lib" "^9.0.0"
 
 "@leafygreen-ui/tooltip@6.2.1":
   version "6.2.1"
