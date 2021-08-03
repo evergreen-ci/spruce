@@ -52,18 +52,84 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -116,18 +182,84 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -199,18 +331,84 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -258,18 +456,84 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -322,18 +586,84 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -414,18 +744,84 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -478,18 +874,84 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -561,18 +1023,84 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -620,18 +1148,84 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <div
@@ -684,18 +1278,84 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         </small>
       </div>
       <div
-        className="css-73nv4h-ColumnContainer ejnodhn0"
+        className="css-18e9sx1-ColumnContainer e10nx09t0"
       >
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          01. Code Health [code_health]
-        </small>
-        <small
-          className="css-1wdo5ex-AccordionContainer ejnodhn1 leafygreen-ui-18tqmm7"
-        >
-          02. Packaging (RPM - RHEL7) [package_rpm]
-        </small>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              01. Code Health [code_health]
+            </div>
+          </div>
+        </div>
+        <div>
+          <div
+            className="css-16f4vqr-AccordionContainer e10nx09t1 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <span
+            className="css-58nl5l-AccordionToggle ev0bopr2"
+            data-cy="accordion-toggle"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="Caret Right Icon"
+              className=""
+              fill="none"
+              height={16}
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M10.796 7.321a.554.554 0 010 .858l-3.82 3.181c-.382.319-.976.058-.976-.429V4.57c0-.487.594-.748.976-.43l3.82 3.182z"
+                fill="currentColor"
+              />
+            </svg>
+            
+          </span>
+          <div
+            className="css-lkr6wc-AnimatedAccordion ev0bopr1"
+          >
+            <div
+              className="css-1nylm8s-ContentsContainer ev0bopr0"
+            >
+              02. Packaging (RPM - RHEL7) [package_rpm]
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

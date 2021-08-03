@@ -1,6 +1,6 @@
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
-import { BuildVariantAccordion } from "../BuildVariantAccordion";
+import { BuildVariantAccordionContainer } from "../BuildVariantAccordionContainer";
 import {
   ColumnContainer,
   FlexRowContainer,
@@ -37,7 +37,9 @@ export const WaterfallAbsolute = () => (
               author={version.author}
               message={version.message}
             />
-            <BuildVariantAccordion buildVariants={version.buildVariants} />
+            <BuildVariantAccordionContainer
+              buildVariants={version.buildVariants}
+            />
           </ColumnContainer>
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -69,7 +71,9 @@ export const WaterfallPercentage = () => (
               author={version.author}
               message={version.message}
             />
-            <BuildVariantAccordion buildVariants={version.buildVariants} />
+            <BuildVariantAccordionContainer
+              buildVariants={version.buildVariants}
+            />
           </ColumnContainer>
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
