@@ -16,15 +16,13 @@ describe("CommitChart", () => {
   test("Display right amount of bars", () => {
     const { queryAllByDataCy } = render(
       <FlexRowContainer numCommits={versions.length}>
-        {versions.map((item) => (
-          <CommitChart
-            key={item.version.id}
-            groupedTaskStats={groupedTaskData[item.version.id].stats}
-            total={groupedTaskData[item.version.id].total}
-            max={max}
-            chartType={ChartTypes.Absolute}
-          />
-        ))}
+        <CommitChart
+          key={versions[0].version.id}
+          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+          total={groupedTaskData[versions[0].version.id].total}
+          max={max}
+          chartType={ChartTypes.Absolute}
+        />
       </FlexRowContainer>
     );
     expect(queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
@@ -33,15 +31,13 @@ describe("CommitChart", () => {
   test("Hovering over the chart should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <FlexRowContainer numCommits={versions.length}>
-        {versions.map((item) => (
-          <CommitChart
-            key={item.version.id}
-            groupedTaskStats={groupedTaskData[item.version.id].stats}
-            total={groupedTaskData[item.version.id].total}
-            max={max}
-            chartType={ChartTypes.Absolute}
-          />
-        ))}
+        <CommitChart
+          key={versions[0].version.id}
+          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+          total={groupedTaskData[versions[0].version.id].total}
+          max={max}
+          chartType={ChartTypes.Absolute}
+        />
       </FlexRowContainer>
     );
     jest.useFakeTimers();
@@ -58,15 +54,13 @@ describe("CommitChart", () => {
   test("Should show all umbrella statuses (normal and dimmed) and their counts ", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
       <FlexRowContainer numCommits={versions.length}>
-        {versions.map((item) => (
-          <CommitChart
-            key={item.version.id}
-            groupedTaskStats={groupedTaskData[item.version.id].stats}
-            total={groupedTaskData[item.version.id].total}
-            max={max}
-            chartType={ChartTypes.Absolute}
-          />
-        ))}
+        <CommitChart
+          key={versions[0].version.id}
+          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+          total={groupedTaskData[versions[0].version.id].total}
+          max={max}
+          chartType={ChartTypes.Absolute}
+        />
       </FlexRowContainer>
     );
     jest.useFakeTimers();
@@ -79,7 +73,6 @@ describe("CommitChart", () => {
     });
     expect(queryByDataCy("commit-chart-tooltip")).toBeInTheDocument();
     expect(queryAllByDataCy("current-status-count")).toHaveLength(4);
-    expect(queryAllByDataCy("missing-status-count")).toHaveLength(3);
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("5");

@@ -30,14 +30,8 @@ export const CommitChartTooltip: React.FC<Props> = ({
     >
       <TooltipContainer data-cy="commit-chart-tooltip" css={sharedCss}>
         {groupedTaskStats.map(({ color, count, statuses, umbrellaStatus }) => (
-          <FlexColumnContainer key={color}>
-            <TotalCountContainer data-cy="current-status-count">
-              <Circle color={color} />
-              <StatusText
-                css={sharedCss}
-              >{`Total ${taskStatusToCopy[umbrellaStatus]}`}</StatusText>
-              <NumberText css={sharedCss}>{count}</NumberText>
-            </TotalCountContainer>
+          <FlexColumnContainer key={color} data-cy="current-status-count">
+            <TotalCount status={umbrellaStatus} color={color} count={count} />
             {umbrellaStatus === TaskStatus.Failed && (
               <SubStatusText css={sharedCss}>{`(${statuses.join(
                 ", "
@@ -46,22 +40,39 @@ export const CommitChartTooltip: React.FC<Props> = ({
           </FlexColumnContainer>
         ))}
         {zeroCountStatus.map((status) => (
-          <TotalCountContainer
-            opacity={0.4}
-            data-cy="missing-status-count"
+          <TotalCount
             key={status}
-          >
-            <Circle color={mapTaskStatusToColor[status]} />
-            <StatusText
-              css={sharedCss}
-            >{`Total ${taskStatusToCopy[status]}`}</StatusText>
-            <NumberText css={sharedCss}>0</NumberText>
-          </TotalCountContainer>
+            status={status}
+            color={mapTaskStatusToColor[status]}
+            count={0}
+            active={false}
+          />
         ))}
       </TooltipContainer>
     </Tooltip>
   );
 };
+
+interface TotalCountProps {
+  color: string;
+  count: number;
+  status: string;
+  active?: boolean;
+}
+export const TotalCount: React.FC<TotalCountProps> = ({
+  color,
+  count,
+  status,
+  active = true,
+}) => (
+  <TotalCountContainer active={active}>
+    <Circle color={color} />
+    <StatusText
+      css={sharedCss}
+    >{`Total ${taskStatusToCopy[status]}`}</StatusText>
+    <NumberText css={sharedCss}>{count}</NumberText>
+  </TotalCountContainer>
+);
 
 const TooltipContainer = styled.div`
   margin: auto;
@@ -81,14 +92,14 @@ const FlexColumnContainer = styled.div`
   color: ${gray.dark2};
 `;
 
-const TotalCountContainer = styled.div<{ opacity?: number }>`
+const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
   color: ${gray.dark2};
-  opacity: ${({ opacity }) => opacity || 1};
+  opacity: ${({ active }) => (active ? 1 : 0.4)};
 `;
 
 const Circle = styled.div<{ color: string }>`
@@ -114,10 +125,10 @@ const SubStatusText = styled(Disclaimer)`
   width: 90px;
   text-align: left;
   margin: 2px 0px 0px 20px;
+  word-break: break-word;
 `;
 
 const sharedCss = css`
   font-size: 9px;
-  letter-spacing: 0.15px;
   line-height: 12px;
 `;

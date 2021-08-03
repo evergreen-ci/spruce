@@ -62,7 +62,7 @@ export function calculateBarHeight(
   return `${(value / max) * 100}%`;
 }
 
-// Find zero count status colors for commit chart tooltip
+// Find zero count statuses for commit chart tooltip
 export function getZeroCountStatus(currColors: ColorCount[]) {
   const existingStatusSet = new Set(
     currColors.map(({ umbrellaStatus }) => umbrellaStatus)
