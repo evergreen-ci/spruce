@@ -11,14 +11,14 @@ import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { useToastContext } from "context/toast";
 import {
+  BuildVariantsQuery,
+  BuildVariantsQueryVariables,
   Patch,
-  PatchBuildVariantsQuery,
-  PatchBuildVariantsQueryVariables,
   RestartPatchMutation,
   RestartPatchMutationVariables,
 } from "gql/generated/types";
 import { RESTART_PATCH } from "gql/mutations";
-import { GET_PATCH_BUILD_VARIANTS } from "gql/queries";
+import { GET_BUILD_VARIANTS } from "gql/queries";
 import { usePatchStatusSelect, usePrevious } from "hooks";
 import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { PatchTasksQueryParams } from "types/task";
@@ -54,27 +54,28 @@ const VersionRestartModal: React.FC<Props> = ({
   >(RESTART_PATCH, {
     onCompleted: () => {
       onOk();
-      dispatchToast.success(`Successfully restarted patch!`);
+      dispatchToast.success(`Successfully restarted tasks!`);
     },
     onError: (err) => {
       onOk();
-      dispatchToast.error(`Error while restarting patch: '${err.message}'`);
+      dispatchToast.error(`Error while restarting tasks: '${err.message}'`);
     },
     refetchQueries,
   });
-  const { data } = useQuery<
-    PatchBuildVariantsQuery,
-    PatchBuildVariantsQueryVariables
-  >(GET_PATCH_BUILD_VARIANTS, {
-    variables: { patchId: versionId },
-  });
-  const { patchBuildVariants } = data || {};
+  const { data } = useQuery<BuildVariantsQuery, BuildVariantsQueryVariables>(
+    GET_BUILD_VARIANTS,
+    {
+      variables: { id: versionId },
+    }
+  );
+  const { version } = data || {};
+  const { buildVariants } = version || {};
   const [
     selectedTasks,
     patchStatusFilterTerm,
     baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
-  ] = usePatchStatusSelect(patchBuildVariants);
+  ] = usePatchStatusSelect(buildVariants);
   const { search } = useLocation();
   const prevSearch = usePrevious(search);
   useEffect(() => {
@@ -138,7 +139,7 @@ const VersionRestartModal: React.FC<Props> = ({
       ]}
       data-cy="patch-restart-modal"
     >
-      {patchBuildVariants && (
+      {buildVariants && (
         <>
           <Row>
             <TaskStatusFilters
@@ -150,7 +151,7 @@ const VersionRestartModal: React.FC<Props> = ({
               filterWidth="50%"
             />
           </Row>
-          {patchBuildVariants.map((patchBuildVariant) => (
+          {buildVariants.map((patchBuildVariant) => (
             <BuildVariantAccordian
               key={`accoridan_${patchBuildVariant.variant}`}
               tasks={patchBuildVariant.tasks}

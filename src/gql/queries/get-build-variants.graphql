@@ -1,15 +1,16 @@
 query BuildVariants($id: String!) {
-    version(id: $id) {
+  version(id: $id) {
+    id
+    buildVariants(options: {}) {
+      variant
+      displayName
+      tasks {
         id
-        buildVariants(options: {}) {
-            variant
-            displayName
-            tasks{
-                id
-                execution
-                status
-            }
-        }
+        execution
+        status
+        displayName
+        baseStatus
+      }
     }
+  }
 }
-

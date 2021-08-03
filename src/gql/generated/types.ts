@@ -1844,7 +1844,15 @@ export type BuildVariantsQuery = {
           variant: string;
           displayName: string;
           tasks?: Maybe<
-            Array<Maybe<{ id: string; execution: number; status: string }>>
+            Array<
+              Maybe<{
+                id: string;
+                execution: number;
+                status: string;
+                displayName: string;
+                baseStatus?: Maybe<string>;
+              }>
+            >
           >;
         }>
       >
