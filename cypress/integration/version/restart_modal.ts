@@ -1,20 +1,20 @@
 // / <reference types="Cypress" />
 
-describe("Restarting a patch", () => {
+describe("Restarting a version", () => {
   before(() => {
     cy.login();
+    cy.viewport(1920, 1600);
   });
 
   beforeEach(() => {
-    cy.viewport(1920, 1600);
     cy.preserveCookies();
   });
 
   it("Clicking on the Restart button opens a patch restart modal", () => {
     cy.visit(path);
-    cy.dataCy("patch-restart-modal").should("not.be.visible");
+    cy.dataCy("version-restart-modal").should("not.be.visible");
     cy.dataCy("restart-patch").click();
-    cy.dataCy("patch-restart-modal").should("be.be.visible");
+    cy.dataCy("version-restart-modal").should("be.be.visible");
   });
 
   it("Clicking on a variant should toggle an accordion drop down of tasks", () => {
@@ -36,27 +36,24 @@ describe("Restarting a patch", () => {
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
     cy.get(statusFilter).click();
-    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
+    cy.getInputByLabel("All").click({ force: true });
     cy.get(statusFilter).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
     // support cy-data elements currently
-    cy.dataCy("patch-restart-modal").should(
+    cy.dataCy("version-restart-modal").should(
       "contain.text",
       "Are you sure you want to restart the 50 selected tasks?"
     );
     cy.get(statusFilter).click();
-    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
+    cy.getInputByLabel("All").click({ force: true });
     cy.get(statusFilter).click();
   });
 
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
-    cy.dataCy("patch-restart-modal").within(() => {
+    cy.dataCy("version-restart-modal").within(() => {
       cy.get(baseStatusFilter).click();
-      cy.get(".cy-checkbox")
-        .contains("Success")
-        .as("target")
-        .click({ force: true });
+      cy.getInputByLabel("Success").click({ force: true });
       cy.get(baseStatusFilter).click();
 
       // ideally this would target the text field itself but leafygreen Body tags dont
@@ -67,27 +64,21 @@ describe("Restarting a patch", () => {
       );
       cy.get(baseStatusFilter).click();
 
-      cy.get(".cy-checkbox")
-        .contains("Success")
-        .as("target")
-        .click({ force: true });
+      cy.getInputByLabel("Success").click({ force: true });
       cy.get(baseStatusFilter).click();
     });
   });
 
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
-    cy.dataCy("patch-restart-modal").within(() => {
+    cy.dataCy("version-restart-modal").within(() => {
       cy.get(statusFilter).click();
-      cy.get(".cy-checkbox")
-        .contains("Aborted")
-        .as("target")
-        .click({ force: true });
+      cy.getInputByLabel("Aborted").click({ force: true });
       cy.get(statusFilter).click();
       cy.dataCy("restart-patch-button").click();
     });
-    cy.dataCy("patch-restart-modal").should("not.be.be.visible");
+    cy.dataCy("version-restart-modal").should("not.be.be.visible");
     cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should("contain.text", `Successfully restarted patch`);
+    cy.dataCy("toast").should("contain.text", `Successfully restarted tasks`);
   });
 
   xit("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {

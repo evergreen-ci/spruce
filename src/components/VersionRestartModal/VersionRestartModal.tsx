@@ -137,7 +137,7 @@ const VersionRestartModal: React.FC<Props> = ({
           Restart
         </Button>,
       ]}
-      data-cy="patch-restart-modal"
+      data-cy="version-restart-modal"
     >
       {buildVariants && (
         <>

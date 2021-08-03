@@ -111,9 +111,11 @@ describe("Tasks filters", () => {
       const taskStatuses = [
         "All",
         "Failed",
+        "Aborted",
         "Known Issue",
         "Success",
-        "Unscheduled",
+        "Running",
+        "Will Run",
         "Aborted",
       ];
       cy.getInputByLabel("All").check({ force: true });
