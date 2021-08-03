@@ -18,13 +18,13 @@ export interface FilterState {
 interface TaskFilterProps {
   filters: FilterState;
   onFilterChange: React.Dispatch<Partial<FilterState>>;
-  patchId: string;
+  versionId: string;
 }
 
 export const TaskFilters: React.FC<TaskFilterProps> = ({
   filters,
   onFilterChange,
-  patchId,
+  versionId,
 }) => (
   <FiltersWrapper>
     <Input
@@ -48,7 +48,7 @@ export const TaskFilters: React.FC<TaskFilterProps> = ({
         onFilterChange({ baseStatuses, page: 0 })
       }
       onChangeStatusFilter={(statuses) => onFilterChange({ statuses, page: 0 })}
-      patchId={patchId}
+      versionId={versionId}
       selectedBaseStatuses={filters.baseStatuses}
       selectedStatuses={filters.statuses}
     />

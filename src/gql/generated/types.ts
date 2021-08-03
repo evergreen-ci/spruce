@@ -411,6 +411,8 @@ export type Version = {
   baseVersionID?: Maybe<Scalars["String"]>;
   versionTiming?: Maybe<VersionTiming>;
   parameters: Array<Parameter>;
+  taskStatuses: Array<Scalars["String"]>;
+  baseTaskStatuses: Array<Scalars["String"]>;
 };
 
 export type VersionTaskStatusCountsArgs = {
@@ -2373,6 +2375,18 @@ export type TaskLogsQueryVariables = Exact<{
 
 export type TaskLogsQuery = {
   taskLogs: { taskLogs: Array<LogMessageFragment> };
+};
+
+export type GetTaskStatusesQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type GetTaskStatusesQuery = {
+  version: {
+    id: string;
+    taskStatuses: Array<string>;
+    baseTaskStatuses: Array<string>;
+  };
 };
 
 export type TaskTestsQueryVariables = Exact<{

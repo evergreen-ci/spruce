@@ -62,7 +62,7 @@ export const TaskFilters: React.FC = () => {
       <TaskStatusFilters
         onChangeBaseStatusFilter={onChangeBaseStatusFilter}
         onChangeStatusFilter={onChangeStatusFilter}
-        patchId={patchId}
+        versionId={patchId}
         selectedBaseStatuses={selectedBaseStatuses}
         selectedStatuses={selectedStatuses}
       />

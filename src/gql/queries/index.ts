@@ -33,6 +33,7 @@ import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
+import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
 import GET_TASK from "./get-task.graphql";
 import GET_TESTS from "./get-tests.graphql";
@@ -66,6 +67,7 @@ export {
   GET_TASK_TESTS,
   GET_TASK,
   GET_TASK_ALL_EXECUTIONS,
+  GET_TASK_STATUSES,
   GET_TESTS,
   GET_PATCH_TASK_STATUSES,
   GET_USER_CONFIG,

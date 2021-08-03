@@ -115,7 +115,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
               </InlineCode>
             </p>
             <TaskFilters
-              patchId={childPatchId}
+              versionId={childPatchId}
               filters={variables}
               onFilterChange={setVariables}
             />

@@ -145,7 +145,7 @@ const VersionRestartModal: React.FC<Props> = ({
             <TaskStatusFilters
               onChangeBaseStatusFilter={setBaseStatusFilterTerm}
               onChangeStatusFilter={setPatchStatusFilterTerm}
-              patchId={versionId}
+              versionId={versionId}
               selectedBaseStatuses={baseStatusFilterTerm}
               selectedStatuses={patchStatusFilterTerm}
               filterWidth="50%"
