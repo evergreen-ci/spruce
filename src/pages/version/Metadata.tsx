@@ -24,12 +24,12 @@ interface Props {
       makespan?: number;
       timeTaken?: number;
     };
+    commitQueuePosition?: number;
+    isPatch: boolean;
     parameters: {
       key: string;
       value: string;
     }[];
-    commitQueuePosition?: number;
-    isPatch: boolean;
   };
 }
 
