@@ -28,9 +28,10 @@ const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
 }
+let nTimes = 0;
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
-  const { id: resourceId } = useParams<{ id: string }>();
+  const { id: versionId } = useParams<{ id: string }>();
 
   const { search } = useLocation();
   const router = useHistory();
@@ -38,7 +39,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const dispatchToast = useToastContext();
 
   const updateQueryParams = useUpdateURLQueryParams();
-  const queryVariables = getQueryVariables(search, resourceId);
+  const queryVariables = getQueryVariables(search, versionId);
 
   const { sorts, limit, page } = queryVariables;
 
@@ -67,6 +68,8 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
+  console.log(`Rendered component${nTimes}`);
+  nTimes += 1;
   return (
     <>
       <TaskFilters />
@@ -82,7 +85,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
           <PaddedButton // @ts-expect-error
             onClick={() => {
               patchAnalytics.sendEvent({ name: "Clear all filter" });
-              router.push(getVersionRoute(resourceId));
+              router.push(getVersionRoute(versionId));
             }}
             data-cy="clear-all-filters"
           >
@@ -157,7 +160,7 @@ const getStatuses = (rawStatuses: string[] | string): string[] => {
 
 const getQueryVariables = (
   search: string,
-  resourceId: string
+  versionId: string
 ): PatchTasksQueryVariables => {
   const {
     [PatchTasksQueryParams.Variant]: variant,
@@ -168,7 +171,7 @@ const getQueryVariables = (
   } = parseQueryString(search);
 
   return {
-    patchId: resourceId,
+    patchId: versionId,
     sorts: parseSortString(sorts),
     variant: getString(variant),
     taskName: getString(taskName),

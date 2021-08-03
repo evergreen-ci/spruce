@@ -11,20 +11,18 @@ const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS
 describe("Tasks filters", () => {
   before(() => {
     cy.login();
-    cy.visit(pathTasks);
+    cy.visit(pathURLWithFilters);
   });
   beforeEach(() => {
     cy.preserveCookies();
   });
   afterEach(() => {
+    cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();
   });
 
   it("Should clear any filters with the Clear All Filters button and reset the table to its default state", () => {
-    cy.visit(pathURLWithFilters);
-    cy.location().should((loc) => {
-      expect(loc.href).to.equal(loc.origin + pathURLWithFilters);
-    });
+    cy.dataCy("tasks-table").should("exist");
     cy.dataCy("clear-all-filters").click();
     cy.location().should((loc) => {
       expect(loc.href).to.equal(loc.origin + pathTasks);
@@ -126,8 +124,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search:
-          "all,all-failures,failed,aborted,known-issue,success,unscheduled,aborted",
+        search: "all",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });

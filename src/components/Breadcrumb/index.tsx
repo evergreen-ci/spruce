@@ -96,26 +96,26 @@ const PatchBreadcrumb: React.FC<PatchBreadcrumbProps> = ({
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
-      <Breadcrumb.Item>
-        {isTask ? (
-          <StyledP1>
-            <StyledBreadcrumbLink
-              data-cy="bc-patch"
-              to={getVersionRoute(versionId)}
-              onClick={() =>
-                analytics.sendEvent({
-                  name: "Click Link",
-                  link: "patch",
-                })
-              }
-            >
-              {patch}
-            </StyledBreadcrumbLink>
-          </StyledP1>
-        ) : (
+      {isTask ? (
+        <Breadcrumb.Item>
+          <StyledBreadcrumbLink
+            data-cy="bc-patch"
+            to={getVersionRoute(versionId)}
+            onClick={() =>
+              analytics.sendEvent({
+                name: "Click Link",
+                link: "patch",
+              })
+            }
+          >
+            {patch}
+          </StyledBreadcrumbLink>
+        </Breadcrumb.Item>
+      ) : (
+        <Breadcrumb.Item>
           <H3 data-cy="bc-patch">{patch}</H3>
-        )}
-      </Breadcrumb.Item>
+        </Breadcrumb.Item>
+      )}
     </>
   );
 };
@@ -173,7 +173,9 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
           </StyledP1>
         </Breadcrumb.Item>
       ) : (
-        <H3 data-cy="bc-version"> {revision?.substr(0, 7)}</H3>
+        <Breadcrumb.Item>
+          <H3 data-cy="bc-version"> {revision?.substr(0, 7)}</H3>
+        </Breadcrumb.Item>
       )}
     </>
   );

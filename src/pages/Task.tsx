@@ -81,7 +81,6 @@ export const Task: React.FC = () => {
   if (error) {
     return <PageDoesNotExist />;
   }
-  console.log({ task });
   return (
     <PageWrapper>
       {task && (
