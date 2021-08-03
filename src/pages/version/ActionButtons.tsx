@@ -4,11 +4,11 @@ import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
   RestartPatch,
-  UnschedulePatchTasks,
+  UnscheduleTasks,
   SetPatchPriority,
   EnqueuePatch,
   AddNotification,
-  DisablePatch,
+  DisableTasks,
 } from "components/PatchActionButtons";
 import { PageButtonRow } from "components/styles";
 import { Patch } from "gql/generated/types";
@@ -18,44 +18,47 @@ interface ActionButtonProps {
   canEnqueueToCommitQueue: boolean;
   canReconfigure: boolean;
   patchDescription: string;
-  patchId: string;
+  versionId: string;
   childPatches: Partial<Patch>[];
+  isPatch: boolean;
 }
 
 export const ActionButtons: React.FC<ActionButtonProps> = ({
   canEnqueueToCommitQueue,
   canReconfigure,
   patchDescription,
-  patchId,
+  versionId,
   childPatches,
+  isPatch,
 }) => {
   const dropdownItems = [
     <LinkToReconfigurePage
       key="reconfigure"
-      patchId={patchId}
+      patchId={versionId}
       disabled={!canReconfigure}
     />,
-    <UnschedulePatchTasks
-      patchId={patchId}
+    <UnscheduleTasks
+      patchId={versionId}
       refetchQueries={["Patch"]}
-      key="unschedule"
+      key="unschedule-tasks"
     />,
-    <DisablePatch
-      key="disable-patch"
-      patchId={patchId}
+    <DisableTasks
+      key="disable-tasks"
+      patchId={versionId}
       refetchQueries={["Patch"]}
     />,
     <ScheduleUndispatchedBaseTasks
       key="schedule-undispatched-base-tasks"
-      patchId={patchId}
+      patchId={versionId}
+      disabled={!isPatch}
     />,
     <SetPatchPriority
-      patchId={patchId}
+      patchId={versionId}
       key="priority"
       refetchQueries={["Patch"]}
     />,
     <EnqueuePatch
-      patchId={patchId}
+      patchId={versionId}
       commitMessage={patchDescription}
       key="enqueue"
       disabled={!canEnqueueToCommitQueue}
@@ -67,17 +70,17 @@ export const ActionButtons: React.FC<ActionButtonProps> = ({
     <>
       <PageButtonRow>
         <SchedulePatchTasks
-          patchId={patchId}
+          patchId={versionId}
           isButton
           refetchQueries={["Patch"]}
         />
         <RestartPatch
-          patchId={patchId}
+          patchId={versionId}
           childPatches={childPatches}
           isButton
           refetchQueries={["Patch"]}
         />
-        <AddNotification patchId={patchId} refetchQueries={["Patch"]} />
+        <AddNotification patchId={versionId} refetchQueries={["Patch"]} />
         <ButtonDropdown dropdownItems={dropdownItems} loading={false} />
       </PageButtonRow>
     </>

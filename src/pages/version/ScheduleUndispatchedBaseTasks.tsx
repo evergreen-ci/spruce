@@ -11,8 +11,12 @@ import { SCHEDULE_UNDISPATCHED_BASE_TASKS } from "gql/mutations";
 
 interface Props {
   patchId: string;
+  disabled: boolean;
 }
-export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({ patchId }) => {
+export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({
+  patchId,
+  disabled,
+}) => {
   const dispatchToast = useToastContext();
   const [scheduleBasePatchTasks] = useMutation<
     ScheduleUndispatchedBaseTasksMutation,
@@ -42,7 +46,7 @@ export const ScheduleUndispatchedBaseTasks: React.FC<Props> = ({ patchId }) => {
       okText="Yes"
       cancelText="Cancel"
     >
-      <DropdownItem key="reschedule-failing">
+      <DropdownItem key="reschedule-failing" disabled={disabled}>
         Schedule failing base tasks
       </DropdownItem>
     </Popconfirm>

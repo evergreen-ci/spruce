@@ -137,8 +137,9 @@ export const VersionPage: React.FC = () => {
             canEnqueueToCommitQueue={canEnqueueToCommitQueue}
             canReconfigure={!isPatchOnCommitQueue && isPatch}
             patchDescription={message}
-            patchId={id}
+            versionId={id}
             childPatches={childPatches}
+            isPatch={isPatch}
           />
         }
       />

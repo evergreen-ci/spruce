@@ -3,7 +3,7 @@ import { ButtonDropdown } from "components/ButtonDropdown";
 import { LinkToReconfigurePage } from "components/LinkToReconfigurePage";
 import {
   SchedulePatchTasks,
-  UnschedulePatchTasks,
+  UnscheduleTasks,
   RestartPatch,
   EnqueuePatch,
 } from "components/PatchActionButtons";
@@ -36,7 +36,7 @@ export const DropdownMenu: React.FC<Props> = ({
       patchId={patchId}
       refetchQueries={refetchQueries}
     />,
-    <UnschedulePatchTasks
+    <UnscheduleTasks
       key="unschedule"
       patchId={patchId}
       refetchQueries={refetchQueries}

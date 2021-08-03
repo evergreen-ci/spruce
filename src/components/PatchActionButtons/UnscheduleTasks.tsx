@@ -13,12 +13,12 @@ import {
 } from "gql/generated/types";
 import { UNSCHEDULE_PATCH_TASKS } from "gql/mutations";
 
-interface UnscheduleProps {
+interface props {
   patchId: string;
   refetchQueries: string[];
   disabled?: boolean;
 }
-export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
+export const UnscheduleTasks: React.FC<props> = ({
   patchId,
   refetchQueries,
   disabled,
@@ -81,7 +81,7 @@ export const UnschedulePatchTasks: React.FC<UnscheduleProps> = ({
   );
 };
 
-export const StyledBody = styled(Body)`
+const StyledBody = styled(Body)`
   padding-bottom: 8px;
   padding-right: 8px;
 `;
