@@ -67,7 +67,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
-
   return (
     <>
       <TaskFilters />

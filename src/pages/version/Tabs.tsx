@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { Tab } from "@leafygreen-ui/tabs";
 import { useParams, useHistory, useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
@@ -52,19 +52,25 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   const history = useHistory();
   const location = useLocation();
 
-  const tabIsActive = {
-    [PatchTab.Tasks]: true,
-    [PatchTab.Changes]: isPatch,
-    [PatchTab.DownstreamTasks]: childPatches,
-  };
+  const tabIsActive = useMemo(
+    () => ({
+      [PatchTab.Tasks]: true,
+      [PatchTab.Changes]: isPatch,
+      [PatchTab.DownstreamTasks]: childPatches,
+    }),
+    [isPatch, childPatches]
+  );
 
   const patchAnalytics = usePatchAnalytics();
 
-  const allTabs = tabMap({ taskCount, childPatches });
-  const activeTabs = Object.keys(allTabs).filter(
-    (t) => tabIsActive[t]
-  ) as PatchTab[];
-
+  const allTabs = useMemo(() => tabMap({ taskCount, childPatches }), [
+    taskCount,
+    childPatches,
+  ]);
+  const activeTabs = useMemo(
+    () => Object.keys(allTabs).filter((t) => tabIsActive[t] as PatchTab[]),
+    [allTabs, tabIsActive]
+  );
   const defaultTab = tabIsActive[tab] ? tab : DEFAULT_PATCH_TAB;
   const [selectedTab, setSelectedTab] = useState(
     activeTabs.indexOf(defaultTab)
@@ -74,9 +80,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
   const previousTab = usePrevious(selectedTab);
   useEffect(() => {
     const query = parseQueryString(location.search);
-    const newTab = Object.keys(tabMap({ taskCount, childPatches }))[
-      selectedTab
-    ];
+    const newTab = Object.keys(allTabs)[selectedTab];
     const newRoute = getVersionRoute(id, {
       tab: newTab as PatchTab,
       ...query,
@@ -96,10 +100,7 @@ export const Tabs: React.FC<Props> = ({ taskCount, childPatches, isPatch }) => {
       setSelected={setSelectedTab}
       aria-label="Patch Tabs"
     >
-      {activeTabs.map((t: string) => tabMap({ taskCount, childPatches })[t])}
+      {activeTabs.map((t: string) => allTabs[t])}
     </StyledTabs>
   );
 };
-
-// const ActiveTabs = ({ taskCount, childPatches, isPatch }) => {
-//   return activateTabs.
