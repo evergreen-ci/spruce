@@ -2183,28 +2183,6 @@ export type GetOtherUserQuery = {
   currentUser: { userId: string };
 };
 
-export type PatchBuildVariantsQueryVariables = Exact<{
-  patchId: Scalars["String"];
-}>;
-
-export type PatchBuildVariantsQuery = {
-  patchBuildVariants: Array<{
-    variant: string;
-    displayName: string;
-    tasks?: Maybe<
-      Array<
-        Maybe<{
-          id: string;
-          displayName: string;
-          execution: number;
-          status: string;
-          baseStatus?: Maybe<string>;
-        }>
-      >
-    >;
-  }>;
-};
-
 export type ConfigurePatchQueryVariables = Exact<{
   id: Scalars["String"];
 }>;

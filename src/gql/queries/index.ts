@@ -22,7 +22,6 @@ import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
 import GET_MY_VOLUMES from "./get-my-volumes.graphql";
 import GET_OTHER_USER from "./get-other-user.graphql";
-import GET_PATCH_BUILD_VARIANTS from "./get-patch-build-variants.graphql";
 import GET_PATCH_CONFIGURE from "./get-patch-configure.graphql";
 import GET_PATCH_TASK_STATUSES from "./get-patch-task-statuses.graphql";
 import GET_PATCH_TASKS from "./get-patch-tasks.graphql";
@@ -59,7 +58,6 @@ export {
   GET_COMMIT_QUEUE,
   GET_DISPLAY_TASK,
   GET_MY_HOSTS,
-  GET_PATCH_BUILD_VARIANTS,
   GET_BUILD_VARIANTS,
   GET_IS_PATCH_CONFIGURED,
   GET_PATCH_TASKS,
