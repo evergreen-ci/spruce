@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { string } from "utils";
 
-const { gray } = uiColors;
+const { gray, blue } = uiColors;
 const { shortDate } = string;
 interface Props {
   githash: string;
@@ -19,13 +20,30 @@ export const CommitChartLabel: React.FC<Props> = ({
   message,
 }) => {
   const createDate = new Date(createTime);
+  const maxChars = 48;
+  const shortenMessage = message.length > maxChars;
+  const shortenedMessage = message.substring(0, maxChars - 3).concat("...");
+
   return (
     <LabelContainer>
       <Text>
         {githash} {shortDate(createDate)}
       </Text>
       <Text>{author} - </Text>
-      <Text>{message}</Text>
+      <Text>{message.length > maxChars ? shortenedMessage : message}</Text>
+      {shortenMessage && (
+        <Tooltip
+          usePortal={false}
+          align="bottom"
+          justify="middle"
+          trigger={<ButtonText data-cy="more-tooltip-button">more</ButtonText>}
+          triggerEvent="click"
+        >
+          <TooltipContainer data-cy="inactive-commits-tooltip">
+            {message}
+          </TooltipContainer>
+        </Tooltip>
+      )}
     </LabelContainer>
   );
 };
@@ -38,9 +56,32 @@ const LabelContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  word-break: break-word;
+  background-color: gray;
 `;
 
 const Text = styled(Disclaimer)`
   color: ${gray.dark2};
   width: 100%;
+`;
+
+const ButtonText = styled(Disclaimer)`
+  text-align: center;
+  display: underline;
+  textdecorationline: "underline";
+  color: ${blue.dark2};
+  cursor: pointer;
+`;
+
+const TooltipContainer = styled.div`
+  width: 200px;
+  border-radius: 3px;
+  margin: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  word-break: break-word;
+  background-color: ${gray.light3};
+  color: ${gray.dark3};
+  padding: 10px;
 `;
