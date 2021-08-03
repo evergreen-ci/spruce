@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
-import { Disclaimer } from "@leafygreen-ui/typography";
+import { Disclaimer, Body } from "@leafygreen-ui/typography";
 import { string } from "utils";
 
 const { gray, blue } = uiColors;
@@ -20,23 +20,27 @@ export const CommitChartLabel: React.FC<Props> = ({
   message,
 }) => {
   const createDate = new Date(createTime);
-  const maxChars = 48;
+  const maxChars = 42;
   const shortenMessage = message.length > maxChars;
   const shortenedMessage = message.substring(0, maxChars - 3).concat("...");
 
   return (
     <LabelContainer>
-      <Text>
+      <LabelText>
         {githash} {shortDate(createDate)}
-      </Text>
-      <Text>{author} - </Text>
-      <Text>{message.length > maxChars ? shortenedMessage : message}</Text>
+      </LabelText>
+      <LabelText>{author} -</LabelText>
+      <LabelText>{shortenMessage ? shortenedMessage : message}</LabelText>
       {shortenMessage && (
         <Tooltip
           usePortal={false}
           align="bottom"
           justify="middle"
-          trigger={<ButtonText data-cy="more-tooltip-button">more</ButtonText>}
+          trigger={
+            <ButtonContainer>
+              <ButtonText data-cy="tooltip-button">more</ButtonText>
+            </ButtonContainer>
+          }
           triggerEvent="click"
         >
           <TooltipContainer data-cy="inactive-commits-tooltip">
@@ -54,34 +58,31 @@ const LabelContainer = styled.div`
   display: flex;
   margin-top: 10px;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
   word-break: break-word;
-  background-color: gray;
 `;
 
-const Text = styled(Disclaimer)`
+const LabelText = styled(Body)`
   color: ${gray.dark2};
   width: 100%;
+  font-size: 12px;
+`;
+
+const ButtonContainer = styled.div`
+  cursor: pointer;
 `;
 
 const ButtonText = styled(Disclaimer)`
   text-align: center;
-  display: underline;
-  textdecorationline: "underline";
   color: ${blue.dark2};
-  cursor: pointer;
+  text-decoration: underline;
 `;
 
-const TooltipContainer = styled.div`
+const TooltipContainer = styled(Body)`
   width: 200px;
   border-radius: 3px;
-  margin: auto;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  word-break: break-word;
   background-color: ${gray.light3};
   color: ${gray.dark3};
-  padding: 10px;
+  word-break: break-word;
+  text-align: left;
 `;
