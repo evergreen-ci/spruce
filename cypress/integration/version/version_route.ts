@@ -11,9 +11,6 @@ const versions = {
 };
 
 const versionRoute = (id) => `/version/${id}`;
-const hasText = ($el) => {
-  expect($el.text.length > 0).to.eq(true);
-};
 
 describe("Version route", () => {
   before(() => {
@@ -66,7 +63,7 @@ describe("Version route", () => {
   });
 
   describe("Build Variants", () => {
-    beforeEach(() => {
+    before(() => {
       cy.preserveCookies();
       cy.visit(versionRoute(versions[0]));
     });
@@ -79,13 +76,14 @@ describe("Version route", () => {
 
     it("Shows tooltip with task's name on hover", () => {
       cy.dataCy("task-square").first().trigger("mouseover");
-      cy.dataCy("task-square-tooltip").within(hasText);
+      cy.dataCy("task-square-tooltip").within(($el) => {
+        expect($el.text()).to.contain("task with status");
+      });
     });
 
-    it("Navigates to task page from clicking task square", () => {
-      cy.dataCy("task-square")
-        .should("have.attr", "href")
-        .and("include", "/task");
+    it("Navigates to task tab and applies filters when clicking on task square", () => {
+      cy.dataCy("task-square").first().click();
+      cy.location("search").should("include", "statuses=success");
     });
   });
 });
