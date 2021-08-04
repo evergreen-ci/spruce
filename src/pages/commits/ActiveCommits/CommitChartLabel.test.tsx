@@ -43,7 +43,7 @@ describe("CommitChartLabel", () => {
   });
 
   test(
-    "Clicking over the 'more' button should open a tooltip that displays" +
+    "Clicking on the 'more' button should open a tooltip that displays" +
       "the long commit message",
     async () => {
       const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));

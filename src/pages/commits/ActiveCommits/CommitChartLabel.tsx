@@ -6,6 +6,7 @@ import { string } from "utils";
 
 const { gray, blue } = uiColors;
 const { shortDate } = string;
+const MAX_CHAR = 42;
 interface Props {
   githash: string;
   createTime: Date;
@@ -20,9 +21,8 @@ export const CommitChartLabel: React.FC<Props> = ({
   message,
 }) => {
   const createDate = new Date(createTime);
-  const maxChars = 42;
-  const shortenMessage = message.length > maxChars;
-  const shortenedMessage = message.substring(0, maxChars - 3).concat("...");
+  const shortenMessage = message.length > MAX_CHAR;
+  const shortenedMessage = message.substring(0, MAX_CHAR - 3).concat("...");
 
   return (
     <LabelContainer data-cy="commit-label">
@@ -80,9 +80,4 @@ const ButtonText = styled(Disclaimer)`
 
 const TooltipContainer = styled(Body)`
   width: 200px;
-  border-radius: 3px;
-  background-color: ${gray.light3};
-  color: ${gray.dark3};
-  word-break: break-word;
-  text-align: left;
 `;
