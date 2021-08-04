@@ -5,7 +5,7 @@ import { Breadcrumb } from "antd";
 import { useBreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles/StyledLink";
 import { H3, P1 } from "components/Typography";
-import { getVersionRoute, getCommitsRoute } from "constants/routes";
+import { getVersionRoute, getProjectPatchesRoute } from "constants/routes";
 import { useGetUserPatchesPageTitleAndLink } from "hooks";
 
 const { blue } = uiColors;
@@ -142,16 +142,16 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
       <Breadcrumb.Item>
         <StyledP1>
           <StyledBreadcrumbLink
-            data-cy="bc-waterfall"
-            to={getCommitsRoute(project)}
+            data-cy="bc-my-patches"
+            to={getProjectPatchesRoute(project)}
             onClick={() =>
               analytics.sendEvent({
                 name: "Click Link",
-                link: "waterfall",
+                link: "myPatches",
               })
             }
           >
-            {`${project}'s commits`}
+            {project}&apos;s patches
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
