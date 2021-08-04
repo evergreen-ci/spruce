@@ -173,14 +173,7 @@ describe("Tasks filters", () => {
       expect(postFilterCount).to.not.eq(multiFilterCount);
     });
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
-      const taskStatuses = [
-        "All",
-        "Failed",
-        "Success",
-        "Dispatched",
-        "Running",
-        "Unscheduled",
-      ];
+      const taskStatuses = ["All", "Failed", "Success", "Running", "Will Run"];
       cy.getInputByLabel("All").check({ force: true });
 
       taskStatuses.forEach((status) => {
@@ -189,7 +182,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "all,failed,success,dispatched,started,unscheduled",
+        search: "all",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });

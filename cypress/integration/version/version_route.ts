@@ -83,7 +83,7 @@ describe("Version route", () => {
 
     it("Navigates to task tab and applies filters when clicking on task square", () => {
       cy.dataCy("task-square").first().click();
-      cy.location("search").should("include", "statuses=success");
+      cy.location("search").should("include", "statuses=will-run");
     });
   });
 });
