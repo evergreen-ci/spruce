@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { DropdownItem } from "components/ButtonDropdown";
-import { EnqueuePatchModal } from "pages/patch/index";
+import { EnqueuePatchModal } from "pages/version/index";
 
 interface EnqueuePatchProps {
   patchId: string;

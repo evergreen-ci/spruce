@@ -40,9 +40,12 @@ query GetTask($taskId: String!, $execution: Int) {
     estimatedStart
     finishTime
     hostId
-    patchMetadata {
+    versionMetadata {
+      id
       author
-      patchID
+      isPatch
+      revision
+      project
     }
     projectId
     project {

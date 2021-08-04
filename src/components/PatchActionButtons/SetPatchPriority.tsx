@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
+import styled from "@emotion/styled";
+import { Body } from "@leafygreen-ui/typography";
 import { InputNumber, Popconfirm } from "antd";
 import { usePatchAnalytics } from "analytics";
 import { DropdownItem } from "components/ButtonDropdown";
@@ -9,7 +11,6 @@ import {
   SetPatchPriorityMutationVariables,
 } from "gql/generated/types";
 import { SET_PATCH_PRIORITY } from "gql/mutations";
-import { StyledBody } from "./UnschedulePatchTasks";
 
 interface SetPriorityProps {
   patchId: string;
@@ -74,3 +75,8 @@ export const SetPatchPriority: React.FC<SetPriorityProps> = ({
     </Popconfirm>
   );
 };
+
+const StyledBody = styled(Body)`
+  padding-bottom: 8px;
+  padding-right: 8px;
+`;
