@@ -41,10 +41,6 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   </Tooltip>
 );
 
-interface IconContainerProps {
-  inactive?: boolean;
-}
-
 const TestNameContainer = styled.div`
   white-space: nowrap;
 `;
@@ -53,6 +49,10 @@ const Container = styled.div`
   flex-direction: column;
   align-items: center;
 `;
+
+interface IconContainerProps {
+  inactive?: boolean;
+}
 const IconContainer = styled.div<IconContainerProps>`
   ${({ inactive }) => inactive && "opacity: .4;"}
   height: 30px;
