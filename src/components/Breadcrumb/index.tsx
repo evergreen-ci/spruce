@@ -151,7 +151,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
               })
             }
           >
-            {project}&quot;s patches
+            {project}&apos;s patches
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
