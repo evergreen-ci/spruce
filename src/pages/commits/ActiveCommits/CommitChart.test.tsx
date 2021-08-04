@@ -1,7 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { render, act } from "test_utils/test-utils";
 import { ChartTypes } from "types/commits";
-import { FlexRowContainer } from "../CommitsWrapper";
 import { CommitChart } from "./CommitChart";
 import {
   findMaxGroupedTaskStats,
@@ -15,30 +14,26 @@ afterEach(() => {
 describe("CommitChart", () => {
   test("Display right amount of bars", () => {
     const { queryAllByDataCy } = render(
-      <FlexRowContainer numCommits={versions.length}>
-        <CommitChart
-          key={versions[0].version.id}
-          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-          total={groupedTaskData[versions[0].version.id].total}
-          max={max}
-          chartType={ChartTypes.Absolute}
-        />
-      </FlexRowContainer>
+      <CommitChart
+        key={versions[0].version.id}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        total={groupedTaskData[versions[0].version.id].total}
+        max={max}
+        chartType={ChartTypes.Absolute}
+      />
     );
     expect(queryAllByDataCy("commit-chart-bar")).toHaveLength(4);
   });
 
   test("Hovering over the chart should open a tooltip", async () => {
     const { queryByDataCy } = render(
-      <FlexRowContainer numCommits={versions.length}>
-        <CommitChart
-          key={versions[0].version.id}
-          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-          total={groupedTaskData[versions[0].version.id].total}
-          max={max}
-          chartType={ChartTypes.Absolute}
-        />
-      </FlexRowContainer>
+      <CommitChart
+        key={versions[0].version.id}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        total={groupedTaskData[versions[0].version.id].total}
+        max={max}
+        chartType={ChartTypes.Absolute}
+      />
     );
     jest.useFakeTimers();
 
@@ -53,15 +48,13 @@ describe("CommitChart", () => {
 
   test("Should show all umbrella statuses (normal and dimmed) and their counts ", async () => {
     const { queryByDataCy, queryAllByDataCy } = render(
-      <FlexRowContainer numCommits={versions.length}>
-        <CommitChart
-          key={versions[0].version.id}
-          groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
-          total={groupedTaskData[versions[0].version.id].total}
-          max={max}
-          chartType={ChartTypes.Absolute}
-        />
-      </FlexRowContainer>
+      <CommitChart
+        key={versions[0].version.id}
+        groupedTaskStats={groupedTaskData[versions[0].version.id].stats}
+        total={groupedTaskData[versions[0].version.id].total}
+        max={max}
+        chartType={ChartTypes.Absolute}
+      />
     );
     jest.useFakeTimers();
 

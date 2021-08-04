@@ -75,26 +75,22 @@ export const TotalCount: React.FC<TotalCountProps> = ({
 );
 
 const TooltipContainer = styled.div`
-  margin: auto;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
   align-items: flex-start;
-  flex-direction: column;
-  background-color: ${gray.light3};
 `;
 
 const FlexColumnContainer = styled.div`
   width: 150px;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
   align-items: flex-start;
   color: ${gray.dark2};
 `;
 
 const TotalCountContainer = styled.div<{ active?: boolean }>`
   display: flex;
-  flex-direction: row;
   justify-content: space-between;
   align-items: center;
   margin-top: 10px;
