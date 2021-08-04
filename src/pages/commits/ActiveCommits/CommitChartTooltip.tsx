@@ -6,7 +6,7 @@ import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { taskStatusToCopy, mapTaskStatusToColor } from "constants/task";
 import { TaskStatus } from "types/task";
-import { ColorCount, getZeroCountStatus } from "./utils";
+import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
 const { gray } = uiColors;
 interface Props {
@@ -18,7 +18,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
   groupedTaskStats,
   trigger,
 }) => {
-  const zeroCountStatus = getZeroCountStatus(groupedTaskStats);
+  const zeroCountStatus = getStatusesWithZeroCount(groupedTaskStats);
   return (
     <Tooltip
       usePortal={false}

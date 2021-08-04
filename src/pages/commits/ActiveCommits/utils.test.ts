@@ -1,6 +1,9 @@
 import { mapTaskStatusToColor, taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
-import { getAllTaskStatsGroupedByColor, getZeroCountStatus } from "./utils";
+import {
+  getAllTaskStatsGroupedByColor,
+  getStatusesWithZeroCount,
+} from "./utils";
 
 describe("getAllTaskStatsGroupedByColor", () => {
   test(
@@ -178,19 +181,19 @@ describe("getAllTaskStatsGroupedByColor", () => {
   );
 });
 
-describe("getZeroCountStatus", () => {
+describe("getStatusesWithZeroCount", () => {
   test("Return an array of umbrella statuses that have 0 count", () => {
-    expect(getZeroCountStatus(groupedTaskStats)).toStrictEqual([
+    expect(getStatusesWithZeroCount(groupedTaskStats)).toStrictEqual([
       TaskStatus.SystemFailed,
       TaskStatus.Dispatched,
       TaskStatus.Started,
     ]);
   });
   test("Should return an empty array when all umbrella statuses are present", () => {
-    expect(getZeroCountStatus(groupedTaskStatsAll)).toStrictEqual([]);
+    expect(getStatusesWithZeroCount(groupedTaskStatsAll)).toStrictEqual([]);
   });
   test("Return an array of all umbrella statuses when no umbrella status exists", () => {
-    expect(getZeroCountStatus([])).toStrictEqual([
+    expect(getStatusesWithZeroCount([])).toStrictEqual([
       TaskStatus.Succeeded,
       TaskStatus.Failed,
       TaskStatus.SystemFailed,

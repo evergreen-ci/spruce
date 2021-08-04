@@ -63,16 +63,10 @@ export function calculateBarHeight(
 }
 
 // Find zero count statuses for commit chart tooltip
-export function getZeroCountStatus(currColors: ColorCount[]) {
-  const existingStatusSet = new Set(
-    currColors.map(({ umbrellaStatus }) => umbrellaStatus)
+export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
+  const availableStatuses = colors.map(({ umbrellaStatus }) => umbrellaStatus);
+  const allStatuses = Object.values(mapTaskStatusToUmbrellaStatus);
+  return Array.from(
+    new Set(allStatuses.filter((status) => !availableStatuses.includes(status)))
   );
-  const umbrellaStatuses = Array.from(
-    new Set(
-      Object.values(mapTaskStatusToUmbrellaStatus).map((status) => status)
-    )
-  );
-  return umbrellaStatuses.filter(
-    (umbrellaStatus) => !existingStatusSet.has(umbrellaStatus)
-  );
-}
+};
