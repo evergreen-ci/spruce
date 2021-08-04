@@ -33,7 +33,7 @@ Array [
         <button
           aria-disabled={false}
           aria-label="Add To Favorites"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           data-cy="favorite-selected-project"
           onClick={[Function]}
           tabIndex={0}
@@ -64,7 +64,7 @@ Array [
           <button
             aria-disabled={false}
             aria-label="Toggle Dropdown"
-            className="leafygreen-ui-556onv"
+            className="leafygreen-ui-wn45f0"
             tabIndex={0}
           >
             <div
