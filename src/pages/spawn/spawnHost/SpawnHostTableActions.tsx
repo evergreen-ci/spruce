@@ -59,7 +59,7 @@ export const CopySSHCommandButton: React.FC<{
             size={Size.XSmall}
             data-cy="copy-ssh-button"
           >
-            <Label>Copy SSH command</Label>
+            <Label>Copy SSH</Label>
           </PaddedButton>
         }
       >
