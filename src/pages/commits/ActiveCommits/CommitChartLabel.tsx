@@ -25,7 +25,7 @@ export const CommitChartLabel: React.FC<Props> = ({
   const shortenedMessage = message.substring(0, maxChars - 3).concat("...");
 
   return (
-    <LabelContainer>
+    <LabelContainer data-cy="commit-label">
       <LabelText>
         {githash} {shortDate(createDate)}
       </LabelText>
@@ -43,7 +43,7 @@ export const CommitChartLabel: React.FC<Props> = ({
           }
           triggerEvent="click"
         >
-          <TooltipContainer data-cy="inactive-commits-tooltip">
+          <TooltipContainer data-cy="long-commit-message-tooltip">
             {message}
           </TooltipContainer>
         </Tooltip>
