@@ -18,9 +18,7 @@ export const BuildVariantAccordionContainer: React.FC<Props> = ({
     {buildVariants.map(({ displayName }) => (
       <div>
         <AccordionContainer key={displayName}>{displayName}</AccordionContainer>
-        <Accordion contents={displayName} title="">
-          AHHAHA
-        </Accordion>
+        <Accordion contents={displayName} title="" />
       </div>
     ))}
   </ColumnContainer>

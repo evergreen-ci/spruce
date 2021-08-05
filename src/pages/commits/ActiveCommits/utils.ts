@@ -1,6 +1,13 @@
+import { mapTaskStatusToUmbrellaStatus } from "constants/task";
+import { ChartTypes } from "types/commits";
 import { groupStatusesByColor } from "utils/statuses";
 
-export type ColorCount = { count: number; statuses: string[]; color: string };
+export type ColorCount = {
+  count: number;
+  statuses: string[];
+  color: string;
+  umbrellaStatus: string;
+};
 
 export type GroupedResult = {
   stats: ColorCount[];
@@ -40,4 +47,26 @@ export const getAllTaskStatsGroupedByColor = (
   });
 
   return idToGroupedTaskStats;
+};
+
+// Used in Commit Chart Component to calculate bar heights
+export function calculateBarHeight(
+  value: number,
+  max: number,
+  total: number,
+  chartType: string
+) {
+  if (chartType === ChartTypes.Percentage) {
+    return `${(value / total) * 100}%`;
+  }
+  return `${(value / max) * 100}%`;
+}
+
+// Find zero count statuses for commit chart tooltip
+export const getStatusesWithZeroCount = (colors: ColorCount[]) => {
+  const availableStatuses = colors.map(({ umbrellaStatus }) => umbrellaStatus);
+  const allStatuses = Object.values(mapTaskStatusToUmbrellaStatus);
+  return Array.from(
+    new Set(allStatuses.filter((status) => !availableStatuses.includes(status)))
+  );
 };

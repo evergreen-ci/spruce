@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { Overline, Disclaimer } from "@leafygreen-ui/typography";
 import { useHistory } from "react-router-dom";
-import { getCommitRoute } from "constants/routes";
+import { getCommitsRoute } from "constants/routes";
 import { FavoriteStar } from "./FavoriteStar";
 
 interface OptionProps {
@@ -17,7 +17,7 @@ const ProjectOption: React.FC<OptionProps> = ({
   const history = useHistory();
 
   return (
-    <ProjectContainer onClick={() => history.push(getCommitRoute(identifier))}>
+    <ProjectContainer onClick={() => history.push(getCommitsRoute(identifier))}>
       <Disclaimer data-cy="project-display-name">
         {displayName || identifier}
       </Disclaimer>

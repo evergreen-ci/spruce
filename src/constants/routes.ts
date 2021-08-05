@@ -170,5 +170,5 @@ export const getProjectPatchesRoute = (projectId: string) =>
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;
 
-export const getCommitRoute = (projectIdentifier: string) =>
-  `${paths.commits}/${projectIdentifier}`;
+export const getCommitsRoute = (projectId: string) =>
+  `${paths.commits}/${projectId}`;

@@ -50,7 +50,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     ami,
     distroId,
     priority,
-    patchMetadata,
+    versionMetadata,
     buildVariant,
     details,
     generatedBy,
@@ -66,7 +66,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const baseCommit = revision?.slice(0, 10);
   const { baseTaskDuration, baseTaskLink } = baseTaskMetadata ?? {};
   const projectIdentifier = project?.identifier;
-  const { author, patchID } = patchMetadata ?? {};
+  const { author, id: versionID } = versionMetadata ?? {};
   const oomTracker = details?.oomTracker;
 
   const hostLink = getHostRoute(hostId);
@@ -78,7 +78,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           Build Variant Name:{" "}
           <StyledRouterLink
             data-cy="build-variant-link"
-            to={getVersionRoute(patchID, {
+            to={getVersionRoute(versionID, {
               page: 0,
               variant: buildVariant,
             })}
