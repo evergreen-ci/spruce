@@ -1,0 +1,7 @@
+query GetTaskStatuses($id: String!) {
+  version(id: $id) {
+    id
+    taskStatuses
+    baseTaskStatuses
+  }
+}

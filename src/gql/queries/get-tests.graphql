@@ -1,8 +1,4 @@
-query GetTests(
-  $execution: Int
-  $groupId: String
-  $taskId: String!
-) {
+query GetTests($execution: Int, $groupId: String, $taskId: String!) {
   taskTests(
     execution: $execution
     groupId: $groupId

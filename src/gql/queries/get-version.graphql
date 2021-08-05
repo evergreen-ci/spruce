@@ -1,0 +1,44 @@
+query Version($id: String!) {
+  version(id: $id) {
+    id
+    createTime
+    startTime
+    finishTime
+    revision
+    author
+    status
+    order
+    repo
+    project
+    activated
+    message
+    isPatch
+    taskCount
+    project
+    baseVersionID
+    projectIdentifier
+    versionTiming {
+      makespan
+      timeTaken
+    }
+    parameters {
+      key
+      value
+    }
+    patch {
+      id
+      patchNumber
+      alias
+      commitQueuePosition
+      canEnqueueToCommitQueue
+      childPatches {
+        baseVersionID
+        githash
+        id
+        projectID
+        taskCount
+        status
+      }
+    }
+  }
+}

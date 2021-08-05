@@ -4,12 +4,13 @@ import {
   PageContent,
   PageLayout,
   PageSider,
+  PageWrapper,
   SiderCard,
 } from "components/styles";
 import { H2 } from "components/Typography";
 
 export const PatchAndTaskFullPageLoad: React.FC = () => (
-  <>
+  <PageWrapper>
     <H2>
       <Skeleton active paragraph={{ rows: 0 }} />
     </H2>
@@ -30,5 +31,5 @@ export const PatchAndTaskFullPageLoad: React.FC = () => (
         </PageContent>
       </PageLayout>
     </PageLayout>
-  </>
+  </PageWrapper>
 );

@@ -4,15 +4,15 @@ import { Dropdown, TreeSelect, TreeDataEntry } from "components/TreeSelect";
 import { pollInterval } from "constants/index";
 import { taskStatusesFilterTreeData } from "constants/task";
 import {
-  GetPatchTaskStatusesQuery,
-  GetPatchTaskStatusesQueryVariables,
+  GetTaskStatusesQuery,
+  GetTaskStatusesQueryVariables,
 } from "gql/generated/types";
-import { GET_PATCH_TASK_STATUSES } from "gql/queries";
+import { GET_TASK_STATUSES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { getCurrentStatuses } from "./getCurrentStatuses";
 
 interface Props {
-  patchId: string;
+  versionId: string;
   selectedStatuses: string[];
   selectedBaseStatuses: string[];
   onChangeStatusFilter: (s: string[]) => void;
@@ -24,21 +24,23 @@ interface Props {
 export const TaskStatusFilters: React.FC<Props> = ({
   onChangeBaseStatusFilter,
   onChangeStatusFilter,
-  patchId,
+  versionId,
   selectedBaseStatuses,
   selectedStatuses,
   filterWidth = "25%",
   options = taskStatusesFilterTreeData,
 }) => {
   const { data, startPolling, stopPolling } = useQuery<
-    GetPatchTaskStatusesQuery,
-    GetPatchTaskStatusesQueryVariables
-  >(GET_PATCH_TASK_STATUSES, { variables: { id: patchId }, pollInterval });
+    GetTaskStatusesQuery,
+    GetTaskStatusesQueryVariables
+  >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
 
   useNetworkStatus(startPolling, stopPolling);
 
-  const statuses = data?.patch.taskStatuses ?? [];
-  const baseStatuses = data?.patch.baseTaskStatuses ?? [];
+  const { version } = data || {};
+  const { taskStatuses, baseTaskStatuses } = version || {};
+  const statuses = taskStatuses ?? [];
+  const baseStatuses = baseTaskStatuses ?? [];
 
   return (
     <>
