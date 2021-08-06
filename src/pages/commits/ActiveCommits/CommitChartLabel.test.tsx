@@ -23,44 +23,36 @@ describe("CommitChartLabel", () => {
     );
   });
 
-  test(
-    "Displays shortened commit message and the 'more' button if commit message" +
-      "is too long",
-    async () => {
-      const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
-      expect(queryByDataCy("tooltip-button")).toBeInTheDocument();
-      expect(queryByDataCy("commit-label")).toHaveTextContent(
-        "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton InternalDo...more"
-      );
-    }
-  );
+  test("Displays shortened commit message and the 'more' button if necessary", () => {
+    const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
+    expect(queryByDataCy("tooltip-button")).toBeInTheDocument();
+    expect(queryByDataCy("commit-label")).toHaveTextContent(
+      "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton InternalDo...more"
+    );
+  });
 
-  test("Displays entire commit message if it does not break length limit", async () => {
+  test("Displays entire commit message if it does not break length limit", () => {
     const { queryByDataCy } = render(RenderCommitChartLabel(versionShort));
     expect(queryByDataCy("commit-label")).toHaveTextContent(
       "SERVER-57332 Create skeleton Internal"
     );
   });
 
-  test(
-    "Clicking on the 'more' button should open a tooltip that displays" +
-      "the long commit message",
-    async () => {
-      const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
-      jest.useFakeTimers();
+  test("Clicking on the 'more' button should open a tooltip containing commit message", () => {
+    const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
+    jest.useFakeTimers();
 
-      expect(queryByDataCy("long-commit-message-tooltip")).toBeNull();
-      userEvent.click(queryByDataCy("tooltip-button"));
-      //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
-      act(() => {
-        jest.runAllTimers();
-      });
-      expect(queryByDataCy("long-commit-message-tooltip")).toBeInTheDocument();
-      expect(queryByDataCy("long-commit-message-tooltip")).toHaveTextContent(
-        "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
-      );
-    }
-  );
+    expect(queryByDataCy("long-commit-message-tooltip")).toBeNull();
+    userEvent.click(queryByDataCy("tooltip-button"));
+    //   Need to use fake timers to get around @leafygreen-ui/tooltip debounce
+    act(() => {
+      jest.runAllTimers();
+    });
+    expect(queryByDataCy("long-commit-message-tooltip")).toBeInTheDocument();
+    expect(queryByDataCy("long-commit-message-tooltip")).toHaveTextContent(
+      "SERVER-57332 Create skeleton InternalDocumentSourceDensify"
+    );
+  });
 });
 
 const versionShort = {
