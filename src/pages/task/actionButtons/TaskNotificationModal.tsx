@@ -87,6 +87,12 @@ export const triggers: Trigger[] = [
     payloadResourceIdKey: "id",
   },
   {
+    trigger: "task-failed-or-blocked",
+    label: "this task fails or is blocked",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
+  },
+  {
     trigger: "success",
     label: "This task succeeds",
     resourceType: "TASK",
