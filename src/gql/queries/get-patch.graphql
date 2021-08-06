@@ -7,7 +7,7 @@ query Patch($id: String!) {
       baseVersionID
       githash
       id
-      projectID
+      projectIdentifier
       taskCount
       status
     }
