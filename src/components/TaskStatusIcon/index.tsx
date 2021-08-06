@@ -1,14 +1,8 @@
+import { uiColors } from "@leafygreen-ui/palette";
+import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
-import { CannotRun } from "./CannotRun";
-import { Failed } from "./Failed";
-import { KnownFailure } from "./KnownFailure";
-import { Running } from "./Running";
-import { SetupFailure } from "./SetupFailure";
-import { Success } from "./Success";
-import { SystemFailure } from "./SystemFailure";
-import { TimedOut } from "./TimedOut";
-import { WillNotRun } from "./WillNotRun";
-import { WillRun } from "./WillRun";
+
+const { green, red, yellow, gray } = uiColors;
 
 interface TaskStatusIconProps {
   status: TaskStatus;
@@ -17,34 +11,30 @@ interface TaskStatusIconProps {
 export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status }) => {
   switch (status) {
     case TaskStatus.Succeeded:
-      return <Success />;
+      return <Icon glyph="Checkmark" fill={green.base} size={30} />;
     case TaskStatus.Failed:
-      return <Failed />;
+      return <Icon glyph="X" fill={red.base} size={30} />;
     case TaskStatus.KnownIssue:
-      return <KnownFailure />;
+      return <Icon glyph="KnownFailureIcon" fill={red.base} size={30} />;
     case TaskStatus.Dispatched:
     case TaskStatus.Started:
-      return <Running />;
+      return <Icon glyph="Refresh" fill={yellow.dark2} size={30} />;
     case TaskStatus.SetupFailed:
-      return <SetupFailure />;
+      return <Icon glyph="SetupFailure" size={30} />;
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
     case TaskStatus.SystemFailed:
-      return <SystemFailure />;
+      return <Icon glyph="SystemFailure" size={30} />;
     case TaskStatus.TestTimedOut:
     case TaskStatus.TaskTimedOut:
-      return <TimedOut />;
+      return <Icon glyph="TimedOut" size={30} />;
     case TaskStatus.Aborted:
     case TaskStatus.Blocked:
     case TaskStatus.Unscheduled:
-      return <WillNotRun />;
+      return <Icon glyph="WillNotRun" size={30} />;
     case TaskStatus.WillRun:
     case TaskStatus.Pending:
-      return <WillRun />;
-    case TaskStatus.Inactive:
-      return <CannotRun />;
-    case TaskStatus.Unstarted:
-      return <>unstarted</>;
+      return <Icon glyph="Calendar" fill={gray.dark3} size={30} />;
     default:
       return <>{status}</>;
   }
