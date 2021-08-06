@@ -4,15 +4,13 @@ import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
+import { ActiveCommit } from "./ActiveCommits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
-import { CommitChart } from "./ActiveCommits/CommitChart";
-import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
 import { Grid } from "./ActiveCommits/Grid";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
 } from "./ActiveCommits/utils";
-import { BuildVariantAccordionContainer } from "./BuildVariantAccordionContainer";
 import { InactiveCommits, InactiveCommitLine } from "./InactiveCommits/index";
 
 interface Props {
@@ -43,25 +41,13 @@ export const CommitsWrapper: React.FC<Props> = ({
         <FlexRowContainer numCommits={versions.length}>
           {versions.map(({ version, rolledUpVersions }) =>
             version ? (
-              <ColumnContainer key={version.id}>
-                <CommitChart
-                  groupedTaskStats={
-                    idToTaskStatsGroupedByColor[version.id].stats
-                  }
-                  total={idToTaskStatsGroupedByColor[version.id].total}
-                  max={max}
-                  chartType={chartType}
-                />
-                <CommitChartLabel
-                  githash={version.revision.substring(0, 5)}
-                  createTime={version.createTime}
-                  author={version.author}
-                  message={version.message}
-                />
-                <BuildVariantAccordionContainer
-                  buildVariants={version.buildVariants}
-                />
-              </ColumnContainer>
+              <ActiveCommit
+                version={version}
+                chartType={chartType}
+                total={idToTaskStatsGroupedByColor[version.id].total}
+                max={max}
+                groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+              />
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
                 <InactiveCommitLine />

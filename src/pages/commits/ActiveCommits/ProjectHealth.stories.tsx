@@ -1,6 +1,6 @@
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
-import { BuildVariantAccordionContainer } from "../BuildVariantAccordionContainer";
+import { BuildVariantAccordionContainer } from "./BuildVariantAccordionContainer";
 import {
   ColumnContainer,
   FlexRowContainer,
