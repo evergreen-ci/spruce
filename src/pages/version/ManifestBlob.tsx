@@ -1,25 +1,12 @@
 import { StyledLink } from "components/styles";
 import { P2 } from "components/Typography";
+import { Manifest } from "gql/generated/types";
 import { string } from "utils";
 
 const { omitTypename } = string;
 // typescript interface with manifest that is an object of key-value pairs
 interface Props {
-  manifest: {
-    id: string;
-    revision: string;
-    project: string;
-    branch: string;
-    isBase: boolean;
-    moduleOverrides?: {
-      [key: string]: string;
-    };
-    modules?: {
-      [key: string]: {
-        [key: string]: string;
-      };
-    };
-  };
+  manifest: Manifest;
 }
 
 const ManifestBlob: React.FC<Props> = ({ manifest }) => {
