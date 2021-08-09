@@ -29,13 +29,12 @@ const ManifestBlob: React.FC<Props> = ({ manifest }) => {
   });
   return (
     <P2>
-      Version Manifest:{" "}
       <StyledLink
         data-cy="manifest-link"
         href={URL.createObjectURL(blob)}
         target="__blank"
       >
-        Here
+        Version Manifest
       </StyledLink>
     </P2>
   );
