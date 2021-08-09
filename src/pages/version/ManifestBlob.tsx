@@ -4,7 +4,7 @@ import { Manifest } from "gql/generated/types";
 import { string } from "utils";
 
 const { omitTypename } = string;
-// typescript interface with manifest that is an object of key-value pairs
+
 interface Props {
   manifest: Manifest;
 }
