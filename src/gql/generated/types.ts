@@ -16,6 +16,7 @@ export type Scalars = {
   Time: Date;
   Duration: number;
   StringMap: { [key: string]: any };
+  Map: any;
 };
 
 export type Query = {
@@ -413,6 +414,7 @@ export type Version = {
   parameters: Array<Parameter>;
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
+  manifest?: Maybe<Manifest>;
 };
 
 export type VersionTaskStatusCountsArgs = {
@@ -421,6 +423,16 @@ export type VersionTaskStatusCountsArgs = {
 
 export type VersionBuildVariantsArgs = {
   options?: Maybe<BuildVariantOptions>;
+};
+
+export type Manifest = {
+  id: Scalars["String"];
+  revision: Scalars["String"];
+  project: Scalars["String"];
+  branch: Scalars["String"];
+  isBase: Scalars["Boolean"];
+  moduleOverrides?: Maybe<Scalars["StringMap"]>;
+  modules?: Maybe<Scalars["Map"]>;
 };
 
 export type VersionTiming = {
@@ -2610,6 +2622,15 @@ export type VersionQuery = {
       timeTaken?: Maybe<number>;
     }>;
     parameters: Array<{ key: string; value: string }>;
+    manifest?: Maybe<{
+      id: string;
+      revision: string;
+      project: string;
+      branch: string;
+      isBase: boolean;
+      moduleOverrides?: Maybe<{ [key: string]: any }>;
+      modules?: Maybe<any>;
+    }>;
     patch?: Maybe<{
       id: string;
       patchNumber: number;
