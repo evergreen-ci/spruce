@@ -25,6 +25,15 @@ query Version($id: String!) {
       key
       value
     }
+    manifest {
+      id
+      revision
+      project
+      branch
+      isBase
+      moduleOverrides
+      modules
+    }
     patch {
       id
       patchNumber

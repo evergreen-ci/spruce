@@ -4,6 +4,7 @@ import { StyledLink, StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
 import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
 import { environmentalVariables, string } from "utils";
+import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
 const { msToDuration, getDateCopy } = string;
@@ -30,6 +31,21 @@ interface Props {
       key: string;
       value: string;
     }[];
+    manifest?: {
+      id: string;
+      revision: string;
+      project: string;
+      branch: string;
+      isBase: boolean;
+      moduleOverrides?: {
+        [key: string]: string;
+      };
+      modules?: {
+        [key: string]: {
+          [key: string]: string;
+        };
+      };
+    };
   };
 }
 
@@ -47,6 +63,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     baseVersionID,
     isPatch,
     parameters,
+    manifest,
   } = version || {};
   const { makespan, timeTaken } = versionTiming || {};
   return (
@@ -69,11 +86,12 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       <P2>{`Submitted by: ${author}`}</P2>
       {baseVersionID && revision && (
         <P2>
+          Base commit:{" "}
           <StyledLink
             data-cy="patch-base-commit"
             href={`${getUiUrl()}/version/${baseVersionID}`}
           >
-            Base commit: {revision.slice(0, 10)}
+            {revision.slice(0, 10)}
           </StyledLink>
         </P2>
       )}
@@ -87,6 +105,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           </StyledRouterLink>
         </P2>
       )}
+      {manifest && <ManifestBlob manifest={manifest} />}
       <ParametersModal parameters={parameters} />
     </MetadataCard>
   );
