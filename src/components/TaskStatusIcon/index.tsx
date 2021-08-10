@@ -1,7 +1,9 @@
 import { uiColors } from "@leafygreen-ui/palette";
 import Icon from "components/Icon";
 import { TaskStatus } from "types/task";
+import { errorReporting } from "utils";
 
+const { reportError } = errorReporting;
 const { green, red, yellow, gray } = uiColors;
 
 interface TaskStatusIconProps {
@@ -36,6 +38,9 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({ status }) => {
     case TaskStatus.Pending:
       return <Icon glyph="Calendar" fill={gray.dark3} size={30} />;
     default:
-      return <>{status}</>;
+      reportError(
+        new Error(`Status '${status}' is not a valid task status`)
+      ).warning();
+      return <></>;
   }
 };
