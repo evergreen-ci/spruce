@@ -34,7 +34,7 @@ export const ActiveCommit: React.FC<Props> = ({
   total,
   chartType,
 }) => (
-  <div>
+  <Container>
     <ColumnContainer key={version.id}>
       <CommitChart
         groupedTaskStats={groupedTaskStats}
@@ -54,7 +54,7 @@ export const ActiveCommit: React.FC<Props> = ({
         <BuildVariantCard buildVariantDisplayName={displayName} />
       ))}
     </ColumnContainer>
-  </div>
+  </Container>
 );
 
 const ColumnContainer = styled.div`
@@ -63,4 +63,8 @@ const ColumnContainer = styled.div`
   justify-content: flex-start;
   align-items: flex-start;
   margin-bottom: 15px;
+`;
+
+const Container = styled.div`
+  margin-bottom: 50px;
 `;
