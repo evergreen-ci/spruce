@@ -25,7 +25,7 @@ describe("InactiveCommits", () => {
     );
   });
 
-  test("clicking over the button should open a tooltip", async () => {
+  test("Clicking on the button should open a tooltip", async () => {
     const { queryByDataCy } = render(
       <InactiveCommits rolledUpVersions={versions} />
     );
