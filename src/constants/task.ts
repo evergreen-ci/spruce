@@ -211,3 +211,25 @@ export const taskStatusToCopy = {
   [TaskStatus.Unscheduled]: "Unscheduled",
   [TaskStatus.WillRun]: "Will Run",
 };
+
+export const mapTaskStatusToUmbrellaStatus = {
+  [TaskStatus.Succeeded]: TaskStatus.Succeeded,
+  [TaskStatus.Failed]: TaskStatus.Failed,
+  [TaskStatus.TaskTimedOut]: TaskStatus.Failed,
+  [TaskStatus.TestTimedOut]: TaskStatus.Failed,
+  [TaskStatus.KnownIssue]: TaskStatus.Failed,
+  [TaskStatus.SystemFailed]: TaskStatus.SystemFailed,
+  [TaskStatus.SystemTimedOut]: TaskStatus.SystemFailed,
+  [TaskStatus.SystemUnresponsive]: TaskStatus.SystemFailed,
+  [TaskStatus.Aborted]: TaskStatus.Dispatched,
+  [TaskStatus.Dispatched]: TaskStatus.Dispatched,
+  [TaskStatus.Inactive]: TaskStatus.Dispatched,
+  [TaskStatus.Undispatched]: TaskStatus.Dispatched,
+  [TaskStatus.Unstarted]: TaskStatus.Dispatched,
+  [TaskStatus.WillRun]: TaskStatus.Dispatched,
+  [TaskStatus.SetupFailed]: TaskStatus.SetupFailed,
+  [TaskStatus.Pending]: TaskStatus.Started,
+  [TaskStatus.Started]: TaskStatus.Started,
+  [TaskStatus.Blocked]: TaskStatus.Unscheduled,
+  [TaskStatus.Unscheduled]: TaskStatus.Unscheduled,
+};

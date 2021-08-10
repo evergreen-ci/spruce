@@ -1,6 +1,9 @@
-import { mapTaskStatusToColor } from "constants/task";
+import { mapTaskStatusToColor, taskStatusToCopy } from "constants/task";
 import { TaskStatus } from "types/task";
-import { getAllTaskStatsGroupedByColor } from "./utils";
+import {
+  getAllTaskStatsGroupedByColor,
+  getStatusesWithZeroCount,
+} from "./utils";
 
 describe("getAllTaskStatsGroupedByColor", () => {
   test(
@@ -12,41 +15,48 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 4,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
+              umbrellaStatus: TaskStatus.Succeeded,
             },
             {
               count: 6,
-              statuses: [TaskStatus.TaskTimedOut],
+              statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
+              umbrellaStatus: TaskStatus.Failed,
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemFailed,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemFailed],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
+              umbrellaStatus: TaskStatus.SystemFailed,
             },
             {
               count: 2,
-              statuses: [TaskStatus.Inactive],
+              statuses: [taskStatusToCopy[TaskStatus.Inactive]],
               color: mapTaskStatusToColor[TaskStatus.Inactive],
+              umbrellaStatus: TaskStatus.Dispatched,
             },
             {
               count: 3,
-              statuses: [TaskStatus.SetupFailed],
+              statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
               color: mapTaskStatusToColor[TaskStatus.SetupFailed],
+              umbrellaStatus: TaskStatus.SetupFailed,
             },
             {
               count: 3,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
+              umbrellaStatus: TaskStatus.Started,
             },
             {
               count: 2,
-              statuses: [TaskStatus.Unscheduled],
+              statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
               color: mapTaskStatusToColor[TaskStatus.Unscheduled],
+              umbrellaStatus: TaskStatus.Unscheduled,
             },
           ],
           max: 7,
@@ -56,21 +66,30 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 8,
-              statuses: [TaskStatus.TestTimedOut, TaskStatus.Failed],
+              statuses: [
+                taskStatusToCopy[TaskStatus.TestTimedOut],
+                taskStatusToCopy[TaskStatus.Failed],
+              ],
               color: mapTaskStatusToColor[TaskStatus.Failed],
+              umbrellaStatus: TaskStatus.Failed,
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemTimedOut,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemTimedOut],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
+              umbrellaStatus: TaskStatus.SystemFailed,
             },
             {
               count: 6,
-              statuses: [TaskStatus.Dispatched, TaskStatus.WillRun],
+              statuses: [
+                taskStatusToCopy[TaskStatus.Dispatched],
+                taskStatusToCopy[TaskStatus.WillRun],
+              ],
               color: mapTaskStatusToColor[TaskStatus.Dispatched],
+              umbrellaStatus: TaskStatus.Dispatched,
             },
           ],
           max: 8,
@@ -80,23 +99,27 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 6,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
+              umbrellaStatus: TaskStatus.Succeeded,
             },
             {
               count: 2,
-              statuses: [TaskStatus.Failed],
+              statuses: [taskStatusToCopy[TaskStatus.Failed]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
+              umbrellaStatus: TaskStatus.Failed,
             },
             {
               count: 4,
-              statuses: [TaskStatus.Dispatched],
+              statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
               color: mapTaskStatusToColor[TaskStatus.Dispatched],
+              umbrellaStatus: TaskStatus.Dispatched,
             },
             {
               count: 5,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
+              umbrellaStatus: TaskStatus.Started,
             },
           ],
           max: 6,
@@ -106,41 +129,48 @@ describe("getAllTaskStatsGroupedByColor", () => {
           stats: [
             {
               count: 4,
-              statuses: [TaskStatus.Succeeded],
+              statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
               color: mapTaskStatusToColor[TaskStatus.Succeeded],
+              umbrellaStatus: TaskStatus.Succeeded,
             },
             {
               count: 6,
-              statuses: [TaskStatus.TaskTimedOut],
+              statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
               color: mapTaskStatusToColor[TaskStatus.Failed],
+              umbrellaStatus: TaskStatus.Failed,
             },
             {
               count: 7,
               statuses: [
-                TaskStatus.SystemFailed,
-                TaskStatus.SystemUnresponsive,
+                taskStatusToCopy[TaskStatus.SystemFailed],
+                taskStatusToCopy[TaskStatus.SystemUnresponsive],
               ],
               color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
+              umbrellaStatus: TaskStatus.SystemFailed,
             },
             {
               count: 2,
-              statuses: [TaskStatus.Inactive],
+              statuses: [taskStatusToCopy[TaskStatus.Inactive]],
               color: mapTaskStatusToColor[TaskStatus.Inactive],
+              umbrellaStatus: TaskStatus.Dispatched,
             },
             {
               count: 3,
-              statuses: [TaskStatus.SetupFailed],
+              statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
               color: mapTaskStatusToColor[TaskStatus.SetupFailed],
+              umbrellaStatus: TaskStatus.SetupFailed,
             },
             {
               count: 3,
-              statuses: [TaskStatus.Started],
+              statuses: [taskStatusToCopy[TaskStatus.Started]],
               color: mapTaskStatusToColor[TaskStatus.Started],
+              umbrellaStatus: TaskStatus.Started,
             },
             {
               count: 2,
-              statuses: [TaskStatus.Unscheduled],
+              statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
               color: mapTaskStatusToColor[TaskStatus.Unscheduled],
+              umbrellaStatus: TaskStatus.Unscheduled,
             },
           ],
           max: 7,
@@ -149,6 +179,30 @@ describe("getAllTaskStatsGroupedByColor", () => {
       });
     }
   );
+});
+
+describe("getStatusesWithZeroCount", () => {
+  test("Return an array of umbrella statuses that have 0 count", () => {
+    expect(getStatusesWithZeroCount(groupedTaskStats)).toStrictEqual([
+      TaskStatus.SystemFailed,
+      TaskStatus.Dispatched,
+      TaskStatus.Started,
+    ]);
+  });
+  test("Should return an empty array when all umbrella statuses are present", () => {
+    expect(getStatusesWithZeroCount(groupedTaskStatsAll)).toStrictEqual([]);
+  });
+  test("Return an array of all umbrella statuses when no umbrella status exists", () => {
+    expect(getStatusesWithZeroCount([])).toStrictEqual([
+      TaskStatus.Succeeded,
+      TaskStatus.Failed,
+      TaskStatus.SystemFailed,
+      TaskStatus.Dispatched,
+      TaskStatus.SetupFailed,
+      TaskStatus.Started,
+      TaskStatus.Unscheduled,
+    ]);
+  });
 });
 
 const versions = [
@@ -226,5 +280,77 @@ const versions = [
       ],
     },
     rolledUpVersions: null,
+  },
+];
+
+const groupedTaskStatsAll = [
+  {
+    umbrellaStatus: TaskStatus.Succeeded,
+    count: 2,
+    statuses: [TaskStatus.Succeeded],
+    color: mapTaskStatusToColor[TaskStatus.Succeeded],
+  },
+  {
+    umbrellaStatus: TaskStatus.Failed,
+    count: 1,
+    statuses: [TaskStatus.Failed],
+    color: mapTaskStatusToColor[TaskStatus.Failed],
+  },
+  {
+    umbrellaStatus: TaskStatus.SystemFailed,
+    count: 3,
+    statuses: [TaskStatus.SystemFailed],
+    color: mapTaskStatusToColor[TaskStatus.SystemFailed],
+  },
+  {
+    umbrellaStatus: TaskStatus.SetupFailed,
+    count: 5,
+    statuses: [TaskStatus.SetupFailed],
+    color: mapTaskStatusToColor[TaskStatus.SetupFailed],
+  },
+  {
+    umbrellaStatus: TaskStatus.Unscheduled,
+    count: 1,
+    statuses: [TaskStatus.Unscheduled],
+    color: mapTaskStatusToColor[TaskStatus.Unscheduled],
+  },
+  {
+    umbrellaStatus: TaskStatus.Started,
+    count: 6,
+    statuses: [TaskStatus.Started],
+    color: mapTaskStatusToColor[TaskStatus.Started],
+  },
+  {
+    umbrellaStatus: TaskStatus.Dispatched,
+    count: 7,
+    statuses: [TaskStatus.Dispatched],
+    color: mapTaskStatusToColor[TaskStatus.Dispatched],
+  },
+];
+
+const groupedTaskStats = [
+  {
+    umbrellaStatus: TaskStatus.Succeeded,
+    count: 2,
+    statuses: [TaskStatus.Succeeded],
+    color: mapTaskStatusToColor[TaskStatus.Succeeded],
+  },
+  {
+    umbrellaStatus: TaskStatus.Failed,
+    count: 1,
+    statuses: [TaskStatus.Failed],
+    color: mapTaskStatusToColor[TaskStatus.Failed],
+  },
+  {
+    umbrellaStatus: TaskStatus.Unscheduled,
+    count: 1,
+    statuses: [TaskStatus.Unscheduled],
+    color: mapTaskStatusToColor[TaskStatus.Unscheduled],
+  },
+  {
+    umbrellaStatus: TaskStatus.SetupFailed,
+    count: 5,
+    statuses: [TaskStatus.SetupFailed],
+    color: mapTaskStatusToColor[TaskStatus.SetupFailed],
   },
 ];
