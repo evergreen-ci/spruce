@@ -4,9 +4,9 @@ import { Skeleton } from "antd";
 import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
-import { ActiveCommit } from "./ActiveCommits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
 import { Grid } from "./ActiveCommits/Grid";
+import { ActiveCommit } from "./ActiveCommits/index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,

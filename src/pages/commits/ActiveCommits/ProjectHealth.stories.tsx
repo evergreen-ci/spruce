@@ -1,15 +1,13 @@
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
-import { BuildVariantAccordionContainer } from "./BuildVariantAccordionContainer";
 import {
   ColumnContainer,
   FlexRowContainer,
   ProjectHealthWrapper,
 } from "../CommitsWrapper";
 import { InactiveCommits, InactiveCommitLine } from "../InactiveCommits/index";
-import { CommitChart } from "./CommitChart";
-import { CommitChartLabel } from "./CommitChartLabel";
 import { Grid } from "./Grid";
+import { ActiveCommit } from "./index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
@@ -24,23 +22,13 @@ export const WaterfallAbsolute = () => (
     <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
-          <ColumnContainer key={version.id}>
-            <CommitChart
-              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
-              total={idToTaskStatsGroupedByColor[version.id].total}
-              max={max}
-              chartType={ChartTypes.Absolute}
-            />
-            <CommitChartLabel
-              githash={version.revision.substring(0, 5)}
-              createTime={version.createTime}
-              author={version.author}
-              message={version.message}
-            />
-            <BuildVariantAccordionContainer
-              buildVariants={version.buildVariants}
-            />
-          </ColumnContainer>
+          <ActiveCommit
+            version={version}
+            chartType={ChartTypes.Absolute}
+            total={idToTaskStatsGroupedByColor[version.id].total}
+            max={max}
+            groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+          />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />
@@ -58,23 +46,13 @@ export const WaterfallPercentage = () => (
     <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
-          <ColumnContainer key={version.id}>
-            <CommitChart
-              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
-              total={idToTaskStatsGroupedByColor[version.id].total}
-              max={max}
-              chartType={ChartTypes.Percentage}
-            />
-            <CommitChartLabel
-              githash={version.revision.substring(0, 5)}
-              createTime={version.createTime}
-              author={version.author}
-              message={version.message}
-            />
-            <BuildVariantAccordionContainer
-              buildVariants={version.buildVariants}
-            />
-          </ColumnContainer>
+          <ActiveCommit
+            version={version}
+            chartType={ChartTypes.Absolute}
+            total={idToTaskStatsGroupedByColor[version.id].total}
+            max={max}
+            groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+          />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />

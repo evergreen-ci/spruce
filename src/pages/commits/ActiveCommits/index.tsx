@@ -1,10 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
 import { ChartTypes } from "types/commits";
-import { ColumnContainer } from "../CommitsWrapper";
+import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { CommitChartLabel } from "./CommitChartLabel";
-import { BuildVariantAccordionContainer } from "./BuildVariantAccordionContainer";
 import { ColorCount } from "./utils";
 
 interface Props {
@@ -35,19 +34,33 @@ export const ActiveCommit: React.FC<Props> = ({
   total,
   chartType,
 }) => (
-  <ColumnContainer key={version.id}>
-    <CommitChart
-      groupedTaskStats={groupedTaskStats}
-      total={total}
-      max={max}
-      chartType={chartType}
-    />
-    <CommitChartLabel
-      githash={version.revision.substring(0, 5)}
-      createTime={version.createTime}
-      author={version.author}
-      message={version.message}
-    />
-    <BuildVariantAccordionContainer buildVariants={version.buildVariants} />
-  </ColumnContainer>
+  <div>
+    <ColumnContainer key={version.id}>
+      <CommitChart
+        groupedTaskStats={groupedTaskStats}
+        total={total}
+        max={max}
+        chartType={chartType}
+      />
+      <CommitChartLabel
+        githash={version.revision.substring(0, 5)}
+        createTime={version.createTime}
+        author={version.author}
+        message={version.message}
+      />
+    </ColumnContainer>
+    <ColumnContainer>
+      {version.buildVariants.map(({ displayName }) => (
+        <BuildVariantCard buildVariantDisplayName={displayName} />
+      ))}
+    </ColumnContainer>
+  </div>
 );
+
+const ColumnContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-bottom: 15px;
+`;
