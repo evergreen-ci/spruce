@@ -9,6 +9,7 @@ interface HistoryTableIconProps {
   label?: string;
   failingTests?: string[];
   inactive?: boolean;
+  onClick?: () => void;
 }
 
 export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
@@ -16,6 +17,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   label,
   failingTests = [],
   inactive,
+  onClick,
 }) => (
   <Tooltip
     usePortal={false}
@@ -24,7 +26,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
     enabled={!inactive && !!failingTests.length}
     popoverZIndex={1}
     trigger={
-      <Container>
+      <Container onClick={onClick}>
         <IconContainer inactive={inactive}>
           <TaskStatusIcon status={status} />
         </IconContainer>
