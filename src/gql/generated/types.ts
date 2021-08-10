@@ -1460,7 +1460,7 @@ export type PatchesPagePatchesFragment = {
         baseVersionID?: Maybe<string>;
         githash: string;
         id: string;
-        projectID: string;
+        projectIdentifier: string;
         taskCount?: Maybe<number>;
         status: string;
       }>
