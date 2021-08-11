@@ -4,10 +4,15 @@ import { Body } from "@leafygreen-ui/typography";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { TaskStatus } from "types/task";
 
+interface FailingTest {
+  testName: string;
+  testId: string;
+}
+
 interface HistoryTableIconProps {
   status: TaskStatus;
   label?: string;
-  failingTests?: string[];
+  failingTests?: FailingTest[];
   inactive?: boolean;
   onClick?: () => void;
 }
@@ -36,8 +41,8 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
     triggerEvent="hover"
   >
     <TestNameContainer>
-      {failingTests.map((testName, key) => (
-        <Body key={key}>{testName}</Body> // eslint-disable-line react/no-array-index-key
+      {failingTests.map(({ testName, testId }) => (
+        <Body key={testId}>{testName}</Body>
       ))}
     </TestNameContainer>
   </Tooltip>
