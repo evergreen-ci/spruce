@@ -36,8 +36,8 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
     triggerEvent="hover"
   >
     <TestNameContainer>
-      {failingTests.map((testName) => (
-        <Body>{testName}</Body>
+      {failingTests.map((testName, key) => (
+        <Body key={key}>{testName}</Body> // eslint-disable-line react/no-array-index-key
       ))}
     </TestNameContainer>
   </Tooltip>
