@@ -13,7 +13,7 @@ export const TaskHistory = () => {
 
   return (
     <PageWrapper>
-      <H2>Task Name: INT_JAVA_SECURITY</H2>
+      <H2>Task Name: {taskId}</H2>
     </PageWrapper>
   );
 };
