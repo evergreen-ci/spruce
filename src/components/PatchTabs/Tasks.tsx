@@ -51,7 +51,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { data, startPolling, stopPolling } = useQuery<
+  const { data, loading, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
@@ -63,7 +63,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     },
   });
   let showSkeleton = true;
-  if (data) {
+  if (data && !loading) {
     showSkeleton = false;
   }
   useNetworkStatus(startPolling, stopPolling);
