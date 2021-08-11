@@ -1,0 +1,135 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Searchable Dropdown Multiselect 1`] = `
+Array [
+  <label
+    className="leafygreen-ui-1x9zy2h"
+    htmlFor="project-select"
+  >
+    multi select
+  </label>,
+  <div
+    className="css-gte0m8-Wrapper e17dnzmx3"
+  >
+    <div
+      className="css-1ldngto-BarWrapper e17dnzmx7"
+      data-cy="searchable-dropdown"
+      onClick={[Function]}
+    >
+      <div
+        className="css-soeq2u-LabelWrapper e17dnzmx8"
+      >
+        <div
+          className="leafygreen-ui-xsga32"
+          data-cy="project-name"
+        >
+          
+        </div>
+      </div>
+      <div
+        className="css-uszjhy-FlexWrapper e17dnzmx2"
+      >
+        <span
+          className="css-56nrj0-ArrowWrapper e17dnzmx4"
+        >
+          <button
+            aria-disabled={false}
+            aria-label="Toggle Dropdown"
+            className="leafygreen-ui-556onv"
+            tabIndex={0}
+          >
+            <div
+              className="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Chevron Down Icon"
+                className=""
+                fill="none"
+                height={16}
+                role="img"
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>,
+]
+`;
+
+exports[`Storyshots Searchable Dropdown Story 1`] = `
+Array [
+  <label
+    className="leafygreen-ui-1x9zy2h"
+    htmlFor="project-select"
+  >
+    standard select
+  </label>,
+  <div
+    className="css-gte0m8-Wrapper e17dnzmx3"
+  >
+    <div
+      className="css-1ldngto-BarWrapper e17dnzmx7"
+      data-cy="searchable-dropdown"
+      onClick={[Function]}
+    >
+      <div
+        className="css-soeq2u-LabelWrapper e17dnzmx8"
+      >
+        <div
+          className="leafygreen-ui-xsga32"
+          data-cy="project-name"
+        >
+          
+        </div>
+      </div>
+      <div
+        className="css-uszjhy-FlexWrapper e17dnzmx2"
+      >
+        <span
+          className="css-56nrj0-ArrowWrapper e17dnzmx4"
+        >
+          <button
+            aria-disabled={false}
+            aria-label="Toggle Dropdown"
+            className="leafygreen-ui-556onv"
+            tabIndex={0}
+          >
+            <div
+              className="leafygreen-ui-xhlipt"
+            >
+              <svg
+                aria-label="Chevron Down Icon"
+                className=""
+                fill="none"
+                height={16}
+                role="img"
+                viewBox="0 0 16 16"
+                width={16}
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clipRule="evenodd"
+                  d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+                  fill="currentColor"
+                  fillRule="evenodd"
+                />
+              </svg>
+            </div>
+          </button>
+        </span>
+      </div>
+    </div>
+  </div>,
+]
+`;
