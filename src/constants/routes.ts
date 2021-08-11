@@ -6,6 +6,7 @@ const { stringifyQuery } = queryString;
 
 export enum PageNames {
   Patches = "patches",
+  Settings = "settings",
 }
 
 export enum SpawnTab {
@@ -19,6 +20,19 @@ export enum PreferencesTabRoutes {
   CLI = "cli",
   NewUI = "newUI",
   PublicKeys = "publickeys",
+}
+
+export enum ProjectSettingsTabRoutes {
+  General = "general",
+  Access = "access",
+  Variables = "variables",
+  GitHubCommitQueue = "github-commitqueue",
+  Notifications = "notifications",
+  PatchAliases = "patch-aliases",
+  VirtualWorkstation = "virtual-workstation",
+  ProjectTriggers = "project-triggers",
+  PeriodicBuilds = "periodic-builds",
+  EventLog = "event-log",
 }
 
 const paths = {
@@ -54,6 +68,17 @@ export const routes = {
   preferences: `${paths.preferences}/:tab?`,
   profilePreferences: [`${paths.preferences}/${PreferencesTabRoutes.Profile}`],
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
+  projectSettings: `${paths.project}/:id/${PageNames.Settings}/:tab?`,
+  projectSettingsAccess: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Access}`,
+  projectSettingsGeneral: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.General}`,
+  projectSettingsGitHubCommitQueue: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
+  projectSettingsEventLog: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsNotifications: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Notifications}`,
+  projectSettingsPatchAliases: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.PatchAliases}`,
+  projectSettingsPeriodicBuilds: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
+  projectSettingsProjectTriggers: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
+  projectSettingsVariables: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Variables}`,
+  projectSettingsVirtualWorkstation: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
   spawn: `${paths.spawn}/:tab?`,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
@@ -166,6 +191,11 @@ export const getSpawnVolumeRoute = (volume: string) => {
 
 export const getProjectPatchesRoute = (projectId: string) =>
   `${paths.project}/${projectId}/${PageNames.Patches}`;
+
+export const getProjectSettingsRoute = (
+  projectId: string,
+  tab: ProjectSettingsTabRoutes
+) => `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
 
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;
