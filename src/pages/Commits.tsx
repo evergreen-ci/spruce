@@ -20,12 +20,20 @@ import {
   ChartTypes,
   ProjectFilterOptions,
 } from "types/commits";
+import { TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
 const { getArray } = queryString;
 const DEFAULT_CHART_TYPE = ChartTypes.Absolute;
+const FAILED_STATUSES = [
+  TaskStatus.Failed,
+  TaskStatus.TaskTimedOut,
+  TaskStatus.TestTimedOut,
+  TaskStatus.KnownIssue,
+  TaskStatus.Aborted,
+];
 
 export const Commits = () => {
   const dispatchToast = useToastContext();
@@ -60,8 +68,18 @@ export const Commits = () => {
 
   // query mainlineCommits data
   const mainlineCommitsOptions = { projectID: projectId, limit: 5 };
-  const buildVariantOptions = {
+  const buildVariantOptionsForTask = {
     statuses: filterStatuses,
+    variants: filterVariants,
+    tasks: filterTasks,
+  };
+  const defaultFilterByFailed = !(
+    filterStatuses.length ||
+    filterVariants.length ||
+    filterTasks.length
+  );
+  const buildVariantOptions = {
+    statuses: defaultFilterByFailed ? FAILED_STATUSES : filterStatuses,
     variants: filterVariants,
     tasks: filterTasks,
   };
@@ -69,7 +87,11 @@ export const Commits = () => {
     MainlineCommitsQuery,
     MainlineCommitsQueryVariables
   >(GET_MAINLINE_COMMITS, {
-    variables: { mainlineCommitsOptions, buildVariantOptions },
+    variables: {
+      mainlineCommitsOptions,
+      buildVariantOptionsForTask,
+      buildVariantOptions,
+    },
     pollInterval,
     onError: (e) =>
       dispatchToast.error(`There was an error loading the page: ${e.message}`),
