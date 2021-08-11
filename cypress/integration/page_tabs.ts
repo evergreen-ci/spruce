@@ -8,20 +8,20 @@ describe("Tabs", () => {
   });
 
   describe("Patches page", () => {
-    it("selects tasks tab by default", () => {
+    before(() => {
       cy.visit(patchRoute);
+    });
+    it("selects tasks tab by default", () => {
       cy.dataCy(patches.tasks.btn)
         .should("have.attr", "aria-selected")
         .and("eq", "true");
     });
 
     it("includes selected tab name in url path", () => {
-      cy.visit(patchRoute);
       locationPathEquals(patches.tasks.route);
     });
 
     it("updates the url path when another tab is selected", () => {
-      cy.visit(patchRoute);
       cy.get(`button[data-cy='${patches.changes.btn}']`).click();
       locationPathEquals(patches.changes.route);
     });
@@ -89,7 +89,7 @@ describe("Tabs", () => {
     });
   });
 
-  const patchId = "5e4ff3abe3c3317e352062e4";
+  const patchId = "5ecedafb562343215a7ff297";
   const patchRoute = `/version/${patchId}`;
   const patches = {
     changes: { route: `${patchRoute}/changes`, btn: "changes-tab" },
