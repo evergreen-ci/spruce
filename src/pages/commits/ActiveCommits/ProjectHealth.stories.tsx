@@ -23,6 +23,7 @@ export const WaterfallAbsolute = () => (
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
           <ActiveCommit
+            key={version.id}
             version={version}
             chartType={ChartTypes.Absolute}
             total={versionToGroupedTaskStatsMap[version.id].total}
@@ -47,6 +48,7 @@ export const WaterfallPercentage = () => (
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
           <ActiveCommit
+            key={version.id}
             version={version}
             chartType={ChartTypes.Absolute}
             total={versionToGroupedTaskStatsMap[version.id].total}
