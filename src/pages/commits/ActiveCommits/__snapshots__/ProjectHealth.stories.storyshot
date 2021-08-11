@@ -79,12 +79,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -168,12 +168,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -275,12 +275,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -358,12 +358,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -447,12 +447,12 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -563,12 +563,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -652,12 +652,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -759,12 +759,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -842,12 +842,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
@@ -931,12 +931,12 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           01. Code Health [code_health]
         </div>
         <div
-          className="css-xjajuk-Card ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
         >
           02. Packaging (RPM - RHEL7) [package_rpm]
         </div>
