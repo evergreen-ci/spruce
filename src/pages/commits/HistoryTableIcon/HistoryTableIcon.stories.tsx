@@ -8,12 +8,12 @@ export default {
 };
 
 const failingTests = [
-  "test a",
-  "test b",
-  "test c",
-  "test looooonnnnnnnng name",
-  "some other test",
-  "test name d",
+  { testName: "test a", testId: "1" },
+  { testName: "test b", testId: "2" },
+  { testName: "test c", testId: "3" },
+  { testName: "test looooonnnnnnnng name", testId: "4" },
+  { testName: "some other test", testId: "5" },
+  { testName: "test name d", testId: "6" },
 ];
 
 const data = [
@@ -30,16 +30,20 @@ const data = [
 ];
 export const ActiveIcons = () => (
   <Container>
-    {data.map(({ status, label }) => (
-      <HistoryTableIcon {...{ status, label, failingTests, inactive: false }} />
+    {data.map(({ status, label }, key) => (
+      <HistoryTableIcon
+        {...{ key, status, label, failingTests, inactive: false }}
+      />
     ))}
   </Container>
 );
 
 export const InactiveIcons = () => (
   <Container>
-    {data.map(({ status, label }) => (
-      <HistoryTableIcon {...{ status, label, failingTests, inactive: true }} />
+    {data.map(({ status, label }, key) => (
+      <HistoryTableIcon
+        {...{ key, status, label, failingTests, inactive: true }}
+      />
     ))}
   </Container>
 );

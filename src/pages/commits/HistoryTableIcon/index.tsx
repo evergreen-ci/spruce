@@ -66,5 +66,8 @@ interface IconContainerProps {
   inactive?: boolean;
 }
 const IconContainer = styled.div<IconContainerProps>`
+  height: 30px;
+  width: 30px;
+  text-align: center;
   ${({ inactive }) => inactive && "opacity: .4;"}
 `;
