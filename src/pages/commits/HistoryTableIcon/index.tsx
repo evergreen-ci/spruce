@@ -46,10 +46,15 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
 const TestNameContainer = styled.div`
   white-space: nowrap;
 `;
-const Container = styled.div`
+
+interface ContainerProps {
+  onClick?: () => void;
+}
+const Container = styled.div<ContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
+  ${({ onClick }) => onClick && "cursor: pointer;"}
 `;
 
 interface IconContainerProps {
