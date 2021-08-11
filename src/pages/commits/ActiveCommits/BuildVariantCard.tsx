@@ -10,9 +10,9 @@ interface Props {
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
-}) => <Card key={buildVariantDisplayName}>{buildVariantDisplayName}</Card>;
+}) => <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>;
 
-const Card = styled(Body)`
+const Label = styled(Body)`
   margin-top: 20px;
   color: ${gray.dark2};
   font-size: 14px;

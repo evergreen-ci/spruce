@@ -78,7 +78,6 @@ export const Commits = () => {
     filterVariants.length ||
     filterTasks.length
   );
-  console.log(defaultFilterByFailed);
   const buildVariantOptions = {
     statuses: defaultFilterByFailed ? FAILED_STATUSES : filterStatuses,
     variants: filterVariants,

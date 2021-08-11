@@ -25,9 +25,9 @@ export const WaterfallAbsolute = () => (
           <ActiveCommit
             version={version}
             chartType={ChartTypes.Absolute}
-            total={idToTaskStatsGroupedByColor[version.id].total}
+            total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
-            groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -49,9 +49,9 @@ export const WaterfallPercentage = () => (
           <ActiveCommit
             version={version}
             chartType={ChartTypes.Absolute}
-            total={idToTaskStatsGroupedByColor[version.id].total}
+            total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
-            groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
+            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -204,5 +204,5 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
 ];
 
-const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
+const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(versions);
+const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
