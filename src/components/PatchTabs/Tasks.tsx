@@ -28,7 +28,6 @@ const { getPageFromSearch, getLimitFromSearch } = url;
 interface Props {
   taskCount: number;
 }
-let nTimes = 0;
 
 export const Tasks: React.FC<Props> = ({ taskCount }) => {
   const { id: versionId } = useParams<{ id: string }>();
@@ -57,7 +56,7 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
     pollInterval,
-    fetchPolicy: "no-cache",
+    fetchPolicy: "cache-and-network",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
@@ -68,8 +67,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
   }
   useNetworkStatus(startPolling, stopPolling);
   const { patchTasks } = data || {};
-  console.log(`Rendered component${nTimes}`);
-  nTimes += 1;
   return (
     <>
       <TaskFilters />
