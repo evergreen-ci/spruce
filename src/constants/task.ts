@@ -2,7 +2,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { ALL_VALUE, TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
 
-const { green, gray, yellow, red } = uiColors;
+const { gray, red, yellow, green } = uiColors;
 
 export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   {
@@ -232,4 +232,42 @@ export const mapTaskStatusToUmbrellaStatus = {
   [TaskStatus.Started]: TaskStatus.Started,
   [TaskStatus.Blocked]: TaskStatus.Unscheduled,
   [TaskStatus.Unscheduled]: TaskStatus.Unscheduled,
+};
+
+export const mapBadgeColors = {
+  [TaskStatus.Failed]: {
+    fill: red.light3,
+    border: red.light2,
+    text: red.dark2,
+  },
+  [TaskStatus.SetupFailed]: {
+    fill: " #f1f0fc",
+    border: "#d5d4f9",
+    text: "#4f4fbf",
+  },
+  [TaskStatus.Succeeded]: {
+    fill: green.light3,
+    border: green.light2,
+    text: green.dark2,
+  },
+  [TaskStatus.Started]: {
+    fill: yellow.light3,
+    border: yellow.light2,
+    text: yellow.dark2,
+  },
+  [TaskStatus.SystemFailed]: {
+    fill: "#4f4fbf",
+    border: "#36367f",
+    text: "#f1f0fc",
+  },
+  [TaskStatus.Undispatched]: {
+    fill: gray.light3,
+    border: gray.light2,
+    text: gray.dark1,
+  },
+  [TaskStatus.WillRun]: {
+    fill: gray.dark1,
+    border: gray.dark2,
+    text: gray.light3,
+  },
 };

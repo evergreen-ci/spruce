@@ -131,11 +131,11 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#E7DBEC"
-      className="css-1fnb5zg-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      border="#d5d4f9"
+      className="css-j7vyqa-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
-      fill="#F3EDF5"
-      text="#877290"
+      fill=" #f1f0fc"
+      text="#4f4fbf"
     >
       Setup Failure
     </div>
@@ -144,11 +144,11 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#CC99CC"
-      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
+      border="#36367f"
+      className="css-1sz0j5a-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
       data-cy="task-status-badge"
-      fill="#E6CCE6"
-      text="#800080"
+      fill="#4f4fbf"
+      text="#f1f0fc"
     >
       System Failed
     </div>
@@ -157,26 +157,18 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#CC99CC"
-      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
-      data-cy="task-status-badge"
-      fill="#E6CCE6"
-      text="#800080"
+      className="leafygreen-ui-17gpdot"
     >
-      System Time Out
+      system-timed-out
     </div>
   </div>
   <div
     className="css-11fe4n9-Wrapper e11i4bjx0"
   >
     <div
-      border="#CC99CC"
-      className="css-vlb5ik-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-17gpdot"
-      data-cy="task-status-badge"
-      fill="#E6CCE6"
-      text="#800080"
+      className="leafygreen-ui-17gpdot"
     >
-      System Unresponsive
+      system-unresponsive
     </div>
   </div>
   <div

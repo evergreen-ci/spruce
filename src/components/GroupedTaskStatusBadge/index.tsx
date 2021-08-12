@@ -1,12 +1,9 @@
 import React from "react";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
-import { taskStatusToCopy } from "constants/task";
+import { fontFamilies } from "@leafygreen-ui/tokens";
+import { taskStatusToCopy, mapBadgeColors } from "constants/task";
 import { TaskStatus } from "types/task";
 
-const { gray, red, yellow, green } = uiColors;
 interface Props {
   status: TaskStatus;
   count: number;
@@ -28,18 +25,24 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
 
   return (
     <BadgeContainer
-      css={statusToColorVariant[status]}
+      {...mapBadgeColors[status]}
       onClick={onClick}
-      to={href}
       clickable={href !== ""}
     >
-      <Number css={statusToColorVariant[status]}>{count}</Number>
-      <Status css={statusToColorVariant[status]}>{statusDisplayName}</Status>
+      <Number>{count}</Number>
+      <Status>{statusDisplayName}</Status>
     </BadgeContainer>
   );
 };
 
-const BadgeContainer = styled.div<{ clickable: boolean }>`
+interface BadgeColorProps {
+  border?: string;
+  fill?: string;
+  text?: string;
+  clickable: boolean;
+}
+
+const BadgeContainer = styled.div<BadgeColorProps>`
   height: 27px;
   width: 57px;
   border-radius: 3px;
@@ -51,53 +54,22 @@ const BadgeContainer = styled.div<{ clickable: boolean }>`
   justify-content: space-evenly;
   align-items: center;
   ${({ clickable }) => clickable && `cursor: pointer`};
+  ${({ border }) => border && `border-color: ${border} !important;`}
+  ${({ fill }) => fill && `background-color: ${fill} !important;`}
+  ${({ text }) => text && `color: ${text} !important;`}
 `;
 
-const Number = styled(Body)`
-  font-weight: bold;
+const Number = styled.span`
+  font-family: ${fontFamilies.default};
   font-size: 11px;
-  line-height: 10px;
+  font-weight: bold;
+  letter-spacing: 0.18px;
+  line-height: 8px;
 `;
 
-const Status = styled(Body)`
+const Status = styled.span`
+  font-family: ${fontFamilies.default};
+  letter-spacing: 0.13px;
   font-size: 8px;
-  line-height: 10px;
+  line-height: 8px;
 `;
-
-const statusToColorVariant = {
-  [TaskStatus.Failed]: css`
-    background-color: ${red.light3};
-    border-color: ${red.light2};
-    color: ${red.dark2};
-  `,
-  [TaskStatus.SetupFailed]: css`
-    background-color: #f1f0fc;
-    border-color: #d5d4f9;
-    color: #4f4fbf;
-  `,
-  [TaskStatus.Succeeded]: css`
-    background-color: ${green.light3};
-    border-color: ${green.light2};
-    color: ${green.dark2};
-  `,
-  [TaskStatus.Started]: css`
-    background-color: ${yellow.light3};
-    border-color: ${yellow.light2};
-    color: ${yellow.dark2};
-  `,
-  [TaskStatus.SystemFailed]: css`
-    background-color: #4f4fbf;
-    border-color: #36367f;
-    color: #f1f0fc;
-  `,
-  [TaskStatus.Undispatched]: css`
-    background-color: ${gray.light3};
-    border-color: ${gray.light2};
-    color: ${gray.dark1};
-  `,
-  [TaskStatus.WillRun]: css`
-    background-color: ${gray.dark1};
-    border-color: ${gray.dark2};
-    color: ${gray.light3};
-  `,
-};

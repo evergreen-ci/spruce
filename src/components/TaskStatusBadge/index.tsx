@@ -2,12 +2,10 @@ import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
-import { uiColors } from "@leafygreen-ui/palette";
-import { taskStatusToCopy } from "constants/task";
+import { taskStatusToCopy, mapBadgeColors } from "constants/task";
 import { TaskStatus } from "types/task";
 import { statuses, errorReporting } from "utils";
 
-const { gray } = uiColors;
 const { reportError } = errorReporting;
 const { getStatusBadgeCopy } = statuses;
 
@@ -26,29 +24,6 @@ const mapTaskStatusToBadgeVariant = {
   [TaskStatus.TaskTimedOut]: Variant.Red,
   [TaskStatus.Succeeded]: Variant.Green,
   [TaskStatus.KnownIssue]: Variant.Red,
-};
-
-const failureColors = {
-  border: "#CC99CC",
-  fill: "#E6CCE6",
-  text: "#800080",
-};
-
-// the status colors that are not supported by the leafygreen Badge variants
-const mapUnsupportedBadgeColors = {
-  [TaskStatus.SystemTimedOut]: failureColors,
-  [TaskStatus.SystemUnresponsive]: failureColors,
-  [TaskStatus.SetupFailed]: {
-    border: "#E7DBEC",
-    fill: "#F3EDF5",
-    text: "#877290",
-  },
-  [TaskStatus.WillRun]: {
-    border: gray.dark2,
-    fill: gray.dark1,
-    text: gray.light3,
-  },
-  [TaskStatus.SystemFailed]: failureColors,
 };
 
 interface BadgeColorProps {
@@ -95,12 +70,12 @@ const TaskStatusBadge: React.FC<TaskStatusBadgeProps> = ({ status }) => {
     );
   }
 
-  if (status in mapUnsupportedBadgeColors) {
+  if (status in mapBadgeColors) {
     return (
       <StyledBadge
         data-cy="task-status-badge"
         key={status}
-        {...mapUnsupportedBadgeColors[status]}
+        {...mapBadgeColors[status]}
       >
         {displayStatus}
       </StyledBadge>
