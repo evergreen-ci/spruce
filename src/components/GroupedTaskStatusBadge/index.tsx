@@ -39,8 +39,6 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   width: 60px;
   border-radius: 3px;
   border: 1px solid;
-  box-sizing: border-box;
-  border-radius: 3px;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
