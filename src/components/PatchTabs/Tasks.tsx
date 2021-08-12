@@ -51,19 +51,19 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
     }
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const { data, loading, startPolling, stopPolling } = useQuery<
+  const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
     PatchTasksQueryVariables
   >(GET_PATCH_TASKS, {
     variables: queryVariables,
     pollInterval,
-    fetchPolicy: "cache-and-network",
+    fetchPolicy: "no-cache",
     onError: (err) => {
       dispatchToast.error(`Error fetching patch tasks ${err}`);
     },
   });
   let showSkeleton = true;
-  if (data && !loading) {
+  if (data) {
     showSkeleton = false;
   }
   useNetworkStatus(startPolling, stopPolling);
