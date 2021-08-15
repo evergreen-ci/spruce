@@ -19,6 +19,10 @@ interface Props {
     }[];
     buildVariants?: {
       displayName: string;
+      tasks?: {
+        id: string;
+        status: string;
+      }[];
     }[];
   };
   groupedTaskStats: ColorCount[];
@@ -50,9 +54,10 @@ export const ActiveCommit: React.FC<Props> = ({
       />
     </ColumnContainer>
     <ColumnContainer>
-      {version.buildVariants.map(({ displayName }) => (
+      {version.buildVariants.map(({ displayName, tasks }) => (
         <BuildVariantCard
           buildVariantDisplayName={displayName}
+          tasks={tasks}
           key={`${version.id}_${displayName}`}
         />
       ))}
