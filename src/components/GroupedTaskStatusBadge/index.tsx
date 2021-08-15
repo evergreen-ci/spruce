@@ -1,9 +1,8 @@
 import styled from "@emotion/styled";
 import { taskStatusToCopy, mapBadgeColors } from "constants/task";
-import { TaskStatus } from "types/task";
 
 interface Props {
-  status: TaskStatus;
+  status: string;
   count: number;
   onClick?: () => void;
 }

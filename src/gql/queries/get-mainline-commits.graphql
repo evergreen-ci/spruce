@@ -17,6 +17,12 @@ query MainlineCommits(
         }
         buildVariants(options: $buildVariantOptions) {
           displayName
+          tasks {
+            id
+            execution
+            status
+            displayName
+          }
         }
       }
       rolledUpVersions {

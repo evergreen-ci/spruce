@@ -1,5 +1,5 @@
-import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
+import { TaskStatus } from "types/task";
 import {
   ColumnContainer,
   FlexRowContainer,
@@ -67,7 +67,7 @@ export const WaterfallPercentage = () => (
   </ProjectHealthWrapper>
 );
 
-const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
+const versions = [
   {
     version: {
       id: "spruce_987bf57eb679c6361322c3961b30a10724a9b001",
@@ -84,9 +84,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -109,9 +125,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -147,9 +179,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -171,9 +219,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Succeeded,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -196,9 +260,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },

@@ -54,7 +54,7 @@ export const CommitChartLabel: React.FC<Props> = ({
 
 const LabelContainer = styled.div`
   height: 100px;
-  width: 172px;
+  width: 100%;
   display: flex;
   margin-top: 10px;
   margin-bottom: 16px;

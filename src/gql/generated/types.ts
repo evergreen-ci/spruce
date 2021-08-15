@@ -53,6 +53,8 @@ export type Query = {
   buildBaron: BuildBaron;
   bbGetCreatedTickets: Array<JiraTicket>;
   mainlineCommits?: Maybe<MainlineCommits>;
+  buildVariantHistory?: Maybe<Array<Scalars["String"]>>;
+  taskHistory?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -172,6 +174,16 @@ export type QueryBbGetCreatedTicketsArgs = {
 
 export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
+};
+
+export type QueryBuildVariantHistoryArgs = {
+  projectId: Scalars["String"];
+  buildVariant: Scalars["String"];
+};
+
+export type QueryTaskHistoryArgs = {
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
 };
 
 export type Mutation = {
@@ -1460,7 +1472,7 @@ export type PatchesPagePatchesFragment = {
         baseVersionID?: Maybe<string>;
         githash: string;
         id: string;
-        projectIdentifier: string;
+        projectID: string;
         taskCount?: Maybe<number>;
         status: string;
       }>
@@ -2150,7 +2162,23 @@ export type MainlineCommitsQuery = {
         message: string;
         revision: string;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
-        buildVariants?: Maybe<Array<Maybe<{ displayName: string }>>>;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              displayName: string;
+              tasks?: Maybe<
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    status: string;
+                    displayName: string;
+                  }>
+                >
+              >;
+            }>
+          >
+        >;
       }>;
       rolledUpVersions?: Maybe<
         Array<{
@@ -2644,7 +2672,7 @@ export type VersionQuery = {
           baseVersionID?: Maybe<string>;
           githash: string;
           id: string;
-          projectID: string;
+          projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
         }>
