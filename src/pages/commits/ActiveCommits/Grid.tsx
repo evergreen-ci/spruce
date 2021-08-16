@@ -8,8 +8,10 @@ export const Grid: React.FC<{
   numDashedLine: number;
 }> = ({ numDashedLine }) => (
   <ColumnContainer>
-    {[...Array(numDashedLine)].map((number) => (
-      <DashedLine key={`${number}_grid_line`} />
+    {[...Array(numDashedLine)].map((_, index) => (
+      // This value won't change and does not need to represent a unique value
+      // eslint-disable-next-line react/no-array-index-key
+      <DashedLine key={`${index}_grid_line`} />
     ))}
     <SolidLine />
   </ColumnContainer>
