@@ -8,7 +8,7 @@ const { green, red, yellow, gray } = uiColors;
 
 const failurePurple = "#36367F";
 interface TaskStatusIconProps {
-  status: TaskStatus;
+  status: string;
   size?: Size | number;
 }
 

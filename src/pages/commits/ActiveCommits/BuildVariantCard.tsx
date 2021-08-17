@@ -3,7 +3,7 @@ import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import Icon from "components/Icon";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
 
 const { gray } = uiColors;
@@ -50,7 +50,7 @@ export const BuildVariantCard: React.FC<Props> = ({
               console.log({ id, status });
             }}
           >
-            <Icon glyph="FailedIcon" />
+            <TaskStatusIcon status={status} size={16} />
           </IconButton>
         ))}
       </IconContainer>
@@ -59,7 +59,6 @@ export const BuildVariantCard: React.FC<Props> = ({
 };
 
 const Label = styled(Body)`
-  margin-top: 20px;
   color: ${gray.dark2};
   font-size: 14px;
   width: 124px;
