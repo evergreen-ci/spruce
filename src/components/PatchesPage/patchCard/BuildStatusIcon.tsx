@@ -1,8 +1,9 @@
 import React from "react";
 import { Tooltip } from "antd";
 import { Link } from "react-router-dom";
-import Icon from "components/Icon";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { BuildStatus } from "types/build";
+import { TaskStatus } from "types/task";
 import { CreatedIcon } from "./buildStatusIcon/CreatedIcon";
 
 interface Props {
@@ -33,7 +34,7 @@ export const BuildStatusIcon: React.FC<Props> = ({
 
 const statusToIcon = {
   [BuildStatus.Created]: <CreatedIcon />,
-  [BuildStatus.Failed]: <Icon glyph="FailedIcon" />,
-  [BuildStatus.Started]: <Icon glyph="RunningIcon" />,
-  [BuildStatus.Succeeded]: <Icon glyph="SucceededIcon" />,
+  [BuildStatus.Failed]: <TaskStatusIcon status={TaskStatus.Failed} />,
+  [BuildStatus.Started]: <TaskStatusIcon status={TaskStatus.Dispatched} />,
+  [BuildStatus.Succeeded]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
 };
