@@ -82,7 +82,6 @@ export const FlexRowContainer = styled.div<{ numCommits: number }>`
   align-items: flex-start;
   margin-top: 65px;
   padding: 0px 12px 0px 9px;
-  z-index: 1;
   position: absolute;
 `;
 

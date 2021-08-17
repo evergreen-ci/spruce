@@ -26,6 +26,7 @@ const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: flex-end;
+  z-index: -1;
 `;
 
 const DashedLine = styled.div`
