@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
+import { inactiveElementStyle } from "components/styles";
 import { taskStatusToCopy, mapTaskStatusToColor } from "constants/task";
 import { TaskStatus } from "types/task";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
@@ -95,7 +96,7 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   align-items: center;
   margin-top: 10px;
   color: ${gray.dark2};
-  opacity: ${({ active }) => (active ? 1 : 0.4)};
+  ${({ active }) => active && inactiveElementStyle};
 `;
 
 const Circle = styled.div<{ color: string }>`
