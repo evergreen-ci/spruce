@@ -45,7 +45,7 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
       </Tooltip>
     )}
   >
-    <Container onClick={() => onClick()}>
+    <Container onClick={() => onClick()} data-cy="history-table-icon">
       <IconContainer inactive={inactive}>
         <TaskStatusIcon status={status} size={30} />
       </IconContainer>

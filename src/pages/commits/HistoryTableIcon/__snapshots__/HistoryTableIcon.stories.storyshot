@@ -6,6 +6,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
 >
   <div
     className="css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
@@ -33,6 +34,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -68,6 +70,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -98,6 +101,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
@@ -125,6 +129,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -166,6 +171,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -200,6 +206,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -233,6 +240,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -274,6 +282,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
@@ -303,6 +312,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   </div>
   <div
     className="css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
@@ -321,6 +331,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
 >
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -349,6 +360,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -379,6 +391,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -404,6 +417,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -432,6 +446,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -468,6 +483,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -497,6 +513,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -525,6 +542,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -561,6 +579,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -591,6 +610,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   </div>
   <div
     className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
