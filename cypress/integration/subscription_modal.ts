@@ -20,7 +20,7 @@ describe("Subscription Modals - Shared functionality", () => {
     describe(description, () => {
       it("Display success toast after submitting a valid form and request succeeds", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_0-option").click();
+        cy.contains("finishes").click();
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("jira-comment-option").click();
         cy.dataTestId("jira-comment-input").type("EVG-2000");
@@ -30,7 +30,7 @@ describe("Subscription Modals - Shared functionality", () => {
 
       it("Disable save button and display error message when populating form with negative percent value", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_4-option").click();
+        cy.contains("changes by some percentage").click();
         cy.dataCy("percent-change-input").clear().type("-100");
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("jira-comment-option").click();
@@ -43,7 +43,7 @@ describe("Subscription Modals - Shared functionality", () => {
 
       it("Disable save button and display error message in modal when populating form with negative duration value", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_3-option").click();
+        cy.contains("exceeds some duration").click();
         cy.dataCy("duration-secs-input").clear().type("-100");
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("jira-comment-option").click();
@@ -56,7 +56,7 @@ describe("Subscription Modals - Shared functionality", () => {
 
       it("Disable save button and display error message in modal when populating form with decimal duration value", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_3-option").click();
+        cy.contains("exceeds some duration").click();
         cy.dataCy("duration-secs-input").clear().type(".33");
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("jira-comment-option").click();
@@ -69,7 +69,7 @@ describe("Subscription Modals - Shared functionality", () => {
 
       it("Display error toast when save subscription request fails", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_0-option").click();
+        cy.contains("finishes").click();
         cy.dataTestId("notify-by-select").click();
         cy.dataTestId("jira-comment-option").click();
         cy.dataTestId("jira-comment-input").type("EVG-2000");
