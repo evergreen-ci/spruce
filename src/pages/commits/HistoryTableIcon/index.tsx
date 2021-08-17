@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Body } from "@leafygreen-ui/typography";
+import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { TaskStatus } from "types/task";
 
@@ -24,28 +25,33 @@ export const HistoryTableIcon: React.FC<HistoryTableIconProps> = ({
   inactive,
   onClick,
 }) => (
-  <Tooltip
-    usePortal={false}
-    align="right"
-    justify="middle"
-    enabled={!inactive && !!failingTests.length}
-    popoverZIndex={1}
-    trigger={
-      <Container onClick={onClick}>
-        <IconContainer inactive={inactive}>
-          <TaskStatusIcon status={status} />
-        </IconContainer>
-        {!inactive && <Body>{label}</Body>}
-      </Container>
-    }
-    triggerEvent="hover"
+  <ConditionalWrapper
+    condition={inactive || failingTests.length > 0}
+    wrapper={(children) => (
+      <Tooltip
+        usePortal={false}
+        align="right"
+        justify="middle"
+        enabled={!inactive && !!failingTests.length}
+        popoverZIndex={1}
+        trigger={children}
+        triggerEvent="hover"
+      >
+        <TestNameContainer>
+          {failingTests.map(({ testName, testId }) => (
+            <Body key={testId}>{testName}</Body>
+          ))}
+        </TestNameContainer>
+      </Tooltip>
+    )}
   >
-    <TestNameContainer>
-      {failingTests.map(({ testName, testId }) => (
-        <Body key={testId}>{testName}</Body>
-      ))}
-    </TestNameContainer>
-  </Tooltip>
+    <Container onClick={() => onClick()}>
+      <IconContainer inactive={inactive}>
+        <TaskStatusIcon status={status} size={30} />
+      </IconContainer>
+      {!inactive && <Body>{label}</Body>}
+    </Container>
+  </ConditionalWrapper>
 );
 
 const TestNameContainer = styled.div`

@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import { action } from "@storybook/addon-actions";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
@@ -17,22 +18,27 @@ const failingTests = [
 ];
 
 const data = [
-  { status: TaskStatus.Succeeded, label: "5000/5000 failing tests" },
+  { status: TaskStatus.Succeeded },
   { status: TaskStatus.Failed, label: "5/10 failing tests" },
   { status: TaskStatus.KnownIssue, label: "1/2 failing tests" },
-  { status: TaskStatus.Dispatched, label: "1/2 failing tests" },
+  { status: TaskStatus.Dispatched },
   { status: TaskStatus.SetupFailed, label: "5/10 failing tests" },
   { status: TaskStatus.SystemUnresponsive, label: "5/10 failing tests" },
   { status: TaskStatus.TestTimedOut, label: "5/10 failing tests" },
   { status: TaskStatus.Aborted, label: "5/10 failing tests" },
-  { status: TaskStatus.WillRun, label: "5/10 failing tests" },
-  { status: TaskStatus.Inactive, label: "5/10 failing tests" },
+  { status: TaskStatus.WillRun },
+  { status: TaskStatus.Inactive },
 ];
 export const ActiveIcons = () => (
   <Container>
-    {data.map(({ status, label }, key) => (
+    {data.map(({ status, label }) => (
       <HistoryTableIcon
-        {...{ key, status, label, failingTests, inactive: false }}
+        key={`${status}_history_table`}
+        status={status}
+        label={label}
+        failingTests={label ? failingTests : undefined}
+        inactive={false}
+        onClick={action(`clicked ${status}`)}
       />
     ))}
   </Container>
@@ -40,9 +46,11 @@ export const ActiveIcons = () => (
 
 export const InactiveIcons = () => (
   <Container>
-    {data.map(({ status, label }, key) => (
+    {data.map(({ status }) => (
       <HistoryTableIcon
-        {...{ key, status, label, failingTests, inactive: true }}
+        key={`${status}_history_table_inactive`}
+        status={status}
+        inactive
       />
     ))}
   </Container>

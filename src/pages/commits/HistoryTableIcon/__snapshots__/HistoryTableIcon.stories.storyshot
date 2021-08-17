@@ -5,11 +5,8 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
   className="css-1tw1ctr-Container e2krt9z0"
 >
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+    className="css-1saonyd-Container eaofukr1"
+    onClick={[Function]}
   >
     <div
       className="css-108m3yg-IconContainer eaofukr0"
@@ -17,10 +14,10 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
       <svg
         aria-label="Checkmark Icon"
         className="leafygreen-ui-ifwzrn"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -32,13 +29,12 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
     <div
       className="leafygreen-ui-xsga32"
-    >
-      5000/5000 failing tests
-    </div>
+    />
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -50,10 +46,10 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
         aria-label="X Icon"
         className="leafygreen-ui-14toih"
         fill="none"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -71,8 +67,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -82,9 +79,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 21 21"
-        width="default"
+        width={30}
       >
         <path
           d="M9.38138 6.37605L10.0001 6.99477L10.6188 6.37605L15.5686 1.42631C16.0079 0.986967 16.7202 0.986967 17.1596 1.42631L18.5738 2.84052C19.0131 3.27986 19.0131 3.99217 18.5738 4.43151L13.624 9.38126L13.0053 9.99998L13.624 10.6187L18.5738 15.5684C19.0131 16.0078 19.0131 16.7201 18.5738 17.1594L17.1596 18.5736C16.7202 19.013 16.0079 19.013 15.5686 18.5736L10.6188 13.6239L10.0001 13.0052L9.38138 13.6239L4.43163 18.5736C3.99229 19.013 3.27998 19.013 2.84064 18.5736L1.42643 17.1594C0.98709 16.7201 0.987089 16.0078 1.42643 15.5684L6.37618 10.6187L6.99489 9.99998L6.37618 9.38126L1.42643 4.43151C0.987089 3.99217 0.987089 3.27986 1.42643 2.84052L2.84064 1.42631C3.27998 0.986967 3.99229 0.986967 4.43163 1.42631L9.38138 6.37605Z"
@@ -100,11 +97,8 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+    className="css-1saonyd-Container eaofukr1"
+    onClick={[Function]}
   >
     <div
       className="css-108m3yg-IconContainer eaofukr0"
@@ -112,10 +106,10 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
       <svg
         aria-label="Refresh Icon"
         className="leafygreen-ui-3qal07"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -127,13 +121,12 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
     <div
       className="leafygreen-ui-xsga32"
-    >
-      1/2 failing tests
-    </div>
+    />
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -143,9 +136,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     >
       <svg
         fill="currentColor"
-        height="default"
+        height={30}
         viewBox="0 0 28 28"
-        width="default"
+        width={30}
       >
         <path
           d="M26.2 22L17.34 13.16C17.2842 13.1067 17.2182 13.0651 17.1461 13.0377C17.074 13.0102 16.9971 12.9974 16.92 13C16.8425 12.9935 16.7645 13.0046 16.6918 13.0323C16.6191 13.06 16.5536 13.1036 16.5 13.16L16 13.58L13.54 16.12L13.12 16.54V16.68C13.0438 16.7807 13.0025 16.9036 13.0025 17.03C13.0025 17.1563 13.0438 17.2792 13.12 17.38L22 26.24C22.267 26.5405 22.592 26.7838 22.9555 26.9554C23.319 27.127 23.7134 27.2233 24.1151 27.2385C24.5168 27.2537 24.9173 27.1875 25.2927 27.0438C25.6681 26.9001 26.0106 26.682 26.2995 26.4025C26.5884 26.1231 26.8178 25.7881 26.9739 25.4176C27.1299 25.0472 27.2095 24.6491 27.2076 24.2471C27.2058 23.8451 27.1227 23.4477 26.9633 23.0787C26.8039 22.7097 26.5714 22.3768 26.28 22.1L26.2 22Z"
@@ -172,8 +165,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -183,9 +177,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 32 32"
-        width="default"
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -205,8 +199,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -216,9 +211,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 30 29"
-        width="default"
+        width={30}
       >
         <path
           d="M25.68 23L28.7 19.98C28.8149 19.8682 28.9062 19.7345 28.9686 19.5867C29.031 19.439 29.0631 19.2803 29.0631 19.12C29.0631 18.9597 29.031 18.8009 28.9686 18.6532C28.9062 18.5055 28.8149 18.3718 28.7 18.26L27.84 17.4L27.42 17.12H27.28C27.0724 17.0668 26.8546 17.0684 26.6478 17.1245C26.441 17.1805 26.2523 17.2892 26.1 17.44L23 20.44L20.06 17.42C19.9482 17.3051 19.8145 17.2138 19.6667 17.1514C19.519 17.089 19.3603 17.0569 19.2 17.0569C19.0397 17.0569 18.8809 17.089 18.7332 17.1514C18.5855 17.2138 18.4518 17.3051 18.34 17.42L17.48 18.28C17.3651 18.3918 17.2738 18.5255 17.2114 18.6732C17.149 18.8209 17.1169 18.9797 17.1169 19.14C17.1169 19.3003 17.149 19.459 17.2114 19.6067C17.2738 19.7545 17.3651 19.8882 17.48 20L20.5 23L17.48 26.04C17.3392 26.1821 17.2361 26.3572 17.1803 26.5493C17.1244 26.7415 17.1174 26.9445 17.16 27.14V27.3L17.42 27.76L18.28 28.64C18.511 28.8624 18.8193 28.9867 19.14 28.9867C19.4607 28.9867 19.7689 28.8624 20 28.64L23 25.62L26.02 28.64C26.2544 28.8637 26.566 28.9886 26.89 28.9886C27.214 28.9886 27.5256 28.8637 27.76 28.64L28.62 27.76C28.7349 27.6482 28.8262 27.5145 28.8886 27.3667C28.951 27.219 28.9831 27.0603 28.9831 26.9C28.9831 26.7397 28.951 26.5809 28.8886 26.4332C28.8262 26.2855 28.7349 26.1518 28.62 26.04L25.68 23Z"
@@ -237,8 +232,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -248,9 +244,9 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 30 28"
-        width="default"
+        width={30}
       >
         <path
           d="M7.64 6.54C8.16669 6.48503 8.66672 6.28078 9.08126 5.95127C9.49581 5.62176 9.80762 5.18071 9.98 4.68V2.82C9.80863 2.31684 9.49758 1.87286 9.08321 1.53995C8.66884 1.20703 8.16826 0.998944 7.64 0.940002C7.39405 0.939988 7.15054 0.988753 6.92356 1.08348C6.69658 1.1782 6.49064 1.31699 6.31766 1.49184C6.14468 1.66668 6.00809 1.87409 5.9158 2.10207C5.82351 2.33005 5.77736 2.57407 5.78 2.82V4.68C5.77732 4.925 5.8236 5.16807 5.91613 5.39495C6.00866 5.62182 6.14556 5.82794 6.31881 6.00119C6.49207 6.17444 6.69818 6.31135 6.92505 6.40387C7.15193 6.4964 7.395 6.54268 7.64 6.54Z"
@@ -277,11 +273,8 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+    className="css-1saonyd-Container eaofukr1"
+    onClick={[Function]}
   >
     <div
       className="css-108m3yg-IconContainer eaofukr0"
@@ -290,10 +283,10 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
         aria-label="Calendar Icon"
         className="leafygreen-ui-foqtcf"
         fill="none"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -306,25 +299,18 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
     <div
       className="leafygreen-ui-xsga32"
-    >
-      5/10 failing tests
-    </div>
+    />
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
-    onBlur={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
+    className="css-1saonyd-Container eaofukr1"
+    onClick={[Function]}
   >
     <div
       className="css-108m3yg-IconContainer eaofukr0"
     />
     <div
       className="leafygreen-ui-xsga32"
-    >
-      5/10 failing tests
-    </div>
+    />
   </div>
 </div>
 `;
@@ -334,8 +320,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
   className="css-1tw1ctr-Container e2krt9z0"
 >
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -346,10 +333,10 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
       <svg
         aria-label="Checkmark Icon"
         className="leafygreen-ui-ifwzrn"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -361,8 +348,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -374,10 +362,10 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
         aria-label="X Icon"
         className="leafygreen-ui-14toih"
         fill="none"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -390,8 +378,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -401,9 +390,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 21 21"
-        width="default"
+        width={30}
       >
         <path
           d="M9.38138 6.37605L10.0001 6.99477L10.6188 6.37605L15.5686 1.42631C16.0079 0.986967 16.7202 0.986967 17.1596 1.42631L18.5738 2.84052C19.0131 3.27986 19.0131 3.99217 18.5738 4.43151L13.624 9.38126L13.0053 9.99998L13.624 10.6187L18.5738 15.5684C19.0131 16.0078 19.0131 16.7201 18.5738 17.1594L17.1596 18.5736C16.7202 19.013 16.0079 19.013 15.5686 18.5736L10.6188 13.6239L10.0001 13.0052L9.38138 13.6239L4.43163 18.5736C3.99229 19.013 3.27998 19.013 2.84064 18.5736L1.42643 17.1594C0.98709 16.7201 0.987089 16.0078 1.42643 15.5684L6.37618 10.6187L6.99489 9.99998L6.37618 9.38126L1.42643 4.43151C0.987089 3.99217 0.987089 3.27986 1.42643 2.84052L2.84064 1.42631C3.27998 0.986967 3.99229 0.986967 4.43163 1.42631L9.38138 6.37605Z"
@@ -414,8 +403,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -426,10 +416,10 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
       <svg
         aria-label="Refresh Icon"
         className="leafygreen-ui-3qal07"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -441,8 +431,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -452,9 +443,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     >
       <svg
         fill="currentColor"
-        height="default"
+        height={30}
         viewBox="0 0 28 28"
-        width="default"
+        width={30}
       >
         <path
           d="M26.2 22L17.34 13.16C17.2842 13.1067 17.2182 13.0651 17.1461 13.0377C17.074 13.0102 16.9971 12.9974 16.92 13C16.8425 12.9935 16.7645 13.0046 16.6918 13.0323C16.6191 13.06 16.5536 13.1036 16.5 13.16L16 13.58L13.54 16.12L13.12 16.54V16.68C13.0438 16.7807 13.0025 16.9036 13.0025 17.03C13.0025 17.1563 13.0438 17.2792 13.12 17.38L22 26.24C22.267 26.5405 22.592 26.7838 22.9555 26.9554C23.319 27.127 23.7134 27.2233 24.1151 27.2385C24.5168 27.2537 24.9173 27.1875 25.2927 27.0438C25.6681 26.9001 26.0106 26.682 26.2995 26.4025C26.5884 26.1231 26.8178 25.7881 26.9739 25.4176C27.1299 25.0472 27.2095 24.6491 27.2076 24.2471C27.2058 23.8451 27.1227 23.4477 26.9633 23.0787C26.8039 22.7097 26.5714 22.3768 26.28 22.1L26.2 22Z"
@@ -476,8 +467,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -487,9 +479,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 32 32"
-        width="default"
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -504,8 +496,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -515,9 +508,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 30 29"
-        width="default"
+        width={30}
       >
         <path
           d="M25.68 23L28.7 19.98C28.8149 19.8682 28.9062 19.7345 28.9686 19.5867C29.031 19.439 29.0631 19.2803 29.0631 19.12C29.0631 18.9597 29.031 18.8009 28.9686 18.6532C28.9062 18.5055 28.8149 18.3718 28.7 18.26L27.84 17.4L27.42 17.12H27.28C27.0724 17.0668 26.8546 17.0684 26.6478 17.1245C26.441 17.1805 26.2523 17.2892 26.1 17.44L23 20.44L20.06 17.42C19.9482 17.3051 19.8145 17.2138 19.6667 17.1514C19.519 17.089 19.3603 17.0569 19.2 17.0569C19.0397 17.0569 18.8809 17.089 18.7332 17.1514C18.5855 17.2138 18.4518 17.3051 18.34 17.42L17.48 18.28C17.3651 18.3918 17.2738 18.5255 17.2114 18.6732C17.149 18.8209 17.1169 18.9797 17.1169 19.14C17.1169 19.3003 17.149 19.459 17.2114 19.6067C17.2738 19.7545 17.3651 19.8882 17.48 20L20.5 23L17.48 26.04C17.3392 26.1821 17.2361 26.3572 17.1803 26.5493C17.1244 26.7415 17.1174 26.9445 17.16 27.14V27.3L17.42 27.76L18.28 28.64C18.511 28.8624 18.8193 28.9867 19.14 28.9867C19.4607 28.9867 19.7689 28.8624 20 28.64L23 25.62L26.02 28.64C26.2544 28.8637 26.566 28.9886 26.89 28.9886C27.214 28.9886 27.5256 28.8637 27.76 28.64L28.62 27.76C28.7349 27.6482 28.8262 27.5145 28.8886 27.3667C28.951 27.219 28.9831 27.0603 28.9831 26.9C28.9831 26.7397 28.951 26.5809 28.8886 26.4332C28.8262 26.2855 28.7349 26.1518 28.62 26.04L25.68 23Z"
@@ -531,8 +524,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -542,9 +536,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     >
       <svg
         fill="none"
-        height="default"
+        height={30}
         viewBox="0 0 30 28"
-        width="default"
+        width={30}
       >
         <path
           d="M7.64 6.54C8.16669 6.48503 8.66672 6.28078 9.08126 5.95127C9.49581 5.62176 9.80762 5.18071 9.98 4.68V2.82C9.80863 2.31684 9.49758 1.87286 9.08321 1.53995C8.66884 1.20703 8.16826 0.998944 7.64 0.940002C7.39405 0.939988 7.15054 0.988753 6.92356 1.08348C6.69658 1.1782 6.49064 1.31699 6.31766 1.49184C6.14468 1.66668 6.00809 1.87409 5.9158 2.10207C5.82351 2.33005 5.77736 2.57407 5.78 2.82V4.68C5.77732 4.925 5.8236 5.16807 5.91613 5.39495C6.00866 5.62182 6.14556 5.82794 6.31881 6.00119C6.49207 6.17444 6.69818 6.31135 6.92505 6.40387C7.15193 6.4964 7.395 6.54268 7.64 6.54Z"
@@ -566,8 +560,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -579,10 +574,10 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
         aria-label="Calendar Icon"
         className="leafygreen-ui-foqtcf"
         fill="none"
-        height={16}
+        height={30}
         role="img"
         viewBox="0 0 16 16"
-        width={16}
+        width={30}
         xmlns="http://www.w3.org/2000/svg"
       >
         <path
@@ -595,8 +590,9 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5p6un2-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
     onBlur={[Function]}
+    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
