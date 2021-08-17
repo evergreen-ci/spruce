@@ -1460,7 +1460,7 @@ export type PatchesPagePatchesFragment = {
         baseVersionID?: Maybe<string>;
         githash: string;
         id: string;
-        projectID: string;
+        projectIdentifier: string;
         taskCount?: Maybe<number>;
         status: string;
       }>
@@ -2135,6 +2135,7 @@ export type GetSuspectedIssuesQuery = {
 
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
+  buildVariantOptionsForTask: BuildVariantOptions;
   buildVariantOptions: BuildVariantOptions;
 }>;
 
@@ -2149,6 +2150,7 @@ export type MainlineCommitsQuery = {
         message: string;
         revision: string;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
+        buildVariants?: Maybe<Array<Maybe<{ displayName: string }>>>;
       }>;
       rolledUpVersions?: Maybe<
         Array<{

@@ -27,7 +27,7 @@ describe("CommitChartLabel", () => {
     const { queryByDataCy } = render(RenderCommitChartLabel(versionLong));
     expect(queryByDataCy("tooltip-button")).toBeInTheDocument();
     expect(queryByDataCy("commit-label")).toHaveTextContent(
-      "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton InternalDo...more"
+      "4137c 6/16/21 11:38 PMMohamed Khelif -SERVER-57332 Create skeleton Internal...more"
     );
   });
 

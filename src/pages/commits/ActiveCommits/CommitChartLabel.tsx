@@ -6,7 +6,7 @@ import { string } from "utils";
 
 const { gray, blue } = uiColors;
 const { shortDate } = string;
-const MAX_CHAR = 42;
+const MAX_CHAR = 40;
 interface Props {
   githash: string;
   createTime: Date;
@@ -53,10 +53,11 @@ export const CommitChartLabel: React.FC<Props> = ({
 };
 
 const LabelContainer = styled.div`
-  height: 100%;
+  height: 100px;
   width: 172px;
   display: flex;
   margin-top: 10px;
+  margin-bottom: 16px;
   flex-direction: column;
   align-items: flex-start;
   word-break: break-word;

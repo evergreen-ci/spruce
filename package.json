@@ -1,10 +1,10 @@
 {
   "name": "spruce",
-  "version": "2.13.2",
+  "version": "2.13.4",
   "private": true,
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js' --html | sed 1d > build/source_map.html",
-    "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` node scripts/build.js --max-old-space-size=8192 build",
+    "build": "REACT_APP_GIT_SHA=`git rev-parse HEAD` node scripts/build.js build",
     "build-storybook": "build-storybook -s public",
     "build:prod": "env-cmd -e prod -r env/.cmdrc.json yarn build",
     "build:staging": "env-cmd -e staging -r env/.cmdrc.json yarn build",
