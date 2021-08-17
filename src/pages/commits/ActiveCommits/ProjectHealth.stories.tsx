@@ -6,9 +6,8 @@ import {
   ProjectHealthWrapper,
 } from "../CommitsWrapper";
 import { InactiveCommits, InactiveCommitLine } from "../InactiveCommits/index";
-import { CommitChart } from "./CommitChart";
-import { CommitChartLabel } from "./CommitChartLabel";
 import { Grid } from "./Grid";
+import { ActiveCommit } from "./index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
@@ -23,20 +22,14 @@ export const WaterfallAbsolute = () => (
     <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
-          <ColumnContainer key={version.id}>
-            <CommitChart
-              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
-              total={idToTaskStatsGroupedByColor[version.id].total}
-              max={max}
-              chartType={ChartTypes.Absolute}
-            />
-            <CommitChartLabel
-              githash={version.revision.substring(0, 5)}
-              createTime={version.createTime}
-              author={version.author}
-              message={version.message}
-            />
-          </ColumnContainer>
+          <ActiveCommit
+            key={version.id}
+            version={version}
+            chartType={ChartTypes.Absolute}
+            total={versionToGroupedTaskStatsMap[version.id].total}
+            max={max}
+            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+          />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />
@@ -54,20 +47,14 @@ export const WaterfallPercentage = () => (
     <FlexRowContainer numCommits={versions.length}>
       {versions.map(({ version, rolledUpVersions }) =>
         version ? (
-          <ColumnContainer key={version.id}>
-            <CommitChart
-              groupedTaskStats={idToTaskStatsGroupedByColor[version.id].stats}
-              total={idToTaskStatsGroupedByColor[version.id].total}
-              max={max}
-              chartType={ChartTypes.Percentage}
-            />
-            <CommitChartLabel
-              githash={version.revision.substring(0, 5)}
-              createTime={version.createTime}
-              author={version.author}
-              message={version.message}
-            />
-          </ColumnContainer>
+          <ActiveCommit
+            key={version.id}
+            version={version}
+            chartType={ChartTypes.Absolute}
+            total={versionToGroupedTaskStatsMap[version.id].total}
+            max={max}
+            groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+          />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
             <InactiveCommitLine />
@@ -94,6 +81,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "setup-failed", count: 5 },
         { status: "unscheduled", count: 2 },
       ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
+      ],
     },
     rolledUpVersions: null,
   },
@@ -110,6 +105,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "known-issue", count: 4 },
         { status: "unscheduled", count: 12 },
         { status: "task-timed-out", count: 2 },
+      ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
       ],
     },
     rolledUpVersions: null,
@@ -141,6 +144,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "pending", count: 5 },
         { status: "unstarted", count: 2 },
       ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
+      ],
     },
     rolledUpVersions: null,
   },
@@ -156,6 +167,14 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "aborted", count: 3 },
         { status: "undispatched", count: 5 },
         { status: "test-timed-out", count: 2 },
+      ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
       ],
     },
     rolledUpVersions: null,
@@ -174,10 +193,18 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
         { status: "started", count: 5 },
         { status: "will-run", count: 2 },
       ],
+      buildVariants: [
+        {
+          displayName: "01. Code Health [code_health]",
+        },
+        {
+          displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+        },
+      ],
     },
     rolledUpVersions: null,
   },
 ];
 
-const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
+const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(versions);
+const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);

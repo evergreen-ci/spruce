@@ -53,7 +53,7 @@ it("Should have correctly formatted request payload after selecting options (tas
   act(() => {
     result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
     result.current.setTarget({ email: "email@email.com" });
-    result.current.setSelectedTriggerIndex(3);
+    result.current.setSelectedTriggerIndex(4);
   });
 
   expect(result.current.getRequestPayload()).toStrictEqual({

@@ -5,9 +5,8 @@ import { PageWrapper } from "components/styles";
 import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { ChartToggle } from "./ActiveCommits/ChartToggle";
-import { CommitChart } from "./ActiveCommits/CommitChart";
-import { CommitChartLabel } from "./ActiveCommits/CommitChartLabel";
 import { Grid } from "./ActiveCommits/Grid";
+import { ActiveCommit } from "./ActiveCommits/index";
 import {
   getAllTaskStatsGroupedByColor,
   findMaxGroupedTaskStats,
@@ -34,30 +33,25 @@ export const CommitsWrapper: React.FC<Props> = ({
     return <StyledSkeleton active title={false} paragraph={{ rows: 6 }} />;
   }
   if (!isLoading && versions?.length !== 0) {
-    const idToTaskStatsGroupedByColor = getAllTaskStatsGroupedByColor(versions);
-    const { max } = findMaxGroupedTaskStats(idToTaskStatsGroupedByColor);
+    const versionToGroupedTaskStatsMap = getAllTaskStatsGroupedByColor(
+      versions
+    );
+    const { max } = findMaxGroupedTaskStats(versionToGroupedTaskStatsMap);
 
     return (
       <ProjectHealthWrapper>
         <FlexRowContainer numCommits={versions.length}>
           {versions.map(({ version, rolledUpVersions }) =>
             version ? (
-              <ColumnContainer key={version.id}>
-                <CommitChart
-                  groupedTaskStats={
-                    idToTaskStatsGroupedByColor[version.id].stats
-                  }
-                  total={idToTaskStatsGroupedByColor[version.id].total}
-                  max={max}
-                  chartType={chartType}
-                />
-                <CommitChartLabel
-                  githash={version.revision.substring(0, 5)}
-                  createTime={version.createTime}
-                  author={version.author}
-                  message={version.message}
-                />
-              </ColumnContainer>
+              <ActiveCommit
+                version={version}
+                chartType={chartType}
+                total={versionToGroupedTaskStatsMap[version.id].total}
+                max={max}
+                groupedTaskStats={
+                  versionToGroupedTaskStatsMap[version.id].stats
+                }
+              />
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
                 <InactiveCommitLine />
@@ -107,6 +101,7 @@ export const ColumnContainer = styled.div`
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
+  margin-bottom: 40px;
 `;
 
 const NoResults = styled.div`

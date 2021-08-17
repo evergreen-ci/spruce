@@ -1,5 +1,6 @@
 query MainlineCommits(
   $mainlineCommitsOptions: MainlineCommitsOptions!
+  $buildVariantOptionsForTask: BuildVariantOptions!
   $buildVariantOptions: BuildVariantOptions!
 ) {
   mainlineCommits(options: $mainlineCommitsOptions) {
@@ -10,9 +11,12 @@ query MainlineCommits(
         createTime
         message
         revision
-        taskStatusCounts(options: $buildVariantOptions) {
+        taskStatusCounts(options: $buildVariantOptionsForTask) {
           status
           count
+        }
+        buildVariants(options: $buildVariantOptions) {
+          displayName
         }
       }
       rolledUpVersions {
