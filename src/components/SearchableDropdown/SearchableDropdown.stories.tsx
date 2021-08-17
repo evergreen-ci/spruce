@@ -20,7 +20,7 @@ export const Story = () => {
 };
 
 export const Multiselect = () => {
-  const [value, setValue] = useState("");
+  const [value, setValue] = useState([]);
 
   return (
     <SearchableDropdown
