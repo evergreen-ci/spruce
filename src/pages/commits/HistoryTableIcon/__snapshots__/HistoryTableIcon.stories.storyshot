@@ -339,7 +339,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         aria-label="Checkmark Icon"
@@ -368,7 +368,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         aria-label="X Icon"
@@ -399,7 +399,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         fill="none"
@@ -425,7 +425,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         aria-label="Refresh Icon"
@@ -454,7 +454,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         fill="currentColor"
@@ -491,7 +491,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         fill="none"
@@ -521,7 +521,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         fill="none"
@@ -550,7 +550,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         fill="none"
@@ -587,7 +587,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     >
       <svg
         aria-label="Calendar Icon"
@@ -618,7 +618,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-12uu95t-IconContainer eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
     />
   </div>
 </div>

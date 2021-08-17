@@ -6,6 +6,7 @@ import { errorReporting } from "utils";
 const { reportError } = errorReporting;
 const { green, red, yellow, gray } = uiColors;
 
+const failurePurple = "#36367F";
 interface TaskStatusIconProps {
   status: TaskStatus;
   size?: Size | number;
@@ -30,7 +31,7 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
     case TaskStatus.SystemUnresponsive:
     case TaskStatus.SystemTimedOut:
     case TaskStatus.SystemFailed:
-      return <Icon glyph="SystemFailure" fill="#36367F" size={size} />;
+      return <Icon glyph="SystemFailure" fill={failurePurple} size={size} />;
     case TaskStatus.TestTimedOut:
     case TaskStatus.TaskTimedOut:
       return <Icon glyph="TimedOut" fill={red.base} size={size} />;
