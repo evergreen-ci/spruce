@@ -1,8 +1,11 @@
 import { Size } from "@leafygreen-ui/icon";
 
+// Mock leafygreen-ui/icon Prop types
 interface LeafygreenIconProps extends React.SVGProps<SVGSVGElement> {
   size?: number | Size;
+  role?: "presentation" | "img";
 }
+
 export const EvergreenLogo: React.ComponentType<LeafygreenIconProps> = () => (
   <svg width="14" height="28" xmlns="http://www.w3.org/2000/svg">
     <path
