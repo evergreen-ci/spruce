@@ -29,6 +29,7 @@ interface Props {
   max: number;
   total: number;
   chartType: ChartTypes;
+  hasTaskFilter: boolean;
 }
 
 export const ActiveCommit: React.FC<Props> = ({
@@ -37,6 +38,7 @@ export const ActiveCommit: React.FC<Props> = ({
   max,
   total,
   chartType,
+  hasTaskFilter,
 }) => (
   <Container>
     <ColumnContainer key={version.id}>
@@ -59,6 +61,7 @@ export const ActiveCommit: React.FC<Props> = ({
           buildVariantDisplayName={displayName}
           tasks={tasks}
           key={`${version.id}_${displayName}`}
+          shouldGroupTasks={!hasTaskFilter}
         />
       ))}
     </ColumnContainer>

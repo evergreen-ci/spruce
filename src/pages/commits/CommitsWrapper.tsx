@@ -18,6 +18,7 @@ interface Props {
   error?: ApolloError;
   isLoading: boolean;
   chartType?: ChartTypes;
+  hasTaskFilter: boolean;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -25,6 +26,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   isLoading,
   error,
   chartType,
+  hasTaskFilter,
 }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
@@ -51,6 +53,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                 groupedTaskStats={
                   versionToGroupedTaskStatsMap[version.id].stats
                 }
+                hasTaskFilter={hasTaskFilter}
               />
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>

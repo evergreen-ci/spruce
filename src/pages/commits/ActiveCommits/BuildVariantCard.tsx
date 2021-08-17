@@ -14,50 +14,86 @@ interface Props {
     id: string;
     status: string;
   }[];
+  shouldGroupTasks: boolean;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
   tasks,
+  shouldGroupTasks,
 }) => {
+  let render = null;
+  if (shouldGroupTasks) {
+    const noneFailingTasks = tasks.filter(
+      (task) => !isFailedTaskStatus(task.status)
+    );
+    const failingTasks = tasks.filter((task) =>
+      isFailedTaskStatus(task.status)
+    );
+    render = (
+      <>
+        <IconContainer>
+          <RenderGroupedIcons tasks={noneFailingTasks} />
+        </IconContainer>
+        <IconContainer>
+          <RenderTaskIcons tasks={failingTasks} />
+        </IconContainer>
+      </>
+    );
+  } else {
+    render = (
+      <>
+        <IconContainer>
+          <RenderTaskIcons tasks={tasks} />
+        </IconContainer>
+      </>
+    );
+  }
+  return (
+    <>
+      <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>
+      {render}
+    </>
+  );
+};
+
+const RenderGroupedIcons = ({ tasks }) => {
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByColor(
     tasks.map((task) => ({ ...task, count: 1 }))
   );
-  const failingTasks = tasks.filter((task) => isFailedTaskStatus(task.status));
   // get all the umbrellaStatus that are not Failed
   const otherTasks = stats.filter(
     (stat) => !isFailedTaskStatus(stat.umbrellaStatus)
   );
   return (
     <>
-      <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>
-      <IconContainer>
-        {otherTasks.map(({ count, umbrellaStatus }) => (
-          <GroupedTaskStatusBadgeWrapper>
-            <GroupedTaskStatusBadge
-              status={umbrellaStatus}
-              key={`${umbrellaStatus}_groupedBadge`}
-              count={count}
-            />
-          </GroupedTaskStatusBadgeWrapper>
-        ))}
-      </IconContainer>
-      <IconContainer>
-        {failingTasks.map(({ id, status }) => (
-          <IconButton
-            aria-label="Failing task icon"
-            onClick={() => {
-              console.log({ id, status });
-            }}
-          >
-            <TaskStatusIcon status={status} size={16} />
-          </IconButton>
-        ))}
-      </IconContainer>
+      {otherTasks.map(({ count, umbrellaStatus }) => (
+        <GroupedTaskStatusBadgeWrapper>
+          <GroupedTaskStatusBadge
+            status={umbrellaStatus}
+            key={`${umbrellaStatus}_groupedBadge`}
+            count={count}
+          />
+        </GroupedTaskStatusBadgeWrapper>
+      ))}
     </>
   );
 };
 
+const RenderTaskIcons = ({ tasks }) => (
+  <>
+    {tasks.map(({ id, status }) => (
+      <IconButton
+        aria-label="task icon"
+        onClick={() => {
+          console.log({ id, status });
+        }}
+      >
+        <TaskStatusIcon status={status} size={16} />
+      </IconButton>
+    ))}
+  </>
+);
 const Label = styled(Body)`
   color: ${gray.dark2};
   font-size: 14px;
@@ -70,6 +106,8 @@ const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
+  width: 124px;
+  flex-wrap: wrap;
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`

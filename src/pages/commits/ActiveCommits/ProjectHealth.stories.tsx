@@ -1,3 +1,4 @@
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { ChartTypes } from "types/commits";
 import { TaskStatus } from "types/task";
 import {
@@ -15,6 +16,7 @@ import {
 
 export default {
   title: "Project Health Page",
+  decorators: [withKnobs],
 };
 
 export const WaterfallAbsolute = () => (
@@ -29,6 +31,7 @@ export const WaterfallAbsolute = () => (
             total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
             groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+            hasTaskFilter={boolean("hasTaskFilter", false)}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -54,6 +57,7 @@ export const WaterfallPercentage = () => (
             total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
             groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+            hasTaskFilter={boolean("hasTaskFilter", false)}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>

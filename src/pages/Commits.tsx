@@ -100,6 +100,9 @@ export const Commits = () => {
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
   const { versions } = mainlineCommits || {};
+
+  const hasTaskFilter = filterTasks.length > 0;
+  console.log({ hasTaskFilter, filterTasks });
   if (error) {
     return <PageDoesNotExist />;
   }
@@ -125,6 +128,7 @@ export const Commits = () => {
         error={error}
         isLoading={loading}
         chartType={currentChartType}
+        hasTaskFilter={hasTaskFilter}
       />
     </PageWrapper>
   );
