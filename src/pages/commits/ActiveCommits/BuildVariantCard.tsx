@@ -49,10 +49,10 @@ export const BuildVariantCard: React.FC<Props> = ({
     );
   }
   return (
-    <>
+    <Container>
       <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>
       {render}
-    </>
+    </Container>
   );
 };
 
@@ -97,7 +97,6 @@ const RenderTaskIcons = ({ tasks }) => (
 const Label = styled(Body)`
   color: ${gray.dark2};
   font-size: 14px;
-  width: 124px;
   word-break: break-word;
   margin-bottom: 24px;
 `;
@@ -106,8 +105,11 @@ const IconContainer = styled.div`
   display: flex;
   flex-direction: row;
   margin-bottom: 16px;
-  width: 124px;
   flex-wrap: wrap;
+`;
+
+const Container = styled.div`
+  width: 160px;
 `;
 
 const GroupedTaskStatusBadgeWrapper = styled.div`
