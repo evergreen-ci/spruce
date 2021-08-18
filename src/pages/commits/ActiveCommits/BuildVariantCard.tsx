@@ -23,7 +23,7 @@ export const BuildVariantCard: React.FC<Props> = ({
 }) => {
   let render = null;
   if (shouldGroupTasks) {
-    const noneFailingTasks = tasks.filter(
+    const nonFailingTasks = tasks.filter(
       (task) => !isFailedTaskStatus(task.status)
     );
     const failingTasks = tasks.filter((task) =>
@@ -32,7 +32,7 @@ export const BuildVariantCard: React.FC<Props> = ({
     render = (
       <>
         <IconContainer>
-          <RenderGroupedIcons tasks={noneFailingTasks} />
+          <RenderGroupedIcons tasks={nonFailingTasks} />
         </IconContainer>
         <IconContainer>
           <RenderTaskIcons tasks={failingTasks} />

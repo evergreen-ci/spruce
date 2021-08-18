@@ -102,7 +102,7 @@ export const Commits = () => {
   const { versions } = mainlineCommits || {};
 
   const hasTaskFilter = filterTasks.length > 0;
-  console.log({ hasTaskFilter, filterTasks });
+
   if (error) {
     return <PageDoesNotExist />;
   }
