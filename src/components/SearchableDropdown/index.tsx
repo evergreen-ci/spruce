@@ -19,6 +19,7 @@ interface SearchableDropdownProps<T> {
     match: string | T
   ) => boolean;
   searchPlaceholder?: string;
+  valuePlaceholder?: string;
   options: string[] | Array<T>;
   optionRenderer?: (option: string | T) => React.ReactNode;
   allowMultiselect?: boolean;
@@ -29,6 +30,7 @@ const SearchableDropdown = <T extends {}>({
   onChange,
   searchFunc,
   searchPlaceholder = "search...",
+  valuePlaceholder = "Select an element",
   options,
   optionRenderer,
   allowMultiselect = false,
@@ -124,6 +126,16 @@ const SearchableDropdown = <T extends {}>({
     setVisibleOptions(filteredOptions);
   };
 
+  let buttonText = valuePlaceholder;
+  if (value) {
+    if (typeof value === "string" && value.length !== 0) {
+      buttonText = value;
+    } else if (Array.isArray(value) && value.length !== 0) {
+      buttonText = value.join(", ");
+    } else {
+      buttonText = value.toString();
+    }
+  }
   return (
     <>
       <Label htmlFor="searchable-dropdown">{label}</Label>
@@ -137,7 +149,7 @@ const SearchableDropdown = <T extends {}>({
         >
           <ButtonContent>
             <LabelWrapper>
-              <Body data-cy="dropdown-value">{value}</Body>
+              <Body data-cy="dropdown-value">{buttonText}</Body>
             </LabelWrapper>
             <FlexWrapper>
               <ArrowWrapper>

@@ -38,7 +38,9 @@ Array [
               <div
                 className="leafygreen-ui-xsga32"
                 data-cy="dropdown-value"
-              />
+              >
+                
+              </div>
             </div>
             <div
               className="css-uszjhy-FlexWrapper e17dnzmx4"
@@ -116,7 +118,7 @@ Array [
                 className="leafygreen-ui-xsga32"
                 data-cy="dropdown-value"
               >
-                
+                Select an element
               </div>
             </div>
             <div
