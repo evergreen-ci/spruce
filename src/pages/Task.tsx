@@ -62,7 +62,7 @@ export const Task: React.FC = () => {
     displayName,
     patchNumber,
     priority,
-    status,
+    originalStatus,
     annotation,
     latestExecution,
     versionMetadata,
@@ -92,11 +92,11 @@ export const Task: React.FC = () => {
       )}
       <PageTitle
         loading={loading}
-        hasData={!!(displayName && status)}
+        hasData={!!(displayName && originalStatus)}
         title={displayName}
         badge={
           <StyledBadgeWrapper>
-            <TaskStatusBadge status={status} />
+            <TaskStatusBadge status={originalStatus} />
             {attributed && <TaskStatusBadge status={TaskStatus.KnownIssue} />}
           </StyledBadgeWrapper>
         }

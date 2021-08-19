@@ -69,7 +69,7 @@ export const useTaskAnalytics = (): Analytics => {
     }
   );
 
-  const { status: taskStatus, failedTestCount, latestExecution } =
+  const { originalStatus: taskStatus, failedTestCount, latestExecution } =
     eventData?.task || {};
   const isLatestExecution = latestExecution === execution;
   const sendEvent: Analytics["sendEvent"] = (action) => {

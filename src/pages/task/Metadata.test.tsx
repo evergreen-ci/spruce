@@ -52,7 +52,7 @@ const taskQuery = {
       eventLogLink:
         "https://evergreen.mongodb.com/event_log/task/spruce_ubuntu1604_e2e_test_patch_e0ece5ad52ad01630bdf29f55b9382a26d6256b3_5f4889313627e0544660c800_20_08_28_04_33_55",
     },
-    status: "pending",
+    originalStatus: "pending",
     version: "5f4889313627e0544660c800",
     revision: "e0ece5ad52ad01630bdf29f55b9382a26d6256b3",
     failedTestCount: 0,

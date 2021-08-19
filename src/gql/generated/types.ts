@@ -1026,6 +1026,7 @@ export type Task = {
   spawnHostLink?: Maybe<Scalars["String"]>;
   startTime?: Maybe<Scalars["Time"]>;
   status: Scalars["String"];
+  originalStatus: Scalars["String"];
   taskGroup?: Maybe<Scalars["String"]>;
   taskGroupMaxHosts?: Maybe<Scalars["Int"]>;
   timeTaken?: Maybe<Scalars["Duration"]>;
@@ -1416,7 +1417,7 @@ export type BaseTaskFragment = {
   buildVariant: string;
   displayName: string;
   revision?: Maybe<string>;
-  status: string;
+  originalStatus: string;
 };
 
 export type FileDiffsFragment = {

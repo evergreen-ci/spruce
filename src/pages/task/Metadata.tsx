@@ -36,7 +36,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
 
   const {
-    status,
+    originalStatus,
     spawnHostLink,
     ingestTime,
     finishTime,
@@ -124,7 +124,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
             </span>
           </P2>
         )}
-        {status === TaskStatus.Started && expectedDuration > 0 && (
+        {originalStatus === TaskStatus.Started && expectedDuration > 0 && (
           <ETATimer startTime={startTime} expectedDuration={expectedDuration} />
         )}
         {startTime && (

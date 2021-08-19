@@ -1,8 +1,8 @@
 fragment baseTask on Task {
-    id
-    execution
-    buildVariant
-    displayName
-    revision
-    status
+  id
+  execution
+  buildVariant
+  displayName
+  revision
+  originalStatus
 }

@@ -30,7 +30,7 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   const location = useLocation();
   const taskAnalytics = useTaskAnalytics();
   const {
-    status,
+    originalStatus,
     failedTestCount,
     logs: logLinks,
     isPerfPluginEnabled,
@@ -52,10 +52,10 @@ export const TaskTabs: React.FC<TaskTabProps> = ({ task, taskFiles }) => {
   } = useBuildBaronVariables({
     taskId: id,
     execution,
-    taskStatus: status,
+    taskStatus: originalStatus,
   });
 
-  const failedTask = isFailedTaskStatus(status);
+  const failedTask = isFailedTaskStatus(originalStatus);
 
   const showAnnotationsTab =
     failedTask &&
