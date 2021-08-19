@@ -1,8 +1,11 @@
 import styled from "@emotion/styled";
-import { Overline, Disclaimer } from "@leafygreen-ui/typography";
+import { uiColors } from "@leafygreen-ui/palette";
+import { Body, Overline } from "@leafygreen-ui/typography";
 import { useHistory } from "react-router-dom";
 import { getCommitsRoute } from "constants/routes";
 import { FavoriteStar } from "./FavoriteStar";
+
+const { gray } = uiColors;
 
 interface OptionProps {
   displayName: string;
@@ -18,9 +21,7 @@ const ProjectOption: React.FC<OptionProps> = ({
 
   return (
     <ProjectContainer onClick={() => history.push(getCommitsRoute(identifier))}>
-      <Disclaimer data-cy="project-display-name">
-        {displayName || identifier}
-      </Disclaimer>
+      <Body data-cy="project-display-name">{displayName || identifier}</Body>
       <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
     </ProjectContainer>
   );
@@ -58,6 +59,10 @@ const ProjectContainer = styled.div`
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
+  padding: 10px 12px;
+  :hover {
+    background-color: ${gray.light1};
+  }
 `;
 
 const OptionGroupContainer = styled.div`
