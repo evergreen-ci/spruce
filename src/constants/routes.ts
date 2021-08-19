@@ -54,6 +54,22 @@ const paths = {
   jobLogs: "/job-logs",
 };
 
+const projectSettingsSlug = `${paths.project}/:id/${PageNames.Settings}`;
+
+const projectSettingsRoutes = {
+  projectSettings: `${projectSettingsSlug}/:tab?`,
+  projectSettingsAccess: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Access}`,
+  projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
+  projectSettingsGitHubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
+  projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
+  projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
+  projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
+  projectSettingsProjectTriggers: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
+  projectSettingsVariables: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Variables}`,
+  projectSettingsVirtualWorkstation: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
+};
+
 export const routes = {
   cliPreferences: `${paths.preferences}/${PreferencesTabRoutes.CLI}`,
   commitQueue: `${paths.commitQueue}/:id`,
@@ -68,17 +84,6 @@ export const routes = {
   preferences: `${paths.preferences}/:tab?`,
   profilePreferences: [`${paths.preferences}/${PreferencesTabRoutes.Profile}`],
   projectPatches: `${paths.project}/:id/${PageNames.Patches}`,
-  projectSettings: `${paths.project}/:id/${PageNames.Settings}/:tab?`,
-  projectSettingsAccess: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Access}`,
-  projectSettingsGeneral: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.General}`,
-  projectSettingsGitHubCommitQueue: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
-  projectSettingsEventLog: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.EventLog}`,
-  projectSettingsNotifications: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Notifications}`,
-  projectSettingsPatchAliases: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.PatchAliases}`,
-  projectSettingsPeriodicBuilds: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
-  projectSettingsProjectTriggers: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
-  projectSettingsVariables: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.Variables}`,
-  projectSettingsVirtualWorkstation: `${paths.project}/:id/${PageNames.Settings}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
   publicKeysPreferences: `${paths.preferences}/${PreferencesTabRoutes.PublicKeys}`,
   spawn: `${paths.spawn}/:tab?`,
   spawnHost: `${paths.spawn}/${SpawnTab.Host}`,
@@ -92,6 +97,7 @@ export const routes = {
   variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
+  ...projectSettingsRoutes,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;

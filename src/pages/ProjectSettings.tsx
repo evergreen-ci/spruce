@@ -7,10 +7,15 @@ import {
   getProjectSettingsRoute,
 } from "constants/routes";
 import { usePageTitle } from "hooks";
+import { environmentalVariables } from "utils";
 import {
   ProjectSettingsTabs,
   getTitle,
 } from "./projectSettings/ProjectSettingsTabs";
+
+const { isProduction } = environmentalVariables;
+
+const disablePage = isProduction();
 
 export const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
@@ -25,6 +30,17 @@ export const ProjectSettings: React.FC = () => {
       />
     );
   }
+
+  if (disablePage) {
+    return (
+      <PageWrapper>
+        <PageContainer>
+          <h1>Coming Soon 🌱⚙️</h1>
+        </PageContainer>
+      </PageWrapper>
+    );
+  }
+
   return (
     <PageWrapper>
       <PageContainer>

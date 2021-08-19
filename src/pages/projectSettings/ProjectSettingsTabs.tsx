@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
@@ -18,8 +17,6 @@ import {
 
 export const ProjectSettingsTabs: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
-
-  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { title, subtitle } = getTitle(tab as ProjectSettingsTabRoutes);
 
