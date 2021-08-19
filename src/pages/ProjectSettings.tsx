@@ -20,6 +20,16 @@ const disablePage = isProduction();
 export const ProjectSettings: React.FC = () => {
   usePageTitle(`Project Settings`);
   const { id: projectId, tab } = useParams<{ id: string; tab: string }>();
+  if (disablePage) {
+    return (
+      <PageWrapper>
+        <PageContainer>
+          <h1>Coming Soon 🌱⚙️</h1>
+        </PageContainer>
+      </PageWrapper>
+    );
+  }
+
   if (!tabRouteValues.includes(tab as ProjectSettingsTabRoutes)) {
     return (
       <Redirect
@@ -28,16 +38,6 @@ export const ProjectSettings: React.FC = () => {
           ProjectSettingsTabRoutes.General
         )}
       />
-    );
-  }
-
-  if (disablePage) {
-    return (
-      <PageWrapper>
-        <PageContainer>
-          <h1>Coming Soon 🌱⚙️</h1>
-        </PageContainer>
-      </PageWrapper>
     );
   }
 
