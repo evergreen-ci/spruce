@@ -1858,6 +1858,15 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantHistoryQueryVariables = Exact<{
+  projectId: Scalars["String"];
+  buildVariant: Scalars["String"];
+}>;
+
+export type GetBuildVariantHistoryQuery = {
+  buildVariantHistory?: Maybe<Array<string>>;
+};
+
 export type BuildVariantsQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
