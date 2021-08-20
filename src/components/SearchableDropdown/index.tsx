@@ -23,6 +23,7 @@ interface SearchableDropdownProps<T> {
   options: string[] | Array<T>;
   optionRenderer?: (option: string | T) => React.ReactNode;
   allowMultiselect?: boolean;
+  disabled?: boolean;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -34,6 +35,7 @@ const SearchableDropdown = <T extends {}>({
   options,
   optionRenderer,
   allowMultiselect = false,
+  disabled = false,
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -60,11 +62,20 @@ const SearchableDropdown = <T extends {}>({
     };
   }, [listMenuRef, menuButtonRef, isOpen]);
 
+  // Update options when they change
+  useEffect(() => {
+    if (options) {
+      setVisibleOptions(options);
+    }
+  }, [options]);
+
   const onClick = (v: string | T) => {
     if (allowMultiselect) {
       if (Array.isArray(value)) {
         const newValue = toggleArray(v, value) as any[];
         onChange(newValue);
+      } else {
+        onChange([v as any]);
       }
     } else {
       onChange(v);
@@ -146,6 +157,7 @@ const SearchableDropdown = <T extends {}>({
           data-cy="searchable-dropdown"
           id="searchable-dropdown"
           value={value}
+          disabled={disabled}
         >
           <ButtonContent>
             <LabelWrapper>
@@ -170,7 +182,7 @@ const SearchableDropdown = <T extends {}>({
                 onChange={handleSearch}
                 data-cy="search-input"
               />
-              {(visibleOptions as any).map((o) => option(o))}
+              {(visibleOptions as any)?.map((o) => option(o))}
             </OptionsWrapper>
           </RelativeWrapper>
         )}
