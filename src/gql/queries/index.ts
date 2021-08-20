@@ -32,6 +32,7 @@ import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
+import GET_TASK_HISTORY from "./get-task-history.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
@@ -89,6 +90,7 @@ export {
   GET_CREATED_TICKETS,
   GET_USER_SETTINGS,
   GET_CODE_CHANGES,
+  GET_TASK_HISTORY,
   GET_TASK_LOGS,
   GET_AGENT_LOGS,
   GET_EVENT_LOGS,

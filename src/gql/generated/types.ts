@@ -392,6 +392,7 @@ export type MutationBbCreateTicketArgs = {
 
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
+  prevPageOrderNumber?: Maybe<Scalars["Int"]>;
   versions: Array<MainlineCommitVersion>;
 };
 
@@ -2409,6 +2410,13 @@ export type TaskFilesQuery = {
     }>;
   };
 };
+
+export type GetTaskHistoryQueryVariables = Exact<{
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type GetTaskHistoryQuery = { taskHistory?: Maybe<Array<string>> };
 
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
