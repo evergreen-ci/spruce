@@ -2161,6 +2161,7 @@ export type MainlineCommitsQuery = {
         createTime: Date;
         message: string;
         revision: string;
+        order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
         buildVariants?: Maybe<
           Array<

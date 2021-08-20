@@ -8,8 +8,8 @@ export enum ChartToggleQueryParams {
   chartType = "chartType",
 }
 
-export enum MainlineCommitsQueryParams {
-  statuses = "statuses",
+export enum MainlineCommitQueryParams {
+  SkipOrderNumber = "skipOrderNumber",
 }
 
 export enum ChartTypes {

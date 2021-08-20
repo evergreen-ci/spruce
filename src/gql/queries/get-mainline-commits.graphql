@@ -11,6 +11,7 @@ query MainlineCommits(
         createTime
         message
         revision
+        order
         taskStatusCounts(options: $buildVariantOptionsForTask) {
           status
           count
@@ -35,5 +36,6 @@ query MainlineCommits(
       }
     }
     nextPageOrderNumber
+    prevPageOrderNumber
   }
 }
