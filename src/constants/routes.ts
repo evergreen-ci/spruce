@@ -6,6 +6,7 @@ const { stringifyQuery } = queryString;
 
 export enum PageNames {
   Patches = "patches",
+  Settings = "settings",
 }
 
 export enum SpawnTab {
@@ -19,6 +20,19 @@ export enum PreferencesTabRoutes {
   CLI = "cli",
   NewUI = "newUI",
   PublicKeys = "publickeys",
+}
+
+export enum ProjectSettingsTabRoutes {
+  General = "general",
+  Access = "access",
+  Variables = "variables",
+  GitHubCommitQueue = "github-commitqueue",
+  Notifications = "notifications",
+  PatchAliases = "patch-aliases",
+  VirtualWorkstation = "virtual-workstation",
+  ProjectTriggers = "project-triggers",
+  PeriodicBuilds = "periodic-builds",
+  EventLog = "event-log",
 }
 
 const paths = {
@@ -38,6 +52,22 @@ const paths = {
   variantHistory: "/variant-history",
   taskHistory: "/task-history",
   jobLogs: "/job-logs",
+};
+
+const projectSettingsSlug = `${paths.project}/:id/${PageNames.Settings}`;
+
+const projectSettingsRoutes = {
+  projectSettings: `${projectSettingsSlug}/:tab?`,
+  projectSettingsAccess: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Access}`,
+  projectSettingsGeneral: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.General}`,
+  projectSettingsGitHubCommitQueue: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.GitHubCommitQueue}`,
+  projectSettingsEventLog: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.EventLog}`,
+  projectSettingsNotifications: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Notifications}`,
+  projectSettingsPatchAliases: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PatchAliases}`,
+  projectSettingsPeriodicBuilds: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.PeriodicBuilds}`,
+  projectSettingsProjectTriggers: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.ProjectTriggers}`,
+  projectSettingsVariables: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.Variables}`,
+  projectSettingsVirtualWorkstation: `${projectSettingsSlug}/${ProjectSettingsTabRoutes.VirtualWorkstation}`,
 };
 
 export const routes = {
@@ -67,6 +97,7 @@ export const routes = {
   variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
   taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
+  ...projectSettingsRoutes,
 };
 
 export const DEFAULT_PATCH_TAB = PatchTab.Tasks;
@@ -166,6 +197,11 @@ export const getSpawnVolumeRoute = (volume: string) => {
 
 export const getProjectPatchesRoute = (projectId: string) =>
   `${paths.project}/${projectId}/${PageNames.Patches}`;
+
+export const getProjectSettingsRoute = (
+  projectId: string,
+  tab: ProjectSettingsTabRoutes
+) => `${paths.project}/${projectId}/${PageNames.Settings}/${tab}`;
 
 export const getCommitQueueRoute = (projectId: string) =>
   `${paths.commitQueue}/${projectId}`;

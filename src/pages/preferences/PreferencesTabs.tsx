@@ -1,4 +1,3 @@
-import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
@@ -11,8 +10,6 @@ import { PublicKeysTab } from "./preferencesTabs/PublicKeysTab";
 
 export const PreferencesTabs: React.FC = () => {
   const { tab } = useParams<{ tab: string }>();
-
-  useEffect(() => {}, [tab]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { title, subtitle } = getTitle(tab as PreferencesTabRoutes);
 
