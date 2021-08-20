@@ -13,7 +13,6 @@ import {
 } from "gql/generated/types";
 import { GET_MAINLINE_COMMITS } from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
-import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import {
   ChartToggleQueryParams,
   ChartTypes,
@@ -44,8 +43,6 @@ export const Commits = () => {
   const [currentChartType, setCurrentChartType] = useState<ChartTypes>(
     DEFAULT_CHART_TYPE
   );
-
-  const updateQueryParams = useUpdateURLQueryParams();
 
   // get query params from url
   const { projectId } = useParams<{ projectId: string }>();
@@ -115,14 +112,6 @@ export const Commits = () => {
   const { versions, nextPageOrderNumber, prevPageOrderNumber } =
     mainlineCommits || {};
 
-  // useEffect(() => {
-  //   if (prevPageOrderNumber == null) {
-  //     console.log("Running this effect");
-  //     updateQueryParams({
-  //       [MainlineCommitQueryParams.SkipOrderNumber]: undefined,
-  //     });
-  //   }
-  // }, [prevPageOrderNumber]);
   const hasTaskFilter = filterTasks.length > 0;
   if (error) {
     return <PageDoesNotExist />;

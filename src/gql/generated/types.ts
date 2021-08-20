@@ -392,6 +392,7 @@ export type MutationBbCreateTicketArgs = {
 
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
+  prevPageOrderNumber?: Maybe<Scalars["Int"]>;
   versions: Array<MainlineCommitVersion>;
 };
 
@@ -2154,6 +2155,7 @@ export type MainlineCommitsQueryVariables = Exact<{
 export type MainlineCommitsQuery = {
   mainlineCommits?: Maybe<{
     nextPageOrderNumber?: Maybe<number>;
+    prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
         id: string;
