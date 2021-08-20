@@ -217,8 +217,6 @@ const RelativeWrapper = styled.div`
 `;
 
 const ArrowWrapper = styled.div`
-  border-left: 1px solid ${gray.light1};
-  padding-left: 5px;
   display: flex;
   align-items: center;
 `;
