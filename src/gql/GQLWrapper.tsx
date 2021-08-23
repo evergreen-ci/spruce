@@ -52,6 +52,11 @@ const cache = new InMemoryCache({
             return mergeObjects(existing, incoming);
           },
         },
+        status: {
+          merge(_, incoming) {
+            return incoming;
+          },
+        },
       },
     },
     Patch: {
