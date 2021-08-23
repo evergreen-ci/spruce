@@ -43,7 +43,7 @@ export const Task: React.FC = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
-    fetchPolicy: "network-only",
+    fetchPolicy: "no-cache",
     pollInterval,
     onError: (err) =>
       dispatchToast.error(
