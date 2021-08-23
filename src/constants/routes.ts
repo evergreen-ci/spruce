@@ -94,8 +94,8 @@ export const routes = {
   userPatches: `${paths.user}/:id/${PageNames.Patches}`,
   version: `${paths.version}/:id/:tab?`,
   commits: `${paths.commits}/:projectId`,
-  variantHistory: `${paths.variantHistory}/:projectId/:variantId`,
-  taskHistory: `${paths.taskHistory}/:projectId/:taskId`,
+  variantHistory: `${paths.variantHistory}/:projectId/:variantName`,
+  taskHistory: `${paths.taskHistory}/:projectId/:taskName`,
   jobLogs: `${paths.jobLogs}/:taskId/:execution/:groupId?`,
   ...projectSettingsRoutes,
 };

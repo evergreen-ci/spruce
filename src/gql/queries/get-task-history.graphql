@@ -1,0 +1,3 @@
+query GetTaskHistory($projectId: String!, $taskName: String!) {
+  taskHistory(projectId: $projectId, taskName: $taskName)
+}
