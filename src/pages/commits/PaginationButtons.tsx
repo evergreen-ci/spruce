@@ -20,8 +20,10 @@ export const PaginationButtons: React.FC<PaginationButtonsProps> = ({
     });
   };
   const onPrevClick = () => {
+    // 0 is the first page so we can just omit the query param
     updateQueryParams({
-      [MainlineCommitQueryParams.SkipOrderNumber]: prevPageOrderNumber.toString(),
+      [MainlineCommitQueryParams.SkipOrderNumber]:
+        prevPageOrderNumber > 0 ? prevPageOrderNumber.toString() : undefined,
     });
   };
   return (

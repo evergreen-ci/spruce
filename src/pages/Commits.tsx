@@ -58,7 +58,8 @@ export const Commits = () => {
 
   const skipOrderNumberParam =
     parsed[MainlineCommitQueryParams.SkipOrderNumber] || "";
-  const skipOrderNumber = parseInt(skipOrderNumberParam.toString(), 10) || 0;
+  const skipOrderNumber =
+    parseInt(skipOrderNumberParam.toString(), 10) || undefined;
 
   // set current chart type based on query param
   useEffect(() => {
