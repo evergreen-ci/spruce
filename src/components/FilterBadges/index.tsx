@@ -14,18 +14,18 @@ import { SeeMoreModal } from "./SeeMoreModal";
 const { convertObjectToArray } = array;
 const { parseQueryString } = queryString;
 
-const hiddenQueryParams = [
+const hiddenQueryParams = new Set([
   ChartToggleQueryParams.chartType,
   PatchTasksQueryParams.Statuses,
   MainlineCommitQueryParams.SkipOrderNumber,
-];
+]);
 export const FilterBadges: React.FC = () => {
   const updateQueryParams = useUpdateURLQueryParams();
   const location = useLocation();
   const { search } = location;
   const queryParams = parseQueryString(search);
   const queryParamsList = convertObjectToArray(queryParams).filter(
-    ({ key }) => !hiddenQueryParams.includes(key as any)
+    ({ key }) => !hiddenQueryParams.has(key as any)
   );
 
   const onRemove = (key: string, value: string) => {
