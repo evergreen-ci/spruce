@@ -7,6 +7,7 @@ import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckboxContainer } from "./TaskStatusCheckboxContainer";
 
 interface BuildVariantAccordianProps {
+  versionId: string;
   tasks: {
     id: string;
     status: string;
@@ -15,9 +16,12 @@ interface BuildVariantAccordianProps {
   }[];
   displayName: string;
   selectedTasks: selectedStrings;
-  toggleSelectedTask: (id: string | string[]) => void;
+  toggleSelectedTask: (
+    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+  ) => void;
 }
 export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
+  versionId,
   tasks,
   displayName,
   selectedTasks,
@@ -29,7 +33,9 @@ export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
     <>
       <Checkbox
         data-cy="variant-checkbox-select-all"
-        onChange={() => toggleSelectedTask(tasks.map((task) => task.id))}
+        onChange={() =>
+          toggleSelectedTask({ [versionId]: tasks.map((task) => task.id) })
+        }
         label={displayName}
         checked={matchingTasks === taskLength}
         indeterminate={matchingTasks > 0 && matchingTasks !== taskLength}
@@ -48,6 +54,7 @@ export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({
         title={variantTitle}
         contents={
           <TaskStatusCheckboxContainer
+            versionId={versionId}
             tasks={tasks}
             selectedTasks={selectedTasks}
             toggleSelectedTask={toggleSelectedTask}

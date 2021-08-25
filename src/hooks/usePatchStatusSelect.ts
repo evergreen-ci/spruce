@@ -1,22 +1,28 @@
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useReducer } from "react";
 import { GroupedBuildVariant } from "gql/generated/types";
 import { usePrevious } from "hooks";
-import { environmentalVariables } from "utils";
 
-const { getWebWorkerURL } = environmentalVariables;
 export interface selectedStrings {
   [id: string]: boolean | undefined;
 }
 
+export type patchSelectedTasks = {
+  [id: string]: selectedStrings | undefined;
+};
+
+type verionFilters = {
+  [versionId: string]: string[];
+};
+
 type Action =
-  | { type: "setSelectedTasks"; data: selectedStrings }
-  | { type: "setPatchStatusFilterTerm"; data: string[] }
-  | { type: "setBaseStatusFilterTerm"; data: string[] };
+  | { type: "setSelectedTasks"; data: patchSelectedTasks }
+  | { type: "setPatchStatusFilterTerm"; data: verionFilters }
+  | { type: "setBaseStatusFilterTerm"; data: verionFilters };
 
 interface State {
-  patchStatusFilterTerm: string[];
-  baseStatusFilterTerm: string[];
-  selectedTasks: selectedStrings;
+  patchStatusFilterTerm: verionFilters;
+  baseStatusFilterTerm: verionFilters;
+  selectedTasks: patchSelectedTasks;
 }
 
 const reducer = (state: State, action: Action) => {
@@ -41,14 +47,16 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-type FilterSetter = (statuses: string[]) => void;
+export type FilterSetter = (statuses: verionFilters) => void;
 
 type HookResult = [
-  selectedStrings,
-  string[],
-  string[],
+  patchSelectedTasks,
+  verionFilters,
+  verionFilters,
   {
-    toggleSelectedTask: (id: string | string[]) => void;
+    toggleSelectedTask: (
+      taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+    ) => void;
     setPatchStatusFilterTerm: FilterSetter;
     setBaseStatusFilterTerm: FilterSetter;
   }
@@ -63,41 +71,47 @@ type UpdatedPatchBuildVariantType = Omit<GroupedBuildVariant, "tasks"> & {
     baseStatus?: string;
   }[];
 };
-export const usePatchStatusSelect = (
-  patchBuildVariants: UpdatedPatchBuildVariantType[]
-): HookResult => {
-  const [webWorker, setWebWorker] = useState<Worker>();
-  useEffect(() => {
-    if (window.Worker && !webWorker) {
-      const worker = new Worker(getWebWorkerURL("patchBuildVariantsReduce.js"));
-      setWebWorker(worker);
-    }
-  }, [webWorker]);
 
+type ChildVersions = {
+  id: string;
+  buildVariants?: UpdatedPatchBuildVariantType[];
+}[];
+export const usePatchStatusSelect = (
+  patchBuildVariants: UpdatedPatchBuildVariantType[],
+  versionId: string,
+  childVersions: ChildVersions
+): HookResult => {
   const [
     { baseStatusFilterTerm, patchStatusFilterTerm, selectedTasks },
     dispatch,
   ] = useReducer(reducer, {
-    baseStatusFilterTerm: [],
-    patchStatusFilterTerm: [],
+    baseStatusFilterTerm: {},
+    patchStatusFilterTerm: {},
     selectedTasks: {},
   });
 
-  const toggleSelectedTask = (id: string | string[]) => {
+  const toggleSelectedTask = (
+    taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
+  ) => {
     const newState = { ...selectedTasks };
+    const taskVersion = Object.keys(taskIds)[0];
 
-    if (typeof id === "string") {
-      if (newState[id]) {
-        newState[id] = false;
+    const selected = taskIds[taskVersion];
+
+    if (typeof selected === "string") {
+      if (newState[taskVersion][selected]) {
+        newState[taskVersion][selected] = false;
       } else {
-        newState[id] = true;
+        newState[taskVersion][selected] = true;
       }
     } else {
       // Enter this condition when a parent checkbox is clicked.
       // If every task is already checked, uncheck them. Otherwise, check them.
-      const nextCheckedState = !id.every((taskId) => selectedTasks[taskId]);
-      id.forEach((taskId) => {
-        newState[taskId] = nextCheckedState;
+      const nextCheckedState = !selected.every(
+        (selectedId) => selectedTasks[taskVersion][selectedId]
+      );
+      selected.forEach((selectedId) => {
+        newState[taskVersion][selectedId] = nextCheckedState;
       });
     }
     dispatch({ type: "setSelectedTasks", data: newState });
@@ -113,72 +127,90 @@ export const usePatchStatusSelect = (
       patchStatusFilterTerm !== prevPatchStatusFilterTerm ||
       baseStatusFilterTerm !== prevBaseStatusFilterTerm;
     if (filterTermOrPatchTasksChanged) {
-      if (window.Worker && webWorker) {
-        webWorker.postMessage({
-          patchBuildVariants,
-          patchStatusFilterTerm,
-          baseStatusFilterTerm,
-          selectedTasks,
-        });
-      } else {
-        // fallback in case web workers are not available.
-        // This code reflects logic in public/web_worker/patchBuildVariantReduce.js
-        // Iterate through PatchBuildVariants and determine if a task should be
-        // selected or not based on if the task status correlates with the 2 filters.
-        // if 1 of the 2 filters is empty, ignore the empty filter
-        const baseStatuses = new Set(baseStatusFilterTerm);
-        const statuses = new Set(patchStatusFilterTerm);
-        const nextState =
-          patchBuildVariants?.reduce(
+      // Iterate through PatchBuildVariants and determine if a task should be
+      // selected or not based on if the task status correlates with the 2 filters.
+      // if 1 of the 2 filters is empty, ignore the empty filter
+      let baseStatuses = new Set(baseStatusFilterTerm[versionId]);
+      let statuses = new Set(patchStatusFilterTerm[versionId]);
+
+      let nextState =
+        patchBuildVariants?.reduce(
+          (accumA, patchBuildVariant) =>
+            patchBuildVariant.tasks?.reduce(
+              (accumB, task) => ({
+                ...accumB,
+                [task.id]:
+                  (!!baseStatusFilterTerm[versionId]?.length ||
+                    !!patchStatusFilterTerm[versionId]?.length) &&
+                  (patchStatusFilterTerm[versionId]?.length
+                    ? statuses.has(task.status)
+                    : true) &&
+                  (baseStatusFilterTerm[versionId]?.length
+                    ? baseStatuses.has(task.baseStatus)
+                    : true),
+              }),
+              accumA
+            ),
+          { ...selectedTasks[versionId] }
+        ) ?? {};
+
+      const newTaskSelect = { [versionId]: nextState };
+
+      childVersions?.forEach((cv) => {
+        baseStatuses = new Set(baseStatusFilterTerm[cv.id]);
+        statuses = new Set(patchStatusFilterTerm[cv.id]);
+        nextState =
+          cv.buildVariants?.reduce(
             (accumA, patchBuildVariant) =>
               patchBuildVariant.tasks?.reduce(
                 (accumB, task) => ({
                   ...accumB,
                   [task.id]:
-                    (!!patchStatusFilterTerm?.length ||
-                      !!baseStatusFilterTerm?.length) &&
-                    (patchStatusFilterTerm?.length
+                    (!!patchStatusFilterTerm[cv.id]?.length ||
+                      !!baseStatusFilterTerm[cv.id]?.length) &&
+                    (patchStatusFilterTerm[cv.id]?.length
                       ? statuses.has(task.status)
                       : true) &&
-                    (baseStatusFilterTerm?.length
+                    (baseStatusFilterTerm[cv.id]?.length
                       ? baseStatuses.has(task.baseStatus)
                       : true),
                 }),
                 accumA
               ),
-            { ...selectedTasks }
+            { ...selectedTasks[cv.id] }
           ) ?? {};
-        dispatch({ type: "setSelectedTasks", data: nextState });
-      }
+
+        newTaskSelect[cv.id] = nextState;
+      });
+
+      dispatch({ type: "setSelectedTasks", data: newTaskSelect });
     }
   }, [
     baseStatusFilterTerm,
+    childVersions,
     patchBuildVariants,
     patchStatusFilterTerm,
     prevBaseStatusFilterTerm,
     prevPatchBuildVariants,
     prevPatchStatusFilterTerm,
     selectedTasks,
-    webWorker,
+    versionId,
   ]);
 
-  // process webworker response
-  useEffect(() => {
-    if (window.Worker && webWorker) {
-      webWorker.onmessage = (event) => {
-        dispatch({
-          type: "setSelectedTasks",
-          data: event.data as selectedStrings,
-        });
-      };
-    }
-  }, [webWorker, dispatch]);
+  const setPatchStatusFilterTerm = (statuses: verionFilters) => {
+    const vId = Object.keys(statuses)[0];
 
-  const setPatchStatusFilterTerm = (statuses: string[]) =>
-    dispatch({ type: "setPatchStatusFilterTerm", data: statuses });
-  const setBaseStatusFilterTerm = (statuses: string[]) =>
-    dispatch({ type: "setBaseStatusFilterTerm", data: statuses });
+    const nextState = { ...patchStatusFilterTerm };
+    nextState[vId] = statuses[vId];
+    dispatch({ type: "setPatchStatusFilterTerm", data: nextState });
+  };
+  const setBaseStatusFilterTerm = (statuses: verionFilters) => {
+    const vId = Object.keys(statuses)[0];
 
+    const nextState = { ...baseStatusFilterTerm };
+    nextState[vId] = statuses[vId];
+    dispatch({ type: "setBaseStatusFilterTerm", data: nextState });
+  };
   return [
     selectedTasks,
     patchStatusFilterTerm,

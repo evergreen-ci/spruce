@@ -1,8 +1,7 @@
-
-  mutation RestartPatch(
-    $patchId: String!
-    $abort: Boolean!
-    $taskIds: [String!]!
-  ) {
-    restartPatch(patchId: $patchId, abort: $abort, taskIds: $taskIds)
-  }
+mutation RestartPatch(
+  $patchId: String!
+  $abort: Boolean!
+  $taskIds: [TaskToRestart!]!
+) {
+  restartPatch(patchId: $patchId, abort: $abort, taskIds: $taskIds)
+}

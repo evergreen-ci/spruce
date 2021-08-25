@@ -1,31 +1,32 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useQuery, useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { useLocation } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { Accordion } from "components/Accordion";
 import { Modal } from "components/Modal";
 import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { useToastContext } from "context/toast";
 import {
-  BuildVariantsQuery,
-  BuildVariantsQueryVariables,
+  BuildVariantsWithChildrenQuery,
+  BuildVariantsWithChildrenQueryVariables,
   Patch,
   RestartPatchMutation,
   RestartPatchMutationVariables,
+  TaskToRestart,
 } from "gql/generated/types";
 import { RESTART_PATCH } from "gql/mutations";
-import { GET_BUILD_VARIANTS } from "gql/queries";
-import { usePatchStatusSelect, usePrevious } from "hooks";
-import { selectedStrings } from "hooks/usePatchStatusSelect";
-import { PatchTasksQueryParams } from "types/task";
-import { queryString } from "utils";
+import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
+import { usePatchStatusSelect } from "hooks";
+import {
+  patchSelectedTasks,
+  selectedStrings,
+} from "hooks/usePatchStatusSelect";
 import { BuildVariantAccordian } from "./BuildVariantAccordian";
 
-const { getArray, parseQueryString } = queryString;
 const { gray } = uiColors;
 
 interface Props {
@@ -42,7 +43,6 @@ const VersionRestartModal: React.FC<Props> = ({
   onCancel,
   versionId,
   refetchQueries,
-  childPatches,
 }) => {
   const dispatchToast = useToastContext();
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
@@ -62,37 +62,35 @@ const VersionRestartModal: React.FC<Props> = ({
     },
     refetchQueries,
   });
-  const { data } = useQuery<BuildVariantsQuery, BuildVariantsQueryVariables>(
-    GET_BUILD_VARIANTS,
-    {
-      variables: { id: versionId },
-    }
-  );
+
+  const { data } = useQuery<
+    BuildVariantsWithChildrenQuery,
+    BuildVariantsWithChildrenQueryVariables
+  >(GET_BUILD_VARIANTS_WITH_CHILDREN, {
+    variables: { id: versionId },
+  });
+
   const { version } = data || {};
-  const { buildVariants } = version || {};
+  const { buildVariants, childVersions } = version || {};
   const [
     selectedTasks,
     patchStatusFilterTerm,
     baseStatusFilterTerm,
     { toggleSelectedTask, setPatchStatusFilterTerm, setBaseStatusFilterTerm },
-  ] = usePatchStatusSelect(buildVariants);
-  const { search } = useLocation();
-  const prevSearch = usePrevious(search);
-  useEffect(() => {
-    if (search !== prevSearch) {
-      const urlParams = parseQueryString(search);
-      setPatchStatusFilterTerm(
-        getArray(urlParams[PatchTasksQueryParams.Statuses]) ?? []
-      );
-      setBaseStatusFilterTerm(
-        getArray(urlParams[PatchTasksQueryParams.BaseStatuses]) ?? []
-      );
-    }
-  }, [search, prevSearch, setBaseStatusFilterTerm, setPatchStatusFilterTerm]);
+  ] = usePatchStatusSelect(buildVariants, versionId, childVersions);
+
+  const setVersionStatus = (childVersionId) => (selectedFilters: string[]) => {
+    setPatchStatusFilterTerm({ [childVersionId]: selectedFilters });
+  };
+  const setVersionBaseStatus = (childVersionId) => (
+    selectedFilters: string[]
+  ) => {
+    setBaseStatusFilterTerm({ [childVersionId]: selectedFilters });
+  };
 
   const patchAnalytics = usePatchAnalytics();
+
   const handlePatchRestart = async (e): Promise<void> => {
-    console.log(childPatches);
     e.preventDefault();
     try {
       patchAnalytics.sendEvent({
@@ -102,7 +100,7 @@ const VersionRestartModal: React.FC<Props> = ({
       await restartPatch({
         variables: {
           patchId: versionId,
-          taskIds: selectedArray(selectedTasks),
+          taskIds: getTaskIds(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
       });
@@ -129,7 +127,7 @@ const VersionRestartModal: React.FC<Props> = ({
           key="restart"
           data-cy="restart-patch-button"
           disabled={
-            selectedArray(selectedTasks).length === 0 || mutationLoading
+            selectTasksTotal(selectedTasks || {}) === 0 || mutationLoading
           }
           onClick={handlePatchRestart}
           variant="danger"
@@ -139,43 +137,118 @@ const VersionRestartModal: React.FC<Props> = ({
       ]}
       data-cy="version-restart-modal"
     >
+      <VersionTasks
+        version={version}
+        selectedTasks={selectedTasks}
+        setBaseStatusFilterTerm={setVersionBaseStatus(version?.id)}
+        setPatchStatusFilterTerm={setVersionStatus(version?.id)}
+        toggleSelectedTask={toggleSelectedTask}
+        baseStatusFilterTerm={baseStatusFilterTerm[version?.id]}
+        patchStatusFilterTerm={patchStatusFilterTerm[version?.id]}
+      />
+
+      {childVersions && (
+        <div data-cy="select-downstream">
+          <ConfirmationMessage weight="medium" data-cy="confirmation-message">
+            Downstream Tasks
+          </ConfirmationMessage>
+          {childVersions?.map((v) => (
+            <div key={v?.id}>
+              <Accordion
+                key={v?.id}
+                title={
+                  <BoldTextStyle>
+                    {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
+                  </BoldTextStyle>
+                }
+                contents={
+                  <TitleContainer>
+                    <VersionTasks
+                      version={v}
+                      selectedTasks={selectedTasks}
+                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                      setPatchStatusFilterTerm={setVersionStatus(v?.id)}
+                      toggleSelectedTask={toggleSelectedTask}
+                      baseStatusFilterTerm={baseStatusFilterTerm[v?.id]}
+                      patchStatusFilterTerm={patchStatusFilterTerm[v?.id]}
+                    />
+                  </TitleContainer>
+                }
+              />
+            </div>
+          ))}
+          <br />
+        </div>
+      )}
+
+      <ConfirmationMessage weight="medium" data-cy="confirmation-message">
+        Are you sure you want to restart the{" "}
+        {selectTasksTotal(selectedTasks || {})} selected tasks?
+      </ConfirmationMessage>
+      <Checkbox
+        onChange={() =>
+          setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
+        }
+        label="Abort in progress tasks"
+        checked={shouldAbortInProgressTasks}
+        bold={false}
+      />
+    </Modal>
+  );
+};
+
+interface VersionTasksProps {
+  version: BuildVariantsWithChildrenQuery["version"];
+  selectedTasks: patchSelectedTasks;
+  setBaseStatusFilterTerm: (statuses: string[]) => void;
+  setPatchStatusFilterTerm: (statuses: string[]) => void;
+  toggleSelectedTask: (
+    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+  ) => void;
+  baseStatusFilterTerm: string[];
+  patchStatusFilterTerm: string[];
+}
+
+const VersionTasks: React.FC<VersionTasksProps> = ({
+  version,
+  selectedTasks,
+  setBaseStatusFilterTerm,
+  setPatchStatusFilterTerm,
+  toggleSelectedTask,
+  baseStatusFilterTerm,
+  patchStatusFilterTerm,
+}) => {
+  const { buildVariants } = version || {};
+  const tasks = selectedTasks[version?.id] || {};
+
+  return (
+    <div>
       {buildVariants && (
         <>
           <Row>
             <TaskStatusFilters
               onChangeBaseStatusFilter={setBaseStatusFilterTerm}
               onChangeStatusFilter={setPatchStatusFilterTerm}
-              versionId={versionId}
-              selectedBaseStatuses={baseStatusFilterTerm}
-              selectedStatuses={patchStatusFilterTerm}
+              versionId={version?.id}
+              selectedBaseStatuses={baseStatusFilterTerm || []}
+              selectedStatuses={patchStatusFilterTerm || []}
               filterWidth="50%"
             />
           </Row>
           {buildVariants.map((patchBuildVariant) => (
             <BuildVariantAccordian
+              versionId={version?.id}
               key={`accoridan_${patchBuildVariant.variant}`}
               tasks={patchBuildVariant.tasks}
               displayName={patchBuildVariant.displayName}
-              selectedTasks={selectedTasks}
+              selectedTasks={tasks}
               toggleSelectedTask={toggleSelectedTask}
             />
           ))}
           <HR />
-          <ConfirmationMessage weight="medium" data-cy="confirmation-message">
-            Are you sure you want to restart the{" "}
-            {selectedArray(selectedTasks).length} selected tasks?
-          </ConfirmationMessage>
-          <Checkbox
-            onChange={() =>
-              setShouldAbortInProgressTasks(!shouldAbortInProgressTasks)
-            }
-            label="Abort in progress tasks"
-            checked={shouldAbortInProgressTasks}
-            bold={false}
-          />
         </>
       )}
-    </Modal>
+    </div>
   );
 };
 
@@ -188,6 +261,28 @@ const selectedArray = (selected: selectedStrings) => {
   });
 
   return out;
+};
+
+const selectTasksTotal = (selectedTasks: patchSelectedTasks) => {
+  let total = 0;
+  Object.keys(selectedTasks).forEach((selected) => {
+    total += selectedArray(selectedTasks[selected]).length;
+  });
+  return total;
+};
+
+const getTaskIds = (selectedTasks: patchSelectedTasks) => {
+  const taskIds: TaskToRestart[] = [];
+  Object.keys(selectedTasks).forEach((selected) => {
+    const tasksArray = selectedArray(selectedTasks[selected]);
+
+    const taskToRestart: TaskToRestart = {
+      patchId: selected,
+      taskIds: tasksArray,
+    };
+    taskIds.push(taskToRestart);
+  });
+  return taskIds;
 };
 
 const HR = styled("hr")`
@@ -206,6 +301,17 @@ const Row = styled.div`
   >: first-child {
     margin-right: 16px;
   }
+`;
+
+export const TitleContainer = styled("div")`
+  margin-top: 15px;
+  width: 96%;
+`;
+
+const BoldTextStyle = styled("div")`
+  font-weight: bold;
+  top: 1px;
+  color: ${gray.dark2}; // theme colors.gray[1]
 `;
 
 export default VersionRestartModal;

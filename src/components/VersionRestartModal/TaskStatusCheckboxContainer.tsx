@@ -4,6 +4,7 @@ import { selectedStrings } from "hooks/usePatchStatusSelect";
 import { TaskStatusCheckbox } from "./TaskStatusCheckbox";
 
 interface TaskStatusCheckboxContainerProps {
+  versionId: string;
   tasks: {
     id: string;
     status: string;
@@ -11,9 +12,10 @@ interface TaskStatusCheckboxContainerProps {
     displayName: string;
   }[];
   selectedTasks: selectedStrings;
-  toggleSelectedTask: (id: string) => void;
+  toggleSelectedTask: (taskIds: { [patchId: string]: string }) => void;
 }
 export const TaskStatusCheckboxContainer: React.FC<TaskStatusCheckboxContainerProps> = ({
+  versionId,
   tasks,
   selectedTasks,
   toggleSelectedTask,
@@ -24,7 +26,7 @@ export const TaskStatusCheckboxContainer: React.FC<TaskStatusCheckboxContainerPr
   const toggleHandler = (e) => {
     const { name } = e.target;
     if (selectedTasks[name] !== undefined) {
-      toggleSelectedTask(name);
+      toggleSelectedTask({ [versionId]: name });
     }
   };
   return (

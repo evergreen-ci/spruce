@@ -250,7 +250,7 @@ export type MutationUnschedulePatchTasksArgs = {
 export type MutationRestartPatchArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
-  taskIds: Array<Scalars["String"]>;
+  taskIds: Array<TaskToRestart>;
 };
 
 export type MutationScheduleUndispatchedBaseTasksArgs = {
@@ -388,6 +388,11 @@ export type MutationEditSpawnHostArgs = {
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type TaskToRestart = {
+  patchId?: Maybe<Scalars["String"]>;
+  taskIds: Array<Scalars["String"]>;
 };
 
 export type MainlineCommits = {
@@ -1663,7 +1668,7 @@ export type RestartJasperMutation = { restartJasper: number };
 export type RestartPatchMutationVariables = Exact<{
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
-  taskIds: Array<Scalars["String"]>;
+  taskIds: Array<TaskToRestart>;
 }>;
 
 export type RestartPatchMutation = { restartPatch?: Maybe<string> };
@@ -1882,6 +1887,63 @@ export type GetBuildVariantsForTaskNameQuery = {
   buildVariantsForTaskName?: Maybe<
     Array<Maybe<{ displayName: string; buildVariant: string }>>
   >;
+};
+
+export type BuildVariantsWithChildrenQueryVariables = Exact<{
+  id: Scalars["String"];
+}>;
+
+export type BuildVariantsWithChildrenQuery = {
+  version: {
+    id: string;
+    buildVariants?: Maybe<
+      Array<
+        Maybe<{
+          variant: string;
+          displayName: string;
+          tasks?: Maybe<
+            Array<
+              Maybe<{
+                id: string;
+                execution: number;
+                status: string;
+                displayName: string;
+                baseStatus?: Maybe<string>;
+              }>
+            >
+          >;
+        }>
+      >
+    >;
+    childVersions?: Maybe<
+      Array<
+        Maybe<{
+          id: string;
+          projectIdentifier: string;
+          project: string;
+          buildVariants?: Maybe<
+            Array<
+              Maybe<{
+                variant: string;
+                displayName: string;
+                tasks?: Maybe<
+                  Array<
+                    Maybe<{
+                      id: string;
+                      execution: number;
+                      status: string;
+                      displayName: string;
+                      baseStatus?: Maybe<string>;
+                    }>
+                  >
+                >;
+              }>
+            >
+          >;
+        }>
+      >
+    >;
+  };
 };
 
 export type BuildVariantsQueryVariables = Exact<{
