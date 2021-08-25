@@ -157,7 +157,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 <Skeleton active title={false} paragraph={{ rows: 8 }} />
               ) : (
                 <TasksTable
-                  controlled
                   sorts={variables.sorts}
                   tableChangeHandler={tableChangeHandler}
                   tasks={patchTasks?.tasks}
