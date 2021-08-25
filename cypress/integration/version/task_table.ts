@@ -20,8 +20,6 @@ describe("Task table", () => {
     cy.dataCy("patch-card-patch-link")
       .filter(`:contains(${patchDescriptionTasksExist})`)
       .click();
-    cy.dataCy("tasks-table-page-size-selector").click();
-    cy.dataCy("tasks-table-page-size-selector-20").click();
     cy.dataCy("tasks-table").should("exist");
   });
 
@@ -136,18 +134,24 @@ describe("Task table", () => {
   });
 
   describe("Changing page size updates URL and renders less than or equal to that many rows ", () => {
+    before(() => {
+      cy.visit(pathTasks);
+      cy.dataCy("tasks-table").should("exist");
+    });
     [20, 10, 50, 100].forEach((pageSize) => {
       it(`Updates URL and displays up to ${pageSize} results at once when the page size is changed to ${pageSize}`, () => {
         clickOnPageSizeBtnAndAssertURLandTableSize(
           pageSize,
           "tasks-table-page-size-selector",
           `tasks-table-page-size-selector-${pageSize}`,
-          dataCyTableRows
+          dataCyTableDataRows
         );
       });
     });
   });
 });
+
+const dataCyTableDataRows = ".ant-table-cell > .cy-task-table-col-NAME";
 
 const dataCyTableRows = ".ant-table-cell.cy-task-table-col-NAME";
 
