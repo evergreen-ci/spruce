@@ -46,6 +46,7 @@ export const CommitsWrapper: React.FC<Props> = ({
           {versions.map(({ version, rolledUpVersions }) =>
             version ? (
               <ActiveCommit
+                key={version.id}
                 version={version}
                 chartType={chartType}
                 total={versionToGroupedTaskStatsMap[version.id].total}

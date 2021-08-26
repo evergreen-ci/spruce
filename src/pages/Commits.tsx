@@ -17,11 +17,13 @@ import {
   ChartToggleQueryParams,
   ChartTypes,
   ProjectFilterOptions,
+  MainlineCommitQueryParams,
 } from "types/commits";
 import { TaskStatus } from "types/task";
 import { queryString } from "utils";
 import { PageDoesNotExist } from "./404";
 import { CommitsWrapper } from "./commits/CommitsWrapper";
+import { PaginationButtons } from "./commits/PaginationButtons";
 import { ProjectSelect } from "./commits/projectSelect";
 import { StatusSelect } from "./commits/StatusSelect";
 
@@ -54,6 +56,11 @@ export const Commits = () => {
   );
   const filterTasks = getArray(parsed[ProjectFilterOptions.Task] || []);
 
+  const skipOrderNumberParam =
+    parsed[MainlineCommitQueryParams.SkipOrderNumber] || "";
+  const skipOrderNumber =
+    parseInt(skipOrderNumberParam.toString(), 10) || undefined;
+
   // set current chart type based on query param
   useEffect(() => {
     if (
@@ -67,7 +74,11 @@ export const Commits = () => {
   }, [chartTypeParam, setCurrentChartType]);
 
   // query mainlineCommits data
-  const mainlineCommitsOptions = { projectID: projectId, limit: 5 };
+  const mainlineCommitsOptions = {
+    projectID: projectId,
+    limit: 5,
+    skipOrderNumber,
+  };
   const buildVariantOptionsForTask = {
     statuses: filterStatuses,
     variants: filterVariants,
@@ -99,41 +110,51 @@ export const Commits = () => {
   usePageTitle(`Project Health | ${projectId}`);
   useNetworkStatus(startPolling, stopPolling);
   const { mainlineCommits } = data || {};
-  const { versions } = mainlineCommits || {};
+  const { versions, nextPageOrderNumber, prevPageOrderNumber } =
+    mainlineCommits || {};
 
   const hasTaskFilter = filterTasks.length > 0;
-
   if (error) {
     return <PageDoesNotExist />;
   }
 
   return (
     <PageWrapper>
-      <HeaderWrapper>
-        <TupleSelectWrapper>
-          <TupleSelect options={tupleSelectOptions} />
-        </TupleSelectWrapper>
-        <StatusSelectWrapper>
-          <StatusSelect />
-        </StatusSelectWrapper>
-        <ProjectSelectWrapper>
-          <ProjectSelect selectedProject={projectId} />
-        </ProjectSelectWrapper>
-      </HeaderWrapper>
-      <BadgeWrapper>
-        <FilterBadges />
-      </BadgeWrapper>
-      <CommitsWrapper
-        versions={versions}
-        error={error}
-        isLoading={loading}
-        chartType={currentChartType}
-        hasTaskFilter={hasTaskFilter}
-      />
+      <PageContainer>
+        <HeaderWrapper>
+          <TupleSelectWrapper>
+            <TupleSelect options={tupleSelectOptions} />
+          </TupleSelectWrapper>
+          <StatusSelectWrapper>
+            <StatusSelect />
+          </StatusSelectWrapper>
+          <ProjectSelectWrapper>
+            <ProjectSelect selectedProject={projectId} />
+          </ProjectSelectWrapper>
+        </HeaderWrapper>
+        <BadgeWrapper>
+          <FilterBadges />
+        </BadgeWrapper>
+        <PaginationButtons
+          prevPageOrderNumber={prevPageOrderNumber}
+          nextPageOrderNumber={nextPageOrderNumber}
+        />
+        <CommitsWrapper
+          versions={versions}
+          error={error}
+          isLoading={loading}
+          chartType={currentChartType}
+          hasTaskFilter={hasTaskFilter}
+        />
+      </PageContainer>
     </PageWrapper>
   );
 };
 
+const PageContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 const HeaderWrapper = styled.div`
   width: 100%;
   display: flex;

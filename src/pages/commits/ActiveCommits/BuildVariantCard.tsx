@@ -84,6 +84,7 @@ const RenderTaskIcons = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
       <IconButton
+        key={`task_${id}`}
         aria-label="task icon"
         onClick={() => {
           console.log({ id, status });

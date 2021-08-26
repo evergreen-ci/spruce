@@ -48,6 +48,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
+      order: 25,
       taskStatusCounts: [
         { status: "success", count: 6 },
         { status: "failed", count: 2 },
@@ -65,6 +66,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57333 Some complicated server commit",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
+      order: 24,
       taskStatusCounts: [
         { status: "blocked", count: 4 },
         { status: "aborted", count: 3 },
@@ -81,6 +83,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Mohamed Khelif",
+      order: 23,
       taskStatusCounts: [
         { status: "success", count: 4 },
         { status: "inactive", count: 3 },
@@ -97,6 +100,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57333 Some complicated server commit",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Arjun Patel",
+      order: 22,
       taskStatusCounts: [
         { status: "blocked", count: 4 },
         { status: "aborted", count: 3 },
@@ -113,6 +117,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Elena Chen",
+      order: 21,
       taskStatusCounts: [
         { status: "setup-failed", count: 4 },
         { status: "inactive", count: 3 },
@@ -129,6 +134,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57333 Some complicated server commit",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
+      order: 20,
       taskStatusCounts: [
         { status: "system-failed", count: 6 },
         { status: "pending", count: 2 },
@@ -146,6 +152,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message: "SERVER-57333 Some complicated server commit",
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       author: "Sophie Stadler",
+      order: 19,
       taskStatusCounts: [
         { status: "system-timed-out", count: 4 },
         { status: "system-unresponsive", count: 3 },

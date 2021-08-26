@@ -2172,6 +2172,7 @@ export type MainlineCommitsQueryVariables = Exact<{
 export type MainlineCommitsQuery = {
   mainlineCommits?: Maybe<{
     nextPageOrderNumber?: Maybe<number>;
+    prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
         id: string;
@@ -2179,6 +2180,7 @@ export type MainlineCommitsQuery = {
         createTime: Date;
         message: string;
         revision: string;
+        order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
         buildVariants?: Maybe<
           Array<
