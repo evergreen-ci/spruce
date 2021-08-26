@@ -43,8 +43,8 @@ export const Task: React.FC = () => {
     GetTaskQueryVariables
   >(GET_TASK, {
     variables: { taskId: id, execution: selectedExecution },
-    fetchPolicy: "network-only",
     pollInterval,
+    fetchPolicy: "network-only",
     onError: (err) =>
       dispatchToast.error(
         `There was an error loading the task: ${err.message}`

@@ -766,6 +766,11 @@ export type FileDiff = {
   description: Scalars["String"];
 };
 
+export type PatchTriggerAlias = {
+  alias: Scalars["String"];
+  childProject: Scalars["String"];
+};
+
 export type UserPatches = {
   patches: Array<Patch>;
   filteredPatchCount: Scalars["Int"];
@@ -806,6 +811,7 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
+  patchTriggerAliases: Array<PatchTriggerAlias>;
 };
 
 export type Build = {
@@ -1492,7 +1498,9 @@ export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type AbortTaskMutation = { abortTask: BaseTaskFragment };
+export type AbortTaskMutation = {
+  abortTask: { priority?: Maybe<number> } & BaseTaskFragment;
+};
 
 export type AddAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];

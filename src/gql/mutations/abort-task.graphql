@@ -3,5 +3,6 @@
 mutation AbortTask($taskId: String!) {
   abortTask(taskId: $taskId) {
     ...baseTask
+    priority
   }
 }
