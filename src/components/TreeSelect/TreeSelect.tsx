@@ -8,7 +8,7 @@ const { gray, white } = uiColors;
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
-interface Props {
+export interface TreeSelectProps {
   isDropdown?: boolean;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
@@ -25,7 +25,7 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
-export const TreeSelect: React.FC<Props> = ({
+export const TreeSelect: React.FC<TreeSelectProps> = ({
   isDropdown = false,
   isVisible = true,
   onChange,

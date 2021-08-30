@@ -9,7 +9,7 @@ import {
 } from "gql/generated/types";
 import { GET_TASK_STATUSES } from "gql/queries";
 import { useNetworkStatus } from "hooks";
-import { getCurrentStatuses } from "./getCurrentStatuses";
+import { getCurrentStatuses } from "utils/statuses";
 
 interface Props {
   versionId: string;
