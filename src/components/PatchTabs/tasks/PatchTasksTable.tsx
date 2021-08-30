@@ -26,7 +26,6 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
 
   return (
     <TasksTable
-      controlled
       sorts={sorts}
       tableChangeHandler={tableChangeHandler}
       tasks={patchTasks?.tasks}

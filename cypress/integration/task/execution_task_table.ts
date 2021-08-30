@@ -6,31 +6,22 @@ const pathExecutionTasks =
 describe("Execution task table", () => {
   before(() => {
     cy.login();
+    cy.visit(pathExecutionTasks);
   });
 
   beforeEach(() => {
     cy.preserveCookies();
   });
 
-  it("Should sort execution task table if no sort order is specified", () => {
-    cy.visit(pathExecutionTasks);
+  it("Should have a default sort order applied", () => {
     cy.location("search").should("contain", "sorts=STATUS%3AASC");
   });
 
   it("Updates the url when column headers are clicked", () => {
-    cy.get("th.cy-task-table-col-NAME").click();
-    cy.location("search").should("contain", "sorts=NAME%3AASC");
+    cy.dataCy("tasks-table").find("th").contains("Name").click();
+    cy.location("search").should("contain", "NAME%3AASC");
 
-    cy.get("th.cy-task-table-col-NAME").click();
-    cy.location("search").should("contain", "sorts=NAME%3ADESC");
-
-    cy.get("th.cy-task-table-col-STATUS").click();
-    cy.location("search").should("contain", "sorts=STATUS%3AASC");
-
-    cy.get("th.cy-task-table-col-STATUS").click();
-    cy.location("search").should("contain", "sorts=STATUS%3ADESC");
-
-    cy.get("th.cy-task-table-col-STATUS").click();
-    cy.location("search").should("not.contain", "sorts");
+    cy.dataCy("tasks-table").find("th").contains("Name").click();
+    cy.location("search").should("contain", "NAME%3ADESC");
   });
 });
