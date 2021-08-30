@@ -1,6 +1,6 @@
 import { TreeDataEntry } from "components/TreeSelect";
 import { TaskStatus } from "types/task";
-import { getCurrentStatuses } from "./getCurrentStatuses";
+import { getCurrentStatuses } from "utils/statuses";
 
 test("Matches status keys to status tree data", () => {
   const statuses = [

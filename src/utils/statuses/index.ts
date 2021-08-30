@@ -1,3 +1,4 @@
+import { getCurrentStatuses } from "./getCurrentStatuses";
 import { getStatusBadgeCopy } from "./getStatusBadgeCopy";
 import { groupStatusesByColor } from "./groupStatusesByColor";
 import { isFailedTaskStatus } from "./isFailedTaskStatus";
@@ -8,4 +9,5 @@ export {
   getStatusBadgeCopy,
   sortTasks,
   groupStatusesByColor,
+  getCurrentStatuses,
 };

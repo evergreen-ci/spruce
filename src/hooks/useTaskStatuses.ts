@@ -1,0 +1,38 @@
+import { useMemo } from "react";
+import { useQuery } from "@apollo/client";
+import { pollInterval } from "constants/index";
+import { taskStatusesFilterTreeData } from "constants/task";
+import {
+  GetTaskStatusesQuery,
+  GetTaskStatusesQueryVariables,
+} from "gql/generated/types";
+import { GET_TASK_STATUSES } from "gql/queries";
+import { useNetworkStatus } from "hooks";
+import { getCurrentStatuses } from "utils/statuses";
+
+interface UseTaskStatusesProps {
+  versionId: string;
+}
+
+export const useTaskStatuses = ({ versionId }: UseTaskStatusesProps) => {
+  const { data, startPolling, stopPolling } = useQuery<
+    GetTaskStatusesQuery,
+    GetTaskStatusesQueryVariables
+  >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
+
+  useNetworkStatus(startPolling, stopPolling);
+
+  const { version } = data || {};
+  const { taskStatuses, baseTaskStatuses } = version || {};
+  const currentStatuses = useMemo(
+    () => getCurrentStatuses(taskStatuses ?? [], taskStatusesFilterTreeData),
+    [taskStatuses]
+  );
+  const baseStatuses = useMemo(
+    () =>
+      getCurrentStatuses(baseTaskStatuses ?? [], taskStatusesFilterTreeData),
+    [baseTaskStatuses]
+  );
+
+  return { currentStatuses, baseStatuses };
+};
