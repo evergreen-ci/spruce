@@ -29,6 +29,7 @@ import { JobLogs } from "pages/JobLogs";
 import { MyPatches } from "pages/MyPatches";
 import { Preferences } from "pages/Preferences";
 import { ProjectPatches } from "pages/ProjectPatches";
+import { ProjectSettings } from "pages/ProjectSettings";
 import { Spawn } from "pages/Spawn";
 import { Task } from "pages/Task";
 import { TaskHistory } from "pages/TaskHistory";
@@ -83,6 +84,7 @@ export const Content: React.FC = () => {
         <Route path={routes.userPatches} component={UserPatches} />
         <Route path={routes.taskQueue} component={TaskQueue} />
         <Route path={routes.projectPatches} component={ProjectPatches} />
+        <Route path={routes.projectSettings} component={ProjectSettings} />
         <Route path={routes.spawn} component={Spawn} />
         <Route path={routes.commitQueue} component={CommitQueue} />
         <Route path={routes.preferences} component={Preferences} />

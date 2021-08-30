@@ -1,5 +1,6 @@
-import { MainlineCommitsQuery } from "gql/generated/types";
+import { withKnobs, boolean } from "@storybook/addon-knobs";
 import { ChartTypes } from "types/commits";
+import { TaskStatus } from "types/task";
 import {
   ColumnContainer,
   FlexRowContainer,
@@ -15,6 +16,7 @@ import {
 
 export default {
   title: "Project Health Page",
+  decorators: [withKnobs],
 };
 
 export const WaterfallAbsolute = () => (
@@ -29,6 +31,7 @@ export const WaterfallAbsolute = () => (
             total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
             groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+            hasTaskFilter={boolean("hasTaskFilter", false)}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -54,6 +57,7 @@ export const WaterfallPercentage = () => (
             total={versionToGroupedTaskStatsMap[version.id].total}
             max={max}
             groupedTaskStats={versionToGroupedTaskStatsMap[version.id].stats}
+            hasTaskFilter={boolean("hasTaskFilter", false)}
           />
         ) : (
           <ColumnContainer key={rolledUpVersions[0].id}>
@@ -67,7 +71,7 @@ export const WaterfallPercentage = () => (
   </ProjectHealthWrapper>
 );
 
-const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
+const versions = [
   {
     version: {
       id: "spruce_987bf57eb679c6361322c3961b30a10724a9b001",
@@ -75,6 +79,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       createTime: new Date("2021-07-16T15:53:25Z"),
       message: "EVG-14901 add ssh key to EditSpawnHostModal (#805)",
       revision: "987bf57eb679c6361322c3961b30a10724a9b001",
+      order: 929,
       taskStatusCounts: [
         { status: "system-timed-out", count: 4 },
         { status: "system-unresponsive", count: 3 },
@@ -84,9 +89,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -99,6 +120,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Triggered From Git Tag 'v2.11.1': v2.11.1",
       revision: "a77bd39ccf515b63327dc2355a8444955043c66a",
+      order: 928,
       taskStatusCounts: [
         { status: "system-failed", count: 6 },
         { status: "pending", count: 2 },
@@ -109,9 +131,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -138,6 +176,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       message:
         "EVG-14799 Correctly visit configure page when no tab indicated (#810)",
       revision: "9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad",
+      order: 926,
       taskStatusCounts: [
         { status: "setup-failed", count: 4 },
         { status: "inactive", count: 3 },
@@ -147,9 +186,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Pending,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -162,6 +217,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Remove navigation announcement toast (#808)",
       revision: "f7f7f1a3abdb9897dfc02b7a1de9821651b0916e",
+      order: 925,
       taskStatusCounts: [
         { status: "blocked", count: 4 },
         { status: "aborted", count: 3 },
@@ -171,9 +227,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.WillRun,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Succeeded,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },
@@ -186,6 +258,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       createTime: new Date("2021-07-13T14:51:30Z"),
       message: "Triggered From Git Tag 'v2.11.0': v2.11.0",
       revision: "211b3a06e2948a5afa5dbd61c2322037c300629b",
+      order: 924,
       taskStatusCounts: [
         { status: "success", count: 6 },
         { status: "failed", count: 2 },
@@ -196,9 +269,25 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
       buildVariants: [
         {
           displayName: "01. Code Health [code_health]",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
         {
           displayName: "02. Packaging (RPM - RHEL7) [package_rpm]",
+          tasks: [
+            {
+              status: TaskStatus.Failed,
+              id: "code_health",
+              execution: 0,
+              displayName: "Code Health",
+            },
+          ],
         },
       ],
     },

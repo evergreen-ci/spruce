@@ -53,6 +53,8 @@ export type Query = {
   buildBaron: BuildBaron;
   bbGetCreatedTickets: Array<JiraTicket>;
   mainlineCommits?: Maybe<MainlineCommits>;
+  buildVariantHistory?: Maybe<Array<Scalars["String"]>>;
+  taskHistory?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -172,6 +174,16 @@ export type QueryBbGetCreatedTicketsArgs = {
 
 export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
+};
+
+export type QueryBuildVariantHistoryArgs = {
+  projectId: Scalars["String"];
+  buildVariant: Scalars["String"];
+};
+
+export type QueryTaskHistoryArgs = {
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
 };
 
 export type Mutation = {
@@ -380,6 +392,7 @@ export type MutationBbCreateTicketArgs = {
 
 export type MainlineCommits = {
   nextPageOrderNumber?: Maybe<Scalars["Int"]>;
+  prevPageOrderNumber?: Maybe<Scalars["Int"]>;
   versions: Array<MainlineCommitVersion>;
 };
 
@@ -753,6 +766,11 @@ export type FileDiff = {
   description: Scalars["String"];
 };
 
+export type PatchTriggerAlias = {
+  alias: Scalars["String"];
+  childProject: Scalars["String"];
+};
+
 export type UserPatches = {
   patches: Array<Patch>;
   filteredPatchCount: Scalars["Int"];
@@ -793,6 +811,7 @@ export type Patch = {
   taskStatuses: Array<Scalars["String"]>;
   baseTaskStatuses: Array<Scalars["String"]>;
   canEnqueueToCommitQueue: Scalars["Boolean"];
+  patchTriggerAliases: Array<PatchTriggerAlias>;
 };
 
 export type Build = {
@@ -1460,7 +1479,7 @@ export type PatchesPagePatchesFragment = {
         baseVersionID?: Maybe<string>;
         githash: string;
         id: string;
-        projectIdentifier: string;
+        projectID: string;
         taskCount?: Maybe<number>;
         status: string;
       }>
@@ -1479,7 +1498,9 @@ export type AbortTaskMutationVariables = Exact<{
   taskId: Scalars["String"];
 }>;
 
-export type AbortTaskMutation = { abortTask: BaseTaskFragment };
+export type AbortTaskMutation = {
+  abortTask: { priority?: Maybe<number> } & BaseTaskFragment;
+};
 
 export type AddAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
@@ -1845,6 +1866,15 @@ export type BuildBaronQuery = {
   };
 };
 
+export type GetBuildVariantHistoryQueryVariables = Exact<{
+  projectId: Scalars["String"];
+  buildVariant: Scalars["String"];
+}>;
+
+export type GetBuildVariantHistoryQuery = {
+  buildVariantHistory?: Maybe<Array<string>>;
+};
+
 export type BuildVariantsQueryVariables = Exact<{
   id: Scalars["String"];
 }>;
@@ -2142,6 +2172,7 @@ export type MainlineCommitsQueryVariables = Exact<{
 export type MainlineCommitsQuery = {
   mainlineCommits?: Maybe<{
     nextPageOrderNumber?: Maybe<number>;
+    prevPageOrderNumber?: Maybe<number>;
     versions: Array<{
       version?: Maybe<{
         id: string;
@@ -2149,8 +2180,25 @@ export type MainlineCommitsQuery = {
         createTime: Date;
         message: string;
         revision: string;
+        order: number;
         taskStatusCounts?: Maybe<Array<{ status: string; count: number }>>;
-        buildVariants?: Maybe<Array<Maybe<{ displayName: string }>>>;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              displayName: string;
+              tasks?: Maybe<
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    status: string;
+                    displayName: string;
+                  }>
+                >
+              >;
+            }>
+          >
+        >;
       }>;
       rolledUpVersions?: Maybe<
         Array<{
@@ -2381,6 +2429,13 @@ export type TaskFilesQuery = {
     }>;
   };
 };
+
+export type GetTaskHistoryQueryVariables = Exact<{
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type GetTaskHistoryQuery = { taskHistory?: Maybe<Array<string>> };
 
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
@@ -2644,7 +2699,7 @@ export type VersionQuery = {
           baseVersionID?: Maybe<string>;
           githash: string;
           id: string;
-          projectID: string;
+          projectIdentifier: string;
           taskCount?: Maybe<number>;
           status: string;
         }>

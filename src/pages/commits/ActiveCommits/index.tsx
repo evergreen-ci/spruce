@@ -19,12 +19,17 @@ interface Props {
     }[];
     buildVariants?: {
       displayName: string;
+      tasks?: {
+        id: string;
+        status: string;
+      }[];
     }[];
   };
   groupedTaskStats: ColorCount[];
   max: number;
   total: number;
   chartType: ChartTypes;
+  hasTaskFilter: boolean;
 }
 
 export const ActiveCommit: React.FC<Props> = ({
@@ -33,6 +38,7 @@ export const ActiveCommit: React.FC<Props> = ({
   max,
   total,
   chartType,
+  hasTaskFilter,
 }) => (
   <Container>
     <ColumnContainer key={version.id}>
@@ -50,10 +56,12 @@ export const ActiveCommit: React.FC<Props> = ({
       />
     </ColumnContainer>
     <ColumnContainer>
-      {version.buildVariants.map(({ displayName }) => (
+      {version.buildVariants.map(({ displayName, tasks }) => (
         <BuildVariantCard
           buildVariantDisplayName={displayName}
+          tasks={tasks}
           key={`${version.id}_${displayName}`}
+          shouldGroupTasks={!hasTaskFilter}
         />
       ))}
     </ColumnContainer>

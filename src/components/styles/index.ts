@@ -1,5 +1,6 @@
 import { Divider } from "./Divider";
 import { FiltersWrapper, StyledInput } from "./filters";
+import { inactiveElementStyle } from "./Inactive";
 import {
   ErrorMessage,
   InputLabel,
@@ -22,6 +23,7 @@ export {
   Divider,
   ErrorMessage,
   FiltersWrapper,
+  inactiveElementStyle,
   InputLabel,
   PaddedSideNavItem,
   PageButtonRow,

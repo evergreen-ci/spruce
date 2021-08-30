@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import Badge, { Variant } from "@leafygreen-ui/badge";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { SiderCard } from "components/styles";
+import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
 import { ProjectBuildVariant } from "gql/generated/types";
 import { array } from "utils";
@@ -174,12 +174,7 @@ const UserSelectWrapper = styled.span<UserSelectWrapperProps>`
 `;
 
 const DisableWrapper = styled.div`
-  ${(props: { disabled: boolean }) =>
-    props.disabled &&
-    `
-    opacity:0.4;
-    pointer-events:none;
-    `}
+  ${(props: { disabled: boolean }) => props.disabled && inactiveElementStyle}
 `;
 
 const StyledSiderCard = styled(SiderCard)`

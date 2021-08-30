@@ -358,14 +358,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -417,14 +410,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -476,14 +462,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -875,14 +854,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -948,14 +920,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -1021,14 +986,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}
@@ -1094,14 +1052,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                     colSpan={null}
                     rowSpan={null}
                     style={Object {}}
-                  >
-                    <div
-                      className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-fy8boj"
-                      data-cy="task-status-badge"
-                    >
-                      Failed
-                    </div>
-                  </td>
+                  />
                   <td
                     className="ant-table-cell cy-task-table-col-VARIANT"
                     colSpan={null}

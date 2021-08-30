@@ -11,12 +11,19 @@ query MainlineCommits(
         createTime
         message
         revision
+        order
         taskStatusCounts(options: $buildVariantOptionsForTask) {
           status
           count
         }
         buildVariants(options: $buildVariantOptions) {
           displayName
+          tasks {
+            id
+            execution
+            status
+            displayName
+          }
         }
       }
       rolledUpVersions {
@@ -29,5 +36,6 @@ query MainlineCommits(
       }
     }
     nextPageOrderNumber
+    prevPageOrderNumber
   }
 }

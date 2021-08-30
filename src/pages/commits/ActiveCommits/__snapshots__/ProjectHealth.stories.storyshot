@@ -5,7 +5,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-m3r1dt-FlexRowContainer ech0nhv3"
+    className="css-f6c9ue-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-6yhz1l-Container e1s1lwa10"
@@ -41,7 +41,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -79,14 +79,75 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -130,7 +191,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -168,14 +229,76 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -237,7 +360,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -275,14 +398,75 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -320,7 +504,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -358,14 +542,75 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-5yec2p-BadgeContainer emc61an2"
+                fill="#E4F4E4"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Success
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -409,7 +654,7 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -447,20 +692,100 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <button
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-556onv"
+              onClick={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="X Icon"
+                  className="leafygreen-ui-14toih"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <button
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-556onv"
+              onClick={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="X Icon"
+                  className="leafygreen-ui-14toih"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    className="css-1dysym0-ColumnContainer e15dc98b2"
+    className="css-1x4jjy8-ColumnContainer e15dc98b2"
   >
     <div
       className="css-oxpn1r-DashedLine e15dc98b1"
@@ -489,7 +814,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
   className="css-11f0p6-ProjectHealthWrapper ech0nhv2"
 >
   <div
-    className="css-m3r1dt-FlexRowContainer ech0nhv3"
+    className="css-f6c9ue-FlexRowContainer ech0nhv3"
   >
     <div
       className="css-6yhz1l-Container e1s1lwa10"
@@ -525,7 +850,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -563,14 +888,75 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -614,7 +1000,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -652,14 +1038,76 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -721,7 +1169,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -759,14 +1207,75 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-1gp0ja9-BadgeContainer emc61an2"
+                fill="#FEF7E3"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Running
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -804,7 +1313,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -842,14 +1351,75 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-fcl8rt-BadgeContainer emc61an2"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Dispatched
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <div
+              className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+            >
+              <div
+                className="css-5yec2p-BadgeContainer emc61an2"
+                fill="#E4F4E4"
+                onClick={[Function]}
+              >
+                <span
+                  className="css-wtl5ix-Number emc61an1"
+                >
+                  1
+                </span>
+                <span
+                  className="css-4dluyx-Status emc61an0"
+                >
+                  Success
+                </span>
+              </div>
+            </div>
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
         </div>
       </div>
     </div>
@@ -893,7 +1463,7 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           />
         </div>
         <div
-          className="css-13cwqgn-LabelContainer evlik6v4"
+          className="css-1qv3l5b-LabelContainer evlik6v4"
           data-cy="commit-label"
         >
           <div
@@ -931,20 +1501,100 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
         className="css-m6knb7-ColumnContainer e1s1lwa11"
       >
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          01. Code Health [code_health]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            01. Code Health [code_health]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <button
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-556onv"
+              onClick={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="X Icon"
+                  className="leafygreen-ui-14toih"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
         </div>
         <div
-          className="css-1qd04tz-Label ek3nkvx0 leafygreen-ui-xsga32"
+          className="css-oenjat-Container ek3nkvx1"
         >
-          02. Packaging (RPM - RHEL7) [package_rpm]
+          <div
+            className="css-fqkwly-Label ek3nkvx3 leafygreen-ui-xsga32"
+          >
+            02. Packaging (RPM - RHEL7) [package_rpm]
+          </div>
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          />
+          <div
+            className="css-861jo7-IconContainer ek3nkvx2"
+          >
+            <button
+              aria-disabled={false}
+              aria-label="task icon"
+              className="leafygreen-ui-556onv"
+              onClick={[Function]}
+              tabIndex={0}
+            >
+              <div
+                className="leafygreen-ui-xhlipt"
+              >
+                <svg
+                  aria-label="X Icon"
+                  className="leafygreen-ui-14toih"
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </div>
   <div
-    className="css-1dysym0-ColumnContainer e15dc98b2"
+    className="css-1x4jjy8-ColumnContainer e15dc98b2"
   >
     <div
       className="css-oxpn1r-DashedLine e15dc98b1"

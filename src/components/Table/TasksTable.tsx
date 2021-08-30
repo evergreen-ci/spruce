@@ -19,7 +19,9 @@ type TaskTableInfo = {
   id: string;
   displayName: string;
   status: string;
-  baseStatus?: string;
+  baseTask?: {
+    status: string;
+  };
   buildVariantDisplayName?: string;
   executionTasksFull?: TaskTableInfo[];
 };
@@ -30,7 +32,6 @@ interface TasksTableProps {
   onExpand?: (expanded: boolean) => void;
   onClickTaskLink?: (taskId: string) => void;
   sorts?: SortOrder[];
-  controlled?: boolean;
 }
 export const TasksTable: React.FC<TasksTableProps> = ({
   tasks,
@@ -38,7 +39,6 @@ export const TasksTable: React.FC<TasksTableProps> = ({
   onExpand = () => {},
   onClickTaskLink = () => {},
   sorts,
-  controlled = false,
 }) => (
   <Table
     data-cy="tasks-table"
@@ -46,7 +46,7 @@ export const TasksTable: React.FC<TasksTableProps> = ({
     pagination={false}
     columns={
       sorts
-        ? getColumnDefsSort(sorts, controlled, onClickTaskLink)
+        ? getColumnDefsWithSort(sorts, onClickTaskLink)
         : getColumnDefs(onClickTaskLink)
     }
     dataSource={tasks}
@@ -65,7 +65,10 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Name",
     dataIndex: "displayName",
     key: TaskSortCategory.Name,
-    sorter: (a, b) => a.displayName.localeCompare(b.displayName),
+    sorter: {
+      compare: (a, b) => a.displayName.localeCompare(b.displayName),
+      multiple: 4,
+    },
     width: "40%",
     className: "cy-task-table-col-NAME",
     render: (name: string, { id }: Task): JSX.Element => (
@@ -76,15 +79,21 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Patch Status",
     dataIndex: "status",
     key: TaskSortCategory.Status,
-    sorter: (a, b) => sortTasks(a.status, b.status),
+    sorter: {
+      compare: (a, b) => sortTasks(a.status, b.status),
+      multiple: 4,
+    },
     className: "cy-task-table-col-STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
   {
     title: "Base Status",
-    dataIndex: "baseStatus",
+    dataIndex: ["baseTask", "status"],
     key: TaskSortCategory.BaseStatus,
-    sorter: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
+    sorter: {
+      compare: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
+      multiple: 4,
+    },
     className: "cy-task-table-col-BASE_STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
   },
@@ -92,69 +101,47 @@ const getColumnDefs = (onClickTaskLink): ColumnProps<Task>[] => [
     title: "Variant",
     dataIndex: "buildVariantDisplayName",
     key: TaskSortCategory.Variant,
-    sorter: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
+    sorter: {
+      compare: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
+      multiple: 4,
+    },
     className: "cy-task-table-col-VARIANT",
   },
 ];
 
-const getColumnDefsSort = (
-  sortOrder: SortOrder[],
-  controlled: boolean,
+const getColumnDefsWithSort = (
+  sortOrders: SortOrder[],
   onClickTaskLink: (taskId: string) => void
 ): ColumnProps<Task>[] => {
   const getSortDir = (
     key: string,
     sorts: SortOrder[]
   ): antSortOrder | undefined => {
-    for (let i = 0; i < sorts.length; i++) {
-      if (sorts[i].Key === key) {
-        return sorts[i].Direction === SortDirection.Desc ? "descend" : "ascend";
-      }
+    const sortKey = sorts.find((sort) => sort.Key === key);
+    if (sortKey) {
+      return sortKey.Direction === SortDirection.Desc ? "descend" : "ascend";
     }
     return undefined;
   };
-  const controlledSortProps = [
-    {
-      sorter: {
-        multiple: 4,
-      },
-    },
-    {
-      sorter: {
-        multiple: 4,
-      },
-    },
-    {
-      dataIndex: ["baseTask", "status"],
-      sorter: {
-        multiple: 4,
-      },
-    },
-    {
-      sorter: {
-        multiple: 4,
-      },
-    },
-  ];
-  const sortProps = [
-    {
-      sortOrder: getSortDir(TaskSortCategory.Name, sortOrder),
-    },
-    {
-      sortOrder: getSortDir(TaskSortCategory.Status, sortOrder),
-    },
-    {
-      sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrder),
-    },
-    {
-      sortOrder: getSortDir(TaskSortCategory.Variant, sortOrder),
-    },
-  ];
 
-  return getColumnDefs(onClickTaskLink).map((columnDef, i) => ({
+  const sortProps = {
+    [TaskSortCategory.Name]: {
+      sortOrder: getSortDir(TaskSortCategory.Name, sortOrders),
+    },
+    [TaskSortCategory.Status]: {
+      sortOrder: getSortDir(TaskSortCategory.Status, sortOrders),
+    },
+    [TaskSortCategory.BaseStatus]: {
+      sortOrder: getSortDir(TaskSortCategory.BaseStatus, sortOrders),
+    },
+    [TaskSortCategory.Variant]: {
+      sortOrder: getSortDir(TaskSortCategory.Variant, sortOrders),
+    },
+  };
+
+  return getColumnDefs(onClickTaskLink).map((columnDef) => ({
     ...columnDef,
-    ...sortProps[i],
-    ...(controlled && controlledSortProps[i]),
+    ...sortProps[columnDef.key],
   }));
 };
 

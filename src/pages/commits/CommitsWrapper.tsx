@@ -18,6 +18,7 @@ interface Props {
   error?: ApolloError;
   isLoading: boolean;
   chartType?: ChartTypes;
+  hasTaskFilter: boolean;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -25,6 +26,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   isLoading,
   error,
   chartType,
+  hasTaskFilter,
 }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
@@ -44,6 +46,7 @@ export const CommitsWrapper: React.FC<Props> = ({
           {versions.map(({ version, rolledUpVersions }) =>
             version ? (
               <ActiveCommit
+                key={version.id}
                 version={version}
                 chartType={chartType}
                 total={versionToGroupedTaskStatsMap[version.id].total}
@@ -51,6 +54,7 @@ export const CommitsWrapper: React.FC<Props> = ({
                 groupedTaskStats={
                   versionToGroupedTaskStatsMap[version.id].stats
                 }
+                hasTaskFilter={hasTaskFilter}
               />
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
@@ -82,7 +86,6 @@ export const FlexRowContainer = styled.div<{ numCommits: number }>`
   align-items: flex-start;
   margin-top: 65px;
   padding: 0px 12px 0px 9px;
-  z-index: 1;
   position: absolute;
 `;
 
