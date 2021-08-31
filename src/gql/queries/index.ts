@@ -3,7 +3,7 @@ import DISTRO_TASK_QUEUE from "./distro-task-queue.graphql";
 import GET_AGENT_LOGS from "./get-agent-logs.graphql";
 import GET_ANNOTATION_EVENT_DATA from "./get-annotation-event-data.graphql";
 import GET_BUILD_BARON from "./get-build-baron.graphql";
-import GET_BUILD_VARIANT_HISTORY from "./get-build-variant-history.graphql";
+import GET_BUILD_VARIANT_HISTORY_HEADERS from "./get-build-variant-history-headers.graphql";
 import GET_BUILD_VARIANTS from "./get-build-variants.graphql";
 import GET_CLIENT_CONFIG from "./get-client-config.graphql";
 import GET_CODE_CHANGES from "./get-code-changes.graphql";
@@ -33,7 +33,7 @@ import GET_SPRUCE_CONFIG from "./get-spruce-config.graphql";
 import GET_SYSTEM_LOGS from "./get-system-logs.graphql";
 import GET_TASK_ALL_EXECUTIONS from "./get-task-all-executions.graphql";
 import GET_TASK_FILES from "./get-task-files.graphql";
-import GET_TASK_HISTORY from "./get-task-history.graphql";
+import GET_TASK_HISTORY_HEADERS from "./get-task-history-headers.graphql";
 import GET_TASK_LOGS from "./get-task-logs.graphql";
 import GET_TASK_STATUSES from "./get-task-statuses.graphql";
 import GET_TASK_TESTS from "./get-task-tests.graphql";
@@ -57,7 +57,7 @@ export {
   DISTRO_TASK_QUEUE,
   GET_ANNOTATION_EVENT_DATA,
   GET_BUILD_BARON,
-  GET_BUILD_VARIANT_HISTORY,
+  GET_BUILD_VARIANT_HISTORY_HEADERS,
   GET_CLIENT_CONFIG,
   GET_COMMIT_QUEUE,
   GET_DISPLAY_TASK,
@@ -92,7 +92,7 @@ export {
   GET_CREATED_TICKETS,
   GET_USER_SETTINGS,
   GET_CODE_CHANGES,
-  GET_TASK_HISTORY,
+  GET_TASK_HISTORY_HEADERS,
   GET_TASK_LOGS,
   GET_AGENT_LOGS,
   GET_EVENT_LOGS,

@@ -1,3 +1,0 @@
-query GetBuildVariantHistory($projectId: String!, $buildVariant: String!) {
-  buildVariantHistory(projectId: $projectId, buildVariant: $buildVariant)
-}

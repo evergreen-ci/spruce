@@ -1,0 +1,3 @@
+query GetBuildVariantHistoryHeaders($projectId: String!, $buildVariant: String!) {
+  buildVariantHistoryHeaders(projectId: $projectId, buildVariant: $buildVariant)
+}

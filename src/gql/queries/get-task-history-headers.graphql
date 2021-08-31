@@ -1,0 +1,6 @@
+query GetTaskHistoryHeaders($projectId: String!, $taskName: String!) {
+  taskHistoryHeaders(projectId: $projectId, taskName: $taskName){
+    displayName
+    buildVariant
+  }
+}
