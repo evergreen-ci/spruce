@@ -2,11 +2,9 @@ import React from "react";
 import Icon from "@leafygreen-ui/icon";
 import { useTaskAnalytics } from "analytics";
 import { FiltersWrapper, StyledInput } from "components/styles";
-import { Dropdown, TreeSelect } from "components/TreeSelect";
-import { useStatusesFilter } from "hooks";
 import { useFilterInputChangeHandler } from "hooks/useFilterInputChangeHandler";
 import { TestsTableCore } from "pages/task/taskTabs/testsTable/TestsTableCore";
-import { RequiredQueryParams, TestStatus } from "types/task";
+import { RequiredQueryParams } from "types/task";
 
 export const TestsTable: React.FC = () => {
   const taskAnalytics = useTaskAnalytics();
@@ -22,15 +20,6 @@ export const TestsTable: React.FC = () => {
     sendFilterTestsEvent
   );
 
-  const {
-    inputValue: selectedStatuses,
-    setAndSubmitInputValue: onChangeStatusFilter,
-  } = useStatusesFilter(
-    RequiredQueryParams.Statuses,
-    false,
-    sendFilterTestsEvent
-  );
-
   return (
     <>
       <FiltersWrapper>
@@ -42,49 +31,8 @@ export const TestsTable: React.FC = () => {
           data-cy="testname-input"
           width="25%"
         />
-        <Dropdown
-          data-cy="test-status-select"
-          inputLabel="Test Status:  "
-          width="25%"
-          render={({ getDropdownProps }) => (
-            <TreeSelect
-              {...getDropdownProps()}
-              onChange={onChangeStatusFilter}
-              state={selectedStatuses}
-              tData={treeData}
-            />
-          )}
-        />
       </FiltersWrapper>
       <TestsTableCore />
     </>
   );
 };
-
-const treeData = [
-  {
-    title: "All",
-    value: TestStatus.All,
-    key: TestStatus.All,
-  },
-  {
-    title: "Pass",
-    value: TestStatus.Pass,
-    key: TestStatus.Pass,
-  },
-  {
-    title: "Fail",
-    value: TestStatus.Fail,
-    key: TestStatus.Fail,
-  },
-  {
-    title: "Skip",
-    value: TestStatus.Skip,
-    key: TestStatus.Skip,
-  },
-  {
-    title: "Silent Fail",
-    value: TestStatus.SilentFail,
-    key: TestStatus.SilentFail,
-  },
-];
