@@ -45,6 +45,8 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     state: selectedStatuses,
     tData: currentStatuses,
     onChange: onChangeStatusFilter,
+    onReset: () => null,
+    onFilter: () => null,
   };
   const baseStatusSelectorProps = {
     state: selectedBaseStatuses,

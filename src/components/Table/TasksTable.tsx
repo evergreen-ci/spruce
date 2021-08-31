@@ -111,7 +111,7 @@ const getColumnDefs = ({
     className: "cy-task-table-col-STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
     ...(statusSelectorProps && {
-      filterDropdown: <TreeSelect isDropdown {...statusSelectorProps} />,
+      filterDropdown: <TreeSelect {...statusSelectorProps} />,
     }),
   },
   {
@@ -125,7 +125,7 @@ const getColumnDefs = ({
     className: "cy-task-table-col-BASE_STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
     ...(baseStatusSelectorProps && {
-      filterDropdown: <TreeSelect isDropdown {...baseStatusSelectorProps} />,
+      filterDropdown: <TreeSelect {...baseStatusSelectorProps} />,
     }),
   },
   {

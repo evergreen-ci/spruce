@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
+import Button, { Variant, Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
@@ -15,6 +16,8 @@ export interface TreeSelectProps {
   setOptionsLabel?: (v: string) => void;
   state: string[];
   tData: TreeDataEntry[];
+  onReset?: () => void;
+  onFilter?: () => void;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -32,6 +35,8 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   setOptionsLabel = () => undefined,
   state,
   tData,
+  onReset,
+  onFilter,
 }) => {
   const allValues = getAllValues(tData);
   // removes values not included in tData
@@ -74,13 +79,34 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         </RelativeWrapper>
       )}
     >
-      <>
+      <CheckboxContainer>
         {renderCheckboxes({
           state: filteredState,
           tData,
           onChange,
         })}
-      </>
+        <BtnContainer>
+          {onReset && (
+            <Button
+              onClick={onReset}
+              size={Size.XSmall}
+              data-cy="treeselect-reset-btn"
+            >
+              RESET
+            </Button>
+          )}
+          {onFilter && (
+            <Button
+              onClick={onFilter}
+              size={Size.XSmall}
+              variant={Variant.Primary}
+              data-cy="treeselect-filter-btn"
+            >
+              FILTER
+            </Button>
+          )}
+        </BtnContainer>
+      </CheckboxContainer>
     </ConditionalWrapper>
   );
 };
@@ -308,14 +334,17 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
 `;
 
 const OptionsWrapper = styled.div`
+  position: absolute;
+  z-index: 5;
+  margin-top: 5px;
+`;
+
+const CheckboxContainer = styled.div`
   border-radius: 5px;
   background-color: ${white};
   border: 1px solid ${gray.light1};
   padding: 8px;
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  position: absolute;
-  z-index: 5;
-  margin-top: 5px;
   width: 100%;
   overflow: hidden;
 `;
@@ -323,4 +352,12 @@ const OptionsWrapper = styled.div`
 // Used to provide a basis for the absolutely positions OptionsWrapper
 const RelativeWrapper = styled.div`
   position: relative;
+`;
+
+const BtnContainer = styled.div`
+  display: flex;
+  margin-top: 20px;
+  > :not(:last-child) {
+    margin-right: 8px;
+  }
 `;
