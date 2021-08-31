@@ -21,7 +21,11 @@ interface SearchableDropdownProps<T> {
   searchPlaceholder?: string;
   valuePlaceholder?: string;
   options: string[] | Array<T>;
-  optionRenderer?: (option: string | T) => React.ReactNode;
+  optionRenderer?: (
+    option: string | T,
+    onClick: (selectedV) => void,
+    isChecked: (selectedV) => boolean
+  ) => React.ReactNode;
   allowMultiselect?: boolean;
   disabled?: boolean;
 }
@@ -86,15 +90,20 @@ const SearchableDropdown = <T extends {}>({
     }
   };
 
-  const option =
-    optionRenderer ||
-    ((v: string | T) => (
-      <SearchableDropdownOption
-        value={v}
-        onClick={() => onClick(v)}
-        isChecked={isChecked(v)}
-      />
-    ));
+  const option = optionRenderer
+    ? (v: string | T) =>
+        optionRenderer(
+          v,
+          (selectedV) => onClick(selectedV),
+          (selectedV) => isChecked(selectedV)
+        )
+    : (v: string | T) => (
+        <SearchableDropdownOption
+          value={v}
+          onClick={() => onClick(v)}
+          isChecked={isChecked(v)}
+        />
+      );
 
   const isChecked = (elementValue: string | T) => {
     // If we have a search Function we can use that to determine if the option is selected
@@ -140,6 +149,8 @@ const SearchableDropdown = <T extends {}>({
       buttonText = value.toString();
     }
   }
+
+  console.log({ visibleOptions });
   return (
     <>
       <Label htmlFor="searchable-dropdown">{label}</Label>

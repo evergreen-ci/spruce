@@ -32,3 +32,36 @@ export const Multiselect = () => {
     />
   );
 };
+
+export const CustomOption = () => {
+  const [value, setValue] = useState([]);
+  const options = [
+    {
+      label: "Option 1",
+      value: "1",
+    },
+    {
+      label: "Option 2",
+      value: "2",
+    },
+    {
+      label: "Option 3",
+      value: "3",
+    },
+  ];
+  return (
+    <SearchableDropdown
+      label="Custom option select"
+      value={value}
+      onChange={setValue}
+      options={options}
+      allowMultiselect
+      optionRenderer={(option, onClick, isChecked) => (
+        <button onClick={() => onClick(option.value)} type="button">
+          {isChecked(option.value) && `✔️`}
+          {option.label}
+        </button>
+      )}
+    />
+  );
+};
