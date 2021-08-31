@@ -21,6 +21,7 @@ import {
   ConfigurePatchQuery,
   VariantTask,
   ParameterInput,
+  PatchTriggerAlias,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import { PatchTab } from "types/patch";
@@ -28,7 +29,10 @@ import { queryString, string } from "utils";
 import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
 import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
 import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
-import { VariantTasksState } from "./configurePatchCore/state";
+import {
+  DownstreamPatchState,
+  VariantTasksState,
+} from "./configurePatchCore/state";
 
 const { omitTypename } = string;
 const { parseQueryString } = queryString;
@@ -40,6 +44,7 @@ type configurePatchState = {
   patchParams: ParameterInput[];
   selectedTab: number;
   disableBuildVariantSelect: boolean;
+  selectedDownstreamPatches: DownstreamPatchState;
 };
 
 type Action =
@@ -54,7 +59,9 @@ type Action =
       buildVariants: string[];
       params: ParameterInput[];
       variantTasks: VariantTasksState;
-    };
+      patches: DownstreamPatchState;
+    }
+  | { type: "setSelectedDownstreamPatches"; patches: DownstreamPatchState };
 
 const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   description: "",
@@ -63,6 +70,7 @@ const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   patchParams: null,
   selectedTab,
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
+  selectedDownstreamPatches: {},
 });
 const reducer = (state: configurePatchState, action: Action) => {
   switch (action.type) {
@@ -80,6 +88,11 @@ const reducer = (state: configurePatchState, action: Action) => {
       return {
         ...state,
         selectedBuildVariantTasks: action.variantTasks,
+      };
+    case "setSelectedDownstreamPatches":
+      return {
+        ...state,
+        selectedDownstreamPatches: action.patches,
       };
     case "setPatchParams":
       return {
@@ -105,6 +118,7 @@ const reducer = (state: configurePatchState, action: Action) => {
         selectedBuildVariants: action.buildVariants,
         patchParams: omitTypename(action.params),
         selectedBuildVariantTasks: action.variantTasks,
+        selectedDownstreamPatches: action.patches,
       };
 
     default:
@@ -128,7 +142,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     })
   );
 
-  const { project, id, author, time, activated } = patch;
+  const { project, id, author, time, activated, patchTriggerAliases } = patch;
   const { variants } = project;
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
@@ -154,6 +168,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     patchParams,
     selectedTab,
     disableBuildVariantSelect,
+    selectedDownstreamPatches,
   } = state;
 
   useEffect(() => {
@@ -175,6 +190,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         buildVariants: [variants[0]?.name],
         params: patch.parameters,
         variantTasks: initializeTaskState(variants, patch.variantsTasks),
+        patches: initializeDownstreamPatchState(patch.patchTriggerAliases),
       });
     }
   }, [patch, variants]);
@@ -186,6 +202,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         selectedBuildVariantTasks
       ),
       parameters: patchParams,
+      patchTriggerAliases: getGqlDownstreamPatchesFromState(
+        selectedDownstreamPatches
+      ),
     };
     schedulePatch({
       variables: { patchId: id, configure: configurePatchParam },
@@ -222,8 +241,20 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted at: {time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
-            variants={variants}
-            selectedVariantTasks={selectedBuildVariantTasks}
+            variants={variants.map(({ displayName, name }) => ({
+              displayName,
+              name,
+              taskCount: selectedBuildVariantTasks[name]
+                ? Object.values(selectedBuildVariantTasks[name]).filter(
+                    (v) => v
+                  ).length
+                : 0,
+            }))}
+            aliases={patchTriggerAliases.map(({ alias, childProject }) => ({
+              displayName: `${alias} (${childProject})`,
+              name: alias,
+              taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
+            }))}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={(buildVariants) =>
               dispatch({ type: "setSelectedBuildVariants", buildVariants })
@@ -250,8 +281,16 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                       variantTasks,
                     })
                   }
+                  activated={activated}
                   loading={loadingScheduledPatch}
                   onClickSchedule={onClickSchedule}
+                  selectedDownstreamPatches={selectedDownstreamPatches}
+                  setSelectedDownstreamPatches={(patches) =>
+                    dispatch({
+                      type: "setSelectedDownstreamPatches",
+                      patches,
+                    })
+                  }
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">
@@ -290,6 +329,13 @@ const getGqlVariantTasksParamFromState = (
     })
     .filter(({ tasks }) => tasks.length);
 
+const getGqlDownstreamPatchesFromState = (
+  selectedDownstreamPatches: DownstreamPatchState
+) =>
+  Object.entries(selectedDownstreamPatches)
+    .filter(([, isSelected]) => isSelected)
+    .map(([alias]) => alias);
+
 // Takes in variant tasks and default selected tasks and returns an object
 // With merged variant and default selected tasks auto selected.
 const initializeTaskState = (
@@ -310,6 +356,17 @@ const initializeTaskState = (
     {}
   );
 };
+
+const initializeDownstreamPatchState = (
+  patchTriggerAliases: PatchTriggerAlias[]
+) =>
+  patchTriggerAliases.reduce(
+    (prev, { alias }) => ({
+      ...prev,
+      [alias]: false,
+    }),
+    {}
+  );
 
 const indexToTabMap = [PatchTab.Tasks, PatchTab.Changes, PatchTab.Parameters];
 

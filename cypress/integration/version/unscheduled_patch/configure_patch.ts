@@ -442,6 +442,65 @@ describe("Configure Patch Page", () => {
         cy.get("[data-selected=true]").its("length").should("eq", 6);
       });
     });
+
+    describe.only("Selecting a trigger alias", () => {
+      before(() => {
+        cy.dataCy("trigger-alias-list-item")
+          .contains("logkeeper-alias")
+          .click();
+      });
+
+      it("Should show no tasks", () => {
+        cy.dataCy("downstream-patch-checkbox").should("have.length", 0);
+      });
+
+      it("Should update the 'Select all' label", () => {
+        cy.dataCy("select-all-checkbox")
+          .siblings("span")
+          .contains("Select all tasks in this trigger alias");
+      });
+
+      it("Clicking select all should update the task count", () => {
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("not.exist");
+
+        cy.dataCy("select-all-checkbox").check({
+          force: true,
+        });
+
+        cy.dataCy("selected-task-disclaimer").contains(
+          `0 tasks across 0 build variants, 1 trigger alias`
+        );
+
+        const countBadge = cy
+          .dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]');
+        countBadge.should("exist");
+        countBadge.should("have.text", 1);
+      });
+
+      it("Cmd+click will select the clicked trigger alias along with the build variant and will show a checkbox for the trigger alias", () => {
+        cy.get("body").type("{meta}", {
+          release: false,
+        });
+
+        cy.dataCy("build-variant-list-item").contains("Windows").click();
+        cy.dataCy("downstream-patch-checkbox").should("have.length", 1);
+
+        cy.get("[data-selected=true]").its("length").should("eq", 2);
+      });
+
+      it("Updates the badge count when the trigger alias is deselected", () => {
+        cy.dataCy("downstream-patch-checkbox").uncheck({
+          force: true,
+        });
+
+        cy.dataCy("trigger-alias-list-item")
+          .find('[data-cy="task-count-badge"]')
+          .should("not.exist");
+      });
+    });
   });
 
   //   Using mocked responses because we are unable to schedule a patch because of a missing github token

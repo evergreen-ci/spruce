@@ -2313,6 +2313,7 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }>;
+    patchTriggerAliases: Array<{ alias: string; childProject: string }>;
   } & BasePatchFragment;
 };
 
