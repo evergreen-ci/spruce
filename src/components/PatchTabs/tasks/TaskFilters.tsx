@@ -1,10 +1,8 @@
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
-import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { TaskStatusFilters } from "components/TaskStatusFilters";
-import { useFilterInputChangeHandler, useStatusesFilter } from "hooks";
+import { useFilterInputChangeHandler } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 
 export const TaskFilters: React.FC = () => {
@@ -28,18 +26,6 @@ export const TaskFilters: React.FC = () => {
     true,
     sendFilterTasksEvent
   );
-  const statusesFilter = useStatusesFilter(
-    PatchTasksQueryParams.Statuses,
-    true,
-    sendFilterTasksEvent
-  );
-  const baseStatusesFilter = useStatusesFilter(
-    PatchTasksQueryParams.BaseStatuses,
-    true,
-    sendFilterTasksEvent
-  );
-
-  const { id: patchId } = useParams<{ id: string }>();
 
   return (
     <FiltersWrapper>
@@ -58,13 +44,6 @@ export const TaskFilters: React.FC = () => {
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
         onChange={variantFilterValueOnChange}
-      />
-      <TaskStatusFilters
-        onChangeBaseStatusFilter={baseStatusesFilter.setAndSubmitInputValue}
-        onChangeStatusFilter={statusesFilter.setAndSubmitInputValue}
-        versionId={patchId}
-        selectedBaseStatuses={baseStatusesFilter.inputValue}
-        selectedStatuses={statusesFilter.inputValue}
       />
     </FiltersWrapper>
   );
