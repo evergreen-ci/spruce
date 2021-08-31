@@ -150,7 +150,6 @@ const SearchableDropdown = <T extends {}>({
     }
   }
 
-  console.log({ visibleOptions });
   return (
     <>
       <Label htmlFor="searchable-dropdown">{label}</Label>

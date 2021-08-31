@@ -1,12 +1,15 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router";
-import SearchableDropdown from "components/SearchableDropdown";
+import SearchableDropdown, {
+  SearchableDropdownOption,
+} from "components/SearchableDropdown";
 import {
-  GetTaskHistoryQuery,
-  GetTaskHistoryQueryVariables,
+  GetTaskHistoryHeadersQuery,
+  GetTaskHistoryHeadersQueryVariables,
+  TaskHistoryBuildVariantHeader,
 } from "gql/generated/types";
-import { GET_TASK_HISTORY } from "gql/queries";
+import { GET_TASK_HISTORY_HEADERS } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
@@ -32,9 +35,9 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   }
 
   const { data, loading } = useQuery<
-    GetTaskHistoryQuery,
-    GetTaskHistoryQueryVariables
-  >(GET_TASK_HISTORY, {
+    GetTaskHistoryHeadersQuery,
+    GetTaskHistoryHeadersQueryVariables
+  >(GET_TASK_HISTORY_HEADERS, {
     variables: {
       projectId,
       taskName,
@@ -47,7 +50,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { taskHistory } = data || {};
+  const { taskHistoryHeaders } = data || {};
   return (
     <Container>
       <SearchableDropdown
@@ -55,9 +58,21 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         valuePlaceholder="Select Build Variant to View"
         value={value}
         onChange={onChange}
-        options={taskHistory}
+        options={taskHistoryHeaders}
         disabled={loading}
         allowMultiselect
+        optionRenderer={(
+          option: TaskHistoryBuildVariantHeader,
+          onClick,
+          isChecked
+        ) => (
+          <SearchableDropdownOption
+            value={option.buildVariant}
+            displayName={option.displayName}
+            onClick={() => onClick(option.buildVariant)}
+            isChecked={isChecked(option.buildVariant)}
+          />
+        )}
       />
     </Container>
   );
