@@ -28,12 +28,12 @@ export const TaskFilters: React.FC = () => {
     true,
     sendFilterTasksEvent
   );
-  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
+  const statusesFilter = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     true,
     sendFilterTasksEvent
   );
-  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
+  const baseStatusesFilter = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
     true,
     sendFilterTasksEvent
@@ -60,11 +60,11 @@ export const TaskFilters: React.FC = () => {
         onChange={variantFilterValueOnChange}
       />
       <TaskStatusFilters
-        onChangeBaseStatusFilter={onChangeBaseStatusFilter}
-        onChangeStatusFilter={onChangeStatusFilter}
+        onChangeBaseStatusFilter={baseStatusesFilter.setAndSubmitInputValue}
+        onChangeStatusFilter={statusesFilter.setAndSubmitInputValue}
         versionId={patchId}
-        selectedBaseStatuses={selectedBaseStatuses}
-        selectedStatuses={selectedStatuses}
+        selectedBaseStatuses={baseStatusesFilter.inputValue}
+        selectedStatuses={statusesFilter.inputValue}
       />
     </FiltersWrapper>
   );

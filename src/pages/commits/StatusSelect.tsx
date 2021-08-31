@@ -5,7 +5,7 @@ import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 
 export const StatusSelect = () => {
-  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
+  const { inputValue, setAndSubmitInputValue } = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     false
   );
@@ -18,9 +18,9 @@ export const StatusSelect = () => {
         render={({ getDropdownProps }) => (
           <TreeSelect
             {...getDropdownProps()}
-            onChange={onChangeStatusFilter}
+            onChange={setAndSubmitInputValue}
             tData={taskStatusesFilterTreeData}
-            state={selectedStatuses}
+            state={inputValue}
           />
         )}
       />

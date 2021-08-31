@@ -24,34 +24,36 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const patchAnalytics = usePatchAnalytics();
   const sendFilterTasksEvent = (filterBy: string) =>
     patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
-  const [selectedStatuses, onChangeStatusFilter] = useStatusesFilter(
+  const currentStatusesFilter = useStatusesFilter(
     PatchTasksQueryParams.Statuses,
     true,
     sendFilterTasksEvent
   );
-  const [selectedBaseStatuses, onChangeBaseStatusFilter] = useStatusesFilter(
+  const baseStatusesFilter = useStatusesFilter(
     PatchTasksQueryParams.BaseStatuses,
     true,
     sendFilterTasksEvent
   );
+  const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
+  const statusSelectorProps = {
+    state: currentStatusesFilter.inputValue,
+    tData: currentStatuses,
+    onChange: currentStatusesFilter.setInputValue,
+    onReset: currentStatusesFilter.reset,
+    onFilter: currentStatusesFilter.submitInputValue,
+  };
+  const baseStatusSelectorProps = {
+    state: baseStatusesFilter.inputValue,
+    tData: baseStatuses,
+    onChange: baseStatusesFilter.setInputValue,
+    onReset: baseStatusesFilter.reset,
+    onFilter: baseStatusesFilter.submitInputValue,
+  };
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     updateQueryParams({
       sorts: toSortString(sorter),
       [PatchTasksQueryParams.Page]: "0",
     });
-  };
-  const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
-  const statusSelectorProps = {
-    state: selectedStatuses,
-    tData: currentStatuses,
-    onChange: onChangeStatusFilter,
-    onReset: () => null,
-    onFilter: () => null,
-  };
-  const baseStatusSelectorProps = {
-    state: selectedBaseStatuses,
-    tData: baseStatuses,
-    onChange: onChangeBaseStatusFilter,
   };
   return (
     <TasksTable

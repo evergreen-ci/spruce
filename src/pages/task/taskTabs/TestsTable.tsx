@@ -22,7 +22,10 @@ export const TestsTable: React.FC = () => {
     sendFilterTestsEvent
   );
 
-  const [statusVal, statusValOnChange] = useStatusesFilter(
+  const {
+    inputValue: selectedStatuses,
+    setAndSubmitInputValue: onChangeStatusFilter,
+  } = useStatusesFilter(
     RequiredQueryParams.Statuses,
     false,
     sendFilterTestsEvent
@@ -46,8 +49,8 @@ export const TestsTable: React.FC = () => {
           render={({ getDropdownProps }) => (
             <TreeSelect
               {...getDropdownProps()}
-              onChange={statusValOnChange}
-              state={statusVal}
+              onChange={onChangeStatusFilter}
+              state={selectedStatuses}
               tData={treeData}
             />
           )}

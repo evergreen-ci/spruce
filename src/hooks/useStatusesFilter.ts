@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
@@ -15,22 +16,52 @@ export const useStatusesFilter = (
   urlParam: string,
   resetPage?: boolean,
   sendAnalyticsEvent: (filterBy: string) => void = () => undefined
-): [string[], (newValue: string[]) => void] => {
+): UseStatusesFilterResult => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
+  const { [urlParam]: rawStatuses } = parseQueryString(search);
+  const urlValue = Array.isArray(rawStatuses)
+    ? rawStatuses
+    : [rawStatuses].filter((v) => v);
 
-  const onChange = (newValue: string[]): void => {
+  const [inputValue, setInputValue] = useState(urlValue);
+
+  const hasDiff = !!(
+    urlValue.length !== inputValue.length ||
+    urlValue.filter((v) => !inputValue.includes(v)).length
+  );
+
+  const updateUrl = (newValue: string[]) =>
     updateQueryParams({
       [urlParam]: newValue,
       ...(resetPage && { page: "0" }),
     });
 
+  const setAndSubmitInputValue = (newValue: string[]): void => {
+    setInputValue(newValue);
+    updateUrl(newValue);
     sendAnalyticsEvent(urlParam);
   };
 
-  const { [urlParam]: rawStatuses } = parseQueryString(search);
-  const value = Array.isArray(rawStatuses)
-    ? rawStatuses
-    : [rawStatuses].filter((v) => v);
-  return [value, onChange];
+  const submitInputValue = () => updateUrl(inputValue);
+
+  const reset = () => setAndSubmitInputValue([]);
+
+  return {
+    inputValue,
+    setAndSubmitInputValue,
+    setInputValue,
+    submitInputValue,
+    reset,
+    hasDiff,
+  };
 };
+
+interface UseStatusesFilterResult {
+  inputValue: string[];
+  setAndSubmitInputValue: (newValue: string[]) => void;
+  setInputValue: (newValue: string[]) => void;
+  submitInputValue: () => void;
+  reset: () => void;
+  hasDiff: boolean;
+}
