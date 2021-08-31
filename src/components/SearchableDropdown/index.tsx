@@ -89,18 +89,11 @@ const SearchableDropdown = <T extends {}>({
   const option =
     optionRenderer ||
     ((v: string | T) => (
-      <Option
+      <SearchableDropdownOption
+        value={v}
         onClick={() => onClick(v)}
-        key={`select_${v}`}
-        data-cy="searchable-dropdown-option"
-      >
-        <CheckmarkContainer>
-          {isChecked(v) && (
-            <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
-          )}
-        </CheckmarkContainer>
-        {v}
-      </Option>
+        isChecked={isChecked(v)}
+      />
     ));
 
   const isChecked = (elementValue: string | T) => {
@@ -190,6 +183,32 @@ const SearchableDropdown = <T extends {}>({
     </>
   );
 };
+
+interface SearchableDropdownOptionProps<T> {
+  onClick: (v: any) => void;
+  value: string | T;
+  isChecked?: boolean;
+  displayName?: string;
+}
+export const SearchableDropdownOption = <T extends {}>({
+  onClick,
+  isChecked,
+  value,
+  displayName,
+}: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
+  <Option
+    onClick={() => onClick(value)}
+    key={`select_${value}`}
+    data-cy="searchable-dropdown-option"
+  >
+    <CheckmarkContainer>
+      {isChecked && (
+        <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
+      )}
+    </CheckmarkContainer>
+    {displayName || value}
+  </Option>
+);
 
 const LabelWrapper = styled.div`
   white-space: nowrap;
