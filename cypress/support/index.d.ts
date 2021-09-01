@@ -58,6 +58,15 @@ declare namespace Cypress {
      * @example cy.getInputBylabel("Some Label")
      */
     getInputByLabel(label: string): Chainable<Element>;
+    /**
+     * Custom command to open an antd table filter associated with the
+     * supplied column class name.
+     *
+     * @param columnClassName Classname of column containing the filter. This field
+     * must match the antd ColumnProps className in order to target the column.
+     * @example cy.openTableFilter("data-cy-status-column")
+     */
+    openTableFilter(columnClassName: string): void;
   }
 }
 

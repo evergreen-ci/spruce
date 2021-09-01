@@ -13,8 +13,10 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
     .contains(checkboxDisplayName)
     .as("target")
     .click({ force: true });
+  cy.dataCy("treeselect-filter-btn").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search });
   cy.get("@target").click({ force: true });
+  cy.dataCy("treeselect-filter-btn").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
