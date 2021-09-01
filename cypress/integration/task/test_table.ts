@@ -32,7 +32,7 @@ describe("Tests Table", () => {
     cy.openTableFilter("data-cy-status-column");
 
     cy.get(".cy-checkbox").contains("Fail").click({ force: true });
-    cy.contains("FILTER").click();
+    cy.dataCy("treeselect-filter-btn").click();
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 

@@ -67,7 +67,7 @@ Cypress.Commands.add("getInputByLabel", (label) =>
 Cypress.Commands.add("openTableFilter", (columnClassName) =>
   cy
     .get(
-      `.${columnClassName} > div > .ant-table-filter-trigger-container > .ant-table-filter-trigger`
+      `.${columnClassName} > .ant-table-filter-column > .ant-table-filter-trigger-container > .ant-table-filter-trigger`
     )
     .click()
 );

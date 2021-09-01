@@ -73,13 +73,11 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
       condition={isDropdown}
       wrapper={(children) => (
         <RelativeWrapper>
-          <OptionsWrapper data-cy="tree-select-options">
-            {children}
-          </OptionsWrapper>
+          <OptionsWrapper>{children}</OptionsWrapper>
         </RelativeWrapper>
       )}
     >
-      <CheckboxContainer>
+      <CheckboxContainer data-cy="tree-select-options">
         {renderCheckboxes({
           state: filteredState,
           tData,
