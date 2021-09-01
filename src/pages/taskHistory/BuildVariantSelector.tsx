@@ -5,11 +5,11 @@ import SearchableDropdown, {
   SearchableDropdownOption,
 } from "components/SearchableDropdown";
 import {
-  GetTaskHistoryHeadersQuery,
-  GetTaskHistoryHeadersQueryVariables,
-  TaskHistoryBuildVariantHeader,
+  GetBuildVariantsForTaskNameQuery,
+  GetBuildVariantsForTaskNameQueryVariables,
+  BuildVariantTuple,
 } from "gql/generated/types";
-import { GET_TASK_HISTORY_HEADERS } from "gql/queries";
+import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
@@ -35,9 +35,9 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   }
 
   const { data, loading } = useQuery<
-    GetTaskHistoryHeadersQuery,
-    GetTaskHistoryHeadersQueryVariables
-  >(GET_TASK_HISTORY_HEADERS, {
+    GetBuildVariantsForTaskNameQuery,
+    GetBuildVariantsForTaskNameQueryVariables
+  >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
     variables: {
       projectId,
       taskName,
@@ -50,7 +50,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { taskHistoryHeaders } = data || {};
+  const { buildVariantsForTaskName } = data || {};
   return (
     <Container>
       <SearchableDropdown
@@ -58,14 +58,17 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         valuePlaceholder="Select Build Variant to View"
         value={value}
         onChange={onChange}
-        options={taskHistoryHeaders}
+        options={buildVariantsForTaskName}
         disabled={loading}
         allowMultiselect
-        optionRenderer={(
-          option: TaskHistoryBuildVariantHeader,
-          onClick,
-          isChecked
-        ) => (
+        searchFunc={
+          (param, match) => {
+            console.log(param, match);
+            return true;
+          }
+          // return param.displayName.includes(match);
+        }
+        optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
           <SearchableDropdownOption
             value={option.buildVariant}
             displayName={option.displayName}

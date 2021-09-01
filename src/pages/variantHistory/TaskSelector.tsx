@@ -3,10 +3,10 @@ import styled from "@emotion/styled";
 import { useLocation } from "react-router";
 import SearchableDropdown from "components/SearchableDropdown";
 import {
-  GetBuildVariantHistoryHeadersQuery,
-  GetBuildVariantHistoryHeadersQueryVariables,
+  GetTaskNamesForBuildVariantQuery,
+  GetTaskNamesForBuildVariantQueryVariables,
 } from "gql/generated/types";
-import { GET_BUILD_VARIANT_HISTORY_HEADERS } from "gql/queries";
+import { GET_TASK_NAMES_FOR_BUILD_VARIANT } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
@@ -32,9 +32,9 @@ export const TaskSelector: React.FC<TaskSelectorProps> = ({
   }
 
   const { data, loading } = useQuery<
-    GetBuildVariantHistoryHeadersQuery,
-    GetBuildVariantHistoryHeadersQueryVariables
-  >(GET_BUILD_VARIANT_HISTORY_HEADERS, {
+    GetTaskNamesForBuildVariantQuery,
+    GetTaskNamesForBuildVariantQueryVariables
+  >(GET_TASK_NAMES_FOR_BUILD_VARIANT, {
     variables: {
       projectId,
       buildVariant,
@@ -47,7 +47,7 @@ export const TaskSelector: React.FC<TaskSelectorProps> = ({
     });
   };
 
-  const { buildVariantHistoryHeaders } = data || {};
+  const { taskNamesForBuildVariant } = data || {};
   return (
     <Container>
       <SearchableDropdown
@@ -55,7 +55,7 @@ export const TaskSelector: React.FC<TaskSelectorProps> = ({
         valuePlaceholder="Select Tasks to View"
         value={value}
         onChange={onChange}
-        options={buildVariantHistoryHeaders}
+        options={taskNamesForBuildVariant}
         disabled={loading}
         allowMultiselect
       />
