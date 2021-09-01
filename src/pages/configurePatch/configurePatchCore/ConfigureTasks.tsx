@@ -76,11 +76,11 @@ export const ConfigureTasks: React.FC<Props> = ({
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
     const selectedDownstreamPatchesCopy = { ...selectedDownstreamPatches };
     selectedBuildVariants.forEach((v) => {
-      if (selectedBuildVariantsCopy?.[v]) {
+      if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
           selectedBuildVariantsCopy[v][task] = e.target.checked;
         });
-      } else if (selectedDownstreamPatchesCopy?.[v]) {
+      } else if (selectedDownstreamPatchesCopy?.[v] !== undefined) {
         selectedDownstreamPatchesCopy[v] = e.target.checked;
       }
     });
