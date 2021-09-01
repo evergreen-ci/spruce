@@ -5,12 +5,10 @@ import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
 /**
- * @param  {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
+ * @param {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
  * @param {boolean} page reset url page param to 0 if true
  * @param {boolean} resetPage update url page param to 0 if true
- * @return {[string[], (newValue: string[]) => void]}
- * pass first value in return array to `value` prop of dropdown component
- * pass second value in return array to `onChange` prop of dropdown component
+ * @return {UseStatusesFilterResult} Provides status filter input state and state management util functions
  */
 export const useStatusesFilter = (
   urlParam: string,
@@ -25,11 +23,6 @@ export const useStatusesFilter = (
     : [rawStatuses].filter((v) => v);
 
   const [inputValue, setInputValue] = useState(urlValue);
-
-  const hasDiff = !!(
-    urlValue.length !== inputValue.length ||
-    urlValue.filter((v) => !inputValue.includes(v)).length
-  );
 
   const updateUrl = (newValue: string[]) =>
     updateQueryParams({
@@ -53,9 +46,17 @@ export const useStatusesFilter = (
     setInputValue,
     submitInputValue,
     reset,
-    hasDiff,
   };
 };
+
+/**
+ * @typedef {Object} UseStatusesFilterResult
+ * @property  {string[]} inputValue - Represents input value
+ * @property  {(newValue: string[]) => void} setAndSubmitInputValue - Sets input value and updates URL query param
+ * @property  {(newValue: string[]) => void} setInputValue - Sets input value
+ * @property  {() => void} submitInputValue - Updates URL query param with current input value
+ * @property  {() => void} reset - Clears input value and URL query param
+ */
 
 interface UseStatusesFilterResult {
   inputValue: string[];
@@ -63,5 +64,4 @@ interface UseStatusesFilterResult {
   setInputValue: (newValue: string[]) => void;
   submitInputValue: () => void;
   reset: () => void;
-  hasDiff: boolean;
 }
