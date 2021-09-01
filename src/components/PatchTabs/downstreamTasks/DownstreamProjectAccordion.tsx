@@ -20,7 +20,7 @@ import {
   TaskSortCategory,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useTaskStatuses } from "hooks";
 import { environmentalVariables, queryString } from "utils";
 import { FilterState, TaskFilters } from "./TaskFilters";
 
@@ -37,6 +37,19 @@ interface DownstreamProjectAccordionProps {
 }
 
 const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
+  ...state,
+  ...newFields,
+});
+
+interface StatusFilterReducerState {
+  baseStatusesInputVal: string[];
+  currentStatusesInputVal: string[];
+}
+
+const statusFilterReducer = (
+  state: StatusFilterReducerState,
+  newFields: Partial<StatusFilterReducerState>
+) => ({
   ...state,
   ...newFields,
 });
@@ -71,6 +84,48 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     ...baseFilterVariables,
     sorts: [defaultSort],
   });
+
+  const [statusFilterInputVals, setStatusFilterInputVals] = useReducer(
+    statusFilterReducer,
+    {
+      baseStatusesInputVal: baseFilterVariables.baseStatuses,
+      currentStatusesInputVal: baseFilterVariables.statuses,
+    }
+  );
+
+  const {
+    baseStatusesInputVal,
+    currentStatusesInputVal,
+  } = statusFilterInputVals;
+  const { currentStatuses, baseStatuses } = useTaskStatuses({
+    versionId: childPatchId,
+  });
+
+  const baseStatusSelectorProps = {
+    state: baseStatusesInputVal,
+    tData: baseStatuses,
+    onChange: (statuses: string[]) =>
+      setStatusFilterInputVals({ baseStatusesInputVal: statuses }),
+    onReset: () => {
+      setStatusFilterInputVals({ baseStatusesInputVal: [] });
+      setVariables({ baseStatuses: [], page: 0 });
+    },
+    onFilter: () =>
+      setVariables({ baseStatuses: baseStatusesInputVal, page: 0 }),
+  };
+
+  const statusSelectorProps = {
+    state: currentStatusesInputVal,
+    tData: currentStatuses,
+    onChange: (statuses: string[]) =>
+      setStatusFilterInputVals({ currentStatusesInputVal: statuses }),
+    onReset: () => {
+      setStatusFilterInputVals({ currentStatusesInputVal: [] });
+      setVariables({ statuses: [], page: 0 });
+    },
+    onFilter: () =>
+      setVariables({ statuses: currentStatusesInputVal, page: 0 }),
+  };
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -114,11 +169,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 {githash.slice(0, 10)}
               </InlineCode>
             </p>
-            <TaskFilters
-              versionId={childPatchId}
-              filters={variables}
-              onFilterChange={setVariables}
-            />
+            <TaskFilters filters={variables} onFilterChange={setVariables} />
             <TableWrapper>
               <TableControlOuterRow>
                 <FlexContainer>
@@ -160,6 +211,8 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   sorts={variables.sorts}
                   tableChangeHandler={tableChangeHandler}
                   tasks={patchTasks?.tasks}
+                  statusSelectorProps={statusSelectorProps}
+                  baseStatusSelectorProps={baseStatusSelectorProps}
                 />
               )}
             </TableWrapper>

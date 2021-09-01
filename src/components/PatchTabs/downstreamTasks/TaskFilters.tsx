@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import Icon from "@leafygreen-ui/icon";
 import { Input } from "antd";
-import { TaskStatusFilters } from "components/TaskStatusFilters";
 import { SortOrder } from "gql/generated/types";
 
 export interface FilterState {
@@ -18,13 +17,11 @@ export interface FilterState {
 interface TaskFilterProps {
   filters: FilterState;
   onFilterChange: React.Dispatch<Partial<FilterState>>;
-  versionId: string;
 }
 
 export const TaskFilters: React.FC<TaskFilterProps> = ({
   filters,
   onFilterChange,
-  versionId,
 }) => (
   <FiltersWrapper>
     <Input
@@ -42,15 +39,6 @@ export const TaskFilters: React.FC<TaskFilterProps> = ({
       suffix={<Icon glyph="MagnifyingGlass" />}
       value={filters.variant}
       onChange={(e) => onFilterChange({ variant: e.target.value, page: 0 })}
-    />
-    <TaskStatusFilters
-      onChangeBaseStatusFilter={(baseStatuses) =>
-        onFilterChange({ baseStatuses, page: 0 })
-      }
-      onChangeStatusFilter={(statuses) => onFilterChange({ statuses, page: 0 })}
-      versionId={versionId}
-      selectedBaseStatuses={filters.baseStatuses}
-      selectedStatuses={filters.statuses}
     />
   </FiltersWrapper>
 );
