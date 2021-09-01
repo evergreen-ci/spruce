@@ -62,7 +62,7 @@
     "@emotion/eslint-plugin": "11.0.0",
     "@emotion/react": "11.1.4",
     "@emotion/styled": "11.0.0",
-    "@leafygreen-ui/badge": "4.0.2",
+    "@leafygreen-ui/badge": "4.0.5",
     "@leafygreen-ui/banner": "3.0.4",
     "@leafygreen-ui/box": "3.0.2",
     "@leafygreen-ui/button": "10.0.1",
