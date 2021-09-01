@@ -337,6 +337,7 @@ const OptionsWrapper = styled.div`
   position: absolute;
   z-index: 5;
   margin-top: 5px;
+  width: 100%;
 `;
 
 const CheckboxContainer = styled.div`
@@ -345,7 +346,6 @@ const CheckboxContainer = styled.div`
   border: 1px solid ${gray.light1};
   padding: 8px;
   box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  width: 100%;
   overflow: hidden;
 `;
 
