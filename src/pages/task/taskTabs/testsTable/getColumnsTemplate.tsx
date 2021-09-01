@@ -44,6 +44,7 @@ export const getColumnsTemplate = ({
     dataIndex: "status",
     key: TestSortCategory.Status,
     sorter: true,
+    className: "data-cy-status-column",
     render: (status: string): JSX.Element => (
       <span>
         <Badge

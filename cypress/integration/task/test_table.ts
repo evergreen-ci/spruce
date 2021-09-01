@@ -29,9 +29,10 @@ describe("Tests Table", () => {
       .invoke("text")
       .should("eq", "20");
 
-    cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
+    cy.openTableFilter("data-cy-status-column");
 
+    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
+    cy.contains("FILTER").click();
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
@@ -81,11 +82,7 @@ describe("Tests Table", () => {
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    });
-
-    it("Status select says 'No filters selected' by default", () => {
-      cy.dataCy("test-status-select").contains("No filters selected");
+      cy.openTableFilter("data-cy-status-column");
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
