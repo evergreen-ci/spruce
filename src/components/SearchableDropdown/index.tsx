@@ -106,13 +106,6 @@ const SearchableDropdown = <T extends {}>({
       );
 
   const isChecked = (elementValue: string | T) => {
-    // If we have a search Function we can use that to determine if the option is selected
-    if (searchFunc) {
-      const isSelected =
-        (value as any).filter((o) => searchFunc(elementValue, o)).length > 0;
-      return isSelected;
-    }
-
     if (typeof value === "string") {
       return value === elementValue;
     }
@@ -126,6 +119,7 @@ const SearchableDropdown = <T extends {}>({
     const { value: searchTerm } = e.target;
     setSearch(searchTerm);
     let filteredOptions = [];
+
     if (searchFunc) {
       // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
       filteredOptions = (options as any).filter((o) =>
