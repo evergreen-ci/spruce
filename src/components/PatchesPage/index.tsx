@@ -58,12 +58,12 @@ export const PatchesPage: React.FC<Props> = ({
   const [
     patchNameFilterValue,
     patchNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(
-    MyPatchesQueryParams.PatchName,
-    false,
-    (filterBy: string) =>
-      analyticsObject?.sendEvent({ name: "Filter Patches", filterBy })
-  );
+  ] = useFilterInputChangeHandler({
+    urlParam: MyPatchesQueryParams.PatchName,
+    resetPage: false,
+    sendAnalyticsEvent: (filterBy: string) =>
+      analyticsObject?.sendEvent({ name: "Filter Patches", filterBy }),
+  });
   usePageTitle(pageTitle);
   const onCheckboxChange = (): void => {
     replace(

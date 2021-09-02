@@ -22,18 +22,19 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const { id: versionId } = useParams<{ id: string }>();
   const updateQueryParams = useUpdateURLQueryParams();
   const patchAnalytics = usePatchAnalytics();
-  const sendFilterTasksEvent = (filterBy: string) =>
-    patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
-  const currentStatusesFilter = useStatusesFilter(
-    PatchTasksQueryParams.Statuses,
-    true,
-    sendFilterTasksEvent
-  );
-  const baseStatusesFilter = useStatusesFilter(
-    PatchTasksQueryParams.BaseStatuses,
-    true,
-    sendFilterTasksEvent
-  );
+  const filterHookProps = {
+    resetPage: true,
+    sendAnalyticsEvent: (filterBy: string) =>
+      patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy }),
+  };
+  const currentStatusesFilter = useStatusesFilter({
+    urlParam: PatchTasksQueryParams.Statuses,
+    ...filterHookProps,
+  });
+  const baseStatusesFilter = useStatusesFilter({
+    urlParam: PatchTasksQueryParams.BaseStatuses,
+    ...filterHookProps,
+  });
   const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
   const statusSelectorProps = {
     state: currentStatusesFilter.inputValue,

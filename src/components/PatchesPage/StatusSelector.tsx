@@ -11,7 +11,7 @@ export const StatusSelector: React.FC = () => {
   const {
     inputValue: statusVal,
     setAndSubmitInputValue: statusValOnChange,
-  } = useStatusesFilter(MyPatchesQueryParams.Statuses);
+  } = useStatusesFilter({ urlParam: MyPatchesQueryParams.Statuses });
 
   return (
     <Dropdown

@@ -14,11 +14,11 @@ export const TestsTable: React.FC = () => {
   const [
     testNameFilterValue,
     testNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(
-    RequiredQueryParams.TestName,
-    true,
-    sendFilterTestsEvent
-  );
+  ] = useFilterInputChangeHandler({
+    urlParam: RequiredQueryParams.TestName,
+    resetPage: true,
+    sendAnalyticsEvent: sendFilterTestsEvent,
+  });
 
   return (
     <>

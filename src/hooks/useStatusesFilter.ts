@@ -5,16 +5,15 @@ import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
 /**
- * @param {string} urlParam the param that will appear in the url search, e.g. `statuses`, `baseStatuses`
- * @param {boolean} page reset url page param to 0 if true
- * @param {boolean} resetPage update url page param to 0 if true
- * @return {UseStatusesFilterResult} Provides status filter input state and state management util functions
+ * Status filter state management hook.
+ * @param {FilterHookParams}
+ * @return {FilterHookResult<string[]>}
  */
-export const useStatusesFilter = (
-  urlParam: string,
-  resetPage?: boolean,
-  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
-): UseStatusesFilterResult => {
+export const useStatusesFilter = ({
+  urlParam,
+  resetPage,
+  sendAnalyticsEvent = () => undefined,
+}: FilterHookParams): FilterHookResult<string[]> => {
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const { [urlParam]: rawStatuses } = parseQueryString(search);
@@ -50,18 +49,30 @@ export const useStatusesFilter = (
 };
 
 /**
- * @typedef {Object} UseStatusesFilterResult
- * @property  {string[]} inputValue - Represents input value
- * @property  {(newValue: string[]) => void} setAndSubmitInputValue - Sets input value and updates URL query param
- * @property  {(newValue: string[]) => void} setInputValue - Sets input value
+ * @typedef   {Object} FilterHookResult - Provides filter input state and state management util functions
+ * @template  {T}
+ * @property  {T} inputValue - Represents input value
+ * @property  {(newValue: T) => void} setAndSubmitInputValue - Sets input value and updates URL query param
+ * @property  {(newValue: T) => void} setInputValue - Sets input value
  * @property  {() => void} submitInputValue - Updates URL query param with current input value
  * @property  {() => void} reset - Clears input value and URL query param
  */
-
-interface UseStatusesFilterResult {
-  inputValue: string[];
-  setAndSubmitInputValue: (newValue: string[]) => void;
-  setInputValue: (newValue: string[]) => void;
+export interface FilterHookResult<T> {
+  inputValue: T;
+  setAndSubmitInputValue: (newValue: T) => void;
+  setInputValue: (newValue: T) => void;
   submitInputValue: () => void;
   reset: () => void;
+}
+
+/**
+ * @typedef {Object} FilterHookParams
+ * @property {string} urlParam Represents URL query param name
+ * @property {boolean} [resetPage] When true, page URL query paramter is set to 0 upon value submission
+ * @property {(filterBy: string) => void} [sendAnalyticsEvent] A side effect executed upon value submission
+ */
+export interface FilterHookParams {
+  urlParam: string;
+  resetPage?: boolean;
+  sendAnalyticsEvent?: (filterBy: string) => void;
 }

@@ -65,11 +65,11 @@ export const TestsTableCore: React.FC = () => {
     }
   }, [pathname, updateQueryParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const statusesFilter = useStatusesFilter(
-    RequiredQueryParams.Statuses,
-    false,
-    sendFilterTestsEvent
-  );
+  const statusesFilter = useStatusesFilter({
+    urlParam: RequiredQueryParams.Statuses,
+    resetPage: false,
+    sendAnalyticsEvent: sendFilterTestsEvent,
+  });
 
   const statusSelectorProps = {
     state: statusesFilter.inputValue,

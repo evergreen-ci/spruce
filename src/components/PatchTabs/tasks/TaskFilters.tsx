@@ -9,23 +9,24 @@ export const TaskFilters: React.FC = () => {
   const patchAnalytics = usePatchAnalytics();
   const sendFilterTasksEvent = (filterBy: string) =>
     patchAnalytics.sendEvent({ name: "Filter Tasks", filterBy });
-
+  const filterHookProps = {
+    resetPage: true,
+    sendAnalyticsEvent: sendFilterTasksEvent,
+  };
   const [
     variantFilterValue,
     variantFilterValueOnChange,
-  ] = useFilterInputChangeHandler(
-    PatchTasksQueryParams.Variant,
-    true,
-    sendFilterTasksEvent
-  );
+  ] = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.Variant,
+    ...filterHookProps,
+  });
   const [
     taskNameFilterValue,
     taskNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler(
-    PatchTasksQueryParams.TaskName,
-    true,
-    sendFilterTasksEvent
-  );
+  ] = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.TaskName,
+    ...filterHookProps,
+  });
 
   return (
     <FiltersWrapper>

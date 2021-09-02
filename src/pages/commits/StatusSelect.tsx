@@ -5,10 +5,10 @@ import { useStatusesFilter } from "hooks";
 import { PatchTasksQueryParams } from "types/task";
 
 export const StatusSelect = () => {
-  const { inputValue, setAndSubmitInputValue } = useStatusesFilter(
-    PatchTasksQueryParams.Statuses,
-    false
-  );
+  const { inputValue, setAndSubmitInputValue } = useStatusesFilter({
+    urlParam: PatchTasksQueryParams.Statuses,
+    resetPage: true,
+  });
   return (
     <>
       <Label htmlFor="project-test-status-select">Status</Label>
