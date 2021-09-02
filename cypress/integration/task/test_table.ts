@@ -105,6 +105,7 @@ describe("Tests Table", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
+      cy.dataCy("treeselect-filter-btn").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
