@@ -91,12 +91,7 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const option = optionRenderer
-    ? (v: string | T) =>
-        optionRenderer(
-          v,
-          (selectedV) => onClick(selectedV),
-          (selectedV) => isChecked(selectedV)
-        )
+    ? (v: string | T) => optionRenderer(v, onClick, isChecked)
     : (v: string | T) => (
         <SearchableDropdownOption
           value={v}
@@ -189,7 +184,7 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  onClick: (v: any) => void;
+  onClick: (v: string | T) => void;
   value: string | T;
   isChecked?: boolean;
   displayName?: string;
