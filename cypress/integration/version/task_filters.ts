@@ -114,8 +114,9 @@ describe("Tasks filters", () => {
         "Failed",
         "Known Issue",
         "Success",
-        "Dispatched",
         "Running",
+        "Will Run",
+        "Aborted",
         "Blocked",
       ];
       cy.getInputByLabel("All").check({ force: true });
