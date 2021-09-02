@@ -163,7 +163,7 @@ describe("Tasks filters", () => {
     it("Clicking on a base status filter filters the tasks to only those base statuses", () => {
       const preFilterCount = cy.dataCy("current-task-count").invoke("text");
       cy.getInputByLabel("Running").check({ force: true });
-      cy.dataCy("treeselect-filter-btn").first().click();
+      cy.dataCy("treeselect-filter-btn").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
