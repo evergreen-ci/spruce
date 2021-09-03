@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import debounce from "lodash.debounce";
-import { useLocation, useHistory } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
-import { url, queryString } from "utils";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
-const { updateUrlQueryParam } = url;
-
-const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
 
 /**
  * Filter input state management hook.
@@ -19,40 +17,46 @@ export const useFilterInputChangeHandler = ({
   resetPage,
   sendAnalyticsEvent = () => undefined,
 }: FilterHookParams): FilterHookResult<string> => {
-  const { pathname, search } = useLocation();
-  const { replace } = useHistory();
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
+  const updateQueryParamWithDebounce = useMemo(
+    () => debounce(updateQueryParams, 250),
+    [updateQueryParams]
+  );
+  const { [urlParam]: rawValue } = parseQueryString(search);
+  const urlValue = (rawValue || "").toString();
 
-  const parsed = parseQueryString(search);
-  const inputValue = (parsed[urlParam] || "").toString();
+  const [inputValue, setInputValue] = useState(urlValue);
 
-  const [value, setValue] = useState(inputValue);
+  const page = resetPage && { page: "0" };
+  const updateUrl = (newValue: string) => {
+    updateQueryParams({
+      [urlParam]: newValue,
+      ...page,
+    });
+  };
 
-  const setAndSubmitInputValue = (v: string): void => {
-    setValue(v);
+  const setAndSubmitInputValue = (newValue: string): void => {
+    setInputValue(newValue);
+    updateQueryParamWithDebounce({
+      [urlParam]: newValue,
+      ...page,
+    });
     sendAnalyticsEvent(urlParam);
-    updateQueryParamWithDebounce(
-      urlParam,
-      v,
-      search,
-      replace,
-      pathname,
-      resetPage
-    );
   };
 
-  const submitInputValue = () => {
-    updateUrlQueryParam(urlParam, value, search, replace, pathname, resetPage);
-  };
+  const submitInputValue = () => updateUrl(inputValue);
 
   const reset = () => {
-    setValue("");
-    updateUrlQueryParam(urlParam, "", search, replace, pathname, resetPage);
+    setInputValue("");
+    updateUrl("");
+    sendAnalyticsEvent(urlParam);
   };
 
   return {
-    inputValue: value,
+    inputValue,
     setAndSubmitInputValue,
-    setInputValue: setValue,
+    setInputValue,
     submitInputValue,
     reset,
   };
