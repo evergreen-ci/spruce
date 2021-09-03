@@ -27,7 +27,7 @@ export const CommitChartLabel: React.FC<Props> = ({
   return (
     <LabelContainer data-cy="commit-label">
       <LabelText>
-        {githash} {shortDate(createDate)}
+        {githash.substr(0, 6)} {shortDate(createDate)}
       </LabelText>
       <LabelText>{author} -</LabelText>
       <LabelText>{shortenMessage ? shortenedMessage : message}</LabelText>
