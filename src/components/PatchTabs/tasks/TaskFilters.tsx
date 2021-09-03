@@ -13,17 +13,17 @@ export const TaskFilters: React.FC = () => {
     resetPage: true,
     sendAnalyticsEvent: sendFilterTasksEvent,
   };
-  const [
-    variantFilterValue,
-    variantFilterValueOnChange,
-  ] = useFilterInputChangeHandler({
+  const {
+    inputValue: variantFilterValue,
+    setAndSubmitInputValue: variantFilterValueOnChange,
+  } = useFilterInputChangeHandler({
     urlParam: PatchTasksQueryParams.Variant,
     ...filterHookProps,
   });
-  const [
-    taskNameFilterValue,
-    taskNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler({
+  const {
+    inputValue: taskNameFilterValue,
+    setAndSubmitInputValue: taskNameFilterValueOnChange,
+  } = useFilterInputChangeHandler({
     urlParam: PatchTasksQueryParams.TaskName,
     ...filterHookProps,
   });
@@ -36,7 +36,7 @@ export const TaskFilters: React.FC = () => {
         placeholder="Search Task Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={taskNameFilterValue}
-        onChange={taskNameFilterValueOnChange}
+        onChange={(e) => taskNameFilterValueOnChange(e.target.value)}
       />
       <Input
         style={{ width: "25%" }}
@@ -44,7 +44,7 @@ export const TaskFilters: React.FC = () => {
         placeholder="Search Variant Name"
         suffix={<Icon glyph="MagnifyingGlass" />}
         value={variantFilterValue}
-        onChange={variantFilterValueOnChange}
+        onChange={(e) => variantFilterValueOnChange(e.target.value)}
       />
     </FiltersWrapper>
   );

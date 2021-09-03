@@ -11,10 +11,10 @@ export const TestsTable: React.FC = () => {
   const sendFilterTestsEvent = (filterBy: string) =>
     taskAnalytics.sendEvent({ name: "Filter Tests", filterBy });
 
-  const [
-    testNameFilterValue,
-    testNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler({
+  const {
+    inputValue: testNameFilterValue,
+    setAndSubmitInputValue: testNameFilterValueOnChange,
+  } = useFilterInputChangeHandler({
     urlParam: RequiredQueryParams.TestName,
     resetPage: true,
     sendAnalyticsEvent: sendFilterTestsEvent,
@@ -25,7 +25,7 @@ export const TestsTable: React.FC = () => {
       <FiltersWrapper>
         <StyledInput
           placeholder="Search Test Names"
-          onChange={testNameFilterValueOnChange}
+          onChange={(e) => testNameFilterValueOnChange(e.target.value)}
           suffix={<Icon glyph="MagnifyingGlass" />}
           value={testNameFilterValue}
           data-cy="testname-input"

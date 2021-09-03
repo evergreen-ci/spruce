@@ -55,10 +55,10 @@ export const PatchesPage: React.FC<Props> = ({
   const { limit, page, includeCommitQueue } = getPatchesInputFromURLSearch(
     search
   );
-  const [
-    patchNameFilterValue,
-    patchNameFilterValueOnChange,
-  ] = useFilterInputChangeHandler({
+  const {
+    inputValue: patchNameFilterValue,
+    setAndSubmitInputValue: patchNameFilterValueOnChange,
+  } = useFilterInputChangeHandler({
     urlParam: MyPatchesQueryParams.PatchName,
     resetPage: false,
     sendAnalyticsEvent: (filterBy: string) =>
@@ -83,7 +83,7 @@ export const PatchesPage: React.FC<Props> = ({
         <FlexRow>
           <StyledInput
             placeholder="Search Patch Descriptions"
-            onChange={patchNameFilterValueOnChange}
+            onChange={(e) => patchNameFilterValueOnChange(e.target.value)}
             suffix={<Icon glyph="MagnifyingGlass" />}
             value={patchNameFilterValue}
             data-cy="patch-description-input"

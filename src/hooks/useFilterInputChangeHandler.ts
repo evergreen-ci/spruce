@@ -1,15 +1,13 @@
 import { useState } from "react";
 import debounce from "lodash.debounce";
 import { useLocation, useHistory } from "react-router-dom";
-import { FilterHookParams } from "hooks/useStatusesFilter";
+import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
 import { url, queryString } from "utils";
 
 const { parseQueryString } = queryString;
 const { updateUrlQueryParam } = url;
 
 const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
-
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 /**
  * Filter input state management hook.
@@ -20,7 +18,7 @@ export const useFilterInputChangeHandler = ({
   urlParam,
   resetPage,
   sendAnalyticsEvent = () => undefined,
-}: FilterHookParams): [string, (e: InputEvent) => void] => {
+}: FilterHookParams): FilterHookResult<string> => {
   const { pathname, search } = useLocation();
   const { replace } = useHistory();
 
@@ -29,14 +27,12 @@ export const useFilterInputChangeHandler = ({
 
   const [value, setValue] = useState(inputValue);
 
-  const onChange = (e: InputEvent): void => {
-    setValue(e.target.value);
-
+  const setAndSubmitInputValue = (v: string): void => {
+    setValue(v);
     sendAnalyticsEvent(urlParam);
-
     updateQueryParamWithDebounce(
       urlParam,
-      e.target.value,
+      v,
       search,
       replace,
       pathname,
@@ -44,5 +40,20 @@ export const useFilterInputChangeHandler = ({
     );
   };
 
-  return [value, onChange];
+  const submitInputValue = () => {
+    updateUrlQueryParam(urlParam, value, search, replace, pathname, resetPage);
+  };
+
+  const reset = () => {
+    setValue("");
+    updateUrlQueryParam(urlParam, "", search, replace, pathname, resetPage);
+  };
+
+  return {
+    inputValue: value,
+    setAndSubmitInputValue,
+    setInputValue: setValue,
+    submitInputValue,
+    reset,
+  };
 };
