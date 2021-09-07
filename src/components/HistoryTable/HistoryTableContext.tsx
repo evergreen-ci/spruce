@@ -9,9 +9,7 @@ enum rowType {
 
 type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
 interface HistoryTableState {
-  loadedCommits: {
-    [key: number]: mainlineCommits["versions"];
-  };
+  loadedCommits: mainlineCommits["versions"];
   itemHeight: (index: number) => number;
   fetchNewCommit: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;

@@ -4,7 +4,7 @@ export const mainlineCommitData = {
       version: {
         id: "evergreen_d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
         author: "Malik Hadjri",
-        createTime: "2021-09-02T14:20:04Z",
+        createTime: "2021-09-02T14:20:04Z" as any,
         message:
           "EVG-15213: Reference a project’s configuration when interacting with perf plugin configs (#4992)",
         revision: "d4cf298cf0b2536fb3bff875775b93a9ceafb75c",
@@ -60,7 +60,7 @@ export const mainlineCommitData = {
       version: {
         id: "evergreen_f476f5f137d385858d633300521a744970540f54",
         author: "Mohamed Khelif",
-        createTime: "2021-09-02T14:07:07Z",
+        createTime: "2021-09-02T14:07:07Z" as any,
         message: "EVG-15357 Include display name for build variants (#4990)",
         revision: "f476f5f137d385858d633300521a744970540f54",
         order: 3398,
@@ -115,7 +115,7 @@ export const mainlineCommitData = {
       version: {
         id: "evergreen_d74a055481b3c706f37098b0b1bd8c3ae73ef9ac",
         author: "Bynn Lee",
-        createTime: "2021-09-01T20:41:31Z",
+        createTime: "2021-09-01T20:41:31Z" as any,
         message:
           "EVG-14956 Verify that PatchedConfig stores the merged config (#4981)",
         revision: "d74a055481b3c706f37098b0b1bd8c3ae73ef9ac",
@@ -171,7 +171,7 @@ export const mainlineCommitData = {
       version: {
         id: "evergreen_5c34535229dcda24f968b707b022c51245958aab",
         author: "Malik Hadjri",
-        createTime: "2021-09-01T18:25:38Z",
+        createTime: "2021-09-01T18:25:38Z" as any,
         message:
           "EVG-15212: Only reference a project’s configuration when interacting with build baron configs (#4959)",
         revision: "5c34535229dcda24f968b707b022c51245958aab",
@@ -227,7 +227,7 @@ export const mainlineCommitData = {
       version: {
         id: "evergreen_fc023273280db4689ee824983736401521e73d71",
         author: "Annie Black",
-        createTime: "2021-09-01T18:19:34Z",
+        createTime: "2021-09-01T18:19:34Z" as any,
         message: "EVG-15338 use valid js syntax (#4991)",
         revision: "fc023273280db4689ee824983736401521e73d71",
         order: 3395,
