@@ -3,6 +3,10 @@ import Button from "@leafygreen-ui/button";
 import { ColumnProps } from "antd/es/table";
 import { Analytics } from "analytics/addPageAction";
 import Badge, { Variant } from "components/Badge";
+import {
+  InputFilterProps,
+  getColumnSearchFilterProps,
+} from "components/Table/Filters";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
 import {
@@ -23,11 +27,13 @@ interface GetColumnsTemplateParams {
     | { name: "Click Logs Raw Button" }
   >;
   statusSelectorProps: TreeSelectProps;
+  testNameInputProps: InputFilterProps;
 }
 
 export const getColumnsTemplate = ({
   taskAnalytics,
   statusSelectorProps,
+  testNameInputProps,
 }: GetColumnsTemplateParams): ColumnProps<TestResult>[] => [
   {
     title: <span data-cy="name-column">Name</span>,
@@ -38,6 +44,7 @@ export const getColumnsTemplate = ({
       <WordBreak>{displayTestName || name}</WordBreak>
     ),
     sorter: true,
+    ...(testNameInputProps && getColumnSearchFilterProps(testNameInputProps)),
   },
   {
     title: <span data-cy="status-column">Status</span>,

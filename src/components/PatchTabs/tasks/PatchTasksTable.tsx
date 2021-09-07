@@ -1,14 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
-import { InputFilterProps } from "components/Table/Filters"
+import { InputFilterProps } from "components/Table/Filters";
 import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,
   useUpdateURLQueryParams,
   useStatusesFilter,
-  useFilterInputChangeHandler
+  useFilterInputChangeHandler,
 } from "hooks";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
@@ -71,18 +71,20 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
   const variantInputProps: InputFilterProps = {
     placeholder: "Variant name",
     value: variantFilterInputChangeHandler.inputValue,
-    onChange: ({target}) => variantFilterInputChangeHandler.setInputValue(target.value),
+    onChange: ({ target }) =>
+      variantFilterInputChangeHandler.setInputValue(target.value),
     updateUrlParam: variantFilterInputChangeHandler.submitInputValue,
     resetUrlParam: variantFilterInputChangeHandler.reset,
-  }
+  };
 
   const taskNameInputProps: InputFilterProps = {
     placeholder: "Task name",
     value: taskNameFilterInputChangeHandler.inputValue,
-    onChange: ({target}) => taskNameFilterInputChangeHandler.setInputValue(target.value),
+    onChange: ({ target }) =>
+      taskNameFilterInputChangeHandler.setInputValue(target.value),
     updateUrlParam: taskNameFilterInputChangeHandler.submitInputValue,
     resetUrlParam: taskNameFilterInputChangeHandler.reset,
-  }
+  };
 
   return (
     <TasksTable

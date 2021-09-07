@@ -27,6 +27,7 @@ import {
   useUpdateURLQueryParams,
   useNetworkStatus,
   useStatusesFilter,
+  useFilterInputChangeHandler,
 } from "hooks";
 import { RequiredQueryParams, TableOnChange } from "types/task";
 import { TestStatus } from "types/test";
@@ -79,9 +80,25 @@ export const TestsTableCore: React.FC = () => {
     onFilter: statusesFilter.submitInputValue,
   };
 
+  const testNameFilterInputChangeHandler = useFilterInputChangeHandler({
+    urlParam: RequiredQueryParams.TestName,
+    resetPage: true,
+    sendAnalyticsEvent: sendFilterTestsEvent,
+  });
+
+  const testNameInputProps = {
+    placeholder: "Test name",
+    value: testNameFilterInputChangeHandler.inputValue,
+    onChange: ({ target }) =>
+      testNameFilterInputChangeHandler.setInputValue(target.value),
+    updateUrlParam: testNameFilterInputChangeHandler.submitInputValue,
+    resetUrlParam: testNameFilterInputChangeHandler.reset,
+  };
+
   const columns = getColumnsTemplate({
     taskAnalytics,
     statusSelectorProps,
+    testNameInputProps,
   }).map((column) => ({
     ...column,
     ...(column.key === cat && {
