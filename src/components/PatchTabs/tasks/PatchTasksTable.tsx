@@ -1,12 +1,14 @@
 import React from "react";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { InputFilterProps } from "components/Table/Filters"
 import { TasksTable } from "components/Table/TasksTable";
 import { Task, PatchTasksQuery, SortOrder } from "gql/generated/types";
 import {
   useTaskStatuses,
   useUpdateURLQueryParams,
   useStatusesFilter,
+  useFilterInputChangeHandler
 } from "hooks";
 import { PatchTasksQueryParams, TableOnChange } from "types/task";
 import { queryString } from "utils";
@@ -50,12 +52,38 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     onReset: baseStatusesFilter.reset,
     onFilter: baseStatusesFilter.submitInputValue,
   };
+  const variantFilterInputChangeHandler = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.Variant,
+    ...filterHookProps,
+  });
+  const taskNameFilterInputChangeHandler = useFilterInputChangeHandler({
+    urlParam: PatchTasksQueryParams.TaskName,
+    ...filterHookProps,
+  });
+
   const tableChangeHandler: TableOnChange<Task> = (...[, , sorter]) => {
     updateQueryParams({
       sorts: toSortString(sorter),
       [PatchTasksQueryParams.Page]: "0",
     });
   };
+
+  const variantInputProps: InputFilterProps = {
+    placeholder: "Variant name",
+    value: variantFilterInputChangeHandler.inputValue,
+    onChange: ({target}) => variantFilterInputChangeHandler.setInputValue(target.value),
+    updateUrlParam: variantFilterInputChangeHandler.submitInputValue,
+    resetUrlParam: variantFilterInputChangeHandler.reset,
+  }
+
+  const taskNameInputProps: InputFilterProps = {
+    placeholder: "Task name",
+    value: taskNameFilterInputChangeHandler.inputValue,
+    onChange: ({target}) => taskNameFilterInputChangeHandler.setInputValue(target.value),
+    updateUrlParam: taskNameFilterInputChangeHandler.submitInputValue,
+    resetUrlParam: taskNameFilterInputChangeHandler.reset,
+  }
+
   return (
     <TasksTable
       sorts={sorts}
@@ -73,6 +101,8 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
           taskId,
         })
       }
+      taskNameInputProps={taskNameInputProps}
+      variantInputProps={variantInputProps}
       baseStatusSelectorProps={baseStatusSelectorProps}
       statusSelectorProps={statusSelectorProps}
     />

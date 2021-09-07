@@ -4,6 +4,7 @@ import Button, { Variant, Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { tableInputContainerCSS } from "components/styles/Layout"
 
 const { gray, white } = uiColors;
 
@@ -339,12 +340,7 @@ const OptionsWrapper = styled.div`
 `;
 
 const CheckboxContainer = styled.div`
-  border-radius: 5px;
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  overflow: hidden;
+  ${tableInputContainerCSS}
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper

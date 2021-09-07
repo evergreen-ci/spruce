@@ -2,6 +2,7 @@ import { Table } from "antd";
 import { ColumnProps } from "antd/es/table";
 import { SortOrder as antSortOrder } from "antd/lib/table/interface";
 import { StyledRouterLink } from "components/styles";
+import { InputFilterProps, getColumnSearchFilterProps } from "components/Table/Filters"
 import TaskStatusBadge from "components/TaskStatusBadge";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
@@ -35,16 +36,20 @@ interface TasksTableProps {
   statusSelectorProps?: TreeSelectProps;
   tableChangeHandler?: TableOnChange<TaskTableInfo>;
   tasks: TaskTableInfo[];
+  taskNameInputProps?: InputFilterProps;
+  variantInputProps?: InputFilterProps;
 }
 
 export const TasksTable: React.FC<TasksTableProps> = ({
   baseStatusSelectorProps,
-  onClickTaskLink = () => {},
-  onExpand = () => {},
+  taskNameInputProps,
+  onClickTaskLink = () => { },
+  onExpand = () => { },
   sorts,
   statusSelectorProps,
   tableChangeHandler,
   tasks,
+  variantInputProps
 }) => (
   <Table
     data-cy="tasks-table"
@@ -53,16 +58,21 @@ export const TasksTable: React.FC<TasksTableProps> = ({
     columns={
       sorts
         ? getColumnDefsWithSort({
-            sorts,
-            onClickTaskLink,
-            baseStatusSelectorProps,
-            statusSelectorProps,
-          })
+          sorts,
+          onClickTaskLink,
+          baseStatusSelectorProps,
+          statusSelectorProps,
+          taskNameInputProps,
+          variantInputProps,
+
+        })
         : getColumnDefs({
-            onClickTaskLink,
-            baseStatusSelectorProps,
-            statusSelectorProps,
-          })
+          onClickTaskLink,
+          baseStatusSelectorProps,
+          statusSelectorProps,
+          taskNameInputProps,
+          variantInputProps,
+        })
     }
     dataSource={tasks}
     onChange={tableChangeHandler}
@@ -79,66 +89,72 @@ interface GetColumnDefsParams {
   onClickTaskLink: (s: string) => void;
   baseStatusSelectorProps?: TreeSelectProps;
   statusSelectorProps?: TreeSelectProps;
+  taskNameInputProps?: InputFilterProps;
+  variantInputProps?: InputFilterProps;
 }
 
 const getColumnDefs = ({
   onClickTaskLink,
   baseStatusSelectorProps,
   statusSelectorProps,
+  variantInputProps,
+  taskNameInputProps
 }: GetColumnDefsParams): ColumnProps<Task>[] => [
-  {
-    title: "Name",
-    dataIndex: "displayName",
-    key: TaskSortCategory.Name,
-    sorter: {
-      compare: (a, b) => a.displayName.localeCompare(b.displayName),
-      multiple: 4,
+    {
+      title: "Name",
+      dataIndex: "displayName",
+      key: TaskSortCategory.Name,
+      sorter: {
+        compare: (a, b) => a.displayName.localeCompare(b.displayName),
+        multiple: 4,
+      },
+      width: "40%",
+      className: "cy-task-table-col-NAME",
+      render: (name: string, { id }: Task): JSX.Element => (
+        <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
+      ),
+      ...(taskNameInputProps && getColumnSearchFilterProps(taskNameInputProps))
     },
-    width: "40%",
-    className: "cy-task-table-col-NAME",
-    render: (name: string, { id }: Task): JSX.Element => (
-      <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
-    ),
-  },
-  {
-    title: "Patch Status",
-    dataIndex: "status",
-    key: TaskSortCategory.Status,
-    sorter: {
-      compare: (a, b) => sortTasks(a.status, b.status),
-      multiple: 4,
+    {
+      title: "Patch Status",
+      dataIndex: "status",
+      key: TaskSortCategory.Status,
+      sorter: {
+        compare: (a, b) => sortTasks(a.status, b.status),
+        multiple: 4,
+      },
+      className: "cy-task-table-col-STATUS",
+      render: (status: string) => status && <TaskStatusBadge status={status} />,
+      ...(statusSelectorProps && {
+        filterDropdown: <TreeSelect {...statusSelectorProps} />,
+      }),
     },
-    className: "cy-task-table-col-STATUS",
-    render: (status: string) => status && <TaskStatusBadge status={status} />,
-    ...(statusSelectorProps && {
-      filterDropdown: <TreeSelect {...statusSelectorProps} />,
-    }),
-  },
-  {
-    title: "Base Status",
-    dataIndex: ["baseTask", "status"],
-    key: TaskSortCategory.BaseStatus,
-    sorter: {
-      compare: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
-      multiple: 4,
+    {
+      title: "Base Status",
+      dataIndex: ["baseTask", "status"],
+      key: TaskSortCategory.BaseStatus,
+      sorter: {
+        compare: (a, b) => sortTasks(a.baseStatus, b.baseStatus),
+        multiple: 4,
+      },
+      className: "cy-task-table-col-BASE_STATUS",
+      render: (status: string) => status && <TaskStatusBadge status={status} />,
+      ...(baseStatusSelectorProps && {
+        filterDropdown: <TreeSelect {...baseStatusSelectorProps} />,
+      }),
     },
-    className: "cy-task-table-col-BASE_STATUS",
-    render: (status: string) => status && <TaskStatusBadge status={status} />,
-    ...(baseStatusSelectorProps && {
-      filterDropdown: <TreeSelect {...baseStatusSelectorProps} />,
-    }),
-  },
-  {
-    title: "Variant",
-    dataIndex: "buildVariantDisplayName",
-    key: TaskSortCategory.Variant,
-    sorter: {
-      compare: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
-      multiple: 4,
+    {
+      title: "Variant",
+      dataIndex: "buildVariantDisplayName",
+      key: TaskSortCategory.Variant,
+      sorter: {
+        compare: (a, b) => a.buildVariant.localeCompare(b.buildVariant),
+        multiple: 4,
+      },
+      className: "cy-task-table-col-VARIANT",
+      ...(variantInputProps && getColumnSearchFilterProps(variantInputProps))
     },
-    className: "cy-task-table-col-VARIANT",
-  },
-];
+  ];
 
 const getSortDir = (
   key: string,
@@ -160,6 +176,8 @@ const getColumnDefsWithSort = ({
   onClickTaskLink,
   baseStatusSelectorProps,
   statusSelectorProps,
+  taskNameInputProps,
+  variantInputProps
 }: GetColumnDefsWithSort): ColumnProps<Task>[] => {
   const sortProps = {
     [TaskSortCategory.Name]: {
@@ -180,6 +198,8 @@ const getColumnDefsWithSort = ({
     onClickTaskLink,
     baseStatusSelectorProps,
     statusSelectorProps,
+    taskNameInputProps,
+    variantInputProps
   }).map((columnDef) => ({
     ...columnDef,
     ...sortProps[columnDef.key],
