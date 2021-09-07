@@ -11,7 +11,7 @@ const isItemLoaded = (index) => !!itemStatusMap[index];
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
-  recentlyFetchedCommits: MainlineCommitsForHistoryQuery;
+  recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
 }
 const HistoryTable: React.FC<HistoryTableProps> = ({
   loadMoreItems,
@@ -27,13 +27,13 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   return (
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
-      itemCount={50}
+      itemCount={10000}
       loadMoreItems={loadMoreItems}
     >
       {({ onItemsRendered, ref }) => (
         <List
-          height={500}
-          itemCount={50}
+          height={1000}
+          itemCount={10000}
           itemSize={itemHeight}
           onItemsRendered={onItemsRendered}
           ref={ref}

@@ -13,7 +13,7 @@ interface HistoryTableState {
     [key: number]: mainlineCommits["versions"];
   };
   itemHeight: (index: number) => number;
-  fetchNewCommit: (data: MainlineCommitsForHistoryQuery) => void;
+  fetchNewCommit: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
   getItem: (index: number) => mainlineCommits["versions"][0];
 }
@@ -21,10 +21,12 @@ interface HistoryTableState {
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
 const HistoryTableProvider: React.FC = ({ children }) => {
-  const [recentlyFetchedCommits, setRecentlyFetchedCommits] = useState(null);
+  const [
+    recentlyFetchedCommits,
+    setRecentlyFetchedCommits,
+  ] = useState<mainlineCommits>(null);
   const [loadedCommits, setLoadedCommits] = useState([]);
-  const [loadedItemSizes, setLoadedItemSizes] = useState([]);
-
+  const [, setLoadedItemSizes] = useState([]);
   useEffect(() => {
     if (recentlyFetchedCommits) {
       setLoadedCommits((curr) => [...curr, ...recentlyFetchedCommits.versions]);
@@ -32,9 +34,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     }
   }, [recentlyFetchedCommits]);
 
-  console.log({ loadedItemSizes });
-  const itemHeight = (index) =>
-    loadedItemSizes[index] === rowType.COMMIT ? 20 : 120;
+  const itemHeight = () => 120;
   const isItemLoaded = (index) => loadedCommits.length > index;
 
   const getItem = (index: number) => loadedCommits[index];

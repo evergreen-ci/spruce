@@ -1,4 +1,4 @@
-import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
+import { HistoryTableProvider } from "./HistoryTableContext";
 import HistoryTable from "./index";
 import { mainlineCommitData } from "./testData";
 
@@ -17,7 +17,7 @@ const HistoryTableWrapper = () => {
 
   return (
     <HistoryTable
-      recentlyFetchedCommits={data}
+      recentlyFetchedCommits={data as any}
       loadMoreItems={() => console.log("Fetch")}
     />
   );

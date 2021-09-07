@@ -19,7 +19,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       message,
       buildVariants,
     } = commit.version;
-    const tasks = buildVariants.map((bv) => bv.tasks[0]);
+    const tasks = buildVariants.slice(0, 8).map((bv) => bv.tasks[0]);
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
@@ -31,7 +31,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
           />
         </LabelCellContainer>
         {tasks.map((task) => (
-          <Cell>
+          <Cell key={`task_cell_${task.id}`}>
             <HistoryTableIcon status={task.status as TaskStatus} />
           </Cell>
         ))}
@@ -54,8 +54,12 @@ const RowContainer = styled.div`
 const Cell = styled.div`
   display: flex;
   height: 100%;
-  width: 100px;
+  width: 140px;
   justify-content: center;
   align-items: center;
+  :hover {
+    background-color: red;
+    cursor: pointer;
+  }
 `;
 export default Row;
