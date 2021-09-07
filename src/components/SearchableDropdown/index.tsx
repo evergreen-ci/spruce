@@ -21,7 +21,11 @@ interface SearchableDropdownProps<T> {
   searchPlaceholder?: string;
   valuePlaceholder?: string;
   options: string[] | Array<T>;
-  optionRenderer?: (option: string | T) => React.ReactNode;
+  optionRenderer?: (
+    option: string | T,
+    onClick: (selectedV) => void,
+    isChecked: (selectedV) => boolean
+  ) => React.ReactNode;
   allowMultiselect?: boolean;
   disabled?: boolean;
 }
@@ -86,31 +90,17 @@ const SearchableDropdown = <T extends {}>({
     }
   };
 
-  const option =
-    optionRenderer ||
-    ((v: string | T) => (
-      <Option
-        onClick={() => onClick(v)}
-        key={`select_${v}`}
-        data-cy="searchable-dropdown-option"
-      >
-        <CheckmarkContainer>
-          {isChecked(v) && (
-            <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
-          )}
-        </CheckmarkContainer>
-        {v}
-      </Option>
-    ));
+  const option = optionRenderer
+    ? (v: string | T) => optionRenderer(v, onClick, isChecked)
+    : (v: string | T) => (
+        <SearchableDropdownOption
+          value={v}
+          onClick={() => onClick(v)}
+          isChecked={isChecked(v)}
+        />
+      );
 
   const isChecked = (elementValue: string | T) => {
-    // If we have a search Function we can use that to determine if the option is selected
-    if (searchFunc) {
-      const isSelected =
-        (value as any).filter((o) => searchFunc(elementValue, o)).length > 0;
-      return isSelected;
-    }
-
     if (typeof value === "string") {
       return value === elementValue;
     }
@@ -124,6 +114,7 @@ const SearchableDropdown = <T extends {}>({
     const { value: searchTerm } = e.target;
     setSearch(searchTerm);
     let filteredOptions = [];
+
     if (searchFunc) {
       // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
       filteredOptions = (options as any).filter((o) =>
@@ -147,6 +138,7 @@ const SearchableDropdown = <T extends {}>({
       buttonText = value.toString();
     }
   }
+
   return (
     <>
       <Label htmlFor="searchable-dropdown">{label}</Label>
@@ -190,6 +182,32 @@ const SearchableDropdown = <T extends {}>({
     </>
   );
 };
+
+interface SearchableDropdownOptionProps<T> {
+  onClick: (v: string | T) => void;
+  value: string | T;
+  isChecked?: boolean;
+  displayName?: string;
+}
+export const SearchableDropdownOption = <T extends {}>({
+  onClick,
+  isChecked,
+  value,
+  displayName,
+}: PropsWithChildren<SearchableDropdownOptionProps<T>>) => (
+  <Option
+    onClick={() => onClick(value)}
+    key={`select_${value}`}
+    data-cy="searchable-dropdown-option"
+  >
+    <CheckmarkContainer>
+      {isChecked && (
+        <Icon glyph="Checkmark" height={12} width={12} fill={blue.base} />
+      )}
+    </CheckmarkContainer>
+    {displayName || value}
+  </Option>
+);
 
 const LabelWrapper = styled.div`
   white-space: nowrap;

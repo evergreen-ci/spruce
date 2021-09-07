@@ -1,5 +1,84 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`Storyshots Searchable Dropdown Custom Option 1`] = `
+Array [
+  <label
+    className="leafygreen-ui-1x9zy2h"
+    htmlFor="searchable-dropdown"
+  >
+    Custom option select
+  </label>,
+  <div
+    className="css-gte0m8-Wrapper e17dnzmx5"
+  >
+    <div
+      className="css-mbqq81-StyledButton e17dnzmx1 leafygreen-ui-vdmjox"
+    >
+      <button
+        aria-disabled={false}
+        className="leafygreen-ui-nzlvat"
+        data-cy="searchable-dropdown"
+        disabled={false}
+        id="searchable-dropdown"
+        onBlur={[Function]}
+        onClick={[Function]}
+        onFocus={[Function]}
+        type="button"
+        value={Array []}
+      >
+        <span
+          className="leafygreen-ui-tdo6z2"
+        >
+          <div
+            className="css-uewcnq-ButtonContent e17dnzmx0"
+          >
+            <div
+              className="css-soeq2u-LabelWrapper e17dnzmx9"
+            >
+              <div
+                className="leafygreen-ui-xsga32"
+                data-cy="dropdown-value"
+              >
+                
+              </div>
+            </div>
+            <div
+              className="css-uszjhy-FlexWrapper e17dnzmx4"
+            >
+              <div
+                className="css-1ruoi7a-ArrowWrapper e17dnzmx6"
+              >
+                <svg
+                  aria-label="Chevron Down Icon"
+                  className=""
+                  fill="none"
+                  height={16}
+                  role="img"
+                  viewBox="0 0 16 16"
+                  width={16}
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clipRule="evenodd"
+                    d="M1.636 5.364a1 1 0 000 1.414l4.95 4.95.707.707a1 1 0 001.414 0l.707-.707 4.95-4.95a1 1 0 000-1.414l-.707-.707a1 1 0 00-1.414 0L8 8.899 3.757 4.657a1 1 0 00-1.414 0l-.707.707z"
+                    fill="currentColor"
+                    fillRule="evenodd"
+                  />
+                </svg>
+              </div>
+            </div>
+          </div>
+        </span>
+      </button>
+      <div
+        className="leafygreen-ui-1fqcwcg"
+        data-leafygreen-ui="interaction-ring"
+      />
+    </div>
+  </div>,
+]
+`;
+
 exports[`Storyshots Searchable Dropdown Multiselect 1`] = `
 Array [
   <label
