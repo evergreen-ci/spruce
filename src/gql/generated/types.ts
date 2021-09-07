@@ -53,8 +53,8 @@ export type Query = {
   buildBaron: BuildBaron;
   bbGetCreatedTickets: Array<JiraTicket>;
   mainlineCommits?: Maybe<MainlineCommits>;
-  buildVariantHistory?: Maybe<Array<Scalars["String"]>>;
-  taskHistory?: Maybe<Array<Scalars["String"]>>;
+  taskNamesForBuildVariant?: Maybe<Array<Scalars["String"]>>;
+  buildVariantsForTaskName?: Maybe<Array<Maybe<BuildVariantTuple>>>;
 };
 
 export type QueryUserPatchesArgs = {
@@ -176,12 +176,12 @@ export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
 };
 
-export type QueryBuildVariantHistoryArgs = {
+export type QueryTaskNamesForBuildVariantArgs = {
   projectId: Scalars["String"];
   buildVariant: Scalars["String"];
 };
 
-export type QueryTaskHistoryArgs = {
+export type QueryBuildVariantsForTaskNameArgs = {
   projectId: Scalars["String"];
   taskName: Scalars["String"];
 };
@@ -421,6 +421,7 @@ export type Version = {
   buildVariants?: Maybe<Array<Maybe<GroupedBuildVariant>>>;
   isPatch: Scalars["Boolean"];
   patch?: Maybe<Patch>;
+  childVersions?: Maybe<Array<Maybe<Version>>>;
   taskCount?: Maybe<Scalars["Int"]>;
   baseVersionID?: Maybe<Scalars["String"]>;
   versionTiming?: Maybe<VersionTiming>;
@@ -468,6 +469,11 @@ export type MainlineCommitsOptions = {
   projectID: Scalars["String"];
   limit?: Maybe<Scalars["Int"]>;
   skipOrderNumber?: Maybe<Scalars["Int"]>;
+};
+
+export type BuildVariantTuple = {
+  buildVariant: Scalars["String"];
+  displayName: Scalars["String"];
 };
 
 export enum SpawnHostStatusActions {
@@ -533,6 +539,7 @@ export type PatchConfigure = {
   description: Scalars["String"];
   variantsTasks: Array<VariantTasks>;
   parameters?: Maybe<Array<Maybe<ParameterInput>>>;
+  patchTriggerAliases?: Maybe<Array<Scalars["String"]>>;
 };
 
 export type VariantTasks = {
@@ -1866,13 +1873,15 @@ export type BuildBaronQuery = {
   };
 };
 
-export type GetBuildVariantHistoryQueryVariables = Exact<{
+export type GetBuildVariantsForTaskNameQueryVariables = Exact<{
   projectId: Scalars["String"];
-  buildVariant: Scalars["String"];
+  taskName: Scalars["String"];
 }>;
 
-export type GetBuildVariantHistoryQuery = {
-  buildVariantHistory?: Maybe<Array<string>>;
+export type GetBuildVariantsForTaskNameQuery = {
+  buildVariantsForTaskName?: Maybe<
+    Array<Maybe<{ displayName: string; buildVariant: string }>>
+  >;
 };
 
 export type BuildVariantsQueryVariables = Exact<{
@@ -2163,6 +2172,49 @@ export type GetSuspectedIssuesQuery = {
   }>;
 };
 
+export type MainlineCommitsForHistoryQueryVariables = Exact<{
+  mainlineCommitsOptions: MainlineCommitsOptions;
+  buildVariantOptions: BuildVariantOptions;
+}>;
+
+export type MainlineCommitsForHistoryQuery = {
+  mainlineCommits?: Maybe<{
+    nextPageOrderNumber?: Maybe<number>;
+    prevPageOrderNumber?: Maybe<number>;
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        author: string;
+        createTime: Date;
+        message: string;
+        revision: string;
+        order: number;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              displayName: string;
+              variant: string;
+              tasks?: Maybe<
+                Array<Maybe<{ id: string; execution: number; status: string }>>
+              >;
+            }>
+          >
+        >;
+      }>;
+      rolledUpVersions?: Maybe<
+        Array<{
+          id: string;
+          createTime: Date;
+          author: string;
+          order: number;
+          message: string;
+          revision: string;
+        }>
+      >;
+    }>;
+  }>;
+};
+
 export type MainlineCommitsQueryVariables = Exact<{
   mainlineCommitsOptions: MainlineCommitsOptions;
   buildVariantOptionsForTask: BuildVariantOptions;
@@ -2430,13 +2482,6 @@ export type TaskFilesQuery = {
   };
 };
 
-export type GetTaskHistoryQueryVariables = Exact<{
-  projectId: Scalars["String"];
-  taskName: Scalars["String"];
-}>;
-
-export type GetTaskHistoryQuery = { taskHistory?: Maybe<Array<string>> };
-
 export type TaskLogsQueryVariables = Exact<{
   id: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
@@ -2444,6 +2489,15 @@ export type TaskLogsQueryVariables = Exact<{
 
 export type TaskLogsQuery = {
   taskLogs: { taskLogs: Array<LogMessageFragment> };
+};
+
+export type GetTaskNamesForBuildVariantQueryVariables = Exact<{
+  projectId: Scalars["String"];
+  buildVariant: Scalars["String"];
+}>;
+
+export type GetTaskNamesForBuildVariantQuery = {
+  taskNamesForBuildVariant?: Maybe<Array<string>>;
 };
 
 export type GetTaskStatusesQueryVariables = Exact<{

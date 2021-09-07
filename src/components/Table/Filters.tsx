@@ -5,7 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
-import { tableInputContainerCSS } from "components/styles/Layout"
+import { tableInputContainerCSS } from "components/styles/Layout";
 import { TreeDataEntry } from "components/TreeSelect";
 
 export interface InputFilterProps {
