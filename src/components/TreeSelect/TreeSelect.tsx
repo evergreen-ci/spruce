@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import Button, { Variant, Size } from "@leafygreen-ui/button";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { FilterInputControls } from "components/FilterInputControls";
 
 const { gray, white } = uiColors;
 
@@ -83,27 +83,13 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
           tData,
           onChange,
         })}
-        <BtnContainer>
-          {onReset && (
-            <Button
-              onClick={onReset}
-              size={Size.XSmall}
-              data-cy="treeselect-reset-btn"
-            >
-              RESET
-            </Button>
-          )}
-          {onFilter && (
-            <Button
-              onClick={onFilter}
-              size={Size.XSmall}
-              variant={Variant.Primary}
-              data-cy="treeselect-filter-btn"
-            >
-              FILTER
-            </Button>
-          )}
-        </BtnContainer>
+        {onReset && onFilter && (
+          <FilterInputControls
+            onClickReset={onReset}
+            onClickSubmit={onFilter}
+            submitButtonCopy="Filter"
+          />
+        )}
       </CheckboxContainer>
     </ConditionalWrapper>
   );
@@ -350,12 +336,4 @@ const CheckboxContainer = styled.div`
 // Used to provide a basis for the absolutely positions OptionsWrapper
 const RelativeWrapper = styled.div`
   position: relative;
-`;
-
-const BtnContainer = styled.div`
-  display: flex;
-  margin-top: 20px;
-  > :not(:last-child) {
-    margin-right: 8px;
-  }
 `;
