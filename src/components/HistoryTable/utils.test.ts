@@ -81,7 +81,7 @@ describe("HistoryTable utils", () => {
             type: rowType.DATE_SEPERATOR,
           },
           {
-            commit: foldedUpCommits.rolledUpVersions,
+            rolledUpCommits: foldedUpCommits.rolledUpVersions,
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
           },
@@ -117,7 +117,7 @@ describe("HistoryTable utils", () => {
             type: rowType.DATE_SEPERATOR,
           },
           {
-            commit: foldedUpCommits.rolledUpVersions,
+            rolledUpCommits: foldedUpCommits.rolledUpVersions,
             date: foldedUpCommits.rolledUpVersions[0].createTime,
             type: rowType.FOLDED_COMMITS,
           },
