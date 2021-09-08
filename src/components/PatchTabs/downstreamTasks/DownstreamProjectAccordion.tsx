@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useReducer, useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
@@ -41,18 +41,11 @@ const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
   ...newFields,
 });
 
-interface StatusFilterReducerState {
+interface InputValueState {
   baseStatusesInputVal: string[];
   currentStatusesInputVal: string[];
+  taskNameInputVal: string;
 }
-
-const statusFilterReducer = (
-  state: StatusFilterReducerState,
-  newFields: Partial<StatusFilterReducerState>
-) => ({
-  ...state,
-  ...newFields,
-});
 
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
   baseVersionID,
@@ -85,13 +78,14 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     sorts: [defaultSort],
   });
 
-  const [statusFilterInputVals, setStatusFilterInputVals] = useReducer(
-    statusFilterReducer,
-    {
-      baseStatusesInputVal: baseFilterVariables.baseStatuses,
-      currentStatusesInputVal: baseFilterVariables.statuses,
-    }
-  );
+  const [
+    statusFilterInputVals,
+    setStatusFilterInputVals,
+  ] = useState<InputValueState>({
+    baseStatusesInputVal: baseFilterVariables.baseStatuses,
+    currentStatusesInputVal: baseFilterVariables.statuses,
+    taskNameInputVal: baseFilterVariables.taskName ?? "",
+  });
 
   const {
     baseStatusesInputVal,
@@ -105,9 +99,15 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     state: baseStatusesInputVal,
     tData: baseStatuses,
     onChange: (statuses: string[]) =>
-      setStatusFilterInputVals({ baseStatusesInputVal: statuses }),
+      setStatusFilterInputVals({
+        ...statusFilterInputVals,
+        baseStatusesInputVal: statuses,
+      }),
     onReset: () => {
-      setStatusFilterInputVals({ baseStatusesInputVal: [] });
+      setStatusFilterInputVals({
+        ...statusFilterInputVals,
+        baseStatusesInputVal: [],
+      });
       setVariables({ baseStatuses: [], page: 0 });
     },
     onFilter: () =>
@@ -118,9 +118,15 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     state: currentStatusesInputVal,
     tData: currentStatuses,
     onChange: (statuses: string[]) =>
-      setStatusFilterInputVals({ currentStatusesInputVal: statuses }),
+      setStatusFilterInputVals({
+        ...statusFilterInputVals,
+        currentStatusesInputVal: statuses,
+      }),
     onReset: () => {
-      setStatusFilterInputVals({ currentStatusesInputVal: [] });
+      setStatusFilterInputVals({
+        ...statusFilterInputVals,
+        currentStatusesInputVal: [],
+      });
       setVariables({ statuses: [], page: 0 });
     },
     onFilter: () =>
