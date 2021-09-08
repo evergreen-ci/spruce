@@ -23,7 +23,9 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     if (recentlyFetchedCommits) {
       fetchNewCommit(recentlyFetchedCommits);
     }
-  }, [recentlyFetchedCommits, fetchNewCommit]);
+    // Remove fetchNewCommit from the effect list to avoid infinite loop
+  }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
