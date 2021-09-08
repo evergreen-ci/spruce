@@ -87,6 +87,8 @@
     "@leafygreen-ui/tooltip": "6.2.1",
     "@leafygreen-ui/typography": "7.3.2",
     "@rjsf/core": "^2.5.1",
+    "@types/react-window": "^1.8.5",
+    "@types/react-window-infinite-loader": "^1.0.5",
     "ansi_up": "5.0.0",
     "antd": "4.12.1",
     "axios": "0.21.1",
