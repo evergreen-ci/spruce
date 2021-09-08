@@ -93,7 +93,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       {action ? (
         <PaddedButton
           disabled={loading}
-          glyph={<Icon glyph={glyph} />}
+          glyph={<Icon fill="black" glyph={glyph} />}
           size={Size.XSmall} // @ts-expect-error
           onClick={onClick(action)}
         />
