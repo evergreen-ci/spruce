@@ -1,6 +1,10 @@
 import { processCommits, CommitRowType, mainlineCommits } from "./utils";
 
-type Action = { type: "ingestNewCommits"; commits: mainlineCommits };
+type Action =
+  | { type: "ingestNewCommits"; commits: mainlineCommits }
+  | { type: "addColumns"; columns: string[] }
+  | { type: "nextPageColumns" }
+  | { type: "prevPageColumns" };
 
 type cacheShape = {
   [order: number]:
@@ -13,6 +17,9 @@ interface HistoryTableState {
   processedCommitCount: number;
   commitCache: cacheShape;
   cacheSize: number;
+  visibleColumns: string[];
+  currentPage: number;
+  columns: string[];
 }
 
 export const reducer = (state: HistoryTableState, action: Action) => {
@@ -42,9 +49,49 @@ export const reducer = (state: HistoryTableState, action: Action) => {
         ...state,
       };
     }
-
+    case "addColumns":
+      return {
+        ...state,
+        columns: action.columns,
+        visibleColumns: action.columns.slice(0, 8),
+        currentPage: 0,
+      };
+    case "nextPageColumns": {
+      const pageCount = Math.ceil(state.columns.length / 8);
+      if (pageCount <= state.currentPage + 1) {
+        return {
+          ...state,
+        };
+      }
+      const nextPage = state.currentPage + 1;
+      const nextPageColumns = state.columns.slice(
+        8 * nextPage,
+        8 * (nextPage + 1)
+      );
+      return {
+        ...state,
+        currentPage: state.currentPage + 1,
+        visibleColumns: nextPageColumns,
+      };
+    }
+    case "prevPageColumns": {
+      if (state.currentPage === 0) {
+        return {
+          ...state,
+        };
+      }
+      const prevPageColumns = state.columns.slice(
+        8 * (state.currentPage - 1),
+        8 * state.currentPage
+      );
+      return {
+        ...state,
+        currentPage: state.currentPage - 1,
+        visibleColumns: prevPageColumns,
+      };
+    }
     default:
-      throw new Error(`Unknown reducer action${action.type}`);
+      throw new Error(`Unknown reducer action${action}`);
   }
 };
 

@@ -9,21 +9,28 @@ interface HistoryTableState {
   getItem: (index: number) => CommitRowType;
   processedCommitCount: number;
   processedCommits: CommitRowType[];
+  visibleColumns: string[];
+  addColumns: (columns: string[]) => void;
+  nextPage: () => void;
+  previousPage: () => void;
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
 const HistoryTableProvider: React.FC = ({ children }) => {
-  const [{ processedCommits, processedCommitCount }, dispatch] = useReducer(
-    reducer,
-    {
-      loadedCommits: [],
-      processedCommits: [],
-      processedCommitCount: 0,
-      commitCache: {},
-      cacheSize: 0,
-    }
-  );
+  const [
+    { processedCommits, processedCommitCount, visibleColumns },
+    dispatch,
+  ] = useReducer(reducer, {
+    loadedCommits: [],
+    processedCommits: [],
+    processedCommitCount: 0,
+    commitCache: {},
+    cacheSize: 0,
+    visibleColumns: [],
+    currentPage: 0,
+    columns: [],
+  });
 
   const itemHeight = (index) => {
     if (processedCommits[index]) {
@@ -54,9 +61,13 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       getItem,
       processedCommitCount,
       processedCommits,
+      visibleColumns,
+      addColumns: (columns) => dispatch({ type: "addColumns", columns }),
+      nextPage: () => dispatch({ type: "nextPageColumns" }),
+      previousPage: () => dispatch({ type: "prevPageColumns" }),
     }),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [processedCommits, processedCommitCount]
+    [processedCommits, visibleColumns, processedCommitCount]
   );
   return (
     <HistoryTableDispatchContext.Provider value={historyTableState}>

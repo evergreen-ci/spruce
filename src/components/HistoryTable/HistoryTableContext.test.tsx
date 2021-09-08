@@ -16,6 +16,10 @@ describe("HistoryTableContext", () => {
       isItemLoaded: expect.any(Function),
       itemHeight: expect.any(Function),
       processedCommits: [],
+      visibleColumns: [],
+      addColumns: expect.any(Function),
+      nextPage: expect.any(Function),
+      previousPage: expect.any(Function),
     });
   });
   test("Should process new commits when they are passed in", () => {
@@ -136,5 +140,88 @@ describe("HistoryTableContext", () => {
     });
 
     expect(result.current.processedCommits.length).toEqual(2);
+  });
+  describe("Columns", () => {
+    const columns = [
+      "enterprise-windows-required",
+      "enterprise-windows-all-feature-flags-required",
+      "enterprise-rhel-80-64-bit-dynamic-required",
+      "enterprise-rhel-80-64-bit-dynamic-all-feature-flags-required",
+      "linux-64-debug-required",
+      "ubuntu1804-debug-aubsan-lite-required",
+      "ubuntu1804-debug-aubsan-lite-all-feature-flags-required",
+      "enterprise-rhel-80-64-bit-suggested",
+      "enterprise-windows-suggested",
+      "enterprise-windows-all-feature-flags-suggested",
+      "ubuntu1804-debug-suggested",
+      "macos-debug-suggested",
+      "windows-debug-suggested",
+      "amazon",
+      "amazon2",
+      "amazon2-arm64",
+      "debian10",
+      "debian92",
+      "enterprise-linux-64-amazon-ami",
+      "enterprise-amazon2",
+      "enterprise-amazon2-arm64",
+      "enterprise-debian10-64",
+      "enterprise-debian92-64",
+      "enterprise-rhel-70-64-bit",
+      "enterprise-rhel-72-s390x",
+      "enterprise-rhel-72-s390x-all-feature-flags",
+      "enterprise-rhel-72-s390x-inmem",
+    ];
+    test("Should load in a set of columns and only display the first 8", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+    });
+    test("Should be able to paginate forward on visible columns", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      act(() => {
+        result.current.nextPage();
+      });
+      // expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(8, 16));
+    });
+    test("Should be able to paginate backwards on visible columns", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      act(() => {
+        result.current.nextPage();
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(8, 16));
+      act(() => {
+        result.current.previousPage();
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+    });
+    test("Should not be able to paginate backwards on non existant pages", () => {
+      const { result } = renderHook(() => useHistoryTable(), { wrapper });
+      act(() => {
+        result.current.addColumns(columns);
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+      act(() => {
+        result.current.previousPage();
+      });
+      expect(result.current.visibleColumns.length).toEqual(8);
+      expect(result.current.visibleColumns).toEqual(columns.slice(0, 8));
+    });
   });
 });
