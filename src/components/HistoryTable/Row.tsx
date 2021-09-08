@@ -4,6 +4,7 @@ import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
 import { HistoryTableIcon } from "pages/commits/HistoryTableIcon";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
+import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   const { isItemLoaded, getItem } = useHistoryTable();
@@ -11,14 +12,17 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
     return <div style={style}> Loading....</div>;
   }
   const commit = getItem(index);
-  if (commit.version) {
+  if (commit.type === rowType.DATE_SEPERATOR) {
+    return <DateSeperator style={style}>{commit.date}</DateSeperator>;
+  }
+  if (commit.type === rowType.COMMIT && commit.commit) {
     const {
       revision,
       createTime,
       author,
       message,
       buildVariants,
-    } = commit.version;
+    } = commit.commit;
     const tasks = buildVariants.slice(0, 8).map((bv) => bv.tasks[0]);
     return (
       <RowContainer style={style}>
@@ -38,7 +42,13 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       </RowContainer>
     );
   }
-  return <div>Nothing</div>;
+  if (commit.type === rowType.FOLDED_COMMITS) {
+    return (
+      <FoldedCommitContainer style={style}>
+        Expand {commit.rolledUpCommits.length} inactive{" "}
+      </FoldedCommitContainer>
+    );
+  }
 };
 
 const LabelCellContainer = styled.div`
@@ -61,5 +71,21 @@ const Cell = styled.div`
     background-color: red;
     cursor: pointer;
   }
+`;
+
+const DateSeperator = styled.div`
+  width: 100%;
+  padding-right: 40px;
+  background-color: lightblue;
+  display: flex;
+  align-items: center;
+`;
+
+const FoldedCommitContainer = styled.div`
+  width: 100%;
+  padding-right: 40px;
+  background-color: yellow;
+  display: flex;
+  align-items: center;
 `;
 export default Row;
