@@ -35,6 +35,7 @@ export const TaskStatusCheckboxContainer: React.FC<TaskStatusCheckboxContainerPr
         itemSize={itemSize}
         itemCount={tasks.length}
         itemData={tasks}
+        width="100%"
       >
         {({ style, data, index }) => {
           const { id: taskId, status, baseStatus, displayName } = data[index];
