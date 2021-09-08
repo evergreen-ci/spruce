@@ -6,7 +6,10 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
 import { Patch } from "gql/generated/types";
-import { DownstreamPatchState, VariantTasksState } from "./state";
+import {
+  DownstreamPatchState,
+  VariantTasksState,
+} from "hooks/useConfigurePatch";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -21,7 +24,9 @@ interface Props {
   loading: boolean;
   onClickSchedule: () => void;
   selectedDownstreamPatches: DownstreamPatchState;
-  setSelectedDownstreamPatches: (patches: DownstreamPatchState) => void;
+  setSelectedDownstreamPatches: (
+    downstreamPatches: DownstreamPatchState
+  ) => void;
   childPatches: Array<Partial<Patch>>;
 }
 

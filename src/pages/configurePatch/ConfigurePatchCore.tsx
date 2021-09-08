@@ -1,17 +1,16 @@
-import React, { useEffect, useReducer } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
 import { Body } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import { useHistory, useLocation, useParams } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { MetadataCard } from "components/MetadataCard";
 import { CodeChanges } from "components/PatchTabs/CodeChanges";
 import { ParametersContent } from "components/PatchTabs/ParametersContent";
 import { PageContent, PageLayout, PageSider } from "components/styles";
 import { StyledTabs } from "components/styles/StyledTabs";
 import { P2 } from "components/Typography";
-import { getPatchRoute, getVersionRoute } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
   SchedulePatchMutation,
@@ -19,128 +18,22 @@ import {
   SchedulePatchMutationVariables,
   VariantTasks,
   ConfigurePatchQuery,
-  VariantTask,
-  ParameterInput,
-  PatchTriggerAlias,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
-import { PatchTab } from "types/patch";
-import { queryString, string } from "utils";
-import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
-import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
-import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 import {
   DownstreamPatchState,
   VariantTasksState,
-} from "./configurePatchCore/state";
-
-const { omitTypename } = string;
-const { parseQueryString } = queryString;
-
-type configurePatchState = {
-  description: string;
-  selectedBuildVariants: string[];
-  selectedBuildVariantTasks: VariantTasksState;
-  patchParams: ParameterInput[];
-  selectedTab: number;
-  disableBuildVariantSelect: boolean;
-  selectedDownstreamPatches: DownstreamPatchState;
-};
-
-type Action =
-  | { type: "setDescription"; description: string }
-  | { type: "setSelectedBuildVariants"; buildVariants: string[] }
-  | { type: "setPatchParams"; params: ParameterInput[] }
-  | { type: "setSelectedBuildVariantTasks"; variantTasks: VariantTasksState }
-  | { type: "setSelectedTab"; tabIndex: number }
-  | {
-      type: "updatePatchData";
-      description: string;
-      buildVariants: string[];
-      params: ParameterInput[];
-      variantTasks: VariantTasksState;
-      patches: DownstreamPatchState;
-    }
-  | { type: "setSelectedDownstreamPatches"; patches: DownstreamPatchState };
-
-const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
-  description: "",
-  selectedBuildVariants: [],
-  selectedBuildVariantTasks: {},
-  patchParams: null,
-  selectedTab,
-  disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
-  selectedDownstreamPatches: {},
-});
-const reducer = (state: configurePatchState, action: Action) => {
-  switch (action.type) {
-    case "setDescription":
-      return {
-        ...state,
-        description: action.description,
-      };
-    case "setSelectedBuildVariants":
-      return {
-        ...state,
-        selectedBuildVariants: action.buildVariants,
-      };
-    case "setSelectedBuildVariantTasks":
-      return {
-        ...state,
-        selectedBuildVariantTasks: action.variantTasks,
-      };
-    case "setSelectedDownstreamPatches":
-      return {
-        ...state,
-        selectedDownstreamPatches: action.patches,
-      };
-    case "setPatchParams":
-      return {
-        ...state,
-        patchParams: omitTypename(action.params),
-      };
-    case "setSelectedTab": {
-      let tab = indexToTabMap.indexOf(PatchTab.Tasks);
-      if (action.tabIndex !== -1 && action.tabIndex < indexToTabMap.length) {
-        tab = action.tabIndex;
-      }
-      return {
-        ...state,
-        selectedTab: tab,
-        disableBuildVariantSelect:
-          indexToTabMap[action.tabIndex] !== PatchTab.Tasks,
-      };
-    }
-    case "updatePatchData":
-      return {
-        ...state,
-        description: action.description,
-        selectedBuildVariants: action.buildVariants,
-        patchParams: omitTypename(action.params),
-        selectedBuildVariantTasks: action.variantTasks,
-        selectedDownstreamPatches: action.patches,
-      };
-
-    default:
-      throw new Error();
-  }
-};
+  useConfigurePatch,
+} from "hooks/useConfigurePatch";
+import { ConfigureBuildVariants } from "./configurePatchCore/ConfigureBuildVariants";
+import { ConfigureTasks } from "./configurePatchCore/ConfigureTasks";
 
 interface Props {
   patch: ConfigurePatchQuery["patch"];
 }
 export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
-  const dispatchToast = useToastContext();
   const history = useHistory();
-  const location = useLocation();
-  const { tab } = useParams<{ tab: PatchTab | null }>();
-
-  const [state, dispatch] = useReducer(
-    reducer,
-    initialState({
-      selectedTab: tabToIndexMap[tab || PatchTab.Configure],
-    })
-  );
+  const dispatchToast = useToastContext();
 
   const {
     project,
@@ -152,6 +45,22 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     patchTriggerAliases,
   } = patch;
   const { variants } = project;
+
+  const {
+    description,
+    disableBuildVariantSelect,
+    patchParams,
+    selectedBuildVariants,
+    selectedBuildVariantTasks,
+    selectedDownstreamPatches,
+    selectedTab,
+    setDescription,
+    setPatchParams,
+    setSelectedBuildVariants,
+    setSelectedBuildVariantTasks,
+    setSelectedDownstreamPatches,
+    setSelectedTab,
+  } = useConfigurePatch(patch, variants);
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
@@ -169,43 +78,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     },
   });
 
-  const {
-    description,
-    selectedBuildVariants,
-    selectedBuildVariantTasks,
-    patchParams,
-    selectedTab,
-    disableBuildVariantSelect,
-    selectedDownstreamPatches,
-  } = state;
-
-  useEffect(() => {
-    const query = parseQueryString(location.search);
-    history.replace(
-      getPatchRoute(id, {
-        configure: true,
-        tab: indexToTabMap[selectedTab],
-        ...query,
-      })
-    );
-  }, [selectedTab]); // eslint-disable-line react-hooks/exhaustive-deps
-
-  useEffect(() => {
-    if (patch) {
-      dispatch({
-        type: "updatePatchData",
-        description: patch.description,
-        buildVariants: [variants[0]?.name],
-        params: patch.parameters,
-        variantTasks: initializeTaskState(variants, patch.variantsTasks),
-        patches: initializeDownstreamPatchState(patch.patchTriggerAliases),
-      });
-    }
-  }, [patch, variants]);
-
   const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchConfigure = {
-      description: state.description,
+      description,
       variantsTasks: getGqlVariantTasksParamFromState(
         selectedBuildVariantTasks
       ),
@@ -238,9 +113,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         data-cy="patch-name-input"
         value={description}
         size="large"
-        onChange={(e) =>
-          dispatch({ type: "setDescription", description: e.target.value })
-        }
+        onChange={setDescription}
       />
       <PageLayout>
         <PageSider>
@@ -274,9 +147,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
               })),
             ]}
             selectedBuildVariants={selectedBuildVariants}
-            setSelectedBuildVariants={(buildVariants) =>
-              dispatch({ type: "setSelectedBuildVariants", buildVariants })
-            }
+            setSelectedBuildVariants={setSelectedBuildVariants}
             disabled={disableBuildVariantSelect}
           />
         </PageSider>
@@ -284,31 +155,19 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
           <PageContent>
             <StyledTabs
               selected={selectedTab}
-              setSelected={(i) =>
-                dispatch({ type: "setSelectedTab", tabIndex: i })
-              }
+              setSelected={setSelectedTab}
               aria-label="Configure Patch Tabs"
             >
               <Tab data-cy="tasks-tab" name="Configure">
                 <ConfigureTasks
                   selectedBuildVariants={selectedBuildVariants}
                   selectedBuildVariantTasks={selectedBuildVariantTasks}
-                  setSelectedBuildVariantTasks={(variantTasks) =>
-                    dispatch({
-                      type: "setSelectedBuildVariantTasks",
-                      variantTasks,
-                    })
-                  }
+                  setSelectedBuildVariantTasks={setSelectedBuildVariantTasks}
                   activated={activated}
                   loading={loadingScheduledPatch}
                   onClickSchedule={onClickSchedule}
                   selectedDownstreamPatches={selectedDownstreamPatches}
-                  setSelectedDownstreamPatches={(patches) =>
-                    dispatch({
-                      type: "setSelectedDownstreamPatches",
-                      patches,
-                    })
-                  }
+                  setSelectedDownstreamPatches={setSelectedDownstreamPatches}
                   childPatches={childPatches}
                 />
               </Tab>
@@ -319,9 +178,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                 <ParametersContent
                   patchActivated={activated}
                   patchParameters={patchParams}
-                  setPatchParams={(params) =>
-                    dispatch({ type: "setPatchParams", params })
-                  }
+                  setPatchParams={setPatchParams}
                 />
               </Tab>
             </StyledTabs>
@@ -354,46 +211,6 @@ const getGqlDownstreamPatchesFromState = (
   Object.entries(selectedDownstreamPatches)
     .filter(([, isSelected]) => isSelected)
     .map(([alias]) => alias);
-
-// Takes in variant tasks and default selected tasks and returns an object
-// With merged variant and default selected tasks auto selected.
-const initializeTaskState = (
-  variantTasks: VariantTask[],
-  defaultSelectedTasks: VariantTask[]
-) => {
-  const defaultTasks = convertArrayToObject(defaultSelectedTasks, "name");
-  return variantTasks.reduce(
-    (prev, { name: variant, tasks }) => ({
-      ...prev,
-      [variant]: {
-        ...mapStringArrayToObject(tasks, false),
-        ...(defaultTasks[variant]
-          ? mapStringArrayToObject(defaultTasks[variant].tasks, true)
-          : {}),
-      },
-    }),
-    {}
-  );
-};
-
-const initializeDownstreamPatchState = (
-  patchTriggerAliases: PatchTriggerAlias[]
-) =>
-  patchTriggerAliases.reduce(
-    (prev, { alias }) => ({
-      ...prev,
-      [alias]: false,
-    }),
-    {}
-  );
-
-const indexToTabMap = [PatchTab.Tasks, PatchTab.Changes, PatchTab.Parameters];
-
-const tabToIndexMap = {
-  [PatchTab.Tasks]: 0,
-  [PatchTab.Changes]: 1,
-  [PatchTab.Parameters]: 2,
-};
 
 const StyledInput = styled(Input)`
   margin-bottom: 16px;
