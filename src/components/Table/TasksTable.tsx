@@ -115,7 +115,11 @@ const getColumnDefs = ({
     render: (name: string, { id }: Task): JSX.Element => (
       <TaskLink onClick={onClickTaskLink} taskName={name} taskId={id} />
     ),
-    ...(taskNameInputProps && getColumnSearchFilterProps(taskNameInputProps)),
+    ...(taskNameInputProps &&
+      getColumnSearchFilterProps({
+        ...taskNameInputProps,
+        "data-cy": "taskname-input",
+      })),
   },
   {
     title: "Patch Status",
@@ -161,7 +165,11 @@ const getColumnDefs = ({
       multiple: 4,
     },
     className: "cy-task-table-col-VARIANT",
-    ...(variantInputProps && getColumnSearchFilterProps(variantInputProps)),
+    ...(variantInputProps &&
+      getColumnSearchFilterProps({
+        ...variantInputProps,
+        "data-cy": "variant-input",
+      })),
   },
 ];
 

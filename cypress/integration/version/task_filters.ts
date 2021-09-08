@@ -32,15 +32,19 @@ describe("Tasks filters", () => {
     const variantInputValue = "lint";
     const urlParam = "variant";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
-      cy.dataCy("variant-input").type(variantInputValue);
-
+      cy.toggleTableFilter(4);
+      cy.dataCy("variant-input-wrapper")
+        .find("input")
+        .focus()
+        .type(variantInputValue);
+      cy.dataCy("variant-input-wrapper").contains("Search").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: variantInputValue,
       });
       cy.dataCy("current-task-count").should("contain.text", 2);
-      cy.dataCy("variant-input").clear();
+      cy.dataCy("variant-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -55,14 +59,18 @@ describe("Tasks filters", () => {
     const urlParam = "taskName";
 
     it("Updates url with input value and fetches tasks filtered by task name", () => {
-      cy.dataCy("task-name-input").type(taskNameInputValue);
-
+      cy.toggleTableFilter(1);
+      cy.dataCy("taskname-input-wrapper")
+        .find("input")
+        .focus()
+        .type(taskNameInputValue);
+      cy.dataCy("taskname-input-wrapper").contains("Search").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
         search: taskNameInputValue,
       });
-      cy.dataCy("task-name-input").clear();
+      cy.dataCy("taskname-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,

@@ -87,6 +87,7 @@ export const TestsTable: React.FC = () => {
   });
 
   const testNameInputProps = {
+    "data-cy": "testname-input",
     placeholder: "Test name",
     value: testNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>

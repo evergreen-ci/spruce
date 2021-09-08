@@ -29,19 +29,26 @@ export const useFilterInputChangeHandler = ({
   const [inputValue, setInputValue] = useState(urlValue);
 
   const page = resetPage && { page: "0" };
+
   const updateUrl = (newValue: string) => {
-    updateQueryParams({
-      [urlParam]: newValue,
-      ...page,
-    });
+    updateQueryParams(
+      {
+        [urlParam]: newValue,
+        ...page,
+      },
+      [...(!newValue ? [urlParam] : [])]
+    );
   };
 
   const setAndSubmitInputValue = (newValue: string): void => {
     setInputValue(newValue);
-    updateQueryParamWithDebounce({
-      [urlParam]: newValue,
-      ...page,
-    });
+    updateQueryParamWithDebounce(
+      {
+        [urlParam]: newValue,
+        ...page,
+      },
+      [...(!newValue ? [urlParam] : [])]
+    );
     sendAnalyticsEvent(urlParam);
   };
 

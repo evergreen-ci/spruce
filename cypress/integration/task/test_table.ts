@@ -36,7 +36,9 @@ describe("Tests Table", () => {
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
-    cy.dataCy("testname-input").type("hello");
+    cy.toggleTableFilter(1);
+    cy.dataCy("testname-input-wrapper").find("input").focus().type("hello");
+    cy.dataCy("testname-input-wrapper").contains("Search").click();
 
     cy.get("@filtered-count").invoke("text").should("eq", "0");
     cy.get("@total-count").invoke("text").should("eq", "20");
@@ -117,10 +119,15 @@ describe("Tests Table", () => {
     const testNameInputValue = "group";
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.dataCy("testname-input").first().focus().type(testNameInputValue);
     });
 
     it("Typing in test name filter updates testname query param", () => {
+      cy.toggleTableFilter(1);
+      cy.dataCy("testname-input-wrapper")
+        .find("input")
+        .focus()
+        .type(testNameInputValue);
+      cy.dataCy("testname-input-wrapper").contains("Search").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });

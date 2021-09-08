@@ -9,7 +9,7 @@ import { tableInputContainerCSS } from "components/styles/Layout";
 import { TreeDataEntry } from "components/TreeSelect";
 
 export interface InputFilterProps {
-  dataCy?: string;
+  "data-cy"?: string;
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -23,7 +23,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
   onChange,
   updateUrlParam,
   resetUrlParam,
-  dataCy,
+  "data-cy": dataCy,
 }) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <Input
@@ -52,14 +52,14 @@ export const InputFilter: React.FC<InputFilterProps> = ({
 );
 
 export const getColumnSearchFilterProps = ({
-  dataCy,
+  "data-cy": dataCy,
   placeholder,
   value,
   onChange,
   updateUrlParam,
   resetUrlParam,
 }: InputFilterProps) => ({
-  filterDropdown: () => (
+  filterDropdown: (
     <InputFilter
       {...{
         placeholder,
@@ -67,7 +67,7 @@ export const getColumnSearchFilterProps = ({
         onChange,
         updateUrlParam,
         resetUrlParam,
-        dataCy,
+        "data-cy": dataCy,
       }}
     />
   ),
