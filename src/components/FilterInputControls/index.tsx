@@ -12,7 +12,7 @@ export const FilterInputControls: React.FC<Props> = ({
   onClickReset,
   submitButtonCopy,
 }) => (
-  <ButtonsWrapper>
+  <ButtonsWrapper data-cy="filter-input-controls">
     <ButtonWrapper>
       <Button data-cy="reset-button" size="small" onClick={onClickReset}>
         Reset
