@@ -1,49 +1,63 @@
-import { useContext, createContext, useEffect, useState } from "react";
-import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
+import { useContext, createContext, useReducer, useMemo } from "react";
+import { reducer } from "./historyTableContextReducer";
+import { rowType, mainlineCommits, CommitRowType } from "./utils";
 
-enum rowType {
-  FOLDED_COMMITS,
-  DATE_SEPERATOR,
-  COMMIT,
-}
-
-type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
 interface HistoryTableState {
-  loadedCommits: mainlineCommits["versions"];
   itemHeight: (index: number) => number;
   fetchNewCommit: (data: mainlineCommits) => void;
   isItemLoaded: (index: number) => boolean;
-  getItem: (index: number) => mainlineCommits["versions"][0];
+  getItem: (index: number) => CommitRowType;
+  processedCommitCount: number;
+  processedCommits: CommitRowType[];
 }
 
 const HistoryTableDispatchContext = createContext<any | null>(null);
 
 const HistoryTableProvider: React.FC = ({ children }) => {
-  const [
-    recentlyFetchedCommits,
-    setRecentlyFetchedCommits,
-  ] = useState<mainlineCommits>(null);
-  const [loadedCommits, setLoadedCommits] = useState([]);
-  const [, setLoadedItemSizes] = useState([]);
-  useEffect(() => {
-    if (recentlyFetchedCommits) {
-      setLoadedCommits((curr) => [...curr, ...recentlyFetchedCommits.versions]);
-      setLoadedItemSizes(processCommits(recentlyFetchedCommits));
+  const [{ processedCommits, processedCommitCount }, dispatch] = useReducer(
+    reducer,
+    {
+      loadedCommits: [],
+      processedCommits: [],
+      processedCommitCount: 0,
+      commitCache: {},
+      cacheSize: 0,
     }
-  }, [recentlyFetchedCommits]);
+  );
 
-  const itemHeight = () => 120;
-  const isItemLoaded = (index) => loadedCommits.length > index;
-
-  const getItem = (index: number) => loadedCommits[index];
-
-  const historyTableState: HistoryTableState = {
-    loadedCommits,
-    itemHeight,
-    fetchNewCommit: setRecentlyFetchedCommits,
-    isItemLoaded,
-    getItem,
+  const itemHeight = (index) => {
+    if (processedCommits[index]) {
+      switch (processedCommits[index].type) {
+        case rowType.COMMIT:
+          return 120;
+        case rowType.DATE_SEPERATOR:
+          return 40;
+        case rowType.FOLDED_COMMITS:
+          return 40;
+        default:
+          return 100;
+      }
+    } else {
+      return 100;
+    }
   };
+  const isItemLoaded = (index) => processedCommitCount > index;
+
+  const getItem = (index: number) => processedCommits[index];
+
+  const historyTableState: HistoryTableState = useMemo(
+    () => ({
+      itemHeight,
+      fetchNewCommit: (commits) =>
+        dispatch({ type: "ingestNewCommits", commits }),
+      isItemLoaded,
+      getItem,
+      processedCommitCount,
+      processedCommits,
+    }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [processedCommits, processedCommitCount]
+  );
   return (
     <HistoryTableDispatchContext.Provider value={historyTableState}>
       {children}
@@ -61,20 +75,4 @@ const useHistoryTable = (): HistoryTableState => {
   return context;
 };
 
-const processCommits = (
-  commits: MainlineCommitsForHistoryQuery["mainlineCommits"]
-) => {
-  const { versions } = commits;
-  const results = [];
-  for (let i = 0; i < versions.length; i++) {
-    const commit = versions[i];
-    if (commit.version) {
-      results.push(rowType.COMMIT);
-    }
-    if (commit.rolledUpVersions) {
-      results.push(rowType.FOLDED_COMMITS);
-    }
-  }
-  return results;
-};
 export { HistoryTableProvider, useHistoryTable };

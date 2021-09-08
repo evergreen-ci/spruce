@@ -17,7 +17,7 @@ const HistoryTableWrapper = () => {
 
   return (
     <HistoryTable
-      recentlyFetchedCommits={data as any}
+      recentlyFetchedCommits={data}
       loadMoreItems={() => console.log("Fetch")}
     />
   );
