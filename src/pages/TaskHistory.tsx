@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { H2 } from "@leafygreen-ui/typography";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import HistoryTable from "components/HistoryTable";
 import { HistoryTableProvider } from "components/HistoryTable/HistoryTableContext";
 import { PageWrapper } from "components/styles";
@@ -17,6 +17,7 @@ import {
   GET_BUILD_VARIANTS_FOR_TASK_NAME,
 } from "gql/queries";
 import { usePageTitle } from "hooks";
+import { parseQueryString } from "utils/queryString";
 import { BuildVariantSelector } from "./taskHistory/BuildVariantSelector";
 import ColumnHeaders from "./taskHistory/ColumnHeaders";
 
@@ -61,7 +62,21 @@ export const TaskHistory = () => {
 
   const { buildVariantsForTaskName } = columnData || {};
   const { mainlineCommits } = data || {};
+  const { search } = useLocation();
+  const queryParams = parseQueryString(search);
 
+  let selectedBuildVariants = [];
+  if (typeof queryParams.buildVariants === "string") {
+    selectedBuildVariants = [queryParams.buildVariants];
+  } else {
+    selectedBuildVariants = queryParams.buildVariants;
+  }
+
+  const selectedColumns = selectedBuildVariants?.length
+    ? buildVariantsForTaskName?.filter((bv) =>
+        selectedBuildVariants.includes(bv.buildVariant)
+      )
+    : buildVariantsForTaskName;
   return (
     <PageWrapper>
       <CenterPage>
@@ -71,10 +86,7 @@ export const TaskHistory = () => {
           <HistoryTableProvider>
             {buildVariantsForTaskName && (
               <>
-                <ColumnHeaders
-                  loading={loading}
-                  columns={buildVariantsForTaskName}
-                />
+                <ColumnHeaders loading={loading} columns={selectedColumns} />
                 <HistoryTable
                   columns={buildVariantsForTaskName || []}
                   recentlyFetchedCommits={mainlineCommits}

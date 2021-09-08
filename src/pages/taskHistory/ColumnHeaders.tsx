@@ -11,7 +11,6 @@ interface ColumnHeadersProps {
 }
 const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
   const { visibleColumns, addColumns } = useHistoryTable();
-
   useEffect(() => {
     if (columns) {
       addColumns(columns.map((c) => c.buildVariant));
@@ -24,8 +23,11 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
       <LabelCellContainer />
       {visibleColumns.map((vc) => {
         const cell = columns.find((c) => c.buildVariant === vc);
+        if (!cell) {
+          return null;
+        }
         return (
-          <Cell key={`header_cell_${cell.displayName}`}>
+          <Cell key={`header_cell_${cell.buildVariant}`}>
             {cell.displayName}
           </Cell>
         );
