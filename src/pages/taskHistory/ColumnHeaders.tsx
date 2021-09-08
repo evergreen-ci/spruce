@@ -10,9 +10,12 @@ const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => (
   <RowContainer>
     <LabelCellContainer />
     {columns.map((c) => (
-      <Cell>{c.displayName}</Cell>
+      <Cell key={`header_cell_${c.displayName}`}>{c.displayName}</Cell>
     ))}
-    {loading && Array.from(Array(8)).map(() => <Cell>Loading...</Cell>)}
+    {loading &&
+      Array.from(Array(8)).map((i) => (
+        <Cell key={`loading_cell_${i}`}>Loading...</Cell>
+      ))}
   </RowContainer>
 );
 
