@@ -36,7 +36,8 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
           </Cell>
         );
       }
-      return <Cell key={`empty_variant_${c}`}>DNE</Cell>;
+      // Returned if the build variant did not run for this commit
+      return <Cell key={`empty_variant_${c}`}>DNR</Cell>;
     });
     return (
       <RowContainer style={style}>
