@@ -1,18 +1,12 @@
-import styled from "@emotion/styled";
-import Button from "@leafygreen-ui/button";
 import { ColumnProps } from "antd/es/table";
 import { Analytics } from "analytics/addPageAction";
 import Badge, { Variant } from "components/Badge";
 import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
-import {
-  getLobsterTestLogUrl,
-  getUpdatedLobsterUrl,
-  isLogkeeperLink,
-} from "constants/externalResources";
 import { statusToBadgeColor, statusCopy } from "constants/test";
 import { TestSortCategory, TestResult } from "gql/generated/types";
 import { string } from "utils";
+import { LogsColumn } from "./LogsColumn";
 
 const { msToDuration } = string;
 
@@ -91,72 +85,8 @@ export const getColumnsTemplate = ({
     dataIndex: "logs",
     key: "logs",
     sorter: false,
-    render: (a, b): JSX.Element => {
-      const { execution, lineNum, taskId, id } = b || {};
-      const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-      const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
-      const lobsterLink = hasLobsterLink
-        ? getUpdatedLobsterUrl(htmlDisplayURL)
-        : getLobsterTestLogUrl({ taskId, execution, testId: id, lineNum });
-
-      return (
-        <>
-          {lobsterLink && (
-            <ButtonWrapper>
-              <Button
-                data-cy="test-table-lobster-btn"
-                size="small"
-                target="_blank"
-                variant="default"
-                href={lobsterLink}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Click Logs Lobster Button",
-                  })
-                }
-              >
-                Lobster
-              </Button>
-            </ButtonWrapper>
-          )}
-          {!hasLobsterLink && (
-            <ButtonWrapper>
-              <Button
-                data-cy="test-table-html-btn"
-                size="small"
-                target="_blank"
-                variant="default"
-                href={htmlDisplayURL}
-                onClick={() =>
-                  taskAnalytics.sendEvent({
-                    name: "Click Logs HTML Button",
-                  })
-                }
-              >
-                HTML
-              </Button>
-            </ButtonWrapper>
-          )}
-          {rawDisplayURL && (
-            <Button
-              data-cy="test-table-raw-btn"
-              size="small"
-              target="_blank"
-              variant="default"
-              href={rawDisplayURL}
-              onClick={() =>
-                taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
-              }
-            >
-              Raw
-            </Button>
-          )}
-        </>
-      );
-    },
+    render: (a, b): JSX.Element => (
+      <LogsColumn taskAnalytics={taskAnalytics} testResult={b} />
+    ),
   },
 ];
-
-const ButtonWrapper = styled("span")`
-  margin-right: 8px;
-`;
