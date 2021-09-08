@@ -3,19 +3,15 @@ import { waitForGQL } from "./networking";
 
 // used to test status and base status dropdown filters
 export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
-  selector = ".cy-checkbox",
   checkboxDisplayName,
   pathname,
   paramName,
   search,
 }) => {
-  cy.get(selector)
-    .contains(checkboxDisplayName)
-    .as("target")
-    .click({ force: true });
+  cy.getInputByLabel(checkboxDisplayName).check({ force: true });
   cy.dataCy("filter-button").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search });
-  cy.get("@target").click({ force: true });
+  cy.getInputByLabel("Failed").check({ force: true });
   cy.dataCy("filter-button").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
