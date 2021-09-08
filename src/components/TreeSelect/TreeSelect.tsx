@@ -18,6 +18,7 @@ export interface TreeSelectProps {
   tData: TreeDataEntry[];
   onReset?: () => void;
   onFilter?: () => void;
+  "data-cy"?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -37,6 +38,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
   tData,
   onReset,
   onFilter,
+  "data-cy": dataCy,
 }) => {
   const allValues = getAllValues(tData);
   // removes values not included in tData
@@ -77,7 +79,7 @@ export const TreeSelect: React.FC<TreeSelectProps> = ({
         </RelativeWrapper>
       )}
     >
-      <CheckboxContainer data-cy="tree-select-options">
+      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
         {renderCheckboxes({
           state: filteredState,
           tData,

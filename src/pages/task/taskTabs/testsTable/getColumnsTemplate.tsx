@@ -55,7 +55,9 @@ export const getColumnsTemplate = ({
         </Badge>
       </span>
     ),
-    filterDropdown: <TreeSelect {...statusSelectorProps} />,
+    filterDropdown: (
+      <TreeSelect data-cy="status-treeselect" {...statusSelectorProps} />
+    ),
   },
   {
     title: <span data-cy="base-status-column">Base Status</span>,

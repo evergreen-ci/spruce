@@ -64,10 +64,8 @@ Cypress.Commands.add("getInputByLabel", (label) =>
     })
 );
 
-Cypress.Commands.add("openTableFilter", (columnClassName) =>
-  cy
-    .get(
-      `.${columnClassName} > .ant-table-filter-column > .ant-table-filter-trigger-container > .ant-table-filter-trigger`
-    )
-    .click()
-);
+Cypress.Commands.add("toggleTableFilter", (colNum) => {
+  cy.get(`.ant-table-thead > tr > :nth-child(${colNum})`)
+    .find("[role=button]")
+    .click();
+});

@@ -29,10 +29,10 @@ describe("Tests Table", () => {
       .invoke("text")
       .should("eq", "20");
 
-    cy.openTableFilter("data-cy-status-column");
+    cy.toggleTableFilter(2);
 
     cy.get(".cy-checkbox").contains("Fail").click({ force: true });
-    cy.dataCy("filter-button").click();
+    cy.dataCy("status-treeselect").contains("Filter").click();
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
@@ -79,10 +79,11 @@ describe("Tests Table", () => {
       expect(loc.search).to.include(DESCEND_PARAM);
     });
   });
+
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.openTableFilter("data-cy-status-column");
+      cy.toggleTableFilter(2);
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
@@ -105,7 +106,7 @@ describe("Tests Table", () => {
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
-      cy.dataCy("filter-button").click();
+      cy.dataCy("status-treeselect").contains("Filter").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
