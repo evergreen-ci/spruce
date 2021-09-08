@@ -142,7 +142,15 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     })
   );
 
-  const { project, id, author, time, activated, patchTriggerAliases } = patch;
+  const {
+    project,
+    id,
+    author,
+    time,
+    activated,
+    childPatches,
+    patchTriggerAliases,
+  } = patch;
   const { variants } = project;
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
@@ -250,11 +258,21 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                   ).length
                 : 0,
             }))}
-            aliases={patchTriggerAliases.map(({ alias, childProject }) => ({
-              displayName: `${alias} (${childProject})`,
-              name: alias,
-              taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
-            }))}
+            aliases={[
+              ...patchTriggerAliases.map(({ alias, childProject }) => ({
+                displayName: `${alias} (${childProject})`,
+                name: alias,
+                taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
+              })),
+              ...childPatches.map(({ projectIdentifier, variantsTasks }) => ({
+                displayName: projectIdentifier,
+                name: projectIdentifier,
+                taskCount: variantsTasks.reduce(
+                  (c, v) => c + v.tasks.length,
+                  0
+                ),
+              })),
+            ]}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={(buildVariants) =>
               dispatch({ type: "setSelectedBuildVariants", buildVariants })
@@ -291,6 +309,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                       patches,
                     })
                   }
+                  childPatches={childPatches}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">

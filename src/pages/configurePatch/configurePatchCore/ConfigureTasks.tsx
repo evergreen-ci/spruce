@@ -5,6 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
+import { Patch } from "gql/generated/types";
 import { DownstreamPatchState, VariantTasksState } from "./state";
 
 enum CheckboxState {
@@ -21,6 +22,7 @@ interface Props {
   onClickSchedule: () => void;
   selectedDownstreamPatches: DownstreamPatchState;
   setSelectedDownstreamPatches: (patches: DownstreamPatchState) => void;
+  childPatches: Array<Partial<Patch>>;
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
@@ -32,6 +34,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   onClickSchedule,
   selectedDownstreamPatches,
   setSelectedDownstreamPatches,
+  childPatches,
 }) => {
   const aliasCount = Object.values(selectedDownstreamPatches).reduce(
     (count, alias) => count + (alias ? 1 : 0),
@@ -57,6 +60,12 @@ export const ConfigureTasks: React.FC<Props> = ({
     selectedDownstreamPatches,
     selectedBuildVariants
   );
+  const currentChildPatches = getVisibleChildPatches(
+    childPatches,
+    selectedBuildVariants
+  );
+  const enumerateChildPatches =
+    currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
 
   const onClickCheckbox = (taskName: string) => (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
@@ -90,7 +99,8 @@ export const ConfigureTasks: React.FC<Props> = ({
 
   const selectAllCheckboxState = getSelectAllCheckboxState(
     currentTasks,
-    currentDownstreamPatches
+    currentDownstreamPatches,
+    enumerateChildPatches
   );
   const selectAllCheckboxCopy =
     Object.entries(currentTasks).length === 0
@@ -129,7 +139,9 @@ export const ConfigureTasks: React.FC<Props> = ({
           label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
           disabled={
-            activated && Object.entries(currentDownstreamPatches).length > 0
+            (activated &&
+              Object.entries(currentDownstreamPatches).length > 0) ||
+            enumerateChildPatches
           }
         />
       </Actions>
@@ -149,22 +161,61 @@ export const ConfigureTasks: React.FC<Props> = ({
             checked={status === CheckboxState.CHECKED}
           />
         ))}
-        {/* Include a checkbox representing trigger aliases only if multiple sidebar items are selected */}
-        {selectedBuildVariants.length > 1 &&
-          Object.entries(currentDownstreamPatches).map(([name, status]) => (
-            <Checkbox
-              data-cy="downstream-patch-checkbox"
-              data-state={status}
-              key={name}
-              onChange={onClickCheckbox(name)}
-              label={name}
-              // TODO: Fix indeterminate state handling after PD-1386
-              indeterminate={status === CheckboxState.INDETERMINITE}
-              checked={status === CheckboxState.CHECKED}
-              disabled={activated}
-            />
-          ))}
       </Tasks>
+      {/* Include a checkbox representing trigger aliases only if multiple sidebar items are selected */}
+      {selectedBuildVariants.length > 1 && (
+        <>
+          <H4>Downstream Tasks</H4>
+          <Tasks>
+            {Object.entries(currentDownstreamPatches).map(([name, status]) => (
+              <Checkbox
+                data-cy="downstream-patch-checkbox"
+                data-state={status}
+                key={name}
+                onChange={onClickCheckbox(name)}
+                label={name}
+                // TODO: Fix indeterminate state handling after PD-1386
+                indeterminate={status === CheckboxState.INDETERMINITE}
+                checked={status === CheckboxState.CHECKED}
+                disabled={activated}
+              />
+            ))}
+            {currentChildPatches.map(({ projectIdentifier }) => (
+              <Checkbox
+                data-cy="downstream-patch-checkbox"
+                data-state={CheckboxState.CHECKED}
+                key={projectIdentifier}
+                label={projectIdentifier}
+                disabled
+                checked
+              />
+            ))}
+          </Tasks>
+        </>
+      )}
+      {enumerateChildPatches && (
+        <>
+          {currentChildPatches[0].variantsTasks.map(
+            ({ name, tasks: taskList }) => (
+              <>
+                <H4>{name}</H4>
+                <Tasks>
+                  {taskList.map((taskName) => (
+                    <Checkbox
+                      data-cy="child-patch-checkbox"
+                      data-state={CheckboxState.CHECKED}
+                      key={taskName}
+                      label={taskName}
+                      checked
+                      disabled
+                    />
+                  ))}
+                </Tasks>
+              </>
+            )
+          )}
+        </>
+      )}
     </TabContentWrapper>
   );
 };
@@ -175,8 +226,13 @@ const getSelectAllCheckboxState = (
   },
   downstreamPatches: {
     [alias: string]: CheckboxState;
-  }
+  },
+  enumerateChildPatches: boolean
 ): CheckboxState => {
+  if (enumerateChildPatches) {
+    return CheckboxState.CHECKED;
+  }
+
   let state;
   const allTaskStatuses = Object.entries(buildVariants).map(
     ([, checked]) => checked
@@ -214,6 +270,11 @@ const getVisibleDownstreamPatches = (p, selectedBuildVariants) => {
   });
   return visiblePatches;
 };
+
+const getVisibleChildPatches = (childPatches, selectedBuildVariants) =>
+  childPatches.filter(({ projectIdentifier }) =>
+    selectedBuildVariants.includes(projectIdentifier)
+  );
 
 const deduplicateTasks = (
   currentTasks: {
@@ -282,4 +343,7 @@ const cardSidePadding = css`
 `;
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
+`;
+const H4 = styled.h4`
+  margin-top: 16px;
 `;
