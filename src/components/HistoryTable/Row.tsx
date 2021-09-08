@@ -7,12 +7,14 @@ import { useHistoryTable } from "./HistoryTableContext";
 import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
-  const { isItemLoaded, getItem } = useHistoryTable();
+  const { isItemLoaded, getItem, visibleColumns } = useHistoryTable();
   if (!isItemLoaded(index)) {
+    // TODO: add loading state
     return <div style={style}> Loading....</div>;
   }
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPERATOR) {
+    // TODO: add date seperator component
     return <DateSeperator style={style}>{commit.date}</DateSeperator>;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
@@ -23,7 +25,19 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       message,
       buildVariants,
     } = commit.commit;
-    const tasks = buildVariants.slice(0, 8).map((bv) => bv.tasks[0]);
+
+    const orderedColumns = visibleColumns.map((c) => {
+      const foundVariant = buildVariants.find((bv) => bv.variant === c);
+      if (foundVariant) {
+        const { tasks } = foundVariant;
+        return (
+          <Cell key={`task_cell_${tasks[0].id}`}>
+            <HistoryTableIcon status={tasks[0].status as TaskStatus} />
+          </Cell>
+        );
+      }
+      return <Cell key={`empty_variant_${c}`}>DNE</Cell>;
+    });
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
@@ -34,15 +48,12 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
             message={message}
           />
         </LabelCellContainer>
-        {tasks.map((task) => (
-          <Cell key={`task_cell_${task.id}`}>
-            <HistoryTableIcon status={task.status as TaskStatus} />
-          </Cell>
-        ))}
+        {orderedColumns}
       </RowContainer>
     );
   }
   if (commit.type === rowType.FOLDED_COMMITS) {
+    // TODO: add folded commits component
     return (
       <FoldedCommitContainer style={style}>
         Expand {commit.rolledUpCommits.length} inactive{" "}

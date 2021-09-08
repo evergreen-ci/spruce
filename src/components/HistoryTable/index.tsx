@@ -12,6 +12,7 @@ const isItemLoaded = (index) => !!itemStatusMap[index];
 interface HistoryTableProps {
   loadMoreItems: () => void;
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
+  columns: { buildVariant: string }[];
 }
 const HistoryTable: React.FC<HistoryTableProps> = ({
   loadMoreItems,

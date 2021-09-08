@@ -4,7 +4,8 @@ type Action =
   | { type: "ingestNewCommits"; commits: mainlineCommits }
   | { type: "addColumns"; columns: string[] }
   | { type: "nextPageColumns" }
-  | { type: "prevPageColumns" };
+  | { type: "prevPageColumns" }
+  | { type: "setColumnLimit"; limit: number };
 
 type cacheShape = {
   [order: number]:
@@ -20,6 +21,7 @@ interface HistoryTableState {
   visibleColumns: string[];
   currentPage: number;
   columns: string[];
+  columnLimit: number;
 }
 
 export const reducer = (state: HistoryTableState, action: Action) => {
@@ -65,8 +67,8 @@ export const reducer = (state: HistoryTableState, action: Action) => {
       }
       const nextPage = state.currentPage + 1;
       const nextPageColumns = state.columns.slice(
-        8 * nextPage,
-        8 * (nextPage + 1)
+        state.columnLimit * nextPage,
+        state.columnLimit * (nextPage + 1)
       );
       return {
         ...state,
@@ -81,8 +83,8 @@ export const reducer = (state: HistoryTableState, action: Action) => {
         };
       }
       const prevPageColumns = state.columns.slice(
-        8 * (state.currentPage - 1),
-        8 * state.currentPage
+        state.columnLimit * (state.currentPage - 1),
+        state.columnLimit * state.currentPage
       );
       return {
         ...state,
@@ -90,11 +92,18 @@ export const reducer = (state: HistoryTableState, action: Action) => {
         visibleColumns: prevPageColumns,
       };
     }
+    case "setColumnLimit":
+      return {
+        ...state,
+        columnLimit: action.limit,
+      };
     default:
       throw new Error(`Unknown reducer action${action}`);
   }
 };
 
+// Objectify commits takes in a cache and a list of commits and returns a new cache with the new commits added
+// This is used to performantly track if we have seen a commit before and avoid duplicating it
 const objectifyCommits = (
   cache: cacheShape,
   newCommits: mainlineCommits["versions"]

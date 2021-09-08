@@ -1,23 +1,42 @@
+import { useEffect } from "react";
 import styled from "@emotion/styled";
+import { useHistoryTable } from "components/HistoryTable/HistoryTableContext";
 
 interface ColumnHeadersProps {
   columns: {
     displayName: string;
+    buildVariant: string;
   }[];
   loading: boolean;
 }
-const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => (
-  <RowContainer>
-    <LabelCellContainer />
-    {columns.map((c) => (
-      <Cell key={`header_cell_${c.displayName}`}>{c.displayName}</Cell>
-    ))}
-    {loading &&
-      Array.from(Array(8)).map((i) => (
-        <Cell key={`loading_cell_${i}`}>Loading...</Cell>
-      ))}
-  </RowContainer>
-);
+const ColumnHeaders: React.FC<ColumnHeadersProps> = ({ columns, loading }) => {
+  const { visibleColumns, addColumns } = useHistoryTable();
+
+  useEffect(() => {
+    if (columns) {
+      addColumns(columns.map((c) => c.buildVariant));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [columns]);
+
+  return (
+    <RowContainer>
+      <LabelCellContainer />
+      {visibleColumns.map((vc) => {
+        const cell = columns.find((c) => c.buildVariant === vc);
+        return (
+          <Cell key={`header_cell_${cell.displayName}`}>
+            {cell.displayName}
+          </Cell>
+        );
+      })}
+      {loading &&
+        Array.from(Array(8)).map((i) => (
+          <Cell key={`loading_cell_${i}`}>Loading...</Cell>
+        ))}
+    </RowContainer>
+  );
+};
 
 const LabelCellContainer = styled.div`
   width: 200px;

@@ -28,20 +28,22 @@ export const TaskHistory = () => {
 
   usePageTitle(`Task History | ${projectId} | ${taskName}`);
   const [nextPageOrderNumber, setNextPageOrderNumber] = useState(0);
+  const variables = {
+    mainlineCommitsOptions: {
+      projectID: projectId,
+      limit: 20,
+      skipOrderNumber: nextPageOrderNumber,
+    },
+    buildVariantOptions: {
+      tasks: [taskName],
+    },
+  };
+
   const { data } = useQuery<
     MainlineCommitsForHistoryQuery,
     MainlineCommitsForHistoryQueryVariables
   >(GET_MAINLINE_COMMITS_FOR_HISTORY, {
-    variables: {
-      mainlineCommitsOptions: {
-        projectID: projectId,
-        limit: 20,
-        skipOrderNumber: nextPageOrderNumber,
-      },
-      buildVariantOptions: {
-        tasks: [taskName],
-      },
-    },
+    variables,
   });
 
   // Fetch the column headers from the same query used on the dropdown.
@@ -67,20 +69,25 @@ export const TaskHistory = () => {
         <BuildVariantSelector projectId={projectId} taskName={taskName} />
         <TableContainer>
           <HistoryTableProvider>
-            <ColumnHeaders
-              loading={loading}
-              columns={
-                buildVariantsForTaskName
-                  ? buildVariantsForTaskName.slice(0, 8)
-                  : []
-              }
-            />
-            <HistoryTable
-              recentlyFetchedCommits={mainlineCommits}
-              loadMoreItems={() => {
-                setNextPageOrderNumber(mainlineCommits?.nextPageOrderNumber);
-              }}
-            />
+            {buildVariantsForTaskName && (
+              <>
+                <ColumnHeaders
+                  loading={loading}
+                  columns={buildVariantsForTaskName}
+                />
+                <HistoryTable
+                  columns={buildVariantsForTaskName || []}
+                  recentlyFetchedCommits={mainlineCommits}
+                  loadMoreItems={() => {
+                    if (mainlineCommits) {
+                      setNextPageOrderNumber(
+                        mainlineCommits.nextPageOrderNumber
+                      );
+                    }
+                  }}
+                />
+              </>
+            )}
           </HistoryTableProvider>
         </TableContainer>
       </CenterPage>

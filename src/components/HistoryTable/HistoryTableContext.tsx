@@ -30,9 +30,12 @@ const HistoryTableProvider: React.FC = ({ children }) => {
     visibleColumns: [],
     currentPage: 0,
     columns: [],
+    columnLimit: 8,
   });
 
   const itemHeight = (index) => {
+    // TODO: Fix bug causing itemHeight to be 0 on intial render
+    // There is a race condition where it tries to calculate element heights before the element content is loaded in
     if (processedCommits[index]) {
       switch (processedCommits[index].type) {
         case rowType.COMMIT:
@@ -45,7 +48,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
           return 100;
       }
     } else {
-      return 100;
+      return 120;
     }
   };
   const isItemLoaded = (index) => processedCommitCount > index;
