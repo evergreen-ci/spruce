@@ -19,11 +19,6 @@ export const Banner = styled.div`
   display: flex;
   justify-content: space-between;
   padding: 5px 15px;
-  margin-bottom: 15px;
-`;
-
-export const BannerPadding = styled.div`
-  margin-bottom: 16px;
 `;
 
 export const bannerTypeToColor = {

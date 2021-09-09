@@ -6,7 +6,6 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Popconfirm, Input } from "antd";
 import Cookies from "js-cookie";
-import { PageWrapper } from "components/styles";
 import { useToastContext } from "context/toast";
 import {
   UpdateUserSettingsMutation,
@@ -86,52 +85,47 @@ export const SlackNotificationBanner = () => {
 
   return (
     showSlackBanner && (
-      <StyledPageWrapper>
-        <Banner
-          variant="info"
-          data-cy="slack-notification-banner"
-          dismissible
-          onClose={hideBanner}
+      <Banner
+        variant="info"
+        data-cy="slack-notification-banner"
+        dismissible
+        onClose={hideBanner}
+      >
+        You can receive a Slack notification when your patch is ready.
+        <Popconfirm
+          title={
+            <>
+              <SlackUsername weight="medium">Slack Username</SlackUsername>
+              <Input
+                data-cy="slack-username-input"
+                value={slackUsername}
+                onChange={(e) => setSlackUsername(e.target.value)}
+                onPressEnter={() => saveNotificationSettings()}
+              />
+            </>
+          }
+          onConfirm={() => saveNotificationSettings()}
+          okText="Save"
+          cancelText="Cancel"
+          okButtonProps={{
+            loading: loadingUpdateUserSettings,
+            disabled: !slackUsername,
+          }}
+          cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
+          icon={null}
         >
-          You can receive a Slack notification when your patch is ready.
-          <Popconfirm
-            title={
-              <>
-                <SlackUsername weight="medium">Slack Username</SlackUsername>
-                <Input
-                  data-cy="slack-username-input"
-                  value={slackUsername}
-                  onChange={(e) => setSlackUsername(e.target.value)}
-                  onPressEnter={() => saveNotificationSettings()}
-                />
-              </>
-            }
-            onConfirm={() => saveNotificationSettings()}
-            okText="Save"
-            cancelText="Cancel"
-            okButtonProps={{
-              loading: loadingUpdateUserSettings,
-              disabled: !slackUsername,
-            }}
-            cancelButtonProps={{ disabled: loadingUpdateUserSettings }}
-            icon={null}
-          >
-            {" "}
-            <SubscribeButton data-cy="subscribe-to-notifications">
-              Subscribe
-            </SubscribeButton>
-          </Popconfirm>
-        </Banner>
-      </StyledPageWrapper>
+          {" "}
+          <SubscribeButton data-cy="subscribe-to-notifications">
+            Subscribe
+          </SubscribeButton>
+        </Popconfirm>
+      </Banner>
     )
   );
 };
 
 const isNotificationSet = (field: string) =>
   field !== "" && field !== undefined;
-const StyledPageWrapper = styled(PageWrapper)`
-  padding-bottom: 16px;
-`;
 
 const SubscribeButton = styled.span`
   text-decoration: underline;

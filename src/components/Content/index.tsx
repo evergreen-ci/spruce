@@ -3,14 +3,9 @@ import { useQuery } from "@apollo/client";
 import get from "lodash/get";
 import { Route, Switch } from "react-router-dom";
 import { useAnalyticsAttributes } from "analytics";
-import {
-  SiteBanner,
-  ConnectivityBanner,
-  SlackNotificationBanner,
-} from "components/Banners";
 import { Feedback } from "components/Feedback";
+import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
-import { Navbar } from "components/Navbar";
 import { PageLayout } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
@@ -63,10 +58,7 @@ export const Content: React.FC = () => {
 
   return (
     <PageLayout>
-      <Navbar />
-      <ConnectivityBanner />
-      <SiteBanner />
-      <SlackNotificationBanner />
+      <Header />
       <Switch>
         <Route path={routes.task} component={Task} />
         <Route path={routes.configurePatch} component={ConfigurePatch} />

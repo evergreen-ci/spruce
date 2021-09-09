@@ -7,9 +7,7 @@ import Cookies from "js-cookie";
 import { getJiraTicketUrl } from "constants/externalResources";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
-import * as styles from "./styles";
-
-const { Banner, BannerPadding } = styles;
+import { Banner } from "./styles";
 
 export const SiteBanner = () => {
   const { data, loading } = useQuery<GetSpruceConfigQuery>(GET_SPRUCE_CONFIG);
@@ -40,18 +38,18 @@ export const SiteBanner = () => {
     return parse(linkified);
   };
 
-  return showBanner ? (
-    <Banner bannerTheme={theme} data-cy="sitewide-banner">
-      <span>{jiraLinkify(text)}</span>
-      <IconButton
-        aria-label="Close Site Banner"
-        onClick={hideBanner}
-        data-cy="dismiss-sitewide-banner-button"
-      >
-        <Icon glyph="X" />{" "}
-      </IconButton>
-    </Banner>
-  ) : (
-    <BannerPadding />
+  return (
+    showBanner && (
+      <Banner bannerTheme={theme} data-cy="sitewide-banner">
+        <span>{jiraLinkify(text)}</span>
+        <IconButton
+          aria-label="Close Site Banner"
+          onClick={hideBanner}
+          data-cy="dismiss-sitewide-banner-button"
+        >
+          <Icon glyph="X" />{" "}
+        </IconButton>
+      </Banner>
+    )
   );
 };
