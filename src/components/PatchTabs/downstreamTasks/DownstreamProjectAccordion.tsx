@@ -45,6 +45,7 @@ interface InputValueState {
   baseStatusesInputVal: string[];
   currentStatusesInputVal: string[];
   taskNameInputVal: string;
+  variantInputVal: string;
 }
 
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
@@ -78,19 +79,14 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     sorts: [defaultSort],
   });
 
-  const [
-    statusFilterInputVals,
-    setStatusFilterInputVals,
-  ] = useState<InputValueState>({
+  const [filterInputVals, setFilterInputVals] = useState<InputValueState>({
     baseStatusesInputVal: baseFilterVariables.baseStatuses,
     currentStatusesInputVal: baseFilterVariables.statuses,
     taskNameInputVal: baseFilterVariables.taskName ?? "",
+    variantInputVal: baseFilterVariables.variant ?? "",
   });
 
-  const {
-    baseStatusesInputVal,
-    currentStatusesInputVal,
-  } = statusFilterInputVals;
+  const { baseStatusesInputVal, currentStatusesInputVal } = filterInputVals;
   const { currentStatuses, baseStatuses } = useTaskStatuses({
     versionId: childPatchId,
   });
@@ -99,13 +95,13 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     state: baseStatusesInputVal,
     tData: baseStatuses,
     onChange: (statuses: string[]) =>
-      setStatusFilterInputVals({
-        ...statusFilterInputVals,
+      setFilterInputVals({
+        ...filterInputVals,
         baseStatusesInputVal: statuses,
       }),
     onReset: () => {
-      setStatusFilterInputVals({
-        ...statusFilterInputVals,
+      setFilterInputVals({
+        ...filterInputVals,
         baseStatusesInputVal: [],
       });
       setVariables({ baseStatuses: [], page: 0 });
@@ -118,13 +114,13 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     state: currentStatusesInputVal,
     tData: currentStatuses,
     onChange: (statuses: string[]) =>
-      setStatusFilterInputVals({
-        ...statusFilterInputVals,
+      setFilterInputVals({
+        ...filterInputVals,
         currentStatusesInputVal: statuses,
       }),
     onReset: () => {
-      setStatusFilterInputVals({
-        ...statusFilterInputVals,
+      setFilterInputVals({
+        ...filterInputVals,
         currentStatusesInputVal: [],
       });
       setVariables({ statuses: [], page: 0 });
