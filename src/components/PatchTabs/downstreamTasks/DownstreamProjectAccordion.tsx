@@ -22,10 +22,31 @@ import {
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus, useTaskStatuses } from "hooks";
 import { environmentalVariables, queryString } from "utils";
-import { FilterState, TaskFilters } from "./TaskFilters";
 
 const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
+
+interface InputValueState {
+  baseStatusesInputVal: string[];
+  currentStatusesInputVal: string[];
+  taskNameInputVal: string;
+  variantInputVal: string;
+}
+
+export interface FilterState {
+  baseStatuses: string[];
+  limit: number;
+  page: number;
+  patchId: string;
+  sorts: SortOrder[];
+  statuses: string[];
+  taskName?: string;
+  variant?: string;
+}
+const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
+  ...state,
+  ...newFields,
+});
 
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
@@ -34,18 +55,6 @@ interface DownstreamProjectAccordionProps {
   status: string;
   taskCount: number;
   childPatchId: string;
-}
-
-const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
-  ...state,
-  ...newFields,
-});
-
-interface InputValueState {
-  baseStatusesInputVal: string[];
-  currentStatusesInputVal: string[];
-  taskNameInputVal: string;
-  variantInputVal: string;
 }
 
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
@@ -70,8 +79,8 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     patchId: childPatchId,
     sorts: [],
     statuses: [],
-    taskName: null,
-    variant: null,
+    taskName: "",
+    variant: "",
   };
 
   const [variables, setVariables] = useReducer(reducer, {
@@ -82,14 +91,50 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   const [filterInputVals, setFilterInputVals] = useState<InputValueState>({
     baseStatusesInputVal: baseFilterVariables.baseStatuses,
     currentStatusesInputVal: baseFilterVariables.statuses,
-    taskNameInputVal: baseFilterVariables.taskName ?? "",
-    variantInputVal: baseFilterVariables.variant ?? "",
+    taskNameInputVal: baseFilterVariables.taskName,
+    variantInputVal: baseFilterVariables.variant,
   });
 
   const { baseStatusesInputVal, currentStatusesInputVal } = filterInputVals;
   const { currentStatuses, baseStatuses } = useTaskStatuses({
     versionId: childPatchId,
   });
+
+  const taskNameInputProps = {
+    placeholder: "Task name",
+    value: filterInputVals.taskNameInputVal,
+    onChange: ({ target }) =>
+      setFilterInputVals({
+        ...filterInputVals,
+        taskNameInputVal: target.value,
+      }),
+    onFilter: () => {
+      setFilterInputVals({
+        ...filterInputVals,
+        taskNameInputVal: filterInputVals.taskNameInputVal,
+      });
+      setVariables({ taskName: filterInputVals.taskNameInputVal, page: 0 });
+    },
+    onReset: () => setVariables({ taskName: "", page: 0 }),
+  };
+
+  const variantInputProps = {
+    placeholder: "Variant name",
+    value: filterInputVals.variantInputVal,
+    onChange: ({ target }) =>
+      setFilterInputVals({
+        ...filterInputVals,
+        variantInputVal: target.value,
+      }),
+    onFilter: () => {
+      setFilterInputVals({
+        ...filterInputVals,
+        variantInputVal: filterInputVals.variantInputVal,
+      });
+      setVariables({ variant: filterInputVals.variantInputVal, page: 0 });
+    },
+    onReset: () => setVariables({ variant: "", page: 0 }),
+  };
 
   const baseStatusSelectorProps = {
     state: baseStatusesInputVal,
@@ -171,7 +216,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 {githash.slice(0, 10)}
               </InlineCode>
             </p>
-            <TaskFilters filters={variables} onFilterChange={setVariables} />
             <TableWrapper>
               <TableControlOuterRow>
                 <FlexContainer>
@@ -215,6 +259,8 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   tasks={patchTasks?.tasks}
                   statusSelectorProps={statusSelectorProps}
                   baseStatusSelectorProps={baseStatusSelectorProps}
+                  taskNameInputProps={taskNameInputProps}
+                  variantInputProps={variantInputProps}
                 />
               )}
             </TableWrapper>

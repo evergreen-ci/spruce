@@ -67,5 +67,6 @@ Cypress.Commands.add("getInputByLabel", (label) =>
 Cypress.Commands.add("toggleTableFilter", (colNum) => {
   cy.get(`.ant-table-thead > tr > :nth-child(${colNum})`)
     .find("[role=button]")
+    .first()
     .click();
 });
