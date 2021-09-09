@@ -69,6 +69,8 @@ export const ConfigureTasks: React.FC<Props> = ({
     childPatches,
     selectedBuildVariants
   );
+
+  // Show details related to child patches (i.e. list all variants/tasks) only if it is the only menu item selected
   const enumerateChildPatches =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
 
@@ -276,10 +278,15 @@ const getVisibleDownstreamPatches = (p, selectedBuildVariants) => {
   return visiblePatches;
 };
 
-const getVisibleChildPatches = (childPatches, selectedBuildVariants) =>
-  childPatches.filter(({ projectIdentifier }) =>
+const getVisibleChildPatches = (childPatches, selectedBuildVariants) => {
+  if (!childPatches) {
+    return [];
+  }
+
+  return childPatches.filter(({ projectIdentifier }) =>
     selectedBuildVariants.includes(projectIdentifier)
   );
+};
 
 const deduplicateTasks = (
   currentTasks: {

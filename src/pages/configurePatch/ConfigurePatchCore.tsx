@@ -18,6 +18,9 @@ import {
   SchedulePatchMutationVariables,
   VariantTasks,
   ConfigurePatchQuery,
+  Patch,
+  PatchTriggerAlias,
+  ProjectBuildVariant,
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
@@ -122,29 +125,13 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             <P2>Submitted at: {time.submittedAt}</P2>
           </MetadataCard>
           <ConfigureBuildVariants
-            variants={variants.map(({ displayName, name }) => ({
-              displayName,
-              name,
-              taskCount: selectedBuildVariantTasks[name]
-                ? Object.values(selectedBuildVariantTasks[name]).filter(
-                    (v) => v
-                  ).length
-                : 0,
-            }))}
+            variants={getVariantEntries(variants, selectedBuildVariantTasks)}
             aliases={[
-              ...patchTriggerAliases.map(({ alias, childProject }) => ({
-                displayName: `${alias} (${childProject})`,
-                name: alias,
-                taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
-              })),
-              ...childPatches.map(({ projectIdentifier, variantsTasks }) => ({
-                displayName: projectIdentifier,
-                name: projectIdentifier,
-                taskCount: variantsTasks.reduce(
-                  (c, v) => c + v.tasks.length,
-                  0
-                ),
-              })),
+              ...getPatchTriggerAliasEntries(
+                patchTriggerAliases,
+                selectedDownstreamPatches
+              ),
+              ...getChildPatchEntries(childPatches),
             ]}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={setSelectedBuildVariants}
@@ -187,6 +174,43 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       </PageLayout>
     </>
   );
+};
+
+const getVariantEntries = (
+  variants: ProjectBuildVariant[],
+  selectedBuildVariantTasks: VariantTasksState
+) =>
+  variants.map(({ displayName, name }) => ({
+    displayName,
+    name,
+    taskCount: selectedBuildVariantTasks[name]
+      ? Object.values(selectedBuildVariantTasks[name]).filter((v) => v).length
+      : 0,
+  }));
+
+const getPatchTriggerAliasEntries = (
+  patchTriggerAliases: PatchTriggerAlias[],
+  selectedDownstreamPatches: DownstreamPatchState
+) => {
+  if (!patchTriggerAliases) {
+    return [];
+  }
+  return patchTriggerAliases.map(({ alias, childProject }) => ({
+    displayName: `${alias} (${childProject})`,
+    name: alias,
+    taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
+  }));
+};
+
+const getChildPatchEntries = (childPatches: Partial<Patch>[]) => {
+  if (!childPatches) {
+    return [];
+  }
+  return childPatches.map(({ projectIdentifier, variantsTasks }) => ({
+    displayName: projectIdentifier,
+    name: projectIdentifier,
+    taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
+  }));
 };
 
 const getGqlVariantTasksParamFromState = (
