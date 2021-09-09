@@ -13,16 +13,16 @@ export interface InputFilterProps {
   placeholder: string;
   value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  updateUrlParam: () => void;
-  resetUrlParam: () => void;
+  onFilter: () => void;
+  onReset: () => void;
 }
 
 export const InputFilter: React.FC<InputFilterProps> = ({
   placeholder,
   value,
   onChange,
-  updateUrlParam,
-  resetUrlParam,
+  onFilter,
+  onReset,
   "data-cy": dataCy,
 }) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
@@ -31,11 +31,11 @@ export const InputFilter: React.FC<InputFilterProps> = ({
       placeholder={placeholder}
       value={value}
       onChange={onChange}
-      onPressEnter={updateUrlParam}
+      onPressEnter={onFilter}
     />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button data-cy="reset-button" size="small" onClick={resetUrlParam}>
+        <Button data-cy="reset-button" size="small" onClick={onReset}>
           Reset
         </Button>
       </ButtonWrapper>
@@ -43,7 +43,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
         data-cy="filter-button"
         size="small"
         variant="primary"
-        onClick={updateUrlParam}
+        onClick={onFilter}
       >
         Search
       </Button>
@@ -56,8 +56,8 @@ export const getColumnSearchFilterProps = ({
   placeholder,
   value,
   onChange,
-  updateUrlParam,
-  resetUrlParam,
+  onFilter,
+  onReset,
 }: InputFilterProps) => ({
   filterDropdown: (
     <InputFilter
@@ -65,8 +65,8 @@ export const getColumnSearchFilterProps = ({
         placeholder,
         value,
         onChange,
-        updateUrlParam,
-        resetUrlParam,
+        onFilter,
+        onReset,
         "data-cy": dataCy,
       }}
     />
@@ -84,23 +84,23 @@ export interface CheckboxFilterProps {
   statuses: TreeDataEntry[];
   value: string[];
   onChange: (e: React.ChangeEvent<HTMLInputElement>, key: string) => void;
-  updateUrlParam: () => void;
-  resetUrlParam: () => void;
+  onFilter: () => void;
+  onReset: () => void;
 }
 
 export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
   statuses,
   value,
   onChange,
-  updateUrlParam,
-  resetUrlParam,
+  onFilter,
+  onReset,
   dataCy,
 }) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <CheckboxGroup value={value} data={statuses} onChange={onChange} />
     <ButtonsWrapper>
       <ButtonWrapper>
-        <Button data-cy="reset-button" onClick={resetUrlParam} size="small">
+        <Button data-cy="reset-button" onClick={onReset} size="small">
           Reset
         </Button>
       </ButtonWrapper>
@@ -108,7 +108,7 @@ export const CheckboxFilter: React.FC<CheckboxFilterProps> = ({
         data-cy="filter-button"
         size="small"
         variant="primary"
-        onClick={updateUrlParam}
+        onClick={onFilter}
       >
         Filter
       </Button>
@@ -120,8 +120,8 @@ export const getColumnCheckboxFilterProps = ({
   statuses,
   value,
   onChange,
-  updateUrlParam,
-  resetUrlParam,
+  onFilter,
+  onReset,
   dataCy,
 }: CheckboxFilterProps) => ({
   filterDropdown: () => (
@@ -130,8 +130,8 @@ export const getColumnCheckboxFilterProps = ({
         statuses,
         value,
         onChange,
-        updateUrlParam,
-        resetUrlParam,
+        onFilter,
+        onReset,
         dataCy,
       }}
     />

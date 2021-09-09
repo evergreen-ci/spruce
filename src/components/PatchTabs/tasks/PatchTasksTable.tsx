@@ -73,8 +73,8 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     value: variantFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       variantFilterInputChangeHandler.setInputValue(target.value),
-    updateUrlParam: variantFilterInputChangeHandler.submitInputValue,
-    resetUrlParam: variantFilterInputChangeHandler.reset,
+    onFilter: variantFilterInputChangeHandler.submitInputValue,
+    onReset: variantFilterInputChangeHandler.reset,
   };
 
   const taskNameInputProps: InputFilterProps = {
@@ -82,8 +82,8 @@ export const PatchTasksTable: React.FC<Props> = ({ patchTasks, sorts }) => {
     value: taskNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       taskNameFilterInputChangeHandler.setInputValue(target.value),
-    updateUrlParam: taskNameFilterInputChangeHandler.submitInputValue,
-    resetUrlParam: taskNameFilterInputChangeHandler.reset,
+    onFilter: taskNameFilterInputChangeHandler.submitInputValue,
+    onReset: taskNameFilterInputChangeHandler.reset,
   };
 
   return (

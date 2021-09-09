@@ -92,8 +92,8 @@ export const TestsTable: React.FC = () => {
     value: testNameFilterInputChangeHandler.inputValue,
     onChange: ({ target }) =>
       testNameFilterInputChangeHandler.setInputValue(target.value),
-    updateUrlParam: testNameFilterInputChangeHandler.submitInputValue,
-    resetUrlParam: testNameFilterInputChangeHandler.reset,
+    onFilter: testNameFilterInputChangeHandler.submitInputValue,
+    onReset: testNameFilterInputChangeHandler.reset,
   };
 
   const columns = getColumnsTemplate({

@@ -8,7 +8,7 @@ const { parseQueryString } = queryString;
 const hostIdUrlParam = "hostId";
 
 export const InputFilterTestComponent = () => {
-  const [value, onChange, updateUrlParam, resetUrlParam] = useTableInputFilter({
+  const [value, onChange, onFilter, onReset] = useTableInputFilter({
     urlSearchParam: hostIdUrlParam,
     sendAnalyticsEvent: () => undefined,
   });
@@ -24,8 +24,8 @@ export const InputFilterTestComponent = () => {
           placeholder: "Search ID",
           value,
           onChange,
-          updateUrlParam,
-          resetUrlParam,
+          onFilter,
+          onReset,
         }}
       />
     </>
@@ -35,12 +35,7 @@ export const InputFilterTestComponent = () => {
 const statusesUrlParam = "statuses";
 
 export const CheckboxFilterTestComponent = () => {
-  const [
-    value,
-    onChange,
-    updateUrlParam,
-    resetUrlParam,
-  ] = useTableCheckboxFilter({
+  const [value, onChange, onFilter, onReset] = useTableCheckboxFilter({
     urlSearchParam: statusesUrlParam,
     sendAnalyticsEvent: () => undefined,
   });
@@ -61,8 +56,8 @@ export const CheckboxFilterTestComponent = () => {
           statuses,
           value,
           onChange,
-          updateUrlParam,
-          resetUrlParam,
+          onFilter,
+          onReset,
         }}
       />
     </>
