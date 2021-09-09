@@ -14,7 +14,7 @@ describe("Downstream Tasks Tab", () => {
     cy.visit(DOWNSTREAM_TASKS_ROUTE);
 
     cy.dataCy("project-accordion").should("have.length", 3);
-
+    cy.wait(0);
     cy.dataCy("project-accordion").first().click();
     cy.dataCy("tasks-table").should("be.visible");
     cy.dataCy("project-title").should("be.visible");
