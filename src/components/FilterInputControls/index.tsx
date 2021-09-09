@@ -4,13 +4,13 @@ import Button from "@leafygreen-ui/button";
 interface Props {
   onClickReset: () => void;
   onClickSubmit: () => void;
-  submitButtonCopy: string;
+  submitButtonCopy?: string;
 }
 
 export const FilterInputControls: React.FC<Props> = ({
   onClickSubmit,
   onClickReset,
-  submitButtonCopy,
+  submitButtonCopy = "Filter",
 }) => (
   <ButtonsWrapper data-cy="filter-input-controls">
     <ButtonWrapper>

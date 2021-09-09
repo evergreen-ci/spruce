@@ -5,6 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
+import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Layout";
 import { TreeDataEntry } from "components/TreeSelect";
 
@@ -33,21 +34,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
       onChange={onChange}
       onPressEnter={onFilter}
     />
-    <ButtonsWrapper>
-      <ButtonWrapper>
-        <Button data-cy="reset-button" size="small" onClick={onReset}>
-          Reset
-        </Button>
-      </ButtonWrapper>
-      <Button
-        data-cy="filter-button"
-        size="small"
-        variant="primary"
-        onClick={onFilter}
-      >
-        Search
-      </Button>
-    </ButtonsWrapper>
+    <FilterInputControls onClickSubmit={onFilter} onClickReset={onReset} />
   </FilterWrapper>
 );
 
