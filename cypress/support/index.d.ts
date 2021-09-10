@@ -63,7 +63,7 @@ declare namespace Cypress {
      * the supplied column number
      *
      * @param columnNumber The order in which the target
-     * column exists in the table index starting at 1
+     * column exists in the table starting at 1
      * @example cy.toggleTableFilter(1)
      */
     toggleTableFilter(columnNumber: number): void;
