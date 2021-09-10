@@ -123,6 +123,7 @@ export const HostsTable: React.FC<Props> = ({
   });
 
   // TABLE COLUMNS
+  const submitButtonCopy = "Search";
   const columnsTemplate: Array<ColumnProps<Host>> = [
     {
       title: "ID",
@@ -144,6 +145,7 @@ export const HostsTable: React.FC<Props> = ({
         "data-cy": "host-id-filter",
         onFilter: updateHostIdUrlParam,
         onReset: resetHostIdUrlParam,
+        submitButtonCopy,
       }),
     },
     {
@@ -161,6 +163,7 @@ export const HostsTable: React.FC<Props> = ({
         "data-cy": "distro-id-filter",
         onFilter: updateDistroIdUrlParam,
         onReset: resetDistroIdUrlParam,
+        submitButtonCopy,
       }),
     },
     {
@@ -206,6 +209,7 @@ export const HostsTable: React.FC<Props> = ({
         "data-cy": "current-task-id-filter",
         onFilter: updateCurrentTaskIdUrlParam,
         onReset: resetCurrentTaskIdUrlParam,
+        submitButtonCopy,
       }),
     },
     {
@@ -256,6 +260,7 @@ export const HostsTable: React.FC<Props> = ({
         "data-cy": "owner-filter",
         onFilter: updateOwnerUrlParam,
         onReset: resetOwnerUrlParam,
+        submitButtonCopy,
       }),
     },
   ];

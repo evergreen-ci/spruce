@@ -16,6 +16,7 @@ export interface InputFilterProps {
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onFilter: () => void;
   onReset: () => void;
+  submitButtonCopy?: string;
 }
 
 export const InputFilter: React.FC<InputFilterProps> = ({
@@ -25,6 +26,7 @@ export const InputFilter: React.FC<InputFilterProps> = ({
   onFilter,
   onReset,
   "data-cy": dataCy,
+  submitButtonCopy,
 }) => (
   <FilterWrapper data-cy={`${dataCy}-wrapper`}>
     <Input
@@ -34,7 +36,11 @@ export const InputFilter: React.FC<InputFilterProps> = ({
       onChange={onChange}
       onPressEnter={onFilter}
     />
-    <FilterInputControls onClickSubmit={onFilter} onClickReset={onReset} />
+    <FilterInputControls
+      onClickSubmit={onFilter}
+      onClickReset={onReset}
+      submitButtonCopy={submitButtonCopy}
+    />
   </FilterWrapper>
 );
 
