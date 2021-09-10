@@ -14,11 +14,11 @@ import {
   BuildVariantsWithChildrenQuery,
   BuildVariantsWithChildrenQueryVariables,
   Patch,
-  RestartPatchMutation,
-  RestartPatchMutationVariables,
-  TaskToRestart,
+  RestartVersionsMutation,
+  RestartVersionsMutationVariables,
+  VersionToRestart,
 } from "gql/generated/types";
-import { RESTART_PATCH } from "gql/mutations";
+import { RESTART_VERSIONS } from "gql/mutations";
 import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
 import { usePatchStatusSelect } from "hooks";
 import {
@@ -48,10 +48,10 @@ const VersionRestartModal: React.FC<Props> = ({
   const [shouldAbortInProgressTasks, setShouldAbortInProgressTasks] = useState(
     false
   );
-  const [restartPatch, { loading: mutationLoading }] = useMutation<
-    RestartPatchMutation,
-    RestartPatchMutationVariables
-  >(RESTART_PATCH, {
+  const [restartVersions, { loading: mutationLoading }] = useMutation<
+    RestartVersionsMutation,
+    RestartVersionsMutationVariables
+  >(RESTART_VERSIONS, {
     onCompleted: () => {
       onOk();
       dispatchToast.success(`Successfully restarted tasks!`);
@@ -97,10 +97,10 @@ const VersionRestartModal: React.FC<Props> = ({
         name: "Restart",
         abort: shouldAbortInProgressTasks,
       });
-      await restartPatch({
+      await restartVersions({
         variables: {
-          patchId: versionId,
-          taskIds: getTaskIds(selectedTasks),
+          patchId: version?.id,
+          versionsToRestart: getTaskIds(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
       });
@@ -272,15 +272,15 @@ const selectTasksTotal = (selectedTasks: patchSelectedTasks) => {
 };
 
 const getTaskIds = (selectedTasks: patchSelectedTasks) => {
-  const taskIds: TaskToRestart[] = [];
+  const taskIds: VersionToRestart[] = [];
   Object.keys(selectedTasks).forEach((selected) => {
     const tasksArray = selectedArray(selectedTasks[selected]);
 
-    const taskToRestart: TaskToRestart = {
-      patchId: selected,
+    const versionToRestart: VersionToRestart = {
+      versionId: selected,
       taskIds: tasksArray,
     };
-    taskIds.push(taskToRestart);
+    taskIds.push(versionToRestart);
   });
   return taskIds;
 };
