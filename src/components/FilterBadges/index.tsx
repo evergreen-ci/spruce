@@ -20,6 +20,7 @@ const hiddenQueryParams = new Set([
   MainlineCommitQueryParams.SkipOrderNumber,
   RequiredQueryParams.Sort,
   RequiredQueryParams.Limit,
+  RequiredQueryParams.Page,
 ]);
 export const FilterBadges: React.FC = () => {
   const updateQueryParams = useUpdateURLQueryParams();
