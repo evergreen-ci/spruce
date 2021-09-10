@@ -37,7 +37,7 @@ describe("Tasks filters", () => {
         .find("input")
         .focus()
         .type(variantInputValue);
-      cy.dataCy("variant-input-wrapper").contains("Search").click();
+      cy.dataCy("variant-input-wrapper").contains("Filter").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
@@ -64,7 +64,7 @@ describe("Tasks filters", () => {
         .find("input")
         .focus()
         .type(taskNameInputValue);
-      cy.dataCy("taskname-input-wrapper").contains("Search").click();
+      cy.dataCy("taskname-input-wrapper").contains("Filter").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,

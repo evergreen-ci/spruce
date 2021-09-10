@@ -38,7 +38,7 @@ describe("Tests Table", () => {
 
     cy.toggleTableFilter(1);
     cy.dataCy("testname-input-wrapper").find("input").focus().type("hello");
-    cy.dataCy("testname-input-wrapper").contains("Search").click();
+    cy.dataCy("testname-input-wrapper").contains("Filter").click();
 
     cy.get("@filtered-count").invoke("text").should("eq", "0");
     cy.get("@total-count").invoke("text").should("eq", "20");
@@ -127,7 +127,7 @@ describe("Tests Table", () => {
         .find("input")
         .focus()
         .type(testNameInputValue);
-      cy.dataCy("testname-input-wrapper").contains("Search").click();
+      cy.dataCy("testname-input-wrapper").contains("Filter").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });
