@@ -20,7 +20,6 @@ export const PageWrapper = styled.div`
 `;
 
 export const PageGrid = styled.section`
-  ${whiteBackground}
   display: grid;
   grid-template-areas:
     "header header"
