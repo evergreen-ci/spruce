@@ -14,6 +14,7 @@ const whiteBackground = css`
 
 export const PageContent = styled.main`
   margin-left: 16px;
+  overflow: hidden;
 `;
 
 export const PageWrapper = styled.div`
@@ -34,7 +35,7 @@ export const PageGrid = styled.section`
   height: 100vh;
 `;
 
-/* antd components to be used together */
+/* Flexbox-based antd components to be used together */
 export const PageLayout = styled(Layout)`
   ${whiteBackground}
 `;
