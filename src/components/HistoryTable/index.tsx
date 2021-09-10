@@ -5,10 +5,6 @@ import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { useHistoryTable } from "./HistoryTableContext";
 import Row from "./Row";
 
-const itemStatusMap = {};
-
-const isItemLoaded = (index) => !!itemStatusMap[index];
-
 interface HistoryTableProps {
   loadMoreItems: () => void;
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
@@ -18,7 +14,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   loadMoreItems,
   recentlyFetchedCommits,
 }) => {
-  const { itemHeight, fetchNewCommit } = useHistoryTable();
+  const { itemHeight, fetchNewCommit, isItemLoaded } = useHistoryTable();
 
   useEffect(() => {
     if (recentlyFetchedCommits) {

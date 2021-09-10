@@ -40,7 +40,7 @@ const HistoryTableProvider: React.FC = ({ children }) => {
       switch (processedCommits[index].type) {
         case rowType.COMMIT:
           return 120;
-        case rowType.DATE_SEPERATOR:
+        case rowType.DATE_SEPARATOR:
           return 40;
         case rowType.FOLDED_COMMITS:
           return 40;

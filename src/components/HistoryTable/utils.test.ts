@@ -14,7 +14,7 @@ describe("HistoryTable utils", () => {
       expect(result).toEqual([
         {
           date: firstCommit.version.createTime,
-          type: rowType.DATE_SEPERATOR,
+          type: rowType.DATE_SEPARATOR,
         },
         {
           commit: firstCommit.version,
@@ -32,7 +32,7 @@ describe("HistoryTable utils", () => {
         expect(result).toEqual([
           {
             date: firstCommit.version.createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
@@ -51,7 +51,7 @@ describe("HistoryTable utils", () => {
         expect(result).toEqual([
           {
             date: firstCommit.version.createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
@@ -60,7 +60,7 @@ describe("HistoryTable utils", () => {
           },
           {
             date: thirdCommit.version.createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             commit: thirdCommit.version,
@@ -78,7 +78,7 @@ describe("HistoryTable utils", () => {
         expect(result).toEqual([
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,
@@ -93,7 +93,7 @@ describe("HistoryTable utils", () => {
           [
             {
               date: firstCommit.version.createTime,
-              type: rowType.DATE_SEPERATOR,
+              type: rowType.DATE_SEPARATOR,
             },
             {
               commit: firstCommit.version,
@@ -105,7 +105,7 @@ describe("HistoryTable utils", () => {
         expect(result).toEqual([
           {
             date: firstCommit.version.createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             commit: firstCommit.version,
@@ -114,7 +114,7 @@ describe("HistoryTable utils", () => {
           },
           {
             date: foldedUpCommits.rolledUpVersions[0].createTime,
-            type: rowType.DATE_SEPERATOR,
+            type: rowType.DATE_SEPARATOR,
           },
           {
             rolledUpCommits: foldedUpCommits.rolledUpVersions,

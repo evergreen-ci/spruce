@@ -47,9 +47,7 @@ export const reducer = (state: HistoryTableState, action: Action) => {
           processedCommitCount: processedCommits.length,
         };
       }
-      return {
-        ...state,
-      };
+      return state;
     }
     case "addColumns":
       return {
@@ -61,9 +59,7 @@ export const reducer = (state: HistoryTableState, action: Action) => {
     case "nextPageColumns": {
       const pageCount = Math.ceil(state.columns.length / 8);
       if (pageCount <= state.currentPage + 1) {
-        return {
-          ...state,
-        };
+        return state;
       }
       const nextPage = state.currentPage + 1;
       const nextPageColumns = state.columns.slice(
@@ -78,9 +74,7 @@ export const reducer = (state: HistoryTableState, action: Action) => {
     }
     case "prevPageColumns": {
       if (state.currentPage === 0) {
-        return {
-          ...state,
-        };
+        return state;
       }
       const prevPageColumns = state.columns.slice(
         state.columnLimit * (state.currentPage - 1),

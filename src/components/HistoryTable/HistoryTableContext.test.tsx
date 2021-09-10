@@ -33,7 +33,7 @@ describe("HistoryTableContext", () => {
     });
     // Filter out the column date seperators
     const processedCommits = result.current.processedCommits.filter(
-      (c) => c.type !== rowType.DATE_SEPERATOR
+      (c) => c.type !== rowType.DATE_SEPARATOR
     );
     // Should have processed the new commits and have every real commit
     expect(processedCommits.length).toEqual(
@@ -42,7 +42,7 @@ describe("HistoryTableContext", () => {
     // First element should be the date seperator
     expect(result.current.isItemLoaded(0)).toBe(true);
     expect(result.current.getItem(0)).toEqual({
-      type: rowType.DATE_SEPERATOR,
+      type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(1)).toBe(true);
@@ -68,7 +68,7 @@ describe("HistoryTableContext", () => {
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toEqual({
-      type: rowType.DATE_SEPERATOR,
+      type: rowType.DATE_SEPARATOR,
       date: splitMainlineCommitDataPart1.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
@@ -99,7 +99,7 @@ describe("HistoryTableContext", () => {
     });
     expect(result.current.isItemLoaded(0)).toBeTruthy();
     expect(result.current.getItem(0)).toEqual({
-      type: rowType.DATE_SEPERATOR,
+      type: rowType.DATE_SEPARATOR,
       date: commitDate1.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(1)).toBeTruthy();
@@ -114,7 +114,7 @@ describe("HistoryTableContext", () => {
     });
     expect(result.current.isItemLoaded(2)).toBeTruthy();
     expect(result.current.getItem(2)).toEqual({
-      type: rowType.DATE_SEPERATOR,
+      type: rowType.DATE_SEPARATOR,
       date: commitDate2.versions[0].version.createTime,
     });
     expect(result.current.isItemLoaded(3)).toBeTruthy();

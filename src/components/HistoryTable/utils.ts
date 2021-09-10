@@ -10,7 +10,7 @@ export type mainlineCommits = MainlineCommitsForHistoryQuery["mainlineCommits"];
 
 export enum rowType {
   FOLDED_COMMITS,
-  DATE_SEPERATOR,
+  DATE_SEPARATOR,
   COMMIT,
 }
 
@@ -43,7 +43,7 @@ export const processCommits = (
         });
       } else {
         processedCommits.push({
-          type: rowType.DATE_SEPERATOR,
+          type: rowType.DATE_SEPARATOR,
           date: version.createTime,
         });
         processedCommits.push({
@@ -66,7 +66,7 @@ export const processCommits = (
         });
       } else {
         processedCommits.push({
-          type: rowType.DATE_SEPERATOR,
+          type: rowType.DATE_SEPARATOR,
           date: firstRolledUpVersion.createTime,
         });
         processedCommits.push({
