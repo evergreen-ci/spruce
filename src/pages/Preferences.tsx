@@ -1,8 +1,12 @@
 import React from "react";
-import { SideNavGroup } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Redirect } from "react-router-dom";
 import { usePreferencesAnalytics } from "analytics";
-import { SideNav, SideNavItem, PageWrapper } from "components/styles";
+import {
+  SideNav,
+  SideNavGroup,
+  SideNavItem,
+  PageWrapper,
+} from "components/styles";
 import { PreferencesTabRoutes, getPreferencesRoute } from "constants/routes";
 import { usePageTitle } from "hooks";
 import { PreferencesTabs } from "pages/preferences/PreferencesTabs";
