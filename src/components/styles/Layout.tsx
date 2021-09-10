@@ -5,16 +5,11 @@ import { H2, Body } from "@leafygreen-ui/typography";
 import { Layout } from "antd";
 
 const { gray, white, red } = uiColors;
-const { Sider } = Layout;
+const { Content, Sider } = Layout;
 
 const whiteBackground = css`
   background: ${white};
   background-color: ${white};
-`;
-
-export const PageContent = styled.main`
-  margin-left: 16px;
-  overflow: hidden;
 `;
 
 export const PageWrapper = styled.div`
@@ -41,6 +36,10 @@ export const PageLayout = styled(Layout)`
 `;
 export const PageSider = styled(Sider)`
   ${whiteBackground}
+`;
+export const PageContent = styled(Content)`
+  margin-left: 16px;
+  overflow: hidden;
 `;
 
 PageSider.defaultProps = { width: 275 };
