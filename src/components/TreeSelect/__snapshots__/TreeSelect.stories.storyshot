@@ -84,11 +84,11 @@ exports[`Storyshots TreeSelect No All Button 1`] = `
 
 exports[`Storyshots TreeSelect No Dropdown 1`] = `
 <div
-  className="css-13lo3kj-CheckboxContainer e1mpj03z2"
+  className="css-13lo3kj-CheckboxContainer e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z4"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -125,7 +125,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z4"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -162,7 +162,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z4"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -199,7 +199,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z4"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -236,7 +236,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z4"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -273,7 +273,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z4"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -310,7 +310,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z4"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -347,7 +347,7 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
     </label>
   </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z4"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -383,9 +383,6 @@ exports[`Storyshots TreeSelect No Dropdown 1`] = `
       </span>
     </label>
   </div>
-  <div
-    className="css-19eyixu-BtnContainer e1mpj03z0"
-  />
 </div>
 `;
 
