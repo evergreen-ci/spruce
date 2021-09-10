@@ -109,6 +109,7 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
     <label
       className="leafygreen-ui-1ah1232"
       data-leafygreen-ui="radio-box-wrapper"
+      htmlFor="radio-box-1"
     >
       <input
         aria-checked={false}
@@ -118,26 +119,27 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
         data-cy="add_public_key_button"
         data-leafygreen-ui="radio-box-input"
         disabled={false}
+        id="radio-box-1"
         onChange={[Function]}
         onClick={[Function]}
         type="radio"
         value="addKey"
       />
       <div
-        className="leafygreen-ui-16ppuex"
+        className="leafygreen-ui-1vljv0d"
       >
         <div
-          className="leafygreen-ui-1nn95l3"
+          className="leafygreen-ui-1cen7zh leafygreen-ui-1bn7h8i"
         >
           <div
-            className="leafygreen-ui-1cg0cdd"
+            className="leafygreen-ui-pppkef leafygreen-ui-xkj36k"
             onBlur={[Function]}
             onFocus={[Function]}
           >
             Add new key
           </div>
           <div
-            className="leafygreen-ui-16qo22x"
+            className="leafygreen-ui-15x5f9a"
             data-leafygreen-ui="interaction-ring"
           />
         </div>

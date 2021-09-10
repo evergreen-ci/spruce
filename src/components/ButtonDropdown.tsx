@@ -25,7 +25,7 @@ export const ButtonDropdown: React.FC<Props> = ({
           data-cy={dataCy}
           disabled={disabled}
           loading={loading}
-          glyph={<Icon glyph="Ellipsis" />}
+          leftGlyph={<Icon glyph="Ellipsis" />}
           onClick={() => setOpen((curr) => !curr)}
         />
       }

@@ -42,7 +42,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                   aria-disabled={false}
                   aria-expanded={false}
                   aria-labelledby="select-0-label"
-                  className="leafygreen-ui-1558oyf"
+                  className="leafygreen-ui-17lwc8t"
                   disabled={false}
                   onClick={[Function]}
                   onKeyDown={[Function]}
@@ -53,29 +53,31 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                     className="leafygreen-ui-1ktj4tm"
                   />
                   <div
-                    className="leafygreen-ui-ufcayr"
+                    className="leafygreen-ui-qfhrrp"
                   >
-                    <span>
-                      <span
-                        className="leafygreen-ui-plwatf"
-                      >
-                        Legacy SSH
-                      </span>
-                    </span>
-                    <svg
-                      alt=""
-                      aria-hidden={true}
-                      className="leafygreen-ui-10ms05u"
-                      height={16}
-                      role="presentation"
-                      viewBox="0 0 16 16"
-                      width={16}
+                    <span
+                      className="leafygreen-ui-plwatf"
                     >
-                      <path
-                        d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
-                        fill="currentColor"
-                      />
-                    </svg>
+                      Legacy SSH
+                    </span>
+                    <span
+                      className="leafygreen-ui-18n6mp2"
+                    >
+                      <svg
+                        alt=""
+                        aria-hidden={true}
+                        className="leafygreen-ui-10ms05u"
+                        height={16}
+                        role="presentation"
+                        viewBox="0 0 16 16"
+                        width={16}
+                      >
+                        <path
+                          d="M8.67903 10.7962C8.45271 11.0679 8.04729 11.0679 7.82097 10.7962L4.63962 6.97649C4.3213 6.59428 4.5824 6 5.06866 6L11.4313 6C11.9176 6 12.1787 6.59428 11.8604 6.97649L8.67903 10.7962Z"
+                          fill="currentColor"
+                        />
+                      </svg>
+                    </span>
                   </div>
                 </button>
               </div>
@@ -160,7 +162,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                       <button
                         aria-disabled={false}
                         aria-label="Delete Tag"
-                        className="leafygreen-ui-556onv"
+                        className="leafygreen-ui-wn45f0"
                         tabIndex={0}
                       >
                         <div
@@ -197,47 +199,28 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                   <div
                     className="css-10b13qw-ButtonContainer e161fbrp4"
                   >
-                    <div
-                      className="leafygreen-ui-vdmjox"
+                    <button
+                      aria-disabled={false}
+                      className="leafygreen-ui-26sqyb"
+                      data-cy="add-tag-button"
+                      disabled={false}
+                      glyph={
+                        <Icon
+                          glyph="Plus"
+                        />
+                      }
+                      onClick={[Function]}
+                      type="button"
                     >
-                      <button
-                        aria-disabled={false}
-                        className="leafygreen-ui-nzlvat"
-                        data-cy="add-tag-button"
-                        disabled={false}
-                        onBlur={[Function]}
-                        onClick={[Function]}
-                        onFocus={[Function]}
-                        type="button"
-                      >
-                        <span
-                          className="leafygreen-ui-tdo6z2"
-                        >
-                          <svg
-                            aria-label="Plus Icon"
-                            className="leafygreen-ui-h988x4"
-                            fill="none"
-                            height={16}
-                            role="img"
-                            viewBox="0 0 16 16"
-                            width={16}
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              clipRule="evenodd"
-                              d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                              fill="currentColor"
-                              fillRule="evenodd"
-                            />
-                          </svg>
-                          Add New Expansion
-                        </span>
-                      </button>
                       <div
-                        className="leafygreen-ui-1fqcwcg"
-                        data-leafygreen-ui="interaction-ring"
+                        className="leafygreen-ui-1ktj4tm"
                       />
-                    </div>
+                      <div
+                        className="leafygreen-ui-ie0uqp"
+                      >
+                        Add New Expansion
+                      </div>
+                    </button>
                   </div>
                 </div>
               </div>
@@ -254,17 +237,17 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               >
                 <label
                   className="leafygreen-ui-1x9zy2h"
-                  htmlFor="textarea-0"
+                  htmlFor="textarea-1"
                 >
                   Valid Projects
                 </label>
                 <div
-                  className="leafygreen-ui-19odf8z"
+                  className="leafygreen-ui-1cen7zh"
                 >
                   <textarea
-                    className="leafygreen-ui-s8it2d"
+                    className="leafygreen-ui-pppkef leafygreen-ui-36552o"
                     disabled={false}
-                    id="textarea-0"
+                    id="textarea-1"
                     onBlur={[Function]}
                     onChange={[Function]}
                     onFocus={[Function]}
@@ -272,7 +255,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                     value=""
                   />
                   <div
-                    className="leafygreen-ui-6bqmxk"
+                    className="leafygreen-ui-3x1o6h"
                     data-leafygreen-ui="interaction-ring"
                   />
                 </div>
@@ -474,7 +457,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
               className="css-j0rta5-ElementWrapper eyx6h6k0"
             >
               <div
-                aria-label="radio-group-0"
+                aria-label="radio-group-1"
                 className="leafygreen-ui-sgfp3"
                 role="group"
               >
@@ -483,7 +466,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                 >
                   <label
                     className="leafygreen-ui-9bibpa"
-                    htmlFor="radio-group-0-0"
+                    htmlFor="radio-group-1-0"
                   >
                     <input
                       aria-checked={false}
@@ -492,24 +475,24 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       className="leafygreen-ui-cs3dze"
                       data-leafygreen-ui="input-element"
                       disabled={false}
-                      id="radio-group-0-0"
-                      name="radio-group-0"
+                      id="radio-group-1-0"
+                      name="radio-group-1"
                       onChange={[Function]}
                       type="radio"
                       value="restartJasper"
                     />
                     <div
-                      className="leafygreen-ui-20lkw3"
+                      className="leafygreen-ui-1cen7zh leafygreen-ui-8mr0py"
                       data-leafygreen-ui="radio-input-display-wrapper"
                     >
                       <div
-                        className="leafygreen-ui-6wzjga"
+                        className="leafygreen-ui-pppkef leafygreen-ui-38kf5i"
                         data-leafygreen-ui="radio-input-display"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
                       <div
-                        className="leafygreen-ui-i109xq"
+                        className="leafygreen-ui-1cqcpzq"
                         data-leafygreen-ui="interaction-ring"
                       />
                     </div>
@@ -525,7 +508,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                 >
                   <label
                     className="leafygreen-ui-9bibpa"
-                    htmlFor="radio-group-0-1"
+                    htmlFor="radio-group-1-1"
                   >
                     <input
                       aria-checked={false}
@@ -534,24 +517,24 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       className="leafygreen-ui-cs3dze"
                       data-leafygreen-ui="input-element"
                       disabled={false}
-                      id="radio-group-0-1"
-                      name="radio-group-0"
+                      id="radio-group-1-1"
+                      name="radio-group-1"
                       onChange={[Function]}
                       type="radio"
                       value="reprovisionHosts"
                     />
                     <div
-                      className="leafygreen-ui-20lkw3"
+                      className="leafygreen-ui-1cen7zh leafygreen-ui-8mr0py"
                       data-leafygreen-ui="radio-input-display-wrapper"
                     >
                       <div
-                        className="leafygreen-ui-6wzjga"
+                        className="leafygreen-ui-pppkef leafygreen-ui-38kf5i"
                         data-leafygreen-ui="radio-input-display"
                         onBlur={[Function]}
                         onFocus={[Function]}
                       />
                       <div
-                        className="leafygreen-ui-i109xq"
+                        className="leafygreen-ui-1cqcpzq"
                         data-leafygreen-ui="interaction-ring"
                       />
                     </div>

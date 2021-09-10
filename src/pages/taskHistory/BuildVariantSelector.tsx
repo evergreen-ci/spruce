@@ -1,12 +1,15 @@
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import { useLocation } from "react-router";
-import SearchableDropdown from "components/SearchableDropdown";
+import SearchableDropdown, {
+  SearchableDropdownOption,
+} from "components/SearchableDropdown";
 import {
-  GetTaskHistoryQuery,
-  GetTaskHistoryQueryVariables,
+  GetBuildVariantsForTaskNameQuery,
+  GetBuildVariantsForTaskNameQueryVariables,
+  BuildVariantTuple,
 } from "gql/generated/types";
-import { GET_TASK_HISTORY } from "gql/queries";
+import { GET_BUILD_VARIANTS_FOR_TASK_NAME } from "gql/queries";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
 
@@ -32,9 +35,9 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   }
 
   const { data, loading } = useQuery<
-    GetTaskHistoryQuery,
-    GetTaskHistoryQueryVariables
-  >(GET_TASK_HISTORY, {
+    GetBuildVariantsForTaskNameQuery,
+    GetBuildVariantsForTaskNameQueryVariables
+  >(GET_BUILD_VARIANTS_FOR_TASK_NAME, {
     variables: {
       projectId,
       taskName,
@@ -47,7 +50,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
     });
   };
 
-  const { taskHistory } = data || {};
+  const { buildVariantsForTaskName } = data || {};
   return (
     <Container>
       <SearchableDropdown
@@ -55,9 +58,21 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         valuePlaceholder="Select Build Variant to View"
         value={value}
         onChange={onChange}
-        options={taskHistory}
+        options={buildVariantsForTaskName}
         disabled={loading}
         allowMultiselect
+        searchFunc={(searchTerm, match: BuildVariantTuple) =>
+          match.buildVariant.includes(searchTerm) ||
+          match.displayName.includes(searchTerm)
+        }
+        optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
+          <SearchableDropdownOption
+            value={option.buildVariant}
+            displayName={option.displayName}
+            onClick={() => onClick(option.buildVariant)}
+            isChecked={isChecked(option.buildVariant)}
+          />
+        )}
       />
     </Container>
   );
