@@ -87,17 +87,19 @@ export const TaskHistory = () => {
             {buildVariantsForTaskName && (
               <>
                 <ColumnHeaders loading={loading} columns={selectedColumns} />
-                <HistoryTable
-                  columns={buildVariantsForTaskName || []}
-                  recentlyFetchedCommits={mainlineCommits}
-                  loadMoreItems={() => {
-                    if (mainlineCommits) {
-                      setNextPageOrderNumber(
-                        mainlineCommits.nextPageOrderNumber
-                      );
-                    }
-                  }}
-                />
+                <TableWrapper>
+                  <HistoryTable
+                    columns={buildVariantsForTaskName || []}
+                    recentlyFetchedCommits={mainlineCommits}
+                    loadMoreItems={() => {
+                      if (mainlineCommits) {
+                        setNextPageOrderNumber(
+                          mainlineCommits.nextPageOrderNumber
+                        );
+                      }
+                    }}
+                  />
+                </TableWrapper>
               </>
             )}
           </HistoryTableProvider>
@@ -107,6 +109,9 @@ export const TaskHistory = () => {
   );
 };
 
+const TableWrapper = styled.div`
+  height: 80vh;
+`;
 const TableContainer = styled.div`
   padding-top: 60px;
 `;

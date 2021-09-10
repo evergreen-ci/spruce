@@ -1,0 +1,183 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots History Table Default 1`] = `
+<div
+  onScroll={[Function]}
+  style={
+    Object {
+      "WebkitOverflowScrolling": "touch",
+      "direction": "ltr",
+      "height": 1000,
+      "overflow": "auto",
+      "position": "relative",
+      "width": "100%",
+      "willChange": "transform",
+    }
+  }
+>
+  <div
+    style={
+      Object {
+        "height": 500770,
+        "pointerEvents": undefined,
+        "width": "100%",
+      }
+    }
+  >
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 0,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 120,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 240,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 360,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 480,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 600,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 720,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 840,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 960,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 1080,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+    <div
+      style={
+        Object {
+          "height": 120,
+          "left": 0,
+          "position": "absolute",
+          "right": undefined,
+          "top": 1200,
+          "width": "100%",
+        }
+      }
+    >
+       Loading....
+    </div>
+  </div>
+</div>
+`;

@@ -1,4 +1,5 @@
 import { useEffect, useRef } from "react";
+import AutoSizer from "react-virtualized-auto-sizer";
 import { VariableSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
@@ -30,24 +31,28 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   }, [recentlyFetchedCommits]);
 
   return (
-    <InfiniteLoader
-      isItemLoaded={isItemLoaded}
-      itemCount={10000}
-      loadMoreItems={loadMoreItems}
-    >
-      {({ onItemsRendered }) => (
-        <List
-          height={1000}
+    <AutoSizer>
+      {({ height, width }) => (
+        <InfiniteLoader
+          isItemLoaded={isItemLoaded}
           itemCount={10000}
-          itemSize={itemHeight}
-          onItemsRendered={onItemsRendered}
-          ref={listRef}
-          width="100%"
+          loadMoreItems={loadMoreItems}
         >
-          {Row}
-        </List>
+          {({ onItemsRendered }) => (
+            <List
+              height={height}
+              itemCount={10000}
+              itemSize={itemHeight}
+              onItemsRendered={onItemsRendered}
+              ref={listRef}
+              width={width}
+            >
+              {Row}
+            </List>
+          )}
+        </InfiniteLoader>
       )}
-    </InfiniteLoader>
+    </AutoSizer>
   );
 };
 
