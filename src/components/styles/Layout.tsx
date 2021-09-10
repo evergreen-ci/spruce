@@ -31,7 +31,6 @@ export const PageLayout = styled.div`
     "sidenav contents";
   grid-template-columns: auto minmax(0, 1fr);
   grid-template-rows: auto 1fr;
-  grid-column-gap: 16px;
   height: 100vh;
 `;
 
