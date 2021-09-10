@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { VariableSizeList as List } from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
@@ -15,7 +15,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
   recentlyFetchedCommits,
 }) => {
   const { itemHeight, fetchNewCommit, isItemLoaded } = useHistoryTable();
-
+  const listRef = useRef<List>(null);
   useEffect(() => {
     if (recentlyFetchedCommits) {
       fetchNewCommit(recentlyFetchedCommits);
@@ -23,19 +23,25 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
     // Remove fetchNewCommit from the effect list to avoid infinite loop
   }, [recentlyFetchedCommits]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (listRef.current) {
+      listRef.current.resetAfterIndex(0);
+    }
+  }, [recentlyFetchedCommits]);
+
   return (
     <InfiniteLoader
       isItemLoaded={isItemLoaded}
       itemCount={10000}
       loadMoreItems={loadMoreItems}
     >
-      {({ onItemsRendered, ref }) => (
+      {({ onItemsRendered }) => (
         <List
           height={1000}
           itemCount={10000}
           itemSize={itemHeight}
           onItemsRendered={onItemsRendered}
-          ref={ref}
+          ref={listRef}
           width="100%"
         >
           {Row}
