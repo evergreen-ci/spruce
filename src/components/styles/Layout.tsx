@@ -23,7 +23,7 @@ export const PageWrapper = styled.div`
   padding: 24px 36px 56px 36px;
 `;
 
-export const PageLayout = styled.div`
+export const PageGrid = styled.section`
   ${whiteBackground}
   display: grid;
   grid-template-areas:
@@ -34,6 +34,10 @@ export const PageLayout = styled.div`
   height: 100vh;
 `;
 
+/* antd components to be used together */
+export const PageLayout = styled(Layout)`
+  ${whiteBackground}
+`;
 export const PageSider = styled(Sider)`
   ${whiteBackground}
 `;

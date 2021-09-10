@@ -6,7 +6,7 @@ import { useAnalyticsAttributes } from "analytics";
 import { Feedback } from "components/Feedback";
 import { Header } from "components/Header";
 import { FullPageLoad } from "components/Loading/FullPageLoad";
-import { PageLayout } from "components/styles/Layout";
+import { PageGrid } from "components/styles/Layout";
 import { UserPatchesRedirect } from "components/UserPatchesRedirect";
 import { WelcomeModal } from "components/WelcomeModal";
 import { routes } from "constants/routes";
@@ -57,7 +57,7 @@ export const Content: React.FC = () => {
   }
 
   return (
-    <PageLayout>
+    <PageGrid>
       <Header />
       <Switch>
         <Route path={routes.task} component={Task} />
@@ -89,6 +89,6 @@ export const Content: React.FC = () => {
       </Switch>
       {hasUsedSpruceBefore && <WelcomeModal />}
       <Feedback />
-    </PageLayout>
+    </PageGrid>
   );
 };
