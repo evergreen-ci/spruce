@@ -6,10 +6,7 @@ import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
 import { ConfigurePatchQuery } from "gql/generated/types";
-import {
-  DownstreamPatchState,
-  VariantTasksState,
-} from "hooks/useConfigurePatch";
+import { AliasState, VariantTasksState } from "hooks/useConfigurePatch";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -23,10 +20,8 @@ interface Props {
   activated: boolean;
   loading: boolean;
   onClickSchedule: () => void;
-  selectedDownstreamPatches: DownstreamPatchState;
-  setSelectedDownstreamPatches: (
-    downstreamPatches: DownstreamPatchState
-  ) => void;
+  selectedAliases: AliasState;
+  setSelectedAliases: (aliases: AliasState) => void;
   childPatches: ConfigurePatchQuery["patch"]["childPatches"];
 }
 
@@ -37,11 +32,11 @@ export const ConfigureTasks: React.FC<Props> = ({
   activated,
   loading,
   onClickSchedule,
-  selectedDownstreamPatches,
-  setSelectedDownstreamPatches,
+  selectedAliases,
+  setSelectedAliases,
   childPatches,
 }) => {
-  const aliasCount = Object.values(selectedDownstreamPatches).reduce(
+  const aliasCount = Object.values(selectedAliases).reduce(
     (count, alias) => count + (alias ? 1 : 0),
     0
   );
@@ -61,8 +56,8 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
 
   const currentTasks = deduplicateTasks(tasks);
-  const currentDownstreamPatches = getVisibleDownstreamPatches(
-    selectedDownstreamPatches,
+  const currentAliases = getVisibleAliases(
+    selectedAliases,
     selectedBuildVariants
   );
   const currentChildPatches = getVisibleChildPatches(
@@ -76,37 +71,37 @@ export const ConfigureTasks: React.FC<Props> = ({
 
   const onClickCheckbox = (taskName: string) => (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    const selectedDownstreamPatchesCopy = { ...selectedDownstreamPatches };
+    const selectedAliasesCopy = { ...selectedAliases };
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
         selectedBuildVariantsCopy[v][taskName] = e.target.checked;
-      } else if (selectedDownstreamPatchesCopy?.[v] !== undefined) {
-        selectedDownstreamPatchesCopy[v] = e.target.checked;
+      } else if (selectedAliasesCopy?.[v] !== undefined) {
+        selectedAliasesCopy[v] = e.target.checked;
       }
     });
     setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
-    setSelectedDownstreamPatches(selectedDownstreamPatchesCopy);
+    setSelectedAliases(selectedAliasesCopy);
   };
 
   const onClickSelectAll = (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    const selectedDownstreamPatchesCopy = { ...selectedDownstreamPatches };
+    const selectedAliasesCopy = { ...selectedAliases };
     selectedBuildVariants.forEach((v) => {
       if (selectedBuildVariantsCopy?.[v] !== undefined) {
         Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
           selectedBuildVariantsCopy[v][task] = e.target.checked;
         });
-      } else if (selectedDownstreamPatchesCopy?.[v] !== undefined) {
-        selectedDownstreamPatchesCopy[v] = e.target.checked;
+      } else if (selectedAliasesCopy?.[v] !== undefined) {
+        selectedAliasesCopy[v] = e.target.checked;
       }
     });
     setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
-    setSelectedDownstreamPatches(selectedDownstreamPatchesCopy);
+    setSelectedAliases(selectedAliasesCopy);
   };
 
   const selectAllCheckboxState = getSelectAllCheckboxState(
     currentTasks,
-    currentDownstreamPatches,
+    currentAliases,
     enumerateChildPatches
   );
   const selectAllCheckboxCopy =
@@ -144,8 +139,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
           disabled={
-            (activated &&
-              Object.entries(currentDownstreamPatches).length > 0) ||
+            (activated && Object.entries(currentAliases).length > 0) ||
             enumerateChildPatches
           }
         />
@@ -170,9 +164,9 @@ export const ConfigureTasks: React.FC<Props> = ({
         <>
           <H4>Downstream Tasks</H4>
           <Tasks>
-            {Object.entries(currentDownstreamPatches).map(([name, status]) => (
+            {Object.entries(currentAliases).map(([name, status]) => (
               <Checkbox
-                data-cy="downstream-patch-checkbox"
+                data-cy="alias-checkbox"
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
@@ -184,7 +178,7 @@ export const ConfigureTasks: React.FC<Props> = ({
             {/* Represent child patches invoked from CLI as read-only */}
             {currentChildPatches.map(({ projectIdentifier }) => (
               <Checkbox
-                data-cy="downstream-patch-checkbox"
+                data-cy="child-patch-checkbox"
                 key={projectIdentifier}
                 label={projectIdentifier}
                 disabled
@@ -224,7 +218,7 @@ const getSelectAllCheckboxState = (
   buildVariants: {
     [task: string]: CheckboxState;
   },
-  downstreamPatches: {
+  aliases: {
     [alias: string]: CheckboxState;
   },
   enumerateChildPatches: boolean
@@ -238,16 +232,16 @@ const getSelectAllCheckboxState = (
     ([, checked]) => checked
   );
 
-  const allDownstreamPatchStatuses = Object.entries(downstreamPatches).map(
+  const allAliasStatuses = Object.entries(aliases).map(
     ([, checked]) => checked
   );
 
   const hasSelectedTasks =
     allTaskStatuses.includes(CheckboxState.CHECKED) ||
-    allDownstreamPatchStatuses.includes(CheckboxState.CHECKED);
+    allAliasStatuses.includes(CheckboxState.CHECKED);
   const hasUnselectedTasks =
     allTaskStatuses.includes(CheckboxState.UNCHECKED) ||
-    allDownstreamPatchStatuses.includes(CheckboxState.UNCHECKED);
+    allAliasStatuses.includes(CheckboxState.UNCHECKED);
   if (hasSelectedTasks && !hasUnselectedTasks) {
     state = CheckboxState.CHECKED;
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
@@ -259,7 +253,7 @@ const getSelectAllCheckboxState = (
   return state;
 };
 
-const getVisibleDownstreamPatches = (p, selectedBuildVariants) => {
+const getVisibleAliases = (p, selectedBuildVariants) => {
   const visiblePatches = {};
   Object.entries(p).forEach(([alias]) => {
     if (selectedBuildVariants.includes(alias)) {

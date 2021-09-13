@@ -451,7 +451,7 @@ describe("Configure Patch Page", () => {
       });
 
       it("Should show no tasks", () => {
-        cy.dataCy("downstream-patch-checkbox").should("have.length", 0);
+        cy.dataCy("alias-checkbox").should("have.length", 0);
       });
 
       it("Should update the 'Select all' label", () => {
@@ -486,13 +486,13 @@ describe("Configure Patch Page", () => {
         });
 
         cy.dataCy("build-variant-list-item").contains("Windows").click();
-        cy.dataCy("downstream-patch-checkbox").should("have.length", 1);
+        cy.dataCy("alias-checkbox").should("have.length", 1);
 
         cy.get("[data-selected=true]").its("length").should("eq", 2);
       });
 
       it("Updates the badge count when the trigger alias is deselected", () => {
-        cy.dataCy("downstream-patch-checkbox").uncheck({
+        cy.dataCy("alias-checkbox").uncheck({
           force: true,
         });
 

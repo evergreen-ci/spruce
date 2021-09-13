@@ -23,7 +23,7 @@ import {
 } from "gql/generated/types";
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
-  DownstreamPatchState,
+  AliasState,
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
@@ -52,15 +52,15 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     description,
     disableBuildVariantSelect,
     patchParams,
+    selectedAliases,
     selectedBuildVariants,
     selectedBuildVariantTasks,
-    selectedDownstreamPatches,
     selectedTab,
     setDescription,
     setPatchParams,
+    setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
-    setSelectedDownstreamPatches,
     setSelectedTab,
   } = useConfigurePatch(patch, variants);
 
@@ -85,7 +85,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
       description,
       variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
       parameters: patchParams,
-      patchTriggerAliases: toGQLDownstreamPatchType(selectedDownstreamPatches),
+      patchTriggerAliases: toGQLAliasType(selectedAliases),
     };
     schedulePatch({
       variables: { patchId: id, configure: configurePatchParam },
@@ -124,7 +124,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             aliases={[
               ...getPatchTriggerAliasEntries(
                 patchTriggerAliases,
-                selectedDownstreamPatches
+                selectedAliases
               ),
               ...getChildPatchEntries(childPatches),
             ]}
@@ -148,8 +148,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                   activated={activated}
                   loading={loadingScheduledPatch}
                   onClickSchedule={onClickSchedule}
-                  selectedDownstreamPatches={selectedDownstreamPatches}
-                  setSelectedDownstreamPatches={setSelectedDownstreamPatches}
+                  selectedAliases={selectedAliases}
+                  setSelectedAliases={setSelectedAliases}
                   childPatches={childPatches}
                 />
               </Tab>
@@ -185,7 +185,7 @@ const getVariantEntries = (
 
 const getPatchTriggerAliasEntries = (
   patchTriggerAliases: PatchTriggerAlias[],
-  selectedDownstreamPatches: DownstreamPatchState
+  selectedAliases: AliasState
 ) => {
   if (!patchTriggerAliases) {
     return [];
@@ -193,7 +193,7 @@ const getPatchTriggerAliasEntries = (
   return patchTriggerAliases.map(({ alias, childProject }) => ({
     displayName: `${alias} (${childProject})`,
     name: alias,
-    taskCount: selectedDownstreamPatches[alias] ? 1 : 0,
+    taskCount: selectedAliases[alias] ? 1 : 0,
   }));
 };
 
@@ -226,10 +226,8 @@ const toGQLVariantTasksType = (
     })
     .filter(({ tasks }) => tasks.length);
 
-const toGQLDownstreamPatchType = (
-  selectedDownstreamPatches: DownstreamPatchState
-) =>
-  Object.entries(selectedDownstreamPatches)
+const toGQLAliasType = (selectedAliases: AliasState) =>
+  Object.entries(selectedAliases)
     .filter(([, isSelected]) => isSelected)
     .map(([alias]) => alias);
 

@@ -16,12 +16,12 @@ const { omitTypename } = string;
 
 type ConfigurePatchState = {
   description: string;
+  selectedAliases: AliasState;
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   patchParams: ParameterInput[];
   selectedTab: number;
   disableBuildVariantSelect: boolean;
-  selectedDownstreamPatches: DownstreamPatchState;
 };
 
 type Action =
@@ -36,21 +36,21 @@ type Action =
       buildVariants: string[];
       params: ParameterInput[];
       variantTasks: VariantTasksState;
-      downstreamPatches: DownstreamPatchState;
+      aliases: AliasState;
     }
   | {
-      type: "setSelectedDownstreamPatches";
-      downstreamPatches: DownstreamPatchState;
+      type: "setSelectedAliases";
+      aliases: AliasState;
     };
 
 const initialState = ({ selectedTab = 0 }: { selectedTab: number }) => ({
   description: "",
+  selectedAliases: {},
   selectedBuildVariants: [],
   selectedBuildVariantTasks: {},
   patchParams: null,
   selectedTab,
   disableBuildVariantSelect: tabToIndexMap[selectedTab] === PatchTab.Tasks,
-  selectedDownstreamPatches: {},
 });
 
 const reducer = (state: ConfigurePatchState, action: Action) => {
@@ -70,10 +70,10 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
         ...state,
         selectedBuildVariantTasks: action.variantTasks,
       };
-    case "setSelectedDownstreamPatches":
+    case "setSelectedAliases":
       return {
         ...state,
-        selectedDownstreamPatches: action.downstreamPatches,
+        setSelectedAliases: action.aliases,
       };
     case "setPatchParams":
       return {
@@ -99,7 +99,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
         selectedBuildVariants: action.buildVariants,
         patchParams: omitTypename(action.params),
         selectedBuildVariantTasks: action.variantTasks,
-        selectedDownstreamPatches: action.downstreamPatches,
+        selectedAliases: action.aliases,
       };
 
     default:
@@ -115,7 +115,7 @@ const tabToIndexMap = {
   [PatchTab.Parameters]: 2,
 };
 
-export type DownstreamPatchState = {
+export type AliasState = {
   [alias: string]: boolean;
 };
 export type TasksState = {
@@ -130,9 +130,7 @@ interface HookResult extends ConfigurePatchState {
   setPatchParams: (patchParams: ParameterInput[]) => void;
   setSelectedBuildVariants: (variants: string[]) => void;
   setSelectedBuildVariantTasks: (variantTasks: VariantTasksState) => void;
-  setSelectedDownstreamPatches: (
-    downstreamPatches: DownstreamPatchState
-  ) => void;
+  setSelectedAliases: (aliases: AliasState) => void;
   setSelectedTab: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -174,9 +172,7 @@ export const useConfigurePatch = (
         buildVariants: [variants[0]?.name],
         params: patch.parameters,
         variantTasks: initializeTaskState(variants, patch.variantsTasks),
-        downstreamPatches: initializeDownstreamPatchState(
-          patch.patchTriggerAliases
-        ),
+        aliases: initializeAliasState(patch.patchTriggerAliases),
       });
     }
   }, [patch, variants]);
@@ -190,12 +186,10 @@ export const useConfigurePatch = (
       type: "setSelectedBuildVariantTasks",
       variantTasks,
     });
-  const setSelectedDownstreamPatches = (
-    downstreamPatches: DownstreamPatchState
-  ) =>
+  const setSelectedAliases = (aliases: AliasState) =>
     dispatch({
-      type: "setSelectedDownstreamPatches",
-      downstreamPatches,
+      type: "setSelectedAliases",
+      aliases,
     });
   const setSelectedTab = (i) =>
     dispatch({ type: "setSelectedTab", tabIndex: i });
@@ -206,9 +200,9 @@ export const useConfigurePatch = (
     ...state,
     setDescription,
     setPatchParams,
+    setSelectedAliases,
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
-    setSelectedDownstreamPatches,
     setSelectedTab,
   };
 };
@@ -234,9 +228,7 @@ const initializeTaskState = (
   );
 };
 
-const initializeDownstreamPatchState = (
-  patchTriggerAliases: PatchTriggerAlias[]
-) =>
+const initializeAliasState = (patchTriggerAliases: PatchTriggerAlias[]) =>
   patchTriggerAliases.reduce(
     (prev, { alias }) => ({
       ...prev,
