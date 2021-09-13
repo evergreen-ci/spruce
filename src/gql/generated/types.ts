@@ -255,7 +255,7 @@ export type MutationUnschedulePatchTasksArgs = {
 };
 
 export type MutationRestartVersionsArgs = {
-  patchId: Scalars["String"];
+  versionId: Scalars["String"];
   abort: Scalars["Boolean"];
   versionsToRestart: Array<VersionToRestart>;
 };
@@ -404,7 +404,7 @@ export type MutationBbCreateTicketArgs = {
 };
 
 export type VersionToRestart = {
-  versionId?: Maybe<Scalars["String"]>;
+  versionId: Scalars["String"];
   taskIds: Array<Scalars["String"]>;
 };
 
