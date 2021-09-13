@@ -228,13 +228,8 @@ const getSelectAllCheckboxState = (
   }
 
   let state;
-  const allTaskStatuses = Object.entries(buildVariants).map(
-    ([, checked]) => checked
-  );
-
-  const allAliasStatuses = Object.entries(aliases).map(
-    ([, checked]) => checked
-  );
+  const allTaskStatuses = Object.values(buildVariants);
+  const allAliasStatuses = Object.values(aliases);
 
   const hasSelectedTasks =
     allTaskStatuses.includes(CheckboxState.CHECKED) ||
@@ -253,11 +248,14 @@ const getSelectAllCheckboxState = (
   return state;
 };
 
-const getVisibleAliases = (p, selectedBuildVariants) => {
+const getVisibleAliases = (
+  selectedAliases: AliasState,
+  selectedBuildVariants: string[]
+): { [key: string]: CheckboxState } => {
   const visiblePatches = {};
-  Object.entries(p).forEach(([alias]) => {
+  Object.entries(selectedAliases).forEach(([alias]) => {
     if (selectedBuildVariants.includes(alias)) {
-      visiblePatches[alias] = p[alias]
+      visiblePatches[alias] = selectedAliases[alias]
         ? CheckboxState.CHECKED
         : CheckboxState.UNCHECKED;
     }
