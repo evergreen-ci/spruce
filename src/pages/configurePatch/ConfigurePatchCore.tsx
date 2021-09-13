@@ -18,7 +18,6 @@ import {
   SchedulePatchMutationVariables,
   VariantTasks,
   ConfigurePatchQuery,
-  Patch,
   PatchTriggerAlias,
   ProjectBuildVariant,
 } from "gql/generated/types";
@@ -84,13 +83,9 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   const onClickSchedule = async (): Promise<void> => {
     const configurePatchParam: PatchConfigure = {
       description,
-      variantsTasks: getGqlVariantTasksParamFromState(
-        selectedBuildVariantTasks
-      ),
+      variantsTasks: toGQLVariantTasksType(selectedBuildVariantTasks),
       parameters: patchParams,
-      patchTriggerAliases: getGqlDownstreamPatchesFromState(
-        selectedDownstreamPatches
-      ),
+      patchTriggerAliases: toGQLDownstreamPatchType(selectedDownstreamPatches),
     };
     schedulePatch({
       variables: { patchId: id, configure: configurePatchParam },
@@ -116,7 +111,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
         data-cy="patch-name-input"
         value={description}
         size="large"
-        onChange={setDescription}
+        onChange={(e) => setDescription(e.target.value)}
       />
       <PageLayout>
         <PageSider>
@@ -202,7 +197,9 @@ const getPatchTriggerAliasEntries = (
   }));
 };
 
-const getChildPatchEntries = (childPatches: Partial<Patch>[]) => {
+const getChildPatchEntries = (
+  childPatches: ConfigurePatchQuery["patch"]["childPatches"]
+) => {
   if (!childPatches) {
     return [];
   }
@@ -213,7 +210,7 @@ const getChildPatchEntries = (childPatches: Partial<Patch>[]) => {
   }));
 };
 
-const getGqlVariantTasksParamFromState = (
+const toGQLVariantTasksType = (
   selectedVariantTasks: VariantTasksState
 ): VariantTasks[] =>
   Object.entries(selectedVariantTasks)
@@ -229,7 +226,7 @@ const getGqlVariantTasksParamFromState = (
     })
     .filter(({ tasks }) => tasks.length);
 
-const getGqlDownstreamPatchesFromState = (
+const toGQLDownstreamPatchType = (
   selectedDownstreamPatches: DownstreamPatchState
 ) =>
   Object.entries(selectedDownstreamPatches)

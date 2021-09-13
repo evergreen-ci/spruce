@@ -443,7 +443,7 @@ describe("Configure Patch Page", () => {
       });
     });
 
-    describe.only("Selecting a trigger alias", () => {
+    describe("Selecting a trigger alias", () => {
       before(() => {
         cy.dataCy("trigger-alias-list-item")
           .contains("logkeeper-alias")

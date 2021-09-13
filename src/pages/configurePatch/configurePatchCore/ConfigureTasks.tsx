@@ -5,7 +5,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
-import { Patch } from "gql/generated/types";
+import { ConfigurePatchQuery } from "gql/generated/types";
 import {
   DownstreamPatchState,
   VariantTasksState,
@@ -27,7 +27,7 @@ interface Props {
   setSelectedDownstreamPatches: (
     downstreamPatches: DownstreamPatchState
   ) => void;
-  childPatches: Array<Partial<Patch>>;
+  childPatches: ConfigurePatchQuery["patch"]["childPatches"];
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
@@ -139,8 +139,6 @@ export const ConfigureTasks: React.FC<Props> = ({
         </Button>
         <Checkbox
           data-cy="select-all-checkbox"
-          data-state={selectAllCheckboxState}
-          // TODO: Fix indeterminate state handling after PD-1386
           indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
@@ -159,11 +157,9 @@ export const ConfigureTasks: React.FC<Props> = ({
         {Object.entries(currentTasks).map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
-            data-state={status}
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            // TODO: Fix indeterminate state handling after PD-1386
             indeterminate={status === CheckboxState.INDETERMINITE}
             checked={status === CheckboxState.CHECKED}
           />
@@ -177,20 +173,18 @@ export const ConfigureTasks: React.FC<Props> = ({
             {Object.entries(currentDownstreamPatches).map(([name, status]) => (
               <Checkbox
                 data-cy="downstream-patch-checkbox"
-                data-state={status}
                 key={name}
                 onChange={onClickCheckbox(name)}
                 label={name}
-                // TODO: Fix indeterminate state handling after PD-1386
                 indeterminate={status === CheckboxState.INDETERMINITE}
                 checked={status === CheckboxState.CHECKED}
                 disabled={activated}
               />
             ))}
+            {/* Represent child patches invoked from CLI as read-only */}
             {currentChildPatches.map(({ projectIdentifier }) => (
               <Checkbox
                 data-cy="downstream-patch-checkbox"
-                data-state={CheckboxState.CHECKED}
                 key={projectIdentifier}
                 label={projectIdentifier}
                 disabled
@@ -210,7 +204,6 @@ export const ConfigureTasks: React.FC<Props> = ({
                   {taskList.map((taskName) => (
                     <Checkbox
                       data-cy="child-patch-checkbox"
-                      data-state={CheckboxState.CHECKED}
                       key={taskName}
                       label={taskName}
                       checked

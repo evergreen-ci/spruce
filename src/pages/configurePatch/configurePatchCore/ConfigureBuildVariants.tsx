@@ -93,19 +93,19 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
     <DisableWrapper data-cy="build-variant-select-wrapper" disabled={disabled}>
       <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
         <Card
-          handleClick={getClickVariantHandler}
+          onClick={getClickVariantHandler}
           menuItems={variants}
           title="Select Build Variants and Tasks"
           selectedMenuItems={selectedBuildVariants}
-          dataCyPrefix="build-variant"
+          data-cy="build-variant-list-item"
         />
         {aliases && (
           <Card
-            handleClick={getClickVariantHandler}
+            onClick={getClickVariantHandler}
             menuItems={aliases}
             title="Select Downstream Tasks"
             selectedMenuItems={selectedBuildVariants}
-            dataCyPrefix="trigger-alias"
+            data-cy="trigger-alias-list-item"
           />
         )}
       </UserSelectWrapper>
@@ -113,13 +113,21 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   );
 };
 
-const Card: React.FC<{
-  dataCyPrefix: string;
-  handleClick: (variantName: string) => (e) => void;
+interface CardProps {
+  "data-cy": string;
+  onClick: (variantName: string) => (e) => void;
   menuItems: MenuItemProps[];
   selectedMenuItems: string[];
   title: string;
-}> = ({ dataCyPrefix, handleClick, menuItems, selectedMenuItems, title }) => (
+}
+
+const Card: React.FC<CardProps> = ({
+  "data-cy": dataCy,
+  onClick,
+  menuItems,
+  selectedMenuItems,
+  title,
+}) => (
   <>
     {/* @ts-expect-error */}
     <StyledSiderCard>
@@ -132,11 +140,11 @@ const Card: React.FC<{
           const isSelected = selectedMenuItems.includes(name);
           return (
             <BuildVariant
-              data-cy={`${dataCyPrefix}-list-item`}
+              data-cy={dataCy}
               data-selected={isSelected}
               key={name}
               isSelected={isSelected}
-              onClick={handleClick(name)}
+              onClick={onClick(name)}
             >
               <VariantName>
                 <Body weight={isSelected ? "medium" : "regular"}>
@@ -175,7 +183,7 @@ const reducer = (state: State, action: Action) => {
         numButtonsPressed: state.numButtonsPressed - 1,
       };
     default:
-      throw new Error();
+      throw new Error("Unknown action type");
   }
 };
 

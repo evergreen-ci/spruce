@@ -8,11 +8,11 @@ import {
   VariantTask,
 } from "gql/generated/types";
 import { PatchTab } from "types/patch";
-import { queryString, string } from "utils";
-import { convertArrayToObject, mapStringArrayToObject } from "utils/array";
+import { array, queryString, string } from "utils";
 
-const { omitTypename } = string;
+const { convertArrayToObject, mapStringArrayToObject } = array;
 const { parseQueryString } = queryString;
+const { omitTypename } = string;
 
 type ConfigurePatchState = {
   description: string;
@@ -126,7 +126,7 @@ export type VariantTasksState = {
 };
 
 interface HookResult extends ConfigurePatchState {
-  setDescription: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  setDescription: (description: string) => void;
   setPatchParams: (patchParams: ParameterInput[]) => void;
   setSelectedBuildVariants: (variants: string[]) => void;
   setSelectedBuildVariantTasks: (variantTasks: VariantTasksState) => void;
@@ -181,8 +181,8 @@ export const useConfigurePatch = (
     }
   }, [patch, variants]);
 
-  const setDescription = (e) =>
-    dispatch({ type: "setDescription", description: e.target.value });
+  const setDescription = (description) =>
+    dispatch({ type: "setDescription", description });
   const setSelectedBuildVariants = (buildVariants: string[]) =>
     dispatch({ type: "setSelectedBuildVariants", buildVariants });
   const setSelectedBuildVariantTasks = (variantTasks) =>
