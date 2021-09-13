@@ -18,6 +18,7 @@ export const SideNavItem = styled(LGSideNavItem)`
 
 export const SideNav = styled(LGSideNav)`
   grid-area: sidenav;
+  z-index: 10;
 `;
 
 export const SideNavGroup = LGSideNavGroup;

@@ -55,9 +55,7 @@ export const Navbar: React.FC = () => {
         >
           Waterfall
         </PrimaryA>
-        <PrimaryLink to={`${getUserPatchesRoute(userId)}`}>
-          My Patches
-        </PrimaryLink>
+        <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
         <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
         <AuxiliaryDropdown />
       </NavActionContainer>
