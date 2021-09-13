@@ -26,6 +26,7 @@ export const InputFilterTestComponent = () => {
           onChange,
           onFilter,
           onReset,
+          submitButtonCopy: "Search",
         }}
       />
     </>

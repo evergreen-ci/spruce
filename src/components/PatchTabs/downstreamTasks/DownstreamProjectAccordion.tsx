@@ -1,9 +1,10 @@
-import { useReducer, useState } from "react";
+import { useReducer } from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { TableProps } from "antd/es/table";
 import { Accordion } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -13,40 +14,20 @@ import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
 import { useToastContext } from "context/toast";
 import {
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
-  SortDirection,
+  Task,
   SortOrder,
   TaskSortCategory,
+  SortDirection,
+  PatchTasksQuery,
+  PatchTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
 import { useNetworkStatus, useTaskStatuses } from "hooks";
 import { environmentalVariables, queryString } from "utils";
+import { reducer } from "./reducer";
 
 const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
-
-interface InputValueState {
-  baseStatusesInputVal: string[];
-  currentStatusesInputVal: string[];
-  taskNameInputVal: string;
-  variantInputVal: string;
-}
-
-export interface FilterState {
-  baseStatuses: string[];
-  limit: number;
-  page: number;
-  patchId: string;
-  sorts: SortOrder[];
-  statuses: string[];
-  taskName?: string;
-  variant?: string;
-}
-const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
-  ...state,
-  ...newFields,
-});
 
 interface DownstreamProjectAccordionProps {
   baseVersionID: string;
@@ -72,106 +53,78 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     Direction: SortDirection.Asc,
   };
 
-  const baseFilterVariables = {
+  const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
     limit: 10,
     page: 0,
-    patchId: childPatchId,
-    sorts: [],
     statuses: [],
     taskName: "",
     variant: "",
-  };
-
-  const [variables, setVariables] = useReducer(reducer, {
-    ...baseFilterVariables,
+    baseStatusesInputVal: [],
+    currentStatusesInputVal: [],
+    taskNameInputVal: "",
+    variantInputVal: "",
     sorts: [defaultSort],
   });
 
-  const [filterInputVals, setFilterInputVals] = useState<InputValueState>({
-    baseStatusesInputVal: baseFilterVariables.baseStatuses,
-    currentStatusesInputVal: baseFilterVariables.statuses,
-    taskNameInputVal: baseFilterVariables.taskName,
-    variantInputVal: baseFilterVariables.variant,
-  });
+  const { limit, page, statuses, taskName, variant, sorts } = state;
 
-  const { baseStatusesInputVal, currentStatusesInputVal } = filterInputVals;
+  const variables = {
+    limit,
+    page,
+    statuses,
+    taskName,
+    variant,
+    sorts,
+    baseStatuses: state.baseStatuses,
+    patchId: childPatchId,
+  };
+
+  const { baseStatusesInputVal, currentStatusesInputVal } = state;
   const { currentStatuses, baseStatuses } = useTaskStatuses({
     versionId: childPatchId,
   });
 
   const taskNameInputProps = {
     placeholder: "Task name",
-    value: filterInputVals.taskNameInputVal,
+    value: state.taskNameInputVal,
     onChange: ({ target }) =>
-      setFilterInputVals({
-        ...filterInputVals,
-        taskNameInputVal: target.value,
-      }),
-    onFilter: () => {
-      setFilterInputVals({
-        ...filterInputVals,
-        taskNameInputVal: filterInputVals.taskNameInputVal,
-      });
-      setVariables({ taskName: filterInputVals.taskNameInputVal, page: 0 });
-    },
-    onReset: () => setVariables({ taskName: "", page: 0 }),
+      dispatch({ type: "onChangeTaskNameInput", data: target.value }),
+    onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
+    onReset: () => dispatch({ type: "onResetTaskNameInput" }),
   };
 
   const variantInputProps = {
     placeholder: "Variant name",
-    value: filterInputVals.variantInputVal,
+    value: state.variantInputVal,
     onChange: ({ target }) =>
-      setFilterInputVals({
-        ...filterInputVals,
-        variantInputVal: target.value,
+      dispatch({
+        type: "onChangeVariantInput",
+        data: target.value,
       }),
-    onFilter: () => {
-      setFilterInputVals({
-        ...filterInputVals,
-        variantInputVal: filterInputVals.variantInputVal,
-      });
-      setVariables({ variant: filterInputVals.variantInputVal, page: 0 });
-    },
-    onReset: () => setVariables({ variant: "", page: 0 }),
+    onFilter: () => dispatch({ type: "onFilterVariantInput" }),
+    onReset: () => dispatch({ type: "onResetVariantInput" }),
   };
 
   const baseStatusSelectorProps = {
     state: baseStatusesInputVal,
     tData: baseStatuses,
-    onChange: (statuses: string[]) =>
-      setFilterInputVals({
-        ...filterInputVals,
-        baseStatusesInputVal: statuses,
-      }),
-    onReset: () => {
-      setFilterInputVals({
-        ...filterInputVals,
-        baseStatusesInputVal: [],
-      });
-      setVariables({ baseStatuses: [], page: 0 });
-    },
-    onFilter: () =>
-      setVariables({ baseStatuses: baseStatusesInputVal, page: 0 }),
+    onChange: (s: string[]) =>
+      dispatch({ type: "onChangeBaseStatusesSelector", data: s }),
+    onReset: () => dispatch({ type: "onResetBaseStatusesSelector" }),
+    onFilter: () => dispatch({ type: "onFilterBaseStatusesSelector" }),
   };
 
   const statusSelectorProps = {
     state: currentStatusesInputVal,
     tData: currentStatuses,
-    onChange: (statuses: string[]) =>
-      setFilterInputVals({
-        ...filterInputVals,
-        currentStatusesInputVal: statuses,
+    onChange: (s: string[]) =>
+      dispatch({
+        type: "onChangeStatusesSelector",
+        data: s,
       }),
-    onReset: () => {
-      setFilterInputVals({
-        ...filterInputVals,
-        currentStatusesInputVal: [],
-      });
-      setVariables({ statuses: [], page: 0 });
-    },
-    onFilter: () =>
-      setVariables({ statuses: currentStatusesInputVal, page: 0 }),
+    onReset: () => dispatch({ type: "onResetStatusesSelector" }),
+    onFilter: () => dispatch({ type: "onFilterStatusesSelector" }),
   };
 
   const { data, startPolling, stopPolling } = useQuery<
@@ -197,12 +150,11 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     </>
   );
 
-  const tableChangeHandler = (...[, , sorter]) => {
-    setVariables({
-      sorts: parseSortString(toSortString(sorter)),
-      page: 0,
+  const tableChangeHandler: TableProps<Task>["onChange"] = (...[, , sorter]) =>
+    dispatch({
+      type: "onSort",
+      data: parseSortString(toSortString(sorter)),
     });
-  };
 
   return (
     <AccordionWrapper data-cy="project-accordion">
@@ -228,7 +180,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   />
                   <PaddedButton // @ts-expect-error
                     onClick={() => {
-                      setVariables(baseFilterVariables);
+                      dispatch({ type: "clearAllFilters" });
                     }}
                     data-cy="clear-all-filters"
                   >
@@ -238,15 +190,19 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 <TableControlInnerRow>
                   <Pagination
                     data-cy="downstream-tasks-table-pagination"
-                    onChange={(p) => setVariables({ page: p - 1 })}
-                    pageSize={variables.limit}
+                    onChange={(p) =>
+                      dispatch({ type: "onChangePagination", data: p - 1 })
+                    }
+                    pageSize={state.limit}
                     totalResults={patchTasks?.count}
                     value={variables.page}
                   />
                   <PageSizeSelector
                     data-cy="tasks-table-page-size-selector"
                     value={variables.limit}
-                    onClick={(l) => setVariables({ limit: l, page: 0 })}
+                    onClick={(l) =>
+                      dispatch({ type: "onChangeLimit", data: l })
+                    }
                   />
                 </TableControlInnerRow>
               </TableControlOuterRow>
