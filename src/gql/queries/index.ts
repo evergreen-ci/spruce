@@ -19,6 +19,7 @@ import GET_IS_PATCH_CONFIGURED from "./get-is-patch-configured.graphql";
 import GET_JIRA_CUSTOM_CREATED_ISSUES from "./get-jira-custom-created-issues.graphql";
 import GET_JIRA_ISSUES from "./get-jira-issues.graphql";
 import GET_JIRA_SUSPECTED_ISSUES from "./get-jira-suspected-issues.graphql";
+import GET_MAINLINE_COMMITS_FOR_HISTORY from "./get-mainline-commits-for-history.graphql";
 import GET_MAINLINE_COMMITS from "./get-mainline-commits.graphql";
 import GET_MY_HOSTS from "./get-my-hosts.graphql";
 import GET_MY_VOLUMES from "./get-my-volumes.graphql";
@@ -78,6 +79,7 @@ export {
   GET_HOST,
   GET_HOST_EVENTS,
   GET_MAINLINE_COMMITS,
+  GET_MAINLINE_COMMITS_FOR_HISTORY,
   GET_MY_PUBLIC_KEYS,
   GET_DISTROS,
   GET_MY_VOLUMES,
