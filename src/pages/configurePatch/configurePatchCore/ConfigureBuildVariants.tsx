@@ -183,7 +183,7 @@ const reducer = (state: State, action: Action) => {
         numButtonsPressed: state.numButtonsPressed - 1,
       };
     default:
-      throw new Error("Unknown action type");
+      throw new Error();
   }
 };
 
