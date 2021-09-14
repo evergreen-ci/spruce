@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { ListChildComponentProps } from "react-window";
-import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
+import CommitChartLabel from "components/CommitChartLabel";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";

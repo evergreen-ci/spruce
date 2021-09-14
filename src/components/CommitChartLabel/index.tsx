@@ -14,7 +14,7 @@ interface Props {
   message: string;
 }
 
-export const CommitChartLabel: React.FC<Props> = ({
+const CommitChartLabel: React.FC<Props> = ({
   githash,
   createTime,
   author,
@@ -82,3 +82,5 @@ const ButtonText = styled(Disclaimer)`
 const TooltipContainer = styled(Body)`
   width: 200px;
 `;
+
+export default CommitChartLabel;
