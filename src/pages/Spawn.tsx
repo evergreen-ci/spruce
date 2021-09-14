@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
-import styled from "@emotion/styled";
-import { SideNav, SideNavGroup } from "@leafygreen-ui/side-nav";
 import { Route, useParams, Redirect, Link } from "react-router-dom";
 import { useSpawnAnalytics } from "analytics";
-import { PaddedSideNavItem, PageWrapper } from "components/styles";
+import {
+  PageWrapper,
+  SideNav,
+  SideNavGroup,
+  SideNavItem,
+} from "components/styles";
 import { routes, SpawnTab } from "constants/routes";
 import { SpawnHost } from "pages/spawn/SpawnHost";
 import { SpawnVolume } from "pages/spawn/SpawnVolume";
@@ -17,10 +20,10 @@ export const Spawn: React.FC = () => {
   }
 
   return (
-    <FlexPageWrapper>
+    <>
       <SideNav>
         <SideNavGroup header="Hosts & Volumes">
-          <PaddedSideNavItem
+          <SideNavItem
             active={tab === SpawnTab.Host} // @ts-expect-error
             to={routes.spawnHost}
             as={Link}
@@ -33,8 +36,8 @@ export const Spawn: React.FC = () => {
             }
           >
             Hosts
-          </PaddedSideNavItem>
-          <PaddedSideNavItem
+          </SideNavItem>
+          <SideNavItem
             active={tab === SpawnTab.Volume} // @ts-expect-error
             to={routes.spawnVolume}
             as={Link}
@@ -47,25 +50,15 @@ export const Spawn: React.FC = () => {
             }
           >
             Volumes
-          </PaddedSideNavItem>
+          </SideNavItem>
         </SideNavGroup>
       </SideNav>
-      <Container>
+      <PageWrapper>
         <Route path={routes.spawnHost} component={SpawnHost} />
         <Route path={routes.spawnVolume} component={SpawnVolume} />
-      </Container>
-    </FlexPageWrapper>
+      </PageWrapper>
+    </>
   );
 };
 
 const tabRouteValues = Object.values(SpawnTab);
-
-const FlexPageWrapper = styled(PageWrapper)`
-  display: flex;
-`;
-
-const Container = styled.div`
-  overflow-x: hidden;
-  margin-left: 60px;
-  width: 100%;
-`;

@@ -1,6 +1,6 @@
 import userEvent from "@testing-library/user-event";
 import { render, act } from "test_utils/test-utils";
-import { CommitChartLabel } from "./CommitChartLabel";
+import CommitChartLabel from ".";
 
 const RenderCommitChartLabel = (version) => (
   <CommitChartLabel

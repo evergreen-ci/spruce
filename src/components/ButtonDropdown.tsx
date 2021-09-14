@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import Icon from "@leafygreen-ui/icon";
 import { Menu, MenuItem } from "@leafygreen-ui/menu";
 import { Button } from "components/Button";
@@ -15,28 +14,24 @@ export const ButtonDropdown: React.FC<Props> = ({
   loading = false,
   dropdownItems,
   "data-cy": dataCy = "ellipsis-btn",
-}: Props) => {
-  const [open, setOpen] = useState(false);
-  return (
-    <Menu
-      trigger={
-        <Button
-          size="small"
-          data-cy={dataCy}
-          disabled={disabled}
-          loading={loading}
-          onClick={() => setOpen((curr) => !curr)}
-        >
-          <Icon glyph="Ellipsis" />
-        </Button>
-      }
-      data-cy="card-dropdown"
-      adjustOnMutation
-      open={open}
-    >
-      {dropdownItems}
-    </Menu>
-  );
-};
+}: Props) => (
+  <Menu
+    trigger={
+      <Button
+        size="small"
+        data-cy={dataCy}
+        disabled={disabled}
+        loading={loading}
+        leftGlyph={<Icon glyph="Ellipsis" />}
+      >
+        <Icon glyph="Ellipsis" />
+      </Button>
+    }
+    data-cy="card-dropdown"
+    adjustOnMutation
+  >
+    {dropdownItems}
+  </Menu>
+);
 
 export const DropdownItem = MenuItem;

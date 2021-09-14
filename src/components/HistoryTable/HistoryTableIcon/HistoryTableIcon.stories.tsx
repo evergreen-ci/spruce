@@ -3,11 +3,6 @@ import { action } from "@storybook/addon-actions";
 import { TaskStatus } from "types/task";
 import { HistoryTableIcon } from "./index";
 
-export default {
-  title: "History Table Icon",
-  component: HistoryTableIcon,
-};
-
 const failingTests = [
   { testName: "test a", testId: "1" },
   { testName: "test b", testId: "2" },

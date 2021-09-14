@@ -8,7 +8,7 @@ exports[`Storyshots Node List Node Element 1`] = `
     className="css-noe96r-NodeHeader e1k5prvz1"
   >
     <div
-      className="css-xu4var-Circle e1k5prvz5"
+      className="css-vwe0b-Circle e1k5prvz5"
     >
       <h6
         className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
@@ -49,7 +49,7 @@ exports[`Storyshots Node List Node List Full 1`] = `
   }
 >
   <div
-    className="css-17mpqbw-NodeContainer eb6wkmd0"
+    className="css-4kvejg-NodeContainer eb6wkmd0"
   >
     <div
       className="css-1xofbf3-NodeContainer e1k5prvz2"
@@ -58,7 +58,7 @@ exports[`Storyshots Node List Node List Full 1`] = `
         className="css-noe96r-NodeHeader e1k5prvz1"
       >
         <div
-          className="css-xu4var-Circle e1k5prvz5"
+          className="css-vwe0b-Circle e1k5prvz5"
         >
           <h6
             className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
@@ -95,7 +95,7 @@ exports[`Storyshots Node List Node List Full 1`] = `
         className="css-noe96r-NodeHeader e1k5prvz1"
       >
         <div
-          className="css-xu4var-Circle e1k5prvz5"
+          className="css-vwe0b-Circle e1k5prvz5"
         >
           <h6
             className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"

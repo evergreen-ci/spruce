@@ -55,7 +55,6 @@ const columns: Array<ColumnProps<MyVolume>> = [
     render: (_, volume: MyVolume) => (
       <WordBreak data-cy="vol-name">{getVolumeDisplayName(volume)}</WordBreak>
     ),
-    width: 400,
   },
   {
     title: "Mounted On",
@@ -66,7 +65,6 @@ const columns: Array<ColumnProps<MyVolume>> = [
         <WordBreak>{getHostDisplayName(volume)}</WordBreak>
       </Link>
     ),
-    width: 400,
   },
   {
     title: "Status",

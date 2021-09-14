@@ -107,7 +107,9 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-router-dom": "5.2.0",
-    "react-window": "1.8.6"
+    "react-virtualized-auto-sizer": "^1.0.6",
+    "react-window": "1.8.6",
+    "react-window-infinite-loader": "^1.0.7"
   },
   "devDependencies": {
     "@apollo/react-testing": "4.0.0",
@@ -144,6 +146,9 @@
     "@types/react": "17.0.0",
     "@types/react-dom": "17.0.0",
     "@types/react-router-dom": "5.1.6",
+    "@types/react-virtualized-auto-sizer": "^1.0.1",
+    "@types/react-window": "^1.8.5",
+    "@types/react-window-infinite-loader": "^1.0.5",
     "@typescript-eslint/eslint-plugin": "4.9.0",
     "@typescript-eslint/parser": "4.9.0",
     "babel-eslint": "^10.1.0",
@@ -231,6 +236,9 @@
     "webpack-merge": "^5.7.3",
     "workbox-webpack-plugin": "5.1.4",
     "worker-loader": "^3.0.7"
+  },
+  "resolutions": {
+    "@leafygreen-ui/side-nav/@leafygreen-ui/tooltip": "6.2.1"
   },
   "proxy": "http://localhost:9090"
 }

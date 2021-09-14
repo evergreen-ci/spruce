@@ -6,15 +6,16 @@ import {
   InputLabel,
   PageButtonRow,
   PageContent,
+  PageGrid,
   PageLayout,
   PageSider,
   PageTitle,
+  PageWrapper,
   TableContainer,
   TableControlInnerRow,
   TableControlOuterRow,
 } from "./Layout";
-import { PageWrapper } from "./PageWrapper";
-import { PaddedSideNavItem } from "./SideNav";
+import { SideNav, SideNavGroup, SideNavItem } from "./SideNav";
 import { SiderCard } from "./SiderCard";
 import { BoldStyledLink, StyledLink, StyledRouterLink } from "./StyledLink";
 
@@ -25,13 +26,16 @@ export {
   FiltersWrapper,
   inactiveElementStyle,
   InputLabel,
-  PaddedSideNavItem,
   PageButtonRow,
   PageContent,
+  PageGrid,
   PageLayout,
   PageSider,
   PageTitle,
   PageWrapper,
+  SideNav,
+  SideNavGroup,
+  SideNavItem,
   SiderCard,
   StyledInput,
   StyledLink,
