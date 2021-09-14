@@ -73,7 +73,7 @@ const reducer = (state: ConfigurePatchState, action: Action) => {
     case "setSelectedAliases":
       return {
         ...state,
-        setSelectedAliases: action.aliases,
+        selectedAliases: action.aliases,
       };
     case "setPatchParams":
       return {
