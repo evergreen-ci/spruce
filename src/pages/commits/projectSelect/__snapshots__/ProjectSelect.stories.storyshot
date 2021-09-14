@@ -3,7 +3,7 @@
 exports[`Storyshots ProjectSelect Story 1`] = `
 Array [
   <label
-    className="leafygreen-ui-1x9zy2h"
+    className="leafygreen-ui-ly82bp"
     htmlFor="project-select"
   >
     Project
@@ -20,7 +20,7 @@ Array [
         className="css-soeq2u-LabelWrapper e1ueffas6"
       >
         <div
-          className="leafygreen-ui-xsga32"
+          className="leafygreen-ui-1mngpnd"
           data-cy="project-name"
         >
           Project:

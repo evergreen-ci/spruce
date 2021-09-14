@@ -3,12 +3,12 @@
 exports[`Storyshots Spruce Form Example 1 1`] = `
 <div>
   <h6
-    className="leafygreen-ui-16zt3i0"
+    className="leafygreen-ui-11wdjex"
   >
     Distro Projects
   </h6>
   <div
-    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-o2xit9"
+    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-fe135o"
   >
     <form
       className="rjsf"
@@ -31,21 +31,21 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                 className=""
               >
                 <label
-                  className="leafygreen-ui-14b8p8r"
-                  id="select-0-label"
+                  className="leafygreen-ui-1v870ns"
+                  id="select-1-label"
                 >
                   Project Cloning Method
                 </label>
                 <button
-                  aria-controls="select-0-menu"
-                  aria-describedby="select-0-description"
+                  aria-controls="select-1-menu"
+                  aria-describedby="select-1-description"
                   aria-disabled={false}
                   aria-expanded={false}
-                  aria-labelledby="select-0-label"
-                  className="leafygreen-ui-17lwc8t"
+                  aria-labelledby="select-1-label"
+                  className="leafygreen-ui-p6v5m8"
+                  data-testid="leafygreen-ui-select-menubutton"
                   disabled={false}
                   onClick={[Function]}
-                  onKeyDown={[Function]}
                   type="button"
                   value="legacy-ssh"
                 >
@@ -53,20 +53,20 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                     className="leafygreen-ui-1ktj4tm"
                   />
                   <div
-                    className="leafygreen-ui-qfhrrp"
+                    className="leafygreen-ui-sl5lf4"
                   >
-                    <span
-                      className="leafygreen-ui-plwatf"
+                    <div
+                      className="leafygreen-ui-17aj16e"
                     >
                       Legacy SSH
-                    </span>
+                    </div>
                     <span
                       className="leafygreen-ui-18n6mp2"
                     >
                       <svg
                         alt=""
                         aria-hidden={true}
-                        className="leafygreen-ui-10ms05u"
+                        className="leafygreen-ui-195unnb"
                         height={16}
                         role="presentation"
                         viewBox="0 0 16 16"
@@ -90,7 +90,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
               className="css-j0rta5-ElementWrapper e63qz860"
             >
               <label
-                className="leafygreen-ui-1x9zy2h"
+                className="leafygreen-ui-ly82bp"
                 htmlFor="editable_tag_field_Expansions"
               >
                 Expansions
@@ -236,7 +236,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                 className="leafygreen-ui-1iyoj2o"
               >
                 <label
-                  className="leafygreen-ui-1x9zy2h"
+                  className="leafygreen-ui-ly82bp"
                   htmlFor="textarea-1"
                 >
                   Valid Projects
@@ -245,7 +245,7 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
                   className="leafygreen-ui-1cen7zh"
                 >
                   <textarea
-                    className="leafygreen-ui-pppkef leafygreen-ui-36552o"
+                    className="leafygreen-ui-1rmmepu"
                     disabled={false}
                     id="textarea-1"
                     onBlur={[Function]}
@@ -272,12 +272,12 @@ exports[`Storyshots Spruce Form Example 1 1`] = `
 exports[`Storyshots Spruce Form Example 2 1`] = `
 <div>
   <h6
-    className="leafygreen-ui-16zt3i0"
+    className="leafygreen-ui-11wdjex"
   >
     Admin Options
   </h6>
   <div
-    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-o2xit9"
+    className="css-jmy7t2-SiderCard-Card emd7ieu0 leafygreen-ui-fe135o"
   >
     <form
       className="rjsf"
@@ -319,11 +319,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   data-leafygreen-ui="checkbox-wrapper"
                 >
                   <div
-                    className="leafygreen-ui-68852y"
+                    className="leafygreen-ui-v3mbc2"
                   />
                 </div>
                 <span
-                  className="leafygreen-ui-pxtafh"
+                  className="leafygreen-ui-1qufm80"
                 >
                   Mark distro as a cluster (jobs are not run on this host, used for special purposes).
                 </span>
@@ -359,11 +359,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   data-leafygreen-ui="checkbox-wrapper"
                 >
                   <div
-                    className="leafygreen-ui-68852y"
+                    className="leafygreen-ui-v3mbc2"
                   />
                 </div>
                 <span
-                  className="leafygreen-ui-pxtafh"
+                  className="leafygreen-ui-1qufm80"
                 >
                   Disable shallow clone for this distro.
                 </span>
@@ -399,11 +399,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   data-leafygreen-ui="checkbox-wrapper"
                 >
                   <div
-                    className="leafygreen-ui-68852y"
+                    className="leafygreen-ui-v3mbc2"
                   />
                 </div>
                 <span
-                  className="leafygreen-ui-pxtafh"
+                  className="leafygreen-ui-1qufm80"
                 >
                   Disable queueing this distro. Tasks already in the task queue will be removed.
                 </span>
@@ -439,11 +439,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   data-leafygreen-ui="checkbox-wrapper"
                 >
                   <div
-                    className="leafygreen-ui-lsrlgh"
+                    className="leafygreen-ui-njm8mk"
                   />
                 </div>
                 <span
-                  className="leafygreen-ui-pxtafh"
+                  className="leafygreen-ui-1qufm80"
                 >
                   Decommission hosts of this distro for this update
                 </span>
@@ -465,14 +465,14 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   className="leafygreen-ui-1s4vgyd"
                 >
                   <label
-                    className="leafygreen-ui-9bibpa"
+                    className="leafygreen-ui-17avto4"
                     htmlFor="radio-group-1-0"
                   >
                     <input
                       aria-checked={false}
                       aria-disabled={false}
                       checked={false}
-                      className="leafygreen-ui-cs3dze"
+                      className="leafygreen-ui-x2r5fc"
                       data-leafygreen-ui="input-element"
                       disabled={false}
                       id="radio-group-1-0"
@@ -482,11 +482,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       value="restartJasper"
                     />
                     <div
-                      className="leafygreen-ui-1cen7zh leafygreen-ui-8mr0py"
+                      className="leafygreen-ui-5a1vdt"
                       data-leafygreen-ui="radio-input-display-wrapper"
                     >
                       <div
-                        className="leafygreen-ui-pppkef leafygreen-ui-38kf5i"
+                        className="leafygreen-ui-1y6j5s3"
                         data-leafygreen-ui="radio-input-display"
                         onBlur={[Function]}
                         onFocus={[Function]}
@@ -497,7 +497,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       />
                     </div>
                     <div
-                      className="leafygreen-ui-1v34s2c"
+                      className="leafygreen-ui-3sm8z"
                     >
                       Restart Jasper service on running hosts of this distro for this update
                     </div>
@@ -507,14 +507,14 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                   className="leafygreen-ui-1s4vgyd"
                 >
                   <label
-                    className="leafygreen-ui-9bibpa"
+                    className="leafygreen-ui-17avto4"
                     htmlFor="radio-group-1-1"
                   >
                     <input
                       aria-checked={false}
                       aria-disabled={false}
                       checked={false}
-                      className="leafygreen-ui-cs3dze"
+                      className="leafygreen-ui-x2r5fc"
                       data-leafygreen-ui="input-element"
                       disabled={false}
                       id="radio-group-1-1"
@@ -524,11 +524,11 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       value="reprovisionHosts"
                     />
                     <div
-                      className="leafygreen-ui-1cen7zh leafygreen-ui-8mr0py"
+                      className="leafygreen-ui-5a1vdt"
                       data-leafygreen-ui="radio-input-display-wrapper"
                     >
                       <div
-                        className="leafygreen-ui-pppkef leafygreen-ui-38kf5i"
+                        className="leafygreen-ui-1y6j5s3"
                         data-leafygreen-ui="radio-input-display"
                         onBlur={[Function]}
                         onFocus={[Function]}
@@ -539,7 +539,7 @@ exports[`Storyshots Spruce Form Example 2 1`] = `
                       />
                     </div>
                     <div
-                      className="leafygreen-ui-1v34s2c"
+                      className="leafygreen-ui-3sm8z"
                     >
                       Reprovision running hosts of this distro for this update
                     </div>

@@ -7,9 +7,6 @@ exports[`basic form should render as expected 1`] = `
   color: #21313C;
   font-size: 18px;
   line-height: 24px;
-  -webkit-letter-spacing: 0px;
-  -moz-letter-spacing: 0px;
-  -ms-letter-spacing: 0px;
   letter-spacing: 0px;
 }
 
@@ -49,7 +46,7 @@ exports[`basic form should render as expected 1`] = `
   line-height: 16px;
 }
 
-@media only screen and (max-width:1024px) {
+@media only screen and (max-width: 1024px) {
   .emotion-6 {
     font-size: 16px;
     line-height: 19px;
@@ -59,6 +56,7 @@ exports[`basic form should render as expected 1`] = `
 .emotion-7 {
   -webkit-appearance: none;
   -moz-appearance: none;
+  -ms-appearance: none;
   appearance: none;
   padding: 0;
   margin: 0;
@@ -82,7 +80,7 @@ exports[`basic form should render as expected 1`] = `
   z-index: 0;
   background-color: #F9FBFA;
   border: 1px solid #89979B;
-  box-shadow: 0px 1px 2px rgba(6,22,33,0.3);
+  box-shadow: 0px 1px 2px rgba(6, 22, 33, 0.3);
   color: #3D4F58;
   font-size: 14px;
   height: 36px;
@@ -102,39 +100,40 @@ exports[`basic form should render as expected 1`] = `
   pointer-events: none;
 }
 
-.emotion-7:hover,
-.emotion-7:active {
-  background-color: #FFFFFF;
-  border: 1px solid #5D6C74;
-  box-shadow: 0px 4px 4px rgba(0,0,0,0.3),0px 0px 0px 3px #E7EEEC;
+.emotion-7:active,
+.emotion-7:focus,
+.emotion-7:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
 }
 
 .emotion-7:focus {
   color: #3D4F58;
+}
+
+.emotion-7:hover,
+.emotion-7:active {
+  color: #3D4F58;
+  background-color: #FFFFFF;
+  border: 1px solid #5D6C74;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.3),0px 0px 0px 3px #E7EEEC;
+}
+
+.emotion-7:focus {
   background: #FFFFFF;
   border: 1px solid #5D6C74;
-  box-shadow: 0px 4px 4px rgba(0,124,173,0.4),0px 0px 0px 3px #019EE2;
+  box-shadow: 0px 4px 4px rgba(0, 124, 173, 0.4),0px 0px 0px 3px #019EE2;
 }
 
 .emotion-7>span {
   padding: 0;
 }
 
-@media only screen and (max-width:1024px) {
+@media only screen and (max-width: 1024px) {
   .emotion-7 {
     height: 36px;
     font-size: 16px;
   }
-}
-
-.emotion-8 {
-  overflow: hidden;
-  border-radius: 3px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
 }
 
 .emotion-8 {
@@ -164,7 +163,6 @@ exports[`basic form should render as expected 1`] = `
   font-family: Akzidenz,'Helvetica Neue',Helvetica,Arial,sans-serif;
   -webkit-box-pack: justify;
   -webkit-justify-content: space-between;
-  -ms-flex-pack: justify;
   justify-content: space-between;
   padding-left: 12px;
   padding-right: 12px;
@@ -174,6 +172,7 @@ exports[`basic form should render as expected 1`] = `
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  max-width: 100%;
 }
 
 .emotion-11 {
@@ -186,8 +185,8 @@ exports[`basic form should render as expected 1`] = `
   -ms-flex-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  -webkit-justify-content: center;
   -ms-flex-pack: center;
+  -webkit-justify-content: center;
   justify-content: center;
   margin-left: auto;
 }
@@ -200,16 +199,6 @@ exports[`basic form should render as expected 1`] = `
   height: 16px;
   width: 16px;
   margin-left: 6px;
-}
-
-.emotion-15 {
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
-  display: flex;
-  -webkit-flex-direction: column;
-  -ms-flex-direction: column;
-  flex-direction: column;
 }
 
 .emotion-15 {
@@ -273,7 +262,7 @@ exports[`basic form should render as expected 1`] = `
   color: #21313C;
   background-color: #FFFFFF;
   padding-right: 12px;
-  border-color: #B8C4C2;
+  border-color: #89979B;
 }
 
 .emotion-18::-webkit-input-placeholder {
@@ -296,6 +285,10 @@ exports[`basic form should render as expected 1`] = `
   cursor: not-allowed;
 }
 
+.emotion-18:focus {
+  border: 1px solid #FFFFFF;
+}
+
 .emotion-18:disabled {
   color: #89979B;
   background-color: #E7EEEC;
@@ -306,14 +299,11 @@ exports[`basic form should render as expected 1`] = `
 .emotion-18:disabled:-webkit-autofill:focus {
   -webkit-appearance: none;
   -moz-appearance: none;
+  -ms-appearance: none;
   appearance: none;
-  border: 1px solid #B8C4C2;
+  border: 1px solid #89979B;
   -webkit-text-fill-color: #89979B;
   -webkit-box-shadow: 0 0 0px 1000px #E7EEEC inset;
-}
-
-.emotion-18:focus {
-  border: 1px solid #FFFFFF;
 }
 
 .emotion-19 {
@@ -378,17 +368,18 @@ exports[`basic form should render as expected 1`] = `
               >
                 <label
                   class="emotion-6"
-                  id="select-0-label"
+                  id="select-1-label"
                 >
                   Project Cloning Method
                 </label>
                 <button
-                  aria-controls="select-0-menu"
-                  aria-describedby="select-0-description"
+                  aria-controls="select-1-menu"
+                  aria-describedby="select-1-description"
                   aria-disabled="false"
                   aria-expanded="false"
-                  aria-labelledby="select-0-label"
+                  aria-labelledby="select-1-label"
                   class="emotion-7"
+                  data-testid="leafygreen-ui-select-menubutton"
                   type="button"
                   value="legacy-ssh"
                 >
@@ -398,11 +389,11 @@ exports[`basic form should render as expected 1`] = `
                   <div
                     class="emotion-9"
                   >
-                    <span
+                    <div
                       class="emotion-10"
                     >
                       Legacy SSH
-                    </span>
+                    </div>
                     <span
                       class="emotion-11"
                     >
@@ -450,7 +441,7 @@ exports[`basic form should render as expected 1`] = `
                     <input
                       autocomplete="on"
                       class="emotion-18"
-                      id="text-input-0"
+                      id="textinput-1"
                       placeholder=""
                       required=""
                       type="text"

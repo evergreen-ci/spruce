@@ -5,7 +5,7 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
   className="css-1s5fzt1-FlexColumnContainer-Container edx7lnf4"
 >
   <h6
-    className="leafygreen-ui-16zt3i0"
+    className="leafygreen-ui-11wdjex"
   >
     Public Key
   </h6>
@@ -107,7 +107,7 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
       or
     </span>
     <label
-      className="leafygreen-ui-1ah1232"
+      className="leafygreen-ui-179725f"
       data-leafygreen-ui="radio-box-wrapper"
       htmlFor="radio-box-1"
     >
@@ -126,13 +126,13 @@ exports[`Storyshots Public Key Form Public Key Form View 1`] = `
         value="addKey"
       />
       <div
-        className="leafygreen-ui-1vljv0d"
+        className="leafygreen-ui-od3kvw"
       >
         <div
-          className="leafygreen-ui-1cen7zh leafygreen-ui-1bn7h8i"
+          className="leafygreen-ui-1ozjte4"
         >
           <div
-            className="leafygreen-ui-pppkef leafygreen-ui-xkj36k"
+            className="leafygreen-ui-2hwukf"
             onBlur={[Function]}
             onFocus={[Function]}
           >

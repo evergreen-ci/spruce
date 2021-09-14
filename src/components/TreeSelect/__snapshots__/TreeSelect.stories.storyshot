@@ -111,11 +111,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-68852y"
+          className="leafygreen-ui-v3mbc2"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         Shapes
       </span>
@@ -148,11 +148,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-68852y"
+          className="leafygreen-ui-v3mbc2"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         rectangle
       </span>
@@ -185,11 +185,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-68852y"
+          className="leafygreen-ui-v3mbc2"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         circle
       </span>
@@ -222,11 +222,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-68852y"
+          className="leafygreen-ui-v3mbc2"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         rhombus
       </span>
@@ -259,11 +259,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-lsrlgh"
+          className="leafygreen-ui-njm8mk"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         Pass
       </span>
@@ -296,11 +296,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-lsrlgh"
+          className="leafygreen-ui-njm8mk"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         Failed
       </span>
@@ -333,11 +333,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-lsrlgh"
+          className="leafygreen-ui-njm8mk"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         Skip
       </span>
@@ -370,11 +370,11 @@ Array [
         data-leafygreen-ui="checkbox-wrapper"
       >
         <div
-          className="leafygreen-ui-lsrlgh"
+          className="leafygreen-ui-njm8mk"
         />
       </div>
       <span
-        className="leafygreen-ui-pxtafh"
+        className="leafygreen-ui-1qufm80"
       >
         Silent Fail
       </span>

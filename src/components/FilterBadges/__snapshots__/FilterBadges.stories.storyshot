@@ -5,7 +5,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
   className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
@@ -36,7 +36,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
@@ -67,7 +67,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
