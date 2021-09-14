@@ -2855,20 +2855,7 @@
   dependencies:
     "@leafygreen-ui/lib" "^9.0.0"
 
-"@leafygreen-ui/tooltip@6.2.1", "@leafygreen-ui/tooltip@^6.3.1":
-  version "6.2.1"
-  resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.2.1.tgz#c1bee65d646b3ddf1c0cd4534de2a8e11c6ce4b4"
-  integrity sha512-VCH1XwFE4ckkCIeDva63EWdI41H6rNd0XEEZ8HMSwvq3rc71ll9JaeNHGTcUftCaPHKpDXKHNjnBdUDwPVUZWg==
-  dependencies:
-    "@leafygreen-ui/hooks" "^6.0.1"
-    "@leafygreen-ui/icon" "^11.0.0"
-    "@leafygreen-ui/lib" "^7.0.0"
-    "@leafygreen-ui/palette" "^3.2.1"
-    "@leafygreen-ui/popover" "^7.2.0"
-    "@leafygreen-ui/tokens" "^0.5.1"
-    lodash "^4.17.21"
-
-"@leafygreen-ui/tooltip@6.3.1":
+"@leafygreen-ui/tooltip@6.3.1", "@leafygreen-ui/tooltip@^6.3.1":
   version "6.3.1"
   resolved "https://registry.yarnpkg.com/@leafygreen-ui/tooltip/-/tooltip-6.3.1.tgz#e36d5f18ecaf9b5eeb719dbe09794fc8253b6662"
   integrity sha512-bwIe7nb4O1A57aP1K/XPFyRlS5egBJ5BfYZHjOD1Qu9+WKIDcC8KWsR6P3hrQOqbi3zdWUG43HDZbJvHqQi45w==
