@@ -2,17 +2,9 @@ import React from "react";
 import { LoadingOutlined } from "@ant-design/icons";
 import LeafyGreenButton, { Variant, Size } from "@leafygreen-ui/button";
 
-interface ButtonType {
-  danger: string;
-  default: string;
-  primary: string;
-  primaryOutline: string;
-}
-type ButtonTypeKeys = keyof ButtonType;
-
 interface Props {
   loading?: boolean;
-  variant?: ButtonTypeKeys;
+  variant?: Variant;
   onClick?: () => void;
   disabled?: boolean;
   "data-cy"?: string;
@@ -36,7 +28,7 @@ export const Button: React.FC<Props> = ({
 }) => (
   <LeafyGreenButton
     data-cy={dataCy}
-    variant={mapVariantToLeafyGreenVariant[variant]}
+    variant={variant}
     onClick={onClick}
     disabled={disabled}
     leftGlyph={
@@ -49,10 +41,3 @@ export const Button: React.FC<Props> = ({
     {children}
   </LeafyGreenButton>
 );
-
-const mapVariantToLeafyGreenVariant: { [key: string]: ButtonTypeKeys } = {
-  [Variant.Danger]: "danger",
-  [Variant.Default]: "default",
-  [Variant.Primary]: "primary",
-  [Variant.PrimaryOutline]: "primaryOutline",
-};
