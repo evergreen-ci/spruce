@@ -1,9 +1,9 @@
 import styled from "@emotion/styled";
 import { ListChildComponentProps } from "react-window";
 import { CommitChartLabel } from "pages/commits/ActiveCommits/CommitChartLabel";
-import { HistoryTableIcon } from "pages/commits/HistoryTableIcon";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
+import { HistoryTableIcon } from "./HistoryTableIcon";
 import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
@@ -80,7 +80,6 @@ const Cell = styled.div`
   justify-content: center;
   align-items: center;
   :hover {
-    background-color: red;
     cursor: pointer;
   }
 `;

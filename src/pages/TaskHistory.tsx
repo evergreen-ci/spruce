@@ -89,7 +89,6 @@ export const TaskHistory = () => {
                 <ColumnHeaders loading={loading} columns={selectedColumns} />
                 <TableWrapper>
                   <HistoryTable
-                    columns={buildVariantsForTaskName || []}
                     recentlyFetchedCommits={mainlineCommits}
                     loadMoreItems={() => {
                       if (mainlineCommits) {
