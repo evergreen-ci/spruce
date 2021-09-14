@@ -7,5 +7,55 @@ mutation RestartVersions(
     versionId: $patchId
     abort: $abort
     versionsToRestart: $versionsToRestart
-  )
+  ) {
+    id
+    createTime
+    startTime
+    finishTime
+    revision
+    author
+    status
+    order
+    repo
+    project
+    activated
+    message
+    isPatch
+    taskCount
+    project
+    baseVersionID
+    projectIdentifier
+    versionTiming {
+      makespan
+      timeTaken
+    }
+    parameters {
+      key
+      value
+    }
+    manifest {
+      id
+      revision
+      project
+      branch
+      isBase
+      moduleOverrides
+      modules
+    }
+    patch {
+      id
+      patchNumber
+      alias
+      commitQueuePosition
+      canEnqueueToCommitQueue
+      childPatches {
+        baseVersionID
+        githash
+        id
+        projectIdentifier
+        taskCount
+        status
+      }
+    }
+  }
 }
