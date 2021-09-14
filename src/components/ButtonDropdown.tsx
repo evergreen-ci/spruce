@@ -22,7 +22,6 @@ export const ButtonDropdown: React.FC<Props> = ({
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}
-        leftGlyph={<Icon glyph="Ellipsis" />}
       >
         <Icon glyph="Ellipsis" />
       </Button>
