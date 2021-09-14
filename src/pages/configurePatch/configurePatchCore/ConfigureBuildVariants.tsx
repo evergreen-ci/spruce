@@ -6,16 +6,20 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { inactiveElementStyle, SiderCard } from "components/styles";
 import { Divider } from "components/styles/Divider";
-import { ProjectBuildVariant } from "gql/generated/types";
 import { array } from "utils";
-import { VariantTasksState } from "./state";
 
 const { toggleArray } = array;
 const { green } = uiColors;
 
+interface MenuItemProps {
+  displayName: string;
+  name: string;
+  taskCount: number;
+}
+
 interface Props {
-  variants: ProjectBuildVariant[];
-  selectedVariantTasks: VariantTasksState;
+  variants: MenuItemProps[];
+  aliases?: MenuItemProps[];
   selectedBuildVariants: string[];
   setSelectedBuildVariants: (bv: string[]) => void;
   disabled: boolean;
@@ -23,7 +27,7 @@ interface Props {
 
 export const ConfigureBuildVariants: React.FC<Props> = ({
   variants,
-  selectedVariantTasks,
+  aliases,
   selectedBuildVariants,
   setSelectedBuildVariants,
   disabled,
@@ -88,51 +92,80 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
   return (
     <DisableWrapper data-cy="build-variant-select-wrapper" disabled={disabled}>
       <UserSelectWrapper isHotKeyPressed={state.numButtonsPressed !== 0}>
-        {/* @ts-expect-error */}
-        <StyledSiderCard>
-          <Container>
-            <Body weight="medium">Select Build Variants and Tasks</Body>
-            <Divider />
-          </Container>
-          <ScrollableBuildVariantContainer>
-            {variants.map(({ displayName, name }) => {
-              const taskCount = selectedVariantTasks[name]
-                ? Object.values(selectedVariantTasks[name]).filter((v) => v)
-                    .length
-                : 0;
-              const isSelected = selectedBuildVariants.includes(name);
-              return (
-                <BuildVariant
-                  data-cy="build-variant-list-item"
-                  data-selected={isSelected}
-                  key={name}
-                  isSelected={isSelected}
-                  onClick={getClickVariantHandler(name)}
-                >
-                  <VariantName>
-                    <Body weight={isSelected ? "medium" : "regular"}>
-                      {displayName}
-                    </Body>
-                  </VariantName>
-                  {taskCount > 0 && (
-                    <StyledBadge
-                      data-cy="task-count-badge"
-                      variant={
-                        isSelected ? Variant.DarkGray : Variant.LightGray
-                      }
-                    >
-                      {taskCount}
-                    </StyledBadge>
-                  )}
-                </BuildVariant>
-              );
-            })}
-          </ScrollableBuildVariantContainer>
-        </StyledSiderCard>
+        <Card
+          onClick={getClickVariantHandler}
+          menuItems={variants}
+          title="Select Build Variants and Tasks"
+          selectedMenuItems={selectedBuildVariants}
+          data-cy="build-variant-list-item"
+        />
+        {aliases && (
+          <Card
+            onClick={getClickVariantHandler}
+            menuItems={aliases}
+            title="Select Downstream Tasks"
+            selectedMenuItems={selectedBuildVariants}
+            data-cy="trigger-alias-list-item"
+          />
+        )}
       </UserSelectWrapper>
     </DisableWrapper>
   );
 };
+
+interface CardProps {
+  "data-cy": string;
+  onClick: (variantName: string) => (e) => void;
+  menuItems: MenuItemProps[];
+  selectedMenuItems: string[];
+  title: string;
+}
+
+const Card: React.FC<CardProps> = ({
+  "data-cy": dataCy,
+  onClick,
+  menuItems,
+  selectedMenuItems,
+  title,
+}) => (
+  <>
+    {/* @ts-expect-error */}
+    <StyledSiderCard>
+      <Container>
+        <Body weight="medium">{title}</Body>
+        <Divider />
+      </Container>
+      <ScrollableBuildVariantContainer>
+        {menuItems.map(({ displayName, name, taskCount }) => {
+          const isSelected = selectedMenuItems.includes(name);
+          return (
+            <BuildVariant
+              data-cy={dataCy}
+              data-selected={isSelected}
+              key={name}
+              isSelected={isSelected}
+              onClick={onClick(name)}
+            >
+              <VariantName>
+                <Body weight={isSelected ? "medium" : "regular"}>
+                  {displayName}
+                </Body>
+              </VariantName>
+              {taskCount > 0 && (
+                <StyledBadge
+                  data-cy="task-count-badge"
+                  variant={isSelected ? Variant.DarkGray : Variant.LightGray}
+                >
+                  {taskCount}
+                </StyledBadge>
+              )}
+            </BuildVariant>
+          );
+        })}
+      </ScrollableBuildVariantContainer>
+    </StyledSiderCard>
+  </>
+);
 
 const hotKeys = new Set(["Meta", "Shift", "Control"]);
 interface State {
