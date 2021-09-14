@@ -17,7 +17,7 @@ export enum rowType {
 // Processed commits are the order of commits in the table.
 // They are one of the following:
 // - A commit
-// - A date seperator
+// - A date separator
 // - A set of commits that are rolled up into a single commit
 // The processed commits are used to calculate the height of each row in the table.
 // They are ordered by the order of the commits in the table.

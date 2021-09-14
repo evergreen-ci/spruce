@@ -14,8 +14,8 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   }
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
-    // TODO: add date seperator component
-    return <DateSeperator style={style}>{commit.date}</DateSeperator>;
+    // TODO: add date separator component
+    return <DateSeparator style={style}>{commit.date}</DateSeparator>;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
     const {
@@ -84,7 +84,7 @@ const Cell = styled.div`
   }
 `;
 
-const DateSeperator = styled.div`
+const DateSeparator = styled.div`
   width: 100%;
   padding-right: 40px;
   background-color: lightblue;

@@ -39,7 +39,7 @@ describe("HistoryTableContext", () => {
     expect(processedCommits.length).toEqual(
       splitMainlineCommitDataPart1.versions.length
     );
-    // First element should be the date seperator
+    // First element should be the date separator
     expect(result.current.isItemLoaded(0)).toBe(true);
     expect(result.current.getItem(0)).toEqual({
       type: rowType.DATE_SEPARATOR,
@@ -84,7 +84,7 @@ describe("HistoryTableContext", () => {
     });
   });
 
-  test("Should add a line seperator between commits when they are a different date", () => {
+  test("Should add a line separator between commits when they are a different date", () => {
     const { result } = renderHook(() => useHistoryTable(), { wrapper });
     const commitDate1 = {
       ...mainlineCommitData,
