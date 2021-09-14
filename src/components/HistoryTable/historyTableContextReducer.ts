@@ -7,17 +7,16 @@ type Action =
   | { type: "prevPageColumns" }
   | { type: "setColumnLimit"; limit: number };
 
-type cacheShape = {
-  [order: number]:
-    | mainlineCommits["versions"][0]["version"]
-    | mainlineCommits["versions"][0]["rolledUpVersions"][0];
-};
+type cacheShape = Map<
+  number,
+  | mainlineCommits["versions"][0]["version"]
+  | mainlineCommits["versions"][0]["rolledUpVersions"][0]
+>;
 interface HistoryTableState {
   loadedCommits: mainlineCommits["versions"];
   processedCommits: CommitRowType[];
   processedCommitCount: number;
   commitCache: cacheShape;
-  cacheSize: number;
   visibleColumns: string[];
   currentPage: number;
   columns: string[];
@@ -28,13 +27,12 @@ export const reducer = (state: HistoryTableState, action: Action) => {
   switch (action.type) {
     case "ingestNewCommits": {
       // We cache the commits and use this to determine if a new commit was added in this action
-      //   This also performantly handles deduplication of commits at the expense of memory
+      // This also performantly handles deduplication of commits at the expense of memory
       const updatedObjectCache = objectifyCommits(
         state.commitCache,
         action.commits.versions
       );
-      const updatedCache = Object.values(updatedObjectCache);
-      if (updatedCache.length > state.cacheSize) {
+      if (updatedObjectCache.size > state.commitCache.size) {
         const processedCommits = processCommits(
           action.commits.versions,
           state.processedCommits
@@ -42,7 +40,6 @@ export const reducer = (state: HistoryTableState, action: Action) => {
         return {
           ...state,
           commitCache: updatedObjectCache,
-          cacheSize: updatedCache.length,
           processedCommits,
           processedCommitCount: processedCommits.length,
         };
@@ -102,13 +99,13 @@ const objectifyCommits = (
   cache: cacheShape,
   newCommits: mainlineCommits["versions"]
 ) => {
-  const obj = { ...cache };
+  const obj = new Map(cache);
   newCommits.forEach((commit) => {
     if (commit.version) {
-      obj[commit.version.order] = commit.version;
+      obj.set(commit.version.order, commit.version);
     } else if (commit.rolledUpVersions) {
       commit.rolledUpVersions.forEach((version) => {
-        obj[version.order] = version;
+        obj.set(version.order, version);
       });
     }
   });
