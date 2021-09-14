@@ -1,4 +1,5 @@
 import React, { useState, useCallback, useEffect } from "react";
+import styled from "@emotion/styled";
 import Toast, { Variant } from "@leafygreen-ui/toast";
 import { WordBreak } from "components/Typography";
 import { TOAST_TIMEOUT } from "constants/index";
@@ -147,7 +148,7 @@ const ToastProvider: React.FC = ({ children }) => {
   return (
     <ToastDispatchContext.Provider value={toastContext}>
       {children}
-      <Toast
+      <StyledToast
         variant={visibleToast.variant}
         title={visibleToast?.title || variantToTitleMap[visibleToast?.variant]}
         body={<WordBreak>{visibleToast.message}</WordBreak>}
@@ -172,5 +173,9 @@ const useToastContext = (): DispatchToast => {
   }
   return context;
 };
+
+const StyledToast = styled(Toast)`
+  z-index: 10;
+`;
 
 export { ToastProvider, useToastContext };
