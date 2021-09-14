@@ -4,16 +4,37 @@ import { TaskStatus } from "types/task";
 
 const { gray, red, yellow, green } = uiColors;
 
-export const taskStatusesFilterTreeData: TreeDataEntry[] = [
-  {
-    title: "All",
-    value: ALL_VALUE,
-    key: ALL_VALUE,
-  },
+export const taskStatusToCopy = {
+  [TaskStatus.ScheduledUmbrella]: "Scheduled",
+  [TaskStatus.FailedUmbrella]: "Failed",
+  [TaskStatus.RunningUmbrella]: "Running",
+  [TaskStatus.SystemFailureUmbrella]: "System Failure",
+  [TaskStatus.UndispatchedUmbrella]: "Undispatched",
+  [TaskStatus.Aborted]: "Aborted",
+  [TaskStatus.Blocked]: "Blocked",
+  [TaskStatus.Dispatched]: "Dispatched",
+  [TaskStatus.Failed]: "Failed",
+  [TaskStatus.Inactive]: "Inactive",
+  [TaskStatus.KnownIssue]: "Known Issue",
+  [TaskStatus.Pending]: "Pending",
+  [TaskStatus.Started]: "Running",
+  [TaskStatus.SystemFailed]: "System Failed",
+  [TaskStatus.SystemTimedOut]: "System Time Out",
+  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
+  [TaskStatus.SetupFailed]: "Setup Failure",
+  [TaskStatus.Succeeded]: "Success",
+  [TaskStatus.TaskTimedOut]: "Task Timed Out",
+  [TaskStatus.TestTimedOut]: "Test Timed Out",
+  [TaskStatus.Unstarted]: "Unstarted",
+  [TaskStatus.Unscheduled]: "Unscheduled",
+  [TaskStatus.WillRun]: "Will Run",
+};
+
+const taskStatuses: TreeDataEntry[] = [
   {
     title: "Failures",
-    value: "all-failures",
-    key: "all-failures",
+    value: TaskStatus.FailedUmbrella,
+    key: TaskStatus.FailedUmbrella,
     children: [
       {
         title: "Failed",
@@ -31,11 +52,6 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
         key: TaskStatus.TestTimedOut,
       },
       {
-        title: "Aborted",
-        value: TaskStatus.Aborted,
-        key: TaskStatus.Aborted,
-      },
-      {
         title: "Known Issue",
         value: TaskStatus.KnownIssue,
         key: TaskStatus.KnownIssue,
@@ -48,46 +64,48 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     key: TaskStatus.Succeeded,
   },
   {
-    title: "Dispatched",
-    value: TaskStatus.Dispatched,
-    key: TaskStatus.Dispatched,
-  },
-  {
     title: "Running",
-    value: TaskStatus.Started,
-    key: TaskStatus.Started,
-  },
-  {
-    title: "Unscheduled",
-    value: TaskStatus.Unscheduled,
-    key: TaskStatus.Unscheduled,
+    value: TaskStatus.RunningUmbrella,
+    key: TaskStatus.RunningUmbrella,
+    children: [
+      {
+        title: "Running",
+        value: TaskStatus.Started,
+        key: TaskStatus.Started,
+      },
+      {
+        title: "Dispatched",
+        value: TaskStatus.Dispatched,
+        key: TaskStatus.Dispatched,
+      },
+    ],
   },
   {
     title: "Scheduled",
-    value: "scheduled",
-    key: "scheduled",
+    value: TaskStatus.ScheduledUmbrella,
+    key: TaskStatus.ScheduledUmbrella,
     children: [
-      {
-        title: "Unstarted",
-        value: TaskStatus.Unstarted,
-        key: TaskStatus.Unstarted,
-      },
-      {
-        title: "Undispatched or Blocked",
-        value: TaskStatus.Undispatched,
-        key: TaskStatus.Undispatched,
-      },
       {
         title: "Will Run",
         value: TaskStatus.WillRun,
         key: TaskStatus.WillRun,
       },
+      {
+        title: "Pending",
+        value: TaskStatus.Pending,
+        key: TaskStatus.Pending,
+      },
+      {
+        title: "Unstarted",
+        value: TaskStatus.Unstarted,
+        key: TaskStatus.Unstarted,
+      },
     ],
   },
   {
-    title: "System Issues",
-    value: "system-issues",
-    key: "system-issues",
+    title: "System Failure",
+    value: TaskStatus.SystemFailureUmbrella,
+    key: TaskStatus.SystemFailureUmbrella,
     children: [
       {
         title: "System Failed",
@@ -112,20 +130,34 @@ export const taskStatusesFilterTreeData: TreeDataEntry[] = [
     key: TaskStatus.SetupFailed,
   },
   {
-    title: "Aborted",
-    value: TaskStatus.Aborted,
-    key: TaskStatus.Aborted,
-  },
-  {
-    title: "Blocked",
-    value: TaskStatus.Blocked,
-    key: TaskStatus.Blocked,
-  },
-  {
     title: "Won't Run",
     value: TaskStatus.Inactive,
     key: TaskStatus.Inactive,
   },
+];
+
+export const mapTaskStatusToUmbrellaStatus: {
+  [key: string]: string;
+} = taskStatuses.reduce(
+  (accum, { value, children }) => ({
+    ...accum,
+    ...(children
+      ? children.reduce(
+          (cAccum, child) => ({ ...cAccum, [child.value]: value }),
+          {}
+        )
+      : { [value]: value }),
+  }),
+  {}
+);
+
+export const taskStatusesFilterTreeData: TreeDataEntry[] = [
+  {
+    title: "All",
+    value: ALL_VALUE,
+    key: ALL_VALUE,
+  },
+  ...taskStatuses,
 ];
 
 const failureLavender = "#F3EDF5";
@@ -148,7 +180,6 @@ export const sortedStatusColor = [
 export const mapTaskStatusToColor = {
   [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.Blocked]: gray.dark1,
-  [TaskStatus.Dispatched]: gray.light1,
   [TaskStatus.Failed]: red.base,
   [TaskStatus.Inactive]: gray.light1,
   [TaskStatus.KnownIssue]: red.base,
@@ -156,12 +187,12 @@ export const mapTaskStatusToColor = {
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.Succeeded]: green.base,
   [TaskStatus.Started]: yellow.base,
+  [TaskStatus.Dispatched]: yellow.base,
   [TaskStatus.SystemFailed]: failurePurple,
   [TaskStatus.SystemTimedOut]: failurePurple,
   [TaskStatus.SystemUnresponsive]: failurePurple,
   [TaskStatus.TaskTimedOut]: red.base,
   [TaskStatus.TestTimedOut]: red.base,
-  [TaskStatus.Undispatched]: gray.light1,
   [TaskStatus.Unstarted]: gray.light1,
   [TaskStatus.Unscheduled]: gray.dark1,
   [TaskStatus.WillRun]: gray.light1,
@@ -171,67 +202,22 @@ export const mapTaskStatusToColor = {
 export const mapTaskStatusToTextColor = {
   [TaskStatus.Aborted]: gray.dark3,
   [TaskStatus.Blocked]: gray.dark3,
-  [TaskStatus.Dispatched]: gray.dark3,
   [TaskStatus.Failed]: red.dark3,
   [TaskStatus.Inactive]: gray.dark3,
   [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Pending]: yellow.dark3,
   [TaskStatus.SetupFailed]: failureLavendarDark,
   [TaskStatus.Started]: yellow.dark3,
+  [TaskStatus.Dispatched]: yellow.dark3,
   [TaskStatus.Succeeded]: green.dark3,
   [TaskStatus.SystemFailed]: failurePurpleDark,
   [TaskStatus.SystemTimedOut]: failurePurpleDark,
   [TaskStatus.SystemUnresponsive]: failurePurpleDark,
   [TaskStatus.TestTimedOut]: red.dark3,
   [TaskStatus.TaskTimedOut]: red.dark3,
-  [TaskStatus.Undispatched]: gray.dark3,
   [TaskStatus.Unstarted]: gray.dark3,
   [TaskStatus.Unscheduled]: gray.light3,
   [TaskStatus.WillRun]: gray.dark1,
-};
-
-export const taskStatusToCopy = {
-  [TaskStatus.Aborted]: "Aborted",
-  [TaskStatus.Blocked]: "Blocked",
-  [TaskStatus.Dispatched]: "Dispatched",
-  [TaskStatus.Failed]: "Failed",
-  [TaskStatus.Inactive]: "Inactive",
-  [TaskStatus.KnownIssue]: "Known Issue",
-  [TaskStatus.Pending]: "Pending",
-  [TaskStatus.Started]: "Running",
-  [TaskStatus.SystemFailed]: "System Failed",
-  [TaskStatus.SystemTimedOut]: "System Time Out",
-  [TaskStatus.SystemUnresponsive]: "System Unresponsive",
-  [TaskStatus.SetupFailed]: "Setup Failure",
-  [TaskStatus.Succeeded]: "Success",
-  [TaskStatus.TaskTimedOut]: "Task-timed-out",
-  [TaskStatus.TestTimedOut]: "Test-timed-out",
-  [TaskStatus.Undispatched]: "Undispatched",
-  [TaskStatus.Unstarted]: "Unstarted",
-  [TaskStatus.Unscheduled]: "Unscheduled",
-  [TaskStatus.WillRun]: "Will Run",
-};
-
-export const mapTaskStatusToUmbrellaStatus = {
-  [TaskStatus.Succeeded]: TaskStatus.Succeeded,
-  [TaskStatus.Failed]: TaskStatus.Failed,
-  [TaskStatus.TaskTimedOut]: TaskStatus.Failed,
-  [TaskStatus.TestTimedOut]: TaskStatus.Failed,
-  [TaskStatus.KnownIssue]: TaskStatus.Failed,
-  [TaskStatus.SystemFailed]: TaskStatus.SystemFailed,
-  [TaskStatus.SystemTimedOut]: TaskStatus.SystemFailed,
-  [TaskStatus.SystemUnresponsive]: TaskStatus.SystemFailed,
-  [TaskStatus.Aborted]: TaskStatus.Dispatched,
-  [TaskStatus.Dispatched]: TaskStatus.Dispatched,
-  [TaskStatus.Inactive]: TaskStatus.Dispatched,
-  [TaskStatus.Undispatched]: TaskStatus.Dispatched,
-  [TaskStatus.Unstarted]: TaskStatus.Dispatched,
-  [TaskStatus.WillRun]: TaskStatus.Dispatched,
-  [TaskStatus.SetupFailed]: TaskStatus.SetupFailed,
-  [TaskStatus.Pending]: TaskStatus.Started,
-  [TaskStatus.Started]: TaskStatus.Started,
-  [TaskStatus.Blocked]: TaskStatus.Unscheduled,
-  [TaskStatus.Unscheduled]: TaskStatus.Unscheduled,
 };
 
 export const mapBadgeColors = {
