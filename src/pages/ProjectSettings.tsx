@@ -1,7 +1,11 @@
 import styled from "@emotion/styled";
-import { SideNav, SideNavGroup, SideNavItem } from "@leafygreen-ui/side-nav";
 import { useParams, Link, Redirect } from "react-router-dom";
-import { PageWrapper } from "components/styles";
+import {
+  SideNav,
+  SideNavGroup,
+  SideNavItem,
+  PageWrapper,
+} from "components/styles";
 import {
   ProjectSettingsTabRoutes,
   getProjectSettingsRoute,
@@ -42,66 +46,66 @@ export const ProjectSettings: React.FC = () => {
   }
 
   return (
-    <PageWrapper>
-      <PageContainer>
-        <SideNav>
-          <SideNavGroup header="Project" />
-          <SideNavGroup>
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.General}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.Access}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.Variables}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.Notifications}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.PatchAliases}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.VirtualWorkstation}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.ProjectTriggers}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.PeriodicBuilds}
-              projectId={projectId}
-            />
-            <ProjectSettingsNavItem
-              currentTab={tab}
-              tab={ProjectSettingsTabRoutes.EventLog}
-              projectId={projectId}
-            />
-          </SideNavGroup>
-        </SideNav>
+    <>
+      <SideNav>
+        <SideNavGroup header="Project" />
+        <SideNavGroup>
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.General}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.Access}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.Variables}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.Notifications}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.PatchAliases}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.VirtualWorkstation}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.ProjectTriggers}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.PeriodicBuilds}
+            projectId={projectId}
+          />
+          <ProjectSettingsNavItem
+            currentTab={tab}
+            tab={ProjectSettingsTabRoutes.EventLog}
+            projectId={projectId}
+          />
+        </SideNavGroup>
+      </SideNav>
+      <PageWrapper>
         <ProjectSettingsTabs />
-      </PageContainer>
-    </PageWrapper>
+      </PageWrapper>
+    </>
   );
 };
 
@@ -113,7 +117,7 @@ const ProjectSettingsNavItem: React.FC<{
 }> = ({ currentTab, tab, title, projectId }) => (
   <SideNavItem
     active={tab === currentTab}
-    as={Link}
+    as={Link} // @ts-expect-error
     to={getProjectSettingsRoute(projectId, tab)}
   >
     {title || getTitle(tab).title}
