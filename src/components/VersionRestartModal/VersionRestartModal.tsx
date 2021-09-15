@@ -16,7 +16,6 @@ import {
   Patch,
   RestartVersionsMutation,
   RestartVersionsMutationVariables,
-  VersionToRestart,
 } from "gql/generated/types";
 import { RESTART_VERSIONS } from "gql/mutations";
 import { GET_BUILD_VARIANTS_WITH_CHILDREN } from "gql/queries";
@@ -268,19 +267,11 @@ const selectTasksTotal = (selectedTasks: patchSelectedTasks) =>
     0
   );
 
-const getTaskIds = (selectedTasks: patchSelectedTasks) => {
-  const taskIds: VersionToRestart[] = [];
-  Object.keys(selectedTasks).forEach((selected) => {
-    const tasksArray = selectedArray(selectedTasks[selected]);
-
-    const versionToRestart: VersionToRestart = {
-      versionId: selected,
-      taskIds: tasksArray,
-    };
-    taskIds.push(versionToRestart);
-  });
-  return taskIds;
-};
+const getTaskIds = (selectedTasks: patchSelectedTasks) =>
+  Object.entries(selectedTasks).map(([versionId, tasks]) => ({
+    versionId,
+    taskIds: selectedArray(tasks),
+  }));
 
 const HR = styled.hr`
   background-color: ${gray.light2};
