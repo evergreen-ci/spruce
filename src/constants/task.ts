@@ -151,6 +151,18 @@ export const mapTaskStatusToUmbrellaStatus: {
   {}
 );
 
+export const mapUmbrellaStatusToQueryParam: {
+  [key: string]: string[];
+} = taskStatuses.reduce((accum, { value, children }) => {
+  if (children) {
+    return {
+      ...accum,
+      [value]: [value, ...children?.map((child) => child.value)],
+    };
+  }
+  return { ...accum, [value]: [value] };
+}, {});
+
 export const taskStatusesFilterTreeData: TreeDataEntry[] = [
   {
     title: "All",

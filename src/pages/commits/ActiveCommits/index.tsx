@@ -58,6 +58,7 @@ export const ActiveCommit: React.FC<Props> = ({
     <ColumnContainer>
       {version.buildVariants.map(({ displayName, tasks }) => (
         <BuildVariantCard
+          versionId={version.id}
           buildVariantDisplayName={displayName}
           tasks={tasks}
           key={`${version.id}_${displayName}`}

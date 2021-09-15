@@ -2,8 +2,11 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { useHistory } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
+import { getVersionRoute } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
 
 const { gray } = uiColors;
@@ -15,11 +18,13 @@ interface Props {
     status: string;
   }[];
   shouldGroupTasks: boolean;
+  versionId: string;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
   tasks,
   shouldGroupTasks,
+  versionId,
 }) => {
   let render = null;
   if (shouldGroupTasks) {
@@ -32,7 +37,11 @@ export const BuildVariantCard: React.FC<Props> = ({
     render = (
       <>
         <IconContainer>
-          <RenderGroupedIcons tasks={nonFailingTasks} />
+          <RenderGroupedIcons
+            tasks={nonFailingTasks}
+            versionId={versionId}
+            buildVariantDisplayName={buildVariantDisplayName}
+          />
         </IconContainer>
         <IconContainer>
           <RenderTaskIcons tasks={failingTasks} />
@@ -56,7 +65,20 @@ export const BuildVariantCard: React.FC<Props> = ({
   );
 };
 
-const RenderGroupedIcons = ({ tasks }) => {
+interface RenderGroupedIconsProps {
+  tasks: {
+    id: string;
+    status: string;
+  }[];
+  versionId: string;
+  buildVariantDisplayName: string;
+}
+const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
+  tasks,
+  versionId,
+  buildVariantDisplayName,
+}) => {
+  const { push } = useHistory();
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByColor(
     tasks.map((task) => ({ ...task, count: 1 }))
@@ -67,15 +89,25 @@ const RenderGroupedIcons = ({ tasks }) => {
   );
   return (
     <>
-      {otherTasks.map(({ count, umbrellaStatus }) => (
-        <GroupedTaskStatusBadgeWrapper>
-          <GroupedTaskStatusBadge
-            status={umbrellaStatus}
-            key={`${umbrellaStatus}_groupedBadge`}
-            count={count}
-          />
-        </GroupedTaskStatusBadgeWrapper>
-      ))}
+      {otherTasks.map(({ count, umbrellaStatus }) => {
+        const onClick = () =>
+          push(
+            getVersionRoute(versionId, {
+              statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+              variant: buildVariantDisplayName,
+            })
+          );
+        return (
+          <GroupedTaskStatusBadgeWrapper>
+            <GroupedTaskStatusBadge
+              status={umbrellaStatus}
+              key={`${umbrellaStatus}_groupedBadge`}
+              count={count}
+              onClick={onClick}
+            />
+          </GroupedTaskStatusBadgeWrapper>
+        );
+      })}
     </>
   );
 };
