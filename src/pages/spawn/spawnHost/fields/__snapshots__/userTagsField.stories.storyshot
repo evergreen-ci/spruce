@@ -67,7 +67,7 @@ exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -160,7 +160,7 @@ exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -253,7 +253,7 @@ exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -290,47 +290,28 @@ exports[`Storyshots Editable Tags Field Editable Tag Field View 1`] = `
     <div
       className="css-10b13qw-ButtonContainer e161fbrp4"
     >
-      <div
-        className="leafygreen-ui-vdmjox"
+      <button
+        aria-disabled={false}
+        className="leafygreen-ui-26sqyb"
+        data-cy="add-tag-button"
+        disabled={false}
+        glyph={
+          <Icon
+            glyph="Plus"
+          />
+        }
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          aria-disabled={false}
-          className="leafygreen-ui-nzlvat"
-          data-cy="add-tag-button"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          type="button"
-        >
-          <span
-            className="leafygreen-ui-tdo6z2"
-          >
-            <svg
-              aria-label="Plus Icon"
-              className="leafygreen-ui-h988x4"
-              fill="none"
-              height={16}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-            Add Tag
-          </span>
-        </button>
         <div
-          className="leafygreen-ui-1fqcwcg"
-          data-leafygreen-ui="interaction-ring"
+          className="leafygreen-ui-1ktj4tm"
         />
-      </div>
+        <div
+          className="leafygreen-ui-ie0uqp"
+        >
+          Add Tag
+        </div>
+      </button>
     </div>
   </div>
 </div>
@@ -403,7 +384,7 @@ exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -496,7 +477,7 @@ exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -589,7 +570,7 @@ exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
         <button
           aria-disabled={false}
           aria-label="Delete Tag"
-          className="leafygreen-ui-556onv"
+          className="leafygreen-ui-wn45f0"
           tabIndex={0}
         >
           <div
@@ -626,47 +607,28 @@ exports[`Storyshots Editable Tags Field User Tags Field View 1`] = `
     <div
       className="css-10b13qw-ButtonContainer e161fbrp4"
     >
-      <div
-        className="leafygreen-ui-vdmjox"
+      <button
+        aria-disabled={false}
+        className="leafygreen-ui-26sqyb"
+        data-cy="add-tag-button"
+        disabled={false}
+        glyph={
+          <Icon
+            glyph="Plus"
+          />
+        }
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          aria-disabled={false}
-          className="leafygreen-ui-nzlvat"
-          data-cy="add-tag-button"
-          disabled={false}
-          onBlur={[Function]}
-          onClick={[Function]}
-          onFocus={[Function]}
-          type="button"
-        >
-          <span
-            className="leafygreen-ui-tdo6z2"
-          >
-            <svg
-              aria-label="Plus Icon"
-              className="leafygreen-ui-h988x4"
-              fill="none"
-              height={16}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                clipRule="evenodd"
-                d="M7.5 2a1 1 0 00-1 1v3.5H3a1 1 0 00-1 1v1a1 1 0 001 1h3.5V13a1 1 0 001 1h1a1 1 0 001-1V9.5H13a1 1 0 001-1v-1a1 1 0 00-1-1H9.5V3a1 1 0 00-1-1h-1z"
-                fill="currentColor"
-                fillRule="evenodd"
-              />
-            </svg>
-            Add Tag
-          </span>
-        </button>
         <div
-          className="leafygreen-ui-1fqcwcg"
-          data-leafygreen-ui="interaction-ring"
+          className="leafygreen-ui-1ktj4tm"
         />
-      </div>
+        <div
+          className="leafygreen-ui-ie0uqp"
+        >
+          Add Tag
+        </div>
+      </button>
     </div>
   </div>
 </div>

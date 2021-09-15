@@ -22,8 +22,9 @@ export const ButtonDropdown: React.FC<Props> = ({
         data-cy={dataCy}
         disabled={disabled}
         loading={loading}
-        glyph={<Icon glyph="Ellipsis" />}
-      />
+      >
+        <Icon glyph="Ellipsis" />
+      </Button>
     }
     data-cy="card-dropdown"
     adjustOnMutation
