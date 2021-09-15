@@ -5,7 +5,7 @@ import { Body } from "@leafygreen-ui/typography";
 import { useHistory } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { getVersionRoute } from "constants/routes";
+import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
 
@@ -112,21 +112,29 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   );
 };
 
-const RenderTaskIcons = ({ tasks }) => (
-  <>
-    {tasks.map(({ id, status }) => (
-      <IconButton
-        key={`task_${id}`}
-        aria-label="task icon"
-        onClick={() => {
-          console.log({ id, status });
-        }}
-      >
-        <TaskStatusIcon status={status} size={16} />
-      </IconButton>
-    ))}
-  </>
-);
+interface RenderTaskIconsProps {
+  tasks: {
+    id: string;
+    status: string;
+  }[];
+}
+
+const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => {
+  const { push } = useHistory();
+  return (
+    <>
+      {tasks.map(({ id, status }) => (
+        <IconButton
+          key={`task_${id}`}
+          aria-label="task icon"
+          onClick={() => push(getTaskRoute(id))}
+        >
+          <TaskStatusIcon status={status} size={16} />
+        </IconButton>
+      ))}
+    </>
+  );
+};
 const Label = styled(Body)`
   color: ${gray.dark2};
   font-size: 14px;
