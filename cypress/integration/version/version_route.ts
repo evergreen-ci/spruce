@@ -8,6 +8,7 @@ const versions = {
   3: "5e6bb9e23066155a993e0f1a", // unconfigured patch
   4: "5e94c2dfe3c3312519b59480", // unactivated patch on commit queue
   5: "evergreen_33016573166a36bd5f46b4111151899d5c4e95b1", // basecommit for versions[0]
+  6: "5e4ff3abe3c3317e352062e4",
 };
 
 const versionRoute = (id) => `/version/${id}`;
@@ -84,6 +85,28 @@ describe("Version route", () => {
     it("Navigates to task tab and applies filters when clicking on task square", () => {
       cy.dataCy("task-square").first().click();
       cy.location("search").should("include", "statuses=will-run");
+    });
+  });
+
+  describe.only("Page title", () => {
+    before(() => {
+      cy.preserveCookies();
+      cy.visit(versionRoute(versions[6]));
+    });
+    it("Should include a link to Jira", () => {
+      cy.dataCy("page-title")
+        .contains("a", "EVG-7425")
+        .should("have.attr", "href", "https:///browse/EVG-7425");
+    });
+
+    it("Should include a link to GitHub", () => {
+      cy.dataCy("page-title")
+        .contains("a", "https://github.com/evergreen-ci/evergreen/pull/3186")
+        .should(
+          "have.attr",
+          "href",
+          "https://github.com/evergreen-ci/evergreen/pull/3186"
+        );
     });
   });
 });
