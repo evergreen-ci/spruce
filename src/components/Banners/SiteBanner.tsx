@@ -4,9 +4,9 @@ import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
 import parse from "html-react-parser";
 import Cookies from "js-cookie";
-import { getJiraTicketUrl } from "constants/externalResources";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
+import { jiraLinkify } from "utils/string/jiraLinkify";
 import { Banner } from "./styles";
 
 export const SiteBanner = () => {
@@ -30,18 +30,10 @@ export const SiteBanner = () => {
     Cookies.set(text, "viewed", { expires: 7 });
   };
 
-  const jiraLinkify = (unlinkified: string) => {
-    const linkified = unlinkified.replace(
-      /[A-Z]{1,10}-\d{1,6}/gi,
-      (match) => `<a href="${getJiraTicketUrl(jiraHost, match)}">${match}</a>`
-    );
-    return parse(linkified);
-  };
-
   return (
     showBanner && (
       <Banner bannerTheme={theme} data-cy="sitewide-banner">
-        <span>{jiraLinkify(text)}</span>
+        <span>{parse(jiraLinkify(text, jiraHost))}</span>
         <IconButton
           aria-label="Close Site Banner"
           onClick={hideBanner}

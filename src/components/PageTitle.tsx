@@ -8,7 +8,7 @@ type Size = "large" | "medium";
 interface Props {
   loading: boolean;
   hasData: boolean;
-  title: string;
+  title: string | JSX.Element | JSX.Element[];
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
