@@ -1,16 +1,16 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Storyshots History Table Icon Active Icons 1`] = `
+exports[`Storyshots History Table Active Icons 1`] = `
 <div
-  className="css-1tw1ctr-Container e2krt9z0"
+  className="css-1tw1ctr-Container eb1823k0"
 >
   <div
-    className="css-1saonyd-Container eaofukr1"
+    className="css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         aria-label="Checkmark Icon"
@@ -33,7 +33,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     />
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -42,7 +42,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         aria-label="X Icon"
@@ -69,7 +69,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -78,7 +78,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         fill="none"
@@ -100,12 +100,12 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="css-1saonyd-Container eaofukr1"
+    className="css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         aria-label="Refresh Icon"
@@ -128,7 +128,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     />
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -137,7 +137,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         fill="currentColor"
@@ -170,7 +170,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -179,7 +179,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         fill="none"
@@ -205,7 +205,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -214,7 +214,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         fill="none"
@@ -239,7 +239,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -248,7 +248,7 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         fill="none"
@@ -281,12 +281,12 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     </div>
   </div>
   <div
-    className="css-1saonyd-Container eaofukr1"
+    className="css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     >
       <svg
         aria-label="Calendar Icon"
@@ -311,12 +311,12 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
     />
   </div>
   <div
-    className="css-1saonyd-Container eaofukr1"
+    className="css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onClick={[Function]}
   >
     <div
-      className="css-108m3yg-IconContainer eaofukr0"
+      className="css-108m3yg-IconContainer e12dzyme0"
     />
     <div
       className="leafygreen-ui-xsga32"
@@ -325,12 +325,33 @@ exports[`Storyshots History Table Icon Active Icons 1`] = `
 </div>
 `;
 
-exports[`Storyshots History Table Icon Inactive Icons 1`] = `
+exports[`Storyshots History Table Default 1`] = `
 <div
-  className="css-1tw1ctr-Container e2krt9z0"
+  style={
+    Object {
+      "height": 800,
+      "width": "100%",
+    }
+  }
 >
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    style={
+      Object {
+        "height": 0,
+        "overflow": "visible",
+        "width": 0,
+      }
+    }
+  />
+</div>
+`;
+
+exports[`Storyshots History Table Inactive Icons 1`] = `
+<div
+  className="css-1tw1ctr-Container eb1823k0"
+>
+  <div
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -339,7 +360,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         aria-label="Checkmark Icon"
@@ -359,7 +380,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -368,7 +389,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         aria-label="X Icon"
@@ -390,7 +411,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -399,7 +420,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         fill="none"
@@ -416,7 +437,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -425,7 +446,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         aria-label="Refresh Icon"
@@ -445,7 +466,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -454,7 +475,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         fill="currentColor"
@@ -482,7 +503,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -491,7 +512,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         fill="none"
@@ -512,7 +533,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -521,7 +542,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         fill="none"
@@ -541,7 +562,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -550,7 +571,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         fill="none"
@@ -578,7 +599,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -587,7 +608,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     >
       <svg
         aria-label="Calendar Icon"
@@ -609,7 +630,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container eaofukr1"
+    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
     onClick={[Function]}
@@ -618,7 +639,7 @@ exports[`Storyshots History Table Icon Inactive Icons 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-p140hk-IconContainer-inactiveElementStyle eaofukr0"
+      className="css-p140hk-IconContainer-inactiveElementStyle e12dzyme0"
     />
   </div>
 </div>
