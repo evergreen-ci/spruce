@@ -10,18 +10,18 @@ export type patchSelectedTasks = {
   [id: string]: selectedStrings | undefined;
 };
 
-type verionFilters = {
+type versionFilters = {
   [versionId: string]: string[];
 };
 
 type Action =
   | { type: "setSelectedTasks"; data: patchSelectedTasks }
-  | { type: "setPatchStatusFilterTerm"; data: verionFilters }
-  | { type: "setBaseStatusFilterTerm"; data: verionFilters };
+  | { type: "setPatchStatusFilterTerm"; data: versionFilters }
+  | { type: "setBaseStatusFilterTerm"; data: versionFilters };
 
 interface State {
-  patchStatusFilterTerm: verionFilters;
-  baseStatusFilterTerm: verionFilters;
+  patchStatusFilterTerm: versionFilters;
+  baseStatusFilterTerm: versionFilters;
   selectedTasks: patchSelectedTasks;
 }
 
@@ -47,12 +47,12 @@ const reducer = (state: State, action: Action) => {
   }
 };
 
-export type FilterSetter = (statuses: verionFilters) => void;
+type FilterSetter = (statuses: versionFilters) => void;
 
 type HookResult = [
   patchSelectedTasks,
-  verionFilters,
-  verionFilters,
+  versionFilters,
+  versionFilters,
   {
     toggleSelectedTask: (
       taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
@@ -197,14 +197,14 @@ export const usePatchStatusSelect = (
     versionId,
   ]);
 
-  const setPatchStatusFilterTerm = (statuses: verionFilters) => {
+  const setPatchStatusFilterTerm = (statuses: versionFilters) => {
     const vId = Object.keys(statuses)[0];
 
     const nextState = { ...patchStatusFilterTerm };
     nextState[vId] = statuses[vId];
     dispatch({ type: "setPatchStatusFilterTerm", data: nextState });
   };
-  const setBaseStatusFilterTerm = (statuses: verionFilters) => {
+  const setBaseStatusFilterTerm = (statuses: versionFilters) => {
     const vId = Object.keys(statuses)[0];
 
     const nextState = { ...baseStatusFilterTerm };

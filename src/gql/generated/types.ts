@@ -31,7 +31,7 @@ export type Query = {
   taskTests: TaskTestResult;
   taskFiles: TaskFiles;
   user: User;
-  taskLogs: RecentTaskLogs;
+  taskLogs: TaskLogs;
   patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
@@ -194,10 +194,12 @@ export type QueryProjectSettingsArgs = {
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
+  attachProjectToRepo: Project;
+  detachProjectFromRepo: Project;
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
-  restartVersions?: Maybe<Scalars["String"]>;
+  restartVersions?: Maybe<Array<Version>>;
   /** @deprecated Field no longer supported */
   restartPatch?: Maybe<Scalars["String"]>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
@@ -238,6 +240,14 @@ export type MutationAddFavoriteProjectArgs = {
 
 export type MutationRemoveFavoriteProjectArgs = {
   identifier: Scalars["String"];
+};
+
+export type MutationAttachProjectToRepoArgs = {
+  projectId: Scalars["String"];
+};
+
+export type MutationDetachProjectFromRepoArgs = {
+  projectId: Scalars["String"];
 };
 
 export type MutationSchedulePatchArgs = {
@@ -1277,7 +1287,9 @@ export type UserPatchesArgs = {
   patchesInput: PatchesInput;
 };
 
-export type RecentTaskLogs = {
+export type TaskLogs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
@@ -1863,7 +1875,59 @@ export type RestartVersionsMutationVariables = Exact<{
   versionsToRestart: Array<VersionToRestart>;
 }>;
 
-export type RestartVersionsMutation = { restartVersions?: Maybe<string> };
+export type RestartVersionsMutation = {
+  restartVersions?: Maybe<
+    Array<{
+      id: string;
+      createTime: Date;
+      startTime?: Maybe<Date>;
+      finishTime?: Maybe<Date>;
+      revision: string;
+      author: string;
+      status: string;
+      order: number;
+      repo: string;
+      project: string;
+      activated?: Maybe<boolean>;
+      message: string;
+      isPatch: boolean;
+      taskCount?: Maybe<number>;
+      baseVersionID?: Maybe<string>;
+      projectIdentifier: string;
+      versionTiming?: Maybe<{
+        makespan?: Maybe<number>;
+        timeTaken?: Maybe<number>;
+      }>;
+      parameters: Array<{ key: string; value: string }>;
+      manifest?: Maybe<{
+        id: string;
+        revision: string;
+        project: string;
+        branch: string;
+        isBase: boolean;
+        moduleOverrides?: Maybe<{ [key: string]: any }>;
+        modules?: Maybe<any>;
+      }>;
+      patch?: Maybe<{
+        id: string;
+        patchNumber: number;
+        alias?: Maybe<string>;
+        commitQueuePosition?: Maybe<number>;
+        canEnqueueToCommitQueue: boolean;
+        childPatches?: Maybe<
+          Array<{
+            baseVersionID?: Maybe<string>;
+            githash: string;
+            id: string;
+            projectIdentifier: string;
+            taskCount?: Maybe<number>;
+            status: string;
+          }>
+        >;
+      }>;
+    }>
+  >;
+};
 
 export type SaveSubscriptionMutationVariables = Exact<{
   subscription: SubscriptionInput;

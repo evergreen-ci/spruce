@@ -169,8 +169,8 @@ const VersionRestartModal: React.FC<Props> = ({
                       setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
                       setPatchStatusFilterTerm={setVersionStatus(v?.id)}
                       toggleSelectedTask={toggleSelectedTask}
-                      baseStatusFilterTerm={baseStatusFilterTerm[v?.id]}
-                      patchStatusFilterTerm={patchStatusFilterTerm[v?.id]}
+                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                      patchStatusFilterTerm={patchStatusFilterTerm[v.id]}
                     />
                   </TitleContainer>
                 }
@@ -285,7 +285,7 @@ const getTaskIds = (selectedTasks: patchSelectedTasks) => {
   return taskIds;
 };
 
-const HR = styled("hr")`
+const HR = styled.hr`
   background-color: ${gray.light2};
   border: 0;
   height: 1px;
@@ -303,12 +303,12 @@ const Row = styled.div`
   }
 `;
 
-export const TitleContainer = styled("div")`
+export const TitleContainer = styled.div`
   margin-top: 15px;
   width: 96%;
 `;
 
-const BoldTextStyle = styled("div")`
+const BoldTextStyle = styled.div`
   font-weight: bold;
   top: 1px;
   color: ${gray.dark2}; // theme colors.gray[1]
