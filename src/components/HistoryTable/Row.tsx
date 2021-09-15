@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import { useHistory } from "react-router-dom";
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
+import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
@@ -8,6 +10,7 @@ import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   const { isItemLoaded, getItem, visibleColumns } = useHistoryTable();
+  const { push } = useHistory();
   if (!isItemLoaded(index)) {
     // TODO: add loading state
     return <div style={style}> Loading....</div>;
@@ -30,9 +33,13 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       const foundVariant = buildVariants.find((bv) => bv.variant === c);
       if (foundVariant) {
         const { tasks } = foundVariant;
+        const onClick = () => push(getTaskRoute(tasks[0].id));
         return (
           <Cell key={`task_cell_${tasks[0].id}`}>
-            <HistoryTableIcon status={tasks[0].status as TaskStatus} />
+            <HistoryTableIcon
+              onClick={onClick}
+              status={tasks[0].status as TaskStatus}
+            />
           </Cell>
         );
       }
