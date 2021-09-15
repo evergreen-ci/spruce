@@ -1870,7 +1870,7 @@ export type RestartTaskMutation = {
 };
 
 export type RestartVersionsMutationVariables = Exact<{
-  patchId: Scalars["String"];
+  versionId: Scalars["String"];
   abort: Scalars["Boolean"];
   versionsToRestart: Array<VersionToRestart>;
 }>;

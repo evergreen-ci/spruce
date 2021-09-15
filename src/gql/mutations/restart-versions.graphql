@@ -1,10 +1,10 @@
 mutation RestartVersions(
-  $patchId: String!
+  $versionId: String!
   $abort: Boolean!
   $versionsToRestart: [VersionToRestart!]!
 ) {
   restartVersions(
-    versionId: $patchId
+    versionId: $versionId
     abort: $abort
     versionsToRestart: $versionsToRestart
   ) {

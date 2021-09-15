@@ -99,7 +99,7 @@ const VersionRestartModal: React.FC<Props> = ({
       });
       await restartVersions({
         variables: {
-          patchId: version?.id,
+          versionId: version?.id,
           versionsToRestart: getTaskIds(selectedTasks),
           abort: shouldAbortInProgressTasks,
         },
@@ -108,6 +108,8 @@ const VersionRestartModal: React.FC<Props> = ({
       // This is handled in the onError handler for the mutation
     }
   };
+
+  const selectedTotal = selectTasksTotal(selectedTasks || {});
 
   return (
     <Modal
@@ -126,9 +128,7 @@ const VersionRestartModal: React.FC<Props> = ({
         <Button
           key="restart"
           data-cy="restart-patch-button"
-          disabled={
-            selectTasksTotal(selectedTasks || {}) === 0 || mutationLoading
-          }
+          disabled={selectedTotal === 0 || mutationLoading}
           onClick={handlePatchRestart}
           variant="danger"
         >
@@ -182,8 +182,7 @@ const VersionRestartModal: React.FC<Props> = ({
       )}
 
       <ConfirmationMessage weight="medium" data-cy="confirmation-message">
-        Are you sure you want to restart the{" "}
-        {selectTasksTotal(selectedTasks || {})} selected tasks?
+        Are you sure you want to restart the {selectedTotal} selected tasks?
       </ConfirmationMessage>
       <Checkbox
         onChange={() =>
@@ -263,13 +262,11 @@ const selectedArray = (selected: selectedStrings) => {
   return out;
 };
 
-const selectTasksTotal = (selectedTasks: patchSelectedTasks) => {
-  let total = 0;
-  Object.keys(selectedTasks).forEach((selected) => {
-    total += selectedArray(selectedTasks[selected]).length;
-  });
-  return total;
-};
+const selectTasksTotal = (selectedTasks: patchSelectedTasks) =>
+  Object.values(selectedTasks).reduce(
+    (total, selectedTask) => selectedArray(selectedTask).length + total,
+    0
+  );
 
 const getTaskIds = (selectedTasks: patchSelectedTasks) => {
   const taskIds: VersionToRestart[] = [];
