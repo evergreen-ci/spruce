@@ -120,6 +120,7 @@ export const JobLogs = () => {
                 displayTestName,
                 logTestName,
                 testFile,
+                groupID,
                 ...test
               }) => (
                 <StyledLink
@@ -128,6 +129,7 @@ export const JobLogs = () => {
                     execution: test.execution,
                     testId: logTestName || testFile,
                     lineNum,
+                    groupId: groupID,
                   })}
                   data-cy="testlog-link"
                   key={id}
