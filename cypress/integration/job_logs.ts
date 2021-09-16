@@ -16,7 +16,7 @@ describe("Job Logs", () => {
       .should("have.attr", "href")
       .and(
         "equal",
-        `https://www.evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0/llama`
+        `https://evergreen.mongodb.com/lobster/evergreen/complete-test/${taskId}/0/llama`
       );
     cy.dataCy("testlog-link").each(($el, index) => {
       expect($el.text()).to.eq(testNames[index]);
