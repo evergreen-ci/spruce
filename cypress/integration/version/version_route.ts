@@ -88,7 +88,7 @@ describe("Version route", () => {
     });
   });
 
-  describe.only("Page title", () => {
+  describe("Page title", () => {
     before(() => {
       cy.preserveCookies();
       cy.visit(versionRoute(versions[6]));
