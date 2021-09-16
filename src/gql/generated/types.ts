@@ -31,7 +31,7 @@ export type Query = {
   taskTests: TaskTestResult;
   taskFiles: TaskFiles;
   user: User;
-  taskLogs: RecentTaskLogs;
+  taskLogs: TaskLogs;
   patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
@@ -199,6 +199,8 @@ export type Mutation = {
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
+  restartVersions?: Maybe<Array<Version>>;
+  /** @deprecated Field no longer supported */
   restartPatch?: Maybe<Scalars["String"]>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
@@ -260,6 +262,12 @@ export type MutationSchedulePatchTasksArgs = {
 export type MutationUnschedulePatchTasksArgs = {
   patchId: Scalars["String"];
   abort: Scalars["Boolean"];
+};
+
+export type MutationRestartVersionsArgs = {
+  versionId: Scalars["String"];
+  abort: Scalars["Boolean"];
+  versionsToRestart: Array<VersionToRestart>;
 };
 
 export type MutationRestartPatchArgs = {
@@ -403,6 +411,11 @@ export type MutationEditSpawnHostArgs = {
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type VersionToRestart = {
+  versionId: Scalars["String"];
+  taskIds: Array<Scalars["String"]>;
 };
 
 export type MainlineCommits = {
@@ -963,11 +976,16 @@ export type TestResult = {
   taskId?: Maybe<Scalars["String"]>;
   execution?: Maybe<Scalars["Int"]>;
   logTestName?: Maybe<Scalars["String"]>;
-  lineNum?: Maybe<Scalars["Int"]>;
 };
 
 export type TestLog = {
+  url?: Maybe<Scalars["String"]>;
+  urlRaw?: Maybe<Scalars["String"]>;
+  urlLobster?: Maybe<Scalars["String"]>;
+  lineNum?: Maybe<Scalars["Int"]>;
+  /** @deprecated htmlDisplayURL deprecated, use url instead (EVG-15418) */
   htmlDisplayURL?: Maybe<Scalars["String"]>;
+  /** @deprecated rawDisplayURL deprecated, use urlRaw instead (EVG-15418) */
   rawDisplayURL?: Maybe<Scalars["String"]>;
 };
 
@@ -1274,7 +1292,9 @@ export type UserPatchesArgs = {
   patchesInput: PatchesInput;
 };
 
-export type RecentTaskLogs = {
+export type TaskLogs = {
+  taskId: Scalars["String"];
+  execution: Scalars["Int"];
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
@@ -2728,8 +2748,11 @@ export type TaskTestsQuery = {
       duration?: Maybe<number>;
       execution?: Maybe<number>;
       taskId?: Maybe<string>;
-      lineNum?: Maybe<number>;
-      logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
+      logs: {
+        lineNum?: Maybe<number>;
+        htmlDisplayURL?: Maybe<string>;
+        rawDisplayURL?: Maybe<string>;
+      };
     }>;
   };
 };
@@ -2849,10 +2872,10 @@ export type GetTestsQuery = {
       execution?: Maybe<number>;
       groupID?: Maybe<string>;
       id: string;
-      lineNum?: Maybe<number>;
       taskId?: Maybe<string>;
       testFile: string;
       logTestName?: Maybe<string>;
+      logs: { lineNum?: Maybe<number> };
     }>;
   };
 };

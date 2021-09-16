@@ -116,7 +116,7 @@ export const JobLogs = () => {
             {testResults?.map(
               ({
                 id,
-                lineNum,
+                logs,
                 displayTestName,
                 logTestName,
                 testFile,
@@ -128,7 +128,7 @@ export const JobLogs = () => {
                     taskId: test.taskId,
                     execution: test.execution,
                     testId: logTestName || testFile,
-                    lineNum,
+                    lineNum: logs.lineNum,
                     groupId: groupID,
                   })}
                   data-cy="testlog-link"
