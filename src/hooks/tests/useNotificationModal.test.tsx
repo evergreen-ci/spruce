@@ -46,6 +46,7 @@ it("Should have correctly formatted request payload after selecting options (tas
         triggers: taskTriggers,
         subscriptionMethodControls: taskSubscriptionMethodControls,
         resourceId: "a task id",
+        type: "task",
       }),
     { wrapper: Provider }
   );
@@ -120,6 +121,7 @@ it("Should have correctly formatted request payload after selecting options, add
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
+        type: "patch",
       }),
     { wrapper: Provider }
   );
@@ -263,6 +265,7 @@ it("Should auto populate email and slack fields if they exist", async () => {
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
+        type: "patch",
       }),
     { wrapper: Provider }
   );

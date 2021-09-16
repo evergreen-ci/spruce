@@ -33,6 +33,7 @@ interface NotificationModalProps extends UseNotificationModalProps {
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   "data-cy": string;
+  type: "task" | "version";
 }
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
@@ -44,6 +45,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   resourceId,
   sendAnalyticsEvent,
   "data-cy": dataCy,
+  type,
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
@@ -79,6 +81,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     subscriptionMethodControls,
     triggers,
     resourceId,
+    type,
   });
   const onClickSave = () => {
     const subscription = getRequestPayload();

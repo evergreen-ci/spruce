@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
+import Cookies from "js-cookie";
 import get from "lodash/get";
 import { v4 as uuid } from "uuid";
 import { RegexSelectorProps } from "components/NotificationModal/RegexSelectorInput";
@@ -11,6 +12,7 @@ export interface UseNotificationModalProps {
   subscriptionMethodControls: SubscriptionMethods;
   triggers: Trigger[];
   resourceId: string;
+  type: string;
 }
 interface RegexSelectorPropsTemplate {
   key: string;
@@ -20,6 +22,7 @@ export const useNotificationModal = ({
   triggers,
   subscriptionMethodControls,
   resourceId,
+  type,
 }: UseNotificationModalProps) => {
   // USER SETTINGS QUERY
   const { data: userSettingsData } = useQuery<GetUserSettingsQuery>(
@@ -31,9 +34,10 @@ export const useNotificationModal = ({
   const slackUsername = userSettingsData?.userSettings?.slackUsername;
   const emailAddress = userData?.user?.emailAddress;
 
-  const [selectedSubscriptionMethod, setSelectedSubscriptionMethod] = useState(
-    ""
-  );
+  const [
+    selectedSubscriptionMethod,
+    setSelectedSubscriptionMethod,
+  ] = useState(() => Cookies.get("subscription-method"));
   // target represents the input value for a subscription method
   const [target, setTarget] = useState<Target>({});
   const [isFormValid, setIsFormValid] = useState(false);
@@ -41,7 +45,9 @@ export const useNotificationModal = ({
     string[]
   >([]);
 
-  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>();
+  const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(() =>
+    parseInt(Cookies.get(`${type}-notification-trigger`), 10)
+  );
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
   const [regexSelectorPropsTemplate, setRegexSelectorPropsTemplate] = useState<
@@ -50,6 +56,7 @@ export const useNotificationModal = ({
   const [regexSelectorProps, setRegexSelectorProps] = useState<
     RegexSelectorProps[]
   >([]);
+
   const onClickAddRegexSelector = () => {
     setRegexSelectorPropsTemplate([
       ...regexSelectorPropsTemplate,
@@ -220,13 +227,22 @@ export const useNotificationModal = ({
       owner_type: "person",
       regex_selectors: Object.entries(regexSelectorInputs)
         .filter((v) => v[1])
-        .map(([type, data]) => ({ type, data })),
+        .map(([t, data]) => ({ type: t, data })),
     };
   };
 
   const disableAddCriteria =
     regexSelectorPropsTemplate.length >= (regexSelectors?.length ?? 0);
 
+  const onChangeSubscriptionMethod = (v: string) => {
+    setSelectedSubscriptionMethod(v);
+    Cookies.set("subscription-method", v);
+  };
+
+  const onChangeTrigger = (v: number) => {
+    setSelectedTriggerIndex(v);
+    Cookies.set(`${type}-notification-trigger`, v);
+  };
   return {
     disableAddCriteria,
     extraFieldErrorMessages,
@@ -239,8 +255,8 @@ export const useNotificationModal = ({
     selectedSubscriptionMethod,
     selectedTriggerIndex,
     setExtraFieldInputVals,
-    setSelectedSubscriptionMethod,
-    setSelectedTriggerIndex,
+    setSelectedSubscriptionMethod: onChangeSubscriptionMethod,
+    setSelectedTriggerIndex: onChangeTrigger,
     setTarget,
     showAddCriteria: (regexSelectors?.length ?? 0) > 0,
     target,
