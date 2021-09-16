@@ -1,43 +1,43 @@
-query TaskTests(
-  $dir: SortDirection
-  $id: String!
-  $cat: TestSortCategory
-  $pageNum: Int
-  $limitNum: Int
-  $statusList: [String!]!
-  $testName: String!
-  $execution: Int
-) {
-  taskTests(
-    taskId: $id
-    sortCategory: $cat
-    sortDirection: $dir
-    page: $pageNum
-    limit: $limitNum
-    statuses: $statusList
-    testName: $testName
-    execution: $execution
+  query TaskTests(
+    $dir: SortDirection
+    $id: String!
+    $cat: TestSortCategory
+    $pageNum: Int
+    $limitNum: Int
+    $statusList: [String!]!
+    $testName: String!
+    $execution: Int
   ) {
-    testResults {
-      groupID
-      logTestName
-      displayTestName
-      testFile
-      id
-      status
-      baseStatus
-      testFile
-      displayTestName
-      duration
-      logs {
+    taskTests(
+      taskId: $id
+      sortCategory: $cat
+      sortDirection: $dir
+      page: $pageNum
+      limit: $limitNum
+      statuses: $statusList
+      testName: $testName
+      execution: $execution
+    ) {
+      testResults {
+        groupID
+        logTestName
+        displayTestName
+        testFile
+        id
+        status
+        baseStatus
+        testFile
+        displayTestName
+        duration
+        logs {
+          htmlDisplayURL
+          rawDisplayURL
+        }
+        execution
+        taskId
         lineNum
-        htmlDisplayURL
-        rawDisplayURL
       }
-      execution
-      taskId
+      filteredTestCount
+      totalTestCount
     }
-    filteredTestCount
-    totalTestCount
   }
-}

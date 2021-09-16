@@ -11,9 +11,7 @@ query GetTests($execution: Int, $groupId: String, $taskId: String!) {
       execution
       groupID
       id
-      logs {
-        lineNum
-      }
+      lineNum
       taskId
       testFile
     }
