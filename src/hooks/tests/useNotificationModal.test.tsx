@@ -53,7 +53,7 @@ it("Should have correctly formatted request payload after selecting options (tas
   act(() => {
     result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
     result.current.setTarget({ email: "email@email.com" });
-    result.current.setSelectedTriggerIndex(4);
+    result.current.setSelectedTriggerIndex(5);
   });
 
   expect(result.current.getRequestPayload()).toStrictEqual({
@@ -127,7 +127,7 @@ it("Should have correctly formatted request payload after selecting options, add
   await waitForNextUpdate();
 
   act(() => {
-    result.current.setSelectedTriggerIndex(5);
+    result.current.setSelectedTriggerIndex(6);
     result.current.setTarget({ email: "email@email.com" });
   });
 
@@ -270,7 +270,7 @@ it("Should auto populate email and slack fields if they exist", async () => {
   await waitForNextUpdate();
 
   act(() => {
-    result.current.setSelectedTriggerIndex(5);
+    result.current.setSelectedTriggerIndex(6);
   });
 
   act(() => {
