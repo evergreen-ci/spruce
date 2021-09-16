@@ -114,13 +114,13 @@ export const JobLogs = () => {
               </SubtitleContainer>
             ) : null}
             {testResults?.map(
-              ({ id, lineNum, displayTestName, testFile, ...test }) => (
+              ({ id, displayTestName, testFile, logs, ...test }) => (
                 <StyledLink
                   href={getLobsterTestLogUrl({
                     taskId: test.taskId,
                     execution: test.execution,
                     testId: id,
-                    lineNum,
+                    lineNum: logs.lineNum,
                   })}
                   data-cy="testlog-link"
                   key={id}
