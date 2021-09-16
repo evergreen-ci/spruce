@@ -6,7 +6,7 @@ exports[`Storyshots Inactive Commits Story 1`] = `
   onClick={[Function]}
 >
   <small
-    className="css-nr1a01-ButtonText ezzuvrx1 leafygreen-ui-18tqmm7"
+    className="css-nr1a01-ButtonText ezzuvrx1 leafygreen-ui-13bqno6"
     data-cy="inactive-commits-button"
   >
     <div

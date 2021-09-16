@@ -73,7 +73,7 @@ export const PublicKeysTab: React.FC = () => {
           <Button
             size="small"
             data-cy="edit-btn"
-            glyph={<Icon glyph="Edit" />}
+            leftGlyph={<Icon glyph="Edit" />}
             onClick={() => {
               setEditModalProps({
                 initialPublicKey: { key, name },
@@ -96,7 +96,7 @@ export const PublicKeysTab: React.FC = () => {
             <StyledButton
               size="small"
               data-cy="delete-btn"
-              glyph={<Icon glyph="Trash" />}
+              leftGlyph={<Icon glyph="Trash" />}
               disabled={loadingRemovePublicKey}
             />
           </Popconfirm>
@@ -122,7 +122,7 @@ export const PublicKeysTab: React.FC = () => {
       <Button
         size="small"
         data-cy="add-key-button"
-        glyph={<Icon glyph="Plus" />}
+        leftGlyph={<Icon glyph="Plus" />}
         onClick={() => {
           setEditModalProps({
             visible: true,
