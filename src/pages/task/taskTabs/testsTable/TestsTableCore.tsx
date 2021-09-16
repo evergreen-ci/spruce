@@ -271,7 +271,8 @@ const getColumnsTemplate = (
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => {
-      const { execution, lineNum, taskId, groupID, logTestName, testFile } = b || {};
+      const { execution, lineNum, taskId, groupID, logTestName, testFile } =
+        b || {};
       const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
       const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
       const lobsterLink = hasLobsterLink

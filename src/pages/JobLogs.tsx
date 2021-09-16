@@ -114,7 +114,14 @@ export const JobLogs = () => {
               </SubtitleContainer>
             ) : null}
             {testResults?.map(
-              ({ id, lineNum, displayTestName, logTestName, testFile, ...test }) => (
+              ({
+                id,
+                lineNum,
+                displayTestName,
+                logTestName,
+                testFile,
+                ...test
+              }) => (
                 <StyledLink
                   href={getLobsterTestLogUrl({
                     taskId: test.taskId,
