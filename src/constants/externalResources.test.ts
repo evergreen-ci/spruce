@@ -10,18 +10,41 @@ describe("getLobsterTestLogUrl", () => {
     const testId = "testId";
     const execution = 44;
     expect(
-      getLobsterTestLogUrl({ taskId, execution, testId, lineNum: 0 })
+      getLobsterTestLogUrl({
+        taskId,
+        execution,
+        testId,
+        lineNum: 0,
+        groupId: "",
+      })
     ).toEqual(path);
-    expect(getLobsterTestLogUrl({ taskId, execution, testId })).toEqual(path);
     expect(
-      getLobsterTestLogUrl({ taskId, execution, testId, lineNum: 10 })
+      getLobsterTestLogUrl({ taskId, execution, testId, groupId: "" })
+    ).toEqual(path);
+    expect(
+      getLobsterTestLogUrl({
+        taskId,
+        execution,
+        testId,
+        lineNum: 10,
+        groupId: "",
+      })
     ).toEqual(`${path}#shareLine=10`);
     expect(
-      getLobsterTestLogUrl({ taskId, execution, testId, lineNum: 10 })
+      getLobsterTestLogUrl({
+        taskId,
+        execution,
+        testId,
+        lineNum: 10,
+        groupId: "",
+      })
     ).toEqual(`/lobster/evergreen/test/taskId/44/testId#shareLine=10`);
-    expect(getLobsterTestLogUrl({ taskId, execution, testId })).toEqual(
-      `/lobster/evergreen/test/taskId/44/testId`
-    );
+    expect(
+      getLobsterTestLogUrl({ taskId, execution, testId, groupId: "" })
+    ).toEqual(`/lobster/evergreen/test/taskId/44/testId`);
+    expect(
+      getLobsterTestLogUrl({ taskId, execution, testId, groupId: "group" })
+    ).toEqual(`/lobster/evergreen/test/taskId/44/testId/group`);
   });
 });
 
