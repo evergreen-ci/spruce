@@ -81,10 +81,10 @@ const FlexContainer = styled.div`
   line-height: 1;
 `;
 
-const Label = styled.div`
+const Label = styled.span`
   white-space: nowrap;
 `;
 
-const Center = styled.div`
+const Center = styled.span`
   text-align: center;
 `;
