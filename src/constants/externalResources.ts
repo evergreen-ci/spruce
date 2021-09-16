@@ -46,6 +46,7 @@ interface GetLobsterTestLogUrlParams {
   execution: number;
   testId: string;
   lineNum?: number;
+  groupId: string;
 }
 
 export const getLobsterTestLogUrl = ({
@@ -53,11 +54,12 @@ export const getLobsterTestLogUrl = ({
   execution,
   testId,
   lineNum,
+  groupId,
 }: GetLobsterTestLogUrlParams) =>
   taskId && Number.isFinite(execution) && testId
-    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
-        lineNum ? `#shareLine=${lineNum}` : ""
-      }`
+    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${
+        groupId ? `/${groupId}` : ""
+      }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
 
 interface GetLobsterTestLogCompleteUrlParams {
