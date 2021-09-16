@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
+import Icon from "components/Icon";
 import { PaddedButton } from "components/Spawn";
 import { SECOND } from "constants/index";
 import { MyHost } from "types/spawn";
@@ -50,7 +51,7 @@ export const CopySSHCommandButton: React.FC<{
         open={openTooltip}
         data-cy="copy-ssh-tooltip"
         trigger={
-          <TriggerButton // @ts-expect-error
+          <PaddedButton // @ts-expect-error
             onClick={() => {
               copyToClipboard(sshCommand);
               spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
@@ -58,9 +59,10 @@ export const CopySSHCommandButton: React.FC<{
             }}
             size={Size.XSmall}
             data-cy="copy-ssh-button"
+            leftGlyph={<Icon glyph="Copy" />}
           >
-            <Label>Copy SSH Command</Label>
-          </TriggerButton>
+            <Label>SSH Command</Label>
+          </PaddedButton>
         }
       >
         {hasCopied ? (
@@ -73,11 +75,6 @@ export const CopySSHCommandButton: React.FC<{
   );
 };
 
-const TriggerButton = styled(PaddedButton)`
-  height: auto;
-  line-height: 1.25em;
-`;
-
 const FlexContainer = styled.div`
   display: flex;
   align-items: center;
@@ -85,7 +82,7 @@ const FlexContainer = styled.div`
 `;
 
 const Label = styled.div`
-  width: 121px;
+  white-space: nowrap;
 `;
 
 const Center = styled.div`
