@@ -57,8 +57,8 @@ export const getLobsterTestLogUrl = ({
   groupId,
 }: GetLobsterTestLogUrlParams) =>
   taskId && Number.isFinite(execution) && testId
-    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}/${
-        groupId || ""
+    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
+        groupId ? `/${groupId}` : ""
       }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
 
