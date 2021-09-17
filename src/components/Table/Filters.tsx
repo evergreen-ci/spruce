@@ -3,6 +3,7 @@ import { FilterOutlined, SearchOutlined } from "@ant-design/icons";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Input } from "antd";
+import { FilterDropdownProps } from "antd/es/table/interface";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
 import { FilterInputControls } from "components/FilterInputControls";
@@ -57,17 +58,21 @@ export const getColumnSearchFilterProps = ({
   onReset,
   submitButtonCopy,
 }: InputFilterProps) => ({
-  filterDropdown: (
+  filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <InputFilter
-      {...{
-        placeholder,
-        value,
-        onChange,
-        onFilter,
-        onReset,
-        "data-cy": dataCy,
-        submitButtonCopy,
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+      onFilter={() => {
+        onFilter();
+        confirm({ closeDropdown: true });
       }}
+      onReset={() => {
+        onReset();
+        confirm({ closeDropdown: true });
+      }}
+      data-cy={dataCy}
+      submitButtonCopy={submitButtonCopy}
     />
   ),
   filterIcon: () => (
@@ -86,14 +91,20 @@ export const getColumnTreeSelectFilterProps = ({
   onReset,
   "data-cy": dataCy,
 }: TreeSelectProps) => ({
-  filterDropdown: (
+  filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <TreeSelect
       data-cy={dataCy}
       state={state}
       tData={tData}
       onChange={onChange}
-      onFilter={onFilter}
-      onReset={onReset}
+      onFilter={() => {
+        onFilter();
+        confirm({ closeDropdown: true });
+      }}
+      onReset={() => {
+        onReset();
+        confirm({ closeDropdown: true });
+      }}
     />
   ),
   filterIcon: () => (
@@ -149,16 +160,20 @@ export const getColumnCheckboxFilterProps = ({
   onReset,
   dataCy,
 }: CheckboxFilterProps) => ({
-  filterDropdown: () => (
+  filterDropdown: ({ confirm }: FilterDropdownProps) => (
     <CheckboxFilter
-      {...{
-        statuses,
-        value,
-        onChange,
-        onFilter,
-        onReset,
-        dataCy,
+      statuses={statuses}
+      value={value}
+      onChange={onChange}
+      onFilter={() => {
+        onFilter();
+        confirm({ closeDropdown: true });
       }}
+      onReset={() => {
+        onReset();
+        confirm({ closeDropdown: true });
+      }}
+      dataCy={dataCy}
     />
   ),
   filterIcon: () => (
