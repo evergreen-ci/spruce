@@ -4,8 +4,9 @@ import Badge, { Variant } from "components/Badge";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
+  getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
-import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
+import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
 import { statusToBadgeColor, statusCopy } from "constants/test";
 import { TestSortCategory, TestResult } from "gql/generated/types";
@@ -38,7 +39,7 @@ export const getColumnsTemplate = ({
       <WordBreak>{displayTestName || name}</WordBreak>
     ),
     sorter: true,
-    ...(testNameInputProps && getColumnSearchFilterProps(testNameInputProps)),
+    ...getColumnSearchFilterProps(testNameInputProps),
   },
   {
     title: <span data-cy="status-column">Status</span>,
@@ -56,9 +57,10 @@ export const getColumnsTemplate = ({
         </Badge>
       </span>
     ),
-    filterDropdown: (
-      <TreeSelect data-cy="status-treeselect" {...statusSelectorProps} />
-    ),
+    ...getColumnTreeSelectFilterProps({
+      ...statusSelectorProps,
+      "data-cy": "status-treeselect",
+    }),
   },
   {
     title: <span data-cy="base-status-column">Base Status</span>,

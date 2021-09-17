@@ -5,9 +5,10 @@ import { StyledRouterLink } from "components/styles";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
+  getColumnTreeSelectFilterProps,
 } from "components/Table/Filters";
 import TaskStatusBadge from "components/TaskStatusBadge";
-import { TreeSelect, TreeSelectProps } from "components/TreeSelect";
+import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
 import { getTaskRoute } from "constants/routes";
 import {
@@ -132,9 +133,10 @@ const getColumnDefs = ({
     className: "cy-task-table-col-STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
     ...(statusSelectorProps && {
-      filterDropdown: (
-        <TreeSelect data-cy="status-treeselect" {...statusSelectorProps} />
-      ),
+      ...getColumnTreeSelectFilterProps({
+        ...statusSelectorProps,
+        "data-cy": "status-treeselect",
+      }),
     }),
   },
   {
@@ -148,12 +150,10 @@ const getColumnDefs = ({
     className: "cy-task-table-col-BASE_STATUS",
     render: (status: string) => status && <TaskStatusBadge status={status} />,
     ...(baseStatusSelectorProps && {
-      filterDropdown: (
-        <TreeSelect
-          data-cy="base-status-treeselect"
-          {...baseStatusSelectorProps}
-        />
-      ),
+      ...getColumnTreeSelectFilterProps({
+        ...baseStatusSelectorProps,
+        "data-cy": "base-status-treeselect",
+      }),
     }),
   },
   {

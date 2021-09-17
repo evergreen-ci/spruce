@@ -7,7 +7,11 @@ import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
 import { FilterInputControls } from "components/FilterInputControls";
 import { tableInputContainerCSS } from "components/styles/Table";
-import { TreeDataEntry } from "components/TreeSelect";
+import {
+  TreeDataEntry,
+  TreeSelect,
+  TreeSelectProps,
+} from "components/TreeSelect";
 
 export interface InputFilterProps {
   "data-cy"?: string;
@@ -70,6 +74,32 @@ export const getColumnSearchFilterProps = ({
     <SearchOutlined
       data-cy={dataCy}
       style={{ color: value ? uiColors.blue.base : undefined }}
+    />
+  ),
+});
+
+export const getColumnTreeSelectFilterProps = ({
+  tData,
+  state,
+  onChange,
+  onFilter,
+  onReset,
+  "data-cy": dataCy,
+}: TreeSelectProps) => ({
+  filterDropdown: (
+    <TreeSelect
+      data-cy={dataCy}
+      state={state}
+      tData={tData}
+      onChange={onChange}
+      onFilter={onFilter}
+      onReset={onReset}
+    />
+  ),
+  filterIcon: () => (
+    <FilterOutlined
+      data-cy={dataCy}
+      style={{ color: state.length ? uiColors.blue.base : undefined }}
     />
   ),
 });
