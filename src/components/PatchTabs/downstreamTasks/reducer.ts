@@ -18,10 +18,10 @@ interface InputValueState {
 }
 
 export type Action =
-  | { type: "onChangeBaseStatusesSelector"; data: string[] }
-  | { type: "onChangeStatusesSelector"; data: string[] }
-  | { type: "onChangeTaskNameInput"; data: string }
-  | { type: "onChangeVariantInput"; data: string }
+  | { type: "onChangeBaseStatusesSelector"; baseStatuses: string[] }
+  | { type: "onChangeStatusesSelector"; statuses: string[] }
+  | { type: "onChangeTaskNameInput"; task: string }
+  | { type: "onChangeVariantInput"; variant: string }
   | { type: "onFilterBaseStatusesSelector" }
   | { type: "onFilterStatusesSelector" }
   | { type: "onFilterTaskNameInput" }
@@ -31,9 +31,9 @@ export type Action =
   | { type: "onResetTaskNameInput" }
   | { type: "onResetVariantInput" }
   | { type: "clearAllFilters" }
-  | { type: "onSort"; data: SortOrder[] }
-  | { type: "onChangePagination"; data: number }
-  | { type: "onChangeLimit"; data: number };
+  | { type: "onSort"; sorts: SortOrder[] }
+  | { type: "onChangePagination"; page: number }
+  | { type: "onChangeLimit"; limit: number };
 
 export type State = QueryParamState & InputValueState;
 const resetPage = { page: 0 };
@@ -42,16 +42,16 @@ export const reducer = (state: State, action: Action) => {
     case "onChangeTaskNameInput":
       return {
         ...state,
-        taskNameInputVal: action.data,
+        taskNameInputVal: action.task,
       };
     case "onChangeVariantInput":
-      return { ...state, variantInputVal: action.data };
+      return { ...state, variantInputVal: action.variant };
     case "onChangeBaseStatusesSelector":
-      return { ...state, baseStatusesInputVal: action.data };
+      return { ...state, baseStatusesInputVal: action.baseStatuses };
     case "onChangeStatusesSelector":
       return {
         ...state,
-        currentStatusesInputVal: action.data,
+        currentStatusesInputVal: action.statuses,
       };
     case "onFilterTaskNameInput":
       return {
@@ -122,18 +122,18 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         ...resetPage,
-        sorts: action.data,
+        sorts: action.sorts,
       };
     case "onChangePagination":
       return {
         ...state,
-        page: action.data,
+        page: action.page,
       };
     case "onChangeLimit":
       return {
         ...state,
         ...resetPage,
-        limit: action.data,
+        limit: action.limit,
       };
     default:
       throw new Error("Unknown action type");

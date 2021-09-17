@@ -89,7 +89,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     placeholder: "Task name",
     value: state.taskNameInputVal,
     onChange: ({ target }) =>
-      dispatch({ type: "onChangeTaskNameInput", data: target.value }),
+      dispatch({ type: "onChangeTaskNameInput", task: target.value }),
     onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
     onReset: () => dispatch({ type: "onResetTaskNameInput" }),
   };
@@ -100,7 +100,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     onChange: ({ target }) =>
       dispatch({
         type: "onChangeVariantInput",
-        data: target.value,
+        variant: target.value,
       }),
     onFilter: () => dispatch({ type: "onFilterVariantInput" }),
     onReset: () => dispatch({ type: "onResetVariantInput" }),
@@ -110,7 +110,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     state: baseStatusesInputVal,
     tData: baseStatuses,
     onChange: (s: string[]) =>
-      dispatch({ type: "onChangeBaseStatusesSelector", data: s }),
+      dispatch({ type: "onChangeBaseStatusesSelector", baseStatuses: s }),
     onReset: () => dispatch({ type: "onResetBaseStatusesSelector" }),
     onFilter: () => dispatch({ type: "onFilterBaseStatusesSelector" }),
   };
@@ -121,7 +121,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     onChange: (s: string[]) =>
       dispatch({
         type: "onChangeStatusesSelector",
-        data: s,
+        statuses: s,
       }),
     onReset: () => dispatch({ type: "onResetStatusesSelector" }),
     onFilter: () => dispatch({ type: "onFilterStatusesSelector" }),
@@ -153,7 +153,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
   const tableChangeHandler: TableProps<Task>["onChange"] = (...[, , sorter]) =>
     dispatch({
       type: "onSort",
-      data: parseSortString(toSortString(sorter)),
+      sorts: parseSortString(toSortString(sorter)),
     });
 
   return (
@@ -191,7 +191,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   <Pagination
                     data-cy="downstream-tasks-table-pagination"
                     onChange={(p) =>
-                      dispatch({ type: "onChangePagination", data: p - 1 })
+                      dispatch({ type: "onChangePagination", page: p - 1 })
                     }
                     pageSize={state.limit}
                     totalResults={patchTasks?.count}
@@ -201,7 +201,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                     data-cy="tasks-table-page-size-selector"
                     value={variables.limit}
                     onClick={(l) =>
-                      dispatch({ type: "onChangeLimit", data: l })
+                      dispatch({ type: "onChangeLimit", limit: l })
                     }
                   />
                 </TableControlInnerRow>
