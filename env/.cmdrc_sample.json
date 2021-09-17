@@ -5,7 +5,7 @@
     "REACT_APP_API_URL": "http://localhost:3000/api",
     "REACT_APP_UI_URL": "http://localhost:9090",
     "REACT_APP_SPRUCE_URL": "http://localhost:3000",
-    "REACT_APP_LOBSTER_URL": "https://www.evergreen.mongodb.com"
+    "REACT_APP_LOBSTER_URL": "https://evergreen.mongodb.com"
   },
   "staging": {
     "REACT_APP_API_URL": "https://www.example.com",
@@ -24,6 +24,6 @@
     "REACT_APP_NEW_RELIC_LICENSE_KEY": "dummy-new-relic-license-key",
     "REACT_APP_NEW_RELIC_TRUST_KEY": "dummy-new-relic-trust-key",
     "REACT_APP_USER_VOICE_KEY": "dummy-user-voice-key",
-    "REACT_APP_LOBSTER_URL": "https://www.evergreen.mongodb.com"
+    "REACT_APP_LOBSTER_URL": "https://evergreen.mongodb.com"
   }
 }
