@@ -43,19 +43,21 @@ describe("Job Logs", () => {
     "TestTryUpsert/configNumberMatches",
     "TestGetActivationTimeWithCron/Interval",
   ];
+
+  const baseHref = "https://evergreen.mongodb.com/lobster/evergreen";
   const testHrefs = [
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306165#shareLine=5555`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306233#shareLine=22`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306261#shareLine=36`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306265#shareLine=41`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306435#shareLine=116`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306464#shareLine=132`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306530#shareLine=152`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306636#shareLine=236`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306663#shareLine=251`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066306666#shareLine=261`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313039#shareLine=285`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313132#shareLine=302`,
-    `https://www.evergreen.mongodb.com/lobster/evergreen/test/${taskId}/0/356534666634326434653838666165613761393066313165#shareLine=324`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306165#shareLine=5555`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306233#shareLine=22`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306261#shareLine=36`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306265#shareLine=41`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306435#shareLine=116`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306464#shareLine=132`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306530#shareLine=152`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306636#shareLine=236`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306663#shareLine=251`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066306666#shareLine=261`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066313039#shareLine=285`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066313132#shareLine=302`,
+    `${baseHref}/test/${taskId}/0/356534666634326434653838666165613761393066313165#shareLine=324`,
   ];
 });
