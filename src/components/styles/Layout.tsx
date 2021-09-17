@@ -12,16 +12,6 @@ const whiteBackground = css`
   background-color: ${white};
 `;
 
-export const tableInputContainerCSS = css`
-  ${whiteBackground}
-  border-radius: 5px;
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  overflow: hidden;
-`;
-
 export const PageWrapper = styled.div`
   grid-area: contents;
   overflow-x: hidden;

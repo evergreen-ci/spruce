@@ -6,7 +6,7 @@ import { Input } from "antd";
 import { Button } from "components/Button";
 import { CheckboxGroup } from "components/Checkbox";
 import { FilterInputControls } from "components/FilterInputControls";
-import { tableInputContainerCSS } from "components/styles/Layout";
+import { tableInputContainerCSS } from "components/styles/Table";
 import { TreeDataEntry } from "components/TreeSelect";
 
 export interface InputFilterProps {
@@ -51,6 +51,7 @@ export const getColumnSearchFilterProps = ({
   onChange,
   onFilter,
   onReset,
+  submitButtonCopy,
 }: InputFilterProps) => ({
   filterDropdown: (
     <InputFilter
@@ -61,6 +62,7 @@ export const getColumnSearchFilterProps = ({
         onFilter,
         onReset,
         "data-cy": dataCy,
+        submitButtonCopy,
       }}
     />
   ),

@@ -4,7 +4,7 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
 import { FilterInputControls } from "components/FilterInputControls";
-import { tableInputContainerCSS } from "components/styles/Layout";
+import { tableInputContainerCSS } from "components/styles/Table";
 
 const { gray } = uiColors;
 
