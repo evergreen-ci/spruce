@@ -5,7 +5,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
   className="css-19f1xe2-Container e3qndfh0"
 >
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
@@ -36,7 +36,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
@@ -67,7 +67,7 @@ exports[`Storyshots FilterBadges Default 1`] = `
     </div>
   </div>
   <div
-    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-17gpdot"
+    className="css-ks018z-PaddedBadge e1vs77ku1 leafygreen-ui-13xc3rv"
     data-cy="filter-badge"
   >
     <div
@@ -97,29 +97,22 @@ exports[`Storyshots FilterBadges Default 1`] = `
       </svg>
     </div>
   </div>
-  <div
-    className="leafygreen-ui-1dhmdmj"
+  <button
+    aria-disabled={false}
+    className="leafygreen-ui-126lu42"
+    data-cy="clear-all-filters"
+    disabled={false}
+    onClick={[Function]}
+    type="button"
   >
-    <button
-      aria-disabled={false}
-      className="leafygreen-ui-1h100jh"
-      data-cy="clear-all-filters"
-      disabled={false}
-      onBlur={[Function]}
-      onClick={[Function]}
-      onFocus={[Function]}
-      type="button"
-    >
-      <span
-        className="leafygreen-ui-dpa9oy"
-      >
-        CLEAR ALL FILTERS
-      </span>
-    </button>
     <div
-      className="leafygreen-ui-1fqcwcg"
-      data-leafygreen-ui="interaction-ring"
+      className="leafygreen-ui-1ktj4tm"
     />
-  </div>
+    <div
+      className="leafygreen-ui-jfktkt"
+    >
+      CLEAR ALL FILTERS
+    </div>
+  </button>
 </div>
 `;

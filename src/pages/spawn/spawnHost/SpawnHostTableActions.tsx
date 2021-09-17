@@ -50,7 +50,7 @@ export const CopySSHCommandButton: React.FC<{
         open={openTooltip}
         data-cy="copy-ssh-tooltip"
         trigger={
-          <PaddedButton // @ts-expect-error
+          <TriggerButton // @ts-expect-error
             onClick={() => {
               copyToClipboard(sshCommand);
               spawnAnalytics.sendEvent({ name: "Copy SSH Command" });
@@ -59,8 +59,8 @@ export const CopySSHCommandButton: React.FC<{
             size={Size.XSmall}
             data-cy="copy-ssh-button"
           >
-            <Label>Copy SSH command</Label>
-          </PaddedButton>
+            <Label>Copy SSH Command</Label>
+          </TriggerButton>
         }
       >
         {hasCopied ? (
@@ -73,8 +73,15 @@ export const CopySSHCommandButton: React.FC<{
   );
 };
 
+const TriggerButton = styled(PaddedButton)`
+  height: auto;
+  line-height: 1.25em;
+`;
+
 const FlexContainer = styled.div`
   display: flex;
+  align-items: center;
+  line-height: 1;
 `;
 
 const Label = styled.div`

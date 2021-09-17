@@ -286,10 +286,11 @@ const useRenderBody: React.FC<{
 
 const ButtonContainer = styled.div`
   display: flex;
-  a:first-of-type {
+  > :not(:last-child) {
     margin-right: 8px;
   }
   margin-right: 16px;
+  padding-left: 1px;
 `;
 
 // @ts-expect-error

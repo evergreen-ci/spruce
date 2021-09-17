@@ -11,13 +11,13 @@ exports[`Storyshots Node List Node Element 1`] = `
       className="css-vwe0b-Circle e1k5prvz5"
     >
       <h6
-        className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+        className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
       >
         1
       </h6>
     </div>
     <h6
-      className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+      className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
     >
       Download the Command-Line Client.
     </h6>
@@ -61,13 +61,13 @@ exports[`Storyshots Node List Node List Full 1`] = `
           className="css-vwe0b-Circle e1k5prvz5"
         >
           <h6
-            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
           >
             1
           </h6>
         </div>
         <h6
-          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
         >
           Download the Command-Line Client.
         </h6>
@@ -98,13 +98,13 @@ exports[`Storyshots Node List Node List Full 1`] = `
           className="css-vwe0b-Circle e1k5prvz5"
         >
           <h6
-            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-16zt3i0"
+            className="css-vdb9bk-Index e1k5prvz4 leafygreen-ui-11wdjex"
           >
             2
           </h6>
         </div>
         <h6
-          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-16zt3i0"
+          className="css-b00ohd-NodeTitle e1k5prvz3 leafygreen-ui-11wdjex"
         >
           Move the command-line client to somewhere in your PATH. On many systems this will be /usr/local/bin.
         </h6>
