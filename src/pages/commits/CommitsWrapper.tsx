@@ -59,7 +59,10 @@ export const CommitsWrapper: React.FC<Props> = ({
             ) : (
               <ColumnContainer key={rolledUpVersions[0].id}>
                 <InactiveCommitLine />
-                <InactiveCommits rolledUpVersions={rolledUpVersions} />
+                <InactiveCommits
+                  hasFilters={hasTaskFilter}
+                  rolledUpVersions={rolledUpVersions}
+                />
               </ColumnContainer>
             )
           )}

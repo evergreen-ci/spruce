@@ -3,7 +3,10 @@ query MainlineCommits(
   $buildVariantOptionsForTask: BuildVariantOptions!
   $buildVariantOptions: BuildVariantOptions!
 ) {
-  mainlineCommits(options: $mainlineCommitsOptions) {
+  mainlineCommits(
+    options: $mainlineCommitsOptions
+    buildVariantOptions: $buildVariantOptions
+  ) {
     versions {
       version {
         id

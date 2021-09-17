@@ -175,6 +175,7 @@ export type QueryBbGetCreatedTicketsArgs = {
 
 export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
+  buildVariantOptions?: Maybe<BuildVariantOptions>;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
