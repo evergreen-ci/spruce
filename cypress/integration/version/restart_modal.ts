@@ -53,7 +53,7 @@ describe("Restarting a patch", () => {
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
     cy.get(statusFilter).click();
-    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
+    cy.getInputByLabel("All").check({ force: true });
     cy.get(statusFilter).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
@@ -63,7 +63,7 @@ describe("Restarting a patch", () => {
       "Are you sure you want to restart the 50 selected tasks?"
     );
     cy.get(statusFilter).click();
-    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
+    cy.getInputByLabel("All").check({ force: true });
     cy.get(statusFilter).click();
   });
 
