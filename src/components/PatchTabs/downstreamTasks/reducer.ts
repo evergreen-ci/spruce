@@ -36,7 +36,7 @@ export type Action =
   | { type: "onChangeLimit"; data: number };
 
 export type State = QueryParamState & InputValueState;
-const page = { page: 0 };
+const resetPage = { page: 0 };
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
     case "onChangeTaskNameInput":
@@ -57,58 +57,58 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         taskName: state.taskNameInputVal,
-        ...page,
+        ...resetPage,
       };
     case "onFilterVariantInput":
       return {
         ...state,
         variant: state.variantInputVal,
-        ...page,
+        ...resetPage,
       };
     case "onFilterBaseStatusesSelector":
       return {
         ...state,
         baseStatuses: state.baseStatusesInputVal,
-        ...page,
+        ...resetPage,
       };
     case "onFilterStatusesSelector":
       return {
         ...state,
         statuses: state.currentStatusesInputVal,
-        ...page,
+        ...resetPage,
       };
     case "onResetTaskNameInput":
       return {
         ...state,
         currentStatusesInputVal: [],
         statuses: [],
-        ...page,
+        ...resetPage,
       };
     case "onResetVariantInput":
       return {
         ...state,
         variantInputVal: "",
         variant: "",
-        ...page,
+        ...resetPage,
       };
     case "onResetBaseStatusesSelector":
       return {
         ...state,
         baseStatusesInputVal: [],
         baseStatuses: [],
-        ...page,
+        ...resetPage,
       };
     case "onResetStatusesSelector":
       return {
         ...state,
         currentStatusesInputVal: [],
         statuses: [],
-        ...page,
+        ...resetPage,
       };
     case "clearAllFilters":
       return {
         ...state,
-        ...page,
+        ...resetPage,
         currentStatusesInputVal: [],
         statuses: [],
         variantInputVal: "",
@@ -121,7 +121,7 @@ export const reducer = (state: State, action: Action) => {
     case "onSort":
       return {
         ...state,
-        ...page,
+        ...resetPage,
         sorts: action.data,
       };
     case "onChangePagination":
@@ -132,7 +132,7 @@ export const reducer = (state: State, action: Action) => {
     case "onChangeLimit":
       return {
         ...state,
-        ...page,
+        ...resetPage,
         limit: action.data,
       };
     default:
