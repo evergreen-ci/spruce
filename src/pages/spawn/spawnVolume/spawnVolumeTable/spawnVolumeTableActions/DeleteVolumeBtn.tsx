@@ -51,7 +51,7 @@ export const DeleteVolumeBtn: React.FC<Props> = ({ volume }) => {
       <Button
         size={Size.XSmall}
         data-cy={`trash-${volume.displayName || volume.id}`}
-        glyph={<Icon glyph="Trash" />}
+        leftGlyph={<Icon glyph="Trash" />}
         disabled={loadingRemoveVolume}
       />
     </PopconfirmWithCheckbox>

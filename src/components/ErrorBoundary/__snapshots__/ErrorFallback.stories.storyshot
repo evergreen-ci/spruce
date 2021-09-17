@@ -16,12 +16,12 @@ exports[`Storyshots Error Fallback Default Error 1`] = `
       className="css-1ow8p7h-Text e1n39ls31"
     >
       <h1
-        className="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-19qj6pz"
+        className="css-15usbh5-StyledHeader e1n39ls34 leafygreen-ui-1trzn0j"
       >
         Error
       </h1>
       <h2
-        className="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-1mpi1qm"
+        className="css-15lzim1-StyledSubtitle e1n39ls33 leafygreen-ui-193f282"
       >
         Ouch! That's gotta hurt,
         <br />

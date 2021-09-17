@@ -18,12 +18,19 @@ interface Props {
 }
 
 export const LogsColumn: React.FC<Props> = ({ testResult, taskAnalytics }) => {
-  const { execution, lineNum, taskId, id } = testResult || {};
-  const { htmlDisplayURL, rawDisplayURL } = testResult?.logs ?? {};
+  const { execution, taskId, groupID, logTestName, testFile, logs } =
+    testResult || {};
+  const { htmlDisplayURL, rawDisplayURL, lineNum } = logs ?? {};
   const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
   const lobsterLink = hasLobsterLink
     ? getUpdatedLobsterUrl(htmlDisplayURL)
-    : getLobsterTestLogUrl({ taskId, execution, testId: id, lineNum });
+    : getLobsterTestLogUrl({
+        taskId,
+        execution,
+        testId: logTestName || testFile,
+        lineNum,
+        groupId: groupID,
+      });
 
   return (
     <>

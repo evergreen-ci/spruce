@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle } from "@leafygreen-ui/typography";
-import { Layout } from "antd";
 import { Link } from "react-router-dom";
 import { useNavbarAnalytics } from "analytics";
 import Icon from "components/Icon";
@@ -19,7 +18,6 @@ import { UserDropdown } from "./UserDropdown";
 
 const { getUiUrl } = environmentalVariables;
 
-const { Header } = Layout;
 const { white, blue, gray } = uiColors;
 
 export const Navbar: React.FC = () => {
@@ -36,65 +34,57 @@ export const Navbar: React.FC = () => {
     return null;
   }
   return (
-    <StyledHeader>
-      <InnerWrapper>
-        <NavActionContainer>
-          <Link
-            to={routes.myPatches}
-            onClick={() =>
-              navbarAnalytics.sendEvent({ name: "Click Logo Link" })
-            }
-          >
-            <Logo>
-              <Icon glyph="EvergreenLogo" />
-              {/* @ts-expect-error */}
-              <StyledSubtitle>Evergreen</StyledSubtitle>
-            </Logo>
-          </Link>
+    <StyledNav>
+      <NavActionContainer>
+        <Link
+          to={routes.myPatches}
+          onClick={() => navbarAnalytics.sendEvent({ name: "Click Logo Link" })}
+        >
+          <Logo>
+            <Icon glyph="EvergreenLogo" />
+            {/* @ts-expect-error */}
+            <StyledSubtitle>Evergreen</StyledSubtitle>
+          </Logo>
+        </Link>
 
-          <PrimaryA
-            href={`${uiURL}/waterfall`}
+        <PrimaryA
+          href={`${uiURL}/waterfall`}
+          onClick={() =>
+            navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
+          }
+        >
+          Waterfall
+        </PrimaryA>
+        <PrimaryLink to={getUserPatchesRoute(userId)}>My Patches</PrimaryLink>
+        <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
+        <AuxiliaryDropdown />
+      </NavActionContainer>
+      <NavActionContainer>
+        {legacyURL && (
+          <SecondaryLink
+            href={legacyURL}
+            data-cy="legacy-ui-link"
             onClick={() =>
-              navbarAnalytics.sendEvent({ name: "Click Waterfall Link" })
+              navbarAnalytics.sendEvent({ name: "Click Legacy UI Link" })
             }
           >
-            Waterfall
-          </PrimaryA>
-          <PrimaryLink to={`${getUserPatchesRoute(userId)}`}>
-            My Patches
-          </PrimaryLink>
-          <PrimaryLink to={routes.spawnHost}>My Hosts</PrimaryLink>
-          <AuxiliaryDropdown />
-        </NavActionContainer>
-        <NavActionContainer>
-          {legacyURL && (
-            <SecondaryLink
-              href={legacyURL}
-              data-cy="legacy-ui-link"
-              onClick={() =>
-                navbarAnalytics.sendEvent({ name: "Click Legacy UI Link" })
-              }
-            >
-              Switch to legacy UI
-            </SecondaryLink>
-          )}
-          <UserDropdown />
-        </NavActionContainer>
-      </InnerWrapper>
-    </StyledHeader>
+            Switch to legacy UI
+          </SecondaryLink>
+        )}
+        <UserDropdown />
+      </NavActionContainer>
+    </StyledNav>
   );
 };
 
-const StyledHeader = styled(Header)`
-  background-color: ${gray.dark3};
-  padding: 0 36px;
-`;
-
-const InnerWrapper = styled.nav`
-  display: flex;
+const StyledNav = styled.nav`
   align-items: center;
+  background-color: ${gray.dark3};
+  display: flex;
   justify-content: space-between;
-  height: 100%;
+  height: 64px;
+  line-height: 64px;
+  padding: 0 36px;
 `;
 const Logo = styled.div`
   display: flex;

@@ -22,7 +22,6 @@ const Banner = styled.div`
   background-color: ${yellow.light3};
   display: flex;
   padding: 5px 15px;
-  margin-bottom: 15px;
 `;
 
 const IconWithMargin = styled(Icon)`

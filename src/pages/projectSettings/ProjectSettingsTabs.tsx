@@ -100,7 +100,6 @@ export const getTitle = (
 };
 
 const Container = styled.div`
-  margin-left: 64px;
   width: 60%;
 `;
 

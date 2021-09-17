@@ -5,7 +5,8 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
-import { VariantTasksState } from "./state";
+import { ConfigurePatchQuery } from "gql/generated/types";
+import { AliasState, VariantTasksState } from "hooks/useConfigurePatch";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -16,17 +17,29 @@ interface Props {
   selectedBuildVariants: string[];
   selectedBuildVariantTasks: VariantTasksState;
   setSelectedBuildVariantTasks: (vt: VariantTasksState) => void;
+  activated: boolean;
   loading: boolean;
   onClickSchedule: () => void;
+  selectedAliases: AliasState;
+  setSelectedAliases: (aliases: AliasState) => void;
+  childPatches: ConfigurePatchQuery["patch"]["childPatches"];
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
   selectedBuildVariants,
   selectedBuildVariantTasks,
   setSelectedBuildVariantTasks,
+  activated,
   loading,
   onClickSchedule,
+  selectedAliases,
+  setSelectedAliases,
+  childPatches,
 }) => {
+  const aliasCount = Object.values(selectedAliases).reduce(
+    (count, alias) => count + (alias ? 1 : 0),
+    0
+  );
   const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskOb) =>
       count +
@@ -39,40 +52,73 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
 
   const tasks = selectedBuildVariants.map(
-    (bv) => selectedBuildVariantTasks[bv]
+    (bv) => selectedBuildVariantTasks[bv] || {}
   );
 
   const currentTasks = deduplicateTasks(tasks);
+  const currentAliases = getVisibleAliases(
+    selectedAliases,
+    selectedBuildVariants
+  );
+  const currentChildPatches = getVisibleChildPatches(
+    childPatches,
+    selectedBuildVariants
+  );
+
+  // Show details related to child patches (i.e. list all variants/tasks) only if it is the only menu item selected
+  const enumerateChildPatches =
+    currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
 
   const onClickCheckbox = (taskName: string) => (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    selectedBuildVariants.forEach((bv) => {
-      if (selectedBuildVariantsCopy[bv][taskName] !== undefined) {
-        selectedBuildVariantsCopy[bv][taskName] = e.target.checked;
+    const selectedAliasesCopy = { ...selectedAliases };
+    selectedBuildVariants.forEach((v) => {
+      if (selectedBuildVariantsCopy?.[v]?.[taskName] !== undefined) {
+        selectedBuildVariantsCopy[v][taskName] = e.target.checked;
+      } else if (selectedAliasesCopy?.[v] !== undefined) {
+        selectedAliasesCopy[v] = e.target.checked;
       }
     });
     setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
+    setSelectedAliases(selectedAliasesCopy);
   };
 
   const onClickSelectAll = (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
-    selectedBuildVariants.forEach((bv) => {
-      Object.keys(selectedBuildVariantsCopy[bv]).forEach((task) => {
-        selectedBuildVariantsCopy[bv][task] = e.target.checked;
-      });
+    const selectedAliasesCopy = { ...selectedAliases };
+    selectedBuildVariants.forEach((v) => {
+      if (selectedBuildVariantsCopy?.[v] !== undefined) {
+        Object.keys(selectedBuildVariantsCopy[v]).forEach((task) => {
+          selectedBuildVariantsCopy[v][task] = e.target.checked;
+        });
+      } else if (selectedAliasesCopy?.[v] !== undefined) {
+        selectedAliasesCopy[v] = e.target.checked;
+      }
     });
     setSelectedBuildVariantTasks(selectedBuildVariantsCopy);
+    setSelectedAliases(selectedAliasesCopy);
   };
 
-  const selectAllCheckboxState = getSelectAllCheckboxState(currentTasks);
-  const selectAllCheckboxCopy = `Select all tasks in ${
-    selectedBuildVariants.length > 1 ? "these variants" : "this variant"
-  }`;
+  const selectAllCheckboxState = getSelectAllCheckboxState(
+    currentTasks,
+    currentAliases,
+    enumerateChildPatches
+  );
+  const selectAllCheckboxCopy =
+    Object.entries(currentTasks).length === 0
+      ? `Select all tasks in ${
+          selectedBuildVariants.length > 1
+            ? "these trigger aliases"
+            : "this trigger alias"
+        }`
+      : `Select all tasks in ${
+          selectedBuildVariants.length > 1 ? "these variants" : "this variant"
+        }`;
   const selectedTaskDisclaimerCopy = `${taskCount} task${
     taskCount !== 1 ? "s" : ""
   } across ${buildVariantCount} build variant${
     buildVariantCount !== 1 ? "s" : ""
-  }`;
+  }, ${aliasCount} trigger alias${aliasCount !== 1 ? "es" : ""}`;
 
   return (
     <TabContentWrapper>
@@ -81,19 +127,21 @@ export const ConfigureTasks: React.FC<Props> = ({
           data-cy="schedule-patch"
           variant="primary"
           onClick={onClickSchedule}
-          disabled={taskCount === 0 || loading}
+          disabled={(taskCount === 0 && aliasCount === 0) || loading}
           loading={loading}
         >
           Schedule
         </Button>
         <Checkbox
           data-cy="select-all-checkbox"
-          data-state={selectAllCheckboxState}
-          // TODO: Fix indeterminate state handling after PD-1386
           indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
           onChange={onClickSelectAll}
           label={selectAllCheckboxCopy}
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
+          disabled={
+            (activated && Object.entries(currentAliases).length > 0) ||
+            enumerateChildPatches
+          }
         />
       </Actions>
       <StyledDisclaimer data-cy="selected-task-disclaimer">
@@ -103,30 +151,92 @@ export const ConfigureTasks: React.FC<Props> = ({
         {Object.entries(currentTasks).map(([name, status]) => (
           <Checkbox
             data-cy="task-checkbox"
-            data-state={status}
             key={name}
             onChange={onClickCheckbox(name)}
             label={name}
-            // TODO: Fix indeterminate state handling after PD-1386
             indeterminate={status === CheckboxState.INDETERMINITE}
             checked={status === CheckboxState.CHECKED}
           />
         ))}
       </Tasks>
+      {/* Include a checkbox representing trigger aliases only if multiple sidebar items are selected */}
+      {selectedBuildVariants.length > 1 && (
+        <>
+          <H4>Downstream Tasks</H4>
+          <Tasks>
+            {Object.entries(currentAliases).map(([name, status]) => (
+              <Checkbox
+                data-cy="alias-checkbox"
+                key={name}
+                onChange={onClickCheckbox(name)}
+                label={name}
+                indeterminate={status === CheckboxState.INDETERMINITE}
+                checked={status === CheckboxState.CHECKED}
+                disabled={activated}
+              />
+            ))}
+            {/* Represent child patches invoked from CLI as read-only */}
+            {currentChildPatches.map(({ projectIdentifier }) => (
+              <Checkbox
+                data-cy="child-patch-checkbox"
+                key={projectIdentifier}
+                label={projectIdentifier}
+                disabled
+                checked
+              />
+            ))}
+          </Tasks>
+        </>
+      )}
+      {enumerateChildPatches && (
+        <>
+          {currentChildPatches[0].variantsTasks.map(
+            ({ name, tasks: taskList }) => (
+              <>
+                <H4>{name}</H4>
+                <Tasks>
+                  {taskList.map((taskName) => (
+                    <Checkbox
+                      data-cy="child-patch-checkbox"
+                      key={taskName}
+                      label={taskName}
+                      checked
+                      disabled
+                    />
+                  ))}
+                </Tasks>
+              </>
+            )
+          )}
+        </>
+      )}
     </TabContentWrapper>
   );
 };
 
-const getSelectAllCheckboxState = (buildVariants: {
-  [task: string]: CheckboxState;
-}): CheckboxState => {
-  let state;
-  const allStatuses = Object.entries(buildVariants).map(
-    ([, checked]) => checked
-  );
+const getSelectAllCheckboxState = (
+  buildVariants: {
+    [task: string]: CheckboxState;
+  },
+  aliases: {
+    [alias: string]: CheckboxState;
+  },
+  enumerateChildPatches: boolean
+): CheckboxState => {
+  if (enumerateChildPatches) {
+    return CheckboxState.CHECKED;
+  }
 
-  const hasSelectedTasks = allStatuses.includes(CheckboxState.CHECKED);
-  const hasUnselectedTasks = allStatuses.includes(CheckboxState.UNCHECKED);
+  let state;
+  const allTaskStatuses = Object.values(buildVariants);
+  const allAliasStatuses = Object.values(aliases);
+
+  const hasSelectedTasks =
+    allTaskStatuses.includes(CheckboxState.CHECKED) ||
+    allAliasStatuses.includes(CheckboxState.CHECKED);
+  const hasUnselectedTasks =
+    allTaskStatuses.includes(CheckboxState.UNCHECKED) ||
+    allAliasStatuses.includes(CheckboxState.UNCHECKED);
   if (hasSelectedTasks && !hasUnselectedTasks) {
     state = CheckboxState.CHECKED;
   } else if (!hasSelectedTasks && hasUnselectedTasks) {
@@ -136,6 +246,31 @@ const getSelectAllCheckboxState = (buildVariants: {
   }
 
   return state;
+};
+
+const getVisibleAliases = (
+  selectedAliases: AliasState,
+  selectedBuildVariants: string[]
+): { [key: string]: CheckboxState } => {
+  const visiblePatches = {};
+  Object.entries(selectedAliases).forEach(([alias]) => {
+    if (selectedBuildVariants.includes(alias)) {
+      visiblePatches[alias] = selectedAliases[alias]
+        ? CheckboxState.CHECKED
+        : CheckboxState.UNCHECKED;
+    }
+  });
+  return visiblePatches;
+};
+
+const getVisibleChildPatches = (childPatches, selectedBuildVariants) => {
+  if (!childPatches) {
+    return [];
+  }
+
+  return childPatches.filter(({ projectIdentifier }) =>
+    selectedBuildVariants.includes(projectIdentifier)
+  );
 };
 
 const deduplicateTasks = (
@@ -205,4 +340,7 @@ const cardSidePadding = css`
 `;
 const TabContentWrapper = styled.div`
   ${cardSidePadding}
+`;
+const H4 = styled.h4`
+  margin-top: 16px;
 `;

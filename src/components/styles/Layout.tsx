@@ -22,19 +22,33 @@ export const tableInputContainerCSS = css`
   overflow: hidden;
 `;
 
-export const PageContent = styled(Content)`
-  ${whiteBackground}
-  margin-left: 16px;
-  min-height: 280;
-  overflow: hidden;
+export const PageWrapper = styled.div`
+  grid-area: contents;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 24px 36px 56px 36px;
 `;
 
+export const PageGrid = styled.section`
+  display: grid;
+  grid-template-areas:
+    "header header"
+    "sidenav contents";
+  grid-template-columns: auto minmax(0, 1fr);
+  grid-template-rows: auto 1fr;
+  height: 100vh;
+`;
+
+/* Flexbox-based antd components to be used together */
 export const PageLayout = styled(Layout)`
   ${whiteBackground}
 `;
-
 export const PageSider = styled(Sider)`
   ${whiteBackground}
+`;
+export const PageContent = styled(Content)`
+  margin-left: 16px;
+  overflow: hidden;
 `;
 
 PageSider.defaultProps = { width: 275 };
