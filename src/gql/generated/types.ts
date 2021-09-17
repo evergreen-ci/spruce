@@ -976,11 +976,16 @@ export type TestResult = {
   taskId?: Maybe<Scalars["String"]>;
   execution?: Maybe<Scalars["Int"]>;
   logTestName?: Maybe<Scalars["String"]>;
-  lineNum?: Maybe<Scalars["Int"]>;
 };
 
 export type TestLog = {
+  url?: Maybe<Scalars["String"]>;
+  urlRaw?: Maybe<Scalars["String"]>;
+  urlLobster?: Maybe<Scalars["String"]>;
+  lineNum?: Maybe<Scalars["Int"]>;
+  /** @deprecated htmlDisplayURL deprecated, use url instead (EVG-15418) */
   htmlDisplayURL?: Maybe<Scalars["String"]>;
+  /** @deprecated rawDisplayURL deprecated, use urlRaw instead (EVG-15418) */
   rawDisplayURL?: Maybe<Scalars["String"]>;
 };
 
@@ -2620,6 +2625,13 @@ export type ConfigurePatchQuery = {
         tasks: Array<string>;
       }>;
     }>;
+    childPatches?: Maybe<
+      Array<{
+        projectIdentifier: string;
+        variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+      }>
+    >;
+    patchTriggerAliases: Array<{ alias: string; childProject: string }>;
   } & BasePatchFragment;
 };
 
@@ -2845,8 +2857,11 @@ export type TaskTestsQuery = {
       duration?: Maybe<number>;
       execution?: Maybe<number>;
       taskId?: Maybe<string>;
-      lineNum?: Maybe<number>;
-      logs: { htmlDisplayURL?: Maybe<string>; rawDisplayURL?: Maybe<string> };
+      logs: {
+        lineNum?: Maybe<number>;
+        htmlDisplayURL?: Maybe<string>;
+        rawDisplayURL?: Maybe<string>;
+      };
     }>;
   };
 };
@@ -2966,9 +2981,10 @@ export type GetTestsQuery = {
       execution?: Maybe<number>;
       groupID?: Maybe<string>;
       id: string;
-      lineNum?: Maybe<number>;
       taskId?: Maybe<string>;
       testFile: string;
+      logTestName?: Maybe<string>;
+      logs: { lineNum?: Maybe<number> };
     }>;
   };
 };

@@ -29,6 +29,6 @@ const NodeContainer = styled.div`
     top: 0%;
     height: 80%;
     width: 1px;
-    z-index: 0;
+    z-index: -1;
   }
 `;

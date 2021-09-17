@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
+import CommitChartLabel from "components/CommitChartLabel";
 import { ChartTypes } from "types/commits";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
-import { CommitChartLabel } from "./CommitChartLabel";
 import { ColorCount } from "./utils";
 
 interface Props {

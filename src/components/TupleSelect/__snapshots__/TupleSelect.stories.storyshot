@@ -9,7 +9,7 @@ exports[`Storyshots TupleSelect Waterfall 1`] = `
   }
 >
   <label
-    className="leafygreen-ui-1x9zy2h"
+    className="leafygreen-ui-ly82bp"
     htmlFor="filter-input"
   >
     Add New 

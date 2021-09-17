@@ -2,8 +2,7 @@ import React from "react";
 import { useQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import Code from "@leafygreen-ui/code";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
+import { InlineCode, Body } from "@leafygreen-ui/typography";
 import get from "lodash/get";
 import { SiderCard } from "components/styles";
 import {
@@ -11,8 +10,6 @@ import {
   ClientConfigQueryVariables,
 } from "gql/generated/types";
 import { GET_CLIENT_CONFIG } from "gql/queries";
-
-const { gray } = uiColors;
 
 export const VerifyCard = () => {
   const { data } = useQuery<ClientConfigQuery, ClientConfigQueryVariables>(
@@ -27,10 +24,10 @@ export const VerifyCard = () => {
     <>
       {/* @ts-expect-error */}
       <Container>
-        <Body>At the command line, type &quot;</Body>
-
-        <InlinePre>evergreen get-update</InlinePre>
-        <Body>&quot;. It should display :</Body>
+        <Body>
+          At the command line, type{" "}
+          <InlineCode>evergreen get-update</InlineCode>. It should display :
+        </Body>
         <CodeContainer>
           <Code copyable={false} language="shell">
             {verificationCode}
@@ -51,11 +48,4 @@ const CodeContainer = styled.div`
   margin-top: 30px;
   margin-bottom: 30px;
   width: 80%;
-`;
-
-const InlinePre = styled("pre")`
-  display: inline-block;
-  background-color: ${gray.light3};
-  margin-bottom: 0;
-  overflow: visible;
 `;
