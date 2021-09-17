@@ -1,12 +1,29 @@
 // / <reference types="Cypress" />
 
-describe("Restarting a version", () => {
+describe("Restarting a patch with Downstream Tasks", () => {
   before(() => {
     cy.login();
     cy.viewport(1920, 1600);
+    cy.preserveCookies();
+  });
+
+  it("Clicking on the Select Downstream Tasks should show the downstream projects", () => {
+    cy.visit(pathWithDownstreamTasks);
+    cy.dataCy("restart-patch").click();
+    cy.dataCy("select-downstream").first().click();
+    cy.dataCy("select-downstream").first().contains("evergreen").click();
+  });
+
+  const pathWithDownstreamTasks = `/version/5f74d99ab2373627c047c5e5`;
+});
+
+describe("Restarting a patch", () => {
+  before(() => {
+    cy.login();
   });
 
   beforeEach(() => {
+    cy.viewport(1920, 1600);
     cy.preserveCookies();
   });
 
@@ -36,7 +53,7 @@ describe("Restarting a version", () => {
 
   it("Selecting on the patch status filter should toggle the tasks that have matching statuses to it", () => {
     cy.get(statusFilter).click();
-    cy.getInputByLabel("All").click({ force: true });
+    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
     cy.get(statusFilter).click();
 
     // ideally this would target the text field itself but leafygreen Body tags dont
@@ -46,14 +63,17 @@ describe("Restarting a version", () => {
       "Are you sure you want to restart the 50 selected tasks?"
     );
     cy.get(statusFilter).click();
-    cy.getInputByLabel("All").click({ force: true });
+    cy.get(".cy-checkbox").contains("All").as("target").click({ force: true });
     cy.get(statusFilter).click();
   });
 
   it("Selecting on the base status filter should toggle the tasks that have matching statuses to it", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(baseStatusFilter).click();
-      cy.getInputByLabel("Success").click({ force: true });
+      cy.get(".cy-checkbox")
+        .contains("Success")
+        .as("target")
+        .click({ force: true });
       cy.get(baseStatusFilter).click();
 
       // ideally this would target the text field itself but leafygreen Body tags dont
@@ -64,7 +84,10 @@ describe("Restarting a version", () => {
       );
       cy.get(baseStatusFilter).click();
 
-      cy.getInputByLabel("Success").click({ force: true });
+      cy.get(".cy-checkbox")
+        .contains("Success")
+        .as("target")
+        .click({ force: true });
       cy.get(baseStatusFilter).click();
     });
   });
@@ -72,48 +95,24 @@ describe("Restarting a version", () => {
   it("Restarting a task should close the modal and display a success message if it occurs successfully.", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(statusFilter).click();
-      cy.getInputByLabel("Aborted").click({ force: true });
+      cy.get(".cy-checkbox")
+        .contains("Dispatched")
+        .as("target")
+        .click({ force: true });
       cy.get(statusFilter).click();
       cy.dataCy("restart-patch-button").click();
     });
     cy.dataCy("version-restart-modal").should("not.be.be.visible");
     cy.dataCy("toast").should("exist");
-    cy.dataCy("toast").should("contain.text", `Successfully restarted tasks`);
-  });
-
-  xit("The status filters are prepopulated with the same selections as the task table status filters when the modal is opens.", () => {
-    cy.visit(path);
-    cy.dataCy(versionPageStatusFilter).click();
-    cy.dataCy(versionPageStatusFilter).contains("Success").click();
-    cy.dataCy(versionPageStatusFilter).contains("Undispatched").click();
-    cy.get(versionPageBaseStatusFilter).click();
-    cy.get(versionPageBaseStatusFilter).contains("Running").click();
-    cy.wait(100);
-    cy.get(versionPageBaseStatusFilter).contains("Dispatched").click();
-    cy.dataCy("restart-patch").click();
-    cy.get(statusFilter).contains(
-      "Task Status: Success, Undispatched or Blocked"
+    cy.dataCy("toast").should(
+      "contain.text",
+      `Success!Successfully restarted tasks!`
     );
-    cy.get(baseStatusFilter).contains("Task Base Status: Running, Dispatched");
-
-    // close modal and do the same thing again
-    cy.dataCy("cancel-restart-modal-button").click({ force: true });
-    cy.dataCy(versionPageStatusFilter).first().click();
-    cy.dataCy(versionPageStatusFilter).first().contains("Failed").click();
-    cy.get(versionPageBaseStatusFilter).click();
-    cy.get(versionPageBaseStatusFilter).contains("All").click();
-    cy.dataCy("restart-patch").click();
-    cy.get(statusFilter).contains(
-      "Task Status: Success, Undispatched or Blocked, Failed"
-    );
-    cy.get(baseStatusFilter).contains("Task Base Status: All");
   });
 
   const path = `/version/5e4ff3abe3c3317e352062e4`;
-  const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
+  const statusFilter =
+    ".ant-modal-body > div > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
-    ".ant-modal-body > div > [data-cy=task-base-status-filter]";
-  const versionPageStatusFilter = "task-status-filter";
-  const versionPageBaseStatusFilter =
-    "[data-cy=task-tab] > div > div > [data-cy=task-base-status-filter]";
+    ".ant-modal-body > div > div > [data-cy=task-base-status-filter]";
 });
