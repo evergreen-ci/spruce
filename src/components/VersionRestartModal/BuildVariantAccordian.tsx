@@ -17,7 +17,7 @@ interface BuildVariantAccordianProps {
   displayName: string;
   selectedTasks: selectedStrings;
   toggleSelectedTask: (
-    taskIds: { [patchId: string]: string } | { [patchId: string]: string[] }
+    taskIds: { [versionId: string]: string } | { [versionId: string]: string[] }
   ) => void;
 }
 export const BuildVariantAccordian: React.FC<BuildVariantAccordianProps> = ({

@@ -220,7 +220,7 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
   const tasks = selectedTasks[version?.id] || {};
 
   return (
-    <div>
+    <>
       {buildVariants && (
         <>
           <Row>
@@ -246,7 +246,7 @@ const VersionTasks: React.FC<VersionTasksProps> = ({
           <HR />
         </>
       )}
-    </div>
+    </>
   );
 };
 
