@@ -96,7 +96,7 @@ describe("Restarting a patch", () => {
     cy.dataCy("version-restart-modal").within(() => {
       cy.get(statusFilter).click();
       cy.get(".cy-checkbox")
-        .contains("Dispatched")
+        .contains("Success")
         .as("target")
         .click({ force: true });
       cy.get(statusFilter).click();
