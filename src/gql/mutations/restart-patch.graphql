@@ -1,8 +1,0 @@
-
-  mutation RestartPatch(
-    $patchId: String!
-    $abort: Boolean!
-    $taskIds: [String!]!
-  ) {
-    restartPatch(patchId: $patchId, abort: $abort, taskIds: $taskIds)
-  }
