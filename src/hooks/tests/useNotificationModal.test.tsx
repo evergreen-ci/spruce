@@ -127,7 +127,7 @@ it("Should have correctly formatted request payload after selecting options, add
   await waitForNextUpdate();
 
   act(() => {
-    result.current.setSelectedTriggerIndex(6);
+    result.current.setSelectedTriggerIndex(5);
     result.current.setTarget({ email: "email@email.com" });
   });
 
@@ -270,7 +270,7 @@ it("Should auto populate email and slack fields if they exist", async () => {
   await waitForNextUpdate();
 
   act(() => {
-    result.current.setSelectedTriggerIndex(6);
+    result.current.setSelectedTriggerIndex(5);
   });
 
   act(() => {
