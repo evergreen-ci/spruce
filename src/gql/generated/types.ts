@@ -1884,51 +1884,12 @@ export type RestartVersionsMutation = {
   restartVersions?: Maybe<
     Array<{
       id: string;
-      createTime: Date;
-      startTime?: Maybe<Date>;
-      finishTime?: Maybe<Date>;
-      revision: string;
-      author: string;
+      taskStatuses: Array<string>;
       status: string;
-      order: number;
-      repo: string;
-      project: string;
-      activated?: Maybe<boolean>;
-      message: string;
-      isPatch: boolean;
-      taskCount?: Maybe<number>;
-      baseVersionID?: Maybe<string>;
-      projectIdentifier: string;
-      versionTiming?: Maybe<{
-        makespan?: Maybe<number>;
-        timeTaken?: Maybe<number>;
-      }>;
-      parameters: Array<{ key: string; value: string }>;
-      manifest?: Maybe<{
-        id: string;
-        revision: string;
-        project: string;
-        branch: string;
-        isBase: boolean;
-        moduleOverrides?: Maybe<{ [key: string]: any }>;
-        modules?: Maybe<any>;
-      }>;
       patch?: Maybe<{
         id: string;
-        patchNumber: number;
-        alias?: Maybe<string>;
-        commitQueuePosition?: Maybe<number>;
-        canEnqueueToCommitQueue: boolean;
-        childPatches?: Maybe<
-          Array<{
-            baseVersionID?: Maybe<string>;
-            githash: string;
-            id: string;
-            projectIdentifier: string;
-            taskCount?: Maybe<number>;
-            status: string;
-          }>
-        >;
+        status: string;
+        childPatches?: Maybe<Array<{ id: string; status: string }>>;
       }>;
     }>
   >;

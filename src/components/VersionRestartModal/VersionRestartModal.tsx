@@ -294,9 +294,8 @@ export const TitleContainer = styled.div`
   width: 96%;
 `;
 
-const BoldTextStyle = styled.div`
+const BoldTextStyle = styled.span`
   font-weight: bold;
-  top: 1px;
   color: ${gray.dark2}; // theme colors.gray[1]
 `;
 
