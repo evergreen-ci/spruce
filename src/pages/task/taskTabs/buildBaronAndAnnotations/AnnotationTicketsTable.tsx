@@ -90,7 +90,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
                 size={Size.Small}
                 data-cy={`move-btn-${issueKey}`}
                 disabled={!userCanModify}
-                glyph={icon}
+                leftGlyph={icon}
               >
                 <StyledText>
                   Move To {isIssue ? "Suspected Issues" : "Issues"}
@@ -112,7 +112,7 @@ export const AnnotationTicketsTable: React.FC<AnnotationTicketsProps> = ({
               <StyledButton
                 size="small"
                 data-cy={`${issueKey}-delete-btn`}
-                glyph={<Icon glyph="Trash" />}
+                leftGlyph={<Icon glyph="Trash" />}
                 disabled={!userCanModify}
               />
             </Popconfirm>

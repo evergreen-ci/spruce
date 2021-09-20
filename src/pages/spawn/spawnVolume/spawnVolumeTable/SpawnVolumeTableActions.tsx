@@ -36,6 +36,8 @@ export const SpawnVolumeTableActions: React.FC<Props> = ({ volume }) => (
 
 const FlexRow = styled.div`
   display: flex;
+  align-items: center;
+  line-height: 1;
   button {
     margin-right: 8px;
   }

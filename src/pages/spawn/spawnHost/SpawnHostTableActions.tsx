@@ -3,6 +3,7 @@ import styled from "@emotion/styled";
 import { Size } from "@leafygreen-ui/button";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { useSpawnAnalytics } from "analytics";
+import Icon from "components/Icon";
 import { PaddedButton } from "components/Spawn";
 import { SECOND } from "constants/index";
 import { MyHost } from "types/spawn";
@@ -58,8 +59,9 @@ export const CopySSHCommandButton: React.FC<{
             }}
             size={Size.XSmall}
             data-cy="copy-ssh-button"
+            leftGlyph={<Icon glyph="Copy" />}
           >
-            <Label>Copy SSH command</Label>
+            <Label>SSH Command</Label>
           </PaddedButton>
         }
       >
@@ -75,12 +77,14 @@ export const CopySSHCommandButton: React.FC<{
 
 const FlexContainer = styled.div`
   display: flex;
+  align-items: center;
+  line-height: 1;
 `;
 
-const Label = styled.div`
-  width: 121px;
+const Label = styled.span`
+  white-space: nowrap;
 `;
 
-const Center = styled.div`
+const Center = styled.span`
   text-align: center;
 `;

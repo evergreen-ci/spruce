@@ -56,8 +56,9 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Arrow Down Icon"
+      aria-label="Apps Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -65,9 +66,32 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M1.938 6.952l-.712.694a.734.734 0 000 1.06l6.229 6.074a.78.78 0 001.087 0l6.232-6.075a.734.734 0 000-1.059l-.712-.694a.784.784 0 00-1.1.013l-3.68 3.765V1.75a.758.758 0 00-.77-.75H7.488a.758.758 0 00-.77.75v8.98l-3.68-3.765a.779.779 0 00-1.1-.013z"
+        clipRule="evenodd"
+        d="M7 3H3v4h4V3zm0 6H3v4h4V9zm2-6h4v4H9V3zm4 6H9v4h4V9z"
         fill="currentColor"
-        fillRule="nonzero"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Apps
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Arrow Down Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.168 3v6.944l1.535-1.535a1 1 0 011.414 0l.239.24a1 1 0 010 1.414l-3.383 3.382c-.008.01-.017.018-.026.027l-.239.24a1 1 0 01-1.414 0L3.643 10.06a1 1 0 010-1.414l.239-.239a1 1 0 011.414 0L6.83 9.941V3a1 1 0 011-1h.338a1 1 0 011 1z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -80,6 +104,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Arrow Left Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -87,9 +112,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M9.048 1.938l-.694-.712a.734.734 0 00-1.06 0L1.22 7.455a.78.78 0 000 1.087l6.075 6.232a.734.734 0 001.059 0l.694-.712a.784.784 0 00-.013-1.1L5.27 9.283h8.98c.416 0 .75-.343.75-.77V7.488a.758.758 0 00-.75-.77H5.27l3.765-3.68a.779.779 0 00.013-1.1z"
+        d="M13 6.832H6.056L7.59 5.297a1 1 0 000-1.414l-.24-.239a1 1 0 00-1.414 0L2.555 7.027c-.01.008-.018.017-.027.026l-.24.239a1 1 0 000 1.414l3.652 3.651a1 1 0 001.414 0l.239-.239a1 1 0 000-1.414L6.059 9.17H13a1 1 0 001-1v-.338a1 1 0 00-1-1z"
         fill="currentColor"
-        fillRule="nonzero"
       />
     </svg>
     <span>
@@ -102,6 +126,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Arrow Right Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -109,9 +134,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6.952 1.938l.694-.712a.734.734 0 011.06 0l6.074 6.229a.78.78 0 010 1.087l-6.075 6.232a.734.734 0 01-1.059 0l-.694-.712a.784.784 0 01.013-1.1l3.765-3.68H1.75a.758.758 0 01-.75-.77V7.488c0-.426.334-.77.75-.77h8.98l-3.765-3.68a.779.779 0 01-.013-1.1z"
+        d="M3 6.832h6.944L8.41 5.297a1 1 0 010-1.414l.24-.239a1 1 0 011.414 0l3.382 3.383c.01.008.018.017.027.026l.24.239a1 1 0 010 1.414l-3.652 3.651a1 1 0 01-1.414 0l-.239-.239a1 1 0 010-1.414L9.941 9.17H3a1 1 0 01-1-1v-.338a1 1 0 011-1z"
         fill="currentColor"
-        fillRule="nonzero"
       />
     </svg>
     <span>
@@ -124,6 +148,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Arrow Up Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -131,9 +156,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M14.062 9.048l.712-.694a.734.734 0 000-1.06L8.545 1.22a.78.78 0 00-1.087 0L1.226 7.295a.734.734 0 000 1.059l.712.694a.784.784 0 001.1-.013l3.68-3.765v8.98c0 .416.343.75.77.75h1.025c.426 0 .77-.334.77-.75V5.27l3.68 3.765a.779.779 0 001.1.013z"
+        d="M9.168 13V6.056l1.535 1.535a1 1 0 001.414 0l.239-.24a1 1 0 000-1.414L8.973 2.555a1.023 1.023 0 00-.026-.027l-.239-.24a1 1 0 00-1.414 0L3.643 5.94a1 1 0 000 1.414l.239.239a1 1 0 001.414 0L6.83 6.059V13a1 1 0 001 1h.338a1 1 0 001-1z"
         fill="currentColor"
-        fillRule="nonzero"
       />
     </svg>
     <span>
@@ -146,6 +170,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Beaker Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -153,8 +178,10 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10.623 1a.886.886 0 01.041 1.772V5.34c0 .114.035.239.095.343l3.516 5.647.002.003c.232.387.356.818.356 1.254 0 .4-.106.804-.318 1.17l-.003.006-.004.007-.095.158A2.36 2.36 0 0112.217 15h-8.4c-.44 0-.86-.118-1.22-.333a2.448 2.448 0 01-.875-.904l-.001-.003a2.428 2.428 0 01-.301-1.163c0-.438.123-.877.367-1.268l3.53-5.647a.695.695 0 00.094-.343V2.772A.885.885 0 015.452 1zM8.904 2.774H7.185V5.34c0 .457-.136.892-.365 1.27l-.001.001-3.522 5.657a.644.644 0 00-.103.343c0 .102.026.2.081.296l.003.005a.62.62 0 00.553.329h8.4c.12 0 .223-.031.316-.087a.675.675 0 00.238-.898L9.272 6.612a2.324 2.324 0 01-.368-1.273V2.774zm.606 6.633l1.553 2.49a.227.227 0 01.01.243.223.223 0 01-.206.122H5.195c-.122 0-.187-.075-.206-.122-.028-.056-.056-.15.01-.243l1.553-2.49H9.51z"
+        clipRule="evenodd"
+        d="M5.953 1.8c0-.28 0-.42.054-.527a.5.5 0 01.219-.218C6.333 1 6.473 1 6.753 1h2.4c.28 0 .42 0 .527.054a.5.5 0 01.218.219c.055.107.055.247.055.527v.4c0 .28 0 .42-.055.527a.5.5 0 01-.218.219C9.573 3 9.433 3 9.153 3h-2.4c-.28 0-.42 0-.527-.054a.5.5 0 01-.219-.219c-.054-.107-.054-.247-.054-.527v-.4zm.056 2.47c-.056.108-.056.25-.056.535V6l-3.007 5.412c-.663 1.193-.994 1.79-.932 2.277a1.5 1.5 0 00.6 1.02C3.01 15 3.693 15 5.057 15h5.791c1.365 0 2.047 0 2.444-.291a1.5 1.5 0 00.6-1.02c.062-.488-.27-1.084-.932-2.277L9.953 6V4.805c0-.285 0-.427-.056-.535a.5.5 0 00-.214-.214C9.575 4 9.433 4 9.148 4h-2.39c-.285 0-.427 0-.536.056a.5.5 0 00-.213.214zM9.333 9l-3.03.5-1.287 2.31c-.218.392-.327.588-.309.748a.5.5 0 00.205.348c.13.094.355.094.802.094h4.48c.447 0 .67 0 .801-.094a.5.5 0 00.205-.348c.019-.16-.09-.355-.307-.746L9.333 9z"
         fill="currentColor"
+        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -215,6 +242,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Bulb Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -222,9 +250,12 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M12.8 14.3c-.1.2-.2.5-.3.7-.1.1-.2.3-.3.3h-.1l-2.4.6c-.2.1-.4 0-.6-.1-.2-.2-.4-.3-.5-.5l4.2-1zm-.2-2.2c.1 0 .1.1 0 0 .1.5.2.9.4 1.2l-5.1 1.3c-.1-.4-.2-.8-.3-1.1v-.1c1.6-.4 3.3-.8 5-1.3zM5.5.5C6.6 0 7.8-.1 9 .1c1.5.3 2.7 1 3.7 2.1.5.6.9 1.3 1 2.1.3 1.2.2 2.3-.4 3.4-.4.8-.7 1.6-.9 2.5-.1.3-.1.6-.1.9 0 0 0 .1-.1.1-.5.1-.9.2-1.4.4h-.1c-.1-.2-.1-.3-.1-.5.1-1.3.4-2.6 1.1-3.8.4-.7.5-1.4.4-2.2-.2-1.1-.7-2-1.6-2.7-.8-.6-1.8-.9-2.9-.8-1 .1-1.9.4-2.7 1.1-.8.8-1.2 1.8-1.1 3.1.1 1.2.7 2.3 1.8 3 1.2.8 2.2 1.7 2.9 2.8.1.1.2.3.2.4-.4.1-.7.2-1.1.3-.1 0-.3.1-.4.1h-.1c-.6-.8-1.3-1.5-2.1-2.1-.3-.2-.6-.4-.8-.6-.7-.5-1.2-1.2-1.5-2C1.9 6 2 4.3 3 2.6 3.6 1.7 4.4 1 5.5.5zm1.6 2.1c.3-.1.5 0 .7.2.2.3 0 .6-.3.7-.4.2-.8.4-1.1.7-.4.4-.6.9-.5 1.5 0 .1 0 .2.1.3 0 .2 0 .4-.2.5-.2.2-.4.2-.6.1-.1 0-.2-.2-.3-.3-.2-.9-.1-1.7.5-2.5.3-.5.8-.8 1.3-1.1.1 0 .1 0 .2-.1.1.1.1.1.2 0z"
+        d="M12.331 8.5a5 5 0 10-8.612.086L5.408 11.5a1 1 0 00.866.499H6.5V6a1.5 1.5 0 113 0v6h.224a1 1 0 00.863-.496L12.34 8.5h-.009z"
         fill="currentColor"
-        fillRule="evenodd"
+      />
+      <path
+        d="M7.5 6v6h1V6a.5.5 0 00-1 0zM10 14v-1H6v1a1 1 0 001 1h2a1 1 0 001-1z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -349,6 +380,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Charts Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -356,9 +388,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M2 2v12h12v1H1V2h1zm9 1v10H9V3h2zm1 2h2v8h-2V5zM8 6v7H6V6h2zM5 8v5H3V8h2z"
+        d="M11.5 13a1 1 0 001 1h1a1 1 0 001-1V3a1 1 0 00-1-1h-1a1 1 0 00-1 1v10zM7.5 14a1 1 0 01-1-1V6a1 1 0 011-1h1a1 1 0 011 1v7a1 1 0 01-1 1h-1zM2.5 14a1 1 0 01-1-1V9a1 1 0 011-1h1a1 1 0 011 1v4a1 1 0 01-1 1h-1z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -371,6 +402,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Checkmark Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -378,7 +410,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6.95 10.364L13.314 4l1.414 1.414-6.364 6.364-1.414 1.414L2 8.242l1.414-1.414 3.536 3.536z"
+        clipRule="evenodd"
+        d="M6.306 9.05l5.455-5.455a1 1 0 011.414 0l.707.707a1 1 0 010 1.414l-7.067 7.068a1 1 0 01-1.5-.098l-3.049-3.97a1 1 0 01.184-1.402l.595-.457a1.25 1.25 0 011.753.23L6.306 9.05z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -393,6 +426,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Checkmark With Circle Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -400,7 +434,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8 15.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15zM6.95 9.95L4.12 7.12 2.707 8.536l4.243 4.242 1.414-1.414 4.95-4.95L11.899 5 6.95 9.95z"
+        clipRule="evenodd"
+        d="M8 15A7 7 0 108 1a7 7 0 000 14zm2.448-10.104a.997.997 0 111.508 1.306l-4.572 5.28a1 1 0 01-1.64-.07l-1.82-2.868a1 1 0 111.69-1.07l1.1 1.734 3.734-4.312z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -509,8 +544,9 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Cloud Icon"
+      aria-label="Clone Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -518,13 +554,59 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M14.25 6.195A3.996 3.996 0 0116 9.5c0 2.203-1.797 4-4 4H3.89l-.109-.016A4.25 4.25 0 010 9.25a4.252 4.252 0 012.82-4A5.001 5.001 0 017.5 2c1.61 0 3.094.79 4.023 2.04a3.503 3.503 0 012.727 2.155zM12 11.5c1.102 0 2-.898 2-2 0-.93-.64-1.71-1.508-1.93 0-.023.008-.047.008-.07A1.5 1.5 0 0011 6c-.11 0-.219.016-.32.04h-.016c-.101.022-.195.062-.289.1A1.496 1.496 0 009.5 7.5h-1c0-.992.586-1.852 1.43-2.25A2.978 2.978 0 007.5 4a3 3 0 00-3 3v.023C4.414 7.016 4.336 7 4.25 7A2.25 2.25 0 002 9.25c0 1.156.875 2.125 2 2.25h8z"
+        d="M5.5 12a2 2 0 002 2h5a2 2 0 002-2V8a2 2 0 00-2-2h-5a2 2 0 00-2 2v4z"
         fill="currentColor"
-        fillRule="evenodd"
+      />
+      <path
+        d="M4.25 10H3.5a2 2 0 01-2-2V4a2 2 0 012-2h5a2 2 0 012 2v.75h-2V4h-5v4h.75v2z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Clone
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Cloud Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M12.571 8.143c0 1.775-.899 3.34-2.267 4.264l-.014.01a5.12 5.12 0 01-2.861.869H2.857a2.857 2.857 0 01-.545-5.663 5.144 5.144 0 0110.26.52zM13.821 8.143a6.38 6.38 0 01-2.358 4.96 3.429 3.429 0 102.17-6.506c.123.494.188 1.013.188 1.546z"
+        fill="currentColor"
       />
     </svg>
     <span>
       Cloud
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Code Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M6.11 13.262a.5.5 0 00.395.586l.737.143a.5.5 0 00.585-.396L9.926 2.738a.5.5 0 00-.396-.586l-.737-.143a.5.5 0 00-.585.396L6.109 13.262zM1.36 7.246L3.976 5.11a.507.507 0 01.704.063l.64.752a.483.483 0 01-.064.69L3.562 7.998 5.256 9.38c.212.173.24.482.064.69l-.64.752a.507.507 0 01-.704.062L1.36 8.75A.971.971 0 011 7.998c0-.29.132-.566.36-.752zM14.636 7.246L12.02 5.11a.507.507 0 00-.704.063l-.64.752a.483.483 0 00.064.69l1.694 1.382L10.74 9.38a.483.483 0 00-.064.69l.64.752a.507.507 0 00.704.062l2.616-2.134a.971.971 0 00.36-.752.971.971 0 00-.36-.752z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Code
     </span>
   </div>
   <div
@@ -557,6 +639,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Credit Card Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -564,13 +647,64 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M13 3c1.102 0 2 .898 2 2v6c0 1.102-.898 2-2 2H3c-1.102 0-2-.898-2-2V5c0-1.102.898-2 2-2h10zM3 6h10V5H3v1zm10 5V8H3v3h10zm-1-1H9V9h3v1z"
+        d="M3 3a2 2 0 00-2 2h14a2 2 0 00-2-2H3zM15 7H1v4a2 2 0 002 2h10a2 2 0 002-2V7z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
       CreditCard
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Curly Braces Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3 3.544a2.5 2.5 0 012.5-2.5h1a.5.5 0 01.5.5v1.105a.353.353 0 01-.353.353h-.79A.858.858 0 005 3.86v2.802a1.5 1.5 0 01-.816 1.335A1.5 1.5 0 015 9.332v2.803c0 .473.384.857.858.857h.789c.195 0 .353.158.353.353v1.105a.5.5 0 01-.5.5h-1a2.5 2.5 0 01-2.5-2.5v-1.956a1.5 1.5 0 00-1.5-1.5.5.5 0 01-.5-.5v-1a.5.5 0 01.5-.5 1.5 1.5 0 001.5-1.5v-1.95zM13 12.45a2.5 2.5 0 01-2.5 2.5h-1a.5.5 0 01-.5-.5v-1.105c0-.195.158-.353.353-.353h.79a.858.858 0 00.857-.858V9.332a1.5 1.5 0 01.816-1.335A1.5 1.5 0 0111 6.662V3.859a.858.858 0 00-.858-.857h-.789A.353.353 0 019 2.65V1.544a.5.5 0 01.5-.5h1a2.5 2.5 0 012.5 2.5V5.5A1.5 1.5 0 0014.5 7a.5.5 0 01.5.5v1a.5.5 0 01-.5.5 1.5 1.5 0 00-1.5 1.5v1.95z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      CurlyBraces
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Database Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14 4.111c0 .098 0 .193-.002.286L14 4.5v.25c0 .328-.148.642-.472.95-.33.314-.818.598-1.424.834-1.211.473-2.772.716-4.104.716-1.332 0-2.893-.243-4.104-.716-.606-.236-1.094-.52-1.424-.834C2.148 5.392 2 5.078 2 4.75V4.5c0-.039 0-.077.003-.115C2 4.295 2 4.205 2 4.11 2 2 5.041 1 8 1s6 1 6 3.111z"
+        fill="currentColor"
+      />
+      <path
+        d="M2 6.615V8.75c0 .328.148.642.472.95.33.315.818.598 1.424.834 1.211.473 2.772.716 4.104.716 1.332 0 2.893-.243 4.104-.716.606-.237 1.094-.52 1.424-.834.324-.308.472-.622.472-.95V6.615c-.428.347-.96.627-1.533.85-1.349.528-3.037.785-4.467.785-1.43 0-3.118-.257-4.467-.784-.573-.224-1.105-.504-1.533-.85z"
+        fill="currentColor"
+      />
+      <path
+        d="M12.467 11.466c.573-.224 1.105-.504 1.533-.85v.884c0 .038 0 .076-.003.114.002.09.003.182.003.275C14 14 10.959 15 8 15s-6-1-6-3.111c0-.097 0-.193.002-.287A2.546 2.546 0 012 11.5v-.885c.428.347.96.627 1.533.85 1.349.528 3.037.785 4.467.785 1.43 0 3.118-.257 4.467-.784z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Database
     </span>
   </div>
   <div
@@ -663,6 +797,32 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Export Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M14.623 5.186a.278.278 0 000-.385l-2.805-2.915a.277.277 0 00-.477.192v1.424A6.5 6.5 0 005 10v.1a1.5 1.5 0 003 0V10a3.5 3.5 0 013.34-3.496v1.405c0 .25.305.373.478.193l2.805-2.916z"
+        fill="currentColor"
+      />
+      <path
+        d="M6.5 3.879a.75.75 0 00-.75-.75H4a2 2 0 00-2 2v6.864a2 2 0 002 2h6.864a2 2 0 002-2V10.05a.75.75 0 00-1.5 0v1.943a.5.5 0 01-.5.5H4a.5.5 0 01-.5-.5V5.129a.5.5 0 01.5-.5h1.75a.75.75 0 00.75-.75z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Export
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Favorite Icon"
       className="leafygreen-ui-13qw9an"
       fill="none"
@@ -679,6 +839,31 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     </svg>
     <span>
       Favorite
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="File Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M3 13V7h4.5A1.5 1.5 0 009 5.5V1h2a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2z"
+        fill="currentColor"
+      />
+      <path
+        d="M7.833 1h-.919a1 1 0 00-.707.293L3.293 4.207A1 1 0 003 4.914v.92h3.833a1 1 0 001-1V1z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      File
     </span>
   </div>
   <div
@@ -709,6 +894,48 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Full Screen Enter Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M1.5 2a.5.5 0 00-.5.5v4a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-2a.5.5 0 01.5-.5h2a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-4zM15 2.5a.5.5 0 00-.5-.5h-4a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h2a.5.5 0 01.5.5v2a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-4zM1.5 14a.5.5 0 01-.5-.5v-4a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v2a.5.5 0 00.5.5h2a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-4zM14.5 14a.5.5 0 00.5-.5v-4a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h4z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      FullScreenEnter
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Full Screen Exit Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M10.5 7a.5.5 0 01-.5-.5v-4a.5.5 0 01.5-.5h1a.5.5 0 01.5.5v2a.5.5 0 00.5.5h2a.5.5 0 01.5.5v1a.5.5 0 01-.5.5h-4zM6 9.5a.5.5 0 00-.5-.5h-4a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h2a.5.5 0 01.5.5v2a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-4zM10.5 9a.5.5 0 00-.5.5v4a.5.5 0 00.5.5h1a.5.5 0 00.5-.5v-2a.5.5 0 01.5-.5h2a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5h-4zM5.5 7a.5.5 0 00.5-.5v-4a.5.5 0 00-.5-.5h-1a.5.5 0 00-.5.5v2a.5.5 0 01-.5.5h-2a.5.5 0 00-.5.5v1a.5.5 0 00.5.5h4z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      FullScreenExit
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Folder Icon"
       className="leafygreen-ui-13qw9an"
       fill="none"
@@ -731,27 +958,48 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Globe Americas Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        clipRule="evenodd"
+        d="M14 8A6 6 0 112 8a6 6 0 0112 0zm-5.301 4.699A4.73 4.73 0 015 11.683V10L3.257 8.257A4.75 4.75 0 018 3.25V4.5L6.5 6v1l-.5.5-.5-.5-1 1 .5.5h2.5L8 9v1l-1 1 1.699 1.699zm4.047-4.496a4.73 4.73 0 00-.924-3.025L10.5 6.5V9h1.25l.996-.797z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      GlobeAmericas
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Government Building Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
       width={16}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        fill="none"
+      <path
+        d="M11 5V4a3 3 0 00-6 0v1h6z"
+        fill="currentColor"
+      />
+      <path
+        clipRule="evenodd"
+        d="M1.5 6a.5.5 0 000 1H2v6h-.5a.5.5 0 000 1h13a.5.5 0 000-1H14V7h.5a.5.5 0 000-1h-13zm3 2.5a.5.5 0 011 0v3a.5.5 0 01-1 0v-3zM8 8a.5.5 0 00-.5.5v3a.5.5 0 001 0v-3A.5.5 0 008 8zm2.5.5a.5.5 0 011 0v3a.5.5 0 01-1 0v-3z"
+        fill="currentColor"
         fillRule="evenodd"
-      >
-        <path
-          d="M0 0h16v16H0z"
-        />
-        <path
-          d="M12 12.957V14H3v-1.043h9zm-7-5.74v5.218H4V7.217h1zm4 0v5.218H8V7.217h1zm-2 0v5.218H6V7.217h1zm4 0v5.218h-1V7.217h1zm.5-1.565c.276 0 .5.234.5.522a.511.511 0 01-.5.522h-8a.511.511 0 01-.5-.522c0-.288.224-.522.5-.522h8zM7.5 2c1.657 0 3 1.401 3 3.13h-6C4.5 3.401 5.843 2 7.5 2z"
-          fill="currentColor"
-          fillRule="nonzero"
-        />
-      </g>
+      />
     </svg>
     <span>
       GovernmentBuilding
@@ -763,6 +1011,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Important With Circle Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -770,7 +1019,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M9 8.75H7l-.25-5h2.5l-.25 5zm-1 3.5a1.25 1.25 0 110-2.5 1.25 1.25 0 010 2.5zM8 .5A7.499 7.499 0 00.5 8 7.5 7.5 0 108 .5z"
+        clipRule="evenodd"
+        d="M8 15A7 7 0 108 1a7 7 0 000 14zM7 4.5a1 1 0 012 0v4a1 1 0 01-2 0v-4zm2 7a1 1 0 11-2 0 1 1 0 012 0z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -785,6 +1035,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Info With Circle Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -792,7 +1043,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8 15.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15zM9 9V7H6v2h1v2H6v2h4v-2H9V9zM8 6a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"
+        clipRule="evenodd"
+        d="M8 15A7 7 0 108 1a7 7 0 000 14zM9 4a1 1 0 11-2 0 1 1 0 012 0zM8 6a1 1 0 011 1v4h.5a.5.5 0 010 1h-3a.5.5 0 010-1H7V7h-.5a.5.5 0 010-1H8z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -815,10 +1067,12 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        clipRule="evenodd"
-        d="M4.343 8.45c-.414-.227-.944-.245-1.252.112A4.482 4.482 0 002 11.5V15h6.968a2.25 2.25 0 01.794-4.238 2.244 2.244 0 01.698-1.402 4.51 4.51 0 00-.551-.798c-.308-.357-.838-.339-1.252-.112A4.48 4.48 0 016.5 9a4.48 4.48 0 01-2.157-.55zM9 13a1 1 0 011-1h1v-1a1 1 0 112 0v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 01-1-1zm.85-8.5a3.35 3.35 0 11-6.7 0 3.35 3.35 0 016.7 0z"
+        d="M8.418 7.428a3.5 3.5 0 10-3.836-5.856 3.5 3.5 0 003.836 5.856zM3.091 8.562c.308-.357.838-.339 1.252-.112.64.35 1.375.55 2.157.55s1.517-.2 2.157-.55c.414-.227.944-.245 1.252.112.11.128.214.263.31.403A1.996 1.996 0 009.5 10.5 2 2 0 008.177 14H2v-2.5c0-1.123.411-2.15 1.091-2.938z"
         fill="currentColor"
-        fillRule="evenodd"
+      />
+      <path
+        d="M10.5 10.5a.998.998 0 011-1 1 1 0 011 1v1h1a1 1 0 110 2h-1v1a1 1 0 11-2 0v-1h-1a1 1 0 110-2h1v-1z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -831,6 +1085,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Laptop Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -838,7 +1093,12 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M14 4v7H2V4c0-1.102.898-2 2-2h8c1.102 0 2 .898 2 2zm-2 5V4H4v5h8zM0 12h16v1c0 .555-.445 1-1 1H1c-.555 0-1-.445-1-1v-1z"
+        d="M5 6a.5.5 0 01.5-.5h5a.5.5 0 010 1h-5A.5.5 0 015 6zM5.5 7.5a.5.5 0 000 1h3a.5.5 0 000-1h-3z"
+        fill="currentColor"
+      />
+      <path
+        clipRule="evenodd"
+        d="M3 2.5a1 1 0 00-1 1v7.813l-.29.49a.91.91 0 00-.068.1L1 13a1 1 0 001 1h12a1 1 0 001-1l-.642-1.096a.901.901 0 00-.067-.1L14 11.313V3.5a1 1 0 00-1-1H3zM12.5 4h-9v6.5h9V4z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -853,6 +1113,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Lock Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -860,7 +1121,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M12 7h2v2H4v4h8v-1h2v3H2V7h2V5c0-2.203 1.797-4 4-4 2.203 0 4 1.797 4 4v2zm-2 0V5c0-1.102-.898-2-2-2-1.102 0-2 .898-2 2v2h4zm2 4v-1h2v1h-2z"
+        clipRule="evenodd"
+        d="M4 7V5a4 4 0 118 0v2a1 1 0 011 1v6a1 1 0 01-1 1H4a1 1 0 01-1-1V8a1 1 0 011-1zm2-2a2 2 0 114 0v2H6V5zm2.587 5.81A.999.999 0 008 9a1 1 0 00-.58 1.815v1.852a.583.583 0 001.167 0V10.81z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -923,6 +1185,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Menu Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -930,9 +1193,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M15 5H1V3h14v2zm0 4H1V7h14v2zm0 4H1v-2h14v2z"
+        d="M2 4a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM3 11a1 1 0 100 2h10a1 1 0 100-2H3z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -943,8 +1205,9 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Not Allowed Icon"
+      aria-label="Minus Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -952,7 +1215,30 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M6.074 12.068a4.5 4.5 0 005.994-5.994l-5.994 5.994zM3.945 9.954l6.01-6.009a4.5 4.5 0 00-6.009 6.009zM8 15.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15z"
+        d="M2 4a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM2 8a1 1 0 011-1h10a1 1 0 110 2H3a1 1 0 01-1-1zM3 11a1 1 0 100 2h10a1 1 0 100-2H3z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Minus
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Not Allowed Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M11.75 8a3.75 3.75 0 01-5.485 3.326l5.06-5.06c.272.518.425 1.108.425 1.734zM4.674 9.735l5.06-5.06a3.75 3.75 0 00-5.06 5.06zM14 8A6 6 0 112 8a6 6 0 0112 0z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -975,10 +1261,12 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        clipRule="evenodd"
-        d="M13.823 2.45a.278.278 0 00-.272-.273l-4.045-.079a.277.277 0 00-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 00-.148.174L5.999 8.065a1.369 1.369 0 101.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 00.474-.201l-.079-4.045zm-6.573.679a.75.75 0 010 1.5H4a.5.5 0 00-.5.5v6.864a.5.5 0 00.5.5h6.864a.5.5 0 00.5-.5V8.75a.75.75 0 011.5 0v3.243a2 2 0 01-2 2H4a2 2 0 01-2-2V5.129a2 2 0 012-2h3.25z"
+        d="M13.823 2.45a.278.278 0 00-.272-.273l-4.045-.079a.277.277 0 00-.201.474l1.08 1.08-2.45 2.452a1.395 1.395 0 00-.148.174L5.999 8.065a1.369 1.369 0 101.936 1.936l1.787-1.788c.061-.043.12-.093.174-.147l2.451-2.452 1.081 1.081a.277.277 0 00.474-.201l-.079-4.045z"
         fill="currentColor"
-        fillRule="evenodd"
+      />
+      <path
+        d="M7.25 3.129a.75.75 0 010 1.5H4a.5.5 0 00-.5.5v6.864a.5.5 0 00.5.5h6.864a.5.5 0 00.5-.5V8.75a.75.75 0 011.5 0v3.243a2 2 0 01-2 2H4a2 2 0 01-2-2V5.129a2 2 0 012-2h3.25z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -989,8 +1277,9 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Person Icon"
+      aria-label="Pause Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -998,9 +1287,34 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M11.117 9.133C13.672 9.469 16 10.593 16 14.5h-2c0-2.992-1.5-3.5-6-3.5s-6 .508-6 3.5H0c0-3.906 2.328-5.031 4.89-5.367C4.337 8.28 4 7.188 4 6c0-2.758 1.79-4.5 4-4.5s4 1.742 4 4.5c0 1.188-.336 2.281-.883 3.133zM6 6c0 1.602.938 3 2 3 1.063 0 2-1.398 2-3 0-1.516-.781-2.5-2-2.5-1.21 0-2 .984-2 2.5z"
+        d="M4.5 2a1 1 0 00-1 1v10a1 1 0 001 1h1a1 1 0 001-1V3a1 1 0 00-1-1h-1zM10.5 2a1 1 0 00-1 1v10a1 1 0 001 1h1a1 1 0 001-1V3a1 1 0 00-1-1h-1z"
         fill="currentColor"
-        fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Pause
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Person Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M11.5 4.5a3.5 3.5 0 11-7 0 3.5 3.5 0 017 0z"
+        fill="currentColor"
+      />
+      <path
+        d="M8 8c-.708 0-1.367-.21-1.918-.572A4.483 4.483 0 018 7c.686 0 1.336.154 1.918.428C9.368 7.79 8.708 8 8 8zM4.591 8.562c.308-.357.838-.339 1.252-.112C6.483 8.8 7.218 9 8 9s1.517-.2 2.158-.55c.413-.227.943-.245 1.251.112A4.482 4.482 0 0112.5 11.5V14h-9v-2.5c0-1.123.411-2.15 1.091-2.938z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -1011,8 +1325,30 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Person Group Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M4.808 8.923a2.962 2.962 0 100-5.923 2.962 2.962 0 000 5.923zM2.982 9.304c-.35-.192-.798-.207-1.059.095A3.793 3.793 0 001 11.885V14h7.615v-2.115c0-.95-.347-1.819-.923-2.486-.26-.302-.708-.287-1.059-.095a3.79 3.79 0 01-1.825.465 3.79 3.79 0 01-1.826-.465zM9.615 11.885V13H15v-1.906c0-.734-.274-1.405-.727-1.92-.206-.234-.559-.222-.835-.074-.427.23-.917.36-1.438.36-.521 0-1.011-.13-1.438-.36-.276-.148-.63-.16-.835.073-.21.239-.38.51-.504.806.252.585.392 1.23.392 1.906zM14.333 6.288c0 1.264-1.044 2.289-2.333 2.289-1.289 0-2.333-1.025-2.333-2.289C9.667 5.025 10.71 4 12 4c1.289 0 2.333 1.025 2.333 2.288z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      PersonGroup
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Person With Lock Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1020,13 +1356,40 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M11.148 8.64a3.007 3.007 0 00-1.109 1.915A31.816 31.816 0 008 10.5c-4.5 0-6 .508-6 3.5H0c0-3.906 2.328-5.031 4.89-5.367C4.337 7.78 4 6.688 4 5.5 4 2.742 5.79 1 8 1s4 1.742 4 4.5c0 1.188-.336 2.281-.883 3.133.008.008.024.008.031.008zM8 8.5c1.063 0 2-1.398 2-3C10 3.984 9.219 3 8 3c-1.219 0-2 .984-2 2.5 0 1.602.938 3 2 3zm7 4h1V16h-6v-3.5h1V11c0-1.102.898-2 2-2 1.102 0 2 .898 2 2v1.5zM12 11v1.5h2V11c0-.547-.453-1-1-1-.547 0-1 .453-1 1z"
+        d="M10 4.5A3.497 3.497 0 016.5 8a3.484 3.484 0 01-1.918-.572A3.5 3.5 0 1110 4.5zM4.343 8.45c-.414-.227-.944-.245-1.252.112A4.482 4.482 0 002 11.5V14h6v-2.5c0-.445.194-.845.502-1.12.033-.82.393-1.554.954-2.076-.259-.051-.55.01-.799.146A4.48 4.48 0 016.5 9a4.48 4.48 0 01-2.157-.55z"
+        fill="currentColor"
+      />
+      <path
+        clipRule="evenodd"
+        d="M9.5 10.5v.5a.5.5 0 00-.5.5v3a.5.5 0 00.5.5h4a.5.5 0 00.5-.5v-3a.5.5 0 00-.5-.5v-.5a2 2 0 10-4 0zm2-1a1 1 0 00-1 1v.5h2v-.5a1 1 0 00-1-1z"
         fill="currentColor"
         fillRule="evenodd"
       />
     </svg>
     <span>
       PersonWithLock
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Play Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M13.779 6.704a1.5 1.5 0 010 2.592l-7.523 4.388A1.5 1.5 0 014 12.388V3.612a1.5 1.5 0 012.256-1.296l7.523 4.388z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Play
     </span>
   </div>
   <div
@@ -1083,6 +1446,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Question Mark With Circle Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1090,7 +1454,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8 15.25A7.25 7.25 0 118 .75a7.25 7.25 0 010 14.5zM7.99 11a1.25 1.25 0 100 2.5 1.25 1.25 0 000-2.5zM4.84 6.511h1.911c0-.234.026-.453.078-.657a1.58 1.58 0 01.24-.532c.109-.152.247-.273.417-.365.169-.09.37-.136.604-.136.347 0 .617.095.813.286.195.19.292.485.292.884.009.234-.032.429-.123.585-.092.156-.21.299-.358.429-.147.13-.308.26-.481.39s-.338.284-.494.462a2.686 2.686 0 00-.41.643c-.117.251-.188.563-.214.936v.585H8.87v-.494c.035-.26.12-.477.254-.65.134-.173.288-.327.461-.462.173-.134.357-.268.552-.402a2.532 2.532 0 00.936-1.176c.109-.27.163-.612.163-1.028a2.333 2.333 0 00-.702-1.625c-.251-.251-.583-.461-.995-.63C9.129 3.384 8.614 3.3 8 3.3c-.477 0-.908.08-1.293.24a2.87 2.87 0 00-.989.67 3.053 3.053 0 00-.636 1.014c-.152.39-.232.819-.241 1.287z"
+        clipRule="evenodd"
+        d="M8 15A7 7 0 108 1a7 7 0 000 14zM6.932 5.612C7.054 5.298 7.425 5 7.942 5 8.615 5 9 5.478 9 5.875c0 .162-.057.33-.172.476a.985.985 0 01-.242.216l-.016.01a1.141 1.141 0 01-.098.054c-.59.286-1.53.967-1.53 2.119V9a1 1 0 002 0c0-.035.011-.12.138-.27a2.66 2.66 0 01.587-.48 3 3 0 00.726-.656A2.742 2.742 0 0011 5.875C11 4.201 9.54 3 7.941 3c-1.275 0-2.43.745-2.873 1.888a1 1 0 101.864.724zM8 13a1 1 0 100-2 1 1 0 000 2z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -1105,6 +1470,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Refresh Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1112,9 +1478,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M2 10.14L1.14 5l1.462.398A5.998 5.998 0 018 2a5.975 5.975 0 015.172 2.977l-1.18 1.171A4.415 4.415 0 008 3.602a4.401 4.401 0 00-3.82 2.226l1.68.461L2 10.141zm11.398.47A5.991 5.991 0 018 14a5.975 5.975 0 01-5.172-2.977l1.18-1.171A4.415 4.415 0 008 12.398a4.401 4.401 0 003.82-2.226l-1.68-.461L14 5.859 14.86 11l-1.462-.39z"
+        d="M8.033 2c2.699 0 4.95 1.718 5.467 4h1.414c.542 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 01-.765 0l-2.482-2.15A.584.584 0 019.951 6h1.447c-.469-1.085-1.68-2-3.365-2-1.026 0-1.877.34-2.491.85-.243.202-.618.203-.817-.043l-.61-.754a.468.468 0 01.044-.651C5.163 2.534 6.53 2 8.033 2zM3.95 6.843a.584.584 0 00-.765 0L.703 8.992a.584.584 0 00.383 1.026h1.418C3.03 12.291 5.275 14 7.967 14c1.505 0 2.87-.534 3.874-1.402a.468.468 0 00.044-.65l-.61-.755c-.2-.246-.574-.245-.817-.043-.614.51-1.465.85-2.49.85-1.676 0-2.883-.904-3.358-1.982H6.05a.584.584 0 00.383-1.026L3.95 6.842z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -1127,6 +1492,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Save Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1134,9 +1500,14 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M12 2l3 4v9H1V2h11zm1 11V6.664L11 4H9v3H4V4H3v9h1v-3h5v3h4zM7 4v2h1V4H7zm1 8v-1H5v1h3zm0 2v-1H5v1h3z"
+        clipRule="evenodd"
+        d="M2 3.6c0-.56 0-.84.109-1.054a1 1 0 01.437-.437C2.76 2 3.04 2 3.6 2h7.737c.245 0 .367 0 .482.028a1 1 0 01.29.12c.1.061.187.148.36.32l1.062 1.063c.173.173.26.26.322.36.055.09.095.188.12.29.027.115.027.237.027.482V12.4c0 .56 0 .84-.109 1.054a1 1 0 01-.437.437c-.2.102-.46.109-.954.109V9.284c0-.126 0-.25-.008-.353a1.01 1.01 0 00-.101-.385 1 1 0 00-.437-.437 1.01 1.01 0 00-.385-.1C11.465 8 11.342 8 11.216 8H4.784c-.126 0-.249 0-.353.008a1.01 1.01 0 00-.385.101 1 1 0 00-.437.437 1.01 1.01 0 00-.1.385c-.009.104-.009.227-.009.353V14c-.494 0-.753-.007-.954-.109a1 1 0 01-.437-.437C2 13.24 2 12.96 2 12.4V3.6zm2-.1a.5.5 0 00-.5.5v2a.5.5 0 00.5.5h5a.5.5 0 00.5-.5V4a.5.5 0 00-.5-.5H4z"
         fill="currentColor"
         fillRule="evenodd"
+      />
+      <path
+        d="M11.5 9.3V14h-7V9.3c0-.148 0-.23.005-.288v-.006h.007C4.571 9 4.652 9 4.8 9h6.4c.148 0 .23 0 .288.005h.006v.007c.006.059.006.14.006.288z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -1171,8 +1542,30 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
+      aria-label="Shell Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+    >
+      <path
+        d="M1.8 5.2l3.4 2.2-3.79 2.526a.5.5 0 00-.142.688l.557.86a.5.5 0 00.697.145L7.5 8.3c.3-.2.5-.5.5-.8 0-.3-.2-.6-.4-.8L2.522 3.284a.5.5 0 00-.699.143l-.547.847a.5.5 0 00.155.695L1.8 5.2zM6.7 13a.5.5 0 00.5.5h7.7a.5.5 0 00.5-.5v-1a.5.5 0 00-.5-.5H7.2a.5.5 0 00-.5.5v1z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      Shell
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
       aria-label="Sort Ascending Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1180,9 +1573,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M3.74 2.19a.65.65 0 01.92 0l2.296 2.3a.65.65 0 11-.919.918L4.874 4.245v9.009a.65.65 0 11-1.3 0V4.196L2.36 5.409l-.081.068a.65.65 0 01-.839-.988zm7.296 10.023a.65.65 0 010 1.3h-2.58a.65.65 0 110-1.3zM12.14 8.89a.65.65 0 110 1.3H8.455a.65.65 0 110-1.3zm1.126-3.322a.65.65 0 010 1.3h-4.81a.65.65 0 110-1.3zm.868-3.322a.65.65 0 110 1.3H8.455a.65.65 0 110-1.3z"
+        d="M4.45 1.143a.584.584 0 00-.765 0L1.203 3.292a.584.584 0 00.383 1.026h1.312v9.352a1.169 1.169 0 102.338 0V4.318H6.55a.584.584 0 00.383-1.026L4.45 1.142zM8 5a1 1 0 000 2h6a1 1 0 100-2H8zM7 9a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zM8 11a1 1 0 100 2h2a1 1 0 100-2H8z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -1195,6 +1587,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Sort Descending Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1202,9 +1595,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M4.175 2a.65.65 0 01.65.65v9.058l1.212-1.213a.65.65 0 01.92.919L4.66 13.713a.65.65 0 01-.92 0L1.44 11.414a.65.65 0 11.92-.919l1.162 1.164V2.65A.65.65 0 014.175 2zm9.958 10.213a.65.65 0 110 1.3H8.455a.65.65 0 110-1.3h5.678zm-.868-3.322a.65.65 0 110 1.3h-4.81a.65.65 0 110-1.3h4.81zm-1.126-3.322a.65.65 0 110 1.3H8.455a.65.65 0 110-1.3h3.684zm-1.102-3.322a.65.65 0 110 1.3H8.454a.65.65 0 110-1.3h2.582z"
+        d="M4.45 14.696a.584.584 0 01-.765 0l-2.482-2.15a.584.584 0 01.383-1.025h1.312V2.168a1.169 1.169 0 112.338 0v9.351H6.55c.541 0 .792.673.383 1.027L4.45 14.696zM8 3a1 1 0 000 2h6a1 1 0 100-2H8zM7 7a1 1 0 011-1h4a1 1 0 110 2H8a1 1 0 01-1-1zM8 9a1 1 0 100 2h2a1 1 0 100-2H8z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -1239,6 +1631,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="Support Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1246,13 +1639,36 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8 0c2.898 0 5 2.102 5 5v6h-2V5c0-1.93-1.344-3-3-3S5 3.07 5 5v6H3V5c0-2.898 2.102-5 5-5zM0 8c0-1.656.344-3 2-3v6C.344 11 0 9.656 0 8zm14-3c1.656 0 2 1.344 2 3s-.344 3-2 3V5zM2 13.79V11h1v2.21l2 1.142V14h2v2H5v-.492l-3-1.719z"
+        clipRule="evenodd"
+        d="M5 7a3 3 0 016 0v2.5c0 1.51-.957 2.798-2.298 3.288a1 1 0 10.265.967 4.512 4.512 0 002.787-2.785c.08.02.161.03.246.03h.5a2.5 2.5 0 00.406-4.967 5.002 5.002 0 00-9.813 0A2.5 2.5 0 003.5 11H4a1 1 0 001-1V7z"
         fill="currentColor"
         fillRule="evenodd"
       />
     </svg>
     <span>
       Support
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Time Series Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M7.023 1.518c.513.024.957.363 1.12.853L9.38 6.108l1.56-2.092a1.24 1.24 0 011.872-.134l1.897 1.91c.388.39.388 1.023 0 1.413l-.377.354a.99.99 0 01-1.405 0l-.86-.89-2.122 2.847a1.239 1.239 0 01-2.172-.355L6.798 6.22 6.11 7.774c-.2.451-.644.742-1.135.742H1.994a.997.997 0 01-.994-1v-.5c0-.552.445-1 .994-1h2.174l1.66-3.758a1.242 1.242 0 011.195-.74zM14 12a1 1 0 011 1v.5a1 1 0 01-1 1H2a1 1 0 01-1-1V13a1 1 0 011-1h12z"
+        fill="currentColor"
+      />
+    </svg>
+    <span>
+      TimeSeries
     </span>
   </div>
   <div
@@ -1285,6 +1701,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="University Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1292,9 +1709,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M14.18 2.001c-1.333.077-3.98.355-5.615 1.365a.378.378 0 00-.176.324v8.934c0 .283.307.463.566.331 1.681-.855 4.113-1.088 5.315-1.152a.762.762 0 00.73-.753V2.755a.765.765 0 00-.82-.754zM7.434 3.366C5.8 2.356 3.153 2.078 1.82 2.001A.765.765 0 001 2.755v8.296c0 .398.32.73.73.752 1.203.064 3.636.298 5.317 1.153.258.131.564-.048.564-.33v-8.94a.37.37 0 00-.176-.32z"
+        d="M8.5 4.613c0-.383.191-.74.51-.953a6.87 6.87 0 012.145-.949l2.406-.601a.353.353 0 01.439.342v7.88c0 .238 0 .357-.043.453a.5.5 0 01-.176.211c-.087.06-.204.081-.438.123l-3.9.71c-.324.058-.486.088-.612.042a.5.5 0 01-.264-.22c-.067-.116-.067-.28-.067-.61V4.613zM2 2.452c0-.23.216-.398.439-.342l2.407.601a6.87 6.87 0 012.144.95c.319.211.51.569.51.952v6.428c0 .33 0 .494-.067.61a.5.5 0 01-.264.22c-.126.046-.288.016-.612-.043l-3.9-.709c-.234-.042-.35-.063-.438-.123a.5.5 0 01-.176-.21C2 10.688 2 10.57 2 10.331v-7.88zM2.008 12.41a.5.5 0 01.581-.402l5.143.935c.177.032.359.032.536 0l5.143-.935a.5.5 0 01.178.984l-4.134.752c-.163.434-.753.756-1.455.756-.702 0-1.292-.322-1.455-.756l-4.134-.752a.5.5 0 01-.403-.581z"
         fill="currentColor"
-        fillRule="evenodd"
       />
     </svg>
     <span>
@@ -1305,8 +1721,9 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      aria-label="Unsorted Icon"
+      aria-label="Unlock Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1314,9 +1731,32 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M10.752 10.495a.65.65 0 00-.918 0l-1.211 1.21v-7.46l1.164 1.163a.65.65 0 10.918-.919L8.409 2.191a.65.65 0 00-.92 0L5.19 4.489a.65.65 0 00.918.92l1.215-1.215v.176c0 .005-.004.01-.004.016v7.273l-1.163-1.164a.65.65 0 00-.92.92l2.298 2.298a.65.65 0 00.919 0l2.299-2.298a.65.65 0 000-.92"
+        clipRule="evenodd"
+        d="M6.157 4.221A2 2 0 0110 5v2H4a1 1 0 00-1 1v6a1 1 0 001 1h8a1 1 0 001-1V8a1 1 0 00-1-1V5a4 4 0 00-7.822-1.182C3.982 4.45 4.538 5 5.2 5c.442 0 .785-.372.957-.779zm2.43 6.589A.999.999 0 008 9a1 1 0 00-.58 1.815v1.852a.583.583 0 001.167 0V10.81z"
         fill="currentColor"
         fillRule="evenodd"
+      />
+    </svg>
+    <span>
+      Unlock
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer e7xdko0"
+  >
+    <svg
+      aria-label="Unsorted Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M3.685 1.143c.22-.19.545-.19.765 0l2.482 2.149a.584.584 0 01-.383 1.026H5.236v7.364H6.55c.541 0 .792.672.383 1.026l-2.482 2.15a.584.584 0 01-.765 0l-2.482-2.15a.584.584 0 01.383-1.026h1.312V4.318H1.586a.584.584 0 01-.383-1.026l2.482-2.15zM8 8a1 1 0 011-1h5a1 1 0 110 2H9a1 1 0 01-1-1zM9 4a1 1 0 000 2h5a1 1 0 100-2H9zM8 11a1 1 0 011-1h5a1 1 0 110 2H9a1 1 0 01-1-1z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -1495,6 +1935,7 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     <svg
       aria-label="XWith Circle Icon"
       className="leafygreen-ui-13qw9an"
+      fill="none"
       height={16}
       role="img"
       viewBox="0 0 16 16"
@@ -1502,7 +1943,8 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M8 15.5a7.5 7.5 0 110-15 7.5 7.5 0 010 15zM9.414 8l2.475-2.475-1.414-1.414L8 6.586 5.525 4.11 4.111 5.525 6.586 8 4.11 10.475l1.414 1.414L8 9.414l2.475 2.475 1.414-1.414L9.414 8z"
+        clipRule="evenodd"
+        d="M8 15A7 7 0 108 1a7 7 0 000 14zm1.414-9.828a1 1 0 111.414 1.414L9.414 8l1.414 1.414a1 1 0 11-1.414 1.414L8 9.414l-1.414 1.414a1 1 0 11-1.414-1.414L6.586 8 5.172 6.586a1 1 0 011.414-1.414L8 6.586l1.414-1.414z"
         fill="currentColor"
         fillRule="evenodd"
       />
@@ -1527,46 +1969,6 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     </svg>
     <span>
       EvergreenLogo
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer e7xdko0"
-  >
-    <svg
-      height="14"
-      width="11"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <path
-        d="M.4 0C.2 0 0 .2 0 .4v13.2c0 .2.2.4.4.4h3.8l.3-.1.1-.3V.4c0-.2-.2-.4-.4-.4H.4zm6.4 0c-.2 0-.4.2-.4.4V14l.4.1h3.8l.3-.1.1-.3V.4l-.1-.3-.3-.1H6.8z"
-        fill="black"
-        fillRule="nonzero"
-      />
-    </svg>
-    <span>
-      Pause
-    </span>
-  </div>
-  <div
-    className="css-319pve-IconContainer e7xdko0"
-  >
-    <svg
-      height="14"
-      width="13"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <g
-        fill="none"
-      >
-        <path
-          d="M12.3 5.8L2.3.2C1.2-.4 0 .3 0 1.4v11.2c0 1 1.2 1.7 2.2 1.2l10-5.6c1-.5 1-1.9 0-2.4"
-          fill="black"
-          mask="url(#a)"
-        />
-      </g>
-    </svg>
-    <span>
-      Play
     </span>
   </div>
   <div

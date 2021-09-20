@@ -5,7 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { RadioGroup, Radio } from "@leafygreen-ui/radio-group";
 import { Skeleton } from "antd";
 import get from "lodash/get";
-import { useParams, useLocation, useHistory } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
 import { useTaskAnalytics } from "analytics";
 import { Button } from "components/Button";
 import { pollInterval } from "constants/index";
@@ -27,13 +27,13 @@ import {
   GET_SYSTEM_LOGS,
   GET_TASK_LOGS,
 } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useUpdateURLQueryParams } from "hooks";
 import { RequiredQueryParams } from "types/task";
 import { queryString } from "utils";
 import { LogMessageLine } from "./logTypes/LogMessageLine";
 import { TaskEventLogLine } from "./logTypes/TaskEventLogLine";
 
-const { parseQueryString, stringifyQuery } = queryString;
+const { parseQueryString } = queryString;
 
 const { gray } = uiColors;
 
@@ -168,18 +168,12 @@ const useRenderBody: React.FC<{
   lobsterLink,
   LogContainer = ({ children }) => <StyledPre>{children}</StyledPre>,
 }) => {
-  const { pathname } = useLocation();
-  const { replace } = useHistory();
   const taskAnalytics = useTaskAnalytics();
-
+  const updateQueryParams = useUpdateURLQueryParams();
   const noLogs = !!(error || !data.length);
   const onChangeLog = (event: React.ChangeEvent<HTMLInputElement>): void => {
     const nextLogType = event.target.value as LogTypes;
-    replace(
-      `${pathname}?${stringifyQuery({
-        [QueryParams.LogType]: nextLogType,
-      })}`
-    );
+    updateQueryParams({ [QueryParams.LogType]: nextLogType });
     taskAnalytics.sendEvent({
       name: "Select Logs Type",
       logsType: nextLogType,
@@ -286,10 +280,11 @@ const useRenderBody: React.FC<{
 
 const ButtonContainer = styled.div`
   display: flex;
-  a:first-of-type {
+  > :not(:last-child) {
     margin-right: 8px;
   }
   margin-right: 16px;
+  padding-left: 1px;
 `;
 
 // @ts-expect-error
