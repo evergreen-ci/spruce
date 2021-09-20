@@ -152,29 +152,27 @@ const VersionRestartModal: React.FC<Props> = ({
             Downstream Tasks
           </ConfirmationMessage>
           {childVersions?.map((v) => (
-            <div key={v?.id}>
-              <Accordion
-                key={v?.id}
-                title={
-                  <BoldTextStyle>
-                    {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
-                  </BoldTextStyle>
-                }
-                contents={
-                  <TitleContainer>
-                    <VersionTasks
-                      version={v}
-                      selectedTasks={selectedTasks}
-                      setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
-                      setPatchStatusFilterTerm={setVersionStatus(v?.id)}
-                      toggleSelectedTask={toggleSelectedTask}
-                      baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
-                      patchStatusFilterTerm={patchStatusFilterTerm[v.id]}
-                    />
-                  </TitleContainer>
-                }
-              />
-            </div>
+            <Accordion
+              key={v?.id}
+              title={
+                <BoldTextStyle>
+                  {v?.projectIdentifier ? v?.projectIdentifier : v?.project}
+                </BoldTextStyle>
+              }
+              contents={
+                <TitleContainer>
+                  <VersionTasks
+                    version={v}
+                    selectedTasks={selectedTasks}
+                    setBaseStatusFilterTerm={setVersionBaseStatus(v?.id)}
+                    setPatchStatusFilterTerm={setVersionStatus(v?.id)}
+                    toggleSelectedTask={toggleSelectedTask}
+                    baseStatusFilterTerm={baseStatusFilterTerm[v.id]}
+                    patchStatusFilterTerm={patchStatusFilterTerm[v.id]}
+                  />
+                </TitleContainer>
+              }
+            />
           ))}
           <br />
         </div>

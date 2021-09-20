@@ -8,11 +8,14 @@ mutation RestartVersions(
     abort: $abort
     versionsToRestart: $versionsToRestart
   ) {
+    id
     taskStatuses
     status
     patch {
+      id
       status
       childPatches {
+        id
         status
       }
     }
