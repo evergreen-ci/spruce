@@ -102,8 +102,7 @@ describe("Restarting a patch", () => {
   });
 
   const path = `/version/5e4ff3abe3c3317e352062e4`;
-  const statusFilter =
-    ".ant-modal-body > div > div > [data-cy=task-status-filter]";
+  const statusFilter = ".ant-modal-body > div > [data-cy=task-status-filter]";
   const baseStatusFilter =
-    ".ant-modal-body > div > div > [data-cy=task-base-status-filter]";
+    ".ant-modal-body > div >  [data-cy=task-base-status-filter]";
 });
