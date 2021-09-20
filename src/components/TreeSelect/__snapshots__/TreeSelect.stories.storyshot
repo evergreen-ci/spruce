@@ -84,7 +84,7 @@ exports[`Storyshots TreeSelect No All Button 1`] = `
 
 exports[`Storyshots TreeSelect No Dropdown 1`] = `
 <div
-  className="css-1e9xnig-CheckboxContainer-whiteBackground-tableInputContainerCSS e1mpj03z1"
+  className="css-1ymuraj-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
   data-cy="tree-select-options"
 >
   <div
