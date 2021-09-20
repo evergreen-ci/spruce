@@ -150,7 +150,7 @@ describe("Tasks filters", () => {
     });
   });
 
-  describe.only(`Task Base Statuses select`, () => {
+  describe("Task Base Statuses select", () => {
     const urlParam = "baseStatuses";
     before(() => {
       cy.visit(pathTasks);
