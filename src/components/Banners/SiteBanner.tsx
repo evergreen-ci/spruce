@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import Icon from "@leafygreen-ui/icon";
 import IconButton from "@leafygreen-ui/icon-button";
-import parse from "html-react-parser";
 import Cookies from "js-cookie";
 import { GetSpruceConfigQuery } from "gql/generated/types";
 import { GET_SPRUCE_CONFIG } from "gql/queries";
@@ -33,7 +32,7 @@ export const SiteBanner = () => {
   return (
     showBanner && (
       <Banner bannerTheme={theme} data-cy="sitewide-banner">
-        <span>{parse(jiraLinkify(text, jiraHost))}</span>
+        <span>{jiraLinkify(text, jiraHost)}</span>
         <IconButton
           aria-label="Close Site Banner"
           onClick={hideBanner}

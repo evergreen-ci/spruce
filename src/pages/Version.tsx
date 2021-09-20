@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { useLazyQuery, useQuery } from "@apollo/client";
-import parse from "html-react-parser";
 import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
@@ -135,12 +134,10 @@ export const VersionPage: React.FC = () => {
     return <PageDoesNotExist />;
   }
 
-  const linkifiedMessage = parse(
-    githubPRLinkify(
-      jiraLinkify(message, spruceConfigData?.spruceConfig?.jira?.host)
-    )
+  const linkifiedMessage = jiraLinkify(
+    githubPRLinkify(message),
+    spruceConfigData?.spruceConfig?.jira?.host
   );
-
   return (
     <PageWrapper data-cy="version-page">
       <BreadCrumb versionMetadata={version} patchNumber={patchNumber} />
