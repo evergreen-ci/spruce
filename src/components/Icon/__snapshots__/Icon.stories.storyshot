@@ -1277,14 +1277,18 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      height="14"
-      width="11"
+      aria-label="Pause Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
       xmlns="http://www.w3.org/2000/svg"
     >
       <path
-        d="M.4 0C.2 0 0 .2 0 .4v13.2c0 .2.2.4.4.4h3.8l.3-.1.1-.3V.4c0-.2-.2-.4-.4-.4H.4zm6.4 0c-.2 0-.4.2-.4.4V14l.4.1h3.8l.3-.1.1-.3V.4l-.1-.3-.3-.1H6.8z"
-        fill="black"
-        fillRule="nonzero"
+        d="M4.5 2a1 1 0 00-1 1v10a1 1 0 001 1h1a1 1 0 001-1V3a1 1 0 00-1-1h-1zM10.5 2a1 1 0 00-1 1v10a1 1 0 001 1h1a1 1 0 001-1V3a1 1 0 00-1-1h-1z"
+        fill="currentColor"
       />
     </svg>
     <span>
@@ -1370,19 +1374,19 @@ exports[`Storyshots Spruce Icons Icons 1`] = `
     className="css-319pve-IconContainer e7xdko0"
   >
     <svg
-      height="14"
-      width="13"
+      aria-label="Play Icon"
+      className="leafygreen-ui-13qw9an"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
       xmlns="http://www.w3.org/2000/svg"
     >
-      <g
-        fill="none"
-      >
-        <path
-          d="M12.3 5.8L2.3.2C1.2-.4 0 .3 0 1.4v11.2c0 1 1.2 1.7 2.2 1.2l10-5.6c1-.5 1-1.9 0-2.4"
-          fill="black"
-          mask="url(#a)"
-        />
-      </g>
+      <path
+        d="M13.779 6.704a1.5 1.5 0 010 2.592l-7.523 4.388A1.5 1.5 0 014 12.388V3.612a1.5 1.5 0 012.256-1.296l7.523 4.388z"
+        fill="currentColor"
+      />
     </svg>
     <span>
       Play

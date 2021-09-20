@@ -38,7 +38,7 @@ export const LogsColumn: React.FC<Props> = ({ testResult, taskAnalytics }) => {
         <ButtonWrapper>
           <Button
             data-cy="test-table-lobster-btn"
-            size="small"
+            size="xsmall"
             target="_blank"
             variant="default"
             href={lobsterLink}
@@ -56,7 +56,7 @@ export const LogsColumn: React.FC<Props> = ({ testResult, taskAnalytics }) => {
         <ButtonWrapper>
           <Button
             data-cy="test-table-html-btn"
-            size="small"
+            size="xsmall"
             target="_blank"
             variant="default"
             href={htmlDisplayURL}
@@ -73,7 +73,7 @@ export const LogsColumn: React.FC<Props> = ({ testResult, taskAnalytics }) => {
       {rawDisplayURL && (
         <Button
           data-cy="test-table-raw-btn"
-          size="small"
+          size="xsmall"
           target="_blank"
           variant="default"
           href={rawDisplayURL}
