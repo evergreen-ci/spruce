@@ -85,7 +85,6 @@ describe("Tests Table", () => {
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.toggleTableFilter(2);
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
@@ -94,6 +93,7 @@ describe("Tests Table", () => {
         pathname: TESTS_ROUTE,
         paramName: "statuses",
         search: "all,pass,fail,skip,silentfail",
+        openFilter: () => cy.toggleTableFilter(2),
       });
     });
 
@@ -105,6 +105,7 @@ describe("Tests Table", () => {
     ];
 
     it("Checking multiple statuses adds them all to the URL", () => {
+      cy.toggleTableFilter(2);
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });

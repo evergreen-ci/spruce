@@ -44,6 +44,7 @@ describe("Tasks filters", () => {
         search: variantInputValue,
       });
       cy.dataCy("current-task-count").should("contain.text", 2);
+      cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -57,7 +58,6 @@ describe("Tasks filters", () => {
   describe("Task name input field", () => {
     const taskNameInputValue = "test-cloud";
     const urlParam = "taskName";
-
     it("Updates url with input value and fetches tasks filtered by task name", () => {
       cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper")
@@ -70,6 +70,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: taskNameInputValue,
       });
+      cy.toggleTableFilter(1);
       cy.dataCy("taskname-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -98,6 +99,7 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
+      cy.toggleTableFilter(2);
       cy.getInputByLabel("Success").check({ force: true });
       cy.dataCy("status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
@@ -122,6 +124,7 @@ describe("Tasks filters", () => {
         "Aborted",
         "Blocked",
       ];
+      cy.toggleTableFilter(2);
       cy.getInputByLabel("All").check({ force: true });
       cy.dataCy("status-treeselect").contains("Filter").click();
       taskStatuses.forEach((status) => {
@@ -132,7 +135,7 @@ describe("Tasks filters", () => {
         paramName: urlParam,
         search: "all",
       });
-
+      cy.toggleTableFilter(2);
       cy.getInputByLabel("All").uncheck({ force: true });
       cy.dataCy("status-treeselect").contains("Filter").click();
 
@@ -147,7 +150,7 @@ describe("Tasks filters", () => {
     });
   });
 
-  describe(`Task Base Statuses select`, () => {
+  describe.only(`Task Base Statuses select`, () => {
     const urlParam = "baseStatuses";
     before(() => {
       cy.visit(pathTasks);
@@ -165,6 +168,7 @@ describe("Tasks filters", () => {
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
+      cy.toggleTableFilter(3);
       cy.getInputByLabel("Success").check({ force: true });
       cy.dataCy("base-status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
@@ -177,6 +181,7 @@ describe("Tasks filters", () => {
       expect(postFilterCount).to.not.eq(multiFilterCount);
     });
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
+      cy.toggleTableFilter(3);
       const taskStatuses = ["All", "Failed", "Success", "Running"];
       cy.getInputByLabel("All").check({ force: true });
       taskStatuses.forEach((status) => {
@@ -184,6 +189,7 @@ describe("Tasks filters", () => {
       });
 
       cy.dataCy("base-status-treeselect").contains("Filter").click();
+      cy.toggleTableFilter(3);
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,

@@ -7,12 +7,19 @@ export const clickingCheckboxUpdatesUrlAndRendersFetchedResults = ({
   pathname,
   paramName,
   search,
+  openFilter,
 }) => {
+  if (openFilter) {
+    openFilter();
+  }
   cy.getInputByLabel(checkboxDisplayName).check({ force: true });
   cy.dataCy("filter-button").click();
   urlSearchParamsAreUpdated({ pathname, paramName, search });
+  if (openFilter) {
+    openFilter();
+  }
   cy.getInputByLabel(checkboxDisplayName).uncheck({ force: true });
-  cy.dataCy("filter-button").click();
+  cy.dataCy("filter-button").click({ force: true });
   urlSearchParamsAreUpdated({ pathname, paramName, search: null });
 };
 
