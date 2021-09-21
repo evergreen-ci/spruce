@@ -75,12 +75,7 @@ export const getColumnSearchFilterProps = ({
       submitButtonCopy={submitButtonCopy}
     />
   ),
-  filterIcon: () => (
-    <SearchOutlined
-      data-cy={dataCy}
-      style={{ color: value ? uiColors.blue.base : undefined }}
-    />
-  ),
+  filterIcon: () => <StyledSearchOutlined data-cy={dataCy} active={!!value} />,
 });
 
 export const getColumnTreeSelectFilterProps = ({
@@ -108,10 +103,7 @@ export const getColumnTreeSelectFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <FilterOutlined
-      data-cy={dataCy}
-      style={{ color: state.length ? uiColors.blue.base : undefined }}
-    />
+    <StyledFilterOutlined data-cy={dataCy} active={!!state.length} />
   ),
 });
 
@@ -177,10 +169,7 @@ export const getColumnCheckboxFilterProps = ({
     />
   ),
   filterIcon: () => (
-    <FilterOutlined
-      data-cy={dataCy}
-      style={{ color: value.length ? uiColors.blue.base : undefined }}
-    />
+    <StyledFilterOutlined data-cy={dataCy} active={!!value.length} />
   ),
 });
 
@@ -195,4 +184,16 @@ const ButtonsWrapper = styled.div`
 `;
 const ButtonWrapper = styled.div`
   margin-right: 8px;
+`;
+
+const { blue } = uiColors;
+interface StyledOutlinedProps {
+  active?: boolean;
+}
+const StyledFilterOutlined = styled(FilterOutlined)<StyledOutlinedProps>`
+  ${({ active }) => active && `color: ${blue.base}`}
+`;
+
+const StyledSearchOutlined = styled(SearchOutlined)<StyledOutlinedProps>`
+  ${({ active }) => active && `color: ${blue.base}`}
 `;
