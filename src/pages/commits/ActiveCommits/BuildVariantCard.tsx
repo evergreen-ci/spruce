@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import escapeRegExp from "lodash.escaperegexp";
 import { useHistory } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
@@ -94,7 +95,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
           push(
             getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: buildVariantDisplayName,
+              variant: escapeRegExp(buildVariantDisplayName),
             })
           );
         return (

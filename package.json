@@ -99,6 +99,7 @@
     "js-cookie": "2.2.1",
     "linkifyjs": "2.1.9",
     "lodash.debounce": "4.0.8",
+    "lodash.escaperegexp": "^4.1.2",
     "lodash.every": "4.6.0",
     "lodash.get": "4.4.2",
     "lodash.isequal": "4.5.0",
