@@ -127,7 +127,7 @@ export const reducer = (state: State, action: Action) => {
     case "onChangePagination":
       return {
         ...state,
-        page: action.page,
+        page: action.page < 0 ? 0 : action.page,
       };
     case "onChangeLimit":
       return {
