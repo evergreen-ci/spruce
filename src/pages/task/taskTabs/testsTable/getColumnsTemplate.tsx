@@ -1,6 +1,5 @@
 import { ColumnProps } from "antd/es/table";
 import { Analytics } from "analytics/addPageAction";
-import Badge, { Variant } from "components/Badge";
 import {
   InputFilterProps,
   getColumnSearchFilterProps,
@@ -8,10 +7,10 @@ import {
 } from "components/Table/Filters";
 import { TreeSelectProps } from "components/TreeSelect";
 import { WordBreak } from "components/Typography";
-import { statusToBadgeColor, statusCopy } from "constants/test";
 import { TestSortCategory, TestResult } from "gql/generated/types";
 import { string } from "utils";
 import { LogsColumn } from "./LogsColumn";
+import { TestStatusBadge } from "./TestStatusBadge";
 
 const { msToDuration } = string;
 
@@ -48,12 +47,7 @@ export const getColumnsTemplate = ({
     sorter: true,
     className: "data-cy-status-column",
     render: (status: string): JSX.Element => (
-      <Badge
-        variant={statusToBadgeColor[status] || Variant.LightGray}
-        key={status}
-      >
-        {statusCopy[status] || status}
-      </Badge>
+      <TestStatusBadge status={status} />
     ),
     ...getColumnTreeSelectFilterProps({
       ...statusSelectorProps,
@@ -66,12 +60,7 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.BaseStatus,
     sorter: true,
     render: (status: string): JSX.Element => (
-      <Badge
-        variant={statusToBadgeColor[status] || Variant.LightGray}
-        key={status}
-      >
-        {statusCopy[status] || status}
-      </Badge>
+      <TestStatusBadge status={status} />
     ),
   },
   {
