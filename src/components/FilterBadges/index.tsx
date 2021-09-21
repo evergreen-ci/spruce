@@ -6,7 +6,7 @@ import {
   ChartToggleQueryParams,
   MainlineCommitQueryParams,
 } from "types/commits";
-import { PatchTasksQueryParams, RequiredQueryParams } from "types/task";
+import { PatchTasksQueryParams } from "types/task";
 import { queryString, array } from "utils";
 import { FilterBadge } from "./FilterBadge";
 import { SeeMoreModal } from "./SeeMoreModal";
@@ -18,9 +18,6 @@ const hiddenQueryParams = new Set([
   ChartToggleQueryParams.chartType,
   PatchTasksQueryParams.Statuses,
   MainlineCommitQueryParams.SkipOrderNumber,
-  RequiredQueryParams.Sort,
-  RequiredQueryParams.Limit,
-  RequiredQueryParams.Page,
 ]);
 export const FilterBadges: React.FC = () => {
   const updateQueryParams = useUpdateURLQueryParams();

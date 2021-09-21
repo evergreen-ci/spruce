@@ -7,7 +7,6 @@ import { PatchTasksQueryParams } from "types/task";
 export const StatusSelect = () => {
   const { inputValue, setAndSubmitInputValue } = useStatusesFilter({
     urlParam: PatchTasksQueryParams.Statuses,
-    resetPage: true,
   });
   return (
     <>
