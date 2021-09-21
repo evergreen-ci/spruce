@@ -48,14 +48,12 @@ export const getColumnsTemplate = ({
     sorter: true,
     className: "data-cy-status-column",
     render: (status: string): JSX.Element => (
-      <span>
-        <Badge
-          variant={statusToBadgeColor[status] || Variant.LightGray}
-          key={status}
-        >
-          {statusCopy[status] || ""}
-        </Badge>
-      </span>
+      <Badge
+        variant={statusToBadgeColor[status] || Variant.LightGray}
+        key={status}
+      >
+        {statusCopy[status] || status}
+      </Badge>
     ),
     ...getColumnTreeSelectFilterProps({
       ...statusSelectorProps,
@@ -68,14 +66,12 @@ export const getColumnsTemplate = ({
     key: TestSortCategory.BaseStatus,
     sorter: true,
     render: (status: string): JSX.Element => (
-      <span>
-        <Badge
-          variant={statusToBadgeColor[status] || Variant.LightGray}
-          key={status}
-        >
-          {statusCopy[status] || ""}
-        </Badge>
-      </span>
+      <Badge
+        variant={statusToBadgeColor[status] || Variant.LightGray}
+        key={status}
+      >
+        {statusCopy[status] || status}
+      </Badge>
     ),
   },
   {
