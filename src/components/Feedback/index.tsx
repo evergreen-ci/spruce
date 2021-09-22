@@ -30,7 +30,7 @@ export const Feedback: React.FC = () => {
       )}
       <IconButton
         onClick={() => {
-          Cookies.set("HIDE_FEEDBACK", !isHidden);
+          Cookies.set("HIDE_FEEDBACK", `${!isHidden}`, { expires: 365 });
           setIsHidden(!isHidden);
         }}
         aria-label="Show Feedback form"
