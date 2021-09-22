@@ -44,21 +44,21 @@ describe("Job Logs", () => {
     "TestGetActivationTimeWithCron/Interval",
   ];
 
-  const baseHref = "https://evergreen.mongodb.com/lobster/evergreen";
+  const baseHref = "http://localhost:9090/test_log/5e4ff42d30661528ad67fafb#L";
 
   const testHrefs = [
-    `${baseHref}/test/${taskId}/0/${testNames[0]}/llama#shareLine=5555`,
-    `${baseHref}/test/${taskId}/0/${testNames[1]}/llama#shareLine=22`,
-    `${baseHref}/test/${taskId}/0/${testNames[2]}/llama#shareLine=36`,
-    `${baseHref}/test/${taskId}/0/${testNames[3]}/llama#shareLine=41`,
-    `${baseHref}/test/${taskId}/0/${testNames[4]}/llama#shareLine=116`,
-    `${baseHref}/test/${taskId}/0/${testNames[5]}/llama#shareLine=132`,
-    `${baseHref}/test/${taskId}/0/${testNames[6]}/llama#shareLine=152`,
-    `${baseHref}/test/${taskId}/0/${testNames[7]}/llama#shareLine=236`,
-    `${baseHref}/test/${taskId}/0/${testNames[8]}/llama#shareLine=251`,
-    `${baseHref}/test/${taskId}/0/${testNames[9]}/llama#shareLine=261`,
-    `${baseHref}/test/${taskId}/0/${testNames[10]}/llama#shareLine=285`,
-    `${baseHref}/test/${taskId}/0/${testNames[11]}/llama#shareLine=302`,
-    `${baseHref}/test/${taskId}/0/${testNames[12]}/llama#shareLine=324`,
+    `${baseHref}5555`,
+    `${baseHref}22`,
+    `${baseHref}36`,
+    `${baseHref}41`,
+    `${baseHref}116`,
+    `${baseHref}132`,
+    `${baseHref}152`,
+    `${baseHref}236`,
+    `${baseHref}251`,
+    `${baseHref}261`,
+    `${baseHref}285`,
+    `${baseHref}302`,
+    `${baseHref}324`,
   ];
 });

@@ -18,11 +18,6 @@ import {
   TableControlInnerRow,
 } from "components/styles";
 import { WordBreak } from "components/Typography";
-import {
-  getLobsterTestLogUrl,
-  getUpdatedLobsterUrl,
-  isLogkeeperLink,
-} from "constants/externalResources";
 import { pollInterval } from "constants/index";
 import {
   TaskTestsQuery,
@@ -217,8 +212,8 @@ const getColumnsTemplate = (
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
-    render: (name, { displayTestName }) => (
-      <WordBreak>{displayTestName || name}</WordBreak>
+    render: (testFile, { displayTestName }) => (
+      <WordBreak>{displayTestName || testFile}</WordBreak>
     ),
     sorter: true,
   },
@@ -271,30 +266,17 @@ const getColumnsTemplate = (
     key: "logs",
     sorter: false,
     render: (a, b): JSX.Element => {
-      const { execution, taskId, groupID, logTestName, testFile, logs } =
-        b || {};
-      const { htmlDisplayURL, rawDisplayURL } = b?.logs ?? {};
-      const hasLobsterLink = isLogkeeperLink(htmlDisplayURL);
-      const lobsterLink = hasLobsterLink
-        ? getUpdatedLobsterUrl(htmlDisplayURL)
-        : getLobsterTestLogUrl({
-            taskId,
-            execution,
-            testId: logTestName || testFile,
-            lineNum: logs.lineNum,
-            groupId: groupID,
-          });
-
+      const { url: urlHTML, urlRaw, urlLobster } = b?.logs ?? {};
       return (
         <>
-          {lobsterLink && (
+          {urlLobster && (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-lobster-btn"
                 size="xsmall"
                 target="_blank"
                 variant="default"
-                href={lobsterLink}
+                href={urlLobster}
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Click Logs Lobster Button",
@@ -305,14 +287,14 @@ const getColumnsTemplate = (
               </Button>
             </ButtonWrapper>
           )}
-          {!hasLobsterLink && (
+          {urlHTML && (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-html-btn"
                 size="xsmall"
                 target="_blank"
                 variant="default"
-                href={htmlDisplayURL}
+                href={urlHTML}
                 onClick={() =>
                   taskAnalytics.sendEvent({
                     name: "Click Logs HTML Button",
@@ -323,13 +305,13 @@ const getColumnsTemplate = (
               </Button>
             </ButtonWrapper>
           )}
-          {rawDisplayURL && (
+          {urlRaw && (
             <Button
               data-cy="test-table-raw-btn"
               size="xsmall"
               target="_blank"
               variant="default"
-              href={rawDisplayURL}
+              href={urlRaw}
               onClick={() =>
                 taskAnalytics.sendEvent({ name: "Click Logs Raw Button" })
               }

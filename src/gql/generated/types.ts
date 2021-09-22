@@ -2816,20 +2816,16 @@ export type TaskTestsQuery = {
     filteredTestCount: number;
     totalTestCount: number;
     testResults: Array<{
-      groupID?: Maybe<string>;
-      logTestName?: Maybe<string>;
-      displayTestName?: Maybe<string>;
       testFile: string;
       id: string;
       status: string;
       baseStatus?: Maybe<string>;
       duration?: Maybe<number>;
-      execution?: Maybe<number>;
-      taskId?: Maybe<string>;
+      displayTestName?: Maybe<string>;
       logs: {
-        lineNum?: Maybe<number>;
-        htmlDisplayURL?: Maybe<string>;
-        rawDisplayURL?: Maybe<string>;
+        url?: Maybe<string>;
+        urlRaw?: Maybe<string>;
+        urlLobster?: Maybe<string>;
       };
     }>;
   };
@@ -2946,14 +2942,10 @@ export type GetTestsQueryVariables = Exact<{
 export type GetTestsQuery = {
   taskTests: {
     testResults: Array<{
-      displayTestName?: Maybe<string>;
-      execution?: Maybe<number>;
-      groupID?: Maybe<string>;
       id: string;
-      taskId?: Maybe<string>;
       testFile: string;
-      logTestName?: Maybe<string>;
-      logs: { lineNum?: Maybe<number> };
+      displayTestName?: Maybe<string>;
+      logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
     }>;
   };
 };
