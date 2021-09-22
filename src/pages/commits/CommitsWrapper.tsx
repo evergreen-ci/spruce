@@ -19,6 +19,7 @@ interface Props {
   isLoading: boolean;
   chartType?: ChartTypes;
   hasTaskFilter: boolean;
+  hasFilters: boolean;
 }
 
 export const CommitsWrapper: React.FC<Props> = ({
@@ -27,6 +28,7 @@ export const CommitsWrapper: React.FC<Props> = ({
   error,
   chartType,
   hasTaskFilter,
+  hasFilters,
 }) => {
   if (error) {
     return <PageWrapper>ERROR</PageWrapper>;
@@ -60,7 +62,7 @@ export const CommitsWrapper: React.FC<Props> = ({
               <ColumnContainer key={rolledUpVersions[0].id}>
                 <InactiveCommitLine />
                 <InactiveCommits
-                  hasFilters={hasTaskFilter}
+                  hasFilters={hasFilters}
                   rolledUpVersions={rolledUpVersions}
                 />
               </ColumnContainer>

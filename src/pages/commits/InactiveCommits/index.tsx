@@ -74,7 +74,7 @@ export const InactiveCommits: React.FC<InactiveCommitsProps> = ({
     >
       <TooltipContainer data-cy="inactive-commits-tooltip">
         <TitleText>
-          {`${versionCount}`} {hasFilters ? "Unmatching" : "Inactive"}{" "}
+          {versionCount} {hasFilters ? "Unmatching" : "Inactive"}{" "}
           {`Commit${versionCount !== 1 ? "s" : ""}`}
         </TitleText>
         {returnedCommits}

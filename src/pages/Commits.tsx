@@ -114,6 +114,8 @@ export const Commits = () => {
     mainlineCommits || {};
 
   const hasTaskFilter = filterTasks.length > 0;
+  const hasFilters =
+    filterStatuses.length > 0 || filterVariants.length > 0 || hasTaskFilter;
   if (error) {
     return <PageDoesNotExist />;
   }
@@ -145,6 +147,7 @@ export const Commits = () => {
           isLoading={loading}
           chartType={currentChartType}
           hasTaskFilter={hasTaskFilter}
+          hasFilters={hasFilters}
         />
       </PageContainer>
     </PageWrapper>
