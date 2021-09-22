@@ -6,7 +6,7 @@ const patch = {
 };
 const path = `/version/${patch.id}`;
 const pathTasks = `${path}/tasks`;
-const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=failed,success,dispatched,started,undispatched&taskName=test-thirdparty`;
+const pathURLWithFilters = `${pathTasks}?page=0&sorts=STATUS%3AASC%3BBASE_STATUS%3ADESC&statuses=failed,success,dispatched,started,undispatched&taskName=test-thirdparty&variant=ubuntu`;
 
 describe("Tasks filters", () => {
   before(() => {
@@ -26,6 +26,24 @@ describe("Tasks filters", () => {
     cy.location().should((loc) => {
       expect(loc.href).to.equal(loc.origin + pathTasks);
     });
+    cy.toggleTableFilter(1);
+    cy.dataCy("taskname-input-wrapper")
+      .find("input")
+      .invoke("val")
+      .should("be.empty");
+    cy.toggleTableFilter(2);
+    cy.dataCy("status-treeselect")
+      .get('input[type="checkbox"]')
+      .should("not.be.checked");
+    cy.toggleTableFilter(3);
+    cy.dataCy("base-status-treeselect")
+      .get('input[type="checkbox"]')
+      .should("not.be.checked");
+    cy.toggleTableFilter(4);
+    cy.dataCy("variant-input-wrapper")
+      .find("input")
+      .invoke("val")
+      .should("be.empty");
   });
 
   describe("Variant input field", () => {
