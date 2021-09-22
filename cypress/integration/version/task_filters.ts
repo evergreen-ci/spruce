@@ -192,6 +192,7 @@ describe("Tasks filters", () => {
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
       cy.toggleTableFilter(3);
+      cy.wait(200);
       cy.getInputByLabel("Success").check({ force: true });
       cy.dataCy("base-status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
@@ -203,6 +204,7 @@ describe("Tasks filters", () => {
 
       expect(postFilterCount).to.not.eq(multiFilterCount);
     });
+
     it("Clicking on 'All' checkbox adds all the base statuses and clicking again removes them", () => {
       cy.toggleTableFilter(3);
       const taskStatuses = ["All", "Failed", "Success", "Running"];
