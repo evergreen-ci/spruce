@@ -100,8 +100,9 @@ describe("Tasks filters", () => {
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
       cy.toggleTableFilter(2);
-      // cy.wait(200);
-      cy.getInputByLabel("Success").click();
+      // wait for dropdown animation
+      cy.wait(200);
+      cy.getInputByLabel("Success").check({ force: true });
       cy.dataCy("status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
