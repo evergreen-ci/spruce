@@ -2943,7 +2943,7 @@ export type GetTestsQuery = {
       id: string;
       testFile: string;
       displayTestName?: Maybe<string>;
-      logs: { urlLobster?: Maybe<string> };
+      logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
     }>;
   };
 };

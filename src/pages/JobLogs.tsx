@@ -110,21 +110,24 @@ export const JobLogs = () => {
                 </Subtitle>
               </SubtitleContainer>
             ) : null}
-            {testResults?.map(({ id, logs, testFile, displayTestName }) => (
-              <StyledLink
-                href={logs?.urlLobster}
-                data-cy="testlog-link"
-                key={id}
-                onClick={() => {
-                  sendEvent({
-                    name: "Clicked lobster testlog url",
-                    testId: id,
-                  });
-                }}
-              >
-                {displayTestName || testFile}
-              </StyledLink>
-            ))}
+            {testResults?.map(({ id, logs, testFile, displayTestName }) => {
+              const { urlLobster, url } = logs;
+              return (
+                <StyledLink
+                  href={urlLobster || url}
+                  data-cy="testlog-link"
+                  key={id}
+                  onClick={() => {
+                    sendEvent({
+                      name: "Clicked lobster testlog url",
+                      testId: id,
+                    });
+                  }}
+                >
+                  {displayTestName || testFile}
+                </StyledLink>
+              );
+            })}
             {!hasTestResults && <Body>No test results found.</Body>}
           </Column>
         </Card>

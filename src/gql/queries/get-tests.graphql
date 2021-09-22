@@ -9,6 +9,7 @@ query GetTests($execution: Int, $groupId: String, $taskId: String!) {
     testResults {
       id
       logs {
+        url
         urlLobster
       }
       testFile
