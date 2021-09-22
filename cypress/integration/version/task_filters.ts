@@ -44,6 +44,8 @@ describe("Tasks filters", () => {
         search: variantInputValue,
       });
       cy.dataCy("current-task-count").should("contain.text", 2);
+      // wait for dropdown animation
+      cy.wait(200);
       cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
