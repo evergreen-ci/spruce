@@ -46,7 +46,7 @@ export const useNotificationModal = ({
   >([]);
 
   const [selectedTriggerIndex, setSelectedTriggerIndex] = useState<number>(() =>
-    parseInt(Cookies.get(`${type}-notification-trigger`), 10)
+    parseInt(Cookies.get(`${type}-notification-trigger`) || "0", 10)
   );
   const [extraFieldInputVals, setExtraFieldInputVals] = useState<StringMap>({});
   const [regexSelectorInputs, setRegexSelectorInputs] = useState<StringMap>({});
@@ -236,12 +236,12 @@ export const useNotificationModal = ({
 
   const onChangeSubscriptionMethod = (v: string) => {
     setSelectedSubscriptionMethod(v);
-    Cookies.set("subscription-method", v);
+    Cookies.set("subscription-method", v, { expires: 365 });
   };
 
   const onChangeTrigger = (v: number) => {
     setSelectedTriggerIndex(v);
-    Cookies.set(`${type}-notification-trigger`, v);
+    Cookies.set(`${type}-notification-trigger`, `${v}`, { expires: 365 });
   };
   return {
     disableAddCriteria,

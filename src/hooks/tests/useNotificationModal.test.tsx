@@ -121,7 +121,7 @@ it("Should have correctly formatted request payload after selecting options, add
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
-        type: "patch",
+        type: "version",
       }),
     { wrapper: Provider }
   );
@@ -265,7 +265,7 @@ it("Should auto populate email and slack fields if they exist", async () => {
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
-        type: "patch",
+        type: "version",
       }),
     { wrapper: Provider }
   );
