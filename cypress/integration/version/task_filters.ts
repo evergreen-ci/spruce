@@ -50,7 +50,6 @@ describe("Tasks filters", () => {
     const variantInputValue = "lint";
     const urlParam = "variant";
     it("Updates url with input value and fetches tasks filtered by variant", () => {
-      cy.toggleTableFilter(4);
       cy.dataCy("variant-input-wrapper")
         .find("input")
         .focus()
