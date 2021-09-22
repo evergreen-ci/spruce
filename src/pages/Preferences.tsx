@@ -20,7 +20,7 @@ export const Preferences: React.FC = () => {
   }
   return (
     <>
-      <SideNav>
+      <SideNav aria-label="Preferences">
         <SideNavGroup header="Preferences">
           <SideNavItem
             active={tab === PreferencesTabRoutes.Profile} // @ts-expect-error

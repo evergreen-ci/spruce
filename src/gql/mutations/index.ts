@@ -16,8 +16,8 @@ import REMOVE_ITEM_FROM_COMMIT_QUEUE from "./remove-item-from-commit-queue.graph
 import REMOVE_PUBLIC_KEY from "./remove-public-key.graphql";
 import REMOVE_VOLUME from "./remove-volume.graphql";
 import RESTART_JASPER from "./restart-jasper.graphql";
-import RESTART_PATCH from "./restart-patch.graphql";
 import RESTART_TASK from "./restart-task.graphql";
+import RESTART_VERSIONS from "./restart-versions.graphql";
 import SAVE_SUBSCRIPTION from "./save-subscription.graphql";
 import SCHEDULE_PATCH_TASKS from "./schedule-patch-tasks.graphql";
 import SCHEDULE_PATCH from "./schedule-patch.graphql";
@@ -48,7 +48,7 @@ export {
   REMOVE_PUBLIC_KEY,
   REMOVE_VOLUME,
   RESTART_JASPER,
-  RESTART_PATCH,
+  RESTART_VERSIONS,
   RESTART_TASK,
   SCHEDULE_UNDISPATCHED_BASE_TASKS,
   SCHEDULE_PATCH_TASKS,

@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
 import { Size } from "@leafygreen-ui/button";
-import { uiColors } from "@leafygreen-ui/palette";
 import { useSpawnAnalytics } from "analytics";
 import Icon from "components/Icon";
 import { PopconfirmWithCheckbox } from "components/Popconfirm";
@@ -19,8 +18,6 @@ import { GET_MY_HOSTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { HostStatus } from "types/host";
 import { MyHost } from "types/spawn";
-
-const { gray } = uiColors;
 
 export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
   const dispatchToast = useToastContext();
@@ -96,7 +93,7 @@ export const SpawnHostActionButton: React.FC<{ host: MyHost }> = ({ host }) => {
       {action ? (
         <PaddedButton
           disabled={loading}
-          leftGlyph={<Icon fill={gray.dark2} glyph={glyph} />}
+          leftGlyph={<Icon glyph={glyph} />}
           size={Size.XSmall} // @ts-expect-error
           onClick={onClick(action)}
         />
