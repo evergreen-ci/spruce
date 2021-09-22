@@ -36,32 +36,6 @@ export const getLobsterTaskLink = (
 ) =>
   `${getLobsterURL()}/lobster/evergreen/task/${taskId}/${execution}/${logType}`;
 
-const deprecatedLogkeeperLobsterURL = "https://logkeeper.mongodb.org";
-
-export const getUpdatedLobsterUrl = (link: string) =>
-  link.replace(deprecatedLogkeeperLobsterURL, `${getLobsterURL()}/lobster`);
-
-interface GetLobsterTestLogUrlParams {
-  taskId: string;
-  execution: number;
-  testId: string;
-  lineNum?: number;
-  groupId: string;
-}
-
-export const getLobsterTestLogUrl = ({
-  taskId,
-  execution,
-  testId,
-  lineNum,
-  groupId,
-}: GetLobsterTestLogUrlParams) =>
-  taskId && Number.isFinite(execution) && testId
-    ? `${getLobsterURL()}/lobster/evergreen/test/${taskId}/${execution}/${testId}${
-        groupId ? `/${groupId}` : ""
-      }${lineNum ? `#shareLine=${lineNum}` : ""}`
-    : "";
-
 interface GetLobsterTestLogCompleteUrlParams {
   taskId: string;
   execution: number;
@@ -80,6 +54,3 @@ export const getLobsterTestLogCompleteUrl = ({
         groupId ? `/${groupId}` : ""
       }${lineNum ? `#shareLine=${lineNum}` : ""}`
     : "";
-
-export const isLogkeeperLink = (link: string) =>
-  link.includes(`${deprecatedLogkeeperLobsterURL}/build`);

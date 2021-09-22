@@ -75,6 +75,12 @@ const subscriptionMethodDropdownOptions = [
 
 export const triggers: Trigger[] = [
   {
+    trigger: "task-started",
+    label: "This task starts",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
+  },
+  {
     trigger: "outcome",
     label: "This task finishes",
     resourceType: "TASK",

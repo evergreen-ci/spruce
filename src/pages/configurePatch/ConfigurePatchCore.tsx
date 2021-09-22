@@ -17,6 +17,7 @@ import {
   PatchConfigure,
   SchedulePatchMutationVariables,
   VariantTasks,
+  ChildPatchAlias,
   ConfigurePatchQuery,
   PatchTriggerAlias,
   ProjectBuildVariant,
@@ -45,8 +46,14 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     activated,
     childPatches,
     patchTriggerAliases,
+    childPatchAliases,
   } = patch;
   const { variants } = project;
+
+  const selectableAliases = filterAliases(
+    patchTriggerAliases,
+    childPatchAliases || []
+  );
 
   const {
     description,
@@ -123,10 +130,10 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
             variants={getVariantEntries(variants, selectedBuildVariantTasks)}
             aliases={[
               ...getPatchTriggerAliasEntries(
-                patchTriggerAliases,
+                selectableAliases,
                 selectedAliases
               ),
-              ...getChildPatchEntries(childPatches),
+              ...getChildPatchEntries(childPatches, childPatchAliases || []),
             ]}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={setSelectedBuildVariants}
@@ -184,13 +191,13 @@ const getVariantEntries = (
   }));
 
 const getPatchTriggerAliasEntries = (
-  patchTriggerAliases: PatchTriggerAlias[],
+  selectableAliases: PatchTriggerAlias[],
   selectedAliases: AliasState
 ) => {
-  if (!patchTriggerAliases) {
+  if (!selectableAliases) {
     return [];
   }
-  return patchTriggerAliases.map(({ alias, childProject }) => ({
+  return selectableAliases.map(({ alias, childProject }) => ({
     displayName: `${alias} (${childProject})`,
     name: alias,
     taskCount: selectedAliases[alias] ? 1 : 0,
@@ -198,16 +205,21 @@ const getPatchTriggerAliasEntries = (
 };
 
 const getChildPatchEntries = (
-  childPatches: ConfigurePatchQuery["patch"]["childPatches"]
+  childPatches: ConfigurePatchQuery["patch"]["childPatches"],
+  childPatchAliases: ChildPatchAlias[]
 ) => {
   if (!childPatches) {
     return [];
   }
-  return childPatches.map(({ projectIdentifier, variantsTasks }) => ({
-    displayName: projectIdentifier,
-    name: projectIdentifier,
-    taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
-  }));
+  return childPatches.map(({ id, projectIdentifier, variantsTasks }) => {
+    const { alias = id } =
+      childPatchAliases.find(({ patchId }) => id === patchId) || {};
+    return {
+      displayName: `${alias} (${projectIdentifier})`,
+      name: `${alias}-${projectIdentifier}`,
+      taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
+    };
+  });
 };
 
 const toGQLVariantTasksType = (
@@ -230,6 +242,15 @@ const toGQLAliasType = (selectedAliases: AliasState) =>
   Object.entries(selectedAliases)
     .filter(([, isSelected]) => isSelected)
     .map(([alias]) => alias);
+
+// Remove all patch trigger aliases that have already been invoked as child patches via CLI
+const filterAliases = (
+  patchTriggerAliases: PatchTriggerAlias[],
+  childPatchAliases: ChildPatchAlias[]
+) => {
+  const invokedAliases = new Set(childPatchAliases.map(({ alias }) => alias));
+  return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));
+};
 
 const StyledInput = styled(Input)`
   margin-bottom: 16px;

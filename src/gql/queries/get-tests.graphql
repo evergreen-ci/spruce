@@ -7,16 +7,13 @@ query GetTests($execution: Int, $groupId: String, $taskId: String!) {
     taskId: $taskId
   ) {
     testResults {
-      displayTestName
-      execution
-      groupID
       id
       logs {
-        lineNum
+        url
+        urlLobster
       }
-      taskId
       testFile
-      logTestName
+      displayTestName
     }
   }
 }
