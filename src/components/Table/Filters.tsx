@@ -14,6 +14,7 @@ import {
   TreeSelectProps,
 } from "components/TreeSelect";
 
+const { blue } = uiColors;
 export interface InputFilterProps {
   "data-cy"?: string;
   placeholder: string;
@@ -186,7 +187,6 @@ const ButtonWrapper = styled.div`
   margin-right: 8px;
 `;
 
-const { blue } = uiColors;
 interface StyledOutlinedProps {
   active?: boolean;
 }
