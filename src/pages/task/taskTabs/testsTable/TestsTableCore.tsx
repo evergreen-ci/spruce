@@ -291,7 +291,7 @@ const getColumnsTemplate = (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-lobster-btn"
-                size="small"
+                size="xsmall"
                 target="_blank"
                 variant="default"
                 href={lobsterLink}
@@ -309,7 +309,7 @@ const getColumnsTemplate = (
             <ButtonWrapper>
               <Button
                 data-cy="test-table-html-btn"
-                size="small"
+                size="xsmall"
                 target="_blank"
                 variant="default"
                 href={htmlDisplayURL}
@@ -326,7 +326,7 @@ const getColumnsTemplate = (
           {rawDisplayURL && (
             <Button
               data-cy="test-table-raw-btn"
-              size="small"
+              size="xsmall"
               target="_blank"
               variant="default"
               href={rawDisplayURL}

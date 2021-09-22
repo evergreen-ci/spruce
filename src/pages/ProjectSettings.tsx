@@ -47,7 +47,7 @@ export const ProjectSettings: React.FC = () => {
 
   return (
     <>
-      <SideNav>
+      <SideNav aria-label="Project Settings">
         <SideNavGroup header="Project" />
         <SideNavGroup>
           <ProjectSettingsNavItem

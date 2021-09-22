@@ -1,0 +1,32 @@
+query BuildVariantsWithChildren($id: String!) {
+  version(id: $id) {
+    id  
+    buildVariants(options: {}) {
+      variant
+      displayName
+      tasks {
+        id
+        execution
+        status
+        displayName
+        baseStatus
+      }
+    }
+    childVersions{
+      id
+      projectIdentifier
+      project
+      buildVariants(options: {}) {
+        variant
+        displayName
+        tasks {
+          id
+          execution
+          status
+          displayName
+          baseStatus
+        }
+      }
+    }
+  }
+}

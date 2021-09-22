@@ -1,0 +1,23 @@
+mutation RestartVersions(
+  $versionId: String!
+  $abort: Boolean!
+  $versionsToRestart: [VersionToRestart!]!
+) {
+  restartVersions(
+    versionId: $versionId
+    abort: $abort
+    versionsToRestart: $versionsToRestart
+  ) {
+    id
+    taskStatuses
+    status
+    patch {
+      id
+      status
+      childPatches {
+        id
+        status
+      }
+    }
+  }
+}
