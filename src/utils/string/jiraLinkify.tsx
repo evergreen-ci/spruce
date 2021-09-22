@@ -1,5 +1,5 @@
 import reactStringReplace from "react-string-replace";
-import { StyledLink } from "components/styles/StyledLink";
+import { StyledLink } from "components/styles";
 import { getJiraTicketUrl } from "constants/externalResources";
 
 export const jiraLinkify = (
