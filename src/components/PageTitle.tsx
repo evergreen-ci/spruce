@@ -1,4 +1,3 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { H2, Subtitle } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
@@ -8,7 +7,7 @@ type Size = "large" | "medium";
 interface Props {
   loading: boolean;
   hasData: boolean;
-  title: string;
+  title: string | JSX.Element | React.ReactNodeArray;
   badge: JSX.Element;
   buttons?: JSX.Element;
   size?: Size;
