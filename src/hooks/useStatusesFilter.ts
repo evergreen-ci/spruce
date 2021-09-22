@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import { useLocation } from "react-router-dom";
 import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { queryString } from "utils";
@@ -17,11 +17,19 @@ export const useStatusesFilter = ({
   const { search } = useLocation();
   const updateQueryParams = useUpdateURLQueryParams();
   const { [urlParam]: rawStatuses } = parseQueryString(search);
-  const urlValue = Array.isArray(rawStatuses)
-    ? rawStatuses
-    : [rawStatuses].filter((v) => v);
+  const urlValue = useMemo(
+    () =>
+      Array.isArray(rawStatuses) ? rawStatuses : [rawStatuses].filter((v) => v),
+    [rawStatuses]
+  );
 
   const [inputValue, setInputValue] = useState(urlValue);
+
+  useEffect(() => {
+    if (!urlValue.length && inputValue.length) {
+      setInputValue([]);
+    }
+  }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const updateUrl = (newValue: string[]) =>
     updateQueryParams({

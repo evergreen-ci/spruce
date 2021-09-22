@@ -71,6 +71,8 @@ describe("Tasks filters", () => {
         search: taskNameInputValue,
       });
       cy.toggleTableFilter(1);
+      // wait for dropdown animation
+      cy.wait(200);
       cy.dataCy("taskname-input-wrapper").contains("Reset").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,

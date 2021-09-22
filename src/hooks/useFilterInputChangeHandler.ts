@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
 import { useLocation } from "react-router-dom";
 import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
@@ -27,6 +27,11 @@ export const useFilterInputChangeHandler = ({
   const urlValue = (rawValue || "").toString();
 
   const [inputValue, setInputValue] = useState(urlValue);
+  useEffect(() => {
+    if (!urlValue && inputValue) {
+      setInputValue("");
+    }
+  }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const page = resetPage && { page: "0" };
 
