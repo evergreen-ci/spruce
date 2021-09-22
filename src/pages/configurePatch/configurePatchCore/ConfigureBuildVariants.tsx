@@ -99,7 +99,7 @@ export const ConfigureBuildVariants: React.FC<Props> = ({
           selectedMenuItems={selectedBuildVariants}
           data-cy="build-variant-list-item"
         />
-        {aliases && (
+        {aliases?.length > 0 && (
           <Card
             onClick={getClickVariantHandler}
             menuItems={aliases}
