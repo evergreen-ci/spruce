@@ -30,7 +30,6 @@ query TaskTests(
         urlRaw
         urlLobster
       }
-      displayTestName
     }
     filteredTestCount
     totalTestCount

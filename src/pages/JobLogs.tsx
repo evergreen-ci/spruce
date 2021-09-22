@@ -110,7 +110,7 @@ export const JobLogs = () => {
                 </Subtitle>
               </SubtitleContainer>
             ) : null}
-            {testResults?.map(({ id, logs, testFile, displayTestName }) => {
+            {testResults?.map(({ id, logs, testFile }) => {
               const { urlLobster, url } = logs;
               return (
                 <StyledLink
@@ -124,7 +124,7 @@ export const JobLogs = () => {
                     });
                   }}
                 >
-                  {displayTestName || testFile}
+                  {testFile}
                 </StyledLink>
               );
             })}
