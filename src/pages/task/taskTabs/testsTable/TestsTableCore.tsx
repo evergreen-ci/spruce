@@ -212,7 +212,9 @@ const getColumnsTemplate = (
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
-    render: (testFile) => <WordBreak>{testFile}</WordBreak>,
+    render: (testFile, { displayTestName }) => (
+      <WordBreak>{displayTestName || testFile}</WordBreak>
+    ),
     sorter: true,
   },
   {

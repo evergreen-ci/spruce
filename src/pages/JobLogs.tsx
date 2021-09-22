@@ -110,7 +110,7 @@ export const JobLogs = () => {
                 </Subtitle>
               </SubtitleContainer>
             ) : null}
-            {testResults?.map(({ id, logs, testFile }) => (
+            {testResults?.map(({ id, logs, testFile, displayTestName }) => (
               <StyledLink
                 href={logs?.urlLobster}
                 data-cy="testlog-link"
@@ -122,7 +122,7 @@ export const JobLogs = () => {
                   });
                 }}
               >
-                {testFile}
+                {displayTestName || testFile}
               </StyledLink>
             ))}
             {!hasTestResults && <Body>No test results found.</Body>}
