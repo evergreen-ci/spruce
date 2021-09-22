@@ -1,6 +1,6 @@
 query BuildVariantsWithChildren($id: String!) {
   version(id: $id) {
-    id  
+    id
     buildVariants(options: {}) {
       variant
       displayName
@@ -12,7 +12,7 @@ query BuildVariantsWithChildren($id: String!) {
         baseStatus
       }
     }
-    childVersions{
+    childVersions {
       id
       projectIdentifier
       project
