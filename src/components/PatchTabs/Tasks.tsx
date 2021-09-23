@@ -20,7 +20,6 @@ import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
 import { PatchTasksQueryParams, TaskStatus } from "types/task";
 import { queryString, url } from "utils";
 import { PatchTasksTable } from "./tasks/PatchTasksTable";
-import { TaskFilters } from "./tasks/TaskFilters";
 
 const { parseQueryString, parseSortString } = queryString;
 
@@ -71,7 +70,6 @@ export const Tasks: React.FC<Props> = ({ taskCount }) => {
 
   return (
     <>
-      <TaskFilters />
       <TableControlOuterRow>
         <FlexContainer>
           <ResultCountLabel

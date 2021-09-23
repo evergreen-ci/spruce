@@ -83,9 +83,12 @@ exports[`Storyshots TreeSelect No All Button 1`] = `
 `;
 
 exports[`Storyshots TreeSelect No Dropdown 1`] = `
-Array [
+<div
+  className="css-1ymuraj-CheckboxContainer-tableInputContainerCSS e1mpj03z1"
+  data-cy="tree-select-options"
+>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z2"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -120,9 +123,9 @@ Array [
         Shapes
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z2"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -157,9 +160,9 @@ Array [
         rectangle
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z2"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -194,9 +197,9 @@ Array [
         circle
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1vxco1u-getCheckboxWrapper e1mpj03z2"
+    className="css-1vxco1u-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -231,9 +234,9 @@ Array [
         rhombus
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z2"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -268,9 +271,9 @@ Array [
         Pass
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z2"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -305,9 +308,9 @@ Array [
         Failed
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z2"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -342,9 +345,9 @@ Array [
         Skip
       </span>
     </label>
-  </div>,
+  </div>
   <div
-    className="css-1el7anf-getCheckboxWrapper e1mpj03z2"
+    className="css-1el7anf-getCheckboxWrapper e1mpj03z3"
   >
     <label
       className="leafygreen-ui-hfnsvs cy-checkbox"
@@ -379,8 +382,8 @@ Array [
         Silent Fail
       </span>
     </label>
-  </div>,
-]
+  </div>
+</div>
 `;
 
 exports[`Storyshots TreeSelect No Initial Values 1`] = `

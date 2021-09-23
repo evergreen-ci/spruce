@@ -19,23 +19,18 @@ query TaskTests(
     execution: $execution
   ) {
     testResults {
-      groupID
-      logTestName
-      displayTestName
       testFile
       id
       status
       baseStatus
       testFile
-      displayTestName
       duration
       logs {
-        lineNum
-        htmlDisplayURL
-        rawDisplayURL
+        url
+        urlRaw
+        urlLobster
       }
-      execution
-      taskId
+      displayTestName
     }
     filteredTestCount
     totalTestCount
