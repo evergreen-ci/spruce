@@ -140,7 +140,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         >
           {triggers.map((t, i) => (
             <Option
-              key={`trigger_${t.resourceType}`}
+              key={`trigger_${t.trigger}_${t.resourceType}_${t.payloadResourceIdKey}`}
               value={i}
               data-cy={`trigger_${i}-option`}
             >
