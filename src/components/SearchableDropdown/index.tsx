@@ -172,7 +172,9 @@ const SearchableDropdown = <T extends {}>({
                 onChange={handleSearch}
                 data-cy={`${dataCy}-search-input`}
               />
-              {(visibleOptions as T[])?.map((o) => option(o))}
+              <ScrollableList>
+                {(visibleOptions as T[])?.map((o) => option(o))}
+              </ScrollableList>
             </OptionsWrapper>
           </RelativeWrapper>
         )}
@@ -223,6 +225,9 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   margin-top: 5px;
   width: 100%;
+`;
+
+const ScrollableList = styled.div`
   overflow: scroll;
   max-height: 400px;
 `;
