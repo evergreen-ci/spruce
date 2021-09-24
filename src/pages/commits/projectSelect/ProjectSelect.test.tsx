@@ -8,7 +8,7 @@ import { ProjectSelect } from ".";
 test("Sets the currently selected project to what ever is passed in's display name", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
   const { queryByDataCy } = render(ContentWrapper());
@@ -22,7 +22,7 @@ test("Sets the currently selected project to what ever is passed in's display na
 test("Should toggle dropdown when clicking on it ", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
   const { queryByDataCy } = render(ContentWrapper());
@@ -38,7 +38,7 @@ test("Should toggle dropdown when clicking on it ", async () => {
 test("Should narrow down search results when filtering on projects", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
   const { queryByDataCy, findAllByDataCy } = render(ContentWrapper());
