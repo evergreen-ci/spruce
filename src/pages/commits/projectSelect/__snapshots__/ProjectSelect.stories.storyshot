@@ -4,71 +4,46 @@ exports[`Storyshots ProjectSelect Story 1`] = `
 Array [
   <label
     className="leafygreen-ui-ly82bp"
-    htmlFor="project-select"
+    htmlFor="searchable-dropdown"
   >
     Project
   </label>,
   <div
-    className="css-gte0m8-Wrapper e1ueffas1"
+    className="css-gte0m8-Wrapper e17dnzmx5"
   >
-    <div
-      className="css-1ldngto-BarWrapper e1ueffas5"
+    <button
+      aria-disabled={true}
+      className="leafygreen-ui-117l5vj css-mbqq81-StyledButton e17dnzmx1"
       data-cy="project-select"
+      disabled={true}
+      id="searchable-dropdown"
       onClick={[Function]}
+      type="button"
     >
       <div
-        className="css-soeq2u-LabelWrapper e1ueffas6"
+        className="leafygreen-ui-1ktj4tm"
+      />
+      <div
+        className="leafygreen-ui-ie0uqp"
       >
         <div
-          className="leafygreen-ui-1mngpnd"
-          data-cy="project-name"
-        >
-          Project:
-           
-        </div>
-      </div>
-      <div
-        className="css-uszjhy-FlexWrapper e1ueffas0"
-      >
-        <button
-          aria-disabled={false}
-          aria-label="Add To Favorites"
-          className="leafygreen-ui-wn45f0"
-          data-cy="favorite-selected-project"
-          onClick={[Function]}
-          tabIndex={0}
+          className="css-uewcnq-ButtonContent e17dnzmx0"
         >
           <div
-            className="leafygreen-ui-xhlipt"
-          >
-            <svg
-              aria-label="Favorite Icon"
-              className="leafygreen-ui-ewn3zn"
-              fill="none"
-              height={16}
-              role="img"
-              viewBox="0 0 16 16"
-              width={16}
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path
-                d="M7.538 1.11a.5.5 0 01.924 0l1.537 3.696a.5.5 0 00.421.306l3.99.32a.5.5 0 01.285.878l-3.04 2.604a.5.5 0 00-.16.496l.928 3.893a.5.5 0 01-.747.542L8.261 11.76a.5.5 0 00-.522 0l-3.415 2.086a.5.5 0 01-.747-.542l.928-3.893a.5.5 0 00-.16-.496L1.304 6.31a.5.5 0 01.285-.878l3.99-.32A.5.5 0 006 4.806L7.538 1.11z"
-                fill="currentColor"
-              />
-            </svg>
-          </div>
-        </button>
-        <span
-          className="css-56nrj0-ArrowWrapper e1ueffas2"
-        >
-          <button
-            aria-disabled={false}
-            aria-label="Toggle Dropdown"
-            className="leafygreen-ui-wn45f0"
-            tabIndex={0}
+            className="css-soeq2u-LabelWrapper e17dnzmx9"
           >
             <div
-              className="leafygreen-ui-xhlipt"
+              className="leafygreen-ui-1mngpnd"
+              data-cy="dropdown-value"
+            >
+              Select a project
+            </div>
+          </div>
+          <div
+            className="css-uszjhy-FlexWrapper e17dnzmx4"
+          >
+            <div
+              className="css-1ruoi7a-ArrowWrapper e17dnzmx6"
             >
               <svg
                 aria-label="Chevron Down Icon"
@@ -88,10 +63,10 @@ Array [
                 />
               </svg>
             </div>
-          </button>
-        </span>
+          </div>
+        </div>
       </div>
-    </div>
+    </button>
   </div>,
 ]
 `;

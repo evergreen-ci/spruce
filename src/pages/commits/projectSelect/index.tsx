@@ -76,6 +76,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
       searchFunc={handleSearch}
       disabled={loading}
       valuePlaceholder="Select a project"
+      data-cy="project-select"
     />
   );
 };
