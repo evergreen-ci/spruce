@@ -4,6 +4,7 @@ import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
 import { Input } from "antd";
+import debounce from "lodash.debounce";
 import Icon from "components/Icon";
 import { toggleArray } from "utils/array";
 
@@ -14,10 +15,7 @@ interface SearchableDropdownProps<T> {
   label: string | React.ReactNode;
   value: string | T | string[] | T[];
   onChange: (value: string | T | string[] | T[]) => void;
-  searchFunc?: (
-    value: string | T | string[] | T[],
-    match: string | T
-  ) => boolean;
+  searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
   valuePlaceholder?: string;
   options: string[] | Array<T>;
@@ -43,7 +41,7 @@ const SearchableDropdown = <T extends {}>({
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [visibleOptions, setVisibleOptions] = useState(options);
+  const [visibleOptions, setVisibleOptions] = useState(() => options);
 
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -76,10 +74,10 @@ const SearchableDropdown = <T extends {}>({
   const onClick = (v: string | T) => {
     if (allowMultiselect) {
       if (Array.isArray(value)) {
-        const newValue = toggleArray(v, value) as any[];
+        const newValue = toggleArray(v, value) as T[];
         onChange(newValue);
       } else {
-        onChange([v as any]);
+        onChange([v as T]);
       }
     } else {
       onChange(v);
@@ -106,26 +104,27 @@ const SearchableDropdown = <T extends {}>({
     }
     if (Array.isArray(value)) {
       // v is included in value
-      return (value as any).filter((v) => v === elementValue).length > 0;
+      return (value as T[]).filter((v) => v === elementValue).length > 0;
     }
   };
 
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value: searchTerm } = e.target;
     setSearch(searchTerm);
-    let filteredOptions = [];
+    debounce(() => {
+      console.log("Doing a search");
+      let filteredOptions = [];
 
-    if (searchFunc) {
-      // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-      filteredOptions = (options as any).filter((o) =>
-        searchFunc(searchTerm, o)
-      );
-    } else {
-      filteredOptions = (options as any).filter(
-        (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      );
-    }
-    setVisibleOptions(filteredOptions);
+      if (searchFunc) {
+        // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
+        filteredOptions = searchFunc(options as T[], searchTerm);
+      } else {
+        filteredOptions = (options as string[]).filter(
+          (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        );
+      }
+      setVisibleOptions(filteredOptions);
+    }, 250)();
   };
 
   let buttonText = valuePlaceholder;
