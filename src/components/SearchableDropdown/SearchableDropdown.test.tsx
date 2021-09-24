@@ -8,7 +8,7 @@ const RenderSearchableDropdown = (props: any) => (
 );
 
 describe("SearchableDropdown", () => {
-  test("Sets the label to what ever the current value is", async () => {
+  test("Sets the label to what ever the current value is", () => {
     const onChange = jest.fn();
     const { queryByText } = render(
       RenderSearchableDropdown({
@@ -20,7 +20,7 @@ describe("SearchableDropdown", () => {
     expect(queryByText("evergreen")).toBeInTheDocument();
   });
 
-  test("Should toggle dropdown when clicking on it ", async () => {
+  test("Should toggle dropdown when clicking on it ", () => {
     const onChange = jest.fn();
     const { queryByDataCy } = render(
       RenderSearchableDropdown({
@@ -39,7 +39,8 @@ describe("SearchableDropdown", () => {
       queryByDataCy("searchable-dropdown-options")
     ).not.toBeInTheDocument();
   });
-  test("Should narrow down search results when filtering", async () => {
+
+  test("Should narrow down search results when filtering", () => {
     const onChange = jest.fn();
     const { queryByDataCy, queryAllByDataCy } = render(
       RenderSearchableDropdown({
@@ -53,15 +54,19 @@ describe("SearchableDropdown", () => {
     ).not.toBeInTheDocument();
     userEvent.click(queryByDataCy("searchable-dropdown"));
     expect(queryByDataCy("searchable-dropdown-options")).toBeInTheDocument();
-    expect(queryByDataCy("search-input")).toBeInTheDocument();
+    expect(
+      queryByDataCy("searchable-dropdown-search-input")
+    ).toBeInTheDocument();
     expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(2);
-    userEvent.type(queryByDataCy("search-input"), "spru");
+    userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spru");
     expect(queryAllByDataCy("searchable-dropdown-option")).toHaveLength(1);
   });
 
   test("Should use custom search function when passed in", () => {
     const onChange = jest.fn();
-    const searchFunc = jest.fn((params, match) => match === params);
+    const searchFunc = jest.fn((options, match) =>
+      options.filter((o) => o === match)
+    );
     const { queryByDataCy, queryByText } = render(
       RenderSearchableDropdown({
         value: ["evergreen"],
@@ -72,11 +77,14 @@ describe("SearchableDropdown", () => {
     );
     userEvent.click(queryByDataCy("searchable-dropdown"));
 
-    expect(queryByDataCy("search-input")).toBeInTheDocument();
-    userEvent.type(queryByDataCy("search-input"), "spruce");
+    expect(
+      queryByDataCy("searchable-dropdown-search-input")
+    ).toBeInTheDocument();
+    userEvent.type(queryByDataCy("searchable-dropdown-search-input"), "spruce");
     expect(searchFunc).toHaveBeenCalled();
     expect(queryByText("spruce")).toBeInTheDocument();
   });
+
   describe("When multiselect == false", () => {
     test("Should call onChange when clicking on an option and should close the option list ", () => {
       const onChange = jest.fn();
@@ -107,6 +115,7 @@ describe("SearchableDropdown", () => {
       expect(queryByText("spruce")).toBeInTheDocument();
     });
   });
+
   describe("When multiselect == true", () => {
     test("Should call onChange when clicking on multiple options and shouldn't close the dropdown ", () => {
       const onChange = jest.fn();
@@ -144,6 +153,75 @@ describe("SearchableDropdown", () => {
       );
       userEvent.click(queryByText("evergreen"));
       expect(onChange).toBeCalledWith(["spruce", "evergreen"]);
+    });
+  });
+
+  describe("When using custom render options", () => {
+    test("Should render custom options", () => {
+      const onChange = jest.fn();
+      const { queryByText, queryByDataCy } = render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange,
+          options: [
+            {
+              label: "Evergreen",
+              value: "evergreen",
+            },
+            {
+              label: "Spruce",
+              value: "spruce",
+            },
+          ],
+          optionRenderer: (option: any, onClick) => (
+            <button
+              type="button"
+              key={option.value}
+              onClick={() => onClick(option.value)}
+            >
+              {option.label}
+            </button>
+          ),
+        })
+      );
+      userEvent.click(queryByDataCy("searchable-dropdown"));
+
+      expect(queryByText("Evergreen")).toBeInTheDocument();
+      expect(queryByText("Spruce")).toBeInTheDocument();
+    });
+
+    test("Should be able to click on custom elements", () => {
+      const onChange = jest.fn();
+      const { queryByText, queryByDataCy } = render(
+        RenderSearchableDropdown({
+          value: "evergreen",
+          onChange,
+          options: [
+            {
+              label: "Evergreen",
+              value: "evergreen",
+            },
+            {
+              label: "Spruce",
+              value: "spruce",
+            },
+          ],
+          optionRenderer: (option: any, onClick) => (
+            <button
+              type="button"
+              key={option.value}
+              onClick={() => onClick(option.value)}
+            >
+              {option.label}
+            </button>
+          ),
+        })
+      );
+      userEvent.click(queryByDataCy("searchable-dropdown"));
+
+      expect(queryByText("Spruce")).toBeInTheDocument();
+      userEvent.click(queryByText("Spruce"));
+      expect(onChange).toBeCalledWith("spruce");
     });
   });
 });

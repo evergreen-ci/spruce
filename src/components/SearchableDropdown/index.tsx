@@ -4,7 +4,6 @@ import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Label } from "@leafygreen-ui/typography";
 import { Input } from "antd";
-import debounce from "lodash.debounce";
 import Icon from "components/Icon";
 import { toggleArray } from "utils/array";
 
@@ -26,6 +25,7 @@ interface SearchableDropdownProps<T> {
   ) => React.ReactNode;
   allowMultiselect?: boolean;
   disabled?: boolean;
+  ["data-cy"]?: string;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -38,10 +38,11 @@ const SearchableDropdown = <T extends {}>({
   optionRenderer,
   allowMultiselect = false,
   disabled = false,
+  "data-cy": dataCy = "searchable-dropdown",
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
-  const [visibleOptions, setVisibleOptions] = useState(() => options);
+  const [visibleOptions, setVisibleOptions] = useState(options);
 
   const listMenuRef = useRef(null);
   const menuButtonRef = useRef(null);
@@ -92,6 +93,7 @@ const SearchableDropdown = <T extends {}>({
     ? (v: string | T) => optionRenderer(v, onClick, isChecked)
     : (v: string | T) => (
         <SearchableDropdownOption
+          key={`searchable_dropdown_option_${v}`}
           value={v}
           onClick={() => onClick(v)}
           isChecked={isChecked(v)}
@@ -112,19 +114,17 @@ const SearchableDropdown = <T extends {}>({
     () => (e: React.ChangeEvent<HTMLInputElement>) => {
       const { value: searchTerm } = e.target;
       setSearch(searchTerm);
-      debounce(() => {
-        let filteredOptions = [];
+      let filteredOptions = [];
 
-        if (searchFunc) {
-          // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-          filteredOptions = searchFunc(options as T[], searchTerm);
-        } else {
-          filteredOptions = (options as string[]).filter(
-            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-          );
-        }
-        setVisibleOptions(filteredOptions);
-      }, 250)();
+      if (searchFunc) {
+        // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
+        filteredOptions = searchFunc(options as T[], searchTerm);
+      } else {
+        filteredOptions = (options as string[]).filter(
+          (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        );
+      }
+      setVisibleOptions(filteredOptions);
     },
     [searchFunc, options]
   );
@@ -147,7 +147,7 @@ const SearchableDropdown = <T extends {}>({
         <StyledButton
           ref={menuButtonRef} // @ts-expect-error
           onClick={() => setisOpen((curr) => !curr)}
-          data-cy="searchable-dropdown"
+          data-cy={dataCy}
           id="searchable-dropdown"
           value={value}
           disabled={disabled}
@@ -165,17 +165,14 @@ const SearchableDropdown = <T extends {}>({
         </StyledButton>
         {isOpen && (
           <RelativeWrapper>
-            <OptionsWrapper
-              ref={listMenuRef}
-              data-cy="searchable-dropdown-options"
-            >
+            <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
               <Search
                 placeholder={searchPlaceholder}
                 value={search}
                 onChange={handleSearch}
-                data-cy="search-input"
+                data-cy={`${dataCy}-search-input`}
               />
-              {(visibleOptions as any)?.map((o) => option(o))}
+              {(visibleOptions as T[])?.map((o) => option(o))}
             </OptionsWrapper>
           </RelativeWrapper>
         )}
