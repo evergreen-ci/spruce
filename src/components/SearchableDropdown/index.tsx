@@ -1,4 +1,4 @@
-import { useState, PropsWithChildren, useRef, useEffect } from "react";
+import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -108,24 +108,26 @@ const SearchableDropdown = <T extends {}>({
     }
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: searchTerm } = e.target;
-    setSearch(searchTerm);
-    debounce(() => {
-      console.log("Doing a search");
-      let filteredOptions = [];
+  const handleSearch = useMemo(
+    () => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value: searchTerm } = e.target;
+      setSearch(searchTerm);
+      debounce(() => {
+        let filteredOptions = [];
 
-      if (searchFunc) {
-        // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-        filteredOptions = searchFunc(options as T[], searchTerm);
-      } else {
-        filteredOptions = (options as string[]).filter(
-          (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-        );
-      }
-      setVisibleOptions(filteredOptions);
-    }, 250)();
-  };
+        if (searchFunc) {
+          // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
+          filteredOptions = searchFunc(options as T[], searchTerm);
+        } else {
+          filteredOptions = (options as string[]).filter(
+            (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+          );
+        }
+        setVisibleOptions(filteredOptions);
+      }, 250)();
+    },
+    [searchFunc, options]
+  );
 
   let buttonText = valuePlaceholder;
   if (value) {
