@@ -21,15 +21,19 @@ import {
   ScheduleTaskMutationVariables,
   UnscheduleTaskMutation,
   UnscheduleTaskMutationVariables,
+  OverrideTaskDependenciesMutation,
+  OverrideTaskDependenciesMutationVariables,
 } from "gql/generated/types";
 import {
   ABORT_TASK,
+  OVERRIDE_TASK_DEPENDENCIES,
   RESTART_TASK,
   SCHEDULE_TASK,
   SET_TASK_PRIORTY,
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { TaskStatus } from "types/task";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -39,16 +43,18 @@ interface Props {
   canSchedule: boolean;
   canUnschedule: boolean;
   canSetPriority: boolean;
+  status: string;
 }
 
-export const ActionButtons = ({
+export const ActionButtons: React.FC<Props> = ({
   canAbort,
   canRestart,
   canSchedule,
   canSetPriority,
   canUnschedule,
   initialPriority = 1,
-}: Props) => {
+  status,
+}) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const [priority, setPriority] = useState<number>(initialPriority);
@@ -130,13 +136,31 @@ export const ActionButtons = ({
     },
   });
 
+  const [
+    overrideTaskDependencies,
+    { loading: loadingOverrideTaskDependencies },
+  ] = useMutation<
+    OverrideTaskDependenciesMutation,
+    OverrideTaskDependenciesMutationVariables
+  >(OVERRIDE_TASK_DEPENDENCIES, {
+    onCompleted: () => {
+      dispatchToast.success("Successfully overrode task dependencies");
+    },
+    onError: (err) => {
+      dispatchToast.error(`Error overriding task dependencies: ${err.message}`);
+    },
+  });
+
   const disabled =
     loadingAbortTask ||
     loadingRestartTask ||
     loadingSetPriority ||
     loadingUnscheduleTask ||
-    loadingScheduleTask;
+    loadingScheduleTask ||
+    loadingOverrideTaskDependencies;
 
+  const canOverrideDependencies =
+    status === TaskStatus.Blocked || status === TaskStatus.WillRun;
   const dropdownItems = [
     <DropdownItem
       disabled={disabled || !canUnschedule}
@@ -214,6 +238,16 @@ export const ActionButtons = ({
         Set priority
       </DropdownItem>
     </ConditionalWrapper>,
+    <DropdownItem
+      data-cy="override-dependencies"
+      disabled={disabled || !canOverrideDependencies}
+      key="overrideDependencies"
+      onClick={() => {
+        overrideTaskDependencies({ variables: { taskId } });
+      }}
+    >
+      Override Dependencies
+    </DropdownItem>,
   ];
 
   return (
