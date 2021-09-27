@@ -153,3 +153,5 @@ export const sortFunctionDate = (a, b, key) => {
   }
   return dateA - dateB;
 };
+
+export const applyStrictRegex = (str: string) => `^${str}$`;

@@ -5,6 +5,7 @@ import { usePatchAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
 import { color as colorUtil } from "utils";
+import { applyStrictRegex } from "utils/string";
 
 const { hexToRGBA } = colorUtil;
 interface Props {
@@ -27,7 +28,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
 
   const filteredRoute = `${getVersionRoute(id, {
     statuses,
-    variant: `^${variant}$`,
+    variant: applyStrictRegex(variant),
     page: 0,
   })}`;
   const multipleStatuses = statuses.length > 1;

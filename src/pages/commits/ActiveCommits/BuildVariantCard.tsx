@@ -8,6 +8,7 @@ import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
+import { applyStrictRegex } from "utils/string";
 
 const { gray } = uiColors;
 
@@ -95,7 +96,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
           <Link
             to={getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: buildVariantId,
+              variant: applyStrictRegex(buildVariantId),
             })}
           >
             <GroupedTaskStatusBadge

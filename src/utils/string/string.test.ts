@@ -4,6 +4,7 @@ import {
   sortFunctionString,
   omitTypename,
   getDateCopy,
+  applyStrictRegex,
 } from ".";
 
 describe("msToDuration", () => {
@@ -258,5 +259,11 @@ describe("getDateCopy", () => {
     expect(getDateCopy("08/31/1996", { dateOnly: true })).toEqual(
       "Aug 31, 1996"
     );
+  });
+});
+
+describe("applyStrictRegex", () => {
+  test("converts string to strict regex", () => {
+    expect(applyStrictRegex("dog")).toEqual("^dog$");
   });
 });

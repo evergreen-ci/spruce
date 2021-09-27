@@ -14,6 +14,7 @@ import {
 } from "gql/generated/types";
 import { GET_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
+import { applyStrictRegex } from "utils/string";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
 import { groupTasksByColor } from "./buildVariants/utils";
 
@@ -47,7 +48,7 @@ export const BuildVariants: React.FC = () => {
               <Link
                 to={`${getVersionRoute(id, {
                   page: 0,
-                  variant: `^${variant}$`, // strict regex
+                  variant: applyStrictRegex(variant),
                 })}`}
                 onClick={() =>
                   patchAnalytics.sendEvent({
