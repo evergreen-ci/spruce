@@ -21,7 +21,7 @@ export const Spawn: React.FC = () => {
 
   return (
     <>
-      <SideNav>
+      <SideNav aria-label="Hosts & Volumes">
         <SideNavGroup header="Hosts & Volumes">
           <SideNavItem
             active={tab === SpawnTab.Host} // @ts-expect-error

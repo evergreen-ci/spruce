@@ -46,6 +46,7 @@ it("Should have correctly formatted request payload after selecting options (tas
         triggers: taskTriggers,
         subscriptionMethodControls: taskSubscriptionMethodControls,
         resourceId: "a task id",
+        type: "task",
       }),
     { wrapper: Provider }
   );
@@ -53,7 +54,7 @@ it("Should have correctly formatted request payload after selecting options (tas
   act(() => {
     result.current.setExtraFieldInputVals({ "task-duration-secs": "33" });
     result.current.setTarget({ email: "email@email.com" });
-    result.current.setSelectedTriggerIndex(4);
+    result.current.setSelectedTriggerIndex(5);
   });
 
   expect(result.current.getRequestPayload()).toStrictEqual({
@@ -120,6 +121,7 @@ it("Should have correctly formatted request payload after selecting options, add
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
+        type: "version",
       }),
     { wrapper: Provider }
   );
@@ -263,6 +265,7 @@ it("Should auto populate email and slack fields if they exist", async () => {
         triggers: patchTriggers,
         subscriptionMethodControls: patchSubscriptionMethodControls,
         resourceId: "a patch id",
+        type: "version",
       }),
     { wrapper: Provider }
   );

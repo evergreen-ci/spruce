@@ -5,5 +5,8 @@
     "mochaFile": "bin/cypress/junit-[hash].xml"
   },
   "defaultCommandTimeout": 15000,
-  "retries": 4
+  "retries": {
+    "runMode": 4,
+    "openMode": 0
+  }
 }

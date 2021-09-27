@@ -8,9 +8,10 @@ import {
 } from "types/patch";
 
 export const StatusSelector: React.FC = () => {
-  const [statusVal, statusValOnChange] = useStatusesFilter(
-    MyPatchesQueryParams.Statuses
-  );
+  const {
+    inputValue: statusVal,
+    setAndSubmitInputValue: statusValOnChange,
+  } = useStatusesFilter({ urlParam: MyPatchesQueryParams.Statuses });
 
   return (
     <Dropdown

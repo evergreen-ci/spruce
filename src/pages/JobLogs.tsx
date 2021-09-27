@@ -7,10 +7,7 @@ import { Skeleton } from "antd";
 import { useParams } from "react-router-dom";
 import { useJobLogsAnalytics } from "analytics/joblogs/useJobLogsAnalytics";
 import { StyledRouterLink, StyledLink, PageWrapper } from "components/styles";
-import {
-  getLobsterTestLogUrl,
-  getLobsterTestLogCompleteUrl,
-} from "constants/externalResources";
+import { getLobsterTestLogCompleteUrl } from "constants/externalResources";
 import { getTaskRoute } from "constants/routes";
 import { useToastContext } from "context/toast";
 import {
@@ -113,24 +110,11 @@ export const JobLogs = () => {
                 </Subtitle>
               </SubtitleContainer>
             ) : null}
-            {testResults?.map(
-              ({
-                id,
-                logs,
-                displayTestName,
-                logTestName,
-                testFile,
-                groupID,
-                ...test
-              }) => (
+            {testResults?.map(({ id, logs, testFile }) => {
+              const { urlLobster, url } = logs;
+              return (
                 <StyledLink
-                  href={getLobsterTestLogUrl({
-                    taskId: test.taskId,
-                    execution: test.execution,
-                    testId: logTestName || testFile,
-                    lineNum: logs.lineNum,
-                    groupId: groupID,
-                  })}
+                  href={urlLobster || url}
                   data-cy="testlog-link"
                   key={id}
                   onClick={() => {
@@ -140,10 +124,10 @@ export const JobLogs = () => {
                     });
                   }}
                 >
-                  {displayTestName || testFile}
+                  {testFile}
                 </StyledLink>
-              )
-            )}
+              );
+            })}
             {!hasTestResults && <Body>No test results found.</Body>}
           </Column>
         </Card>
