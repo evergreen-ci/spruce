@@ -802,6 +802,11 @@ export type FileDiff = {
   description: Scalars["String"];
 };
 
+export type ChildPatchAlias = {
+  alias: Scalars["String"];
+  patchId: Scalars["String"];
+};
+
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
   childProject: Scalars["String"];
@@ -835,6 +840,7 @@ export type Patch = {
   variants: Array<Scalars["String"]>;
   tasks: Array<Scalars["String"]>;
   childPatches?: Maybe<Array<Patch>>;
+  childPatchAliases?: Maybe<Array<ChildPatchAlias>>;
   variantsTasks: Array<Maybe<VariantTask>>;
   activated: Scalars["Boolean"];
   alias?: Maybe<Scalars["String"]>;
@@ -2589,11 +2595,13 @@ export type ConfigurePatchQuery = {
     }>;
     childPatches?: Maybe<
       Array<{
+        id: string;
         projectIdentifier: string;
         variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
       }>
     >;
     patchTriggerAliases: Array<{ alias: string; childProject: string }>;
+    childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
 };
 
@@ -2809,20 +2817,15 @@ export type TaskTestsQuery = {
     filteredTestCount: number;
     totalTestCount: number;
     testResults: Array<{
-      groupID?: Maybe<string>;
-      logTestName?: Maybe<string>;
-      displayTestName?: Maybe<string>;
       testFile: string;
       id: string;
       status: string;
       baseStatus?: Maybe<string>;
       duration?: Maybe<number>;
-      execution?: Maybe<number>;
-      taskId?: Maybe<string>;
       logs: {
-        lineNum?: Maybe<number>;
-        htmlDisplayURL?: Maybe<string>;
-        rawDisplayURL?: Maybe<string>;
+        url?: Maybe<string>;
+        urlRaw?: Maybe<string>;
+        urlLobster?: Maybe<string>;
       };
     }>;
   };
@@ -2939,14 +2942,9 @@ export type GetTestsQueryVariables = Exact<{
 export type GetTestsQuery = {
   taskTests: {
     testResults: Array<{
-      displayTestName?: Maybe<string>;
-      execution?: Maybe<number>;
-      groupID?: Maybe<string>;
       id: string;
-      taskId?: Maybe<string>;
       testFile: string;
-      logTestName?: Maybe<string>;
-      logs: { lineNum?: Maybe<number> };
+      logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
     }>;
   };
 };

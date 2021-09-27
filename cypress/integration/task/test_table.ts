@@ -29,13 +29,16 @@ describe("Tests Table", () => {
       .invoke("text")
       .should("eq", "20");
 
-    cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
+    cy.toggleTableFilter(2);
 
+    cy.get(".cy-checkbox").contains("Fail").click({ force: true });
+    cy.dataCy("status-treeselect").contains("Filter").click();
     cy.get("@filtered-count").invoke("text").should("eq", "1");
     cy.get("@total-count").invoke("text").should("eq", "20");
 
-    cy.dataCy("testname-input").type("hello");
+    cy.toggleTableFilter(1);
+    cy.dataCy("testname-input-wrapper").find("input").focus().type("hello");
+    cy.dataCy("testname-input-wrapper").contains("Filter").click();
 
     cy.get("@filtered-count").invoke("text").should("eq", "0");
     cy.get("@total-count").invoke("text").should("eq", "20");
@@ -78,14 +81,10 @@ describe("Tests Table", () => {
       expect(loc.search).to.include(DESCEND_PARAM);
     });
   });
+
   describe("Test Status Selector", () => {
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.get("[data-cy=test-status-select] > .cy-treeselect-bar").click();
-    });
-
-    it("Status select says 'No filters selected' by default", () => {
-      cy.dataCy("test-status-select").contains("No filters selected");
     });
 
     it("Clicking on 'All' checkbox adds all statuses to URL", () => {
@@ -94,6 +93,7 @@ describe("Tests Table", () => {
         pathname: TESTS_ROUTE,
         paramName: "statuses",
         search: "all,pass,fail,skip,silentfail",
+        openFilter: () => cy.toggleTableFilter(2),
       });
     });
 
@@ -105,9 +105,11 @@ describe("Tests Table", () => {
     ];
 
     it("Checking multiple statuses adds them all to the URL", () => {
+      cy.toggleTableFilter(2);
       statuses.forEach(({ display }) => {
         cy.get(".cy-checkbox").contains(display).click({ force: true });
       });
+      cy.dataCy("status-treeselect").contains("Filter").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include("statuses=pass,silentfail,fail,skip,all");
       });
@@ -118,10 +120,15 @@ describe("Tests Table", () => {
     const testNameInputValue = "group";
     beforeEach(() => {
       cy.visit(TESTS_ROUTE);
-      cy.dataCy("testname-input").first().focus().type(testNameInputValue);
     });
 
     it("Typing in test name filter updates testname query param", () => {
+      cy.toggleTableFilter(1);
+      cy.dataCy("testname-input-wrapper")
+        .find("input")
+        .focus()
+        .type(testNameInputValue);
+      cy.dataCy("testname-input-wrapper").contains("Filter").click();
       cy.location().should((loc) => {
         expect(loc.search).to.include(`testname=${testNameInputValue}`);
       });

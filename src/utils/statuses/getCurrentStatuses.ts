@@ -5,7 +5,7 @@ const allKey = "all";
 export const getCurrentStatuses = (
   statuses: string[],
   treeData: TreeDataEntry[]
-) => {
+): TreeDataEntry[] => {
   const currentStatuses = [];
   treeData.forEach((status) => {
     const { key, children } = status;

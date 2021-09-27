@@ -1,50 +1,69 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import debounce from "lodash.debounce";
-import { useLocation, useHistory } from "react-router-dom";
-import { url, queryString } from "utils";
+import { useLocation } from "react-router-dom";
+import { FilterHookParams, FilterHookResult } from "hooks/useStatusesFilter";
+import { useUpdateURLQueryParams } from "hooks/useUpdateURLQueryParams";
+import { queryString } from "utils";
 
 const { parseQueryString } = queryString;
-const { updateUrlQueryParam } = url;
-
-const updateQueryParamWithDebounce = debounce(updateUrlQueryParam, 250);
-
-type InputEvent = React.ChangeEvent<HTMLInputElement>;
 
 /**
- * useFilterInputChangeHandler updates the url query param (urlSearchParam) by the
- * the value user enters into the input field.
- * @param  {string} urlSearchParam the url search param that should update
- * @param {boolean} resetPage update url page param to 0 if true
- * @param {(filterBy: string) => void} sendAnalyticsEvent analytics event that is dispatched on filter change
- * @return {[string, (e: InputEvent) => void]}
+ * Filter input state management hook.
+ * @param {FilterHookParams}
+ * @return {FilterHookResult<string>}
  */
-export const useFilterInputChangeHandler = (
-  urlSearchParam: string,
-  resetPage: boolean,
-  sendAnalyticsEvent: (filterBy: string) => void = () => undefined
-): [string, (e: InputEvent) => void] => {
-  const { pathname, search } = useLocation();
-  const { replace } = useHistory();
+export const useFilterInputChangeHandler = ({
+  urlParam,
+  resetPage,
+  sendAnalyticsEvent = () => undefined,
+}: FilterHookParams): FilterHookResult<string> => {
+  const { search } = useLocation();
+  const updateQueryParams = useUpdateURLQueryParams();
+  const updateQueryParamWithDebounce = useMemo(
+    () => debounce(updateQueryParams, 250),
+    [updateQueryParams]
+  );
+  const { [urlParam]: rawValue } = parseQueryString(search);
+  const urlValue = (rawValue || "").toString();
 
-  const parsed = parseQueryString(search);
-  const inputValue = (parsed[urlSearchParam] || "").toString();
+  const [inputValue, setInputValue] = useState(urlValue);
+  useEffect(() => {
+    if (!urlValue && inputValue) {
+      setInputValue("");
+    }
+  }, [urlValue]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const [value, setValue] = useState(inputValue);
+  const page = resetPage && { page: "0" };
 
-  const onChange = (e: InputEvent): void => {
-    setValue(e.target.value);
-
-    sendAnalyticsEvent(urlSearchParam);
-
-    updateQueryParamWithDebounce(
-      urlSearchParam,
-      e.target.value,
-      search,
-      replace,
-      pathname,
-      resetPage
-    );
+  const updateUrl = (newValue: string) => {
+    updateQueryParams({
+      [urlParam]: newValue || undefined,
+      ...page,
+    });
   };
 
-  return [value, onChange];
+  const setAndSubmitInputValue = (newValue: string): void => {
+    setInputValue(newValue);
+    updateQueryParamWithDebounce({
+      [urlParam]: newValue || undefined,
+      ...page,
+    });
+    sendAnalyticsEvent(urlParam);
+  };
+
+  const submitInputValue = () => updateUrl(inputValue);
+
+  const reset = () => {
+    setInputValue("");
+    updateUrl("");
+    sendAnalyticsEvent(urlParam);
+  };
+
+  return {
+    inputValue,
+    setAndSubmitInputValue,
+    setInputValue,
+    submitInputValue,
+    reset,
+  };
 };

@@ -46,7 +46,7 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
           <InputLabel htmlFor={dropdownId}>Field name</InputLabel>
           <StyledSelect
             id={dropdownId}
-            data-test-id={`${dataCyPrefix}-regex-selector-dropdown`}
+            data-cy={`${dataCyPrefix}-regex-selector-dropdown`}
             value={selectedOption}
             onChange={onChangeSelectedOption}
           >
@@ -55,7 +55,7 @@ export const RegexSelectorInput: React.FC<RegexSelectorProps> = ({
                 key={s.type}
                 disabled={disabledDropdownOptions.includes(s.type)}
                 value={s.type}
-                data-test-id={`${dataCyPrefix}-${s.type}-option`}
+                data-cy={`${dataCyPrefix}-${s.type}-option`}
               >
                 {s.typeLabel}
               </Option>

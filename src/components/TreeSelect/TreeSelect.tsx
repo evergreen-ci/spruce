@@ -3,18 +3,23 @@ import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
 import { uiColors } from "@leafygreen-ui/palette";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
+import { FilterInputControls } from "components/FilterInputControls";
+import { tableInputContainerCSS } from "components/styles/Table";
 
-const { gray, white } = uiColors;
+const { gray } = uiColors;
 
 export const ALL_VALUE = "all";
 const ALL_COPY = "All";
-interface Props {
+export interface TreeSelectProps {
   isDropdown?: boolean;
   isVisible?: boolean;
   onChange: (s: string[]) => void;
   setOptionsLabel?: (v: string) => void;
   state: string[];
   tData: TreeDataEntry[];
+  onReset?: () => void;
+  onFilter?: () => void;
+  "data-cy"?: string;
 }
 export interface TreeDataChildEntry {
   title: string;
@@ -25,13 +30,16 @@ export interface TreeDataEntry extends TreeDataChildEntry {
   children?: TreeDataChildEntry[];
 }
 
-export const TreeSelect: React.FC<Props> = ({
+export const TreeSelect: React.FC<TreeSelectProps> = ({
   isDropdown = false,
   isVisible = true,
   onChange,
   setOptionsLabel = () => undefined,
   state,
   tData,
+  onReset,
+  onFilter,
+  "data-cy": dataCy,
 }) => {
   const allValues = getAllValues(tData);
   // removes values not included in tData
@@ -68,19 +76,24 @@ export const TreeSelect: React.FC<Props> = ({
       condition={isDropdown}
       wrapper={(children) => (
         <RelativeWrapper>
-          <OptionsWrapper data-cy="tree-select-options">
-            {children}
-          </OptionsWrapper>
+          <OptionsWrapper>{children}</OptionsWrapper>
         </RelativeWrapper>
       )}
     >
-      <>
+      <CheckboxContainer data-cy={dataCy || "tree-select-options"}>
         {renderCheckboxes({
           state: filteredState,
           tData,
           onChange,
         })}
-      </>
+        {onReset && onFilter && (
+          <FilterInputControls
+            onClickReset={onReset}
+            onClickSubmit={onFilter}
+            submitButtonCopy="Filter"
+          />
+        )}
+      </CheckboxContainer>
     </ConditionalWrapper>
   );
 };
@@ -308,16 +321,14 @@ const getCheckboxWrapper = (level: number): React.FC => styled.div`
 `;
 
 const OptionsWrapper = styled.div`
-  border-radius: 5px;
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
   position: absolute;
   z-index: 5;
   margin-top: 5px;
   width: 100%;
-  overflow: hidden;
+`;
+
+const CheckboxContainer = styled.div`
+  ${tableInputContainerCSS}
 `;
 
 // Used to provide a basis for the absolutely positions OptionsWrapper

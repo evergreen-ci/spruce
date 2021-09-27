@@ -1,15 +1,6 @@
 import React from "react";
-import { useQuery } from "@apollo/client";
-import { Dropdown, TreeSelect, TreeDataEntry } from "components/TreeSelect";
-import { pollInterval } from "constants/index";
-import { taskStatusesFilterTreeData } from "constants/task";
-import {
-  GetTaskStatusesQuery,
-  GetTaskStatusesQueryVariables,
-} from "gql/generated/types";
-import { GET_TASK_STATUSES } from "gql/queries";
-import { useNetworkStatus } from "hooks";
-import { getCurrentStatuses } from "./getCurrentStatuses";
+import { Dropdown, TreeSelect } from "components/TreeSelect";
+import { useTaskStatuses } from "hooks";
 
 interface Props {
   versionId: string;
@@ -17,7 +8,6 @@ interface Props {
   selectedBaseStatuses: string[];
   onChangeStatusFilter: (s: string[]) => void;
   onChangeBaseStatusFilter: (s: string[]) => void;
-  options?: TreeDataEntry[];
   filterWidth?: string;
 }
 
@@ -28,19 +18,8 @@ export const TaskStatusFilters: React.FC<Props> = ({
   selectedBaseStatuses,
   selectedStatuses,
   filterWidth = "25%",
-  options = taskStatusesFilterTreeData,
 }) => {
-  const { data, startPolling, stopPolling } = useQuery<
-    GetTaskStatusesQuery,
-    GetTaskStatusesQueryVariables
-  >(GET_TASK_STATUSES, { variables: { id: versionId }, pollInterval });
-
-  useNetworkStatus(startPolling, stopPolling);
-
-  const { version } = data || {};
-  const { taskStatuses, baseTaskStatuses } = version || {};
-  const statuses = taskStatuses ?? [];
-  const baseStatuses = baseTaskStatuses ?? [];
+  const { currentStatuses, baseStatuses } = useTaskStatuses({ versionId });
 
   return (
     <>
@@ -52,7 +31,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
           <TreeSelect
             {...getDropdownProps()}
             state={selectedStatuses}
-            tData={getCurrentStatuses(statuses, options)}
+            tData={currentStatuses}
             onChange={onChangeStatusFilter}
           />
         )}
@@ -65,7 +44,7 @@ export const TaskStatusFilters: React.FC<Props> = ({
           <TreeSelect
             {...getDropdownProps()}
             state={selectedBaseStatuses}
-            tData={getCurrentStatuses(baseStatuses, options)}
+            tData={baseStatuses}
             onChange={onChangeBaseStatusFilter}
           />
         )}

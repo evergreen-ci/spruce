@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { useParams, Redirect } from "react-router-dom";
 import { BreadCrumb } from "components/Breadcrumb";
 import { PatchAndTaskFullPageLoad } from "components/Loading/PatchAndTaskFullPageLoad";
@@ -20,10 +20,17 @@ import {
   VersionQueryVariables,
   IsPatchConfiguredQuery,
   IsPatchConfiguredQueryVariables,
+  GetSpruceConfigQuery,
 } from "gql/generated/types";
-import { GET_VERSION, GET_IS_PATCH_CONFIGURED } from "gql/queries";
+import {
+  GET_VERSION,
+  GET_IS_PATCH_CONFIGURED,
+  GET_SPRUCE_CONFIG,
+} from "gql/queries";
 import { usePageTitle, useNetworkStatus } from "hooks";
 import { PageDoesNotExist } from "pages/404";
+import { githubPRLinkify } from "utils/string";
+import { jiraLinkify } from "utils/string/jiraLinkify";
 import { validatePatchId } from "utils/validators";
 import { BuildVariants } from "./version/BuildVariants";
 import { ActionButtons } from "./version/index";
@@ -31,6 +38,9 @@ import { Metadata } from "./version/Metadata";
 import { Tabs } from "./version/Tabs";
 
 export const VersionPage: React.FC = () => {
+  const { data: spruceConfigData } = useQuery<GetSpruceConfigQuery>(
+    GET_SPRUCE_CONFIG
+  );
   const { id } = useParams<{ id: string }>();
 
   const dispatchToast = useToastContext();
@@ -124,13 +134,17 @@ export const VersionPage: React.FC = () => {
     return <PageDoesNotExist />;
   }
 
+  const linkifiedMessage = jiraLinkify(
+    githubPRLinkify(message),
+    spruceConfigData?.spruceConfig?.jira?.host
+  );
   return (
     <PageWrapper data-cy="version-page">
       <BreadCrumb versionMetadata={version} patchNumber={patchNumber} />
       <PageTitle
         loading={false}
         hasData
-        title={message || `Version ${order}`}
+        title={linkifiedMessage || `Version ${order}`}
         badge={<PatchStatusBadge status={status} />}
         buttons={
           <ActionButtons

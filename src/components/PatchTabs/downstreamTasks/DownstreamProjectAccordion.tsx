@@ -4,6 +4,7 @@ import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { InlineCode } from "@leafygreen-ui/typography";
 import { Skeleton } from "antd";
+import { TableProps } from "antd/es/table";
 import { Accordion } from "components/Accordion";
 import { PageSizeSelector } from "components/PageSizeSelector";
 import { Pagination } from "components/Pagination";
@@ -13,16 +14,17 @@ import { TableControlOuterRow, TableControlInnerRow } from "components/styles";
 import { TasksTable } from "components/Table/TasksTable";
 import { useToastContext } from "context/toast";
 import {
-  PatchTasksQuery,
-  PatchTasksQueryVariables,
-  SortDirection,
+  Task,
   SortOrder,
   TaskSortCategory,
+  SortDirection,
+  PatchTasksQuery,
+  PatchTasksQueryVariables,
 } from "gql/generated/types";
 import { GET_PATCH_TASKS } from "gql/queries";
-import { useNetworkStatus } from "hooks";
+import { useNetworkStatus, useTaskStatuses } from "hooks";
 import { environmentalVariables, queryString } from "utils";
-import { FilterState, TaskFilters } from "./TaskFilters";
+import { reducer } from "./reducer";
 
 const { getUiUrl } = environmentalVariables;
 const { parseSortString, toSortString } = queryString;
@@ -35,11 +37,6 @@ interface DownstreamProjectAccordionProps {
   taskCount: number;
   childPatchId: string;
 }
-
-const reducer = (state: FilterState, newFields: Partial<FilterState>) => ({
-  ...state,
-  ...newFields,
-});
 
 export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProps> = ({
   baseVersionID,
@@ -56,21 +53,79 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     Direction: SortDirection.Asc,
   };
 
-  const baseFilterVariables = {
+  const [state, dispatch] = useReducer(reducer, {
     baseStatuses: [],
     limit: 10,
     page: 0,
-    patchId: childPatchId,
-    sorts: [],
     statuses: [],
-    taskName: null,
-    variant: null,
-  };
-
-  const [variables, setVariables] = useReducer(reducer, {
-    ...baseFilterVariables,
+    taskName: "",
+    variant: "",
+    baseStatusesInputVal: [],
+    currentStatusesInputVal: [],
+    taskNameInputVal: "",
+    variantInputVal: "",
     sorts: [defaultSort],
   });
+
+  const { limit, page, statuses, taskName, variant, sorts } = state;
+
+  const variables = {
+    limit,
+    page,
+    statuses,
+    taskName,
+    variant,
+    sorts,
+    baseStatuses: state.baseStatuses,
+    patchId: childPatchId,
+  };
+
+  const { baseStatusesInputVal, currentStatusesInputVal } = state;
+  const { currentStatuses, baseStatuses } = useTaskStatuses({
+    versionId: childPatchId,
+  });
+
+  const taskNameInputProps = {
+    placeholder: "Task name",
+    value: state.taskNameInputVal,
+    onChange: ({ target }) =>
+      dispatch({ type: "onChangeTaskNameInput", task: target.value }),
+    onFilter: () => dispatch({ type: "onFilterTaskNameInput" }),
+    onReset: () => dispatch({ type: "onResetTaskNameInput" }),
+  };
+
+  const variantInputProps = {
+    placeholder: "Variant name",
+    value: state.variantInputVal,
+    onChange: ({ target }) =>
+      dispatch({
+        type: "onChangeVariantInput",
+        variant: target.value,
+      }),
+    onFilter: () => dispatch({ type: "onFilterVariantInput" }),
+    onReset: () => dispatch({ type: "onResetVariantInput" }),
+  };
+
+  const baseStatusSelectorProps = {
+    state: baseStatusesInputVal,
+    tData: baseStatuses,
+    onChange: (s: string[]) =>
+      dispatch({ type: "onChangeBaseStatusesSelector", baseStatuses: s }),
+    onReset: () => dispatch({ type: "onResetBaseStatusesSelector" }),
+    onFilter: () => dispatch({ type: "onFilterBaseStatusesSelector" }),
+  };
+
+  const statusSelectorProps = {
+    state: currentStatusesInputVal,
+    tData: currentStatuses,
+    onChange: (s: string[]) =>
+      dispatch({
+        type: "onChangeStatusesSelector",
+        statuses: s,
+      }),
+    onReset: () => dispatch({ type: "onResetStatusesSelector" }),
+    onFilter: () => dispatch({ type: "onFilterStatusesSelector" }),
+  };
 
   const { data, startPolling, stopPolling } = useQuery<
     PatchTasksQuery,
@@ -95,12 +150,11 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
     </>
   );
 
-  const tableChangeHandler = (...[, , sorter]) => {
-    setVariables({
+  const tableChangeHandler: TableProps<Task>["onChange"] = (...[, , sorter]) =>
+    dispatch({
+      type: "onSort",
       sorts: parseSortString(toSortString(sorter)),
-      page: 0,
     });
-  };
 
   return (
     <AccordionWrapper data-cy="project-accordion">
@@ -114,11 +168,6 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 {githash.slice(0, 10)}
               </InlineCode>
             </p>
-            <TaskFilters
-              versionId={childPatchId}
-              filters={variables}
-              onFilterChange={setVariables}
-            />
             <TableWrapper>
               <TableControlOuterRow>
                 <FlexContainer>
@@ -131,7 +180,7 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   />
                   <PaddedButton // @ts-expect-error
                     onClick={() => {
-                      setVariables(baseFilterVariables);
+                      dispatch({ type: "clearAllFilters" });
                     }}
                     data-cy="clear-all-filters"
                   >
@@ -141,15 +190,19 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                 <TableControlInnerRow>
                   <Pagination
                     data-cy="downstream-tasks-table-pagination"
-                    onChange={(p) => setVariables({ page: p - 1 })}
-                    pageSize={variables.limit}
+                    onChange={(p) =>
+                      dispatch({ type: "onChangePagination", page: p - 1 })
+                    }
+                    pageSize={state.limit}
                     totalResults={patchTasks?.count}
                     value={variables.page}
                   />
                   <PageSizeSelector
                     data-cy="tasks-table-page-size-selector"
                     value={variables.limit}
-                    onClick={(l) => setVariables({ limit: l, page: 0 })}
+                    onClick={(l) =>
+                      dispatch({ type: "onChangeLimit", limit: l })
+                    }
                   />
                 </TableControlInnerRow>
               </TableControlOuterRow>
@@ -160,6 +213,10 @@ export const DownstreamProjectAccordion: React.FC<DownstreamProjectAccordionProp
                   sorts={variables.sorts}
                   tableChangeHandler={tableChangeHandler}
                   tasks={patchTasks?.tasks}
+                  statusSelectorProps={statusSelectorProps}
+                  baseStatusSelectorProps={baseStatusSelectorProps}
+                  taskNameInputProps={taskNameInputProps}
+                  variantInputProps={variantInputProps}
                 />
               )}
             </TableWrapper>
