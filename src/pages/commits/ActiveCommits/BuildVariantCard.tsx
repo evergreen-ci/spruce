@@ -101,7 +101,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
           >
             <GroupedTaskStatusBadge
               status={umbrellaStatus}
-              key={`${umbrellaStatus}_groupedBadge`}
+              key={`${umbrellaStatus}_${versionId}_${buildVariantId}_groupedBadge`}
               count={count}
             />
           </Link>
