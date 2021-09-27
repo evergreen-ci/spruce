@@ -21,9 +21,9 @@ describe("Subscription Modals - Shared functionality", () => {
       it("Display success toast after submitting a valid form and request succeeds", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.contains("finishes").click();
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("EVG-2000");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.dataCy("save-subscription-button").click();
         cy.dataCy(bannerDataCy).contains(successText);
       });
@@ -32,9 +32,9 @@ describe("Subscription Modals - Shared functionality", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.contains("changes by some percentage").click();
         cy.dataCy("percent-change-input").clear().type("-100");
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("EVG-2000");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.dataCy("error-message").contains(errorTextNegativePercent);
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("percent-change-input").clear().type("100");
@@ -45,9 +45,9 @@ describe("Subscription Modals - Shared functionality", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.contains("exceeds some duration").click();
         cy.dataCy("duration-secs-input").clear().type("-100");
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("EVG-2000");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.dataCy("error-message").contains(errorTextNegativeDuration);
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("duration-secs-input").clear().type("100");
@@ -58,9 +58,9 @@ describe("Subscription Modals - Shared functionality", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.contains("exceeds some duration").click();
         cy.dataCy("duration-secs-input").clear().type(".33");
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("EVG-2000");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
         cy.dataCy("error-message").contains(errorTextDecimalDuration);
         cy.dataCy("save-subscription-button").should("be.disabled");
         cy.dataCy("duration-secs-input").clear().type("33");
@@ -70,9 +70,9 @@ describe("Subscription Modals - Shared functionality", () => {
       it("Display error toast when save subscription request fails", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
         cy.contains("finishes").click();
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("EVG-2000");
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("EVG-2000");
         mockErrorResponse({
           path: "SaveSubscription",
           errorMessage: "error",
@@ -90,36 +90,36 @@ describe("Subscription Modals - Shared functionality", () => {
 
       it("Disable save button when jira ticket is not formatted properly", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_0-option").click();
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("jira-comment-option").click();
-        cy.dataTestId("jira-comment-input").type("E");
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("jira-comment-option").click();
+        cy.dataCy("jira-comment-input").type("E");
         cy.dataCy("save-subscription-button").should("be.disabled");
-        cy.dataTestId("jira-comment-input").type("EVG-100");
+        cy.dataCy("jira-comment-input").type("EVG-100");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
 
       it("Disable save button when email is not formatted properly", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_0-option").click();
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("email-option").click();
-        cy.dataTestId("email-input").clear();
-        cy.dataTestId("email-input").type("arst");
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("email-option").click();
+        cy.dataCy("email-input").clear();
+        cy.dataCy("email-input").type("arst");
         cy.dataCy("save-subscription-button").should("be.disabled");
-        cy.dataTestId("email-input").type("rat@rast.com");
+        cy.dataCy("email-input").type("rat@rast.com");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
 
       it("Disable save button when slack username or channel is not formatted properly", () => {
         openSubscriptionModal(route, dataCyToggleModalButton);
-        cy.dataTestId("trigger_0-option").click();
-        cy.dataTestId("notify-by-select").click();
-        cy.dataTestId("slack-option").click();
-        cy.dataTestId("slack-input").clear();
-        cy.dataTestId("slack-input").type("sart");
+        cy.dataCy("trigger_0-option").click();
+        cy.dataCy("notify-by-select").click();
+        cy.dataCy("slack-option").click();
+        cy.dataCy("slack-input").clear();
+        cy.dataCy("slack-input").type("sart");
         cy.dataCy("save-subscription-button").should("be.disabled");
-        cy.dataTestId("slack-input").type("@sart");
+        cy.dataCy("slack-input").type("@sart");
         cy.dataCy("save-subscription-button").should("not.be.disabled");
       });
 
