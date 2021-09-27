@@ -33,11 +33,11 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       if (foundVariant) {
         const { tasks } = foundVariant;
         return (
-          <Cell key={`task_cell_${tasks[0].id}`}>
-            <Link to={getTaskRoute(tasks[0].id)}>
+          <Link to={getTaskRoute(tasks[0].id)}>
+            <Cell key={`task_cell_${tasks[0].id}`}>
               <HistoryTableIcon status={tasks[0].status as TaskStatus} />
-            </Link>
-          </Cell>
+            </Cell>
+          </Link>
         );
       }
       // Returned if the build variant did not run for this commit
