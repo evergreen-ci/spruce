@@ -1,30 +1,14 @@
 import React from "react";
 import styled from "@emotion/styled";
 import CommitChartLabel from "components/CommitChartLabel";
+import { MainlineCommitsQuery } from "gql/generated/types";
 import { ChartTypes } from "types/commits";
 import { BuildVariantCard } from "./BuildVariantCard";
 import { CommitChart } from "./CommitChart";
 import { ColorCount } from "./utils";
 
 interface Props {
-  version: {
-    id: string;
-    author: string;
-    createTime: Date;
-    message: string;
-    revision: string;
-    taskStatusCounts?: {
-      status: string;
-      count: number;
-    }[];
-    buildVariants?: {
-      displayName: string;
-      tasks?: {
-        id: string;
-        status: string;
-      }[];
-    }[];
-  };
+  version: MainlineCommitsQuery["mainlineCommits"]["versions"][0]["version"];
   groupedTaskStats: ColorCount[];
   max: number;
   total: number;
@@ -56,12 +40,13 @@ export const ActiveCommit: React.FC<Props> = ({
       />
     </ColumnContainer>
     <ColumnContainer>
-      {version.buildVariants.map(({ displayName, tasks }) => (
+      {version.buildVariants.map(({ variant, displayName, tasks }) => (
         <BuildVariantCard
           versionId={version.id}
           buildVariantDisplayName={displayName}
+          buildVariantId={variant}
           tasks={tasks}
-          key={`${version.id}_${displayName}`}
+          key={`${version.id}_${variant}`}
           shouldGroupTasks={!hasTaskFilter}
         />
       ))}

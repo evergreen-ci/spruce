@@ -2,9 +2,8 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import escapeRegExp from "lodash.escaperegexp";
+import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
@@ -13,6 +12,7 @@ import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
 const { gray } = uiColors;
 
 interface Props {
+  buildVariantId: string;
   buildVariantDisplayName: string;
   tasks?: {
     id: string;
@@ -23,6 +23,7 @@ interface Props {
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
+  buildVariantId,
   tasks,
   shouldGroupTasks,
   versionId,
@@ -41,7 +42,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           <RenderGroupedIcons
             tasks={nonFailingTasks}
             versionId={versionId}
-            buildVariantDisplayName={buildVariantDisplayName}
+            buildVariantId={buildVariantId}
           />
         </IconContainer>
         <IconContainer>
@@ -60,7 +61,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   }
   return (
     <Container>
-      <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>
+      <Label key={buildVariantId}>{buildVariantDisplayName}</Label>
       {render}
     </Container>
   );
@@ -72,12 +73,12 @@ interface RenderGroupedIconsProps {
     status: string;
   }[];
   versionId: string;
-  buildVariantDisplayName: string;
+  buildVariantId: string;
 }
 const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   tasks,
   versionId,
-  buildVariantDisplayName,
+  buildVariantId,
 }) => {
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByColor(
@@ -89,25 +90,22 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   );
   return (
     <>
-      {otherTasks.map(({ count, umbrellaStatus }) => {
-        const onClick = () =>
-          push(
-            getVersionRoute(versionId, {
+      {otherTasks.map(({ count, umbrellaStatus }) => (
+        <GroupedTaskStatusBadgeWrapper>
+          <Link
+            to={getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: escapeRegExp(buildVariantDisplayName),
-            })
-          );
-        return (
-          <GroupedTaskStatusBadgeWrapper>
+              variant: buildVariantId,
+            })}
+          >
             <GroupedTaskStatusBadge
               status={umbrellaStatus}
               key={`${umbrellaStatus}_groupedBadge`}
               count={count}
-              onClick={onClick}
             />
-          </GroupedTaskStatusBadgeWrapper>
-        );
-      })}
+          </Link>
+        </GroupedTaskStatusBadgeWrapper>
+      ))}
     </>
   );
 };
@@ -122,11 +120,11 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
-      <StyledRouterLink to={getTaskRoute(id)}>
+      <Link to={getTaskRoute(id)}>
         <IconButton key={`task_${id}`} aria-label="task icon">
           <TaskStatusIcon status={status} size={16} />
         </IconButton>
-      </StyledRouterLink>
+      </Link>
     ))}
   </>
 );
