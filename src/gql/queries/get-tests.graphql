@@ -13,7 +13,6 @@ query GetTests($execution: Int, $groupId: String, $taskId: String!) {
         urlLobster
       }
       testFile
-      displayTestName
     }
   }
 }

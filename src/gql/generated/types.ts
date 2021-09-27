@@ -2830,7 +2830,6 @@ export type TaskTestsQuery = {
       status: string;
       baseStatus?: Maybe<string>;
       duration?: Maybe<number>;
-      displayTestName?: Maybe<string>;
       logs: {
         url?: Maybe<string>;
         urlRaw?: Maybe<string>;
@@ -2953,7 +2952,6 @@ export type GetTestsQuery = {
     testResults: Array<{
       id: string;
       testFile: string;
-      displayTestName?: Maybe<string>;
       logs: { url?: Maybe<string>; urlLobster?: Maybe<string> };
     }>;
   };

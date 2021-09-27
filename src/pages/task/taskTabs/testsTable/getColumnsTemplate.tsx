@@ -34,9 +34,7 @@ export const getColumnsTemplate = ({
     dataIndex: "testFile",
     key: TestSortCategory.TestName,
     width: "40%",
-    render: (name, { displayTestName }) => (
-      <WordBreak>{displayTestName || name}</WordBreak>
-    ),
+    render: (testFile) => <WordBreak>{testFile}</WordBreak>,
     sorter: true,
     ...getColumnSearchFilterProps(testNameInputProps),
   },

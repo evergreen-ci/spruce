@@ -46,6 +46,7 @@ export const PatchNotificationModal: React.FC<ModalProps> = ({
       sendAnalyticsEvent={(subscription) =>
         patchAnalytics.sendEvent({ name: "Add Notification", subscription })
       }
+      type="version"
     />
   );
 };
