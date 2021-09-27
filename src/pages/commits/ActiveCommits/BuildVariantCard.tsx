@@ -92,7 +92,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   return (
     <>
       {otherTasks.map(({ count, umbrellaStatus }) => (
-        <GroupedTaskStatusBadgeWrapper>
+        <GroupedTaskStatusBadgeWrapper data-cy="grouped-task-status-badge">
           <Link
             to={getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
@@ -121,7 +121,7 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
-      <Link to={getTaskRoute(id)}>
+      <Link data-cy="task-status-icon" to={getTaskRoute(id)}>
         <IconButton key={`task_${id}`} aria-label="task icon">
           <TaskStatusIcon status={status} size={16} />
         </IconButton>
