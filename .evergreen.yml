@@ -396,6 +396,7 @@ buildvariants:
     - name: deploy_to_prod
       git_tag_only: true
       patchable: false
+      priority: 100
 
 post:
   - func: attach-results
