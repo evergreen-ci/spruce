@@ -14,15 +14,19 @@ describe("Downstream Tasks Tab", () => {
     cy.visit(DOWNSTREAM_TASKS_ROUTE);
 
     cy.dataCy("project-accordion").should("have.length", 3);
-
+    // wait is used to prevent clicking on a detached project-accordion element
+    // https://github.com/cypress-io/cypress/issues/7306
+    cy.wait(0);
     cy.dataCy("project-accordion").first().click();
     cy.dataCy("tasks-table").should("be.visible");
     cy.dataCy("project-title").should("be.visible");
   });
 
-  it("Correctly filters results", () => {
+  it("Filters by test name", () => {
     cy.get("tbody").first().children().should("have.length", 1);
-    cy.dataCy("task-name-input").first().type("filter");
+    cy.toggleTableFilter(1);
+    cy.dataCy("taskname-input-wrapper").find("input").focus().type("filter");
+    cy.dataCy("taskname-input-wrapper").contains("Filter").click();
     cy.get("tbody").first().contains("No Data");
   });
 

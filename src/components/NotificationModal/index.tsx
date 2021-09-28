@@ -33,6 +33,7 @@ interface NotificationModalProps extends UseNotificationModalProps {
   visible: boolean;
   onCancel: (e?: React.MouseEvent<HTMLElement, MouseEvent>) => void;
   "data-cy": string;
+  type: "task" | "version";
 }
 
 export const NotificationModal: React.FC<NotificationModalProps> = ({
@@ -44,6 +45,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
   resourceId,
   sendAnalyticsEvent,
   "data-cy": dataCy,
+  type,
 }) => {
   const dispatchToast = useToastContext();
   const [saveSubscription] = useMutation<
@@ -79,6 +81,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
     subscriptionMethodControls,
     triggers,
     resourceId,
+    type,
   });
   const onClickSave = () => {
     const subscription = getRequestPayload();
@@ -133,13 +136,13 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
           onChange={(v: number) => {
             setSelectedTriggerIndex(v);
           }}
-          data-test-id="when-select"
+          data-cy="when-select"
         >
           {triggers.map((t, i) => (
             <Option
-              key={`trigger_${t.payloadResourceIdKey}`}
+              key={`trigger_${t.trigger}_${t.resourceType}_${t.payloadResourceIdKey}`}
               value={i}
-              data-test-id={`trigger_${i}-option`}
+              data-cy={`trigger_${i}-option`}
             >
               {t.label}
             </Option>
@@ -191,18 +194,14 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
         </SectionLabelContainer>
         <StyledSelect
           id="notify-by-select"
-          data-test-id="notify-by-select"
+          data-cy="notify-by-select"
           value={selectedSubscriptionMethod}
           onChange={(v: string) => {
             setSelectedSubscriptionMethod(v);
           }}
         >
           {subscriptionMethodDropdownOptions.map((s) => (
-            <Option
-              key={s.value}
-              value={s.value}
-              data-test-id={`${s.value}-option`}
-            >
+            <Option key={s.value} value={s.value} data-cy={`${s.value}-option`}>
               {s.label}
             </Option>
           ))}
@@ -217,7 +216,7 @@ export const NotificationModal: React.FC<NotificationModalProps> = ({
             <StyledInput
               id="target"
               placeholder={placeholder}
-              data-test-id={`${targetPath}-input`}
+              data-cy={`${targetPath}-input`}
               onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                 const targetCopy = { ...target };
                 set(targetCopy, targetPath, event.target.value);

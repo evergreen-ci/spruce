@@ -1,6 +1,8 @@
 import { format, utcToZonedTime } from "date-fns-tz";
 import get from "lodash/get";
 
+export { githubPRLinkify } from "./githubPRLinkify";
+
 // shortenString takes a string and shortens it
 // Useful for displaying part of a long string, such as a long taskId
 export const shortenString = (

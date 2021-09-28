@@ -42,6 +42,7 @@ export const TaskNotificationModal: React.FC<ModalProps> = ({
       sendAnalyticsEvent={(subscription) =>
         taskAnalytics.sendEvent({ name: "Add Notification", subscription })
       }
+      type="task"
     />
   );
 };
@@ -74,6 +75,12 @@ const subscriptionMethodDropdownOptions = [
 ];
 
 export const triggers: Trigger[] = [
+  {
+    trigger: "task-started",
+    label: "This task starts",
+    resourceType: "TASK",
+    payloadResourceIdKey: "id",
+  },
   {
     trigger: "outcome",
     label: "This task finishes",

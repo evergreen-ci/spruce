@@ -6,7 +6,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import { Subtitle, Body } from "@leafygreen-ui/typography";
 import { format } from "date-fns";
 import { ConditionalWrapper } from "components/ConditionalWrapper";
-import { StyledLink, StyledRouterLink } from "components/styles/StyledLink";
+import { StyledLink, StyledRouterLink } from "components/styles";
 import { getGithubPullRequestUrl } from "constants/externalResources";
 import { getVersionRoute } from "constants/routes";
 import { useToastContext } from "context/toast";

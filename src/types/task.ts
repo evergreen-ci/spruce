@@ -22,14 +22,6 @@ export enum PatchTasksQueryParams {
   TaskName = "taskName",
 }
 
-export enum TestStatus {
-  Fail = "fail",
-  Skip = "skip",
-  SilentFail = "silentfail",
-  Pass = "pass",
-  All = "all",
-}
-
 export type TableOnChange<D> = TableProps<D>["onChange"];
 
 export enum TaskTab {
