@@ -125,6 +125,28 @@ const taskStatuses: TreeDataEntry[] = [
     ],
   },
   {
+    title: "Undispatched",
+    value: TaskStatus.UndispatchedUmbrella,
+    key: TaskStatus.UndispatchedUmbrella,
+    children: [
+      {
+        title: "Unschedlued",
+        value: TaskStatus.Unscheduled,
+        key: TaskStatus.Unscheduled,
+      },
+      {
+        title: "Aborted",
+        value: TaskStatus.Aborted,
+        key: TaskStatus.Aborted,
+      },
+      {
+        title: "Blocked",
+        value: TaskStatus.Blocked,
+        key: TaskStatus.Blocked,
+      },
+    ],
+  },
+  {
     title: "Setup Failed",
     value: TaskStatus.SetupFailed,
     key: TaskStatus.SetupFailed,
