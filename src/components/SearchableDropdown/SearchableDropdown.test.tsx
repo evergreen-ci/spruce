@@ -188,6 +188,8 @@ describe("SearchableDropdown", () => {
 
       expect(queryByText("Evergreen")).toBeInTheDocument();
       expect(queryByText("Spruce")).toBeInTheDocument();
+      expect(queryByText("Evergreen")).toBeInstanceOf(HTMLButtonElement);
+      expect(queryByText("Spruce")).toBeInstanceOf(HTMLButtonElement);
     });
 
     test("Should be able to click on custom elements", () => {

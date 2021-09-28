@@ -12,14 +12,14 @@ const { gray, white, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
   label: string | React.ReactNode;
-  value: string | T | string[] | T[];
-  onChange: (value: string | T | string[] | T[]) => void;
+  value: T | T[];
+  onChange: (value: T | T[]) => void;
   searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
   valuePlaceholder?: string;
   options: string[] | Array<T>;
   optionRenderer?: (
-    option: string | T,
+    option: T,
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
   ) => React.ReactNode;
@@ -72,7 +72,7 @@ const SearchableDropdown = <T extends {}>({
     }
   }, [options]);
 
-  const onClick = (v: string | T) => {
+  const onClick = (v: T) => {
     if (allowMultiselect) {
       if (Array.isArray(value)) {
         const newValue = toggleArray(v, value) as T[];
@@ -90,8 +90,8 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const option = optionRenderer
-    ? (v: string | T) => optionRenderer(v, onClick, isChecked)
-    : (v: string | T) => (
+    ? (v: T) => optionRenderer(v, onClick, isChecked)
+    : (v: T) => (
         <SearchableDropdownOption
           key={`searchable_dropdown_option_${v}`}
           value={v}
@@ -100,7 +100,7 @@ const SearchableDropdown = <T extends {}>({
         />
       );
 
-  const isChecked = (elementValue: string | T) => {
+  const isChecked = (elementValue: T) => {
     if (typeof value === "string") {
       return value === elementValue;
     }
@@ -184,8 +184,8 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  onClick: (v: string | T) => void;
-  value: string | T;
+  onClick: (v: T) => void;
+  value: T;
   isChecked?: boolean;
   displayName?: string;
 }

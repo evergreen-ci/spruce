@@ -53,7 +53,7 @@ export const ProjectSelect: React.FC<ProjectSelectProps> = ({
         fp.push({ name, projects: newProjects });
       }
       return fp;
-    }, [] as typeof allProjects);
+    }, [] as GetProjectsQuery["projects"]);
     return filteredProjects;
   };
 
