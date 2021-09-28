@@ -1,5 +1,3 @@
-import { mapTaskStatusToColor, taskStatusToCopy } from "constants/task";
-import { TaskStatus } from "types/task";
 import { groupStatusesByColor } from "./groupStatusesByColor";
 
 test("Separates statuses into groups based on the color of the status", () => {
@@ -13,33 +11,28 @@ test("Separates statuses into groups based on the color of the status", () => {
     stats: [
       {
         count: 6,
-        statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-        color: mapTaskStatusToColor[TaskStatus.Succeeded],
-        umbrellaStatus: TaskStatus.Succeeded,
+        statuses: ["Success"],
+        color: "#13AA52",
+        umbrellaStatus: "success",
       },
       {
         count: 2,
-        statuses: [taskStatusToCopy[TaskStatus.Failed]],
-        color: mapTaskStatusToColor[TaskStatus.Failed],
-        umbrellaStatus: TaskStatus.Failed,
+        statuses: ["Failed"],
+        color: "#CF4A22",
+        umbrellaStatus: "failed-umbrella",
       },
       {
-        count: 4,
-        statuses: [taskStatusToCopy[TaskStatus.Dispatched]],
-        color: mapTaskStatusToColor[TaskStatus.Dispatched],
-        umbrellaStatus: TaskStatus.Dispatched,
-      },
-      {
-        count: 5,
-        statuses: [taskStatusToCopy[TaskStatus.Started]],
-        color: mapTaskStatusToColor[TaskStatus.Started],
-        umbrellaStatus: TaskStatus.Started,
+        count: 9,
+        statuses: ["Dispatched", "Running"],
+        color: "#FFDD49",
+        umbrellaStatus: "running-umbrella",
       },
     ],
-    max: 6,
+    max: 9,
     total: 17,
   });
 });
+
 test("Groups statuses with different statuses but the same color", () => {
   const tasks = [
     { status: "test-timed-out", count: 6 },
@@ -53,36 +46,34 @@ test("Groups statuses with different statuses but the same color", () => {
     stats: [
       {
         count: 8,
-        statuses: [
-          taskStatusToCopy[TaskStatus.TestTimedOut],
-          taskStatusToCopy[TaskStatus.Failed],
-        ],
-        color: mapTaskStatusToColor[TaskStatus.Failed],
-        umbrellaStatus: TaskStatus.Failed,
+        statuses: ["Test Timed Out", "Failed"],
+        color: "#CF4A22",
+        umbrellaStatus: "failed-umbrella",
       },
       {
         count: 7,
-        statuses: [
-          taskStatusToCopy[TaskStatus.SystemTimedOut],
-          taskStatusToCopy[TaskStatus.SystemUnresponsive],
-        ],
-        color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
-        umbrellaStatus: TaskStatus.SystemFailed,
+        statuses: ["System Time Out", "System Unresponsive"],
+        color: "#E6CCE6",
+        umbrellaStatus: "system-failure-umbrella",
       },
       {
-        count: 6,
-        statuses: [
-          taskStatusToCopy[TaskStatus.Dispatched],
-          taskStatusToCopy[TaskStatus.WillRun],
-        ],
-        color: mapTaskStatusToColor[TaskStatus.Dispatched],
-        umbrellaStatus: TaskStatus.Dispatched,
+        count: 2,
+        statuses: ["Will Run"],
+        color: "#B8C4C2",
+        umbrellaStatus: "scheduled-umbrella",
+      },
+      {
+        count: 4,
+        statuses: ["Dispatched"],
+        color: "#FFDD49",
+        umbrellaStatus: "running-umbrella",
       },
     ],
     max: 8,
     total: 21,
   });
 });
+
 test("Returns the overall maximum and total", () => {
   const tasks = [
     { status: "task-timed-out", count: 6 },
@@ -98,48 +89,45 @@ test("Returns the overall maximum and total", () => {
     stats: [
       {
         count: 4,
-        statuses: [taskStatusToCopy[TaskStatus.Succeeded]],
-        color: mapTaskStatusToColor[TaskStatus.Succeeded],
-        umbrellaStatus: TaskStatus.Succeeded,
+        statuses: ["Success"],
+        color: "#13AA52",
+        umbrellaStatus: "success",
       },
       {
         count: 6,
-        statuses: [taskStatusToCopy[TaskStatus.TaskTimedOut]],
-        color: mapTaskStatusToColor[TaskStatus.Failed],
-        umbrellaStatus: TaskStatus.Failed,
+        statuses: ["Task Timed Out"],
+        color: "#CF4A22",
+        umbrellaStatus: "failed-umbrella",
       },
       {
         count: 7,
-        statuses: [
-          taskStatusToCopy[TaskStatus.SystemFailed],
-          taskStatusToCopy[TaskStatus.SystemUnresponsive],
-        ],
-        color: mapTaskStatusToColor[TaskStatus.SystemTimedOut],
-        umbrellaStatus: TaskStatus.SystemFailed,
+        statuses: ["System Failed", "System Unresponsive"],
+        color: "#E6CCE6",
+        umbrellaStatus: "system-failure-umbrella",
       },
       {
         count: 2,
-        statuses: [taskStatusToCopy[TaskStatus.Inactive]],
-        color: mapTaskStatusToColor[TaskStatus.Inactive],
-        umbrellaStatus: TaskStatus.Dispatched,
+        statuses: ["Inactive"],
+        color: "#B8C4C2",
+        umbrellaStatus: "inactive",
       },
       {
         count: 3,
-        statuses: [taskStatusToCopy[TaskStatus.SetupFailed]],
-        color: mapTaskStatusToColor[TaskStatus.SetupFailed],
-        umbrellaStatus: TaskStatus.SetupFailed,
+        statuses: ["Setup Failure"],
+        color: "#F3EDF5",
+        umbrellaStatus: "setup-failed",
       },
       {
         count: 3,
-        statuses: [taskStatusToCopy[TaskStatus.Started]],
-        color: mapTaskStatusToColor[TaskStatus.Started],
-        umbrellaStatus: TaskStatus.Started,
+        statuses: ["Running"],
+        color: "#FFDD49",
+        umbrellaStatus: "running-umbrella",
       },
       {
         count: 2,
-        statuses: [taskStatusToCopy[TaskStatus.Unscheduled]],
-        color: mapTaskStatusToColor[TaskStatus.Unscheduled],
-        umbrellaStatus: TaskStatus.Unscheduled,
+        statuses: ["Unscheduled"],
+        color: "#5D6C74",
+        umbrellaStatus: "undispatched-umbrella",
       },
     ],
     max: 7,
