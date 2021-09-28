@@ -266,4 +266,12 @@ describe("applyStrictRegex", () => {
   test("converts string to strict regex", () => {
     expect(applyStrictRegex("dog")).toEqual("^dog$");
   });
+  test("strict regex works as expected", () => {
+    const re = new RegExp(applyStrictRegex("dog"));
+    expect("d".match(re)).toBeFalsy();
+    expect("do".match(re)).toBeFalsy();
+    expect("dog".match(re)).toBeTruthy();
+    expect("dog ".match(re)).toBeFalsy();
+    expect("adog".match(re)).toBeFalsy();
+  });
 });
