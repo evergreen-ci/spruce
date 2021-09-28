@@ -32,127 +32,127 @@ export const taskStatusToCopy = {
 
 const taskStatuses: TreeDataEntry[] = [
   {
-    title: "Failures",
+    title: taskStatusToCopy[TaskStatus.FailedUmbrella],
     value: TaskStatus.FailedUmbrella,
     key: TaskStatus.FailedUmbrella,
     children: [
       {
-        title: "Failed",
+        title: taskStatusToCopy[TaskStatus.Failed],
         value: TaskStatus.Failed,
         key: TaskStatus.Failed,
       },
       {
-        title: "Task Timed Out",
+        title: taskStatusToCopy[TaskStatus.TaskTimedOut],
         value: TaskStatus.TaskTimedOut,
         key: TaskStatus.TaskTimedOut,
       },
       {
-        title: "Test Timed Out",
+        title: taskStatusToCopy[TaskStatus.TestTimedOut],
         value: TaskStatus.TestTimedOut,
         key: TaskStatus.TestTimedOut,
       },
       {
-        title: "Known Issue",
+        title: taskStatusToCopy[TaskStatus.KnownIssue],
         value: TaskStatus.KnownIssue,
         key: TaskStatus.KnownIssue,
       },
     ],
   },
   {
-    title: "Success",
+    title: taskStatusToCopy[TaskStatus.Succeeded],
     value: TaskStatus.Succeeded,
     key: TaskStatus.Succeeded,
   },
   {
-    title: "Running",
+    title: taskStatusToCopy[TaskStatus.RunningUmbrella],
     value: TaskStatus.RunningUmbrella,
     key: TaskStatus.RunningUmbrella,
     children: [
       {
-        title: "Running",
+        title: taskStatusToCopy[TaskStatus.Started],
         value: TaskStatus.Started,
         key: TaskStatus.Started,
       },
       {
-        title: "Dispatched",
+        title: taskStatusToCopy[TaskStatus.Dispatched],
         value: TaskStatus.Dispatched,
         key: TaskStatus.Dispatched,
       },
     ],
   },
   {
-    title: "Scheduled",
+    title: taskStatusToCopy[TaskStatus.ScheduledUmbrella],
     value: TaskStatus.ScheduledUmbrella,
     key: TaskStatus.ScheduledUmbrella,
     children: [
       {
-        title: "Will Run",
+        title: taskStatusToCopy[TaskStatus.WillRun],
         value: TaskStatus.WillRun,
         key: TaskStatus.WillRun,
       },
       {
-        title: "Pending",
+        title: taskStatusToCopy[TaskStatus.Pending],
         value: TaskStatus.Pending,
         key: TaskStatus.Pending,
       },
       {
-        title: "Unstarted",
+        title: taskStatusToCopy[TaskStatus.Unstarted],
         value: TaskStatus.Unstarted,
         key: TaskStatus.Unstarted,
       },
     ],
   },
   {
-    title: "System Failure",
+    title: taskStatusToCopy[TaskStatus.SystemFailureUmbrella],
     value: TaskStatus.SystemFailureUmbrella,
     key: TaskStatus.SystemFailureUmbrella,
     children: [
       {
-        title: "System Failed",
+        title: taskStatusToCopy[TaskStatus.SystemFailed],
         value: TaskStatus.SystemFailed,
         key: TaskStatus.SystemFailed,
       },
       {
-        title: "System Timed Out",
+        title: taskStatusToCopy[TaskStatus.SystemTimedOut],
         value: TaskStatus.SystemTimedOut,
         key: TaskStatus.SystemTimedOut,
       },
       {
-        title: "System Unresponsive",
+        title: taskStatusToCopy[TaskStatus.SystemUnresponsive],
         value: TaskStatus.SystemUnresponsive,
         key: TaskStatus.SystemUnresponsive,
       },
     ],
   },
   {
-    title: "Undispatched",
+    title: taskStatusToCopy[TaskStatus.UndispatchedUmbrella],
     value: TaskStatus.UndispatchedUmbrella,
     key: TaskStatus.UndispatchedUmbrella,
     children: [
       {
-        title: "Unschedlued",
+        title: taskStatusToCopy[TaskStatus.Unscheduled],
         value: TaskStatus.Unscheduled,
         key: TaskStatus.Unscheduled,
       },
       {
-        title: "Aborted",
+        title: taskStatusToCopy[TaskStatus.Aborted],
         value: TaskStatus.Aborted,
         key: TaskStatus.Aborted,
       },
       {
-        title: "Blocked",
+        title: taskStatusToCopy[TaskStatus.Blocked],
         value: TaskStatus.Blocked,
         key: TaskStatus.Blocked,
       },
     ],
   },
   {
-    title: "Setup Failed",
+    title: taskStatusToCopy[TaskStatus.SetupFailed],
     value: TaskStatus.SetupFailed,
     key: TaskStatus.SetupFailed,
   },
   {
-    title: "Won't Run",
+    title: taskStatusToCopy[TaskStatus.Inactive],
     value: TaskStatus.Inactive,
     key: TaskStatus.Inactive,
   },
