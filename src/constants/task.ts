@@ -160,19 +160,18 @@ const taskStatuses: TreeDataEntry[] = [
 
 export const mapTaskStatusToUmbrellaStatus: {
   [key: string]: string;
-} = taskStatuses.reduce(
-  // Iterate over task statuses, a list of TreeDataEntry.
-  (accum, { value, children }) => ({
+} = taskStatuses.reduce((accum, { value: parentValue, children }) => {
+  const childrenParentMapping = children
+    ? children.reduce(
+        (cAccum, child) => ({ ...cAccum, [child.value]: parentValue }),
+        {}
+      )
+    : { [parentValue]: parentValue };
+  return {
     ...accum,
-    ...(children // If a children key exists, assign them to their parent and expand.
-      ? children.reduce(
-          (cAccum, child) => ({ ...cAccum, [child.value]: value }),
-          {}
-        )
-      : { [value]: value }), // If no children key exists, assign the parent value to itself.
-  }),
-  {}
-);
+    ...childrenParentMapping,
+  };
+}, {});
 
 export const mapUmbrellaStatusToQueryParam: {
   [key: string]: string[];
