@@ -268,7 +268,7 @@ export const mapBadgeColors = {
     text: red.dark2,
   },
   [TaskStatus.SetupFailed]: {
-    fill: " #f1f0fc",
+    fill: "#f1f0fc",
     border: "#d5d4f9",
     text: "#4f4fbf",
   },
@@ -313,9 +313,9 @@ export const mapBadgeColors = {
     text: yellow.dark2,
   },
   [TaskStatus.SystemFailureUmbrella]: {
-    fill: " #f1f0fc",
-    border: "#d5d4f9",
-    text: "#4f4fbf",
+    fill: "#4f4fbf",
+    border: "#36367f",
+    text: "#f1f0fc",
   },
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
