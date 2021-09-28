@@ -85,13 +85,9 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   const { stats } = groupStatusesByColor(
     tasks.map((task) => ({ ...task, count: 1 }))
   );
-  // get all the umbrellaStatus that are not Failed
-  const otherTasks = stats.filter(
-    (stat) => !isFailedTaskStatus(stat.umbrellaStatus)
-  );
   return (
     <>
-      {otherTasks.map(({ count, umbrellaStatus }) => (
+      {stats.map(({ count, umbrellaStatus }) => (
         <GroupedTaskStatusBadgeWrapper
           key={umbrellaStatus}
           data-cy="grouped-task-status-badge"
