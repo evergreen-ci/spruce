@@ -91,23 +91,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -127,22 +132,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -241,23 +252,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -277,23 +293,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -410,22 +431,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -445,23 +472,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -491,10 +523,10 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
             height="16.666666666666664%"
           />
           <div
-            className="css-14bpbph-Bar e1tzsy280"
+            className="css-l5ow5h-Bar e1tzsy280"
             color="#B8C4C2"
             data-cy="commit-chart-bar"
-            height="66.66666666666666%"
+            height="25%"
           />
           <div
             className="css-13z1it4-Bar e1tzsy280"
@@ -554,22 +586,28 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -589,23 +627,29 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-5yec2p-BadgeContainer emc61an2"
-                fill="#E4F4E4"
+              <a
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=success&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-5yec2p-BadgeContainer emc61an2"
+                  fill="#E4F4E4"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Success
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Success
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -641,16 +685,16 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
             height="16.666666666666664%"
           />
           <div
-            className="css-s0dnis-Bar e1tzsy280"
+            className="css-dpkgkq-Bar e1tzsy280"
             color="#B8C4C2"
             data-cy="commit-chart-bar"
-            height="50%"
+            height="16.666666666666664%"
           />
           <div
-            className="css-7xv9na-Bar e1tzsy280"
+            className="css-1kcoqbt-Bar e1tzsy280"
             color="#FFDD49"
             data-cy="commit-chart-bar"
-            height="41.66666666666667%"
+            height="75%"
           />
         </div>
         <div
@@ -705,35 +749,40 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           <div
             className="css-861jo7-IconContainer ek3nkvx2"
           >
-            <button
-              aria-disabled={false}
-              aria-label="task icon"
-              className="leafygreen-ui-wn45f0"
+            <a
+              data-cy="task-status-icon"
+              href="/task/code_health"
               onClick={[Function]}
-              tabIndex={0}
             >
-              <div
-                className="leafygreen-ui-xhlipt"
+              <button
+                aria-disabled={false}
+                aria-label="task icon"
+                className="leafygreen-ui-wn45f0"
+                tabIndex={0}
               >
-                <svg
-                  aria-label="X Icon"
-                  className="leafygreen-ui-14toih"
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  className="leafygreen-ui-xhlipt"
                 >
-                  <path
-                    clipRule="evenodd"
-                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </button>
+                  <svg
+                    aria-label="X Icon"
+                    className="leafygreen-ui-14toih"
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </a>
           </div>
         </div>
         <div
@@ -750,35 +799,40 @@ exports[`Storyshots Project Health Page Waterfall Absolute 1`] = `
           <div
             className="css-861jo7-IconContainer ek3nkvx2"
           >
-            <button
-              aria-disabled={false}
-              aria-label="task icon"
-              className="leafygreen-ui-wn45f0"
+            <a
+              data-cy="task-status-icon"
+              href="/task/code_health"
               onClick={[Function]}
-              tabIndex={0}
             >
-              <div
-                className="leafygreen-ui-xhlipt"
+              <button
+                aria-disabled={false}
+                aria-label="task icon"
+                className="leafygreen-ui-wn45f0"
+                tabIndex={0}
               >
-                <svg
-                  aria-label="X Icon"
-                  className="leafygreen-ui-14toih"
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  className="leafygreen-ui-xhlipt"
                 >
-                  <path
-                    clipRule="evenodd"
-                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </button>
+                  <svg
+                    aria-label="X Icon"
+                    className="leafygreen-ui-14toih"
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </a>
           </div>
         </div>
       </div>
@@ -900,23 +954,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -936,22 +995,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_987bf57eb679c6361322c3961b30a10724a9b001/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1050,23 +1115,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1086,23 +1156,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_v2.11.1_60eda8722a60ed09bb78a2ff/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1219,22 +1294,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1254,23 +1335,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-1gp0ja9-BadgeContainer emc61an2"
-                fill="#FEF7E3"
+              <a
+                href="/version/spruce_9c1d1ebc85829d69dde7684fbcce86dd21e5a9ad/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Running
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1300,10 +1386,10 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
             height="16.666666666666664%"
           />
           <div
-            className="css-14bpbph-Bar e1tzsy280"
+            className="css-l5ow5h-Bar e1tzsy280"
             color="#B8C4C2"
             data-cy="commit-chart-bar"
-            height="66.66666666666666%"
+            height="25%"
           />
           <div
             className="css-13z1it4-Bar e1tzsy280"
@@ -1363,22 +1449,28 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-fcl8rt-BadgeContainer emc61an2"
+              <a
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-fcl8rt-BadgeContainer emc61an2"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Dispatched
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Scheduled
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1398,23 +1490,29 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           >
             <div
               className="css-7w5aph-GroupedTaskStatusBadgeWrapper ek3nkvx0"
+              data-cy="grouped-task-status-badge"
             >
-              <div
-                className="css-5yec2p-BadgeContainer emc61an2"
-                fill="#E4F4E4"
+              <a
+                href="/version/spruce_f7f7f1a3abdb9897dfc02b7a1de9821651b0916e/tasks?statuses=success&variant=%5Eundefined%24"
                 onClick={[Function]}
               >
-                <span
-                  className="css-wtl5ix-Number emc61an1"
+                <div
+                  className="css-5yec2p-BadgeContainer emc61an2"
+                  fill="#E4F4E4"
+                  onClick={[Function]}
                 >
-                  1
-                </span>
-                <span
-                  className="css-4dluyx-Status emc61an0"
-                >
-                  Success
-                </span>
-              </div>
+                  <span
+                    className="css-wtl5ix-Number emc61an1"
+                  >
+                    1
+                  </span>
+                  <span
+                    className="css-4dluyx-Status emc61an0"
+                  >
+                    Success
+                  </span>
+                </div>
+              </a>
             </div>
           </div>
           <div
@@ -1450,16 +1548,16 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
             height="16.666666666666664%"
           />
           <div
-            className="css-s0dnis-Bar e1tzsy280"
+            className="css-dpkgkq-Bar e1tzsy280"
             color="#B8C4C2"
             data-cy="commit-chart-bar"
-            height="50%"
+            height="16.666666666666664%"
           />
           <div
-            className="css-7xv9na-Bar e1tzsy280"
+            className="css-1kcoqbt-Bar e1tzsy280"
             color="#FFDD49"
             data-cy="commit-chart-bar"
-            height="41.66666666666667%"
+            height="75%"
           />
         </div>
         <div
@@ -1514,35 +1612,40 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           <div
             className="css-861jo7-IconContainer ek3nkvx2"
           >
-            <button
-              aria-disabled={false}
-              aria-label="task icon"
-              className="leafygreen-ui-wn45f0"
+            <a
+              data-cy="task-status-icon"
+              href="/task/code_health"
               onClick={[Function]}
-              tabIndex={0}
             >
-              <div
-                className="leafygreen-ui-xhlipt"
+              <button
+                aria-disabled={false}
+                aria-label="task icon"
+                className="leafygreen-ui-wn45f0"
+                tabIndex={0}
               >
-                <svg
-                  aria-label="X Icon"
-                  className="leafygreen-ui-14toih"
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  className="leafygreen-ui-xhlipt"
                 >
-                  <path
-                    clipRule="evenodd"
-                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </button>
+                  <svg
+                    aria-label="X Icon"
+                    className="leafygreen-ui-14toih"
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </a>
           </div>
         </div>
         <div
@@ -1559,35 +1662,40 @@ exports[`Storyshots Project Health Page Waterfall Percentage 1`] = `
           <div
             className="css-861jo7-IconContainer ek3nkvx2"
           >
-            <button
-              aria-disabled={false}
-              aria-label="task icon"
-              className="leafygreen-ui-wn45f0"
+            <a
+              data-cy="task-status-icon"
+              href="/task/code_health"
               onClick={[Function]}
-              tabIndex={0}
             >
-              <div
-                className="leafygreen-ui-xhlipt"
+              <button
+                aria-disabled={false}
+                aria-label="task icon"
+                className="leafygreen-ui-wn45f0"
+                tabIndex={0}
               >
-                <svg
-                  aria-label="X Icon"
-                  className="leafygreen-ui-14toih"
-                  fill="none"
-                  height={16}
-                  role="img"
-                  viewBox="0 0 16 16"
-                  width={16}
-                  xmlns="http://www.w3.org/2000/svg"
+                <div
+                  className="leafygreen-ui-xhlipt"
                 >
-                  <path
-                    clipRule="evenodd"
-                    d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
-                    fill="currentColor"
-                    fillRule="evenodd"
-                  />
-                </svg>
-              </div>
-            </button>
+                  <svg
+                    aria-label="X Icon"
+                    className="leafygreen-ui-14toih"
+                    fill="none"
+                    height={16}
+                    role="img"
+                    viewBox="0 0 16 16"
+                    width={16}
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      clipRule="evenodd"
+                      d="M12.203 3.404a1 1 0 00-1.414 0L8.314 5.879 5.839 3.404a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L6.192 8l-2.474 2.475a1 1 0 000 1.414l.707.707a1 1 0 001.414 0l2.475-2.475 2.475 2.475a1 1 0 001.414 0l.707-.707a1 1 0 000-1.414L10.435 8l2.475-2.475a1 1 0 000-1.414l-.707-.707z"
+                      fill="currentColor"
+                      fillRule="evenodd"
+                    />
+                  </svg>
+                </div>
+              </button>
+            </a>
           </div>
         </div>
       </div>

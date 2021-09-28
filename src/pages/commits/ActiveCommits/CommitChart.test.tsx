@@ -68,7 +68,7 @@ describe("CommitChart", () => {
     expect(queryAllByDataCy("current-status-count")).toHaveLength(4);
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("6");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("2");
-    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("5");
+    expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("9");
     expect(queryByDataCy("commit-chart-tooltip")).toHaveTextContent("0");
   });
 });

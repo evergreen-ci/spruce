@@ -37,8 +37,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-i119zf-BadgeContainer emc61an2"
-    fill="#FCEBE2"
+    className="css-fcl8rt-BadgeContainer emc61an2"
     onClick={[Function]}
   >
     <span
@@ -53,8 +52,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-1gp0ja9-BadgeContainer emc61an2"
-    fill="#FEF7E3"
+    className="css-fcl8rt-BadgeContainer emc61an2"
     onClick={[Function]}
   >
     <span
@@ -69,8 +67,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-q8apdg-BadgeContainer emc61an2"
-    fill="#4f4fbf"
+    className="css-fcl8rt-BadgeContainer emc61an2"
     onClick={[Function]}
   >
     <span
@@ -81,7 +78,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     <span
       className="css-4dluyx-Status emc61an0"
     >
-      System Failed
+      System Failures
     </span>
   </div>
   <div
@@ -117,8 +114,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-1seowmo-BadgeContainer emc61an2"
-    fill="#F9FBFA"
+    className="css-fcl8rt-BadgeContainer emc61an2"
     onClick={[Function]}
   >
     <span
@@ -133,8 +129,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-1jueq6p-BadgeContainer emc61an2"
-    fill="#5D6C74"
+    className="css-fcl8rt-BadgeContainer emc61an2"
     onClick={[Function]}
   >
     <span
@@ -145,7 +140,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     <span
       className="css-4dluyx-Status emc61an0"
     >
-      Will Run
+      Scheduled
     </span>
   </div>
 </div>
