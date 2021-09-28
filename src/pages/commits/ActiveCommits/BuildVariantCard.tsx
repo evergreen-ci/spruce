@@ -13,7 +13,7 @@ import { applyStrictRegex } from "utils/string";
 const { gray } = uiColors;
 
 interface Props {
-  buildVariantId: string;
+  variant: string;
   buildVariantDisplayName: string;
   tasks?: {
     id: string;
@@ -24,7 +24,7 @@ interface Props {
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
-  buildVariantId,
+  variant,
   tasks,
   shouldGroupTasks,
   versionId,
@@ -43,7 +43,7 @@ export const BuildVariantCard: React.FC<Props> = ({
           <RenderGroupedIcons
             tasks={nonFailingTasks}
             versionId={versionId}
-            buildVariantId={buildVariantId}
+            variant={variant}
           />
         </IconContainer>
         <IconContainer>
@@ -62,7 +62,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   }
   return (
     <Container>
-      <Label key={buildVariantId}>{buildVariantDisplayName}</Label>
+      <Label>{buildVariantDisplayName}</Label>
       {render}
     </Container>
   );
@@ -74,12 +74,12 @@ interface RenderGroupedIconsProps {
     status: string;
   }[];
   versionId: string;
-  buildVariantId: string;
+  variant: string;
 }
 const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   tasks,
   versionId,
-  buildVariantId,
+  variant,
 }) => {
   // get the count of the amount of tasks in each status
   const { stats } = groupStatusesByColor(
@@ -92,18 +92,17 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   return (
     <>
       {otherTasks.map(({ count, umbrellaStatus }) => (
-        <GroupedTaskStatusBadgeWrapper data-cy="grouped-task-status-badge">
+        <GroupedTaskStatusBadgeWrapper
+          key={umbrellaStatus}
+          data-cy="grouped-task-status-badge"
+        >
           <Link
             to={getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: applyStrictRegex(buildVariantId),
+              variant: applyStrictRegex(variant),
             })}
           >
-            <GroupedTaskStatusBadge
-              status={umbrellaStatus}
-              key={`${umbrellaStatus}_${versionId}_${buildVariantId}_groupedBadge`}
-              count={count}
-            />
+            <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />
           </Link>
         </GroupedTaskStatusBadgeWrapper>
       ))}

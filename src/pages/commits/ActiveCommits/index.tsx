@@ -44,7 +44,7 @@ export const ActiveCommit: React.FC<Props> = ({
         <BuildVariantCard
           versionId={version.id}
           buildVariantDisplayName={displayName}
-          buildVariantId={variant}
+          variant={variant}
           tasks={tasks}
           key={`${version.id}_${variant}`}
           shouldGroupTasks={!hasTaskFilter}
