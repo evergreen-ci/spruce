@@ -121,8 +121,8 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
-      <Link data-cy="task-status-icon" to={getTaskRoute(id)}>
-        <IconButton key={`task_${id}`} aria-label="task icon">
+      <Link data-cy="task-status-icon" to={getTaskRoute(id)} key={`task_${id}`}>
+        <IconButton aria-label="task icon">
           <TaskStatusIcon status={status} size={16} />
         </IconButton>
       </Link>
