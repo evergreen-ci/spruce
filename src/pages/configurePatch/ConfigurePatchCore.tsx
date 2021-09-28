@@ -1,3 +1,4 @@
+import { useMemo } from "react";
 import { useMutation } from "@apollo/client";
 import styled from "@emotion/styled";
 import { Tab } from "@leafygreen-ui/tabs";
@@ -25,6 +26,7 @@ import {
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
   AliasState,
+  ChildPatchComplete,
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
@@ -50,9 +52,22 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   } = patch;
   const { variants } = project;
 
-  const selectableAliases = filterAliases(
-    patchTriggerAliases,
-    childPatchAliases || []
+  const childPatchesWithAliases: ChildPatchComplete[] = childPatches.map(
+    (cp) => {
+      const { alias = id } =
+        childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
+      return { ...cp, alias };
+    }
+  );
+
+  const selectableAliases = useMemo(
+    () => filterAliases(patchTriggerAliases, childPatchAliases || []),
+    [patchTriggerAliases, childPatchAliases]
+  );
+
+  const initialPatch = useMemo(
+    () => ({ ...patch, patchTriggerAliases: selectableAliases }),
+    [patch, selectableAliases]
   );
 
   const {
@@ -69,7 +84,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
     setSelectedBuildVariants,
     setSelectedBuildVariantTasks,
     setSelectedTab,
-  } = useConfigurePatch(patch, variants);
+  } = useConfigurePatch(initialPatch, variants);
 
   const [schedulePatch, { loading: loadingScheduledPatch }] = useMutation<
     SchedulePatchMutation,
@@ -133,7 +148,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                 selectableAliases,
                 selectedAliases
               ),
-              ...getChildPatchEntries(childPatches, childPatchAliases || []),
+              ...getChildPatchEntries(childPatchesWithAliases),
             ]}
             selectedBuildVariants={selectedBuildVariants}
             setSelectedBuildVariants={setSelectedBuildVariants}
@@ -157,7 +172,8 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
                   onClickSchedule={onClickSchedule}
                   selectedAliases={selectedAliases}
                   setSelectedAliases={setSelectedAliases}
-                  childPatches={childPatches}
+                  childPatches={childPatchesWithAliases}
+                  selectableAliases={selectableAliases}
                 />
               </Tab>
               <Tab data-cy="changes-tab" name="Changes">
@@ -197,29 +213,24 @@ const getPatchTriggerAliasEntries = (
   if (!selectableAliases) {
     return [];
   }
-  return selectableAliases.map(({ alias, childProject }) => ({
+  return selectableAliases.map(({ alias, childProject, variantsTasks }) => ({
     displayName: `${alias} (${childProject})`,
     name: alias,
-    taskCount: selectedAliases[alias] ? 1 : 0,
+    taskCount: selectedAliases[alias]
+      ? variantsTasks.reduce((count, { tasks }) => count + tasks.length, 0)
+      : 0,
   }));
 };
 
-const getChildPatchEntries = (
-  childPatches: ConfigurePatchQuery["patch"]["childPatches"],
-  childPatchAliases: ChildPatchAlias[]
-) => {
+const getChildPatchEntries = (childPatches: ChildPatchComplete[]) => {
   if (!childPatches) {
     return [];
   }
-  return childPatches.map(({ id, projectIdentifier, variantsTasks }) => {
-    const { alias = id } =
-      childPatchAliases.find(({ patchId }) => id === patchId) || {};
-    return {
-      displayName: `${alias} (${projectIdentifier})`,
-      name: `${alias}-${projectIdentifier}`,
-      taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
-    };
-  });
+  return childPatches.map(({ alias, projectIdentifier, variantsTasks }) => ({
+    displayName: `${alias} (${projectIdentifier})`,
+    name: alias,
+    taskCount: variantsTasks.reduce((c, v) => c + v.tasks.length, 0),
+  }));
 };
 
 const toGQLVariantTasksType = (
@@ -247,7 +258,7 @@ const toGQLAliasType = (selectedAliases: AliasState) =>
 const filterAliases = (
   patchTriggerAliases: PatchTriggerAlias[],
   childPatchAliases: ChildPatchAlias[]
-) => {
+): PatchTriggerAlias[] => {
   const invokedAliases = new Set(childPatchAliases.map(({ alias }) => alias));
   return patchTriggerAliases.filter(({ alias }) => !invokedAliases.has(alias));
 };

@@ -5,8 +5,12 @@ import Checkbox from "@leafygreen-ui/checkbox";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
-import { ConfigurePatchQuery } from "gql/generated/types";
-import { AliasState, VariantTasksState } from "hooks/useConfigurePatch";
+import { PatchTriggerAlias } from "gql/generated/types";
+import {
+  AliasState,
+  ChildPatchComplete,
+  VariantTasksState,
+} from "hooks/useConfigurePatch";
 
 enum CheckboxState {
   CHECKED = "CHECKED",
@@ -22,7 +26,8 @@ interface Props {
   onClickSchedule: () => void;
   selectedAliases: AliasState;
   setSelectedAliases: (aliases: AliasState) => void;
-  childPatches: ConfigurePatchQuery["patch"]["childPatches"];
+  childPatches: ChildPatchComplete[];
+  selectableAliases: PatchTriggerAlias[];
 }
 
 export const ConfigureTasks: React.FC<Props> = ({
@@ -35,6 +40,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   selectedAliases,
   setSelectedAliases,
   childPatches,
+  selectableAliases,
 }) => {
   const aliasCount = Object.values(selectedAliases).reduce(
     (count, alias) => count + (alias ? 1 : 0),
@@ -60,6 +66,9 @@ export const ConfigureTasks: React.FC<Props> = ({
     selectedAliases,
     selectedBuildVariants
   );
+  const currentAliasTasks = selectableAliases.filter(({ alias }) =>
+    selectedBuildVariants.includes(alias)
+  );
   const currentChildPatches = getVisibleChildPatches(
     childPatches,
     selectedBuildVariants
@@ -68,6 +77,8 @@ export const ConfigureTasks: React.FC<Props> = ({
   // Show details related to child patches (i.e. list all variants/tasks) only if it is the only menu item selected
   const enumerateChildPatches =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
+  const enumerateAliases =
+    currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
   const onClickCheckbox = (taskName: string) => (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
@@ -106,11 +117,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
   const selectAllCheckboxCopy =
     Object.entries(currentTasks).length === 0
-      ? `Select all tasks in ${
-          selectedBuildVariants.length > 1
-            ? "these trigger aliases"
-            : "this trigger alias"
-        }`
+      ? `Add alias${selectedBuildVariants.length > 1 ? "es" : ""} to patch`
       : `Select all tasks in ${
           selectedBuildVariants.length > 1 ? "these variants" : "this variant"
         }`;
@@ -159,8 +166,9 @@ export const ConfigureTasks: React.FC<Props> = ({
           />
         ))}
       </Tasks>
-      {/* Include a checkbox representing trigger aliases only if multiple sidebar items are selected */}
-      {selectedBuildVariants.length > 1 && (
+      {/* Include a checkbox representing downstream tasks only if a child patch or alias is selected */}
+      {(Object.entries(currentAliases).length > 0 ||
+        currentChildPatches.length > 0) && (
         <>
           <H4>Downstream Tasks</H4>
           <Tasks>
@@ -176,11 +184,11 @@ export const ConfigureTasks: React.FC<Props> = ({
               />
             ))}
             {/* Represent child patches invoked from CLI as read-only */}
-            {currentChildPatches.map(({ projectIdentifier }) => (
+            {currentChildPatches.map(({ alias }) => (
               <Checkbox
                 data-cy="child-patch-checkbox"
-                key={projectIdentifier}
-                label={projectIdentifier}
+                key={alias}
+                label={alias}
                 disabled
                 checked
               />
@@ -190,22 +198,23 @@ export const ConfigureTasks: React.FC<Props> = ({
       )}
       {enumerateChildPatches && (
         <>
-          {currentChildPatches[0].variantsTasks.map(
-            ({ name, tasks: taskList }) => (
-              <>
-                <H4>{name}</H4>
-                <Tasks>
-                  {taskList.map((taskName) => (
-                    <Checkbox
-                      data-cy="child-patch-checkbox"
-                      key={taskName}
-                      label={taskName}
-                      checked
-                      disabled
-                    />
-                  ))}
-                </Tasks>
-              </>
+          {currentChildPatches[0].variantsTasks.map((variantTasks) => (
+            <VariantTasksList
+              {...variantTasks}
+              status={CheckboxState.CHECKED}
+            />
+          ))}
+        </>
+      )}
+      {enumerateAliases && (
+        <>
+          {currentAliasTasks[0].variantsTasks.map(
+            ({ name, tasks: aliasTasks }) => (
+              <VariantTasksList
+                name={name}
+                status={currentAliases[currentAliasTasks[0].alias]}
+                tasks={aliasTasks}
+              />
             )
           )}
         </>
@@ -213,6 +222,33 @@ export const ConfigureTasks: React.FC<Props> = ({
     </TabContentWrapper>
   );
 };
+
+interface VariantTasksListProps {
+  name: string;
+  status: CheckboxState;
+  tasks: string[];
+}
+
+const VariantTasksList: React.FC<VariantTasksListProps> = ({
+  name,
+  status,
+  tasks,
+}) => (
+  <>
+    <H4>{name}</H4>
+    <Tasks>
+      {tasks.map((taskName) => (
+        <Checkbox
+          data-cy="child-patch-checkbox"
+          key={taskName}
+          label={taskName}
+          checked={status === CheckboxState.CHECKED}
+          disabled
+        />
+      ))}
+    </Tasks>
+  </>
+);
 
 const getSelectAllCheckboxState = (
   buildVariants: {
@@ -263,13 +299,16 @@ const getVisibleAliases = (
   return visiblePatches;
 };
 
-const getVisibleChildPatches = (childPatches, selectedBuildVariants) => {
+const getVisibleChildPatches = (
+  childPatches: ChildPatchComplete[],
+  selectedBuildVariants: string[]
+): ChildPatchComplete[] => {
   if (!childPatches) {
     return [];
   }
 
-  return childPatches.filter(({ projectIdentifier }) =>
-    selectedBuildVariants.includes(projectIdentifier)
+  return childPatches.filter(({ alias }) =>
+    selectedBuildVariants.includes(alias)
   );
 };
 

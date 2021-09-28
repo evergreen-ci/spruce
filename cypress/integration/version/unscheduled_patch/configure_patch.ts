@@ -457,7 +457,7 @@ describe("Configure Patch Page", () => {
       it("Should update the 'Select all' label", () => {
         cy.dataCy("select-all-checkbox")
           .siblings("span")
-          .contains("Select all tasks in this trigger alias");
+          .contains("Add alias to patch");
       });
 
       it("Clicking select all should update the task count", () => {

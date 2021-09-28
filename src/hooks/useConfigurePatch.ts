@@ -115,6 +115,14 @@ const tabToIndexMap = {
   [PatchTab.Parameters]: 2,
 };
 
+// Extract the type of a child patch from array of child patches in this query so we can add an alias field
+type Unpacked<T> = T extends (infer U)[] ? U : T;
+
+export interface ChildPatchComplete
+  extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
+  alias: string;
+}
+
 export type AliasState = {
   [alias: string]: boolean;
 };

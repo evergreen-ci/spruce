@@ -812,6 +812,7 @@ export type PatchTriggerAlias = {
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
+  variantsTasks: Array<Maybe<VariantTask>>;
 };
 
 export type UserPatches = {
@@ -2599,7 +2600,11 @@ export type ConfigurePatchQuery = {
         variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
       }>
     >;
-    patchTriggerAliases: Array<{ alias: string; childProject: string }>;
+    patchTriggerAliases: Array<{
+      alias: string;
+      childProject: string;
+      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
 };
