@@ -1001,6 +1001,8 @@ export type Dependency = {
   metStatus: MetStatus;
   requiredStatus: RequiredStatus;
   buildVariant: Scalars["String"];
+  taskId: Scalars["String"];
+  /** @deprecated uiLink is deprecated and should not be used */
   uiLink: Scalars["String"];
 };
 
@@ -1075,7 +1077,10 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
+  /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
+  dependsOn?: Maybe<Array<Dependency>>;
+  canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
@@ -2856,6 +2861,7 @@ export type GetTaskQuery = {
       hostId?: Maybe<string>;
       projectId: string;
       patchNumber?: Maybe<number>;
+      canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;
       timeTaken?: Maybe<number>;
       version: string;
@@ -2914,13 +2920,15 @@ export type GetTaskQuery = {
         project: string;
       };
       project?: Maybe<{ identifier: string }>;
-      reliesOn: Array<{
-        buildVariant: string;
-        metStatus: MetStatus;
-        name: string;
-        requiredStatus: RequiredStatus;
-        uiLink: string;
-      }>;
+      dependsOn?: Maybe<
+        Array<{
+          buildVariant: string;
+          metStatus: MetStatus;
+          name: string;
+          requiredStatus: RequiredStatus;
+          taskId: string;
+        }>
+      >;
       logs: {
         allLogLink?: Maybe<string>;
         agentLogLink?: Maybe<string>;

@@ -33,7 +33,6 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
-import { TaskStatus } from "types/task";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -43,7 +42,7 @@ interface Props {
   canSchedule: boolean;
   canUnschedule: boolean;
   canSetPriority: boolean;
-  status: string;
+  canOverrideDependencies: boolean;
 }
 
 export const ActionButtons: React.FC<Props> = ({
@@ -53,7 +52,7 @@ export const ActionButtons: React.FC<Props> = ({
   canSetPriority,
   canUnschedule,
   initialPriority = 1,
-  status,
+  canOverrideDependencies,
 }) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -159,8 +158,6 @@ export const ActionButtons: React.FC<Props> = ({
     loadingScheduleTask ||
     loadingOverrideTaskDependencies;
 
-  const canOverrideDependencies =
-    status === TaskStatus.Blocked || status === TaskStatus.WillRun;
   const dropdownItems = [
     <DropdownItem
       disabled={disabled || !canUnschedule}

@@ -1,25 +1,33 @@
 import React from "react";
 import styled from "@emotion/styled";
-import Icon from "@leafygreen-ui/icon";
-import { uiColors } from "@leafygreen-ui/palette";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import Badge, { Variant } from "components/Badge";
-import { BoldStyledLink } from "components/styles";
-import { MetStatus, RequiredStatus, Dependency } from "gql/generated/types";
+import { StyledRouterLink } from "components/styles";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
+import { getTaskRoute } from "constants/routes";
+import { MetStatus, RequiredStatus } from "gql/generated/types";
+import { TaskStatus } from "types/task";
 
-export const DependsOn: React.FC<Dependency> = ({
+interface Props {
+  buildVariant: string;
+  metStatus: MetStatus;
+  requiredStatus: RequiredStatus;
+  name: string;
+  taskId: string;
+}
+export const DependsOn: React.FC<Props> = ({
   buildVariant,
   metStatus,
   name,
   requiredStatus,
-  uiLink,
+  taskId,
 }) => (
   <DependsOnWrapper>
     <LeftContainer>{metStatusToIcon[metStatus]}</LeftContainer>
     <RightContainer>
-      <BoldStyledLink data-cy="depends-on-link" href={uiLink}>
+      <StyledRouterLink data-cy="depends-on-link" to={getTaskRoute(taskId)}>
         {name}
-      </BoldStyledLink>
+      </StyledRouterLink>
       <Subtitle>in {buildVariant}</Subtitle>
       {requiredStatusToBadge[requiredStatus]}
     </RightContainer>
@@ -47,8 +55,8 @@ const Subtitle = styled(Disclaimer)`
 `;
 
 const metStatusToIcon = {
-  [MetStatus.Met]: <Icon fill={uiColors.green.base} glyph="Checkmark" />,
-  [MetStatus.Unmet]: <Icon fill={uiColors.red.base} glyph="X" />,
+  [MetStatus.Met]: <TaskStatusIcon status={TaskStatus.Succeeded} />,
+  [MetStatus.Unmet]: <TaskStatusIcon status={TaskStatus.Failed} />,
   [MetStatus.Pending]: <></>,
 };
 
