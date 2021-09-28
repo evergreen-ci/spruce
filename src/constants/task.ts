@@ -6,7 +6,7 @@ const { gray, red, yellow, green } = uiColors;
 
 export const taskStatusToCopy = {
   [TaskStatus.ScheduledUmbrella]: "Scheduled",
-  [TaskStatus.FailedUmbrella]: "Failed",
+  [TaskStatus.FailedUmbrella]: "Failure",
   [TaskStatus.RunningUmbrella]: "Running",
   [TaskStatus.SystemFailureUmbrella]: "System Failure",
   [TaskStatus.UndispatchedUmbrella]: "Undispatched",
