@@ -156,4 +156,8 @@ export const sortFunctionDate = (a, b, key) => {
   return dateA - dateB;
 };
 
+/**
+ * @param {string}  str - A string that does not contain regex operators.
+ * @return {string} A regex that strictly matches on the input.
+ */
 export const applyStrictRegex = (str: string) => `^${str}$`;
