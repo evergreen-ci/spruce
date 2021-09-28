@@ -169,7 +169,7 @@ export const mapTaskStatusToUmbrellaStatus: {
           (cAccum, child) => ({ ...cAccum, [child.value]: value }),
           {}
         )
-      : { [value]: value }), // If no children exists, then assign the parent value to itself.
+      : { [value]: value }), // If no children key exists, assign the parent value to itself.
   }),
   {}
 );
@@ -213,14 +213,17 @@ export const sortedStatusColor = [
 
 // Represents background colors for task statuses
 export const mapTaskStatusToColor = {
+  [TaskStatus.UndispatchedUmbrella]: gray.light1,
   [TaskStatus.Aborted]: gray.light1,
   [TaskStatus.Blocked]: gray.dark1,
+  [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.Failed]: red.base,
   [TaskStatus.Inactive]: gray.light1,
   [TaskStatus.KnownIssue]: red.base,
   [TaskStatus.Pending]: yellow.base,
   [TaskStatus.SetupFailed]: failureLavender,
   [TaskStatus.Succeeded]: green.base,
+  [TaskStatus.RunningUmbrella]: yellow.base,
   [TaskStatus.Started]: yellow.base,
   [TaskStatus.Dispatched]: yellow.base,
   [TaskStatus.SystemFailed]: failurePurple,
@@ -235,13 +238,16 @@ export const mapTaskStatusToColor = {
 
 // Represents text color for task statuses
 export const mapTaskStatusToTextColor = {
+  [TaskStatus.UndispatchedUmbrella]: gray.light1,
   [TaskStatus.Aborted]: gray.dark3,
   [TaskStatus.Blocked]: gray.dark3,
+  [TaskStatus.FailedUmbrella]: red.dark3,
   [TaskStatus.Failed]: red.dark3,
   [TaskStatus.Inactive]: gray.dark3,
   [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Pending]: yellow.dark3,
   [TaskStatus.SetupFailed]: failureLavendarDark,
+  [TaskStatus.RunningUmbrella]: yellow.dark3,
   [TaskStatus.Started]: yellow.dark3,
   [TaskStatus.Dispatched]: yellow.dark3,
   [TaskStatus.Succeeded]: green.dark3,
@@ -287,6 +293,36 @@ export const mapBadgeColors = {
     text: gray.dark1,
   },
   [TaskStatus.WillRun]: {
+    fill: gray.dark1,
+    border: gray.dark2,
+    text: gray.light3,
+  },
+  [TaskStatus.FailedUmbrella]: {
+    fill: red.light3,
+    border: red.light2,
+    text: red.dark2,
+  },
+  [TaskStatus.UndispatchedUmbrella]: {
+    fill: gray.light3,
+    border: gray.light2,
+    text: gray.dark1,
+  },
+  [TaskStatus.RunningUmbrella]: {
+    fill: yellow.light3,
+    border: yellow.light2,
+    text: yellow.dark2,
+  },
+  [TaskStatus.SystemFailureUmbrella]: {
+    fill: " #f1f0fc",
+    border: "#d5d4f9",
+    text: "#4f4fbf",
+  },
+  [TaskStatus.UndispatchedUmbrella]: {
+    fill: gray.light3,
+    border: gray.light2,
+    text: gray.dark1,
+  },
+  [TaskStatus.ScheduledUmbrella]: {
     fill: gray.dark1,
     border: gray.dark2,
     text: gray.light3,
