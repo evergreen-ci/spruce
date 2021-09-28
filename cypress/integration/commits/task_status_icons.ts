@@ -4,7 +4,7 @@ describe("Waterfall Task Status Icons", () => {
     cy.visit(route);
   });
 
-  it("Grouped status icons should link to the version page with appropiate table filters", () => {
+  it("Grouped status icons should link to the version page with appropriate table filters", () => {
     const hrefs = [
       "/version/5e4ff3abe3c3317e352062e4/tasks?statuses=success&variant=%5Elint%24",
       "/version/5e4ff3abe3c3317e352062e4/tasks?statuses=running-umbrella,started,dispatched&variant=%5Elint%24",
