@@ -450,8 +450,9 @@ describe("Configure Patch Page", () => {
           .click();
       });
 
-      it("Should show no tasks", () => {
-        cy.dataCy("alias-checkbox").should("have.length", 0);
+      it("Should show one disabled task", () => {
+        cy.dataCy("alias-task-checkbox").should("have.length", 1);
+        cy.dataCy("alias-task-checkbox").should("have.attr", "disabled");
       });
 
       it("Should update the 'Select all' label", () => {

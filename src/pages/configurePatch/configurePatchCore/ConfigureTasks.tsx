@@ -75,10 +75,16 @@ export const ConfigureTasks: React.FC<Props> = ({
   );
 
   // Show details related to child patches (i.e. list all variants/tasks) only if it is the only menu item selected
-  const enumerateChildPatches =
+  const enumerateChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
-  const enumerateAliases =
+  const enumerateAliasTasks =
     currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
+
+  // Only show name of alias or child patch if other build variants are also selected
+  const shorthandChildPatchesAndAliases =
+    (Object.entries(currentAliases).length > 0 ||
+      currentChildPatches.length > 0) &&
+    selectedBuildVariants.length > 1;
 
   const onClickCheckbox = (taskName: string) => (e) => {
     const selectedBuildVariantsCopy = { ...selectedBuildVariantTasks };
@@ -113,7 +119,7 @@ export const ConfigureTasks: React.FC<Props> = ({
   const selectAllCheckboxState = getSelectAllCheckboxState(
     currentTasks,
     currentAliases,
-    enumerateChildPatches
+    enumerateChildPatchTasks
   );
   const selectAllCheckboxCopy =
     Object.entries(currentTasks).length === 0
@@ -147,7 +153,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           checked={selectAllCheckboxState === CheckboxState.CHECKED}
           disabled={
             (activated && Object.entries(currentAliases).length > 0) ||
-            enumerateChildPatches
+            enumerateChildPatchTasks
           }
         />
       </Actions>
@@ -167,8 +173,7 @@ export const ConfigureTasks: React.FC<Props> = ({
         ))}
       </Tasks>
       {/* Include a checkbox representing downstream tasks only if a child patch or alias is selected */}
-      {(Object.entries(currentAliases).length > 0 ||
-        currentChildPatches.length > 0) && (
+      {shorthandChildPatchesAndAliases && (
         <>
           <H4>Downstream Tasks</H4>
           <Tasks>
@@ -196,21 +201,23 @@ export const ConfigureTasks: React.FC<Props> = ({
           </Tasks>
         </>
       )}
-      {enumerateChildPatches && (
+      {enumerateChildPatchTasks && (
         <>
           {currentChildPatches[0].variantsTasks.map((variantTasks) => (
             <VariantTasksList
               {...variantTasks}
+              data-cy="child-patch-task-checkbox"
               status={CheckboxState.CHECKED}
             />
           ))}
         </>
       )}
-      {enumerateAliases && (
+      {enumerateAliasTasks && (
         <>
           {currentAliasTasks[0].variantsTasks.map(
             ({ name, tasks: aliasTasks }) => (
               <VariantTasksList
+                data-cy="alias-task-checkbox"
                 name={name}
                 status={currentAliases[currentAliasTasks[0].alias]}
                 tasks={aliasTasks}
@@ -224,12 +231,14 @@ export const ConfigureTasks: React.FC<Props> = ({
 };
 
 interface VariantTasksListProps {
+  "data-cy": string;
   name: string;
   status: CheckboxState;
   tasks: string[];
 }
 
 const VariantTasksList: React.FC<VariantTasksListProps> = ({
+  "data-cy": dataCy,
   name,
   status,
   tasks,
@@ -239,7 +248,7 @@ const VariantTasksList: React.FC<VariantTasksListProps> = ({
     <Tasks>
       {tasks.map((taskName) => (
         <Checkbox
-          data-cy="child-patch-checkbox"
+          data-cy={dataCy}
           key={taskName}
           label={taskName}
           checked={status === CheckboxState.CHECKED}
@@ -257,9 +266,9 @@ const getSelectAllCheckboxState = (
   aliases: {
     [alias: string]: CheckboxState;
   },
-  enumerateChildPatches: boolean
+  enumerateChildPatchTasks: boolean
 ): CheckboxState => {
-  if (enumerateChildPatches) {
+  if (enumerateChildPatchTasks) {
     return CheckboxState.CHECKED;
   }
 
