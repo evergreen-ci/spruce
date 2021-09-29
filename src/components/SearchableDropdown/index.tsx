@@ -17,7 +17,7 @@ interface SearchableDropdownProps<T> {
   searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
   valuePlaceholder?: string;
-  options: string[] | Array<T>;
+  options: T[] | string[];
   optionRenderer?: (
     option: T,
     onClick: (selectedV) => void,
@@ -75,10 +75,10 @@ const SearchableDropdown = <T extends {}>({
   const onClick = (v: T) => {
     if (allowMultiselect) {
       if (Array.isArray(value)) {
-        const newValue = toggleArray(v, value) as T[];
+        const newValue = toggleArray(v, value);
         onChange(newValue);
       } else {
-        onChange([v as T]);
+        onChange([v]);
       }
     } else {
       onChange(v);
@@ -106,7 +106,7 @@ const SearchableDropdown = <T extends {}>({
     }
     if (Array.isArray(value)) {
       // v is included in value
-      return (value as T[]).filter((v) => v === elementValue).length > 0;
+      return value.filter((v) => v === elementValue).length > 0;
     }
   };
 
@@ -119,9 +119,13 @@ const SearchableDropdown = <T extends {}>({
       if (searchFunc) {
         // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
         filteredOptions = searchFunc(options as T[], searchTerm);
-      } else {
+      } else if (typeof options[0] === "string") {
         filteredOptions = (options as string[]).filter(
           (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        );
+      } else {
+        console.error(
+          "A searchFunc must be supplied when options is not of type string[]"
         );
       }
       setVisibleOptions(filteredOptions);
