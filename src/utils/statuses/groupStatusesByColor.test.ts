@@ -1,6 +1,6 @@
 import { groupStatusesByUmbrellaStatus } from "./groupStatusesByColor";
 
-test("Separates statuses into groups based on the color of the status", () => {
+test("Separates statuses into groups based on umbrella status", () => {
   const tasks = [
     { status: "success", count: 6 },
     { status: "failed", count: 2 },
@@ -12,19 +12,19 @@ test("Separates statuses into groups based on the color of the status", () => {
       {
         count: 6,
         statuses: ["Success"],
-        color: "#13AA52",
+        color: "#C3E7CA",
         umbrellaStatus: "success",
       },
       {
         count: 2,
         statuses: ["Failed"],
-        color: "#CF4A22",
+        color: "#F9D3C5",
         umbrellaStatus: "failed-umbrella",
       },
       {
         count: 9,
         statuses: ["Dispatched", "Running"],
-        color: "#FFDD49",
+        color: "#FEF2C8",
         umbrellaStatus: "running-umbrella",
       },
     ],
@@ -33,7 +33,7 @@ test("Separates statuses into groups based on the color of the status", () => {
   });
 });
 
-test("Groups statuses with different statuses but the same color", () => {
+test("Groups different statuses to the same color", () => {
   const tasks = [
     { status: "test-timed-out", count: 6 },
     { status: "failed", count: 2 },
@@ -47,26 +47,26 @@ test("Groups statuses with different statuses but the same color", () => {
       {
         count: 8,
         statuses: ["Test Timed Out", "Failed"],
-        color: "#CF4A22",
+        color: "#F9D3C5",
         umbrellaStatus: "failed-umbrella",
       },
       {
         count: 7,
         statuses: ["System Time Out", "System Unresponsive"],
-        color: "#E6CCE6",
+        color: "#36367f",
         umbrellaStatus: "system-failure-umbrella",
-      },
-      {
-        count: 2,
-        statuses: ["Will Run"],
-        color: "#B8C4C2",
-        umbrellaStatus: "scheduled-umbrella",
       },
       {
         count: 4,
         statuses: ["Dispatched"],
-        color: "#FFDD49",
+        color: "#FEF2C8",
         umbrellaStatus: "running-umbrella",
+      },
+      {
+        count: 2,
+        statuses: ["Will Run"],
+        color: "#3D4F58",
+        umbrellaStatus: "scheduled-umbrella",
       },
     ],
     max: 8,
@@ -77,7 +77,6 @@ test("Groups statuses with different statuses but the same color", () => {
 test("Returns the overall maximum and total", () => {
   const tasks = [
     { status: "task-timed-out", count: 6 },
-    { status: "inactive", count: 2 },
     { status: "success", count: 4 },
     { status: "started", count: 3 },
     { status: "system-failed", count: 5 },
@@ -90,47 +89,41 @@ test("Returns the overall maximum and total", () => {
       {
         count: 4,
         statuses: ["Success"],
-        color: "#13AA52",
+        color: "#C3E7CA",
         umbrellaStatus: "success",
       },
       {
         count: 6,
         statuses: ["Task Timed Out"],
-        color: "#CF4A22",
+        color: "#F9D3C5",
         umbrellaStatus: "failed-umbrella",
       },
       {
         count: 7,
         statuses: ["System Failed", "System Unresponsive"],
-        color: "#E6CCE6",
+        color: "#36367f",
         umbrellaStatus: "system-failure-umbrella",
-      },
-      {
-        count: 2,
-        statuses: ["Inactive"],
-        color: "#B8C4C2",
-        umbrellaStatus: "inactive",
       },
       {
         count: 3,
         statuses: ["Setup Failure"],
-        color: "#F3EDF5",
+        color: "#d5d4f9",
         umbrellaStatus: "setup-failed",
       },
       {
         count: 3,
         statuses: ["Running"],
-        color: "#FFDD49",
+        color: "#FEF2C8",
         umbrellaStatus: "running-umbrella",
       },
       {
         count: 2,
         statuses: ["Unscheduled"],
-        color: "#5D6C74",
+        color: "#E7EEEC",
         umbrellaStatus: "undispatched-umbrella",
       },
     ],
     max: 7,
-    total: 27,
+    total: 25,
   });
 });
