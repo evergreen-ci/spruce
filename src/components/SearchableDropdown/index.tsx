@@ -1,4 +1,4 @@
-import { useState, PropsWithChildren, useRef, useEffect } from "react";
+import { useState, PropsWithChildren, useRef, useEffect, useMemo } from "react";
 import styled from "@emotion/styled";
 import Button from "@leafygreen-ui/button";
 import { uiColors } from "@leafygreen-ui/palette";
@@ -12,22 +12,20 @@ const { gray, white, blue } = uiColors;
 
 interface SearchableDropdownProps<T> {
   label: string | React.ReactNode;
-  value: string | T | string[] | T[];
-  onChange: (value: string | T | string[] | T[]) => void;
-  searchFunc?: (
-    value: string | T | string[] | T[],
-    match: string | T
-  ) => boolean;
+  value: T | T[];
+  onChange: (value: T | T[]) => void;
+  searchFunc?: (options: T[], match: string) => T[];
   searchPlaceholder?: string;
   valuePlaceholder?: string;
-  options: string[] | Array<T>;
+  options: T[] | string[];
   optionRenderer?: (
-    option: string | T,
+    option: T,
     onClick: (selectedV) => void,
     isChecked: (selectedV) => boolean
   ) => React.ReactNode;
   allowMultiselect?: boolean;
   disabled?: boolean;
+  ["data-cy"]?: string;
 }
 const SearchableDropdown = <T extends {}>({
   label,
@@ -40,6 +38,7 @@ const SearchableDropdown = <T extends {}>({
   optionRenderer,
   allowMultiselect = false,
   disabled = false,
+  "data-cy": dataCy = "searchable-dropdown",
 }: PropsWithChildren<SearchableDropdownProps<T>>) => {
   const [isOpen, setisOpen] = useState(false);
   const [search, setSearch] = useState("");
@@ -73,13 +72,13 @@ const SearchableDropdown = <T extends {}>({
     }
   }, [options]);
 
-  const onClick = (v: string | T) => {
+  const onClick = (v: T) => {
     if (allowMultiselect) {
       if (Array.isArray(value)) {
-        const newValue = toggleArray(v, value) as any[];
+        const newValue = toggleArray(v, value);
         onChange(newValue);
       } else {
-        onChange([v as any]);
+        onChange([v]);
       }
     } else {
       onChange(v);
@@ -91,42 +90,48 @@ const SearchableDropdown = <T extends {}>({
   };
 
   const option = optionRenderer
-    ? (v: string | T) => optionRenderer(v, onClick, isChecked)
-    : (v: string | T) => (
+    ? (v: T) => optionRenderer(v, onClick, isChecked)
+    : (v: T) => (
         <SearchableDropdownOption
+          key={`searchable_dropdown_option_${v}`}
           value={v}
           onClick={() => onClick(v)}
           isChecked={isChecked(v)}
         />
       );
 
-  const isChecked = (elementValue: string | T) => {
+  const isChecked = (elementValue: T) => {
     if (typeof value === "string") {
       return value === elementValue;
     }
     if (Array.isArray(value)) {
       // v is included in value
-      return (value as any).filter((v) => v === elementValue).length > 0;
+      return value.filter((v) => v === elementValue).length > 0;
     }
   };
 
-  const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { value: searchTerm } = e.target;
-    setSearch(searchTerm);
-    let filteredOptions = [];
+  const handleSearch = useMemo(
+    () => (e: React.ChangeEvent<HTMLInputElement>) => {
+      const { value: searchTerm } = e.target;
+      setSearch(searchTerm);
+      let filteredOptions = [];
 
-    if (searchFunc) {
-      // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
-      filteredOptions = (options as any).filter((o) =>
-        searchFunc(searchTerm, o)
-      );
-    } else {
-      filteredOptions = (options as any).filter(
-        (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
-      );
-    }
-    setVisibleOptions(filteredOptions);
-  };
+      if (searchFunc) {
+        // Alias the array as any to avoid TS error https://github.com/microsoft/TypeScript/issues/36390
+        filteredOptions = searchFunc(options as T[], searchTerm);
+      } else if (typeof options[0] === "string") {
+        filteredOptions = (options as string[]).filter(
+          (o) => o.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
+        );
+      } else {
+        console.error(
+          "A searchFunc must be supplied when options is not of type string[]"
+        );
+      }
+      setVisibleOptions(filteredOptions);
+    },
+    [searchFunc, options]
+  );
 
   let buttonText = valuePlaceholder;
   if (value) {
@@ -146,7 +151,7 @@ const SearchableDropdown = <T extends {}>({
         <StyledButton
           ref={menuButtonRef} // @ts-expect-error
           onClick={() => setisOpen((curr) => !curr)}
-          data-cy="searchable-dropdown"
+          data-cy={dataCy}
           id="searchable-dropdown"
           value={value}
           disabled={disabled}
@@ -164,17 +169,16 @@ const SearchableDropdown = <T extends {}>({
         </StyledButton>
         {isOpen && (
           <RelativeWrapper>
-            <OptionsWrapper
-              ref={listMenuRef}
-              data-cy="searchable-dropdown-options"
-            >
+            <OptionsWrapper ref={listMenuRef} data-cy={`${dataCy}-options`}>
               <Search
                 placeholder={searchPlaceholder}
                 value={search}
                 onChange={handleSearch}
-                data-cy="search-input"
+                data-cy={`${dataCy}-search-input`}
               />
-              {(visibleOptions as any)?.map((o) => option(o))}
+              <ScrollableList>
+                {(visibleOptions as T[])?.map((o) => option(o))}
+              </ScrollableList>
             </OptionsWrapper>
           </RelativeWrapper>
         )}
@@ -184,8 +188,8 @@ const SearchableDropdown = <T extends {}>({
 };
 
 interface SearchableDropdownOptionProps<T> {
-  onClick: (v: string | T) => void;
-  value: string | T;
+  onClick: (v: T) => void;
+  value: T;
   isChecked?: boolean;
   displayName?: string;
 }
@@ -225,6 +229,9 @@ const OptionsWrapper = styled.div`
   z-index: 5;
   margin-top: 5px;
   width: 100%;
+`;
+
+const ScrollableList = styled.div`
   overflow: scroll;
   max-height: 400px;
 `;

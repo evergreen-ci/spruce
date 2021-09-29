@@ -10,7 +10,9 @@ export default {
   decorators: [StoryRouter(), (story) => WithToastContext(story)],
 };
 
-export const Story = () => <ProjectSelect selectedProject="evergreen" />;
+export const Story = () => (
+  <ProjectSelect selectedProjectIdentifier="evergreen" />
+);
 
 Story.parameters = {
   apolloClient: {
