@@ -16,7 +16,7 @@ import { GET_BUILD_VARIANTS } from "gql/queries";
 import { useNetworkStatus } from "hooks";
 import { applyStrictRegex } from "utils/string";
 import { GroupedTaskSquare } from "./buildVariants/GroupedTaskSquare";
-import { groupTasksByColor } from "./buildVariants/utils";
+import { groupTasksByUmbrellaStatus } from "./buildVariants/utils";
 
 export const BuildVariants: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -75,19 +75,21 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   tasks,
   variant,
 }) => {
-  const groupedTasks = groupTasksByColor(tasks);
+  const groupedTasks = groupTasksByUmbrellaStatus(tasks);
   return (
     <VariantTasks>
-      {Object.keys(groupedTasks).map((color) => (
-        <GroupedTaskSquare
-          key={`${variant}_${color}`}
-          statuses={groupedTasks[color].statuses}
-          count={groupedTasks[color].count}
-          color={color}
-          textColor={groupedTasks[color].textColor}
-          variant={variant}
-        />
-      ))}
+      {Object.values(groupedTasks).map(
+        ({ textColor, fill, statuses, count }) => (
+          <GroupedTaskSquare
+            key={`${variant}_${fill}`}
+            statuses={statuses}
+            count={count}
+            color={fill}
+            textColor={textColor}
+            variant={variant}
+          />
+        )
+      )}
     </VariantTasks>
   );
 };

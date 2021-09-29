@@ -1,6 +1,6 @@
 import { mapTaskStatusToColor, mapTaskStatusToTextColor } from "constants/task";
 import { TaskStatus } from "types/task";
-import { groupTasksByColor } from "./utils";
+import { groupTasksByUmbrellaStatus } from "./utils";
 
 describe("groupTasksByColor", () => {
   test("Seperates tasks into groups based on the color of the status", () => {
@@ -24,7 +24,7 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
       [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
@@ -69,7 +69,7 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
       [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
@@ -114,7 +114,7 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
       [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
         count: 1,
         statuses: [TaskStatus.Succeeded],
