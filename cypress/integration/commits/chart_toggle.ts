@@ -39,7 +39,7 @@ describe("Waterfall Chart Toggle", () => {
   });
 
   it("Should initially load with absolute chart radio checked as default when chartType query param is not a valid chart type", () => {
-    cy.visit(`${COMMITS_ROUTE}?chartType=soeiantsrein`);
+    cy.visit(`${COMMITS_ROUTE}?chartType=percentage`);
     cy.dataCy("cy-chart-absolute-radio").should("be.checked");
   });
 });
