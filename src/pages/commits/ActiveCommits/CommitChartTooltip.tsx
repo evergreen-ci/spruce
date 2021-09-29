@@ -51,6 +51,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
             status={umbrellaStatus}
             color={mapUmbrellaStatusColors[umbrellaStatus].border}
             count={0}
+            active={false}
           />
         ))}
       </TooltipContainer>
