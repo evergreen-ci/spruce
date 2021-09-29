@@ -16,26 +16,26 @@ describe("getAllTaskStatsGroupedByColor", () => {
             {
               count: 8,
               statuses: ["Test Timed Out", "Failed"],
-              color: "#CF4A22",
+              color: "#F9D3C5",
               umbrellaStatus: "failed-umbrella",
             },
             {
               count: 7,
               statuses: ["System Time Out", "System Unresponsive"],
-              color: "#E6CCE6",
+              color: "#36367f",
               umbrellaStatus: "system-failure-umbrella",
-            },
-            {
-              count: 2,
-              statuses: ["Will Run"],
-              color: "#B8C4C2",
-              umbrellaStatus: "scheduled-umbrella",
             },
             {
               count: 4,
               statuses: ["Dispatched"],
-              color: "#FFDD49",
+              color: "#FEF2C8",
               umbrellaStatus: "running-umbrella",
+            },
+            {
+              count: 2,
+              statuses: ["Will Run"],
+              color: "#3D4F58",
+              umbrellaStatus: "scheduled-umbrella",
             },
           ],
           max: 8,
@@ -46,19 +46,19 @@ describe("getAllTaskStatsGroupedByColor", () => {
             {
               count: 6,
               statuses: ["Success"],
-              color: "#13AA52",
+              color: "#C3E7CA",
               umbrellaStatus: "success",
             },
             {
               count: 2,
               statuses: ["Failed"],
-              color: "#CF4A22",
+              color: "#F9D3C5",
               umbrellaStatus: "failed-umbrella",
             },
             {
               count: 9,
               statuses: ["Dispatched", "Running"],
-              color: "#FFDD49",
+              color: "#FEF2C8",
               umbrellaStatus: "running-umbrella",
             },
           ],
@@ -70,96 +70,84 @@ describe("getAllTaskStatsGroupedByColor", () => {
             {
               count: 4,
               statuses: ["Success"],
-              color: "#13AA52",
+              color: "#C3E7CA",
               umbrellaStatus: "success",
             },
             {
               count: 6,
               statuses: ["Task Timed Out"],
-              color: "#CF4A22",
+              color: "#F9D3C5",
               umbrellaStatus: "failed-umbrella",
             },
             {
               count: 7,
               statuses: ["System Failed", "System Unresponsive"],
-              color: "#E6CCE6",
+              color: "#36367f",
               umbrellaStatus: "system-failure-umbrella",
-            },
-            {
-              count: 2,
-              statuses: ["Inactive"],
-              color: "#B8C4C2",
-              umbrellaStatus: "inactive",
             },
             {
               count: 3,
               statuses: ["Setup Failure"],
-              color: "#F3EDF5",
+              color: "#d5d4f9",
               umbrellaStatus: "setup-failed",
             },
             {
               count: 3,
               statuses: ["Running"],
-              color: "#FFDD49",
+              color: "#FEF2C8",
               umbrellaStatus: "running-umbrella",
             },
             {
               count: 2,
               statuses: ["Unscheduled"],
-              color: "#5D6C74",
+              color: "#E7EEEC",
               umbrellaStatus: "undispatched-umbrella",
             },
           ],
           max: 7,
-          total: 27,
+          total: 25,
         },
         "123": {
           stats: [
             {
               count: 4,
               statuses: ["Success"],
-              color: "#13AA52",
+              color: "#C3E7CA",
               umbrellaStatus: "success",
             },
             {
               count: 6,
               statuses: ["Task Timed Out"],
-              color: "#CF4A22",
+              color: "#F9D3C5",
               umbrellaStatus: "failed-umbrella",
             },
             {
               count: 7,
               statuses: ["System Failed", "System Unresponsive"],
-              color: "#E6CCE6",
+              color: "#36367f",
               umbrellaStatus: "system-failure-umbrella",
-            },
-            {
-              count: 2,
-              statuses: ["Inactive"],
-              color: "#B8C4C2",
-              umbrellaStatus: "inactive",
             },
             {
               count: 3,
               statuses: ["Setup Failure"],
-              color: "#F3EDF5",
+              color: "#d5d4f9",
               umbrellaStatus: "setup-failed",
             },
             {
               count: 3,
               statuses: ["Running"],
-              color: "#FFDD49",
+              color: "#FEF2C8",
               umbrellaStatus: "running-umbrella",
             },
             {
               count: 2,
               statuses: ["Unscheduled"],
-              color: "#5D6C74",
+              color: "#E7EEEC",
               umbrellaStatus: "undispatched-umbrella",
             },
           ],
           max: 7,
-          total: 27,
+          total: 25,
         },
       });
     }
@@ -174,7 +162,6 @@ describe("getStatusesWithZeroCount", () => {
       "scheduled-umbrella",
       "system-failure-umbrella",
       "undispatched-umbrella",
-      "inactive",
     ]);
   });
   test("Should return an empty array when all umbrella statuses are present", () => {
@@ -189,7 +176,6 @@ describe("getStatusesWithZeroCount", () => {
       "system-failure-umbrella",
       "undispatched-umbrella",
       "setup-failed",
-      "inactive",
     ]);
   });
 });
@@ -204,7 +190,6 @@ const versions = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "task-timed-out", count: 6 },
-        { status: "inactive", count: 2 },
         { status: "success", count: 4 },
         { status: "started", count: 3 },
         { status: "system-failed", count: 5 },
@@ -259,7 +244,6 @@ const versions = [
       revision: "4337c33fa4a0d5c747a1115f0853b5f70e46f112",
       taskStatusCounts: [
         { status: "task-timed-out", count: 6 },
-        { status: "inactive", count: 2 },
         { status: "success", count: 4 },
         { status: "started", count: 3 },
         { status: "system-failed", count: 5 },
