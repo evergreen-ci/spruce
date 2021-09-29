@@ -1,6 +1,6 @@
 import { mapTaskStatusToUmbrellaStatus } from "constants/task";
 import { ChartTypes } from "types/commits";
-import { groupStatusesByColor } from "utils/statuses";
+import { groupStatusesByUmbrellaStatus } from "utils/statuses";
 
 export type ColorCount = {
   count: number;
@@ -40,7 +40,7 @@ export const getAllTaskStatsGroupedByColor = (
   const idToGroupedTaskStats: { [id: string]: GroupedResult } = {};
   versions.forEach(({ version }) => {
     if (version != null) {
-      idToGroupedTaskStats[version.id] = groupStatusesByColor(
+      idToGroupedTaskStats[version.id] = groupStatusesByUmbrellaStatus(
         version.taskStatusCounts
       );
     }

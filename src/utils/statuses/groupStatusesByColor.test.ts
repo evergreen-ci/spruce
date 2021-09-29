@@ -1,4 +1,4 @@
-import { groupStatusesByColor } from "./groupStatusesByColor";
+import { groupStatusesByUmbrellaStatus } from "./groupStatusesByColor";
 
 test("Separates statuses into groups based on the color of the status", () => {
   const tasks = [
@@ -7,7 +7,7 @@ test("Separates statuses into groups based on the color of the status", () => {
     { status: "dispatched", count: 4 },
     { status: "started", count: 5 },
   ];
-  expect(groupStatusesByColor(tasks)).toStrictEqual({
+  expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
         count: 6,
@@ -42,7 +42,7 @@ test("Groups statuses with different statuses but the same color", () => {
     { status: "system-timed-out", count: 5 },
     { status: "system-unresponsive", count: 2 },
   ];
-  expect(groupStatusesByColor(tasks)).toStrictEqual({
+  expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
         count: 8,
@@ -85,7 +85,7 @@ test("Returns the overall maximum and total", () => {
     { status: "setup-failed", count: 3 },
     { status: "system-unresponsive", count: 2 },
   ];
-  expect(groupStatusesByColor(tasks)).toStrictEqual({
+  expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
         count: 4,

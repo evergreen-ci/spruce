@@ -7,7 +7,10 @@ import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getVersionRoute, getTaskRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
-import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
+import {
+  groupStatusesByUmbrellaStatus,
+  isFailedTaskStatus,
+} from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
 
 const { gray } = uiColors;
@@ -82,7 +85,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   variant,
 }) => {
   // get the count of the amount of tasks in each status
-  const { stats } = groupStatusesByColor(
+  const { stats } = groupStatusesByUmbrellaStatus(
     tasks.map((task) => ({ ...task, count: 1 }))
   );
   return (
