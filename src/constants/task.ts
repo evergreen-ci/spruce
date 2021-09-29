@@ -14,7 +14,6 @@ export const taskStatusToCopy = {
   [TaskStatus.Blocked]: "Blocked",
   [TaskStatus.Dispatched]: "Dispatched",
   [TaskStatus.Failed]: "Failed",
-  [TaskStatus.Inactive]: "Inactive",
   [TaskStatus.KnownIssue]: "Known Issue",
   [TaskStatus.Pending]: "Pending",
   [TaskStatus.Started]: "Running",
@@ -151,11 +150,6 @@ const taskStatuses: TreeDataEntry[] = [
     value: TaskStatus.SetupFailed,
     key: TaskStatus.SetupFailed,
   },
-  {
-    title: taskStatusToCopy[TaskStatus.Inactive],
-    value: TaskStatus.Inactive,
-    key: TaskStatus.Inactive,
-  },
 ];
 
 export const mapTaskStatusToUmbrellaStatus: {
@@ -204,7 +198,6 @@ export const sortedStatusColor = [
   green.base,
   red.base,
   failurePurple,
-  gray.light1,
   failureLavender,
   yellow.base,
   gray.dark1,
@@ -212,12 +205,12 @@ export const sortedStatusColor = [
 
 // Represents background colors for task statuses
 export const mapTaskStatusToColor = {
-  [TaskStatus.UndispatchedUmbrella]: gray.light1,
-  [TaskStatus.Aborted]: gray.light1,
+  [TaskStatus.UndispatchedUmbrella]: gray.dark1,
+  [TaskStatus.Aborted]: gray.dark1,
   [TaskStatus.Blocked]: gray.dark1,
+  [TaskStatus.Unscheduled]: gray.dark1,
   [TaskStatus.FailedUmbrella]: red.base,
   [TaskStatus.Failed]: red.base,
-  [TaskStatus.Inactive]: gray.light1,
   [TaskStatus.KnownIssue]: red.base,
   [TaskStatus.Pending]: yellow.base,
   [TaskStatus.SetupFailed]: failureLavender,
@@ -225,13 +218,13 @@ export const mapTaskStatusToColor = {
   [TaskStatus.RunningUmbrella]: yellow.base,
   [TaskStatus.Started]: yellow.base,
   [TaskStatus.Dispatched]: yellow.base,
+  [TaskStatus.SystemFailureUmbrella]: failurePurple,
   [TaskStatus.SystemFailed]: failurePurple,
   [TaskStatus.SystemTimedOut]: failurePurple,
   [TaskStatus.SystemUnresponsive]: failurePurple,
   [TaskStatus.TaskTimedOut]: red.base,
   [TaskStatus.TestTimedOut]: red.base,
   [TaskStatus.Unstarted]: gray.light1,
-  [TaskStatus.Unscheduled]: gray.dark1,
   [TaskStatus.WillRun]: gray.light1,
 };
 
@@ -242,7 +235,6 @@ export const mapTaskStatusToTextColor = {
   [TaskStatus.Blocked]: gray.dark3,
   [TaskStatus.FailedUmbrella]: red.dark3,
   [TaskStatus.Failed]: red.dark3,
-  [TaskStatus.Inactive]: gray.dark3,
   [TaskStatus.KnownIssue]: red.dark3,
   [TaskStatus.Pending]: yellow.dark3,
   [TaskStatus.SetupFailed]: failureLavendarDark,
@@ -296,11 +288,9 @@ export const mapBadgeColors = {
     border: gray.dark2,
     text: gray.light3,
   },
-  [TaskStatus.FailedUmbrella]: {
-    fill: red.light3,
-    border: red.light2,
-    text: red.dark2,
-  },
+};
+
+export const mapUmbrellaStatusColors = {
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
     border: gray.light2,
@@ -326,4 +316,29 @@ export const mapBadgeColors = {
     border: gray.dark2,
     text: gray.light3,
   },
+  [TaskStatus.FailedUmbrella]: {
+    fill: red.light3,
+    border: red.light2,
+    text: red.dark2,
+  },
+  [TaskStatus.Succeeded]: {
+    fill: green.light3,
+    border: green.light2,
+    text: green.dark2,
+  },
+  [TaskStatus.SetupFailed]: {
+    fill: "#f1f0fc",
+    border: "#d5d4f9",
+    text: "#4f4fbf",
+  },
 };
+
+export const sortedUmbrellaStatus = [
+  TaskStatus.Succeeded,
+  TaskStatus.FailedUmbrella,
+  TaskStatus.SystemFailureUmbrella,
+  TaskStatus.SetupFailed,
+  TaskStatus.RunningUmbrella,
+  TaskStatus.ScheduledUmbrella,
+  TaskStatus.UndispatchedUmbrella,
+];
