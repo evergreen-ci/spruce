@@ -79,12 +79,12 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   return (
     <VariantTasks>
       {Object.values(groupedTasks).map(
-        ({ textColor, fill, statuses, count }) => (
+        ({ textColor, border, statuses, count }) => (
           <GroupedTaskSquare
-            key={`${variant}_${fill}`}
+            key={`${variant}_${border}`}
             statuses={statuses}
             count={count}
-            color={fill}
+            color={border}
             textColor={textColor}
             variant={variant}
           />
