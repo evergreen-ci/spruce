@@ -193,16 +193,6 @@ const failureLavendarDark = "#9982A4";
 const failurePurple = "#E6CCE6";
 const failurePurpleDark = "#620662";
 
-// Represents the color order for commit bar charts
-export const sortedStatusColor = [
-  green.base,
-  red.base,
-  failurePurple,
-  failureLavender,
-  yellow.base,
-  gray.dark1,
-];
-
 // Represents background colors for task statuses
 export const mapTaskStatusToColor = {
   [TaskStatus.UndispatchedUmbrella]: gray.dark1,
@@ -333,6 +323,7 @@ export const mapUmbrellaStatusColors = {
   },
 };
 
+// Represents order for waterfall barchart
 export const sortedUmbrellaStatus = [
   TaskStatus.Succeeded,
   TaskStatus.FailedUmbrella,
