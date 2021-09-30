@@ -7,26 +7,27 @@ test("Separates statuses into groups based on umbrella status", () => {
     { status: "dispatched", count: 4 },
     { status: "started", count: 5 },
   ];
+
   expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
         count: 6,
         statuses: ["Success"],
-        color: "#C3E7CA",
+        color: "#13AA52",
         umbrellaStatus: "success",
         statusCounts: { success: 6 },
       },
       {
         count: 2,
         statuses: ["Failed"],
-        color: "#F9D3C5",
+        color: "#CF4A22",
         umbrellaStatus: "failed-umbrella",
         statusCounts: { failed: 2 },
       },
       {
         count: 9,
         statuses: ["Dispatched", "Running"],
-        color: "#FEF2C8",
+        color: "#FFDD49",
         umbrellaStatus: "running-umbrella",
         statusCounts: { dispatched: 4, started: 5 },
       },
@@ -45,33 +46,34 @@ test("Groups different statuses to the same color", () => {
     { status: "system-timed-out", count: 5 },
     { status: "system-unresponsive", count: 2 },
   ];
+
   expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
         count: 8,
         statuses: ["Test Timed Out", "Failed"],
-        color: "#F9D3C5",
+        color: "#CF4A22",
         umbrellaStatus: "failed-umbrella",
         statusCounts: { "test-timed-out": 6, failed: 2 },
       },
       {
         count: 7,
         statuses: ["System Time Out", "System Unresponsive"],
-        color: "#36367f",
+        color: "#4f4fbf",
         umbrellaStatus: "system-failure-umbrella",
         statusCounts: { "system-timed-out": 5, "system-unresponsive": 2 },
       },
       {
         count: 4,
         statuses: ["Dispatched"],
-        color: "#FEF2C8",
+        color: "#FFDD49",
         umbrellaStatus: "running-umbrella",
         statusCounts: { dispatched: 4 },
       },
       {
         count: 2,
         statuses: ["Will Run"],
-        color: "#3D4F58",
+        color: "#5D6C74",
         umbrellaStatus: "scheduled-umbrella",
         statusCounts: { "will-run": 2 },
       },
@@ -97,42 +99,42 @@ test("Returns the overall maximum and total", () => {
       {
         count: 4,
         statuses: ["Success"],
-        color: "#C3E7CA",
+        color: "#13AA52",
         umbrellaStatus: "success",
         statusCounts: { success: 4 },
       },
       {
         count: 6,
         statuses: ["Task Timed Out"],
-        color: "#F9D3C5",
+        color: "#CF4A22",
         umbrellaStatus: "failed-umbrella",
         statusCounts: { "task-timed-out": 6 },
       },
       {
         count: 7,
         statuses: ["System Failed", "System Unresponsive"],
-        color: "#36367f",
+        color: "#4f4fbf",
         umbrellaStatus: "system-failure-umbrella",
         statusCounts: { "system-failed": 5, "system-unresponsive": 2 },
       },
       {
         count: 3,
         statuses: ["Setup Failure"],
-        color: "#d5d4f9",
+        color: "#f1f0fc",
         umbrellaStatus: "setup-failed",
         statusCounts: { "setup-failed": 3 },
       },
       {
         count: 3,
         statuses: ["Running"],
-        color: "#FEF2C8",
+        color: "#FFDD49",
         umbrellaStatus: "running-umbrella",
         statusCounts: { started: 3 },
       },
       {
         count: 2,
         statuses: ["Unscheduled"],
-        color: "#E7EEEC",
+        color: "#89979B",
         umbrellaStatus: "undispatched-umbrella",
         statusCounts: { unscheduled: 2 },
       },

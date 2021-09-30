@@ -32,7 +32,7 @@ export const groupStatusesByUmbrellaStatus = (
       counts[umbrellaStatus] = {
         count: stat.count,
         statuses: [taskStatusToCopy[stat.status]],
-        color: mapUmbrellaStatusColors[umbrellaStatus].border,
+        color: mapUmbrellaStatusColors[umbrellaStatus].barChart,
         umbrellaStatus,
         statusCounts: {},
       };
