@@ -10,10 +10,14 @@ type ColorCount = {
   statuses: string[];
   color: string;
   umbrellaStatus: string;
+  statusCounts: { [key: string]: number };
 };
 
 export const groupStatusesByUmbrellaStatus = (
-  statusCounts: { status: string; count: number }[]
+  statusCounts: {
+    status: string;
+    count: number;
+  }[]
 ) => {
   const counts: { [key: string]: ColorCount } = {};
 
@@ -30,7 +34,13 @@ export const groupStatusesByUmbrellaStatus = (
         statuses: [taskStatusToCopy[stat.status]],
         color: mapUmbrellaStatusColors[umbrellaStatus].border,
         umbrellaStatus,
+        statusCounts: {},
       };
+    }
+    if (!counts[umbrellaStatus].statusCounts[stat.status]) {
+      counts[umbrellaStatus].statusCounts[stat.status] = stat.count;
+    } else {
+      counts[umbrellaStatus].statusCounts[stat.status] += stat.count;
     }
   });
 
