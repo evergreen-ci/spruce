@@ -8,7 +8,7 @@ import { Button } from "components/Button";
 import { PatchTriggerAlias } from "gql/generated/types";
 import {
   AliasState,
-  ChildPatchComplete,
+  ChildPatchAliased,
   VariantTasksState,
 } from "hooks/useConfigurePatch";
 
@@ -26,7 +26,7 @@ interface Props {
   onClickSchedule: () => void;
   selectedAliases: AliasState;
   setSelectedAliases: (aliases: AliasState) => void;
-  childPatches: ChildPatchComplete[];
+  childPatches: ChildPatchAliased[];
   selectableAliases: PatchTriggerAlias[];
 }
 
@@ -46,6 +46,8 @@ export const ConfigureTasks: React.FC<Props> = ({
     (count, alias) => count + (alias ? 1 : 0),
     0
   );
+  const childPatchCount = childPatches?.length || 0;
+  const downstreamTaskCount = aliasCount + childPatchCount;
   const buildVariantCount = Object.values(selectedBuildVariantTasks).reduce(
     (count, taskOb) =>
       count +
@@ -74,13 +76,14 @@ export const ConfigureTasks: React.FC<Props> = ({
     selectedBuildVariants
   );
 
-  // Show details related to child patches (i.e. list all variants/tasks) only if it is the only menu item selected
+  // Show a child patch's variants/tasks iff it is the only menu item selected
   const enumerateChildPatchTasks =
     currentChildPatches.length === 1 && selectedBuildVariants.length === 1;
+  // Show an alias's variants/tasks iff it is the only menu item selected
   const enumerateAliasTasks =
     currentAliasTasks.length === 1 && selectedBuildVariants.length === 1;
 
-  // Only show name of alias or child patch if other build variants are also selected
+  // Only show name of alias or child patch (no variants/tasks) if other build variants are also selected
   const shorthandChildPatchesAndAliases =
     (Object.entries(currentAliases).length > 0 ||
       currentChildPatches.length > 0) &&
@@ -131,7 +134,9 @@ export const ConfigureTasks: React.FC<Props> = ({
     taskCount !== 1 ? "s" : ""
   } across ${buildVariantCount} build variant${
     buildVariantCount !== 1 ? "s" : ""
-  }, ${aliasCount} trigger alias${aliasCount !== 1 ? "es" : ""}`;
+  }, ${downstreamTaskCount} trigger alias${
+    downstreamTaskCount !== 1 ? "es" : ""
+  }`;
 
   return (
     <TabContentWrapper>
@@ -172,7 +177,6 @@ export const ConfigureTasks: React.FC<Props> = ({
           />
         ))}
       </Tasks>
-      {/* Include a checkbox representing downstream tasks only if a child patch or alias is selected */}
       {shorthandChildPatchesAndAliases && (
         <>
           <H4>Downstream Tasks</H4>
@@ -206,6 +210,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           {currentChildPatches[0].variantsTasks.map((variantTasks) => (
             <VariantTasksList
               {...variantTasks}
+              key={variantTasks.name}
               data-cy="child-patch-task-checkbox"
               status={CheckboxState.CHECKED}
             />
@@ -217,6 +222,7 @@ export const ConfigureTasks: React.FC<Props> = ({
           {currentAliasTasks[0].variantsTasks.map(
             ({ name, tasks: aliasTasks }) => (
               <VariantTasksList
+                key={name}
                 data-cy="alias-task-checkbox"
                 name={name}
                 status={currentAliases[currentAliasTasks[0].alias]}
@@ -249,7 +255,7 @@ const VariantTasksList: React.FC<VariantTasksListProps> = ({
       {tasks.map((taskName) => (
         <Checkbox
           data-cy={dataCy}
-          key={taskName}
+          key={`${name}-${taskName}`}
           label={taskName}
           checked={status === CheckboxState.CHECKED}
           disabled
@@ -309,9 +315,9 @@ const getVisibleAliases = (
 };
 
 const getVisibleChildPatches = (
-  childPatches: ChildPatchComplete[],
+  childPatches: ChildPatchAliased[],
   selectedBuildVariants: string[]
-): ChildPatchComplete[] => {
+): ChildPatchAliased[] => {
   if (!childPatches) {
     return [];
   }

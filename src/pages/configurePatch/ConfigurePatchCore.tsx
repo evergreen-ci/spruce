@@ -26,7 +26,7 @@ import {
 import { SCHEDULE_PATCH } from "gql/mutations";
 import {
   AliasState,
-  ChildPatchComplete,
+  ChildPatchAliased,
   VariantTasksState,
   useConfigurePatch,
 } from "hooks/useConfigurePatch";
@@ -52,7 +52,7 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   } = patch;
   const { variants } = project;
 
-  const childPatchesWithAliases: ChildPatchComplete[] = childPatches
+  const childPatchesWithAliases: ChildPatchAliased[] = childPatches
     ? childPatches.map((cp) => {
         const { alias = id } =
           childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
@@ -222,7 +222,7 @@ const getPatchTriggerAliasEntries = (
   }));
 };
 
-const getChildPatchEntries = (childPatches: ChildPatchComplete[]) => {
+const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
   if (!childPatches) {
     return [];
   }
