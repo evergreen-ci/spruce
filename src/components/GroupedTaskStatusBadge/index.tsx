@@ -18,8 +18,9 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
     statusDisplayName += "s";
   }
 
+  const { fill, border, text } = mapUmbrellaStatusColors[status];
   return (
-    <BadgeContainer {...mapUmbrellaStatusColors[status]} onClick={onClick}>
+    <BadgeContainer fill={fill} border={border} text={text} onClick={onClick}>
       <Number>{count}</Number>
       <Status>{statusDisplayName}</Status>
     </BadgeContainer>

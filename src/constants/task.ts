@@ -285,41 +285,49 @@ export const mapUmbrellaStatusColors = {
     fill: gray.light3,
     border: gray.light2,
     text: gray.dark1,
+    barChart: gray.dark1,
   },
   [TaskStatus.RunningUmbrella]: {
     fill: yellow.light3,
     border: yellow.light2,
     text: yellow.dark2,
+    barChart: yellow.base,
   },
   [TaskStatus.SystemFailureUmbrella]: {
     fill: "#4f4fbf",
     border: "#36367f",
     text: "#f1f0fc",
+    barChart: "#4f4fbf",
   },
   [TaskStatus.UndispatchedUmbrella]: {
     fill: gray.light3,
     border: gray.light2,
     text: gray.dark1,
+    barChart: gray.base,
   },
   [TaskStatus.ScheduledUmbrella]: {
     fill: gray.dark1,
     border: gray.dark2,
     text: gray.light3,
+    barChart: gray.dark1,
   },
   [TaskStatus.FailedUmbrella]: {
     fill: red.light3,
     border: red.light2,
     text: red.dark2,
+    barChart: red.base,
   },
   [TaskStatus.Succeeded]: {
     fill: green.light3,
     border: green.light2,
     text: green.dark2,
+    barChart: green.base,
   },
   [TaskStatus.SetupFailed]: {
     fill: "#f1f0fc",
     border: "#d5d4f9",
     text: "#4f4fbf",
+    barChart: "#f1f0fc",
   },
 };
 
