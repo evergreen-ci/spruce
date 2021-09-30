@@ -32,5 +32,5 @@ describe("Waterfall Task Status Icons", () => {
   });
 
   const route =
-    "/commits/evergreen?chartType=soeiantsrein&statuses=all,failed-umbrella,failed,task-timed-out,test-timed-out,known-issue,success,running-umbrella,started,dispatched,scheduled-umbrella,will-run,pending,unstarted,system-failure-umbrella,system-failed,system-timed-out,system-unresponsive,setup-failed,inactive";
+    "/commits/evergreen?chartType=percentage&statuses=all,failed-umbrella,failed,task-timed-out,test-timed-out,known-issue,success,running-umbrella,started,dispatched,scheduled-umbrella,will-run,pending,unstarted,system-failure-umbrella,system-failed,system-timed-out,system-unresponsive,setup-failed,inactive";
 });
