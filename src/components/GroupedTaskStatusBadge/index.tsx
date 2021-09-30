@@ -5,6 +5,7 @@ interface Props {
   status: string;
   count: number;
   onClick?: () => void;
+  statusCounts?: { [key: string]: number };
 }
 export const GroupedTaskStatusBadge: React.FC<Props> = ({
   count,

@@ -90,7 +90,7 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
   );
   return (
     <>
-      {stats.map(({ count, umbrellaStatus }) => (
+      {stats.map(({ count, umbrellaStatus, statusCounts }) => (
         <GroupedTaskStatusBadgeWrapper
           key={umbrellaStatus}
           data-cy="grouped-task-status-badge"
@@ -101,7 +101,11 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
               variant: applyStrictRegex(variant),
             })}
           >
-            <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />
+            <GroupedTaskStatusBadge
+              status={umbrellaStatus}
+              count={count}
+              statusCounts={statusCounts}
+            />
           </Link>
         </GroupedTaskStatusBadgeWrapper>
       ))}
