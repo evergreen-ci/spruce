@@ -161,3 +161,17 @@ export const sortFunctionDate = (a, b, key) => {
  * @return {string} A regex that strictly matches on the input.
  */
 export const applyStrictRegex = (str: string) => `^${str}$`;
+
+/**
+ * @param {string} word - A singular string to pluralize
+ * @param {number} count - A count to base pluralization
+ */
+export const pluralize = (word: string, count: number) => {
+  if (word.slice(-1) === "s" && count !== 1) {
+    return `${word}es`;
+  }
+  if (word.slice(-1) === "e" && count !== 1) {
+    return `${word}s`;
+  }
+  return word;
+};

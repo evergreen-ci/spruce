@@ -1,30 +1,56 @@
 import styled from "@emotion/styled";
+import Tooltip from "@leafygreen-ui/tooltip";
+import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
+import { TaskStatus } from "types/task";
+import { pluralize } from "utils/string";
 
 interface Props {
-  status: string;
+  status: TaskStatus;
   count: number;
   onClick?: () => void;
-  statusCounts?: { [key: string]: number };
+  statusCounts: { [key: string]: number };
 }
+
 export const GroupedTaskStatusBadge: React.FC<Props> = ({
   count,
   status,
   onClick = () => undefined,
+  statusCounts,
 }) => {
-  let statusDisplayName = taskStatusToCopy[status];
-  if (statusDisplayName.slice(-1) === "s" && count !== 1) {
-    statusDisplayName += "es";
-  } else if (statusDisplayName.slice(-1) === "e" && count !== 1) {
-    statusDisplayName += "s";
-  }
+  const statusDisplayName = pluralize(taskStatusToCopy[status], count);
 
   const { fill, border, text } = mapUmbrellaStatusColors[status];
   return (
-    <BadgeContainer fill={fill} border={border} text={text} onClick={onClick}>
-      <Number>{count}</Number>
-      <Status>{statusDisplayName}</Status>
-    </BadgeContainer>
+    <Tooltip
+      usePortal={false}
+      align="top"
+      justify="middle"
+      open
+      popoverZIndex={1}
+      trigger={
+        <BadgeContainer
+          fill={fill}
+          border={border}
+          text={text}
+          onClick={onClick}
+        >
+          <Number>{count}</Number>
+          <Status>{statusDisplayName}</Status>
+        </BadgeContainer>
+      }
+      triggerEvent="hover"
+    >
+      {Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
+        <Row>
+          <TaskStatusIcon status={taskStatus} size={16} />
+          <span>
+            <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
+            {pluralize(taskStatusToCopy[taskStatus], taskCount)}
+          </span>
+        </Row>
+      ))}
+    </Tooltip>
   );
 };
 
@@ -50,6 +76,10 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   ${({ text }) => text && `color: ${text};`}
 `;
 
+const Row = styled.div`
+  white-space: nowrap;
+`;
+
 const Number = styled.span`
   font-size: 11px;
   font-weight: bold;
@@ -59,4 +89,13 @@ const Number = styled.span`
 const Status = styled.span`
   font-size: 8px;
   line-height: 8px;
+`;
+
+interface CountProps {
+  umbrellaStatus: TaskStatus;
+}
+const Count = styled.span<CountProps>`
+  ${({ umbrellaStatus }) =>
+    umbrellaStatus !== TaskStatus.Succeeded && "font-weight: bold;"}
+  margin-left: 5px;
 `;

@@ -15,6 +15,7 @@ export const GroupedTaskStatusBadges = () => (
         count={item.count}
         key={item.status}
         onClick={action(`Click status ${item.status}`)}
+        statusCounts={statusCounts}
       />
     ))}
   </Container>
@@ -37,3 +38,18 @@ const Container = styled.div`
   flex-direction: row;
   justify-content: space-around;
 `;
+
+const statusCounts = {
+  started: 30,
+  failed: 15,
+  unstarted: 5,
+  undispatched: 6,
+  "will-run": 11,
+  dispatched: 99,
+  pending: 987,
+  "test-timed-out": 2,
+  "task-timed-out": 53,
+  "system-failed": 22,
+  blocked: 50,
+  aborted: 88,
+};

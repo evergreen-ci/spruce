@@ -4,12 +4,13 @@ import {
   mapUmbrellaStatusColors,
   sortedUmbrellaStatus,
 } from "constants/task";
+import { TaskStatus } from "types/task";
 
 type ColorCount = {
   count: number;
   statuses: string[];
   color: string;
-  umbrellaStatus: string;
+  umbrellaStatus: TaskStatus;
   statusCounts: { [key: string]: number };
 };
 
@@ -33,7 +34,7 @@ export const groupStatusesByUmbrellaStatus = (
         count: stat.count,
         statuses: [taskStatusToCopy[stat.status]],
         color: mapUmbrellaStatusColors[umbrellaStatus].barChart,
-        umbrellaStatus,
+        umbrellaStatus: umbrellaStatus as TaskStatus,
         statusCounts: {},
       };
     }
