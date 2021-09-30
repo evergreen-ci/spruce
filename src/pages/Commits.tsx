@@ -131,7 +131,7 @@ export const Commits = () => {
             <StatusSelect />
           </StatusSelectWrapper>
           <ProjectSelectWrapper>
-            <ProjectSelect selectedProject={projectId} />
+            <ProjectSelect selectedProjectIdentifier={projectId} />
           </ProjectSelectWrapper>
         </HeaderWrapper>
         <BadgeWrapper>
