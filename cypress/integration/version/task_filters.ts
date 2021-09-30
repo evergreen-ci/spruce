@@ -181,7 +181,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "running-umbrella,started,dispatched",
+        search: "started",
       });
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
@@ -191,7 +191,7 @@ describe("Tasks filters", () => {
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
         paramName: urlParam,
-        search: "running-umbrella,started,dispatched,success",
+        search: "started,success",
       });
       const multiFilterCount = cy.dataCy("current-task-count").invoke("text");
 
@@ -207,7 +207,9 @@ describe("Tasks filters", () => {
         "Known Issue",
         "Success",
         "Running",
-        "Dispatched",
+        "Will Run",
+        "Undispatched",
+        "Aborted",
         "Blocked",
       ];
       cy.getInputByLabel("All").check({ force: true });
@@ -221,7 +223,7 @@ describe("Tasks filters", () => {
         pathname: pathTasks,
         paramName: urlParam,
         search:
-          "all,failed-umbrella,failed,known-issue,success,running-umbrella,started,dispatched,blocked",
+          "all,failed-umbrella,failed,known-issue,success,started,will-run,undispatched-umbrella,aborted,blocked",
       });
 
       cy.getInputByLabel("All").uncheck({ force: true });
