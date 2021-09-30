@@ -1,6 +1,6 @@
 import { getCurrentStatuses } from "./getCurrentStatuses";
 import { getStatusBadgeCopy } from "./getStatusBadgeCopy";
-import { groupStatusesByUmbrellaStatus } from "./groupStatusesByColor";
+import { groupStatusesByUmbrellaStatus } from "./groupStatusesByUmbrellaStatus";
 import { isFailedTaskStatus } from "./isFailedTaskStatus";
 import { sortTasks } from "./sort";
 
