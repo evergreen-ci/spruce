@@ -1,8 +1,6 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body, Overline } from "@leafygreen-ui/typography";
-import { useHistory } from "react-router-dom";
-import { getCommitsRoute } from "constants/routes";
 import { FavoriteStar } from "./FavoriteStar";
 
 const { gray } = uiColors;
@@ -11,21 +9,19 @@ interface OptionProps {
   displayName: string;
   identifier: string;
   isFavorite: boolean;
+  onClick: (identifier: string) => void;
 }
 const ProjectOption: React.FC<OptionProps> = ({
   displayName,
   isFavorite,
   identifier,
-}) => {
-  const history = useHistory();
-
-  return (
-    <ProjectContainer onClick={() => history.push(getCommitsRoute(identifier))}>
-      <Body data-cy="project-display-name">{displayName || identifier}</Body>
-      <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
-    </ProjectContainer>
-  );
-};
+  onClick,
+}) => (
+  <ProjectContainer onClick={() => onClick(identifier)}>
+    <Body data-cy="project-display-name">{displayName || identifier}</Body>
+    <FavoriteStar identifier={identifier} isFavorite={isFavorite} />
+  </ProjectContainer>
+);
 
 interface OptionGroupProps {
   name: string;
@@ -34,16 +30,22 @@ interface OptionGroupProps {
     identifier: string;
     isFavorite: boolean;
   }[];
+  onClick: (identifier: string) => void;
 }
 export const ProjectOptionGroup: React.FC<OptionGroupProps> = ({
   name,
   projects,
+  onClick,
 }) => (
   <OptionGroupContainer>
     <Overline>{name}</Overline>
     <ListContainer>
       {projects?.map((project) => (
-        <ProjectOption key={project.identifier} {...project} />
+        <ProjectOption
+          onClick={onClick}
+          key={project.identifier}
+          {...project}
+        />
       ))}
     </ListContainer>
   </OptionGroupContainer>

@@ -8,21 +8,19 @@ import { ProjectSelect } from ".";
 test("Sets the currently selected project to what ever is passed in's display name", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
-  const { queryByDataCy } = render(ContentWrapper());
+  const { baseElement } = render(ContentWrapper());
   await act(() => new Promise((resolve) => setTimeout(resolve, 0)));
 
-  expect(queryByDataCy("project-name")).toHaveTextContent(
-    "Project: evergreen smoke test"
-  );
+  expect(baseElement).toHaveTextContent("evergreen smoke test");
 });
 
 test("Should toggle dropdown when clicking on it ", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
   const { queryByDataCy } = render(ContentWrapper());
@@ -38,7 +36,7 @@ test("Should toggle dropdown when clicking on it ", async () => {
 test("Should narrow down search results when filtering on projects", async () => {
   const ContentWrapper = () => (
     <MockedProvider mocks={mocks} addTypename={false}>
-      <ProjectSelect selectedProject="evergreen" />
+      <ProjectSelect selectedProjectIdentifier="evergreen" />
     </MockedProvider>
   );
   const { queryByDataCy, findAllByDataCy } = render(ContentWrapper());
@@ -49,7 +47,7 @@ test("Should narrow down search results when filtering on projects", async () =>
   expect(queryByDataCy("project-select-options")).toBeInTheDocument();
   let options = await findAllByDataCy("project-display-name");
   expect(options.length).toBe(6);
-  userEvent.type(queryByDataCy("project-search"), "logkeeper");
+  userEvent.type(queryByDataCy("project-select-search-input"), "logkeeper");
   options = await findAllByDataCy("project-display-name");
   expect(options.length).toBe(1);
 });
