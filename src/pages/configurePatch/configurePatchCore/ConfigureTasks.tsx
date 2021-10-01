@@ -2,9 +2,11 @@ import React from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import Checkbox from "@leafygreen-ui/checkbox";
+import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import every from "lodash.every";
 import { Button } from "components/Button";
+import Icon from "components/Icon";
 import { PatchTriggerAlias } from "gql/generated/types";
 import {
   AliasState,
@@ -150,17 +152,34 @@ export const ConfigureTasks: React.FC<Props> = ({
         >
           Schedule
         </Button>
-        <Checkbox
-          data-cy="select-all-checkbox"
-          indeterminate={selectAllCheckboxState === CheckboxState.INDETERMINITE}
-          onChange={onClickSelectAll}
-          label={selectAllCheckboxCopy}
-          checked={selectAllCheckboxState === CheckboxState.CHECKED}
-          disabled={
-            (activated && Object.entries(currentAliases).length > 0) ||
-            enumerateChildPatchTasks
-          }
-        />
+        <div>
+          <InlineCheckbox
+            data-cy="select-all-checkbox"
+            indeterminate={
+              selectAllCheckboxState === CheckboxState.INDETERMINITE
+            }
+            onChange={onClickSelectAll}
+            label={selectAllCheckboxCopy}
+            checked={selectAllCheckboxState === CheckboxState.CHECKED}
+            disabled={
+              (activated && Object.entries(currentAliases).length > 0) ||
+              enumerateChildPatchTasks
+            }
+          />
+          {enumerateChildPatchTasks && (
+            <Tooltip
+              justify="middle"
+              triggerEvent="hover"
+              trigger={
+                <IconContainer>
+                  <Icon glyph="InfoWithCircle" />
+                </IconContainer>
+              }
+            >
+              Aliases specified via CLI cannot be edited.
+            </Tooltip>
+          )}
+        </div>
       </Actions>
       <StyledDisclaimer data-cy="selected-task-disclaimer">
         {selectedTaskDisclaimerCopy}
@@ -397,4 +416,11 @@ const TabContentWrapper = styled.div`
 `;
 const H4 = styled.h4`
   margin-top: 16px;
+`;
+const IconContainer = styled.span`
+  margin-left: 8px;
+`;
+// @ts-expect-error
+const InlineCheckbox = styled(Checkbox)`
+  display: inline-flex;
 `;
