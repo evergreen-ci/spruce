@@ -57,7 +57,7 @@ const AnimatedAccordion = styled.div`
   max-height: 0;
   /* This is used to calculate a fixed height for the Accordion since height
      transitions require a fixed height for their end height */
-  max-height: ${(props: { hide: boolean }): string => !props.hide && "1500px"};
+  max-height: ${(props: { hide: boolean }): string => !props.hide && "6000px"};
   overflow-y: ${(props: { hide: boolean }): string =>
     props.hide ? "hidden" : "visible"};
   transition: max-height 0.3s ease-in-out;
