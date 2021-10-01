@@ -808,7 +808,10 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  childProject: Scalars["String"];
+  /** @deprecated Field no longer supported */
+  childProject?: Maybe<Scalars["String"]>;
+  childProjectId: Scalars["String"];
+  childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
@@ -2602,7 +2605,8 @@ export type ConfigurePatchQuery = {
     >;
     patchTriggerAliases: Array<{
       alias: string;
-      childProject: string;
+      childProjectId: string;
+      childProjectIdentifier: string;
       variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
     }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;

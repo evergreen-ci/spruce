@@ -213,13 +213,15 @@ const getPatchTriggerAliasEntries = (
   if (!selectableAliases) {
     return [];
   }
-  return selectableAliases.map(({ alias, childProject, variantsTasks }) => ({
-    displayName: `${alias} (${childProject})`,
-    name: alias,
-    taskCount: selectedAliases[alias]
-      ? variantsTasks.reduce((count, { tasks }) => count + tasks.length, 0)
-      : 0,
-  }));
+  return selectableAliases.map(
+    ({ alias, childProjectIdentifier, variantsTasks }) => ({
+      displayName: `${alias} (${childProjectIdentifier})`,
+      name: alias,
+      taskCount: selectedAliases[alias]
+        ? variantsTasks.reduce((count, { tasks }) => count + tasks.length, 0)
+        : 0,
+    })
+  );
 };
 
 const getChildPatchEntries = (childPatches: ChildPatchAliased[]) => {
