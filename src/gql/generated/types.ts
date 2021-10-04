@@ -1311,6 +1311,7 @@ export type UserPatchesArgs = {
 export type TaskLogs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
+  defaultLogger: Scalars["String"];
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
@@ -2062,6 +2063,15 @@ export type DistroTaskQueueQuery = {
     priority: number;
     version: string;
   }>;
+};
+
+export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type GetFailedTaskStatusIconTooltipQuery = {
+  task?: Maybe<{ displayName: string; timeTaken?: Maybe<number> }>;
+  taskTests: { testResults: Array<{ id: string; testFile: string }> };
 };
 
 export type AgentLogsQueryVariables = Exact<{
