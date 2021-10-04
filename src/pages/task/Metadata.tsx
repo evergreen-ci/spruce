@@ -15,6 +15,7 @@ import {
   getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
+import { useUserTimeZone } from "hooks/useUserTimeZone";
 import { TaskStatus } from "types/task";
 import { environmentalVariables, string } from "utils";
 import { AbortMessage } from "./metadata/AbortMessage";
@@ -34,7 +35,7 @@ interface Props {
 
 export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
-
+  const timeZone = useUserTimeZone();
   const {
     status,
     spawnHostLink,
@@ -105,7 +106,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
 
         {ingestTime && (
           <P2 data-cy="task-metadata-submitted-at">
-            Submitted at: {getDateCopy(ingestTime)}
+            Submitted at: {getDateCopy(ingestTime, { tz: timeZone })}
           </P2>
         )}
         {generatedBy && (
@@ -131,7 +132,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           <P2>
             Started:{" "}
             <span data-cy="task-metadata-started">
-              {getDateCopy(startTime)}
+              {getDateCopy(startTime, { tz: timeZone })}
             </span>
           </P2>
         )}
@@ -139,7 +140,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           <P2>
             Finished:{" "}
             <span data-cy="task-metadata-finished">
-              {getDateCopy(finishTime)}
+              {getDateCopy(finishTime, { tz: timeZone })}
             </span>
           </P2>
         )}
