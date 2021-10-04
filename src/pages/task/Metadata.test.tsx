@@ -38,7 +38,8 @@ const taskQuery = {
       project: "spruce",
     },
     patchNumber: 417,
-    reliesOn: [],
+    canOverrideDependencies: false,
+    dependsOn: [],
     logs: {
       __typename: "TaskLogLinks",
       allLogLink:

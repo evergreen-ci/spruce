@@ -15,11 +15,11 @@ import {
   getProjectPatchesRoute,
 } from "constants/routes";
 import { GetTaskQuery } from "gql/generated/types";
-import { AbortMessage } from "pages/task/metadata/AbortMessage";
-import { DependsOn } from "pages/task/metadata/DependsOn";
-import { ETATimer } from "pages/task/metadata/ETATimer";
 import { TaskStatus } from "types/task";
 import { environmentalVariables, string } from "utils";
+import { AbortMessage } from "./metadata/AbortMessage";
+import { DependsOn } from "./metadata/DependsOn";
+import { ETATimer } from "./metadata/ETATimer";
 
 const { msToDuration, getDateCopy } = string;
 const { getUiUrl } = environmentalVariables;
@@ -45,7 +45,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
     estimatedStart,
     timeTaken,
     revision,
-    reliesOn,
+    dependsOn,
     baseTaskMetadata,
     ami,
     distroId,
@@ -252,17 +252,24 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
         )}
         {abortInfo && <AbortMessage {...abortInfo} />}
         {oomTracker && oomTracker.detected && (
-          <RedP2>
+          <OOMTrackerMessage>
             Out of Memory Kill detected
             {oomTracker.pids ? `(PIDs: ${oomTracker.pids.join(", ")}` : ""} )
-          </RedP2>
+          </OOMTrackerMessage>
         )}
-        {reliesOn && reliesOn.length ? (
+        {dependsOn && dependsOn.length ? (
           <span data-cy="depends-on-container">
             <H3>Depends On</H3>
             <Divider />
-            {reliesOn.map((props) => (
-              <DependsOn key={`dependOnPill_${props.uiLink}`} {...props} />
+            {dependsOn.map((dep) => (
+              <DependsOn
+                key={`dependOnPill_${dep.taskId}`}
+                name={dep.name}
+                buildVariant={dep.buildVariant}
+                metStatus={dep.metStatus}
+                requiredStatus={dep.requiredStatus}
+                taskId={dep.taskId}
+              />
             ))}
           </span>
         ) : null}
@@ -271,7 +278,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   );
 };
 
-const RedP2 = styled(P2)`
+const OOMTrackerMessage = styled(P2)`
   color: ${red.dark2};
   font-weight: 500;
 `;

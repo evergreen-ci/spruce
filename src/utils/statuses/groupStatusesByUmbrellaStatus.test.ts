@@ -93,7 +93,6 @@ test("Returns the overall maximum and total", () => {
     { status: "setup-failed", count: 3 },
     { status: "system-unresponsive", count: 2 },
   ];
-
   expect(groupStatusesByUmbrellaStatus(tasks)).toStrictEqual({
     stats: [
       {
