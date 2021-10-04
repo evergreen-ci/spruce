@@ -52,13 +52,12 @@ export const ConfigurePatchCore: React.FC<Props> = ({ patch }) => {
   } = patch;
   const { variants } = project;
 
-  const childPatchesWithAliases: ChildPatchAliased[] = childPatches
-    ? childPatches.map((cp) => {
-        const { alias = id } =
-          childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
-        return { ...cp, alias };
-      })
-    : [];
+  const childPatchesWithAliases: ChildPatchAliased[] =
+    childPatches?.map((cp) => {
+      const { alias = id } =
+        childPatchAliases.find(({ patchId }) => cp.id === patchId) || {};
+      return { ...cp, alias };
+    }) ?? [];
 
   const selectableAliases = useMemo(
     () => filterAliases(patchTriggerAliases, childPatchAliases || []),
