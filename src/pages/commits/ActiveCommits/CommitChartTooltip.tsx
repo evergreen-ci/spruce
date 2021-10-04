@@ -49,7 +49,7 @@ export const CommitChartTooltip: React.FC<Props> = ({
           <TotalCount
             key={umbrellaStatus}
             status={umbrellaStatus}
-            color={mapUmbrellaStatusColors[umbrellaStatus].border}
+            color={mapUmbrellaStatusColors[umbrellaStatus].barChart}
             count={0}
             active={false}
           />
