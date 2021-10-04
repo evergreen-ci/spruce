@@ -1,0 +1,7 @@
+mutation overrideTaskDependencies($taskId: String!) {
+  overrideTaskDependencies(taskId: $taskId) {
+    id
+    execution
+    status
+  }
+}
