@@ -35,7 +35,7 @@ interface Props {
 
 export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
   const taskAnalytics = useTaskAnalytics();
-  const timeZone = useUserTimeZone();
+  const tz = useUserTimeZone();
   const {
     status,
     spawnHostLink,
@@ -106,7 +106,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
 
         {ingestTime && (
           <P2 data-cy="task-metadata-submitted-at">
-            Submitted at: {getDateCopy(ingestTime, { tz: timeZone })}
+            Submitted at: {getDateCopy(ingestTime, { tz })}
           </P2>
         )}
         {generatedBy && (
@@ -132,7 +132,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           <P2>
             Started:{" "}
             <span data-cy="task-metadata-started">
-              {getDateCopy(startTime, { tz: timeZone })}
+              {getDateCopy(startTime, { tz })}
             </span>
           </P2>
         )}
@@ -140,7 +140,7 @@ export const Metadata: React.FC<Props> = ({ loading, task, error, taskId }) => {
           <P2>
             Finished:{" "}
             <span data-cy="task-metadata-finished">
-              {getDateCopy(finishTime, { tz: timeZone })}
+              {getDateCopy(finishTime, { tz })}
             </span>
           </P2>
         )}
