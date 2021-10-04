@@ -49,7 +49,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     <span
       className="css-4dluyx-Status emc61an0"
     >
-      Failed
+      Failure
     </span>
   </div>
   <div
@@ -81,12 +81,12 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     <span
       className="css-4dluyx-Status emc61an0"
     >
-      System Failed
+      System Failures
     </span>
   </div>
   <div
-    className="css-1gx4iju-BadgeContainer emc61an2"
-    fill=" #f1f0fc"
+    className="css-1hhvtzt-BadgeContainer emc61an2"
+    fill="#f1f0fc"
     onClick={[Function]}
   >
     <span
@@ -101,8 +101,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="css-1gx4iju-BadgeContainer emc61an2"
-    fill=" #f1f0fc"
+    className="css-1hhvtzt-BadgeContainer emc61an2"
+    fill="#f1f0fc"
     onClick={[Function]}
   >
     <span
@@ -145,7 +145,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     <span
       className="css-4dluyx-Status emc61an0"
     >
-      Will Run
+      Scheduled
     </span>
   </div>
 </div>

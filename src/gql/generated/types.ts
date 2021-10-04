@@ -2535,6 +2535,7 @@ export type MainlineCommitsQuery = {
           Array<
             Maybe<{
               displayName: string;
+              variant: string;
               tasks?: Maybe<
                 Array<
                   Maybe<{

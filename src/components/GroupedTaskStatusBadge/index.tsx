@@ -1,5 +1,5 @@
 import styled from "@emotion/styled";
-import { taskStatusToCopy, mapBadgeColors } from "constants/task";
+import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 
 interface Props {
   status: string;
@@ -18,8 +18,9 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
     statusDisplayName += "s";
   }
 
+  const { fill, border, text } = mapUmbrellaStatusColors[status];
   return (
-    <BadgeContainer {...mapBadgeColors[status]} onClick={onClick}>
+    <BadgeContainer fill={fill} border={border} text={text} onClick={onClick}>
       <Number>{count}</Number>
       <Status>{statusDisplayName}</Status>
     </BadgeContainer>

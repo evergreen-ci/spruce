@@ -1,8 +1,7 @@
-import { mapTaskStatusToColor, mapTaskStatusToTextColor } from "constants/task";
 import { TaskStatus } from "types/task";
-import { groupTasksByColor } from "./utils";
+import { groupTasksByUmbrellaStatus } from "./utils";
 
-describe("groupTasksByColor", () => {
+describe("groupTasksByUmbrellaStatus", () => {
   test("Seperates tasks into groups based on the color of the status", () => {
     const tasks = [
       {
@@ -24,21 +23,28 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
+        statuses: ["failed"],
+        textColor: "#8F221B",
+        fill: "#FCEBE2",
+        border: "#F9D3C5",
       },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Failed],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["success"],
+        textColor: "#116149",
+        fill: "#E4F4E4",
+        border: "#C3E7CA",
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      "running-umbrella": {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["started"],
+        textColor: "#86681D",
+        fill: "#FEF7E3",
+        border: "#FEF2C8",
       },
     });
   });
@@ -69,21 +75,28 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-        count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
-      },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 2,
-        statuses: [TaskStatus.Failed, TaskStatus.TaskTimedOut],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["failed", "task-timed-out"],
+        textColor: "#8F221B",
+        fill: "#FCEBE2",
+        border: "#F9D3C5",
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["success"],
+        textColor: "#116149",
+        fill: "#E4F4E4",
+        border: "#C3E7CA",
+      },
+      "running-umbrella": {
+        count: 1,
+        statuses: ["started"],
+        textColor: "#86681D",
+        fill: "#FEF7E3",
+        border: "#FEF2C8",
       },
     });
   });
@@ -114,21 +127,28 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-        count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
-      },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 2,
-        statuses: [TaskStatus.Failed],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["failed"],
+        textColor: "#8F221B",
+        fill: "#FCEBE2",
+        border: "#F9D3C5",
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["success"],
+        textColor: "#116149",
+        fill: "#E4F4E4",
+        border: "#C3E7CA",
+      },
+      "running-umbrella": {
+        count: 1,
+        statuses: ["started"],
+        textColor: "#86681D",
+        fill: "#FEF7E3",
+        border: "#FEF2C8",
       },
     });
   });

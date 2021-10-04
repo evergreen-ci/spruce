@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 import { ListChildComponentProps } from "react-window";
 import CommitChartLabel from "components/CommitChartLabel";
+import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
@@ -31,9 +33,11 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       if (foundVariant) {
         const { tasks } = foundVariant;
         return (
-          <Cell key={`task_cell_${tasks[0].id}`}>
-            <HistoryTableIcon status={tasks[0].status as TaskStatus} />
-          </Cell>
+          <Link to={getTaskRoute(tasks[0].id)}>
+            <Cell key={`task_cell_${tasks[0].id}`}>
+              <HistoryTableIcon status={tasks[0].status as TaskStatus} />
+            </Cell>
+          </Link>
         );
       }
       // Returned if the build variant did not run for this commit
