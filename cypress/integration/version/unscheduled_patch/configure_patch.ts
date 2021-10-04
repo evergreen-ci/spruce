@@ -453,6 +453,7 @@ describe("Configure Patch Page", () => {
       it("Should show one disabled task", () => {
         cy.dataCy("alias-task-checkbox").should("have.length", 1);
         cy.dataCy("alias-task-checkbox").should("have.attr", "disabled");
+        cy.dataCy("alias-task-checkbox").should("not.be.checked");
       });
 
       it("Should update the 'Select all' label", () => {
@@ -461,7 +462,7 @@ describe("Configure Patch Page", () => {
           .contains("Add alias to patch");
       });
 
-      it("Clicking select all should update the task count", () => {
+      it("Clicking select all should update the task count and select the disabled task", () => {
         cy.dataCy("trigger-alias-list-item")
           .find('[data-cy="task-count-badge"]')
           .should("not.exist");
@@ -479,6 +480,8 @@ describe("Configure Patch Page", () => {
           .find('[data-cy="task-count-badge"]');
         countBadge.should("exist");
         countBadge.should("have.text", 1);
+
+        cy.dataCy("alias-task-checkbox").should("be.checked");
       });
 
       it("Cmd+click will select the clicked trigger alias along with the build variant and will show a checkbox for the trigger alias", () => {
