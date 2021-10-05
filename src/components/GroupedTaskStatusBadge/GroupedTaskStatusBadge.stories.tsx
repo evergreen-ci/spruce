@@ -43,7 +43,7 @@ const statusCounts = {
   started: 30,
   failed: 15,
   unstarted: 5,
-  undispatched: 6,
+  unscheduled: 6,
   "will-run": 11,
   dispatched: 99,
   pending: 987,

@@ -49,7 +49,7 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
       triggerEvent="hover"
     >
       <div>
-        <TooltipTitle>
+        <TooltipTitle data-cy="failed-task-status-icon-tooltip-title">
           {displayName} - {msToDuration(timeTaken)}
         </TooltipTitle>
         {testResults?.map(({ id, testFile }) => (

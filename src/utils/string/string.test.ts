@@ -279,11 +279,11 @@ describe("applyStrictRegex", () => {
 
 describe("pluralize", () => {
   test("Outputs correct pluralization of input", () => {
-    expect(pluralize("success", 0)).toEqual("success");
+    expect(pluralize("success", 0)).toEqual("successes");
     expect(pluralize("success", 1)).toEqual("success");
     expect(pluralize("success", 2)).toEqual("successes");
 
-    expect(pluralize("failure", 0)).toEqual("failure");
+    expect(pluralize("failure", 0)).toEqual("failures");
     expect(pluralize("failure", 1)).toEqual("failure");
     expect(pluralize("failure", 2)).toEqual("failures");
 

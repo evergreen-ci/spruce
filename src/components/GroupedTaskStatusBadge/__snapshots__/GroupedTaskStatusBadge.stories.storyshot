@@ -5,145 +5,181 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   className="css-1gttx0q-Container e1ub2bu20"
 >
   <div
-    className="css-5yec2p-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-5yec2p-BadgeContainer emc61an4"
     fill="#E4F4E4"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       20
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Successes
     </span>
   </div>
   <div
-    className="css-5yec2p-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-5yec2p-BadgeContainer emc61an4"
     fill="#E4F4E4"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       1
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Success
     </span>
   </div>
   <div
-    className="css-i119zf-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-i119zf-BadgeContainer emc61an4"
     fill="#FCEBE2"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       1
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Failure
     </span>
   </div>
   <div
-    className="css-1gp0ja9-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-1gp0ja9-BadgeContainer emc61an4"
     fill="#FEF7E3"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       2
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Running
     </span>
   </div>
   <div
-    className="css-q8apdg-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-q8apdg-BadgeContainer emc61an4"
     fill="#4f4fbf"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       3
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       System Failures
     </span>
   </div>
   <div
-    className="css-1hhvtzt-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-1hhvtzt-BadgeContainer emc61an4"
     fill="#f1f0fc"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       4
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Setup Failures
     </span>
   </div>
   <div
-    className="css-1hhvtzt-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-1hhvtzt-BadgeContainer emc61an4"
     fill="#f1f0fc"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       1
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Setup Failure
     </span>
   </div>
   <div
-    className="css-1seowmo-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-1seowmo-BadgeContainer emc61an4"
     fill="#F9FBFA"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       5
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Undispatched
     </span>
   </div>
   <div
-    className="css-1jueq6p-BadgeContainer emc61an2"
+    className="leafygreen-ui-cssveg css-1jueq6p-BadgeContainer emc61an4"
     fill="#5D6C74"
+    onBlur={[Function]}
     onClick={[Function]}
+    onFocus={[Function]}
+    onMouseEnter={[Function]}
+    onMouseLeave={[Function]}
   >
     <span
-      className="css-wtl5ix-Number emc61an1"
+      className="css-wtl5ix-Number emc61an2"
     >
       5
     </span>
     <span
-      className="css-4dluyx-Status emc61an0"
+      className="css-4dluyx-Status emc61an1"
     >
       Scheduled
     </span>

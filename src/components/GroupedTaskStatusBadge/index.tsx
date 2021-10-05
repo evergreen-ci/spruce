@@ -40,15 +40,17 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       }
       triggerEvent="hover"
     >
-      {Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
-        <Row>
-          <TaskStatusIcon status={taskStatus} size={16} />
-          <span>
-            <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
-            {pluralize(taskStatusToCopy[taskStatus], taskCount)}
-          </span>
-        </Row>
-      ))}
+      <span data-cy="grouped-task-status-badge-tooltip">
+        {Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
+          <Row>
+            <TaskStatusIcon status={taskStatus} size={16} />
+            <span>
+              <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
+              {pluralize(taskStatusToCopy[taskStatus] ?? taskStatus, taskCount)}
+            </span>
+          </Row>
+        ))}
+      </span>
     </Tooltip>
   );
 };
