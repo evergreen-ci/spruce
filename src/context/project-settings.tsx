@@ -5,18 +5,18 @@ import { ProjectSettingsTabRoutes } from "constants/routes";
 interface ProjectSettingsState
   extends Record<ProjectSettingsTabRoutes, boolean> {}
 
-type Action =
+type SaveAction =
   | { type: "saveTab"; tab: ProjectSettingsTabRoutes }
   | { type: "unsaveTab"; tab: ProjectSettingsTabRoutes };
 
-interface DispatchSaveState {
+interface SaveTabDispatchState {
   saveTab: (tab: ProjectSettingsTabRoutes) => void;
   unsaveTab: (tab: ProjectSettingsTabRoutes) => void;
 }
 
 const saveReducer = (
   state: ProjectSettingsState,
-  action: Action
+  action: SaveAction
 ): ProjectSettingsState => {
   switch (action.type) {
     case "saveTab":
@@ -59,11 +59,11 @@ const formReducer = (state: FormState, action: FormAction): FormState => {
 };
 
 const ProjectSettingsContext = createContext<ProjectSettingsState | null>(null);
-const DispatchSaveContext = createContext<DispatchSaveState | null>(null);
+const SaveTabDispatchContext = createContext<SaveTabDispatchState | null>(null);
 const FormContext = createContext<FormContextState | null>(null);
 
 const ProjectSettingsProvider: React.FC = ({ children }) => {
-  const [savedState, dispatchSave] = useReducer(
+  const [savedTabState, dispatchSaveTab] = useReducer(
     saveReducer,
     getDefaultRouteObject(true)
   );
@@ -73,29 +73,29 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
     getDefaultRouteObject({})
   );
 
-  const dispatchSaveContext = {
+  const dispatchSaveTabContext = {
     saveTab: (tab) => {
-      dispatchSave({ type: "saveTab", tab });
+      dispatchSaveTab({ type: "saveTab", tab });
     },
     unsaveTab: (tab) => {
-      dispatchSave({ type: "unsaveTab", tab });
+      dispatchSaveTab({ type: "unsaveTab", tab });
     },
   };
 
   const setFormState = (tab, formData, unsave = true) => {
     if (unsave) {
-      dispatchSaveContext.unsaveTab(tab);
+      dispatchSaveTabContext.unsaveTab(tab);
     }
     dispatchForm({ type: "updateForm", tab, formData });
   };
 
   return (
-    <ProjectSettingsContext.Provider value={savedState}>
-      <DispatchSaveContext.Provider value={dispatchSaveContext}>
+    <ProjectSettingsContext.Provider value={savedTabState}>
+      <SaveTabDispatchContext.Provider value={dispatchSaveTabContext}>
         <FormContext.Provider value={{ formState, setFormState }}>
           {children}
         </FormContext.Provider>
-      </DispatchSaveContext.Provider>
+      </SaveTabDispatchContext.Provider>
     </ProjectSettingsContext.Provider>
   );
 };
@@ -109,11 +109,11 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
   }
   return context;
 };
-const useProjectSettingsDispatchContext = (): DispatchSaveState => {
-  const context = useContext(DispatchSaveContext);
+const useSaveTabDispatchContext = (): SaveTabDispatchState => {
+  const context = useContext(SaveTabDispatchContext);
   if (context === undefined) {
     throw new Error(
-      "useProjectSettingsDispatchContext must be used within a ProjectSettingsProvider"
+      "useSaveTabDispatchContext must be used within a ProjectSettingsProvider"
     );
   }
   return context;
@@ -171,6 +171,5 @@ export {
   useIsAnyTabUnsaved,
   useIsTabSaved,
   usePopulateForm,
-  useProjectSettingsContext,
-  useProjectSettingsDispatchContext,
+  useSaveTabDispatchContext,
 };

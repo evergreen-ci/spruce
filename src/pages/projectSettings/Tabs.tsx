@@ -17,11 +17,11 @@ import {
 } from "components/ProjectSettingsTabs";
 import { TabProps } from "components/ProjectSettingsTabs/utils";
 import { routes, ProjectSettingsTabRoutes } from "constants/routes";
-import { useProjectSettingsDispatchContext } from "context/project-settings";
+import { useSaveTabDispatchContext } from "context/project-settings";
 
 export const ProjectSettingsTabs: React.FC = () => {
   const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
-  const { saveTab } = useProjectSettingsDispatchContext();
+  const { saveTab } = useSaveTabDispatchContext();
 
   const { title, subtitle } = getTitle(tab);
 
