@@ -1,172 +1,82 @@
-import { useState } from "react";
+import { useMemo } from "react";
 import { useQuery } from "@apollo/client";
-import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Body, Label } from "@leafygreen-ui/typography";
-import { Input } from "antd";
-import Icon from "components/Icon";
+import { useHistory } from "react-router-dom";
+import SearchableDropdown from "components/SearchableDropdown";
+import { getCommitsRoute } from "constants/routes";
 import {
   GetProjectsQuery,
   GetProjectsQueryVariables,
-  ProjectFragment,
 } from "gql/generated/types";
 import { GET_PROJECTS } from "gql/queries";
-import { FavoriteStar } from "./FavoriteStar";
 import { ProjectOptionGroup } from "./ProjectOptionGroup";
 
-const { Search } = Input;
-const { gray, white } = uiColors;
-
-const filterProjects = (
-  projects: ProjectFragment[],
-  search: string,
-  favoriteIdentifiers: string[]
-) => {
-  if (search !== "") {
-    return projects.filter((project) =>
-      project.displayName.toLowerCase().includes(search.toLowerCase())
-    );
-  }
-
-  return projects.filter(
-    (project) => !favoriteIdentifiers.includes(project.identifier)
-  );
-};
-
 interface ProjectSelectProps {
-  selectedProject: string;
+  selectedProjectIdentifier: string;
 }
 export const ProjectSelect: React.FC<ProjectSelectProps> = ({
-  selectedProject,
+  selectedProjectIdentifier,
 }) => {
-  const { data } = useQuery<GetProjectsQuery, GetProjectsQueryVariables>(
-    GET_PROJECTS
-  );
-  const [isVisible, setisVisible] = useState(false);
-  const [search, setSearch] = useState("");
-  const { projects } = data || {};
-  const favorites = projects?.flatMap((g) =>
+  const { data, loading } = useQuery<
+    GetProjectsQuery,
+    GetProjectsQueryVariables
+  >(GET_PROJECTS);
+  const history = useHistory();
+  const { projects } = data || { projects: [] };
+
+  const favoriteProjects = projects?.flatMap((g) =>
     g.projects.filter((p) => p.isFavorite)
   );
-  const favoriteIdentifiers = favorites?.map((p) => p.identifier);
 
-  const filteredProjects = projects?.reduce((op, p) => {
-    const fp = filterProjects(p.projects, search, favoriteIdentifiers);
-    if (fp.length > 0) {
-      op.push({
-        name: p.name,
-        projects: fp,
-      });
-    }
-    return op;
-  }, []);
+  const allProjects = [
+    { name: "Favorites", projects: favoriteProjects },
+    ...projects,
+  ];
+  // Find the project with the selectedProjectIdentifier and set it as the selected project
+  const selectedProject = useMemo(
+    () =>
+      projects
+        .flatMap((g) => g.projects)
+        .find((p) => p.identifier === selectedProjectIdentifier),
+    [projects, selectedProjectIdentifier]
+  );
 
-  const isFavoriteSelected =
-    favoriteIdentifiers?.indexOf(selectedProject) !== -1;
-
-  const currentProject = projects
-    ?.flatMap((g) => g.projects)
-    .find((p) => p.identifier === selectedProject);
+  const handleSearch = (options: typeof allProjects, value: string) => {
+    // iterate through options and remove any groups that have no matching projects
+    const filteredProjects = options.reduce((fp, g) => {
+      const { name, projects: pg } = g;
+      const newProjects = pg.filter(
+        (p) =>
+          p.displayName.toLowerCase().includes(value.toLowerCase()) ||
+          p.identifier.toLowerCase().includes(value.toLowerCase())
+      );
+      if (newProjects.length > 0) {
+        fp.push({ name, projects: newProjects });
+      }
+      return fp;
+    }, [] as GetProjectsQuery["projects"]);
+    return filteredProjects;
+  };
 
   return (
-    <>
-      <Label htmlFor="project-select">Project</Label>
-      <Wrapper>
-        <BarWrapper
-          onClick={() => {
-            setisVisible(!isVisible);
-          }}
-          data-cy="project-select"
-        >
-          <LabelWrapper>
-            <Body data-cy="project-name">
-              Project:{" "}
-              {currentProject?.displayName || currentProject?.identifier}
-            </Body>
-          </LabelWrapper>
-          <FlexWrapper>
-            <FavoriteStar
-              isFavorite={isFavoriteSelected}
-              identifier={selectedProject}
-              data-cy="favorite-selected-project"
-            />
-            <ArrowWrapper>
-              <IconButton aria-label="Toggle Dropdown">
-                <Icon glyph={isVisible ? "ChevronUp" : "ChevronDown"} />
-              </IconButton>
-            </ArrowWrapper>
-          </FlexWrapper>
-        </BarWrapper>
-        {isVisible && (
-          <RelativeWrapper>
-            <OptionsWrapper data-cy="project-select-options">
-              <Search
-                placeholder="Search for project"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                data-cy="project-search"
-              />
-              <ProjectOptionGroup name="Favorites" projects={favorites} />
-              {filteredProjects?.map((p) => (
-                <ProjectOptionGroup key={p.name} {...p} />
-              ))}
-            </OptionsWrapper>
-          </RelativeWrapper>
-        )}
-      </Wrapper>
-    </>
+    <SearchableDropdown
+      label="Project"
+      value={selectedProject?.displayName || selectedProject?.identifier}
+      options={allProjects}
+      onChange={(projectIdentifier: any) => {
+        history.push(getCommitsRoute(projectIdentifier));
+      }}
+      optionRenderer={(projectGroup, onClick) => (
+        <ProjectOptionGroup
+          key={projectGroup.name}
+          projects={projectGroup.projects}
+          name={projectGroup.name}
+          onClick={onClick}
+        />
+      )}
+      searchFunc={handleSearch}
+      disabled={loading}
+      valuePlaceholder="Select a project"
+      data-cy="project-select"
+    />
   );
 };
-
-const LabelWrapper = styled.div`
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-`;
-
-const BarWrapper = styled.div`
-  border: 1px solid ${gray.light1};
-  border-radius: 3px;
-  cursor: pointer;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding-left: 8px;
-`;
-
-const OptionsWrapper = styled.div`
-  border-radius: 5px;
-  background-color: ${white};
-  border: 1px solid ${gray.light1};
-  padding: 8px;
-  box-shadow: 0 3px 8px 0 rgba(231, 238, 236, 0.5);
-  position: absolute;
-  z-index: 5;
-  margin-top: 5px;
-  width: 100%;
-  overflow: scroll;
-  max-height: 400px;
-`;
-
-// Used to provide a basis for the absolutely positions OptionsWrapper
-const RelativeWrapper = styled.div`
-  position: relative;
-`;
-
-const ArrowWrapper = styled.span`
-  border-left: 1px solid ${gray.light1};
-  padding-left: 5px;
-`;
-
-const Wrapper = styled.div`
-  width: ${(props: { width?: string }): string =>
-    props.width ? props.width : ""};
-`;
-
-const FlexWrapper = styled.div`
-  display: flex;
-`;

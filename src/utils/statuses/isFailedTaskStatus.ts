@@ -6,4 +6,6 @@ export const isFailedTaskStatus = (taskStatus: string) =>
   taskStatus === TaskStatus.SystemFailed ||
   taskStatus === TaskStatus.TaskTimedOut ||
   taskStatus === TaskStatus.TestTimedOut ||
-  taskStatus === TaskStatus.KnownIssue;
+  taskStatus === TaskStatus.KnownIssue ||
+  taskStatus === TaskStatus.SystemUnresponsive ||
+  taskStatus === TaskStatus.SystemTimedOut;

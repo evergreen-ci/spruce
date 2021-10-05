@@ -1,4 +1,5 @@
 import { withKnobs, boolean } from "@storybook/addon-knobs";
+import StoryRouter from "storybook-react-router";
 import { ChartTypes } from "types/commits";
 import { TaskStatus } from "types/task";
 import {
@@ -16,7 +17,7 @@ import {
 
 export default {
   title: "Project Health Page",
-  decorators: [withKnobs],
+  decorators: [StoryRouter(), withKnobs],
 };
 
 export const WaterfallAbsolute = () => (

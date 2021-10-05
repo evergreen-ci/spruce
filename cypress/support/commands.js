@@ -69,4 +69,5 @@ Cypress.Commands.add("toggleTableFilter", (colNum) => {
     .find("[role=button]")
     .first()
     .click();
+  cy.wait(250); // wait for animation
 });

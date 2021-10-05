@@ -23,13 +23,13 @@ export const GroupedTaskStatusBadges = () => (
 const groupedTaskStats = [
   { status: TaskStatus.Succeeded, count: 20 },
   { status: TaskStatus.Succeeded, count: 1 },
-  { status: TaskStatus.Failed, count: 1 },
-  { status: TaskStatus.Started, count: 2 },
-  { status: TaskStatus.SystemFailed, count: 3 },
+  { status: TaskStatus.FailedUmbrella, count: 1 },
+  { status: TaskStatus.RunningUmbrella, count: 2 },
+  { status: TaskStatus.SystemFailureUmbrella, count: 3 },
   { status: TaskStatus.SetupFailed, count: 4 },
   { status: TaskStatus.SetupFailed, count: 1 },
-  { status: TaskStatus.Undispatched, count: 5 },
-  { status: TaskStatus.WillRun, count: 5 },
+  { status: TaskStatus.UndispatchedUmbrella, count: 5 },
+  { status: TaskStatus.ScheduledUmbrella, count: 5 },
 ];
 
 const Container = styled.div`

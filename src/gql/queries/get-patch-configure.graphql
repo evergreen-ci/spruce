@@ -23,7 +23,12 @@ query ConfigurePatch($id: String!) {
     }
     patchTriggerAliases {
       alias
-      childProject
+      childProjectId
+      childProjectIdentifier
+      variantsTasks {
+        name
+        tasks
+      }
     }
     childPatchAliases {
       alias

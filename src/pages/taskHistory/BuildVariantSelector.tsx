@@ -51,6 +51,13 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
   };
 
   const { buildVariantsForTaskName } = data || {};
+
+  const handleSearch = (options: BuildVariantTuple[], match: string) =>
+    options.filter(
+      (option) =>
+        option.buildVariant.includes(match) ||
+        option.displayName.includes(match)
+    );
   return (
     <Container>
       <SearchableDropdown
@@ -61,10 +68,7 @@ export const BuildVariantSelector: React.FC<BuildVariantSelectorProps> = ({
         options={buildVariantsForTaskName}
         disabled={loading}
         allowMultiselect
-        searchFunc={(searchTerm, match: BuildVariantTuple) =>
-          match.buildVariant.includes(searchTerm) ||
-          match.displayName.includes(searchTerm)
-        }
+        searchFunc={handleSearch}
         optionRenderer={(option: BuildVariantTuple, onClick, isChecked) => (
           <SearchableDropdownOption
             value={option.buildVariant}

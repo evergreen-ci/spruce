@@ -25,16 +25,16 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="16.666666666666664%"
     />
     <div
-      className="css-s0dnis-Bar e1tzsy280"
+      className="css-dpkgkq-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="50%"
+      height="16.666666666666664%"
     />
     <div
-      className="css-7xv9na-Bar e1tzsy280"
+      className="css-1kcoqbt-Bar e1tzsy280"
       color="#FFDD49"
       data-cy="commit-chart-bar"
-      height="41.66666666666667%"
+      height="75%"
     />
   </div>
   <div
@@ -52,10 +52,10 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="16.666666666666664%"
     />
     <div
-      className="css-14bpbph-Bar e1tzsy280"
+      className="css-l5ow5h-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="66.66666666666666%"
+      height="25%"
     />
     <div
       className="css-13z1it4-Bar e1tzsy280"
@@ -106,10 +106,10 @@ exports[`Storyshots Commit Charts Absolute Chart 1`] = `
       height="16.666666666666664%"
     />
     <div
-      className="css-14bpbph-Bar e1tzsy280"
+      className="css-l5ow5h-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="66.66666666666666%"
+      height="25%"
     />
     <div
       className="css-13z1it4-Bar e1tzsy280"
@@ -233,16 +233,16 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
       height="10.526315789473683%"
     />
     <div
-      className="css-1lwtlhk-Bar e1tzsy280"
+      className="css-1soma7i-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="31.57894736842105%"
+      height="10.526315789473683%"
     />
     <div
-      className="css-1tu88c-Bar e1tzsy280"
+      className="css-1t0db78-Bar e1tzsy280"
       color="#FFDD49"
       data-cy="commit-chart-bar"
-      height="26.31578947368421%"
+      height="47.368421052631575%"
     />
   </div>
   <div
@@ -254,22 +254,22 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1kkzxru-Bar e1tzsy280"
+      className="css-190g4f-Bar e1tzsy280"
       color="#CF4A22"
       data-cy="commit-chart-bar"
-      height="14.285714285714285%"
+      height="22.22222222222222%"
     />
     <div
-      className="css-eq6z3q-Bar e1tzsy280"
+      className="css-1azosgi-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="57.14285714285714%"
+      height="33.33333333333333%"
     />
     <div
-      className="css-2h1w5q-Bar e1tzsy280"
+      className="css-4fcay0-Bar e1tzsy280"
       color="#5D6C74"
       data-cy="commit-chart-bar"
-      height="28.57142857142857%"
+      height="44.44444444444444%"
     />
   </div>
   <div
@@ -308,22 +308,22 @@ exports[`Storyshots Commit Charts Percent Chart 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1kkzxru-Bar e1tzsy280"
+      className="css-190g4f-Bar e1tzsy280"
       color="#CF4A22"
       data-cy="commit-chart-bar"
-      height="14.285714285714285%"
+      height="22.22222222222222%"
     />
     <div
-      className="css-eq6z3q-Bar e1tzsy280"
+      className="css-1azosgi-Bar e1tzsy280"
       color="#B8C4C2"
       data-cy="commit-chart-bar"
-      height="57.14285714285714%"
+      height="33.33333333333333%"
     />
     <div
-      className="css-2h1w5q-Bar e1tzsy280"
+      className="css-4fcay0-Bar e1tzsy280"
       color="#5D6C74"
       data-cy="commit-chart-bar"
-      height="28.57142857142857%"
+      height="44.44444444444444%"
     />
   </div>
   <div
