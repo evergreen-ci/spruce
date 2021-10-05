@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { TaskStatus } from "types/task";
@@ -10,6 +11,7 @@ interface Props {
   count: number;
   onClick?: () => void;
   statusCounts: { [key: string]: number };
+  href: string;
 }
 
 export const GroupedTaskStatusBadge: React.FC<Props> = ({
@@ -17,6 +19,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
   status,
   onClick = () => undefined,
   statusCounts,
+  href,
 }) => {
   const statusDisplayName = pluralize(taskStatusToCopy[status], count);
 
@@ -28,15 +31,17 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       justify="middle"
       popoverZIndex={1}
       trigger={
-        <BadgeContainer
-          fill={fill}
-          border={border}
-          text={text}
-          onClick={onClick}
-        >
-          <Number>{count}</Number>
-          <Status>{statusDisplayName}</Status>
-        </BadgeContainer>
+        <Link to={href}>
+          <BadgeContainer
+            fill={fill}
+            border={border}
+            text={text}
+            onClick={onClick}
+          >
+            <Number>{count}</Number>
+            <Status>{statusDisplayName}</Status>
+          </BadgeContainer>
+        </Link>
       }
       triggerEvent="hover"
     >

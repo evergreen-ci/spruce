@@ -1,7 +1,6 @@
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
-import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
@@ -94,18 +93,15 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
           key={umbrellaStatus}
           data-cy="grouped-task-status-badge"
         >
-          <Link
-            to={getVersionRoute(versionId, {
+          <GroupedTaskStatusBadge
+            status={umbrellaStatus}
+            count={count}
+            statusCounts={statusCounts}
+            href={getVersionRoute(versionId, {
               statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
               variant: applyStrictRegex(variant),
             })}
-          >
-            <GroupedTaskStatusBadge
-              status={umbrellaStatus}
-              count={count}
-              statusCounts={statusCounts}
-            />
-          </Link>
+          />
         </GroupedTaskStatusBadgeWrapper>
       ))}
     </>

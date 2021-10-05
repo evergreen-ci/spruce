@@ -5,13 +5,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   className="css-1gttx0q-Container e1ub2bu20"
 >
   <div
-    className="leafygreen-ui-cssveg css-5yec2p-BadgeContainer emc61an4"
+    className="css-5yec2p-BadgeContainer emc61an4"
     fill="#E4F4E4"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -25,13 +21,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-5yec2p-BadgeContainer emc61an4"
+    className="css-5yec2p-BadgeContainer emc61an4"
     fill="#E4F4E4"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -45,13 +37,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-i119zf-BadgeContainer emc61an4"
+    className="css-i119zf-BadgeContainer emc61an4"
     fill="#FCEBE2"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -65,13 +53,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1gp0ja9-BadgeContainer emc61an4"
+    className="css-1gp0ja9-BadgeContainer emc61an4"
     fill="#FEF7E3"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -85,13 +69,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-q8apdg-BadgeContainer emc61an4"
+    className="css-q8apdg-BadgeContainer emc61an4"
     fill="#4f4fbf"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -105,13 +85,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1hhvtzt-BadgeContainer emc61an4"
+    className="css-1hhvtzt-BadgeContainer emc61an4"
     fill="#f1f0fc"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -125,13 +101,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1hhvtzt-BadgeContainer emc61an4"
+    className="css-1hhvtzt-BadgeContainer emc61an4"
     fill="#f1f0fc"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -145,13 +117,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1seowmo-BadgeContainer emc61an4"
+    className="css-1seowmo-BadgeContainer emc61an4"
     fill="#F9FBFA"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"
@@ -165,13 +133,9 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     </span>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1jueq6p-BadgeContainer emc61an4"
+    className="css-1jueq6p-BadgeContainer emc61an4"
     fill="#5D6C74"
-    onBlur={[Function]}
     onClick={[Function]}
-    onFocus={[Function]}
-    onMouseEnter={[Function]}
-    onMouseLeave={[Function]}
   >
     <span
       className="css-wtl5ix-Number emc61an2"

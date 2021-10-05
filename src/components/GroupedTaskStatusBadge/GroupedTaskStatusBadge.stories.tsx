@@ -11,6 +11,7 @@ export const GroupedTaskStatusBadges = () => (
   <Container>
     {groupedTaskStats.map((item) => (
       <GroupedTaskStatusBadge
+        href="/version"
         status={item.status}
         count={item.count}
         key={item.status}
