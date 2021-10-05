@@ -1,17 +1,16 @@
 import styled from "@emotion/styled";
-import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { getVersionRoute, getTaskRoute } from "constants/routes";
+import { getVersionRoute } from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
+import { FailedTaskStatusIcon } from "./buildVariantCard/FailedTaskStatusIcon";
 
 const { gray } = uiColors;
 
@@ -123,11 +122,7 @@ interface RenderTaskIconsProps {
 const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
-      <Link data-cy="task-status-icon" to={getTaskRoute(id)} key={`task_${id}`}>
-        <IconButton aria-label="task icon">
-          <TaskStatusIcon status={status} size={16} />
-        </IconButton>
-      </Link>
+      <FailedTaskStatusIcon key={id} taskId={id} status={status} />
     ))}
   </>
 );

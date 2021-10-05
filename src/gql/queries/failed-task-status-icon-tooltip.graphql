@@ -1,5 +1,9 @@
+#import "../fragments/baseTask.graphql"
+
 query GetFailedTaskStatusIconTooltip($taskId: String!) {
   task(taskId: $taskId) {
+    execution
+    id
     displayName
     timeTaken
   }

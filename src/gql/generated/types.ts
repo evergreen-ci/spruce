@@ -2070,7 +2070,12 @@ export type GetFailedTaskStatusIconTooltipQueryVariables = Exact<{
 }>;
 
 export type GetFailedTaskStatusIconTooltipQuery = {
-  task?: Maybe<{ displayName: string; timeTaken?: Maybe<number> }>;
+  task?: Maybe<{
+    execution: number;
+    id: string;
+    displayName: string;
+    timeTaken?: Maybe<number>;
+  }>;
   taskTests: { testResults: Array<{ id: string; testFile: string }> };
 };
 
