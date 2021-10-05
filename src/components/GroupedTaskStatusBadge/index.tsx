@@ -26,7 +26,6 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       usePortal={false}
       align="top"
       justify="middle"
-      open
       popoverZIndex={1}
       trigger={
         <BadgeContainer
