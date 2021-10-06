@@ -28,20 +28,14 @@ describe("groupTasksByUmbrellaStatus", () => {
       "failed-umbrella": {
         count: 1,
         statuses: ["failed"],
-        textColor: "#8F221B",
-        fill: "#FCEBE2",
       },
       success: {
         count: 1,
         statuses: ["success"],
-        textColor: "#116149",
-        fill: "#E4F4E4",
       },
       "running-umbrella": {
         count: 1,
         statuses: ["started"],
-        textColor: "#86681D",
-        fill: "#FEF7E3",
       },
     });
   });
@@ -77,20 +71,14 @@ describe("groupTasksByUmbrellaStatus", () => {
       "failed-umbrella": {
         count: 2,
         statuses: ["failed", "task-timed-out"],
-        textColor: "#8F221B",
-        fill: "#FCEBE2",
       },
       success: {
         count: 1,
         statuses: ["success"],
-        textColor: "#116149",
-        fill: "#E4F4E4",
       },
       "running-umbrella": {
         count: 1,
         statuses: ["started"],
-        textColor: "#86681D",
-        fill: "#FEF7E3",
       },
     });
   });
@@ -126,20 +114,14 @@ describe("groupTasksByUmbrellaStatus", () => {
       "failed-umbrella": {
         count: 2,
         statuses: ["failed"],
-        textColor: "#8F221B",
-        fill: "#FCEBE2",
       },
       success: {
         count: 1,
         statuses: ["success"],
-        textColor: "#116149",
-        fill: "#E4F4E4",
       },
       "running-umbrella": {
         count: 1,
         statuses: ["started"],
-        textColor: "#86681D",
-        fill: "#FEF7E3",
       },
     });
   });

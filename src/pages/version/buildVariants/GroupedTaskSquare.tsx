@@ -10,7 +10,6 @@ import { applyStrictRegex } from "utils/string";
 interface Props {
   count: number;
   statuses: string[];
-  textColor: string;
   variant: string;
   umbrellaStatus: string;
 }
