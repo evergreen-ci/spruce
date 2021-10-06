@@ -45,5 +45,5 @@ const DateWrapper = styled(Body)`
   white-space: nowrap;
   padding-right: 28px;
   text-transform: uppercase;
-  color: ${gray.dark2}; ;
+  color: ${gray.dark2};
 `;
