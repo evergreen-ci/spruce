@@ -48,16 +48,7 @@ export const GroupedTaskSquare: React.FC<Props> = ({
         <Tooltip
           title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}
         >
-          <GroupedTaskStatusBadge
-            status={umbrellaStatus}
-            count={count}
-            onClick={() =>
-              patchAnalytics.sendEvent({
-                name: "Click Grouped Task Square",
-                taskSquareStatuses: statuses,
-              })
-            }
-          />{" "}
+          <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />{" "}
         </Tooltip>
       </StyledRouterLink>
     </GroupedTaskSquareWrapper>
