@@ -6,6 +6,7 @@ import { getTaskRoute } from "constants/routes";
 import { TaskStatus } from "types/task";
 import { useHistoryTable } from "./HistoryTableContext";
 import { HistoryTableIcon } from "./HistoryTableIcon";
+import { DateSeparator } from "./row/DateSeparator";
 import { rowType } from "./utils";
 
 const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
@@ -17,7 +18,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   const commit = getItem(index);
   if (commit.type === rowType.DATE_SEPARATOR) {
     // TODO: add date separator component
-    return <DateSeparator style={style}>{commit.date}</DateSeparator>;
+    return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
     const {
@@ -86,14 +87,6 @@ const Cell = styled.div`
   :hover {
     cursor: pointer;
   }
-`;
-
-const DateSeparator = styled.div`
-  width: 100%;
-  padding-right: 40px;
-  background-color: lightblue;
-  display: flex;
-  align-items: center;
 `;
 
 const FoldedCommitContainer = styled.div`
