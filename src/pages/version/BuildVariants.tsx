@@ -78,15 +78,14 @@ const VariantTaskGroup: React.FC<VariantTaskGroupProps> = ({
   const groupedTasks = groupTasksByUmbrellaStatus(tasks);
   return (
     <VariantTasks>
-      {Object.values(groupedTasks).map(
-        ({ textColor, border, statuses, count }) => (
+      {Object.entries(groupedTasks).map(
+        ([umbrellaStatus, { statuses, count }]) => (
           <GroupedTaskSquare
-            key={`${variant}_${border}`}
+            key={`${variant}_${umbrellaStatus}`}
             statuses={statuses}
             count={count}
-            color={border}
-            textColor={textColor}
             variant={variant}
+            umbrellaStatus={umbrellaStatus}
           />
         )
       )}
