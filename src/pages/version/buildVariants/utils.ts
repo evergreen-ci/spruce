@@ -10,12 +10,12 @@ export const groupTasksByUmbrellaStatus = (tasks: { status: string }[]) => {
       statuses: string[];
       textColor: string;
       fill: string;
-      border: string;
+      umbrellaStatus: string;
     };
   } = {};
   tasks.forEach((task) => {
     const umbrellaStatus = mapTaskStatusToUmbrellaStatus[task.status];
-    const { fill, text, border } = mapUmbrellaStatusColors[umbrellaStatus];
+    const { fill, text } = mapUmbrellaStatusColors[umbrellaStatus];
     if (result[umbrellaStatus]) {
       const groupedTask = result[umbrellaStatus];
       groupedTask.count += 1;
@@ -26,9 +26,9 @@ export const groupTasksByUmbrellaStatus = (tasks: { status: string }[]) => {
       result[umbrellaStatus] = {
         count: 1,
         statuses: [task.status],
+        umbrellaStatus,
         textColor: text,
         fill,
-        border,
       };
     }
   });

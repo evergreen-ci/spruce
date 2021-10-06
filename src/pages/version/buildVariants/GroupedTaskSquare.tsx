@@ -2,25 +2,23 @@ import styled from "@emotion/styled";
 import { Tooltip } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
+import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
-import { color as colorUtil } from "utils";
 import { applyStrictRegex } from "utils/string";
 
-const { hexToRGBA } = colorUtil;
 interface Props {
   count: number;
   statuses: string[];
-  color: string;
   textColor: string;
   variant: string;
+  umbrellaStatus: string;
 }
 
 export const GroupedTaskSquare: React.FC<Props> = ({
   statuses,
   count,
-  color,
-  textColor,
+  umbrellaStatus,
   variant,
 }) => {
   const patchAnalytics = usePatchAnalytics();
@@ -36,48 +34,36 @@ export const GroupedTaskSquare: React.FC<Props> = ({
     multipleStatuses ? "statuses" : "status"
   }: ${statuses.join()}`;
   return (
-    <StyledRouterLink
-      to={filteredRoute}
-      data-cy="task-square"
-      onClick={() =>
-        patchAnalytics.sendEvent({
-          name: "Click Grouped Task Square",
-          taskSquareStatuses: statuses,
-        })
-      }
-    >
-      <Tooltip title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}>
-        <TaskSquare color={color}>
-          <StyledText textColor={textColor}>{count}</StyledText>
-        </TaskSquare>
-      </Tooltip>
-    </StyledRouterLink>
+    <GroupedTaskSquareWrapper>
+      <StyledRouterLink
+        to={filteredRoute}
+        data-cy="task-square"
+        onClick={() =>
+          patchAnalytics.sendEvent({
+            name: "Click Grouped Task Square",
+            taskSquareStatuses: statuses,
+          })
+        }
+      >
+        <Tooltip
+          title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}
+        >
+          <GroupedTaskStatusBadge
+            status={umbrellaStatus}
+            count={count}
+            onClick={() =>
+              patchAnalytics.sendEvent({
+                name: "Click Grouped Task Square",
+                taskSquareStatuses: statuses,
+              })
+            }
+          />{" "}
+        </Tooltip>
+      </StyledRouterLink>
+    </GroupedTaskSquareWrapper>
   );
 };
 
-interface TaskSquareProps {
-  color: string;
-}
-const TaskSquare = styled.div<TaskSquareProps>`
-  ${({ color }) =>
-    `
-    background-color: ${hexToRGBA(color, 0.5)};
-    `};
-  margin: 0 3px;
-  border-radius: 3px;
-  width: 40px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-interface StyledTextProps {
-  textColor: string;
-}
-const StyledText = styled.span<StyledTextProps>`
-  ${({ textColor }) => `
-    color: ${textColor};
-    `};
-  font-weight: bold;
-  font-size: 12px;
+const GroupedTaskSquareWrapper = styled.div`
+  margin-right: 8px;
 `;
