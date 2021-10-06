@@ -114,7 +114,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
       data-cy="task-status-badge"
     >
-      Test-Timed-Out
+      Test Timed Out
     </div>
   </div>
   <div
@@ -124,7 +124,7 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-1sq0is2"
       data-cy="task-status-badge"
     >
-      Task-Timed-Out
+      Task Timed Out
     </div>
   </div>
   <div
@@ -132,9 +132,9 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
   >
     <div
       border="#d5d4f9"
-      className="css-j7vyqa-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
+      className="css-88d35f-StyledBadge-badgeWidthMaxContent e19oz5u0 leafygreen-ui-13xc3rv"
       data-cy="task-status-badge"
-      fill=" #f1f0fc"
+      fill="#f1f0fc"
       text="#4f4fbf"
     >
       Setup Failure
@@ -208,6 +208,51 @@ exports[`Storyshots Task Status Badges Badges 1`] = `
       className="leafygreen-ui-13xc3rv"
     >
       StatusBlocked
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-13xc3rv"
+    >
+      failed-umbrella
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-13xc3rv"
+    >
+      system-failure-umbrella
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-13xc3rv"
+    >
+      running-umbrella
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-13xc3rv"
+    >
+      undispatched-umbrella
+    </div>
+  </div>
+  <div
+    className="css-11fe4n9-Wrapper e11i4bjx0"
+  >
+    <div
+      className="leafygreen-ui-13xc3rv"
+    >
+      scheduled-umbrella
     </div>
   </div>
 </div>

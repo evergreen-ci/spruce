@@ -353,10 +353,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
   className="css-1tw1ctr-Container eb1823k0"
 >
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -384,10 +383,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -415,10 +413,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -441,10 +438,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -470,10 +466,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -507,10 +502,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -537,10 +531,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -566,10 +559,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -603,10 +595,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}
@@ -634,10 +625,9 @@ exports[`Storyshots History Table Inactive Icons 1`] = `
     </div>
   </div>
   <div
-    className="leafygreen-ui-cssveg css-1saonyd-Container e12dzyme1"
+    className="leafygreen-ui-cssveg css-5p6un2-Container e12dzyme1"
     data-cy="history-table-icon"
     onBlur={[Function]}
-    onClick={[Function]}
     onFocus={[Function]}
     onMouseEnter={[Function]}
     onMouseLeave={[Function]}

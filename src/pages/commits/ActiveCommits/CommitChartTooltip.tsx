@@ -5,7 +5,7 @@ import { uiColors } from "@leafygreen-ui/palette";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Disclaimer } from "@leafygreen-ui/typography";
 import { inactiveElementStyle } from "components/styles";
-import { taskStatusToCopy, mapTaskStatusToColor } from "constants/task";
+import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
 import { TaskStatus } from "types/task";
 import { ColorCount, getStatusesWithZeroCount } from "./utils";
 
@@ -32,7 +32,12 @@ export const CommitChartTooltip: React.FC<Props> = ({
       <TooltipContainer data-cy="commit-chart-tooltip" css={sharedCss}>
         {groupedTaskStats.map(({ color, count, statuses, umbrellaStatus }) => (
           <FlexColumnContainer key={color} data-cy="current-status-count">
-            <TotalCount status={umbrellaStatus} color={color} count={count} />
+            <TotalCount
+              status={umbrellaStatus}
+              color={color}
+              count={count}
+              active
+            />
             {umbrellaStatus === TaskStatus.Failed && (
               <SubStatusText css={sharedCss}>{`(${statuses.join(
                 ", "
@@ -40,11 +45,11 @@ export const CommitChartTooltip: React.FC<Props> = ({
             )}
           </FlexColumnContainer>
         ))}
-        {zeroCountStatus.map((status) => (
+        {zeroCountStatus.map((umbrellaStatus) => (
           <TotalCount
-            key={status}
-            status={status}
-            color={mapTaskStatusToColor[status]}
+            key={umbrellaStatus}
+            status={umbrellaStatus}
+            color={mapUmbrellaStatusColors[umbrellaStatus].barChart}
             count={0}
             active={false}
           />
@@ -96,7 +101,7 @@ const TotalCountContainer = styled.div<{ active?: boolean }>`
   align-items: center;
   margin-top: 10px;
   color: ${gray.dark2};
-  ${({ active }) => active && inactiveElementStyle};
+  ${({ active }) => !active && inactiveElementStyle};
 `;
 
 const Circle = styled.div<{ color: string }>`

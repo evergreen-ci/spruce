@@ -14,6 +14,23 @@ exports[`Storyshots Task Status Icons All Statuses 1`] = `
   <div
     className="css-319pve-IconContainer efwkn3y0"
   >
+    <svg
+      aria-label="Calendar Icon"
+      className="leafygreen-ui-foqtcf"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M5 2a1 1 0 012 0v1a1 1 0 01-2 0V2zm5 1H8a2 2 0 11-4 0 2 2 0 00-2 2v7a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2 2 2 0 11-4 0zm1 0a1 1 0 102 0V2a1 1 0 10-2 0v1zm2 4h-3v3h3V7z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
     <span>
       Unstarted
     </span>
@@ -422,6 +439,41 @@ exports[`Storyshots Task Status Icons All Statuses 1`] = `
   >
     <span>
       StatusBlocked
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer efwkn3y0"
+  >
+    <span>
+      FailedUmbrella
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer efwkn3y0"
+  >
+    <span>
+      SystemFailureUmbrella
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer efwkn3y0"
+  >
+    <span>
+      RunningUmbrella
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer efwkn3y0"
+  >
+    <span>
+      UndispatchedUmbrella
+    </span>
+  </div>
+  <div
+    className="css-319pve-IconContainer efwkn3y0"
+  >
+    <span>
+      ScheduledUmbrella
     </span>
   </div>
 </div>

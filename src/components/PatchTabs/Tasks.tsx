@@ -120,12 +120,15 @@ const getArray = (param: string | string[]): string[] =>
   Array.isArray(param) ? param : [param];
 
 const statusesToIncludeInQuery = {
+  [TaskStatus.Aborted]: true,
+  [TaskStatus.Blocked]: true,
   [TaskStatus.Dispatched]: true,
   [TaskStatus.Failed]: true,
   [TaskStatus.Inactive]: true,
+  [TaskStatus.KnownIssue]: true,
+  [TaskStatus.Pending]: true,
   [TaskStatus.SetupFailed]: true,
   [TaskStatus.Started]: true,
-  [TaskStatus.Blocked]: true,
   [TaskStatus.Succeeded]: true,
   [TaskStatus.SystemFailed]: true,
   [TaskStatus.SystemTimedOut]: true,
@@ -133,11 +136,9 @@ const statusesToIncludeInQuery = {
   [TaskStatus.TaskTimedOut]: true,
   [TaskStatus.TestTimedOut]: true,
   [TaskStatus.Undispatched]: true,
-  [TaskStatus.Unstarted]: true,
-  [TaskStatus.Aborted]: true,
-  [TaskStatus.KnownIssue]: true,
-  [TaskStatus.WillRun]: true,
   [TaskStatus.Unscheduled]: true,
+  [TaskStatus.Unstarted]: true,
+  [TaskStatus.WillRun]: true,
 };
 
 const getStatuses = (rawStatuses: string[] | string): string[] => {

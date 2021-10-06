@@ -8,6 +8,7 @@ import {
   VariantTask,
 } from "gql/generated/types";
 import { PatchTab } from "types/patch";
+import { Unpacked } from "types/utils";
 import { array, queryString, string } from "utils";
 
 const { convertArrayToObject, mapStringArrayToObject } = array;
@@ -114,6 +115,12 @@ const tabToIndexMap = {
   [PatchTab.Changes]: 1,
   [PatchTab.Parameters]: 2,
 };
+
+// Extract the type of a child patch and append alias field
+export interface ChildPatchAliased
+  extends Unpacked<ConfigurePatchQuery["patch"]["childPatches"]> {
+  alias: string;
+}
 
 export type AliasState = {
   [alias: string]: boolean;

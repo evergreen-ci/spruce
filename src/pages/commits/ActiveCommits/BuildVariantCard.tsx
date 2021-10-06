@@ -2,24 +2,35 @@ import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
+import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { groupStatusesByColor, isFailedTaskStatus } from "utils/statuses";
+import { getVersionRoute, getTaskRoute } from "constants/routes";
+import { mapUmbrellaStatusToQueryParam } from "constants/task";
+import {
+  groupStatusesByUmbrellaStatus,
+  isFailedTaskStatus,
+} from "utils/statuses";
+import { applyStrictRegex } from "utils/string";
 
 const { gray } = uiColors;
 
 interface Props {
+  variant: string;
   buildVariantDisplayName: string;
   tasks?: {
     id: string;
     status: string;
   }[];
   shouldGroupTasks: boolean;
+  versionId: string;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
+  variant,
   tasks,
   shouldGroupTasks,
+  versionId,
 }) => {
   let render = null;
   if (shouldGroupTasks) {
@@ -32,7 +43,11 @@ export const BuildVariantCard: React.FC<Props> = ({
     render = (
       <>
         <IconContainer>
-          <RenderGroupedIcons tasks={nonFailingTasks} />
+          <RenderGroupedIcons
+            tasks={nonFailingTasks}
+            versionId={versionId}
+            variant={variant}
+          />
         </IconContainer>
         <IconContainer>
           <RenderTaskIcons tasks={failingTasks} />
@@ -50,48 +65,65 @@ export const BuildVariantCard: React.FC<Props> = ({
   }
   return (
     <Container>
-      <Label key={buildVariantDisplayName}>{buildVariantDisplayName}</Label>
+      <Label>{buildVariantDisplayName}</Label>
       {render}
     </Container>
   );
 };
 
-const RenderGroupedIcons = ({ tasks }) => {
+interface RenderGroupedIconsProps {
+  tasks: {
+    id: string;
+    status: string;
+  }[];
+  versionId: string;
+  variant: string;
+}
+const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
+  tasks,
+  versionId,
+  variant,
+}) => {
   // get the count of the amount of tasks in each status
-  const { stats } = groupStatusesByColor(
+  const { stats } = groupStatusesByUmbrellaStatus(
     tasks.map((task) => ({ ...task, count: 1 }))
-  );
-  // get all the umbrellaStatus that are not Failed
-  const otherTasks = stats.filter(
-    (stat) => !isFailedTaskStatus(stat.umbrellaStatus)
   );
   return (
     <>
-      {otherTasks.map(({ count, umbrellaStatus }) => (
-        <GroupedTaskStatusBadgeWrapper>
-          <GroupedTaskStatusBadge
-            status={umbrellaStatus}
-            key={`${umbrellaStatus}_groupedBadge`}
-            count={count}
-          />
+      {stats.map(({ count, umbrellaStatus }) => (
+        <GroupedTaskStatusBadgeWrapper
+          key={umbrellaStatus}
+          data-cy="grouped-task-status-badge"
+        >
+          <Link
+            to={getVersionRoute(versionId, {
+              statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
+              variant: applyStrictRegex(variant),
+            })}
+          >
+            <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />
+          </Link>
         </GroupedTaskStatusBadgeWrapper>
       ))}
     </>
   );
 };
 
-const RenderTaskIcons = ({ tasks }) => (
+interface RenderTaskIconsProps {
+  tasks: {
+    id: string;
+    status: string;
+  }[];
+}
+
+const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
   <>
     {tasks.map(({ id, status }) => (
-      <IconButton
-        key={`task_${id}`}
-        aria-label="task icon"
-        onClick={() => {
-          console.log({ id, status });
-        }}
-      >
-        <TaskStatusIcon status={status} size={16} />
-      </IconButton>
+      <Link data-cy="task-status-icon" to={getTaskRoute(id)} key={`task_${id}`}>
+        <IconButton aria-label="task icon">
+          <TaskStatusIcon status={status} size={16} />
+        </IconButton>
+      </Link>
     ))}
   </>
 );

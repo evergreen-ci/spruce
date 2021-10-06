@@ -21,6 +21,7 @@ query MainlineCommits(
         }
         buildVariants(options: $buildVariantOptions) {
           displayName
+          variant
           tasks {
             id
             execution

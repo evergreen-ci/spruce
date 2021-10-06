@@ -52,13 +52,14 @@ query GetTask($taskId: String!, $execution: Int) {
       identifier
     }
     patchNumber
-    reliesOn {
+    dependsOn {
       buildVariant
       metStatus
       name
       requiredStatus
-      uiLink
+      taskId
     }
+    canOverrideDependencies
     logs {
       allLogLink
       agentLogLink

@@ -1,8 +1,7 @@
-import { mapTaskStatusToColor, mapTaskStatusToTextColor } from "constants/task";
 import { TaskStatus } from "types/task";
-import { groupTasksByColor } from "./utils";
+import { groupTasksByUmbrellaStatus } from "./utils";
 
-describe("groupTasksByColor", () => {
+describe("groupTasksByUmbrellaStatus", () => {
   test("Seperates tasks into groups based on the color of the status", () => {
     const tasks = [
       {
@@ -24,21 +23,19 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
+        statuses: ["failed"],
       },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Failed],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["success"],
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      "running-umbrella": {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["started"],
       },
     });
   });
@@ -69,21 +66,19 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-        count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
-      },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 2,
-        statuses: [TaskStatus.Failed, TaskStatus.TaskTimedOut],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["failed", "task-timed-out"],
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["success"],
+      },
+      "running-umbrella": {
+        count: 1,
+        statuses: ["started"],
       },
     });
   });
@@ -114,21 +109,19 @@ describe("groupTasksByColor", () => {
         status: TaskStatus.Started,
       },
     ];
-    expect(groupTasksByColor(tasks)).toStrictEqual({
-      [mapTaskStatusToColor[TaskStatus.Succeeded]]: {
-        count: 1,
-        statuses: [TaskStatus.Succeeded],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Succeeded],
-      },
-      [mapTaskStatusToColor[TaskStatus.Failed]]: {
+
+    expect(groupTasksByUmbrellaStatus(tasks)).toStrictEqual({
+      "failed-umbrella": {
         count: 2,
-        statuses: [TaskStatus.Failed],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Failed],
+        statuses: ["failed"],
       },
-      [mapTaskStatusToColor[TaskStatus.Started]]: {
+      success: {
         count: 1,
-        statuses: [TaskStatus.Started],
-        textColor: mapTaskStatusToTextColor[TaskStatus.Started],
+        statuses: ["success"],
+      },
+      "running-umbrella": {
+        count: 1,
+        statuses: ["started"],
       },
     });
   });

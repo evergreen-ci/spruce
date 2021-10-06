@@ -41,6 +41,7 @@ export const TaskStatusIcon: React.FC<TaskStatusIconProps> = ({
       return <Icon glyph="WillNotRun" fill={gray.dark1} size={size} />;
     case TaskStatus.WillRun:
     case TaskStatus.Pending:
+    case TaskStatus.Unstarted:
       return <Icon glyph="Calendar" fill={gray.dark3} size={size} />;
     default:
       reportError(

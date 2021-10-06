@@ -233,6 +233,7 @@ export type Mutation = {
   editSpawnHost: Host;
   bbCreateTicket: Scalars["Boolean"];
   clearMySubscriptions: Scalars["Int"];
+  overrideTaskDependencies: Task;
 };
 
 export type MutationAddFavoriteProjectArgs = {
@@ -412,6 +413,10 @@ export type MutationEditSpawnHostArgs = {
 export type MutationBbCreateTicketArgs = {
   taskId: Scalars["String"];
   execution?: Maybe<Scalars["Int"]>;
+};
+
+export type MutationOverrideTaskDependenciesArgs = {
+  taskId: Scalars["String"];
 };
 
 export type VersionToRestart = {
@@ -809,10 +814,14 @@ export type ChildPatchAlias = {
 
 export type PatchTriggerAlias = {
   alias: Scalars["String"];
-  childProject: Scalars["String"];
+  /** @deprecated Field no longer supported */
+  childProject?: Maybe<Scalars["String"]>;
+  childProjectId: Scalars["String"];
+  childProjectIdentifier: Scalars["String"];
   taskSpecifiers?: Maybe<Array<Maybe<TaskSpecifier>>>;
   status?: Maybe<Scalars["String"]>;
   parentAsModule?: Maybe<Scalars["String"]>;
+  variantsTasks: Array<Maybe<VariantTask>>;
 };
 
 export type UserPatches = {
@@ -974,6 +983,7 @@ export type TestResult = {
   status: Scalars["String"];
   baseStatus?: Maybe<Scalars["String"]>;
   testFile: Scalars["String"];
+  /** @deprecated displayTestName deprecated, use testFile instead (EVG-15379) */
   displayTestName?: Maybe<Scalars["String"]>;
   logs: TestLog;
   exitCode?: Maybe<Scalars["Int"]>;
@@ -982,7 +992,6 @@ export type TestResult = {
   endTime?: Maybe<Scalars["Time"]>;
   taskId?: Maybe<Scalars["String"]>;
   execution?: Maybe<Scalars["Int"]>;
-  logTestName?: Maybe<Scalars["String"]>;
 };
 
 export type TestLog = {
@@ -990,10 +999,6 @@ export type TestLog = {
   urlRaw?: Maybe<Scalars["String"]>;
   urlLobster?: Maybe<Scalars["String"]>;
   lineNum?: Maybe<Scalars["Int"]>;
-  /** @deprecated htmlDisplayURL deprecated, use url instead (EVG-15418) */
-  htmlDisplayURL?: Maybe<Scalars["String"]>;
-  /** @deprecated rawDisplayURL deprecated, use urlRaw instead (EVG-15418) */
-  rawDisplayURL?: Maybe<Scalars["String"]>;
 };
 
 export type Dependency = {
@@ -1001,6 +1006,8 @@ export type Dependency = {
   metStatus: MetStatus;
   requiredStatus: RequiredStatus;
   buildVariant: Scalars["String"];
+  taskId: Scalars["String"];
+  /** @deprecated uiLink is deprecated and should not be used */
   uiLink: Scalars["String"];
 };
 
@@ -1075,7 +1082,10 @@ export type Task = {
   priority?: Maybe<Scalars["Int"]>;
   project?: Maybe<Project>;
   projectId: Scalars["String"];
+  /** @deprecated reliesOn is deprecated. Use dependsOn instead. */
   reliesOn: Array<Dependency>;
+  dependsOn?: Maybe<Array<Dependency>>;
+  canOverrideDependencies: Scalars["Boolean"];
   requester: Scalars["String"];
   restarts?: Maybe<Scalars["Int"]>;
   revision?: Maybe<Scalars["String"]>;
@@ -1817,6 +1827,14 @@ export type MoveAnnotationIssueMutationVariables = Exact<{
 
 export type MoveAnnotationIssueMutation = { moveAnnotationIssue: boolean };
 
+export type OverrideTaskDependenciesMutationVariables = Exact<{
+  taskId: Scalars["String"];
+}>;
+
+export type OverrideTaskDependenciesMutation = {
+  overrideTaskDependencies: { id: string; execution: number; status: string };
+};
+
 export type RemoveAnnotationIssueMutationVariables = Exact<{
   taskId: Scalars["String"];
   execution: Scalars["Int"];
@@ -2518,6 +2536,7 @@ export type MainlineCommitsQuery = {
           Array<
             Maybe<{
               displayName: string;
+              variant: string;
               tasks?: Maybe<
                 Array<
                   Maybe<{
@@ -2600,7 +2619,12 @@ export type ConfigurePatchQuery = {
         variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
       }>
     >;
-    patchTriggerAliases: Array<{ alias: string; childProject: string }>;
+    patchTriggerAliases: Array<{
+      alias: string;
+      childProjectId: string;
+      childProjectIdentifier: string;
+      variantsTasks: Array<Maybe<{ name: string; tasks: Array<string> }>>;
+    }>;
     childPatchAliases?: Maybe<Array<{ alias: string; patchId: string }>>;
   } & BasePatchFragment;
 };
@@ -2848,6 +2872,7 @@ export type GetTaskQuery = {
       hostId?: Maybe<string>;
       projectId: string;
       patchNumber?: Maybe<number>;
+      canOverrideDependencies: boolean;
       startTime?: Maybe<Date>;
       timeTaken?: Maybe<number>;
       version: string;
@@ -2906,13 +2931,15 @@ export type GetTaskQuery = {
         project: string;
       };
       project?: Maybe<{ identifier: string }>;
-      reliesOn: Array<{
-        buildVariant: string;
-        metStatus: MetStatus;
-        name: string;
-        requiredStatus: RequiredStatus;
-        uiLink: string;
-      }>;
+      dependsOn?: Maybe<
+        Array<{
+          buildVariant: string;
+          metStatus: MetStatus;
+          name: string;
+          requiredStatus: RequiredStatus;
+          taskId: string;
+        }>
+      >;
       logs: {
         allLogLink?: Maybe<string>;
         agentLogLink?: Maybe<string>;
