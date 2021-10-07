@@ -73,7 +73,7 @@ interface BadgeColorProps {
 
 const BadgeContainer = styled.div<BadgeColorProps>`
   height: 28px;
-  width: 60px;
+  width: 64px;
   border-radius: 3px;
   border: 1px solid;
   display: flex;
@@ -98,7 +98,7 @@ const Number = styled.span`
 
 const Status = styled.span`
   font-size: 8px;
-  line-height: 8px;
+  white-space: nowrap;
 `;
 
 interface CountProps {
