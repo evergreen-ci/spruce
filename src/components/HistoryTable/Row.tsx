@@ -34,7 +34,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
       if (foundVariant) {
         const { tasks } = foundVariant;
         return (
-          <Link to={getTaskRoute(tasks[0].id)}>
+          <Link key={tasks[0].id} to={getTaskRoute(tasks[0].id)}>
             <Cell key={`task_cell_${tasks[0].id}`}>
               <HistoryTableIcon status={tasks[0].status as TaskStatus} />
             </Cell>
