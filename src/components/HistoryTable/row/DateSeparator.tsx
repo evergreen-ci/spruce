@@ -21,7 +21,7 @@ export const DateSeparator: React.FC<DateSeparatorProps> = ({
       <DateWrapper>
         {format(utcToZonedTime(new Date(date), tz), "MMM d")}
       </DateWrapper>
-      <StyledHr />
+      <Line />
     </Container>
   );
 };
@@ -33,17 +33,18 @@ const Container = styled.div`
   align-items: center;
 `;
 
-const StyledHr = styled.hr`
-  width: 100%;
-  border-top: 1px dashed ${gray.light1};
-  border-color: ${gray.light1};
-  border-style: dashed;
-  border-width: 1 0 0 0;
-`;
-
 const DateWrapper = styled(Body)`
   white-space: nowrap;
-  padding-right: 28px;
+  padding-right: 24px;
   text-transform: uppercase;
   color: ${gray.dark2};
+`;
+
+const Line = styled.div`
+  margin-top: 2px;
+  height: 1px;
+  background: linear-gradient(to right, transparent 50%, white 50%),
+    linear-gradient(to right, ${gray.light1}, ${gray.light1});
+  background-size: 24px 2px, 100% 2px;
+  width: 100%;
 `;
