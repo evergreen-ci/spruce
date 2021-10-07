@@ -3,8 +3,8 @@ import { Tooltip } from "antd";
 import { useParams } from "react-router-dom";
 import { usePatchAnalytics } from "analytics";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import { StyledRouterLink } from "components/styles";
 import { getVersionRoute } from "constants/routes";
+import { TaskStatus } from "types/task";
 import { applyStrictRegex } from "utils/string";
 
 interface Props {
@@ -34,22 +34,19 @@ export const GroupedTaskSquare: React.FC<Props> = ({
   }: ${statuses.join()}`;
   return (
     <GroupedTaskSquareWrapper>
-      <StyledRouterLink
-        to={filteredRoute}
-        data-cy="task-square"
-        onClick={() =>
-          patchAnalytics.sendEvent({
-            name: "Click Grouped Task Square",
-            taskSquareStatuses: statuses,
-          })
-        }
-      >
-        <Tooltip
-          title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}
-        >
-          <GroupedTaskStatusBadge status={umbrellaStatus} count={count} />{" "}
-        </Tooltip>
-      </StyledRouterLink>
+      <Tooltip title={<span data-cy="task-square-tooltip">{tooltipCopy}</span>}>
+        <GroupedTaskStatusBadge
+          href={filteredRoute}
+          status={umbrellaStatus as TaskStatus}
+          count={count}
+          onClick={() =>
+            patchAnalytics.sendEvent({
+              name: "Click Grouped Task Square",
+              taskSquareStatuses: statuses,
+            })
+          }
+        />{" "}
+      </Tooltip>
     </GroupedTaskSquareWrapper>
   );
 };

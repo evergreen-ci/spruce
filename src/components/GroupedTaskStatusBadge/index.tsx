@@ -10,7 +10,7 @@ interface Props {
   status: TaskStatus;
   count: number;
   onClick?: () => void;
-  statusCounts: { [key: string]: number };
+  statusCounts?: { [key: string]: number };
   href: string;
 }
 
@@ -27,6 +27,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
   return (
     <Tooltip
       usePortal={false}
+      enabled={!!statusCounts}
       align="top"
       justify="middle"
       popoverZIndex={1}
@@ -46,15 +47,19 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       triggerEvent="hover"
     >
       <span data-cy="grouped-task-status-badge-tooltip">
-        {Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
-          <Row>
-            <TaskStatusIcon status={taskStatus} size={16} />
-            <Copy>
-              <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
-              {pluralize(taskStatusToCopy[taskStatus] ?? taskStatus, taskCount)}
-            </Copy>
-          </Row>
-        ))}
+        {statusCounts &&
+          Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
+            <Row key={taskStatus}>
+              <TaskStatusIcon status={taskStatus} size={16} />
+              <Copy>
+                <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
+                {pluralize(
+                  taskStatusToCopy[taskStatus] ?? taskStatus,
+                  taskCount
+                )}
+              </Copy>
+            </Row>
+          ))}
       </span>
     </Tooltip>
   );
