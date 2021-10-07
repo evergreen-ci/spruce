@@ -2,6 +2,7 @@ import { useLazyQuery } from "@apollo/client";
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
 import Tooltip from "@leafygreen-ui/tooltip";
+import { Skeleton } from "antd";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
 import { getTaskRoute } from "constants/routes";
@@ -20,7 +21,7 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
   taskId,
   status,
 }) => {
-  const [loadData, { data }] = useLazyQuery<
+  const [loadData, { data, loading }] = useLazyQuery<
     GetFailedTaskStatusIconTooltipQuery,
     GetFailedTaskStatusIconTooltipQueryVariables
   >(GET_FAILED_TASK_STATUS_ICON_TOOLTIP, { variables: { taskId } });
@@ -53,12 +54,20 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
       triggerEvent="hover"
     >
       <div data-cy="failed-task-status-icon-tooltip">
-        <TooltipTitle data-cy="failed-task-status-icon-tooltip-title">
-          {displayName} - {msToDuration(timeTaken)}
-        </TooltipTitle>
-        {testResults?.map(({ id, testFile }) => (
-          <div key={id}>{testFile}</div>
-        ))}
+        {loading ? (
+          <Skeleton />
+        ) : (
+          !!data && (
+            <>
+              <TooltipTitle data-cy="failed-task-status-icon-tooltip-title">
+                {displayName} - {msToDuration(timeTaken)}
+              </TooltipTitle>
+              {testResults?.map(({ id, testFile }) => (
+                <div key={id}>{testFile}</div>
+              ))}
+            </>
+          )
+        )}
       </div>
     </Tooltip>
   );
