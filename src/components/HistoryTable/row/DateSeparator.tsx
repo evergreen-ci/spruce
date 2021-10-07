@@ -45,6 +45,6 @@ const Line = styled.div`
   height: 1px;
   background: linear-gradient(to right, transparent 50%, white 50%),
     linear-gradient(to right, ${gray.light1}, ${gray.light1});
-  background-size: 24px 2px, 100% 2px;
+  background-size: 16px 2px, 100% 2px;
   width: 100%;
 `;
