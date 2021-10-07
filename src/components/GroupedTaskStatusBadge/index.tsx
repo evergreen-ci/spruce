@@ -26,7 +26,6 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
   const { fill, border, text } = mapUmbrellaStatusColors[status];
   return (
     <Tooltip
-      usePortal={false}
       enabled={!!statusCounts}
       align="top"
       justify="middle"
