@@ -106,7 +106,7 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
 };
 
 const usePopulateForm = (
-  initialState: any,
+  initialState: FormProps,
   tab: ProjectSettingsTabRoutes
 ): void => {
   const { saveTab, updateForm } = useProjectSettingsContext();
