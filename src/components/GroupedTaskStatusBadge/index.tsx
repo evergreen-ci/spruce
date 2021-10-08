@@ -2,16 +2,22 @@ import styled from "@emotion/styled";
 import Tooltip from "@leafygreen-ui/tooltip";
 import { Link } from "react-router-dom";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { taskStatusToCopy, mapUmbrellaStatusColors } from "constants/task";
+import { getVersionRoute } from "constants/routes";
+import {
+  taskStatusToCopy,
+  mapUmbrellaStatusColors,
+  mapUmbrellaStatusToQueryParam,
+} from "constants/task";
 import { TaskStatus } from "types/task";
-import { pluralize } from "utils/string";
+import { applyStrictRegex, pluralize } from "utils/string";
 
 interface Props {
   status: TaskStatus;
   count: number;
   onClick?: () => void;
   statusCounts?: { [key: string]: number };
-  href: string;
+  versionId: string;
+  variant?: string;
 }
 
 export const GroupedTaskStatusBadge: React.FC<Props> = ({
@@ -19,10 +25,14 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
   status,
   onClick = () => undefined,
   statusCounts,
-  href,
+  versionId,
+  variant,
 }) => {
   const statusDisplayName = pluralize(taskStatusToCopy[status], count);
-
+  const href = getVersionRoute(versionId, {
+    statuses: mapUmbrellaStatusToQueryParam[status],
+    ...(variant && { variant: applyStrictRegex(variant) }),
+  });
   const { fill, border, text } = mapUmbrellaStatusColors[status];
   return (
     <Tooltip

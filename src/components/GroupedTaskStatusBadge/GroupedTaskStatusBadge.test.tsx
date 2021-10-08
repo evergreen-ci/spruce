@@ -13,7 +13,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
           count={400}
           status={TaskStatus.SystemFailureUmbrella}
           onClick={onClick}
-          href="thing"
+          versionId={versionId}
         />
       </MemoryRouter>
     );
@@ -29,7 +29,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
         <GroupedTaskStatusBadge
           count={400}
           status={TaskStatus.SystemFailureUmbrella}
-          href="thing"
+          versionId={versionId}
         />
       </MemoryRouter>
     );
@@ -37,19 +37,36 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     expect(queryByText("400")).toBeInTheDocument();
   });
 
-  test("Badge should have correct href", () => {
+  test("Should link to version page with correct status filters when variant prop is not supplied", () => {
     const { queryByDataCy } = render(
       <MemoryRouter>
         <GroupedTaskStatusBadge
           count={400}
           status={TaskStatus.SystemFailureUmbrella}
-          href="thing"
+          versionId={versionId}
         />
       </MemoryRouter>
     );
     expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
-      "/thing"
+      "/version/version1/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
+    );
+  });
+
+  test("Should link to version page with correct status and variant filters when variant prop is supplied", () => {
+    const { queryByDataCy } = render(
+      <MemoryRouter>
+        <GroupedTaskStatusBadge
+          count={400}
+          status={TaskStatus.SystemFailureUmbrella}
+          versionId={versionId}
+          variant="some_variant"
+        />
+      </MemoryRouter>
+    );
+    expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
+      "href",
+      "/version/version1/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive&variant=%5Esome_variant%24"
     );
   });
 
@@ -64,7 +81,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
         <GroupedTaskStatusBadge
           count={400}
           status={TaskStatus.SystemFailureUmbrella}
-          href="thing"
+          versionId={versionId}
           statusCounts={statusCounts}
         />
       </MemoryRouter>
@@ -91,4 +108,5 @@ describe("GroupedTaskStatusBadgeIcon", () => {
       expect(queryByText("Failed")).toBeVisible();
     });
   });
+  const versionId = "version1";
 });

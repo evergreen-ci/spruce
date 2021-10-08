@@ -2,13 +2,10 @@ import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Body } from "@leafygreen-ui/typography";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
-import { getVersionRoute } from "constants/routes";
-import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
-import { applyStrictRegex } from "utils/string";
 import { FailedTaskStatusIcon } from "./buildVariantCard/FailedTaskStatusIcon";
 
 const { gray } = uiColors;
@@ -97,10 +94,8 @@ const RenderGroupedIcons: React.FC<RenderGroupedIconsProps> = ({
             status={umbrellaStatus}
             count={count}
             statusCounts={statusCounts}
-            href={getVersionRoute(versionId, {
-              statuses: mapUmbrellaStatusToQueryParam[umbrellaStatus],
-              variant: applyStrictRegex(variant),
-            })}
+            versionId={versionId}
+            variant={variant}
           />
         </GroupedTaskStatusBadgeWrapper>
       ))}
