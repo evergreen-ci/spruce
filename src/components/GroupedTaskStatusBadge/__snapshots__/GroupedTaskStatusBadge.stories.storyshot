@@ -6,7 +6,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
 >
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=success"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -14,9 +15,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-5yec2p-BadgeContainer emc61an5"
+      className="css-q6x9ck-BadgeContainer emc61an5"
       fill="#E4F4E4"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -24,7 +24,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         20
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Successes
       </span>
@@ -32,7 +32,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=success"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -40,9 +41,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-5yec2p-BadgeContainer emc61an5"
+      className="css-q6x9ck-BadgeContainer emc61an5"
       fill="#E4F4E4"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -50,7 +50,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         1
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Success
       </span>
@@ -58,7 +58,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=failed-umbrella,failed,task-timed-out,test-timed-out,known-issue"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -66,9 +67,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-i119zf-BadgeContainer emc61an5"
+      className="css-1u1pdi6-BadgeContainer emc61an5"
       fill="#FCEBE2"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -76,7 +76,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         1
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Failure
       </span>
@@ -84,7 +84,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=running-umbrella,started,dispatched"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -92,9 +93,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1gp0ja9-BadgeContainer emc61an5"
+      className="css-uf0at9-BadgeContainer emc61an5"
       fill="#FEF7E3"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -102,7 +102,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         2
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Running
       </span>
@@ -110,7 +110,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -118,9 +119,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-q8apdg-BadgeContainer emc61an5"
+      className="css-185tpy4-BadgeContainer emc61an5"
       fill="#4f4fbf"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -128,7 +128,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         3
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         System Failures
       </span>
@@ -136,7 +136,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=setup-failed"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -144,9 +145,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1hhvtzt-BadgeContainer emc61an5"
+      className="css-lexjm7-BadgeContainer emc61an5"
       fill="#f1f0fc"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -154,7 +154,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         4
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Setup Failures
       </span>
@@ -162,7 +162,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=setup-failed"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -170,9 +171,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1hhvtzt-BadgeContainer emc61an5"
+      className="css-lexjm7-BadgeContainer emc61an5"
       fill="#f1f0fc"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -180,7 +180,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         1
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Setup Failure
       </span>
@@ -188,7 +188,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=undispatched-umbrella,unscheduled,aborted,blocked"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -196,9 +197,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1seowmo-BadgeContainer emc61an5"
+      className="css-1kp5fxv-BadgeContainer emc61an5"
       fill="#F9FBFA"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -206,7 +206,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         5
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Undispatched
       </span>
@@ -214,7 +214,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
   </a>
   <a
     className="leafygreen-ui-cssveg"
-    href="/version"
+    data-cy="grouped-task-status-badge"
+    href="/version/some_version/tasks?statuses=scheduled-umbrella,will-run,pending,unstarted"
     onBlur={[Function]}
     onClick={[Function]}
     onFocus={[Function]}
@@ -222,9 +223,8 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
     onMouseLeave={[Function]}
   >
     <div
-      className="css-1jueq6p-BadgeContainer emc61an5"
+      className="css-nup11h-BadgeContainer emc61an5"
       fill="#5D6C74"
-      onClick={[Function]}
     >
       <span
         className="css-wtl5ix-Number emc61an3"
@@ -232,7 +232,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
         5
       </span>
       <span
-        className="css-4dluyx-Status emc61an2"
+        className="css-oqj204-Status emc61an2"
       >
         Scheduled
       </span>
