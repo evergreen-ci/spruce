@@ -31,13 +31,8 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       justify="middle"
       popoverZIndex={1}
       trigger={
-        <Link to={href}>
-          <BadgeContainer
-            fill={fill}
-            border={border}
-            text={text}
-            onClick={onClick}
-          >
+        <Link to={href} onClick={onClick} data-cy="grouped-task-status-badge">
+          <BadgeContainer fill={fill} border={border} text={text}>
             <Number>{count}</Number>
             <Status>{statusDisplayName}</Status>
           </BadgeContainer>
@@ -68,7 +63,6 @@ interface BadgeColorProps {
   border?: string;
   fill?: string;
   text?: string;
-  onClick: () => void;
 }
 
 const BadgeContainer = styled.div<BadgeColorProps>`
@@ -80,7 +74,6 @@ const BadgeContainer = styled.div<BadgeColorProps>`
   flex-direction: column;
   justify-content: space-evenly;
   align-items: center;
-  ${({ onClick }) => onClick && `cursor: pointer`};
   ${({ border }) => border && `border-color: ${border};`}
   ${({ fill }) => fill && `background-color: ${fill};`}
   ${({ text }) => text && `color: ${text};`}
