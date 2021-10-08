@@ -5,6 +5,8 @@ import { SiderCard } from "components/styles";
 import fields from "./Fields";
 import widgets from "./Widgets";
 
+export type FormDataProps = FormProps<any>["formData"];
+
 interface Props {
   title: string;
   schema: FormProps<any>["schema"];

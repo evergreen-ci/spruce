@@ -1,20 +1,18 @@
 import { createContext, useContext, useEffect, useReducer } from "react";
-import { FormProps as SpruceFormProps } from "@rjsf/core";
+import { FormDataProps } from "components/SpruceForm";
 import { ProjectSettingsTabRoutes } from "constants/routes";
-
-type FormProps = SpruceFormProps<any>["formData"];
 
 interface TabState
   extends Record<
     ProjectSettingsTabRoutes,
-    { hasChanges: boolean; formData: FormProps }
+    { hasChanges: boolean; formData: FormDataProps }
   > {}
 
 type Action =
   | {
       type: "updateForm";
       tab: ProjectSettingsTabRoutes;
-      formData: FormProps;
+      formData: FormDataProps;
     }
   | { type: "saveTab"; tab: ProjectSettingsTabRoutes };
 
@@ -48,10 +46,10 @@ const reducer = (state: TabState, action: Action): TabState => {
 interface ProjectSettingsState {
   tabs: TabState;
   saveTab: (tab: ProjectSettingsTabRoutes) => void;
-  getTabFormState: (tab: ProjectSettingsTabRoutes) => FormProps;
+  getTabFormState: (tab: ProjectSettingsTabRoutes) => FormDataProps;
   updateForm: (
     tab: ProjectSettingsTabRoutes,
-    formData: FormProps,
+    formData: FormDataProps,
     save?: boolean
   ) => void;
 }
@@ -69,7 +67,7 @@ const ProjectSettingsProvider: React.FC = ({ children }) => {
 
   const updateForm = (
     tab: ProjectSettingsTabRoutes,
-    formData: FormProps
+    formData: FormDataProps
   ): void => {
     dispatch({ type: "updateForm", tab, formData });
   };
@@ -106,7 +104,7 @@ const useProjectSettingsContext = (): ProjectSettingsState => {
 };
 
 const usePopulateForm = (
-  initialState: FormProps,
+  initialState: FormDataProps,
   tab: ProjectSettingsTabRoutes
 ): void => {
   const { saveTab, updateForm } = useProjectSettingsContext();
