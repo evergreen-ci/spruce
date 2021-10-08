@@ -7,6 +7,8 @@ describe("Waterfall Task Status Icons", () => {
   });
 
   beforeEach(() => {
+    // prevent icons from clipping
+    cy.viewport(1920, 1200);
     cy.preserveCookies();
   });
 
