@@ -30,6 +30,24 @@ test("Tooltip should contain task name, duration and list of failing test names"
   });
 });
 
+test("Icon should link to task page", async () => {
+  const { queryByDataCy } = render(
+    <MemoryRouter>
+      <MockedProvider mocks={[getTooltipQueryMock]}>
+        <FailedTaskStatusIcon taskId="task" status="failed" />
+      </MockedProvider>
+    </MemoryRouter>
+  );
+  await waitFor(() => {
+    expect(queryByDataCy("failed-task-status-icon")).toBeInTheDocument();
+  });
+  await waitFor(() => {
+    expect(
+      queryByDataCy("failed-task-status-icon").querySelector("a")
+    ).toHaveAttribute("href", "/task/task");
+  });
+});
+
 const getTooltipQueryMock = {
   request: {
     query: GET_FAILED_TASK_STATUS_ICON_TOOLTIP,
