@@ -1,7 +1,8 @@
+import { ComponentType } from "react";
 import styled from "@emotion/styled";
 import { H2, Disclaimer } from "@leafygreen-ui/typography";
 import { Route, useParams } from "react-router-dom";
-import { routes, ProjectSettingsTabRoutes } from "constants/routes";
+import { Button } from "components/Button";
 import {
   AccessTab,
   EventLogTab,
@@ -13,51 +14,95 @@ import {
   ProjectTriggersTab,
   VariablesTab,
   VirtualWorkstationTab,
-} from "./projectSettingsTabs/index";
+} from "components/ProjectSettingsTabs";
+import { TabProps } from "components/ProjectSettingsTabs/utils";
+import { routes, ProjectSettingsTabRoutes } from "constants/routes";
+import { useProjectSettingsContext } from "context/project-settings";
 
 export const ProjectSettingsTabs: React.FC = () => {
-  const { tab } = useParams<{ tab: string }>();
+  const { tab } = useParams<{ tab: ProjectSettingsTabRoutes }>();
+  const { saveTab } = useProjectSettingsContext();
 
-  const { title, subtitle } = getTitle(tab as ProjectSettingsTabRoutes);
+  const { title, subtitle } = getTitle(tab);
 
   return (
     <Container>
       <TitleContainer>
         <H2 data-cy="project-settings-tab-title">{title}</H2>
         {subtitle && <Subtitle>{subtitle}</Subtitle>}
+        <Button
+          variant="primary"
+          onClick={() => {
+            saveTab(tab);
+          }}
+        >
+          Save changes on page
+        </Button>
       </TitleContainer>
 
-      <Route path={routes.projectSettingsGeneral} component={GeneralTab} />
-      <Route path={routes.projectSettingsAccess} component={AccessTab} />
-      <Route path={routes.projectSettingsVariables} component={VariablesTab} />
-      <Route
+      <TabRoute
+        Component={GeneralTab}
+        path={routes.projectSettingsGeneral}
+        tab={ProjectSettingsTabRoutes.General}
+      />
+      <TabRoute
+        Component={AccessTab}
+        path={routes.projectSettingsAccess}
+        tab={ProjectSettingsTabRoutes.Access}
+      />
+      <TabRoute
+        Component={VariablesTab}
+        path={routes.projectSettingsVariables}
+        tab={ProjectSettingsTabRoutes.Variables}
+      />
+      <TabRoute
+        Component={GitHubCommitQueueTab}
         path={routes.projectSettingsGitHubCommitQueue}
-        component={GitHubCommitQueueTab}
+        tab={ProjectSettingsTabRoutes.GitHubCommitQueue}
       />
-      <Route
+      <TabRoute
+        Component={NotificationsTab}
         path={routes.projectSettingsNotifications}
-        component={NotificationsTab}
+        tab={ProjectSettingsTabRoutes.Notifications}
       />
-      <Route
+      <TabRoute
+        Component={PatchAliasesTab}
         path={routes.projectSettingsPatchAliases}
-        component={PatchAliasesTab}
+        tab={ProjectSettingsTabRoutes.PatchAliases}
       />
-      <Route
+      <TabRoute
+        Component={VirtualWorkstationTab}
         path={routes.projectSettingsVirtualWorkstation}
-        component={VirtualWorkstationTab}
+        tab={ProjectSettingsTabRoutes.VirtualWorkstation}
       />
-      <Route
+      <TabRoute
+        Component={ProjectTriggersTab}
         path={routes.projectSettingsProjectTriggers}
-        component={ProjectTriggersTab}
+        tab={ProjectSettingsTabRoutes.ProjectTriggers}
       />
-      <Route
+      <TabRoute
+        Component={PeriodicBuildsTab}
         path={routes.projectSettingsPeriodicBuilds}
-        component={PeriodicBuildsTab}
+        tab={ProjectSettingsTabRoutes.PeriodicBuilds}
       />
-      <Route path={routes.projectSettingsEventLog} component={EventLogTab} />
+      <TabRoute
+        Component={EventLogTab}
+        path={routes.projectSettingsEventLog}
+        tab={ProjectSettingsTabRoutes.EventLog}
+      />
     </Container>
   );
 };
+
+interface TabRouteProps {
+  Component: ComponentType<TabProps>;
+  path: string;
+  tab: ProjectSettingsTabRoutes;
+}
+
+const TabRoute: React.FC<TabRouteProps> = ({ Component, path, tab }) => (
+  <Route path={path} render={(props) => <Component {...props} tab={tab} />} />
+);
 
 export const getTitle = (
   tab: ProjectSettingsTabRoutes = ProjectSettingsTabRoutes.General
@@ -104,7 +149,12 @@ const Container = styled.div`
 `;
 
 const TitleContainer = styled.div`
+  display: flex;
   margin-bottom: 30px;
+
+  > :not(:last-child) {
+    margin-right: 24px;
+  }
 `;
 
 const Subtitle = styled(Disclaimer)`
