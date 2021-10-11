@@ -5,7 +5,7 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
-type Action = {
+export type Action = {
   name: "Click Link";
   link: "myPatches" | "patch" | "version" | "waterfall";
 };

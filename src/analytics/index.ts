@@ -4,6 +4,7 @@ export { useAnnotationAnalytics } from "./task/useAnnotationAnalytics";
 export { useUserPatchesAnalytics } from "./patches/useUserPatchesAnalytics";
 export { useNavbarAnalytics } from "./navbar/useNavbarAnalytics";
 export { useBreadcrumbAnalytics } from "./breadcrumb/useBreadcrumbAnalytics";
+export type { Action as BreadcrumbAction } from "./breadcrumb/useBreadcrumbAnalytics";
 export { useHostsTableAnalytics } from "./hostsTable/useHostsTableAnalytics";
 export { useTaskQueueAnalytics } from "./taskQueue/useTaskQueueAnalytics";
 export { useAnalyticsAttributes } from "./useAnalyticsAttributes";
