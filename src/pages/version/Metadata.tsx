@@ -1,4 +1,5 @@
 import React from "react";
+import { usePatchAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
@@ -69,6 +70,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
     manifest,
   } = version || {};
   const { makespan, timeTaken } = versionTiming || {};
+  const { sendEvent } = usePatchAnalytics();
   return (
     <MetadataCard
       loading={loading}
@@ -93,6 +95,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           <StyledLink
             data-cy="patch-base-commit"
             href={getVersionRoute(baseVersionID)}
+            onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
             {revision.slice(0, 10)}
           </StyledLink>
