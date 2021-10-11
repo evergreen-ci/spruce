@@ -2,13 +2,16 @@ import React from "react";
 import { MetadataCard } from "components/MetadataCard";
 import { StyledLink, StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
-import { getCommitQueueRoute, getProjectPatchesRoute } from "constants/routes";
-import { environmentalVariables, string } from "utils";
+import {
+  getCommitQueueRoute,
+  getProjectPatchesRoute,
+  getVersionRoute,
+} from "constants/routes";
+import { string } from "utils";
 import ManifestBlob from "./ManifestBlob";
 import { ParametersModal } from "./ParametersModal";
 
 const { msToDuration, getDateCopy } = string;
-const { getUiUrl } = environmentalVariables;
 
 interface Props {
   loading: boolean;
@@ -89,7 +92,7 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
           Base commit:{" "}
           <StyledLink
             data-cy="patch-base-commit"
-            href={`${getUiUrl()}/version/${baseVersionID}`}
+            href={getVersionRoute(baseVersionID)}
           >
             {revision.slice(0, 10)}
           </StyledLink>
