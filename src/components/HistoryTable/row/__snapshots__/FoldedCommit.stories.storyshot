@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Storyshots Folded Commit Folded Inactive Commits 1`] = `
+<div
+  className="css-fgbiei-Column e1jt0kpn2"
+>
+  <div
+    className="css-1r6zuyg-Row e1jt0kpn1"
+  >
+    <svg
+      aria-label="Chevron Right Icon"
+      className="leafygreen-ui-foqtcf"
+      fill="none"
+      height={16}
+      role="img"
+      viewBox="0 0 16 16"
+      width={16}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        clipRule="evenodd"
+        d="M5.364 14.364a1 1 0 001.414 0l4.95-4.95.707-.707a1 1 0 000-1.414l-.707-.707-4.95-4.95a1 1 0 00-1.414 0l-.707.707a1 1 0 000 1.414L8.899 8l-4.242 4.243a1 1 0 000 1.414l.707.707z"
+        fill="currentColor"
+        fillRule="evenodd"
+      />
+    </svg>
+    <div
+      className="css-j59x9y-Copy e1jt0kpn0 leafygreen-ui-1mngpnd"
+    >
+      Expand 
+      5
+       inactive
+    </div>
+  </div>
+</div>
+`;

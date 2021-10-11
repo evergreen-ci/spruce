@@ -11,7 +11,7 @@ interface FoldedCommitProps {
   rolledUpCommits: Unpacked<
     MainlineCommitsForHistoryQuery["mainlineCommits"]["versions"]
   >["rolledUpVersions"];
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 export const FoldedCommit: React.FC<FoldedCommitProps> = ({
   rolledUpCommits,
