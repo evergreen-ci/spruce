@@ -208,3 +208,8 @@ export const getCommitQueueRoute = (projectId: string) =>
 
 export const getCommitsRoute = (projectId: string) =>
   `${paths.commits}/${projectId}`;
+
+export const getVariantHistoryRoute = (
+  projectId: string,
+  variantName: string
+) => `${paths.variantHistory}/${projectId}/${variantName}`;

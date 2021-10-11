@@ -6,6 +6,7 @@ query MainlineCommits(
   mainlineCommits(options: $mainlineCommitsOptions) {
     versions {
       version {
+        projectIdentifier
         id
         author
         createTime

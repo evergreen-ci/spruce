@@ -1,19 +1,20 @@
 import styled from "@emotion/styled";
 import IconButton from "@leafygreen-ui/icon-button";
-import { uiColors } from "@leafygreen-ui/palette";
-import { Body } from "@leafygreen-ui/typography";
 import { Link } from "react-router-dom";
 import { GroupedTaskStatusBadge } from "components/GroupedTaskStatusBadge";
+import { StyledRouterLink } from "components/styles";
 import { TaskStatusIcon } from "components/TaskStatusIcon";
-import { getVersionRoute, getTaskRoute } from "constants/routes";
+import {
+  getVersionRoute,
+  getTaskRoute,
+  getVariantHistoryRoute,
+} from "constants/routes";
 import { mapUmbrellaStatusToQueryParam } from "constants/task";
 import {
   groupStatusesByUmbrellaStatus,
   isFailedTaskStatus,
 } from "utils/statuses";
 import { applyStrictRegex } from "utils/string";
-
-const { gray } = uiColors;
 
 interface Props {
   variant: string;
@@ -24,6 +25,7 @@ interface Props {
   }[];
   shouldGroupTasks: boolean;
   versionId: string;
+  projectIdentifier: string;
 }
 export const BuildVariantCard: React.FC<Props> = ({
   buildVariantDisplayName,
@@ -31,6 +33,7 @@ export const BuildVariantCard: React.FC<Props> = ({
   tasks,
   shouldGroupTasks,
   versionId,
+  projectIdentifier,
 }) => {
   let render = null;
   if (shouldGroupTasks) {
@@ -65,7 +68,9 @@ export const BuildVariantCard: React.FC<Props> = ({
   }
   return (
     <Container>
-      <Label>{buildVariantDisplayName}</Label>
+      <Label to={getVariantHistoryRoute(projectIdentifier, variant)}>
+        {buildVariantDisplayName}
+      </Label>
       {render}
     </Container>
   );
@@ -127,11 +132,8 @@ const RenderTaskIcons: React.FC<RenderTaskIconsProps> = ({ tasks }) => (
     ))}
   </>
 );
-const Label = styled(Body)`
-  color: ${gray.dark2};
-  font-size: 14px;
+const Label = styled(StyledRouterLink)`
   word-break: break-word;
-  margin-bottom: 24px;
 `;
 
 const IconContainer = styled.div`

@@ -43,6 +43,7 @@ export const PercentChart = () => (
 const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   {
     version: {
+      projectIdentifier: "spruce",
       id: "123",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
@@ -61,6 +62,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "12",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
@@ -78,6 +80,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "13",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
@@ -95,6 +98,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "14",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
@@ -112,6 +116,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "15",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57332 Create skeleton InternalDocumentSourceDensify",
@@ -129,6 +134,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "16",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
@@ -147,6 +153,7 @@ const versions: MainlineCommitsQuery["mainlineCommits"]["versions"] = [
   },
   {
     version: {
+      projectIdentifier: "spruce",
       id: "17",
       createTime: new Date("2021-06-16T23:38:13Z"),
       message: "SERVER-57333 Some complicated server commit",
