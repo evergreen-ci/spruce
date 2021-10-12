@@ -3,22 +3,25 @@ import { waitForGQL } from "../utils/networking";
 const GQL_QUERY = "gqlQuery";
 const LOGIN_COOKIE = "mci-token";
 const TOAST_COOKIE = "announcement-toast";
-
+const loginURL = "http://localhost:9090/login";
+const user = {
+  username: "admin",
+  password: "password",
+};
 Cypress.Cookies.defaults({
   preserve: TOAST_COOKIE,
 });
 
 function enterLoginCredentials() {
-  cy.get("input[name=username]").type("admin");
-  cy.get("input[name=password]").type("password");
+  cy.get("input[name=username]").type(user.username);
+  cy.get("input[name=password]").type(user.password);
   cy.get("button[id=login-submit]").click();
 }
 
 Cypress.Commands.add("login", () => {
   cy.getCookie(LOGIN_COOKIE).then((c) => {
     if (!c) {
-      cy.visit("/login");
-      enterLoginCredentials();
+      cy.request("POST", loginURL, { ...user });
     }
   });
 });
