@@ -3119,6 +3119,30 @@ export type HostsQuery = {
   };
 };
 
+export type LastPassingVersionQueryVariables = Exact<{
+  variant: Scalars["String"];
+  projectId: Scalars["String"];
+  taskName: Scalars["String"];
+}>;
+
+export type LastPassingVersionQuery = {
+  mainlineCommits?: Maybe<{
+    versions: Array<{
+      version?: Maybe<{
+        id: string;
+        buildVariants?: Maybe<
+          Array<
+            Maybe<{
+              variant: string;
+              tasks?: Maybe<Array<Maybe<{ id: string }>>>;
+            }>
+          >
+        >;
+      }>;
+    }>;
+  }>;
+};
+
 export type ProjectPatchesQueryVariables = Exact<{
   projectId: Scalars["String"];
   patchesInput: PatchesInput;

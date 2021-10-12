@@ -35,6 +35,7 @@ import {
   UNSCHEDULE_TASK,
 } from "gql/mutations";
 import { useUpdateURLQueryParams } from "hooks";
+import { LastPassingVersion } from "./actionButtons/LastPassingVersion";
 import { TaskNotificationModal } from "./actionButtons/TaskNotificationModal";
 
 interface Props {
@@ -47,6 +48,7 @@ interface Props {
   canOverrideDependencies: boolean;
   taskName: string;
   projectIdentifier: string;
+  buildVariant: string;
 }
 
 export const ActionButtons: React.FC<Props> = ({
@@ -59,6 +61,7 @@ export const ActionButtons: React.FC<Props> = ({
   canOverrideDependencies,
   projectIdentifier,
   taskName,
+  buildVariant,
 }) => {
   const dispatchToast = useToastContext();
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -268,6 +271,11 @@ export const ActionButtons: React.FC<Props> = ({
         >
           See history
         </LeafyGreenButton>
+        <LastPassingVersion
+          projectId={projectIdentifier}
+          taskName={taskName}
+          variant={buildVariant}
+        />
         <Button
           size="small"
           data-cy="schedule-task"
