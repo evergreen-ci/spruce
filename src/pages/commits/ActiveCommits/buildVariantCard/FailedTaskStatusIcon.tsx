@@ -35,7 +35,7 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
       justify="middle"
       popoverZIndex={1}
       trigger={
-        <span
+        <div
           onMouseOver={() => loadData()}
           onFocus={() => loadData()}
           data-cy="failed-task-status-icon"
@@ -49,7 +49,7 @@ export const FailedTaskStatusIcon: React.FC<FailedStatusIconProps> = ({
               <TaskStatusIcon status={status} size={16} />
             </IconButton>
           </Link>
-        </span>
+        </div>
       }
       triggerEvent="hover"
     >
