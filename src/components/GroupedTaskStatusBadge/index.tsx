@@ -9,7 +9,7 @@ import {
   mapUmbrellaStatusToQueryParam,
 } from "constants/task";
 import { TaskStatus } from "types/task";
-import { applyStrictRegex, pluralize } from "utils/string";
+import { applyStrictRegex } from "utils/string";
 
 interface Props {
   status: TaskStatus;
@@ -28,7 +28,6 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
   versionId,
   variant,
 }) => {
-  const statusDisplayName = pluralize(taskStatusToCopy[status], count);
   const href = getVersionRoute(versionId, {
     statuses: mapUmbrellaStatusToQueryParam[status],
     ...(variant && { variant: applyStrictRegex(variant) }),
@@ -44,7 +43,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
         <Link to={href} onClick={onClick} data-cy="grouped-task-status-badge">
           <BadgeContainer fill={fill} border={border} text={text}>
             <Number>{count}</Number>
-            <Status>{statusDisplayName}</Status>
+            <Status>{taskStatusToCopy[status]}</Status>
           </BadgeContainer>
         </Link>
       }
@@ -57,10 +56,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
               <TaskStatusIcon status={taskStatus} size={16} />
               <Copy>
                 <Count umbrellaStatus={status}>{taskCount}</Count>{" "}
-                {pluralize(
-                  taskStatusToCopy[taskStatus] ?? taskStatus,
-                  taskCount
-                )}
+                {taskStatusToCopy[taskStatus] ?? taskStatus}
               </Copy>
             </Row>
           ))}

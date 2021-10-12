@@ -5,7 +5,6 @@ import {
   omitTypename,
   getDateCopy,
   applyStrictRegex,
-  pluralize,
 } from ".";
 
 describe("msToDuration", () => {
@@ -274,21 +273,5 @@ describe("applyStrictRegex", () => {
     expect("dog".match(re)).toBeTruthy();
     expect("dog ".match(re)).toBeFalsy();
     expect("adog".match(re)).toBeFalsy();
-  });
-});
-
-describe("pluralize", () => {
-  test("Outputs correct pluralization of input", () => {
-    expect(pluralize("success", 0)).toEqual("successes");
-    expect(pluralize("success", 1)).toEqual("success");
-    expect(pluralize("success", 2)).toEqual("successes");
-
-    expect(pluralize("failure", 0)).toEqual("failures");
-    expect(pluralize("failure", 1)).toEqual("failure");
-    expect(pluralize("failure", 2)).toEqual("failures");
-
-    expect(pluralize("running", 0)).toEqual("running");
-    expect(pluralize("running", 1)).toEqual("running");
-    expect(pluralize("running", 2)).toEqual("running");
   });
 });
