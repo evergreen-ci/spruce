@@ -34,10 +34,10 @@ const Column = styled.div`
 
 const Row = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 const Copy = styled(Body)`
-  margin-top: -2px;
   margin-left: 6px;
   color: ${gray.dark2};
 `;
