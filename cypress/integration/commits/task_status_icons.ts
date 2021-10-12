@@ -7,20 +7,24 @@ describe("Waterfall Task Status Icons", () => {
   });
 
   beforeEach(() => {
-    // prevent icons from clipping
-    cy.viewport(1920, 1200);
     cy.preserveCookies();
   });
 
   describe("Grouped Icons", () => {
     it("Grouped status icons should be rendered on waterfall page", () => {
-      cy.dataCy("grouped-task-status-badge").should("be.visible");
+      cy.dataCy("grouped-task-status-badge")
+        .first()
+        .scrollIntoView()
+        .should("be.visible");
     });
   });
 
   describe("Single task status icon", () => {
     it("Single task status icons should be rendered on the waterfall page", () => {
-      cy.dataCy("task-status-icon").should("be.visible");
+      cy.dataCy("task-status-icon")
+        .first()
+        .scrollIntoView()
+        .should("be.visible");
     });
   });
 });
