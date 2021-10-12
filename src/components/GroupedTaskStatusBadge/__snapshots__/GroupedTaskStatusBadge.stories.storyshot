@@ -26,7 +26,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        Successes
+        Succeeded
       </span>
     </div>
   </a>
@@ -52,7 +52,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        Success
+        Succeeded
       </span>
     </div>
   </a>
@@ -78,7 +78,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        Failure
+        Failed
       </span>
     </div>
   </a>
@@ -130,7 +130,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        System Failures
+        System Failed
       </span>
     </div>
   </a>
@@ -156,7 +156,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        Setup Failures
+        Setup Failed
       </span>
     </div>
   </a>
@@ -182,7 +182,7 @@ exports[`Storyshots Grouped Task Status Badge Grouped Task Status Badges 1`] = `
       <span
         className="css-oqj204-Status emc61an2"
       >
-        Setup Failure
+        Setup Failed
       </span>
     </div>
   </a>

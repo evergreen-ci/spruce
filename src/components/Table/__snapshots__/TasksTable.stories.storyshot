@@ -350,7 +350,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -402,7 +402,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -454,7 +454,7 @@ exports[`Storyshots Tasks Table Base Task Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -846,7 +846,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -912,7 +912,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -978,7 +978,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
@@ -1044,7 +1044,7 @@ exports[`Storyshots Tasks Table Execution Tasks Table 1`] = `
                       className="css-11x3fkx-StyledBadge-badgeWidthMaxContent-badgeWidthMaxContent e19oz5u0 leafygreen-ui-114ed4x"
                       data-cy="task-status-badge"
                     >
-                      Success
+                      Succeeded
                     </div>
                   </td>
                   <td
