@@ -49,7 +49,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
       }
       triggerEvent="hover"
     >
-      <span data-cy="grouped-task-status-badge-tooltip">
+      <div data-cy="grouped-task-status-badge-tooltip">
         {statusCounts &&
           Object.entries(statusCounts).map(([taskStatus, taskCount]) => (
             <Row key={taskStatus}>
@@ -60,7 +60,7 @@ export const GroupedTaskStatusBadge: React.FC<Props> = ({
               </Copy>
             </Row>
           ))}
-      </span>
+      </div>
     </Tooltip>
   );
 };
