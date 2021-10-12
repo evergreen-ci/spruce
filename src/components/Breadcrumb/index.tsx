@@ -142,7 +142,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
       <Breadcrumb.Item>
         <StyledP1>
           <StyledBreadcrumbLink
-            data-cy="bc-my-patches"
+            data-cy="bc-waterfall"
             to={getCommitsRoute(project)}
             onClick={() =>
               analytics.sendEvent({
@@ -151,7 +151,7 @@ const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
               })
             }
           >
-            {project}&apos;s patches
+            {project}&apos;s waterfall
           </StyledBreadcrumbLink>
         </StyledP1>
       </Breadcrumb.Item>
