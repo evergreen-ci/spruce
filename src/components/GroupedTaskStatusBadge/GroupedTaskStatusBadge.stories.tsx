@@ -49,16 +49,16 @@ const Container = styled.div`
 `;
 
 const statusCounts = {
-  started: 30,
-  failed: 15,
-  unstarted: 5,
-  unscheduled: 6,
-  "will-run": 11,
-  dispatched: 99,
-  pending: 987,
-  "test-timed-out": 2,
-  "task-timed-out": 53,
-  "system-failed": 22,
-  blocked: 50,
-  aborted: 88,
+  [TaskStatus.Started]: 30,
+  [TaskStatus.Failed]: 15,
+  [TaskStatus.Unstarted]: 5,
+  [TaskStatus.Unscheduled]: 6,
+  [TaskStatus.WillRun]: 11,
+  [TaskStatus.Dispatched]: 99,
+  [TaskStatus.Pending]: 987,
+  [TaskStatus.TestTimedOut]: 2,
+  [TaskStatus.TaskTimedOut]: 53,
+  [TaskStatus.SystemFailed]: 22,
+  [TaskStatus.Blocked]: 50,
+  [TaskStatus.Aborted]: 88,
 };
