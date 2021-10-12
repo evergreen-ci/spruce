@@ -1,7 +1,7 @@
 import React from "react";
 import { usePatchAnalytics } from "analytics";
 import { MetadataCard } from "components/MetadataCard";
-import { StyledLink, StyledRouterLink } from "components/styles";
+import { StyledRouterLink } from "components/styles";
 import { P2 } from "components/Typography";
 import {
   getCommitQueueRoute,
@@ -92,13 +92,13 @@ export const Metadata: React.FC<Props> = ({ loading, version }) => {
       {baseVersionID && revision && (
         <P2>
           Base commit:{" "}
-          <StyledLink
+          <StyledRouterLink
             data-cy="patch-base-commit"
-            href={getVersionRoute(baseVersionID)}
+            to={getVersionRoute(baseVersionID)}
             onClick={() => sendEvent({ name: "Click Base Commit Link" })}
           >
             {revision.slice(0, 10)}
-          </StyledLink>
+          </StyledRouterLink>
         </P2>
       )}
       {isPatch && commitQueuePosition !== undefined && (
