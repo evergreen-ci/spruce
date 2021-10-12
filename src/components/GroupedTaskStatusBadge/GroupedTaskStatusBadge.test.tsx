@@ -49,7 +49,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     );
     expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
-      "/version/version1/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive"
+      `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive`
     );
   });
 
@@ -66,7 +66,7 @@ describe("GroupedTaskStatusBadgeIcon", () => {
     );
     expect(queryByDataCy("grouped-task-status-badge")).toHaveAttribute(
       "href",
-      "/version/version1/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive&variant=%5Esome_variant%24"
+      `/version/${versionId}/tasks?statuses=system-failure-umbrella,system-failed,system-timed-out,system-unresponsive&variant=%5Esome_variant%24`
     );
   });
 
