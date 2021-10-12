@@ -3134,7 +3134,7 @@ export type LastPassingVersionQuery = {
           Array<
             Maybe<{
               variant: string;
-              tasks?: Maybe<Array<Maybe<{ id: string }>>>;
+              tasks?: Maybe<Array<Maybe<{ id: string; execution: number }>>>;
             }>
           >
         >;
