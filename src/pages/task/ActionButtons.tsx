@@ -275,6 +275,7 @@ export const ActionButtons: React.FC<Props> = ({
           projectId={projectIdentifier}
           taskName={taskName}
           variant={buildVariant}
+          analytics={taskAnalytics}
         />
         <Button
           size="small"

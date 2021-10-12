@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import Button from "@leafygreen-ui/button";
 import { Link } from "react-router-dom";
+import { TaskAnalytics } from "analytics";
 import { getVersionRoute } from "constants/routes";
 import {
   LastPassingVersionQuery,
@@ -12,11 +13,13 @@ interface LastPassingVersionProps {
   variant: string;
   taskName: string;
   projectId: string;
+  analytics?: TaskAnalytics;
 }
 export const LastPassingVersion: React.FC<LastPassingVersionProps> = ({
   variant,
   taskName,
   projectId,
+  analytics,
 }) => {
   const { data, loading } = useQuery<
     LastPassingVersionQuery,
@@ -34,6 +37,9 @@ export const LastPassingVersion: React.FC<LastPassingVersionProps> = ({
       size="small"
       disabled={loading || !lastPassingVersionId}
       to={getVersionRoute(lastPassingVersionId)}
+      onClick={() =>
+        analytics?.sendEvent({ name: "Click Last Passing Version Button" })
+      }
     >
       Go to last passing version
     </Button>

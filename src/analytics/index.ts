@@ -1,5 +1,6 @@
 export { usePatchAnalytics } from "./patch/usePatchAnalytics";
 export { useTaskAnalytics } from "./task/useTaskAnalytics";
+export type { Analytics as TaskAnalytics } from "./task/useTaskAnalytics";
 export { useAnnotationAnalytics } from "./task/useAnnotationAnalytics";
 export { useUserPatchesAnalytics } from "./patches/useUserPatchesAnalytics";
 export { useNavbarAnalytics } from "./navbar/useNavbarAnalytics";
