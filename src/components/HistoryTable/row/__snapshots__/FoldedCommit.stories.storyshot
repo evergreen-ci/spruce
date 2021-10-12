@@ -5,7 +5,7 @@ exports[`Storyshots Folded Commit Folded Inactive Commits 1`] = `
   className="css-fgbiei-Column e1jt0kpn2"
 >
   <div
-    className="css-1r6zuyg-Row e1jt0kpn1"
+    className="css-18bb9p3-Row e1jt0kpn1"
   >
     <svg
       aria-label="Chevron Right Icon"
@@ -25,7 +25,7 @@ exports[`Storyshots Folded Commit Folded Inactive Commits 1`] = `
       />
     </svg>
     <div
-      className="css-j59x9y-Copy e1jt0kpn0 leafygreen-ui-1mngpnd"
+      className="css-1tek27x-Copy e1jt0kpn0 leafygreen-ui-1mngpnd"
     >
       Expand 
       5
