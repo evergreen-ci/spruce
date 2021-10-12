@@ -5,13 +5,13 @@ import {
 } from "analytics/addPageAction";
 import { useGetUserQuery } from "analytics/useGetUserQuery";
 
-export type Action = {
+type Action = {
   name: "Click Link";
   link: "myPatches" | "patch" | "version" | "waterfall";
 };
 
 interface P extends Properties {}
-interface Analytics extends A<Action> {}
+export interface Analytics extends A<Action> {}
 
 export const useBreadcrumbAnalytics = (): Analytics => {
   const userId = useGetUserQuery();

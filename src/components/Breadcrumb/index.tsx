@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import { uiColors } from "@leafygreen-ui/palette";
 import { Breadcrumb } from "antd";
-import { useBreadcrumbAnalytics, BreadcrumbAction } from "analytics";
+import { useBreadcrumbAnalytics, BreadcrumbAnalytics } from "analytics";
 import { StyledRouterLink } from "components/styles";
 import { H3, P1 } from "components/Typography";
 import { getVersionRoute, getCommitsRoute } from "constants/routes";
@@ -127,9 +127,7 @@ interface VersionBreadcrumbProps {
     project: string;
   };
   isTask: boolean;
-  analytics: {
-    sendEvent: (v: BreadcrumbAction) => void;
-  };
+  analytics: BreadcrumbAnalytics;
 }
 const VersionBreadcrumb: React.FC<VersionBreadcrumbProps> = ({
   versionMetadata,
