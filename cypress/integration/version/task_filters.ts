@@ -117,7 +117,7 @@ describe("Tasks filters", () => {
       const postFilterCount = cy.dataCy("current-task-count").invoke("text");
       expect(preFilterCount).to.not.eq(postFilterCount);
       cy.toggleTableFilter(2);
-      cy.getInputByLabel("Success").check({ force: true });
+      cy.getInputByLabel("Succeeded").check({ force: true });
       cy.dataCy("status-treeselect").contains("Filter").click();
       urlSearchParamsAreUpdated({
         pathname: pathTasks,
@@ -135,7 +135,7 @@ describe("Tasks filters", () => {
         "Failure",
         "Failed",
         "Known Issue",
-        "Success",
+        "Succeeded",
         "Running",
         "Will Run",
         "Aborted",

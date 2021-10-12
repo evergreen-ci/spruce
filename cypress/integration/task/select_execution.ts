@@ -21,7 +21,7 @@ describe("Selecting Task Execution", () => {
   it("Toggling a different execution should change the displayed execution", () => {
     cy.dataCy("execution-select").click();
     cy.dataCy("execution-0").click();
-    cy.dataCy("task-status-badge").contains("Success");
+    cy.dataCy("task-status-badge").contains("Succeeded");
     cy.location("search").should("include", "execution=0");
   });
 });
