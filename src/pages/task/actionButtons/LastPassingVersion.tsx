@@ -25,11 +25,12 @@ export const LastPassingVersion: React.FC<LastPassingVersionProps> = ({
 
   const lastPassingVersion =
     data?.mainlineCommits.versions.find(({ version }) => !!version) ?? {};
-  const lastPassingVersionId = lastPassingVersion?.version.id;
+  const lastPassingVersionId = lastPassingVersion?.version?.id;
 
   return (
     <Button
       as={Link}
+      size="small"
       disabled={loading || !lastPassingVersionId}
       to={getVersionRoute(lastPassingVersionId)}
     >
