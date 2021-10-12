@@ -29,6 +29,7 @@ export const LastPassingVersion: React.FC<LastPassingVersionProps> = ({
 
   return (
     <Button
+      data-cy="last-passing-version-btn"
       as={Link}
       size="small"
       disabled={loading || !lastPassingVersionId}
