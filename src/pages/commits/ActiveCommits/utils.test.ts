@@ -78,7 +78,10 @@ describe("getAllTaskStatsGroupedByColor", () => {
             ],
             color: "#FFDD49",
             umbrellaStatus: TaskStatus.RunningUmbrella,
-            statusCounts: { [TaskStatus.Dispatched]: 4, started: 5 },
+            statusCounts: {
+              [TaskStatus.Dispatched]: 4,
+              [TaskStatus.Started]: 5,
+            },
           },
         ],
         max: 9,
