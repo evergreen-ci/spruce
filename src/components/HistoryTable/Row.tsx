@@ -9,8 +9,11 @@ import { HistoryTableIcon } from "./HistoryTableIcon";
 import { DateSeparator } from "./row/DateSeparator";
 import { rowType } from "./utils";
 
-const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
-  const { isItemLoaded, getItem, visibleColumns } = useHistoryTable();
+interface RowProps extends ListChildComponentProps {
+  columns: React.ReactNode[];
+}
+const Row: React.FC<RowProps> = ({ columns, index, style }) => {
+  const { isItemLoaded, getItem } = useHistoryTable();
   if (!isItemLoaded(index)) {
     // TODO: add loading state
     return <div style={style}> Loading....</div>;
@@ -21,29 +24,8 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
     return <DateSeparator style={style} date={commit.date} />;
   }
   if (commit.type === rowType.COMMIT && commit.commit) {
-    const {
-      revision,
-      createTime,
-      author,
-      message,
-      buildVariants,
-    } = commit.commit;
+    const { revision, createTime, author, message } = commit.commit;
 
-    const orderedColumns = visibleColumns.map((c) => {
-      const foundVariant = buildVariants.find((bv) => bv.variant === c);
-      if (foundVariant) {
-        const { tasks } = foundVariant;
-        return (
-          <Link key={tasks[0].id} to={getTaskRoute(tasks[0].id)}>
-            <Cell key={`task_cell_${tasks[0].id}`}>
-              <HistoryTableIcon status={tasks[0].status as TaskStatus} />
-            </Cell>
-          </Link>
-        );
-      }
-      // Returned if the build variant did not run for this commit
-      return <Cell key={`empty_variant_${c}`}>DNR</Cell>;
-    });
     return (
       <RowContainer style={style}>
         <LabelCellContainer>
@@ -54,7 +36,7 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
             message={message}
           />
         </LabelCellContainer>
-        {orderedColumns}
+        {columns}
       </RowContainer>
     );
   }
@@ -68,6 +50,20 @@ const Row: React.FC<ListChildComponentProps> = ({ index, style }) => {
   }
 };
 
+interface TaskCellProps {
+  task: {
+    id: string;
+    status: string;
+  };
+}
+export const TaskCell: React.FC<TaskCellProps> = ({ task }) => (
+  <Link key={task.id} to={getTaskRoute(task.id)}>
+    <Cell key={`task_cell_${task.id}`}>
+      <HistoryTableIcon status={task.status as TaskStatus} />
+    </Cell>
+  </Link>
+);
+
 const LabelCellContainer = styled.div`
   width: 200px;
   padding-right: 40px;
@@ -78,7 +74,7 @@ const RowContainer = styled.div`
   flex-direction: row;
 `;
 
-const Cell = styled.div`
+export const Cell = styled.div`
   display: flex;
   height: 100%;
   width: 140px;

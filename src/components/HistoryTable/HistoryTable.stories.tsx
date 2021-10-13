@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import HistoryTable from ".";
 import { HistoryTableProvider, useHistoryTable } from "./HistoryTableContext";
+import Row from "./Row";
 import { mainlineCommitData } from "./testData";
 
 export * from "./HistoryTableIcon/HistoryTableIcon.stories";
@@ -30,7 +31,9 @@ const HistoryTableWrapper = () => {
       <HistoryTable
         recentlyFetchedCommits={commitData}
         loadMoreItems={loadMore}
-      />
+      >
+        {Row}
+      </HistoryTable>
     </div>
   );
 };

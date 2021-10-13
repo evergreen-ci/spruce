@@ -32,6 +32,7 @@ export type Query = {
   taskFiles: TaskFiles;
   user: User;
   taskLogs: TaskLogs;
+  /** @deprecated Use version.buildVariants instead */
   patchBuildVariants: Array<GroupedBuildVariant>;
   commitQueue: CommitQueue;
   userSettings?: Maybe<UserSettings>;
@@ -175,6 +176,7 @@ export type QueryBbGetCreatedTicketsArgs = {
 
 export type QueryMainlineCommitsArgs = {
   options: MainlineCommitsOptions;
+  buildVariantOptions?: Maybe<BuildVariantOptions>;
 };
 
 export type QueryTaskNamesForBuildVariantArgs = {
@@ -194,13 +196,14 @@ export type QueryProjectSettingsArgs = {
 export type Mutation = {
   addFavoriteProject: Project;
   removeFavoriteProject: Project;
+  createProject: Project;
   attachProjectToRepo: Project;
   detachProjectFromRepo: Project;
   schedulePatch: Patch;
   schedulePatchTasks?: Maybe<Scalars["String"]>;
   unschedulePatchTasks?: Maybe<Scalars["String"]>;
   restartVersions?: Maybe<Array<Version>>;
-  /** @deprecated Field no longer supported */
+  /** @deprecated restartPatch deprecated, Use restartVersions instead */
   restartPatch?: Maybe<Scalars["String"]>;
   scheduleUndispatchedBaseTasks?: Maybe<Array<Task>>;
   enqueuePatch: Patch;
@@ -241,6 +244,10 @@ export type MutationAddFavoriteProjectArgs = {
 
 export type MutationRemoveFavoriteProjectArgs = {
   identifier: Scalars["String"];
+};
+
+export type MutationCreateProjectArgs = {
+  project: ProjectInput;
 };
 
 export type MutationAttachProjectToRepoArgs = {
@@ -584,6 +591,12 @@ export type VariantTasks = {
 export type DisplayTask = {
   Name: Scalars["String"];
   ExecTasks: Array<Scalars["String"]>;
+};
+
+export type ProjectInput = {
+  identifier: Scalars["String"];
+  owner: Scalars["String"];
+  repo: Scalars["String"];
 };
 
 export type SubscriptionInput = {
@@ -1311,6 +1324,7 @@ export type UserPatchesArgs = {
 export type TaskLogs = {
   taskId: Scalars["String"];
   execution: Scalars["Int"];
+  defaultLogger: Scalars["String"];
   eventLogs: Array<TaskEventLogEntry>;
   taskLogs: Array<LogMessage>;
   systemLogs: Array<LogMessage>;
@@ -2492,7 +2506,14 @@ export type MainlineCommitsForHistoryQuery = {
               displayName: string;
               variant: string;
               tasks?: Maybe<
-                Array<Maybe<{ id: string; execution: number; status: string }>>
+                Array<
+                  Maybe<{
+                    id: string;
+                    execution: number;
+                    status: string;
+                    displayName: string;
+                  }>
+                >
               >;
             }>
           >

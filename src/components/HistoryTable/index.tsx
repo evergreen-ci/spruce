@@ -1,18 +1,22 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, ComponentType } from "react";
 import AutoSizer from "react-virtualized-auto-sizer";
-import { VariableSizeList as List } from "react-window";
+import {
+  VariableSizeList as List,
+  ListChildComponentProps,
+} from "react-window";
 import InfiniteLoader from "react-window-infinite-loader";
 import { MainlineCommitsForHistoryQuery } from "gql/generated/types";
 import { useHistoryTable } from "./HistoryTableContext";
-import Row from "./Row";
 
 interface HistoryTableProps {
   loadMoreItems: () => void;
   recentlyFetchedCommits: MainlineCommitsForHistoryQuery["mainlineCommits"];
+  children: ComponentType<ListChildComponentProps<any>>;
 }
 const HistoryTable: React.FC<HistoryTableProps> = ({
   loadMoreItems,
   recentlyFetchedCommits,
+  children,
 }) => {
   const { itemHeight, fetchNewCommit, isItemLoaded } = useHistoryTable();
   const listRef = useRef<List>(null);
@@ -46,7 +50,7 @@ const HistoryTable: React.FC<HistoryTableProps> = ({
               ref={listRef}
               width={width}
             >
-              {Row}
+              {children}
             </List>
           )}
         </InfiniteLoader>
